@@ -67,7 +67,7 @@ CREATE TABLE apex_objeto_db_registros
 --	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(120)	NULL,
+	ap_archivo						varchar(255)	NULL,
 	tabla 							varchar(120)	NULL,
 	alias 							varchar(60)		NULL,
 	modificar_claves				smallint		NULL,

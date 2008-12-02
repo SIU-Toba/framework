@@ -73,6 +73,16 @@ CREATE TABLE ref_persona_juegos (
 );
 
 
+CREATE TABLE iso_countries (
+  rowId int NOT NULL,
+  countryId int NOT NULL,
+  locale varchar(10) NOT NULL default 'en',
+  countryCode char(2) NOT NULL,
+  countryName varchar(200)  default NULL,
+  phonePrefix varchar(50) default NULL,
+  PRIMARY KEY  (rowId)
+);
+
 
 --
 -- Name: ref_deportes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 

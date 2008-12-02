@@ -166,11 +166,20 @@ class toba_js
 						echo toba_js::incluir(toba_recurso::js("fckeditor/fckeditor.js"));
 						break;
 					///--> Excepciones a la validacion del cuit, al ser dinamicas no se pueden meter en un .js
+					case 'efs/ef_combo_editable':
+						echo toba_js::incluir(toba_recurso::js("efs/ef_combo_editable.js"));
+						echo toba_js::incluir(toba_recurso::js("dhtmlxCombo/codebase/dhtmlxcombo.js"));
+						echo toba_js::incluir(toba_recurso::js("dhtmlxCombo/codebase/dhtmlxcommon.js"));
+						echo '<link rel="stylesheet" type="text/css" href="'.toba_recurso::url_toba().'/js/dhtmlxCombo/codebase/dhtmlxcombo.css">';
+						echo toba_js::abrir();
+						echo "window.dhx_globalImgPath='".toba_recurso::url_toba()."/js/dhtmlxCombo/codebase/imgs/';";
+						echo toba_js::cerrar();
+						break;
 					case 'ef_cuit_excepciones':
 						$excepciones = toba_ef_cuit::get_excepciones();
 						echo toba_js::abrir();
 						echo 'var ef_cuit_excepciones ='.toba_js::arreglo($excepciones, false);
-						echo toba_js::cerrar();						
+						echo toba_js::cerrar();
 						break;
 					//--> Por defecto carga el archivo del consumo
 					default:

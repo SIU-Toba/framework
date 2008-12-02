@@ -72,8 +72,8 @@ class toba_db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
+				toba::logger()->error("No es posible realizar la conexión a la base. Mensaje: " . $e->getMessage() );				
 				$ee = new toba_error_db($e, null, $this->parser_errores, false);
-				toba::logger()->error("No es posible realizar la conexión a la base. Mensaje: " . $ee->getMessage() );
 				throw $ee;				
 			}
 		}
@@ -154,8 +154,8 @@ class toba_db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
+					toba::logger()->error($e->getMessage());
 					$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
-					toba::logger()->error( $ee->get_mensaje() );
 					throw $ee;
 				}
 			}
@@ -164,8 +164,8 @@ class toba_db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
+				toba::logger()->error($e->getMessage());
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
-				toba::logger()->error( $ee->get_mensaje() );
 				throw $ee;
 			}
 		}
@@ -189,8 +189,8 @@ class toba_db
 			$afectados += $stm->rowCount();
 			if ($this->debug) $this->log_debug($sql);
 		} catch (PDOException $e) {
+			toba::logger()->error($e->getMessage());
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
-			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
 		return $afectados;
@@ -214,8 +214,8 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
+			toba::logger()->error($e->getMessage());
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
-			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
 	}
@@ -239,12 +239,11 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
+			toba::logger()->error($e->getMessage());			
 			if ($lanzar_excepcion) {
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
-				toba::logger()->error( $ee->get_mensaje() );
 				throw $ee;
 			} else {
-				toba::logger()->error( $e->getMessage() );
 				return $e->getMessage();
 			}
 		}		

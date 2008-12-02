@@ -63,6 +63,18 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	{
 		$this->_retrazar_constraints = true;	
 	}
+	
+	/**
+	 * Activa/Desactiva el uso automático del trim sobre datos en el insert o update
+	 * @param boolean $usar
+	 */
+	function set_usar_trim($usar)
+	{
+		$tablas = $this->objeto_relacion->orden_sincronizacion();
+		foreach ($tablas as $tabla) {
+			$tabla->persistidor()->set_usar_trim($usar);
+		}
+	}	
 
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------

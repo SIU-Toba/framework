@@ -69,8 +69,12 @@ class admin_instancia
 		$id_instancia = toba::instancia()->get_id();
 		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
 		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);
-		if (toba::instalacion()->es_produccion() && !$usa_perfiles_propios) {
-			$instancia->set_proyecto_usar_perfiles_propios($id_proyecto, true);
+		if (toba::instalacion()->es_produccion()) {
+			if (!$usa_perfiles_propios) {
+				$instancia->set_proyecto_usar_perfiles_propios($id_proyecto, true);
+			}
+			//-- Re-Compilamos los metadatos de perfiles 
+			$instancia->get_proyecto($id_proyecto)->compilar_metadatos_generales_grupos_acceso(true);
 		}		
 	}
 	

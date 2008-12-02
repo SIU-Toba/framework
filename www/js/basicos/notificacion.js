@@ -85,7 +85,7 @@ notificacion = new function() {
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		mensaje += "</div><div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
+		mensaje += "</div><div class='overlay-botonera'><input id='boton_overlay' class='ei-boton' type='button' value='Aceptar' onclick='overlay()'/></div>";
 		this.mostrar_ventana_modal(titulo, mensaje);
 	};
 	

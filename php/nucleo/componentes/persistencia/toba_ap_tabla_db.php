@@ -37,6 +37,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_control_sincro_db;				// Se activa el control de sincronizacion con la DB?
 	protected $_utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $_msg_error_sincro = "Error interno. Los datos no fueron guardados.";
+	protected $_hacer_trim_datos = true;		// Hace un trim de los datos en el insert/update
 	//-------------------------------
 
 	
@@ -195,6 +196,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->_tabla = $schema.'.'.$this->objeto_tabla->get_tabla();
 	}
+	
+	/**
+	 * Activa/Desactiva el uso automático del trim sobre datos en el insert o update
+	 * @param boolean $usar
+	 */	
+	function set_usar_trim($usar)
+	{
+		$this->_hacer_trim_datos = $usar;
+	}	
 
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
@@ -691,7 +701,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 							$registro[$col] = 0;
 						}
 					}
-					$valores_sql[$a] =  $db->quote(trim($registro[$col]));
+					if ($this->_hacer_trim_datos) {
+						$valores_sql[$a] =  $db->quote(trim($registro[$col]));
+					} else {
+						$valores_sql[$a] =  $db->quote($registro[$col]);
+					}
 					$columnas_sql[$a] = $col;
 				}
 				$a++;
@@ -754,7 +768,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$valor = $registro[$col] ? 1 : 0;
 					$set[] = "$col = '$valor'";
 				}else{
-					$set[] = "$col = " . $db->quote(trim($registro[$col]));
+					if ($this->_hacer_trim_datos) {					
+						$set[] = "$col = " . $db->quote(trim($registro[$col]));
+					} else {
+						$set[] = "$col = " . $db->quote($registro[$col]);
+					}
 				}
 			}
 		}

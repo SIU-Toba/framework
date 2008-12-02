@@ -33,6 +33,13 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);
 	}
 	
+	function get_schema()
+	{
+		if (isset($this->schema)) {
+			return $this->schema;
+		}
+	}
+	
 	function set_encoding($encoding)
 	{
 		$sql = "SET CLIENT_ENCODING TO '$encoding'";
@@ -89,23 +96,28 @@ class toba_db_postgres7 extends toba_db
 
 	
 	/**
-	*	Recupera el valor actual de una secuencia. Requiere la extension original pgsql y abre una nueva conexión por lo que no es transaccionable
+	*	Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.
 	*	@param string $tabla Nombre de la tabla en la que se insertarán los datos
 	*	@param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
 	*	@param string $delimitador Separador de datos de cada fila.
 	*	@param string $valor_nulo Cadena que se utlilizará como valor nulo.
 	*	@return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
 	*/
-	function insert_masivo($tabla,$datos) 
-	{	
+	function insert_masivo($tabla,$datos,$delimitador="\t",$valor_nulo="\\N") {
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
 		$host = "host={$this->profile}";
-		$base =  "dbname={$this->base}";
+		$base = "dbname={$this->base}";
 		$usuario = "user={$this->usuario}";
-		$clave = "password={$this->clave}";		
+		$clave = "password={$this->clave}";
 		$conn_string = "$host $puerto $base $usuario $clave";
 		$dbconn = pg_connect($conn_string);
-		$salida = pg_copy_from($dbconn,$tabla,$datos);
+		$salida = pg_copy_from($dbconn,$tabla,$datos,$delimitador,$valor_nulo);
+		if (!$salida) {
+			$mensaje = pg_last_error($dbconn);
+			pg_close($dbconn);
+			toba::logger()->error($mensaje);
+			throw new toba_error($mensaje);
+		}
 		pg_close($dbconn);
 		return $salida;
 	}
@@ -304,6 +316,7 @@ class toba_db_postgres7 extends toba_db
 					AND a.attnum > 0 
 					AND a.atttypid = t.oid 
 					AND a.attrelid = c.oid 
+					AND c.relnamespace = n.oid
 						$where
 				ORDER BY a.attnum;";
 		$columnas = $this->consultar($sql);

@@ -90,9 +90,14 @@ class ci_auditoria extends toba_ci
 		list($proyecto, $id_cuadro) = $this->dep('cuadro')->get_id();
 		if ($this->s__filtrar && isset($this->s__filtro)) {
 			$this->dep('filtro')->colapsar();
+			$db = $this->get_db();
+			$auditoria = new toba_auditoria_tablas_postgres($db);
+			$schema = $db->get_schema();
+			if (isset($schema)) {
+				$auditoria->set_esquema_origen($schema);			
+			}
 			//--- Se recorre cada tabla buscada y se crea dinamicamente un cuadro
 			foreach($this->s__filtro['tablas'] as $tabla) { 
-				$auditoria = new toba_auditoria_tablas_postgres($this->get_db());
 				$datos = $auditoria->get_datos($tabla, $this->s__filtro);
 				$claves = $auditoria->get_campos_claves($tabla);
 				$this->analizar_diferencias($datos, $claves, $campos_propios);				

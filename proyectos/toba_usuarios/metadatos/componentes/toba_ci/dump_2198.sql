@@ -135,11 +135,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'restricciones', --identificador
 	'2', --orden
 	'Restricciones Funcionales', --etiqueta
-	NULL, --descripcion
+	'Tildar aquellas restricciones que aplican a este perfil', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_restricciones,asdas', --objetos
+	'form_restricciones', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -151,7 +151,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'permisos', --identificador
 	'3', --orden
 	'Derechos', --etiqueta
-	NULL, --descripcion
+	'Tildar aquellos derechos que aplican a este perfil', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

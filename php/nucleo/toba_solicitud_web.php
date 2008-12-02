@@ -19,6 +19,17 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$this->info = $info;
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());
+		$this->construir_tipo_pagina();
+	}
+
+	function construir_tipo_pagina()
+	{
+		if(!class_exists($this->info['basica']['tipo_pagina_clase'])){
+			if ($this->info['basica']['tipo_pagina_archivo']) {
+				require_once($this->info['basica']['tipo_pagina_archivo']);
+			}
+		}
+		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();		
 	}
 
 	/**
@@ -183,13 +194,6 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio_pre__generar_html()
 	{
-		//--- Tipo de PAGINA
-		if(!class_exists($this->info['basica']['tipo_pagina_clase'])){
-			if ($this->info['basica']['tipo_pagina_archivo']) {
-				require_once($this->info['basica']['tipo_pagina_archivo']);
-			}
-		}
-		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();
 		$this->tipo_pagina->encabezado();
 	}
 	

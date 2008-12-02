@@ -4,6 +4,7 @@
 */
 class toba_modelo_instalacion extends toba_modelo_elemento
 {
+	static protected $conexion_externa;
 	const db_encoding_estandar = 'LATIN1';
 	const info_basica = 'instalacion.ini';
 	const info_basica_titulo = 'Configuracion de la INSTALACION';
@@ -76,6 +77,10 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return toba_modelo_instancia::existe_carpeta_instancia($id);
 	}
 	
+	function set_conexion_externa($base)
+	{
+	    self::$conexion_externa = $base;
+	}
 	
 	
 	//-------------------------------------------------------------
@@ -93,7 +98,11 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function get_id_grupo_desarrollo()
 	{
 		$this->cargar_info_ini();		
-		return $this->ini_instalacion['id_grupo_desarrollo'];
+		if (isset($this->ini_instalacion['id_grupo_desarrollo'])) {
+			return $this->ini_instalacion['id_grupo_desarrollo'];
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -281,23 +290,28 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function conectar_base_parametros( $parametros )
 	{
-		$clase = "toba_db_" . $parametros['motor'];
-		$db = new $clase(	$parametros['profile'],
+		if (! isset(self::$conexion_externa)) {
+			$clase = "toba_db_" . $parametros['motor'];
+			$db = new $clase(	$parametros['profile'],
 							$parametros['usuario'],
 							$parametros['clave'],
 							$parametros['base'],
 							isset($parametros['puerto']) ? $parametros['puerto'] : '' );
-		$db->conectar();
-		if (isset($parametros['schema']) && $db->existe_schema($parametros['schema'])) {
-			$db->set_schema($parametros['schema']);
+
+			$db->conectar();
+			if (isset($parametros['schema']) && $db->existe_schema($parametros['schema'])) {
+				$db->set_schema($parametros['schema']);
+			}
+			//Si existe el parametro del encoding, ponerlo por defecto para la conexión
+			if (isset($parametros['encoding'])) {
+				$db->set_encoding($parametros['encoding']);
+			}		
+			$datos_base = var_export($parametros, true);
+			toba_logger::instancia()->debug("Parametros de conexion: $datos_base");
+			return $db;
+		} else {
+		    return self::$conexion_externa;
 		}
-		//Si existe el parametro del encoding, ponerlo por defecto para la conexión
-		if (isset($parametros['encoding'])) {
-			$db->set_encoding($parametros['encoding']);
-		}		
-		$datos_base = var_export($parametros, true);
-		toba_logger::instancia()->debug("Parametros de conexion: $datos_base");
-		return $db;
 	}
 
 

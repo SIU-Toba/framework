@@ -112,7 +112,7 @@ ef_popup.prototype.constructor = ef_popup;
 	 * @param clave Nuevo valor o clave 
 	 * @param desc Nueva descripción del valor o clave
 	 */
-	ef_popup.prototype.set_estado = function(clave, desc) {
+	ef_popup.prototype.set_estado = function(clave, desc, disparar_eventos) {
 		if(! isset(desc)) {
 			desc = '';
 		}
@@ -121,7 +121,7 @@ ef_popup.prototype.constructor = ef_popup;
 		}
 		var input = this.input();
 		input.value = clave;
-		if (input.onchange) {
+		if ((!isset(disparar_eventos) || disparar_eventos) && input.onchange) {
 			input.onchange();
 		}
 		this.input_desc().value = desc;

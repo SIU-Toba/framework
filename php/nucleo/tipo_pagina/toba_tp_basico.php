@@ -91,6 +91,12 @@ class toba_tp_basico extends toba_tipo_pagina
 	 */
 	protected function comienzo_cuerpo()
 	{
+		$this->comienzo_cuerpo_basico();
+		echo "<div class='{$this->clase_encabezado}'>";
+	}
+	
+	protected function comienzo_cuerpo_basico()
+	{
 		echo "<body>\n";		
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
 		if ( toba_editor::modo_prueba() ) {
@@ -103,7 +109,6 @@ class toba_tp_basico extends toba_tipo_pagina
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$img' style='vertical-align: middle;' alt='' /> Procesando...";
 		echo "</div>";
-		echo "<div class='{$this->clase_encabezado}'>";
 	}
 
 	protected function barra_superior()

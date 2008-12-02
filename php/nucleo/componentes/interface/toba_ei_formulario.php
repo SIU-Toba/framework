@@ -709,6 +709,101 @@ class toba_ei_formulario extends toba_ei
 		$json = new Services_JSON();
 		echo $json->encode($valores);
 	}
+
+	/**
+	 * Método que se utiliza en la respuesta del filtro del combo editable usando AJAX
+	 */
+	function servicio__filtrado_ef_ce()
+	{
+		require_once(toba_dir() . '/php/3ros/JSON.php');				
+		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
+			throw new toba_error("Filtrado de combo editable: Invocación incorrecta");	
+		}
+		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
+		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+
+		//--- Resuelve la cascada
+		$maestros = array($id_ef => $filtro);
+		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
+		$ids_maestros = $cascadas_maestros[$id_ef];
+		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
+			if (trim($par) != '') {
+				$param = explode("-;-", trim($par));
+				if (count($param) != 2) {
+					throw new toba_error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");						
+				}
+				$id_ef_maestro = $param[0];
+				
+				//--- Verifique que este entre los maestros y lo elimina de la lista
+				if (!in_array($id_ef_maestro, $ids_maestros)) {
+					throw new toba_error("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+				}
+				array_borrar_valor($ids_maestros, $id_ef_maestro);
+				
+				$campos = $this->_elemento_formulario[$id_ef_maestro]->get_dato();
+				$valores = explode(apex_qs_separador, $param[1]);
+				if (!is_array($campos)) {
+					$maestros[$id_ef_maestro] = $param[1];
+				} else {
+					//--- Manejo de claves múltiples					
+					if (count($valores) != count($campos)) {
+						throw new excepction_toba("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+					}
+					$valores_clave = array();
+					for ($i=0; $i < count($campos) ; $i++) {
+						$valores_clave[$campos[$i]] = $valores[$i];
+					}
+					$maestros[$id_ef_maestro] = $valores_clave;
+				}
+			}
+		}
+		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
+		foreach ($ids_maestros as $id_ef_maestro) {
+			if (isset($fila_actual)) {
+				//-- Caso especial del ML, necesita ir a la fila actual y recargar su estado
+				$this->ef($id_ef_maestro)->ir_a_fila($fila_actual);
+				$this->ef($id_ef_maestro)->cargar_estado_post();
+			}
+			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
+				throw new toba_error("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+			}
+			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
+		}
+		
+		toba::logger()->debug("Filtrado combo_editable '$id_ef', Cadena: '$filtro', Estado de los maestros: ".var_export($maestros, true));		
+		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_ef, $maestros);
+		/*//--- Matchea en la respuesta parte de la pregunta
+		foreach ($valores as $clave => $valor) {
+			$valores[$clave] = str_ireplace($filtro, "<em>$filtro</em>", $valor);
+		}*/
+		toba::logger()->debug("Filtrado combo_editable '$id_ef', Respuesta: ".var_export($valores, true));				
+		
+		//--- Se arma la respuesta en formato JSON
+		$json = new Services_JSON();
+		echo $json->encode($valores);
+	}
+
+	/**
+	 * Método que se utiliza en la respuesta del filtro del combo editable cuando se quiere validar un id seleccionado
+	 */
+	function servicio__filtrado_ef_ce_validar()
+	{
+		require_once(toba_dir() . '/php/3ros/JSON.php');				
+		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
+			throw new toba_error("Validación de combo editable: Invocación incorrecta");	
+		}
+		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
+		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+
+		$descripcion = $this->_carga_opciones_ef->ejecutar_metodo_carga_descripcion_ef($id_ef, $valor);
+		$estado = array($valor => $descripcion);
+		
+		//--- Se arma la respuesta en formato JSON
+		$json = new Services_JSON();
+		echo $json->encode($estado);
+	}
 	
 	function generar_html()
 	{

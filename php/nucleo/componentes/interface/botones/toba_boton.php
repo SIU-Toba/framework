@@ -28,6 +28,7 @@ class toba_boton
 			$this->datos['ayuda'] = '';
 			$this->datos['accion'] = '';
 			$this->datos['grupo'] = '';
+			$this->datos['identificador'] = '';
 		}
 		$this->contenedor = $contenedor;
 	}
@@ -126,6 +127,11 @@ class toba_boton
 	function get_msg_confirmacion()
 	{
 		return $this->datos['confirmacion'];	
+	}
+	
+	
+	function get_id(){
+		return $this->datos['identificador'];
 	}
 	
 	//--------- Seters ---------------------

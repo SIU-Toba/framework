@@ -158,7 +158,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -175,8 +175,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -191,8 +191,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ap', --identificador
 	'ef_combo', --elemento_formulario
 	'ap', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'AP por defecto', --etiqueta
 	NULL, --etiqueta_estilo
@@ -265,19 +265,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ap_archivo', --identificador
 	'ef_popup', --elemento_formulario
 	'ap_archivo', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'AP - Archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -293,7 +293,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	'60', --edit_tamano
-	'80', --edit_maximo
+	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -311,7 +311,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
+	'0', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si
 	NULL, --check_valor_no
@@ -338,8 +338,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ap_clase', --identificador
 	'ef_editable', --elemento_formulario
 	'ap_clase', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'AP - Clase', --etiqueta
 	NULL, --etiqueta_estilo
@@ -411,8 +411,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'clave', --identificador
 	'ef_editable', --elemento_formulario
 	'clave', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Clave', --etiqueta
 	NULL, --etiqueta_estilo
@@ -484,8 +484,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'debug', --identificador
 	'ef_checkbox', --elemento_formulario
 	'debug', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Modo Debug', --etiqueta
 	NULL, --etiqueta_estilo

@@ -397,7 +397,8 @@ class ci_efs extends toba_ci
 				$datos[$mec] = null;
 			}
 		}
-		if ($actual != 'carga_dt') {
+		//-- Si selecciona otro mecanismo o tipo de clase de carga php, blanquear el datos tabla
+		if ($actual != 'carga_metodo' || $datos['tipo_clase'] != 'datos_tabla') {
 			$datos['carga_dt'] = null;
 		}
 		$this->set_parametros($datos);

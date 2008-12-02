@@ -15,6 +15,10 @@ function isset(o) {
 //---STRING
 //----------------------------------------------------------
 function trim(s){
+	if (! isset(s) || typeof s != 'string') {
+		return '';
+	}
+
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
 };
 
@@ -155,6 +159,17 @@ function serializar(dato) {
 	}
 	return dato;
 }
+
+function comparar_arreglos(a, b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < b.length; i++) {
+        if (typeof a[i] == 'object') { 
+            if (! comparar_arreglos(a[i], b[i])) return false;
+        }
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+};
 
 //---Eventos
 //--------------------------------------------
@@ -398,6 +413,20 @@ function getElementsByClass(searchClass,node,tag) {
 	return classElements;
 }
 
+	
+function getElementsByName_iefix(tag, name) {
+   var elem = document.getElementsByTagName(tag);
+   var arr = [];
+   for(i = 0,iarr = 0; i < elem.length; i++) {
+        att = elem[i].getAttribute("name");
+        if(att == name) {
+             arr[iarr] = elem[i];
+             iarr++;
+        }
+   }
+   return arr;
+} 	
+	
 //Cambia la clase a un conjunto de nodos
 function cambiar_clase(nodos, nueva_clase, vieja_clase) {
 	for (nodo in nodos) {

@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'OBJETO - DBR - Prop. basicas', --nombre
 	'Administrador de Persistencia PREDETERMINADO', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -188,7 +188,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -205,8 +205,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -301,13 +301,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	'Seleccionar un archivo PHP.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -323,7 +323,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	'60', --edit_tamano
-	'80', --edit_maximo
+	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -341,7 +341,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
+	'0', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si
 	NULL, --check_valor_no

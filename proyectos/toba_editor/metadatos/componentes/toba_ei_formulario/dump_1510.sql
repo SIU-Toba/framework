@@ -429,13 +429,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Subclase - Archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	'Archivo PHP donde reside la subclase. Ver [wiki:Referencia/Objetos/Extension Extensión de un Objeto].', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -450,8 +450,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'60', --edit_tamano
-	'80', --edit_maximo
+	'80', --edit_tamano
+	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -469,7 +469,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
+	'0', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si
 	NULL, --check_valor_no

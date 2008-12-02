@@ -84,7 +84,7 @@ class toba_xml_tablas
 	 * Dada la información contenida en el xml intenta insertar los datos en una base
 	 * En caso de falla, se sigue adelante en la transacción utilizando SAVEPOINTs (postgres>=8.0)
 	 */
-	function insertar_db(toba_db $conexion)
+	function insertar_db($conexion)
 	{
 		$conexion->retrazar_constraints(false);
 		$tablas = $this->get_tablas();
@@ -101,14 +101,13 @@ class toba_xml_tablas
 					$conexion->ejecutar($sql);
 					//Si no falla se libera el savepoint
 					$conexion->ejecutar('RELEASE SAVEPOINT toba_'.$i);
-				} catch (toba_error_db $e) {
+				} catch (Exception $e) {
 					//Al fallar se vuelve al estado anterior del fallo
 					$conexion->ejecutar('ROLLBACK TO SAVEPOINT toba_'.$i);
 					$errores[] = array('tabla' 		=> $tabla,
 										'sql'		=> $sql, 
 										'datos' 	=> $fila, 
-										'msg_motor' => $e->get_mensaje_motor(), 
-										'msg_toba' 	=> $e->get_mensaje(),
+										'msg_motor' => $e->getMessage()
 										);
 				}
 				$i++;

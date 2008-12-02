@@ -70,6 +70,11 @@ class toba_auditoria_tablas_postgres
 		return true;
 	}	
 	
+	function regenerar()
+	{
+		$this->crear_sp();
+	}
+		
 	function eliminar() 
 	{			
 		$this->eliminar_triggers();
@@ -214,7 +219,7 @@ class toba_auditoria_tablas_postgres
 			$sql .= "vusuario, vestampilla, voperacion);
 					ELSIF TG_OP = ''DELETE'' THEN
 						voperacion := ''D'';
-						INSERT INTO {$this->schema_logs}.$t (";
+						INSERT INTO {$this->schema_logs}.{$this->prefijo}$t (";
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= $def['nombre'] .  ", ";	
@@ -265,6 +270,15 @@ class toba_auditoria_tablas_postgres
 		$sql = "DROP SCHEMA {$this->schema_logs} CASCADE;\n\n";
 		$this->conexion->ejecutar($sql);
 	}
+	
+	protected function eliminar_sp()
+	{
+		$sql = '';
+		foreach ($this->tablas as $t) {
+			$sql .= "DROP FUNCTION IF EXISTS {$this->schema_logs}.sp_$t();\n";
+		}
+		$this->conexion->ejecutar($sql);
+	}	
 
 	//-------- CONSULTAS 
 	
@@ -272,10 +286,10 @@ class toba_auditoria_tablas_postgres
 	{
 		$where = 'true';
 		$order = '';
-		if (isset($filtro['desde_fecha'])) {
+		if (isset($filtro['fecha_desde'])) {
 			$where .= " AND aud.auditoria_fecha::date >= '{$filtro['fecha_desde']}'";
 		}
-		if (isset($filtro['hasta_fecha'])) {
+		if (isset($filtro['fecha_hasta'])) {
 			$where .= " AND aud.auditoria_fecha::date <= '{$filtro['fecha_hasta']}'";
 		}
 		if (isset($filtro['usuario'])) {
@@ -316,6 +330,7 @@ class toba_auditoria_tablas_postgres
 	
 	function get_campos_claves($tabla)
 	{
+		$tabla = substr($tabla, strlen($this->prefijo));
 		$cols = $this->conexion->get_definicion_columnas($tabla, $this->schema_origen);
 		$pks = array();
 		foreach ($cols as $col) {

@@ -129,7 +129,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2207', --objeto_ei_formulario
 	'toba_usuarios', --objeto_ei_formulario_proyecto
 	'restriccion', --identificador
-	'ef_multi_seleccion_doble', --elemento_formulario
+	'ef_multi_seleccion_check', --elemento_formulario
 	'restriccion', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -190,11 +190,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --editor_botonera
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
-	'1', --selec_utilidades
+	'0', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho
 	'0', --selec_serializar
-	NULL, --selec_cant_columnas
+	'2', --selec_cant_columnas
 	NULL  --upload_extensiones
 );
 --- FIN Grupo de desarrollo 0

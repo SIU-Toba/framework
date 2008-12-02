@@ -33,8 +33,16 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 	}
 	this._error = null;
 	this._colapsable = colapsable;
+	this._cascadas_ajax = true;		//El esquema de cascadas es el normal?
 }
+
 ef.prototype.constructor = ef;
+
+	ef.prototype._bind = function(func) {
+	    var self = this;
+	    var args = Array.prototype.slice.call(arguments, 1);
+	    return function(){ func.apply(self, args); };
+	  }
 
 	/**
 	 * Retorna el id de este elemento definido en el editor

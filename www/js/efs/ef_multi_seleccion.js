@@ -311,6 +311,10 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	 * @param {boolean} todos True seleciona todos, false ninguno
 	 */
 	ef_multi_seleccion_doble.prototype.seleccionar_todo = function(todos) {
+		var elem = (todos) ? this.input('izq') : this.input('der');
+		for (var i=0; i < elem.length; i++) {
+			elem.options[i].selected = true;
+		}			
 		if (todos) {
 			this.pasar_a_derecha();
 		} else {

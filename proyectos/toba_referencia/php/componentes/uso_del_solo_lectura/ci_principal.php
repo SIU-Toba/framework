@@ -28,6 +28,7 @@ class ci_principal extends toba_ci
 	{
 			return array (
 				    'combo_dao' => '1',
+					'combo_editable' => '5',
 				    'combo_db' => '2',
 				    'checkbox' => '1',
 				    'fecha' => '2006-01-04',
@@ -62,6 +63,7 @@ class ci_principal extends toba_ci
 				    'cuit' => '20055121711'
 				  );		
 	}
+	
 	
 	//------------------------------------------------------------------------
 	//-------------------------- FORMULARIO COMÚN --------------------------

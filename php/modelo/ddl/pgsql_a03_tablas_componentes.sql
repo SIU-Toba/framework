@@ -233,7 +233,7 @@ CREATE TABLE apex_objeto
 	clase_proyecto						varchar(15)		NOT NULL,
 	clase								varchar(60)		NOT NULL,
 	subclase							varchar(80)		NULL,
-	subclase_archivo					varchar(80)		NULL,
+	subclase_archivo					varchar(255)	NULL,
 	objeto_categoria_proyecto			varchar(15)		NULL,
 	objeto_categoria					varchar(30)		NULL,
 	nombre								varchar(120)	NOT NULL,

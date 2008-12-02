@@ -52,6 +52,7 @@ class toba_db_secuencias
 		$datos['apex_usuario_perfil_datos_seq'] = array('campo' => 'usuario_perfil_datos', 'tabla' => 'apex_usuario_perfil_datos');
 		$datos['apex_usuario_perfil_datos_dims_seq'] = array('campo' => 'elemento', 'tabla' => 'apex_usuario_perfil_datos_dims');
 		$datos['apex_restriccion_funcional_seq'] = array('campo' => 'restriccion_funcional', 'tabla' => 'apex_restriccion_funcional');
+		$datos['apex_objeto_ei_filtro_col_seq'] = array('campo' => 'objeto_ei_filtro_col', 'tabla' => 'apex_objeto_ei_filtro_col');
 		return $datos;
 	}
 

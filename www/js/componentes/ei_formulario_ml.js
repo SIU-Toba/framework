@@ -24,6 +24,15 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	this._cabecera_visible_sin_datos = true;
 }
 
+	/**
+	 *	@private
+	 */
+	ei_formulario_ml.prototype.instancia_ef  = function (objeto_ef) {
+		var fila = objeto_ef.get_fila_actual();
+		var id = objeto_ef.get_id();
+		return this._instancia + ".ef('"+ id + "').ir_a_fila(" + fila + ')';
+	};
+
 	ei_formulario_ml.prototype.iniciar = function() {
 		//Iniciar las filas
 		for (fila in this._filas) {
@@ -41,10 +50,13 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			this.agregar_procesamiento(id_ef);
 		}		
 		this.agregar_procesamientos();
+		this.refrescar_totales(true);		
 		this.refrescar_procesamientos(true);
 		this.refrescar_sin_filas();
 		this.reset_evento();
 	};
+
+
 
 	/**
 	 *	@private
@@ -464,12 +476,8 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * Dependiendo de la definición del componente en el editor, este método crea la fila directamente en javascript o
 	 * lo hace a través de un evento 'pedido_registro_nuevo' en el servidor
 	 */
-	ei_formulario_ml.prototype.crear_fila = function(_refrescar_todos) {
-			//Se refresca el procesamiento de todas las lineas?
-		if (! isset(_refrescar_todos)){
-			_refrescar_todos = true;
-		}	
-				
+	ei_formulario_ml.prototype.crear_fila = function() {
+			
 		//¿La fila se agrega en el server?
 		if (! this._agregado_en_linea) {
 			this.set_evento( new evento_ei('pedido_registro_nuevo', true, '', null));
@@ -489,9 +497,8 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this.iniciar_fila(this._proximo_id, true, false);
 		this.refrescar_eventos_procesamiento(this._proximo_id);
 		this.refrescar_numeracion_filas();
-		if (_refrescar_todos){
-			this.refrescar_procesamientos();
-		}		
+		this.refrescar_totales();
+		this.refrescar_procesamientos(true, this._proximo_id);
 		
 		this.seleccionar(this._proximo_id);
 		this.refrescar_foco();
@@ -601,6 +608,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	Refresca todos la grafica variable del formulario
 	 */
 	ei_formulario_ml.prototype.refrescar_todo = function () {
+		this.refrescar_totales();
 		this.refrescar_procesamientos();
 		this.refrescar_numeracion_filas();
 		this.refrescar_deshacer();
@@ -701,18 +709,33 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 	};
 
+	
 	/**
 	 * @private	 
 	 */
-	ei_formulario_ml.prototype.refrescar_procesamientos = function (es_inicial) {
+	ei_formulario_ml.prototype.refrescar_totales = function (es_inicial) {
 		for (id_ef in this._efs) {
 			if (id_ef in this._ef_con_totales) {
 				this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 			} 
-			for (id_fila in this._filas) {
-				if (this._efs_procesar[id_ef]) {
-					this.procesar(id_ef, this._filas[id_fila], es_inicial, false);
+		}
+	};	
+	
+	/**
+	 * @private	 
+	 */
+	ei_formulario_ml.prototype.refrescar_procesamientos = function (es_inicial, fila) {
+		for (id_ef in this._efs) {
+			if (typeof fila == 'undefined') {
+				for (id_fila in this._filas) {
+					if (this._efs_procesar[id_ef]) {
+						this.procesar(id_ef, this._filas[id_fila], es_inicial, false);
+					}
 				}
+			} else {
+				if (this._efs_procesar[id_ef]) {
+					this.procesar(id_ef, fila, es_inicial, false);
+				}				
 			}
 		}
 	};	

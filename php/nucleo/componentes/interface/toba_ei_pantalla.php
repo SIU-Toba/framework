@@ -495,7 +495,9 @@ class toba_ei_pantalla extends toba_ei
 				echo "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
 				echo $this->get_etiqueta();
 				echo "</div>";
-				$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);
+				if ($this->_info_pantalla['descripcion'] != "") {
+					$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);	
+				}				
 				foreach ($this->_notificaciones as $notificacion){
 					$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
 				}

@@ -197,7 +197,7 @@ class toba_carga_opciones_ef
 	/**
 	 * @ignore 
 	 */
-	protected function ejecutar_metodo_carga_descripcion_ef($id_ef, $maestros = array())
+	function ejecutar_metodo_carga_descripcion_ef($id_ef, $maestros = array())
 	{
 		$parametros = $this->_parametros_carga_efs[$id_ef];
 		$parametros['carga_metodo'] = $parametros['popup_carga_desc_metodo'];		

@@ -194,7 +194,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function actualizar()
 	{
 		$dir = $this->get_dir();
-		system("svn update $dir");		
+		system("svn update --non-interactive $dir");		
 	}
 	
 	//-----------------------------------------------------------
@@ -474,17 +474,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/
 	function cargar_autonomo()
 	{
-		toba_logger::instancia()->debug( "Cargando PROYECTO {$this->identificador}");					
+		toba_logger::instancia()->debug( "Cargando PROYECTO {$this->identificador}");
+		$errores = array();					
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
-			$this->cargar();
+			$errores = $this->cargar();
 			$this->instancia->actualizar_secuencias();
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
 			throw $e;
 		}
+		return $errores;
 	}
 
 	/*
@@ -498,18 +500,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
-		$this->cargar_perfiles();
+		$errores = $this->cargar_perfiles();
+		return $errores;
 	}
-	
-	function get_sql_cargar()
-	{
-		$salida = '';
-		$salida .= $this->get_sql_cargar_tablas()."\n\n";
-		$salida .= $this->get_sql_cargar_componentes()."\n\n";
-		$salida .= $this->get_sql_cargar_perfiles()."\n\n";
-		return $salida;
-	}
-	
+
 	private function cargar_tablas()
 	{
 		$this->manejador_interface->mensaje('Cargando datos globales', false);
@@ -524,7 +518,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 	
-	private function get_sql_cargar_tablas()
+	function get_sql_cargar_tablas()
 	{
 		$salida = '';
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );		
@@ -550,7 +544,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 	
-	private function get_sql_cargar_componentes()
+	function get_sql_cargar_componentes()
 	{
 		$salida = '';
 		$subdirs = toba_manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
@@ -563,6 +557,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $salida;
 	}		
 
+	function get_sql_carga_reducida()
+	{
+		$this->get_dir_tablas() . '/apex_proyecto.sql';
+	}
+	
 	/*
 	*	Carga el conjunto de metadatos minimo
 	*/
@@ -586,12 +585,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function cargar_perfiles()
 	{
 		$this->manejador_interface->mensaje('Cargando permisos', false);
+		$errores = array();
 		if ($this->maneja_perfiles_produccion()) {
-			$this->cargar_perfiles_produccion();		
+			$errores = $this->cargar_perfiles_produccion();		
 		} else {
 			$this->cargar_perfiles_proyecto();
 		}
-
+		return $errores;
 	}
 	
 	private function cargar_perfiles_proyecto()
@@ -609,6 +609,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	private function cargar_perfiles_produccion()
 	{
+		$todos_errores = array();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.xml$|' );
 		foreach( $archivos as $archivo ) {
 			$perfil = basename($archivo, 'xml');
@@ -620,18 +621,20 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$this->manejador_interface->separador();
 				$this->manejador_interface->error($msg);
 				foreach ($errores as $error) {
-					$this->manejador_interface->error($error['msg_toba']);
+					$this->manejador_interface->error($error['msg_motor']);
 				}
 				$this->manejador_interface->error('De todas formas se continúa la carga, se recomienda revisar la definición de este perfil.');
 				$this->manejador_interface->separador();
+				$todos_errores = array_merge($todos_errores, $errores);
 			}
 			toba_logger::instancia()->debug($archivo);
 			$this->manejador_interface->progreso_avanzar();
 		}
 		$this->manejador_interface->progreso_fin();
+		return $todos_errores;
 	}
 
-	private function get_sql_cargar_perfiles()
+	function get_sql_carga_perfiles()
 	{
 		$salida = '';
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );		
@@ -876,8 +879,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	*	Compilacion de GRUPOS de ACCESO
 	*/	
-	private function compilar_metadatos_generales_grupos_acceso()
+	function compilar_metadatos_generales_grupos_acceso($limpiar_existentes=false)
 	{
+		if ($limpiar_existentes) {
+			$archivos = toba_manejador_archivos::get_archivos_directorio($this->get_dir_generales_compilados(), '/toba_mc_gene__grupo/');
+			foreach($archivos as $archivo) {
+				unlink($archivo);
+			}
+		}
 		$this->manejador_interface->mensaje('Grupos de acceso', false);
 		foreach( $this->get_indice_grupos_acceso() as $grupo_acceso ) {
 			$nombre_clase = 'toba_mc_gene__grupo_' . $grupo_acceso;
@@ -1495,8 +1504,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 		
 		//--- Generar un GRAN archivo .sql con los metadatos
-		$this->manejador_interface->mensaje("Copiando base de metadatos", false);	
-		$this->empaquetar_metadatos($destino_instalacion.'/sql', $proyectos);
+		//$this->manejador_interface->mensaje("Copiando base de metadatos", false);	
+		//$this->empaquetar_metadatos($destino_instalacion.'/sql', $proyectos);
 		$this->manejador_interface->progreso_fin();
 
 	}
@@ -1505,7 +1514,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$origen = $this->get_dir();		
 		//-- Los metadatos no se envian ya que son incluidos en la distribución del framework
-		$excepciones[] = $origen.'/metadatos';
+		//$excepciones[] = $origen.'/metadatos';
 		
 		toba_manejador_archivos::crear_arbol_directorios($destino);
 		toba_manejador_archivos::copiar_directorio($origen, $destino, 
@@ -1521,13 +1530,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$editor->agregar_sustitucion( '|__proyecto__|', $this->get_id() );
 		$editor->procesar_archivo( $destino . '/www/aplicacion.php' );
 	}
-	
+	/*
 	protected function empaquetar_metadatos($destino, $proyectos_extra)
 	{
 		$proyectos_a_exportar = $proyectos_extra;
 		$proyectos_a_exportar[] = $this->get_id();				
-		toba_manejador_archivos::crear_arbol_directorios($destino);		
-		$destino_metadatos = $destino.'/toba.sql';
+		toba_manejador_archivos::crear_arbol_directorios($destino);
+
+		//-- Datos estaticos del proyecto
+		$destino_metadatos = $destino.'/metadatos_proyectos.sql';
+		
 		$fp = fopen($destino_metadatos, 'w');
 		fwrite($fp, $this->instancia->get_sql_crear_tablas());
 		$this->manejador_interface->progreso_avanzar();		
@@ -1535,9 +1547,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_avanzar();	
 		fwrite($fp, $this->instancia->get_sql_carga_proyectos($proyectos_a_exportar));
 		$this->manejador_interface->progreso_avanzar();
-		fwrite($fp, $this->instancia->get_sql_actualizar_secuencias());		
-		fclose($fp);		
-	}
+		fclose($fp);
+		
+		//-- Perfiles propios de proyectos
+		foreach($proyectos_a_exportar as $id_proyecto) {
+			$destino_metadatos = $destino."/metadatos_perfiles_$id_proyecto.sql";
+			$sql = $this->instancia->get_proyecto($id_proyecto)->get_sql_carga_perfiles();
+			file_put_contents($destino_metadatos, $sql);
+			$this->manejador_interface->progreso_avanzar();
+		}
+		
+		file_put_contents($destino."/actualizar_secuencias.sql", $this->instancia->get_sql_actualizar_secuencias());
+		$this->manejador_interface->progreso_avanzar();
+	}*/
 	
 	//-----------------------------------------------------------
 	//	VENTANAS
@@ -1731,17 +1753,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! is_array($perfil_acceso)) {
 			$perfil_acceso = array($perfil_acceso);
 		}
+		if (! isset($perfil_datos) || trim($perfil_datos) == '') {
+			$perfil_datos = 'NULL';
+		} else {
+			$perfil_datos = "'$perfil_datos'";
+		}		
 		$sql = array();
 		foreach ($perfil_acceso as $id_grupo) {
-			//TODO: Cambiar		
-			/*
-				Comentado porque no funcionaba la instalacion, cambió la forma en que se guarda el perfil de datos en relacion al usuario
 				$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-						VALUES ('$proyecto','$usuario','$id_grupo','$perfil_datos');";
-				
-			*/
-				$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
-						VALUES ('$proyecto','$usuario','$id_grupo');";
+						VALUES ('$proyecto','$usuario','$id_grupo', $perfil_datos);";
 			
 		}
 				// Decide un PA por defecto para el proyecto

@@ -143,6 +143,10 @@ class toba_evento_usuario extends toba_boton
 	{
 		$this->datos['accion_imphtml_debug'] = $estado;
 	}
+	
+	function set_maneja_datos($maneja){
+		$this->datos['maneja_datos'] = $maneja;
+	}
 
 	//--------- Consumo interno ------------
 	

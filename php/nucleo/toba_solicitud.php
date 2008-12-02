@@ -232,5 +232,20 @@ abstract class toba_solicitud
 		return isset($this->zona);	
 	}
 
+	//----------------------------------------------------------
+	//---------------------- TIPO de PAGINA --------------------
+	//----------------------------------------------------------
+
+	/**
+	 * @return zona
+	 */
+	function tipo_pagina()
+	{
+		if(isset($this->tipo_pagina)) {
+			return $this->tipo_pagina;
+		} else {
+			throw new toba_error('ERROR: No existe un tipo de pagina asociada');	
+		}
+	}
 }
 ?>

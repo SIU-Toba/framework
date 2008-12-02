@@ -111,6 +111,36 @@ class toba_perfil_datos
 		}
 	}
 
+
+	/**
+	* Retorna las restricciones aplicadas sobre una dimensión específica
+	* @param string $nombre Nombre de la dimension
+	* @return array Arreglo de restricciones si aplica, sino null
+	*/
+	function get_restricciones_dimension($fuente, $nombre)
+	{
+		if (!isset($this->info_dimensiones[$fuente])) {
+			return;
+		}
+		foreach ($this->info_dimensiones[$fuente] as $id => $datos) {
+			if ($datos['nombre'] == $nombre) {
+				$id_dimension = $id;
+				break;
+			}
+		}
+		if (isset($id_dimension) && isset($this->restricciones[$fuente][$id_dimension]) ) {
+			$valores = array();
+			foreach ($this->restricciones[$fuente][$id_dimension] as $valor) {
+				if (count($valor) == 1) {
+					$valores[] = current($valor);
+				} else {
+					$valores[] = $valor;
+				}
+			}
+			return $valores;
+		}
+	}	
+	
 	/**
 	*	Retorna un array con las dimensiones sobre las que se establecieron restricciones
 	*	@return $value	Retorna un array de dimensiones

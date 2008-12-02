@@ -5,7 +5,12 @@ class ci_navegacion extends toba_ci
 	
 	function ini__operacion()
 	{
-		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto();
+		if (! is_null(toba::sesion()->get_id_proyecto_hint())) {
+			$this->s__filtro = array('proyecto' => toba::sesion()->get_id_proyecto_hint());
+		}		
+		if (! is_null(toba::sesion()->get_id_proyecto())) {
+			$this->s__filtro = array('proyecto' => toba::sesion()->get_id_proyecto());
+		}
 	}
 		
 	function conf__seleccion($pantalla)
@@ -54,6 +59,7 @@ class ci_navegacion extends toba_ci
 
 	function evt__guardar()
 	{
+		$this->dep('datos')->get_persistidor()->set_usar_trim(false);
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();
 		$this->set_pantalla('seleccion');

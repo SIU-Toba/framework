@@ -105,7 +105,8 @@ class ci_editor_perfiles extends toba_ci
 				FROM
 					apex_restriccion_funcional
 				WHERE
-					proyecto = '$this->s__proyecto';
+					proyecto = '$this->s__proyecto'
+				ORDER BY descripcion
 				";
 		return toba::db()->consultar($sql);
 	}
@@ -114,7 +115,7 @@ class ci_editor_perfiles extends toba_ci
 	{
 		$sql = "SELECT
 					permiso,
-					nombre
+					COALESCE(descripcion, nombre) as descripcion
 				FROM
 					apex_permiso
 				WHERE

@@ -19,14 +19,12 @@ class consultas
 	{
 		$where = '';
 		if(isset($filtro)){
-			if(isset($filtro['nombre'])){
-				$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
-			}
+			if (isset($filtro['nombre']))
+			$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
 		}
-		$sql = "SELECT id, nombre, descripcion FROM ref_deportes $where;";
+		$sql = "SELECT id, nombre, descripcion FROM ref_deportes $where";
 		return consultar_fuente($sql);
 	}
-	
 	
 	/**
 		Retorna la lista de personas
@@ -121,6 +119,74 @@ class consultas
 			$horas[$a]['desc'] = str_pad($a+1,2,0,STR_PAD_LEFT);	
 		}
 		return $horas;
+	}
+	
+	//--------------------------------------------------
+	//------------ PAISES 
+	//--------------------------------------------------
+	
+	static function get_paises($filtro=null, $locale=null)
+	{
+		if (! isset($filtro) || trim($filtro) == '') {
+			return array();
+		}
+		$where = '';
+		if (isset($locale)) {
+			$locale = quote($locale);
+			$where = "AND locale=$locale";
+		}
+		$sql = "SELECT 
+					rowId, 
+					countryName 
+				FROM 
+					iso_countries
+				WHERE
+					countryName ILIKE '{$filtro}%' 
+					$where
+				LIMIT 20
+		";
+		return consultar_fuente($sql);		
+	}
+	
+	static function get_pais($id=null)
+	{
+		if (! isset($id)) {
+			return array();
+		}
+		
+		$sql = "SELECT 
+					rowId, 
+					countryName
+				FROM 
+					iso_countries
+				WHERE
+					rowId = ".$id;
+		$result = consultar_fuente($sql);	
+		if (! empty($result)) {
+			return $result[0]['countryname'];
+		}
+	}	
+
+	static function get_locales()
+	{
+		$sql = "SELECT distinct locale
+				FROM
+					iso_countries
+		";
+		return consultar_fuente($sql);
+	}
+	
+	static function get_prefijo_telefonico($pais)
+	{
+		$pais = quote($pais);
+		$sql = "SELECT phoneprefix
+				FROM
+					iso_countries
+				WHERE
+					rowId = $pais
+		";
+		$datos = toba::db()->consultar_fila($sql);
+		return $datos['phoneprefix'];
 	}
 }
 ?>

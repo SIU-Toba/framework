@@ -38,6 +38,14 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		}
 	};
 	
+	/**
+	 *	@private
+	 */
+	ei_formulario.prototype.instancia_ef  = function (objeto_ef) {
+		var id = objeto_ef.get_id();
+		return this._instancia + ".ef('"+ id + "')";
+	};	
+	
 	ei_formulario.prototype.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
@@ -127,6 +135,119 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		return true;
 	};
 
+	//---- Filtrado de opciones de combos editables
+	
+	/**
+	 * Filtrado de opciones de los combos editables:<br>
+	 * Se comunica al servidor que debe refrescar las opciones de un ef combo editable en base al valor tipeado por el usuario
+	 * Este método dispara la llamada asincronica al servidor
+	 * @see #filtrado_ef_ce_respuesta
+	 * @param {string} id_ef Id. del ef a refrescar (un ef esclavo)
+	 * @param {string) valor. Formato: ef-;-valor-
+	 */
+	ei_formulario.prototype.filtrado_ef_ce_comunicar = function(id_ef, valor, fila) 
+	{
+		//Empaqueto la informacion que tengo que mandar.
+		var parametros = {'filtrado-ce-ef': id_ef, 'filtrado-ce-valor' : valor};
+		if (typeof fila != 'undefined') {
+			parametros['filtrado-ce-fila'] = fila;
+		}
+		//-- Pasa los maestros de la cascad por parametros
+		var maestros = this.get_valores_maestros(id_ef);
+		valores = '';		
+		for (var id_maestro in maestros) {
+			valores +=  id_maestro + '-;-' + maestros[id_maestro] + '-|-';
+		}
+		parametros['cascadas-maestros'] = valores;
+		
+		var callback = {
+			success: this.filtrado_ef_ce_respuesta,
+			failure: toba.error_comunicacion,
+			argument: id_ef,
+			scope: this
+		};
+		var vinculo = vinculador.get_url(null, null, 'filtrado_ef_ce', parametros, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback, null);
+	};
+
+	/**
+	 * Filtrado de opciones de los combos editables:<br>
+	 * Respuesta del servidor ante el pedido de refresco de un ef ce puntual
+	 * @param {Object} respuesta La respuesta es un objeto no asociativo con claves responseText que contiene las nuevas opciones del ef
+	 */
+	ei_formulario.prototype.filtrado_ef_ce_respuesta = function(respuesta)
+	{
+		if (respuesta.responseText === '') {
+			var error = 'Error en la respuesta del filtrado de opciones, para más información consulte el log';
+			notificacion.limpiar();
+			notificacion.agregar(error);
+			notificacion.mostrar();
+		} else {
+			try {
+				var datos = eval('(' + respuesta.responseText + ')');
+				this.ef(respuesta.argument).set_opciones(datos);
+				//this.evt__filtrado_ef_ce_fin(this.ef(respuesta.argument), datos);
+			} catch (e) {
+				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
+				notificacion.limpiar();
+				notificacion.agregar(error);
+				notificacion.mostrar();				
+			}
+		}
+	};
+
+	/**
+	 * Filtrado de opciones de los combos editables:<br>
+	 * Se comunica al servidor para validar un valor que no está entre las opciones visibles
+	 * Este método dispara la llamada asincronica al servidor
+	 * @see #filtrado_ef_ce_respuesta_validacion
+	 * @param {string} id_ef Id. del ef a refrescar (un ef esclavo)
+	 * @param {string) valor. Formato: ef-;-valor-
+	 */
+	ei_formulario.prototype.filtrado_ef_ce_validar = function(id_ef, valor, fila) 
+	{
+		//Empaqueto la informacion que tengo que mandar.
+		var parametros = {'filtrado-ce-ef': id_ef, 'filtrado-ce-valor' : valor};
+		if (typeof fila != 'undefined') {
+			parametros['filtrado-ce-fila'] = fila;
+		}
+		var callback = {
+			success: this.filtrado_ef_ce_respuesta_validacion,
+			failure: toba.error_comunicacion,
+			argument: id_ef,
+			scope: this
+		};
+		var vinculo = vinculador.get_url(null, null, 'filtrado_ef_ce_validar', parametros, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback, null);
+	};
+
+	/**
+	 * Filtrado de opciones de los combos editables:<br>
+	 * Respuesta del servidor ante el pedido de refresco de un ef ce puntual
+	 * @param {Object} respuesta La respuesta es un objeto no asociativo con claves responseText que contiene las nuevas opciones del ef
+	 */
+	ei_formulario.prototype.filtrado_ef_ce_respuesta_validacion = function(respuesta)
+	{
+		if (respuesta.responseText === '') {
+			var error = 'Error en la respuesta del filtrado de opciones, para más información consulte el log';
+			notificacion.limpiar();
+			notificacion.agregar(error);
+			notificacion.mostrar();
+		} else {
+			try {
+				var datos = eval('(' + respuesta.responseText + ')');
+				this.ef(respuesta.argument).set_opciones(datos,false);
+				this.ef(respuesta.argument)._get_combo().selectOption(0,true,true);
+			} catch (e) {
+				var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
+				notificacion.limpiar();
+				notificacion.agregar(error);
+				notificacion.mostrar();				
+			}
+		}
+	};
+
+
 	//---- Cascadas
 
 	/**
@@ -191,7 +312,13 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		}
 		//--- Si estan todos los maestros puedo ir al server a preguntar el valor de este
 		if (con_estado) {
-			this.cascadas_comunicar(id_esclavo, valores, fila);
+			if (this.ef(id_esclavo)._cascadas_ajax) {
+				//Caso normal
+				this.cascadas_comunicar(id_esclavo, valores, fila);
+			} else {
+				//Caso combo_editable
+				this.ef(id_esclavo).set_solo_lectura(false);
+			}
 		}
 	};
 	
@@ -346,7 +473,14 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		var hay_cambio = false;
 		for (id_ef in this._efs) {
 			if (! in_array(id_ef, this._cambios_excluir_efs)) {
-				if (this._estado_inicial[id_ef] !== this._efs[id_ef].get_estado()) {
+				var es_igual
+				if (isset(this._estado_inicial[id_ef]) && typeof this._estado_inicial[id_ef] == 'object') {
+				 	es_igual = comparar_arreglos(this._estado_inicial[id_ef], 
+				 								this._efs[id_ef].get_estado());
+				} else {
+					es_igual = this._estado_inicial[id_ef] === this._efs[id_ef].get_estado();
+				}
+				if (! es_igual) {
 					hay_cambio = true;
 					if (id_ef == ef_actual) {
 						this._efs[id_ef].resaltar_cambio(true);

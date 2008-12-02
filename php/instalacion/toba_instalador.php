@@ -19,6 +19,12 @@ class toba_instalador
 		$this->set_progreso($progreso);
 	}
 	
+	function set_conexion($base)
+	{
+	    toba_modelo_instalacion::set_conexion_externa($base);
+	}
+	
+	
 	function set_progreso($progreso)
 	{
 		if (isset($progreso)) {
@@ -270,6 +276,8 @@ class toba_instalador
 			}
 		}
 	}
+	
+	
 	
 	/**
 	 * Recorre todas las instancias donde se encuentra el proyecto y exporta sus metadatos

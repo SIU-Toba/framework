@@ -53,11 +53,11 @@ class ci_navegacion_perfiles extends toba_ci
 		//- Sincroniza el arbol de items		
 		$this->dep('editor_perfiles')->guardar_arbol_items($alta);
 		$this->dep('datos')->resetear();
+		toba::db()->cerrar_transaccion();
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-	
-		toba::db()->cerrar_transaccion();
+				
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');
 	}
@@ -83,11 +83,11 @@ class ci_navegacion_perfiles extends toba_ci
 						usuario_grupo_acc = '{$datos['usuario_grupo_acc']}'
 					AND proyecto = '{$datos['proyecto']}';";
 		toba::db()->ejecutar($sql);
+		toba::db()->cerrar_transaccion();
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-
-		toba::db()->cerrar_transaccion();
+		
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');
 	}

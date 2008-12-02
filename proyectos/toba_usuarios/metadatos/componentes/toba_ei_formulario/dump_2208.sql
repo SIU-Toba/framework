@@ -115,8 +115,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -129,7 +129,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2208', --objeto_ei_formulario
 	'toba_usuarios', --objeto_ei_formulario_proyecto
 	'permiso', --identificador
-	'ef_multi_seleccion_doble', --elemento_formulario
+	'ef_multi_seleccion_check', --elemento_formulario
 	'permiso', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -153,7 +153,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'toba_usuarios', --carga_fuente
 	NULL, --carga_lista
 	'permiso', --carga_col_clave
-	'nombre', --carga_col_desc
+	'descripcion', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
@@ -190,7 +190,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --editor_botonera
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
-	'1', --selec_utilidades
+	'0', --selec_utilidades
 	NULL, --selec_tamano
 	'150px', --selec_ancho
 	'0', --selec_serializar

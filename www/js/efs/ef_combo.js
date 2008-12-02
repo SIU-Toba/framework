@@ -163,13 +163,14 @@ ef_radio.prototype.constructor = ef_radio;
 	};
 	
 	ef_radio.prototype.input = function() {
-		var input = document.getElementsByName(this._id_form);	
+		
+		var input = getElementsByName_iefix('input', this._id_form);
 		if (typeof input.length != 'number') {
 			input = [input];
 		}
 		return input;
 	};	
-	
+
 	//---Comandos	
 	
 	ef_radio.prototype.set_estado = function(nuevo) {

@@ -23,5 +23,6 @@ class toba_mock_proceso_gui implements toba_proceso_gui
 	function enter(){}
 	function cerrar(){}
 	function lista() {}
+	function separador() {}
 }
 ?>

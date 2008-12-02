@@ -10,3 +10,4 @@ DROP SEQUENCE ref_juegos_id_seq CASCADE;
 DROP TABLE ref_juegos CASCADE;
 DROP SEQUENCE ref_deportes_id_seq CASCADE;
 DROP TABLE ref_deportes CASCADE;
+DROP TABLE iso_countries;

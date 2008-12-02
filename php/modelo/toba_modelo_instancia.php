@@ -544,20 +544,28 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 			$this->crear_schema();			
 			$this->get_db()->retrazar_constraints();
-			$this->crear_modelo_datos_toba();
-			$this->cargar_proyectos();
-			$this->manejador_interface->enter();
-			$this->cargar_informacion_instancia();
-			$this->generar_info_carga();
-			$this->actualizar_secuencias();
-			$this->set_version(toba_modelo_instalacion::get_version_actual());
+			$this->cargar_autonomo();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
 			throw $e;
 		}
 	}
-
+	
+	function cargar_autonomo()
+	{
+		$errores = array();
+		$this->crear_modelo_datos_toba();
+		$errores = $this->cargar_proyectos();
+		$this->manejador_interface->enter();
+		$this->cargar_informacion_instancia();
+		$this->generar_info_carga();
+		$this->actualizar_secuencias();
+		$this->set_version(toba_modelo_instalacion::get_version_actual());
+		return $errores;
+	}
+	
+	
 	function cargar_tablas_minimas($forzar_carga = false)
 	{
 		$this->manejador_interface->titulo('Creación de una instancia MINIMA');		
@@ -709,18 +717,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	*/
 	private function cargar_proyectos($informacion_reducida=false)
 	{
+		$errores = array();
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
 				$this->manejador_interface->enter();
 				$this->manejador_interface->subtitulo("$id_proyecto:");
 				$proyecto = $this->get_proyecto($id_proyecto);
 				if(!$informacion_reducida) {
-					$proyecto->cargar();										
+					$error = $proyecto->cargar();
+					$errores = array_merge($errores, $error);										
 				}else{
 					$proyecto->cargar_informacion_reducida();										
 				}
 			}
 		}	
+		return $errores;
 	}
 	
 	function get_sql_carga_proyectos($proyectos)
@@ -731,7 +742,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba' && in_array($id_proyecto, $proyectos)) {
 				$proyecto = $this->get_proyecto($id_proyecto);
-				$salida .= $proyecto->get_sql_cargar()."\n\n";
+				$salida .= $proyecto->get_sql_cargar_tablas();
+				$salida .= $proyecto->get_sql_cargar_componentes();
 			}
 		}			
 		return $salida;
@@ -1076,13 +1088,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
-	function agregar_usuario( $usuario, $nombre, $clave )
+	function agregar_usuario( $usuario, $nombre, $clave, $email=null )
 	{
 		$algoritmo = 'sha256';
 		$clave = encriptar_con_sal($clave, $algoritmo);
 		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
-		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
-				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
+		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave, email )
+				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave', '$email')";
 		return $this->get_db()->ejecutar( $sql );
 	}
 	
