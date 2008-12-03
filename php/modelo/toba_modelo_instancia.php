@@ -611,7 +611,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	private function crear_tablas()
 	{
-		$this->manejador_interface->mensaje('Creando las tablas del sistema', false);
+		$this->manejador_interface->mensaje('Creando las tablas del framework', false);
 		$directorio = toba_modelo_nucleo::get_dir_ddl();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
@@ -640,7 +640,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	private function crear_tablas_minimas()
 	{
-		$this->manejador_interface->mensaje('Creando las tablas del sistema (version reducida)', false);
+		$this->manejador_interface->mensaje('Creando las tablas del framework (version reducida)', false);
 		$directorio = toba_modelo_nucleo::get_dir_ddl();
 		$archivo = $directorio . "/pgsql_a00_tablas_instancia.sql";
 		$cant = $this->get_db()->ejecutar_archivo( $archivo );

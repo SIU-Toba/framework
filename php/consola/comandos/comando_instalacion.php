@@ -109,10 +109,12 @@ class comando_instalacion extends comando_toba
 		}
 		
 		$id_proyecto = '';
-		if ($this->consola->dialogo_simple('Desea crear un nuevo proyecto?', false)) {
+		/*if ($this->consola->dialogo_simple('Desea crear un nuevo proyecto durante la instalación?', false)) {
 			//--- Pregunta identificador del Proyecto
 			$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);
-		}
+		} else {
+			$this->consola->mensaje("Puede crearlo más adelante ejecutando el comando 'toba proyecto crear'");
+		}*/
 
 		//--- Si ingreso un proyecto y existe, lo borra
 		if ($id_proyecto != '') {
@@ -168,33 +170,69 @@ class comando_instalacion extends comando_toba
 		}		
 
 		//--- Mensajes finales
+		$this->consola->titulo("Configuraciones Finales");
 		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
-		$this->consola->separador();
-		$this->consola->mensaje("La instalación del framework ha finalizado, para su correcta ejecución se necesita notificar a Apache y a la consola de su presencia");
-		$this->consola->mensaje("");
 		if (toba_manejador_archivos::es_windows()) {		
 			$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
-			$this->consola->mensaje("Para Apache: agregar en el archivo '\Apache2\conf\httpd.conf' la siguiente directiva y reiniciarlo: ");
+			$this->consola->mensaje("1) Agregue al archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+			$this->consola->mensaje("");
 			$this->consola->mensaje("     Include \"$toba_conf\"");;
 		} else {
-			$this->consola->mensaje("Para Apache: ejecutar el siguiente comando como superusuario y reiniciarlo (se asume una distro tipo debian): ");
-			$this->consola->mensaje("  ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");
-		}
-		$this->consola->mensaje("");
-		$this->consola->mensaje("Para la consola: se necesitan agregar al entorno las siguientes directivas:");
-		if (toba_manejador_archivos::es_windows()) {
-			$this->consola->mensaje("   set toba_dir=".toba_dir());
-			$this->consola->mensaje("   set toba_instancia=$id_instancia");
-			$this->consola->mensaje("   set PATH=%PATH%;%toba_dir%/bin");
-		} else {
-			$this->consola->mensaje("   export toba_dir=".toba_dir());
-			$this->consola->mensaje("   export toba_instancia=$id_instancia");
-			$this->consola->mensaje('   export PATH="$toba_dir/bin:$PATH"');
+			$this->consola->mensaje("1) Ejecutar el siguiente comando como superusuario: ");
+			$this->consola->mensaje("");			
+			$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");
 		}
 		$this->consola->mensaje("");
 		$url = $instancia->get_proyecto('toba_editor')->get_url();
-		$this->consola->mensaje("Luego puede ingresar al editor navegando hacia http://localhost$url");		
+		$this->consola->mensaje("Reinicie el servicio apache e ingrese al framework navegando hacia ");
 		$this->consola->mensaje("");
+		$this->consola->mensaje("     http://localhost$url");		
+		$this->consola->mensaje("");
+		
+			
+		$this->consola->mensaje("");
+
+		$release = toba_modelo_instalacion::get_version_actual()->get_release();
+		if (toba_manejador_archivos::es_windows()) {
+			if (isset($_SERVER['USERPROFILE'])) {
+				$path = $_SERVER['USERPROFILE'];
+			} else {
+				$path = toba_dir()."\\bin";
+			}
+			$path .= "\\entorno_toba_$release.bat";
+			$bat = "@echo off\n";
+			$bat .= "set toba_dir=".toba_dir()."\n";
+			$bat .= "set toba_instancia=$id_instancia\n";
+			$bat .= "set PATH=%PATH%;%toba_dir%/bin\n";
+			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
+			file_put_contents($path, $bat);
+			$this->consola->mensaje("2) Se genero el siguiente .bat:");
+			$this->consola->mensaje("");
+			$this->consola->mensaje("   $path");
+			$this->consola->mensaje("");
+			$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
+			
+		} else {
+			$path = toba_dir()."\\bin";
+			$path .= "/entorno_toba_$release.sh";
+			$bat .= "export toba_dir=".toba_dir()."\n";
+			$bat .= "export toba_instancia=$id_instancia\n";
+			$bat .= 'export PATH="$toba_dir/bin:$PATH'."\n";
+			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
+			file_put_contents($path, $bat);
+			chmod($path, 0755);
+			$this->consola->mensaje("2) Se genero el siguiente ejecutable:");
+			$this->consola->mensaje("");
+			$this->consola->mensaje("   $path");
+			$this->consola->mensaje("");
+			$sh = basename($path);
+			$this->consola->mensaje("Para usar los comandos toba ejecute antes el .sh precedido por un punto y espacio");
+			
+		}
+		$this->consola->mensaje("");
+		$this->consola->mensaje("3) Entre otras cosas puede crear un nuevo proyecto ejecutando el comando");
+		$this->consola->mensaje("");
+		$this->consola->mensaje("   toba proyecto crear");		
 	}
 	
 	/**
@@ -227,6 +265,7 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__info()
 	{
+		print_r($_SERVER);
 		if ( toba_modelo_instalacion::existe_info_basica() ) {
 			$this->consola->enter();
 			//VERSION
