@@ -41,7 +41,7 @@ class comando_instalacion extends comando_toba
 		$id_instancia = $this->get_entorno_id_instancia(true);		
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
 		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
-		$this->consola->titulo("Instalación Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
+		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
 		if (get_magic_quotes_gpc()) {
@@ -69,7 +69,8 @@ class comando_instalacion extends comando_toba
 		}
 		//--- Crea la INSTALACION		
 		if ($forzar_instalacion) {
-			toba_modelo_instalacion::crear( 0, $alias );			
+			$id_desarrollo = $this->definir_id_grupo_desarrollo();
+			toba_modelo_instalacion::crear($id_desarrollo, $alias );			
 		}
 		
 		//--- Crea la definicion de bases
@@ -369,6 +370,15 @@ class comando_instalacion extends comando_toba
 		$this->get_instalacion()->eliminar_logs();
 	}
 	
+	/**
+	 * Cambia el número de desarrollador y deja las instancias listas
+	 */
+	function opcion__cambiar_id_desarrollador()
+	{
+		$id_grupo_desarrollador = $this->definir_id_grupo_desarrollo();
+		$this->get_instalacion()->set_id_desarrollador($id_grupo_desarrollador);		
+	}
+	
 
 	/**
 	 * Migra la instalación de versión. 
@@ -438,17 +448,27 @@ class comando_instalacion extends comando_toba
 	*/
 	protected function definir_id_grupo_desarrollo()
 	{
-		$this->consola->subtitulo('Definir el ID del grupo de desarrollo');
-		$this->consola->mensaje('Este codigo se utiliza para permitir el desarrollo paralelo de equipos '.
-								'de trabajo geograficamente distribuidos.');
-		$this->consola->enter();
-		$resultado = $this->consola->dialogo_ingresar_texto( 'ID Grupo', false );
-		if ( $resultado == '' ) {
-			return null;	
-		} else {
-			return $resultado;	
-		}
+		do {
+			$es_invalido = false;
+			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Ingrese el numero de desarrollador (por defecto 0)', false);
+			$maximo = 2147;
+			$mensaje = "Debe ser un numero entre 0 y 2147, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
+			if ($id_desarrollo == '') {
+				$id_desarrollo = 0;
+			}
+			if (! is_numeric($id_desarrollo)) {
+				$es_invalido = true;
+				$this->consola->mensaje($mensaje);
+			}
+			if ($id_desarrollo < 0 || $id_desarrollo > $maximo) {
+				$es_invalido = true;
+				$this->consola->mensaje($mensaje);
+			}				
+		} while ($es_invalido);
+		$id_desarrollo = (int) $id_desarrollo;
+		return $id_desarrollo;		
 	}
+
 
 	protected function definir_alias_nucleo()
 	{

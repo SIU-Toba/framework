@@ -655,6 +655,18 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	}	
 	
 	
+	/**
+	 * Cambia el id de desarrollo y deja las instancias listas para trabajar
+	 */
+	function set_id_desarrollador($id)
+	{
+		$this->cambiar_info_basica(array('id_grupo_desarrollo' => $id));	
+		foreach ($this->get_lista_instancias() as $id_inst) {
+			$instancia = $this->get_instancia($id_inst);
+			$instancia->actualizar_secuencias();
+		}
+	}
+	
 	function empaquetar_en_carpeta($destino, $librerias_en_uso = array(), $proyectos_en_uso = array())
 	{
 		$path_base = toba_dir();
