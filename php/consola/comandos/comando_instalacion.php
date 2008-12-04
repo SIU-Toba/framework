@@ -150,7 +150,7 @@ class comando_instalacion extends comando_toba
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $proyecto->get_grupo_acceso_admin();
-			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
+			$proyecto->vincular_usuario('toba', array($grupo_acceso));
 		}
 		
 		//--- Crea el login y exporta el proyecto

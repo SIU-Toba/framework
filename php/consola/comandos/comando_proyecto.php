@@ -163,7 +163,7 @@ class comando_proyecto extends comando_toba
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
 			$grupo_acceso = $this->seleccionar_grupo_acceso($p);
 			foreach ( $usuarios as $usuario ) {
-				$p->vincular_usuario( $usuario, $grupo_acceso );
+				$p->vincular_usuario($usuario, array($grupo_acceso));
 				toba_logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
 				$this->consola->progreso_avanzar();
 			}

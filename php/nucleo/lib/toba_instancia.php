@@ -425,35 +425,67 @@ class toba_instancia
 	//------------------------ Administracion de USUARIOS
 	//--------------------------------------------------------------------------
 
-	function agregar_usuario( $usuario, $nombre, $clave )
+	/**
+	 *	Crea un nuevo usuario en la instancia 
+	 *
+	 * @param string $usuario
+	 * @param string $nombre
+	 * @param string $clave
+	 * @param array $atributos asociativo campo => valor
+	 */
+	function agregar_usuario( $usuario, $nombre, $clave , $atributos=array())
 	{
 		$algoritmo = 'sha256';
 		$clave = encriptar_con_sal($clave, $algoritmo);
 		//toba::logger()->debug("Agregando el usuario '$usuario' a la instancia {$this->id}");
-		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
-				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
+		$into = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave"; 
+		$values = ") VALUES ('$usuario', '$nombre', '$algoritmo', '$clave'";
+		foreach ($atributos as $clave => $valor) {
+			 $into .=  ', '. $clave;
+			 $values .=  ", '$valor'";
+		}
+		$sql = $into . $values . ');';
 		return $this->get_db()->ejecutar( $sql );
 	}
 	
-	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
+	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos=array(), $set_previsualizacion=true )
 	{
 		$sql = array();
-		//TODO: Cambiar		
-		/*
-			Comentado porque no funcionaba la instalacion, cambio la forma en que se guarda el perfil de datos en relacion al usuario
-		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
-		*/
-		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
-					VALUES ('$proyecto','$usuario','$perfil_acceso');";		
-
-				// Decide un PA por defecto para el proyecto
+		//-- Perfiles Funcionales
+		if (! is_array($perfil_acceso)) {
+			$perfil_acceso = array($perfil_acceso);
+		}
+		foreach ($perfil_acceso as $perfil) {
+			$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
+						VALUES ('$proyecto','$usuario','$perfil');";
+		}
+		//-- Perfiles de datos		
+		if (! is_array($perfil_datos)) {
+			if (is_null($perfil_datos)) {
+				$perfil_datos = array();
+			} else {
+				$perfil_datos = array($perfil_datos);
+			}
+		}	
+		foreach ($perfil_datos as $perfil) {
+			$sql[] = "INSERT INTO apex_usuario_proyecto_perfil_datos (proyecto, usuario, usuario_perfil_datos)
+						VALUES ('$proyecto','$usuario','$perfil');";
+		}
+		//-- Decide un PA por defecto para el proyecto
 		if($set_previsualizacion) {
-			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
-						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+			$funcional = implode(',', $perfil_acceso);
+			if (empty($perfil_datos)) {
+				$datos = 'NULL';
+			} else {
+				$datos = "'".implode(',', $perfil_datos)."'";
+			}
+			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, punto_acceso, grupo_acceso, perfil_datos) 
+						VALUES ('$proyecto','$usuario', '/$proyecto', '$funcional', $datos);";
+						
 		}
 		return $this->get_db()->ejecutar( $sql );
-	}
+	}	
+	
 
 	function desbloquear_usuario($usuario)
 	{

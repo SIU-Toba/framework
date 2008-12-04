@@ -300,12 +300,14 @@ class comando_instancia extends comando_toba
 		if (!isset($datos)) {
 			$datos = $this->definir_usuario( "Crear USUARIO" );
 		}
+		$instancia->get_db()->abrir_transaccion();
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
-			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso, null, $asociar_previsualizacion_admin );
-		}		
+			$proyecto->vincular_usuario($datos['usuario'],array($grupo_acceso), null, $asociar_previsualizacion_admin);
+		}
+		$instancia->get_db()->cerrar_transaccion();		
 	}
 	
 	/**

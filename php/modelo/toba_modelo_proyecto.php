@@ -1249,12 +1249,23 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
-	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = '', $previsualizacion=true )
+	function vincular_usuario($usuario, $perfil_acceso, $perfil_datos=array(), $set_previsualizacion=true )
 	{
-		$url = $this->get_url();
-		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $previsualizacion, $url);
-		$this->instancia->get_db()->ejecutar( $sql );
-	}
+		//-- Perfiles Funcionales
+		if (! is_array($perfil_acceso)) {
+			$perfil_acceso = array($perfil_acceso);
+		}
+		//-- Perfiles de datos		
+		if (! is_array($perfil_datos)) {
+			if (is_null($perfil_datos)) {
+				$perfil_datos = array();
+			} else {
+				$perfil_datos = array($perfil_datos);
+			}
+		}	
+		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion, $this->get_url());
+		return $this->get_db()->ejecutar($sql);
+	}		
 
 	function desvincular_usuario( $usuario )
 	{
@@ -1502,11 +1513,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);
 		$this->manejador_interface->progreso_fin();
-		
-		//--- Generar un GRAN archivo .sql con los metadatos
-		//$this->manejador_interface->mensaje("Copiando base de metadatos", false);	
-		//$this->empaquetar_metadatos($destino_instalacion.'/sql', $proyectos);
-		$this->manejador_interface->progreso_fin();
 
 	}
 	
@@ -1530,37 +1536,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$editor->agregar_sustitucion( '|__proyecto__|', $this->get_id() );
 		$editor->procesar_archivo( $destino . '/www/aplicacion.php' );
 	}
-	/*
-	protected function empaquetar_metadatos($destino, $proyectos_extra)
-	{
-		$proyectos_a_exportar = $proyectos_extra;
-		$proyectos_a_exportar[] = $this->get_id();				
-		toba_manejador_archivos::crear_arbol_directorios($destino);
 
-		//-- Datos estaticos del proyecto
-		$destino_metadatos = $destino.'/metadatos_proyectos.sql';
-		
-		$fp = fopen($destino_metadatos, 'w');
-		fwrite($fp, $this->instancia->get_sql_crear_tablas());
-		$this->manejador_interface->progreso_avanzar();		
-		fwrite($fp, $this->instancia->get_sql_carga_datos_nucleo());
-		$this->manejador_interface->progreso_avanzar();	
-		fwrite($fp, $this->instancia->get_sql_carga_proyectos($proyectos_a_exportar));
-		$this->manejador_interface->progreso_avanzar();
-		fclose($fp);
-		
-		//-- Perfiles propios de proyectos
-		foreach($proyectos_a_exportar as $id_proyecto) {
-			$destino_metadatos = $destino."/metadatos_perfiles_$id_proyecto.sql";
-			$sql = $this->instancia->get_proyecto($id_proyecto)->get_sql_carga_perfiles();
-			file_put_contents($destino_metadatos, $sql);
-			$this->manejador_interface->progreso_avanzar();
-		}
-		
-		file_put_contents($destino."/actualizar_secuencias.sql", $this->instancia->get_sql_actualizar_secuencias());
-		$this->manejador_interface->progreso_avanzar();
-	}*/
-	
 	//-----------------------------------------------------------
 	//	VENTANAS
 	//-----------------------------------------------------------	
@@ -1709,7 +1685,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 																$nombre);
 				$db->ejecutar($sql_version);
 				foreach( $usuarios_a_vincular as $usuario ) {
-					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', '' ) );
+					$db->ejecutar(self::get_sql_vincular_usuario($nombre, $usuario, array('admin')));
 				}
 				$db->cerrar_transaccion();
 			} catch ( toba_error $e ) {
@@ -1748,26 +1724,27 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $sql;
 	}
 
-	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true, $url=null )
+	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfiles_acceso=array(), $perfiles_datos=array(), $set_previsualizacion=true, $url=null )
 	{
-		if (! is_array($perfil_acceso)) {
-			$perfil_acceso = array($perfil_acceso);
+		foreach ($perfiles_acceso as $perfil) {
+			$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
+						VALUES ('$proyecto','$usuario','$perfil');";
 		}
-		if (! isset($perfil_datos) || trim($perfil_datos) == '') {
-			$perfil_datos = 'NULL';
-		} else {
-			$perfil_datos = "'$perfil_datos'";
-		}		
-		$sql = array();
-		foreach ($perfil_acceso as $id_grupo) {
-				$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-						VALUES ('$proyecto','$usuario','$id_grupo', $perfil_datos);";
-			
+		foreach ($perfiles_datos as $perfil) {
+			$sql[] = "INSERT INTO apex_usuario_proyecto_perfil_datos (proyecto, usuario, usuario_perfil_datos)
+						VALUES ('$proyecto','$usuario','$perfil');";
 		}
-				// Decide un PA por defecto para el proyecto
-		if(isset($id_grupo) && $set_previsualizacion && isset($url)) {
-			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
-						VALUES ('$proyecto','$usuario','$id_grupo', '$url');";
+		
+		// Decide un PA por defecto para el proyecto
+		if(!empty($perfil_acceso) && $set_previsualizacion && isset($url)) {
+			$funcional = implode(',', $perfil_acceso);
+			if (empty($perfil_datos)) {
+				$datos = 'NULL';
+			} else {
+				$datos = "'".implode(',', $perfil_datos)."'";
+			}
+			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, perfil_datos, punto_acceso) 
+						VALUES ('$proyecto','$usuario','$funcional', $datos, '$url');";
 		}
 		return $sql;
 	}

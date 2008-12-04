@@ -669,6 +669,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$registro = $this->datos[$id_registro];
 		$binarios = array();
 		$db = toba::db($this->_fuente);
+		$valores_sql_binarios = array();
+		$columnas_sql_binarios = array();
 		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
@@ -683,8 +685,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$columnas_sql[$a] = $col;						
 					} elseif (is_resource($blob)) {
 						$binarios[] = $blob;
-						$valores_sql[$a] = '?';
-						$columnas_sql[$a] = $col;						
+						$valores_sql_binarios[$a] = '?';
+						$columnas_sql_binarios[$a] = $col;						
 					} else {
 						//No tocar nada
 					}
@@ -711,6 +713,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$a++;
 			}
 		}
+		// Para evitar un "bug" de PDO se colocan los campos de tipo binario al inicio de la sentencia INSERT.
+		$valores_sql = array_merge($valores_sql_binarios, $valores_sql);
+		$columnas_sql = array_merge($columnas_sql_binarios, $columnas_sql);
 		$sql = "INSERT INTO " . $this->_tabla .
 					" ( " . implode(", ", $columnas_sql) . " ) ".
 					"\n VALUES (" . implode(", ", $valores_sql) . ");";

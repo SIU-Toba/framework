@@ -1125,7 +1125,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			if (isset($accesos[$id_proyecto])) {
 				$proyecto = $this->get_proyecto($id_proyecto);
 				$proyecto->desvincular_usuario($usuario);
-				$proyecto->vincular_usuario($usuario, $accesos[$id_proyecto], 'no', false);
+				$proyecto->vincular_usuario($usuario, $accesos[$id_proyecto], null, false);
 			}
 		}
 		$this->db->cerrar_transaccion();
