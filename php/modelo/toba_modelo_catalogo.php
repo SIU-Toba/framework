@@ -4,6 +4,7 @@ class toba_modelo_catalogo
 {
 	private $instalacion;				// Instalacion
 	private $instancia;					// Array de instancias existentes en la instalacion
+	private $db;						// Base externa
 	static private $singleton;
 
 	private function __construct(){}
@@ -21,6 +22,9 @@ class toba_modelo_catalogo
 			$this->instalacion = new toba_modelo_instalacion();
 		}
 		$this->instalacion->set_manejador_interface( $manejador_interface );		
+		if (isset($this->db)) {
+			$this->instalacion->set_conexion_externa($this->db);
+		}
 		return $this->instalacion;
 	}
 
@@ -88,5 +92,10 @@ class toba_modelo_catalogo
 		}
 		return self::$singleton;	
 	}	
+	
+	function set_db($db)
+	{
+		$this->db = $db;
+	}
 }
 ?>

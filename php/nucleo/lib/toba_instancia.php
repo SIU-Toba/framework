@@ -80,6 +80,16 @@ class toba_instancia
 	}
 	
 	/**
+	 * @return toba_modelo_instancia
+	 */
+	protected function get_modelo_instancia()
+	{
+		$catalogo = toba_modelo_catalogo::instanciacion();
+		$catalogo->set_db($this->get_db());
+		return $catalogo->get_instancia($this->get_id());		
+	}
+	
+	/**
 	 * Retorna el path absoluto de un proyecto perteneciente a esta instancia
 	 */
 	function get_path_proyecto($proyecto)
@@ -435,55 +445,12 @@ class toba_instancia
 	 */
 	function agregar_usuario( $usuario, $nombre, $clave , $atributos=array())
 	{
-		$algoritmo = 'sha256';
-		$clave = encriptar_con_sal($clave, $algoritmo);
-		//toba::logger()->debug("Agregando el usuario '$usuario' a la instancia {$this->id}");
-		$into = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave"; 
-		$values = ") VALUES ('$usuario', '$nombre', '$algoritmo', '$clave'";
-		foreach ($atributos as $clave => $valor) {
-			 $into .=  ', '. $clave;
-			 $values .=  ", '$valor'";
-		}
-		$sql = $into . $values . ');';
-		return $this->get_db()->ejecutar( $sql );
+		$this->get_modelo_instancia()->agregar_usuario($usuario, $nombre, $clave, null, $atributos);
 	}
 	
 	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos=array(), $set_previsualizacion=true )
 	{
-		$sql = array();
-		//-- Perfiles Funcionales
-		if (! is_array($perfil_acceso)) {
-			$perfil_acceso = array($perfil_acceso);
-		}
-		foreach ($perfil_acceso as $perfil) {
-			$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
-						VALUES ('$proyecto','$usuario','$perfil');";
-		}
-		//-- Perfiles de datos		
-		if (! is_array($perfil_datos)) {
-			if (is_null($perfil_datos)) {
-				$perfil_datos = array();
-			} else {
-				$perfil_datos = array($perfil_datos);
-			}
-		}	
-		foreach ($perfil_datos as $perfil) {
-			$sql[] = "INSERT INTO apex_usuario_proyecto_perfil_datos (proyecto, usuario, usuario_perfil_datos)
-						VALUES ('$proyecto','$usuario','$perfil');";
-		}
-		//-- Decide un PA por defecto para el proyecto
-		if($set_previsualizacion) {
-			$funcional = implode(',', $perfil_acceso);
-			if (empty($perfil_datos)) {
-				$datos = 'NULL';
-			} else {
-				$datos = "'".implode(',', $perfil_datos)."'";
-			}
-			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, punto_acceso, grupo_acceso, perfil_datos) 
-						VALUES ('$proyecto','$usuario', '/$proyecto', '$funcional', $datos);";
-						
-		}
-		return $this->get_db()->ejecutar( $sql );
+		$this->get_modelo_instancia()->get_proyecto($proyecto)->vincular_usuario($usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion);
 	}	
 	
 

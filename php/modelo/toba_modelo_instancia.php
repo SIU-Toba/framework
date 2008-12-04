@@ -1088,14 +1088,32 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
-	function agregar_usuario( $usuario, $nombre, $clave, $email=null )
+	function agregar_usuario($usuario, $nombre, $clave, $email=null, $atributos=array())
 	{
 		$algoritmo = 'sha256';
 		$clave = encriptar_con_sal($clave, $algoritmo);
 		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
-		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave, email )
-				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave', '$email')";
-		return $this->get_db()->ejecutar( $sql );
+		
+		//-- Compatibilidad apis 
+		if (isset($atributos['email'])) {
+			$email = $atributos['email'];
+			unset($atributos['email']);
+		}
+		$into = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave, email"; 
+		$values = ") VALUES (:usuario, :nombre, '$algoritmo', :clave, :email";
+		foreach ($atributos as $clave => $valor) {
+			 $into .=  ", $clave";
+			 $values .=  ", :$clave";
+		}
+		$sql = $into . $values . ');';
+		
+		$atributos['usuario'] = $usuario;
+		$atributos['nombre'] = $nombre;
+		$atributos['email'] = $email;
+		$atributos['clave'] = $clave;
+		
+		$id = $this->get_db()->sentencia_preparar($sql);				
+		$this->get_db()->sentencia_ejecutar($id, $atributos);
 	}
 	
 	function eliminar_usuario( $usuario )
