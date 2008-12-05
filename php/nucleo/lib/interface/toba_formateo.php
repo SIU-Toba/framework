@@ -218,7 +218,7 @@ class toba_formateo
         if ($this->tipo_salida != 'excel') {
         	return $html;
         } else {
-        	return array($html, null);
+        	return array($valor, null);
         }
 	}
 

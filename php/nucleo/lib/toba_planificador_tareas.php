@@ -1,0 +1,188 @@
+<?php
+
+/**
+ * Permite programar tareas a ejecutarse automáticamente en el servidor
+ */
+class toba_planificador_tareas
+{
+	protected $proyecto;
+	
+	function __construct($proyecto=null)
+	{
+		if (! isset($proyecto)) {
+			$proyecto = toba::proyecto()->get_id();
+		}
+		$this->proyecto = $proyecto;
+	}
+	
+	function programar_tarea(toba_tarea $tarea, $timestamp, $intervalo=null, $nombre=null)
+	{
+		$db = toba::instancia()->get_db();
+		if (isset($intervalo)) {
+			$intervalo = $db->quote($intervalo);
+		} else {
+			$intervalo = 'NULL';
+		}
+		$nombre = $db->quote($nombre);
+		$clase = get_class($tarea);
+
+		$sql = "INSERT INTO apex_tarea (proyecto, nombre, ejecucion_proxima, intervalo_repeticion, tarea_objeto, tarea_clase) VALUES ";
+		$sql.= "('{$this->proyecto}', $nombre, $timestamp, $intervalo, ?, '$clase')";
+		
+		//Inserta el objeto serializado en el BLOB
+		$pdo = $db->get_pdo();
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(1, serialize($tarea), PDO::PARAM_LOB);
+		$stmt->execute();
+		
+		$id_tarea = $db->recuperar_secuencia('apex_tarea_seq');
+		return $id_tarea;
+	}
+	
+	function desprogramar($id_tarea, $manejador_interface=null)
+	{
+		$db = toba::instancia()->get_db();
+		$db->quote($id_tarea);
+		$sql = "DELETE FROM apex_tarea WHERE tarea='$id_tarea' AND proyecto='{$this->proyecto}'";
+		$db->ejecutar($sql);
+		$mensaje_debug = "Tarea '$id_tarea' desprogramada";
+		toba::logger()->debug($mensaje_debug);	
+		if (isset($manejador_interface)) {
+			$manejador_interface->mensaje($mensaje_debug);
+		}
+	}
+	
+	function ejecutar_pendientes($manejador_interface=null)
+	{
+		$sql = "
+			SELECT 
+				tarea
+			FROM
+				apex_tarea
+			WHERE
+					proyecto = '{$this->proyecto}'
+				AND ejecucion_proxima <= NOW()
+		";
+		$tareas = toba::instancia()->get_db()->consultar($sql);
+		$mensaje_debug = "Encontradas ".count($tareas)." tarea(s) pendiente(s)";
+		toba::logger()->debug($mensaje_debug);
+		if (isset($manejador_interface)) {
+			$manejador_interface->subtitulo($mensaje_debug);
+		}		
+		foreach ($tareas as $tarea) {
+			$this->ejecutar_tarea($tarea['tarea'], $manejador_interface);
+			if (isset($manejador_interface)) {
+				$manejador_interface->enter();
+			}
+		}
+	}
+	
+	function ejecutar_tarea($id, $manejador_interface=null)
+	{
+		//-- Obtiene los datos de la tarea
+		$db = toba::instancia()->get_db();
+		$id = $db->quote($id);
+		$sql = "
+			SELECT 
+				tar.tarea,
+				tar.nombre,
+				tar.tarea_objeto,
+				tar.tarea_clase,
+				tar.intervalo_repeticion,
+				tar.ejecucion_proxima
+			FROM
+				apex_tarea tar
+			WHERE
+					tar.proyecto = '{$this->proyecto}'
+				AND	tar.tarea = $id
+		";
+		$datos = $db->consultar_fila($sql);
+		if ($datos === false) {
+			throw new toba_error("No existe una tarea programada con id '{$datos['tarea']}' en el proyecto '{$this->proyecto}'");
+		}
+		
+		//-- Ejecuta el objeto tarea
+		$tarea = unserialize(stream_get_contents($datos['tarea_objeto']));
+		if ($tarea === false) {
+			$mensaje_debug = "Error al deserializar tarea '{$datos['tarea']}' con clase '{$datos['clase']}' en el proyecto '{$this->proyecto}'";
+			toba::logger()->error($mensaje_debug);
+			if (isset($manejador_interface)) {
+				$manejador_interface->error($mensaje_debug);
+			}
+		} else {
+			$tarea->ejecutar();
+			$this->registrar_ejecucion($datos, $manejador_interface);
+
+			//Si no posee proxima ejecucion la elimina, sino la reprograma a futuro
+			if (!isset($datos['intervalo_repeticion'])) {
+				$this->desprogramar($datos['tarea'], $manejador_interface);
+			} else {
+				$this->reprogramar($datos, $manejador_interface);
+			}	
+		}
+	}
+	
+	/**
+	 * Loguea la ejecucion de la tarea
+	 */
+	protected function registrar_ejecucion($datos, $manejador_interface=null)
+	{
+		$id = $datos['tarea'];
+		$mensaje_debug = "Ejecutada tarea $id:{$datos['nombre']} de clase '{$datos['tarea_clase']}' en el proyecto '{$this->proyecto}'";
+		toba::logger()->debug($mensaje_debug);		
+		if (isset($manejador_interface)) {
+			$manejador_interface->mensaje($mensaje_debug);
+		}		
+		
+		$sql = "INSERT INTO apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
+				SELECT proyecto, tarea, nombre, tarea_clase, tarea_objeto, NOW()
+				FROM apex_tarea WHERE tarea=$id AND proyecto ='{$this->proyecto}'
+		";
+		toba::instancia()->get_db()->ejecutar($sql);
+	}
+	
+	/**
+	 * Vuelve a programar la tarea, asegurandose que sea en el futuro
+	 */
+	protected function reprogramar($datos, $manejador_interface=null)
+	{
+		$proxima = $datos['ejecucion_proxima'];
+		$db = toba::instancia()->get_db();
+		
+		//--Cicla aumentando de a intervalos hasta encontrar una fecha futura
+		do {
+			$sql = "
+				SELECT 
+					('$proxima'::timestamp + intervalo_repeticion) as proxima,
+					('$proxima'::timestamp + intervalo_repeticion >= NOW()) as es_futura
+				FROM
+					apex_tarea
+				WHERE
+						tarea = '{$datos['tarea']}'
+					AND proyecto ='{$this->proyecto}'
+			";
+			$rs = $db->consultar_fila($sql);
+			$proxima = $rs['proxima'];
+		} while ($rs['es_futura'] !== true);
+		
+		//-- Actualiza la tarea
+		$sql = "UPDATE apex_tarea SET 
+					ejecucion_proxima = '{$rs['proxima']}'::timestamp
+				WHERE
+						tarea = '{$datos['tarea']}'					
+					AND	proyecto = '{$this->proyecto}'
+		";
+		$db->ejecutar($sql);
+
+		$mensaje = "Tarea {$datos['tarea']} reprogamada al {$rs['proxima']}";
+		toba::logger()->debug($mensaje);
+		if (isset($manejador_interface)) {
+			$manejador_interface->mensaje($mensaje);
+		}
+		
+	}
+	
+}
+
+
+?>

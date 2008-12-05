@@ -411,6 +411,8 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 		var hay_datos=false;
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
+			//--- Esto es para poder insertar caracteres especiales dentro del Option
+			input.options[input.options.length - 1].innerHTML = valores[id];			
 			hay_datos=true;
 		}
 		if (hay_datos) {

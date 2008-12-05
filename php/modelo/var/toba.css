@@ -183,6 +183,23 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border: 1px dotted {$borde_tabular};
 	_border: 1px solid {$borde_tabular};
 }
+.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+	font-size: 11px;
+	text-align: left;
+	padding: 5px;
+}
+table.ci-pant-desc {
+	width: 100%;
+}
+.ci-pant-desc td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.ci-pant-desc-img {
+	width: 20px;
+	vertical-align: top;
+}
+
 .ei-barra-sup-desc-warning, .ci-pant-desc-warning {
 	background-color: #FFFFE1;
 	border: 1px solid #B7C8F6;

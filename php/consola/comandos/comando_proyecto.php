@@ -373,6 +373,30 @@ class comando_proyecto extends comando_toba
 		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $id_proyecto, $dir_toba_viejo);
 	}	
 	
+	
+	
+	/**
+	 * Ejecuta las tareas planificadas pendientes
+	 * @consola_parametros Opcional: [-v 0|1] Modo verbose
+	 */
+	function opcion__ejecutar_tareas()
+	{
+		$param = $this->get_parametros();
+		$manejador_interface = null;
+		if (isset($param['-v']) && $param['-v']) {
+		    $manejador_interface = $this->consola;
+		} else {
+			$this->consola->set_verbose(false);
+		}
+		//Incluye el contexto consola
+		require_once("nucleo/toba.php");
+		toba::nucleo()->iniciar_contexto_desde_consola($this->get_id_instancia_actual(true), $this->get_id_proyecto_actual(true));
+		
+		//Ejecuta el planificador
+		$planificador = new toba_planificador_tareas();
+		$planificador->ejecutar_pendientes($manejador_interface);
+	}
+		
 	/**
 	 * Migra un proyecto entre dos versiones toba.
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] [-m metodo puntual de migracion]
@@ -404,6 +428,7 @@ class comando_proyecto extends comando_toba
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
 	}
+
 
 }
 ?>

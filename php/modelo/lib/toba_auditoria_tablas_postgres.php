@@ -72,6 +72,8 @@ class toba_auditoria_tablas_postgres
 	
 	function regenerar()
 	{
+		$this->eliminar_triggers();
+		$this->crear_triggers();
 		$this->crear_sp();
 	}
 		

@@ -167,6 +167,9 @@
 			if(is_null( $datos[$columna] )){
 				$datos[$columna] = "%%NULL%%";//Identifico los nulos
 			}else{
+				if (is_resource($datos[$columna])) {
+					$datos[$columna] = stream_get_contents($datos[$columna]);
+				}				
 				$datos[$columna] = addslashes($datos[$columna]);//Escapo caracteres
 			}
 		}
@@ -189,6 +192,9 @@
 			if(is_null( $datos[$columna] )){
 				$datos[$columna] = "%%NULL%%";//Identifico los nulos
 			}else{
+				if (is_resource($datos[$columna])) {
+					$datos[$columna] = stream_get_contents($datos[$columna]);
+				}
 				$datos[$columna] = addslashes($datos[$columna]);//Escapo caracteres
 			}
 		}

@@ -66,7 +66,10 @@ ef.prototype.constructor = ef;
 	 * @type string
 	 */		
 	ef.prototype.get_estado = function() {
-		return this.input().value;
+		var input = this.input();
+		if (input != null) {
+			return input.value;
+		}
 	};
 	
 	/**

@@ -293,5 +293,12 @@ class toba
 		return self::$perfil_funcional;
 	}
 
+	/**
+	 * @return toba_planificador_tareas
+	 */
+	static function planificador_tareas($proyecto=null)
+	{
+		return new toba_planificador_tareas($proyecto);
+	}
 }
 ?>

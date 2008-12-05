@@ -19,6 +19,7 @@ class toba_ei_calendario extends toba_ei
 	protected $_dia_seleccionado;
 	protected $_mes_actual;
 	protected $_ver_contenidos;
+	protected $_rango_anios = array(2000, 2010);
 
     function __construct($id)
     {
@@ -81,6 +82,20 @@ class toba_ei_calendario extends toba_ei
 		if ($ver) {
 			$this->_calendario->viewEventContents();
 		}
+	}
+	
+	function set_dia_seleccionado($dia, $mes, $anio)
+	{
+		$this->_memoria['dia_seleccionado'] = array('dia' => $dia, 'mes' => $mes, 'anio' => $anio);
+		$this->_dia_seleccionado = $this->_memoria['dia_seleccionado'];
+		$this->_calendario->setSelectedDay($dia);
+		$this->_calendario->setSelectedMonth($mes);
+		$this->_calendario->setSelectedYear($anio);		
+	}
+	
+	function set_rango_anios($inicio, $fin)
+	{
+		$this->_rango_anios = array($inicio, $fin);
 	}
 	
 	/**
@@ -187,9 +202,10 @@ class toba_ei_calendario extends toba_ei
 		echo toba_form::hidden($this->_submit."__cambiar_mes", '');
 
 		$this->_calendario->updateCalendar($this->_mes_actual["mes"], $this->_mes_actual["anio"]);
-		$this->_calendario->enableDatePicker(2000,2010);
+		$this->_calendario->enableDatePicker($this->_rango_anios[0], $this->_rango_anios[1]);
 		$this->_calendario->enableDayLinks();
 		$this->_calendario->enableWeekLinks();
+		
 		echo "<div class='ei-base ei-calendario-base'>\n";
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-calendario-barra-sup");
@@ -223,6 +239,14 @@ class toba_ei_calendario extends toba_ei
 	{
 		$datos = $this->_calendario->getEventContent($dia);
 		return $datos;
+	}
+	
+	/**
+	 * @return calendario
+	 */
+	function get_calendario()
+	{
+		return $this->_calendario;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -261,10 +285,34 @@ class toba_ei_calendario extends toba_ei
  */
 class calendario extends activecalendar
 {
+	protected $mostrar_semanas = true;
+	protected $mostrar_mes = true;
+	protected $solo_pasados = true;
+	protected $siempre_resalta_dia_actual = false;
 	
 	function __construct($week=false,$year=false,$month=false,$day=false,$GMTDiff="none")
 	{
         parent::__construct($week,$year,$month,$day,$GMTDiff);
+	}
+	
+	function set_mostrar_semanas($mostrar)
+	{
+		$this->mostrar_semanas = $mostrar;
+	}
+	
+	function set_mostrar_mes_actual($mostrar)
+	{
+		$this->mostrar_mes = $mostrar;
+	}
+	
+	function set_seleccionar_solo_dias_pasados($seleccionar)
+	{
+		$this->solo_pasados = $seleccionar;
+	}
+	
+	function set_resaltar_siempre_dia_actual($resaltar)
+	{
+		$this->siempre_resalta_dia_actual = $resaltar;
 	}
 	
 	function updateCalendar($mes, $anio)
@@ -340,7 +388,9 @@ class calendario extends activecalendar
 	{
 		$out = $this->mkMonthHead();
 		$out .= $this->barra_editor($editor);
-		$out .= $this->mkMonthTitle();
+		if ($this->mostrar_mes) {
+			$out .= $this->mkMonthTitle();
+		}
 		$out .= $this->mkDatePicker($objeto_js, $eventos);
 		$out .= $this->mkWeekDays();
 		$out .= $this->mkMonthBody($objeto_js, $eventos);
@@ -365,19 +415,22 @@ class calendario extends activecalendar
 		$pickerSpan = 8;
 		if ($this->datePicker)
 		{
+			$evento_js = toba_js::evento('cambiar_mes', $eventos["cambiar_mes"]);
+			$js = "{$objeto_js}.set_evento($evento_js);";
+						
 			$out="<tr><td class=\"".$this->cssPicker."\" colspan=\"".$pickerSpan."\">\n";
-			$out.="<select name=\"".$this->monthID."\" id=\"".$this->monthID."\" class=\"".$this->cssPickerMonth."\">\n";
+			$out.="<select name=\"".$this->monthID."\" id=\"".$this->monthID."\" class=\"".$this->cssPickerMonth."\" onchange=\"$js\">\n";
 			for ($z=1;$z<=12;$z++)
 			{
 				if ($z <= 9)
 					$z = "0$z";
 				if ($z==$this->actmonth)
-					$out.="<option value=\"".$z."\" selected=\"selected\">".$this->getMonthName($z)."</option>\n";
+					$out.="<option value=\"".$z."\" selected=\"selected\" >".$this->getMonthName($z)."</option>\n";
 				else
 					$out.="<option value=\"".$z."\">".$this->getMonthName($z)."</option>\n";
 			}
 			$out.="</select>\n";
-			$out.="<select name=\"".$this->yearID."\" id=\"".$this->yearID."\" class=\"".$this->cssPickerYear."\">\n";
+			$out.="<select name=\"".$this->yearID."\" id=\"".$this->yearID."\" class=\"".$this->cssPickerYear."\" onchange=\"$js\">\n";
 			for ($z=$this->startYear;$z<=$this->endYear;$z++)
 			{
 				if ($z==$this->actyear)
@@ -386,9 +439,8 @@ class calendario extends activecalendar
 					$out.="<option value=\"".$z."\">".$z."</option>\n";
 			}
 			$out.="</select>\n";
-			$evento_js = toba_js::evento('cambiar_mes', $eventos["cambiar_mes"]);
-			$js = "{$objeto_js}.set_evento($evento_js);";
-			$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer;;cursor:hand;' onclick=\"$js\"></input>\n";
+
+			//$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer;;cursor:hand;' onclick=\"$js\"></input>\n";
 			$out.="</td></tr>\n";
 		}
 		return $out;
@@ -398,7 +450,9 @@ class calendario extends activecalendar
 	{
 		$out="<tr>";
 		$monthday=0;
-		$out.=$this->mkWeek($this->firstdate, $objeto_js, $eventos);
+		if ($this->mostrar_semanas) {
+			$out.=$this->mkWeek($this->firstdate, $objeto_js, $eventos);
+		}
 		for ($x=0; $x<=6; $x++)
 		{
 			if ($x>=$this->firstday)
@@ -420,7 +474,9 @@ class calendario extends activecalendar
 				break;
 			$out.="<tr>";
 			$date = $this->mkActiveTime(0,0,1,$this->actmonth,$goon,$this->actyear);
-			$out.=$this->mkWeek($date, $objeto_js, $eventos);
+			if ($this->mostrar_semanas) {
+				$out.=$this->mkWeek($date, $objeto_js, $eventos);
+			}
 			for ($i=$goon; $i<=$goon+6; $i++)
 			{
 				if ($i>$this->maxdays)
@@ -436,6 +492,41 @@ class calendario extends activecalendar
 		}
 		return $out;
 	}
+	
+function mkWeekDays()
+{
+	$out = '';
+	if ($this->startOnSun)
+	{
+		if ($this->mostrar_semanas) {
+			$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+		}
+		$out.="<td>".$this->getDayName(0)."</td>";
+		$out.="<td>".$this->getDayName(1)."</td>";
+		$out.="<td>".$this->getDayName(2)."</td>";
+		$out.="<td>".$this->getDayName(3)."</td>";
+		$out.="<td>".$this->getDayName(4)."</td>";
+		$out.="<td>".$this->getDayName(5)."</td>";
+		$out.="<td>".$this->getDayName(6)."</td></tr>\n";
+	}
+	else
+	{
+		if ($this->mostrar_semanas) {
+			$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+		}
+		$out.="<td>".$this->getDayName(1)."</td>";
+		$out.="<td>".$this->getDayName(2)."</td>";
+		$out.="<td>".$this->getDayName(3)."</td>";
+		$out.="<td>".$this->getDayName(4)."</td>";
+		$out.="<td>".$this->getDayName(5)."</td>";
+		$out.="<td>".$this->getDayName(6)."</td>";
+		$out.="<td>".$this->getDayName(0)."</td></tr>\n";
+		$this->firstday=$this->firstday-1;
+		if ($this->firstday<0)
+			$this->firstday=6;
+	}
+	return $out;
+}	
 	
 	function viernes($semana, $anio)
 	{
@@ -485,7 +576,6 @@ class calendario extends activecalendar
 	function compare_date($day)
 	{
 		$fecha_hoy = $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday);
-	
 		if ($day < $fecha_hoy)
 			return -1;
 		elseif ($day > $fecha_hoy)
@@ -507,16 +597,20 @@ class calendario extends activecalendar
 		$evento_js = toba_js::evento('seleccionar_dia', $eventos["seleccionar_dia"], "{$day}||{$this->actmonth}||{$this->actyear}");
 		$js = "{$objeto_js}.set_evento($evento_js);";
 		$day = $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear);
-		if ($this->compare_date($day) == 1)
+		
+		$resalta_hoy = ($this->siempre_resalta_dia_actual || $this->getSelectedDay() < 0);
+
+		if ($this->solo_pasados && $this->compare_date($day) == 1) {
+			//Es una fecha futura y no se permite clickearla
 			$out="<td class=\"".$this->cssSunday."\">".$var.$content."</td>";		
-		elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
-			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
-		elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
+		} elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6)))) {
+			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";			
+		} elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
 			if (!$this->dayLinks)
 				$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
 			else
 				$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-		} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $this->getSelectedDay() < 0 && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
+		} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $resalta_hoy && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
 			if (!$this->dayLinks)
 				$out="<td class=\"".$this->cssToday."\">".$var.$content."</td>";
 			else

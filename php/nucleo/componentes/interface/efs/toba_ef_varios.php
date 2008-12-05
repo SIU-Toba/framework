@@ -246,6 +246,7 @@ class toba_ef_html extends toba_ef
 	protected $alto;
 	protected $botonera;
 	protected $fckeditor;
+	protected $colapsada = false;
 
 	static function get_lista_parametros()
 	{
@@ -288,6 +289,11 @@ class toba_ef_html extends toba_ef
 			$this->fckeditor->Config['DefaultLanguage'] = 'es';
 		}
 		return $this->fckeditor;		
+	}
+	
+	function set_barra_colapsada($colapsada)
+	{
+		$this->colapsada = $colapsada;
 	}
 
 	function get_input()

@@ -10,6 +10,17 @@ class toba_db_tablas_instancia
 );
 	}
 
+	static function get_lista_proyecto()
+	{
+		return array (
+  0 => 'apex_tarea',
+  1 => 'apex_log_tarea',
+  2 => 'apex_arbol_items_fotos',
+  3 => 'apex_admin_album_fotos',
+  4 => 'apex_admin_param_previsualizazion',
+);
+	}
+
 	static function get_lista_global_usuario()
 	{
 		return array (
@@ -26,15 +37,6 @@ class toba_db_tablas_instancia
   3 => 'apex_solicitud_browser',
   4 => 'apex_solicitud_consola',
   5 => 'apex_solicitud_observacion',
-);
-	}
-
-	static function get_lista_proyecto()
-	{
-		return array (
-  0 => 'apex_arbol_items_fotos',
-  1 => 'apex_admin_album_fotos',
-  2 => 'apex_admin_param_previsualizazion',
 );
 	}
 
@@ -95,6 +97,56 @@ class toba_db_tablas_instancia
     5 => 'administrador_2',
     6 => 'administrador_3',
     7 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_tarea()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto, tarea',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'tarea',
+    2 => 'nombre',
+    3 => 'tarea_clase',
+    4 => 'tarea_objeto',
+    5 => 'ejecucion_proxima',
+    6 => 'intervalo_repeticion',
+  ),
+);
+	}
+
+	static function apex_log_tarea()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto, log_tarea',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'log_tarea',
+    2 => 'tarea',
+    3 => 'nombre',
+    4 => 'tarea_clase',
+    5 => 'tarea_objeto',
+    6 => 'ejecucion',
   ),
 );
 	}

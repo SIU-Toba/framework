@@ -376,3 +376,59 @@ CREATE TABLE	apex_consulta_php
   	CONSTRAINT "apex_consulta_php_pk" PRIMARY KEY("consulta_php","proyecto"),
   	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+
+
+--#################################################################################################
+
+CREATE SEQUENCE apex_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_tarea
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto, tarea
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	tarea						int4			DEFAULT nextval('"apex_tarea_seq"'::text) NOT NULL, 
+	nombre						varchar(60)		NULL,	
+	tarea_clase					varchar(120)	NOT NULL,
+	tarea_objeto				bytea			NOT NULL,	
+	ejecucion_proxima			timestamp		NOT NULL,	
+	intervalo_repeticion		interval		NULL,				
+  	CONSTRAINT "apex_tarea_pk" PRIMARY KEY("tarea","proyecto"),
+  	CONSTRAINT "apex_tarea_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+CREATE INDEX index_apex_tarea_proxima_ejecucion ON apex_tarea(ejecucion_proxima);
+
+
+
+--#################################################################################################
+
+CREATE SEQUENCE apex_log_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_log_tarea
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto, log_tarea
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	log_tarea					int4			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
+	tarea						int4			NOT NULL,	
+	nombre						varchar(60)		NULL,	
+	tarea_clase					varchar(120)	NOT NULL,
+	tarea_objeto				bytea			NOT NULL,	
+	ejecucion					timestamp		NOT NULL,
+  	CONSTRAINT "apex_log_tarea_pk" PRIMARY KEY("log_tarea","proyecto"),
+  	CONSTRAINT "apex_log_tarea_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);

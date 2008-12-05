@@ -338,7 +338,9 @@ abstract class toba_ei extends toba_componente
 	{
 		foreach ($this->_eventos_usuario_utilizados as $evento) {	
 			if ( $evento->esta_en_botonera() ) {
-				return true;
+				if( !in_array($evento->get_id(), $this->_botones_graficados_ad_hoc ) ) {
+					return true;
+				}				
 			}
 		}
 		return false;

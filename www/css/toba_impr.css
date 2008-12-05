@@ -3,6 +3,12 @@ body {
 	font-size: 10px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+#menu-h, .enc-salir, .enc-usuario {
+	display: none;
+}
+.div-editor, #editor_previsualizacion {
+	display:none;
+}
 .tabla-0, .ei-base {
 	font-size: 10px;
 	padding: 0;
@@ -143,4 +149,5 @@ body {
 .col-cen-s1, .col-cen-s2, .col-cen-s3, .col-cen-s4  {
 	text-align: center;
 }
+
 

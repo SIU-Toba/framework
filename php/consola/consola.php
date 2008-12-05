@@ -16,6 +16,7 @@ class consola implements toba_proceso_gui
 	const display_prefijo_linea = ' ';
 	protected 	$ubicacion_comandos;
 	protected	$menu;
+	protected $verbose = true;
 	
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
@@ -57,7 +58,9 @@ class consola implements toba_proceso_gui
 			$this->menu->mostrar_ayuda_raiz();
 		}
 		toba_cronometro::instancia()->marcar('Fin proceso.');
-		$this->menu->mostrar_resumen();
+		if ($this->verbose) {
+			$this->menu->mostrar_resumen();
+		}
 	}
 
 	function invocar_comando($nombre_comando, $argumentos)
@@ -73,6 +76,12 @@ class consola implements toba_proceso_gui
 			throw new toba_error("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
+	
+	function set_verbose($verbose)
+	{
+		$this->verbose = $verbose;
+	}
+	
 /*
 	function interprete()
 	{
