@@ -897,6 +897,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$this->cargar_registro_a_ef($fila, $dato);
 			//--- Se cargan las opciones de los efs de esta fila
 			$this->_carga_opciones_ef->cargar();
+			//--- Ventana para poder configurar una fila especifica
+			$callback_configurar_fila_contenedor = 'conf_fila__' . $this->_parametros['id'];
+			if (method_exists($this->controlador, $callback_configurar_fila_contenedor)) {
+				$this->controlador->$callback_configurar_fila_contenedor($fila);
+			}			
+			//-- Inicio html de la fila
 			echo "\n<!-- FILA $fila -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->_info_formulario['filas_numerar']) {

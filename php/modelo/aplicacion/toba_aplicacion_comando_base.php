@@ -44,6 +44,14 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	{
 		$this->modelo->crear_auditoria();
 	}	
+	
+	/**
+	 * Borra el esquema de auditoria creado
+	 */
+	function opcion__borrar_auditoria()
+	{
+		$this->modelo->borrar_auditoria();
+	}		
 		
 }
 

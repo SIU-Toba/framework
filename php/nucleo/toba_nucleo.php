@@ -96,8 +96,10 @@ class toba_nucleo
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
 		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
-		toba::logger()->guardar();
-		exit($estado_proceso);
+		$dir_logs = toba_modelo_instalacion::dir_base()."/logs_comandos";
+		toba::logger()->set_directorio_logs($dir_logs);
+		toba::logger()->guardar_en_archivo('comandos.log');
+		exit($estado_proceso);		
 	}
 	
 	function iniciar_contexto_desde_consola($instancia, $proyecto)

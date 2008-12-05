@@ -12,10 +12,16 @@ ef_cuit.prototype.constructor = ef_cuit;
 	}
 
 	ef_cuit.prototype.input = function(posicion) {
+		if (! isset(posicion)) {
+			posicion = 2;
+		}
 		return document.getElementById(this._id_form + '_' + posicion);
 	};
 	
 	ef_cuit.prototype.validar = function () {
+		if (! ef.prototype.validar.call(this)) {
+			return false;
+		}		
 		var valor = this.get_estado();
 		if (this._obligatorio && ereg_nulo.test(valor)) {
 			this._error = ' es obligatorio.';
@@ -59,10 +65,30 @@ ef_cuit.prototype.constructor = ef_cuit;
 	
 	
 	ef_cuit.prototype.set_estado = function(nuevo,posicion) {
+		if (! isset(posicion)) {
+			this.set_estado_posicion(nuevo.substr(0, 2), 1);
+			this.set_estado_posicion(nuevo.substr(2, 8), 2);
+			this.set_estado_posicion(nuevo.substr(10,1), 3);
+		} else {
+			this.set_estado_posicion(nuevo, posicion);
+		}
+	};	
+	
+	ef_cuit.prototype.set_estado_posicion = function(nuevo,posicion) {
 		this.input(posicion).value = nuevo;
 		if (this.input(posicion).onblur) {
 			this.input(posicion).onblur();
 		}
+	};	
+		
+	
+	/**
+	 * Borra el estado actual del elemento, el nuevo estado depende de cada ef, generalmente equivale a un string vacio
+	 */
+	ef_cuit.prototype.resetear_estado = function() {
+		this.set_estado('', 1);
+		this.set_estado('', 2);
+		this.set_estado('', 3);
 	};	
 	
 	//cuando_cambia_valor (disparar_callback)

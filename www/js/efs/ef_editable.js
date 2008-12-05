@@ -91,6 +91,9 @@ ef_editable.prototype.constructor = ef_editable;
 	};
 	
 	ef_editable.prototype.set_estado = function(nuevo) {
+		if (nuevo === null) {
+			return this.resetear_estado();
+		}
 		if (this._mascara) {
 			var valor = this._mascara.format(nuevo, false, true);
 			this.input().value = valor;
@@ -385,6 +388,12 @@ ef_editable_fecha.prototype = new ef_editable();
 	    return edad;		
 	};
 
+	/**
+	 * Cambia el estado del ef en base a un objeto Date de javascript
+	 */
+	ef_editable_fecha.prototype.set_fecha = function(fecha) {	
+		 this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
+	}
 	
 	ef_editable_fecha.prototype.validar = function() {
 		if (! ef_editable.prototype.validar.call(this)) {

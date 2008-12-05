@@ -293,9 +293,9 @@ ef.prototype.constructor = ef;
 		if (! nodo) {
 			nodo = this.input();	
 		}	
-		return nodo.style.display == 'none';		
-	};
-		
+		return nodo.style.display == 'none' || (this.input().style && this.input().style.display == 'none');		
+	};	
+
 	/**
 	 * Oculta temporalmente el elemento y su etiqueta
 	 * @param {boolean} resetar Además de ocultar el elemento borra su estado o valor actual, por defecto false

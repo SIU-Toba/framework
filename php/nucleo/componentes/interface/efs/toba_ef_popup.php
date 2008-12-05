@@ -10,7 +10,7 @@
  */
 class toba_ef_popup extends toba_ef_editable
 {
-    protected $descripcion_estado = '';
+    protected $descripcion_estado;
     protected $item_destino;
     protected $item_destino_proyecto;
     protected $ventana;
@@ -143,7 +143,7 @@ class toba_ef_popup extends toba_ef_editable
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";		
 		if(!isset($this->estado)) $this->estado="";	
-		if ($this->descripcion_estado == '') {
+		if (!isset($this->descripcion_estado) || $this->descripcion_estado == '') {
 			$this->descripcion_estado = $this->estado;		
 		}
 		$js = '';	
@@ -195,7 +195,9 @@ class toba_ef_popup extends toba_ef_editable
 	
 	function resetear_estado()
 	{
-		$this->descripcion_estado = '';		
+		if (isset($this->descripcion_estado)) {
+			$this->descripcion_estado = '';		
+		}
 		if($this->tiene_estado()){
 			unset($this->estado);
 		}

@@ -60,13 +60,8 @@ class toba_ef_checkbox extends toba_ef
     	if (!isset($this->estado))
     		$this->estado = null;
     		
-         if ($this->solo_lectura) 
-         {
-		 	if ($this->estado != "")
-	            $html_devuelto = toba_form::hidden($this->id_form, $this->estado);
-			else
-				$html_devuelto = "";
-				
+         if ($this->solo_lectura) {
+            $html_devuelto = toba_form::hidden($this->id_form, $this->estado);
             if ($this->seleccionado()) {
                 $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_on.gif',true,16,16);
             } else {

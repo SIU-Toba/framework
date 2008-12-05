@@ -61,6 +61,11 @@ ef_combo.prototype.constructor = ef_combo;
 			}
 		}
 		if (!ok) {
+			if (nuevo === null) {
+				//Reentra con la constante que marca el valor 'no-seteado' del combo, para permitir pasar un null desde una sql al combo
+				this.resetear_estado();
+				return;
+			}
 			var msg = 'El combo no tiene a ' + nuevo + ' entre sus elementos.';
 			throw new Error(msg, msg);
 		}

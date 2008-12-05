@@ -114,6 +114,15 @@ class toba_formateo
 	{	
 		return $this->formato_decimal($valor);
 	}
+	
+	function formato_forzar_cadena($valor)
+	{
+		if ($this->tipo_salida != 'excel') {
+			return $valor;
+		} else {
+			return array(" ".$valor, array());
+		}		
+	}
 
 	function formato_mayusculas($valor)
 	{

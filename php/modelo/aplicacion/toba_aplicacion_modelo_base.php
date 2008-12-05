@@ -337,6 +337,37 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}		
 	}
 			
+	/**
+	 * Borra los triggers, store_procedures y esquema para la auditoría de tablas del sistema
+	 */
+	function borrar_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
+	{
+		$this->manejador_interface->mensaje('Borrando esquema y triggers de auditoria', false);
+		$this->manejador_interface->progreso_avanzar();
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+		$base = $this->instalacion->conectar_base($id_def_base);		
+		if ($con_transaccion) {
+			$base->abrir_transaccion();
+		}
+		//--- Tablas de auditoría
+		$auditoria = new toba_auditoria_tablas_postgres($base);
+		if (empty($tablas)) {
+			$auditoria->agregar_tablas($prefijo_tablas);
+		} else {
+			foreach($tablas as $tabla) {
+				$auditoria->agregar_tabla($tabla);
+			}
+		}
+		$auditoria->eliminar();
+		if ($con_transaccion) {
+			$base->cerrar_transaccion();
+		}
+		$this->manejador_interface->progreso_fin();
+	}
 		
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema
