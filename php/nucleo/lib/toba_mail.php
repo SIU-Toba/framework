@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase para crear un mail en texto plano o html 
+ * @package Centrales  
+ */
 class toba_mail implements toba_tarea
 {
 	protected $desde;
@@ -70,7 +74,7 @@ class toba_mail implements toba_tarea
 		}
 		
 		if (isset($this->confirmacion)){
-			$mail->ConfirmReadingTo($this->confirmacion);
+			$mail->ConfirmReadingTo = $this->confirmacion;
 		}
 			
 		$mail->Subject  = $this->asunto;

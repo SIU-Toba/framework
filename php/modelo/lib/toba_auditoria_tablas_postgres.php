@@ -2,6 +2,7 @@
 
 /**
  * API para administrar tablas paralelas de logs
+ * @package Fuentes 
  */
 class toba_auditoria_tablas_postgres
 {

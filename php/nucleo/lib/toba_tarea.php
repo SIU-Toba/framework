@@ -2,6 +2,7 @@
 
 /**
  * Interface que deben respetar aquellas clases que deseen incluirse en el planificador de tareas
+ * @package Centrales
  */
 interface toba_tarea
 {
@@ -10,6 +11,7 @@ interface toba_tarea
 
 /**
  * Tarea generica que incluye y ejecuta un método específico de una clase
+ * @package Centrales 
  */
 class toba_tarea_php implements toba_tarea
 {

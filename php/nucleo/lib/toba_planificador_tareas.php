@@ -2,6 +2,7 @@
 
 /**
  * Permite programar tareas a ejecutarse automáticamente en el servidor
+ * @package Centrales  
  */
 class toba_planificador_tareas
 {
@@ -15,6 +16,15 @@ class toba_planificador_tareas
 		$this->proyecto = $proyecto;
 	}
 	
+	/**
+	 * Programa la ejecución de una tarea
+	 *
+	 * @param toba_tarea $tarea Objeto tarea, puede ser un toba_mail o cualquier clase que implemente la interface toba_tarea
+	 * @param string $timestamp Fecha y hora de ejecución, expresado en un timestamp postgres (ej. now() + '5 minutes')
+	 * @param string $intervalo Perioricidad con que se ejecuta la tarea por ej '1 week'::interval para ejecutar una vez por semana. Si es null se ejecuta por única vez.
+	 * @param string $nombre Nombre de la tarea, sirve para identificarla en el log
+	 * @return integer Id. de la tarea programada
+	 */
 	function programar_tarea(toba_tarea $tarea, $timestamp, $intervalo=null, $nombre=null)
 	{
 		$db = toba::instancia()->get_db();
@@ -39,6 +49,12 @@ class toba_planificador_tareas
 		return $id_tarea;
 	}
 	
+	/**
+	 * Quita la programación de una tarea
+	 *
+	 * @param integer $id_tarea Número de la tarea programada
+	 * @param toba_manejodr_interface $manejador_interface Clase para la salida grafica, por defecto nulo
+	 */
 	function desprogramar($id_tarea, $manejador_interface=null)
 	{
 		$db = toba::instancia()->get_db();
@@ -52,6 +68,11 @@ class toba_planificador_tareas
 		}
 	}
 	
+	/**
+	 * Ejecuta todas aquellas tareas que estén en período de ejecución (pasadas) 
+	 * Por lo general este método se invoca desde el planificador de tareas del S.O.
+	 * @param toba_manejodr_interface $manejador_interface Clase para la salida grafica, por defecto nulo
+	 */
 	function ejecutar_pendientes($manejador_interface=null)
 	{
 		$sql = "
@@ -77,6 +98,12 @@ class toba_planificador_tareas
 		}
 	}
 	
+	/**
+	 * Fuerza la ejecución de una tarea específica, sin tener en cuenta su momento de planificación
+	 *
+	 * @param integer $id_tarea Número de la tarea programada
+	 * @param toba_manejodr_interface $manejador_interface Clase para la salida grafica, por defecto nulo
+	 */
 	function ejecutar_tarea($id, $manejador_interface=null)
 	{
 		//-- Obtiene los datos de la tarea
