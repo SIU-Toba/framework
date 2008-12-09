@@ -38,7 +38,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}
 
 	/**
-	 * Crea un esquema de auditoria sobre las tablas de negocio
+	 * Crea o actualiza el esquema de auditoria sobre las tablas del negocio
 	 */
 	function opcion__crear_auditoria()
 	{
@@ -46,7 +46,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}	
 	
 	/**
-	 * Borra el esquema de auditoria creado
+	 * Borra el esquema de auditoria
 	 */
 	function opcion__borrar_auditoria()
 	{

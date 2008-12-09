@@ -171,6 +171,43 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	
 	/**
+	 * Retorna una referencia a la fuente de datos predeterminada del proyecto
+	 * @return toba_db
+	 */
+	function get_db_negocio()
+	{
+		$fuentes = $this->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$fuente_defecto = toba_info_editores::get_fuente_datos_defecto($this->identificador);
+		if (! isset($fuente_defecto)) {
+			$fuente_defecto = current($fuentes);		
+		}
+		$id_def_base = $this->construir_id_def_base($fuente_defecto);
+		return $this->get_instalacion()->conectar_base($id_def_base);		
+	}
+	
+	/**
+	 * Retorna arreglo asociativo con parametros de la conexion a la fuente de de datos predeterminada
+	 * @return array
+	 */
+	function get_parametros_db_negocio()
+	{
+		$fuentes = $this->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$fuente_defecto = toba_info_editores::get_fuente_datos_defecto($this->identificador);
+		if (! isset($fuente_defecto)) {
+			$fuente_defecto = current($fuentes);		
+		}
+		$id_def_base = $this->construir_id_def_base($fuente_defecto);
+		return $this->get_instalacion()->get_parametros_base($id_def_base);		
+	}
+	
+	
+	/**
 	 * Determina si el proyecto debe guardar/cargar sus perfiles desde la instalacion (produccion) o el proyecto (desarrollo)
 	 *
 	 */

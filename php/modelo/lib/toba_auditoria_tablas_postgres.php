@@ -11,6 +11,11 @@ class toba_auditoria_tablas_postgres
 	protected $schema_logs;
 	protected $schema_origen;
 	protected $prefijo = 'logs_';
+	
+	/**
+	 * @var toba_db_postgres7
+	 */
+	protected $conexion;
 		
 	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='auditoria') 
 	{
@@ -65,10 +70,25 @@ class toba_auditoria_tablas_postgres
 		$this->crear_lenguaje();
 		$this->crear_funciones();
 		$this->crear_schema();
-		$this->crear_tablas();
+		foreach ($this->tablas as $t) {
+			$this->crear_tabla($t);
+	    }
 		$this->crear_sp();
 		$this->crear_triggers();
 		return true;
+	}	
+	
+	function migrar()
+	{
+		foreach ($this->tablas as $t) {
+			$nombre = $this->prefijo.$t;
+			if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+				$this->crear_tabla($t);
+			} else {
+				$this->actualizar_tabla($t);
+			}
+		}
+		$this->regenerar();
 	}	
 	
 	function regenerar()
@@ -77,6 +97,8 @@ class toba_auditoria_tablas_postgres
 		$this->crear_triggers();
 		$this->crear_sp();
 	}
+	
+
 		
 	function eliminar() 
 	{			
@@ -148,26 +170,44 @@ class toba_auditoria_tablas_postgres
 		$this->conexion->ejecutar($sql);
 	}
 	
-	protected function crear_tablas() 
+	
+	protected function crear_tabla($t)
 	{
-		$conexion = $this->conexion;
-		$sql = '';
-	    foreach ($this->tablas as $t) {
-		   $campos = $conexion->get_definicion_columnas($t, $this->schema_origen);
-		   $sql .= "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
-		   $sql .= "auditoria_usuario varchar(30), 
-		   			auditoria_fecha timestamp, 
-		   			auditoria_operacion char(1),
-		   	"; 		   
-			foreach ($campos as $campo => $def) {
-				if ($def['tipo_sql'] != 'bytea') {
-					$sql .= $def['nombre'] .  " " . $def['tipo_sql'] . ",\n";
+	   $campos = $this->conexion->get_definicion_columnas($t, $this->schema_origen);
+	   $sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
+	   $sql .= "auditoria_usuario varchar(30), 
+	   			auditoria_fecha timestamp, 
+	   			auditoria_operacion char(1),
+	   	"; 		   
+		foreach ($campos as $campo => $def) {
+			if ($def['tipo_sql'] != 'bytea') {
+				$sql .= $def['nombre'] .  " " . $def['tipo_sql'] . ",\n";
+			}
+		}
+		$sql = substr($sql, 0, -2);
+		$sql .= ");\n";	
+		$this->conexion->ejecutar($sql);
+	}
+	
+	protected function actualizar_tabla($origen)
+	{
+		$destino = $this->prefijo.$origen;
+		$negocio = $this->conexion->get_definicion_columnas($origen, $this->schema_origen);
+		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);
+		
+		foreach ($negocio as $campo_negocio) {
+			$existe = false;
+			foreach ($logs as $campo_log) {
+				if ($campo_negocio['nombre'] == $campo_log['nombre']) {
+					$existe = true;
+					break;
 				}
 			}
-			$sql = substr($sql, 0, -2);
-			$sql .= ");\n";
-	    }
-		$this->conexion->ejecutar($sql);
+			if (! $existe && $campo_negocio['tipo_sql'] != 'bytea') {
+				$sql = "ALTER TABLE {$this->schema_logs}.$destino ADD COLUMN {$campo_negocio['nombre']} {$campo_negocio['tipo_sql']}";
+				$this->conexion->ejecutar($sql);				
+			}
+		}
 	}
 	
 	protected function crear_sp() 

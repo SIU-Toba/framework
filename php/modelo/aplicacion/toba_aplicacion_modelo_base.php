@@ -4,8 +4,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 {
 	protected $permitir_exportar_modelo = true;
 	protected $permitir_instalar = true;
-	protected $schema_modelo = 'public';
-	protected $schema_auditoria = 'auditoria';
+	protected $schema_modelo;
+	protected $schema_auditoria;
 	
 	/**
 	 * @var toba_proceso_gui
@@ -27,6 +27,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 */
 	protected $proyecto;
 	
+	
 	/**
 	 * Inicialización de la clase en el entorno consumidor
 	 * @param toba_modelo_instalacion $instalacion Representante de la instalación de toba como un todo
@@ -39,6 +40,14 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->instalacion = $instalacion;
 		$this->instancia = $instancia;
 		$this->proyecto = $proyecto;
+		$parametros = $this->proyecto->get_parametros_db_negocio();
+		if (isset($parametros['schema'])) {
+			$this->schema_modelo = $parametros['schema'];
+			$this->schema_auditoria = 'auditoria_'.$parametros['schema'];			
+		} else {
+			$this->schema_modelo = 'public';
+			$this->schema_auditoria = 'auditoria';
+		}
 	}
 	
 	/**
@@ -292,6 +301,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	
 	/**
 	 * Crea los triggers, store_procedures y esquema para la auditoría de tablas del sistema
+	 * En caso que el schema exista, busca nuevos campos y tablas
 	 * @param array $tablas Tablas especificas a auditar
 	 * @param string $prefijo_tablas Tomar todas las tablas que tienen este prefijo, si es null se toman todas
 	 * @param boolean $con_transaccion Crea el esquema dentro de una transaccion
@@ -302,11 +312,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (empty($fuentes)) {
 			return;
 		}
-		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
-		$base = $this->instalacion->conectar_base($id_def_base);		
-		if ($con_transaccion) {
-			$base->abrir_transaccion();
-		}
+		$base = $this->proyecto->get_db_negocio();
+		
 		//--- Tablas de auditoría
 		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
 		if (empty($tablas)) {
@@ -318,10 +325,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		$this->manejador_interface->mensaje('Creando esquema de auditoria', false);
 		$this->manejador_interface->progreso_avanzar();		
-		if ($auditoria->existe()) {
-			$auditoria->eliminar();
+		if (! $auditoria->existe()) {
+			$auditoria->crear();
+		} else {
+			$auditoria->migrar();			
 		}
-		$auditoria->crear();
+		
 		$this->manejador_interface->progreso_fin();
 
 		//--- Datos anteriores
@@ -344,17 +353,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	{
 		$this->manejador_interface->mensaje('Borrando esquema y triggers de auditoria', false);
 		$this->manejador_interface->progreso_avanzar();
-		$fuentes = $this->proyecto->get_indice_fuentes();
-		if (empty($fuentes)) {
-			return;
-		}
-		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
-		$base = $this->instalacion->conectar_base($id_def_base);		
+		$base = $this->proyecto->get_db_negocio();				
 		if ($con_transaccion) {
 			$base->abrir_transaccion();
 		}
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base);
+		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
 		} else {
