@@ -103,7 +103,7 @@ abstract class ci_editores_toba extends toba_ci
 		}
 		
 		$reg = $this->get_entidad()->tabla("base")->get();
-		$es_alta = !isset($reg);
+		$es_alta = !isset($this->id_objeto);
 		if ($es_alta) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
 			$nombre = "";
