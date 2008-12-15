@@ -235,6 +235,13 @@ class toba_archivo_php
 		}
 		$this->contenido = $inicio."\n".$codigo."\n".$final;
 	}
+	
+	function insertar($codigo)
+	{
+		$this->contenido = "<?php\n";
+		$this->contenido .= $codigo;
+		$this->contenido .= "\n?>";
+	}
 
 	/**
 	*	Dado un codigo PHP, extrae un metodo y los sustituye por codigo nuevo
@@ -285,6 +292,14 @@ class toba_archivo_php
 		return preg_match("/function\s+$nombre\s*\(/", $codigo);		
 	}
 
+	/**
+	 * Determina si una porción de código tiene un método específico
+	 */
+	static function codigo_tiene_codigo($actual, $codigo)
+	{
+		return strpos($actual, $codigo) !== false;
+	}	
+	
 	/**
 	 * Determina si una porción de código tiene una clase específica definida
 	 */	

@@ -142,7 +142,11 @@ class toba_svn
 				return 'unversioned';
 			}
 			if (!isset($xml->target->entry)) {
-				return 'normal';
+				if (file_exists($path)) {
+					return 'normal';
+				} else {
+					return 'unversioned';
+				}
 			}
 			if (!isset($xml->target->entry->{'wc-status'})) {
 				return 'unversioned';	
@@ -223,6 +227,23 @@ class toba_svn
 		return $this->ejecutar($cmd, false, false);		
 	}
 
+	function diff($path)
+	{
+		$cmd = "svn diff \"$path\" ";
+		return $this->ejecutar($cmd, false, false);		
+	}	
+	
+	function revert($path)
+	{
+		$cmd = "svn revert \"$path\" ";
+		return $this->ejecutar($cmd, false, false);		
+	}		
+	
+	function add($path)
+	{
+		$cmd = "svn add \"$path\" --parents";
+		return $this->ejecutar($cmd, false, false);		
+	}	
 	
 	/**
 	 * Hace un checkout o lo continua con un update segun se necesite

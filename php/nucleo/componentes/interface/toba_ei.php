@@ -366,12 +366,12 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * Genera los botones de todos los eventos marcados para aparecer en la botonera.
 	 */
-	protected function generar_botones_eventos()
+	protected function generar_botones_eventos($excluir_botonera=false)
 	{
 		foreach($this->_eventos_usuario_utilizados as $evento )	{
 			if ( $evento->esta_en_botonera() ) {
 				if( !in_array($evento->get_id(), $this->_botones_graficados_ad_hoc ) ) {
-					$this->generar_html_boton($evento);
+					$this->generar_boton($evento->get_id(), $excluir_botonera, false);
 				}
 			}
 		}

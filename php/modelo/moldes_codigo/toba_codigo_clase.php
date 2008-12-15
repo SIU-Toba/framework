@@ -302,9 +302,13 @@ class toba_codigo_clase
 					$this->codigo_php = toba_archivo_php::reemplazar_metodo($this->codigo_php, 
 																$elemento->get_nombre(), 
 																$elemento->get_codigo());
-			 	} else {
-			 		//Agrego el metodo en un lugar adecuado
-					$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $elemento->get_codigo());			 		
+
+				} else {
+					//Evita por ejemplo que se agreguen secciones repetidas
+					if (! toba_archivo_php::codigo_tiene_codigo($codigo_existente, $elemento->get_codigo())) {
+						//Agrego el metodo en un lugar adecuado
+						$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $elemento->get_codigo());
+			 		}					
 			 	}
 			} else {
 				//Agrego el metodo según como viene el flujo

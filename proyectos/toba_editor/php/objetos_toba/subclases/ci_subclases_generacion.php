@@ -9,6 +9,17 @@ class ci_subclases_generacion extends toba_ci
 	protected $comando_svn;
 
 	
+	function conf()
+	{
+		$metodos = $this->get_metodos_a_generar();
+		$archivo_php = new toba_archivo_php($this->controlador()->get_path_archivo());
+		
+		//-- Se va a modificar algo?		
+		if (! empty($metodos) || $archivo_php->esta_vacio()) {
+			$this->pantalla()->tab('pant_vista_previa')->set_etiqueta('Vista Previa');
+		}
+	}	
+	
 	//-----------------------------------------------------------------
 	//---------- OPCIONES 
 	//-----------------------------------------------------------------	
@@ -60,6 +71,21 @@ class ci_subclases_generacion extends toba_ci
 		$this->comando_svn = 'blame';
 	}
 	
+	function evt__svn_revert()
+	{
+		$this->comando_svn = 'revert';
+	}	
+	
+	function evt__svn_diff()
+	{
+		$this->comando_svn = 'diff';
+	}	
+	
+	function evt__svn_add()
+	{
+		$this->comando_svn = 'add';
+	}		
+	
 	function get_previsualizacion()
 	{
 		return $this->previsualizacion;	
@@ -81,19 +107,35 @@ class ci_subclases_generacion extends toba_ci
 				case 'blame':
 					$codigo = $svn->blame($path);
 					break;
+				case 'diff':
+					$codigo = $svn->diff($path);
+					break;			
+				case 'revert':
+					$svn->revert($path);
+					$codigo = $this->get_codigo_vista_previa();
+					break;				
+				case 'add':
+					$svn->add($path);
+					$codigo = $this->get_codigo_vista_previa();
+					break;									
 			}
 		}
 
 		//-- Info del archivo
 		$estado = $svn->get_estado($path);
 		$svn_blame = true;
+		$svn_diff = false;
+		$svn_add = false;
 		switch ($estado) {
 			case 'unversioned':
 				$svn_blame = false;
+				$svn_add = true;
 				$nombre = 'Sin versionar';
 				$img = toba_recurso::imagen_proyecto('svn/unversioned.png', true, 16, 16, $nombre);
 				break;
 			case 'modified':
+			case 'missing':
+				$svn_diff = true;
 				$nombre = 'Modificado';				
 				$img = toba_recurso::imagen_proyecto('svn/modified.png', true, 16, 16, $nombre);
 				break;
@@ -119,6 +161,7 @@ class ci_subclases_generacion extends toba_ci
 				$img = toba_recurso::imagen_proyecto('svn/locked.png', true, 16, 16, $nombre);
 				break;
 			case 'ignored':
+				$svn_add = true;
 				$svn_blame = false;
 				$nombre = 'Ignorado';				
 				$img = toba_recurso::imagen_proyecto('svn/ignored.png', true, 16, 16, $nombre);
@@ -133,10 +176,10 @@ class ci_subclases_generacion extends toba_ci
 		$formato_linea = "<span style='background-color:#D4D0C8; color: black; font-size: 10px;".
 						" padding-top: 2px; padding-right: 2px; margin-left: -4px; width: 20px; text-align: right;'>".
 						"%2d</span>&nbsp;&nbsp;";
-		$this->previsualizacion .= $h->toHtml(true, true, $formato_linea, true);
+		$this->previsualizacion .= @$h->toHtml(true, true, $formato_linea, true);
 		
 		$existe_archivo = file_exists($path);
-		$ver_comandos_svn = $existe_archivo && $svn->hay_cliente_svn();		
+		$ver_comandos_svn = $svn->hay_cliente_svn();		
 		if (! $svn->hay_cliente_svn()) {
 			$ver_comandos_svn = false;
 		}
@@ -147,7 +190,14 @@ class ci_subclases_generacion extends toba_ci
 		}
 		if (!$ver_comandos_svn || !$svn_blame) {
 			$this->pantalla()->eliminar_evento('svn_blame');
-		}				
+		}			
+		if (!$ver_comandos_svn || !$svn_diff) {
+			$this->pantalla()->eliminar_evento('svn_diff');
+			$this->pantalla()->eliminar_evento('svn_revert');
+		}
+		if (!$ver_comandos_svn || !$svn_add || !$existe_archivo) {
+			$this->pantalla()->eliminar_evento('svn_add');
+		}	
 	}
 	
 	function get_codigo_vista_previa()
@@ -158,7 +208,6 @@ class ci_subclases_generacion extends toba_ci
 		
 		//-- Se va a modificar algo?		
 		if (! empty($metodos) || $archivo_php->esta_vacio()) {
-			$this->pantalla()->set_etiqueta('Vista previa');
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
 			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios']);
 			$codigo = "<?php\n".$codigo."\n?>";

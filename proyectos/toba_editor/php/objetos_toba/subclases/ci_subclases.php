@@ -214,9 +214,6 @@ class ci_subclases extends toba_ci
 		$this->pantalla()->set_descripcion("Clase generada correctamente");
 		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 	}
-	
-
-
 
 }
 

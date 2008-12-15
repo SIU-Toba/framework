@@ -43,7 +43,8 @@ class toba_clase_php
 			$this->archivo->crear_basico();
 		}
 		$this->archivo->edicion_inicio();
-		$this->archivo->insertar_al_final( $this->get_codigo($opciones, $incluir_comentarios) );
+		$codigo = $this->get_codigo($opciones, $incluir_comentarios);
+		$this->archivo->insertar($codigo);
 		$this->archivo->edicion_fin();
 	}
 
