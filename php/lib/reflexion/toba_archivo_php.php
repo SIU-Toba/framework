@@ -170,10 +170,11 @@ class toba_archivo_php
 	function edicion_inicio()
 	{
 		if( ! $this->archivo_abierto ) {
-			if (file_exists($this->nombre))
+			if (file_exists($this->nombre)) {
 				$this->contenido = file_get_contents($this->nombre);
-			else
+			} else {
 				$this->contenido = '';
+			}
 			$this->archivo_abierto = true;
 		}
 	}
@@ -232,7 +233,7 @@ class toba_archivo_php
 		} else {
 			throw new toba_error("El archivo no contiene las marcas PHP de fin de archivo");
 		}
-		$this->contenido = $inicio."\n".$codigo."\n".$final;	
+		$this->contenido = $inicio."\n".$codigo."\n".$final;
 	}
 
 	/**
@@ -335,20 +336,8 @@ class toba_archivo_php
 	 */		
 	static function codigo_sacar_tags_php($codigo)
 	{
-		$pos = strpos($codigo, '<?php');
-		if ($pos !== false) {
-			$codigo = substr($codigo, $pos + 6);
-		} else {
-			$pos = strpos($codigo, '<?');
-			if ($pos !== false) {
-				$codigo = substr($this->contenido, $pos + 2);
-			}
-		}
-		$pos = strpos($codigo, '?>');
-		if ($pos !== false) {
-			$codigo = substr($codigo, 0, $pos-1);
-		}
-		return $codigo;
+		$codigo = str_replace('<?php', '', $codigo);
+		return trim(str_replace('?>', '', $codigo));
 	}
 
 }

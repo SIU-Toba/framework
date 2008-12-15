@@ -210,7 +210,14 @@ padding-left:4px;
 .ei-boton-fila {
 	font-size: 11px;
 }
-
+.ei-archivos-listado {
+	clear: left;
+	min-height: 25px;
+	display: block;	
+}
+.ei-archivos-carpeta {
+	margin-left: 10px;
+}
 /*************************
 		Form. Com�n
 **************************/

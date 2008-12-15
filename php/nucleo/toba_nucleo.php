@@ -411,6 +411,7 @@ class toba_nucleo
 			'toba_texto'							=> 'lib/toba_texto.php',
 			'toba_validaciones'						=> 'lib/toba_validaciones.php',
 			'toba_xml_tablas'						=> 'lib/toba_xml_tablas.php',
+			'toba_svn'								=> 'lib/toba_svn.php',
 			'toba_tarea'							=> 'nucleo/lib/toba_tarea.php',
 			'toba_tarea_php'						=> 'nucleo/lib/toba_tarea.php',			
 			'toba_mail'								=> 'nucleo/lib/toba_mail.php',

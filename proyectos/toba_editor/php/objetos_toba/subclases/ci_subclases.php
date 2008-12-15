@@ -5,21 +5,21 @@ class ci_subclases extends toba_ci
 	protected $s__id_componente;
 	protected $s__path_relativo;
 	protected $s__datos_nombre;
+	protected $s__subcomponente;
 	
 	protected $clase_php;
 	protected $archivo_php;
 	
+	
 	function ini()
 	{
-		//toba::
-		//$this->s__id_componente = array('proyecto' => 'toba_referencia', 'componente'=> '2292');
-		//subclase_archivo
 		$datos = toba::zona()->get_info();
 		if(!isset($datos)){
 			throw new toba_error('Necesita seleccionar un componente para poder externderlo');	
 		}
-		$this->s__id_componente = array( 'componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
+		$this->s__id_componente = array('componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
 		$info = $this->get_metaclase();
+		
 		if ($info->get_subclase_archivo() != '' &&  $info->get_subclase_nombre() != '') {
 			$this->s__path_relativo = dirname($info->get_subclase_archivo());
 			if ($this->s__path_relativo == '.') {
@@ -27,6 +27,7 @@ class ci_subclases extends toba_ci
 			}
 			$this->s__datos_nombre = array('nombre' => basename($info->get_subclase_archivo(), '.php'));
 			$this->set_pantalla('pant_generacion');
+			$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 		}
 	}
 	
@@ -35,7 +36,23 @@ class ci_subclases extends toba_ci
 	 */
 	function get_metaclase()
 	{
-		return toba_constructor::get_info($this->s__id_componente);
+		//-- Acceso a un SUBCOMPONENTE
+		if(isset($this->s__subcomponente)){ //Cargue un subcomponente en un request anterior.
+			$subcomponente = $this->s__subcomponente;
+		} else {
+			$subcomponente = toba::memoria()->get_parametro('subcomponente');
+		}
+		
+		$info = toba_constructor::get_info($this->s__id_componente);
+		if (isset($subcomponente)) {
+			$info = $info->get_metaclase_subcomponente($subcomponente);
+			if ($info) {
+				$this->s__subcomponente = $subcomponente;
+			}else{
+				throw new toba_error('ERROR cargando el SUBCOMPONENTE: No es posible acceder a la definicion del mismo.');
+			}
+		}	
+		return $info;
 	}
 	
 	function get_prefijo_clase()
@@ -182,7 +199,7 @@ class ci_subclases extends toba_ci
         	}
         	$i++;
         }
-		toba_cargador::instancia()->set_metadatos_extendidos($metadatos, $clave);		
+		toba_cargador::instancia()->set_metadatos_extendidos($metadatos, $clave);
 	}
 
 	
@@ -191,27 +208,15 @@ class ci_subclases extends toba_ci
 		$opciones = $this->dep('ci_generacion')->get_opciones();
 		$metodos = $this->dep('ci_generacion')->get_metodos_a_generar();		
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
-		$archivo_php->crear_basico();
 		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
 	
 		$clase_php->generar($metodos, $opciones['incluir_comentarios']);
 		$this->pantalla()->set_descripcion("Clase generada correctamente");
+		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 	}
+	
 
-	function get_codigo_vista_previa()
-	{
-		$opciones = $this->dep('ci_generacion')->get_opciones();
-		$metodos = $this->dep('ci_generacion')->get_metodos_a_generar();
-		$archivo_php = new toba_archivo_php($this->get_path_archivo());
-		
-		$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
-		$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios']);
-		$codigo = "<?php".salto_linea().$codigo."?>".salto_linea() ;
-		return $codigo;		
-		
-	}
-	
-	
+
 
 }
 

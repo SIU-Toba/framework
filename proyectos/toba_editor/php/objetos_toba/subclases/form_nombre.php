@@ -17,7 +17,7 @@ class form_nombre extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
-		$path = $this->controlador->get_path_absoluto();
+		$path = $this->controlador->get_path_relativo();
 		$prefijo = $this->controlador->get_prefijo_clase();
 		echo "
 		{$this->objeto_js}.evt__nombre__validar = function()
@@ -48,7 +48,8 @@ class form_nombre extends toba_ei_formulario
 					var estado = {$this->objeto_js}.ef('nombre').get_estado();
 					if (estado != '') {
 						{$this->objeto_js}.ef('archivo').mostrar();
-						{$this->objeto_js}.ef('archivo').set_estado(path_base + '/' + estado + '.php');
+						var path_relativo = (path_base == '') ? 'php' : 'php/' + path_base;
+						{$this->objeto_js}.ef('archivo').set_estado(path_relativo + '/' + estado + '.php');
 					} else {
 						{$this->objeto_js}.ef('archivo').ocultar();
 					} 				

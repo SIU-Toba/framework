@@ -236,7 +236,8 @@ class toba_ei_archivos extends toba_ei
 		$path = pathinfo($this->_dir_actual);
 		echo "<div class='ei-base ei-archivos-base'>\n";		
 		echo $this->get_html_barra_editor();				
-		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");		
+		$path_relativo = ($this->get_path_relativo() != '') ? 'php/'.$this->get_path_relativo() : 'php';
+		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>$path_relativo</span>", false,"ei-arch-barra-sup");		
 		echo "<div  id='cuerpo_{$this->objeto_js}'>\n";		
 
 		
@@ -253,7 +254,7 @@ class toba_ei_archivos extends toba_ei
 		
 		if ($hay_padre) {
 			$img_subir = toba_recurso::imagen_toba('nucleo/subir.gif', true);
-			echo "<span style='float: left'>
+			echo "<span class='ei-archivos-listado'>
 					<a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"..\")' title='Subir de carpeta'>$img_subir</a>
 				  </span>\n";						
 		}
@@ -261,14 +262,14 @@ class toba_ei_archivos extends toba_ei
 		$img_carpeta = toba_recurso::imagen_toba('nucleo/carpeta.gif', true);
 		echo "<div style='clear:left'>";
 		foreach ($carpetas as $carpeta) {
-			echo "<div class='ei_archivos-carpeta'>$img_carpeta 
+			echo "<div class='ei-archivos-carpeta'>$img_carpeta 
 				<a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"$carpeta\")' 
 					title='Entrar a la carpeta'>$carpeta</a></div>\n";
 		}
 		if (! $this->solo_carpetas) {
 			$img_archivo = toba_recurso::imagen_toba('nucleo/php_22.gif', true);
 			foreach ($archivos as $archivo) {
-				echo "<div class='ei_archivos-archivo'>$img_archivo 
+				echo "<div class='ei-archivos-archivo'>$img_archivo 
 						<a href='#' onclick='{$this->objeto_js}.seleccionar_archivo(\"$archivo\")' 
 						 title='Seleccionar el archivo'>$archivo</a>\n</div>";
 			}

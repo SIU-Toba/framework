@@ -33,6 +33,29 @@ class toba_manejador_archivos
 		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 	}	
 	
+	
+	static function ejecutar($cmd, &$stdout, &$stderr)
+	{
+	    $outfile = tempnam(toba_dir().'/temp', "cmd");
+	    $errfile = tempnam(toba_dir().'/temp', "cmd");
+	    $descriptorspec = array(
+	        0 => array("pipe", "r"),
+	        1 => array("file", $outfile, "w"),
+	        2 => array("file", $errfile, "w")
+	    );
+	    $proc = proc_open($cmd, $descriptorspec, $pipes);
+	   
+	    if (!is_resource($proc)) return 255;
+	
+	    fclose($pipes[0]);
+	
+	    $exit = proc_close($proc);
+	    $stdout = file_get_contents($outfile);
+	    $stderr = file_get_contents($errfile);
+	    unlink($outfile);
+	    unlink($errfile);
+	    return $exit;
+	}		
 	/**
 	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
 	 */

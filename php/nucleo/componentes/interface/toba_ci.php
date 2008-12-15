@@ -679,7 +679,7 @@ class toba_ci extends toba_ei
 	 * El cambio recien sera efectivo cuando se utilize la pantalla con el metodo pantalla()
 	 * @param string $id Identificador de la pantalla, tal como se definio en el editor
 	 */
-	protected function set_pantalla($id)
+	function set_pantalla($id)
 	{
 	    $ok = false;
 	    foreach($this->_info_ci_me_pantalla as $info_pantalla) 

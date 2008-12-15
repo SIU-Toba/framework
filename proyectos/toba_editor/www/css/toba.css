@@ -88,6 +88,14 @@
 	white-space: nowrap;
 	text-align:right;
 }
+.editor-vista-previa {
+	border: 1px solid gray;
+	background-color:#E9E8E8;
+	padding: 5px;
+}
+.editor-vista-previa img {
+	vertical-align: middle;
+}
 .cronometro-total {
 	font-weight: bold;
 	font-size: 20px;	

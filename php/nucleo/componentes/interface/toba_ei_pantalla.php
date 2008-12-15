@@ -331,6 +331,7 @@ class toba_ei_pantalla extends toba_ei
 					$e->set_id('cambiar_tab__anterior');
 					$e->set_etiqueta('< &Anterior');
 					$e->set_estilo_css('ei-boton-izq');
+					$e->set_maneja_datos(false);
 					$this->_eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
 					$nuevo[$e->get_id()] = $e;
 					$this->_eventos_usuario_utilizados = array_merge($nuevo, $this->_eventos_usuario_utilizados);
