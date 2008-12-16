@@ -351,7 +351,7 @@ class toba_db
 	}
 
 	/**
-	*	Retorna las filas afectadas por una sentencia
+	*	Retorna un formato recordset a partir de una sentencia preparada
 	*	@param integer ID de la sentencia
 	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
 	*	@return array Resultado de la consulta en formato recordset (filas x columnas)

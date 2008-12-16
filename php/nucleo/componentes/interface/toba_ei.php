@@ -69,13 +69,17 @@ abstract class toba_ei extends toba_componente
 			}
 		}
 		if(isset($this->_eventos_usuario_utilizados)){
+			$no_visibles = toba::perfil_funcional()->get_rf_eventos_no_visibles();
 			foreach($this->_eventos_usuario_utilizados as $id => $evento ){
-				if($evento->maneja_datos()){
-					$val = apex_ei_evt_maneja_datos;
-				}else{
-					$val = apex_ei_evt_no_maneja_datos;	
+				//-- Restricción funcional eventos no-visibles. No se guardan en sesion
+				if (! in_array($evento->get_id_metadato(), $no_visibles)) {
+					if($evento->maneja_datos()){
+						$val = apex_ei_evt_maneja_datos;
+					}else{
+						$val = apex_ei_evt_no_maneja_datos;	
+					}
+					$this->_memoria['eventos'][$id] = $val;
 				}
-				$this->_memoria['eventos'][$id] = $val;
 			}
 		}
 		parent::destruir();
@@ -110,7 +114,7 @@ abstract class toba_ei extends toba_componente
 		if (! empty($no_visibles)) {
 			foreach($this->_eventos_usuario_utilizados as $id => $evento){
 				if (in_array($evento->get_id_metadato(), $no_visibles)) {
-					unset($this->_eventos_usuario_utilizados[$id]);
+					$evento->ocultar();
 					toba::logger()->debug("Restricción funcional. Se filtro el evento: $id", 'toba');
 				}
 			}

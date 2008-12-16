@@ -278,4 +278,10 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	NULL, --item_id
 	'30000002'  --item
 );
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_testing', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'30000004'  --item
+);
 --- FIN Grupo de desarrollo 30

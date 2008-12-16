@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000001]--  Extensión PHP 
+--[30000008]--  Perfil Funcional 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,17 +9,17 @@
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_testing', --proyecto
-	'30000001', --objeto
+	'30000008', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_principal', --subclase
-	'varios/extension_php/ci_principal.php', --subclase_archivo
+	'ci_perfil_funcional', --subclase
+	'varios/perfil_funcional/ci_perfil_funcional.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Extensión PHP', --nombre
+	'Perfil Funcional', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -35,7 +35,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2008-12-11 13:37:35'  --creacion
+	'2008-12-16 08:28:12'  --creacion
 );
 --- FIN Grupo de desarrollo 30
 
@@ -46,14 +46,14 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_testing', --proyecto
-	'30000002', --evento_id
-	'30000001', --objeto
+	'30000019', --evento_id
+	'30000008', --objeto
 	'cancelar', --identificador
 	'Volver', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	'ei-boton-izq', --estilo
+	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
@@ -76,8 +76,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_testing', --proyecto
-	'30000001', --evento_id
-	'30000001', --objeto
+	'30000018', --evento_id
+	'30000008', --objeto
 	'procesar', --identificador
 	'&Guardar', --etiqueta
 	'1', --maneja_datos
@@ -106,10 +106,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_testing', --proyecto
-	'30000003', --evento_id
-	'30000001', --objeto
+	'30000023', --evento_id
+	'30000008', --objeto
 	'agregar', --identificador
-	'&Agregar', --etiqueta
+	'Agregar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -143,10 +143,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_testing', --proyecto
-	'30000002', --dep_id
-	'30000001', --objeto_consumidor
-	'30000003', --objeto_proveedor
-	'ci_edicion', --identificador
+	'30000009', --dep_id
+	'30000008', --objeto_consumidor
+	'30000011', --objeto_proveedor
+	'ci', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -155,10 +155,22 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_testing', --proyecto
-	'30000001', --dep_id
-	'30000001', --objeto_consumidor
-	'30000002', --objeto_proveedor
+	'30000008', --dep_id
+	'30000008', --objeto_consumidor
+	'30000010', --objeto_proveedor
 	'cuadro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000007', --dep_id
+	'30000008', --objeto_consumidor
+	'30000009', --objeto_proveedor
+	'filtro', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -172,13 +184,13 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
 	'toba_testing', --objeto_mt_me_proyecto
-	'30000001', --objeto_mt_me
+	'30000008', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'500px', --ancho
+	'600px', --ancho
 	'300px', --alto
 	'abajo', --posicion_botonera
-	'tab_v', --tipo_navegacion
+	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -199,24 +211,24 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_testing', --objeto_ci_proyecto
-	'30000001', --objeto_ci
-	'30000001', --pantalla
+	'30000008', --objeto_ci
+	'30000007', --pantalla
 	'pant_seleccion', --identificador
 	'1', --orden
-	'Selección', --etiqueta
-	'La idea es extender estos componentes usando el toba_editor', --descripcion
+	'Seleccion', --etiqueta
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro', --objetos
+	'filtro,cuadro', --objetos
 	'agregar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_seleccion', --subclase
+	'varios/perfil_funcional/pant_seleccion.php'  --subclase_archivo
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_testing', --objeto_ci_proyecto
-	'30000001', --objeto_ci
-	'30000002', --pantalla
+	'30000008', --objeto_ci
+	'30000008', --pantalla
 	'pant_edicion', --identificador
 	'2', --orden
 	'Edición', --etiqueta
@@ -224,7 +236,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'ci_edicion', --objetos
+	'ci', --objetos
 	'procesar,cancelar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

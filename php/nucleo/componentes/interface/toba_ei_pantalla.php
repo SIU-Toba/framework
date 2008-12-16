@@ -61,26 +61,39 @@ class toba_ei_pantalla extends toba_ei
 	}
 	
 	/**
-	 * En la post_configuracion ya estan definidas las dependencias que participan
-	 * Asi que es hora de pedir al controlador que construya los objetos, los inicialize y configure
+	 * Se aplican las restricciones funcionales posibles para este componente
 	 * @ignore 
 	 */
-	function post_configurar()
+	protected function aplicar_restricciones_funcionales()
 	{
-		parent::post_configurar();
+		parent::aplicar_restricciones_funcionales();
 		
+		//-- Restricción funcional pantalla no-visible ------		
+		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
+		for ($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)	{		
+			if (in_array($this->_info_ci_me_pantalla[$a]['pantalla'], $no_visibles)) {
+				$id = $this->_info_ci_me_pantalla[$a]["identificador"];
+				$this->_lista_tabs[$id]->ocultar();
+				if (isset($this->_eventos['cambiar_tab_'.$id])) {
+					unset($this->_eventos['cambiar_tab_'.$id]);	//Borra el registro del evento cambio de tab (si aplica)
+				}
+			}
+		}
+		
+		//-- Restricción funcional eis no-visible ------
 		$no_visibles = toba::perfil_funcional()->get_rf_eis_no_visibles();
-
 		$this->_dependencias = array();
-		foreach ($this->_lista_dependencias as $id) {
+		$lista = $this->_lista_dependencias;
+		$this->_lista_dependencias = array();
+		foreach ($lista as $id) {
 			$dep = $this->controlador->dependencia($id);
 			$id_dep = $dep->get_id();
-			//-- Restricción funcional eis no-visible ------
 			if (! in_array($id_dep[1], $no_visibles)) {
-				$this->_dependencias[$id] = $this->controlador->dependencia($id);	
+				$this->_dependencias[$id] = $this->controlador->dependencia($id);
+				$this->_lista_dependencias[] = $id;	
 			}
-			//-----------------------------
 		}
+		//-----------------------------				
 	}
 	
 	/**
@@ -266,7 +279,19 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function get_lista_tabs()
 	{
-		return $this->_lista_tabs;	
+		//-- Restricción funcional pantalla no-visible ------
+		//Se modifica el metodo para que el ci almacene la lista de tabs modificados por las restricciones (caso wizard)		
+		$lista = array();
+		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
+		for ($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)	{
+			$id = $this->_info_ci_me_pantalla[$a]["identificador"];
+			if (!in_array($this->_info_ci_me_pantalla[$a]['pantalla'], $no_visibles)) {
+				if (isset($this->_lista_tabs[$id])) {
+					$lista[$id] = $this->_lista_tabs[$id];
+				}
+			}
+		}		
+		return $lista;
 	}
 
 	/**
@@ -275,15 +300,9 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function cargar_lista_tabs()
 	{
-		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
 		$this->_lista_tabs = array();
 		for($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)
 		{
-			//-- Restricción funcional pantalla no-visible ------
-			if (in_array($this->_info_ci_me_pantalla[$a]['pantalla'], $no_visibles)) {
-				continue;
-			}
-			//-----------------------------
 			$id = $this->_info_ci_me_pantalla[$a]["identificador"];
 			$datos['identificador'] = $id;
 			$datos['etiqueta'] = $this->_info_ci_me_pantalla[$a]["etiqueta"];
@@ -324,7 +343,7 @@ class toba_ei_pantalla extends toba_ei
 				}
 				break;
 			case self::NAVEGACION_WIZARD:
-				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->_lista_tabs),
+				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->get_lista_tabs()),
 																	$this->_info_pantalla['identificador']);
 				if ($anterior !== false) {
 					$e = new toba_evento_usuario();

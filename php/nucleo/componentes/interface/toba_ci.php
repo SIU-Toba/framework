@@ -187,15 +187,17 @@ class toba_ci extends toba_ei
 		if (isset($this->_pantalla_id_eventos)) {
 			$this->controlar_eventos_propios();
 			//Los eventos que no manejan dato tienen que controlarse antes
-			if( isset($this->_memoria['eventos'][$this->_evento_actual]) && 
-					$this->_memoria['eventos'][$this->_evento_actual] == apex_ei_evt_no_maneja_datos ) {
+			$existe_evento = isset($this->_memoria['eventos'][$this->_evento_actual]);
+			if($existe_evento && $this->_memoria['eventos'][$this->_evento_actual] == apex_ei_evt_no_maneja_datos ) {
 				$this->disparar_evento_propio();
 			} else {
 				//Disparo los eventos de las dependencias
 				foreach($this->get_dependencias_eventos() as $dep) {
 					$this->_dependencias[$dep]->disparar_eventos();
 				}
-				$this->disparar_evento_propio();
+				if ($existe_evento) {
+					$this->disparar_evento_propio();
+				}
 			}
 		} else {
  			$this->_log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
@@ -255,6 +257,8 @@ class toba_ci extends toba_ei
 			if (isset( $this->_memoria['eventos'][$evento] )) {
 				$this->_evento_actual = $evento;
 				$this->_evento_actual_param = $_POST[$this->_submit."__param"];
+			} else {
+				$this->_log->warning( $this->get_txt() . "Se recibio el evento $evento pero el mismo no está entre los disponibles", 'toba');
 			}
 		}
 	}
@@ -277,26 +281,15 @@ class toba_ci extends toba_ei
 			}else{
 				$this->_log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->_evento_actual}' no fue atrapado", 'toba');
 			}
-		}
-		
-		//--- El cambio de tab es un evento
-		//--- Si se lanzo se determina cual es el candidato (aun falta la aprobacion)
-		if (isset($_POST[$this->_submit])) {
-			$submit = $_POST[$this->_submit];
+			
 			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
-			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
+			$tab = (strpos($this->_evento_actual, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $this->_evento_actual) : false;
 			if ($tab == '_siguiente' || $tab == '_anterior') {
 				$this->_wizard_sentido_navegacion = ($tab == '_anterior') ? 0 : 1;
-				$this->_pantalla_id_servicio = $this->ir_a_limitrofe();
-			} else {
-				//--- Se pidio un cambio explicito
-				if ($tab !== false) {
-					if(isset($this->_memoria['tabs']) && in_array($tab, $this->_memoria['tabs'])){
-						$this->_pantalla_id_servicio = $tab;
-					}else{
-						toba::logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
-					}
-				}
+				$this->set_pantalla($this->ir_a_limitrofe());
+			} elseif ($tab !== false) {
+				//--- Se pidio un cambio explicito de tab
+				$this->set_pantalla($tab);
 			}
 		}
 	}
@@ -681,16 +674,27 @@ class toba_ci extends toba_ei
 	 */
 	function set_pantalla($id)
 	{
+		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
 	    $ok = false;
-	    foreach($this->_info_ci_me_pantalla as $info_pantalla) 
-				$ok |= ($info_pantalla['identificador'] == $id);
+	    foreach($this->_info_ci_me_pantalla as $info_pantalla) {
+	    	if (!$ok && $info_pantalla['identificador'] == $id) { 
+				if (in_array($info_pantalla['pantalla'], $no_visibles)) {
+					//-- Restricción funcional pantalla no-visible ------
+					throw new toba_error($this->get_txt()."No es posible navegar hacia la pantalla '". $id ."' ya que se encuentra oculta por una restricción funcional");
+					//--------------								
+				} else {
+					$ok = true;
+				}
+	    	}
+	    }
 	
-			if (! $ok) 
-				throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+		if (! $ok) {
+			throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+		}
 	
-			if (isset($this->_pantalla_servicio)) 
-				throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
-	
+		if (isset($this->_pantalla_servicio)) { 
+			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+		}
 	    $this->_pantalla_id_servicio	= $id;
 	}
 
