@@ -787,11 +787,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/
 	function regenerar()
 	{
-		toba_logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
 		$this->manejador_interface->titulo( "Regenerando PROYECTO {$this->identificador}" );		
+		toba_logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
+			$this->instancia->exportar_local_proyecto($this->identificador);
 			$this->eliminar();
 			$this->cargar();
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );

@@ -448,23 +448,28 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/*
 	*	Exportar informacion de PROYECTOS de la instancia
 	*/
-	private function exportar_proyectos()
+	function exportar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$this->manejador_interface->mensaje("Exportando proyecto $proyecto", false);
-			toba_logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
-			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
-			toba_manejador_archivos::crear_arbol_directorios( $dir_proyecto );
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );
-			
-			///-- Si estamos en produccion y se editaron los perfiles del proyecto, exportarlos localmente
-			if ($this->instalacion->es_produccion() && $this->get_proyecto_usar_perfiles_propios($proyecto)) {
-				$this->get_proyecto($proyecto)->exportar_perfiles_produccion();
-			}	
-			$this->manejador_interface->progreso_fin();
+			$this->exportar_local_proyecto($proyecto);
 		}
+	}
+	
+	function exportar_local_proyecto($proyecto)
+	{
+		$this->manejador_interface->mensaje("Exportando informacion local $proyecto", false);
+		toba_logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
+		$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
+		toba_manejador_archivos::crear_arbol_directorios( $dir_proyecto );
+		$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
+		$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
+		$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );
+		
+		///-- Si estamos en produccion y se editaron los perfiles del proyecto, exportarlos localmente
+		if ($this->instalacion->es_produccion() && $this->get_proyecto_usar_perfiles_propios($proyecto)) {
+			$this->get_proyecto($proyecto)->exportar_perfiles_produccion();
+		}	
+		$this->manejador_interface->progreso_fin();		
 	}
 
 	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto, $texto )
