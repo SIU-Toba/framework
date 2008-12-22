@@ -88,6 +88,11 @@ class toba_archivo_php
 		return self::codigo_sacar_tags_php(file_get_contents($this->nombre));
 	}
 	
+	function get_codigo()
+	{
+		return file_get_contents($this->nombre);	
+	}
+	
 	/**
 	 * Muestra el código fuente del archivo en formato HTML
 	 */
@@ -283,6 +288,48 @@ class toba_archivo_php
 			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	
 		}
 	}
+	
+	/**
+	 * Retorna el cuerpo de un método
+	 */
+	static function codigo_get_metodo($codigo, $nombre_metodo_a_extraer)
+	{
+		$contenido = explode("\n",$codigo);
+		$encontrado = false;
+		$comenzo_cuerpo = false;
+		$balance = 0;
+		$linea_i = null;
+		$linea_f = null;
+		//Busco la region en donde se encuentra el metodo
+		foreach($contenido as $linea => $codigo) {
+			if(	!$encontrado && preg_match("/(protected|public|private)*\s*function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+				$encontrado = true;
+				$linea_i = $linea;
+			}
+			if( $encontrado ) {
+				if(!$comenzo_cuerpo && (strpos($codigo,'{')!==false) ) $comenzo_cuerpo = true;
+				$balance += substr_count($codigo, '{');
+				$balance -= substr_count($codigo, '}');
+				if($comenzo_cuerpo && $balance==0) {
+					$linea_f = $linea;
+					break;
+				}
+			}
+		}
+		if( $linea_i && $linea_f ) {
+			$salida = '';
+			$cantidad = 1;
+			$contenido[$linea_i+1] = str_replace('{', '', $contenido[$linea_i+1], $cantidad);
+			for ($i = $linea_i+1; $i < $linea_f; $i++) {
+				$salida .= $contenido[$i]."\n";
+			}
+			return trim($salida);
+		} else {
+			//Lanzar una excepcion?
+			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	
+		}		
+		
+	}
 
 	/**
 	 * Determina si una porción de código tiene un método específico
@@ -291,6 +338,14 @@ class toba_archivo_php
 	{
 		return preg_match("/function\s+$nombre\s*\(/", $codigo);		
 	}
+	
+	/**
+	 * Determina si una porción de código tiene un método específico
+	 */
+	static function codigo_tiene_metodo_js($codigo, $nombre)
+	{
+		return preg_match("/\.$nombre = function\s*\(/", $codigo);		
+	}	
 
 	/**
 	 * Determina si una porción de código tiene un método específico
@@ -345,6 +400,26 @@ class toba_archivo_php
 		}
 
 	}	
+	
+	static function codigo_quitar_identacion($codigo, $identacion=1)
+	{
+		$salida = array();
+		foreach(explode("\n", $codigo) as $linea) {
+			$linea_salida = '';
+			$quitar = true;
+			for($i=0; $i<$identacion; $i++) {
+				if (!isset($linea[$i]) || $linea[$i] != "\t") {
+					$quitar = false;
+				}
+			}
+			if ($quitar) {
+				$linea = substr($linea, $identacion);
+			}
+			$salida[] = $linea;
+		}
+		return implode("\n", $salida);
+	}
+	
 	
 	/**
 	 * Toma una porción de código y le quita los tags php si los tiene

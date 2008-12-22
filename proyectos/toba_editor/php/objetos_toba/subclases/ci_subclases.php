@@ -27,7 +27,6 @@ class ci_subclases extends toba_ci
 			}
 			$this->s__datos_nombre = array('nombre' => basename($info->get_subclase_archivo(), '.php'));
 			$this->set_pantalla('pant_generacion');
-			$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 		}
 	}
 	
@@ -144,8 +143,13 @@ class ci_subclases extends toba_ci
 	
 	function conf__pant_generacion()
 	{
+		$archivo_php = new toba_archivo_php($this->get_path_archivo());
+		$codigo_existente = null; 
+		if (! $archivo_php->esta_vacio()) {
+			$codigo_existente = $archivo_php->get_codigo();
+		}
 		$molde_clase = $this->get_metaclase()->get_molde_subclase();
-		$metodos = $molde_clase->get_lista_metodos();
+		$metodos = $molde_clase->get_lista_metodos($codigo_existente);
 		
 		$grupos = array();
 		//-- Agrupamos los metodos segun dependencia y tipo
@@ -213,6 +217,9 @@ class ci_subclases extends toba_ci
 		$clase_php->generar($metodos, $opciones['incluir_comentarios']);
 		$this->pantalla()->set_descripcion("Clase generada correctamente");
 		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
+		
+		//Resetea los métodos para que fuerze al usuario a elegir otros si quiere generar nuevamente la clase
+		$this->dep('ci_generacion')->resetear_metodos();
 	}
 
 }

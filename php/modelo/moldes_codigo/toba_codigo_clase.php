@@ -89,18 +89,18 @@ class toba_codigo_clase
 
 	//-- Preguntas sobre la composicion del molde ------------------
 
-	function get_lista_metodos()
+	function get_lista_metodos($codigo_existente=null)
 	{
 		$plan = array();
-		$plan = $this->generar_lista_elementos($this->elementos_php, 'PHP');
-		$plan = array_merge($plan, $this->generar_lista_elementos($this->elementos_js, 'JAVASCRIPT'));
+		$plan = $this->generar_lista_elementos($this->elementos_php, 'PHP', $codigo_existente);
+		$plan = array_merge($plan, $this->generar_lista_elementos($this->elementos_js, 'JAVASCRIPT', $codigo_existente));
 		return $plan;
 	}
 	
 	/**
 		Genera una lista de los elementos que conforman el molde
 	*/
-	function generar_lista_elementos($elementos, $prefijo)
+	function generar_lista_elementos($elementos, $prefijo, $codigo_existente=null)
 	{
 		$lista = array();
 		$titulo = '';
@@ -108,6 +108,10 @@ class toba_codigo_clase
 		$a = 0;
 		foreach ($elementos as $id => $elemento) {
 			if(	$elemento instanceof toba_codigo_separador ) {
+				//Filtra el separador según el código actual
+				if (toba_archivo_php::codigo_tiene_codigo($codigo_existente, $elemento->get_codigo())) {
+					continue;
+				}					
 				if( $elemento->get_tipo() == 'chico' ) {
 					$subtitulo = $elemento->get_descripcion();
 				} else {
@@ -115,6 +119,17 @@ class toba_codigo_clase
 					$subtitulo = '';
 				}
 			} elseif( $elemento instanceof toba_codigo_metodo ) {
+
+				//Filtra el metodo según el código actual				
+				if ($elemento instanceof toba_codigo_metodo_js) {
+					if (toba_archivo_php::codigo_tiene_metodo_js($codigo_existente, $elemento->get_descripcion())) {
+						continue;
+					}					
+				} else {
+					if (toba_archivo_php::codigo_tiene_metodo($codigo_existente, $elemento->get_descripcion())) {
+						continue;
+					}
+				}				
 				$desc = $prefijo . ' # ';
 				$desc .= ($titulo && $subtitulo) ? $titulo.' - '.$subtitulo : $titulo.$subtitulo;
 				$desc .=  ' => ' . $elemento->get_descripcion();
@@ -294,7 +309,7 @@ class toba_codigo_clase
 		$paso = 0;
 		foreach ($this->elementos_php as $elemento) {
 			$elemento->identar(1);
-			if($paso) $this->codigo_php .= salto_linea();
+			//if($paso) $this->codigo_php .= salto_linea();
 			if ($codigo_existente != '') {
 				if ($elemento instanceof toba_codigo_metodo_php &&
 			 			toba_archivo_php::codigo_tiene_metodo($codigo_existente, $elemento->get_nombre()) )	{
@@ -313,6 +328,7 @@ class toba_codigo_clase
 			} else {
 				//Agrego el metodo según como viene el flujo
 				$this->codigo_php .= $elemento->get_codigo();
+				$this->codigo_php .= salto_linea();				
 			}
 			$paso = 1;
 		}	
@@ -321,26 +337,44 @@ class toba_codigo_clase
 	/**
 	 * @todo: Falta implementar el reemplazo
 	 */
-	function generar_codigo_js()
+	function generar_codigo_js($codigo_existente)
 	{
+		$nombre_metodo_php = 'extender_objeto_js';
 		$javascript = '';
 		foreach ($this->elementos_js as $elemento) {
 			if($javascript) $javascript .= salto_linea();
 			$javascript .= $elemento->get_codigo();
 		}
 		if ($javascript) {
-			$php = 'echo "' . salto_linea();
-			$php .= $javascript;
-			$php .= '";';
-			$metodo = new toba_codigo_metodo_php('extender_objeto_js');
-			$metodo->set_contenido($php);
-			$metodo->identar(1);
-			$separador = new toba_codigo_separador_php('JAVASCRIPT',null,'grande');
-			$separador->identar(1);
-			$this->codigo_php .= salto_linea();
-			$this->codigo_php .= $separador->get_codigo();
-			$this->codigo_php .= salto_linea();
-			$this->codigo_php .= $metodo->get_codigo();
+			if (!toba_archivo_php::codigo_tiene_metodo($codigo_existente, $nombre_metodo_php) )	{
+				//--Crea el metodo php
+				$separador = new toba_codigo_separador_php('JAVASCRIPT',null,'grande');				
+				$separador->identar(1);
+				
+				$php = 'echo "' . salto_linea();
+				$php .= $javascript;
+				$php .= '";';
+				$metodo = new toba_codigo_metodo_php('extender_objeto_js');
+				$metodo->set_contenido($php);
+				$metodo->identar(1);
+				$codigo = $separador->get_codigo().salto_linea().$metodo->get_codigo();
+				$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $codigo);
+			} else {
+				//--Agrega al metodo existente
+				$metodo = new toba_codigo_metodo_php('extender_objeto_js');
+				$codigo_actual = toba_archivo_php::codigo_get_metodo($this->codigo_php, $nombre_metodo_php);
+				//Busca el cerrado del string de javascript
+				$pos = strrpos($codigo_actual, '";');
+				if ($pos !== false) {
+					$php = toba_archivo_php::codigo_quitar_identacion(substr($codigo_actual,0, $pos), 2);
+					$php .= $javascript;
+					$php .= toba_archivo_php::codigo_quitar_identacion(substr($codigo_actual, $pos), 2);
+					$metodo->set_contenido($php);
+					$metodo->identar(1);
+					$this->codigo_php = toba_archivo_php::reemplazar_metodo($this->codigo_php, $nombre_metodo_php, $metodo->get_codigo());
+				}
+			}
+
 		}
 	}
 

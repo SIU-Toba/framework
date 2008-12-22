@@ -231,6 +231,11 @@ class ci_subclases_generacion extends toba_ci
 		}		
 		return $metodos;
 	}
+	
+	function resetear_metodos()
+	{
+		$this->s__datos_metodos = array();		
+	}
  
 }
 
