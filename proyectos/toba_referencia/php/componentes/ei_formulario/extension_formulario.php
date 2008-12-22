@@ -37,6 +37,33 @@ class extension_formulario extends toba_ei_formulario
 		}
 	}
 	
+	protected function generar_layout_impresion()
+	{
+		if (! $this->cambiar_layout) {
+			parent::generar_layout_impresion();
+		} else {	
+			echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
+			$i = 0;
+			foreach ($this->get_nombres_ef() as $ef){
+				$ultimo = ($i == $this->get_cantidad_efs());
+				if ($i % 2 == 0) {
+					echo "<tr>";	
+				}
+				echo "<td>";
+				
+				//--- Llamada a la generacion estandar de un ef
+				$this->generar_html_impresion_ef($ef);
+				
+				echo "</td>";
+				$i++;			
+				if ($i % 2 == 0 || $ultimo) {
+					echo "</tr>";	
+				}
+			}
+			echo "</table>";			
+		}
+	}	
+	
 	
 	function extender_objeto_js()
 	{

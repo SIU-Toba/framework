@@ -870,7 +870,38 @@ class toba_ei_formulario extends toba_ei
 	{
 		foreach ($this->_lista_ef_post as $ef) {
 			$this->generar_html_ef($ef);
-		}		
+		}
+	}
+	
+	/**
+	 * Genera para la impresion html el cuerpo del formulario conteniendo la lista de efs
+	 * Por defecto el layout de esta lista es uno sobre otro, este método se puede extender
+	 * para incluir algún layout específico
+	 * @ventana Extender para cambiar el layout por defecto de la impresion html
+	 */		
+	protected function generar_layout_impresion()
+	{
+		echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";		
+		foreach ( $this->_lista_ef_post as $ef){
+			if ($this->_info_formulario['no_imprimir_efs_sin_estado']) {
+				//Los combos que no tienen valor establecido no se imprimen
+				if( $this->_elemento_formulario[$ef] instanceof toba_ef_combo ) {
+					if ( $this->_elemento_formulario[$ef]->es_estado_no_seleccionado()) {
+						continue;	
+					}
+				}
+				//Los editables vacios no se imprimen
+				if( $this->_elemento_formulario[$ef] instanceof toba_ef_editable ) {
+					if (strlen(trim($this->_elemento_formulario[$ef]->get_estado()) == '')) {
+						continue;	
+					}
+				}			
+			}				
+			echo "<tr>\n";
+			$this->generar_html_impresion_ef($ef);
+			echo "</tr>\n";
+		}
+		echo "</table>\n";		
 	}
 
 	/**
@@ -892,7 +923,8 @@ class toba_ei_formulario extends toba_ei
 			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
-		if ($this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
+		if (isset($this->_info_formulario['resaltar_efs_con_estado']) 
+				&& $this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
 			$clase .= ' ei-form-fila-filtrada';
 		}			
 		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
@@ -912,6 +944,24 @@ class toba_ei_formulario extends toba_ei
 		}
 		echo "</div>\n";		
 	}
+	
+	protected function generar_html_impresion_ef($ef)
+	{
+		echo "<td class='ei-form-etiq'>\n";
+		echo $this->_elemento_formulario[$ef]->get_etiqueta();
+		echo "</td><td class='ei-form-valor'>\n";
+		//Hay que formatear?
+		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+			$formateo = new $this->_clase_formateo('impresion_html');				
+			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+			$valor = $formateo->$funcion($valor_real);
+		} else {
+			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+	    }	
+		echo $valor;
+		echo "</td>\n";
+	}	
 	
 	/**
 	 * Genera la salida gráfica de un ef particular
@@ -1042,41 +1092,8 @@ class toba_ei_formulario extends toba_ei
 	function vista_impresion_html( $salida )
 	{
 		$this->_carga_opciones_ef->cargar();
-		$formateo = new $this->_clase_formateo('impresion_html');		
 		$salida->subtitulo( $this->get_titulo() );
-		echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
-		foreach ( $this->_lista_ef_post as $ef){
-			
-			if ($this->_info_formulario['no_imprimir_efs_sin_estado']) {
-				//Los combos que no tienen valor establecido no se imprimen
-				if( $this->_elemento_formulario[$ef] instanceof toba_ef_combo ) {
-					if ( $this->_elemento_formulario[$ef]->es_estado_no_seleccionado()) {
-						continue;	
-					}
-				}
-				//Los editables vacios no se imprimen
-				if( $this->_elemento_formulario[$ef] instanceof toba_ef_editable ) {
-					if (strlen(trim($this->_elemento_formulario[$ef]->get_estado()) == '')) {
-						continue;	
-					}
-				}			
-			}				
-			
-			echo "<tr><td class='ei-form-etiq'>\n";
-			echo $this->_elemento_formulario[$ef]->get_etiqueta();
-			echo "</td><td class='ei-form-valor'>\n";
-			//Hay que formatear?
-			if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-               	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-               	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-               	$valor = $formateo->$funcion($valor_real);
-            }else{
-		        $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
-		    }	
-			echo $valor;
-			echo "</td></tr>\n";
-		}
-		echo "</table>\n";
+		$this->generar_layout_impresion();
 	}
 	
 	
