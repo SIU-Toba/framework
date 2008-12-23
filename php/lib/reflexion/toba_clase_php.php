@@ -37,25 +37,25 @@ class toba_clase_php
 	/**
 	*	Genera la clase
 	*/
-	function generar($opciones, $incluir_comentarios)
+	function generar($opciones, $incluir_comentarios, $incluir_separadores=true)
 	{
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
 		$this->archivo->edicion_inicio();
-		$codigo = $this->get_codigo($opciones, $incluir_comentarios);
+		$codigo = $this->get_codigo($opciones, $incluir_comentarios, $incluir_separadores);
 		$this->archivo->insertar($codigo);
 		$this->archivo->edicion_fin();
 	}
 
-	function get_codigo($opciones, $incluir_comentarios)
+	function get_codigo($opciones, $incluir_comentarios, $incluir_separadores=true)
 	{
 		$existente = null;
 		if ($this->archivo->existe() && ! $this->archivo->esta_vacio()) { 
 			$existente = $this->archivo->get_codigo_php_puro();
 		}
 		$molde_clase = $this->meta_clase->get_molde_subclase();
-		return $molde_clase->get_codigo($existente, $opciones, $incluir_comentarios);
+		return $molde_clase->get_codigo($existente, $opciones, $incluir_comentarios, $incluir_separadores);
 	}
 	
 	//---------------------------------------------------------------

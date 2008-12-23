@@ -194,6 +194,36 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
+	'30000030', --evento_id
+	'2296', --objeto
+	'abrir', --identificador
+	'abrir', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'proyecto', --imagen_recurso_origen
+	'reflexion/abrir.gif', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'6', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
 --- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
@@ -285,7 +315,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
-	'eliminar,svn_blame,svn_diff,svn_revert,svn_add', --eventos
+	'eliminar,svn_blame,svn_diff,svn_revert,svn_add,abrir', --eventos
 	'pant_vista_previa', --subclase
 	'objetos_toba/subclases/pant_vista_previa.php'  --subclase_archivo
 );

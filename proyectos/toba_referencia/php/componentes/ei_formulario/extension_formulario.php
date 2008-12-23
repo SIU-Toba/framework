@@ -61,27 +61,7 @@ class extension_formulario extends toba_ei_formulario
 			echo "</table>";			
 		}
 	}	
-	
-	
-	protected function generar_layout_impresion()
-	{
-		echo "<table class='{$this->_estilos}' width='100%''>";
-		$i = 0;
-		foreach ($this->get_nombres_ef() as $ef){
-			$ultimo = ($i == $this->get_cantidad_efs());
-			if ($i % 2 == 0) {
-				echo "<tr>";	
-			}
-			//--- Llamada a la generacion estandar de un ef
-			$this->generar_html_impresion_ef($ef);
-			$i++;			
-			if ($i % 2 == 0 || $ultimo) {
-				echo "</tr>";	
-			}
-		}
-		echo "</table>";			
-	}		
-	
+
 	
 	function extender_objeto_js()
 	{

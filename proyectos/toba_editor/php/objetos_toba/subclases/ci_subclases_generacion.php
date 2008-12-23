@@ -20,6 +20,16 @@ class ci_subclases_generacion extends toba_ci
 		}
 	}	
 	
+	function conf__pant_opciones()
+	{
+		$efs = $this->dep('form_metodos')->get_nombres_ef();
+		if (empty($efs)) {
+			$this->pantalla()->eliminar_dep('form_metodos');
+			$this->pantalla()->eliminar_dep('form_opciones');
+			$this->pantalla()->set_descripcion('No hay métodos nuevos para generar en la sublcase');
+		}
+	}
+	
 	//-----------------------------------------------------------------
 	//---------- OPCIONES 
 	//-----------------------------------------------------------------	
@@ -65,6 +75,10 @@ class ci_subclases_generacion extends toba_ci
 		unlink($this->controlador->get_path_archivo());
 	}	
 	
+	function evt__abrir()
+	{
+		$this->controlador->abrir_archivo();
+	}
 	
 	function evt__svn_blame()
 	{
@@ -187,6 +201,7 @@ class ci_subclases_generacion extends toba_ci
 		//-- Oculta boton eliminar
 		if (! $existe_archivo) {
 			$this->pantalla()->eliminar_evento('eliminar');
+			$this->pantalla()->eliminar_evento('abrir');
 		}
 		if (!$ver_comandos_svn || !$svn_blame) {
 			$this->pantalla()->eliminar_evento('svn_blame');
@@ -209,7 +224,7 @@ class ci_subclases_generacion extends toba_ci
 		//-- Se va a modificar algo?		
 		if (! empty($metodos) || $archivo_php->esta_vacio()) {
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
-			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios']);
+			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
 			$codigo = "<?php\n".$codigo."\n?>";
 			return $codigo;
 		} else {

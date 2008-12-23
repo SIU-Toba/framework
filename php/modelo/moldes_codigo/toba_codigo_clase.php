@@ -165,7 +165,7 @@ class toba_codigo_clase
 	//-- Generacion de codigo --------------------------------------
 	//--------------------------------------------------------------
 
-	function get_codigo($codigo_existente=null, $elementos_a_utilizar=null, $incluir_comentarios=true)
+	function get_codigo($codigo_existente=null, $elementos_a_utilizar=null, $incluir_comentarios=true, $incluir_separadores=true)
 	{
 		// Filtro el plan de generacion
 		if (isset($elementos_a_utilizar)) {
@@ -178,6 +178,10 @@ class toba_codigo_clase
 		if( ! $incluir_comentarios ) {
 			$this->filtrar_comentarios();	
 		}
+		// Separadores
+		if( ! $incluir_separadores ) {
+			$this->filtrar_separadores();	
+		}		
 		// Genero el codigo
 		return $this->generar_codigo($codigo_existente);
 	}
@@ -249,19 +253,26 @@ class toba_codigo_clase
 	{
 		// PHP
 		foreach( array_keys($this->elementos_php) as $id) {
+			if ( $this->elementos_php[$id] instanceof toba_codigo_metodo_php ) {
+				$this->elementos_php[$id]->set_mostrar_comentarios(false);
+			}
+		}		
+	}
+	
+	function filtrar_separadores()
+	{
+		// PHP
+		foreach( array_keys($this->elementos_php) as $id) {
 			if ( $this->elementos_php[$id] instanceof toba_codigo_separador )  {
 				unset($this->elementos_php[$id]);
-			} elseif ( $this->elementos_php[$id] instanceof toba_codigo_metodo_php ) {
-				$this->elementos_php[$id]->set_mostrar_comentarios(false);
 			}
 		}		
 		// Javascript
 		foreach( array_keys($this->elementos_js) as $id) {
-		
 			if ( $this->elementos_js[$id] instanceof toba_codigo_separador )  {
 				unset($this->elementos_js[$id]);
 			}
-		}		
+		}			
 	}
 
 	//-- Generacion de CODIGO ------------------------------------
@@ -337,7 +348,7 @@ class toba_codigo_clase
 	/**
 	 * @todo: Falta implementar el reemplazo
 	 */
-	function generar_codigo_js($codigo_existente)
+	function generar_codigo_js($codigo_existente='')
 	{
 		$nombre_metodo_php = 'extender_objeto_js';
 		$javascript = '';

@@ -19,6 +19,9 @@ class toba_carga_opciones_ef
 	 */
 	function __construct($componente, $efs, $parametros_carga) 
 	{
+		if (! isset($efs)) {
+			$efs = array();
+		}
 		$this->_controlador = $componente;		
 		$this->_efs = $efs;
 		$this->_parametros_carga_efs = $parametros_carga;
@@ -32,6 +35,7 @@ class toba_carga_opciones_ef
 	{
 		$this->_cascadas_maestros = array();
 		$this->_cascadas_esclavos = array();
+		
 		foreach (array_keys($this->_efs) as $esclavo) {
 			$this->_cascadas_maestros[$esclavo] = $this->_efs[$esclavo]->get_maestros();
 			foreach ($this->_cascadas_maestros[$esclavo] as $maestro) {

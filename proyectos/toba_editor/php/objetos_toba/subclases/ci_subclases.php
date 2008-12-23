@@ -214,13 +214,32 @@ class ci_subclases extends toba_ci
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
 		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
 	
-		$clase_php->generar($metodos, $opciones['incluir_comentarios']);
+		$clase_php->generar($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
 		$this->pantalla()->set_descripcion("Clase generada correctamente");
 		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 		
 		//Resetea los métodos para que fuerze al usuario a elegir otros si quiere generar nuevamente la clase
 		$this->dep('ci_generacion')->resetear_metodos();
 	}
+	
+	//-------------------------------------------------------------------------------
+	//-- Apertura de archivos por AJAX ----------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function servicio__ejecutar()
+	{ 
+		$this->abrir_archivo();
+	}
+
+	function abrir_archivo()
+	{
+		$archivo_php = new toba_archivo_php($this->get_path_archivo());
+		if( !$archivo_php->existe() ) {
+			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $archivo_php->nombre() . '\').');	
+		}
+		$archivo_php->abrir();		
+	}
+		
 
 }
 
