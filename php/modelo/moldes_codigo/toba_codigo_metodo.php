@@ -20,7 +20,7 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 		}
 		$this->parametros = $parametros;
 		if(!is_array($comentarios)){
-			throw new toba_error_asistentes("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
+			throw new toba_error_asistentes("Error en el metodo: $nombre. Los COMENTARIOS deben ser un array");	
 		}
 		$this->comentarios = $comentarios;
 	}
@@ -66,11 +66,13 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 	function get_codigo()
 	{
 		$funcion = '';
-		if ( $this->mostrar_comentarios ) {
+		if ( $this->mostrar_comentarios && !empty($this->comentarios)) {
 			// Comentarios
+			$funcion .= $this->identado()."/**".salto_linea();
 			foreach($this->comentarios as $fila) {
-				$funcion .= $this->identado() . "//$fila" . salto_linea();
+				$funcion .= $this->identado() . " * $fila" . salto_linea();
 			}
+			$funcion .= $this->identado()." */".salto_linea();
 		}
 		// Cabecera
 		$funcion .= $this->identado() . $this->get_declaracion() . salto_linea();

@@ -49,7 +49,7 @@ abstract class toba_ei_info extends toba_componente_info
 	
 	function get_comentario_carga()
 	{
-		return "";
+		return array("");
 	}
 
 	static function get_modelos_evento()

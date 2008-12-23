@@ -48,7 +48,9 @@ class toba_ei_formulario_ml_info extends toba_ei_formulario_info
 
 	function get_comentario_carga()
 	{
-		return "El formato debe ser una matriz array('id_fila' => array('id_ef' => valor, ...), ...)";
+		return array(
+			"El formato debe ser una matriz array('id_fila' => array('id_ef' => valor, ...), ...)"
+		);
 	}
 
 	//-- Generacion de metadatos

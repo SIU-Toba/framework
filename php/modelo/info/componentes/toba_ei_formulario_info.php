@@ -49,7 +49,9 @@ class toba_ei_formulario_info extends toba_ei_info
 
 	function get_comentario_carga()
 	{
-		return "El formato del carga debe ser array('id_ef' => \$valor, ...)";
+		return array(
+			"El formato del carga debe ser array(<campo> => <valor>, ...)"
+		);
 	}
 
 	//-- Generacion de metadatos

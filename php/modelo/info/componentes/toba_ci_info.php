@@ -228,32 +228,44 @@ class toba_ci_info extends toba_ei_info
 		//-- Inicializacion -----------------------
 		$molde->agregar( new toba_codigo_separador_php('Inicializacion',null,'grande') );
 		
-		//-- Ini 
-		$metodo = new toba_codigo_metodo_php('ini');
-		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini Ver doc]');
-		$molde->agregar($metodo);
-
 		//-- Ini operacion
-		$metodo = new toba_codigo_metodo_php('ini__operacion');
+		$doc = array();
+		$doc[] = "Se ejecuta por única vez cuando el componente entra en la operación.";
+		$doc[] = "Es útil por ejemplo para inicializar un conjunto de variables de sesion y evitar el chequeo continuo de las mismas";
+		$doc[] = "Hay situaciones en las que su ejecución no coincide con el instante inicial de operación:";
+		$doc[] = " - Si el componente es un ci dentro de otro ci, recién se ejecuta cuando entra a la operacion que no necesariamente es al inicio, si por ejemplo se encuentra en la 3er pantalla del ci principal.";
+		$doc[] = " - Si se ejecuta una limpieza de memoria (comportamiento por defecto del evt__cancelar)";		
+		$metodo = new toba_codigo_metodo_php('ini__operacion', array(), $doc);
 		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini__operacion Ver doc]');
 		$molde->agregar($metodo);
 		
+
+		//-- Ini 
+		$metodo = new toba_codigo_metodo_php('ini', array(), array('Se ejecuta al inicio de todos los request en donde participa el componente'));
+		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini Ver doc]');
+		$molde->agregar($metodo);
 		
-		$molde->agregar( new toba_codigo_separador_php('Config.','Configuracion','grande') );
+		
+		$molde->agregar( new toba_codigo_separador_php('Configuraciones','Configuracion','grande') );
 		
 		//-- Conf
-		$metodo = new toba_codigo_metodo_php('conf');
+		$doc = array();
+		$doc[] = "Ventana que se ejecuta al inicio de la etapa de configuración. Antes de la configuración de la pantalla y sus componentes";
+		$doc[] = "Se utiliza por ejemplo para determinar qué pantalla mostrar, eliminar tabs, etc.";
+		$metodo = new toba_codigo_metodo_php('conf', array(), $doc);
 		$metodo->set_doc('[api:Componentes/Eis/toba_ci#conf Ver doc]');
 		$molde->agregar($metodo);
 		
 		
 		//-- Configuracion de pantallas -----------
-		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$metodo = new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla'));
-			$metodo->set_doc('Ventana de extensión para configurar la pantalla. Se ejecuta previo a la configuración de los componentes pertenecientes a la pantalla
-								por lo que es ideal por ejemplo para ocultarlos en base a una condición dinámica <pre>$pant->eliminar_dep("tal")</pre>');
+			$doc = array();
+			$doc[] = 'Ventana de extensión para configurar la pantalla. Se ejecuta previo a la configuración de los componentes pertenecientes a la pantalla ';
+			$doc[] = 'por lo que es ideal por ejemplo para ocultarlos en base a una condición dinámica, ej. $pant->eliminar_dep("tal") ';
+			$doc[] = '@param toba_ei_pantalla $pantalla';
+			$metodo = new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla'), $doc);
+			$metodo->set_doc(implode("\n", $doc));
 			$molde->agregar($metodo);
 		}
 		
@@ -262,27 +274,33 @@ class toba_ci_info extends toba_ei_info
 			$molde->agregar( new toba_codigo_separador_php('Eventos',null,'grande') );
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
 				if ($info['info']['accion'] != 'V') { //No es Vinculo
-					$metodo = new toba_codigo_metodo_php('evt__' . $evento);
-					$metodo->set_doc("Atrapa la interacción del usuario a través del botón asociado. El método no recibe parámetros"); 
+					if ($evento == 'cancelar') {
+						$doc = array("Originalmente este método limpia las variables y definiciones del componente, y en caso de exisitr un CN asociado ejecuta su cancelar. Para mantener este comportamiento llamar a parent::evt__cancelar");
+					} elseif ($evento == 'procesar') {
+						$doc = array("Originalmente este método si existe un CN asociado ejecuta su procesar. Para mantener este comportamiento llamar a parent::evt__procesar");
+					} else {
+						$doc = array("Atrapa la interacción del usuario a través del botón asociado. El método no recibe parámetros");
+					}
+					$metodo = new toba_codigo_metodo_php('evt__' . $evento, array(), $doc);
+					$metodo->set_doc(implode("\n", $doc)); 
 					$molde->agregar($metodo);
 				}
 			}
 		}
 		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
-			$molde->agregar( new toba_codigo_separador_php('DEPENDENCIAS',null,'grande') );
 			foreach ($this->subelementos as $id => $elemento) {
 				$es_ei = ($elemento instanceof toba_ei_info) && !($elemento instanceof toba_ci_info);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
-					$molde->agregar( new toba_codigo_separador_php($rol) );
+					$molde->agregar( new toba_codigo_separador_php($rol, null, 'grande') );
 					//Metodo de CONFIGURACION
 					$tipo = $elemento->get_clase_nombre_final();
 					$nombre_instancia = $elemento->get_nombre_instancia_abreviado();
 					
 					$metodo = new toba_codigo_metodo_php('conf__' . $rol,	
 																array($tipo.' $'.$nombre_instancia),
-																array($elemento->get_comentario_carga()) );
+																$elemento->get_comentario_carga());
 					$metodo->set_grupo($rol);
 					$ei = get_class($elemento);
 					$ei = substr($ei, 5, strlen($ei) - 10);
