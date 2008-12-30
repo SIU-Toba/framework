@@ -23,13 +23,18 @@ abstract class toba_ei_info extends toba_componente_info
 			//ei_arbol($evt_db);
 			$id = $evt_db['identificador'];
 			$parametros = array();
+			$doc = array("Atrapa la interacción del usuario con el botón asociado");
 			if( $evt_db['sobre_fila'] ){
 				$parametros[] = '$seleccion';
+				$doc[] = '@param array $seleccion Id. de la fila seleccionada';
 			}else{
-				if($evt_db['maneja_datos'])	$parametros[] = '$datos';
+				if($evt_db['maneja_datos']) {
+					$parametros[] = '$datos';
+					$doc[] = '@param array $datos Estado del componente al momento de ejecutar el evento. El formato es el mismo que en la carga de la configuración';
+				}
 			}
 			$eventos[$id]['parametros'] = $parametros;
-			$eventos[$id]['comentarios'] = array();
+			$eventos[$id]['comentarios'] = $doc;
 			$eventos[$id]['info'] = $evt_db;
 		}
 		//ei_arbol($eventos);

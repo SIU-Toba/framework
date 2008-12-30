@@ -143,6 +143,42 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_testing', --proyecto
+	'30000012', --dep_id
+	'30000001', --objeto_consumidor
+	'30000014', --objeto_proveedor
+	'arbol', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000013', --dep_id
+	'30000001', --objeto_consumidor
+	'30000015', --objeto_proveedor
+	'archivos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000014', --dep_id
+	'30000001', --objeto_consumidor
+	'30000016', --objeto_proveedor
+	'calendario', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
 	'30000002', --dep_id
 	'30000001', --objeto_consumidor
 	'30000003', --objeto_proveedor
@@ -159,6 +195,30 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'30000001', --objeto_consumidor
 	'30000002', --objeto_proveedor
 	'cuadro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000015', --dep_id
+	'30000001', --objeto_consumidor
+	'30000017', --objeto_proveedor
+	'esquema', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000011', --dep_id
+	'30000001', --objeto_consumidor
+	'30000013', --objeto_proveedor
+	'filtro', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -208,7 +268,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro', --objetos
+	'cuadro,filtro,arbol,archivos,calendario,esquema', --objetos
 	'agregar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

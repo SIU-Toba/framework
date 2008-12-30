@@ -107,7 +107,7 @@ class toba_ei_arbol extends toba_ei
 
 	/**
 	 * Cambia los nodos del arbol, suministrandole nuevos nodo/s raiz
-	 * @param array $nodos Arreglo de nodos raiz del arbol
+	 * @param array $nodos Arreglo de nodos raiz del arbol de interface toba_nodo_arbol
 	 */
 	function set_datos($nodos, $mantener_en_sesion=false)
 	{

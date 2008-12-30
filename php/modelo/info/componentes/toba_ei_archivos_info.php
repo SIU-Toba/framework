@@ -21,11 +21,18 @@ class toba_ei_archivos_info extends toba_ei_info
 		return $this->get_molde_vacio();
 	}
 	
+	function get_comentario_carga()
+	{
+		return array(
+			"Permite cambiar la configuración del componente previo a la generación de la salida",
+		);
+	}	
+	
 	function eventos_predefinidos()
 	{
 		$eventos = parent::eventos_predefinidos();
-		$eventos['seleccionar_archivo']['parametros'] = array('archivo');
-		$eventos['seleccionar_archivo']['comentarios'] = array();
+		$eventos['seleccionar_archivo']['parametros'] = array('$archivo');
+		$eventos['seleccionar_archivo']['comentarios'] = array("Indica que el usuario seleccionó un archivo puntual de la lista", '@param string $archivo');
 		return $eventos;
 	}
 }

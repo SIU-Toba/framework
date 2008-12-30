@@ -44,7 +44,10 @@ class toba_ei_cuadro_info extends toba_ei_info
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->ordenable()){
 			$eventos['ordenar']['parametros'] = array('$columna','$sentido');
-			$eventos['ordenar']['comentarios'] = array("\$sentido puede ser \"des\" o \"asc\"");
+			$eventos['ordenar']['comentarios'] = array('El usuario pide ordenar los datos del cuadro a partir de una columna específica. Al existir este método el cuadro no toma acción en el ordenamiento y se deja en manos de esta extensión', 
+														"@param string \$columna Id. de la columna por la cual se pidio ordenar",
+														"@param string \$sentido puede ser \"des\" o \"asc\""
+													);
 		}
 		return $eventos;
 	}

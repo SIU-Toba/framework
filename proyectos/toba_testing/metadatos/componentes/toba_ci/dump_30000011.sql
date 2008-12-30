@@ -69,7 +69,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'100%', --ancho
 	'300px', --alto
 	'abajo', --posicion_botonera
-	'tab_h', --tipo_navegacion
+	'wizard', --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
