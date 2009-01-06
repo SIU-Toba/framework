@@ -292,9 +292,9 @@ class toba_codigo_clase
 		if (! toba_archivo_php::codigo_tiene_clase($codigo_existente, $this->nombre)) {
 			$extends = ($this->nombre_ancestro) ? "extends {$this->nombre_ancestro}" : "";
 			$this->codigo_php .= "class {$this->nombre} $extends". salto_linea() ."{". salto_linea();
+			$this->codigo_php .= "}". salto_linea();			
 			$this->generar_codigo_php();
 			$this->generar_codigo_js();
-			$this->codigo_php .= "}". salto_linea();
 		} else {
 			$this->generar_codigo_php($codigo_existente);
 			$this->generar_codigo_js($codigo_existente);
@@ -317,31 +317,22 @@ class toba_codigo_clase
 		}
 		
 		
-		$paso = 0;
 		foreach ($this->elementos_php as $elemento) {
 			$elemento->identar(1);
-			//if($paso) $this->codigo_php .= salto_linea();
-			if ($codigo_existente != '') {
-				if ($elemento instanceof toba_codigo_metodo_php &&
-			 			toba_archivo_php::codigo_tiene_metodo($codigo_existente, $elemento->get_nombre()) )	{
-					//Reemplaza el metodo
-					$this->codigo_php = toba_archivo_php::reemplazar_metodo($this->codigo_php, 
-																$elemento->get_nombre(), 
-																$elemento->get_codigo());
+			if ($elemento instanceof toba_codigo_metodo_php &&
+		 			toba_archivo_php::codigo_tiene_metodo($codigo_existente, $elemento->get_nombre()) )	{
+				//Reemplaza el metodo
+				$this->codigo_php = toba_archivo_php::reemplazar_metodo($this->codigo_php, 
+															$elemento->get_nombre(), 
+															$elemento->get_codigo());
 
-				} else {
-					//Evita por ejemplo que se agreguen secciones repetidas
-					if (! toba_archivo_php::codigo_tiene_codigo($codigo_existente, $elemento->get_codigo())) {
-						//Agrego el metodo en un lugar adecuado
-						$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $elemento->get_codigo());
-			 		}					
-			 	}
 			} else {
-				//Agrego el metodo según como viene el flujo
-				$this->codigo_php .= $elemento->get_codigo();
-				$this->codigo_php .= salto_linea();				
-			}
-			$paso = 1;
+				//Evita por ejemplo que se agreguen secciones repetidas
+				if (! toba_archivo_php::codigo_tiene_codigo($codigo_existente, $elemento->get_codigo())) {
+					//Agrego el metodo en un lugar adecuado
+					$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $elemento->get_codigo());
+		 		}					
+		 	}
 		}	
 	}
 

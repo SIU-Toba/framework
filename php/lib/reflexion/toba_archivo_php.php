@@ -393,7 +393,7 @@ class toba_archivo_php
 	{
 		$pos = strrpos($codigo_actual, '}');
 		if ($pos !== false) {
-			return substr($codigo_actual, 0, $pos-1).salto_linea().salto_linea().
+			return substr($codigo_actual, 0, $pos-1).salto_linea().
 								$metodo.salto_linea().substr($codigo_actual, $pos);
 		} else {
 			throw new toba_error("El codigo no contiene una llave de fin de clase");
