@@ -15,7 +15,7 @@ class ci_subclases extends toba_ci
 	{
 		$datos = toba::zona()->get_info();
 		if(!isset($datos)){
-			throw new toba_error('Necesita seleccionar un componente para poder externderlo');	
+			throw new toba_error('Necesita seleccionar un componente para poder extenderlo');	
 		}
 		$this->s__id_componente = array('componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
 		$info = $this->get_metaclase();

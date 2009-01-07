@@ -40,7 +40,6 @@ class ci_editor extends ci_editores_toba
 			$this->s__pantalla_php_archivo = array();
 			if ( $this->componente_existe_en_db() ) {
 				$datos_pantalla = $this->get_entidad()->tabla('pantallas')->get_filas();
-				//ei_arbol($datos_pantalla);
 				foreach ($datos_pantalla as $pantalla) {
 					if (isset($pantalla['subclase']) && $pantalla['subclase'] &&  isset($pantalla['subclase_archivo'])) {
 						$this->s__pantalla_php_db[$pantalla['x_dbr_clave']] = $pantalla['identificador'];
@@ -275,19 +274,23 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('pantallas')->set($datos);
 	}
 	
-	function conf__pantallas($obj)
+	function conf__pantallas(toba_ei_formulario $obj)
 	{
-		$id_actual = $this->get_pant_actual();
-		//Manejo de la apertura del editor
+		$id_actual = $this->get_pant_actual();		
 		if (!isset($this->s__pantalla_php_db[$id_actual])) {
 			$obj->eliminar_evento('ver_php');
 			$obj->eliminar_evento('abrir_php');
+			//-- Debo pasarle el id de la pantalla a extender
+			$pantalla = $this->get_entidad()->tabla("pantallas")->get();
+			$obj->evento('extender')->vinculo()->agregar_parametro('subcomponente', $pantalla['identificador']);
 		} else {
+			$obj->eliminar_evento('extender');			
 			// Link al editor
 			$parametros = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 			$obj->evento('ver_php')->vinculo()->set_parametros($parametros);
+			
 			if (isset($this->s__pantalla_php_archivo[$id_actual])) {
 				// Apertura de archivos
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],

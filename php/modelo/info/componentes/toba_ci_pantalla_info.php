@@ -177,6 +177,11 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
 
+	function get_nombre_instancia_abreviado()
+	{
+		return 'pant';
+	}
+	
 	function get_molde_subclase()
 	{
 		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
