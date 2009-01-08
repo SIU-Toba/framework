@@ -409,6 +409,25 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		return "componente";	
 	}	
 	
+	function set_subclase($nombre, $archivo)
+	{
+		$db = toba_contexto_info::get_db();
+		$nombre = $db->quote($nombre);
+		$archivo = $db->quote($archivo);
+		$id = $db->quote($this->id);
+		$sql = "
+			UPDATE apex_objeto
+			SET 
+				subclase = $nombre,
+				subclase_archivo = $archivo
+			WHERE
+					proyecto = '{$this->proyecto}'
+				AND	objeto = $id
+		";
+		toba::logger()->debug($sql);
+		$db->ejecutar($sql);
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Preguntas sobre EVENTOS
 	//---------------------------------------------------------------------

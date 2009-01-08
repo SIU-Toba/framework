@@ -116,26 +116,19 @@ class ci_subclases extends toba_ci
 		$this->s__datos_nombre = $datos;
 		
 		//-- Sincroniza el cambio con la base
-		$clave = array();
-		$clave['objeto'] = $this->s__id_componente['componente'];
-		$clave['proyecto'] = $this->s__id_componente['proyecto'];
-		$this->dep('base')->cargar($clave);
-		$datos = array();
-		$datos['subclase'] = $this->s__datos_nombre['nombre'];
 		$path_relativo = $this->get_path_relativo();
 		if ($path_relativo != '') {
 			$path_relativo.= '/';
 		}
 		$datos['subclase_archivo'] = $path_relativo.$this->s__datos_nombre['nombre'].'.php';
-		$this->dep('base')->set($datos);
-		$this->dep('base')->sincronizar();
+		$this->get_metaclase()->set_subclase($this->s__datos_nombre['nombre'], $datos['subclase_archivo']);
+		toba_constructor::set_refresco_forzado(true);
 	}
 	
 	function get_path_archivo()
 	{
 		return $this->get_path_absoluto().'/'.$this->s__datos_nombre['nombre'].'.php';
 	}
-	
 	
 	//-----------------------------------------------------------------
 	//---------- GENERACION

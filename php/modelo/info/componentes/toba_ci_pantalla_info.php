@@ -217,6 +217,25 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
 	}
 
+	function set_subclase($nombre, $archivo)
+	{
+		$db = toba_contexto_info::get_db();
+		$nombre = $db->quote($nombre);
+		$archivo = $db->quote($archivo);
+		$id = $db->quote($this->id);
+		$sql = "
+			UPDATE apex_objeto_ci_pantalla
+			SET 
+				subclase = $nombre,
+				subclase_archivo = $archivo
+			WHERE
+					objeto_ci_proyecto = '{$this->proyecto}'
+				AND	objeto_ci = $id
+				AND pantalla = '{$this->datos['pantalla']}'
+		";
+		toba::logger()->debug($sql);
+		$db->ejecutar($sql);
+	}	
 	//---------------------------------------------------------------------
 	
 	function get_descripcion_subcomponente()
