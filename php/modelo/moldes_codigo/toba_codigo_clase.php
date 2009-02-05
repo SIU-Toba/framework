@@ -257,6 +257,12 @@ class toba_codigo_clase
 				$this->elementos_php[$id]->set_mostrar_comentarios(false);
 			}
 		}		
+		// Javascript
+		foreach( array_keys($this->elementos_js) as $id) {
+			if ( $this->elementos_js[$id] instanceof toba_codigo_metodo_js  )  {
+				$this->elementos_js[$id]->set_mostrar_comentarios(false);
+			}
+		}			
 	}
 	
 	function filtrar_separadores()

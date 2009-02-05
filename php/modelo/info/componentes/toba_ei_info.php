@@ -100,7 +100,15 @@ abstract class toba_ei_info extends toba_componente_info
 	{
 		$bloque_molde[] = new toba_codigo_separador_php('Config. EVENTOS sobre fila');
 		foreach ($this->eventos_sobre_fila() as $evento => $info) {
-			$bloque_molde[] = new toba_codigo_metodo_php('conf_evt__' . $evento, array('$evento', '$fila'));
+			$ayuda = "Permite configurar el evento sobre una fila especifica para modificarlo o anularlo";
+			$doc = array(
+				$ayuda,
+				"@param toba_evento_usuario \$evento Evento diparado",
+				"@param array \$fila Clave de la fila"
+			);			
+			$metodo = new toba_codigo_metodo_php('conf_evt__' . $evento, array('$evento', '$fila'));
+			$metodo->set_doc($ayuda);
+			$bloque_molde[] = $metodo;
 		}
 		return $bloque_molde;
 	}

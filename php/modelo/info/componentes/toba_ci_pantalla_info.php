@@ -189,7 +189,13 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 	function get_molde_subclase()
 	{
 		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
-		$molde->agregar( new toba_codigo_metodo_php('generar_layout') );
+		$ayuda = "Permite modificar la forma en que se grafica la pantalla, por defecto un componente sobre el otro";
+		$comentarios = array(
+			$ayuda
+		);
+		$metodo = new toba_codigo_metodo_php('generar_layout', array(), $comentarios);
+		$metodo->set_doc($ayuda);
+		$molde->agregar($metodo);
 		$php = array();
 		$existe_previo = 0;
 		foreach($this->get_lista_dependencias_asociadas() as $dep) {

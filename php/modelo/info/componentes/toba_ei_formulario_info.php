@@ -19,29 +19,56 @@ class toba_ei_formulario_info extends toba_ei_info
 	{
 		$molde = $this->get_molde_vacio();
 		// Redefinicion del LAYOUT
-		$molde->agregar( new toba_codigo_metodo_php('generar_layout') );
+		$ayuda = "Permite modificar la forma en que se grafica el formulario, por defecto un ef sobre el otro";
+		$doc = array(
+			$ayuda
+		);
+		$metodo = new toba_codigo_metodo_php('generar_layout', array(), $doc);
+		$metodo->set_doc($ayuda);
+		$molde->agregar($metodo);
 		$php = array();
 		foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 			$php[] = '$this->generar_html_ef(\''.$info['identificador'].'\');';
 		}
-		$molde->ultimo_elemento()->set_contenido($php);		
-		// Javascript
+		$molde->ultimo_elemento()->set_contenido($php);
+				
+		//--Javascript
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );	
-		$molde->agregar( new toba_codigo_separador_js('Validacion general') );		
-		$molde->agregar( new toba_codigo_metodo_js('evt__validar_datos') );		
+		$molde->agregar( new toba_codigo_separador_js('Validacion general') );
+
+		//Validar datos
+		$doc = array("Validación general del formulario",
+			"Retornar true/false para controlar la validación",
+			"Usar notificacion.agregar() para mostrar mensajes al usuario"
+		);
+		$metodo = new toba_codigo_metodo_js('evt__validar_datos', array(), $doc);
+		$metodo->set_doc("Validación general del formulario");
+		$molde->agregar($metodo);	
+
 		if(count($this->datos['_info_formulario_ef'])) {
 			//-- Procesamiento de EFs
-			$molde->agregar( new toba_codigo_separador_js('Procesamiento de EFs') );		
+			$doc = array("Método que se invoca al cambiar el valor del ef en el cliente",
+				"Se dispara inicialmente al graficar la pantalla, enviando en true el primer parámetro",
+			);			
+			$molde->agregar( new toba_codigo_separador_js('Procesamiento de EFs') );
 			foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 				$parametros = array('es_inicial');
 				if($multilinea) $parametros[] = 'fila';
-				$molde->agregar( new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );		
+				$metodo = new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros, $doc);
+				$metodo->set_doc("Método que se invoca al cambiar el valor del ef en el cliente");
+				$molde->agregar($metodo);
 			}
 			//-- Validacion de EFs
 			$molde->agregar( new toba_codigo_separador_js('Validacion de EFs') );		
+			$doc = array("Validación puntual de un ef en el cliente",
+				"Retornar true/false para controlar la validación",
+				"Usar this.ef(id).set_error(mensaje) para mostrar un error contextual al campo"
+			);						
 			foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 				$parametros = $multilinea ? array('fila') : array();
-				$molde->agregar( new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__validar', $parametros) );		
+				$metodo =  new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__validar', $parametros, $doc) ;
+				$metodo->set_doc("Validación puntual de un ef en el cliente");
+				$molde->agregar($metodo);		
 			}
 		}
 		return $molde;

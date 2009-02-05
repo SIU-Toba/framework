@@ -22,7 +22,7 @@ class toba_ei_cuadro_info extends toba_ei_info
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );		
 		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );
 		// Cortes de control
-		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
+		$molde->agregar( new toba_codigo_separador_php('Configuracion de cortes de control','Pantallas') );
 		$datos_cortes = rs_ordenar_por_columna($this->datos['_info_cuadro_cortes'],'orden');
 		foreach($datos_cortes as $corte) {
 			//-- Sumarizar cc
