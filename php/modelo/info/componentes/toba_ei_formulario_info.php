@@ -50,6 +50,7 @@ class toba_ei_formulario_info extends toba_ei_info
 	function get_comentario_carga()
 	{
 		return array(
+			"Permite cambiar la configuración del formulario previo a la generación de la salida",		
 			"El formato del carga debe ser array(<campo> => <valor>, ...)"
 		);
 	}

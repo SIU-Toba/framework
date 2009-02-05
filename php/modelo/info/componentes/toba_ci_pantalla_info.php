@@ -27,9 +27,13 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 	
 	protected function get_lista_dependencias_asociadas()
 	{
-		$eis = explode(',', $this->datos['objetos']);
-		$eis = array_map('trim', $eis);
-		return $eis;		
+		if (isset($this->datos['objetos'])) {
+			$eis = explode(',', $this->datos['objetos']);
+			$eis = array_map('trim', $eis);
+			return $eis;
+		} else {
+			return array();		
+		}
 	}
 	
 	function tiene_dependencia($dep)

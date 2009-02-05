@@ -49,6 +49,7 @@ class toba_ei_formulario_ml_info extends toba_ei_formulario_info
 	function get_comentario_carga()
 	{
 		return array(
+			"Permite cambiar la configuración del ML previo a la generación de la salida",		
 			"El formato debe ser una matriz array('id_fila' => array('id_ef' => valor, ...), ...)"
 		);
 	}

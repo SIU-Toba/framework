@@ -25,10 +25,24 @@ class toba_ei_cuadro_info extends toba_ei_info
 		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_cortes = rs_ordenar_por_columna($this->datos['_info_cuadro_cortes'],'orden');
 		foreach($datos_cortes as $corte) {
-			$molde->agregar( new toba_codigo_metodo_php('sumarizar_cc__' . $corte['identificador'] . '__IDENTIFICADOR', array('$filas') ) );
+			//-- Sumarizar cc
+			$comentario_param = 'Reemplazar esta línea para cambiar el titulo de la sumarizacion!';
+			$comentario = 'Ventana que dado un conjunto de filas de un corte de control permite sumarizarlas de forma personalizada';
+			$extra = 'Reemplazar "propia" con algún otro identificador, para distinguir la sumarizacion y poder realizar una por método ';
+			$parametros = '@param $filas Arreglo de filas tipo recordset';
+			$metodo =  new toba_codigo_metodo_php('sumarizar_cc__' . $corte['identificador'] . '__propia', array('$filas'), array($comentario_param, $comentario, $extra, $parametros));
+			$metodo->set_doc($comentario);
+			$molde->agregar($metodo);
 			$molde->ultimo_elemento()->set_contenido('return 0;');
-			$molde->agregar( new toba_codigo_metodo_php('html_cabecera_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
+			
+			
+			//-- Cabecera de corte
+			$comentario = 'Ventana que permite determinar el titulo cabecera de un corte de control';
+			$metodo = new toba_codigo_metodo_php('html_cabecera_cc_contenido__' . $corte['identificador'], array('&$nodo'), array($comentario) ); 
+			$metodo->set_doc($comentario);
+			$molde->agregar($metodo);
 			$molde->ultimo_elemento()->set_contenido('echo \'descripcion\';');
+			
 			$molde->agregar( new toba_codigo_metodo_php('html_pie_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
 			$molde->ultimo_elemento()->set_contenido('echo \'descripcion\';');
 			$molde->agregar( new toba_codigo_metodo_php('html_pie_cc_cabecera__' . $corte['identificador'], array('&$nodo') ) );

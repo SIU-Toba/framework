@@ -149,7 +149,7 @@ class admin_util
 	//--- Funcionalidad transversal para ZONAs que requieran apertura de archivos
 	//--------------------------------------------------------------------------------------
 
-	static function get_acceso_abrir_php($componente, $item_visualizador=3407, $frame=apex_frame_centro)
+	static function get_acceso_abrir_php($componente, $item_visualizador=3463, $frame=apex_frame_centro)
 	{
 		$utileria = self::get_utileria_editor_ver_php( $item_visualizador,  array( 'proyecto'=>$componente[0], 'componente' =>$componente[1] ) );			
 		return "<a href='" . $utileria['vinculo'] ."' target='".$frame."' title='".$utileria['ayuda']."'>" .
@@ -157,7 +157,7 @@ class admin_util
 				"</a>\n";
 	}
 	
-	static function get_acceso_ver_php($componente, $item_visualizador=3407)
+	static function get_acceso_ver_php($componente, $item_visualizador=3463)
 	{
 		$utileria = admin_util::get_utileria_editor_abrir_php( $item_visualizador, array(	'proyecto'=>$componente[0],'componente' =>$componente[1] )  );	
 		return "<a href=\"" . $utileria['vinculo'] ."\"". " title='".$utileria['ayuda']. "'>" .
