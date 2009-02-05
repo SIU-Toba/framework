@@ -439,12 +439,17 @@ class toba_ei_cuadro extends toba_ei
 			// - 2 - Ordenamiento
 			if($this->hay_ordenamiento()){
 				$this->ordenar();
-			}			
-			// - 3 - Paginacion
+			}
+			
+			// - 3 - Cuento los registros disponibles en caso de no haber seteo explicito
+			$this->contar_registros();			
+						
+			// - 4 - Paginacion
 			if( $this->existe_paginado() ){
 				$this->generar_paginado();
 			}
-			// - 4 - Cortes de control
+			
+			// - 5 - Cortes de control
 			if ( $this->existen_cortes_control() ){
 				$this->planificar_cortes_control();
 			} else {
@@ -537,6 +542,15 @@ class toba_ei_cuadro extends toba_ei
 		$this->_excel_usar_formulas = $usar_formulas;
 	}
 	
+	/**
+	 * @ignore
+	 */
+	protected function contar_registros()
+	{		
+		if (! empty($this->datos) && (!isset($this->_total_registros) || ! is_numeric($this->_total_registros))){ 
+			$this->_total_registros = count($this->datos);		
+		}
+	}
 
 //################################################################################
 //############################   CLAVE  y  SELECCION   ###########################
@@ -738,7 +752,6 @@ class toba_ei_cuadro extends toba_ei
 			}
 		} elseif($this->_info_cuadro["tipo_paginado"] == 'P') {
 			// 1) Calculo la cantidad total de registros
-			$this->_total_registros = count($this->datos);
 			if($this->_total_registros > 0) {
 				// 2) Calculo la cantidad de paginas
 				$this->_cantidad_paginas = ceil($this->_total_registros/$this->_tamanio_pagina);            
@@ -1286,6 +1299,10 @@ class toba_ei_cuadro extends toba_ei
            	$this->html_barra_paginacion();
 			echo "</td></tr>\n";
 		}
+		
+		//Barra que muestra el total de registros disponibles
+		$this->html_barra_total_registros();
+		
 		//Botonera
 		if ($this->hay_botones()) {
 			echo"<tr><td>";
@@ -1908,6 +1925,7 @@ class toba_ei_cuadro extends toba_ei
 
 	private function html_barra_paginacion()
 	{
+		echo "<div class='ei-cuadro-pag'>";
 		if( isset($this->_total_registros) && !($this->_tamanio_pagina >= $this->_total_registros) ) {
 			//Calculo los posibles saltos
 			//Primero y Anterior
@@ -1940,20 +1958,25 @@ class toba_ei_cuadro extends toba_ei
 				$img = toba_recurso::imagen_toba("nucleo/paginacion/ultimo.gif");
 				$ultimo = toba_recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
-			echo "<div class='ei-cuadro-pag'>";
+			
 			echo "$primero $anterior Página <strong>{$this->_pagina_actual}</strong> de ";
 			echo "<strong>{$this->_cantidad_paginas}</strong> $siguiente $ultimo";
-			$plural = ($this->_total_registros == 1) ? '' : 's';
-			echo "<div class='ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
-			echo "</div>";
-		} else {
-			$plural = ($this->_total_registros == 1) ? '' : 's';
-			echo "<div class='ei-cuadro-pag'>";
-			echo "<div class='ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
-			echo "</div>";			
-		}
+		} 
+		echo "</div>";
 	}
 
+	/**
+	 * @ignore 
+	 */	
+	protected function html_barra_total_registros()
+	{
+		echo"<tr><td>";		
+		$plural = ($this->_total_registros == 1) ? '' : 's';
+		echo "<div class='ei-cuadro-pag ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
+		echo "</td></tr>\n";
+
+	}	
+	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT --
 	//-------------------------------------------------------------------------------
