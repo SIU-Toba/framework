@@ -740,10 +740,7 @@ class toba_datos_tabla extends toba_componente
 	 * @return mixed Id. interno de la fila creada
 	 */
 	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
-	{
-		if( $this->_tope_max_filas != 0){
-			$this->control_tope_maximo_filas($this->get_cantidad_filas() + 1);
-		}
+	{		
 		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
@@ -1175,7 +1172,6 @@ class toba_datos_tabla extends toba_componente
 		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
-		$this->control_valores_unicos_fila($fila, $id);
 	}
 
 	/**
@@ -1251,11 +1247,13 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function validar()
 	{
+		$this->control_tope_maximo_filas($this->get_cantidad_filas());		
 		$ids = $this->get_id_filas_a_sincronizar( array("u","i") );
 		if(isset($ids)){
 			foreach($ids as $id){
 				//$this->control_nulos($fila);
 				$this->evt__validar_fila( $this->_datos[$id] );
+				$this->control_valores_unicos_fila($this->_datos[$id], $id);
 			}
 		}
 		$this->control_tope_minimo_filas();
@@ -1317,7 +1315,7 @@ class toba_datos_tabla extends toba_componente
 	 */	
 	protected function control_tope_maximo_filas($cantidad)
 	{
-		if ($cantidad > $this->_tope_max_filas) {
+		if (($this->_tope_max_filas != 0) && ($cantidad > $this->_tope_max_filas)) {
 			throw new toba_error("No está permitido ingresar más de {$this->_tope_max_filas} registros
 									en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
 		}
@@ -1393,10 +1391,9 @@ class toba_datos_tabla extends toba_componente
 	{
 		$this->log("Carga de datos");
 		$this->_datos = null;
-		//Controlo que no se haya excedido el tope de registros
-		if( $this->_tope_max_filas != 0) {
-			$this->control_tope_maximo_filas(count($datos));
-		}
+		//Controlo que no se haya excedido el tope de registros		
+		$this->control_tope_maximo_filas(count($datos));
+		
 		$this->_datos = $datos;		
 		if(false){	// Hay que pensar este esquema...
 			$this->_datos_originales = $this->_datos;
@@ -1427,9 +1424,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		$this->log("Anexado de datos [" . count($datos) . "]");
 		//Controlo que no se haya excedido el tope de registros
-		if ($this->_tope_max_filas != 0) {
-			$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
-		}
+		$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
+
 		//Agrego las filas
 		$hijos = array();
 		foreach( $datos as $fila ) {
