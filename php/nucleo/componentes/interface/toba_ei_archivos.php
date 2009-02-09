@@ -16,7 +16,8 @@ class toba_ei_archivos extends toba_ei
 	protected $solo_carpetas = false;
 	protected $_permitir_espacios_en_nombres = false;
 	protected $_caracteres_invalidos_nombres = array('\\', '/', ':', '*', '\'', '<', '>', '|');
-
+	protected $crear_carpetas = true;
+	protected $crear_archivos = true;
 
     function __construct($id)
     {
@@ -183,6 +184,16 @@ class toba_ei_archivos extends toba_ei
 		$this->solo_carpetas = $solo;
 	}
 	
+	function set_crear_carpetas($crear)
+	{
+		$this->crear_carpetas = $crear;
+	}
+	
+	function set_crear_archivos($crear)
+	{
+		$this->crear_archivos = $crear;
+	}	
+	
 	/**
 	 * Cambia el conjunto de extensiones permitidas en la visualización
 	 * @param array $extensiones
@@ -235,9 +246,13 @@ class toba_ei_archivos extends toba_ei
 		sort($carpetas);
 		$path = pathinfo($this->_dir_actual);
 		echo "<div class='ei-base ei-archivos-base'>\n";		
-		echo $this->get_html_barra_editor();				
-		$path_relativo = ($this->get_path_relativo() != '') ? 'php/'.$this->get_path_relativo() : 'php';
-		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>$path_relativo</span>", false,"ei-arch-barra-sup");		
+		echo $this->get_html_barra_editor();			
+		$titulo = $this->_info['titulo'];
+		if (! isset($titulo)) {	
+			$path_relativo = ($this->get_path_relativo() != '') ? 'php/'.$this->get_path_relativo() : 'php';
+			$titulo = "<span title='{$this->_dir_actual}'>$path_relativo</span>";
+		}
+		$this->generar_html_barra_sup($titulo, false,"ei-arch-barra-sup");		
 		echo "<div  id='cuerpo_{$this->objeto_js}'>\n";		
 
 		
@@ -246,8 +261,10 @@ class toba_ei_archivos extends toba_ei
 
 		
 		echo "<span style='float: right'>";
-		echo "<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>";
-		if (! $this->solo_carpetas) {
+		if ($this->crear_carpetas) {
+			echo "<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>";
+		}
+		if ($this->crear_archivos && ! $this->solo_carpetas) {
 			echo "<a href='#' onclick='{$this->objeto_js}.crear_archivo()' title='Crear archivo'>$img_crear_archivo</a>";
 		}
 		echo "</span>\n";			

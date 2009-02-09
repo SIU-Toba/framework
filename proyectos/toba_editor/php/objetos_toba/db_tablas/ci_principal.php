@@ -47,27 +47,34 @@ class ci_principal extends ci_editores_toba
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function conf__prop_basicas($form)
+	function conf__prop_basicas(toba_ei_formulario $form)
 	{
-		if ( $this->s__ap_php_db ) {
-			// Hay extension
-			$parametros = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
+		$param_editor = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
-			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
+		$eliminar_extension = !isset($this->id_objeto); //Si es alta no se puede extender
+		if ( $this->s__ap_php_db ) {
+			// Hay extension
+			$form->evento('ver_php')->vinculo()->set_parametros($param_editor);
 			if ( $this->s__ap_php_archivo ) {
 				// El archivo de la extension existe
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
 				$form->set_js_abrir( $abrir['js'] );
+				$eliminar_extension = true;
 			} else {
 				$form->evento('ver_php')->set_imagen('nucleo/php_ap_inexistente.gif');
 				$form->eliminar_evento('abrir_php');
+				$form->evento('extender_ap')->vinculo()->set_parametros($param_editor);				
 			}
 		} else {
 			$form->eliminar_evento('ver_php');	
 			$form->eliminar_evento('abrir_php');
+			$form->evento('extender_ap')->vinculo()->set_parametros($param_editor);
+		}
+		if ($eliminar_extension) {
+			$form->eliminar_evento('extender_ap');
 		}
 		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
 	}

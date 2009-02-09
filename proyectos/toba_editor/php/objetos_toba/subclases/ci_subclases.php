@@ -103,12 +103,21 @@ class ci_subclases extends toba_ci
 	function conf__form_nombre(toba_ei_formulario $form)
 	{
 		if (isset($this->s__datos_nombre)) {
-			$form->set_datos($this->s__datos_nombre);
+			$datos = $this->s__datos_nombre;
 		} else {
+			$datos = array();
 			$datos['nombre'] = $this->get_prefijo_clase();
-			$form->set_datos($datos);
 		}
-
+		$form->set_datos($datos);
+	}
+	
+	function conf__archivos(toba_ei_archivos $archivos)
+	{
+		$archivos->set_extensiones_validas(array('php'));
+		$archivos->set_path_absoluto($this->get_path_absoluto());
+		$archivos->set_crear_archivos(false);
+		$archivos->set_crear_carpetas(false);
+		$archivos->set_titulo('Extensiones existentes en php/'.$this->get_path_relativo());
 	}
 	
 	function evt__form_nombre__modificacion($datos)

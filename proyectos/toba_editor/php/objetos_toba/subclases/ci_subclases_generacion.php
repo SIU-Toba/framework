@@ -26,7 +26,7 @@ class ci_subclases_generacion extends toba_ci
 		if (empty($efs)) {
 			$this->pantalla()->eliminar_dep('form_metodos');
 			$this->pantalla()->eliminar_dep('form_opciones');
-			$this->pantalla()->set_descripcion('No hay métodos nuevos para generar en la sublcase');
+			$this->pantalla()->set_descripcion('No hay métodos nuevos para generar en la subclase');
 		}
 	}
 	

@@ -225,9 +225,6 @@ class toba_ci_info extends toba_ei_info
 	{
 		$molde = $this->get_molde_vacio();
 		//************** Elementos PROPIOS *************
-		//-- Inicializacion -----------------------
-		$molde->agregar( new toba_codigo_separador_php('Inicializacion',null,'grande') );
-		
 		//-- Ini operacion
 		$doc = array();
 		$doc[] = "Se ejecuta por única vez cuando el componente entra en la operación.";
@@ -239,13 +236,12 @@ class toba_ci_info extends toba_ei_info
 		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini__operacion Ver doc]');
 		$molde->agregar($metodo);
 		
+		//-- Final
+		$doc = "Ventana de extensión previa a la destrucción del componente, al final de la atención de los servicios";
+		$metodo = new toba_codigo_metodo_php('fin', array(), array($doc));
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
 
-		//-- Ini 
-		$metodo = new toba_codigo_metodo_php('ini', array(), array('Se ejecuta al inicio de todos los request en donde participa el componente'));
-		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini Ver doc]');
-		$molde->agregar($metodo);
-		
-		
 		$molde->agregar( new toba_codigo_separador_php('Configuraciones','Configuracion','grande') );
 		
 		//-- Conf
@@ -269,6 +265,12 @@ class toba_ci_info extends toba_ei_info
 			$molde->agregar($metodo);
 		}
 		
+		//-- Post Configurar
+		$doc = "Ventana para insertar lógica de la configuración del ci y sus dependencias";
+		$metodo = new toba_codigo_metodo_php('post_configurar', array(), array($doc));
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
+		
 		//-- Eventos propios ----------------------
 		if (count($this->eventos_predefinidos()) > 0) {
 			$molde->agregar( new toba_codigo_separador_php('Eventos',null,'grande') );
@@ -287,6 +289,15 @@ class toba_ci_info extends toba_ei_info
 				}
 			}
 		}
+
+		//-- Post Eventos
+		$doc = "Ventana que se ejecuta una vez que todos los eventos se han disparado para este objeto";
+		$metodo = new toba_codigo_metodo_php('post_eventos', array(), array($doc));
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
+
+	
+			
 		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
 			foreach ($this->subelementos as $id => $elemento) {

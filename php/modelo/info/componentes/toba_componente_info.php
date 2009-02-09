@@ -401,7 +401,14 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 
 	function get_molde_vacio()
 	{
-		return new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
+	
+		//-- Ini 
+		$doc = 'Se ejecuta al inicio de todos los request en donde participa el componente';
+		$metodo = new toba_codigo_metodo_php('ini', array(), array($doc));
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
+		return $molde;
 	}
 
 	function get_nombre_instancia_abreviado()

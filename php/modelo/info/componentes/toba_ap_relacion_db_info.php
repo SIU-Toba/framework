@@ -9,18 +9,83 @@ class toba_ap_relacion_db_info implements toba_meta_clase
 		$this->datos = $datos;
 	}
 	
+	function get_nombre_instancia_abreviado()
+	{
+		return "dr_ap";	
+	}		
+	
+	function set_subclase($nombre, $archivo)
+	{
+		$db = toba_contexto_info::get_db();
+		$nombre = $db->quote($nombre);
+		$archivo = $db->quote($archivo);
+		$sql = "
+			UPDATE apex_objeto_datos_rel
+			SET 
+				ap = 3,
+				ap_clase = $nombre,
+				ap_archivo = $archivo
+			WHERE
+					proyecto = '{$this->datos['proyecto']}'
+				AND	objeto = '{$this->datos['objeto']}'
+		";
+		toba::logger()->debug($sql);
+		$db->ejecutar($sql);
+	}	
+	
 	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
 	function get_molde_subclase()
 	{
-		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
-		$molde->agregar( new toba_codigo_metodo_php('ini') );
-		$molde->agregar( new toba_codigo_metodo_php('evt__pre_sincronizacion') );
-		$molde->agregar( new toba_codigo_metodo_php('evt__post_sincronizacion') );
-		$molde->agregar( new toba_codigo_metodo_php('evt__pre_eliminacion') );
-		$molde->agregar( new toba_codigo_metodo_php('evt__post_eliminacion') );
+		$molde = new toba_codigo_clase($this->get_subclase_nombre(), $this->get_clase_nombre());
+		
+		//-- Ini
+		$doc = 'Se ejecuta al inicio de todos los request en donde participa el componente';
+		$metodo = new toba_codigo_metodo_php('ini', array(), array($doc));
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
+		
+		//-- Pre Sinc
+	 	$doc = "Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar";
+	 	$comentarios = array(
+	 		$doc,
+			"La transacción con la bd ya fue iniciada (si es que hay)"	 		
+	 	);
+		$metodo = new toba_codigo_metodo_php('evt__pre_sincronizacion', array(), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
+		
+		//-- Post Sinc
+	 	$doc = "Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización";
+	 	$comentarios = array(
+	 		$doc,
+			"La transacción con la bd aún no fue terminada (si es que hay)"	 		
+	 	);		
+		$metodo = new toba_codigo_metodo_php('evt__post_sincronizacion', array(), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
+		
+		//-- Pre Elim
+	 	$doc = "Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación";
+	 	$comentarios = array(
+	 		$doc,
+			"La transacción con la bd ya fue iniciada (si es que hay)"	 		
+	 	);
+		$metodo =  new toba_codigo_metodo_php('evt__pre_eliminacion', array(), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
+		
+		//-- Post Elim
+	 	$doc = "Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación";
+	 	$comentarios = array(
+	 		$doc,
+			"La transacción con la bd ya fue iniciada (si es que hay)"	 		
+	 	);		
+		$metodo = new toba_codigo_metodo_php('evt__post_eliminacion', array(), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
 		return $molde;
 	}
 	

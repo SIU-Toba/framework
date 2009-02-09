@@ -6,13 +6,21 @@ class toba_datos_tabla_info extends toba_componente_info
 	{
 		return "Tabla";		
 	}
+	
+	function get_nombre_instancia_abreviado()
+	{
+		return "dt";	
+	}		
 
 	/**
 	*	Retorna la metaclase correspondiente al AP del datos tabla
 	*/
 	function get_metaclase_subcomponente($subcomponente)
 	{
-		return new toba_ap_tabla_db_info($this->datos['_info_estructura']);
+		$datos = $this->datos['_info_estructura'];
+		$datos['objeto'] = $this->datos['_info']['objeto'];
+		$datos['proyecto'] = $this->datos['_info']['proyecto'];
+		return new toba_ap_tabla_db_info($datos);
 	}
 	
 	/**
@@ -207,9 +215,29 @@ class toba_datos_tabla_info extends toba_componente_info
 	function get_molde_subclase()
 	{
 		$molde = $this->get_molde_vacio();
-		$molde->agregar( new toba_codigo_metodo_php('ini') );
-		$molde->agregar( new toba_codigo_metodo_php('evt__validar_ingreso', array('$fila','$id=null') ) );
-		$molde->agregar( new toba_codigo_metodo_php('evt__validar_fila', array('$datos_fila') ) );
+
+		//-- Validar Ingreso
+		$doc = "Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria. Lanzar una excepcion en caso de error";
+		$comentarios = array(
+			$doc,
+			'@param array $fila Datos de la fila',
+			'@param mixed $id Id. interno de la fila, si tiene (en el caso modificacion de la fila)'			
+		);
+		$metodo = new toba_codigo_metodo_php('evt__validar_ingreso', array('$fila','$id=null'), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);
+		
+		//-- Validar Foña
+		$doc = "Ventana de validacion que se invoca antes de sincronizar una fila con la base";
+		$comentarios = array(
+			$doc,
+			"El proceso puede ser abortado con un toba_error, el mensaje se muestra al usuario",
+			'@param array $fila Asociativo clave-valor de la fila a validar'
+		);
+		$metodo = new toba_codigo_metodo_php('evt__validar_fila', array('$fila'), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
+		
 		return $molde;
 	}
 }

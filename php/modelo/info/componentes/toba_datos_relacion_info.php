@@ -7,6 +7,11 @@ class toba_datos_relacion_info extends toba_componente_info
 		return "Relación";		
 	}
 	
+	function get_nombre_instancia_abreviado()
+	{
+		return "dr";	
+	}	
+	
 	/**
 	*	Retorna la metaclase correspondiente al AP del datos relacion
 	*/
@@ -98,7 +103,19 @@ class toba_datos_relacion_info extends toba_componente_info
 
 	function get_molde_subclase()
 	{
-		return $this->get_molde_vacio();
+		$molde = $this->get_molde_vacio();
+		
+		//-- Validacion
+		$doc = "Ventana para validaciones de toda la relación, se ejecuta justo antes de la sincronización";
+		$comentarios = array(
+		 	$doc,
+		 	"El proceso puede ser abortado con un toba_error, el mensaje se muestra al usuario",
+		 );		
+		$metodo = new toba_codigo_metodo_php('evt__validar', array(), $comentarios);
+		$metodo->set_doc($doc);
+		$molde->agregar($metodo);		
+
+		return $molde;
 	}
 }
 ?>
