@@ -697,6 +697,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 															$this->get_dir(),
 															$this->get_instancia()->get_id(),
 															$this->get_id());
+			$this->actualizar_punto_acceso($url, $this->get_id());
 		}
 	}
 	
@@ -710,6 +711,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function esta_publicado()
 	{
 		return toba_modelo_instalacion::existe_alias_apache($this->get_id());
+	}
+	
+	private function actualizar_punto_acceso($url, $proyecto)
+	{				
+		$punto = $this->db->quote($url);
+		$proyecto = $this->db->quote($proyecto);
+		
+		$sql = "UPDATE apex_admin_param_previsualizazion SET punto_acceso = $punto
+				WHERE 	proyecto = $proyecto";					
+		$this->db->ejecutar($sql);
 	}
 	
 	//-----------------------------------------------------------
