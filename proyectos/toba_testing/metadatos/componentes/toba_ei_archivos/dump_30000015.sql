@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_archivos', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'archivos_archivos', --subclase
+	'varios/extension_php/archivos_archivos.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - archivos', --nombre

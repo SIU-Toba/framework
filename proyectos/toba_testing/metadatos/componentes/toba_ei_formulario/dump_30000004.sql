@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_basicas', --subclase
+	'varios/extension_php/form_basicas.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - ci_edicion - form_basicas', --nombre

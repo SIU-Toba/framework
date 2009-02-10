@@ -225,6 +225,30 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000016', --dep_id
+	'30000001', --objeto_consumidor
+	'1625', --objeto_proveedor
+	'relacion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
+	'30000017', --dep_id
+	'30000001', --objeto_consumidor
+	'1743', --objeto_proveedor
+	'tabla', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
@@ -270,8 +294,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen
 	'cuadro,filtro,arbol,archivos,calendario,esquema', --objetos
 	'agregar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_pantala', --subclase
+	'varios/extension_php/pant_pantala.php'  --subclase_archivo
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_testing', --objeto_ci_proyecto
@@ -286,7 +310,23 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen
 	'ci_edicion', --objetos
 	'procesar,cancelar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_pantalaa', --subclase
+	'varios/extension_php/pant_pantalaa.php'  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_testing', --objeto_ci_proyecto
+	'30000001', --objeto_ci
+	'30000012', --pantalla
+	'pant_otr', --identificador
+	'3', --orden
+	'Otra', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	'pant_otra', --subclase
+	'varios/extension_php/pant_otra.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 30

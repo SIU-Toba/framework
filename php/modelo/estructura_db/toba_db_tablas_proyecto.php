@@ -112,6 +112,7 @@ class toba_db_tablas_proyecto
     44 => 'version_fecha',
     45 => 'version_detalle',
     46 => 'version_link',
+    47 => 'tiempo_espera_ms',
   ),
 );
 	}

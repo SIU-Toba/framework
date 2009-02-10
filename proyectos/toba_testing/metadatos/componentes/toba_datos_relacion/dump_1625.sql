@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_relacion', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'dr_prueba', --subclase
+	'varios/extension_php/dr_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Prueba relacion 1 ->N  1 -> N', --nombre
@@ -49,9 +49,9 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase,
 	'1625', --objeto
 	'0', --debug
 	NULL, --clave
-	'2', --ap
-	NULL, --ap_clase
-	NULL, --ap_archivo
+	'3', --ap
+	'dr_ap_prueba', --ap_clase
+	'varios/extension_php/dr_ap_prueba.php', --ap_archivo
 	'0', --sinc_susp_constraints
 	'1'  --sinc_orden_automatico
 );

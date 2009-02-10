@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_filtro', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'filtro_prueba', --subclase
+	'varios/extension_php/filtro_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - filtro', --nombre

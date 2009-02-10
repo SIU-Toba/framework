@@ -138,6 +138,30 @@ legend {
 	padding: 2px 2px 2px 0px;
 }
 
+#capa_espera {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     z-index: 1000;
+}
+
+#capa_espera div {
+	text-align:center; 
+	padding: 30px; 
+	border-color: #f1e5dd; 
+	border: 1px solid; 
+	z-index: 1000;	
+	background-color: white;
+    margin: 100px auto;
+    font-weight: bold;
+    width: 500px;	
+	
+}
+
+
 /*************************************
 		Elementos de Interface
 **************************************/

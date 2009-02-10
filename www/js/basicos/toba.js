@@ -132,6 +132,9 @@ toba = new function() {
 			conexion.setForm('formulario_toba');
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
+			if (toba_espera != 0) {
+				setTimeout ("mostrar_esperar()", toba_espera);
+			}
 			document.formulario_toba.submit();
 		}
 	};

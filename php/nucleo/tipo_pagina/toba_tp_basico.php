@@ -69,7 +69,7 @@ class toba_tp_basico extends toba_tipo_pagina
 	{
 		echo "
 		<style type='text/css'>
-			#overlay {
+			#overlay, #capa_espera {
 				background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");     			
 			}
 			.barra-superior {
@@ -105,10 +105,16 @@ class toba_tp_basico extends toba_tipo_pagina
 			toba_editor::generar_zona_vinculos_item($item, $accion);
 		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
-		$img = toba_recurso::imagen_toba('wait.gif');
+		$wait = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
-		echo "<img src='$img' style='vertical-align: middle;' alt='' /> Procesando...";
-		echo "</div>";
+		echo "<img src='$wait' style='vertical-align: middle;' alt='' /> Procesando...";
+		echo "</div>\n";
+		
+		$logo = toba_recurso::imagen_proyecto('logo.gif', false);
+		echo "<div id='capa_espera'>
+				<div><img src='$logo' /><p>Procesando. Por favor aguarde...</p><img src='$wait'></div>
+			</div>
+		";
 	}
 
 	protected function barra_superior()

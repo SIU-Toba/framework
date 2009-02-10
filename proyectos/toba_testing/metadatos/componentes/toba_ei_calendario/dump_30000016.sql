@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_calendario', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'calendario_prueba', --subclase
+	'varios/extension_php/calendario_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - calendario', --nombre

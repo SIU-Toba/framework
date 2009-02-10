@@ -66,7 +66,8 @@ class toba_proyecto_db
 						version							,
 						version_fecha					,
 						version_detalle					,
-						version_link
+						version_link					,
+						tiempo_espera_ms		
 				FROM 	apex_proyecto p 
 							LEFT OUTER JOIN apex_menu m ON (p.menu = m.menu)
 							LEFT OUTER JOIN apex_estilo est ON (p.estilo = est.estilo)

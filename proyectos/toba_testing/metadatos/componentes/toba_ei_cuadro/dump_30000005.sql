@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_cuadro', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'cuadro_md', --subclase
+	'varios/extension_php/cuadro_md.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - ci_edicion - cuadro_md', --nombre

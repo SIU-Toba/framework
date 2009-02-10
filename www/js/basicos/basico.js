@@ -518,6 +518,14 @@ function salir(){
 		}
 	}
 }
+function mostrar_esperar()
+{
+	scroll(0,0);
+	var capa_espera = document.getElementById('capa_espera');
+	if (capa_espera) {
+		capa_espera.style.visibility = 'visible';
+	}			
+}
 
 
 

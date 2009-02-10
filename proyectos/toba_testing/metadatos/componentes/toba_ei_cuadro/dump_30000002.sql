@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_cuadro', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'cuadro_prueba', --subclase
+	'varios/extension_php/cuadro_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Extensión PHP - mi_cuadro', --nombre
@@ -111,11 +111,33 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable_activo
 	'0', --scroll
 	NULL, --scroll_alto
-	NULL, --cc_modo
-	NULL, --cc_modo_anidado_colap
+	't', --cc_modo
+	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_cc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
+	'toba_testing', --objeto_cuadro_proyecto
+	'30000002', --objeto_cuadro
+	'30000001', --objeto_cuadro_cc
+	'uno', --identificador
+	NULL, --descripcion
+	'1', --orden
+	'nombre', --columnas_id
+	'nombre', --columnas_descripcion
+	'1', --pie_contar_filas
+	'1', --pie_mostrar_titular
+	'1', --pie_mostrar_titulos
+	NULL, --imp_paginar
+	'1'  --modo_inicio_colapsado
+);
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna

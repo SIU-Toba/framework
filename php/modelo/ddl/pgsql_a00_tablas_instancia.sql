@@ -94,6 +94,7 @@ CREATE TABLE			apex_proyecto
 	version_fecha						date			NULL,
 	version_detalle						varchar			NULL,
 	version_link						varchar(255)	NULL,
+	tiempo_espera_ms					integer			NULL,			
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto")
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","item_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE,

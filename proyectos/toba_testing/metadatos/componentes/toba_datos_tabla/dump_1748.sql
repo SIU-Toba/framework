@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'dt_prueba', --subclase
+	'varios/extension_php/dt_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Departamento Tareas', --nombre
@@ -47,9 +47,9 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1748', --objeto
 	NULL, --max_registros
 	NULL, --min_registros
-	'1', --ap
-	NULL, --ap_clase
-	NULL, --ap_archivo
+	'0', --ap
+	'dt_ap_prueba', --ap_clase
+	'varios/extension_php/dt_ap_prueba.php', --ap_archivo
 	'test_depto_tareas', --tabla
 	NULL, --alias
 	'0', --modificar_claves
