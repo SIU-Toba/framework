@@ -450,7 +450,11 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	};
 		
 	ef_multi_seleccion_doble.prototype.cuando_cambia_valor = function(callback) {
-		this._callback = callback;
+		if (this._callback === null) {
+			this._callback = callback;
+		} else {
+			this._callback = this._callback + '\n' + callback;
+		}
 	};	
 	
 	ef_multi_seleccion_doble.prototype.set_tab_index = function(tab_index) {

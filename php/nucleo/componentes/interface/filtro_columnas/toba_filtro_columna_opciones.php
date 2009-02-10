@@ -8,8 +8,9 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 	{
 		$parametros = $this->_datos;
 		$clase_ef = 'toba_'.$this->_datos['opciones_ef'];
+		$obligatorio = array($this->_datos['obligatorio'], false);
 		$this->_ef = new $clase_ef($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
-											null, null, false, $parametros);
+											null, null, $obligatorio, $parametros);
 
 		//--- Condiciones											
 		if (! $this->es_seleccion_multiple()) {

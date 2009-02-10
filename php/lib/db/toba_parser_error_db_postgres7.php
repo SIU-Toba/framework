@@ -13,6 +13,18 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	
 	function parsear($sql, $sqlstate, $mensaje)
 	{
+		//-- Intenta determinar el separador
+		try {
+			$sql = "SHOW lc_messages";
+			$datos = $this->get_conexion_extra()->consultar_fila($sql);
+			if (stristr($datos['lc_messages'], 'es') !== false) {
+				 $this->sep_ini = '«';
+				 $this->sep_fin = '»';
+			}
+		} catch (toba_error $e) {
+			
+		}
+		
 		$accion = $this->get_accion($sql);
 		$mensaje = str_replace("\n", '', $mensaje);
 		$metodos = reflexion_buscar_metodos($this, 'parsear_sqlstate_');
@@ -125,7 +137,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 				WHERE
 						c.oid = x.indrelid
 					AND	i.oid = x.indexrelid
-					AND	i.relname = 'ix_dh01_key_nro_cuil'		
+					AND	i.relname = '$pk'		
 		";
 		$rs = $db->consultar_fila($sql);
 		if (! empty($rs)) {

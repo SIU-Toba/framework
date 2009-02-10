@@ -11,8 +11,9 @@ class toba_filtro_columna_fecha extends toba_filtro_columna_compuesta
 	{
 		//--- Parámetros efs		
 		$parametros = $this->_datos;
+		$obligatorio = array($this->_datos['obligatorio'], false);
 		$this->_ef = new toba_ef_editable_fecha($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
-											null, null, false, $parametros);
+											null, null, $obligatorio, $parametros);
 
 		//--- Condiciones
 		$this->agregar_condicion('es_igual_a', 		new toba_filtro_condicion('es igual a',	 	'=', 	'', 	'', 	'::date', 	'::date'));

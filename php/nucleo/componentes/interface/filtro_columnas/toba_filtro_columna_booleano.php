@@ -20,7 +20,7 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 		}
 		$obligatorio = array($this->_datos['obligatorio'], false);
 		$this->_ef = new toba_ef_radio($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
-											null, null, false, $parametros);
+											null, null, $obligatorio, $parametros);
 								
 		$opciones = array();			
 		$opciones['1'] = 'Sí';

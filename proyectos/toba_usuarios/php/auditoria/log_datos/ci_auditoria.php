@@ -9,7 +9,6 @@ class ci_auditoria extends toba_ci
 	//-----------------------------------------------------------------------------------
 	//---- Inicializacion ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
 	function ini__operacion()
 	{
 		if( toba::sesion()->proyecto_esta_predefinido() ) {
@@ -28,6 +27,7 @@ class ci_auditoria extends toba_ci
 			$this->dep('filtro')->desactivar_efs( array('proyecto') );
 		}
 		if (isset($this->s__proyecto)) {
+			$this->esquema = $this->s__proyecto.'_auditoria';			
 			$tablas = $this->get_tablas();
 			if (empty($tablas)) {
 				$desc = 'El proyecto <strong>'.$this->s__proyecto.'</strong> no tiene creado un [wiki:Referencia/Auditoria esquema de auditoría]. ';
@@ -96,6 +96,7 @@ class ci_auditoria extends toba_ci
 			if (isset($schema)) {
 				$auditoria->set_esquema_origen($schema);			
 			}
+			$auditoria->set_esquema_logs($this->esquema);
 			//--- Se recorre cada tabla buscada y se crea dinamicamente un cuadro
 			foreach($this->s__filtro['tablas'] as $tabla) { 
 				$datos = $auditoria->get_datos($tabla, $this->s__filtro);

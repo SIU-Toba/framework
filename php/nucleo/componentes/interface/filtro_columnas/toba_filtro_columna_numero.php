@@ -15,8 +15,9 @@ class toba_filtro_columna_numero extends toba_filtro_columna_compuesta
 		if (! isset($parametros['edit_tamano'])) {
 			$parametros['edit_tamano'] = 18;
 		}
+		$obligatorio = array($this->_datos['obligatorio'], false);
 		$this->_ef = new toba_ef_editable_numero($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
-											null, null, false, $parametros);
+											null, null, $obligatorio, $parametros);
 											
 
 		//--- Condiciones

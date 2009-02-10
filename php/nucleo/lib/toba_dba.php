@@ -65,6 +65,14 @@ class toba_dba
 	}
 	
 	/**
+	*	Cambia la definicion de una base durante este pedido de página
+	*/
+	static function set_parametros_base($id_base, $parametros)
+	{
+		self::$bases_definidas[$id_base] = $parametros;
+	}	
+	
+	/**
 	 * Retorna un arreglo de configuraciones de bases definidas en bases.ini
 	 * @return array()
 	 */

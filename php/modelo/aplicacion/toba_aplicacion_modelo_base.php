@@ -40,14 +40,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->instalacion = $instalacion;
 		$this->instancia = $instancia;
 		$this->proyecto = $proyecto;
-		$parametros = $this->proyecto->get_parametros_db_negocio();
-		if (isset($parametros['schema'])) {
-			$this->schema_modelo = $parametros['schema'];
-			$this->schema_auditoria = 'auditoria_'.$parametros['schema'];			
-		} else {
-			$this->schema_modelo = 'public';
-			$this->schema_auditoria = 'auditoria';
-		}
+		$this->schema_auditoria = $proyecto->get_id().'_auditoria';
 	}
 	
 	/**
@@ -316,6 +309,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		
 		//--- Tablas de auditoría
 		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
+		$auditoria->set_esquema_logs($this->schema_auditoria);
+		
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
 		} else {
