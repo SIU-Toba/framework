@@ -13,16 +13,21 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	protected function barra_superior()
 	{
 		echo "<div class='barra-superior barra-superior-tit'>\n";		
-		$info = toba::solicitud()->get_datos_item();
 		$this->info_version();				
 		echo "<div class='item-barra'>";
-		if (trim($info['item_descripcion']) != '') {
-			$desc = toba_parser_ayuda::parsear(trim($info['item_descripcion']));
-			$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
-			echo "<div $ayuda>";
-			echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
-			echo "</div>";
-		}		
+		$mensaje = toba::mensajes()->get_operacion_actual();
+		if (isset($mensaje)) {
+			if (strpos($mensaje, ' ') !== false) {	//Detecta si es una url o un mensaje completo
+				$desc = toba_parser_ayuda::parsear($mensaje);
+				$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
+				echo "<div $ayuda>";
+				echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
+				echo "</div>";
+			} else {
+				$js = "abrir_popup('ayuda', '$mensaje', {width: 800, height: 600})";
+				echo "<a href='#' onclick=\"$js\" title='Abrir ayuda'>".toba_recurso::imagen_toba("ayuda_grande.gif", true)."</a>";
+			}
+		}
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
 		echo "</div>\n\n";
 	}
