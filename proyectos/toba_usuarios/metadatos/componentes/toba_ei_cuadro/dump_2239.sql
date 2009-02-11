@@ -128,11 +128,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'799', --objeto_cuadro_col
 	'momento', --clave
 	'1', --orden
-	'Momento', --titulo
+	'Fecha y Hora', --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'7', --estilo
 	NULL, --ancho
-	'1', --formateo
+	'18', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
 	NULL, --mostrar_xls
@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'800', --objeto_cuadro_col
 	'tiempo', --clave
 	'5', --orden
-	'Respuesta', --titulo
+	'Tiempo respuesta', --titulo
 	NULL, --estilo_titulo
 	'0', --estilo
 	NULL, --ancho
@@ -179,39 +179,12 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_usuarios', --objeto_cuadro_proyecto
 	'2239', --objeto_cuadro
-	'801', --objeto_cuadro_col
-	'item_proyecto', --clave
-	'2', --orden
-	'Item proyecto', --titulo
-	NULL, --estilo_titulo
-	'4', --estilo
-	NULL, --ancho
-	'1', --formateo
-	NULL, --vinculo_indice
-	'0', --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	'0', --total
-	NULL, --total_cc
-	'0', --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	'0', --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL  --vinculo_celda
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
-	'toba_usuarios', --objeto_cuadro_proyecto
-	'2239', --objeto_cuadro
 	'802', --objeto_cuadro_col
 	'item', --clave
 	'3', --orden
-	'Item ID', --titulo
+	'Id. Operación', --titulo
 	NULL, --estilo_titulo
-	'5', --estilo
+	'0', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
@@ -263,7 +236,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'804', --objeto_cuadro_col
 	'item_nombre', --clave
 	'4', --orden
-	'Item', --titulo
+	'Operación', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
@@ -285,3 +258,33 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL  --vinculo_celda
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
+	'toba_usuarios', --objeto_cuadro_proyecto
+	'2239', --objeto_cuadro
+	'30000009', --objeto_cuadro_col
+	'id', --clave
+	'2', --orden
+	'Id. Acceso', --titulo
+	NULL, --estilo_titulo
+	'1', --estilo
+	NULL, --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	'0', --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	'0', --total
+	NULL, --total_cc
+	'0', --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	'0', --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL  --vinculo_celda
+);
+--- FIN Grupo de desarrollo 30

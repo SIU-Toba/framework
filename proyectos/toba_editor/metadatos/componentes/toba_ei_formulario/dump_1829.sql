@@ -865,9 +865,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'11', --orden
-	'Registrar solicitud', --etiqueta
+	'Registrar accesos', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Guarda en la base de datos información básica de ejecución de cada pedido de página. Si no esta activada, la registración de esta información dependerá del tilde de registración de cada operación en particular', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -914,7 +914,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --check_valor_no
 	'Sí', --check_desc_si
 	'No', --check_desc_no
-	NULL, --check_ml_toggle
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto

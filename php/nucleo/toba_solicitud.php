@@ -14,13 +14,13 @@ abstract class toba_solicitud
 	protected $objetos = array();				//Objetos standarts asociados	al	ITEM
 	protected $objetos_indice_actual = 0;		//Posicion actual	del array de objetos	
 	protected $observaciones = array();			//Array de observaciones realizadas	durante la solicitud	
-	protected $registrar_db;					//Indica	si	se	va	a registrar	la	solicitud
-	protected $cronometrar;						//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
+	protected $registrar_db;					//Indica si	se	va	a registrar	la	solicitud
+	protected $cronometrar;						//Indica si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
 
 	function __construct($item, $usuario)	
 	{
-		toba::cronometro()->marcar('Inicio Solicitud');		
+		toba::cronometro()->marcar('Inicio Solicitud');
 		$this->item = $item;
 		$this->usuario = $usuario;
 
@@ -41,7 +41,7 @@ abstract class toba_solicitud
 			$this->cronometrar = true;
 		}		
 		//-- Identifico si la solicitd se deber registrar
-		if ($this->info['basica']['item_solic_registrar']) {
+		if (toba::proyecto()->get_parametro('registrar_solicitud') || $this->info['basica']['item_solic_registrar']) {
 			$this->registrar_db	= true;
 		}
 		/*
@@ -181,7 +181,6 @@ abstract class toba_solicitud
 	
 	/**
 	 * Retorna un id que representa a todo el pedido de página actual
-	 * @return array(proyecto, item)
 	 */
 	function get_id()
 	{

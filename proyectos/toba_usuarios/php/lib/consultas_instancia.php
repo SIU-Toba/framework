@@ -77,9 +77,30 @@ class consultas_instancia
 					ORDER BY ingreso DESC;";
 		return toba::db()->consultar($sql);		
 	}
-
-	static function get_solicitudes_browser($sesion)
+	
+	static function get_id_sesion($id_solicitud)
 	{
+		$id_solicitud = quote($id_solicitud);
+		$sql = "
+				SELECT	sesion_browser as id
+				FROM apex_solicitud_browser
+				WHERE solicitud_browser = $id_solicitud
+		";
+		$fila = toba::db()->consultar_fila($sql);
+		if (isset($fila['id'])) {
+			return $fila['id'];
+		} else {
+			throw new toba_error("No se encontro la sesión de la solicitud $id_solicitud");
+		}
+	}
+
+	static function get_solicitudes_browser($sesion, $id_solicitud=null)
+	{
+		$extra = '';
+		if (isset($id_solicitud)) {
+			$id_solicitud = quote($id_solicitud);
+			$extra = "AND sb.solicitud_browser = $id_solicitud";
+		}
 		$sql = "
 				SELECT	s.solicitud as id,
 						s.item_proyecto as item_proyecto,
@@ -99,6 +120,7 @@ class consultas_instancia
 				AND	s.item = i.item
 				AND s.item_proyecto = i.proyecto
 				AND	sb.sesion_browser = '$sesion'
+				$extra
 				GROUP BY 1,2,3,4,5,6
 				ORDER BY s.momento DESC;";
 		return toba::db()->consultar($sql);		

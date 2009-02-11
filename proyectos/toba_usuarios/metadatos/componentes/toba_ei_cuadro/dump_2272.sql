@@ -23,8 +23,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'toba_usuarios', --fuente_datos_proyecto
-	'toba_usuarios', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -74,8 +74,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable_activo
 	'1', --scroll
 	NULL, --scroll_alto
-	NULL, --cc_modo
-	NULL, --cc_modo_anidado_colap
+	't', --cc_modo
+	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
@@ -117,8 +117,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2272', --objeto_cuadro
 	'815', --objeto_cuadro_col
 	'operacion_nombre', --clave
-	'2', --orden
-	'Operación', --titulo
+	'4', --orden
+	'Acción', --titulo
 	NULL, --estilo_titulo
 	'6', --estilo
 	NULL, --ancho
@@ -167,3 +167,33 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL  --vinculo_celda
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
+	'toba_usuarios', --objeto_cuadro_proyecto
+	'2272', --objeto_cuadro
+	'30000008', --objeto_cuadro_col
+	'auditoria_id_solicitud', --clave
+	'2', --orden
+	'Nro. Acceso', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
+	NULL, --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	'0', --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	'0', --total
+	NULL, --total_cc
+	'1', --usar_vinculo
+	'3443', --vinculo_carpeta
+	'3445', --vinculo_item
+	'1', --vinculo_popup
+	'width: 600px, height:450px, scrollbars: 1, resizable: 1', --vinculo_popup_param
+	NULL, --vinculo_target
+	'sesion'  --vinculo_celda
+);
+--- FIN Grupo de desarrollo 30

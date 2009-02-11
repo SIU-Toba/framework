@@ -38,7 +38,6 @@ class ci_auditoria extends toba_ci
 				$desc = 'Auditoría del proyecto <strong>'.$this->s__proyecto.'</strong>';	
 				$this->pantalla()->set_descripcion($desc);
 			}	
-			
 		}		
 	}
 	

@@ -128,7 +128,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
 	'600px', --ancho
-	'450px', --alto
+	'400px', --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc

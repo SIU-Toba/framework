@@ -26,7 +26,7 @@ class toba_auditoria_tablas_postgres
 	
 	static function get_campos_propios()
 	{
-		return array('auditoria_fecha', 'auditoria_usuario', 'auditoria_operacion', 'operacion_nombre');	
+		return array('auditoria_fecha', 'auditoria_usuario', 'auditoria_operacion', 'operacion_nombre', 'auditoria_id_solicitud');	
 	}
 	
 	function agregar_tablas($prefijo=null) 
@@ -193,8 +193,24 @@ class toba_auditoria_tablas_postgres
 	{
 		$destino = $this->prefijo.$origen;
 		$negocio = $this->conexion->get_definicion_columnas($origen, $this->schema_origen);
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_usuario',                                                   
+			    'tipo_sql' => 'character varying(30)',                                             
+			  );
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_fecha',                                                   
+			    'tipo_sql' => 'timestamp without time zone',                                             
+			  );
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_operacion',                                                   
+			    'tipo_sql' => 'character(1)',                                             
+			  );		
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_id_solicitud',                                                   
+			    'tipo_sql' => 'integer',                                             
+			  );			  	  
 		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);
-		
+				
 		foreach ($negocio as $campo_negocio) {
 			$existe = false;
 			foreach ($logs as $campo_log) {
@@ -208,6 +224,7 @@ class toba_auditoria_tablas_postgres
 				$this->conexion->ejecutar($sql);				
 			}
 		}
+		
 	}
 	
 	protected function crear_sp() 
@@ -225,17 +242,20 @@ class toba_auditoria_tablas_postgres
 					rusuario RECORD;
 					vusuario VARCHAR(30);
 					voperacion varchar;
+					vid_solicitud integer;
 					vestampilla timestamp;
 				BEGIN
 					vestampilla := current_timestamp;
 					SELECT INTO schema_temp {$this->schema_origen}.recuperar_schema_temp();
 					SELECT INTO rtabla_usr * FROM pg_tables WHERE tablename = ''tt_usuario'' AND schemaname = schema_temp;
 					IF FOUND THEN
-						SELECT INTO rusuario usuario FROM tt_usuario;
+						SELECT INTO rusuario usuario, id_solicitud FROM tt_usuario;
 						IF FOUND THEN
 							vusuario := rusuario.usuario;
+							vid_solicitud := rusuario.id_solicitud;
 						ELSE
 							vusuario := user;
+							vid_solicitud := 0;
 						END IF;
 					ELSE
 						vusuario := user;
@@ -253,13 +273,13 @@ class toba_auditoria_tablas_postgres
 					$sql .= $def['nombre'] .  ", "; 
 				}				
 			}
-			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion) VALUES (";
+			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (";
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= "NEW.{$def['nombre']}, ";
 				}
 			} 		
-			$sql .= "vusuario, vestampilla, voperacion);
+			$sql .= "vusuario, vestampilla, voperacion, vid_solicitud);
 					ELSIF TG_OP = ''DELETE'' THEN
 						voperacion := ''D'';
 						INSERT INTO {$this->schema_logs}.{$this->prefijo}$t (";
@@ -268,13 +288,13 @@ class toba_auditoria_tablas_postgres
 					$sql .= $def['nombre'] .  ", ";	
 				}
 			}		
-			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion) VALUES (";
+			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (";
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= "OLD." . $def['nombre'] .  ", ";
 				}
 			}
-			$sql .= "vusuario, vestampilla, voperacion);
+			$sql .= "vusuario, vestampilla, voperacion, vid_solicitud);
 					END IF;
 					RETURN NULL;
 				END;
@@ -329,26 +349,33 @@ class toba_auditoria_tablas_postgres
 	{
 		$where = 'true';
 		$order = '';
+		
+		$filtro_valores = $this->conexion->quote($filtro);
 		if (isset($filtro['fecha_desde'])) {
-			$where .= " AND aud.auditoria_fecha::date >= '{$filtro['fecha_desde']}'";
+			$where .= " AND aud.auditoria_fecha::date >= {$filtro_valores['fecha_desde']}";
 		}
 		if (isset($filtro['fecha_hasta'])) {
-			$where .= " AND aud.auditoria_fecha::date <= '{$filtro['fecha_hasta']}'";
+			$where .= " AND aud.auditoria_fecha::date <= {$filtro_valores['fecha_hasta']}";
 		}
 		if (isset($filtro['usuario'])) {
-			$where .= " AND aud.auditoria_usuario = '{$filtro['usuario']}'";
+			$where .= " AND aud.auditoria_usuario = {$filtro_valores['usuario']}";
 		}
 		if (isset($filtro['operacion'])) {
-			$where .= " AND aud.auditoria_operacion = '{$filtro['operacion']}'";
+			$where .= " AND aud.auditoria_operacion = {$filtro_valores['operacion']}";
 		}
-		if (isset($filtro['campo']) && isset($filtro['valor'])) {
-			$filtro['valor'] = quote($filtro['valor']);
-			$where .= " AND aud.{$filtro['campo']} = {$filtro['valor']}";
+			if (isset($filtro['auditoria_id_solicitud'])) {
+			$where .= " AND aud.auditoria_id_solicitud = {$filtro_valores['auditoria_id_solicitud']}";
 		}		
 		if (isset($filtro['ordenar']) && $filtro['ordenar'] == 'clave') {
 			$claves = $this->get_campos_claves($tabla);
 			$order = implode(', ', $claves).', ';
-		}		
+		}
+		if (isset($filtro['campo']) && isset($filtro['valor'])) {
+			$resultado = null;
+			if (preg_match('/^\w*$/i', $filtro['campo'], $resultado)) {
+				$where .= " AND aud.{$filtro['campo']} = {$filtro_valores['valor']}";
+			}
+		}						
 	
 		$sql = "SELECT 
 					aud.*,

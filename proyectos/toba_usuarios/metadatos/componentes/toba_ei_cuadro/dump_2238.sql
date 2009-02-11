@@ -111,8 +111,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable_activo
 	'0', --scroll
 	NULL, --scroll_alto
-	NULL, --cc_modo
-	NULL, --cc_modo_anidado_colap
+	't', --cc_modo
+	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
@@ -236,7 +236,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'798', --objeto_cuadro_col
 	'solicitudes', --clave
 	'5', --orden
-	'Solic', --titulo
+	'Accesos', --titulo
 	NULL, --estilo_titulo
 	'0', --estilo
 	NULL, --ancho

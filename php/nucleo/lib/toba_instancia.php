@@ -9,6 +9,7 @@ class toba_instancia
 {
 	static private $instancia;
 	static protected $id;
+	protected $id_solicitud;
 	private $memoria;							//Referencia al segmento de $_SESSION asignado
 		
 	/**
@@ -125,12 +126,15 @@ class toba_instancia
 
 	function get_id_solicitud()
 	{
-		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
-		$rs = $this->get_db()->consultar($sql);
-		if (empty($rs)) {
-			throw new toba_error('No es posible generar un ID para la solicitud');
+		if (! isset($this->id_solicitud)) {
+			$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
+			$rs = $this->get_db()->consultar($sql);
+			if (empty($rs)) {
+				throw new toba_error('No es posible generar un ID para la solicitud');
+			}
+			$this->id_solicitud = $rs[0]['id'];
 		}
-		return $rs[0]['id'];
+		return $this->id_solicitud;
 	}
 
 	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
