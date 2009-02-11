@@ -16,7 +16,7 @@ class toba_rf_componente_formulario extends toba_rf_componente
 				$e[] = new toba_rf_subcomponente_ef($ef['etiqueta'], $grupo, $ef['id'] , $ef['proyecto'], $this->item, 
 														$this->restriccion,
 														$ef['no_visible'],
-														$ef['no_editable'], $ef['formulario']);		
+														$ef['no_editable'], $ef['formulario'], $ef['deshabilitar_rest_func']);		
 			}
 			$grupo->set_hijos($e);
 			$this->agregar_hijo($grupo);
@@ -29,6 +29,7 @@ class toba_rf_componente_formulario extends toba_rf_componente
 						ef.objeto_ei_formulario_fila as		id,
 						ef.objeto_ei_formulario_proyecto as	proyecto,
 						ef.etiqueta as						etiqueta, 
+						ef.deshabilitar_rest_func,
 						ref.no_visible as					no_visible,
 						ref.no_editable as					no_editable
 				FROM 	apex_objeto_ei_formulario_ef ef

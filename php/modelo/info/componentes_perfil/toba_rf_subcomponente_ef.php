@@ -7,8 +7,9 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	protected $img_solo_lectura;
 	protected $img_editable;
 	protected $id_ef;
+	protected $deshabilitar_rest;
 
-	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario) 
+	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario, $deshabilitar_rest) 
 	{
 		$this->id_ef = $id;
 		$id = 'ef_'.$id;
@@ -16,6 +17,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		$this->formulario = $formulario;
 		$this->solo_lectura_original = $no_editable;
 		$this->solo_lectura_actual = $this->solo_lectura_original;
+		$this->deshabilitar_rest = $deshabilitar_rest;
 		if ($this->solo_lectura_original) {
 			$this->marcar_abiertos();
 		}
@@ -48,8 +50,10 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		$html = '';
 		$html .= "<img src='$img_solo_lectura' id='".$id_solo_lectura."_img' title='Editable / Solo Lectura' onclick='cambiar_editable(\"$id_solo_lectura\")' />";
 		$html .= "<input type='hidden' value='$check_solo_lectura' id='$id_solo_lectura' name='$id_solo_lectura' />";
-		$html .= "<img src='$img_oculto' id='".$id_oculto."_img' title='Visible / Oculto' onclick='cambiar_oculto(\"$id_oculto\")' />";
-		$html .= "<input type='hidden' value='$check_oculto' id='$id_oculto' name='$id_oculto' />";
+		if ($this->deshabilitar_rest != 1) {
+			$html .= "<img src='$img_oculto' id='".$id_oculto."_img' title='Visible / Oculto' onclick='cambiar_oculto(\"$id_oculto\")' />";
+			$html .= "<input type='hidden' value='$check_oculto' id='$id_oculto' name='$id_oculto' />";
+		}
 		return $html;
 	}
 	

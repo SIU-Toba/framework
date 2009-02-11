@@ -6,6 +6,7 @@ class toba_migracion_1_3_0 extends toba_migracion
 	{
 		$sql = "ALTER TABLE apex_objeto ALTER COLUMN subclase_archivo TYPE VARCHAR(255);";
 		$sql = "ALTER TABLE apex_proyecto ADD COLUMN tiempo_espera_ms INTEGER";
+		$sql = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN deshabilitar_rest_func SMALLINT";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	

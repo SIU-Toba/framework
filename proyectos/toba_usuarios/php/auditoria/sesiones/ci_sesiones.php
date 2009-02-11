@@ -96,7 +96,7 @@ class ci_sesiones extends toba_ci
 		$desc .= 'Ingreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['ingreso']).'</strong><br>';
 		$desc .= 'Egreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['egreso']).'</strong><br>';
 		$desc .= 'IP: <strong>'.$datos[0]['ip'].'</strong><br>';
-		$desc .= 'Solicitudes registradas: <strong>'.$datos[0]['solicitudes'].'</strong><br>';
+		$desc .= 'Accesos registrados: <strong>'.$datos[0]['solicitudes'].'</strong><br>';
 		$this->pantalla()->set_descripcion($desc);	
 	}
 

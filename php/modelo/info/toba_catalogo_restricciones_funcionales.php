@@ -63,22 +63,6 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 	
 	function get_lista_items()
 	{
-		/*$items = array();
-		$sql = "SELECT proyecto, item FROM apex_restriccion_funcional_ef 
-				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
-				UNION
-				SELECT proyecto, item FROM apex_restriccion_funcional_pantalla 
-				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
-				UNION
-				SELECT proyecto, item FROM apex_restriccion_funcional_evt 
-				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
-				UNION
-				SELECT proyecto, item FROM apex_restriccion_funcional_ei 
-				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
-				UNION
-				SELECT proyecto, item FROM apex_restriccion_funcional_cols 
-				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'";
-		*/
 		$sql = "SELECT 
 					proyecto, 
 					item, 
