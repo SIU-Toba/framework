@@ -569,7 +569,7 @@ class toba_ci extends toba_ei
 	protected function configurar_dep($dep)
 	{
 		if ($this->dependencia_esta_configurada($dep)) {
-			throw new toba_error("La dependencia '$dep' ya ha sido configurada anteriormente");
+			throw new toba_error_def("La dependencia '$dep' ya ha sido configurada anteriormente");
 		}
 		$this->_dependencias_configuradas[] = $dep;		
 		//--- Config. por defecto
@@ -680,7 +680,7 @@ class toba_ci extends toba_ei
 	    	if (!$ok && $info_pantalla['identificador'] == $id) { 
 				if (in_array($info_pantalla['pantalla'], $no_visibles)) {
 					//-- Restricción funcional pantalla no-visible ------
-					throw new toba_error($this->get_txt()."No es posible navegar hacia la pantalla '". $id ."' ya que se encuentra oculta por una restricción funcional");
+					throw new toba_error_def($this->get_txt()."No es posible navegar hacia la pantalla '". $id ."' ya que se encuentra oculta por una restricción funcional");
 					//--------------								
 				} else {
 					$ok = true;
@@ -689,11 +689,11 @@ class toba_ci extends toba_ei
 	    }
 	
 		if (! $ok) {
-			throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+			throw new toba_error_def($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
 		}
 	
 		if (isset($this->_pantalla_servicio)) { 
-			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+			throw new toba_error_def($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
 		}
 	    $this->_pantalla_id_servicio	= $id;
 	}

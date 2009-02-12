@@ -54,7 +54,7 @@ class toba_nucleo
 				toba::logger()->debug('Se recargo el nucleo','toba');
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
-					throw new toba_error('ERROR: La operación no esta habilitada para provocar redirecciones.');
+					throw new toba_error_def('ERROR: La operación no esta habilitada para provocar redirecciones.');
 				}
 				//TRAP para forzar la recarga de solicitud
 				$this->solicitud_en_proceso = false;
@@ -123,7 +123,7 @@ class toba_nucleo
 		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
 			$item = $this->get_id_item('item_inicio_sesion', false, true);
 			if(!$item[0]||!$item[1]) {
-				throw new toba_error('ERROR: No esta definido el ITEM de INICIO de sesion');	
+				throw new toba_error_def('ERROR: No esta definido el ITEM de INICIO de sesion');	
 			}			
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
@@ -135,7 +135,7 @@ class toba_nucleo
 			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
 			if(!$item[0]||!$item[1]) {
-				throw new toba_error('ERROR: No esta definido el ITEM de LOGIN');	
+				throw new toba_error_def('ERROR: No esta definido el ITEM de LOGIN');	
 			}			
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
@@ -151,10 +151,10 @@ class toba_nucleo
 					$this->iniciar_contexto_solicitud($item);
 					$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 					if (!$solicitud->es_item_publico()) {
-						throw new toba_error($mensaje_error);		
+						throw new toba_error_def($mensaje_error);		
 					}
 				} else {
-					throw new toba_error($mensaje_error);				
+					throw new toba_error_def($mensaje_error);				
 				}
 			}
 			return $solicitud;
@@ -175,7 +175,7 @@ class toba_nucleo
 				$item[1] = toba::proyecto()->get_parametro($predefinido);		
 				toba::memoria()->set_item_solicitado($item);
 			} else {
-				throw new toba_error('NUCLEO: No es posible determinar la operación a cargar');
+				throw new toba_error_def('NUCLEO: No es posible determinar la operación a cargar');
 			}
 		}
 		return $item;
@@ -185,7 +185,7 @@ class toba_nucleo
 	{
 		if (toba::proyecto()->get_id() != $item[0]) {
 			//-- No esta implementado poder entrar a un item de un proyecto distinto de la solicitud
-			throw new toba_error('Imposible determinar proyecto actual');
+			throw new toba_error_seguridad('Imposible determinar proyecto actual');
 		}
 		if (! toba::proyecto()->puede_grupo_acceder_item($item[1]) ) {
 			throw new toba_error_autorizacion('El usuario no posee permisos para acceder al item solicitado.');
@@ -210,7 +210,7 @@ class toba_nucleo
 	function controlar_requisitos_basicos()
 	{
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
-			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
+			throw new toba_error_def("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
 	}
 

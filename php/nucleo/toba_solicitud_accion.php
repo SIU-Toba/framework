@@ -21,7 +21,7 @@ class toba_solicitud_accion extends toba_solicitud
 		if (trim($accion) != '') {
 			include($accion);
 		} else {
-			throw new toba_error("La solicitud_accion requiere la definición de un archivo php plano para ejecutar");
+			throw new toba_error_def("La solicitud_accion requiere la definición de un archivo php plano para ejecutar");
 		}
 	}
 	

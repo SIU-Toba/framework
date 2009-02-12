@@ -19,7 +19,7 @@ class toba_tab extends toba_boton
 	{
 		if ( $this->anulado ) return null;
 		if( ($tipo != 'V') && ($tipo != 'H') ) {
-			throw new toba_error("Los tipos validos de TABS son 'V' y 'H'.");	
+			throw new toba_error_def("Los tipos validos de TABS son 'V' y 'H'.");	
 		}
 		static $id_tab = 1;
 		$evento = $this->datos['identificador'];

@@ -299,7 +299,7 @@ abstract class toba_componente
 	function controlar_memoria()
 	{
 		if ((!isset($this->_memoria)) || (is_null($this->_memoria))){
-			throw new toba_error("Error cargando la MEMORIA del OBJETO. abms[". ($this->_id[1]) ."]");
+			throw new toba_error_seguridad("Error cargando la MEMORIA del OBJETO. abms[". ($this->_id[1]) ."]");
 		}
 	}
 
@@ -559,7 +559,7 @@ abstract class toba_componente
 	function cargar_dependencia($identificador)
  	{
 		if(!isset($this->_indice_dependencias[$identificador])){
-			throw new toba_error("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
+			throw new toba_error_def("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
 		}
 		$posicion = $this->_indice_dependencias[$identificador];
 		$clase = $this->_info_dependencias[$posicion]['clase'];

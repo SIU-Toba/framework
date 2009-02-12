@@ -266,7 +266,7 @@ class toba
 	{
 		$cn = self::componente($indice);
 		if(! $cn instanceof toba_cn ) {
-			throw new toba_error("Error cargando CN por INDICE. El componente identificado con la etiqueta '$indice' no es un CN.");
+			throw new toba_error_def("Error cargando CN por INDICE. El componente identificado con la etiqueta '$indice' no es un CN.");
 		}
 		return $cn;
 	}

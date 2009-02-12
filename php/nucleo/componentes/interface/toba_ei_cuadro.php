@@ -744,7 +744,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if($this->_info_cuadro["tipo_paginado"] == 'C') {
 			if (!isset($this->_total_registros) || ! is_numeric($this->_total_registros)) {
-				throw new toba_error("El cuadro necesita recibir la cantidad total de registros con el metodo set_total_registros para poder paginar");
+				throw new toba_error_def("El cuadro necesita recibir la cantidad total de registros con el metodo set_total_registros para poder paginar");
 			}
 			$this->_cantidad_paginas = ceil($this->_total_registros/$this->_tamanio_pagina);
 			if ($this->_pagina_actual > $this->_cantidad_paginas)  {
@@ -1053,7 +1053,7 @@ class toba_ei_cuadro extends toba_ei
 	private function generar_salida($tipo)
 	{
 		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel'){
-			throw new toba_error_def("El tipo de salida '$tipo' es invalida");	
+			throw new toba_error_seguridad("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->_tipo_salida = $tipo;
 		if( $this->datos_cargados() ){

@@ -232,11 +232,9 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			}
 		} catch(toba_error $e) {
 			if($this->_utilizar_transaccion) {
-				toba::logger()->info("Abortando transacción en $fuente", 'toba');				
 				abortar_transaccion($fuente);
 			}
-			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
-			throw new toba_error($e->getMessage());
+			throw $e;
 		}
 	}
 

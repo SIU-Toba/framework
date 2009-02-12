@@ -113,7 +113,7 @@ class toba_cargador
 			return $this->redefinidos[$clave_ser];
 		}
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE de EXTENDIDOS no implementado!
-			throw new toba_error('No implementado');
+			throw new toba_error_def('No implementado');
 		} else {													// Sin CACHE!
 			$clase_def = $tipo . '_def';
 			$metodo_def = $resumidos ? 'get_vista_extendida_resumida' : 'get_vista_extendida';
@@ -127,9 +127,9 @@ class toba_cargador
 				$temp = $db->consultar( $contenido['sql'] );
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
 					if ($tipo == 'toba_item' && $seccion == 'basica') {
-						throw new toba_error("La operación '$id' no existe");						
+						throw new toba_error_seguridad("La operación '$id' no existe");						
 					} else {
-						throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
+						throw new toba_error_seguridad("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
 					}
 				}
 				if ($contenido['registros']!=='1') {

@@ -654,7 +654,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if (isset($this->_sql_carga)) {
 			return $this->generar_sql_select($this->_sql_carga['where'], $this->_sql_carga['from'], $campos);
 		} else {
-			throw new toba_error("AP-TABLA Db: La tabla no ha sido cargada en este pedido de página");
+			throw new toba_error_def("AP-TABLA Db: La tabla no ha sido cargada en este pedido de página");
 		}
 	}
 	
@@ -898,7 +898,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$estan_todos = true;
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->_secuencias[$col_llave])){
-						throw new toba_error('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
+						throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
 					if(!isset($fila[$col_llave])){
 						$estan_todos = false;
@@ -922,7 +922,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$datos = toba::db($this->_fuente)->consultar($sql);
 					if(!$datos){
 						toba::logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
-						throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+						throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 					}
 				}
 				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
@@ -943,7 +943,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						if( method_exists($this, $parametros['metodo'])) {
 							$datos = call_user_func_array(array($this,$parametros['metodo']), $param_dao);				
 						} else {
-							throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
+							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
 						}
 					}
 				}
@@ -955,14 +955,14 @@ class toba_ap_tabla_db implements toba_ap_tabla
 							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
 							if(!array_key_exists($columna_externa['origen'], $datos[0])){
 								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'", 'toba');
-								throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+								throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
 						}else{
 							if(!array_key_exists($columna_externa, $datos[0])){
 								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'", 'toba');
 								toba::logger()->error($datos, 'toba');
-								throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+								throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
 						}

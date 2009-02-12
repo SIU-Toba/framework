@@ -310,7 +310,7 @@ class toba_datos_relacion extends toba_componente
 		if($this->existe_tabla($tabla)){
 			return $this->_dependencias[$tabla];
 		}else{
-			throw new toba_error("El datos_tabla '$tabla' solicitado no existe.");
+			throw new toba_error_def("El datos_tabla '$tabla' solicitado no existe.");
 		}
 	}
 

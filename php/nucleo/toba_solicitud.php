@@ -218,7 +218,7 @@ abstract class toba_solicitud
 		if(isset($this->zona)) {
 			return $this->zona;
 		} else {
-			throw new toba_error('ERROR: No existe una zona cargada');	
+			throw new toba_error_def('ERROR: No existe una zona cargada');	
 		}
 	}
 	
@@ -243,7 +243,7 @@ abstract class toba_solicitud
 		if(isset($this->tipo_pagina)) {
 			return $this->tipo_pagina;
 		} else {
-			throw new toba_error('ERROR: No existe un tipo de pagina asociada');	
+			throw new toba_error_def('ERROR: No existe un tipo de pagina asociada');	
 		}
 	}
 }

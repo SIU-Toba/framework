@@ -69,7 +69,7 @@ class toba_ei_archivos extends toba_ei
 						//--- Chequeo de seguridad
 						if (isset($this->_path_absoluto)) {
 							if (strpos(realpath($seleccion), realpath($this->_path_absoluto)) !== 0) {
-							   throw new toba_error("El path es invalido");
+							   throw new toba_error_seguridad("El path es invalido");
 							}				
 						}
 						$this->_dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
@@ -106,7 +106,7 @@ class toba_ei_archivos extends toba_ei
 				}
 			}
 			$validas = implode(', ',$this->_extensiones);
-			throw new toba_error("La extension del archivo es invalida (Extensiones validas: $validas)");
+			throw new toba_error_seguridad("La extension del archivo es invalida (Extensiones validas: $validas)");
 		}
 	}
 
@@ -117,7 +117,7 @@ class toba_ei_archivos extends toba_ei
 	{
 		$this->validacion_basica_nombre($nombre);
 		if ( strpos($nombre,'.') !== false ) {
-			throw new toba_error("El caracter '.' no esta permitido en los nombres de los directorios.");
+			throw new toba_error_seguridad("El caracter '.' no esta permitido en los nombres de los directorios.");
 		}
 	}
 	
@@ -133,7 +133,7 @@ class toba_ei_archivos extends toba_ei
 			if ( strpos($nombre,$char) !== false ) {
 				$invs = array_map('addslashes',$this->_caracteres_invalidos_nombres);
 				$invs = implode(', ', $invs);
-				throw new toba_error("El nombre es posee caracteres invalidos ($invs)");
+				throw new toba_error_validacion("El nombre $nombre posee caracteres invalidos ($invs)");
 			}				
 		}
 	}	

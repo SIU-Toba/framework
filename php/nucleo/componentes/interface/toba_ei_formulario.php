@@ -426,7 +426,7 @@ class toba_ei_formulario extends toba_ei
 			if(isset($this->_elemento_formulario[$ef])){
 				$this->_elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
-				throw new toba_error("El ef '$ef' no existe");
+				throw new toba_error_def("El ef '$ef' no existe");
 			}
 		}
 	}
@@ -450,7 +450,7 @@ class toba_ei_formulario extends toba_ei
 				$this->_elemento_formulario[$ef]->set_obligatorio($obligatorios);
 				$this->_memoria['efs'][$ef]['obligatorio'] = $obligatorios;
 			} else {
-				throw new toba_error("El ef '$ef' no existe");
+				throw new toba_error_def("El ef '$ef' no existe");
 			}
 		}
 	}
@@ -466,7 +466,7 @@ class toba_ei_formulario extends toba_ei
 			$this->_elemento_formulario[$ef]->desactivar_validacion(true);
 			$this->_memoria['efs'][$ef]['desactivar_validacion'] = 1;		
 		} else {
-			throw new toba_error("El ef '$ef' no existe");			
+			throw new toba_error_def("El ef '$ef' no existe");			
 		}
 	}
 	
@@ -488,7 +488,7 @@ class toba_ei_formulario extends toba_ei
 			if ($pos !== false) {
 				array_splice($this->_lista_ef_post, $pos, 1);
 			} else {
-				throw new toba_error("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
+				throw new toba_error_def("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
 			}
 		}
 	}
@@ -651,7 +651,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
-			throw new toba_error("Cascadas: Invocación incorrecta");	
+			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
 		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
@@ -662,13 +662,13 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error("Cascadas: Cantidad incorrecta de parametros ($par).");						
+					throw new toba_error_seguridad("Cascadas: Cantidad incorrecta de parametros ($par).");						
 				}
 				$id_ef_maestro = $param[0];
 				
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_error("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error_seguridad("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
@@ -697,7 +697,7 @@ class toba_ei_formulario extends toba_ei
 				$this->ef($id_ef_maestro)->cargar_estado_post();
 			}
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
-				throw new toba_error("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
@@ -717,7 +717,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error("Filtrado de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
@@ -731,13 +731,13 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");						
+					throw new toba_error_seguridad("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");						
 				}
 				$id_ef_maestro = $param[0];
 				
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_error("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error_seguridad("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
@@ -766,7 +766,7 @@ class toba_ei_formulario extends toba_ei
 				$this->ef($id_ef_maestro)->cargar_estado_post();
 			}
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
-				throw new toba_error("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
@@ -791,7 +791,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error("Validación de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));

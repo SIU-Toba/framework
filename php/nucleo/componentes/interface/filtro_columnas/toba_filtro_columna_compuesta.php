@@ -27,7 +27,7 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 		if (isset($_POST[$this->_id_form_cond])) {
 			$condicion = $_POST[$this->_id_form_cond];
 			if (! isset($this->_condiciones[$condicion])) {
-				throw new toba_error("La condicion '$condicion' no es una condicion válida");
+				throw new toba_error_seguridad("La condicion '$condicion' no es una condicion válida");
 			}
 			//Cargo el estado del ef original
 			$this->_ef->cargar_estado_post();						

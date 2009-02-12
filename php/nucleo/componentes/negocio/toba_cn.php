@@ -78,7 +78,7 @@ class toba_cn extends toba_componente
 		catch(toba_error $e){
 			if($transaccionar) $this->abortar_transaccion();
 			$this->_log->debug($e, 'toba');	
-			throw new toba_error( $e->getMessage() );
+			throw $e;
 		}
 	}
 
@@ -157,7 +157,7 @@ class toba_cn extends toba_componente
 				toba::db($this->_info['fuente'])->ejecutar($sql);
 			}
 		}else{
-			throw new toba_error('La transaccion no se encuentra abierta');
+			throw new toba_error_def('La transaccion no se encuentra abierta');
 		}
 	}
 }

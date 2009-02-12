@@ -34,7 +34,7 @@ class toba_evento_usuario extends toba_boton
 			}
 			return $this->vinculo;
 		} else {
-			throw new toba_error('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
+			throw new toba_error_def('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
 		}
 	}
 

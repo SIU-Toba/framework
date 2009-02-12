@@ -117,7 +117,7 @@ class toba_constructor
 		if ( isset( self::$objetos_runtime_instanciados[ $id['componente'] ] ) ) {
 			return self::$objetos_runtime_instanciados[$id['componente']][$numero_instancia];
 		} else {
-			throw new toba_error("El objeto '{$id['componente']}' no fue instanciado");	
+			throw new toba_error_def("El objeto '{$id['componente']}' no fue instanciado");	
 		}
 	}
 	
@@ -142,7 +142,7 @@ class toba_constructor
 		if(! is_array($clave_componente) 
 			|| !isset($clave_componente['componente']) 
 			|| !isset($clave_componente['proyecto']) ) {
-			throw new toba_error("La clave utilizada para invocar el componente no es valida: ".var_export($clave_componente, true));	
+			throw new toba_error_def("La clave utilizada para invocar el componente no es valida: ".var_export($clave_componente, true));	
 		}
 	}
 	

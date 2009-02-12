@@ -136,9 +136,9 @@ abstract class toba_ei extends toba_componente
 			return $this->_eventos_usuario_utilizados[$id];
 		} else {
 			if(isset($this->_eventos_usuario[$id])){
-				throw new toba_error($this->get_txt(). " El EVENTO '$id' no esta asociado actualmente al componente.");
+				throw new toba_error_def($this->get_txt(). " El EVENTO '$id' no esta asociado actualmente al componente.");
 			} else {
-				throw new toba_error($this->get_txt(). " El EVENTO '$id' no está definido.");
+				throw new toba_error_def($this->get_txt(). " El EVENTO '$id' no está definido.");
 			}
 		}
 	}
@@ -151,7 +151,7 @@ abstract class toba_ei extends toba_componente
 		if(isset($this->_eventos_usuario[ $id ])){
 			$this->_eventos_usuario_utilizados[ $id ] = $this->_eventos_usuario[ $id ];
 		} else {
-			throw new toba_error($this->get_txt(). 
+			throw new toba_error_def($this->get_txt(). 
 					" Se quiere agregar el EVENTO '$id', pero no está definido.");
 		}		
 	}
@@ -186,7 +186,7 @@ abstract class toba_ei extends toba_componente
 				toba::logger()->debug("Se elimino el evento: $id", 'toba');
 			}		
 		} else {
-			throw new toba_error($this->get_txt(). 
+			throw new toba_error_def($this->get_txt(). 
 					" Se quiere eliminar el EVENTO '$id', pero no está definido.");
 		}		
 	}
