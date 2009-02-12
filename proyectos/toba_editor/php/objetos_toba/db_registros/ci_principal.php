@@ -54,9 +54,18 @@ class ci_principal extends ci_editores_toba
 		return parent::get_entidad();	
 	}
 	
+	function validar()
+	{
+		$datos = $this->get_entidad()->tabla('columnas')->get_filas();
+		if (! $this->verificar_existencia_columna_clave($datos)){
+			throw new toba_error('La tabla debe tener una columna como Clave Primaria');
+		}
+	}
+	
 	function evt__procesar()
 	{
-		try {
+		$this->validar();
+		try {			
 			parent::evt__procesar();
 			unset($this->s__ap_php_db);
 			unset($this->s__ap_php_archivo);
@@ -151,6 +160,9 @@ class ci_principal extends ci_editores_toba
 	function evt__columnas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla('columnas')->procesar_filas($datos);
+		if (! $this->verificar_existencia_columna_clave($datos)){
+			toba::notificacion()->agregar('No existe una Clave Primaria asociada a esta tabla','error');
+		}
 	}
 
 	//-- Generacion automatica de columnas!!
@@ -161,6 +173,14 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->actualizar_campos();
 	}
 
+	function verificar_existencia_columna_clave($datos)
+	{
+		$hay_pk = false;
+		foreach($datos as $columnas){
+			$hay_pk = $hay_pk || ($columnas['pk'] == '1');
+		}				
+		return $hay_pk;
+	}
 	
 	//*******************************************************************
 	//**  EXTERNAS  *****************************************************
