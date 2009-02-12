@@ -14,6 +14,7 @@ class toba_db_postgres7 extends toba_db
 	{
 		$this->motor = "postgres7";
 		parent::__construct($profile, $usuario, $clave, $base, $puerto);
+		//$this->setear_datestyle_iso();
 	}
 
 	function get_dsn()
@@ -46,6 +47,12 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);		
 	}
 
+	function set_datestyle_iso()
+	{	
+		$sql = "SET datestyle TO 'iso';";
+		$this->ejecutar($sql);	
+	}
+	
 	/**
 	*	Recupera el valor actual de una secuencia
 	*	@param string $secuencia Nombre de la secuencia
