@@ -7,6 +7,8 @@ class toba_migracion_1_3_0 extends toba_migracion
 		$sql = "ALTER TABLE apex_objeto ALTER COLUMN subclase_archivo TYPE VARCHAR(255);";
 		$sql = "ALTER TABLE apex_proyecto ADD COLUMN tiempo_espera_ms INTEGER";
 		$sql = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN deshabilitar_rest_func SMALLINT";
+		$sql = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN permitir_html SMALLINT";
+		$sql = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN permitir_html SMALLINT";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	
@@ -32,6 +34,20 @@ class toba_migracion_1_3_0 extends toba_migracion
 				SET tiempo_espera_ms = 2000
 				WHERE
 					proyecto = '{$this->elemento->get_id()}'
+		";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}		
+	
+	/*
+	* Para mantener compatibilidad hacia atrás, se permite que los ef_fijos tengan estado html 
+	*/	
+	function proyecto__ef_fijo_permite_html()
+	{
+		$sql = "UPDATE apex_objeto_ei_formulario_ef 
+				SET permitir_html = 1
+				WHERE
+						objeto_ei_formulario_proyecto = '{$this->elemento->get_id()}'
+					AND elemento_formulario = 'ef_fijo'
 		";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}		

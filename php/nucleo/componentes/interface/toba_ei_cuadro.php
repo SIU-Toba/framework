@@ -1574,6 +1574,10 @@ class toba_ei_cuadro extends toba_ei
                 if(isset($this->_columnas[$a]["clave"])){
 					if(isset($this->datos[$f][$this->_columnas[$a]["clave"]])){
 						$valor_real = $this->datos[$f][$this->_columnas[$a]["clave"]];
+						//-- Hace el saneamiento para evitar inyección XSS
+						if (!isset($this->_columnas[$a]['permitir_html']) || $this->_columnas[$a]['permitir_html'] == 0) {
+							  $valor_real = texto_plano($valor_real);
+						}
 					}else{
 						$valor_real = null;
 						//ATENCION!! hay una columna que no esta disponible!

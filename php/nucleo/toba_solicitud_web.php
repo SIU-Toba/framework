@@ -365,7 +365,8 @@ class toba_solicitud_web extends toba_solicitud
 	function registrar()
 	{
 		parent::registrar( toba::proyecto()->get_id() );
-		if($this->registrar_db){
+		$id_sesion = toba::manejador_sesiones()->get_id_sesion();		
+		if($this->registrar_db && isset($id_sesion)){
 			toba::instancia()->registrar_solicitud_browser(	$this->info['basica']['item_proyecto'], 
 															$this->id, 
 															toba::proyecto()->get_id(),

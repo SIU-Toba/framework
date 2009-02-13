@@ -425,7 +425,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 			$html .= "\t<td><label class='ef-multi-check' for='$id'>";
 			$ok = in_array($clave, $estado);
 			if (! $this->permitir_html) {
-				$clave = htmlentities($clave, ENT_QUOTES);
+				$clave = texto_plano($clave);
 			}
 			if (! $this->solo_lectura) {
 				$checkeado =  $ok ? "checked" : "";
@@ -440,7 +440,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 				}
 			}
 			if (! $this->permitir_html) {
-				$descripcion = htmlentities($descripcion, ENT_QUOTES);
+				$descripcion = texto_plano($descripcion);
 			}
 			$html .= "$descripcion</label></td>\n";		
 			$i++;
@@ -487,7 +487,11 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/si_siguiente.gif', false);
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/no_anterior.gif', false);
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/si_anterior.gif', false);
-		$orden_opciones = toba_js::arreglo(array_keys($this->opciones));
+		$claves = array();
+		foreach (array_keys($this->opciones) as $clave) {
+			$claves[] = texto_plano($clave);
+		}
+		$orden_opciones = toba_js::arreglo($claves);
 		return parent::parametros_js().",".toba_js::arreglo($imgs, false).', '.$orden_opciones;
 	}
 	

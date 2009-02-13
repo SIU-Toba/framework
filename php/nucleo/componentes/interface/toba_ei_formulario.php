@@ -165,6 +165,11 @@ class toba_ei_formulario extends toba_ei
 			if (isset($this->_info_formulario_ef[$a]['etiqueta_estilo'])) {
 				$this->_elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->_info_formulario_ef[$a]['etiqueta_estilo'] );
 			}
+			if (isset($this->_info_formulario_ef[$a]['permitir_html']) && $this->_info_formulario_ef[$a]['permitir_html']) {
+				$this->_elemento_formulario[$id_ef]->set_permitir_html(true);
+			} else {
+				$this->_elemento_formulario[$id_ef]->set_permitir_html(false);
+			}
 		}
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $this->_elemento_formulario, $this->_parametros_carga_efs);

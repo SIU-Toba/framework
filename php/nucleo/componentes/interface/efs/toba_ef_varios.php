@@ -212,6 +212,9 @@ class toba_ef_fijo extends toba_ef_oculto
 	function get_input()
     {
 		$estado = (isset($this->estado)) ? $this->estado : null;
+		if (! $this->permitir_html) {
+			$estado = texto_plano($estado);
+		}
 		$html = "<div class='{$this->clase_css}' id='{$this->id_form}'>".$estado."</div>";
 		return $html;
 	}

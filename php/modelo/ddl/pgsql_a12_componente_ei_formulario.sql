@@ -96,6 +96,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	estilo   				 			int4		    NULL,		
 	total								smallint		NULL,		
 	inicializacion          			varchar        	NULL,
+	permitir_html						smallint		NULL,	-- Permite estados incluyendo codigo html
 	deshabilitar_rest_func				smallint		NULL,	-- No permite aplicar una rest. func a este ef
 	--- PARAMETROS
 	estado_defecto						varchar(255)	NULL,

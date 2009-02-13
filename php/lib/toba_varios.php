@@ -545,7 +545,6 @@
 	    unlink($errfile);
 	    return $exit;
 	}	
-	
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo, $buscar_hora=false){
 		if (isset($fecha) && trim($fecha)!='') {
@@ -566,5 +565,14 @@
 		}
 	}	
 	
+	/**
+	 * Purifica una cadena a incluir en la salida html, previniendo ataques XSS 
+	 * @param string $texto
+	 * @return string
+	 */
+	function texto_plano($texto)
+	{
+		return htmlentities($texto, ENT_QUOTES);
+	}
 	
 ?>

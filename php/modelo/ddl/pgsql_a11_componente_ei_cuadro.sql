@@ -132,6 +132,7 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	vinculo_popup_param				varchar(100)		NULL,
 	vinculo_target					varchar(40)			NULL,
 	vinculo_celda					varchar(40)			NULL,
+	permitir_html					smallint			NULL,		-- Proteccion contra ataques XSS
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro", "objeto_cuadro_proyecto") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro", "objeto_cuadro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

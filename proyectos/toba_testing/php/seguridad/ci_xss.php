@@ -27,9 +27,18 @@ EOT;
 			'popup' => $this->prueba1,
 			'popup_editable' => $this->prueba1,
 			'upload' => $this->prueba1,
-			'cuit' => $this->prueba1
+			'cuit' => $this->prueba1,
+			'fijo' => $this->prueba1
 		);
 		$form->set_datos($datos);
+	}
+	
+	function conf__cuadro(toba_ei_cuadro $cuadro)
+	{
+		$datos = array(
+			array('a' => $this->prueba1, 'b' => "Esta columna permite ingresar <b>HTML</b>")
+		);
+		$cuadro->set_datos($datos);
 	}
 	
 	function get_opciones_combo()
