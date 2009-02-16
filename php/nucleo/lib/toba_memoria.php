@@ -202,6 +202,7 @@ class toba_memoria
 	{
 		toba::logger()->debug('TOBA MEMORIA: Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
+		$this->inicializar_memoria();
 	}
 	
 	/**
@@ -323,7 +324,7 @@ class toba_memoria
 	/**
 		Inicializa la memoria
 	*/
-	private function inicializar_memoria()
+	function inicializar_memoria()
 	{
 		if( $this->verificar_acceso_menu() ){
 			/*
@@ -688,12 +689,8 @@ class toba_memoria
 	private function reciclar_datos_globales_item()
 	{
 		if(isset($this->celda_memoria_actual['item_anterior'])){
-			//Solucion parcial para que la cascada no borre los datos de la operación
-			$es_item_cascada = ($this->celda_memoria_actual['item'] == 'toba|/basicos/ef/respuesta');
-			$vino_item_cascada = ($this->celda_memoria_actual['item_anterior'] == 'toba|/basicos/ef/respuesta');
-			
 			$es_distinto_item = ($this->celda_memoria_actual['item_anterior'] != $this->celda_memoria_actual['item']);
-			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
+			if($es_distinto_item) {
 				toba::logger()->debug("TOBA MEMORIA: Reciclaje por cambio de OPERACION", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){

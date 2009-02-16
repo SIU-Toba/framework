@@ -63,7 +63,8 @@ class toba_ci extends toba_ei
 			$this->_eventos_usuario_utilizados = $this->_pantalla_servicio->get_lista_eventos_usuario();
 			$this->_eventos = $this->_pantalla_servicio->get_lista_eventos_internos();
 			//Guarda aquellos metodos ajax que se pueden invocar en el pedido siguiente
-			$this->_metodos_ajax = reflexion_buscar_metodos($this, 'ajax__');		
+			$this->_metodos_ajax = reflexion_buscar_metodos($this, 'ajax__');
+	
 		}
 		parent::destruir();
 	}
@@ -744,7 +745,7 @@ class toba_ci extends toba_ei
 		$metodo = 'ajax__'.trim(toba::memoria()->get_parametro('ajax-metodo'));
 		$metodo = substr($metodo,0,80);
 		if (!isset($this->_metodos_ajax) || !in_array($metodo, $this->_metodos_ajax)) {
-			throw new toba_error('Invocación AJAX incorrecta');
+			throw new toba_error_seguridad("Invocación AJAX incorrecta, el metodo $metodo no existe");
 		}
 		$parametros = trim(toba::memoria()->get_parametro('ajax-param'));
 		$modo = trim(toba::memoria()->get_parametro('ajax-modo'));		
