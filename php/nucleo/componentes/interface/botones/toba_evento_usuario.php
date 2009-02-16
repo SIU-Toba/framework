@@ -187,14 +187,10 @@ class toba_evento_usuario extends toba_boton
 	 */
 	function get_evt_javascript()
 	{
-		$js_confirm = $this->posee_confirmacion() ? "'".$this->get_msg_confirmacion()."'" : "''";
-		$js_validar = $this->maneja_datos() ? "true" : "false";
-		if (is_array($this->parametros)) {
-			$param = ", ".addslashes(toba_js::arreglo($this->parametros, true));	//Quizas habria que slashear adentro de la funcion arreglo
-		} else {
-			$param = (isset($this->parametros)) ? ", '".addslashes(str_replace('"',"'",$this->parametros))."'" : '';
-		}
-		return "new evento_ei('".$this->get_id()."', $js_validar, $js_confirm $param)";
+		$evento = array();
+		$evento['confirmacion'] = $this->get_msg_confirmacion();
+		$evento['maneja_datos'] = $this->maneja_datos();
+		return toba_js::evento($this->get_id(), $evento, $this->parametros);
 	}
 	
 	/**

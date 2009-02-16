@@ -24,12 +24,16 @@ class ci_ei_filtro extends toba_ci
 		$this->s__datos = $datos;
 		
 		//-- Se cambia la condición de la cadena para que invoque una funcion durante la evaluacion
-		$this->dep('filtro')->columna('nombre')->condicion()->set_pre_evaluacion('funcion_x(');
-		$this->dep('filtro')->columna('nombre')->condicion()->set_post_evaluacion(')');
+		if (isset($datos['nombre'])) {
+			$this->dep('filtro')->columna('nombre')->condicion()->set_pre_evaluacion('funcion_x(');
+			$this->dep('filtro')->columna('nombre')->condicion()->set_post_evaluacion(')');
+		}
 		//-----
 
 		//-- Se aplica un condicion totalmente distinta al campo activo, para que llame a una funcion sql con el campo como parametro
-		$this->dep('filtro')->columna('activo')->set_condicion(new condicion_funcion_es_activo());
+		if (isset($datos['activo'])) {
+			$this->dep('filtro')->columna('activo')->set_condicion(new condicion_funcion_es_activo());
+		}
 		//-----
 		
 		$where = $this->dep('filtro')->get_sql_where();
