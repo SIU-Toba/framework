@@ -303,7 +303,21 @@ class toba_carga_opciones_ef
 		$dt = toba_constructor::get_runtime(array('proyecto' => $id[0],'componente' => $parametros['carga_dt']), 'toba_datos_tabla');
 		return call_user_func_array(array($dt, $parametros['carga_metodo']), $maestros);
 	}	
-	
+
+	/*
+	 * Quita un ef de la relacion de cascadas 
+	 * @ignore
+	 */
+	function quitar_ef($ef)
+	{
+		$esclavos = (isset($this->_cascadas_esclavos[$ef])) ? $this->_cascadas_esclavos[$ef]: array();
+		foreach($esclavos as $ef_esclavo){
+			if (isset($this->_efs[$ef_esclavo])){
+				$this->_efs[$ef_esclavo]->quitar_maestro($ef);
+			}			
+		}
+		unset($this->_efs[$ef]);
+	}
 }
 
 ?>

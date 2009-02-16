@@ -237,6 +237,14 @@ abstract class toba_ef
 		return true;
 	}	
 	
+	/*
+	 * Elimina un maestro particular de este ef de entre la lista
+	 * @ignore
+	 */
+	function quitar_maestro($maestro)
+	{
+		$this->maestros = array_diff($this->maestros, array($maestro));
+	}
 	//-----------------------------------------------------
 	//-------------- ACCESO a propiedades -----------------
 	//-----------------------------------------------------	

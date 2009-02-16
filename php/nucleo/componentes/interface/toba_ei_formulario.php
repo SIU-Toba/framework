@@ -488,14 +488,17 @@ class toba_ei_formulario extends toba_ei
 		if (! is_array($efs)) {
 			$efs = array($efs);
 		}
+		
 		foreach ($efs as $ef) {
 			$pos = array_search($ef, $this->_lista_ef_post);
 			if ($pos !== false) {
-				array_splice($this->_lista_ef_post, $pos, 1);
+				array_splice($this->_lista_ef_post, $pos, 1);	
+				$this->_carga_opciones_ef->quitar_ef($ef);
 			} else {
 				throw new toba_error_def("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
 			}
-		}
+		}		
+		$this->_carga_opciones_ef->registrar_cascadas();
 	}
 	
 	/**
