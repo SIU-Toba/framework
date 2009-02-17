@@ -127,16 +127,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 */
 	function regenerar_modelo_datos($base, $id_def_base)
 	{
-		if (! $this->permitir_exportar_modelo) {
-			$this->manejador_interface->mensaje('Ya existe un modelo de datos del proyecto cargado previamente.');
-			return;
-		}
 		$reemplazar = $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos, ".
 							"Desea reemplazarlo? (borra la base completa y la vuelva a cargar)", 's');
 		if (! $reemplazar) {
 			return;
 		}
-		$exportar = $this->manejador_interface->dialogo_simple("Antes de borrar la base. Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
+		$exportar = $this->permitir_exportar_modelo && $this->manejador_interface->dialogo_simple("Antes de borrar la base. Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
 		if ($exportar) {
 			//-- Esquema principal
 			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';			
@@ -147,11 +143,11 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		
 		//--- Borra la base fisicamente
-		$this->manejador_interface->mensaje('Borrando base actual', false);
-		$base->destruir();
-		unset($base);
-		$this->instalacion->borrar_base_datos($id_def_base);
-		$this->instalacion->crear_base_datos($id_def_base);
+		$this->manejador_interface->mensaje('Borrando modelo actual', false);
+		if ($base->existe_schema($this->schema_modelo)) {
+			$base->borrar_schema($this->schema_modelo);
+			$base->crear_schema($this->schema_modelo);
+		}
 		$this->manejador_interface->progreso_avanzar();
 		$this->manejador_interface->progreso_fin();		
 		

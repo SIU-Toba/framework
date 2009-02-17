@@ -268,13 +268,21 @@ class toba_carga_opciones_ef
 			$instanciable = (isset($parametros['instanciable']) && $parametros['instanciable']=='1');
 			if ($instanciable) {
 				$obj = new $parametros['carga_clase']();
-				$metodo = array($obj, $parametros['carga_metodo']);
+				$clase = $obj;
 			} else {
-				$metodo = array($parametros['carga_clase'], $parametros['carga_metodo']);
+				$clase = $parametros['carga_clase'];
 			}
+			if (! method_exists($clase, $parametros['carga_metodo'])) {
+				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_clase']}'");			
+			}			
+			$metodo = array($clase, $parametros['carga_metodo']);			
 			return call_user_func_array($metodo, $maestros);
 		} else {
 			//--- Es un metodo del CI contenedor
+			if (! method_exists($this->_controlador->controlador(), $parametros['carga_metodo'])) {
+				$clase = get_class($this->_controlador->controlador());
+				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
+			}			
 			return call_user_func_array( array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
 		}
 	}
@@ -287,6 +295,9 @@ class toba_carga_opciones_ef
 		if (isset($parametros['carga_consulta_php_clase']) && isset($parametros['carga_consulta_php_archivo'])) {
 			if(!class_exists($parametros['carga_consulta_php_clase'])) {
 				require_once($parametros['carga_consulta_php_archivo']);
+			}
+			if (! method_exists($parametros['carga_consulta_php_clase'], $parametros['carga_metodo'])) {
+				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_consulta_php_clase']}'");			
 			}
 			$metodo = array($parametros['carga_consulta_php_clase'], $parametros['carga_metodo']);
 			return call_user_func_array($metodo, $maestros);
@@ -301,6 +312,10 @@ class toba_carga_opciones_ef
 	{
 		$id = $this->_controlador->get_id();
 		$dt = toba_constructor::get_runtime(array('proyecto' => $id[0],'componente' => $parametros['carga_dt']), 'toba_datos_tabla');
+		if (! method_exists($dt, $parametros['carga_metodo'])) {
+			$clase = get_class($dt);
+			throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '$clase'");			
+		}				
 		return call_user_func_array(array($dt, $parametros['carga_metodo']), $maestros);
 	}	
 

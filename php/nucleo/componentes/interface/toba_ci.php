@@ -310,12 +310,11 @@ class toba_ci extends toba_ei
 		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if (method_exists($this, $metodo)) {
 			$this->_log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
-
-      $componente = $this->dep($id);
-      if ($componente->tiene_puntos_control($evento))
-  			toba::puntos_control()->ejecutar_puntos_control($componente, $evento, $parametros);
-
-      return call_user_func_array(array($this, $metodo), $parametros);
+			$componente = $this->dep($id);
+      		if ($componente->tiene_puntos_control($evento)) {
+  				toba::puntos_control()->ejecutar_puntos_control($componente, $evento, $parametros);
+      		}
+		    return call_user_func_array(array($this, $metodo), $parametros);
 		} else {
 			$this->_log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
 			return apex_ei_evt_sin_rpta;
