@@ -16,7 +16,7 @@ CREATE TABLE apex_usuario_perfil_datos
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_perfil_datos			int4			DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
+	usuario_perfil_datos			int8			DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	descripcion						varchar			NULL,
 	listar							smallint		NULL,
@@ -38,9 +38,9 @@ CREATE TABLE apex_usuario_perfil_datos_dims
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_perfil_datos			int4			NOT NULL,
-	dimension						int4			NOT NULL,
-	elemento						int4			DEFAULT nextval('"apex_usuario_perfil_datos_dims_seq"'::text) NOT NULL,
+	usuario_perfil_datos			int8			NOT NULL,
+	dimension						int8			NOT NULL,
+	elemento						int8			DEFAULT nextval('"apex_usuario_perfil_datos_dims_seq"'::text) NOT NULL,
 	clave							varchar			NULL,
 	CONSTRAINT	"apex_usuario_perfil_datos_dims_pk" PRIMARY	KEY ("elemento"),
 	CONSTRAINT	"apex_usuario_perfil_datos_dims_fk_perfda"	FOREIGN KEY	("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE	CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,

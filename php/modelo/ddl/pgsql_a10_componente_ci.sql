@@ -36,7 +36,7 @@ CREATE TABLE apex_objeto_mt_me
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_mt_me_proyecto					varchar(15)			NOT NULL,
-	objeto_mt_me							int4				NOT NULL,
+	objeto_mt_me							int8				NOT NULL,
 	ev_procesar_etiq						varchar(30)			NULL,
 	ev_cancelar_etiq						varchar(30)			NULL,
 	ancho									varchar(20)			NULL,
@@ -77,8 +77,8 @@ CREATE TABLE apex_objeto_ci_pantalla
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_ci_proyecto					varchar(15)			NOT NULL,
-	objeto_ci							int4				NOT NULL,
-	pantalla							int4				DEFAULT nextval('"apex_obj_ci_pantalla_seq"'::text) NOT NULL, 
+	objeto_ci							int8				NOT NULL,
+	pantalla							int8				DEFAULT nextval('"apex_obj_ci_pantalla_seq"'::text) NOT NULL, 
 	identificador						varchar(40)			NOT NULL,
 	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,

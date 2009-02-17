@@ -13,7 +13,7 @@ CREATE TABLE apex_permiso
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	permiso						int4	DEFAULT nextval('"apex_permiso_seq"'::text) NOT NULL, 
+	permiso						int8	DEFAULT nextval('"apex_permiso_seq"'::text) NOT NULL, 
 	proyecto							varchar(15)		NOT NULL,
 	nombre								varchar(100)	NOT NULL,
 	descripcion							varchar(255)	NULL,

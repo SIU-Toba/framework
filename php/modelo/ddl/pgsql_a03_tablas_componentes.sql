@@ -41,10 +41,10 @@ CREATE TABLE apex_item
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	item_id							int4			DEFAULT nextval('"apex_item_seq"'::text) NULL,
+	item_id							int8			DEFAULT nextval('"apex_item_seq"'::text) NULL,
 	proyecto						varchar(15)		NOT NULL,
 	item							varchar(60)		DEFAULT nextval('"apex_item_seq"'::text) NOT NULL,
-	padre_id						int4			NULL,	
+	padre_id						int8			NULL,	
 	padre_proyecto					varchar(15)		NOT NULL,
 	padre							varchar(60)		NOT NULL,
 	carpeta							smallint		NULL,
@@ -53,7 +53,7 @@ CREATE TABLE apex_item
 	pagina_tipo_proyecto			varchar(15)		NULL,
 	pagina_tipo						varchar(20)		NULL,
 	actividad_buffer_proyecto		varchar(15)		NULL,
-	actividad_buffer				int4			NULL,
+	actividad_buffer				int8			NULL,
 	actividad_patron_proyecto		varchar(15)		NULL,
 	actividad_patron				varchar(20)		NULL,
 	nombre							varchar(80)		NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE apex_item_info
 --: version: 1.0
 -----------------------------------------	----------------------------------------------------------
 (	
-	item_id							int4				NULL,	
+	item_id							int8				NULL,	
 	item_proyecto					varchar(15)		NOT NULL,
 	item								varchar(60)		NOT NULL,
 	descripcion_breve				varchar(255)	NULL,
@@ -129,7 +129,7 @@ CREATE TABLE apex_clase_tipo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	clase_tipo						int4				DEFAULT nextval('"apex_clase_tipo_seq"'::text) NOT	NULL,	
+	clase_tipo						int8				DEFAULT nextval('"apex_clase_tipo_seq"'::text) NOT	NULL,	
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
 	icono							varchar(60)			NULL,
@@ -151,7 +151,7 @@ CREATE TABLE apex_clase
 (	
 	proyecto						varchar(15)		NOT NULL,
 	clase							varchar(60)		NOT NULL,
-	clase_tipo						int4			NOT NULL, 
+	clase_tipo						int8			NOT NULL, 
 	archivo							varchar(80)		NULL,
 	descripcion						varchar(250)	NOT NULL,
 	icono							varchar(60)		NOT NULL, 		--> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
@@ -159,16 +159,16 @@ CREATE TABLE apex_clase
 	editor_proyecto					varchar(15)		NOT NULL,
 	editor_item						varchar(60)		NOT NULL,			--> Item	del catalogo a	invocar como editor de objetos de esta	clase
 	objeto_dr_proyecto				varchar(15)		NOT NULL,		
-	objeto_dr						int4			NOT NULL,		
-	utiliza_fuente_datos			int4			NULL,
+	objeto_dr						int8			NOT NULL,		
+	utiliza_fuente_datos			int8			NULL,
 	-----------------------------------------------------------
 	screenshot						varchar(60)		NULL,			--> Path a una imagen de la clase
 	ancestro_proyecto				varchar(15)		NULL,			--> Ancestro a	considerar para incluir	dependencias
 	ancestro						varchar(60)		NULL,
-	instanciador_id					int4			NULL,	
+	instanciador_id					int8			NULL,	
 	instanciador_proyecto			varchar(15)		NULL,
 	instanciador_item				varchar(60)		NULL,			--> Item	del catalogo a	invocar como instanciador de objetos de esta	clase
-	editor_id						int4			NULL,	
+	editor_id						int8			NULL,	
 	editor_ancestro_proyecto		varchar(15)		NULL,			--> Ancestro a	considerar para el EDITOR
 	editor_ancestro					varchar(60)		NULL,
 	plan_dump_objeto				varchar(255)	NULL, 			--> Lista ordenada de tablas	que poseen la definicion del objeto	(respetar FK!)
@@ -203,7 +203,7 @@ CREATE TABLE apex_clase_relacion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)		NOT NULL,
-	clase_relacion						int4			DEFAULT nextval('"apex_clase_relacion_seq"'::text) NOT NULL, 
+	clase_relacion						int8			DEFAULT nextval('"apex_clase_relacion_seq"'::text) NOT NULL, 
 	clase_contenedora					varchar(60)		NOT NULL,
 	clase_contenida						varchar(60)		NOT NULL,
 	CONSTRAINT	"apex_clase_rel_pk" PRIMARY KEY ("clase_relacion"),
@@ -226,7 +226,7 @@ CREATE TABLE apex_objeto
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)		NOT NULL,
-	objeto								int4			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 	
+	objeto								int8			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 	
 	anterior							varchar(20)		NULL,
 	identificador						varchar(100)	NULL,
 	reflexivo							smallint		NULL,
@@ -276,7 +276,7 @@ CREATE TABLE apex_objeto_info
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto						varchar(15)			NOT NULL,
-	objeto								int4				NOT NULL,
+	objeto								int8				NOT NULL,
 	descripcion_breve					varchar(255)		NULL,
 	descripcion_larga					text				NULL,
 	CONSTRAINT	"apex_objeto_info_pk" PRIMARY	KEY ("objeto_proyecto","objeto"),
@@ -298,9 +298,9 @@ CREATE TABLE apex_objeto_dependencias
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)			NOT NULL,
-	dep_id								int4				DEFAULT nextval('"apex_objeto_dep_seq"'::text) NOT NULL, 
-	objeto_consumidor					int4				NOT NULL,
-	objeto_proveedor					int4				NOT NULL,
+	dep_id								int8				DEFAULT nextval('"apex_objeto_dep_seq"'::text) NOT NULL, 
+	objeto_consumidor					int8				NOT NULL,
+	objeto_proveedor					int8				NOT NULL,
 	identificador						varchar(40)			NOT NULL,
 	parametros_a						varchar(255)		NULL,
 	parametros_b						varchar(255)		NULL,
@@ -329,8 +329,8 @@ CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)			NOT NULL,
-	evento_id							int4				DEFAULT nextval('"apex_objeto_eventos_seq"'::text) NOT NULL,
-	objeto								int4				NOT NULL,
+	evento_id							int8				DEFAULT nextval('"apex_objeto_eventos_seq"'::text) NOT NULL,
+	objeto								int8				NOT NULL,
 	identificador						varchar(40)			NOT NULL,
 	etiqueta							varchar(255)		NULL,
 	maneja_datos						smallint			NULL DEFAULT 1,
@@ -351,7 +351,7 @@ CREATE TABLE apex_objeto_eventos
 	accion_imphtml_debug				smallint			NULL,
 	accion_vinculo_carpeta				varchar(60)			NULL,
 	accion_vinculo_item					varchar(60)			NULL,
-	accion_vinculo_objeto				int4				NULL,
+	accion_vinculo_objeto				int8				NULL,
 	accion_vinculo_popup				smallint			NULL,
 	accion_vinculo_popup_param			varchar(100)		NULL,
 	accion_vinculo_target				varchar(40)			NULL,
@@ -380,7 +380,7 @@ CREATE TABLE apex_ptos_control_x_evento
   proyecto 					VARCHAR(15) NOT NULL,
   pto_control              	VARCHAR(20) NOT NULL,
   evento_id                	INTEGER     NOT NULL,
-  objeto					int4		NOT NULL,
+  objeto					int8		NOT NULL,
   CONSTRAINT "apex_ptos_ctrl_x_evt__pk" PRIMARY KEY("proyecto", "pto_control", "evento_id"),
   CONSTRAINT "apex_proyecto_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
   CONSTRAINT "apex_ptos_ctrl_x_evt_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE, 
@@ -401,10 +401,10 @@ CREATE TABLE apex_item_objeto
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	item_id								int4			NULL,	
+	item_id								int8			NULL,	
 	proyecto							varchar(15)		NOT NULL,
 	item								varchar(60)		NOT NULL,
-	objeto								int4			NOT NULL,
+	objeto								int8			NOT NULL,
 	orden								smallint		NOT NULL,
 	inicializar							smallint		NULL,
 	CONSTRAINT	"apex_item_consumo_obj_pk"	 PRIMARY	KEY ("proyecto","item","objeto"),
@@ -426,11 +426,11 @@ CREATE TABLE apex_log_objeto
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_objeto							int4			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
+	log_objeto							int8			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
 	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario								varchar(60) 	NULL,
 	objeto_proyecto          			varchar(15)  	NOT NULL,
-	objeto								int4			NULL,
+	objeto								int8			NULL,
 	item								varchar(60)		NULL,
 	observacion							varchar			NULL,
 	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")

@@ -21,11 +21,11 @@ CREATE TABLE apex_solicitud
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto					varchar(15)		NOT NULL,
-	solicitud	 				int4			DEFAULT nextval('"apex_solicitud_seq"'::text) NOT NULL, 
+	solicitud	 				int8			DEFAULT nextval('"apex_solicitud_seq"'::text) NOT NULL, 
 	solicitud_tipo				varchar(20)		NOT NULL,
 	item_proyecto				varchar(15)		NOT NULL,
 	item 						varchar(60)		NOT NULL,
-   	item_id						int4        	NULL, 
+   	item_id						int8        	NULL, 
 	momento						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	tiempo_respuesta			float			NULL,
 	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("solicitud", "proyecto")
@@ -46,7 +46,7 @@ CREATE TABLE apex_sesion_browser
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	sesion_browser				int4			DEFAULT nextval('"apex_sesion_browser_seq"'::text) NOT NULL, 
+	sesion_browser				int8			DEFAULT nextval('"apex_sesion_browser_seq"'::text) NOT NULL, 
 	proyecto					varchar(15)		NOT NULL,
 	usuario						varchar(60) 	NOT NULL,
 	ingreso						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
@@ -71,9 +71,9 @@ CREATE TABLE apex_solicitud_browser
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto					varchar(15)		NULL,		-- NOT!
-	sesion_browser				int4			NOT NULL,
+	sesion_browser				int8			NOT NULL,
 	solicitud_proyecto			varchar(15)		NULL,		-- NOT!
-	solicitud_browser			int4			NOT NULL, 
+	solicitud_browser			int8			NOT NULL, 
 	ip							varchar(20)		NULL,
 	CONSTRAINT	"apex_sol_brw_pk" PRIMARY KEY ("solicitud_proyecto", "solicitud_browser"),
 	CONSTRAINT	"apex_sol_brw_fk_sol" FOREIGN KEY ("solicitud_browser", "solicitud_proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE,
@@ -93,7 +93,7 @@ CREATE TABLE apex_solicitud_consola
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto					varchar(15)			NULL,		-- NOT!
-	solicitud_consola			int4				NOT NULL, 
+	solicitud_consola			int8				NOT NULL, 
 	usuario						varchar(60)			NOT NULL,
 	ip							varchar(20)			NULL,
 	llamada						varchar				NULL,
@@ -115,7 +115,7 @@ CREATE TABLE apex_solicitud_cronometro
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto					varchar(15)			NULL,		-- NOT!
-	solicitud	 				int4				NOT NULL,
+	solicitud	 				int8				NOT NULL,
 	marca						smallint			NOT NULL,
 	nivel_ejecucion				varchar(15)			NOT NULL,
 	texto						varchar(120)		NULL,
@@ -138,8 +138,8 @@ CREATE TABLE apex_solicitud_observacion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto						varchar(15)			NULL,		-- NOT!
-	solicitud	 					int4				NOT NULL,
-	solicitud_observacion			int4				DEFAULT nextval('"apex_solicitud_observacion_seq"'::text) NOT NULL, 
+	solicitud	 					int8				NOT NULL,
+	solicitud_observacion			int8				DEFAULT nextval('"apex_solicitud_observacion_seq"'::text) NOT NULL, 
 	solicitud_obs_tipo_proyecto		varchar(15)			NULL,
 	solicitud_obs_tipo				varchar(20)			NULL,
 	observacion						varchar				NULL,
@@ -166,7 +166,7 @@ CREATE TABLE apex_log_sistema
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_sistema		 			int4				DEFAULT nextval('"apex_log_sistema_seq"'::text) NOT NULL, 
+	log_sistema		 			int8				DEFAULT nextval('"apex_log_sistema_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario						varchar(60) 		NULL,
 	log_sistema_tipo			varchar(20) 		NOT NULL,
@@ -188,7 +188,7 @@ CREATE TABLE apex_log_error_login
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_error_login 			int4				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
+	log_error_login 			int8				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario						varchar 			NULL,
 	clave						varchar		 		NULL,

@@ -34,7 +34,7 @@ CREATE TABLE apex_nota
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (  
-	nota		            int4           DEFAULT nextval('"apex_nota_seq"'::text) NOT NULL, 
+	nota		            int8           DEFAULT nextval('"apex_nota_seq"'::text) NOT NULL, 
 	nota_tipo               varchar(20)    NOT NULL,
 	proyecto   	   			varchar(15)    NOT NULL,
 	usuario_origen          varchar(20)    NULL,
@@ -64,9 +64,9 @@ CREATE TABLE apex_item_nota
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (  
-	item_nota           		   int4           DEFAULT nextval('"apex_item_nota_seq"'::text) NOT NULL, 
+	item_nota           		   int8           DEFAULT nextval('"apex_item_nota_seq"'::text) NOT NULL, 
    	nota_tipo           		   varchar(20)    NOT NULL,
-   	item_id   						int4        	NULL, 
+   	item_id   						int8        	NULL, 
    	item_proyecto       		   varchar(15)    NOT NULL,
    	item                		   varchar(60)    NOT NULL,
    	usuario_origen      		   varchar(20)    NULL,
@@ -96,10 +96,10 @@ CREATE TABLE apex_objeto_nota
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	objeto_nota             		int4           DEFAULT nextval('"apex_objeto_nota_seq"'::text) NOT NULL, 
+	objeto_nota             		int8           DEFAULT nextval('"apex_objeto_nota_seq"'::text) NOT NULL, 
 	nota_tipo               		varchar(20)    NOT NULL,
 	objeto_proyecto   				varchar(15)    NOT NULL,
-	objeto                  		int4           NOT NULL,
+	objeto                  		int8           NOT NULL,
 	usuario_origen          		varchar(20)    NULL,
 	usuario_destino         		varchar(20)    NULL, 
 	titulo                  		varchar(50)    NULL,

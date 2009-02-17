@@ -36,7 +36,7 @@ CREATE TABLE apex_objeto_ei_filtro
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_ei_filtro_proyecto    	varchar(15)		NOT NULL,
-	objeto_ei_filtro       			int4  			NOT NULL,
+	objeto_ei_filtro       			int8  			NOT NULL,
 	ancho                  				varchar(10)    	NULL,	
 	CONSTRAINT  "apex_ei_filtro_pk" PRIMARY KEY ("objeto_ei_filtro_proyecto", "objeto_ei_filtro"),
 	CONSTRAINT  "apex_ei_filtro_fk_objeto" FOREIGN KEY ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") REFERENCES "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -59,8 +59,8 @@ CREATE TABLE apex_objeto_ei_filtro_col
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	objeto_ei_filtro_col				int4			DEFAULT nextval('"apex_objeto_ei_filtro_col_seq"'::text) NOT NULL, 
-	objeto_ei_filtro            		int4			NOT NULL,
+	objeto_ei_filtro_col				int8			DEFAULT nextval('"apex_objeto_ei_filtro_col_seq"'::text) NOT NULL, 
+	objeto_ei_filtro            		int8			NOT NULL,
 	objeto_ei_filtro_proyecto    		varchar(15)		NOT NULL,
 	tipo								varchar(30)		NOT NULL,
 	nombre								varchar(255)	NOT NULL,
@@ -78,8 +78,8 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	carga_metodo						varchar(100)	NULL,	-- carga ci
 	carga_clase							varchar(100)	NULL,	-- carga estatico
 	carga_include						varchar(255)	NULL,
-	carga_dt							int4			NULL,	--carga datos_tabla
-	carga_consulta_php					int4			NULL,	--carga consulta_php
+	carga_dt							int8			NULL,	--carga datos_tabla
+	carga_consulta_php					int8			NULL,	--carga consulta_php
 	carga_sql							varchar			NULL,	--carga sql	
 	carga_fuente						varchar(30)		NULL,
 	carga_lista							varchar(255)	NULL,	--carga lista

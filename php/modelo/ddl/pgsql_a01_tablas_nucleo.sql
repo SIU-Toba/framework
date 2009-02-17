@@ -262,7 +262,7 @@ CREATE TABLE apex_columna_estilo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	columna_estilo						int4				DEFAULT nextval('"apex_columna_estilo_seq"'::text)	NOT NULL, 
+	columna_estilo						int8				DEFAULT nextval('"apex_columna_estilo_seq"'::text)	NOT NULL, 
 	css									varchar(40)		NOT NULL,
 	descripcion							varchar(255)	NULL,
 	descripcion_corta					varchar(40)	  NULL,
@@ -282,13 +282,13 @@ CREATE TABLE apex_columna_formato
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	columna_formato					int4				DEFAULT nextval('"apex_columna_formato_seq"'::text) NOT NULL, 
+	columna_formato					int8				DEFAULT nextval('"apex_columna_formato_seq"'::text) NOT NULL, 
 	funcion								varchar(60)		NOT NULL,
 	archivo								varchar(80)		NULL,
 	descripcion							varchar(255)	NULL,
 	descripcion_corta					varchar(40)		NULL,
 	parametros							varchar(255)	NULL,
-	estilo_defecto						int4			NOT NULL,
+	estilo_defecto						int8			NOT NULL,
 	CONSTRAINT	"apex_columna_formato_pk" PRIMARY KEY ("columna_formato"),
 	CONSTRAINT "apex_columna_formato_fk_estilo" FOREIGN KEY ("estilo_defecto") REFERENCES "apex_columna_estilo"("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -369,7 +369,7 @@ CREATE TABLE	apex_consulta_php
 ---------------------------------------------------------------------------------------------------
 (
   	proyecto 					VARCHAR(15)  	NOT NULL,
-	consulta_php				int4			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
+	consulta_php				int8			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
   	clase                   	VARCHAR(60)  	NOT NULL,
   	archivo                 	VARCHAR(255) 	NOT NULL,
   	descripcion                	VARCHAR(255) 	NULL,
@@ -394,7 +394,7 @@ CREATE TABLE	apex_tarea
 ---------------------------------------------------------------------------------------------------
 (
   	proyecto 					VARCHAR(15)  	NOT NULL,
-	tarea						int4			DEFAULT nextval('"apex_tarea_seq"'::text) NOT NULL, 
+	tarea						int8			DEFAULT nextval('"apex_tarea_seq"'::text) NOT NULL, 
 	nombre						varchar(60)		NULL,	
 	tarea_clase					varchar(120)	NOT NULL,
 	tarea_objeto				bytea			NOT NULL,	
@@ -423,8 +423,8 @@ CREATE TABLE	apex_log_tarea
 ---------------------------------------------------------------------------------------------------
 (
   	proyecto 					VARCHAR(15)  	NOT NULL,
-	log_tarea					int4			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
-	tarea						int4			NOT NULL,	
+	log_tarea					int8			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
+	tarea						int8			NOT NULL,	
 	nombre						varchar(60)		NULL,	
 	tarea_clase					varchar(120)	NOT NULL,
 	tarea_objeto				bytea			NOT NULL,	

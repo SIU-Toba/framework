@@ -34,7 +34,7 @@ CREATE TABLE apex_molde_operacion_tipo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	operacion_tipo					int4				DEFAULT nextval('"apex_molde_operacion_tipo_seq"'::text) NOT	NULL,	
+	operacion_tipo					int8				DEFAULT nextval('"apex_molde_operacion_tipo_seq"'::text) NOT	NULL,	
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
 	clase							varchar(255)		NOT NULL,
@@ -57,13 +57,13 @@ CREATE TABLE apex_molde_operacion_tipo_dato
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	tipo_dato						int4				DEFAULT nextval('"apex_molde_operacion_tipo_dato_seq"'::text) NOT	NULL,
+	tipo_dato						int8				DEFAULT nextval('"apex_molde_operacion_tipo_dato_seq"'::text) NOT	NULL,
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
 	dt_tipo_dato					varchar(1)			NULL,		
 	elemento_formulario				varchar(30)			NULL,
-	cuadro_estilo 					int4		    	NULL,	
-	cuadro_formato 					int4		    	NULL,
+	cuadro_estilo 					int8		    	NULL,	
+	cuadro_formato 					int8		    	NULL,
 	orden							float				NULL,
 	filtro_operador					varchar(10)			NULL,
 	CONSTRAINT	"apex_molde_operacion_tipo_dato_pk"	PRIMARY	KEY ("tipo_dato"),
@@ -90,8 +90,8 @@ CREATE TABLE apex_molde_operacion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto  					varchar(255)	NOT NULL,
-	molde						int4			DEFAULT nextval('"apex_molde_operacion_seq"'::text) 		NOT NULL, 
-	operacion_tipo				int4			NOT NULL,
+	molde						int8			DEFAULT nextval('"apex_molde_operacion_seq"'::text) 		NOT NULL, 
+	operacion_tipo				int8			NOT NULL,
 	nombre                  	varchar(255) 	NULL,
 	item						varchar(60)		NOT NULL,
 	carpeta_archivos           	varchar(255) 	NOT NULL,
@@ -122,8 +122,8 @@ CREATE TABLE apex_molde_operacion_log
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto  					varchar(255)	NOT NULL,
-	molde						int4	 		NOT NULL, 
-	generacion					int4			DEFAULT nextval('"apex_molde_operacion_log_seq"'::text) 		NOT NULL, 
+	molde						int8	 		NOT NULL, 
+	generacion					int8			DEFAULT nextval('"apex_molde_operacion_log_seq"'::text) 		NOT NULL, 
 	momento						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT  "apex_molde_operacion_log_pk" PRIMARY KEY ("generacion"),
 	CONSTRAINT  "apex_molde_operacion_log_fk" FOREIGN KEY ("molde", "proyecto") REFERENCES "apex_molde_operacion" ("molde", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -145,9 +145,9 @@ CREATE TABLE apex_molde_operacion_log_elementos
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	generacion					int4			NOT NULL, 
-	molde						int4	 		NOT NULL, 
-	id							int4			DEFAULT nextval('"apex_molde_operacion_log_elementos_seq"'::text) 		NOT NULL, 
+	generacion					int8			NOT NULL, 
+	molde						int8	 		NOT NULL, 
+	id							int8			DEFAULT nextval('"apex_molde_operacion_log_elementos_seq"'::text) 		NOT NULL, 
 	tipo						varchar(255)	NOT NULL,
 	proyecto					varchar(255)	NOT NULL,
 	clave						varchar(255)	NOT NULL, 
@@ -176,7 +176,7 @@ CREATE TABLE apex_molde_operacion_abms
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto  							varchar(255)	NOT NULL,
-	molde								int4			NOT NULL, 
+	molde								int8			NOT NULL, 
 	tabla								varchar(255)	NOT NULL,
 	gen_usa_filtro						smallint		NULL,
 	gen_separar_pantallas				smallint		NULL,
@@ -213,18 +213,18 @@ CREATE TABLE apex_molde_operacion_abms_fila
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto  							varchar(255)	NOT NULL,
-	molde								int4			NOT NULL, 
-	fila								int4			DEFAULT nextval('"apex_molde_operacion_abms_fila_seq"'::text) NOT NULL,
+	molde								int8			NOT NULL, 
+	fila								int8			DEFAULT nextval('"apex_molde_operacion_abms_fila_seq"'::text) NOT NULL,
 	orden								float			NOT NULL,
 	columna        						varchar(255)   	NOT NULL,
-	asistente_tipo_dato					int4		   	NULL,
+	asistente_tipo_dato					int8		   	NULL,
 	etiqueta       						varchar(255)   	NULL,
 	en_cuadro							smallint		NULL,
 	en_form								smallint		NULL,
 	en_filtro							smallint		NULL,
 	filtro_operador						varchar(10)		NULL, -- Que operador utilizar? (=, <>, >, <, LIKE, etc)
-	cuadro_estilo 						int4		   	NULL,	
-	cuadro_formato 						int4		  	NULL,	
+	cuadro_estilo 						int8		   	NULL,	
+	cuadro_formato 						int8		  	NULL,	
 	dt_tipo_dato						varchar(1)		NULL,
 	dt_largo							smallint		NULL,
 	dt_secuencia						varchar(255)	NULL,
@@ -268,7 +268,7 @@ CREATE TABLE apex_molde_operacion_importacion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto  							varchar(255)	NOT NULL,
-	molde								int4			NOT NULL, 
+	molde								int8			NOT NULL, 
 	origen_item							varchar(60)		NOT NULL,
 	origen_proyecto						varchar(30)		NULL,
 	CONSTRAINT  "apex_molde_operacion_imp_pk" 		PRIMARY KEY ("proyecto","molde"),

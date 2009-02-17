@@ -18,7 +18,7 @@ CREATE TABLE apex_relacion_tablas
 	fuente_datos_proyecto			varchar(15)		NOT NULL,
 	fuente_datos					varchar(20)		NOT NULL,
 	proyecto						varchar(15)		NOT NULL,
-	relacion_tablas					int4			DEFAULT nextval('"apex_relacion_tablas_seq"'::text) NOT NULL,
+	relacion_tablas					int8			DEFAULT nextval('"apex_relacion_tablas_seq"'::text) NOT NULL,
 	tabla_1							varchar(80)		NOT NULL,
 	tabla_1_cols					varchar			NOT NULL,
 	tabla_2							varchar(80)		NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE apex_dimension
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	dimension						int4			DEFAULT nextval('"apex_dimension_seq"'::text) NOT NULL,
+	dimension						int8			DEFAULT nextval('"apex_dimension_seq"'::text) NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	descripcion						varchar(255)	NULL,
 	schema							varchar(60)		NULL,
@@ -76,10 +76,10 @@ CREATE TABLE apex_dimension_gatillo
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	dimension						int4			NOT NULL,
-	gatillo							int4			DEFAULT nextval('"apex_dimension_gatillo_seq"'::text) NOT NULL,
+	dimension						int8			NOT NULL,
+	gatillo							int8			DEFAULT nextval('"apex_dimension_gatillo_seq"'::text) NOT NULL,
 	tipo							varchar(20)		NOT NULL, 		-- 'directo' | 'indirecto'
-	orden							int4			NOT NULL,
+	orden							int8			NOT NULL,
 	tabla_rel_dim					varchar(80)		NOT NULL,		-- Tabla usada como gatillo
 	columnas_rel_dim				varchar			NULL,			-- Solo para directos. Si tiene mas de una columna, expresada en el mismo orden que la definicion de la dim
 	tabla_gatillo					varchar(80)		NULL,			-- Solo para indirectos. referencia a un gatillo directo

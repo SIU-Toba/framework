@@ -20,7 +20,7 @@ CREATE TABLE apex_objeto_esquema
 -----------------------------------------------------------------------------------------------------
 (
    objeto_esquema_proyecto   	varchar(15)		NOT NULL,
-   objeto_esquema            	int4			NOT NULL,
+   objeto_esquema            	int8			NOT NULL,
    parser	            	   	varchar(30)  	NULL, -- NEATO, DOT, ETC
    descripcion            	   	varchar(80)  	NULL,
    dot		               		varchar			NULL, --Descripcion del grafico en sintaxis DOT

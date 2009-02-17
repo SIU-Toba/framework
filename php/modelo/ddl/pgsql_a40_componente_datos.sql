@@ -17,7 +17,7 @@ CREATE TABLE apex_admin_persistencia
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	ap								int4				DEFAULT nextval('"apex_admin_persistencia_seq"'::text) 		NOT NULL, 
+	ap								int8				DEFAULT nextval('"apex_admin_persistencia_seq"'::text) 		NOT NULL, 
 	clase							varchar(60)			NOT	NULL,
 	archivo							varchar(120)			NOT	NULL,
 	descripcion						varchar(60)			NOT	NULL,
@@ -61,11 +61,11 @@ CREATE TABLE apex_objeto_db_registros
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto  				varchar(15)		NOT NULL,
-	objeto      	    	 		int4			NOT NULL,
+	objeto      	    	 		int8			NOT NULL,
 	max_registros					smallint		NULL,
 	min_registros					smallint		NULL,
 --	Configuracion del AP por defecto
-	ap								int4			NULL,
+	ap								int8			NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(255)	NULL,
 	tabla 							varchar(120)	NULL,
@@ -98,8 +98,8 @@ CREATE TABLE apex_objeto_db_registros_col
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
-	objeto 		                	int4       		NOT NULL,
-	col_id							int4			DEFAULT nextval('"apex_objeto_dbr_columna_seq"'::text) 		NOT NULL, 
+	objeto 		                	int8       		NOT NULL,
+	col_id							int8			DEFAULT nextval('"apex_objeto_dbr_columna_seq"'::text) 		NOT NULL, 
 	columna		    				varchar(120)		NOT NULL, 
 	tipo							varchar(1)		NULL,
 	pk								smallint 		NULL,
@@ -132,8 +132,8 @@ CREATE TABLE apex_objeto_db_registros_ext
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
-	objeto 		                	int4       		NOT NULL,
-	externa_id						int4			DEFAULT nextval('"apex_objeto_dbr_ext_seq"'::text) 		NOT NULL, 
+	objeto 		                	int8       		NOT NULL,
+	externa_id						int8			DEFAULT nextval('"apex_objeto_dbr_ext_seq"'::text) 		NOT NULL, 
 	tipo							varchar(3)		NOT NULL,
 	sincro_continua					smallint		NULL,
 --- CARGA PHP
@@ -163,9 +163,9 @@ CREATE TABLE apex_objeto_db_registros_ext_col
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
-	objeto 		                	int4       		NOT NULL,
-	externa_id						int4			NOT NULL,
-	col_id							int4			NOT NULL,
+	objeto 		                	int8       		NOT NULL,
+	externa_id						int8			NOT NULL,
+	col_id							int8			NOT NULL,
 	es_resultado					smallint		NULL,
 	CONSTRAINT  "apex_obj_dbr_ext_col_pk" PRIMARY KEY ("externa_id","col_id","objeto","objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_ext_col_fk_ext" FOREIGN KEY ("externa_id", "objeto", "objeto_proyecto") 
@@ -192,8 +192,8 @@ CREATE TABLE apex_objeto_db_registros_uniq
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
-	objeto 		                	int4       		NOT NULL,
-	uniq_id							int4			DEFAULT nextval('"apex_objeto_dbr_uniq_seq"'::text) 		NOT NULL, 
+	objeto 		                	int8       		NOT NULL,
+	uniq_id							int8			DEFAULT nextval('"apex_objeto_dbr_uniq_seq"'::text) 		NOT NULL, 
 	columnas						varchar(255)	NULL,
 	CONSTRAINT  "apex_obj_dbr_uniq_pk" PRIMARY KEY ("uniq_id", "objeto", "objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_uniq_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
@@ -219,11 +219,11 @@ CREATE TABLE apex_objeto_datos_rel
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto 		 				varchar(15)		NOT NULL,
-	objeto      	    	 		int4			NOT NULL,
+	objeto      	    	 		int8			NOT NULL,
 	debug							smallint		NULL DEFAULT 0,	
 	clave							varchar(60)		NULL,
 --	Configuracion del AP por defecto
-	ap								int4			NULL,
+	ap								int8			NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(120)	NULL,
 --	Opciones de sincronizaci�n
@@ -251,17 +251,17 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto 		   			   	varchar(15)			NOT NULL,
-	objeto 		                	int4       			NOT NULL,
-	asoc_id							int4				DEFAULT nextval('"apex_objeto_datos_rel_asoc_seq"'::text) 		NOT NULL, 
+	objeto 		                	int8       			NOT NULL,
+	asoc_id							int8				DEFAULT nextval('"apex_objeto_datos_rel_asoc_seq"'::text) 		NOT NULL, 
 	identificador    				varchar(60)			NULL, 
 --	padre --
 	padre_proyecto					varchar(15)			NOT NULL,
-	padre_objeto					int4				NOT NULL,
+	padre_objeto					int8				NOT NULL,
 	padre_id						varchar(20)			NOT NULL,
 	padre_clave		    			varchar(255)			NULL, 
 --	hijo --
 	hijo_proyecto					varchar(15)			NOT NULL,
-	hijo_objeto						int4				NOT NULL,
+	hijo_objeto						int8				NOT NULL,
 	hijo_id							varchar(20)			NOT NULL,
 	hijo_clave		    			varchar(255)			NULL, 
 	cascada							smallint			NULL,

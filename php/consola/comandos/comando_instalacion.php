@@ -451,8 +451,7 @@ class comando_instalacion extends comando_toba
 		do {
 			$es_invalido = false;
 			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Ingrese el numero de desarrollador (por defecto 0)', false);
-			$maximo = 2147;
-			$mensaje = "Debe ser un numero entre 0 y 2147, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
+			$mensaje = "Debe ser un entero positivo, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
 			if ($id_desarrollo == '') {
 				$id_desarrollo = 0;
 			}
@@ -460,7 +459,7 @@ class comando_instalacion extends comando_toba
 				$es_invalido = true;
 				$this->consola->mensaje($mensaje);
 			}
-			if ($id_desarrollo < 0 || $id_desarrollo > $maximo) {
+			if ($id_desarrollo < 0) {
 				$es_invalido = true;
 				$this->consola->mensaje($mensaje);
 			}				

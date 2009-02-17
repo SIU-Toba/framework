@@ -18,7 +18,7 @@ CREATE TABLE apex_objeto_ut_formulario
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_ut_formulario_proyecto    	varchar(15)		NOT NULL,
-	objeto_ut_formulario       			int4  			NOT NULL,
+	objeto_ut_formulario       			int8  			NOT NULL,
 	tabla                      			varchar(100)   	NULL,
 	titulo                     			varchar(255)   	NULL,       -- Titulo de la interface
 	ev_agregar							smallint		NULL,		-- Proponer agregar si no hay estado
@@ -79,8 +79,8 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	objeto_ei_formulario_fila			int4			DEFAULT nextval('"apex_obj_ei_form_fila_seq"'::text) NOT NULL, 
-	objeto_ei_formulario             	int4			NOT NULL,
+	objeto_ei_formulario_fila			int8			DEFAULT nextval('"apex_obj_ei_form_fila_seq"'::text) NOT NULL, 
+	objeto_ei_formulario             	int8			NOT NULL,
 	objeto_ei_formulario_proyecto    	varchar(15)		NOT NULL,
 	identificador      					varchar(30)    	NOT NULL,
 	elemento_formulario     			varchar(30)    	NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	descripcion             			varchar        	NULL,
 	colapsado							smallint		NULL,
 	desactivado             			smallint       	NULL,
-	estilo   				 			int4		    NULL,		
+	estilo   				 			int8		    NULL,		
 	total								smallint		NULL,		
 	inicializacion          			varchar        	NULL,
 	permitir_html						smallint		NULL,	-- Permite estados incluyendo codigo html
@@ -104,8 +104,8 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	carga_metodo						varchar(100)	NULL,	-- carga ci
 	carga_clase							varchar(100)	NULL,	-- carga estatico
 	carga_include						varchar(255)	NULL,
-	carga_dt							int4			NULL,	--carga datos_tabla
-	carga_consulta_php					int4			NULL,	--carga consulta_php
+	carga_dt							int8			NULL,	--carga datos_tabla
+	carga_consulta_php					int8			NULL,	--carga consulta_php
 	carga_sql							varchar			NULL,	--carga sql	
 	carga_fuente						varchar(30)		NULL,
 	carga_lista							varchar(255)	NULL,	--carga lista

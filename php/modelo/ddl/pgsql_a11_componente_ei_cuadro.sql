@@ -19,7 +19,7 @@ CREATE TABLE apex_objeto_cuadro
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_cuadro_proyecto  	varchar(15)		NOT NULL,
-	objeto_cuadro           	int4			NOT NULL,
+	objeto_cuadro           	int8			NOT NULL,
 	titulo                  	varchar(255) 	NULL,
 	subtitulo               	varchar(255) 	NULL,
 	sql                     	varchar     	NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar
@@ -74,8 +74,8 @@ CREATE TABLE apex_objeto_cuadro_cc
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
-	objeto_cuadro                 	int4       		NOT NULL,
-	objeto_cuadro_cc				int4			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
+	objeto_cuadro                 	int8       		NOT NULL,
+	objeto_cuadro_cc				int8			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
 	identificador					varchar(200)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
 	descripcion						varchar(200)		NULL,
 	orden				            float      		NOT NULL,
@@ -108,15 +108,15 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
-	objeto_cuadro                 	int4       		NOT NULL,
-	objeto_cuadro_col				int4			DEFAULT nextval('"apex_obj_ei_cuadro_col_seq"'::text) NOT NULL, 
+	objeto_cuadro                 	int8       		NOT NULL,
+	objeto_cuadro_col				int8			DEFAULT nextval('"apex_obj_ei_cuadro_col_seq"'::text) NOT NULL, 
 	clave          					varchar(80)    	NOT NULL,		
 	orden				            float      		NOT NULL,
 	titulo                        	varchar(255)	NULL,
 	estilo_titulo                   varchar(100)	DEFAULT 'ei-cuadro-col-tit' NULL,
-	estilo    						int4		    NOT NULL,	
+	estilo    						int8		    NOT NULL,	
 	ancho							varchar(10)		NULL,		
-	formateo   						int4		    NULL,		
+	formateo   						int8		    NULL,		
 	vinculo_indice	      			varchar(20) 	NULL,       
 	no_ordenar						smallint		NULL,		
 	mostrar_xls						smallint		NULL,
