@@ -59,7 +59,7 @@ class toba_planificador_tareas
 	{
 		$db = toba::instancia()->get_db();
 		$db->quote($id_tarea);
-		$sql = "DELETE FROM apex_tarea WHERE tarea='$id_tarea' AND proyecto='{$this->proyecto}'";
+		$sql = "DELETE FROM apex_tarea WHERE tarea=$id_tarea AND proyecto='{$this->proyecto}'";
 		$db->ejecutar($sql);
 		$mensaje_debug = "Tarea '$id_tarea' desprogramada";
 		toba::logger()->debug($mensaje_debug);	

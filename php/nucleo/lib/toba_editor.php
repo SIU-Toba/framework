@@ -279,17 +279,18 @@ class toba_editor
 	static function set_parametros_previsualizacion_db($datos)
 	{
 		$rs = self::get_parametros_previsualizacion_db();
+			$datos = quote($datos);		
 		if (!$rs) {
 			$sql = "INSERT INTO apex_admin_param_previsualizazion (perfil_datos, grupo_acceso, punto_acceso, proyecto, usuario) 
-					VALUES ('{$datos['perfil_datos']}','{$datos['grupo_acceso']}', '{$datos['punto_acceso']}', 
-							'" . self::get_proyecto_cargado() . "', '".toba::usuario()->get_id()."');";
+					VALUES ({$datos['perfil_datos']}, {$datos['grupo_acceso']}, {$datos['punto_acceso']}, 
+							" . quote(self::get_proyecto_cargado()) . ", ".quote(toba::usuario()->get_id()).");";
 		} else {
 			$sql = "UPDATE apex_admin_param_previsualizazion
-					SET grupo_acceso = '{$datos['grupo_acceso']}', 
-						perfil_datos = '{$datos['perfil_datos']}', 
-						punto_acceso = '{$datos['punto_acceso']}'
-					WHERE proyecto = '" . self::get_proyecto_cargado() . "'
-					AND usuario = '".toba::usuario()->get_id()."';";
+					SET grupo_acceso = {$datos['grupo_acceso']}, 
+						perfil_datos = {$datos['perfil_datos']}, 
+						punto_acceso = {$datos['punto_acceso']}
+					WHERE proyecto = " . quote(self::get_proyecto_cargado()). "
+					AND usuario = ".quote(toba::usuario()->get_id()).";";
 		}
 		//Esto se accede solo desde el ADMIN
 		toba::db()->ejecutar($sql);

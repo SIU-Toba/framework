@@ -145,43 +145,81 @@ class toba_instancia
 		return $this->id_solicitud;
 	}
 
+	
 	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
 		$tiempo = toba::cronometro()->tiempo_acumulado();
 		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
-				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
-		$this->get_db()->ejecutar($sql);
+				VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item, :tiempo_respuesta);";	
+
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'solicitud' => $id,
+			'solicitud_tipo' => $tipo_solicitud,
+			'item_proyecto' => $proyecto,
+			'item' => $item,
+			'tiempo_respuesta' => $tiempo
+		);
+		$this->get_db()->sentencia($sql, $parametros);
 	}
 
 	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
 	{
-		$sql = "INSERT	INTO apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion) 
-				VALUES ('$proyecto', '$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
-		$this->get_db()->ejecutar($sql);
+		
+		$sql = "INSERT	INTO apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
+				VALUES (:proyecto, :solicitud, :solicitud_obs_tipo_proyecto,:solicitud_obs_tipo, :observacion);";	
+
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'solicitud' => $id,
+			'solicitud_tipo' => $tipo[0],
+			'solicitud_obs_tipo_proyecto' => $tipo[1],
+			'observacion' => $observacion
+		);
+		$this->get_db()->sentencia($sql, $parametros);		
 	}
 
 	function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
-		$sql = "INSERT INTO apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip) VALUES ('$proyecto','$id','$sesion_proyecto','$sesion','$ip');";
-		$this->get_db()->ejecutar($sql);
+		$sql = "INSERT	INTO apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
+				VALUES (:solicitud_proyecto, :solicitud_browser, :proyecto, :sesion_browser, :ip);";	
+
+		$parametros = array(
+			'solicitud_proyecto' => $proyecto,
+			'solicitud_browser' => $id,
+			'proyecto' => $sesion_proyecto,
+			'sesion_browser' => $sesion,
+			'ip' => $ip
+		);
+		$this->get_db()->sentencia($sql, $parametros);		
 	}
 
 	function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
-		$sql = "INSERT INTO apex_toba_solicitud_consola (proyecto, toba_solicitud_consola, usuario, llamada) VALUES ('$proyecto','$id','$usuario','$llamada');";
-		$this->get_db()->ejecutar($sql);
+		$sql = "INSERT INTO apex_toba_solicitud_consola (proyecto, toba_solicitud_consola, usuario, llamada) 
+				VALUES (:proyecto,:toba_solicitud_consola, :usuario, :llamada);";
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'toba_solicitud_consola' => $id,
+			'usuario' => $usuario,
+			'llamada' => $llamada
+		);
+		$this->get_db()->sentencia($sql, $parametros);		
 	}
 
 	function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
 	{
-		$sql = "INSERT INTO apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) VALUES ('$proyecto','$solicitud','$marca','$nivel','$texto','$tiempo');";
-		$this->get_db()->ejecutar($sql);
-	}
-
-	function log_sistema($tipo,$mensaje)
-	{
-		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','".addslashes($mensaje)."')";
-		$this->get_db()->ejecutar($sql);
+		$sql = "INSERT INTO apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) 
+				VALUES (:proyecto, :solicitud, :marca, :nivel_ejecucion, :texto, :tiempo);";
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'solicitud' => $solicitud,
+			'marca' => $marca,
+			'nivel_ejecucion' => $nivel,
+			'texto' => $texto,
+			'tiempo' => $tiempo
+		);
+		$this->get_db()->sentencia($sql, $parametros);		
 	}
 
 	//------------------ Relacion entre PROYECTOS --------------------------
@@ -428,19 +466,30 @@ class toba_instancia
 	
 	function abrir_sesion($sesion, $usuario, $proyecto)
 	{
-		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
-		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$ip."','$proyecto','".session_id()."');";
-		$this->get_db()->ejecutar($sql);
+		$sql = "INSERT INTO apex_sesion_browser(sesion_browser, usuario, ip, proyecto, php_id) 
+				VALUES (:sesion_browser, :usuario, :ip, :proyecto, :php_id);";
+		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;		
+		$parametros = array(
+			'sesion_browser' => $sesion,
+			'usuario' => $usuario,
+			'ip' => $ip,
+			'proyecto' => $proyecto,
+			'php_id' => session_id(),
+		);
+		$this->get_db()->sentencia($sql, $parametros);		
 	}
 	
 	function cerrar_sesion($sesion, $observaciones = null)
 	{
-		if(isset($observaciones)){
-			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '$sesion';";
+		$db = $this->get_db();
+		$sesion = $db->quote($sesion);
+		if (isset($observaciones)){
+			$observaciones = $db->quote($observaciones);
+			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones=$observaciones WHERE sesion_browser = $sesion;";
 		}else{
-			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '$sesion';";
+			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = $sesion;";
 		}		
-		$this->get_db()->ejecutar($sql);
+		$db->ejecutar($sql);
 	}
 
 	//--------------------------------------------------------------------------
@@ -464,17 +513,12 @@ class toba_instancia
 	{
 		$this->get_modelo_instancia()->get_proyecto($proyecto)->vincular_usuario($usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion);
 	}	
-	
 
 	function desbloquear_usuario($usuario)
 	{
-		try {
-			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = :usuario";
-			$id = $this->get_db()->sentencia_preparar($sql);
-			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario));
-		} catch ( toba_error $e ) {
-			//el usuario ya esta bloqueado
-		}
+		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = :usuario";
+		$id = $this->get_db()->sentencia_preparar($sql);
+		$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario));
 	}	
 }
 ?>

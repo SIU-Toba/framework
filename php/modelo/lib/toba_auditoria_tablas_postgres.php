@@ -101,6 +101,7 @@ class toba_auditoria_tablas_postgres
 	
 	function migrar()
 	{
+		$this->crear_funciones($this->schema_origen);
 		foreach ($this->tablas as $t) {
 			$nombre = $this->prefijo.$t;
 			if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
@@ -111,6 +112,7 @@ class toba_auditoria_tablas_postgres
 		}
 		
 		if (isset($this->schema_toba)) {
+			$this->crear_funciones($this->schema_toba);
 			foreach ($this->tablas_toba as $t) {
 				$nombre = $this->prefijo.$t;
 				if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {

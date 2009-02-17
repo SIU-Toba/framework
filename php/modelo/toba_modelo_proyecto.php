@@ -1312,8 +1312,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$perfil_datos = array($perfil_datos);
 			}
 		}	
-		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion, $this->get_url());
-		return $this->get_db()->ejecutar($sql);
+		self::do_vincular_usuario($this->get_db(), $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion, $this->get_url());
 	}		
 
 	function desvincular_usuario( $usuario )
@@ -1734,7 +1733,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 																$nombre);
 				$db->ejecutar($sql_version);
 				foreach( $usuarios_a_vincular as $usuario ) {
-					$db->ejecutar(self::get_sql_vincular_usuario($nombre, $usuario, array('admin')));
+					self::do_vincular_usuario($db, $nombre, $usuario, array('admin'));
 				}
 				$db->cerrar_transaccion();
 			} catch ( toba_error $e ) {
@@ -1773,27 +1772,32 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $sql;
 	}
 
-	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfiles_acceso=array(), $perfiles_datos=array(), $set_previsualizacion=true, $url=null )
+	static function do_vincular_usuario($db, $proyecto, $usuario, $perfiles_acceso=array(), $perfiles_datos=array(), $set_previsualizacion=true, $url=null )
 	{
+		$proyecto = $db->quote($proyecto);
+		$usuario = $db->quote($usuario);
 		foreach ($perfiles_acceso as $perfil) {
+			$perfil = $db->quote($perfil);
 			$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
-						VALUES ('$proyecto','$usuario','$perfil');";
+						VALUES ($proyecto, $usuario, $perfil);";
 		}
 		foreach ($perfiles_datos as $perfil) {
+			$perfil = $db->quote($perfil);
 			$sql[] = "INSERT INTO apex_usuario_proyecto_perfil_datos (proyecto, usuario, usuario_perfil_datos)
-						VALUES ('$proyecto','$usuario','$perfil');";
+						VALUES ($proyecto, $usuario, $perfil);";
 		}
 		
 		// Decide un PA por defecto para el proyecto
 		if(!empty($perfil_acceso) && $set_previsualizacion && isset($url)) {
-			$funcional = implode(',', $perfil_acceso);
+			$funcional = $db->quote(implode(',', $perfil_acceso));
 			if (empty($perfil_datos)) {
 				$datos = 'NULL';
 			} else {
-				$datos = "'".implode(',', $perfil_datos)."'";
+				$datos = $db->quote(implode(',', $perfil_datos));
 			}
+			$url = $db->quote($url);
 			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, perfil_datos, punto_acceso) 
-						VALUES ('$proyecto','$usuario','$funcional', $datos, '$url');";
+						VALUES ($proyecto, $usuario, $funcional, $datos, $url);";
 		}
 		return $sql;
 	}

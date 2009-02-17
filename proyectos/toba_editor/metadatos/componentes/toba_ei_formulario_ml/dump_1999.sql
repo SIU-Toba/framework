@@ -217,7 +217,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
+	'1', --permitir_html
 	NULL, --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
@@ -442,7 +442,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
+	'1', --permitir_html
 	NULL, --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
@@ -517,7 +517,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
+	'1', --permitir_html
 	NULL, --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
@@ -592,7 +592,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
+	'1', --permitir_html
 	NULL, --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
@@ -670,7 +670,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
+	'1', --permitir_html
 	NULL, --deshabilitar_rest_func
 	NULL, --estado_defecto
 	NULL, --solo_lectura
