@@ -26,6 +26,11 @@ class toba_datos_tabla_def extends toba_componente_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}			
 		//------------- Info base de la estructura ----------------
 		$sql['_info_estructura']['sql'] = "SELECT	dt.tabla    as tabla,
 											dt.alias          	as alias,
@@ -39,9 +44,9 @@ class toba_datos_tabla_def extends toba_componente_def
 											ap.archivo			as ap_clase_archivo
 					 FROM		apex_objeto_db_registros as dt
 				 				LEFT OUTER JOIN apex_admin_persistencia ap ON dt.ap = ap.ap
-					 WHERE		objeto_proyecto='$proyecto' ";
+					 WHERE		objeto_proyecto=$proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_estructura']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_estructura']['sql'] .= "	AND		objeto=$componente ";	
 		}
 		$sql['_info_estructura']['sql'] .= ";";
 		$sql['_info_estructura']['registros']='1';
@@ -59,9 +64,9 @@ class toba_datos_tabla_def extends toba_componente_def
 						no_nulo_db		,
 						externa
 					 FROM		apex_objeto_db_registros_col 
-					 WHERE		objeto_proyecto = '$proyecto' ";
+					 WHERE		objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_columnas']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_columnas']['sql'] .= "	AND		objeto=$componente ";	
 		}
 		$sql['_info_columnas']['sql'] .= ";";
 		$sql['_info_columnas']['registros']='n';
@@ -78,9 +83,9 @@ class toba_datos_tabla_def extends toba_componente_def
 						include			,	
 						sql
 					 FROM		apex_objeto_db_registros_ext 
-					 WHERE		objeto_proyecto = '$proyecto' ";
+					 WHERE		objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_externas']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_externas']['sql'] .= "	AND		objeto=$componente ";	
 		}
 		$sql['_info_externas']['sql'] .= ";";
 		$sql['_info_externas']['registros']='n';
@@ -96,12 +101,12 @@ class toba_datos_tabla_def extends toba_componente_def
 					 		apex_objeto_db_registros_ext_col ext_col,
 					 		apex_objeto_db_registros_col col
 					 WHERE		
-					 		ext_col.objeto_proyecto = '$proyecto' AND
-					 		col.objeto_proyecto = '$proyecto' AND
+					 		ext_col.objeto_proyecto = $proyecto AND
+					 		col.objeto_proyecto = $proyecto AND
 					 		ext_col.col_id = col.col_id	
 					 	";
 		if ( isset($componente) ) {
-			$sql['_info_externas_col']['sql'] .= "	AND		ext_col.objeto='$componente' ";	
+			$sql['_info_externas_col']['sql'] .= "	AND		ext_col.objeto=$componente ";	
 		}
 		$sql['_info_externas_col']['sql'] .= ";";
 		$sql['_info_externas_col']['registros']='n';
@@ -110,9 +115,9 @@ class toba_datos_tabla_def extends toba_componente_def
 		//------------ Valores Unicos ----------------
 		$sql['_info_valores_unicos']['sql'] = "SELECT	columnas
 					 FROM	apex_objeto_db_registros_uniq
-					 WHERE	objeto_proyecto = '$proyecto'";
+					 WHERE	objeto_proyecto = $proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_valores_unicos']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_valores_unicos']['sql'] .= "	AND		objeto=$componente ";	
 		}
 		$sql['_info_valores_unicos']['sql'] .= ";";
 		$sql['_info_valores_unicos']['registros']='n';

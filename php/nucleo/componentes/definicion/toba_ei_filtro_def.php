@@ -18,13 +18,18 @@ class toba_ei_filtro_def extends toba_ei_def
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}		
+				
 		//Filtro
 		$sql["_info_filtro"]['sql'] = "SELECT
 												ancho 						as ancho
 								FROM	apex_objeto_ei_filtro
-								WHERE	objeto_ei_filtro_proyecto='$proyecto'";
+								WHERE	objeto_ei_filtro_proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_filtro']['sql'] .= "	AND		objeto_ei_filtro='$componente' ";	
+			$sql['_info_filtro']['sql'] .= "	AND		objeto_ei_filtro=$componente ";	
 		}
 		$sql['_info_filtro']['sql'] .= ";";
 		$sql['_info_filtro']['registros']='1';
@@ -39,9 +44,9 @@ class toba_ei_filtro_def extends toba_ei_def
 											LEFT OUTER JOIN apex_consulta_php con ON
 												(col.objeto_ei_filtro_proyecto = con.proyecto AND
 													col.carga_consulta_php = con.consulta_php) 
-								WHERE	col.objeto_ei_filtro_proyecto='$proyecto'";
+								WHERE	col.objeto_ei_filtro_proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_filtro_col']['sql'] .= "	AND		col.objeto_ei_filtro='$componente' ";	
+			$sql['_info_filtro_col']['sql'] .= "	AND		col.objeto_ei_filtro=$componente ";	
 		}
 		$sql['_info_filtro_col']['sql'] .= "ORDER	BY	orden;";
 		$sql['_info_filtro_col']['registros']='n';

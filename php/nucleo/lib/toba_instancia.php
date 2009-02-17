@@ -257,14 +257,14 @@ class toba_instancia
 	function get_proyectos_accesibles($refrescar=false)
 	{
 		if ($refrescar || ! isset($this->memoria['proyectos_accesibles'])) {
-			$usuario = toba::usuario()->get_id();
+			$usuario = $this->get_db()->quote(toba::usuario()->get_id());
 			$sql = "SELECT 		p.proyecto, 
 	    						p.descripcion_corta
 	    				FROM 	apex_proyecto p,
 	    						apex_usuario_proyecto up
 	    				WHERE 	p.proyecto = up.proyecto
 						AND  	listar_multiproyecto = 1 
-						AND		up.usuario = '$usuario'
+						AND		up.usuario = $usuario
 						ORDER BY orden;";
 			$this->memoria['proyectos_accesibles'] =
 					 $this->get_db()->consultar($sql, toba_db_fetch_num);
@@ -284,6 +284,7 @@ class toba_instancia
 	 */
 	function get_info_usuario($usuario)
 	{
+		$usuario = $this->get_db()->quote($usuario);
 		$sql = "SELECT	usuario as							id,
 						nombre as							nombre,
 						hora_salida as						hora_salida,
@@ -295,10 +296,10 @@ class toba_instancia
 						parametro_b as 						parametro_b,
 						parametro_c as						parametro_c
 				FROM 	apex_usuario u
-				WHERE	usuario = '$usuario'";
+				WHERE	usuario = $usuario";
 		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_error("El usuario '$usuario' no existe.");
+			throw new toba_error("El usuario $usuario no existe.");
 		}
 		return $rs[0];
 	}
@@ -321,14 +322,17 @@ class toba_instancia
 	*/
 	function get_grupos_acceso($usuario, $proyecto)
 	{
+		$db = $this->get_db();
+		$usuario = $db->quote($usuario);
+		$proyecto = $db->quote($proyecto);
 		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
 				FROM 	apex_usuario_proyecto up,
 						apex_usuario_grupo_acc ga
 				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
 				AND		up.proyecto = ga.proyecto
-				AND		up.usuario = '$usuario'
-				AND		up.proyecto = '$proyecto';";
-		$datos = $this->get_db()->consultar($sql);
+				AND		up.usuario = $usuario
+				AND		up.proyecto = $proyecto;";
+		$datos = $db->consultar($sql);
 		if($datos){
 			$grupos = array();
 			foreach($datos as $dato) {
@@ -345,12 +349,13 @@ class toba_instancia
 	*/
 	function get_lista_usuarios()
 	{
+		$proyecto = $this->get_db()->quote(toba_proyecto::get_id());
 		$sql = "SELECT 	DISTINCT 
 						u.usuario as usuario, 
 						u.nombre as nombre
 				FROM 	apex_usuario u, apex_usuario_proyecto p
 				WHERE 	u.usuario = p.usuario
-				AND		p.proyecto = '".toba_proyecto::get_id()."'
+				AND		p.proyecto = $proyecto
 				ORDER BY 1;";
 		return $this->get_db()->consultar($sql);	
 	}
@@ -370,7 +375,6 @@ class toba_instancia
 	
 	function registrar_error_login($usuario, $ip, $texto)
 	{
-		$texto = addslashes($texto);
 		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
 		try {
 			$id = $this->get_db()->sentencia_preparar($sql);

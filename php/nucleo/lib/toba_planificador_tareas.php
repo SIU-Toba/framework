@@ -75,13 +75,14 @@ class toba_planificador_tareas
 	 */
 	function ejecutar_pendientes($manejador_interface=null)
 	{
+		$proyecto = toba::instancia()->get_db()->quote($this->proyecto);
 		$sql = "
 			SELECT 
 				tarea
 			FROM
 				apex_tarea
 			WHERE
-					proyecto = '{$this->proyecto}'
+					proyecto = $proyecto
 				AND ejecucion_proxima <= NOW()
 		";
 		$tareas = toba::instancia()->get_db()->consultar($sql);
@@ -109,6 +110,7 @@ class toba_planificador_tareas
 		//-- Obtiene los datos de la tarea
 		$db = toba::instancia()->get_db();
 		$id = $db->quote($id);
+		$proyecto = $db->quote($this->proyecto);
 		$sql = "
 			SELECT 
 				tar.tarea,
@@ -120,7 +122,7 @@ class toba_planificador_tareas
 			FROM
 				apex_tarea tar
 			WHERE
-					tar.proyecto = '{$this->proyecto}'
+					tar.proyecto = $proyecto
 				AND	tar.tarea = $id
 		";
 		$datos = $db->consultar_fila($sql);
@@ -154,7 +156,9 @@ class toba_planificador_tareas
 	 */
 	protected function registrar_ejecucion($datos, $manejador_interface=null)
 	{
-		$id = $datos['tarea'];
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($this->proyecto);
+		$id = $db->quote($datos['tarea']);
 		$mensaje_debug = "Ejecutada tarea $id:{$datos['nombre']} de clase '{$datos['tarea_clase']}' en el proyecto '{$this->proyecto}'";
 		toba::logger()->debug($mensaje_debug);		
 		if (isset($manejador_interface)) {
@@ -163,9 +167,9 @@ class toba_planificador_tareas
 		
 		$sql = "INSERT INTO apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
 				SELECT proyecto, tarea, nombre, tarea_clase, tarea_objeto, NOW()
-				FROM apex_tarea WHERE tarea=$id AND proyecto ='{$this->proyecto}'
+				FROM apex_tarea WHERE tarea=$id AND proyecto = $proyecto
 		";
-		toba::instancia()->get_db()->ejecutar($sql);
+		$db->ejecutar($sql);
 	}
 	
 	/**
@@ -175,6 +179,7 @@ class toba_planificador_tareas
 	{
 		$proxima = $datos['ejecucion_proxima'];
 		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($this->proyecto);
 		
 		//--Cicla aumentando de a intervalos hasta encontrar una fecha futura
 		do {
@@ -186,7 +191,7 @@ class toba_planificador_tareas
 					apex_tarea
 				WHERE
 						tarea = '{$datos['tarea']}'
-					AND proyecto ='{$this->proyecto}'
+					AND proyecto = $proyecto
 			";
 			$rs = $db->consultar_fila($sql);
 			$proxima = $rs['proxima'];
@@ -197,7 +202,7 @@ class toba_planificador_tareas
 					ejecucion_proxima = '{$rs['proxima']}'::timestamp
 				WHERE
 						tarea = '{$datos['tarea']}'					
-					AND	proyecto = '{$this->proyecto}'
+					AND	proyecto = $proyecto
 		";
 		$db->ejecutar($sql);
 

@@ -17,6 +17,10 @@ class toba_ei_def extends toba_componente_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}				
 		$sql['_info_eventos']['sql'] = "SELECT	evento_id				as evento_id,
 												identificador			as identificador,
 												etiqueta				as etiqueta,
@@ -42,9 +46,9 @@ class toba_ei_def extends toba_componente_def
 												accion_vinculo_celda,
 												accion_vinculo_target
 									FROM	apex_objeto_eventos
-									WHERE	proyecto='$proyecto' ";
+									WHERE	proyecto=$proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_eventos']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_eventos']['sql'] .= "	AND		objeto=$componente ";	
 		}
 		$sql['_info_eventos']['sql'] .= " ORDER BY orden;";
 		$sql['_info_eventos']['registros']='n';
@@ -56,9 +60,9 @@ class toba_ei_def extends toba_componente_def
                                             apex_objeto_eventos oe
                                       WHERE pe.proyecto = oe.proyecto
                                         AND pe.evento_id = oe.evento_id
-                                        AND pe.proyecto = '$proyecto'";
+                                        AND pe.proyecto = $proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_puntos_control']['sql'] .= "	AND		oe.objeto='$componente' ";
+			$sql['_info_puntos_control']['sql'] .= "	AND		oe.objeto=$componente ";
 		}
 	    $sql['_info_puntos_control']['sql'] .= " ORDER BY pto_control;";
 	    $sql['_info_puntos_control']['registros']='n';

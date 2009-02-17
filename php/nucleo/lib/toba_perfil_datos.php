@@ -159,6 +159,8 @@ class toba_perfil_datos
 	{
 		if( isset($this->gatillos_activos[$fuente]) ) {
 			return $this->gatillos_activos[$fuente];	
+		} else {
+			return array();
 		}
 	}
 

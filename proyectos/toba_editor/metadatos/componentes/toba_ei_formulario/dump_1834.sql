@@ -98,7 +98,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -115,8 +115,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -583,7 +583,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'schema', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'6', --orden
+	'14', --orden
 	'Esquema (postgres)', --etiqueta
 	NULL, --etiqueta_estilo
 	'Fuerza a que una vez iniciada la conexión se utilize por defecto el esquema dado. También afecta a las utilidades del editor que sólo van a buscar metadatos de las base sobre este esquema', --descripcion
@@ -661,7 +661,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'separador', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'8', --orden
+	'6', --orden
 	'Conexión (archivo bases.ini)', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -736,7 +736,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'motor', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'10', --orden
+	'9', --orden
 	'Motor', --etiqueta
 	NULL, --etiqueta_estilo
 	'La implementación particular de cada motor se puede encontrar en la carpeta php/lib/db', --descripcion
@@ -811,7 +811,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'profile', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'11', --orden
+	'10', --orden
 	'Profile', --etiqueta
 	NULL, --etiqueta_estilo
 	'Nombre de dominio o dirección IP de la máquina donde se encuentra el servidor de base de datos.', --descripcion
@@ -886,7 +886,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'12', --orden
+	'11', --orden
 	'Usuario', --etiqueta
 	NULL, --etiqueta_estilo
 	'Nombre de usuario que se utiliza para conectarse a la base.', --descripcion
@@ -961,7 +961,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'clave', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'13', --orden
+	'12', --orden
 	'Clave', --etiqueta
 	NULL, --etiqueta_estilo
 	'Clave utilizada para conectarse al motor. Esta contraseña se almacenará en forma plana en el archivo bases.ini', --descripcion
@@ -1036,7 +1036,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'base', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'14', --orden
+	'13', --orden
 	'Base', --etiqueta
 	NULL, --etiqueta_estilo
 	'Nombre de la base de datos a la que se quiere conectar.', --descripcion
@@ -1111,7 +1111,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'entrada', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'9', --orden
+	'8', --orden
 	'Entrada', --etiqueta
 	NULL, --etiqueta_estilo
 	'Nombre de la categoría en el archivo instalacion/bases.ini. Se compone de la terna <strong>[Instancia Proyecto Fuente]</strong>', --descripcion

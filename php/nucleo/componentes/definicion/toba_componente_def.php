@@ -2,6 +2,8 @@
 
 class toba_componente_def implements toba_componente_definicion
 {
+	static protected $db;
+		
 	static function get_estructura()
 	{
 		$estructura[] = array( 	'tabla' => 'apex_objeto',
@@ -80,6 +82,10 @@ class toba_componente_def implements toba_componente_definicion
 		
 	static function get_vista_dependencias($proyecto, $componente=null)
 	{
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}				
 		$sql['sql'] = 	"	SELECT	d.identificador as		identificador,
 							o.proyecto as					proyecto,
 							o.objeto as						objeto,
@@ -97,9 +103,9 @@ class toba_componente_def implements toba_componente_definicion
 					AND		o.proyecto = d.proyecto
 					AND		o.clase = c.clase
 					AND		o.clase_proyecto = c.proyecto
-					AND		d.proyecto='$proyecto'";
+					AND		d.proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['sql'] .= "	AND		d.objeto_consumidor='$componente' ";	
+			$sql['sql'] .= "	AND		d.objeto_consumidor=$componente ";	
 		}
 		$sql['sql'] .= "			ORDER BY d.orden;";
 		$sql['registros']='n';
@@ -111,5 +117,10 @@ class toba_componente_def implements toba_componente_definicion
 	{
 		return self::get_vista_extendida($proyecto, $componente);
 	}
+
+	static function set_db($db)
+	{
+		self::$db = $db;
+	}	
 }
 ?>

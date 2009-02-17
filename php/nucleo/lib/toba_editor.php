@@ -266,8 +266,8 @@ class toba_editor
 	{
 		$sql = "SELECT perfil_datos, grupo_acceso, punto_acceso 
 				FROM apex_admin_param_previsualizazion
-				WHERE proyecto = '" . self::get_proyecto_cargado() . "'
-				AND usuario = '".toba::usuario()->get_id()."';";
+				WHERE proyecto = " . quote(self::get_proyecto_cargado()) . "
+				AND usuario = ".quote(toba::usuario()->get_id()).";";
 		//Esto se accede solo desde el ADMIN
 		$datos = toba::db()->consultar($sql);
 		if ($datos) {

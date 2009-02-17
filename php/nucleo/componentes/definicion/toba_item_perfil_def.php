@@ -5,6 +5,10 @@ class toba_item_perfil_def extends  toba_item_perfil
 	
 	function get_vista_item($proyecto, $grupo_acceso, $componente=null)
 	{
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}				
 		$sql['basica']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
 						i.item as								item,	
 						i.nombre	as							item_nombre,
@@ -34,10 +38,10 @@ class toba_item_perfil_def extends  toba_item_perfil
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)
 							LEFT OUTER JOIN apex_molde_operacion m ON (i.item = m.item AND i.proyecto = m.proyecto)
 							LEFT OUTER JOIN apex_usuario_grupo_acc_item a ON (i.item = a.item AND i.proyecto = a.proyecto AND a.usuario_grupo_acc = '$grupo_acceso')
-				WHERE	i.proyecto = '$proyecto'";
+				WHERE	i.proyecto = $proyecto";
 		
 		if ( isset($componente) ) {
-			$sql['basica']['sql'] .= "	AND		i.item ='$componente' ";	
+			$sql['basica']['sql'] .= "	AND		i.item =$componente ";	
 		}
 		$sql['basica']['registros']='1';	
 		$sql['basica']['obligatorio']=true;
@@ -67,9 +71,9 @@ class toba_item_perfil_def extends  toba_item_perfil
 					AND		io.proyecto	= o.proyecto
 					AND		o.clase = c.clase	
 					AND		o.clase_proyecto = c.proyecto	
-					AND		io.proyecto	= '$proyecto'";
+					AND		io.proyecto	= $proyecto";
 		if ( isset($componente) ) {
-			$sql['objetos']['sql'] .= "	AND		io.item ='$componente' ";	
+			$sql['objetos']['sql'] .= "	AND		io.item =$componente ";	
 		}
 		$sql['objetos']['sql'] .= "	ORDER	BY	io.orden;";	
 		$sql['objetos']['registros']='n';

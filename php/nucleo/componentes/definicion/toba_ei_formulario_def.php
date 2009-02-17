@@ -17,6 +17,12 @@ class toba_ei_formulario_def extends toba_ei_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}		
+				
 		//Formulario
 		$sql["_info_formulario"]['sql'] = "SELECT	auto_reset as	auto_reset,						
 										ancho 						as ancho,
@@ -25,9 +31,9 @@ class toba_ei_formulario_def extends toba_ei_def
 										no_imprimir_efs_sin_estado	as no_imprimir_efs_sin_estado,
 										resaltar_efs_con_estado		as resaltar_efs_con_estado
 								FROM	apex_objeto_ut_formulario
-								WHERE	objeto_ut_formulario_proyecto='$proyecto'";
+								WHERE	objeto_ut_formulario_proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_formulario']['sql'] .= "	AND		objeto_ut_formulario='$componente' ";	
+			$sql['_info_formulario']['sql'] .= "	AND		objeto_ut_formulario=$componente ";	
 		}
 		$sql['_info_formulario']['sql'] .= ";";
 		$sql['_info_formulario']['registros']='1';
@@ -41,9 +47,9 @@ class toba_ei_formulario_def extends toba_ei_def
 											LEFT OUTER JOIN apex_consulta_php con ON
 												(ef.objeto_ei_formulario_proyecto = con.proyecto AND
 													ef.carga_consulta_php = con.consulta_php) 
-								WHERE	ef.objeto_ei_formulario_proyecto='$proyecto'";
+								WHERE	ef.objeto_ei_formulario_proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
+			$sql['_info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario=$componente ";	
 		}
 		$sql['_info_formulario_ef']['sql'] .= " AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";

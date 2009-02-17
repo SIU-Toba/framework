@@ -77,14 +77,14 @@ class toba_cargador
 		} else {													// Sin CACHE!
 			foreach ($estructura as $seccion) {
 				$tabla = $seccion['tabla'];
-				$id = $componente['componente'];
-				$proyecto = $componente['proyecto'];
+				$id = $db->quote($componente['componente']);
+				$proyecto = $db->quote($componente['proyecto']);
 				$definicion = toba_db_tablas_componente::$tabla();
 				//Genero el SQL
 				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 						" FROM $tabla " .
-						" WHERE {$definicion['dump_clave_proyecto']} = '$proyecto' " .
-						" AND {$definicion['dump_clave_componente']} = '$id' " .
+						" WHERE {$definicion['dump_clave_proyecto']} = $proyecto " .
+						" AND {$definicion['dump_clave_componente']} = $id " .
 						" ORDER BY {$definicion['dump_order_by']} ;\n";
 				$metadatos[$tabla] = $db->consultar( $sql );
 			}
@@ -120,6 +120,7 @@ class toba_cargador
 			//----TODO: HACK para evitar bug en php 5.2.1 y 5.2.3
 			new $clase_def;
 			//----
+			call_user_func_array(array($clase_def, 'set_db' ), array($db));			
 			$estructura = call_user_func_array( array(	$clase_def,
 														$metodo_def ),
 														array( $proyecto, $id ) );
@@ -158,11 +159,13 @@ class toba_cargador
 	 */
 	static function get_tipo( $componente )
 	{
+		$db = toba::instancia()->get_db();
+		$componente = $db->quote($componente);
 		$sql = " 	SELECT clase
 					FROM apex_objeto
-					WHERE (objeto = '{$componente['componente']}')
-					AND (proyecto = '{$componente['proyecto']}')";
-		$datos = toba::instancia()->get_db()->consultar($sql);
+					WHERE (objeto = {$componente['componente']})
+					AND (proyecto = {$componente['proyecto']})";
+		$datos = $db->consultar($sql);
 		return $datos[0]['clase'];
 	}
 	

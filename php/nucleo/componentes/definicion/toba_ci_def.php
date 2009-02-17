@@ -24,6 +24,12 @@ class toba_ci_def extends toba_ei_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		
+		$quote_proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$quote_componente = self::$db->quote($componente);
+		}	
+				
 		//-- Info BASICA --------------
 		$sql["_info_ci"]['sql'] = "		SELECT		ev_procesar_etiq		as	ev_procesar_etiq,
 													ev_cancelar_etiq		as	ev_cancelar_etiq,
@@ -34,9 +40,9 @@ class toba_ci_def extends toba_ei_def
 													tipo_navegacion			as	tipo_navegacion,
 													con_toc					as  con_toc
 											FROM	apex_objeto_mt_me
-											WHERE	objeto_mt_me_proyecto='$proyecto'";
+											WHERE	objeto_mt_me_proyecto=$quote_proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_ci']['sql'] .= "	AND		objeto_mt_me='$componente' ";	
+			$sql['_info_ci']['sql'] .= "	AND		objeto_mt_me=$quote_componente ";	
 		}
 		$sql['_info_ci']['sql'] .= ";";
 		$sql['_info_ci']['registros']='1';
@@ -56,9 +62,9 @@ class toba_ci_def extends toba_ei_def
 													subclase				as subclase,
 													subclase_archivo		as subclase_archivo
 									 	FROM	apex_objeto_ci_pantalla
-										WHERE	objeto_ci_proyecto='$proyecto'";
+										WHERE	objeto_ci_proyecto=$quote_proyecto";
 		if ( isset($componente) ) {
-			$sql['_info_ci_me_pantalla']['sql'] .= "	AND		objeto_ci='$componente' ";	
+			$sql['_info_ci_me_pantalla']['sql'] .= "	AND		objeto_ci=$quote_componente ";	
 		}
 		$sql['_info_ci_me_pantalla']['sql'] .= "ORDER	BY	orden;";
 		$sql['_info_ci_me_pantalla']['registros']='n';

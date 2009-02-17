@@ -12,11 +12,14 @@ class toba_proyecto_implementacion
 	*/
 	function get_perfiles_datos($proyecto)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);
 		$sql = "SELECT 	usuario_perfil_datos as 		perfil_datos,
 						nombre as 						nombre
 					FROM apex_usuario_perfil_datos
-					WHERE proyecto = '$proyecto';";
-		return toba::instancia()->get_db()->consultar($sql);
+					WHERE proyecto = $proyecto
+		";
+		return $db->consultar($sql);
 	}
 
 	/**
@@ -24,11 +27,15 @@ class toba_proyecto_implementacion
 	*/
 	function get_info_perfiles_datos($proyecto, $perfil)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);		
+		$perfil = $db->quote($perfil);
 		$sql = "SELECT 	*
 					FROM apex_usuario_perfil_datos
-					WHERE proyecto = '$proyecto'
-					AND	usuario_perfil_datos = '$perfil';";
-		return toba::instancia()->get_db()->consultar_fila($sql);
+					WHERE proyecto = $proyecto
+					AND	usuario_perfil_datos = $perfil
+		";
+		return $db->consultar_fila($sql);
 	}
 		
 	/**
@@ -36,11 +43,15 @@ class toba_proyecto_implementacion
 	*/
 	function get_perfil_datos($usuario, $proyecto)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);		
+		$usuario = $db->quote($usuario);		
 		$sql = "SELECT up.usuario_perfil_datos as 		perfil_datos
 					FROM apex_usuario_proyecto_perfil_datos up
-					WHERE up.usuario = '$usuario'
-					AND up.proyecto = '$proyecto';";
-		$datos = toba::instancia()->get_db()->consultar_fila($sql);
+					WHERE up.usuario = $usuario
+					AND up.proyecto = $proyecto
+		";
+		$datos = $db->consultar_fila($sql);
 		if(!$datos) return null;
 		return $datos['perfil_datos'];
 	}
@@ -51,6 +62,9 @@ class toba_proyecto_implementacion
 	*/
 	function get_perfil_datos_restricciones($proyecto, $perfil)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);		
+		$perfil = $db->quote($perfil);		
 		$sql = "SELECT 	d.usuario_perfil_datos as 		perfil_datos,
 						d.dimension as 					dimension,
 						d.clave as 						clave,
@@ -59,9 +73,10 @@ class toba_proyecto_implementacion
 							apex_dimension di
 					WHERE 	d.dimension = di.dimension
 						ANd	d.proyecto = di.proyecto
-						AND d.usuario_perfil_datos = '$perfil'
-						AND d.proyecto = '$proyecto'";
-		return toba::instancia()->get_db()->consultar($sql);
+						AND d.usuario_perfil_datos = $perfil
+						AND d.proyecto = $proyecto
+		";
+		return $db->consultar($sql);
 	}
 
 	//-------------------------------------------------------------
@@ -73,20 +88,30 @@ class toba_proyecto_implementacion
 	 */
 	function get_restricciones_funcionales($grupos, $proyecto)
 	{
-		$sql_grupos = "'".implode("', '", $grupos)."'";
+		if (empty($grupos)) {
+			return array();
+		}
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);	
+		$grupos = $db->quote($grupos); 
+		$sql_grupos = implode(", ", $grupos);
 		$sql = "SELECT 	rf.restriccion_funcional
 			FROM 
 				apex_grupo_acc_restriccion_funcional rf
 			WHERE
 					rf.usuario_grupo_acc IN($sql_grupos)
-				AND	proyecto = '$proyecto'
+				AND	proyecto = $proyecto
 		";
-		$datos = toba::instancia()->get_db()->consultar($sql);
+		$datos = $db->consultar($sql);
 		return aplanar_matriz($datos, 'restriccion_funcional');
 	}
 
 	function get_rf_pantallas($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					pantalla, 
@@ -94,46 +119,58 @@ class toba_proyecto_implementacion
 					no_visible
 				FROM apex_restriccion_funcional_pantalla
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);
+		return $db->consultar($sql);
 	}
 	
 	function get_rf_eis($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);		
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					objeto, 
 					no_visible
 				FROM apex_restriccion_funcional_ei
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);
+		return $db->consultar($sql);
 	}
 	
 	function get_rf_eventos($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);		
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					evento_id, 
 					no_visible
 				FROM apex_restriccion_funcional_evt
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);
+		return $db->consultar($sql);
 	}
 
 	
 	function get_rf_cuadro_cols($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);				
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					objeto_cuadro,
@@ -141,15 +178,19 @@ class toba_proyecto_implementacion
 					no_visible
 				FROM apex_restriccion_funcional_cols
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);
+		return $db->consultar($sql);
 	}	
 	
 	function get_rf_form_efs($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);				
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					objeto_ei_formulario,
@@ -158,15 +199,19 @@ class toba_proyecto_implementacion
 					no_editable
 				FROM apex_restriccion_funcional_ef
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);		
+		return $db->consultar($sql);		
 	}
 	
 	function get_rf_filtro_cols($proyecto, $item, $rf)
 	{
+		$db = toba::instancia()->get_db();
+		$proyecto = $db->quote($proyecto);			
+		$item = $db->quote($item);
+		$rf = $db->quote($rf);				
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					objeto_ei_filtro,
@@ -174,11 +219,11 @@ class toba_proyecto_implementacion
 					no_visible
 				FROM apex_restriccion_funcional_filtro_cols
 				WHERE
-						proyecto = '$proyecto'
+						proyecto = $proyecto
 					AND	restriccion_funcional IN ($sql_rf)
-					AND	item = '$item'
+					AND	item = $item
 		";
-		return toba::instancia()->get_db()->consultar($sql);		
+		return $db->consultar($sql);		
 	}	
 	
 }

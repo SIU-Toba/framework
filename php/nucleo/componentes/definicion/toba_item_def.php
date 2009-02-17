@@ -2,6 +2,8 @@
 
 class toba_item_def implements toba_componente_definicion
 {
+	static protected $db;
+		
 	static function get_estructura()
 	{
 		$estructura[] = array( 	'tabla' => 'apex_item',
@@ -18,6 +20,10 @@ class toba_item_def implements toba_componente_definicion
 	
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}
 		$sql['basica']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
 						i.item as								item,	
 						i.nombre	as							item_nombre,
@@ -68,9 +74,9 @@ class toba_item_def implements toba_componente_definicion
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)
 							LEFT OUTER JOIN	apex_pagina_tipo pt	ON (pt.pagina_tipo	= i.pagina_tipo	AND	pt.proyecto	= i.pagina_tipo_proyecto)
 							LEFT OUTER JOIN apex_molde_operacion m ON (i.item = m.item AND i.proyecto = m.proyecto)
-				WHERE	i.proyecto = '$proyecto'";
+				WHERE	i.proyecto = $proyecto";
 		if ( isset($componente) ) {
-			$sql['basica']['sql'] .= "	AND		i.item ='$componente' ";	
+			$sql['basica']['sql'] .= "	AND		i.item =$componente ";	
 		}
 		$sql['basica']['registros']='1';	
 		$sql['basica']['obligatorio']=true;
@@ -100,9 +106,9 @@ class toba_item_def implements toba_componente_definicion
 					AND		io.proyecto	= o.proyecto
 					AND		o.clase = c.clase	
 					AND		o.clase_proyecto = c.proyecto	
-					AND		io.proyecto	= '$proyecto'";
+					AND		io.proyecto	= $proyecto";
 		if ( isset($componente) ) {
-			$sql['objetos']['sql'] .= "	AND		io.item ='$componente' ";	
+			$sql['objetos']['sql'] .= "	AND		io.item =$componente";	
 		}
 		$sql['objetos']['sql'] .= "	ORDER	BY	io.orden;";	
 		$sql['objetos']['registros']='n';
@@ -114,5 +120,10 @@ class toba_item_def implements toba_componente_definicion
 	{
 		return self::get_vista_extendida($proyecto, $componente);
 	}
+	
+	static function set_db($db)
+	{
+		self::$db = $db;
+	}		
 }
 ?>

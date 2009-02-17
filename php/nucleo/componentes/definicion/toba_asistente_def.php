@@ -2,6 +2,8 @@
 
 class toba_asistente_def implements toba_componente_definicion
 {
+	static protected $db;
+	
 	static function get_estructura()
 	{
 		$estructura[] = array( 	'tabla' => 'apex_molde_operacion',
@@ -12,6 +14,10 @@ class toba_asistente_def implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}			
 		$sql['molde']['sql'] = "	SELECT	p.proyecto  		as				proyecto  				,
 											p.molde				as				molde					,
 											p.operacion_tipo	as				operacion_tipo			,
@@ -24,9 +30,9 @@ class toba_asistente_def implements toba_componente_definicion
 						FROM	apex_molde_operacion p,
 								apex_molde_operacion_tipo t
 						WHERE	p.operacion_tipo = t.operacion_tipo
-						AND		p.proyecto='$proyecto'";
+						AND		p.proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['molde']['sql'] .= "	AND		p.molde='$componente';";	
+			$sql['molde']['sql'] .= "	AND		p.molde=$componente;";	
 		}
 		$sql['molde']['registros']='1';	
 		$sql['molde']['obligatorio']=true;
@@ -36,6 +42,11 @@ class toba_asistente_def implements toba_componente_definicion
 	static function get_vista_extendida_resumida($proyecto, $componente)
 	{
 		return self::get_vista_extendida($proyecto, $componente);
+	}
+	
+	static function set_db($db)
+	{
+		self::$db = $db;
 	}
 }
 ?>

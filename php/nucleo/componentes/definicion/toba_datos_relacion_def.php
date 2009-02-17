@@ -20,6 +20,12 @@ class toba_datos_relacion_def extends toba_componente_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		
+		$quote_proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$quote_componente = self::$db->quote($componente);
+		}	
+				
 		//------------- Info base de la estructura ----------------
 		$sql['_info_estructura']['sql'] = "SELECT	proyecto 	,	
 													objeto      ,	
@@ -30,9 +36,9 @@ class toba_datos_relacion_def extends toba_componente_def
 													sinc_susp_constraints,
 													sinc_orden_automatico	
 										 FROM		apex_objeto_datos_rel
-										 WHERE		proyecto='$proyecto' ";	
+										 WHERE		proyecto=$quote_proyecto ";	
 		if ( isset($componente) ) {
-			$sql['_info_estructura']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_estructura']['sql'] .= "	AND		objeto=$quote_componente ";	
 		}
 		$sql['_info_estructura']['sql'] .= ";";
 		$sql['_info_estructura']['registros']='1';
@@ -53,9 +59,9 @@ class toba_datos_relacion_def extends toba_componente_def
 												cascada			,
 												orden			
 									 FROM		apex_objeto_datos_rel_asoc 
-									 WHERE		proyecto = '$proyecto' ";
+									 WHERE		proyecto = $quote_proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_relaciones']['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_relaciones']['sql'] .= "	AND		objeto=$quote_componente ";	
 		}
 		$sql['_info_relaciones']['sql'] .= ";";
 		$sql['_info_relaciones']['registros']='n';

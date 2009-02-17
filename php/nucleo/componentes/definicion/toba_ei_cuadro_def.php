@@ -20,6 +20,12 @@ class toba_ei_cuadro_def extends toba_ei_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
+		
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}		
+				
 		//------------- Cuadro ----------------
 		$sql['_info_cuadro']['sql'] = "SELECT	titulo as titulo,		
 										c.subtitulo						as	subtitulo,		
@@ -52,9 +58,9 @@ class toba_ei_cuadro_def extends toba_ei_def
 										c.cc_modo_anidado_totcol		as	cc_modo_anidado_totcol,		
 										c.cc_modo_anidado_totcua		as	cc_modo_anidado_totcua		
 							 FROM		apex_objeto_cuadro c
-							 WHERE	objeto_cuadro_proyecto='$proyecto' ";	
+							 WHERE	objeto_cuadro_proyecto=$proyecto ";	
 		if ( isset($componente) ) {
-			$sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro='$componente' ";	
+			$sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro=$componente ";	
 		}
 		$sql['_info_cuadro']['sql'] .= ";";
 		$sql['_info_cuadro']['registros']='1';
@@ -87,9 +93,9 @@ class toba_ei_cuadro_def extends toba_ei_def
 												apex_objeto_ei_cuadro_columna	c
 												LEFT OUTER JOIN apex_columna_formato f	
 												ON	f.columna_formato	= c.formateo
-									 WHERE	objeto_cuadro_proyecto = '$proyecto' ";
+									 WHERE	objeto_cuadro_proyecto = $proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro='$componente' ";
+			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro=$componente ";
 		}
 		$sql['_info_cuadro_columna']['sql'] .= "	AND		c.estilo = e.columna_estilo	
 					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
@@ -108,9 +114,9 @@ class toba_ei_cuadro_def extends toba_ei_def
 											imp_paginar,
 											descripcion				
 									 FROM		apex_objeto_cuadro_cc	
-									 WHERE		objeto_cuadro_proyecto = '$proyecto' ";
+									 WHERE		objeto_cuadro_proyecto = $proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro='$componente' ";
+			$sql['_info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro=$componente ";
 		}
 		$sql['_info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
 		$sql['_info_cuadro_cortes']['registros']='n';
