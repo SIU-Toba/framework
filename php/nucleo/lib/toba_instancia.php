@@ -80,6 +80,14 @@ class toba_instancia
 		}
 	}
 	
+	function get_schema_db()
+	{
+		$parametros = toba_dba::get_parametros_base($this->memoria['base']);
+		if (isset($parametros['schema'])) {
+			return $parametros['schema'];
+		}
+	}
+	
 	/**
 	 * @return toba_modelo_instancia
 	 */

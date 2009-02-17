@@ -6,6 +6,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	protected $permitir_instalar = true;
 	protected $schema_modelo;
 	protected $schema_auditoria;
+	protected $schema_toba = null;
 	
 	/**
 	 * @var toba_proceso_gui
@@ -41,6 +42,11 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->instancia = $instancia;
 		$this->proyecto = $proyecto;
 		$this->schema_auditoria = $proyecto->get_id().'_auditoria';
+		$db = $instancia->get_db();
+		$schema_toba = $instancia->get_id();
+		if ($db->existe_schema($schema_toba)) {
+			$this->schema_toba = $schema_toba;
+		} 
 	}
 	
 	/**
@@ -304,7 +310,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$base = $this->proyecto->get_db_negocio();
 		
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
+		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
 		$auditoria->set_esquema_logs($this->schema_auditoria);
 		
 		if (empty($tablas)) {
@@ -349,7 +355,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$base->abrir_transaccion();
 		}
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
+		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
 		} else {

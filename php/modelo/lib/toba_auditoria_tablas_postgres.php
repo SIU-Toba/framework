@@ -10,18 +10,23 @@ class toba_auditoria_tablas_postgres
 	protected $tablas = NULL;
 	protected $schema_logs;
 	protected $schema_origen;
+	protected $schema_toba;
 	protected $prefijo = 'logs_';
+	protected $tablas_toba = array('apex_usuario', 'apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_usuario_perfil_datos',
+									'apex_usuario_perfil_datos_dims', 'apex_usuario_proyecto', 'apex_usuario_proyecto_perfil_datos',
+									'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 	
 	/**
 	 * @var toba_db_postgres7
 	 */
 	protected $conexion;
 		
-	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='auditoria') 
+	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='auditoria', $schema_toba=null) 
 	{
 		$this->conexion = $conexion;
 		$this->schema_origen = $schema_origen;
 		$this->schema_logs = $schema_logs;
+		$this->schema_toba = $schema_toba;
 	}
 	
 	static function get_campos_propios()
@@ -59,6 +64,10 @@ class toba_auditoria_tablas_postgres
 	{
 		$this->schema_origen = $esquema;
 	}
+	function set_esquema_toba($esquema)
+	{
+		$this->schema_toba = $esquema;
+	}	
 	
 	function set_esquema_logs($esquema)
 	{
@@ -68,13 +77,25 @@ class toba_auditoria_tablas_postgres
 	function crear() 
 	{ 
 		$this->crear_lenguaje();
-		$this->crear_funciones();
 		$this->crear_schema();
+				
+		//-- Schema de negocio
+		$this->crear_funciones($this->schema_origen);
 		foreach ($this->tablas as $t) {
-			$this->crear_tabla($t);
-	    }
-		$this->crear_sp();
-		$this->crear_triggers();
+			$this->crear_tabla($t, $this->schema_origen);
+	    }		
+		$this->crear_sp($this->tablas, $this->schema_origen);
+		$this->crear_triggers($this->tablas, $this->schema_origen);
+			    
+	    //-- Schema de toba
+		if (isset($this->schema_toba)) {
+			$this->crear_funciones($this->schema_toba);
+			foreach ($this->tablas_toba as $t) {
+				$this->crear_tabla($t, $this->schema_toba);
+	    	}			
+	    	$this->crear_sp($this->tablas_toba, $this->schema_toba);
+	    	$this->crear_triggers($this->tablas_toba, $this->schema_toba);
+		}
 		return true;
 	}	
 	
@@ -83,26 +104,46 @@ class toba_auditoria_tablas_postgres
 		foreach ($this->tablas as $t) {
 			$nombre = $this->prefijo.$t;
 			if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
-				$this->crear_tabla($t);
+				$this->crear_tabla($t, $this->schema_origen);
 			} else {
-				$this->actualizar_tabla($t);
+				$this->actualizar_tabla($t, $this->schema_origen);
 			}
 		}
+		
+		if (isset($this->schema_toba)) {
+			foreach ($this->tablas_toba as $t) {
+				$nombre = $this->prefijo.$t;
+				if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+					$this->crear_tabla($t, $this->schema_toba);
+				} else {
+					$this->actualizar_tabla($t, $this->schema_toba);
+				}
+			}
+		}		
 		$this->regenerar();
 	}	
 	
 	function regenerar()
 	{
-		$this->eliminar_triggers();
-		$this->crear_triggers();
-		$this->crear_sp();
+		$this->eliminar_triggers($this->tablas, $this->schema_origen);
+		$this->crear_triggers($this->tablas, $this->schema_origen);
+		$this->crear_sp($this->tablas, $this->schema_origen);
+		
+		if (isset($this->schema_toba)) {
+			$this->eliminar_triggers($this->tablas_toba, $this->schema_toba);
+			$this->crear_triggers($this->tablas_toba, $this->schema_toba);
+			$this->crear_sp($this->tablas_toba, $this->schema_toba);			
+		}
 	}
 	
 
 		
 	function eliminar() 
 	{			
-		$this->eliminar_triggers();
+		$this->eliminar_triggers($this->tablas, $this->schema_origen);
+		if (isset($this->schema_toba)) {
+			$this->eliminar_triggers($this->tablas_toba, $this->schema_toba);
+		}
 		$this->eliminar_schema();
 		return true;
 	}	
@@ -138,10 +179,10 @@ class toba_auditoria_tablas_postgres
 		}
 	}
 	
-	protected function crear_funciones() 
+	protected function crear_funciones($schema) 
 	{
 		$sql = "
-			CREATE OR REPLACE FUNCTION {$this->schema_origen}.recuperar_schema_temp ()
+			CREATE OR REPLACE FUNCTION $schema.recuperar_schema_temp ()
 			RETURNS varchar AS
 			'
 			DECLARE
@@ -171,9 +212,9 @@ class toba_auditoria_tablas_postgres
 	}
 	
 	
-	protected function crear_tabla($t)
+	protected function crear_tabla($t, $schema)
 	{
-	   $campos = $this->conexion->get_definicion_columnas($t, $this->schema_origen);
+	   $campos = $this->conexion->get_definicion_columnas($t, $schema);
 	   $sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
 	   $sql .= "auditoria_usuario varchar(30), 
 	   			auditoria_fecha timestamp, 
@@ -189,10 +230,10 @@ class toba_auditoria_tablas_postgres
 		$this->conexion->ejecutar($sql);
 	}
 	
-	protected function actualizar_tabla($origen)
+	protected function actualizar_tabla($origen, $schema)
 	{
 		$destino = $this->prefijo.$origen;
-		$negocio = $this->conexion->get_definicion_columnas($origen, $this->schema_origen);
+		$negocio = $this->conexion->get_definicion_columnas($origen, $schema);
 		$negocio[] = array(                                                                
     			'nombre' => 'auditoria_usuario',                                                   
 			    'tipo_sql' => 'character varying(30)',                                             
@@ -227,12 +268,12 @@ class toba_auditoria_tablas_postgres
 		
 	}
 	
-	protected function crear_sp() 
+	protected function crear_sp($tablas, $schema) 
 	{
 		$sql = "";
 		$conexion = $this->conexion;		
-		foreach ($this->tablas as $t) {
-			$campos = $conexion->get_definicion_columnas($t, $this->schema_origen);			
+		foreach ($tablas as $t) {
+			$campos = $conexion->get_definicion_columnas($t, $schema);			
 			//se generan los stored procedures		   
 			$sql .= "CREATE OR REPLACE FUNCTION {$this->schema_logs}.sp_$t() RETURNS trigger AS\n";
 			$sql .= "'
@@ -246,7 +287,7 @@ class toba_auditoria_tablas_postgres
 					vestampilla timestamp;
 				BEGIN
 					vestampilla := current_timestamp;
-					SELECT INTO schema_temp {$this->schema_origen}.recuperar_schema_temp();
+					SELECT INTO schema_temp $schema.recuperar_schema_temp();
 					SELECT INTO rtabla_usr * FROM pg_tables WHERE tablename = ''tt_usuario'' AND schemaname = schema_temp;
 					IF FOUND THEN
 						SELECT INTO rusuario usuario, id_solicitud FROM tt_usuario;
@@ -304,13 +345,13 @@ class toba_auditoria_tablas_postgres
 		$conexion->ejecutar($sql);
 	}
 	
-	protected function crear_triggers() 
+	protected function crear_triggers($tablas, $schema) 
 	{
 		$sql = "";
-		foreach ($this->tablas as $t)
+		foreach ($tablas as $t)
 	        $sql .= "
 	        	CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
-					ON {$this->schema_origen}." . $t . " FOR EACH ROW 
+					ON $schema." . $t . " FOR EACH ROW 
 					EXECUTE PROCEDURE {$this->schema_logs}.sp_$t();
 			";
 		$this->conexion->ejecutar($sql);
@@ -319,11 +360,11 @@ class toba_auditoria_tablas_postgres
 
 	
 	//------- FUNCIONES DE ELIMINACION DE LOGS -------------------------------------
-	protected function eliminar_triggers() 
+	protected function eliminar_triggers($tablas, $schema) 
 	{
 		$sql = "";
-		foreach ($this->tablas as $t) {
-	       $sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON {$this->schema_origen}.$t;\n\n";
+		foreach ($tablas as $t) {
+	       $sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON $schema.$t;\n\n";
 		}
 		$this->conexion->ejecutar($sql);
 	}
@@ -401,7 +442,11 @@ class toba_auditoria_tablas_postgres
 	function get_campos_claves($tabla)
 	{
 		$tabla = substr($tabla, strlen($this->prefijo));
-		$cols = $this->conexion->get_definicion_columnas($tabla, $this->schema_origen);
+		$schema = $this->schema_origen;
+		if (! $this->conexion->existe_tabla($this->schema_origen, $tabla) && isset($this->schema_toba)) {
+			$schema = $this->schema_toba;
+		}
+		$cols = $this->conexion->get_definicion_columnas($tabla, $schema);
 		$pks = array();
 		foreach ($cols as $col) {
 			if ($col['pk']) {

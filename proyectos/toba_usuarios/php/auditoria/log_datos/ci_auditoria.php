@@ -95,6 +95,10 @@ class ci_auditoria extends toba_ci
 			if (isset($schema)) {
 				$auditoria->set_esquema_origen($schema);			
 			}
+			$schema_toba = toba::instancia()->get_schema_db();
+			if (isset($schema_toba)) {
+				$auditoria->set_esquema_toba($schema_toba);
+			}
 			$auditoria->set_esquema_logs($this->esquema);
 			//--- Se recorre cada tabla buscada y se crea dinamicamente un cuadro
 			foreach($this->s__filtro['tablas'] as $tabla) { 
