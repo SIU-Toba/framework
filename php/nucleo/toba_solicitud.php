@@ -180,6 +180,14 @@ abstract class toba_solicitud
 	}
 	
 	/**
+	 * Retorna el id de la operacion actual
+	 */
+	function get_id_operacion()
+	{
+		return $this->info['basica']['item'];
+	}
+	
+	/**
 	 * Retorna un id que representa a todo el pedido de página actual
 	 */
 	function get_id()

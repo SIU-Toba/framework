@@ -158,6 +158,12 @@ toba = new function() {
 	 */
 	toba.ir_a_operacion = function(proyecto, operacion, es_popup) {
 		var url = vinculador.get_url(proyecto, operacion, null, null, null, true);
+		if (isset(this._callback_menu)) {
+			var continuar = this._callback_menu[0].call(this._callback_menu[1], proyecto, operacion, url, es_popup);
+			if (! continuar) {
+				return false;
+			}
+		}		
 		if (! isset(es_popup) || ! es_popup) {
 			document.location.href = url;
 		} else {
@@ -167,6 +173,15 @@ toba = new function() {
 			abrir_popup(celda, url, parametros);
 		}
 	};	
+	
+	/**
+	 *	Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú
+	 * @param {callback} function Función a la que se invocara pasando por parametros (proyecto, operacion, url, es_popup)
+	 * @param {contexto} object Opcional, objeto al cual pertenece la función (si pertenece a alguno)
+	 */
+	toba.set_callback_menu = function(callback, contexto) {
+		this._callback_menu = [callback, contexto];
+	}
 	
 	/**
 	 * Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>

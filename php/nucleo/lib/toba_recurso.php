@@ -71,7 +71,7 @@ class toba_recurso
 	 */
 	static function imagen_de_origen($nombre, $origen)
 	{
-		if ($origen == 'apex') {
+		if ($origen == 'apex' || $origen == 'toba') {
 			return self::imagen_toba($nombre);
 		} elseif ($origen == 'proyecto') {
 			return self::imagen_proyecto($nombre);

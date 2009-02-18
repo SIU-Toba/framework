@@ -6,7 +6,6 @@
  */
 class toba_menu_css extends toba_menu
 {
-	private $items;
 	private $prof=1;
 	private $arbol;
 	protected $imagen_nodo ;
@@ -17,6 +16,7 @@ class toba_menu_css extends toba_menu
 	
 	function __construct()
 	{
+		parent::__construct();
 		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
 	}
 	
@@ -54,7 +54,6 @@ class toba_menu_css extends toba_menu
 						<![endif]-->
 			';
 		
-		$this->items = $this->items_de_menu();
 		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		
 		//-- Recorro para encontrar la raiz
 		for ($i=0;$i<count($this->items);$i++) {
@@ -77,9 +76,13 @@ class toba_menu_css extends toba_menu
 			
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='#' onclick='return toba.ir_a_operacion(\"$proyecto\", \"$item\", false)' " .
-							"title='".$this->items[$nodo]['nombre']."'>";
-			if ($this->abrir_nueva_ventana) {
+			if (isset($this->items[$nodo]['js'])) {
+				$js = $this->items[$nodo]['js']; 
+			} else {
+				$js = "return toba.ir_a_operacion(\"$proyecto\", \"$item\", false)";
+			}
+			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='#' onclick='$js' title='".$this->items[$nodo]['nombre']."'>";
+			if (!isset($this->items[$nodo]['js']) && $this->abrir_nueva_ventana) {
 				$this->arbol .= '<img title="Abrir la operación en paralelo a la actual" class="menu-link-nueva-ventana" src="'. $this->imagen_nueva_ventana. '" ';
 				$this->arbol .= " onclick='return toba.ir_a_operacion(\"$proyecto\", \"$item\", true)' />";
 			}											
