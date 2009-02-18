@@ -70,8 +70,10 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	{
 		$editor_item = $this->datos['_info']['clase_editor_item'];
 		$editor_proyecto = $this->datos['_info']['clase_editor_proyecto'];
-		return toba::vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
-															false, false, null, true, 'central');
+		return toba::vinculador()->get_url( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
+										array(	'menu' => true,
+										'celda_memoria' => 'central')
+							);
 	}
 
 	function get_fuente_datos()

@@ -141,10 +141,11 @@ class ci_catalogo extends toba_ci
 
 	function tag_vinculo_editor($item_editor_proyecto, $item_editor, $parametros, $contenido, $ayuda=null)
 	{
-		$url =  toba::vinculador()->generar_solicitud( 		$item_editor_proyecto, 
-															$item_editor,
-															$parametros,
-															false, false, null, true, 'central');
+		$url =  toba::vinculador()->get_url( 	$item_editor_proyecto, 
+												$item_editor,
+												$parametros,
+												array('menu' => true, 'celda_memoria' => 'central')
+											);
 		$ayuda = isset($ayuda) ? " title=\"".$ayuda."\" " : '';
 		return "<a href='".$url."' target='".apex_frame_centro."' ".$ayuda." >".$contenido."</a>\n";
 	}

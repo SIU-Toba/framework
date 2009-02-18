@@ -33,7 +33,7 @@ class toba_vinculador
 	 * @deprecated Usar get_url
 	 * @see get_url
 	 */
-	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	protected function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
 	{
 		return $this->get_url($proyecto, $item, $parametros, $opciones);
 	}
@@ -117,7 +117,7 @@ class toba_vinculador
 	 * @return string URL hacia el ítem solicitado
 	 * @deprecated Desde 1.0 usar get_url o get_url_
 	 */
-	function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
+	protected function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
 								$menu=null,$celda_memoria=null, $servicio=null,
 								$objetos_destino=null, $prefijo=null)
@@ -364,7 +364,7 @@ class toba_vinculador
 	{
 		echo toba_js::abrir();
 		echo "document.location.href='".
-				$this->generar_solicitud($item_proyecto,$item,$parametros,$zona,$cronometrar)."'\n";
+				$this->get_url($item_proyecto,$item,$parametros, array('zona' =>$zona, 'cronometrar' => $cronometrar))."'\n";
 		echo toba_js::cerrar();
 	}
 

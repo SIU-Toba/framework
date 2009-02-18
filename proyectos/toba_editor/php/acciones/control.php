@@ -48,7 +48,7 @@ function mostrar_ocultar_frame() {
 }
 
 function abrir_toba_instancia(){
-	var url = '<?php echo toba::vinculador()->generar_solicitud('toba_usuarios','3432',array(),false,false,null,true) ?>';
+	var url = '<?php echo toba::vinculador()->get_url('toba_usuarios','3432',array(), array('menu' => true)); ?>';
 	if ( url == '') {
 		alert('No posee permisos para acceder al proyecto "toba_usuarios"!');	
 		return;
@@ -98,7 +98,7 @@ function abrir_toba_instancia(){
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
         <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
-        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000265) ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
+        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000265) ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 		 <?php echo toba_recurso::imagen_toba('icono_24.png',true)?></a>
 		 </td>
 		<td width='100%'><?php echo gif_nulo(3,1) ?></td>
@@ -136,7 +136,7 @@ function abrir_toba_instancia(){
 		<td><?php echo gif_nulo(5,1) ?></td>
 
          <td class='listado-tabi'>
-        <a  href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
+        <a  href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 <?php 
 		$ayuda = '<a target=wiki href='.toba_recurso::url_proyecto().'/doc/wiki/trac/toba/wiki.html title=\\\'Documentación WIKI\\\'>';
 		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/wiki-small.png ></a> ';
@@ -148,7 +148,7 @@ function abrir_toba_instancia(){
  ?></a></td>
 
 		<td class='listado-tabi'>
-			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000270,null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
+			<a title='Testing Automático' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000270,null, array('menu' => true)); ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
 		</td>
 
 <?php
@@ -159,7 +159,7 @@ function abrir_toba_instancia(){
 						'tipo' => 'popup',
 						'inicializacion' => '615,450,1,1',
 						'texto' => 'Logger');
-	$url = toba::vinculador()->generar_solicitud(toba_editor::get_id(),'1000003',$parametros, false, false, $html_extra, null, 'logger');
+	$url = toba::vinculador()->get_url(toba_editor::get_id(),'1000003',$parametros, array('param_html' => $html_extra, 'celda_memoria' => 'logger'));
 ?>
          <td class='listado-tabi'><?php echo $url ?></td>
 
@@ -179,25 +179,25 @@ function abrir_toba_instancia(){
 		array(
 			'nombre' => 'Operaciones',
 			'imagen' => toba_recurso::imagen_proyecto("item.gif",true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000239,null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1000239,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Operaciones disponibles en el Proyecto',
 		),
 		array(
 			'nombre' => 'Componentes',
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto.gif",true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1240,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Componentes disponibles en el Proyecto',
 		),	
 		array(
 			'nombre' => 'Datos',
 			'imagen' => toba_recurso::imagen_toba('fuente.png',true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),3397,null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->get_url(toba_editor::get_id(),3397,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Acceso a datos',
 		),
 		array(
 			'nombre' => '',
 			'imagen' => toba_recurso::imagen_toba('configurar.png',true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000258,null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1000258,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Configuración general del proyecto',
 		),				
 	);

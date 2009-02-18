@@ -112,11 +112,13 @@ class toba_ci_info extends toba_ei_info
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un nuevo componente asociado al controlador",
-			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
+			'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000247",
 								array(	'destino_tipo' => 'toba_ci', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id ),
-										false, false, null, true, "central"),
+								array(	'menu' => true,
+										'celda_memoria' => 'central')
+						),
 			'plegado' => true										
 		);
 		return array_merge($iconos, parent::get_utilerias());	

@@ -117,7 +117,7 @@ class zona_objeto extends zona_editor
 				echo "<td  class='barra-obj-link' >[".$rs["item"]."] {$rs['nombre']}</td>";
 
 				echo "<td  class='barra-obj-link' width='5'>";
-				echo "<a href='" . toba::vinculador()->generar_solicitud(
+				echo "<a href='" . toba::vinculador()->get_url(
 											toba_editor::get_id(),1000240,
 											array(apex_hilo_qs_zona=>$rs["proyecto"]
 												.apex_qs_separador. $rs["item"]) ) ."'>".
@@ -178,7 +178,7 @@ class zona_objeto extends zona_editor
 					echo "<td  class='barra-obj-link'>".$rs["objeto_identificador"]."</td>";
 					if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes())) { 
 						echo "<td  class='barra-obj-id' width='5'>";
-						echo "<a href='" . toba::vinculador()->generar_solicitud(
+						echo "<a href='" . toba::vinculador()->get_url(
 													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														.apex_qs_separador. $rs["objeto"]) ) ."'>".
@@ -187,7 +187,7 @@ class zona_objeto extends zona_editor
 					}
 					echo "<td  class='barra-obj-id' width='5'>";
 					if(isset($rs["clase_editor"])){
-						echo "<a href='" . toba::vinculador()->generar_solicitud(
+						echo "<a href='" . toba::vinculador()->get_url(
 													$rs["clase_editor_proyecto"],
 													$rs["clase_editor"],
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
@@ -248,7 +248,7 @@ class zona_objeto extends zona_editor
 					echo "<td  class='barra-obj-link' >[".$fila["objeto"]."] ".$fila["objeto_nombre"]."</td>";
 					echo "<td  class='barra-obj-link' width='5'>";
 					if(isset($fila["clase_editor"])){
-						echo "<a href='" . toba::vinculador()->generar_solicitud(
+						echo "<a href='" . toba::vinculador()->get_url(
 													$fila["clase_editor_proyecto"],
 													$fila["clase_editor"],
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]

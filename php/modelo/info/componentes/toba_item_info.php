@@ -103,9 +103,11 @@ class toba_item_info implements toba_nodo_arbol
 			$item_editor = "1000238";
 		else
 			$item_editor = "1000240";		
-		return toba::vinculador()->generar_solicitud(toba_editor::get_id(), $item_editor,
-						array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
-						false, false, null, true, "central");
+		return toba::vinculador()->get_url(toba_editor::get_id(), $item_editor,
+										array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
+										array(	'menu' => true,
+												'celda_memoria' => 'central')
+							);
 	}
 
 	/**
@@ -346,10 +348,12 @@ class toba_item_info implements toba_nodo_arbol
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("wizard.png", false),
 					'ayuda'=> "La operación fue generada con un ASISTENTE",
-					'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000110", 
+					'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000110", 
 									array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id(),
-											apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id)
-									,false,false,null,true, "central" ),
+											apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
+									array(	'menu' => true,
+										'celda_memoria' => 'central')
+							),
 					'plegado' => false								
 				);						
 		
@@ -375,15 +379,21 @@ class toba_item_info implements toba_nodo_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("nucleo/carpeta_nueva.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000238", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
+				'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000238", 
+								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),
+								array(	'menu' => true,
+										'celda_memoria' => 'central')
+							),
 				'plegado' => true								
 			);
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_proyecto("item_nuevo.gif", false),
 				'ayuda'=> "Crear una nueva operación vacía en esta carpeta",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000240", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
+				'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000240", 
+								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),
+								array(	'menu' => true,
+										'celda_memoria' => 'central')
+							),
 				'plegado' => false								
 			);
 			/*$utilerias[] = array(
@@ -399,11 +409,13 @@ class toba_item_info implements toba_nodo_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un componente asociado al item",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
+				'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000247",
 									array('destino_tipo' =>'toba_item', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id ),
-											false, false, null, true, "central"),
+									array(	'menu' => true,
+											'celda_memoria' => 'central')
+							),
 				'plegado' => true											
 			);
 			

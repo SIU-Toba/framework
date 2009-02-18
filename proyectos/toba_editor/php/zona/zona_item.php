@@ -99,18 +99,9 @@ class zona_item extends zona_editor
 					echo "<tr>";
 						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
-						if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes())) { 
-							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . toba::vinculador()->generar_solicitud(
-													toba_editor::get_id(),"/admin/objetos/propiedades",
-													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
-														.apex_qs_separador. $rs["objeto"]) ) ."'>".
-								toba_recurso::imagen_toba("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
-							echo "</td>\n";
-						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($rs["clase_editor"])){
-							echo "<a href='" . toba::vinculador()->generar_solicitud(
+							echo "<a href='" . toba::vinculador()->get_url(
 														$rs["clase_editor_proyecto"],
 														$rs["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]

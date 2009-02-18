@@ -71,18 +71,17 @@ class toba_menu_css extends toba_menu
 		$inden = str_repeat("\t",$this->prof );
 		$clase_base = ($this->prof == 1) ? 'nivel-0' : '';
 		if (!$this->items[$nodo]['carpeta']) {
-			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
+			/*$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
 															 $this->items[$nodo]['item'], array(),
-															 array('validar' => false, 'menu' => true, 'zona' => false));
-				 
+															 array('validar' => false, 'menu' => true, 'zona' => false));*/
+			
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='$vinculo' " .
+			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='#' onclick='return toba.ir_a_operacion(\"$proyecto\", \"$item\", false)' " .
 							"title='".$this->items[$nodo]['nombre']."'>";
 			if ($this->abrir_nueva_ventana) {
 				$this->arbol .= '<img title="Abrir la operación en paralelo a la actual" class="menu-link-nueva-ventana" src="'. $this->imagen_nueva_ventana. '" ';
-				$opciones = "{'resizable':1, 'scrollbars' : '1'}";
-				$this->arbol .= " onclick=\"return abrir_popup('".$this->celda_memoria."', '$vinculo&tcm=".$this->celda_memoria."', $opciones);\" />";
+				$this->arbol .= " onclick='return toba.ir_a_operacion(\"$proyecto\", \"$item\", true)' />";
 			}											
 			$this->arbol .= $this->get_imagen($nodo).$this->items[$nodo]['nombre'];
 			$this->arbol .= "</a>";

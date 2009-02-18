@@ -34,21 +34,26 @@ vinculador = new function() {
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)
 	 * @type String
 	 */		
-	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos) {
+	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos, es_menu) {
 		if (! isset(proyecto)) {
 			proyecto = toba_hilo_item[0];
 		}
 		if (! isset(operacion)) {
 			operacion = toba_hilo_item[1];
 		}
-		var vinc = toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
-		if (typeof servicio != 'undefined') {
+		if (typeof es_menu == 'undefined' || !es_menu) {
+			var prefijo = toba_prefijo_vinculo + "&";
+		} else {
+			var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?';
+		}
+		var vinc = prefijo + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
+		if (typeof servicio != 'undefined' && isset(servicio)) {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}
-		if (typeof parametros != 'undefined') {
+		if (typeof parametros != 'undefined' && isset(parametros)) {
 			vinc = this.concatenar_parametros_url(vinc, parametros);
 		}
-		if (typeof objetos != 'undefined') {
+		if (typeof objetos != 'undefined' && isset(objetos)) {
 			vinc += '&' + toba_hilo_qs_objetos_destino + "=";
 			for (var i=0; i<objetos.length; i++) {
 				vinc += objetos[i][0] + toba_hilo_separador + objetos[i][1] + ',';

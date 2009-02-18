@@ -127,12 +127,14 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado a la pantalla",
-			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
+			'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(),"1000247",
 								array('destino_tipo' => 'toba_ci_pantalla', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id,
 										'destino_pantalla' => $this->datos['pantalla']),
-										false, false, null, true, "central"),
+								array(	'menu' => true,
+										'celda_memoria' => 'central')
+							),
 			'plegado' => true										
 		);
 		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {
@@ -155,8 +157,11 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => "Editar esta pantalla",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(), "1000249", 
-																	$param_editores, false, false, null, true, "central"),
+				'vinculo' => toba::vinculador()->get_url(toba_editor::get_id(), "1000249", 
+																	$param_editores,
+																array(	'menu' => true,
+																		'celda_memoria' => 'central')
+							),																	
 				'plegado' => false
 		);
 		return $iconos;	

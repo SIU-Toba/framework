@@ -154,6 +154,21 @@ toba = new function() {
 	};
 	
 	/**
+	 * Navega hacia una opción del menú
+	 */
+	toba.ir_a_operacion = function(proyecto, operacion, es_popup) {
+		var url = vinculador.get_url(proyecto, operacion, null, null, null, true);
+		if (! isset(es_popup) || ! es_popup) {
+			document.location.href = url;
+		} else {
+			celda = 'paralela';
+			parametros = {'resizable':1, 'scrollbars' : '1'};
+			url = vinculador.concatenar_parametros_url(url, {'tcm':celda});
+			abrir_popup(celda, url, parametros);
+		}
+	};	
+	
+	/**
 	 * Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
 	 * La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto
 	 * @see #set_ajax
