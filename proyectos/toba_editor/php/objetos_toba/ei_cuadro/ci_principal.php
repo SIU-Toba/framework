@@ -179,11 +179,22 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas__modificacion($datos)
 	{
+		if (is_null($datos['vinculo_servicio'])){
+			if (isset($datos['accion_vin_servicio_extra'])){
+				$datos['vinculo_servicio'] = $datos['accion_vin_servicio_extra'];
+			}	
+		}
+		
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 	}
 	
 	function evt__columnas__aceptar($datos)
 	{
+		if (is_null($datos['vinculo_servicio'])){
+			if (isset($datos['accion_vin_servicio_extra'])){
+				$datos['vinculo_servicio'] = $datos['accion_vin_servicio_extra'];
+			}	
+		}
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 		$this->evt__columnas__cancelar();
 	}
@@ -191,7 +202,15 @@ class ci_principal extends ci_editores_toba
 	function conf__columnas()
 	{
 		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
-		return $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
+		$datos =  $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
+		if ((! is_null($datos['vinculo_servicio'])) && (! in_array($datos['vinculo_servicio'], array('H','F','X', apex_ef_no_seteado)))){
+			$datos['accion_vin_servicio_extra'] = 'O';
+		}else{
+			$datos['accion_vin_servicio_extra'] = $datos['vinculo_servicio'];
+			$datos['vinculo_servicio'] = null;
+		}	
+		
+		return $datos;
 	}
 
 	function evt__columnas__cancelar()

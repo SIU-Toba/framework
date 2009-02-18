@@ -4,11 +4,14 @@ class toba_migracion_1_3_0 extends toba_migracion
 {
 	function instancia__cambios_estructura()
 	{
-		$sql = "ALTER TABLE apex_objeto ALTER COLUMN subclase_archivo TYPE VARCHAR(255);";
-		$sql = "ALTER TABLE apex_proyecto ADD COLUMN tiempo_espera_ms INTEGER";
-		$sql = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN deshabilitar_rest_func SMALLINT";
-		$sql = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN permitir_html SMALLINT";
-		$sql = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN permitir_html SMALLINT";
+		$sql = array();
+		$sql[] = "ALTER TABLE apex_objeto ALTER COLUMN subclase_archivo TYPE VARCHAR(255);";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN tiempo_espera_ms INTEGER;";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN deshabilitar_rest_func SMALLINT;";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN permitir_html SMALLINT;";
+		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN permitir_html SMALLINT;";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_servicio VARCHAR(100);";
+		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_servicio VARCHAR(100);";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	

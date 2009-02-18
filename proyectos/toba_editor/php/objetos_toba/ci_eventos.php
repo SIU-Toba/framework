@@ -163,13 +163,19 @@ class ci_eventos extends toba_ci
 	//-----------------------------------------
 	function evt__eventos__modificacion($datos)
 	{
-    $this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
+		if (is_null($datos['accion_vinculo_servicio'])){
+			if (isset($datos['accion_vin_servicio_extra'])){
+				$datos['accion_vinculo_servicio'] = $datos['accion_vin_servicio_extra'];
+			}	
+		}
+    	$this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
 
-    // -- Aplico los cambios a la tabla de puntos de control
-    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior);
-    $this->controlador->dep('datos')->tabla('puntos_control')->eliminar_filas(true);
-    foreach ($datos['ptos_de_control'] as $key => $value)
-      $this->controlador->dep('datos')->tabla('puntos_control')->nueva_fila(array('pto_control' => $value));
+    	// -- Aplico los cambios a la tabla de puntos de control
+    	$this->get_tabla()->set_cursor($this->seleccion_evento_anterior);
+    	$this->controlador->dep('datos')->tabla('puntos_control')->eliminar_filas(true);
+    	foreach ($datos['ptos_de_control'] as $key => $value){
+      		$this->controlador->dep('datos')->tabla('puntos_control')->nueva_fila(array('pto_control' => $value));
+    	}
 	}
 	
 	function conf__eventos($componente)
@@ -181,6 +187,13 @@ class ci_eventos extends toba_ci
 	  	if (isset($datos['accion_vinculo_item']) && $datos['accion_vinculo_item'] != '') {
 	  		$datos['accion_vinculo_carpeta'] = toba_info_editores::get_carpeta_de_item($datos['accion_vinculo_item'], $datos['proyecto']); 
 	  	}
+	  	
+	  	if ((! is_null($datos['accion_vinculo_servicio'])) && (! in_array($datos['accion_vinculo_servicio'], array('H','F','X', apex_ef_no_seteado)))){
+			$datos['accion_vin_servicio_extra'] = 'O';
+		}else{
+			$datos['accion_vin_servicio_extra'] = $datos['accion_vinculo_servicio'];
+			$datos['accion_vinculo_servicio'] = null;
+		}		
 	  	
 	    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior); 
 	    $componente->ef('ptos_de_control')->set_estado($this->controlador->dep('datos')->tabla('puntos_control')->get_valores_columna('pto_control'));

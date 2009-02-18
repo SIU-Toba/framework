@@ -137,5 +137,10 @@ class ci_impresion extends toba_ci
 		$datos[5]['desc'] = 'Menos';
 		return $datos;
 	}
+
+	function servicio__impreso_plano()
+	{
+		echo "Esta impresion es la confirmacion de que funciona el metodo 'Impreso Plano'";
+	}
 }
 ?>

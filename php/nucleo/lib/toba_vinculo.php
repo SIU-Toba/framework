@@ -156,5 +156,10 @@ class toba_vinculo
 		return $this->target;	
 	}
 	
+	function set_servicio($srv)
+	{
+		$this->opciones['servicio'] = $srv;
+	}
+	
 }
 ?>

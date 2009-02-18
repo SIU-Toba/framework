@@ -43,8 +43,9 @@ class toba_ei_def extends toba_componente_def
 												accion_vinculo_objeto		,
 												accion_vinculo_popup		,
 												accion_vinculo_popup_param	,
-												accion_vinculo_celda,
-												accion_vinculo_target
+												accion_vinculo_celda		,
+												accion_vinculo_target		,
+												accion_vinculo_servicio
 									FROM	apex_objeto_eventos
 									WHERE	proyecto=$proyecto ";
 		if ( isset($componente) ) {

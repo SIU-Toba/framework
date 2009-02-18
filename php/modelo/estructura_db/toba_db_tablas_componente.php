@@ -260,6 +260,7 @@ class toba_db_tablas_componente
     25 => 'accion_vinculo_popup_param',
     26 => 'accion_vinculo_target',
     27 => 'accion_vinculo_celda',
+    28 => 'accion_vinculo_servicio',
   ),
 );
 	}
@@ -513,6 +514,7 @@ class toba_db_tablas_componente
     23 => 'vinculo_target',
     24 => 'vinculo_celda',
     25 => 'permitir_html',
+    26 => 'vinculo_servicio',
   ),
 );
 	}

@@ -88,7 +88,8 @@ class toba_ei_cuadro_def extends toba_ei_def
 												c.vinculo_celda					as vinculo_celda	,
 												c.vinculo_popup					as vinculo_popup		,
 												c.vinculo_popup_param			as vinculo_popup_param,
-												c.permitir_html					as permitir_html
+												c.vinculo_servicio 				as vinculo_servicio,
+												c.permitir_html					as permitir_html												
 									 FROM		apex_columna_estilo e,
 												apex_objeto_ei_cuadro_columna	c
 												LEFT OUTER JOIN apex_columna_formato f	

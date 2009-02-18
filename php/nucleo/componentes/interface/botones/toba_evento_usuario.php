@@ -31,6 +31,10 @@ class toba_evento_usuario extends toba_boton
 				}
 				$this->vinculo->set_propagar_zona();
 				$this->vinculo->agregar_opcion('menu', 1);
+				
+				if ($this->datos['accion_vinculo_servicio']){
+					$this->vinculo->set_servicio($this->datos['accion_vinculo_servicio']);
+				}
 			}
 			return $this->vinculo;
 		} else {
