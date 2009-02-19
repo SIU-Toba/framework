@@ -168,7 +168,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro', --objetos
+	'cuadro,cuadro2', --objetos
 	'abrir_en_popup,abrir_en_ventana', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
