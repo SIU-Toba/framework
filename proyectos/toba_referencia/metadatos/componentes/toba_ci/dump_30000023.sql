@@ -116,7 +116,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_cambiar_opcion', --identificador
 	'3', --orden
 	'Modificar Opción', --etiqueta
-	'En esta pantalla modificamos la opción de acceso a esta misma operación para que tenga otro nombre e imagen, y además tenga código javascript propio (ver menú Varios)', --descripcion
+	'En esta pantalla modificamos la opción de acceso a esta misma operación para que tenga otro nombre e imagen, y además tenga código javascript propio (ver menú General)', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

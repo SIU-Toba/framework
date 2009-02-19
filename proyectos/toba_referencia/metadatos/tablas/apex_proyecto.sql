@@ -39,16 +39,16 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'0', --encriptar_qs
 	'1', --registrar_solicitud
 	NULL, --registrar_cronometro
-	'1000073', --item_inicio_sesion
+	'3294', --item_inicio_sesion
 	'1000059', --item_pre_sesion
 	NULL, --item_set_sesion
 	'1', --log_archivo
 	'7', --log_archivo_nivel
 	'toba_referencia', --fuente_datos
 	'referencia', --pagina_tipo
-	'1.0.3', --version
-	'2006-11-06', --version_fecha
-	'zxvxc', --version_detalle
-	'asdfasd', --version_link
+	NULL, --version
+	NULL, --version_fecha
+	NULL, --version_detalle
+	NULL, --version_link
 	'1000'  --tiempo_espera_ms
 );

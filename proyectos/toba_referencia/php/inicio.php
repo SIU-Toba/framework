@@ -1,7 +1,14 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
-
-echo "<h1 style='margin-top:20%'>SIU-Toba<br>Proyecto de Referencia</h1>";
-
-//ei_arbol($_SESSION,'ses', null, true);
 ?>
+
+<h2>Bienvenido al proyecto de referencia de Toba</h2>
+<div style='text-align: left'>
+<ul>
+<li><strong>Componentes:</strong> Ejercita los distintas funcionalidades de los componentes con que cuenta el framework
+<li><strong>Generales:</strong> Funcionalidades transversales
+<li><strong>Ejemplos de Operaciones</strong>: Operaciones completas que editan un modelo de datos ficticio
+<li><strong>Tutorial</strong>: Recorrido paso a paso sobre la construcción de aplicaciones usando toba 
+</ul>
+
+</div>

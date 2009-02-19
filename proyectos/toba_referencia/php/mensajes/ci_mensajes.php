@@ -5,20 +5,6 @@ class ci_mensajes extends toba_ci
 {
 	protected $s__opciones;
 	
-	function ini()
-	{
-		/*//Mensaje propio del objeto
-		$m_propio = $this->get_mensaje('info_local', array('uno', 'dos', 'tres'));
-		//Mensaje a nivel global del proyecto
-		$m_global = toba::mensajes()->get('info_global', array('primer', date('d/M/Y')));
-	
-		//Notificación de los mensajes al usuario desde el mismo objeto
-		$this->informar_msg($m_propio, 'info');
-		//Notificación de los mensajes al usuario utilizando un mecanismo global
-		toba::notificacion()->agregar($m_global, 'info');*/
-	}
-	
-	
 	function evt__opciones__modificacion($datos)
 	{
 		$this->s__opciones = $datos;
@@ -61,7 +47,6 @@ class ci_mensajes extends toba_ci
 			}
 			
 		}
-		//$pant->set_descripcion()
 	}
 }
 

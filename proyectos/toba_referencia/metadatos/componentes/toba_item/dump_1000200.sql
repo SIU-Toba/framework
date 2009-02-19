@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000200]--  Operaciones Simples 
+--[1000200]--  Ejemplos de Operaciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'generico', --actividad_patron
-	'Operaciones Simples', --nombre
+	'Ejemplos de Operaciones', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
-	'5', --orden
+	'7', --orden
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	NULL, --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b

@@ -44,7 +44,7 @@ vinculador = new function() {
 		if (typeof es_menu == 'undefined' || !es_menu) {
 			var prefijo = toba_prefijo_vinculo + "&";
 		} else {
-			var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?';
+			var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?'+ toba_hilo_qs_menu  + "=1&";;
 		}
 		var vinc = prefijo + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
 		if (typeof servicio != 'undefined' && isset(servicio)) {

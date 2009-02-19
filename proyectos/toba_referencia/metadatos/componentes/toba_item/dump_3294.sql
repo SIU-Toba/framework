@@ -25,8 +25,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Inicio', --nombre
 	NULL, --descripcion
-	'inicio.php', --actividad_accion
-	'0', --menu
+	NULL, --actividad_accion
+	'1', --menu
 	'0', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
@@ -50,3 +50,15 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL  --creacion
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_item_objeto
+------------------------------------------------------------
+INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
+	NULL, --item_id
+	'toba_referencia', --proyecto
+	'3294', --item
+	'30000025', --objeto
+	'0', --orden
+	NULL  --inicializar
+);

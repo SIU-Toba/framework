@@ -12,8 +12,10 @@ php_referencia::instancia()->agregar(__FILE__);
 		toba::notificacion()->agregar($salida, 'info');
 	}
 
+	echo "Esta operación no usa el esquema de componentes, sino un archivo .php procedural.<br>";
+	echo "A pesar de no usar los componentes, igual se tiene acceso a la API transversal de toba.<br><br>";
 	echo toba_form::abrir('mi_form', toba::vinculador()->get_url());
-	echo "<input type='submit' name='notificado' value='Ver Personas' />";
+	echo "<input type='submit' name='notificado' value='Probar interacción con la BD' />";
 	echo toba_form::cerrar();
 	
 	
