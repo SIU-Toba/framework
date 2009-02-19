@@ -133,10 +133,17 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Inicial', --etiqueta
-	'Esta operación ejercita la siguiente API
+	'Esta operación ejercita la siguiente API PHP:
 <ul>
-<li><em>toba::notificacion()</em>: Mostrar mensajes en una ventana modal 
-<li><em>toba::mensajes()</em>: Obtener cadenas parametrizables desde los metadatos
+<li><em>toba::mensajes()</em>: Obtener cadenas globales al proyecto desde los metadatos
+<li><em>$componente->get_mensaje()</em>: Obtener cadenas desde los metadatos de un componente
+<li><em>toba::notificacion()->agregar()</em>: Mostrar mensajes en una ventana modal 
+<li> <em>$componente->agregar_notificacion()</em>: Mostrar mensajes dentro de un componente
+</ul>
+Y la siguiente API Javascript:
+<ul>
+ <li><em>notificacion.agregar()</em>:  Mostrar mensajes en una ventana modal 
+ <li><em>componente.agregar_notificacion()</em>: : Mostrar mensajes dentro de un componente
 </ul>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

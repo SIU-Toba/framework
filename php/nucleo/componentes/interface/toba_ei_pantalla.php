@@ -135,16 +135,6 @@ class toba_ei_pantalla extends toba_ei
 	}
 	
 	/**
-	 * Agrega un mensaje de notificacion de esta pantalla
-	 * @param string $mensaje
-	 * @param string $tipo Puede ser 'info', 'warning', 'error'
-	 */
-	function agregar_notificacion($mensaje, $tipo='info')
-	{
-		$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);		
-	}
-	
-	/**
 	 * Cambia el tipo de navegación de la pantalla
 	 *
 	 * @param mixed $tipo Por ejemplo toba_ei_pantalla::NAVEGACION_TAB_VERTICAL

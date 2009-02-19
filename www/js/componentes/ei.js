@@ -256,7 +256,6 @@ ei.prototype.constructor = ei;
 		this.get_boton(id).style.display = '';
 	};
 	
-	
 	/**
 	 * Referencia al tag HTML de un boton especifico
 	 * @param {string} id Id. del boton/evento	 
@@ -265,18 +264,27 @@ ei.prototype.constructor = ei;
 		return document.getElementById(this._input_submit + '_' + id);
 	};
 	
-	ei.prototype.exportar_pdf = function()
-	{
+	ei.prototype.exportar_pdf = function() {
 		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id]);
 		document.location.href = url;
 	};
 
-	ei.prototype.exportar_excel = function()
-	{
+	ei.prototype.exportar_excel = function() {
 		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id]);
 		document.location.href = url;
+	};
+	
+	ei.prototype.agregar_notificacion = function(mensaje, nivel) {
+		var div = $(this._input_submit + '_notificacion');
+		var img = '<img src="'+ toba.imagen(nivel) + '"/> ';
+		var clase = 'ei-barra-sup-desc-' + nivel;		
+		div.innerHTML += "<table class='tabla-0 " + clase+ "'><tr><td class='ei-barra-sup-desc-img'>" + img +"</td><td>" + mensaje + "</td></table>\n";
 	};	
 
+	ei.prototype.limpiar_notificaciones = function() {
+		var div = $(this._input_submit + '_notificacion');
+		div.innerHTML = '';
+	};	
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 
 if (self.Node && ! self.Node.prototype.swapNode) {

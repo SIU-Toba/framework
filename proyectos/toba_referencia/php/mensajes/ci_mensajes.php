@@ -35,18 +35,47 @@ class ci_mensajes extends toba_ci
 				break;
 		}
 		
-		//-- Cómo lo muestro?
-		if ($this->s__opciones['destino'] == 'notificacion') {
-			toba::notificacion()->agregar($mensaje, $this->s__opciones['nivel']);
-		} else {
-			if ($this->s__opciones['componente'] == 'pantalla') {
-				$this->pantalla()->set_descripcion($mensaje, $this->s__opciones['nivel']);
-			} else {
-				$this->dep('opciones')->set_modo_descripcion(false);
-				$this->dep('opciones')->set_descripcion($mensaje, $this->s__opciones['nivel']);
-			}
-			
+		switch ($this->s__opciones['componente']) {
+			case 'modal':
+				toba::notificacion()->agregar($mensaje, $this->s__opciones['nivel']);
+				break;
+			case 'pantalla':
+				$this->pantalla()->agregar_notificacion($mensaje, $this->s__opciones['nivel']);
+				break;
+			case 'formulario':
+				$this->dep('opciones')->agregar_notificacion($mensaje, $this->s__opciones['nivel']);
+				break;
 		}
+	}
+	
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.evt__mostrar = function() {
+				var opciones = this.dep('opciones');
+				if (opciones.ef('contexto').get_estado() == 'php') {
+					return true;
+				} else {
+					//Para consultar los otros tipos de mensaje abria que ir al server con ajax o similar
+					var mensaje = opciones.ef('texto').get_estado();
+					var nivel = opciones.ef('nivel').get_estado();
+						
+					switch (opciones.ef('componente').get_estado()) {
+						case 'modal':
+							//Durante la atención de eventos y validaciones no es necesario limpiar y mostrar la cola de notificaciones, se hace automaticamente
+							notificacion.agregar(mensaje, nivel);
+							break;
+						case 'pantalla':
+							this.agregar_notificacion(mensaje, nivel);
+							break;
+						case 'formulario':
+							opciones.agregar_notificacion(mensaje, nivel);
+							break;													
+					}
+					return false;
+				}
+			}
+		";
 	}
 }
 

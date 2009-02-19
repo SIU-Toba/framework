@@ -654,6 +654,11 @@ class toba_ci extends toba_ei
 			$this->_pantalla_servicio = new $clase($info, $this->_submit, $this->objeto_js);	
 			$this->_pantalla_servicio->set_controlador($this, $id_pantalla);
 			$this->_pantalla_servicio->pre_configurar();
+			//Se le pasan las notificaciones
+			foreach ($this->_notificaciones as $notificacion) {
+				$this->_pantalla_servicio->agregar_notificacion($notificacion['mensaje'], $notificacion['tipo']);
+			}
+			$this->_notificaciones = array();
 		}
 		return $this->_pantalla_servicio;
 	}
@@ -667,6 +672,20 @@ class toba_ci extends toba_ei
 		return $this->pantalla()->evento($id);
 	}
 
+	/**
+	 * Agrega un mensaje de notificacion a la pantalla a generar
+	 * @param string $mensaje
+	 * @param string $tipo Puede ser 'info', 'warning', 'error'
+	 */
+	function agregar_notificacion($mensaje, $tipo='info')
+	{
+		if (isset($this->_pantalla_servicio)) {
+			$this->_pantalla_servicio->agregar_notificacion($mensaje, $tipo);
+		} else {
+			$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);
+		}		
+	}	
+	
 	/**
 	 * Cambia la pantalla a utilizar en el servicio actual
 	 * El cambio recien sera efectivo cuando se utilize la pantalla con el metodo pantalla()

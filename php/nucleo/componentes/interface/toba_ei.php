@@ -29,6 +29,7 @@ abstract class toba_ei extends toba_componente
 	protected $_nombre_formulario;
 	protected $_posicion_botonera;
 	protected static $refresh_ejecuta_eventos = false;
+	protected $_notificaciones = array();	
 	
 	function __construct($definicion)
 	{
@@ -462,6 +463,16 @@ abstract class toba_ei extends toba_componente
 	//--------------------------------------------------------------------
 
 	/**
+	 * Agrega un mensaje de notificacion de esta pantalla
+	 * @param string $mensaje
+	 * @param string $tipo Puede ser 'info', 'warning', 'error'
+	 */
+	function agregar_notificacion($mensaje, $tipo='info')
+	{
+		$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);		
+	}	
+	
+	/**
 	 * Fuerza a que el componente se grafique colpsado, pudiendo el usuario descolapsarlo posteriormente
 	 */
 	function colapsar()
@@ -580,7 +591,13 @@ abstract class toba_ei extends toba_componente
 		if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
 			$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
 			$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
-		}				
+		}		
+		echo "<div id='{$this->_submit}_notificacion'>";
+		foreach ($this->_notificaciones as $notificacion){
+			$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
+		}
+		echo "</div>";
+		$this->_notificaciones = array();
 	}
 
 	
