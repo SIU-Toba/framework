@@ -95,7 +95,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	'Todo ef que permita seleccionar uno o más elementos además de tener un <em>estado</em> asociado tiene un conjunto de <em>descripciones</em> o opciones que se asocian a los posibles estados que puede tomar el campo.', --descripcion
+	'Todo ef que permita seleccionar uno o más elementos además de tener un <em>estado</em> asociado tiene un conjunto de <em>descripciones</em> o opciones que son los que en definitiva puede elegir el usuario.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

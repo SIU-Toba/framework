@@ -330,15 +330,17 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.deseleccionar_actual = function() {
 		if (isset(this._seleccionada)) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
-			cambiar_clase(fila.cells, 'ei-ml-fila', 'ei-ml-fila-selec');			
-			var subir_fila = document.getElementById(this._instancia + '_subir' + this._seleccionada);
-			var bajar_fila = document.getElementById(this._instancia + '_bajar' + this._seleccionada);
-			if (subir_fila) {
-				subir_fila.style.visibility = 'hidden';
-			}			
-			if (bajar_fila) {
-				bajar_fila.style.visibility = 'hidden';
-			}						
+			if (fila) {
+				cambiar_clase(fila.cells, 'ei-ml-fila', 'ei-ml-fila-selec');			
+				var subir_fila = document.getElementById(this._instancia + '_subir' + this._seleccionada);
+				var bajar_fila = document.getElementById(this._instancia + '_bajar' + this._seleccionada);
+				if (subir_fila) {
+					subir_fila.style.visibility = 'hidden';
+				}			
+				if (bajar_fila) {
+					bajar_fila.style.visibility = 'hidden';
+				}
+			}
 			delete(this._seleccionada);
 			
 		}

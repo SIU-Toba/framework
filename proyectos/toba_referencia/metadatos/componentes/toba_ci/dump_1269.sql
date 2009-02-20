@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Dependencias entre efs', --nombre
-	'Dependencias entre efs', --titulo
+	'Cascadas entre efs', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -116,7 +116,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1269', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
+	'600px', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion
@@ -143,11 +143,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1269', --objeto_ci
 	'414', --pantalla
 	'0', --identificador
-	'0', --orden
+	'1', --orden
 	'En un formulario común', --etiqueta
-	NULL, --descripcion
+	'Para definir una cascada entre dos efs, se edita el elemento \'esclavo\' y se le indica cual es el ef \'maestro\' del cual depende. [wiki_toba:Referencia/efs#Cascadas Ver más]', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'formulario', --objetos
 	'refrescar', --eventos
@@ -159,11 +159,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1269', --objeto_ci
 	'415', --pantalla
 	'1', --identificador
-	'1', --orden
+	'2', --orden
 	'En un formulario ML', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'ml', --objetos
 	'refrescar', --eventos

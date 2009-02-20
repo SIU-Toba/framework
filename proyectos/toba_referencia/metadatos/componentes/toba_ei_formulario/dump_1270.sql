@@ -665,14 +665,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'8', --orden
 	'País', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Tipear para seleccionar un elemento', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_paises', --carga_metodo
