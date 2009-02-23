@@ -93,7 +93,12 @@ ef.prototype.constructor = ef;
 	 * @type boolean
 	 */		
 	ef.prototype.activo = function() {
-		return this.input().type !='hidden' && !this.input().disabled;
+		var input = this.input();
+		if (isset(input)) {
+			return input.type !='hidden' && !this.input().disabled;
+		} else {
+			return false;
+		}
 	};
 		
 	/**
@@ -139,7 +144,10 @@ ef.prototype.constructor = ef;
 	 * @return string
 	 */
 	ef.prototype.get_tab_index = function () {
-		return this.input().tabIndex;
+		var input = this.input();
+		if (isset(input)) {
+			return input.tabIndex;
+		}
 	};
 
 	/**
@@ -345,8 +353,11 @@ ef.prototype.constructor = ef;
 	 * @see #desactivar
 	 */
 	ef.prototype.set_solo_lectura = function(solo_lectura) {
-		this.input().disabled = (typeof solo_lectura == 'undefined' || solo_lectura);
-		this._solo_lectura = this.input().disabled;
+		var input = this.input();
+		if (isset(input)) {
+			input.disabled = (typeof solo_lectura == 'undefined' || solo_lectura);
+			this._solo_lectura = input.disabled;
+		}
 	};
 	
 	/**

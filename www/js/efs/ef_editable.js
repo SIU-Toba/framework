@@ -436,7 +436,10 @@ ef_editable_fecha.prototype = new ef_editable();
 	ef_editable_fecha.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
 		ef_editable.prototype.set_solo_lectura.call(this, solo_lectura);
-		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
+		var vinculo = this.vinculo();
+		if (isset(vinculo)) {
+			vinculo.style.visibility = (solo_lectura) ? "hidden" : "visible";
+		}
 	};
 	
 // ########################################################################################################
