@@ -203,13 +203,16 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
 		$datos =  $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
-		if ((! is_null($datos['vinculo_servicio'])) && (! in_array($datos['vinculo_servicio'], array('H','F','X', apex_ef_no_seteado)))){
-			$datos['accion_vin_servicio_extra'] = 'O';
-		}else{
-			$datos['accion_vin_servicio_extra'] = $datos['vinculo_servicio'];
-			$datos['vinculo_servicio'] = null;
-		}	
 		
+		if (isset($datos['vinculo_servicio']) && ! is_null($datos['vinculo_servicio'])){
+			$servicios_basicos = array('vista_toba_impr_html','vista_pdf','vista_excel','ejecutar', apex_ef_no_seteado);
+			if (! in_array($datos['vinculo_servicio'], $servicios_basicos)){
+				$datos['accion_vin_servicio_extra'] = 'O';
+			}else{
+				$datos['accion_vin_servicio_extra'] = $datos['vinculo_servicio'];
+				$datos['vinculo_servicio'] = null;
+			}				
+		}
 		return $datos;
 	}
 

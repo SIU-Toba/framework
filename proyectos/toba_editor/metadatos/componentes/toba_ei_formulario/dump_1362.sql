@@ -505,8 +505,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	'0', --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
@@ -522,7 +522,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -1110,8 +1110,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
@@ -1182,7 +1182,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'14', --orden
 	'Vinculo - Nombre Servicio', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Permite definir una forma de procesamiento alternativa para el HTTP Response del objeto destino, por defecto es generar_html. Más  [wiki:Referencia/Solicitud#Tiposdeservicios información]', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1199,7 +1199,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'instancia', --carga_fuente
-	'F/Exportar PDF,X/Exportar Excel, H/Impresion HTML, O/Otro', --carga_lista
+	'vista_pdf/Exportar PDF,vista_excel/Exportar Excel, vista_toba_impr_html/Impresion HTML,ejecutar/Ejecutar,O/Otro', --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_maestros

@@ -30,8 +30,10 @@ class toba_evento_usuario extends toba_boton
 					$this->vinculo->set_target($this->datos['accion_vinculo_target']);
 				}
 				$this->vinculo->set_propagar_zona();
-				$this->vinculo->agregar_opcion('menu', 1);
-				
+				if (! $this->es_autovinculo()){
+					$this->vinculo->agregar_opcion('menu', 1);	
+				}
+								
 				if ($this->datos['accion_vinculo_servicio']){
 					$this->vinculo->set_servicio($this->datos['accion_vinculo_servicio']);
 				}
@@ -64,6 +66,15 @@ class toba_evento_usuario extends toba_boton
 	{
 		return ( $this->datos['implicito'] == true );
 	}
+	
+	function es_autovinculo()
+	{
+		$hay_carpeta = (isset($this->datos['accion_vinculo_carpeta']) && ! is_null($this->datos['accion_vinculo_carpeta']));
+		$hay_item = (isset($this->datos['accion_vinculo_item']) && ! is_null($this->datos['accion_vinculo_item']));
+		
+		return (!$hay_carpeta || !$hay_item);
+	}
+	
 	
 	/**
 	 * El evento predeterminado si se encuentra en botonera se dispara al presionar la tecla ENTER.
@@ -233,6 +244,10 @@ class toba_evento_usuario extends toba_boton
 			$js = "document.location.href='$url';";			
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
+			
+			if (isset($this->datos['accion_vinculo_servicio']) && !is_null($this->datos['accion_vinculo_servicio'])){
+				$this->vinculo()->set_servicio($this->datos['accion_vinculo_servicio']);
+			}
 			// Registro el vinculo en el vinculador
 			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
 			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador

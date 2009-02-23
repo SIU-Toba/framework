@@ -21,7 +21,7 @@ class toba_vinculo
 		if(isset($proyecto)&&isset($item)){
 			$this->set_item($proyecto, $item);	
 		}
-		if($popup){
+		if(! is_null($popup)){
 			$this->activar_popup();
 		}
 		if(isset($opciones_popup)){
@@ -112,9 +112,12 @@ class toba_vinculo
 		$this->opciones[$clave] = $valor;
 	}
 
-	function activar_popup()
+	function activar_popup($celda_popup = false)
 	{
-		$this->popup = 1;	
+		$this->popup = 1;
+		if ($celda_popup !== false){
+			$this->opciones['celda_memoria'] = 'popup';
+		}	
 	}
 
 	function desactivar_popup()
@@ -161,5 +164,9 @@ class toba_vinculo
 		$this->opciones['servicio'] = $srv;
 	}
 	
+	function set_celda_memoria($celda)
+	{
+		$this->opciones['celda_memoria'] = $celda;
+	}	
 }
 ?>

@@ -188,8 +188,9 @@ class ci_eventos extends toba_ci
 	  		$datos['accion_vinculo_carpeta'] = toba_info_editores::get_carpeta_de_item($datos['accion_vinculo_item'], $datos['proyecto']); 
 	  	}
 	  	
-	  	if (isset($datos['accion_vinculo_servicio']) && ! is_null($datos['accion_vinculo_servicio'])){													
-	  		if (! in_array($datos['accion_vinculo_servicio'], array('H','F','X', apex_ef_no_seteado))){	  	
+	  	if (isset($datos['accion_vinculo_servicio']) && ! is_null($datos['accion_vinculo_servicio'])){
+	  		$servicios_basicos = array('vista_toba_impr_html','vista_pdf','vista_excel','ejecutar', apex_ef_no_seteado);													
+	  		if (! in_array($datos['accion_vinculo_servicio'], $servicios_basicos)){	  	
 					$datos['accion_vin_servicio_extra'] = 'O';
 			}else{
 				$datos['accion_vin_servicio_extra'] = $datos['accion_vinculo_servicio'];

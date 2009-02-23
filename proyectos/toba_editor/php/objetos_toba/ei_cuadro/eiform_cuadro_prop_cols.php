@@ -16,6 +16,7 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 					this.ef('vinculo_celda').mostrar();
 					this.ef('vinculo_indice').mostrar();
 					this.ef('accion_vin_servicio_extra').mostrar();
+					this.evt__accion_vin_servicio_extra__procesar();
 					if (this.ef('vinculo_popup').chequeado()) {
 						this.ef('vinculo_popup_par').mostrar();
 						this.ef('vinculo_target').ocultar();
@@ -32,6 +33,7 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 					this.ef('vinculo_indice').ocultar();
 					this.ef('vinculo_popup_par').ocultar();
 					this.ef('accion_vin_servicio_extra').ocultar();
+					this.ef('accion_vin_servicio').ocultar();
 				}
 			}
 			
@@ -40,9 +42,11 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 					if (this.ef('vinculo_popup').chequeado()) {
 						this.ef('vinculo_popup_par').mostrar();
 						this.ef('vinculo_target').ocultar();
+						this.ef('vinculo_celda').set_estado('popup');
 					} else {
 						this.ef('vinculo_popup_par').ocultar();
 						this.ef('vinculo_target').mostrar();
+						this.ef('vinculo_celda').set_estado('');
 					}
 				}
 			}

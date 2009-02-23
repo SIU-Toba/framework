@@ -16,7 +16,8 @@ class eiform_eventos extends toba_ei_formulario
 					this.ef('accion_vin_item').mostrar();
 					this.ef('accion_vin_popup').mostrar();
 					this.ef('accion_vin_celda').mostrar();	
-					this.ef('accion_vin_servicio_extra').mostrar();				
+					this.ef('accion_vin_servicio_extra').mostrar();
+					this.evt__accion_vin_servicio_extra__procesar();				
 					if (this.ef('accion_vin_popup').chequeado()) {
 						this.ef('accion_vin_popup_par').mostrar();
 						this.ef('accion_vin_target').ocultar();
@@ -32,6 +33,7 @@ class eiform_eventos extends toba_ei_formulario
 					this.ef('accion_vin_popup').ocultar();
 					this.ef('accion_vin_popup_par').ocultar();
 					this.ef('accion_vin_servicio_extra').ocultar();
+					this.ef('accion_vin_servicio').ocultar();
 				}
 			}
 			{$this->objeto_js}.evt__accion_vin_popup__procesar = function() {
@@ -39,9 +41,11 @@ class eiform_eventos extends toba_ei_formulario
 					if (this.ef('accion_vin_popup').chequeado()) {
 						this.ef('accion_vin_popup_par').mostrar();
 						this.ef('accion_vin_target').ocultar();
+						this.ef('accion_vin_celda').set_estado('popup');
 					} else {
 						this.ef('accion_vin_popup_par').ocultar();
 						this.ef('accion_vin_target').mostrar();
+						this.ef('accion_vin_celda').set_estado('');
 					}
 				}
 			}

@@ -1602,8 +1602,8 @@ class toba_ei_cuadro extends toba_ei
 						$opciones['celda_memoria'] = $clave_columna;
 					}
 					
-					if ($this->_columnas[$a]['vinculo_servicio']){
-						$opciones['servicio'] = $this->get_nombre_servicio($this->_columnas[$a]['vinculo_servicio']);
+					if ((isset($this->_columnas[$a]['vinculo_servicio']) && !is_null($this->_columnas[$a]['vinculo_servicio']))){
+						$opciones['servicio'] = $this->_columnas[$a]['vinculo_servicio'];						
 					}
 					
 					$parametros[$clave_columna] = $valor_real;
@@ -2782,20 +2782,6 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function excel_cc_fin_nivel()
 	{
-	}
-
-	private function get_nombre_servicio($servicio_id)
-	{
-		if (! is_null($servicio_id)){
-			switch($servicio_id){
-				case 'H': return 'vista_toba_impr_html';
-				case 'F': return 'vista_pdf';
-				case 'X': return 'vista_excel';
-				default : return $servicio_id;				
-			}
-		}else{
-			return null;
-		}
 	}
 }
 ?>

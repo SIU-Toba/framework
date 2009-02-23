@@ -378,11 +378,7 @@ class toba_vinculador
 			if( !isset( $opciones['validar']) ) {
 				//Por defecto los vinculos no se validan.
 				$opciones['validar'] = false;
-			}
-			if( (!isset($opciones['celda_memoria'])) && ($vinculo->estado_popup() == 1) ) {
-				//Accion preventiva para que los popups no se carguen en la celda de la operacion
-				$opciones['celda_memoria'] = 'popup';
-			}
+			}			
 			$datos['url'] = $this->get_url( 	$vinculo->get_proyecto(),
 													$vinculo->get_item(),
 													$vinculo->get_parametros(),
