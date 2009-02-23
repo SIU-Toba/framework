@@ -81,6 +81,11 @@ class ci_vinculos_servicios extends toba_ci
 		}else{
 			echo 'No funciono como debia, REVISAME!';
 		}
-	}	
+	}
+
+	function servicio__ejecutar()
+	{
+		echo "ME estoy EJECUTANDO.... te gusta???";
+	}
 }
 ?>
