@@ -1595,7 +1595,7 @@ class toba_ei_cuadro extends toba_ei
 				if ( ($this->_tipo_salida == 'html') && ( $this->_columnas[$a]['usar_vinculo'] ) ) {
 					// Armo el vinculo.
 					$clave_columna = isset($this->_columnas[$a]['vinculo_indice']) ? $this->_columnas[$a]['vinculo_indice'] : $this->_columnas[$a]['clave'];
-					$opciones = array(); $parametros = array();
+					$opciones = array();
 					if($this->_columnas[$a]['vinculo_celda']) {
 						$opciones['celda_memoria'] = $this->_columnas[$a]['vinculo_celda'];
 					} else {
@@ -1606,6 +1606,7 @@ class toba_ei_cuadro extends toba_ei
 						$opciones['servicio'] = $this->_columnas[$a]['vinculo_servicio'];						
 					}
 					
+					$parametros = $this->get_clave_fila_array($f);
 					$parametros[$clave_columna] = $valor_real;
 					$item = $this->_columnas[$a]['vinculo_item'];
 					$url = toba::vinculador()->get_url(toba::proyecto()->get_id(),$item,$parametros,$opciones);

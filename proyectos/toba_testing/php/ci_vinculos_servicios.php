@@ -16,8 +16,10 @@ class ci_vinculos_servicios extends toba_ci
 
 	function servicio__print_columna()
 	{
+		$valor_clave = toba::memoria()->get_parametro('columna1');
+		ei_arbol($valor_clave, 'La clave de la fila es');
 		$valor_columna = toba::memoria()->get_parametro('columna3');
-		ei_arbol($valor_columna);
+		ei_arbol($valor_columna, 'columna3');		
 	}
 
 	
