@@ -13,6 +13,7 @@ toba = new function() {
 	this._callback_inclusion = null;
 	this._ajax = false;
 	this._mostrar_aguardar = true;
+	this._enviado = false;
 };
 
 	/**
@@ -132,8 +133,16 @@ toba = new function() {
 			conexion.setForm('formulario_toba');
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
+			if (this._enviado) {
+				return;	//Evita el doble posteo
+			}
+			this._enviado = true;
 			if (toba_espera != 0) {
 				setTimeout ("mostrar_esperar()", toba_espera);
+			}
+			var botones = document.getElementsByTagName("button");
+			for (var a=0;a<botones.length;a++){
+				botones[a].disabled = true;
 			}
 			document.formulario_toba.submit();
 		}
