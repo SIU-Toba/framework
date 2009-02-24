@@ -51,7 +51,7 @@ class ci_instituciones extends toba_ci
 	function conf__filtro_instituciones($componente)
 	{
 		if(isset($this->s__filtro_institucion)){
-			return $this->s__filtro_institucion;
+			$componente->set_datos($this->s__filtro_institucion);
 		}
 	}
 	

@@ -50,13 +50,13 @@ class ci_login extends toba_ci
 		$this->s__datos = $datos;
 	}
 
-	function conf__datos()
+	function conf__datos($componente)
 	{
 		if (isset($this->s__datos)) {
 			if (isset($this->s__datos['clave'])) {
 				unset($this->s__datos['clave']);
 			}
-			return $this->s__datos;	
+			$componente->set_datos($this->s__datos);	
 		}
 	}
 
@@ -68,9 +68,9 @@ class ci_login extends toba_ci
 		$this->s__datos['clave'] = null;
 	}
 
-	function conf__seleccion_usuario()
+	function conf__seleccion_usuario($componente)
 	{
-		return toba_instancia::get_lista_usuarios();
+		$componente->set_datos(toba_instancia::get_lista_usuarios());
 	}
 	
 	//-------------------------------------------------------------------

@@ -7,17 +7,19 @@ class soe_consultas
 	*/
 	function get_instituciones($filtro=null)
 	{
-		$where = '';
-		if($filtro['nombre']){
-			$where = "WHERE nombre_completo ILIKE '%{$filtro['nombre']}%'"; 	
+		$where = array();
+		if(isset($filtro['nombre'])){
+			$where[] = "WHERE nombre_completo ILIKE ".quote("%{$filtro['nombre']}%"); 	
 		}
 		$sql = "SELECT 	institucion as 			institucion, 
 						nombre_completo as		nombre,
 						nombre_abreviado as		nombre_corto,
 						sigla as				sigla
-				FROM soe_instituciones
-				$where
+				FROM soe_instituciones				
 				ORDER by 2";
+		if(count($where)>0) {
+			$sql = sql_concatenar_where($sql, $where);
+		}
 		return consultar_fuente($sql);
 	}
 
@@ -26,24 +28,24 @@ class soe_consultas
 	*/
 	function get_sedes($filtro=null)
 	{
-		$sql_where = '';
 		$where = array();
-		if($filtro['nombre']){
-			$where[] = "nombre ILIKE '%{$filtro['nombre']}%'"; 	
+		if(isset($filtro['nombre'])){
+			$where[] = "nombre ILIKE ".quote("%{$filtro['nombre']}%"); 	
 		}
-		if($filtro['institucion']){
-			$where[] = "institucion = '{$filtro['institucion']}'"; 	
+		if(isset($filtro['institucion'])){
+			$where[] = "institucion = ". quote($filtro['institucion']); 	
 		}
-		if(count($where)>0) {
-			$sql_where = "WHERE " . implode('AND ',$where);
-		}
+		
 		$sql = "SELECT 	institucion as 			institucion, 
 						sede as					sede,
 						nombre as				nombre,
 						codigopostal
-				FROM soe_sedes
-				$sql_where
+				FROM soe_sedes				
 				ORDER by 2";
+				
+		if(count($where)>0) {
+			$sql = sql_concatenar_where($sql, $where);
+		}
 		return consultar_fuente($sql);
 	}
 
@@ -67,8 +69,8 @@ class soe_consultas
 		$sql = "SELECT 	unidadacad as			id, 
 						nombre as				nombre
 				FROM soe_unidadesacad
-				WHERE 	institucion = '$institucion'
-				ORDER by 2";
+				WHERE 	institucion = ".quote($institucion).
+				"ORDER by 2";
 		return consultar_fuente($sql);
 	}
 
@@ -103,7 +105,10 @@ class soe_consultas
 	*/
 	function get_provincias($pais=null)
 	{
-		$where = isset($pais) ? "AND		p.idpais = '$pais'" : '';
+		$where = array();
+		if (isset($pais) && ! is_null($pais)){
+			$where[] = " p.idpais = ". quote($pais);
+		}
 		$sql = "SELECT 	p.idprovincia as 		id,
 						p.nombre as				nombre,
 						p.idprovincia as 		idprovincia,
@@ -111,8 +116,10 @@ class soe_consultas
 				FROM 	ona_provincia p,
 						ona_pais pp
 				WHERE 	pp.idpais = p.idpais
-				$where
 				ORDER by 2";
+		if(count($where)>0) {
+			$sql = sql_concatenar_where($sql, $where);
+		}				
 		toba::logger()->debug($sql);
 		return consultar_fuente($sql);
 	}
@@ -125,8 +132,8 @@ class soe_consultas
 		$sql = "SELECT 	codigopostal as 		id,
 						nombre as				nombre
 				FROM ona_localidad
-				WHERE idprovincia = '$provincia'
-				ORDER by 2";
+				WHERE idprovincia = ". quote($provincia).
+				"ORDER by 2";
 		toba::logger()->debug($sql);
 		return consultar_fuente($sql);
 	}
@@ -140,7 +147,7 @@ class soe_consultas
 	{
 		$sql = "SELECT 	idpais 
 				FROM ona_localidad
-				WHERE codigopostal = '$localidad'";
+				WHERE codigopostal = ".quote($localidad);
 		return consultar_fuente($sql);
 	}
 	
@@ -151,7 +158,27 @@ class soe_consultas
 	{
 		$sql = "SELECT 	idprovincia
 				FROM ona_localidad
-				WHERE codigopostal = '$localidad'";
+				WHERE codigopostal = ".quote($localidad);
+		return consultar_fuente($sql);
+	}
+
+	function reporte_instituciones($filtro = null)
+	{
+		$where = array();
+		if(isset($filtro['jurisdiccion'])) $where[] = " si.jurisdiccion = ".quote($filtro['jurisdiccion']);		
+		$sql = "SELECT 	su.unidadacad as ua, 
+						su.nombre as ua_nombre,
+						st.descripcion as ua_tipo,
+						si.institucion,
+						si.nombre_abreviado as institucion_nombre
+				FROM	soe_instituciones as si
+				JOIN soe_unidadesacad as su ON si.institucion = su.institucion
+				JOIN soe_tiposua as st ON su.tipoua = st.tipoua
+				ORDER BY	si.institucion";
+		if(count($where)>0) {
+			$sql = sql_concatenar_where($sql, $where);
+		}				
+		toba::logger()->debug($sql);
 		return consultar_fuente($sql);
 	}
 }

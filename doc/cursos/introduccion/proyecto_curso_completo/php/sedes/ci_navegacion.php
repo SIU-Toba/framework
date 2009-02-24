@@ -82,7 +82,7 @@ class ci_navegacion extends toba_ci
 	function conf__filtro_sedes($componente)
 	{
 		if(isset($this->s__filtro_sedes)){
-			return $this->s__filtro_sedes;
+			$componente->set_datos( $this->s__filtro_sedes );
 		}
 	}
 }

@@ -1,3 +1,5 @@
+BEGIN TRANSACTION;
+SET CONSTRAINTS ALL DEFERRED;
 --
 -- PostgreSQL database dump
 --
@@ -2348,10 +2350,10 @@ INSERT INTO soe_edificios VALUES (348, 29, 2, 'Edificio de Sede 00002 - Av. José
 INSERT INTO soe_edificios VALUES (349, 29, 1, 'Edificio de Sede 00001 - Av. José I. de la Roza (Oeste)', 'Av. José I. de la Roza (Oeste)', '230', NULL, NULL);
 INSERT INTO soe_edificios VALUES (350, 29, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (351, 30, 1, 'Edificio de Sede 00001 - Avda. 25 de Mayo', 'Avda. 25 de Mayo', '  384', NULL, NULL);
-INSERT INTO soe_edificios VALUES (352, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '    9', ' 2º', 'Edifi');
+INSERT INTO soe_edificios VALUES (352, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '    9', '2º', 'Edifi');
 INSERT INTO soe_edificios VALUES (353, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '   95', '2º', 'Edifi');
-INSERT INTO soe_edificios VALUES (354, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '   95', '  1', 'Edifi');
-INSERT INTO soe_edificios VALUES (355, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '  950', '  2', 'Edifi');
+INSERT INTO soe_edificios VALUES (354, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '   95', ' 1', 'Edifi');
+INSERT INTO soe_edificios VALUES (355, 30, 1, 'Edificio de Sede 00001 - Avda. Ejercito de los Andes', 'Avda. Ejercito de los Andes', '  950', ' 2', 'Edifi');
 INSERT INTO soe_edificios VALUES (356, 30, 1, 'Edificio de Sede 00001 - Av. Ejercito de los Andes', 'Av. Ejercito de los Andes', '950', '2º', NULL);
 INSERT INTO soe_edificios VALUES (357, 30, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (358, 31, 1, 'Edificio de Sede 00001 - Av. Belgrano (S)', 'Av. Belgrano (S)', '1912', NULL, NULL);
@@ -2420,8 +2422,8 @@ INSERT INTO soe_edificios VALUES (420, 37, 2, 'Edificio de Sede 00002 - Av Matie
 INSERT INTO soe_edificios VALUES (421, 37, 1, 'Edificio de Sede 00001 - Av Cabildo', 'Av Cabildo', '15', NULL, NULL);
 INSERT INTO soe_edificios VALUES (422, 37, 1, 'Edificio de Sede 00001 - Av Luis María Campos', 'Av Luis María Campos', '480', NULL, NULL);
 INSERT INTO soe_edificios VALUES (423, 37, 3, 'Edificio de Sede 00003 - Maipú', 'Maipú', '262', NULL, NULL);
-INSERT INTO soe_edificios VALUES (424, 38, 1, 'Edificio de Sede 00001 - Av. Fuerza Aérea Argentina', 'Av. Fuerza Aérea Argentina', '6500', '-.-', NULL);
-INSERT INTO soe_edificios VALUES (425, 38, 1, 'Edificio de Sede 00001 - Av. Fuerza Aérea Km 6,5', 'Av. Fuerza Aérea Km 6,5', '-.-', '-.-', NULL);
+INSERT INTO soe_edificios VALUES (424, 38, 1, 'Edificio de Sede 00001 - Av. Fuerza Aérea Argentina', 'Av. Fuerza Aérea Argentina', '6500', '--', NULL);
+INSERT INTO soe_edificios VALUES (425, 38, 1, 'Edificio de Sede 00001 - Av. Fuerza Aérea Km 6,5', 'Av. Fuerza Aérea Km 6,5', '-.-', '--', NULL);
 INSERT INTO soe_edificios VALUES (426, 38, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (427, 39, 2, 'Edificio de Sede 00002 - Av. Antartida Argentina', 'Av. Antartida Argentina', '1535', NULL, NULL);
 INSERT INTO soe_edificios VALUES (428, 39, 3, 'Edificio de Sede 00003 - Rio Santiago', 'Rio Santiago', NULL, NULL, NULL);
@@ -2527,10 +2529,10 @@ INSERT INTO soe_edificios VALUES (527, 61, 1, 'Edificio de Sede 00001 - Eschagüe
 INSERT INTO soe_edificios VALUES (528, 61, 1, 'Edificio de Sede 00001 - Pascual Echague', 'Pascual Echague', '7151', NULL, NULL);
 INSERT INTO soe_edificios VALUES (529, 61, 2, 'Edificio de Sede 00002 - Rademacher 3943', 'Rademacher 3943', NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (530, 61, 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO soe_edificios VALUES (531, 62, 1, 'Edificio de Sede 00001 - Av. Alsina Y Dalmacio Vélez Sarsfield', 'Av. Alsina Y Dalmacio Vélez Sarsfield', '---', '---', 'Matem');
-INSERT INTO soe_edificios VALUES (532, 62, 2, 'Edificio de Sede 00002 - Lavalle', 'Lavalle', '333', '---', NULL);
+INSERT INTO soe_edificios VALUES (531, 62, 1, 'Edificio de Sede 00001 - Av. Alsina Y Dalmacio Vélez Sarsfield', 'Av. Alsina Y Dalmacio Vélez Sarsfield', '---', '--', 'Matem');
+INSERT INTO soe_edificios VALUES (532, 62, 2, 'Edificio de Sede 00002 - Lavalle', 'Lavalle', '333', '--', NULL);
 INSERT INTO soe_edificios VALUES (533, 62, 3, 'Edificio de Sede 00003 - Corrientes', 'Corrientes', '180', '--', NULL);
-INSERT INTO soe_edificios VALUES (534, 62, 4, 'Edificio de Sede 00004 - Boulevard Hipólito Irigoyen', 'Boulevard Hipólito Irigoyen', '1502', '---', NULL);
+INSERT INTO soe_edificios VALUES (534, 62, 4, 'Edificio de Sede 00004 - Boulevard Hipólito Irigoyen', 'Boulevard Hipólito Irigoyen', '1502', '--', NULL);
 INSERT INTO soe_edificios VALUES (535, 62, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (536, 63, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios VALUES (537, 63, 1, NULL, NULL, NULL, NULL, NULL);
@@ -4013,3 +4015,4 @@ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_instituciones', 
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_sedes', 'sede'), (SELECT max(sede) FROM soe_sedes), false);
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_tiposua', 'tipoua'),(SELECT max(tipoua) FROM soe_tiposua), true);
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_unidadesacad', 'unidadacad'), (SELECT max(unidadacad) FROM soe_unidadesacad), true);
+END TRANSACTION;

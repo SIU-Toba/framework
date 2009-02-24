@@ -18,7 +18,7 @@ class ci_provincias extends toba_ci
 	function conf__form($componente)
 	{
 		if ($this->dep('tabla_provincias')->esta_cargada()) {
-			return $this->dep('tabla_provincias')->get();	
+			$componente->set_datos($this->dep('tabla_provincias')->get());	
 		}
 	}
 
