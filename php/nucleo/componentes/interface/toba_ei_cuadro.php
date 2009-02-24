@@ -1598,8 +1598,6 @@ class toba_ei_cuadro extends toba_ei
 					$opciones = array();
 					if($this->_columnas[$a]['vinculo_celda']) {
 						$opciones['celda_memoria'] = $this->_columnas[$a]['vinculo_celda'];
-					} else {
-						$opciones['celda_memoria'] = $clave_columna;
 					}
 					
 					if ((isset($this->_columnas[$a]['vinculo_servicio']) && !is_null($this->_columnas[$a]['vinculo_servicio']))){
