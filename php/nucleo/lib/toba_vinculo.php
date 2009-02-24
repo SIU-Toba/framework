@@ -21,7 +21,7 @@ class toba_vinculo
 		if(isset($proyecto)&&isset($item)){
 			$this->set_item($proyecto, $item);	
 		}
-		if(! is_null($popup)){
+		if(! is_null($popup) && $popup) {
 			$this->activar_popup();
 		}
 		if(isset($opciones_popup)){

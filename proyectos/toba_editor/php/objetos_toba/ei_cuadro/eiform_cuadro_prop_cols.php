@@ -37,16 +37,20 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.evt__vinculo_popup__procesar = function() {
+			{$this->objeto_js}.evt__vinculo_popup__procesar = function(es_inicial) {
 				if (this.ef('usar_vinculo').valor() == '1') {
 					if (this.ef('vinculo_popup').chequeado()) {
 						this.ef('vinculo_popup_par').mostrar();
 						this.ef('vinculo_target').ocultar();
-						this.ef('vinculo_celda').set_estado('popup');
+						if (! es_inicial) {
+							this.ef('vinculo_celda').set_estado('popup');
+						}
 					} else {
 						this.ef('vinculo_popup_par').ocultar();
 						this.ef('vinculo_target').mostrar();
-						this.ef('vinculo_celda').set_estado('');
+						if (! es_inicial) {
+							this.ef('vinculo_celda').set_estado('');
+						}						
 					}
 				}
 			}

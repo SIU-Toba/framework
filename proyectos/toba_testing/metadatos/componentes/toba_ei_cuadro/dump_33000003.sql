@@ -66,8 +66,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
+	'1000201', --accion_vinculo_carpeta
+	'33000002', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
@@ -103,7 +103,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
-	'popup', --accion_vinculo_celda
+	'sadfsdf', --accion_vinculo_celda
 	'vista_pdf'  --accion_vinculo_servicio
 );
 --- FIN Grupo de desarrollo 33
@@ -179,7 +179,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
-	'popup', --vinculo_celda
+	NULL, --vinculo_celda
 	'1', --permitir_html
 	'print_columna'  --vinculo_servicio
 );

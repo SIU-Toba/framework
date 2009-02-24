@@ -722,7 +722,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_target', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'11', --orden
+	'15', --orden
 	'Vinculo - Target', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -797,7 +797,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_celda', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'10', --orden
+	'14', --orden
 	'Vinculo - Celda mem.', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1406,7 +1406,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vin_servicio_extra', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'14', --orden
+	'10', --orden
 	'Vinculo - Nombre Servicio', --etiqueta
 	NULL, --etiqueta_estilo
 	'Permite definir una forma de procesamiento alternativa para el HTTP Response del objeto destino, por defecto es generar_html. Más  [wiki:Referencia/Solicitud#Tiposdeservicios información]', --descripcion
@@ -1426,12 +1426,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'instancia', --carga_fuente
-	'vista_pdf/Exportar PDF,vista_excel/Exportar Excel, vista_toba_impr_html/Impresion HTML,ejecutar/Ejecutar,O/Otro', --carga_lista
+	'vista_pdf/vista_pdf,vista_excel/vista_excel, vista_toba_impr_html/vista_toba_impr_html (Impresión HTML),ejecutar (Servicio generico),O/Otro', --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
-	'Ninguna', --carga_no_seteado
+	'generar_html (Salida estandar)', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -1481,7 +1481,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_servicio', --columnas
 	'1', --obligatorio
 	'1', --oculto_relaja_obligatorio
-	'15', --orden
+	'11', --orden
 	'Nombre Servicio Manual', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion

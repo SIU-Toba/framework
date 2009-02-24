@@ -31,16 +31,20 @@ class eiform_eventos extends toba_ei_formulario
 					this.ef('accion_vin_servicio').ocultar();
 				}
 			}
-			{$this->objeto_js}.evt__accion_vin_popup__procesar = function() {
+			{$this->objeto_js}.evt__accion_vin_popup__procesar = function(es_inicial) {
 				if (this.ef('accion').valor() == 'V') {
 					if (this.ef('accion_vin_popup').chequeado()) {
 						this.ef('accion_vin_popup_par').mostrar();
 						this.ef('accion_vin_target').ocultar();
-						this.ef('accion_vin_celda').set_estado('popup');
+						if (! es_inicial) {
+							this.ef('accion_vin_celda').set_estado('popup');
+						}
 					} else {
 						this.ef('accion_vin_popup_par').ocultar();
 						this.ef('accion_vin_target').mostrar();
-						this.ef('accion_vin_celda').set_estado('');
+						if (! es_inicial) {
+							this.ef('accion_vin_celda').set_estado('');
+						}						
 					}
 				}
 			}

@@ -69,10 +69,14 @@ class toba_evento_usuario extends toba_boton
 	
 	function es_autovinculo()
 	{
-		$hay_carpeta = (isset($this->datos['accion_vinculo_carpeta']) && ! is_null($this->datos['accion_vinculo_carpeta']));
+		//No se mira la carpeta porque es un dato cosmetico (esta de mas en realidad)
 		$hay_item = (isset($this->datos['accion_vinculo_item']) && ! is_null($this->datos['accion_vinculo_item']));
-		
-		return (!$hay_carpeta || !$hay_item);
+		if ($hay_item) {
+			$es_autovinculo = (toba::solicitud()->get_id_operacion() == $this->datos['accion_vinculo_item']);
+		} else {
+			$es_autovinculo = true;
+		}
+		return $es_autovinculo;
 	}
 	
 	
