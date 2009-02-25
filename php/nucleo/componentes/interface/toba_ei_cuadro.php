@@ -174,6 +174,11 @@ class toba_ei_cuadro extends toba_ei
 					$this->_cortes_def[$corte]['total'][] = $clave;	
 				}
 			}
+			//Agrupacion de columnas
+			$grupo = isset($this->_columnas[$clave]['grupo']) ? $this->_columnas[$clave]['grupo'] : null;
+			if (isset($grupo) && $grupo != '') {
+				$this->_agrupacion_columnas[$grupo][] = $clave;
+			}
 		}
 		$this->_estructura_datos = array_unique($estructura_datos);
 	}
@@ -1750,7 +1755,7 @@ class toba_ei_cuadro extends toba_ei
 	        		$html_columnas_agrupadas .= $html_columna;
 	        		//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
 	        		if (! isset($grupo_actual) || $grupo_actual != $this->_columnas[$a]['grupo']) {
-		        		$grupo_actual = $this->_columnas[$a]['grupo'];	        			
+		        		$grupo_actual = $this->_columnas[$a]['grupo'];
 		        		$cant_col = count($this->_agrupacion_columnas[$grupo_actual]);
 		        		echo "<td class='ei-cuadro-col-tit ei-cuadro-col-tit-grupo' colspan='$cant_col'>$grupo_actual</td>";
 	        		}

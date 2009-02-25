@@ -513,8 +513,9 @@ class toba_db_tablas_componente
     22 => 'vinculo_popup_param',
     23 => 'vinculo_target',
     24 => 'vinculo_celda',
-    25 => 'permitir_html',
-    26 => 'vinculo_servicio',
+    25 => 'vinculo_servicio',
+    26 => 'permitir_html',
+    27 => 'grupo',
   ),
 );
 	}

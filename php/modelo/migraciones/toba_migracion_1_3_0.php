@@ -12,6 +12,7 @@ class toba_migracion_1_3_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN permitir_html SMALLINT;";
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_servicio VARCHAR(100);";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_servicio VARCHAR(100);";
+		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN grupo VARCHAR(255);";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	
