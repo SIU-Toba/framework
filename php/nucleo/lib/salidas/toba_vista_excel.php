@@ -177,8 +177,16 @@ class toba_vista_excel
 	 */
 	function tabla($datos, $titulos=array(), $opciones=array(), $totales=array(), $origen=null)
 	{
+	 	//Determina la agrupacion
+ 		$agrupacion = array(); 		
+ 		foreach ($opciones as $clave => $atributos) {
+ 			if (isset($atributos['grupo']) && $atributos['grupo'] != '') {
+ 				$agrupacion[$atributos['grupo']][] = $clave;
+	 		}
+ 		}		
 		if (! isset($origen)) {
 			$origen = $this->cursor;
+			//Determina donde va a terminar la tabla
 			$this->cursor[1] += count($datos);
 			if (! empty($titulos)) {
 				$this->cursor[1]++;
@@ -186,6 +194,12 @@ class toba_vista_excel
 			if (! empty($totales)) {
 				$this->cursor[1]++;
 			}			
+			if (! empty($agrupacion)) {
+				$this->cursor[1]++;
+			}						
+ 		}
+ 		if (! empty($agrupacion)) {
+ 			$origen[1]++;	//Tiene que entrar una fila más
  		}
  		$borde = array('style' => PHPExcel_Style_Border::BORDER_THIN  );
  		$estilo_titulos = array(
@@ -201,13 +215,38 @@ class toba_vista_excel
 		//--- Titulos
 		if (! empty($titulos)) {
 			$x=0;
+			$ultimo_grupo = '';
 			foreach($titulos as $clave => $valor) {
+				$inicio = $origen[0] + $x;	//Desplazado X columnas a derecha horizontalmente
+				//-- Pone el titulo de la columna
 				if (isset($valor) || !isset($opciones[$clave]['borrar_estilos_nulos'])) {
-					$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1], $valor);
-					$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1])->applyFromArray($estilo_titulos);
+					$hoja->setCellValueByColumnAndRow($inicio, $origen[1], $valor);
+					$hoja->getStyleByColumnAndRow($inicio, $origen[1])->applyFromArray($estilo_titulos);
+				}
+				//-- Maneja la agrupacion
+				if (! empty($agrupacion)) {
+					if (isset($opciones[$clave]['grupo']) && $opciones[$clave]['grupo'] != '') {
+						$grupo_actual = $opciones[$clave]['grupo'];
+					} else {
+					 	$grupo_actual = '';
+					}
+					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, $grupo_actual);					
+					$hoja->getStyleByColumnAndRow($inicio, $origen[1]-1)->applyFromArray($estilo_titulos);
+					if ($ultimo_grupo != $grupo_actual) {
+						if (isset($agrupacion[$grupo_actual]) && count($agrupacion[$grupo_actual]) > 1) {
+							//Hay que mergear horizontalmente, segun la cantidad de columnas en el grupo
+							$fin = $inicio + (count($agrupacion[$grupo_actual]) - 1);
+							$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $fin, $origen[1]-1);
+						}
+					}
+					if ($grupo_actual == '') {
+						//El grupo es vacio o no tiene grupo, hay que mergear verticalmente esta unica fila
+						$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, $valor);
+						$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $inicio, $origen[1]);
+					}
+					$ultimo_grupo = $grupo_actual;					
 				}
 				$x++;
-
 			}
 			$origen[1]++;
 		}

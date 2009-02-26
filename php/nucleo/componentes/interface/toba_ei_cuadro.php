@@ -1746,7 +1746,7 @@ class toba_ei_cuadro extends toba_ei
 	                                        $a );
 	            $html_columna .= "</td>\n";
            
-	        	if (! isset($this->_columnas[$a]['grupo'])) {
+	        	if (! isset($this->_columnas[$a]['grupo']) || $this->_columnas[$a]['grupo'] == '') {
 	        		//Si no es una columna agrupada,saca directamente su html
 	        		echo $html_columna;
 	        		$grupo_actual = null;
@@ -2501,6 +2501,9 @@ class toba_ei_cuadro extends toba_ei
 	                $estilos[$clave]['estilo'] = $this->excel_get_estilo($this->_columnas[$clave]['estilo']);
 	                $estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
 	                $estilos[$clave]['ancho'] = 'auto';
+	                if (isset($this->_columnas[$clave]['grupo']) && $this->_columnas[$clave]['grupo'] != '') {
+	                	$estilos[$clave]['grupo'] = $this->_columnas[$clave]['grupo'];
+	                }
 	            }
 	            $fila[$clave] = $valor;
             }
@@ -2674,7 +2677,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 		if (! $agregar_titulos) {
 			$titulos = null;
-		}		
+		}	
 		$this->salida->tabla(array($datos), $titulos, $estilos);
 	}
 	
