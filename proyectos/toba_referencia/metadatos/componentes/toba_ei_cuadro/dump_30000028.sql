@@ -1,15 +1,15 @@
 ------------------------------------------------------------
---[1622]--  Cuadro Cortes Estandar 
+--[30000028]--  Reporte de Personas - cuadro 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_objeto
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_referencia', --proyecto
-	'1622', --objeto
+	'30000028', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
@@ -19,8 +19,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Cuadro Cortes Estandar', --nombre
-	'Localidades de Santa Fe', --titulo
+	'Reporte de Personas - cuadro', --nombre
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -35,30 +35,30 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2005-09-20 16:16:53'  --creacion
+	'2009-02-26 14:29:06'  --creacion
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objeto_cuadro
 ------------------------------------------------------------
 INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, subtitulo, sql, columnas_clave, clave_dbr, archivos_callbacks, ancho, ordenar, paginar, tamano_pagina, tipo_paginado, eof_invisible, eof_customizado, exportar_paginado, exportar, exportar_rtf, pdf_propiedades, pdf_respetar_paginacion, asociacion_columnas, ev_seleccion, ev_eliminar, dao_nucleo_proyecto, dao_nucleo, dao_metodo, dao_parametros, desplegable, desplegable_activo, scroll, scroll_alto, cc_modo, cc_modo_anidado_colap, cc_modo_anidado_totcol, cc_modo_anidado_totcua) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
+	'30000028', --objeto_cuadro
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'zona_id, dep_id, loc_id', --columnas_clave
+	NULL, --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
 	'0', --ordenar
-	'0', --paginar
-	NULL, --tamano_pagina
+	'1', --paginar
+	'10', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	NULL, --eof_customizado
-	NULL, --exportar_paginado
+	'No hay personas para el criterio seleccionado', --eof_customizado
+	'0', --exportar_paginado
 	'1', --exportar
 	'1', --exportar_rtf
 	NULL, --pdf_propiedades
@@ -84,115 +84,100 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 -- apex_objeto_cuadro_cc
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'1', --objeto_cuadro_cc
-	'zona', --identificador
-	'Zona', --descripcion
+	'30000028', --objeto_cuadro
+	'30000002', --objeto_cuadro_cc
+	'id_deporte', --identificador
+	NULL, --descripcion
 	'1', --orden
-	'zona_id', --columnas_id
-	'zona', --columnas_descripcion
+	'id_deporte', --columnas_id
+	'nombre_deporte', --columnas_descripcion
 	'0', --pie_contar_filas
 	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar
 	'0'  --modo_inicio_colapsado
 );
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'2', --objeto_cuadro_cc
-	'departamento', --identificador
-	'Departamento', --descripcion
-	'2', --orden
-	'dep_id', --columnas_id
-	'departamento', --columnas_descripcion
-	'0', --pie_contar_filas
-	'0', --pie_mostrar_titular
-	'0', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
-);
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'344', --objeto_cuadro_col
-	'localidad', --clave
+	'30000028', --objeto_cuadro
+	'30000012', --objeto_cuadro_col
+	'nombre_persona', --clave
 	'1', --orden
-	'Localidad', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'5', --estilo
+	'Nombre', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
 	NULL, --ancho
-	'5', --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	NULL, --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	'0', --total
-	'', --total_cc
-	'0', --usar_vinculo
+	NULL, --total
+	NULL, --total_cc
+	NULL, --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	'0', --vinculo_popup
+	NULL, --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
 	'0', --permitir_html
-	'A'  --grupo
+	NULL  --grupo
 );
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'345', --objeto_cuadro_col
-	'hab_varones', --clave
+	'30000028', --objeto_cuadro
+	'30000013', --objeto_cuadro_col
+	'dia_semana', --clave
 	'2', --orden
-	'Hab. Varones', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
+	'Día', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
 	NULL, --ancho
-	'7', --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	NULL, --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	'0', --total
-	'', --total_cc
-	'0', --usar_vinculo
+	NULL, --total
+	NULL, --total_cc
+	NULL, --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	'0', --vinculo_popup
+	NULL, --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
 	'0', --permitir_html
-	'A'  --grupo
+	NULL  --grupo
 );
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'346', --objeto_cuadro_col
-	'hab_mujeres', --clave
+	'30000028', --objeto_cuadro
+	'30000014', --objeto_cuadro_col
+	'horario', --clave
 	'3', --orden
-	'Hab. Mujeres', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
+	'Horario', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
 	NULL, --ancho
-	'7', --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -200,7 +185,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
 	NULL, --total
-	'', --total_cc
+	NULL, --total_cc
 	NULL, --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
@@ -212,64 +197,4 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'0', --permitir_html
 	NULL  --grupo
 );
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo) VALUES (
-	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'347', --objeto_cuadro_col
-	'hab_total', --clave
-	'4', --orden
-	'Hab. Total', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
-	NULL, --ancho
-	'7', --formateo
-	NULL, --vinculo_indice
-	NULL, --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	NULL, --total
-	'', --total_cc
-	NULL, --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL, --vinculo_celda
-	NULL, --vinculo_servicio
-	'0', --permitir_html
-	NULL  --grupo
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo) VALUES (
-	'toba_referencia', --objeto_cuadro_proyecto
-	'1622', --objeto_cuadro
-	'351', --objeto_cuadro_col
-	'superficie', --clave
-	'5', --orden
-	'Superficie', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
-	NULL, --ancho
-	'17', --formateo
-	NULL, --vinculo_indice
-	NULL, --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	NULL, --total
-	'', --total_cc
-	NULL, --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL, --vinculo_celda
-	NULL, --vinculo_servicio
-	'0', --permitir_html
-	NULL  --grupo
-);
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 30

@@ -40,6 +40,44 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
+-- apex_objeto_eventos
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
+	'toba_referencia', --proyecto
+	'30000041', --evento_id
+	'1614', --objeto
+	'imprimir', --identificador
+	'Imprimir', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'impresora.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	'H', --accion
+	'1', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL, --accion_vinculo_celda
+	NULL  --accion_vinculo_servicio
+);
+--- FIN Grupo de desarrollo 30
+
+------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -220,7 +258,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -236,7 +274,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -252,7 +290,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_sum_ah_1', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -268,7 +306,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_sum', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -284,7 +322,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_regs', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -300,7 +338,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_full', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -316,7 +354,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_sum_ah_2', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -332,7 +370,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_2', --objetos
-	'', --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -348,7 +386,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_est_1', --objetos
-	NULL, --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -364,7 +402,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_est_2', --objetos
-	NULL, --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -380,7 +418,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro_tab_full_ext', --objetos
-	NULL, --eventos
+	'imprimir', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
