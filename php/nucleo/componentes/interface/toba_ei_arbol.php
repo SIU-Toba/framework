@@ -27,6 +27,7 @@ class toba_ei_arbol extends toba_ei
 	protected $ids = array();
 	protected $chequear_ids_unicos = false;
 	protected $_mostrar_ayuda = true;
+	protected $_ancho_nombres = 30;
 
 	function __construct($datos)
 	{
@@ -55,6 +56,15 @@ class toba_ei_arbol extends toba_ei
 	function set_apertura_nodos($datos_apertura)
 	{
 		$this->_datos_apertura = $datos_apertura;
+	}
+	
+	/**
+	 * Determina el ancho máximo de un nombre de un nodo, a partir de ese tamaño se utilizan puntos suspensivos
+	 * @param integer $caracteres
+	 */
+	function set_ancho_nombres($caracteres)
+	{
+		$this->_ancho_nombres = $caracteres;
 	}
 
 	/**
@@ -107,7 +117,7 @@ class toba_ei_arbol extends toba_ei
 
 	/**
 	 * Cambia los nodos del arbol, suministrandole nuevos nodo/s raiz
-	 * @param array $nodos Arreglo de nodos raiz del arbol de interface toba_nodo_arbol
+	 * @param array $nodos Arreglo de nodos raiz del arbol
 	 */
 	function set_datos($nodos, $mantener_en_sesion=false)
 	{
@@ -466,8 +476,11 @@ class toba_ei_arbol extends toba_ei
 	/**
 	 * Formatea el nombre de un nodo para incluir en un listado
 	 */
-	protected function acortar_nombre($nombre, $limite=30)
+	protected function acortar_nombre($nombre, $limite=null)
 	{
+		if (! isset($limite)) {
+			$limite = $this->_ancho_nombres;
+		}
 		if (strlen($nombre) <= $limite)
 		return $nombre;
 		else

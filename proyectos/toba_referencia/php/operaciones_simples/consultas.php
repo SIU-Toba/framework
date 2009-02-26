@@ -3,6 +3,26 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class consultas
 {
+
+	static function get_deportes_por_persona($where='true')
+	{
+		$sql = "
+			SELECT
+				dep.id												as id_deporte,
+				per.nombre											as nombre_persona,
+				dep.nombre											as nombre_deporte,
+				per_dep.dia_semana									as dia_semana,
+				per_dep.hora_inicio || ' a ' || per_dep.hora_fin	as horario
+			FROM
+				ref_persona_deportes per_dep
+					INNER JOIN ref_persona per ON (per_dep.persona = per.id)
+					INNER JOIN ref_deportes dep ON (per_dep.deporte = dep.id)
+			WHERE
+				$where
+		";
+		return toba::db()->consultar($sql);
+	}
+
 	/**
 		Retorna la lista de juegos
 	*/

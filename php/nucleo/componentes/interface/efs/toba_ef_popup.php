@@ -69,6 +69,7 @@ class toba_ef_popup extends toba_ef_editable
 										true,
 										$this->ventana );
 		$this->vinculo->agregar_opcion('menu',true);
+		$this->vinculo->set_celda_memoria('popup');
 		if (is_null($this->ventana)) {
 			$this->vinculo->set_popup_parametros( array(	'scrollbars'=>true,
 															'resizable'=>true,

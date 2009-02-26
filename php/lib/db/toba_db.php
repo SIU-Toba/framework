@@ -287,14 +287,14 @@ class toba_db
 	*	Prepara una sentencia para su ejecucion posterior.
 	* 	
 	*	@param string $sql Consulta SQL
-	*	@param array Arreglo con parametros del driver
+	*	@param array $opciones Arreglo con parametros del driver
 	*	@return integer ID de la sentencia, necesario para ejecutarla posteriormente con 'ejecutar_sentencia($id)'
 	*	@throws toba_error_db en caso de error
 	*/		
-	function sentencia_preparar($sql, $parametros=array())
+	function sentencia_preparar($sql, $opciones=array())
 	{
 		$id = count($this->sentencias);
-		$this->sentencias[$id] = $this->conexion->prepare($sql, $parametros);
+		$this->sentencias[$id] = $this->conexion->prepare($sql, $opciones);
 		if ($this->sentencias[$id] === false ) {
 			new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
 		}
