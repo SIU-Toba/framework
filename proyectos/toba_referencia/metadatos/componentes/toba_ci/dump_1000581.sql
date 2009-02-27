@@ -99,8 +99,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,otro', --objetos
-	NULL, --eventos
+	'filtro', --objetos
+	'', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

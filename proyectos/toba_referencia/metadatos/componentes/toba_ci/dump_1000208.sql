@@ -191,12 +191,30 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+--- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'33000005', --dep_id
+	'1000208', --objeto_consumidor
+	'33000006', --objeto_proveedor
+	'filtro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 33
+
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_referencia', --proyecto
 	'1000082', --dep_id
 	'1000208', --objeto_consumidor
 	'1000206', --objeto_proveedor
-	'filtro', --identificador
+	'formulario', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -256,10 +274,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Pantalla 1', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,cuadro', --objetos
-	'imprimir,imprimir_debug,pdf,excel', --eventos
+	'filtro,cuadro,formulario', --objetos
+	'excel,imprimir,imprimir_debug,pdf', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -272,7 +290,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Pantalla 2', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'ml', --objetos
 	'imprimir,imprimir_debug,pdf,excel', --eventos

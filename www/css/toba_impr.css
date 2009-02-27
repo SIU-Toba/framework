@@ -121,6 +121,25 @@ body {
 	empty-cells: hide;	
 }
 
+/*************************
+		 Filtro
+**************************/
+
+.ei-filtro-valor .ef-numero {
+	text-align: left;
+}
+
+.ei-filtro-valor .ef-multi-sel-check {
+	position:relative;
+	left: -25px;
+	text-align: left;
+}
+
+.ei-filtro-valor .ef-multi-sel-lista {
+	position:relative;
+	left: -25px;
+	text-align: left;
+}
 
 /*************************
 	VISTA PREVIA IMPRESION

@@ -13,6 +13,7 @@ abstract class toba_filtro_columna
 	protected $_estado = null;	
 	protected $_condiciones = array();
 	protected $_solo_lectura = false;
+	protected $_funcion_formateo = null;
 	
 	function __construct($datos, $padre) 
 	{
@@ -82,6 +83,10 @@ abstract class toba_filtro_columna
 	}
 	
 	
+	function set_formateo($funcion)
+	{
+		$this->_funcion_formateo = $funcion;
+	}
 	//-----------------------------------------------
 	//--- CONSULTAS ---------------------------------
 	//-----------------------------------------------
@@ -144,6 +149,11 @@ abstract class toba_filtro_columna
 	}
 
 
+	function get_formateo()
+	{
+		return $this->_funcion_formateo;	
+	}
+	
 	function validar_estado()
 	{
 		return $this->_ef->validar_estado();
@@ -271,7 +281,7 @@ abstract class toba_filtro_columna
 		return $html;
 	}
 		
-	
+
 	//-----------------------------------------------
 	//--- JAVASCRIPT   ------------------------------
 	//-----------------------------------------------

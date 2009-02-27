@@ -15,6 +15,12 @@ class toba_ei_filtro extends toba_ei
 	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
+	protected $_clase_formateo = 'toba_formateo';
+
+	//Salida PDF
+	protected $_pdf_letra_tabla = 8;
+	protected $_pdf_tabla_ancho;
+	protected $_pdf_tabla_opciones = array();
 	
 	/**
 	 * Método interno para iniciar el componente una vez construido
@@ -295,6 +301,8 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_botones('', $extra);
 	}
 	
+
+	
 	/**
 	 * Genera el HTML de la botonera de agregar/quitar/ordenar filas
 	 */
@@ -448,6 +456,216 @@ class toba_ei_filtro extends toba_ei
 		return $consumo;
 	}	
 	
-}
+	//---------------------------------------------------------------
+	//----------------------  SALIDA Impresion  ---------------------
+	//---------------------------------------------------------------
+		
+	function vista_impresion_html( $salida )
+	{
+		$this->_carga_opciones_ef->cargar();
+		$ancho = isset($this->_info_filtro["ancho"]) ? $this->_info_filtro["ancho"] : "auto";
+		$salida->subtitulo( $this->get_titulo() );
+		$this->generar_layout_impresion($ancho);
+	}	
 
+	protected function generar_layout_impresion($ancho)
+	{
+		echo "<table class='ei-filtro-grilla' width='$ancho'>";
+		$this->generar_encabezado_impresion();
+		$this->generar_cuerpo_impresion();
+		echo "\n</table>";		
+	}
+
+	protected function generar_encabezado_impresion()
+	{
+		echo "<thead>\n <tr>\n";
+		echo "<th class='imp-mensaje ei-form-etiq'>\n";
+		echo "<strong> Búsqueda </strong>";
+		echo "</th>\n";
+		echo "</tr>\n";
+		echo "</thead>\n";
+	}
+	
+	protected function generar_cuerpo_impresion()
+	{
+		echo "<tbody>";			
+		$estilo_celda = "ei-filtro-fila";
+		foreach ($this->_columnas as $nombre_col => $columna) {
+			if (! $columna->es_visible()) {
+				continue;
+			} 
+			
+			$estado_col = $columna->get_estado();
+			if (!$columna->get_ef()->tiene_estado()){
+				continue;
+			}
+			
+			echo "\n<!-- FILA $nombre_col -->\n\n";			
+			echo "<tr >";
+			echo "<td class='$estilo_celda ei-filtro-col'>";			
+			echo $columna->get_ef()->get_etiqueta();
+			echo "</td>\n";
+			
+			//-- Condición
+			echo "<td class='$estilo_celda ei-filtro-cond'>";			
+			if (! is_null($estado_col)){				
+			 	echo $columna->condicion()->get_etiqueta();
+			}
+			echo "</td>\n";
+
+			//-- Valor			
+			$fn_formateo = $columna->get_formateo();
+			if (! is_null($fn_formateo)){
+				$formateo = new $this->_clase_formateo('impresion_html');				
+				$funcion = "formato_" . $fn_formateo;
+				$valor_real = $columna->get_ef()->get_estado();
+				$valor = $formateo->$funcion($valor_real);				
+			}else{
+				$valor = $columna->get_ef()->get_descripcion_estado('impresion_html');
+			}			
+			
+			echo "<td class='$estilo_celda ei-filtro-valor'>";
+			echo $valor;
+			echo "</td>\n";
+			echo "</tr>\n";
+		}
+		echo "</tbody>\n";		
+	}
+		
+	//---------------------------------------------------------------
+	//----------------------  SALIDA PDF  ---------------------------
+	//---------------------------------------------------------------
+		
+	/**
+	 * Permite setear el ancho del formulario.
+	 * @param unknown_type $ancho Es posible pasarle valores enteros o porcentajes (por ejemplo 85%).
+	 */
+	function set_pdf_tabla_ancho($ancho)
+	{
+		$this->_pdf_tabla_ancho = $ancho;
+	}
+	
+	/**
+	 * Permite setear el tamaño de la tabla que representa el formulario.
+	 * @param integer $tamanio Tamaño de la letra.
+	 */
+	function set_pdf_letra_tabla($tamanio)
+	{
+		$this->_pdf_letra_tabla = $tamanio;
+	}
+	
+	/**
+	 * Permite setear el estilo que llevara la tabla en la salida pdf.
+	 * @param array $opciones Arreglo asociativo con las opciones para la tabla de salida.
+	 * @see toba_vista_pdf::tabla, ezpdf::ezTable
+	 */
+	function set_pdf_tabla_opciones($opciones)
+	{
+		$this->_pdf_tabla_opciones = $opciones;
+	}
+	
+	function vista_pdf( $salida )
+	{
+		$this->_carga_opciones_ef->cargar();		
+		$formateo = new $this->_clase_formateo('pdf');
+		$datos = array();
+		$datos['datos_tabla'] = array();
+		foreach ( $this->_columnas as $columna ){
+			if (!$columna->es_visible()){
+				continue;
+			}
+				        
+			if ($columna->get_ef()->tiene_estado()) {
+				$etiqueta = $columna->get_ef()->get_etiqueta();
+				$condicion = $columna->condicion()->get_etiqueta();
+								
+				$fn_formateo = $columna->get_formateo();
+				if (! is_null($fn_formateo)){
+					$funcion = "formato_" . $fn_formateo;
+                	$valor_real = $columna->get_ef()->get_estado();
+                	$valor = $formateo->$funcion($valor_real);
+				}else{
+					$valor = $columna->get_ef()->get_descripcion_estado('pdf');
+				}
+				$datos['datos_tabla'][] = array('Columna' => $etiqueta, 'Condicion' => $condicion, 'Valor' => $valor);
+			}
+		}
+		//-- Genera la tabla
+        $ancho = null;
+        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+        } elseif (isset($this->_pdf_tabla_ancho)) {
+        		$ancho = $this->_pdf_tabla_ancho;
+        }
+        $opciones = $this->_pdf_tabla_opciones;
+        if (isset($ancho)) {
+        	$opciones['width'] = $ancho;		
+        }        
+		$datos['titulo_tabla'] =  $this->get_titulo();
+		$salida->tabla($datos, false, $this->_pdf_letra_tabla, $opciones);
+	}
+
+	//---------------------------------------------------------------
+	//----------------------  SALIDA EXCEL --------------------------
+	//---------------------------------------------------------------
+		
+	function vista_excel(toba_vista_excel $salida)
+	{
+		$this->_carga_opciones_ef->cargar();		
+		$formateo = new $this->_clase_formateo('excel');
+		$datos = array();
+		foreach ( $this->_columnas as $columna ){
+			if (!$columna->es_visible()){
+				continue;
+			}
+			
+			if ($columna->get_ef()->tiene_estado()) {
+				$opciones = array();
+				$etiqueta = $columna->get_ef()->get_etiqueta();			
+				//Hay que formatear?
+				$estilo = array();
+				$fn_formateo = $columna->get_formateo();
+				if (! is_null($fn_formateo)){
+					$funcion = "formato_" . $fn_formateo;
+	                $valor_real = $columna->get_ef()->get_estado();
+	                list($valor, $estilo) = $formateo->$funcion($valor_real);
+				}else{
+					list($valor, $estilo) = $columna->get_ef()->get_descripcion_estado('excel');
+				}
+				
+				$condicion = $columna->condicion()->get_etiqueta();				
+				if (isset($estilo)) {
+					$opciones['valor']['estilo'] = $estilo;
+				}	
+				$opciones['etiqueta']['estilo']['font']['bold'] = true;
+				$opciones['etiqueta']['ancho'] = 'auto';
+				$opciones['condicion']['ancho'] = 'auto';
+				$opciones['valor']['ancho'] = 'auto';				
+				$datos = array(array('etiqueta' => $etiqueta, 'condicion' => $condicion, 'valor' => $valor));
+				$salida->tabla($datos, array(), $opciones);
+			}
+		}		
+	}
+	
+	//---------------------------------------------------------------
+	//----------------------  API BASICA ----------------------------
+	//---------------------------------------------------------------
+
+	/**
+	 * Cambia la forma en que se le da formato a un ef en las salidas pdf, excel y html
+	 * @param string $id_ef
+	 * @param string $funcion Nombre de la función de formateo, sin el prefijo 'formato_'
+	 * @param string $clase Nombre de la clase que contiene la funcion, por defecto toba_formateo
+	 */
+	function set_formateo_ef($id_ef, $funcion, $clase=null)
+	{
+		$columna = $this->_columnas[$id_ef];
+		$columna->set_formateo($funcion);
+		if (isset($clase)) {
+			$this->_clase_formateo = $clase;
+		}
+	}	
+	
+	
+}
 ?>
