@@ -347,16 +347,16 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Columna', --etiqueta
+	'Id', --etiqueta
 	NULL, --etiqueta_estilo
-	'Nombre de la columna a filtrar, si es una expresión la que se filtra, por ej ROUND(campo1 + campo2), ingresar algo que lo identifique, por ej \'suma\'', --descripcion
+	'Forma de identificar la columna. Se utiliza en el api para hacer <pre>$filtro->columna($id)->...</pre>', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	'0', --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
@@ -499,14 +499,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2', --orden
 	'Expresión', --etiqueta
 	NULL, --etiqueta_estilo
-	'Expresión a filtrar, por lo general coincide con el nombre de la columna aunque se pueden ingresar cualquier expresión SQL, por ej UPPER(campo1 || campo2)', --descripcion
+	'Expresión a filtrar. Es la parte izquierda de la condición (la parte derecha es el valor que le da el usuario). Por lo general coincide con el nombre de la columna en la base (ej. domicilio) aunque se pueden ingresar cualquier expresión SQL, por ej UPPER(tipo_doc || nro_doc)', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo

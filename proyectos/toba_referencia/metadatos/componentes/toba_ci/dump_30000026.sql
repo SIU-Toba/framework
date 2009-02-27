@@ -105,11 +105,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'30000026', --objeto_ci
 	'30000019', --pantalla
 	'pant_inicial', --identificador
-	NULL, --orden
+	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	NULL, --descripcion
+	'La forma más simple de armar un reporte con toba es combinar los componentes <b>ei_filtro</b> y <b>ei_cuadro</b>', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'filtro,cuadro', --objetos
 	NULL, --eventos

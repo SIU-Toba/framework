@@ -351,6 +351,32 @@ class toba_db
 	}
 
 	/**
+	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia' y retorna la primer fila del resultado
+	*
+	*	@param integer ID de la sentencia
+	*	@param array Arreglo con parametros de la sentencia
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
+	*	@return array Resultado de la consulta en formato recordset (filas x columnas),
+	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
+	*	@throws toba_error_db en caso de error
+	*/
+	function sentencia_consultar_fila($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
+	{
+
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		try {
+			$this->sentencias[$id]->execute($parametros);
+			return $this->sentencias[$id]->fetch($tipo_fetch);
+		} catch (PDOException $e) {
+			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
+			$ee->set_mensaje_motor($e->getMessage());
+			throw $ee;
+		}
+	}
+
+	/**
 	*	Retorna un formato recordset a partir de una sentencia preparada
 	*	@param integer ID de la sentencia
 	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
