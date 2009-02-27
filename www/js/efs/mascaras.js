@@ -469,7 +469,7 @@ mascara_generica.prototype.format = function (s, d){
 
 mascara_generica.prototype.pre_evento_tecla = function (e, o){
 	var xe = new qEvent(e);
-	return ( ((xe.keyCode > 47) && (o.value.length <= this._mascara.length)) && !xe.ctrlKey );
+	return !( ((xe.keyCode > 47) && (o.value.length >= this._mascara.length)) && !xe.ctrlKey );
 };
 
 mascara_generica.prototype.onKeyPress = function(valor, borro) {
