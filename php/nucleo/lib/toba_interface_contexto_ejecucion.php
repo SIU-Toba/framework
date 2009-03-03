@@ -6,7 +6,18 @@
  */
 interface toba_interface_contexto_ejecucion
 {
-	function conf__inicial();			// Atrapar el inicio de sesion
-	function conf__final();				// Atrapar la finalizacion de la sesion
+	/**
+	 * Ventana que se ejecuta siempre al ingresar el proyecto a la ejecución del request (pedido de página).
+	 * Por este motivo es util para agregar configuraciones globales al proyecto
+	 * @ventana
+	 */
+	function conf__inicial();
+
+	/**
+	 * Ventana que se ejecuta siempre a la salida del proyecto adela ejecución del request (pedido de página).
+	 * @ventana
+	 */
+	function conf__final();
+
 }
 ?>

@@ -40,30 +40,15 @@ class toba_usuario implements toba_interface_usuario
 	static function es_usuario_bloqueado($usuario){}
 
 	//-------- Restricciones de acceso ------------------------
-
-	function get_fecha_vencimiento()
-	{
-		return null;
-	}
-	
-	function get_horario_permitido()
-	{
-		return null;
-	}
-
-	function get_dias_semana_permitidos()
-	{
-		return null;
-	}
-		
-	function get_ip_permitida()
-	{
-		return null;
-	}
 	
 	function get_restricciones_funcionales()
 	{
 		return array();
+	}
+
+	function get_perfil_datos()
+	{
+		return null;
 	}
 }
 ?>

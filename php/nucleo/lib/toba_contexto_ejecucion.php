@@ -8,15 +8,16 @@
 class toba_contexto_ejecucion implements toba_interface_contexto_ejecucion
 {
 	/**
-	 * Creacion del contexto de ejecucion
+	 * Ventana que se ejecuta siempre al ingresar el proyecto a la ejecución del request (pedido de página).
+	 * Por este motivo es util para agregar configuraciones globales al proyecto
 	 * @ventana
 	 */
 	function conf__inicial() {}
 
 	/**
-	 * Finalizacion del contexto de ejecucion
+	 * Ventana que se ejecuta siempre a la salida del proyecto adela ejecución del request (pedido de página).
 	 * @ventana
-	 */	
+	 */
 	function conf__final() {}
 
 }

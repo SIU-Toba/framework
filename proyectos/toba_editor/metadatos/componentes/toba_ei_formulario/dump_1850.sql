@@ -437,14 +437,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5', --orden
 	'Autentificación debug', --etiqueta
 	NULL, --etiqueta_estilo
-	'Simplifica el logueo al sistema durante el desarrollo.', --descripcion
+	'Simplifica el logueo al sistema durante el desarrollo, pudiendo acceder sin contraseña. Totalmente inseguro para sistemas en producción', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
@@ -486,7 +486,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --check_valor_no
 	'Sí', --check_desc_si
 	'No', --check_desc_no
-	NULL, --check_ml_toggle
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -660,7 +660,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'14', --orden
-	'Item de autentificación', --etiqueta
+	'Operación de autentificación', --etiqueta
 	NULL, --etiqueta_estilo
 	'Item a mostrar cuando todavia no existe una sesion (Este item debe ser PUBLICO).', --descripcion
 	'0', --colapsado
@@ -668,8 +668,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_items_carpeta', --carga_metodo
@@ -685,7 +685,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'carpeta_pre_sesion', --carga_maestros
 	'0', --carga_cascada_relaj
 	'-- SELECCIONAR --', --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

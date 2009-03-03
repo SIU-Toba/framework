@@ -1261,7 +1261,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'20', --orden
-	'Item inicial', --etiqueta
+	'Operación inicial', --etiqueta
 	NULL, --etiqueta_estilo
 	'Item a mostrar cuando se inicia la sesion.', --descripcion
 	'0', --colapsado
@@ -1269,8 +1269,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_items_carpeta', --carga_metodo
@@ -1286,7 +1286,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'carpeta_inicio_sesion', --carga_maestros
 	'0', --carga_cascada_relaj
 	'-- SELECCIONAR --', --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -1414,7 +1414,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'18', --orden
-	'Item Inicial', --etiqueta
+	'Operación Inicial', --etiqueta
 	NULL, --etiqueta_estilo
 	'Item inicial', --descripcion
 	'0', --colapsado

@@ -368,6 +368,7 @@ class toba_nucleo
 			'toba_instancia'						=> 'nucleo/lib/toba_instancia.php',
 			'toba_interface_contexto_ejecucion'		=> 'nucleo/lib/toba_interface_contexto_ejecucion.php',
 			'toba_interface_usuario'				=> 'nucleo/lib/toba_interface_usuario.php',
+			'toba_interface_sesion'					=> 'nucleo/lib/toba_interface_sesion.php',
 			'toba_js'								=> 'nucleo/lib/toba_js.php',
 			'toba_logger'							=> 'nucleo/lib/toba_logger.php',
 			'toba_manejador_sesiones'				=> 'nucleo/lib/toba_manejador_sesiones.php',

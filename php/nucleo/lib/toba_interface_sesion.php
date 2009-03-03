@@ -6,9 +6,22 @@
  */
 interface toba_interface_sesion
 {
-	function iniciar_contexto();		// Inicalizar el contexto de ejecucion del proyecto
-	function conf__inicial();			// Atrapar el inicio de sesion
-	function conf__final();				// Atrapar la finalizacion de la sesion
-	function conf__activacion();		// Activacion de la sesion en cada request
+	/**
+	 * Atrapa el inicio de la sesión del usuario en la instancia (unica vez en toda la sesión)
+	 * @ventana
+	 */
+	function conf__inicial($datos_iniciales=null);
+
+	/**
+	 * Atrapa el fin de la sesión del usuario en la instancia (el usuario presiono salir)
+	 * @ventana
+	 */
+	function conf__final();
+
+	/**
+	 * Atrapa la activación de la sesión en cada pedido de página (similar a toba::contexto_ejecucion()->conf__inicial pero se ejecuta sólo con el usuario logueado)
+	 */
+	function conf__activacion();
+
 }
 ?>

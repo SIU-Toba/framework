@@ -79,13 +79,13 @@ $url_login = $url_trac.'/trac/toba/login';
 		$prohibidos['inicializar(']= 'Si es un ci, definir el metodo ini()';
 		$prohibidos['persistir_dato_global'] = 'Usar set_dato_operacion o set_dato_aplicacion según corresponda';
 		$prohibidos['filtrar_evt__'] = '';
-		$prohibidos['modificar_vinculo__'] = '';
 		$prohibidos['__puede_mostrar_pantalla'] = 'Setear la pantalla correcta en el conf() del ci. Ver el ejemplo del proyecto referencia.';
 		$prohibidos['eventos::'] = 'Definir los eventos en el administrador. Luego es posible manipularlos ya que es una clase toba_evento_usuario (ej. en el ci $this->pantalla()->evento(\'tal\')->)';
+		$prohibidos['generar_solicitud'] = 'Usar toba::vinculador()->get_url($proyecto, $item, $parametros, $opciones)';
 		
 		$dir = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
-		echo "<h2>Métodos obsoletos</h2> (no busca por extender_objeto_js de los cis)";
+		echo "<h2>Métodos obsoletos</h2>";
 		echo "<ul style='list-style-type:none; text-align:left;'>";
 		foreach ($archivos as $archivo ) {
 			if ($archivo !== __FILE__) {

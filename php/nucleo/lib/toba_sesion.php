@@ -12,24 +12,33 @@
  * 
  * @package Centrales
  */
-class toba_sesion
+class toba_sesion implements toba_interface_sesion
 {
+
 	/**
-	 * Ventana de extensión del inicio de la sesion de un usuario
+	 * Atrapa el inicio de la sesión del usuario en la instancia (unica vez en toda la sesión)
 	 * @ventana
 	 */
-	function conf__inicial($datos) {}
+	function conf__inicial($datos=null)
+	{
+		
+	}
 
 	/**
-	 * Ventana de extensión del fin de la sesión actual
+	 * Atrapa el fin de la sesión del usuario en la instancia (el usuario presiono salir)
 	 * @ventana
-	 */	
-	function conf__final() {}
+	 */
+	function conf__final()
+	{
+
+	}
 
 	/**
-	 * Ventana de extensión de la refresco o actualización de la sesión actual
-	 * @ventana
-	 */		
-	function conf__activacion() {}
+	 * Atrapa la activación de la sesión en cada pedido de página (similar a toba::contexto_ejecucion()->conf__inicial pero se ejecuta sólo con el usuario logueado)
+	 */
+	function conf__activacion()
+	{
+		
+	}
 }
 ?>
