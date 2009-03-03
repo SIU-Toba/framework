@@ -3,6 +3,8 @@
 class toba_analizador_logger_fs
 {
 	protected $archivo;
+	protected $filtros;
+	protected $ultimo_lugar;
 	
 	function __construct($archivo)
 	{
@@ -48,9 +50,16 @@ class toba_analizador_logger_fs
 
 	function get_pedido($seleccion)
 	{
-		//Pedir el ultimo es un caso especial porque se trata con mas eficiencia
+		//Pedir el ultimo es un caso especial porque se trata con mas eficiencia, a menos que haya filtros por lo cual el ultimo pedido puede estar a mitad del archivo
 		if ($seleccion == 'ultima') {
-			return $this->get_ultimo_pedido();	
+			if (! $this->existen_filtros_extra()){
+				return $this->get_ultimo_pedido();
+			}else{
+				if (! isset($this->ultimo_lugar)){
+					$this->ultimo_lugar = $this->get_cantidad_pedidos();
+				}
+				$seleccion = $this->ultimo_lugar;
+			}
 		}
 		//Trata de encontrar el n-esimo pedido en el archivo
 		//Este metodo es mucha mas ineficiente que obtener el ultimo
@@ -87,6 +96,11 @@ class toba_analizador_logger_fs
 		} while (!$encontrado && $hay_mas_para_leer);
 		
 		fclose($fp);
+		if (isset($this->filtros) && (!empty($this->filtros))){
+			if (! $this->cumple_criterio_filtro($acumulado)){
+					return null;
+			}
+		}		
 		return $acumulado;
 	}
 	
@@ -101,18 +115,68 @@ class toba_analizador_logger_fs
 			//Borra el primer elemento que siempre esta vacio
 			array_splice($logs, 0 ,1);
 		}
+
+		$logs_filtrados = array();
+		if (isset($this->filtros) && (!empty($this->filtros))){
+				foreach($logs as $klave => $datos){
+					if ($this->cumple_criterio_filtro($datos)){
+							$logs_filtrados[] = $datos;
+					}
+				}				
+				$logs = $logs_filtrados;
+		}
 		return $logs;
 	}
 	
 	function get_cantidad_pedidos()
 	{
 		$logs = $this->get_logs_archivo();
-		return count($logs);
+		$this->ultimo_lugar = count($logs);
+		return $this->ultimo_lugar;
 	}
 	
 	function get_archivo_nombre()
 	{
 		return $this->archivo;	
+	}
+
+	function set_filtro($filtro)
+	{
+		//Quito los filtros implicitos en la creacion del logger
+		if (isset($filtro['fuente'] )){
+			unset($filtro['fuente']);
+		}
+		if (isset($filtro['proyecto'])){
+			unset($filtro['proyecto' ]);
+		}
+		foreach($filtro as $klave => $valor)
+		{
+			if (is_null($valor)){
+				unset($filtro[$klave]);
+			}
+		}
+		$this->filtros = $filtro;
+	}
+
+	function cumple_criterio_filtro($datos)
+	{
+			$basicos = $this->analizar_encabezado($datos);
+			$cumple = true;
+			foreach($this->filtros as $klave => $valor)
+			{
+				$index = strtolower(trim($klave));
+				if (isset($basicos[$index])){
+					$cumple = $cumple && (trim($basicos[$index]) == trim($valor));
+				}
+			}
+			return $cumple;
+	}
+
+	function existen_filtros_extra()
+	{
+		$filtros_base = array('proyecto' => 1, 'fuente' => 1);
+		$sobrante = array_diff_key($this->filtros, $filtros_base);
+		return (!empty($sobrante));
 	}
 }
 ?>

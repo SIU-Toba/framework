@@ -1,5 +1,4 @@
 <?php
-
 class filtro_opciones extends toba_ei_formulario
 {
 	function extender_objeto_js()
@@ -24,10 +23,29 @@ class filtro_opciones extends toba_ei_formulario
 					}					
 				}
 			}
+		//---- Procesamiento de EFs --------------------------------
+		
+		{$this->objeto_js}.evt__ip__procesar = function(inicial)
+		{
+			if (!inicial) {
+				if (trim(this.ef('ip').valor()) != '') {
+					this.filtrar();
+				}					
+			}
+		}
+		
+		{$this->objeto_js}.evt__usuario__procesar = function(inicial)
+		{
+			if (!inicial) {
+				if (trim(this.ef('usuario').valor()) != '') {
+					this.filtrar();
+				}					
+			}
+		}
 		";
 	}
 
 
-}
 
+}
 ?>
