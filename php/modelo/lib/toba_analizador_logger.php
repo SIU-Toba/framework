@@ -117,14 +117,20 @@ class toba_analizador_logger_fs
 		}
 
 		$logs_filtrados = array();
-		if (isset($this->filtros) && (!empty($this->filtros))){
-				foreach($logs as $klave => $datos){
-					if ($this->cumple_criterio_filtro($datos)){
-							$logs_filtrados[] = $datos;
+		$klaves = array_keys($logs);
+		foreach($klaves as $id)
+		{
+				if (isset($this->filtros) && (!empty($this->filtros))){
+					if ($this->cumple_criterio_filtro($logs[$id])){
+							$logs_filtrados[] = texto_plano($logs[$id]);
 					}
-				}				
-				$logs = $logs_filtrados;
+				}else{
+					$logs[$id] = texto_plano($logs[$id]);
+				}
 		}
+		if (isset($this->filtros) && (!empty($this->filtros))){
+					$logs = $logs_filtrados;
+		}				
 		return $logs;
 	}
 	
