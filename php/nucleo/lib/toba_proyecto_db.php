@@ -188,9 +188,16 @@ class toba_proyecto_db
 		
 	static function get_items_menu($proyecto, $grupos_acceso)
 	{
+
 		$db = self::get_db();
 		$raiz = $db->quote(self::get_item_raiz($proyecto));
-		$grupos_acceso = implode(",", $db->quote($grupos_acceso));
+		if (empty($grupos_acceso)) {
+			//Caso que el usuario no posea grupo de acceso (no_autenticado)
+			$sql_grupo_acceso = "";
+		} else {
+			$grupos_acceso = implode(",", $db->quote($grupos_acceso));
+			$sql_grupo_acceso = "u.usuario_grupo_acc IN ($grupos_acceso) OR";
+		}
 		$proyecto = $db->quote($proyecto);
 		$sql = "SELECT DISTINCT
 						i.padre as 		padre,
@@ -208,7 +215,7 @@ class toba_proyecto_db
 				WHERE
 					(i.menu = 1)
 				AND i.item != i.padre	--no es raiz
-				AND	(u.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)
+				AND	($sql_grupo_acceso i.publico = 1)
 				AND		(i.proyecto = $proyecto)
 				ORDER BY i.padre,i.orden;";
 		return $db->consultar($sql);
@@ -233,8 +240,14 @@ class toba_proyecto_db
 	static function get_items_accesibles($proyecto, $grupos_acceso)
 	{
 		$db = self::get_db();
-		$proyecto = $db->quote($proyecto);		
-		$grupos_acceso = implode(",", $db->quote($grupos_acceso));
+		$proyecto = $db->quote($proyecto);
+		if (empty($grupos_acceso)) {
+			//Caso que el usuario no posea grupo de acceso (no_autenticado)
+			$sql_grupo_acceso = "";
+		} else {
+			$grupos_acceso = implode(",", $db->quote($grupos_acceso));
+			$sql_grupo_acceso = "ui.usuario_grupo_acc IN ($grupos_acceso) OR";
+		}
 		$sql = "SELECT DISTINCT
 						i.proyecto as proyecto,
 						i.item as item
@@ -243,7 +256,7 @@ class toba_proyecto_db
 									(i.item = ui.item AND i.proyecto = ui.proyecto)
 				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
 				AND		i.proyecto = $proyecto
-				AND		(ui.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)";
+				AND		($sql_grupo_acceso i.publico = 1)";
 		return $db->consultar($sql);
 	}
 
@@ -253,8 +266,14 @@ class toba_proyecto_db
 	static function get_items_zona($proyecto, $grupos_acceso, $zona)
 	{
 		$db = self::get_db();
-		$proyecto = $db->quote($proyecto);		
-		$grupos_acceso = implode(", ", $db->quote($grupos_acceso));
+		$proyecto = $db->quote($proyecto);
+		if (empty($grupos_acceso)) {
+			//Caso que el usuario no posea grupo de acceso (no_autenticado)
+			$sql_grupo_acceso = "";
+		} else {
+			$grupos_acceso = implode(",", $db->quote($grupos_acceso));
+			$sql_grupo_acceso = "ui.usuario_grupo_acc IN ($grupos_acceso) OR";
+		}
 		$zona = $db->quote($zona);
 		$sql = "SELECT	DISTINCT
 						i.proyecto as 					item_proyecto,
@@ -270,7 +289,7 @@ class toba_proyecto_db
 				AND		i.zona_proyecto = $proyecto
 				AND 	ui.item = i.item
 				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc IN ($grupos_acceso)
+				AND		($sql_grupo_acceso i.publico = 1)
 				AND		i.zona_listar = 1
 				ORDER BY 3;";
 		return $db->consultar($sql);	

@@ -19,24 +19,13 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$this->info = $info;
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());
-		$this->construir_tipo_pagina();
-	}
-
-	function construir_tipo_pagina()
-	{
-		if(!class_exists($this->info['basica']['tipo_pagina_clase'])){
-			if ($this->info['basica']['tipo_pagina_archivo']) {
-				require_once($this->info['basica']['tipo_pagina_archivo']);
-			}
-		}
-		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();		
 	}
 
 	/**
 	 * Crea la zona, carga los componentes, procesa los eventos y los servicios
 	 */
 	function procesar()
-	{	
+	{
 		try {
 			$this->crear_zona();			
 			$redirecciona = ($this->info['basica']['redirecciona']);
@@ -194,7 +183,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio_pre__generar_html()
 	{
-		$this->tipo_pagina->encabezado();
+		$this->tipo_pagina()->encabezado();
 	}
 	
 	/**
@@ -209,7 +198,7 @@ class toba_solicitud_web extends toba_solicitud
 		echo "</div>";//---- Se finaliza aqui el div de la barra superior
 		echo '<div style="clear:both;"></div>';
 		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
-		$this->tipo_pagina->pre_contenido();
+		$this->tipo_pagina()->pre_contenido();
 		
 		//--- Abre el formulario
 		$accion = $this->info['basica']['item_act_accion_script'];
@@ -232,7 +221,7 @@ class toba_solicitud_web extends toba_solicitud
 			include($accion);	
 		}
 
-		$this->tipo_pagina->post_contenido();
+		$this->tipo_pagina()->post_contenido();
 		// Carga de componentes JS genericos
 		echo toba_js::abrir();
 		toba::vinculador()->generar_js();
@@ -244,7 +233,7 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		//--- Muestra la cola de mensajes
 		toba::notificacion()->mostrar();		
-       	$this->tipo_pagina->pie();
+       	$this->tipo_pagina()->pie();
 	}
 	
 	/**
@@ -374,5 +363,26 @@ class toba_solicitud_web extends toba_solicitud
 															$_SERVER['REMOTE_ADDR']);
 		}
  	}
+
+	//----------------------------------------------------------
+	//---------------------- TIPO de PAGINA --------------------
+	//----------------------------------------------------------
+
+	/**
+	 * @return toba_tp_normal
+	 */
+	function tipo_pagina()
+	{
+		if (! isset($this->tipo_pagina)) {
+			//Carga el TP a demanda
+			if (!class_exists($this->info['basica']['tipo_pagina_clase'])){
+				if ($this->info['basica']['tipo_pagina_archivo']) {
+					require_once($this->info['basica']['tipo_pagina_archivo']);
+				}
+			}
+			$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();
+		}
+		return $this->tipo_pagina;
+	}
 }
 ?>

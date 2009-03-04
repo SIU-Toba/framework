@@ -17,7 +17,7 @@ abstract class toba_solicitud
 	protected $registrar_db;					//Indica si	se	va	a registrar	la	solicitud
 	protected $cronometrar;						//Indica si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
-
+	
 	function __construct($item, $usuario)	
 	{
 		toba::cronometro()->marcar('Inicio Solicitud');
@@ -239,20 +239,6 @@ abstract class toba_solicitud
 		return isset($this->zona);	
 	}
 
-	//----------------------------------------------------------
-	//---------------------- TIPO de PAGINA --------------------
-	//----------------------------------------------------------
 
-	/**
-	 * @return zona
-	 */
-	function tipo_pagina()
-	{
-		if(isset($this->tipo_pagina)) {
-			return $this->tipo_pagina;
-		} else {
-			throw new toba_error_def('ERROR: No existe un tipo de pagina asociada');	
-		}
-	}
 }
 ?>
