@@ -7,6 +7,7 @@ class ci_analizador extends toba_ci
 	protected $archivo;
 	protected $cambiar_pantalla = false;
 	protected $analizador;
+	protected $s__mostrar_encabezados = false;
 	
 	/**
 	 * @todo Se desactiva el logger porque no corre como proyecto toba sino como el de la aplicacion
@@ -45,6 +46,11 @@ class ci_analizador extends toba_ci
 		}
 	}
 
+	function ajax__set_estado_encabezados($estado)
+	{
+		$this->s__mostrar_encabezados = ($estado == 'true')? true: false;
+		return $estado;
+	}
 	//---- Consultas varias ----------------------------------------------------	
 	
 	function get_logger()
@@ -86,7 +92,10 @@ class ci_analizador extends toba_ci
 		return file_exists($this->archivo);
 	}
 	
-	
+	function get_estado_encabezados()
+	{
+		return $this->s__mostrar_encabezados;
+	}
 	//---- Eventos CI -------------------------------------------------------
 	
 	function evt__refrescar()

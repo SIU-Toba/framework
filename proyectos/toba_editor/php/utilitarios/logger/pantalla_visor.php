@@ -38,7 +38,7 @@ class pantalla_visor extends toba_ei_pantalla
 
 		$res =$this->controlador->get_analizador()->get_pedido($seleccion);
 		$encabezado =$this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
-		
+
 		//--- Opciones
 		$selec = ($seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$seleccion}";
 		echo "<div>";
@@ -57,19 +57,29 @@ class pantalla_visor extends toba_ei_pantalla
 			$this->generar_boton('siguiente');
 		}
 		echo "</span>";
-		$check = toba_form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
-		echo "<label>$check Ver Encabezados</label><br>";
+		echo "<br><div id='logger_info_operacion'>";
+		echo $this->generar_html_info_operacion($res);
 		echo "</div>";
 
-		echo "<div id='logger_info_operacion'>";
-		echo $this->generar_html_info_operacion($res);
-		echo "</div><hr style='clear:both' />";		
+		$valor_check = 0;
+		if ($this->controlador->get_estado_encabezados() === true){
+			$valor_check = 1;
+		}
 		
+		$check = toba_form::checkbox("con_encabezados", $valor_check, 1, "ef-checkbox"," onclick=\"{$this->objeto_js}.evt__con_encabezados__click(this)\" ");
+		echo "<label>$check Ver Encabezados</label><br>";
+		echo "</div><hr style='clear:both' />";
+
 		echo "<div style='clear:both;width:100%;overflow:auto;'>\n";
 		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 
+		$display_encabezados = 'none';
+		if ($this->controlador->get_estado_encabezados() === true){
+			$display_encabezados = '';
+		}
+
 		//--- Encabezado 
-		echo "<ul id='logger_encabezados' style='display:none;list-style-type: none;padding: 0;margin: 0'>";		
+		echo "<ul id='logger_encabezados' style='display:$display_encabezados;list-style-type: none;padding: 0;margin: 0'>";
 		echo $this->generar_html_encabezado($res);
 		echo "</ul>";
 
@@ -95,11 +105,9 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "</div>";*/
 		
 		//--- Detalles
-
 		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
 		echo $detalle;
-		echo "</ol>\n";
-		
+		echo "</ol>\n";		
 		echo "</div>";
 	}	
 	
@@ -107,10 +115,20 @@ class pantalla_visor extends toba_ei_pantalla
 	{
 		$encabezado =$this->controlador->get_analizador()->analizar_encabezado($res);
 		$string = '';
-		if (isset($encabezado['operacion'])){
-			$string =  "<span id='div_lapso' style='font-weight:bold;font-size:14px;'>{$encabezado['operacion']}</span><br>";
-			$string .=  "<span id='div_lapso' style='font-weight:bold;font-size:14px;'>{$encabezado['fecha']}</span><br>";
+		if (isset($encabezado['operacion'])){			
+			$string .=  "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>{$encabezado['operacion']}</span><br>";
 		}
+		
+		if (isset($encabezado['fecha'])){
+			$fecha_ref = new toba_fecha();
+			$fecha = date('d/m/Y', strtotime($encabezado['fecha']));
+			if ($fecha_ref->es_igual_que($encabezado['fecha'])){
+				$fecha = 'Hoy';
+			}
+		
+			$string .=  "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>$fecha</span><br>";
+		}
+
 		return $string;
 	}
 
@@ -258,7 +276,17 @@ class pantalla_visor extends toba_ei_pantalla
 					var cant = (cantidades[nivel] > 0) ? '[' + cantidades[nivel] + ']' : '';
 					document.getElementById('nivel_cant_' + nivel).innerHTML = cant;
 				}
-			}			
+			}
+
+			<?php echo $this->objeto_js?>.dump_response = function(resp){
+					//Esta funcion esta para desechar la respuesta, la cual no existe
+			}
+
+			<?php echo $this->objeto_js?>.evt__con_encabezados__click = function(obj){
+				toggle_nodo(document.getElementById('logger_encabezados'));
+				this.ajax('set_estado_encabezados', obj.checked, this, this.dump_response);
+				return false;
+			}
 <?php
 	}
 	
