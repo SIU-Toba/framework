@@ -132,13 +132,26 @@ class toba_relacion_entre_tablas
 			//Se arman los mapeos de filas
 			//Quizás se podría optimizar recorriendo en primer lugar los hijos
 			if (! isset($reg_hijos)) {
-				$reg_hijos = $this->tabla_padre->get_id_filas(false);
-			}
-			foreach($reg_hijos as $id_padre) {
-				$fila_padre = $this->tabla_padre->get_fila($id_padre);
-				$claves = $this->mapear_fila_a_formato_hijo($fila_padre);
-				$hijas = $this->tabla_hijo->get_id_fila_condicion($claves, false);
-				$this->mapeo_filas[$id_padre] = $hijas;
+				// Mapeo todos los padres a todos los hijos
+				$ids_filas_padres = $this->tabla_padre->get_id_filas(false);
+				foreach($ids_filas_padres as $id_padre) {
+					$fila_padre = $this->tabla_padre->get_fila($id_padre);
+					$claves = $this->mapear_fila_a_formato_hijo($fila_padre);
+					$hijas = $this->tabla_hijo->get_id_fila_condicion($claves, false);
+					$this->mapeo_filas[$id_padre] = $hijas;
+				}
+			} else {
+				// Mapeo hijos a padre para un conjunto de filas hijas
+				foreach($reg_hijos as $id_fila_hijo) {
+					$fila_hijo = $this->tabla_hijo->get_fila($id_fila_hijo);
+					$claves = $this->mapear_fila_a_formato_padre($fila_hijo);
+					$padre = $this->tabla_padre->get_id_fila_condicion($claves, false);
+					if (count($padre)!=1) {
+						throw new toba_error("RELACION entre TABLAS: MAPEO de hijos a padres: se encontro mas de un padre para un hijo.");
+					}
+					$id_padre = $padre[0];
+					$this->mapeo_filas[$id_padre][] = $id_fila_hijo;
+				}
 			}
 		}
 	}
@@ -147,10 +160,17 @@ class toba_relacion_entre_tablas
 	 * El elemento PADRE de la relacion notifica que se SINCRONIZO:
 	 * Se propagan sus valores a los hijos
 	 */
-	function evt__sincronizacion_padre()
+	function evt__sincronizacion_padre($filas=array())
 	{
+		//Si la tabla solo sincronizo filas (usando un cursor, solo hay que disparar
+		//la modificacion de dichas filas
+		if($filas) {
+			$filas_padre = $filas;	
+		} else {
+			$filas_padre = 	$this->tabla_padre->get_id_filas(false);
+		}
 		//Se recorre cada fila 'viva' del padre 
-		foreach ($this->tabla_padre->get_id_filas(false) as $id_fila_padre) {
+		foreach ($filas_padre as $id_fila_padre) {
 			$fila_padre = $this->tabla_padre->get_fila($id_fila_padre);
 			//Se busca las filas hijas relacionadas con la fila padre
 			if (isset($this->mapeo_filas[$id_fila_padre])) {

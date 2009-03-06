@@ -5,6 +5,13 @@ require_once(toba_dir() . '/php/3ros/simpletest/mock_objects.php');
 
 abstract class toba_test extends UnitTestCase
 {
+	protected $separar_pruebas=false;
+
+	function separar_pruebas($estado=false)
+	{
+		$this->separar_pruebas = $estado;
+	}
+	
 	function tearDown()
 	{
 		$this->restaurar_estado($this->sentencias_restauracion());	
@@ -22,6 +29,18 @@ abstract class toba_test extends UnitTestCase
 			if (!$rs)
 			    $this->Fail("Error restaurando estado:\n$sql\n".toba_contexto_info::get_db()->ErrorMsg());
 		}	
+	}
+
+	/*
+	*	Crea un runner customizado por toba (agrega separaciones en el LOG por test)
+	*/
+	function &_createRunner(&$reporter) 
+	{
+		$runner = &new toba_test_runner($this, $reporter);
+		if($this->separar_pruebas) {
+			$runner->separar_pruebas(true);
+		}
+		return $runner;
 	}
 	
 	function run(&$reporter)

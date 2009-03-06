@@ -256,11 +256,11 @@ class toba_datos_tabla extends toba_componente
 	 * Aviso a las relaciones hijas que el componente PADRE sincrozo sus actualizaciones
 	 * @ignore 
 	 */
-	function notificar_hijos_sincronizacion()
+	function notificar_hijos_sincronizacion($filas=array())
 	{
 		if(isset($this->_relaciones_con_hijos)){
 			foreach ($this->_relaciones_con_hijos as $relacion) {
-				$relacion->evt__sincronizacion_padre();
+				$relacion->evt__sincronizacion_padre($filas);
 			}
 		}
 	}
@@ -532,6 +532,31 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
+	 * Retorna los ids de todas las filas (sin eliminar) de esta tabla
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
+	 * @return array()
+	 * @todo Se podría optimizar este método para no recaer en tantos recorridos
+	 */
+	function get_id_filas_filtradas_por_cursor()
+	{
+		if($this->hay_cursor()){
+			return array( $this->get_cursor() );
+		} else {
+			$coincidencias = array();
+			foreach(array_keys($this->_cambios) as $id_fila){
+				if($this->_cambios[$id_fila]['estado']!="d"){
+					$coincidencias[] = $id_fila;
+				}
+			}
+			foreach ($this->_relaciones_con_padres as $id => $rel_padre) {
+				$coincidencias = $rel_padre->filtrar_filas_hijas($coincidencias);
+			}
+			return $coincidencias;		
+		}
+	}
+
+
+	/**
 	 * Retorna los padres de un conjunto de registros especificos
 	 */
 	function get_id_padres($ids_propios, $tabla_padre)
@@ -574,6 +599,9 @@ class toba_datos_tabla extends toba_componente
 		$coincidencias = $this->get_id_filas($usar_cursores);
 		//Si hay condiciones, se filtran estas filas
 		if(isset($condiciones)){
+			if(!is_array($condiciones)){
+				throw new toba_error("Las condiciones de filtrado deben ser un array asociativo");
+			}
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			/*foreach( array_keys($condiciones) as $columna){
 
@@ -591,10 +619,17 @@ class toba_datos_tabla extends toba_componente
 					if( !isset($this->_columnas[$columna]) ){
 						throw new toba_error_def("El campo '$columna' no existe. No es posible filtrar por dicho campo");
 					}
-					if (! comparar($this->_datos[$id_fila][$columna], $operador, $valor)) {
-						//Se filtra la fila porque no cumple las condiciones
+					if(!isset($this->_datos[$id_fila][$columna])) {
+						// Es posible que una fila no posea una columa. Ej: una nueva fila no tiene la clave si esta es una secuencia.
+						// Si el valor no existe, considero que la comparacion con esa fila da falso (* != NULL)
 						unset($coincidencias[$pos]);
 						break;
+					} else {
+						if (! comparar($this->_datos[$id_fila][$columna], $operador, $valor)) {
+							//Se filtra la fila porque no cumple las condiciones
+							unset($coincidencias[$pos]);
+							break;
+						}
 					}
 				}
 			}
@@ -1389,7 +1424,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function cargar_con_datos($datos)
 	{
-		$this->log("Carga de datos");
+		$this->log("Carga de datos ===================> FILAS: " . count($datos));
 		$this->_datos = null;
 		//Controlo que no se haya excedido el tope de registros		
 		$this->control_tope_maximo_filas(count($datos));
@@ -1422,7 +1457,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function anexar_datos($datos, $usar_cursores=true)
 	{
-		$this->log("Anexado de datos [" . count($datos) . "]");
+		$this->log("Anexado de datos ===================> FILAS: " . count($datos) );
 		//Controlo que no se haya excedido el tope de registros
 		$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
 
@@ -1435,6 +1470,7 @@ class toba_datos_tabla extends toba_componente
 			if ($usar_cursores) {
 				//Se notifica a las relaciones a los padres.
 				foreach ($this->_relaciones_con_padres as $padre => $relacion) {
+					$this->log("Anexado de datos: SET mapeo $padre");
 					$relacion->asociar_fila_con_padre($this->_proxima_fila, null);
 	            }
 			}
@@ -1445,6 +1481,7 @@ class toba_datos_tabla extends toba_componente
 		$this->_cargada = true;
 		if (! $usar_cursores) {
 			//Disparo la actulizacion de los mapeos con las tablas padres
+			$this->log("Mapear cursores [". implode(',',$hijos) ."] a padres.");
 			$this->notificar_padres_carga($hijos);
 		}
 		return $hijos;
@@ -1455,10 +1492,17 @@ class toba_datos_tabla extends toba_componente
 	 *
 	 * @return integer Cantidad de registros modificados en el medio
 	 */
-	function sincronizar()
+	function sincronizar($usar_cursores=false)
 	{
 		$this->validar();
-		$modif = $this->persistidor()->sincronizar();
+		if($usar_cursores) {
+			$filas = $this->get_id_filas_filtradas_por_cursor();
+			if($filas) {	// Si los cursores no filtran registros, no sincronizo nada
+				$modif = $this->persistidor()->sincronizar($filas);
+			}
+		} else {
+			$modif = $this->persistidor()->sincronizar();
+		}
 		return $modif;
 	}
 
@@ -1521,9 +1565,9 @@ class toba_datos_tabla extends toba_componente
 	 * El AP avisa que terminó la sincronización
 	 * @ignore 
 	 */
-	function notificar_fin_sincronizacion()
+	function notificar_fin_sincronizacion($filas=array())
 	{
-		$this->regenerar_estructura_cambios();
+		$this->regenerar_estructura_cambios($filas);
 	}
 
 	/*--- De mi al AP ---*/
@@ -1617,15 +1661,23 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * @ignore 
 	 */
-	protected function regenerar_estructura_cambios()
+	protected function regenerar_estructura_cambios($filas=array())
 	{
 		//BORRO los datos eliminados
-		foreach(array_keys($this->_cambios) as $cambio){
-			if($this->_cambios[$cambio]['estado']=='d'){
-				unset($this->_datos[$cambio]);
+		if(!$filas) {
+			foreach(array_keys($this->_cambios) as $cambio){
+				if($this->_cambios[$cambio]['estado']=='d'){
+					unset($this->_datos[$cambio]);
+				}
 			}
+			$this->generar_estructura_cambios();
+		} else {
+			//toba::logger()->error("Regenerando filas " . implode(',',$filas), 'toba');
+			foreach($filas as $fila) {
+				$this->_cambios[$fila]['estado']="db";
+				$this->_cambios[$fila]['clave']= $this->get_clave_valor($fila);
+			}				
 		}
-		$this->generar_estructura_cambios();
 	}
 
 	/**

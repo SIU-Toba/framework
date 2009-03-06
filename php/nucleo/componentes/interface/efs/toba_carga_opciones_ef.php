@@ -187,6 +187,9 @@ class toba_carga_opciones_ef
 			throw new toba_error_def('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
 		}
 		
+		if (! isset($parametros['carga_no_seteado_ocultar'])) {
+			$parametros['carga_no_seteado_ocultar'] = false;
+		}
 		//--- Agrega el no-seteado en caso que existan elementos
 		if (isset($parametros['carga_no_seteado']) && ! isset($salida[apex_ef_no_seteado])
 				&& (! empty($salida) || !$parametros['carga_no_seteado_ocultar'])) {

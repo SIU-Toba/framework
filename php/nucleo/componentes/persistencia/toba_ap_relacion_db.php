@@ -51,9 +51,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Fuerza a no utilizar una transacción a la hora de la sincronización.
 	 * Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior
 	 */
-	function desactivar_transaccion()		
+	function desactivar_transaccion($recursivo=false)		
 	{
 		$this->_utilizar_transaccion = false;
+		if($recursivo) {
+			foreach($this->objeto_relacion->get_tablas() as $tabla) {
+				$tabla->persistidor()->desactivar_transaccion();
+			}
+		}
 	}
 	
 	/**
@@ -113,16 +118,18 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * @param array $wheres Arreglo id_tabla => condicion
 	 * @return boolean Verdadero si al menos se carga una tabla
 	 */
-	function cargar_con_wheres($wheres)
+	function cargar_con_wheres($wheres, $resetear=true, $anexar_datos=false, $usar_cursores=false)
 	{
-		$this->objeto_relacion->resetear();
+		if ($resetear) {
+			$this->objeto_relacion->resetear();
+		}
 		$tablas = $this->objeto_relacion->orden_carga();		
 		$ok = false;
 		foreach ($tablas as $id_tabla => $tabla) {
 			if (isset($wheres[$id_tabla])) {
-				$res = $tabla->persistidor()->cargar_con_where($wheres[$id_tabla]);
+				$res = $tabla->persistidor()->cargar_con_where($wheres[$id_tabla], $anexar_datos, $usar_cursores);
 			} else {
-				$res = $tabla->persistidor()->cargar_por_clave(array());
+				$res = $tabla->persistidor()->cargar_por_clave(array(), $anexar_datos, $usar_cursores);
 			}
 			$ok = $ok || $res;
 		}
@@ -147,7 +154,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Sincroniza los cambios con la base de datos
 	 * En caso de error se aborta la transacción (si tiene) y se lanza una excepción
 	 */
-	function sincronizar()
+	function sincronizar($usar_cursores=false)
 	{
 		$fuente = $this->objeto_relacion->get_fuente();
 		try{
@@ -158,7 +165,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 				}
 			}
 			$this->evt__pre_sincronizacion();
-			$this->proceso_sincronizacion();
+			$this->proceso_sincronizacion($usar_cursores);
 			$this->evt__post_sincronizacion();
 			if($this->_utilizar_transaccion) cerrar_transaccion($fuente);			
 		}catch(toba_error $e){
@@ -172,26 +179,66 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Sincroniza las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
 	 * @ignore 
 	 */
-	protected function proceso_sincronizacion()
+	protected function proceso_sincronizacion($usar_cursores=false)
 	{
+		if($usar_cursores) {
+			toba::logger()->debug("ap_relacion_db: Sincronizacion con CURSORES", 'toba');
+		}
+		
 		$tablas = $this->objeto_relacion->orden_sincronizacion();
+
+		//-- [0] Se llaman a la ventan pre sincronización general
+		foreach ($tablas as $tabla) {
+			$tabla->persistidor()->evt__pre_sincronizacion();
+		}		
 
 		//-- [1] Se sincroniza las operaciones de eliminación, en orden inverso
 		foreach (array_reverse($tablas) as $tabla) {
-			$tabla->persistidor()->sincronizar_eliminados();
+			if($usar_cursores){
+				$filas = $tabla->get_id_filas_filtradas_por_cursor();
+				if($filas) {
+					$tabla->persistidor()->sincronizar_eliminados($filas);
+				}
+			} else {
+				$tabla->persistidor()->sincronizar_eliminados();
+			}
 		}		
 		
 		//-- [2] Se sincroniza las operaciones de actualizacion (insert)
 		foreach ($tablas as $tabla) {
-			$tabla->persistidor()->sincronizar_insertados();
-			$tabla->notificar_hijos_sincronizacion();
+			if($usar_cursores){
+				$filas = $tabla->get_id_filas_filtradas_por_cursor();
+				if($filas) {
+					toba::logger()->debug("AP_RELACION_DB: Sincronizar INSERTS con CURSOR [[[[".$tabla->get_tabla()."]]]] - FILAS(".implode(',',$filas).")", 'toba');
+					$tabla->persistidor()->sincronizar_insertados($filas);
+					$tabla->notificar_hijos_sincronizacion($filas);
+				}
+			} else {
+				$tabla->persistidor()->sincronizar_insertados();
+				$tabla->notificar_hijos_sincronizacion();
+			}
 		}
 		
 		//-- [3] Se sincroniza las operaciones de actualizacion (update)
 		foreach ($tablas as $tabla) {
-			$tabla->persistidor()->sincronizar_actualizados();
-			$tabla->notificar_hijos_sincronizacion();
+			if($usar_cursores){
+				$filas = $tabla->get_id_filas_filtradas_por_cursor();
+				if($filas) {
+					$tabla->persistidor()->sincronizar_actualizados($filas);
+					$tabla->notificar_hijos_sincronizacion($filas);
+				}
+			} else {
+				$tabla->persistidor()->sincronizar_actualizados();
+				$tabla->notificar_hijos_sincronizacion();
+			}
 		}		
+
+		//-- [4] Se llaman a la ventan post sincronización general
+		foreach ($tablas as $tabla) {
+			$tabla->persistidor()->evt__post_sincronizacion();
+		}		
+
+
 	}
 	
 	/**

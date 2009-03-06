@@ -567,6 +567,27 @@ abstract class toba_componente
 		$clave['componente'] = $this->_info_dependencias[$posicion]['objeto'];
 		$this->_dependencias[$identificador] = toba_constructor::get_runtime( $clave, $clase );
 	}
+	
+
+	/**
+	 * Descarga una dependencia asociada al componente actual
+	 *
+	 * @param unknown_type $identificador
+	 * @return unknown
+	 * @ignore 
+	 */
+	function descargar_dependencia($identificador)
+	{
+		$posicion = $this->_indice_dependencias[$identificador];
+		unset($this->_info_dependencias[$posicion]);
+		unset($this->_indice_dependencias[$identificador]);
+		unset($this->_dependencias[$identificador]);
+		foreach($this->_lista_dependencias as $pos => $id) {
+			if($id == $identificador) {
+				unset($this->_lista_dependencias[$pos]);
+			}	
+		}
+	}
 
 	/**
 	 * Retorna verdadero si la dependencia fue construida y asociada en este pedido de página

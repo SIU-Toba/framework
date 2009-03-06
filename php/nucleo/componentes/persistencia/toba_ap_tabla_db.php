@@ -91,7 +91,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function log($txt)
 	{
-		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->_tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
+		toba::logger()->debug("AP_TABLA: ---====[{$this->_tabla}]====---\n".$txt, 'toba');
 	}
 
 	/**
@@ -319,6 +319,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return true;
 		}else{
 			//No se carga nada!
+			$this->log("=========================> FILAS: 0" );
 			return false;
 		}
 	}
@@ -334,18 +335,18 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @return integer Cantidad de registros modificados
 	 * @throws toba_error En case de error en la sincronizacion, se aborta la transaccion (si se esta utilizando)
 	 */
-	function sincronizar()
+	function sincronizar($filas=array())
 	{
 		$this->log("Inicio SINCRONIZAR");
 		try{
 			if($this->_utilizar_transaccion) abrir_transaccion($this->_fuente);
 			$this->evt__pre_sincronizacion();		
 			$modificaciones = 0;
-			$modificaciones += $this->sincronizar_eliminados();
-			$modificaciones += $this->sincronizar_insertados();
-			$modificaciones += $this->sincronizar_actualizados();
+			$modificaciones += $this->sincronizar_eliminados($filas);
+			$modificaciones += $this->sincronizar_insertados($filas);
+			$modificaciones += $this->sincronizar_actualizados($filas);
 			//Regenero la estructura que mantiene los cambios realizados
-			$this->objeto_tabla->notificar_fin_sincronizacion();
+			$this->objeto_tabla->notificar_fin_sincronizacion($filas);
 			$this->evt__post_sincronizacion();
 			if($this->_utilizar_transaccion) cerrar_transaccion($this->_fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
@@ -365,11 +366,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Sincroniza con la BD los registros borrados en esta tabla
 	 * @return integer Cantidad de modificaciones a la base
 	 */
-	function sincronizar_eliminados()
+	function sincronizar_eliminados($filas=array())
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->_cambios) as $registro){
+		if($filas) {
+			$registros = $filas;
+		}else{
+			$registros = array_keys($this->_cambios);
+		}
+		foreach($registros as $registro){
 			if ($this->_cambios[$registro]['estado'] == 'd') {
 				$this->evt__pre_delete($registro);
 				$this->eliminar_registro_db($registro);
@@ -385,11 +391,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Sincroniza con la BD aquellos registros que suponen altas
 	 * @return integer Cantidad de modificaciones a la base
 	 */
-	function sincronizar_insertados()
+	function sincronizar_insertados($filas=array())
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->_cambios) as $registro){
+		if($filas) {
+			$registros = $filas;
+		}else{
+			$registros = array_keys($this->_cambios);
+		}
+		foreach($registros as $registro){
 			if ($this->_cambios[$registro]['estado'] == "i") {
 				$this->evt__pre_insert($registro);
 				$this->insertar_registro_db($registro);
@@ -398,7 +409,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 		}
 		//Seteo en la TABLA los datos generados durante la sincronizacion
-		$this->actualizar_columnas_predeterminadas_db();
+		$this->actualizar_columnas_predeterminadas_db($filas);
 		return $modificaciones;
 	}
 	
@@ -407,11 +418,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Sincroniza con la BD aquellos registros que suponen actualizaciones
 	 * @return integer Cantidad de modificaciones a la base
 	 */
-	function sincronizar_actualizados()
+	function sincronizar_actualizados($filas=array())
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->_cambios) as $registro){
+		if($filas) {
+			$registros = $filas;
+		}else{
+			$registros = array_keys($this->_cambios);
+		}
+		foreach($registros as $registro){
 			if ($this->_cambios[$registro]['estado'] == 'u') {
 				$this->evt__pre_update($registro);
 				$this->modificar_registro_db($registro);
@@ -482,10 +498,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Actualiza en los registros los valores generados por el motor durante la transacción
 	 * @ignore 
 	 */
-	protected function actualizar_columnas_predeterminadas_db()
+	protected function actualizar_columnas_predeterminadas_db($filas=array())
 	{
 		if(isset($this->_columnas_predeterminadas_db)){
 			foreach( $this->_columnas_predeterminadas_db as $id_registro => $columnas ){
+				if($filas && !in_array($id_registro,$filas)) {
+					continue;	
+				}
 				foreach( $columnas as $columna => $valor ){
 					$this->objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
 				}
@@ -498,14 +517,14 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * La transacción con la bd ya fue iniciada (si es que esta definida)
 	 * @ventana
 	 */
-	protected function evt__pre_sincronizacion(){}
+	function evt__pre_sincronizacion(){}
 	
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
 	 * La transacción con la bd aún no se terminó (si es que esta definida)
 	 * @ventana
 	 */	
-	protected function evt__post_sincronizacion(){}
+	function evt__post_sincronizacion(){}
 	
 	/**
 	 * Ventana de extensión previo a la inserción de un registro durante una sincronización con la base

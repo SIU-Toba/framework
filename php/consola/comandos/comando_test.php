@@ -38,15 +38,11 @@ class comando_test extends comando_toba
 		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
 		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
 		
-		if (! defined('apex_pa_instancia')) {
-			define('apex_pa_instancia', $instancia);
-		}
-		if (! defined('apex_pa_proyecto')) {
-			define('apex_pa_proyecto', $proyecto);
-		}		
+		toba_nucleo::instancia()->iniciar_contexto_desde_consola($instancia, $proyecto);
+		
 		toba_test_lista_casos::$proyecto = $proyecto;
 		toba_test_lista_casos::$instancia = $instancia;
-		
+
 		//Selecciono una categoria
 		if (isset($param["-c"])) {
 			$seleccionados = toba_test_lista_casos::get_casos($param["-c"]);
@@ -68,23 +64,34 @@ class comando_test extends comando_toba
 					$seleccionados = array();
 			}	
 		} 
+		
+		$resultado=null;	
 		try {
-			$test = new GroupTest('Casos de TEST');
+			$separar_casos = (isset($param["-l"])) ? true : false;
+			$separar_pruebas = (isset($param["-l"])) ? true : false;
+			$test = new toba_test_grupo_casos('Casos de TEST', $separar_casos, $separar_pruebas);
 		    foreach ($seleccionados as $caso) {
 		        require_once($caso['archivo']);
 		        $test->addTestCase(new $caso['id']($caso['nombre']));
 			}
 			
 			//Termina la ejecución con 0 o 1 para que pueda comunicarse con al consola
-			exit ($test->run(new TextReporter()) ? 0 : 1);
+			$resultado = $test->run(new TextReporter());
 			
 		} catch (Exception $e) {
 			if (method_exists($e, 'mensaje_consola'))
 				$this->consola->mensaje( $e->mensaje_consola() );
 			else
 				$this->consola->mensaje( $e );
+			$resultado = 1;
 		}
 		
+		//Guardar LOGS?
+		if (isset($param["-l"])) {
+			toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
+			toba::logger()->guardar();
+		}
+		exit(intval($resultado));
 	}
 	
 }

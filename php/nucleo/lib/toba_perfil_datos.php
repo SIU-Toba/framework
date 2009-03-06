@@ -31,7 +31,7 @@ class toba_perfil_datos
 					$this->indexar_gatillos($fuente);	
 				}
 			}
-		}		
+		}	
 	}
 	
 	/**
@@ -109,6 +109,26 @@ class toba_perfil_datos
 		if( isset($this->restricciones[$fuente]) ) {
 			return $this->restricciones[$fuente];
 		}
+	}
+	
+	/**
+	 * Indica si el perfil de datos del usuario posee una dimension en particular para una fuente datos dada.
+	 * 
+	 * @param varchar $dimension nombre de la dimension a consultar.
+	 * @param unknown_type $fuente_datos fuente de datos donde deberia estar la dimension.
+	 * @return $value boolean
+	 */
+	function posee_dimension($dimension, $fuente_datos=null) 
+	{
+		if(!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		if (isset($this->info_dimensiones[$fuente_datos])) {
+			foreach ($this->info_dimensiones[$fuente_datos] as $id => $dims) {
+				if ($dims['nombre'] == $dimension) {
+					return true;
+				}
+			}	
+		}		
+		return false;
 	}
 
 

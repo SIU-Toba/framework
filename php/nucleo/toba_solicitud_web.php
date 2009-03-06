@@ -384,5 +384,26 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		return $this->tipo_pagina;
 	}
+	
+	//----------------------------------------------------------------
+	//-- Consumo de solicitudes desde los casos de testeo
+	//----------------------------------------------------------------
+	
+	function inicializacion_pasiva()
+	{
+		$this->crear_zona();			
+		$this->cargar_objetos();
+	}
+
+	function cn()
+	{
+		return $this->objetos[$this->cn];	
+	}
+	
+	function ci()
+	{
+		return $this->objetos[$this->cis[0]];
+	}
+
 }
 ?>

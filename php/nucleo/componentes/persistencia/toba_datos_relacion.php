@@ -315,6 +315,16 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
+	 * Retorna las tablas de una relacion
+	 * @return array de toba_datos_tabla
+	 */
+	function get_tablas()
+	{
+		return $this->_dependencias;
+	}
+
+
+	/**
 	 * Determina si una tabla es parte de la relación
 	 * @param string $tabla Id. de la tabla en la relación
 	 * @return boolean
@@ -465,14 +475,21 @@ class toba_datos_relacion extends toba_componente
 	/**
 	 * Sincroniza los cambios con el medio de persistencia
 	 */
-	function sincronizar()
+	function sincronizar($usar_cursores=false)
 	{
 		$this->disparar_validacion_tablas();
 		$this->evt__validar();
-		$this->persistidor()->sincronizar();
+		$this->persistidor()->sincronizar($usar_cursores);
 		//Se notifica el fin de la sincronización a las tablas
 		foreach ($this->_dependencias as $dependencia) {
-			$dependencia->notificar_fin_sincronizacion();
+			if($usar_cursores) {
+				$filas = $dependencia->get_id_filas_filtradas_por_cursor();				
+				if($filas) {
+					$dependencia->notificar_fin_sincronizacion($filas);
+				}
+			} else {
+				$dependencia->notificar_fin_sincronizacion();
+			}
 		}
 	}
 	

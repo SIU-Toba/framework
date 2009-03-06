@@ -1172,6 +1172,23 @@ class toba_ei_formulario extends toba_ei
 		$salida->tabla($datos, false, $this->_pdf_letra_tabla, $opciones);
 	}
 
+	function get_valores_pdf( $id_ef ) {
+		$formateo = new $this->_clase_formateo('pdf');
+		$etiqueta = $this->_elemento_formulario[$id_ef]->get_etiqueta();
+		//Hay que formatear? Le meto pa'delante...
+		if(isset($this->_info_formulario_ef[$id_ef]["formateo"])){
+			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];
+			$valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
+			$valor = $formateo->$funcion($valor_real);
+		}else{
+			$valor = $this->_elemento_formulario[$id_ef]->get_descripcion_estado('pdf');
+		}
+		$k = $this->_elemento_formulario[$id_ef]->get_etiqueta();
+		$a = array('clave' => $k, 'valor' => $valor);
+		return $a;
+	}
+
+
 	//---------------------------------------------------------------
 	//----------------------  SALIDA EXCEL --------------------------
 	//---------------------------------------------------------------

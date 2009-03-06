@@ -133,6 +133,9 @@ class toba_vista_excel
 	
 	function set_hoja_nombre($nombre)
 	{
+		if (strlen($nombre) > 31) {
+			$nombre = substr($nombre, 0, 30);
+		}
 		$this->excel->getActiveSheet()->setTitle($nombre);
 	}
 	

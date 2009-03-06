@@ -277,7 +277,7 @@ class comando_proyecto extends comando_toba
 		$this->consola->titulo("3.- Regenerando el proyecto en la instancia");
 		$p->regenerar();
 	}	
-	
+
 	/**
 	* Compila los METADATOS del proyecto.
 	* @gtk_icono compilar.png 
@@ -429,6 +429,37 @@ class comando_proyecto extends comando_toba
 		}
 	}
 
+	/**
+	* Muestra los LOGS del proyecto
+	* @consola_parametros Opcional: [-n 'numero'] Muestra un log específico. Por defecto se muestra el último
+	*/	
+	function opcion__ver_log()
+	{	
+		$param = $this->get_parametros();
+		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
+		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
+		toba_nucleo::instancia()->iniciar_contexto_desde_consola($instancia, $proyecto);
+
+		$logger = toba_logger::instancia($proyecto);
+		$archivo = $logger->directorio_logs()."/sistema.log";		
+		$analizador = new toba_analizador_logger_fs($archivo);
+
+		//Identifico el ID de log a cargar
+		$param = $this->get_parametros();
+        if (isset($param['-n'])) {
+       		$pedido = $param['-n'];
+			if( $pedido < 1 || $pedido > $analizador->get_cantidad_pedidos() ) {
+				$this->consola->mensaje("El log específico solicitado no existe.");
+				return ;				
+			}
+        } else {
+			$pedido = ($analizador->get_cantidad_pedidos());
+        }
+
+		//Muestro el log
+		$res = $analizador->get_pedido($pedido);
+		echo $res;
+	}
 
 }
 ?>
