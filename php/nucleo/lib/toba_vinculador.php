@@ -33,7 +33,7 @@ class toba_vinculador
 	 * @deprecated Usar get_url
 	 * @see get_url
 	 */
-	protected function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
 	{
 		return $this->get_url($proyecto, $item, $parametros, $opciones);
 	}
