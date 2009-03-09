@@ -952,7 +952,11 @@ class toba_ei_formulario extends toba_ei
 		}
 		echo "</div>\n";		
 	}
-	
+
+	/**
+	 * Genera la etiqueta y la vista de impresion de un ef
+	 * @param string $ef Identificador del ef
+	 */
 	protected function generar_html_impresion_ef($ef)
 	{
 		echo "<td class='ei-form-etiq'>\n";
@@ -1172,6 +1176,12 @@ class toba_ei_formulario extends toba_ei
 		$salida->tabla($datos, false, $this->_pdf_letra_tabla, $opciones);
 	}
 
+	/**
+	 * @ignore
+	 *  Obtiene la etiqueta y valor formateado del ef
+	 * @param string $id_ef Identificador del ef
+	 * @return array
+	 */
 	function get_valores_pdf( $id_ef ) {
 		$formateo = new $this->_clase_formateo('pdf');
 		$etiqueta = $this->_elemento_formulario[$id_ef]->get_etiqueta();

@@ -32,8 +32,10 @@ class toba_ajax_respuesta
 	}
 	
 	/**
-	 * Construye la respuesta gradualmente a partir de pares (clave, valor) cada uno de estos valores no será codificado ni en php ni decodificado en js
+	 * Construye la respuesta gradualmente agregando pares (clave, valor), cada uno de estos valores será comunicado literalmente.
 	 * En caso de necesitar codificacion/decodificacion queda a cargo del consumidor
+	 * @param mixed $clave
+	 * @param mixed $valor
 	 */
 	function agregar_cadena($clave, $valor)
 	{

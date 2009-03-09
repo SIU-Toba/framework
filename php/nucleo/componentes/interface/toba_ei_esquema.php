@@ -72,6 +72,10 @@ class toba_ei_esquema extends toba_ei
 
 	/**
 	 * Genera el tag HTML necesario para incluir el archivo generado por GrahpViz
+	 * @param string $url
+	 * @param string $formato
+	 * @param string $ancho
+	 * @param string $alto
 	 */
 	static function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
 	{
@@ -137,6 +141,7 @@ class toba_ei_esquema extends toba_ei
 	/**
 	 * En base a la definicion que dejo el componente en el request anterior
 	 * se construye el esquema y se le hace un passthru al cliente
+	 * @param array $parametros
 	 */
 	function servicio__mostrar_esquema($parametros = null)
 	{

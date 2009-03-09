@@ -31,6 +31,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 
 	/**
 	 * Retorna la referencia a un componente hijo o dependiente del actual
+	 * @param {string} identificador Identificador de la dependencia o hijo.
 	 * @type ei
 	 */
 	ci.prototype.dependencia = function(identificador) {
@@ -43,14 +44,17 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	ci.prototype.dep = function(identificador) {
 		return this.dependencia(identificador);	
 	};
-	
+
+	/**
+	 *@private
+	 */
 	ci.prototype.iniciar = function() {
 		for (var dep in this._deps) {
 			this._deps[dep].iniciar();
 		}
 	};
 	
-	//---Eventos	
+	//---Eventos
 	ci.prototype.set_evento = function(evento) {
 		this._evento = evento;
 		this.submit();
@@ -62,7 +66,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	 * Intenta realizar el submit de todos los objetos asociados
 	 * El proceso de SUBMIT se divide en partes:<br>
 	 * 1- Se sube hasta el CI raiz<br>
-	 * 2- El raiz analiza si puede hacerlo (recorriendo los hijos)<br>
+	 * 2- El componente raiz analiza si puede hacerlo (recorriendo los hijos)<br>
 	 * 3-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)<br>
 	 */
 	ci.prototype.submit = function() {
@@ -244,6 +248,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	
 	/**
 	 * Activa un tab previamente desactivado
+	 * @param {string} id Id del tab/pantalla a activar
 	 * @see #desactivar_tab
 	 */
 	ci.prototype.activar_tab = function(id) {
@@ -258,7 +263,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 
 	/**
 	 * Impide que el usuario pueda pulsar sobre un tab o solapa, aunque mantiene la misma visible
-	 * @param {string} id Id. de la pantalla destino
+	 * @param {string} id Id. del tab/pantalla destino
 	 * @see #activar_tab
 	 */
 	ci.prototype.desactivar_tab = function(id) {
@@ -272,7 +277,8 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 
 	/**
 	 * Muestra un tab previamente ocultado
-	 * @param {string} id Id. de la pantalla destino
+	 * @param {string} id Id. del tab/pantalla destino
+	 * @see #desactivar_tab
 	 */
 	ci.prototype.mostrar_tab = function (id) {
 		tab = this.get_tab(id);
@@ -295,7 +301,8 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 
 	/**
 	 * Retorna la referencia al tag HTML que contiene un tab o solapa
-	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 	
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>
+	 * @param {string} id Id del tab/pantalla
 	 */
 	ci.prototype.get_tab = function(id) {
 		if (id == this._id_en_controlador) {

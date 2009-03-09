@@ -268,6 +268,7 @@ class toba_ei_cuadro extends toba_ei
 	
 	/**
 	 * Retorna la definición de las columnas actuales del cuadro
+	 * @return array
 	 */
 	function get_columnas()
 	{
@@ -338,7 +339,9 @@ class toba_ei_cuadro extends toba_ei
 		parent::destruir();
 	}
 	
-	
+	/**
+	 * @ignore
+	 */
 	function aplicar_restricciones_funcionales()
 	{
 		parent::aplicar_restricciones_funcionales();
@@ -517,7 +520,8 @@ class toba_ei_cuadro extends toba_ei
 	}
 	
 	/**
-	 * Cambia el mensaje a mostra cuando el cuadro no tiene datos
+	 * Cambia el mensaje a mostrar cuando el cuadro no tiene datos
+	 * @param string $mensaje
 	 */
 	function set_eof_mensaje($mensaje)
 	{
@@ -536,12 +540,17 @@ class toba_ei_cuadro extends toba_ei
 	
 	/**
 	 * El cuadro muestra su título una única vez antes de los cortes de control
+	 * @param boolean $unico
 	 */
 	function set_mostrar_titulo_antes_cc($unico=true)
 	{
 		$this->_mostrar_titulo_antes_cc = $unico;
 	}
-	
+
+	/**
+	 * Define si la exportacion a excel utilizara formulas o no 
+	 * @param boolean $usar_formulas
+	 */
 	function set_excel_usar_formulas($usar_formulas)
 	{
 		$this->_excel_usar_formulas = $usar_formulas;
@@ -834,10 +843,18 @@ class toba_ei_cuadro extends toba_ei
 //###########################    CORTES de CONTROL    ############################
 //################################################################################
 
+	/**
+	 * Fuerza a que los cortes de control se inicien de manera colapsada. Por defecto true
+	 * @param boolean $colapsado 
+	 */
 	function set_cortes_colapsados($colapsado=true){
 		$this->_cortes_anidado_colap = $colapsado;
 	}
 
+	/**
+	 * Indica la existencia o no de cortes de control en el cuadro.
+	 * @return boolean
+	 */
 	function existen_cortes_control()
 	{
 		return (count($this->_info_cuadro_cortes)>0);
@@ -1017,6 +1034,8 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Cambia el título o descripción de una columna dada del cuadro
+	 * @param string $id_columna Id de la columna a cambiar
+	 * @param string $titulo
 	 */
 	function set_titulo_columna($id_columna, $titulo)
 	{
@@ -1039,6 +1058,7 @@ class toba_ei_cuadro extends toba_ei
 	
 	/**
 	 * Retorna el conjunto de datos que actualmente posee el cuadro
+	 * @return array
 	 */
     function get_datos()
     {
@@ -1055,7 +1075,11 @@ class toba_ei_cuadro extends toba_ei
 //#####################    INTERFACE GRAFICA GENERICA  ###########################
 //################################################################################
 
-	private function generar_salida($tipo)
+	/**
+	 * Wrapper que genera los distintos tipos de salida necesario de acuerdo al parametro especificado
+	 * @param string $tipo
+	 */
+	protected function generar_salida($tipo)
 	{
 		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel'){
 			throw new toba_error_seguridad("El tipo de salida '$tipo' es invalida");	
@@ -1137,7 +1161,10 @@ class toba_ei_cuadro extends toba_ei
 	//-- Cortes de Control
 	//-------------------------------------------------------------------------------
 
-	private function generar_cortes_control()
+	/**
+	 * @ignore
+	 */
+	protected function generar_cortes_control()
 	{
 		$this->generar_cc_inicio_nivel();
 		$i = 0;
@@ -1148,8 +1175,12 @@ class toba_ei_cuadro extends toba_ei
 		}
 		$this->generar_cc_fin_nivel();
 	}
-	
-	private function crear_corte(&$nodo, $es_ultimo)
+
+	/**
+	 * Genera el corte de control para el nodo especificado, de ser necesario saca el HTML necesario para la barra de colapsado
+	 *@ignore
+	 */
+	protected function crear_corte(&$nodo, $es_ultimo)
 	{
 		static $id_corte_control = 0;
 		$id_corte_control++;
@@ -1191,28 +1222,49 @@ class toba_ei_cuadro extends toba_ei
 		$this->generar_pie_corte_control($nodo, $es_ultimo);
 	}
 
-
-	private function generar_cabecera_corte_control(&$nodo, $id_unico = null){
+	/**
+	 * Genera la llamada a la ventana para la cabecera del corte de acuerdo al tipo de salida.
+	 * @ignore
+	 */
+	protected function generar_cabecera_corte_control(&$nodo, $id_unico = null){
 		$metodo = $this->_tipo_salida . '_cabecera_corte_control';
 		$this->$metodo($nodo, $id_unico);
 	}
-	
-	private function generar_pie_corte_control(&$nodo, $es_ultimo){
+
+	/**
+	 * Genera la llamada a la ventana para el pie del corte de acuerdo al tipo de salida.
+	 * @ignore
+	 */
+	protected function generar_pie_corte_control(&$nodo, $es_ultimo){
 		$metodo = $this->_tipo_salida . '_pie_corte_control';
 		$this->$metodo($nodo, $es_ultimo);
 	}
 
-	private function generar_cc_inicio_nivel(){
+	/**
+	 * Genera la llamada a la ventana para el inicio del corte de control de nivel X
+	 * @ignore
+	 */
+	protected function generar_cc_inicio_nivel(){
 		$metodo = $this->_tipo_salida . '_cc_inicio_nivel';
 		$this->$metodo();
 	}
 
-	private function generar_cc_fin_nivel(){
+	/**
+	 * Genera la llamada a la ventana para el inicio del corte de control de nivel X
+	 * @ignore
+	 */
+	protected function generar_cc_fin_nivel(){
 		$metodo = $this->_tipo_salida . '_cc_fin_nivel';
 		$this->$metodo();
 	}
-	
-	private function get_estilo_inicio_colapsado(&$nodo)
+
+	/**
+	 * Decide para un nodo, el estilo con el que iniciara graficamente el corte de control correspondiente
+	 * @param array $nodo
+	 * @return string
+	 * @ignore
+	 */
+	protected function get_estilo_inicio_colapsado(&$nodo)
 	{
 		$estilo = '';
 		if($this->_cortes_def[$nodo['corte']]['colapsa'] == '1'){       //El corte debe colapsarse al inicio.
@@ -1225,12 +1277,18 @@ class toba_ei_cuadro extends toba_ei
 //#################################    HTML    ###################################
 //################################################################################
 
+	/**
+	 *  Dispara la generacion de la salida HTML del cuadro
+	 */
 	function generar_html()
 	{
 		$this->generar_salida("html");
 	}
-	
-	private function html_generar_campos_hidden()
+
+	/**
+	 * @ignore
+	 */
+	protected function html_generar_campos_hidden()
 	{
 		//Campos de comunicación con JS
 		echo toba_form::hidden($this->_submit, '');
@@ -1241,7 +1299,10 @@ class toba_ei_cuadro extends toba_ei
 		echo toba_form::hidden($this->_submit_paginado, '');		
 	}
 
-	private function html_inicio()
+	/**
+	 * @ignore
+	 */
+	protected function html_inicio()
 	{
 		$this->_memoria['claves_enviadas'] = array();
 		$this->html_generar_campos_hidden();
@@ -1282,8 +1343,11 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_cabecera_columnas();
 		}
 	}
-	
-	private function html_fin()
+
+	/**
+	 * @ignore
+	 */
+	protected function html_fin()
 	{
 		if( $this->tabla_datos_es_general() ){
 			if (isset($this->_acumulador)) {
@@ -1364,22 +1428,32 @@ class toba_ei_cuadro extends toba_ei
 	//-------------------------------------------------------------------------------
 	//-- Generacion de los CORTES de CONTROL
 	//-------------------------------------------------------------------------------
-
-	private function html_cc_inicio_nivel()
+	/**
+	 * @ignore
+	 */
+	protected function html_cc_inicio_nivel()
 	{
 		if($this->_cortes_modo == apex_cuadro_cc_anidado){
 			echo "<ul>\n";
 		}
 	}
 
-	private function html_cc_fin_nivel()
+	/**
+	 * @ignore
+	 */
+	protected function html_cc_fin_nivel()
 	{
 		if($this->_cortes_modo == apex_cuadro_cc_anidado){
 			echo "</ul>\n";
 		}
 	}
-	
-	private function get_nivel_css($profundidad)
+
+	 /**
+	 *  Verifica que el nivel de profundidad no sea mayor a 2
+	 *@param integer $profundidad
+	 * @ignore
+	 */
+	protected function get_nivel_css($profundidad)
 	{
 		return ($profundidad > 2) ? 2 : $profundidad;
 	}		
@@ -1387,7 +1461,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 		Genera la CABECERA del corte de control
 	*/
-	private function html_cabecera_corte_control(&$nodo, $id_unico = null)
+	protected function html_cabecera_corte_control(&$nodo, $id_unico = null)
 	{
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
 		$metodo = 'html_cabecera_cc_contenido';
@@ -1537,7 +1611,9 @@ class toba_ei_cuadro extends toba_ei
 	//-------------------------------------------------------------------------------
 	//-- Generacion del CUADRO 
 	//-------------------------------------------------------------------------------
-
+	/**
+	 *@ignore
+	 */
 	function tabla_datos_es_general()
 	{
 		if(! $this->existen_cortes_control() ) {
@@ -1546,7 +1622,10 @@ class toba_ei_cuadro extends toba_ei
 			return ($this->_cortes_modo == apex_cuadro_cc_tabular) && ! $this->_cortes_anidado_colap;
 		}
 	}
-	
+
+	/**
+	 * Genera el html correspondiente a las filas del cuadro
+	 */
 	protected function html_cuadro(&$filas)
 	{
 		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
@@ -1701,16 +1780,26 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 *@ignore
+	 */
 	protected function html_cuadro_inicio()
 	{
 		echo "<TABLE width='100%' class='tabla-0' border='0'>\n";
 	}
-	
+
+	/**
+	 *@ignore
+	 */
 	protected function html_cuadro_fin()
 	{
 		echo "</TABLE>\n";
 	}
 
+	/**
+	 * Genera la cabecera de las columnas del cuadro, colocando los titulos de las mismas
+	 *@ignore
+	 */
 	protected function html_cuadro_cabecera_columnas()
 	{
 		//¿Alguna columna tiene título?
@@ -1846,6 +1935,9 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+    /**
+     * @ignore
+     */
 	function pdf_acumulador_usuario()
 	{
 		if (isset($this->_sum_usuario)) {
@@ -1915,8 +2007,10 @@ class toba_ei_cuadro extends toba_ei
 	//-------------------------------------------------------------------------------
 	//-- Elementos visuales independientes
 	//-------------------------------------------------------------------------------
-
-	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
+    /**
+     *  Genera el HTML correspondiente a la sumarizacion de los datos
+     */
+	protected function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
 		if(isset($ancho)) $ancho = "width='$ancho'";
 		echo "<table $ancho class='ei-cuadro-cc-tabla-sum'>";
@@ -1936,7 +2030,10 @@ class toba_ei_cuadro extends toba_ei
 		echo "</table>\n";
 	}
 
-	private function html_barra_paginacion()
+    /**
+     * Genera el HTML correspondiente a la barra de paginacion
+     */
+	protected function html_barra_paginacion()
 	{
 		echo "<div class='ei-cuadro-pag'>";
 		if( isset($this->_total_registros) && !($this->_tamanio_pagina >= $this->_total_registros) ) {
@@ -2027,7 +2124,10 @@ class toba_ei_cuadro extends toba_ei
 		$this->generar_salida("impresion_html");
 	}
 
-	private function impresion_html_inicio()
+    /**
+     * @ignore
+     */
+	protected function impresion_html_inicio()
 	{
 		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
         echo "<TABLE width='$ancho' class='ei-base ei-cuadro-base'>";
@@ -2042,8 +2142,11 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_inicio();
 		}
 	}
-	
-	private function impresion_html_cabecera()
+
+    /**
+     * @ignore
+     */
+	protected function impresion_html_cabecera()
 	{
 		if(trim($this->_info_cuadro["subtitulo"])<>""){
 			echo $this->_info_cuadro["subtitulo"];
@@ -2076,30 +2179,39 @@ class toba_ei_cuadro extends toba_ei
 		$this->html_cuadro( $filas, $totales );
 	}
 
+    /**
+     * @ignore
+     */
 	protected function impresion_html_mensaje_cuadro_vacio($texto){
 		$this->html_mensaje_cuadro_vacio($texto);
 	}
 
 	//-- Cortes de Control --
 
+    /**
+     * @ignore
+     */
 	protected function impresion_html_cabecera_corte_control(&$nodo ){
 		$this->html_cabecera_corte_control($nodo);
 	}
 
+    /**
+     * @ignore
+     */
 	protected function impresion_html_pie_corte_control( &$nodo , $es_ultimo){
 		$this->html_pie_corte_control($nodo, $es_ultimo);
 	}
 
-	private function impresion_html_cc_inicio_nivel(){
+	protected function impresion_html_cc_inicio_nivel(){
 	}
 
-	private function impresion_html_cc_fin_nivel(){
+    protected function impresion_html_cc_fin_nivel(){
 	}
 	
 	//---------------------------------------------------------------
 	//----------------------  SALIDA PDF  ---------------------------
 	//---------------------------------------------------------------
-	
+
 	function vista_pdf(toba_vista_pdf $salida )
 	{
 		$this->salida = $salida;		
@@ -2246,13 +2358,22 @@ class toba_ei_cuadro extends toba_ei
         return array($titulos, $estilos);
 	}
 
+	/**
+	 * Muestra el mensaje correspondiente al cuadro sin datos
+	 * @param string $texto
+	 * @ignore
+	 */
 	protected function pdf_mensaje_cuadro_vacio($texto)
 	{
 		$this->salida->texto($texto);
 	}
 
 	//-- Cortes de Control --
-
+	/**
+	 * Deduce el metodo que utilizara para generar la cabecera
+	 * @param array $nodo
+	 * @ignore
+	 */
 	protected function pdf_cabecera_corte_control(&$nodo )
 	{
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
@@ -2262,8 +2383,12 @@ class toba_ei_cuadro extends toba_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		$this->$metodo($nodo);
-	}		
-	
+	}
+
+	/**
+	 * Grafica el contenido de la cabecera del corte de control
+	 * @param array $nodo
+	 */
 	protected function pdf_cabecera_cc_contenido(&$nodo)
 	{
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
@@ -2284,7 +2409,11 @@ class toba_ei_cuadro extends toba_ei
 		$this->salida->separacion($this->_pdf_sep_cc);
 	}	
 	
-
+	/**
+	 * Genera el contenido de la 'cabecera' ubicada en el pie del corte de control
+	 * @param array $nodo
+	 * @return string
+	 */
 	protected function pdf_cabecera_pie_cc_contenido(&$nodo)
 	{
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
@@ -2350,7 +2479,15 @@ class toba_ei_cuadro extends toba_ei
 		}
 		return $datos;
 	}
-	
+
+	/**
+	 * Grafica  la sumarizacion del cuadro
+	 * @param array $datos
+	 * @param string $titulo
+	 * @param integer $ancho
+	 * @param string $css
+	 * @ignore
+	 */
 	protected function pdf_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
 		//Titulo
@@ -2536,7 +2673,13 @@ class toba_ei_cuadro extends toba_ei
         }		
         return $titulos;
 	}
-	
+
+	/**
+	 * Define que constante de estilos PHPExcel retornar basandose en la entrada
+	 * @param string $estilo
+	 * @return array
+	 * @ignore
+	 */
 	protected function excel_get_estilo($estilo)
 	{
     	switch($estilo) {
@@ -2561,6 +2704,11 @@ class toba_ei_cuadro extends toba_ei
     	}		
 	}
 
+	/**
+	 * Emite el mensaje correspondiente al cuadro sin datos
+	 * @param string $texto
+	 * @ignore
+	 */
 	protected function excel_mensaje_cuadro_vacio($texto)
 	{
 		$this->salida->texto($texto);
@@ -2568,6 +2716,11 @@ class toba_ei_cuadro extends toba_ei
 
 	//-- Cortes de Control --
 
+	/**
+	 * Define que metodo utilizara para generar el contenido de la cabecera
+	 * @param array $nodo
+	 * @ignore
+	 */
 	protected function excel_cabecera_corte_control(&$nodo )
 	{
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
@@ -2578,7 +2731,11 @@ class toba_ei_cuadro extends toba_ei
 		}		
 		$this->$metodo($nodo);
 	}		
-	
+
+	/**
+	 * Genera el contenido de la cabecera del corte de control
+	 * @param array $nodo
+	 */
 	protected function excel_cabecera_cc_contenido(&$nodo)
 	{
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
@@ -2602,7 +2759,11 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}	
 	
-
+	/**
+	 * Genera el contenido de la 'cabecera' ubicada en el pie del corte de control
+	 * @param array $nodo
+	 * @return string
+	 */
 	protected function excel_cabecera_pie_cc_contenido(&$nodo)
 	{
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
@@ -2680,7 +2841,14 @@ class toba_ei_cuadro extends toba_ei
 		}	
 		$this->salida->tabla(array($datos), $titulos, $estilos);
 	}
-	
+
+	/**
+	 * Grafica la sumarizacion de los datos
+	 * @param array $datos
+	 * @param string $titulo
+	 * @param integer $ancho
+	 * @param string $css
+	 */
 	protected function excel_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
 		//Titulo
@@ -2693,7 +2861,11 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}	
 	
-
+	/**
+	 * Genera el pie del corte de control
+	 * @param array $nodo
+	 * @param boolean $es_ultimo
+	 */
 	protected function excel_pie_corte_control( &$nodo, $es_ultimo )
 	{
 		$span = $this->_cantidad_columnas;
@@ -2753,7 +2925,10 @@ class toba_ei_cuadro extends toba_ei
 			$this->salida->crear_hoja();
 		}
 	}
-	
+
+	/**
+	 *@ignore
+	 */
 	protected function excel_get_rangos($nodo, $columna=null)
 	{
 		$hoja_actual = $this->salida->get_hoja_nombre();
@@ -2783,10 +2958,18 @@ class toba_ei_cuadro extends toba_ei
 		return $rangos;		
 	}
 
+	/**
+	 *  Ventana de extension para realizar tareas al iniciar el corte de control
+	 * @ignore
+	 */
 	protected function excel_cc_inicio_nivel()
 	{
 	}
 
+	/**
+	 *  Ventana de extension para realizar tareas al finalizar el corte de control
+	 * @ignore
+	 */
 	protected function excel_cc_fin_nivel()
 	{
 	}

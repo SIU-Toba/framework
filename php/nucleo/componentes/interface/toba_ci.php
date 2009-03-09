@@ -118,7 +118,7 @@ class toba_ci extends toba_ei
 	//--------------------------------------------------------------
 		
 	/**
-	 * Borra la memoria de todas las dependencias y la propia
+	 * Borra la memoria de todas las dependencias, la propia y luego ejecuta ini__operacion
 	 */
 	function disparar_limpieza_memoria()
 	{
@@ -152,7 +152,7 @@ class toba_ci extends toba_ei
 	//--------------------------------------------------------------
 
 	/**
-	 * Retorna el componente de negocio asociado 
+	 * Retorna el componente de negocio asociado a este ci
 	 * @return toba_cn
 	 */
 	function cn()
@@ -413,7 +413,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
-	 *	si la dependencia es un EI y no figura en la lista GI (generacion de interface) dispara el eventos de carga!
+	 *	si la dependencia es un EI y no figura en la lista GI (generacion de interface) dispara el evento de carga!
 	 * @param string $id Identificador de la dependencia dentro del objeto actual
 	 * @param boolean $cargar_en_demanda En caso de que el objeto no se encuentre cargado en memoria, lo carga
 	 * @return toba_componente
@@ -504,7 +504,7 @@ class toba_ci extends toba_ei
 	 * Retorna la pantalla que se muestra al iniciar el componente en la operación
 	 * Por defecto retorna la primer pantalla definida en el editor.
 	 * Extender para definir una pantalla distinta a través de un método dinámico
-	 * @return string Identificado de la pantalla 
+	 * @return string Identificador de la pantalla
 	 */
 	function get_pantalla_inicial()
 	{
@@ -609,6 +609,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Retorna los metadatos de una pantalla específica perteneciente a este ci
+	 * @param string $id Identificador de pantalla
 	 * @return array
 	 */
 	protected function get_info_pantalla($id)
@@ -665,6 +666,7 @@ class toba_ci extends toba_ei
 
 	/**
 	* Shortcut para acceder a un evento propio (en realidad es de la pantalla)
+	* @param string $id Identificador del evento
 	* @return toba_evento_usuario 
 	*/
 	function evento($id)
@@ -756,7 +758,10 @@ class toba_ci extends toba_ei
 	//------------------------------------------------------------
 	
 	/**
-	 * @ignore 
+	 * Lanza la ejecucion del metodo especificado por el pedido ajax (si existe)
+	 * y comunica la respuesta.
+	 * @ignore
+	 * @return unknow_type
 	 */
 	function servicio__ajax()
 	{
@@ -777,7 +782,10 @@ class toba_ci extends toba_ei
 	//---------------------------------------------------------------
 	//------------------------ SALIDA Impresion ---------------------
 	//---------------------------------------------------------------
-	
+
+	/**
+	 * Genera la vista de impresion HTML de la pantalla actual
+	 */
 	function vista_impresion_html( $salida )
 	{
 		$this->pantalla()->vista_impresion_html( $salida );

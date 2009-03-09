@@ -103,6 +103,7 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	
 	/**
 	 * Dado un nodo UL abre el mismo
+	 * @param {Element} nodo Nodo HTML a expandir
 	 */
 	ei_arbol.prototype.abrir_nodo = function(nodo) {
 		var ul = this.buscar_primer_ul(nodo);
@@ -181,11 +182,20 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 			}
 		}
 	};
-	
+
+	/**
+	 * Busca el nodo raiz del arbol
+	 * @type Element
+	 */
 	ei_arbol.prototype.get_nodo_raiz = function(nombre) {
 		return $(this._instancia + '_nodo_raiz');
 	};	
-	
+
+	/**
+	 * Busca los nodos hijos del padre especificado
+	 * @param {Element} padre
+	 * @type array(Element)
+	 */
 	ei_arbol.prototype.get_nodos_hijo = function(padre) {
 		var hijos = [];
 		for (var i=0; i < padre.childNodes.length; i++) {
@@ -199,7 +209,11 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		return hijos;
 	};		
 	
-	
+	/**
+	 * Retorna el nombre del nodo
+	 * @param {Element} nodo
+	 * @type string
+	 */
 	ei_arbol.prototype.get_nombre_nodo = function(nodo) {
 		var nombre = nodo.childNodes[3].nodeValue;
 		if (! isset(nombre)) {
@@ -210,7 +224,12 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		}
 		return nombre;
 	};
-	
+
+	/**
+	 * Filtra la apertura de nodos de acuerdo al nombre indicado
+	 * @param {Element} nodo
+	 * @param {string} nombre
+	 */
 	ei_arbol.prototype.filtrar_nodo_por_nombre = function(nodo, nombre) {
 		var visible = false;
 		var hijos = this.get_nodos_hijo(nodo);

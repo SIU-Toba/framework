@@ -83,7 +83,13 @@ class toba_ei_calendario extends toba_ei
 			$this->_calendario->viewEventContents();
 		}
 	}
-	
+
+	/**
+	 * Selecciona una fecha en particular para operar sobre ella
+	 * @param integer $dia
+	 * @param integer $mes
+	 * @param integer $anio
+	 */
 	function set_dia_seleccionado($dia, $mes, $anio)
 	{
 		$this->_memoria['dia_seleccionado'] = array('dia' => $dia, 'mes' => $mes, 'anio' => $anio);
@@ -92,7 +98,12 @@ class toba_ei_calendario extends toba_ei
 		$this->_calendario->setSelectedMonth($mes);
 		$this->_calendario->setSelectedYear($anio);		
 	}
-	
+
+	/**
+	 * Setea un rango de años finito para la operacion del calendario
+	 * @param integer $inicio
+	 * @param integer $fin
+	 */
 	function set_rango_anios($inicio, $fin)
 	{
 		$this->_rango_anios = array($inicio, $fin);
@@ -234,6 +245,7 @@ class toba_ei_calendario extends toba_ei
 	/**
 	 * Retorna el contenido extra asociado a un día
 	 * @param timestamp $dia
+	 * @return array
 	 */
 	function get_contenido($dia)
 	{
@@ -294,27 +306,46 @@ class calendario extends activecalendar
 	{
         parent::__construct($week,$year,$month,$day,$GMTDiff);
 	}
-	
+
+	/**
+	 * Determina si se mostraran los numeros de semana en la presentacion del calendario
+	 * @param boolean $mostrar
+	 */
 	function set_mostrar_semanas($mostrar)
 	{
 		$this->mostrar_semanas = $mostrar;
 	}
-	
+
+	/**
+	 * Determina si se muestra el mes actual
+	 * @param boolean $mostrar
+	 */
 	function set_mostrar_mes_actual($mostrar)
 	{
 		$this->mostrar_mes = $mostrar;
 	}
-	
+
+	/**
+	 * Determina si puede seleccionar fechas a futuro o no
+	 * @param boolean $seleccionar
+	 */
 	function set_seleccionar_solo_dias_pasados($seleccionar)
 	{
 		$this->solo_pasados = $seleccionar;
 	}
-	
+
+	/**
+	 * Determina si el dia seleccionado se mostrara con un estilo resaltado
+	 * @param boolean $resaltar
+	 */
 	function set_resaltar_siempre_dia_actual($resaltar)
 	{
 		$this->siempre_resalta_dia_actual = $resaltar;
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function updateCalendar($mes, $anio)
 	{
 		$this->setActMonth($mes);
@@ -336,18 +367,27 @@ class calendario extends activecalendar
 		$this->firstday = $this->mkActiveDate("w", $this->mkActiveTime(0,0,1,$this->actmonth,1,$this->actyear)); 
 		$this->firstdate = $this->mkActiveTime(0,0,1,$this->actmonth,1,$this->actyear);
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function setEventContent($day, $content)
 	{
 		$eventContent[$day] = $content;
 		$this->calEventContent[] = $eventContent;
 	}
 
+	/**
+	 * @ignore
+	 */
 	function getEventContent($day)
 	{
 		return $this->content($day);
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function mkEventContent($var)
 	{
 		$day = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear));
@@ -363,7 +403,10 @@ class calendario extends activecalendar
 		}
 		return $out;
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function content($var)
 	{
 		$hasContent = false;
@@ -384,6 +427,9 @@ class calendario extends activecalendar
 		return $hasContent;
 	}
 
+	/**
+	 * @ignore
+	 */
 	function showMonth($objeto_js, $eventos, $editor)
 	{
 		$out = $this->mkMonthHead();
@@ -397,7 +443,10 @@ class calendario extends activecalendar
 		$out .= $this->mkMonthFoot();
 		return $out;
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function barra_editor($html)
 	{
 		$pickerSpan = 8;
@@ -409,7 +458,10 @@ class calendario extends activecalendar
 		}
 		return $out;
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function mkDatePicker($objeto_js, $eventos)
 	{
 		$pickerSpan = 8;
@@ -446,6 +498,9 @@ class calendario extends activecalendar
 		return $out;
 	}
 
+	/**
+	 * @ignore
+	 */
 	function mkMonthBody($objeto_js, $eventos)
 	{
 		$out="<tr>";
@@ -492,42 +547,48 @@ class calendario extends activecalendar
 		}
 		return $out;
 	}
-	
-function mkWeekDays()
-{
-	$out = '';
-	if ($this->startOnSun)
+
+	/**
+	 * @ignore
+	 */
+	function mkWeekDays()
 	{
-		if ($this->mostrar_semanas) {
-			$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+		$out = '';
+		if ($this->startOnSun)
+		{
+			if ($this->mostrar_semanas) {
+				$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+			}
+			$out.="<td>".$this->getDayName(0)."</td>";
+			$out.="<td>".$this->getDayName(1)."</td>";
+			$out.="<td>".$this->getDayName(2)."</td>";
+			$out.="<td>".$this->getDayName(3)."</td>";
+			$out.="<td>".$this->getDayName(4)."</td>";
+			$out.="<td>".$this->getDayName(5)."</td>";
+			$out.="<td>".$this->getDayName(6)."</td></tr>\n";
 		}
-		$out.="<td>".$this->getDayName(0)."</td>";
-		$out.="<td>".$this->getDayName(1)."</td>";
-		$out.="<td>".$this->getDayName(2)."</td>";
-		$out.="<td>".$this->getDayName(3)."</td>";
-		$out.="<td>".$this->getDayName(4)."</td>";
-		$out.="<td>".$this->getDayName(5)."</td>";
-		$out.="<td>".$this->getDayName(6)."</td></tr>\n";
-	}
-	else
-	{
-		if ($this->mostrar_semanas) {
-			$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+		else
+		{
+			if ($this->mostrar_semanas) {
+				$out .="<tr class=\"".$this->cssWeekDay."\"><td>"."Sem"."</td>";
+			}
+			$out.="<td>".$this->getDayName(1)."</td>";
+			$out.="<td>".$this->getDayName(2)."</td>";
+			$out.="<td>".$this->getDayName(3)."</td>";
+			$out.="<td>".$this->getDayName(4)."</td>";
+			$out.="<td>".$this->getDayName(5)."</td>";
+			$out.="<td>".$this->getDayName(6)."</td>";
+			$out.="<td>".$this->getDayName(0)."</td></tr>\n";
+			$this->firstday=$this->firstday-1;
+			if ($this->firstday<0)
+				$this->firstday=6;
 		}
-		$out.="<td>".$this->getDayName(1)."</td>";
-		$out.="<td>".$this->getDayName(2)."</td>";
-		$out.="<td>".$this->getDayName(3)."</td>";
-		$out.="<td>".$this->getDayName(4)."</td>";
-		$out.="<td>".$this->getDayName(5)."</td>";
-		$out.="<td>".$this->getDayName(6)."</td>";
-		$out.="<td>".$this->getDayName(0)."</td></tr>\n";
-		$this->firstday=$this->firstday-1;
-		if ($this->firstday<0)
-			$this->firstday=6;
+		return $out;
 	}
-	return $out;
-}	
-	
+
+	/**
+	 * @ignore
+	 */
 	function viernes($semana, $anio)
 	{
 		$ts_semana  = strtotime('+' . $semana . ' weeks', strtotime($anio . '0101'));
@@ -540,13 +601,18 @@ function mkWeekDays()
 			return strtotime('-7 days', $ts_viernes);
 	}
 
-	
+	/**
+	 * @ignore
+	 */
 	function compare_week($week, $year)
 	{
 		$viernes = $this->viernes($week, $year);
 		return $this->compare_date($viernes);
 	}
 
+	/**
+	 * @ignore
+	 */
 	function mkWeek($date, $objeto_js, $eventos)
 	{
 		$week = $this->weekNumber($date);
@@ -572,7 +638,10 @@ function mkWeekDays()
 		}	
 		return $out;
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function compare_date($day)
 	{
 		$fecha_hoy = $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday);
@@ -583,7 +652,10 @@ function mkWeekDays()
 		else
 			return 0;	
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	function mkDay($var, $objeto_js, $eventos)
 	{
 		if ($var <= 9)

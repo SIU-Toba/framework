@@ -183,12 +183,20 @@ class toba_ei_archivos extends toba_ei
 	{
 		$this->solo_carpetas = $solo;
 	}
-	
+
+	/**
+	 * Determina si se autoriza la creación de carpetas mediante este componente
+	 * @param boolean $crear
+	 */
 	function set_crear_carpetas($crear)
 	{
 		$this->crear_carpetas = $crear;
 	}
-	
+
+	/**
+	 * Determina si se autoriza la creación de archivos mediante este componente
+	 * @param boolean $crear
+	 */
 	function set_crear_archivos($crear)
 	{
 		$this->crear_archivos = $crear;
@@ -203,6 +211,10 @@ class toba_ei_archivos extends toba_ei
 		$this->_extensiones = $extensiones;	
 	}
 
+	/**
+	 * Define si se permiten espacios en los nombres de archivos
+	 * @param boolean $permitir
+	 */
 	function set_permitir_espacios_en_nombres($permitir=true)
 	{
 		$this->_permitir_espacios_en_nombres = $permitir;

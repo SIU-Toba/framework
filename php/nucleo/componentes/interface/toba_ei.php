@@ -129,6 +129,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	* Recupera el objeto asociado de un evento
+	* @param string $id Id del evento
 	* @return toba_evento_usuario
 	*/
 	function evento($id)
@@ -146,6 +147,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Determina que un evento definido va a formar parte de los eventos a mostrar en el servicio actual
+	 * @param string $id
 	 */
 	function agregar_evento($id)
 	{
@@ -159,6 +161,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Verifica si un evento esta definido en la lista de eventos a utilizar en el servicio actual
+	 * @param string $id
 	 */
 	function existe_evento($id)
 	{
@@ -174,6 +177,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Elimina un evento definido de la lista de eventos a utilizar en el servicio actual
+	 * @param string $id
 	 */
 	function eliminar_evento($id)
 	{
@@ -293,6 +297,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo
+	 * @param string $grupo Id del grupo de eventos
 	 */
 	function set_grupo_eventos_activo($grupo)
 	{
@@ -301,6 +306,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Retorna el grupo de eventos activos
+	 * @return string
 	 */
 	function get_grupo_eventos_activo()
 	{
@@ -385,6 +391,7 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * Genera el html de un botón específico
 	 * @param toba_evento_usuario $evento
+	 * @param boolean $retornar Define si devuelve como resultado el HTML o lo 'imprime'
 	 */
 	protected function generar_html_boton($evento, $retornar=false)
 	{
@@ -431,7 +438,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Determina si el componente tiene algún punto de control asignado para un evento 
-	 * @param strgin $evento Id. del evento
+	 * @param string $evento Id. del evento
 	 * @see toba_puntos_control
 	 * @return boolean
 	 */
@@ -441,8 +448,8 @@ abstract class toba_ei extends toba_componente
 	}
 
 	/**
-	 * Retorna la definición de un punto de contrl para un evento
-	 * @param string $evento
+	 * Retorna la definición de un punto de control para un evento
+	 * @param string $evento Id. del evento
 	 * @see toba_puntos_control
 	 * @return array
 	 */
@@ -463,7 +470,7 @@ abstract class toba_ei extends toba_componente
 	//--------------------------------------------------------------------
 
 	/**
-	 * Agrega un mensaje de notificacion de esta pantalla
+	 * Agrega un mensaje de notificacion a esta pantalla
 	 * @param string $mensaje
 	 * @param string $tipo Puede ser 'info', 'warning', 'error'
 	 */
@@ -503,6 +510,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Cambia el titulo del componente para el servicio actual
+	 * @param string $titulo
 	 */
 	function set_titulo($titulo)
 	{
@@ -511,6 +519,8 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Cambia la descripción del componente para el servicio actual
+	 * @param string $desc
+	 * @param string $tipo Puede ser 'info', 'warning', 'error'
 	 */	
 	function set_descripcion($desc, $tipo='info')
 	{
@@ -602,6 +612,7 @@ abstract class toba_ei extends toba_componente
 
 	
 	/**
+	 * Genera una descripcion HTML para informar la ocurrencia de algun evento
 	 * @ignore
 	 */
 	protected function generar_html_descripcion($mensaje, $tipo=null)
@@ -716,7 +727,7 @@ abstract class toba_ei extends toba_componente
 	}	
 
 	/**
-	 * Termina la construcción del objeto javscript asociado al componente
+	 * Termina la construcción del objeto javascript asociado al componente
 	 * @ignore 
 	 */
 	protected function iniciar_objeto_js()
@@ -741,6 +752,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Despachador de tipos de salidas de impresion
+	 * @param toba_impresion $salida
 	 */
 	function vista_impresion( toba_impresion $salida )
 	{
@@ -751,6 +763,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Impresion HTML por defecto
+	 * @param toba_impresion $salida
 	 */
 	function vista_impresion_html( $salida )
 	{

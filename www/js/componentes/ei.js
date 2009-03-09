@@ -136,6 +136,8 @@ ei.prototype.constructor = ei;
 	 * Ejecuta un vinculo producido por un evento
 	 * Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
 	 * que se pueda modificar alguna propiedad del vinculo
+	 * @param {string} id_evento
+	 * @param {string} id_vinculo 
 	 * @see vinculador
 	 */
 	ei.prototype.invocar_vinculo = function(id_evento, id_vinculo) {
@@ -205,7 +207,7 @@ ei.prototype.constructor = ei;
 
 	/**
 	 * Muestra un componente previamente ocultado
-	 * @param {boolean} mostar Pasando true o false permite mostrar u ocultar
+	 * @param {boolean} mostrar Pasando true o false permite mostrar u ocultar
 	 * @see #ocultar
 	 */	
 	ei.prototype.mostrar = function(mostrar) {
@@ -239,7 +241,7 @@ ei.prototype.constructor = ei;
 	};
 
 	/**
-	 * Oculta un boton/evento a la vista del usuario
+	 * Oculta un boton/evento de la vista del usuario
 	 * @param {string} id Id. del boton/evento a ocultar
 	 * @see #mostrar_boton
 	 */	

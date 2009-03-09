@@ -37,7 +37,7 @@ class toba_boton
 	//--------- Preguntas ---------------------
 
 	/**
-	 * Un botón desactivado se muestra pero no se puede clickear
+	 * Indica si un botón puede disparar eventos o no. Un botón desactivado se muestra pero no se puede clickear
 	 * @return boolean
 	 */	
 	function esta_activado()
@@ -46,7 +46,7 @@ class toba_boton
 	}
 	
 	/**
-	 * Un botón oculto se envia al cliente pero oculto via css
+	 * Indica si el boton es visible o no. Un botón oculto se envia al cliente pero se oculta via css
 	 * @return boolean
 	 */		
 	function esta_oculto()
@@ -55,7 +55,7 @@ class toba_boton
 	}
 	
 	/**
-	 * Un botón anulado no se envia al cliente
+	 * Indica la existencia o no del botón en el cliente.Un botón anulado no se envia al cliente
 	 * @return boolean 
 	 */	
 	function esta_anulado()
@@ -113,7 +113,7 @@ class toba_boton
 	}
 
 	/**
-	 * Retorna la Direccion de la imagen relativa a la carpeta www/img
+	 * Retorna la dirección de la imagen relativa a la carpeta www/img
 	 */
 	function get_imagen_url_rel()
 	{
@@ -121,28 +121,34 @@ class toba_boton
 	}
 
 	/**
-	 * Retorna si existe el  mensaje de confirmación cuando el usuario clickea el botón
+	 * Retorna el  mensaje de confirmación cuando el usuario clickea el botón, si existe.
 	 * @see set_msg_confirmacion
+	 * @see posee_confirmacion
 	 */	
 	function get_msg_confirmacion()
 	{
 		return $this->datos['confirmacion'];	
 	}
 	
-	
+	/**
+	 * @ignore
+	 */
 	function get_id(){
 		return $this->datos['identificador'];
 	}
 	
 	//--------- Seters ---------------------
-	
+	/**
+	 * @ignore
+	 */
 	function set_id($id)
 	{
 		 $this->datos['identificador'] = $id;
 	}
 	
 	/**
-	 * Etiqueta visible en el botón
+	 * Define la etiqueta visible en el botón
+	 * @param string $texto Etiqueta a mostrar
 	 */
 	function set_etiqueta($texto)
 	{
@@ -150,7 +156,8 @@ class toba_boton
 	}
 	
 	/**
-	 * Ayuda contextual que brindará el botón
+	 * Define la ayuda contextual que brindará el botón
+	 * @param string $texto Mensaje de ayuda
 	 */
 	function set_msg_ayuda($texto)
 	{
@@ -172,8 +179,9 @@ class toba_boton
 	}
 
 	/**
-	 * Muestra un mensaje de confirmación cuando el usuario clickea el botón
+	 * Define el mensaje de confirmación a mostrar cuando el usuario clickea el botón
 	 * @param string $texto Mensaje a mostrar
+	 * @see get_msg_confirmacion
 	 */
 	function set_msg_confirmacion($texto)
 	{
@@ -200,7 +208,8 @@ class toba_boton
 	}
 
 	/**
-	 * Un botón desactivado se muestra pero no se puede clickear
+	 * Un botón activado se muestra y se puede clickear
+	 * @see desactivar
 	 */
 	function activar()
 	{
@@ -208,7 +217,7 @@ class toba_boton
 	}
 	
 	/**
-	 * Un botón oculto se envia al cliente pero oculto via css
+	 * Un botón oculto se envia al cliente pero no es visible.
 	 */	
 	function ocultar()
 	{
@@ -216,7 +225,8 @@ class toba_boton
 	}
 
 	/**
-	 * Un botón oculto se envia al cliente pero oculto via css
+	 * Un botón oculto se hace visible en el cliente.
+	 * @see ocultar
 	 */		
 	function mostrar()
 	{

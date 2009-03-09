@@ -34,7 +34,9 @@ class toba_ei_filtro extends toba_ei
 		$this->set_grupo_eventos_activo('no_cargado');
 	}	
 	
-	
+	/**
+	 * Crea los objetos columna necesarios
+	 */
 	protected function crear_columnas()
 	{
 		$this->_columnas = array();
@@ -53,7 +55,11 @@ class toba_ei_filtro extends toba_ei
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $efs, $parametros_efs);
 	}
-	
+
+	/**
+	 *  Se aplican las restricciones funcionales necesarias a cada columna.
+	 * @ignore
+	 */
 	function aplicar_restricciones_funcionales()
 	{
 		parent::aplicar_restricciones_funcionales();
@@ -147,7 +153,11 @@ class toba_ei_filtro extends toba_ei
 		}
 		return true;
 	}
-	
+
+	/**
+	 * Obtiene los datos del filtro
+	 * @return array
+	 */
 	function get_datos()
 	{
 		$datos = array();
@@ -217,7 +227,11 @@ class toba_ei_filtro extends toba_ei
 			return 'true';
 		}
 	}
-	
+
+	/**
+	 * Devuelve un arreglo de clausulas SQL basado en los valores de las columnas del filtro
+	 * @return array
+	 */
 	function get_sql_clausulas()
 	{
 		$where = array();
@@ -242,8 +256,7 @@ class toba_ei_filtro extends toba_ei
 	//-------------------------------------------------------------------------------
 	//----------------------------	  SALIDA	  -----------------------------------
 	//-------------------------------------------------------------------------------
-	
-	
+		
 	function generar_html()
 	{
 		//Genero la interface
@@ -265,7 +278,6 @@ class toba_ei_filtro extends toba_ei
 		$this->_flag_out = true;
 	}	
 	
-
 	/**
 	 * @ignore 
 	 */
@@ -289,7 +301,11 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_layout($ancho);
 		echo "\n</div>";
 	}	
-	
+
+	/**
+	 * Genera los componentes que conforman la disposicion del filtro en pantalla
+	 * @param string $ancho
+	 */
 	protected function generar_layout($ancho)
 	{
 		//Botonera de agregar y ordenar
@@ -300,9 +316,7 @@ class toba_ei_filtro extends toba_ei
 		$extra = $this->get_botonera_manejo_filas();		
 		$this->generar_botones('', $extra);
 	}
-	
-
-	
+		
 	/**
 	 * Genera el HTML de la botonera de agregar/quitar/ordenar filas
 	 */
@@ -468,6 +482,10 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_layout_impresion($ancho);
 	}	
 
+	/**
+	 * Genera los componentes que se visualizaran en la vista impresion
+	 * @param string $ancho
+	 */
 	protected function generar_layout_impresion($ancho)
 	{
 		echo "<table class='ei-filtro-grilla' width='$ancho'>";
@@ -476,6 +494,9 @@ class toba_ei_filtro extends toba_ei
 		echo "\n</table>";		
 	}
 
+	/**
+	 * @ignore
+	 */
 	protected function generar_encabezado_impresion()
 	{
 		echo "<thead>\n <tr>\n";
@@ -485,7 +506,10 @@ class toba_ei_filtro extends toba_ei
 		echo "</tr>\n";
 		echo "</thead>\n";
 	}
-	
+
+	/**
+	 * @ignore
+	 */
 	protected function generar_cuerpo_impresion()
 	{
 		echo "<tbody>";			

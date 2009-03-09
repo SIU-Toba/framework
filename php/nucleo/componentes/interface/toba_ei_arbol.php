@@ -69,6 +69,7 @@ class toba_ei_arbol extends toba_ei
 
 	/**
 	 * Cambia el nivel inicial de apertura grafico de los nodos
+	 * @param integer $nivel
 	 */
 	function set_nivel_apertura($nivel)
 	{
@@ -85,22 +86,35 @@ class toba_ei_arbol extends toba_ei
 
 	/**
 	 * Determina si se muestran o no las utilerias de cada nodo
+	 * @param boolean $mostrar
 	 */
 	function set_mostrar_utilerias($mostrar)
 	{
 		$this->_mostrar_utilerias = $mostrar;
 	}
 
+	/**
+	 * @ignore
+	 * @param boolean $mostrar
+	 */
 	function set_mostrar_propiedades_nodos($mostrar)
 	{
 		$this->_mostrar_propiedades_nodos = $mostrar;
 	}
 
+	/**
+	 * @ignore
+	 * @param boolean $mostrar
+	 */
 	function set_mostrar_ayuda($mostrar)
 	{
 		$this->_mostrar_ayuda = $mostrar;
 	}
 
+	/**
+	 * @ignore
+	 * @param boolean $mostrar
+	 */
 	function set_mostrar_filtro_rapido($mostrar)
 	{
 		$this->_mostrar_filtro_rapido = $mostrar;
@@ -184,6 +198,11 @@ class toba_ei_arbol extends toba_ei
 		$this->borrar_memoria_eventos_atendidos();
 	}
 
+	/**
+	 * Se cargan los datos del nodo, se le comunica la apertura
+	 * y se disparan los eventos de los hijos del nodo.
+	 * @param toba_nodo_basico $nodo
+	 */
 	protected function disparar_eventos_nodo($nodo)
 	{
 		$id = $this->_submit.'_'.$nodo->get_id();
@@ -201,7 +220,9 @@ class toba_ei_arbol extends toba_ei
 	//-------------------------------------------------------------------------------------------------------
 	//--	Generacion de HTML
 	//-------------------------------------------------------------------------------------------------------
-
+	/**
+	 * Genera el HTML del arbol
+	 */
 	function generar_html()
 	{
 		echo toba_form::hidden($this->_submit, '');
@@ -370,6 +391,9 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 
+	/**
+	 * @ignore
+	 */
 	function generar_html_filtro_rapido()
 	{
 		echo "<div class='ei-arbol-filtro'>";
@@ -475,6 +499,9 @@ class toba_ei_arbol extends toba_ei
 
 	/**
 	 * Formatea el nombre de un nodo para incluir en un listado
+	 * @param string $nombre Nombre del nodo
+	 * @param integer $limite Cantidad de caracteres a mostrar
+	 * @return string
 	 */
 	protected function acortar_nombre($nombre, $limite=null)
 	{

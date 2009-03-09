@@ -98,7 +98,10 @@ toba = new function() {
 			}
 		}
 	};
-	
+
+	/**
+	 *@private
+	 */
 	toba._disparar_callback_incl = function() {
 		eval(this._callback_inclusion);
 		delete(this._callback_inclusion);		
@@ -152,7 +155,7 @@ toba = new function() {
 	 * Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
 	 * debido a que la respuesta no es sincronica
 	 * @param {string} vinculo Vinculo creado con el vinculador
-	 * @param {function} nombre_callback Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta)
+	 * @param {function} nombre_callback Funcion que escucha la respuesta del servidor (opcional si no se quiere escuchar respuesta)
 	 */
 	toba.comunicar_vinculo = function(vinculo, nombre_callback) {
 		var callback = {
@@ -164,6 +167,9 @@ toba = new function() {
 	
 	/**
 	 * Navega hacia una opción del menú
+	 * @param {string} proyecto Nombre del Proyecto
+	 * @param {string} operacion Id operación destino
+	 * @param {boolean} es_popup Indica si se abrira en la ventana actual o una nueva.
 	 */
 	toba.ir_a_operacion = function(proyecto, operacion, es_popup) {
 		var url = vinculador.get_url(proyecto, operacion, null, null, null, true);
@@ -185,8 +191,8 @@ toba = new function() {
 	
 	/**
 	 *	Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú
-	 * @param {callback} function Función a la que se invocara pasando por parametros (proyecto, operacion, url, es_popup)
-	 * @param {contexto} object Opcional, objeto al cual pertenece la función (si pertenece a alguno)
+	 * @param {function} callback Función que se invocara pasando por parametros (proyecto, operacion, url, es_popup)
+	 * @param {object} contexto Opcional, objeto al cual pertenece la función (si pertenece a alguno)
 	 */
 	toba.set_callback_menu = function(callback, contexto) {
 		this._callback_menu = [callback, contexto];
@@ -250,7 +256,7 @@ toba = new function() {
 	};
 	
 	/**
-	 * Muestra un div/imagen contienendo un mensaje de 'Procesando'
+	 * Muestra un div/imagen conteniendo un mensaje de 'Procesando'
 	 * @see #fin_aguardar
 	 * @see #set_aguardar
 	 */
@@ -288,7 +294,7 @@ toba = new function() {
 	/**
 	 * Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
 	 * hacen pedidos asincronicos (ajax)
-	 * @param {boolean} aguardar habilitar el mensaje?
+	 * @param {boolean} aguardar Habilitar el mensaje?
 	 * @see #inicio_aguardar
 	 * @see #fin_aguardar
 	 */
