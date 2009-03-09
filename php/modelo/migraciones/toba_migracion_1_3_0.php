@@ -65,13 +65,13 @@ class toba_migracion_1_3_0 extends toba_migracion
 		$sql = array();
 		//Vinculos en Cuadros
 		$sql[] = "UPDATE 	apex_objeto_ei_cuadro_columna SET vinculo_celda = 'popup' 
-				WHERE 	objeto_ei_formulario_proyecto = '{$this->elemento->get_id()}'
+				WHERE 	objeto_cuadro_proyecto = '{$this->elemento->get_id()}'
 				AND 	vinculo_celda IS NULL
 				AND		vinculo_popup = '1';";
 		
 		//Vinculos en Formularios/CI
 		$sql[] = "UPDATE	apex_objeto_eventos SET accion_vinculo_celda = 'popup'
-				WHERE  	objeto_ei_formulario_proyecto = '{$this->elemento->get_id()}'
+				WHERE  	proyecto = '{$this->elemento->get_id()}'
 				AND 	accion_vinculo_celda IS NULL
 				AND 	accion_vinculo_popup = '1';";
 		$this->elemento->get_db()->ejecutar($sql);
