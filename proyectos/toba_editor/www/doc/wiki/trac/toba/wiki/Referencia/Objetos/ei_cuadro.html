@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../../wiki.html">Start Page</a></li>
    <li><a href="../../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/ei_cuadro?action=diff&amp;version=36">Last Change</a></li>
+   <li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/ei_cuadro?action=diff&amp;version=38">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -184,20 +185,19 @@ En la definición del cuadro se incluye:
 </li><li><i>Paginar</i>: Establece si el cuadro podrá ser visualizado en varias páginas diferentes, función especialmente útil cuando se espera que el conjunto de datos a mostrar sea extenso.
 </li><li><i>Ordenar</i>: Indica si el usuario tiene posibilidad de ordenar el conjunto de datos a partir de alguna columna.
 </li><li><i>EOF</i>: El EOF se muestra cuando no hay ningún registro en la carga, existe un mensaje por defecto asociado, éste puede ser modificado o directamente ocultado al cliente.
-</li></ul><h2 id="Carga">Carga</h2>
+</li></ul><h2 id="Configuración">Configuración</h2>
 <p>
-Para establecer los datos a mostrar en el cuadro, es necesario <i>configurarlo</i>, desde un <a class="wiki" href="ci.html">CI</a> se debería escuchar la callback <tt>conf__cuadro</tt>. En este método el cuadro espera recibir un arreglo asociativo del tipo <tt> 'columna' =&gt; valor </tt>.
+Para establecer los datos a mostrar en el cuadro, es necesario <i>configurarlo</i>, desde un <a class="wiki" href="ci.html">CI</a> se debería escuchar la callback <tt>conf__cuadro</tt>. En este método el cuadro espera recibir los datos en formato <a class="wiki" href="../../RecordSet.html">RecordSet</a>
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">conf__cuadro</span><span class="code-keyword">(</span><span class="code-lang">$cuadro</span><span class="code-keyword">)
+    </span><span class="code-keyword">function </span><span class="code-lang">conf__cuadro</span><span class="code-keyword">(</span><span class="code-lang">toba_ei_cuadro $cuadro</span><span class="code-keyword">)
     {
        </span><span class="code-lang">$datos </span><span class="code-keyword">= array(
             array(</span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">1</span><span class="code-keyword">, </span><span class="code-string">'importe' </span><span class="code-keyword">=&gt; </span><span class="code-lang">100</span><span class="code-keyword">),
             array(</span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">3</span><span class="code-keyword">, </span><span class="code-string">'importe' </span><span class="code-keyword">=&gt; </span><span class="code-lang">412</span><span class="code-keyword">),
         );
         </span><span class="code-lang">$cuadro</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_datos</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
-        </span><span class="code-comment">//--- Para la carga, una forma alternativa al set_datos es retornar los datos (return $datos)
-    </span><span class="code-keyword">}</span>
+    }</span>
 <span class="code-lang">?&gt;</span>
 
 </pre></div><h2 id="Paginado">Paginado</h2>
@@ -227,7 +227,7 @@ Por ejemplo si cargarmos el cuadro a partir de una SQL:
 ?&gt;</span>
 
 </pre></div><p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Paginado</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000213' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Paginado</a></strong>
 </p>
 <h2 id="Ordenamiento">Ordenamiento</h2>
 <p>
@@ -236,7 +236,7 @@ Cuando desde el editor se activa la posibilidad de ordenamiento en el cuadro, se
 <ul><li>El CI contenedor. Si así se decide se debe escuchar el evento <tt>evt__idcuadro__ordenar</tt> que recibe como parametro un arreglo conteniendo el sentido y la columna del orden. Por ejemplo: <tt>array('sentido' =&gt; 'asc', 'columna' =&gt; 'importe');</tt>. Estas opciones deberían incidir en el mecanismo de recepción de datos (típicamente el ORDER BY de una consulta SQL).
 </li><li>El mismo cuadro: En caso que el evento no se escuche, el cuadro tomará la iniciativa de ordenar por sí mismo el set de datos. Para esto debe tener el conjunto completo de datos. Si por ejemplo el cuadro está páginado y sólo se carga la página actual, el cuadro sólo podrá ordenar esa página.
 </li></ul><p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Ordenamiento</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000213' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Ordenamiento</a></strong>
 </p>
 <h2 id="Modelosdeevento">Modelos de evento</h2>
 <p>
@@ -281,7 +281,7 @@ Para establecer una <strong>sumarización</strong> por una columna específica s
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_filtro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cuadro con Filtro</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000214' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cuadro con Filtro</a></strong>
 </p>
 </div>
    </div>

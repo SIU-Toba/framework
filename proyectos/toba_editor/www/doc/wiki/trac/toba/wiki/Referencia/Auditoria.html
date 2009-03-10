@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Auditoria?action=diff&amp;version=9">Last Change</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Auditoria?action=diff&amp;version=11">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -189,7 +190,64 @@ Una vez ejecutado el comando ya contamos con el esquema de auditoría en la mism
 <p>
 <a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Auditoria/esquema_auditoria.html"><img src="../../attachment/wiki/Referencia/Auditoria/esquema_auditoria41f0.png?format=raw" /></a>
 </p>
-<h2 id="Ejecución">Ejecución</h2>
+<h2 id="Actualización">Actualización</h2>
+<p>
+No está incluido en la versión 1.2, pero se puede armar un comando para actualizar los sp y triggers en caso de cambios de estructura:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php</span>
+
+<span class="code-keyword">class </span><span class="code-lang">IDPROYECTO_comando </span><span class="code-keyword">extends </span><span class="code-lang">toba_aplicacion_comando_base</span>
+<span class="code-keyword">{
+    
+    </span><span class="code-comment">/**
+     * Crea un esquema de auditoria sobre las tablas de negocio
+     */
+    </span><span class="code-keyword">function </span><span class="code-lang">opcion__actualizar_auditoria</span><span class="code-keyword">()
+    {
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">modelo</span><span class="code-keyword">-&gt;</span><span class="code-lang">actualizar_auditoria</span><span class="code-keyword">();
+    }    
+        
+    
+}
+
+
+class </span><span class="code-lang">IDPROYECTO_modelo </span><span class="code-keyword">extends </span><span class="code-lang">toba_aplicacion_modelo_base</span>
+<span class="code-keyword">{
+    
+    function </span><span class="code-lang">actualizar_auditoria</span><span class="code-keyword">(</span><span class="code-lang">$tablas</span><span class="code-keyword">=array(), </span><span class="code-lang">$prefijo_tablas</span><span class="code-keyword">=</span><span class="code-lang">null</span><span class="code-keyword">, </span><span class="code-lang">$con_transaccion</span><span class="code-keyword">=</span><span class="code-lang">true</span><span class="code-keyword">)
+    {
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">manejador_interface</span><span class="code-keyword">-&gt;</span><span class="code-lang">mensaje</span><span class="code-keyword">(</span><span class="code-string">'Regenerando triggers y sp de auditoria'</span><span class="code-keyword">, </span><span class="code-lang">false</span><span class="code-keyword">);
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">manejador_interface</span><span class="code-keyword">-&gt;</span><span class="code-lang">progreso_avanzar</span><span class="code-keyword">();
+        </span><span class="code-lang">$fuentes </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">proyecto</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_indice_fuentes</span><span class="code-keyword">();
+        if (empty(</span><span class="code-lang">$fuentes</span><span class="code-keyword">)) {
+            return;
+        }
+        </span><span class="code-lang">$id_def_base </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">proyecto</span><span class="code-keyword">-&gt;</span><span class="code-lang">construir_id_def_base</span><span class="code-keyword">(</span><span class="code-lang">current</span><span class="code-keyword">(</span><span class="code-lang">$fuentes</span><span class="code-keyword">));
+        </span><span class="code-lang">$base </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">instalacion</span><span class="code-keyword">-&gt;</span><span class="code-lang">conectar_base</span><span class="code-keyword">(</span><span class="code-lang">$id_def_base</span><span class="code-keyword">);        
+        if (</span><span class="code-lang">$con_transaccion</span><span class="code-keyword">) {
+            </span><span class="code-lang">$base</span><span class="code-keyword">-&gt;</span><span class="code-lang">abrir_transaccion</span><span class="code-keyword">();
+        }
+        </span><span class="code-comment">//--- Tablas de auditoría
+        </span><span class="code-lang">$auditoria </span><span class="code-keyword">= new </span><span class="code-lang">toba_auditoria_tablas_postgres</span><span class="code-keyword">(</span><span class="code-lang">$base</span><span class="code-keyword">);
+        if (empty(</span><span class="code-lang">$tablas</span><span class="code-keyword">)) {
+            </span><span class="code-lang">$auditoria</span><span class="code-keyword">-&gt;</span><span class="code-lang">agregar_tablas</span><span class="code-keyword">(</span><span class="code-lang">$prefijo_tablas</span><span class="code-keyword">);
+        } else {
+            foreach(</span><span class="code-lang">$tablas </span><span class="code-keyword">as </span><span class="code-lang">$tabla</span><span class="code-keyword">) {
+                </span><span class="code-lang">$auditoria</span><span class="code-keyword">-&gt;</span><span class="code-lang">agregar_tabla</span><span class="code-keyword">(</span><span class="code-lang">$tabla</span><span class="code-keyword">);
+            }
+        }
+        </span><span class="code-lang">$auditoria</span><span class="code-keyword">-&gt;</span><span class="code-lang">regenerar</span><span class="code-keyword">();
+        if (</span><span class="code-lang">$con_transaccion</span><span class="code-keyword">) {
+            </span><span class="code-lang">$base</span><span class="code-keyword">-&gt;</span><span class="code-lang">cerrar_transaccion</span><span class="code-keyword">();
+        }
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">manejador_interface</span><span class="code-keyword">-&gt;</span><span class="code-lang">progreso_fin</span><span class="code-keyword">();
+    }    
+    
+}</span>
+
+<span class="code-lang">?&gt;</span>
+
+</pre></div><h2 id="Ejecución">Ejecución</h2>
 <p>
 Una vez creado el esquema a medida que se vayan modificando las tablas originales se van guardando las modificaciones en las tablas de auditoría. Para que el usuario almacenado en estas tablas refleje el usuario actual logueado al sistema (y no el usuario con el cual se conecta a la base que suele ser único por aplicación) es necesario guardar en una tabla temporal el usuario actual, una forma sencilla de asegurar esto es extender la fuente de datos y usar la ventana post_conectar:
 </p>
@@ -216,7 +274,7 @@ Una vez creado el esquema a medida que se vayan modificando las tablas originale
 
 </pre></div><h2 id="Consulta">Consulta</h2>
 <p>
-Existe una operación de consulta de sucesos básica en el proyecto toba_usuarios. Se puede importar la operación al proyecto y adaptar a gusto
+Existe una operación de consulta de sucesos básica en el proyecto <a class="wiki" href="../Proyectos/toba_usuarios.html">toba_usuarios</a>.
 </p>
 </div>
    </div>

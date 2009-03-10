@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?action=diff&amp;version=40">Last Change</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?action=diff&amp;version=43">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -171,6 +172,64 @@ li * {
     <div id="searchable"><h1 id="Casosdeusodedeployment">Casos de uso de deployment</h1>
 <p>
 Los siguientes escenarios asumen la existencia de un control de versiones para el proyecto e instalaciones remotas.
+</p>
+<h2 id="PasajeDesarrollo-Producción">Pasaje Desarrollo - Producción</h2>
+<p>
+El escenario más común es tener una única instancia de desarrollo y actualizar otra instancia (generalmente Producción o Testing) de manera periódica. Este escenario puede describirse en cinco pasos:
+</p>
+<p>
+<a style="padding:0; border:none" href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
+</p>
+<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estuvieron utilizando el Editor en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre></li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
+</li><li><i>Producción</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción, el primer paso es actualizar el proyecto en cuestión, esto traerá los metadatos y el código actualizado.
+</li><li><i>Producción</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados locales o propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenándose en el sistema de archivos:
+<pre class="wiki">toba instancia exportar_local
+</pre></li><li><i>Producción</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
+<pre class="wiki">toba proyecto regenerar -p mi_proyecto
+</pre></li></ol><h2 id="PasajeDesarrollo-Producciónincluyendousuarios">Pasaje Desarrollo - Producción (incluyendo usuarios)</h2>
+<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estuvieron utilizando el Editor en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre></li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
+</li><li><i>Desarrollo</i> - Copiar la carpeta <tt>toba/instalacion/i__&lt;instancia&gt;</tt> a producción. Esta carpeta contiene las .sql de los usuarios y como se vinculan al proyecto. Además contiene los logs de acceso y de aplicación, pueden borrarse estos archivos para no pasar el historial de desarrollo.
+</li><li><i>Producción</i> - Actualización de la nueva revisión: El primer paso es actualizar el proyecto en cuestión, esto traerá los metadatos y el código actualizado.
+</li><li><i>Producción</i> - Regenerar la instancia: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar la instancia. Ante la pregunta <i>Desea EXPORTAR antes la informacion local de la INSTANCIA?</i> responder NO, sino se perderá la información de usuarios traida desde desarrollo:
+<pre class="wiki">toba instancia regenerar
+</pre></li></ol><h2 id="PasajeDesarrollo-Producciónusandoinstaladorgráfico">Pasaje Desarrollo - Producción (usando instalador gráfico)</h2>
+<ol><li><i>Desarrollo</i> - Descargar los fuentes del instalador en una carpeta al mismo nivel que toba. Por ejemplo si toba esta instalado en <tt>D:\proyectos\toba</tt>:
+<pre class="wiki">svn co http://desarrollos2.siu.edu.ar/svn/toba/instalador/trunk d:\proyectos\instalador
+</pre></li><li><i>Desarrollo</i> - Por única vez copiar el archivo  <tt>d:\proyectos\instalador\ejemplo.proyecto.ini</tt> a la raiz del proyecto <tt>d:\proyectos\toba\proyectos\&lt;proyecto&gt;\proyecto.ini</tt> y ajustar las configuraciones
+</li><li><i>Desarrollo</i> - Ejecutar 
+<pre class="wiki">toba proyecto empaquetar -p &lt;proyecto&gt;
+</pre></li><li><i>Desarrollo</i> - El resultado del empaquetado queda en la carpeta <tt>d:\proyectos\instalador_&lt;proyecto&gt;</tt>. Comprimirlo y pasarlo a producción.
+</li><li><i>Producción</i> - Descomprimir el paquete en una carpeta navegable (ej. /var/www en debian o carpeta Apache htdocs en Windows)
+</li><li><i>Producción</i> - Navegar hacia <a class="ext-link" href="../../../../external.html?link=http://localhost/instalador"><span class="icon">http://localhost/instalador</span></a>_&lt;proyecto&gt;/&lt;version&gt; y seguir las instrucciones
+</li></ol><h2 id="ActualizacióndeToba">Actualización de Toba</h2>
+<p>
+Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica regenerar la instancia.
+</p>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html"><img src="../../attachment/wiki/Referencia/Deployment/actualizacion_toba41f0.png?format=raw" /></a>
+</p>
+<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y <strong>versionarlos</strong>. Para cada proyecto propio ubicado en esta instancia se debe hacer:
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre></li><li>Actualizar Toba: Se actualiza la nueva revisión de Toba desde el repositorio SVN.
+</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="wiki" href="../Versiones.html">Versiones Toba</a>), para ello ejecutar:
+<pre class="wiki">toba instalacion migrar
+</pre></li></ol><p>
+Por si la migración afecta algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
+</p>
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre><p>
+Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario volver a cargar la instancia:
+</p>
+<pre class="wiki">toba instancia regenerar
+</pre><p>
+Cabe notar que <tt>instancia regenerar</tt> como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
+</p>
+<p>
+Hay una razón por la cual la exportación se debe hacer antes que la actualización de código. Es posible que el nuevo código de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba más viejo). Si se quiere hacer la exportación luego de la actualización, este nuevo código va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracción de los metadatos hacia el sistema de archivos. Hay una solución a este error, siempre y cuando no se haya ejecutado el tercer paso por la razón explicada en el párrafo anterior. La solución es volver atrás la revisión de toba a la misma con la que se generó la instancia y reiniciar el proceso.
 </p>
 <h2 id="MúltiplesInstalaciones">Múltiples Instalaciones</h2>
 <p>
@@ -225,48 +284,7 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
         Allow from all
     &lt;/Directory&gt;
 
-</pre><h2 id="PasajeDesarrollo-Producción">Pasaje Desarrollo - Producción</h2>
-<p>
-El escenario más común es tener una única instancia de desarrollo y actualizar otra instancia (generalmente Producción o Testing) de manera periódica. Este escenario puede describirse en cinco pasos:
-</p>
-<p>
-<a style="padding:0; border:none" href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
-</p>
-<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estuvieron utilizando el Editor en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
-<pre class="wiki">toba proyecto exportar -p mi_proyecto
-</pre></li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
-</li><li><i>Producción</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción, el primer paso es actualizar el proyecto en cuestión, esto traerá los metadatos y el código actualizado.
-</li><li><i>Producción</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados locales o propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenándose en el sistema de archivos:
-<pre class="wiki">toba instancia exportar_local
-</pre></li><li><i>Producción</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
-<pre class="wiki">toba proyecto regenerar -p mi_proyecto
-</pre></li></ol><h2 id="ActualizacióndeToba">Actualización de Toba</h2>
-<p>
-Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica regenerar la instancia.
-</p>
-<p>
-<a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html"><img src="../../attachment/wiki/Referencia/Deployment/actualizacion_toba41f0.png?format=raw" /></a>
-</p>
-<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y <strong>versionarlos</strong>. Para cada proyecto propio ubicado en esta instancia se debe hacer:
-<pre class="wiki">toba proyecto exportar -p mi_proyecto
-</pre></li><li>Actualizar Toba: Se actualiza la nueva revisión de Toba desde el repositorio SVN.
-</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="wiki" href="../Versiones.html">Versiones Toba</a>), para ello ejecutar:
-<pre class="wiki">toba instalacion migrar
-</pre></li></ol><p>
-Por si la migración afecta algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
-</p>
-<pre class="wiki">toba proyecto exportar -p mi_proyecto
-</pre><p>
-Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario volver a cargar la instancia:
-</p>
-<pre class="wiki">toba instancia regenerar
-</pre><p>
-Cabe notar que <tt>instancia regenerar</tt> como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
-</p>
-<p>
-Hay una razón por la cual la exportación se debe hacer antes que la actualización de código. Es posible que el nuevo código de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba más viejo). Si se quiere hacer la exportación luego de la actualización, este nuevo código va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracción de los metadatos hacia el sistema de archivos. Hay una solución a este error, siempre y cuando no se haya ejecutado el tercer paso por la razón explicada en el párrafo anterior. La solución es volver atrás la revisión de toba a la misma con la que se generó la instancia y reiniciar el proceso.
-</p>
-</div>
+</pre></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>

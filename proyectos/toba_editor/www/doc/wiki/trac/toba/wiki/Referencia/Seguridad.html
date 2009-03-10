@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Seguridad?action=diff&amp;version=5">Last Change</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Seguridad?action=diff&amp;version=10">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -168,10 +169,11 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="PerfilesdeUsuarios">Perfiles de Usuarios</h1>
-<h2 id="Disponiblesalainstalaciónaplicaciónenproducción">Disponibles a la instalación (aplicación en producción)</h2>
+    <div id="searchable"><h1 id="Seguridad">Seguridad</h1>
+<h2 id="PerfilesdeUsuarios">Perfiles de Usuarios</h2>
+<h3 id="Disponiblesalainstalaciónaplicaciónenproducción">Disponibles a la instalación (aplicación en producción)</h3>
 <ul><li>Usuarios. Cada uno se relaciona con:
-<ul><li>Uno o más perfiles funcionales (ex 'grupos de acceso')
+<ul><li>Uno o más <a class="wiki" href="Seguridad/PerfilesFuncionales.html">perfiles funcionales</a>
 </li><li>Cero o un perfil de datos
 </li></ul></li><li>Perfiles funcionales. Relacionados con:
 <ul><li>Una lista de operaciones a las que se puede acceder
@@ -181,7 +183,7 @@ li * {
 </li></ul><p>
 Estas definiciones se hacen utilizando el proyecto <a class="wiki" href="../Proyectos/toba_usuarios.html">toba_usuarios</a>. Al exportar esta información se almacenan en la carpeta <tt>instalacion</tt> de toba. Para el caso particular de los perfiles funcionales debe existir un flag <tt>es_produccion</tt> en instalacion.ini para que pueda distinguir de las definiciones de desarrollo.
 </p>
-<h2 id="Disponiblessóloalproyectopersonalizaciónaplicaciónendesarrollo">Disponibles sólo al proyecto/personalización (aplicación en desarrollo)</h2>
+<h3 id="Disponiblessóloalproyectopersonalizaciónaplicaciónendesarrollo">Disponibles sólo al proyecto/personalización (aplicación en desarrollo)</h3>
 <ul><li>Restricciones Funcionales. Se agrupan restricciones bajo un nombre (ej. 'No modifica cargos')
 <ul><li>Pantallas no-visibles (ej. una solapa de un ci)
 </li><li>Componentes no-visibles (ej. un formulario)
@@ -197,11 +199,13 @@ Estas definiciones se hacen utilizando el proyecto <a class="wiki" href="../Proy
 Estas definiciones se hacen utilizando el proyecto <a class="missing wiki" href="../Proyectos/toba_editor.html" rel="nofollow">toba_editor?</a>. Al exportar esta información se almacenan en la carpeta <tt>metadatos</tt> del proyecto.
 Cabe aclarar que el proyecto/personalización también puede crear perfiles funcionales utilizando toba_usuarios, permitiendo así definir por ejemplo los perfiles funcionales básicos con que se ditribuye la aplicación.
 </p>
-<hr />
 <p>
 <a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Seguridad/perfiles.html"><img src="../../attachment/wiki/Referencia/Seguridad/perfiles41f0.png?format=raw" /></a>
 </p>
-</div>
+<h2 id="AuditoriayLogs">Auditoria y Logs</h2>
+<ul><li><a class="wiki" href="Auditoria.html">Auditoría de datos</a>: Registrar fecha, hora, usuario y detalle de cualquier cambio realizado a una tabla del sistema, de forma transparente a la aplicación.
+</li><li><a class="wiki" href="Logs.html">Logs de aplicación</a>: Lugar donde se almacenan los sucesos registrados en la aplicación php.
+</li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>

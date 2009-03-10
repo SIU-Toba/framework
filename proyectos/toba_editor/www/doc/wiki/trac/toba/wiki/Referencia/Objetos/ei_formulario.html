@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../../wiki.html">Start Page</a></li>
    <li><a href="../../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/ei_formulario?action=diff&amp;version=54">Last Change</a></li>
+   <li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/ei_formulario?action=diff&amp;version=59">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -185,12 +186,12 @@ El formulario cuenta con dos <a class="wiki" href="../Eventos.html#Modelos">mode
 </li></ul><p>
 El formulario presenta dos <a class="wiki" href="../Eventos.html#Agrupación">grupos de eventos</a>: <strong>cargado</strong> y <strong>no_cargado</strong>. En el modelo <i>ABM</i> la baja y la modificación pertenecen al grupo <i>cargado</i> mientras que en el grupo <i>no_cargado</i> se encuentra el alta.
 </p>
-<h2 id="Carga">Carga</h2>
+<h2 id="Configuración">Configuración</h2>
 <p>
-Para establecer los datos a mostrar en el formulario, es necesario <i>configurarlo</i>, desde un <a class="wiki" href="ci.html">CI</a> se debería escuchar la callback <tt>conf__formulario</tt>. En este método el formulario espera recibir un arreglo asociativo del tipo <tt> 'id_ef' =&gt; valor </tt>.
+Para establecer los datos a mostrar en el formulario, es necesario <i>configurarlo</i>, desde un <a class="wiki" href="ci.html">CI</a> se debería escuchar la callback <tt>conf__formulario</tt>. En este método es posible cambiar la configuraciones específicas del formulario (campos solo-lectura, etiquetas, etc.) y además brindarle los datos necesarios para graticarse. Estos datos se esperan tengan el formato de un arreglo asociativo del tipo <tt> 'id_ef' =&gt; valor </tt>.
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">conf__formulario</span><span class="code-keyword">(</span><span class="code-lang">$form</span><span class="code-keyword">)
+    </span><span class="code-keyword">function </span><span class="code-lang">conf__formulario</span><span class="code-keyword">(</span><span class="code-lang">toba_ei_formulario $form</span><span class="code-keyword">)
     {
        </span><span class="code-lang">$datos </span><span class="code-keyword">= array(
                     </span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">1</span><span class="code-keyword">,
@@ -199,8 +200,8 @@ Para establecer los datos a mostrar en el formulario, es necesario <i>configurar
                     </span><span class="code-string">'tipo' </span><span class="code-keyword">=&gt; </span><span class="code-lang">null
                 </span><span class="code-keyword">);
        </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_datos</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
-       </span><span class="code-comment">//--- Para la carga, una forma alternativa al set_datos es retornar los datos (return $datos)
-    </span><span class="code-keyword">}</span>
+       </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_solo_lectura</span><span class="code-keyword">(array(</span><span class="code-string">'id'</span><span class="code-keyword">, </span><span class="code-string">'importe'</span><span class="code-keyword">);
+    }</span>
 <span class="code-lang">?&gt;</span>
 
 </pre></div><h2 id="Cascadas">Cascadas</h2>
@@ -230,7 +231,7 @@ En este evento, el parámetro (en este caso <i>$datos</i>) contiene un arreglo a
 <h2 id="ExtensiónJavascript">Extensión Javascript</h2>
 <p>
 Se puede usar el mecanismo de <a class="wiki" href="../ExtensionesJavascript.html">extensión javascript</a> para agregar comportamientos en el cliente.
-Estas extensiones necesitan ser definidas en una subclase del cuadro, dentro del método <i><a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#extender_objeto_js' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> extender_objeto_js</a></i>. De todas las extensiones posibles, las siguientes se identificaron como las más comunes:
+Estas extensiones necesitan ser definidas en una subclase del formulario, dentro del método <i><a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#extender_objeto_js' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> extender_objeto_js</a></i>. De todas las extensiones posibles, las siguientes se identificaron como las más comunes:
 </p>
 <h3 id="Validacióngeneral">Validación general</h3>
 <p>
@@ -347,7 +348,7 @@ Por ejemplo si se quiere lograr un layout de <strong>dos columnas</strong> se pu
 Existe ejemplos con estas y más situaciones en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Carpeta <i>Referencia/Componentes/Formularios/</i>.
 </p>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cambio de layout y extensión JS</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000215' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cambio de layout y extensión JS</a></strong>
 </p>
 </div>
    </div>

@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Administracion?action=diff&amp;version=1">Last Change</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Administracion?action=diff&amp;version=2">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -170,13 +171,13 @@ li * {
    <div class="wikipage">
     <div id="searchable"><h1 id="AdministracióndelaAplicación">Administración de la Aplicación</h1>
 <p>
-Desde Toba 1.2.0 existe la posibilad de crear nuevos comandos e implementar comportamientos por defecto a los comandos actuales relacionado con la administración propia de la aplicación, principalmente la de los datos de negocio.
+Desde Toba 1.2.0 existe la posibilad de crear nuevos comandos e implementar comportamientos por defecto a los comandos actuales relacionados con la administración propia de la aplicación, principalmente la de los datos de negocio.
 </p>
 <p>
 Para esto se propone brindan dos interfaces:
 </p>
-<ul><li>Una interface de un comando. Los métodos de la implementación de esta interface estarán disponibles como una extensión del comando <tt>toba proyecto</tt>. 
-</li><li>Una interface de una clase de administración propia. Esta clase sirve como backend tanto de los comandos propios como de los procesos administrativos actuales.
+<ul><li>Una interface de comando. Los métodos de la implementación de esta interface estarán disponibles como una extensión del comando <tt>toba proyecto</tt>. 
+</li><li>Una interface a travez de una clase de administración propia. Esta clase sirve como backend tanto de los comandos propios como de los procesos administrativos actuales.
 </li></ul><p>
 Para simplificar el trabajo en proyectos chicos se brindará una implementación básica de estas interfaces, asumiendo las soluciones mas sencillas y universales. El proyecto puede optar por implementar desde cero o heredar las interfaces para ajustarse a sus necesidades.
 </p>

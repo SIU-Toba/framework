@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../wiki.html">Start Page</a></li>
    <li><a href="TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?action=diff&amp;version=130">Last Change</a></li>
+   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?action=diff&amp;version=137">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -170,21 +171,22 @@ li * {
    <div class="wikipage">
     <div id="searchable"><h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
 <h2 id="GuíaRápidaWindows">Guía Rápida Windows</h2>
-<ol><li>Instalar <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon">Apache</span></a>. <a class="ext-link" href="../../../external.html?link=http://apache.patan.com.ar/httpd/binaries/win32/apache_2.2.9-win32-x86-openssl-0.9.8h-r2.msi"><span class="icon">Instalador recomendado</span></a>.
-</li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon">PHP</span></a> versión 5.1.2 o superior. <a class="ext-link" href="../../../external.html?link=http://ar.php.net/get/php-5.2.5-win32-installer.msi/from/a/mirror"><span class="icon">Instalador recomendado</span></a> (No se recomienda usar la versión 5.2.6 ya que tiene un <a class="ext-link" href="../../../external.html?link=http://bugs.php.net/bug.php?id=44905"><span class="icon">bug en el instalador</span></a>):
+<ol><li>Instalar <a class="ext-link" href="../../../external.html?link=http://apache.org/dyn/closer.cgi"><span class="icon">Apache</span></a>. <a class="ext-link" href="../../../external.html?link=http://www.apache.org/dist/httpd/binaries/win32/apache_2.2.11-win32-x86-openssl-0.9.8i.msi"><span class="icon">Instalador recomendado</span></a>.
+</li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon">PHP</span></a> versión 5.1.2 o superior. <a class="ext-link" href="../../../external.html?link=http://ar.php.net/get/php-5.2.5-win32-installer.msi/from/a/mirror"><span class="icon">Instalador recomendado</span></a> (No se recomienda usar versiones superiores a la 5.2.5 ya que tiene un <a class="ext-link" href="../../../external.html?link=http://bugs.php.net/bug.php?id=44905"><span class="icon">bug en el instalador</span></a>):
 <ul><li>Seleccionar el módulo <tt>apache 2.2</tt>
 </li><li>Indicar el directorio de configuración de Apache (generalmente <tt>C:\Archivos de Programa\Apache Software Foundation\Apache2.2\conf</tt>
 </li><li>No seleccionar todas las extensiones porque no funciona.
 </li><li>Seleccionar como mínimo la extensión <tt>PDO PostgreSQL</tt>.
 </li><li>En caso de que a futuro necesite instalar alguna otra extensión lo puede hacer desde Agregar/Quitar Programas del Panel de Control de Windows. No borrar el instalador .msi para poder reejecutarlo.
-</li></ul></li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon">PostgreSQL</span></a> superior o igual a versión 7.4.x y menor o igual a versión 8.2.x. <a class="ext-link" href="../../../external.html?link=http://wwwmaster.postgresql.org/download/mirrors-ftp?file=%2Fbinary%2Fv8.2.9%2Fwin32%2Fpostgresql-8.2.9-1.zip"><span class="icon">Instalador Recomendado</span></a> <sup>(opcional)</sup>.
+</li></ul></li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon">PostgreSQL</span></a> superior o igual a versión 7.4.x y menor o igual a versión 8.2.x. <a class="ext-link" href="../../../external.html?link=http://wwwmaster.postgresql.org/download/mirrors-ftp?file=%2Fbinary%2Fv8.2.9%2Fwin32%2Fpostgresql-8.2.9-1.zip"><span class="icon">Instalador Recomendado</span></a>. En caso de usar la versión 8.3, asegurarse que el encoding del cluster sea 'C' o 'LATIN1', de lo contrario la instalación se deberá hacer manualmente indicando el encoding del cluster en bases.ini.
 </li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon">Subversion</span></a> para poder utilizar el cliente de linea de comandos. Destildar la opción de instalar los módulos de apache, sólo son necesarios para instalar un servidor svn, no un cliente como este caso. <sup>(opcional)</sup>.
 </li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.net/downloads"><span class="icon">TortoiseSVN</span></a> para poder utilizar el cliente integrado al explorador de windows <sup>(opcional)</sup>.
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://www.graphviz.org/Download_windows.php"><span class="icon">Graphviz</span></a> para poder visualizar grafos en el editor <sup>(opcional)</sup>.
 </li><li>Reiniciar el servidor apache para terminar la instalación de php. Navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/"><span class="icon">http://localhost</span></a> verificando que apache funciona.
 </li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon">Descomprimir o descargar</span></a> el código fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
 </li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones. Al finalizar la instalación no cerrar la ventana sin leer antes las instrucciones de cómo configurar apache. Una vez configurado reiniciar apache.
-</li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon">http://localhost/toba_editor/</span></a>
-</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon">http://localhost/miproyecto</span></a> (cambiar la url según el identificador que ha dado al proyecto).
+</li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.2</i>
+</li><li>Para ejecutar el proyecto navegar hacia <i>http://localhost/miproyecto/1.0</i> (cambiar la url según el identificador que ha dado al proyecto).
 </li><li>Para poder utilizar la consola nuevamente (para exportar, importar, migrar proyecto, etc.) abrir una consola de windows (cmd.exe) y ejecutar
 <pre class="wiki">x:\path\a\toba\bin\toba.bat
 </pre></li></ol><h3 id="Alternativa:instalaciónmanualdeApache-PHP">Alternativa: instalación manual de Apache-PHP</h3>
@@ -250,8 +252,8 @@ upload_max_filesize = 8 M
 <pre class="wiki">~/proyectos/toba/bin/instalar
 </pre></li><li>Tener en cuenta el esquema de permisos de UNIX. Apache necesita acceso a las carpeta <tt>www</tt> de Toba y del Proyecto. Si se quieren guardar los logs (opción por defecto) también necesita acceso de escritura a la carpeta <tt>instalacion</tt>. Existe una comando que acomoda los permisos luego de la instalacion y ejecución: (requiere ejecutarse como usuario privilegiado):
 <pre class="wiki">sudo ./bin/toba instalacion cambiar_permisos -u mi_usuario
-</pre></li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon">http://localhost/toba_editor/</span></a>
-</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon">http://localhost/miproyecto</span></a> (cambiar la url según el identificador que ha dado al proyecto).
+</pre></li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.2</i>
+</li><li>Para ejecutar el proyecto navegar hacia <i>http://localhost/miproyecto/1.0</i> (cambiar la url según el identificador que ha dado al proyecto).
 </li><li>Finalmente ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>
 </li></ol><h2 id="NotassobrePostgreSQL">Notas sobre PostgreSQL</h2>
 <ul><li>Para desarrollo la forma más sencilla de configurar el sistema es dejar el usuario de la base llamado <tt>postgres</tt> y darle permiso irrestricto desde la misma máquina (una verdero suicidio de seguridad). Para esto editar el archivo <tt>/etc/postgresql/8.2/main/pg_hba.conf</tt> (linux) o `c:\Archivos de Programa\PostgreSQL\8.2\datapg_hba.conf' y agregar esta línea al final del archivo (cambiar si ya existe con md5)

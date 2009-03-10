@@ -150,13 +150,14 @@ li * {
 
 
 
+
 <div id="ctxtnav" class="nav">
  <h2>Wiki Navigation</h2>
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
    <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/CelulaDesarrollo?action=diff&amp;version=5">Last Change</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/CelulaDesarrollo?action=diff&amp;version=9">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -168,7 +169,14 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="CelulasoGruposdeDesarrollo">Celulas o Grupos de Desarrollo</h1>
+    <div id="searchable"><h1 id="IdsdeDesarrollo">Ids de Desarrollo</h1>
+<p>
+<strong>La asignación de números para desarrollar sistemas SIU se encuentra en <a href="../../../../external.html?link=https://localhost/trac/siu/wiki/GruposDesarrollo">el trac del siu</a></strong>
+</p>
+<h2 id="Configuración">Configuración</h2>
+<p>
+Durante la instalación se pide ingresar este número. En caso de querer cambiarlo manualmente modificar el valor de <tt>id_grupo_desarrollo</tt> en <tt>instalacion/instalacion.ini</tt> y regenerar la instancia. Es importante que todos los desarrolladores de cada grupo verifique el estado de esta configuración, ya que si alguno posee una configuración distinta o no tiene ninguna puede traer problemas de sincronización a todo el proyecto.
+</p>
 <h2 id="ElProblema">El Problema</h2>
 <p>
 El desarrollo de toba se hace sobre una <a class="wiki" href="Instancia.html">Instancia</a>, esta corre sobre una o más bases de datos relacionales. Cuando uno crea objetos u items se crean registros en esta base de datos representandolos. Tener una base de datos centralizada permite que varios desarrolladores en un mismo grupo trabajen forma simultánea sobre la misma, dejando que el motor controle la concurrencia de las operaciones.
@@ -194,20 +202,7 @@ La limitante a nivel técnico es que cada grupo utiliza las secuencias como form
 </li><li>El grupo Tandil crea un ítem, se le asigna el id 2.000.001
 </li><li>Al mismo tiempo el grupo Bahía crea un ítem, también se le asigna el id 1.000.001 
 </li><li>Los dos grupos exportan sus metadatos y los suben sin problemas
-</li></ol><h2 id="Configuración">Configuración</h2>
-<p>
-Durante la creación manual de la <a class="wiki" href="Instalacion.html">instalación</a> se pide ingresar este id de grupo. En caso de querer cambiarlo manualmente modificar el valor de <tt>id_grupo_desarrollo</tt> en <tt>instalacion/instalacion.ini</tt>.
-</p>
-<p>
-La convención inicial es que:
-</p>
-<ul><li>Capital utiliza: 0
-</li><li>Bahía utiliza: 1
-</li><li>Tandil utiliza: 2
-</li></ul><p>
-Es importante que todos los desarrolladores de cada grupo constate el estado de esta configuración, ya que si alguno posee una configuración distinta o no tiene ninguna puede traer problemas de sincronización a todo el proyecto.
-</p>
-</div>
+</li></ol></div>
    </div>
    
   
