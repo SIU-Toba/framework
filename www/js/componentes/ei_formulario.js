@@ -473,7 +473,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		var hay_cambio = false;
 		for (id_ef in this._efs) {
 			if (! in_array(id_ef, this._cambios_excluir_efs)) {
-				var es_igual
+				var es_igual;
 				if (isset(this._estado_inicial[id_ef]) && typeof this._estado_inicial[id_ef] == 'object') {
 				 	es_igual = comparar_arreglos(this._estado_inicial[id_ef], 
 				 								this._efs[id_ef].get_estado());

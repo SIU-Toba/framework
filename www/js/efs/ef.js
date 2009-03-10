@@ -42,7 +42,7 @@ ef.prototype.constructor = ef;
 	    var self = this;
 	    var args = Array.prototype.slice.call(arguments, 1);
 	    return function(){ func.apply(self, args); };
-	  }
+	  };
 
 	/**
 	 * Retorna el id de este elemento definido en el editor
@@ -67,7 +67,7 @@ ef.prototype.constructor = ef;
 	 */		
 	ef.prototype.get_estado = function() {
 		var input = this.input();
-		if (input != null) {
+		if (input !== null) {
 			return input.value;
 		}
 	};

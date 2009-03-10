@@ -55,17 +55,17 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		if (this._es_oculto) {return;}
 		sel_txt = this._get_combo().getSelectedText();
 		srch_txt = this._get_combo().getComboText();
-		if ((sel_txt == srch_txt && trim(srch_txt) != '') || ((trim(srch_txt) == '') && (! this._buscar_todo))) {
+		if ((sel_txt == srch_txt && trim(srch_txt) !== '') || ((trim(srch_txt) === '') && (! this._buscar_todo))) {
 			return;
 		}
 		//Esto es para que traiga todo hasta el limite impuesto
-		if (this._buscar_todo && srch_txt == '') {srch_txt = '%';this._buscar_todo = false;}
+		if (this._buscar_todo && srch_txt === '') {srch_txt = '%';this._buscar_todo = false;}
 		var parametros = [srch_txt];
 		this._controlador.filtrado_ef_ce_comunicar(this._id, parametros);
 	};
 
 	ef_combo_editable.prototype._setear_opcion = function(valor, msg) {
-		if (typeof valor == 'undefined' || valor == '') {
+		if (typeof valor == 'undefined' || valor === '') {
 			return false;
 		}
 		if (typeof msg == 'undefined') {
@@ -124,9 +124,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		var valor = combo.getSelectedValue();
 		var desc = combo.getSelectedText();
 		var indice = combo.getIndexByValue(valor);
-		if (valor == null) {valor = '';}
+		if (valor === null) {valor = '';}
 		if (typeof valor == 'string') {valor = trim(valor);}
-		if (indice < 0 || valor == '') {valor = apex_ef_no_seteado;desc='';}
+		if (indice < 0 || valor === '') {valor = apex_ef_no_seteado;desc='';}
 		if (! descr) {
 			return valor;
 		} else {
@@ -227,7 +227,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		if (desplegar) {
 			combo.openSelect();
 		}
-		if (datos.length == 0) {
+		if (datos.length === 0) {
 			this.resetear_estado();
 		}	
 		return;
@@ -250,7 +250,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		if (typeof resetear == 'undefined') {
 			resetear = false;
 		}
-		if (this._es_oculto == true) {return;}
+		if (this._es_oculto === true) {return;}
 		ef.prototype.ocultar.call(this,resetear);
 		this._get_combo().show(false);
 		this._es_oculto = true;		
@@ -268,7 +268,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		if (typeof mostrar == 'undefined') {
 			mostrar = true;
 		}
-		if (mostrar && this._es_oculto == false) {return;}
+		if (mostrar && this._es_oculto === false) {return;}
 		ef.prototype.mostrar.call(this,mostrar,resetear);
 		if (mostrar) {
 			this._get_combo().show(true);
@@ -280,6 +280,6 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 	
 	ef_combo_editable.prototype.input = function() {
 		return this._get_combo().DOMelem_input;
-	}
+	};
 
 toba.confirmar_inclusion('efs/ef_combo_editable');

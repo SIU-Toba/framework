@@ -140,7 +140,7 @@ toba = new function() {
 				return;	//Evita el doble posteo
 			}
 			this._enviado = true;
-			if (toba_espera != 0) {
+			if (toba_espera !== 0) {
 				setTimeout ("mostrar_esperar()", toba_espera);
 			}
 			var botones = document.getElementsByTagName("button");
@@ -196,7 +196,7 @@ toba = new function() {
 	 */
 	toba.set_callback_menu = function(callback, contexto) {
 		this._callback_menu = [callback, contexto];
-	}
+	};
 	
 	/**
 	 * Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>

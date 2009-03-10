@@ -72,6 +72,11 @@ ci
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_combo_editable.html">ef_combo_editable</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_cuit.html">ef_cuit</a>    
 		</span>
 	 	<br />
@@ -298,7 +303,7 @@ ci
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
-		<div class="info-box-body"><a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
+		<div class="info-box-body"><a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>
 		</div>
 	</div>
 
@@ -318,7 +323,7 @@ ci
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#activar_tab">activar_tab</A>(id)
+						<a class="method-name" href="#activar_tab">activar_tab</A>(&lt;string&gt; id)
 					</td>
 
 					<td class="method-definition"> Activa un tab previamente desactivado</td></tr>
@@ -370,7 +375,7 @@ ci
 											<span class="method-result"><a href="ei.html">ei</a></span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#dependencia">dependencia</A>(identificador)
+						<a class="method-name" href="#dependencia">dependencia</A>(&lt;string&gt; identificador)
 					</td>
 
 					<td class="method-definition"> Retorna la referencia a un componente hijo o dependiente del actual</td></tr>
@@ -401,7 +406,7 @@ ci
 											<span class="method-result"><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_tab">get_tab</A>(id)
+						<a class="method-name" href="#get_tab">get_tab</A>(&lt;string&gt; id)
 					</td>
 
 					<td class="method-definition"> Retorna la referencia al tag HTML que contiene un tab o solapa</td></tr>
@@ -518,7 +523,7 @@ ci
 					<td class="method-definition"> Intenta realizar el submit de todos los objetos asociados
  El proceso de SUBMIT se divide en partes:<br>
  1- Se sube hasta el CI raiz<br>
- 2- El raiz analiza si puede hacerlo (recorriendo los hijos)<br>
+ 2- El componente raiz analiza si puede hacerlo (recorriendo los hijos)<br>
  3-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)<br></td></tr>
 			
 					<tr><td class="method-definition " nowrap>
@@ -593,7 +598,7 @@ ci
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void activar_tab (id)</code>
+							   <code>void activar_tab (&lt;string&gt; id)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -607,6 +612,20 @@ ci
 						
 			
 		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id del tab/pantalla a activar  </span>
+					</td>
+				</tr>
+				
+			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -925,7 +944,7 @@ ci
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code><a href="ei.html">ei</a> dependencia (identificador)</code>
+							   <code><a href="ei.html">ei</a> dependencia (&lt;string&gt; identificador)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -939,6 +958,20 @@ ci
 						
 			
 		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">identificador</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Identificador de la dependencia o hijo.  </span>
+					</td>
+				</tr>
+				
+			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -986,7 +1019,7 @@ ci
 						<span class="var-name">id</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Id. de la pantalla destino  </span>
+						<span class="var-description"> Id. del tab/pantalla destino  </span>
 					</td>
 				</tr>
 				
@@ -1072,7 +1105,7 @@ ci
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> get_tab (id)</code>
+							   <code><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> get_tab (&lt;string&gt; id)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1086,6 +1119,20 @@ ci
 						
 			
 		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id del tab/pantalla</span>
+					</td>
+				</tr>
+				
+			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -1261,7 +1308,7 @@ ci
 						<span class="var-name">id</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Id. de la pantalla destino 	   </span>
+						<span class="var-description"> Id. del tab/pantalla destino  </span>
 					</td>
 				</tr>
 				
@@ -1272,6 +1319,10 @@ ci
 						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#desactivar_tab">desactivar_tab()</a></UL>
+		   </UL>
 		   
 		   
 		</div>
@@ -1590,7 +1641,7 @@ ci
 	  				<UL>Intenta realizar el submit de todos los objetos asociados
  El proceso de SUBMIT se divide en partes:<br>
  1- Se sube hasta el CI raiz<br>
- 2- El raiz analiza si puede hacerlo (recorriendo los hijos)<br>
+ 2- El componente raiz analiza si puede hacerlo (recorriendo los hijos)<br>
  3-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)<br></UL>
 				</p>
 						

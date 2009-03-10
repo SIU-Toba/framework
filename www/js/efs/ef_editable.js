@@ -393,7 +393,7 @@ ef_editable_fecha.prototype = new ef_editable();
 	 */
 	ef_editable_fecha.prototype.set_fecha = function(fecha) {	
 		 this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
-	}
+	};
 	
 	ef_editable_fecha.prototype.validar = function() {
 		if (! ef_editable.prototype.validar.call(this)) {

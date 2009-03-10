@@ -20,7 +20,7 @@ function trim(s){
 	}
 
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
-};
+}
 
 function quitar_acentos(s){
     s = s.reemplazar('á', 'a');
@@ -28,7 +28,7 @@ function quitar_acentos(s){
     s = s.reemplazar('í', 'i');
     s = s.reemplazar('ó', 'o');
     return s.reemplazar('ú', 'u');
-};
+}
 
 /**
  * Retorna la primer ocurrencia de alguna de estas cadenas
@@ -161,15 +161,21 @@ function serializar(dato) {
 }
 
 function comparar_arreglos(a, b) {
-    if (a.length != b.length) return false;
+    if (a.length != b.length) {
+		return false;
+	}
     for (var i = 0; i < b.length; i++) {
         if (typeof a[i] == 'object') { 
-            if (! comparar_arreglos(a[i], b[i])) return false;
+            if (! comparar_arreglos(a[i], b[i])) {
+				return false;
+			}
         }
-        if (a[i] !== b[i]) return false;
+        if (a[i] !== b[i]) {
+			return false;
+		}
     }
     return true;
-};
+}
 
 //---Eventos
 //--------------------------------------------
@@ -236,9 +242,9 @@ function getElementPosition(offsetTrail) {
  * Ordena un input elect por una funcion
  */ 
 function ordenar_select(selectBox, funcion) {
-	selectArray = new Array();
+	selectArray = [];
 	for (i = 0; i < selectBox.length; i++) {
-		selectArray[i] = new Array();
+		selectArray[i] = [];
 		selectArray[i][0] = selectBox.options[i].text;
 		selectArray[i][1] = selectBox.options[i].value;
 	}

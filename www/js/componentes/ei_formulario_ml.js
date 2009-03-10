@@ -471,7 +471,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (var i=0; i<filas_a_borrar.length; i++) {
 			this.eliminar_fila(filas_a_borrar[i]);
 		}
-	}
+	};
 	
 	/**
 	 * Agrega una nueva fila a la grilla.

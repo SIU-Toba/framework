@@ -367,7 +367,7 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 				if (orden[i] == b[1]) {
 					return 1;
 				}	
-			};
+			}
 			return 0;
 		}
 		ordenar_select(this.input(hasta), ordenar);

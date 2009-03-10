@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-ei
+ef_combo_editable
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -245,7 +245,7 @@ ei
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>ei</h1>
+<h1>ef_combo_editable</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -264,7 +264,7 @@ ei
 		<tr><td valign="top" width="60%" class="class-overview">
 	   
       		<div class="description">
-   			<BR/>Clase base de los componentes toba en javascript
+   			<BR/>Combo editable equivalente a un tag SELECT en HTML 
  <BR/>
 			</div>	
    				
@@ -272,11 +272,13 @@ ei
 
 <PRE>Object
    |
-   +--<b>ei</b>
+   +--<a href='ef.html'>ef</a>
+         |
+         +--<b>ef_combo_editable</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en ei.js
+			Ubicada en ef_combo_editable.js
 		</p>
 
 
@@ -284,9 +286,9 @@ ei
 	<table border="0" cellspacing="0" cellpadding="0">
 		
 	
-			<tr><td colspan="2"><a href='../api/Componentes/Eis/toba_ei'>
+			<tr><td colspan="2"><a href='../api/Componentes/Efs/toba_ef_combo_editable'>
 			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
-			<strong>Clase PHP equivalente: toba_ei</strong></a></td></tr>
+			<strong>Clase PHP equivalente: toba_ef_combo_editable</strong></a></td></tr>
 	<br>
 	
 	</table>
@@ -295,15 +297,15 @@ ei
 	</div>
 </div>
 
-
-<div class="info-box">
-		<div class="info-box-title">Subclases directas</div>
-		<div class="info-box-body"> <a href="ei_archivos.html">ei_archivos</a>, <a href="ci.html">ci</a>, <a href="ei_calendario.html">ei_calendario</a>, <a href="ei_formulario.html">ei_formulario</a>, <a href="ei_arbol.html">ei_arbol</a>, <a href="ei_cuadro.html">ei_cuadro</a>, <a href="ei_filtro.html">ei_filtro</a>
-		</div>
-	</div>
 	
 
 <a name="sec-inherited"></a>
+
+<div class="info-box">
+		<div class="info-box-title">Métodos heredados de <a href="ef.html">ef</a></div>
+		<div class="info-box-body"><a href="ef.html#get_id">get_id</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#resaltar_cambio">resaltar_cambio</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+		</div>
+	</div>
 
 
 
@@ -321,88 +323,77 @@ ei
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#activar_boton">activar_boton</A>(&lt;string&gt; id)
+						<a class="method-name" href="#borrar_opciones">borrar_opciones</A>()
 					</td>
 
-					<td class="method-definition"> Activa un boton previamente desactivado</td></tr>
+					<td class="method-definition"> Elimina las opciones disponibles en el combo</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#agregar_notificacion">agregar_notificacion</A>(mensaje, nivel)
+						<a class="method-name" href="#cuando_cambia_valor">cuando_cambia_valor</A>(&lt;string&gt; callback)
 					</td>
 
-					<td class="method-definition"> </td></tr>
+					<td class="method-definition"> Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#boton_colapsar">boton_colapsar</A>()
+						<a class="method-name" href="#es_oculto">es_oculto</A>()
 					</td>
 
-					<td class="method-definition"> Referencia al tag HTML que representa el boton de colapsar/descolapsar</td></tr>
+					<td class="method-definition"> El ef_combo_editable esta oculto?</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">string</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_estado">get_estado</A>(descr)
+					</td>
+
+					<td class="method-definition"> Retorna el estado o valor actual del elemento.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result"><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#input">input</A>()
+					</td>
+
+					<td class="method-definition"> Retorna el input HTML asociado a este elemento</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#cambiar_colapsado">cambiar_colapsado</A>()
+						<a class="method-name" href="#mostrar">mostrar</A>(mostrar, resetear)
 					</td>
 
-					<td class="method-definition"> Invierte el colapsado del componente</td></tr>
+					<td class="method-definition"> Muestra el elemento previamente ocultado</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#colapsar">colapsar</A>()
+						<a class="method-name" href="#ocultar">ocultar</A>(resetear)
 					</td>
 
-					<td class="method-definition"> Colapsa el componente permitiendo, que el usuario puede descolapsarlo pulsando un ícono</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">Object</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#cuerpo">cuerpo</A>()
-					</td>
-
-					<td class="method-definition"> Referencia al tag HTML que contiene el html de todo el componente</td></tr>
+					<td class="method-definition"> Oculta temporalmente el elemento y su etiqueta</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#desactivar_boton">desactivar_boton</A>(&lt;string&gt; id)
-					</td>
-
-					<td class="method-definition"> Desactiva un boton asociado al componente, 
- esto no permite que el usuario lo pulse aunque aun es visible</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#descolapsar">descolapsar</A>()
-					</td>
-
-					<td class="method-definition"> Descolpsa explícitamente el componente previamente colapsado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#exportar_excel">exportar_excel</A>()
+						<a class="method-name" href="#proceso_tecla">proceso_tecla</A>()
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -412,154 +403,80 @@ ei
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#exportar_pdf">exportar_pdf</A>()
+						<a class="method-name" href="#resetear_estado">resetear_estado</A>()
 					</td>
 
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">Object</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_boton">get_boton</A>(&lt;string&gt; id)
-					</td>
-
-					<td class="method-definition"> Referencia al tag HTML de un boton especifico</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#invocar_vinculo">invocar_vinculo</A>(&lt;string&gt; id_evento, &lt;string&gt; id_vinculo)
-					</td>
-
-					<td class="method-definition"> Ejecuta un vinculo producido por un evento
- Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
- que se pueda modificar alguna propiedad del vinculo</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#limpiar_notificaciones">limpiar_notificaciones</A>()
-					</td>
-
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#mostrar">mostrar</A>(&lt;boolean&gt; mostrar)
-					</td>
-
-					<td class="method-definition"> Muestra un componente previamente ocultado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#mostrar_boton">mostrar_boton</A>(&lt;string&gt; id)
-					</td>
-
-					<td class="method-definition"> Muestra un boton previamente ocultado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#ocultar">ocultar</A>()
-					</td>
-
-					<td class="method-definition"> Oculta el componente completo</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#ocultar_boton">ocultar_boton</A>(&lt;string&gt; id)
-					</td>
-
-					<td class="method-definition"> Oculta un boton/evento de la vista del usuario</td></tr>
+					<td class="method-definition"> Borra el estado actual del elemento, el nuevo estado depende de cada ef, generalmente equivale a un string vacio</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">boolean</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#puede_submit">puede_submit</A>()
+						<a class="method-name" href="#seleccionar">seleccionar</A>()
 					</td>
 
-					<td class="method-definition"> Determina si el componente puede hacer submit en base 
- al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">Object</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#raiz">raiz</A>()
-					</td>
-
-					<td class="method-definition"> Referencia al tag HTML padre del componente</td></tr>
+					<td class="method-definition"> Intenta forzar el foco visual al elemento, esto generalmente pone el cursor y la atención visual en el elemento</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#reset_evento">reset_evento</A>()
+						<a class="method-name" href="#set_estado">set_estado</A>(nuevo)
 					</td>
 
-					<td class="method-definition"> Limpia el evento actualmente informado al componente</td></tr>
+					<td class="method-definition"> Cambia el valor o estado actual del elemento</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#resetear_errores">resetear_errores</A>()
+						<a class="method-name" href="#set_opciones">set_opciones</A>(valores, desplegar)
 					</td>
 
-					<td class="method-definition"> Limpia el componente de errores producidos anteriormente</td></tr>
+					<td class="method-definition"> Cambia las opciones del combo</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#set_evento">set_evento</A>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento, &lt;boolean&gt; hacer_submit)
+						<a class="method-name" href="#set_permite_escribir">set_permite_escribir</A>(permite_escribir)
 					</td>
 
-					<td class="method-definition"> Informa al componente la presencia de un nuevo evento</td></tr>
+					<td class="method-definition"> </td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#set_evento_implicito">set_evento_implicito</A>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento)
+						<a class="method-name" href="#set_solo_lectura">set_solo_lectura</A>(&lt;boolean&gt; solo_lectura)
 					</td>
 
-					<td class="method-definition"> Determina cual es el evento que se utiliza cuando no se dispara ninguno explicitamente por el usuario</td></tr>
+					<td class="method-definition"> Cambia la capacidad de edición sobre el elemento</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">Object</span>
+											<span class="method-result">boolean</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#submit">submit</A>()
+						<a class="method-name" href="#tiene_estado">tiene_estado</A>()
 					</td>
 
-					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</td></tr>
+					<td class="method-definition"> Tiene algun elemento seleccionado?</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#validar">validar</A>()
+					</td>
+
+					<td class="method-definition"> Valida el estado actual del ef</td></tr>
 			
 			</table>
 			</div>			
@@ -576,10 +493,10 @@ ei
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="ei()"><!-- --></A>
+<A NAME="ef_combo_editable()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">ei</span>
+				<span class="method-title">ef_combo_editable</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -587,7 +504,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ei (instancia, input_submit)</code>
+							   <code>ef_combo_editable (id_form, etiqueta, obligatorio, colapsado, tamano)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -608,13 +525,13 @@ ei
 		<a name='method_detail'></a>
 		
 		
-   		<A id="activar_boton" NAME="activar_boton"><!-- --></A>	
+   		<A id="borrar_opciones" NAME="borrar_opciones"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">activar_boton</span>
+				<span class="method-title">borrar_opciones</span>
 			</div>
 			<br />
 			<div class="function">
@@ -622,7 +539,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void activar_boton (&lt;string&gt; id)</code>
+							   <code>void borrar_opciones ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -631,7 +548,45 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Activa un boton previamente desactivado</UL>
+	  				<UL>Elimina las opciones disponibles en el combo</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="cuando_cambia_valor" NAME="cuando_cambia_valor"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">cuando_cambia_valor</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void cuando_cambia_valor (&lt;string&gt; callback)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
 				</p>
 						
 			
@@ -642,419 +597,10 @@ ei
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">id</span>
+						<span class="var-name">callback</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Id. del boton/evento a activar  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#desactivar_boton">desactivar_boton()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="agregar_notificacion" NAME="agregar_notificacion"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">agregar_notificacion</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void agregar_notificacion (mensaje, nivel)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="boton_colapsar" NAME="boton_colapsar"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">boton_colapsar</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Object boton_colapsar ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Referencia al tag HTML que representa el boton de colapsar/descolapsar</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="cambiar_colapsado" NAME="cambiar_colapsado"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">cambiar_colapsado</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void cambiar_colapsado ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Invierte el colapsado del componente</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#colapsar">colapsar()</a><BR/>- <a href="#descolapsar">descolapsar()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="colapsar" NAME="colapsar"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">colapsar</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void colapsar ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Colapsa el componente permitiendo, que el usuario puede descolapsarlo pulsando un ícono</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="cuerpo" NAME="cuerpo"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">cuerpo</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Object cuerpo ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Referencia al tag HTML que contiene el html de todo el componente</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="desactivar_boton" NAME="desactivar_boton"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">desactivar_boton</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void desactivar_boton (&lt;string&gt; id)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Desactiva un boton asociado al componente, 
- esto no permite que el usuario lo pulse aunque aun es visible</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">id</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del boton/evento a desactivar  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#activar_boton">activar_boton()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="descolapsar" NAME="descolapsar"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">descolapsar</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void descolapsar ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Descolpsa explícitamente el componente previamente colapsado</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="exportar_excel" NAME="exportar_excel"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">exportar_excel</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void exportar_excel ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="exportar_pdf" NAME="exportar_pdf"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">exportar_pdf</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void exportar_pdf ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="get_boton" NAME="get_boton"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">get_boton</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Object get_boton (&lt;string&gt; id)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Referencia al tag HTML de un boton especifico</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">id</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del boton/evento</span>
+						<span class="var-description"> Codigo de la funcion a disparar 	   </span>
 					</td>
 				</tr>
 				
@@ -1069,13 +615,13 @@ ei
 		   
 		</div>
 		
-   		<A id="invocar_vinculo" NAME="invocar_vinculo"><!-- --></A>	
+   		<A id="es_oculto" NAME="es_oculto"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
-				<span class="method-title">invocar_vinculo</span>
+				<span class="method-title">es_oculto</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1083,7 +629,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void invocar_vinculo (&lt;string&gt; id_evento, &lt;string&gt; id_vinculo)</code>
+							   <code>Object es_oculto ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1092,57 +638,35 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Ejecuta un vinculo producido por un evento
- Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
- que se pueda modificar alguna propiedad del vinculo</UL>
+	  				<UL>El ef_combo_editable esta oculto?</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
 		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">id_evento</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description">  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">id_vinculo</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description">   </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
-						
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent">boolean</td>
+			  </tr>
+			</table>
+   						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="vinculador.html#">vinculador</a></UL>
-		   </UL>
 		   
 		   
 		</div>
 		
-   		<A id="limpiar_notificaciones" NAME="limpiar_notificaciones"><!-- --></A>	
+   		<A id="get_estado" NAME="get_estado"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
-				<span class="method-title">limpiar_notificaciones</span>
+				<span class="method-title">get_estado</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1150,13 +674,56 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void limpiar_notificaciones ()</code>
+							   <code>string get_estado (descr)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
+			
+				<p class="description">
+	  				<UL>Retorna el estado o valor actual del elemento. 
+ Generalmente es el value del input HTML</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="input" NAME="input"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">input</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> input ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna el input HTML asociado a este elemento</UL>
+				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -1184,7 +751,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void mostrar (&lt;boolean&gt; mostrar)</code>
+							   <code>void mostrar (mostrar, resetear)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1193,7 +760,7 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Muestra un componente previamente ocultado</UL>
+	  				<UL>Muestra el elemento previamente ocultado</UL>
 				</p>
 						
 			
@@ -1204,10 +771,10 @@ ei
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">mostrar</span>
+						<span class="var-name">resetar</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Pasando true o false permite mostrar u ocultar  </span>
+						<span class="var-description"> Además de ocultar el elemento borra su estado o valor actual  </span>
 					</td>
 				</tr>
 				
@@ -1226,66 +793,10 @@ ei
 		   
 		</div>
 		
-   		<A id="mostrar_boton" NAME="mostrar_boton"><!-- --></A>	
+   		<A id="ocultar" NAME="ocultar"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
-		 
-			<div class="method-header">
-				<span class="method-title">mostrar_boton</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void mostrar_boton (&lt;string&gt; id)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Muestra un boton previamente ocultado</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">id</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del boton/evento a mostrar  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#ocultar_boton">ocultar_boton()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="ocultar" NAME="ocultar"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
 		 
 			<div class="method-header">
 				<span class="method-title">ocultar</span>
@@ -1296,7 +807,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void ocultar ()</code>
+							   <code>void ocultar (resetear)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1305,11 +816,25 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Oculta el componente completo</UL>
+	  				<UL>Oculta temporalmente el elemento y su etiqueta</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">resetar</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Además de ocultar el elemento borra su estado o valor actual, por defecto false  </span>
+					</td>
+				</tr>
+				
+			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -1324,13 +849,13 @@ ei
 		   
 		</div>
 		
-   		<A id="ocultar_boton" NAME="ocultar_boton"><!-- --></A>	
+   		<A id="proceso_tecla" NAME="proceso_tecla"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
-				<span class="method-title">ocultar_boton</span>
+				<span class="method-title">proceso_tecla</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1338,7 +863,41 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void ocultar_boton (&lt;string&gt; id)</code>
+							   <code>void proceso_tecla ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="resetear_estado" NAME="resetear_estado"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">resetear_estado</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void resetear_estado ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1347,7 +906,128 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Oculta un boton/evento de la vista del usuario</UL>
+	  				<UL>Borra el estado actual del elemento, el nuevo estado depende de cada ef, generalmente equivale a un string vacio</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">seleccionar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>boolean seleccionar ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Intenta forzar el foco visual al elemento, esto generalmente pone el cursor y la atención visual en el elemento</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent">Verdadero si se pudo seleccionar/dar foco, falso en caso contrario</td>
+			  </tr>
+			</table>
+   						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_estado" NAME="set_estado"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_estado</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_estado (nuevo)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia el valor o estado actual del elemento</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_opciones" NAME="set_opciones"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_opciones</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_opciones (valores, desplegar)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia las opciones del combo</UL>
 				</p>
 						
 			
@@ -1358,10 +1038,96 @@ ei
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">id</span>
+						<span class="var-name">valores</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Id. del boton/evento a ocultar  </span>
+						<span class="var-description"> Objeto asociativo id=>valor 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_permite_escribir" NAME="set_permite_escribir"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_permite_escribir</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_permite_escribir (permite_escribir)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_solo_lectura" NAME="set_solo_lectura"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_solo_lectura</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_solo_lectura (&lt;boolean&gt; solo_lectura)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia la capacidad de edición sobre el elemento</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">solo_lectura</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Desactiva (true) o activa (false) el elemento  </span>
 					</td>
 				</tr>
 				
@@ -1374,19 +1140,19 @@ ei
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   <UL>   
-			   <B>See:</B><UL>- <a href="#mostrar_boton">mostrar_boton()</a></UL>
+			   <B>See:</B><UL>- <a href="#activar">activar</a><BR/>- <a href="#desactivar">desactivar</a></UL>
 		   </UL>
 		   
 		   
 		</div>
 		
-   		<A id="puede_submit" NAME="puede_submit"><!-- --></A>	
+   		<A id="tiene_estado" NAME="tiene_estado"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
-				<span class="method-title">puede_submit</span>
+				<span class="method-title">tiene_estado</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1394,7 +1160,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>boolean puede_submit ()</code>
+							   <code>boolean tiene_estado ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1403,8 +1169,7 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Determina si el componente puede hacer submit en base 
- al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
+	  				<UL>Tiene algun elemento seleccionado? (distinto del no_seteado)</UL>
 				</p>
 						
 			
@@ -1419,13 +1184,13 @@ ei
 		   
 		</div>
 		
-   		<A id="raiz" NAME="raiz"><!-- --></A>	
+   		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
-				<span class="method-title">raiz</span>
+				<span class="method-title">validar</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1433,7 +1198,7 @@ ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>Object raiz ()</code>
+							   <code>boolean validar ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1442,7 +1207,7 @@ ei
 			</div>
 			
 				<p class="description">
-	  				<UL>Referencia al tag HTML padre del componente</UL>
+	  				<UL>Valida el estado actual del ef</UL>
 				</p>
 						
 			
@@ -1450,241 +1215,20 @@ ei
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
-						
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent">Verdadero si el estado actual del ef es válido, falso en caso contrario  </td>
+			  </tr>
+			</table>
+   						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   <UL>   
-			   <B>See:</B><UL>- <a href="#cuerpo">cuerpo()</a></UL>
+			   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
 		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="reset_evento" NAME="reset_evento"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">reset_evento</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void reset_evento ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Limpia el evento actualmente informado al componente</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="resetear_errores" NAME="resetear_errores"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">resetear_errores</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void resetear_errores ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Limpia el componente de errores producidos anteriormente</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="set_evento" NAME="set_evento"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">set_evento</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void set_evento (&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento, &lt;boolean&gt; hacer_submit)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Informa al componente la presencia de un nuevo evento</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">evento</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description">  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">hacer_submit</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Luego de informar el evento, se inicia el proceso de submit (por defecto true) 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="set_evento_implicito" NAME="set_evento_implicito"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">set_evento_implicito</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void set_evento_implicito (&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Determina cual es el evento que se utiliza cuando no se dispara ninguno explicitamente por el usuario</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">evento</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="submit" NAME="submit"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">submit</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Object submit ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   
 		</div>
@@ -1696,32 +1240,6 @@ ei
 
 <br />
 
-
-<a name="sec-vars"></a>
-<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-		   	
-			 <A NAME="controlador"><!-- --></A>
-	   		 
-				<div class="oddrow">
-				
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type"><a href="ei.html">ei</a></span>&nbsp;&nbsp;
-						<span class="var-name">controlador</span>
-					</span>
-					
-						<p class="description">
-			  				<UL>Componente padre o contenedor del actual</UL>
-						</p>
-											
-				</div>
-				
-			</div>			   
-			
-		</div>
-</div>
 
 
 <br />

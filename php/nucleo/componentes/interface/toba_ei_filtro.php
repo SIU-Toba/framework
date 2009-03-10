@@ -5,7 +5,7 @@
  * Según el tipo de la columna se despliegan distintos criterios
  * @package Componentes
  * @subpackage Eis
- * @jsdoc ei_formulario ei_filtro
+ * @jsdoc ei_filtro ei_filtro
  * @wiki Referencia/Objetos/ei_filtro
  */
 class toba_ei_filtro extends toba_ei

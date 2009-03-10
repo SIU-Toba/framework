@@ -72,6 +72,11 @@ toba
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_combo_editable.html">ef_combo_editable</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_cuit.html">ef_cuit</a>    
 		</span>
 	 	<br />
@@ -391,7 +396,17 @@ toba
 						<a class="method-name" href="#!s!inicio_aguardar">inicio_aguardar</A>()
 					</td>
 
-					<td class="method-definition"> Muestra un div/imagen contienendo un mensaje de 'Procesando'</td></tr>
+					<td class="method-definition"> Muestra un div/imagen conteniendo un mensaje de 'Procesando'</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!ir_a_operacion">ir_a_operacion</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup)
+					</td>
+
+					<td class="method-definition"> Navega hacia una opción del menú</td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
@@ -425,6 +440,16 @@ toba
 
 					<td class="method-definition"> Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
  en lugar del request clásico POST/GET a todo el framework</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!set_callback_menu">set_callback_menu</A>(&lt;function&gt; callback, &lt;object&gt; contexto)
+					</td>
+
+					<td class="method-definition"> Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú</td></tr>
 			
 			</table>
 			</div>			
@@ -639,7 +664,7 @@ toba
 						<span class="var-name">nombre_callback</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta) 	   </span>
+						<span class="var-description"> Funcion que escucha la respuesta del servidor (opcional si no se quiere escuchar respuesta) 	   </span>
 					</td>
 				</tr>
 				
@@ -848,7 +873,7 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Muestra un div/imagen contienendo un mensaje de 'Procesando'</UL>
+	  				<UL>Muestra un div/imagen conteniendo un mensaje de 'Procesando'</UL>
 				</p>
 						
 			
@@ -867,10 +892,80 @@ toba
 		   
 		</div>
 		
-   		<A id="servicio__html_parcial" NAME="!s!servicio__html_parcial"><!-- --></A>	
+   		<A id="ir_a_operacion" NAME="!s!ir_a_operacion"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">ir_a_operacion</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Object ir_a_operacion (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Navega hacia una opción del menú</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">proyecto</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Nombre del Proyecto  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">operacion</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id operación destino  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">es_popup</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Indica si se abrira en la ventana actual o una nueva.</span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="servicio__html_parcial" NAME="!s!servicio__html_parcial"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">servicio__html_parcial</span>
@@ -912,8 +1007,8 @@ toba
 		
    		<A id="set_aguardar" NAME="!s!set_aguardar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_aguardar</span>
@@ -948,7 +1043,7 @@ toba
 						<span class="var-name">aguardar</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> habilitar el mensaje?  </span>
+						<span class="var-description"> Habilitar el mensaje?  </span>
 					</td>
 				</tr>
 				
@@ -969,8 +1064,8 @@ toba
 		
    		<A id="set_ajax" NAME="!s!set_ajax"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_ajax</span>
@@ -1015,6 +1110,67 @@ toba
 					</td>
 					<td>&nbsp;
 						<span class="var-description"> Método de esta clase que escucha la respuesta del servidor (servicio) 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_callback_menu" NAME="!s!set_callback_menu"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_callback_menu</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_callback_menu (&lt;function&gt; callback, &lt;object&gt; contexto)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">callback</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Función que se invocara pasando por parametros (proyecto, operacion, url, es_popup)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">contexto</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Opcional, objeto al cual pertenece la función (si pertenece a alguno) 	   </span>
 					</td>
 				</tr>
 				
