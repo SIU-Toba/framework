@@ -1799,7 +1799,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, perfil_datos, punto_acceso) 
 						VALUES ($proyecto, $usuario, $funcional, $datos, $url);";
 		}
-		return $sql;
+		$db->ejecutar($sql);
 	}
 }
 ?>
