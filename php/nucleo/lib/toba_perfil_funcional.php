@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * El perfil funcional permite agrupar derechos y restricciones a acceder a determinados elementos de un proyecto.
+ * Un usuario puede pertenecer a distintos perfiles de acceso
+ * @package Seguridad
+ */
 class toba_perfil_funcional
 {
 	

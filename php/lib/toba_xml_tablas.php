@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase que permite leer/escribir en un archivo .xml utilizando estructuras de datos tabulares
+ * @package Varios
+ */
 class toba_xml_tablas
 {
 	protected $archivo;

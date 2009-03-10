@@ -1,7 +1,8 @@
 <?php
 /**
  * Usuario estandar de la instancia
- * @package Centrales
+ * @package Seguridad
+ * @subpackage TiposUsuario
  */
 class toba_usuario_basico extends toba_usuario
 {

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package Componentes
+ * @subpackage Filtro
+ */
 class toba_filtro_columna_opciones extends toba_filtro_columna
 {
 

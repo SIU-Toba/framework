@@ -1,7 +1,7 @@
 <?php
 /**
  * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
- * @package Centrales
+ * @package Seguridad
  */
 class toba_derechos
 {

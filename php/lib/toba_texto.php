@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase de manipulación de cadenas de texto
+ * @package Varios
+ */
 class toba_texto
 {
 	/*

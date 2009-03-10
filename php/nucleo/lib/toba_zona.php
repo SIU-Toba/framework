@@ -1,21 +1,23 @@
 <?php
 
 /**
-* 
-* Una zona representa un menu alrededor de un concepto central, llamado EDITABLE
-* Por ejemplo mostrar un menú de opciones relacionado con un cliente particular.
-* Cada una de estas opciones es un item relacionado con una misma zona, la 'zona de clientes'
-*
-* La zona tiene estas funciones: 
-* 	- Proveer barras que permitan acceder a las distintas opciones propagando el editable
-* 		(proporcionando acceso a los items vecinos)
-* 	- Proveer informacion sobre el editable a cualquier consumidor
-* 		Esto es necesario cuando: las caracteristicas del elemento cambian la interface,
-* 									Se desee proveer acceso a elementos asociados, etc.
-* @package SalidaGrafica
-* 
-* @wiki Referencia/Zona
-*/
+ *
+ * Una zona representa un menu alrededor de un concepto central, llamado EDITABLE
+ * Por ejemplo mostrar un menú de opciones relacionado con un cliente particular.
+ * Cada una de estas opciones es un item relacionado con una misma zona, la 'zona de clientes'
+ *
+ * La zona tiene estas funciones:
+ * 	- Proveer barras que permitan acceder a las distintas opciones propagando el editable
+ * 		(proporcionando acceso a los items vecinos)
+ * 	- Proveer informacion sobre el editable a cualquier consumidor
+ * 		Esto es necesario cuando: las caracteristicas del elemento cambian la interface,
+ * 									Se desee proveer acceso a elementos asociados, etc.
+ *
+ * Consumir usando toba::zona()->
+ * 
+ * @package SalidaGrafica
+ * @wiki Referencia/Zona
+ */
 class toba_zona
 {
 	protected $id;						//ID de la zona

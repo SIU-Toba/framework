@@ -23,6 +23,8 @@
         	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
    	</td>	
@@ -65,7 +67,16 @@
 	    			<a href="../Fuentes/toba_fuente_datos.html">					fuente_datos
 					</a>    		
 	 <br />
+	    			<a href="../Fuentes/toba_info_relacion_entre_tablas.html">					info_relacion_entre_tablas
+					</a>    		
+	 <br />
 	    			<a href="../Fuentes/toba_mensajes.html">					mensajes
+					</a>    		
+	 <br />
+	    			<a href="../Fuentes/toba_parser_error_db.html">					parser_error_db
+					</a>    		
+	 <br />
+	    			<a href="../Fuentes/toba_parser_error_db_postgres7.html">					parser_error_db_postgres7
 					</a>    		
 	 <br />
 	  </div>
@@ -148,32 +159,56 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-															<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																																																																																		<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#get" title="details" class="method-name">get</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get" title="details" class="method-name">get</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Obtiene un mensaje global del proyecto, si no lo encuentra escala buscando el mensaje en el mismo framework</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#get_componente" title="details" class="method-name">get_componente</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_componente" title="details" class="method-name">get_componente</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna un mensaje asociado a un componente específico</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#get_proyecto" title="details" class="method-name">get_proyecto</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_operacion_actual" title="details" class="method-name">get_operacion_actual</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el mensaje de ayuda de la operación actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_proyecto" title="details" class="method-name">get_proyecto</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Obtiene un mensaje global del proyecto</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#get_toba" title="details" class="method-name">get_toba</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_toba" title="details" class="method-name">get_toba</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Obtiene un mensaje global del framework</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#parsear_parametros" title="details" class="method-name">parsear_parametros</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#parsear_parametros" title="details" class="method-name">parsear_parametros</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Si el mensaje fue definido con comodines (%numero%)</td></tr>
-																																																														</table>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_fuente_ini" title="details" class="method-name">set_fuente_ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Los mensajes al usuario saldrán del archivo .ini indicado</td></tr>
+													</table>
 			</div>
 			<br />
 		</div>
@@ -189,17 +224,21 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+
 <a name="methodget" id="get"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
+	
+		
+	
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get(
+		<code>void get(
 
 $indice, [mixed
 $parametros = null]&nbsp;
@@ -232,16 +271,19 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_componente" id="get_componente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+	
+		
+	
+	<span class="method-title">get_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_componente(
+		<code>void get_componente(
 
 $objeto, 
 $indice, [mixed
@@ -280,17 +322,46 @@ $parametros = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
-<div class="evenrow">
+<a name="methodget_operacion_actual" id="get_operacion_actual"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+	
+		
+	
+	<span class="method-title">get_operacion_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_proyecto(
+		<code>void get_operacion_actual(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el mensaje de ayuda de la operación actual </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_proyecto(
 
 $indice, [mixed
 $parametros = null]&nbsp;
@@ -325,14 +396,17 @@ $parametros = null]&nbsp;
 <a name="methodget_toba" id="get_toba"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	
+		
+	
+	<span class="method-title">get_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_toba(
+		<code>void get_toba(
 
 $indice, [mixed
 $parametros = null]&nbsp;
@@ -367,14 +441,17 @@ $parametros = null]&nbsp;
 <a name="methodparsear_parametros" id="parsear_parametros"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method parsear_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+	
+		
+	
+	<span class="method-title">parsear_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void parsear_parametros(
+		<code>void parsear_parametros(
 
 $mensaje, 
 $parametros&nbsp;
@@ -406,7 +483,44 @@ $parametros&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_fuente_ini" id="set_fuente_ini"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_fuente_ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
+</div>
+<br />
 
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_fuente_ini(
+string
+$path&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Los mensajes al usuario saldrán del archivo .ini indicado </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$path:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Path absoluto al archivo</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 

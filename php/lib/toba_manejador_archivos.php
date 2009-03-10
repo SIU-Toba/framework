@@ -1,6 +1,6 @@
 <?php
 /**
-*	Manipulacion de archivos
+* Clase con servicios sobre archivos y carpetas
 * @package Varios
 */
 class toba_manejador_archivos

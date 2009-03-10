@@ -23,7 +23,7 @@ class ci_editor_simple extends toba_ci
 		$desc .= 'Proyecto: <strong>' . $this->s__proyecto . '</strong><br>';		
 		if ($this->controlador->dep('datos')->esta_cargada()) {
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
-			$desc .= 'Usuario:&nbsp;&nbsp; <strong>' . $usuario['nombre'] . '</strong><br>';
+			$desc .= 'Usuario:&nbsp;&nbsp; <strong>' . texto_plano($usuario['nombre']) . '</strong><br>';
 		} else {
 			$this->controlador->pantalla()->eliminar_evento('eliminar');
 		}

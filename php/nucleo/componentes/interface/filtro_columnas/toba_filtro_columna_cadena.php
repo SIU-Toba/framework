@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package Componentes
+ * @subpackage Filtro
+ */
 class toba_filtro_columna_cadena extends toba_filtro_columna
 {
 	static function get_clase_ef()

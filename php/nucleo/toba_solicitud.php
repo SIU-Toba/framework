@@ -2,7 +2,8 @@
 /**
  * Una solicitud es la representación de una operación o item accedida por un usuario en runtime
  * Contiene e instancia a los componentes de la operación
- * 
+ *
+ * Consumir usando toba::solicitud()->
  * @package Centrales
  */
 abstract class toba_solicitud

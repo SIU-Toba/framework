@@ -23,6 +23,8 @@
         	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
    	</td>	
@@ -177,15 +179,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../SalidaGrafica/toba_menu_css.html">toba_menu_css</a></td>
-					<td>
-											Menu CSS basado en SimpleMenu
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../SalidaGrafica/toba_menu_yui.html">toba_menu_yui</a></td>
 					<td>
 											Menu CSS basado la YUI
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../SalidaGrafica/toba_menu_css.html">toba_menu_css</a></td>
+					<td>
+											Menu CSS basado en SimpleMenu
 										</td>
 				</tr>
 							</table>
@@ -202,7 +204,21 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																														<tr>
+																																																																																											<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">toba_menu</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_opcion" title="details" class="method-name">agregar_opcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
@@ -225,6 +241,27 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#plantilla_css" title="details" class="method-name">plantilla_css</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ventana para retornar nombre de los .css a incluir</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#quitar_opcion" title="details" class="method-name">quitar_opcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_datos_opcion" title="details" class="method-name">set_datos_opcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_js_opcion" title="details" class="method-name">set_js_opcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -242,14 +279,85 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 
-<a name="methoditems_de_menu" id="items_de_menu"><!-- --></a>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>toba_menu __construct(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../SalidaGrafica/toba_menu_yui.html#method__construct">toba_menu_yui::__construct()</a>
+							</li>
+					<li>
+				<a href="../SalidaGrafica/toba_menu_css.html#method__construct">toba_menu_css::__construct()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodagregar_opcion" id="agregar_opcion"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_opcion(
+
+$datos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoditems_de_menu" id="items_de_menu"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">items_de_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+	<span class="method-title">items_de_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
@@ -277,12 +385,12 @@
 		<br />
 </div>
 <a name="methodmostrar" id="mostrar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
 </div>
 <br />
 
@@ -311,22 +419,22 @@
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../SalidaGrafica/toba_menu_css.html#methodmostrar">toba_menu_css::mostrar()</a>
+				<a href="../SalidaGrafica/toba_menu_yui.html#methodmostrar">toba_menu_yui::mostrar()</a>
 							</li>
 					<li>
-				<a href="../SalidaGrafica/toba_menu_yui.html#methodmostrar">toba_menu_yui::mostrar()</a>
+				<a href="../SalidaGrafica/toba_menu_css.html#methodmostrar">toba_menu_css::mostrar()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodplantilla_css" id="plantilla_css"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">plantilla_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
+	<span class="method-title">plantilla_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
 </div>
 <br />
 
@@ -353,12 +461,137 @@
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../SalidaGrafica/toba_menu_css.html#methodplantilla_css">toba_menu_css::plantilla_css()</a>
-							</li>
-					<li>
 				<a href="../SalidaGrafica/toba_menu_yui.html#methodplantilla_css">toba_menu_yui::plantilla_css()</a>
 							</li>
+					<li>
+				<a href="../SalidaGrafica/toba_menu_css.html#methodplantilla_css">toba_menu_css::plantilla_css()</a>
+							</li>
 				</ul>
+		<br />
+</div>
+<a name="methodquitar_opcion" id="quitar_opcion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">quitar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void quitar_opcion(
+
+$id_item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_datos_opcion" id="set_datos_opcion"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_datos_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_datos_opcion(
+
+$id_item, 
+$datos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_js_opcion" id="set_js_opcion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_js_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_js_opcion(
+
+$id_item, 
+$js&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$js:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
 		<br />
 </div>
 		</div>

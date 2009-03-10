@@ -23,6 +23,8 @@
         	        		|
         	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="li_Varios.html">Varios</a>
         	            </div>
    	</td>	
@@ -71,6 +73,10 @@
 <ul>
     <li>Se podría optimizar este método para no recaer en tantos recorridos</li>
 </ul>
+<h3><a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_filas_filtradas_por_cursor">toba_datos_tabla::get_id_filas_filtradas_por_cursor()</a></h3>
+<ul>
+    <li>Se podría optimizar este método para no recaer en tantos recorridos</li>
+</ul>
 <h3><a href="Componentes/Negocio/toba_cn.html#methodprocesar">toba_cn::procesar()</a></h3>
 <ul>
     <li>Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales</li>
@@ -82,6 +88,14 @@
 <h3><a href="Componentes/Eis/toba_ei_formulario.html#methodservicio__mostrar_captchas_efs">toba_ei_formulario::servicio__mostrar_captchas_efs()</a></h3>
 <ul>
     <li>Este esquema solo se banca un solo ef_captcha. Para poder bancarse mas habria que  pensar por ejemplo, pasarle al GET &quot;id_ef + text-captcha&quot; para identificar que texto se  quiere recuperar. De todas maneras para que mas de un captcha???.</li>
+</ul>
+<h3><a href="Componentes/Eis/toba_ei_formulario_ml.html#methodset_exportar_excel">toba_ei_formulario_ml::set_exportar_excel()</a></h3>
+<ul>
+    <li>Cambiar cuando esta informacion pase a formar parte de los metadatos</li>
+</ul>
+<h3><a href="Componentes/Eis/toba_ei_formulario_ml.html#methodset_exportar_pdf">toba_ei_formulario_ml::set_exportar_pdf()</a></h3>
+<ul>
+    <li>Cambiar cuando esta informacion pase a formar parte de los metadatos</li>
 </ul>
 <h3><a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></h3>
 <ul>
@@ -110,6 +124,10 @@
 <h3><a href="Fuentes/toba_dba.html">toba_dba</a></h3>
 <ul>
     <li><ul></ul><ul><li>Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia</li></ul></li>
+</ul>
+<h3><a href="Fuentes/toba_info_relacion_entre_tablas.html#methodvalidar_camino">toba_info_relacion_entre_tablas::validar_camino()</a></h3>
+<ul>
+    <li>IMPLEMENTAR!</li>
 </ul>
 <h2>Varios</h2>
 <h3><a href="Varios/toba_parser_ayuda.html#methodes_texto_plano">toba_parser_ayuda::es_texto_plano()</a></h3>

@@ -2,7 +2,9 @@
 
 /**
  * Contiene una condicion y un ef. Se trata de reutilizar al maximo la logica de los efs sin heredarlos, es por eso que muchas llamadas pasan directo
- * 
+ *
+ * @package Componentes
+ * @subpackage Filtro
  **/
 abstract class toba_filtro_columna
 {

@@ -2,7 +2,7 @@
 
 /**
  * Clase con validaciones estáticas de datos
- *
+ * @package Centrales
  */
 class toba_validaciones{
 	

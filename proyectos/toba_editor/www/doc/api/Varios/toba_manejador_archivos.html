@@ -23,6 +23,8 @@
         	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
    	</td>	
@@ -83,6 +85,15 @@
 	    			<a href="../Varios/toba_sincronizador_archivos.html">					sincronizador_archivos
 					</a>    		
 	 <br />
+	    			<a href="../Varios/toba_svn.html">					svn
+					</a>    		
+	 <br />
+	    			<a href="../Varios/toba_texto.html">					texto
+					</a>    		
+	 <br />
+	    			<a href="../Varios/toba_xml_tablas.html">					xml_tablas
+					</a>    		
+	 <br />
 	  </div>
                         
  <!-- <div class="package">
@@ -111,7 +122,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Manipulacion de archivos </div>
+        		<div class="description">Clase con servicios sobre archivos y carpetas </div>
 
 
 
@@ -154,6 +165,11 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#crear_archivo_con_datos" title="details" class="method-name">crear_archivo_con_datos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#ejecutar" title="details" class="method-name">ejecutar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
@@ -221,7 +237,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#comprimir_archivo" title="details" class="method-name">comprimir_archivo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																								<tr>
+																																																																	<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -245,9 +261,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcopiar_directorio" id="copiar_directorio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method copiar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
+		<span class="method-title">static method copiar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
 </div>
 <br />
 
@@ -259,7 +275,8 @@
 $origen, 
 $destino, [
 $excepciones = array()], [
-$manejador_interface = null]&nbsp;
+$manejador_interface = null], [
+$copiar_ocultos = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -292,6 +309,12 @@ $manejador_interface = null]&nbsp;
 				<span class="var-name">$manejador_interface:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$copiar_ocultos:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -301,7 +324,7 @@ $manejador_interface = null]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_arbol_directorios" id="crear_arbol_directorios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method crear_arbol_directorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
 </div>
@@ -342,7 +365,7 @@ $modo = 0777]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_archivo_con_datos" id="crear_archivo_con_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method crear_archivo_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
 </div>
@@ -382,10 +405,58 @@ $datos&nbsp;
 		
 		<br />
 </div>
+<a name="methodejecutar" id="ejecutar"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void ejecutar(
+
+$cmd, 
+&$stdout, 
+&$stderr&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cmd:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$stdout:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$stderr:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodeliminar_directorio" id="eliminar_directorio"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method eliminar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+		<span class="method-title">static method eliminar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
 </div>
 <br />
 
@@ -442,7 +513,7 @@ $directorio&nbsp;
 <a name="methodexiste_archivo_en_path" id="existe_archivo_en_path"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method existe_archivo_en_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+		<span class="method-title">static method existe_archivo_en_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
@@ -477,7 +548,7 @@ $file&nbsp;
 <a name="methodget_archivos_directorio" id="get_archivos_directorio"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_archivos_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+		<span class="method-title">static method get_archivos_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
 </div>
 <br />
 
@@ -526,7 +597,7 @@ $recursivo_subdir = false]&nbsp;
 <a name="methodget_subdirectorios" id="get_subdirectorios"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_subdirectorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+		<span class="method-title">static method get_subdirectorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 
@@ -561,7 +632,7 @@ $directorio&nbsp;
 <a name="methodnombre_valido" id="nombre_valido"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method nombre_valido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+		<span class="method-title">static method nombre_valido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -596,7 +667,7 @@ $candidato&nbsp;
 <a name="methodpath_a_plataforma" id="path_a_plataforma"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method path_a_plataforma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
+		<span class="method-title">static method path_a_plataforma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
 </div>
 <br />
 
@@ -631,7 +702,7 @@ $path&nbsp;
 <a name="methodpath_a_unix" id="path_a_unix"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method path_a_unix</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+		<span class="method-title">static method path_a_unix</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
 </div>
 <br />
 
@@ -665,7 +736,7 @@ $nombre&nbsp;
 <a name="methodpath_a_windows" id="path_a_windows"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method path_a_windows</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+		<span class="method-title">static method path_a_windows</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
@@ -710,7 +781,7 @@ $encomillar_espacios = true]&nbsp;
 	
 		
 	
-	<span class="method-title">buscar_archivos_directorio_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
+	<span class="method-title">buscar_archivos_directorio_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
 </div>
 <br />
 
@@ -748,7 +819,7 @@ $directorio&nbsp;
 	
 		
 	
-	<span class="method-title">chmod_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
+	<span class="method-title">chmod_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -792,7 +863,7 @@ $filemode&nbsp;
 	
 		
 	
-	<span class="method-title">comprimir_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+	<span class="method-title">comprimir_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 283]</span>
 </div>
 <br />
 
@@ -843,7 +914,7 @@ $dst = false]&nbsp;
 	
 		
 	
-	<span class="method-title">es_directorio_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 289]</span>
+	<span class="method-title">es_directorio_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 312]</span>
 </div>
 <br />
 

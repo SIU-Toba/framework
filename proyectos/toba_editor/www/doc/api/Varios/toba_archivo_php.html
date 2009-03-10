@@ -23,6 +23,8 @@
         	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
    	</td>	
@@ -81,6 +83,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../Varios/toba_sincronizador_archivos.html">					sincronizador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Varios/toba_svn.html">					svn
+					</a>    		
+	 <br />
+	    			<a href="../Varios/toba_texto.html">					texto
+					</a>    		
+	 <br />
+	    			<a href="../Varios/toba_xml_tablas.html">					xml_tablas
 					</a>    		
 	 <br />
 	  </div>
@@ -148,8 +159,18 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#codigo_get_metodo" title="details" class="method-name">codigo_get_metodo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el cuerpo de un método</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#codigo_get_nombre_metodos" title="details" class="method-name">codigo_get_nombre_metodos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna los métodos definidos en una porción de código</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#codigo_quitar_identacion" title="details" class="method-name">codigo_quitar_identacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -163,9 +184,19 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#codigo_tiene_codigo" title="details" class="method-name">codigo_tiene_codigo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina si una porción de código tiene un método específico</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#codigo_tiene_metodo" title="details" class="method-name">codigo_tiene_metodo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina si una porción de código tiene un método específico</td></tr>
-																																																																																																																																																		<tr><td></td><td class="method-definition" nowrap>static
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#codigo_tiene_metodo_js" title="details" class="method-name">codigo_tiene_metodo_js</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina si una porción de código tiene un método específico</td></tr>
+																																																																																																																																																																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#reemplazar_metodo" title="details" class="method-name">reemplazar_metodo</a>()&nbsp;&nbsp;</td>
@@ -184,7 +215,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#abrir" title="details" class="method-name">abrir</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Utiliza una llamada al sist. operativo para que abra el archivo en un edtiro del sist. de ventanas del servidor</td></tr>
-																																																																	<tr>
+																																																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -252,8 +283,29 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_codigo" title="details" class="method-name">get_codigo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_codigo_php_puro" title="details" class="method-name">get_codigo_php_puro</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#incluir" title="details" class="method-name">incluir</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Incluye en el runtime PHP al archivo</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#insertar" title="details" class="method-name">insertar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -299,9 +351,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcodigo_agregar_metodo" id="codigo_agregar_metodo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method codigo_agregar_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
+		<span class="method-title">static method codigo_agregar_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 392]</span>
 </div>
 <br />
 
@@ -340,10 +392,52 @@ $metodo&nbsp;
 		
 		<br />
 </div>
+<a name="methodcodigo_get_metodo" id="codigo_get_metodo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method codigo_get_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 295]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void codigo_get_metodo(
+
+$codigo, 
+$nombre_metodo_a_extraer&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el cuerpo de un método </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$codigo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre_metodo_a_extraer:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcodigo_get_nombre_metodos" id="codigo_get_nombre_metodos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method codigo_get_nombre_metodos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 293]</span>
+		<span class="method-title">static method codigo_get_nombre_metodos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -382,10 +476,51 @@ $solo_publicos = true]&nbsp;
 		
 		<br />
 </div>
-<a name="methodcodigo_sacar_tags_php" id="codigo_sacar_tags_php"><!-- --></a>
+<a name="methodcodigo_quitar_identacion" id="codigo_quitar_identacion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method codigo_sacar_tags_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
+		<span class="method-title">static method codigo_quitar_identacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 404]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void codigo_quitar_identacion(
+
+$codigo, [
+$identacion = 1]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$codigo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$identacion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcodigo_sacar_tags_php" id="codigo_sacar_tags_php"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method codigo_sacar_tags_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
 </div>
 <br />
 
@@ -418,9 +553,9 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodcodigo_tiene_clase" id="codigo_tiene_clase"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method codigo_tiene_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
+		<span class="method-title">static method codigo_tiene_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
 </div>
 <br />
 
@@ -459,10 +594,52 @@ $nombre&nbsp;
 		
 		<br />
 </div>
+<a name="methodcodigo_tiene_codigo" id="codigo_tiene_codigo"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method codigo_tiene_codigo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void codigo_tiene_codigo(
+
+$actual, 
+$codigo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina si una porción de código tiene un método específico </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$actual:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$codigo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcodigo_tiene_metodo" id="codigo_tiene_metodo"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method codigo_tiene_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+		<span class="method-title">static method codigo_tiene_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -501,10 +678,52 @@ $nombre&nbsp;
 		
 		<br />
 </div>
-<a name="methodreemplazar_metodo" id="reemplazar_metodo"><!-- --></a>
+<a name="methodcodigo_tiene_metodo_js" id="codigo_tiene_metodo_js"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method reemplazar_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+		<span class="method-title">static method codigo_tiene_metodo_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 345]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void codigo_tiene_metodo_js(
+
+$codigo, 
+$nombre&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina si una porción de código tiene un método específico </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$codigo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodreemplazar_metodo" id="reemplazar_metodo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method reemplazar_metodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 254]</span>
 </div>
 <br />
 
@@ -552,7 +771,7 @@ $codigo_a_insertar&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -589,12 +808,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodabrir" id="abrir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+	<span class="method-title">abrir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
 </div>
 <br />
 
@@ -615,12 +834,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontenido" id="contenido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -641,7 +860,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontiene_clase" id="contiene_clase"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -679,7 +898,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontiene_codigo_php" id="contiene_codigo_php"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -705,7 +924,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontiene_metodo" id="contiene_metodo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -743,12 +962,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcrear_basico" id="crear_basico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
+	<span class="method-title">crear_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
 </div>
 <br />
 
@@ -769,12 +988,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodedicion_fin" id="edicion_fin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">edicion_fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+	<span class="method-title">edicion_fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
 </div>
 <br />
 
@@ -795,12 +1014,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodedicion_inicio" id="edicion_inicio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">edicion_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
+	<span class="method-title">edicion_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
 </div>
 <br />
 
@@ -821,7 +1040,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodesta_vacio" id="esta_vacio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -847,7 +1066,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste" id="existe"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -872,13 +1091,63 @@ $nombre&nbsp;
 		
 		<br />
 </div>
-<a name="methodincluir" id="incluir"><!-- --></a>
+<a name="methodget_codigo" id="get_codigo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_codigo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_codigo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_codigo_php_puro" id="get_codigo_php_puro"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">incluir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
+	<span class="method-title">get_codigo_php_puro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_codigo_php_puro(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodincluir" id="incluir"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">incluir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -898,13 +1167,50 @@ $nombre&nbsp;
 		
 		<br />
 </div>
+<a name="methodinsertar" id="insertar"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">insertar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 244]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void insertar(
+
+$codigo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$codigo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodinsertar_al_final" id="insertar_al_final"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">insertar_al_final</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+	<span class="method-title">insertar_al_final</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -942,7 +1248,7 @@ $codigo&nbsp;
 	
 		
 	
-	<span class="method-title">insertar_al_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+	<span class="method-title">insertar_al_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
 </div>
 <br />
 
@@ -980,7 +1286,7 @@ $codigo&nbsp;
 	
 		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 

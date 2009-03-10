@@ -2,7 +2,9 @@
 /**
  * Representa el contexto de ejecucion de un proyecto.
  * Este es el lugar indicado para poner los includes de los proyectos
- * 
+ *
+ * Consumir usando toba::contexto_ejecucion()->
+ *
  * @package Centrales
  */
 class toba_contexto_ejecucion implements toba_interface_contexto_ejecucion

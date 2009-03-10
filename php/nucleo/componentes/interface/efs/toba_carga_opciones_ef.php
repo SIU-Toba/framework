@@ -2,7 +2,8 @@
 
 /**
  * Clase encargada de coordinar la carga de opciones de los distintos efs de un formulario o filtro
- *
+ * @package Componentes
+ * @subpackage Efs
  */
 class toba_carga_opciones_ef
 {

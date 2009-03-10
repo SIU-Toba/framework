@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Un filtro presenta una grilla donde es posible seleccionar criterios de búsqueda para las distintas columnas definidas.
+ * Según el tipo de la columna se despliegan distintos criterios
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei_formulario ei_filtro

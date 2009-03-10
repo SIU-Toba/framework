@@ -2,6 +2,7 @@
 
 /**
  * Clase con servicios de cliente svn
+ * @package Varios
  */
 class toba_svn
 {

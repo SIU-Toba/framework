@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package Componentes
+ * @subpackage Filtro
+ */
 class toba_filtro_condicion
 {
 	protected $etiqueta;

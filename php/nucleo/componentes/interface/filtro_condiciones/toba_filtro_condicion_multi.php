@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package Componentes
+ * @subpackage Filtro
+ */
 class toba_filtro_condicion_multi extends toba_filtro_condicion 
 {
 	function __construct($casting_izq='', $casting_der='')

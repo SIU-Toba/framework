@@ -2,6 +2,8 @@
 
 /**
  * Columna que tiene una condicion 'entre' que implica poner dos efs identicos y genera un BETWEEN en el where
+ * @package Componentes
+ * @subpackage Filtro
  */
 abstract class toba_filtro_columna_compuesta extends toba_filtro_columna 
 {

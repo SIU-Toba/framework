@@ -1,7 +1,8 @@
 <?php
 /**
- * Usuario ANONIMO
- * @package Centrales
+ * Usuario especial que se usa para el acceso anónimo al sistema
+ * @package Seguridad
+ * @subpackage TiposUsuario
  */
 class toba_usuario_anonimo extends toba_usuario
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Clase para crear un mail en texto plano o html 
+ * Clase para crear un mail en texto plano o html. Encapsula a la librería phpmailer
  * @package Centrales  
  */
 class toba_mail implements toba_tarea

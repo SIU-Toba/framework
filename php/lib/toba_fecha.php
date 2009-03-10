@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @deprecated
+ */
 class toba_fecha
 {
 	protected $timestamp;

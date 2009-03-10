@@ -1,7 +1,8 @@
 <?php
 /**
- * Usuario estandar de la instancia
- * @package Centrales
+ * Usuario especial que se usa para el acceso público al sistema
+ * @package Seguridad
+ * @subpackage TiposUsuario
  */
 class toba_usuario_no_autenticado extends toba_usuario
 {

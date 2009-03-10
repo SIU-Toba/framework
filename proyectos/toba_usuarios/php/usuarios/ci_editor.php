@@ -22,7 +22,7 @@ class ci_editor extends toba_ci
 		if ($this->controlador()->dep('datos')->esta_cargada()) {
 			$usuario = $this->datos('basica')->get();
 			$this->s__usuario = $usuario['usuario'];
-			$desc = 'Usuario: <strong>' . $usuario['nombre'] . '</strong>';
+			$desc = 'Usuario: <strong>' . texto_plano($usuario['nombre']) . '</strong>';
 			$this->pantalla()->set_descripcion($desc);
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
 		} else {

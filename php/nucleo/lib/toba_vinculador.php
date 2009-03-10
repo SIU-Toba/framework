@@ -4,6 +4,8 @@
  * Esta clase maneja la VINCULACION entre operaciones. Conoce todos los lugares a los que la
  * operación actual puede acceder (considerando el USUARIO que lo solicito)
  * Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG
+ *
+ * @se toba_vinculo
  * @package Centrales
  * @jsdoc vinculador vinculador
  * @wiki Referencia/Operacion Vincula operaciones

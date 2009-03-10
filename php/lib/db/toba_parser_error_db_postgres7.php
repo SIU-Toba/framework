@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Clase que parsea mensajes de error en lenguaje natural generados por un motor postgres, e intenta armar un mensaje entendible para el usuario
+ * Utiliza los comentarios de tablas y campos para no mostrar los identificadores de la base
+ * Usar así: toba::db()->set_parser_errores(new toba_parser_error_db_postgres7());
+ * @package Fuentes
+ */
 class toba_parser_error_db_postgres7 extends toba_parser_error_db
 {
 	protected $id_db_original;

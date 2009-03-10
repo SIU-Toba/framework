@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Clase que permite leer/grabar en archivos de configuración .ini
  * @package Varios
  */
 class toba_ini

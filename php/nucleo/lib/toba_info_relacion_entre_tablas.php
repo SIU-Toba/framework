@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package Fuentes
+ */
 class toba_info_relacion_entre_tablas
 {
 	static protected $relaciones = array();
@@ -36,9 +39,10 @@ class toba_info_relacion_entre_tablas
 	}
 
 	/**
-	*	Controla que un grupo de tablas esten vinculadas por Fks
-	*	@param Array de tablas ordenadas segun su relacion
-	*/
+	 * Controla que un grupo de tablas esten vinculadas por Fks
+	 * @param Array de tablas ordenadas segun su relacion
+	 * @todo IMPLEMENTAR!
+	 */
 	static function validar_camino($camino)
 	{
 		

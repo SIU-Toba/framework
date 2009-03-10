@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * El perfil de datos permite restringir los datos que surgen desde la base de datos en base a una dimensión dada (carrera, sexo, dependencia, etc.)
+ * El método filtrar analiza una consulta SQL dada, identificando las tablas que se relacionan con las dimensiones definidas en el proyecto y
+ * agregando clausulas WHERE necesarias para filtrar las mismas. Por ejemplo si es una consulta SQL de personas, tenemos una dimensión sexo y el usuario actual tiene definido
+ * un perfil de datos por el valor Masculino, agregará sexo='M' a las clausulas de la consulta.
+ *
+ * Los perfiles de datos se definen en toba_usuarios (un usuario puede tener 0 o 1 perfil)
+ * Las dimensiones se definen por el proyecto en toba_editor
+ * 
+ * @package Seguridad
+ */
 class toba_perfil_datos
 {
 	const separador_multicol_db = '|%-,-%|';

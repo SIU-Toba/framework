@@ -3,8 +3,9 @@ define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesi
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 
 /**
-*	Maneja los segmentos de memoria y el proceso de creacion de sesiones
-*/
+ * Maneja los segmentos de memoria y el proceso de creacion de sesiones
+ * @package Seguridad
+ */
 class toba_manejador_sesiones
 {
 	static private $instanciacion;

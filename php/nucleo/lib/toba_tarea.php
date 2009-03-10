@@ -2,6 +2,8 @@
 
 /**
  * Interface que deben respetar aquellas clases que deseen incluirse en el planificador de tareas
+ * Tener en cuenta que luego de programar una tarea, la clase no puede cambiar en su implementación debido a que la tarea se serializa en la base
+ * Si la clase del objeto cambia entre la serialización y la ejecución, la deserialización de la base tirara un error fatal
  * @package Centrales
  */
 interface toba_tarea

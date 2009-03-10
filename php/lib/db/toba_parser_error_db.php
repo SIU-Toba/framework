@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package Fuentes
+ */
 abstract class toba_parser_error_db
 {
 	function __construct($id=null, $proyecto=null) {

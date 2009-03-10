@@ -1,7 +1,9 @@
 <?php
 /**
  * Encapsula al usuario actualmente logueado a la instancia
- * @package Centrales
+ *
+ * Consumir usando toba::usuario()->
+ * @package Seguridad
  */
 class toba_usuario implements toba_interface_usuario
 {

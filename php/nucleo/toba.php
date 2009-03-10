@@ -84,6 +84,7 @@ class toba
 	}
 	
 	/**
+	 * La memoria contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION
 	 * @return toba_memoria
 	 */
 	static function memoria()
@@ -101,7 +102,7 @@ class toba
 	}
 	
 	/**
-	 * Retorna la referencia al administrador de permisos globales
+	 * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
 	 *	@return toba_derechos
 	 */
 	static function derechos()
@@ -110,6 +111,7 @@ class toba
 	}
 
 	/**
+	 * Clase que mantiene notificaciones al usuario a mostrarse en el página actual
 	 * @return toba_notificacion
 	 */
 	static function notificacion()
@@ -118,6 +120,7 @@ class toba
 	}
 
 	/**
+	 * Obtiene los mensajes del proyecto definidos en el editor, útiles para evitar fijar los mensajes del usuario en el código
 	 * @return toba_mensajes
 	 */	
 	static function mensajes()
@@ -158,6 +161,7 @@ class toba
 	}
 
 	/**
+	 * Permite medir el tiempo consumido por el pedido de página, dejar marcas y opcionalmente registrarlo en la base de la instancia
 	 * @return toba_cronometro
 	 */
 	static function cronometro()
@@ -166,6 +170,7 @@ class toba
 	}
 
 	/**
+	 * Representa la sesión del usuario en la aplicacion
 	 * @return toba_sesion
 	 */
 	static function sesion()
@@ -174,6 +179,7 @@ class toba
 	}
 
 	/**
+	 * Encapsula al usuario actualmente logueado a la instancia
 	 * @return toba_usuario_basico
 	 */
 	static function usuario()
@@ -272,6 +278,7 @@ class toba
 	}
 
 	/**
+	 * El perfil de datos permite restringir los datos que surgen desde la base de datos en base a una dimensión dada
 	 * @return toba_perfil_datos
 	 */
 	static function perfil_de_datos()
@@ -283,6 +290,7 @@ class toba
 	}
 
 	/**
+	 * El perfil funcional permite agrupar derechos y restricciones a acceder a determinados elementos de un proyecto
 	 * @return toba_perfil_funcional
 	 */
 	static function perfil_funcional()
@@ -294,6 +302,7 @@ class toba
 	}
 
 	/**
+	 * Permite programar tareas a ejecutarse automáticamente en el servidor
 	 * @return toba_planificador_tareas
 	 */
 	static function planificador_tareas($proyecto=null)
