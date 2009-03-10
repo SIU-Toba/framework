@@ -221,7 +221,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			}
 			try {
 				$db->ejecutar( $sql );
-			} catch (Excepcion $e) {
+			} catch (Exception $e) {
 				//En caso de no poder crearlo con encoding, prueba sin encoding
 				$sql = "CREATE DATABASE \"$base_a_crear\" ";
 				$db->ejecutar($sql);
