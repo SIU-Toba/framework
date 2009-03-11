@@ -23,18 +23,18 @@ class toba_evento_usuario extends toba_boton
 										$this->datos['accion_vinculo_item'],
 										$this->datos['accion_vinculo_popup'],
 										$this->datos['accion_vinculo_popup_param'] );
-				if( $this->datos['accion_vinculo_celda'] ) {
+										
+				if( isset($this->datos['accion_vinculo_celda']) && !is_null($this->datos['accion_vinculo_celda']) ) {
 					$this->vinculo->set_opciones(array('celda_memoria'=>$this->datos['accion_vinculo_celda']));	
 				}
-				if( $this->datos['accion_vinculo_target'] ) {
+				if( isset($this->datos['accion_vinculo_target']) && !is_null($this->datos['accion_vinculo_target']) ) {
 					$this->vinculo->set_target($this->datos['accion_vinculo_target']);
 				}
 				$this->vinculo->set_propagar_zona();
 				if (! $this->es_autovinculo()){
 					$this->vinculo->agregar_opcion('menu', 1);	
 				}
-								
-				if ($this->datos['accion_vinculo_servicio']){
+				if ( isset($this->datos['accion_vinculo_servicio']) && !is_null($this->datos['accion_vinculo_servicio']) ){
 					$this->vinculo->set_servicio($this->datos['accion_vinculo_servicio']);
 				}
 			}
