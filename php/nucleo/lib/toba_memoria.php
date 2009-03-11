@@ -200,7 +200,7 @@ class toba_memoria
 
 	function set_item_solicitado( $item ) 
 	{
-		toba::logger()->debug('TOBA MEMORIA: Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
+		toba::logger()->debug('Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 		$this->inicializar_memoria();
 	}
@@ -332,7 +332,7 @@ class toba_memoria
 				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
 				como 'reciclables' y la memoria sincronizada (la alienada al request anterior).
 			*/
-			toba::logger()->info('TOBA MEMORIA: Flag acceso desde el menu. Se reinicia la memoria de la operacion', 'toba');
+			toba::logger()->info('Se detecto acceso desde el menu. Se limpia la memoria de la operacion', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_datos_reciclable();
 		}
@@ -690,8 +690,8 @@ class toba_memoria
 	{
 		if(isset($this->celda_memoria_actual['item_anterior'])){
 			$es_distinto_item = ($this->celda_memoria_actual['item_anterior'] != $this->celda_memoria_actual['item']);
-			if($es_distinto_item) {
-				toba::logger()->info("TOBA MEMORIA: Reciclaje por cambio de OPERACION", 'toba');
+			if($es_distinto_item && !$this->verificar_acceso_menu()) {
+				toba::logger()->info("Se detecto cambio de operación. Se limpia la memoria de la operacion", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_operacion($reciclable);
@@ -712,7 +712,7 @@ class toba_memoria
 			if($tipo == apex_hilo_reciclado_acceso){
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$this->celda_memoria_actual['reciclables_activos'])){
-					toba::logger()->info("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
+					toba::logger()->info("Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
 					$this->eliminar_dato_operacion($reciclable);
 				}
 			}

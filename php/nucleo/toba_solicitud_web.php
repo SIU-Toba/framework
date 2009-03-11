@@ -74,7 +74,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function cargar_objetos()
 	{
-		//toba::logger()->seccion("Cargando objetos...", 'toba');
+		toba::logger()->seccion("Iniciando componentes...", 'toba');
 		$this->cis = array();		
 		if ($this->info['objetos'] > 0) {
 			$i = 0;
@@ -103,7 +103,6 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function procesar_eventos()
 	{
-		toba::logger()->seccion("Procesando eventos...", 'toba');
 		//--Antes de procesar los eventos toda entrada UTF-8 debe ser pasada a ISO88591
 		if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'UTF-8') !== false) {
 			foreach ($_POST as $clave => $valor) {
@@ -114,6 +113,7 @@ class toba_solicitud_web extends toba_solicitud
 		foreach ($this->cis as $ci) {
 			$this->objetos[$ci]->inicializar();
 			try {
+				toba::logger()->seccion("Procesando eventos...", 'toba');
 				$this->objetos[$ci]->disparar_eventos();
 			}catch(toba_error_db $e) {
 				$this->log->error($e, 'toba');			
