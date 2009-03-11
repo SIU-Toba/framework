@@ -4,7 +4,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 {
 	protected $permitir_exportar_modelo = true;
 	protected $permitir_instalar = true;
-	protected $schema_modelo;
+	protected $schema_modelo = 'public';
 	protected $schema_auditoria;
 	protected $schema_toba = null;
 	

@@ -205,6 +205,7 @@ class comando_instalacion extends comando_toba
 			$bat .= "set toba_dir=".toba_dir()."\n";
 			$bat .= "set toba_instancia=$id_instancia\n";
 			$bat .= "set PATH=%PATH%;%toba_dir%/bin\n";
+			$bat .= "echo Entorno cargado.\n";
 			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
 			file_put_contents($path, $bat);
 			$this->consola->mensaje("2) Se genero el siguiente .bat:");
@@ -214,11 +215,12 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
 			
 		} else {
-			$path = toba_dir()."\\bin";
+			$path = toba_dir()."/bin";
 			$path .= "/entorno_toba_$release.sh";
-			$bat .= "export toba_dir=".toba_dir()."\n";
+			$bat = "export toba_dir=".toba_dir()."\n";
 			$bat .= "export toba_instancia=$id_instancia\n";
-			$bat .= 'export PATH="$toba_dir/bin:$PATH'."\n";
+			$bat .= 'export PATH="$toba_dir/bin:$PATH"'."\n";
+			$bat .= "echo \"Entorno cargado.\"\n";
 			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
 			file_put_contents($path, $bat);
 			chmod($path, 0755);
@@ -450,7 +452,7 @@ class comando_instalacion extends comando_toba
 	{
 		do {
 			$es_invalido = false;
-			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Ingrese el numero de desarrollador (por defecto 0)', false);
+			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (por defecto 0)', false);
 			$mensaje = "Debe ser un entero positivo, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
 			if ($id_desarrollo == '') {
 				$id_desarrollo = 0;
