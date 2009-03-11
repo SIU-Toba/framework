@@ -1681,11 +1681,18 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	*	Determina que todas las filas de la tabla son nuevas
+	* Determina que todas las filas de la tabla son nuevas
+	* @param boolean $usar_cursores Si esta seteado, solo se marcan como nuevas las filas marcadas por el cursor
+	*	
 	*/
-	function forzar_insercion()
+	function forzar_insercion($usar_cursores=false)
 	{
-		foreach(array_keys($this->_cambios) as $fila) {
+		if($usar_cursores) {
+			$filas = $this->get_id_filas_filtradas_por_cursor();
+		} else {
+			$filas = array_keys($this->_cambios);
+		}
+		foreach( $filas as $fila) {
 			$this->registrar_cambio($fila, "i");
 		}
 	}

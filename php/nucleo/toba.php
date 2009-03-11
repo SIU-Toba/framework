@@ -11,8 +11,8 @@ class toba
 	static private $contexto_ejecucion;
 	static private $perfil_de_datos;
 	static private $perfil_funcional;
-	
 	static private $cn = array();
+	static private $consultas_php;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -308,6 +308,24 @@ class toba
 	static function planificador_tareas($proyecto=null)
 	{
 		return new toba_planificador_tareas($proyecto);
+	}
+	
+	/**
+	 * Retorna una clase de consultas php declarada en el editor
+	 * @param string $clase Nombre de la clase	 
+	 */
+	static function consulta_php($clase)
+	{
+		if (!isset(self::$consultas_php[$clase])) {
+			$datos = toba::proyecto()->get_info_consulta_php($clase);
+			if( $datos['archivo'] ) {
+				require_once($datos['archivo']);
+				self::$consultas_php[$clase] = new $clase();
+			} else {
+				throw new toba_error("La consulta_php solicitada no posee un archivo asociado");
+			}
+		}
+		return self::$consultas_php[$clase];
 	}
 }
 ?>

@@ -484,6 +484,22 @@ class toba_proyecto
 		}
 		return $rs;
 	}
+
+	//------------------------  CONSULTAS PHP  -------------------------
+
+	function get_info_consulta_php($clase, $proyecto=null)
+	{
+		if (! isset($proyecto)) $proyecto = $this->id;		
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__consultas_php','info_consulta_php__'.$clase);
+		} else {
+			$rs = toba_proyecto_db::get_consulta_php($proyecto, $clase);
+		}
+		if (empty($rs)) {
+			throw new toba_error("No se puede encontrar la consulta PHP '$clase' en el proyecto '$proyecto'");	
+		}
+		return $rs;
+	}
 	
 	//-- Soporte a la compilacion ----------------------
 	

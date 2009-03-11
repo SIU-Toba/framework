@@ -886,6 +886,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->compilar_metadatos_generales_puntos_control();
 		$this->compilar_metadatos_generales_mensajes();
 		$this->compilar_metadatos_generales_dimensiones();
+		$this->compilar_metadatos_generales_consultas_php();
 	}
 
 	/**
@@ -1062,7 +1063,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 	
 	/**
-	*	Compilacion de DATOS BASICOS
+	*	Compilacion de DIMENSIONES
 	*/	
 	private function compilar_metadatos_generales_dimensiones()
 	{
@@ -1089,6 +1090,26 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$clase->guardar( $archivo );
 			$this->manejador_interface->progreso_avanzar();
 		}
+		$this->manejador_interface->progreso_fin();
+	}
+
+	/**
+	*	Compilacion de CONSULTAS PHP
+	*/	
+	private function compilar_metadatos_generales_consultas_php()
+	{
+		//-- Datos basicos --
+		$this->manejador_interface->mensaje('Consultas PHP', false);
+		$nombre_clase = 'toba_mc_gene__consultas_php';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		foreach( $this->get_indice_consultas_php() as $clase_consultas ) {		
+			$datos = toba_proyecto_db::get_consulta_php( $this->get_id(), $clase_consultas );
+			$clase->agregar_metodo_datos('info_consulta_php__'.$clase_consultas, $datos );
+			$this->manejador_interface->progreso_avanzar();
+		}
+		//Creo el archivo
+		$clase->guardar( $archivo );
 		$this->manejador_interface->progreso_fin();
 	}
 
@@ -1225,6 +1246,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $datos;		
 	}
 
+	function get_indice_consultas_php()
+	{
+		$rs = toba_info_editores::get_consultas_php();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['clase'];	
+		}
+		return $datos;		
+	}
+	
 	//-------------------------------------------------------------------------------------
 	//-- Info interna sobre componentes para los procesos
 	//-------------------------------------------------------------------------------------

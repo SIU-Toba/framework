@@ -315,6 +315,17 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);
 	}
 
+	//------------------------ CONSULTAS PHP -----------------------
+
+	function get_consulta_php($proyecto, $clase)
+	{
+		$sql = "SELECT		clase,
+							archivo
+					FROM	apex_consulta_php
+					WHERE	proyecto = '$proyecto' AND clase = '$clase' ";
+		return self::get_db()->consultar_fila($sql);	
+	}
+
 	//------------------------  DIMENSIONES -----------------------
 
 	static function get_info_dimension($proyecto, $dimension)
