@@ -8,6 +8,7 @@ class ci_analizador extends toba_ci
 	protected $cambiar_pantalla = false;
 	protected $analizador;
 	protected $s__mostrar_encabezados = false;
+	protected $s__seleccion_modo_detalle = 'no_seteado';
 	
 	/**
 	 * @todo Se desactiva el logger porque no corre como proyecto toba sino como el de la aplicacion
@@ -50,6 +51,11 @@ class ci_analizador extends toba_ci
 	{
 		$this->s__mostrar_encabezados = ($estado == 'true')? true: false;
 		return $estado;
+	}
+
+	function ajax__set_modo_detalle_seleccionado($modo)
+	{
+		$this->s__seleccion_modo_detalle = $modo;
 	}
 	//---- Consultas varias ----------------------------------------------------	
 	
@@ -96,6 +102,11 @@ class ci_analizador extends toba_ci
 	{
 		return $this->s__mostrar_encabezados;
 	}
+
+	function get_seleccion_modo_detalle()
+	{
+		return $this->s__seleccion_modo_detalle;
+	}
 	//---- Eventos CI -------------------------------------------------------
 	
 	function evt__refrescar()
@@ -128,7 +139,12 @@ class ci_analizador extends toba_ci
 				$this->s__seleccion++;				
 			}
 		}
-	}	
+	}
+
+	function evt__ultima()
+	{
+		$this->s__seleccion = 'ultima';
+	}
 	//---- Eventos Filtro -------------------------------------------------------
 	
 	function evt__filtro__filtrar($opciones)

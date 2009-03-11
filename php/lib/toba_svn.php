@@ -51,7 +51,7 @@ class toba_svn
 			$cmd .= '  --non-interactive';
 		}
 		if ($loguear) {
-			toba::logger()->debug("Ejecutando: ".$cmd."\n");
+			toba::logger()->info("Ejecutando: ".$cmd."\n");
 		}
 		/*if ($no_interactivo) {
 			$cmd .= ' --username '.inst_fact::config()->get('svn', 'usuario').

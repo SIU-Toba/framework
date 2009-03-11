@@ -75,7 +75,7 @@ abstract class toba_componente
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
-		$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
+		//$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
 	}
 	
 	
@@ -139,7 +139,7 @@ abstract class toba_componente
 	 */
 	function get_txt()
 	{
-		return "componente(".$this->_id[1]." - $this->_id_en_controlador): ";	
+		return "componente(".$this->_id[1]."): ";	 //- $this->_id_en_controlador
 	}
 
 	/**
@@ -199,10 +199,10 @@ abstract class toba_componente
 		$parametros	= func_get_args();
 		array_splice($parametros, 0 , 1);
 		if(method_exists($this, $metodo)){
-			$this->_log->debug( $this->get_txt() . "[ invocar_callback ] '$metodo'", 'toba');
+			$this->_log->debug( $this->get_txt() . "[ callback ] '$metodo'", 'toba');
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
-			$this->_log->debug($this->get_txt() . "[ invocar_callback ] '$metodo' no fue atrapado", 'toba');
+			$this->_log->info($this->get_txt() . "[ callback ] '$metodo' no fue atrapado", 'toba');
 			return apex_callback_sin_rpta;
 		}
 	}

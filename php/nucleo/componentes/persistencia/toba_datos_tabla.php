@@ -183,7 +183,14 @@ class toba_datos_tabla extends toba_componente
 	{
 		return $this->_proxima_fila;	
 	}
-		
+
+/**
+	 * Shorcut a toba::logger()->debug incluyendo infomación básica del componente
+	 */
+	protected function log($txt)
+	{
+		toba::logger()->debug("TABLA: [{$this->get_tabla()}]\n".$txt, 'toba');
+	}
 	//-------------------------------------------------------------------------------
 	//--  Relacion con otros ELEMENTOS
 	//-------------------------------------------------------------------------------
@@ -1424,7 +1431,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function cargar_con_datos($datos)
 	{
-		$this->log("Carga de datos ===================> FILAS: " . count($datos));
+		$this->log("Carga de datos  FILAS: " . count($datos));
 		$this->_datos = null;
 		//Controlo que no se haya excedido el tope de registros		
 		$this->control_tope_maximo_filas(count($datos));
@@ -1457,7 +1464,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function anexar_datos($datos, $usar_cursores=true)
 	{
-		$this->log("Anexado de datos ===================> FILAS: " . count($datos) );
+		$this->log("Anexado de datos  FILAS: " . count($datos) );
 		//Controlo que no se haya excedido el tope de registros
 		$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
 

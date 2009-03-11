@@ -278,7 +278,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function disparar_eventos()
 	{
-		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
+		//$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');
 		$this->pre_eventos();
 		foreach ($this->_lista_ef as $ef){
 			$this->_elemento_formulario[$ef]->cargar_estado_post();
@@ -647,7 +647,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_antispam.php');
 		$texto = toba::memoria()->get_dato_sincronizado('texto-captcha');
-		toba::logger()->info('Texto CAPTCHA: ' . $texto);
+		toba::logger()->debug('Texto CAPTCHA: ' . $texto);
 		$antispam = new AntiSpam($texto);
 		$antispam->Stroke();
 	}

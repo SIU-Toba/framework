@@ -312,7 +312,7 @@ class toba_instancia
 			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 			if(!empty($rs))	return $rs[0];
 		} catch (toba_error_db $e ) {
-			toba::logger()->debug($e->getMessagge());
+			toba::logger()->info($e->getMessagge());
 			throw new toba_error('Error recuperando informacion');
 		}
 	}

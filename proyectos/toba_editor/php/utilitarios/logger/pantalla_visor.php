@@ -42,7 +42,7 @@ class pantalla_visor extends toba_ei_pantalla
 		//--- Opciones
 		$selec = ($seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$seleccion}";
 		echo "<div>";
-		echo "<span class='logger-proyecto' title='{$this->controlador->get_analizador()->get_archivo_nombre()}'>";
+		echo "<span class='logger-proyecto' title='{$this->controlador->get_analizador()->get_archivo_nombre()}' style='text-align:right;'>";
 		
 		echo ucfirst($this->controlador->get_proyecto());
 
@@ -55,6 +55,7 @@ class pantalla_visor extends toba_ei_pantalla
 		}
 		if ($seleccion != 'ultima') {
 			$this->generar_boton('siguiente');
+			$this->generar_boton('ultima');
 		}
 		echo "</span>";
 		echo "<br><div id='logger_info_operacion'>";
@@ -95,14 +96,17 @@ class pantalla_visor extends toba_ei_pantalla
 		}
 		echo "</ul>";
 		echo "</div>";
-/*****	MOCKUP de la eleccion de un proyecto especifico
- 		echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log"); 
+
+		$proyecto_actual = $this->controlador->get_proyecto();
+		$mostrar = $this->controlador->get_seleccion_modo_detalle();
+		$lista_valida = array($proyecto_actual => ucfirst($proyecto_actual), 'toba' => 'Nucleo', 'no_seteado' => 'Todos');
+ 		//echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
-		echo "<strong>Proyectos</strong>";
+		echo "<strong>Mostrar mensajes</strong>";
 		echo "<ul id='logger_proyectos' class='logger-opciones'>";
-		echo "<li>".toba_form::multi_select("opciones_proyectos", array(), array('referencia','toba'), 2)."</li>";
+		echo "<li>".toba_form::select("opciones_proyectos", $mostrar, $lista_valida,  null, "onchange='{$this->objeto_js}.mostrar_proyecto()'")."</li>";
 		echo "</ul>";		
-		echo "</div>";*/
+		echo "</div>";
 		
 		//--- Detalles
 		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
@@ -239,7 +243,33 @@ class pantalla_visor extends toba_ei_pantalla
 				refrescar_niveles();
 				refrescar_detalle();
 			}
-	
+
+			<?php echo $this->objeto_js?>.mostrar_proyecto = function (inicial)
+			{
+				obj_combo = document.getElementById('opciones_proyectos');
+				valor = obj_combo.options[obj_combo.selectedIndex].value;
+
+				//Informo el modo de seleccion para que sea recordado entre pedidos de pagina
+				if (!inicial){
+					this.ajax('set_modo_detalle_seleccionado', valor, this, this.dump_response);
+				}
+
+				//Refresco la visualizacion del detalle
+				var mostrar_todos = (valor == 'no_seteado');
+				var detalle = document.getElementById('logger_detalle');
+				for (var i=0; i < detalle.childNodes.length; i++) {
+					var nodo = detalle.childNodes[i];
+					var pr = nodo.attributes['proyecto'].value;
+					var debe_mostrar = (mostrar_todos || (pr == valor));
+					if (debe_mostrar && nodo.style.display == 'none') {
+						nodo.style.display = '';
+					}
+					if (!debe_mostrar && nodo.style.display == '') {
+						nodo.style.display = 'none';
+					}
+				}
+			}
+
 			function refrescar_niveles()
 			{
 				var mostrar_todos = (niveles_actuales.length == 0);			
@@ -289,6 +319,8 @@ class pantalla_visor extends toba_ei_pantalla
 				this.ajax('set_estado_encabezados', obj.checked, this, this.dump_response);
 				return false;
 			}
+
+			<?php echo $this->objeto_js?>.mostrar_proyecto(true);
 <?php
 	}
 	

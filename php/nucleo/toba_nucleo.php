@@ -51,7 +51,7 @@ class toba_nucleo
 				$this->solicitud_en_proceso = true;
 				$this->solicitud->procesar();
 			} catch( toba_reset_nucleo $e ) {
-				toba::logger()->debug('Se recargo el nucleo','toba');
+				toba::logger()->info('Se recargo el nucleo','toba');
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
 					throw new toba_error_def('ERROR: La operación no esta habilitada para provocar redirecciones.');
@@ -71,7 +71,7 @@ class toba_nucleo
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
-		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
+		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
 
@@ -95,7 +95,7 @@ class toba_nucleo
 		}
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
-		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
+		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		$dir_logs = toba_modelo_instalacion::dir_base()."/logs_comandos";
 		toba::logger()->set_directorio_logs($dir_logs);
 		toba::logger()->guardar_en_archivo('comandos.log');
@@ -145,7 +145,7 @@ class toba_nucleo
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
 				if ( toba::memoria()->get_item_solicitado() ) {
-					toba::logger()->debug('Fallo la carga de una operación publica. Se intenta con la operación predeterminada', 'toba');
+					toba::logger()->notice('Fallo la carga de una operación publica. Se intenta con la operación predeterminada', 'toba');
 					toba::memoria()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
 					$this->iniciar_contexto_solicitud($item);

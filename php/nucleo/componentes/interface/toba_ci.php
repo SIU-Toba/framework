@@ -84,7 +84,7 @@ class toba_ci extends toba_ei
 			$this->_nombre_formulario = $parametro["nombre_formulario"];
 		}
 		if ($this->_ini_operacion) {
-			$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');
+			$this->_log->debug($this->get_txt(). "[callback][ ini__operacion ]", 'toba');
 			$this->ini__operacion();
 			$this->_ini_operacion = false;
 			$this->_es_pantalla_inicial = true;
@@ -122,7 +122,7 @@ class toba_ci extends toba_ei
 	 */
 	function disparar_limpieza_memoria()
 	{
-		$this->_log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[callback][ disparar_limpieza_memoria ]", 'toba');
 		//Itero los CIs instanciados durante la operacion para limpiarles la memoria
 		if (isset($this->_dependencias_ci)) {
 			foreach($this->_dependencias_ci as $dep){
@@ -131,7 +131,7 @@ class toba_ci extends toba_ei
 		}
 		$this->limpiar_memoria(array('_ini_operacion'));
 		unset($this->_pantalla_id_eventos);		
-		$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');	
+		$this->_log->debug($this->get_txt(). "[callback][ ini__operacion ]", 'toba');
 		$this->ini__operacion();
 	}
 	
@@ -141,7 +141,7 @@ class toba_ci extends toba_ei
 	 */
 	function limpiar_memoria($no_borrar=null)
 	{
-		$this->_log->debug( $this->get_txt() . "[ limpiar_memoria ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[callback][ limpiar_memoria ]", 'toba');
 		$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->ini();
@@ -182,7 +182,7 @@ class toba_ci extends toba_ei
 	 */
 	function disparar_eventos()
 	{
-		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');
+		//$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');
 
 		//--- Si no hubo servicio anterior, no se atienden eventos
 		if (isset($this->_pantalla_id_eventos)) {
@@ -201,7 +201,7 @@ class toba_ci extends toba_ei
 				}
 			}
 		} else {
- 			$this->_log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
+ 			$this->_log->info( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
 		$this->post_eventos();		
 		$this->controlar_cambio_pantalla();
@@ -274,13 +274,13 @@ class toba_ci extends toba_ei
 			$metodo = apex_ei_evento . apex_ei_separador . $this->_evento_actual;
 			if(method_exists($this, $metodo)){
 				//Ejecuto el metodo que implementa al evento
-				$this->_log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->_evento_actual}' -> [ $metodo ]", 'toba');
+				$this->_log->debug( $this->get_txt() . "[ evento ] '{$this->_evento_actual}' -> [ $metodo ]", 'toba');
 				$this->$metodo($this->_evento_actual_param);
 			
 				//Comunico el evento al contenedor
 				$this->reportar_evento( $this->_evento_actual );
 			}else{
-				$this->_log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->_evento_actual}' no fue atrapado", 'toba');
+				$this->_log->info($this->get_txt() . "[ evento ]  El METODO [ $metodo ] no existe - '{$this->_evento_actual}' no fue atrapado", 'toba');
 			}
 			
 			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
@@ -344,7 +344,7 @@ class toba_ci extends toba_ei
 	 */
 	function evt__cancelar()
 	{
-		$this->_log->debug($this->get_txt() . "[ evt__cancelar ]", 'toba');
+		$this->_log->debug($this->get_txt() . "[callback][ evt__cancelar ]", 'toba');
 		$this->disparar_limpieza_memoria();
 		if(isset($this->_cn)){
 			$this->_cn->cancelar();			
@@ -356,7 +356,7 @@ class toba_ci extends toba_ei
 	 */
 	function evt__procesar()
 	{
-		$this->_log->debug($this->get_txt() . "[ evt__procesar ]", 'toba');
+		$this->_log->debug($this->get_txt() . "[callback][ evt__procesar ]", 'toba');
 		if(isset($this->_cn)){
 			$this->disparar_entrega_datos_cn();
 			$this->_cn->procesar();
@@ -495,7 +495,7 @@ class toba_ci extends toba_ei
 		if (isset($this->_memoria['pantalla_servicio'])) {
 			$this->_pantalla_id_eventos = $this->_memoria['pantalla_servicio'];
 			unset($this->_memoria['pantalla_servicio']);
-			$this->_log->debug( $this->get_txt() . "Pantalla de eventos: '{$this->_pantalla_id_eventos}'", 'toba');			
+			$this->_log->debug( $this->get_txt() . "Pantalla de eventos: '{$this->_pantalla_id_eventos}'", 'toba');
 		}
 	}
 

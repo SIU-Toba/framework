@@ -49,7 +49,7 @@ class toba_proyecto
 	{
 		if (!isset(self::$instancia)) {
 			$id_proyecto = self::get_id();			
-			toba::logger()->debug("TOBA PROYECTO: creando instancia de '$id_proyecto'", 'toba');
+			//toba::logger()->debug("TOBA PROYECTO: creando instancia de '$id_proyecto'", 'toba');
 			self::$instancia = new toba_proyecto($id_proyecto);
 		}
 		return self::$instancia;
@@ -72,7 +72,7 @@ class toba_proyecto
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
 		if (!$this->memoria) {
 			$this->memoria = self::cargar_info_basica();
-			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
+			//toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
 		if (defined('apex_pa_log_archivo_nivel')) {
 			toba::logger()->set_nivel(apex_pa_log_archivo_nivel);

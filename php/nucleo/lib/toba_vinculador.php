@@ -143,7 +143,7 @@ class toba_vinculador
 			//El control es solo dentro del proyecto actual
 			if ( toba::proyecto()->get_id() == $item_proyecto && 
 						!toba::proyecto()->puede_grupo_acceder_item($item)) {
-				toba::logger()->info("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
+				toba::logger()->notice("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
 				return null;	
 			}
 		}

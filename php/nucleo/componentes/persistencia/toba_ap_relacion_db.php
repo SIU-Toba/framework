@@ -182,7 +182,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	protected function proceso_sincronizacion($usar_cursores=false)
 	{
 		if($usar_cursores) {
-			toba::logger()->debug("ap_relacion_db: Sincronizacion con CURSORES", 'toba');
+			toba::logger()->info("AP_RELACION: Sincronizacion con CURSORES", 'toba');
 		}
 		
 		$tablas = $this->objeto_relacion->orden_sincronizacion();
@@ -209,7 +209,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if($usar_cursores){
 				$filas = $tabla->get_id_filas_filtradas_por_cursor();
 				if($filas) {
-					toba::logger()->debug("AP_RELACION_DB: Sincronizar INSERTS con CURSOR [[[[".$tabla->get_tabla()."]]]] - FILAS(".implode(',',$filas).")", 'toba');
+					toba::logger()->info("AP_RELACION: Sincronizar INSERTS con CURSOR [[[[".$tabla->get_tabla()."]]]] - FILAS(".implode(',',$filas).")", 'toba');
 					$tabla->persistidor()->sincronizar_insertados($filas);
 					$tabla->notificar_hijos_sincronizacion($filas);
 				}

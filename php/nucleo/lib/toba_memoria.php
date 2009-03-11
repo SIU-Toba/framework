@@ -74,7 +74,7 @@ class toba_memoria
 	
 	private function __construct()
 	{
-		toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
+		//toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
 		$this->id = uniqid('');
 		$this->url_actual = $_SERVER["PHP_SELF"];
@@ -332,7 +332,7 @@ class toba_memoria
 				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
 				como 'reciclables' y la memoria sincronizada (la alienada al request anterior).
 			*/
-			toba::logger()->debug('TOBA MEMORIA: Flag acceso desde el menu. Se reinicia la memoria de la operacion', 'toba');
+			toba::logger()->info('TOBA MEMORIA: Flag acceso desde el menu. Se reinicia la memoria de la operacion', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_datos_reciclable();
 		}
@@ -624,7 +624,7 @@ class toba_memoria
 		}else{
 			$this->celda_memoria_actual['item'] = 'inicio';
 		}
-		toba::logger()->debug('Item de celda de memoria: '.$this->celda_memoria_actual['item']);
+		//toba::logger()->debug('Item de celda de memoria: '.$this->celda_memoria_actual['item']);
 		//-- Inicializo reciclaje por acceso.
 		//		Vacio los reciclables activos para que se registren ellos.
 		$this->celda_memoria_actual['reciclables_activos'] = array();
@@ -691,7 +691,7 @@ class toba_memoria
 		if(isset($this->celda_memoria_actual['item_anterior'])){
 			$es_distinto_item = ($this->celda_memoria_actual['item_anterior'] != $this->celda_memoria_actual['item']);
 			if($es_distinto_item) {
-				toba::logger()->debug("TOBA MEMORIA: Reciclaje por cambio de OPERACION", 'toba');
+				toba::logger()->info("TOBA MEMORIA: Reciclaje por cambio de OPERACION", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_operacion($reciclable);
@@ -712,7 +712,7 @@ class toba_memoria
 			if($tipo == apex_hilo_reciclado_acceso){
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$this->celda_memoria_actual['reciclables_activos'])){
-					toba::logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
+					toba::logger()->info("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
 					$this->eliminar_dato_operacion($reciclable);
 				}
 			}

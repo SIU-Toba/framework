@@ -100,7 +100,7 @@ class toba_ei_filtro extends toba_ei
 	 */
 	function disparar_eventos()
 	{
-		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
+		//$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');
 		$validado = false;
 		//Veo si se devolvio algun evento!
 		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {

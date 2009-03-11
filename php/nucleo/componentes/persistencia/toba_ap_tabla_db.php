@@ -91,7 +91,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function log($txt)
 	{
-		toba::logger()->debug("AP_TABLA: ---====[{$this->_tabla}]====---\n".$txt, 'toba');
+		toba::logger()->debug("AP_TABLA: [{$this->_tabla}]\n".$txt, 'toba');
 	}
 
 	/**
@@ -319,7 +319,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return true;
 		}else{
 			//No se carga nada!
-			$this->log("=========================> FILAS: 0" );
+			$this->log(" FILAS: 0" );
 			return false;
 		}
 	}

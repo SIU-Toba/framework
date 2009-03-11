@@ -330,14 +330,14 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		if (! $this->existe_base_datos( $id_base )){
 			try{
 				$this->crear_base_datos( $id_base, true );	
-				toba_logger::instancia()->debug("Base: $id_base -> Encoding estandar compatible!: ". self::db_encoding_estandar );											
+				toba_logger::instancia()->debug("Base: $id_base -> Encoding estandar compatible!: ". self::db_encoding_estandar );
 			}catch(toba_error $e){				
 				$this->crear_base_datos( $id_base );									
 				$info_db = $this->get_parametros_base( $id_base );
 				$nuevos_parametros = array('encoding' => self::db_encoding_estandar);												
 				$info_db = array_merge($info_db, $nuevos_parametros);				
 				$this->actualizar_db( $id_base, $info_db );
-				toba_logger::instancia()->debug("Base: $id_base -> Encoding no compatible!, redefiniendo conexion para uso con: ". self::db_encoding_estandar );
+				toba_logger::instancia()->info("Base: $id_base -> Encoding no compatible!, redefiniendo conexion para uso con: ". self::db_encoding_estandar );
 			}//try
 					
 			//--- Borro la base de datos recien creada

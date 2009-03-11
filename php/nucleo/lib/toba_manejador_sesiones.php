@@ -305,7 +305,7 @@ class toba_manejador_sesiones
 						return;
 					} catch ( toba_error_ini_sesion $e ) {
 						//La inicializacion automatica fallo, no pasa nada malo. Se prueba con item de inicializacion
-						toba::logger()->debug("MANEJADOR de SESIONES: Fallo la inicializacion automatica de la sesion del proyecto. " . $e->getMessage() ,'toba');
+						toba::logger()->notice("MANEJADOR de SESIONES: Fallo la inicializacion automatica de la sesion del proyecto. " . $e->getMessage() ,'toba');
 					}
 				} 
 				// Tiene item de inicializacion
@@ -468,7 +468,7 @@ class toba_manejador_sesiones
 
 	private function registrar_activacion_sesion()
 	{
-		toba::logger()->debug('Registro activacion sesion','toba');
+		//toba::logger()->debug('Registro activacion sesion','toba');
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'] = time();
 		$this->sesion->conf__activacion();
 	}

@@ -51,7 +51,7 @@ class toba_ajax_respuesta
 			switch ($this->modo) {
 				case 'D':
 					$json = new Services_JSON();
-					toba::logger()->debug("Respuesta AJAX: ".var_export($this->contenido, true));	
+					toba::logger()->debug("[Respuesta AJAX]  ".var_export($this->contenido, true));
 					echo $json->encode($this->contenido);
 					break;
 				case 'H':

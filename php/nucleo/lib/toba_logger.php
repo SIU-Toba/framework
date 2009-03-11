@@ -30,7 +30,16 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
  *  - TOBA_LOG_WARNING: 5
  *  - TOBA_LOG_WARNING: 6
  *  - TOBA_LOG_DEBUG: 7
- * 
+ *
+ *  Recomendaciones de uso:
+ *
+ *  critico: error fatal (no se sabe como puede continuar)
+ *  error: falla de control o validacion (en cierta forma podría ser recuperable reiniciando la operacion por ej)
+ *  warning: falla que es recuperable (se asume algo y se sigue)
+ *  notice: paso algo que puede llegar a dar un fallo
+ *  info: suceso que merece cierta atención
+ *  debug: suceso
+ *
  * @wiki Referencia/PuntosDeAcceso El nivel actual se define en el Punto de Acceso
  * @package Debug
  */
