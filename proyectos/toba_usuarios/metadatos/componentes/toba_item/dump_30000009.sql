@@ -1,16 +1,16 @@
 ------------------------------------------------------------
---[3436]--  Login 
+--[30000009]--  Autentificación de Usuarios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, exportable, creacion) VALUES (
-	'3435', --item_id
+	'30000008', --item_id
 	'toba_usuarios', --proyecto
-	'3436', --item
+	'30000009', --item
 	NULL, --padre_id
 	'toba_usuarios', --padre_proyecto
 	'1000229', --padre
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cd_c', --actividad_patron
-	'Login', --nombre
+	'Autentificación de Usuarios', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'0', --menu
-	'3', --orden
+	NULL, --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	'apex', --imagen_recurso_origen
+	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
@@ -49,7 +49,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --exportable
 	NULL  --creacion
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_item_objeto
@@ -57,8 +57,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
 	NULL, --item_id
 	'toba_usuarios', --proyecto
-	'3436', --item
-	'2195', --objeto
-	'1', --orden
+	'30000009', --item
+	'30000034', --objeto
+	'0', --orden
 	NULL  --inicializar
 );

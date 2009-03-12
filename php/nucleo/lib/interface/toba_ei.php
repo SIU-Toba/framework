@@ -45,7 +45,8 @@
  	@@retorno: string | HTML del mensaje
 */
 	{
-		if (toba::solicitud()->get_tipo() == 'consola') {
+		$solicitud = toba::solicitud();
+		if (isset($solicitud) && $solicitud->get_tipo() == 'consola') {
 			echo $mensaje . "\n\n";
 			return;
 		}		

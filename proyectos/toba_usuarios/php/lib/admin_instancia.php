@@ -7,19 +7,11 @@ class admin_instancia
 	protected $base;
 	protected $proyectos;
 	
-	function __construct()
+	private function __construct()
 	{
-		if ( toba_editor::activado() && toba_editor::get_proyecto_cargado() == 'toba_usuarios' ) {
-			//Si la fuente del proyecto se utiliza desde el editor (levantar metadatos, etc) tengo que cargar
-			// la instancia editada de otra manera...
-			$this->id_instancia = toba_editor::get_id_instancia_activa();
-		} else {
-			$this->id_instancia = toba::sesion()->get_id_instancia();
-		}
+		$this->id_instancia = toba::instancia()->get_id();
 		$datos = toba_instancia::get_datos_instancia($this->id_instancia);
 		$this->base = $datos['base'];
-		$this->proyectos = explode(',', $datos['proyectos']);
-		$this->proyectos = array_map('trim', $this->proyectos);
 	}
 
 	function validar_estructura_instancia()
@@ -27,9 +19,20 @@ class admin_instancia
 		
 	}
 
-	function get_lista_proyectos()
+	function get_proyecto_defecto()
 	{
-		return $this->proyectos;
+		$proyecto = toba::memoria()->get_dato_instancia('proyecto');
+		if (isset($proyecto)) {
+			return $proyecto;
+		}
+		$proyectos = toba::manejador_sesiones()->get_proyectos_activos();
+		if (count($proyectos) > 1) {
+			foreach ($proyectos as $proyecto) {
+				if ($proyecto != toba::proyecto()->get_id()) {
+					return $proyecto;
+				}
+			}
+		}
 	}
 
 	function get_id_db()
@@ -90,21 +93,21 @@ class admin_instancia
 
 	function get_lista_usuarios_bloqueados($estado)
 	{
-		/*No se bloquea el usuario toba pero que pasa si se modifica 
-		el id del mismo en el ABM de usuarios??*/
+		$estado = quote($estado);
 		$sql = "SELECT 
 					usuario, nombre 
 				FROM 
 					apex_usuario 
 				WHERE 
-						bloqueado = '$estado'
+						bloqueado = $estado
 					AND	usuario <> 'toba';";
 		return toba::db()->consultar($sql);
 	}
 	
 	function eliminar_bloqueo($ip)
 	{
-		$sql = "DELETE FROM apex_log_ip_rechazada WHERE ip = '$ip';";
+		$ip = quote($ip);
+		$sql = "DELETE FROM apex_log_ip_rechazada WHERE ip = $ip";
 		toba::db()->ejecutar($sql);
 	}
 	
@@ -116,25 +119,27 @@ class admin_instancia
 	
 	function eliminar_bloqueo_usuario($usuario)
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario';";
+		$usuario = quote($usuario);
+		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = $usuario";
 		toba::db()->ejecutar($sql);
 	}
 	
 	function eliminar_bloqueo_usuarios()
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1;";
+		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1";
 		toba::db()->ejecutar($sql);	
 	}
 	
 	function agregar_bloqueo_usuario($usuario)
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = '$usuario';";
+		$usuario = quote($usuario);
+		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = $usuario";
 		toba::db()->ejecutar($sql);
 	}	
 	
 	function agregar_bloqueo_usuarios()
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0;";
+		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0";
 		toba::db()->ejecutar($sql);	
 	}
 	

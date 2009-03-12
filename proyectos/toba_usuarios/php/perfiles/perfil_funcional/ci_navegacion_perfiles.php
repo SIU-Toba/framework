@@ -5,10 +5,12 @@ class ci_navegacion_perfiles extends toba_ci
 {
 	protected $s__filtro;
 	
-	function ini__operacion() 
- 	{ 
- 		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto(); 
- 	} 
+	function ini__operacion()
+	{
+		if (! is_null(admin_instancia::get_proyecto_defecto())) {
+			$this->s__filtro = array('proyecto' => admin_instancia::get_proyecto_defecto());
+		}		
+	}
 	
 	function datos($tabla)
 	{
@@ -17,12 +19,6 @@ class ci_navegacion_perfiles extends toba_ci
 	
 	function conf__seleccion_perfil()
 	{
-		if( toba::sesion()->proyecto_esta_predefinido() ) { 
-			$proyecto = toba::sesion()->get_id_proyecto();
-			$desc = "Perfiles Funcionales del proyecto: <strong>$proyecto</strong>";
- 			$this->pantalla('seleccion_perfil')->eliminar_dep('filtro_proyectos'); 
- 			$this->pantalla('seleccion_perfil')->set_descripcion($desc);
- 		} 
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion_perfil')->eliminar_evento('agregar');
 		}

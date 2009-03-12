@@ -287,11 +287,7 @@ class toba_instancia
 		$usuario = $this->get_db()->quote($usuario);
 		$sql = "SELECT	usuario as							id,
 						nombre as							nombre,
-						hora_salida as						hora_salida,
-						solicitud_registrar as				sol_registrar,
-						solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
-						solicitud_obs_tipo as				sol_obs_tipo,
-						solicitud_observacion as			sol_obs,
+						email as							email,
 						parametro_a as						parametro_a,
 						parametro_b as 						parametro_b,
 						parametro_c as						parametro_c
@@ -347,9 +343,12 @@ class toba_instancia
 	/**
 	*	Utilizada en el login automatico
 	*/
-	function get_lista_usuarios()
+	function get_lista_usuarios($proyecto=null)
 	{
-		$proyecto = $this->get_db()->quote(toba_proyecto::get_id());
+		if (! isset($proyecto)) {
+			$proyecto = toba_proyecto::get_id();
+		}
+		$proyecto = $this->get_db()->quote($proyecto);
 		$sql = "SELECT 	DISTINCT 
 						u.usuario as usuario, 
 						u.nombre as nombre

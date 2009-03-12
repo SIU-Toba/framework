@@ -83,6 +83,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 					throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
 				}
 			}
+			sort($lista_proyectos);
 			$this->ini_proyectos_vinculados = $lista_proyectos;
 		}
 	}

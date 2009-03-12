@@ -9,7 +9,7 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	'toba_usuarios', --descripcion_corta
 	'postgres7', --fuente_datos_motor
 	NULL, --host
-	'customizacion_toba/fuente.php', --subclase_archivo
+	'extension_toba/fuente.php', --subclase_archivo
 	'fuente', --subclase_nombre
 	NULL, --orden
 	NULL, --schema

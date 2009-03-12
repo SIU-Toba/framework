@@ -4,13 +4,14 @@ class consultas_instancia
 {
 	static function get_lista_proyectos()
 	{
-		$sql = "SELECT proyecto FROM apex_proyecto WHERE proyecto <> 'toba';";
+		$sql = "SELECT proyecto FROM apex_proyecto WHERE proyecto <> 'toba' ORDER BY proyecto;";
 		return toba::db()->consultar($sql);
 	}
 
 	static function get_datos_proyecto($proyecto)
 	{
-		$sql = "SELECT * FROM apex_proyecto WHERE proyecto = '$proyecto';";
+		$proyecto = quote($proyecto);
+		$sql = "SELECT * FROM apex_proyecto WHERE proyecto = $proyecto";
 		$rs = toba::db()->consultar($sql);
 		return $rs[0];
 	}
@@ -42,22 +43,28 @@ class consultas_instancia
 
 	static function get_cantidad_sesiones_proyecto($proyecto)
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_sesion_browser WHERE proyecto = '$proyecto';";
+		$proyecto = quote($proyecto);
+		$sql = "SELECT count(*) as cantidad FROM apex_sesion_browser WHERE proyecto = $proyecto;";
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 
 	static function get_sesiones($proyecto, $filtro)
 	{
+		$proyecto = quote($proyecto);
 		$where = '';
+		$filtro_sano = quote($filtro);
 		if(isset($filtro['sesion'])){
-			$where .= " AND se.sesion_browser = {$filtro['sesion']} ";		
+			$where .= " AND se.sesion_browser = {$filtro_sano['sesion']} ";
 		} else {
 			if(isset($filtro['desde'])) {
-				$where .= " AND date(se.ingreso) >= '{$filtro['desde']}' ";
+				$where .= " AND date(se.ingreso) >= {$filtro_sano['desde']} ";
 			}
 			if(isset($filtro['hasta'])) {
-				$where .= " AND date(se.ingreso) <= '{$filtro['hasta']}' ";
+				$where .= " AND date(se.ingreso) <= {$filtro_sano['hasta']} ";
+			}
+			if(isset($filtro['usuario'])) {
+				$where .= " AND usuario = {$filtro_sano['usuario']} ";
 			}
 		}
 		$sql = "
@@ -71,7 +78,7 @@ class consultas_instancia
 						LEFT OUTER JOIN apex_solicitud_browser so
 						ON se.sesion_browser = so.sesion_browser
 						AND se.proyecto = so.proyecto
-					WHERE se.proyecto = '$proyecto'
+					WHERE se.proyecto = $proyecto
 					$where
 					GROUP BY 1,2,3,4,5
 					ORDER BY ingreso DESC;";
@@ -169,10 +176,12 @@ class consultas_instancia
 		$condiciones = array();
 		if(isset($filtro)){
 			if(isset($filtro['nombre'])){
-				$condiciones[] = "(nombre ILIKE '%{$filtro['nombre']}%')";
+				$quote = quote("%{$filtro['nombre']}%");
+				$condiciones[] = "(nombre ILIKE $quote)";
 			}
 			if(isset($filtro['usuario'])){
-				$condiciones[] = "(usuario ILIKE '%{$filtro['usuario']}%')";
+				$quote = quote("%{$filtro['usuario']}%");
+				$condiciones[] = "(usuario ILIKE $quote)";
 			}
 		}
 		if($condiciones) {
@@ -189,15 +198,20 @@ class consultas_instancia
 	static function get_usuarios_no_vinculados($filtro=null)
 	{
 		$where = "WHERE		up.proyecto IS NULL";
+		$condiciones = array();
 		if(isset($filtro)){
 			if(isset($filtro['nombre'])){
-				$where .= " AND (u.nombre ILIKE '%{$filtro['nombre']}%')";
+				$quote = quote("%{$filtro['nombre']}%");
+				$condiciones[] = "(nombre ILIKE $quote)";
 			}
 			if(isset($filtro['usuario'])){
-				$where .= " AND (u.usuario ILIKE '%{$filtro['usuario']}%')";
+				$quote = quote("%{$filtro['usuario']}%");
+				$condiciones[] = "(usuario ILIKE $quote)";
 			}
 		}
-
+		if ($condiciones) {
+			$where .= 'AND' . implode(' AND ',$condiciones);
+		}
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
 						up.proyecto as proyecto
@@ -219,27 +233,34 @@ class consultas_instancia
 
 	static function get_cantidad_usuarios_proyecto($proyecto)
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario_proyecto WHERE proyecto = '$proyecto';";
+		$proyecto = quote($proyecto);
+		$sql = "SELECT count(*) as cantidad FROM apex_usuario_proyecto WHERE proyecto = $proyecto";
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 
 	static function get_usuarios_vinculados_proyecto($proyecto, $filtro=null)
 	{
+		$proyecto = quote($proyecto);
 		$where = "WHERE 	g.usuario_grupo_acc = up.usuario_grupo_acc
 					AND		g.proyecto = up.proyecto
 					AND		u.usuario = up.usuario
-					AND		up.proyecto = '$proyecto'";
-		
+					AND		up.proyecto = $proyecto";
+
+		$condiciones = array();
 		if(isset($filtro)){
 			if(isset($filtro['nombre'])){
-				$where .= " AND (u.nombre ILIKE '%{$filtro['nombre']}%')";
+				$quote = quote("%{$filtro['nombre']}%");
+				$condiciones[] = "(u.nombre ILIKE $quote)";
 			}
 			if(isset($filtro['usuario'])){
-				$where .= " AND (u.usuario ILIKE '%{$filtro['usuario']}%')";
+				$quote = quote("%{$filtro['usuario']}%");
+				$condiciones[] = "(u.usuario ILIKE $quote)";
 			}
 		}
-
+		if ($condiciones) {
+			$where .= 'AND' . implode(' AND ',$condiciones);
+		}
 		$sql = "SELECT 	up.proyecto as proyecto,
 						up.usuario as usuario, 
 						u.nombre as nombre,
@@ -267,9 +288,25 @@ class consultas_instancia
 
 	static function get_usuarios_no_vinculados_proyecto($proyecto, $filtro=null)
 	{
-		$filtro = '';
+		$join = '';
 		if (isset($proyecto)) {
-			$filtro = " AND up.proyecto = '$proyecto'";
+			$proyecto = quote($proyecto);
+			$join = " AND up.proyecto = $proyecto";
+		}
+		$condiciones = array();
+		if(isset($filtro)){
+			if(isset($filtro['nombre'])){
+				$quote = quote("%{$filtro['nombre']}%");
+				$condiciones[] = "(u.nombre ILIKE $quote)";
+			}
+			if(isset($filtro['usuario'])){
+				$quote = quote("%{$filtro['usuario']}%");
+				$condiciones[] = "(u.usuario ILIKE $quote)";
+			}
+		}
+		$where = '';
+		if ($condiciones) {
+			$where .= 'AND' . implode(' AND ',$condiciones);
 		}
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
@@ -277,8 +314,9 @@ class consultas_instancia
 				FROM 	apex_usuario u 
 							LEFT OUTER JOIN apex_usuario_proyecto up 
 							ON u.usuario = up.usuario 
-							$filtro
+							$join
 				WHERE	up.proyecto IS NULL
+					$where
 				ORDER BY usuario;";
 		return toba::db()->consultar($sql);
 	}
@@ -289,42 +327,49 @@ class consultas_instancia
 	
 	static function get_lista_grupos_acceso_usuario_proyecto($usuario, $proyecto)
 	{
+		$proyecto = quote($proyecto);
+		$usuario = quote($usuario);
 		$sql = "SELECT	usuario_grupo_acc
 				FROM	apex_usuario_proyecto
-				WHERE 		proyecto = '$proyecto'
-						AND	usuario = '$usuario'
+				WHERE 		proyecto = $proyecto
+						AND	usuario = $usuario
 				;";
 		return toba::db()->consultar($sql);
 	}
 
 	static function get_lista_grupos_acceso_proyecto($proyecto)
 	{
+		$proyecto = quote($proyecto);
 		$sql = "SELECT 	proyecto,
 						usuario_grupo_acc,
 						nombre,
 						descripcion
 				FROM 	apex_usuario_grupo_acc
-				WHERE 	proyecto = '$proyecto';";
+				WHERE 	proyecto = $proyecto";
 		return toba::db()->consultar($sql);
 	}
 	
 	function get_descripcion_grupo_acceso($proyecto, $grupo)
 	{
+		$proyecto = quote($proyecto);
+		$grupo = quote($grupo);
 		$sql = "SELECT 	nombre as 			grupo_acceso,
 						descripcion as 		grupo_acceso_desc
 				FROM 	apex_usuario_grupo_acc
-				WHERE 	proyecto = '$proyecto'
-				AND 	usuario_grupo_acc = '$grupo';";
+				WHERE 	proyecto = $proyecto
+				AND 	usuario_grupo_acc = $grupo";
 		return toba::db()->consultar($sql);
 	}
 	
 	function get_descripcion_perfil_datos($proyecto, $perfil)
 	{
+		$proyecto = quote($proyecto);
+		$perfil = quote($perfil);
 		$sql = "SELECT 	nombre as 			perfil_datos_nombre,
 						descripcion as 		perfil_datos_descripcion
 				FROM 	apex_usuario_perfil_datos
-				WHERE 	proyecto = '$proyecto'
-				AND 	usuario_perfil_datos = '$perfil';";
+				WHERE 	proyecto = $proyecto
+				AND 	usuario_perfil_datos = $perfil";
 		return toba::db()->consultar($sql);
 	}
 	
@@ -334,12 +379,13 @@ class consultas_instancia
 	
 	static function get_lista_perfil_datos($proyecto)
 	{
+		$proyecto = quote($proyecto);
 		$sql = "SELECT 	proyecto,
 						usuario_perfil_datos,
 						nombre,
 						descripcion						
 				FROM 	apex_usuario_perfil_datos 
-				WHERE	proyecto = '$proyecto'";
+				WHERE	proyecto = $proyecto";
 		$datos = toba::db()->consultar($sql);
 		return $datos;
 	}

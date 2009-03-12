@@ -205,6 +205,24 @@ class toba_manejador_sesiones
 	}
 
 	/**
+	* Devuelve la cantidad de proyectos que poseen una sesion abierta
+	*/
+	function get_proyectos_activos()
+	{
+		$proyectos = array();
+		if(isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos']) &&
+			is_array($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'])) {
+			foreach( array_keys($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos']) as $proyecto ) {
+				if ($this->existe_sesion_activa($proyecto)) {
+					$proyectos[] = $proyecto;
+				}
+			}
+		}
+		return $proyectos;
+	}
+
+
+	/**
 	*	Responde si un proyecto puntual fue cargado
 	*/
 	function existe_proyecto_cargado($proyecto)

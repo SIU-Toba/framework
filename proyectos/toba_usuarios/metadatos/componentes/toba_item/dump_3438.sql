@@ -24,7 +24,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
 	'Perfiles de Datos', --nombre
-	NULL, --descripcion
+	'Los perfiles de datos permiten limitar la información disponible al usuario, filtrando por una o más dimensiones  de datos.', --descripcion
 	NULL, --actividad_accion
 	'1', --menu
 	'4', --orden

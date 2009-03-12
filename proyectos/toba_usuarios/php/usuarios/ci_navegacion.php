@@ -3,18 +3,10 @@
 class ci_navegacion extends toba_ci
 {
 	protected $s__filtro;
-	const umbral_registros_filtro_obligatorio = 50;
 
 	//-------------------------------------------------------------------
 	//--- Eventos GLOBALES
 	//-------------------------------------------------------------------
-	
-	function ini__operacion()
-	{
-		if ( toba::sesion()->proyecto_esta_predefinido() ) {
-			$this->s__filtro['asociados'] = 1;
-		}
-	}
 	
 	function evt__guardar()
 	{
@@ -44,15 +36,7 @@ class ci_navegacion extends toba_ci
 	
 	function conf__seleccionar()
 	{
-		if ( toba::sesion()->proyecto_esta_predefinido() ) {
-			$proyecto = toba::sesion()->get_id_proyecto();
-			$desc = "Editor de usuarios para el proyecto: <strong>$proyecto</strong>";
-			$this->dep('filtro')->desactivar_efs(array('pertenencia','proyecto'));
-		}else{
-			$desc = 'Editor de usuarios <strong>Multiproyecto</strong>';
-			$this->dep('filtro')->desactivar_efs(array('asociados'));
-		}
-		$this->pantalla()->set_descripcion($desc);
+		$this->dep('filtro')->desactivar_efs(array('asociados'));
 	}
 
 	//---- filtro -------------------------------------------------------
@@ -71,7 +55,7 @@ class ci_navegacion extends toba_ci
 	{
 		if(isset($this->s__filtro)) {
 			$componente->set_datos($this->s__filtro);
-		}
+		} 
 	}
 	
 	//---- cuadro -------------------------------------------------------
@@ -84,44 +68,23 @@ class ci_navegacion extends toba_ci
 		}
 	}
 	
-	function conf__editar()
-	{
-		/*
-		if(toba::sesion()->proyecto_esta_predefinido() ) {
-			$this->pantalla('editar')->eliminar_dep('editor');
-		}else{
-			$this->pantalla('editar')->eliminar_dep('editor_simple');
-		}*/
-		// Se fuerza ir por el editor normal sino no es posible definir si el usuario puedo o no editar usuarios!
-		$this->pantalla('editar')->eliminar_dep('editor_simple');
-	}
-
 	function conf__cuadro($componente)
 	{
 		if (isset($this->s__filtro)) {
-			if ( toba::sesion()->proyecto_esta_predefinido() ) {
-				$proyecto = toba::sesion()->get_id_proyecto();
-				if ($this->s__filtro['asociados']) {
+			$proyecto = $this->s__filtro['proyecto'];
+			switch ($this->s__filtro['pertenencia']){
+				case 'P' :
 					$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro);
-				}else{
+				break;
+				case 'N' :
 					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro);
-				}				
-			}else{
-				$proyecto = $this->s__filtro['proyecto'];
-				switch ($this->s__filtro['pertenencia']){
-					case 'P' : 
-						$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro);
-					break;
-					case 'N' : 
-						$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro);
-					break;
-					case 'T':
-						$datos = consultas_instancia::get_lista_usuarios($this->s__filtro);
-					break;
-					case 'S' :
-						$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro);
-					break;
-				}
+				break;
+				case 'T':
+					$datos = consultas_instancia::get_lista_usuarios($this->s__filtro);
+				break;
+				case 'S' :
+					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro);
+				break;
 			}
 			$componente->set_datos($datos);
 		}

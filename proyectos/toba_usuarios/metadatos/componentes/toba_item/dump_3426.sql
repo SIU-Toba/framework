@@ -24,7 +24,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
 	'Perfiles Funcionales', --nombre
-	NULL, --descripcion
+	'Los perfiles funcionales determinan el acceso que tiene el usuario a las distintas partes del sistema. Esto incluye: operaciones, componentes visuales dentro de esas operaciones y derechos globales del proyecto.', --descripcion
 	NULL, --actividad_accion
 	'1', --menu
 	'1', --orden

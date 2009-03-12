@@ -154,6 +154,7 @@ class toba_svn
 			}
 			return (string) $xml->target->entry->{'wc-status'}['item'];
 		} catch(toba_error $e) {
+			toba::logger()->error($e);
 			return 'unversioned';
 		}
 	}

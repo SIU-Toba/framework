@@ -27,21 +27,21 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --validacion_intentos
 	NULL, --validacion_intentos_min
 	'1', --validacion_bloquear_usuario
-	'1', --validacion_debug
+	'0', --validacion_debug
 	NULL, --sesion_tiempo_no_interac_min
 	NULL, --sesion_tiempo_maximo_min
 	'sesion', --sesion_subclase
-	'customizacion_toba/sesion.php', --sesion_subclase_archivo
+	'extension_toba/sesion.php', --sesion_subclase_archivo
 	'contexto_ejecucion', --contexto_ejecucion_subclase
-	'customizacion_toba/contexto_ejecucion.php', --contexto_ejecucion_subclase_archivo
+	'extension_toba/contexto_ejecucion.php', --contexto_ejecucion_subclase_archivo
 	NULL, --usuario_subclase
 	NULL, --usuario_subclase_archivo
 	'0', --encriptar_qs
 	'0', --registrar_solicitud
 	NULL, --registrar_cronometro
 	'3432', --item_inicio_sesion
-	'3436', --item_pre_sesion
-	'3428', --item_set_sesion
+	'30000009', --item_pre_sesion
+	NULL, --item_set_sesion
 	'1', --log_archivo
 	'7', --log_archivo_nivel
 	'toba_usuarios', --fuente_datos

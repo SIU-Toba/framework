@@ -2,22 +2,16 @@
 class ci_navegacion extends toba_ci
 {
 	protected $s__filtro;
-	
+
 	function ini__operacion()
 	{
-		if (! is_null(toba::sesion()->get_id_proyecto_hint())) {
-			$this->s__filtro = array('proyecto' => toba::sesion()->get_id_proyecto_hint());
-		}		
-		if (! is_null(toba::sesion()->get_id_proyecto())) {
-			$this->s__filtro = array('proyecto' => toba::sesion()->get_id_proyecto());
+		if (! is_null(admin_instancia::get_proyecto_defecto())) {
+			$this->s__filtro = array('proyecto' => admin_instancia::get_proyecto_defecto());
 		}
 	}
 		
 	function conf__seleccion($pantalla)
 	{
-		if( toba::sesion()->proyecto_esta_predefinido() ) {
-			$this->pantalla()->eliminar_dep('filtro');
-		}
 		if (!isset($this->s__filtro)) {
 			$pantalla->eliminar_evento('agregar');
 		}

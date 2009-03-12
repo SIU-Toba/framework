@@ -76,6 +76,9 @@ class toba_auditoria_tablas_postgres
 	
 	function crear() 
 	{ 
+		if (! isset($this->tablas)) {
+			throw new toba_error('Se deben definir que tablas participan del esquema de auditoría');
+		}
 		$this->crear_lenguaje();
 		$this->crear_schema();
 				
