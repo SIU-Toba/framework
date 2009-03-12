@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000235]--  Tipo de PAGINA 
+--[1000235]--  Proyecto - Tipos de Página 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cuadro_proyecto', --actividad_patron
-	'Tipo de PAGINA', --nombre
+	'Proyecto - Tipos de Página', --nombre
 	'Los [wiki:Referencia/TipoPagina tipos de página] determinan la salida anterior y posterior a las pantallas de una operación. Cada [wiki:Referencia/Operacion operación] tiene un tipo de página asociado.', --descripcion
 	'', --actividad_accion
 	'1', --menu

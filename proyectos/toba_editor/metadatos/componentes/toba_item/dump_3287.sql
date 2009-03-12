@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3287]--  Param. Previsualizacion 
+--[3287]--  Proyecto - Previsualización 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cuadro', --actividad_patron
-	'Param. Previsualizacion', --nombre
+	'Proyecto - Previsualización', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu

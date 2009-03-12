@@ -49,19 +49,19 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'449', --evento_id
 	'1841', --objeto
 	'alta', --identificador
-	'&Alta', --etiqueta
+	'&Agregar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-alta', --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	'no_cargado', --grupo
 	NULL, --accion
@@ -69,7 +69,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
@@ -92,7 +92,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	'cargado', --grupo
 	NULL, --accion
@@ -116,14 +116,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-mod', --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	'cargado', --grupo
 	NULL, --accion
@@ -147,14 +147,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-canc', --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'4', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	'cargado', --grupo
 	NULL, --accion

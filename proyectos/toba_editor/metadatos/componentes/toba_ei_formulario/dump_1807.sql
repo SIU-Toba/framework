@@ -133,7 +133,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable', --elemento_formulario
 	'nombre', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Nombre', --etiqueta
 	NULL, --etiqueta_estilo
@@ -207,8 +207,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'descripcion', --identificador
 	'ef_editable', --elemento_formulario
 	'descripcion', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
@@ -282,21 +282,21 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'mensaje_particular', --identificador
 	'ef_editable_textarea', --elemento_formulario
 	'mensaje_particular', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Mensaje particular', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Cuerpo del mensaje a mostrar cuando el usuario actual no tiene un perfil funcional acorde con este derecho. Si no se define se muestra un mensaje generico', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -319,7 +319,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4', --edit_filas
 	'40', --edit_columnas
 	NULL, --edit_wrap
-	NULL, --edit_resaltar
+	'0', --edit_resaltar
 	'1', --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
@@ -357,33 +357,33 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'grupos', --identificador
 	'ef_multi_seleccion_check', --elemento_formulario
 	'grupos', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
-	'Grupos habilitados', --etiqueta
+	'Perfiles habilitados', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'get_grupos_acceso', --carga_metodo
 	'toba_info_permisos', --carga_clase
 	'modelo/info/toba_info_permisos.php', --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
-	NULL, --carga_fuente
+	'instancia', --carga_fuente
 	NULL, --carga_lista
 	'usuario_grupo_acc', --carga_col_clave
 	'nombre', --carga_col_desc
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
@@ -421,7 +421,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho
-	NULL, --selec_serializar
+	'0', --selec_serializar
 	NULL, --selec_cant_columnas
 	NULL  --upload_extensiones
 );

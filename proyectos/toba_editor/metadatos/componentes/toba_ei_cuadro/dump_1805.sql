@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'Listado de permisos particulares', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -87,18 +87,18 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --subtitulo
 	NULL, --sql
 	'permiso', --columnas_clave
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	NULL, --ordenar
+	'0', --ordenar
 	'1', --paginar
 	'10', --tamano_pagina
 	'P', --tipo_paginado
-	NULL, --eof_invisible
-	'No se encontraron permisos.', --eof_customizado
-	NULL, --exportar_paginado
-	NULL, --exportar
-	NULL, --exportar_rtf
+	'0', --eof_invisible
+	'Sin permisos.', --eof_customizado
+	'0', --exportar_paginado
+	'0', --exportar
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -110,7 +110,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	NULL, --scroll
+	'0', --scroll
 	NULL, --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap

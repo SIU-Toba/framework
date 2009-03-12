@@ -95,10 +95,10 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	'No hay MENSAJES cargados', --eof_customizado
-	NULL, --exportar_paginado
+	'No hay mensajes definidos en el proyecto', --eof_customizado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

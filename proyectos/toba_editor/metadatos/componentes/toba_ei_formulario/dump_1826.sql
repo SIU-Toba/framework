@@ -55,13 +55,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'guardar.gif', --imagen
-	'1', --en_botonera
+	NULL, --imagen
+	'0', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
-	'0', --implicito
-	'1', --defecto
+	'1', --implicito
+	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -116,8 +116,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -205,21 +205,21 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1826', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
 	'grupo_acceso', --identificador
-	'ef_multi_seleccion_lista', --elemento_formulario
+	'ef_multi_seleccion_check', --elemento_formulario
 	'grupo_acceso', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Perfil Funcional', --etiqueta
+	'Perfiles Funcionales', --etiqueta
 	NULL, --etiqueta_estilo
-	'Grupos de acceso con los cuales se ejecutará el proyecto en la previsualización. Esto determinará los derechos y el contenido del menú de la aplicación (items accesibles).', --descripcion
+	'En lugar de tomar los perfiles del usuario actual, para la previsualización se usarán los perfiles seleccionados en esta configuración. Esto determinará los derechos y el contenido del menú de la aplicación (operaciones accesibles).', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_grupos_acceso', --carga_metodo

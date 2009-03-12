@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000233]--  MENSAJES 
+--[1000233]--  Proyecto - Mensajes 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cuadro_proyecto', --actividad_patron
-	'MENSAJES', --nombre
+	'Proyecto - Mensajes', --nombre
 	'Mensajes globales del Proyecto. Forma parte del esquema de [wiki:Referencia/Mensajes Mensajes y Notificaciones]', --descripcion
 	'', --actividad_accion
 	'1', --menu

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3419]--  Skins 
+--[3419]--  Proyecto - Skins 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Skins', --nombre
+	'Proyecto - Skins', --nombre
 	'Es posible crear [wiki:Referencia/Skin Skins] propios utilizando este ABM.', --descripcion
 	NULL, --actividad_accion
 	'1', --menu

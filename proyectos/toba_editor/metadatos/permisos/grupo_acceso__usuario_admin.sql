@@ -378,25 +378,3 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'1000271'  --item
 );
 --- FIN Grupo de desarrollo 1
-
-------------------------------------------------------------
--- apex_permiso_grupo_acc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES (
-	'toba_editor', --proyecto
-	'usuario_admin', --usuario_grupo_acc
-	'2'  --permiso
-);
-INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES (
-	'toba_editor', --proyecto
-	'usuario_admin', --usuario_grupo_acc
-	'5'  --permiso
-);
-INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES (
-	'toba_editor', --proyecto
-	'usuario_admin', --usuario_grupo_acc
-	'10'  --permiso
-);
---- FIN Grupo de desarrollo 0

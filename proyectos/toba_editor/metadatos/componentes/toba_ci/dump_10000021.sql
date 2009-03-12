@@ -54,8 +54,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
-	NULL, --imagen
+	'apex', --imagen_recurso_origen
+	'nucleo/agregar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -65,11 +65,11 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
-	NULL, --accion_imphtml_debug
+	'0', --accion_imphtml_debug
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
@@ -116,7 +116,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda
@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda
@@ -245,9 +245,9 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'10000021', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
-	NULL, --alto
-	'abajo', --posicion_botonera
+	'600px', --ancho
+	'300px', --alto
+	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
@@ -274,9 +274,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_listado', --identificador
 	'1', --orden
 	'1', --etiqueta
-	'Puntos de control del proyecto.', --descripcion
+	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro', --objetos
 	'agregar', --eventos
@@ -292,7 +292,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2', --etiqueta
 	'Definicion del punto de control. El parametro  puede ser  la columna  de un cuadro, un atributo  persistente de un ci o una variable de sesion.', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'detalle,controles,parametros', --objetos
 	'aceptar,baja,cancelar', --eventos

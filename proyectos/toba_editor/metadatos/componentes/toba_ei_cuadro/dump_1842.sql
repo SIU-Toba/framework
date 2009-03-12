@@ -96,9 +96,9 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --eof_invisible
 	'No hay ZONAS definidas en el proyecto', --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -110,7 +110,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	'1', --scroll
+	'0', --scroll
 	'200px', --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap

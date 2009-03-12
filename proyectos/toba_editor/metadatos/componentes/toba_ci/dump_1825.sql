@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'Config. Previsualizacion', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -38,6 +38,44 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'2006-06-19 02:39:40'  --creacion
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_eventos
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
+	'toba_editor', --proyecto
+	'30000047', --evento_id
+	'1825', --objeto
+	'guardar', --identificador
+	'&Guardar', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'guardar.gif', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'1', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL, --accion_vinculo_celda
+	NULL  --accion_vinculo_servicio
+);
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objeto_dependencias
@@ -68,9 +106,9 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_cancelar_etiq
 	NULL, --ancho
 	NULL, --alto
-	'abajo', --posicion_botonera
+	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --con_toc
+	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar
@@ -95,12 +133,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'basica', --identificador
 	'1', --orden
 	'Basica', --etiqueta
-	'Indicar los parámetros necesarios para poder ejecutar el proyecto desde este editor.', --descripcion
+	'Para poder ejecutar el proyecto desde este editor, debe indicar los siguientes parámetros:', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'datos', --objetos
-	'', --eventos
+	'guardar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

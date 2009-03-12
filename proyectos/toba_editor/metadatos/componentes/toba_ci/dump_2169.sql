@@ -50,7 +50,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2169', --objeto
 	'agregar', --identificador
 	'Agregar', --etiqueta
-	NULL, --maneja_datos
+	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
@@ -58,9 +58,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'nucleo/agregar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'0', --orden
+	'1', --orden
 	NULL, --ci_predep
-	NULL, --implicito
+	'0', --implicito
 	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
@@ -81,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2169', --objeto
 	'volver', --identificador
 	'Volver', --etiqueta
-	NULL, --maneja_datos
+	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-izq', --estilo
@@ -89,10 +89,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'deshacer.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'1', --orden
+	'2', --orden
 	NULL, --ci_predep
-	NULL, --implicito
-	NULL, --defecto
+	'0', --implicito
+	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -112,7 +112,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2169', --objeto
 	'eliminar', --identificador
 	'Eliminar', --etiqueta
-	NULL, --maneja_datos
+	'0', --maneja_datos
 	NULL, --sobre_fila
 	'¿Desea eliminar el registro?', --confirmacion
 	NULL, --estilo
@@ -120,10 +120,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'borrar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'2', --orden
+	'3', --orden
 	NULL, --ci_predep
-	NULL, --implicito
-	NULL, --defecto
+	'0', --implicito
+	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -151,9 +151,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'guardar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'3', --orden
+	'4', --orden
 	NULL, --ci_predep
-	NULL, --implicito
+	'0', --implicito
 	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
@@ -247,7 +247,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_cancelar_etiq
 	'500px', --ancho
 	'300px', --alto
-	'abajo', --posicion_botonera
+	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000236]--  ZONA 
+--[1000236]--  Proyecto - Zonas 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,8 +23,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cuadro_proyecto', --actividad_patron
-	'ZONA', --nombre
-	NULL, --descripcion
+	'Proyecto - Zonas', --nombre
+	'Una [wiki:Referencia/Zona Zona] permite agrupar operaciones en torno a un dato común.', --descripcion
 	'', --actividad_accion
 	'1', --menu
 	'10', --orden

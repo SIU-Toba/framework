@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[10000019]--  PUNTOS DE CONTROL 
+--[10000019]--  Proyecto - Puntos de Control 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,8 +23,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'PUNTOS DE CONTROL', --nombre
-	'Esta es la página de puntos de control', --descripcion
+	'Proyecto - Puntos de Control', --nombre
+	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
