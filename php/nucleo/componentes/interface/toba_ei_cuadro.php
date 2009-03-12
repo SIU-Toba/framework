@@ -1811,7 +1811,20 @@ class toba_ei_cuadro extends toba_ei
         	}			
 		}
         if ($alguna_tiene_titulo) {
-        	$rowspan = empty($this->_agrupacion_columnas) ? '' : "rowspan='2'";
+			/*
+			 * Verifico si el grupo tiene columnas visibles, sino no lo muestro,
+			 * al mismo tiempo intersecto las columnas del grupo con las visibles para que no se expanda de mas el colspan.
+			 */
+			$hay_grupo_visible = false;
+			$columnas_act_id = array_keys($this->_columnas);
+			foreach($this->_agrupacion_columnas as $klave =>  $grupo){
+				foreach ($columnas_act_id as $a) {
+					$hay_grupo_visible = ($hay_grupo_visible || in_array($a, $grupo));
+				}
+				$this->_agrupacion_columnas[$klave] = array_intersect($grupo, $columnas_act_id);
+			}
+
+        	$rowspan = ! $hay_grupo_visible ? '' : "rowspan='2'";
         	$html_columnas_agrupadas = '';
         	$grupo_actual = null;
 	        echo "<tr>\n";
@@ -1845,7 +1858,7 @@ class toba_ei_cuadro extends toba_ei
 	        		//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
 	        		if (! isset($grupo_actual) || $grupo_actual != $this->_columnas[$a]['grupo']) {
 		        		$grupo_actual = $this->_columnas[$a]['grupo'];
-		        		$cant_col = count($this->_agrupacion_columnas[$grupo_actual]);
+		        		$cant_col = count(array_unique($this->_agrupacion_columnas[$grupo_actual]));		//Cuando se fija manualmente el grupo y se re procesa la definicion trae la misma columna + de una vez
 		        		echo "<td class='ei-cuadro-col-tit ei-cuadro-col-tit-grupo' colspan='$cant_col'>$grupo_actual</td>";
 	        		}
 	        	}
