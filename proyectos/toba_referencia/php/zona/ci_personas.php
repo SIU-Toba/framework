@@ -22,9 +22,9 @@ class ci_personas extends toba_ci
 		toba::zona()->cargar($seleccion);
 	}
 
-	function conf__cuadro($componente)
+	function conf__cuadro(toba_ei_cuadro $componente)
 	{
-		return consultas::get_personas();
+		$componente->set_datos(consultas::get_personas());
 	}
 	
 	/**

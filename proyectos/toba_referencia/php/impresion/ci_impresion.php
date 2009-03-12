@@ -63,23 +63,23 @@ class ci_impresion extends toba_ci
 		$salida->titulo('Formulario', 2);
 		$this->dependencia('formulario')->vista_excel($salida);
 		
-		/*$salida->crear_hoja('Copia');
-		$salida->titulo('Copia del filtro en hoja 2');
-		$this->dependencia('filtro')->vista_excel($salida);*/
+		$salida->crear_hoja('Copia');
+		$excel->setActiveSheetIndex(1);
+				
+		$salida->titulo('Copia del filtro en hoja 2',3);
+		$this->dependencia('filtro')->vista_excel($salida);
 		
-		/*		$salida->titulo( $this->get_nombre() );
-		
-		$salida->mensaje('Nota: Este es el Principal');
-		$this->dependencia('filtro')->vista_pdf( $salida );
-		$this->dependencia('cuadro')->vista_pdf( $salida );
-		$salida->salto_pagina();
-		$salida->mensaje('Nota: Esta es una copia');
-		$this->dependencia('filtro')->vista_pdf( $salida );
-		$this->dependencia('cuadro')->vista_pdf( $salida );
-		$salida->salto_pagina();
-		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
-		$salida->separacion();
-		$this->dependencia('ml')->vista_pdf( $salida );*/
+		$salida->separacion(2);
+		$salida->titulo('Multilínea', 3);
+		$this->dependencia('ml')->vista_excel($salida);
+
+		$salida->separacion(2);
+		$this->dependencia('cuadro')->vista_excel( $salida );
+
+		$salida->separacion(2);
+		$salida->titulo('Formulario', 2);
+		$this->dependencia('formulario')->vista_excel($salida);
+
 	}	
 	
 	function get_popup($clave)
@@ -87,7 +87,7 @@ class ci_impresion extends toba_ci
 		return 'Nombre';
 	}
 
-	function conf__cuadro()
+	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		$datos[0]['id'] = '1';
 		$datos[0]['tipo'] = '1';
@@ -107,10 +107,10 @@ class ci_impresion extends toba_ci
 		$datos[5]['id'] = '6';
 		$datos[5]['tipo'] = '2';
 		$datos[5]['desc'] = 'Menos';
-		return $datos;
+		$cuadro->set_datos( $datos );
 	}
 
-	function conf__filtro($filtro)
+	function conf__filtro(toba_ei_filtro $filtro)
 	{
 		$datos['editable'] = array('condicion' => 'es_igual_a', 'valor' =>  'editable');
 		$datos['combo'] = array('condicion' => 'es_igual_a', 'valor' => 'P');
@@ -124,7 +124,7 @@ class ci_impresion extends toba_ci
 		$filtro->set_datos($datos);
 	}
 
-	function conf__ml()
+	function conf__ml(toba_ei_formulario_ml $form)
 	{
 		$datos[0]['id'] = '1';
 		$datos[0]['tipo'] = '1';
@@ -144,10 +144,10 @@ class ci_impresion extends toba_ci
 		$datos[5]['id'] = '6';
 		$datos[5]['tipo'] = '2';
 		$datos[5]['desc'] = 'Menos';
-		return $datos;
+		$form->set_datos($datos);
 	}
 
-	function conf__formulario($form)
+	function conf__formulario(toba_ei_formulario $form)
 	{
 		$datos['editable'] = 'editable';
 		$datos['combo'] = 'P';
