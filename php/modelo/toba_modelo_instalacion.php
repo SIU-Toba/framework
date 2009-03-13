@@ -299,8 +299,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 							isset($parametros['puerto']) ? $parametros['puerto'] : '' );
 
 			$db->conectar();
-			if (isset($parametros['schema']) && $db->existe_schema($parametros['schema'])) {
-				$db->set_schema($parametros['schema']);
+			if (isset($parametros['schema'])) {
+				try {
+					$db->set_schema($parametros['schema']);
+				} catch (toba_error_db $error) {
+					toba_logger::instancia()->warning("No pudo cambiarse la sesion postgres al schema '{$parametros['schema']}' porque el mismo no existe");
+				}
 			}
 			//Si existe el parametro del encoding, ponerlo por defecto para la conexión
 			if (isset($parametros['encoding'])) {

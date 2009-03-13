@@ -466,8 +466,7 @@
 	
 	function get_url_desarrollos($forzar_alternativo=false)
 	{
-		$host = ($forzar_alternativo || toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
-		return "http://$host.siu.edu.ar";
+		return "http://desarrollos.siu.edu.ar";
 	}	
 	
 	function comparar($valor1, $operador, $valor2)

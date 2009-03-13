@@ -82,7 +82,7 @@ class comando_doc extends comando_toba
 			
 			  <tr>
 			    <td colspan='2' class='header-menu'>
-			  		  [ <a href='http://desarrollos2.siu.edu.ar{ACTUAL}' title='El sitio online contiene contenidos mas detallados y actualizados'
+			  		  [ <a href='http://desarrollos.siu.edu.ar{ACTUAL}' title='El sitio online contiene contenidos mas detallados y actualizados'
 						class='menu'>Ver online</a> ]
 			    </td>
 			
