@@ -179,8 +179,8 @@ class toba_proyecto_db
                   clase,
                   actua_como
              FROM apex_ptos_control_ctrl 
-            WHERE proyecto    = '$proyecto'
-              AND pto_control = '$pto_control'
+            WHERE proyecto    = $proyecto
+              AND pto_control = $pto_control
         ");
     }
 
@@ -319,10 +319,13 @@ class toba_proyecto_db
 
 	function get_consulta_php($proyecto, $clase)
 	{
+		$db = self::get_db();
+		$proyecto = $db->quote($proyecto);
+		$clase = $db->quote($clase);
 		$sql = "SELECT		clase,
 							archivo
 					FROM	apex_consulta_php
-					WHERE	proyecto = '$proyecto' AND clase = '$clase' ";
+					WHERE	proyecto = $proyecto AND clase = $clase ";
 		return self::get_db()->consultar_fila($sql);	
 	}
 
