@@ -226,6 +226,7 @@ class pantalla_visor extends toba_ei_pantalla
 					document.getElementById('logger_info_operacion').innerHTML = resp['info_op'];
 					refrescar_cantidad_niveles(resp['cant_por_nivel']);		
 					refrescar_detalle();
+					this.mostrar_proyecto(true);
 					setTimeout("toba.fin_aguardar()", 200);					
 				}
 			}
