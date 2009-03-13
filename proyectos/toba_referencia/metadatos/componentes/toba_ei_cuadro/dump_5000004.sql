@@ -104,7 +104,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'width: 400px, height: 500px, scrollbars: 1, resizable: 1', --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	'popup', --accion_vinculo_celda
-	'H'  --accion_vinculo_servicio
+	NULL  --accion_vinculo_servicio
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
 	'toba_referencia', --proyecto
