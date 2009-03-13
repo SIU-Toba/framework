@@ -96,15 +96,3 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'1000228'  --item
 );
 --- FIN Grupo de desarrollo 1
-
-------------------------------------------------------------
--- apex_permiso_grupo_acc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES (
-	'toba_usuarios', --proyecto
-	'admin', --usuario_grupo_acc
-	'14'  --permiso
-);
---- FIN Grupo de desarrollo 0

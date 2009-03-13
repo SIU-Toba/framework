@@ -296,7 +296,7 @@ class toba_db
 		$id = count($this->sentencias);
 		$this->sentencias[$id] = $this->conexion->prepare($sql, $opciones);
 		if ($this->sentencias[$id] === false ) {
-			new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
+			throw new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
 		}
 		return $id;
 	}
@@ -310,7 +310,7 @@ class toba_db
 	*	@return integer Cantidad de registros afectados
 	*	@throws toba_error_db en caso de error
 	*/		
-	function sentencia_ejecutar($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	function sentencia_ejecutar($id, $parametros=array())
 	{
 		if(!isset($this->sentencias[$id])) {
 			throw new toba_error("La sentencia solicitada no existe.");

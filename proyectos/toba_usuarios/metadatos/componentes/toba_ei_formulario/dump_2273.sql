@@ -240,7 +240,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_desde', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'4', --orden
+	'3', --orden
 	'Desde', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -315,7 +315,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_hasta', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'5', --orden
+	'4', --orden
 	'Hasta', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -390,7 +390,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'3', --orden
+	'5', --orden
 	'Usuario', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -413,7 +413,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	'usuario', --carga_col_clave
 	'usuario', --carga_col_desc
-	'proyecto', --carga_maestros
+	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'-- Todos --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar

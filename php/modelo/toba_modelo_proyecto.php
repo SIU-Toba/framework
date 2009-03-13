@@ -1339,10 +1339,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! is_array($perfil_datos)) {
 			if (is_null($perfil_datos)) {
 				$perfil_datos = array();
+			} elseif ($perfil_datos == 'NULL') {	//Compatibilidad hacia atras, así se enviaba antes
+				$perfil_datos = array();
 			} else {
 				$perfil_datos = array($perfil_datos);
 			}
-		}	
+		}
 		self::do_vincular_usuario($this->get_db(), $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion, $this->get_url());
 	}		
 

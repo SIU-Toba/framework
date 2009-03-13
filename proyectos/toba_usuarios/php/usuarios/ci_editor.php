@@ -78,7 +78,7 @@ class ci_editor extends toba_ci
 			foreach ($grupos_acceso as $ga){
 				$grupos[] = $ga['grupo_acceso'];
 			}
-			$proyectos[$id]['grupos_acceso'] = empty($grupos) ? '-- Sin Acceso --' : implode(', ', $grupos);
+			$proyectos[$id]['grupos_acceso'] = empty($grupos) ? '<span style="color:gray">-- Sin Acceso --</span>' : implode(', ', $grupos);
 			//-- Perfil datos -----------------------------
 			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('proyecto' => $proyecto['proyecto']));
 			if($perfil_datos){
