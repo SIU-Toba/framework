@@ -130,7 +130,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000230', --objeto_ei_formulario
 	'toba_referencia', --objeto_ei_formulario_proyecto
 	'multi_check', --identificador
-	'ef_multi_seleccion_doble', --elemento_formulario
+	'ef_multi_seleccion_check', --elemento_formulario
 	'multi_check', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -143,8 +143,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_opciones', --carga_metodo
@@ -155,8 +155,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
+	'0', --carga_col_clave
+	'1', --carga_col_desc
 	'modulo', --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
