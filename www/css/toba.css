@@ -1218,6 +1218,7 @@ a.ci-tabs-boton-desact:hover {
 	padding-top: 10px;
 	padding-bottom: 25px;
 	text-align: center;
+	font-weight: bold;
 }
 .login-pie {
 	margin-top: 25px;

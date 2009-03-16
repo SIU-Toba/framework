@@ -125,6 +125,9 @@ class toba_proyecto
 	{
 		if (file_exists(self::get_path().'/VERSION')) {
 			return new toba_version(file_get_contents(self::get_path().'/VERSION'));
+		} else {
+			//Se asume que si el proyecto no da un numero de version, se toma la del nucleo (para no mantener la de toba_referencia, usuarios, etc)
+			return toba::instalacion()->get_version();
 		}
 	}	
 	

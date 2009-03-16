@@ -111,6 +111,15 @@ class toba_instalacion
 	{
 		return file_get_contents(toba_dir()."/VERSION");
 	}
+
+	/**
+	 * Número de versión de Toba
+	 * @return toba_version
+	 */
+	function get_version()
+	{
+		return new toba_version($this->get_numero_version());
+	}
 	
 	/**
 	 * Retorna el path de la instalación de toba

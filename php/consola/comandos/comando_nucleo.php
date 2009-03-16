@@ -147,7 +147,7 @@ class comando_nucleo extends comando_toba
 			return;
 		}
 	
-		//-- Pongo ese numero en el archivo VERSION
+		//-- Pongo ese numero en el archivo VERSION (de todos los proyectos)
 		$this->consola->mensaje("Checkout y commit del archivo VERSION de $rama_branch/$release .", false);
 		if (is_writable($dir_temp) === false) {
 			throw new toba_error("El usuario actual no tiene permisos de escritura sobre '$dir_temp'");
@@ -156,6 +156,8 @@ class comando_nucleo extends comando_toba
 		`svn co --username $usuario --non-recursive $url_svn/$rama_branch/$release $co_temp`;
 		$this->consola->progreso_avanzar();
 		file_put_contents($co_temp.'/VERSION', $siguiente->__toString());
+
+		//-- Arma mensaje de commit
 		$mensaje_commit = utf8_encode(sprintf($mensaje_commit, $release, $siguiente->__toString()));
 		$cmd = "svn ci $co_temp -m '$mensaje_commit'";
 		exec($cmd, $salida, $error);
