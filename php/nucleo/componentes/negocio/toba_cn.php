@@ -31,14 +31,25 @@ class toba_cn extends toba_componente
 
 	/**
 	 * Evento que se dispara cuando se limpia la memoria
+	 * @deprecated Desde 1.4.0 usar limpiar_memoria
+	 * @see limpiar_memoria($no_borrar)
 	 */
 	function evt__limpieza_memoria($no_borrar=null)
 	{
-		$this->_log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
+		$this->_log->obsoleto(__CLASS__, __METHOD__, "1.4.0", "Usar limpiar_memoria");
+		$this->limpiar_memoria($no_borrar);
+	}
+
+	/**
+	 * Borra la memoria de este Cn y lo reinicializa
+	 * @param array $no_borrar Excepciones, propiedades que no se van a poner en null
+	 */
+	function limpiar_memoria($no_borrar=null)
+	{
+		$this->_log->debug( $this->get_txt() . "[callback][ limpiar_memoria ]", 'toba');
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->ini();
 	}
-
 
 	//-------------------------------------------------------------------------------
 	//------------------  PROCESAMIENTO  --------------------------------------------
