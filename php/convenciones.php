@@ -20,41 +20,46 @@ define('apex_xx_nombre', 'valor');	//Sección de defines, xx es la abreviacion de
  * @subpackage Subpaquete (Persistencia, Ei, Navegación, Negocio, etc.)
  * @todo Cosas pendientes por hacer, si es groso tratar de relacionarlo con algún ticket
  */
-class nombre_clase extends clase_padre
+class convenciones extends clase_padre
 {
 	/**
 	 * Tratar de que los atributos sea protegidos
 	 * Cuando sea posible, brindar valores por defecto en lugar de inicializarlos en el constructor
-	 * No usar javadoc a este nivel (ocupa mucho espacio y en general acceder a las propiedades es algo de bajo nivel
+	 * No es necesario usar phpdoc a este nivel (ocupa mucho espacio y en general acceder a las propiedades es algo de bajo nivel
 	 */
 	protected $atributo1 = 'valor';				//Tratar de que los comentarios de los atributos
 	protected $atributo2;						//queden alineados
 	
-	
-	function __construct()	//Usar el constructor de PHP5
+
+	/**
+	 * Usar el constructor de php5
+	 */
+	function __construct()
 	{		
 	}
 	
 	/**
-	 * Descripción javadoc del método
-	 * @param array $nombre_significativo Descripción del parámetro
-	 * Los parametros obvios no se documentan
+	 * Ingresar descripción phpdoc del método
+	 * 
+	 * @param array   $nombre_significativo Descripción del parámetro
+	 * @param boolean $incluir_todo Todos los parámetros se documentan
 	 * @return boolean Descripción del retorno
 	 */
 	protected function prototipo_de_metodo($nombre_significativo, $incluir_todo=true)
 	{
 	}
-	
-	function es_publica()  //Solo explicitar el tipo de acceso (protected, private) cuando no es publico
-	{
-	}
-	
-	protected function es_obvio() //Los métodos obvios no se documentan!
+
+	/**
+	 * Solo explicitar el tipo de acceso (protected, private) cuando no es publico
+	 * Un buen signo de documentación de un método es si su nombre ya documenta su uso
+	 */
+	function es_publica()
 	{
 	}
 	
 	/**
-	 * @deprecated Desde tal versión
+	 * Usar @deprecated para marcar los métodos a los que se le quitará soporte en próximas versiones
+	 * @deprecated Desde version x.y.z
 	 */
 	function no_me_llames()
 	{
@@ -68,16 +73,19 @@ class nombre_clase extends clase_padre
 
 	function espacios()
 	{
-		//Para llamar a un método:
-		$objeto->metodo($par1, $par2);	//Los parametros se separan por comas.. y despues de cada coma un espacio!
-		
-		//Para asignar algo
+		//Asignación:
 		$algo = $otra_cosa;				//Espacio antes y despues del igual para separar bien las aguas
-		
-		//Para usar palabras reservadas
-		if ($tal_cosa) {				//Espacio despues de if, for, while, etc., 
-										//espacio antes y despues de llave
+										//Una asignación por línea
+
+		//Espacio despues de if, for, while, etc.,
+		if ($tal_cosa) {
+			//Para llamar a un método:
+			$objeto->metodo($par1, $par2);	//Los parametros se separan por comas.. y despues de cada coma un espacio!
 		}
+
+		//Expresiones
+		$a = $b + $c;					//Espacio entre operadores
+		$a = $b && $c;					//Usar && y || en lugar de AND y OR (php hereda de C)
 	}
 	
 	function variables()
@@ -98,48 +106,28 @@ class nombre_clase extends clase_padre
 	}						//por ejemplo si alguien quiere hacer un foreach con el resultado
 		
 
+	/**
+	 * Los bloques de clases y metodos tienen llaves {} en líneas propias (son solo contenedores)
+	 */
 	function bloques()
 	{
-		/**
-		 * El objetivo es mejorar la legibilidad del código. 
-		 * Para esto se buscan un balance entre
-		 * 	- Cantidad de cosas concretas por línea (si es ~1, mejor)
-		 * 	- Entendimiento de donde inicia y termina un bloque
-		 */
-		
-		//Se prefiere esto:
-		//		+ Cantidad de cosas concretas por linea (2 lineas que solo contienen delimitadores)
+		//En cambio el resto de las estructuras de control abren su llave en la misma línea
+		//La idea es aumentar la cantidad de cosas concretas por linea y no usar dos lineas que solo contienen delimitadores)
 		if ($condicion) {	
 			foreach ($elemento as $id) {
 				echo $id;
 			}
 		} else {
-			echo "Otra cosa";
+			echo 'Otra cosa';
 		}
-
-		
-		//En lugar de esto:
-		//		+ Entendimiento de los bloques
-		//		- Cantidad de cosas concretas por linea (6 lineas que solo contienen delimitadores)
-		if ($condicion) 
-		{	
-			foreach ($elemento as $id) 
-			{
-				echo $id;
-			}
-		} 
-		else 
-		{
-			echo "Otra cosa";
-		}
-		
-		//Se exceptuan los bloques de clases y metodos (son solo contenedores)
 	}
 	
 	function strings()
 	{
 		//Usar comillas simples cuando el contenido es estatico
 		$simples = 'contenido';
+
+		//Usar comillas dobles sólo cuando dentro hay una variable/llamada
 		$dobles = "$simples dinámico";
 		
 		//Aprovechar los strings multilínea
@@ -152,11 +140,12 @@ class nombre_clase extends clase_padre
 						tabla1 t1,
 						tabl2 t2
 					WHERE
-						t1.condicion = t2.condicion
+							t1.condicion = t2.condicion
+						AND	t1.nombre = $variable
 		";	//Cerrar el string aca facilita agregar algo al final del sql sin preocuparse por las comillas
 		
 		//Con ESTO otro:
-		$sql =  '	SELECT'.
+		$sql = '	SELECT'.
 				'		campo1 as mi_campo,'.
 				'		campo2'.
 				' 		FROM'.
@@ -165,7 +154,6 @@ class nombre_clase extends clase_padre
 				'	WHERE'.
 				'		t1.condicion = t2.condicion';
 	}
-	
 }
 
 ?>

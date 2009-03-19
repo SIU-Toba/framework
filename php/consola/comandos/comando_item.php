@@ -11,7 +11,7 @@ class comando_item extends comando_toba
 	
 	/**
 	 * Permite ejecutar items de consola
-	 * @consola_parametros [-p Proyecto] [-t id_item] [-u usuario que ejecuta]
+	 * @consola_parametros [-p Proyecto] [-t id_item]
 	 * @gtk_icono instanciar.png  
 	 */
 	function opcion__ejecutar()
@@ -19,10 +19,6 @@ class comando_item extends comando_toba
 		$id_instancia = $this->get_id_instancia_actual(true);
 		$id_proyecto = $this->get_id_proyecto_actual(true);
 		$param = $this->get_parametros();
-		$usuario = 'toba';
-		if (isset($param['-u'])) {
-			$usuario = $param['-u'];
-		}
 		if (!isset($param['-t'])) {
 			throw new toba_error("Es necesario definir una OPERACION. Utilice el modificador '-t'");
 		}
@@ -30,7 +26,7 @@ class comando_item extends comando_toba
 		
 		define('apex_pa_ID', $_SERVER['PHP_SELF']);
 		require_once("nucleo/toba.php");
-		toba::nucleo()->acceso_consola($id_instancia,$id_proyecto, $item, $usuario);
+		toba::nucleo()->acceso_consola($id_instancia,$id_proyecto, $item);
 	}	
 	
 }

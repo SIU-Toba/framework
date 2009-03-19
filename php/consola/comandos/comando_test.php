@@ -93,6 +93,41 @@ class comando_test extends comando_toba
 		}
 		exit(intval($resultado));
 	}
+
+	/**
+	 * Busca diferencias con las convenciones del codigo SIU en los archivos PHP de la instalación, instancia o proyecto
+	 * @consola_parametros Parámetros: [-d Carpeta o archivo]
+	 */
+	function opcion__convenciones()
+	{
+		$parametros = $this->get_parametros();
+		$warnings = true;
+		require_once('3ros/PHP_CodeSniffer/CodeSniffer.php');
+		$sniffer = new PHP_CodeSniffer(0);
+		if (isset($parametros['-d'])) {
+			$es_general = false;
+			$archivo = $parametros['-d'];
+		} else {
+			$es_general = true;
+			$archivo = toba_dir().'/php/nucleo';
+		}
+		//$archivos = array($archivo);
+		//$sniffer->processFile($archivo);
+		//$sniffer->generateDocs('Toba', $values['files'], $values['generator']);
+		$sniffer->process(array($archivo), 'Toba', array(), false);
+		$resultado = $sniffer->prepareErrorReport();
+		if ($resultado['totals']['errors'] === 0 && $resultado['totals']['warnings'] === 0) {
+			$this->consola->mensaje('Todo OK!');
+			exit(0);
+		} else {
+			if ($es_general) {
+				$sniffer->printErrorReportSummary($warnings);
+			} else {
+				$sniffer->printErrorReport($warnings);
+			}
+			exit(1);
+		}
+	}
 	
 }
 ?>

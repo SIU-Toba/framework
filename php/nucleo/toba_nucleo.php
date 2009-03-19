@@ -51,7 +51,7 @@ class toba_nucleo
 				$this->solicitud_en_proceso = true;
 				$this->solicitud->procesar();
 			} catch( toba_reset_nucleo $e ) {
-				toba::logger()->info('Se recargo el nucleo','toba');
+				toba::logger()->info('Se recargo el nucleo', 'toba');
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
 					throw new toba_error_def('ERROR: La operación no esta habilitada para provocar redirecciones.');
@@ -60,7 +60,7 @@ class toba_nucleo
 				$this->solicitud_en_proceso = false;
 				toba::memoria()->limpiar_memoria();
 				$item_nuevo = $e->get_item();
-				toba::memoria()->set_item_solicitado( $item_nuevo );				
+				toba::memoria()->set_item_solicitado($item_nuevo);				
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud->procesar();
 			}
@@ -78,13 +78,12 @@ class toba_nucleo
 	/**
 	 * Punto de entrada desde la consola al nucleo
 	 */	
-	function acceso_consola($instancia, $proyecto, $item, $usuario)
+	function acceso_consola($instancia, $proyecto, $item)
 	{
 		$estado_proceso = null;
 		$this->iniciar_contexto_desde_consola($instancia, $proyecto);
 		try {
-			//$this->solicitud = new toba_solicitud_consola($proyecto, $item, $usuario);
-			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'toba_item');
+			$this->solicitud = toba_constructor::get_runtime(array('proyecto' => $proyecto, 'componente' => $item), 'toba_item');
 			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
@@ -96,7 +95,7 @@ class toba_nucleo
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
-		$dir_logs = toba_modelo_instalacion::dir_base()."/logs_comandos";
+		$dir_logs = toba_modelo_instalacion::dir_base().'/logs_comandos';
 		toba::logger()->set_directorio_logs($dir_logs);
 		toba::logger()->guardar_en_archivo('comandos.log');
 		exit($estado_proceso);		
@@ -122,7 +121,7 @@ class toba_nucleo
 	{
 		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
 			$item = $this->get_id_item('item_inicio_sesion', false, true);
-			if(!$item[0]||!$item[1]) {
+			if (!$item[0]||!$item[1]) {
 				throw new toba_error_def('ERROR: No esta definido el ITEM de INICIO de sesion');	
 			}			
 			$this->iniciar_contexto_solicitud($item);
@@ -134,7 +133,7 @@ class toba_nucleo
 		} else {														// Estoy fuera de la sesion. Solo se puede acceder a lo publico
 			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
-			if(!$item[0]||!$item[1]) {
+			if(!$item[0] || !$item[1]) {
 				throw new toba_error_def('ERROR: No esta definido el ITEM de LOGIN');	
 			}			
 			$this->iniciar_contexto_solicitud($item);
@@ -195,7 +194,7 @@ class toba_nucleo
 	protected function iniciar_contexto_ejecucion()
 	{
 		$this->controlar_requisitos_basicos();
-		agregar_dir_include_path( toba_proyecto::get_path_php() );
+		agregar_dir_include_path(toba_proyecto::get_path_php());
 		toba::manejador_sesiones()->iniciar();
 		toba::contexto_ejecucion()->conf__inicial();		
 	}
@@ -222,7 +221,7 @@ class toba_nucleo
 	{
 		if (! isset(self::$path)) {
 			$dir = dirname(__FILE__);
-			self::$path = substr($dir,0, -11);
+			self::$path = substr($dir, 0, -11);
 		}
 		return self::$path;
 	}
