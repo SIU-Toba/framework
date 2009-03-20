@@ -15,6 +15,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_info_cuadro = array();
 	protected $_info_cuadro_columna = array();
 	protected $_info_cuadro_columna_indices = array();
+	protected $_info_sum_cuadro_cortes = array();
 	protected $_info_cuadro_cortes;
 	protected $_prefijo = 'cuadro';	
  	protected $_columnas;
@@ -154,6 +155,13 @@ class toba_ei_cuadro extends toba_ei
 			}
 			$this->_cortes_modo = $this->_info_cuadro['cc_modo'];
 			$this->_cortes_anidado_colap = $this->_info_cuadro['cc_modo_anidado_colap'];
+			// Sumarizacion de columnas por corte
+			foreach($this->_info_sum_cuadro_cortes as $suma){
+				if ($suma['total'] == '1'){
+					$id_corte = $suma['identificador'];		// CAMBIAR!!
+					$this->_cortes_def[$id_corte]['total'][] = $suma['clave'];
+				}
+			}
 		}
 		//Procesamiento de columnas
 		$this->_columnas = array();
@@ -165,14 +173,6 @@ class toba_ei_cuadro extends toba_ei
 			//Sumarizacion general
 			if ($this->_columnas[ $clave ]['total'] == 1 && ! isset($this->_acumulador[$clave])) {
 				$this->_acumulador[$clave]=0;
-			}
-			// Sumarizacion de columnas por corte
-			if(trim($this->_columnas[ $clave ]['total_cc'])!=''){
-				$cortes = explode(',',$this->_columnas[ $clave ]['total_cc']);
-				$cortes = array_map('trim',$cortes);
-				foreach($cortes as $corte){
-					$this->_cortes_def[$corte]['total'][] = $clave;	
-				}
 			}
 			//Agrupacion de columnas
 			$grupo = isset($this->_columnas[$clave]['grupo']) ? $this->_columnas[$clave]['grupo'] : null;

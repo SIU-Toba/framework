@@ -225,34 +225,48 @@ class ci_principal extends ci_editores_toba
 	//---- EI: Participacion en los CORTES de CONTROL del cuadro
 	//-----------------------------------------
 
-	function conf__columna_corte()
+	function conf__columna_corte($form)
 	{
-		$cortes_asociados = $this->get_entidad()->tabla('columnas')->get_cortes_columna($this->s__seleccion_columna_anterior);
-		$datos = null;
-		$a=0;
+		$filas = array();
+		$busqueda = $this->get_entidad()->tabla('columna_total_cc')->nueva_busqueda();
+		$busqueda->set_padre('columnas', $this->s__seleccion_columna_anterior);
+		//Inicializo con los cortes de control existentes para cuando no existe carga previa o cuando se agregan cortes.
 		foreach( $this->s__cortes_control as $corte){
-			$datos[$a]['identificador'] = $corte; 
-			if(is_array($cortes_asociados)){
-				if(in_array($corte, $cortes_asociados)){
-					$datos[$a]['total'] = 1;
-				}else{
-					$datos[$a]['total'] = 0;
-				}
-			}else{
-				$datos[$a]['total'] = 0;
-			}
-			$a++;
+			$filas[$corte] = array('identificador' => $corte, 'total' => 0);
 		}
-		return $datos;
+		//Obtengo las asociaciones entre columnas y cortes de control
+		$resultado_busqueda = $busqueda->buscar_ids();
+		foreach($resultado_busqueda  as $id_fila){
+			$col_asoc = $this->get_entidad()->tabla('columna_total_cc')->get_fila($id_fila);
+			$filas[$col_asoc['identificador']] = array('identificador' => $col_asoc['identificador'], 'total' => $col_asoc['total']);
+		}
+		$form->set_datos($filas);
 	}
 
 	function evt__columna_corte__modificacion($datos)
 	{
-		$cortes = array();
-		foreach($datos as $dato){
-			if($dato['total'] == "1")	$cortes[] = $dato['identificador'];
+		//Borro los datos anteriores de la tabla para solo colocar los nuevos
+		if (! empty($datos)){
+			$busqueda = $this->get_entidad()->tabla('columna_total_cc')->nueva_busqueda();
+			$busqueda->set_padre('columnas', $this->s__seleccion_columna_anterior);
+			foreach($busqueda->buscar_ids() as $id_fila){
+				$this->get_entidad()->tabla('columna_total_cc')->eliminar_fila($id_fila);
+			}
 		}
-		$this->get_entidad()->tabla('columnas')->set_cortes_columna($this->s__seleccion_columna_anterior, $cortes);
+
+		//Setear cursor en tabla columnas con $this->s__seleccion_columna_anterior
+		$this->get_entidad()->tabla('columnas')->set_cursor($this->s__seleccion_columna_anterior);
+		// Buscar id para setear cursor en tabla cortes mediante el identificador
+		foreach($datos as $valores){
+			$id = $this->get_entidad()->tabla('cortes')->get_id_fila_condicion(array('identificador' => $valores['identificador']));
+			if ($valores['total'] == 1){
+				$this->get_entidad()->tabla('cortes')->set_cursor(current($id));
+				$this->get_entidad()->tabla('columna_total_cc')->nueva_fila($valores);				//Guardo los valores en la tabla
+			}
+		}
+
+		//Resetear el cursor para que no se quede pensando
+		$this->get_entidad()->tabla('cortes')->resetear_cursor();
 	}
 
 	//---------------------------------

@@ -142,3 +142,27 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("objeto_cuadro_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
+CREATE TABLE apex_objeto_cuadro_col_cc
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_cuadro_proyecto
+--: dump_clave_componente: objeto_cuadro
+--: dump_order_by: objeto_cuadro, objeto_cuadro_col, objeto_cuadro_cc
+--: dump_where: ( objeto_cuadro_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_cuadro_cc BIGINT NULL,
+	objeto_cuadro_proyecto VARCHAR(15) NULL,
+	objeto_cuadro BIGINT NULL,
+	objeto_cuadro_col BIGINT NULL,
+	total SMALLINT NULL DEFAULT 0,
+	CONSTRAINT "apex_objeto_cuadro_col_cc_pk"	PRIMARY KEY ("objeto_cuadro_cc", "objeto_cuadro_proyecto", "objeto_cuadro", "objeto_cuadro_col"),
+	CONSTRAINT "apex_objeto_cuadro_col_cc_fk_apex_objeto_cuadro_cc"	FOREIGN KEY ("objeto_cuadro_cc","objeto_cuadro_proyecto", "objeto_cuadro") REFERENCES "apex_objeto_cuadro_cc" ("objeto_cuadro_cc", "objeto_cuadro_proyecto", "objeto_cuadro") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_objeto_cuadro_col_cc_fk_apex_objeto_ei_cuadro_columna"	FOREIGN KEY ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto") REFERENCES "apex_objeto_ei_cuadro_columna" ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################

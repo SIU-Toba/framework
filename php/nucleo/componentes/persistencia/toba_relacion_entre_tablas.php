@@ -268,7 +268,7 @@ class toba_relacion_entre_tablas
 		if ($this->hay_cursor_en_padre()) {
 			return $this->get_id_filas_hijas_de($this->tabla_padre->get_cursor());
 		} else {
-			throw new toba_error_def($this->get_txt_error_base("La tabla padre no tiene un definido un cursor"));
+			throw new toba_error_def($this->get_txt_error_base("La tabla padre no tiene definido un cursor"));
 		}
 	}
 

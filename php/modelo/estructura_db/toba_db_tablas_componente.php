@@ -18,24 +18,25 @@ class toba_db_tablas_componente
   10 => 'apex_objeto_cuadro',
   11 => 'apex_objeto_cuadro_cc',
   12 => 'apex_objeto_ei_cuadro_columna',
-  13 => 'apex_objeto_ut_formulario',
-  14 => 'apex_objeto_ei_formulario_ef',
-  15 => 'apex_objeto_esquema',
-  16 => 'apex_objeto_ei_filtro',
-  17 => 'apex_objeto_ei_filtro_col',
-  18 => 'apex_objeto_db_registros',
-  19 => 'apex_objeto_db_registros_col',
-  20 => 'apex_objeto_db_registros_ext',
-  21 => 'apex_objeto_db_registros_ext_col',
-  22 => 'apex_objeto_db_registros_uniq',
-  23 => 'apex_objeto_datos_rel',
-  24 => 'apex_objeto_datos_rel_asoc',
-  25 => 'apex_molde_operacion',
-  26 => 'apex_molde_operacion_log',
-  27 => 'apex_molde_operacion_log_elementos',
-  28 => 'apex_molde_operacion_abms',
-  29 => 'apex_molde_operacion_abms_fila',
-  30 => 'apex_molde_operacion_importacion',
+  13 => 'apex_objeto_cuadro_col_cc',
+  14 => 'apex_objeto_ut_formulario',
+  15 => 'apex_objeto_ei_formulario_ef',
+  16 => 'apex_objeto_esquema',
+  17 => 'apex_objeto_ei_filtro',
+  18 => 'apex_objeto_ei_filtro_col',
+  19 => 'apex_objeto_db_registros',
+  20 => 'apex_objeto_db_registros_col',
+  21 => 'apex_objeto_db_registros_ext',
+  22 => 'apex_objeto_db_registros_ext_col',
+  23 => 'apex_objeto_db_registros_uniq',
+  24 => 'apex_objeto_datos_rel',
+  25 => 'apex_objeto_datos_rel_asoc',
+  26 => 'apex_molde_operacion',
+  27 => 'apex_molde_operacion_log',
+  28 => 'apex_molde_operacion_log_elementos',
+  29 => 'apex_molde_operacion_abms',
+  30 => 'apex_molde_operacion_abms_fila',
+  31 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -516,6 +517,31 @@ class toba_db_tablas_componente
     25 => 'vinculo_servicio',
     26 => 'permitir_html',
     27 => 'grupo',
+  ),
+);
+	}
+
+	static function apex_objeto_cuadro_col_cc()
+	{
+		return array (
+  'archivo' => 'pgsql_a11_componente_ei_cuadro.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_cuadro_proyecto',
+  'dump_clave_componente' => 'objeto_cuadro',
+  'dump_order_by' => 'objeto_cuadro, objeto_cuadro_col, objeto_cuadro_cc',
+  'dump_where' => '( objeto_cuadro_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_cuadro_cc',
+    1 => 'objeto_cuadro_proyecto',
+    2 => 'objeto_cuadro',
+    3 => 'objeto_cuadro_col',
+    4 => 'total',
   ),
 );
 	}

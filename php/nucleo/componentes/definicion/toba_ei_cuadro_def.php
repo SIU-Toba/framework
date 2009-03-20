@@ -14,6 +14,9 @@ class toba_ei_cuadro_def extends toba_ei_def
 		$estructura[] = array( 	'tabla' => 'apex_objeto_ei_cuadro_columna',
 								'registros' => 'n',
 								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_col_cc',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 
@@ -114,7 +117,8 @@ class toba_ei_cuadro_def extends toba_ei_def
 											pie_mostrar_titulos	,
 											modo_inicio_colapsado, 	
 											imp_paginar,
-											descripcion				
+											descripcion	,
+											objeto_cuadro_cc
 									 FROM		apex_objeto_cuadro_cc	
 									 WHERE		objeto_cuadro_proyecto = $proyecto ";
 		if ( isset($componente) ) {
@@ -123,6 +127,34 @@ class toba_ei_cuadro_def extends toba_ei_def
 		$sql['_info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
 		$sql['_info_cuadro_cortes']['registros']='n';
 		$sql['_info_cuadro_cortes']['obligatorio']=false;
+
+		//------------ Sumatorias en Cortes de Control ----------------
+		$sql['_info_sum_cuadro_cortes']['sql'] = "SELECT
+																									col_cc.objeto_cuadro_cc,
+																									col_cc.objeto_cuadro_proyecto,
+																									col_cc.objeto_cuadro,
+																									col_cc.objeto_cuadro_col ,
+																									col.clave,
+																									cc.identificador ,
+																									col_cc.total
+																					FROM
+																									apex_objeto_cuadro_col_cc col_cc,
+																									apex_objeto_ei_cuadro_columna col,
+																									apex_objeto_cuadro_cc cc
+																					WHERE
+																							col_cc.objeto_cuadro_proyecto = col.objeto_cuadro_proyecto
+																							AND		col_cc.objeto_cuadro = col.objeto_cuadro
+																							AND		col_cc.objeto_cuadro_col = col.objeto_cuadro_col
+																							AND		col_cc.objeto_cuadro_proyecto = cc.objeto_cuadro_proyecto
+																							AND		col_cc.objeto_cuadro = cc.objeto_cuadro
+																							AND		col_cc.objeto_cuadro_cc = cc.objeto_cuadro_cc
+																							AND		col_cc.objeto_cuadro_proyecto = $proyecto ";
+		if ( isset($componente) ) {
+			$sql['_info_sum_cuadro_cortes']['sql'] .= "	AND		col_cc.objeto_cuadro=$componente ";
+		}
+		$sql['_info_sum_cuadro_cortes']['sql'] .= " ORDER BY objeto_cuadro_col;";
+		$sql['_info_sum_cuadro_cortes']['registros']='n';
+		$sql['_info_sum_cuadro_cortes']['obligatorio']=false;
 		return $sql;
 	}
 }

@@ -273,3 +273,35 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL  --grupo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_col_cc
+------------------------------------------------------------
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'10', --objeto_cuadro_cc
+	'toba_referencia', --objeto_cuadro_proyecto
+	'1710', --objeto_cuadro
+	'375', --objeto_cuadro_col
+	'1'  --total
+);
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'11', --objeto_cuadro_cc
+	'toba_referencia', --objeto_cuadro_proyecto
+	'1710', --objeto_cuadro
+	'375', --objeto_cuadro_col
+	'1'  --total
+);
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'10', --objeto_cuadro_cc
+	'toba_referencia', --objeto_cuadro_proyecto
+	'1710', --objeto_cuadro
+	'376', --objeto_cuadro_col
+	'1'  --total
+);
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'11', --objeto_cuadro_cc
+	'toba_referencia', --objeto_cuadro_proyecto
+	'1710', --objeto_cuadro
+	'376', --objeto_cuadro_col
+	'1'  --total
+);
