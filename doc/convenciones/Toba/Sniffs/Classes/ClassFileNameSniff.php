@@ -62,13 +62,13 @@ class Toba_Sniffs_Classes_ClassFileNameSniff implements PHP_CodeSniffer_Sniff
         $tokens   = $phpcsFile->getTokens();
         $decName  = $phpcsFile->findNext(T_STRING, $stackPtr);
         $fullPath = basename($phpcsFile->getFilename());
-        $fileName = substr($fullPath, 0, strrpos($fullPath, '.'));
+        $fileName = basename($fullPath, '.php');
 
         if ($tokens[$decName]['content'] !== $fileName) {
-            $error  = ucfirst($tokens[$stackPtr]['content']);
-            $error .= ' name doesn\'t match filename. Expected ';
-            $error .= '"'.$tokens[$stackPtr]['content'].' ';
-            $error .= $fileName.'".';
+			$error = '[Clases#archivo] El nombre de la clase `';
+            $error .= $tokens[$decName]['content'];
+            $error .= '` no es igual al nombre del archivo ';
+            $error .= '"'.$fileName.'".';
             $phpcsFile->addError($error, $stackPtr);
         }
 

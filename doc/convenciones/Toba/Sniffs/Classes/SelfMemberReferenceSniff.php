@@ -68,7 +68,7 @@ class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Stand
         $className = ($stackPtr - 1);
         if ($tokens[$className]['code'] === T_SELF) {
             if (strtolower($tokens[$className]['content']) !== $tokens[$className]['content']) {
-                $error = 'Must use "self::" for local static member reference; found "'.$tokens[$className]['content'].'::"';
+                $error = '[Funciones#invocacion] Must use "self::" for local static member reference; found "'.$tokens[$className]['content'].'::"';
                 $phpcsFile->addError($error, $className);
                 return;
             }
@@ -77,7 +77,7 @@ class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Stand
             $declarationName = $phpcsFile->getDeclarationName($currScope);
             if ($declarationName === $tokens[$className]['content']) {
                 // Class name is the same as the current class.
-                $error = 'Must use "self::" for local static member reference';
+                $error = '[Funciones#invocacion] Must use "self::" for local static member reference';
                 $phpcsFile->addError($error, $className);
                 return;
             }
@@ -85,13 +85,13 @@ class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Stand
 
         if ($tokens[($stackPtr - 1)]['code'] === T_WHITESPACE) {
             $found = strlen($tokens[($stackPtr - 1)]['content']);
-            $error = "Expected 0 spaces before double colon; $found found";
+            $error = "[Funciones#invocacion] Expected 0 spaces before double colon; $found found";
             $phpcsFile->addError($error, $className);
         }
 
         if ($tokens[($stackPtr + 1)]['code'] === T_WHITESPACE) {
             $found = strlen($tokens[($stackPtr + 1)]['content']);
-            $error = "Expected 0 spaces after double colon; $found found";
+            $error = "[Funciones#invocacion] Expected 0 spaces after double colon; $found found";
             $phpcsFile->addError($error, $className);
         }
 

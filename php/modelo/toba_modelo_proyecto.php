@@ -146,6 +146,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
+	 * @return toba_estandar_convenciones
+	 */
+	function get_estandar_convenciones()
+	{
+		return new toba_estandar_convenciones();
+	}
+
+	/**
 	 * @return toba_modelo_instancia
 	 */	
 	function get_instancia()

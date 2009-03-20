@@ -144,54 +144,46 @@ class ci_subclases_generacion extends toba_ci
 			case 'unversioned':
 				$svn_blame = false;
 				$svn_add = true;
-				$nombre = 'Sin versionar';
+				$nombre = 'sin versionar';
 				$img = toba_recurso::imagen_proyecto('svn/unversioned.png', true, 16, 16, $nombre);
 				break;
 			case 'modified':
 			case 'missing':
 				$svn_diff = true;
-				$nombre = 'Modificado';				
+				$nombre = 'modificado';
 				$img = toba_recurso::imagen_proyecto('svn/modified.png', true, 16, 16, $nombre);
 				break;
 			case 'added':
 				$svn_blame = false;
-				$nombre = 'Agregado';				
+				$nombre = 'agregado';
 				$img = toba_recurso::imagen_proyecto('svn/added.png', true, 16, 16, $nombre);
 				break;
 			case 'normal':
-				$nombre = 'Normal';				
+				$nombre = 'normal';
 				$img = toba_recurso::imagen_proyecto('svn/normal.png', true, 16, 16, $nombre);
 				break;		
 			case 'conflicted':
-				$nombre = 'En Conflicto';				
+				$nombre = 'En Conflicto';
 				$img = toba_recurso::imagen_proyecto('svn/conflict.png', true, 16, 16, $nombre);
 				break;	
 			case 'deleted':
-				$nombre = 'Borrado';				
+				$nombre = 'borrado';
 				$img = toba_recurso::imagen_proyecto('svn/deleted.png', true, 16, 16, $nombre);
 				break;
 			case 'locked':
-				$nombre = 'Locked';				
+				$nombre = 'locked';
 				$img = toba_recurso::imagen_proyecto('svn/locked.png', true, 16, 16, $nombre);
 				break;
 			case 'ignored':
 				$svn_add = true;
 				$svn_blame = false;
-				$nombre = 'Ignorado';				
+				$nombre = 'ignorado';
 				$img = toba_recurso::imagen_proyecto('svn/ignored.png', true, 16, 16, $nombre);
 				break;	
 		}
-		$this->info_archivo = "$img $path";
+		$this->info_archivo = "$path <span style='font-size: 9px; color:gray'>($nombre)</span>";
+		$this->previsualizacion = $codigo;
 
-		//-- Vista del codigo
-		require_once(toba_dir()."/php/3ros/PHP_Highlight.php");
-		$h = new PHP_Highlight(false);
-		$h->loadString($codigo);
-		$formato_linea = "<span style='background-color:#D4D0C8; color: black; font-size: 10px;".
-						" padding-top: 2px; padding-right: 2px; margin-left: -4px; width: 20px; text-align: right;'>".
-						"%2d</span>&nbsp;&nbsp;";
-		$this->previsualizacion .= @$h->toHtml(true, true, $formato_linea, true);
-		
 		$existe_archivo = file_exists($path);
 		$ver_comandos_svn = $svn->hay_cliente_svn();		
 		if (! $svn->hay_cliente_svn()) {
@@ -231,7 +223,12 @@ class ci_subclases_generacion extends toba_ci
 			//-- Muestra el original
 			return file_get_contents($this->controlador()->get_path_archivo());		
 		}
-	}	
+	}
+
+	function get_path_archivo()
+	{
+		return $this->controlador()->get_path_archivo();
+	}
 	
 	function get_metodos_a_generar()
 	{

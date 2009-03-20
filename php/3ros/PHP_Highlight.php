@@ -316,7 +316,7 @@ class PHP_Highlight
      * @param   bool      $funcref      Reference functions to the PHP manual
      * @return  string    A HTML block of code
      */
-    function toHtml($return = true, $linenum = false, $linenummod = null, $funcref = true)
+    function toHtml($return = true, $linenum = false, $linenummod = null, $funcref = true, $extra_linea = array())
     {
         // Ensure source has been loaded
         if ($this->_source == false) {
@@ -333,11 +333,12 @@ class PHP_Highlight
         $out = "<code>\n";
         foreach ($source as $i => $line) {
             $out .= "    ";
-    
             if ($linenum === true) {
-                $out .= sprintf($linenummod, $i);
+                $out .= sprintf($linenummod, $i+1);
             }
- 
+			if (isset($extra_linea[$i+1])) {
+				$out .= $extra_linea[$i+1];
+			}
             $out .= empty($line) ? '&nbsp;' : $line;
             $out .= "<br />\n";
         }

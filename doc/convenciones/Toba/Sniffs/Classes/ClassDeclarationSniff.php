@@ -72,11 +72,11 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
             Check that this is the only class or interface in the file.
         */
 
-        $nextClass = $phpcsFile->findNext(array(T_CLASS, T_INTERFACE), ($stackPtr + 1));
+        $nextClass = $phpcsFile->findNext(array(T_CLASS), ($stackPtr + 1));
 
         if ($nextClass !== false) {
             // We have another, so an error is thrown.
-            $error = 'Only one interface or class is allowed in a file';
+            $error = '[Clases#archivo] Incluir solo una clase por archivo';
             $phpcsFile->addError($error, $nextClass);
         }
 
@@ -93,14 +93,14 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                 if (in_array($tokens[($stackPtr - 2)]['code'], array(T_ABSTRACT, T_FINAL)) === false) {
                     if ($spaces !== 0) {
                         $type  = strtolower($tokens[$stackPtr]['content']);
-                        $error = "Expected 0 spaces before $type keyword; $spaces found";
+                        $error = "[Clases#declaracion] No se esparaban espacios antes de $type; se encontraron $spaces";
                         $phpcsFile->addError($error, $stackPtr);
                     }
                 } else {
                     if ($spaces !== 1) {
                         $type        = strtolower($tokens[$stackPtr]['content']);
                         $prevContent = strtolower($tokens[($stackPtr - 2)]['content']);
-                        $error       = "Expected 1 space between $prevContent and $type keywords; $spaces found";
+                        $error       = "[Clases#declaracion] Se esperaba 1 espacio entre $prevContent y $type; Se encontraron $spaces";
                         $phpcsFile->addError($error, $stackPtr);
                     }
                 }
@@ -108,7 +108,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         }//end if
 
         if (isset($tokens[$stackPtr]['scope_opener']) === false) {
-            $error  = 'Possible parse error: ';
+            $error  = '[Clases#declaracion] Possible parse error: ';
             $error .= $tokens[$stackPtr]['content'];
             $error .= ' missing opening or closing brace';
             $phpcsFile->addWarning($error, $stackPtr);
@@ -122,7 +122,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
                 $spaces     = strlen($blankSpace);
                 if ($spaces !== 0) {
-                    $error = "Expected 0 spaces before closing brace; $spaces found";
+                    $error = "[Clases#declaracion] No se esperaban espacios antes de la llave de cierre; se encontraron $spaces";
                     $phpcsFile->addError($error, $closeBrace);
                 }
             }
@@ -133,21 +133,21 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         if ($nextContent === false) {
             // No content found, so we reached the end of the file.
             // That means there was no closing tag either.
-            $error  = 'Closing brace of a ';
+            $error  = '[Clases#declaracion] La llave de cierre ';
             $error .= $tokens[$stackPtr]['content'];
-            $error .= ' must be followed by a blank line and then a closing PHP tag';
+            $error .= ' debe ser seguido de una línea en blanco y luego el tag de cierre de PHP';
             $phpcsFile->addError($error, $closeBrace);
         } else {
             $nextLine  = $tokens[$nextContent]['line'];
             $braceLine = $tokens[$closeBrace]['line'];
             if ($braceLine === $nextLine) {
-                $error  = 'Closing brace of a ';
+                $error  = '[Clases#declaracion] Closing brace of a ';
                 $error .= $tokens[$stackPtr]['content'];
                 $error .= ' must be followed by a single blank line';
                 $phpcsFile->addError($error, $closeBrace);
             } else if ($nextLine !== ($braceLine + 2)) {
                 $difference = ($nextLine - $braceLine - 1).' lines';
-                $error      = 'Closing brace of a ';
+                $error      = '[Clases#declaracion] Closing brace of a ';
                 $error     .= $tokens[$stackPtr]['content'];
                 $error     .= ' must be followed by a single blank line; found '.$difference;
                 $phpcsFile->addError($error, $closeBrace);
@@ -159,7 +159,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         $nextContent = $phpcsFile->findNext(T_COMMENT, ($closeBrace + 1), null, true);
         if ($tokens[$nextContent]['content'] !== $phpcsFile->eolChar && $tokens[$nextContent]['line'] === $tokens[$closeBrace]['line']) {
             $type  = strtolower($tokens[$stackPtr]['content']);
-            $error = "Closing $type brace must be on a line by itself";
+            $error = "[Clases#declaracion] Closing $type brace must be on a line by itself";
             $phpcsFile->addError($error, $closeBrace);
         }
 
@@ -183,7 +183,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         $gap = $tokens[($stackPtr + 1)]['content'];
         if (strlen($gap) !== 1) {
             $found = strlen($gap);
-            $error = "Expected 1 space between $name keyword and $name name; $found found";
+            $error = "[Clases#declaracion] Expected 1 space between $name keyword and $name name; $found found";
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -191,7 +191,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         $gap = $tokens[($className + 1)]['content'];
         if (strlen($gap) !== 1) {
             $found = strlen($gap);
-            $error = "Expected 1 space after $name name; $found found";
+            $error = "[Clases#declaracion] Expected 1 space after $name name; $found found";
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -211,13 +211,13 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
 
             if ($tokens[($parents[$i] - 1)]['code'] !== T_WHITESPACE) {
                 $name  = $tokens[$parents[$i]]['content'];
-                $error = "Expected 1 space before \"$name\"; 0 found";
+                $error = "[Clases#declaracion] Expected 1 space before \"$name\"; 0 found";
                 $phpcsFile->addError($error, ($nextComma + 1));
             } else {
                 $spaceBefore = strlen($tokens[($parents[$i] - 1)]['content']);
                 if ($spaceBefore !== 1) {
                     $name  = $tokens[$parents[$i]]['content'];
-                    $error = "Expected 1 space before \"$name\"; $spaceBefore found";
+                    $error = "[Clases#declaracion] Expected 1 space before \"$name\"; $spaceBefore found";
                     $phpcsFile->addError($error, $stackPtr);
                 }
             }
@@ -229,7 +229,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                     if ($tokens[($parents[$i] + 2)]['code'] !== T_IMPLEMENTS) {
                         $found = strlen($tokens[($parents[$i] + 1)]['content']);
                         $name  = $tokens[$parents[$i]]['content'];
-                        $error = "Expected 0 spaces between \"$name\" and comma; $found found";
+                        $error = "[Clases#declaracion] Expected 0 spaces between \"$name\" and comma; $found found";
                         $phpcsFile->addError($error, $stackPtr);
                     }
                 }

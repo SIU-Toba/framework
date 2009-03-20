@@ -102,7 +102,7 @@ class Toba_Sniffs_PHP_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
                 $spaces     = strlen($blankSpace);
                 if ($spaces !== 0) {
-                    $error = "Expected 0 spaces before opening brace; $spaces found";
+                    $error = "[Clases#declaracion] Se esperaban 0 espacios antes de la llave; se encontraron $spaces";
                     $phpcsFile->addError($error, $curlyBrace);
                 }
             }

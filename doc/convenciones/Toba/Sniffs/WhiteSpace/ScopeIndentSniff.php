@@ -18,8 +18,8 @@
  * Toba_Sniffs_Whitespace_ScopeIndentSniff.
  *
  * Checks that control structures are structured correctly, and their content
- * is indented correctly. This sniff will throw errors if tabs are used
- * for indentation rather than spaces.
+ * is indented correctly. This sniff will throw errors if spaces are used
+ * for indentation rather than tabs.
  *
  * @category  PHP
  * @package   PHP_CodeSniffer

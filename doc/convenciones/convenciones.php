@@ -40,20 +40,14 @@ class convenciones extends clase_padre
 	
 	/**
 	 * Ingresar descripción phpdoc del método
-	 * 
+	 * Solo explicitar el tipo de acceso (protected, private) cuando no es publico
+	 * Un buen signo de documentación de un método es si su nombre ya documenta su uso
+	 *
 	 * @param array   $nombre_significativo Descripción del parámetro
 	 * @param boolean $incluir_todo Todos los parámetros se documentan
 	 * @return boolean Descripción del retorno
 	 */
 	protected function prototipo_de_metodo($nombre_significativo, $incluir_todo=true)
-	{
-	}
-
-	/**
-	 * Solo explicitar el tipo de acceso (protected, private) cuando no es publico
-	 * Un buen signo de documentación de un método es si su nombre ya documenta su uso
-	 */
-	function es_publica()
 	{
 	}
 	
@@ -74,8 +68,8 @@ class convenciones extends clase_padre
 	function espacios()
 	{
 		//Asignación:
-		$algo = $otra_cosa;				//Espacio antes y despues del igual para separar bien las aguas
-										//Una asignación por línea
+		$algo = $otra_cosa;					//Espacio antes y despues del igual para separar bien las aguas
+											//Una asignación por línea
 
 		//Espacio despues de if, for, while, etc.,
 		if ($tal_cosa) {
@@ -84,8 +78,11 @@ class convenciones extends clase_padre
 		}
 
 		//Expresiones
-		$a = $b + $c;					//Espacio entre operadores
-		$a = $b && $c;					//Usar && y || en lugar de AND y OR (php hereda de C)
+		$a = $b + $c;						//Espacio entre operadores
+		$a = $b && $c;						//Usar && y || en lugar de AND y OR (php hereda de C)
+
+		//Arreglos
+		$a = $b[$indice];					//El acceso es sin espacios
 	}
 	
 	function variables()

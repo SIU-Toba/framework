@@ -101,9 +101,6 @@ class comando_test extends comando_toba
 	function opcion__convenciones()
 	{
 		$parametros = $this->get_parametros();
-		$warnings = true;
-		require_once('3ros/PHP_CodeSniffer/CodeSniffer.php');
-		$sniffer = new PHP_CodeSniffer(0);
 		if (isset($parametros['-d'])) {
 			$es_general = false;
 			$archivo = $parametros['-d'];
@@ -111,19 +108,16 @@ class comando_test extends comando_toba
 			$es_general = true;
 			$archivo = toba_dir().'/php/nucleo';
 		}
-		//$archivos = array($archivo);
-		//$sniffer->processFile($archivo);
-		//$sniffer->generateDocs('Toba', $values['files'], $values['generator']);
-		$sniffer->process(array($archivo), 'Toba', array(), false);
-		$resultado = $sniffer->prepareErrorReport();
+		$estandar = $this->get_instalacion()->get_estandar_convenciones();
+		$resultado = $estandar->validar(array($archivo));
 		if ($resultado['totals']['errors'] === 0 && $resultado['totals']['warnings'] === 0) {
 			$this->consola->mensaje('Todo OK!');
 			exit(0);
 		} else {
 			if ($es_general) {
-				$sniffer->printErrorReportSummary($warnings);
+				$this->consola->mensaje($estandar->get_consola_sumario());
 			} else {
-				$sniffer->printErrorReport($warnings);
+				$this->consola->mensaje($estandar->get_consola_reporte());
 			}
 			exit(1);
 		}

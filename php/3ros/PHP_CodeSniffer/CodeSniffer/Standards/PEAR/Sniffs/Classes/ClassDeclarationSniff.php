@@ -61,9 +61,9 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]['scope_opener']) === false) {
-            $error  = 'Possible parse error: ';
+            $error  = '[Clases#declaracion] Posible error de parseo: ';
             $error .= $tokens[$stackPtr]['content'];
-            $error .= ' missing opening or closing brace';
+            $error .= ' falta llave que abre o cierra';
             $phpcsFile->addWarning($error, $stackPtr);
             return;
         }
@@ -73,26 +73,26 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
         $classLine   = $tokens[$lastContent]['line'];
         $braceLine   = $tokens[$curlyBrace]['line'];
         if ($braceLine === $classLine) {
-            $error  = 'Opening brace of a ';
+            $error  = '[Clases#declaracion] La llave de apertura de ';
             $error .= $tokens[$stackPtr]['content'];
-            $error .= ' must be on the line after the definition';
+            $error .= ' debe estar en la linea siguiente de su definicion';
             $phpcsFile->addError($error, $curlyBrace);
             return;
         } else if ($braceLine > ($classLine + 1)) {
             $difference  = ($braceLine - $classLine - 1);
-            $difference .= ($difference === 1) ? ' line' : ' lines';
-            $error       = 'Opening brace of a ';
+            $difference .= ($difference === 1) ? ' linea' : ' lineas';
+            $error       = '[Clases#declaracion] La llave de apertura de ';
             $error      .= $tokens[$stackPtr]['content'];
-            $error      .= ' must be on the line following the ';
+            $error      .= ' debe estar en la linea siguiente de la definicion de ';
             $error      .= $tokens[$stackPtr]['content'];
-            $error      .= ' declaration; found '.$difference;
+            $error      .= '; se encontro '.$difference;
             $phpcsFile->addError($error, $curlyBrace);
             return;
         }
 
         if ($tokens[($curlyBrace + 1)]['content'] !== $phpcsFile->eolChar) {
             $type  = strtolower($tokens[$stackPtr]['content']);
-            $error = "Opening $type brace must be on a line by itself";
+            $error = "[Clases#declaracion] La llave de apertura de $type tiene que estar una linea propia";
             $phpcsFile->addError($error, $curlyBrace);
         }
 
@@ -102,7 +102,7 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
                 $spaces     = strlen($blankSpace);
                 if ($spaces !== 0) {
-                    $error = "Expected 0 spaces before opening brace; $spaces found";
+					$error = "[Clases#declaracion] Se esperaban 0 espacios antes de la llave; se encontraron $spaces";
                     $phpcsFile->addError($error, $curlyBrace);
                 }
             }

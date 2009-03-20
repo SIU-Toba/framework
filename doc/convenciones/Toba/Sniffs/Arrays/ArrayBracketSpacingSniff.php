@@ -66,8 +66,8 @@ class Toba_Sniffs_Arrays_ArrayBracketSpacingSniff implements PHP_CodeSniffer_Sni
             $nonSpace = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr - 2), null, true);
             $expected = $tokens[$nonSpace]['content'].$tokens[$stackPtr]['content'];
             $found    = $phpcsFile->getTokensAsString($nonSpace, ($stackPtr - $nonSpace)).$tokens[$stackPtr]['content'];
-            $error    = "Space found before square bracket; expected \"$expected\" but found \"$found\"";
-            $phpcsFile->addError($error, $stackPtr);
+            $error    = "[Arreglos#acceso] Espacio entre corchetes; se esperaba \"$expected\" en lugar de \"$found\"";
+            $phpcsFile->addWarning($error, $stackPtr);
         }
 
         if ($tokens[$stackPtr]['type'] === 'T_OPEN_SQUARE_BRACKET') {
@@ -77,8 +77,8 @@ class Toba_Sniffs_Arrays_ArrayBracketSpacingSniff implements PHP_CodeSniffer_Sni
                 $nonSpace = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr + 2), null, true);
                 $expected = $tokens[$stackPtr]['content'].$tokens[$nonSpace]['content'];
                 $found    = $phpcsFile->getTokensAsString($stackPtr, ($nonSpace - $stackPtr + 1));
-                $error    = "Space found after square bracket; expected \"$expected\" but found \"$found\"";
-                $phpcsFile->addError($error, $stackPtr);
+				$error    = "[Arreglos#acceso] Espacio entre corchetes; se esperaba \"$expected\" en lugar de \"$found\"";
+                $phpcsFile->addWarning($error, $stackPtr);
             }
         }
 

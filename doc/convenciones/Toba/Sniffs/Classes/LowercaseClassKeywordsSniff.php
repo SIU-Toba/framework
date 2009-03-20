@@ -65,7 +65,6 @@ class Toba_Sniffs_Classes_LowercaseClassKeywordsSniff implements PHP_CodeSniffer
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         $content = $tokens[$stackPtr]['content'];
         if ($content !== strtolower($content)) {
             $type     = strtoupper($content);

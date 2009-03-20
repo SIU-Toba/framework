@@ -96,6 +96,30 @@
 .editor-vista-previa img {
 	vertical-align: middle;
 }
+.editor-convenciones-tabla {
+	margin-top: 10px;
+}
+.editor-linea-codigo {
+	background-color:#D4D0C8;
+	color: black;
+	font-size: 10px;
+	padding-top: 2px;
+	padding-right: 2px;
+	margin-left: -4px;
+	width: 20px;
+	text-align: right;
+}
+.editor-vista-previa-codigo {
+	overflow: auto;
+	width: 580px;
+	padding: 5px;
+	text-align:left;
+	background-color: #ffffff;
+	font-size: 11px;
+}
+.editor-vista-previa-codigo img {
+	position: absolute;
+}
 .cronometro-total {
 	font-weight: bold;
 	font-size: 20px;	

@@ -295,6 +295,15 @@ class toba_editor
 		//Esto se accede solo desde el ADMIN
 		toba::db()->ejecutar($sql);
 	}
+
+	/**
+	 *
+	 * @return toba_modelo_proyecto
+	 */
+	static function get_modelo_proyecto()
+	{
+		return toba_modelo_catalogo::instanciacion()->get_proyecto(self::get_id_instancia_activa(), self::get_proyecto_cargado());
+	}
 	
 	//---------------------------------------------------------------------------
 	//-- Generacion de VINCULOS al editor (desde un proyecto PREVISUALIZADO)

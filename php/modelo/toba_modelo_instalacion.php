@@ -104,6 +104,15 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			return null;
 		}
 	}
+
+	/**
+	 * @return toba_estandar_convenciones
+	 */
+	function get_estandar_convenciones()
+	{
+		return new toba_estandar_convenciones();
+	}
+
 	
 	/**
 	* Retorna true si la instalación es de producción (implementación)

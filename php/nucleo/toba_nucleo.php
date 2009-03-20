@@ -622,6 +622,7 @@ class toba_nucleo
 			'toba_test_grupo_casos'					=> 'modelo/lib/testing_unitario/toba_test_grupo_casos.php',
 			'toba_test_runner'						=> 'modelo/lib/testing_unitario/toba_test_runner.php',
 			'toba_auditoria_tablas_postgres'		=> 'modelo/lib/toba_auditoria_tablas_postgres.php',
+			'toba_estandar_convenciones'			=> 'modelo/lib/toba_estandar_convenciones.php',
 			'toba_migracion'						=> 'modelo/migraciones/toba_migracion.php',
 			'toba_asercion'							=> 'lib/toba_asercion.php',
 			'toba_cache_db'							=> 'lib/toba_cache_db.php',

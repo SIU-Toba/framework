@@ -102,7 +102,7 @@ class Toba_Sniffs_WhiteSpace_ScopeClosingBraceSniff implements PHP_CodeSniffer_S
             }
         } else {
             if ($braceIndent !== $startColumn) {
-                $error = 'Closing brace indented incorrectly; expected '.($startColumn - 1).' spaces, found '.($braceIndent - 1);
+                $error = '[Indentacion-tabs] Llave que cierra indentada incorrectamente se esperaba '.($startColumn - 1).' tabs, se encontraron '.($braceIndent - 1);
                 $phpcsFile->addError($error, $scopeEnd);
             }
         }
