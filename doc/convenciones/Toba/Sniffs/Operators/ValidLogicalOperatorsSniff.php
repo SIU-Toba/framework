@@ -74,7 +74,7 @@ class Toba_Sniffs_Operators_ValidLogicalOperatorsSniff implements PHP_CodeSniffe
         }
 
         $replacement = $replacements[$operator];
-        $error       = "Logical operator \"$operator\" is prohibited; use \"$replacement\" instead";
+        $error       = "[Expresiones#booleanos] Logical operator \"$operator\" is prohibited; use \"$replacement\" instead";
         $phpcsFile->addError($error, $stackPtr);
 
     }//end process()

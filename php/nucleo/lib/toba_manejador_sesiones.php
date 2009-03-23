@@ -703,7 +703,10 @@ class toba_manejador_sesiones
 	*/
 	private function autenticar($id_usuario, $clave=null, $datos_iniciales=null)
 	{
-		if (toba::proyecto()->get_parametro('validacion_debug')) return;
+		if (toba::proyecto()->get_parametro('validacion_debug')) {
+			//Es autologin, no se autentica
+			return;
+		}
 		if (!isset($clave)) {
 			throw new toba_error_autenticacion('Es necesario ingresar la clave.');
 		}

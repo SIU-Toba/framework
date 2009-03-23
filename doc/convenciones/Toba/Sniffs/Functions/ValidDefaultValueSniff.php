@@ -69,7 +69,7 @@ class Toba_Sniffs_Functions_ValidDefaultValueSniff implements PHP_CodeSniffer_Sn
         while (($nextArg = $phpcsFile->findNext(T_VARIABLE, ($nextArg + 1), $argEnd)) !== false) {
             $argHasDefault = self::_argHasDefault($phpcsFile, $nextArg);
             if (($argHasDefault === false) && ($defaultFound === true)) {
-                $error  = 'Arguments with default values must be at the end';
+                $error  = '[Funciones#declaracion] Arguments with default values must be at the end';
                 $error .= ' of the argument list';
                 $phpcsFile->addError($error, $nextArg);
                 return;

@@ -6,9 +6,8 @@
  * 				en minúsculas y separados por guiones bajos. Ej. objeto_ei_formulario
  */
 
-require_once('nucleo/...');			//Sección de includes. Usar paths relativos a mi_proyecto/php
+require_once('nucleo/archivo.php');			//Sección de includes. Usar paths relativos a mi_proyecto/php
 
-define('apex_xx_nombre', 'valor');	//Sección de defines, xx es la abreviacion de la zona donde se utiliza, Por ej. pa=Punto de Acceso
 
 /**
  * Lugar de explicación general de la clase (en formato javadoc)

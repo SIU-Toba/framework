@@ -35,6 +35,16 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractPatternSniff', true) === fal
 class Toba_Sniffs_Functions_FunctionDeclarationSniff extends PHP_CodeSniffer_Standards_AbstractPatternSniff
 {
 
+    /**
+     * Constructs a PEAR_Sniffs_ControlStructures_ControlSignatureSniff.
+     */
+    public function __construct()
+    {
+        parent::__construct(true);
+		$this->error_fijo = '[Funciones#declaracion]';
+
+    }//end __construct()
+
 
     /**
      * Returns an array of patterns to check are correct.

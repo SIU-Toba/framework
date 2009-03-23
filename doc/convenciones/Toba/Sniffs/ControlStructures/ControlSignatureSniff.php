@@ -40,6 +40,7 @@ class Toba_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffe
     public function __construct()
     {
         parent::__construct(true);
+		$this->error_fijo = '[Control]';
 
     }//end __construct()
 

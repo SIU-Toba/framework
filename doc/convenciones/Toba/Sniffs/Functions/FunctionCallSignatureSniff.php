@@ -82,13 +82,13 @@ class Toba_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
 
         if (($stackPtr + 1) !== $next) {
             // Checking this: $value = my_function[*](...).
-            $error = 'Space before opening parenthesis of function call prohibited';
+            $error = '[Funciones#invocacion] Space before opening parenthesis of function call prohibited';
             $phpcsFile->addError($error, $stackPtr);
         }
 
         if ($tokens[($next + 1)]['code'] === T_WHITESPACE) {
             // Checking this: $value = my_function([*]...).
-            $error = 'Space after opening parenthesis of function call prohibited';
+            $error = '[Funciones#invocacion] Space after opening parenthesis of function call prohibited';
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -104,7 +104,7 @@ class Toba_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
             // previous IF statement because it would look like this:
             // $value = my_function( ).
             if ($between !== $closer) {
-                $error = 'Space before closing parenthesis of function call prohibited';
+                $error = '[Funciones#invocacion] Space before closing parenthesis of function call prohibited';
                 $phpcsFile->addError($error, $closer);
             }
         }
@@ -113,7 +113,7 @@ class Toba_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
 
         if ($tokens[$next]['code'] === T_SEMICOLON) {
             if (in_array($tokens[($closer + 1)]['code'], PHP_CodeSniffer_Tokens::$emptyTokens) === true) {
-                $error = 'Space after closing parenthesis of function call prohibited';
+                $error = '[Funciones#invocacion] Space after closing parenthesis of function call prohibited';
                 $phpcsFile->addError($error, $closer);
             }
         }

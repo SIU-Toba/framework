@@ -24,14 +24,14 @@ class ci_mascaras extends toba_ci
 		}
 	}
 	
-	function conf__form($componente)
+	function conf__form(toba_ei_formulario $componente)
 	{
-		return $this->s__datos;
+		$componente->set_datos($this->s__datos);
 	}
 	
 	function evt__form__modificacion($datos)
 	{
-		$this->s__datos = $datos;	
+		$this->s__datos = $datos;
 	}
 	
 	function conf__form_expreg(toba_ei_formulario $form)

@@ -61,7 +61,7 @@ class Toba_Sniffs_Scope_MethodScopeSniff extends PHP_CodeSniffer_Standards_Abstr
 		if ($tokens[$modifier]['type'] === 'T_PUBLIC' && ($tokens[$modifier]['line'] === $tokens[$stackPtr]['line'])) {
             $name  = $phpcsFile->findNext(T_STRING, ($stackPtr + 1));
             $name  = $tokens[$name]['content'];
-            $error = "El metodo \"$name\" no debe indicar el public (se asume)";
+            $error = "[Funciones#declaracion] El metodo \"$name\" no debe indicar el public (se asume)";
             $phpcsFile->addWarning($error, $stackPtr);
 		}
 

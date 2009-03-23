@@ -95,7 +95,7 @@ class Toba_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff implements PHP_Code
         }
 
         if ($goodCondition === false) {
-            $error = 'Avoid IF statements that are always true or false';
+            $error = 'Evitar usar sentencias IF que siempre son true o false';
             $phpcsFile->addWarning($error, $stackPtr);
         }
 

@@ -77,14 +77,14 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                 if (($nextToken - $nextParam) > 1) {
                     $gap   = strlen($tokens[($nextParam + 1)]['content']);
                     $arg   = $tokens[$nextParam]['content'];
-                    $error = "Expected 0 spaces between argument \"$arg\" and equals sign; $gap found";
+                    $error = "[Funciones#declaracion] Expected 0 spaces between argument \"$arg\" and equals sign; $gap found";
                     $phpcsFile->addError($error, $nextToken);
                 }
 
                 if ($tokens[($nextToken + 1)]['code'] === T_WHITESPACE) {
                     $gap   = strlen($tokens[($nextToken + 1)]['content']);
                     $arg   = $tokens[$nextParam]['content'];
-                    $error = "Expected 0 spaces between default value and equals sign for argument \"$arg\"; $gap found";
+                    $error = "[Funciones#declaracion] Expected 0 spaces between default value and equals sign for argument \"$arg\"; $gap found";
                     $phpcsFile->addError($error, $nextToken);
                 }
             }
@@ -96,7 +96,7 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                 if ($tokens[($nextComma - 1)]['code'] === T_WHITESPACE) {
                     $space = strlen($tokens[($nextComma - 1)]['content']);
                     $arg   = $tokens[$nextParam]['content'];
-                    $error = "Expected 0 spaces between argument \"$arg\" and comma; $space found";
+                    $error = "[Funciones#declaracion] Expected 0 spaces between argument \"$arg\" and comma; $space found";
                     $phpcsFile->addError($error, $nextToken);
                 }
             }
@@ -129,26 +129,26 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                         $hint = $tokens[$nextToken]['content'];
 
                         if ($gap !== 1) {
-                            $error = "Expected 1 space between type hint and argument \"$arg\"; $gap found";
+                            $error = "[Funciones#declaracion] Expected 1 space between type hint and argument \"$arg\"; $gap found";
                             $phpcsFile->addError($error, $nextToken);
                         }
 
                         if ($tokens[($comma + 1)]['code'] !== T_WHITESPACE) {
-                            $error = "Expected 1 space between comma and type hint \"$hint\"; 0 found";
+                            $error = "[Funciones#declaracion] Expected 1 space between comma and type hint \"$hint\"; 0 found";
                             $phpcsFile->addError($error, $nextToken);
                         } else {
                             $gap = strlen($tokens[($comma + 1)]['content']);
                             if ($gap !== 1) {
-                                $error = "Expected 1 space between comma and type hint \"$hint\"; $gap found";
+                                $error = "[Funciones#declaracion] Expected 1 space between comma and type hint \"$hint\"; $gap found";
                                 $phpcsFile->addError($error, $nextToken);
                             }
                         }
                     } else if ($gap !== 1) {
-                        $error = "Expected 1 space between comma and argument \"$arg\"; $gap found";
+                        $error = "[Funciones#declaracion] Expected 1 space between comma and argument \"$arg\"; $gap found";
                         $phpcsFile->addError($error, $nextToken);
                     }//end if
                 } else {
-                    $error = "Expected 1 space between comma and argument \"$arg\"; 0 found";
+                    $error = "[Funciones#declaracion] Expected 1 space between comma and argument \"$arg\"; 0 found";
                     $phpcsFile->addError($error, $nextToken);
                 }//end if
             } else {
@@ -170,17 +170,17 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                         $hint = $tokens[$nextToken]['content'];
 
                         if ($gap !== 1) {
-                            $error = "Expected 1 space between type hint and argument \"$arg\"; $gap found";
+                            $error = "[Funciones#declaracion] Expected 1 space between type hint and argument \"$arg\"; $gap found";
                             $phpcsFile->addError($error, $nextToken);
                         }
 
                         if ($tokens[($bracket + 1)]['code'] === T_WHITESPACE) {
                             $gap   = strlen($tokens[($bracket + 1)]['content']);
-                            $error = "Expected 0 spaces between opening bracket and type hint \"$hint\"; $gap found";
+                            $error = "[Funciones#declaracion] Expected 0 spaces between opening bracket and type hint \"$hint\"; $gap found";
                             $phpcsFile->addError($error, $nextToken);
                         }
                     } else {
-                        $error = "Expected 0 spaces between opening bracket and argument \"$arg\"; $gap found";
+                        $error = "[Funciones#declaracion] Expected 0 spaces between opening bracket and argument \"$arg\"; $gap found";
                         $phpcsFile->addError($error, $nextToken);
                     }
                 }//end if
@@ -194,14 +194,14 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
             // There are no parameters for this function.
             if (($closeBracket - $openBracket) !== 1) {
                 $space = strlen($tokens[($closeBracket - 1)]['content']);
-                $error = "Expected 0 spaces between brackets of function declaration; $space found";
+                $error = "[Funciones#declaracion] Expected 0 spaces between brackets of function declaration; $space found";
                 $phpcsFile->addError($error, $stackPtr);
             }
         } else if ($tokens[($closeBracket - 1)]['code'] === T_WHITESPACE) {
             $lastParam = array_pop($params);
             $arg       = $tokens[$lastParam]['content'];
             $gap       = strlen($tokens[($closeBracket - 1)]['content']);
-            $error     = "Expected 0 spaces between argument \"$arg\" and closing bracket; $gap found";
+            $error     = "[Funciones#declaracion] Expected 0 spaces between argument \"$arg\" and closing bracket; $gap found";
             $phpcsFile->addError($error, $closeBracket);
         }
 

@@ -89,12 +89,12 @@ class Toba_Sniffs_Functions_FunctionCallArgumentSpacingSniff implements PHP_Code
 
             if ($tokens[$nextSeperator]['code'] === T_COMMA) {
                 if ($tokens[($nextSeperator - 1)]['code'] === T_WHITESPACE) {
-                    $error = 'Space found before comma in function call';
+                    $error = '[Funciones#invocacion] Space found before comma in function call';
                     $phpcsFile->addError($error, $stackPtr);
                 }
 
                 if ($tokens[($nextSeperator + 1)]['code'] !== T_WHITESPACE) {
-                    $error = 'No space found after comma in function call';
+                    $error = '[Funciones#invocacion] No space found after comma in function call';
                     $phpcsFile->addError($error, $stackPtr);
                 } else {
                     // If there is a newline in the space, then the must be formatting
@@ -102,7 +102,7 @@ class Toba_Sniffs_Functions_FunctionCallArgumentSpacingSniff implements PHP_Code
                     if (strpos($tokens[($nextSeperator + 1)]['content'], $phpcsFile->eolChar) === false) {
                         $space = strlen($tokens[($nextSeperator + 1)]['content']);
                         if ($space > 1) {
-                            $error  = 'Expected 1 space after comma in function call; ';
+                            $error  = '[Funciones#invocacion] Expected 1 space after comma in function call; ';
                             $error .= $space.' found';
                             $phpcsFile->addError($error, $stackPtr);
                         }
@@ -114,12 +114,12 @@ class Toba_Sniffs_Functions_FunctionCallArgumentSpacingSniff implements PHP_Code
                 if ($nextToken !== false) {
                     if ($tokens[$nextToken]['code'] === T_EQUAL) {
                         if (($tokens[($nextToken - 1)]['code']) !== T_WHITESPACE) {
-                            $error = 'Expected 1 space before = sign of default value';
+                            $error = '[Funciones#declaracion] Expected 1 space before = sign of default value';
                             $phpcsFile->addError($error, $stackPtr);
                         }
 
                         if ($tokens[($nextToken + 1)]['code'] !== T_WHITESPACE) {
-                            $error = 'Expected 1 space after = sign of default value';
+                            $error = '[Funciones#declaracion] Expected 1 space after = sign of default value';
                             $phpcsFile->addError($error, $stackPtr);
                         }
                     }

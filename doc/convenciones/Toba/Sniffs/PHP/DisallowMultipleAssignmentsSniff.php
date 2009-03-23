@@ -172,7 +172,7 @@ class Toba_Sniffs_PHP_DisallowMultipleAssignmentsSniff implements PHP_CodeSniffe
         }
 
         if ($prevLine === $varLine) {
-            $error = 'Assignments must be the first block of code on a line';
+            $error = '[Expresiones#asignaciones] Assignments must be the first block of code on a line';
             $phpcsFile->addError($error, $stackPtr);
         }
 

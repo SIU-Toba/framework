@@ -159,7 +159,7 @@ class ci_subclases_generacion extends toba_ci
 				$img = toba_recurso::imagen_proyecto('svn/added.png', true, 16, 16, $nombre);
 				break;
 			case 'normal':
-				$nombre = 'normal';
+				$nombre = 'sin modificar';
 				$img = toba_recurso::imagen_proyecto('svn/normal.png', true, 16, 16, $nombre);
 				break;		
 			case 'conflicted':

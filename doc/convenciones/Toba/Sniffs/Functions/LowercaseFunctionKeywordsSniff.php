@@ -67,7 +67,7 @@ class Toba_Sniffs_Functions_LowercaseFunctionKeywordsSniff implements PHP_CodeSn
         if ($content !== strtolower($content)) {
             $type     = strtoupper($content);
             $expected = strtolower($content);
-            $error    = "$type keyword must be lowercase; expected \"$expected\" but found \"$content\"";
+            $error    = "[Funciones#declaracion] $type keyword must be lowercase; expected \"$expected\" but found \"$content\"";
             $phpcsFile->addError($error, $stackPtr);
         }
 

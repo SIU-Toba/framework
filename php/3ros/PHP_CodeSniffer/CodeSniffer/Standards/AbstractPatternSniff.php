@@ -235,8 +235,10 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
                 }
             }
         }
-
         foreach ($allErrors as $stackPtr => $error) {
+			if (isset($this->error_fijo)) {
+				$error = $this->error_fijo.$error;
+			}
             $phpcsFile->addError($error, $stackPtr);
         }
 

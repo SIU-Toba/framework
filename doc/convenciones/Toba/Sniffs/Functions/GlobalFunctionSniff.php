@@ -61,7 +61,7 @@ class Toba_Sniffs_Functions_GlobalFunctionSniff implements PHP_CodeSniffer_Sniff
             $functionName = $phpcsFile->getDeclarationName($stackPtr);
             // Special exception for __autoload as it needs to be global.
             if ($functionName !== '__autoload') {
-                $error = "Consider putting global function \"$functionName\" in a static class";
+                $error = "[Funciones#declaracion] Consider putting global function \"$functionName\" in a static class";
                 $phpcsFile->addWarning($error, $stackPtr);
             }
         }

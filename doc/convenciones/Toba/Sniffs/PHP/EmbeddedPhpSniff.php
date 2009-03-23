@@ -126,7 +126,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
             $error = 'Blank line found at start of embedded PHP content';
             $phpcsFile->addError($error, $i);
         } else if ($tokens[$firstContent]['line'] === $tokens[$stackPtr]['line']) {
-            $error = 'Opening PHP tag must be on a line by itself';
+            $error = '[Clases#archivo] Opening PHP tag must be on a line by itself';
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -150,7 +150,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
             $error = 'Blank line found at end of embedded PHP content';
             $phpcsFile->addError($error, $i);
         } else if ($tokens[$lastContent]['line'] === $tokens[$closingTag]['line']) {
-            $error = 'Closing PHP tag must be on a line by itself';
+            $error = '[Clases#archivo] Closing PHP tag must be on a line by itself';
             $phpcsFile->addError($error, $closingTag);
         }
 
@@ -181,7 +181,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
         $firstContent = $phpcsFile->findNext(array(T_WHITESPACE), ($stackPtr + 1), null, true);
 
         if ($firstContent === false || $tokens[$firstContent]['code'] === T_CLOSE_TAG) {
-            $error = 'Empty embedded PHP tag found';
+            $error = '[Clases#archivo] Empty embedded PHP tag found';
             $phpcsFile->addError($error, $stackPtr);
             return;
         }
@@ -192,7 +192,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
         }
 
         if (strlen($leadingSpace) >= 1) {
-            $error = 'Expected 1 space after openning PHP tag; '.(strlen($leadingSpace) + 1).' found';
+            $error = '[Clases#archivo] Expected 1 space after openning PHP tag; '.(strlen($leadingSpace) + 1).' found';
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -225,7 +225,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
         $whitespace = '';
         for ($i = ($semiColon + 1); $i < $closeTag; $i++) {
             if ($tokens[$i]['code'] !== T_WHITESPACE) {
-                $error = 'Expected 1 space before closing PHP tag; 0 found';
+                $error = '[Clases#archivo] Expected 1 space before closing PHP tag; 0 found';
                 $phpcsFile->addError($error, $stackPtr);
                 return;
             }
@@ -238,10 +238,10 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
         }
 
         if (strlen($whitespace) === 0) {
-            $error = 'Expected 1 space before closing PHP tag; 0 found';
+            $error = '[Clases#archivo] Expected 1 space before closing PHP tag; 0 found';
             $phpcsFile->addError($error, $stackPtr);
         } else {
-            $error = 'Expected 1 space before closing PHP tag; '.strlen($whitespace).' found';
+            $error = '[Clases#archivo] Expected 1 space before closing PHP tag; '.strlen($whitespace).' found';
             $phpcsFile->addError($error, $stackPtr);
         }
 
