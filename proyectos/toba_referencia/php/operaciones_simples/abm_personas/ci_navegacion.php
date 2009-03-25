@@ -14,7 +14,7 @@ class ci_navegacion extends toba_ci
 
 	function get_editor()
 	{
-		return $this->dependencia("editor");
+		return $this->dependencia('editor');
 	}
 
 	function conf__edicion()
@@ -61,26 +61,28 @@ class ci_navegacion extends toba_ci
 		$this->s__filtro = $datos;
 	}
 
-	function conf__filtro_personas()
+	function conf__filtro_personas($filtro)
 	{
-		if(isset($this->s__filtro)){
-			return $this->s__filtro;
+		if (isset($this->s__filtro)) {
+			$filtro->set_datos($this->s__filtro);
 		}
 	}
 
-	function evt__filtro_personas__cancelar(){
+	function evt__filtro_personas__cancelar()
+	{
 		unset($this->s__filtro);	
 	}
 
 	//-------- CUADRO ----
 
-	function conf__cuadro_personas()
+	function conf__cuadro_personas($cuadro)
 	{
-		if(isset($this->s__filtro)){
-			return consultas::get_personas($this->s__filtro);
-		}else{
-			return consultas::get_personas();
+		if (isset($this->s__filtro)) {
+			$datos = consultas::get_personas($this->s__filtro);
+		} else {
+			$datos = consultas::get_personas();
 		}
+		$cuadro->set_datos($datos);
 	}
 
 	function evt__cuadro_personas__seleccion($id)

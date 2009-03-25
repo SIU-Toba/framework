@@ -14,7 +14,7 @@
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
-require_once 'PEAR/Exception.php';
+require_once 'PEAR_Exception.php';
 
 /**
  * An exception thrown by PHP_CodeSniffer when it encounters an unrecoverable error.

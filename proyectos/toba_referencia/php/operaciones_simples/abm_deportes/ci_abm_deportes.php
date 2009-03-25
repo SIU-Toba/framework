@@ -16,7 +16,7 @@ class ci_abm_deportes extends toba_ci
 	{
 		$this->get_tabla()->resetear();
 		$this->set_pantalla('seleccion');
-		if(isset($this->s__seleccion)){
+		if (isset($this->s__seleccion)) {
 			unset($this->s__seleccion);
 		}
 	}
@@ -37,9 +37,11 @@ class ci_abm_deportes extends toba_ci
 		$this->s__filtro = $filtro;
 	}
 
-	function conf__filtro()
+	function conf__filtro($filtro)
 	{
-		if(isset($this->s__filtro)) return $this->s__filtro;
+		if (isset($this->s__filtro)) {
+			$filtro->set_datos($this->s__filtro);
+		}
 	}
 
 	function evt__filtro__cancelar()
@@ -49,13 +51,14 @@ class ci_abm_deportes extends toba_ci
 
 	//-- CUADRO --
 	
-	function conf__cuadro()
+	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
-		if(isset($this->s__filtro)){
-			return consultas::get_deportes($this->s__filtro);
-		}else{
-			return consultas::get_deportes();
+		if (isset($this->s__filtro)) {
+			$datos = consultas::get_deportes($this->s__filtro);
+		} else {
+			$datos = consultas::get_deportes();
 		}
+		$cuadro->set_datos($datos);
 	}
 
 	function evt__cuadro__seleccion($seleccion)
@@ -77,7 +80,7 @@ class ci_abm_deportes extends toba_ci
 
 	function conf__formulario()
 	{
-		if(isset($this->s__seleccion)){
+		if (isset($this->s__seleccion)) {
 			$t = $this->get_tabla();
 			$t->cargar($this->s__seleccion);
 			return $t->get();
@@ -93,13 +96,13 @@ class ci_abm_deportes extends toba_ci
 			$this->resetear();
 		}catch(toba_error $e){
 			toba::notificacion()->agregar('Error insertando');
-			toba::logger()->error( $e->getMessage() );
+			toba::logger()->error($e->getMessage());
 		}
 	}
 
 	function evt__formulario__modificacion($datos)
 	{
-		if(isset($this->s__seleccion)){
+		if (isset($this->s__seleccion)) {
 			$t = $this->get_tabla();
 			$t->set($datos);
 			$t->sincronizar();
@@ -109,7 +112,7 @@ class ci_abm_deportes extends toba_ci
 
 	function evt__formulario__baja()
 	{
-		if(isset($this->s__seleccion)){
+		if (isset($this->s__seleccion)) {
 			$t = $this->get_tabla();
 			$t->eliminar_filas(false);
 			$t->sincronizar();
@@ -122,4 +125,5 @@ class ci_abm_deportes extends toba_ci
 		$this->resetear();		
 	}
 }
+
 ?>

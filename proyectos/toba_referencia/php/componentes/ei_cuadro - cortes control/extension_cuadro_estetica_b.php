@@ -14,11 +14,11 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 				departamentos y <strong>$locs</strong> localidades.<br>";
 		//Hago unos calculos
 		$habitantes = 0;
-		foreach($nodo['filas'] as $fila){
+		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio,2,',','.') ;
+		$resultado = number_format($promedio, 2, ',', '.');
 		echo "El promedio de habitantes por localidad es: <strong>$promedio</strong>.";
 	}
 	
@@ -31,11 +31,11 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 		$this->salida->texto("La Zona <b>$zona</b> tiene <b>$deps</b> departamentos y <b>$locs</b> localidades.");
 		//Hago unos calculos
 		$habitantes = 0;
-		foreach($nodo['filas'] as $fila){
+		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio,2,',','.') ;
+		$resultado = number_format($promedio, 2, ',', '.');
 		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.");
 	}	
 	
@@ -49,11 +49,11 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 		$this->salida->texto("La Zona $zona tiene $deps departamentos y $locs localidades.", $estilos);
 		//Hago unos calculos
 		$habitantes = 0;
-		foreach($nodo['filas'] as $fila){
+		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio,2,',','.') ;
+		$resultado = number_format($promedio, 2, ',', '.');
 		$this->salida->texto("El promedio de habitantes por localidad es: $promedio.", $estilos);
 	}
 }

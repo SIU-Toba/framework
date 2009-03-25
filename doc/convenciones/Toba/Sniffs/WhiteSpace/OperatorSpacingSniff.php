@@ -155,14 +155,14 @@ class Toba_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sni
             $operator = $tokens[$stackPtr]['content'];
 
             if ($tokens[($stackPtr - 1)]['code'] !== T_WHITESPACE) {
-                $error = "Expected 1 space before \"$operator\"; 0 found";
+                $error = "[Expresiones] Expected 1 space before \"$operator\"; 0 found";
                 $phpcsFile->addError($error, $stackPtr);
             } else if ($tokens[($stackPtr + 1)]['code'] !== T_WHITESPACE) {
-                $error = "Expected 1 space after \"$operator\"; 0 found";
+                $error = "[Expresiones] Expected 1 space after \"$operator\"; 0 found";
                 $phpcsFile->addError($error, $stackPtr);
             } else if (strlen($tokens[($stackPtr + 1)]['content']) !== 1) {
                 $found = strlen($tokens[($stackPtr + 1)]['content']);
-                $error = "Expected 1 space after \"$operator\"; $found found";
+                $error = "[Expresiones] Expected 1 space after \"$operator\"; $found found";
                 $phpcsFile->addError($error, $stackPtr);
             } else if (strlen($tokens[($stackPtr - 1)]['content']) !== 1) {
                 // Don't throw an error for assignments, because other standards allow

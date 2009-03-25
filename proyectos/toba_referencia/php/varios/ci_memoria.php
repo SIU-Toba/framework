@@ -3,21 +3,21 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class ci_memoria extends toba_ci
 {
-	protected $s__interna =null;
+	protected $s__interna = null;
 
 	function evt__formulario__modificacion($datos)
 	{
-		if(isset($datos['interna'])){
+		if (isset($datos['interna'])) {
 			$this->s__interna = $datos['interna'];
 		}
-		if(isset($datos['operacion'])){
-			toba::memoria()->set_dato_operacion('temp',$datos['operacion']);
+		if (isset($datos['operacion'])) {
+			toba::memoria()->set_dato_operacion('temp', $datos['operacion']);
 		}
-		if(isset($datos['proyecto'])){
-			toba::memoria()->set_dato('temp',$datos['proyecto']);
+		if (isset($datos['proyecto'])) {
+			toba::memoria()->set_dato('temp', $datos['proyecto']);
 		}
-		if(isset($datos['instancia'])){
-			toba::memoria()->set_dato_instancia('temp',$datos['instancia']);
+		if (isset($datos['instancia'])) {
+			toba::memoria()->set_dato_instancia('temp', $datos['instancia']);
 		}
 	}
 

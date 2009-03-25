@@ -20,7 +20,7 @@ class ci_edicion extends toba_ci
 		if (isset($fp_imagen)) {
 		  	//-- Se necesita el path fisico y la url de una archivo temporal que va a contener la imagen
 		  	$temp_nombre = md5(uniqid(time()));
-		  	$temp_archivo = $img = toba::proyecto()->get_www_temp($temp_nombre);
+		  	$temp_archivo = toba::proyecto()->get_www_temp($temp_nombre);
 	
 		  	//-- Se pasa el contenido al archivo temporal
 		  	$temp_fp = fopen($temp_archivo['path'], 'w');
@@ -30,7 +30,7 @@ class ci_edicion extends toba_ci
 		  	
 		  	//-- Se muestra la imagen temporal
 		  	$datos['imagen_vista_previa'] = "<img src='{$temp_archivo['url']}' alt=''>";
-		  	$datos['imagen'] = "Tamaño: ".$tamaño. ' KB';
+		  	$datos['imagen'] = 'Tamaño: '.$tamaño. ' KB';
 		} else {
 			$datos['imagen'] = null;
 		}
@@ -53,7 +53,7 @@ class ci_edicion extends toba_ci
 
 	function conf__form_juegos()	
 	{
-		return $this->get_relacion()->tabla('juegos')->get_filas(null,true);	
+		return $this->get_relacion()->tabla('juegos')->get_filas(null, true);
 	}
 
 	function evt__form_juegos__modificacion($datos)
@@ -72,7 +72,8 @@ class ci_edicion extends toba_ci
 		return $this->get_relacion()->tabla('deportes')->get_filas();	
 	}
 
-	function evt__cuadro_deportes__seleccion($seleccion) {	
+	function evt__cuadro_deportes__seleccion($seleccion)
+	{
 		$this->get_relacion()->tabla('deportes')->set_cursor($seleccion);
 	}
 	

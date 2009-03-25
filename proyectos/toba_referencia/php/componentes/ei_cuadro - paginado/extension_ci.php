@@ -1,18 +1,6 @@
 <?php
+require_once('formateo_referencia.php');
 php_referencia::instancia()->agregar(__FILE__);
-
-class formateo_referencia extends toba_formateo 
-{
-	function formato_pesos_sin_coma($valor)
-	{
-		if ($this->tipo_salida != 'excel') {
-			return "$ ".number_format($valor,0,',','.');	
-		} else {
-			return array($valor, array('numberformat' => 
-						array('code' =>'"$"#,##0_-')));
-		}
-	}
-}
 
 class extension_ci extends toba_ci
 {
@@ -31,14 +19,14 @@ class extension_ci extends toba_ci
 		$inicio = 1;
 		$fin = 31;
 		for ($i = $inicio ; $i <= $fin; $i++) {
-			$datos[] = array('fecha' => "2006-03-$i", 'importe' => 100-$i);
+			$datos[] = array('fecha' => "2006-03-$i", 'importe' => 100 - $i);
 		}
 		if (isset($this->orden)) {
 			$ordenamiento = array();
-	        foreach ($datos as $fila) { 
+			foreach ($datos as $fila) {
 	            $ordenamiento[] = $fila[$this->orden['columna']]; 
-	        }			
-	        $sentido = ($this->orden['sentido'] == "asc") ? SORT_ASC : SORT_DESC;
+			}
+	        $sentido = ($this->orden['sentido'] == 'asc') ? SORT_ASC : SORT_DESC;
 			array_multisort($ordenamiento, $sentido, $datos); 
 		}
 		return $datos;

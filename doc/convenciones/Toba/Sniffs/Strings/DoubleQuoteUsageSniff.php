@@ -98,7 +98,7 @@ class Toba_Sniffs_Strings_DoubleQuoteUsageSniff implements PHP_CodeSniffer_Sniff
             }
         }
 
-        $error = "[Expresiones#strings] String $workingString does not require double quotes; use single quotes instead";
+        $error = "[Expresiones#strings] String does not require double quotes; use single quotes instead";
         $phpcsFile->addWarning($error, $stackPtr);
 
     }//end process()

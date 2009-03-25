@@ -4,7 +4,7 @@ php_referencia::instancia()->agregar(__FILE__);
 class extension_ci extends toba_ci
 {
 	protected $s__filtro;
-	protected $datos_estaticos =  array(
+	protected $datos_estaticos = array(
 			array( 'fecha' => '2004-05-20', 'importe' => 12500), 
 			array( 'fecha' => '2004-05-21', 'importe' => 22200), 
 			array( 'fecha' => '2004-05-22', 'importe' => 4500), 		
@@ -25,8 +25,9 @@ class extension_ci extends toba_ci
 	
 	function conf__filtro()
 	{
-		if (isset($this->s__filtro))
+		if (isset($this->s__filtro)) {
 			return $this->s__filtro;
+		}
 	}
 	
 
@@ -41,15 +42,15 @@ class extension_ci extends toba_ci
 	
 	function evt__cuadro__seleccion($seleccion)
 	{
-		toba::notificacion()->agregar("Se seleccionó la fecha {$seleccion['fecha']}", "info");
+		toba::notificacion()->agregar("Se seleccionó la fecha {$seleccion['fecha']}", 'info');
 	}
 	
 	function evt__cuadro__baja($seleccion)
 	{
-		toba::notificacion()->agregar("Se quiere borrar la fecha {$seleccion['fecha']}", "info");	
+		toba::notificacion()->agregar("Se quiere borrar la fecha {$seleccion['fecha']}", 'info');
 	}
 	
-    function evt__cuadro__ordenar($param) 
+	function evt__cuadro__ordenar($param)
     { 
         $columna = $param['columna']; 
         $sentido = $param['sentido']; 
@@ -60,7 +61,7 @@ class extension_ci extends toba_ci
 	function evt__mi_evento()
 	{
 		$this->dependencia('cuadro')->deseleccionar();
-		toba::notificacion()->agregar("Este evento borra la selección del cuadro (si es que la hay)", 'info');	
+		toba::notificacion()->agregar('Este evento borra la selección del cuadro (si es que la hay)', 'info');
 	}
 
 	function filtrar_importes()

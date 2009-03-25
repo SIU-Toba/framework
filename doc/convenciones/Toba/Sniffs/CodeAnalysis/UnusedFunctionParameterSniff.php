@@ -129,7 +129,7 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
         if ($emptyBody === false && count($params) > 0) {
             foreach ($params as $paramName => $position) {
                 $error = 'El parámetro '.$paramName.' nunca es usado';
-                $phpcsFile->addError($error, $position);
+                $phpcsFile->addWarning($error, $position);
             }
         }
 

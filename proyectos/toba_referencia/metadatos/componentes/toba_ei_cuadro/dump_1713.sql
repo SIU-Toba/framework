@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_cuadro', --clase
-	'extendion_cuadro_estetica_a', --subclase
+	'extension_cuadro_estetica_a', --subclase
 	'componentes/ei_cuadro - cortes control/extension_cuadro_estetica_a.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
@@ -58,7 +58,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'1', --exportar
 	'1', --exportar_rtf
 	NULL, --pdf_propiedades

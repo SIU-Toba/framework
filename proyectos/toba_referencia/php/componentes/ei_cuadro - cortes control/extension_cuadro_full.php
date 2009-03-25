@@ -19,11 +19,11 @@ class extension_cuadro_full extends toba_ei_cuadro
 	function sumarizar_cc__departamento__prom_hab_loc($filas)
 	{
 		$habitantes = 0;
-		foreach($filas as $fila){
+		foreach ($filas as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$resultado = $habitantes / count($filas);
-		return number_format($resultado,2,',','.');
+		return number_format($resultado, 2, ',', '.');
 	}
 
 	/**
@@ -41,12 +41,12 @@ class extension_cuadro_full extends toba_ei_cuadro
 	{
 		$habitantes = 0;
 		$superficie = 0;
-		foreach($filas as $fila){
+		foreach ($filas as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 			$superficie += $this->datos[$fila]['superficie'];
 		}
 		$resultado = $habitantes / $superficie;
-		return number_format($resultado,2,',','.');
+		return number_format($resultado, 2, ',', '.');
 	}
 	
 	//----------------------------------------
@@ -75,11 +75,11 @@ class extension_cuadro_full extends toba_ei_cuadro
 				departamentos y <strong>$locs</strong> localidades.<br>";
 		//Hago unos calculos
 		$habitantes = 0;
-		foreach($nodo['filas'] as $fila){
+		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio,2,',','.') ;
+		$resultado = number_format($promedio, 2, ',', '.');
 		echo "El promedio de habitantes por localidad es: <strong>$promedio</strong>.";
 	}
 
@@ -115,11 +115,11 @@ class extension_cuadro_full extends toba_ei_cuadro
 		$this->salida->texto("La Zona <b>$zona</b> tiene <b>$deps</b> departamentos y <b>$locs</b> localidades.");
 		//Hago unos calculos
 		$habitantes = 0;
-		foreach($nodo['filas'] as $fila){
+		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio,2,',','.') ;
+		$resultado = number_format($promedio, 2, ',', '.');
 		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.", 8, array('justification' => 'right'));
 	}	
 	// DEPARTAMENTO

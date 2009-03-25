@@ -1,7 +1,7 @@
 <?php 
 php_referencia::instancia()->agregar(__FILE__);
 
-class ci_antispam extends toba_ci
+class ci_captcha extends toba_ci
 {
 	//---- form_antispam ----------------------------------------------------------------
 
@@ -9,7 +9,7 @@ class ci_antispam extends toba_ci
 	{
 		if ($datos['ef_antispam']) {
 			toba::notificacion()->info('El código ingresado es correcto. Felicitaciones, has superado la prueba!.');			
-		}else{
+		} else {
 			toba::notificacion()->error('El código ingresado es incorrecto. Inténtalo de nuevo, vamos que no es tan difícil!.');
 		}
 	}

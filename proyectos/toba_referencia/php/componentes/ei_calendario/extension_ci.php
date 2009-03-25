@@ -22,13 +22,13 @@ class extension_ci extends toba_ci
 	function conf__calendario($calendario)
 	{
 		if (!isset($this->s__datos)) {
-			$hoy = date("Y-m-d", mktime());
+			$hoy = date('Y-m-d', mktime());
 			$this->s__datos = array();
-			$this->s__datos[$hoy] = array('dia' => $hoy, 'contenido' => "Testear el sistema");
+			$this->s__datos[$hoy] = array('dia' => $hoy, 'contenido' => 'Testear el sistema');
 		}
         $calendario->set_ver_contenidos(true);
 		$calendario->set_datos($this->s__datos);
-    }
+	}
 
 	function evt__calendario__seleccionar_dia($seleccion)
 	{
@@ -50,8 +50,7 @@ class extension_ci extends toba_ci
 			if (isset($this->s__datos[$this->s__dia])) {
 				$datos['contenido'] = $this->s__datos[$this->s__dia]['contenido'];
 			}
-		}
-		elseif (isset($this->s__semana)) {
+		} elseif (isset($this->s__semana)) {
 			$form->desactivar_efs('dia');
 			$datos = array( 'semana' => $this->s__semana );
 			if (isset($this->s__datos[$this->s__semana])) {
@@ -59,13 +58,13 @@ class extension_ci extends toba_ci
 			}			
 		}
 		$form->set_datos($datos);
-    }
+	}
 	
 	// La modificación del formulario debería actualizar los contenidos en la base de datos, 
 	// para que luego se reflejen los cambios ante un evento de carga del calendario.
 	function evt__formulario__modificacion($datos)
 	{
-		if( isset($datos['dia']) )  {
+		if (isset($datos['dia'])) {
 			$this->s__datos[$datos['dia']] = $datos;
 		}
 		if (isset($datos['semana'])) {

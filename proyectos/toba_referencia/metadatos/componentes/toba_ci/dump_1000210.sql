@@ -16,7 +16,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_cambio_layout', --subclase
-	'componentes/ci/cambio_layout.php', --subclase_archivo
+	'componentes/ci/ci_cambio_layout.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Cambio de layout', --nombre
@@ -133,7 +133,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Layout común', --etiqueta
 	'Layout predeterminado, una dependencia sobre la otra separados por un &lt;hr&gt;', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form1,cuadro1,form2,esquema', --objetos
 	NULL, --eventos
@@ -149,11 +149,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Layout dos columnas', --etiqueta
 	'Layout de dos columnas, y de paso se saca el borde a los formularios.', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form1,cuadro1,form2,esquema', --objetos
 	NULL, --eventos
 	'pantalla_dos_columnas', --subclase
-	NULL  --subclase_archivo
+	'componentes/ci/pantalla_dos_columnas.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 1

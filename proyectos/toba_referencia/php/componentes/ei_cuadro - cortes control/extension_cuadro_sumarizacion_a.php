@@ -23,11 +23,11 @@ class extension_cuadro_sumarizacion_a extends toba_ei_cuadro
 	function sumarizar_cc__zona__prom_hab_loc($filas)
 	{
 		$habitantes = 0;
-		foreach($filas as $fila){
+		foreach ($filas as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$resultado = $habitantes / count($filas);
-		return number_format($resultado,2,',','.');
+		return number_format($resultado, 2, ',', '.');
 	}
 
 
@@ -38,12 +38,12 @@ class extension_cuadro_sumarizacion_a extends toba_ei_cuadro
 	{
 		$habitantes = 0;
 		$superficie = 0;
-		foreach($filas as $fila){
+		foreach ($filas as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 			$superficie += $this->datos[$fila]['superficie'];
 		}
 		$resultado = $habitantes / $superficie;
-		return number_format($resultado,2,',','.');
+		return number_format($resultado, 2, ',', '.');
 	}
 }
 ?>

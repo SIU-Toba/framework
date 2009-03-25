@@ -16,12 +16,12 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_cuadro_cc', --subclase
-	'componentes/ei_cuadro - cortes control/extension_ci.php', --subclase_archivo
+	'componentes/ei_cuadro - cortes control/ci_cuadro_cc.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Cuadro - Cortes de Control', --nombre
 	'Cuadro con cortes de control', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -225,10 +225,10 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
 	'90%', --ancho
-	'400', --alto
+	'400px', --alto
 	'arriba', --posicion_botonera
 	'tab_v', --tipo_navegacion
-	NULL, --con_toc
+	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar

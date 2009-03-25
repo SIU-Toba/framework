@@ -20,7 +20,7 @@ class ci_checks_radios extends toba_ci
 	function get_opciones($master=null)
 	{
 		$salida = array();
-		for ($i=0; $i < $this->cant; $i++) {
+		for ($i = 0; $i < $this->cant; $i++) {
 			if (! isset($master) || $master == 0 || $i % $master == 0) {
 				$salida[] = array($i, "Opción $i");
 			}

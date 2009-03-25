@@ -51,4 +51,5 @@ class ci_abm_juegos extends toba_ci
 		$this->dep('datos')->resetear();
 	}
 }
+
 ?>

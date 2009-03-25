@@ -104,7 +104,7 @@ class Toba_Sniffs_ControlStructures_InlineControlStructureSniff implements PHP_C
             // This is a control structure without an opening brace,
             // so it is an inline statement.
             if ($this->error === true) {
-                $phpcsFile->addError('Inline control structures are not allowed', $stackPtr);
+                $phpcsFile->addError('[Control#Sintaxis] IInline control structures are not allowed', $stackPtr);
             } else {
                 $phpcsFile->addWarning('Inline control structures are discouraged', $stackPtr);
             }

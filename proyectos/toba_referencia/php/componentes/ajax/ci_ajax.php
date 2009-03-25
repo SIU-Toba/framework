@@ -98,7 +98,7 @@ class ci_ajax extends toba_ci
 	function ajax__validar_lista_dias($fechas, toba_ajax_respuesta $respuesta)
 	{
 		$salida = array();
-		foreach($fechas as $fecha) {
+		foreach ($fechas as $fecha) {
 			$mensaje = '';
 			if (! $this->validar_dia($fecha, $mensaje)) {
 				$salida[] = $mensaje;	
@@ -120,14 +120,14 @@ class ci_ajax extends toba_ci
 		$anio = $fecha->get_parte('año');
 		//--- Se forma un cache de feriados por año para evitar ir al WS en cada pedido, esto es un ejemplo de juguete!
 		if (! isset($this->s__cache_feriados[$anio])) {
-			$client = new SoapClient("http://webservices.mininterior.gov.ar/Feriados/Service.svc?wsdl");
+			$client = new SoapClient('http://webservices.mininterior.gov.ar/Feriados/Service.svc?wsdl');
 			$d1 = mktime(0, 0, 0, 1, 1, $anio);
 			$d2 = mktime(0, 0, 0, 12, 31, $anio);
 			$feriados = $client->FeriadosEntreFechasAsXml(array('d1'=>$d1, 'd2'=>$d2));
 			$this->s__cache_feriados[$anio] = $feriados->FeriadosEntreFechasAsXmlResult;
 		}
 		$feriados = simplexml_load_string($this->s__cache_feriados[$anio]);
-		foreach($feriados as $feriado) {
+		foreach ($feriados as $feriado) {
 			$fecha_feriado = new toba_fecha((string) $feriado->FechaEfectiva);
 			if ($fecha_feriado->es_igual_que($fecha)) {
 				$es_valido = false;
@@ -200,37 +200,37 @@ class ci_ajax extends toba_ci
 		if (!extension_loaded('curl')) {
 		    $prefix = (PHP_SHLIB_SUFFIX === 'dll') ? 'php_' : '';
 		    @dl($prefix . 'curl.' . PHP_SHLIB_SUFFIX);
-		    if (!extension_loaded('curl')) {
-		    	echo "Se necesita instalar la extensión <strong>curl</strong> para acceder al API de Flickr";
+			if (!extension_loaded('curl')) {
+		    	echo 'Se necesita instalar la extensión <strong>curl</strong> para acceder al API de Flickr';
 		    	return;
-		    }
+			}
 		}
 		require_once('lib/flickr_api.php');
 		$secrets = array('api_key' => 'e5ec32dadfbc7f48fa476a1d62a5c251', 'api_secret' => '579da1ad011ef233');
 		$flickr = new Flickr($secrets);
-		$photos = $flickr->photosSearch('',$tag);
+		$photos = $flickr->photosSearch('', $tag);
 		$html = '';
 		if ($photos && $photos['total'] > 0) {
 			$i = 0;
 			$modulo = 4;
-			$html .= "<table>";
-			foreach($photos['photos'] as $photo) {
+			$html .= '<table>';
+			foreach ($photos['photos'] as $photo) {
 				if ($i == 12) {
 					break;
 				}
-	    		if ($i % $modulo == 0) {
+				if ($i % $modulo == 0) {
 	    			$html .= "<tr>\n";	
-	    		}
+				}
 		    	$url_chica = $flickr->getPhotoURL($photo, 's');
 		    	$url_full = 'http://flickr.com/photos/'.$photo['owner'].'/'.$photo['id'];
 				$html .= "<td><a title='Ver foto' href='$url_full' target='_blank'><img src='$url_chica' height=75 width=75/></a></td>";
 				$i++;
-	    		if ($i % $modulo == 0) {
+				if ($i % $modulo == 0) {
 	    			$html .= "</tr>\n";	
-	    		} 				
+				}
 			}		
-			$html .= "</table>";
-			$html .= "<div style='text-align:center'><em>Mostrando ".$i.' de '.$photos['total'].' fotos...</em></div>';			
+			$html .= '</table>';
+			$html .= "<div style='text-align:center'><em>Mostrando ".$i.' de '.$photos['total'].' fotos...</em></div>';
 		} else {
 			$html .= "No se encontraron fotos con el tag <strong>$tag</strong>.";
 		}

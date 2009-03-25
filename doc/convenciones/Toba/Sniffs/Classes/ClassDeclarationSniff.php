@@ -116,7 +116,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         }
 
         $closeBrace = $tokens[$stackPtr]['scope_closer'];
-        if ($tokens[($closeBrace - 1)]['code'] === T_WHITESPACE) {
+        /*if ($tokens[($closeBrace - 1)]['code'] === T_WHITESPACE) {
             $prevContent = $tokens[($closeBrace - 1)]['content'];
             if ($prevContent !== $phpcsFile->eolChar) {
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
@@ -126,7 +126,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                     $phpcsFile->addError($error, $closeBrace);
                 }
             }
-        }
+        }*/
 
         // Check that the closing brace has one blank line after it.
         $nextContent = $phpcsFile->findNext(array(T_WHITESPACE, T_COMMENT), ($closeBrace + 1), null, true);
@@ -138,6 +138,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
             $error .= ' debe ser seguido de una línea en blanco y luego el tag de cierre de PHP';
             $phpcsFile->addError($error, $closeBrace);
         } else {
+			/*
             $nextLine  = $tokens[$nextContent]['line'];
             $braceLine = $tokens[$closeBrace]['line'];
             if ($braceLine === $nextLine) {
@@ -152,6 +153,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                 $error     .= ' must be followed by a single blank line; found '.$difference;
                 $phpcsFile->addError($error, $closeBrace);
             }
+			 */
         }//end if
 
         // Check the closing brace is on it's own line, but allow

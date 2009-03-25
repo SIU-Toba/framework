@@ -70,6 +70,13 @@ class convenciones extends clase_padre
 		$algo = $otra_cosa;					//Espacio antes y despues del igual para separar bien las aguas
 											//Una asignación por línea
 
+		//Asignaciones seguidas
+		$persona			= array();		//Usar identación con tabs cuando haya dos o más asignaciones seguidas. Estoy ayuda a la legibilidad.
+		$persona['nombre']	= 'Roberto';
+		$persona['edad']	= 12;
+		$persona['sexo']	= 'M';
+
+
 		//Espacio despues de if, for, while, etc.,
 		if ($tal_cosa) {
 			//Para llamar a un método:

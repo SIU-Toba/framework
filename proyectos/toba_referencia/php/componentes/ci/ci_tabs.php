@@ -6,8 +6,7 @@ class ci_tabs extends toba_ci
 	function conf()
 	{
 		$this->s__instituciones_habilitadas = array();
-		foreach($this->s__instituciones_habilitadas as $institucion)
-		{
+		foreach ($this->s__instituciones_habilitadas as $institucion) {
 		    $nombre_ef = 'pertenencia' . $institucion['cod_interno_institucion'];
 		    $nuevos_efs[] = array('identificador' => $nombre_ef);
 		}
