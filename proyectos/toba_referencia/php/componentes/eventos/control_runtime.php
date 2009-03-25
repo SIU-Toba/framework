@@ -29,7 +29,7 @@ class control_runtime extends toba_ci
 		return $this->datos;
 	}
 
-	function conf_evt__cuadro__a( $evento, $fila )
+	function conf_evt__cuadro__a($evento, $fila)
 	{
 		if ( $this->modificar ) {
 			if ( $fila === 1 ) {
@@ -46,7 +46,7 @@ class control_runtime extends toba_ci
 		return $this->datos;
 	}
 
-	function conf_evt__multilinea__a( $evento, $fila )
+	function conf_evt__multilinea__a($evento, $fila)
 	{
 		if ( $this->modificar ) {
 			if ( $fila === 1 ) {

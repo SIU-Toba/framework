@@ -94,15 +94,15 @@ class Toba_Sniffs_WhiteSpace_ScopeClosingBraceSniff implements PHP_CodeSniffer_S
         $braceIndent   = $tokens[$scopeEnd]['column'];
         $isBreakCloser = ($tokens[$scopeEnd]['code'] === T_BREAK);
         if (in_array($tokens[$stackPtr]['code'], array(T_CASE, T_DEFAULT)) === true && $isBreakCloser === true) {
-            // BREAK statements should be indented 4 spaces from the
+            // BREAK statements should be indented 1 tab from the
             // CASE or DEFAULT statement.
-            if ($braceIndent !== ($startColumn + 4)) {
-                $error = 'Break statement indented incorrectly; expected '.($startColumn + 3).' spaces, found '.($braceIndent - 1);
+            if ($braceIndent !== ($startColumn + 1)) {
+                $error = '[Control#Sintaxis] Break statement indented incorrectly; expected '.($startColumn).' tabs, found '.($braceIndent - 1);
                 $phpcsFile->addError($error, $scopeEnd);
             }
         } else {
             if ($braceIndent !== $startColumn) {
-                $error = '[Indentacion-tabs] Llave que cierra indentada incorrectamente se esperaba '.($startColumn - 1).' tabs, se encontraron '.($braceIndent - 1);
+                $error = '[Control#Sintaxis] Llave que cierra indentada incorrectamente se esperaba '.($startColumn - 1).' tabs, se encontraron '.($braceIndent - 1);
                 $phpcsFile->addError($error, $scopeEnd);
             }
         }

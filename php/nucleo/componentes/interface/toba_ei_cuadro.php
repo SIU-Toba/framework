@@ -231,7 +231,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Agrega nuevas definiciones de columnas al cuadro
-	 * @param array $columnas
+	 * @param array $columnas componentes obligatoras: clave, titulo
 	 */
 	function agregar_columnas($columnas)
 	{
@@ -240,10 +240,13 @@ class toba_ei_cuadro extends toba_ei
 				$columnas[$clave]['estilo'] = 'col-tex-p1';
 			if (!isset($valor['estilo_titulo']))
 				$columnas[$clave]['estilo_titulo'] = 'ei-cuadro-col-tit';
-			if (!isset($valor['estilo_titulo']))
+			if (!isset($valor['total_cc']))
 				$columnas[$clave]['total_cc'] = '';
 			if (!isset($valor['total']))
-				$columnas[$clave]['total'] =  0;				
+				$columnas[$clave]['total'] =  0;
+			if (!isset($valor['usar_vinculo'])) {
+				$columnas[$clave]['usar_vinculo'] =  0;
+			}
 		}
 		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
 		$this->procesar_definicion(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices

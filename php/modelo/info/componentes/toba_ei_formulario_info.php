@@ -90,6 +90,8 @@ class toba_ei_formulario_info extends toba_ei_info
 		$modelo[0]['nombre'] = 'Basico';
 		$modelo[1]['id'] = 'abm';
 		$modelo[1]['nombre'] = 'ABM';
+		$modelo[2]['id'] = 'filtro';
+		$modelo[2]['nombre'] = 'Filtrar/Limpiar';
 		return $modelo;
 	}
 
@@ -140,6 +142,26 @@ class toba_ei_formulario_info extends toba_ei_info
 				$evento[3]['en_botonera'] = 1;		
 				$evento[3]['grupo'] = 'cargado';
 				break;
+
+			case 'filtro':
+				$evento[0]['identificador'] = "filtrar";
+				$evento[0]['etiqueta'] = "&Filtrar";
+				$evento[0]['estilo'] = "ei-boton-filtrar";
+				$evento[0]['orden'] = 1;
+				$evento[0]['en_botonera'] = 1;
+				$evento[0]['maneja_datos'] = 1;
+				$evento[0]['grupo'] = 'cargado,no_cargado';
+				$evento[0]['imagen_recurso_origen'] = 'apex';
+				$evento[0]['imagen'] = 'filtrar.png';
+
+				$evento[1]['identificador'] = "cancelar";
+				$evento[1]['etiqueta'] = "&Limpiar";
+				$evento[1]['estilo'] = "ei-boton-limpiar";
+				$evento[1]['orden'] = 2;
+				$evento[1]['en_botonera'] = 1;
+				$evento[1]['grupo'] = 'cargado';
+				$evento[1]['imagen_recurso_origen'] = 'apex';
+				$evento[1]['imagen'] = 'limpiar.png';		
 		}
 		return $evento;
 	}

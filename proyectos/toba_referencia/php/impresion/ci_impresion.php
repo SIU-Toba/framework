@@ -8,39 +8,39 @@ class ci_impresion extends toba_ci
 		$this->pantalla()->set_modo_descripcion(false);
 	}
 
-	function vista_impresion( $salida )
+	function vista_impresion($salida)
 	{
-		$salida->titulo( $this->get_nombre() );
+		$salida->titulo($this->get_nombre());
 		$salida->mensaje('Nota: Este es el Principal');
-		$this->dependencia('filtro')->vista_impresion( $salida );
-		$this->dependencia('cuadro')->vista_impresion( $salida );
+		$this->dependencia('filtro')->vista_impresion($salida);
+		$this->dependencia('cuadro')->vista_impresion($salida);
 		$this->dependencia('formulario')->vista_impresion($salida);
 		$salida->salto_pagina();
 		$salida->mensaje('Nota: Esta es una copia');
-		$this->dependencia('filtro')->vista_impresion( $salida );
-		$this->dependencia('cuadro')->vista_impresion( $salida );
+		$this->dependencia('filtro')->vista_impresion($salida);
+		$this->dependencia('cuadro')->vista_impresion($salida);
 		$this->dependencia('formulario')->vista_impresion($salida);		
 		$salida->salto_pagina();
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
-		$this->dependencia('ml')->vista_impresion( $salida );
+		$this->dependencia('ml')->vista_impresion($salida);
 	}
 	
 	function vista_pdf(toba_vista_pdf $salida)
 	{
-		$salida->titulo( $this->get_nombre() );
+		$salida->titulo($this->get_nombre());
 		$salida->mensaje('Nota: Este es el Principal');
-		$this->dependencia('filtro')->vista_pdf( $salida );
-		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$this->dependencia('filtro')->vista_pdf($salida);
+		$this->dependencia('cuadro')->vista_pdf($salida);
 		$this->dependencia('formulario')->vista_pdf($salida);
 		$salida->salto_pagina();
 		$salida->mensaje('Nota: Esta es una copia');
-		$this->dependencia('filtro')->vista_pdf( $salida );
-		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$this->dependencia('filtro')->vista_pdf($salida);
+		$this->dependencia('cuadro')->vista_pdf($salida);
 		$this->dependencia('formulario')->vista_pdf($salida);		
 		$salida->salto_pagina();
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
 		$salida->separacion();
-		$this->dependencia('ml')->vista_pdf( $salida );
+		$this->dependencia('ml')->vista_pdf($salida);
 	}
 	
 	function vista_excel(toba_vista_excel $salida)
@@ -57,7 +57,7 @@ class ci_impresion extends toba_ci
 		$this->dependencia('ml')->vista_excel($salida);
 		
 		$salida->separacion(2);
-		$this->dependencia('cuadro')->vista_excel( $salida );
+		$this->dependencia('cuadro')->vista_excel($salida);
 		
 		$salida->separacion(2);
 		$salida->titulo('Formulario', 2);
@@ -66,7 +66,7 @@ class ci_impresion extends toba_ci
 		$salida->crear_hoja('Copia');
 		$excel->setActiveSheetIndex(1);
 				
-		$salida->titulo('Copia del filtro en hoja 2',3);
+		$salida->titulo('Copia del filtro en hoja 2', 3);
 		$this->dependencia('filtro')->vista_excel($salida);
 		
 		$salida->separacion(2);
@@ -74,7 +74,7 @@ class ci_impresion extends toba_ci
 		$this->dependencia('ml')->vista_excel($salida);
 
 		$salida->separacion(2);
-		$this->dependencia('cuadro')->vista_excel( $salida );
+		$this->dependencia('cuadro')->vista_excel($salida);
 
 		$salida->separacion(2);
 		$salida->titulo('Formulario', 2);
@@ -107,7 +107,7 @@ class ci_impresion extends toba_ci
 		$datos[5]['id'] = '6';
 		$datos[5]['tipo'] = '2';
 		$datos[5]['desc'] = 'Menos';
-		$cuadro->set_datos( $datos );
+		$cuadro->set_datos($datos);
 	}
 
 	function conf__filtro(toba_ei_filtro $filtro)
@@ -155,7 +155,7 @@ class ci_impresion extends toba_ci
 		$datos['precio'] = '227';
 		$datos['numero'] = '11241512';
 		$datos['lista'] = array('a', 'c');
-		$datos['popup'] ='1';
+		$datos['popup'] = '1';
 		$datos['fecha'] = '2007-07-07';
 		$datos['cuit'] = '30546666707'; 
 		$form->set_datos($datos);

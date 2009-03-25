@@ -1,4 +1,5 @@
 <?php 
+
 class form_combo_editable extends toba_ei_formulario
 {
 

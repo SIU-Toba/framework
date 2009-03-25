@@ -15,25 +15,25 @@ class extension_formulario extends toba_ei_formulario
 		if (! $this->cambiar_layout) {
 			parent::generar_layout();
 		} else {
-			echo "<table>";
+			echo '<table>';
 			$i = 0;
 			foreach ($this->get_nombres_ef() as $ef) {
 				$ultimo = ($i == $this->get_cantidad_efs());
 				if ($i % 2 == 0) {
-					echo "<tr>";	
+					echo '<tr>';
 				}
-				echo "<td>";
+				echo '<td>';
 				
 				//--- Llamada a la generacion estandar de un ef
 				$this->generar_html_ef($ef);
 				
-				echo "</td>";
+				echo '</td>';
 				$i++;			
 				if ($i % 2 == 0 || $ultimo) {
-					echo "</tr>";	
+					echo '</tr>';
 				}		
 			}		
-			echo "</table>";
+			echo '</table>';
 		}
 	}
 	
@@ -44,10 +44,10 @@ class extension_formulario extends toba_ei_formulario
 		} else {	
 			echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
 			$i = 0;
-			foreach ($this->get_nombres_ef() as $ef){
+			foreach ($this->get_nombres_ef() as $ef) {
 				$ultimo = ($i == $this->get_cantidad_efs());
 				if ($i % 2 == 0) {
-					echo "<tr>";	
+					echo '<tr>';
 				}
 				
 				//--- Llamada a la generacion estandar de un ef
@@ -55,10 +55,10 @@ class extension_formulario extends toba_ei_formulario
 
 				$i++;			
 				if ($i % 2 == 0 || $ultimo) {
-					echo "</tr>";	
+					echo '</tr>';
 				}
 			}
-			echo "</table>";			
+			echo '</table>';
 		}
 	}	
 

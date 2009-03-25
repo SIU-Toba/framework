@@ -70,8 +70,8 @@ class Toba_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff implements PHP_CodeSniff
 
         for ($i = ($openBracket + 1); $i < $closeBracket; $i++) {
             if ($tokens[$i]['code'] === T_STRING && in_array($tokens[$i]['content'], $this->forbiddenFunctions)) {
-                $error = 'The use of '.$tokens[$i]['content'].'() inside a loop condition is not allowed. Assign the return value of '.$tokens[$i]['content'].'() to a variable and use the variable in the loop condition instead.';
-                $phpcsFile->addError($error, $i);
+                $error = 'El uso de '.$tokens[$i]['content'].'() dentro de la condición del bucle no es recomendado, porque su valor debe recalcularse en cada ciclo. En su lugar asignar el valor de '.$tokens[$i]['content'].'() a una variable y usarla en la condición del bucle.';
+                $phpcsFile->addWarning($error, $i);
             }
         }
 

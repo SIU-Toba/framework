@@ -96,17 +96,20 @@ class comando_test extends comando_toba
 
 	/**
 	 * Busca diferencias con las convenciones del codigo SIU en los archivos PHP de la instalación, instancia o proyecto
-	 * @consola_parametros Parámetros: [-d Carpeta o archivo]
+	 * @consola_parametros Parámetros: [-p Proyecto] [-d Carpeta] [-a Archivo]
 	 */
 	function opcion__convenciones()
 	{
 		$parametros = $this->get_parametros();
 		if (isset($parametros['-d'])) {
-			$es_general = false;
-			$archivo = $parametros['-d'];
-		} else {
 			$es_general = true;
-			$archivo = toba_dir().'/php/nucleo';
+			$archivo = $parametros['-d'];
+		} elseif (isset($parametros['-a'])) {
+			$es_general = false;
+			$archivo = $parametros['-a'];
+		} else {
+			$archivo = $this->get_proyecto()->get_dir().'/php';
+			$es_general = true;
 		}
 		$estandar = $this->get_instalacion()->get_estandar_convenciones();
 		$resultado = $estandar->validar(array($archivo));
@@ -115,7 +118,7 @@ class comando_test extends comando_toba
 			exit(0);
 		} else {
 			if ($es_general) {
-				$this->consola->mensaje($estandar->get_consola_sumario());
+				$this->consola->mensaje($estandar->get_consola_sumario($archivo));
 			} else {
 				$this->consola->mensaje($estandar->get_consola_reporte());
 			}

@@ -25,6 +25,7 @@ class ci_mensajes extends toba_ci
 		switch ($this->s__opciones['origen']) {
 			case 'mensaje_manual':
 				$mensaje = $this->s__opciones['texto'];
+				$pepe = null;
 				break;
 			case 'mensaje_componente':
 				//Mensaje propio del componente

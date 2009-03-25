@@ -183,7 +183,7 @@ function abrir_toba_instancia(){
 			'ayuda' => 'Operaciones disponibles en el Proyecto',
 		),
 		array(
-			'nombre' => 'Componentes',
+			'nombre' => 'Comp.',
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto.gif",true),
 			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1240,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Componentes disponibles en el Proyecto',
@@ -194,6 +194,12 @@ function abrir_toba_instancia(){
 			'url' => toba::vinculador()->get_url(toba_editor::get_id(),3397,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Acceso a datos',
 		),
+		array(
+			'nombre' => 'PHP',
+			'imagen' => toba_recurso::imagen_toba('nucleo/php.gif',true),
+			'url' => toba::vinculador()->get_url(toba_editor::get_id(),30000012,null, array('menu' => true, 'celda_memoria' => 'lateral')),
+			'ayuda' => 'Código PHP del proyecto',
+		),	
 		array(
 			'nombre' => '',
 			'imagen' => toba_recurso::imagen_toba('configurar.png',true),

@@ -7,12 +7,12 @@ class ci_origen extends toba_ci
 	{
 		//Modifico un vinculo en la botonera del cuadro.
 		$vinculo_cuadro = $this->dep('cuadro')->evento('en_botonera')->vinculo();
-		$vinculo_cuadro->agregar_parametro( 'nota', 'Este parametro se agrego en PHP');
-		$vinculo_cuadro->agregar_parametro( 'dia', 'lunes');
+		$vinculo_cuadro->agregar_parametro('nota', 'Este parametro se agrego en PHP');
+		$vinculo_cuadro->agregar_parametro('dia', 'lunes');
 		//Modifico un vinculo en un boton propio
 		$vinculo_propio = $this->evento('abrir_en_ventana')->vinculo();
-		$vinculo_propio->agregar_parametro( 'nota', 'Este parametro se agrego en PHP');
-		$vinculo_propio->agregar_parametro( 'dia', 'miercoles');
+		$vinculo_propio->agregar_parametro('nota', 'Este parametro se agrego en PHP');
+		$vinculo_propio->agregar_parametro('dia', 'miercoles');
 	}
 
 	/*

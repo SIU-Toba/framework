@@ -36,10 +36,10 @@ class toba_estandar_convenciones
 		return $contenido;
 	}
 
-	function get_consola_sumario()
+	function get_consola_sumario($path_relativo=null)
 	{
 		ob_start();
-		$this->sniffer->printErrorReportSummary($this->warnings);
+		$this->sniffer->printErrorReportSummary($this->warnings, $path_relativo);
 		$contenido = ob_get_contents();
 		ob_get_clean();
 		return $contenido;

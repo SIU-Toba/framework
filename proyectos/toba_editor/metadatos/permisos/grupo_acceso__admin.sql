@@ -531,3 +531,18 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'10000019'  --item
 );
 --- FIN Grupo de desarrollo 10
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'30000010'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'30000012'  --item
+);
+--- FIN Grupo de desarrollo 30

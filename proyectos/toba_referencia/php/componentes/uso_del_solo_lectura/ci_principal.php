@@ -79,7 +79,7 @@ class ci_principal extends toba_ci
 		if (isset($datos['upload'])) {
 			$datos['upload'] = $datos['upload']['name'];
 		}
-		$this->datos_form = $datos;	
+		$this->datos_form = $datos;
 	}
 	
 	function conf__form()

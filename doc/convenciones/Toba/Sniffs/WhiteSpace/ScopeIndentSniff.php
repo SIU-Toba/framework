@@ -55,7 +55,7 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
      *
      * @var array(int)
      */
-    protected $nonIndentingScopes = array(T_SWITCH);
+    protected $nonIndentingScopes = array();
 
 
     /**
@@ -243,13 +243,14 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
                 // an error should be shown.
                 if ($column !== $indent) {
                     if ($this->exact === true || $column < $indent) {
-                        $error  = 'Line indented incorrectly; expected ';
+                        $error  = '[Indentacion] Línea identada incorrectamente; se esperaban ';
                         if ($this->exact === false) {
-                            $error .= 'at least ';
+                            $error .= 'al menos ';
                         }
 
-                        $error .= ($indent - 1).' spaces, found ';
+                        $error .= ($indent - 1).' tabs, se encontraron ';
                         $error .= ($column - 1);
+						$error .= ' (¿se estaran usando espacios en lugar de tabs?)';
                         $phpcsFile->addError($error, $firstToken);
                     }
                 }

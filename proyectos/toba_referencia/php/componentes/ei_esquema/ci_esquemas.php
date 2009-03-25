@@ -3,7 +3,7 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class ci_esquemas extends toba_ci
 {
-	protected $fuente = "
+	protected $fuente = '
 digraph G {
 
         subgraph cluster_0 {
@@ -31,7 +31,7 @@ digraph G {
         start [shape=Mdiamond];
         end [shape=Msquare];
 }
-		";
+		';
 	
 	function mantener_estado_sesion()
 	{

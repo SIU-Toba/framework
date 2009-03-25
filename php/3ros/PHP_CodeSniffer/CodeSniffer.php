@@ -984,8 +984,7 @@ class PHP_CodeSniffer
             $numWarnings = $file->getWarningCount();
             $numErrors   = $file->getErrorCount();
             $filename    = $file->getFilename();
-
-            // If verbose output is enabled, we show the results for all files,
+			// If verbose output is enabled, we show the results for all files,
             // but if not, we only show files that had errors or warnings.
             if (PHP_CODESNIFFER_VERBOSITY > 0 || $numErrors > 0 || ($numWarnings > 0 && $showWarnings === true)) {
                 $errorFiles[$filename] = array(
@@ -1015,6 +1014,9 @@ class PHP_CodeSniffer
         $totalFiles    = 0;
 
         foreach ($errorFiles as $file => $errors) {
+			if (isset($relativo)) {
+				$file = substr($file, strlen($relativo));
+			}
             if ($showWarnings === true) {
                 $padding = (62 - strlen($file));
             } else {

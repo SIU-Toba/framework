@@ -10,8 +10,9 @@ class ci_wizard extends toba_ci
 	*/
 	function conf__tipos()
 	{
-		if (isset($this->s__tipo_inst))
+		if (isset($this->s__tipo_inst)) {
 			return $this->s__tipo_inst;
+		}
 	}
 	
 	function evt__tipos__modificacion($tipo)

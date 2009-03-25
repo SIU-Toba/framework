@@ -24,14 +24,4 @@ class extension_ci extends toba_ci
 	
 }
 
-class pantalla_visualizacion extends toba_ei_pantalla 
-{
-	
-	function generar_layout()
-	{
-		$img = toba::proyecto()->get_www_temp($this->controlador->s__nombre_archivo);
-		echo "<img src='{$img['url']}'>";
-	}
-}
-
 ?>

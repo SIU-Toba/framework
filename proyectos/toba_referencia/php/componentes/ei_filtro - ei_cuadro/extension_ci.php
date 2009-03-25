@@ -51,12 +51,12 @@ class extension_ci extends toba_ci
 	}
 	
 	function evt__cuadro__ordenar($param)
-    { 
+	{
         $columna = $param['columna']; 
         $sentido = $param['sentido']; 
         toba::notificacion()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
         return true;
-    } 	
+	}
 	
 	function evt__mi_evento()
 	{
@@ -69,8 +69,9 @@ class extension_ci extends toba_ci
 		//Esto normalmente se haría utilizando SQL...
 		$retorno = array();
 		foreach ($this->datos_estaticos as $dato) {
-			if ($this->s__filtro['importe'] == '' || $this->s__filtro['importe'] < $dato['importe'])
+			if ($this->s__filtro['importe'] == '' || $this->s__filtro['importe'] < $dato['importe']) {
 				$retorno[] = $dato;
+			}
 		}
 		return $retorno;
 	}

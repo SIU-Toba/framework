@@ -1,5 +1,5 @@
 <?php 
-require_once("tutorial/pant_tutorial.php");
+require_once('tutorial/pant_tutorial.php');
 
 class ci_items extends toba_ci
 {

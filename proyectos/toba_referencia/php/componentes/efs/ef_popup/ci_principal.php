@@ -33,11 +33,6 @@ class ci_principal extends toba_ci
 		";
 		$fila = toba::db()->consultar_fila($sql, toba_db_fetch_num);
 		return $fila;
-		if ($fila) {
-			return $fila;	
-		} else {
-			return '';	
-		}
 	}
 
 	function get_persona_nombre($id)

@@ -24,7 +24,7 @@ class extension_ml extends toba_ei_formulario_ml
 			$this->generar_html_ef($ef);
 			$i++;			
 			if ($i % $columnas == 0 || $ultimo) {
-				echo "</td>";	
+				echo '</td>';
 			}			
 		}
 	}

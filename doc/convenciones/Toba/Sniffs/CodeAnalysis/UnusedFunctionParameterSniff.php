@@ -113,12 +113,16 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
             } else if ($code === T_DOUBLE_QUOTED_STRING) {
                 // Tokenize double quote string.
                 $strTokens = token_get_all(sprintf('<?php %s;?>', $token['content']));
-
                 foreach ($strTokens as $tok) {
+					foreach (array_keys($params) as $par) {
+						if (is_array($tok) && strpos($tok[1], $par) !== false) {
+							unset($params[$par]);
+						}
+					}
+
                     if (is_array($tok) === false || $tok[0] !== T_VARIABLE ) {
                         continue;
                     }
-
                     if (isset($params[$tok[1]]) === true) {
                         unset($params[$tok[1]]);
                     }

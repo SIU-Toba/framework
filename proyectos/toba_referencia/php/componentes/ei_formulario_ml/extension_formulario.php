@@ -1,7 +1,7 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
-class extension_formulario_ml extends toba_ei_formulario_ml
+class extension_formulario extends toba_ei_formulario_ml
 {
 
 	function extender_objeto_js()
