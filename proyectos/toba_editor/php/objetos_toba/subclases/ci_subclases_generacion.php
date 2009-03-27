@@ -1,22 +1,55 @@
 <?php 
 
+/**
+ * Esta subclase puede trabajar de dos maneras:
+ *  - Esclava de un wizard que edita la sublcases de componentes
+ *  - Usada directamente como visor/editor php
+ */
 class ci_subclases_generacion extends toba_ci
 {
 	protected $s__datos_opciones;	
 	protected $s__datos_metodos;
+	protected $s__path_archivo;
+	protected $s__es_esclavo;
 	protected $previsualizacion;
 	protected $info_archivo;
 	protected $comando_svn;
 
-	
+	function ini()
+	{
+		$archivo = toba::memoria()->get_parametro('archivo');
+		if (isset($archivo)) {
+			if (strpos($archivo, '..') !== FALSE) {
+				//Evita que se pasen ../ en la url
+				throw new toba_error_seguridad("El parámetro '$archivo' no es un path válido");
+			}
+			//Es el ci principal, el parametro que viene es relativo a la carpeta php del proyecto
+			$path_php = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()).'/php/';
+			$this->s__path_archivo = $path_php.$archivo;
+			//$this->s__path_archivo = $this->controlador()->get_path_archivo();
+			$this->s__es_esclavo = false;
+		}
+
+		if (! isset($this->s__es_esclavo)) {
+			//Es un esclavo
+			$this->s__path_archivo = $this->controlador()->get_path_archivo();
+			$this->s__es_esclavo = true;
+		}
+	}
+
 	function conf()
 	{
 		$metodos = $this->get_metodos_a_generar();
-		$archivo_php = new toba_archivo_php($this->controlador()->get_path_archivo());
+		$archivo_php = new toba_archivo_php($this->s__path_archivo);
 		
 		//-- Se va a modificar algo?		
 		if (! empty($metodos) || $archivo_php->esta_vacio()) {
 			$this->pantalla()->tab('pant_vista_previa')->set_etiqueta('Vista Previa');
+		}
+
+		//-- Puede generar código?
+		if (! $this->s__es_esclavo) {
+			$this->pantalla()->eliminar_tab('pant_opciones');
 		}
 	}	
 	
@@ -72,14 +105,10 @@ class ci_subclases_generacion extends toba_ci
 	
 	function evt__eliminar()
 	{
-		unlink($this->controlador->get_path_archivo());
+		unlink($this->s__path_archivo);
 	}	
-	
-	function evt__abrir()
-	{
-		$this->controlador->abrir_archivo();
-	}
-	
+
+
 	function evt__svn_blame()
 	{
 		$this->comando_svn = 'blame';
@@ -112,7 +141,7 @@ class ci_subclases_generacion extends toba_ci
 	
 	function conf__pant_vista_previa()
 	{
-		$path = $this->controlador->get_path_archivo();
+		$path = $this->s__path_archivo;
 		$svn = new toba_svn();		
 		if (! isset($this->comando_svn)) {
 			$codigo = $this->get_codigo_vista_previa();
@@ -204,30 +233,33 @@ class ci_subclases_generacion extends toba_ci
 		}
 		if (!$ver_comandos_svn || !$svn_add || !$existe_archivo) {
 			$this->pantalla()->eliminar_evento('svn_add');
-		}	
+		}
+		if (!$ver_comandos_svn || !$existe_archivo) {
+			$this->pantalla()->eliminar_evento('trac_ver');
+		}
 	}
 	
 	function get_codigo_vista_previa()
 	{
 		$opciones = $this->get_opciones();
 		$metodos = $this->get_metodos_a_generar();
-		$archivo_php = new toba_archivo_php($this->controlador()->get_path_archivo());
+		$archivo_php = new toba_archivo_php($this->s__path_archivo);
 		
-		//-- Se va a modificar algo?		
-		if (! empty($metodos) || $archivo_php->esta_vacio()) {
+		//-- Se va a modificar algo?
+		if ($this->s__es_esclavo && (! empty($metodos) || $archivo_php->esta_vacio())) {
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
 			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
 			$codigo = "<?php\n".$codigo."\n?>";
 			return $codigo;
 		} else {
 			//-- Muestra el original
-			return file_get_contents($this->controlador()->get_path_archivo());		
+			return file_get_contents($this->s__path_archivo);
 		}
 	}
 
 	function get_path_archivo()
 	{
-		return $this->controlador()->get_path_archivo();
+		return $this->s__path_archivo;
 	}
 	
 	function get_metodos_a_generar()
@@ -248,6 +280,25 @@ class ci_subclases_generacion extends toba_ci
 	{
 		$this->s__datos_metodos = array();		
 	}
+
+	//-------------------------------------------------------------------------------
+	//-- Apertura de archivos por AJAX ----------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function servicio__ejecutar()
+	{
+		$this->evt__abrir();
+	}
+
+	function evt__abrir()
+	{
+		$archivo_php = new toba_archivo_php($this->get_path_archivo());
+		if( !$archivo_php->existe() ) {
+			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $archivo_php->nombre() . '\').');
+		}
+		$archivo_php->abrir();
+	}
+
  
 }
 

@@ -53,7 +53,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
 	'refrescar.png', --imagen
 	'1', --en_botonera
@@ -84,12 +84,74 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'proyecto', --imagen_recurso_origen
 	'reflexion/abrir.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL, --accion_vinculo_celda
+	NULL  --accion_vinculo_servicio
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
+	'toba_editor', --proyecto
+	'30000013', --evento_id
+	'2296', --objeto
+	'eliminar', --identificador
+	'eliminar', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	'Confirme la eliminación completa del archivo', --confirmacion
+	'ei-boton-izq', --estilo
+	'apex', --imagen_recurso_origen
+	'borrar.gif', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'3', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL, --accion_vinculo_celda
+	NULL  --accion_vinculo_servicio
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
+	'toba_editor', --proyecto
+	'30000060', --evento_id
+	'2296', --objeto
+	'trac_ver', --identificador
+	'trac', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'proyecto', --imagen_recurso_origen
+	'svn/trac.png', --imagen
+	'1', --en_botonera
+	'Abre la página trac asociada al archivo', --ayuda
+	'4', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -120,7 +182,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'svn/diff.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'3', --orden
+	'5', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -151,7 +213,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'svn/blame.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'4', --orden
+	'6', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -182,7 +244,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'svn/revert.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'5', --orden
+	'7', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -213,38 +275,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'svn/add.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'6', --orden
-	NULL, --ci_predep
-	'0', --implicito
-	'0', --defecto
-	NULL, --display_datos_cargados
-	NULL, --grupo
-	NULL, --accion
-	'0', --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL, --accion_vinculo_celda
-	NULL  --accion_vinculo_servicio
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
-	'toba_editor', --proyecto
-	'30000013', --evento_id
-	'2296', --objeto
-	'eliminar', --identificador
-	'eliminar', --etiqueta
-	'0', --maneja_datos
-	NULL, --sobre_fila
-	'Confirme la eliminación completa del archivo', --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'borrar.gif', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'7', --orden
+	'8', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -352,7 +383,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
-	'eliminar,svn_blame,svn_diff,svn_revert,svn_add,abrir,refrescar', --eventos
+	'eliminar,svn_blame,svn_diff,svn_revert,svn_add,abrir,refrescar,trac_ver', --eventos
 	'pant_vista_previa', --subclase
 	'objetos_toba/subclases/pant_vista_previa.php'  --subclase_archivo
 );

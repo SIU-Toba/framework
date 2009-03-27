@@ -8,13 +8,12 @@ $url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 
 	if (! isset($_POST['migracion']) && ! isset($_GET['phpinfo'])) {
-		echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
-		echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 		
+		/*echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
 		echo toba_form::abrir('toba', toba::vinculador()->get_url());
 		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
 		echo toba_form::cerrar();
-		
+		*/
 		$version = toba_modelo_instalacion::get_version_actual();
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
@@ -25,6 +24,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo "</div>";		
 		echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
+		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 		echo "</div>";		
 		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
 		$vinc = toba::vinculador()->get_url(null, null, array('phpinfo' =>1));
@@ -36,7 +36,7 @@ $url_login = $url_trac.'/trac/toba/login';
 	} elseif (isset($_GET['phpinfo'])) {
 		phpinfo();
 	} else {
-		echo "<hr style='clear:both'><h1 style='text-align:center'>Chequeo de compatibilidad de extensiones</h1>";		
+		/*echo "<hr style='clear:both'><h1 style='text-align:center'>Chequeo de compatibilidad de extensiones</h1>";
 		//------------------ ID de PANTALLAS e EIS  -----------------
 		$sql = "
 			SELECT
@@ -112,7 +112,7 @@ $url_login = $url_trac.'/trac/toba/login';
 			}
 		}
 		echo "</ul>";
-		echo '</div>';
+		echo '</div>';*/
 		
 	}
 ?>

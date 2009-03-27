@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Catálogo PHP - cuadro', --nombre
-	'Archivos .php', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -57,7 +57,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'proyecto', --imagen_recurso_origen
 	'reflexion/abrir.gif', --imagen
 	'0', --en_botonera
-	NULL, --ayuda
+	'Abrir el código PHP en el editor del escritorio', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	NULL, --implicito
@@ -97,8 +97,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	NULL, --accion
 	NULL, --accion_imphtml_debug
-	'1000246', --accion_vinculo_carpeta
-	'3463', --accion_vinculo_item
+	'30000010', --accion_vinculo_carpeta
+	'30000014', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
@@ -121,7 +121,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	'0', --ordenar
+	'1', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado

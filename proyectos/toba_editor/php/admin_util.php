@@ -3,7 +3,7 @@
 /**
 *	Utilidades varias para el administrador Toba
 */
-define('toba_abrir_archivo_ajax','toba_abrir_archivo_ajax');
+define('toba_abrir_archivo_ajax', 'toba_abrir_archivo_ajax');
 
 class admin_util
 {

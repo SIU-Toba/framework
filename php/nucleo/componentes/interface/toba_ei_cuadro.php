@@ -247,6 +247,12 @@ class toba_ei_cuadro extends toba_ei
 			if (!isset($valor['usar_vinculo'])) {
 				$columnas[$clave]['usar_vinculo'] =  0;
 			}
+			if (!isset($valor['no_ordenar'])) {
+				$columnas[$clave]['no_ordenar'] =  0;
+			}
+			if (!isset($valor['formateo'])) {
+				$columnas[$clave]['formateo'] = null;
+			}
 		}
 		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
 		$this->procesar_definicion(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices

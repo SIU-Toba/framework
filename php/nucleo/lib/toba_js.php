@@ -299,10 +299,12 @@ class toba_js
 		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
 		$js_validar = isset( $evento['maneja_datos'] ) ? toba_js::bool($evento['maneja_datos']) : "true";
 		if (is_array($parametros)) {
-			$param = ", ".addslashes(toba_js::arreglo($parametros, true));
+			$param = ", ".toba_js::arreglo($parametros, true);
 		} else {
 			$param = (isset($parametros)) ? ", '".addslashes(str_replace('"',"'",$parametros))."'" : '';			
 		}
+
+
 		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
 	}	
 

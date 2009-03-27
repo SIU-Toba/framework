@@ -96,6 +96,9 @@
 .editor-vista-previa img {
 	vertical-align: middle;
 }
+.editor-vista-previa div{
+	text-align: right;
+}
 .editor-convenciones-tabla {
 	margin-top: 10px;
 }
@@ -111,7 +114,7 @@
 }
 .editor-vista-previa-codigo {
 	overflow: auto;
-	width: 580px;
+	width: 100%;
 	padding: 5px;
 	text-align:left;
 	background-color: #ffffff;

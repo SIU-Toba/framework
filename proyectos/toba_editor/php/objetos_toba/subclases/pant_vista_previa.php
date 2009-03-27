@@ -38,7 +38,9 @@ class pant_vista_previa extends toba_ei_pantalla
 							$textos[] = $estandar->parsear_mensaje($mensaje['message']);	//Cambia el id de la convencion por una url
 						}
 					}
-					$mensajes_linea[$linea] = toba_recurso::imagen_toba($imagen, true, null, null, implode('<br><br>', $textos));
+					$ayuda =  implode('<br><br>', $textos);
+					$ayuda = str_replace("'", "`", $ayuda);
+					$mensajes_linea[$linea] = toba_recurso::imagen_toba($imagen, true, null, null, $ayuda);
 				}
 			}
 			$this->generar_html_descripcion("$titulo: $salida $extra", $nivel);
@@ -53,6 +55,24 @@ class pant_vista_previa extends toba_ei_pantalla
 		$formato_linea = "<span class='editor-linea-codigo'>%02d</span>&nbsp;&nbsp;";
 		echo @$h->toHtml(true, true, $formato_linea, true, $mensajes_linea);
 		echo "</div>";
+	}
+
+	function extender_objeto_js()
+	{
+		if ($this->existe_evento('trac_ver')) {
+			$path = $this->controlador()->get_path_archivo();
+			$svn = new toba_svn();
+			$url = $svn->get_url($path);
+			$proyecto = toba_editor::get_proyecto_cargado();
+			$url = preg_replace('/svn\/(\w+)/i', 'trac/$1/browser', $url);
+			echo "
+				{$this->objeto_js}.evt__trac_ver = function() {
+					var opciones = {'scrollbars' : 1, 'resizable': 1};
+					abrir_popup('trac', '$url', opciones);
+					return false;
+				}
+			";
+		}
 	}
 }
 
