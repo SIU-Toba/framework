@@ -80,6 +80,10 @@ class comando_instalacion extends comando_toba
 				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
 				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
 				$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
+				$base_temp = $this->consola->dialogo_ingresar_texto( "Nombre de Base de Datos (ENTER utilizará: '$base')", false);
+				if ($base_temp != ''){
+					$base = $base_temp;
+				}
 				$datos = array(
 					'motor' => 'postgres7',
 					'profile' => $profile,
