@@ -276,8 +276,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'objetos/cuadro_array.gif', --imagen
-	'base,prop_basicas', --objetos
-	'procesar,eliminar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -292,8 +292,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'objetos/columna.gif', --imagen
-	'columnas_lista,columnas,columna_corte,columnas_importar', --objetos
-	'eliminar,procesar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -308,8 +308,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'evento.png', --imagen
-	'eventos', --objetos
-	'procesar,eliminar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -324,9 +324,128 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'objetos/fila.gif', --imagen
-	'prop_cortes,cortes', --objetos
-	'eliminar,procesar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'362', --pantalla
+	'1363', --objeto_ci
+	'1', --orden
+	'32'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'362', --pantalla
+	'1363', --objeto_ci
+	'2', --orden
+	'40'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'363', --pantalla
+	'1363', --objeto_ci
+	'3', --orden
+	'33'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'363', --pantalla
+	'1363', --objeto_ci
+	'2', --orden
+	'34'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'363', --pantalla
+	'1363', --objeto_ci
+	'4', --orden
+	'35'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'363', --pantalla
+	'1363', --objeto_ci
+	'1', --orden
+	'36'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'364', --pantalla
+	'1363', --objeto_ci
+	'1', --orden
+	'39'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'474', --pantalla
+	'1363', --objeto_ci
+	'2', --orden
+	'37'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'474', --pantalla
+	'1363', --objeto_ci
+	'1', --orden
+	'41'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'362', --pantalla
+	'1363', --objeto_ci
+	'45', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'362', --pantalla
+	'1363', --objeto_ci
+	'46', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'363', --pantalla
+	'1363', --objeto_ci
+	'45', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'363', --pantalla
+	'1363', --objeto_ci
+	'46', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'364', --pantalla
+	'1363', --objeto_ci
+	'45', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'364', --pantalla
+	'1363', --objeto_ci
+	'46', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'474', --pantalla
+	'1363', --objeto_ci
+	'45', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'474', --pantalla
+	'1363', --objeto_ci
+	'46', --evento_id
+	'toba_editor'  --proyecto
+);

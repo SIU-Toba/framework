@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'personas', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -151,7 +151,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'alumnos', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -167,7 +167,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'materias', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -183,9 +183,41 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'comisiones', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 10
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'10000014', --pantalla
+	'10000039', --objeto_ci
+	'1', --orden
+	'10000045'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'10000015', --pantalla
+	'10000039', --objeto_ci
+	'1', --orden
+	'10000046'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'10000016', --pantalla
+	'10000039', --objeto_ci
+	'1', --orden
+	'10000047'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'10000017', --pantalla
+	'10000039', --objeto_ci
+	'1', --orden
+	'10000048'  --dep_id
+);

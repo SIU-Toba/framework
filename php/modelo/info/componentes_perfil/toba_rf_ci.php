@@ -11,6 +11,7 @@ class toba_rf_ci extends toba_rf_componente
 		$this->agregar_hijo($grupo);
 		$deps = $this->cargar_datos_dependencias();
 		$pantallas = $this->cargar_datos_pantallas();
+		$obj_pantalla = $this->cargar_datos_objetos_pantalla();
 		foreach($pantallas as $pantalla) {
 			//Creo la pantalla
 			if ($pantalla['orden']=='' || $pantalla['orden']=='1') {
@@ -21,7 +22,12 @@ class toba_rf_ci extends toba_rf_componente
 			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla'], $primera);
 			$grupo->agregar_hijo($p);
 			//Cargo las dependencias
-			$deps_pantalla = array_map('trim',explode(',',$pantalla['objetos']));
+			$deps_pantalla = array();
+			foreach($obj_pantalla as $obj){
+				if ($pantalla['pantalla'] == $obj['pantalla']){
+					$deps_pantalla[] = $obj['identificador'];
+				}
+			}			
 			foreach( $deps as $dep ) {
 				if( in_array($dep['rol'], $deps_pantalla) ){
 					switch ($dep['clase']) {
@@ -89,7 +95,24 @@ class toba_rf_ci extends toba_rf_componente
 					AND c.clase_tipo IN (7,8)";
 		return toba::db()->consultar($sql);
 	}
-	
+
+	function cargar_datos_objetos_pantalla()
+	{
+		$sql = "SELECT	op.pantalla,
+										op.orden,
+										op.dep_id,
+										od.identificador
+					 FROM	apex_objetos_pantalla op,
+									apex_objeto_dependencias od
+					 WHERE op.proyecto = '$this->proyecto'
+					 AND	op.objeto_ci = '$this->componente'
+					 AND	op.proyecto = od.proyecto
+					 AND	op.objeto_ci = od.objeto_consumidor
+					 AND	op.dep_id	= od.dep_id
+					ORDER BY	op.pantalla, op.orden";
+		return toba::db()->consultar($sql);
+	}
+
 	function get_input($id)
 	{
 		if(!$this->primer_nivel) {

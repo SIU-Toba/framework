@@ -192,8 +192,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -208,9 +208,19 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'volver', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'463', --pantalla
+	'1512', --objeto_ci
+	'89', --evento_id
+	'toba_editor'  --proyecto
+);

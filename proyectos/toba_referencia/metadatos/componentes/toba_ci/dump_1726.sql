@@ -173,8 +173,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,cuadro', --objetos
-	'agregar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -189,9 +189,44 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'formulario', --objetos
-	'', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'949', --pantalla
+	'1726', --objeto_ci
+	'2', --orden
+	'699'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'949', --pantalla
+	'1726', --objeto_ci
+	'1', --orden
+	'700'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'950', --pantalla
+	'1726', --objeto_ci
+	'1', --orden
+	'698'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'949', --pantalla
+	'1726', --objeto_ci
+	'160', --evento_id
+	'toba_referencia'  --proyecto
+);

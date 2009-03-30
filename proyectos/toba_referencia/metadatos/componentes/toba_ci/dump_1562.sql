@@ -99,7 +99,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'formulario', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -115,9 +115,20 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pantalla_visualizacion', --subclase
 	'componentes/efs/ef_upload/pantalla_visualizacion.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'467', --pantalla
+	'1562', --objeto_ci
+	'1', --orden
+	'24'  --dep_id
+);

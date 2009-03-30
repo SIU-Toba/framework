@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form1,cuadro1,form2,esquema', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -151,9 +151,69 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form1,cuadro1,form2,esquema', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pantalla_dos_columnas', --subclase
 	'componentes/ci/pantalla_dos_columnas.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000057', --pantalla
+	'1000210', --objeto_ci
+	'1', --orden
+	'1000085'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000057', --pantalla
+	'1000210', --objeto_ci
+	'2', --orden
+	'1000086'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000057', --pantalla
+	'1000210', --objeto_ci
+	'3', --orden
+	'1000087'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000057', --pantalla
+	'1000210', --objeto_ci
+	'4', --orden
+	'1000088'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000058', --pantalla
+	'1000210', --objeto_ci
+	'1', --orden
+	'1000085'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000058', --pantalla
+	'1000210', --objeto_ci
+	'2', --orden
+	'1000086'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000058', --pantalla
+	'1000210', --objeto_ci
+	'3', --orden
+	'1000087'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'1000058', --pantalla
+	'1000210', --objeto_ci
+	'4', --orden
+	'1000088'  --dep_id
+);

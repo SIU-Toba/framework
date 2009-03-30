@@ -144,6 +144,73 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 );
 --- FIN Grupo de desarrollo 10
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1507', --objeto
+	'33000004', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1502', --padre_objeto
+	'dependencias', --padre_id
+	'proyecto,objeto_consumidor,dep_id', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'33000010', --hijo_objeto
+	'objetos_pantalla', --hijo_id
+	'proyecto,objeto_ci,dep_id', --hijo_clave
+	NULL, --cascada
+	'6'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1507', --objeto
+	'33000005', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1504', --padre_objeto
+	'pantallas', --padre_id
+	'objeto_ci_proyecto,objeto_ci,pantalla', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'33000010', --hijo_objeto
+	'objetos_pantalla', --hijo_id
+	'proyecto,objeto_ci,pantalla', --hijo_clave
+	NULL, --cascada
+	'7'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1507', --objeto
+	'33000006', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1505', --padre_objeto
+	'eventos', --padre_id
+	'proyecto,evento_id', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'33000011', --hijo_objeto
+	'eventos_pantalla', --hijo_id
+	'proyecto,evento_id', --hijo_clave
+	NULL, --cascada
+	'8'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1507', --objeto
+	'33000007', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1504', --padre_objeto
+	'pantallas', --padre_id
+	'objeto_ci_proyecto,objeto_ci,pantalla', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'33000011', --hijo_objeto
+	'eventos_pantalla', --hijo_id
+	'proyecto,objeto_ci,pantalla', --hijo_clave
+	NULL, --cascada
+	'9'  --orden
+);
+--- FIN Grupo de desarrollo 33
+
 ------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
@@ -185,6 +252,36 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	'3'  --orden
 );
+--- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000012', --dep_id
+	'1507', --objeto_consumidor
+	'33000011', --objeto_proveedor
+	'eventos_pantalla', --identificador
+	'0', --parametros_a
+	'0', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000011', --dep_id
+	'1507', --objeto_consumidor
+	'33000010', --objeto_proveedor
+	'objetos_pantalla', --identificador
+	'0', --parametros_a
+	'0', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 33
+
+--- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
 	'85', --dep_id

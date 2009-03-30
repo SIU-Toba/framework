@@ -278,8 +278,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro_proyectos,cuadro_grupos_acceso', --objetos
-	'agregar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -294,9 +294,69 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_datos_perfil,editor_perfiles', --objetos
-	'eliminar,guardar,volver', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_usuarios', --proyecto
+	'1130', --pantalla
+	'2175', --objeto_ci
+	'1', --orden
+	'1106'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_usuarios', --proyecto
+	'1130', --pantalla
+	'2175', --objeto_ci
+	'2', --orden
+	'1107'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_usuarios', --proyecto
+	'1131', --pantalla
+	'2175', --objeto_ci
+	'2', --orden
+	'1105'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_usuarios', --proyecto
+	'1131', --pantalla
+	'2175', --objeto_ci
+	'1', --orden
+	'1109'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1130', --pantalla
+	'2175', --objeto_ci
+	'975', --evento_id
+	'toba_usuarios'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1131', --pantalla
+	'2175', --objeto_ci
+	'946', --evento_id
+	'toba_usuarios'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1131', --pantalla
+	'2175', --objeto_ci
+	'970', --evento_id
+	'toba_usuarios'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1131', --pantalla
+	'2175', --objeto_ci
+	'974', --evento_id
+	'toba_usuarios'  --proyecto
+);

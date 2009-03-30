@@ -204,9 +204,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'aceptar,cancelar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pant_efs', --subclase
 	'objetos_toba/efs/pant_efs.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000386', --pantalla
+	'1000587', --objeto_ci
+	'1000958', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000386', --pantalla
+	'1000587', --objeto_ci
+	'1000959', --evento_id
+	'toba_editor'  --proyecto
+);

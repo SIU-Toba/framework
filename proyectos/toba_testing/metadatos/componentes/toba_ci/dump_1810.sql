@@ -180,8 +180,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,cuadro', --objetos
-	'imprimir,imprimir_debug', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -196,9 +196,55 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'ml', --objetos
-	'imprimir,imprimir_debug', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'979', --pantalla
+	'1810', --objeto_ci
+	'2', --orden
+	'771'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'980', --pantalla
+	'1810', --objeto_ci
+	'1', --orden
+	'772'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'979', --pantalla
+	'1810', --objeto_ci
+	'418', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'979', --pantalla
+	'1810', --objeto_ci
+	'428', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'980', --pantalla
+	'1810', --objeto_ci
+	'418', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'980', --pantalla
+	'1810', --objeto_ci
+	'428', --evento_id
+	'toba_testing'  --proyecto
+);

@@ -192,8 +192,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'objetos/negocio.gif', --imagen
-	'base', --objetos
-	'procesar,eliminar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -208,9 +208,55 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'objetos/asociar_objeto.gif', --imagen
-	'dependencias', --objetos
-	'eliminar,procesar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'937', --pantalla
+	'1707', --objeto_ci
+	'1', --orden
+	'684'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'987', --pantalla
+	'1707', --objeto_ci
+	'1', --orden
+	'1118'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'937', --pantalla
+	'1707', --objeto_ci
+	'120', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'937', --pantalla
+	'1707', --objeto_ci
+	'121', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'987', --pantalla
+	'1707', --objeto_ci
+	'120', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'987', --pantalla
+	'1707', --objeto_ci
+	'121', --evento_id
+	'toba_editor'  --proyecto
+);

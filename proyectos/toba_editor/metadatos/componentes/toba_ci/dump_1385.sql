@@ -123,9 +123,34 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'eventos_lista,eventos,generador', --objetos
-	'', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pant_eventos', --subclase
 	'objetos_toba/pant_eventos.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'367', --pantalla
+	'1385', --objeto_ci
+	'2', --orden
+	'46'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'367', --pantalla
+	'1385', --objeto_ci
+	'1', --orden
+	'47'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'367', --pantalla
+	'1385', --objeto_ci
+	'3', --orden
+	'129'  --dep_id
+);

@@ -150,8 +150,24 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'vinculo,vinculo_inacc', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1004', --pantalla
+	'1862', --objeto_ci
+	'510', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1004', --pantalla
+	'1862', --objeto_ci
+	'511', --evento_id
+	'toba_referencia'  --proyecto
+);

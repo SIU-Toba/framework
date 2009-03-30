@@ -137,9 +137,30 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'datos', --objetos
-	'ingresar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pantalla_login', --subclase
 	'login/ci_login.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1163', --pantalla
+	'2256', --objeto_ci
+	'1', --orden
+	'1151'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1163', --pantalla
+	'2256', --objeto_ci
+	'1040', --evento_id
+	'toba_testing'  --proyecto
+);

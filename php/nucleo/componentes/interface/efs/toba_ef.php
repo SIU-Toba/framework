@@ -155,6 +155,7 @@ abstract class toba_ef
 	
 	/**
 	 * El ef permite seleccionar valores o solo se pueden editar?
+	 * @return boolean
 	 */
 	function es_seleccionable()
 	{
@@ -163,6 +164,7 @@ abstract class toba_ef
 
 	/**
 	 * El ef maneja un único valor como estado? O maneja un arreglo de estados?
+	 * @return boolean
 	 */
 	function es_estado_unico() 
 	{
@@ -239,6 +241,7 @@ abstract class toba_ef
 	
 	/*
 	 * Elimina un maestro particular de este ef de entre la lista
+	 * @param string $maestro Id del maestro a ser eliminado
 	 * @ignore
 	 */
 	function quitar_maestro($maestro)
@@ -271,6 +274,7 @@ abstract class toba_ef
     
     /**
      * Retorna la clase css asociada a la etiqueta
+	 * @return string
      */
     function get_estilo_etiqueta()
     {
@@ -298,8 +302,7 @@ abstract class toba_ef
 	}
 
 	/**
-	 * Enter description here...
-	 *
+	 * Devuelve el id del ef dentro del framework
 	 * @return string
 	 */
 	function get_id()
@@ -309,6 +312,7 @@ abstract class toba_ef
 
 	/**
 	 * Retorna el texto de la etiqueta asociada
+	 * @return string
 	 */
 	function get_etiqueta()
 	{
@@ -328,6 +332,7 @@ abstract class toba_ef
 	/**
 	 * El 'dato' del ef es la o las columnas de datos asociadas.
 	 * Cuando al formulario se le pide un get_datos() este retorna como columnas los datos definidos en los efs
+	 * @return mixed
 	 */
 	function get_dato()
 	{
@@ -336,12 +341,17 @@ abstract class toba_ef
 
 	/**
 	 * Como el id html puede variar si se multiplexa el ef (caso formulario_ml), este metodo retorna el id original del ef
+	 * @return string
 	 */
 	function get_id_form_orig()
 	{
 		return $this->id_form_orig;
 	}	
 
+	/**
+	 * Retorna el id html del ef en el formulario
+	 * @return string
+	 */
 	function get_id_form()
 	{
 		return $this->id_form;

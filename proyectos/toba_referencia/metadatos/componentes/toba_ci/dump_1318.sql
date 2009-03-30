@@ -169,8 +169,8 @@ En la subclase se puede encontrar código que maneja las excepciones como salto d
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'cancelar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -186,7 +186,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -201,8 +201,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'tipos', --objetos
-	'cancelar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -218,7 +218,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -234,7 +234,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -250,7 +250,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -266,7 +266,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -282,8 +282,77 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'procesar,cancelar', --eventos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'427', --pantalla
+	'1318', --objeto_ci
+	'1', --orden
+	'9'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'425', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'426', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'427', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'428', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'429', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'430', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'431', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'432', --pantalla
+	'1318', --objeto_ci
+	'9', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'432', --pantalla
+	'1318', --objeto_ci
+	'10', --evento_id
+	'toba_referencia'  --proyecto
+);

@@ -29,6 +29,8 @@ class toba_ei_pantalla extends toba_ei
 	protected $_submit;								// Boton de SUBMIT
 	protected $_id_en_controlador;
 	protected $_notificaciones = array();			// Arreglo con notificaciones a mostrar
+	protected $_objetos_pantalla = array();		//Arreglo con info de los objetos asociados
+	protected $_eventos_pantalla = array();		//Arreglo con info de los eventos asociados
 
 	function __construct($info_pantalla, $submit, $objeto_js)
 	{
@@ -212,12 +214,11 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function cargar_lista_dep()
 	{
-		//Busco la definicion standard para la etapa
-		$objetos = trim($this->_info_pantalla["objetos"] );
-		if ( $objetos != "" ) {
-			$objetos = array_map("trim", explode(",", $objetos ) );
-			foreach ($objetos as $id_obj) {
-				$this->agregar_dep($id_obj);
+		$id_actual = $this->_info_pantalla['identificador'];
+		foreach($this->_objetos_pantalla as $dep)
+		{
+			if ($dep['identificador_pantalla'] == $id_actual){
+					$this->agregar_dep($dep['identificador_dep']);
 			}
 		}
 	}
@@ -317,12 +318,10 @@ class toba_ei_pantalla extends toba_ei
 	{
 		//--- Filtra los eventos definidos por el usuario segun la asignacion a pantallas
 		parent::cargar_lista_eventos();
-		$ev_etapa = explode(',', $this->_info_pantalla['eventos']);
-		foreach (array_keys($this->_eventos_usuario_utilizados) as $id) {
-			if (! in_array($id, $ev_etapa)) {
-				unset($this->_eventos_usuario_utilizados[$id]);
-			}
-		}
+
+		//Como los eventos de pantalla vienen indexados por identificador (al igual que los utilizados por el usuario) podemos usar eso a nuestro favor
+		// en lugar de hacer el tipico ciclo, asi obtenemos los eventos usados por el usuario en una linea.
+		$this->_eventos_usuario_utilizados = array_intersect_key($this->_eventos_usuario_utilizados, $this->_eventos_pantalla);
 		
 		//-- Agrega los eventos internos relacionados con la navegacion tabs
 		switch($this->_info_ci['tipo_navegacion']) {

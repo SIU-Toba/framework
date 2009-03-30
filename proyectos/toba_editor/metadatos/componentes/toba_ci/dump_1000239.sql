@@ -212,8 +212,36 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	'anterior,borrar,refrescar,siguiente', --eventos
+	NULL, --eventos
 	'pant_visualizacion', --subclase
 	'utilitarios/cronometro/pant_visualizacion.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000140', --pantalla
+	'1000239', --objeto_ci
+	'1000251', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000140', --pantalla
+	'1000239', --objeto_ci
+	'1000252', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000140', --pantalla
+	'1000239', --objeto_ci
+	'1000253', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1000140', --pantalla
+	'1000239', --objeto_ci
+	'1000254', --evento_id
+	'toba_editor'  --proyecto
+);

@@ -80,7 +80,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pantalla_destino', --subclase
 	'componentes/eventos/vinculos/pantalla_destino.php'  --subclase_archivo

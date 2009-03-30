@@ -111,9 +111,20 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pant_auditoria', --subclase
 	'auditoria/log_datos/pant_auditoria.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_usuarios', --proyecto
+	'1174', --pantalla
+	'2274', --objeto_ci
+	'1', --orden
+	'1159'  --dep_id
+);

@@ -168,8 +168,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'abrir,refrescar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pantalla_codigo', --subclase
 	'editores/editor_php/pantalla_codigo.php'  --subclase_archivo
 );
@@ -184,8 +184,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
-	'abrir,refrescar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pantalla_analisis', --subclase
 	'editores/editor_php/pantalla_analisis.php'  --subclase_archivo
 );
@@ -200,9 +200,48 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'subclase', --objetos
-	'', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pantalla_previsualizacion', --subclase
 	'editores/editor_php/pantalla_previsualizacion.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'1007', --pantalla
+	'1321', --objeto_ci
+	'1', --orden
+	'22'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'354', --pantalla
+	'1321', --objeto_ci
+	'189', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'354', --pantalla
+	'1321', --objeto_ci
+	'191', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'355', --pantalla
+	'1321', --objeto_ci
+	'189', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'355', --pantalla
+	'1321', --objeto_ci
+	'191', --evento_id
+	'toba_editor'  --proyecto
+);

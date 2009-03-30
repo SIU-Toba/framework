@@ -96,3 +96,51 @@ CREATE TABLE apex_objeto_ci_pantalla
 	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+CREATE TABLE apex_objetos_pantalla
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto_ci
+--: dump_order_by: proyecto, objeto_ci, pantalla, dep_id
+--: dump_where: (	proyecto =	'%%' )
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto		VARCHAR(15) NULL,
+	pantalla		 BIGINT NULL,
+	objeto_ci		BIGINT NULL,
+	orden			 SMALLINT NULL,
+	dep_id			BIGINT NULL,
+	CONSTRAINT "apex_objetos_pantalla_pk"	PRIMARY KEY ("proyecto", "objeto_ci", "pantalla", "dep_id"),
+	CONSTRAINT "apex_objetos_pantalla_apex_objeto_ci_pantalla_fk" FOREIGN KEY ("pantalla", "objeto_ci", "proyecto") REFERENCES "apex_objeto_ci_pantalla" ("pantalla", "objeto_ci", "objeto_ci_proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_objetos_pantalla_apex_objeto_dependencias_fk"	FOREIGN KEY ("dep_id", "proyecto", "objeto_ci") REFERENCES "apex_objeto_dependencias" ("dep_id", "proyecto", "objeto_consumidor") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
+CREATE TABLE apex_eventos_pantalla
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto_ci
+--: dump_order_by: proyecto, objeto_ci, pantalla, evento_id
+--: dump_where: (	proyecto =	'%%' )
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	pantalla		  BIGINT NULL,
+	objeto_ci		 BIGINT NULL,
+	evento_id		BIGINT NULL,
+	proyecto		 VARCHAR(15) NULL,
+	CONSTRAINT "apex_eventos_pantalla_pk"	PRIMARY KEY ("pantalla", "objeto_ci", "proyecto", "evento_id"),
+	CONSTRAINT "apex_eventos_pantalla_apex_objeto_ci_pantalla_fk" FOREIGN KEY ("pantalla", "objeto_ci", "proyecto") REFERENCES "apex_objeto_ci_pantalla" ("pantalla", "objeto_ci", "objeto_ci_proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_eventos_pantalla_apex_objeto_eventos_fk" FOREIGN KEY ("evento_id", "proyecto") REFERENCES "apex_objeto_eventos" ("evento_id", "proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--###################################################################################################

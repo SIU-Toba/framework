@@ -13,6 +13,8 @@ class toba_ci extends toba_ei
 	// General
 	protected $_info_ci = array();
 	protected $_info_ci_me_pantalla = array();
+	protected $_info_obj_pantalla = array();			//Lista de los objetos asociados a las pantallas
+	protected $_info_evt_pantalla = array();			//Lista de los eventos asociados a las pantallas
  	protected $_prefijo = 'ci';
 	protected $_cn=null;								// Controlador de negocio asociado
 	protected $_dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
@@ -624,6 +626,33 @@ class toba_ci extends toba_ei
 	}
 
 	/**
+	 * Retorna los objetos asociados a una pantalla especifica perteneciente a este ci
+	 * @param string $id Identificador de la pantalla
+	 * @return array
+	 */
+	protected function get_info_objetos_asoc_pantalla($id)
+	{
+		$obj = array();
+		foreach($this->_info_obj_pantalla as $info_pantalla) {
+			if ($info_pantalla['identificador_pantalla'] == $id) {
+				$obj[] = $info_pantalla;
+			}
+		}
+		return $obj;
+	}
+
+	protected function get_info_eventos_pantalla($id)
+	{
+			$eventos = array();
+			foreach($this->_info_evt_pantalla as $info_evento){
+				if ($info_evento['identificador_pantalla'] == $id){
+					$eventos[$info_evento['identificador_evento']] = $info_evento;
+				}
+			}
+			return $eventos;
+	}
+
+	/**
 	 * Retorna la referencia a la pantalla a graficar
 	 * Una vez que se invoca este metodo se fija la pantalla para el resto del pedido de pagina
 	 * Es importante relegar esta desicion en caso de querer variar la pantalla a mostrar dinamicamente
@@ -641,11 +670,15 @@ class toba_ci extends toba_ei
 				$id_pantalla = $this->_pantalla_id_eventos;
 			}	
 			$info_pantalla = $this->get_info_pantalla($id_pantalla);
+			$obj_pantalla = $this->get_info_objetos_asoc_pantalla($id_pantalla);
+			$evt_pantalla = $this->get_info_eventos_pantalla($id_pantalla);
 			$info = array('_info' => $this->_info,
 						 '_info_ci' => $this->_info_ci, 
 						 '_info_eventos' => $this->_info_eventos,
 						 '_info_ci_me_pantalla' => $this->_info_ci_me_pantalla);
 			$info['_info_pantalla'] = $info_pantalla;
+			$info['_objetos_pantalla'] = $obj_pantalla;
+			$info['_eventos_pantalla'] = $evt_pantalla;
 			$info['_const_instancia_numero'] = 0;
 			if (isset($info_pantalla['subclase_archivo'])) {
 				require_once($info_pantalla['subclase_archivo']);

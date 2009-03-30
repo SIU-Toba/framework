@@ -223,8 +223,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,cuadro', --objetos
-	'agregar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pant_seleccion', --subclase
 	'varios/perfil_funcional/pant_seleccion.php'  --subclase_archivo
 );
@@ -239,9 +239,56 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'ci', --objetos
-	'procesar,cancelar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 30
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000007', --pantalla
+	'30000008', --objeto_ci
+	'1', --orden
+	'30000007'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000007', --pantalla
+	'30000008', --objeto_ci
+	'2', --orden
+	'30000008'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000008', --pantalla
+	'30000008', --objeto_ci
+	'1', --orden
+	'30000009'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000007', --pantalla
+	'30000008', --objeto_ci
+	'30000023', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000008', --pantalla
+	'30000008', --objeto_ci
+	'30000018', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000008', --pantalla
+	'30000008', --objeto_ci
+	'30000019', --evento_id
+	'toba_testing'  --proyecto
+);

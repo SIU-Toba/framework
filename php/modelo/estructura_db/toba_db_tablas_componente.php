@@ -15,28 +15,30 @@ class toba_db_tablas_componente
   7 => 'apex_item_objeto',
   8 => 'apex_objeto_mt_me',
   9 => 'apex_objeto_ci_pantalla',
-  10 => 'apex_objeto_cuadro',
-  11 => 'apex_objeto_cuadro_cc',
-  12 => 'apex_objeto_ei_cuadro_columna',
-  13 => 'apex_objeto_cuadro_col_cc',
-  14 => 'apex_objeto_ut_formulario',
-  15 => 'apex_objeto_ei_formulario_ef',
-  16 => 'apex_objeto_esquema',
-  17 => 'apex_objeto_ei_filtro',
-  18 => 'apex_objeto_ei_filtro_col',
-  19 => 'apex_objeto_db_registros',
-  20 => 'apex_objeto_db_registros_col',
-  21 => 'apex_objeto_db_registros_ext',
-  22 => 'apex_objeto_db_registros_ext_col',
-  23 => 'apex_objeto_db_registros_uniq',
-  24 => 'apex_objeto_datos_rel',
-  25 => 'apex_objeto_datos_rel_asoc',
-  26 => 'apex_molde_operacion',
-  27 => 'apex_molde_operacion_log',
-  28 => 'apex_molde_operacion_log_elementos',
-  29 => 'apex_molde_operacion_abms',
-  30 => 'apex_molde_operacion_abms_fila',
-  31 => 'apex_molde_operacion_importacion',
+  10 => 'apex_objetos_pantalla',
+  11 => 'apex_eventos_pantalla',
+  12 => 'apex_objeto_cuadro',
+  13 => 'apex_objeto_cuadro_cc',
+  14 => 'apex_objeto_ei_cuadro_columna',
+  15 => 'apex_objeto_cuadro_col_cc',
+  16 => 'apex_objeto_ut_formulario',
+  17 => 'apex_objeto_ei_formulario_ef',
+  18 => 'apex_objeto_esquema',
+  19 => 'apex_objeto_ei_filtro',
+  20 => 'apex_objeto_ei_filtro_col',
+  21 => 'apex_objeto_db_registros',
+  22 => 'apex_objeto_db_registros_col',
+  23 => 'apex_objeto_db_registros_ext',
+  24 => 'apex_objeto_db_registros_ext_col',
+  25 => 'apex_objeto_db_registros_uniq',
+  26 => 'apex_objeto_datos_rel',
+  27 => 'apex_objeto_datos_rel_asoc',
+  28 => 'apex_molde_operacion',
+  29 => 'apex_molde_operacion_log',
+  30 => 'apex_molde_operacion_log_elementos',
+  31 => 'apex_molde_operacion_abms',
+  32 => 'apex_molde_operacion_abms_fila',
+  33 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -381,6 +383,55 @@ class toba_db_tablas_componente
     11 => 'eventos',
     12 => 'subclase',
     13 => 'subclase_archivo',
+  ),
+);
+	}
+
+	static function apex_objetos_pantalla()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto_ci',
+  'dump_order_by' => 'proyecto, objeto_ci, pantalla, dep_id',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pantalla',
+    2 => 'objeto_ci',
+    3 => 'orden',
+    4 => 'dep_id',
+  ),
+);
+	}
+
+	static function apex_eventos_pantalla()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto_ci',
+  'dump_order_by' => 'proyecto, objeto_ci, pantalla, evento_id',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'pantalla',
+    1 => 'objeto_ci',
+    2 => 'evento_id',
+    3 => 'proyecto',
   ),
 );
 	}

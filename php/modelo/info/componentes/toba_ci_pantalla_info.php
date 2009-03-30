@@ -6,15 +6,22 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 	protected $datos;
 	protected $proyecto;
 	protected $id;
+	protected $obj_asociados = array();
 		
-	function __construct($datos, $dependencias_posibles, $proyecto, $id)
+	function __construct($datos, $dependencias_posibles, $proyecto, $id, $info_dep_asociadas = array())
 	{
 		$this->datos = $datos;
+		$this->set_info_objetos_asociados($info_dep_asociadas);
 		$this->asociar_dependencias($dependencias_posibles);
 		$this->proyecto = $proyecto;
 		$this->id = $id;
 	}
 	
+	function set_info_objetos_asociados($obj)
+	{
+		$this->obj_asociados = $obj;
+	}
+
 	protected function asociar_dependencias($posibles)
 	{
 		$eis = $this->get_lista_dependencias_asociadas();
@@ -27,13 +34,14 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 	
 	protected function get_lista_dependencias_asociadas()
 	{
-		if (isset($this->datos['objetos'])) {
-			$eis = explode(',', $this->datos['objetos']);
-			$eis = array_map('trim', $eis);
-			return $eis;
-		} else {
-			return array();		
-		}
+		$lista = array();
+		$id_pantalla = $this->datos['pantalla'];
+		foreach($this->obj_asociados as $dep){
+			if ($dep['pantalla'] == $id_pantalla){
+				$lista[] = $dep['identificador_dep'];
+			}
+		}			
+		return $lista;
 	}
 	
 	function tiene_dependencia($dep)

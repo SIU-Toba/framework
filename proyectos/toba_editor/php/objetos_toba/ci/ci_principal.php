@@ -309,31 +309,42 @@ class ci_editor extends ci_editores_toba
 	//--- Asociacion de DEPENDENCIAS a pantallas  ----------
 	//------------------------------------------------------
 
-	function conf__pantallas_ei()
-	{
-		if( $deps = $this->get_entidad()->tabla('pantallas')->get_dependencias_pantalla(
-							$this->get_pant_actual()))
-		{
-			$a=0;
-			$datos = null;
-			foreach($deps as $dep){
-				if(in_array($dep, $this->s__pantalla_dep_asoc)){
-					$datos[$a]['dependencia'] = $dep;
-					$a++;	
-				}
-			}
-			return $datos;
+	function conf__pantallas_ei($componente)
+	{		
+		//Ahora busco las que estan asociadas a la pantalla actual
+		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$ids = $busqueda->buscar_ids();
+		
+		$objetos_en_pantalla =  array();
+		foreach($ids as $id){
+			$obj_a = $this->get_entidad()->tabla('objetos_pantalla')->get_fila_columna($id, 'dependencia');
+			$objetos_en_pantalla[] = array('dependencia' => $obj_a);
 		}
-		//return array();
+		$componente->set_datos($objetos_en_pantalla);
 	}
 
 	function evt__pantallas_ei__modificacion($datos)
 	{
-		$deps = array();
-		foreach($datos as $dato){
-			$deps[] = $dato['dependencia'];
+		//Primero busco lo que esta y lo elimino, asi no quedan registros raros dando vueltas
+		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$ids = $busqueda->buscar_ids();
+		foreach($ids as $id){
+			$this->get_entidad()->tabla('objetos_pantalla')->eliminar_fila($id);
 		}
-		$this->get_entidad()->tabla('pantallas')->set_dependencias_pantalla($this->get_pant_actual(), $deps);
+
+		//Seteo los cursores correspondientes y doy de alta los registros
+		$this->get_entidad()->tabla('pantallas')->set_cursor($this->get_pant_actual());
+		$orden = 0;
+		foreach($datos as $dato){
+			$id = $this->get_entidad()->tabla('dependencias')->get_id_fila_condicion(array('identificador' => $dato['dependencia']));
+			$this->get_entidad()->tabla('dependencias')->set_cursor(current($id));
+			$this->get_entidad()->tabla('objetos_pantalla')->nueva_fila(array('orden' => $orden, 'dependencia' => $dato['dependencia']));
+			$orden++;
+		}
+		//Reseteo el cursor asi no se queda apuntando a donde no debe
+		$this->get_entidad()->tabla('dependencias')->resetear_cursor();
 	}
 
 	function combo_dependencias()
@@ -354,32 +365,42 @@ class ci_editor extends ci_editores_toba
 
 	function conf__pantallas_evt()
 	{
-		$eventos_asociados = $this->get_entidad()->tabla('pantallas')->get_eventos_pantalla($this->get_pant_actual());
-		$datos = null;
-		$a=0;
+		$datos = array();
+		//Meto los eventos asociados actuales por si agregaron alguno.
 		foreach( $this->s__pantalla_evt_asoc as $dep){
-			$datos[$a]['evento'] = $dep; 
-			if(is_array($eventos_asociados)){
-				if(in_array($dep, $eventos_asociados)){
-					$datos[$a]['asociar'] = 1;
-				}else{
-					$datos[$a]['asociar'] = 0;
-				}
-			}else{
-				$datos[$a]['asociar'] = 0;
-			}
-			$a++;
+			$datos[$dep] = array('evento' => $dep, 'asociar' => 0);
+		}
+		//Busco la asociacion hecha
+		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$ids = $busqueda->buscar_ids();
+		foreach($ids as $id){
+			$evt_involucrado = $this->get_entidad()->tabla('eventos_pantalla')->get_fila_columna($id, 'identificador');
+			$datos[$evt_involucrado] = array('evento' => $evt_involucrado, 'asociar' => 1);
 		}
 		return $datos;
 	}
 
 	function evt__pantallas_evt__modificacion($datos)
 	{
-		$eventos = array();
-		foreach($datos as $dato){
-			if($dato['asociar'] == "1")	$eventos[] = $dato['evento'];
+		//Busco la asociacion hecha para borrar los datos de las tablas.
+		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$ids = $busqueda->buscar_ids();
+		foreach($ids as $id){
+			$evt_involucrado = $this->get_entidad()->tabla('eventos_pantalla')->eliminar_fila($id);
 		}
-		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->get_pant_actual(), $eventos);
+
+		//Ahora meto las filas nuevas
+		$this->get_entidad()->tabla('pantallas')->set_cursor($this->get_pant_actual());
+		foreach($datos as $evt){
+			if ($evt['asociar'] == '1'){
+				$id_ev = $this->get_entidad()->tabla('eventos')->get_id_fila_condicion(array('identificador' => $evt['evento']));
+				$this->get_entidad()->tabla('eventos')->set_cursor(current($id_ev));
+				$this->get_entidad()->tabla('eventos_pantalla')->nueva_fila(array('identificador' => $evt['evento']));
+			}
+		}
+		$this->get_entidad()->tabla('eventos')->resetear_cursor();
 	}
 	
 	// *******************************************************************
@@ -426,7 +447,38 @@ class ci_editor extends ci_editores_toba
 	 */
 	function set_pantallas_evento($pant_presentes, $evento)
 	{
-		$this->get_entidad()->tabla('pantallas')->set_pantallas_evento($pant_presentes, $evento);
+		//Si no viene pantalla especificada.. asumo todas.
+		if (is_null($pant_presentes)){
+			$pant_presentes = array();
+		}
+
+		$pant_disponibles = $this->get_entidad()->tabla('pantallas')->get_id_filas();
+		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
+		foreach($pant_disponibles as $pantalla_id){
+			//Busco el evento en la pantalla para ver si ya esta.
+			$busqueda->set_padre('pantallas', $pantalla_id);
+			$busqueda->set_condicion('identificador', '==', $evento);
+			$id_evt = $busqueda->buscar_ids();
+			$evento_esta = (! empty($id_evt));
+
+			//Miro si la pantalla esta entre las presentes
+			$pantalla = $this->get_entidad()->tabla('pantallas')->get_fila_columna($pantalla_id, 'identificador');
+			$evento_debe_estar = ((empty($pant_presentes)) || (in_array($pantalla, $pant_presentes)));
+
+			if ($evento_debe_estar && !$evento_esta){
+				//Hay que agregarlo
+				$this->get_entidad()->tabla('pantallas')->set_cursor($pantalla_id);
+				$id_evt = $this->get_entidad()->tabla('eventos')->get_id_fila_condicion(array('identificador' => $evento));
+				$this->get_entidad()->tabla('eventos')->set_cursor(current($id_evt));
+				$this->get_entidad()->tabla('eventos_pantalla')->nueva_fila(array('identificador' => $evento));
+			}
+			
+			if (!$evento_debe_estar && $evento_esta){
+				//Hay que eliminarlo de la pantalla
+				$this->get_entidad()->tabla('eventos_pantalla')->eliminar_fila(current($id_evt));
+			}
+		}
+		$this->get_entidad()->tabla('eventos')->resetear_cursor();
 	}
 	
 	/**
@@ -434,7 +486,21 @@ class ci_editor extends ci_editores_toba
 	 */
 	function get_pantallas_evento($evento)
 	{
-		return $this->get_entidad()->tabla('pantallas')->get_pantallas_evento($evento);
+		//Busco el id del evento y lo seteo como cursor para la busqueda
+		$id_evento = $this->get_entidad()->tabla('eventos')->get_id_fila_condicion(array('identificador' => $evento));
+		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('eventos', current($id_evento));
+		$ids_eventos_p = $busqueda->buscar_ids();
+		
+		//Agrego todas las pantallas para las cuales el evento es valido
+		$pantallas = array();
+		foreach($ids_eventos_p as $id_p){
+			$datos_p = $this->get_entidad()->tabla('eventos_pantalla')->get_fila($id_p);
+			//Busco el Id de la pantalla, accediendo al padre porque si es fila nueva aun no esta seteado en eventos_pantalla
+			$id_pant = $this->get_entidad()->tabla('eventos_pantalla')->get_id_padres(array($id_p), 'pantallas');
+			$pantallas[] = $this->get_entidad()->tabla('pantallas')->get_fila_columna(current($id_pant), 'identificador');
+		}
+		return $pantallas;
 	}
 	
 	function get_pantallas_posibles()

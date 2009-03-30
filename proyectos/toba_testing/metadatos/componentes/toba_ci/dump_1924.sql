@@ -271,9 +271,84 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'arbol,archivos,calendario,cuadro,filtro,formulario,ml,esquema', --objetos
-	'ocultar,mostrar,colapsar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'1', --orden
+	'867'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'2', --orden
+	'868'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'3', --orden
+	'869'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'4', --orden
+	'870'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'6', --orden
+	'872'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'7', --orden
+	'873'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'8', --orden
+	'874'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'602', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'603', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1030', --pantalla
+	'1924', --objeto_ci
+	'604', --evento_id
+	'toba_testing'  --proyecto
+);

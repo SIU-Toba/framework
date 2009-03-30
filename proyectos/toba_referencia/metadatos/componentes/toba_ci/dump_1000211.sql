@@ -80,7 +80,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pant_definicion', --subclase
 	'tutorial/pant_items.php'  --subclase_archivo
@@ -96,7 +96,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pant_creacion', --subclase
 	'tutorial/pant_items.php'  --subclase_archivo
@@ -112,7 +112,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pant_agenda', --subclase
 	'tutorial/pant_tutorial.php'  --subclase_archivo
@@ -128,7 +128,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	'pant_php_plano', --subclase
 	'tutorial/pant_items.php'  --subclase_archivo

@@ -295,8 +295,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro,filtro,arbol,archivos,calendario,esquema', --objetos
-	'agregar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pant_pantala', --subclase
 	'varios/extension_php/pant_pantala.php'  --subclase_archivo
 );
@@ -311,8 +311,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'ci_edicion', --objetos
-	'procesar,cancelar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	'pant_pantalaa', --subclase
 	'varios/extension_php/pant_pantalaa.php'  --subclase_archivo
 );
@@ -333,3 +333,78 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'varios/extension_php/pant_otra.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 30
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'1', --orden
+	'30000001'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'2', --orden
+	'30000011'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'3', --orden
+	'30000012'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'4', --orden
+	'30000013'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'5', --orden
+	'30000014'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'6', --orden
+	'30000015'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'30000002', --pantalla
+	'30000001', --objeto_ci
+	'1', --orden
+	'30000002'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000001', --pantalla
+	'30000001', --objeto_ci
+	'30000003', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000002', --pantalla
+	'30000001', --objeto_ci
+	'30000001', --evento_id
+	'toba_testing'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000002', --pantalla
+	'30000001', --objeto_ci
+	'30000002', --evento_id
+	'toba_testing'  --proyecto
+);
