@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_sedes', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -151,7 +151,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro_edificios,form_edificios', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -167,9 +167,41 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_uas', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1038', --pantalla
+	'1939', --objeto_ci
+	'1', --orden
+	'886'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1039', --pantalla
+	'1939', --objeto_ci
+	'2', --orden
+	'887'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1039', --pantalla
+	'1939', --objeto_ci
+	'1', --orden
+	'897'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1040', --pantalla
+	'1939', --objeto_ci
+	'1', --orden
+	'889'  --dep_id
+);

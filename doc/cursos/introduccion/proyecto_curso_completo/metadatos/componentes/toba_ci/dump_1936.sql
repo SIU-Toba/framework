@@ -278,8 +278,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro_instituciones,cuadro_instituciones', --objetos
-	'agregar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -294,9 +294,69 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_institucion,form_uas', --objetos
-	'eliminar,guardar,volver', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1032', --pantalla
+	'1936', --objeto_ci
+	'2', --orden
+	'893'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1032', --pantalla
+	'1936', --objeto_ci
+	'1', --orden
+	'896'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1033', --pantalla
+	'1936', --objeto_ci
+	'1', --orden
+	'894'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1033', --pantalla
+	'1936', --objeto_ci
+	'2', --orden
+	'895'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1032', --pantalla
+	'1936', --objeto_ci
+	'608', --evento_id
+	'curso'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1033', --pantalla
+	'1936', --objeto_ci
+	'609', --evento_id
+	'curso'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1033', --pantalla
+	'1936', --objeto_ci
+	'610', --evento_id
+	'curso'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1033', --pantalla
+	'1936', --objeto_ci
+	'611', --evento_id
+	'curso'  --proyecto
+);

@@ -111,9 +111,27 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'filtro,cuadro', --objetos
-	'', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1073', --pantalla
+	'2048', --objeto_ci
+	'1', --orden
+	'963'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1073', --pantalla
+	'2048', --objeto_ci
+	'2', --orden
+	'964'  --dep_id
+);

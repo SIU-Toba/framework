@@ -149,9 +149,37 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'datos,seleccion_usuario', --objetos
-	'Ingresar', --eventos
+	NULL, --objetos
+	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1031', --pantalla
+	'1928', --objeto_ci
+	'1', --orden
+	'875'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1031', --pantalla
+	'1928', --objeto_ci
+	'2', --orden
+	'876'  --dep_id
+);
+
+------------------------------------------------------------
+-- apex_eventos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1031', --pantalla
+	'1928', --objeto_ci
+	'607', --evento_id
+	'curso'  --proyecto
+);

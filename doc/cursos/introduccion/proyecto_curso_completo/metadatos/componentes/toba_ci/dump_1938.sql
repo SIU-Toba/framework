@@ -111,7 +111,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'universidad.png', --imagen
-	'form_institucion', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -127,9 +127,27 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_uas', --objetos
+	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objetos_pantalla
+------------------------------------------------------------
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1036', --pantalla
+	'1938', --objeto_ci
+	'1', --orden
+	'890'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'curso', --proyecto
+	'1037', --pantalla
+	'1938', --objeto_ci
+	'1', --orden
+	'891'  --dep_id
+);
