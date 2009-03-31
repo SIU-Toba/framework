@@ -116,9 +116,10 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
         $expectedIndent = $this->calculateExpectedIndent($tokens, $firstToken);
 
         if ($tokens[$firstToken]['column'] !== $expectedIndent) {
-            $error  = 'Line indented incorrectly; expected ';
-            $error .= ($expectedIndent - 1).' spaces, found ';
+            $error  = '[Indentacion] Línea identada incorrectamente; se esperaban';
+            $error .= ($expectedIndent - 1).' tabs, se encontraron ';
             $error .= ($tokens[$firstToken]['column'] - 1);
+			$error .= ' espacios (¿se estaran usando espacios en lugar de tabs?)';
             $phpcsFile->addError($error, $stackPtr);
         }
 

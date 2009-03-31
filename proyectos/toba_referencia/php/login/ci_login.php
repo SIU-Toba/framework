@@ -5,7 +5,7 @@ class ci_login extends toba_ci
 	protected $s__datos;
 	
 	/**
-	 * Guarda el id del item original así se hace una redirección una vez logueado
+	 * Guarda el id de la operación original así se hace una redirección una vez logueado
 	 */
 	function ini__operacion()
 	{
@@ -47,6 +47,7 @@ class ci_login extends toba_ci
 
 	function evt__datos__modificacion($datos)
 	{
+		toba::logger()->desactivar();
 		$this->s__datos = $datos;
 	}
 

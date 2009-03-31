@@ -33,10 +33,11 @@ class dao
 	static function get_localidades($pais, $provincia)
 	{
 		if ($pais == 'ar') {
-			if ($provincia == 'ba')
+			if ($provincia == 'ba') {
 				return array( array('id' => 'bb', 'valor' => 'Bahía Blanca'));
-			elseif ($provincia == 'sj')
+			} elseif ($provincia == 'sj') {
 				return array( array('id' => 'sj', 'valor' => 'San Juan'));
+			}
 		} 
 		return array();
 	}
@@ -44,10 +45,11 @@ class dao
 	
 	static function get_descripcion($localidad)
 	{
-		if ($localidad == 'bb')
-			return "Esta es la descripción de Bahía Blanca";
-		elseif ($localidad == 'sj')
-			return "Esta es la descripción de San Juan";
+		if ($localidad == 'bb') {
+			return 'Esta es la descripción de Bahía Blanca';
+		} elseif ($localidad == 'sj') {
+			return 'Esta es la descripción de San Juan';
+		}
 	}
 }
 

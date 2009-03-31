@@ -180,7 +180,6 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         */
 
         $name = strtolower($tokens[$keyword]['content']);
-
         // Spacing of the keyword.
         $gap = $tokens[($stackPtr + 1)]['content'];
         if (strlen($gap) !== 1) {
@@ -190,13 +189,14 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         }
 
         // Check after the name.
+		/*
         $gap = $tokens[($className + 1)]['content'];
         if (strlen($gap) !== 1) {
             $found = strlen($gap);
             $error = "[Clases#declaracion] Expected 1 space after $name name; $found found";
             $phpcsFile->addError($error, $stackPtr);
-        }
-
+        }*/
+		
         // Now check each of the parents.
         $parents    = array();
         $nextParent = ($className + 1);

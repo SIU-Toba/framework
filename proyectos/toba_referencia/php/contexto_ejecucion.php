@@ -9,6 +9,9 @@ class contexto_ejecucion implements toba_interface_contexto_ejecucion
 		toba::mensajes()->set_fuente_ini(toba::proyecto()->get_path().'/mensajes.ini');
 	}
 	
-	function conf__final(){}
+	function conf__final()
+	{
+		
+	}
 }
 ?>
