@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_editor', --objeto_proyecto
 	'33000009', --objeto
 	'33000001', --externa_id
@@ -161,7 +161,8 @@ from apex_objeto_cuadro_cc
 where 
 objeto_cuadro_proyecto =\'%objeto_cuadro_proyecto%\' AND 
 objeto_cuadro = \'%objeto_cuadro%\' AND
-objeto_cuadro_cc = \'%objeto_cuadro_cc%\''  --sql
+objeto_cuadro_cc = \'%objeto_cuadro_cc%\'', --sql
+	'1'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 33
 

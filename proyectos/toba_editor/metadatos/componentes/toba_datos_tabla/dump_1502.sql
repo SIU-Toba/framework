@@ -238,7 +238,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1502', --objeto
 	'3', --externa_id
@@ -247,7 +247,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_info_dependencia', --metodo
 	'toba_info_editores', --clase
 	'modelo/info/toba_info_editores.php', --include
-	NULL  --sql
+	NULL, --sql
+	'1'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 0
 

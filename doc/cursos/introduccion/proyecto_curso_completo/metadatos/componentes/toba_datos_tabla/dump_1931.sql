@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'curso', --objeto_proyecto
 	'1931', --objeto
 	'5', --externa_id
@@ -156,9 +156,10 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_pais_localidad', --metodo
 	'soe_consultas', --clase
 	'lib/soe_consultas.php', --include
-	NULL  --sql
+	NULL, --sql
+	'1'  --dato_estricto
 );
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'curso', --objeto_proyecto
 	'1931', --objeto
 	'6', --externa_id
@@ -167,7 +168,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_provincia_localidad', --metodo
 	'soe_consultas', --clase
 	'lib/soe_consultas.php', --include
-	NULL  --sql
+	NULL, --sql
+	'1'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 0
 

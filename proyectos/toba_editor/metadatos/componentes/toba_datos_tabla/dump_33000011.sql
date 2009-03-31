@@ -134,7 +134,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_editor', --objeto_proyecto
 	'33000011', --objeto
 	'33000003', --externa_id
@@ -147,7 +147,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 FROM  apex_objeto_eventos
 WHERE proyecto = \'%proyecto%\' AND
 objeto = \'%objeto_ci%\' AND
-evento_id = \'%evento_id%\''  --sql
+evento_id = \'%evento_id%\'', --sql
+	'0'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 33
 

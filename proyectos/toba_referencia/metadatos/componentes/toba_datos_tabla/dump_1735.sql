@@ -173,7 +173,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1735', --objeto
 	'0', --externa_id
@@ -182,9 +182,10 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	NULL, --metodo
 	NULL, --clase
 	NULL, --include
-	'SELECT nombre as desc_deporte FROM ref_deportes WHERE id = \'%deporte%\';'  --sql
+	'SELECT nombre as desc_deporte FROM ref_deportes WHERE id = \'%deporte%\';', --sql
+	'1'  --dato_estricto
 );
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1735', --objeto
 	'1', --externa_id
@@ -193,7 +194,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_dia_semana', --metodo
 	'consultas', --clase
 	'operaciones_simples/consultas.php', --include
-	NULL  --sql
+	NULL, --sql
+	'1'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 0
 

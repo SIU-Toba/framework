@@ -471,7 +471,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5', --orden
 	'Dato Obligatorio', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Determina si el valor de la columna externa debe existir o se permite su inexistencia', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

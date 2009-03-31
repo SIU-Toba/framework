@@ -134,7 +134,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_usuarios', --objeto_proyecto
 	'2260', --objeto
 	'7', --externa_id
@@ -143,7 +143,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_descripcion_perfil_datos', --metodo
 	'consultas_instancia', --clase
 	'lib/consultas_instancia.php', --include
-	NULL  --sql
+	NULL, --sql
+	'1'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 0
 

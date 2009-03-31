@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
 	'toba_editor', --objeto_proyecto
 	'33000010', --objeto
 	'33000002', --externa_id
@@ -159,7 +159,8 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'SELECT identificador as dependencia
 FROM  apex_objeto_dependencias
 WHERE
-proyecto = \'%proyecto%\' AND objeto_consumidor = \'%objeto_ci%\' AND dep_id = \'%dep_id%\''  --sql
+proyecto = \'%proyecto%\' AND objeto_consumidor = \'%objeto_ci%\' AND dep_id = \'%dep_id%\'', --sql
+	'0'  --dato_estricto
 );
 --- FIN Grupo de desarrollo 33
 

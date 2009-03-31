@@ -963,6 +963,7 @@ class toba_db_tablas_componente
     6 => 'clase',
     7 => 'include',
     8 => 'sql',
+    9 => 'dato_estricto',
   ),
 );
 	}
