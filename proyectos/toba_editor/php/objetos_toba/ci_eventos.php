@@ -125,16 +125,11 @@ class ci_eventos extends toba_ci
 					//Tengo que reportarle al contenedor la eliminacion del evento
 					$id_evento = $dbr->get_fila_columna($id,"identificador");
 					$dbr->eliminar_fila($id);
-					$this->controlador->eliminar_evento( $id_evento );
 					break;	
 				case "M":
 					$id_anterior = $dbr->get_fila_columna($id, 'identificador');
 					$id_nuevo = $registros[$id]['identificador'];
 					$dbr->modificar_fila($id, $registros[$id]);
-					//Si se cambio el identificador del evento notificar al controlador de nivel superior
-					if ($id_nuevo != $id_anterior) {
-						$this->controlador->modificar_evento($id_anterior, $id_nuevo);
-					}
 					break;	
 			}
 		}

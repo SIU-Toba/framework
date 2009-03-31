@@ -90,12 +90,6 @@ class ci_editor extends ci_editores_toba
 		return $this->get_entidad()->tabla('dependencias');
 	}
 	
-	function eliminar_dependencia($id)
-	{
-		//El ci de dependencias avisa que se borro la dependencias $id
-		$this->get_entidad()->tabla('pantallas')->eliminar_dependencia($id);
-	}
-	
 	/**
 	*	El ci de dependencias avisa que una dependencia cambio su identificacion
 	*/
@@ -374,8 +368,9 @@ class ci_editor extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		foreach($ids as $id){
-			$evt_involucrado = $this->get_entidad()->tabla('eventos_pantalla')->get_fila_columna($id, 'identificador');
+		foreach($ids as $id) {
+			$id_evt_padre = $this->get_entidad()->tabla('eventos_pantalla')->get_id_padres(array($id), 'eventos');
+			$evt_involucrado = $this->get_entidad()->tabla('eventos')->get_fila_columna(current($id_evt_padre), 'identificador');
 			$datos[$evt_involucrado] = array('evento' => $evt_involucrado, 'asociar' => 1);
 		}
 		return $datos;
@@ -425,19 +420,7 @@ class ci_editor extends ci_editores_toba
 		return toba_ci_info::get_lista_eventos_estandar($modelo);
 	}
 
-	function eliminar_evento($id)
-	{
-		//El ci de EVENTOS avisa que se borro el evento $id
-		$this->get_entidad()->tabla('pantallas')->eliminar_evento($id);
-	}
-	
-	/**
-	*	Se modifica el identificador de un evento, esto afecta a todas las pantallas en la que esta incluído
-	*/
-	function modificar_evento($id_anterior, $id_nuevo)
-	{
-		$this->get_entidad()->tabla('pantallas')->cambiar_id_evento($id_anterior, $id_nuevo);
-	}
+
 
 	/**
 	 * Se actualiza la aparicion de un evento en las pantallas dadas
@@ -447,11 +430,6 @@ class ci_editor extends ci_editores_toba
 	 */
 	function set_pantallas_evento($pant_presentes, $evento)
 	{
-		//Si no viene pantalla especificada.. asumo todas.
-		if (is_null($pant_presentes)){
-			$pant_presentes = array();
-		}
-
 		$pant_disponibles = $this->get_entidad()->tabla('pantallas')->get_id_filas();
 		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
 		foreach($pant_disponibles as $pantalla_id){
@@ -463,7 +441,8 @@ class ci_editor extends ci_editores_toba
 
 			//Miro si la pantalla esta entre las presentes
 			$pantalla = $this->get_entidad()->tabla('pantallas')->get_fila_columna($pantalla_id, 'identificador');
-			$evento_debe_estar = ((empty($pant_presentes)) || (in_array($pantalla, $pant_presentes)));
+			$evento_debe_estar = (is_null($pant_presentes) || in_array($pantalla, $pant_presentes));
+
 
 			if ($evento_debe_estar && !$evento_esta){
 				//Hay que agregarlo

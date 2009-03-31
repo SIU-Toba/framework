@@ -53,8 +53,6 @@ class ci_dependencias extends toba_ci
 	{
 		$id_dep = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior,"identificador");
 		$this->get_tabla()->eliminar_fila($this->seleccion_dependencia_anterior);
-		//Se dispara un evento que indica cual es la DEPENDENCIA que se elimino (para que el controlador actualize su estado)
-		$this->controlador->eliminar_dependencia( $id_dep );
 		$this->evt__formulario__cancelar();
 	}
 	
@@ -63,11 +61,6 @@ class ci_dependencias extends toba_ci
 		$id_nuevo = $datos['identificador'];
 		$id_anterior = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior, "identificador");
 		$this->get_tabla()->modificar_fila($this->seleccion_dependencia_anterior, $datos);
-	
-		//Si se cambio el id de la dependencia notificar al controlador de nivel superior
-		if ($id_nuevo != $id_anterior) {
-			$this->controlador->modificar_dependencia($id_anterior, $id_nuevo);
-		}
 		$this->evt__formulario__cancelar();
 	}
 	
