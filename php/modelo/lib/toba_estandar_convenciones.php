@@ -12,6 +12,7 @@ class toba_estandar_convenciones
 		$this->warnings = $warnings;
 		if ($estandar == 'Toba') {
 			$this->estandar = toba_dir().'/doc/convenciones/Toba';
+			$this->estandar = toba_manejador_archivos::path_a_plataforma($this->estandar);
 		} else {
 			$this->estandar = $estandar;
 		}
@@ -56,7 +57,7 @@ class toba_estandar_convenciones
 			$pagina = $resultado[1][0];
 			$despues = $resultado[2][0];
 			$url = get_url_desarrollos().'/trac/siu/wiki/Convenciones/Codigo/'.$pagina;
-			$mensaje = "$despues <br><br><a href=$url target=wiki>Ver detalles de la convención</a>";
+			$mensaje = "$despues <br><br><a href=$url target=wiki>Ver detalles de la convenciï¿½n</a>";
 			return $mensaje;
 		} else {
 			return $mensaje;
