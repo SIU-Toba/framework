@@ -143,14 +143,10 @@ toba = new function() {
 			if (toba_espera !== 0) {
 				setTimeout ("mostrar_esperar()", toba_espera);
 			}
-			var botones = document.getElementsByTagName("button");
-			for (var a=0;a<botones.length;a++){
-				botones[a].disabled = true;
-			}
 			document.formulario_toba.submit();
 		}
 	};
-	
+
 	/**
 	 * Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
 	 * debido a que la respuesta no es sincronica
