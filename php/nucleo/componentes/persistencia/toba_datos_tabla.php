@@ -141,12 +141,12 @@ class toba_datos_tabla extends toba_componente
 				if ($externa['sql'] != '') {
 					//---Caso SQL
 					$this->persistidor()->activar_proceso_carga_externa_sql(
-							$externa['sql'], $parametros, $resultados, $externa['sincro_continua']);
+							$externa['sql'], $parametros, $resultados, $externa['sincro_continua'], $externa['dato_estricto']);
 				} else {
 					//---Caso DAO
 					$this->persistidor()->activar_proceso_carga_externa_dao(
 							$externa['metodo'], $externa['clase'], $externa['include'],
-							$parametros, $resultados, $externa['sincro_continua']);					
+							$parametros, $resultados, $externa['sincro_continua'], $externa['dato_estricto']);
 				}
 			}
 		}		
@@ -870,7 +870,7 @@ class toba_datos_tabla extends toba_componente
 			}
 			
 			/*
-				Como los campos externos pueden necesitar una campo que no entrego la
+				Como los campos externos pueden necesitar un campo que no entrego la
 				interface, primero actualizo los valores y despues tomo la fila y la
 				proceso con la actualizacion de campos externos
 			*/

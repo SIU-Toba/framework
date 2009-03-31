@@ -54,6 +54,7 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_eventos_pantalla ADD CONSTRAINT apex_eventos_pantalla_apex_objeto_eventos_fk FOREIGN KEY (evento_id, proyecto)
 						REFERENCES apex_objeto_eventos (evento_id, proyecto) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN dato_estricto SMALLINT DEFAULT 1;';
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
@@ -171,6 +172,12 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$editor->agregar_sustitucion("|evt__limpieza_memoria|","limpiar_memoria");
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
+	}
+
+	function proyecto__restringir_carga_col_ext()
+	{
+		$sql = "UPDATE apex_objeto_db_registros_ext SET dato_estricto = '1' WHERE objeto_proyecto = '{$this->elemento->get_id()}'; ";
+		$this->elemento->get_db()->ejecutar($sql);
 	}
 }
 

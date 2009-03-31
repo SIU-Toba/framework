@@ -81,7 +81,8 @@ class toba_datos_tabla_def extends toba_componente_def
 						metodo			,
 						clase			,	
 						include			,	
-						sql
+						sql,
+						dato_estricto
 					 FROM		apex_objeto_db_registros_ext 
 					 WHERE		objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {

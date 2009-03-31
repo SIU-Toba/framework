@@ -135,7 +135,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
 	 */
-	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
+	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true, $estricto = true)
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "sql";
@@ -143,6 +143,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
 		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
 	}
 
 	/**
@@ -158,7 +159,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 */
-	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true)
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -168,6 +169,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
 		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
 	}
 
 	/**
@@ -917,7 +919,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$estan_todos = true;
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->_secuencias[$col_llave])){
-						throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
+						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia");
 					}
 					if(!isset($fila[$col_llave])){
 						$estan_todos = false;
@@ -939,9 +941,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					}
 					// - 3 - Ejecuto SQL
 					$datos = toba::db($this->_fuente)->consultar($sql);
-					if(!$datos){
-						toba::logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
-						throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+					$es_obligatoria = ($this->_proceso_carga_externa[$carga]['dato_estricto'] == '1');
+					if(!$datos && $es_obligatoria){
+						toba::logger()->error("AP_TABLA: [{$this->_tabla}]:\n no se recuperaron datos " . $sql, 'toba');
+						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n ERROR en la carga de una columna externa.");
 					}
 				}
 				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
