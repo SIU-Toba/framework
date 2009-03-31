@@ -57,7 +57,7 @@ class toba_estandar_convenciones
 			$pagina = $resultado[1][0];
 			$despues = $resultado[2][0];
 			$url = get_url_desarrollos().'/trac/siu/wiki/Convenciones/Codigo/'.$pagina;
-			$mensaje = "$despues <br><br><a href=$url target=wiki>Ver detalles de la convenciÃ³n</a>";
+			$mensaje = "$despues <br><br><a href=$url target=wiki>Ver detalles de la convención</a>";
 			return $mensaje;
 		} else {
 			return $mensaje;
