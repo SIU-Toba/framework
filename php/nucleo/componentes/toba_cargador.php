@@ -153,6 +153,21 @@ class toba_cargador
 	}
 
 	/**
+	 * Si el componente posee metadatos redefinidos en runtime los retorna, sino retorna null
+	 */
+	function get_metadatos_redefinidos($componente)
+	{
+		$proyecto = $componente['proyecto'];
+		$id = $componente['componente'];
+		$clave_ser = $proyecto.'||'.$id;
+		if (isset($this->redefinidos[$clave_ser])) {
+			return $this->redefinidos[$clave_ser];
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Retorna el tipo al que pertenece un componente
 	 * @param array $componente array('componente'=>id, 'proyecto'=>proyecto)
 	 * @return string

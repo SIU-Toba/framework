@@ -126,6 +126,11 @@ class toba_constructor
 	*/
 	static function get_metadatos_compilados( $id, $item=false )
 	{
+		//Chequea si no se redefinieron en runtime
+		$extendidos = toba_cargador::instancia()->get_metadatos_redefinidos($id);
+		if (isset($extendidos)) {
+			return $extendidos;
+		}
 		if ( $item ) {
 			$clase = 'toba_mc_item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
 		} else {
