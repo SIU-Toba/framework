@@ -149,6 +149,9 @@ class ci_subclases_generacion extends toba_ci
 			switch ($this->comando_svn) {
 				case 'blame':
 					$codigo = $svn->blame($path);
+					if ($codigo == '') {
+						toba::notificacion()->error('No se pudo realizar el blame, posiblemente porque el repositorio tiene restricciones de permisos y el usuario de apache no tiene cargadas las credenciales');
+					}
 					break;
 				case 'diff':
 					$codigo = $svn->diff($path);
