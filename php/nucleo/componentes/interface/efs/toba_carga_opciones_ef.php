@@ -296,15 +296,13 @@ class toba_carga_opciones_ef
 	 */
 	protected function ef_metodo_carga_consulta_php($id_ef, $parametros, $maestros)
 	{
-		if (isset($parametros['carga_consulta_php_clase']) && isset($parametros['carga_consulta_php_archivo'])) {
-			if(!class_exists($parametros['carga_consulta_php_clase'])) {
-				require_once($parametros['carga_consulta_php_archivo']);
+		if (isset($parametros['carga_consulta_php_clase'])) {
+			$objeto = toba::consulta_php($parametros['carga_consulta_php_clase']);
+			$metodo = $parametros['carga_metodo'];
+			if (! method_exists($objeto, $metodo)) {
+				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la consulta php '{$parametros['carga_consulta_php_clase']}'");
 			}
-			if (! method_exists($parametros['carga_consulta_php_clase'], $parametros['carga_metodo'])) {
-				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_consulta_php_clase']}'");			
-			}
-			$metodo = array($parametros['carga_consulta_php_clase'], $parametros['carga_metodo']);
-			return call_user_func_array($metodo, $maestros);
+			return call_user_func_array(array($objeto, $metodo), $maestros);
 		} 
 	}
 		

@@ -98,7 +98,7 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
         if ($tokens[($curlyBrace - 1)]['code'] === T_WHITESPACE) {
             $prevContent = $tokens[($curlyBrace - 1)]['content'];
-            if ($prevContent !== $phpcsFile->eolChar) {
+            if ($prevContent !== $phpcsFile->eolChar && $tokens[$curlyBrace]['line'] == $tokens[($curlyBrace - 1)]['line']) {
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
                 $spaces     = strlen($blankSpace);
                 if ($spaces !== 0) {

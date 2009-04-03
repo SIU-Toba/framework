@@ -410,7 +410,7 @@ class PHP_CodeSniffer_File
     private function _parse($contents=null)
     {
         $this->eolChar = self::detectLineEndings($this->_file, $contents);
-
+		$this->eolChar = "\n";
         // Determine the tokenizer from the file extension.
         $fileParts = explode('.', $this->_file);
         $extension = array_pop($fileParts);
@@ -428,6 +428,7 @@ class PHP_CodeSniffer_File
         if ($contents === null) {
             $contents = file_get_contents($this->_file);
         }
+		$contents = str_replace("\r", "", $contents);
 
         $this->_tokens   = self::tokenizeString($contents, $tokenizer, $this->eolChar);
         $this->numTokens = count($this->_tokens);
@@ -487,7 +488,6 @@ class PHP_CodeSniffer_File
 
             $eolChar = $matches[0];
         }//end if
-
         return $eolChar;
 
     }//end detectLineEndings()

@@ -435,7 +435,7 @@ class toba_relacion_entre_tablas
 		//Si no se paso el padre, hay que encontrarlo...
 		if (!isset($id_padre)) {
 			if (! $this->tabla_padre->hay_cursor() && $this->es_relacion_de_inclusion) {
-				throw new toba_error-def($this->get_txt_error_base("Se intenta crear o actualizar una fila y su fila padre aún no existe"));
+				throw new toba_error_def($this->get_txt_error_base("Se intenta crear o actualizar una fila y su fila padre aún no existe"));
 			}
 			$id_padre = $this->tabla_padre->get_cursor();
 		} 

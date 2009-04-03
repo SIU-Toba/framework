@@ -118,13 +118,14 @@ class toba_datos_relacion extends toba_componente
 	/**
 	 * Muestra un dump de los datos y los cambios realizados a los mismos desde la carga
 	 */
-	function dump_contenido()
+	function dump_contenido($etiqueta=null)
 	{
+		$etiqueta = isset($etiqueta) ? $etiqueta : 'DATOS_RELACION: ' . $this->_info['nombre'];
 		foreach($this->_dependencias as $id => $dependencia){
 			$info[$id]['cambios'] = $dependencia->get_cambios();
 			$info[$id]['datos'] = $dependencia->get_conjunto_datos_interno();
 		}
-		ei_arbol( $info, 'DATOS_RELACION: ' . $this->_info['nombre'], null, true);
+		ei_arbol( $info, $etiqueta, null, true);
 	}
 	
 	/**

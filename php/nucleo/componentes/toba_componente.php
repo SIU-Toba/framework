@@ -391,7 +391,15 @@ abstract class toba_componente
 				//Existe la propiedad
 				$nombre_prop = $this->_propiedades_sesion[$a];
 				if(isset($this->$nombre_prop)) {
-					if(is_object($this->$nombre_prop)){
+					//Si la propiedad es un array que posee objetos, lo serializo
+					//a mano para no tener problemas con la desserializacion automatica de la sesion
+					//que requiere todos los includes del proyecto antes del session start
+					if(is_array($this->$nombre_prop)){
+						$es_array_con_objetos = $this->variable_array_posee_objetos($this->$nombre_prop);
+					} else {
+						$es_array_con_objetos = false;
+					}
+					if(is_object($this->$nombre_prop) || $es_array_con_objetos ){
 						$temp[$this->_propiedades_sesion[$a]] = serialize($this->$nombre_prop);
 						//Dejo la marca de que serialize un OBJETO.
 						$temp["toba__indice_objetos_serializados"][] = $this->_propiedades_sesion[$a];
@@ -408,6 +416,23 @@ abstract class toba_componente
 				toba::memoria()->eliminar_dato_operacion($this->_id_ses_grec);
 			}
 		}
+	}
+
+	/**
+	*	Indica si una variable posee objetos en su estructura
+	*	@ignore
+	*/
+	private function variable_array_posee_objetos($variable)
+	{
+		foreach($variable as $elemento) {
+			if(is_object($elemento)) {
+				return true;	
+			}
+			if(is_array($elemento)) {
+				return $this->variable_array_posee_objetos($elemento);
+			}
+		}
+		return false;
 	}
 
 	/**

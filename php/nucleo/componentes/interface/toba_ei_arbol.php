@@ -37,7 +37,6 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 
-
 	/**
 	 * @ignore
 	 */
@@ -205,6 +204,10 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function disparar_eventos_nodo($nodo)
 	{
+		//Le paso al nodo una referencia al arbol que lo contiene
+		if( method_exists($nodo, 'set_ei_arbol') ){
+			$nodo->set_ei_arbol( $this );
+		}
 		$id = $this->_submit.'_'.$nodo->get_id();
 		// Se le pide al nodo que cargue su estado a partir del post
 		$nodo->cargar_estado_post($id);
@@ -559,7 +562,5 @@ class toba_ei_arbol extends toba_ei
 		$consumo[] = 'componentes/ei_arbol';
 		return $consumo;
 	}
-
 }
-
 ?>

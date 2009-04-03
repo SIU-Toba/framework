@@ -76,6 +76,10 @@ class comando_proyecto extends comando_toba
 			}
 		}
 		if(isset($clase) && method_exists( $clase, $opcion ) ) {
+			if (! isset($argumentos)) {
+				$argumentos = array();
+			}
+			$argumentos = array_merge($argumentos, $this->get_parametros());
 			$clase->$opcion($argumentos);
 		} elseif (method_exists( $this, $opcion)) {
 			$this->$opcion($argumentos);
