@@ -17,6 +17,7 @@ class toba_datos_relacion extends toba_componente
 	protected $_cargado = false;
 	protected $_relaciones_mapeos=array();			//Mapeo entre filas de las tablas
 	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
+	protected $_info_columnas_asoc_rel;
 
 	/**
 	 * @ignore 
@@ -26,7 +27,7 @@ class toba_datos_relacion extends toba_componente
 		$propiedades[] = "_relaciones_mapeos";
 		$propiedades[] = "_cargado";
 		$this->set_propiedades_sesion($propiedades);			
-		parent::__construct($id);	
+		parent::__construct($id);
 		$this->crear_tablas();
 		$this->crear_relaciones();
 		if ($this->_info_estructura['debug']) {
@@ -87,11 +88,13 @@ class toba_datos_relacion extends toba_componente
 				$id_padre = $this->_info_relaciones[$a]['padre_id'];
 				$id_hijo = $this->_info_relaciones[$a]['hijo_id'];
 				$id_relacion = $id_padre.'-'.$id_hijo;
+				$columnas_padre = $this->get_columnas_tabla_padre($this->_info_relaciones[$a]);
+				$columnas_hijas = $this->get_columnas_tabla_hija($this->_info_relaciones[$a]);
 				$this->_relaciones[$id_relacion] = new toba_relacion_entre_tablas(	$this->_dependencias[ $id_padre ],
-																	explode(",",$this->_info_relaciones[$a]['padre_clave']),
+																	$columnas_padre,
 																	$id_padre,
 																	$this->_dependencias[ $id_hijo ],
-																	explode(",",$this->_info_relaciones[$a]['hijo_clave']),
+																	$columnas_hijas,
 																	$id_hijo
 																);
 				$padres[] = $this->_info_relaciones[$a]['padre_id'];
@@ -546,6 +549,27 @@ class toba_datos_relacion extends toba_componente
 		}
 		return $hay_cambios;
 	}
-	
+
+	function get_columnas_tabla_padre($datos)
+	{
+		$resultado = array();
+		foreach($this->_info_columnas_asoc_rel as $info_rel){
+			if ($info_rel['asoc_id'] == $datos['asoc_id'] && $info_rel['padre_objeto']  == $datos['padre_objeto']){
+				$resultado[] = $info_rel['col_padre'];
+			}
+		}
+		return $resultado;
+	}
+
+	function get_columnas_tabla_hija($datos)
+	{
+		$resultado = array();
+		foreach($this->_info_columnas_asoc_rel as $info_rel){
+			if ($info_rel['asoc_id'] == $datos['asoc_id'] && $info_rel['hijo_objeto']  == $datos['hijo_objeto']){
+				$resultado[] = $info_rel['col_hija'];
+			}
+		}
+		return $resultado;
+	}
 }
 ?>

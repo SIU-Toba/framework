@@ -67,11 +67,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba', --padre_proyecto
 	'1553', --padre_objeto
 	'base', --padre_id
-	'item,proyecto', --padre_clave
+	NULL, --padre_clave
 	'toba', --hijo_proyecto
 	'1558', --hijo_objeto
 	'objetos', --hijo_id
-	'item,proyecto', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
 );
@@ -83,11 +83,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba', --padre_proyecto
 	'1553', --padre_objeto
 	'base', --padre_id
-	'item,proyecto', --padre_clave
+	NULL, --padre_clave
 	'toba', --hijo_proyecto
 	'1555', --hijo_objeto
 	'permisos', --hijo_id
-	'item,proyecto', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'2'  --orden
 );

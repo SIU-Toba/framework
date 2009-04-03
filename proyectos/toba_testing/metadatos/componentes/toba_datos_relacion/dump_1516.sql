@@ -67,11 +67,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1513', --padre_objeto
 	'maestro', --padre_id
-	'id', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1514', --hijo_objeto
 	'detalle_a', --hijo_id
-	'maestro', --hijo_clave
+	NULL, --hijo_clave
 	'0', --cascada
 	'1'  --orden
 );
@@ -83,11 +83,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1513', --padre_objeto
 	'maestro', --padre_id
-	'id', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1515', --hijo_objeto
 	'detalle_b', --hijo_id
-	'maestro', --hijo_clave
+	NULL, --hijo_clave
 	'0', --cascada
 	'2'  --orden
 );
@@ -135,3 +135,25 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1516', --objeto
+	'1', --asoc_id
+	'1513', --padre_objeto
+	'15', --padre_clave
+	'1514', --hijo_objeto
+	'100'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1516', --objeto
+	'2', --asoc_id
+	'1513', --padre_objeto
+	'15', --padre_clave
+	'1515', --hijo_objeto
+	'100'  --hijo_clave
+);

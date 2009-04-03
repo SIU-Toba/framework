@@ -33,12 +33,13 @@ class toba_db_tablas_componente
   25 => 'apex_objeto_db_registros_uniq',
   26 => 'apex_objeto_datos_rel',
   27 => 'apex_objeto_datos_rel_asoc',
-  28 => 'apex_molde_operacion',
-  29 => 'apex_molde_operacion_log',
-  30 => 'apex_molde_operacion_log_elementos',
-  31 => 'apex_molde_operacion_abms',
-  32 => 'apex_molde_operacion_abms_fila',
-  33 => 'apex_molde_operacion_importacion',
+  28 => 'apex_objeto_rel_columnas_asoc',
+  29 => 'apex_molde_operacion',
+  30 => 'apex_molde_operacion_log',
+  31 => 'apex_molde_operacion_log_elementos',
+  32 => 'apex_molde_operacion_abms',
+  33 => 'apex_molde_operacion_abms_fila',
+  34 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -1076,6 +1077,33 @@ class toba_db_tablas_componente
     11 => 'hijo_clave',
     12 => 'cascada',
     13 => 'orden',
+  ),
+);
+	}
+
+	static function apex_objeto_rel_columnas_asoc()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, asoc_id',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'objeto',
+    2 => 'asoc_id',
+    3 => 'padre_objeto',
+    4 => 'padre_clave',
+    5 => 'hijo_objeto',
+    6 => 'hijo_clave',
   ),
 );
 	}

@@ -67,11 +67,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'curso', --padre_proyecto
 	'1929', --padre_objeto
 	'institucion', --padre_id
-	'institucion', --padre_clave
+	NULL, --padre_clave
 	'curso', --hijo_proyecto
 	'1930', --hijo_objeto
 	'uas', --hijo_id
-	'institucion', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
 );
@@ -107,3 +107,16 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'curso', --proyecto
+	'1935', --objeto
+	'29', --asoc_id
+	'1929', --padre_objeto
+	'548', --padre_clave
+	'1930', --hijo_objeto
+	'554'  --hijo_clave
+);

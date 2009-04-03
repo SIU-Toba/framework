@@ -67,11 +67,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_usuarios', --padre_proyecto
 	'2218', --padre_objeto
 	'perfil', --padre_id
-	'usuario_perfil_datos,proyecto', --padre_clave
+	NULL, --padre_clave
 	'toba_usuarios', --hijo_proyecto
 	'2222', --hijo_objeto
 	'dims', --hijo_id
-	'usuario_perfil_datos,proyecto', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
 );
@@ -107,3 +107,25 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'1'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_usuarios', --proyecto
+	'2220', --objeto
+	'40', --asoc_id
+	'2218', --padre_objeto
+	'755', --padre_clave
+	'2222', --hijo_objeto
+	'763'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_usuarios', --proyecto
+	'2220', --objeto
+	'40', --asoc_id
+	'2218', --padre_objeto
+	'756', --padre_clave
+	'2222', --hijo_objeto
+	'764'  --hijo_clave
+);

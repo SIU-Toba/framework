@@ -689,8 +689,10 @@ class toba_info_editores
 	*/
 	{
 		$sql = "SELECT 		columna as 	clave,
-							columna as 	descripcion,
-							col_id  as	col_id
+											columna as 	descripcion,
+											col_id  as	col_id,
+											objeto_proyecto as proyecto,
+											objeto
 				FROM apex_objeto_db_registros_col 
 				WHERE 	objeto = $objeto
 				AND 	objeto_proyecto = '". toba_contexto_info::get_proyecto() ."'

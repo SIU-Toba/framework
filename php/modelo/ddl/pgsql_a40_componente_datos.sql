@@ -273,3 +273,30 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_hijo" FOREIGN KEY ("proyecto","objeto","hijo_id") REFERENCES "apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+CREATE TABLE apex_objeto_rel_columnas_asoc
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto
+--: dump_order_by: objeto, asoc_id
+--: dump_where: ( proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto 		   			   	varchar(15)			NOT NULL,
+	objeto							  int8						 NOT NULL,
+	asoc_id							int8					   NOT NULL,
+	padre_objeto				int8					 NOT NULL,
+	padre_clave					int8						NOT NULL,
+	hijo_objeto						int8					 NOT NULL,
+	hijo_clave						int8						NOT NULL,
+	CONSTRAINT "apex_objeto_rel_columnas_asoc_pk" PRIMARY KEY ("asoc_id", "objeto", "proyecto", "padre_objeto", "hijo_objeto", "padre_clave", "hijo_clave"),
+	CONSTRAINT "apex_columna_objeto_hijo_fk" FOREIGN KEY ("hijo_clave", "hijo_objeto", "proyecto") REFERENCES "apex_objeto_db_registros_col" ("col_id", "objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_columna_objeto_padre_fk" FOREIGN KEY ("padre_objeto", "padre_clave", "proyecto") REFERENCES "apex_objeto_db_registros_col" ("objeto", "col_id", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_obj_datos_rel_asoc_fk"  FOREIGN KEY ("asoc_id", "objeto", "proyecto") REFERENCES "apex_objeto_datos_rel_asoc" ("asoc_id", "objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################

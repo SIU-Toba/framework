@@ -69,11 +69,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1743', --padre_objeto
 	'depto', --padre_id
-	'cod_depto', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1744', --hijo_objeto
 	'empleado', --hijo_id
-	'depto', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
 );
@@ -85,11 +85,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1744', --padre_objeto
 	'empleado', --padre_id
-	'cod_empleado', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1745', --hijo_objeto
 	'empleado_tareas', --hijo_id
-	'empleado', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'2'  --orden
 );
@@ -101,11 +101,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1743', --padre_objeto
 	'depto', --padre_id
-	'cod_depto', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1748', --hijo_objeto
 	'depto_tareas', --hijo_id
-	'depto', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'4'  --orden
 );
@@ -117,11 +117,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1747', --padre_objeto
 	'tarea', --padre_id
-	'cod_tarea', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1748', --hijo_objeto
 	'depto_tareas', --hijo_id
-	'tarea', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'5'  --orden
 );
@@ -133,11 +133,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_testing', --padre_proyecto
 	'1747', --padre_objeto
 	'tarea', --padre_id
-	'cod_tarea', --padre_clave
+	NULL, --padre_clave
 	'toba_testing', --hijo_proyecto
 	'1745', --hijo_objeto
 	'empleado_tareas', --hijo_id
-	'tarea', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'3'  --orden
 );
@@ -209,3 +209,52 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1625', --objeto
+	'1', --asoc_id
+	'1743', --padre_objeto
+	'360', --padre_clave
+	'1744', --hijo_objeto
+	'363'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1625', --objeto
+	'2', --asoc_id
+	'1744', --padre_objeto
+	'362', --padre_clave
+	'1745', --hijo_objeto
+	'365'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1625', --objeto
+	'4', --asoc_id
+	'1743', --padre_objeto
+	'360', --padre_clave
+	'1748', --hijo_objeto
+	'372'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1625', --objeto
+	'6', --asoc_id
+	'1747', --padre_objeto
+	'369', --padre_clave
+	'1748', --hijo_objeto
+	'371'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_testing', --proyecto
+	'1625', --objeto
+	'19', --asoc_id
+	'1747', --padre_objeto
+	'369', --padre_clave
+	'1745', --hijo_objeto
+	'366'  --hijo_clave
+);

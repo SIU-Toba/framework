@@ -14,6 +14,9 @@ class toba_datos_relacion_def extends toba_componente_def
 		$estructura[] = array( 	'tabla' => 'apex_objeto_dependencias',
 								'registros' => 'n',
 								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_rel_columnas_asoc',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 	
@@ -51,11 +54,11 @@ class toba_datos_relacion_def extends toba_componente_def
 												padre_proyecto	,
 												padre_objeto	,
 												padre_id		,
-												padre_clave		,
+											---	padre_clave		,
 												hijo_proyecto	,
 												hijo_objeto		,
 												hijo_id			,
-												hijo_clave		,
+										---		hijo_clave		,
 												cascada			,
 												orden			
 									 FROM		apex_objeto_datos_rel_asoc 
@@ -66,7 +69,43 @@ class toba_datos_relacion_def extends toba_componente_def
 		$sql['_info_relaciones']['sql'] .= ";";
 		$sql['_info_relaciones']['registros']='n';
 		$sql['_info_relaciones']['obligatorio']=false;
-		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);		
+		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
+
+		//------------- Tabla que mantenie las columnas que forman parte de la relacion-----------------
+		$sql['_info_columnas_asoc_rel']['sql'] = "SELECT  rca.asoc_id,
+																									rca.proyecto,
+																									rca.objeto,
+																									rca.hijo_clave,
+																									rca.hijo_objeto,
+																									hijo.columna as col_hija,
+																									rca.padre_objeto,
+																									rca.padre_clave,
+																									padre.columna as col_padre
+
+																				FROM		apex_objeto_rel_columnas_asoc as rca,																									
+																									apex_objeto_datos_rel_asoc as dra,
+																									apex_objeto_db_registros_col as padre,
+																									apex_objeto_db_registros_col as hijo
+																				WHERE
+																									rca.proyecto = $quote_proyecto
+																				AND			  rca.proyecto = dra.proyecto
+																				AND			  rca.objeto = dra.objeto
+																				AND			  rca.asoc_id = dra.asoc_id
+
+																				AND			  rca.proyecto = padre.objeto_proyecto
+																				AND			  rca.padre_objeto = padre.objeto
+																				AND			  rca.padre_clave = padre.col_id
+
+																				AND			  rca.proyecto = hijo.objeto_proyecto
+																				AND			  rca.hijo_objeto = hijo.objeto
+																				AND			  rca.hijo_clave = hijo.col_id
+																	";
+		if ( isset($componente) ) {
+			$sql['_info_columnas_asoc_rel']['sql'] .= "	AND		rca.objeto=$quote_componente ";
+		}
+		$sql['_info_columnas_asoc_rel']['sql'] .= ";";
+		$sql['_info_columnas_asoc_rel']['registros']='n';
+		$sql['_info_columnas_asoc_rel']['obligatorio']=false;
 		return $sql;
 	}
 

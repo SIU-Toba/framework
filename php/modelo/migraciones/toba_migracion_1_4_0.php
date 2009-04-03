@@ -53,7 +53,29 @@ class toba_migracion_1_4_0 extends toba_migracion
 						REFERENCES apex_objeto_ci_pantalla (pantalla, objeto_ci, objeto_ci_proyecto) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER TABLE apex_eventos_pantalla ADD CONSTRAINT apex_eventos_pantalla_apex_objeto_eventos_fk FOREIGN KEY (evento_id, proyecto)
 						REFERENCES apex_objeto_eventos (evento_id, proyecto) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+
+		//----------------- Tabla para asociar columnas relacionadas entre datos tabla -------------------------------------
+		$sql[]= 'CREATE TABLE apex_objeto_rel_columnas_asoc	(
+						asoc_id				BIGINT NULL,
+						objeto				 BIGINT NULL,
+						proyecto			VARCHAR(15) NULL,
+						hijo_clave			BIGINT NULL,
+						hijo_objeto			BIGINT NULL,
+						padre_objeto	BIGINT NULL,
+						padre_clave		BIGINT NULL,
+						CONSTRAINT "apex_objeto_rel_columnas_asoc_pk" PRIMARY KEY ("asoc_id", "objeto", "proyecto", "padre_objeto", "hijo_objeto", "padre_clave", "hijo_clave")
+					);';
+
+		$sql[] = 'ALTER TABLE apex_objeto_rel_columnas_asoc ADD CONSTRAINT apex_columna_objeto_hijo_fk FOREIGN KEY (hijo_clave, hijo_objeto, proyecto)
+						REFERENCES apex_objeto_db_registros_col (col_id, objeto, objeto_proyecto) ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+
+		$sql[] = 'ALTER TABLE apex_objeto_rel_columnas_asoc ADD CONSTRAINT apex_columna_objeto_padre_fk FOREIGN KEY (padre_objeto, padre_clave, proyecto)
+						REFERENCES apex_objeto_db_registros_col (objeto, col_id, objeto_proyecto) ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		
+		$sql[] = 'ALTER TABLE apex_objeto_rel_columnas_asoc ADD CONSTRAINT apex_obj_datos_rel_asoc_fk FOREIGN KEY (asoc_id, objeto, proyecto)
+						REFERENCES apex_objeto_datos_rel_asoc (asoc_id, objeto, proyecto) ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+		
+		//-------------------------Agregado de la columna dato_estricto para la carga de columnas externas---------------------
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN dato_estricto SMALLINT DEFAULT 1;';
 		$this->elemento->get_db()->ejecutar($sql);
 	}
@@ -161,7 +183,49 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$sql[] = "UPDATE apex_objeto_ci_pantalla SET eventos = NULL WHERE objeto_ci_proyecto = '{$this->elemento->get_id()}'; ";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
-	
+
+	/**
+	 * Se deserializan las columnas que asocian las tablas en una relacion
+	 */
+	function proyecto__normalizar_columnas_relaciones()
+	{
+		$sql = "SELECT proyecto, objeto, asoc_id, padre_objeto, padre_id,
+									  padre_clave, hijo_objeto, hijo_id, hijo_clave
+					 FROM	apex_objeto_datos_rel_asoc
+					WHERE	 proyecto = '{$this->elemento->get_id()}'
+					ORDER BY asoc_id, orden;";
+		$datos = $this->elemento->get_db()->consultar($sql);
+		
+		$sql = array();
+		foreach($datos as $columnas_relacionadas){
+			$columnas_padre = explode(',', $columnas_relacionadas['padre_clave']);
+			$columnas_padre = array_map('trim', $columnas_padre);
+			$columnas_hijas = explode(',', $columnas_relacionadas['hijo_clave']);
+			$columnas_hijas = array_map('trim', $columnas_hijas);
+
+			foreach(array_keys($columnas_padre) as $id){
+				$sql[] = "INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave)
+								(SELECT		rel.proyecto, rel.objeto, rel.asoc_id, rel.padre_objeto, padre.col_id,rel.hijo_objeto,hijo.col_id													 
+								 FROM
+											apex_objeto_datos_rel_asoc rel,
+											apex_objeto_db_registros_col padre,
+											apex_objeto_db_registros_col hijo
+								WHERE
+											rel.padre_proyecto = padre.objeto_proyecto AND
+											rel.padre_objeto = padre.objeto AND
+											padre.columna = '{$columnas_padre[$id]}' AND
+											rel.hijo_proyecto = hijo.objeto_proyecto AND
+											rel.hijo_objeto = hijo.objeto AND
+											hijo.columna = '{$columnas_hijas[$id]}' AND
+											rel.proyecto =  '{$this->elemento->get_id()}'	AND
+											rel.objeto = '{$columnas_relacionadas['objeto']}'			AND
+											rel.asoc_id = '{$columnas_relacionadas['asoc_id']}');";
+			}
+		}
+		$sql[] = "UPDATE apex_objeto_datos_rel_asoc SET padre_clave = NULL , hijo_clave = NULL WHERE proyecto =  '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
+
 	/**
 	 * Se cambia:
 	 *	evt__limpieza_memoria por limpiar_memoria
@@ -174,6 +238,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$editor->procesar_archivos($archivos);
 	}
 
+	/**
+	 * Setea la carga de columnas externas como datos obligatorios. Esto es salta excepcion si no encuentra el dato.
+	 */
 	function proyecto__restringir_carga_col_ext()
 	{
 		$sql = "UPDATE apex_objeto_db_registros_ext SET dato_estricto = '1' WHERE objeto_proyecto = '{$this->elemento->get_id()}'; ";

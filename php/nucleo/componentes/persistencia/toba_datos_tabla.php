@@ -845,19 +845,8 @@ class toba_datos_tabla extends toba_componente
 		
 		//Actualizo los valores
 		$alguno_modificado = false;
-		$fila_anterior = $this->_datos[$id];
 		foreach(array_keys($fila) as $clave){
-			if (isset($this->_datos[$id][$clave])) {
-				$viejo = $this->_datos[$id][$clave];
-				if (is_bool($viejo)) {
-					$viejo = $viejo ? 1 : 0;
-				}
-				//--- Comparacion por igualdad estricta con un cast a string
-				$modificar = (trim((string) $viejo) !== trim((string) $fila[$clave]));
-			} else {
-				//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)
-				$modificar = isset($this->_columnas[$clave]) && isset($fila[$clave]);
-			}
+			$modificar = $this->es_campo_modificado($clave, $id, $fila);
 			if ($modificar) {
 				$alguno_modificado = true;
 				$this->_datos[$id][$clave] = $fila[$clave];
@@ -1722,6 +1711,29 @@ class toba_datos_tabla extends toba_componente
 	{
 		return $this->get_cantidad_filas_a_sincronizar() > 0;
 	}
+
+	/**
+	 * Verifica si hubo cambios en los valores de un campo especifico
+	 * @param string $campo Nombre de la columna a comparar
+	 * @param integer $id_viejos Identificador de la fila con los datos viejos
+	 * @param array $datos_nuevos Arreglo con los datos nuevos
+	 * @return boolean
+	 */
+	function es_campo_modificado($campo, $id_viejos, $datos_nuevos)
+	{
+		if (isset($this->_datos[$id_viejos][$campo])) {
+			$viejo = $this->_datos[$id_viejos][$campo];
+			if (is_bool($viejo)) {
+				$viejo = $viejo ? 1 : 0;
+			}
+			//--- Comparacion por igualdad estricta con un cast a string
+			$modificar = (trim((string) $viejo) !== trim((string) $datos_nuevos[$campo]));
+		} else {
+			//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)
+			$modificar = isset($this->_columnas[$campo]) && isset($datos_nuevos[$campo]);
+		}
+		return $modificar;
+	}	
 }
 
 ?>

@@ -67,11 +67,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'curso', --padre_proyecto
 	'1931', --padre_objeto
 	'sede', --padre_id
-	'institucion,sede', --padre_clave
+	NULL, --padre_clave
 	'curso', --hijo_proyecto
 	'1932', --hijo_objeto
 	'edificios', --hijo_id
-	'institucion,sede', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
 );
@@ -83,11 +83,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'curso', --padre_proyecto
 	'1931', --padre_objeto
 	'sede', --padre_id
-	'institucion,sede', --padre_clave
+	NULL, --padre_clave
 	'curso', --hijo_proyecto
 	'1933', --hijo_objeto
 	'uas', --hijo_id
-	'institucion,sede', --hijo_clave
+	NULL, --hijo_clave
 	NULL, --cascada
 	'2'  --orden
 );
@@ -135,3 +135,43 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'curso', --proyecto
+	'1934', --objeto
+	'27', --asoc_id
+	'1931', --padre_objeto
+	'557', --padre_clave
+	'1932', --hijo_objeto
+	'564'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'curso', --proyecto
+	'1934', --objeto
+	'27', --asoc_id
+	'1931', --padre_objeto
+	'558', --padre_clave
+	'1932', --hijo_objeto
+	'565'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'curso', --proyecto
+	'1934', --objeto
+	'28', --asoc_id
+	'1931', --padre_objeto
+	'557', --padre_clave
+	'1933', --hijo_objeto
+	'571'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'curso', --proyecto
+	'1934', --objeto
+	'28', --asoc_id
+	'1931', --padre_objeto
+	'558', --padre_clave
+	'1933', --hijo_objeto
+	'572'  --hijo_clave
+);
