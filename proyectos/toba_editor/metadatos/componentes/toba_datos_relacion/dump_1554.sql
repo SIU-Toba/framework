@@ -64,11 +64,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'1554', --objeto
 	'1', --asoc_id
 	'base -> objetos', --identificador
-	'toba', --padre_proyecto
+	'toba_editor', --padre_proyecto
 	'1553', --padre_objeto
 	'base', --padre_id
 	NULL, --padre_clave
-	'toba', --hijo_proyecto
+	'toba_editor', --hijo_proyecto
 	'1558', --hijo_objeto
 	'objetos', --hijo_id
 	NULL, --hijo_clave
@@ -80,11 +80,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'1554', --objeto
 	'2', --asoc_id
 	'base -> permisos', --identificador
-	'toba', --padre_proyecto
+	'toba_editor', --padre_proyecto
 	'1553', --padre_objeto
 	'base', --padre_id
 	NULL, --padre_clave
-	'toba', --hijo_proyecto
+	'toba_editor', --hijo_proyecto
 	'1555', --hijo_objeto
 	'permisos', --hijo_id
 	NULL, --hijo_clave
@@ -135,3 +135,43 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1554', --objeto
+	'1', --asoc_id
+	'1553', --padre_objeto
+	'229', --padre_clave
+	'1558', --hijo_objeto
+	'269'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1554', --objeto
+	'1', --asoc_id
+	'1553', --padre_objeto
+	'230', --padre_clave
+	'1558', --hijo_objeto
+	'270'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1554', --objeto
+	'2', --asoc_id
+	'1553', --padre_objeto
+	'229', --padre_clave
+	'1555', --hijo_objeto
+	'266'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1554', --objeto
+	'2', --asoc_id
+	'1553', --padre_objeto
+	'230', --padre_clave
+	'1555', --hijo_objeto
+	'268'  --hijo_clave
+);

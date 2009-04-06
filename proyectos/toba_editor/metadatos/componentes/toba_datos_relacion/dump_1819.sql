@@ -64,11 +64,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'1819', --objeto
 	'22', --asoc_id
 	NULL, --identificador
-	'toba', --padre_proyecto
+	'toba_editor', --padre_proyecto
 	'1818', --padre_objeto
 	'grupo', --padre_id
 	NULL, --padre_clave
-	'toba', --hijo_proyecto
+	'toba_editor', --hijo_proyecto
 	'1808', --hijo_objeto
 	'grupo_permiso', --hijo_id
 	NULL, --hijo_clave
@@ -107,3 +107,25 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_rel_columnas_asoc
+------------------------------------------------------------
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1819', --objeto
+	'22', --asoc_id
+	'1818', --padre_objeto
+	'413', --padre_clave
+	'1808', --hijo_objeto
+	'397'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1819', --objeto
+	'22', --asoc_id
+	'1818', --padre_objeto
+	'414', --padre_clave
+	'1808', --hijo_objeto
+	'398'  --hijo_clave
+);
