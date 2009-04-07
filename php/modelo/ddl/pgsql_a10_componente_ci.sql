@@ -116,8 +116,8 @@ CREATE TABLE apex_objetos_pantalla
 	orden			 SMALLINT NULL,
 	dep_id			BIGINT NULL,
 	CONSTRAINT "apex_objetos_pantalla_pk"	PRIMARY KEY ("proyecto", "objeto_ci", "pantalla", "dep_id"),
-	CONSTRAINT "apex_objetos_pantalla_apex_objeto_ci_pantalla_fk" FOREIGN KEY ("pantalla", "objeto_ci", "proyecto") REFERENCES "apex_objeto_ci_pantalla" ("pantalla", "objeto_ci", "objeto_ci_proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT "apex_objetos_pantalla_apex_objeto_dependencias_fk"	FOREIGN KEY ("dep_id", "proyecto", "objeto_ci") REFERENCES "apex_objeto_dependencias" ("dep_id", "proyecto", "objeto_consumidor") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT "apex_objetos_pantalla_apex_objeto_ci_pantalla_fk" FOREIGN KEY ("pantalla", "objeto_ci", "proyecto") REFERENCES "apex_objeto_ci_pantalla" ("pantalla", "objeto_ci", "objeto_ci_proyecto") ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_objetos_pantalla_apex_objeto_dependencias_fk"	FOREIGN KEY ("dep_id", "proyecto", "objeto_ci") REFERENCES "apex_objeto_dependencias" ("dep_id", "proyecto", "objeto_consumidor") ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 CREATE TABLE apex_eventos_pantalla

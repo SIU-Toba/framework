@@ -17,24 +17,31 @@ class asignador_objetos
 	
 	function asignar()
 	{
-		switch ($this->destino['tipo']) {
-			case 'toba_item':
-				$this->asignar_a_item();
-				break;
-			case 'toba_ci':
-				$this->asignar_a_ci();
-				break;
-			case 'toba_cn':
-				$this->asignar_a_cn();
-				break;
-			case 'toba_ci_pantalla':
-				$this->asignar_a_pantalla_ci();
-				break;
-			case 'toba_datos_relacion':
-				$this->asignar_a_datos_relacion();
-				break;
-			default:
-				throw new toba_error("El destinatario del objeto ('{$this->destino['tipo']}') no es ninguno de los predefinidos");
+		toba::db('instancia')->abrir_transaccion();
+		try{
+			switch ($this->destino['tipo']) {
+				case 'toba_item':
+					$this->asignar_a_item();
+					break;
+				case 'toba_ci':
+					$this->asignar_a_ci();
+					break;
+				case 'toba_cn':
+					$this->asignar_a_cn();
+					break;
+				case 'toba_ci_pantalla':
+					$this->asignar_a_pantalla_ci();
+					break;
+				case 'toba_datos_relacion':
+					$this->asignar_a_datos_relacion();
+					break;
+				default:
+					throw new toba_error("El destinatario del objeto ('{$this->destino['tipo']}') no es ninguno de los predefinidos");
+			}
+			toba::db('instancia')->cerrar_transaccion();
+		}catch(Exception $e){
+			toba::db('instancia')->abortar_transaccion();
+			throw $e;
 		}
 	}
 	
@@ -68,6 +75,9 @@ class asignador_objetos
 		  			) 
 		  		";
 		ejecutar_fuente($sql,'instancia');
+		//Aca obtengo la secuencia de la dependencia y la retorno.
+		$id = toba::db('instancia')->recuperar_secuencia('apex_objeto_dep_seq');
+		return $id;
 	}
 
 	protected function asignar_a_cn()
@@ -78,27 +88,27 @@ class asignador_objetos
 		  				'{$this->destino['objeto']}', 
 			  			'{$this->origen['objeto']}', 
 			  			'{$this->destino['id_dependencia']}'
-		  			) 
-		  		";
+		  			) ;	";
 		ejecutar_fuente($sql,'instancia');
+
+		//Aca obtengo la secuencia de la dependencia y la retorno.
+		$id = toba::db('instancia')->recuperar_secuencia('apex_objeto_dep_seq');
+		return $id;
 	}
 		
 	protected function asignar_a_pantalla_ci()
 	{
-		$this->asignar_a_ci();
-		$sql = "UPDATE apex_objeto_ci_pantalla
-				SET 
-					objetos =   
-						CASE 
-							WHEN objetos is null THEN ''
-            				WHEN objetos='' THEN ''
-            				ELSE objetos || ','
-       					END || '{$this->destino['id_dependencia']}'
-				WHERE
-					objeto_ci_proyecto = '{$this->destino['proyecto']}' AND
-					objeto_ci = '{$this->destino['objeto']}' AND
-					pantalla = '{$this->destino['pantalla']}'
-			";
+		$dep_id = $this->asignar_a_ci();
+		$sql = "INSERT INTO apex_objetos_pantalla( proyecto, pantalla, objeto_ci, dep_id, orden)
+		VALUES ('{$this->destino['proyecto']}', '{$this->destino['pantalla']}',
+						  '{$this->destino['objeto']}', '$dep_id',
+							(SELECT max(orden) + 1
+							FROM apex_objetos_pantalla
+							WHERE proyecto = '{$this->destino['proyecto']}' AND
+								objeto_ci = '{$this->destino['objeto']}' AND
+								pantalla = '{$this->destino['pantalla']}' )
+						);";
+				
 		ejecutar_fuente($sql,'instancia');
 	}
 	
@@ -118,7 +128,4 @@ class asignador_objetos
 		ejecutar_fuente($sql,'instancia');		
 	}
 }
-
-
-
 ?>

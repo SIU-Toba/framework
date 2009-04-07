@@ -35,10 +35,10 @@ class toba_migracion_1_4_0 extends toba_migracion
 							CONSTRAINT apex_objetos_pantalla_pk	PRIMARY KEY (proyecto, objeto_ci, pantalla, dep_id)
 						);';
 		$sql[] = 'ALTER TABLE apex_objetos_pantalla ADD CONSTRAINT apex_objetos_pantalla_apex_objeto_ci_pantalla_fk FOREIGN KEY (pantalla, objeto_ci, proyecto) 
-						REFERENCES apex_objeto_ci_pantalla (pantalla, objeto_ci, objeto_ci_proyecto) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+						REFERENCES apex_objeto_ci_pantalla (pantalla, objeto_ci, objeto_ci_proyecto) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objetos_pantalla ADD CONSTRAINT apex_objetos_pantalla_apex_objeto_dependencias_fk FOREIGN KEY (dep_id, proyecto, objeto_ci) 
-						REFERENCES apex_objeto_dependencias (dep_id, proyecto, objeto_consumidor) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+						REFERENCES apex_objeto_dependencias (dep_id, proyecto, objeto_consumidor) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 
 		//----------------- Tabla para asociar eventos a las pantallas-------------------------------------
 		$sql[] ='CREATE TABLE apex_eventos_pantalla(
