@@ -75,14 +75,18 @@ class ci_proyecto extends toba_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function conf__nucleo($ei)
+	function conf__nucleo(toba_ei_formulario $form)
 	{
 		$datos = $this->dependencia('datos')->get();
 		if (isset($datos['item_set_sesion'])) {
 			$datos['carpeta_set_sesion'] = toba_info_editores::get_carpeta_de_item(	$datos['item_set_sesion'], 
 																				$datos['proyecto']);
 		}
-		return $datos;
+		$form->ef('ce_subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->ef('sesion_subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->ef('usuario_subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->ef('salida_impr_html_a')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->set_datos($datos);
 	}
 
 	//---- version -------------------------------------------------------

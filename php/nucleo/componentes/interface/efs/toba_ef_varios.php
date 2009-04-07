@@ -75,7 +75,9 @@ class toba_ef_checkbox extends toba_ef
 			}         	
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";		
-            return toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
+            $html = toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
+			$html .= $this->get_html_iconos_utilerias();
+			return $html;
          }            
     }
 
@@ -216,6 +218,7 @@ class toba_ef_fijo extends toba_ef_oculto
 			$estado = texto_plano($estado);
 		}
 		$html = "<div class='{$this->clase_css}' id='{$this->id_form}'>".$estado."</div>";
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 	

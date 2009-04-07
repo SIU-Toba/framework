@@ -486,7 +486,7 @@ class toba_editor
 		if ($accion != '') {
 			$parametros[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $item;
 			$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-			$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000058", $parametros, $opciones);
+			$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "30000014", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$vinculo = array();			
 			$vinculo['js'] = $js;

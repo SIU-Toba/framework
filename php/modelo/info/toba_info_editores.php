@@ -791,7 +791,7 @@ class toba_info_editores
 	*/
 	function get_tipos_pagina()
 	{
-		$sql = "SELECT proyecto, pagina_tipo, descripcion 
+		$sql = "SELECT proyecto, pagina_tipo, descripcion
 				FROM apex_pagina_tipo 
 				WHERE ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' )
 				ORDER BY 3";
@@ -800,7 +800,7 @@ class toba_info_editores
 	
 	function get_tipos_pagina_proyecto()
 	{
-		$sql = "SELECT proyecto, pagina_tipo, descripcion 
+		$sql = "SELECT proyecto, pagina_tipo, descripcion, clase_archivo
 				FROM apex_pagina_tipo 
 				WHERE ( proyecto = '". toba_contexto_info::get_proyecto() ."' )
 				ORDER BY 3";

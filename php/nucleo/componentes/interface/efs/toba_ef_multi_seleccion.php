@@ -348,6 +348,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 			$extra .= " style='width: {$this->ancho}'";
 		}
 		$html .= toba_form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, $this->clase_css, $extra);
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 	
@@ -453,7 +454,9 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
     		$html .= str_repeat("\t<td></td>\n", $sobran);
     		$html .= "</tr>\n";	
     	}		
-		$html .= "</table></div>\n";  
+		$html .= "</table>";
+		$html .= "</div>\n";
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}	
 	
@@ -534,7 +537,8 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 
 		$html .= toba_form::multi_select($this->id_form."_izq", array(), $izq, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_derecha();\" onchange=\"$ef_js.refrescar_iconos('izq');\"");
 		$html .= "</td><td>$boton_der<br /><br />$boton_izq</td><td>";
-		$html .= toba_form::multi_select($this->id_form, array(), $der, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_izquierda();\" onchange=\"$ef_js.refrescar_iconos('der');\"");		
+		$html .= toba_form::multi_select($this->id_form, array(), $der, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_izquierda();\" onchange=\"$ef_js.refrescar_iconos('der');\"");
+		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</td></tr>";
 		$html .= "</table>";
 		return $html;

@@ -46,11 +46,11 @@ CREATE TABLE apex_objeto_mt_me
 	con_toc									smallint			NULL,
 	incremental								smallint			NULL,
 	debug_eventos							smallint			NULL,
-	activacion_procesar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar
-	activacion_cancelar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar
-	ev_procesar								smallint			NULL,
-	ev_cancelar								smallint			NULL,
-	objetos									varchar(255)		NULL,	
+	activacion_procesar						varchar(40)			NULL, -- OBSOLETO CN: Indica cuando procesar
+	activacion_cancelar						varchar(40)			NULL, -- OBSOLETO CN: Indica cuando se puede cancelar
+	ev_procesar								smallint			NULL, -- OBSOLETO
+	ev_cancelar								smallint			NULL, -- OBSOLETO
+	objetos									varchar(255)		NULL, -- OBSOLETO
 	post_procesar							varchar(40)			NULL, --> CN: Informacion posterior al proceso
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
 	metodo_opciones							varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion
@@ -83,11 +83,11 @@ CREATE TABLE apex_objeto_ci_pantalla
 	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,
 	descripcion							varchar				NULL,
-	tip									varchar(255)			NULL,
+	tip									varchar(255)		NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
-	objetos								varchar				NULL,
-	eventos								varchar				NULL,
+	objetos								varchar				NULL,	--OBSOLETO
+	eventos								varchar				NULL,	--OBSOLETO
 	subclase							varchar(80)			NULL,
 	subclase_archivo					varchar(255)		NULL,
 	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("pantalla","objeto_ci","objeto_ci_proyecto"),

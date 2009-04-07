@@ -2,6 +2,7 @@
 
 define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
 define("apex_ef_cascada","%");	//Mascara para reemplazar el valor de una dependencia en un SQL
+
 /**
  * Clase base de los elementos de formulario. 
  * 
@@ -37,7 +38,9 @@ abstract class toba_ef
 	protected $clase_css = 'ef';
 	protected $permitir_html = false;		//Hace un htmlentities para evitar ataques XSS
 	protected $check_ml_toggle = false;
-	
+	protected $iconos = array();
+
+
 	//--- DEPENDENCIAS ---
 	protected $cascada_relajada = false;
 	protected $cuando_cambia_valor = '';	//Js que se dispara cuando cambia el valor del ef
@@ -557,6 +560,35 @@ abstract class toba_ef
 	function set_permitir_html($permitir)
 	{
 		$this->permitir_html = $permitir;
+	}
+
+	/**
+	 * Cambia los iconos visibles a un lado del elemento
+	 * @param array $iconos Arreglo de iconos que implementan toba_ef_icono_utileria
+	 */
+	function set_iconos_utilerias($iconos)
+	{
+		$this->iconos = array();
+		foreach ($iconos as $icono) {
+			$this->agregar_icono_utileria($icono);
+		}
+	}
+
+	/**
+	 * Agrega un icono con comportamiento al lado del elemento
+	 */
+	function agregar_icono_utileria(toba_ef_icono_utileria $icono)
+	{
+		$this->iconos[] = $icono;
+	}
+
+	function get_html_iconos_utilerias()
+	{
+		$salida = '';
+		foreach ($this->iconos as $icono) {
+			$salida .= $icono->get_html($this);
+		}
+		return $salida;
 	}
 	
 	/**

@@ -106,7 +106,8 @@ class toba_ef_cuit extends toba_ef
 		$html .= ' - ';
 		$html .= toba_form::text($this->id_form . "_2", substr($this->estado,2,8),$this->solo_lectura, 8, 8, 'ef-input', $this->javascript.$this->input_extra.$tab); 
 		$html .= ' - ';		
-		$html .= toba_form::text($this->id_form . "_3", substr($this->estado,10,1),$this->solo_lectura, 1, 1, 'ef-input', $this->javascript.$this->input_extra.$tab); 
+		$html .= toba_form::text($this->id_form . "_3", substr($this->estado,10,1),$this->solo_lectura, 1, 1, 'ef-input', $this->javascript.$this->input_extra.$tab);
+		$html .= $this->get_html_iconos_utilerias();
 		$html .= '</div>';
 		return $html;
 	}

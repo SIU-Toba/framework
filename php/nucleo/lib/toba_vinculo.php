@@ -15,6 +15,7 @@ class toba_vinculo
 	private $popup = 0;
 	private $popup_parametros = array();
 	private $popup_parametros_validos = array('width','height','scrollbars','resizable');
+	private $ajax = false;
 
 	function __construct($proyecto=null, $item=null, $popup=null, $opciones_popup=null)
 	{
@@ -167,6 +168,22 @@ class toba_vinculo
 	function set_celda_memoria($celda)
 	{
 		$this->opciones['celda_memoria'] = $celda;
-	}	
+	}
+
+	/**
+	 * Cambia la forma de comunicar el vinculo, en lugar de hacerse cambiando la url, se comunica via ajax
+	 */
+	function set_ajax($es_ajax)
+	{
+		$this->ajax = $es_ajax;
+	}
+
+	/**
+	 * Retorna si el vínculo se comunica via ajax
+	 */
+	function get_ajax()
+	{
+		return $this->ajax;
+	}
 }
 ?>

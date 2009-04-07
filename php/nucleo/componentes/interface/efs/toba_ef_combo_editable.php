@@ -59,8 +59,8 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
-        	$input = toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");	
-			$input .= toba_form::hidden($this->id_form, $estado);
+        	$html .= toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");
+			$html .= toba_form::hidden($this->id_form, $estado);
             return $input;
 		} else {
 			$tab = $this->padre->get_tab_index();
@@ -72,9 +72,9 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 			}
 
 			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
-
-			return $html;
 		}
+		$html .= $this->get_html_iconos_utilerias();
+		return $html;
 	}	
 
 	function set_opciones($descripcion, $maestros_cargados=true)

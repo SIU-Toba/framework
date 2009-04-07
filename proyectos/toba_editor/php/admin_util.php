@@ -1,5 +1,7 @@
 <?php
 
+require_once('ef_popup_utileria_php.php');
+
 /**
 *	Utilidades varias para el administrador Toba
 */
@@ -181,7 +183,7 @@ class admin_util
 			'plegado' => false
 		);
 	}
-	
+
 	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono = 'nucleo/php.gif')
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
@@ -192,6 +194,14 @@ class admin_util
 				'vinculo' => $vinculo,
 				'plegado' => true
 		);		
+	}
+
+	static function get_ef_popup_utileria_php()
+	{
+		$iconos = array();
+		$iconos[] = new ef_popup_utileria_php(false);
+		$iconos[] = new ef_popup_utileria_php(true);
+		return $iconos;
 	}
 }
 ?>

@@ -78,10 +78,10 @@ class ci_consultas_php extends toba_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function conf__form()
+	function conf__form(toba_ei_formulario $form)
 	{
-		$datos = $this->dependencia('datos')->get();
-		return $datos;
+		$form->ef('archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->set_datos($this->dependencia('datos')->get());
 	}
 }
 

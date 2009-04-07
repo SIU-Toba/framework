@@ -104,6 +104,7 @@ class ci_fuentes extends toba_ci
 			$this->dep('form')->desactivar_efs(array('separador', 'entrada', 'motor', 'profile',
 													'usuario', 'clave', 'base'));
 		}
+		$this->dep('form')->ef('subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
 		return $datos;
 	}
 }

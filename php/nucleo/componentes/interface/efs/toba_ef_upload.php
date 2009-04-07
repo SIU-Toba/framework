@@ -70,6 +70,7 @@ class toba_ef_upload extends toba_ef
 				$salida = toba_form::archivo($this->id_form, null, $this->clase_css, "disabled='disabled'");
 			}
 		}
+		$salida .= $this->get_html_iconos_utilerias();
 		return $salida;
 	}
 	

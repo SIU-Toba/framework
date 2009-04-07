@@ -359,7 +359,6 @@ padding-left:4px;
 ******************/
 .ef-input, .ef-upload {
 }
-
 .ef-multi-check, .ef-radio, .ef-fecha, .ef-popup{
 	white-space: nowrap;
 	display: block;
@@ -425,6 +424,10 @@ padding-left:4px;
 	margin: 0px;
 	border-style: none;
 	background-color: #ffffff;	
+}
+.ef-editable-unidad {
+	white-space: nowrap;
+	margin-right: 5px;
 }
 
 /*************************

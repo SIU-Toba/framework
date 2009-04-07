@@ -234,6 +234,7 @@ class toba_ef_combo extends toba_ef_seleccion
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
 			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
+			$html .= $this->get_html_iconos_utilerias();
 			return $html;
 		}
 	}	
@@ -330,7 +331,9 @@ class toba_ef_radio extends toba_ef_seleccion
     		$html .= str_repeat("\t<td></td>\n", $sobran);
     		$html .= "</tr>\n";	
     	}
-		$html .= "</table></div>\n";    	
+		$html .= "</table>";
+		$html .= "</div>\n";
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 		

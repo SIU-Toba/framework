@@ -44,10 +44,10 @@ class ci_abm_basico extends toba_ci
 		$this->dependencia('datos')->resetear();
 	}
 
-	function conf__formulario()
+	function conf__formulario(toba_ei_formulario $form)
 	{
 		if( $this->dependencia('datos')->hay_cursor() ) {
-			return $this->dependencia('datos')->get();
+			$form->set_datos($this->dependencia('datos')->get());
 		}
 	}
 }

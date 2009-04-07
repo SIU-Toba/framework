@@ -390,6 +390,7 @@ class toba_vinculador
 				$datos['popup_parametros'] = $vinculo->get_popup_parametros();
 				$datos['target'] = $vinculo->get_target();
 				$datos['activado'] = 1;
+				$datos['ajax'] = $vinculo->get_ajax();
 				$datos_js = toba_js::arreglo($datos, true);
 				echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 			}

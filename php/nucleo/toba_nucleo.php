@@ -560,6 +560,7 @@ class toba_nucleo
 			'toba_ef_checkbox'						=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
 			'toba_ef_fijo'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
 			'toba_ef_html'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
+			'toba_ef_icono_utileria'				=> 'nucleo/componentes/interface/interfaces.php',
 			'toba_nodo_arbol'						=> 'nucleo/componentes/interface/interfaces.php',
 			'toba_nodo_arbol_form'					=> 'nucleo/componentes/interface/interfaces.php',
 			'toba_relacion_entre_tablas'			=> 'nucleo/componentes/persistencia/toba_relacion_entre_tablas.php',

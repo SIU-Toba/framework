@@ -70,7 +70,8 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
 		$input = toba_form::text($this->id_form,$this->estado,$this->solo_lectura,$longuitud,$this->tamano,$this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		$url = toba::vinculador()->get_url(null,null,array(), array('servicio' => 'mostrar_captchas_efs',
-															        'objetos_destino' => array( $this->padre->get_id() )));
+													'objetos_destino' => array( $this->padre->get_id() )));
+		$input .= $this->get_html_iconos_utilerias();
 		$input = "<div>
 					<div class='{$this->css_captcha}'>	
 						<img src='$url' width='{$this->tamano_imagen['ancho']}' heigth='{$this->tamano_imagen['alto']}' />
@@ -78,7 +79,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 					<div class='{$this->clase_css}'>
 						 $input 
 					</div>
-				  </div>";		
+				</div>";
 		return $input;
 	}
 	

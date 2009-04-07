@@ -1007,9 +1007,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! $this->_ordenado) {
 			$ordenamiento = array();
-
-			switch( $this->_columnas[$this->_orden_columna]['formateo'] )
-			{		
+			switch($this->_columnas[$this->_orden_columna]['formateo']) {
 				case "fecha":
 					// Paso los valores de la columna a timestamp para ordenar por fecha	
 			    	foreach ($this->datos as $fila) {

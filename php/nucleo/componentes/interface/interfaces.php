@@ -86,7 +86,16 @@ interface toba_nodo_arbol_form extends toba_nodo_arbol
 
 //-----------------------------------------------------------
 
-
+/**
+ * Representa un icono de utileria que se situa a un lado de los efs, que permite extender el comportamiento del mismo
+ * 
+ * @package Componentes
+ * @subpackage Efs
+ */
+interface toba_ef_icono_utileria
+{
+	function get_html(toba_ef $ef);
+}
 
 
 ?>

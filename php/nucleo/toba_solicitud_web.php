@@ -203,7 +203,7 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Abre el formulario
 		$accion = $this->info['basica']['item_act_accion_script'];
 		if ($accion == '') {
-			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), "onsubmit='return deshabilitar_botones();'");
+			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), "onsubmit='return false;'");
 			foreach ($objetos as $obj) {
 				//-- Librerias JS necesarias
 				toba_js::cargar_consumos_globales($obj->get_consumo_javascript());

@@ -259,12 +259,12 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	padre_proyecto					varchar(15)			NOT NULL,
 	padre_objeto					int8				NOT NULL,
 	padre_id						varchar(20)			NOT NULL,
-	padre_clave		    			varchar(255)			NULL, 
+	padre_clave		    			varchar(255)			NULL,   --OBSOLETO
 --	hijo --
 	hijo_proyecto					varchar(15)			NOT NULL,
 	hijo_objeto						int8				NOT NULL,
 	hijo_id							varchar(20)			NOT NULL,
-	hijo_clave		    			varchar(255)			NULL, 
+	hijo_clave		    			varchar(255)			NULL,	--OBSOLETO
 	cascada							smallint			NULL,
 	orden							float				NULL,
 	CONSTRAINT  "apex_obj_datos_rel_asoc_pk" PRIMARY KEY ("asoc_id","objeto","proyecto"),

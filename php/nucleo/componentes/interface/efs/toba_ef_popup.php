@@ -21,7 +21,7 @@ class toba_ef_popup extends toba_ef_editable
 	protected $no_oblig_puede_borrar = false;
 	protected $img_editar = 'editar.gif';
 
-    static function get_lista_parametros_carga()
+	static function get_lista_parametros_carga()
     {
     	$parametros = toba_ef::get_lista_parametros_carga_basico();    
 		array_borrar_valor($parametros, 'carga_lista');
@@ -138,7 +138,7 @@ class toba_ef_popup extends toba_ef_editable
 	{
 		$this->img_editar = $url;
 	}
-	
+
 	function get_input()
 	{
 		$tab = $this->padre->get_tab_index();
@@ -173,7 +173,8 @@ class toba_ef_popup extends toba_ef_editable
 			$r .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
 			$r .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
 	        $r .= " href='#'>".toba_recurso::imagen_toba('limpiar.png',true,null,null,"Limpia la selección actual")."</a>";
-		}		
+		}
+		$r .= $this->get_html_iconos_utilerias();
 		$r .= "</span>\n";
 		return $r;
 	}

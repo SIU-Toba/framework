@@ -459,11 +459,12 @@ class toba_item_info implements toba_nodo_arbol
 		}
 	}
 
-	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')
+	function get_utileria_editor_abrir_php($id_componente=null, $icono='reflexion/abrir.gif')
 	{
-		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$parametros = array();
+		$parametros['archivo'] = $this->datos['basica']['item_act_accion_script'];
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000058", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "30000014", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		return array(
 			'imagen' => toba_recurso::imagen_proyecto($icono, false),
@@ -476,11 +477,12 @@ class toba_item_info implements toba_nodo_arbol
 		);
 	}
 	
-	static function get_utileria_editor_ver_php($id_componente, $icono = 'nucleo/php.gif')
+	function get_utileria_editor_ver_php($id_componente=null, $icono = 'nucleo/php.gif')
 	{
-		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$parametros = array();
+		$parametros['archivo'] = $this->datos['basica']['item_act_accion_script'];
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"1000058", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"30000014", $parametros, $opciones);
 		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),
 				'ayuda' => 'Ver el contenido del archivo PHP del ítem',
 				'vinculo' => $vinculo,

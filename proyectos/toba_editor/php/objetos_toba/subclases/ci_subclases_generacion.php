@@ -29,7 +29,6 @@ class ci_subclases_generacion extends toba_ci
 			//$this->s__path_archivo = $this->controlador()->get_path_archivo();
 			$this->s__es_esclavo = false;
 		}
-
 		if (! isset($this->s__es_esclavo)) {
 			//Es un esclavo
 			$this->s__path_archivo = $this->controlador()->get_path_archivo();
@@ -237,7 +236,7 @@ class ci_subclases_generacion extends toba_ci
 		if (!$ver_comandos_svn || !$svn_add || !$existe_archivo) {
 			$this->pantalla()->eliminar_evento('svn_add');
 		}
-		if (!$ver_comandos_svn || !$existe_archivo) {
+		if (!$ver_comandos_svn || !$existe_archivo || $svn_add) {
 			$this->pantalla()->eliminar_evento('trac_ver');
 		}
 	}
@@ -256,7 +255,11 @@ class ci_subclases_generacion extends toba_ci
 			return $codigo;
 		} else {
 			//-- Muestra el original
-			return file_get_contents($this->s__path_archivo);
+			if (file_exists($this->s__path_archivo)) {
+				return file_get_contents($this->s__path_archivo);
+			} else {
+				return '';
+			}
 		}
 	}
 

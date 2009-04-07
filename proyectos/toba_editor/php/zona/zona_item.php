@@ -45,14 +45,14 @@ class zona_item extends zona_editor
 		if( $this->editable_info['actividad_accion'] != '' )
 		{
 			$componente = $this->get_editable();
+			$id = array('proyecto'=>$componente[0], 'componente' =>$componente[1]);
+			$info = toba_constructor::get_info($id, 'toba_item');
 			// Ir al editor
-			$ver = toba_item_info::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
-																		'componente' =>$componente[1] ) );			
+			$ver = $info->get_utileria_editor_ver_php();
 			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
 			if ( admin_util::existe_archivo_subclase($this->editable_info['actividad_accion']) ) {
-				$abrir = toba_item_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
-																				'componente' =>$componente[1] )  );	
+				$abrir = $info->get_utileria_editor_abrir_php();
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
 		}

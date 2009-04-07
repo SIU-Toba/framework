@@ -130,8 +130,9 @@ class toba_ef_editable extends toba_ef
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
-			$input = "<span style='white-space:nowrap'>".$input .' '.$this->unidad.'</span>';
+			$input = "<span class='ef-editable-unidad'>".$input .' '.$this->unidad.'</span>';
 		}
+		$input .= $this->get_html_iconos_utilerias();
 		return $input;
 	}
 	
@@ -436,6 +437,7 @@ class toba_ef_editable_clave extends toba_ef_editable
 		if ($this->confirmar_clave) {
 			$html .= "<br />".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
 		}
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 	
@@ -548,6 +550,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
 			$html .= " href='#' name='link_". $this->id_form . "'>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
 		}
+		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</span>\n";
 		return $html;
 	}
@@ -706,6 +709,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$tab = ' tabindex="'.$this->padre->get_tab_index().'"';	
 			$html .= toba_form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra.$tab);
 		}
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 	

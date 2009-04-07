@@ -501,7 +501,7 @@ function actualizar_logger(cant) {
 }
 
 function deshabilitar_botones()
-{
+{	
 	var botones = document.getElementsByTagName("button");
 	for (var a=0;a<botones.length;a++){
 		botones[a].disabled = true;

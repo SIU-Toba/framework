@@ -86,7 +86,7 @@ class ci_principal extends toba_ci
 	//--- PROPIEDADES BASICAS
 	//-------------------------------------------------------------------
 
-	function conf__prop_basicas()
+	function conf__prop_basicas(toba_ei_formulario $form)
 	{
 		$datos = $this->get_entidad()->tabla("base")->get();
 	
@@ -105,7 +105,8 @@ class ci_principal extends toba_ci
 			$datos['pagina_tipo'] = $pagina['pagina_tipo'];
 			$datos['pagina_tipo_proyecto'] = $pagina['proyecto']; 
 		}
-		return $datos;
+		$form->ef('accion')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		$form->set_datos($datos);
 	}
 
 	function evt__prop_basicas__modificacion($registro)
