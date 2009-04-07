@@ -1000,40 +1000,184 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos, utilizando array_multisort
-	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * Método estandar de ordenamiento de los datos, decide el metodo de ordenamiento en base
+	 * al tipo de formateo de la columna, sino utiliza ordenamiento por default
 	 */
     protected function ordenar()
 	{
 		if (! $this->_ordenado) {
 			$ordenamiento = array();
-			switch($this->_columnas[$this->_orden_columna]['formateo']) {
-				case "fecha":
-					// Paso los valores de la columna a timestamp para ordenar por fecha	
-			    	foreach ($this->datos as $fila) {
-			   			$ordenamiento[] = strtotime($fila[$this->_orden_columna])  ;
-					}
-					//Ordeno segun el sentido
-			        if($this->_orden_sentido == "asc"){
-			            array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
-			        } elseif ($this->_orden_sentido == "des"){
-			            array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
-			        }
-			    break;
-		        
-		    	default:
-					foreach ($this->datos as $fila){
-						$ordenamiento[] = $fila[$this->_orden_columna];
-			        }
-			        //Ordeno segun el sentido
-			        if($this->_orden_sentido == "asc"){
-			            array_multisort($ordenamiento, SORT_ASC , $this->datos);
-			        } elseif ($this->_orden_sentido == "des"){
-			            array_multisort($ordenamiento, SORT_DESC , $this->datos);
-			        }
-		    } //SWITCH
+			$funcion_formateo = 'ordenamiento_' . $this->_columnas[$this->_orden_columna]['formateo'];
+			if (method_exists($this, $funcion_formateo)){
+				toba::logger()->debug('Entro en el metodo de ordenamiento: ' . $funcion_formateo);
+				$this->$funcion_formateo();
+			}else{
+				toba::logger()->debug('No se encontro el metodo de ordenamiento: ' . $funcion_formateo);
+				$this->ordenamiento_default();
+			}
 		} //IF
     }
+
+	/**
+	 * Método estandar de ordenamiento de fechas
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_fecha()
+	{
+		$this->ordenar_fechas();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de timestamps (fecha, hora)
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_fecha_hora()
+	{
+		$this->ordenar_fechas();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de monedas
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_moneda()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de numeros
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_millares()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de decimales
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_decimal()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de tiempo expresado en numeros
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @see ordenamiento_fecha
+	 */
+	protected function ordenamiento_tiempo()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de porcentajes
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_porcentaje()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de superficie
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_superficie()
+	{
+		$this->ordenar_numeros();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de caracteres en mayusculas
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_mayusculas()
+	{
+		$this->ordenar_caracteres();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de caracteres
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_may_ind()
+	{
+		$this->ordenar_caracteres();
+	}
+
+	/**
+	 * Método estandar de ordenamiento de los datos, utilizando array_multisort
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 */
+	protected function ordenamiento_default()
+	{
+		foreach ($this->datos as $fila){
+			$ordenamiento[] = $fila[$this->_orden_columna];
+		}
+		//Ordeno segun el sentido
+		if($this->_orden_sentido == "asc"){
+			array_multisort($ordenamiento, SORT_ASC , $this->datos);
+		} elseif ($this->_orden_sentido == "des"){
+			array_multisort($ordenamiento, SORT_DESC , $this->datos);
+		}
+	}
+
+	/**
+	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @ignore
+	 */
+	protected function ordenar_fechas()
+	{
+		foreach ($this->datos as $fila) {
+			$ordenamiento[] = strtotime($fila[$this->_orden_columna])  ;
+		}
+		//Ordeno segun el sentido
+		if($this->_orden_sentido == "asc"){
+			array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
+		} elseif ($this->_orden_sentido == "des"){
+			array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
+		}
+	}
+
+	/**
+	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @ignore
+	 */
+	protected function ordenar_numeros()
+	{
+		foreach ($this->datos as $fila){
+			$ordenamiento[] = $fila[$this->_orden_columna];
+		}
+		if($this->_orden_sentido == "asc"){
+			array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
+		} elseif ($this->_orden_sentido == "des"){
+			array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
+		}
+	}
+
+	/**
+	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @ignore
+	 */
+	protected function ordenar_caracteres()
+	{
+		foreach ($this->datos as $fila){
+			$ordenamiento[] = $fila[$this->_orden_columna];
+		}
+		//Ordeno segun el sentido
+		if($this->_orden_sentido == "asc"){
+			array_multisort($ordenamiento, SORT_ASC, SORT_STRING , $this->datos);
+		} elseif ($this->_orden_sentido == "des"){
+			array_multisort($ordenamiento, SORT_DESC, SORT_STRING , $this->datos);
+		}
+	}
 
 //################################################################################
 //###############################    API basica    ###############################
