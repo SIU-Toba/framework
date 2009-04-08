@@ -6,6 +6,7 @@ class toba_molde_elemento_componente_ei extends toba_molde_elemento_componente
 {
 	protected $eventos = array();
 	protected $proximo_evento = 0;
+	protected $pantallas_evt_asoc = array();
 
 	//---------------------------------------------------
 	//-- API de construccion
@@ -49,9 +50,16 @@ class toba_molde_elemento_componente_ei extends toba_molde_elemento_componente
 		foreach($this->eventos as $evento) {
 		 	$this->datos->tabla('eventos')->nueva_fila($evento->get_datos());
 		}
+		$this->asociar_eventos_a_pantallas();
 		parent::generar();
 	}
 
-
+	function asociar_eventos_a_pantallas()
+	{
+		//Ventana de extension para que se decida como asociar los eventos a pantallas.
+		//Se hace mediante callback porque necesito hacerlo antes de ir al parent que sincroniza
+		//Y quien hereda esta clase recien tiene el datos_tabla cargado cuando ya ha pasado
+		//por toda su generacion.
+	}
 }
 ?>
