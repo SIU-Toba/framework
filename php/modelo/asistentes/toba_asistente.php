@@ -362,6 +362,24 @@ abstract class toba_asistente
 		return $molde;
 	}
 
+
+	function generar_datos_relacion($molde_dr)
+	{
+		$molde_dr->crear($this->molde['nombre']);
+		$molde_dr->crear_relaciones();
+	}
+	
+	function get_molde_datos_relacion($fuente = null)
+	{
+		if (isset($fuente)){
+			$this->molde['fuente'] = $fuente;
+		}
+
+		$molde = new toba_datos_relacion_molde($this);
+		$this->generar_datos_relacion($molde);
+		return $molde;
+	}
+
 	//-- API para los elementos del molde ----------------------------------------
 
 	function get_proyecto()

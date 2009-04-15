@@ -76,7 +76,7 @@ class toba_modelo_operacion
 			//-- Esta embebido?
 			if ($arbol['consumidores_externos'] == 0) {
 				//-- No es un datos?				
-				if (!in_array($arbol['tipo'], array('toba_datos_tabla', 'toba_datos_relacion'))) {
+				if (!in_array($arbol['tipo'], array('toba_datos_tabla'))) {
 					$eliminar = true;
 				}
 			}

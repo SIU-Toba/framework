@@ -13,7 +13,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function ini()
 	{
 		parent::ini();
-		$this->datos->tabla('prop_basicas')->nueva_fila(array());
+		$this->datos->tabla('prop_basicas')->set(array());
 		$this->datos->tabla('prop_basicas')->set_cursor(0);
 	}
 

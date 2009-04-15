@@ -272,7 +272,7 @@
 	 */
 	function sql_get_alias($tabla)
 	{
-		$alias = '';
+		$alias = 't_';
 		foreach(explode('_', $tabla) as $parte) {
 			$alias .= substr($parte, 0, 1);
 		}

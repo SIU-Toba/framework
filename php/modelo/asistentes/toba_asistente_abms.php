@@ -56,17 +56,20 @@ class toba_asistente_abms extends toba_asistente_1dt
 	################################################################################	
 	
 	protected function generar()
-	{	
+	{
 		$clase = 'ci'.$this->molde['prefijo_clases'];
 		$this->ci->set_nombre($this->molde['nombre'] . ' - CI');
 		$this->ci->extender($clase , $clase . '.php');
 		$this->ci->set_ancho('500px');
 		$this->ci->set_alto('300px');
 		//- Creo dependencias -----------------------------------
-		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
+		$relacion = $this->ci->agregar_dep('toba_datos_relacion', 'datos');
+		$relacion->agregar_tabla($this->molde_abms['tabla']);
+		$relacion->agregar_definicion_tabla($this->molde_abms['tabla'], $this->molde_abms_fila);
 		$cuadro = $this->ci->agregar_dep('toba_ei_cuadro', 'cuadro');
 		$form = $this->ci->agregar_dep('toba_ei_formulario', 'formulario');
-		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
+		$this->generar_datos_relacion($relacion);		
+
 		if ($this->molde_abms['gen_usa_filtro']) {
 			$filtro = $this->ci->agregar_dep('toba_ei_formulario', 'filtro');			
 			$this->generar_filtro($filtro);
@@ -124,8 +127,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$evento->set_imagen('borrar.png');
 			$evento->set_confirmacion($this->confirmacion_eliminar);			
 			$metodo = new toba_codigo_metodo_php('evt__eliminar');
-			$metodo->set_contenido( array("\$this->dep('datos')->eliminar_filas();",
-										"\$this->dep('datos')->sincronizar();",
+			$metodo->set_contenido( array("\$this->dep('datos')->eliminar_todo();",
 										"\$this->resetear();"));			
 			$this->ci->php()->agregar($metodo);
 			$this->ci->asociar_pantalla_evento('pant_edicion', $evento);	
@@ -289,7 +291,8 @@ class toba_asistente_abms extends toba_asistente_1dt
 				$metodo_recuperacion = $this->molde_abms['cuadro_carga_php_metodo'];
 			}
 			//----> Los datos son provistos por un datos_tabla
-			$php_recuperacion = '$this->dep(\'datos\')->' . $metodo_recuperacion;
+			$tabla_usada = $this->molde_abms['tabla'];
+			$php_recuperacion = '$this->dep(\'datos\')->' . "tabla('$tabla_usada')->". $metodo_recuperacion;
 			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta existe
 				$this->ci->dep('datos')->crear_metodo_consulta($metodo_recuperacion,
 																$this->molde_abms['cuadro_carga_sql'],
@@ -328,8 +331,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$metodo = new toba_codigo_metodo_php('evt__cuadro__eliminar',array('$datos'));
 			$metodo->set_contenido( array(	"\$this->dep('datos')->resetear();",
 											"\$this->dep('datos')->cargar(\$datos);",
-											"\$this->dep('datos')->eliminar_filas();",
-											"\$this->dep('datos')->sincronizar();",
+											"\$this->dep('datos')->eliminar_todo();",											
 											"\$this->dep('datos')->resetear();"));
 			$this->ci->php()->agregar($metodo);
 		}
@@ -368,9 +370,10 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		//--- conf__formulario  ----------------------------------
 		//--------------------------------------------------------
+		$tabla_actual = $this->molde_abms['tabla'];
 		$metodo = new toba_codigo_metodo_php('conf__formulario',array('toba_ei_formulario $form'));
 		$contenido = array(	"if(\$this->dep('datos')->esta_cargada()){",
-										"\t\$form->set_datos(\$this->dep('datos')->get());");
+										"\t\$form->set_datos(\$this->dep('datos')->tabla('$tabla_actual')->get());");
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$contenido[] = "} else {";
 			$contenido[] = "\t\$this->pantalla()->eliminar_evento('eliminar');";
@@ -390,7 +393,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$evento->set_predeterminado();
 			$evento->set_grupos('no_cargado');
 			$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
-			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);",
+			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);",
 											"\$this->dep('datos')->sincronizar();",
 											"\$this->resetear();"));
 			$this->ci->php()->agregar($metodo);
@@ -404,14 +407,14 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));		
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$evento->implicito();
-			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);"));
+			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);"));
 		} else {
 			$evento->en_botonera();
 			$evento->set_predeterminado();
 			$evento->set_etiqueta('Modificar');
 			$evento->set_imagen('refrescar.png');
 			$evento->set_grupos('cargado');
-			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);",
+			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);",
 										"\$this->dep('datos')->sincronizar();",
 										"\$this->resetear();"));
 			
@@ -430,8 +433,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$evento->set_confirmacion($this->confirmacion_eliminar);
 			$evento->set_grupos('cargado');
 			$metodo = new toba_codigo_metodo_php('evt__formulario__baja');
-			$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_filas();",
-											"\$this->dep('datos')->sincronizar();",
+			$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_todo();",
 											"\$this->resetear();"));
 			$this->ci->php()->agregar($metodo);
 		}
