@@ -45,7 +45,7 @@ class toba_menu_css extends toba_menu
 								background-image: url("'.$this->imagen_nodo.'");
 							}
 						</style>
-						<!--[if gte IE 7]>
+						<!--[if IE 7]>
 						<style type="text/css">
 							ul.horizontal ul ul {
 								margin-left: 200px;

@@ -1,7 +1,7 @@
 var agt=navigator.userAgent.toLowerCase();
 var ie= ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
 var ie7 = (ie && agt.indexOf("msie 7") != -1);
-var ie6omenor = (ie && !ie7);
+var ie6omenor = (ie && agt.indexOf("msie 6") != -1);
 var ns6=document.getElementById && !document.all;
 var ereg_numero = /^[1234567890,.-]*$/;
 var ereg_nulo = /^\s*$/;
@@ -319,7 +319,7 @@ function abrir_popup(id, url, opciones, extra, dep) {
 	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus;
 	if (no_esta_definida) {
 		// No fue definida, esta cerrada o no puede tener foco
-		ventana_hija[id] = window.open( url , id, vars);
+		ventana_hija[id] = window.open( url , "ventana" + id, vars);
 		ventana_hija[id].focus();
 	} else {
 		// Ya fue definida, no esta cerrada  y puede tener foco

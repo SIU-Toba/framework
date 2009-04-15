@@ -1908,7 +1908,7 @@ class toba_ei_cuadro extends toba_ei
 						//3: Genero el boton
 						if( ! $evento->esta_anulado() ) {
 							$hay_evento_maneja_datos = true;
-							echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
+							echo $evento->get_html($this->_submit.$f, $this->objeto_js, $this->_id);
 						} else {
 							$evento->restituir();	//Lo activo para la proxima fila
 						}
