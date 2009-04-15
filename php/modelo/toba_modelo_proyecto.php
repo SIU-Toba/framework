@@ -1464,11 +1464,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$modelo = $this->get_aplicacion_modelo();
 		if (! isset($modelo)) {
-			if (file_exists($this->get_dir().'/VERSION')) {
-				return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
-			} else {
-				return toba_modelo_instalacion::get_version_actual();
+			$path_ini = $this->get_dir().'/proyecto.ini';
+			if (file_exists($path_ini)) {
+				$ini = new toba_ini($path_ini);
+				if ($ini->existe_entrada('proyecto', 'version')) {
+					$version = $ini->get('proyecto', 'version', null, true);
+					return new toba_version($version);
+				}
 			}
+			return toba_modelo_instalacion::get_version_actual();
 		} else {
 			return $modelo->get_version_actual();
 		}
@@ -1690,11 +1694,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			   while (false	!==	($archivo = readdir($dir)))	{ 
 					if( is_dir($directorio_proyectos . '/' . $archivo) 
 							&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
-						$arch_nombre = $directorio_proyectos . '/' . $archivo.'/PROYECTO';
+						$arch_nombre = $directorio_proyectos . '/' . $archivo.'/proyecto.ini';
 						$id = $archivo;
 						//--- Si no se encuentra el archivo PROYECTO, se asume que dir=id
 						if (file_exists($arch_nombre)) {
-							$id = file_get_contents($arch_nombre);
+							$ini = new toba_ini($arch_nombre);
+							$id = $ini->get('proyecto', 'id', null, true);
 						}
 						$proyectos[$archivo] = $id;													
 					}
@@ -1743,15 +1748,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$excepciones[] = $dir_template.'/www/aplicacion.produccion.php';
 			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto, $excepciones);
 			
-			//--- Creo el archivo PROYECTO
-			file_put_contents($dir_proyecto.'/PROYECTO', $nombre);
-			file_put_contents($dir_proyecto.'/VERSION', '1.0.0');
-			
 			// Modifico los archivos
 			$editor = new toba_editor_archivos();
 			$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
 			$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
 			$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );
+			$editor->agregar_sustitucion( '|__version__|', '1.0.0');
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
 			$modelo = $dir_proyecto . '/php/extension_toba/modelo.php';
 			$comando = $dir_proyecto . '/php/extension_toba/comando.php';
@@ -1759,8 +1761,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$editor->procesar_archivo($modelo);
 			rename($modelo, str_replace('modelo.php', $nombre.'_modelo.php', $modelo));			
 			rename($comando, str_replace('comando.php', $nombre.'_comando.php', $comando));
+			$ini = $dir_proyecto.'/proyecto.ini';
+			$editor->procesar_archivo($ini);
 
-			
 			// Asocio el proyecto a la instancia
 			$instancia->vincular_proyecto( $nombre, null, $url_proyecto);
 

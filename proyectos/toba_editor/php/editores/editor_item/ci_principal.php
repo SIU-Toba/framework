@@ -105,7 +105,9 @@ class ci_principal extends toba_ci
 			$datos['pagina_tipo'] = $pagina['pagina_tipo'];
 			$datos['pagina_tipo_proyecto'] = $pagina['proyecto']; 
 		}
-		$form->ef('accion')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		if ($form->existe_ef('accion')) {
+			$form->ef('accion')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		}
 		$form->set_datos($datos);
 	}
 

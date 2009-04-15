@@ -246,6 +246,40 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$sql = "UPDATE apex_objeto_db_registros_ext SET dato_estricto = '1' WHERE objeto_proyecto = '{$this->elemento->get_id()}'; ";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
+
+
+	/**
+	 * Se deja de lado el archivo PROYECTO y VERSION y se incluyen en el archivo proyecto.ini en la raiz junto a otras configuraciones del instalador
+	 */
+	function proyecto__configuraciones_ini()
+	{
+		$origen_ini = toba_dir().'/php/modelo/template_proyecto/proyecto.ini';
+		$destino_ini = $this->elemento->get_dir().'/proyecto.ini';
+		$archivo_proyecto = $this->elemento->get_dir().'/PROYECTO';
+		$archivo_version = $this->elemento->get_dir().'/VERSION';
+		
+		$version = '1.0.0';
+		if (file_exists($archivo_proyecto)) {
+			unlink($archivo_proyecto);
+		}
+		if (file_exists($archivo_version)) {
+			$version = trim(file_get_contents($archivo_version));
+			unlink($archivo_version);
+		}
+
+		if (! file_exists($destino_ini)) {
+			if (! copy($origen_ini, $destino_ini)) {
+				throw new toba_error("Imposible copiar de $origen_ini a $destino_ini");
+			}
+			$editor = new toba_editor_archivos();
+			$editor->agregar_sustitucion('|__proyecto__|', $this->elemento->get_id());
+			$editor->agregar_sustitucion('|__version__|', $version);
+			$editor->procesar_archivos(array($destino_ini));
+		}
+
+	}
+
+	
 }
 
 ?>

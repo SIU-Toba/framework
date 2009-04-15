@@ -344,22 +344,74 @@ EOF;
 	}
 	
 
+
+	/**
+	 * En migraciones anteriores algunos datos_tabla quedaron sin fuente. se le pone la fuente por defecto del sistema
+	 */
+	function proyecto__dt_fuentes_faltantes()
+	{
+		$sql[] = "
+			UPDATE apex_objeto
+				SET
+					fuente_datos = (SELECT fuente_datos FROM apex_proyecto WHERE proyecto = '{$this->elemento->get_id()}'),
+					fuente_datos_proyecto = '{$this->elemento->get_id()}'
+				WHERE
+						proyecto = '{$this->elemento->get_id()}'
+					AND objeto IN (
+							SELECT dt.objeto FROM apex_objeto_db_registros as dt
+							WHERE dt.objeto_proyecto = '{$this->elemento->get_id()}'
+						)
+					AND fuente_datos IS NULL
+		";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}
+
 	/**
 	 * Para poder utilizar el unique de (tabla,fuente) es necesario replicar la info de la fuente en la tabla del datos_tabla
 	 */
 	function proyecto__dt_duplicacion_fuente()
 	{
-		$sql[] = "
-			UPDATE apex_objeto_db_registros 
-				SET 
-					fuente_datos = (SELECT fuente_datos FROM apex_objeto WHERE 
-											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto 
+		$sql = "
+			SELECT
+				dt1.tabla,
+				dt1.objeto
+			FROM apex_objeto_db_registros dt1
+			WHERE
+					dt1.objeto_proyecto = '{$this->elemento->get_id()}'
+				AND dt1.tabla IN
+					(SELECT dt2.tabla
+						FROM apex_objeto_db_registros as dt2
+						WHERE
+								dt2.objeto_proyecto = dt1.objeto_proyecto
+							AND dt2.objeto != dt1.objeto
+					)
+			ORDER BY dt1.tabla
+		";
+		$tablas = $this->elemento->get_db()->consultar($sql);
+		$sql = "
+			UPDATE apex_objeto_db_registros
+				SET
+					fuente_datos = (SELECT fuente_datos FROM apex_objeto WHERE
+											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto
 										AND apex_objeto.objeto = apex_objeto_db_registros.objeto ),
 					fuente_datos_proyecto = '{$this->elemento->get_id()}'
 				WHERE
 					objeto_proyecto = '{$this->elemento->get_id()}'
 		";
-		return $this->elemento->get_db()->ejecutar($sql);
+		try {
+			return $this->elemento->get_db()->ejecutar($sql);
+		} catch (toba_error $e) {
+			$mensaje = $e->getMessage();
+			if (! empty($tablas)) {
+				$mensaje .= "\n[ERROR]: El proyecto tiene datos_tabla duplicados. Desde la versión 1.1.0 no es posible
+				para una misma fuente tener dos componentes que representen a la misma tabla del sistema.
+				Es necesario resolver el conflicto dejando solo un represetante de las siguientes tablas y reiniciando la migración:\n\n";
+				foreach ($tablas as $tabla) {
+					$mensaje .= "tabla: {$tabla['tabla']}, id del objeto:  {$tabla['objeto']}\n";
+				}
+			}
+			throw new toba_error($mensaje);
+		}
 	}
 
 	function proyecto__namespace_toba()
@@ -369,6 +421,8 @@ EOF;
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
+
+
 }
 	
 ?>

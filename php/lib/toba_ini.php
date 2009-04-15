@@ -29,9 +29,13 @@ class toba_ini
 	//	Manipulacion de ENTADAS
 	//-----------------------------------------------------------
 
-	function existe_entrada( $nombre )
+	function existe_entrada($seccion, $nombre=null)
 	{
-		return isset( $this->entradas[ $nombre ] );
+		if (! isset($nombre)) {
+			return isset($this->entradas[$seccion]);
+		} else {
+			return isset($this->entradas[$seccion][$nombre]);
+		}
 	}
 
 	function agregar_entrada($nombre, $datos)
@@ -54,6 +58,21 @@ class toba_ini
 			return $this->entradas[ $nombre ];
 		} else {
 			throw new toba_error("La entrada '$nombre' no existe en '{$this->path}'");
+		}
+	}
+
+	function get($seccion, $clave=null, $defecto=null, $obligatorio=true)
+	{
+		if(isset($clave) && isset($this->entradas[$seccion][$clave])) {
+			return $this->entradas[$seccion][$clave];
+		}
+		if (! isset($clave) && isset($this->entradas[$seccion])) {
+			return $this->entradas[$seccion];
+		}
+		if ($obligatorio) {
+			throw new toba_error("No se encuentra definido el parámetro $clave de la sección $seccion en {$this->path}");
+		} else {
+			return $defecto;
 		}
 	}
 	

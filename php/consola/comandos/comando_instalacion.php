@@ -272,7 +272,6 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__info()
 	{
-		print_r($_SERVER);
 		if ( toba_modelo_instalacion::existe_info_basica() ) {
 			$this->consola->enter();
 			//VERSION

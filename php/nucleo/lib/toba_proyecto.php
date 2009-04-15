@@ -15,6 +15,7 @@ class toba_proyecto
 	private $indice_items_accesibles;
 	private $items_excluidos = array();
 	private $mapeo_componentes = array();
+	private $ini_proyecto;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	/**
@@ -74,6 +75,10 @@ class toba_proyecto
 			$this->memoria = self::cargar_info_basica();
 			//toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
+		$path_ini = self::get_path().'/proyecto.ini';
+		if (file_exists($path_ini)) {
+			$this->ini_proyecto = new toba_ini($path_ini);
+		}
 		if (defined('apex_pa_log_archivo_nivel')) {
 			toba::logger()->set_nivel(apex_pa_log_archivo_nivel);
 		} else {
@@ -123,8 +128,8 @@ class toba_proyecto
 	 */
 	function get_version()
 	{
-		if (file_exists(self::get_path().'/VERSION')) {
-			return new toba_version(file_get_contents(self::get_path().'/VERSION'));
+		if (isset($this->ini_proyecto) && $this->ini_proyecto->existe_entrada('proyecto', 'version')) {
+			return new toba_version($this->ini_proyecto->get('proyecto', 'version'));
 		} else {
 			//Se asume que si el proyecto no da un numero de version, se toma la del nucleo (para no mantener la de toba_referencia, usuarios, etc)
 			return toba::instalacion()->get_version();
