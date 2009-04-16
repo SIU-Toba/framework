@@ -19,7 +19,7 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 		//--- Condiciones											
 		if (! $this->es_seleccion_multiple()) {
 			$this->agregar_condicion('es_igual_a', 			new toba_filtro_condicion('es igual a',	 			'=', 	'', 	'', 	'', 	''));
-			$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion('es distinto de', 		'!=',	'', 	'', 	'', 	''));
+			$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion_negativa('es distinto de', 		'!=',	'', 	'', 	'', 	''));
 		} else {
 			$this->agregar_condicion('en_conjunto', 		new toba_filtro_condicion_multi('', 	''));
 		}

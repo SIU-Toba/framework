@@ -26,7 +26,7 @@ class toba_filtro_columna_numero extends toba_filtro_columna_compuesta
 
 		//--- Condiciones
 		$this->agregar_condicion('es_igual_a', 			new toba_filtro_condicion('es igual a',	 			'=', 	'', 	'', 	'', 	''));
-		$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion('es distinto de', 		'!=',	'', 	'', 	'', 	''));
+		$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion_negativa('es distinto de', 		'!=',	'', 	'', 	'', 	''));
 		$this->agregar_condicion('es_mayor_que', 		new toba_filtro_condicion('es mayor que', 			'>','', '', 	'', 	'',		''));
 		$this->agregar_condicion('es_mayor_igual_que', 	new toba_filtro_condicion('es mayor o igual que', 	'>=', 	'', 	'', 	'', 	''));
 		$this->agregar_condicion('es_menor_que', 		new toba_filtro_condicion('es menor que',			'<', 	'', 	'', 	'', 	''));

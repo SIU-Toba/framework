@@ -584,6 +584,7 @@ class toba_nucleo
 			'toba_filtro_condicion'					=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion.php',
 			'toba_filtro_condicion_entre'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_entre.php',
 			'toba_filtro_condicion_multi'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_multi.php',
+			'toba_filtro_condicion_negativa'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_negativa.php',
  			//-----------------------------------------------------------------------------------------------
 			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
 			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',

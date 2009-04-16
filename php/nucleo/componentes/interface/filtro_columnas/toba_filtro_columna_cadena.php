@@ -27,11 +27,11 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 
 		//--- Condiciones
 		$this->agregar_condicion('contiene', 		new toba_filtro_condicion('contiene',	 	'ILIKE', 	'%', 	'%', 	'::varchar', 	''));
-		$this->agregar_condicion('no_contiene', 	new toba_filtro_condicion('no contiene', 	'NOT ILIKE','%', 	'%', 	'::varchar', 	''));
+		$this->agregar_condicion('no_contiene', 	new toba_filtro_condicion_negativa('no contiene', 	'NOT ILIKE','%', 	'%', 	'::varchar', 	''));
 		$this->agregar_condicion('comienza_con', 	new toba_filtro_condicion('comienza con', 	'ILIKE', 	'', 	'%', 	'::varchar', 	''));
 		$this->agregar_condicion('termina_con', 	new toba_filtro_condicion('termina con', 	'ILIKE', 	'%', 	'', 	'::varchar', 	''));
 		$this->agregar_condicion('es_igual_a', 		new toba_filtro_condicion('es igual a',		'=', 		'', 	'', 	'::varchar', 	''));
-		$this->agregar_condicion('es_distinto_de', 	new toba_filtro_condicion('es distinto de', '!=', 		'', 	'', 	'::varchar', 	''));
+		$this->agregar_condicion('es_distinto_de', 	new toba_filtro_condicion_negativa('es distinto de', '!=', 		'', 	'', 	'::varchar', 	''));
 		
 	}
 
