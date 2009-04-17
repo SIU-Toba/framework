@@ -490,15 +490,16 @@ class toba_logger
 		
 		if ($es_nuevo) {
 			//Cambiar permisos
-			toba_manejador_archivos::chmod_recursivo($path, $permisos);
+			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
 		}
 	}
 	
 	protected function anexar_a_archivo($texto, $archivo)
 	{
-		$handle = fopen($archivo, "a");
-		fwrite($handle, "$texto\r\n");
-		fclose($handle);		
+		$res = file_put_contents($archivo, "$texto\r\n", FILE_APPEND);
+		if ($res === FALSE) {
+			throw new toba_error("Imposible guardar el archivo de log '$archivo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo");
+		}
 	}
 	
 	protected function ciclar_archivos_logs($path, $archivo)

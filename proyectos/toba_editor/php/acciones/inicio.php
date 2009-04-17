@@ -1,19 +1,79 @@
 <?php
 
-//ei_arbol($_SESSION, 'SESION', null, true);
+	function controlar_usuario()
+	{
+		$usuario_actual = toba_manejador_archivos::get_usuario_actual();
+		if (isset($usuario_actual)) {
+			$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody');
+			if (in_array($usuario_actual, $usuarios_defecto)) {
+				echo "<style type='text/css'>
+					#overlay_contenido {
+						width: 90%;
+					}
+					.overlay-mensaje {
+						max-height: 100%;
+						overflow: visible;
+					}
+					li {
+						padding-top: 5px;
+					}
+				</style>";
+				$html = "
+						<strong>Recomendado cambiar usuario APACHE</strong><br><br>
+						<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>$usuario_actual</strong> del sistema.
+								Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
+							<p>En cambio para ambientes de <strong>desarrollo</strong>, este toba_editor necesita abrir y guardar archivos, ejecutar comandos svn, etc,
+								necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamso seguir los siguentes pasos:</p>
+				";
+				if (toba_manejador_archivos::es_windows()) {
+					$html .= "
+							<ol style='background-color: #EEEEEE; border: 1px inset gray;'>
+								<li>Primero es necesario que el usuario actualmente logueado posea una contraseña. Si no la tiene o desconoce:
+									<ol style='background-color: #E9E8E8; border: 1px inset gray; margin: 10px;'>
+										<li>Ir a <em>Inicio > Ejecutar</em>, ingresar
+											<pre>lusrmgr.msc</pre>
+										<li>Hacer click derecho sobre el usuario actual y seleccionar <em>Establecer contraseña</em>
+										<li>Luego de pasar todas las advertencias, ingresar la contraseña y aceptar
+									</ol>
+								<li>Ir a <em>Inicio > Ejecutar</em>, ingresar
+									<pre>services.msc</pre>
+								<li>Seleccionar servicio Apache 2.x, hacer doble click sobre el mismo
+								<li>Ir a solapa <em>Iniciar Sesión</em>
+								<li>Seleccionar <em>Esta cuenta</em> e ingresar el nombre y contraseña de la cuenta de usuario actual.
+					";
+				} else {
+					$html .= "
+							<ol style='background-color: #EEEEEE; border: 1px inset gray;'>
+								<li>Configurar que apache ejecute con el usuario actualmente logueado al sistema de ventanas. Editar el archivo
+									<em>/etc/apache2/apache2.conf</em> o <em>/etc/apache2/uid.conf</em> si está presente y cambiar el usuario de la siguiente directiva
+									por el usuario actual: <pre>User $usuario_actual</pre>
+								<li>Para que apache pueda crear sesiones PHP, hay que cambiar el owner de la carpeta de sesiones (si no encuentra la carpeta de sesiones de php, está en la
+									directiva <em>session.save_path</em> en el php.ini
+									<pre>sudo chown mi_usuario /var/lib/php5 -R</pre>
+								</li>
+					";
+				}
+				$html .= "
+							<li>Luego de aceptar, reiniciar el servicio apache. En caso de que se siga mostrando esta advertencia al inicio del editor, por favor
+								contactarse con el soporte de toba ya que es muy importante para nosotros que estos pasos se sigan y funcionen bien.
+						</ol>
+						</div>
+				";
+				toba::notificacion()->warning($html);
+			}
+		}		
+	}
 
+//ei_arbol($_SESSION, 'SESION', null, true);
 //--- VERSION
 
 $url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 
-	if (! isset($_POST['migracion']) && ! isset($_GET['phpinfo'])) {
-		
-		/*echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
-		echo toba_form::abrir('toba', toba::vinculador()->get_url());
-		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
-		echo toba_form::cerrar();
-		*/
+	if (isset($_GET['phpinfo'])) {
+		phpinfo();
+	} else {
+		controlar_usuario();
 		$version = toba_modelo_instalacion::get_version_actual();
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
@@ -21,11 +81,11 @@ $url_login = $url_trac.'/trac/toba/login';
 		$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 		echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
 		echo $version->__toString()."</a>";
-		echo "</div>";		
+		echo "</div>";
 		echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
-		echo "</div>";		
+		echo "</div>";
 		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
 		$vinc = toba::vinculador()->get_url(null, null, array('phpinfo' =>1));
 		echo "<a style='text-decoration:none' href='$vinc' title='Ver información acerca de la instalación PHP de este servidor'>";
@@ -33,86 +93,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo "<br>".phpversion();
 		echo "</a>";
 		echo "</div>";
-	} elseif (isset($_GET['phpinfo'])) {
-		phpinfo();
-	} else {
-		/*echo "<hr style='clear:both'><h1 style='text-align:center'>Chequeo de compatibilidad de extensiones</h1>";
-		//------------------ ID de PANTALLAS e EIS  -----------------
-		$sql = "
-			SELECT
-				pant.identificador		as id,
-				pant.objeto_ci			as padre
-			FROM
-				apex_objeto_ci_pantalla pant,
-				apex_objeto_dependencias dep
-			WHERE
-					pant.identificador = dep.identificador		-- Mismo id
-				AND	pant.objeto_ci_proyecto = dep.proyecto		-- Mismo proy.
-				AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
-				AND dep.proyecto = '".toba_editor::get_proyecto_cargado()."'
-		";
-		$rs = toba_contexto_info::get_db()->consultar($sql);
-		if (! empty($rs)) {
-			echo "<h2>Pantallas y eis que comparten el mismo id</h2><ul>";
-			foreach ($rs as $conflicto) {
-				echo "<li>CI {$conflicto['padre']}: {$conflicto['id']}</li>";
-			}
-			echo "</ul>";
-		}
-		
-		//------------------ METODOS OBSOLETOS -----------------
-		//--- Busca archivos sin migrar 
-		$prohibidos['get_lista_ei'] = 'Usar $this->pantalla()->agregar_dep o eliminar_dep en la configuración.';
-		$prohibidos['get_lista_eventos(']= 'Usar $this->pantalla()->agregar_evento, modificar_evento o eliminar_evento en la configuración.';
-		$prohibidos['get_lista_eventos (']= $prohibidos['get_lista_eventos('];
-		$prohibidos['get_pantalla_actual']= 'Usar $this->set_pantalla() en la configuración.';
-		$prohibidos['get_lista_tabs']= 'Si se usaba solo para obtener información ahora se puede hacer con $this->pantalla()->get_lista_tabs, 
-										si se usaba para redefinir usar agregar_tab o eliminar_tab de $this->pantalla';
-		$prohibidos['evt__post_recuperar_interaccion']= 'Definir post_eventos()';
-		$prohibidos['evt__pre_cargar_datos_dependencias']= 'Definir el metodo conf() del ci';
-		$prohibidos['evt__post_cargar_datos_dependencias']= 'Ya no es necesario ya que las dependencias se pueden cargar con un metodo';
-		$prohibidos['obtener_html']= 'Se cambio por generar_html. Si era de un ci el método se delego a las pantalla asoaciada';
-		$prohibidos['obtener_html_contenido']= 'Se cambio por generar_html_contenido. Si era de un ci el método se delego a las pantalla asoaciada';
-		$prohibidos['get_etapa_actual']= 'Usar $this->set_pantalla() en la configuración.';
-		$prohibidos['__cant_reg']= 'El paginado del cuadro a cargo del CI no se hace mas con el evento cant_reg sino configurandolo explicitamente con el metodo del cuadro set_total_registros.';
-		$prohibidos['cargar_editable']= 'Usar set_editable';
-		$prohibidos['inicializar(']= 'Si es un ci, definir el metodo ini()';
-		$prohibidos['persistir_dato_global'] = 'Usar set_dato_operacion o set_dato_aplicacion según corresponda';
-		$prohibidos['filtrar_evt__'] = '';
-		$prohibidos['__puede_mostrar_pantalla'] = 'Setear la pantalla correcta en el conf() del ci. Ver el ejemplo del proyecto referencia.';
-		$prohibidos['eventos::'] = 'Definir los eventos en el administrador. Luego es posible manipularlos ya que es una clase toba_evento_usuario (ej. en el ci $this->pantalla()->evento(\'tal\')->)';
-		$prohibidos['generar_solicitud'] = 'Usar toba::vinculador()->get_url($proyecto, $item, $parametros, $opciones)';
-		
-		$dir = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
-		echo "<h2>Métodos obsoletos</h2>";
-		echo "<ul style='list-style-type:none; text-align:left;'>";
-		foreach ($archivos as $archivo ) {
-			if ($archivo !== __FILE__) {
-				$contenido = file_get_contents($archivo);
-				$encontrados = array();
-				foreach (array_keys($prohibidos) as $prohibido) {
-					if (strpos($contenido, $prohibido) !== false) {
-						$encontrados[] = $prohibido;
-					}
-				}
-				
-				$encontrados = array_unique($encontrados);
-				$path = substr($archivo, strpos($archivo, 'php')+4);
-				if (! empty($encontrados)) {
-					$icono = admin_util::get_icono_abrir_php($path);
-					echo "<li>$icono <strong>$path</strong>:<ul style='list-style-type:none'>";
-					foreach ($encontrados as $metodo) {
-						$ayuda = $prohibidos[$metodo];
-						$icono = toba_recurso::imagen_toba('descripcion.gif', true, null, null, $ayuda);
-						echo "<li>$icono $metodo</li>";
-					}
-					echo "</ul></li>";
-				}
-			}
-		}
-		echo "</ul>";
-		echo '</div>';*/
-		
 	}
+
+
 ?>

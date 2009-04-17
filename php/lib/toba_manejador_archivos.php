@@ -323,6 +323,46 @@ class toba_manejador_archivos
 	    } else {
 	    	return false;
 	    }
-	}	 
+	}
+
+	function es_writable($path)
+	{
+		if ($path{strlen($path)-1} == '/') {
+			return is__writable($path.uniqid(mt_rand()).'.tmp');
+		}
+		if (file_exists($path)) {
+			if (!($f = @fopen($path, 'r+'))) {
+				return false;
+			}
+			fclose($f);
+			return true;
+		}
+		if (!($f = @fopen($path, 'w'))) {
+			return false;
+		}
+		fclose($f);
+		unlink($path);
+		return true;
+	}
+
+	/**
+	 * Retorna el nombre de usuario que actualmente ejecuta el proceso
+	 * @return null en caso 
+	 */
+	static function get_usuario_actual()
+	{
+		$usuario = null;
+		if (! self::es_windows()) {
+			$salida = array();
+			$valor_retorno = null;
+			exec('whoami', $salida, $valor_retorno);
+			if ($valor_retorno == 0) {
+				$usuario = strtolower($salida[0]);
+			}
+		} else {
+			$usuario = strtolower(get_current_user());
+		}
+		return $usuario;
+	}
 }
 ?>
