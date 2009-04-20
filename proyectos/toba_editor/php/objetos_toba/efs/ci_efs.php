@@ -226,13 +226,13 @@ class ci_efs extends toba_ci
 	function get_posibles_maestros()
 	{
 		$filas = $this->get_tabla()->get_filas(null, true);
-		$filas = rs_ordenar_por_columna($filas, 'orden');
 		$posibles = array();
 		foreach ($filas as $clave => $datos) {
 			if ($clave != $this->s__seleccion_efs) {
-				$posibles[] = array($datos[$this->campo_clave], $datos[$this->campo_clave]);
+				$posibles[] = array($datos[$this->campo_clave], $datos[$this->campo_clave], $datos['orden']);
 			}
 		}
+		$posibles = rs_ordenar_por_columna($posibles, 2, SORT_ASC); //Ordena posteriormente, sino rompe las claves
 		return $posibles;
 	}
 	

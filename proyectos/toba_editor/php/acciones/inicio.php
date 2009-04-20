@@ -4,7 +4,7 @@
 	{
 		$usuario_actual = toba_manejador_archivos::get_usuario_actual();
 		if (isset($usuario_actual)) {
-			$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody');
+			$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
 			if (in_array($usuario_actual, $usuarios_defecto)) {
 				echo "<style type='text/css'>
 					#overlay_contenido {
@@ -73,7 +73,10 @@ $url_login = $url_trac.'/trac/toba/login';
 	if (isset($_GET['phpinfo'])) {
 		phpinfo();
 	} else {
-		controlar_usuario();
+		if (! toba_manejador_archivos::es_windows()) {
+			//Por ahora este mécanismo sólo funciona en linux
+			controlar_usuario();
+		}
 		$version = toba_modelo_instalacion::get_version_actual();
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
