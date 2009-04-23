@@ -34,7 +34,13 @@ class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
 		//Creo las lineas correspondientes en el datos relacion del molde.
 		$datos = array('nombre' => $nombre . ' - DR ');
 		$this->datos->tabla('base')->set($datos);
-		$this->datos->tabla('prop_basicas')->set(array('ap'=>2));	//Admin persistencia por defecto
+		$predeterminados = array(
+			'ap' => 2,
+			'sinc_lock_optimista' => 1,
+			'sinc_orden_automatico' => 1
+		);
+		$this->datos->tabla('prop_basicas')->set($predeterminados);
+
 	}
 
 	function crear_relaciones()

@@ -157,7 +157,7 @@ function abrir_toba_instancia(){
 						'imagen' => 'logger.gif',
 						'imagen_recurso_origen' => 'apex',
 						'tipo' => 'popup',
-						'inicializacion' => '615,450,1,1',
+						'inicializacion' => '800,500,1,1',
 						'texto' => 'Logger');
 	$url = toba::vinculador()->get_url(toba_editor::get_id(),'1000003',$parametros, array('param_html' => $html_extra, 'celda_memoria' => 'logger'));
 ?>

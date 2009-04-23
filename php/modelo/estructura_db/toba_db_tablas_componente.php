@@ -1043,6 +1043,7 @@ class toba_db_tablas_componente
     6 => 'ap_archivo',
     7 => 'sinc_susp_constraints',
     8 => 'sinc_orden_automatico',
+    9 => 'sinc_lock_optimista',
   ),
 );
 	}

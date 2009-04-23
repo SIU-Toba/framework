@@ -190,16 +190,18 @@ class toba_manejador_archivos
 	}
 	
 	/**
-	*	Copia el contenido de un directorio a otro.
-	*	No copia las carpetas SVN
+	 *	Copia el contenido de un directorio a otro.
+	 *	No copia las carpetas SVN
+	 * @return boolean True en caso de que la copia fue exitosa
 	*/
 	static function copiar_directorio( $origen, $destino, $excepciones=array(), $manejador_interface = null, $copiar_ocultos=true )
 	{
 		if( ! is_dir( $origen ) ) {
 			throw new toba_error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
-		} 
+		}
+		$ok = true;
 		if( ! is_dir( $destino ) ) {
-			mkdir( $destino );
+			$ok = mkdir($destino) && $ok;
 		} 
 		//Busco los archivos del directorio
 		$lista_archivos = array();
@@ -221,12 +223,13 @@ class toba_manejador_archivos
 					if (isset($manejador_interface)) {
 						$manejador_interface->progreso_avanzar();
 					}
-					self::copiar_directorio( $x_origen, $x_destino, $excepciones, $manejador_interface );
+					$ok = self::copiar_directorio( $x_origen, $x_destino, $excepciones, $manejador_interface ) && $ok;
 				} else {
-					copy( $x_origen, $x_destino );	
+					$ok = copy($x_origen, $x_destino) && $ok;
 				}
 			}
 		}
+		return $ok;
 	}
 	
 	/**
@@ -236,20 +239,22 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
-		} 
+		}
+		$ok = true;
 		$dir = opendir( $directorio );
 		while ( $archivo = readdir( $dir ) ) {
 			$path = $directorio.'/'.$archivo;
 			if ( $archivo != "." && $archivo!=".." ) {
 				if ( is_dir( $path ) ) {
-				   self::eliminar_directorio( $path );
+				   $ok = self::eliminar_directorio($path) && $ok;
 				} else {
-				   unlink( $path );
+				   $ok = unlink($path) && $ok;
 				}
 			}
 		}
 		closedir( $dir );
-		rmdir( $directorio );
+		$ok = rmdir($directorio) && $ok;
+		return $ok;
 	}	
 	
 	function chmod_recursivo($path, $filemode) 

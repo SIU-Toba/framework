@@ -115,7 +115,7 @@ class toba_solicitud_web extends toba_solicitud
 			try {
 				toba::logger()->seccion("Procesando eventos...", 'toba');
 				$this->objetos[$ci]->disparar_eventos();
-			}catch(toba_error_db $e) {
+			} catch (toba_error $e) {
 				$this->log->error($e, 'toba');			
 				$mensaje = $e->getMessage();
 				$mensaje_debug = null;
@@ -123,9 +123,6 @@ class toba_solicitud_web extends toba_solicitud
 					$mensaje_debug = $e->get_mensaje();
 				}
 				toba::notificacion()->error($mensaje, $mensaje_debug);
-			}catch(toba_error $e) {
-				$this->log->error($e, 'toba');			
-				toba::notificacion()->error($e->getMessage());
 			}
 		}
 	}

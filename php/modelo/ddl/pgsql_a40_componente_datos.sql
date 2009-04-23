@@ -230,6 +230,7 @@ CREATE TABLE apex_objeto_datos_rel
 --	Opciones de sincronizaci�n
 	sinc_susp_constraints			smallint		NULL DEFAULT 0,
 	sinc_orden_automatico			smallint		NULL DEFAULT 1,
+	sinc_lock_optimista				smallint		NULL DEFAULT 1,
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("objeto", "proyecto"),
 	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("objeto", "proyecto") REFERENCES   "apex_objeto" ("objeto", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE

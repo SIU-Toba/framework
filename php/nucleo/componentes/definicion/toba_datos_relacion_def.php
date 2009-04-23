@@ -37,7 +37,8 @@ class toba_datos_relacion_def extends toba_componente_def
 													ap_clase	,	
 													ap_archivo	,
 													sinc_susp_constraints,
-													sinc_orden_automatico	
+													sinc_orden_automatico,
+													sinc_lock_optimista
 										 FROM		apex_objeto_datos_rel
 										 WHERE		proyecto=$quote_proyecto ";	
 		if ( isset($componente) ) {

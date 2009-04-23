@@ -11,7 +11,20 @@
 class toba_error extends Exception
 {
 	protected $mensaje_log;
-	
+	protected $mensaje_solo_debug = '';
+
+	function __construct($mensaje_visible, $mensaje_solo_debug='')
+	{
+		$this->mensaje_solo_debug = $mensaje_solo_debug;
+		$this->mensaje_log = $mensaje_visible;
+		parent::__construct($mensaje_visible);
+	}
+
+	function get_mensaje()
+	{
+		return $this->mensaje_solo_debug;
+	}
+
 	function get_mensaje_log()
 	{
 		if (isset($this->mensaje_log)) {
@@ -199,7 +212,7 @@ class toba_error_seguridad extends toba_error
 {
 	function __construct($mensaje)
 	{
-		parent::__construct('Error Interno');
+		parent::__construct('Error Interno', $mensaje);
 		$this->mensaje_log = $mensaje;
 	}
 }

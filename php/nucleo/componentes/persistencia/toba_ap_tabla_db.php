@@ -38,6 +38,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $_msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	protected $_hacer_trim_datos = true;		// Hace un trim de los datos en el insert/update
+	protected $_lock_optimista = true;
 	//-------------------------------
 
 	
@@ -206,7 +207,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	function set_usar_trim($usar)
 	{
 		$this->_hacer_trim_datos = $usar;
-	}	
+	}
+
+	/**
+	 * Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición
+	 */
+	function set_lock_optimista($usar=true)
+	{
+		$this->_lock_optimista = $usar;
+	}
 
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
@@ -482,7 +491,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$sql = $this->generar_sql_delete($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
-		$this->ejecutar_sql( $sql );
+		$this->ejecutar_sql($sql, $id_registro);
 		return $sql;
 	}
 
@@ -527,7 +536,63 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @ventana
 	 */	
 	function evt__post_sincronizacion(){}
-	
+
+
+	/**
+	 * Ventana para manejar la pérdida de sincronización con la tabla en la base de datos
+	 * El escenario es que ejecuto un update/delete usando los valores de las columnas originales y no arrojo resultados, con lo que se asume que alguien más modifico el registro en el medio
+	 * La transacción con la bd aún no se terminó (si es que esta definida)
+	 * 
+	 * @param integer $id_fila Id. de fila de la tabla en la cual se encontró el problema
+	 * @param string $sql_origen Sentencia que se intento ejecutar
+	 * @ventana
+	 */
+	function evt__perdida_sincronizacion($id_fila, $sql_origen)
+	{
+		$mensaje_usuario = "Error de concurrencia en la edición de los datos.<br><br>".
+							"Mientras Ud. editaba esta información, la misma fue modificada por alguien más. ".
+							"Para garantizar consistencia sólo podrá guardar cambios luego de reiniciar la edición.<br>";
+
+		//--Hace una consulta SQL contra la tabla para averiguar puntualmente cuál fue el cambio que llevo a esta situación
+		$columnas = array();
+		foreach ($this->_columnas as $col) {
+			if(!$col['externa'] && $col['tipo'] != 'B') {
+				$columnas[] = $col['columna'];
+			}
+		}
+		$id = array();
+		foreach($this->_clave as $clave){
+			$id[$clave] = $this->_cambios[$id_fila]['clave'][$clave];
+		}
+		$where = $this->generar_clausula_where_lineal($id, false);
+		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas);
+		$sql .= "\nFROM\n\t {$this->_tabla}";
+		$sql .= "\nWHERE ".implode(' AND ', $where);
+		$fila_base = toba::db($this->_fuente)->consultar_fila($sql);
+		
+		//-- Averigua que cambio
+		if ($fila_base === false) {
+			$diff = "La fila '$id_fila' no existe en la base, fue borrada";
+		} else {
+			$fila_original = $this->_cambios[$id_fila]['original'];
+			$diff = "<ul>";
+			foreach ($columnas as $col) {
+				$modificado = (string) $fila_base[$col] !== (string) $fila_original[$col];
+				if ($modificado) {
+					$diff .= "<li>$col: pasó de ser '{$fila_base[$col]}' a '{$fila_original[$col]}'</li>";
+				}
+			}
+			$diff .= '</ul>';
+		}
+		
+		$mensaje_debug = '';
+		$mensaje_debug .= "<p><b>Tabla:</b> {$this->_tabla}</p>";
+		$mensaje_debug .= "<p><b>Diff de datos:</b> Cambios en fila $id_fila ".$diff."</p>";
+		$mensaje_debug .= "<p><b>SQL:</b> $sql_origen</p>";
+		throw new toba_error_usuario($mensaje_usuario, $mensaje_debug);
+	}
+
+
 	/**
 	 * Ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
@@ -577,9 +642,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Shortcut de {@link toba_db::ejecutar() toba::db()->ejecutar}
 	 */
-	protected function ejecutar_sql( $sql )
+	protected function ejecutar_sql($sql, $id_fila=null)
 	{
-		toba::db($this->_fuente)->ejecutar($sql);
+		$sen = toba::db($this->_fuente)->sentencia_preparar($sql);
+		$reg = toba::db($this->_fuente)->sentencia_ejecutar($sen);
+		if ($this->_lock_optimista && isset($id_fila) && $reg == 0) {
+			$this->evt__perdida_sincronizacion($id_fila, $sql);
+		}
 	}
 
 	
@@ -600,8 +669,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		}
 		$clausula = array();
 		foreach($clave as $columna => $valor) {
-			$valor = toba::db($this->_fuente)->quote($valor);
-			$clausula[] = "( $tabla_alias" . "$columna = $valor )";
+			if (isset($valor)) {
+				$valor = toba::db($this->_fuente)->quote($valor);
+				$clausula[] = "$tabla_alias" . "$columna = $valor";
+			} else {
+				$clausula[] = "$tabla_alias" . "$columna IS NULL";
+			}
 		}
 		return $clausula;
 	}	
@@ -807,12 +880,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return null;	
 		}
 		//Armo el SQL
-		$sql = "UPDATE " . $this->_tabla . " SET ".
-				implode(", ",$set) .
-				" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
-		$this->log("registro: $id_registro - " . $sql);		
+		$sql = "UPDATE " . $this->_tabla . "\nSET ".
+				implode(",\n\t",$set) .
+				"\nWHERE " . implode("\n\tAND ",$this->generar_sql_where_registro($id_registro) ) .";";
+		$this->log("registro: $id_registro\n " . $sql);
 		if (empty($binarios)) {
-			$this->ejecutar_sql($sql);			
+			$this->ejecutar_sql($sql, $id_registro);
 		} else {
 			$pdo = toba::db($this->_fuente)->get_pdo();
 			$stmt = $pdo->prepare($sql);
@@ -822,6 +895,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$i++;
 			}
 			$stmt->execute();
+			$reg = $stmt->rowCount();
+			if ($this->_lock_optimista && $reg == 0) {
+				$this->evt__perdida_sincronizacion($id_registro, $sql);
+			}
 		}		
 	}	
 	
@@ -850,8 +927,23 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */	
 	function generar_sql_where_registro($id_registro)
 	{
-		foreach($this->_clave as $clave){
-			$id[$clave] = $this->_cambios[$id_registro]['clave'][$clave];
+		if (! $this->_lock_optimista) {
+			//Sin lock optimista arma el where sólo con las claves
+			foreach($this->_clave as $clave){
+				$id[$clave] = $this->_cambios[$id_registro]['clave'][$clave];
+			}
+		} else {
+			//Con lock optimista arma el where con todos los campos originales, asegurando que no sean columnas externas
+			$id = array();
+			foreach ($this->_columnas as $col) {
+				if(!$col['externa'] && $col['tipo'] != 'B') {
+					if (isset($this->_cambios[$id_registro]['original'][$col['columna']])) {
+						$id[$col['columna']] = $this->_cambios[$id_registro]['original'][$col['columna']];
+					} else {
+						$id[$col['columna']] = null;
+					}
+				}
+			}
 		}
 		return $this->generar_clausula_where_lineal($id,false);
 	}
@@ -995,36 +1087,5 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $valores_recuperados;
 	}
 
-	//-------------------------------------------------------------------------------
-	//--  Control de VERSIONES  -----------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	/**
-	 * @ignore 
-	 */
-	private function controlar_alteracion_db()
-	{
-	}
-
-	/**
-	 * @ignore 
-	 */
-	private function controlar_alteracion_db_array()
-	//Soporte al manejo transaccional OPTIMISTA
-	//Indica si los datos iniciales extraidos de la base difieren de
-	//los datos existentes en el momento de realizar la transaccion
-	{
-	}
-	//-------------------------------------------------------------------------------
-
-	/**
-	 * @ignore 
-	 */
-	private function controlar_alteracion_db_timestamp()
-	//Esto tiene que basarse en una forma generica de trabajar sobre tablas
-	//(Una columna que posea el timestamp, y triggers que los actualicen)
-	{
-	}
-	//-------------------------------------------------------------------------------
 }
 ?>

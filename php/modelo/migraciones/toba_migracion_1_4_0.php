@@ -276,7 +276,21 @@ class toba_migracion_1_4_0 extends toba_migracion
 			$editor->agregar_sustitucion('|__version__|', $version);
 			$editor->procesar_archivos(array($destino_ini));
 		}
+	}
 
+	/**
+	 * Por defecto se activa el control de locking optimista en las relaciones existentes
+	 */
+	function proyecto__lock_optimista_relaciones()
+	{
+		$sql = "
+			UPDATE apex_objeto_datos_rel
+			SET
+				sinc_lock_optimista = 1
+			WHERE
+				proyecto = '{$this->elemento->get_id()}'
+		";
+		$this->elemento->get_db()->ejecutar($sql);
 	}
 
 	

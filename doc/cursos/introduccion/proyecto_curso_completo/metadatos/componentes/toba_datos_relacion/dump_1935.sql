@@ -42,7 +42,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_datos_rel
 ------------------------------------------------------------
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico) VALUES (
+INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
 	'curso', --proyecto
 	'1935', --objeto
 	'0', --debug
@@ -51,7 +51,8 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase,
 	NULL, --ap_clase
 	NULL, --ap_archivo
 	'0', --sinc_susp_constraints
-	'1'  --sinc_orden_automatico
+	'1', --sinc_orden_automatico
+	'1'  --sinc_lock_optimista
 );
 
 ------------------------------------------------------------

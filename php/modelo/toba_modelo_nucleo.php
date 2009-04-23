@@ -375,7 +375,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 				}
 				for ( $a = 0; $a < $regs ; $a++ ) {
-					$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+					$contenido .= sql_array_a_insert( $tabla, $datos[$a] )."\n";
 				}
 				if ( trim( $contenido ) != '' ) {
 					$this->guardar_tabla_archivo($tabla, $contenido);
@@ -414,7 +414,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			}
 			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
 			for ( $a = 0; $a < $regs ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+				$contenido .= sql_array_a_insert( $tabla, $datos[$a] )."\n";
 			}
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_tabla_archivo($tabla, $contenido);

@@ -76,6 +76,7 @@ class ci_principal extends ci_editores_toba
 		if ($eliminar_extension) {
 			$form->eliminar_evento('extender_ap');
 		}
+		$form->ef('ap_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
 		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
 	}
 

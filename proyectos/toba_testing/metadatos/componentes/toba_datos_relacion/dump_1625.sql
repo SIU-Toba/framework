@@ -44,7 +44,7 @@ En 1 departamento se realizan N tareas asociadas a él.
 ------------------------------------------------------------
 -- apex_objeto_datos_rel
 ------------------------------------------------------------
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico) VALUES (
+INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
 	'toba_testing', --proyecto
 	'1625', --objeto
 	'0', --debug
@@ -53,7 +53,8 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase,
 	'dr_ap_prueba', --ap_clase
 	'varios/extension_php/dr_ap_prueba.php', --ap_archivo
 	'0', --sinc_susp_constraints
-	'1'  --sinc_orden_automatico
+	'1', --sinc_orden_automatico
+	'1'  --sinc_lock_optimista
 );
 
 ------------------------------------------------------------

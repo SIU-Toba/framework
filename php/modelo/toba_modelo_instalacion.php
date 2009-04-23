@@ -741,7 +741,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			//--- Hacer un backup del directorio actual
 			$this->manejador_interface->titulo("1.- Haciendo backup directorio instalacion del nuevo toba");	
 			if (file_exists($dir_original)) {
-				toba_manejador_archivos::copiar_directorio($dir_original, $dir_backup);
+				if (! toba_manejador_archivos::copiar_directorio($dir_original, $dir_backup)) {
+					throw new toba_error("No es posible hacer una copia de seguridad de la carpeta '$dir_original'. Verifique los permisos de escritura del usuario actual");
+				}
 			}
 			
 			//--- Traer configuraciones de la instancia vieja
@@ -827,7 +829,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			if (file_exists($dir_backup)) {
 				$this->manejador_interface->titulo("Restaurando backup directorio instalacion del nuevo toba");	
 				if (file_exists($dir_original)) {
-					toba_manejador_archivos::eliminar_directorio($dir_original);
+					if (! toba_manejador_archivos::eliminar_directorio($dir_original)) {
+						throw new toba_error("Imposible restaurar backup desde '$dir_backup' hacia '$dir_original', deberá hacerlo manualmente.");
+					}
 				}
 				rename($dir_backup, $dir_original);
 			}

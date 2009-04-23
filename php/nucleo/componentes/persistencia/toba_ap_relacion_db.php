@@ -79,7 +79,17 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		foreach ($tablas as $tabla) {
 			$tabla->persistidor()->set_usar_trim($usar);
 		}
-	}	
+	}
+
+	/**
+	 * Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición
+	 */
+	function set_lock_optimista($usar=true)
+	{
+		foreach ($this->objeto_relacion->get_tablas() as $tabla) {
+			$tabla->persistidor()->set_lock_optimista($usar);
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------

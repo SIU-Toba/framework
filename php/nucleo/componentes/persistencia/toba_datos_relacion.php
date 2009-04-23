@@ -413,6 +413,10 @@ class toba_datos_relacion extends toba_componente
 			if ($this->_info_estructura['sinc_susp_constraints']) {
 				$this->_persistidor->retrasar_constraints();
 			}
+			if ($this->_info_estructura['sinc_lock_optimista']) {
+				$this->_persistidor->set_lock_optimista();
+			}
+
 		}
 		return $this->_persistidor;
 	}

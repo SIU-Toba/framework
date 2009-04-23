@@ -31,7 +31,6 @@ class toba_datos_tabla extends toba_componente
 	// ESTADO
 	protected $_cambios = array();				// Cambios realizados sobre los datos
 	protected $_datos = array();					// Datos cargados en el db_filas
-	protected $_datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $_proxima_fila = 0;				// Posicion del proximo registro en el array de datos
 	protected $_cursor;							// Puntero a una fila específica
 	protected $_cursor_original;					// Backup del cursor que se usa para deshacer un seteo
@@ -1426,9 +1425,7 @@ class toba_datos_tabla extends toba_componente
 		$this->control_tope_maximo_filas(count($datos));
 		
 		$this->_datos = $datos;		
-		if(false){	// Hay que pensar este esquema...
-			$this->_datos_originales = $this->_datos;
-		}
+
 		//Genero la estructura de control de cambios
 		$this->generar_estructura_cambios();
 		//Actualizo la posicion en que hay que incorporar al proximo registro
@@ -1461,8 +1458,6 @@ class toba_datos_tabla extends toba_componente
 		$hijos = array();
 		foreach( $datos as $fila ) {
 			$this->_datos[$this->_proxima_fila] = $fila;
-			$this->_cambios[$this->_proxima_fila]['estado']="db";
-			$this->_cambios[$this->_proxima_fila]['clave']= $this->get_clave_valor($this->_proxima_fila);			
 			if ($usar_cursores) {
 				//Se notifica a las relaciones a los padres.
 				foreach ($this->_relaciones_con_padres as $padre => $relacion) {
@@ -1473,6 +1468,7 @@ class toba_datos_tabla extends toba_componente
 			$hijos[] = $this->_proxima_fila;
 			$this->_proxima_fila++;            
 		}
+		$this->regenerar_estructura_cambios($hijos);
 		//Marco la tabla como cargada
 		$this->_cargada = true;
 		if (! $usar_cursores) {
@@ -1530,7 +1526,6 @@ class toba_datos_tabla extends toba_componente
 	{
 		$this->log("RESET!!");
 		$this->_datos = array();
-		$this->_datos_originales = array();
 		$this->_cargada = false;
 		$this->_cambios = array();
 		$this->_proxima_fila = 0;
@@ -1644,13 +1639,19 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * @ignore 
 	 */
-	protected function generar_estructura_cambios()
+	protected function generar_estructura_cambios($limpiar=true, $indice_datos=null)
 	{
 		//Genero la estructura de control
-		$this->_cambios = array();
-		foreach(array_keys($this->_datos) as $dato){
-			$this->_cambios[$dato]['estado']="db";
-			$this->_cambios[$dato]['clave']= $this->get_clave_valor($dato);
+		if ($limpiar) {
+			$this->_cambios = array();
+		}
+		if (! isset($indice_datos)) {
+			$indice_datos = array_keys($this->_datos);
+		}
+		foreach($indice_datos as $dato){
+			$this->_cambios[$dato]['estado']	= "db";
+			$this->_cambios[$dato]['clave']		= $this->get_clave_valor($dato);
+			$this->_cambios[$dato]['original']	= $this->_datos[$dato];
 		}
 	}
 	
@@ -1668,11 +1669,7 @@ class toba_datos_tabla extends toba_componente
 			}
 			$this->generar_estructura_cambios();
 		} else {
-			//toba::logger()->error("Regenerando filas " . implode(',',$filas), 'toba');
-			foreach($filas as $fila) {
-				$this->_cambios[$fila]['estado']="db";
-				$this->_cambios[$fila]['clave']= $this->get_clave_valor($fila);
-			}				
+			$this->generar_estructura_cambios(false, $filas);
 		}
 	}
 

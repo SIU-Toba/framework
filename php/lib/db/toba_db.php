@@ -294,8 +294,9 @@ class toba_db
 	function sentencia_preparar($sql, $opciones=array())
 	{
 		$id = count($this->sentencias);
-		$this->sentencias[$id] = $this->conexion->prepare($sql, $opciones);
-		if ($this->sentencias[$id] === false ) {
+		$this->sentencias[$id] = array('sql' => $sql);
+		$this->sentencias[$id]['id'] = $this->conexion->prepare($sql, $opciones);
+		if ($this->sentencias[$id]['id'] === false ) {
 			throw new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
 		}
 		return $id;
@@ -312,14 +313,14 @@ class toba_db
 	*/		
 	function sentencia_ejecutar($id, $parametros=array())
 	{
-		if(!isset($this->sentencias[$id])) {
+		if(!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			$this->sentencias[$id]->execute($parametros);
-			return $this->sentencias[$id]->rowCount();
+			$this->sentencias[$id]['id']->execute($parametros);
+			return $this->sentencias[$id]['id']->rowCount();
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
+			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
 			throw $ee;
 		}		
@@ -337,14 +338,14 @@ class toba_db
 	*/		
 	function sentencia_consultar($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
 	{
-		if(!isset($this->sentencias[$id])) {
+		if (!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			$this->sentencias[$id]->execute($parametros);
-			return $this->sentencias[$id]->fetchAll($tipo_fetch);
+			$this->sentencias[$id]['id']->execute($parametros);
+			return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
+			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
 			throw $ee;
 		}		
@@ -363,14 +364,14 @@ class toba_db
 	function sentencia_consultar_fila($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
 
-		if(!isset($this->sentencias[$id])) {
+		if (!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			$this->sentencias[$id]->execute($parametros);
-			return $this->sentencias[$id]->fetch($tipo_fetch);
+			$this->sentencias[$id]['id']->execute($parametros);
+			return $this->sentencias[$id]['id']->fetch($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
+			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
 			throw $ee;
 		}
@@ -384,10 +385,10 @@ class toba_db
 	*/
 	function sentencia_datos($id, $tipo_fetch=toba_db_fetch_asoc)
 	{
-		if(!isset($this->sentencias[$id])) {
+		if(!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
-		return $this->sentencias[$id]->fetchAll($tipo_fetch);
+		return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
 	}
 
 	/**
@@ -397,10 +398,10 @@ class toba_db
 	*/
 	function sentencia_cantidad_afectados($id)
 	{
-		if(!isset($this->sentencias[$id])) {
+		if(!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
-		return $this->sentencias[$id]->rowCount();
+		return $this->sentencias[$id]['id']->rowCount();
 	}
 		
 	//------------------------------------------------------------------------
