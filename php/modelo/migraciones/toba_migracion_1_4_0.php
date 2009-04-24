@@ -131,14 +131,13 @@ class toba_migracion_1_4_0 extends toba_migracion
 					ORDER BY objeto_ci, pantalla, orden;";
 		
 		$datos = $this->elemento->get_db()->consultar($sql);
-
 		$sql = array();
 		foreach($datos as $pant){
 			$orden = 1;
 			$obj_involucrados = explode(',' , $pant['objetos']);
 			$obj_involucrados = array_map('trim' , $obj_involucrados);
 			foreach($obj_involucrados as $dep){
-				$sql[] = "INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
+				$sql = "INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 								(SELECT proyecto, '{$pant['pantalla']}', objeto_consumidor, '$orden',  dep_id
 								FROM	apex_objeto_dependencias
 								WHERE
@@ -146,10 +145,11 @@ class toba_migracion_1_4_0 extends toba_migracion
 									objeto_consumidor = '{$pant['objeto_ci']}' AND
 									identificador = '{$dep}'
 								); ";
+				$this->elemento->get_db()->ejecutar($sql);
 				$orden++;
 			}
 		}
-		$sql[] = "UPDATE apex_objeto_ci_pantalla SET objetos = NULL WHERE objeto_ci_proyecto = '{$this->elemento->get_id()}'; ";
+		$sql = "UPDATE apex_objeto_ci_pantalla SET objetos = NULL WHERE objeto_ci_proyecto = '{$this->elemento->get_id()}'; ";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 

@@ -37,12 +37,20 @@
 }
 #editor_previsualizacion img {
 	vertical-align: middle;
+	padding-left: 3px;
 }
 #vinculo_logger {
 	white-space: nowrap;
 	text-decoration: none;
 	color: white;
 }
+#editor_previsualizacion_cont * {
+	font-size: 9px;
+}
+#editor_previsualizacion_cont hr {
+	color:white;
+}
+
 
 /*************************************
 			Estilos Generales

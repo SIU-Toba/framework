@@ -64,12 +64,6 @@
 		}		
 	}
 
-	function file_size($size)
-	{
-		$filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
-	}
-
 //ei_arbol($_SESSION, 'SESION', null, true);
 
 //--- VERSION
@@ -96,7 +90,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 		$tamano = file_size(strlen(serialize($_SESSION)));
-		echo "Tamaño de la sesión: <b>$tamano</b>";
+		echo "Tamaño de la sesión: <b>$tamano</b><br>";
 		echo "</div>";
 		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
 		$vinc = toba::vinculador()->get_url(null, null, array('phpinfo' =>1));

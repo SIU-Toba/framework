@@ -1111,7 +1111,10 @@ class toba_datos_tabla extends toba_componente
 		}
 		//Borra algïñun cache previo
 		if (isset($this->_blobs[$id_fila][$columna]['path']) && $this->_blobs[$id_fila][$columna]['path'] != '') {
-			unlink($this->_blobs[$id_fila][$columna]['path']);
+			$path = $this->_blobs[$id_fila][$columna]['path'];
+			if (file_exists($path)) {
+				unlink($path);
+			}
 		}
 		
 		$this->_blobs[$id_fila][$columna] = array('fp'=>$blob, 'path'=>'',  'modificado' => true);
@@ -1535,7 +1538,10 @@ class toba_datos_tabla extends toba_componente
 		foreach (array_keys($this->_blobs) as $fila) {
 			foreach (array_keys($this->_blobs[$fila]) as $campo) {
 				if (isset($this->_blobs[$fila][$campo]['path']) && $this->_blobs[$fila][$campo]['path'] != '') {
-					unlink($this->_blobs[$fila][$campo]['path']);
+					$path = $this->_blobs[$fila][$campo]['path'];
+					if (file_exists($path)) {
+						unlink($path);
+					}
 				}
 			}
 		}

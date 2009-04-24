@@ -393,46 +393,67 @@ class toba_editor
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
 		echo "<img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
-				src='".toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)."' 
-				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/>";		
+				src='".toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)."'
+				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/>";
+
+
 		echo "<span id='editor_previsualizacion_cont'>";
+		$tamano = file_size(strlen(serialize($_SESSION)));
+		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
+		if (function_exists('memory_get_peak_usage')) {
+			$memoria_pico = memory_get_peak_usage();
+			echo toba_recurso::imagen_toba('memory.png', true, 16, 16, 'Pico máximo de memoria que ha consumido el script actual');
+			echo ' '.file_size($memoria_pico).' ';
+		}
+		//Cronometro
+		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+				toba_recurso::imagen_toba('clock.png', true)."</a> ";
+		echo round(toba::cronometro()->tiempo_acumulado(), 2). ' seg<br><hr>';
+
+
+
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
-		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
+		$js = "title='Cambia temporalmente el skin de la aplicación' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
 		echo toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
 		
-				//Logger
-		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".
-				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n";
+		//Logger
+		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".toba_recurso::imagen_toba('logger.gif', true)."</a>\n";
 				
-				//Cronometro
-		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
-				toba_recurso::imagen_toba('reloj.png', true)."</a>\n";
-				
-				//Edicion				
+		//Arbol
+		$vinculos = self::get_vinculos_item($item, $accion);
+		if (isset($vinculos[1])) {
+			self::mostrar_vinculo($vinculos[1]);
+		}
+		//Edicion
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
-				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
-				
-		echo "</span>";				
+		toba_recurso::imagen_toba('edicion_chico.png', true)."</a>\n";
+
+echo "</span>";
 		echo "</div>";
 		
 		
 		echo "<div class='div-editor' style='position:absolute; top: 40px;'>";
 		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
-			if (! isset($vinculo['js'])) {
-				echo "<a href='#' title='{$vinculo['tip']}' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			} else {
-				echo "<a href='#' title='{$vinculo['tip']}' onclick=\"{$vinculo['js']}\">";
-			}
-			if (isset($vinculo['imagen_origen']) && $vinculo['imagen_origen'] == 'proyecto') {
-				echo self::imagen_editor($vinculo['imagen'],true);
-			} else {
-				echo toba_recurso::imagen_toba($vinculo['imagen'],true);
-			}
-			echo "</a>\n";
+			self::mostrar_vinculo($vinculo);
 		}
 		echo "</div>";
+	}
+
+	static protected function mostrar_vinculo($vinculo)
+	{
+		if (! isset($vinculo['js'])) {
+			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+		} else {
+			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"{$vinculo['js']}\">";
+		}
+		if (isset($vinculo['imagen_origen']) && $vinculo['imagen_origen'] == 'proyecto') {
+			echo self::imagen_editor($vinculo['imagen'],true);
+		} else {
+			echo toba_recurso::imagen_toba($vinculo['imagen'],true);
+		}
+		echo "</a>\n";
 	}
 
 	/*
