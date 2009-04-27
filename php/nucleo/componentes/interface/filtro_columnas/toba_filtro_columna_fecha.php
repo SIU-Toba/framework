@@ -22,8 +22,8 @@ class toba_filtro_columna_fecha extends toba_filtro_columna_compuesta
 		//--- Condiciones
 		$this->agregar_condicion('es_igual_a', 		new toba_filtro_condicion('es igual a',	 	'=', 	'', 	'', 	'::date', 	'::date'));
 		$this->agregar_condicion('es_distinto_de', 	new toba_filtro_condicion_negativa('es distinto de', '!=',	'', 	'', 	'::date', 	'::date'));
-		$this->agregar_condicion('desde', 			new toba_filtro_condicion('desde', 			'>', 	'', 	'', 	'::date', 	'::date'));
-		$this->agregar_condicion('hasta', 			new toba_filtro_condicion('hasta', 			'<', 	'', 	'', 	'::date', 	'::date'));
+		$this->agregar_condicion('desde', 			new toba_filtro_condicion('desde', 			'>=', 	'', 	'', 	'::date', 	'::date'));
+		$this->agregar_condicion('hasta', 			new toba_filtro_condicion('hasta', 			'=<', 	'', 	'', 	'::date', 	'::date'));
 		
 		//Condicion entre
 		$this->agregar_condicion('entre', 			new toba_filtro_condicion_entre('::date', 	'::date'));

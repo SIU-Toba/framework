@@ -11,6 +11,9 @@ class ci_ei_filtro extends toba_ci
 		if (isset($this->s__datos)) {
 			$filtro->set_datos($this->s__datos);
 		}
+		
+		$filtro->columna('importe')->set_condicion_default('es_menor_que');		//Seteo la condicion default para la columna importe
+		$filtro->columna('deporte')->set_condicion_fija('es_igual_a', true);		//Fijo la condicion de la columna para que no se pueda cambiar
 	}
 	
 	function evt__filtro__where($datos)

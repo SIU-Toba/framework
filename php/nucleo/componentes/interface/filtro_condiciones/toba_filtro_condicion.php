@@ -14,6 +14,7 @@ class toba_filtro_condicion
 	protected $casting_der;
 	protected $pre_evaluacion = '';
 	protected $post_evaluacion = '';
+	protected $_es_condicion_fija = false;
 	
 	function __construct($etiqueta='', $operador_sql='', $pre='', $post='', $casting_izq='', $casting_der='')
 	{
@@ -75,8 +76,15 @@ class toba_filtro_condicion
 						$this->pre_evaluacion.$valor.$this->post_evaluacion.$this->casting_der;
 		
 	}
-	
-	
-}
 
+	function set_condicion_fija($es_fija = true)
+	{
+		$this->_es_condicion_fija = $es_fija;
+	}
+
+	function es_condicion_fija()
+	{
+		return $this->_es_condicion_fija;
+	}
+}
 ?>

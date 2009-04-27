@@ -16,6 +16,7 @@ abstract class toba_filtro_columna
 	protected $_condiciones = array();
 	protected $_solo_lectura = false;
 	protected $_funcion_formateo = null;
+	protected $_condicion_default = null;
 	
 	function __construct($datos, $padre) 
 	{
@@ -36,6 +37,14 @@ abstract class toba_filtro_columna
 	
 	function set_estado($estado)
 	{
+		if ($this->hay_condicion_fija()){
+			if  (isset($estado['condicion']) &&($this->_estado['condicion'] != $estado['condicion'])){	//Si la condicion no viene seteada retorna al default
+				$msg = "Existe una condicion fija para la columna '".$this->get_nombre().
+							"' la misma no se puede cambiar seteando el estado.";
+				throw new toba_error_def($msg);
+			}
+		}
+
 		$this->_estado = $estado;
 		$this->_ef->set_estado($estado['valor']);
 	}	
@@ -177,7 +186,73 @@ abstract class toba_filtro_columna
 	{
 		return count($this->_condiciones);
 	}
-	
+
+	/**
+	 * Permite saber si la columna tiene una condicion fija o no.
+	 * @return boolean
+	 */
+	function hay_condicion_fija()
+	{
+		$hay_fija = false;
+		foreach($this->_condiciones as $condicion){
+			if ($condicion->es_condicion_fija()){
+				$hay_fija = true;
+				break;
+			}
+		}
+		return $hay_fija;
+	}
+
+	/**
+	 * Coloca una condicion como fija para esta columna, la condicion permanecera solo_lectura y se
+	 * transformara en default para esta columna. El estado decide si esta seteada o no.
+	 * @param string $nombre
+	 * @param boolean $estado
+	 */
+	function set_condicion_fija($nombre, $estado = true)
+	{
+		if (!isset($this->_condiciones[$nombre])){
+			throw new toba_error_def("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+		}
+
+		if ($this->hay_condicion_fija()){
+			throw new toba_error_def("Ya existe una condicion fija para la columna '".$this->get_nombre()."'");
+		}
+
+		$this->_condicion_default = ($estado) ? $nombre : null;		//Si el estado es false se limpia el default
+		$this->condicion($nombre)->set_condicion_fija($estado);
+	}
+
+	/**
+	 * Setea una condicion como default para la columna, esto es, cuando no haya estado especificado
+	 * se tomara la condicion default para la columna
+	 * @param string $nombre
+	 */
+	function set_condicion_default($nombre)
+	{
+		if (!isset($this->_condiciones[$nombre])){
+			throw new toba_error_def("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+		}
+		$this->_condicion_default = $nombre;
+	}
+
+	/**
+	 *  Elimina la condicion default para la columna
+	 */
+	function eliminar_condicion_default()
+	{
+		$this->_condicion_default = null;
+	}
+
+	/**
+	 * Determina si la columna tiene condicion default o no.
+	 * @return boolean
+	 */
+	function hay_condicion_default()
+	{
+		return (! is_null($this->_condicion_default));
+	}
+
 	/**
 	 * Retorna una condición asociada a la columna, por defecto la que actualmente selecciono el usuario
 	 * @return toba_filtro_condicion
@@ -228,7 +303,12 @@ abstract class toba_filtro_columna
 			//-- Si tiene mas de una condicion se muestran con un combo
 			$onchange = "{$this->get_objeto_js()}.cambio_condicion(\"{$this->get_nombre()}\");";
 			$html = '';
-			if ($this->_solo_lectura) {
+			if ($this->hay_condicion_default() && (!isset($this->_estado['condicion']) || is_null($this->_estado['condicion']))){
+				//Si no tiene estado y hay default seteado, el default es el nuevo estado
+				$this->_estado['condicion'] = $this->_condicion_default;
+			}
+			
+			if ($this->_solo_lectura || $this->hay_condicion_fija()) {
 				$id = $this->_id_form_cond.'_disabled';
 				$disabled = 'disabled';
 				$html .= "<input type='hidden' id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' value='{$this->_estado['condicion']}'/>\n";				
