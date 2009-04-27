@@ -172,7 +172,7 @@ class toba_instancia
 		$parametros = array(
 			'proyecto' => $proyecto,
 			'solicitud' => $id,
-			'solicitud_tipo' => $tipo[0],
+			'solicitud_obs_tipo' => $tipo[0],
 			'solicitud_obs_tipo_proyecto' => $tipo[1],
 			'observacion' => $observacion
 		);
