@@ -202,7 +202,12 @@
 					throw new toba_error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
 				}
 			}
-            $valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];
+
+			if (! isset($fila[$valor])){
+				throw new toba_error("La fila del recordset no contiene la columna perteneciente al valor (col. esperada '$valor'). ".var_export($fila, true));
+			}else{
+				$valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];
+			}
 		}
         return $valores;
     }	
