@@ -168,7 +168,7 @@ ef_radio.prototype.constructor = ef_radio;
 	};
 	
 	ef_radio.prototype.input = function() {
-		
+
 		var input = getElementsByName_iefix('input', this._id_form);
 		if (typeof input.length != 'number') {
 			input = [input];
@@ -316,8 +316,24 @@ ef_radio.prototype.constructor = ef_radio;
 		}
 		return cont;
 	};
-	
+	ef_radio.prototype.activo = function() {
+		var input = this.input();
+		var seteado = true;
+		var activo = false;
+		//El radio solo existe si todos sus elementos verifican isset
+		for(elemento in input){
+			seteado = seteado && isset(input[elemento]);
+		}
 
+		if (seteado) {
+			//El radio esta activo si al menos uno de sus elementos esta activo.
+			for (elemento in input){
+				activo = activo || (input[elemento].type !='hidden' && !input[elemento].disabled)
+			}
+		} 
+		return activo;
+	};
+	
 
 	
 toba.confirmar_inclusion('efs/ef_combo');
