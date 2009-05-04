@@ -485,18 +485,49 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function sincronizar($usar_cursores=false)
 	{
-		$this->disparar_validacion_tablas();
-		$this->evt__validar();
-		$this->persistidor()->sincronizar($usar_cursores);
-		//Se notifica el fin de la sincronización a las tablas
-		foreach ($this->_dependencias as $dependencia) {
-			if($usar_cursores) {
-				$filas = $dependencia->get_id_filas_filtradas_por_cursor();				
+		if (!$usar_cursores) {
+			$this->disparar_validacion_tablas();
+			$this->evt__validar();
+			$this->persistidor()->sincronizar();
+			//Se notifica el fin de la sincronización a las tablas
+			foreach ($this->_dependencias as $dependencia) {
+				$dependencia->notificar_fin_sincronizacion();
+			}
+		} else {
+			//Se sincroniza con cursores
+			foreach ($this->_dependencias as $dependencia) {
+				$filas = $dependencia->get_id_filas_filtradas_por_cursor();
+				if($filas) {
+					$dependencia->validar($filas);
+				}
+			}
+			$this->evt__validar();
+			$this->persistidor()->sincronizar($usar_cursores);
+			foreach ($this->_dependencias as $dependencia) {
+				$filas = $dependencia->get_id_filas_filtradas_por_cursor();
 				if($filas) {
 					$dependencia->notificar_fin_sincronizacion($filas);
 				}
-			} else {
-				$dependencia->notificar_fin_sincronizacion();
+			}
+		}
+	}
+
+	/**
+	 * Sincroniza los cambios con el medio de persistencia
+	 */
+	function sincronizar_filas($filas_tablas)
+	{
+		foreach ($this->_dependencias as $id => $dependencia) {
+			if (isset($filas_tablas[$id])) {
+				$dependencias->validar($filas_tablas[$id]);
+			}
+		}
+		$this->evt__validar();
+		$this->persistidor()->sincronizar(false, $filas_tablas);
+		//Se notifica el fin de la sincronización a las tablas
+		foreach ($this->_dependencias as $id => $dependencia) {
+			if (isset($filas_tablas[$id])) {
+				$dependencias->notificar_fin_sincronizacion($filas_tablas[$id]);
 			}
 		}
 	}

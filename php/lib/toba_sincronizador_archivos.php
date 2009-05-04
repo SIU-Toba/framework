@@ -86,7 +86,7 @@ class toba_sincronizador_archivos
 	{
 		$obs = array();
 		foreach ( $this->archivos_eliminados as $archivo ) {
-			$cmd = "svn delete --force $archivo";
+			$cmd = "svn delete --force \"$archivo\"";
 			system($cmd);
 			toba_logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");
 			$obs[] = "SVN DELETE '$archivo'";
@@ -101,7 +101,7 @@ class toba_sincronizador_archivos
 			system("svn add $directorio -N -q");
 			
 			
-			$cmd = "svn add $archivo";
+			$cmd = "svn add \"$archivo\"";
 			toba_logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");			
 			system($cmd);
 			$obs[] = "SVN ADD '$archivo'";

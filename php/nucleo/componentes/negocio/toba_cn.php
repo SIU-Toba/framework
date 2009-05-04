@@ -18,13 +18,13 @@ class toba_cn extends toba_componente
 	{
 		parent::__construct($id);
 		$this->_transaccion_abierta = false;
-		$this->ini();
 		// Cargo las dependencias
 		foreach( $this->_lista_dependencias as $dep){
 			$this->cargar_dependencia($dep);
 			$this->_dependencias[$dep]->set_controlador($this, $dep);
 			$this->dep($dep);
 		}		
+		$this->ini();
 	}
 
 	/**

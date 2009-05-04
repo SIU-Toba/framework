@@ -164,7 +164,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Sincroniza los cambios con la base de datos
 	 * En caso de error se aborta la transacción (si tiene) y se lanza una excepción
 	 */
-	function sincronizar($usar_cursores=false)
+	function sincronizar($usar_cursores=false, $filas_tablas=null)
 	{
 		$fuente = $this->objeto_relacion->get_fuente();
 		try{
@@ -175,7 +175,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 				}
 			}
 			$this->evt__pre_sincronizacion();
-			$this->proceso_sincronizacion($usar_cursores);
+			$this->proceso_sincronizacion($usar_cursores, $filas_tablas);
 			$this->evt__post_sincronizacion();
 			if($this->_utilizar_transaccion) cerrar_transaccion($fuente);			
 		}catch(toba_error $e){
@@ -189,8 +189,20 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Sincroniza las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
 	 * @ignore 
 	 */
-	protected function proceso_sincronizacion($usar_cursores=false)
+	protected function proceso_sincronizacion($usar_cursores=false, $filas_tablas=null)
 	{
+		if(isset($filas_tablas)){
+			if (!is_array($filas_tablas)) {
+				throw new toba_error("La sincronizacion por filas requiere que se indiquen las filas a sincronizar por tabla en un array.");
+			}
+			if ($usar_cursores) {
+				throw new toba_error("La sincronizacion por filas no puede utilizarse junto a la sincronizacion por cursores.");
+			}
+			$sincro_por_filas = true;
+			toba::logger()->info("AP_RELACION: Sincronizacion por FILAS", 'toba');			
+		} else {
+			$sincro_por_filas = false;
+		}
 		if($usar_cursores) {
 			toba::logger()->info("AP_RELACION: Sincronizacion con CURSORES", 'toba');
 		}
@@ -209,6 +221,13 @@ class toba_ap_relacion_db implements toba_ap_relacion
 				if($filas) {
 					$tabla->persistidor()->sincronizar_eliminados($filas);
 				}
+			} elseif ($sincro_por_filas) { 
+				if(isset($filas_tablas[$tabla])) {
+					if (!is_array($filas_tablas[$tabla])) {
+						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+					}
+					$tabla->persistidor()->sincronizar_eliminados($filas_tablas[$tabla]);
+				}			
 			} else {
 				$tabla->persistidor()->sincronizar_eliminados();
 			}
@@ -223,6 +242,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 					$tabla->persistidor()->sincronizar_insertados($filas);
 					$tabla->notificar_hijos_sincronizacion($filas);
 				}
+			} elseif ($sincro_por_filas) { 
+				if(isset($filas_tablas[$tabla])) {
+					if (!is_array($filas_tablas[$tabla])) {
+						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+					}
+					$tabla->persistidor()->sincronizar_insertados($filas_tablas[$tabla]);
+					$tabla->notificar_hijos_sincronizacion($filas_tablas[$tabla]);
+				}			
 			} else {
 				$tabla->persistidor()->sincronizar_insertados();
 				$tabla->notificar_hijos_sincronizacion();
@@ -237,6 +264,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 					$tabla->persistidor()->sincronizar_actualizados($filas);
 					$tabla->notificar_hijos_sincronizacion($filas);
 				}
+			} elseif ($sincro_por_filas) { 
+				if(isset($filas_tablas[$tabla])) {
+					if (!is_array($filas_tablas[$tabla])) {
+						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+					}
+					$tabla->persistidor()->sincronizar_actualizados($filas_tablas[$tabla]);
+					$tabla->notificar_hijos_sincronizacion($filas_tablas[$tabla]);
+				}		
 			} else {
 				$tabla->persistidor()->sincronizar_actualizados();
 				$tabla->notificar_hijos_sincronizacion();
@@ -247,8 +282,6 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		foreach ($tablas as $tabla) {
 			$tabla->persistidor()->evt__post_sincronizacion();
 		}		
-
-
 	}
 	
 	/**

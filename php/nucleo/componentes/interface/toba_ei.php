@@ -30,6 +30,7 @@ abstract class toba_ei extends toba_componente
 	protected $_posicion_botonera;
 	protected static $refresh_ejecuta_eventos = false;
 	protected $_notificaciones = array();	
+	protected $_mostrar_barra_superior = true;			// Indica si se muestra o no la barra superior
 	
 	function __construct($definicion)
 	{
@@ -546,68 +547,87 @@ abstract class toba_ei extends toba_componente
 	 */
 	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
-		$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
-				 $this->_posicion_botonera == "ambos");
-		$tiene_titulo = trim($this->_info["titulo"])!="" || trim($titulo) != '';
-		if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo) {
-			if (!isset($titulo)) {
-				$titulo = $this->_info["titulo"];	
-			}
-			if ($botonera_sup && !$tiene_titulo) {
-				$estilo .= ' ei-barra-sup-sin-tit';
-			}
-			if (!$botonera_sup && $tiene_titulo) {
-				$estilo .= ' ei-barra-sup-sin-botonera';
-			}
-			//ei_barra_inicio("ei-barra-sup $estilo");
+		if ($this->_mostrar_barra_superior){
+			$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
+					 $this->_posicion_botonera == "ambos");
+			$tiene_titulo = trim($this->_info["titulo"])!="" || trim($titulo) != '';
+			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo) {
+				if (!isset($titulo)) {
+					$titulo = $this->_info["titulo"];	
+				}
+				if ($botonera_sup && !$tiene_titulo) {
+					$estilo .= ' ei-barra-sup-sin-tit';
+				}
+				if (!$botonera_sup && $tiene_titulo) {
+					$estilo .= ' ei-barra-sup-sin-botonera';
+				}
+				//ei_barra_inicio("ei-barra-sup $estilo");
+		
+				//---Barra de colapsado
+				$colapsado = "";
+				if ($this->_info['colapsable'] && isset($this->objeto_js)) {
+					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+				}			
+				echo "<div class='ei-barra-sup $estilo' $colapsado>\n";
+				//--> Botonera
+				if ($botonera_sup) {
+					$this->generar_botones();
+				}						
+				//---Barra de mensajeria		
+				if (isset($this->objeto_js)) {
+					echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
+					echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
+					echo "</a>";
+				}
+				//--- Descripcion Tooltip
+				if(trim($this->_info["descripcion"])!="" &&  $this->_modo_descripcion_tooltip){
+					echo '<span class="ei-barra-sup-desc">';
+					$desc = toba_parser_ayuda::parsear($this->_info["descripcion"]);
+					echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $desc);
+					echo '</span>';		
+				}
+		
+				//---Barra de colapsado
+				if ($this->_info['colapsable'] && isset($this->objeto_js)) {
+					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
+					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
+				}
 	
-			//---Barra de colapsado
-			$colapsado = "";
-			if ($this->_info['colapsable'] && isset($this->objeto_js)) {
-				$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-			}			
-			echo "<div class='ei-barra-sup $estilo' $colapsado>\n";
-			//--> Botonera
-			if ($botonera_sup) {
-				$this->generar_botones();
-			}						
+				//---Titulo			
+				echo "<span class='ei-barra-sup-tit'>$titulo</span>\n";
+				echo "</div>";
+				//echo ei_barra_fin();
+			}
+			
+			//--- Descripcion con barra. Muestra una barra en lugar de un tooltip
+			if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
+				$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
+				$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
+			}		
+			echo "<div id='{$this->_submit}_notificacion'>";
+			foreach ($this->_notificaciones as $notificacion){
+				$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
+			}
+			echo "</div>";
+			$this->_notificaciones = array();
+		} else {
 			//---Barra de mensajeria		
 			if (isset($this->objeto_js)) {
 				echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
 				echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 				echo "</a>";
 			}
-			//--- Descripcion Tooltip
-			if(trim($this->_info["descripcion"])!="" &&  $this->_modo_descripcion_tooltip){
-				echo '<span class="ei-barra-sup-desc">';
-				$desc = toba_parser_ayuda::parsear($this->_info["descripcion"]);
-				echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $desc);
-				echo '</span>';		
-			}
-	
-			//---Barra de colapsado
-			if ($this->_info['colapsable'] && isset($this->objeto_js)) {
-				$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
-				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
-			}
-
-			//---Titulo			
-			echo "<span class='ei-barra-sup-tit'>$titulo</span>\n";
-			echo "</div>";
-			//echo ei_barra_fin();
 		}
 		
-		//--- Descripcion con barra. Muestra una barra en lugar de un tooltip
-		if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
-			$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
-			$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
-		}		
-		echo "<div id='{$this->_submit}_notificacion'>";
-		foreach ($this->_notificaciones as $notificacion){
-			$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
-		}
-		echo "</div>";
-		$this->_notificaciones = array();
+	}
+	
+	/**
+	 * Configura la visibilidad de la barra superior
+ 	 * 
+	 */
+	function mostrar_barra_superior($estado=true)
+	{
+		$this->_mostrar_barra_superior = $estado;
 	}
 
 	

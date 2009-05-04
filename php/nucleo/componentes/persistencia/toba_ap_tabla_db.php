@@ -791,7 +791,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					}
 				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ) {
 					//-- Es un campo NULO
-					$valores_sql[$a] = "NULL";
+					$valores_sql[$a] = "DEFAULT";
 					$columnas_sql[$a] = $col;
 				}else{
 					if(	toba_tipo_datos::numero($columna['tipo']) ){

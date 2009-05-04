@@ -1278,12 +1278,15 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Validacion de toda la tabla necesaria previa a la sincronización
 	 */
-	function validar()
+	function validar($filas=array())
 	{
 		$this->control_tope_maximo_filas($this->get_cantidad_filas());		
 		$ids = $this->get_id_filas_a_sincronizar( array("u","i") );
 		if(isset($ids)){
 			foreach($ids as $id){
+				if(count($filas)>0) {
+					if (!in_array($id,$filas)) continue;	
+				}
 				//$this->control_nulos($fila);
 				$this->evt__validar_fila( $this->_datos[$id] );
 				$this->control_valores_unicos_fila($this->_datos[$id], $id);
@@ -1489,17 +1492,31 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function sincronizar($usar_cursores=false)
 	{
-		$this->validar();
 		if($usar_cursores) {
 			$filas = $this->get_id_filas_filtradas_por_cursor();
 			if($filas) {	// Si los cursores no filtran registros, no sincronizo nada
+				$this->validar($filas);
 				$modif = $this->persistidor()->sincronizar($filas);
 			}
 		} else {
+			$this->validar();
 			$modif = $this->persistidor()->sincronizar();
 		}
 		return $modif;
 	}
+
+	/**
+	 * Sincroniza un conjunto de filas de la tabla en memoria con el medio físico a travéz del administrador de persistencia.
+	 *
+	 * @return integer Cantidad de registros modificados en el medio
+	 */
+	function sincronizar_filas($filas)
+	{
+		$this->validar($filas);
+		$modif = $this->persistidor()->sincronizar($filas);
+		return $modif;
+	}
+
 
 	/**
 	 * Elimina todas las filas de la tabla en memoria y sincroniza con el medio de persistencia

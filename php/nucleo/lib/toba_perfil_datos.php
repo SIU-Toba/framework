@@ -281,6 +281,7 @@ class toba_perfil_datos
 			if ($def['ruta_tabla_rel_dim'] != '') {
 				$tablas_vinculantes = explode( ',', $def['ruta_tabla_rel_dim']);
 				$tablas_vinculantes = array_map('trim', $tablas_vinculantes);
+				$tablas_vinculantes = array_reverse($tablas_vinculantes);
 				foreach($tablas_vinculantes as $tv) {
 					$cadena_tablas[] = $tv;	
 					$cadena_tablas_alias[] = $this->get_alias_unico();

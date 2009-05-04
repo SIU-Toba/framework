@@ -76,6 +76,19 @@ class toba_migracion_1_3_0 extends toba_migracion
 				AND 	accion_vinculo_popup = '1';";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
+
+	/*
+	 * Antes se estaba guardando la carpeta padre de un vinculo, era innecesaria
+	 */
+	function proyecto__vinculos_a_carpeta_padre()
+	{
+		//Vinculos en Cuadros
+		$sql = "UPDATE 	apex_objeto_eventos SET accion_vinculo_carpeta = NULL
+				WHERE 	proyecto = '{$this->elemento->get_id()}'
+		";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
+
 }
 
 ?>

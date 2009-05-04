@@ -275,9 +275,9 @@ class toba_asistente_abms extends toba_asistente_1dt
 				throw new toba_error_asistentes('ASISTENTE ABMS: La clase de carga del cuadro no esta definido (MODO consulta_php).');	
 			}
 			//----> Los datos son provistos por un archivo de consultas php
-			$php_recuperacion = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'];
+			$php_recuperacion = "toba::consulta_php('{$this->molde_abms['cuadro_carga_php_clase']}')->{$this->molde_abms['cuadro_carga_php_metodo']}";
 			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
-				$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
+				//$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
 				$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
 											$this->molde_abms['cuadro_carga_php_clase'],
 											$this->molde_abms['cuadro_carga_php_metodo'],

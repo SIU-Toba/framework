@@ -138,6 +138,15 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$this->_modo_agregar = array($es_inferior, $texto_a_mostrar);
 	}	
+
+	/**
+	 * Muestra las utilerias para ordenar filas
+	 * @param boolean $mostrar
+	 */
+	function set_mostrar_utilerias_orden($mostrar=true)
+	{
+		$this->_info_formulario['filas_ordenar'] = $mostrar;
+	}
 	
 	/**
 	 * Se muestra la cabecera/pie en caso de que no tenga datos el formulario (por defecto true)
