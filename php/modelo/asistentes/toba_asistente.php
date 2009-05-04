@@ -105,7 +105,7 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function ejecutar($id_item, $retorno_opciones_generacion=null)
+	function ejecutar($id_item, $retorno_opciones_generacion=null, $con_transaccion  = true)
 	{
 		//Registro las opciones de generacion
 		if(isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion) ) {
@@ -114,19 +114,25 @@ abstract class toba_asistente
 			}
 		}
 		try {
-			abrir_transaccion();
+			if ($con_transaccion) {abrir_transaccion();}
 			//--Borra los actuales
 			$op_actual = new toba_modelo_operacion($this->id_molde_proyecto, $id_item);
 			$op_actual->eliminar_componentes_propios(false);
 			//--Genera los nuevos
 			$this->generar_elementos($id_item);
-			cerrar_transaccion();
+			if ($con_transaccion) {cerrar_transaccion();}
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 			return $this->log_elementos_creados;
 		} catch (toba_error $e) {
 			toba::logger()->error($e);
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
-			abortar_transaccion();
+			//Si viene con transaccion se aborta aca, sino se dispara la excepcion para
+			// que aborte en el llamador
+			if ($con_transaccion) {																					
+				abortar_transaccion();																			  
+			}else{
+				throw $e;
+			}
 		}
 	}
 	
@@ -430,7 +436,7 @@ abstract class toba_asistente
 		}else{
 			$php = "\$where = array();" . salto_linea();
 			foreach($parametros as $id => $operador) {
-				$php .= "if(isset(\$filtro['$id'])) {" . salto_linea();
+				$php .= "if (isset(\$filtro['$id'])) {" . salto_linea();
 				if($operador == 'LIKE' || $operador == 'ILIKE') {
 					$php .= "\t\$where[] = \"$id $operador \".quote(\"%{\$filtro['$id']}%\");" . salto_linea();
 				} else {
@@ -439,7 +445,7 @@ abstract class toba_asistente
 				$php .= "}" . salto_linea();
 			}
 			$php .=	"\$sql = \"$sql\";" . salto_linea();
-			$php .= "if(count(\$where)>0) {" . salto_linea();
+			$php .= "if (count(\$where)>0) {" . salto_linea();
 			$php .= "\t\$sql = sql_concatenar_where(\$sql, \$where);" . salto_linea();
 			$php .= "}" . salto_linea();
 			$php .= $sentencia_consulta;

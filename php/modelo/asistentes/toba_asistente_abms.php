@@ -176,7 +176,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--- conf__filtro ---------------------------------------
 		//--------------------------------------------------------
 		$metodo = new toba_codigo_metodo_php('conf__filtro',array('toba_ei_formulario $filtro'));
-		$metodo->set_contenido(array(	"if(isset(\$this->s__datos_filtro)){",
+		$metodo->set_contenido(array(	"if (isset(\$this->s__datos_filtro)) {",
 										"\t\$filtro->set_datos(\$this->s__datos_filtro);",
 										"}"));
 		$this->ci->php()->agregar($metodo);		
@@ -304,7 +304,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//-- SI la operacion tiene FILTRO....
 		if ($this->molde_abms['gen_usa_filtro']) {
 			$php = array();
-			$php[] = "if(isset(\$this->s__datos_filtro)){";
+			$php[] = "if (isset(\$this->s__datos_filtro)) {";
 			$php[] = "\t\$cuadro->set_datos(".$php_recuperacion."(\$this->s__datos_filtro));";
 			if($this->molde_abms['cuadro_forzar_filtro']) {
 				// El cuadro solo se carga si el filtro esta seteado
@@ -372,7 +372,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		$tabla_actual = $this->molde_abms['tabla'];
 		$metodo = new toba_codigo_metodo_php('conf__formulario',array('toba_ei_formulario $form'));
-		$contenido = array(	"if(\$this->dep('datos')->esta_cargada()){",
+		$contenido = array(	"if (\$this->dep('datos')->esta_cargada()) {",
 										"\t\$form->set_datos(\$this->dep('datos')->tabla('$tabla_actual')->get());");
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$contenido[] = "} else {";

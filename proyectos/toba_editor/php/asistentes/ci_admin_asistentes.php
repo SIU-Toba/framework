@@ -114,14 +114,15 @@ class ci_admin_asistentes extends toba_ci
 	
 	function evt__siguiente_generar()
 	{
-		$this->dep('asistente')->sincronizar();
-		$this->s__molde_preexistente = true;
-		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
-		if( $this->generacion_requiere_confirmacion() ) {
-			$this->set_pantalla('pant_confirmacion');	
-		} else {
-			$this->evt__generar();
-		}
+			$this->dep('asistente')->validar_datos_ingresados();
+			$this->dep('asistente')->sincronizar();							
+			$this->s__molde_preexistente = true;
+			$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
+			if( $this->generacion_requiere_confirmacion() ) {
+				$this->set_pantalla('pant_confirmacion');
+			} else {
+				$this->evt__generar();
+			}
 	}
 
 	function generacion_requiere_confirmacion()

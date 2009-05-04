@@ -236,7 +236,35 @@ class ci_abms_principal extends ci_asistente_base
 	{
 		$this->dep('datos')->tabla('base')->set($datos);
 	}
-	
+
+	function validar_datos_ingresados()
+	{
+		$datos_b = $this->dep('datos')->tabla('base')->get();
+		$datos_f = $this->dep('datos')->tabla('filas')->get_filas(array('en_filtro' => 1));
+		if (!empty($datos_b) && ($datos_b['gen_usa_filtro'] == 1) &&empty($datos_f)){
+			throw new toba_error_def(' Se especifico un filtro pero no se definio que filas participan del mismo');
+		}
+
+		if(!empty($datos_b) && $datos_b['cuadro_carga_origen'] == 'consulta_php' ) {
+			if( !isset($datos_b['cuadro_carga_php_metodo'] )) {
+					throw new toba_error_def(' El metodo de carga del cuadro no esta definido (MODO consulta_php).');
+			}
+			if( !isset($datos_b['cuadro_carga_php_clase'] )) {
+					throw new toba_error_def(' La clase de carga del cuadro no esta definido (MODO consulta_php).');
+			}
+		}
+
+		$datos_c = $this->dep('datos')->tabla('filas')->get_filas(array('en_cuadro' => 1));
+		if (empty($datos_c)){
+			throw new toba_error_def(' Se deben especificar las columnas que participan del cuadro.');
+		}
+
+		$datos_form = $this->dep('datos')->tabla('filas')->get_filas(array('en_form' => 1));
+		if (empty($datos_form)){
+			throw new toba_error_def(' Se deben especificar las columnas que participan del formulario.');
+		}
+
+	}
 }
 
 ?>

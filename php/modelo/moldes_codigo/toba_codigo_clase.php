@@ -299,8 +299,8 @@ class toba_codigo_clase
 			$extends = ($this->nombre_ancestro) ? "extends {$this->nombre_ancestro}" : "";
 			$this->codigo_php .= "class {$this->nombre} $extends". salto_linea() ."{". salto_linea();
 			$this->codigo_php .= "}". salto_linea();			
-			$this->generar_codigo_php();
-			$this->generar_codigo_js();
+			$this->generar_codigo_php($this->codigo_php);
+			$this->generar_codigo_js($this->codigo_php);
 		} else {
 			$this->generar_codigo_php($codigo_existente);
 			$this->generar_codigo_js($codigo_existente);
@@ -311,18 +311,30 @@ class toba_codigo_clase
 	/**
 	 * @todo: Falta implementar el reemplazo de propiedades
 	 */	
-	function generar_codigo_php($codigo_existente='')
+	function generar_propiedades($codigo_existente)
 	{
-		//TODO: Asume que el no hay codigo actual
-		if(count($this->propiedades)>0) {
+			//TODO: Asume que el codigo_existente es algo que aun no tiene propiedades
+			$posicion_arranque = strpos( $codigo_existente,'{');
+			$codigo_propiedades = '';
 			foreach($this->propiedades as $propiedad) {
 				$propiedad->identar(1);
-				$this->codigo_php .= $propiedad->get_codigo();
+				$codigo_propiedades .= $propiedad->get_codigo();
 			}
-			$this->codigo_php .= salto_linea();
+			$codigo_propiedades .= salto_linea();
+			if ($posicion_arranque !== false){
+				$codigo_propiedades = '{' . salto_linea(). $codigo_propiedades;
+				$una_vez = 1;											//Maldito PHP sos el colmo!
+				$this->codigo_php = str_replace('{', $codigo_propiedades, $this->codigo_php, $una_vez);
+			}else{
+				$this->codigo_php .= $codigo_propiedades;
+			}
+	}
+
+	function generar_codigo_php($codigo_existente='')
+	{
+		if(count($this->propiedades)>0) {
+			$this->generar_propiedades($codigo_existente);
 		}
-		
-		
 		foreach ($this->elementos_php as $elemento) {
 			$elemento->identar(1);
 			if ($elemento instanceof toba_codigo_metodo_php &&

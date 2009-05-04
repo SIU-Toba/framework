@@ -82,7 +82,11 @@ class ci_asistente_base extends toba_ci
 	{
 		return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
 	}
-		
+
+	function validar_datos_ingresados()
+	{
+		//Ventana de extension para validaciones de los Cis que manejan asistentes
+	}
 }
 
 ?>
