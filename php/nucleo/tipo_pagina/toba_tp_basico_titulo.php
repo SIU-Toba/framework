@@ -13,9 +13,9 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	protected function barra_superior()
 	{
 		echo "<div class='barra-superior barra-superior-tit'>\n";		
-		$this->info_version();				
+		$this->info_version();
 		echo "<div class='item-barra'>";
-		$this->generar_ayuda();
+		$this->generar_ayuda();		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
 		echo "</div>\n\n";
 	}
@@ -28,7 +28,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			if (strpos($mensaje, ' ') !== false) {	//Detecta si es una url o un mensaje completo
 				$desc = toba_parser_ayuda::parsear($mensaje);
 				$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
-				echo "<div class='barra-superior-ayuda' $ayuda>";
+				echo "<div $ayuda>";
 				echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
 				echo "</div>";
 			} else {
