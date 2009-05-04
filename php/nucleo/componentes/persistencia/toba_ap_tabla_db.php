@@ -844,16 +844,22 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$binarios = array();
 		$registro = $this->datos[$id_registro];
+		$cambios_reales = $this->objeto_tabla->get_cambios_fila($id_registro);
+		
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
 		$db = toba::db($this->_fuente);
 		foreach($this->_columnas as $columna){
 			$col = $columna['columna'];
 			$es_binario = ($columna['tipo'] == 'B');
-			//columna modificable: no es secuencia, no es extena, no es PK 
-			//	(excepto que se se declare explicitamente la alteracion de PKs)
-			$es_modificable = ($columna['secuencia']=="") && ($columna['externa'] != 1) 
-							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->_flag_modificacion_clave ) );
+			$es_secuencia = ($columna['secuencia'] != "");
+			$es_externa = ($columna['externa'] == 1);
+			$es_clave = ($columna['pk'] == 1);
+			
+			//columna modificable: realmente se modifico, no es secuencia, no es externa, 
+			$es_modificable = !$es_secuencia && !$es_externa  && isset($cambios_reales[$col])
+							&& (!$es_clave || ($es_clave && $this->_flag_modificacion_clave ));  //	no es PK (excepto que se se declare explicitamente la alteracion de PKs)
+							
 			if( $es_modificable ){
 				if ($es_binario) {
 					$blob = $this->objeto_tabla->_get_blob_transaccion($id_registro, $col);

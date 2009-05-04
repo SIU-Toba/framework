@@ -1759,21 +1759,28 @@ class toba_datos_tabla extends toba_componente
 		$datos_nuevos = $this->_datos[$id_fila];
 		$datos_viejos = $this->_cambios[$id_fila]['original'];
 		foreach ($this->_columnas as $campo => $col) {
-			if (!$col['externa'] && $col['tipo'] != 'B') {
-				if (! isset($datos_nuevos[$campo]) && isset($datos_viejos[$campo])) {
-					$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => null);
-				} elseif (isset($datos_nuevos[$campo]) && !isset($datos_viejos[$campo])) {
-					$diferencias[$campo] = array('anterior' => null, 'actual' => $datos_nuevos[$campo]);
+			if (!$col['externa']) {
+				if ($col['tipo'] != 'B') {
+					if (! isset($datos_nuevos[$campo]) && isset($datos_viejos[$campo])) {
+						$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => null);
+					} elseif (isset($datos_nuevos[$campo]) && !isset($datos_viejos[$campo])) {
+						$diferencias[$campo] = array('anterior' => null, 'actual' => $datos_nuevos[$campo]);
+					} else {
+						if (is_bool($datos_viejos[$campo])) {
+							$datos_viejos[$campo] = $datos_viejos[$campo] ? 1 : 0;
+						}
+						if (is_bool($datos_nuevos[$campo])) {
+							$datos_nuevos[$campo] = $datos_nuevos[$campo] ? 1 : 0;
+						}
+						//--- Comparacion por igualdad estricta con un cast a string
+						if (trim((string) $datos_viejos[$campo]) !== trim((string) $datos_nuevos[$campo])) {
+							$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => $datos_nuevos[$campo]);
+						}
+					}
 				} else {
-					if (is_bool($datos_viejos[$campo])) {
-						$datos_viejos[$campo] = $datos_viejos[$campo] ? 1 : 0;
-					}
-					if (is_bool($datos_nuevos[$campo])) {
-						$datos_nuevos[$campo] = $datos_nuevos[$campo] ? 1 : 0;
-					}
-					//--- Comparacion por igualdad estricta con un cast a string
-					if (trim((string) $datos_viejos[$campo]) !== trim((string) $datos_nuevos[$campo])) {
-						$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => $datos_nuevos[$campo]);
+					//Es binario, se modifico? En ese caso no decimos las diferencias 
+					if (isset($this->_blobs[$id_fila][$campo]) && $this->_blobs[$id_fila][$campo]['modificado']) {
+						$diferencias[$campo] = array('anterior' => '?', 'actual' => '?');
 					}
 				}
 			}
