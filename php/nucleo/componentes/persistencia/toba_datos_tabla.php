@@ -1707,13 +1707,64 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * Determina si los datos cargados en la tabla difieren de los datos existentes en la base
+	 * Determina si los datos cargados en la tabla difieren de los datos existentes en la base al inicio de la transacción
 	 * @return boolean
 	 */	
 	function hay_cambios()
 	{
-		return $this->get_cantidad_filas_a_sincronizar() > 0;
+		if ($this->get_cantidad_filas_a_sincronizar() > 0) {
+			foreach ($this->get_id_filas_a_sincronizar(array('u')) as $id_fila) {
+				if ($this->hay_cambios_fila($id_fila)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
+
+	/**
+	 * Retorna verdadero si algún valor de la tabla cambio desde el inicio de la transacción
+	 * @return boolean
+	 */
+	function hay_cambios_fila($id_fila)
+	{
+		$cambios = $this->get_cambios_fila($id_fila);
+		return ! empty($cambios);
+	}
+
+	/**
+	 * Calcula las diferencias entre el valor original de la fila al momento de carga y el valor actual
+	 * @return array Asociativo campo => array('anterior' => $anterior, 'actual' => $actual)
+	 */
+	function get_cambios_fila($id_fila)
+	{
+		$diferencias = array();
+		$datos_nuevos = $this->_datos[$id_fila];
+		$datos_viejos = $this->_cambios[$id_fila]['original'];
+		foreach ($this->_columnas as $campo => $col) {
+			if (!$col['externa'] && $col['tipo'] != 'B') {
+				if (! isset($datos_nuevos[$campo]) && isset($datos_viejos[$campo])) {
+					$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => null);
+				} elseif (isset($datos_nuevos[$campo]) && !isset($datos_viejos[$campo])) {
+					$diferencias[$campo] = array('anterior' => null, 'actual' => $datos_nuevos[$campo]);
+				} else {
+					if (is_bool($datos_viejos[$campo])) {
+						$datos_viejos[$campo] = $datos_viejos[$campo] ? 1 : 0;
+					}
+					if (is_bool($datos_nuevos[$campo])) {
+						$datos_nuevos[$campo] = $datos_nuevos[$campo] ? 1 : 0;
+					}
+					//--- Comparacion por igualdad estricta con un cast a string
+					if (trim((string) $datos_viejos[$campo]) !== trim((string) $datos_nuevos[$campo])) {
+						$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => $datos_nuevos[$campo]);
+					}
+				}
+			}
+		}
+		return $diferencias;
+	}
+
+
 
 	/**
 	 * Verifica si hubo cambios en los valores de un campo especifico

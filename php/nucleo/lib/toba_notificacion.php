@@ -98,7 +98,7 @@ class toba_notificacion
 			$texto = str_replace("'", '"', $texto);
 			$texto = toba_js::string($texto);
 			//Mensaje para debug
-			if (isset($mensaje[2])) {
+			if (isset($mensaje[2]) && trim($mensaje[2]) != '') {
 				$texto_debug = toba_parser_ayuda::parsear($mensaje[2]);
 				$texto_debug = str_replace("'", '"', $texto_debug);
 				$texto_debug = toba_js::string($texto_debug);	
