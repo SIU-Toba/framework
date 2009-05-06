@@ -208,6 +208,31 @@ class toba_datos_tabla_info extends toba_componente_info
 		return $datos;
 	}
 
+	/**
+	 *  Obtiene la informacion de metadatos de las columnas del dt, puede filtrar por
+	 * condiciones particulares
+	 * @param array $id Arreglo asociativo de condiciones ('nombre' => 'valor')
+	 * @return array
+	 */
+	function get_info_columnas($id = array())
+	{
+		$resultado = $this->datos['_info_columnas'];
+		if (! empty($id)){
+			$cond = array_keys($id);
+			foreach($resultado as $klave => $columna){
+				$valido = true;
+				foreach($cond as $col){
+					$valido = $valido && ($columna[$col] == $id[$col]);
+				}
+				if (! $valido){
+					unset($resultado[$klave]);
+				}
+			}//fe
+		}
+		return $resultado;
+	}
+
+
 	//------------------------------------------------------------------------
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
