@@ -5,8 +5,8 @@ class ci_catalogo_items extends ci_catalogo
 {
 	protected $catalogador; 
 	protected $item_seleccionado;
-	const foto_inaccesibles = "Items con problemas de acceso";
-	const foto_sin_objetos = "Items sin objetos asociados";
+	const foto_inaccesibles = 'Items con problemas de acceso';
+	const foto_sin_objetos = 'Items sin objetos asociados';
 	
 	function ini()
 	{
@@ -47,7 +47,7 @@ class ci_catalogo_items extends ci_catalogo
 	{
 		switch ( $nombre['foto_nombre']) {
 			case apex_foto_inicial:
-				$this->s__opciones =array();
+				$this->s__opciones = array();
 				break;
 			case self::foto_inaccesibles:
 				$this->s__opciones = array();
@@ -135,7 +135,7 @@ class pant_catalogo_items extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		foreach($this->get_dependencias() as $dep) {
+		foreach ($this->get_dependencias() as $dep) {
 			$dep->generar_html();
 		}
 	}	

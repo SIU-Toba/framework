@@ -381,7 +381,11 @@ class toba_ei_arbol extends toba_ei
 				$title .= "<hr />$extra";
 			}
 			$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
-			$nombre= "<span $ayuda>$corto</span>";
+			if (get_class($nodo) == 'toba_ci_pantalla_info'){
+					$nombre= "<span $ayuda>$id</span>";
+			}else{
+					$nombre= "<span $ayuda>$corto</span>";
+			}
 		} else {
 			$nombre = $corto;
 		}
