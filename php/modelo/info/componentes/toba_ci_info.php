@@ -189,6 +189,7 @@ class toba_ci_info extends toba_ei_info
 				$evento[2]['etiqueta'] = "&Eliminar";
 				$evento[2]['imagen_recurso_origen'] = 'apex';
 				$evento[2]['imagen'] = 'borrar.png';
+				$evento[2]['confirmacion'] = "¿Esta seguro que desea ELIMINAR los datos?";
 				$evento[2]['maneja_datos'] = 0;
 				$evento[2]['orden'] = 2;
 				$evento[2]['en_botonera'] = 1;
