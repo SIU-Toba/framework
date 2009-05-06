@@ -144,9 +144,27 @@ class ci_principal extends ci_editores_toba
 		$this->dep('datos')->tabla('externas')->eliminar_filas();
 		$this->dep('datos')->tabla('columnas')->eliminar_filas();
 		$this->get_entidad()->actualizar_campos();
+		$this->actualizar_nombre_objeto_dt($datos);
 	}
 
+	/* Actualizo el nombre del objeto en el datos tabla basico para que se refleje en pantalla*/
+	function actualizar_nombre_objeto_dt($datos)
+	{
+		if (isset($datos['tabla']) && !is_null($datos['tabla'])) {
+			$this->get_entidad()->tabla('base')->set_columna_valor('nombre', 'DT - ' . $datos['tabla']);
+		}
+	}
 
+	/* Esta funcion devuelve un nombre defecto si no esta seteado en el datos_tabla basico*/
+	function get_abreviacion_clase_actual()
+	{
+		$datos = $this->get_entidad()->tabla('base')->get();
+		if (isset($datos['nombre'])){
+			return $datos['nombre'];
+		}else{
+			return call_user_func(array($this->get_clase_info_actual(), 'get_tipo_abreviado'));
+		}
+	}
 	//*******************************************************************
 	//**  COLUMNAS  *****************************************************
 	//*******************************************************************
