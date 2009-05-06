@@ -98,7 +98,8 @@ abstract class ci_catalogo extends toba_ci
 	
 	function evt__fotos__defecto($nombre)
 	{
-		$this->album_fotos->cambiar_predeterminada($nombre['foto_nombre']);	
+		$this->album_fotos->cambiar_predeterminada($nombre['foto_nombre']);
+		$this->evt__fotos__seleccion($nombre);
 	}
 	
 
