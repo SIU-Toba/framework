@@ -77,6 +77,7 @@ ef_popup.prototype.constructor = ef_popup;
 		window.popup_elementos[this._id_form] = this;		
 		var param = this._controlador.get_valores_maestros(this._id);
 		param[this._id] = this.get_estado();
+		param['ef_popup_valor'] = this.get_estado();
 		param.ef_popup = this._id_form;
 		
 		vinculador.agregar_parametros(this._vinculo, param);
