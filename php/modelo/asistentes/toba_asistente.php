@@ -360,11 +360,23 @@ abstract class toba_asistente
 	 */
 	function get_molde_datos_tabla($tabla, $fuente=null)
 	{
+		$molde = null;
 		if (isset($fuente)) {
 			$this->molde['fuente'] = $fuente;
 		}
-		$molde = new toba_datos_tabla_molde($this);
-		$this->generar_datos_tabla($molde, $tabla, null);
+		//Busco si existe algun dt cargado para la tabla
+		//en el asistente actual
+		foreach($this->moldes as $klave => $molde_existente){
+			$es_dt = ($molde_existente->get_clase() == 'toba_datos_tabla');
+			if ($es_dt  && $molde_existente->get_tabla_nombre() == $tabla){
+				$molde = $this->moldes[$klave];
+			}
+		}
+		//Si no encontre ningun dt entonces lo genero
+		if ( is_null($molde)) {
+					$molde = new toba_datos_tabla_molde($this);
+					$this->generar_datos_tabla($molde, $tabla, null);
+		}
 		return $molde;
 	}
 

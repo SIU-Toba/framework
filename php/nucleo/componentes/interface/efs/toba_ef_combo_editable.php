@@ -61,7 +61,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
         if ($this->solo_lectura) {
         	$html .= toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");
 			$html .= toba_form::hidden($this->id_form, $estado);
-            return $input;
+            return $html;
 		} else {
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";

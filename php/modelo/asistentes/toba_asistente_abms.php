@@ -41,7 +41,11 @@ class toba_asistente_abms extends toba_asistente_1dt
 	function autocompletar_carga_cuadro()
 	{
 		$nombre_tabla = $this->dr_molde->tabla('base')->get_columna('tabla');
-		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');		
+		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');
+		//Si el nombre de la fuente no esta en el DR, trato de obtenerlo del asistente.
+		if (isset($this->molde) && is_null($nombre_fuente)){
+			$nombre_fuente = $this->get_fuente();
+		}
 		$db = toba::db($nombre_fuente, toba_editor::get_proyecto_cargado());
 		$datos = array();
 		list($sql, $id) = $db->get_sql_carga_tabla($nombre_tabla);
