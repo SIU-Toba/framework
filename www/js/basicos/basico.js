@@ -1,6 +1,7 @@
 var agt=navigator.userAgent.toLowerCase();
 var ie= ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
 var ie7 = (ie && agt.indexOf("msie 7") != -1);
+var ie8 = (ie && agt.indexOf("msie 8") != -1);
 var ie6omenor = (ie && agt.indexOf("msie 6") != -1);
 var ns6=document.getElementById && !document.all;
 var ereg_numero = /^[1234567890,.-]*$/;
@@ -269,7 +270,9 @@ function firstFocus()
 		for (var j=0;j<formulario.length;j++) {
 			var elemento = formulario.elements[j];
 			var display = elemento.style.display;
-			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
+			var solo_lect_attrib = isset(elemento.getAttribute('readonly'));
+			if (ie){solo_lect_attrib = elemento.getAttribute('readonly');}
+			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') && (! solo_lect_attrib)) {
 				var error =false;
 				try {
 				   elemento.focus();
