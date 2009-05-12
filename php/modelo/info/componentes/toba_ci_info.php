@@ -71,7 +71,7 @@ class toba_ci_info extends toba_ei_info
 			return 0;	
 		}
 	}
-	
+
 	function get_hijos($solo_pantallas=false)
 	{
 		//Las dependencias son sus hijos
@@ -266,6 +266,27 @@ class toba_ci_info extends toba_ei_info
 			$metodo = new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla'), $doc);
 			$metodo->set_doc(implode("\n", $doc));
 			$molde->agregar($metodo);
+
+			//Aca incluyo los metodos de entrada y salida de pantallas.
+			$doc = array();
+			$doc[] = 'Ventana de extension para ejecutar controles antes de entrar a la pagina.';
+			$doc[] = 'Se ejecuta luego de lanzar los eventos del ci.';
+			$doc[] = 'Si se lanza una excepcion se evita el cambio de pantalla.';
+			$doc[] = '[wiki:Referencia/Objetos/ci#Controlandolaentradaylasalida Ver más]';
+			$nombre_metodo_entrada = 'evt__'. $pantalla['identificador'] . '__entrada';
+			$metodo = new toba_codigo_metodo_php($nombre_metodo_entrada, array(), $doc);
+			$metodo->set_doc(implode("\n", $doc));
+			$molde->agregar($metodo);
+
+			$doc = array();
+			$doc[] = 'Ventana de extension para ejecutar controles antes de salir de la pagina.';
+			$doc[] = 'Se ejecuta luego de lanzar los eventos del ci.';
+			$doc[] = 'Si se lanza una excepcion se evita el cambio de pantalla.';
+			$doc[] = '[wiki:Referencia/Objetos/ci#Controlandolaentradaylasalida Ver más]';
+			$nombre_metodo_salida = 'evt__' . $pantalla['identificador'] . '__salida';
+			$metodo = new toba_codigo_metodo_php($nombre_metodo_salida, array(), $doc);
+			$metodo->set_doc(implode("\n", $doc));
+			$molde->agregar($metodo);
 		}
 		
 		//-- Post Configurar
@@ -299,7 +320,6 @@ class toba_ci_info extends toba_ei_info
 		$metodo->set_doc($doc);
 		$molde->agregar($metodo);		
 
-	
 			
 		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
@@ -333,6 +353,22 @@ class toba_ci_info extends toba_ei_info
 												Recibe por parámetro los datos que acarrea el evento, por ejemplo si es un formulario los datos del mismo.
 												[wiki:Referencia/Eventos#Listeners Ver más]');
 							$molde->agregar($metodo);
+							
+							//Si es evento sobre fila brindo la oportunidad de configurarlo (caso ML y Cuadro)
+							if (isset($info['info']['sobre_fila']) && ($info['info']['sobre_fila'] == 1)) {
+								$nombre ='conf_evt__' . $rol . '__' .$evento;
+								$parametros = array('toba_evento_usuario $evento', '$fila');
+								$doc = array();
+								$doc[] = 'Permite configurar el evento por fila.';
+								$doc[] = 'Útil para decidir si el evento debe estar disponible o no de acuerdo a los datos de la fila';
+								$doc[] = "[wiki:Referencia/Objetos/$ei#Filtradodeeventosporfila Ver más]";
+
+								//Agrego el metodo correspondiente para la configuracion del evento
+								$metodo = new toba_codigo_metodo_php($nombre,	$parametros, $doc);
+								$metodo->set_doc(implode("\n", $doc));
+								$metodo->set_grupo($rol);
+								$molde->agregar($metodo);
+							}
 						}
 					}
 				}
