@@ -20,7 +20,7 @@ class toba_parser_ayuda
 	/**
 	 * Busca y reemplaza el formato wiki en un texto
 	 */
-	static function parsear($texto)
+	static function parsear($texto, $resumido=false)
 	{
 		$parseado = "";
 		$resultado = array();
@@ -30,7 +30,7 @@ class toba_parser_ayuda
 				$tipo = $resultado[2][$i];
 				$parseado .= $resultado[1][$i];
 				$metodo = "parsear_".$tipo;
-				$parseado .= self::$metodo($resultado[3][$i], $resultado[4][$i]);
+				$parseado .= self::$metodo($resultado[3][$i], $resultado[4][$i], null, $resumido);
 				$parseado .= $resultado[5][$i];
 			}
 		} else {
@@ -42,28 +42,42 @@ class toba_parser_ayuda
 	protected static function exp_reg()
 	{
 		$tags = implode('|', self::$tags);
-		return  '/([^\[]*)\[('.$tags.'):([^\ ]+)[\ ]([^\[]+)\]([^\[]*)/';
+		return  '/([^\[]*)\[('.$tags.'):([^\ ]+)[\ ]*([^\[]*)\]([^\[]*)/';
+		
 	}
 	
-	static function parsear_wiki_toba($id, $nombre, $proyecto=null)
+	static function parsear_wiki_toba($id, $nombre, $proyecto=null, $resumido=false)
 	{
-		return self::parsear_wiki($id, $nombre, 'toba_editor');
+		return self::parsear_wiki($id, $nombre, 'toba_editor', $resumido);
 	}	
 	
-	static function parsear_wiki($id, $nombre, $proyecto=null)
+	static function parsear_wiki($id, $nombre, $proyecto=null, $resumido=false)
 	{
 		$anchor = '';
 		if (strpos($id, '#') !== false) {
 			$anchor = substr($id, strpos($id, '#')+1);			
 			$id = substr($id, 0, strpos($id, '#'));
 		}
-		$url = toba_recurso::url_proyecto($proyecto)."/doc/wiki/trac/toba/wiki/$id.html#$anchor";
-		$img = toba_recurso::imagen_toba("wiki.gif", true);
-		$tag = "<a href=$url target=wiki>$nombre</a>$img";
-		return str_replace("'", "\\'", $tag);
+		$url_base = '';
+		if (isset($proyecto)) {
+			$url_base .= toba::instancia()->get_url_proyecto($proyecto).'/';
+		}
+		if ($proyecto == 'toba_editor') {
+			$url_base .= 'doc/wiki/trac/toba/wiki/';	//Hack para evitar tener que armar un esquema mucho mas complicado para manejar el caso de usar doc toba desde distintos lados
+		} else {
+			$url_base .= toba::proyecto()->get_parametro('proyecto', 'url_ayuda');
+		}
+		$url = $url_base."$id.html#$anchor";
+		if ($resumido) {
+			return $url;
+		} else {
+			$img = toba_recurso::imagen_toba("wiki.gif", true);
+			$tag = "<a href=$url target=wiki>$nombre</a>$img";
+			return str_replace("'", "\\'", $tag);
+		}
 	}
 	
-	static function parsear_api($id, $nombre, $proyecto=null)
+	static function parsear_api($id, $nombre, $proyecto=null, $resumido=false)
 	{
 		$anchor = '';
 		if (strpos($id, '#') !== false) {
@@ -77,7 +91,7 @@ class toba_parser_ayuda
 		return str_replace("'", "\\'", $tag);
 	}
 	
-	static function parsear_api_js($id, $nombre, $proyecto=null)
+	static function parsear_api_js($id, $nombre, $proyecto=null, $resumido=false)
 	{
 		$anchor = '';
 		if (strpos($id, '#') !== false) {
@@ -91,23 +105,27 @@ class toba_parser_ayuda
 		return str_replace("'", "\\'", $tag);
 	}	
 	
-	protected static function parsear_link($id, $nombre)
+	protected static function parsear_link($id, $nombre, $proyecto=null, $resumido=false)
 	{
 		$url = toba_recurso::url_proyecto()."/".$id;
 		$tag = "<a href=$url  target=_blank>$nombre</a>";
 		return str_replace("'", "\\'", $tag);		
 	}
 	
-	protected static function parsear_url($id, $nombre)
+	protected static function parsear_url($id, $nombre, $proyecto=null, $resumido=false)
 	{
 		$url = $id;
 		$tag = "<a href=$url  target=_blank>$nombre</a>";
 		return str_replace("'", "\\'", $tag);		
 	}
 	
-	protected static function parsear_test($id, $nombre)
+	protected static function parsear_test($id, $nombre, $proyecto=null, $resumido=false)
 	{
-		return "<test id='$id'>$nombre</test>";
+		if (! $resumido) {
+			return "<test id='$id'>$nombre</test>";
+		} else {
+			return "<test>$id</test>";
+		}
 	}
 	
 }

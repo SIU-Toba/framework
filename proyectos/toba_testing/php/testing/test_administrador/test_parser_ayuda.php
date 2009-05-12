@@ -69,15 +69,17 @@ class test_parser_ayuda extends test_toba
 		$esperado = $texto;
 		$this->assertEqual($salida, $esperado);
 	}
-	
-	function test_tag_incompleto()
+
+	function test_tag_sin_desc()
 	{
-		$this->assertTrue( toba_parser_ayuda::es_texto_plano($texto));		
-		$texto = "Esta es la [test:Referencia/PaginaWiki ]";
-		$salida = toba_parser_ayuda::parsear($texto);
-		$esperado = $texto;
-		$this->assertEqual($salida, $esperado);
-	}
+		$texto = "[test:Referencia/PaginaWiki]";		
+		$this->assertFalse(toba_parser_ayuda::es_texto_plano($texto));
+		$salida = toba_parser_ayuda::parsear($texto, true);
+		$esperado = "<test>Referencia/PaginaWiki</test>";
+		$this->assertEqual($salida, $esperado);		
+	}	
+	
+
 }
 
 ?>
