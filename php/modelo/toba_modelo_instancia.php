@@ -901,6 +901,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				if ($nuevo == NULL) {
 					$nuevo = $lim_inf;
 				}
+				//Caso particular para el grupo 0, no puede ser una secuencia 0
+				if ($nuevo == 0) {	
+					$nuevo = 1;
+				}
 				$sql = "SELECT setval('$seq', $nuevo)";
 				$this->get_db()->consultar( $sql );	
 			}

@@ -33,11 +33,6 @@ abstract class toba_menu
 		return toba::proyecto()->get_items_menu();
 	}
 	
-	function set_js_opcion($id_item, $js) 
-	{
-		
-	}
-	
 	function set_datos_opcion($id_item, $datos)
 	{
 		$ok = false;
@@ -86,5 +81,35 @@ abstract class toba_menu
 			toba::logger()->warning("Se intento quitar la opción de menú '$id_item', pero la misma no se encuenta en el menú");
 		}
 	}
+	
+	
+	/**
+	 * Muestra una confirmación antes de navegar a cualquier opción del menú
+	 *
+	 * @param string $mensaje Mensaje que se utiliza para la confirmación
+	 * @param boolean $forzar Si es verdadero siempre muestra la confirmación, sino depende de si algún ef de algún formulario fue modificado 
+	 */
+	function set_modo_confirmacion($mensaje, $forzar=true)
+	{
+		echo toba_js::abrir();
+		$confirmar = toba_js::bool($forzar);
+		
+		//TODO: Hack para conservar la zona, cambiar con #662
+		//echo "var toba_zona= ";
+				
+		echo "
+			function confirmar_cambios(proyecto, operacion, url, es_poup) {
+				var confirmar =  $confirmar;
+				if (confirmar) {
+					return confirm('$mensaje');
+				} else {
+					return true;
+				}
+			}
+			toba.set_callback_menu(confirmar_cambios);		
+		";
+		echo toba_js::cerrar();
+	}
+	
 }
 ?>

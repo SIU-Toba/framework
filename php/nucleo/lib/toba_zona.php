@@ -188,6 +188,7 @@ class toba_zona
 			$vinculo = toba::vinculador()->get_url($item['item_proyecto'], $item['item'], 
 														array(), array('menu' => true, 'zona' =>true, 'validar'=>false));
 			if (isset($vinculo)) {
+				$js = "onclick=\"toba.ir_a_operacion('{$item['item_proyecto']}', '{$item['item']}', false, true)\"";
 	 			echo "<a href='$vinculo'>";
 				if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
 					if($item['imagen_origen']=="apex"){

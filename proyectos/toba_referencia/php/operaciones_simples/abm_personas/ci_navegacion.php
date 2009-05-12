@@ -22,6 +22,8 @@ class ci_navegacion extends toba_ci
 		if (! $this->get_relacion()->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
+		$hay_cambios = $this->get_relacion()->hay_cambios();
+		toba::menu()->set_modo_confirmacion('Esta a punto de abandonar la edición de la persona sin grabar, ¿Desea continuar?', $hay_cambios);
 	}
 	
 	function evt__agregar()

@@ -108,18 +108,5 @@ class ci_edicion extends toba_ci
 		$this->get_relacion()->tabla('deportes')->resetear_cursor();
 	}
 	
-	//-------------------------------------------------------------------
-	//--- JS Global
-	//-------------------------------------------------------------------
-	
-	function extender_objeto_js()
-	{
-		echo "
-			function evaluar_menu(proyecto, operacion, url, es_poup) {
-				return confirm('Esta a punto de abandonar la edición de la persona sin grabar, ¿Desea continuar?');
-			}
-			toba.set_callback_menu(evaluar_menu);
-		";
-	}	
 }
 ?>

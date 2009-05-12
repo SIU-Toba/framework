@@ -34,7 +34,7 @@ vinculador = new function() {
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)
 	 * @type String
 	 */		
-	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos, es_menu) {
+	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos, es_menu, zona) {
 		if (! isset(proyecto)) {
 			proyecto = toba_hilo_item[0];
 		}
