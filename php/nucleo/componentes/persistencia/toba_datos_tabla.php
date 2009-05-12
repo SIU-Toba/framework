@@ -1765,6 +1765,8 @@ class toba_datos_tabla extends toba_componente
 						$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => null);
 					} elseif (isset($datos_nuevos[$campo]) && !isset($datos_viejos[$campo])) {
 						$diferencias[$campo] = array('anterior' => null, 'actual' => $datos_nuevos[$campo]);
+					} elseif (! isset($datos_nuevos[$campo]) && ! isset($datos_viejos[$campo])) {
+						//No hace nada
 					} else {
 						if (is_bool($datos_viejos[$campo])) {
 							$datos_viejos[$campo] = $datos_viejos[$campo] ? 1 : 0;

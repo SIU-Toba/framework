@@ -565,6 +565,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->_excel_usar_formulas = $usar_formulas;
 	}
 	
+	
 	/**
 	 * @ignore
 	 */
@@ -574,6 +575,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->_total_registros = count($this->datos);		
 		}
 	}
+	
 
 //################################################################################
 //############################   CLAVE  y  SELECCION   ###########################
@@ -1220,6 +1222,19 @@ class toba_ei_cuadro extends toba_ei
 	{
 		return $this->_estructura_datos;		
 	}
+	
+	/**
+	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
+	 */
+	function get_id_evento_seleccion_multiple()
+	{
+		foreach ($this->_eventos_usuario_utilizados as $id => $evt) {
+			if ($evt->es_seleccion_multiple()) {
+				return $id;
+			}
+		}
+		return null;
+	}	
 	
 	
 //################################################################################
@@ -1870,7 +1885,15 @@ class toba_ei_cuadro extends toba_ei
 	            }else{
 	                $ancho = "";
 	            }                
-                echo "<td class='$estilo_seleccion ".$this->_columnas[$a]["estilo"]."' $ancho>\n";
+	            
+	            //Javascript de seleccion multiple
+	            $id_evt_seleccion = $this->get_id_evento_seleccion_multiple();
+	            if (isset($id_evt_seleccion)) {
+	            	$js = "onclick='{$this->objeto_js}.seleccionar(\"$f\", \"$id_evt_seleccion\")'";
+	            } else {
+	            	$js = '';
+	            }
+                echo "<td class='$estilo_seleccion ".$this->_columnas[$a]["estilo"]."' $ancho $js>\n";
                 if (trim($valor) !== '') {
                 	echo $valor;
                 } else {
@@ -2262,7 +2285,14 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
-		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}');\n";
+		
+		//Si hay seleccion multiple, envia los ids de las filas 
+		$hay_multiple = ($this->get_id_evento_seleccion_multiple() !== null);
+		$filas = '';
+		if ($hay_multiple) {
+			$filas = ', '.toba_js::arreglo(array_keys($this->datos));
+		}
+		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas);\n";
 	}
 
 	/**

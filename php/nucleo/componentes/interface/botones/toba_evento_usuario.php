@@ -8,6 +8,7 @@ class toba_evento_usuario extends toba_boton
 {
 	protected $vinculo;
 	protected $parametros = null;
+	protected $seleccion_multiple = false;
 
 	/**
 	* Devuelve el vinculo asociado al evento
@@ -151,6 +152,11 @@ class toba_evento_usuario extends toba_boton
 		return $this->parametros;	
 	}
 	
+	function es_seleccion_multiple()
+	{
+		return $this->seleccion_multiple;
+	}
+	
 	//--------- Seters ---------------------
 	
 	function set_parametros($parametros = null)
@@ -166,6 +172,14 @@ class toba_evento_usuario extends toba_boton
 	function set_maneja_datos($maneja){
 		$this->datos['maneja_datos'] = $maneja;
 	}
+	
+	/**
+	 * Aplica solo a los eventos a nivel de fila del cuadro
+	 */
+	function set_seleccion_multiple()
+	{
+		$this->seleccion_multiple = true;	
+	}
 
 	//--------- Consumo interno ------------
 	
@@ -180,24 +194,38 @@ class toba_evento_usuario extends toba_boton
 		if (isset($this->datos['ayuda'])) {
 			$tip = $this->datos['ayuda'];
 		}
-		$clase_predeterminada = $this->esta_sobre_fila() ? 'ei-boton-fila' : 'ei-boton';
-		$clase = ( isset($this->datos['estilo']) && (trim( $this->datos['estilo'] ) != "")) ? $this->datos['estilo'] : $clase_predeterminada;
-		$tipo_boton = 'button';		
-		if ( !$this->esta_sobre_fila() && isset($this->datos['defecto']) && $this->datos['defecto']) {
-			$tipo_boton = 'submit';
-			$clase .=  '  ei-boton-defecto';			
-		}
 		$acceso = tecla_acceso( $this->datos['etiqueta'] );
-		$html = '';
-		$html .= $this->get_imagen();
-		$html .= $acceso[0];
-		$tecla = $acceso[1];
-		$estilo_inline = $this->oculto ? 'display: none' : null;
-		$js = $this->get_invocacion_js($objeto_js, $id_componente);
-		if (isset($js)) {
-			$js = 'onclick="'.$js.'"';
-			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
+		if (! $this->es_seleccion_multiple()) {
+			$clase_predeterminada = $this->esta_sobre_fila() ? 'ei-boton-fila' : 'ei-boton';
+			$clase = ( isset($this->datos['estilo']) && (trim( $this->datos['estilo'] ) != "")) ? $this->datos['estilo'] : $clase_predeterminada;
+			$tipo_boton = 'button';		
+			if ( !$this->esta_sobre_fila() && isset($this->datos['defecto']) && $this->datos['defecto']) {
+				$tipo_boton = 'submit';
+				$clase .=  '  ei-boton-defecto';			
+			}
+			$estilo_inline = $this->oculto ? 'display: none' : null;
+			$html = '';
+			$html .= $this->get_imagen();
+			$html .= $acceso[0];
+			$tecla = $acceso[1];			
+			$js = $this->get_invocacion_js($objeto_js, $id_componente);
+			if (isset($js)) {
+				$js = 'onclick="'.$js.'"';
+				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
+			}
+		} else {
+			$js = $this->get_invocacion_js($objeto_js, $id_componente);
+			$html = '<label>';
+			$html .= $this->get_imagen();
+			$html .= $acceso[0];
+			if (isset($js)) {
+				$extra = 'onclick="'.$js.'"';
+				$extra .= " title='$tip'";
+				$html .= toba_form::checkbox($id_submit."_".$this->get_id(), null, $this->parametros, '', $extra);
+			}
+			$html .= '</label>';
+			return $html;
 		}
 	}
 
@@ -265,7 +293,8 @@ class toba_evento_usuario extends toba_boton
 			$js = "respuesta_ef_popup('$param');";
 		} else {
 			// Manejo estandar de eventos
-			$js = "{$objeto_js}.set_evento(".$this->get_evt_javascript().");";
+			$submit = toba_js::bool(! $this->es_seleccion_multiple());
+			$js = "{$objeto_js}.set_evento(".$this->get_evt_javascript().", $submit, this);";
 		}
 		return $js;
 	}

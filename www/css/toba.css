@@ -464,6 +464,9 @@ padding-left:4px;
 }
 .ei-cuadro-celda-evt {
 }
+.ei-cuadro-fila-evt {
+	white-space: nowrap;
+}
 .ei-cuadro-fila-sel {
 }
 .ei-cuadro-pag {
