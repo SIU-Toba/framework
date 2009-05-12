@@ -18,10 +18,13 @@ abstract class ci_catalogo extends toba_ci
 	function extender_objeto_js()
 	{
 		echo "
-			{$this->objeto_js}.evt__fotos__foto = function() {		
-				this.dep('fotos')._evento.parametros_extra = prompt('Nombre de la foto','nombre de la foto');
-				if (this.dep('fotos')._evento.parametro_extra != '' && this.dep('fotos')._evento.parametros_extra != null) {
+			{$this->objeto_js}.evt__fotos__foto = function() {
+				var nombre = prompt('Nombre de la foto','nombre de la foto');
+				if (trim(nombre) != '' && nombre != null) {
+					this.dep('fotos')._evento.parametros_extra = nombre;
 					return true;
+				}else{
+					notificacion.agregar('Toda Foto requiere un nombre, especifiquelo por favor', 'error');
 				}
 				return false;
 
@@ -105,8 +108,12 @@ abstract class ci_catalogo extends toba_ci
 
 	function evt__fotos__foto($nombre)
 	{
-		$this->album_fotos->agregar_foto($nombre, $this->s__apertura, $this->s__opciones);
-		$this->evt__fotos__seleccion($nombre);
+		if (trim($nombre) !== ''){
+			$this->album_fotos->agregar_foto($nombre, $this->s__apertura, $this->s__opciones);
+			$this->evt__fotos__seleccion($nombre);
+		}else{
+			throw new toba_error('Toda Foto requiere un nombre, especifiquelo por favor');
+		}
 	}		
 	
 	function evt__sacar_foto($nombre)
