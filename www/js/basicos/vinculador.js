@@ -32,9 +32,11 @@ vinculador = new function() {
 	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
 	 * @param {Object} parametros Objeto asociativo parametro=>valor (ej. {'precio': 123} )
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)
+	 * @param {boolean} es_menu Indica que se invoca una operación de menu (va a limpiar la memoria)
+	 * @param {enviar_zona} indica que debe propagarse el editable de la zona (si existe)
 	 * @type String
 	 */		
-	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos, es_menu, zona) {
+	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos, es_menu, enviar_zona) {
 		if (! isset(proyecto)) {
 			proyecto = toba_hilo_item[0];
 		}
@@ -43,11 +45,14 @@ vinculador = new function() {
 		}
 		var prefijo;
 		if (typeof es_menu == 'undefined' || !es_menu) {
-			prefijo = toba_prefijo_vinculo + "&";
+			prefijo = toba_prefijo_vinculo;
 		} else {
-			prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?'+ toba_hilo_qs_menu  + "=1&";
+			prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?'+ toba_hilo_qs_menu  + "=1";
 		}
-		var vinc = prefijo + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
+		if (typeof enviar_zona != 'undefined' && enviar_zona) {
+			prefijo = prefijo + toba_qs_zona;
+		} 	
+		var vinc = prefijo + '&' + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
 		if (typeof servicio != 'undefined' && isset(servicio)) {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}

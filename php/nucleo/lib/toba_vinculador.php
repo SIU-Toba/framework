@@ -152,12 +152,7 @@ class toba_vinculador
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
 		if ($zona){//Hay que propagar la zona?
-			$solicitud_actual = toba::solicitud();
-			if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
-				$editable = $this->variable_a_url(toba::zona()->get_editable());
-				$parametros_formateados .= $separador. apex_hilo_qs_zona 
-						."=".$editable;
-			}
+			$parametros_formateados .= $this->get_qs_zona();
 		}
 		//Cual es el tipo de salida?
 		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
@@ -225,6 +220,21 @@ class toba_vinculador
 		}else{
 			return $vinculo;
 		}
+	}
+	
+	/**
+	 * Retorna el querystring propagando la zona actual (si es que hay y está cargada)
+	 * @return string
+	 */
+	function get_qs_zona()
+	{
+		$qs = '';
+		$solicitud_actual = toba::solicitud();
+		if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
+			$editable = $this->variable_a_url(toba::zona()->get_editable());
+			$qs .= '&'.apex_hilo_qs_zona."=".$editable;
+		}		
+		return $qs;
 	}
 
 	//-------------------------------------------------------------------------------------

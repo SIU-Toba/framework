@@ -22,6 +22,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	this._seleccionada = seleccionada;
 	this._agregado_en_linea = en_linea;
 	this._cabecera_visible_sin_datos = true;
+	this._cambios_excluir_efs = [];
 }
 
 	/**
@@ -62,12 +63,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	@private
 	 */
 	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex, es_inicial) {
-		if (es_inicial && this._con_examen_cambios) {	
+		if (es_inicial) {	
 			this._estado_inicial[fila] = {};
 		}	
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
-			if (es_inicial && this._con_examen_cambios) {
+			if (es_inicial) {
 				this._estado_inicial[fila][id_ef] = this._efs[id_ef].get_estado();
 			}
 			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
@@ -228,6 +229,17 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	};
 	
 	ei_formulario_ml.prototype._examinar_cambios = function (fila_actual, ef_actual) {
+		var hay_cambio = this.hay_cambios(fila_actual, ef_actual);
+		if (this.evt__procesar_cambios) {
+			this.evt__procesar_cambios(hay_cambio);
+		}
+	};	
+	
+	/**
+	 * Determina si algun ef de alguna fila cambio, o se agregar o quitaron filas
+	 * Opcionalmente resalta o no un ef puntual
+	 */
+	ei_formulario_ml.prototype.hay_cambios = function(fila_actual, ef_actual) {
 		var hay_cambio = false;
 		//-- Revisar si hay filas nuevas o si cambiar los valores de los efs
 		for (fila in this._filas) {
@@ -235,9 +247,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 				hay_cambio = true;
 			} else {
 				for (id_ef in this._efs) {
-					if (! in_array(id_ef, this._cambios_excluir_efs)) {
+					if (! in_array(id_ef, this._cambios_excluir_efs) && isset(this._estado_inicial[this._filas[fila]][id_ef])) {
 						this._efs[id_ef].ir_a_fila(this._filas[fila]);
-						if (this._estado_inicial[this._filas[fila]][id_ef] !== this._efs[id_ef].get_estado()) {
+						var es_igual = this._es_estado_igual(this._estado_inicial[this._filas[fila]][id_ef], this._efs[id_ef].get_estado());
+						if (! es_igual) {
 							hay_cambio = true;
 							if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
 								this._efs[id_ef].resaltar_cambio(true);
@@ -257,10 +270,8 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 				hay_cambio = true;
 			}
 		}
-		if (this.evt__procesar_cambios) {
-			this.evt__procesar_cambios(hay_cambio);
-		}
-	};	
+		return hay_cambio;
+	};		
 	
 	ei_formulario_ml.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {

@@ -92,14 +92,17 @@ abstract class toba_menu
 	function set_modo_confirmacion($mensaje, $forzar=true)
 	{
 		echo toba_js::abrir();
-		$confirmar = toba_js::bool($forzar);
-		
-		//TODO: Hack para conservar la zona, cambiar con #662
-		//echo "var toba_zona= ";
+		if ($forzar) {
+			$confirmar = "var confirmar = true;";
+		} else {
+			$confirmar = " 
+				var confirmar = toba.hay_cambios();
+			";
+		}
 				
 		echo "
 			function confirmar_cambios(proyecto, operacion, url, es_poup) {
-				var confirmar =  $confirmar;
+				$confirmar
 				if (confirmar) {
 					return confirm('$mensaje');
 				} else {

@@ -115,14 +115,12 @@ class toba_js
 			if (toba_editor::activado()) {
 				echo 'var toba_proyecto_editado_alias = "'.toba_editor::get_url_previsualizacion()."\";\n";	
 			}
-			echo "var toba_prefijo_vinculo=\"".toba::vinculador()->get_url()."\";\n";
 			echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 			echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 			echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
 			echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-			echo "var toba_hilo_item=".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
 			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
 			echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";
 			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');		
@@ -148,6 +146,13 @@ class toba_js
 			}
 			self::$basicos_cargados = true;
 		}
+	}
+	
+	static function cargar_definiciones_runtime()
+	{
+		echo "var toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
+		echo "var toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
+		echo "var toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
 	}
 	
 	/**

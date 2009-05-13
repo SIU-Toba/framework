@@ -27,6 +27,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	this._invalidos = invalidos;
 	this._estado_inicial = {};
 	this._con_examen_cambios = false;
+	this._cambios_excluir_efs = [];
 }
 
 	/**
@@ -49,9 +50,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	ei_formulario.prototype.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
-			if (this._con_examen_cambios) {
-				this._estado_inicial[id_ef] = this._efs[id_ef].get_estado();
-			}
+			this._estado_inicial[id_ef] = this._efs[id_ef].get_estado();
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
 			if (this._invalidos[id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[id_ef]);
@@ -470,28 +469,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	ei_formulario.prototype._examinar_cambios = function (ef_actual) {
-		var hay_cambio = false;
-		for (id_ef in this._efs) {
-			if (! in_array(id_ef, this._cambios_excluir_efs)) {
-				var es_igual;
-				if (isset(this._estado_inicial[id_ef]) && typeof this._estado_inicial[id_ef] == 'object') {
-				 	es_igual = comparar_arreglos(this._estado_inicial[id_ef], 
-				 								this._efs[id_ef].get_estado());
-				} else {
-					es_igual = this._estado_inicial[id_ef] === this._efs[id_ef].get_estado();
-				}
-				if (! es_igual) {
-					hay_cambio = true;
-					if (id_ef == ef_actual) {
-						this._efs[id_ef].resaltar_cambio(true);
-					}
-				} else {
-					if (id_ef == ef_actual) {
-						this._efs[id_ef].resaltar_cambio(false);
-					}
-				}
-			}
-		}		
+		var hay_cambio = this.hay_cambios(ef_actual);
 		if (this.evt__procesar_cambios) {
 			this.evt__procesar_cambios(hay_cambio);
 		}
@@ -516,6 +494,41 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			this.desactivar_boton(this._boton_procesar_cambios);
 		}
 	};	
+	
+	/**
+	 * Determina si algún ef del formulario se modifico
+	 * Opcionalmente resalta o no un ef puntual
+	 */
+	ei_formulario.prototype.hay_cambios = function(ef_actual) {
+		var hay_cambio = false;
+		for (id_ef in this._efs) {
+			if (! in_array(id_ef, this._cambios_excluir_efs) && isset(this._estado_inicial[id_ef])) {
+				var es_igual = this._es_estado_igual(this._estado_inicial[id_ef], this._efs[id_ef].get_estado());
+				if (! es_igual) {
+					hay_cambio = true;
+					if (id_ef == ef_actual) {
+						this._efs[id_ef].resaltar_cambio(true);
+					}
+				} else {
+					if (id_ef == ef_actual) {
+						this._efs[id_ef].resaltar_cambio(false);
+					}
+				}
+			}
+		}	
+		return hay_cambio;
+	};	
+	
+	ei_formulario.prototype._es_estado_igual = function(inicial, actual) {
+		var es_igual;
+		if (typeof actual == 'object') {
+		 	es_igual = comparar_arreglos(inicial, actual); 
+		} else {
+			es_igual = (inicial === actual);
+		}	
+		return es_igual;
+	}
+	
 	
 	/**
 	 * Informa que un ef cumple o no una validación especifica. 

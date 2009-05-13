@@ -201,20 +201,30 @@ class toba_solicitud_web extends toba_solicitud
 		$accion = $this->info['basica']['item_act_accion_script'];
 		if ($accion == '') {
 			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), "onsubmit='return false;'");
+			
+			//HTML
 			foreach ($objetos as $obj) {
 				//-- Librerias JS necesarias
 				toba_js::cargar_consumos_globales($obj->get_consumo_javascript());
 				//-- HTML propio del objeto
 				$obj->generar_html();
-				//-- Javascript propio del objeto
-				echo toba_js::abrir();
+			}
+			
+			//Javascript
+			echo toba_js::abrir();
+			toba_js::cargar_definiciones_runtime();
+			foreach ($objetos as $obj) {
 				$objeto_js = $obj->generar_js();
 				echo "\n$objeto_js.iniciar();\n";
-				echo toba_js::cerrar();
 			}
+			echo toba_js::cerrar();		
+				
 			//--- Fin del form y parte inferior del tipo de página
 			echo toba_form::cerrar();
 		} else {
+			echo toba_js::abrir();
+			toba_js::cargar_definiciones_runtime();
+			echo toba_js::cerrar();
 			include($accion);	
 		}
 

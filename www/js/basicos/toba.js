@@ -166,9 +166,13 @@ toba = new function() {
 	 * @param {string} proyecto Nombre del Proyecto
 	 * @param {string} operacion Id operación destino
 	 * @param {boolean} es_popup Indica si se abrira en la ventana actual o una nueva.
+	 * @param {boolean} es_zona Indica si propaga la zona actualmente cargada (si la hay)
 	 */
-	toba.ir_a_operacion = function(proyecto, operacion, es_popup) {
-		var url = vinculador.get_url(proyecto, operacion, null, null, null, true);
+	toba.ir_a_operacion = function(proyecto, operacion, es_popup, es_zona) {
+		if (typeof es_zona == 'undefined') {
+			es_zona = false;
+		}
+		var url = vinculador.get_url(proyecto, operacion, null, null, null, true, es_zona);
 		if (isset(this._callback_menu)) {
 			var continuar = this._callback_menu[0].call(this._callback_menu[1], proyecto, operacion, url, es_popup);
 			if (! continuar) {
@@ -193,6 +197,22 @@ toba = new function() {
 	toba.set_callback_menu = function(callback, contexto) {
 		this._callback_menu = [callback, contexto];
 	};
+
+	/**
+	 *	Determina si en alguno de los formularios activos de la pantalla sufrio modificaciones
+	 *  @return {boolean}
+	 */
+	toba.hay_cambios = function() {
+		for (o in this._objetos) {
+			var clase = getObjectClass(this._objetos[o]);
+			if (clase == 'ei_formulario' || clase == 'ei_formulario_ml') {
+				if (this._objetos[o].hay_cambios()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
