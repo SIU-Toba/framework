@@ -302,7 +302,7 @@ if (self.Node && ! self.Node.prototype.swapNode) {
 }
 
 function intercambiar_nodos(nodo1, nodo2) {
-	if (ie) {	//BUG del IE para mantener el estado de los checkbox
+	if (ie6omenor) {	//BUG del IE para mantener el estado de los checkbox
 		var intercambio_vals = [];
 		var inputs = document.getElementsByTagName('input');
 		for (var i=0; i < inputs.length; i++) {
@@ -312,7 +312,7 @@ function intercambiar_nodos(nodo1, nodo2) {
 		}	
 	}
 	nodo1.swapNode(nodo2);
-	if (ie) {
+	if (ie6omenor) {
 		for (i=0; i < intercambio_vals.length; i++) {
 			var check = intercambio_vals[i];
 			document.getElementById(check[0]).checked = check[1];

@@ -143,7 +143,7 @@ notificacion = new function() {
 function overlay(limpiar) {
 	el = document.getElementById("overlay");
 	var visible = (el.style.visibility == "visible");
-	if (ie) {
+	if (ie6omenor) {
 		//--- Oculta los SELECT por bug del IE
 		var selects = document.getElementsByTagName('select');
 		for (var i=0; i < selects.length; i++) {
