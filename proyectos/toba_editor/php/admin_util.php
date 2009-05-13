@@ -151,25 +151,28 @@ class admin_util
 	//--- Funcionalidad transversal para ZONAs que requieran apertura de archivos
 	//--------------------------------------------------------------------------------------
 
-	static function get_acceso_abrir_php($componente, $item_visualizador=3463, $frame=apex_frame_centro)
+	static function get_acceso_abrir_php($componente, $item_visualizador=30000014, $parametros=array())
 	{
-		$utileria = self::get_utileria_editor_ver_php( $item_visualizador,  array( 'proyecto'=>$componente[0], 'componente' =>$componente[1] ) );			
-		return "<a href='" . $utileria['vinculo'] ."' target='".$frame."' title='".$utileria['ayuda']."'>" .
-				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']). 
+		$id = array('proyecto'=>$componente[0], 'componente' =>$componente[1]);
+		$utileria = self::get_utileria_editor_abrir_php( $item_visualizador,  $id, 'reflexion/abrir.gif', $parametros);
+		return "<a href=\"" . $utileria['vinculo'] ."\"". " title='".$utileria['ayuda']. "'>" .
+				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']).
 				"</a>\n";
 	}
 	
-	static function get_acceso_ver_php($componente, $item_visualizador=3463)
+	static function get_acceso_ver_php($componente, $item_visualizador=30000014, $frame=apex_frame_centro, $parametros= array())
 	{
-		$utileria = admin_util::get_utileria_editor_abrir_php( $item_visualizador, array(	'proyecto'=>$componente[0],'componente' =>$componente[1] )  );	
-		return "<a href=\"" . $utileria['vinculo'] ."\"". " title='".$utileria['ayuda']. "'>" .
-				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']). 
+		$id = array('proyecto'=>$componente[0],'componente' =>$componente[1]) ;
+		$utileria = admin_util::get_utileria_editor_ver_php( $item_visualizador, $id, 'nucleo/php.gif', $parametros);
+		return "<a href='" . $utileria['vinculo'] ."' target='".$frame."' title='".$utileria['ayuda']."'>" .
+				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']).
 				"</a>\n";
 	}
 
-	static function get_utileria_editor_abrir_php($item_visualizador, $id_componente, $icono='reflexion/abrir.gif')
+	static function get_utileria_editor_abrir_php($item_visualizador, $id_componente, $icono='reflexion/abrir.gif', $parametros = array())
 	{
-		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$param_local = array(apex_hilo_qs_zona => $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente']);
+		$parametros = array_merge($param_local, $parametros);
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
 		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), $item_visualizador, $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
@@ -184,9 +187,10 @@ class admin_util
 		);
 	}
 
-	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono = 'nucleo/php.gif')
+	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono = 'nucleo/php.gif', $parametros = array())
 	{
-		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$param_local = array(apex_hilo_qs_zona => $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente']);
+		$parametros = array_merge($param_local, $parametros);
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
 		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),$item_visualizador, $parametros, $opciones);
 		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),

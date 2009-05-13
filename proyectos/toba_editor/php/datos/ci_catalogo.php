@@ -64,13 +64,12 @@ class ci_catalogo extends toba_ci
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['consulta_php']);
 			$datos[$id]['editar'] = $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																'3398',
-																$parametros,
-																$img);
+																'3398',	$parametros, $img);
 			if(admin_util::existe_archivo_subclase($datos[$id]['archivo'])) {
 				$id_consulta = array($datos[$id]['proyecto'], $datos[$id]['consulta_php']);
-				$datos[$id]['editar'] = admin_util::get_acceso_abrir_php( $id_consulta ) . $datos[$id]['editar'];
-				$datos[$id]['editar'] = admin_util::get_acceso_ver_php( $id_consulta ). $datos[$id]['editar'];
+				$parametros['archivo'] = $datos[$id]['archivo'];
+				$datos[$id]['editar'] = admin_util::get_acceso_ver_php( $id_consulta, 30000014, apex_frame_centro, $parametros). $datos[$id]['editar'];
+				$datos[$id]['editar'] = admin_util::get_acceso_abrir_php( $id_consulta , 30000014, $parametros) . $datos[$id]['editar'];				
 			}
 			$datos[$id]['editar'] = "<div class='editor-lista-vinculos'>" . $datos[$id]['editar'] . "</div>";
 		}

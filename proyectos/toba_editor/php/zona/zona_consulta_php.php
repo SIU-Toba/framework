@@ -39,8 +39,9 @@ class zona_consulta_php extends zona_editor
 	{	
 		if( $this->get_archivo() != '' && admin_util::existe_archivo_subclase($this->get_archivo()))
 		{
-			echo admin_util::get_acceso_abrir_php( $this->get_editable() );
-			echo admin_util::get_acceso_ver_php( $this->get_editable() );
+			$parametros = array('archivo' => $this->get_archivo());
+			echo admin_util::get_acceso_abrir_php( $this->get_editable(), 30000014, $parametros);
+			echo admin_util::get_acceso_ver_php( $this->get_editable(), 30000014, apex_frame_centro, $parametros);
 		}
 		parent::generar_html_barra_vinculos();
 	}
