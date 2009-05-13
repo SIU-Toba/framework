@@ -796,7 +796,7 @@ function cambiar_atributos_en_arbol(arbol, id_orig, nuevo_id) {
 			var nombre = arbol.attributes[a].name;
 			if (valor && valor.toString().indexOf(id_orig) != -1) {
 				var nuevo_valor = valor.reemplazar(id_orig, nuevo_id);
-				if (ie && es_evento(nombre)) { //Para solucionar caso particular en IE con los eventos
+				if (ie && !ie8 && es_evento(nombre)) { //Para solucionar caso particular en IE con los eventos
 					arbol.setAttribute(arbol.attributes[a].name, new Function(nuevo_valor));	
 				} else {
 					arbol.attributes[a].value = nuevo_valor;
