@@ -231,8 +231,13 @@ class toba_vinculador
 		$qs = '';
 		$solicitud_actual = toba::solicitud();
 		if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
-			$editable = $this->variable_a_url(toba::zona()->get_editable());
-			$qs .= '&'.apex_hilo_qs_zona."=".$editable;
+			if (toba::zona()->propaga_x_url()) {
+				$editable = $this->variable_a_url(toba::zona()->get_editable());
+				$qs .= '&'.apex_hilo_qs_zona."=".$editable;
+			}else{
+				$qs .= '&'.apex_hilo_qs_zona.'=1';
+				toba::zona()->propagar_id();
+			}			
 		}		
 		return $qs;
 	}
@@ -262,25 +267,27 @@ class toba_vinculador
 	/**
 	 * Desemmpaqueta una variable compleja (ej. array) que formaba parte de una URL
 	 * @param mixed $url Parte de una url que contiene una variable
-	 * @return miexed
+	 * @return mixed
 	 * @see toba_vinculador::variable_a_url
 	 */
 	static function url_a_variable($url)
 	{
-		if (strpos($url, apex_qs_separador) === false && strpos($url, apex_qs_sep_interno) === false) {
+		$url_dcd = urldecode($url);
+		if (strpos($url, apex_qs_separador) === false && strpos($url_dcd, apex_qs_sep_interno) === false) {
 			//--- string simple
-			return urldecode($url);
+			return $url_dcd;
 		}
 		
 		//--- Era una arreglo
 		$salida = array();
 		$partes = explode(apex_qs_separador, $url);
 		foreach ($partes as $parte) {
-			if (strpos($parte, apex_qs_sep_interno) === false) {
-				$salida[] = urldecode($parte);
+			$parte_dcd = urldecode($parte);
+			if (strpos($parte_dcd, apex_qs_sep_interno) === false) {
+				$salida[] = $parte_dcd;
 			} else {
 				//--- Manejo de claves asociativas
-				list($clave, $valor) = explode(apex_qs_sep_interno, urldecode($parte));
+				list($clave, $valor) = explode(apex_qs_sep_interno, $parte_dcd);
 				$salida[$clave] = $valor;
 			}
 		}

@@ -9,7 +9,8 @@ class ci_personas extends toba_ci
 	{
 		if (! toba::zona()->cargada()) {
 			$this->pantalla()->eliminar_evento('descargar');
-		}	toba::menu()->set_modo_confirmacion('Esta a punto de abandonar la edición de la persona sin grabar, ¿Desea continuar?', true);
+		}
+		toba::menu()->set_modo_confirmacion('Esta a punto de abandonar la edición de la persona sin grabar, ¿Desea continuar?', true);
 	}
 	
 	function evt__descargar()
@@ -26,16 +27,5 @@ class ci_personas extends toba_ci
 	{
 		$componente->set_datos(consultas::get_personas());
 	}
-	
-	/**
-	 * Fuerza a que el vinculo de la fila del cuadro cargue la zona con el id de la fila
-	 */
-	function conf_evt__cuadro__cargar_url(toba_evento_usuario $evento, $fila)
-	{
-		$evento->vinculo()->set_editable_zona(array('id' => $evento->get_parametros()));
-	}
-
-	
 }
-
 ?>

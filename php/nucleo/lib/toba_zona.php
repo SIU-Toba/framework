@@ -1,5 +1,5 @@
 <?php
-
+define('apex_marca_zona_activa','1');
 /**
  *
  * Una zona representa un menu alrededor de un concepto central, llamado EDITABLE
@@ -34,9 +34,15 @@ class toba_zona
 		//Creo la lista de los VECINOS de la ZONA
 		$this->items_vecinos = toba::proyecto()->get_items_zona($id);
 		//Se propago algo por el canal utilizado por la zona?
-		$this->editable_id = toba::memoria()->get_parametro(apex_hilo_qs_zona);
+		$propagado_url = toba::memoria()->get_parametro(apex_hilo_qs_zona);
+		if (! is_null($propagado_url)) {		//Se esta propagando un id
+			$this->editable_id = $this->get_id_propagado($propagado_url);
+		}else{	//El nuevo item no tiene zona o no se propaga id
+			self::cancelar_propagacion();
+		}
+
 		if ($this->cargada()) {
-			$this->cargar(toba::vinculador()->url_a_variable($this->editable_id));
+			$this->cargar($this->editable_id);
 		}
 	}
 
@@ -55,7 +61,7 @@ class toba_zona
 	 */
 	function cargada()
 	{
-		return isset($this->editable_id) && $this->editable_id != '';
+		return (isset($this->editable_id) && ($this->editable_id != ''));
 	}
 	
 	/**
@@ -143,6 +149,68 @@ class toba_zona
 			return $this->editable_id;	
 		}
 	}
+
+	/**
+	 * Determina el modo de propagacion usado por la zona
+	 * True => El id del editable se propaga por url (por compatibilidad)
+	 * False => El id del editable no se propaga por url y se mantiene en el servidor
+	 * @param boolean $modo
+	 */
+	static function set_modo_url($modo)
+	{
+		toba::memoria()->set_dato('apex_modo_propagacion_zona', $modo);
+	}
+
+	/**
+	 * Devuelve si la zona propaga el editable por la URL o si lo mantiene en el servidor
+	 * @return boolean
+	 */
+	function propaga_x_url()
+	{
+		$modo = toba::memoria()->get_dato('apex_modo_propagacion_zona');
+		//Retorna falso siempre que sea distinto de true (por si no se seteo manualmente)
+		if ($modo !== true){
+			$modo = false;
+		}
+		return $modo;
+	}
+
+	/**
+	 * Hace que se guarde el id del editable en sesion
+	 */
+	function propagar_id()
+	{		
+		toba::memoria()->set_dato('apex_editable_zona', $this->get_editable());
+	}
+
+	/**
+	 * Quita el id del editable de sesion.
+	 */
+	static function cancelar_propagacion()
+	{
+		toba::memoria()->eliminar_dato('apex_editable_zona');
+	}
+
+	/**
+	 * Determina cual es el id correcto a utilizar, si el propagado por URL o por sesion.
+	 * @param mixed $valor_por_url
+	 * @return mixed
+	 */
+	protected function get_id_propagado($valor_por_url)
+	{
+		$id_editable = null;
+		//Busco el id propagado x sesion
+		$propagado_sesion = toba::memoria()->get_dato('apex_editable_zona');
+
+		//Si en la url vino algo distinto a la marca de zona activa.
+		if ($valor_por_url != apex_marca_zona_activa) {
+			$id_editable = toba::vinculador()->url_a_variable($valor_por_url);
+		} elseif (! is_null($propagado_sesion)) {
+			$id_editable = $propagado_sesion;
+		}
+		return $id_editable;
+	}
+
 	//-------------------------------------------------------------------------------
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
@@ -164,9 +232,11 @@ class toba_zona
 	 */
 	function generar_html_barra_id()
 	{
-		echo "<div class='zona-barra-id'>";
-		echo $this->get_editable_id();
-		echo "</div>";
+		if ($this->propaga_x_url()){
+			echo "<div class='zona-barra-id'>";
+			echo $this->get_editable_id();
+			echo "</div>";
+		}
 	}
 	
 	function generar_html_barra_nombre()

@@ -49,12 +49,12 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000218', --evento_id
 	'1000201', --objeto
 	'descargar', --identificador
-	'Descargar Zona', --etiqueta
+	'Deseleccionar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda

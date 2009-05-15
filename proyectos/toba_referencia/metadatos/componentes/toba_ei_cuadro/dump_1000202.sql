@@ -49,7 +49,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000217', --evento_id
 	'1000202', --objeto
 	'cargar', --identificador
-	'Cargar por Evento', --etiqueta
+	'Seleccionar', --etiqueta
 	NULL, --maneja_datos
 	'1', --sobre_fila
 	NULL, --confirmacion
@@ -75,37 +75,6 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_celda
 	NULL  --accion_vinculo_servicio
 );
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio) VALUES (
-	'toba_referencia', --proyecto
-	'1000219', --evento_id
-	'1000202', --objeto
-	'cargar_url', --identificador
-	'Cargar por URL', --etiqueta
-	NULL, --maneja_datos
-	'1', --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'proyecto', --imagen_recurso_origen
-	'url.png', --imagen
-	'0', --en_botonera
-	'Carga la zona pasando al editable directamente en la URL en el método <pre>conf_evt__cuadro__cargar_url</pre>', --ayuda
-	'2', --orden
-	NULL, --ci_predep
-	NULL, --implicito
-	NULL, --defecto
-	NULL, --display_datos_cargados
-	NULL, --grupo
-	'V', --accion
-	NULL, --accion_imphtml_debug
-	'1000063', --accion_vinculo_carpeta
-	'1000065', --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL, --accion_vinculo_celda
-	NULL  --accion_vinculo_servicio
-);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -124,12 +93,12 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
+	'P', --tipo_paginado
 	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

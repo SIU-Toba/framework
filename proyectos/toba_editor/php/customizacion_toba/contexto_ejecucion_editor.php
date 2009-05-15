@@ -16,7 +16,8 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 		if (php_sapi_name() === 'cli') {
 			toba_editor::iniciar(toba::instancia()->get_id(), toba_editor::get_id());
 			toba_editor::referenciar_memoria();
-		}		
+		}
+		toba_zona::set_modo_url(true);
 	}
 
 	function conf__final() {}
