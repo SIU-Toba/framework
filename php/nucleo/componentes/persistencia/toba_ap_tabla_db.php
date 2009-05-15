@@ -1000,7 +1000,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Recuperacion de valores para las columnas externas.
 	 * Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
-	 * cuyas claves asociativas se correspondan con la columna que se quiere llenar
+	 * cuyas claves asociativas se contengan la columna que se quiere llenar
 	 * @param array $fila Fila que toma dereferencia la carga externa
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados de la DB.
@@ -1012,7 +1012,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		//Itero planes de carga externa
 		$valores_recuperados = array();
-		if(isset($this->_proceso_carga_externa)){
+		if (isset($this->_proceso_carga_externa)) {
 			foreach(array_keys($this->_proceso_carga_externa) as $carga)
 			{
 				$parametros = $this->_proceso_carga_externa[$carga];
@@ -1020,11 +1020,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				if(isset($evento)&& !($parametros["sincro_continua"])) continue;
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				$estan_todos = true;
-				foreach( $parametros['col_parametro'] as $col_llave ){
-					if(isset($evento) && isset($this->_secuencias[$col_llave])){
+				foreach( $parametros['col_parametro'] as $col_llave ) {
+					if (isset($evento) && isset($this->_secuencias[$col_llave])) {
 						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia");
 					}
-					if(!isset($fila[$col_llave])){
+					if (!isset($fila[$col_llave])) {
 						$estan_todos = false;
 					}
 				}
@@ -1038,34 +1038,34 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					// - 1 - Obtengo el query
 					$sql = $parametros['sql'];
 					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
-					foreach( $parametros['col_parametro'] as $col_llave ){
+					foreach($parametros['col_parametro'] as $col_llave) {
 						$valor_llave = $fila[$col_llave];
 						$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
 					}
 					// - 3 - Ejecuto SQL
 					$datos = toba::db($this->_fuente)->consultar($sql);
 					$es_obligatoria = ($this->_proceso_carga_externa[$carga]['dato_estricto'] == '1');
-					if(!$datos && $es_obligatoria){
+					if (!$datos && $es_obligatoria) {
 						toba::logger()->error("AP_TABLA: [{$this->_tabla}]:\n no se recuperaron datos " . $sql, 'toba');
 						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n ERROR en la carga de una columna externa.");
 					}
 				}
-				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
+				elseif ($parametros['tipo']=="dao")										//--- carga DAO!!
 				{
 					// - 1 - Armo los parametros para el DAO
 					$param_dao = array();
-					foreach( $parametros['col_parametro'] as $col_llave ){
+					foreach ($parametros['col_parametro'] as $col_llave) {
 						$param_dao[] = $fila[$col_llave];
 					}
 					//ei_arbol($param_dao,"Parametros para el DAO");
 					// - 2 - Recupero datos
 					if (isset($parametros['clase']) && isset($parametros['include'])) {
-						if(!class_exists($parametros['clase'])) {
+						if (!class_exists($parametros['clase'])) {
 							require_once($parametros['include']);
 						}
 						$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
 					} else {
-						if( method_exists($this, $parametros['metodo'])) {
+						if (method_exists($this, $parametros['metodo'])) {
 							$datos = call_user_func_array(array($this,$parametros['metodo']), $param_dao);				
 						} else {
 							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
@@ -1074,24 +1074,24 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				}
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
-				if(count($datos)>0){
-					foreach( $parametros['col_resultado'] as $columna_externa ){
-						if(is_array($columna_externa)){
-							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
-							if(!array_key_exists($columna_externa['origen'], $datos[0])){
-								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'", 'toba');
-								throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
-							}
-							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
-						}else{
-							if(!array_key_exists($columna_externa, $datos[0])){
-								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'", 'toba');
-								toba::logger()->error($datos, 'toba');
-								throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
-							}
-							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
+				if (count($datos)>0) {
+					foreach($parametros['col_resultado'] as $columna_externa) {
+						if (is_array($columna_externa)) {
+							$clave_buscada = $columna_externa['origen'];
+							$clave_destino = $columna_externa['destino'];
+						} else {
+							$clave_buscada = $columna_externa;
+							$clave_destino = $columna_externa;
 						}
-					}
+
+						$datos_recordset = current($datos);
+						if (! array_key_exists($clave_buscada, $datos) && ! array_key_exists($clave_buscada, $datos_recordset)) {
+							toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$clave_buscada'", 'toba');
+							toba::logger()->error($datos, 'toba');
+							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+						}
+						$valores_recuperados[$clave_destino] = (isset($datos[$clave_buscada])) ? $datos[$clave_buscada]: $datos_recordset[$clave_buscada];
+					}//fe
 				}
 			}
 		}
