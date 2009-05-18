@@ -165,7 +165,7 @@ class toba_zona
 	 * Devuelve si la zona propaga el editable por la URL o si lo mantiene en el servidor
 	 * @return boolean
 	 */
-	function propaga_x_url()
+	function get_modo_url()
 	{
 		$modo = toba::memoria()->get_dato('apex_modo_propagacion_zona');
 		//Retorna falso siempre que sea distinto de true (por si no se seteo manualmente)
@@ -202,8 +202,8 @@ class toba_zona
 		//Busco el id propagado x sesion
 		$propagado_sesion = toba::memoria()->get_dato('apex_editable_zona');
 
-		//Si en la url vino algo distinto a la marca de zona activa.
-		if ($valor_por_url != apex_marca_zona_activa) {
+		//Si el modo de propagacion es via URL.
+		if ($this->get_modo_url()) {
 			$id_editable = toba::vinculador()->url_a_variable($valor_por_url);
 		} elseif (! is_null($propagado_sesion)) {
 			$id_editable = $propagado_sesion;
@@ -232,7 +232,7 @@ class toba_zona
 	 */
 	function generar_html_barra_id()
 	{
-		if ($this->propaga_x_url()){
+		if ($this->get_modo_url()){
 			echo "<div class='zona-barra-id'>";
 			echo $this->get_editable_id();
 			echo "</div>";

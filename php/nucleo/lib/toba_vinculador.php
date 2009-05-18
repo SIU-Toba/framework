@@ -231,7 +231,7 @@ class toba_vinculador
 		$qs = '';
 		$solicitud_actual = toba::solicitud();
 		if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
-			if (toba::zona()->propaga_x_url()) {
+			if (toba::zona()->get_modo_url()) {
 				$editable = $this->variable_a_url(toba::zona()->get_editable());
 				$qs .= '&'.apex_hilo_qs_zona."=".$editable;
 			}else{
