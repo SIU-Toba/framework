@@ -135,7 +135,10 @@ class ci_editor extends ci_editores_toba
 		if($registros = $this->get_entidad()->tabla('dependencias')->get_filas())
 		{
 			foreach($registros as $reg){
-				$this->s__pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
+				$clase = explode(',' , $reg['clase']);
+				if (! in_array('toba_datos_tabla', $clase) && ! in_array('toba_datos_relacion', $clase)){
+						$this->s__pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
+				}
 			}
 		}
 		//--- Armo la lista de EVENTOS disponibles
