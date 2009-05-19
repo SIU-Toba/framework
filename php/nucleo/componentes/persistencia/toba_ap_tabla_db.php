@@ -131,9 +131,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
-	 * @param string $sql Query de carga
+	 * @param string $sql Query de carga que devolvera un registro conteniendo las columnas 'externas'
 	 * @param array $col_parametros Columnas que espera recibir el sql, en la sql necesitan esta el campo entre % (%nombre_campo%)
-	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
 	 */
 	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true, $estricto = true)
@@ -153,11 +153,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
-	 * @param string $metodo Método que obtiene los datos
+	 * @param string $metodo Método que obtiene los datos.
 	 * @param string $clase  Clase a la que pertenece el método.	Si es NULL usa el mismo AP
 	 * @param string $include Archivo donde se encuentra la clase.	Si es NULL usa el mismo AP
-	 * @param array $col_parametros Columnas que espera recibir el DAO
-	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
+	 * @param array $col_parametros Columnas que espera recibir el DAO.
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 */
 	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
