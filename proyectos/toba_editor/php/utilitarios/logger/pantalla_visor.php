@@ -191,6 +191,8 @@ class pantalla_visor extends toba_ei_pantalla
 		if ($pos_traza !== false) {
 			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
 			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
+			$txt_traza = str_replace('Stack', '<br>Stack', $txt_traza);
+			$txt_traza = str_replace('#', '<br>#', $txt_traza);
 			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
 		} elseif ($salto !== false) {
 			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
