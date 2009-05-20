@@ -75,14 +75,19 @@ class comando_instalacion extends comando_toba
 		
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
+		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
 				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
+				$puerto_tmp = $this->consola->dialogo_ingresar_texto( "Puerto del servicio Postgres (ENTER utilizará: $puerto)", false);
 				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
 				$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
 				$base_temp = $this->consola->dialogo_ingresar_texto( "Nombre de Base de Datos (ENTER utilizará: '$base')", false);
 				if ($base_temp != ''){
 					$base = $base_temp;
+				}
+				if ($puerto_tmp != ''){		
+					$puerto = $puerto_tmp;
 				}
 				$datos = array(
 					'motor' => 'postgres7',
@@ -90,6 +95,7 @@ class comando_instalacion extends comando_toba
 					'usuario' => $usuario,
 					'clave' => $clave,
 					'base' => $base,
+					'puerto' => $puerto,
 					'encoding' => 'LATIN1',
 					'schema' => $id_instancia
 				);
