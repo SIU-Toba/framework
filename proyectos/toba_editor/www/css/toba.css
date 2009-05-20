@@ -149,6 +149,10 @@
 		color: blue;
 		cursor: pointer;
 }
+.logger-traza-detalle{
+	white-space: pre;
+	display: block;
+}
 .logger-selec {
 	font-size:14px;
 	display: block;

@@ -185,7 +185,7 @@ class toba_logger
 	        		$res .= $this->construir_traza($con_parametros, $traza);
        			} else {
        				//Para php < 5.1 mostrar el string 
-    				$res .= "\n[TRAZA]<div style='display:none'>".$mensaje->__toString()."</div>";
+    				$res .= "\n[TRAZA]".$mensaje->__toString();
        			}
        			return $res;
         	} else if (method_exists($mensaje, 'getMessage')) {
