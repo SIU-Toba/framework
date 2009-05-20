@@ -382,6 +382,18 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		
 	}	
 	
+	/**
+	 *  Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.
+	 */
+	function crear_lenguaje_procedural(toba_db $base)
+	{
+		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
+		$rs = $base->consultar($sql);
+		if (empty($rs)) {
+			$sql = 'CREATE LANGUAGE plpgsql';
+			$base->ejecutar($sql);
+		}
+	}
 }
 
 ?>
