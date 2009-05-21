@@ -651,6 +651,7 @@ class toba_db_tablas_componente
     34 => 'analisis_cambios',
     35 => 'no_imprimir_efs_sin_estado',
     36 => 'resaltar_efs_con_estado',
+    37 => 'template',
   ),
 );
 	}
