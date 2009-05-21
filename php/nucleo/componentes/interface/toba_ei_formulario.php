@@ -632,6 +632,15 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	/**
+	 * Cambia el layout actual del formulario usando un template
+	 * @param string $template
+	 */
+	function set_template($template)
+	{
+		$this->_info_formulario['template'] = $template;
+	}
+	
 	
 	//-------------------------------------------------------------------------------
 	//------------------------------	  SALIDA	  -------------------------------
@@ -876,9 +885,46 @@ class toba_ei_formulario extends toba_ei
 	 */	
 	protected function generar_layout()
 	{
-		foreach ($this->_lista_ef_post as $ef) {
-			$this->generar_html_ef($ef);
+		if (!isset($this->_info_formulario['template']) || trim($this->_info_formulario['template']) == '') {
+			foreach ($this->_lista_ef_post as $ef) {
+				$this->generar_html_ef($ef);
+			}
+		} else {
+			$this->generar_layout_template();
 		}
+	}
+	
+	protected function generar_layout_template()
+	{
+		//Parseo del template
+		$pattern = '/\[ef([\s\w+=\w+]+)\]/i';
+		if (preg_match_all($pattern, $this->_info_formulario['template'], $resultado)) {
+			$salida = $this->_info_formulario['template'];
+			for ($i=0; $i < count($resultado[0]); $i++) {
+				$original = $resultado[0][$i];
+				$atributos = array();
+				foreach (explode(' ',trim($resultado[1][$i])) as $atributo) {
+					$partes = explode('=', $atributo);
+					$atributos[$partes[0]] = $partes[1];
+				}
+				if (! isset($atributos['id'])) {
+					throw new toba_error_def($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+				}
+				$etiqueta_mostrar = true;
+				if (isset($atributos['etiqueta_mostrar']) && $atributos['etiqueta_mostrar'] == 0) {
+					$etiqueta_mostrar = false;
+				}
+				$etiqueta_ancho = null;
+				if (isset($atributos['etiqueta_ancho'])) {
+					$etiqueta_ancho = $atributos['etiqueta_ancho'];
+				}				
+				$html = $this->get_html_ef($atributos['id'], $etiqueta_ancho, $etiqueta_mostrar);				
+				$salida = str_replace($original, $html, $salida);
+			}
+			echo $salida;
+		} else {
+			throw new toba_error_def($this->get_txt()."Template incorrecto");
+		}		
 	}
 	
 	/**
@@ -920,6 +966,18 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function generar_html_ef($ef, $ancho_etiqueta=null)
 	{
+		echo $this->get_html_ef($ef, $ancho_etiqueta);
+	}
+
+	/**
+	 * Retorna la etiqueta y el componente HTML de un ef
+	 * @param string $ef Identificador del ef
+	 * @param string $ancho_etiqueta Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.
+	 * Recordar incluír las medidas (px, %, etc.). 
+	 */	
+	protected function get_html_ef($ef, $ancho_etiqueta=null, $con_etiqueta=true)
+	{
+		$salida = '';
 		if (! in_array($ef, $this->_lista_ef_post)) {
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
 			return;
@@ -935,23 +993,25 @@ class toba_ei_formulario extends toba_ei
 				&& $this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
 			$clase .= ' ei-form-fila-filtrada';
 		}			
-		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
-		if ($this->_elemento_formulario[$ef]->tiene_etiqueta()) {
-			$this->generar_etiqueta_ef($ef, $ancho_etiqueta);
+		$salida .= "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
+		if ($this->_elemento_formulario[$ef]->tiene_etiqueta() && $con_etiqueta) {
+			$salida .= $this->get_etiqueta_ef($ef, $ancho_etiqueta);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
 			$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
-			echo "<div id='cont_$id_ef' style='margin-left:$ancho;_margin-left:0;_height:1%;'>\n";
-			$this->generar_input_ef($ef);
-			echo "</div>";
+			$salida .= "<div id='cont_$id_ef' style='margin-left:$ancho;_margin-left:0;_height:1%;'>\n";
+			$salida .= $this->get_input_ef($ef);
+			$salida .= "</div>";
 			if (isset($this->_info_formulario['expandir_descripcion']) && $this->_info_formulario['expandir_descripcion']) {
-				echo '<span class="ei-form-fila-desc">'.$this->_elemento_formulario[$ef]->get_descripcion().'</span>';
+				$salida .= '<span class="ei-form-fila-desc">'.$this->_elemento_formulario[$ef]->get_descripcion().'</span>';
 			}
 
 		} else {		
-			$this->generar_input_ef($ef);
+			$salida .= $this->get_input_ef($ef);
 		}
-		echo "</div>\n";		
+		$salida .= "</div>\n";	
+		return $salida;		
 	}
+	
 
 	/**
 	 * Genera la etiqueta y la vista de impresion de un ef
@@ -981,12 +1041,21 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function generar_input_ef($ef)
 	{
+		echo $this->get_input_ef($ef);
+	}
+	
+	/**
+	 * Genera la salida gráfica de un ef particular
+	 * @ventana Extender para agregar html antes o despues de un ef específico
+	 */
+	protected function get_input_ef($ef)
+	{
 		if (! in_array($ef, $this->_lista_ef_post)) {
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
 			return;
 		}		
-		echo $this->_elemento_formulario[$ef]->get_input();
-	}
+		return $this->_elemento_formulario[$ef]->get_input();
+	}	
 
 	
 	/**
@@ -996,6 +1065,17 @@ class toba_ei_formulario extends toba_ei
 	 * Recordar incluír las medidas (px, %, etc.). 
 	 */
 	protected function generar_etiqueta_ef($ef, $ancho_etiqueta=null)
+	{
+		echo $this->get_etiqueta_ef($ef, $ancho_etiqueta);
+	}
+	
+	/**
+	 * Retorna el html de la etiqueta de un ef especifico
+	 * @param string $ef Id. del ef
+	 * @param string $ancho_etiqueta Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.
+	 * Recordar incluír las medidas (px, %, etc.). 
+	 */
+	protected function get_etiqueta_ef($ef, $ancho_etiqueta=null)
 	{
 		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
 		$marca ='';		
@@ -1020,8 +1100,8 @@ class toba_ei_formulario extends toba_ei
 		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
 		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
-		echo "<label style='_width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
-	}
+		return "<label style='_width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+	}	
 	
 	/**
 	 * @ignore 

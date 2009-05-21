@@ -1,4 +1,6 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
+
 
 class icono_informacion implements toba_ef_icono_utileria
 {

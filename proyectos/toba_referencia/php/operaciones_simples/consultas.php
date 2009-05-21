@@ -39,8 +39,10 @@ class consultas
 	{
 		$where = '';
 		if(isset($filtro)){
-			if (isset($filtro['nombre']))
-			$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
+			if (isset($filtro['nombre'])) {
+				$nombre = quote("%{$filtro['nombre']}%");
+				$where = " WHERE nombre ILIKE $nombre";
+			}
 		}
 		$sql = "SELECT id, nombre, descripcion FROM ref_deportes $where";
 		return consultar_fuente($sql);
@@ -54,7 +56,8 @@ class consultas
 		$where = '';
 		if(isset($filtro)){
 			if(isset($filtro['nombre'])){
-				$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
+				$nombre = quote("%{$filtro['nombre']}%");
+				$where = " WHERE nombre ILIKE $nombre";
 			}
 		}
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where ORDER BY nombre";
@@ -79,7 +82,8 @@ class consultas
 	
 	static function get_persona_datos($persona)
 	{
-		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona WHERE id='{$persona['id']}'";
+		$persona = quote($persona);
+		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona WHERE id={$persona['id']}";
 		$rs = consultar_fuente($sql);
 		if (! empty($rs)) {
 			return current($rs);
@@ -155,13 +159,14 @@ class consultas
 			$locale = quote($locale);
 			$where = "AND locale=$locale";
 		}
+		$filtro = quote("{$filtro}%");
 		$sql = "SELECT 
 					rowId, 
 					countryName 
 				FROM 
 					iso_countries
 				WHERE
-					countryName ILIKE '{$filtro}%' 
+					countryName ILIKE $filtro 
 					$where
 				LIMIT 20
 		";
@@ -173,14 +178,14 @@ class consultas
 		if (! isset($id)) {
 			return array();
 		}
-		
+		$id = quote($id);
 		$sql = "SELECT 
 					rowId, 
 					countryName
 				FROM 
 					iso_countries
 				WHERE
-					rowId = ".$id;
+					rowId = $id";
 		$result = consultar_fuente($sql);	
 		if (! empty($result)) {
 			return $result[0]['countryname'];

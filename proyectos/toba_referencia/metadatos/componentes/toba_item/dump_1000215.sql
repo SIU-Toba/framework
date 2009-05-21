@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000215]--  Cambio de layout y extensión JS 
+--[1000215]--  Cambio de layout 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Cambio de layout y extensión JS', --nombre
+	'Cambio de layout', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b

@@ -277,7 +277,7 @@ ef_radio.prototype.constructor = ef_radio;
 	};
 	
 	ef_radio.prototype.cuando_cambia_valor = function(callback) {
-		addEvent(this.get_contenedor_opciones(), 'onchange', callback);		
+		addEvent(this.get_contenedor_opciones(), 'onchange_general', callback);		
 		this.refrescar_callbacks();
 	};
 	
@@ -286,7 +286,7 @@ ef_radio.prototype.constructor = ef_radio;
 	 */
 	ef_radio.prototype.refrescar_callbacks = function() {
 		var elem = this.input();
-		var callback = this.get_contenedor_opciones().onchange;
+		var callback = this.get_contenedor_opciones().onchange_general;
 		for (var i=0; i < elem.length; i++) {
 			addEvent(elem[i], 'onclick', callback);
 		}

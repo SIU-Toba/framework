@@ -211,7 +211,7 @@ abstract class ci_editores_toba extends toba_ci
 	/**
 	 * Servicio de mostrar listado de imagenes para elegir
 	 */
-	static function servicio__ejecutar()
+	function servicio__ejecutar()
 	{
 		seleccion_imagenes::generar_html_listado();
 	}	

@@ -29,7 +29,8 @@ class toba_ei_formulario_def extends toba_ei_def
 										ancho_etiqueta				as ancho_etiqueta,
 										expandir_descripcion		as expandir_descripcion,
 										no_imprimir_efs_sin_estado	as no_imprimir_efs_sin_estado,
-										resaltar_efs_con_estado		as resaltar_efs_con_estado
+										resaltar_efs_con_estado		as resaltar_efs_con_estado,
+										template					as template
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto=$proyecto";
 		if ( isset($componente) ) {

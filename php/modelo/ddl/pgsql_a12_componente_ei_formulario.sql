@@ -57,8 +57,10 @@ CREATE TABLE apex_objeto_ut_formulario
 	ev_seleccion						smallint		NULL,
 	alto								varchar(10)		NULL,
 	analisis_cambios					varchar(10)		NULL,
+-- Comunes
 	no_imprimir_efs_sin_estado			smallint		NULL,
 	resaltar_efs_con_estado				smallint		NULL,
+	template							varchar			NULL,
 	CONSTRAINT  "apex_objeto_ut_f_pk" PRIMARY KEY ("objeto_ut_formulario", "objeto_ut_formulario_proyecto"),
 	CONSTRAINT  "apex_objeto_ut_f_fk_objeto" FOREIGN KEY ("objeto_ut_formulario", "objeto_ut_formulario_proyecto") REFERENCES "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

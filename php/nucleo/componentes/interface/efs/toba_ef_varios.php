@@ -319,6 +319,11 @@ class toba_ef_html extends toba_ef
 		}
 		return $html;
 	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_html({$this->parametros_js()})";
+	}	
 }
 
 ?>

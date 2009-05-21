@@ -145,7 +145,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_referencia', --objeto_ci_proyecto
 	'1272', --objeto_ci
 	'416', --pantalla
-	'0', --identificador
+	'basico', --identificador
 	'1', --orden
 	'Layout básico', --etiqueta
 	'Este es el layout por defecto de los formularios, un ef sobre el otro.', --descripcion
@@ -164,7 +164,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_referencia', --objeto_ci_proyecto
 	'1272', --objeto_ci
 	'1000049', --pantalla
-	'1', --identificador
+	'columnas', --identificador
 	'2', --orden
 	'Layout 2-Columnas', --etiqueta
 	'Este layout se logra en la subclase del formulario, extendiendo el método <em>generar_layout</em>', --descripcion
@@ -180,7 +180,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_referencia', --objeto_ci_proyecto
 	'1272', --objeto_ci
 	'1000142', --pantalla
-	'2', --identificador
+	'ml_flotante', --identificador
 	'3', --orden
 	'ML Flotante', --etiqueta
 	'Este layout se logra redefiniendo el método <em>generar_layout_fila</em> (y vaciando el método <em>generar_formulario_encabezado</em>). En este caso se quiere utilizar el layout de fila de un formulario común pero con múltiples instancias como un ML.', --descripcion
@@ -193,6 +193,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1272', --objeto_ci
+	'30000027', --pantalla
+	'layout_template', --identificador
+	'4', --orden
+	'Desde un template', --etiqueta
+	'Esta disposición se define usando el tab <em>layout</em> del toba_editor', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objetos_pantalla
@@ -218,6 +237,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1', --orden
 	'1000104'  --dep_id
 );
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000027', --pantalla
+	'1272', --objeto_ci
+	'0', --orden
+	'3'  --dep_id
+);
 
 ------------------------------------------------------------
 -- apex_eventos_pantalla
@@ -236,6 +262,12 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1000142', --pantalla
+	'1272', --objeto_ci
+	'30000029', --evento_id
+	'toba_referencia'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'30000027', --pantalla
 	'1272', --objeto_ci
 	'30000029', --evento_id
 	'toba_referencia'  --proyecto

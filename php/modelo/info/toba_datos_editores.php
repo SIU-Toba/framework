@@ -216,14 +216,14 @@ class toba_datos_editores
   0 => 
   array (
     'identificador' => '1',
-    'etiqueta' => 'Propiedades basicas',
+    'etiqueta' => 'Propiedades básicas',
     'imagen' => 'objetos/filtro.gif',
     'imagen_recurso_origen' => 'apex',
   ),
   1 => 
   array (
     'identificador' => '2',
-    'etiqueta' => 'Elementos de Formulario',
+    'etiqueta' => 'Columnas a filtrar',
     'imagen' => 'objetos/efs.gif',
     'imagen_recurso_origen' => 'apex',
   ),
@@ -255,6 +255,13 @@ class toba_datos_editores
     'imagen_recurso_origen' => 'apex',
   ),
   2 => 
+  array (
+    'identificador' => '4',
+    'etiqueta' => 'Layout',
+    'imagen' => 'objetos/layout.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  3 => 
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
@@ -290,7 +297,7 @@ class toba_datos_editores
   ),
 );
 	}
-	
+
 }
 
 ?>

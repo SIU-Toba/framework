@@ -510,4 +510,37 @@ ef_fijo.prototype.constructor = ef_fijo;
 		return this.input().innerHTML;
 	};		
 	
+//--------------------------------------------------------------------------------
+ef_html.prototype = new ef();
+ef_html.prototype.constructor = ef_html;
+
+	/**
+	 * @class Elemento que contiene un editor HTML
+	 * @constructor
+	 * @phpdoc Componentes/Efs/toba_ef_html toba_ef_html
+	 */
+	function ef_html(id_form, etiqueta, obligatorio, colapsado) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+	}
+
+	ef_html.prototype.get_editor = function() {
+		if (isset(window.FCKeditorAPI)) {
+			return FCKeditorAPI.GetInstance(this._id_form) ;
+		} else {
+			return null;
+		}
+	}
+	
+	ef_html.prototype.get_estado = function() {
+		var editor = this.get_editor();
+		if (editor) {
+			return this.get_editor().GetHTML();
+		} else {
+			var input = this.input();
+			if (input !== null) {
+				return input.value;
+			}		
+		}
+	};		
+	
 toba.confirmar_inclusion('efs/ef');

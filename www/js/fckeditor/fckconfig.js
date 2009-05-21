@@ -59,7 +59,7 @@ FCKConfig.AutoGrowMax = 400 ;
 // FCKConfig.ProtectedSource.Add( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi ) ;	// ASP.Net style tags <asp:control>
 
 FCKConfig.AutoDetectLanguage	= true ;
-FCKConfig.DefaultLanguage		= 'en' ;
+FCKConfig.DefaultLanguage		= 'es' ;
 FCKConfig.ContentLangDirection	= 'ltr' ;
 
 FCKConfig.ProcessHTMLEntities	= true ;
@@ -123,6 +123,13 @@ FCKConfig.ToolbarSets["Toba"] = [
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['TextColor','BGColor'],
 	['FitWindow']
+] ;
+
+
+FCKConfig.ToolbarSets["Layout"] = [
+	['Table', '-', 'FontSize','-','Bold','Italic','-', 'TextColor','BGColor'],
+	'/',
+	['Source', 'Templates', 'FitWindow']
 ] ;
 
 FCKConfig.EnterMode = 'p' ;			// p | div | br
