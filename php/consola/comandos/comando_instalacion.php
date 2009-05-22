@@ -78,9 +78,18 @@ class comando_instalacion extends comando_toba
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
-				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
+				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ENTER utilizará localhost)', false);
+				if ($profile == ''){
+					$profile = 'localhost';
+				}				
 				$puerto_tmp = $this->consola->dialogo_ingresar_texto( "Puerto del servicio Postgres (ENTER utilizará: $puerto)", false);
-				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
+				if ($puerto_tmp != ''){		
+					$puerto = $puerto_tmp;
+				}
+				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ENTER utilizará dba)', false);
+				if ($usuario == '') {
+					$usuario = 'dba';
+				}
 				$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
 				$base_temp = $this->consola->dialogo_ingresar_texto( "Nombre de Base de Datos (ENTER utilizará: '$base')", false);
 				if ($base_temp != ''){
@@ -461,7 +470,7 @@ class comando_instalacion extends comando_toba
 	{
 		do {
 			$es_invalido = false;
-			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (por defecto 0)', false);
+			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (ENTER utilizará 0)', false);
 			$mensaje = "Debe ser un entero positivo, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
 			if ($id_desarrollo == '') {
 				$id_desarrollo = 0;
