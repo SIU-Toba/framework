@@ -3,19 +3,18 @@
 class toba_version
 {
 	protected $partes;
-	protected $extra;
+	protected $build;
 	protected $path_migraciones;
-	protected $inestables = array('pre-alpha', 'alpha', 'beta', 'rc');
 	
 	function __construct($numero)
 	{
 		if ($numero == 'trunk') {
-			$this->extra = 'trunk';
+			$this->build = 'trunk';
 			return ;
 		}
-		$formato = 'El formato debe ser x.y.z(CODIGO-#). Donde CODIGO es opcional: pre-alpha,alpha,beta o rc (Ver http://web2.siu.edu.ar/isw/recursos/EsquemaVersionado.pdf)';
+		$formato = 'El formato debe ser x.y.z (build). Donde (build) es opcional';
 		$numero = trim($numero);
-		$this->extra = null;
+		$this->build = null;
 		$this->partes = explode('.', $numero);
 		//Validando el numero
 		if (count($this->partes) < 3) {
@@ -26,15 +25,12 @@ class toba_version
 			if (! is_numeric($digito)) {
 				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. ".$formato);
 			}
-			$extra = substr($this->partes[2], strlen($digito));
+			$build = trim(str_replace(array('(',')'), '', substr($this->partes[2], strlen($digito))));
 			$this->partes[2] = $digito;			
-			if ($extra != '') {
-				$this->extra = explode('-', $extra);
-				if (! in_array($this->extra[0], $this->inestables)) {
-					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '{$this->extra[0]}' no es válido. ".$formato);
-				}
-				if (isset($this->extra[1]) && !is_numeric($this->extra[1])) {
-					throw new toba_error("El número de versión $numero es incorrecto. El numero de versión inestable debe ser entero ".$formato);
+			if ($build != '') {
+				$this->build = $build;				
+				if (! is_numeric($build)) {
+					throw new toba_error("El número de versión $numero es incorrecto. El codigo de build '$build' no es válido. ".$formato);					
 				}
 			}
 		}
@@ -52,22 +48,19 @@ class toba_version
 
 	function __toString()
 	{
-		if ($this->extra == 'trunk') {
+		if ($this->build == 'trunk') {
 			return 'trunk';
 		}
 		$s = implode('.', $this->partes);
-		if (isset($this->extra)) {
-			$s .= $this->extra[0];
-			if (isset($this->extra[1])) {
-				$s .= '-'.$this->extra[1];
-			}
+		if (isset($this->build)) {
+			$s .= ' ('.$this->build.')';
 		}
 		return $s;
 	}
 
 	function get_string_partes($separador = '_')
 	{
-		if ($this->extra == 'trunk') {
+		if ($this->build == 'trunk') {
 			return 'trunk';
 		}		
 		$s = $this->__toString();
@@ -76,11 +69,33 @@ class toba_version
 	
 	function get_release($separador = '.')
 	{
-		if ($this->extra == 'trunk') {
+		if ($this->build == 'trunk') {
 			return 'trunk';
 		}		
 		return $this->partes[0].$separador.$this->partes[1];
 	}
+	
+	function get_build()
+	{
+		return $this->build;
+	}	
+	
+	function get_builds_intermedios($hasta)
+	{
+		$intermedios = array(); 
+		if (isset($this->build) && isset($hasta->build)) {
+			$desde = $this->build;
+			$hasta = $hasta->build;
+			$rango = range($desde, $hasta);		
+			if ($desde < $hasta) {
+				return array_splice($rango, 1);
+			} else {
+				return array_splice($rango, 0, -1);				
+			}
+		}
+		return $intermedios;
+	}	
+	
 
 	function es_igual($version)
 	{
@@ -112,14 +127,14 @@ class toba_version
 	 */
 	function comparar($otra_version)
 	{
-		if ($this->extra == 'trunk') {
-			if ($otra_version->extra == 'trunk') {
+		if ($this->build == 'trunk') {
+			if ($otra_version->build == 'trunk') {
 				return 0;
 			} else {
 				return 1;
 			}
 		}
-		if ($otra_version->extra == 'trunk') {
+		if ($otra_version->build == 'trunk') {
 			return -1;
 		}		
 		foreach ($otra_version->partes as $pos => $parte) {
@@ -129,30 +144,16 @@ class toba_version
 				return 1;	//Es mayor
 			}
 		}
-		//--- Tienen los mismos numeros, se decide por partes extra
-		if (! isset($this->extra)) {
-			if (isset($otra_version->extra)) {
-				return 1;	//La otra tiene extra, esta es la final por lo que es mayor
-			} else {
-				return 0;	//Ambas no tienen extra, son iguales
-			}
-		} else {
-			if (! isset($otra_version->extra)) {
-				return -1;	//Esta tiene extra, la otra no y es la final
-			}
-		}
-		$indice_actual = array_search($this->extra[0], $this->inestables);
-		$indice_otra = array_search($otra_version->extra[0], $this->inestables);
-		//-- Son otro relase?
-		if ($indice_actual < $indice_otra) {
-			return -1;
-		}
-		if ($indice_actual > $indice_otra) {
-			return 1;
-		}
-		//-- Son el mismo release, se compara por numero de release		
-		$numero_actual = isset($this->extra[1]) ? $this->extra[1] : 1;
-		$numero_otra = isset($otra_version->extra[1]) ? $otra_version->extra[1] : 1;
+		//--- Tienen los mismos numeros, se decide por build
+		if (! isset($this->build) && !isset($otra_version->build)) {
+			return 0; //Ambos no tiene build, se asumen iguales		
+		} elseif (! isset($this->build)) {
+			return -1; //El otro tiene build, este es menor
+		} elseif (! isset($otra_version->build)) {
+			return 1; //El otro no tiene build, este es mayor
+		}		
+		$numero_actual = intval($this->build);
+		$numero_otra = intval($otra_version->build);
 		if ($numero_actual < $numero_otra) {
 			return -1;			
 		}
@@ -172,7 +173,7 @@ class toba_version
 		if (!isset($otra_version)) {
 			return false;
 		}
-		if ($this->extra == 'trunk' || $otra_version->extra == 'trunk') {
+		if ($this->build == 'trunk' || $otra_version->build == 'trunk') {
 			return false;
 		}
 		//-- Tiene que ser igual numero mayor
@@ -191,7 +192,7 @@ class toba_version
 	 */
 	function get_siguiente_menor()
 	{
-		if ($this->extra == 'trunk') {
+		if ($this->build == 'trunk') {
 			return $this;
 		}		
 		$siguiente = $this->partes[2] + 1;
@@ -214,7 +215,6 @@ class toba_version
 		}
 		$exp = "/migracion_(.+)\\.php/";
 		$archivos = toba_manejador_archivos::get_archivos_directorio($dir, $exp, false);
-		sort($archivos);
 		$versiones = array();
 		foreach ($archivos as $archivo) {
 			$partes = array();
@@ -225,7 +225,7 @@ class toba_version
 				$versiones[] = $version;
 			}
 		}
-		usort($versiones, array('toba_version', 'comparar_versiones')); 
+		usort($versiones, array('toba_version', 'comparar_versiones'));
 		return $versiones;
 	}
 	
