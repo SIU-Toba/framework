@@ -12,11 +12,19 @@ class extension_ci extends toba_ci
 		);
 	}
 	
+	
+	//-- PANTALLAS
+	
 	function conf__columnas()
 	{
 		$this->dep('formulario')->cambiar_layout();	
 	}
 
+	
+	function conf__basico()
+	{
+		$this->dep('formulario')->set_template(null);
+	}
 
 }
 

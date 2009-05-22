@@ -44,7 +44,8 @@ class toba_ci_def extends toba_ei_def
 													alto					as	alto,
 													posicion_botonera		as  posicion_botonera,
 													tipo_navegacion			as	tipo_navegacion,
-													con_toc					as  con_toc
+													con_toc					as  con_toc,
+													botonera_barra_item		as botonera_barra_item
 											FROM	apex_objeto_mt_me
 											WHERE	objeto_mt_me_proyecto=$quote_proyecto";
 		if ( isset($componente) ) {

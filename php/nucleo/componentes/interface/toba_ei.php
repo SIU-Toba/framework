@@ -547,9 +547,14 @@ abstract class toba_ei extends toba_componente
 	 */
 	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
-		if ($this->_mostrar_barra_superior){
+		if ($this->_mostrar_barra_superior) {
+			
+			$botonera_en_item = false;
+			if (isset($this->_info_ci['botonera_barra_item']) && $this->_info_ci['botonera_barra_item']) {
+				$botonera_en_item = true;	 			
+			}
 			$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
-					 $this->_posicion_botonera == "ambos");
+					 $this->_posicion_botonera == "ambos") && ! $botonera_en_item;
 			$tiene_titulo = trim($this->_info["titulo"])!="" || trim($titulo) != '';
 			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo) {
 				if (!isset($titulo)) {

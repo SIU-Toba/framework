@@ -21,16 +21,16 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	/**
 	 * Crea la base de negocios del proyecto
 	 */
-	function opcion__instalar()
+	function opcion__instalar($parametros)
 	{
-		$parametros = $this->modelo->get_servidor_defecto();
-		$this->modelo->instalar($parametros);
+		$base = $this->modelo->get_servidor_defecto();
+		$this->modelo->instalar($base);
 	}
 
 	/**
 	 * Migra una instalacion previa del proyecto
 	 */	
-	function opcion__migrar()
+	function opcion__migrar($parametros)
 	{
 		$desde = $this->modelo->get_version_actual();
 		$hasta = $this->modelo->get_version_nueva();

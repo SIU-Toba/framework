@@ -15,6 +15,15 @@ class eiform_prop_basicas extends toba_ei_formulario
 				}
 			}
 			
+			{$this->objeto_js}.evt__posicion_botonera__procesar = function() {
+				valor = this.ef('posicion_botonera').get_estado();
+				if (valor == 'arriba' || valor == 'ambos') {
+					this.ef('botonera_barra_item').mostrar();
+				} else {
+					this.ef('botonera_barra_item').ocultar(true);
+				}		
+			}
+			
 			{$this->objeto_js}.evt__ancho__validar = function()
 			{
 	            if (! toba_editor.medida_css_correcta(this.ef('ancho').get_estado())) {

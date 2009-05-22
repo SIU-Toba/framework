@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Filtro', --nombre
-	'Búsqueda', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'toba_referencia', --fuente_datos_proyecto
@@ -176,7 +176,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 INSERT INTO apex_objeto_ei_filtro (objeto_ei_filtro_proyecto, objeto_ei_filtro, ancho) VALUES (
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'500', --objeto_ei_filtro
-	'100%'  --ancho
+	'600px'  --ancho
 );
 
 ------------------------------------------------------------

@@ -127,7 +127,7 @@ FCKConfig.ToolbarSets["Toba"] = [
 
 
 FCKConfig.ToolbarSets["Layout"] = [
-	['Table', '-', 'FontSize','-','Bold','Italic','-', 'TextColor','BGColor'],
+	['Table', '-', 'FontSize','-','Bold','Italic','-', 'TextColor','BGColor'],['JustifyLeft','JustifyCenter','JustifyRight'],
 	'/',
 	['Source', 'Templates', 'FitWindow']
 ] ;

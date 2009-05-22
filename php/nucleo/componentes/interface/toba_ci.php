@@ -624,7 +624,7 @@ class toba_ci extends toba_ei
 			}
 		}
 	}
-
+	
 	/**
 	 * Retorna los objetos asociados a una pantalla especifica perteneciente a este ci
 	 * @param string $id Identificador de la pantalla
@@ -652,6 +652,16 @@ class toba_ci extends toba_ei
 			return $eventos;
 	}
 
+	
+	/**
+	 * Indica si la botonera superior del ci se grafica en la barra superior del item
+	 * @return boolean
+	 */
+	function es_botonera_en_barra_item()
+	{
+		return isset($this->_info_ci['botonera_barra_item']) && $this->_info_ci['botonera_barra_item']; 
+	}	
+	
 	/**
 	 * Retorna la referencia a la pantalla a graficar
 	 * Una vez que se invoca este metodo se fija la pantalla para el resto del pedido de pagina

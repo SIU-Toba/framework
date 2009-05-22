@@ -129,6 +129,13 @@ legend {
 }
 .enc-usuario-id {
 }
+.enc-botonera {
+	clear: none !important;
+	margin-top:2px;
+}
+.enc-botonera .ei-boton-izq {
+	float:none;
+}
 .enc-salir {
 	float: right;
 	margin: 5px;
@@ -231,6 +238,7 @@ padding-left:4px;
 
 .ei-boton-izq {
 	float: left;
+	margin-right: 3px;
 }
 .ei-boton-centro {
 	margin-right: 30%;

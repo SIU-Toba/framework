@@ -51,16 +51,16 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'fecha', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	'100%', --ancho
+	'400px', --ancho
 	'1', --ordenar
 	'1', --paginar
 	'10', --tamano_pagina
 	'C', --tipo_paginado
 	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

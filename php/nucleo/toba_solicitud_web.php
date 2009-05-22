@@ -183,6 +183,20 @@ class toba_solicitud_web extends toba_solicitud
 		$this->tipo_pagina()->encabezado();
 	}
 	
+	
+	protected function generar_html_botonera_sup($objetos)
+	{
+		//--- Se incluyen botones en la botonera de la operacion
+		foreach ($objetos as $obj) {	
+			if (is_a($obj, 'toba_ci')) {
+				if ($obj->es_botonera_en_barra_item()) {
+					$obj->pantalla()->generar_botones('enc-botonera');					
+				}
+			}
+			$this->generar_html_botonera_sup($obj->get_dependencias());
+		}		
+	}
+	
 	/**
 	 * Servicio común de generación html
 	 */
@@ -192,6 +206,8 @@ class toba_solicitud_web extends toba_solicitud
 		if (toba::solicitud()->hay_zona() && toba::zona()->cargada()) {
 			toba::zona()->generar_html_barra_superior();
 		}
+		//--- Se incluyen botones en la botonera de la operacion
+		$this->generar_html_botonera_sup($objetos);
 		echo "</div>";//---- Se finaliza aqui el div de la barra superior
 		echo '<div style="clear:both;"></div>';
 		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..

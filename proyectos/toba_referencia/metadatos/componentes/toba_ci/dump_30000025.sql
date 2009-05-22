@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Inicio', --nombre
-	'Bienvenido al proyecto de referencia de Toba', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -42,7 +42,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
-INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
+INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, botonera_barra_item, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
 	'toba_referencia', --objeto_mt_me_proyecto
 	'30000025', --objeto_mt_me
 	NULL, --ev_procesar_etiq
@@ -51,6 +51,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
+	NULL, --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -76,7 +77,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	'La forma de recorrer el proyecto es utilizando el menú de la aplicación. El mismo está organizado de la siguiente forma:
+	'<h2>Bienvenido al proyecto de referencia de Toba</h2>
+La forma de recorrer el proyecto es utilizando el menú de la aplicación. El mismo está organizado de la siguiente forma:
 <ul>
 <li><strong>Componentes:</strong> Ejercita distintas funcionalidades de los componentes disponibles para armar interfaces gráficas.
 <li><strong>Generales:</strong> Funcionalidades transversales

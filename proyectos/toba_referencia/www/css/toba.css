@@ -1,3 +1,22 @@
+/** Cambios al skin **/
+.encabezado {
+	margin-bottom:0;
+}
+.cuerpo {
+	margin-top: 0;
+}
+.ci-base {
+	background-color:transparent;
+	border:0px;	
+	width: 100% !important;
+}
+.ci-tabs-h-cont, .ci-wiz-cont, .ci-simple-cont {
+	background-color: #EEEFF2;
+}
+
+/*******************/
+
+
 #menu-h {
 	left:-100px;
 }
@@ -7,6 +26,8 @@
 	background-color: transparent;
 	border: none;
 }
+
+
 a {
   text-decoration: none;
 }
