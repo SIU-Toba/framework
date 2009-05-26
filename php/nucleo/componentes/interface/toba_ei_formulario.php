@@ -26,6 +26,7 @@ class toba_ei_formulario extends toba_ei
 	protected $_ancho_etiqueta = '150px';
 	protected $_ancho_etiqueta_temp;		//Ancho de la etiqueta anterior a un cambio de la misma
 	protected $_efs_invalidos = array();
+	protected $_efs_generados = array();		//Efs que fueron graficados
 	protected $_info_formulario = array();
 	protected $_info_formulario_ef = array();
 	protected $_js_eliminar;
@@ -1050,6 +1051,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function get_input_ef($ef)
 	{
+		$this->_efs_generados[] = $ef;
 		if (! in_array($ef, $this->_lista_ef_post)) {
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
 			return;
@@ -1133,6 +1135,10 @@ class toba_ei_formulario extends toba_ei
 		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->_lista_ef_post as $ef) {
+			if (! in_array($ef, $this->_efs_generados)) {
+				echo "</script>";
+				throw new toba_error_def($this->get_txt()." Error en la redefinición del layout: Falta salida ef '$ef'");
+			}
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		if ($this->_detectar_cambios) {
