@@ -70,7 +70,7 @@ class ci_fuentes extends toba_ci
 			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
 			$instalacion = toba_modelo_catalogo::get_instalacion(null);
 			$bases = $instalacion->get_lista_bases();
-			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base'));
+			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto'));
 			if (in_array($id_base, $bases)) {
 				//---Actualiza la entrada actual
 				$instalacion->actualizar_db($id_base, $datos);
@@ -83,6 +83,7 @@ class ci_fuentes extends toba_ci
 		unset($datos_orig['usuario']);
 		unset($datos_orig['clave']);
 		unset($datos_orig['base']);
+		unset($datos_orig['puerto']);
 		$this->dependencia('datos')->set($datos_orig);
 	}
 
@@ -102,7 +103,7 @@ class ci_fuentes extends toba_ci
 			}
 		} else {
 			$this->dep('form')->desactivar_efs(array('separador', 'entrada', 'motor', 'profile',
-													'usuario', 'clave', 'base'));
+													'usuario', 'clave', 'base', 'puerto'));
 		}
 		$this->dep('form')->ef('subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
 		return $datos;

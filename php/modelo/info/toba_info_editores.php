@@ -914,6 +914,23 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 
+	function get_puerto_motor($motor=null)
+	{
+		$resultado = 0;
+		switch($motor){
+			case 'informix': $resultado = 1526;
+										break;
+			case 'odbc': $resultado = 0;
+									break;
+			case 'mysql': $resultado = 3306;
+									break;
+			case 'postgres7' : $resultado = 5432;
+											break;
+		}
+
+		return $resultado;
+	}
+
 	/**
 	* Propiedadesd de una FUENTEs de DATOS
 	*/
