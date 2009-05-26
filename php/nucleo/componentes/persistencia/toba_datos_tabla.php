@@ -142,12 +142,33 @@ class toba_datos_tabla extends toba_componente
 					$this->persistidor()->activar_proceso_carga_externa_sql(
 							$externa['sql'], $parametros, $resultados, $externa['sincro_continua'], $externa['dato_estricto']);
 				} else {
-					//---Caso DAO
-					$this->persistidor()->activar_proceso_carga_externa_dao(
-							$externa['metodo'], $externa['clase'], $externa['include'],
-							$parametros, $resultados, $externa['sincro_continua'], $externa['dato_estricto']);
+					//---- Caso de carga mediante DAO se divide en 3 casos
+					$this->definir_metodo_carga_dao($externa, $resultados, $parametros);
 				}
 			}
+		}		
+	}
+	
+	protected function definir_metodo_carga_dao($externa, $resultados, $parametros)
+	{
+		//-- La carga se realiza por una clase consulta php
+		if (isset($externa['carga_consulta_php']) && !is_null($externa['carga_consulta_php'])){
+			//Busco los datos del archivo de consulta.
+			$datos_clase = toba_info_editores::get_consulta_php($externa['carga_consulta_php'], $externa['objeto_proyecto']);
+			if (empty($datos_clase)){
+				throw new toba_error_def('La clase de consulta especificada no existe');
+			}
+			$externa['clase'] = $datos_clase['clase'];
+			$externa['include'] = $datos_clase['archivo'];
+		}
+		if (isset($externa['carga_dt']) && ($externa['carga_dt'] != '')){	//--Se carga mediante datos_tabla
+			$this->persistidor()->activar_proceso_carga_externa_datos_tabla(
+								$externa['carga_dt'], $externa['metodo'],$parametros,
+								$resultados, $externa['sincro_continua'], $externa['dato_estricto']);
+		}else{		//Se carga con llamada estatica a una clase especifica.
+			$this->persistidor()->activar_proceso_carga_externa_dao(
+								$externa['metodo'], $externa['clase'], $externa['include'],
+								$parametros, $resultados, $externa['sincro_continua'], $externa['dato_estricto']);
 		}		
 	}
 

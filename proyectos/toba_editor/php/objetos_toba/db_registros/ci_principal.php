@@ -334,21 +334,15 @@ class ci_principal extends ci_editores_toba
 	function conf__detalle_carga(toba_ei_formulario $form)
 	{
 		$datos = $this->get_entidad()->tabla('externas')->get();
-		if (isset($datos['tipo']) && $datos['tipo'] == 'sql') {
-			$lista = array();
-			foreach ($form->get_nombres_ef() as $id_ef) {
-				if ($id_ef != 'sql') {
-					$lista[] = $id_ef;	
-				}
+		if ($datos['tipo'] == 'dao') {
+			$datos['tipo_clase'] = 'estatica';
+			if (isset($datos['carga_consulta_php']) && !is_null($datos['carga_consulta_php'])){
+				$datos['tipo_clase'] = 'consulta_php';
+				$datos['carga_metodo_lista'] = $datos['metodo'];
+			}elseif(isset($datos['carga_dt']) && !is_null($datos['carga_dt'])){
+				$datos['tipo_clase'] = 'datos_tabla';
 			}
-			$form->desactivar_efs($lista);
-		} else {
-			if( isset($datos['clase']) && $datos['clase'] && 
-					isset($datos['include']) && $datos['include'] ) {
-				$datos['estatico'] = 1;
-			}
-			$form->desactivar_efs(array('sql'));
-		}
+		}	
 		$form->set_datos($datos);
 	}		
 	
@@ -359,6 +353,7 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__detalle_carga__modificacion($datos)
 	{
+		//Aca hay que hacer algun otro caso
 		$this->get_entidad()->tabla('externas')->set($datos);
 	}
 	
@@ -396,5 +391,70 @@ class ci_principal extends ci_editores_toba
 	{
 		$c->set_datos($this->get_entidad()->tabla('valores_unicos')->get_filas());
 	}
+
+	//*************************************************************************
+	//***** METODOS SOPORTE ******************************************
+	//*************************************************************************
+	function get_mecanismos_carga()
+	{
+		return array(  array('id' =>'dao', 'nombre' => 'Metodo PHP'),
+								array('id' => 'sql', 'nombre' => 'Consulta SQL'));
+	}
+
+	function get_tipos_clase()
+	{
+		return array(
+			array('tipo' => 'datos_tabla', 	'descripcion' => toba_recurso::imagen_toba('objetos/datos_tabla.gif', true).' Tabla (datos_tabla)'),
+			array('tipo' => 'consulta_php', 'descripcion' => toba_recurso::imagen_toba('editar.gif', true).' Clase de Consulta PHP'),
+			array('tipo' => 'estatica', 	'descripcion' => toba_recurso::imagen_toba('nucleo/php.gif', true).' Clase estática específica'),
+		);
+	}
+
+	protected function get_sql_carga_tabla($dt)
+	{
+		$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);
+		if (! empty($datos)) {
+			$db = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado());
+			$sql = $db->get_sql_carga_descripciones($datos['tabla']);
+			return $sql;
+		}
+	}
+	
+	function ajax__existe_metodo_dt($dt, toba_ajax_respuesta $respuesta)
+	{
+		$dt = toba_contexto_info::get_db()->quote($dt);
+		$subclase = toba_info_editores::get_subclase_componente($dt);
+		if (isset($subclase) && !empty($subclase)) {
+			$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
+			$php = new toba_archivo_php($archivo);
+			if ($php->existe() && $php->contiene_metodo('get_descripciones')) {
+				$sql = $this->get_sql_carga_tabla($dt);
+				$respuesta->set($sql);
+			} else {
+				$respuesta->set(false);
+			}
+		} else {
+			$respuesta->set(false);
+		}
+	}
+
+	function ajax__crear_metodo_get_descripciones($dt, toba_ajax_respuesta $respuesta)
+	{
+		$dt = toba_contexto_info::get_db()->quote($dt);
+		$sql = $this->get_sql_carga_tabla($dt);
+		if (isset($sql)) {
+			$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);
+			$asistente = new toba_asistente_adhoc();
+			$asistente->asumir_confirmaciones();
+			$molde = $asistente->get_molde_datos_tabla($datos['tabla'], $datos['fuente_datos']);
+			$molde->crear_metodo_consulta('get_descripciones', $sql[0]);
+			$molde->generar();
+			$respuesta->set($sql);
+		} else {
+			$respuesta->set(false);
+		}
+	}
+
+
 }
 ?>

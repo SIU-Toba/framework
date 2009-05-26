@@ -162,7 +162,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000231', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
 	'tipo', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'tipo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -175,8 +175,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	'dao', --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
@@ -186,13 +186,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'instancia', --carga_fuente
-	'dao/Método PHP,sql/Consulta SQL', --carga_lista
+	NULL, --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

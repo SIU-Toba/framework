@@ -77,6 +77,10 @@ class toba_migracion_1_4_0 extends toba_migracion
 		
 		//-------------------------Agregado de la columna dato_estricto para la carga de columnas externas---------------------
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN dato_estricto SMALLINT DEFAULT 1;';
+
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN carga_dt BIGINT;';
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN carga_consulta_php BIGINT;';
+
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 

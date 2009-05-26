@@ -135,6 +135,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_parametros Columnas que espera recibir el sql, en la sql necesitan esta el campo entre % (%nombre_campo%)
 	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
+	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
+	 * permite que no posea valor.
 	 */
 	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true, $estricto = true)
 	{
@@ -159,6 +161,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_parametros Columnas que espera recibir el DAO.
 	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
+	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
+	 * permite que no posea valor.	 
 	 */
 	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
 	{
@@ -167,6 +171,32 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["metodo"] = $metodo;
 		$this->_proceso_carga_externa[$proximo]["clase"] = $clase;
 		$this->_proceso_carga_externa[$proximo]["include"] = $include;
+		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
+	}
+
+	/**
+	 * Carga una columna separada del proceso común de carga
+	 * Se brinda un Datos Tabla  que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
+	 * necesitan mantenerse junto al conjunto de datos.
+	 *
+	 * @param string $tabla Identificador del objeto_datos_tabla a utilizar.
+	 * @param string $metodo Método que obtiene los datos.
+	 * @param array $col_parametros Columnas que espera recibir el DAO.
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
+	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
+	 * permite que no posea valor.
+	 */
+	function activar_proceso_carga_externa_datos_tabla($tabla, $metodo, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
+	{
+		$proximo = count($this->_proceso_carga_externa);
+		$this->_proceso_carga_externa[$proximo]["tipo"] = "d_t";
+		$this->_proceso_carga_externa[$proximo]["tabla"] = $tabla;
+		$this->_proceso_carga_externa[$proximo]["metodo"] = $metodo;
 		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
 		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
@@ -309,24 +339,24 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
-			if($this->objeto_tabla->posee_columnas_externas()){
-				for($a=0;$a<count($datos);$a++){
+			if ($this->objeto_tabla->posee_columnas_externas()) {
+				for ($a=0;$a<count($datos);$a++) {
 					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
-					foreach($campos_externos as $id => $valor){
+					foreach ($campos_externos as $id => $valor) {
 						$datos[$a][$id] = $valor;
 					}
 				}				
 			}
 			//Le saco los caracteres de escape a los valores traidos de la DB
-			for($a=0;$a<count($datos);$a++){
-				foreach(array_keys($datos[$a]) as $columna){
-					if(isset($datos[$a][$columna])){
+			for ($a=0;$a<count($datos);$a++) {
+				foreach (array_keys($datos[$a]) as $columna) {
+					if (isset($datos[$a][$columna])) {
 						$datos[$a][$columna] = $datos[$a][$columna];
 					}
 				}	
 			}
 			// Lleno la TABLA
-			if( $anexar_datos ) {
+			if ( $anexar_datos ) {
 				$this->objeto_tabla->anexar_datos($datos, $usar_cursores);
 			} else {
 				$this->objeto_tabla->cargar_con_datos($datos);
@@ -1001,7 +1031,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Recuperacion de valores para las columnas externas.
 	 * Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
 	 * cuyas claves asociativas se contengan la columna que se quiere llenar
-	 * @param array $fila Fila que toma dereferencia la carga externa
+	 * @param array $fila Fila que toma de referencia la carga externa
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados de la DB.
 	 * 
@@ -1032,6 +1062,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				if (! $estan_todos) {
 					continue;
 				}
+				//ei_arbol($parametros, 'Parametros de Carga');
 				//-[ 1 ]- Recupero valores correspondientes al registro
 				if($parametros['tipo']=="sql")											//--- carga SQL!!
 				{
@@ -1043,6 +1074,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
 					}
 					// - 3 - Ejecuto SQL
+					toba::logger()->debug($sql);
 					$datos = toba::db($this->_fuente)->consultar($sql);
 					$es_obligatoria = ($this->_proceso_carga_externa[$carga]['dato_estricto'] == '1');
 					if (!$datos && $es_obligatoria) {
@@ -1057,7 +1089,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					foreach ($parametros['col_parametro'] as $col_llave) {
 						$param_dao[] = $fila[$col_llave];
 					}
-					//ei_arbol($param_dao,"Parametros para el DAO");
+					//ei_arbol($param_dao,"Parametros para el DAO");					
 					// - 2 - Recupero datos
 					if (isset($parametros['clase']) && isset($parametros['include'])) {
 						if (!class_exists($parametros['clase'])) {
@@ -1067,11 +1099,26 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					} else {
 						if (method_exists($this, $parametros['metodo'])) {
 							$datos = call_user_func_array(array($this,$parametros['metodo']), $param_dao);				
-						} else {
+						}else {
 							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
 						}
 					}
+				}elseif($parametros['tipo'] == 'd_t')		//------- carga DATOS_TABLA
+				{
+					// - 1 - Armo los parametros para el DAO
+					$param_dao = array();
+					foreach ($parametros['col_parametro'] as $col_llave) {
+						$param_dao[] = $fila[$col_llave];
+					}
+					$id = array('proyecto' =>  toba_contexto_info::get_proyecto(), 'componente' => $parametros['tabla']);
+					$dt = toba_constructor::get_runtime($id, 'toba_datos_tabla');
+					 if (! method_exists($dt, $parametros['metodo'])) {
+						$clase = get_class($dt);
+						throw new toba_error_def("AP_TABLA_DB: ERROR en la carga de una columna externa. No existe el método '{$parametros['metodo']}' de la clase '$clase'");
+					}
+					$datos = call_user_func_array(array($dt, $parametros['metodo']), $param_dao);
 				}
+
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
 				if (count($datos)>0) {

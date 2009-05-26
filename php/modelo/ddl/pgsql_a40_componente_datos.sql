@@ -143,6 +143,9 @@ CREATE TABLE apex_objeto_db_registros_ext
 --- CARGA SQL
 	sql								varchar			NULL,
 	dato_estricto			SMALLINT  DEFAULT	1  NULL,
+--- CARGA DAO
+	carga_dt							BIGINT NULL,
+	carga_consulta_php		BIGINT NULL,
 	CONSTRAINT  "apex_obj_dbr_ext_pk" PRIMARY KEY ("externa_id", "objeto", "objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_ext_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
 );

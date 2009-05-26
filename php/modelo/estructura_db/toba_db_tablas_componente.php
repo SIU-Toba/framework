@@ -967,6 +967,8 @@ class toba_db_tablas_componente
     7 => 'include',
     8 => 'sql',
     9 => 'dato_estricto',
+    10 => 'carga_dt',
+    11 => 'carga_consulta_php',
   ),
 );
 	}

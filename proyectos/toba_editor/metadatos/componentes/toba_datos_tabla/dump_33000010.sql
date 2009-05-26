@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto, carga_dt, carga_consulta_php) VALUES (
 	'toba_editor', --objeto_proyecto
 	'33000010', --objeto
 	'33000002', --externa_id
@@ -160,7 +160,9 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 FROM  apex_objeto_dependencias
 WHERE
 proyecto = \'%proyecto%\' AND objeto_consumidor = \'%objeto_ci%\' AND dep_id = \'%dep_id%\'', --sql
-	'0'  --dato_estricto
+	'0', --dato_estricto
+	NULL, --carga_dt
+	NULL  --carga_consulta_php
 );
 --- FIN Grupo de desarrollo 33
 
