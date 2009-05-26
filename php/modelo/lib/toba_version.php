@@ -5,6 +5,8 @@ class toba_version
 	protected $partes;
 	protected $build;
 	protected $path_migraciones;
+	protected $inestable;
+	protected $inestables = array('pre-alpha', 'alpha', 'beta', 'rc');
 	
 	function __construct($numero)
 	{
@@ -12,7 +14,7 @@ class toba_version
 			$this->build = 'trunk';
 			return ;
 		}
-		$formato = 'El formato debe ser x.y.z (build). Donde (build) es opcional';
+		$formato = 'El formato debe ser x.y.z (inestable-build). Donde (inestable-build) es opcional';
 		$numero = trim($numero);
 		$this->build = null;
 		$this->partes = explode('.', $numero);
@@ -25,8 +27,26 @@ class toba_version
 			if (! is_numeric($digito)) {
 				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. ".$formato);
 			}
-			$build = trim(str_replace(array('(',')'), '', substr($this->partes[2], strlen($digito))));
-			$this->partes[2] = $digito;			
+			$extra = trim(str_replace(array('(',')'), '', substr($this->partes[2], strlen($digito))));			
+			$this->partes[2] = $digito;
+			$extra = explode('-', $extra);
+			$build = '';
+			if (count($extra) == 2) {
+				$inestable = $extra[0];
+				$build = $extra[1];
+			} else {
+				if (is_numeric($extra[0])) {
+					$build = $extra[0];
+				} else {
+					$inestable = $extra[0];
+				}
+			}
+			if (isset($inestable)) {
+				if (! in_array($inestable, $this->inestables)) {
+					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '$inestable' no es válido. ".$formato);
+				}
+				$this->inestable = $inestable;				
+			}
 			if ($build != '') {
 				$this->build = $build;				
 				if (! is_numeric($build)) {
@@ -52,8 +72,18 @@ class toba_version
 			return 'trunk';
 		}
 		$s = implode('.', $this->partes);
-		if (isset($this->build)) {
-			$s .= ' ('.$this->build.')';
+		if (isset($this->build) || isset($this->inestable)) {
+			$s .= ' (';
+			if (isset($this->inestable)) {
+				$s .= $this->inestable;
+			}
+			if (isset($this->build)) {
+				if (isset($this->inestable)) {
+					$s .= '-';
+				}
+				$s .= $this->build;
+			}
+			$s .= ')';
 		}
 		return $s;
 	}
@@ -144,6 +174,26 @@ class toba_version
 				return 1;	//Es mayor
 			}
 		}
+		if (isset($this->inestable) || isset($otra_version->inestable)) {
+			if (isset($this->inestable)) {
+				$indice_actual = array_search($this->inestable, $this->inestables);
+			} else {
+				$indice_actual = 100;
+			}
+			if (isset($otra_version->inestable)) {
+				$indice_otra = array_search($otra_version->inestable, $this->inestables);
+			} else {
+				$indice_otra = 100;
+			}
+			//-- Son otro relase?
+			if ($indice_actual < $indice_otra) {
+				return -1;
+			}
+			if ($indice_actual > $indice_otra) {
+				return 1;
+			}
+		}		
+		
 		//--- Tienen los mismos numeros, se decide por build
 		if (! isset($this->build) && !isset($otra_version->build)) {
 			return 0; //Ambos no tiene build, se asumen iguales		

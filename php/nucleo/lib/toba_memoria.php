@@ -529,6 +529,48 @@ class toba_memoria
 	}
 
 	//------------------------------------------------------------------------
+	//------- Primitivas control seguridad en la (x operacion, x celda) ------
+	//------------------------------------------------------------------------
+
+	/**
+	 * Almacena un array de la operacion actual en la sesión.
+	 * Se elimina cuando se cambia de operación
+	 */
+	function set_array_operacion($indice, $datos)
+	{
+		$this->set_dato_operacion($indice, $datos);
+	}
+
+	/**
+	 * Controla que exista un dato en un array almacenado para la operacion actual.
+	 */	
+	function en_array_operacion($indice, $dato, $tira_excepcion=true)
+	{
+		$ok = in_array($dato, $this->celda_memoria_actual['global'][$indice]);
+		if ($tira_excepcion && !$ok) {
+			throw new toba_error_seguridad('El valor seleccionado no se corresponde con las opciones válidas');
+		}
+		return $ok;
+	}
+	
+	/**
+	 * Recupera un array almacenado durante la operacion
+	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
+	 */
+	function get_array_operacion($indice)
+	{
+		return $this->get_dato_operacion($indice);
+	}
+	
+	/**
+	 * Elimina un array de la memoria de la operacion
+	 */
+	function limpiar_array_operacion($indice)
+	{
+		$this->eliminar_dato_operacion($indice);
+	}
+
+	//------------------------------------------------------------------------
 	//-------------------- Memoria SINCRONIZADA (x celda) --------------------
 	//------------------------------------------------------------------------
 	/**

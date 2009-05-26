@@ -19,7 +19,7 @@ class test_migracion extends test_toba
 			}
 		} catch (toba_error $e) {
 			if ($es_valida) {
-				$this->fail("La version $version debería ser válida ");	
+				$this->fail("La version $version debería ser válida (".$e->getMessage().")");	
 			} else {
 				$this->pass();
 			}
@@ -37,8 +37,8 @@ class test_migracion extends test_toba
 		$this->chequear_validez("0.1.2", true);
 		$this->chequear_validez("12.14.1222", true);
 		$this->chequear_validez("2.0.0", true);
-		$this->chequear_validez("2.0.0rc", false);
-		$this->chequear_validez("2.0.0rc-1", false);
+		$this->chequear_validez("2.0.0rc", true);
+		$this->chequear_validez("2.0.0rc-1", true);
 		$this->chequear_validez("2", false);
 		$this->chequear_validez("2.0", false);
 		$this->chequear_validez("2.0,12", false);
@@ -46,6 +46,7 @@ class test_migracion extends test_toba
 		$this->chequear_validez("2.0.0rca-1", false);
 		$this->chequear_validez("2.0.0rc-pepa", false);
 		$this->chequear_validez("2.0.0 (2550)", true);
+		$this->chequear_validez("2.0.0 (alpha-2550)", true);
 	}
 	
 	function test_comparacion_versiones()
@@ -54,7 +55,8 @@ class test_migracion extends test_toba
 		$this->assertTrue($v->es_menor( new toba_version('0.10.0')));
 		$this->assertTrue($v->es_mayor( new toba_version('0.1.19')));
 		$this->assertTrue($v->es_igual( new toba_version('0.1.20')));
-		$this->assertTrue($v->es_menor( new toba_version('0.1.20 (2099)')));		
+		$this->assertTrue($v->es_menor( new toba_version('0.1.20 (2099)')));
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20 (rc)')));
 		
 		$v = new toba_version("0.1.20 (200)");
 		$this->assertTrue($v->es_igual( new toba_version('0.1.20 (200)')));		
@@ -63,6 +65,14 @@ class test_migracion extends test_toba
 		$this->assertTrue($v->es_menor( new toba_version('0.1.20 (1114)')));
 		$this->assertTrue($v->es_menor( new toba_version('0.1.21')));
 		
+		
+		$v = new toba_version("0.1.20 (beta-200)");
+		$this->assertTrue($v->es_igual( new toba_version('0.1.20 (beta-200)')));		
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20 (alpha-199)')));
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20 (beta-199)')));
+		$this->assertTrue($v->es_menor( new toba_version('0.1.20 (rc-210)')));
+		$this->assertTrue($v->es_menor( new toba_version('0.1.20 (210)')));
+		$this->assertTrue($v->es_menor( new toba_version('0.1.21')));		
 	}
 
 	function test_camino_migraciones()
