@@ -1042,7 +1042,13 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function generar_input_ef($ef)
 	{
-		echo $this->get_input_ef($ef);
+		$this->_efs_generados[] = $ef;
+		if (! in_array($ef, $this->_lista_ef_post)) {
+			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
+			return;
+		}		
+		$salida = $this->_elemento_formulario[$ef]->get_input();
+		echo $salida;
 	}
 	
 	/**
@@ -1051,12 +1057,9 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function get_input_ef($ef)
 	{
-		$this->_efs_generados[] = $ef;
-		if (! in_array($ef, $this->_lista_ef_post)) {
-			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
-			return;
-		}		
-		return $this->_elemento_formulario[$ef]->get_input();
+		ob_start();
+		$this->generar_input_ef($ef, true);
+		return ob_get_clean();
 	}	
 
 	
