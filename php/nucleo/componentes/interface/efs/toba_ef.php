@@ -118,7 +118,7 @@ abstract class toba_ef
 	//-----------------------------------------------------
 	//---------- Propiedades ESTATICAS del ef -------------
 	//-----------------------------------------------------	
-	
+		
 	/**
 	 * @ignore 
 	 */
@@ -255,6 +255,15 @@ abstract class toba_ef
 	//-------------- ACCESO a propiedades -----------------
 	//-----------------------------------------------------	
 
+	function clave_memoria($multiplexado=true)
+	{
+		if ($multiplexado) {
+			return "ef_" . $this->id_form;
+		} else {
+			return "ef_" . $this->id_form_orig;
+		}
+	}	
+	
 	/**
 	 * Si el ef permite seleccionar opciones, estas ya estan cargadas?
 	 * @return boolean
@@ -602,6 +611,17 @@ abstract class toba_ef
 			$this->estado = null;
     	}
 	}	
+	
+	function guardar_dato_sesion($dato, $multiplexado=false)
+	{
+		if (isset($dato)) {
+			//toba::logger()->info("Guardando en ". $this->clave_memoria($multiplexado). ": ". var_export($dato, true));
+			toba::memoria()->set_dato_operacion($this->clave_memoria($multiplexado), $dato);
+		} else {
+			//toba::logger()->info("Eliminando en ". $this->clave_memoria($multiplexado));
+			toba::memoria()->eliminar_dato_operacion($this->clave_memoria($multiplexado));
+		}		
+	}
 	
 	//-----------------------------------------------------
 	//-------------------- JAVASCRIPT ---------------------

@@ -121,7 +121,7 @@ class toba_carga_opciones_ef
 							$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
 						}
 					}
-					$this->_efs[$id_ef]->set_opciones($datos, $cargar);
+					$this->_efs[$id_ef]->set_opciones($datos, $cargar, $tiene_maestros);
 				}
 			}
 		}

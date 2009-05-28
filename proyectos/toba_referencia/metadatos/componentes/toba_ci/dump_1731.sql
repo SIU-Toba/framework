@@ -49,13 +49,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'165', --evento_id
 	'1731', --objeto
 	'cancelar', --identificador
-	'&Cancelar', --etiqueta
+	'&Volver', --etiqueta
 	'0', --maneja_datos
 	'0', --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	NULL, --imagen
+	'volver.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden

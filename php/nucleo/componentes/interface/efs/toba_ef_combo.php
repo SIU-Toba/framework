@@ -55,11 +55,13 @@ abstract class toba_ef_seleccion extends toba_ef
 	 * Cambia el conjunto de opciones disponibles para que el usuario seleecione
 	 * @param array $datos Arreglo asociativo clave => valor. Si es null se asume que el ef esta temporalmente deshabilitado
 	 */
-	function set_opciones($datos, $maestros_cargados=true)
+	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=true)
 	{
 		$this->opciones_cargadas = true;
 		if (! $maestros_cargados) {
-			$this->input_extra = " disabled ";
+			$this->input_extra = ' disabled';
+		} else {
+			$this->input_extra = '';
 		}
 		$this->opciones = $datos;
 		
@@ -71,6 +73,10 @@ abstract class toba_ef_seleccion extends toba_ef
 			$this->estado = $this->estado_nulo;
 			toba::logger()->warning("Se resetea el estado del ef '{$this->id}' debido a que su estado actual ('$actual') no está cotemplado en las opciones");
 		}
+		$sesion = isset($this->opciones) ? array_keys($this->opciones) : null;
+		//Se guarda multiplexado si lo está el ef, y además tiene maestros, sino es una sola carga de opciones para todas las filas
+		$fila_actual = $this->get_fila_actual();
+		$this->guardar_dato_sesion($sesion, $tiene_maestros && isset($fila_actual));
 	}
 
 	function get_estado()
@@ -162,9 +168,20 @@ abstract class toba_ef_seleccion extends toba_ef
 		if (! isset($_POST[$this->id_form])) {
 			return false;
 		}
+		$seleccion = $_POST[$this->id_form];
+		//Busca los valores disponibles en el ef global
+		$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(false));
+		//toba::logger()->info("Cotejando $seleccion en ".$this->clave_memoria(false)." contra ".var_export($disponibles, true));
+		if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
+			//Busca los valores disponibles en la fila actual
+			$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
+			if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
+				//toba::logger()->info("Fallback Cotejando $seleccion en ".$this->clave_memoria(true)." contra ".var_export($disponibles, true));				
+				throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$seleccion' entre las enviadas");
+			}
+		}
 		if (is_array($this->dato)) {
             //Deduzco el estado de la opcion seleccionada
-   			$seleccion = $_POST[$this->id_form];
 			if ($seleccion == apex_ef_no_seteado){
 				$this->estado = $this->estado_nulo;
 			} else {
@@ -180,11 +197,10 @@ abstract class toba_ef_seleccion extends toba_ef
 				}
 			}
 		} else {
-			$estado = $_POST[$this->id_form];
-			if ($estado == apex_ef_no_seteado) {
-				$estado = null;	
+			if ($seleccion == apex_ef_no_seteado) {
+				$seleccion = null;	
 			}
-			$this->set_estado($estado);
+			$this->set_estado($seleccion);
 		}
 		return true;
 	}

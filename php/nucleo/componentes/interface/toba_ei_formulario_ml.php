@@ -459,7 +459,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		if (!is_array($datos)) {
 			throw new toba_error_def( $this->get_txt() . 
-					" El parametro para cargar el cuadro posee un formato incorrecto:" .
+					" El parametro para cargar el ML posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}		
 		

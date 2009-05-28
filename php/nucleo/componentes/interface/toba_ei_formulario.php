@@ -633,6 +633,7 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	
 	/**
 	 * Cambia el layout actual del formulario usando un template
 	 * @param string $template
@@ -672,6 +673,9 @@ class toba_ei_formulario extends toba_ei
 			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
+		if (! $this->existe_ef($id_ef)) {
+			throw new toba_error_seguridad($this->get_txt()." No existe ef '$id_ef'");
+		}
 		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
@@ -721,7 +725,14 @@ class toba_ei_formulario extends toba_ei
 		}
 		toba::logger()->debug("Cascadas '$id_ef', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_ef, $maestros);
-		toba::logger()->debug("Cascadas '$id_ef', Respuesta: ".var_export($valores, true));				
+		toba::logger()->debug("Cascadas '$id_ef', Respuesta: ".var_export($valores, true));
+
+		//--Guarda los datos en sesion para que los controle a la vuelta PHP
+		if (isset($fila_actual)) {
+			$this->ef($id_ef)->ir_a_fila($fila_actual);
+		}
+		$sesion = isset($valores) ? array_keys($valores) : null;
+		$this->ef($id_ef)->guardar_dato_sesion($sesion, true);
 		
 		//--- Se arma la respuesta en formato JSON
 		$json = new Services_JSON();

@@ -18,11 +18,6 @@ class toba_ef_oculto extends toba_ef
 		}		
 	}
 
-	protected function clave_memoria()
-	{
-		return "ef_" . $this->id_form;
-	}
-
 	function set_estado($estado)
 	{
 		$this->estado = $estado;
