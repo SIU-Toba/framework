@@ -9,6 +9,10 @@ class ci_personas extends toba_ci
 	{
 		if (! toba::zona()->cargada()) {
 			$this->pantalla()->eliminar_evento('descargar');
+		}else{
+			toba::zona()->desactivar_items(array(array('orden' => '2')));
+			//Tambien se puede realizar de la siguiente forma
+			toba::zona()->desactivar_item('1000069');
 		}
 		toba::menu()->set_modo_confirmacion('Esta a punto de abandonar la edición de la persona sin grabar, ¿Desea continuar?', true);
 	}

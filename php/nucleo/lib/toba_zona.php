@@ -211,6 +211,61 @@ class toba_zona
 		return $id_editable;
 	}
 
+	/**
+	 *  Ventana de configuración que permite entre otras cosas desactivar items pertenecientes a la zona.
+	 * @ventana
+	 */
+	function conf()
+	{
+		toba::logger()->debug('La ventana de configuración de la zona no ha sido usada.');
+	}
+
+	//-------------------------------------------------------------------------------
+	//--------------------------   MANEJO DE ITEMS   ------------------------------
+	//-------------------------------------------------------------------------------
+	/**
+	 * Retorna un arreglo con la informacion de los items vecinos se informa proyecto, item, orden
+	 * @return array Recordset con una fila por item en la zona
+	 */
+	function get_items_vecinos()
+	{
+		$items = array();
+		foreach($this->items_vecinos as $item) {
+			$items[] = array('item_proyecto' => $item['objeto_proyecto'], 'item' => $item['item'], 'orden' => $item['orden']);
+		}
+		return $items;
+	}
+
+	/**
+	 * Desactiva items de la zona en runtime de acuerdo a las condiciones especificadas
+	 * @param array $condicion Arreglo de formato Recordset donde se especifican las condiciones
+	 * se puede filtrar por orden dentro de la zona e identificador del item
+	 * Ej: array(array('item' => '1111'), array('item' => '2345'), array('orden'  => 1))
+	 */
+	function desactivar_items($condiciones = array())
+	{
+		$items_restantes = $this->items_vecinos;
+		foreach ($condiciones as $condicion){
+			foreach($items_restantes as $key => $valor) {
+				$coincide = array_intersect_assoc($valor, $condicion);
+				if (! empty($coincide)){
+					unset($items_restantes[$key]);
+				}
+			}
+		}
+		$this->items_vecinos = $items_restantes;
+	}
+
+	/**
+	 * Desactiva un item en particular de la zona mediante su Identificador
+	 * @param mixed $item
+	 */
+	function desactivar_item($item)
+	{
+		if (! is_null($item)){
+			$this->desactivar_items(array(array('item' => $item)));
+		}
+	}
 	//-------------------------------------------------------------------------------
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
@@ -254,7 +309,7 @@ class toba_zona
 	 */
 	function generar_html_barra_vinculos()
 	{
-		foreach($this->items_vecinos as $item){
+		foreach($this->items_vecinos as $item) {
 			$vinculo = toba::vinculador()->get_url($item['item_proyecto'], $item['item']);
 			//Pide el vinculo por si no tiene permisos
 			if (isset($vinculo)) {

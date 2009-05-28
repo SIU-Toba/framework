@@ -139,7 +139,10 @@ class toba_solicitud_web extends toba_solicitud
 			//--- Lugar para poner algun callback a nivel operacion?
 			$this->objetos[$ci]->post_configurar();
 		}
-		
+		//--- Si existe la zona se brinda la posibilidad de configurarla
+		if ($this->hay_zona() && toba::zona()->cargada()) {
+				toba::zona()->conf();
+		}		
 		//--- Se determina el destino del servicio
 		$objetos_destino = toba::memoria()->get_id_objetos_destino();
 		if (!isset($objetos_destino)) {
