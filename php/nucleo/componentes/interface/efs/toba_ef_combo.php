@@ -55,7 +55,7 @@ abstract class toba_ef_seleccion extends toba_ef
 	 * Cambia el conjunto de opciones disponibles para que el usuario seleecione
 	 * @param array $datos Arreglo asociativo clave => valor. Si es null se asume que el ef esta temporalmente deshabilitado
 	 */
-	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=true)
+	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=false)
 	{
 		$this->opciones_cargadas = true;
 		if (! $maestros_cargados) {
@@ -73,6 +73,8 @@ abstract class toba_ef_seleccion extends toba_ef
 			$this->estado = $this->estado_nulo;
 			toba::logger()->warning("Se resetea el estado del ef '{$this->id}' debido a que su estado actual ('$actual') no está cotemplado en las opciones");
 		}
+		
+		//--Guarda en sesion las opciones disponibles
 		$sesion = isset($this->opciones) ? array_keys($this->opciones) : null;
 		//Se guarda multiplexado si lo está el ef, y además tiene maestros, sino es una sola carga de opciones para todas las filas
 		$fila_actual = $this->get_fila_actual();

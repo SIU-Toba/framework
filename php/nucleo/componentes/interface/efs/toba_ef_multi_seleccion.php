@@ -93,13 +93,19 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
 	}	
 	
-	function set_opciones($datos, $maestros_cargados=true)
+	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=false)
 	{
 		$this->opciones_cargadas = true;		
 		if (!isset($datos)) {
 			$datos = array();	
 		}
 		$this->opciones = $datos;
+		
+		//--Guarda en sesion las opciones disponibles
+		$sesion = isset($this->opciones) ? array_keys($this->opciones) : null;
+		//Se guarda multiplexado si lo está el ef, y además tiene maestros, sino es una sola carga de opciones para todas las filas
+		$fila_actual = $this->get_fila_actual();
+		$this->guardar_dato_sesion($sesion, $tiene_maestros && isset($fila_actual));
 	}
 	
 	protected function es_estado_individual_nulo($estado)
@@ -165,8 +171,28 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			$this->estado = $this->estado_nulo;
 			return false;
 		}
-		if (is_array($this->dato)) {
-			$estado = $_POST[$this->id_form];
+		$estado = $_POST[$this->id_form];
+		if (! is_array($estado)) {
+			throw new toba_error_seguridad("Se esperaba un arreglo, se recibio ".var_export($estado, true));
+		}
+		
+		//-- Chequeo de seguridad que lo que viene es parte de lo que se ofrecio
+		$globales = toba::memoria()->get_dato_operacion($this->clave_memoria(false));
+		$por_fila = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
+		foreach ($estado as $valor) {
+			//toba::logger()->info("Cotejando $valor en ".$this->clave_memoria(false)." contra ".var_export($globales, true));
+			if (!isset($globales) || ! in_array($valor, $globales)) {
+				//Busca los valores disponibles en la fila actual
+				if (!isset($por_fila) || ! in_array($valor, $por_fila)) {
+					//toba::logger()->info("Fallback Cotejando $valor en ".$this->clave_memoria(true)." contra ".var_export($por_fila, true));				
+					throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$valor' entre las enviadas");
+				}
+			}
+		}
+				
+		if (! is_array($this->dato)) {
+			$this->estado = $estado;
+		} else {
 			$cant_datos = count($this->dato);
 			$this->estado = array();
 			foreach ($estado as $seleccion) {
@@ -181,8 +207,6 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 				}
 				$this->estado[] = $nuevo;
 			}
-		} else {
-			parent::cargar_estado_post();
 		}
 		return true;
 	}
