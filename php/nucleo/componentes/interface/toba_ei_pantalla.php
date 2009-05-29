@@ -38,7 +38,6 @@ class toba_ei_pantalla extends toba_ei
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 		$this->_submit = $submit;
 		$this->objeto_js = $objeto_js;
-		$this->_posicion_botonera = ($this->_info_ci['posicion_botonera'] != '') ? $this->_info_ci['posicion_botonera'] : 'abajo';
 	}
 
 	/**
@@ -437,7 +436,7 @@ class toba_ei_pantalla extends toba_ei
 		echo "</div>\n";
 		
 		//--> Botonera
-		if($this->_posicion_botonera == "abajo" || $this->_posicion_botonera == "ambos") {
+		if($this->botonera_abajo()) {
 			$this->generar_botones('ci-botonera ci-botonera-abajo');
 		}
 		if ( $this->_utilizar_impresion_html ) {

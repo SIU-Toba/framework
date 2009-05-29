@@ -44,7 +44,7 @@ class toba_componente_def implements toba_componente_definicion
 									o.parametro_e               	as parametro_e,              
 									o.parametro_f               	as parametro_f,              
 									o.usuario                   	as usuario,                  
-									o.creacion                  	as creacion,        
+									o.creacion                  	as creacion,
 									c.editor_proyecto 				as clase_editor_proyecto,
 									c.editor_item 					as clase_editor_item,
 									c.archivo 						as clase_archivo,
@@ -60,7 +60,9 @@ class toba_componente_def implements toba_componente_definicion
 									(SELECT COUNT(*) 
 										FROM apex_objeto_dependencias 
 										WHERE objeto_consumidor = o.objeto
-												AND proyecto = o.proyecto) as cant_dependencias
+												AND proyecto = o.proyecto
+									) as cant_dependencias,
+									o.posicion_botonera   as posicion_botonera
 						FROM	apex_objeto o
 									LEFT OUTER JOIN apex_objeto_info oi 
 										ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto)

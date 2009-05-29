@@ -31,14 +31,21 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
-
+	//Para no cambiar la visual del editor los que hago es redireccionar
+	//la columna posicion_botonera entre el formulario de propiedades
+	//basicas y el datos-tabla de base
+	//****************************************************************************
 	function conf__prop_basicas()
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos['posicion_botonera'] = $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
+		return $datos;
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
+		$this->get_entidad()->tabla('base')->set_columna_valor('posicion_botonera', $datos['posicion_botonera']);
+		unset($datos['posicion_botonera']);
 		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 	}
 

@@ -167,6 +167,7 @@ class toba_db_tablas_componente
     25 => 'parametro_f',
     26 => 'usuario',
     27 => 'creacion',
+    28 => 'posicion_botonera',
   ),
 );
 	}

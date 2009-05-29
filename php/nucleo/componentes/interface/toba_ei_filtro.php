@@ -315,8 +315,10 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
-		$extra = $this->get_botonera_manejo_filas();		
-		$this->generar_botones('', $extra);
+		echo $this->get_botonera_manejo_filas();
+		if ($this->botonera_abajo()) {
+			$this->generar_botones();
+		}
 	}
 		
 	/**
@@ -420,7 +422,7 @@ class toba_ei_filtro extends toba_ei
 		}
 		return null;
 	}	
-	
+
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------

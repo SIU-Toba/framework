@@ -885,7 +885,9 @@ class toba_ei_formulario extends toba_ei
 			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 			echo "</div>";
 		}
-		$this->generar_botones();
+		if ($this->botonera_abajo()) {
+				$this->generar_botones();
+		}
 		echo "</div>\n";
 	}
 	

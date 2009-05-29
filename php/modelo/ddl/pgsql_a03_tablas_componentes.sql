@@ -253,6 +253,7 @@ CREATE TABLE apex_objeto
 	parametro_f							varchar(100)	NULL,
 	usuario								varchar(20)		NULL,
 	creacion							timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
+	posicion_botonera			varchar(10)		NULL, 
 	CONSTRAINT	"apex_objeto_pk"	 PRIMARY	KEY ("objeto", "proyecto"),
 	CONSTRAINT  "apex_objeto_identificador_uq" UNIQUE ("proyecto","identificador"),
 	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,

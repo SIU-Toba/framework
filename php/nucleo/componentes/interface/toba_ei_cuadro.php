@@ -1539,7 +1539,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->html_barra_total_registros();
 		
 		//Botonera
-		if ($this->hay_botones()) {
+		if ($this->hay_botones() && $this->botonera_abajo()) {
 			echo"<tr><td>";
 			$this->generar_botones();
 			echo "</td></tr>\n";
@@ -1586,7 +1586,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->html_generar_campos_hidden();
 		echo $this->get_html_barra_editor();
 		echo ei_mensaje($texto);
-		if ($this->hay_botones()) {
+		if ($this->hay_botones() && $this->botonera_abajo()) {
 			$this->generar_botones();
 		}		
 	}

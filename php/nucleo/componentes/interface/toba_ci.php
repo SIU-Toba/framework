@@ -24,7 +24,6 @@ class toba_ci extends toba_ei
 	protected $_eventos;								// Lista de eventos que expone el CI
 	protected $_evento_actual;						// Evento propio recuperado de la interaccion
 	protected $_evento_actual_param;					// Parametros del evento actual
-	protected $_posicion_botonera;					// Posicion de la botonera en la interface
 	// Pantalla
 	protected $_pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
 	private   $_pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio

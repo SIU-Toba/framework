@@ -696,7 +696,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->generar_formulario_pie();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
-		$this->generar_botones();
+		if ($this->botonera_abajo()) {
+			$this->generar_botones();
+		}
 	}
 	
 	/**

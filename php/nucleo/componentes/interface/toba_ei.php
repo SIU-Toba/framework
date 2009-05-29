@@ -37,6 +37,7 @@ abstract class toba_ei extends toba_componente
 		parent::__construct($definicion);
         $this->_submit = $this->_prefijo.'_'.$this->_id[1];
 		$this->objeto_js = "js_".$this->_submit;
+		$this->_posicion_botonera = (! is_null($this->_info['posicion_botonera'])) ? $this->_info['posicion_botonera'] : 'abajo';
 		$this->preparar_componente();
 	}
 
@@ -341,6 +342,14 @@ abstract class toba_ei extends toba_componente
 	}
 
 	//--- BOTONES -------------------------------------------------
+	/**
+	 * Devuelve True si la botonera del componente se debe ubicar abajo o en ambos extremos del mismo.
+	 * @return boolean
+	 */
+	function botonera_abajo()
+	{
+		return ($this->_posicion_botonera != 'arriba');
+	}
 
 	/**
 	 * Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente
@@ -564,7 +573,7 @@ abstract class toba_ei extends toba_componente
 					$estilo .= ' ei-barra-sup-sin-tit';
 				}
 				if (!$botonera_sup && $tiene_titulo) {
-					$estilo .= ' ei-barra-sup-sin-botonera';
+					$estilo = 'ei-barra-sup ' . $estilo. ' ei-barra-sup-sin-botonera';
 				}
 				//ei_barra_inicio("ei-barra-sup $estilo");
 		
@@ -573,7 +582,7 @@ abstract class toba_ei extends toba_componente
 				if ($this->_info['colapsable'] && isset($this->objeto_js)) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				}			
-				echo "<div class='ei-barra-sup $estilo' $colapsado>\n";
+				echo "<div class='$estilo' $colapsado>\n";
 				//--> Botonera
 				if ($botonera_sup) {
 					$this->generar_botones();

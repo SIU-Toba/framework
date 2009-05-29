@@ -78,8 +78,12 @@ class toba_migracion_1_4_0 extends toba_migracion
 		//-------------------------Agregado de la columna dato_estricto para la carga de columnas externas---------------------
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN dato_estricto SMALLINT DEFAULT 1;';
 
+		//---------------------Agregado de columnas para marcar el metodo de carga de columnas externas en dt ---------
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN carga_dt BIGINT;';
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN carga_consulta_php BIGINT;';
+
+		//---------------------------- Agregado de columna para marcar la posicion de la botonera en los Eis ---------------------
+		$sql[] = 'ALTER TABLE apex_objeto ADD COLUMN posicion_botonera VARCHAR(10);';
 
 		$this->elemento->get_db()->ejecutar($sql);
 	}
@@ -297,7 +301,26 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
-	
+	/**
+	 *  Agrega a ciertos Eis la botonera, aprovecho para cambiar el lugar de donde lee el ci.
+	 */
+	function proyecto__agregar_botonera_eis()
+	{
+		//-- Primeramente seteo el valor default para aquellos objetos que lo necesitan
+		$sql = "UPDATE apex_objeto SET posicion_botonera = 'abajo'
+					WHERE clase IN ('toba_ei_filtro', 'toba_ei_cuadro', 'toba_ei_formulario', 'toba_ei_formulario_ml')
+					AND proyecto = '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		//-- Copio el valor de los objetos_ci que ya poseen un valor definido.
+		$sql = "UPDATE apex_objeto as ao SET posicion_botonera = ci.posicion_botonera
+					FROM apex_objeto_mt_me as ci
+					WHERE
+						ao.proyecto = ci.objeto_mt_me_proyecto
+						AND ao.objeto = ci.objeto_mt_me
+						AND ao.proyecto = '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
 }
 
 ?>
