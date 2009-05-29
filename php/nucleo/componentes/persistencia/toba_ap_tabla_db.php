@@ -612,9 +612,17 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$fila_original = $this->_cambios[$id_fila]['original'];
 			$diff = "<ul>";
 			foreach ($columnas as $col) {
+				if (! isset($fila_base[$col])) {
+					$fila_base[$col] = null;
+				}
+				if (! isset($fila_original[$col])) {
+					$fila_original[$col] = null;
+				}
 				$modificado = (string) $fila_base[$col] !== (string) $fila_original[$col];
 				if ($modificado) {
-					$diff .= "<li>$col: pasó de ser '{$fila_base[$col]}' a '{$fila_original[$col]}'</li>";
+					$anterior = isset($fila_original[$col]) ? "'".$fila_original[$col]."'" : 'NULL';
+					$actual = isset($fila_base[$col]) ? "'".$fila_base[$col]."'" : 'NULL';
+					$diff .= "<li>$col: tenía el valor $anterior y ahora tiene $actual </li>";
 				}
 			}
 			$diff .= '</ul>';

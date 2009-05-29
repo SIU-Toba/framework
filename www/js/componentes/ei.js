@@ -36,6 +36,13 @@ ei.prototype.constructor = ei;
 	 */
 	ei.prototype.iniciar = function() {
 	};
+	
+	/**
+	 * Ventana de código que se ejecuta luego de que el componente ha terminado de iniciarse en javascript
+	 * @ventana
+	 */
+	ei.prototype.ini = function() {
+	};	
 
 	/**
 	 * @private

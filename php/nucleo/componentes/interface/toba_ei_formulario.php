@@ -731,7 +731,7 @@ class toba_ei_formulario extends toba_ei
 		if (isset($fila_actual)) {
 			$this->ef($id_ef)->ir_a_fila($fila_actual);
 		}
-		$sesion = isset($valores) ? array_keys($valores) : null;
+		$sesion = (isset($valores) && is_array($valores)) ? array_keys($valores) : null;
 		$this->ef($id_ef)->guardar_dato_sesion($sesion, true);
 		
 		//--- Se arma la respuesta en formato JSON

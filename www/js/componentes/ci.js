@@ -52,6 +52,10 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		for (var dep in this._deps) {
 			this._deps[dep].iniciar();
 		}
+		//Ventana de extensión para los proyectos
+		for (var dep in this._deps) {
+			this._deps[dep].ini();
+		}		
 	};
 	
 	//---Eventos
