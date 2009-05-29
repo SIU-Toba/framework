@@ -1518,10 +1518,14 @@ class toba_datos_tabla extends toba_componente
 			if($filas) {	// Si los cursores no filtran registros, no sincronizo nada
 				$this->validar($filas);
 				$modif = $this->persistidor()->sincronizar($filas);
+				//Regenero la estructura que mantiene los cambios realizados
+				$this->notificar_fin_sincronizacion($filas);				
 			}
 		} else {
 			$this->validar();
 			$modif = $this->persistidor()->sincronizar();
+			//Regenero la estructura que mantiene los cambios realizados
+			$this->notificar_fin_sincronizacion();
 		}
 		return $modif;
 	}

@@ -391,8 +391,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$modificaciones += $this->sincronizar_eliminados($filas);
 			$modificaciones += $this->sincronizar_insertados($filas);
 			$modificaciones += $this->sincronizar_actualizados($filas);
-			//Regenero la estructura que mantiene los cambios realizados
-			$this->objeto_tabla->notificar_fin_sincronizacion($filas);
 			$this->evt__post_sincronizacion();
 			if($this->_utilizar_transaccion) cerrar_transaccion($this->_fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
@@ -496,6 +494,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function insertar_registro_db($id_registro)
 	{
 		$this->ejecutar_sql_insert($id_registro);
+		
 		//Actualizo las secuencias
 		if(count($this->_secuencias)>0){
 			foreach($this->_secuencias as $columna => $secuencia){
@@ -505,6 +504,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
+		
+		//Actualizo los default
 	}
 
 	/**
