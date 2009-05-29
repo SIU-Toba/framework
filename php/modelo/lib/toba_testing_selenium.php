@@ -1,5 +1,16 @@
 <?php
 
+
+/**
+ * Permite generar casos de test para selenium
+ * 
+ * Ejemplo de uso
+ *  $testing = new toba_testing_selenium('mapuche', 'http://192.168.132.209/mapuche/1.2');
+ *  $testing->test_operaciones(true);
+ *  $testing->guardar('C:\\SIU\\2009\\testeo2009\\selenium\\generacionAutomatica\\Test1.html');
+ *  echo $testing->get_salida();
+ *
+ */
 class toba_testing_selenium
 {
 	protected $url_base;
@@ -140,9 +151,8 @@ class toba_testing_selenium
 		return $this->get_arbol(toba_info_editores::get_item_raiz($this->proyecto));
 	}
 		
-	
 
-	
 }
+
 
 ?>
