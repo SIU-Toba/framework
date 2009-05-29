@@ -129,6 +129,25 @@ class toba_js
 				$espera = 0;	//No hay espera
 			}
 			echo "var toba_espera=$espera;\n";
+
+			//-------------- Incluyo funcionalidad para la respuesta del popup  ---------------
+			$ef_popup = toba::memoria()->get_parametro('ef_popup');
+			if (is_null($ef_popup)) {
+				$ef_popup = toba::memoria()->get_dato_sincronizado('ef_popup');
+			}
+			if (! is_null($ef_popup)){
+				toba::memoria()->set_dato_sincronizado('ef_popup', $ef_popup);
+				echo "
+				function seleccionar(clave, descripcion) {
+					window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
+					window.close();
+				}
+				function respuesta_ef_popup(parametros) {
+					var seleccion = parametros.split('||');
+					seleccionar(seleccion[0], seleccion[1]);
+				} ";
+			}
+			//-----------------------------------------------------------------------------------------------------
 			echo toba_js::cerrar();		
 			//Incluyo el javascript STANDART	
 			

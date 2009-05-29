@@ -9,31 +9,6 @@
 class toba_tp_popup extends toba_tp_basico_titulo 
 {
 	
-	protected function comienzo_cuerpo()
-	{
-		parent::comienzo_cuerpo();
-		$hilo = toba::memoria();
-	    $ef_popup = $hilo->get_parametro('ef_popup');
-	    if ($ef_popup == null) {
-	        $ef_popup = $hilo->get_dato_sincronizado('ef_popup');
-	    }
-		$hilo->set_dato_sincronizado('ef_popup', $ef_popup);
-	
-		echo toba_js::abrir();
-		echo "
-			function seleccionar(clave, descripcion) {
-				window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
-				window.close();
-			}
-			function respuesta_ef_popup(parametros) {
-				var seleccion = parametros.split('||');
-				seleccionar(seleccion[0], seleccion[1]);
-			}
-		";
-		echo toba_js::cerrar();
-		echo "\n\n";
-	}
-	
 	protected function barra_superior()
 	{
 	
