@@ -117,6 +117,16 @@ class toba_ei_pantalla extends toba_ei
 	}
 	
 	/**
+	 * Cambia el layout actual de la pantalla usando un template
+	 * @param string $template
+	 */
+	function set_template($template)
+	{
+		$this->_info_pantalla['template'] = $template;
+	}
+	
+	
+	/**
 	 * Retorna la descripción de esta pantalla
 	 * @return string
 	 */
@@ -528,14 +538,23 @@ class toba_ei_pantalla extends toba_ei
 	 */	
 	protected function generar_layout()
 	{
-		$existe_previo = 0;
-		foreach($this->_dependencias as $dep) {
-			if($existe_previo){ //Separador
-				echo "<hr class='ci-pant-sep-ei'/>\n";
+		if (!isset($this->_info_pantalla['template']) || trim($this->_info_pantalla['template']) == '') {		
+			$existe_previo = 0;
+			foreach($this->_dependencias as $dep) {
+				if($existe_previo){ //Separador
+					echo "<hr class='ci-pant-sep-ei'/>\n";
+				}
+				$dep->generar_html();	
+				$existe_previo = 1;
 			}
-			$dep->generar_html();	
-			$existe_previo = 1;
+		} else {
+			$this->generar_layout_template();
 		}
+	}
+	
+	protected function generar_layout_template()
+	{
+		echo $this->_info_pantalla['template'];	
 	}
 
 	/**

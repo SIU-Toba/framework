@@ -148,7 +148,7 @@ function abrir_toba_instancia(){
  ?></a></td>
 
 		<td class='listado-tabi'>
-			<a title='Testing Automático' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000270,null, array('menu' => true)); ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
+			<a title='Testing' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000270,null, array('menu' => true)); ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
 		</td>
 
 <?php

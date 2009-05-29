@@ -125,10 +125,15 @@ class pantalla_seleccion  extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		$opciones = array('param_html' => array('texto' => 'Testing JS'));
-		$test_js = toba::vinculador()->get_url('toba_editor', 1000269, null, $opciones);
 		parent::generar_layout();
+
+		$opciones = array('param_html' => array('texto' => 'Testing JS'));
+		$test_js = toba::vinculador()->get_url('toba_editor', 1000269, null, $opciones);		
 		echo "<br>".$test_js;
+		
+		$opciones = array('param_html' => array('texto' => 'Testing Selenium'));
+		$test_selenium = toba::vinculador()->get_url('toba_editor', 30000025, null, $opciones);		
+		echo "<br>".$test_selenium;
 	}
 	
 }
