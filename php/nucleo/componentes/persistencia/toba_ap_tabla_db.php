@@ -40,6 +40,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_hacer_trim_datos = true;		// Hace un trim de los datos en el insert/update
 	protected $_lock_optimista = true;
 	//-------------------------------
+	protected $_insert_campos_default = array();
 
 	
 	/**
@@ -505,7 +506,24 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 		}
 		
-		//Actualizo los default
+		//Actualizo los valores que tomaron los DEFAULT enviados
+		if (! empty($this->_insert_campos_default)) {
+			$id = array();
+			foreach ($this->_clave as $campo_clave) {
+				$id[$campo_clave] = $this->datos[$id_registro][$campo_clave];
+			}
+			$where = $this->generar_clausula_where_lineal($id, false);
+			$sql =	"SELECT\n\t" . implode(", \n\t", $this->_insert_campos_default);
+			$sql .= "\nFROM\n\t {$this->_tabla}";
+			$sql .= "\nWHERE ".implode(' AND ', $where);
+			$fila_base = toba::db($this->_fuente)->consultar_fila($sql);
+			if ($fila_base === false) {
+				throw new toba_error("Se esperaba encontrar un registro", $sql);
+			}
+			foreach ($this->_insert_campos_default as $campo) {
+				$this->registrar_recuperacion_valor_db($id_registro, $campo, $fila_base[$campo]);
+			}
+		}
 	}
 
 	/**
@@ -809,6 +827,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$db = toba::db($this->_fuente);
 		$valores_sql_binarios = array();
 		$columnas_sql_binarios = array();
+		$this->_insert_campos_default = array();		
 		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
@@ -832,6 +851,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					//-- Es un campo NULO
 					$valores_sql[$a] = "DEFAULT";
 					$columnas_sql[$a] = $col;
+					$this->_insert_campos_default[] = $col;
 				}else{
 					if(	toba_tipo_datos::numero($columna['tipo']) ){
 						//-- Los booleanos muchas veces se representan como enteros en la base
