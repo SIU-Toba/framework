@@ -73,11 +73,17 @@ abstract class toba_componente
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
-		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
 		//$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
 	}
 	
+	
+	function __sleep()
+	{
+		throw new toba_error($this->get_txt()."Los componentes toba no se pueden serializar (eg. guardar en sesion) en forma directa. 
+								Si esta intentando serializar un objeto que posee una referencia a un componente toba entre sus propiedades, puede hacerlo funcionar heredando
+									de la clase toba_serializar_propiedades.");
+	}
 	
 	/**
 	 * Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.
@@ -93,6 +99,7 @@ abstract class toba_componente
 	 */
 	function inicializar($parametros=array())
 	{
+		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada		
 		$this->_parametros = $parametros;
 		$this->ini();
 	}
@@ -357,24 +364,21 @@ abstract class toba_componente
 	 */
 	protected function recuperar_estado_sesion()
 	{
-		if(toba::memoria()->existe_dato_operacion($this->_id_ses_grec)) {
+		if (toba::memoria()->existe_dato_operacion($this->_id_ses_grec)) {
 			//Recupero las propiedades de la sesion
 			$temp = toba::memoria()->get_dato_operacion($this->_id_ses_grec);
-			if(isset($temp["toba__indice_objetos_serializados"])) {			//El objeto persistio otros objetos
-				$objetos = $temp["toba__indice_objetos_serializados"];
-				unset($temp["toba__indice_objetos_serializados"]);
-				foreach(array_keys($temp) as $propiedad) {
-					if(in_array($propiedad,$objetos)) {
-						//La propiedad es un OBJETO!
-						$this->$propiedad = unserialize($temp[$propiedad]);
-					} else {
-						$this->$propiedad = $temp[$propiedad];
-					}
-				}
-			} else { 														//El objeto solo persistio variables
-				foreach(array_keys($temp) as $propiedad) {
+			$serializados = isset($temp["toba__indice_objetos_serializados"]) ? $temp["toba__indice_objetos_serializados"] : array();
+			
+			foreach(array_keys($temp) as $propiedad) {
+				if (in_array($propiedad, $serializados)) {
+					$this->$propiedad = unserialize($temp[$propiedad]);
+				} else {
+					//Es un elemento corriente
 					$this->$propiedad = $temp[$propiedad];
 				}
+			}
+			if (! empty($serializados)) {
+				unset($temp['toba__indice_objetos_serializados']);
 			}
 		}
 	}
@@ -394,12 +398,12 @@ abstract class toba_componente
 					//Si la propiedad es un array que posee objetos, lo serializo
 					//a mano para no tener problemas con la desserializacion automatica de la sesion
 					//que requiere todos los includes del proyecto antes del session start
-					if(is_array($this->$nombre_prop)){
-						$es_array_con_objetos = $this->variable_array_posee_objetos($this->$nombre_prop);
+					if (is_array($this->$nombre_prop)) {
+						$posee_objetos = array_posee_objetos($this->$nombre_prop);
 					} else {
-						$es_array_con_objetos = false;
+						$posee_objetos = false;
 					}
-					if(is_object($this->$nombre_prop) || $es_array_con_objetos ){
+					if (is_object($this->$nombre_prop) || $posee_objetos) {
 						$temp[$this->_propiedades_sesion[$a]] = serialize($this->$nombre_prop);
 						//Dejo la marca de que serialize un OBJETO.
 						$temp["toba__indice_objetos_serializados"][] = $this->_propiedades_sesion[$a];
@@ -416,23 +420,6 @@ abstract class toba_componente
 				toba::memoria()->eliminar_dato_operacion($this->_id_ses_grec);
 			}
 		}
-	}
-
-	/**
-	*	Indica si una variable posee objetos en su estructura
-	*	@ignore
-	*/
-	private function variable_array_posee_objetos($variable)
-	{
-		foreach($variable as $elemento) {
-			if(is_object($elemento)) {
-				return true;	
-			}
-			if(is_array($elemento)) {
-				return $this->variable_array_posee_objetos($elemento);
-			}
-		}
-		return false;
 	}
 
 	/**

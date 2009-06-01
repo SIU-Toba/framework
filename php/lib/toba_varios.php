@@ -92,7 +92,25 @@
 		}
 		return $arreglo;
 	}	
-
+	
+	/**
+	 * Determina si alguna componente recursiva del arreglo es un objeto php
+	 * @param array $variable
+	 * @return boolean
+	 */
+	function array_posee_objetos($variable)
+	{
+		foreach($variable as $elemento) {
+			if(is_object($elemento)) {
+				return true;	
+			}
+			if(is_array($elemento)) {
+				return array_posee_objetos($elemento);
+			}
+		}
+		return false;
+	}	
+	
 	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
 	{
 		$rs_columna = array();

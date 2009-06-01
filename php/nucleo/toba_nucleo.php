@@ -417,10 +417,12 @@ class toba_nucleo
 			'toba_tarea_php'						=> 'nucleo/lib/toba_tarea.php',			
 			'toba_mail'								=> 'nucleo/lib/toba_mail.php',
 			'toba_planificador_tareas'				=> 'nucleo/lib/toba_planificador_tareas.php',
-
+			'toba_serializar_propiedades'			=> 'nucleo/lib/toba_serializar_propiedades.php',
+		
  			//-----------------------------------------------------------------------------------------------
 			//--------- COMPONENTES -------------------------------------------------------------------------
  			//-----------------------------------------------------------------------------------------------
+
 			'toba_item_def'							=> 'nucleo/componentes/definicion/toba_item_def.php',
 			'toba_item_info'						=> 'modelo/info/componentes/toba_item_info.php',
 			'toba_componente'						=> 'nucleo/componentes/toba_componente.php',
