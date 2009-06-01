@@ -74,8 +74,8 @@ abstract class toba_componente
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->cargar_info_dependencias();
-		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada		
 		//$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
+
 	}
 	
 	
@@ -100,6 +100,7 @@ abstract class toba_componente
 	 */
 	function inicializar($parametros=array())
 	{
+		$this->recuperar_estado_sesion();	//RECUPERO Memoria desincronizada		
 		$this->_parametros = $parametros;
 		$this->ini();
 	}

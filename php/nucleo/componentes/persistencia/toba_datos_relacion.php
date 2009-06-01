@@ -28,6 +28,7 @@ class toba_datos_relacion extends toba_componente
 		$propiedades[] = "_cargado";
 		$this->set_propiedades_sesion($propiedades);			
 		parent::__construct($id);
+		$this->recuperar_estado_sesion();
 		$this->crear_tablas();
 		$this->crear_relaciones();
 		if ($this->_info_estructura['debug']) {
@@ -35,6 +36,7 @@ class toba_datos_relacion extends toba_componente
 		}
 		$this->ini();
 	}
+	
 
 	/**
 	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad

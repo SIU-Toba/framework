@@ -210,7 +210,7 @@ class toba_logger
     		$pasos = debug_backtrace();
 		}
     	$html = "[TRAZA]\n";
-		$html .= "\t<ul style='display: none'>\n";    
+		$html .= "\t<ul>\n";    
     	foreach ($pasos as $paso) {
 			$clase = '';
 			if (isset($paso['class'])) {

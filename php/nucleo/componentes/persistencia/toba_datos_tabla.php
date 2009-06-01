@@ -61,6 +61,7 @@ class toba_datos_tabla extends toba_componente
 		$propiedades[] = "_blobs";
 		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
+		$this->recuperar_estado_sesion();
 		for($a=0; $a<count($this->_info_columnas);$a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
 			$this->_columnas[ $this->_info_columnas[$a]['columna'] ] =& $this->_info_columnas[$a];
