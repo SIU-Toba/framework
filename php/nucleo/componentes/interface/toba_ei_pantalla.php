@@ -32,7 +32,7 @@ class toba_ei_pantalla extends toba_ei
 	protected $_objetos_pantalla = array();		//Arreglo con info de los objetos asociados
 	protected $_eventos_pantalla = array();		//Arreglo con info de los eventos asociados
 
-	function __construct($info_pantalla, $submit, $objeto_js)
+	final function __construct($info_pantalla, $submit, $objeto_js)
 	{
 		parent::__construct($info_pantalla);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>

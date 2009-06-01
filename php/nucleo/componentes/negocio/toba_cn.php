@@ -14,7 +14,7 @@ class toba_cn extends toba_componente
 {
 	protected $_transaccion_abierta;			//Indica si la transaccion se encuentra en proceso
 
-	function __construct($id)
+	final function __construct($id)
 	{
 		parent::__construct($id);
 		$this->_transaccion_abierta = false;
@@ -24,8 +24,8 @@ class toba_cn extends toba_componente
 			$this->_dependencias[$dep]->set_controlador($this, $dep);
 			$this->dep($dep);
 		}		
-		$this->ini();
 	}
+	
 
 	/**
 	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.

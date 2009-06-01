@@ -33,7 +33,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_hay_toggle = false;
 	protected $_mostrar_cabecera_sin_datos = true;
 	
-	function __construct($id)
+	final function __construct($id)
 	{
 		parent::__construct($id);
 		$this->_siguiente_id_fila = isset($this->_memoria['siguiente_id_fila']) ? $this->_memoria['siguiente_id_fila'] : 156;

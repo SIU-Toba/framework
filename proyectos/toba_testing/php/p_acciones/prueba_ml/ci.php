@@ -8,11 +8,6 @@ class ci extends toba_ci
 	protected $registro_actual;
 	protected $datos_filtro;
 
-    function __construct($id) 
-    { 
-        parent::__construct($id); 
-    } 
-
     function mantener_estado_sesion() 
     { 
         $propiedades = parent::mantener_estado_sesion(); 

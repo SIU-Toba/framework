@@ -24,6 +24,12 @@ class toba_ei_filtro extends toba_ei
 	protected $_pdf_tabla_ancho;
 	protected $_pdf_tabla_opciones = array();
 	
+	
+	final function __construct($definicion)
+	{
+		parent::__construct($definicion);
+	}
+	
 	/**
 	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 

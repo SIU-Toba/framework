@@ -34,22 +34,14 @@ class toba_ci extends toba_ei
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
 	protected $_metodos_ajax;						//Metodos AJAX que se pueden invocar en este pedido de página
 	
-	function __construct($id)
+	final function __construct($id)
 	{
 		$this->set_propiedades_sesion(array('_ini_operacion','_dependencias_ci', '_metodos_ajax'));		
 		parent::__construct($id);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
-	/**
-	 * Extensión de la construcción del componente
-	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
-	 * @ignore 
-	 */	
-	protected function preparar_componente(){}
 
-
-	
 	/**
 	 * Destructor del componente
 	 */	
@@ -81,6 +73,7 @@ class toba_ci extends toba_ei
 	 */
 	function inicializar($parametro=null)
 	{
+		$this->_inicializado = true;
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria desincronizada		
 		if(isset($parametro)){
 			$this->_nombre_formulario = $parametro["nombre_formulario"];
@@ -426,11 +419,9 @@ class toba_ci extends toba_ei
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
 		if (! in_array( $id, $this->_dependencias_inicializadas ) ) {
- 			if (  $dependencia instanceof toba_ei ) {
-				$parametro['id'] = $id;
-				$parametro['nombre_formulario'] = $this->_nombre_formulario;
-				$this->inicializar_dependencia( $id, $parametro );
-			}
+			$parametro['id'] = $id;
+			$parametro['nombre_formulario'] = $this->_nombre_formulario;
+			$this->inicializar_dependencia( $id, $parametro );
 		}
 		//--- A los eis se les debe configurar cuando estan en servicio
 		if (	$this->_en_servicio

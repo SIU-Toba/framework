@@ -13,12 +13,13 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	/**
 	 * @param toba_datos_relacion $objeto_relacion Relación que persiste
 	 */
-	function __construct($objeto_relacion)
+	final function __construct($objeto_relacion)
 	{
 		$this->objeto_relacion = $objeto_relacion;
 		$this->activar_transaccion();
 		$this->ini();
 	}
+	
 
 	/**
 	 * Ventana para agregar configuraciones particulares despues de la construccion

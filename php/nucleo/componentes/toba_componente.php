@@ -39,7 +39,8 @@ abstract class toba_componente
 	protected $_exportacion_archivo;
 	protected $_exportacion_path;
 	protected $_propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
-	protected $_parametros;								// Parametros de inicializacion provistos por el controlador	
+	protected $_parametros;								// Parametros de inicializacion provistos por el controlador
+	protected $_inicializado = false;	
 
 	/**
 	 * Contiene el componente controlador o padre del componente actual
@@ -100,6 +101,7 @@ abstract class toba_componente
 	 */
 	function inicializar($parametros=array())
 	{
+		$this->_inicializado = true;
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria desincronizada		
 		$this->_parametros = $parametros;
 		$this->ini();
@@ -177,6 +179,14 @@ abstract class toba_componente
 		return $this->_id;	
 	}
 	
+	
+	/**
+	 * @return boolean
+	 */
+	function inicializado()
+	{
+		return $this->_inicializado;
+	}
 
 	/**
 	 * Retorna un parámetro estático definido en las prop. básicas del componente

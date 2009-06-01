@@ -22,24 +22,33 @@ class toba_datos_relacion extends toba_componente
 	/**
 	 * @ignore 
 	 */
-	function __construct($id)
+	final function __construct($id)
 	{
 		$propiedades[] = "_relaciones_mapeos";
 		$propiedades[] = "_cargado";
 		$this->set_propiedades_sesion($propiedades);			
 		parent::__construct($id);
-		$this->recuperar_estado_sesion();
 		$this->crear_tablas();
+	}
+	
+	/**
+	 * Método interno para iniciar el componente una vez construido
+	 * @ignore 
+	 */
+	function inicializar($parametros=array())
+	{
+		parent::inicializar($parametros);	
 		$this->crear_relaciones();
 		if ($this->_info_estructura['debug']) {
 			$this->dump_esquema("INICIO: ".$this->_info['nombre']);	
 		}
-		$this->ini();
+		foreach ($this->_dependencias as $dep) {
+			$dep->inicializar($parametros);
+		}
 	}
 	
-
 	/**
-	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * Ventana para agregar configuraciones particulares al inicio de la vida completa del componente
 	 * @ventana
 	 */
 	function ini(){}

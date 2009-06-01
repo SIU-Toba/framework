@@ -50,7 +50,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * @ignore 
 	 */
-	function __construct($id)
+	final function __construct($id)
 	{
 		$propiedades = array();
 		$propiedades[] = "_cambios";
@@ -61,7 +61,6 @@ class toba_datos_tabla extends toba_componente
 		$propiedades[] = "_blobs";
 		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
-		$this->recuperar_estado_sesion();
 		for($a=0; $a<count($this->_info_columnas);$a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
 			$this->_columnas[ $this->_info_columnas[$a]['columna'] ] =& $this->_info_columnas[$a];
@@ -74,9 +73,9 @@ class toba_datos_tabla extends toba_componente
 		}
 		$this->activar_cargas_externas();
 		$this->activar_control_valores_unicos();
-		$this->ini();
 	}
 
+	
 	/**
 	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
 	 * @ventana

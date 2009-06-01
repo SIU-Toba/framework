@@ -85,6 +85,7 @@ class toba_solicitud_web extends toba_solicitud
 					$i++;
 				} else {
 					$this->cn = $this->cargar_objeto($objeto['clase'],0); 
+					$this->cn->inicializar();
 				}
 			}
 			//Asigna el cn a los cis			

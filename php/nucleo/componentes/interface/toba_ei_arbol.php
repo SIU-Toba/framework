@@ -29,7 +29,7 @@ class toba_ei_arbol extends toba_ei
 	protected $_mostrar_ayuda = true;
 	protected $_ancho_nombres = 30;
 
-	function __construct($datos)
+	final function __construct($datos)
 	{
 		parent::__construct($datos);
 		if (isset($this->s__nodos_inicial)) {

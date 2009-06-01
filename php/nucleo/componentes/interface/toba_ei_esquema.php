@@ -14,7 +14,7 @@ class toba_ei_esquema extends toba_ei
 	protected $_contenido;				// Instrucciones GraphViz
 	protected $_archivo_generado;		// Archivo generado por las instrucciones
 	
-	function __construct($id)
+	final function __construct($id)
 	{
 		parent::__construct($id);
 		$this->_alto = isset($this->_info_esquema['alto']) ?  $this->_info_esquema['alto'] : null;

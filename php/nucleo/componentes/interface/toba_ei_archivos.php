@@ -19,7 +19,7 @@ class toba_ei_archivos extends toba_ei
 	protected $crear_carpetas = true;
 	protected $crear_archivos = true;
 
-    function __construct($id)
+    final function __construct($id)
     {
         parent::__construct($id);
 		if (isset($this->_memoria['dir_actual'])) {

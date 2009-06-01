@@ -247,7 +247,11 @@ class toba
 		$id['proyecto'] = toba_proyecto::get_id();
 		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
 		//Se pide el dt con el cache activado asi evita duplicar las instancias
-		return toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+		$comp = toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+		if (! $comp->inicializado()) {
+			$comp->inicializar();
+		}
+		return $comp;
 	}
 
 	/**
@@ -260,7 +264,11 @@ class toba
 		$id['proyecto'] = toba_proyecto::get_id();
 		$temp = toba::proyecto()->get_id_componente_por_indice($indice, $id['proyecto']);
 		$id['componente'] = $temp['componente'];
-		return toba_constructor::get_runtime($id, $temp['clase'], true);
+		$comp = toba_constructor::get_runtime($id, $temp['clase'], true);
+		if (! $comp->inicializado()) {
+			$comp->inicializar();
+		}
+		return $comp;
 	}
 
 	/**

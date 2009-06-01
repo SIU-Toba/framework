@@ -73,7 +73,14 @@ $url_login = $url_trac.'/trac/toba/login';
 
 	if (isset($_GET['phpinfo'])) {
 		phpinfo();
+	} elseif (isset($_POST['chequeo'])) { 
+		
+		
 	} else {
+		/*echo toba_form::abrir('toba', toba::vinculador()->get_url());
+		echo toba_form::submit('chequeo', "Chequear compatibilidad extensiones");
+		echo toba_form::cerrar();*/		
+		
 		if (! toba_manejador_archivos::es_windows()) {
 			//Por ahora este mécanismo sólo funciona en linux
 			controlar_usuario();

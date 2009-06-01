@@ -5,10 +5,9 @@ class ci_solapas extends toba_ci
 {
 	protected $pasadas_por_solapa;
 
-	function __construct($id)
+	function ini()
 	{
 		$this->pasadas_por_solapa = array('1'=>0, '2'=>0, '3'=>0);
-        parent::__construct($id); 
 	}
 
 	function mantener_estado_sesion()

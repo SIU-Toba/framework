@@ -101,7 +101,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_excel_usar_formulas = true;											//Para hacer la sumatoria de los cortes usa formulas excel, sino suma en PHP
 	
 	
-    function __construct($id)
+    final function __construct($id)
     {
     	$propiedades = array();
 		$propiedades[] = "tamanio_pagina";

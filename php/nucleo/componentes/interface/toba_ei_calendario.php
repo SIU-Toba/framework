@@ -21,7 +21,7 @@ class toba_ei_calendario extends toba_ei
 	protected $_ver_contenidos;
 	protected $_rango_anios = array(2000, 2010);
 
-    function __construct($id)
+    final function __construct($id)
     {
         parent::__construct($id);
 		$dia = date("d");

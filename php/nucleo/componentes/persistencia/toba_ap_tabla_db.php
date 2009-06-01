@@ -46,7 +46,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * @param toba_datos_tabla $datos_tabla Tabla que persiste
 	 */
-	function __construct($datos_tabla)
+	final function __construct($datos_tabla)
 	{
 		$this->objeto_tabla = $datos_tabla;
 		$this->_tabla = $this->objeto_tabla->get_tabla();
