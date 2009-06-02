@@ -76,6 +76,11 @@ class extension_formulario extends toba_ei_formulario_ml
 				var descuento = this.ef('descuento').ir_a_fila(fila).valor();
 				this.ef('neto').ir_a_fila(fila).cambiar_valor(importe - descuento);
 			}
+
+
+			{$this->objeto_js}.evt__seleccionar_fila = function(fila) {
+					alert('Voy a seleccionar la fila ' + fila);
+			}
 		";
 	}	
 	

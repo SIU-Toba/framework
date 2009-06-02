@@ -324,13 +324,23 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	//----Selección 
 	/**
-	 * Marca una fila como seleccionada, cambiando su color de fondo 
+	 * Marca una fila como seleccionada, cambiando su color de fondo
+	 * Se puede atrapar el evento con evt__seleccionar_fila (fila),
+	 * si dicha funcion devuelve FALSE no se selecciona la fila.
 	 */
 	ei_formulario_ml.prototype.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {
-			this.deseleccionar_actual();
-			this._seleccionada = fila;
-			this.refrescar_seleccion();
+			var evt_listener = 'evt__seleccionar_fila';
+			var ok = true;
+			if (existe_funcion(this, evt_listener)) {
+				ok = this[evt_listener](fila);
+			}
+
+			if (ok !== false) {
+				this.deseleccionar_actual();
+				this._seleccionada = fila;
+				this.refrescar_seleccion();
+			}
 		}
 	};
 	
