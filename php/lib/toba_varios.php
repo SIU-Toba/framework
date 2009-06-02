@@ -150,11 +150,7 @@
 	function salto_linea()
 	//Salto de linea dependiente de la plataforma
 	{
-		if (substr(PHP_OS, 0, 3) == 'WIN'){
-			return "\r\n";
-		}else{
-			return "\n";
-		}	
+		return PHP_EOL;
 	}
 
 	function sl(){ return salto_linea(); }

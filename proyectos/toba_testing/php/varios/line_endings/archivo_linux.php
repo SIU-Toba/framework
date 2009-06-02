@@ -3,12 +3,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-echo 'Este archivo fue creado teniendo como line ending el usado en Linux';
-echo 'Al editarlo todo se convierte al mismo sistema
-y al guardarse es reconvertido al SO en el que se esta';
-
-echo "\n Esto deberia aparecer con un par de saltos de linea normales \n";
-echo 'Deberian coincidir ambas versiones';
 class archivo_linux
 {
 	function get_archivo_linux()

@@ -290,15 +290,15 @@ class toba_codigo_clase
 		//TODO: Falta implementar el agregado de requires a codigo existente
 		if(count($this->archivos_requeridos)>0) {
 			foreach($this->archivos_requeridos as $archivo) {
-				$this->codigo_php .= "require_once('$archivo');" . salto_linea();
+				$this->codigo_php .= "require_once('$archivo');" . "\n";
 			}
-			$this->codigo_php .= salto_linea();
+			$this->codigo_php .= "\n";
 		}
 		//--Crea o reemplza la definicion de la clase
 		if (! toba_archivo_php::codigo_tiene_clase($codigo_existente, $this->nombre)) {
 			$extends = ($this->nombre_ancestro) ? "extends {$this->nombre_ancestro}" : "";
-			$this->codigo_php .= "class {$this->nombre} $extends". salto_linea() ."{". salto_linea();
-			$this->codigo_php .= "}". salto_linea();			
+			$this->codigo_php .= "class {$this->nombre} $extends". "\n" ."{". "\n";
+			$this->codigo_php .= "}". "\n";
 			$this->generar_codigo_php($this->codigo_php);
 			$this->generar_codigo_js($this->codigo_php);
 		} else {
@@ -320,9 +320,9 @@ class toba_codigo_clase
 				$propiedad->identar(1);
 				$codigo_propiedades .= $propiedad->get_codigo();
 			}
-			$codigo_propiedades .= salto_linea();
+			$codigo_propiedades .= "\n";
 			if ($posicion_arranque !== false){
-				$codigo_propiedades = '{' . salto_linea(). $codigo_propiedades;
+				$codigo_propiedades = '{' . "\n". $codigo_propiedades;
 				$una_vez = 1;											//Maldito PHP sos el colmo!
 				$this->codigo_php = str_replace('{', $codigo_propiedades, $this->codigo_php, $una_vez);
 			}else{
@@ -362,7 +362,7 @@ class toba_codigo_clase
 		$nombre_metodo_php = 'extender_objeto_js';
 		$javascript = '';
 		foreach ($this->elementos_js as $elemento) {
-			if($javascript) $javascript .= salto_linea();
+			if($javascript) $javascript .= "\n";
 			$javascript .= $elemento->get_codigo();
 		}
 		if ($javascript) {
@@ -371,13 +371,13 @@ class toba_codigo_clase
 				$separador = new toba_codigo_separador_php('JAVASCRIPT',null,'grande');				
 				$separador->identar(1);
 				
-				$php = 'echo "' . salto_linea();
+				$php = 'echo "' . "\n";
 				$php .= $javascript;
 				$php .= '";';
 				$metodo = new toba_codigo_metodo_php('extender_objeto_js');
 				$metodo->set_contenido($php);
 				$metodo->identar(1);
-				$codigo = $separador->get_codigo().salto_linea().$metodo->get_codigo();
+				$codigo = $separador->get_codigo()."\n".$metodo->get_codigo();
 				$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $codigo);
 			} else {
 				//--Agrega al metodo existente

@@ -85,12 +85,12 @@ class toba_archivo_php
 
 	function get_codigo_php_puro()
 	{
-		return self::codigo_sacar_tags_php(file_get_contents($this->nombre));
+		return self::codigo_sacar_tags_php($this->get_codigo());
 	}
 	
 	function get_codigo()
 	{
-		return file_get_contents($this->nombre);	
+		return self::convertir_formato_interno($this->nombre);
 	}
 	
 	/**
@@ -176,7 +176,7 @@ class toba_archivo_php
 	{
 		if( ! $this->archivo_abierto ) {
 			if (file_exists($this->nombre)) {
-				$this->contenido = file_get_contents($this->nombre);
+				$this->contenido = $this->get_codigo();
 			} else {
 				$this->contenido = '';
 			}
@@ -194,7 +194,8 @@ class toba_archivo_php
 		echo "</pre>";
 */		
 		toba_manejador_archivos::crear_arbol_directorios(dirname($this->nombre));
-		file_put_contents($this->nombre, $this->contenido);
+		$contenido = self::convertir_formato_so($this->contenido);
+		file_put_contents($this->nombre, $contenido);
 	}	
 
 	/**
@@ -393,8 +394,8 @@ class toba_archivo_php
 	{
 		$pos = strrpos($codigo_actual, '}');
 		if ($pos !== false) {
-			return substr($codigo_actual, 0, $pos-1).salto_linea().
-								$metodo.salto_linea().substr($codigo_actual, $pos);
+			return substr($codigo_actual, 0, $pos-1)."\n".
+								$metodo."\n".substr($codigo_actual, $pos);
 		} else {
 			throw new toba_error("El codigo no contiene una llave de fin de clase");
 		}
@@ -430,5 +431,16 @@ class toba_archivo_php
 		return trim(str_replace('?>', '', $codigo));
 	}
 
+	static function convertir_formato_interno($nombre_archivo)
+	{
+		$codigo =  file_get_contents($nombre_archivo);
+		$codigo_interno = str_replace("\r\n", "\n", $codigo);
+		return $codigo_interno;
+	}
+
+	static function convertir_formato_so($contenido_archivo)
+	{
+		return str_replace("\n", PHP_EOL, $contenido_archivo);
+	}
 }
 ?>

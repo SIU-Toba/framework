@@ -74,7 +74,7 @@ class toba_molde_elemento
 	protected function generar_archivo()
 	{
 		$php = $this->get_codigo_php();
-		toba_manejador_archivos::crear_archivo_con_datos($this->archivo_absoluto(), "<?php" . salto_linea() . $php . salto_linea() .  "?>");
+		toba_manejador_archivos::crear_archivo_con_datos($this->archivo_absoluto(), "<?php" . "\n" . $php . "\n" .  "?>");
 		$this->asistente->registrar_elemento_creado(	'archivo', 
 														$this->proyecto,
 														$this->archivo_relativo() );

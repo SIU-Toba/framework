@@ -43,7 +43,7 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 	function set_contenido($contenido)
 	{
 		if ( !is_array($contenido) ) {
-			$this->contenido = explode( salto_linea() ,$contenido);
+			$this->contenido = explode( "\n" ,$contenido);
 		} else {
 			$this->contenido = $contenido;
 		}
@@ -68,22 +68,22 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 		$funcion = '';
 		if ( $this->mostrar_comentarios && !empty($this->comentarios)) {
 			// Comentarios
-			$funcion .= $this->identado()."/**".salto_linea();
+			$funcion .= $this->identado()."/**"."\n";
 			foreach($this->comentarios as $fila) {
-				$funcion .= $this->identado() . " * $fila" . salto_linea();
+				$funcion .= $this->identado() . " * $fila" . "\n";
 			}
-			$funcion .= $this->identado()." */".salto_linea();
+			$funcion .= $this->identado()." */"."\n";
 		}
 		// Cabecera
-		$funcion .= $this->identado() . $this->get_declaracion() . salto_linea();
-		$funcion .= $this->identado() . "{" . salto_linea();
+		$funcion .= $this->identado() . $this->get_declaracion() . "\n";
+		$funcion .= $this->identado() . "{" . "\n";
 		// Contenido
 		$this->identar(1);
 		foreach($this->contenido as $fila) {
-			$funcion .= $this->identado() . "$fila" . salto_linea();
+			$funcion .= $this->identado() . "$fila" . "\n";
 		}
 		$this->identar(-1);
-		$funcion .= $this->identado() ."}" . salto_linea();
+		$funcion .= $this->identado() ."}" . "\n";
 		return $funcion;
 	}
 }

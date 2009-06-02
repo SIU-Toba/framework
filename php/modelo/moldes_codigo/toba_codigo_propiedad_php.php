@@ -19,9 +19,9 @@ class toba_codigo_propiedad_php extends toba_codigo_elemento
 	{
 		$prop = $this->identado() . "$this->tipo $this->nombre";
 		if(isset($this->comentarios)){
-			$prop .= ";// $this->comentarios" . salto_linea();			
+			$prop .= ";// $this->comentarios" . "\n";
 		}else{
-			$prop .= ";" . salto_linea();
+			$prop .= ";" . "\n";
 		}
 		return $prop;
 	}

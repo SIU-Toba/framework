@@ -444,22 +444,22 @@ abstract class toba_asistente
 		$fuente = $this->get_fuente();
 		$sentencia_consulta = "return toba::db('$fuente')->consultar(\$sql);";
 		if(!isset($parametros)){
-			$php = 	"\$sql = \"$sql\";" . salto_linea() . $sentencia_consulta;
+			$php = 	"\$sql = \"$sql\";" . "\n" . $sentencia_consulta;
 		}else{
-			$php = "\$where = array();" . salto_linea();
+			$php = "\$where = array();" . "\n";
 			foreach($parametros as $id => $operador) {
-				$php .= "if (isset(\$filtro['$id'])) {" . salto_linea();
+				$php .= "if (isset(\$filtro['$id'])) {" . "\n";
 				if($operador == 'LIKE' || $operador == 'ILIKE') {
-					$php .= "\t\$where[] = \"$id $operador \".quote(\"%{\$filtro['$id']}%\");" . salto_linea();
+					$php .= "\t\$where[] = \"$id $operador \".quote(\"%{\$filtro['$id']}%\");" . "\n";
 				} else {
-					$php .= "\t\$where[] = \"$id $operador \".quote(\$filtro['$id']);" . salto_linea();
+					$php .= "\t\$where[] = \"$id $operador \".quote(\$filtro['$id']);" . "\n";
 				}
-				$php .= "}" . salto_linea();
+				$php .= "}" . '\n';
 			}
-			$php .=	"\$sql = \"$sql\";" . salto_linea();
-			$php .= "if (count(\$where)>0) {" . salto_linea();
-			$php .= "\t\$sql = sql_concatenar_where(\$sql, \$where);" . salto_linea();
-			$php .= "}" . salto_linea();
+			$php .=	"\$sql = \"$sql\";" . "\n";
+			$php .= "if (count(\$where)>0) {" . "\n";
+			$php .= "\t\$sql = sql_concatenar_where(\$sql, \$where);" . "\n";
+			$php .= "}" . "\n";
 			$php .= $sentencia_consulta;
 		}
 		$metodo->set_contenido($php);

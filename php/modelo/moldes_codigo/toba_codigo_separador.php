@@ -43,12 +43,12 @@ class toba_codigo_separador extends toba_codigo_elemento
 	function separador_chico()
 	{	
 		$inicio = $this->identado() . "//" . str_repeat($this->caracter, 4) . ' ' . $this->nombre . ' ';
-		return str_pad($inicio, $this->ancho(), $this->caracter) . salto_linea();
+		return str_pad($inicio, $this->ancho(), $this->caracter) . "\n";
 	}	
 	
 	function separador_grande()
 	{
-		$linea = str_pad( $this->identado() ."//", $this->ancho(), $this->caracter) . salto_linea();;
+		$linea = str_pad( $this->identado() ."//", $this->ancho(), $this->caracter) . "\n";;
 		return $linea . $this->separador_chico() . $linea;
 	}	
 
