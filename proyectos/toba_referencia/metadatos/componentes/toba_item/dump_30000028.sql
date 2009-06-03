@@ -1,16 +1,16 @@
 ------------------------------------------------------------
---[1000059]--  Autentificación de Usuarios 
+--[30000028]--  Autentificación de Usuarios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 1
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, exportable, creacion, retrasar_headers) VALUES (
-	'1000058', --item_id
+	'30000027', --item_id
 	'toba_referencia', --proyecto
-	'1000059', --item
+	'30000028', --item
 	NULL, --padre_id
 	'toba_referencia', --padre_proyecto
 	'1000218', --padre
@@ -47,10 +47,10 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --redirecciona
 	NULL, --usuario
 	'0', --exportable
-	NULL, --creacion
+	'2009-06-03 11:30:53', --creacion
 	'1'  --retrasar_headers
 );
---- FIN Grupo de desarrollo 1
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_item_objeto
@@ -58,8 +58,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
 	NULL, --item_id
 	'toba_referencia', --proyecto
-	'1000059', --item
-	'1000197', --objeto
+	'30000028', --item
+	'30000073', --objeto
 	'0', --orden
 	NULL  --inicializar
 );

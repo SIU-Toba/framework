@@ -127,9 +127,7 @@ class ci_login extends toba_ci
 				}
 				$url = toba::vinculador()->get_url($proyecto, $item);
 				echo "
-					if (abrir_popup('sistema', '$url', {resizable: 1})) {
-						window.close();
-					}
+					abrir_popup('sistema', '$url', {resizable: 1});
 				";
 			}
 		}		
