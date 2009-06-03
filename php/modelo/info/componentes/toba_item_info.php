@@ -84,7 +84,9 @@ class toba_item_info implements toba_nodo_arbol
 	
 	function es_publico() { return $this->datos['basica']['publico']; } 
 
-	function puede_redireccionar() { return $this->datos['basica']['redirecciona']; } 
+	function puede_redireccionar() { return $this->datos['basica']['redirecciona']; }
+
+	function retrasa_envio_headers() { return ($this->datos['basica']['retrasar_headers'] == '1'); }
 
 	function generado_con_wizard()
 	{
@@ -331,6 +333,12 @@ class toba_item_info implements toba_nodo_arbol
 					'imagen' => toba_recurso::imagen_toba("refrescar.png", false),
 					'ayuda'=> "La operación puede redireccionar hacia otra."
 				);				
+			}
+			if ($this->retrasa_envio_headers()) {
+				$iconos[] = array(
+					'imagen' => toba_recurso::imagen_toba("rehacer.png", false),
+					'ayuda'=> "La operación retrasa el envio de headers al cliente."
+				);
 			}
 			if($this->registra_solicitud() == 1){
 				$iconos[] = array(

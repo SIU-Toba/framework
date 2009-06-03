@@ -85,6 +85,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 		//---------------------------- Agregado de columna para marcar la posicion de la botonera en los Eis ---------------------
 		$sql[] = 'ALTER TABLE apex_objeto ADD COLUMN posicion_botonera VARCHAR(10);';
 
+		//-------------------------- Agrego la columna para representar lo que antes hacia el 'redirecciona' ------------------------
+		$sql[] = 'ALTER TABLE apex_item ADD COLUMN retrasar_headers SMALLINT  DEFAULT 0;';
+
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
@@ -319,6 +322,17 @@ class toba_migracion_1_4_0 extends toba_migracion
 						ao.proyecto = ci.objeto_mt_me_proyecto
 						AND ao.objeto = ci.objeto_mt_me
 						AND ao.proyecto = '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
+
+	function proyecto__migrar_retraso_headers()
+	{
+		$sql = "UPDATE apex_item SET retrasar_headers = redirecciona
+					 WHERE	proyecto = '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		$sql = "UPDATE apex_item SET redirecciona = 0
+					 WHERE	proyecto = '{$this->elemento->get_id()}';";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 }

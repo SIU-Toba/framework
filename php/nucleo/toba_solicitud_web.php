@@ -28,15 +28,15 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		try {
 			$this->crear_zona();			
-			$redirecciona = ($this->info['basica']['redirecciona']);
-			// Si la pagina redirecciona, no mando los pre_servicios ahora
-			if (!$redirecciona) {
+			$retrasar_headers = ($this->info['basica']['retrasar_headers']);
+			// Si la pagina retrasa el envio de headers, no mando los pre_servicios ahora
+			if (! $retrasar_headers) {
 				$this->pre_proceso_servicio();
 			}
 			$this->cargar_objetos();
 			toba::cronometro()->marcar('Procesando Eventos');
 			$this->procesar_eventos();
-			if ($redirecciona) {
+			if ($retrasar_headers) {
 				$this->pre_proceso_servicio();
 			}
 			toba::cronometro()->marcar('Procesando Servicio');

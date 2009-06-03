@@ -97,6 +97,7 @@ class toba_db_tablas_componente
     37 => 'usuario',
     38 => 'exportable',
     39 => 'creacion',
+    40 => 'retrasar_headers',
   ),
 );
 	}

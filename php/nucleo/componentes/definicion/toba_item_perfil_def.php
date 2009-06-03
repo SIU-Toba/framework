@@ -33,7 +33,8 @@ class toba_item_perfil_def extends  toba_item_perfil
 							WHERE item = i.item AND proyecto = i.proyecto) as cant_dependencias,
 						(SELECT COUNT(*) FROM apex_item 
 							WHERE padre = i.item AND proyecto = i.proyecto AND (solicitud_tipo <> 'fantasma' OR solicitud_tipo IS NULL) AND item != i.item) as cant_items_hijos,
-						m.molde as molde
+						m.molde as molde,
+						i.retrasar_headers		as retrasar_headers
 				FROM	apex_item i	
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)
 							LEFT OUTER JOIN apex_molde_operacion m ON (i.item = m.item AND i.proyecto = m.proyecto)

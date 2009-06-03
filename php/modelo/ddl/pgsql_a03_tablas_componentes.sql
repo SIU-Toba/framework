@@ -81,6 +81,7 @@ CREATE TABLE apex_item
 	usuario							varchar(60)		NULL,
 	exportable						smallint		NULL,
 	creacion						timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
+	retrasar_headers		smallint	NULL	DEFAULT  0,
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("item", "proyecto"),
 	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE,

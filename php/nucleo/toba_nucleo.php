@@ -52,8 +52,8 @@ class toba_nucleo
 				$this->solicitud->procesar();
 			} catch( toba_reset_nucleo $e ) {
 				toba::logger()->info('Se recargo el nucleo', 'toba');
-				//El item puede redireccionar?
-				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
+				//El item retrasa el envio de headers?
+				if ( !$this->solicitud->get_datos_item('retrasar_headers') ) {
 					throw new toba_error_def('ERROR: La operación no esta habilitada para provocar redirecciones.');
 				}
 				//TRAP para forzar la recarga de solicitud

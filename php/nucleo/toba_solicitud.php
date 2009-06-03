@@ -179,7 +179,18 @@ abstract class toba_solicitud
 		}
 		return $this->info['basica'];	
 	}
-	
+
+	/**
+	 * Permite cambiar alguno de los seteos basicos del item en runtime, para que el cambio de alguna
+	 * de las propiedades se vea por pantalla puede ser necesario el retraso del envio de Headers
+	 * @param array $prop Arreglo asociativo con las propiedades a cambiar ej: array('item_descripcion' => 'No tengo', 'item_nombre' => 'Nuevo nombre')
+	 */
+	function set_datos_item($prop = array())
+	{
+		$actual = $this->info['basica'];
+		$this->info['basica'] = array_merge($actual, $prop);
+	}
+
 	/**
 	 * Retorna el id de la operacion actual
 	 */

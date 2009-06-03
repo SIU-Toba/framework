@@ -4,6 +4,13 @@ require_once('operaciones_simples/consultas.php');
 
 class ci_abm_juegos extends toba_ci
 {
+	function ini()
+	{
+		//Cambio el nombre del item en Runtime, para esto chequee 'Retrasar Headers' en el editor del item.
+		$datos = array('item_nombre' => 'Este item antes se llamaba ABM de Juegos, pero yo lo cambie en runtime!');
+		toba::solicitud()->set_datos_item($datos);
+	}
+
 	//-- CUADRO --
 	
 	function conf__cuadro($cuadro)
