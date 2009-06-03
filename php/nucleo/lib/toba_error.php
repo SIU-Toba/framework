@@ -252,6 +252,14 @@ class toba_reset_nucleo extends Exception
 {
 	private $item = null;
 
+	function __construct($mensaje=null, $id_item=null)
+	{
+		parent::__construct($mensaje);
+		if (isset($id_item)) {
+			$this->item = array(toba::proyecto()->get_id(), $id_item);
+		}
+	}
+	
 	function set_item($item)
 	{
 		$this->item = $item;

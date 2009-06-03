@@ -537,7 +537,7 @@ class toba_ei_pantalla extends toba_ei
 	 */	
 	protected function generar_layout()
 	{
-		if (!isset($this->_info_pantalla['template']) || trim($this->_info_pantalla['template']) == '') {		
+		if (!isset($this->_info_pantalla['template']) || trim($this->_info_pantalla['template']) == '') {	
 			$existe_previo = 0;
 			foreach($this->_dependencias as $dep) {
 				if($existe_previo){ //Separador

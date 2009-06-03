@@ -28,6 +28,7 @@ class toba_molde_elemento
 		$id = toba_info_editores::get_dr_de_clase($this->clase);
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
 		$this->datos = toba_constructor::get_runtime($componente);
+		$this->datos->inicializar();
 		$datos = array(	'nombre'=>$this->clase.' generado automaticamente',	
 						'proyecto'=>$this->proyecto);
 		if ($this->asistente->tiene_fuente_definida()) {

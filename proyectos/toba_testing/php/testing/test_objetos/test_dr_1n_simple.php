@@ -25,7 +25,8 @@ class test_dr_1n_simple extends base_test_datos
 	function get_dr()
 	{
 		$dr = toba_constructor::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1516'), 
-											'toba_datos_relacion');		
+											'toba_datos_relacion');	
+		$dr->inicializar();
 		return $dr;
 	}
 

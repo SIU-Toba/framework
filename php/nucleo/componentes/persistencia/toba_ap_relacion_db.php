@@ -108,6 +108,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		
 		$this->objeto_relacion->resetear();		
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
+		toba_asercion::es_array($tablas_raiz, "Error cargando la relación, se esperaba un arreglo con las tablas raiz de la relacion.", true);		
 		$tablas = $this->objeto_relacion->orden_carga();		
 		$ok = false;
 		foreach ($tablas as $id_tabla => $tabla) {

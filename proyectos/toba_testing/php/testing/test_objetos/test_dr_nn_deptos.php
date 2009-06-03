@@ -32,6 +32,7 @@ class test_dr_nn_deptos extends base_test_datos
 	{
 		$dr = toba_constructor::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1625'), 
 											'toba_datos_relacion');
+		$dr->inicializar();
 		return $dr;
 	}
 

@@ -15,7 +15,7 @@ class eiform_proyecto_conflogin extends toba_ei_formulario
 				//this.ef('sep_item_login').mostrar();
 				this.ef('carpeta_pre_sesion').mostrar();
 				this.ef('item_pre_sesion').mostrar();
-
+				this.ef('item_pre_sesion_popup').mostrar();
 				this.ef('usuario_anonimo').ocultar();
 				this.ef('usuario_anonimo_desc').ocultar();
 				this.ef('usuario_anonimo_grupos_acc').ocultar();
@@ -32,6 +32,8 @@ class eiform_proyecto_conflogin extends toba_ei_formulario
 				//this.ef('sep_item_login').ocultar();
 				this.ef('item_pre_sesion').ocultar();
 				this.ef('carpeta_pre_sesion').ocultar();
+				this.ef('item_pre_sesion_popup').ocultar();
+
 			}
 		}";
 	}

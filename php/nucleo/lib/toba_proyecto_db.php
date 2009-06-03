@@ -61,6 +61,7 @@ class toba_proyecto_db
 						registrar_cronometro			,
 						item_inicio_sesion      		,
 						item_pre_sesion   		       	,
+						item_pre_sesion_popup	       	,
 						item_set_sesion					,
 						log_archivo						,
 						log_archivo_nivel				,

@@ -58,7 +58,9 @@ class toba_manejador_sesiones
 			$this->procesar_acceso_proyecto($datos_iniciales);
 		}
 		$this->autenticar($id_usuario, $clave, $datos_iniciales);
+		
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
+		
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION... recargando el nucleo.');

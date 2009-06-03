@@ -32,6 +32,7 @@ class ci_clonador_items extends toba_ci
 		$nuevos_datos['fuente_datos'] = $this->opciones['fuente'];
 		$nuevos_datos['fuente_datos_proyecto'] = $this->opciones['proyecto'];
 		$info_item->clonar($nuevos_datos, $directorio);
+		toba::notificacion()->info('Clonado OK');
 	}
 
 	//---- opciones -------------------------------------------------------

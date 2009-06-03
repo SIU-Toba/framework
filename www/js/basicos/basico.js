@@ -308,8 +308,12 @@ var ventana_hija = {};
 function abrir_popup(id, url, opciones, extra, dep) {
 	vars = '';
 	if (typeof opciones != 'undefined') {
-		for (var o in opciones) {
-			vars += o + '=' + opciones[o] + ',';
+		if (typeof opciones == 'string') {
+			vars += opciones
+		} else {
+			for (var o in opciones) {
+				vars += o + '=' + opciones[o] + ',';
+			}
 		}
 	}
 	if (typeof dep == 'undefined') {dep = true;}
@@ -319,18 +323,27 @@ function abrir_popup(id, url, opciones, extra, dep) {
 	if (typeof extra != 'undefined') {
 		vars += extra;
 	}
-	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus;
+	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus || (window.opera && ventaja_hija[id].opera);
 	if (no_esta_definida) {
 		// No fue definida, esta cerrada o no puede tener foco
-		ventana_hija[id] = window.open( url , "ventana" + id, vars);
-		ventana_hija[id].focus();
+		ventana_hija[id] = window.open(url, "ventana" + id, vars);
+		if (isset(ventana_hija[id]) && (! window.opera || ventana_hija[id].opera)) {
+			ventana_hija[id].focus();
+		} else {
+			var recursiva = 'abrir_popup("' + id + '", "' + url + '", "' + vars + '", "", false)';
+			var js = 'if (' + recursiva + ') overlay();';
+			var html = "El navegador evitó que el sistema abriera una ventana emergente.<br> Puede abrirla manualmente haciendo <a href='#' onclick='"
+					+ js + "'>click aquí</a>";
+			notificacion.agregar(html, 'warning');
+			return false;
+		}		
 	} else {
 		// Ya fue definida, no esta cerrada  y puede tener foco
 		ventana_hija[id].focus();		
 		ventana_hija[id].location.href = url;
 		ventana_hija[id].opener = window;
 	}
-	return false;	
+	return true;
 }
 
 
@@ -525,7 +538,7 @@ function var_dump(variable, ret) {
 	}
 }
 
-function salir(){
+function salir() {
 	if(confirm('Desea terminar la sesión?')) {
 		var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?'));
 		var vinculo = prefijo + '?fs=1';
