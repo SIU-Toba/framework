@@ -48,6 +48,11 @@ vinculador = new function() {
 			prefijo = toba_prefijo_vinculo;
 		} else {
 			prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?')) + '?'+ toba_hilo_qs_menu  + "=1";
+			var partes = parseUri(toba_prefijo_vinculo);
+			if (isset(partes.queryKey['tcm'])) {
+				//Conservo la celda de memoria
+				prefijo += '&tcm=' + partes.queryKey['tcm']; 
+			}
 		}
 		if (typeof enviar_zona != 'undefined' && enviar_zona) {
 			prefijo = prefijo + toba_qs_zona;

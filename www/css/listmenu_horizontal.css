@@ -98,3 +98,8 @@ ul.horizontal ul a { float:none !important; }
 * html ul.horizontal a { position:relative; }
 ul[class^="horizontal"] ul { display:none; }
 ul[class^="horizontal"] ul { displa\y:block; }
+
+
+a.menu-link-alt {
+	text-decoration: underline !important;
+}

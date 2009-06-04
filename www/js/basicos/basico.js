@@ -183,6 +183,7 @@ function comparar_arreglos(a, b) {
 
 /**
  * Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ * Usa tecnica dom-0
  * @param {element} Elemento base
  * @param {string} _e Nombre del evento (ej. onclick)
  * @param {string} _c Cuerpo del callback a ejecutar
@@ -213,6 +214,22 @@ function addEvent(o, _e, c, _b){
 	x = ((b) ? (x + ';' + c) : (c + ';' +  x)) + "\n";
 	o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
 	return o[e];
+}
+
+/**
+ * Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ * Usa tecnica dom-2
+ * @param {element} Elemento base
+ * @param {string} evento Nombre del evento, sin el 'on' (ej. click)
+ * @param {string} callback Referencia a funcion a llamar
+ */
+function agregarEvento(objeto, evento, callback)
+{
+	if (objeto.addEventListener){
+	  objeto.addEventListener(evento, callback, false); 
+	} else if (objeto.attachEvent){
+	  objeto.attachEvent('on' + evento, callback);
+	}
 }
 
 //---- DOM
@@ -506,8 +523,44 @@ function $() {
 	}
 	return elements;
 }
+
 //----Varios
 //--------------------------------------------
+
+/*
+	parseUri 1.2.1
+	(c) 2007 Steven Levithan <stevenlevithan.com>
+	MIT License
+*/
+function parseUri (str) {
+	var	o   = parseUri.options,
+		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+		uri = {},
+		i   = 14;
+
+	while (i--) uri[o.key[i]] = m[i] || "";
+
+	uri[o.q.name] = {};
+	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+		if ($1) uri[o.q.name][$1] = $2;
+	});
+
+	return uri;
+};
+
+parseUri.options = {
+	strictMode: false,
+	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+	q:   {
+		name:   "queryKey",
+		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+	},
+	parser: {
+		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+	}
+};
+
 
 function actualizar_logger(cant) {
 	var vinc = document.getElementById('vinculo_logger');

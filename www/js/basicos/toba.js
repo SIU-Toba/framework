@@ -14,6 +14,7 @@ toba = new function() {
 	this._ajax = false;
 	this._mostrar_aguardar = true;
 	this._enviado = false;
+	this._menu_popup = false;
 };
 
 	/**
@@ -169,6 +170,9 @@ toba = new function() {
 	 * @param {boolean} es_zona Indica si propaga la zona actualmente cargada (si la hay)
 	 */
 	toba.ir_a_operacion = function(proyecto, operacion, es_popup, es_zona) {
+		if (this._menu_popup) {
+			es_popup = true;
+		}	
 		if (typeof es_zona == 'undefined') {
 			es_zona = false;
 		}
@@ -184,10 +188,29 @@ toba = new function() {
 		} else {
 			celda = 'paralela';
 			parametros = {'resizable':1, 'scrollbars' : '1'};
-			url = vinculador.concatenar_parametros_url(url, {'tcm':celda});
+			url = vinculador.concatenar_parametros_url(url, {'tcm': celda});
 			abrir_popup(celda, url, parametros);
+			setTimeout ("toba.set_menu_popup(false)", 100);	//Para evitar que quede fijo
 		}
+		if (this._menu_popup) {
+			return false;
+		}		
 	};	
+
+	/**
+	 * Cambia la forma en la que trabaja el menu, haciendo que los links se abran en una nueva celda de memoria y en un popup
+	 */
+	toba.set_menu_popup = function(estado) {	
+		var links = $("menu-h").getElementsByTagName("a");
+		for (var i=0; i<links.length; i++) {
+			if (estado) {
+				agregar_clase_css(links[i], "menu-link-alt");
+			} else {
+				quitar_clase_css(links[i], "menu-link-alt");
+			}
+		}
+		this._menu_popup = estado;
+	}	
 	
 	/**
 	 *	Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú

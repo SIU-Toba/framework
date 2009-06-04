@@ -149,4 +149,5 @@ simpleMenu.prototype.init = function(trigger, isie, isoldsaf, iskde, navid, isho
 	trigger = null;
 };
 
+
 toba.confirmar_inclusion('basicos/listamenu');

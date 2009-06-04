@@ -37,21 +37,41 @@ class toba_menu_css extends toba_menu
 	
 	protected function preparar_arbol()
 	{
-
-		$this->arbol .= '<style type="text/css">
-							ul.horizontal .carpeta {
-								background-repeat: no-repeat;
-								background-position: center right;
-								background-image: url("'.$this->imagen_nodo.'");
-							}
-						</style>
-						<!--[if IE 7]>
-						<style type="text/css">
-							ul.horizontal ul ul {
-								margin-left: 200px;
-							}
-						</style>							
-						<![endif]-->
+		if (toba::memoria()->get_celda_memoria_actual_id() != 'paralela') {
+			$this->arbol .= toba_js::abrir();
+			$this->arbol .= '
+				function on_menu_set_popup_on(e) {
+				   	var id = (window.event) ? event.keyCode : e.keyCode;
+					if (id == 16) {
+						toba.set_menu_popup(true);
+					}
+				}
+				function on_menu_set_popup_off(e) {
+				   	var id = (window.event) ? event.keyCode : e.keyCode;
+					if (id == 16) {
+						toba.set_menu_popup(false);
+					}			
+				}
+				agregarEvento(document, "keyup", on_menu_set_popup_off);
+				agregarEvento(document, "keydown", on_menu_set_popup_on);
+			';
+			$this->arbol .= toba_js::cerrar();
+		}
+		$this->arbol .= '		
+				<style type="text/css">
+					ul.horizontal .carpeta {
+						background-repeat: no-repeat;
+						background-position: center right;
+						background-image: url("'.$this->imagen_nodo.'");
+					}
+				</style>
+				<!--[if IE 7]>
+				<style type="text/css">
+					ul.horizontal ul ul {
+						margin-left: 200px;
+					}
+				</style>							
+				<![endif]-->
 			';
 		
 		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		

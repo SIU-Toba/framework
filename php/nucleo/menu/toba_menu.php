@@ -101,10 +101,14 @@ abstract class toba_menu
 		}
 				
 		echo "
-			function confirmar_cambios(proyecto, operacion, url, es_poup) {
-				$confirmar
-				if (confirmar) {
-					return confirm('$mensaje');
+			function confirmar_cambios(proyecto, operacion, url, es_popup) {
+				if (! es_popup || typeof(es_popup) == 'undefined') {
+					$confirmar
+					if (confirmar) {
+						return confirm('$mensaje');
+					} else {
+						return true;
+					}
 				} else {
 					return true;
 				}
