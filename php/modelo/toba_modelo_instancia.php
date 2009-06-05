@@ -237,7 +237,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function existen_metadatos_proyecto( $proyecto )
 	{
-		$proyecto = toba::instancia()->get_db()->quote($proyecto);
+		$proyecto = $this->get_db()->quote($proyecto);
 		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = $proyecto;";
 		$datos = $this->get_db()->consultar( $sql );
 		if ( count( $datos ) > 0 ) {
@@ -1061,7 +1061,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_lista_usuarios($proyecto=null)
 	{
 		if(isset($proyecto)) {
-			$proyecto = toba::instancia()->get_db()->quote($proyecto);
+			$proyecto = $this->get_db()->quote($proyecto);
 			$sql = "SELECT u.usuario as usuario, u.nombre as nombre
 					FROM apex_usuario u, apex_usuario_proyecto up
 					WHERE u.usuario = up.usuario
@@ -1074,8 +1074,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function get_usuarios_administradores($proyecto, $grupo = 'admin')
 	{
-		$proyecto = toba::instancia()->get_db()->quote($proyecto);
-		$grupo = toba::instancia()->get_db()->quote($grupo);
+		$proyecto =$this->get_db()->quote($proyecto);
+		$grupo = $this->get_db()->quote($grupo);
 		$sql = "
 			SELECT	usuario
 			FROM	apex_usuario_proyecto

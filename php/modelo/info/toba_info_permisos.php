@@ -34,7 +34,7 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
-		$proyecto = quote($proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
 				FROM apex_usuario_grupo_acc
 				WHERE 
