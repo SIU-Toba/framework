@@ -45,6 +45,8 @@ class toba_rf_item extends toba_rf
 	
 	function cargar_datos()
 	{
+		$item = quote($this->item);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 		nombre,
 							descripcion,
 							padre,
@@ -60,8 +62,8 @@ class toba_rf_item extends toba_rf
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_filtro_cols
 				FROM 
 					apex_item i
-				WHERE item = '$this->item' 
-				AND proyecto = '$this->proyecto'";
+				WHERE item = $item
+				AND proyecto = $proyecto";
 		return toba::db()->consultar_fila($sql);
 	}
 
@@ -87,14 +89,16 @@ class toba_rf_item extends toba_rf
 	
 	function buscar_hijos()
 	{
-		$sql = "SELECT 
+		$item = quote($this->item);
+		$proyecto = quote($this->proyecto);
+		$sql = "SELECT
 					o.objeto as componente
 				FROM
 					apex_item_objeto io,
 					apex_objeto o
 				WHERE
-					io.item = '$this->item' AND
-					io.proyecto = '$this->proyecto' AND
+					io.item = $item AND
+					io.proyecto = $proyecto AND
 					io.objeto = o.objeto AND
 					io.proyecto = o.proyecto AND
 					o.clase = 'toba_ci'";

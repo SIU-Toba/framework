@@ -14,7 +14,7 @@ class dt_apex_estilo extends toba_datos_tabla
 				$proyecto = toba_editor::get_proyecto_cargado();
 			}
 		}
-		$sql = "SELECT
+		$sql = 'SELECT
 			ae.estilo,
 			ae.descripcion,
 			ap.descripcion_corta as proyecto_nombre
@@ -23,8 +23,8 @@ class dt_apex_estilo extends toba_datos_tabla
 			apex_proyecto as ap
 		WHERE
 				ae.proyecto = ap.proyecto
-			AND ap.proyecto = '$proyecto'
-		ORDER BY descripcion";
+			AND ap.proyecto = '.quote($proyecto).'
+		ORDER BY descripcion';
 		return toba::db('instancia')->consultar($sql);
 	}
 
@@ -37,7 +37,7 @@ class dt_apex_estilo extends toba_datos_tabla
 				$proyecto = toba_editor::get_proyecto_cargado();
 			}
 		}		
-		$sql = "SELECT proyecto, estilo, descripcion FROM apex_estilo WHERE proyecto='$proyecto' OR proyecto='toba' ORDER BY descripcion";
+		$sql = 'SELECT proyecto, estilo, descripcion FROM apex_estilo WHERE proyecto='.quote($proyecto)." OR proyecto='toba' ORDER BY descripcion";
 		return toba::db('instancia')->consultar($sql);
 	}
 

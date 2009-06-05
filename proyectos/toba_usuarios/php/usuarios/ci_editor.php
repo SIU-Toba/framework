@@ -176,11 +176,12 @@ class ci_editor extends toba_ci
 	
 	function get_lista_grupos_acceso_proyecto()
 	{
+		$proyecto = quote($this->s__proyecto);
 		$sql = "SELECT 	usuario_grupo_acc,
 						nombre,
 						descripcion
 				FROM 	apex_usuario_grupo_acc
-				WHERE 	proyecto = '{$this->s__proyecto}';";
+				WHERE 	proyecto = $proyecto;";
 		return toba::db()->consultar($sql);
 	}
 	

@@ -99,13 +99,14 @@ class ci_editor_perfiles extends toba_ci
 	
 	function get_lista_restricciones_proyecto()
 	{
+		$proyecto = quote($this->s__proyecto);
 		$sql = "SELECT
 					restriccion_funcional as restriccion,
 					descripcion
 				FROM
 					apex_restriccion_funcional
 				WHERE
-					proyecto = '$this->s__proyecto'
+					proyecto = $proyecto
 				ORDER BY descripcion
 				";
 		return toba::db()->consultar($sql);
@@ -113,13 +114,14 @@ class ci_editor_perfiles extends toba_ci
 	
 	function get_lista_permisos_proyecto()
 	{
+		$proyecto = quote($this->s__proyecto);
 		$sql = "SELECT
 					permiso,
 					COALESCE(descripcion, nombre) as descripcion
 				FROM
 					apex_permiso
 				WHERE
-					proyecto = '$this->s__proyecto';
+					proyecto = $proyecto;
 				";
 		return toba::db()->consultar($sql);
 	}

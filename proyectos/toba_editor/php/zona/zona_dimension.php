@@ -6,10 +6,10 @@ class zona_dimension extends zona_editor
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		$sql = 	"	SELECT	descripcion
+		$sql = 	'	SELECT	descripcion
 					FROM	apex_dimension
-					WHERE	proyecto='{$this->editable_id[0]}'
-					AND		dimension ='{$this->editable_id[1]}';";
+					WHERE	proyecto='.quote($this->editable_id[0]).'
+					AND		dimension ='.quote($this->editable_id[1]).';';
 		//echo $sql;
 		$rs = toba::db()->consultar($sql);
 		if(!$rs) {

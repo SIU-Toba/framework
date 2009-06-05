@@ -57,9 +57,8 @@ class skins_ci extends toba_ci
 	function evt__form_importar__importar($datos)
 	{
 		if (isset($datos['estilo'])) {
-			$sql = "SELECT paleta FROM apex_estilo 
-					WHERE estilo='{$datos['estilo']}' AND proyecto='{$datos['proyecto']}'
-			";
+			$sql = 'SELECT paleta FROM apex_estilo
+					WHERE estilo='.quote($datos['estilo']).' AND proyecto='. quote($datos['proyecto']);
 			$datos = toba::db()->consultar_fila($sql);
 			$this->dep('datos')->set($datos);	
 			$this->importado = true;		

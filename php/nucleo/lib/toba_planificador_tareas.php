@@ -58,10 +58,11 @@ class toba_planificador_tareas
 	function desprogramar($id_tarea, $manejador_interface=null)
 	{
 		$db = toba::instancia()->get_db();
-		$db->quote($id_tarea);
-		$sql = "DELETE FROM apex_tarea WHERE tarea=$id_tarea AND proyecto='{$this->proyecto}'";
+		$id_tarea = $db->quote($id_tarea);
+		$proyecto = $db->quote($this->proyecto);
+		$sql = "DELETE FROM apex_tarea WHERE tarea=$id_tarea AND proyecto= $proyecto";
 		$db->ejecutar($sql);
-		$mensaje_debug = "[Programador de Tareas] Tarea '$id_tarea' desprogramada";
+		$mensaje_debug = "[Programador de Tareas] Tarea $id_tarea desprogramada";
 		toba::logger()->debug($mensaje_debug);	
 		if (isset($manejador_interface)) {
 			$manejador_interface->mensaje($mensaje_debug);
@@ -180,6 +181,7 @@ class toba_planificador_tareas
 		$proxima = $datos['ejecucion_proxima'];
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($this->proyecto);
+		$tarea = $db->quote($datos['tarea']);
 		
 		//--Cicla aumentando de a intervalos hasta encontrar una fecha futura
 		do {
@@ -190,7 +192,7 @@ class toba_planificador_tareas
 				FROM
 					apex_tarea
 				WHERE
-						tarea = '{$datos['tarea']}'
+						tarea = $tarea
 					AND proyecto = $proyecto
 			";
 			$rs = $db->consultar_fila($sql);
@@ -201,12 +203,12 @@ class toba_planificador_tareas
 		$sql = "UPDATE apex_tarea SET 
 					ejecucion_proxima = '{$rs['proxima']}'::timestamp
 				WHERE
-						tarea = '{$datos['tarea']}'					
+						tarea = $tarea
 					AND	proyecto = $proyecto
 		";
 		$db->ejecutar($sql);
 
-		$mensaje = "[Programador de Tareas] Tarea {$datos['tarea']} reprogamada al {$rs['proxima']}";
+		$mensaje = "[Programador de Tareas] Tarea $tarea reprogamada al {$rs['proxima']}";
 		toba::logger()->debug($mensaje);
 		if (isset($manejador_interface)) {
 			$manejador_interface->mensaje($mensaje);

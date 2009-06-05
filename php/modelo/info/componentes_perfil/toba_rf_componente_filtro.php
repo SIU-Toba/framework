@@ -25,6 +25,10 @@ class toba_rf_componente_filtro extends toba_rf_componente
 
 	function cargar_datos_cols()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	col.objeto_ei_filtro			as	filtro,
 						col.objeto_ei_filtro_col 		as	id,
 						col.objeto_ei_filtro_proyecto 	as	proyecto,
@@ -35,11 +39,11 @@ class toba_rf_componente_filtro extends toba_rf_componente
 							ON col.objeto_ei_filtro_col = rcol.objeto_ei_filtro_col 
 								AND col.objeto_ei_filtro = rcol.objeto_ei_filtro
 								AND col.objeto_ei_filtro_proyecto = rcol.proyecto
-								AND rcol.item = '$this->item'
-								AND rcol.restriccion_funcional = '$this->restriccion'
+								AND rcol.item = $item
+								AND rcol.restriccion_funcional = $restriccion
 				WHERE	(col.obligatorio <> 1 OR col.obligatorio IS NULL) 
-				AND		col.objeto_ei_filtro = '$this->componente' 
-				AND		col.objeto_ei_filtro_proyecto = '$this->proyecto'
+				AND		col.objeto_ei_filtro = $componente
+				AND		col.objeto_ei_filtro_proyecto = $proyecto
 				ORDER BY col.orden";
 		return toba::db()->consultar($sql);
 	}

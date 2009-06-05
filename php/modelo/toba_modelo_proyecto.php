@@ -319,7 +319,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
    			$where = " ( proyecto = '".$this->get_id()."')";
 		}
 		if(isset($where_extra)) $where = $where . ' AND ('. $where_extra .')';
-		$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+		$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 				" FROM $tabla " .
 				" WHERE $where " .
 				" ORDER BY {$definicion['dump_order_by']} ;\n";
@@ -1168,17 +1168,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	function get_lista_grupos_acceso()
 	{
+		$proyecto = $this->instancia->get_db()->quote($this->get_id());
 		$sql = "SELECT usuario_grupo_acc as id, nombre
 				FROM apex_usuario_grupo_acc
-				WHERE proyecto = '".$this->get_id()."';";
+				WHERE proyecto = $proyecto;";
 		return $this->instancia->get_db()->consultar( $sql );
 	}
 
 	function get_resumen_componentes_utilizados()
 	{
+		$proyecto = $this->instancia->get_db()->quote($this->identificador);
 		$sql = "	SELECT clase, COUNT(*) as cantidad
 					FROM apex_objeto
-					WHERE proyecto = '{$this->identificador}'
+					WHERE proyecto = $proyecto
 					GROUP BY 1
 					ORDER BY 2 DESC";
 		return $this->instancia->get_db()->consultar( $sql );
@@ -1283,12 +1285,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/
 	function get_lista_componentes( $tipo_componente )
 	{
-		$proyecto = $this->get_id();
+		$proyecto = $this->db->quote($this->get_id());
+		$comp_sano = $this->db->quote($tipo_componente);
 		if ($tipo_componente == 'toba_item' ) {
+
 			$sql = "SELECT 	proyecto as 		proyecto,
 							item as 			componente
 					FROM apex_item 
-					WHERE proyecto = '$proyecto'
+					WHERE proyecto = $proyecto
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
 		} elseif(strpos($tipo_componente,'toba_asistente')!== false) {
@@ -1298,16 +1302,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					FROM 	apex_molde_operacion o,
 							apex_molde_operacion_tipo t
 					WHERE 	o.operacion_tipo = t.operacion_tipo
-					AND		t.clase = '$tipo_componente'
-					AND		proyecto = '$proyecto'
+					AND		t.clase = $comp_sano
+					AND		proyecto = $proyecto
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
 		} else {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							objeto as 			componente
 					FROM apex_objeto 
-					WHERE proyecto = '$proyecto'
-					AND clase = '$tipo_componente'
+					WHERE proyecto = $proyecto
+					AND clase = $comp_sano
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
 		}
@@ -1366,7 +1370,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	function get_item_login()
 	{
-		$sql = "SELECT item_pre_sesion FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
+		$proyecto = $this->db->quote($this->identificador);
+		$sql = "SELECT item_pre_sesion FROM apex_proyecto WHERE proyecto= $proyecto";
 		$rs = $this->get_db()->consultar($sql);
 		return $rs[0]['item_pre_sesion'];
 	}
@@ -1387,9 +1392,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola(	$this->instancia->get_id(), 
 																	toba_editor::get_id() );
 		//--- Averiguo la fuente destino
-		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
+		$proyecto = $this->db->quote($this->identificador);
+		$sql = "SELECT proyecto, fuente_datos, descripcion_corta
 				FROM apex_fuente_datos
-				WHERE ( proyecto = '{$this->identificador}' )
+				WHERE ( proyecto = $proyecto)
 				ORDER BY 2";
 		$fuentes = $this->get_db()->consultar($sql);
 		if (empty($fuentes)) {
@@ -1484,7 +1490,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function get_version_actual()
 	{
-		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
+		$proyecto = $this->db->quote($this->identificador);
+		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto= $proyecto";
 		$rs = $this->db->consultar($sql);		
 		if (! empty($rs)) { 
 			if (! isset($rs[0]['version_toba'])) {

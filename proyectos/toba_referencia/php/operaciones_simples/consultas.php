@@ -28,7 +28,7 @@ class consultas
 	*/
 	static function get_juegos()
 	{
-		$sql = "SELECT id, nombre, descripcion FROM ref_juegos;";
+		$sql = 'SELECT id, nombre, descripcion FROM ref_juegos;';
 		return toba::db()->consultar($sql);
 	}
 	
@@ -194,10 +194,10 @@ class consultas
 
 	static function get_locales()
 	{
-		$sql = "SELECT distinct locale
+		$sql = 'SELECT distinct locale
 				FROM
 					iso_countries
-		";
+		';
 		return consultar_fuente($sql);
 	}
 	

@@ -68,12 +68,13 @@ class toba_info_editores
 		if(isset($categorias)) {
 			$where = "AND	c.clase_tipo IN (".implode(',',$categorias).")";
 		}
+		$contenedor = quote($contenedor);
 		$sql = "SELECT 	c.clase as clase
 				FROM 	apex_clase c, 
 					apex_clase_relacion r
 				WHERE 	r.clase_contenida = c.clase
 				$where
-				AND	r.clase_contenedora = '$contenedor'";
+				AND	r.clase_contenedora = $contenedor";
 		$datos = array();
 		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
 			$datos[] = $c['clase'];
@@ -95,11 +96,12 @@ class toba_info_editores
 
 	static function get_lista_componentes_contenedores($tipo_componente_contenido)
 	{
+		$tipo_componente = quote($tipo_componente_contenido);
 		$sql = "SELECT 	c.clase as clase
 				FROM 	apex_clase c, 
 						apex_clase_relacion r
 				WHERE 	r.clase_contenedora = c.clase
-				AND	r.clase_contenida = '$tipo_componente_contenido'";
+				AND	r.clase_contenida = $tipo_componente";
 		$datos = array();
 		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
 			$datos[] = $c['clase'];
@@ -151,7 +153,9 @@ class toba_info_editores
 	*/
 	static function get_ci_editor_clase($proyecto, $clase)
 	{
-		$sql = "SELECT 
+		$clase = quote($clase);
+		$proyecto = quote($proyecto);
+		$sql = "SELECT
 				 	o.proyecto,
 					o.objeto
 				FROM
@@ -159,8 +163,8 @@ class toba_info_editores
 					apex_item_objeto io,
 					apex_objeto o
 				WHERE
-					c.clase = '$clase' AND
-					c.proyecto = '$proyecto' AND
+					c.clase = $clase AND
+					c.proyecto = $proyecto  AND
 					c.editor_item = io.item AND				-- Se busca el item editor
 					c.editor_proyecto = io.proyecto AND
 					io.objeto = o.objeto AND				-- Se busca el CI del item
@@ -178,9 +182,10 @@ class toba_info_editores
 		if ($clase == 'toba_item' ) {
 			return array( toba_editor::get_id(), '1554' );
 		}
+		$clase = quote($clase);
 		$sql = "SELECT objeto_dr_proyecto, objeto_dr
 				FROM apex_clase
-				WHERE clase = '$clase';";
+				WHERE clase = $clase;";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		if( ! $datos ) {
 			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
@@ -191,9 +196,9 @@ class toba_info_editores
 		
 	static function get_clases_con_fuente_datos()
 	{
-		$sql = "SELECT clase
+		$sql = 'SELECT clase
 				FROM apex_clase
-				WHERE utiliza_fuente_datos = 1;";
+				WHERE utiliza_fuente_datos = 1;';
 		$datos = array();
 		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
 			$datos[] = $c['clase'];
@@ -206,12 +211,12 @@ class toba_info_editores
 	 */
 	function get_lista_tipos_clase()
 	{
-		$sql = "SELECT 
+		$sql = 'SELECT
 					clase_tipo, 
 					descripcion_corta
 				FROM apex_clase_tipo
 				ORDER BY descripcion_corta
-				";	
+				';
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 	
@@ -225,6 +230,7 @@ class toba_info_editores
 	 */
 	static function get_proyectos_accesibles()
 	{
+		$usuario = quote(toba::usuario()->get_id());
 		$sql = "
 			SELECT 	
 				p.proyecto, 
@@ -234,14 +240,15 @@ class toba_info_editores
 				apex_usuario_proyecto up
 			WHERE 	
 				p.proyecto = up.proyecto
-			AND	up.usuario = '".toba::usuario()->get_id()."'
+			AND	up.usuario = $usuario
 			ORDER BY orden;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 	function get_descripcion_proyecto($id_proyecto)
 	{
-		$sql = "SELECT descripcion || ' [' || proyecto || ']' as proyecto_nombre FROM apex_proyecto WHERE proyecto = '$id_proyecto'";
+		$proyecto = quote($id_proyecto);
+		$sql = "SELECT descripcion || ' [' || proyecto || ']' as proyecto_nombre FROM apex_proyecto WHERE proyecto = $proyecto";
 		return  toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -251,6 +258,7 @@ class toba_info_editores
 	*/
 	static function get_proyectos_con_items_exportables()
 	{
+		$usuario = quote(toba::usuario()->get_id());
 		$sql = "
 			SELECT 	
 				p.proyecto, 
@@ -260,7 +268,7 @@ class toba_info_editores
 				apex_usuario_proyecto up
 			WHERE 	
 				p.proyecto = up.proyecto
-			AND	up.usuario = '".toba::usuario()->get_id()."'
+			AND	up.usuario = $usuario
 			AND (SELECT COUNT(*) FROM apex_item 
 					WHERE proyecto = p.proyecto AND exportable=1) > 0
 			ORDER BY orden;";
@@ -273,7 +281,7 @@ class toba_info_editores
 	*/
 	static function get_items_exportables($proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : toba_contexto_info::get_proyecto();
+		$proyecto = isset($proyecto) ? quote($proyecto) : quote(toba_contexto_info::get_proyecto());
 		$sql = "
 			SELECT 
 				proyecto, 
@@ -282,7 +290,7 @@ class toba_info_editores
 			FROM apex_item 
 			WHERE 
 					(carpeta <> '1' OR carpeta IS NULL) 
-				AND proyecto = '$proyecto'
+				AND proyecto = $proyecto
 				AND exportable = 1
 			ORDER BY nombre;
 		";
@@ -295,13 +303,13 @@ class toba_info_editores
 
 	static function get_item_raiz($proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : toba_contexto_info::get_proyecto();
+		$proyecto = isset($proyecto) ? quote($proyecto) : quote(toba_contexto_info::get_proyecto());
 		$sql = "
 			SELECT 
 				item
 			FROM apex_item 
 			WHERE 
-					proyecto = '$proyecto'
+					proyecto = $proyecto
 				AND item = padre
 		";
 		$datos = toba_contexto_info::get_db()->consultar_fila($sql);
@@ -313,7 +321,7 @@ class toba_info_editores
 	*/
 	static function get_lista_items($proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : toba_contexto_info::get_proyecto();
+		$proyecto = isset($proyecto) ? quote($proyecto) : quote(toba_contexto_info::get_proyecto());
 		$sql = "
 			SELECT 
 				proyecto, 
@@ -322,7 +330,7 @@ class toba_info_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				proyecto = '$proyecto'
+				proyecto = $proyecto
 			ORDER BY nombre;
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -386,6 +394,8 @@ class toba_info_editores
 		if (! isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
+		$carpeta = quote($carpeta);
+		$proyecto = quote($proyecto);
 		$sql = "
 			SELECT 
 				item 									as id, 
@@ -393,8 +403,8 @@ class toba_info_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				( (padre = '$carpeta') AND (padre_proyecto='$proyecto') )
-					AND	proyecto = '$proyecto'
+				( (padre = $carpeta) AND (padre_proyecto= $proyecto) )
+					AND	proyecto = $proyecto
 			ORDER BY nombre;
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -425,15 +435,17 @@ class toba_info_editores
 	*/
 	static function get_clase_de_objeto($id)
 	{
+		$obj = quote($id[1]);
+		$proy = quote($id[0]);
 		$sql = "
 			SELECT 
 				o.clase
 			FROM 
 				apex_objeto o
 			WHERE 
-				(o.objeto = '{$id[1]}') AND 
-				(o.proyecto = '{$id[0]}')
-		";		
+				(o.objeto = $obj) AND
+				(o.proyecto = $proy)
+		";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		return $datos[0]['clase'];
 	}
@@ -441,13 +453,15 @@ class toba_info_editores
 	static function get_lista_objetos_toba($clase)
 	{
 		$clase = explode(",",$clase);
+		$clase = quote($clase[1]);
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT 	proyecto, 
 						objeto, 
 						objeto							   as id,
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
-				WHERE 	clase = '{$clase[1]}'
-				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+				WHERE 	clase = $clase
+				AND 	proyecto = $proyecto
 				ORDER BY nombre";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -455,14 +469,16 @@ class toba_info_editores
 	static function get_info_dependencia($objeto_proyecto, $objeto)
 	//Carga externa para un db_registros de dependencias
 	{
+		$proyecto = quote($objeto_proyecto);
+		$objeto = quote($objeto);
 		$sql = "SELECT 	o.clase || ' - ' || '[' || o.objeto || '] - ' || o.nombre as nombre_objeto,
 						'[' || o.objeto || '] - ' || o.nombre as descripcion,
 						o.clase_proyecto || ',' || o.clase as clase
 				FROM 	apex_clase c, apex_objeto o
 				WHERE 	o.clase = c.clase
 				AND 	o.clase_proyecto = c.proyecto
-				AND 	o.proyecto = '$objeto_proyecto'
-				AND 	o.objeto = '$objeto'";
+				AND 	o.proyecto = $proyecto
+				AND 	o.objeto = $objeto";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -477,11 +493,13 @@ class toba_info_editores
 	{
 		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto, 
 								'icono' => 'item.gif', 'consumidores_externos' => 0, 'nombre' => '');
+		$item = quote($item);
+		$proyecto = quote($proyecto);
 		$sql = "SELECT 	proyecto,
 						objeto
 				FROM 	apex_item_objeto 
-				WHERE 	item = '$item'
-				AND 	proyecto = '$proyecto'
+				WHERE 	item = $item
+				AND 	proyecto = $proyecto
 				ORDER BY objeto";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		foreach($datos as $componente) {
@@ -498,15 +516,17 @@ class toba_info_editores
 	{
 		if (! isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
-		}		
-		$sql = "SELECT 	
+		}
+		$id = quote($id);
+		$proyecto = quote($proyecto);
+		$sql = "SELECT
 					subclase,
 					subclase_archivo
 				FROM
 					apex_objeto
 				WHERE 	
-						objeto = $id 
-					AND proyecto = '$proyecto'";
+						objeto = $id
+					AND proyecto = $proyecto";
 		$datos = toba_contexto_info::get_db()->consultar_fila($sql);
 		return $datos;				
 	}
@@ -517,8 +537,10 @@ class toba_info_editores
 	function get_arbol_componentes_componente($proyecto, $componente, $componente_padre=null)
 	{
 		static $id = 1;
-		$excluir_padre = isset($componente_padre) ? "AND objeto_consumidor <> '$componente_padre'" : "";
-		$sql = "SELECT 	o.proyecto as 			proyecto, 
+		$excluir_padre = isset($componente_padre) ? 'AND objeto_consumidor <> '.quote($componente_padre) : "";
+		$proyecto = quote($proyecto);
+		$componente_sano = quote($componente);
+		$sql = "SELECT 	o.proyecto as 			proyecto,
 						o.objeto as 			objeto,
 						o.nombre as 			nombre,
 						o.clase as 				clase,
@@ -528,14 +550,14 @@ class toba_info_editores
 						(SELECT COUNT(*) 
 							FROM apex_objeto_dependencias dd
 							WHERE dd.objeto_proveedor = o.objeto
-							AND dd.proyecto = '$proyecto' $excluir_padre ) as consumidores_externos,
+							AND dd.proyecto = $proyecto $excluir_padre ) as consumidores_externos,
 						d.objeto_proveedor as 	dep
 				FROM 	apex_objeto o LEFT OUTER JOIN apex_objeto_dependencias d
 						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto,
 						apex_clase c
 				WHERE 	
-						o.objeto = '$componente' 
-					AND o.proyecto = '$proyecto'
+						o.objeto = $componente_sano
+					AND o.proyecto = $proyecto
 					AND o.clase = c.clase
 		";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
@@ -568,15 +590,16 @@ class toba_info_editores
 	static function get_pantallas_de_ci($objeto)
 	{
 		if (is_numeric($objeto)) {
+			$proyecto = quote(toba_contexto_info::get_proyecto());
+			$objeto = quote($objeto);			
 			$sql = "SELECT
 						pantalla,
 						identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
 					FROM
 						apex_objeto_ci_pantalla
 					WHERE
-						objeto_ci_proyecto = '". toba_contexto_info::get_proyecto() ."' AND
-						objeto_ci = '$objeto'
-			";
+						objeto_ci_proyecto = $proyecto AND
+						objeto_ci = $objeto";
 			return toba_contexto_info::get_db()->consultar($sql);
 		} else {
 			return array();	
@@ -590,6 +613,7 @@ class toba_info_editores
 	static function get_lista_objetos_dr()
 	//Listar objetos que son datos_relacion
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto()) ;
 		$sql = "SELECT 	proyecto, 
 						objeto, 
 						nombre as descripcion_corta,
@@ -597,7 +621,7 @@ class toba_info_editores
 				FROM apex_objeto 
 				WHERE 	clase = 'toba_datos_relacion'
 				AND		clase_proyecto = 'toba'
-				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+				AND 	proyecto = $proyecto
 				ORDER BY descripcion_corta";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -609,6 +633,7 @@ class toba_info_editores
 	static function get_lista_objetos_dt()
 	//Listar objetos que son datos_tabla
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT 	o.proyecto as 								proyecto, 
 						o.objeto as 								objeto, 
 						'[' || o.objeto || '] -- ' || o.nombre as 	descripcion,
@@ -619,7 +644,7 @@ class toba_info_editores
 				AND		o.objeto = d.objeto
 				AND		o.proyecto = d.objeto_proyecto
 				AND		o.clase_proyecto = 'toba'
-				AND 	o.proyecto = '". toba_contexto_info::get_proyecto() ."'
+				AND 	o.proyecto = $proyecto
 				ORDER BY tabla";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -633,8 +658,10 @@ class toba_info_editores
 		}
 		$objeto = '';
 		if (isset($id)) {
-			$objeto = "					dt.objeto = $id AND";
+			$id_sano = quote($id);
+			$objeto = "					dt.objeto = $id_sano AND";
 		}
+		$proyecto = quote($proyecto);
 		$sql = "
 			SELECT 
 				dt.tabla,
@@ -645,7 +672,7 @@ class toba_info_editores
 				apex_objeto as comp
 			WHERE
 				$objeto
-					dt.objeto_proyecto = '$proyecto'
+					dt.objeto_proyecto = $proyecto
 				AND dt.objeto = comp.objeto
 				AND dt.objeto_proyecto = comp.proyecto
 			ORDER BY tabla				
@@ -662,7 +689,10 @@ class toba_info_editores
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
-		}		
+		}
+		$proyecto = quote($proyecto);
+		$fuente = quote($fuente);
+		$tabla = quote($tabla);
 		$sql = "
 			SELECT 
 				dt.objeto as id
@@ -670,12 +700,11 @@ class toba_info_editores
 				apex_objeto_db_registros as dt,
 				apex_objeto as comp
 			WHERE
-					dt.tabla = '$tabla'
-				AND	dt.objeto_proyecto = '$proyecto'
+					dt.tabla = $tabla
+				AND	dt.objeto_proyecto = $proyecto
 				AND dt.objeto = comp.objeto
 				AND dt.objeto_proyecto = comp.proyecto
-				AND comp.fuente_datos = '$fuente'
-		";
+				AND comp.fuente_datos = $fuente";
 		return toba_contexto_info::get_db()->consultar_fila($sql);		
 	}
 	
@@ -688,6 +717,8 @@ class toba_info_editores
 		Esta pregunta hay que hacercela a una clase de dominio (un datos_tabla)
 	*/
 	{
+		$objeto = quote($objeto);
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT 		columna as 	clave,
 											columna as 	descripcion,
 											col_id  as	col_id,
@@ -695,7 +726,7 @@ class toba_info_editores
 											objeto
 				FROM apex_objeto_db_registros_col 
 				WHERE 	objeto = $objeto
-				AND 	objeto_proyecto = '". toba_contexto_info::get_proyecto() ."'
+				AND 	objeto_proyecto = $proyecto
 				ORDER BY 3";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -706,78 +737,80 @@ class toba_info_editores
 
   static function get_puntos_de_control($filtro, $id_contenedor = null, $id_objeto = null, $campos = null)
   {
-    $sql = "SELECT pto_control,
-                     descripcion
-                FROM apex_ptos_control 
-               WHERE proyecto = '". toba_contexto_info::get_proyecto() ."'
+		$proyecto = quote(toba_contexto_info::get_proyecto());
+		$sql = "SELECT pto_control,
+						 descripcion
+					FROM apex_ptos_control
+				   WHERE proyecto = $proyecto";
 
-     ";
-    
-    // Elimina los puntos de control que ya se utilizaron en 
-    // pantallas anteriores del mismo item. 
-    if ($filtro == 'P' || $filtro == 'C') 
-    {
-      if (isset($id_objeto))
-        $sql .= "    AND pto_control NOT IN (
-                   
-                    SELECT pce.pto_control
-                     FROM apex_ptos_control_x_evento pce,
-                          apex_objeto_dependencias ode,
-                          apex_objeto_dependencias ode2,
-                          apex_objeto_eventos oe
-                          
-                     WHERE ode.proyecto          =  '". toba_contexto_info::get_proyecto() ."'
-                       AND ode.objeto_proveedor  =  '". $id_objeto ."'
-                       
-                       AND ode.proyecto          =  ode2.proyecto
-                       AND ode.objeto_consumidor =  ode2.objeto_consumidor
-   
-                       AND ode2.proyecto         =  oe.proyecto
-                       AND ode2.objeto_proveedor =  oe.objeto
-                       AND ode2.objeto_proveedor <> '". $id_objeto ."'
-   
-                       AND oe.proyecto           =  pce.proyecto
-                       AND oe.evento_id          =  pce.evento_id
-                 ) 
-        ";    
+		// Elimina los puntos de control que ya se utilizaron en
+		// pantallas anteriores del mismo item.
+		if ($filtro == 'P' || $filtro == 'C')
+		{
+		  if (isset($id_objeto)) {
+			$id_objeto = quote($id_objeto);
+			$sql .= "    AND pto_control NOT IN (
 
-      if (isset($id_contenedor))
-        $sql .= "    AND pto_control NOT IN (
+							SELECT pce.pto_control
+							 FROM apex_ptos_control_x_evento pce,
+								  apex_objeto_dependencias ode,
+								  apex_objeto_dependencias ode2,
+								  apex_objeto_eventos oe
 
-                    SELECT pce.pto_control
-                     FROM apex_ptos_control_x_evento pce,
-                          apex_objeto_dependencias ode,
-                          apex_objeto_eventos oe
-                          
-                     WHERE ode.proyecto          =  '". toba_contexto_info::get_proyecto() ."'
-                       AND ode.objeto_consumidor =  '". $id_contenedor ."'
-                       
-                       AND ode.proyecto          =  oe.proyecto
-                       AND ode.objeto_proveedor  =  oe.objeto
-   
-                       AND oe.proyecto           =  pce.proyecto
-                       AND oe.evento_id          =  pce.evento_id
-                 ) 
-        ";    
-    }
+							 WHERE ode.proyecto          =  $proyecto
+							   AND ode.objeto_proveedor  =  $id_objeto
 
-    // Solo muestra los puntos de control cuyos parametros tengan el mismo 
-    // nombre que los definidos en el cuadro en edición
-    if ($filtro == 'C')
-    {
-       $sql .= "  AND pto_control IN (
+							   AND ode.proyecto          =  ode2.proyecto
+							   AND ode.objeto_consumidor =  ode2.objeto_consumidor
 
-                     SELECT DISTINCT pcp.pto_control
-                       FROM apex_ptos_control_param pcp
-                      WHERE pcp.proyecto = '". toba_contexto_info::get_proyecto() ."'
-                        AND pcp.parametro IN ('" 
-                        . implode("','",$campos) 
-                      . "')
-                 ) 
-     ";    
-    }
+							   AND ode2.proyecto         =  oe.proyecto
+							   AND ode2.objeto_proveedor =  oe.objeto
+							   AND ode2.objeto_proveedor <> $id_objeto
 
-    $sql .= "  ORDER BY descripcion   ";
+							   AND oe.proyecto           =  pce.proyecto
+							   AND oe.evento_id          =  pce.evento_id
+						 )
+				";
+			}
+			if (isset($id_contenedor)) {
+				$id_contenedor = quote($id_contenedor);
+				$sql .= "    AND pto_control NOT IN (
+
+							SELECT pce.pto_control
+							 FROM apex_ptos_control_x_evento pce,
+								  apex_objeto_dependencias ode,
+								  apex_objeto_eventos oe
+
+							 WHERE ode.proyecto          =  $proyecto
+							   AND ode.objeto_consumidor =  $id_contenedor
+
+							   AND ode.proyecto          =  oe.proyecto
+							   AND ode.objeto_proveedor  =  oe.objeto
+
+							   AND oe.proyecto           =  pce.proyecto
+							   AND oe.evento_id          =  pce.evento_id
+						 )
+				";
+			}
+		}
+
+		// Solo muestra los puntos de control cuyos parametros tengan el mismo
+		// nombre que los definidos en el cuadro en edición
+		if ($filtro == 'C')
+		{
+		   $sql .= "  AND pto_control IN (
+
+						 SELECT DISTINCT pcp.pto_control
+						   FROM apex_ptos_control_param pcp
+						  WHERE pcp.proyecto = $proyecto
+							AND pcp.parametro IN ('"
+							. implode("','",$campos)
+						  . "')
+					 )
+		 ";
+		}
+
+		$sql .= '  ORDER BY descripcion   ';
 
 		return toba_contexto_info::get_db()->consultar($sql);  
 	}
@@ -791,18 +824,20 @@ class toba_info_editores
 	*/
 	function get_tipos_pagina()
 	{
+		$proyecto =  quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, pagina_tipo, descripcion
 				FROM apex_pagina_tipo 
-				WHERE ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = $proyecto)
 				ORDER BY 3";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
 	function get_tipos_pagina_proyecto()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, pagina_tipo, descripcion, clase_archivo
 				FROM apex_pagina_tipo 
-				WHERE ( proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				WHERE ( proyecto = $proyecto)
 				ORDER BY 3";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
@@ -815,6 +850,7 @@ class toba_info_editores
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
+		$proyecto = quote($proyecto);
 		$sql = "
 			SELECT 
 				COALESCE(t.proyecto, 'toba')		 as proyecto,
@@ -822,7 +858,7 @@ class toba_info_editores
 			FROM 
 				apex_proyecto p LEFT OUTER JOIN apex_pagina_tipo t 
 					ON (p.proyecto = t.proyecto AND p.pagina_tipo = t.pagina_tipo) 
-			WHERE ( p.proyecto = '$proyecto' )
+			WHERE ( p.proyecto = $proyecto)
 		";
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
@@ -832,9 +868,10 @@ class toba_info_editores
 	*/
 	function get_buffers()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, buffer, descripcion_corta 
 				FROM apex_buffer 
-				WHERE ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = $proyecto)
 				ORDER BY 2";
 		return toba_contexto_info::get_db()->consultar($sql);		
 	}
@@ -844,9 +881,10 @@ class toba_info_editores
 	*/
 	function get_comportamientos()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, patron, descripcion_corta FROM apex_patron 
 				WHERE patron != 'especifico'
-				AND ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				AND ( proyecto = 'toba' OR proyecto = $proyecto )
 				ORDER BY 3";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -856,9 +894,10 @@ class toba_info_editores
 	*/
 	function get_zonas()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, zona, nombre
 				FROM apex_item_zona
-				WHERE ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = $proyecto)
 				ORDER BY nombre";
 		return toba_contexto_info::get_db()->consultar($sql);		
 	}			
@@ -868,10 +907,11 @@ class toba_info_editores
 	*/
 	function get_tipo_observaciones_solicitud()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto()) ;
 		$sql = "SELECT proyecto, solicitud_obs_tipo, 
 						descripcion 
 				FROM apex_solicitud_obs_tipo 
-				WHERE ( proyecto = 'toba' OR proyecto = '". toba_contexto_info::get_proyecto() ."' ) ";
+				WHERE ( proyecto = 'toba' OR proyecto = $proyecto) ";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -883,9 +923,10 @@ class toba_info_editores
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
+		$proyecto = quote($proyecto);
 		$sql = "SELECT proyecto, fuente_datos, descripcion as descripcion_corta, descripcion, schema
 				FROM apex_fuente_datos
-				WHERE ( proyecto = '$proyecto' )
+				WHERE ( proyecto = $proyecto )
 				ORDER BY 2";
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
@@ -895,7 +936,7 @@ class toba_info_editores
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
-		$sql = "SELECT fuente_datos FROM apex_proyecto WHERE proyecto='$proyecto'";
+		$sql = 'SELECT fuente_datos FROM apex_proyecto WHERE proyecto='.quote($proyecto);
 		$rs = toba_contexto_info::get_db()->consultar_fila($sql);	
 		return $rs['fuente_datos'];
 	}	
@@ -905,12 +946,12 @@ class toba_info_editores
 	 */
 	function get_lista_motores()
 	{
-		$sql = "SELECT 
+		$sql = 'SELECT
 					fuente_datos_motor, 
 					nombre
 				FROM apex_fuente_datos_motor
 				ORDER BY nombre
-				";	
+				';
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 
@@ -939,16 +980,18 @@ class toba_info_editores
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
+		$id_fuente = quote($id_fuente);
+		$proyecto = quote($proyecto);
 		$sql = "SELECT 	*,
 						link_instancia 		as link_base_archivo,
 						fuente_datos_motor 	as motor,
 						host 				as profile
 				FROM 	apex_fuente_datos
-				WHERE	fuente_datos = '$id_fuente'
-				AND 	proyecto = '$proyecto'";
+				WHERE	fuente_datos = $id_fuente
+				AND 	proyecto = $proyecto";
 		$rs = toba_contexto_info::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
+			throw new toba_error("No se puede encontrar la fuente $id_fuente en el proyecto $proyecto");	
 		}
 		return $rs[0];
 	}
@@ -958,11 +1001,12 @@ class toba_info_editores
 	 */
 	static function hay_fuente_definida($proyecto)
 	{
+		$proyecto = quote($proyecto);
 		$sql = "SELECT count(*) as cantidad
 				FROM 	apex_fuente_datos
-				WHERE	proyecto = '$proyecto'";
+				WHERE	proyecto = $proyecto";
 		$rs = toba_contexto_info::get_db()->consultar($sql);
-		return $rs[0]['cantidad'] > 0;
+		return ($rs[0]['cantidad'] > 0);
 	}
 
 	/**
@@ -970,13 +1014,14 @@ class toba_info_editores
 	*/
 	function get_lista_skins()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT
 					estilo, 
 					proyecto,
 					descripcion
 				FROM apex_estilo
 				WHERE
-						proyecto = '".toba_contexto_info::get_proyecto()."' 
+						proyecto = $proyecto
 					OR	proyecto = 'toba'
 				ORDER BY descripcion";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -984,13 +1029,14 @@ class toba_info_editores
 
 	function get_lista_estilos_columnas()
 	{
-		$sql = "SELECT columna_estilo, css FROM apex_columna_estilo";
+		$sql = 'SELECT columna_estilo, css FROM apex_columna_estilo';
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
 	function get_estilo_defecto_formateo_columna($formateo)
 	{
-		$sql = "SELECT estilo_defecto FROM apex_columna_formato WHERE columna_formato='$formateo'";
+		$formateo = quote($formateo);
+		$sql = "SELECT estilo_defecto FROM apex_columna_formato WHERE columna_formato= $formateo";
 		$rs = toba_contexto_info::get_db()->consultar_fila($sql);
 		return $rs['estilo_defecto'];
 	}
@@ -998,31 +1044,33 @@ class toba_info_editores
 	function get_mensajes($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
 		$sql = "SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_msg
-				WHERE proyecto = '$proyecto';";
+				WHERE proyecto = $proyecto;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
 	function get_mensajes_objeto($objeto, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
+		$objeto = quote($objeto);
 		$sql = "SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_objeto_msg
 				WHERE 
-						objeto_proyecto = '$proyecto'
-					AND	objeto = '$objeto'
-		";
+						objeto_proyecto = $proyecto
+					AND	objeto = $objeto";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 	function get_puntos_control($proyecto = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-	      $sql = "SELECT proyecto, pto_control, descripcion
+		$proyecto = quote($proyecto);
+	     $sql = "SELECT proyecto, pto_control, descripcion
 					FROM apex_ptos_control
-					WHERE proyecto = '$proyecto'
-	      ";
+					WHERE proyecto = $proyecto";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -1033,13 +1081,12 @@ class toba_info_editores
 	
 	function get_filtro_tipo_columnas()
 	{
-		$proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT tipo_col, descripcion
 					FROM apex_objeto_ei_filtro_tipo_col
 					WHERE 
 							proyecto = 'toba'
-						OR	proyecto = '$proyecto'
-	    ";
+						OR	proyecto = $proyecto";
 	    return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -1073,6 +1120,7 @@ class toba_info_editores
 	*/
 	function get_log_modificacion_componentes()
 	{
+		$proyecto = quote(toba_contexto_info::get_proyecto()) ;
 		$sql = "	SELECT l.momento as momento,
 						l.usuario as usuario,	
 						'[' || coalesce(CAST(l.objeto as text), '...') || '] ' 
@@ -1089,9 +1137,9 @@ class toba_info_editores
 						ON (o.proyecto = l.objeto_proyecto AND o.objeto = l.objeto)
 					LEFT OUTER JOIN
 						apex_item i ON (l.item = i.item)
-					WHERE objeto_proyecto = '". toba_contexto_info::get_proyecto() ."'
+					WHERE objeto_proyecto = $proyecto
 					AND ( (o.objeto IS NOT NULL) OR (i.item IS NOT NULL) ) -- no mostrar eliminados
-					ORDER BY momento DESC;";	
+					ORDER BY momento DESC;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -1102,9 +1150,10 @@ class toba_info_editores
 	function get_opciones_predefinidas_molde($proyecto = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$sql = "	SELECT * 
+		$proyecto = quote($proyecto);
+		$sql = "	SELECT *
 					FROM apex_molde_opciones_generacion
-					WHERE proyecto = '$proyecto'";
+					WHERE proyecto = $proyecto";
 		return toba_contexto_info::get_db()->consultar_fila($sql);			
 	}
 
@@ -1112,7 +1161,7 @@ class toba_info_editores
 	{
 		$where_operacion = '';
 		if (isset($operacion_tipo)) {
-			$where_operacion = "WHERE operacion_tipo='$operacion_tipo'";
+			$where_operacion = 'WHERE operacion_tipo='.quote($operacion_tipo);
 		}
 		$sql = "	SELECT	operacion_tipo,
 							clase,
@@ -1135,9 +1184,10 @@ class toba_info_editores
 	function get_lista_moldes_existentes($proyecto=null, $tipo_operacion = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
 		$sql_tipo_operacion = '';
 		if (isset($tipo_operacion)) {
-			$sql_tipo_operacion = " AND t.operacion_tipo = '$tipo_operacion'";
+			$sql_tipo_operacion = ' AND t.operacion_tipo = '.quote($tipo_operacion);
 		}
 		$sql = "SELECT		t.operacion_tipo 		as tipo,
 							t.descripcion_corta		as tipo_desc,
@@ -1152,18 +1202,20 @@ class toba_info_editores
 							apex_molde_operacion_tipo t
 					WHERE	o.operacion_tipo = t.operacion_tipo 
 							$sql_tipo_operacion
-					AND		o.proyecto = '$proyecto'
+					AND		o.proyecto = $proyecto
 					ORDER BY 1,3;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 	function get_lista_ejecuciones_molde($proyecto, $molde)
 	{
+		$molde = quote($molde);
+		$proyecto = quote($proyecto);
 		$sql = "SELECT		generacion,
 							momento
 					FROM	apex_molde_operacion_log
-					WHERE	molde = '$molde'
-					AND		proyecto = '$proyecto'
+					WHERE	molde = $molde
+					AND		proyecto = $proyecto
 					ORDER BY 1 DESC;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
@@ -1171,6 +1223,8 @@ class toba_info_editores
 	function get_info_molde($proyecto, $molde)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
+		$molde = quote($molde);
 		$sql = "SELECT		t.descripcion_corta		as tipo,
 							o.proyecto				as proyecto,
 							o.molde					as molde,
@@ -1182,8 +1236,8 @@ class toba_info_editores
 					FROM	apex_molde_operacion o,
 							apex_molde_operacion_tipo t
 					WHERE	o.operacion_tipo = t.operacion_tipo
-					AND		o.proyecto = '$proyecto'
-					AND		o.molde = '$molde';";
+					AND		o.proyecto = $proyecto
+					AND		o.molde = $molde;";
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
 
@@ -1194,13 +1248,14 @@ class toba_info_editores
 	function get_consultas_php($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
 		$sql = "SELECT		proyecto,
 							consulta_php,
 							clase,
 							archivo,
 							clase || ' (' || archivo || ')' as descripcion
 					FROM	apex_consulta_php
-					WHERE	proyecto = '$proyecto'
+					WHERE	proyecto = $proyecto
 					ORDER BY clase
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -1209,10 +1264,11 @@ class toba_info_editores
 	function get_consulta_php($consulta, $proyecto)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
 		$sql = "SELECT		clase,
 							archivo
 					FROM	apex_consulta_php
-					WHERE	proyecto = '$proyecto' AND consulta_php = $consulta
+					WHERE	proyecto = $proyecto AND consulta_php = $consulta
 		";
 		return toba_contexto_info::get_db()->consultar_fila($sql);		
 	}
@@ -1249,6 +1305,7 @@ class toba_info_editores
 	function get_dimensiones($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
 		$sql = "SELECT		fuente_datos,
 							proyecto,
 							dimension,
@@ -1256,7 +1313,7 @@ class toba_info_editores
 							tabla,
 							descripcion
 					FROM	apex_dimension
-					WHERE	proyecto = '$proyecto'
+					WHERE	proyecto = $proyecto
 					ORDER BY nombre
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -1264,10 +1321,12 @@ class toba_info_editores
 
 	function get_datos_dimension($proyecto, $dimension)
 	{
+		$proyecto = quote($proyecto);
+		$dimension = quote($dimension);
 		$sql = "SELECT		*
 					FROM	apex_dimension
-					WHERE	proyecto = '$proyecto'
-					AND		dimension = '$dimension'
+					WHERE	proyecto = $proyecto
+					AND		dimension = $dimension
 					ORDER BY nombre
 		";
 		return toba_contexto_info::get_db()->consultar_fila($sql);
@@ -1276,11 +1335,13 @@ class toba_info_editores
 	function get_cantidad_dimensiones_fuente($fuente, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
+		$fuente = quote($fuente);
 		$sql = "SELECT		COUNT(dimension) as cantidad
 					FROM	apex_dimension
-					WHERE	proyecto = '$proyecto'
-					AND		fuente_datos = '$fuente';
-		";
+					WHERE	proyecto = $proyecto
+					AND		fuente_datos = $fuente;";
+		
 		$temp = toba_contexto_info::get_db()->consultar_fila($sql);
 		return $temp['cantidad'];
 	}
@@ -1292,11 +1353,13 @@ class toba_info_editores
 	function get_relaciones_tablas($fuente_datos, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = quote($proyecto);
+		$fuente_datos = quote($fuente_datos);
 		$sql = "SELECT *
 		FROM
 			apex_relacion_tablas
-		WHERE fuente_datos = '$fuente_datos'
-		AND proyecto = '$proyecto'
+		WHERE fuente_datos = $fuente_datos
+		AND proyecto = $proyecto
 		ORDER BY tabla_1";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}

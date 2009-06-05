@@ -47,10 +47,9 @@ class asignador_objetos
 	
 	protected function asignar_a_item()
 	{
-		$sql = "SELECT COALESCE(MAX(orden),0) as maximo
+		$sql = 'SELECT COALESCE(MAX(orden),0) as maximo
 					FROM apex_item_objeto 
-					WHERE item='{$this->destino['objeto']}' AND proyecto='{$this->destino['proyecto']}'
-			";
+					WHERE item='.quote($this->destino['objeto']).' AND proyecto='.quote($this->destino['proyecto']);
 		$res = consultar_fuente($sql);
 		$orden = $res[0]['maximo'];
 		$sql = "INSERT INTO apex_item_objeto 
@@ -104,10 +103,10 @@ class asignador_objetos
 						  '{$this->destino['objeto']}', '$dep_id',
 							(SELECT max(orden) + 1
 							FROM apex_objetos_pantalla
-							WHERE proyecto = '{$this->destino['proyecto']}' AND
-								objeto_ci = '{$this->destino['objeto']}' AND
-								pantalla = '{$this->destino['pantalla']}' )
-						);";
+							WHERE proyecto = ".quote($this->destino['proyecto']).' AND
+								objeto_ci = '.quote($this->destino['objeto']).' AND
+								pantalla = '.quote($this->destino['pantalla']).' )
+						);';
 				
 		ejecutar_fuente($sql,'instancia');
 	}

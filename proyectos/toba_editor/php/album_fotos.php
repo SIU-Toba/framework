@@ -36,16 +36,16 @@ class album_fotos
 	
 	function fotos()
 	{
-		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::usuario()->get_id();
+		$proyecto = quote(toba_editor::get_proyecto_cargado());
+		$usuario = quote(toba::usuario()->get_id());
 		$sql = "SELECT 
 					foto_nombre, 
 					foto_nodos_visibles,
 					foto_opciones
 				FROM apex_arbol_items_fotos fotos
 				WHERE 
-					fotos.proyecto = '$proyecto' AND
-					fotos.usuario = '$usuario'
+					fotos.proyecto = $proyecto AND
+					fotos.usuario = $usuario
 			";
 		toba::db()->ejecutar($sql);
 		$fotos_en_crudo = $res->GetArray();

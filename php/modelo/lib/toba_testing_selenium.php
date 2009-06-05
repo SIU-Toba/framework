@@ -131,6 +131,8 @@ class toba_testing_selenium
 	
 	protected function get_items_hijos($padre) 
 	{
+		$proyecto = quote($this->proyecto);
+		$padre = quote($padre);
 		$sql = "SELECT 
 					item, 
 					nombre,
@@ -139,8 +141,8 @@ class toba_testing_selenium
 				FROM 
 					apex_item 
 				WHERE 
-						proyecto = '{$this->proyecto}' 
-					AND padre = '$padre' 
+						proyecto = $proyecto
+					AND padre = $padre
 					AND menu=1 
 				ORDER BY orden";
 		return toba::instancia()->get_db()->consultar($sql);

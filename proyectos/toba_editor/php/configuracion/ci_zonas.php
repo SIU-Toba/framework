@@ -5,9 +5,9 @@ class ci_zonas extends ci_abm_basico
 {
 	function get_datos_listado()
 	{
-		$sql = "SELECT proyecto, zona, nombre
+		$sql = 'SELECT proyecto, zona, nombre
 				FROM apex_item_zona
-				WHERE proyecto = '" . toba_editor::get_proyecto_cargado() . "'";
+				WHERE proyecto = ' .quote( toba_editor::get_proyecto_cargado());
 		return toba::db()->consultar($sql);
 	}
 

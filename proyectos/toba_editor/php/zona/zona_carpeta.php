@@ -6,10 +6,10 @@ class zona_carpeta extends zona_editor
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		$sql = 	"	SELECT	i.*
+		$sql = 	'	SELECT	i.*
 					FROM	apex_item i
-					WHERE	i.proyecto='{$this->editable_id[0]}'
-					AND		item='{$this->editable_id[1]}';";
+					WHERE	i.proyecto='.quote($this->editable_id[0]).'
+					AND		item='.quote($this->editable_id[1]).';';
 		$rs = toba::db()->consultar($sql);
 		if(!$rs){
 			echo ei_mensaje("ZONA-ITEM: El editable solicitado no existe","info");

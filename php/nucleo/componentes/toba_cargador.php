@@ -81,7 +81,7 @@ class toba_cargador
 				$proyecto = $db->quote($componente['proyecto']);
 				$definicion = toba_db_tablas_componente::$tabla();
 				//Genero el SQL
-				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+				$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 						" FROM $tabla " .
 						" WHERE {$definicion['dump_clave_proyecto']} = $proyecto " .
 						" AND {$definicion['dump_clave_componente']} = $id " .
@@ -203,7 +203,7 @@ class toba_cargador
 		foreach ( toba_db_tablas_componente::get_lista() as $tabla ) {
 			$definicion = toba_db_tablas_componente::$tabla();
 			//Genero el SQL
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+			$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .
 					" WHERE {$definicion['dump_clave_proyecto']} = '$proyecto' " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";

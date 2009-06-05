@@ -51,9 +51,10 @@ class toba_catalogo_items_base
 		if (isset($opciones['sin_componentes'])) {
 			return false;
 		}
-		
-		$sql = "SELECT carpeta FROM apex_item i WHERE 
-					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
+		$proyecto = quote($this->proyecto);
+		$id_item = quote($id_item);
+		$sql = "SELECT carpeta FROM apex_item i WHERE
+					i.item= $id_item AND i.proyecto= $proyecto ";
 		$rs = toba_contexto_info::get_db()->consultar($sql);
 
 		if (!empty($rs)) {
@@ -282,10 +283,11 @@ class toba_catalogo_items_base
 		
 		$this->raices_de_objeto = array();
 		$this->buscar_raices_de_objeto($id_objeto);
+		$proyecto = quote($this->proyecto);
 		foreach ($this->raices_de_objeto as $obj_raiz) {
+			$raiz = quote($obj_raiz);
 			$sql = "SELECT item FROM apex_item_objeto WHERE
-					objeto = '$obj_raiz' AND proyecto = '{$this->proyecto}'
-				";
+					objeto = $raiz  AND proyecto = $proyecto";
 			$rs = toba_contexto_info::get_db()->consultar($sql);
 			foreach ($rs as $item) {
 				if (! in_array($item['item'], $ids_encontrados)) {
@@ -342,9 +344,10 @@ class toba_catalogo_items_base
 	 */
 	protected function buscar_raices_de_objeto($id_objeto)
 	{
+		$id_sano = quote($id_objeto);
+		$proyecto = quote($this->proyecto);
 		$sql_obj = "SELECT objeto_consumidor FROM apex_objeto_dependencias WHERE
-					objeto_proveedor = '$id_objeto' AND proyecto = '{$this->proyecto}'
-			";
+					objeto_proveedor = $id_sano AND proyecto = $proyecto";
 		$rs = toba_contexto_info::get_db()->consultar($sql_obj);
 		if (empty($rs)) {
 			if (! in_array($id_objeto, $this->raices_de_objeto)) {

@@ -87,7 +87,7 @@ class admin_instancia
 	
 	function get_lista_ips_rechazadas()
 	{
-		$sql = "SELECT momento, ip FROM apex_log_ip_rechazada;";
+		$sql = 'SELECT momento, ip FROM apex_log_ip_rechazada;';
 		return toba::db()->consultar($sql);
 	}
 

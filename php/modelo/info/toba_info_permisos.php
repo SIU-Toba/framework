@@ -7,19 +7,22 @@ class toba_info_permisos
 		$where = '';
 		if ($condiciones != null) {
 			if (isset($condiciones['nombre'])) {
-				$where .= "AND	nombre ILIKE '%{$condiciones['nombre']}%' ";
+				$nombre = quote("%{$condiciones['nombre']}%");
+				$where .= "AND	nombre ILIKE  $nombre";
 			}
 			if (isset($condiciones['descripcion'])) {
-				$where .= "AND	descripcion ILIKE '%{$condiciones['descripcion']}%' ";
+				$descr = quote("%{$condiciones['descripcion']}%");
+				$where .= "AND	descripcion ILIKE $descr ";
 			}
 		}
+		$proyecto = quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT 	
 					permiso,
 					nombre,
 					descripcion
 				FROM apex_permiso 
 				WHERE 
-					proyecto = '". toba_contexto_info::get_proyecto() ."'
+					proyecto = $proyecto
 					$where
 				ORDER BY nombre, descripcion
 		";
@@ -31,10 +34,11 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
+		$proyecto = quote($proyecto);
 		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
 				FROM apex_usuario_grupo_acc
 				WHERE 
-					proyecto = '$proyecto'
+					proyecto = $proyecto
 				ORDER BY nombre
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -45,10 +49,11 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
+		$proyecto = quote($proyecto);
 		$sql = "SELECT proyecto, usuario_perfil_datos, nombre
 				FROM apex_usuario_perfil_datos
 				WHERE 
-					proyecto = '$proyecto'
+					proyecto = $proyecto
 				ORDER BY nombre
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -59,15 +64,17 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
+		$proyecto = quote($proyecto);
 		$sql = "SELECT u.usuario as usuario, u.nombre as nombre
 				FROM apex_usuario u, apex_usuario_proyecto up
 				WHERE u.usuario = up.usuario
-				AND up.proyecto = '$proyecto';";
+				AND up.proyecto = $proyecto;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 
 	function get_restricciones_proyecto($proyecto)
 	{
+		$proyecto = quote($proyecto);
 		$sql = "SELECT 	proyecto,
 						restriccion_funcional,
 						descripcion,
@@ -79,7 +86,7 @@ class toba_info_permisos
 						(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE restriccion_funcional = rf.restriccion_funcional)) as cant_resticciones
 						
 				FROM 	apex_restriccion_funcional as rf
-				WHERE 	proyecto = '$proyecto'
+				WHERE 	proyecto = $proyecto
 				ORDER BY descripcion
 		";
 		return toba_contexto_info::get_db()->consultar($sql);

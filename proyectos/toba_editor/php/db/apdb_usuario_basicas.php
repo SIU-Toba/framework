@@ -8,7 +8,7 @@ class apdb_usuario_basicas extends toba_ap_tabla_db
 		//Para encriptarla
 		if ($this->datos[$id]['autentificacion'] == 'md5') {
 			$usuario = $this->datos[$id]['usuario'];
-			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = '$usuario'";
+			$sql = 'SELECT clave, autentificacion FROM apex_usuario WHERE usuario = '.quote($usuario);
 			$rs = toba::db($this->fuente)->consultar($sql);
 			if ($rs[0]['clave'] != $this->datos[$id]['clave']
 					|| $rs[0]['autentificacion'] != 'md5') {

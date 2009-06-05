@@ -55,9 +55,9 @@ class ci_impresion extends toba_ci
 		$datos[5]['tipo'] = '2';
 		$datos[5]['desc'] = 'Menos';
 		
-		$sql = "SELECT objeto as id, nombre as desc, clase as tipo
+		$sql = 'SELECT objeto as id, nombre as desc, clase as tipo
 				FROM apex_objeto
-				ORDER BY 3,2 LIMIT 50;";
+				ORDER BY 3,2 LIMIT 50;';
 		//$datos = consultar_fuente( $sql, 'instancia' );
 		return $datos;
 	}

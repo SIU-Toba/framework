@@ -17,6 +17,10 @@ class toba_componente_def implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
+		$proyecto = self::$db->quote($proyecto);
+		if (isset($componente)) {
+			$componente = self::$db->quote($componente);
+		}
 		$sql['_info']['sql'] = "	SELECT	o.proyecto         		as proyecto,                 
 									o.objeto                    	as objeto,                   
 									o.anterior                  	as anterior,  
@@ -73,9 +77,9 @@ class toba_componente_def implements toba_componente_definicion
 								apex_clase c
 						WHERE	o.clase_proyecto = c.proyecto
 						AND			o.clase = c.clase
-						AND		o.proyecto='$proyecto'";
+						AND		o.proyecto= $proyecto";
 		if ( isset($componente) ) {
-			$sql['_info']['sql'] .= "	AND		o.objeto='$componente';";	
+			$sql['_info']['sql'] .= "	AND		o.objeto= $componente;";
 		}
 		$sql['_info']['registros']='1';	
 		$sql['_info']['obligatorio']=true;

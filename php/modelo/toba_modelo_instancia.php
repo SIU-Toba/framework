@@ -237,7 +237,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function existen_metadatos_proyecto( $proyecto )
 	{
-		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = '$proyecto';";
+		$proyecto = toba::instancia()->get_db()->quote($proyecto);
+		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = $proyecto;";
 		$datos = $this->get_db()->consultar( $sql );
 		if ( count( $datos ) > 0 ) {
 			return true;
@@ -426,7 +427,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach ( toba_db_tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$definicion = toba_db_tablas_instancia::$tabla();
 			//Genero el SQL
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+			$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
@@ -493,7 +494,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
             foreach ($definicion['columnas'] as $columna ) {
             	$columnas[] = "dd.$columna";
             }
-			$sql = "SELECT " . implode(', ',$columnas) .
+			$sql = 'SELECT ' . implode(', ',$columnas) .
 					" FROM $from " .
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
@@ -1060,25 +1061,27 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_lista_usuarios($proyecto=null)
 	{
 		if(isset($proyecto)) {
+			$proyecto = toba::instancia()->get_db()->quote($proyecto);
 			$sql = "SELECT u.usuario as usuario, u.nombre as nombre
 					FROM apex_usuario u, apex_usuario_proyecto up
 					WHERE u.usuario = up.usuario
-					AND up.proyecto = '$proyecto';";
+					AND up.proyecto = $proyecto;";
 		} else {
-			$sql = "SELECT usuario, nombre FROM apex_usuario";	
+			$sql = 'SELECT usuario, nombre FROM apex_usuario';
 		}
 		return $this->get_db()->consultar( $sql );
 	}
 	
 	function get_usuarios_administradores($proyecto, $grupo = 'admin')
 	{
+		$proyecto = toba::instancia()->get_db()->quote($proyecto);
+		$grupo = toba::instancia()->get_db()->quote($grupo);
 		$sql = "
 			SELECT	usuario
 			FROM	apex_usuario_proyecto
 			WHERE	
-					proyecto='$proyecto'
-				AND	usuario_grupo_acc = '$grupo'
-		";
+					proyecto= $proyecto
+				AND	usuario_grupo_acc = $grupo";
 		return $this->get_db()->consultar( $sql );
 	}	
 
@@ -1290,7 +1293,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function get_version_actual()
 	{
-		$sql = "SELECT version FROM apex_instancia";
+		$sql = 'SELECT version FROM apex_instancia';
 		$rs = $this->get_db()->consultar($sql);
 		if (empty($rs)) {
 			return toba_version::inicial(); //Es la version anterior al cambio de la migracion

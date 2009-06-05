@@ -34,6 +34,10 @@ class toba_rf_componente extends toba_rf
 
 	function cargar_datos()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	o.nombre as 			nombre,
 						c.icono as				icono,
 						rfei.no_visible as		no_visible,
@@ -42,10 +46,10 @@ class toba_rf_componente extends toba_rf
 						apex_objeto o
 							LEFT OUTER JOIN apex_restriccion_funcional_ei rfei
 								ON o.objeto = rfei.objeto AND o.proyecto = rfei.proyecto
-								AND rfei.item = '$this->item'
-								AND rfei.restriccion_funcional = '$this->restriccion'
-				WHERE 	o.objeto = '$this->componente' 
-					AND o.proyecto = '$this->proyecto'
+								AND rfei.item = $item
+								AND rfei.restriccion_funcional = $restriccion
+				WHERE 	o.objeto = $componente
+					AND o.proyecto = $proyecto
 					AND o.clase = c.clase";
 		return toba::db()->consultar_fila($sql);
 	}
@@ -68,6 +72,10 @@ class toba_rf_componente extends toba_rf
 
 	function cargar_datos_eventos()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	e.proyecto as 		proyecto,
 						e.etiqueta as		etiqueta, 
 						e.identificador as 	identificador,
@@ -78,11 +86,11 @@ class toba_rf_componente extends toba_rf
 				FROM 	apex_objeto_eventos e
 						LEFT OUTER JOIN apex_restriccion_funcional_evt re
 							ON e.evento_id = re.evento_id AND e.proyecto = re.proyecto
-							AND re.item = '$this->item'
-							AND re.restriccion_funcional = '$this->restriccion'
+							AND re.item = $item
+							AND re.restriccion_funcional = $restriccion
 				WHERE	(e.implicito <> 1 OR e.implicito IS NULL)
-				AND		e.objeto = '$this->componente' 
-				AND		e.proyecto = '$this->proyecto'
+				AND		e.objeto = $componente
+				AND		e.proyecto = $proyecto
 				ORDER BY e.orden";
 		return toba::db()->consultar($sql);
 	}

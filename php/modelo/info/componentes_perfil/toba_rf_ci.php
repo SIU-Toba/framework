@@ -55,6 +55,10 @@ class toba_rf_ci extends toba_rf_componente
 
 	function cargar_datos_pantallas()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$proyecto = quote($this->proyecto);
+		$componente = quote($this->componente);
 		$sql = "SELECT 	p.objeto_ci_proyecto as proyecto,
 						p.pantalla,
 						p.identificador,
@@ -71,24 +75,26 @@ class toba_rf_ci extends toba_rf_componente
 							ON 	p.objeto_ci_proyecto = rfp.proyecto
 							AND p.objeto_ci = rfp.objeto_ci
 							AND p.pantalla = rfp.pantalla
-							AND rfp.item = '$this->item'
-							AND rfp.restriccion_funcional = '$this->restriccion'
-				WHERE 	p.objeto_ci_proyecto = '$this->proyecto' 
-					AND p.objeto_ci = '$this->componente'
+							AND rfp.item = $item
+							AND rfp.restriccion_funcional = $restriccion
+				WHERE 	p.objeto_ci_proyecto = $proyecto
+					AND p.objeto_ci = $componente
 				ORDER BY orden";
 		return toba::db()->consultar($sql);
 	}
 
 	function cargar_datos_dependencias()
 	{
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	o.objeto as 			objeto,
 						o.clase as 				clase,
 						d.identificador as		rol
 				FROM 	apex_objeto_dependencias d,
 						apex_objeto o,
 						apex_clase c
-				WHERE	d.objeto_consumidor = '$this->componente' 
-					AND d.proyecto = '$this->proyecto'
+				WHERE	d.objeto_consumidor = $componente
+					AND d.proyecto = $proyecto
 					AND o.objeto = d.objeto_proveedor 
 					AND o.proyecto = d.proyecto
 					AND o.clase = c.clase
@@ -98,14 +104,16 @@ class toba_rf_ci extends toba_rf_componente
 
 	function cargar_datos_objetos_pantalla()
 	{
+		$proyecto = quote($this->proyecto);
+		$componente = quote($this->componente);
 		$sql = "SELECT	op.pantalla,
 										op.orden,
 										op.dep_id,
 										od.identificador
 					 FROM	apex_objetos_pantalla op,
 									apex_objeto_dependencias od
-					 WHERE op.proyecto = '$this->proyecto'
-					 AND	op.objeto_ci = '$this->componente'
+					 WHERE op.proyecto = $proyecto
+					 AND	op.objeto_ci = $componente
 					 AND	op.proyecto = od.proyecto
 					 AND	op.objeto_ci = od.objeto_consumidor
 					 AND	op.dep_id	= od.dep_id

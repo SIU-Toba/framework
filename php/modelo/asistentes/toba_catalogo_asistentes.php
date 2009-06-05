@@ -23,13 +23,15 @@ class toba_catalogo_asistentes
 	}
 	
 	static function get_asistente_molde($id_molde_proyecto, $id_molde)
-	{	
-		$sql = "SELECT 	t.clase 			as asistente 
+	{
+		$id_molde = quote($id_molde);
+		$id_molde_proyecto = quote($id_molde_proyecto);
+		$sql = "SELECT 	t.clase 			as asistente
 				FROM 	apex_molde_operacion o,
 						apex_molde_operacion_tipo t
 				WHERE 	o.operacion_tipo = t.operacion_tipo
-				AND		proyecto = '$id_molde_proyecto'
-				AND		molde = '$id_molde';";
+				AND		proyecto = $id_molde_proyecto
+				AND		molde = $id_molde;";
 		$temp = consultar_fuente($sql);
 		if($temp) {
 			return $temp[0]['asistente'];
@@ -39,13 +41,15 @@ class toba_catalogo_asistentes
 	}
 
 	static function get_ci_molde($id_molde_proyecto, $id_molde)
-	{	
+	{
+		$id_molde = quote($id_molde);
+		$id_molde_proyecto = quote($id_molde_proyecto);
 		$sql = "SELECT 	t.ci 				as ci
 				FROM 	apex_molde_operacion o,
 						apex_molde_operacion_tipo t
 				WHERE 	o.operacion_tipo = t.operacion_tipo
-				AND		proyecto = '$id_molde_proyecto'
-				AND		molde = '$id_molde';";
+				AND		proyecto = $id_molde_proyecto
+				AND		molde = $id_molde;";
 		$temp = consultar_fuente($sql);
 		if($temp) {
 			return $temp[0]['ci'];
@@ -56,9 +60,10 @@ class toba_catalogo_asistentes
 	
 	static function get_clase_asistente($tipo_operacion)
 	{
+		$tipo_operacion = quote($tipo_operacion);
 		$sql = "SELECT 	t.clase
 				FROM apex_molde_operacion_tipo t
-				WHERE 	t.operacion_tipo = '$tipo_operacion'";
+				WHERE 	t.operacion_tipo = $tipo_operacion";
 		$temp = consultar_fuente($sql);
 		if($temp) {
 			return $temp[0]['clase'];

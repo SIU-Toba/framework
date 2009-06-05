@@ -57,15 +57,16 @@ class album_fotos
 	
 	function get_predeterminada()
 	{
-		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::usuario()->get_id();
+		$proyecto = quote(toba_editor::get_proyecto_cargado());
+		$usuario = quote(toba::usuario()->get_id());
+		$tipo = quote($this->tipo);		
 		$sql = "SELECT 
 					foto_nombre
 				FROM apex_admin_album_fotos fotos
 				WHERE 
-					fotos.proyecto = '$proyecto' AND
-					fotos.usuario = '$usuario' AND
-					fotos.foto_tipo = '{$this->tipo}' AND
+					fotos.proyecto = $proyecto AND
+					fotos.usuario = $usuario AND
+					fotos.foto_tipo = $tipo AND
 					fotos.predeterminada = 1
 			";
 		$res = toba::db()->consultar($sql);
@@ -92,11 +93,12 @@ class album_fotos
 	
 	function fotos($nombre = null)
 	{
-		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::usuario()->get_id();
+		$proyecto = quote(toba_editor::get_proyecto_cargado());
+		$usuario = quote(toba::usuario()->get_id());
+		$tipo = quote($this->tipo);
 		$where_nombre = '';
 		if ($nombre !== null) {
-			$where_nombre = " AND fotos.foto_nombre = '$nombre' ";
+			$where_nombre = ' AND fotos.foto_nombre = '. quote($nombre);
 		}
 		$sql = "SELECT 
 					foto_nombre, 
@@ -105,9 +107,9 @@ class album_fotos
 					predeterminada
 				FROM apex_admin_album_fotos fotos
 				WHERE 
-					fotos.proyecto = '$proyecto' AND
-					fotos.usuario = '$usuario' AND
-					fotos.foto_tipo = '{$this->tipo}'
+					fotos.proyecto = $proyecto AND
+					fotos.usuario = $usuario AND
+					fotos.foto_tipo = $tipo
 					$where_nombre
 					AND fotos.foto_nombre != '".apex_foto_inicial."'
 			";

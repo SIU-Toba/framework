@@ -7,7 +7,7 @@ class zona_objeto extends zona_editor
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		$sql = 	"	SELECT	o.*,
+		$sql = 	'	SELECT	o.*,
 							o.subclase_archivo as 			archivo,
 							c.icono as						clase_icono,
 							c.editor_proyecto as			clase_editor_proyecto,
@@ -20,8 +20,8 @@ class zona_objeto extends zona_editor
 					FROM	apex_objeto o,
 							apex_clase c
 					WHERE	o.clase = c.clase
-					AND		o.proyecto='{$this->editable_id[0]}'
-					AND		o.objeto='{$this->editable_id[1]}'";
+					AND		o.proyecto='.quote($this->editable_id[0]).'
+					AND		o.objeto='.quote($this->editable_id[1]);
 		$rs = consultar_fuente($sql);
 		if(empty($rs)){
 			echo ei_mensaje("ZONA-OBJETO: El editable solicitado no existe","info");
@@ -90,16 +90,16 @@ class zona_objeto extends zona_editor
 		//---------------- Barra de ITEMs consumidores ------------
 		//---------------------------------------------------------
 		
-		$sql = 	"	SELECT	i.proyecto as				proyecto,
+		$sql = 	'	SELECT	i.proyecto as				proyecto,
 							i.item as					item,
 							i.nombre as					nombre
 					FROM	apex_item_objeto io,
 							apex_item i
 					WHERE	io.item = i.item
 					AND		io.proyecto = i.proyecto
-					AND		io.proyecto='".$this->editable_id[0]."'
-					AND		io.objeto='".$this->editable_id[1]."'
-					ORDER BY 2;";
+					AND		io.proyecto='.quote($this->editable_id[0]).'
+					AND		io.objeto='.quote($this->editable_id[1]).'
+					ORDER BY 2;';
 		$datos = consultar_fuente($sql);			
 		if (! empty($datos)) {
 			$cant = count($datos);
@@ -133,7 +133,7 @@ class zona_objeto extends zona_editor
 		//---------------- OBJETOS consumidores ------------------
 		//---------------------------------------------------------
 
-		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
+		$sql = 	'	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
 							o.clase_proyecto as			clase_proyecto,
@@ -151,9 +151,9 @@ class zona_objeto extends zona_editor
 					AND		d.proyecto = o.proyecto
 					AND		o.clase_proyecto = c.proyecto
 					AND		o.clase = c.clase
-					AND		d.proyecto='".$this->editable_id[0]."'
-					AND		d.objeto_proveedor='".$this->editable_id[1]."'
-					ORDER BY 4,5,6;";
+					AND		d.proyecto='.quote($this->editable_id[0]).'
+					AND		d.objeto_proveedor='.quote($this->editable_id[1]).'
+					ORDER BY 4,5,6;';
 		$datos = consultar_fuente($sql);
 
 		if (! empty($datos)) {
@@ -206,7 +206,7 @@ class zona_objeto extends zona_editor
 		//---------------------------------------------------------
 		//---------------- Barra de DEPENDENCIAS ------------------
 		//---------------------------------------------------------
-		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
+		$sql = 	'	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
 							o.clase_proyecto as			clase_proyecto,
@@ -224,9 +224,9 @@ class zona_objeto extends zona_editor
 					AND		d.proyecto = o.proyecto
 					AND		o.clase_proyecto = c.proyecto
 					AND		o.clase = c.clase
-					AND		d.proyecto='".$this->editable_id[0]."'
-					AND		d.objeto_consumidor='".$this->editable_id[1]."'
-					ORDER BY 4,5,6;";
+					AND		d.proyecto='.quote($this->editable_id[0]).'
+					AND		d.objeto_consumidor='.quote($this->editable_id[1]).'
+					ORDER BY 4,5,6;';
 		$rs = consultar_fuente($sql);
 		if (!empty($rs)) {
 			$cant = count($rs);

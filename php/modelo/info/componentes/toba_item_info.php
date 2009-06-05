@@ -172,14 +172,15 @@ class toba_item_info implements toba_nodo_arbol
 	function grupos_acceso()
 	{
 		if (!isset($this->grupos_acceso)) {
+			$id = quote($this->get_id());
+			$proyecto = quote($this->get_proyecto());
 			$sql = "
 				SELECT g.usuario_grupo_acc
 				FROM
 					apex_usuario_grupo_acc_item g
 				WHERE
-					g.item = '{$this->get_id()}' AND
-					g.proyecto = '{$this->get_proyecto()}'
-			";
+					g.item = $id AND
+					g.proyecto = $proyecto" ;
 			$rs = toba_contexto_info::get_db()->consultar($sql);
 			if (empty($rs))
 				$this->grupos_acceso = array();
@@ -643,20 +644,22 @@ class toba_item_info implements toba_nodo_arbol
 	
 	function asignar_componente($id_componente)
 	{
+		$id = quote($this->id);
+		$proyecto = quote($this->proyecto);
+		$componente = quote($id_componente['componente']);
+
 		$sql = "SELECT COALESCE(MAX(orden),0) as maximo
 					FROM apex_item_objeto 
-					WHERE item='{$this->id}' AND proyecto='{$this->proyecto}'
-			";
+					WHERE item=$id AND proyecto= $proyecto";
 		$res = toba_contexto_info::get_db()->consultar($sql);
-		$orden = $res[0]['maximo'];
-		$sql = "INSERT INTO apex_item_objeto 
+		$orden = quote($res[0]['maximo']);
+		$sql = "INSERT INTO apex_item_objeto
 					(proyecto, item, objeto, orden) VALUES (
-						'{$this->proyecto}', 
-						'{$this->id}', 
-						'{$id_componente['componente']}', 
+						$proyecto,
+						$id,
+						$componente,
 						$orden
-					)
-			";
+					)";
 		toba_contexto_info::get_db()->ejecutar($sql);
 	}
 	

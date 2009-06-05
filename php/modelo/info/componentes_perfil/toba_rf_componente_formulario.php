@@ -25,6 +25,10 @@ class toba_rf_componente_formulario extends toba_rf_componente
 
 	function cargar_datos_efs()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	ef.objeto_ei_formulario as			formulario,
 						ef.objeto_ei_formulario_fila as		id,
 						ef.objeto_ei_formulario_proyecto as	proyecto,
@@ -37,13 +41,13 @@ class toba_rf_componente_formulario extends toba_rf_componente
 							ON ef.objeto_ei_formulario_fila = ref.objeto_ei_formulario_fila 
 								AND ef.objeto_ei_formulario = ref.objeto_ei_formulario
 								AND ef.objeto_ei_formulario_proyecto = ref.proyecto
-								AND ref.item = '$this->item'
-								AND ref.restriccion_funcional = '$this->restriccion'
+								AND ref.item = $item
+								AND ref.restriccion_funcional = $restriccion
 				WHERE	(ef.desactivado <> 1 OR ef.desactivado IS NULL)
 				AND		( (ef.obligatorio <> 1 OR ef.obligatorio IS NULL) 
 						OR ( ef.obligatorio = 1  AND ef.oculto_relaja_obligatorio = 1 ) )
-				AND		ef.objeto_ei_formulario = '$this->componente' 
-				AND		ef.objeto_ei_formulario_proyecto = '$this->proyecto'
+				AND		ef.objeto_ei_formulario = $componente
+				AND		ef.objeto_ei_formulario_proyecto = $proyecto
 				ORDER BY ef.orden";
 		return toba::db()->consultar($sql);
 	}

@@ -38,14 +38,16 @@ class toba_auditoria_tablas_postgres
 	{
 		$where = '';
 		if (isset($prefijo)) {
-			$where .= "	AND (tablename LIKE '$prefijo%')";
+			$prefijo_sano = quote("$prefijo%");
+			$where .= "	AND (tablename LIKE $prefijo_sano)";
 		}
+		$schema = quote($this->schema_origen);
 		$sql = "	
 				SELECT tablename FROM pg_tables 
 		        WHERE 
 		        		tablename NOT LIKE 'pg_%'
 		        	AND tablename NOT LIKE 'sql_%'
-					AND schemaname = '{$this->schema_origen}'
+					AND schemaname = $schema
 					$where
 				ORDER BY UPPER(tablename);
 		";
@@ -159,10 +161,11 @@ class toba_auditoria_tablas_postgres
 	 */	
 	function existe() 
 	{
-		$sql = "		
+		$schema = quote($this->schema_logs);
+		$sql = "
 			SELECT nspname
 			FROM pg_catalog.pg_namespace
-			WHERE nspname = '{$this->schema_logs}';
+			WHERE nspname = $schema;
 		";
 		$r = $this->conexion->consultar($sql);
 		if (count($r) > 0)

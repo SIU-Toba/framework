@@ -135,14 +135,13 @@ class toba_db_postgres7 extends toba_db
 	
 	function existe_schema($esquema) 
 	{
-
+		$esquema = $this->quote($esquema);
 		$sql = "SELECT
 					count(*) as cant
 				FROM
 					information_schema.schemata
 				WHERE 
-					schema_name = '$esquema'
-		";
+					schema_name = $esquema";
 		$rs = $this->consultar_fila($sql);
 		return $rs['cant'] > 0;
 	}
@@ -176,7 +175,8 @@ class toba_db_postgres7 extends toba_db
 			$esquema = $this->schema;
 		}
 		if (isset($esquema)) {
-			$sql_esquema .= " AND schemaname='$esquema'";
+			$esquema = $this->quote($esquema);
+			$sql_esquema .= " AND schemaname= $esquema " ;
 		}
 		$sql = "SELECT tablename as nombre
 				FROM 
@@ -204,15 +204,17 @@ class toba_db_postgres7 extends toba_db
 		return $this->consultar($sql);
 	}
 	
-	function existe_tabla($schema, $tabla) {
-
+	function existe_tabla($schema, $tabla)
+	{
+		$tabla = $this->quote($tabla);
+		$schema = $this->quote($schema);
 		$sql = "SELECT
 					table_name
 				FROM
 					information_schema.tables
 				WHERE 
-					table_name = '" . $tabla. "' AND
-					table_schema= '". $schema . "';";
+					table_name = $tabla AND
+					table_schema= $schema;";
 
 		$rs = $this->consultar_fila($sql);
 		return !empty($rs);
@@ -221,13 +223,14 @@ class toba_db_postgres7 extends toba_db
 	
 	function existe_columna($columna, $tabla)
 	{
+		$tabla = $this->quote($tabla);
 		$sql = "
 				SELECT 	a.attname as nombre
 				FROM 	pg_class c,
 						pg_type t,
 						pg_attribute a 	
 				WHERE c.relkind in ('r','v') 
-				AND c.relname='$tabla'
+				AND c.relname= $tabla
 				AND a.attname not like '....%%'
 				AND a.attnum > 0 
 				AND a.atttypid = t.oid 
@@ -268,11 +271,13 @@ class toba_db_postgres7 extends toba_db
 	{
 		$where = '';
 		if (isset($esquema)) {
-			$where .= " AND n.nspname = '$esquema'";
+			$esquema = $this->quote($esquema);
+			$where .= " AND n.nspname = $esquema" ;
 		}
 		if (isset($this->cache_metadatos[$tabla])) {
 			return $this->cache_metadatos[$tabla];
 		}
+		$tabla_sana = $this->quote($tabla);
 		//1) Busco definicion
 		$sql = "SELECT 	a.attname as 			nombre,
 						t.typname as 			tipo,
@@ -318,7 +323,7 @@ class toba_db_postgres7 extends toba_db
 										OR i.indkey[7] = a.attnum) )
 				WHERE 
 						c.relkind in ('r','v') 
-					AND c.relname='$tabla'
+					AND c.relname=$tabla_sana
 					AND a.attname not like '....%%'
 					AND a.attnum > 0 
 					AND a.atttypid = t.oid 

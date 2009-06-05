@@ -7,8 +7,8 @@ class apdb_usuario_basicas extends toba_ap_tabla_db
 		//Se trata de verificar que si la clave actual es una nueva o es similar a la anterior
 		//Para encriptarla
 		if ($this->datos[$id]['autentificacion'] != 'plano') {
-			$usuario = $this->datos[$id]['usuario'];
-			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = '$usuario'";
+			$usuario = quote($this->datos[$id]['usuario']);
+			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = $usuario";
 			$rs = toba::db($this->_fuente)->consultar($sql);
 			if ($rs[0]['clave'] != $this->datos[$id]['clave']
 					|| $rs[0]['autentificacion'] != $this->datos[$id]['autentificacion']) {

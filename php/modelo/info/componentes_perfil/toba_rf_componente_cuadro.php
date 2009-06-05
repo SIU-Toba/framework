@@ -24,6 +24,10 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 
 	function cargar_datos_columnas()
 	{
+		$item = quote($this->item);
+		$restriccion = quote($this->restriccion);
+		$componente = quote($this->componente);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	col.objeto_cuadro_proyecto as 		proyecto,
 						col.objeto_cuadro as				cuadro,
 						col.objeto_cuadro_col as			id,
@@ -34,10 +38,10 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 							ON col.objeto_cuadro_col = rcol.objeto_cuadro_col 
 								AND col.objeto_cuadro = rcol.objeto_cuadro
 								AND col.objeto_cuadro_proyecto = rcol.proyecto
-								AND rcol.item = '$this->item'
-								AND rcol.restriccion_funcional = '$this->restriccion'
-				WHERE	col.objeto_cuadro = '$this->componente' 
-				AND		col.objeto_cuadro_proyecto = '$this->proyecto'
+								AND rcol.item = $item
+								AND rcol.restriccion_funcional = $restriccion
+				WHERE	col.objeto_cuadro = $componente
+				AND		col.objeto_cuadro_proyecto = $proyecto
 				ORDER BY col.orden";
 		return toba::db()->consultar($sql);
 	}

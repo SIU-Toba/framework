@@ -48,8 +48,9 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	 */
 	function get_comentario_campos($tabla, $posiciones=null)
 	{
-		$db = $this->get_conexion_extra();		
-		$sql = "SELECT 
+		$db = $this->get_conexion_extra();
+		$tabla_sana = $db->quote($tabla);
+		$sql = "SELECT
 						a.attname as campo, 
 						t.typname as tipo, 
 						a.attnum as orden, 
@@ -59,7 +60,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		           		pg_attribute a, 
 		           		pg_type t
 		           WHERE 
-							(c.relname='$tabla' OR c.relname = lower('$tabla')) 
+							(c.relname= $tabla OR c.relname = lower($tabla))
 			           AND a.attnum > 0
 			           AND a.atttypid = t.oid
 			           AND a.attrelid = c.oid
@@ -113,14 +114,14 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	{
 		//-- Primero prueba si es una constraint
 		$db = $this->get_conexion_extra();
+		$pk_sana = $db->quote($pk);
 		$sql = "SELECT COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as nombre_tabla,
 		                  t.conkey as clave,
 		                  c.relname as tabla
 		           FROM pg_class c, pg_constraint t
 		           WHERE
 		           	   c.oid = t.conrelid
-		           AND t.conname = '$pk'
-		 ";
+		           AND t.conname = $pk_sana";
 		$rs = $db->consultar_fila($sql);
 		if (! empty($rs)) {
 			if (! is_null($rs['clave'])) {
@@ -143,8 +144,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 				WHERE
 						c.oid = x.indrelid
 					AND	i.oid = x.indexrelid
-					AND	i.relname = '$pk'		
-		";
+					AND	i.relname = $pk_sana";
 		$rs = $db->consultar_fila($sql);
 		if (! empty($rs)) {
 			if (! is_null($rs['clave'])) {
@@ -238,7 +238,9 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	
 	protected function get_datos_consulta_fk($tabla, $fk)
 	{
-		$db = $this->get_conexion_extra();		
+		$db = $this->get_conexion_extra();
+		$fk_sana = $db->quote($fk);
+		$tabla_sana = $db->quote($tabla);
 		$sql = "SELECT 
 					COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as nombre_tabla,
 					COALESCE(obj_description(t.oid, 'pg_constraint'), t.conname) as com_fk,
@@ -251,11 +253,10 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 					pg_constraint t, 
 					pg_class r
 				WHERE
-						lower(c.relname) = lower('$tabla')
+						lower(c.relname) = lower($tabla_sana)
 					AND c.oid = t.conrelid
-					AND t.conname = '$fk'
-					AND r.oid = t.confrelid
-		";	
+					AND t.conname = $fk_sana
+					AND r.oid = t.confrelid";
 		return $db->consultar_fila($sql);		
 	}
 	

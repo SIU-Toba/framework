@@ -8,7 +8,7 @@ class zona_item extends zona_editor
 	{
 		//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
 		//Las claves de los registros que los ABM manejan son asociativas
-		$sql = 	"	SELECT	i.*,
+		$sql = 	'	SELECT	i.*,
 							m.molde as 				molde,
 							m.operacion_tipo as 	molde_tipo_operacion,
 							o.descripcion_corta as	molde_tipo_operacion_nombre,
@@ -19,8 +19,8 @@ class zona_item extends zona_editor
 									ON m.operacion_tipo = o.operacion_tipo 
 								ON i.item = m.item AND i.proyecto = m.proyecto
 								
-					WHERE	i.proyecto='{$this->editable_id[0]}'
-					AND		i.item='{$this->editable_id[1]}';";
+					WHERE	i.proyecto='.quote($this->editable_id[0]).'
+					AND		i.item='.quote($this->editable_id[1]).';';
 		$rs = toba::db()->consultar($sql);
 		if(empty($rs)) {
 			throw new toba_error("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
@@ -66,7 +66,7 @@ class zona_item extends zona_editor
 		echo "<table width='100%' class='tabla-0'>";
 		echo "<tr><td  class='barra-obj-io'>Componentes referenciados</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
+		$sql = 	'	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
 							o.clase_proyecto as			clase_proyecto,
@@ -84,9 +84,9 @@ class zona_item extends zona_editor
 					AND		io.proyecto = o.proyecto
 					AND		o.clase_proyecto = c.proyecto
 					AND		o.clase = c.clase
-					AND		io.proyecto='".$this->editable_id[0]."'
-					AND		io.item='".$this->editable_id[1]."'
-					ORDER BY 4,5,6;";
+					AND		io.proyecto='.quote($this->editable_id[0]).'
+					AND		io.item='.quote($this->editable_id[1]).'
+					ORDER BY 4,5,6;';
 			$datos = toba::db()->consultar($sql);
 			if(! empty($datos)){
 				echo "<table class='tabla-0'>";

@@ -42,14 +42,16 @@ class toba_rf_carpeta extends toba_rf
 	
 	function cargar_datos()
 	{
+		$item = quote($this->item);
+		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 		nombre,
 							descripcion,
 							padre,
 							imagen_recurso_origen,
 							imagen							
 				FROM apex_item 
-				WHERE item = '$this->item' 
-				AND proyecto = '$this->proyecto'";
+				WHERE item = $item
+				AND proyecto = $proyecto";
 		return toba::db()->consultar_fila($sql);
 	}
 	

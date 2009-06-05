@@ -75,7 +75,7 @@ class ci_abm extends toba_ci
 			FROM
 				apex_elemento_formulario ef
 			WHERE
-				ef.proyecto = '".toba_editor::get_proyecto_cargado()."' 
+				ef.proyecto = ".quote(toba_editor::get_proyecto_cargado())."
 			ORDER BY obsoleto,ef.elemento_formulario
 		";
 		return consultar_fuente($sql);

@@ -8,7 +8,8 @@ class toba_info_instancia
 	*/
 	function get_proyectos_con_estilo($estilo)
 	{
-		$sql = "SELECT proyecto FROM apex_proyecto WHERE estilo='$estilo'";
+		$estilo = quote($estilo);
+		$sql = "SELECT proyecto FROM apex_proyecto WHERE estilo= $estilo";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	

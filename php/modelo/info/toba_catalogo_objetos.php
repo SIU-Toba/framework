@@ -37,10 +37,10 @@ class toba_catalogo_objetos
 		}
 		
 		//---ID
-		$filtro_id = isset($opciones['id']) ? "AND	o.objeto = '{$opciones['id']}'" : '';
+		$filtro_id = isset($opciones['id']) ? 'AND	o.objeto = '.quote($opciones['id']) : '';
 		
 		//---INDICE
-		$filtro_indice = isset($opciones['indice']) ? "AND	o.identificador = '{$opciones['indice']}'" : '';
+		$filtro_indice = isset($opciones['indice']) ? 'AND	o.identificador = '.quote($opciones['indice']) : '';
 
 		//----Extensiones
 		$filtro_ext = "";
@@ -48,7 +48,8 @@ class toba_catalogo_objetos
 			if ($opciones['extendidos'] == 'SI') {
 				$filtro_ext = "AND		o.subclase IS NOT NULL";
 				if (isset($opciones['subclase'])) {
-					$filtro_ext .= "\nAND o.subclase ILIKE '%{$opciones['subclase']}%'";
+					$sub_sana = quote("%{$opciones['subclase']}%");
+					$filtro_ext .= "\nAND o.subclase ILIKE $sub_sana ";
 				}				
 			} else {
 				$filtro_ext = "AND		o.subclase IS NULL";
@@ -57,9 +58,10 @@ class toba_catalogo_objetos
 		
 		//---Huerfanos
 		$filtro_huerfano = "";
+		$proyecto = quote($this->proyecto);
 		if (isset($opciones['huerfanos']) && $opciones['huerfanos'] == 1) {
-			$filtro_huerfano = "AND		o.objeto NOT IN (SELECT objeto FROM apex_item_objeto WHERE proyecto = '{$this->proyecto}')";
-			$filtro_huerfano .= "AND	o.objeto NOT IN (SELECT objeto_proveedor FROM apex_objeto_dependencias WHERE proyecto = '{$this->proyecto}')";
+			$filtro_huerfano = "AND		o.objeto NOT IN (SELECT objeto FROM apex_item_objeto WHERE proyecto = $proyecto)";
+			$filtro_huerfano .= "AND	o.objeto NOT IN (SELECT objeto_proveedor FROM apex_objeto_dependencias WHERE proyecto = $proyecto)";
 		}
 		
 		//---Nombre
@@ -71,14 +73,15 @@ class toba_catalogo_objetos
 		//---Tabla
 		$filtro_tabla = "";
 		if (isset($opciones['tabla']) && $opciones['tabla'] != '') {
+			$tabla_sana = quote("%{$opciones['tabla']}%");
 			$subselect = "
 				SELECT 
 					objeto,
 					objeto_proyecto
 				FROM apex_objeto_db_registros
 				WHERE 
-					objeto_proyecto = '{$this->proyecto}' 
-					AND tabla ILIKE '%{$opciones['tabla']}%'";
+					objeto_proyecto = $proyecto
+					AND tabla ILIKE $tabla_sana";
 			$filtro_tabla = " AND (o.objeto, o.proyecto) IN ($subselect)";
 		}
 		
@@ -87,7 +90,7 @@ class toba_catalogo_objetos
 		$sql = $sql_base['_info']['sql'];
 		$sql .= "
 				AND		o.clase IN ('" . implode("', '", $clases) . "')
-				AND 	o.proyecto = '$this->proyecto'
+				AND 	o.proyecto = $proyecto
 				$filtro_dao				
 				$filtro_id
 				$filtro_indice
@@ -171,8 +174,11 @@ class toba_catalogo_objetos
 		$daos_efs['agrupador_include'] = "el INCLUDE de la CLASE AGRUPADORA";		
 		$sql_efs = "";
 		foreach (array_keys($daos_efs) as $clave) {
-			$sql_efs .= "ef.inicializacion ILIKE '%$clave:%$busca%;' OR ";
+			$cond = quote("%$clave:%$busca%;");
+			$sql_efs .= "ef.inicializacion ILIKE $cond OR ";
 		}
+		$busca_sano = quote("%$busca%");
+		$proyecto = quote($this->proyecto);
 		$sql = "
 			SELECT 
 				o.objeto,
@@ -188,10 +194,10 @@ class toba_catalogo_objetos
 					(ef.objeto_ei_formulario = o.objeto
 					AND ef.objeto_ei_formulario_proyecto = o.proyecto)
 			WHERE
-				o.proyecto = '{$this->proyecto}'
+				o.proyecto = $proyecto
 				AND (
 					$sql_efs
-					c.dao_nucleo ILIKE '%$busca%'  OR	c.dao_metodo ILIKE '%$busca%'
+					c.dao_nucleo ILIKE $busca  OR c.dao_metodo ILIKE $busca
 					)
 		";
 		$rs = toba_contexto_info::get_db()->consultar($sql);

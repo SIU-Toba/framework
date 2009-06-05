@@ -19,8 +19,8 @@ class ci_cronometro extends toba_ci
 			$this->s__solicitud = $solicitud;	
 		} else {
 			//Consulta la ultima solicitud
-	        $sql = "SELECT max(solicitud) as ultima FROM apex_solicitud_cronometro
-	        		WHERE proyecto='{$this->s__proyecto}'";
+	        $sql = 'SELECT max(solicitud) as ultima FROM apex_solicitud_cronometro
+	        		WHERE proyecto='.quote($this->s__proyecto);
 			$rs = toba::instancia()->get_db()->consultar_fila($sql);	
 			if (! empty($rs)) {
 				$this->s__solicitud = $rs['ultima'];

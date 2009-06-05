@@ -12,6 +12,8 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 	
 	function cargar()
 	{
+		$grupo = quote($this->grupo_acceso);
+		$proyecto = quote($this->proyecto);
 		$sql = "	SELECT 	i.item as item,
 							i.proyecto as proyecto,
 							i.imagen_recurso_origen,
@@ -24,9 +26,9 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 					FROM apex_item i
 						LEFT OUTER JOIN apex_usuario_grupo_acc_item ia
 							ON i.item = ia.item AND i.proyecto = ia.proyecto
-							AND ia.usuario_grupo_acc = '$this->grupo_acceso'
+							AND ia.usuario_grupo_acc = $grupo
 					WHERE 	
-							i.proyecto = '$this->proyecto'
+							i.proyecto = $proyecto
 						AND	(publico IS NULL OR publico = 0)				
 					ORDER BY i.carpeta, i.orden, i.nombre";
 		$rs = toba_contexto_info::get_db()->consultar($sql);

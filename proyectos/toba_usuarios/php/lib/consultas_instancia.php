@@ -18,21 +18,21 @@ class consultas_instancia
 
 	static function get_cantidad_ips_rechazadas()
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_log_ip_rechazada;";
+		$sql = 'SELECT count(*) as cantidad FROM apex_log_ip_rechazada;';
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 	
 	static function get_cantidad_usuarios_bloqueados()
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 1;";
+		$sql = 'SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 1;';
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 	
 	static function get_cantidad_usuarios_desbloqueados()
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 0;";
+		$sql = 'SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 0;';
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
@@ -108,6 +108,7 @@ class consultas_instancia
 			$id_solicitud = quote($id_solicitud);
 			$extra = "AND sb.solicitud_browser = $id_solicitud";
 		}
+		$sesion = quote($sesion);
 		$sql = "
 				SELECT	s.solicitud as id,
 						s.item_proyecto as item_proyecto,
@@ -126,7 +127,7 @@ class consultas_instancia
 				AND	s.proyecto = sb.solicitud_proyecto
 				AND	s.item = i.item
 				AND s.item_proyecto = i.proyecto
-				AND	sb.sesion_browser = '$sesion'
+				AND	sb.sesion_browser = $sesion
 				$extra
 				GROUP BY 1,2,3,4,5,6
 				ORDER BY s.momento DESC;";
@@ -135,6 +136,7 @@ class consultas_instancia
 	
 	static function get_solicitud_observaciones($solicitud)
 	{
+		$solicitud = quote($solicitud);
 		$sql = "
 				SELECT 	solicitud_observacion,
 						observacion,
@@ -143,13 +145,14 @@ class consultas_instancia
 					LEFT OUTER JOIN apex_solicitud_obs_tipo ot
 						ON ot.solicitud_obs_tipo = o.solicitud_obs_tipo
 						AND ot.proyecto = o.solicitud_obs_tipo_proyecto
-				WHERE o.solicitud = '$solicitud'
+				WHERE o.solicitud = $solicitud
 				ORDER BY 1;";
 		return toba::db()->consultar($sql);
 	}
 	
 	static function get_solicitudes_consola($proyecto, $filtro)
 	{
+		$proyecto = quote($proyecto);
 		$sql = "		
 				SELECT	s.solicitud as id,
 						s.momento as momento,
@@ -162,7 +165,7 @@ class consultas_instancia
 						apex_solicitud_consola sc
 				WHERE	s.proyecto = sc.proyecto
 				AND	s.solicitud = sc.solicitud_consola
-				AND	s.proyecto = '$proyecto';";
+				AND	s.proyecto = $proyecto;";
 		return toba::db()->consultar($sql);		
 	}
 
@@ -226,7 +229,7 @@ class consultas_instancia
 
 	static function get_cantidad_usuarios()
 	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario;";
+		$sql = 'SELECT count(*) as cantidad FROM apex_usuario;';
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}

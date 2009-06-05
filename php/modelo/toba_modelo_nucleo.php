@@ -364,7 +364,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 				$this->manejador_interface->mensaje( "tabla  --  $tabla" );
 				$definicion = toba_db_tablas_nucleo::$tabla();
 				//Genero el SQL
-				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+				$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 						" FROM $tabla " .
 						" ORDER BY {$definicion['dump_order_by']} ;\n";
 				$contenido = "";
@@ -399,7 +399,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
             } else {
        			$where = " ( proyecto = 'toba')";
 			}
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+			$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .
 					" WHERE $where " .
 					//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
@@ -437,7 +437,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	{
 		toba_contexto_info::set_db($instancia->get_db());
 		//--- Se busca el CI asociado a cada clase
-		$sql = "SELECT 
+		$sql = "SELECT
 					c.clase,
 				 	o.proyecto,
 					o.objeto
@@ -459,6 +459,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		foreach ($rs as $datos) {
 			//--- Se buscan las pantallas asociadas a un CI especifico
 			$this->manejador_interface->mensaje("Procesando " . $datos['clase'] . "...");
+			$proyecto = quote($datos['proyecto']);
+			$objeto = quote($datos['objeto']);
 			$sql = "
 				SELECT
 					pant.identificador,
@@ -468,8 +470,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 				FROM
 					apex_objeto_ci_pantalla pant
 				WHERE
-						pant.objeto_ci_proyecto = '{$datos['proyecto']}' 
-					AND pant.objeto_ci = '{$datos['objeto']}' 
+						pant.objeto_ci_proyecto = $proyecto
+					AND pant.objeto_ci = $objeto
 				ORDER BY pant.orden
 			";
 			$pantallas = $instancia->get_db()->consultar($sql);

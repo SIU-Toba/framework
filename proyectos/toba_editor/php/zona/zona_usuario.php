@@ -11,9 +11,9 @@ class zona_usuario extends zona_editor
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		$sql = 	"	SELECT	*
+		$sql = 	'	SELECT	*
 					FROM	apex_usuario
-					WHERE	usuario='{$this->editable_id}'";
+					WHERE	usuario='.quote($this->editable_id);
 		$rs = toba::db()->consultar($sql);
 		if(!$rs){
 			echo ei_mensaje("ZONA-USUARIO: El editable solicitado no existe","info");

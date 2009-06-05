@@ -21,6 +21,7 @@ class ci_principal extends toba_ci
 
 	function get_persona_con_deporte($deporte)
 	{
+		$deporte = quote($deporte);
 		$sql = "SELECT p.id, p.nombre 
 				FROM 
 					ref_persona p,

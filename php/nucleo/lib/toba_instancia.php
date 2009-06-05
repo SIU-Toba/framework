@@ -303,7 +303,7 @@ class toba_instancia
 	function get_info_autenticacion($usuario)
 	{
 		try {
-			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = :usuario";
+			$sql = 'SELECT clave, autentificacion FROM apex_usuario WHERE usuario = :usuario';
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 			if(!empty($rs))	return $rs[0];
@@ -396,7 +396,7 @@ class toba_instancia
 	
 	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip = :ip AND (gravedad > 0)";
+		$sql = 'SELECT count(*) as total FROM apex_log_error_login WHERE ip = :ip AND (gravedad > 0)';
 		$parametros['ip'] = $ip;
 		if (isset($ventana_temporal)) {
 			$sql .= " AND ((now()-momento) < :ventana_temporal)";
@@ -416,7 +416,7 @@ class toba_instancia
 	
 	function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
 	{
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)";
+		$sql = 'SELECT count(*) as total FROM apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)';
 		$parametros['usuario'] = $usuario;
 		if (isset($ventana_temporal)) {
 			$sql .= " AND ((now()-momento) < :ventana_temporal)";
