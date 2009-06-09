@@ -10,9 +10,9 @@ class toba_tp_basico_titulo extends toba_tp_basico
 {
 	protected $clase_encabezado = 'encabezado';	
 
-	protected function barra_superior()
+	function barra_superior()
 	{
-		echo "<div class='barra-superior barra-superior-tit'>\n";		
+		echo "<div id='barra_superior' class='barra-superior barra-superior-tit'>\n";		
 		$this->info_version();
 		echo "<div class='item-barra'>";
 		$this->generar_ayuda();		
@@ -80,7 +80,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 		
 	function pre_contenido()
 	{
-		echo "\n<div align='center' class='cuerpo'>\n";
+		echo "\n<div align='center' class='cuerpo'>\n";		
 	}
 	
 	function post_contenido()

@@ -7,7 +7,7 @@ ci.prototype.constructor = ci;
  * @constructor
  * @phpdoc Componentes/Eis/toba_ci toba_ci
  */
-function ci(id, instancia, form, input_submit, id_en_controlador) {
+function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	this._id = id;
 	this.controlador = null;							//CI contenedor	
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
@@ -19,6 +19,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	this._silencioso = false;							//?Silenciar confirmaciones y alertas? Util para testing
 	this._evento_implicito = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
 	this.reset_evento();
+	this._ajax = ajax;
 }
 
 	/**
@@ -83,7 +84,11 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 			notificacion.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();
-				//toba.set_ajax(this, toba.servicio__html_parcial);
+				if (this._ajax) {
+					toba.set_ajax(this, toba.servicio__html_parcial);
+				} else {
+					toba.set_ajax(null);
+				}
 				toba.comunicar_eventos();
 			} else {
 				if (window. notificacion) {

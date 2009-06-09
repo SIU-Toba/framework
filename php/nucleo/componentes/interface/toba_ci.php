@@ -34,11 +34,18 @@ class toba_ci extends toba_ei
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
 	protected $_metodos_ajax;						//Metodos AJAX que se pueden invocar en este pedido de página
 	
+	static $_navegacion_ajax = false;
+	
 	final function __construct($id)
 	{
 		$this->set_propiedades_sesion(array('_ini_operacion','_dependencias_ci', '_metodos_ajax'));		
 		parent::__construct($id);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
+	}
+	
+	static function set_navegacion_ajax($set=true)
+	{
+		self::$_navegacion_ajax = $set;
 	}
 
 
@@ -786,6 +793,9 @@ class toba_ci extends toba_ei
 	 */
 	function generar_js()
 	{
+		if (self::$_navegacion_ajax) {
+			$this->pantalla()->set_navegacion_ajax(true);
+		}
 		return $this->pantalla()->generar_js();
 	}
 	

@@ -111,6 +111,22 @@
 		return false;
 	}	
 	
+	
+	function array_a_latin1($arreglo)
+	{
+		$salida = array();
+		foreach ($arreglo as $clave => $valor) {
+			if (is_array($valor)) {
+				$salida[$clave] = array_a_latin1($valor);
+			} elseif (is_string($valor)) {
+				$salida[$clave] = utf8_decode($valor);
+			} else {
+				$salida[$clave] = $valor;
+			}
+		}		
+		return $salida;
+	}
+	
 	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
 	{
 		$rs_columna = array();

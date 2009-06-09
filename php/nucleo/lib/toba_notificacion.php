@@ -88,11 +88,13 @@ class toba_notificacion
 	 * Esto tiene que hacerse una única vez por página, y por lo generar el framework 
 	 * es el encargado de hacerlo
 	 */
-	function mostrar()
+	function mostrar($incluir_comsumos=true)
 	{
-		toba_js::cargar_consumos_basicos(); //Por si no se cargaron antes
-		toba_js::cargar_consumos_globales(array("basicos/notificacion"));
-		echo toba_js::abrir();
+		if ($incluir_comsumos) {
+			toba_js::cargar_consumos_basicos(); //Por si no se cargaron antes
+			toba_js::cargar_consumos_globales(array("basicos/notificacion"));
+			echo toba_js::abrir();
+		}
 		foreach($this->mensajes as $mensaje){
 			$texto = toba_parser_ayuda::parsear($mensaje[0]);
 			$texto = str_replace("'", '"', $texto);
@@ -108,7 +110,9 @@ class toba_notificacion
 			}			
 		}
 		echo "notificacion.mostrar()\n";
-		echo toba_js::cerrar();
+		if ($incluir_comsumos) {
+			echo toba_js::cerrar();
+		}
 	}
 	
 	/**

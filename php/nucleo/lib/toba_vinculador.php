@@ -392,6 +392,7 @@ class toba_vinculador
 	*/
 	function generar_js()
 	{
+		echo "vinculador.limpiar_vinculos();\n";
 		foreach( $this->vinculos as $id => $vinculo ) {
 			$opciones = $vinculo->get_opciones();
 			if( !isset( $opciones['validar']) ) {

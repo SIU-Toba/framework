@@ -117,9 +117,9 @@ class toba_tp_basico extends toba_tipo_pagina
 		";
 	}
 
-	protected function barra_superior()
+	function barra_superior()
 	{
-		echo "<div class='barra-superior'>\n";		
+		echo "<div id='barra_superior' class='barra-superior'>\n";		
 	}
 }
 ?>

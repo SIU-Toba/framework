@@ -31,6 +31,7 @@ class toba_ei_pantalla extends toba_ei
 	protected $_notificaciones = array();			// Arreglo con notificaciones a mostrar
 	protected $_objetos_pantalla = array();		//Arreglo con info de los objetos asociados
 	protected $_eventos_pantalla = array();		//Arreglo con info de los eventos asociados
+	protected $_navegacion_ajax = false;
 
 	final function __construct($info_pantalla, $submit, $objeto_js)
 	{
@@ -153,6 +154,11 @@ class toba_ei_pantalla extends toba_ei
 	function set_tipo_navegacion($tipo)
 	{
 		$this->_info_ci['tipo_navegacion'] = $tipo;
+	}
+	
+	function set_navegacion_ajax($set=true)
+	{
+		$this->_navegacion_ajax = $set;
 	}
 
 	//------------------------------------------------------
@@ -679,8 +685,9 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$id = toba_js::arreglo($this->_id, false);
 		$identado = toba_js::instancia()->identado();	
+		$ajax = toba_js::bool($this->_navegacion_ajax);
 		//Crea le objeto CI
-		echo $identado."window.{$this->objeto_js} = new ci($id, '{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}');\n";
+		echo $identado."window.{$this->objeto_js} = new ci($id, '{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}', $ajax);\n";
 
 		//Crea los objetos hijos
 		$objetos = array();

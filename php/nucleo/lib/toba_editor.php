@@ -347,6 +347,8 @@ class toba_editor
 				} else {
 					alert('No se puede encontrar un editor de toba abierto');
 				}
+				setTimeout ('editor_cambiar_vinculos(false)', 100);	//Para evitar que quede fijo
+				return false;
 			}
 		";
 		echo toba_js::cerrar();		
@@ -362,34 +364,67 @@ class toba_editor
 		}
 		echo toba_js::abrir();
 		echo "
-			function editor_cambiar_vinculos() {
+			function editor_cambiar_vinculos(set) {
+				var automatico = true;			
+				if (typeof set != 'undefined') {
+					automatico = false;
+				}
 				var nodos = getElementsByClass('div-editor');
 				var mostrar =false;
 				for (var i=0; i< nodos.length; i++) {
-					if (nodos[i].className.indexOf('editor-mostrar') == -1) {
+					if (automatico) {
+						set = (nodos[i].className.indexOf('editor-mostrar') == -1);
+					}
+					if (set) {
 						nodos[i].className += ' editor-mostrar';
-						mostrar = true;
 					} else {
 						nodos[i].className = 'div-editor';
 					}
 				}
-
-			}";
-		echo "
-			function capturar(e) 
+			}
+			
+			function editor_cambiar_ajax() {
+				var nueva = toba.get_navegacion_ajax() ? false : true;
+				toba.set_navegacion_ajax(nueva);
+				editor_cambiar_ajax_icono();
+			}
+			
+			function editor_cambiar_ajax_icono()
 			{
+				var nueva = toba.get_navegacion_ajax();
+				var img = $('editor_ajax').firstChild;
+				var nuevo_src;
+				if (nueva) {
+					nuevo_src = img.src.reemplazar('_off', '_on');
+				} else {
+					nuevo_src = img.src.reemplazar('_on', '_off');
+				}
+				img.src = nuevo_src;			
+			}
+		";
+		echo "
+			function set_editor_on(e) {
 			   	var id = (window.event) ? event.keyCode : e.keyCode;
 				if (id == 17) {
-					editor_cambiar_vinculos();
+					editor_cambiar_vinculos(true);
+					return false;
 				}
 			}
-			document.onkeyup = capturar
+			function set_editor_off(e) {
+			   	var id = (window.event) ? event.keyCode : e.keyCode;
+				if (id == 17) {
+					editor_cambiar_vinculos(false);
+				}
+			}
+			agregarEvento(document, 'keyup', set_editor_off);
+			agregarEvento(document, 'keydown', set_editor_on);			
 		";
 		echo toba_js::cerrar();
 		self::javascript_invocacion_editor();				
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
+		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegación interna de la operación via AJAX');
 		$solicitud = toba::solicitud()->get_id();
 		$link_cronometro = toba::vinculador()->get_url('toba_editor', '1000263', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
@@ -433,7 +468,16 @@ class toba_editor
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 		toba_recurso::imagen_toba('edicion_chico.png', true)."</a>\n";
 
-echo "</span>";
+		
+		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";
+		
+		//AJAX
+		
+		echo "</span>";
+		
+		echo toba_js::abrir();
+		echo "agregarEvento(window, 'load', editor_cambiar_ajax_icono)\n";		
+		echo toba_js::cerrar();
 		echo "</div>";
 		
 		
@@ -447,9 +491,9 @@ echo "</span>";
 	static protected function mostrar_vinculo($vinculo)
 	{
 		if (! isset($vinculo['js'])) {
-			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"return toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 		} else {
-			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"{$vinculo['js']}\">";
+			echo "<a href='#' title='{$vinculo['tip']}' onclick=\"return {$vinculo['js']}\">";
 		}
 		if (isset($vinculo['imagen_origen']) && $vinculo['imagen_origen'] == 'proyecto') {
 			echo self::imagen_editor($vinculo['imagen'],true);
@@ -469,7 +513,7 @@ echo "</span>";
 			$salida .= self::get_utileria_editor_abrir_php(array('componente'=>$componente[1], 'proyecto' => $componente[0]));
 		}
 		foreach(self::get_vinculos_componente($componente, $editor, $clase) as $vinculo) {
-			$salida .= "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			$salida .= "<a href='#' onclick=\"reutnr toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			if ($vinculo['imagen_recurso_origen'] == 'apex') {
 				$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
 			} else {
@@ -492,7 +536,7 @@ echo "</span>";
 		if(!isset($opciones['validar'])) $opciones['validar'] = false;
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
 		$url = toba::vinculador()->get_url(self::get_id(),$item_editor,$parametros,$opciones);
-		$html = "<a href='#' title='Editar' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
+		$html = "<a href='#' title='Editar' class='div-editor' onclick=\"return toba_invocar_editor('$frame','$url')\">";
 		$html .= toba_recurso::imagen_toba($imagen,true);
 		$html .= '</a>';
 		return $html;
@@ -582,7 +626,7 @@ echo "</span>";
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
 		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
-		$salida .= "<a href='#' title='Editar propiedades del evento' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
+		$salida .= "<a href='#' title='Editar propiedades del evento' onclick=\"return toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		
@@ -597,7 +641,7 @@ echo "</span>";
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
 		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor' style='position:absolute'>";		
-		$salida .= "<a href='#' title='Editar propiedades de la pantalla' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
+		$salida .= "<a href='#' title='Editar propiedades de la pantalla' onclick=\"return toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		

@@ -9,10 +9,9 @@
 class toba_tp_popup extends toba_tp_basico_titulo 
 {
 	
-	protected function barra_superior()
+	function barra_superior()
 	{
-	
-		echo "<div class='barra-superior barra-superior-tit barra-popup'>\n";		
+		echo "<div id='barra-superior' class='barra-superior barra-superior-tit barra-popup'>\n";		
 		$info = toba::solicitud()->get_datos_item();
 		echo "<div class='item-barra'>";
 		if (trim($info['item_descripcion']) != '') {

@@ -131,10 +131,17 @@ toba = new function() {
 			{
 			  success: this._ajax_servicio,
 			  failure: this.error_comunicacion,
+			  upload: this._ajax_servicio,
 			  scope: this
 			};
 			var vinculo = vinculador.get_url(null, null, 'html_parcial', null, [ this._ajax._id ] );
-			conexion.setForm('formulario_toba');
+			
+			//Averigua si posee algún ef upload
+
+			
+			
+			
+			conexion.setForm($('formulario_toba'), this._hay_uploads());
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
 			if (this._enviado) {
@@ -147,6 +154,21 @@ toba = new function() {
 			document.formulario_toba.submit();
 		}
 	};
+	
+	toba._hay_uploads = function() {
+		for (o in this._objetos) {
+			var clase = getObjectClass(this._objetos[o]);
+			if (clase == 'ei_formulario' || clase == 'ei_formulario_ml') {
+				var efs = this._objetos[o].efs();
+				for (var ef in efs) {
+					if (getObjectClass(efs[ef]) == 'ef_upload') {
+						return true;
+					}
+				}
+			}
+		}
+		return false;	
+	}
 
 	/**
 	 * Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
@@ -201,7 +223,8 @@ toba = new function() {
 	 * Cambia la forma en la que trabaja el menu, haciendo que los links se abran en una nueva celda de memoria y en un popup
 	 */
 	toba.set_menu_popup = function(estado) {	
-		var links = $("menu-h").getElementsByTagName("a");
+		//var links = $("menu-h").getElementsByTagName("a");
+		var links = getElementsByClass('nivel-0', $('menu-h'));
 		for (var i=0; i<links.length; i++) {
 			if (estado) {
 				agregar_clase_css(links[i], "menu-link-alt");
@@ -211,6 +234,33 @@ toba = new function() {
 		}
 		this._menu_popup = estado;
 	}	
+	
+	/**
+	 * Activar/Desactiva la navegacion via ajax de la operacion
+	 */
+	toba.set_navegacion_ajax = function(estado) {	
+		for (o in this._objetos) {
+			var clase = getObjectClass(this._objetos[o]);
+			//Busco el ci raiz
+			if (clase == 'ci' && ! this._objetos[o].controlador) {
+				this._objetos[o]._ajax = estado;
+			}
+		}	
+	}	
+	
+	/**
+	 * Retorna verdadero si esta activa la navegacion via ajax de la operacion
+	 */
+	toba.get_navegacion_ajax = function() {	
+		for (o in this._objetos) {
+			var clase = getObjectClass(this._objetos[o]);
+			//Busco el ci raiz
+			if (clase == 'ci' && ! this._objetos[o].controlador) {
+				return this._objetos[o]._ajax;
+			}
+		}	
+		return false;
+	}
 	
 	/**
 	 *	Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú
@@ -249,16 +299,23 @@ toba = new function() {
 			delete(this._ajax._deps[d]);
 		}
 		var partes = this.analizar_respuesta_servicio(respuesta);
+		
+		//-- Se cambia la barra superior
+		if (partes[0] != '') {
+			var barra = partes[0].substr(partes[0].indexOf('>') + 1);
+			$('barra_superior').innerHTML = barra;
+		}
+		
 		//-- Se agrega el html
-		this._ajax.raiz().innerHTML = partes[0];
+		this._ajax.raiz().innerHTML = partes[1];
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
-		toba.set_callback_incl(partes[2]);
-		eval(partes[1]);
+		toba.set_callback_incl(partes[3]);
+		eval(partes[2]);
 	};
 	
 	/**
-	 * Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba-->
+	 * Analiza una respuesta ajax en texto plana, partiendola por separadores [--toba--]
 	 * @type Array
 	 */
 	toba.analizar_respuesta_servicio = function(respuesta) {
@@ -266,7 +323,7 @@ toba = new function() {
 		var partes = [];
 		var pos, pos_anterior = 0;
 		while (pos != -1) {
-			pos = texto.indexOf('<--toba-->', pos_anterior);
+			pos = texto.indexOf('[--toba--]', pos_anterior);
 			if (pos != -1) {
 				partes.push(texto.substr(pos_anterior, pos-pos_anterior));
 				pos_anterior = pos + 10;

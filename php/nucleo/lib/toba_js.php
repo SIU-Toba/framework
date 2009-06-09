@@ -16,7 +16,7 @@ class toba_js
 	private static $basicos_cargados = false;
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
-						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 
+						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 'basicos/yahoo',
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 	

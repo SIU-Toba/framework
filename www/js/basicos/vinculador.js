@@ -177,5 +177,12 @@ vinculador = new function() {
 	vinculador.agregar_vinculo = function(identificador, datos) {
 		this._vinculos[ identificador ] = datos;
 	};
+	
+	/** 
+	 * Limpia los vinculos existentes
+	 */
+	vinculador.limpiar_vinculos = function() {
+		this._vinculos = [];
+	};	
 
 toba.confirmar_inclusion('basicos/vinculador');

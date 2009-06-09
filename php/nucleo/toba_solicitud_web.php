@@ -106,9 +106,7 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		//--Antes de procesar los eventos toda entrada UTF-8 debe ser pasada a ISO88591
 		if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'UTF-8') !== false) {
-			foreach ($_POST as $clave => $valor) {
-				$_POST[$clave] = utf8_decode($valor);
-			}
+			$_POST = array_a_latin1($_POST);
 		}
 		//-- Se procesan los eventos generados en el pedido anterior
 		foreach ($this->cis as $ci) {
@@ -308,31 +306,45 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__html_parcial($objetos)
 	{
+		//-- Se reenvia el encabezado
+		$this->tipo_pagina()->barra_superior();
+		echo "</div>";
+
+		//--- Parte superior de la zona
+		if (toba::solicitud()->hay_zona() && toba::zona()->cargada()) {
+			toba::zona()->generar_html_barra_superior();
+		}
+		//--- Se incluyen botones en la botonera de la operacion
+		$this->generar_html_botonera_sup($objetos);		
+		echo "[--toba--]";
+		
 		//--- Se envia el HTML
 		foreach ($objetos as $objeto) {
 			$objeto->generar_html();
 		}	
-				
-		//--- Se envian los consumos js
-		echo "<--toba-->";
+		echo "[--toba--]";
+
+		//--- Se envian los consumos js		
 		$consumos = array();
 		foreach ($objetos as $objeto) {
 			$consumos = array_merge($consumos, $objeto->get_consumo_javascript());
 		}
 		echo "toba.incluir(".toba_js::arreglo($consumos, false).");\n"; 
-		
+		echo "[--toba--]";
+				
 		//--- Se envia el javascript
-		echo "<--toba-->";
 		//Se actualiza el prefijo de los vinculos
 		$autovinculo = toba::vinculador()->get_url();
 		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
 		echo "document.formulario_toba.action='$autovinculo'\n";
+		toba::vinculador()->generar_js();		
 		foreach ($objetos as $objeto) {
 			//$objeto->servicio__html_parcial();
 			$objeto_js = $objeto->generar_js();
 			echo "\nwindow.$objeto_js.iniciar();\n";
 		}
+		toba::notificacion()->mostrar(false);		
 	}
 	
 	/**
