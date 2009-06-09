@@ -16,7 +16,8 @@ abstract class toba_ef_seleccion extends toba_ef
 
     static function get_lista_parametros_carga()
     {
-    	$param = toba_ef::get_lista_parametros_carga_basico();    	
+    	$param = toba_ef::get_lista_parametros_carga_basico();
+		$param[] = 'carga_permite_no_seteado';
 		$param[] = 'carga_no_seteado';
 		$param[] = 'carga_no_seteado_ocultar';
 		return $param;

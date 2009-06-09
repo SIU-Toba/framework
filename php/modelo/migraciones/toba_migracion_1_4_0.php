@@ -88,6 +88,10 @@ class toba_migracion_1_4_0 extends toba_migracion
 		//-------------------------- Agrego la columna para representar lo que antes hacia el 'redirecciona' ------------------------
 		$sql[] = 'ALTER TABLE apex_item ADD COLUMN retrasar_headers SMALLINT  DEFAULT 0;';
 
+		//-------------------------- Agrego columnas para determinar si se usa el estado no-par en los ef_seleccion ------------
+		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_permite_no_seteado SMALLINT NOT NULL DEFAULT 0;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN carga_permite_no_seteado SMALLINT  NOT NULL DEFAULT 0;';
+
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
@@ -333,6 +337,27 @@ class toba_migracion_1_4_0 extends toba_migracion
 
 		$sql = "UPDATE apex_item SET redirecciona = 0
 					 WHERE	proyecto = '{$this->elemento->get_id()}';";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
+
+	function proyecto__permite_estado_no_seteado()
+	{
+		//--------------- Primero trato el problema en los formularios comunes --------------------------------
+		$sql = "UPDATE apex_objeto_ei_formulario_ef SET carga_permite_no_seteado = 0
+					 WHERE	objeto_ei_formulario_proyecto = '{$this->elemento->get_id()}' AND carga_no_seteado IS NULL;";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		$sql = "UPDATE apex_objeto_ei_formulario_ef SET carga_permite_no_seteado = 1
+					 WHERE	objeto_ei_formulario_proyecto = '{$this->elemento->get_id()}' AND carga_no_seteado IS NOT NULL ;";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		//----------------- Ahora lo trato en los ei_filtro nuevos ---------------------------------------------------------
+		$sql = "UPDATE apex_objeto_ei_filtro_col SET carga_permite_no_seteado = 0
+					 WHERE	objeto_ei_filtro_proyecto = '{$this->elemento->get_id()}' AND carga_no_seteado IS NULL;";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		$sql = "UPDATE apex_objeto_ei_filtro_col SET carga_permite_no_seteado = 1
+					 WHERE	objeto_ei_filtro_proyecto = '{$this->elemento->get_id()}' AND carga_no_seteado IS NOT NULL ;";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 }

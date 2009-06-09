@@ -57,7 +57,7 @@ class form_carga extends toba_ei_formulario
 						var mostrar = (actual == mecanismos_carga[i]);
 						this.cambiar_mecanismo(mecanismos_carga[i], mostrar, actual);
 					}
-
+					{$this->objeto_js}.evt__carga_permite_no_seteado__procesar(inicial);
 				}
 			}
 
@@ -137,6 +137,16 @@ class form_carga extends toba_ei_formulario
 						this.ef('carga_col_clave').set_estado(datos[1]);
 					if (this.ef('carga_col_desc'))
 						this.ef('carga_col_desc').set_estado(datos[2]);
+				}
+			}
+
+			{$this->objeto_js}.evt__carga_permite_no_seteado__procesar = function(es_inicial) {
+				if (this.ef('carga_permite_no_seteado').chequeado()) {
+					this.ef('carga_no_seteado').mostrar();
+					this.ef('carga_no_seteado_ocultar').mostrar();
+				} else {
+					this.ef('carga_no_seteado').ocultar();
+					this.ef('carga_no_seteado_ocultar').ocultar();
 				}
 			}
 		";

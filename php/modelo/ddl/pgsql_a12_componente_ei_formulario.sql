@@ -115,6 +115,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	carga_col_desc						varchar(100)	NULL,
 	carga_maestros						varchar(255)	NULL,
 	carga_cascada_relaj					smallint		NULL,
+	carga_permite_no_seteado	smallint		NOT NULL DEFAULT 0,
 	carga_no_seteado					varchar(100)	NULL,
 	carga_no_seteado_ocultar			smallint		NULL,
 	edit_tamano							smallint		NULL,

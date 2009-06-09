@@ -192,10 +192,10 @@ class toba_carga_opciones_ef
 			$parametros['carga_no_seteado_ocultar'] = false;
 		}
 		//--- Agrega el no-seteado en caso que existan elementos
-		if (isset($parametros['carga_no_seteado']) && ! isset($salida[apex_ef_no_seteado])
-				&& (! empty($salida) || !$parametros['carga_no_seteado_ocultar'])) {
+		if ($parametros['carga_permite_no_seteado'] == '1' && !isset($salida[apex_ef_no_seteado])
+			&& (! empty($salida) || !$parametros['carga_no_seteado_ocultar'])) {
 			$lista = array();
-			$lista[apex_ef_no_seteado] = $parametros['carga_no_seteado'];
+			$lista[apex_ef_no_seteado] = (isset($parametros['carga_no_seteado']))? $parametros['carga_no_seteado']: '';
 			return $lista + $salida;
 		} else {
 			return $salida;	

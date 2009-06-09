@@ -85,6 +85,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	carga_lista							varchar(255)	NULL,	--carga lista
 	carga_col_clave						varchar(100)	NULL,
 	carga_col_desc						varchar(100)	NULL,
+	carga_permite_no_seteado	smallint		NOT NULL DEFAULT 0,
 	carga_no_seteado					varchar(100)	NULL,
 	carga_no_seteado_ocultar			smallint		NULL,
 	edit_tamano							smallint		NULL,
