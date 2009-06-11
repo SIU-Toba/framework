@@ -611,6 +611,17 @@ function mostrar_esperar()
 	}			
 }
 
+/**
+ * Dado un codigo html, intepreta las secciones <script> del mismo
+ */
+function ejecutar_scripts(html) {
+	var re = /<script\b[\s\S]*?>([\s\S]*?)<\//ig;
+	var match;
+	while (match = re.exec(html)) {
+		eval(match[1]);
+	}
+};
+
 
 
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus

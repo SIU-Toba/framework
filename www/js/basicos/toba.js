@@ -137,10 +137,6 @@ toba = new function() {
 			var vinculo = vinculador.get_url(null, null, 'html_parcial', null, [ this._ajax._id ] );
 			
 			//Averigua si posee algún ef upload
-
-			
-			
-			
 			conexion.setForm($('formulario_toba'), this._hay_uploads());
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
@@ -299,19 +295,25 @@ toba = new function() {
 			delete(this._ajax._deps[d]);
 		}
 		var partes = this.analizar_respuesta_servicio(respuesta);
-		
-		//-- Se cambia la barra superior
 		if (partes[0] != '') {
-			var barra = partes[0].substr(partes[0].indexOf('>') + 1);
-			$('barra_superior').innerHTML = barra;
+			//-- Trata de interpretar y agregar cualquier html/js adhoc generado durante los eventos
+			ejecutar_scripts(partes[0]);
+			this._ajax.raiz().parentNode.innerHTML += partes[0];
 		}
 		
-		//-- Se agrega el html
-		this._ajax.raiz().innerHTML = partes[1];
+		//-- Se cambia la barra superior (busca el fin del tag para no duplicarlo)
+		if (partes[1] != '' && isset($('barra_superior'))) {
+			var barra = partes[1].substr(partes[1].indexOf('>') + 1);
+			$('barra_superior').innerHTML = barra;
+		}
+
+		//-- Se agrega el html (busca el comienzo del primer div para no duplicar el table)
+		ejecutar_scripts(partes[2]);
+		this._ajax.raiz().innerHTML = partes[2].substr(partes[2].indexOf('<div'));
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
-		toba.set_callback_incl(partes[3]);
-		eval(partes[2]);
+		toba.set_callback_incl(partes[4]);
+		eval(partes[3]);
 	};
 	
 	/**

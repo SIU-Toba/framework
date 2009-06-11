@@ -310,6 +310,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__html_parcial($objetos)
 	{
+		echo "[--toba--]";		
 		//-- Se reenvia el encabezado
 		$this->tipo_pagina()->barra_superior();
 		echo "</div>";
