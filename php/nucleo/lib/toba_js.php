@@ -170,9 +170,9 @@ class toba_js
 	
 	static function cargar_definiciones_runtime()
 	{
-		echo "var toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
-		echo "var toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
-		echo "var toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
+		echo "window.toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
+		echo "window.toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
+		echo "window.toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
 	}
 	
 	/**

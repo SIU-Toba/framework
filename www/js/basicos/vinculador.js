@@ -55,8 +55,8 @@ vinculador = new function() {
 			}
 		}
 		if (typeof enviar_zona != 'undefined' && enviar_zona) {
-			prefijo = prefijo + toba_qs_zona;
-		} 	
+			prefijo += toba_qs_zona;
+		}
 		var vinc = prefijo + '&' + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
 		if (typeof servicio != 'undefined' && isset(servicio)) {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;

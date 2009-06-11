@@ -343,7 +343,8 @@ class toba_solicitud_web extends toba_solicitud
 		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
 		echo "document.formulario_toba.action='$autovinculo'\n";
-		toba::vinculador()->generar_js();		
+		toba::vinculador()->generar_js();
+		toba_js::cargar_definiciones_runtime();
 		foreach ($objetos as $objeto) {
 			//$objeto->servicio__html_parcial();
 			$objeto_js = $objeto->generar_js();
