@@ -114,6 +114,7 @@ class toba_db_tablas_proyecto
     46 => 'version_detalle',
     47 => 'version_link',
     48 => 'tiempo_espera_ms',
+    49 => 'navegacion_ajax',
   ),
 );
 	}

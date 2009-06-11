@@ -70,7 +70,8 @@ class toba_proyecto_db
 						version_fecha					,
 						version_detalle					,
 						version_link					,
-						tiempo_espera_ms		
+						tiempo_espera_ms				,
+						navegacion_ajax					
 				FROM 	apex_proyecto p 
 							LEFT OUTER JOIN apex_menu m ON (p.menu = m.menu)
 							LEFT OUTER JOIN apex_estilo est ON (p.estilo = est.estilo)

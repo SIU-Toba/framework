@@ -103,6 +103,7 @@ class toba_db_tablas_nucleo
     46 => 'version_detalle',
     47 => 'version_link',
     48 => 'tiempo_espera_ms',
+    49 => 'navegacion_ajax',
   ),
 );
 	}

@@ -74,9 +74,13 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function cargar_objetos()
 	{
+		
 		toba::logger()->seccion("Iniciando componentes...", 'toba');
 		$this->cis = array();		
 		if ($this->info['objetos'] > 0) {
+			if (toba::proyecto()->get_parametro('navegacion_ajax')) {
+				toba_ci::set_navegacion_ajax(true);
+			}
 			$i = 0;
 			//Construye los objetos ci y el cn
 			foreach ($this->info['objetos'] as $objeto) {
