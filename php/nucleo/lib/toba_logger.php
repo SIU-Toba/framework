@@ -257,8 +257,29 @@ class toba_logger
 	
 	function get_cantidad_mensajes()
 	{
-		return count($this->mensajes);	
+		return count($this->mensajes);
 	}
+	
+	function get_mensajes_minimo_nivel()
+	{
+		$cantidad = array();
+		$minimo = $this->nivel_maximo + 1;
+		foreach ($this->niveles as $nivel) {
+			if (! isset($cantidad[$nivel])) {
+				$cantidad[$nivel] = 0;
+			}
+			$cantidad[$nivel]++;
+			if ($nivel < $minimo) {
+				$minimo = $nivel;
+			}
+		}
+		if ($minimo !==  $this->nivel_maximo + 1) {
+			return array($minimo, $cantidad[$minimo]);
+		} else {
+			return array(0, 0);
+		}
+	}
+	
 	
 	function get_niveles()
 	{

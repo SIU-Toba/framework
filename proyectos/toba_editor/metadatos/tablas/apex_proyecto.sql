@@ -41,7 +41,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --registrar_cronometro
 	'1000231', --item_inicio_sesion
 	'3286', --item_pre_sesion
-	NULL, --item_pre_sesion_popup
+	'0', --item_pre_sesion_popup
 	'3359', --item_set_sesion
 	'1', --log_archivo
 	'7', --log_archivo_nivel

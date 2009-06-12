@@ -48,7 +48,7 @@ class toba_admin_fuentes
 			$proyecto = toba::proyecto()->get_id();
 		}
 		if(!isset($id)) {
-			$id = $this->get_fuente_predeterminada(true. $proyecto);	
+			$id = $this->get_fuente_predeterminada(true, $proyecto);	
 		}
 		if ( !isset($this->fuentes[$id]) ) {
 			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);

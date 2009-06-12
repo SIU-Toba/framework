@@ -35,9 +35,11 @@ class ci_editor_perfiles extends toba_ci
 	{
 		$raices = $this->dep('arbol_perfiles')->get_datos();
 		$datos = $this->datos('accesos')->get();
-		foreach($raices as $raiz) {
-			if ($alta) $raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
-			$raiz->sincronizar();	
+		if (isset($datos)) {
+			foreach($raices as $raiz) {
+				if ($alta) $raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
+				$raiz->sincronizar();	
+			}
 		}
 		unset($this->s__arbol_cargado);
 	}

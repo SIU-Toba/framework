@@ -27,6 +27,7 @@
 }
 #editor_previsualizacion {
 	position: fixed;
+	width: 100%;
 	_position: absolute;
 	left: 0px;
 	bottom: 0px;
@@ -34,10 +35,15 @@
 	border: 1px solid gray;
 	padding: 6px;
 	padding-left: 0;
+	text-align: right;
+	vertical-align:middle;
+}
+#editor_previsualizacion a {
+	text-decoration: none;
 }
 #editor_previsualizacion img {
 	vertical-align: middle;
-	padding-left: 3px;
+	margin-left: 7px;	
 }
 #vinculo_logger {
 	white-space: nowrap;
@@ -47,8 +53,13 @@
 #editor_previsualizacion_cont * {
 	font-size: 9px;
 }
-#editor_previsualizacion_cont hr {
-	color:white;
+#editor_previsualizacion_vis {
+	display: block;
+	float: left;
+}
+#editor_previsualizacion_acc {
+	display: block;
+	padding-right: 5px;
 }
 
 

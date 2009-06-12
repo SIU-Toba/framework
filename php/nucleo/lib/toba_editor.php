@@ -37,6 +37,15 @@ class toba_editor
 	
 	static function referenciar_memoria()
 	{
+		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
+		if ($fuente) {
+			//Pone la base por defecto en modo debug, para leer la cantidad y tiempo de las querys
+			$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+			if ($base) {
+				$base->set_modo_debug(true, false);
+			}
+		}
+		//toba::db()->set_modo_debug(true, true);
 		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
 		if (toba::memoria()->get_parametro('skin') != '') {
 			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
@@ -44,8 +53,8 @@ class toba_editor
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 		}
 		//Acceso a la informacion del modelo
-		toba_contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
-		toba_contexto_info::set_db( toba_editor::get_base_activa() );
+		toba_contexto_info::set_proyecto(toba_editor::get_proyecto_cargado());
+		toba_contexto_info::set_db(toba_editor::get_base_activa());
 	}
 
 	static function finalizar()
@@ -321,6 +330,9 @@ class toba_editor
 		echo "	
 			function toba_invocar_editor(frame, url) 
 			{
+				if (frame == 'undefined') {
+					frame = 'frame_centro';
+				}
 				var encontrado = false;
 				var rendido = false;
 				var sujeto = window;
@@ -342,7 +354,9 @@ class toba_editor
 					}
 				}
 				if (encontrado) {
-					sujeto.top.frame_control.editor.abrir_editor(frame, url);
+					if (typeof url != 'undefined') {
+						sujeto.top.frame_control.editor.abrir_editor(frame, url);
+					}
 					sujeto.focus();
 				} else {
 					alert('No se puede encontrar un editor de toba abierto');
@@ -423,56 +437,95 @@ class toba_editor
 		self::javascript_invocacion_editor();				
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
-		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
 		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegación interna de la operación via AJAX');
+		$html_ayuda_editor = toba_recurso::ayuda(null, 'Volver al editor de toba');
 		$solicitud = toba::solicitud()->get_id();
 		$link_cronometro = toba::vinculador()->get_url('toba_editor', '1000263', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$link_archivos = toba::vinculador()->get_url('toba_editor', '30000029', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
-		echo "<img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
+		/*echo "<div id='editor_previsualizacion_colap'><img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
 				src='".toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)."'
-				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/>";
-
+				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/></div>";*/
 
 		echo "<span id='editor_previsualizacion_cont'>";
-		$tamano = file_size(strlen(serialize($_SESSION)));
-		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
+		echo "<span id='editor_previsualizacion_vis'>";
+
+		//Logger
+		list($log_nivel, $log_cant) = toba::logger()->get_mensajes_minimo_nivel();
+		$niveles = toba::logger()->get_niveles();
+		$niveles[0] = 'INFO';
+		$img = self::imagen_editor('logger/'.strtolower($niveles[$log_nivel]).'.gif', true);
+		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');		
+		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".$img." $log_cant</a>\n";
+
+		//Cronometro
+		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+				toba_recurso::imagen_toba('clock.png', true).
+				' '.round(toba::cronometro()->tiempo_acumulado(), 2). ' seg'."</a> ";
+				
+		//Memoria
 		if (function_exists('memory_get_peak_usage')) {
 			$memoria_pico = memory_get_peak_usage();
 			echo toba_recurso::imagen_toba('memory.png', true, 16, 16, 'Pico máximo de memoria que ha consumido el script actual');
-			echo ' '.file_size($memoria_pico).' ';
+			echo ' '.file_size($memoria_pico, 0).' ';
 		}
-		//Cronometro
-		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
-				toba_recurso::imagen_toba('clock.png', true)."</a> ";
-		echo round(toba::cronometro()->tiempo_acumulado(), 2). ' seg<br><hr>';
+		
+		//Base de datos
+		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
+		if ($fuente) {
+			$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+			$info_db = $base->get_info_debug();
+			$total = 0;
+			foreach($info_db as $info) {
+				$total += ($info['fin'] - $info['inicio']);
+			}
+			toba::memoria()->set_dato_instancia('previsualizacion_consultas', $info_db);
+			echo "<a href='#' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
+				count($info_db). "</a>";
+		}
+		
+		
+		//Archivos
+		$archivos = self::get_archivos_incluidos();		
+		$total = 0;
+		foreach ($archivos as $arch) {
+			$total += filesize($arch);
+		}
+		toba::memoria()->set_dato_instancia('previsualizacion_archivos', $archivos);
+		echo "<a href='$link_archivos' target='logger'>".toba_recurso::imagen_toba('nucleo/php.gif', true, 16, 16, 'Ver detalle de archivos .php del proyecto incluidos en este pedido de página').
+			' '.count($archivos)." arch. (".file_size($total,0).')</a>';
+				
+		//Session		
+		$tamano = file_size(strlen(serialize($_SESSION)), 0);
+		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
 
-
-
+		echo "</span>";		
+		echo "<span id='editor_previsualizacion_acc'>";
+		
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
 		$js = "title='Cambia temporalmente el skin de la aplicación' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
 		echo toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
-		
-		//Logger
-		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".toba_recurso::imagen_toba('logger.gif', true)."</a>\n";
+
+		//AJAX		
+		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";
 				
+		//Edicion
+		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
+		toba_recurso::imagen_toba('edicion_chico.png', true)."</a>\n";
+
 		//Arbol
 		$vinculos = self::get_vinculos_item($item, $accion);
 		if (isset($vinculos[1])) {
 			self::mostrar_vinculo($vinculos[1]);
 		}
-		//Edicion
-		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
-		toba_recurso::imagen_toba('edicion_chico.png', true)."</a>\n";
-
 		
-		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";
-		
-		//AJAX
-		
+		//Editor
+		echo "<a href='#' onclick='return toba_invocar_editor()' $html_ayuda_editor>".toba_recurso::imagen_toba('icono_16.png', true)."</a>\n";
+		echo "</span>";
 		echo "</span>";
 		
 		echo toba_js::abrir();
@@ -486,6 +539,20 @@ class toba_editor
 			self::mostrar_vinculo($vinculo);
 		}
 		echo "</div>";
+	}
+	
+	static protected function get_archivos_incluidos()
+	{
+		$todos = get_included_files();
+		$path_relativo = toba_manejador_archivos::path_a_unix(toba::proyecto()->get_path());
+		$archivos = array();
+		foreach ($todos as $archivo) {
+			$archivo = toba_manejador_archivos::path_a_unix($archivo);
+			if (strpos($archivo, $path_relativo) !== false) {
+				$archivos[] = $archivo;
+			}
+		}
+		return $archivos;
 	}
 
 	static protected function mostrar_vinculo($vinculo)
@@ -587,7 +654,7 @@ class toba_editor
 		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000239',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
-		$vinculo['tip'] = 'Ver composicion de la operación.';
+		$vinculo['tip'] = 'Ver composicion de la operación en el editor.';
 		$vinculos[] = $vinculo;
 
 /*		//Consola JS

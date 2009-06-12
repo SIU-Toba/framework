@@ -24,6 +24,7 @@ class toba_db
 	protected $base;
 	protected $puerto;
 	protected $debug = false;
+	protected $loguear = false;
 	protected $debug_sql_id = 0;
 	protected $parser_errores = null;
 	protected $sentencias = array();
@@ -103,19 +104,45 @@ class toba_db
 
 	/**
 	 * Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado
+	 * @param boolean $loguear No deja las querys en el logger, solo se mantienen durante el pedido de página
 	 */
-	function set_modo_debug($debug=true)
+	function set_modo_debug($debug=true, $loguear=true)
 	{
 		$this->debug = $debug;
+		$this->loguear = $loguear;
 	}
 	
 	/**
 	 * @ignore 
 	 */
-	function log_debug($sql)
+	protected function log_debug_inicio($sql)
 	{
 		$id = $this->debug_sql_id++;
-		toba_logger::instancia()->debug("***SQL[$id] : $sql");
+		$this->debug_sqls[$id] = array('sql' => $sql, 'inicio' => microtime(true));
+		if ($this->loguear) {
+			toba_logger::instancia()->debug("***SQL[$id] : $sql");
+		}
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function log_debug_fin()
+	{
+		$this->debug_sqls[$this->debug_sql_id - 1]['fin'] = microtime(true);
+	}	
+	
+	/**
+	 * Retorna un arreglo con informacion de las distintas consultas/comandos ejecutados 
+	 * Requiere haber activado el modo debug con set_modo_debug
+	 */
+	function get_info_debug()
+	{
+		if (isset($this->debug_sqls)) {
+			return $this->debug_sqls;
+		} else {
+			return array();
+		}
 	}
 
 	//------------------------------------------------------------------------
@@ -151,8 +178,9 @@ class toba_db
 		if (is_array($sql)) {
 			foreach(array_keys($sql) as $id) {
 				try {
+					if ($this->debug) $this->log_debug_inicio($sql[$id]);
 					$afectados += $this->conexion->exec($sql[$id]);
-					if ($this->debug) $this->log_debug($sql[$id]);
+					if ($this->debug) $this->log_debug_fin();
 				} catch (PDOException $e) {
 					toba::logger()->error($e->getMessage());
 					$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
@@ -161,8 +189,9 @@ class toba_db
 			}
 		} else {
 			try {
+				if ($this->debug) $this->log_debug_inicio($sql);
 				$afectados += $this->conexion->exec($sql);
-				if ($this->debug) $this->log_debug($sql);
+				if ($this->debug) $this->log_debug_fin();
 			} catch (PDOException $e) {
 				toba::logger()->error($e->getMessage());
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
@@ -184,10 +213,11 @@ class toba_db
 	{
 		$afectados = 0;
 		try {
+			if ($this->debug) $this->log_debug_inicio($sql);			
 			$stm = $this->conexion->prepare($sql);
 			$stm->execute($parametros);
+			if ($this->debug) $this->log_debug_fin();			
 			$afectados += $stm->rowCount();
-			if ($this->debug) $this->log_debug($sql);
 		} catch (PDOException $e) {
 			toba::logger()->error($e->getMessage());
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
@@ -210,8 +240,9 @@ class toba_db
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}
 		try {
+			if ($this->debug) $this->log_debug_inicio($sql);
 			$statement = $this->conexion->query($sql);
-			if ($this->debug) $this->log_debug($sql);
+			if ($this->debug) $this->log_debug_fin($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
 			toba::logger()->error($e->getMessage());
@@ -235,8 +266,9 @@ class toba_db
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}		
 		try {
+			if ($this->debug) $this->log_debug_inicio($sql);
 			$statement = $this->conexion->query($sql);
-			if ($this->debug) $this->log_debug($sql);
+			if ($this->debug) $this->log_debug_fin();
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
 			toba::logger()->error($e->getMessage());			

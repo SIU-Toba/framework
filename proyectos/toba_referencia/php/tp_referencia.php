@@ -25,11 +25,12 @@ class tp_referencia extends toba_tp_normal
 		return $this->titulo;
 	}
 
-	function pie()
+/*	function pie()
 	{
 		php_referencia::instancia()->mostrar();
 		parent::pie();	
 	}
+*/
 }
 
 ?>

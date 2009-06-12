@@ -17,16 +17,26 @@ class ci_subclases_generacion extends toba_ci
 
 	function ini()
 	{
+		//Si viene 'archivo' asume la carpeta php
+		//Si viene 'path' no asume carpeta php del proyecto (puede ser www u otra)
+		$asume_php = true;
 		$archivo = toba::memoria()->get_parametro('archivo');
+		$path = toba::memoria()->get_parametro('path');
+		if (!isset($archivo) && isset($path)) {
+			$archivo = $path;
+			$asume_php = false;
+		}
 		if (isset($archivo)) {
 			if (strpos($archivo, '..') !== FALSE) {
 				//Evita que se pasen ../ en la url
 				throw new toba_error_seguridad("El parámetro '$archivo' no es un path válido");
 			}
-			//Es el ci principal, el parametro que viene es relativo a la carpeta php del proyecto
-			$path_php = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()).'/php/';
-			$this->s__path_archivo = $path_php.$archivo;
-			//$this->s__path_archivo = $this->controlador()->get_path_archivo();
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
+			if (! $asume_php) {
+				$this->s__path_archivo = $path_proyecto.'/'.$archivo;
+			} else {
+				$this->s__path_archivo = $path_proyecto.'/php/'.$archivo;
+			}
 			$this->s__es_esclavo = false;
 		}
 		if (! isset($this->s__es_esclavo)) {
@@ -249,6 +259,9 @@ class ci_subclases_generacion extends toba_ci
 		
 		//-- Se va a modificar algo?
 		if ($this->s__es_esclavo && (! empty($metodos) || $archivo_php->esta_vacio())) {
+			if (! method_exists($this->controlador(), 'get_metaclase')) {
+				throw new toba_error("No se invoco correctamente en el visor de archivos PHP");
+			}
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
 			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
 			$codigo = "<?php\n".$codigo."\n?>";
