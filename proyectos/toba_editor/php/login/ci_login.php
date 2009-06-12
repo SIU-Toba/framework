@@ -22,6 +22,7 @@ class ci_login extends toba_ci
 
 	function conf()
 	{
+		toba_ci::set_navegacion_ajax(false);		
 		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->pantalla()->eliminar_evento('ingresar');
 		}

@@ -2,6 +2,11 @@
 
 class ci_ini_sesion extends toba_ci
 {
+	function ini()
+	{
+		toba_ci::set_navegacion_ajax(false);
+	}
+	
 	function evt__form__modificacion($datos)
 	{
 		if ( isset($datos)) {

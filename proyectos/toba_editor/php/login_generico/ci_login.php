@@ -23,6 +23,7 @@ class ci_login extends toba_ci
 
 	function ini()
 	{
+		toba_ci::set_navegacion_ajax(false);
 		$this->en_popup = toba::proyecto()->get_parametro('item_pre_sesion_popup');		
 	}
 	
