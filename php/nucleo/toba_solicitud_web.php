@@ -327,6 +327,15 @@ class toba_solicitud_web extends toba_solicitud
 		foreach ($objetos as $objeto) {
 			$objeto->generar_html();
 		}	
+		
+		echo "[--toba--]";
+		
+		//-- Se envia info de debug
+		if ( toba_editor::modo_prueba() ) {
+			$item = toba::solicitud()->get_datos_item('item');
+			$accion = toba::solicitud()->get_datos_item('item_act_accion_script');
+			toba_editor::generar_zona_vinculos_item($item, $accion);
+		}		
 		echo "[--toba--]";
 
 		//--- Se envian los consumos js		

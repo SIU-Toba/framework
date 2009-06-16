@@ -311,9 +311,14 @@ toba = new function() {
 		ejecutar_scripts(partes[2]);
 		this._ajax.raiz().innerHTML = partes[2].substr(partes[2].indexOf('<div'));
 		
+		//-- Se cambia el div del editor (si existe)
+		if (partes[3] != '') {
+			document.body.innerHTML += partes[3];
+		}
+		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
-		toba.set_callback_incl(partes[4]);
-		eval(partes[3]);
+		toba.set_callback_incl(partes[5]);
+		eval(partes[4]);
 	};
 	
 	/**

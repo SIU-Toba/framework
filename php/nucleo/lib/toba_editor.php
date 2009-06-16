@@ -47,11 +47,19 @@ class toba_editor
 		}
 		//toba::db()->set_modo_debug(true, true);
 		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
+		
+		//Cambia el skin
 		if (toba::memoria()->get_parametro('skin') != '') {
 			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
 			toba::proyecto()->set_parametro('estilo', $skin[0]);
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 		}
+		//Cambia tipo de navegación
+		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {
+			$ajax = toba::memoria()->get_parametro('navegacion_ajax') ? true : false;
+			toba::proyecto()->set_parametro('navegacion_ajax', $ajax);
+		}
+		
 		//Acceso a la informacion del modelo
 		toba_contexto_info::set_proyecto(toba_editor::get_proyecto_cargado());
 		toba_contexto_info::set_db(toba_editor::get_base_activa());
@@ -321,53 +329,6 @@ class toba_editor
 	//-- Generacion de VINCULOS al editor (desde un proyecto PREVISUALIZADO)
 	//---------------------------------------------------------------------------
 
-	/**
-	*	Generacion del invocador al editor.
-	*/
-	static function javascript_invocacion_editor()
-	{
-		echo toba_js::abrir();
-		echo "	
-			function toba_invocar_editor(frame, url) 
-			{
-				if (frame == 'undefined') {
-					frame = 'frame_centro';
-				}
-				var encontrado = false;
-				var rendido = false;
-				var sujeto = window;
-				//--- Trata de encontrar el frame de edicion
-				while (! encontrado && ! rendido) {
-					if (sujeto.top && sujeto.top.frame_control && sujeto.top.frame_control.editor) {
-						encontrado = true;
-						break;
-					}
-					if (sujeto.opener) {						//Previsuliazion comun
-						sujeto = sujeto.opener;
-					} else if (sujeto.top.opener) {				//Previsualizacion de algo con frames
-						sujeto = sujeto.top.opener;
-					} else if (sujeto.top.opener.opener) {		//Popup abierto desde la previsualizacion
-						sujeto = sujeto.top.opener.opener;
-					} else {
-						//-- No hay mas padres, me rindo
-						rendido = true;
-					}
-				}
-				if (encontrado) {
-					if (typeof url != 'undefined') {
-						sujeto.top.frame_control.editor.abrir_editor(frame, url);
-					}
-					sujeto.focus();
-				} else {
-					alert('No se puede encontrar un editor de toba abierto');
-				}
-				setTimeout ('editor_cambiar_vinculos(false)', 100);	//Para evitar que quede fijo
-				return false;
-			}
-		";
-		echo toba_js::cerrar();		
-	}
-
 	/*
 	*	Zona de vinculos de los items
 	*/
@@ -376,71 +337,14 @@ class toba_editor
 		if (! self::acceso_recursivo()) {
 			toba::solicitud()->set_cronometrar(true);
 		}
-		echo toba_js::abrir();
-		echo "
-			function editor_cambiar_vinculos(set) {
-				var automatico = true;			
-				if (typeof set != 'undefined') {
-					automatico = false;
-				}
-				var nodos = getElementsByClass('div-editor');
-				var mostrar =false;
-				for (var i=0; i< nodos.length; i++) {
-					if (automatico) {
-						set = (nodos[i].className.indexOf('editor-mostrar') == -1);
-					}
-					if (set) {
-						nodos[i].className += ' editor-mostrar';
-					} else {
-						nodos[i].className = 'div-editor';
-					}
-				}
-			}
-			
-			function editor_cambiar_ajax() {
-				var nueva = toba.get_navegacion_ajax() ? false : true;
-				toba.set_navegacion_ajax(nueva);
-				editor_cambiar_ajax_icono();
-			}
-			
-			function editor_cambiar_ajax_icono()
-			{
-				var nueva = toba.get_navegacion_ajax();
-				var img = $('editor_ajax').firstChild;
-				var nuevo_src;
-				if (nueva) {
-					nuevo_src = img.src.reemplazar('_off', '_on');
-				} else {
-					nuevo_src = img.src.reemplazar('_on', '_off');
-				}
-				img.src = nuevo_src;			
-			}
-		";
-		echo "
-			function set_editor_on(e) {
-			   	var id = (window.event) ? event.keyCode : e.keyCode;
-				if (id == 17) {
-					editor_cambiar_vinculos(true);
-					return false;
-				}
-			}
-			function set_editor_off(e) {
-			   	var id = (window.event) ? event.keyCode : e.keyCode;
-				if (id == 17) {
-					editor_cambiar_vinculos(false);
-				}
-			}
-			agregarEvento(document, 'keyup', set_editor_off);
-			agregarEvento(document, 'keydown', set_editor_on);			
-		";
-		echo toba_js::cerrar();
-		self::javascript_invocacion_editor();				
+		toba_js::cargar_consumos_globales(array('utilidades/toba_editor'));				
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegación interna de la operación via AJAX');
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Volver al editor de toba');
 		$solicitud = toba::solicitud()->get_id();
 		$link_cronometro = toba::vinculador()->get_url('toba_editor', '1000263', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$link_analizador_sql = toba::vinculador()->get_url('toba_editor', '30000030', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_archivos = toba::vinculador()->get_url('toba_editor', '30000029', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
@@ -461,7 +365,8 @@ class toba_editor
 		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".$img." $log_cant</a>\n";
 
 		//Cronometro
-		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+		toba::cronometro()->marcar('Resumen toba_editor');
+		echo "<a href='$link_cronometro' target='logger' $html_ayuda_cronometro >\n".
 				toba_recurso::imagen_toba('clock.png', true).
 				' '.round(toba::cronometro()->tiempo_acumulado(), 2). ' seg'."</a> ";
 				
@@ -481,11 +386,10 @@ class toba_editor
 			foreach($info_db as $info) {
 				$total += ($info['fin'] - $info['inicio']);
 			}
-			toba::memoria()->set_dato_instancia('previsualizacion_consultas', $info_db);
-			echo "<a href='#' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
+			toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
+			echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
 				count($info_db). "</a>";
 		}
-		
 		
 		//Archivos
 		$archivos = self::get_archivos_incluidos();		
@@ -527,10 +431,7 @@ class toba_editor
 		echo "<a href='#' onclick='return toba_invocar_editor()' $html_ayuda_editor>".toba_recurso::imagen_toba('icono_16.png', true)."</a>\n";
 		echo "</span>";
 		echo "</span>";
-		
-		echo toba_js::abrir();
-		echo "agregarEvento(window, 'load', editor_cambiar_ajax_icono)\n";		
-		echo toba_js::cerrar();
+
 		echo "</div>";
 		
 		
@@ -580,7 +481,7 @@ class toba_editor
 			$salida .= self::get_utileria_editor_abrir_php(array('componente'=>$componente[1], 'proyecto' => $componente[0]));
 		}
 		foreach(self::get_vinculos_componente($componente, $editor, $clase) as $vinculo) {
-			$salida .= "<a href='#' onclick=\"reutnr toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			$salida .= "<a href='#' onclick=\"return toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			if ($vinculo['imagen_recurso_origen'] == 'apex') {
 				$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
 			} else {

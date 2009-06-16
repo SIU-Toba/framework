@@ -349,7 +349,9 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
+			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
 			$this->sentencias[$id]['id']->execute($parametros);
+			if ($this->debug) $this->log_debug_fin();
 			return $this->sentencias[$id]['id']->rowCount();
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
@@ -374,7 +376,9 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
+			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
 			$this->sentencias[$id]['id']->execute($parametros);
+			if ($this->debug) $this->log_debug_fin();
 			return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
@@ -400,7 +404,9 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
+			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
 			$this->sentencias[$id]['id']->execute($parametros);
+			if ($this->debug) $this->log_debug_fin();
 			return $this->sentencias[$id]['id']->fetch($tipo_fetch);
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
@@ -410,7 +416,7 @@ class toba_db
 	}
 
 	/**
-	*	Retorna un formato recordset a partir de una sentencia preparada
+	*	Retorna un formato recordset a partir de una sentencia ejecutada
 	*	@param integer ID de la sentencia
 	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
 	*	@return array Resultado de la consulta en formato recordset (filas x columnas)

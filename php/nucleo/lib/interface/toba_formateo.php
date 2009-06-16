@@ -93,6 +93,17 @@ class toba_formateo
 			return array($valor, null);
 		}				
 	}
+	
+	function formato_tiempo_ms($valor)
+	{
+		if ($this->tipo_salida != 'excel') {
+			return "<b>" . number_format($valor * 1000,2,',','.') . '</b>'.
+				$this->get_separador().'ms';
+
+		} else {
+			return array($valor, null);
+		}				
+	}	
 
 	function formato_millares($valor)
 	{
@@ -260,5 +271,14 @@ class toba_formateo
 			return array($salida, null);
 		}
 	}
+	
+	function formato_pre($valor)
+	{
+		if ($this->tipo_salida != 'excel') {
+			return '<pre>'.$valor.'</pre>';
+		} else {
+			return array($valor, null);
+		}
+	}	
 }
 ?>
