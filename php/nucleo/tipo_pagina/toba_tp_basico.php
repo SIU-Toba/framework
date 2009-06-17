@@ -30,6 +30,7 @@ class toba_tp_basico extends toba_tipo_pagina
 	function pie()
 	{
 		if ( toba_editor::modo_prueba() ) {
+			echo "<br>";
 			$item = toba::solicitud()->get_datos_item('item');
 			$accion = toba::solicitud()->get_datos_item('item_act_accion_script');
 			toba_editor::generar_zona_vinculos_item($item, $accion);

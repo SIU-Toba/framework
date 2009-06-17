@@ -700,7 +700,7 @@ class toba_ei_pantalla extends toba_ei
 		//ATENCION: Esto no permite tener el mismo formulario instanciado dos veces
 		echo "\n";
 		foreach ($objetos as $id => $objeto) {
-			echo $identado."{$this->objeto_js}.agregar_objeto($objeto, '$id');\n";
+			echo $identado."window.{$this->objeto_js}.agregar_objeto($objeto, '$id');\n";
 		}
 	}
 

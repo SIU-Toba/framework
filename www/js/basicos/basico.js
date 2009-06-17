@@ -311,6 +311,16 @@ function include_source(file) {
     html_doc.appendChild(js);
 }
 
+function include_css(file) {
+    var html_doc = document.getElementsByTagName('head').item(0);
+	var css =  document.createElement('link');
+    css.setAttribute('type', 'text/css');
+    css.setAttribute('rel', 'stylesheet');
+    css.setAttribute('href', file);	
+    css.setAttribute('media', 'screen');
+    html_doc.appendChild(css)
+}
+
 //********************  POPUPS  ************************
 
 /**

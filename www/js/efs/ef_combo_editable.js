@@ -1,3 +1,6 @@
+window.dhx_globalImgPath = toba_alias + "/js/dhtmlxCombo/codebase/imgs/";
+include_css(toba_alias + '/js/dhtmlxCombo/codebase/dhtmlxcombo.css');
+
 ef_combo_editable.prototype = new ef();
 ef_combo_editable.prototype.constructor = ef_combo_editable;
 	
@@ -281,5 +284,6 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 	ef_combo_editable.prototype.input = function() {
 		return this._get_combo().DOMelem_input;
 	};
+
 
 toba.confirmar_inclusion('efs/ef_combo_editable');

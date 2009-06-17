@@ -120,7 +120,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/ef', 'efs/ef_combo_editable');
+		$consumos = array('efs/ef', 'efs/ef_combo_editable', 'dhtmlxCombo/codebase/dhtmlxcombo', 'dhtmlxCombo/codebase/dhtmlxcommon');
 		return $consumos;
 	}
 

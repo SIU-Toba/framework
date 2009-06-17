@@ -326,3 +326,4 @@ function FCKeditor_IsCompatibleBrowser()
 
 	return false ;
 }
+toba.confirmar_inclusion('fckeditor/fckeditor');

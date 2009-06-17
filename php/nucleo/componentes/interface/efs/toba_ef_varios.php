@@ -273,7 +273,7 @@ class toba_ef_html extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = "fck_editor";
+		$consumo[] = "fckeditor/fckeditor";
 		return $consumo;
 	}
 	

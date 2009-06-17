@@ -79,7 +79,7 @@ class extension_formulario extends toba_ei_formulario_ml
 
 
 			{$this->objeto_js}.evt__seleccionar_fila = function(fila) {
-					alert('Voy a seleccionar la fila ' + fila);
+					//alert('Voy a seleccionar la fila ' + fila);
 			}
 		";
 	}	

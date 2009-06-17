@@ -126,7 +126,8 @@ toba = new function() {
 	 * @see #set_ajax
 	 */
 	toba.comunicar_eventos = function() {
-		if (this._ajax) {
+		if (this._ajax && ! this._hay_uploads()) {
+			//Por ahora si hay uploads, usa el metodo convencional ya que los bugs son varios
 			var callback =
 			{
 			  success: this._ajax_servicio,

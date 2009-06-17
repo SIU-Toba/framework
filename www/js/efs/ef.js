@@ -541,6 +541,16 @@ ef_html.prototype.constructor = ef_html;
 				return input.value;
 			}		
 		}
-	};		
+	};
+	
+	/**
+	 * @private
+	 */
+	ef_html.prototype.submit = function () {
+		var editor = this.get_editor();
+		if (editor) {
+			this.input().value = this.get_estado();
+		}
+	};
 	
 toba.confirmar_inclusion('efs/ef');
