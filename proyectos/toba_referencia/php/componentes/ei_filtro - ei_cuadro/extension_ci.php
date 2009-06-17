@@ -1,16 +1,34 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
+class formateo_proyecto extends toba_formateo
+{
+	
+	/**
+	 * @param integer $valor Cantidad total de segundos
+	 * @return cadena en formato H:M:S
+	 */
+	function formato_hora($valor)
+	{
+		$segundos = str_pad($valor % 60, 2, 0, STR_PAD_LEFT);		
+		$minutos = floor($valor / 60);
+		$horas = floor($minutos / 60);
+		$minutos = str_pad($minutos % 60, 2, 0, STR_PAD_LEFT);
+		return "$horas:$minutos:$segundos";
+	}
+}
+
+
 class extension_ci extends toba_ci
 {
 	protected $s__filtro;
 	protected $datos_estaticos = array(
-			array( 'fecha' => '2004-05-20', 'importe' => 12500), 
-			array( 'fecha' => '2004-05-21', 'importe' => 22200), 
-			array( 'fecha' => '2004-05-22', 'importe' => 4500), 		
-			array( 'fecha' => '2005-05-20', 'importe' => 12500), 
-			array( 'fecha' => '2005-05-21', 'importe' => 22200), 
-			array( 'fecha' => '2005-05-22', 'importe' => 4500)	
+			array( 'fecha' => '2004-05-20', 'importe' => 12500, 'hora' => '200'), 
+			array( 'fecha' => '2004-05-21', 'importe' => 22200, 'hora' => '200'), 
+			array( 'fecha' => '2004-05-22', 'importe' => 4500, 'hora' => '200'), 		
+			array( 'fecha' => '2005-05-20', 'importe' => 12500, 'hora' => '200'), 
+			array( 'fecha' => '2005-05-21', 'importe' => 22200, 'hora' => 10000), 
+			array( 'fecha' => '2005-05-22', 'importe' => 4500, 'hora' => '300')	
 		);
 	
 	function evt__filtro__filtrar($datos)
@@ -31,8 +49,9 @@ class extension_ci extends toba_ci
 	}
 	
 
-	function conf__cuadro()
+	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
+		$cuadro->set_formateo_columna('hora', 'hora', 'formateo_proyecto');
 		if (!isset($this->s__filtro) || $this->s__filtro['metodo'] == 'estatica') {
 			return $this->datos_estaticos;
 		} else {
