@@ -267,7 +267,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 1
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_editor', --objeto_ci_proyecto
 	'1000001', --objeto_ci
 	'1000001', --pantalla
@@ -281,9 +281,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
-	NULL  --subclase_archivo
+	NULL, --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_editor', --objeto_ci_proyecto
 	'1000001', --objeto_ci
 	'1000002', --pantalla
@@ -297,7 +298,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pantalla_visor', --subclase
-	'utilitarios/logger/pantalla_visor.php'  --subclase_archivo
+	'utilitarios/logger/pantalla_visor.php', --subclase_archivo
+	NULL  --template
 );
 --- FIN Grupo de desarrollo 1
 

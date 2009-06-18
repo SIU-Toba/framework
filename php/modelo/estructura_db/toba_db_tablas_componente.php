@@ -387,6 +387,7 @@ class toba_db_tablas_componente
     11 => 'eventos',
     12 => 'subclase',
     13 => 'subclase_archivo',
+    14 => 'template',
   ),
 );
 	}

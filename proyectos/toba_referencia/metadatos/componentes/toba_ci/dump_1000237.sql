@@ -71,7 +71,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 1
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000128', --pantalla
@@ -85,9 +85,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_agenda', --subclase
-	'tutorial/pant_tutorial.php'  --subclase_archivo
+	'tutorial/pant_tutorial.php', --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000129', --pantalla
@@ -101,9 +102,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_fuente', --subclase
-	'tutorial/pant_api.php'  --subclase_archivo
+	'tutorial/pant_api.php', --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000130', --pantalla
@@ -117,9 +119,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_vinculacion', --subclase
-	'tutorial/pant_api.php'  --subclase_archivo
+	'tutorial/pant_api.php', --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000131', --pantalla
@@ -133,9 +136,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_memoria', --subclase
-	'tutorial/pant_api.php'  --subclase_archivo
+	'tutorial/pant_api.php', --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000132', --pantalla
@@ -149,9 +153,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_logger', --subclase
-	'tutorial/pant_api.php'  --subclase_archivo
+	'tutorial/pant_api.php', --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000237', --objeto_ci
 	'1000133', --pantalla
@@ -165,6 +170,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_mensajes', --subclase
-	'tutorial/pant_api.php'  --subclase_archivo
+	'tutorial/pant_api.php', --subclase_archivo
+	NULL  --template
 );
 --- FIN Grupo de desarrollo 1

@@ -107,7 +107,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 1
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000210', --objeto_ci
 	'1000057', --pantalla
@@ -140,9 +140,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
-	NULL  --subclase_archivo
+	NULL, --subclase_archivo
+	NULL  --template
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000210', --objeto_ci
 	'1000058', --pantalla
@@ -156,9 +157,30 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pantalla_dos_columnas', --subclase
-	'componentes/ci/pantalla_dos_columnas.php'  --subclase_archivo
+	'componentes/ci/pantalla_dos_columnas.php', --subclase_archivo
+	NULL  --template
 );
 --- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1000210', --objeto_ci
+	'30000041', --pantalla
+	'pant_template', --identificador
+	'3', --orden
+	'Usando template', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	'<table border=\"1\">     <caption><span style=\"color: rgb(255, 0, 255);\"><span style=\"font-size: large;\"><strong>T&iacute;tulo de la tabla</strong></span></span></caption>     <tbody>         <tr>             <td><p style=\"text-align: center;\"><span style=\"font-size: large;\">Esquema</span></p>             <p>[dep id=esquema]</p></td>             <td>[dep id=cuadro1]</td>         </tr>         <tr>             <td>[dep id=form1]</td>             <td>[dep id=form2]</td>         </tr>     </tbody> </table> <p>&nbsp;</p>'  --template
+);
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_objetos_pantalla
@@ -217,5 +239,33 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1000058', --pantalla
 	'1000210', --objeto_ci
 	'4', --orden
+	'1000088'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000041', --pantalla
+	'1000210', --objeto_ci
+	'2', --orden
+	'1000085'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000041', --pantalla
+	'1000210', --objeto_ci
+	'0', --orden
+	'1000086'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000041', --pantalla
+	'1000210', --objeto_ci
+	'3', --orden
+	'1000087'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000041', --pantalla
+	'1000210', --objeto_ci
+	'1', --orden
 	'1000088'  --dep_id
 );
