@@ -96,7 +96,7 @@ YAHOO.util.Connect =
   * @static
   * @type boolean
   */
-    _default_form_header:'application/x-www-form-urlencoded',
+    _default_form_header:'application/x-www-form-urlencoded; charset=UTF-8',
 
  /**
   * @description Determines if a default header of
