@@ -559,7 +559,37 @@ class toba_ei_pantalla extends toba_ei
 	
 	protected function generar_layout_template()
 	{
-		echo $this->_info_pantalla['template'];	
+		$restantes = array_keys($this->_dependencias);		
+		//Parseo del template
+		$pattern = '/\[dep([\s\w+=\w+]+)\]/i';
+		if (preg_match_all($pattern, $this->_info_pantalla['template'], $resultado)) {
+			$salida = $this->_info_pantalla['template'];
+			for ($i=0; $i < count($resultado[0]); $i++) {
+				$original = $resultado[0][$i];
+				$atributos = array();
+				foreach (explode(' ',trim($resultado[1][$i])) as $atributo) {
+					$partes = explode('=', $atributo);
+					$atributos[$partes[0]] = $partes[1];
+				}
+				if (! isset($atributos['id'])) {
+					throw new toba_error_def($this->get_txt()."Tag [dep] incorrecto, falta atributo id");
+				}
+				if (isset($this->_dependencias[$atributos['id']])) {
+					ob_start();
+					$this->_dependencias[$atributos['id']]->generar_html();
+					$html = ob_get_clean();				
+					$salida = str_replace($original, $html, $salida);
+					array_borrar_valor($restantes, $atributos['id']);
+				}
+			}
+			echo $salida;
+		} else {
+			echo $this->_info_pantalla['template']; 
+		}
+		if (! empty($restantes)) {
+			$faltan = implode(', ', $restantes);
+			throw new toba_error_def($this->get_txt(). " Template incompleto, falta incluir las siguientes dependencias: $faltan");
+		}		
 	}
 
 	/**

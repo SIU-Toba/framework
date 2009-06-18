@@ -459,8 +459,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		foreach ($rs as $datos) {
 			//--- Se buscan las pantallas asociadas a un CI especifico
 			$this->manejador_interface->mensaje("Procesando " . $datos['clase'] . "...");
-			$proyecto = quote($datos['proyecto']);
-			$objeto = quote($datos['objeto']);
+			$proyecto = $instancia->get_db()->quote($datos['proyecto']);
+			$objeto = $instancia->get_db()->quote($datos['objeto']);
 			$sql = "
 				SELECT
 					pant.identificador,

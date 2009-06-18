@@ -48,7 +48,7 @@ class toba_catalogo_objetos
 			if ($opciones['extendidos'] == 'SI') {
 				$filtro_ext = "AND		o.subclase IS NOT NULL";
 				if (isset($opciones['subclase'])) {
-					$sub_sana = quote("%{$opciones['subclase']}%");
+					$sub_sana = toba_contexto_info::get_db()->quote("%{$opciones['subclase']}%");
 					$filtro_ext .= "\nAND o.subclase ILIKE $sub_sana ";
 				}				
 			} else {
@@ -58,7 +58,7 @@ class toba_catalogo_objetos
 		
 		//---Huerfanos
 		$filtro_huerfano = "";
-		$proyecto = quote($this->proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
 		if (isset($opciones['huerfanos']) && $opciones['huerfanos'] == 1) {
 			$filtro_huerfano = "AND		o.objeto NOT IN (SELECT objeto FROM apex_item_objeto WHERE proyecto = $proyecto)";
 			$filtro_huerfano .= "AND	o.objeto NOT IN (SELECT objeto_proveedor FROM apex_objeto_dependencias WHERE proyecto = $proyecto)";
@@ -73,7 +73,7 @@ class toba_catalogo_objetos
 		//---Tabla
 		$filtro_tabla = "";
 		if (isset($opciones['tabla']) && $opciones['tabla'] != '') {
-			$tabla_sana = quote("%{$opciones['tabla']}%");
+			$tabla_sana = toba_contexto_info::get_db()->quote("%{$opciones['tabla']}%");
 			$subselect = "
 				SELECT 
 					objeto,
@@ -174,11 +174,11 @@ class toba_catalogo_objetos
 		$daos_efs['agrupador_include'] = "el INCLUDE de la CLASE AGRUPADORA";		
 		$sql_efs = "";
 		foreach (array_keys($daos_efs) as $clave) {
-			$cond = quote("%$clave:%$busca%;");
+			$cond = toba_contexto_info::get_db()->quote("%$clave:%$busca%;");
 			$sql_efs .= "ef.inicializacion ILIKE $cond OR ";
 		}
-		$busca_sano = quote("%$busca%");
-		$proyecto = quote($this->proyecto);
+		$busca_sano = toba_contexto_info::get_db()->quote("%$busca%");
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
 		$sql = "
 			SELECT 
 				o.objeto,

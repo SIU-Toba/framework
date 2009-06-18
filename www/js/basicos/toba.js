@@ -104,7 +104,7 @@ toba = new function() {
 	 *@private
 	 */
 	toba._disparar_callback_incl = function() {
-		eval(this._callback_inclusion);
+		eval_code(this._callback_inclusion);
 		delete(this._callback_inclusion);		
 	};
 	
@@ -319,7 +319,7 @@ toba = new function() {
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
 		toba.set_callback_incl(partes[5]);
-		eval(partes[4]);
+		eval_code(partes[4]);
 	};
 	
 	/**

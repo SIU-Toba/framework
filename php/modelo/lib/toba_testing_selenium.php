@@ -131,8 +131,8 @@ class toba_testing_selenium
 	
 	protected function get_items_hijos($padre) 
 	{
-		$proyecto = quote($this->proyecto);
-		$padre = quote($padre);
+		$proyecto = toba::instancia()->get_db()->quote($this->proyecto);
+		$padre = toba::instancia()->get_db()->quote($padre);
 		$sql = "SELECT 
 					item, 
 					nombre,

@@ -70,6 +70,20 @@ class toba_datos_busqueda
 		return $ids;
 	}
 	
+	/**
+	 * Dado los criterios seteados, retorna las filas de los registros de la tabla
+	 * @return array Recordset 
+	 */
+	function buscar_filas()
+	{
+		$ids = $this->buscar_ids();
+		$salida = array();
+		foreach ($ids as $id) {
+			$salida[] = $this->tabla->get_fila($id);
+		}
+		return $salida;
+	}
+	
 }
 
 

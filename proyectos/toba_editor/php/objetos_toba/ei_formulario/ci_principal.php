@@ -135,7 +135,7 @@ class ci_principal extends ci_editores_toba
 			]]>
 		</Html>
 	</Template>
-	<Template title="Tabla Linea" image="tabla_1_col.gif">
+	<Template title="Tabla Lineal" image="tabla_1_col.gif">
 		<Description>Tabla con un campo debajo del otro</Description>
 		<Html>
 			<![CDATA[
@@ -201,7 +201,7 @@ class ci_principal extends ci_editores_toba
 		$total = count($efs);
 		foreach ($efs as $ef) {
 			if (! $ef['desactivado']) {
-				$salida .= '[ef id='.$ef['identificador'].'] ';
+				$salida .= '[ef id='.$ef['identificador']."]\n";
 			}
 		}
 		return $salida;		

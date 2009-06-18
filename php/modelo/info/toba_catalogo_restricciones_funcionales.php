@@ -63,7 +63,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 	
 	function get_lista_items()
 	{
-		$proyecto = quote($this->proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
 		$sql = "SELECT
 					proyecto, 
 					item, 
@@ -74,7 +74,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 				WHERE 
 					proyecto = $proyecto
 				ORDER BY carpeta, orden, nombre;";
-		$items = toba::db()->consultar($sql);
+		$items = toba_contexto_info::get_db()->consultar($sql);
 		return $items;
 	}
 }

@@ -28,6 +28,13 @@ class toba_datos_editores
   ),
   3 => 
   array (
+    'identificador' => '4',
+    'etiqueta' => 'Layout',
+    'imagen' => 'objetos/layout.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  4 => 
+  array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
     'imagen' => 'evento.png',

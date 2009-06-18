@@ -26,8 +26,8 @@ class ci_cambio_layout extends toba_ci
 	function conf__form2($componente)
 	{
 		$componente->set_datos(array(
-			array('fecha' => '2006-10-23', 'importe' => 212.25),
-			array('fecha' => '2006-10-30', 'importe' => 42),
+			array('fecha' => '2006-10-24', 'importe' => 212.25),
+			array('fecha' => '2006-10-29', 'importe' => 42),
 		));
 	}
 	

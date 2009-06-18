@@ -12,8 +12,8 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 	
 	function cargar()
 	{
-		$grupo = quote($this->grupo_acceso);
-		$proyecto = quote($this->proyecto);
+		$grupo = toba_contexto_info::get_db()->quote($this->grupo_acceso);
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
 		$sql = "	SELECT 	i.item as item,
 							i.proyecto as proyecto,
 							i.imagen_recurso_origen,

@@ -14,9 +14,9 @@ function toba_invocar_editor(frame, url)
 		}
 		if (sujeto.opener) {						//Previsuliazion comun
 			sujeto = sujeto.opener;
-		} else if (sujeto.top.opener) {				//Previsualizacion de algo con frames
+		} else if (sujeto.top && sujeto.top.opener) {				//Previsualizacion de algo con frames
 			sujeto = sujeto.top.opener;
-		} else if (sujeto.top.opener.opener) {		//Popup abierto desde la previsualizacion
+		} else if (sujeto.top && sujeto.top.opener && sujeto.top.opener.opener) {		//Popup abierto desde la previsualizacion
 			sujeto = sujeto.top.opener.opener;
 		} else {
 			//-- No hay mas padres, me rindo
@@ -29,7 +29,7 @@ function toba_invocar_editor(frame, url)
 		}
 		sujeto.focus();
 	} else {
-		alert('No se puede encontrar un editor de toba abierto');
+		alert('No se puede encontrar un editor de toba abierto, por favor lance nuevamente la previsualización desde toba_editor');
 	}
 	setTimeout ('editor_cambiar_vinculos(false)', 100);	//Para evitar que quede fijo
 	return false;

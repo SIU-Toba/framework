@@ -172,8 +172,8 @@ class toba_item_info implements toba_nodo_arbol
 	function grupos_acceso()
 	{
 		if (!isset($this->grupos_acceso)) {
-			$id = quote($this->get_id());
-			$proyecto = quote($this->get_proyecto());
+			$id = toba_contexto_info::get_db()->quote($this->get_id());
+			$proyecto = toba_contexto_info::get_db()->quote($this->get_proyecto());
 			$sql = "
 				SELECT g.usuario_grupo_acc
 				FROM
@@ -644,15 +644,15 @@ class toba_item_info implements toba_nodo_arbol
 	
 	function asignar_componente($id_componente)
 	{
-		$id = quote($this->id);
-		$proyecto = quote($this->proyecto);
-		$componente = quote($id_componente['componente']);
+		$id = toba_contexto_info::get_db()->quote($this->id);
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
+		$componente = toba_contexto_info::get_db()->quote($id_componente['componente']);
 
 		$sql = "SELECT COALESCE(MAX(orden),0) as maximo
 					FROM apex_item_objeto 
 					WHERE item=$id AND proyecto= $proyecto";
 		$res = toba_contexto_info::get_db()->consultar($sql);
-		$orden = quote($res[0]['maximo']);
+		$orden = toba_contexto_info::get_db()->quote($res[0]['maximo']);
 		$sql = "INSERT INTO apex_item_objeto
 					(proyecto, item, objeto, orden) VALUES (
 						$proyecto,

@@ -7,15 +7,15 @@ class toba_info_permisos
 		$where = '';
 		if ($condiciones != null) {
 			if (isset($condiciones['nombre'])) {
-				$nombre = quote("%{$condiciones['nombre']}%");
+				$nombre = toba_contexto_info::get_db()->quote("%{$condiciones['nombre']}%");
 				$where .= "AND	nombre ILIKE  $nombre";
 			}
 			if (isset($condiciones['descripcion'])) {
-				$descr = quote("%{$condiciones['descripcion']}%");
+				$descr = toba_contexto_info::get_db()->quote("%{$condiciones['descripcion']}%");
 				$where .= "AND	descripcion ILIKE $descr ";
 			}
 		}
-		$proyecto = quote(toba_contexto_info::get_proyecto());
+		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT 	
 					permiso,
 					nombre,
@@ -49,7 +49,7 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
-		$proyecto = quote($proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT proyecto, usuario_perfil_datos, nombre
 				FROM apex_usuario_perfil_datos
 				WHERE 
@@ -64,7 +64,7 @@ class toba_info_permisos
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
 		}
-		$proyecto = quote($proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT u.usuario as usuario, u.nombre as nombre
 				FROM apex_usuario u, apex_usuario_proyecto up
 				WHERE u.usuario = up.usuario
@@ -74,7 +74,7 @@ class toba_info_permisos
 
 	function get_restricciones_proyecto($proyecto)
 	{
-		$proyecto = quote($proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT 	proyecto,
 						restriccion_funcional,
 						descripcion,

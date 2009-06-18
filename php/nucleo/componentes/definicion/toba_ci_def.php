@@ -67,7 +67,8 @@ class toba_ci_def extends toba_ei_def
 													eventos					as eventos,
 													orden					as orden,
 													subclase				as subclase,
-													subclase_archivo		as subclase_archivo
+													subclase_archivo		as subclase_archivo,
+													template				as template
 									 	FROM	apex_objeto_ci_pantalla
 										WHERE	objeto_ci_proyecto=$quote_proyecto";
 		if ( isset($componente) ) {

@@ -226,9 +226,6 @@ class ci_editor extends ci_editores_toba
 		$this->pant_sel_temp = $id;
 	}
 	
-	/**
-	 * @todo Cuando el ML tenga un api para setear prox. fila, cambiar este metodo
-	 */
 	function conf__pantallas_lista($ml)
 	{
 		$datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas();
@@ -406,6 +403,145 @@ class ci_editor extends ci_editores_toba
 		}
 		$this->get_entidad()->tabla('eventos')->resetear_cursor();
 	}
+	
+	
+	
+	// *******************************************************************
+	// *******************  tab LAYOUT   *********************************
+	// *******************************************************************
+
+	function conf__4()
+	{
+		if (! $datos = $this->get_entidad()->tabla("pantallas")->hay_cursor()) {
+			$this->pantalla()->eliminar_dep('form_layout');
+		}
+	}
+	
+	function conf__cuadro_layout(toba_ei_cuadro $cuadro)
+	{
+		$cursor = $this->get_entidad()->tabla("pantallas")->get_cursor();
+		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
+		$cuadro->set_datos($this->get_entidad()->tabla('pantallas')->get_filas());
+	}
+	
+	function evt__cuadro_layout__seleccion($id)
+	{
+		$this->pant_sel_temp = $id;
+	}
+	
+	function conf__form_layout(toba_ei_formulario $form)
+	{
+		$form->ef('template')->get_editor()->ToolbarSet = 'Layout';
+		$form->ef('template')->get_editor()->Height = '400px';
+		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
+		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
+		$datos = $this->get_entidad()->tabla("pantallas")->get();
+		if (isset($datos['template']) && trim($datos['template']) != '') {
+			$datos['tipo_layout'] = "L";
+		}
+		$form->set_datos($datos);
+	}
+	
+	function evt__form_layout__modificacion($datos)
+	{
+		if (!isset($datos['tipo_layout'])) {
+			$datos['template'] = null;
+		}
+		$this->get_entidad()->tabla("pantallas")->set($datos);
+	}
+	
+	function get_tipos_layout()
+	{
+		return array(
+			array('clave' => 'L', 'valor' => 'Usando template')
+		);
+	}	
+	
+	function servicio__ejecutar()
+	{
+		//Determina si el ejecutar es por este ci o por el del parent 
+ 		$imagen = toba::memoria()->get_parametro('imagen');
+ 		if (isset($imagen)) {
+ 			return parent::servicio__ejecutar();		
+ 		}
+ 		$url = toba::proyecto()->get_www('img/fck_templates/');
+ 		$salida = '<?xml version="1.0" encoding="utf-8" ?>
+<Templates imagesBasePath="'.$url['url'].'">
+	<Template title="Lineal" image="tabla_1_col.gif">
+		<Description>Un componente debajo del otro, separado por una línea, es el layout original</Description>
+		<Html>
+			<![CDATA[
+';
+		$salida .= $this->get_template_lineal();
+		$salida .= '
+			]]>
+		</Html>
+	</Template>
+	<Template title="Tabla Lineal" image="tabla_1_col.gif">
+		<Description>Tabla con un componente debajo del otro</Description>
+		<Html>
+			<![CDATA[
+';
+		$salida .= $this->get_template_columnas(1);
+		$salida .= '
+			]]>
+		</Html>
+	</Template>	
+	<Template title="Tabla Dos Columnas" image="tabla_2_col.gif">
+		<Description>Se arma una tabla tomando los componentes en el orden definido, incluyendo dos por fila</Description>
+		<Html>
+			<![CDATA[
+';
+		$salida .= $this->get_template_columnas(2);
+		$salida .= '
+			]]>
+		</Html>
+	</Template>	
+</Templates>';
+		echo $salida;
+	}	
+	
+	protected function get_template_lineal()
+	{
+		$salida = '';
+		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$deps = $busqueda->buscar_filas();
+		$deps = rs_ordenar_por_columna($deps, 'orden');
+		$existe_previo = false;
+		foreach ($deps as $dep) {
+			if ($existe_previo) {
+				$salida .= "<hr>\n";
+			}
+			$salida .= "[dep id=".$dep['dependencia']."]\n";
+			$existe_previo = true;
+		}
+		return $salida;
+	} 	
+	
+	protected function get_template_columnas($columnas)
+	{
+		$salida = '<table>';
+		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
+		$busqueda->set_padre('pantallas', $this->get_pant_actual());
+		$deps = $busqueda->buscar_filas();
+		$deps = rs_ordenar_por_columna($deps, 'orden');
+		$i = 0;
+		$total = count($deps);
+		foreach ($deps as $dep) {
+			if ($i % $columnas == 0) {
+				$salida .= '<tr>';
+			}				
+			$salida .= '<td>[dep id='.$dep['dependencia'].']</td>';
+			$i++;
+			if ($i % $columnas == 0) {
+				$salida .= '</tr>';
+			}				
+		}
+		$salida .= '</table>';
+		return $salida;		
+	}
+		
 	
 	// *******************************************************************
 	// *******************  tab EVENTOS  *********************************

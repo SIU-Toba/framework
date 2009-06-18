@@ -38,10 +38,10 @@ class toba_auditoria_tablas_postgres
 	{
 		$where = '';
 		if (isset($prefijo)) {
-			$prefijo_sano = quote("$prefijo%");
+			$prefijo_sano = $this->conexion->quote("$prefijo%");
 			$where .= "	AND (tablename LIKE $prefijo_sano)";
 		}
-		$schema = quote($this->schema_origen);
+		$schema = $this->conexion->quote($this->schema_origen);
 		$sql = "	
 				SELECT tablename FROM pg_tables 
 		        WHERE 
@@ -161,7 +161,7 @@ class toba_auditoria_tablas_postgres
 	 */	
 	function existe() 
 	{
-		$schema = quote($this->schema_logs);
+		$schema = $this->conexion->quote($this->schema_logs);
 		$sql = "
 			SELECT nspname
 			FROM pg_catalog.pg_namespace

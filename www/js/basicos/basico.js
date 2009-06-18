@@ -628,10 +628,14 @@ function ejecutar_scripts(html) {
 	var re = /<script\b[\s\S]*?>([\s\S]*?)<\//ig;
 	var match;
 	while (match = re.exec(html)) {
-		eval(match[1]);
+		eval_code(match[1]);
 	}
 };
 
+function eval_code(code) {
+  if (window.execScript) window.execScript(code);
+  else eval.call(null, code);
+};
 
 
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus

@@ -18,7 +18,7 @@ class toba_catalogo_items extends toba_catalogo_items_base
 		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
 			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
 			if (isset($id_item_inicial)) {
-				$id_item_sano =	quote($id_item_inicial);
+				$id_item_sano =	toba_contexto_info::get_db()->quote($id_item_inicial);
 				$filtro_padre = "(i.padre = $id_item_sano OR i.item= $id_item_sano)";
 						//OR i.padre IN (SELECT item FROM apex_item WHERE padre='$id_item_inicial'))";
 			}
