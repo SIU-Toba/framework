@@ -231,7 +231,11 @@ class ci_principal extends ci_editores_toba
 		return $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0));
 	}
 	
-	
+	function get_lista_posibles_columnas_parametro()
+	{
+		return $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0, 'secuencia' => null));
+	}
+
 	function conf__externas(toba_ei_formulario_ml $ml)
 	{
 		$ml->set_proximo_id($this->get_entidad()->tabla('externas')->get_proximo_id());

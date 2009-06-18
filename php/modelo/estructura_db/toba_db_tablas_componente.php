@@ -973,6 +973,8 @@ class toba_db_tablas_componente
     9 => 'dato_estricto',
     10 => 'carga_dt',
     11 => 'carga_consulta_php',
+    12 => 'permite_carga_masiva',
+    13 => 'metodo_masivo',
   ),
 );
 	}

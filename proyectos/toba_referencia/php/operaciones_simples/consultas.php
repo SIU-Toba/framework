@@ -133,6 +133,19 @@ class consultas
 		return $d;
 	}
 
+	function traeme_mis_dias($dias_mios)
+	{
+		$resultado = array();
+		$dias = self::get_dias_semana();
+		foreach($dias as $dia) {
+			if (in_array($dia['id'], $dias_mios)) {
+				$resultado[] =array('dia_semana' => $dia['id'], 'desc_dia_semana' => $dia['desc']);
+			}
+		}
+		return $resultado;
+	}
+
+
 	/**
 		Retorna las horas del dia
 	*/

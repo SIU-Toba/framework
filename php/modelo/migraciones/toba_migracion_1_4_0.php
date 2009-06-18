@@ -92,6 +92,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_permite_no_seteado SMALLINT NOT NULL DEFAULT 0;';
 		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN carga_permite_no_seteado SMALLINT  NOT NULL DEFAULT 0;';
 
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN permite_carga_masiva SMALLINT NOT NULL DEFAULT 0;';
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD COLUMN metodo_masivo	VARCHAR(100);';
+
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 

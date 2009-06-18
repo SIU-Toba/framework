@@ -165,7 +165,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.	 
 	 */
-	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -176,6 +176,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
+		$this->_proceso_carga_externa[$proximo]["permite_carga_masiva"] = $carga_masiva;
+		$this->_proceso_carga_externa[$proximo]["metodo_masivo"] = $metodo_masivo;
 	}
 
 	/**
@@ -192,7 +194,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
-	function activar_proceso_carga_externa_datos_tabla($tabla, $metodo, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true)
+	function activar_proceso_carga_externa_datos_tabla($tabla, $metodo, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "d_t";
@@ -202,6 +204,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
+		$this->_proceso_carga_externa[$proximo]["permite_carga_masiva"] = $carga_masiva;
+		$this->_proceso_carga_externa[$proximo]["metodo_masivo"] = $metodo_masivo;
 	}
 
 	/**
@@ -341,21 +345,19 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
 			if ($this->objeto_tabla->posee_columnas_externas()) {
-				for ($a=0;$a<count($datos);$a++) {
-					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
-					foreach ($campos_externos as $id => $valor) {
-						$datos[$a][$id] = $valor;
+				//Aca hay que decidir que hacer si la tabla ya tiene datos o si es la carga inicial
+				if (! $this->objeto_tabla->esta_cargada()) {		//Seria la carga inicial?
+					$datos = $this->carga_inicial_campos_externos($datos);
+				} else {
+					for ($a=0;$a<count($datos);$a++) {
+						$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
+						foreach ($campos_externos as $id => $valor) {
+							$datos[$a][$id] = $valor;
+						}
 					}
-				}				
+				}
 			}
-			//Le saco los caracteres de escape a los valores traidos de la DB
-			for ($a=0;$a<count($datos);$a++) {
-				foreach (array_keys($datos[$a]) as $columna) {
-					if (isset($datos[$a][$columna])) {
-						$datos[$a][$columna] = $datos[$a][$columna];
-					}
-				}	
-			}
+			
 			// Lleno la TABLA
 			if ( $anexar_datos ) {
 				$this->objeto_tabla->anexar_datos($datos, $usar_cursores);
@@ -1063,8 +1065,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $fila Fila que toma de referencia la carga externa
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados de la DB.
-	 * 
-	 * @todo Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)
 	 * @ignore 
 	 */
 	function completar_campos_externos_fila($fila, $evento=null)
@@ -1091,88 +1091,206 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				if (! $estan_todos) {
 					continue;
 				}
-				//ei_arbol($parametros, 'Parametros de Carga');
-				//-[ 1 ]- Recupero valores correspondientes al registro
-				if($parametros['tipo']=="sql")											//--- carga SQL!!
-				{
-					// - 1 - Obtengo el query
-					$sql = $parametros['sql'];
-					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
-					foreach($parametros['col_parametro'] as $col_llave) {
-						$valor_llave = $fila[$col_llave];
-						$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
-					}
-					// - 3 - Ejecuto SQL
-					toba::logger()->debug($sql);
-					$datos = toba::db($this->_fuente)->consultar($sql);
-					$es_obligatoria = ($this->_proceso_carga_externa[$carga]['dato_estricto'] == '1');
-					if (!$datos && $es_obligatoria) {
-						toba::logger()->error("AP_TABLA: [{$this->_tabla}]:\n no se recuperaron datos " . $sql, 'toba');
-						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n ERROR en la carga de una columna externa.");
-					}
-				}
-				elseif ($parametros['tipo']=="dao")										//--- carga DAO!!
-				{
-					// - 1 - Armo los parametros para el DAO
-					$param_dao = array();
-					foreach ($parametros['col_parametro'] as $col_llave) {
-						$param_dao[] = $fila[$col_llave];
-					}
-					//ei_arbol($param_dao,"Parametros para el DAO");					
-					// - 2 - Recupero datos
-					if (isset($parametros['clase']) && isset($parametros['include'])) {
-						if (!class_exists($parametros['clase'])) {
-							require_once($parametros['include']);
-						}
-						$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
-					} else {
-						if (method_exists($this, $parametros['metodo'])) {
-							$datos = call_user_func_array(array($this,$parametros['metodo']), $param_dao);				
-						}else {
-							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
-						}
-					}
-				}elseif($parametros['tipo'] == 'd_t')		//------- carga DATOS_TABLA
-				{
-					// - 1 - Armo los parametros para el DAO
-					$param_dao = array();
-					foreach ($parametros['col_parametro'] as $col_llave) {
-						$param_dao[] = $fila[$col_llave];
-					}
-					$id = array('proyecto' =>  toba_contexto_info::get_proyecto(), 'componente' => $parametros['tabla']);
-					$dt = toba_constructor::get_runtime($id, 'toba_datos_tabla');
-					 if (! method_exists($dt, $parametros['metodo'])) {
-						$clase = get_class($dt);
-						throw new toba_error_def("AP_TABLA_DB: ERROR en la carga de una columna externa. No existe el método '{$parametros['metodo']}' de la clase '$clase'");
-					}
-					$datos = call_user_func_array(array($dt, $parametros['metodo']), $param_dao);
-				}
-
-				//ei_arbol($datos,"datos");
-				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
-				if (count($datos)>0) {
-					foreach($parametros['col_resultado'] as $columna_externa) {
-						if (is_array($columna_externa)) {
-							$clave_buscada = $columna_externa['origen'];
-							$clave_destino = $columna_externa['destino'];
-						} else {
-							$clave_buscada = $columna_externa;
-							$clave_destino = $columna_externa;
-						}
-
-						$datos_recordset = current($datos);
-						if (! array_key_exists($clave_buscada, $datos) && ! array_key_exists($clave_buscada, $datos_recordset)) {
-							toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$clave_buscada'", 'toba');
-							toba::logger()->error($datos, 'toba');
-							throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
-						}
-						$valores_recuperados[$clave_destino] = (isset($datos[$clave_buscada])) ? $datos[$clave_buscada]: $datos_recordset[$clave_buscada];
-					}//fe
-				}
+				$valores_recuperados = $this->completa_campos_externos_fila_con_proceso($fila, $parametros);
 			}
 		}
 		return $valores_recuperados;
 	}
 
+	function carga_inicial_campos_externos($datos)
+	{
+			$this->log('Inicio carga de campos externos');
+			if (isset($this->_proceso_carga_externa)) {
+				foreach(array_keys($this->_proceso_carga_externa) as $carga) {
+					$parametros = $this->_proceso_carga_externa[$carga];
+					if (isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
+						$claves = $this->get_valores_llaves($datos, $parametros);
+						$recuperado = array();
+						//Aca tengo que decidir el tipo de carga y llamar al correspondiente
+						switch($parametros['tipo']){
+							case 'dao':
+										$recuperado = $this->usar_metodo_dao($claves, $parametros, true);
+										break;
+							case 'd_t':
+										$recuperado = $this->usar_metodo_dt($claves, $parametros, true);
+										break;
+						}
+						$datos = $this->adjuntar_campos_externos_masivo($datos, $recuperado, $parametros);
+					} else {
+						//Aca tengo que ciclar por los datos como hice antes
+						for ($a=0;$a<count($datos);$a++) {
+							$campos_externos = $this->completa_campos_externos_fila_con_proceso($datos[$a], $parametros);
+							foreach ($campos_externos as $id => $valor) {
+								$datos[$a][$id] = $valor;
+							}
+						}
+					}					
+				}
+			}
+			//ei_arbol($datos);
+			return $datos;
+	}
+
+	function completa_campos_externos_fila_con_proceso($fila, $proceso)
+	{
+			$recuperado = array();
+			switch($proceso['tipo']){
+				case 'sql':
+							$recuperado = $this->usar_metodo_sql_fila($fila, $proceso);
+							break;
+				case 'dao':
+							$param_dao = array();
+							foreach ($proceso['col_parametro'] as $col_llave) {
+								$param_dao[] = $fila[$col_llave];
+							}
+							$recuperado = $this->usar_metodo_dao($param_dao, $proceso);
+							break;
+				case 'd_t':
+							$param_dao = array();
+							foreach ($proceso['col_parametro'] as $col_llave) {
+								$param_dao[] = $fila[$col_llave];
+							}
+							$recuperado = $this->usar_metodo_dt($param_dao, $proceso);
+							break;
+			}
+			if (! empty($recuperado)) {
+				$recuperado = $this->adjuntar_campos_externos($recuperado, $proceso);
+			}
+			return $recuperado;
+	}
+
+	function usar_metodo_sql_fila($fila, $parametros)
+	{
+		// - 1 - Obtengo el query
+		$sql = $parametros['sql'];
+		// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
+		foreach($parametros['col_parametro'] as $col_llave) {
+			$valor_llave = $fila[$col_llave];
+			$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
+		}
+		// - 3 - Ejecuto SQL
+		toba::logger()->debug($sql);
+		$datos = toba::db($this->_fuente)->consultar($sql);
+		$es_obligatoria = ($parametros['dato_estricto'] == '1');
+		if (!$datos && $es_obligatoria) {
+			$this->log(" no se recuperaron datos " . $sql, 'toba');
+			throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n ERROR en la carga de una columna externa.");
+		}
+		return $datos;
+	}
+
+	function usar_metodo_dao($param_dao, $parametros, $es_carga_inicial = false)
+	{
+		//Elijo el metodo de carga dependiendo de si es masiva o no.
+		if ($es_carga_inicial && isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
+			$nombre_metodo = $parametros['metodo_masivo'];
+		} else {
+			$nombre_metodo = $parametros['metodo'];
+		}
+		// - 2 - Recupero datos
+		if (isset($parametros['clase']) && isset($parametros['include'])) {
+			if (!class_exists($parametros['clase'])) {
+				require_once($parametros['include']);
+			}
+			$datos = call_user_func_array(array($parametros['clase'],$nombre_metodo), $param_dao);
+		} else {
+			if (method_exists($this, $nombre_metodo)) {
+				$datos = call_user_func_array(array($this,$nombre_metodo), $param_dao);
+			}else {
+				$this->log(' ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido');
+				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido');
+			}
+		}
+		return $datos;
+	}
+
+	function usar_metodo_dt($param_dt, $parametros, $es_carga_inicial = false)
+	{
+		//Elijo el metodo de carga dependiendo de si es masiva o no.
+		if ($es_carga_inicial && isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
+			$nombre_metodo = $parametros['metodo_masivo'];
+		} else {
+			$nombre_metodo = $parametros['metodo'];
+		}
+
+		$id = array('proyecto' =>  toba_contexto_info::get_proyecto(), 'componente' => $parametros['tabla']);
+		$dt = toba_constructor::get_runtime($id, 'toba_datos_tabla');
+		 if (! method_exists($dt, $nombre_metodo)) {
+			$clase = get_class($dt);
+			$this->log("ERROR en la carga de una columna externa. No existe el método '$nombre_metodo' de la clase '$clase'");
+			throw new toba_error_def("AP_TABLA_DB: ERROR en la carga de una columna externa. No existe el método '$nombre_metodo' de la clase '$clase'");
+		}
+		$datos = call_user_func_array(array($dt, $nombre_metodo), $param_dt);
+		return $datos;
+	}
+
+	function get_valores_llaves($datos, $parametros)
+	{
+		$claves = array();
+		//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
+		foreach( $parametros['col_parametro'] as $col_llave ) {			//Ciclo por las columnas clave
+			$claves[$col_llave] = array();
+			foreach(array_keys($datos) as $indice) {
+				$claves[$col_llave][$indice] = $datos[$indice][$col_llave];
+			}
+		}
+		return $claves;
+	}
+
+	function adjuntar_campos_externos_masivo($datos, $externos, $parametros)
+	{
+		$campos_externos = array();
+		$es_obligatoria = ($parametros['dato_estricto'] == '1');
+		$claves_carga = array_fill_keys(array_values($parametros['col_parametro']), 0);
+		foreach($externos as $externo) {			
+			$cmp_indice = array_intersect_key($externo, $claves_carga);
+			$indice = implode('_', $cmp_indice);
+			if (! empty($indice)){
+					$campos_externos[$indice] = $externo;
+			}
+		}
+		if (empty($campos_externos)) {
+			$this->log('El método de carga masiva no devuelve los campos clave, no se puede adjuntar los datos externos');
+			throw new toba_error_def('AP_TABLA_DB: ERROR El método de carga no devuelve los campos clave, no se puede adjuntar los datos externos');
+		}
+		$claves = array_keys($datos);
+		foreach($claves as $id) {
+			$cmp_indice = array_intersect_key($datos[$id], $claves_carga);
+			$indice = implode('_', $cmp_indice);
+			if (isset($campos_externos[$indice])) {
+				$datos[$id] = array_merge($campos_externos[$indice], $datos[$id]);
+			} elseif ($es_obligatoria) {
+				toba::logger()->error("AP_TABLA_DB [{$this->_tabla}]: \n No se recupero un valor para la columna externa durante la carga masiva", 'toba');
+				toba::logger()->error($datos, 'toba');
+				throw new toba_error_def('AP_TABLA_DB: ERROR No se recupero un valor para la columna externa durante la carga masiva.');
+			}
+		}
+		return $datos;
+	}
+
+	function adjuntar_campos_externos($datos, $parametros)
+	{
+		$valores_recuperados = array();
+		if (count($datos) > 0) {
+			$es_obligatoria = ($parametros['dato_estricto'] == '1');
+			foreach($parametros['col_resultado'] as $columna_externa) {
+				if (is_array($columna_externa)) {
+					$clave_buscada = $columna_externa['origen'];
+					$clave_destino = $columna_externa['destino'];
+				} else {
+					$clave_buscada = $columna_externa;
+					$clave_destino = $columna_externa;
+				}
+				$datos_recordset = current($datos);
+				if (! array_key_exists($clave_buscada, $datos) && ! array_key_exists($clave_buscada, $datos_recordset) && $es_obligatoria) {
+					toba::logger()->error("AP_TABLA_DB [{$this->_tabla}]: \n Se esperaba que que conjunto de valores devueltos posean la columna '$clave_buscada'", 'toba');
+					toba::logger()->error($datos, 'toba');
+					throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+				}
+				$valores_recuperados[$clave_destino] = (isset($datos[$clave_buscada])) ? $datos[$clave_buscada]: $datos_recordset[$clave_buscada];
+			}//fe
+		}
+		return $valores_recuperados;
+	}
 }
 ?>

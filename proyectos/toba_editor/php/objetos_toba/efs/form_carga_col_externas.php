@@ -46,7 +46,6 @@ class form_carga_col_externas extends toba_ei_formulario
 						var mostrar = (actual == mecanismos_carga[i]);
 						this.cambiar_mecanismo(mecanismos_carga[i], mostrar, actual);
 					}
-
 				}
 			}
 
@@ -55,6 +54,8 @@ class form_carga_col_externas extends toba_ei_formulario
 					case 'dao':
 						this.ef('tipo_clase').mostrar(estado, true);
 						this.evt__tipo_clase__procesar(false);
+						this.ef('permite_carga_masiva').mostrar(estado, true);
+						this.evt__permite_carga_masiva__procesar(false);
 						break;
 					case 'sql':
 						this.ef('carga_sql').mostrar(estado, true);
@@ -102,6 +103,11 @@ class form_carga_col_externas extends toba_ei_formulario
 					div.innerHTML = '';
 					this.ef('carga_metodo').set_estado('get_descripciones');
 				}
+			}
+
+			{$this->objeto_js}.evt__permite_carga_masiva__procesar = function(es_inicial) {
+				var mostrar = this.ef('permite_carga_masiva').chequeado();
+				this.ef('metodo_masivo').mostrar(mostrar, true);				
 			}
 		";
 	}

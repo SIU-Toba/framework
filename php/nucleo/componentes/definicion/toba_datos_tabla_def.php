@@ -84,7 +84,9 @@ class toba_datos_tabla_def extends toba_componente_def
 						sql,
 						dato_estricto,
 						carga_dt,
-						carga_consulta_php
+						carga_consulta_php,
+						permite_carga_masiva,
+						metodo_masivo
 					 FROM		apex_objeto_db_registros_ext 
 					 WHERE		objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {

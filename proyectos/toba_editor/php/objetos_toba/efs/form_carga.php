@@ -56,8 +56,12 @@ class form_carga extends toba_ei_formulario
 					for (var i=0; i < mecanismos_carga.length; i++) {
 						var mostrar = (actual == mecanismos_carga[i]);
 						this.cambiar_mecanismo(mecanismos_carga[i], mostrar, actual);
-					}
-					{$this->objeto_js}.evt__carga_permite_no_seteado__procesar(inicial);
+					}";
+		if ($this->existe_ef('carga_permite_no_seteado')){
+			echo "	{$this->objeto_js}.evt__carga_permite_no_seteado__procesar(inicial);";
+		}
+
+		echo "
 				}
 			}
 
