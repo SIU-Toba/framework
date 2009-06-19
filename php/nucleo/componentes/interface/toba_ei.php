@@ -680,7 +680,7 @@ abstract class toba_ei extends toba_componente
 	{
 		$salida = '';
 		$servicio = toba::memoria()->get_servicio_solicitado();
-		if( toba_editor::modo_prueba() && ($servicio == 'generar_html') ){ 
+		if( toba_editor::modo_prueba() && ($servicio == 'generar_html' || $servicio == 'html_parcial') ){ 
 			$salida .= "<div class='div-editor'>";
 			$salida .= toba_editor::generar_zona_vinculos_componente($this->_id, $this->_info['clase_editor_item'], $this->_info['clase'],
 										$this->_info['subclase'] != '');
