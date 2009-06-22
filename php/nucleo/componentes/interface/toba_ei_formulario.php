@@ -1152,7 +1152,6 @@ class toba_ei_formulario extends toba_ei
 		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->_lista_ef_post as $ef) {
 			if (! in_array($ef, $this->_efs_generados)) {
-				echo "</script>";
 				throw new toba_error_def($this->get_txt()." Error en la redefinición del layout: Falta salida ef '$ef'");
 			}
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";

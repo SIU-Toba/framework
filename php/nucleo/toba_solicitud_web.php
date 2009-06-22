@@ -234,10 +234,15 @@ class toba_solicitud_web extends toba_solicitud
 			
 			//Javascript
 			echo toba_js::abrir();
-			toba_js::cargar_definiciones_runtime();
-			foreach ($objetos as $obj) {
-				$objeto_js = $obj->generar_js();
-				echo "\n$objeto_js.iniciar();\n";
+			try {
+				toba_js::cargar_definiciones_runtime();
+				foreach ($objetos as $obj) {
+					$objeto_js = $obj->generar_js();
+					echo "\n$objeto_js.iniciar();\n";
+				}
+			} catch (toba_error $e) {
+				toba::logger()->error($e, 'toba');
+				toba::notificacion()->error($e->getMessage());
 			}
 			echo toba_js::cerrar();		
 				
@@ -322,11 +327,25 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Se incluyen botones en la botonera de la operacion
 		$this->generar_html_botonera_sup($objetos);		
 		echo "[--toba--]";
-		
-		//--- Se envia el HTML
-		foreach ($objetos as $objeto) {
-			$objeto->generar_html();
-		}	
+
+		try {
+			//--- Se envia el HTML
+			foreach ($objetos as $objeto) {
+				$objeto->generar_html();
+			}	
+		} catch(toba_error_db $e) {
+			toba::logger()->error($e, 'toba');
+			$mensaje = $e->getMessage();
+			$mensaje_debug = null;
+			if (toba::logger()->modo_debug()) {
+				$mensaje_debug = $e->get_mensaje();
+			}
+			toba::notificacion()->error($mensaje, $mensaje_debug);
+		}catch(toba_error $e) {
+			toba::logger()->error($e, 'toba');
+			toba::notificacion()->error($e->getMessage());
+		}
+
 		
 		echo "[--toba--]";
 		
@@ -354,10 +373,15 @@ class toba_solicitud_web extends toba_solicitud
 		echo "document.formulario_toba.action='$autovinculo'\n";
 		toba::vinculador()->generar_js();
 		toba_js::cargar_definiciones_runtime();
-		foreach ($objetos as $objeto) {
-			//$objeto->servicio__html_parcial();
-			$objeto_js = $objeto->generar_js();
-			echo "\nwindow.$objeto_js.iniciar();\n";
+		try {
+			foreach ($objetos as $objeto) {
+				//$objeto->servicio__html_parcial();
+				$objeto_js = $objeto->generar_js();
+				echo "\nwindow.$objeto_js.iniciar();\n";
+			}
+		} catch (toba_error $e) {
+			toba::logger()->error($e, 'toba');
+			toba::notificacion()->error($e->getMessage());
 		}
 		toba::notificacion()->mostrar(false);		
 	}

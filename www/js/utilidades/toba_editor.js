@@ -93,7 +93,7 @@ function set_editor_off(e) {
 }
 
 agregarEvento(document, 'keyup', set_editor_off);
-agregarEvento(document, 'keydown', set_editor_on);	
-agregarEvento(window, 'load', editor_cambiar_ajax_icono);
+agregarEvento(document, 'keydown', set_editor_on);
+toba.agregar_onload(editor_cambiar_ajax_icono);
 
 toba.confirmar_inclusion('utilidades/toba_editor');

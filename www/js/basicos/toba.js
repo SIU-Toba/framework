@@ -15,6 +15,7 @@ toba = new function() {
 	this._mostrar_aguardar = true;
 	this._enviado = false;
 	this._menu_popup = false;
+	this._onload = [];
 };
 
 	/**
@@ -314,12 +315,19 @@ toba = new function() {
 		
 		//-- Se cambia el div del editor (si existe)
 		if (partes[3] != '') {
+			var div = $('editor_previsualizacion');
+			if (isset(div)) {
+				div.parentNode.removeChild(div);
+			}
 			document.body.innerHTML += partes[3];
 		}
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
 		toba.set_callback_incl(partes[5]);
 		eval_code(partes[4]);
+		for (var i = 0; i < this._onload.length; i++) {
+			this._onload[i]();
+		}
 	};
 	
 	/**
@@ -405,3 +413,11 @@ toba = new function() {
 	toba.set_aguardar = function(aguardar) {
 		this._mostrar_aguardar = aguardar;
 	};
+	
+	/**
+	 *
+	 */
+	toba.agregar_onload = function(llamada) {
+		this._onload.push(llamada);
+		agregarEvento(window, 'load', llamada);
+	}
