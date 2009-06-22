@@ -167,6 +167,8 @@ class toba_db_tablas_proyecto
     13 => 'usuario',
     14 => 'clave',
     15 => 'base',
+    16 => 'tiene_auditoria',
+    17 => 'parsea_errores',
   ),
 );
 	}

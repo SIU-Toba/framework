@@ -133,13 +133,13 @@ class toba_auditoria_tablas_postgres
 	function regenerar()
 	{
 		$this->eliminar_triggers($this->tablas, $this->schema_origen);
-		$this->crear_triggers($this->tablas, $this->schema_origen);
 		$this->crear_sp($this->tablas, $this->schema_origen);
+		$this->crear_triggers($this->tablas, $this->schema_origen);
 		
 		if (isset($this->schema_toba)) {
 			$this->eliminar_triggers($this->tablas_toba, $this->schema_toba);
+			$this->crear_sp($this->tablas_toba, $this->schema_toba);
 			$this->crear_triggers($this->tablas_toba, $this->schema_toba);
-			$this->crear_sp($this->tablas_toba, $this->schema_toba);			
 		}
 	}
 	

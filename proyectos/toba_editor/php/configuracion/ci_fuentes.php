@@ -108,5 +108,30 @@ class ci_fuentes extends toba_ci
 		$this->dep('form')->ef('subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
 		return $datos;
 	}
+
+	function evt__form__crear_auditoria()
+	{
+		$schema_auditoria = toba_editor::get_proyecto_cargado(). '_auditoria';		
+		$id_fuente = $this->dependencia('datos')->get_columna('fuente_datos');
+		$db = toba::db($id_fuente,  toba_editor::get_proyecto_cargado());
+		try{
+			$auditoria = new toba_auditoria_tablas_postgres($db, 'public', $schema_auditoria);
+			$auditoria->set_esquema_logs($schema_auditoria);
+			$auditoria->agregar_tablas();	///Agrego todas las tablas
+
+			if (! $auditoria->existe()){
+				$auditoria->crear();
+			}else{
+				$auditoria->migrar();
+			}
+		} catch(toba_error $e){
+			toba::logger()->debug($e->getMessage());
+			toba::notificacion()->agregar('Error al crear el esquema de auditoria', 'error');
+			return false;
+		}
+		toba::notificacion()->agregar('Esquema creado satisfactoriamente', 'info');
+		$this->dependencia('datos')->set_columna_valor('tiene_auditoria', '1');
+		return true;
+	}
 }
 ?>

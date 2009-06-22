@@ -30,10 +30,12 @@ class toba_fuente_datos
 															$this->definicion['proyecto'],
 															$this->definicion['fuente_datos'],
 															$reusar);
+				$this->crear_usuario_para_auditoria($this->db);
 				$this->post_conectar();
 				if (isset($this->definicion['schema'])) {
 					$this->db->set_schema($this->definicion['schema']);
-				}					
+				}
+				$this->configurar_parseo_errores($this->db);
 			}
 			return $this->db;
 		} else {
@@ -43,9 +45,11 @@ class toba_fuente_datos
 															$this->definicion['proyecto'],
 															$this->definicion['fuente_datos'],
 															$reusar);
+			$this->crear_usuario_para_auditoria($db);
 			if (isset($this->definicion['schema'])) {
 				$db->set_schema($this->definicion['schema']);
-			}			
+			}
+			$this->configurar_parseo_errores($db);
 			return $db;												
 		}
 	}
@@ -79,5 +83,29 @@ class toba_fuente_datos
 	* @ventana
 	*/
 	function post_conectar() {}
+
+	function crear_usuario_para_auditoria($db)
+	{
+		if ($this->definicion['tiene_auditoria'] == '1') {
+			$usuario = toba::usuario()->get_id();			
+			if (! isset($usuario)) {
+				$usuario = 'publico';
+			}
+			
+			$id_solicitud = $db->quote(toba::instancia()->get_id_solicitud());
+			$usuario = $db->quote($usuario);
+			$sql = 'CREATE TEMP TABLE tt_usuario ( usuario VARCHAR(30), id_solicitud INTEGER);';
+			$sql .= "INSERT INTO tt_usuario (usuario, id_solicitud) VALUES ($usuario, $id_solicitud)";
+			$db->ejecutar($sql);
+		}
+	}
+
+	function configurar_parseo_errores($db)
+	{
+		if ($this->definicion['parsea_errores'] == '1'){
+			$parseador = 'toba_parser_error_db'. $this->definicion['motor'];
+			$db->set_parser_errores(new $parseador);
+		}
+	}
 }
 ?>
