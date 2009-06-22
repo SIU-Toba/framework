@@ -384,7 +384,9 @@ class toba_editor
 			$info_db = $base->get_info_debug();
 			$total = 0;
 			foreach($info_db as $info) {
-				$total += ($info['fin'] - $info['inicio']);
+				if (isset($info['fin'])) {
+					$total += ($info['fin'] - $info['inicio']);
+				}
 			}
 			toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
 			echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').

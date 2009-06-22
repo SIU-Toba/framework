@@ -11,13 +11,13 @@ digraph G {
                 color=lightgrey;
                 node [style=filled,color=white];
                 a0 -> a1 -> a2 -> a3;
-                label = \"process #1\";
+                label = "process #1";
         }
 
         subgraph cluster_1 {
                 node [style=filled];
                 b0 -> b1 -> b2 -> b3;
-                label = \"process #2\";
+                label = "process #2";
                 color=blue
         }
         start -> a0;

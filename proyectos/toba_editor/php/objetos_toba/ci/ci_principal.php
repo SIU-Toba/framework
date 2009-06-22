@@ -421,7 +421,11 @@ class ci_editor extends ci_editores_toba
 	{
 		$cursor = $this->get_entidad()->tabla("pantallas")->get_cursor();
 		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
-		$cuadro->set_datos($this->get_entidad()->tabla('pantallas')->get_filas());
+		$filas = $this->get_entidad()->tabla('pantallas')->get_filas();
+		foreach (array_keys($filas) as $id) {
+			$filas[$id]['template'] = (trim($filas[$id]['template']) == '') ? 0 : 1; 
+		}
+		$cuadro->set_datos($filas);
 	}
 	
 	function evt__cuadro_layout__seleccion($id)

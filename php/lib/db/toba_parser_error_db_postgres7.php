@@ -16,13 +16,23 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $error_pk;		//En caso que el error sea de pk, guarda cual es su id
 	protected $error_fk;		//En caso que el error sea de fk, guarda cual es su id
 	protected $error_not_null;	//En caso de error not null guarda cual es el campo
+	protected $mostrar_nombres_campos = true;	//En caso que no encuentre el comentario del campo, usa su nombre
+	
+	
+	/**
+	 * En caso que no encuentre el comentario del campo del error, usa su nombre
+	 */
+	function set_mostrar_nombres_campos($mostrar)
+	{
+		$this->mostrar_nombres_campos = $mostrar;
+	}
 	
 	function parsear($sql, $sqlstate, $mensaje)
 	{
 		//-- Intenta determinar el separador
 		try {
-			$sql = "SHOW lc_messages";
-			$datos = $this->get_conexion_extra()->consultar_fila($sql);
+			$sql_alt = "SHOW lc_messages";
+			$datos = $this->get_conexion_extra()->consultar_fila($sql_alt);
 			if (stristr($datos['lc_messages'], 'es') !== false) {
 				 $this->sep_ini = '«';
 				 $this->sep_fin = '»';
@@ -60,7 +70,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		           		pg_attribute a, 
 		           		pg_type t
 		           WHERE 
-							(c.relname= $tabla OR c.relname = lower($tabla))
+							(c.relname= $tabla_sana OR c.relname = lower($tabla_sana))
 			           AND a.attnum > 0
 			           AND a.atttypid = t.oid
 			           AND a.attrelid = c.oid
@@ -71,6 +81,8 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 			if (! isset($posiciones) || in_array($campo['orden'], $posiciones)) {
 				if (isset($campo['com_campo'])) {
 					$salida[$campo['campo']] = $campo['com_campo'];
+				} elseif ($this->mostrar_nombres_campos) {
+					$salida[$campo['campo']] = $campo['campo'];
 				}
 			}
 		}

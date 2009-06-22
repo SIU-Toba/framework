@@ -9,7 +9,11 @@ CREATE TABLE ref_deportes (
     descripcion character varying(255),
     fecha_inicio date
 );
-
+COMMENT ON TABLE ref_deportes IS 'Deportes';
+COMMENT ON COLUMN ref_deportes.id IS 'Clave';
+COMMENT ON COLUMN ref_deportes.nombre IS 'Nombre';
+COMMENT ON COLUMN ref_deportes.descripcion IS 'Descripción';
+COMMENT ON COLUMN ref_deportes.fecha_inicio IS 'Fecha de inicio';
 
 --
 -- Name: ref_juegos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -20,6 +24,10 @@ CREATE TABLE ref_juegos (
     nombre character varying(30) NOT NULL,
     descripcion character varying(255)
 );
+COMMENT ON TABLE ref_juegos IS 'Juegos';
+COMMENT ON COLUMN ref_juegos.id IS 'Clave';
+COMMENT ON COLUMN ref_juegos.nombre IS 'Nombre';
+COMMENT ON COLUMN ref_juegos.descripcion IS 'Descripción';
 
 
 --
@@ -32,7 +40,10 @@ CREATE TABLE ref_juegos_oferta (
     jugador integer NOT NULL,
     publicacion timestamp(0) without time zone DEFAULT ('now'::text)::timestamp(6) with time zone
 );
-
+COMMENT ON TABLE ref_juegos_oferta IS 'Ofertas de Juegos';
+COMMENT ON COLUMN ref_juegos_oferta.id IS 'Clave';
+COMMENT ON COLUMN ref_juegos_oferta.juego IS 'Juego';
+COMMENT ON COLUMN ref_juegos_oferta.jugador IS 'Jugador';
 
 --
 -- Name: ref_persona; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -44,7 +55,11 @@ CREATE TABLE ref_persona (
     fecha_nac date,
     imagen bytea
 );
-
+COMMENT ON TABLE ref_persona IS 'Personas';
+COMMENT ON COLUMN ref_persona.id IS 'Clave';
+COMMENT ON COLUMN ref_persona.nombre IS 'Nombre';
+COMMENT ON COLUMN ref_persona.fecha_nac IS 'Fecha de nacimiento';
+COMMENT ON COLUMN ref_persona.imagen IS 'Foto';
 
 --
 -- Name: ref_persona_deportes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -58,6 +73,13 @@ CREATE TABLE ref_persona_deportes (
     hora_inicio integer,
     hora_fin integer
 );
+COMMENT ON TABLE ref_persona_deportes IS 'Deportes de personas';
+COMMENT ON COLUMN ref_persona_deportes.id IS 'Clave';
+COMMENT ON COLUMN ref_persona_deportes.persona IS 'Persona';
+COMMENT ON COLUMN ref_persona_deportes.deporte IS 'Deporte';
+COMMENT ON COLUMN ref_persona_deportes.dia_semana IS 'Día de la semana';
+COMMENT ON COLUMN ref_persona_deportes.hora_inicio IS 'Hora de inicio';
+COMMENT ON COLUMN ref_persona_deportes.hora_fin IS 'Hora de fin';
 
 --
 -- Name: ref_persona_juegos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -71,6 +93,14 @@ CREATE TABLE ref_persona_juegos (
     hora_inicio integer,
     hora_fin integer
 );
+COMMENT ON TABLE ref_persona_juegos IS 'Juegos de personas';
+COMMENT ON COLUMN ref_persona_juegos.id IS 'Clave';
+COMMENT ON COLUMN ref_persona_juegos.persona IS 'Persona';
+COMMENT ON COLUMN ref_persona_juegos.juego IS 'Deporte';
+COMMENT ON COLUMN ref_persona_juegos.dia_semana IS 'Día de la semana';
+COMMENT ON COLUMN ref_persona_juegos.hora_inicio IS 'Hora de inicio';
+COMMENT ON COLUMN ref_persona_juegos.hora_fin IS 'Hora de fin';
+
 
 
 CREATE TABLE iso_countries (

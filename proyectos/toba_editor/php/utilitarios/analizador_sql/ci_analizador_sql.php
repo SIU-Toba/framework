@@ -25,7 +25,11 @@ class ci_analizador_sql extends toba_ci
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['numero'] = $i;
 			$datos[$id]['id'] = $id;
-			$datos[$id]['tiempo'] = ($datos[$id]['fin'] - $datos[$id]['inicio']);
+			if (isset($datos[$id]['fin'])) {
+				$datos[$id]['tiempo'] = ($datos[$id]['fin'] - $datos[$id]['inicio']);
+			} else {
+				$datos[$id]['tiempo'] = 0;
+			}
 			$datos[$id]['sql'] = $hlSQL->highlight($datos[$id]['sql']);
 			$i++; 
 		}
