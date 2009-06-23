@@ -95,7 +95,7 @@ class toba_proyecto
 	 * Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria
 	 * @return toba_error si el parametro no se encuentra definido, sino el valor del parámetro
 	 */
-	function get_parametro($seccion, $parametro=null)
+	function get_parametro($seccion, $parametro=null, $obligatorio=true)
 	{
 		$id = $seccion;
 		if (isset($parametro)) {
@@ -111,7 +111,11 @@ class toba_proyecto
 			if( array_key_exists($id, $this->memoria)) {
 				return null;
 			}else{
-				throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+				if ($obligatorio) {
+					throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+				} else {
+					return null;
+				}
 			}
 		}	
 	}

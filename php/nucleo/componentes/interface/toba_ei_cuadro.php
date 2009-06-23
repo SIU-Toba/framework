@@ -1234,19 +1234,6 @@ class toba_ei_cuadro extends toba_ei
 	{
 		return $this->_estructura_datos;		
 	}
-
-	/**
-	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
-	 */
-	function get_id_evento_seleccion_multiple()
-	{
-		foreach ($this->_eventos_usuario_utilizados as $id => $evt) {
-			if ($evt->es_seleccion_multiple()) {
-				return $id;
-			}
-		}
-		return null;
-	}
 	
 	/**
 	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null

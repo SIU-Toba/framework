@@ -60,10 +60,9 @@ class toba_parser_ayuda
 		} else {
 			$url_base .= toba::proyecto()->get_parametro('proyecto', 'url_ayuda');
 		}
-		$url = $url_base."$id.html#$anchor";
 		// Armo la URL
-		$agregar_extension = toba::proyecto()->get_parametro('proyecto', 'url_ayuda_agregar_extension');
-		if ($agregar_extension) {
+		$agregar_extension = toba::proyecto()->get_parametro('proyecto', 'url_ayuda_agregar_extension', false);
+		if (!isset($agregar_extensiones) || $agregar_extension) {
 			$anchor = '';
 			if (strpos($id, '#') !== false) {
 				$anchor = substr($id, strpos($id, '#')+1);			
