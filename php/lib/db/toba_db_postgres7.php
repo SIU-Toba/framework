@@ -247,18 +247,26 @@ class toba_db_postgres7 extends toba_db
 	
 	function get_lista_secuencias()
 	{
+		$where = '';
+		if (isset($this->schema)) {
+			$esquema = $this->quote($this->schema);
+			$where .= " AND n.nspname = $esquema" ;			
+		}
 		$sql = "
 			SELECT 
 				c.relname as tabla,
 				a.attname as campo,
 				replace( substring(adef.adsrc,'\'[^\']*\''), '\'', '' ) as nombre
 			FROM
-				pg_catalog.pg_attribute a LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
-					 LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
-					 LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
+				pg_catalog.pg_attribute a 
+					LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
+					LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
+					LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
+					LEFT JOIN pg_catalog.pg_namespace as n ON c.relnamespace = n.oid
 			WHERE
 			 	adsrc like '%nextval%'
 			 	AND a.attnum > 0 AND NOT a.attisdropped
+			 	$where
 			ORDER BY a.attname
 		";
 		return $this->consultar($sql);

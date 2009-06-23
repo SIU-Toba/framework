@@ -198,7 +198,7 @@ class comando_base extends comando_toba
 		$db = $this->get_instalacion()->conectar_base($this->get_id_base_actual());
 		$secuencias = $db->get_lista_secuencias();
 		foreach ( $secuencias as $datos ) {
-			$sql = "SELECT setval('{$datos['nombre']}', max({$datos['campo']})) as nuevo FROM {$datos['tabla']}"; 
+			$sql = "SELECT setval('{$datos['nombre']}', max({$datos['campo']})::bigint) as nuevo FROM {$datos['tabla']}"; 
 			$res = $db->consultar($sql);
 			$nuevo = $res[0]['nuevo'];
 			$this->consola->progreso_avanzar();

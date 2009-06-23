@@ -154,6 +154,7 @@ class toba_migracion_1_4_0 extends toba_migracion
 			$orden = 1;
 			$obj_involucrados = explode(',' , $pant['objetos']);
 			$obj_involucrados = array_map('trim' , $obj_involucrados);
+			$obj_involucrados = array_unique($obj_involucrados);
 			foreach($obj_involucrados as $dep){
 				$sql = "INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 								(SELECT proyecto, '{$pant['pantalla']}', objeto_consumidor, '$orden',  dep_id
