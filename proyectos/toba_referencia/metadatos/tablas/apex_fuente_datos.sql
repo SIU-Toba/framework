@@ -12,7 +12,7 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	'extension_toba/toba_referencia_fuente_datos.php', --subclase_archivo
 	'toba_referencia_fuente_datos', --subclase_nombre
 	NULL, --orden
-	'public', --schema
+	'referencia', --schema
 	'toba_referencia', --instancia_id
 	NULL, --administrador
 	'1', --link_instancia
