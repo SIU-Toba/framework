@@ -65,6 +65,18 @@ class toba_ei_filtro extends toba_ei
 	}
 
 	/**
+	 * Devuelve un arreglo de ids de columnas
+	 * @return array
+	 */
+	function get_ids_columnas()
+	{
+		if (isset($this->_columnas)) {
+			return array_keys($this->_columnas);
+		}
+		return array();
+	}
+
+	/**
 	 *  Se aplican las restricciones funcionales necesarias a cada columna.
 	 * @ignore
 	 */
@@ -250,7 +262,7 @@ class toba_ei_filtro extends toba_ei
 		}
 		return $where;		
 	}
-	
+
 	/**
 	 * Retorna la referencia a un objeto columna perteneciente al filtro
 	 * @return toba_filtro_columna

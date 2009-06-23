@@ -35,6 +35,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_submit_seleccion;
 	protected $_submit_extra;
 	protected $_agrupacion_columnas = array();
+	protected $_layout_cant_filas = null;
 	//Orden
     protected $_orden_columna;                     	// Columna utilizada para realizar el orden
     protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
@@ -274,6 +275,17 @@ class toba_ei_cuadro extends toba_ei
 			$this->_columnas[$columna]['grupo'] = $nombre_grupo;
 		}
 	}
+	
+	/**
+	 * Grafica el cuadro agrupando las filas en N-columnas
+	 *
+	 * @param integer $cant_columnas
+	 */
+	function set_layout_cant_filas($cant_filas)
+	{
+		$this->_layout_cant_filas = $cant_filas;
+	}
+	
 	
 	/**
 	 * Retorna la definición de las columnas actuales del cuadro
@@ -1222,6 +1234,19 @@ class toba_ei_cuadro extends toba_ei
 	{
 		return $this->_estructura_datos;		
 	}
+
+	/**
+	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
+	 */
+	function get_id_evento_seleccion_multiple()
+	{
+		foreach ($this->_eventos_usuario_utilizados as $id => $evt) {
+			if ($evt->es_seleccion_multiple()) {
+				return $id;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
@@ -1804,8 +1829,16 @@ class toba_ei_cuadro extends toba_ei
 		}
 		$par = false;
 		$formateo = new $this->_clase_formateo('html');
+		$i = 0;
+		if (isset($this->_layout_cant_filas)) {
+			echo "<tr>";
+		}
         foreach($filas as $f)
         {
+        	if (isset($this->_layout_cant_filas) && $i % $this->_layout_cant_filas == 0) {
+        		$ancho = floor(100 / (count($filas) / $this->_layout_cant_filas));
+        		echo "<td><table class='ei-cuadro-agrupador-filas' width='$ancho%' >";
+			}        	
         	$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$clave_fila = $this->get_clave_fila($f);
 			if (is_array($this->_clave_seleccionada)) {
@@ -1947,7 +1980,15 @@ class toba_ei_cuadro extends toba_ei
 			//--------------------------------------
             echo "</tr>\n";
             $par = !$par;
+            if (isset($this->_layout_cant_filas) && $i % $this->_layout_cant_filas == $this->_layout_cant_filas-1) {
+        		echo "</table></td>";
+        	}
+        	$i++;
+            
         }
+		if (isset($this->_layout_cant_filas)) {
+			echo "</tr>";
+		}        
 		if( ! $this->tabla_datos_es_general() ){
 			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();
@@ -2279,7 +2320,7 @@ class toba_ei_cuadro extends toba_ei
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function crear_objeto_js()
 	{
@@ -2294,7 +2335,6 @@ class toba_ei_cuadro extends toba_ei
 		}
 		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas);\n";
 	}
-
 	/**
 	 * @ignore 
 	 */

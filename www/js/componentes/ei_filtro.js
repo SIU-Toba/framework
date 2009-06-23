@@ -155,7 +155,7 @@ function ei_filtro(id, instancia, input_submit) {
 		var input = $(this._instancia + '_nuevo');
 		var id = input.value;
 		input.selectedIndex = 0;
-		if (in_array(id, this._filas)) {
+		if (id == 'nopar' || in_array(id, this._filas)) {
 			//Ya se agrego antes
 			return;
 		}

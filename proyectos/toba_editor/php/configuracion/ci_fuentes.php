@@ -61,9 +61,9 @@ class ci_fuentes extends toba_ci
 
 	function evt__form__modificacion($datos)
 	{
-		$datos_orig = $datos;
 		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
-		
+		$datos_orig = $datos;
+
 		//--- Actualiza bases.ini
 		if (isset($datos['motor'])) {
 			$instancia = toba_editor::get_id_instancia_activa();
@@ -73,6 +73,10 @@ class ci_fuentes extends toba_ci
 			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto'));
 			if (in_array($id_base, $bases)) {
 				//---Actualiza la entrada actual
+				$parametros = $instalacion->get_parametros_base($id_base);
+				if (isset($parametros['encoding'])) {
+					$datos['encoding'] = $parametros['encoding'];
+				}
 				$instalacion->actualizar_db($id_base, $datos);
 			} else {
 				//---Crea una nueva entrada	
@@ -90,6 +94,7 @@ class ci_fuentes extends toba_ci
 	function conf__form()
 	{
 		$datos = $this->dependencia('datos')->get();
+		
 		if (isset($datos['fuente_datos'])) {
 			$instancia = toba_editor::get_id_instancia_activa();
 			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";

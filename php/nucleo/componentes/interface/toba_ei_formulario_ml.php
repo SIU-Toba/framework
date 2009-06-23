@@ -1107,6 +1107,21 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if (! $this->_mostrar_cabecera_sin_datos) {
 			echo $identado."{$this->objeto_js}.set_cabecera_visible_sin_datos(false);\n";
 		}
+		
+		if ($this->_detectar_cambios) {
+			foreach (array_keys($this->_eventos_usuario_utilizados) as $id_evento) {
+				if ($this->evento($id_evento)->es_predeterminado()) {
+					$excluidos = array();
+					foreach ($this->_lista_ef_post as $ef) {
+						if ($this->ef($ef)->es_solo_lectura()) {
+							$excluidos[] = $ef;
+						}
+					}					
+					$excluidos = toba_js::arreglo($excluidos);
+					echo $identado."{$this->objeto_js}.set_procesar_cambios(true, '$id_evento', $excluidos);\n";					
+				}
+			}
+		}
 	}
 	
 	/**

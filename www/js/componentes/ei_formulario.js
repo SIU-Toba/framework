@@ -521,7 +521,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	
 	ei_formulario.prototype._es_estado_igual = function(inicial, actual) {
 		var es_igual;
-		if (typeof actual == 'object') {
+		if (typeof actual == 'object' && isset(actual)) {
 		 	es_igual = comparar_arreglos(inicial, actual); 
 		} else {
 			es_igual = (inicial === actual);

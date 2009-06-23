@@ -53,21 +53,29 @@ class toba_parser_ayuda
 	
 	static function parsear_wiki($id, $nombre, $proyecto=null, $resumido=false)
 	{
-		$anchor = '';
-		if (strpos($id, '#') !== false) {
-			$anchor = substr($id, strpos($id, '#')+1);			
-			$id = substr($id, 0, strpos($id, '#'));
-		}
+		// Busco la base de la URL
 		$url_base = '';
 		if (isset($proyecto)) {
 			$url_base .= toba::instancia()->get_url_proyecto($proyecto).'/';
-		}
-		if ($proyecto == 'toba_editor') {
-			$url_base .= 'doc/wiki/trac/toba/wiki/';	//Hack para evitar tener que armar un esquema mucho mas complicado para manejar el caso de usar doc toba desde distintos lados
 		} else {
 			$url_base .= toba::proyecto()->get_parametro('proyecto', 'url_ayuda');
 		}
 		$url = $url_base."$id.html#$anchor";
+		// Armo la URL
+		$agregar_extension = toba::proyecto()->get_parametro('proyecto', 'url_ayuda_agregar_extension');
+		if ($agregar_extension) {
+			$anchor = '';
+			if (strpos($id, '#') !== false) {
+				$anchor = substr($id, strpos($id, '#')+1);			
+				$id = substr($id, 0, strpos($id, '#'));
+				$url = $url_base."$id.html#$anchor";
+			} else {
+				$url = $url_base."$id.html";
+			}
+		} else {
+			$url = $url_base."$id";
+		}
+		// Genero la salida
 		if ($resumido) {
 			return $url;
 		} else {

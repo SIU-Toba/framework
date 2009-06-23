@@ -506,6 +506,14 @@ padding-left:4px;
 .ei-cuadro-col-tit {
 	font-weight: bold;
 }
+.ei-cuadro-agrupador-filas {
+	padding: 0;
+	margin: 0;		
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;
+	margin-right: 10px;
+	margin-left: 10px;
+}
 
 /* Tabla de sumarizaciones ad-hoc */
 .ei-cuadro-cc-tabla-sum {

@@ -159,13 +159,24 @@ class toba_svn
 		}
 	}
 	
-	
 	function get_url($path)
 	{
 		$cmd = "svn info \"$path\" --xml";
 		$xml = simplexml_load_string(`$cmd`);
 		if (isset($xml->entry)) {
 			return $xml->entry->url;
+		}
+	}
+	
+	function get_revision($path)
+	{
+		$cmd = "svn info \"$path\" --xml";
+		$xml = simplexml_load_string(`$cmd`);
+		if (isset($xml->entry->revision)) {
+			return $xml->entry->revision;
+		}
+		if (isset($xml->entry[0]['revision'])) {
+			return $xml->entry[0]['revision'];
 		}
 	}
 	
@@ -196,9 +207,9 @@ class toba_svn
 		return $this->ejecutar($cmd, false, false);		
 	}
 	
-	function update($path)
+	function update($path, $revision = 'HEAD')
 	{
-		$cmd = "svn up \"$path\" ";
+		$cmd = "svn up \"$path\" -r $revision";
 		return $this->ejecutar($cmd);				
 	}
 	

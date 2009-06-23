@@ -10,6 +10,10 @@
  * Las dimensiones se definen por el proyecto en toba_editor
  * 
  * @package Seguridad
+	
+	To-Do:
+		* Soporta N concatenaciones, pero de un solo tipo (no se puede combinar union con union all	o un except con un union)	
+		* No soporta el uso de parentesis
  */
 class toba_perfil_datos
 {
@@ -23,6 +27,15 @@ class toba_perfil_datos
 	protected $gatillos_activos = array();
 	protected $id_alias_unico = 0;
 	protected $relaciones_entre_tablas = array();
+	//-- Operaciones sobre conjuntos
+	protected $operaciones_de_conjuntos = array('union all' 	=> '/\sunion\s+all\s(?=\s+select)/is',
+												'union' 		=> '/\sunion\s(?=\s+select)/is',
+												'intersect all' => '/\sintersect\s+all\s(?=\s+select)/is',
+												'intersect'		=> '/\sintersect\s(?=\s+select)/is',
+												'except all' 	=> '/\sexcept\s+all\s(?=\s+select)/is',
+												'except' 		=> '/\sexcept\s(?=\s+select)/is');
+	protected $operacion_tipo;
+	protected $operacion_segmentos = array();
 
 	function __construct()
 	{
@@ -204,25 +217,39 @@ class toba_perfil_datos
 	*/
 	function filtrar($sql, $fuente_datos=null)
 	{
-		if(!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
-		if( $this->posee_restricciones($fuente_datos) ) {
-			$where = array();
-			//-- 1 -- Busco GATILLOS en el SQL
-			$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
-			//-- 2 -- Busco las dimensiones implicadas
-			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
-			//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
-			foreach( $dimensiones_implicadas as $dimension => $tabla ) {
-				$alias_tabla = $tablas_gatillo_encontradas[$tabla];
-				$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
-			}
-			//-- 4 -- Altero el SQL
-			if(! empty($where)) {
-				$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
+		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		if ($this->posee_restricciones($fuente_datos)) {
+			if ($this->hay_combinaciones_de_querys($sql)) {
+				foreach ($this->operacion_segmentos as $id => $segmento_sql) {
+					$this->operacion_segmentos[$id] = $this->filtrar_sql($segmento_sql, $fuente_datos);
+				}
+				$concatenador = "\n" . $this->operacion_tipo . "\n";
+				$sql = implode($concatenador, $this->operacion_segmentos);
+			} else {
+				$sql = $this->filtrar_sql($sql, $fuente_datos);
 			}
 		}
 		return $sql;
 	}
+	
+	function filtrar_sql($sql, $fuente_datos=null)
+	{
+		$where = array();
+		//-- 1 -- Busco GATILLOS en el SQL
+		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
+		//-- 2 -- Busco las dimensiones implicadas
+		$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
+		//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
+		foreach( $dimensiones_implicadas as $dimension => $tabla ) {
+			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
+			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
+		}
+		//-- 4 -- Altero el SQL
+		if(! empty($where)) {
+			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
+		}
+		return $sql;
+	}	
 	
 	/**
 	*	Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una
@@ -437,12 +464,29 @@ class toba_perfil_datos
 				}
 				if ( in_array($tabla, $gatillos) ) {	
 					//La tabla pertenece a una dimension
-					$alias = isset($temp[1]) ? $temp[1] : $temp[0];
+					if (isset($temp[2]) && strtolower($temp[1]) == 'as') {
+						$alias = $temp[2];
+					} else {
+						$alias = isset($temp[1]) ? $temp[1] : $temp[0];
+					}
 					$tablas[$tabla] = $alias;
 				}
 			}
 		}
 		return $tablas;
+	}
+
+	function hay_combinaciones_de_querys($sql)
+	{
+		foreach ($this->operaciones_de_conjuntos as $tipo => $ereg) {
+			if (preg_match($ereg, $sql)) {
+				$partes = preg_split($ereg, $sql);
+				$this->operacion_segmentos = array_map('trim',$partes);
+				$this->operacion_tipo = $tipo;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//--------------------------------------------------------------------

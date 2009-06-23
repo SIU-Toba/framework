@@ -734,9 +734,9 @@ class toba_datos_tabla extends toba_componente
 	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
 	 * @return integer
 	 */
-	function get_cantidad_filas()
+	function get_cantidad_filas($usar_cursores=true)
 	{
-		return count($this->get_id_filas());
+		return count($this->get_id_filas($usar_cursores));
 	}
 	
 	/**

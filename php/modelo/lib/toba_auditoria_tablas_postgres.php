@@ -93,7 +93,7 @@ class toba_auditoria_tablas_postgres
 		$this->crear_triggers($this->tablas, $this->schema_origen);
 			    
 	    //-- Schema de toba
-		if (isset($this->schema_toba)) {
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->crear_funciones($this->schema_toba);
 			foreach ($this->tablas_toba as $t) {
 				$this->crear_tabla($t, $this->schema_toba);
@@ -116,7 +116,7 @@ class toba_auditoria_tablas_postgres
 			}
 		}
 		
-		if (isset($this->schema_toba)) {
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->crear_funciones($this->schema_toba);
 			foreach ($this->tablas_toba as $t) {
 				$nombre = $this->prefijo.$t;
@@ -136,7 +136,7 @@ class toba_auditoria_tablas_postgres
 		$this->crear_sp($this->tablas, $this->schema_origen);
 		$this->crear_triggers($this->tablas, $this->schema_origen);
 		
-		if (isset($this->schema_toba)) {
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->eliminar_triggers($this->tablas_toba, $this->schema_toba);
 			$this->crear_sp($this->tablas_toba, $this->schema_toba);
 			$this->crear_triggers($this->tablas_toba, $this->schema_toba);
@@ -148,7 +148,7 @@ class toba_auditoria_tablas_postgres
 	function eliminar() 
 	{			
 		$this->eliminar_triggers($this->tablas, $this->schema_origen);
-		if (isset($this->schema_toba)) {
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->eliminar_triggers($this->tablas_toba, $this->schema_toba);
 		}
 		$this->eliminar_schema();
@@ -451,7 +451,8 @@ class toba_auditoria_tablas_postgres
 	{
 		$tabla = substr($tabla, strlen($this->prefijo));
 		$schema = $this->schema_origen;
-		if (! $this->conexion->existe_tabla($this->schema_origen, $tabla) && isset($this->schema_toba)) {
+		if (! $this->conexion->existe_tabla($this->schema_origen, $tabla) 
+			&& isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$schema = $this->schema_toba;
 		}
 		$cols = $this->conexion->get_definicion_columnas($tabla, $schema);
