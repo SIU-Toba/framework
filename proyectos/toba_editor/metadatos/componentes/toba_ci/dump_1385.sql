@@ -15,13 +15,13 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_eventos', --subclase
-	'objetos_toba/ci_eventos.php', --subclase_archivo
+	'ci_eventos_cuadro', --subclase
+	'objetos_toba/ci_eventos_cuadro.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Editor OBJETO - (eventos CUADRO)', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -61,7 +61,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'toba_editor', --proyecto
 	'47', --dep_id
 	'1385', --objeto_consumidor
-	'1745', --objeto_proveedor
+	'33000018', --objeto_proveedor
 	'eventos_lista', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -95,8 +95,8 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'arriba', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --botonera_barra_item
-	NULL, --con_toc
+	'0', --botonera_barra_item
+	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar

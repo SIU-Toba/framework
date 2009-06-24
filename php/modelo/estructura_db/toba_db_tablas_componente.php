@@ -267,6 +267,7 @@ class toba_db_tablas_componente
     26 => 'accion_vinculo_target',
     27 => 'accion_vinculo_celda',
     28 => 'accion_vinculo_servicio',
+    29 => 'es_seleccion_multiple',
   ),
 );
 	}

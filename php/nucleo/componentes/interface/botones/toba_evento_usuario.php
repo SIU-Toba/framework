@@ -154,7 +154,7 @@ class toba_evento_usuario extends toba_boton
 	
 	function es_seleccion_multiple()
 	{
-		return $this->seleccion_multiple;
+		return ($this->datos['es_seleccion_multiple'] == '1');
 	}
 	
 	//--------- Seters ---------------------
@@ -178,7 +178,7 @@ class toba_evento_usuario extends toba_boton
 	 */
 	function set_seleccion_multiple()
 	{
-		$this->seleccion_multiple = true;	
+		$this->datos['es_seleccion_multiple'] = '1';
 	}
 
 	//--------- Consumo interno ------------

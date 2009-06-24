@@ -359,6 +359,7 @@ CREATE TABLE apex_objeto_eventos
 	accion_vinculo_target				varchar(40)			NULL,
 	accion_vinculo_celda				varchar(40)			NULL,
 	accion_vinculo_servicio				varchar(100)		NULL,
+	es_seleccion_multiple				SMALLINT  NOT NULL DEFAULT 0,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("evento_id","proyecto"),
 	CONSTRAINT	"apex_objeto_eventos_uq" UNIQUE ("proyecto","objeto","identificador"),	
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,

@@ -29,6 +29,7 @@ class toba_boton
 			$this->datos['accion'] = '';
 			$this->datos['grupo'] = '';
 			$this->datos['identificador'] = '';
+			$this->datos['es_seleccion_multiple'] = '';
 		}
 		$this->contenedor = $contenedor;
 	}
