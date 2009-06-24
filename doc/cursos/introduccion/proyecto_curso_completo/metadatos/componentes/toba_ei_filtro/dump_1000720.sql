@@ -147,7 +147,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'curso', --carga_fuente
 	NULL, --carga_lista
 	'institucion', --carga_col_clave
-	'nombre_corto', --carga_col_desc
+	'nombre', --carga_col_desc
 	'1', --carga_permite_no_seteado
 	'--SELECCIONAR--', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
