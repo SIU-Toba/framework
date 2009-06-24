@@ -569,8 +569,12 @@ abstract class toba_ei extends toba_componente
 				if (!isset($titulo)) {
 					$titulo = $this->_info["titulo"];	
 				}
-				if ($botonera_sup && !$tiene_titulo) {
-					$estilo .= ' ei-barra-sup-sin-tit';
+				if ($botonera_sup) {
+					 if (!$tiene_titulo) {
+						$estilo = "ei-barra-sup-sin-tit $estilo";
+					} else {
+						$estilo = "ei-barra-sup $estilo";
+					}
 				}
 				if (!$botonera_sup && $tiene_titulo) {
 					$estilo = 'ei-barra-sup ' . $estilo. ' ei-barra-sup-sin-botonera';
