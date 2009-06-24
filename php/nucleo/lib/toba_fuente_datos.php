@@ -107,5 +107,15 @@ class toba_fuente_datos
 			$db->set_parser_errores(new $parseador);
 		}
 	}
+
+	function set_fuente_posee_auditoria($tiene = false)
+	{
+		$this->definicion['tiene_auditoria'] = ($tiene) ? '1' : '0';
+	}
+
+	function set_fuente_parsea_errores($parsea = false)
+	{
+		$this->definicion['parsea_errores'] = ($parsea) ? '1' : '0';
+	}
 }
 ?>
