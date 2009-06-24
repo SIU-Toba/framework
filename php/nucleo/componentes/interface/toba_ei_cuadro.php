@@ -2318,7 +2318,8 @@ class toba_ei_cuadro extends toba_ei
 		$hay_multiple = ($this->get_id_evento_seleccion_multiple() !== null);
 		$filas = '';
 		if ($hay_multiple) {
-			$filas = ', '.toba_js::arreglo(array_keys($this->datos));
+			$datos = (isset($this->datos) && is_array($this->datos)) ? $this->datos : array();
+			$filas = ', '.toba_js::arreglo(array_keys($datos));
 		}
 		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas);\n";
 	}
