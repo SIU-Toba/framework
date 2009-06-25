@@ -10,6 +10,7 @@ CREATE TABLE			apex_revision
 ---------------------------------------------------------------------------------------------------
 (
 	revision					varchar(20)	NOT NULL,
+	proyecto					varchar(15) ,
 	creacion					timestamp(0) without	time zone	DEFAULT current_timestamp NOT	NULL
 );
 --#################################################################################################

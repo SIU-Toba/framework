@@ -179,7 +179,20 @@ class toba_svn
 			return $xml->entry[0]['revision'];
 		}
 	}
-	
+
+	function get_revisiones_dir_recursivos($path)
+	{
+		$cmd = "svn info \"$path\"  -R --xml";
+		$xml = simplexml_load_string(`$cmd`);
+		$revs = array();
+		if ($xml !== false){
+			foreach($xml->entry as $entrada) {
+				$revs[] = $entrada->attributes();
+			}
+		}
+		return $revs;
+	}
+
 	function reducir_url($url)
 	{
 		$base = $this->url_base;

@@ -870,9 +870,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	private function generar_info_carga()
 	{
 		$revision = revision_svn( toba_dir() );
-		$sql = "INSERT INTO apex_revision ( revision ) VALUES ('$revision')";
+		$sql = "INSERT INTO apex_revision ( revision , proyecto) VALUES ('$revision', 'toba')";
 		$this->get_db()->ejecutar( $sql );
 		toba_logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
+
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$proyecto = $this->get_proyecto($id_proyecto);
+			$proyecto->generar_estado_codigo();
+		}
 	}
 	
 	/*
@@ -1301,6 +1306,27 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return new toba_version($rs[0]['version']);	
 		}
 	}
+
+	//----------------------------------------------------------------------------
+	//--------------------- Manejo de Revisiones de Proyectos ----
+	//----------------------------------------------------------------------------
+	function set_revision_proyecto($proyecto, $revision)
+	{
+		$proy_qtd = $this->get_db()->quote($proyecto);
+		$rev_qtd = $this->get_db()->quote($revision);
+		$sql = "INSERT INTO apex_revision (proyecto, revision) VALUES ($proy_qtd, $rev_qtd);";
+		$this->get_db()->ejecutar( $sql );
+		toba_logger::instancia()->debug("Actualizada la revision svn del proyecto $proyecto a $revision");
+	}
 	
+	function get_revision_proyecto($proyecto)
+	{
+		$proy_qtd = $this->get_db()->quote($proyecto);
+		$sql = "SELECT max(revision)::integer as rev FROM apex_revision WHERE proyecto = $proy_qtd;";
+		$rs = $this->get_db()->consultar_fila( $sql );
+		toba_logger::instancia()->var_dump($rs);	
+		$rev = (! empty($rs)) ? $rs['rev']  : 0;
+		return $rev;
+	}
 }
 ?>
