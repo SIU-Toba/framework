@@ -42,7 +42,11 @@ ef_popup.prototype.constructor = ef_popup;
 	ef_popup.prototype.vinculo = function () {
 		return document.getElementById(this._id_form + '_vinculo');		
 	};
-
+	
+	ef_popup.prototype.get_id_vinculo = function () {
+		return this._vinculo;
+	};
+	
 	ef_popup.prototype.validar = function () {
 		if (! ef.prototype.validar.call(this)) {
 			return false;		
