@@ -511,7 +511,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
 	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
-	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones
+	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones. El valor no puede ser NULL porque siempre da falso
 	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla. Sino se usa una clave posicional y la clave viaja en la columna apex_datos_clave_fila
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Formato tipo RecordSet
@@ -614,7 +614,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Busca los registros en memoria que cumplen una condicion.
 	 * Solo se chequea la condicion de igualdad. No se chequean tipos
-	 * @param array $condiciones Asociativo de campo => valor.
+	 * @param array $condiciones Asociativo de campo => valor. El valor no puede ser NULL porque siempre da falso
 	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
 	 * 				por ejemplo array(array('id_persona','>=',10),...)
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres

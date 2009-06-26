@@ -233,7 +233,14 @@ class ci_principal extends ci_editores_toba
 	
 	function get_lista_posibles_columnas_parametro()
 	{
-		return $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0, 'secuencia' => null));
+		$datos = $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0));
+		$res = array();
+		foreach($datos as $fila) {
+			if ($fila['secuencia'] == '') {
+				$res[] = $fila;
+			}
+		}
+		return $res; 
 	}
 
 	function conf__externas(toba_ei_formulario_ml $ml)
