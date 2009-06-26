@@ -73,24 +73,27 @@ class toba_datos_tabla_def extends toba_componente_def
 		$sql['_info_columnas']['obligatorio']=true;
 		
 		//------------ Externas ----------------
-		$sql['_info_externas']['sql'] = "SELECT	objeto_proyecto,
-						objeto 			,	
-						externa_id		,	
-						tipo			,	
-						sincro_continua	,	
-						metodo			,
-						clase			,	
-						include			,	
-						sql,
-						dato_estricto,
-						carga_dt,
-						carga_consulta_php,
-						permite_carga_masiva,
-						metodo_masivo
-					 FROM		apex_objeto_db_registros_ext 
-					 WHERE		objeto_proyecto = $proyecto ";
+		$sql['_info_externas']['sql'] = "SELECT	aore.objeto_proyecto,
+						aore.objeto 			,
+						aore.externa_id		,
+						aore.tipo			,
+						aore.sincro_continua	,
+						aore.metodo			,
+						aore.clase			,
+						aore.include			,
+						aore.sql,
+						aore.dato_estricto,
+						aore.carga_dt,
+						con.clase as carga_consulta_php,
+						aore.permite_carga_masiva,
+						aore.metodo_masivo
+					 FROM		apex_objeto_db_registros_ext  aore
+					LEFT OUTER JOIN apex_consulta_php con ON
+												(aore.objeto_proyecto = con.proyecto AND
+												aore.carga_consulta_php = con.consulta_php)
+					 WHERE		aore.objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {
-			$sql['_info_externas']['sql'] .= "	AND		objeto=$componente ";	
+			$sql['_info_externas']['sql'] .= "	AND		aore.objeto=$componente ";
 		}
 		$sql['_info_externas']['sql'] .= ";";
 		$sql['_info_externas']['registros']='n';

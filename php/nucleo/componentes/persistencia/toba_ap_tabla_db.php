@@ -208,6 +208,20 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_proceso_carga_externa[$proximo]["metodo_masivo"] = $metodo_masivo;
 	}
 
+	function activar_proceso_carga_externa_consulta_php($metodo, $id_consulta_php, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva=0, $metodo_masivo = '')
+	{
+		$proximo = count($this->_proceso_carga_externa);
+		$this->_proceso_carga_externa[$proximo]["tipo"] = "ccp";
+		$this->_proceso_carga_externa[$proximo]["metodo"] = $metodo;
+		$this->_proceso_carga_externa[$proximo]["clase"] = $id_consulta_php;
+		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$this->_proceso_carga_externa[$proximo]["dato_estricto"] = $estricto;
+		$this->_proceso_carga_externa[$proximo]["permite_carga_masiva"] = $carga_masiva;
+		$this->_proceso_carga_externa[$proximo]["metodo_masivo"] = $metodo_masivo;
+	}
+
 	/**
 	 * Activa el mecanismo de baja lógica
 	 * En este mecanismo en lugar de hacer DELETES actualiza una columna
@@ -1091,7 +1105,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				if (! $estan_todos) {
 					continue;
 				}
-				$valores_recuperados = $this->completa_campos_externos_fila_con_proceso($fila, $parametros);
+				$valores_recuperados = array_merge($valores_recuperados, $this->completa_campos_externos_fila_con_proceso($fila, $parametros));
 			}
 		}
 		return $valores_recuperados;
@@ -1108,6 +1122,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$recuperado = array();
 						//Aca tengo que decidir el tipo de carga y llamar al correspondiente
 						switch($parametros['tipo']){
+							case 'ccp':
+										$recuperado = $this->usar_clase_consulta_php($claves, $parametros, true);
+										break;
 							case 'dao':
 										$recuperado = $this->usar_metodo_dao($claves, $parametros, true);
 										break;
@@ -1131,7 +1148,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return $datos;
 	}
 
-	function completa_campos_externos_fila_con_proceso($fila, $proceso)
+	protected function completa_campos_externos_fila_con_proceso($fila, $proceso)
 	{
 			$recuperado = array();
 			switch($proceso['tipo']){
@@ -1152,6 +1169,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 							}
 							$recuperado = $this->usar_metodo_dt($param_dao, $proceso);
 							break;
+				case 'ccp':
+							$param_dao = array();
+							foreach ($proceso['col_parametro'] as $col_llave) {
+								$param_dao[] = $fila[$col_llave];
+							}
+							$recuperado = $this->usar_clase_consulta_php($param_dao, $proceso);
+							break;
 			}
 			if (! empty($recuperado)) {
 				$recuperado = $this->adjuntar_campos_externos($recuperado, $proceso);
@@ -1159,7 +1183,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return $recuperado;
 	}
 
-	function usar_metodo_sql_fila($fila, $parametros)
+	protected function usar_metodo_sql_fila($fila, $parametros)
 	{
 		// - 1 - Obtengo el query
 		$sql = $parametros['sql'];
@@ -1179,7 +1203,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $datos;
 	}
 
-	function usar_metodo_dao($param_dao, $parametros, $es_carga_inicial = false)
+	protected function usar_metodo_dao($param_dao, $parametros, $es_carga_inicial = false)
 	{
 		//Elijo el metodo de carga dependiendo de si es masiva o no.
 		if ($es_carga_inicial && isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
@@ -1204,7 +1228,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $datos;
 	}
 
-	function usar_metodo_dt($param_dt, $parametros, $es_carga_inicial = false)
+	protected function usar_metodo_dt($param_dt, $parametros, $es_carga_inicial = false)
 	{
 		//Elijo el metodo de carga dependiendo de si es masiva o no.
 		if ($es_carga_inicial && isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
@@ -1224,7 +1248,26 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $datos;
 	}
 
-	function get_valores_llaves($datos, $parametros)
+	protected function usar_clase_consulta_php($param_clase, $parametros, $es_carga_inicial = false)
+	{
+		//Elijo el metodo de carga dependiendo de si es masiva o no.
+		if ($es_carga_inicial && isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
+			$nombre_metodo = $parametros['metodo_masivo'];
+		} else {
+			$nombre_metodo = $parametros['metodo'];
+		}
+		//Recupero el objeto asociado a la clase php
+		$obj = toba::consulta_php($parametros['clase']);
+		if (method_exists($obj, $nombre_metodo)) {
+				$datos = call_user_func_array(array($obj,$nombre_metodo), $param_clase);
+		}else {
+			$this->log(' ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase']);
+			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido');
+		}
+		return $datos;
+	}
+
+	protected function get_valores_llaves($datos, $parametros)
 	{
 		$claves = array();
 		//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
@@ -1237,7 +1280,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $claves;
 	}
 
-	function adjuntar_campos_externos_masivo($datos, $externos, $parametros)
+	protected function adjuntar_campos_externos_masivo($datos, $externos, $parametros)
 	{
 		$campos_externos = array();
 		$es_obligatoria = ($parametros['dato_estricto'] == '1');
@@ -1268,7 +1311,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		return $datos;
 	}
 
-	function adjuntar_campos_externos($datos, $parametros)
+	protected function adjuntar_campos_externos($datos, $parametros)
 	{
 		$valores_recuperados = array();
 		if (count($datos) > 0) {

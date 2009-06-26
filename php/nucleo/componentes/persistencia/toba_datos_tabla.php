@@ -153,15 +153,11 @@ class toba_datos_tabla extends toba_componente
 	{
 		//-- La carga se realiza por una clase consulta php
 		if (isset($externa['carga_consulta_php']) && !is_null($externa['carga_consulta_php'])) {
-			//Busco los datos del archivo de consulta.
-			$datos_clase = toba_info_editores::get_consulta_php($externa['carga_consulta_php'], $externa['objeto_proyecto']);
-			if (empty($datos_clase)) {
-				throw new toba_error_def('La clase de consulta especificada no existe');
-			}
-			$externa['clase'] = $datos_clase['clase'];
-			$externa['include'] = $datos_clase['archivo'];
-		}
-		if (isset($externa['carga_dt']) && ($externa['carga_dt'] != '')) {	//--Se carga mediante datos_tabla
+			$this->persistidor()->activar_proceso_carga_externa_consulta_php(
+								$externa['metodo'], $externa['carga_consulta_php'], $parametros, $resultados, $externa['sincro_continua'],
+								$externa['dato_estricto'], $externa['permite_carga_masiva'], $externa['metodo_masivo']);
+
+		}elseif (isset($externa['carga_dt']) && ($externa['carga_dt'] != '')) {	//--Se carga mediante datos_tabla
 			$this->persistidor()->activar_proceso_carga_externa_datos_tabla(
 								$externa['carga_dt'], $externa['metodo'],$parametros,
 								$resultados, $externa['sincro_continua'], $externa['dato_estricto'], $externa['permite_carga_masiva'], $externa['metodo_masivo']);
