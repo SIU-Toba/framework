@@ -4,7 +4,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 {
 	protected $permitir_exportar_modelo = true;
 	protected $permitir_instalar = true;
-	protected $schema_modelo = 'public';
+	protected $schema_modelo;
 	protected $schema_auditoria;
 	protected $schema_toba = null;
 	
@@ -29,6 +29,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	protected $proyecto;
 	
 	
+	
 	/**
 	 * Inicialización de la clase en el entorno consumidor
 	 * @param toba_modelo_instalacion $instalacion Representante de la instalación de toba como un todo
@@ -41,12 +42,33 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->instalacion = $instalacion;
 		$this->instancia = $instancia;
 		$this->proyecto = $proyecto;
-		$this->schema_auditoria = $proyecto->get_id().'_auditoria';
 		$db = $instancia->get_db();
 		$schema_toba = $instancia->get_id();
 		if ($db->existe_schema($schema_toba)) {
 			$this->schema_toba = $schema_toba;
-		} 
+		}
+		//Si no se harcodeo el schema del proyecto, trata de averiguarlo
+		if (! isset($this->schema_modelo)) {
+			$encontrado = false;
+			$fuentes = $this->proyecto->get_indice_fuentes();
+			if (empty($fuentes)) {
+					//TODO: Leer de proyecto.ini ?
+			} else { 
+				$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+				if ($this->instalacion->existe_base_datos_definida($id_def_base)) {			
+					$parametros = $this->instalacion->get_parametros_base($id_def_base);
+					if (isset($parametros['schema'])) {
+						$this->schema_modelo = $parametros['schema']; 
+						$encontrado = true;
+					}
+				}
+			}
+			if (! $encontrado) {
+				$this->schema_modelo = 'public';
+			}
+		}
+		//Construye el schema de la auditoria
+		$this->schema_auditoria = $this->schema_modelo.'_auditoria';		 
 	}
 	
 	/**

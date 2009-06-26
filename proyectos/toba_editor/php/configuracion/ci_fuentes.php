@@ -116,11 +116,24 @@ class ci_fuentes extends toba_ci
 
 	function evt__form__crear_auditoria()
 	{
-		$schema_auditoria = toba_editor::get_proyecto_cargado(). '_auditoria';		
+		$instalacion = toba_modelo_catalogo::get_instalacion();
+		$datos = $this->dependencia('datos')->get();
+		$instancia = toba_editor::get_id_instancia_activa();
+		$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
+		if (!$instalacion->existe_base_datos_definida($id_base)) {
+			throw new toba_error("Debe definir los parámetros de conexión");
+		}
+		$parametros = $instalacion->get_parametros_base($id_base);
+		if (! isset($parametros['schema'])) {
+			$schema = 'public';
+		} else {
+			$schema = $parametros['schema'];
+		}
+		$schema_auditoria = $schema. '_auditoria';		
 		$id_fuente = $this->dependencia('datos')->get_columna('fuente_datos');
 		$db = toba::db($id_fuente,  toba_editor::get_proyecto_cargado());
 		try{
-			$auditoria = new toba_auditoria_tablas_postgres($db, 'public', $schema_auditoria);
+			$auditoria = new toba_auditoria_tablas_postgres($db, $schema, $schema_auditoria);
 			$auditoria->set_esquema_logs($schema_auditoria);
 			$auditoria->agregar_tablas();	///Agrego todas las tablas
 
@@ -130,9 +143,10 @@ class ci_fuentes extends toba_ci
 				$auditoria->migrar();
 			}
 		} catch(toba_error $e){
-			toba::logger()->debug($e->getMessage());
+			throw $e;
+/*			toba::logger()->debug($e->getMessage());
 			toba::notificacion()->agregar('Error al crear el esquema de auditoria', 'error');
-			return false;
+			return false;*/
 		}
 		toba::notificacion()->agregar('Esquema creado satisfactoriamente', 'info');
 		$this->dependencia('datos')->set_columna_valor('tiene_auditoria', '1');

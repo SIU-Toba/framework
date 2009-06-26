@@ -21,7 +21,7 @@ class toba_auditoria_tablas_postgres
 	 */
 	protected $conexion;
 		
-	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='auditoria', $schema_toba=null) 
+	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='public_auditoria', $schema_toba=null) 
 	{
 		$this->conexion = $conexion;
 		$this->schema_origen = $schema_origen;

@@ -16,7 +16,13 @@ class ci_auditoria extends toba_ci
 
 	function get_esquema()
 	{	
-		return $this->s__filtro['proyecto'].'_auditoria';
+		$db = $this->get_db();
+		$schema = $db->get_schema();
+		if (isset($schema)) {
+			return $schema.'_auditoria';
+		} else {
+			return "public_auditoria";
+		}		
 	}
 	
 	function get_db($proyecto = null)
@@ -87,9 +93,10 @@ class ci_auditoria extends toba_ci
 			$db = $this->get_db();
 			$auditoria = new toba_auditoria_tablas_postgres($db);
 			$schema = $db->get_schema();
-			if (isset($schema)) {
-				$auditoria->set_esquema_origen($schema);			
+			if (!isset($schema)) {
+				$schema = 'public';
 			}
+			$auditoria->set_esquema_origen($schema);			
 			$schema_toba = toba::instancia()->get_schema_db();
 			if (isset($schema_toba)) {
 				$auditoria->set_esquema_toba($schema_toba);

@@ -85,7 +85,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'33000020', --evento_id
 	'1834', --objeto
 	'crear_auditoria', --identificador
-	'Crear Esquema Auditoria', --etiqueta
+	'Crear o Migrar Auditoria', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
