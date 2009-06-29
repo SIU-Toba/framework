@@ -154,7 +154,7 @@ class toba_evento_usuario extends toba_boton
 	
 	function es_seleccion_multiple()
 	{
-		return ($this->datos['es_seleccion_multiple'] == '1');
+		return (isset($this->datos['es_seleccion_multiple']) && $this->datos['es_seleccion_multiple'] == '1');
 	}
 	
 	//--------- Seters ---------------------
