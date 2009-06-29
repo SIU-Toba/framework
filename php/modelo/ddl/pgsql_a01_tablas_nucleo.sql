@@ -103,12 +103,12 @@ CREATE TABLE apex_fuente_datos
 	instancia_id				varchar			NULL,
 	administrador				varchar			NULL,
 	link_instancia				smallint		NULL,
+	tiene_auditoria			SMALLINT  NOT NULL  DEFAULT 0,
+	parsea_errores		 SMALLINT  NOT NULL  DEFAULT 0,
 	--- test perfiles (ex db-junk!) ---
 	usuario						varchar			NULL,
 	clave						varchar			NULL,
 	base						varchar			NULL,
-	tiene_auditoria			SMALLINT  NOT NULL  DEFAULT 0,
-	parsea_errores		 SMALLINT  NOT NULL  DEFAULT 0,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

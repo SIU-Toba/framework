@@ -99,7 +99,28 @@ class toba_migracion_1_4_0 extends toba_migracion
 		//--------------------------- Columna que marca si un evento de seleccion es multiple o no ------------------------------------
 		$sql[] = 'ALTER TABLE apex_objeto_eventos ADD COLUMN es_seleccion_multiple SMALLINT NOT NULL DEFAULT 0;';
 
-		$this->elemento->get_db()->ejecutar($sql);
+		//--------------------------- Locking optimista en datos_relacion ------------------------------------
+		$sql[] = 'ALTER TABLE apex_objeto_datos_rel ADD COLUMN sinc_lock_optimista SMALLINT  NULL DEFAULT 1;';
+
+		//--------------------------- Revision svn del proyecto ------------------------------------
+		$sql[] = 'ALTER TABLE apex_revision ADD COLUMN proyecto VARCHAR(15)  NULL';
+		
+		//--------------------------- Configuraciones del proyecto ------------------------------------
+		$sql[] = 'ALTER TABLE apex_proyecto ADD COLUMN item_pre_sesion_popup smallint NULL';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD COLUMN navegacion_ajax smallint NULL';
+		
+		//--------------------------- Fuentes de datos ------------------------------------
+		$sql[] = 'ALTER TABLE apex_fuente_datos ADD COLUMN tiene_auditoria smallint NOT NULL default 0';
+		$sql[] = 'ALTER TABLE apex_fuente_datos ADD COLUMN parsea_errores smallint NOT NULL default 0';
+
+		//--------------------------- Botonera del item ------------------------------------
+		$sql[] = 'ALTER TABLE  apex_objeto_mt_me ADD COLUMN botonera_barra_item smallint NULL';
+		
+		//--------------------------- Template ------------------------------------
+		$sql[] = 'ALTER TABLE  apex_objeto_ci_pantalla  ADD COLUMN template VARCHAR NULL';
+		$sql[] = 'ALTER TABLE  apex_objeto_ut_formulario  ADD COLUMN template VARCHAR NULL';
+		 
+		$this->elemento->get_db()->ejecutar($sql);		
 	}
 
 	/**

@@ -194,7 +194,7 @@ class comando_instalacion extends comando_toba
 		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
 		if (toba_manejador_archivos::es_windows()) {		
 			$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
-			$this->consola->mensaje("1) Agregue al archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+			$this->consola->mensaje("1) Agregar al archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
 			$this->consola->mensaje("");
 			$this->consola->mensaje("     Include \"$toba_conf\"");;
 		} else {
@@ -204,7 +204,7 @@ class comando_instalacion extends comando_toba
 		}
 		$this->consola->mensaje("");
 		$url = $instancia->get_proyecto('toba_editor')->get_url();
-		$this->consola->mensaje("Reinicie el servicio apache e ingrese al framework navegando hacia ");
+		$this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
 		$this->consola->mensaje("");
 		$this->consola->mensaje("     http://localhost$url");		
 		$this->consola->mensaje("");

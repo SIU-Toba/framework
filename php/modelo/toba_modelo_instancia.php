@@ -1326,6 +1326,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$rs = $this->get_db()->consultar_fila( $sql );
 		toba_logger::instancia()->var_dump($rs);	
 		$rev = (! empty($rs)) ? $rs['rev']  : 0;
+		if (! isset($rev)) {
+			$rev = 0;
+		}
 		return $rev;
 	}
 }

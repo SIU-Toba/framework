@@ -1864,14 +1864,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$svn = new toba_svn();
 		$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
 		$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
-		if (! empty($revisiones)){
+		if (! empty($revisiones) && $max_rev != 0){
 			foreach($revisiones as $revision){
 				if ($max_rev < $revision['revision'] && $revision['kind'] != 'dir') {
 					$msg = "PROYECTO '{$this->identificador}': \n El archivo '{$revision['path']}'  ".
 					"\n tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
 					"instancia. \n Se recomiendan los siguientes pasos: \n \n".
-					" * Revert a '$max_rev'  \n * Exportación de proyecto \n * Actualización SVN \n".
-					" * Regeneración de proyecto";
+					" * Update a '$max_rev'(svn update -r $max_rev)\n".
+					" * Exportación de proyecto (toba proyecto exportar)\n".
+					" * Actualización SVN (svn update)\n".
+					" * Regeneración de proyecto (toba proyecto regenerar)";
 					throw new toba_error($msg);
 				}
 				$this->manejador_interface->progreso_avanzar();
