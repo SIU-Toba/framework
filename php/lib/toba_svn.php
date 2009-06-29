@@ -182,13 +182,18 @@ class toba_svn
 
 	function get_revisiones_dir_recursivos($path)
 	{
-		$cmd = "svn info \"$path\"  -R --xml";
-		$xml = simplexml_load_string(`$cmd`);
 		$revs = array();
-		if ($xml !== false){
-			foreach($xml->entry as $entrada) {
-				$revs[] = $entrada->attributes();
+		$cmd = "svn info \"$path\"  -R --xml";
+		try{
+			$xml = $this->ejecutar($cmd, true, true);
+			$xml = simplexml_load_string($xml);
+			if ($xml !== false){
+				foreach($xml->entry as $entrada) {
+					$revs[] = $entrada->attributes();
+				}
 			}
+		} catch(toba_error $e) {
+			toba::logger()->debug("SVN: ". $e->getMessage());
 		}
 		return $revs;
 	}

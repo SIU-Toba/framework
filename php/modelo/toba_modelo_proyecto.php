@@ -247,7 +247,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//-----------------------------------------------------------
 
 	/**
-	 * Exporta la información exclusiva de la implementación, es decir perfiles, usuarios, logs ,etc. 
+	 * Exporta la informaciï¿½n exclusiva de la implementaciï¿½n, es decir perfiles, usuarios, logs ,etc. 
 	 */
 	function exportar_implementacion()
 	{
@@ -258,7 +258,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function exportar()
 	{
 		toba_logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
-		$this->manejador_interface->titulo( "Exportación PROYECTO {$this->identificador}" );		
+		$this->manejador_interface->titulo( "Exportaciï¿½n PROYECTO {$this->identificador}" );		
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
@@ -664,14 +664,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db);
 			if (! empty($errores)) {
-				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
-				$msg .= " A continuación el detalle:";
+				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operaciï¿½n, restricciï¿½n o derecho ha dejado de existir en '{$this->identificador}'.";
+				$msg .= " A continuaciï¿½n el detalle:";
 				$this->manejador_interface->separador();
 				$this->manejador_interface->error($msg);
 				foreach ($errores as $error) {
 					$this->manejador_interface->error($error['msg_motor']);
 				}
-				$this->manejador_interface->error('De todas formas se continúa la carga, se recomienda revisar la definición de este perfil.');
+				$this->manejador_interface->error('De todas formas se continï¿½a la carga, se recomienda revisar la definiciï¿½n de este perfil.');
 				$this->manejador_interface->separador();
 				$todos_errores = array_merge($todos_errores, $errores);
 			}
@@ -1324,7 +1324,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
-	*  Retorna el grupo de acceso que será el predeterminado del usuario administrador en la instalación 
+	*  Retorna el grupo de acceso que serï¿½ el predeterminado del usuario administrador en la instalaciï¿½n 
 	*/
 	function get_grupo_acceso_admin()
 	{
@@ -1356,7 +1356,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! is_array($perfil_datos)) {
 			if (is_null($perfil_datos)) {
 				$perfil_datos = array();
-			} elseif ($perfil_datos == 'NULL') {	//Compatibilidad hacia atras, así se enviaba antes
+			} elseif ($perfil_datos == 'NULL') {	//Compatibilidad hacia atras, asï¿½ se enviaba antes
 				$perfil_datos = array();
 			} else {
 				$perfil_datos = array($perfil_datos);
@@ -1386,9 +1386,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function actualizar_login($pisar_anterior = false)
 	{
-		//--- ¿Existe el proyecto editor?
+		//--- ï¿½Existe el proyecto editor?
 		if (! $this->instancia->existen_metadatos_proyecto( toba_editor::get_id() )) {
-			$msg = "No se crea la operación de login porque el proyecto editor no está cargado en la instancia";
+			$msg = "No se crea la operaciï¿½n de login porque el proyecto editor no estï¿½ cargado en la instancia";
 			toba_logger::instancia()->info($msg);
 			$this->manejador_interface->error($msg);
 			return;
@@ -1433,7 +1433,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		
 		//--- Borrar el item viejo
 		if ($pisar_anterior) {
-			$this->manejador_interface->mensaje( "Aun no está implementada la eliminación desde consola");
+			$this->manejador_interface->mensaje( "Aun no estï¿½ implementada la eliminaciï¿½n desde consola");
 		}		
 	}
 
@@ -1451,12 +1451,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function migrar_version($version)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
-			toba_logger::instancia()->debug("Migrando proyecto {$this->identificador} a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("Migrando proyecto {$this->identificador} a la versiï¿½n ".$version->__toString());
 			$this->manejador_interface->mensaje("Migrando proyecto '{$this->identificador}'");
 			$version->ejecutar_migracion('proyecto', $this, null, $this->manejador_interface);
 			$this->actualizar_campo_version($version);
 		} else {
-			toba_logger::instancia()->debug("El proyecto {$this->identificador} no necesita migrar a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("El proyecto {$this->identificador} no necesita migrar a la versiï¿½n ".$version->__toString());
 		}
 	}
 	
@@ -1468,7 +1468,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
-	 * Retorna el número de versión propio del proyecto
+	 * Retorna el nï¿½mero de versiï¿½n propio del proyecto
 	 * @return toba_version
 	 */
 	function get_version_proyecto()
@@ -1490,7 +1490,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 	
 	/**
-	 * Retorna la versión de TOBA con la cual fue cargado el proyecto en la instancia  
+	 * Retorna la versiï¿½n de TOBA con la cual fue cargado el proyecto en la instancia  
 	 * @return toba_version
 	 */
 	function get_version_actual()
@@ -1532,7 +1532,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$nombre_ini = 'proyecto.ini';
 		$path_ini = $this->get_dir().'/'.$nombre_ini;
 		if (! file_exists($path_ini)) {
-			throw new toba_error("Para crear el paquete de instalación debe existir el archivo '$nombre_ini' en la raiz del proyecto");
+			throw new toba_error("Para crear el paquete de instalaciï¿½n debe existir el archivo '$nombre_ini' en la raiz del proyecto");
 		}
 		chdir(toba_dir());
 		$ini = new toba_ini($path_ini);
@@ -1549,7 +1549,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_destino']}' no es un directorio valido");
 			}
 			if (! toba_manejador_archivos::es_directorio_vacio($empaquetado['path_destino'])) {
-				//-- Existe la carpeta y no está vacia, se borra?
+				//-- Existe la carpeta y no estï¿½ vacia, se borra?
 				if ($this->manejador_interface->dialogo_simple("La carpeta destino '{$empaquetado['path_destino']}' no esta vacia. Desea borrarla?", 's')) {
 					toba_manejador_archivos::eliminar_directorio($empaquetado['path_destino']);
 					$crear_carpeta = true;
@@ -1583,7 +1583,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 														$excepciones, $this->manejador_interface, false);
 		$this->manejador_interface->progreso_fin();
 		
-		//--- Empaqueta el núcleo de toba y lo deja en destino
+		//--- Empaqueta el nï¿½cleo de toba y lo deja en destino
 		$this->manejador_interface->mensaje("Copiando framework", false);	
 		$librerias = array();
 		$proyectos = array();
@@ -1624,7 +1624,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	protected function empaquetar_proyecto($destino, $excepciones)
 	{
 		$origen = $this->get_dir();		
-		//-- Los metadatos no se envian ya que son incluidos en la distribución del framework
+		//-- Los metadatos no se envian ya que son incluidos en la distribuciï¿½n del framework
 		//$excepciones[] = $origen.'/metadatos';
 		
 		toba_manejador_archivos::crear_arbol_directorios($destino);
@@ -1647,7 +1647,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//-----------------------------------------------------------	
 
 	/**
-	 * Ejecuta un script de instalación propio del proyecto
+	 * Ejecuta un script de instalaciï¿½n propio del proyecto
 	 */
 	function instalar()
 	{
@@ -1662,7 +1662,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
-	 * Ejecuta un script de desinstalación propio del proyecto
+	 * Ejecuta un script de desinstalaciï¿½n propio del proyecto
 	 */	
 	function desinstalar()
 	{
@@ -1693,8 +1693,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//-----------------------------------------------------------
 	
 	/**
-	*	Devuelve la lista de proyectos existentes en la carpeta por defecto de la instalación
-	* 	Es posible que existan proyectos en otros lugares del sistema de archivos y no se listen con este método
+	*	Devuelve la lista de proyectos existentes en la carpeta por defecto de la instalaciï¿½n
+	* 	Es posible que existan proyectos en otros lugares del sistema de archivos y no se listen con este mï¿½todo
 	* 	@return array Arreglo asociativo path relativo => id proyecto
 	*/
 	static function get_lista()
@@ -1860,23 +1860,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function chequear_actualizacion_prematura()
 	{
-		$this->manejador_interface->mensaje('Verificando Exportación Factible Proyecto '. $this->identificador, false);
+		$this->manejador_interface->mensaje("Verificando Exportación Factible Proyecto {$this->identificador} ", false);
 		$svn = new toba_svn();
-		$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
-		$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
-		if (! empty($revisiones) && $max_rev != 0){
-			foreach($revisiones as $revision){
-				if ($max_rev < $revision['revision'] && $revision['kind'] != 'dir') {
-					$msg = "PROYECTO '{$this->identificador}': \n El archivo '{$revision['path']}'  ".
-					"\n tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
-					"instancia. \n Se recomiendan los siguientes pasos: \n \n".
-					" * Update a '$max_rev'(svn update -r $max_rev)\n".
-					" * Exportación de proyecto (toba proyecto exportar)\n".
-					" * Actualización SVN (svn update)\n".
-					" * Regeneración de proyecto (toba proyecto regenerar)";
-					throw new toba_error($msg);
+		if ($svn->hay_cliente_svn()) {
+			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
+			$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
+			if (! empty($revisiones) && $max_rev != 0){
+				foreach($revisiones as $revision){
+					if ($max_rev < $revision['revision'] && $revision['kind'] != 'dir') {
+						$msg = "PROYECTO '{$this->identificador}': \n El archivo '{$revision['path']}'  ".
+						"\n tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
+						"instancia. \n Se recomiendan los siguientes pasos: \n \n".
+						" * Update a '$max_rev'(svn update -r $max_rev)\n".
+						" * Exportación de proyecto (toba proyecto exportar)\n".
+						" * Actualización SVN (svn update)\n".
+						" * Regeneración de proyecto (toba proyecto regenerar)";
+						throw new toba_error($msg);
+					}
+					$this->manejador_interface->progreso_avanzar();
 				}
-				$this->manejador_interface->progreso_avanzar();
 			}
 		}
 		$this->manejador_interface->progreso_fin();
@@ -1885,19 +1887,21 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function generar_estado_codigo()
 	{
 		//Esto solo funciona si se dispara luego del commit sino no sirve ni pa chonga.
-		$this->manejador_interface->mensaje('Generando Verificación Proyecto '. $this->identificador , false);
+		$this->manejador_interface->mensaje("Generando Verificación Proyecto {$this->identificador} " , false);
 		$svn = new toba_svn();
-		$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
-		$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
-		if (! empty($revisiones)) {
-			foreach($revisiones as $revision) {
-				if ($max_rev < $revision['revision']) {
-					$max_rev = $revision['revision'];
-				}				
+		if ($svn->hay_cliente_svn()) {
+			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
+			$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
+			if (! empty($revisiones)) {
+				foreach($revisiones as $revision) {
+					if ($max_rev < $revision['revision']) {
+						$max_rev = $revision['revision'];
+					}
+				}
+				$this->manejador_interface->progreso_avanzar();		
+				$this->instancia->set_revision_proyecto($this->identificador, $max_rev);
 			}
-			$this->manejador_interface->progreso_avanzar();
 		}
-		$this->instancia->set_revision_proyecto($this->identificador, $max_rev);
 		$this->manejador_interface->progreso_fin();
 	}
 
