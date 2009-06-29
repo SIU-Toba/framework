@@ -589,11 +589,11 @@ class toba_datos_relacion extends toba_componente
 	{
 		$hay_cambios = false;
 		foreach ($this->_dependencias as $dependencia) {
-			if (!$hay_cambios && $dependencia->hay_cambios()) {
-				$hay_cambios = true;
+			if ($dependencia->hay_cambios()) {
+				return true;
 			}
 		}
-		return $hay_cambios;
+		return false;
 	}
 
 	function get_columnas_tabla_padre($datos)

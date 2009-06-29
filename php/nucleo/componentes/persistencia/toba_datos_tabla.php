@@ -1751,6 +1751,10 @@ class toba_datos_tabla extends toba_componente
 	function hay_cambios()
 	{
 		if ($this->get_cantidad_filas_a_sincronizar() > 0) {
+			$altas_bajas = $this->get_id_filas_a_sincronizar(array('d','i'));
+			if (! empty($altas_bajas)) {
+				return true;
+			}
 			foreach ($this->get_id_filas_a_sincronizar(array('u')) as $id_fila) {
 				if ($this->hay_cambios_fila($id_fila)) {
 					return true;

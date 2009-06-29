@@ -175,7 +175,7 @@ abstract class toba_ef_seleccion extends toba_ef
 		//Busca los valores disponibles en el ef global
 		$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(false));
 		//toba::logger()->info("Cotejando $seleccion en ".$this->clave_memoria(false)." contra ".var_export($disponibles, true));
-		if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
+		if ($seleccion != apex_ef_no_seteado && (!isset($disponibles) || ! in_array($seleccion, $disponibles))) {
 			//Busca los valores disponibles en la fila actual
 			$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
 			if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
