@@ -7,6 +7,12 @@ class ci_editor extends toba_ci
 	protected $s__proyecto;
 	protected $s__usuario;
 
+	
+	function ini()
+	{
+		toba::solicitud()->set_autocomplete(false);	//Evita que el browser quiera guardar la clave de usuario
+	}
+	
 	function datos($tabla)
 	{
 		return	$this->controlador->dep('datos')->tabla($tabla);

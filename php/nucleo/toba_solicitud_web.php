@@ -14,6 +14,7 @@ class toba_solicitud_web extends toba_solicitud
 	protected $cis;
 	protected $cn;
 	protected $tipo_pagina;
+	protected $autocomplete = true;
 	
 	function __construct($info)
 	{
@@ -222,7 +223,11 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Abre el formulario
 		$accion = $this->info['basica']['item_act_accion_script'];
 		if ($accion == '') {
-			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), "onsubmit='return false;'");
+			$extra = "onsubmit='return false;'";
+			if (! $this->autocomplete) {
+				$extra .= " autocomplete='off'";
+			}
+			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), $extra);
 			
 			//HTML
 			foreach ($objetos as $obj) {
@@ -440,6 +445,15 @@ class toba_solicitud_web extends toba_solicitud
 															toba::manejador_sesiones()->get_id_sesion(),
 															$_SERVER['REMOTE_ADDR']);
 		}
+ 	}
+ 	
+ 	
+ 	/**
+ 	 * Indica si la operacion actual permite auto 
+ 	 */
+ 	function set_autocomplete($set)
+ 	{
+ 		$this->autocomplete = $set;
  	}
 
 	//----------------------------------------------------------
