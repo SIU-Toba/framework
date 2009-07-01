@@ -57,6 +57,9 @@ class toba_parser_ayuda
 		$url_base = '';
 		if (isset($proyecto)) {
 			$url_base .= toba::instancia()->get_url_proyecto($proyecto).'/';
+			if ($proyecto == 'toba_editor') {
+				$url_base .= 'doc/wiki/trac/toba/wiki/';	//Hack para evitar tener que armar un esquema mucho mas complicado para manejar el caso de usar doc toba desde distintos lados
+			}			
 		} else {
 			$url_base .= toba::proyecto()->get_parametro('proyecto', 'url_ayuda');
 		}
