@@ -227,6 +227,7 @@ class toba_auditoria_tablas_postgres
 	   $sql .= "auditoria_usuario varchar(30), 
 	   			auditoria_fecha timestamp, 
 	   			auditoria_operacion char(1),
+	   			auditoria_id_solicitud integer,
 	   	"; 		   
 		foreach ($campos as $campo => $def) {
 			if ($def['tipo_sql'] != 'bytea') {

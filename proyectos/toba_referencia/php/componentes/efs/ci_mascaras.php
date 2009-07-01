@@ -8,7 +8,7 @@ class ci_mascaras extends toba_ci
 
 	function ini()
 	{
-		if (! isset($this->datos)) {	
+		if (! isset($this->s__datos)) {	
 			$this->s__datos = array(
 						'numero_sin' => '123456.789',
 						'fecha_sin' => '2006-10-26',
