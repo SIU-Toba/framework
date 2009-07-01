@@ -271,7 +271,8 @@ class toba_solicitud_web extends toba_solicitud
 			$this->zona->generar_html_barra_inferior();
 		}
 		//--- Muestra la cola de mensajes
-		toba::notificacion()->mostrar();		
+		toba::notificacion()->mostrar();
+		$this->generar_analizador_estadistico();
        	$this->tipo_pagina()->pie();
 	}
 	
@@ -388,7 +389,8 @@ class toba_solicitud_web extends toba_solicitud
 			toba::logger()->error($e, 'toba');
 			toba::notificacion()->error($e->getMessage());
 		}
-		toba::notificacion()->mostrar(false);		
+		$this->generar_analizador_estadistico();
+		toba::notificacion()->mostrar(false);
 	}
 	
 	/**
@@ -455,6 +457,26 @@ class toba_solicitud_web extends toba_solicitud
  	{
  		$this->autocomplete = $set;
  	}
+
+	function generar_analizador_estadistico()
+	{
+		echo toba_js::incluir(toba_recurso::js('basicos/google_analytics.js'));
+		echo toba_js::abrir();
+
+		//Aca deberia sacar el codigo de Google Analytics
+		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
+		if (! is_null($cod_ga) && $cod_ga != '') {
+			echo "estadista.set_codigo('$cod_ga');";
+		}
+
+		echo "estadista.iniciar(); \n";
+		$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
+		if ($ventana != 0) {
+			$ventana *= 60; //$ventana esta en minutos y necesito segundos
+			echo "estadistica.set_timeout('$ventana'); \n";
+		}
+		echo toba_js::cerrar();
+	}
 
 	//----------------------------------------------------------
 	//---------------------- TIPO de PAGINA --------------------

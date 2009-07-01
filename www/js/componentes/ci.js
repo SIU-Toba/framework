@@ -112,6 +112,9 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 		if (this._evento.id !== '') {
 			document.getElementById(this._input_submit).value = this._evento.id;
 			document.getElementById(this._input_submit + "__param").value = this._evento.parametros;
+			//Configuro un par de parametros para Google Analytics
+			estadista.add_evento(this._evento.id);
+			estadista.add_categoria('submit');
 		}
 	};
 	

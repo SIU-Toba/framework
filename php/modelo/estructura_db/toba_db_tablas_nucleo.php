@@ -104,6 +104,7 @@ class toba_db_tablas_nucleo
     47 => 'version_link',
     48 => 'tiempo_espera_ms',
     49 => 'navegacion_ajax',
+    50 => 'codigo_ga_tracker',
   ),
 );
 	}
@@ -210,11 +211,11 @@ class toba_db_tablas_nucleo
     10 => 'instancia_id',
     11 => 'administrador',
     12 => 'link_instancia',
-    13 => 'usuario',
-    14 => 'clave',
-    15 => 'base',
-    16 => 'tiene_auditoria',
-    17 => 'parsea_errores',
+    13 => 'tiene_auditoria',
+    14 => 'parsea_errores',
+    15 => 'usuario',
+    16 => 'clave',
+    17 => 'base',
   ),
 );
 	}

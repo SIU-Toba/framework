@@ -119,6 +119,12 @@ class toba_migracion_1_4_0 extends toba_migracion
 		//--------------------------- Template ------------------------------------
 		$sql[] = 'ALTER TABLE  apex_objeto_ci_pantalla  ADD COLUMN template VARCHAR NULL';
 		$sql[] = 'ALTER TABLE  apex_objeto_ut_formulario  ADD COLUMN template VARCHAR NULL';
+
+		//-------------Se agrega columna para verificar la exportacion/importacion de metadatos----------
+		$sql[] = 'ALTER TABLE apex_revision ADD COLUMN proyecto VARCHAR(15);';
+
+		 //--------------------------- Configuraciones del proyecto ------------------------------------
+		 $sql[] = 'ALTER TABLE apex_proyecto ADD COLUMN codigo_ga_tracker VARCHAR(20) NULL;';
 		 
 		$this->elemento->get_db()->ejecutar($sql);		
 	}

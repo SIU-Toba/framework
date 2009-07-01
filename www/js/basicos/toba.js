@@ -127,6 +127,7 @@ toba = new function() {
 	 * @see #set_ajax
 	 */
 	toba.comunicar_eventos = function() {
+		estadista.trace();	//Llamada para Google Analytics
 		if (this._ajax && ! this._hay_uploads()) {
 			//Por ahora si hay uploads, usa el metodo convencional ya que los bugs son varios
 			var callback =
@@ -190,6 +191,11 @@ toba = new function() {
 	 * @param {boolean} es_zona Indica si propaga la zona actualmente cargada (si la hay)
 	 */
 	toba.ir_a_operacion = function(proyecto, operacion, es_popup, es_zona) {
+		//Parametros para Google Analytics
+		estadista.add_categoria('Cambio Operacion');
+		estadista.add_operacion(operacion);
+		estadista.trace();
+
 		if (this._menu_popup) {
 			es_popup = true;
 		}	
