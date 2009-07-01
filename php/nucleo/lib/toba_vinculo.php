@@ -19,9 +19,7 @@ class toba_vinculo
 
 	function __construct($proyecto=null, $item=null, $popup=null, $opciones_popup=null)
 	{
-		if(isset($proyecto)&&isset($item)){
-			$this->set_item($proyecto, $item);	
-		}
+		$this->set_item($proyecto, $item);	
 		if(! is_null($popup) && $popup) {
 			$this->activar_popup();
 		}

@@ -264,14 +264,14 @@ class toba_solicitud_web extends toba_solicitud
 		// Carga de componentes JS genericos
 		echo toba_js::abrir();
 		toba::vinculador()->generar_js();
+		toba::notificacion()->mostrar(false);
+		toba::acciones_js()->generar_js();
 		echo toba_js::cerrar();
 		
 		//--- Parte inferior de la zona
 		if ($this->hay_zona() &&  $this->zona->cargada()) {
 			$this->zona->generar_html_barra_inferior();
 		}
-		//--- Muestra la cola de mensajes
-		toba::notificacion()->mostrar();
 		$this->generar_analizador_estadistico();
        	$this->tipo_pagina()->pie();
 	}
@@ -372,10 +372,8 @@ class toba_solicitud_web extends toba_solicitud
 		echo "[--toba--]";
 				
 		//--- Se envia el javascript
-		//Se actualiza el prefijo de los vinculos
-		$autovinculo = toba::vinculador()->get_url();
-		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
+		$autovinculo = toba::vinculador()->get_url();
 		echo "document.formulario_toba.action='$autovinculo'\n";
 		toba::vinculador()->generar_js();
 		toba_js::cargar_definiciones_runtime();
@@ -391,6 +389,7 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		$this->generar_analizador_estadistico();
 		toba::notificacion()->mostrar(false);
+		toba::acciones_js()->generar_js();
 	}
 	
 	/**

@@ -335,5 +335,14 @@ class toba
 		}
 		return self::$consultas_php[$clase];
 	}
+	
+	/**
+	 * Retorna un objeto capaz de encolar llamadas javascript
+	 * @return toba_acciones_js
+	 */
+	static function acciones_js()
+	{
+		return toba_acciones_js::instancia();
+	}
 }
 ?>

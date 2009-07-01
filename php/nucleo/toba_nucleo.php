@@ -642,6 +642,7 @@ class toba_nucleo
  			'toba_clase_php' 						=> 'lib/reflexion/toba_clase_php.php',
  			'toba_fecha' 							=> 'lib/toba_fecha.php',
  			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php',
+		 	'toba_acciones_js'						=> 'nucleo/lib/toba_acciones_js.php',
  			//------------- Editor de restricciones funcionales -----------------------------
 			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               
 			'toba_rf_ci'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ci.php',               
