@@ -12,11 +12,13 @@
 		//Unicamente informo si hubo un update prematuro, osea si salta la excepcion
 		try {
 			$proy->chequear_actualizacion_prematura();
-		} catch(toba_error $e) {
+		} catch(toba_error_def $e) {
 			//Hubo update prematuro
 			$msg = $e->getMessage();
 			$ajx_response->set($msg);
 			$ajx_response->comunicar();
+		} catch(toba_error $e) {
+			
 		}
 	}
 ?>

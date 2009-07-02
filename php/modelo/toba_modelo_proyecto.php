@@ -1860,7 +1860,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function chequear_actualizacion_prematura()
 	{
-		$this->manejador_interface->mensaje("Verificando Exportación Factible Proyecto {$this->identificador} ", false);
+		$this->manejador_interface->mensaje("Calculando revisiones {$this->identificador} ", false);
 		$svn = new toba_svn();
 		if ($svn->hay_cliente_svn()) {
 			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
@@ -1868,14 +1868,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			if (! empty($revisiones) && $max_rev != 0){
 				foreach($revisiones as $revision){
 					if ($max_rev < $revision['revision'] && $revision['kind'] != 'dir') {
-						$msg = "PROYECTO '{$this->identificador}': \n El archivo '{$revision['path']}'  ".
-						"\n tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
-						"instancia. \n Se recomiendan los siguientes pasos: \n \n".
-						" * Update a '$max_rev'(svn update -r $max_rev)\n".
+						$msg = "PROYECTO {$this->identificador}: \n El archivo de metadatos '{$revision['archivo']}' ".
+						"tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
+						"instancia.\n\n Si desea preservar las modificaciones locales se recomiendan los siguientes pasos: \n \n".
+						" * Update a revisión '$max_rev' (svn update -r $max_rev)\n".
 						" * Exportación de proyecto (toba proyecto exportar)\n".
 						" * Actualización SVN (svn update)\n".
-						" * Regeneración de proyecto (toba proyecto regenerar)";
-						throw new toba_error($msg);
+						" * Regeneración de proyecto (toba proyecto regenerar)\n\n".
+						"Si en cambio quiere descartar los posibles cambios locales simplemente regenere el proyecto (toba proyecto regenerar)\n\n".
+						"Este mensaje tiene como objetivo prevenir que se edite el proyecto sin antes haber sincronizado el trabajo del resto del equipo.";
+						throw new toba_error_def($msg);
 					}
 					$this->manejador_interface->progreso_avanzar();
 				}
@@ -1887,7 +1889,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function generar_estado_codigo()
 	{
 		//Esto solo funciona si se dispara luego del commit sino no sirve ni pa chonga.
-		$this->manejador_interface->mensaje("Generando Verificación Proyecto {$this->identificador} " , false);
+		$this->manejador_interface->mensaje("Calculando revisiones {$this->identificador} " , false);
 		$svn = new toba_svn();
 		if ($svn->hay_cliente_svn()) {
 			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());

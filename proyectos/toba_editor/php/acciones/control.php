@@ -39,11 +39,12 @@
 	{
 		var msg_concreto = toba.analizar_respuesta_servicio(msg);
 		if (msg_concreto != '') {
+			notificacion.limpiar();
 			notificacion.agregar(msg_concreto, null);
 			notificacion.ventana_alert(msg_concreto);
-		} else {	//Realizo un loop para que se ajuste el timer nuevamente
-				<?php echo $chequeador;?>
-		}
+		}	
+		//Realizo un loop para que se ajuste el timer nuevamente
+		<?php echo $chequeador;?>
 	}
 	<?php echo $chequeador;?>
 </SCRIPT>
