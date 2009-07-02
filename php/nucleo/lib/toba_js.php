@@ -18,7 +18,7 @@ class toba_js
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 'basicos/yahoo',
 						'basicos/comunicacion_server', 'basicos/notificacion',
-						'basicos/vinculador');
+						'basicos/vinculador', 'basicos/google_analytics');
 	
 	/**
 	 * @return toba_js
