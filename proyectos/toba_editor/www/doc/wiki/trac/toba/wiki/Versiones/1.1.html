@@ -284,7 +284,7 @@ Existen una nueva forma de crear una operación completa seleccionando un modelo
 </li><li>Los proyectos se pueden mantener en un path relativo a la instalacion
 </li><li>Mejoras a la capacidad de merge automático a la exportación SQL de metadatos.
 </li><li>Tenemos un nuevo logo!
-<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.1.0/icono_32.html"><img src="../../attachment/wiki/Versiones/1.1.0/icono_3241f0.html?format=raw" style="float:top" /></a>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.1.0/icono_32.html"><img src="../../attachment/wiki/Versiones/1.1.0/icono_3241f0.png?format=raw" style="float:top" /></a>
 </li></ul><h2 id="MigraciónManual">Migración Manual</h2>
 <ul><li>Cambio de un metodo de la api de los componentes de datos: <tt>esta_cargado()</tt> se cambia por <tt>esta_cargada()</tt>
 </li><li><tt>vinculador::crear_vinculo</tt> se cambia por <tt>vinculador::get_url</tt> tanto en php como js (se mantiene la compat. hacia atrás). También se hace una pequeña modificación al comportamiento de la zona. Antes no se propagaba el editable entre dos operaciones con igual zona excepto que se explicite, actualmente el editable se pasa excepto entrada por el menú. Si alguna operación confiaba en que la zona se descaraba en base a un vínculo común, ahora debe pasar como 4to parámetros <tt>array('zona'=&gt;false)</tt> o descargarla manualmente.
