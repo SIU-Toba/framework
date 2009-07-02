@@ -187,11 +187,16 @@ class toba_svn
 		try{
 			$xml = $this->ejecutar($cmd, true, true);
 			$xml = simplexml_load_string($xml);
-			if ($xml !== false){
+			if ($xml !== false){				
 				foreach($xml->entry as $entrada) {
-					$revs[] = $entrada->attributes();
+					$aux_entrada = $entrada->attributes();
+					$aux_revision = $entrada->commit->attributes();
+					$revs[] = array('kind' => $aux_entrada['kind'], 'archivo' => $aux_entrada['path'], 'revision' => $aux_revision['revision']);
+					unset($aux_entrada);
+					unset($aux_revision);
 				}
 			}
+			//toba::logger()->var_dump($revs);
 		} catch(toba_error $e) {
 			toba::logger()->debug("SVN: ". $e->getMessage());
 		}
