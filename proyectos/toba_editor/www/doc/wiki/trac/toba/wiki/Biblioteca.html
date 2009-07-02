@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Biblioteca - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Biblioteca?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Biblioteca - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://localhost/trac/toba/wiki/Biblioteca?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../wiki.html">Start Page</a></li>
    <li><a href="TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Biblioteca?action=diff&amp;version=66">Last Change</a></li>
+   <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Biblioteca?action=diff&amp;version=70">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,7 +235,10 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="Biblioteca">Biblioteca</h1>
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / Biblioteca
+</p>
+<h1 id="Biblioteca">Biblioteca</h1>
 <p>
 Se listan lecturas vistas al pasar que parecen interesantes:
 </p>
@@ -212,6 +281,8 @@ Se listan lecturas vistas al pasar que parecen interesantes:
 </li></ul></li><li><a class="ext-link" href="../../../external.html?link=http://www.php.net/UPDATE_5_2.txt"><span class="icon">Migración a PHP 5.2</span></a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.roscripts.com/PHP_regular_expressions_examples-136.html"><span class="icon">Expresiones Regulares en PHP</span></a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://laughingmeme.org/2007/02/27/looking-at-php5s-datetime-and-datetimezone/"><span class="icon">PHP 5.2 DateTime class</span></a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://blog.liip.ch/archive/2009/03/31/upload-progress-meter-common-issues-and-some-answers.html"><span class="icon">Upload Progress Meter</span></a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://blog.centresource.com/2006/05/23/php-session-lifetime-an-adventure/"><span class="icon">Duración de la sesión PHP</span></a>
 </li></ul><h2 id="Lenguajes">Lenguajes</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://www.mindview.net/WebLog/log-0025"><span class="icon">Strong Typing vs. Strong Testing</span></a>.
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.agiledata.org/essays/concurrencyControl.html"><span class="icon">Introduction to Concurrency Control</span></a>
@@ -228,6 +299,7 @@ Se listan lecturas vistas al pasar que parecen interesantes:
 <ul><li><a class="ext-link" href="../../../external.html?link=http://www.xtec.net/~acastan/textos/Administracion%20de%20MySQL.html"><span class="icon">Administración de MySQL</span></a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.powerpostgresql.com/Downloads/annotated_conf_80.html"><span class="icon">Configuración de postgresql 8 con comentarios</span></a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.lugli.org.ar/mediawiki/index.php?title=PostgreSQLyAuditoria&amp;printable=yes#PostgreSQL_y_Auditor.C3.ADa"><span class="icon">Tablas de auditorías</span></a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://www.revsys.com/writings/postgresql-performance.html"><span class="icon">Postgresql Performance</span></a>
 </li></ul><h2 id="Varios">Varios</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://www.dwheeler.com/oss_fs_why.html"><span class="icon">Why Open Source Software / Free Software</span></a>.
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.ancmyp.org.ar/espanol/anales/pdf/Anales%202003/Ciencias%20duras%20y%20ciencias%20blandas-Vanossi-2003.pdf"><span class="icon">Ciencias Duras vs. Ciencias Blandas</span></a>.
@@ -247,7 +319,7 @@ Se listan lecturas vistas al pasar que parecen interesantes:
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Biblioteca?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Biblioteca?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -256,16 +328,32 @@ Se listan lecturas vistas al pasar que parecen interesantes:
  <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.org/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = 'Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

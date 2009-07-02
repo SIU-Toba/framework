@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Instalacion - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Instalacion?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Instalacion - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../wiki.html">Start Page</a></li>
    <li><a href="TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Instalacion?action=diff&amp;version=137">Last Change</a></li>
+   <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?action=diff&amp;version=147">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,26 +235,34 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / Instalacion
+</p>
+<h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
+<p>
+Para todo lo que es soporte de instalación de Apache, PHP, Postgres y Linux utilizar el <a class="ext-link" href="../../../external.html?link=http://comunidad.siu.edu.ar/index.php?board=1.0"><span class="icon">foro del siu</span></a>.
+</p>
 <h2 id="GuíaRápidaWindows">Guía Rápida Windows</h2>
 <ol><li>Instalar <a class="ext-link" href="../../../external.html?link=http://apache.org/dyn/closer.cgi"><span class="icon">Apache</span></a>. <a class="ext-link" href="../../../external.html?link=http://www.apache.org/dist/httpd/binaries/win32/apache_2.2.11-win32-x86-openssl-0.9.8i.msi"><span class="icon">Instalador recomendado</span></a>.
-</li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon">PHP</span></a> versión 5.1.2 o superior. <a class="ext-link" href="../../../external.html?link=http://ar.php.net/get/php-5.2.5-win32-installer.msi/from/a/mirror"><span class="icon">Instalador recomendado</span></a> (No se recomienda usar versiones superiores a la 5.2.5 ya que tiene un <a class="ext-link" href="../../../external.html?link=http://bugs.php.net/bug.php?id=44905"><span class="icon">bug en el instalador</span></a>):
+</li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon">PHP</span></a> versión 5.1.2 o superior. <a href="../../../external.html?link=https://localhost/downloads/PHP/php-5.2.5-win32-installer.msi">Instalador recomendado</a> (No se recomienda usar versiones superiores a la 5.2.5 ya que tiene un <a class="ext-link" href="../../../external.html?link=http://bugs.php.net/bug.php?id=44905"><span class="icon">bug en el instalador</span></a>):
 <ul><li>Seleccionar el módulo <tt>apache 2.2</tt>
 </li><li>Indicar el directorio de configuración de Apache (generalmente <tt>C:\Archivos de Programa\Apache Software Foundation\Apache2.2\conf</tt>
 </li><li>No seleccionar todas las extensiones porque no funciona.
 </li><li>Seleccionar como mínimo la extensión <tt>PDO PostgreSQL</tt>.
 </li><li>En caso de que a futuro necesite instalar alguna otra extensión lo puede hacer desde Agregar/Quitar Programas del Panel de Control de Windows. No borrar el instalador .msi para poder reejecutarlo.
-</li></ul></li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon">PostgreSQL</span></a> superior o igual a versión 7.4.x y menor o igual a versión 8.2.x. <a class="ext-link" href="../../../external.html?link=http://wwwmaster.postgresql.org/download/mirrors-ftp?file=%2Fbinary%2Fv8.2.9%2Fwin32%2Fpostgresql-8.2.9-1.zip"><span class="icon">Instalador Recomendado</span></a>. En caso de usar la versión 8.3, asegurarse que el encoding del cluster sea 'C' o 'LATIN1', de lo contrario la instalación se deberá hacer manualmente indicando el encoding del cluster en bases.ini.
-</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon">Subversion</span></a> para poder utilizar el cliente de linea de comandos. Destildar la opción de instalar los módulos de apache, sólo son necesarios para instalar un servidor svn, no un cliente como este caso. <sup>(opcional)</sup>.
-</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.net/downloads"><span class="icon">TortoiseSVN</span></a> para poder utilizar el cliente integrado al explorador de windows <sup>(opcional)</sup>.
+</li></ul></li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon">PostgreSQL</span></a> superior o igual a versión 7.4.x <a class="ext-link" href="../../../external.html?link=http://wwwmaster.postgresql.org/download/mirrors-ftp?file=%2Fbinary%2Fv8.2.9%2Fwin32%2Fpostgresql-8.2.9-1.zip"><span class="icon">Instalador Recomendado</span></a>. 
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://www.sliksvn.com/en/download/"><span class="icon">Subversion</span></a> para poder utilizar el cliente de linea de comandos. Destildar la opción de instalar los módulos de apache, sólo son necesarios para instalar un servidor svn, no un cliente como este caso. <sup>(opcional)</sup>.
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.net/downloads"><span class="icon">TortoiseSVN</span></a> para poder utilizar el cliente integrado al explorador de windows. Tener en cuenta que la versión debe ser similar a la del cliente de línea de comandos <sup>(opcional)</sup>.
 </li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://www.graphviz.org/Download_windows.php"><span class="icon">Graphviz</span></a> para poder visualizar grafos en el editor <sup>(opcional)</sup>.
 </li><li>Reiniciar el servidor apache para terminar la instalación de php. Navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/"><span class="icon">http://localhost</span></a> verificando que apache funciona.
-</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon">Descomprimir o descargar</span></a> el código fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
+</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos.siu.edu.ar/trac/toba/wiki/Descargar"><span class="icon">Descargar</span></a> el código fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
 </li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones. Al finalizar la instalación no cerrar la ventana sin leer antes las instrucciones de cómo configurar apache. Una vez configurado reiniciar apache.
-</li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.2</i>
+</li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.3</i>
 </li><li>Para ejecutar el proyecto navegar hacia <i>http://localhost/miproyecto/1.0</i> (cambiar la url según el identificador que ha dado al proyecto).
 </li><li>Para poder utilizar la consola nuevamente (para exportar, importar, migrar proyecto, etc.) abrir una consola de windows (cmd.exe) y ejecutar
 <pre class="wiki">x:\path\a\toba\bin\toba.bat
+</pre>Por ejemplo para crear un nuevo proyecto ejecutar
+<pre class="wiki">x:\path\a\toba\bin\toba.bat proyecto crear -i desarrollo
 </pre></li></ol><h3 id="Alternativa:instalaciónmanualdeApache-PHP">Alternativa: instalación manual de Apache-PHP</h3>
 <p>
 En caso de instalación manual de Apache y PHP (utilizando el ZIP en lugar del instalador)
@@ -245,14 +319,14 @@ error_reporting  =  E_ALL      #Solo para desarrollo
 memory_limit = 128M
 post_max_size = 8 M
 upload_max_filesize = 8 M
-</pre></li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon">Descomprimir o bajar</span></a> el código fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
+</pre></li><li><a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">Descomprimir o bajar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
 </li><li>En caso que se haya descargado de un .zip, asignarle permisos de ejecución a los scripts de 'bin':
 <pre class="wiki">chmod +x ~/proyectos/toba/bin/*
 </pre></li><li>Ejecutar y seguir las instrucciones:
 <pre class="wiki">~/proyectos/toba/bin/instalar
 </pre></li><li>Tener en cuenta el esquema de permisos de UNIX. Apache necesita acceso a las carpeta <tt>www</tt> de Toba y del Proyecto. Si se quieren guardar los logs (opción por defecto) también necesita acceso de escritura a la carpeta <tt>instalacion</tt>. Existe una comando que acomoda los permisos luego de la instalacion y ejecución: (requiere ejecutarse como usuario privilegiado):
 <pre class="wiki">sudo ./bin/toba instalacion cambiar_permisos -u mi_usuario
-</pre></li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.2</i>
+</pre></li><li>Para editar el proyecto navegar hacia <i>http://localhost/toba_editor/1.3</i>
 </li><li>Para ejecutar el proyecto navegar hacia <i>http://localhost/miproyecto/1.0</i> (cambiar la url según el identificador que ha dado al proyecto).
 </li><li>Finalmente ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>
 </li></ol><h2 id="NotassobrePostgreSQL">Notas sobre PostgreSQL</h2>
@@ -260,7 +334,7 @@ upload_max_filesize = 8 M
 <pre class="wiki">host    all         all         127.0.0.1/32          trust
 </pre></li><li>Si se instala versión 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>. 
 </li><li>Desde la versión 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon">por defecto no permite más joins en forma implícita en los DELETES</span></a>, para la regeneración y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cláusula <tt>add_missing_from</tt> de la configuración de postgreSQL.
-</li></ul><h2 id="Alternativa:instalaciónmanualdeToba">Alternativa: instalación manual de Toba</h2>
+</li></ul><h2 id="Alternativa:instalaciónpasoapaso">Alternativa: instalación paso a paso</h2>
 <p>
 Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">codigo fuente</a> del toba, se puede ejecutar la instalación automática (instalar.bat) o ejecuta la siguiente lista de pasos equivalentes:
 </p>
@@ -282,7 +356,7 @@ Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerC
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Instalacion?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -291,16 +365,32 @@ Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerC
  <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.org/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = 'Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

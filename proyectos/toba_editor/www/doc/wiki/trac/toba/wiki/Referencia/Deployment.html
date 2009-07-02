@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Referencia/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?action=diff&amp;version=43">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?action=diff&amp;version=48">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,16 +235,23 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="Casosdeusodedeployment">Casos de uso de deployment</h1>
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Deployment
+</p>
+<h1 id="Casosdeusodedeployment">Casos de uso de deployment</h1>
 <p>
 Los siguientes escenarios asumen la existencia de un control de versiones para el proyecto e instalaciones remotas.
+</p>
+<h2 id="PasajeDesarrollo-Producciónusandoinstaladorgráfico">Pasaje Desarrollo - Producción (usando instalador gráfico)</h2>
+<p>
+Ver <strong><a class="wiki" href="Instalador.html">Generación del paquete</a></strong> de instalación para producción
 </p>
 <h2 id="PasajeDesarrollo-Producción">Pasaje Desarrollo - Producción</h2>
 <p>
 El escenario más común es tener una única instancia de desarrollo y actualizar otra instancia (generalmente Producción o Testing) de manera periódica. Este escenario puede describirse en cinco pasos:
 </p>
 <p>
-<a style="padding:0; border:none" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
+<a style="padding:0; border:none" href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
 </p>
 <ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estuvieron utilizando el Editor en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
@@ -196,16 +269,7 @@ El escenario más común es tener una única instancia de desarrollo y actualiza
 </li><li><i>Producción</i> - Actualización de la nueva revisión: El primer paso es actualizar el proyecto en cuestión, esto traerá los metadatos y el código actualizado.
 </li><li><i>Producción</i> - Regenerar la instancia: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar la instancia. Ante la pregunta <i>Desea EXPORTAR antes la informacion local de la INSTANCIA?</i> responder NO, sino se perderá la información de usuarios traida desde desarrollo:
 <pre class="wiki">toba instancia regenerar
-</pre></li></ol><h2 id="PasajeDesarrollo-Producciónusandoinstaladorgráfico">Pasaje Desarrollo - Producción (usando instalador gráfico)</h2>
-<ol><li><i>Desarrollo</i> - Descargar los fuentes del instalador en una carpeta al mismo nivel que toba. Por ejemplo si toba esta instalado en <tt>D:\proyectos\toba</tt>:
-<pre class="wiki">svn co http://desarrollos.siu.edu.ar/svn/toba/instalador/trunk d:\proyectos\instalador
-</pre></li><li><i>Desarrollo</i> - Por única vez copiar el archivo  <tt>d:\proyectos\instalador\ejemplo.proyecto.ini</tt> a la raiz del proyecto <tt>d:\proyectos\toba\proyectos\&lt;proyecto&gt;\proyecto.ini</tt> y ajustar las configuraciones
-</li><li><i>Desarrollo</i> - Ejecutar 
-<pre class="wiki">toba proyecto empaquetar -p &lt;proyecto&gt;
-</pre></li><li><i>Desarrollo</i> - El resultado del empaquetado queda en la carpeta <tt>d:\proyectos\instalador_&lt;proyecto&gt;</tt>. Comprimirlo y pasarlo a producción.
-</li><li><i>Producción</i> - Descomprimir el paquete en una carpeta navegable (ej. /var/www en debian o carpeta Apache htdocs en Windows)
-</li><li><i>Producción</i> - Navegar hacia <a class="ext-link" href="../../../../external.html?link=http://localhost/instalador"><span class="icon">http://localhost/instalador</span></a>_&lt;proyecto&gt;/&lt;version&gt; y seguir las instrucciones
-</li></ol><h2 id="ActualizacióndeToba">Actualización de Toba</h2>
+</pre></li></ol><h2 id="ActualizacióndeToba">Actualización de Toba</h2>
 <p>
 Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica regenerar la instancia.
 </p>
@@ -237,58 +301,12 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
 </p>
 <ul><li>En el include_path de PHP no debe estar incluído ninguna referencia a alguno de los toba instalados.
 </li></ul><ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicación de los mismos, además de setear el valor de las variables de entorno $toba_dir y $toba_instancia. El detalle de cómo crear estos ambientes se encuentra en la <a class="wiki" href="Consola.html">configuración de la consola</a>.
-</li></ul><ul><li>Además de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para el framework. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuración de Apache debería contener inicialmente estos alias:
-</li></ul><pre class="wiki">    Alias /toba_1 "d:/toba_1/www"
-    &lt;Directory "d:/toba_1/www/"&gt;
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-    &lt;/Directory&gt;
-
-    Alias /toba_2 "d:/toba_2/www"
-    &lt;Directory "d:/toba_2/www/"&gt;
-        SetEnv TOBA_DIR D:/toba_2
-        SetEnv TOBA_ALIAS toba_2
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-    &lt;/Directory&gt;
-</pre><p>
- 
-</p>
-<ul><li>Cuando se defina el alias de cada proyecto se deberá especificar que versión de toba (alias de toba) utiliza, por ejemplo si tengo proyecto_1 utiliza toba_1 y proyecto_2 a toba_2:
-</li></ul><pre class="wiki"> 
-    Alias /proyecto_1 "d:/toba_1/proyectos/proyecto_1/www"
-    &lt;Directory "d:/toba_1/proyectos/proyecto_1/www/"&gt;
-                SetEnv TOBA_DIR			"d:/toba_1"
-                SetEnv TOBA_ALIAS		"toba_1"
-                SetEnv TOBA_PROYECTO_ALIAS	"proyecto_1"
-                SetEnv TOBA_INSTANCIA		"desarrollo"
-                DirectoryIndex aplicacion.php
-        Options MultiViews
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-    &lt;/Directory&gt;
-
-    Alias /proyecto_2 "d:/toba_1/proyectos/proyecto_2/www"
-    &lt;Directory "d:/toba_1/proyectos/proyecto_2/www/"&gt;
-                SetEnv TOBA_DIR			"d:/toba_2"
-                SetEnv TOBA_ALIAS		"toba_2"
-                SetEnv TOBA_PROYECTO_ALIAS	"proyecto_2"
-                SetEnv TOBA_INSTANCIA		"desarrollo"
-                DirectoryIndex aplicacion.php
-        Options MultiViews
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-    &lt;/Directory&gt;
-
-</pre></div>
+</li></ul><ul><li>Además de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para el framework.
+</li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png">desarrollo_produccion.png</a> (30.4 kB) - added by seba on 07/14/05 14:40:32.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html">actualizacion_toba.png</a> (14.5 kB) - added by seba on 07/14/05 16:01:09.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png">desarrollo_produccion.png</a> (30.4 kB) - added by seba on 07/14/05 14:40:32.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html">actualizacion_toba.png</a> (14.5 kB) - added by seba on 07/14/05 16:01:09.</li>
     </ul>
   
   
@@ -300,7 +318,7 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -309,16 +327,32 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

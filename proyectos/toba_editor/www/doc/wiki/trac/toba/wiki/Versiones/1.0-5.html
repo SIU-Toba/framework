@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Versiones/1.0.4 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.0.4?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Versiones/1.0.4 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.0.4?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.0.4?action=diff&amp;version=23">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.0.4?action=diff&amp;version=23">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -171,8 +237,8 @@ li * {
    <div class="wikipage">
     <div id="searchable"><h1 id="CambiosVersión1.0">Cambios Versión 1.0</h1>
 <ul><li>Fecha: 04/05/07
-</li><li>Rama con actualizaciones: <a class="source" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser/trunk_versiones/1.0">source:trunk_versiones/1.0</a>
-</li><li>Revisiones trunk involucradas: <a class="changeset" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/changeset/2346" title="Version 1.0.3">[2346]</a> a <a class="changeset" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/changeset/2505" title="Version 1.0.4. Branch para mejoras">[2505]</a>
+</li><li>Rama con actualizaciones: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk_versiones/1.0">source:trunk_versiones/1.0</a>
+</li><li>Revisiones trunk involucradas: <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2346" title="Version 1.0.3">[2346]</a> a <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2505" title="Version 1.0.4. Branch para mejoras">[2505]</a>
 </li></ul><h2 id="ListadeCambios">Lista de Cambios</h2>
 <h3 id="Editor">Editor</h3>
 <ul><li>La definición de <tt>bases.ini</tt> se puede modificar desde el editor.
@@ -191,12 +257,12 @@ motor=...
 <ul><li>Esquema de definición e inclusión de Puntos de Control en los componentes.
 </li><li>Los efs ocultos pueden definirse para que relajen su obligatoriedad.
 </li><li>Posibilidad de cambiar el layout del formulario ML (ver ejemplo en referencia).
-</li><li>Se separa la carga de la descripción de la de las cascadas en el ef_popup (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/ticket/489" title="Uso de comillas en strings utilizados en javascript (closed)">#489</a>):
+</li><li>Se separa la carga de la descripción de la de las cascadas en el ef_popup (<a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/489" title="Uso de comillas en strings utilizados en javascript (closed)">#489</a>):
 <ul><li>La respuesta a la cascada puede variar tanto la clave como la desc.
 </li><li>En la carga de descripción es un método (estático o dinámico) al cual llega una clave y se retorna la descripción asociada (un string). Se llama solo durante la etapa de configuración del ef
 </li><li>En la carga de cascada es uno de los mecanismos de carga (php, sql) al cual llegan los maestros y se retorna un arreglo (clave,desc) (o solo clave si es editable)
 </li></ul></li><li>El ef_popup envia al ítem de popup el valor actual del ef y de sus maestros.
-</li><li>Los eventos disparados en js pasan sus parámetros por parámetro (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/ticket/481" title="Eventos en JS: Parámetros deberian llegar por parámetro (closed)">#481</a>).
+</li><li>Los eventos disparados en js pasan sus parámetros por parámetro (<a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/481" title="Eventos en JS: Parámetros deberian llegar por parámetro (closed)">#481</a>).
 </li><li>Soporte básico para relaciones de no-inclusión entre dos datos_tablas 
 </li></ul><h3 id="Varios">Varios</h3>
 <ul><li>Compilación PHP de metadatos de proyectos.
@@ -208,7 +274,7 @@ motor=...
 </li><li>$this-&gt;get_dependencias() para los casos que se usaba $this-&gt;_dependencias
 </li><li>$this-&gt;get_cantidad_dependencias() para el count($this-&gt;_dependencias)
 </li><li>$this-&gt;get_cantidad_efs() para el count($this-&gt;lista_ef_post)
-</li></ul></li><li>Refactorizacion del API de toba_memoria (Solucion de <a class="closed ticket" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/ticket/498" title="get_dato_aplicacion tiene que funcionar cross celda (closed)">#498</a> y <a class="closed ticket" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/ticket/507" title="toba::memoria()-&gt;set_dato_instancia() para mantener informacion  ... (closed)">#507</a>). Existen 3 scopes de memoria:
+</li></ul></li><li>Refactorizacion del API de toba_memoria (Solucion de <a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/498" title="get_dato_aplicacion tiene que funcionar cross celda (closed)">#498</a> y <a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/507" title="toba::memoria()-&gt;set_dato_instancia() para mantener informacion  ... (closed)">#507</a>). Existen 3 scopes de memoria:
 <ul><li>set_dato_operacion: La variable vive dentro de la ejecucion de una operacion
 </li><li>set_dato: La variable vive durante la sesion del proyecto.
 </li><li>set_dato_instancia: La variable puede utilizarse para comunicar sesiones distintas de proyectos ejecutados en el mismo nucleo.
@@ -242,7 +308,7 @@ Los puntos de acceso (aplicacion.php, etc) deben invocar a toba de la siguiente 
 
 </pre></div><h3 id="EventoprocesardelCI">Evento procesar del CI</h3>
 <p>
-A partir <a class="changeset" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/changeset/2472" title="Se saca la limpieza de memoria del procesamiento por defecto del CI, para  ...">[2472]</a> el <tt>evt__procesar</tt> del CI no posee más una llamada a la limpieza de la memoria del componente (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/ticket/524" title="Problemas con la acción predefinida del procesar (closed)">#524</a>). Aquellos evento procesar que llamaban al padre para realizar la limpieza deberan invocar explícitamente al método `disparar_limpieza_memoria. Por ej:
+A partir <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2472" title="Se saca la limpieza de memoria del procesamiento por defecto del CI, para  ...">[2472]</a> el <tt>evt__procesar</tt> del CI no posee más una llamada a la limpieza de la memoria del componente (<a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/524" title="Problemas con la acción predefinida del procesar (closed)">#524</a>). Aquellos evento procesar que llamaban al padre para realizar la limpieza deberan invocar explícitamente al método `disparar_limpieza_memoria. Por ej:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
  </span><span class="code-keyword">function </span><span class="code-lang">evt__procesar</span><span class="code-keyword">()
@@ -302,6 +368,12 @@ A continuación un detalle de los cambios realizados en la rama 1.0 luego de su 
 <ul><li>Bug en la migración del esquema de personalizacion
 </li></ul><h3 id="a1.0.10">1.0.10</h3>
 <ul><li>Se agrega el parametro opcional "no_borrar" para el metodo "procesar_anidado".
+</li><li>Bug en la generación de menú para IE 8
+</li></ul><p>
+ 
+</p>
+<h3 id="a1.0.12">1.0.12</h3>
+<ul><li>Se incluye metodo set_callback_validacion a los forms y ml, para poder hacer validaciones especificas transversales al proyecto
 </li></ul>
 </p>
 </div>
@@ -316,7 +388,7 @@ A continuación un detalle de los cambios realizados en la rama 1.0 luego de su 
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.0.4?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.0.4?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -325,16 +397,32 @@ A continuación un detalle de los cambios realizados en la rama 1.0 luego de su 
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

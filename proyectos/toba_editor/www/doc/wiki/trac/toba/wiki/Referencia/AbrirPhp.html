@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/AbrirPhp - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/AbrirPhp?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Referencia/AbrirPhp - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/AbrirPhp?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/AbrirPhp?action=diff&amp;version=21">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/AbrirPhp?action=diff&amp;version=30">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,65 +235,62 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="AbrirunarchivoPHPenuneditorexterno">Abrir un archivo PHP en un editor externo</h1>
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / AbrirPhp
+</p>
+<h1 id="AbrirunarchivoPHPenuneditorexterno">Abrir un archivo PHP en un editor externo</h1>
 <p>
 Abrir un archivo en el sistema de ventanas del sistema operativo desde un servidor web tiene algunas complicaciones:
 </p>
 <ul><li>Generalmente apache corre usando un usuario especial y como php corre adentro de este, todo proceso disparado desde php se abre utilizando el usuario de Apace (generalmente Local Service en windows o www-data en linux), por lo que es probable que no se tomen las configuraciones del usuario de escritorio.
 </li><li>Apache corre en background como servicio por lo que no es directo hacer que abra un proceso en el sistema de ventanas
 </li></ul><h2 id="Windows">Windows</h2>
+<h3 id="Comandodeapertura">Comando de apertura</h3>
 <p>
-Sistemas probados: Windows XP SP2 y Windows 2003 con Apache2
 Por defecto en la configuración se ejecuta un <tt>start nombre_archivo</tt> y dependiendo de las configuraciones actuales se abre el editor predeterminado. Es posible personalizar el comando cambiando la entrada <strong>editor_php</strong> del archivo <i>instalacion.ini</i>.
-</p>
-<h3 id="Conservandoelusuariodelservicio">Conservando el usuario del servicio</h3>
-<p>
-Configurar apache para que pueda abrir procesos de escritorio:
-</p>
-<ul><li>Parar el servicio
-</li><li>Ir a las propiedades del servicio Apache2, solapa 'Log On' y activar la opción 'Allow service to interact with desktop'.
-</li><li>Iniciar el servicio
-</li></ul><p>
-Como apache corre con un usuario aparte (Local service por defecto) el editor se abre utilizando este usuario, por lo que si el editor soporta el esquema de multiples usuarios tendrá sus configuraciones particulares y abrira una instancia nueva del editor. Por lo general funciona de la siguiente forma:
-</p>
-<ul><li>Cuando no hay un editor abierto y se pide abrir el archivo se inicia un editor con el usuario 'Local Service'
-</li><li>Cuando hay un editor abierto (con el usuario deseado) y se pide abrir el archivo se reutiliza el editor permaneciendo el usuario.
-</li></ul><p>
 Para cambiar la asociación de la extensión php con el usuario actual es posible cambiarlo en la registry en la entrada <tt>[HKEY_CLASSES_ROOT\php_auto_file\shell\open\command]</tt> <a class="attachment" href="../../attachment/wiki/Referencia/AbrirPhp/abrir_archivo_php.html" title="Attachment Referencia/AbrirPhp: abrir_archivo_php.reg">attachment:"abrir_archivo_php.reg"</a>
 </p>
-<h3 id="Cambiandoelusuario">Cambiando el usuario</h3>
+<h3 id="Configuracióndelsistema">Configuración del sistema</h3>
 <p>
-Si se desea que el editor utilice el usuario propio, se deberá setear el servicio para que se loguee con esos datos como se ve en la siguiente pantalla para un usuario "Administrator":
+Para desarrollo el servicio apache necesita interactuar con el usuario de escritorio. Por ello recomendamos seguir los siguentes pasos:
 </p>
-<p>
-<a style="padding:0; border:none" href="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache.html"><img width="417" style="float:center" src="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache41f0.png?format=raw" /></a>
-</p>
-<h2 id="Linux">Linux</h2>
-<ul><li>Sistemas probados: Debian con KDE, Kubuntu y Ubuntu 7.04
-</li><li>Primero hay que permitir que un proceso externo pueda abrir algo en el sistema de ventanas, para eso abrir una consola y ejecutar <tt>xhost +</tt>, esto seguramente deja alguna ventana abierta de seguridad (no fue necesario con kubuntu, si con debian).
-</li><li>Una posible solución al problema de los usuarios es hacer que apache corra con el usuario de escritorio, cambiando el user y group en <tt>/etc/apache2/apache2.conf</tt> dependiendo de la instalación. Parar e iniciar el servicio (hacer stop-start o force-reload), confirmando con <tt>ps aux | grep apache</tt> que apache se ejecuta con el usuario de escritorio. Cuando esto ocurre el usuario del escritorio no tiene permisos de escribir en el directorio donde se alojan las sesiones, cambiar con:
-<pre class="wiki">sudo chown nombre_usuario /var/lib/php5 -R
-</pre></li></ul><p>
-Luego recordar de cambiar los permisos en el directorio de logs de toba (si es que se utilizan) ya que el nuevo usuario con el que corre apache perdera los mismos.
-</p>
-<ul><li>Crear un script ejecutable que tome el archivo como parámetro y lo abra con el editor preferido.
+<ol><li>Ir a <i>Inicio &gt; Ejecutar</i>, ingresar
+<pre class="wiki">services.msc
+</pre></li><li>Seleccionar servicio <i>Apache 2.x</i>, hacer doble click sobre el mismo
+</li><li>Ir a solapa <i>Iniciar Sesión</i>
+</li><li>Seleccionar <i>Permitir a los servicios que interactuen con el sistema</i>
+</li><li>Luego de aceptar, reiniciar el servicio apache. 
+</li></ol><h2 id="ConfiguraciónLinux">Configuración Linux</h2>
+<h3 id="Comandodeapertura1">Comando de apertura</h3>
+<ul><li>Crear un comando abrir_php
 <pre class="wiki">sudo editor /usr/bin/abrir_php
-#Editar y salvar archivo
-sudo chmod +x /usr/bin/abrir_php
-</pre><ul><li>Para KDE
+</pre></li><li>Editar el archivo con el siguiente contenido, descomentando la línea apropiada:
 <pre class="wiki">export HOME=/home/nombre_usuario;
 export DISPLAY=:0.0;
-kfmclient exec "$1"
-</pre><ul><li>Para GNOME
-<pre class="wiki">export HOME=/home/nombre_usuario;
-export DISPLAY=:0.0;
-gnome-open "$1"
-</pre></li></ul></li></ul></li><li>Cambiar en el archivo instalacion.ini la entrada <strong>editor_php</strong> por el nombre del ejecutable que dispara la apertura del archivo, en nuestro caso <tt>/usr/bin/abrir_php</tt>
-</li></ul></div>
+
+#Descomentar si se usa KDE
+#kfmclient exec "$1"
+
+#Descomentar si se usa gnome
+#gnome-open "$1"
+
+#Descomentar para abrir el editor directamente
+#/bin/sh "/usr/local/netbeans-6.5/bin/netbeans" --open "$1
+</pre></li><li>Luego de salvar el archivo, darle permisos de ejecución:
+<pre class="wiki">sudo chmod +x /usr/bin/abrir_php
+</pre></li><li>Cambiar en el archivo instalacion.ini la entrada <strong>editor_php</strong> por el nombre del ejecutable que dispara la apertura del archivo, en nuestro caso <tt>/usr/bin/abrir_php</tt>
+</li></ul><h3 id="Configuracióndelsistema1">Configuración del sistema</h3>
+<p>
+Es necesario configurar que apache ejecute con el usuario actualmente logueado al sistema de ventanas
+</p>
+<ul><li>Editar el archivo <tt>/etc/apache2/apache2.conf</tt> o <tt>/etc/apache2/uid.conf</tt> si está presente y cambiar la directiva <tt>User</tt> por el usuario de escritorio
+</li><li>Para que apache pueda crear sesiones PHP, hay que cambiar el owner de la carpeta de sesiones (si no encuentra la carpeta de sesiones de php, está en la directiva <tt>session.save_path</tt> en el php.ini):
+<pre class="wiki">sudo chown mi_usuario /var/lib/php5 -R
+</pre></li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache.html">servicio_apache.png</a> (30.5 kB) - added by andres on 10/31/06 16:47:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/AbrirPhp/abrir_archivo_php.html">abrir_archivo_php.reg</a> (328 bytes) -<q>Entrada de la registry que permite cambiar el editor por defecto para un archivo .php</q>, added by seba on 05/07/07 18:52:27.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache.html">servicio_apache.png</a> (30.5 kB) - added by andres on 10/31/06 16:47:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/AbrirPhp/abrir_archivo_php.html">abrir_archivo_php.reg</a> (328 bytes) -<q>Entrada de la registry que permite cambiar el editor por defecto para un archivo .php</q>, added by seba on 05/07/07 18:52:28.</li>
     </ul>
   
   
@@ -239,7 +302,7 @@ gnome-open "$1"
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/AbrirPhp?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/AbrirPhp?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -248,16 +311,32 @@ gnome-open "$1"
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

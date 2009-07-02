@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Versiones/1.1.0 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.1.0?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Versiones/1.1.0 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.1.0?action=diff&amp;version=35">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?action=diff&amp;version=35">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -171,8 +237,8 @@ li * {
    <div class="wikipage">
     <div id="searchable"><h1 id="CambiosVersión1.1">Cambios Versión 1.1</h1>
 <ul><li>Fecha: 05/10/07
-</li><li>Rama con actualizaciones: <a class="source" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser/trunk_versiones/1.1">source:trunk_versiones/1.1</a>
-</li><li>Revisiones trunk involucradas: <a class="changeset" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/changeset/2506" title="Cambios menores">[2506]</a> a <a class="changeset" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/changeset/2955" title="Version 1.1.0">[2955]</a>
+</li><li>Rama con actualizaciones: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk_versiones/1.1">source:trunk_versiones/1.1</a>
+</li><li>Revisiones trunk involucradas: <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2506" title="Cambios menores">[2506]</a> a <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2955" title="Version 1.1.0">[2955]</a>
 </li></ul><h2 id="Asistentes">Asistentes</h2>
 <p>
 Existen una nueva forma de crear una operación completa seleccionando un modelo de operación y completando una configuración mínima. En esta versión se incluyen dos operaciones clásicas que trabajan sobre los datos de una única tabla:
@@ -214,11 +280,11 @@ Existen una nueva forma de crear una operación completa seleccionando un modelo
 <ul><li>El comando <tt>toba</tt> puede correr sin variables de entorno seteadas, solo necesita a php en el path
 </li><li>Los comandos relacionados con una base de datos están ahora en 'toba base' 
 </li><li>Nuevo comando <tt>toba proyecto publicar</tt> y <tt>toba proyecto despublicar</tt> para crear y borrar el alias del proyecto en el archivo toba.conf
-</li><li>Nuevas ventanas de extension del modelo para proyectos. Esto permite que el proyecto se instale junto a la instalación del framework (ver ejemplo en <a class="source" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser/trunk/proyectos/toba_referencia/php/extension_toba/modelo_toba_referencia.php">referencia</a>)
+</li><li>Nuevas ventanas de extension del modelo para proyectos. Esto permite que el proyecto se instale junto a la instalación del framework (ver ejemplo en <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/proyectos/toba_referencia/php/extension_toba/modelo_toba_referencia.php">referencia</a>)
 </li><li>Los proyectos se pueden mantener en un path relativo a la instalacion
 </li><li>Mejoras a la capacidad de merge automático a la exportación SQL de metadatos.
 </li><li>Tenemos un nuevo logo!
-<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.1.0/icono_32.html"><img src="../../attachment/wiki/Versiones/1.1.0/icono_3241f0.png?format=raw" style="float:top" /></a>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.1.0/icono_32.html"><img src="../../attachment/wiki/Versiones/1.1.0/icono_3241f0.html?format=raw" style="float:top" /></a>
 </li></ul><h2 id="MigraciónManual">Migración Manual</h2>
 <ul><li>Cambio de un metodo de la api de los componentes de datos: <tt>esta_cargado()</tt> se cambia por <tt>esta_cargada()</tt>
 </li><li><tt>vinculador::crear_vinculo</tt> se cambia por <tt>vinculador::get_url</tt> tanto en php como js (se mantiene la compat. hacia atrás). También se hace una pequeña modificación al comportamiento de la zona. Antes no se propagaba el editable entre dos operaciones con igual zona excepto que se explicite, actualmente el editable se pasa excepto entrada por el menú. Si alguna operación confiaba en que la zona se descaraba en base a un vínculo común, ahora debe pasar como 4to parámetros <tt>array('zona'=&gt;false)</tt> o descargarla manualmente.
@@ -238,12 +304,15 @@ A continuación un detalle de los cambios realizados en la rama 1.1 luego de su 
  
 </p>
 <h3 id="a1.1.3">1.1.3</h3>
-<ul><li>Bug en chequeo de excepciones del ef_cuit, a veces no permitia las expceciones
+<ul><li>Bug en chequeo de excepciones del ef_cuit, a veces no permitia las excepciones
 </li></ul><p>
  
 </p>
 <h3 id="a1.1.4">1.1.4</h3>
-<ul><li>Bug en mÃ¡scaras de editables, no funcionaban las mascaras genericas (ej. ####/##)
+<ul><li>Bug en mascaras de editables, no funcionaban las mascaras genericas (ej. ####/##)
+</li><li>toba_ei_cuadro: this.ocultar() no funcionaba en el caso de que el cuadro muestre un EOF.
+</li><li>Bug en los efs, se generaba un pedido de página a una imagen no existente provocando un 'File does not exist' en el servidor
+</li><li>Bug en la generación de menú para IE 8
 </li></ul>
 </p>
 </div>
@@ -262,7 +331,7 @@ A continuación un detalle de los cambios realizados en la rama 1.1 luego de su 
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Versiones/1.1.0?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -271,16 +340,32 @@ A continuación un detalle de los cambios realizados en la rama 1.1 luego de su 
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

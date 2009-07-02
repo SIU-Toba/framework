@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/Objetos/datos_tabla - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_tabla?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Referencia/Objetos/datos_tabla - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/datos_tabla?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../../external.html?link=https://localhost/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://localhost/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../../wiki.html">Start Page</a></li>
    <li><a href="../../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_tabla?action=diff&amp;version=29">Last Change</a></li>
+   <li><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/datos_tabla?action=diff&amp;version=31">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,7 +235,10 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="datos_tabla">datos_tabla</h1>
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / datos_tabla
+</p>
+<h1 id="datos_tabla">datos_tabla</h1>
 <p>
 Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> datos_tablas mantiene una estructura tabular (o también llamada <a class="wiki" href="../../RecordSet.html">RecordSet</a>) y brinda una interface para trabajar con ella.
 Sus principales características son:
@@ -180,7 +249,7 @@ Sus principales características son:
 </li><li>Una vez terminada la edición se hace la sincronización con el medio de persistencia a través del <a class="wiki" href="AP.html">administrador de persistencia</a>, marcando el final de la transacción de negocios.
 </li></ul><blockquote>
 <p>
-<a href='../../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_datos_tabla</a> <br />
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_datos_tabla</a> <br />
 </p>
 </blockquote>
 <h2 id="Definición">Definición</h2>
@@ -189,7 +258,7 @@ Sus principales características son:
 </li><li>Permitir modificar claves: Por defecto las claves definidas no son modificables.
 </li></ul><h2 id="Primitivas">Primitivas</h2>
 <p>
-La mejor forma de entender las primitivas es revisando el <strong><a href='../../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a></strong>, a continuación se dan ejemplos a manera de resumen de las primitivas más utilizadas:
+La mejor forma de entender las primitivas es revisando el <strong><a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a></strong>, a continuación se dan ejemplos a manera de resumen de las primitivas más utilizadas:
 </p>
 <h3 id="Carga">Carga</h3>
 <p>
@@ -252,7 +321,7 @@ Esta opción es útil cuando las filas no están cargadas, sino que se borra uti
 Nota: Recordar que este estos son los pasos para la carga y sincronización de una tabla aislada, el proceso cambia cuando la tabla está involucrada en un <a class="wiki" href="datos_relacion.html">objeto relación</a>.
 </p>
 <p>
-Más información se encuentra en el <a href='../../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a>.
+Más información se encuentra en el <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a>.
 </p>
 <h2 id="ColumnasExternas">Columnas Externas</h2>
 <p>
@@ -272,14 +341,24 @@ Por ejemplo en el proyecto Referencia, ítem <tt>Operaciones Simples -&gt; ABM d
 <p>
 <a style="padding:0; border:none" href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga.html"><img src="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga41f0.png?format=raw" /></a>
 </p>
-<h2 id="Másinfo">Más info</h2>
+<p>
+Tanto si se utiliza como medio de carga la consulta SQL o el método PHP, en ambos casos el resultado a devolver debe ser un registro que contenga la/s columna/s correspondientes para la carga de los valores 'externos'.
+En el caso de la carga por método PHP que se base en la realización de una consulta SQL, puede ser necesaria una conversión del resultado del formato Recordset al formato registro, para evitar este paso y sabiendo a priori que la consulta retornará siempre un solo registro se puede utilizar también el metodo <i>toba::db()-&gt;consultar_fila($SQL)</i> al momento de realizar la query.
+Para una carga donde se arme el resultado a mano, el mismo deberá tener una estructura similar a la del siguiente ejemplo:
+</p>
+<pre class="wiki">$ejemplo_resultado_dao = array(
+		'desc_deporte' =&gt; 'Motociclismo',
+		'nombre' =&gt; 'Siambretta 150',
+		'desc_dia_semana' =&gt; $datos[0]['dia_semana']
+	);
+</pre><h2 id="Másinfo">Más info</h2>
 <ul><li>Ejemplo en el <a class="wiki" href="../../Proyectos/Referencia.html">proyecto Referencia</a>, ítems bajo la rama "Operaciones Simples"
 </li><li><a class="wiki" href="Persistencia.html">Introducción a los objetos de persistencia</a>.
 </li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html">externos_definicion.png</a> (3.8 kB) - added by seba on 12/21/06 11:44:02.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga.html">externos_carga.png</a> (5.7 kB) - added by seba on 12/21/06 11:46:52.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html">externos_definicion.png</a> (3.8 kB) - added by seba on 12/21/06 11:44:02.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga.html">externos_carga.png</a> (5.7 kB) - added by seba on 12/21/06 11:46:53.</li>
     </ul>
   
   
@@ -291,7 +370,7 @@ Por ejemplo en el proyecto Referencia, ítem <tt>Operaciones Simples -&gt; ABM d
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_tabla?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos/datos_tabla?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -300,16 +379,32 @@ Por ejemplo en el proyecto Referencia, ítem <tt>Operaciones Simples -&gt; ABM d
  <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.org/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

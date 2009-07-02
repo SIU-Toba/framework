@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/efs - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/efs?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Referencia/efs - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/efs?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/efs?action=diff&amp;version=60">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/efs?action=diff&amp;version=61">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,13 +235,16 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="ElementosdeFormulario">Elementos de Formulario</h1>
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / efs
+</p>
+<h1 id="ElementosdeFormulario">Elementos de Formulario</h1>
 <p>
 Un elemento de formulario (abreviado <i>ef</i>) es la representación de un campo de edición. Los distintos tipos de ef en general encapsulan los <i>input</i> clásicos de HTML como un combo, un checkbox o un edit.
 </p>
 <p>
-<a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Componentes/Efs/toba_ef.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ef</a> <br />
-<a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api_js/ef.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ef</a>
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Efs/toba_ef.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ef</a> <br />
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ef.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ef</a>
 </p>
 <h2 id="Definición">Definición</h2>
 <p>
@@ -298,21 +367,21 @@ No hay límite en la cantidad de maestros/esclavos en un formulario, solo existe
 El resto de los efs no participan del esquema de cascadas.
 </p>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000201' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cascadas</a>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000201' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cascadas</a>
 </p>
 <h2 id="Máscaras">Máscaras</h2>
 <p>
 Algunos efs editables permiten incluir máscaras personalizadas. La máscara formatea el texto mientras el usuario tipea, solo sirve como algo estetico y no se debe confiar en su 'validación' porque solo se hace en javascript. Un ejemplo de máscara sería ###.###,00.
-Para ver las máscaras soportadas ver el <a class="source" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser/trunk/www/js/testing/test_mascaras.html">caso de test asociado</a>
+Para ver las máscaras soportadas ver el <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/js/testing/test_mascaras.html">caso de test asociado</a>
 </p>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000070' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Máscaras</a>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000070' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Máscaras</a>
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/checkbox.html">checkbox.png</a> (168 bytes) - added by seba on 10/18/06 18:04:23.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/radio.html">radio.png</a> (480 bytes) - added by seba on 10/18/06 18:04:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo.html">combo.png</a> (403 bytes) - added by seba on 10/18/06 18:06:37.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/popup.html">popup.png</a> (0.8 kB) - added by seba on 10/18/06 18:15:16.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_select.html">multi_select.png</a> (0.5 kB) - added by seba on 10/18/06 18:16:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_doble.html">multi_doble.png</a> (1.0 kB) - added by seba on 10/18/06 18:18:13.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html">multi_checkbox.png</a> (376 bytes) - added by seba on 10/18/06 18:19:12.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/editable.html">editable.png</a> (372 bytes) - added by seba on 10/18/06 18:20:15.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fecha.html">fecha.png</a> (426 bytes) - added by seba on 10/18/06 18:36:02.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/numero.html">numero.png</a> (324 bytes) - added by seba on 10/18/06 18:36:21.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/moneda.html">moneda.png</a> (333 bytes) - added by seba on 10/18/06 18:36:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/porcentaje.html">porcentaje.png</a> (279 bytes) - added by seba on 10/18/06 18:37:07.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/textarea.html">textarea.png</a> (1.5 kB) - added by seba on 10/18/06 18:37:52.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/upload.html">upload.png</a> (0.6 kB) - added by seba on 10/18/06 18:42:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fijo.html">fijo.png</a> (0.9 kB) - added by seba on 10/20/06 10:31:00.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/cuit.html">cuit.png</a> (403 bytes) - added by seba on 12/18/06 11:23:18.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo-editable.html">combo-editable.png</a> (2.7 kB) - added by seba on 11/24/08 09:20:35.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/checkbox.html">checkbox.png</a> (168 bytes) - added by seba on 10/18/06 18:04:23.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/radio.html">radio.png</a> (480 bytes) - added by seba on 10/18/06 18:04:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo.html">combo.png</a> (403 bytes) - added by seba on 10/18/06 18:06:38.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/popup.html">popup.png</a> (0.8 kB) - added by seba on 10/18/06 18:15:17.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_select.html">multi_select.png</a> (0.5 kB) - added by seba on 10/18/06 18:16:43.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_doble.html">multi_doble.png</a> (1.0 kB) - added by seba on 10/18/06 18:18:13.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html">multi_checkbox.png</a> (376 bytes) - added by seba on 10/18/06 18:19:12.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/editable.html">editable.png</a> (372 bytes) - added by seba on 10/18/06 18:20:15.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fecha.html">fecha.png</a> (426 bytes) - added by seba on 10/18/06 18:36:02.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/numero.html">numero.png</a> (324 bytes) - added by seba on 10/18/06 18:36:22.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/moneda.html">moneda.png</a> (333 bytes) - added by seba on 10/18/06 18:36:43.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/porcentaje.html">porcentaje.png</a> (279 bytes) - added by seba on 10/18/06 18:37:08.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/textarea.html">textarea.png</a> (1.5 kB) - added by seba on 10/18/06 18:37:52.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/upload.html">upload.png</a> (0.6 kB) - added by seba on 10/18/06 18:42:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fijo.html">fijo.png</a> (0.9 kB) - added by seba on 10/20/06 10:31:01.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/cuit.html">cuit.png</a> (403 bytes) - added by seba on 12/18/06 11:23:19.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo-editable.html">combo-editable.png</a> (2.7 kB) - added by seba on 11/24/08 09:20:35.</li>
     </ul>
   
   
@@ -324,7 +393,7 @@ Para ver las máscaras soportadas ver el <a class="source" href="../../../../ext
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/efs?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/efs?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -333,16 +402,32 @@ Para ver las máscaras soportadas ver el <a class="source" href="../../../../ext
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>

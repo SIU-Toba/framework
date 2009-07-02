@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/Zona - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Zona?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+ <title>Referencia/Zona - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Zona?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -65,7 +65,7 @@ pre { padding:0; margin: 0}
 .wikipage h2 {
  padding: 2px;
 }
-.wikipage h1 {
+h1 {
     font-size: 28px;
 }
 .wikipage h2 {
@@ -79,11 +79,14 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+.wikipage {
+padding-right:10px;
+}
 li {
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 li * {
-    margin-bottom:0;
+    margin-bottom:3px;
 }
 /*a {
  color: #890C71;
@@ -96,6 +99,64 @@ li * {
     text-align:right;
 }
 
+/** Cambios globales **/
+#ctxtnav {
+ /*display:none;*/
+}
+#mainnav {
+ border: none;
+ background: white;
+ margin: 0;
+ padding-top: 10px;
+ padding-bottom: 35px;
+border-bottom:1px solid #CCCCCC;
+
+}
+#mainnav li {
+ border: 1px solid lightGray;
+}
+#header {
+ display:none;
+}
+body {
+    margin: 0;
+    padding: 0;
+      background-color:#F3F3F3;	    
+}
+#content {
+clear: both;
+
+}
+#banner {
+    background-color: white;
+    padding-right:10px;
+    padding-top:10px;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+background:#890B72;
+border-right:1px solid #000000;
+border-top:medium none;
+color:#EEEEEE;
+font-weight:bold;
+}
+#mainnav :link, #mainnav :visited {
+ border: none;
+ background: transparent;
+}
+:link, :visited {
+/* color: #1020EB;*/
+/* color: #0C1BBC; */
+ color: #67065D ;
+
+}
+#main {
+ padding-left: 10px;
+}
+#footer {
+ background-color: white;
+ border-bottom: 1px solid;
+}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -124,12 +185,17 @@ li * {
 			</table>
 		
 
+<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search" method="get">
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
  <div>
   <label for="proj-search">Search:</label>
   <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
@@ -142,10 +208,10 @@ li * {
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/search">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -156,8 +222,8 @@ li * {
  <ul>
    <li><a href="../../wiki.html">Start Page</a></li>
    <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Zona?action=diff&amp;version=23">Last Change</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Zona?action=diff&amp;version=24">Last Change</a></li>
  </ul>
  <hr />
 </div>
@@ -169,9 +235,12 @@ li * {
   
    
    <div class="wikipage">
-    <div id="searchable"><h1 id="Zona">Zona</h1>
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Zona
+</p>
+<h1 id="Zona">Zona</h1>
 <p>
-Una <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/SalidaGrafica/toba_zona.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_zona</a> es un conjunto de items agrupados alrededor de un dato común llamado <strong>Editable</strong>. Un ejemplo típico serían las operaciones que giran en torno a un cliente específico. La zona permite agrupar estas operaciones, acceder de una a la otra en forma simple y mostrar un layout gráfico similar en ellas.
+Una <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_zona.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_zona</a> es un conjunto de items agrupados alrededor de un dato común llamado <strong>Editable</strong>. Un ejemplo típico serían las operaciones que giran en torno a un cliente específico. La zona permite agrupar estas operaciones, acceder de una a la otra en forma simple y mostrar un layout gráfico similar en ellas.
 </p>
 <p>
 El editable puede ser un id de una entidad, un array de valores, una fecha, lo que sea significativo y común a las operaciones que participan. Cuando la zona posee un editable se dice que está <strong>cargada</strong> (contrariamente si no lo posee está <strong>descargada</strong>), sólo cuando la zona está cargada muestra sus barras gráficas conteniendo por defecto un menú y una sección descriptiva del editable. La descripción del editable se puede cargar manualmente a través de la herencia o a través de un método php determinado en la definición.
@@ -179,10 +248,10 @@ El editable puede ser un id de una entidad, un array de valores, una fecha, lo q
 <p>
 La zona se puede cargar de dos formas:
 </p>
-<ul><li>Explícitamente dentro del proceso de un pedido de página utilizando el método <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/SalidaGrafica/toba_zona.html#cargar' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::zona()->cargar</a>
+<ul><li>Explícitamente dentro del proceso de un pedido de página utilizando el método <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_zona.html#cargar' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::zona()->cargar</a>
 </li><li>Implícitamente pasando el editable en la URL. Esto se puede hacer:
-<ul><li>Creando una URL nueva usando <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Centrales/toba_vinculador.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::vinculador()</a>.
-</li><li>Modificando un <a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/Centrales/toba_vinculo.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> vinculo</a> existente que forma parte de un evento.
+<ul><li>Creando una URL nueva usando <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_vinculador.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::vinculador()</a>.
+</li><li>Modificando un <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_vinculo.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> vinculo</a> existente que forma parte de un evento.
 </li></ul></li></ul><h2 id="Ejemplo">Ejemplo</h2>
 <p>
 <a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Zona/zona_no_cargada.html"><img src="../../attachment/wiki/Referencia/Zona/zona_no_cargada41f0.png?format=raw" /></a>
@@ -210,7 +279,7 @@ Finalmente existe un método sencillo de descargar la zona:
 </pre><hr />
 <p>
 Un ejemplo completo se puede encontrar en el proyecto <a class="wiki" href="../Proyectos/Referencia.html">Referencia</a>, ítem <i>Referencia &gt; Zona &gt; Listado Personas</i>.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../external.html?link=https://desarrollos.siu.edu.ar/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000065' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ver un ejemplo online</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000065' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ver un ejemplo online</a></strong>
 </p>
 </div>
    </div>
@@ -228,7 +297,7 @@ Un ejemplo completo se puede encontrar en el proyecto <a class="wiki" href="../P
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Zona?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Zona?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -237,16 +306,32 @@ Un ejemplo completo se puede encontrar en el proyecto <a class="wiki" href="../P
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos.siu.edu.ar/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
+<script type='text/javascript'>
+if (document.getElementById('link_php')) {
+document.getElementById('link_php').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    return false;
+}
+document.getElementById('link_js').onclick = function() {
+    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    return false;
+}
+document.getElementById('link_wiki').onclick = function() {
+    location.href = '../Referencia.html';
+    return false;
+}
+}
 
+</script>
  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
