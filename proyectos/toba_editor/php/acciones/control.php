@@ -1,6 +1,4 @@
 <?php
-	$tiempo_minimo = 30000; //~ 30 sgs, probablemente se agregue como metadato quizas.
-	$chequeador =  "var chequeador = setTimeout(editor_chequear_revision_metadatos, $tiempo_minimo);";
 
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
@@ -24,31 +22,6 @@
 	}
 	echo toba_form::abrir("cambiar_proyecto", '');                        
 ?>
-<SCRIPT type="text/javascript" language='javascript' >
-	function editor_chequear_revision_metadatos()
-	{
-		var callback = {
-			success: editor_muestra_msg_revision,
-			failure: toba.error_comunicacion
-		};
-		var url_chck = vinculador.get_url(null, '33000005', null,{chequeo_exportacion:1, tcm:'temp_chk'});
-		var con = conexion.asyncRequest('GET', url_chck, callback, null);
-	}
-
-	function editor_muestra_msg_revision(msg)
-	{
-		var msg_concreto = toba.analizar_respuesta_servicio(msg);
-		if (msg_concreto != '') {
-			notificacion.limpiar();
-			notificacion.agregar(msg_concreto, null);
-			notificacion.ventana_alert(msg_concreto);
-		}	
-		//Realizo un loop para que se ajuste el timer nuevamente
-		<?php echo $chequeador;?>
-	}
-	<?php echo $chequeador;?>
-</SCRIPT>
-
 
 <style type='text/css'>
 .ci-tabs-h-lista a {
