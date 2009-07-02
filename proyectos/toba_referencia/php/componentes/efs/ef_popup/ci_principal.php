@@ -28,7 +28,7 @@ class ci_principal extends toba_ci
 					ref_persona_deportes d
 				WHERE 
 					p.id = d.persona AND
-					d.deporte = '$deporte'
+					d.deporte = $deporte
 				ORDER BY p.nombre
 					
 		";
