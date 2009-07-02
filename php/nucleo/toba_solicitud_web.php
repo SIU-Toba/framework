@@ -461,17 +461,17 @@ class toba_solicitud_web extends toba_solicitud
 	{	
 		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
 		if (! is_null($cod_ga) && $cod_ga != '') {
-			echo "estadista.set_codigo('$cod_ga'); \n";
+			echo "estadista.set_codigo('$cod_ga'); \n";		
+			echo "estadista.iniciar(); \n";
+			echo "estadista.add_operacion('{$this->item[1]}'); \n";
+			echo "estadista.add_titulo('". $this->get_datos_item('item_nombre')."'); \n";
+			$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
+			if ($ventana != 0) {
+				$ventana *= 60; //$ventana esta en minutos y necesito segundos
+				echo "estadistica.set_timeout('$ventana'); \n";
+			}
+			echo "estadista.trace()";
 		}
-		echo "estadista.iniciar(); \n";
-		echo "estadista.add_operacion('{$this->item[1]}'); \n";
-		echo "estadista.add_titulo('". $this->get_datos_item('item_nombre')."'); \n";
-		$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
-		if ($ventana != 0) {
-			$ventana *= 60; //$ventana esta en minutos y necesito segundos
-			echo "estadistica.set_timeout('$ventana'); \n";
-		}
-		echo "estadista.trace()";
 	}
 
 	//----------------------------------------------------------
