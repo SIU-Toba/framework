@@ -124,6 +124,7 @@ ga.prototype.trace = function ()
 	try{
 		//En los ultimos parametros de los eventos podriamos poner el titulo o algo mas.. ver
 		this._pageTracker._trackEvent(this._operacion, this._evento, this._titulo, this._usuario);
+		this._pageTracker._trackPageview();
 	} catch(err) {
 	}
 }
