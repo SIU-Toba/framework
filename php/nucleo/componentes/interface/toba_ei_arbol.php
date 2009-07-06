@@ -32,6 +32,11 @@ class toba_ei_arbol extends toba_ei
 	final function __construct($datos)
 	{
 		parent::__construct($datos);
+	}
+
+	function inicializar($parametros = array())
+	{
+		parent::inicializar($parametros);
 		if (isset($this->s__nodos_inicial)) {
 			$this->_nodos_inicial = $this->s__nodos_inicial;
 		}
