@@ -163,5 +163,19 @@ class toba_instalacion
 	{
 		return toba_dir()."/temp";	
 	}
+
+	/**
+	 * Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor.
+	 * Se usa el parametro 'chequea_sincro_svn' 0|1
+	 * @return boolean $chequea
+	 */
+	function chequea_sincro_svn()
+	{
+		$chequea = true;
+		if (isset($this->memoria['chequea_sincro_svn'])) {
+			$chequea = ($this->memoria['chequea_sincro_svn'] == '1');
+		}
+		return $chequea;
+	}
 }
 ?>

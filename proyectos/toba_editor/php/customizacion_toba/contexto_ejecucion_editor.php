@@ -25,7 +25,8 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 
 	function conf__final()
 	{
-		if (toba_editor::activado() && ! $this->chequeado) {
+		$chequeo_activado = toba::instalacion()->chequea_sincro_svn();
+		if (toba_editor::activado() && ! $this->chequeado && $chequeo_activado) {
 			//Realizo el control sobre las revisiones de codigo
 			$ultimo_control = toba::memoria()->get_dato('ultimo_control_revision');
 			$actual = time();
