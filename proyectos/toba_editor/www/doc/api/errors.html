@@ -69,6 +69,7 @@
 
 <a href="#Post-parsing">Post-parsing</a><br>
 <a href="#toba.php">toba.php</a><br>
+<a href="#toba_acciones_js.php">toba_acciones_js.php</a><br>
 <a href="#toba_admin_fuentes.php">toba_admin_fuentes.php</a><br>
 <a href="#toba_ajax_respuesta.php">toba_ajax_respuesta.php</a><br>
 <a href="#toba_ap.php">toba_ap.php</a><br>
@@ -139,6 +140,7 @@
 <a href="#toba_filtro_condicion.php">toba_filtro_condicion.php</a><br>
 <a href="#toba_filtro_condicion_entre.php">toba_filtro_condicion_entre.php</a><br>
 <a href="#toba_filtro_condicion_multi.php">toba_filtro_condicion_multi.php</a><br>
+<a href="#toba_filtro_condicion_negativa.php">toba_filtro_condicion_negativa.php</a><br>
 <a href="#toba_form.php">toba_form.php</a><br>
 <a href="#toba_formateo.php">toba_formateo.php</a><br>
 <a href="#toba_fuente_datos.php">toba_fuente_datos.php</a><br>
@@ -177,6 +179,7 @@
 <a href="#toba_puntos_control.php">toba_puntos_control.php</a><br>
 <a href="#toba_recurso.php">toba_recurso.php</a><br>
 <a href="#toba_relacion_entre_tablas.php">toba_relacion_entre_tablas.php</a><br>
+<a href="#toba_serializar_propiedades.php">toba_serializar_propiedades.php</a><br>
 <a href="#toba_sesion.php">toba_sesion.php</a><br>
 <a href="#toba_sincronizador_archivos.php">toba_sincronizador_archivos.php</a><br>
 <a href="#toba_solicitud.php">toba_solicitud.php</a><br>
@@ -213,16 +216,21 @@
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_nodo_arbol", use another DocBlock to document the file<br>
 <b>Warning on line 34</b> - Method "tiene_propiedades" has no method-level DocBlock.<br>
-<b>Warning on line 73</b> - no @package tag was used in a DocBlock for interface toba_nodo_arbol_form<br>
 <b>Warning on line 73</b> - Class "toba_nodo_arbol_form" has no Class-level DocBlock.<br>
+<b>Warning on line 73</b> - no @package tag was used in a DocBlock for interface toba_nodo_arbol_form<br>
 <b>Warning on line 75</b> - Method "get_input" has no method-level DocBlock.<br>
 <b>Warning on line 77</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
 <b>Warning on line 79</b> - Method "set_apertura" has no method-level DocBlock.<br>
 <b>Warning on line 81</b> - Method "get_apertura" has no method-level DocBlock.<br>
+<b>Warning on line 96</b> - Method "get_html" has no method-level DocBlock.<br>
 <a name="toba.php"></a>
 <h1>toba.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba", use another DocBlock to document the file<br>
+<a name="toba_acciones_js.php"></a>
+<h1>toba_acciones_js.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_acciones_js", use another DocBlock to document the file<br>
 <a name="toba_admin_fuentes.php"></a>
 <h1>toba_admin_fuentes.php</h1>
 <h2>Warnings:</h2><br>
@@ -243,8 +251,19 @@
 <a name="toba_ap_tabla_db.php"></a>
 <h1>toba_ap_tabla_db.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 197</b> - Method "set_schema" has no method-level DocBlock.<br>
-<b>Warning on line 1026</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_ap_tabla_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 222</b> - Method "activar_proceso_carga_externa_consulta_php" has no method-level DocBlock.<br>
+<b>Warning on line 249</b> - Method "set_schema" has no method-level DocBlock.<br>
+<b>Warning on line 271</b> - Method "get_lock_optimista" has no method-level DocBlock.<br>
+<b>Warning on line 1148</b> - Method "carga_inicial_campos_externos" has no method-level DocBlock.<br>
+<b>Warning on line 1183</b> - Method "completa_campos_externos_fila_con_proceso" has no method-level DocBlock.<br>
+<b>Warning on line 1203</b> - Method "usar_metodo_sql_fila" has no method-level DocBlock.<br>
+<b>Warning on line 1228</b> - Method "usar_metodo_dao" has no method-level DocBlock.<br>
+<b>Warning on line 1248</b> - Method "usar_metodo_dt" has no method-level DocBlock.<br>
+<b>Warning on line 1267</b> - Method "usar_clase_consulta_php" has no method-level DocBlock.<br>
+<b>Warning on line 1280</b> - Method "get_valores_llaves" has no method-level DocBlock.<br>
+<b>Warning on line 1311</b> - Method "adjuntar_campos_externos_masivo" has no method-level DocBlock.<br>
+<b>Warning on line 1336</b> - Method "adjuntar_campos_externos" has no method-level DocBlock.<br>
+<b>Warning on line 1338</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_ap_tabla_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ap_tabla_db_mt.php"></a>
 <h1>toba_ap_tabla_db_mt.php</h1>
 <h2>Warnings:</h2><br>
@@ -258,9 +277,11 @@
 <h2>Warnings:</h2><br>
 <b>Warning on line 88</b> - Method "get_codigo_php_puro" has no method-level DocBlock.<br>
 <b>Warning on line 93</b> - Method "get_codigo" has no method-level DocBlock.<br>
-<b>Warning on line 248</b> - Method "insertar" has no method-level DocBlock.<br>
-<b>Warning on line 420</b> - Method "codigo_quitar_identacion" has no method-level DocBlock.<br>
-<b>Warning on line 433</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/reflexion/toba_archivo_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 249</b> - Method "insertar" has no method-level DocBlock.<br>
+<b>Warning on line 421</b> - Method "codigo_quitar_identacion" has no method-level DocBlock.<br>
+<b>Warning on line 438</b> - Method "convertir_formato_interno" has no method-level DocBlock.<br>
+<b>Warning on line 443</b> - Method "convertir_formato_so" has no method-level DocBlock.<br>
+<b>Warning on line 445</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/reflexion/toba_archivo_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_asercion.php"></a>
 <h1>toba_asercion.php</h1>
 <h2>Warnings:</h2><br>
@@ -276,7 +297,7 @@
 <h1>toba_boton.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_boton", use another DocBlock to document the file<br>
-<b>Warning on line 33</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 34</b> - Method "__construct" has no method-level DocBlock.<br>
 <a name="toba_cache_db.php"></a>
 <h1>toba_cache_db.php</h1>
 <h2>Warnings:</h2><br>
@@ -293,12 +314,14 @@
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_carga_opciones_ef", use another DocBlock to document the file<br>
 <b>Warning on line 57</b> - Method "get_cascadas_esclavos" has no method-level DocBlock.<br>
 <b>Warning on line 62</b> - Method "get_cascadas_maestros" has no method-level DocBlock.<br>
-<b>Warning on line 338</b> - Method "quitar_ef" has no method-level DocBlock.<br>
+<b>Warning on line 336</b> - Method "quitar_ef" has no method-level DocBlock.<br>
 <a name="toba_ci.php"></a>
 <h1>toba_ci.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_ci", use another DocBlock to document the file<br>
-<b>Warning on line 40</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 43</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 48</b> - Method "set_navegacion_ajax" has no method-level DocBlock.<br>
+<b>Warning on line 650</b> - Method "get_info_eventos_pantalla" has no method-level DocBlock.<br>
 <a name="toba_clase_datos.php"></a>
 <h1>toba_clase_datos.php</h1>
 <h2>Warnings:</h2><br>
@@ -316,12 +339,13 @@
 <h1>toba_cn.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 13</b> - DocBlock would be page-level, but precedes class "toba_cn", use another DocBlock to document the file<br>
-<b>Warning on line 21</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 26</b> - Method "__construct" has no method-level DocBlock.<br>
 <a name="toba_componente.php"></a>
 <h1>toba_componente.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 78</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 643</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/toba_componente.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 79</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 87</b> - Method "__sleep" has no method-level DocBlock.<br>
+<b>Warning on line 666</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/toba_componente.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_constructor.php"></a>
 <h1>toba_constructor.php</h1>
 <h2>Warnings:</h2><br>
@@ -342,19 +366,22 @@
 <a name="toba_datos_relacion.php"></a>
 <h1>toba_datos_relacion.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 549</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_datos_relacion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 607</b> - Method "get_columnas_tabla_padre" has no method-level DocBlock.<br>
+<b>Warning on line 618</b> - Method "get_columnas_tabla_hija" has no method-level DocBlock.<br>
+<b>Warning on line 620</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_datos_relacion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_datos_tabla.php"></a>
 <h1>toba_datos_tabla.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_datos_tabla", use another DocBlock to document the file<br>
-<b>Warning on line 239</b> - Method "notificar_contenedor" has no method-level DocBlock.<br>
+<b>Warning on line 168</b> - Method "definir_metodo_carga_dao" has no method-level DocBlock.<br>
+<b>Warning on line 262</b> - Method "notificar_contenedor" has no method-level DocBlock.<br>
 <a name="toba_db.php"></a>
 <h1>toba_db.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 50</b> - Method "set_parser_errores" has no method-level DocBlock.<br>
-<b>Warning on line 490</b> - Method "get_definicion_columnas" has no method-level DocBlock.<br>
-<b>Warning on line 768</b> - Method "cortar_sql" has no method-level DocBlock.<br>
-<b>Warning on line 782</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/db/toba_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 51</b> - Method "set_parser_errores" has no method-level DocBlock.<br>
+<b>Warning on line 529</b> - Method "get_definicion_columnas" has no method-level DocBlock.<br>
+<b>Warning on line 807</b> - Method "cortar_sql" has no method-level DocBlock.<br>
+<b>Warning on line 821</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/db/toba_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_dba.php"></a>
 <h1>toba_dba.php</h1>
 <h2>Warnings:</h2><br>
@@ -395,14 +422,14 @@
 <b>Warning on line 87</b> - Method "abrir_transaccion" has no method-level DocBlock.<br>
 <b>Warning on line 94</b> - Method "abortar_transaccion" has no method-level DocBlock.<br>
 <b>Warning on line 101</b> - Method "cerrar_transaccion" has no method-level DocBlock.<br>
-<b>Warning on line 147</b> - Method "existe_schema" has no method-level DocBlock.<br>
-<b>Warning on line 153</b> - Method "borrar_schema" has no method-level DocBlock.<br>
-<b>Warning on line 159</b> - Method "crear_schema" has no method-level DocBlock.<br>
-<b>Warning on line 168</b> - Method "get_lista_tablas_y_vistas" has no method-level DocBlock.<br>
+<b>Warning on line 146</b> - Method "existe_schema" has no method-level DocBlock.<br>
+<b>Warning on line 152</b> - Method "borrar_schema" has no method-level DocBlock.<br>
+<b>Warning on line 158</b> - Method "crear_schema" has no method-level DocBlock.<br>
+<b>Warning on line 167</b> - Method "get_lista_tablas_y_vistas" has no method-level DocBlock.<br>
 <b>Warning on line 204</b> - Method "get_lista_tablas" has no method-level DocBlock.<br>
-<b>Warning on line 218</b> - Method "existe_tabla" has no method-level DocBlock.<br>
-<b>Warning on line 242</b> - Method "existe_columna" has no method-level DocBlock.<br>
-<b>Warning on line 261</b> - Method "get_lista_secuencias" has no method-level DocBlock.<br>
+<b>Warning on line 220</b> - Method "existe_tabla" has no method-level DocBlock.<br>
+<b>Warning on line 245</b> - Method "existe_columna" has no method-level DocBlock.<br>
+<b>Warning on line 272</b> - Method "get_lista_secuencias" has no method-level DocBlock.<br>
 <a name="toba_debug.php"></a>
 <h1>toba_debug.php</h1>
 <h2>Warnings:</h2><br>
@@ -423,33 +450,35 @@
 <a name="toba_ef.php"></a>
 <h1>toba_ef.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 112</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 246</b> - Method "quitar_maestro" has no method-level DocBlock.<br>
-<b>Warning on line 347</b> - Method "get_id_form" has no method-level DocBlock.<br>
-<b>Warning on line 496</b> - Method "es_solo_lectura" has no method-level DocBlock.<br>
-<b>Warning on line 638</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 115</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 252</b> - Method "quitar_maestro" has no method-level DocBlock.<br>
+<b>Warning on line 264</b> - Method "clave_memoria" has no method-level DocBlock.<br>
+<b>Warning on line 518</b> - Method "es_solo_lectura" has no method-level DocBlock.<br>
+<b>Warning on line 600</b> - Method "get_html_iconos_utilerias" has no method-level DocBlock.<br>
+<b>Warning on line 623</b> - Method "guardar_dato_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 700</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ef_combo.php"></a>
 <h1>toba_ef_combo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_ef_seleccion", use another DocBlock to document the file<br>
-<b>Warning on line 22</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
-<b>Warning on line 46</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 51</b> - Method "es_seleccionable" has no method-level DocBlock.<br>
-<b>Warning on line 78</b> - Method "get_estado" has no method-level DocBlock.<br>
-<b>Warning on line 115</b> - Method "es_estado_nulo" has no method-level DocBlock.<br>
-<b>Warning on line 120</b> - Method "es_estado_no_seleccionado" has no method-level DocBlock.<br>
-<b>Warning on line 139</b> - Method "get_estado_para_input" has no method-level DocBlock.<br>
-<b>Warning on line 157</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 189</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 194</b> - Method "tiene_estado" has no method-level DocBlock.<br>
-<b>Warning on line 200</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 238</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 243</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 266</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 274</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 279</b> - Method "set_cantidad_columnas" has no method-level DocBlock.<br>
-<b>Warning on line 334</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 339</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 23</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
+<b>Warning on line 47</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 52</b> - Method "es_seleccionable" has no method-level DocBlock.<br>
+<b>Warning on line 87</b> - Method "get_estado" has no method-level DocBlock.<br>
+<b>Warning on line 124</b> - Method "es_estado_nulo" has no method-level DocBlock.<br>
+<b>Warning on line 129</b> - Method "es_estado_no_seleccionado" has no method-level DocBlock.<br>
+<b>Warning on line 148</b> - Method "get_estado_para_input" has no method-level DocBlock.<br>
+<b>Warning on line 166</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 208</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 213</b> - Method "tiene_estado" has no method-level DocBlock.<br>
+<b>Warning on line 219</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 258</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 263</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 286</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 294</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 299</b> - Method "set_cantidad_columnas" has no method-level DocBlock.<br>
+<b>Warning on line 356</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 361</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
 <a name="toba_ef_combo_editable.php"></a>
 <h1>toba_ef_combo_editable.php</h1>
 <h2>Warnings:</h2><br>
@@ -477,11 +506,11 @@
 <b>Warning on line 71</b> - Method "desactivar_validacion" has no method-level DocBlock.<br>
 <b>Warning on line 76</b> - Method "get_desactivar_validacion" has no method-level DocBlock.<br>
 <b>Warning on line 95</b> - Method "validar_estado" has no method-level DocBlock.<br>
-<b>Warning on line 111</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 128</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 134</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 143</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 176</b> - Method "validar_cuit" has no method-level DocBlock.<br>
+<b>Warning on line 112</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 129</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 135</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 144</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 177</b> - Method "validar_cuit" has no method-level DocBlock.<br>
 <a name="toba_ef_editable.php"></a>
 <h1>toba_ef_editable.php</h1>
 <h2>Warnings:</h2><br>
@@ -493,56 +522,57 @@
 <b>Warning on line 97</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
 <b>Warning on line 106</b> - Method "tiene_estado" has no method-level DocBlock.<br>
 <b>Warning on line 125</b> - Method "validar_estado" has no method-level DocBlock.<br>
-<b>Warning on line 135</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 141</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 147</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 152</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 178</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 187</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 231</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
-<b>Warning on line 252</b> - Method "validar_rango" has no method-level DocBlock.<br>
-<b>Warning on line 287</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 294</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 299</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 318</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 326</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
-<b>Warning on line 343</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 368</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 373</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 381</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
-<b>Warning on line 398</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 420</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 428</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 439</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 454</b> - Method "validar_estado" has no method-level DocBlock.<br>
-<b>Warning on line 459</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 481</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 500</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 509</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 530</b> - Method "get_estado" has no method-level DocBlock.<br>
-<b>Warning on line 537</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 552</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 593</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 598</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 616</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 646</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 676</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 685</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 709</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 719</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 724</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 731</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 136</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 142</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 148</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 153</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 179</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 188</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 232</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
+<b>Warning on line 253</b> - Method "validar_rango" has no method-level DocBlock.<br>
+<b>Warning on line 288</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 295</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 300</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 319</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 327</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
+<b>Warning on line 344</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 369</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 374</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 382</b> - Method "mensaje_validacion_rango" has no method-level DocBlock.<br>
+<b>Warning on line 399</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 421</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 429</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 441</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 456</b> - Method "validar_estado" has no method-level DocBlock.<br>
+<b>Warning on line 461</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 483</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 502</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 511</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 532</b> - Method "get_estado" has no method-level DocBlock.<br>
+<b>Warning on line 539</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 555</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 596</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 601</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 619</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 649</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 679</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 688</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 698</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 723</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 733</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 738</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 745</b> - Method "parametros_js" has no method-level DocBlock.<br>
 <a name="toba_ef_editable_captcha.php"></a>
 <h1>toba_ef_editable_captcha.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 22</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
 <b>Warning on line 32</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
 <b>Warning on line 44</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 82</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 93</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 98</b> - Method "get_estado" has no method-level DocBlock.<br>
-<b>Warning on line 104</b> - Method "tiene_estado" has no method-level DocBlock.<br>
-<b>Warning on line 108</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef_editable_captcha.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 83</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 94</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 99</b> - Method "get_estado" has no method-level DocBlock.<br>
+<b>Warning on line 105</b> - Method "tiene_estado" has no method-level DocBlock.<br>
+<b>Warning on line 109</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef_editable_captcha.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ef_multi_seleccion.php"></a>
 <h1>toba_ef_multi_seleccion.php</h1>
 <h2>Warnings:</h2><br>
@@ -551,44 +581,43 @@
 <b>Warning on line 33</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
 <b>Warning on line 88</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 93</b> - Method "tiene_estado" has no method-level DocBlock.<br>
-<b>Warning on line 102</b> - Method "set_opciones" has no method-level DocBlock.<br>
-<b>Warning on line 119</b> - Method "es_estado_individual_nulo" has no method-level DocBlock.<br>
-<b>Warning on line 130</b> - Method "es_estado_nulo" has no method-level DocBlock.<br>
-<b>Warning on line 143</b> - Method "validar_estado_particular" has no method-level DocBlock.<br>
-<b>Warning on line 159</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 187</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 219</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 224</b> - Method "es_seleccionable" has no method-level DocBlock.<br>
-<b>Warning on line 229</b> - Method "es_estado_unico" has no method-level DocBlock.<br>
-<b>Warning on line 235</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 263</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 299</b> - Method "get_estado_para_input" has no method-level DocBlock.<br>
-<b>Warning on line 324</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 329</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 351</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 356</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 378</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 386</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 391</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 396</b> - Method "set_cantidad_columnas" has no method-level DocBlock.<br>
-<b>Warning on line 401</b> - Method "es_multicolumna" has no method-level DocBlock.<br>
-<b>Warning on line 457</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 480</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 495</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 500</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 540</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 108</b> - Method "set_opciones" has no method-level DocBlock.<br>
+<b>Warning on line 125</b> - Method "es_estado_individual_nulo" has no method-level DocBlock.<br>
+<b>Warning on line 136</b> - Method "es_estado_nulo" has no method-level DocBlock.<br>
+<b>Warning on line 149</b> - Method "validar_estado_particular" has no method-level DocBlock.<br>
+<b>Warning on line 165</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 211</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 243</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 248</b> - Method "es_seleccionable" has no method-level DocBlock.<br>
+<b>Warning on line 253</b> - Method "es_estado_unico" has no method-level DocBlock.<br>
+<b>Warning on line 259</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 287</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 323</b> - Method "get_estado_para_input" has no method-level DocBlock.<br>
+<b>Warning on line 348</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 353</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 376</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 381</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 403</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 411</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 416</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 421</b> - Method "set_cantidad_columnas" has no method-level DocBlock.<br>
+<b>Warning on line 426</b> - Method "es_multicolumna" has no method-level DocBlock.<br>
+<b>Warning on line 484</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 507</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 522</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 527</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 568</b> - Method "get_input" has no method-level DocBlock.<br>
 <a name="toba_ef_oculto.php"></a>
 <h1>toba_ef_oculto.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_ef_oculto", use another DocBlock to document the file<br>
 <b>Warning on line 18</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 23</b> - Method "clave_memoria" has no method-level DocBlock.<br>
-<b>Warning on line 30</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 55</b> - Method "resetear_estado" has no method-level DocBlock.<br>
-<b>Warning on line 60</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 79</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 84</b> - Method "resetear_estado" has no method-level DocBlock.<br>
-<b>Warning on line 90</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 25</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 50</b> - Method "resetear_estado" has no method-level DocBlock.<br>
+<b>Warning on line 55</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 74</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 79</b> - Method "resetear_estado" has no method-level DocBlock.<br>
+<b>Warning on line 85</b> - Method "set_estado" has no method-level DocBlock.<br>
 <a name="toba_ef_popup.php"></a>
 <h1>toba_ef_popup.php</h1>
 <h2>Warnings:</h2><br>
@@ -600,11 +629,11 @@
 <b>Warning on line 129</b> - Method "set_opciones" has no method-level DocBlock.<br>
 <b>Warning on line 134</b> - Method "set_puede_borrar_estado" has no method-level DocBlock.<br>
 <b>Warning on line 139</b> - Method "set_imagen_editar" has no method-level DocBlock.<br>
-<b>Warning on line 178</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 183</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 189</b> - Method "parametros_js" has no method-level DocBlock.<br>
-<b>Warning on line 194</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 207</b> - Method "resetear_estado" has no method-level DocBlock.<br>
+<b>Warning on line 179</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 184</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 190</b> - Method "parametros_js" has no method-level DocBlock.<br>
+<b>Warning on line 195</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 208</b> - Method "resetear_estado" has no method-level DocBlock.<br>
 <a name="toba_ef_sin_estado.php"></a>
 <h1>toba_ef_sin_estado.php</h1>
 <h2>Warnings:</h2><br>
@@ -628,55 +657,57 @@
 <b>Warning on line 12</b> - DocBlock would be page-level, but precedes class "toba_ef_upload", use another DocBlock to document the file<br>
 <b>Warning on line 22</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
 <b>Warning on line 33</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 73</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 82</b> - Method "get_estado_input" has no method-level DocBlock.<br>
-<b>Warning on line 94</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 99</b> - Method "es_archivo_vacio" has no method-level DocBlock.<br>
-<b>Warning on line 105</b> - Method "tiene_estado" has no method-level DocBlock.<br>
-<b>Warning on line 154</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 159</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 74</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 83</b> - Method "get_estado_input" has no method-level DocBlock.<br>
+<b>Warning on line 95</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 100</b> - Method "es_archivo_vacio" has no method-level DocBlock.<br>
+<b>Warning on line 106</b> - Method "tiene_estado" has no method-level DocBlock.<br>
+<b>Warning on line 155</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 160</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
 <a name="toba_ef_varios.php"></a>
 <h1>toba_ef_varios.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_ef_checkbox", use another DocBlock to document the file<br>
 <b>Warning on line 24</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
 <b>Warning on line 54</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 79</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 97</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 107</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 113</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 119</b> - Method "tiene_estado" has no method-level DocBlock.<br>
-<b>Warning on line 125</b> - Method "seleccionado" has no method-level DocBlock.<br>
-<b>Warning on line 130</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 149</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
-<b>Warning on line 161</b> - no @package tag was used in a DocBlock for class toba_ef_fijo<br>
-<b>Warning on line 169</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 179</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
-<b>Warning on line 190</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 204</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 209</b> - Method "set_opciones" has no method-level DocBlock.<br>
-<b>Warning on line 219</b> - Method "get_input" has no method-level DocBlock.<br>
-<b>Warning on line 225</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 230</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 246</b> - no @package tag was used in a DocBlock for class toba_ef_html<br>
-<b>Warning on line 259</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 267</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 274</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 299</b> - Method "set_barra_colapsada" has no method-level DocBlock.<br>
-<b>Warning on line 317</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 81</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 99</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 109</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 115</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 121</b> - Method "tiene_estado" has no method-level DocBlock.<br>
+<b>Warning on line 127</b> - Method "seleccionado" has no method-level DocBlock.<br>
+<b>Warning on line 132</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 151</b> - Method "get_descripcion_estado" has no method-level DocBlock.<br>
+<b>Warning on line 163</b> - no @package tag was used in a DocBlock for class toba_ef_fijo<br>
+<b>Warning on line 171</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 181</b> - Method "get_lista_parametros_carga" has no method-level DocBlock.<br>
+<b>Warning on line 192</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 206</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 211</b> - Method "set_opciones" has no method-level DocBlock.<br>
+<b>Warning on line 222</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 228</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 233</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 249</b> - no @package tag was used in a DocBlock for class toba_ef_html<br>
+<b>Warning on line 262</b> - Method "get_lista_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 270</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 277</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 302</b> - Method "set_barra_colapsada" has no method-level DocBlock.<br>
+<b>Warning on line 320</b> - Method "get_input" has no method-level DocBlock.<br>
+<b>Warning on line 325</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
 <a name="toba_ei.php"></a>
 <h1>toba_ei.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - Page-level DocBlock precedes "function pre", use another DocBlock to document the source element<br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_ei", use another DocBlock to document the file<br>
-<b>Warning on line 39</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 726</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 41</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 764</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
 <a name="toba_ei_arbol.php"></a>
 <h1>toba_ei_arbol.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_ei_arbol", use another DocBlock to document the file<br>
-<b>Warning on line 37</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 146</b> - Method "get_datos" has no method-level DocBlock.<br>
+<b>Warning on line 34</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 42</b> - Method "inicializar" has no method-level DocBlock.<br>
+<b>Warning on line 150</b> - Method "get_datos" has no method-level DocBlock.<br>
 <a name="toba_ei_archivos.php"></a>
 <h1>toba_ei_archivos.php</h1>
 <h2>Warnings:</h2><br>
@@ -694,17 +725,17 @@
 <a name="toba_ei_cuadro.php"></a>
 <h1>toba_ei_cuadro.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 116</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 339</b> - Method "destruir" has no method-level DocBlock.<br>
-<b>Warning on line 1070</b> - Method "get_estructura_datos" has no method-level DocBlock.<br>
-<b>Warning on line 2205</b> - Method "impresion_html_cc_inicio_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 2208</b> - Method "impresion_html_cc_fin_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 2226</b> - Method "vista_pdf" has no method-level DocBlock.<br>
-<b>Warning on line 2555</b> - Method "pdf_pie_corte_control" has no method-level DocBlock.<br>
-<b>Warning on line 2559</b> - Method "pdf_cc_inicio_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 2563</b> - Method "pdf_cc_fin_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 2583</b> - Method "vista_excel" has no method-level DocBlock.<br>
-<b>Warning on line 2976</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_cuadro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 118</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 360</b> - Method "destruir" has no method-level DocBlock.<br>
+<b>Warning on line 1235</b> - Method "get_estructura_datos" has no method-level DocBlock.<br>
+<b>Warning on line 2427</b> - Method "impresion_html_cc_inicio_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 2430</b> - Method "impresion_html_cc_fin_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 2448</b> - Method "vista_pdf" has no method-level DocBlock.<br>
+<b>Warning on line 2777</b> - Method "pdf_pie_corte_control" has no method-level DocBlock.<br>
+<b>Warning on line 2781</b> - Method "pdf_cc_inicio_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 2785</b> - Method "pdf_cc_fin_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 2805</b> - Method "vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 3198</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_cuadro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_esquema.php"></a>
 <h1>toba_ei_esquema.php</h1>
 <h2>Warnings:</h2><br>
@@ -714,40 +745,44 @@
 <a name="toba_ei_filtro.php"></a>
 <h1>toba_ei_filtro.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_ei_filtro", use another DocBlock to document the file<br>
-<b>Warning on line 278</b> - Method "generar_html" has no method-level DocBlock.<br>
-<b>Warning on line 453</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 482</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
-<b>Warning on line 629</b> - Method "vista_pdf" has no method-level DocBlock.<br>
-<b>Warning on line 671</b> - Method "vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_ei_filtro", use another DocBlock to document the file<br>
+<b>Warning on line 30</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 298</b> - Method "generar_html" has no method-level DocBlock.<br>
+<b>Warning on line 475</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 504</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
+<b>Warning on line 651</b> - Method "vista_pdf" has no method-level DocBlock.<br>
+<b>Warning on line 693</b> - Method "vista_excel" has no method-level DocBlock.<br>
 <a name="toba_ei_formulario.php"></a>
 <h1>toba_ei_formulario.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_ei_formulario", use another DocBlock to document the file<br>
-<b>Warning on line 54</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 61</b> - Method "destruir" has no method-level DocBlock.<br>
-<b>Warning on line 87</b> - Method "aplicar_restricciones_funcionales" has no method-level DocBlock.<br>
-<b>Warning on line 205</b> - Method "set_ancho_etiqueta" has no method-level DocBlock.<br>
-<b>Warning on line 834</b> - Method "generar_html" has no method-level DocBlock.<br>
-<b>Warning on line 1108</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
-<b>Warning on line 1176</b> - Method "vista_pdf" has no method-level DocBlock.<br>
-<b>Warning on line 1231</b> - Method "vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 55</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 62</b> - Method "destruir" has no method-level DocBlock.<br>
+<b>Warning on line 88</b> - Method "aplicar_restricciones_funcionales" has no method-level DocBlock.<br>
+<b>Warning on line 206</b> - Method "set_ancho_etiqueta" has no method-level DocBlock.<br>
+<b>Warning on line 855</b> - Method "generar_html" has no method-level DocBlock.<br>
+<b>Warning on line 941</b> - Method "generar_layout_template" has no method-level DocBlock.<br>
+<b>Warning on line 1209</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
+<b>Warning on line 1277</b> - Method "vista_pdf" has no method-level DocBlock.<br>
+<b>Warning on line 1332</b> - Method "vista_excel" has no method-level DocBlock.<br>
 <a name="toba_ei_formulario_ml.php"></a>
 <h1>toba_ei_formulario_ml.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_ei_formulario_ml", use another DocBlock to document the file<br>
 <b>Warning on line 40</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 47</b> - Method "destruir" has no method-level DocBlock.<br>
-<b>Warning on line 1169</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
-<b>Warning on line 1227</b> - Method "vista_pdf" has no method-level DocBlock.<br>
-<b>Warning on line 1271</b> - Method "vista_excel" has no method-level DocBlock.<br>
-<b>Warning on line 1292</b> - Method "totalizar_columnas_impresion" has no method-level DocBlock.<br>
+<b>Warning on line 1195</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
+<b>Warning on line 1253</b> - Method "vista_pdf" has no method-level DocBlock.<br>
+<b>Warning on line 1297</b> - Method "vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 1318</b> - Method "totalizar_columnas_impresion" has no method-level DocBlock.<br>
 <a name="toba_ei_pantalla.php"></a>
 <h1>toba_ei_pantalla.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 15</b> - DocBlock would be page-level, but precedes class "toba_ei_pantalla", use another DocBlock to document the file<br>
-<b>Warning on line 39</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 709</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
+<b>Warning on line 41</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 161</b> - Method "set_navegacion_ajax" has no method-level DocBlock.<br>
+<b>Warning on line 592</b> - Method "generar_layout_template" has no method-level DocBlock.<br>
+<b>Warning on line 762</b> - Method "vista_impresion_html" has no method-level DocBlock.<br>
 <a name="toba_encriptador.php"></a>
 <h1>toba_encriptador.php</h1>
 <h2>Warnings:</h2><br>
@@ -764,55 +799,59 @@
 <h1>toba_error.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - no @package tag was used in a DocBlock for class toba_error<br>
-<b>Warning on line 21</b> - Method "get_mensaje_log" has no method-level DocBlock.<br>
-<b>Warning on line 31</b> - no @package tag was used in a DocBlock for class toba_error_db<br>
-<b>Warning on line 85</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 90</b> - Method "set_info_error" has no method-level DocBlock.<br>
-<b>Warning on line 95</b> - Method "set_mensaje_motor" has no method-level DocBlock.<br>
-<b>Warning on line 100</b> - Method "set_sql_ejecutado" has no method-level DocBlock.<br>
-<b>Warning on line 105</b> - Method "get_mensaje_motor" has no method-level DocBlock.<br>
-<b>Warning on line 110</b> - Method "get_sql_ejecutado" has no method-level DocBlock.<br>
-<b>Warning on line 115</b> - Method "get_sqlstate" has no method-level DocBlock.<br>
-<b>Warning on line 120</b> - Method "get_codigo_motor" has no method-level DocBlock.<br>
-<b>Warning on line 140</b> - Method "get_mensaje" has no method-level DocBlock.<br>
-<b>Warning on line 149</b> - Method "parsear_mensaje" has no method-level DocBlock.<br>
-<b>Warning on line 157</b> - no @package tag was used in a DocBlock for class toba_error_usuario<br>
-<b>Warning on line 165</b> - no @package tag was used in a DocBlock for class toba_error_def<br>
-<b>Warning on line 173</b> - no @package tag was used in a DocBlock for class toba_error_permisos<br>
-<b>Warning on line 181</b> - no @package tag was used in a DocBlock for class toba_error_autenticacion<br>
-<b>Warning on line 189</b> - no @package tag was used in a DocBlock for class toba_error_autorizacion<br>
-<b>Warning on line 198</b> - no @package tag was used in a DocBlock for class toba_error_seguridad<br>
-<b>Warning on line 203</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 210</b> - no @package tag was used in a DocBlock for class toba_error_validacion<br>
-<b>Warning on line 210</b> - Class "toba_error_validacion" has no Class-level DocBlock.<br>
-<b>Warning on line 217</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 222</b> - Method "get_causante" has no method-level DocBlock.<br>
-<b>Warning on line 229</b> - no @package tag was used in a DocBlock for class toba_error_ini_sesion<br>
-<b>Warning on line 238</b> - no @package tag was used in a DocBlock for class toba_reset_nucleo<br>
-<b>Warning on line 244</b> - Method "set_item" has no method-level DocBlock.<br>
-<b>Warning on line 249</b> - Method "get_item" has no method-level DocBlock.<br>
+<b>Warning on line 20</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 25</b> - Method "get_mensaje" has no method-level DocBlock.<br>
+<b>Warning on line 34</b> - Method "get_mensaje_log" has no method-level DocBlock.<br>
+<b>Warning on line 44</b> - no @package tag was used in a DocBlock for class toba_error_db<br>
+<b>Warning on line 98</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 103</b> - Method "set_info_error" has no method-level DocBlock.<br>
+<b>Warning on line 108</b> - Method "set_mensaje_motor" has no method-level DocBlock.<br>
+<b>Warning on line 113</b> - Method "set_sql_ejecutado" has no method-level DocBlock.<br>
+<b>Warning on line 118</b> - Method "get_mensaje_motor" has no method-level DocBlock.<br>
+<b>Warning on line 123</b> - Method "get_sql_ejecutado" has no method-level DocBlock.<br>
+<b>Warning on line 128</b> - Method "get_sqlstate" has no method-level DocBlock.<br>
+<b>Warning on line 133</b> - Method "get_codigo_motor" has no method-level DocBlock.<br>
+<b>Warning on line 153</b> - Method "get_mensaje" has no method-level DocBlock.<br>
+<b>Warning on line 162</b> - Method "parsear_mensaje" has no method-level DocBlock.<br>
+<b>Warning on line 170</b> - no @package tag was used in a DocBlock for class toba_error_usuario<br>
+<b>Warning on line 178</b> - no @package tag was used in a DocBlock for class toba_error_def<br>
+<b>Warning on line 186</b> - no @package tag was used in a DocBlock for class toba_error_permisos<br>
+<b>Warning on line 194</b> - no @package tag was used in a DocBlock for class toba_error_autenticacion<br>
+<b>Warning on line 202</b> - no @package tag was used in a DocBlock for class toba_error_autorizacion<br>
+<b>Warning on line 211</b> - no @package tag was used in a DocBlock for class toba_error_seguridad<br>
+<b>Warning on line 216</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 223</b> - Class "toba_error_validacion" has no Class-level DocBlock.<br>
+<b>Warning on line 223</b> - no @package tag was used in a DocBlock for class toba_error_validacion<br>
+<b>Warning on line 230</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 235</b> - Method "get_causante" has no method-level DocBlock.<br>
+<b>Warning on line 242</b> - no @package tag was used in a DocBlock for class toba_error_ini_sesion<br>
+<b>Warning on line 251</b> - no @package tag was used in a DocBlock for class toba_reset_nucleo<br>
+<b>Warning on line 260</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 265</b> - Method "set_item" has no method-level DocBlock.<br>
+<b>Warning on line 270</b> - Method "get_item" has no method-level DocBlock.<br>
 <a name="toba_evento_usuario.php"></a>
 <h1>toba_evento_usuario.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_evento_usuario", use another DocBlock to document the file<br>
-<b>Warning on line 51</b> - Method "maneja_datos" has no method-level DocBlock.<br>
-<b>Warning on line 56</b> - Method "esta_sobre_fila" has no method-level DocBlock.<br>
-<b>Warning on line 62</b> - Method "esta_en_botonera" has no method-level DocBlock.<br>
-<b>Warning on line 67</b> - Method "es_implicito" has no method-level DocBlock.<br>
-<b>Warning on line 79</b> - Method "es_autovinculo" has no method-level DocBlock.<br>
-<b>Warning on line 94</b> - Method "posee_accion_asociada" has no method-level DocBlock.<br>
-<b>Warning on line 99</b> - Method "posee_accion_imprimir" has no method-level DocBlock.<br>
-<b>Warning on line 104</b> - Method "posee_accion_vincular" has no method-level DocBlock.<br>
-<b>Warning on line 109</b> - Method "posee_accion_vista_pdf" has no method-level DocBlock.<br>
-<b>Warning on line 114</b> - Method "posee_accion_vista_excel" has no method-level DocBlock.<br>
-<b>Warning on line 119</b> - Method "posee_grupo_asociado" has no method-level DocBlock.<br>
-<b>Warning on line 124</b> - Method "pertenece_a_grupo" has no method-level DocBlock.<br>
-<b>Warning on line 131</b> - Method "get_id" has no method-level DocBlock.<br>
-<b>Warning on line 146</b> - Method "get_grupos" has no method-level DocBlock.<br>
-<b>Warning on line 151</b> - Method "get_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 158</b> - Method "set_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 163</b> - Method "set_vista_previa_impresion" has no method-level DocBlock.<br>
-<b>Warning on line 167</b> - Method "set_maneja_datos" has no method-level DocBlock.<br>
+<b>Warning on line 52</b> - Method "maneja_datos" has no method-level DocBlock.<br>
+<b>Warning on line 57</b> - Method "esta_sobre_fila" has no method-level DocBlock.<br>
+<b>Warning on line 63</b> - Method "esta_en_botonera" has no method-level DocBlock.<br>
+<b>Warning on line 68</b> - Method "es_implicito" has no method-level DocBlock.<br>
+<b>Warning on line 80</b> - Method "es_autovinculo" has no method-level DocBlock.<br>
+<b>Warning on line 95</b> - Method "posee_accion_asociada" has no method-level DocBlock.<br>
+<b>Warning on line 100</b> - Method "posee_accion_imprimir" has no method-level DocBlock.<br>
+<b>Warning on line 105</b> - Method "posee_accion_vincular" has no method-level DocBlock.<br>
+<b>Warning on line 110</b> - Method "posee_accion_vista_pdf" has no method-level DocBlock.<br>
+<b>Warning on line 115</b> - Method "posee_accion_vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 120</b> - Method "posee_grupo_asociado" has no method-level DocBlock.<br>
+<b>Warning on line 125</b> - Method "pertenece_a_grupo" has no method-level DocBlock.<br>
+<b>Warning on line 132</b> - Method "get_id" has no method-level DocBlock.<br>
+<b>Warning on line 147</b> - Method "get_grupos" has no method-level DocBlock.<br>
+<b>Warning on line 152</b> - Method "get_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 157</b> - Method "es_seleccion_multiple" has no method-level DocBlock.<br>
+<b>Warning on line 164</b> - Method "set_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 169</b> - Method "set_vista_previa_impresion" has no method-level DocBlock.<br>
+<b>Warning on line 173</b> - Method "set_maneja_datos" has no method-level DocBlock.<br>
 <a name="toba_fecha.php"></a>
 <h1>toba_fecha.php</h1>
 <h2>Warnings:</h2><br>
@@ -844,40 +883,40 @@
 <h1>toba_filtro_columna.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_filtro_columna", use another DocBlock to document the file<br>
-<b>Warning on line 25</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 40</b> - Method "set_estado" has no method-level DocBlock.<br>
-<b>Warning on line 45</b> - Method "set_visible" has no method-level DocBlock.<br>
-<b>Warning on line 51</b> - Method "set_solo_lectura" has no method-level DocBlock.<br>
-<b>Warning on line 56</b> - Method "set_expresion" has no method-level DocBlock.<br>
-<b>Warning on line 74</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
-<b>Warning on line 79</b> - Method "agregar_condicion" has no method-level DocBlock.<br>
-<b>Warning on line 84</b> - Method "borrar_condicion" has no method-level DocBlock.<br>
-<b>Warning on line 90</b> - Method "set_formateo" has no method-level DocBlock.<br>
-<b>Warning on line 100</b> - Method "get_id_metadato" has no method-level DocBlock.<br>
-<b>Warning on line 105</b> - Method "get_id_form" has no method-level DocBlock.<br>
-<b>Warning on line 110</b> - Method "get_tab_index" has no method-level DocBlock.<br>
-<b>Warning on line 115</b> - Method "es_obligatorio" has no method-level DocBlock.<br>
-<b>Warning on line 120</b> - Method "es_solo_lectura" has no method-level DocBlock.<br>
-<b>Warning on line 125</b> - Method "es_visible" has no method-level DocBlock.<br>
-<b>Warning on line 130</b> - Method "es_compuesto" has no method-level DocBlock.<br>
-<b>Warning on line 135</b> - Method "get_nombre" has no method-level DocBlock.<br>
-<b>Warning on line 140</b> - Method "get_ef" has no method-level DocBlock.<br>
-<b>Warning on line 145</b> - Method "get_expresion" has no method-level DocBlock.<br>
-<b>Warning on line 150</b> - Method "get_etiqueta" has no method-level DocBlock.<br>
-<b>Warning on line 156</b> - Method "get_formateo" has no method-level DocBlock.<br>
-<b>Warning on line 161</b> - Method "validar_estado" has no method-level DocBlock.<br>
-<b>Warning on line 168</b> - Method "resetear_estado" has no method-level DocBlock.<br>
-<b>Warning on line 173</b> - Method "get_estado" has no method-level DocBlock.<br>
-<b>Warning on line 178</b> - Method "get_cant_condiciones" has no method-level DocBlock.<br>
-<b>Warning on line 208</b> - Method "set_condicion" has no method-level DocBlock.<br>
-<b>Warning on line 217</b> - Method "get_sql_where" has no method-level DocBlock.<br>
-<b>Warning on line 254</b> - Method "get_html_condicion" has no method-level DocBlock.<br>
-<b>Warning on line 259</b> - Method "get_html_valor" has no method-level DocBlock.<br>
-<b>Warning on line 283</b> - Method "get_html_etiqueta" has no method-level DocBlock.<br>
-<b>Warning on line 293</b> - Method "get_objeto_js_ef" has no method-level DocBlock.<br>
-<b>Warning on line 298</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
-<b>Warning on line 303</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
-<b>Warning on line 308</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 26</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 49</b> - Method "set_estado" has no method-level DocBlock.<br>
+<b>Warning on line 54</b> - Method "set_visible" has no method-level DocBlock.<br>
+<b>Warning on line 60</b> - Method "set_solo_lectura" has no method-level DocBlock.<br>
+<b>Warning on line 65</b> - Method "set_expresion" has no method-level DocBlock.<br>
+<b>Warning on line 83</b> - Method "cargar_estado_post" has no method-level DocBlock.<br>
+<b>Warning on line 88</b> - Method "agregar_condicion" has no method-level DocBlock.<br>
+<b>Warning on line 93</b> - Method "borrar_condicion" has no method-level DocBlock.<br>
+<b>Warning on line 99</b> - Method "set_formateo" has no method-level DocBlock.<br>
+<b>Warning on line 109</b> - Method "get_id_metadato" has no method-level DocBlock.<br>
+<b>Warning on line 114</b> - Method "get_id_form" has no method-level DocBlock.<br>
+<b>Warning on line 119</b> - Method "get_tab_index" has no method-level DocBlock.<br>
+<b>Warning on line 124</b> - Method "es_obligatorio" has no method-level DocBlock.<br>
+<b>Warning on line 129</b> - Method "es_solo_lectura" has no method-level DocBlock.<br>
+<b>Warning on line 134</b> - Method "es_visible" has no method-level DocBlock.<br>
+<b>Warning on line 139</b> - Method "es_compuesto" has no method-level DocBlock.<br>
+<b>Warning on line 144</b> - Method "get_nombre" has no method-level DocBlock.<br>
+<b>Warning on line 149</b> - Method "get_ef" has no method-level DocBlock.<br>
+<b>Warning on line 154</b> - Method "get_expresion" has no method-level DocBlock.<br>
+<b>Warning on line 159</b> - Method "get_etiqueta" has no method-level DocBlock.<br>
+<b>Warning on line 165</b> - Method "get_formateo" has no method-level DocBlock.<br>
+<b>Warning on line 170</b> - Method "validar_estado" has no method-level DocBlock.<br>
+<b>Warning on line 177</b> - Method "resetear_estado" has no method-level DocBlock.<br>
+<b>Warning on line 182</b> - Method "get_estado" has no method-level DocBlock.<br>
+<b>Warning on line 187</b> - Method "get_cant_condiciones" has no method-level DocBlock.<br>
+<b>Warning on line 283</b> - Method "set_condicion" has no method-level DocBlock.<br>
+<b>Warning on line 292</b> - Method "get_sql_where" has no method-level DocBlock.<br>
+<b>Warning on line 334</b> - Method "get_html_condicion" has no method-level DocBlock.<br>
+<b>Warning on line 339</b> - Method "get_html_valor" has no method-level DocBlock.<br>
+<b>Warning on line 363</b> - Method "get_html_etiqueta" has no method-level DocBlock.<br>
+<b>Warning on line 373</b> - Method "get_objeto_js_ef" has no method-level DocBlock.<br>
+<b>Warning on line 378</b> - Method "get_objeto_js" has no method-level DocBlock.<br>
+<b>Warning on line 383</b> - Method "get_consumo_javascript" has no method-level DocBlock.<br>
+<b>Warning on line 388</b> - Method "crear_objeto_js" has no method-level DocBlock.<br>
 <a name="toba_filtro_columna_booleano.php"></a>
 <h1>toba_filtro_columna_booleano.php</h1>
 <h2>Warnings:</h2><br>
@@ -921,15 +960,17 @@
 <h1>toba_filtro_condicion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_filtro_condicion", use another DocBlock to document the file<br>
-<b>Warning on line 25</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 30</b> - Method "get_etiqueta" has no method-level DocBlock.<br>
-<b>Warning on line 35</b> - Method "set_operador_sql" has no method-level DocBlock.<br>
-<b>Warning on line 40</b> - Method "set_post_valor" has no method-level DocBlock.<br>
-<b>Warning on line 45</b> - Method "set_pre_valor" has no method-level DocBlock.<br>
-<b>Warning on line 50</b> - Method "set_casting_izq" has no method-level DocBlock.<br>
-<b>Warning on line 55</b> - Method "set_casting_der" has no method-level DocBlock.<br>
-<b>Warning on line 60</b> - Method "set_pre_evaluacion" has no method-level DocBlock.<br>
-<b>Warning on line 65</b> - Method "set_post_evaluacion" has no method-level DocBlock.<br>
+<b>Warning on line 26</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 31</b> - Method "get_etiqueta" has no method-level DocBlock.<br>
+<b>Warning on line 36</b> - Method "set_operador_sql" has no method-level DocBlock.<br>
+<b>Warning on line 41</b> - Method "set_post_valor" has no method-level DocBlock.<br>
+<b>Warning on line 46</b> - Method "set_pre_valor" has no method-level DocBlock.<br>
+<b>Warning on line 51</b> - Method "set_casting_izq" has no method-level DocBlock.<br>
+<b>Warning on line 56</b> - Method "set_casting_der" has no method-level DocBlock.<br>
+<b>Warning on line 61</b> - Method "set_pre_evaluacion" has no method-level DocBlock.<br>
+<b>Warning on line 66</b> - Method "set_post_evaluacion" has no method-level DocBlock.<br>
+<b>Warning on line 82</b> - Method "set_condicion_fija" has no method-level DocBlock.<br>
+<b>Warning on line 87</b> - Method "es_condicion_fija" has no method-level DocBlock.<br>
 <a name="toba_filtro_condicion_entre.php"></a>
 <h1>toba_filtro_condicion_entre.php</h1>
 <h2>Warnings:</h2><br>
@@ -942,6 +983,11 @@
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_filtro_condicion_multi", use another DocBlock to document the file<br>
 <b>Warning on line 11</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 19</b> - Method "get_sql" has no method-level DocBlock.<br>
+<a name="toba_filtro_condicion_negativa.php"></a>
+<h1>toba_filtro_condicion_negativa.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - DocBlock would be page-level, but precedes class "toba_filtro_condicion_negativa", use another DocBlock to document the file<br>
+<b>Warning on line 12</b> - Method "get_sql" has no method-level DocBlock.<br>
 <a name="toba_form.php"></a>
 <h1>toba_form.php</h1>
 <h2>Warnings:</h2><br>
@@ -973,26 +1019,32 @@
 <b>Warning on line 70</b> - Method "formato_porcentaje" has no method-level DocBlock.<br>
 <b>Warning on line 83</b> - Method "formato_moneda" has no method-level DocBlock.<br>
 <b>Warning on line 94</b> - Method "formato_tiempo" has no method-level DocBlock.<br>
-<b>Warning on line 110</b> - Method "formato_millares" has no method-level DocBlock.<br>
-<b>Warning on line 115</b> - Method "formato_numero" has no method-level DocBlock.<br>
-<b>Warning on line 124</b> - Method "formato_forzar_cadena" has no method-level DocBlock.<br>
-<b>Warning on line 134</b> - Method "formato_mayusculas" has no method-level DocBlock.<br>
-<b>Warning on line 145</b> - Method "formato_indivisible" has no method-level DocBlock.<br>
-<b>Warning on line 156</b> - Method "formato_may_ind" has no method-level DocBlock.<br>
-<b>Warning on line 167</b> - Method "formato_salto_linea_html" has no method-level DocBlock.<br>
-<b>Warning on line 182</b> - Method "formato_fecha" has no method-level DocBlock.<br>
-<b>Warning on line 197</b> - Method "formato_fecha_hora" has no method-level DocBlock.<br>
-<b>Warning on line 212</b> - Method "formato_checkbox" has no method-level DocBlock.<br>
-<b>Warning on line 222</b> - Method "formato_html_br" has no method-level DocBlock.<br>
-<b>Warning on line 227</b> - Method "formato_imagen_toba" has no method-level DocBlock.<br>
-<b>Warning on line 232</b> - Method "formato_imagen_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 246</b> - Method "formato_superficie" has no method-level DocBlock.<br>
-<b>Warning on line 261</b> - Method "formato_cuit" has no method-level DocBlock.<br>
+<b>Warning on line 105</b> - Method "formato_tiempo_ms" has no method-level DocBlock.<br>
+<b>Warning on line 121</b> - Method "formato_millares" has no method-level DocBlock.<br>
+<b>Warning on line 126</b> - Method "formato_numero" has no method-level DocBlock.<br>
+<b>Warning on line 135</b> - Method "formato_forzar_cadena" has no method-level DocBlock.<br>
+<b>Warning on line 145</b> - Method "formato_mayusculas" has no method-level DocBlock.<br>
+<b>Warning on line 156</b> - Method "formato_indivisible" has no method-level DocBlock.<br>
+<b>Warning on line 167</b> - Method "formato_may_ind" has no method-level DocBlock.<br>
+<b>Warning on line 178</b> - Method "formato_salto_linea_html" has no method-level DocBlock.<br>
+<b>Warning on line 193</b> - Method "formato_fecha" has no method-level DocBlock.<br>
+<b>Warning on line 208</b> - Method "formato_fecha_hora" has no method-level DocBlock.<br>
+<b>Warning on line 223</b> - Method "formato_checkbox" has no method-level DocBlock.<br>
+<b>Warning on line 233</b> - Method "formato_html_br" has no method-level DocBlock.<br>
+<b>Warning on line 238</b> - Method "formato_imagen_toba" has no method-level DocBlock.<br>
+<b>Warning on line 243</b> - Method "formato_imagen_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 257</b> - Method "formato_superficie" has no method-level DocBlock.<br>
+<b>Warning on line 272</b> - Method "formato_cuit" has no method-level DocBlock.<br>
+<b>Warning on line 281</b> - Method "formato_pre" has no method-level DocBlock.<br>
 <a name="toba_fuente_datos.php"></a>
 <h1>toba_fuente_datos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_fuente_datos", use another DocBlock to document the file<br>
 <b>Warning on line 17</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 100</b> - Method "crear_usuario_para_auditoria" has no method-level DocBlock.<br>
+<b>Warning on line 108</b> - Method "configurar_parseo_errores" has no method-level DocBlock.<br>
+<b>Warning on line 113</b> - Method "set_fuente_posee_auditoria" has no method-level DocBlock.<br>
+<b>Warning on line 118</b> - Method "set_fuente_parsea_errores" has no method-level DocBlock.<br>
 <a name="toba_http.php"></a>
 <h1>toba_http.php</h1>
 <h2>Warnings:</h2><br>
@@ -1034,13 +1086,14 @@
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_ini", use another DocBlock to document the file<br>
 <b>Warning on line 20</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 25</b> - Method "agregar_titulo" has no method-level DocBlock.<br>
-<b>Warning on line 34</b> - Method "existe_entrada" has no method-level DocBlock.<br>
-<b>Warning on line 39</b> - Method "agregar_entrada" has no method-level DocBlock.<br>
-<b>Warning on line 48</b> - Method "eliminar_entrada" has no method-level DocBlock.<br>
-<b>Warning on line 57</b> - Method "get_datos_entrada" has no method-level DocBlock.<br>
-<b>Warning on line 66</b> - Method "set_datos_entrada" has no method-level DocBlock.<br>
-<b>Warning on line 82</b> - Method "guardar" has no method-level DocBlock.<br>
-<b>Warning on line 104</b> - Method "generar_ini" has no method-level DocBlock.<br>
+<b>Warning on line 38</b> - Method "existe_entrada" has no method-level DocBlock.<br>
+<b>Warning on line 43</b> - Method "agregar_entrada" has no method-level DocBlock.<br>
+<b>Warning on line 52</b> - Method "eliminar_entrada" has no method-level DocBlock.<br>
+<b>Warning on line 61</b> - Method "get_datos_entrada" has no method-level DocBlock.<br>
+<b>Warning on line 76</b> - Method "get" has no method-level DocBlock.<br>
+<b>Warning on line 85</b> - Method "set_datos_entrada" has no method-level DocBlock.<br>
+<b>Warning on line 101</b> - Method "guardar" has no method-level DocBlock.<br>
+<b>Warning on line 123</b> - Method "generar_ini" has no method-level DocBlock.<br>
 <a name="toba_instalacion.php"></a>
 <h1>toba_instalacion.php</h1>
 <h2>Warnings:</h2><br>
@@ -1048,7 +1101,7 @@
 <b>Warning on line 27</b> - Method "eliminar_instancia" has no method-level DocBlock.<br>
 <b>Warning on line 35</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 104</b> - Method "arreglo_png_ie" has no method-level DocBlock.<br>
-<b>Warning on line 147</b> - Method "get_datos_smtp" has no method-level DocBlock.<br>
+<b>Warning on line 156</b> - Method "get_datos_smtp" has no method-level DocBlock.<br>
 <a name="toba_instancia.php"></a>
 <h1>toba_instancia.php</h1>
 <h2>Warnings:</h2><br>
@@ -1063,19 +1116,19 @@
 <b>Warning on line 194</b> - Method "registrar_solicitud_browser" has no method-level DocBlock.<br>
 <b>Warning on line 207</b> - Method "registrar_solicitud_consola" has no method-level DocBlock.<br>
 <b>Warning on line 222</b> - Method "registrar_marca_cronometro" has no method-level DocBlock.<br>
-<b>Warning on line 317</b> - Method "get_info_autenticacion" has no method-level DocBlock.<br>
-<b>Warning on line 373</b> - Method "es_ip_rechazada" has no method-level DocBlock.<br>
-<b>Warning on line 384</b> - Method "registrar_error_login" has no method-level DocBlock.<br>
-<b>Warning on line 395</b> - Method "bloquear_ip" has no method-level DocBlock.<br>
-<b>Warning on line 412</b> - Method "get_cantidad_intentos_en_ventana_temporal" has no method-level DocBlock.<br>
-<b>Warning on line 432</b> - Method "get_cantidad_intentos_usuario_en_ventana_temporal" has no method-level DocBlock.<br>
-<b>Warning on line 443</b> - Method "bloquear_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 454</b> - Method "es_usuario_bloqueado" has no method-level DocBlock.<br>
-<b>Warning on line 468</b> - Method "get_id_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 483</b> - Method "abrir_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 496</b> - Method "cerrar_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 518</b> - Method "vincular_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 525</b> - Method "desbloquear_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 313</b> - Method "get_info_autenticacion" has no method-level DocBlock.<br>
+<b>Warning on line 372</b> - Method "es_ip_rechazada" has no method-level DocBlock.<br>
+<b>Warning on line 383</b> - Method "registrar_error_login" has no method-level DocBlock.<br>
+<b>Warning on line 394</b> - Method "bloquear_ip" has no method-level DocBlock.<br>
+<b>Warning on line 411</b> - Method "get_cantidad_intentos_en_ventana_temporal" has no method-level DocBlock.<br>
+<b>Warning on line 431</b> - Method "get_cantidad_intentos_usuario_en_ventana_temporal" has no method-level DocBlock.<br>
+<b>Warning on line 442</b> - Method "bloquear_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 453</b> - Method "es_usuario_bloqueado" has no method-level DocBlock.<br>
+<b>Warning on line 467</b> - Method "get_id_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 482</b> - Method "abrir_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 495</b> - Method "cerrar_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 517</b> - Method "vincular_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 524</b> - Method "desbloquear_usuario" has no method-level DocBlock.<br>
 <a name="toba_interface_contexto_ejecucion.php"></a>
 <h1>toba_interface_contexto_ejecucion.php</h1>
 <h2>Warnings:</h2><br>
@@ -1093,28 +1146,30 @@
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_js", use another DocBlock to document the file<br>
 <b>Warning on line 58</b> - Method "version" has no method-level DocBlock.<br>
-<b>Warning on line 220</b> - Method "finalizar" has no method-level DocBlock.<br>
+<b>Warning on line 175</b> - Method "cargar_definiciones_runtime" has no method-level DocBlock.<br>
+<b>Warning on line 232</b> - Method "finalizar" has no method-level DocBlock.<br>
 <a name="toba_logger.php"></a>
 <h1>toba_logger.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 104</b> - Method "get_proyecto_actual" has no method-level DocBlock.<br>
-<b>Warning on line 113</b> - Method "get_usuario_actual" has no method-level DocBlock.<br>
-<b>Warning on line 128</b> - Method "set_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 241</b> - Method "construir_traza" has no method-level DocBlock.<br>
-<b>Warning on line 246</b> - Method "mensajes" has no method-level DocBlock.<br>
-<b>Warning on line 251</b> - Method "get_cantidad_mensajes" has no method-level DocBlock.<br>
-<b>Warning on line 256</b> - Method "get_niveles" has no method-level DocBlock.<br>
-<b>Warning on line 261</b> - Method "get_nivel" has no method-level DocBlock.<br>
-<b>Warning on line 266</b> - Method "modo_debug" has no method-level DocBlock.<br>
-<b>Warning on line 378</b> - Method "mascara" has no method-level DocBlock.<br>
-<b>Warning on line 383</b> - Method "mascara_hasta" has no method-level DocBlock.<br>
-<b>Warning on line 406</b> - Method "directorio_logs" has no method-level DocBlock.<br>
-<b>Warning on line 411</b> - Method "set_directorio_logs" has no method-level DocBlock.<br>
-<b>Warning on line 456</b> - Method "guardar_en_archivo" has no method-level DocBlock.<br>
-<b>Warning on line 485</b> - Method "guardar_archivo_log" has no method-level DocBlock.<br>
-<b>Warning on line 492</b> - Method "anexar_a_archivo" has no method-level DocBlock.<br>
-<b>Warning on line 550</b> - Method "ciclar_archivos_logs" has no method-level DocBlock.<br>
-<b>Warning on line 565</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_logger.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 113</b> - Method "get_proyecto_actual" has no method-level DocBlock.<br>
+<b>Warning on line 122</b> - Method "get_usuario_actual" has no method-level DocBlock.<br>
+<b>Warning on line 137</b> - Method "set_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 250</b> - Method "construir_traza" has no method-level DocBlock.<br>
+<b>Warning on line 255</b> - Method "mensajes" has no method-level DocBlock.<br>
+<b>Warning on line 260</b> - Method "get_cantidad_mensajes" has no method-level DocBlock.<br>
+<b>Warning on line 280</b> - Method "get_mensajes_minimo_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 286</b> - Method "get_niveles" has no method-level DocBlock.<br>
+<b>Warning on line 291</b> - Method "get_nivel" has no method-level DocBlock.<br>
+<b>Warning on line 296</b> - Method "modo_debug" has no method-level DocBlock.<br>
+<b>Warning on line 408</b> - Method "mascara" has no method-level DocBlock.<br>
+<b>Warning on line 413</b> - Method "mascara_hasta" has no method-level DocBlock.<br>
+<b>Warning on line 436</b> - Method "directorio_logs" has no method-level DocBlock.<br>
+<b>Warning on line 441</b> - Method "set_directorio_logs" has no method-level DocBlock.<br>
+<b>Warning on line 486</b> - Method "guardar_en_archivo" has no method-level DocBlock.<br>
+<b>Warning on line 515</b> - Method "guardar_archivo_log" has no method-level DocBlock.<br>
+<b>Warning on line 523</b> - Method "anexar_a_archivo" has no method-level DocBlock.<br>
+<b>Warning on line 581</b> - Method "ciclar_archivos_logs" has no method-level DocBlock.<br>
+<b>Warning on line 596</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_logger.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_mail.php"></a>
 <h1>toba_mail.php</h1>
 <h2>Warnings:</h2><br>
@@ -1136,43 +1191,44 @@
 <b>Warning on line 57</b> - Method "ejecutar" has no method-level DocBlock.<br>
 <b>Warning on line 83</b> - Method "path_a_windows" has no method-level DocBlock.<br>
 <b>Warning on line 88</b> - Method "path_a_unix" has no method-level DocBlock.<br>
-<b>Warning on line 279</b> - Method "chmod_recursivo" has no method-level DocBlock.<br>
-<b>Warning on line 309</b> - Method "comprimir_archivo" has no method-level DocBlock.<br>
-<b>Warning on line 325</b> - Method "es_directorio_vacio" has no method-level DocBlock.<br>
+<b>Warning on line 284</b> - Method "chmod_recursivo" has no method-level DocBlock.<br>
+<b>Warning on line 314</b> - Method "comprimir_archivo" has no method-level DocBlock.<br>
+<b>Warning on line 330</b> - Method "es_directorio_vacio" has no method-level DocBlock.<br>
+<b>Warning on line 350</b> - Method "es_writable" has no method-level DocBlock.<br>
 <a name="toba_manejador_sesiones.php"></a>
 <h1>toba_manejador_sesiones.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 39</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 345</b> - Method "comprobar_acceso_anonimo" has no method-level DocBlock.<br>
-<b>Warning on line 446</b> - Method "cargar_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 452</b> - Method "registar_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 466</b> - Method "abrir_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 473</b> - Method "registrar_activacion_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 518</b> - Method "cerrar_sesion" has no method-level DocBlock.<br>
-<b>Warning on line 526</b> - Method "desregistrar_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 549</b> - Method "recargar_info_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 554</b> - Method "recargar_info_instalacion" has no method-level DocBlock.<br>
-<b>Warning on line 559</b> - Method "recargar_info_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 571</b> - Method "guardar_contexto" has no method-level DocBlock.<br>
-<b>Warning on line 594</b> - Method "cargar_contexto" has no method-level DocBlock.<br>
-<b>Warning on line 608</b> - Method "get_usuario_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 622</b> - Method "invocar_metodo_usuario" has no method-level DocBlock.<br>
-<b>Warning on line 634</b> - Method "get_sesion_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 640</b> - Method "sesion_esta_extendida" has no method-level DocBlock.<br>
-<b>Warning on line 645</b> - Method "sesion_posse_item_inicializacion" has no method-level DocBlock.<br>
-<b>Warning on line 650</b> - Method "sesion_posse_metodo_inicializacion" has no method-level DocBlock.<br>
-<b>Warning on line 738</b> - Method "segmento_info_instalacion" has no method-level DocBlock.<br>
-<b>Warning on line 746</b> - Method "segmento_info_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 754</b> - Method "segmento_datos_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 762</b> - Method "segmento_editor" has no method-level DocBlock.<br>
-<b>Warning on line 773</b> - Method "segmento_info_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 781</b> - Method "segmento_memoria_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 789</b> - Method "segmento_memoria_puntos_control" has no method-level DocBlock.<br>
-<b>Warning on line 798</b> - Method "borrar_segmento_instalacion" has no method-level DocBlock.<br>
-<b>Warning on line 805</b> - Method "borrar_segmento_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 811</b> - Method "borrar_segmento_editor" has no method-level DocBlock.<br>
-<b>Warning on line 820</b> - Method "borrar_segmento_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 822</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_manejador_sesiones.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 365</b> - Method "comprobar_acceso_anonimo" has no method-level DocBlock.<br>
+<b>Warning on line 466</b> - Method "cargar_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 472</b> - Method "registar_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 486</b> - Method "abrir_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 493</b> - Method "registrar_activacion_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 538</b> - Method "cerrar_sesion" has no method-level DocBlock.<br>
+<b>Warning on line 546</b> - Method "desregistrar_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 569</b> - Method "recargar_info_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 574</b> - Method "recargar_info_instalacion" has no method-level DocBlock.<br>
+<b>Warning on line 579</b> - Method "recargar_info_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 591</b> - Method "guardar_contexto" has no method-level DocBlock.<br>
+<b>Warning on line 614</b> - Method "cargar_contexto" has no method-level DocBlock.<br>
+<b>Warning on line 628</b> - Method "get_usuario_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 642</b> - Method "invocar_metodo_usuario" has no method-level DocBlock.<br>
+<b>Warning on line 654</b> - Method "get_sesion_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 660</b> - Method "sesion_esta_extendida" has no method-level DocBlock.<br>
+<b>Warning on line 665</b> - Method "sesion_posse_item_inicializacion" has no method-level DocBlock.<br>
+<b>Warning on line 670</b> - Method "sesion_posse_metodo_inicializacion" has no method-level DocBlock.<br>
+<b>Warning on line 761</b> - Method "segmento_info_instalacion" has no method-level DocBlock.<br>
+<b>Warning on line 769</b> - Method "segmento_info_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 777</b> - Method "segmento_datos_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 785</b> - Method "segmento_editor" has no method-level DocBlock.<br>
+<b>Warning on line 796</b> - Method "segmento_info_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 804</b> - Method "segmento_memoria_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 812</b> - Method "segmento_memoria_puntos_control" has no method-level DocBlock.<br>
+<b>Warning on line 821</b> - Method "borrar_segmento_instalacion" has no method-level DocBlock.<br>
+<b>Warning on line 828</b> - Method "borrar_segmento_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 834</b> - Method "borrar_segmento_editor" has no method-level DocBlock.<br>
+<b>Warning on line 843</b> - Method "borrar_segmento_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 845</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_manejador_sesiones.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_memoria.php"></a>
 <h1>toba_memoria.php</h1>
 <h2>Warnings:</h2><br>
@@ -1185,13 +1241,13 @@
 <b>Warning on line 317</b> - Method "usuario_solicita_cronometrar" has no method-level DocBlock.<br>
 <b>Warning on line 345</b> - Method "limpiar_memoria" has no method-level DocBlock.<br>
 <b>Warning on line 353</b> - Method "dump" has no method-level DocBlock.<br>
-<b>Warning on line 574</b> - Method "eliminar_dato_sincronizado" has no method-level DocBlock.<br>
-<b>Warning on line 579</b> - Method "limpiar_memoria_sincronizada" has no method-level DocBlock.<br>
-<b>Warning on line 589</b> - Method "reciclar_datos_sincronizados" has no method-level DocBlock.<br>
-<b>Warning on line 782</b> - Method "finalizar" has no method-level DocBlock.<br>
-<b>Warning on line 797</b> - Method "registrar_archivo_temporal" has no method-level DocBlock.<br>
-<b>Warning on line 810</b> - Method "eliminar_archivos_temporales" has no method-level DocBlock.<br>
-<b>Warning on line 812</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_memoria.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 616</b> - Method "eliminar_dato_sincronizado" has no method-level DocBlock.<br>
+<b>Warning on line 621</b> - Method "limpiar_memoria_sincronizada" has no method-level DocBlock.<br>
+<b>Warning on line 631</b> - Method "reciclar_datos_sincronizados" has no method-level DocBlock.<br>
+<b>Warning on line 824</b> - Method "finalizar" has no method-level DocBlock.<br>
+<b>Warning on line 839</b> - Method "registrar_archivo_temporal" has no method-level DocBlock.<br>
+<b>Warning on line 852</b> - Method "eliminar_archivos_temporales" has no method-level DocBlock.<br>
+<b>Warning on line 854</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_memoria.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_mensajes.php"></a>
 <h1>toba_mensajes.php</h1>
 <h2>Warnings:</h2><br>
@@ -1202,10 +1258,9 @@
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_menu", use another DocBlock to document the file<br>
 <b>Warning on line 14</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 33</b> - Method "items_de_menu" has no method-level DocBlock.<br>
-<b>Warning on line 38</b> - Method "set_js_opcion" has no method-level DocBlock.<br>
-<b>Warning on line 52</b> - Method "set_datos_opcion" has no method-level DocBlock.<br>
-<b>Warning on line 73</b> - Method "agregar_opcion" has no method-level DocBlock.<br>
-<b>Warning on line 87</b> - Method "quitar_opcion" has no method-level DocBlock.<br>
+<b>Warning on line 47</b> - Method "set_datos_opcion" has no method-level DocBlock.<br>
+<b>Warning on line 68</b> - Method "agregar_opcion" has no method-level DocBlock.<br>
+<b>Warning on line 82</b> - Method "quitar_opcion" has no method-level DocBlock.<br>
 <a name="toba_menu_css.php"></a>
 <h1>toba_menu_css.php</h1>
 <h2>Warnings:</h2><br>
@@ -1213,11 +1268,11 @@
 <b>Warning on line 20</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 28</b> - Method "set_abrir_nueva_ventana" has no method-level DocBlock.<br>
 <b>Warning on line 33</b> - Method "plantilla_css" has no method-level DocBlock.<br>
-<b>Warning on line 65</b> - Method "preparar_arbol" has no method-level DocBlock.<br>
-<b>Warning on line 106</b> - Method "get_padres" has no method-level DocBlock.<br>
-<b>Warning on line 120</b> - Method "get_imagen" has no method-level DocBlock.<br>
-<b>Warning on line 131</b> - Method "get_hijos" has no method-level DocBlock.<br>
-<b>Warning on line 143</b> - Method "mostrar" has no method-level DocBlock.<br>
+<b>Warning on line 85</b> - Method "preparar_arbol" has no method-level DocBlock.<br>
+<b>Warning on line 126</b> - Method "get_padres" has no method-level DocBlock.<br>
+<b>Warning on line 140</b> - Method "get_imagen" has no method-level DocBlock.<br>
+<b>Warning on line 151</b> - Method "get_hijos" has no method-level DocBlock.<br>
+<b>Warning on line 163</b> - Method "mostrar" has no method-level DocBlock.<br>
 <a name="toba_menu_yui.php"></a>
 <h1>toba_menu_yui.php</h1>
 <h2>Warnings:</h2><br>
@@ -1240,9 +1295,9 @@
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_nucleo", use another DocBlock to document the file<br>
 <b>Warning on line 22</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 30</b> - Method "instancia" has no method-level DocBlock.<br>
-<b>Warning on line 110</b> - Method "iniciar_contexto_desde_consola" has no method-level DocBlock.<br>
-<b>Warning on line 115</b> - Method "solicitud_en_proceso" has no method-level DocBlock.<br>
-<b>Warning on line 192</b> - Method "autorizar_acceso_item" has no method-level DocBlock.<br>
+<b>Warning on line 109</b> - Method "iniciar_contexto_desde_consola" has no method-level DocBlock.<br>
+<b>Warning on line 114</b> - Method "solicitud_en_proceso" has no method-level DocBlock.<br>
+<b>Warning on line 191</b> - Method "autorizar_acceso_item" has no method-level DocBlock.<br>
 <b>Warning on line 200</b> - Method "iniciar_contexto_ejecucion" has no method-level DocBlock.<br>
 <b>Warning on line 207</b> - Method "finalizar_contexto_ejecucion" has no method-level DocBlock.<br>
 <b>Warning on line 214</b> - Method "controlar_requisitos_basicos" has no method-level DocBlock.<br>
@@ -1258,14 +1313,14 @@
 <h1>toba_parser_ayuda.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_parser_ayuda", use another DocBlock to document the file<br>
-<b>Warning on line 45</b> - Method "exp_reg" has no method-level DocBlock.<br>
-<b>Warning on line 50</b> - Method "parsear_wiki_toba" has no method-level DocBlock.<br>
-<b>Warning on line 63</b> - Method "parsear_wiki" has no method-level DocBlock.<br>
-<b>Warning on line 77</b> - Method "parsear_api" has no method-level DocBlock.<br>
-<b>Warning on line 91</b> - Method "parsear_api_js" has no method-level DocBlock.<br>
-<b>Warning on line 98</b> - Method "parsear_link" has no method-level DocBlock.<br>
-<b>Warning on line 105</b> - Method "parsear_url" has no method-level DocBlock.<br>
-<b>Warning on line 110</b> - Method "parsear_test" has no method-level DocBlock.<br>
+<b>Warning on line 46</b> - Method "exp_reg" has no method-level DocBlock.<br>
+<b>Warning on line 51</b> - Method "parsear_wiki_toba" has no method-level DocBlock.<br>
+<b>Warning on line 87</b> - Method "parsear_wiki" has no method-level DocBlock.<br>
+<b>Warning on line 101</b> - Method "parsear_api" has no method-level DocBlock.<br>
+<b>Warning on line 115</b> - Method "parsear_api_js" has no method-level DocBlock.<br>
+<b>Warning on line 122</b> - Method "parsear_link" has no method-level DocBlock.<br>
+<b>Warning on line 129</b> - Method "parsear_url" has no method-level DocBlock.<br>
+<b>Warning on line 138</b> - Method "parsear_test" has no method-level DocBlock.<br>
 <a name="toba_parser_error_db.php"></a>
 <h1>toba_parser_error_db.php</h1>
 <h2>Warnings:</h2><br>
@@ -1276,30 +1331,32 @@
 <h1>toba_parser_error_db_postgres7.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_parser_error_db_postgres7", use another DocBlock to document the file<br>
-<b>Warning on line 40</b> - Method "parsear" has no method-level DocBlock.<br>
-<b>Warning on line 88</b> - Method "parsear_sqlstate_23505" has no method-level DocBlock.<br>
-<b>Warning on line 109</b> - Method "get_mensaje_pk" has no method-level DocBlock.<br>
-<b>Warning on line 155</b> - Method "get_datos_pk" has no method-level DocBlock.<br>
-<b>Warning on line 172</b> - Method "parsear_sqlstate_23503" has no method-level DocBlock.<br>
-<b>Warning on line 205</b> - Method "get_mensaje_fk" has no method-level DocBlock.<br>
-<b>Warning on line 236</b> - Method "get_datos_fk" has no method-level DocBlock.<br>
-<b>Warning on line 259</b> - Method "get_datos_consulta_fk" has no method-level DocBlock.<br>
-<b>Warning on line 271</b> - Method "parsear_sqlstate_23502" has no method-level DocBlock.<br>
-<b>Warning on line 278</b> - Method "get_mensaje_not_null" has no method-level DocBlock.<br>
+<b>Warning on line 50</b> - Method "parsear" has no method-level DocBlock.<br>
+<b>Warning on line 101</b> - Method "parsear_sqlstate_23505" has no method-level DocBlock.<br>
+<b>Warning on line 122</b> - Method "get_mensaje_pk" has no method-level DocBlock.<br>
+<b>Warning on line 167</b> - Method "get_datos_pk" has no method-level DocBlock.<br>
+<b>Warning on line 184</b> - Method "parsear_sqlstate_23503" has no method-level DocBlock.<br>
+<b>Warning on line 217</b> - Method "get_mensaje_fk" has no method-level DocBlock.<br>
+<b>Warning on line 248</b> - Method "get_datos_fk" has no method-level DocBlock.<br>
+<b>Warning on line 272</b> - Method "get_datos_consulta_fk" has no method-level DocBlock.<br>
+<b>Warning on line 284</b> - Method "parsear_sqlstate_23502" has no method-level DocBlock.<br>
+<b>Warning on line 291</b> - Method "get_mensaje_not_null" has no method-level DocBlock.<br>
 <a name="toba_perfil_datos.php"></a>
 <h1>toba_perfil_datos.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_perfil_datos", use another DocBlock to document the file<br>
-<b>Warning on line 31</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 45</b> - Method "inicializar" has no method-level DocBlock.<br>
-<b>Warning on line 66</b> - Method "cargar_info_restricciones" has no method-level DocBlock.<br>
-<b>Warning on line 73</b> - Method "cargar_info_dimensiones" has no method-level DocBlock.<br>
-<b>Warning on line 86</b> - Method "indexar_gatillos" has no method-level DocBlock.<br>
-<b>Warning on line 339</b> - Method "get_where_aplicacion_restriccion" has no method-level DocBlock.<br>
-<b>Warning on line 359</b> - Method "get_lista_columnas_sql" has no method-level DocBlock.<br>
-<b>Warning on line 375</b> - Method "buscar_tablas_gatillo_en_sql" has no method-level DocBlock.<br>
-<b>Warning on line 417</b> - Method "get_clausula_from" has no method-level DocBlock.<br>
-<b>Warning on line 444</b> - Method "buscar_gatillos_from" has no method-level DocBlock.<br>
+<b>Warning on line 18</b> - DocBlock would be page-level, but precedes class "toba_perfil_datos", use another DocBlock to document the file<br>
+<b>Warning on line 44</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 58</b> - Method "inicializar" has no method-level DocBlock.<br>
+<b>Warning on line 79</b> - Method "cargar_info_restricciones" has no method-level DocBlock.<br>
+<b>Warning on line 86</b> - Method "cargar_info_dimensiones" has no method-level DocBlock.<br>
+<b>Warning on line 99</b> - Method "indexar_gatillos" has no method-level DocBlock.<br>
+<b>Warning on line 251</b> - Method "filtrar_sql" has no method-level DocBlock.<br>
+<b>Warning on line 367</b> - Method "get_where_aplicacion_restriccion" has no method-level DocBlock.<br>
+<b>Warning on line 387</b> - Method "get_lista_columnas_sql" has no method-level DocBlock.<br>
+<b>Warning on line 403</b> - Method "buscar_tablas_gatillo_en_sql" has no method-level DocBlock.<br>
+<b>Warning on line 445</b> - Method "get_clausula_from" has no method-level DocBlock.<br>
+<b>Warning on line 476</b> - Method "buscar_gatillos_from" has no method-level DocBlock.<br>
+<b>Warning on line 489</b> - Method "hay_combinaciones_de_querys" has no method-level DocBlock.<br>
 <a name="toba_perfil_funcional.php"></a>
 <h1>toba_perfil_funcional.php</h1>
 <h2>Warnings:</h2><br>
@@ -1319,46 +1376,48 @@
 <h1>toba_proyecto.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_proyecto", use another DocBlock to document the file<br>
-<b>Warning on line 60</b> - Method "hay_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 65</b> - Method "eliminar_instancia" has no method-level DocBlock.<br>
-<b>Warning on line 85</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 151</b> - Method "es_multiproyecto" has no method-level DocBlock.<br>
-<b>Warning on line 238</b> - Method "get_definicion_dependencia" has no method-level DocBlock.<br>
-<b>Warning on line 254</b> - Method "get_id_componente_por_indice" has no method-level DocBlock.<br>
-<b>Warning on line 266</b> - Method "get_info_dimension" has no method-level DocBlock.<br>
-<b>Warning on line 277</b> - Method "get_info_relacion_entre_tablas" has no method-level DocBlock.<br>
-<b>Warning on line 292</b> - Method "get_info_punto_control" has no method-level DocBlock.<br>
-<b>Warning on line 310</b> - Method "get_info_fuente_datos" has no method-level DocBlock.<br>
-<b>Warning on line 346</b> - Method "quitar_item_menu" has no method-level DocBlock.<br>
-<b>Warning on line 406</b> - Method "get_grupos_acceso_usuario_anonimo" has no method-level DocBlock.<br>
-<b>Warning on line 453</b> - Method "get_mensaje_toba" has no method-level DocBlock.<br>
-<b>Warning on line 469</b> - Method "get_mensaje_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 485</b> - Method "get_mensaje_objeto" has no method-level DocBlock.<br>
-<b>Warning on line 492</b> - Method "existe_dato_compilado" has no method-level DocBlock.<br>
-<b>Warning on line 497</b> - Method "recuperar_datos_compilados" has no method-level DocBlock.<br>
-<b>Warning on line 513</b> - Method "recuperar_datos_compilados_grupo" has no method-level DocBlock.<br>
+<b>Warning on line 61</b> - Method "hay_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 66</b> - Method "eliminar_instancia" has no method-level DocBlock.<br>
+<b>Warning on line 90</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 169</b> - Method "es_multiproyecto" has no method-level DocBlock.<br>
+<b>Warning on line 256</b> - Method "get_definicion_dependencia" has no method-level DocBlock.<br>
+<b>Warning on line 272</b> - Method "get_id_componente_por_indice" has no method-level DocBlock.<br>
+<b>Warning on line 284</b> - Method "get_info_dimension" has no method-level DocBlock.<br>
+<b>Warning on line 295</b> - Method "get_info_relacion_entre_tablas" has no method-level DocBlock.<br>
+<b>Warning on line 310</b> - Method "get_info_punto_control" has no method-level DocBlock.<br>
+<b>Warning on line 328</b> - Method "get_info_fuente_datos" has no method-level DocBlock.<br>
+<b>Warning on line 364</b> - Method "quitar_item_menu" has no method-level DocBlock.<br>
+<b>Warning on line 424</b> - Method "get_grupos_acceso_usuario_anonimo" has no method-level DocBlock.<br>
+<b>Warning on line 471</b> - Method "get_mensaje_toba" has no method-level DocBlock.<br>
+<b>Warning on line 487</b> - Method "get_mensaje_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 503</b> - Method "get_mensaje_objeto" has no method-level DocBlock.<br>
+<b>Warning on line 519</b> - Method "get_info_consulta_php" has no method-level DocBlock.<br>
+<b>Warning on line 526</b> - Method "existe_dato_compilado" has no method-level DocBlock.<br>
+<b>Warning on line 531</b> - Method "recuperar_datos_compilados" has no method-level DocBlock.<br>
+<b>Warning on line 547</b> - Method "recuperar_datos_compilados_grupo" has no method-level DocBlock.<br>
 <a name="toba_proyecto_db.php"></a>
 <h1>toba_proyecto_db.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 6</b> - DocBlock would be page-level, but precedes class "toba_proyecto_db", use another DocBlock to document the file<br>
 <b>Warning on line 12</b> - Method "set_db" has no method-level DocBlock.<br>
 <b>Warning on line 17</b> - Method "get_db" has no method-level DocBlock.<br>
-<b>Warning on line 77</b> - Method "cargar_info_basica" has no method-level DocBlock.<br>
-<b>Warning on line 92</b> - Method "get_info_fuente_datos" has no method-level DocBlock.<br>
-<b>Warning on line 114</b> - Method "get_mapeo_tabla_dt" has no method-level DocBlock.<br>
-<b>Warning on line 137</b> - Method "get_mapeo_componentes_indice" has no method-level DocBlock.<br>
-<b>Warning on line 154</b> - Method "get_descripcion_permiso" has no method-level DocBlock.<br>
-<b>Warning on line 169</b> - Method "punto_control_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 184</b> - Method "punto_control_controles" has no method-level DocBlock.<br>
-<b>Warning on line 221</b> - Method "get_items_menu" has no method-level DocBlock.<br>
-<b>Warning on line 237</b> - Method "get_item_raiz" has no method-level DocBlock.<br>
-<b>Warning on line 260</b> - Method "get_items_accesibles" has no method-level DocBlock.<br>
-<b>Warning on line 315</b> - Method "get_lista_permisos" has no method-level DocBlock.<br>
-<b>Warning on line 359</b> - Method "get_info_dimension" has no method-level DocBlock.<br>
-<b>Warning on line 389</b> - Method "get_info_relacion_entre_tablas" has no method-level DocBlock.<br>
-<b>Warning on line 403</b> - Method "get_mensaje_toba" has no method-level DocBlock.<br>
-<b>Warning on line 417</b> - Method "get_mensaje_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 433</b> - Method "get_mensaje_objeto" has no method-level DocBlock.<br>
+<b>Warning on line 80</b> - Method "cargar_info_basica" has no method-level DocBlock.<br>
+<b>Warning on line 95</b> - Method "get_info_fuente_datos" has no method-level DocBlock.<br>
+<b>Warning on line 117</b> - Method "get_mapeo_tabla_dt" has no method-level DocBlock.<br>
+<b>Warning on line 140</b> - Method "get_mapeo_componentes_indice" has no method-level DocBlock.<br>
+<b>Warning on line 157</b> - Method "get_descripcion_permiso" has no method-level DocBlock.<br>
+<b>Warning on line 172</b> - Method "punto_control_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 187</b> - Method "punto_control_controles" has no method-level DocBlock.<br>
+<b>Warning on line 224</b> - Method "get_items_menu" has no method-level DocBlock.<br>
+<b>Warning on line 240</b> - Method "get_item_raiz" has no method-level DocBlock.<br>
+<b>Warning on line 263</b> - Method "get_items_accesibles" has no method-level DocBlock.<br>
+<b>Warning on line 318</b> - Method "get_lista_permisos" has no method-level DocBlock.<br>
+<b>Warning on line 332</b> - Method "get_consulta_php" has no method-level DocBlock.<br>
+<b>Warning on line 376</b> - Method "get_info_dimension" has no method-level DocBlock.<br>
+<b>Warning on line 406</b> - Method "get_info_relacion_entre_tablas" has no method-level DocBlock.<br>
+<b>Warning on line 420</b> - Method "get_mensaje_toba" has no method-level DocBlock.<br>
+<b>Warning on line 434</b> - Method "get_mensaje_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 450</b> - Method "get_mensaje_objeto" has no method-level DocBlock.<br>
 <a name="toba_proyecto_implementacion.php"></a>
 <h1>toba_proyecto_implementacion.php</h1>
 <h2>Warnings:</h2><br>
@@ -1412,6 +1471,13 @@
 <b>Warning on line 332</b> - Method "get_txt_error_base" has no method-level DocBlock.<br>
 <b>Warning on line 379</b> - Method "cargar_tabla_hijo" has no method-level DocBlock.<br>
 <b>Warning on line 450</b> - Method "resetear" has no method-level DocBlock.<br>
+<a name="toba_serializar_propiedades.php"></a>
+<h1>toba_serializar_propiedades.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class toba_serializar_propiedades<br>
+<b>Warning on line 24</b> - Method "__sleep" has no method-level DocBlock.<br>
+<b>Warning on line 37</b> - Method "__wakeup" has no method-level DocBlock.<br>
+<b>Warning on line 42</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_serializar_propiedades.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_sesion.php"></a>
 <h1>toba_sesion.php</h1>
 <h2>Warnings:</h2><br>
@@ -1440,7 +1506,7 @@
 <b>Warning on line 158</b> - Method "get_tipo" has no method-level DocBlock.<br>
 <b>Warning on line 163</b> - Method "es_item_publico" has no method-level DocBlock.<br>
 <b>Warning on line 168</b> - Method "existe_ayuda" has no method-level DocBlock.<br>
-<b>Warning on line 219</b> - Method "crear_zona" has no method-level DocBlock.<br>
+<b>Warning on line 230</b> - Method "crear_zona" has no method-level DocBlock.<br>
 <a name="toba_solicitud_accion.php"></a>
 <h1>toba_solicitud_accion.php</h1>
 <h2>Warnings:</h2><br>
@@ -1458,13 +1524,15 @@
 <h1>toba_solicitud_web.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_solicitud_web", use another DocBlock to document the file<br>
-<b>Warning on line 21</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 256</b> - Method "servicio__vista_excel" has no method-level DocBlock.<br>
-<b>Warning on line 350</b> - Method "servicio__ajax" has no method-level DocBlock.<br>
-<b>Warning on line 364</b> - Method "registrar" has no method-level DocBlock.<br>
-<b>Warning on line 395</b> - Method "inicializacion_pasiva" has no method-level DocBlock.<br>
-<b>Warning on line 400</b> - Method "cn" has no method-level DocBlock.<br>
-<b>Warning on line 405</b> - Method "ci" has no method-level DocBlock.<br>
+<b>Warning on line 22</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 204</b> - Method "generar_html_botonera_sup" has no method-level DocBlock.<br>
+<b>Warning on line 296</b> - Method "servicio__vista_excel" has no method-level DocBlock.<br>
+<b>Warning on line 434</b> - Method "servicio__ajax" has no method-level DocBlock.<br>
+<b>Warning on line 448</b> - Method "registrar" has no method-level DocBlock.<br>
+<b>Warning on line 474</b> - Method "generar_analizador_estadistico" has no method-level DocBlock.<br>
+<b>Warning on line 505</b> - Method "inicializacion_pasiva" has no method-level DocBlock.<br>
+<b>Warning on line 510</b> - Method "cn" has no method-level DocBlock.<br>
+<b>Warning on line 515</b> - Method "ci" has no method-level DocBlock.<br>
 <a name="toba_sql.php"></a>
 <h1>toba_sql.php</h1>
 <h2>Warnings:</h2><br>
@@ -1482,23 +1550,25 @@
 <b>Warning on line 106</b> - Method "ejecucion_cancelar" has no method-level DocBlock.<br>
 <b>Warning on line 121</b> - Method "probar_conexion" has no method-level DocBlock.<br>
 <b>Warning on line 132</b> - Method "hay_cliente_svn" has no method-level DocBlock.<br>
-<b>Warning on line 158</b> - Method "get_estado" has no method-level DocBlock.<br>
+<b>Warning on line 159</b> - Method "get_estado" has no method-level DocBlock.<br>
 <b>Warning on line 168</b> - Method "get_url" has no method-level DocBlock.<br>
-<b>Warning on line 180</b> - Method "reducir_url" has no method-level DocBlock.<br>
-<b>Warning on line 189</b> - Method "es_copia_trabajo" has no method-level DocBlock.<br>
-<b>Warning on line 195</b> - Method "cleanup" has no method-level DocBlock.<br>
-<b>Warning on line 201</b> - Method "update" has no method-level DocBlock.<br>
-<b>Warning on line 208</b> - Method "do_switch" has no method-level DocBlock.<br>
-<b>Warning on line 214</b> - Method "do_merge" has no method-level DocBlock.<br>
-<b>Warning on line 221</b> - Method "checkout" has no method-level DocBlock.<br>
-<b>Warning on line 228</b> - Method "blame" has no method-level DocBlock.<br>
-<b>Warning on line 234</b> - Method "diff" has no method-level DocBlock.<br>
-<b>Warning on line 240</b> - Method "revert" has no method-level DocBlock.<br>
-<b>Warning on line 246</b> - Method "add" has no method-level DocBlock.<br>
-<b>Warning on line 299</b> - Method "get_revision_origen" has no method-level DocBlock.<br>
-<b>Warning on line 309</b> - Method "existe_url" has no method-level DocBlock.<br>
-<b>Warning on line 315</b> - Method "crear_directorio" has no method-level DocBlock.<br>
-<b>Warning on line 332</b> - Method "copy" has no method-level DocBlock.<br>
+<b>Warning on line 180</b> - Method "get_revision" has no method-level DocBlock.<br>
+<b>Warning on line 203</b> - Method "get_revisiones_dir_recursivos" has no method-level DocBlock.<br>
+<b>Warning on line 215</b> - Method "reducir_url" has no method-level DocBlock.<br>
+<b>Warning on line 224</b> - Method "es_copia_trabajo" has no method-level DocBlock.<br>
+<b>Warning on line 230</b> - Method "cleanup" has no method-level DocBlock.<br>
+<b>Warning on line 236</b> - Method "update" has no method-level DocBlock.<br>
+<b>Warning on line 243</b> - Method "do_switch" has no method-level DocBlock.<br>
+<b>Warning on line 249</b> - Method "do_merge" has no method-level DocBlock.<br>
+<b>Warning on line 256</b> - Method "checkout" has no method-level DocBlock.<br>
+<b>Warning on line 263</b> - Method "blame" has no method-level DocBlock.<br>
+<b>Warning on line 269</b> - Method "diff" has no method-level DocBlock.<br>
+<b>Warning on line 275</b> - Method "revert" has no method-level DocBlock.<br>
+<b>Warning on line 281</b> - Method "add" has no method-level DocBlock.<br>
+<b>Warning on line 334</b> - Method "get_revision_origen" has no method-level DocBlock.<br>
+<b>Warning on line 344</b> - Method "existe_url" has no method-level DocBlock.<br>
+<b>Warning on line 350</b> - Method "crear_directorio" has no method-level DocBlock.<br>
+<b>Warning on line 367</b> - Method "copy" has no method-level DocBlock.<br>
 <a name="toba_tab.php"></a>
 <h1>toba_tab.php</h1>
 <h2>Warnings:</h2><br>
@@ -1539,29 +1609,30 @@
 <b>Warning on line 23</b> - Method "encabezado" has no method-level DocBlock.<br>
 <b>Warning on line 25</b> - Method "pre_contenido" has no method-level DocBlock.<br>
 <b>Warning on line 27</b> - Method "post_contenido" has no method-level DocBlock.<br>
-<b>Warning on line 33</b> - Method "pie" has no method-level DocBlock.<br>
-<b>Warning on line 46</b> - Method "cabecera_html" has no method-level DocBlock.<br>
-<b>Warning on line 52</b> - Method "titulo_pagina" has no method-level DocBlock.<br>
-<b>Warning on line 57</b> - Method "encoding" has no method-level DocBlock.<br>
-<b>Warning on line 65</b> - Method "plantillas_css" has no method-level DocBlock.<br>
-<b>Warning on line 85</b> - Method "estilos_css" has no method-level DocBlock.<br>
-<b>Warning on line 117</b> - Method "comienzo_cuerpo_basico" has no method-level DocBlock.<br>
-<b>Warning on line 122</b> - Method "barra_superior" has no method-level DocBlock.<br>
+<b>Warning on line 39</b> - Method "pie" has no method-level DocBlock.<br>
+<b>Warning on line 52</b> - Method "cabecera_html" has no method-level DocBlock.<br>
+<b>Warning on line 58</b> - Method "titulo_pagina" has no method-level DocBlock.<br>
+<b>Warning on line 63</b> - Method "encoding" has no method-level DocBlock.<br>
+<b>Warning on line 71</b> - Method "plantillas_css" has no method-level DocBlock.<br>
+<b>Warning on line 91</b> - Method "estilos_css" has no method-level DocBlock.<br>
+<b>Warning on line 118</b> - Method "comienzo_cuerpo_basico" has no method-level DocBlock.<br>
+<b>Warning on line 123</b> - Method "barra_superior" has no method-level DocBlock.<br>
 <a name="toba_tp_basico_titulo.php"></a>
 <h1>toba_tp_basico_titulo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_tp_basico_titulo", use another DocBlock to document the file<br>
-<b>Warning on line 32</b> - Method "barra_superior" has no method-level DocBlock.<br>
-<b>Warning on line 69</b> - Method "info_version" has no method-level DocBlock.<br>
-<b>Warning on line 74</b> - Method "pre_contenido" has no method-level DocBlock.<br>
-<b>Warning on line 79</b> - Method "post_contenido" has no method-level DocBlock.<br>
+<b>Warning on line 20</b> - Method "barra_superior" has no method-level DocBlock.<br>
+<b>Warning on line 41</b> - Method "generar_ayuda" has no method-level DocBlock.<br>
+<b>Warning on line 78</b> - Method "info_version" has no method-level DocBlock.<br>
+<b>Warning on line 83</b> - Method "pre_contenido" has no method-level DocBlock.<br>
+<b>Warning on line 88</b> - Method "post_contenido" has no method-level DocBlock.<br>
 <a name="toba_tp_logon.php"></a>
 <h1>toba_tp_logon.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_tp_logon", use another DocBlock to document the file<br>
 <b>Warning on line 11</b> - Method "barra_superior" has no method-level DocBlock.<br>
-<b>Warning on line 17</b> - Method "pre_contenido" has no method-level DocBlock.<br>
-<b>Warning on line 26</b> - Method "post_contenido" has no method-level DocBlock.<br>
+<b>Warning on line 19</b> - Method "pre_contenido" has no method-level DocBlock.<br>
+<b>Warning on line 28</b> - Method "post_contenido" has no method-level DocBlock.<br>
 <a name="toba_tp_normal.php"></a>
 <h1>toba_tp_normal.php</h1>
 <h2>Warnings:</h2><br>
@@ -1577,8 +1648,7 @@
 <h1>toba_tp_popup.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_tp_popup", use another DocBlock to document the file<br>
-<b>Warning on line 34</b> - Method "comienzo_cuerpo" has no method-level DocBlock.<br>
-<b>Warning on line 51</b> - Method "barra_superior" has no method-level DocBlock.<br>
+<b>Warning on line 25</b> - Method "barra_superior" has no method-level DocBlock.<br>
 <a name="toba_usuario.php"></a>
 <h1>toba_usuario.php</h1>
 <h2>Warnings:</h2><br>
@@ -1631,11 +1701,11 @@
 <a name="toba_varios.php"></a>
 <h1>toba_varios.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 359</b> - Method "instancia" has no method-level DocBlock.<br>
-<b>Warning on line 367</b> - Method "reservar" has no method-level DocBlock.<br>
-<b>Warning on line 372</b> - Method "siguiente" has no method-level DocBlock.<br>
-<b>Warning on line 381</b> - no @package tag was used in a DocBlock for class toba_objeto_de_mentira<br>
-<b>Warning on line 577</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/toba_varios.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 394</b> - Method "instancia" has no method-level DocBlock.<br>
+<b>Warning on line 402</b> - Method "reservar" has no method-level DocBlock.<br>
+<b>Warning on line 407</b> - Method "siguiente" has no method-level DocBlock.<br>
+<b>Warning on line 416</b> - no @package tag was used in a DocBlock for class toba_objeto_de_mentira<br>
+<b>Warning on line 618</b> - File "/home/smarconi/proyectos/toba_trunk/php/lib/toba_varios.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_vinculador.php"></a>
 <h1>toba_vinculador.php</h1>
 <h2>Warnings:</h2><br>
@@ -1644,28 +1714,28 @@
 <b>Warning on line 26</b> - Method "instancia" has no method-level DocBlock.<br>
 <b>Warning on line 31</b> - Method "__construct" has no method-level DocBlock.<br>
 <b>Warning on line 100</b> - Method "registrar_vinculo" has no method-level DocBlock.<br>
-<b>Warning on line 396</b> - Method "generar_js" has no method-level DocBlock.<br>
+<b>Warning on line 415</b> - Method "generar_js" has no method-level DocBlock.<br>
 <a name="toba_vinculo.php"></a>
 <h1>toba_vinculo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_vinculo", use another DocBlock to document the file<br>
-<b>Warning on line 37</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 51</b> - Method "get_item" has no method-level DocBlock.<br>
-<b>Warning on line 56</b> - Method "get_proyecto" has no method-level DocBlock.<br>
-<b>Warning on line 97</b> - Method "get_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 102</b> - Method "set_opciones" has no method-level DocBlock.<br>
-<b>Warning on line 107</b> - Method "get_opciones" has no method-level DocBlock.<br>
-<b>Warning on line 112</b> - Method "agregar_opcion" has no method-level DocBlock.<br>
-<b>Warning on line 120</b> - Method "activar_popup" has no method-level DocBlock.<br>
-<b>Warning on line 125</b> - Method "desactivar_popup" has no method-level DocBlock.<br>
-<b>Warning on line 130</b> - Method "estado_popup" has no method-level DocBlock.<br>
-<b>Warning on line 139</b> - Method "set_popup_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 144</b> - Method "set_popup_parametro" has no method-level DocBlock.<br>
-<b>Warning on line 149</b> - Method "get_popup_parametros" has no method-level DocBlock.<br>
-<b>Warning on line 154</b> - Method "set_target" has no method-level DocBlock.<br>
-<b>Warning on line 159</b> - Method "get_target" has no method-level DocBlock.<br>
-<b>Warning on line 164</b> - Method "set_servicio" has no method-level DocBlock.<br>
-<b>Warning on line 169</b> - Method "set_celda_memoria" has no method-level DocBlock.<br>
+<b>Warning on line 36</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 50</b> - Method "get_item" has no method-level DocBlock.<br>
+<b>Warning on line 55</b> - Method "get_proyecto" has no method-level DocBlock.<br>
+<b>Warning on line 96</b> - Method "get_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 101</b> - Method "set_opciones" has no method-level DocBlock.<br>
+<b>Warning on line 106</b> - Method "get_opciones" has no method-level DocBlock.<br>
+<b>Warning on line 111</b> - Method "agregar_opcion" has no method-level DocBlock.<br>
+<b>Warning on line 119</b> - Method "activar_popup" has no method-level DocBlock.<br>
+<b>Warning on line 124</b> - Method "desactivar_popup" has no method-level DocBlock.<br>
+<b>Warning on line 129</b> - Method "estado_popup" has no method-level DocBlock.<br>
+<b>Warning on line 138</b> - Method "set_popup_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 143</b> - Method "set_popup_parametro" has no method-level DocBlock.<br>
+<b>Warning on line 148</b> - Method "get_popup_parametros" has no method-level DocBlock.<br>
+<b>Warning on line 153</b> - Method "set_target" has no method-level DocBlock.<br>
+<b>Warning on line 158</b> - Method "get_target" has no method-level DocBlock.<br>
+<b>Warning on line 163</b> - Method "set_servicio" has no method-level DocBlock.<br>
+<b>Warning on line 168</b> - Method "set_celda_memoria" has no method-level DocBlock.<br>
 <a name="toba_vista_excel.php"></a>
 <h1>toba_vista_excel.php</h1>
 <h2>Warnings:</h2><br>
@@ -1706,13 +1776,13 @@
 <a name="toba_zona.php"></a>
 <h1>toba_zona.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 21</b> - DocBlock would be page-level, but precedes class "toba_zona", use another DocBlock to document the file<br>
-<b>Warning on line 40</b> - Method "__construct" has no method-level DocBlock.<br>
-<b>Warning on line 97</b> - Method "cargar_info" has no method-level DocBlock.<br>
-<b>Warning on line 135</b> - Method "get_editable_nombre" has no method-level DocBlock.<br>
-<b>Warning on line 144</b> - Method "get_editable_id" has no method-level DocBlock.<br>
-<b>Warning on line 159</b> - Method "generar_html_barra_superior" has no method-level DocBlock.<br>
-<b>Warning on line 176</b> - Method "generar_html_barra_nombre" has no method-level DocBlock.<br>
+<b>Warning on line 46</b> - Method "__construct" has no method-level DocBlock.<br>
+<b>Warning on line 103</b> - Method "cargar_info" has no method-level DocBlock.<br>
+<b>Warning on line 141</b> - Method "get_editable_nombre" has no method-level DocBlock.<br>
+<b>Warning on line 150</b> - Method "get_editable_id" has no method-level DocBlock.<br>
+<b>Warning on line 282</b> - Method "generar_html_barra_superior" has no method-level DocBlock.<br>
+<b>Warning on line 301</b> - Method "generar_html_barra_nombre" has no method-level DocBlock.<br>
+<b>Warning on line 350</b> - File "/home/smarconi/proyectos/toba_trunk/php/nucleo/lib/toba_zona.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="_interfaces.php"></a>
 <h1>_interfaces.php</h1>
 <h2>Warnings:</h2><br>

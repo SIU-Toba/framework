@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_validaciones</title>
+	<title>Docs For Class toba_serializar_propiedades</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -215,7 +215,7 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba_validaciones</h1>
+<h1>toba_serializar_propiedades</h1>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -229,7 +229,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Clase con validaciones estáticas de datos </div>
+        		<div class="description">Representa un objeto que es persistible en sesión y desea guardar/recuperar referencias a componentes/recursos toba <p>Para ello utiliza los metodos __wakeup y __sleep de php http://ar.php.net/manual/en/language.oop.magic-functions.php</p></div>
 
 
 
@@ -238,7 +238,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /lib/toba_validaciones.php [<span class="field">line 7</span>]
+			Ubicada en /nucleo/lib/toba_serializar_propiedades.php [<span class="field">line 8</span>]
 		</p>	
 		<br>
 	
@@ -258,12 +258,21 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-															<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">true</span>&nbsp;&nbsp;
+																																					<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#cbu_valido" title="details" class="method-name">cbu_valido</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Determina si un número de CBU (Clave Bancaria Uniforme) es válido</td></tr>
-																										</table>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#__sleep" title="details" class="method-name">__sleep</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#__wakeup" title="details" class="method-name">__wakeup</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+													</table>
 			</div>
 			<br />
 		</div>
@@ -279,50 +288,57 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodcbu_valido" id="cbu_valido"><!-- --></a>
+
+<a name="method__sleep" id="__sleep"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		    		<span class="method-title">static method cbu_valido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
+	
+		
+	
+	<span class="method-title">__sleep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static true cbu_valido(
-string
-$cbu&nbsp;
+		<code>void __sleep(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Determina si un número de CBU (Clave Bancaria Uniforme) es válido </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$cbu:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> cadena que contiene el cbu a validar.</span>			</td></tr>
-				</table>
-
+	
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>o false según sea válido o no.</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
 </div>
+<a name="method__wakeup" id="__wakeup"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">__wakeup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+</div>
+<br />
 
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void __wakeup(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 

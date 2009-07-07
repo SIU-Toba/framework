@@ -97,6 +97,9 @@
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -289,7 +292,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																												<tr>
+																																																																																																																																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -402,6 +405,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_cronometrar" title="details" class="method-name">set_cronometrar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_datos_item" title="details" class="method-name">set_datos_item</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite cambiar alguno de los seteos basicos del item en runtime, para que el cambio de alguna</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -549,7 +559,7 @@ $parametros = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
+	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
 </div>
 <br />
 
@@ -696,7 +706,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
 </div>
 <br />
 
@@ -722,7 +732,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">get_id_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -798,7 +808,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 238]</span>
+	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
 </div>
 <br />
 
@@ -980,13 +990,51 @@ $cronometrar&nbsp;
 		
 		<br />
 </div>
-<a name="methodzona" id="zona"><!-- --></a>
+<a name="methodset_datos_item" id="set_datos_item"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 225]</span>
+	<span class="method-title">set_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_datos_item(
+[array
+$prop = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite cambiar alguno de los seteos basicos del item en runtime, para que el cambio de alguna <p>de las propiedades se vea por pantalla puede ser necesario el retraso del envio de Headers</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$prop:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo asociativo con las propiedades a cambiar ej: array('item_descripcion' =&gt; 'No tengo', 'item_nombre' =&gt; 'Nuevo nombre')</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodzona" id="zona"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
 </div>
 <br />
 

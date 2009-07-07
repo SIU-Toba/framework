@@ -55,7 +55,10 @@
 
       <br />
                           <div class="package">
-		    			<a href="../SalidaGrafica/toba_form.html">					form
+		    			<a href="../SalidaGrafica/toba_acciones_js.html">					acciones_js
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_form.html">					form
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_formateo.html">					formateo
@@ -260,8 +263,8 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#set_js_opcion" title="details" class="method-name">set_js_opcion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+												<td class="method-definition"><a href="#set_modo_confirmacion" title="details" class="method-name">set_modo_confirmacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Muestra una confirmación antes de navegar a cualquier opción del menú</td></tr>
 													</table>
 			</div>
 			<br />
@@ -280,7 +283,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -314,12 +317,12 @@
 		<br />
 </div>
 <a name="methodagregar_opcion" id="agregar_opcion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+	<span class="method-title">agregar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -351,7 +354,7 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methoditems_de_menu" id="items_de_menu"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -385,7 +388,7 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodmostrar" id="mostrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -428,7 +431,7 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodplantilla_css" id="plantilla_css"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
@@ -470,12 +473,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodquitar_opcion" id="quitar_opcion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">quitar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
+	<span class="method-title">quitar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
 <br />
 
@@ -507,12 +510,12 @@ $id_item&nbsp;
 		<br />
 </div>
 <a name="methodset_datos_opcion" id="set_datos_opcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_datos_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+	<span class="method-title">set_datos_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
 </div>
 <br />
 
@@ -550,42 +553,43 @@ $datos&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_js_opcion" id="set_js_opcion"><!-- --></a>
-<div class="oddrow">
+<a name="methodset_modo_confirmacion" id="set_modo_confirmacion"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_js_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+	<span class="method-title">set_modo_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void set_js_opcion(
-
-$id_item, 
-$js&nbsp;
+		<code>void set_modo_confirmacion(
+string
+$mensaje, [boolean
+$forzar = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Muestra una confirmación antes de navegar a cualquier opción del menú </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$id_item:&nbsp;</span></td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Mensaje que se utiliza para la confirmación</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$js:&nbsp;</span></td>
+				<span class="var-name">$forzar:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Si es verdadero siempre muestra la confirmación, sino depende de si algún ef de algún formulario fue modificado</span>			</td></tr>
 				</table>
 
 	<br />

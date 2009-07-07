@@ -97,6 +97,9 @@
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -630,7 +633,7 @@ $recargar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 471]</span>
+	<span class="method-title">abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
 </div>
 <br />
 
@@ -681,7 +684,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 511]</span>
+	<span class="method-title">agregar_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
 </div>
 <br />
 
@@ -740,7 +743,7 @@ $atributos = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 387]</span>
+	<span class="method-title">bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
 </div>
 <br />
 
@@ -777,7 +780,7 @@ $ip&nbsp;
 	
 		
 	
-	<span class="method-title">bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
+	<span class="method-title">bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 434]</span>
 </div>
 <br />
 
@@ -814,7 +817,7 @@ $usuario&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 486]</span>
+	<span class="method-title">cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 485]</span>
 </div>
 <br />
 
@@ -858,7 +861,7 @@ $observaciones = null]&nbsp;
 	
 		
 	
-	<span class="method-title">desbloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 521]</span>
+	<span class="method-title">desbloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 520]</span>
 </div>
 <br />
 
@@ -895,7 +898,7 @@ $usuario&nbsp;
 	
 		
 	
-	<span class="method-title">es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 365]</span>
+	<span class="method-title">es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -932,7 +935,7 @@ $ip&nbsp;
 	
 		
 	
-	<span class="method-title">es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+	<span class="method-title">es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 445]</span>
 </div>
 <br />
 
@@ -969,7 +972,7 @@ $usuario&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
+	<span class="method-title">get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
 </div>
 <br />
 
@@ -1013,7 +1016,7 @@ $ventana_temporal = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 418]</span>
+	<span class="method-title">get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -1120,7 +1123,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 323]</span>
+	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
 </div>
 <br />
 
@@ -1165,7 +1168,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 461]</span>
+	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
 </div>
 <br />
 
@@ -1215,7 +1218,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
 </div>
 <br />
 
@@ -1298,7 +1301,7 @@ $usuario&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 350]</span>
+	<span class="method-title">get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
 </div>
 <br />
 
@@ -1306,11 +1309,23 @@ $usuario&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_lista_usuarios(
+[
+$proyecto = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Utilizada en el login automatico </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
 
 	<br />
 	
@@ -1535,7 +1550,7 @@ $proys&nbsp;
 	
 		
 	
-	<span class="method-title">registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 376]</span>
+	<span class="method-title">registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 375]</span>
 </div>
 <br />
 
@@ -1897,7 +1912,7 @@ $observacion&nbsp;
 	
 		
 	
-	<span class="method-title">vincular_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 516]</span>
+	<span class="method-title">vincular_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 515]</span>
 </div>
 <br />
 

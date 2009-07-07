@@ -97,6 +97,9 @@
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -256,6 +259,11 @@
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="../SalidaGrafica/toba_acciones_js.html">toba_acciones_js</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#acciones_js" title="details" class="method-name">acciones_js</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un objeto capaz de encolar llamadas javascript</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#cn" title="details" class="method-name">cn</a>()&nbsp;&nbsp;</td>
@@ -265,6 +273,11 @@
 						</td>
 						<td class="method-definition"><a href="#componente" title="details" class="method-name">componente</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna un componente por INDICE</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#consulta_php" title="details" class="method-name">consulta_php</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna una clase de consultas php declarada en el editor</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_contexto_ejecucion.html">toba_contexto_ejecucion</a></span>&nbsp;&nbsp;
 						</td>
@@ -390,7 +403,7 @@
 						</td>
 						<td class="method-definition"><a href="#zona" title="details" class="method-name">zona</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Una zona representa un menu alrededor de un concepto central. Utilizada por ejemplo para mostrar un menú de opciones relacionado con un cliente particular.</td></tr>
-																																																																																																																																																																																																																																																																				</table>
+																																																																																																																																																																																																																																																																																						</table>
 			</div>
 			<br />
 		</div>
@@ -406,10 +419,33 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodacciones_js" id="acciones_js"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method acciones_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="../SalidaGrafica/toba_acciones_js.html">toba_acciones_js</a> acciones_js(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna un objeto capaz de encolar llamadas javascript </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcn" id="cn"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 271]</span>
+		<span class="method-title">static method cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
 </div>
 <br />
 
@@ -444,7 +480,7 @@ $indice&nbsp;
 <a name="methodcomponente" id="componente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
+		<span class="method-title">static method componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 262]</span>
 </div>
 <br />
 
@@ -476,8 +512,43 @@ $indice&nbsp;
 		
 		<br />
 </div>
-<a name="methodcontexto_ejecucion" id="contexto_ejecucion"><!-- --></a>
+<a name="methodconsulta_php" id="consulta_php"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void consulta_php(
+string
+$clase&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna una clase de consultas php declarada en el editor </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clase:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Nombre de la clase</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcontexto_ejecucion" id="contexto_ejecucion"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
 </div>
@@ -500,7 +571,7 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodcronometro" id="cronometro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
 </div>
@@ -523,7 +594,7 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methoddb" id="db"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
@@ -565,7 +636,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodderechos" id="derechos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method derechos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
 </div>
@@ -588,7 +659,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodencriptador" id="encriptador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method encriptador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
@@ -611,7 +682,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodfuente" id="fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
 </div>
@@ -646,7 +717,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodinstalacion" id="instalacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
 </div>
@@ -669,7 +740,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
@@ -692,7 +763,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodlogger" id="logger"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method logger</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
@@ -715,7 +786,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodmemoria" id="memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
 </div>
@@ -738,7 +809,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodmensajes" id="mensajes"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
 </div>
@@ -761,7 +832,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodmenu" id="menu"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
 </div>
@@ -784,7 +855,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodnotificacion" id="notificacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method notificacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
@@ -807,7 +878,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodnucleo" id="nucleo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method nucleo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
 </div>
@@ -830,9 +901,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodperfil_de_datos" id="perfil_de_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method perfil_de_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
+		<span class="method-title">static method perfil_de_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
 </div>
 <br />
 
@@ -853,9 +924,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodperfil_funcional" id="perfil_funcional"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method perfil_funcional</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
+		<span class="method-title">static method perfil_funcional</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 304]</span>
 </div>
 <br />
 
@@ -876,9 +947,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodplanificador_tareas" id="planificador_tareas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method planificador_tareas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 308]</span>
+		<span class="method-title">static method planificador_tareas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -911,7 +982,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodproyecto" id="proyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
 </div>
@@ -934,7 +1005,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodpuntos_control" id="puntos_control"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
 </div>
@@ -957,7 +1028,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsesion" id="sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
 </div>
@@ -980,7 +1051,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsolicitud" id="solicitud"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
@@ -1003,7 +1074,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodtabla" id="tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 241]</span>
 </div>
@@ -1045,7 +1116,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodusuario" id="usuario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
@@ -1068,7 +1139,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodvinculador" id="vinculador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method vinculador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
@@ -1091,7 +1162,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
 </div>

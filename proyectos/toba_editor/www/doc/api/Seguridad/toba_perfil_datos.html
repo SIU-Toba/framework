@@ -125,7 +125,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_perfil_datos.php [<span class="field">line 14</span>]
+			Ubicada en /nucleo/lib/toba_perfil_datos.php [<span class="field">line 18</span>]
 		</p>	
 		<br>
 	
@@ -145,7 +145,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																									<tr>
+																																																																																																																																																																																																																																											<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -187,6 +187,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#filtrar" title="details" class="method-name">filtrar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#filtrar_sql" title="details" class="method-name">filtrar_sql</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -269,6 +276,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#hay_combinaciones_de_querys" title="details" class="method-name">hay_combinaciones_de_querys</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#indexar_gatillos" title="details" class="method-name">indexar_gatillos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -338,7 +352,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
 </div>
 <br />
 
@@ -363,7 +377,7 @@
 	
 		
 	
-	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
+	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 452]</span>
 </div>
 <br />
 
@@ -407,7 +421,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 370]</span>
+	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
 </div>
 <br />
 
@@ -451,7 +465,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_info_dimensiones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
+	<span class="method-title">cargar_info_dimensiones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
 </div>
 <br />
 
@@ -488,7 +502,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_info_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
+	<span class="method-title">cargar_info_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
 <br />
 
@@ -513,7 +527,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">filtrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+	<span class="method-title">filtrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -552,13 +566,57 @@ $fuente_datos = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_alias_unico" id="get_alias_unico"><!-- --></a>
+<a name="methodfiltrar_sql" id="filtrar_sql"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 345]</span>
+	<span class="method-title">filtrar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void filtrar_sql(
+
+$sql, [
+$fuente_datos = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$fuente_datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_alias_unico" id="get_alias_unico"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
 </div>
 <br />
 
@@ -579,12 +637,12 @@ $fuente_datos = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_clausula_from" id="get_clausula_from"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
+	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 409]</span>
 </div>
 <br />
 
@@ -616,12 +674,12 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodget_gatillos_activos" id="get_gatillos_activos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_gatillos_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
+	<span class="method-title">get_gatillos_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
 </div>
 <br />
 
@@ -654,12 +712,12 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -688,12 +746,12 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_info" id="get_info"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 454]</span>
+	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 499]</span>
 </div>
 <br />
 
@@ -726,12 +784,12 @@ $fuente_datos&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_columnas_sql" id="get_lista_columnas_sql"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
+	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 379]</span>
 </div>
 <br />
 
@@ -770,12 +828,12 @@ $alias&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_dimensiones_restringidas" id="get_lista_dimensiones_restringidas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_lista_dimensiones_restringidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+	<span class="method-title">get_lista_dimensiones_restringidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
 </div>
 <br />
 
@@ -816,12 +874,12 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_restricciones" id="get_restricciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+	<span class="method-title">get_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
 </div>
 <br />
 
@@ -862,12 +920,12 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_restricciones_dimension" id="get_restricciones_dimension"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_restricciones_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
+	<span class="method-title">get_restricciones_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -915,12 +973,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_where_aplicacion_restriccion" id="get_where_aplicacion_restriccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
+	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
 </div>
 <br />
 
@@ -973,12 +1031,12 @@ $alias_tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_where_dimension_gatillo" id="get_where_dimension_gatillo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
 </div>
 <br />
 
@@ -1031,13 +1089,50 @@ $alias_tabla&nbsp;
 		
 		<br />
 </div>
+<a name="methodhay_combinaciones_de_querys" id="hay_combinaciones_de_querys"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">hay_combinaciones_de_querys</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 479]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void hay_combinaciones_de_querys(
+
+$sql&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodindexar_gatillos" id="indexar_gatillos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">indexar_gatillos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
+	<span class="method-title">indexar_gatillos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
 </div>
 <br />
 
@@ -1074,7 +1169,7 @@ $fuente&nbsp;
 	
 		    		
 	
-	<span class="method-title">posee_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
+	<span class="method-title">posee_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
 </div>
 <br />
 
@@ -1127,7 +1222,7 @@ $fuente_datos = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">posee_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">posee_restricciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -1173,7 +1268,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 474]</span>
+	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
 </div>
 <br />
 
@@ -1232,7 +1327,7 @@ $mostrar_filas = false]&nbsp;
 	
 		
 	
-	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 233]</span>
+	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
 </div>
 <br />
 

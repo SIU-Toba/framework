@@ -97,6 +97,9 @@
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -445,6 +448,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodset_datos_item">set_datos_item()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Permite cambiar alguno de los seteos basicos del item en runtime, para que el cambio de alguna</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodzona">zona()</a></span>
 										</dt>
 										<dd>
@@ -466,7 +480,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																							<tr>
+																																																																																																																																																																																																																																		<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -494,6 +508,21 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cn" title="details" class="method-name">cn</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#generar_analizador_estadistico" title="details" class="method-name">generar_analizador_estadistico</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#generar_html_botonera_sup" title="details" class="method-name">generar_html_botonera_sup</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -616,6 +645,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_autocomplete" title="details" class="method-name">set_autocomplete</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Indica si la operacion actual permite auto</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result"><a href="../SalidaGrafica/toba_tp_normal.html">toba_tp_normal</a></span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#tipo_pagina" title="details" class="method-name">tipo_pagina</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
@@ -637,12 +673,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 19]</span>
 </div>
 <br />
 
@@ -678,13 +714,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodcargar_objetos" id="cargar_objetos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">cargar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
 </div>
 <br />
 
@@ -713,12 +749,12 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodci" id="ci"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 403]</span>
+	<span class="method-title">ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 513]</span>
 </div>
 <br />
 
@@ -738,12 +774,12 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodcn" id="cn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
+	<span class="method-title">cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
 </div>
 <br />
 
@@ -762,13 +798,84 @@ $info&nbsp;
 		
 		<br />
 </div>
-<a name="methodinicializacion_pasiva" id="inicializacion_pasiva"><!-- --></a>
-<div class="evenrow">
+<a name="methodgenerar_analizador_estadistico" id="generar_analizador_estadistico"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">inicializacion_pasiva</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 392]</span>
+	<span class="method-title">generar_analizador_estadistico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void generar_analizador_estadistico(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgenerar_html_botonera_sup" id="generar_html_botonera_sup"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">generar_html_botonera_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void generar_html_botonera_sup(
+
+$objetos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$objetos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodinicializacion_pasiva" id="inicializacion_pasiva"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">inicializacion_pasiva</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 502]</span>
 </div>
 <br />
 
@@ -788,13 +895,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodpre_proceso_servicio" id="pre_proceso_servicio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">pre_proceso_servicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+	<span class="method-title">pre_proceso_servicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 
@@ -823,12 +930,12 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodprocesar" id="procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -853,13 +960,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodprocesar_eventos" id="procesar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">procesar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+	<span class="method-title">procesar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -888,13 +995,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodprocesar_servicios" id="procesar_servicios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">procesar_servicios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">procesar_servicios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -923,12 +1030,12 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodregistrar" id="registrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 354]</span>
+	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 438]</span>
 </div>
 <br />
 
@@ -952,13 +1059,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodservicio_pre__generar_html" id="servicio_pre__generar_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio_pre__generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
+	<span class="method-title">servicio_pre__generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 
@@ -987,13 +1094,13 @@ $info&nbsp;
 		<br />
 </div>
 <a name="methodservicio__ajax" id="servicio__ajax"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__ajax</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 339]</span>
+	<span class="method-title">servicio__ajax</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
 </div>
 <br />
 
@@ -1033,13 +1140,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__cascadas_efs" id="servicio__cascadas_efs"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__cascadas_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 314]</span>
+	<span class="method-title">servicio__cascadas_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
 </div>
 <br />
 
@@ -1080,13 +1187,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__ejecutar" id="servicio__ejecutar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
+	<span class="method-title">servicio__ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
 </div>
 <br />
 
@@ -1127,13 +1234,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__generar_html" id="servicio__generar_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">servicio__generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
 </div>
 <br />
 
@@ -1174,13 +1281,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__html_parcial" id="servicio__html_parcial"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__html_parcial</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 282]</span>
+	<span class="method-title">servicio__html_parcial</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
 </div>
 <br />
 
@@ -1221,13 +1328,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__vista_excel" id="servicio__vista_excel"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__vista_excel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
+	<span class="method-title">servicio__vista_excel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
 </div>
 <br />
 
@@ -1267,13 +1374,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__vista_pdf" id="servicio__vista_pdf"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__vista_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
+	<span class="method-title">servicio__vista_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 283]</span>
 </div>
 <br />
 
@@ -1314,13 +1421,13 @@ $objetos&nbsp;
 		<br />
 </div>
 <a name="methodservicio__vista_toba_impr_html" id="servicio__vista_toba_impr_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">servicio__vista_toba_impr_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
+	<span class="method-title">servicio__vista_toba_impr_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
 </div>
 <br />
 
@@ -1360,13 +1467,51 @@ $objetos&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_autocomplete" id="set_autocomplete"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_autocomplete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 455]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_autocomplete(
+
+$set&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Indica si la operacion actual permite auto </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$set:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodtipo_pagina" id="tipo_pagina"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">tipo_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 374]</span>
+	<span class="method-title">tipo_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 484]</span>
 </div>
 <br />
 

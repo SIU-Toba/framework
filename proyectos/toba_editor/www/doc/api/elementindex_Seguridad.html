@@ -120,8 +120,10 @@
 	[ <a href="elementindex_Seguridad.html#e">e</a> ]
 	[ <a href="elementindex_Seguridad.html#f">f</a> ]
 	[ <a href="elementindex_Seguridad.html#g">g</a> ]
+	[ <a href="elementindex_Seguridad.html#h">h</a> ]
 	[ <a href="elementindex_Seguridad.html#i">i</a> ]
 	[ <a href="elementindex_Seguridad.html#l">l</a> ]
+	[ <a href="elementindex_Seguridad.html#o">o</a> ]
 	[ <a href="elementindex_Seguridad.html#p">p</a> ]
 	[ <a href="elementindex_Seguridad.html#r">r</a> ]
 	[ <a href="elementindex_Seguridad.html#s">s</a> ]
@@ -277,6 +279,8 @@
 				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$fuentes_restringidas">toba_perfil_datos::$fuentes_restringidas</a></dd>
 							<dt><b>filtrar</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodfiltrar">toba_perfil_datos::filtrar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual</dd>
+							<dt><b>filtrar_sql</b></dt>
+				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodfiltrar_sql">toba_perfil_datos::filtrar_sql()</a></dd>
 							<dt><b>finalizar</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodfinalizar">toba_manejador_sesiones::finalizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El nucleo finaliza el manejador. Se persiste el usuario y la sesion</dd>
 					</dl>
@@ -311,9 +315,9 @@
 							<dt><b>get_gatillos_activos</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_gatillos_activos">toba_perfil_datos::get_gatillos_activos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve la lista de gatillos que esta utilizando el esquema para filtrar SQLs</dd>
 							<dt><b>get_grupos_acceso</b></dt>
-				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_grupos_acceso">toba_usuario::get_grupos_acceso()</a></dd>
-							<dt><b>get_grupos_acceso</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_grupos_acceso">toba_manejador_sesiones::get_grupos_acceso()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina el grupo de acceso del usuario actual</dd>
+							<dt><b>get_grupos_acceso</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_grupos_acceso">toba_usuario::get_grupos_acceso()</a></dd>
 							<dt><b>get_id</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_id">toba_usuario::get_id()</a></dd>
 							<dt><b>get_id</b></dt>
@@ -334,6 +338,8 @@
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_perfil_datos">toba_manejador_sesiones::get_perfil_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina el perfil de datos del usuario actual</dd>
 							<dt><b>get_perfil_datos</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_perfil_datos">toba_usuario::get_perfil_datos()</a></dd>
+							<dt><b>get_proyectos_activos</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_proyectos_activos">toba_manejador_sesiones::get_proyectos_activos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve la cantidad de proyectos que poseen una sesion abierta</dd>
 							<dt><b>get_restricciones</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_restricciones">toba_perfil_datos::get_restricciones()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un array con las restricciones aplicadas sobre las dimensiones</dd>
 							<dt><b>get_restricciones_dimension</b></dt>
@@ -388,6 +394,19 @@
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_restricciones_funcionales">toba_usuario_basico::get_restricciones_funcionales()</a></dd>
 					</dl>
 	</div>
+	<a name="h"></a>
+	<div class="index-letter-section">
+		<div style="float: left" class="index-letter-title">h</div>
+		<div style="float: right"><a href="#top">[Top]</a></div>
+		<div style="clear: both"></div>
+	</div>
+	<div>
+		<h2>h</h2>
+		<dl>
+							<dt><b>hay_combinaciones_de_querys</b></dt>
+				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodhay_combinaciones_de_querys">toba_perfil_datos::hay_combinaciones_de_querys()</a></dd>
+					</dl>
+	</div>
 	<a name="i"></a>
 	<div class="index-letter-section">
 		<div style="float: left" class="index-letter-title">i</div>
@@ -436,6 +455,23 @@
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodlogin_anonimo">toba_manejador_sesiones::login_anonimo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Acceso de un usuario aninimo a la instancia.</dd>
 							<dt><b>logout</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodlogout">toba_manejador_sesiones::logout()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Salida de la sesion creada desde un proyecto</dd>
+					</dl>
+	</div>
+	<a name="o"></a>
+	<div class="index-letter-section">
+		<div style="float: left" class="index-letter-title">o</div>
+		<div style="float: right"><a href="#top">[Top]</a></div>
+		<div style="clear: both"></div>
+	</div>
+	<div>
+		<h2>o</h2>
+		<dl>
+							<dt><b>$operaciones_de_conjuntos</b></dt>
+				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operaciones_de_conjuntos">toba_perfil_datos::$operaciones_de_conjuntos</a></dd>
+							<dt><b>$operacion_segmentos</b></dt>
+				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operacion_segmentos">toba_perfil_datos::$operacion_segmentos</a></dd>
+							<dt><b>$operacion_tipo</b></dt>
+				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operacion_tipo">toba_perfil_datos::$operacion_tipo</a></dd>
 					</dl>
 	</div>
 	<a name="p"></a>

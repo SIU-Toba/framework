@@ -97,6 +97,9 @@
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -255,12 +258,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																								<tr><td></td><td class="method-definition" nowrap>static
+																																	<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																														<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																							<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_instalacion.html">toba_instalacion</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -272,6 +275,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#arreglo_png_ie" title="details" class="method-name">arreglo_png_ie</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#chequea_sincro_svn" title="details" class="method-name">chequea_sincro_svn</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor.</td></tr>
 																													<tr>
 						<td nowrap align="right">
 															
@@ -342,6 +352,13 @@
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_url" title="details" class="method-name">get_url</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">toba_version</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_version" title="details" class="method-name">get_version</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Número de versión de Toba</td></tr>
 																						</table>
 			</div>
 			<br />
@@ -440,8 +457,34 @@ $recargar = false]&nbsp;
 		
 		<br />
 </div>
-<a name="methodes_js_comprimido" id="es_js_comprimido"><!-- --></a>
+<a name="methodchequea_sincro_svn" id="chequea_sincro_svn"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">chequea_sincro_svn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean chequea_sincro_svn(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor. <p>Se usa el parametro 'chequea_sincro_svn' 0|1</p></div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodes_js_comprimido" id="es_js_comprimido"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -467,7 +510,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodes_produccion" id="es_produccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -493,7 +536,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_claves_encriptacion" id="get_claves_encriptacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -527,12 +570,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_datos_smtp" id="get_datos_smtp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_datos_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
+	<span class="method-title">get_datos_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 143]</span>
 </div>
 <br />
 
@@ -552,7 +595,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_editor_php" id="get_editor_php"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -578,7 +621,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_grupo_desarrollo" id="get_id_grupo_desarrollo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -604,7 +647,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_numero_version" id="get_numero_version"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -630,12 +673,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_path" id="get_path"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
 </div>
 <br />
 
@@ -656,12 +699,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_path_temp" id="get_path_temp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 162]</span>
 </div>
 <br />
 
@@ -682,12 +725,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_url" id="get_url"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
@@ -700,6 +743,32 @@ $recargar = false]&nbsp;
     </td></tr></table><br /></div>
 
 	<div class="description">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos) </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_version" id="get_version"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>toba_version get_version(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Número de versión de Toba </div>
 
 	<br />
 	

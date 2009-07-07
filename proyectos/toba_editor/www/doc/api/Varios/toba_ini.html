@@ -151,7 +151,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																											<tr>
+																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -185,6 +185,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#existe_entrada" title="details" class="method-name">existe_entrada</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get" title="details" class="method-name">get</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -225,7 +232,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -262,12 +269,12 @@ $path = null]&nbsp;
 		<br />
 </div>
 <a name="methodagregar_entrada" id="agregar_entrada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">agregar_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
 </div>
 <br />
 
@@ -306,7 +313,7 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodagregar_titulo" id="agregar_titulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -343,12 +350,12 @@ $titulo&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_entrada" id="eliminar_entrada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+	<span class="method-title">eliminar_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
 </div>
 <br />
 
@@ -380,7 +387,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste_entrada" id="existe_entrada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -394,7 +401,8 @@ $nombre&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void existe_entrada(
 
-$nombre&nbsp;
+$seccion, [
+$nombre = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -405,7 +413,71 @@ $nombre&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
+				<span class="var-name">$seccion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
 				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget" id="get"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get(
+
+$seccion, [
+$clave = null], [
+$defecto = null], [
+$obligatorio = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$seccion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clave:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$defecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$obligatorio:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -422,7 +494,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">get_datos_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+	<span class="method-title">get_datos_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -459,7 +531,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
+	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
 </div>
 <br />
 
@@ -496,7 +568,7 @@ $archivo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_datos_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
+	<span class="method-title">set_datos_entrada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
 </div>
 <br />
 

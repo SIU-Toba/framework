@@ -159,12 +159,26 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																<tr>
+																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_fuente_datos</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#configurar_parseo_errores" title="details" class="method-name">configurar_parseo_errores</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#crear_usuario_para_auditoria" title="details" class="method-name">crear_usuario_para_auditoria</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -196,6 +210,20 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#pre_conectar" title="details" class="method-name">pre_conectar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ventana para personalizar las acciones previas a la conexión</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_fuente_parsea_errores" title="details" class="method-name">set_fuente_parsea_errores</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_fuente_posee_auditoria" title="details" class="method-name">set_fuente_posee_auditoria</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -214,7 +242,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -250,8 +278,82 @@ $definicion&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_db" id="get_db"><!-- --></a>
+<a name="methodconfigurar_parseo_errores" id="configurar_parseo_errores"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">configurar_parseo_errores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void configurar_parseo_errores(
+
+$db&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$db:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcrear_usuario_para_auditoria" id="crear_usuario_para_auditoria"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">crear_usuario_para_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crear_usuario_para_auditoria(
+
+$db&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$db:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_db" id="get_db"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -289,12 +391,12 @@ $reusar = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_datos_tabla" id="get_id_datos_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
+	<span class="method-title">get_id_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
@@ -327,13 +429,13 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodpost_conectar" id="post_conectar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">post_conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
+	<span class="method-title">post_conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
@@ -360,13 +462,13 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodpre_conectar" id="pre_conectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">pre_conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">pre_conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
 </div>
 <br />
 
@@ -388,6 +490,80 @@ $tabla&nbsp;
     <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
   </tr>
 </table>
+
+		
+		<br />
+</div>
+<a name="methodset_fuente_parsea_errores" id="set_fuente_parsea_errores"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_fuente_parsea_errores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_fuente_parsea_errores(
+[
+$parsea = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parsea:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_fuente_posee_auditoria" id="set_fuente_posee_auditoria"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_fuente_posee_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_fuente_posee_auditoria(
+[
+$tiene = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tiene:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
 
 		
 		<br />

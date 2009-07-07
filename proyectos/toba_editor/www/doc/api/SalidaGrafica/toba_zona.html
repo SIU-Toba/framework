@@ -55,7 +55,10 @@
 
       <br />
                           <div class="package">
-		    			<a href="../SalidaGrafica/toba_form.html">					form
+		    			<a href="../SalidaGrafica/toba_acciones_js.html">					acciones_js
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_form.html">					form
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_formateo.html">					formateo
@@ -185,14 +188,24 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																			<tr>
+																								<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#cancelar_propagacion" title="details" class="method-name">cancelar_propagacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Quita el id del editable de sesion.</td></tr>
+																																																																																																																																																																																																																										<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_modo_url" title="details" class="method-name">set_modo_url</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina el modo de propagacion usado por la zona</td></tr>
+																								<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_zona</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -214,6 +227,28 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_info" title="details" class="method-name">cargar_info</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
+						    																
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#conf" title="details" class="method-name">conf</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana de configuración que permite entre otras cosas desactivar items pertenecientes a la zona.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#desactivar_item" title="details" class="method-name">desactivar_item</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Desactiva un item en particular de la zona mediante su Identificador</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#desactivar_items" title="details" class="method-name">desactivar_items</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Desactiva items de la zona en runtime de acuerdo a las condiciones especificadas</td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
@@ -284,11 +319,40 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_id_propagado" title="details" class="method-name">get_id_propagado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina cual es el id correcto a utilizar, si el propagado por URL o por sesion.</td></tr>
+																				<tr>
+						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_info" title="details" class="method-name">get_info</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la información relacionada con el editable actualmente cargado</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_items_vecinos" title="details" class="method-name">get_items_vecinos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un arreglo con la informacion de los items vecinos se informa proyecto, item, orden</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_modo_url" title="details" class="method-name">get_modo_url</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve si la zona propaga el editable por la URL o si lo mantiene en el servidor</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#propagar_id" title="details" class="method-name">propagar_id</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Hace que se guarde el id del editable en sesion</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -303,7 +367,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#resetear" title="details" class="method-name">resetear</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Descarga el editable que contiene actualmente la zona</td></tr>
-													</table>
+																						</table>
 			</div>
 			<br />
 		</div>
@@ -319,6 +383,64 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodcancelar_propagacion" id="cancelar_propagacion"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method cancelar_propagacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void cancelar_propagacion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Quita el id del editable de sesion. </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_modo_url" id="set_modo_url"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method set_modo_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_modo_url(
+boolean
+$modo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina el modo de propagacion usado por la zona <p>True =&gt; El id del editable se propaga por url (por compatibilidad)  False =&gt; El id del editable no se propaga por url y se mantiene en el servidor</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$modo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="evenrow">
@@ -370,7 +492,7 @@ $metodo_cons&nbsp;
 	
 		
 	
-	<span class="method-title">cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+	<span class="method-title">cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
@@ -396,7 +518,7 @@ $metodo_cons&nbsp;
 	
 		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
 </div>
 <br />
 
@@ -435,7 +557,7 @@ $id&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	<span class="method-title">cargar_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -462,14 +584,130 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodgenerar_html_barra_especifico" id="generar_html_barra_especifico"><!-- --></a>
+<a name="methodconf" id="conf"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">generar_html_barra_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+	<span class="method-title">conf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void conf(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ventana de configuración que permite entre otras cosas desactivar items pertenecientes a la zona. </div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
+<a name="methoddesactivar_item" id="desactivar_item"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">desactivar_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar_item(
+mixed
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Desactiva un item en particular de la zona mediante su Identificador </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddesactivar_items" id="desactivar_items"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">desactivar_items</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar_items(
+[
+$condiciones = array()], array
+$condicion&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Desactiva items de la zona en runtime de acuerdo a las condiciones especificadas </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$condicion:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo de formato Recordset donde se especifican las condiciones  se puede filtrar por orden dentro de la zona e identificador del item  Ej: array(array('item' =&gt; '1111'), array('item' =&gt; '2345'), array('orden'  =&gt; 1))</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$condiciones:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgenerar_html_barra_especifico" id="generar_html_barra_especifico"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
+    		
+		
+	
+	<span class="method-title">generar_html_barra_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 338]</span>
 </div>
 <br />
 
@@ -496,12 +734,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_id" id="generar_html_barra_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">generar_html_barra_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
+	<span class="method-title">generar_html_barra_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 288]</span>
 </div>
 <br />
 
@@ -522,13 +760,13 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_inferior" id="generar_html_barra_inferior"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">generar_html_barra_inferior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+	<span class="method-title">generar_html_barra_inferior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
 </div>
 <br />
 
@@ -555,12 +793,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_nombre" id="generar_html_barra_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">generar_html_barra_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">generar_html_barra_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 297]</span>
 </div>
 <br />
 
@@ -580,12 +818,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_superior" id="generar_html_barra_superior"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">generar_html_barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
+	<span class="method-title">generar_html_barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
 </div>
 <br />
 
@@ -605,13 +843,13 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_vinculos" id="generar_html_barra_vinculos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">generar_html_barra_vinculos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">generar_html_barra_vinculos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 310]</span>
 </div>
 <br />
 
@@ -638,12 +876,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_editable" id="get_editable"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_editable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+	<span class="method-title">get_editable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -664,13 +902,13 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_editable_id" id="get_editable_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_editable_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 138]</span>
+	<span class="method-title">get_editable_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -698,13 +936,13 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_editable_nombre" id="get_editable_nombre"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_editable_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
+	<span class="method-title">get_editable_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
 </div>
 <br />
 
@@ -731,13 +969,60 @@ $id&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_id_propagado" id="get_id_propagado"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">get_id_propagado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_id_propagado(
+mixed
+$valor_por_url&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina cual es el id correcto a utilizar, si el propagado por URL o por sesion. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor_por_url:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodget_info" id="get_info"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
+	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
 </div>
 <br />
 
@@ -769,13 +1054,99 @@ $clave = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodrecargar" id="recargar"><!-- --></a>
+<a name="methodget_items_vecinos" id="get_items_vecinos"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_items_vecinos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_items_vecinos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna un arreglo con la informacion de los items vecinos se informa proyecto, item, orden </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Recordset con una fila por item en la zona</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_modo_url" id="get_modo_url"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_modo_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean get_modo_url(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve si la zona propaga el editable por la URL o si lo mantiene en el servidor </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodpropagar_id" id="propagar_id"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
+	<span class="method-title">propagar_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void propagar_id(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Hace que se guarde el id del editable en sesion </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrecargar" id="recargar"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
 </div>
 <br />
 
@@ -796,12 +1167,12 @@ $clave = null]&nbsp;
 		<br />
 </div>
 <a name="methodresetear" id="resetear"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
