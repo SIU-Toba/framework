@@ -59,10 +59,11 @@ abstract class toba_ef_seleccion extends toba_ef
 	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=false)
 	{
 		$this->opciones_cargadas = true;
-		if (! $maestros_cargados) {
-			$this->input_extra = ' disabled';
-		} else {
-			$this->input_extra = '';
+		$this->input_extra = '';
+		if ($tiene_maestros) {
+			if (! $maestros_cargados || count($datos) == 1 && isset($datos[apex_ef_no_seteado])) {
+				$this->input_extra = " disabled ";
+			}
 		}
 		$this->opciones = $datos;
 		
