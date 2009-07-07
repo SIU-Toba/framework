@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-evento_ei
+ef_html
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -290,7 +290,7 @@ evento_ei
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>evento_ei</h1>
+<h1>ef_html</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -309,7 +309,7 @@ evento_ei
 		<tr><td valign="top" width="60%" class="class-overview">
 	   
       		<div class="description">
-   			<BR/>Representa un evento que será consumido por un componente, es sólo una estructura de datos
+   			<BR/>Elemento que contiene un editor HTML
  <BR/>
 			</div>	
    				
@@ -317,17 +317,24 @@ evento_ei
 
 <PRE>Object
    |
-   +--<b>evento_ei</b>
+   +--<a href='ef.html'>ef</a>
+         |
+         +--<b>ef_html</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en ei.js
+			Ubicada en ef.js
 		</p>
 
 
 
 	<table border="0" cellspacing="0" cellpadding="0">
 		
+	
+			<tr><td colspan="2"><a href='../api/Componentes/Efs/toba_ef_html'>
+			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
+			<strong>Clase PHP equivalente: toba_ef_html</strong></a></td></tr>
+	<br>
 	
 	</table>
 		</td>
@@ -339,9 +346,47 @@ evento_ei
 
 <a name="sec-inherited"></a>
 
+<div class="info-box">
+		<div class="info-box-title">Métodos heredados de <a href="ef.html">ef</a></div>
+		<div class="info-box-body"><a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#validar">validar</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#resaltar_cambio">resaltar_cambio</a>, <a href="ef.html#es_oculto">es_oculto</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+		</div>
+	</div>
+
 
 
 <!-- ========== METHOD SUMMARY =========== -->
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_editor">get_editor</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">string</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_estado">get_estado</A>()
+					</td>
+
+					<td class="method-definition"> Retorna el estado o valor actual del elemento.</td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
 
 <!-- ========== END METHOD SUMMARY =========== -->
 
@@ -353,10 +398,10 @@ evento_ei
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="evento_ei()"><!-- --></A>
+<A NAME="ef_html()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">evento_ei</span>
+				<span class="method-title">ef_html</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -364,7 +409,7 @@ evento_ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>evento_ei (id, validar, confirmar, parametros)</code>
+							   <code>ef_html (id_form, etiqueta, obligatorio, colapsado)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -375,38 +420,6 @@ evento_ei
 
 		   <!-- METHOD PARAMETERS START -->
 		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				 
-				<tr>
-					<td class="indent">
-						<span class="var-name">id</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Identificador del evento, ej: 'modificar'  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">validar</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> ¿Se debe validar antes de hacer submit?  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">confirmar</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> ¿Se debe confirmar antes de hacer submit?  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
 							
@@ -414,76 +427,89 @@ evento_ei
 
 
 
+		<a name='method_detail'></a>
+		
+		
+   		<A id="get_editor" NAME="get_editor"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">get_editor</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object get_editor ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_estado" NAME="get_estado"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">get_estado</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>string get_estado ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna el estado o valor actual del elemento. 
+ Generalmente es el value del input HTML</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+
 	</div>
 </div>
 
 
 <br />
 
-
-<a name="sec-vars"></a>
-<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-		   	
-			 <A NAME="confirmar"><!-- --></A>
-	   		 
-				<div class="oddrow">
-				
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">confirmar</span>
-					</span>
-											
-				</div>
-				
-			</div>			   
-			
-			 <A NAME="id"><!-- --></A>
-	   		 
-				<div class="evenrow">
-			 
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">id</span>
-					</span>
-											
-				</div>
-				
-			</div>			   
-			
-			 <A NAME="parametros"><!-- --></A>
-	   		 
-				<div class="oddrow">
-				
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">parametros</span>
-					</span>
-											
-				</div>
-				
-			</div>			   
-			
-			 <A NAME="validar"><!-- --></A>
-	   		 
-				<div class="evenrow">
-			 
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">validar</span>
-					</span>
-											
-				</div>
-				
-			</div>			   
-			
-		</div>
-</div>
 
 
 <br />

@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-evento_ei
+YAHOO.util.Subscriber
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -290,7 +290,7 @@ evento_ei
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>evento_ei</h1>
+<h1>YAHOO.util.Subscriber</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -309,7 +309,7 @@ evento_ei
 		<tr><td valign="top" width="60%" class="class-overview">
 	   
       		<div class="description">
-   			<BR/>Representa un evento que será consumido por un componente, es sólo una estructura de datos
+   			<BR/>Subscriber
  <BR/>
 			</div>	
    				
@@ -317,11 +317,11 @@ evento_ei
 
 <PRE>Object
    |
-   +--<b>evento_ei</b>
+   +--<b>YAHOO.util.Subscriber</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en ei.js
+			Ubicada en yahoo.js
 		</p>
 
 
@@ -343,6 +343,48 @@ evento_ei
 
 <!-- ========== METHOD SUMMARY =========== -->
 
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#contains">contains</A>(&lt;Function&gt; fn, &lt;Object&gt; obj)
+					</td>
+
+					<td class="method-definition"> Returns true if the fn and obj match this objects properties.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#getScope">getScope</A>(&lt;Object&gt; defaultScope)
+					</td>
+
+					<td class="method-definition"> Returns the execution context for this listener.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#toString">toString</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
+
 <!-- ========== END METHOD SUMMARY =========== -->
 
 <br>
@@ -353,10 +395,10 @@ evento_ei
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="evento_ei()"><!-- --></A>
+<A NAME="YAHOO.util.Subscriber()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">evento_ei</span>
+				<span class="method-title">YAHOO.util.Subscriber</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -364,13 +406,17 @@ evento_ei
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>evento_ei (id, validar, confirmar, parametros)</code>
+							   <code>YAHOO.util.Subscriber (&lt;Function&gt; fn, &lt;Object&gt; obj, &lt;boolean&gt; overrideContext)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>			
+						
+			<p class="description">
+  				<UL>Stores the subscriber information to be used when the event fires.</UL>
+			</p>
 			
 
 		   <!-- METHOD PARAMETERS START -->
@@ -380,28 +426,28 @@ evento_ei
 				 
 				<tr>
 					<td class="indent">
-						<span class="var-name">id</span>
+						<span class="var-name">fn</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Identificador del evento, ej: 'modificar'  </span>
+						<span class="var-description">       The function to execute  </span>
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">validar</span>
+						<span class="var-name">obj</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> ¿Se debe validar antes de hacer submit?  </span>
+						<span class="var-description">      An object to be passed along when the event fires  </span>
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">confirmar</span>
+						<span class="var-name">overrideContext</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> ¿Se debe confirmar antes de hacer submit?  </span>
+						<span class="var-description"> If true, the obj passed in becomes the execution                             context of the listener  </span>
 					</td>
 				</tr>
 				
@@ -413,6 +459,167 @@ evento_ei
 		</div>			
 
 
+
+		<a name='method_detail'></a>
+		
+		
+   		<A id="contains" NAME="contains"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">contains</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>boolean contains (&lt;Function&gt; fn, &lt;Object&gt; obj)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Returns true if the fn and obj match this objects properties.
+ Used by the unsubscribe method to match the right subscriber.</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">fn</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> the function to execute  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">obj</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> an object to be passed along when the event fires  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent"> true if the supplied arguments match this                     subscriber's signature.</td>
+			  </tr>
+			</table>
+   						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="getScope" NAME="getScope"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">getScope</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object getScope (&lt;Object&gt; defaultScope)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Returns the execution context for this listener.  If overrideContext was set to true
+ the custom obj will be the context.  If overrideContext is an object, that is the
+ context, otherwise the default context will be used.</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">defaultScope</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> the context to use if this listener does not                               override it.</span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="toString" NAME="toString"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">toString</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object toString ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
 
 	</div>
 </div>
@@ -426,57 +633,60 @@ evento_ei
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 		   	
-			 <A NAME="confirmar"><!-- --></A>
+			 <A NAME="fn"><!-- --></A>
 	   		 
 				<div class="oddrow">
 				
 				<div class="var-header">
 					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">confirmar</span>
+						<span class="var-type">function</span>&nbsp;&nbsp;
+						<span class="var-name">fn</span>
 					</span>
+					
+						<p class="description">
+			  				<UL>The callback that will be execute when the event fires</UL>
+						</p>
 											
 				</div>
 				
 			</div>			   
 			
-			 <A NAME="id"><!-- --></A>
+			 <A NAME="obj"><!-- --></A>
 	   		 
 				<div class="evenrow">
 			 
 				<div class="var-header">
 					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">id</span>
+						<span class="var-type">object</span>&nbsp;&nbsp;
+						<span class="var-name">obj</span>
 					</span>
+					
+						<p class="description">
+			  				<UL>An optional custom object that will passed to the callback when
+ the event fires</UL>
+						</p>
 											
 				</div>
 				
 			</div>			   
 			
-			 <A NAME="parametros"><!-- --></A>
+			 <A NAME="overrideContext"><!-- --></A>
 	   		 
 				<div class="oddrow">
 				
 				<div class="var-header">
 					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">parametros</span>
+						<span class="var-type">boolean|object</span>&nbsp;&nbsp;
+						<span class="var-name">overrideContext</span>
 					</span>
-											
-				</div>
-				
-			</div>			   
-			
-			 <A NAME="validar"><!-- --></A>
-	   		 
-				<div class="evenrow">
-			 
-				<div class="var-header">
-					<span class="var-title">
-						<span class="var-type">Object</span>&nbsp;&nbsp;
-						<span class="var-name">validar</span>
-					</span>
+					
+						<p class="description">
+			  				<UL>The default execution context for the event listener is defined when the
+ event is created (usually the object which contains the event).
+ By setting overrideContext to true, the execution context becomes the custom
+ object passed in by the subscriber.  If overrideContext is an object, that 
+ object becomes the context.</UL>
+						</p>
 											
 				</div>
 				

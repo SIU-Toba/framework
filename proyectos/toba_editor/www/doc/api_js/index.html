@@ -117,6 +117,11 @@ toba
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_html.html">ef_html</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
 		</span>
 	 	<br />
@@ -207,12 +212,22 @@ toba
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ga.html">ga</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="GLOBALES.html">GLOBALES</a>    
 		</span>
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
 		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="parseUri.html">parseUri</a>    
 		</span>
 	 	<br />
 	
@@ -233,6 +248,36 @@ toba
 	
 		<span style="padding-left: 1em;">		
 		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.html">YAHOO</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.html">YAHOO.util</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.CustomEvent.html">YAHOO.util.CustomEvent</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Event.html">YAHOO.util.Event</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.EventProvider.html">YAHOO.util.EventProvider</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Subscriber.html">YAHOO.util.Subscriber</a>    
 		</span>
 	 	<br />
 		 	
@@ -307,13 +352,23 @@ toba
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!agregar_onload">agregar_onload</A>(llamada)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
 											<span class="method-result">Array</span>
 					</td>
 					<td nowrap class="method-definition">
 						<a class="method-name" href="#!s!analizar_respuesta_servicio">analizar_respuesta_servicio</A>(respuesta)
 					</td>
 
-					<td class="method-definition"> Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></td></tr>
+					<td class="method-definition"> Analiza una respuesta ajax en texto plana, partiendola por separadores [--toba--]</td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
@@ -370,6 +425,26 @@ toba
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!get_navegacion_ajax">get_navegacion_ajax</A>()
+					</td>
+
+					<td class="method-definition"> Retorna verdadero si esta activa la navegacion via ajax de la operacion</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!hay_cambios">hay_cambios</A>()
+					</td>
+
+					<td class="method-definition"> Determina si en alguno de los formularios activos de la pantalla sufrio modificaciones</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
 											<span class="method-result">string</span>
 					</td>
 					<td nowrap class="method-definition">
@@ -403,7 +478,7 @@ toba
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!ir_a_operacion">ir_a_operacion</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup)
+						<a class="method-name" href="#!s!ir_a_operacion">ir_a_operacion</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup, &lt;boolean&gt; es_zona)
 					</td>
 
 					<td class="method-definition"> Navega hacia una opción del menú</td></tr>
@@ -450,6 +525,26 @@ toba
 					</td>
 
 					<td class="method-definition"> Permite definir una funcion o método por la cual pasan todos los pedidos de cambio de operación desde el menú</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!set_menu_popup">set_menu_popup</A>(estado)
+					</td>
+
+					<td class="method-definition"> Cambia la forma en la que trabaja el menu, haciendo que los links se abran en una nueva celda de memoria y en un popup</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!set_navegacion_ajax">set_navegacion_ajax</A>(estado)
+					</td>
+
+					<td class="method-definition"> Activar/Desactiva la navegacion via ajax de la operacion</td></tr>
 			
 			</table>
 			</div>			
@@ -498,10 +593,44 @@ toba
 		<a name='method_detail'></a>
 		
 		
-   		<A id="analizar_respuesta_servicio" NAME="!s!analizar_respuesta_servicio"><!-- --></A>	
+   		<A id="agregar_onload" NAME="!s!agregar_onload"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">agregar_onload</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void agregar_onload (llamada)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="analizar_respuesta_servicio" NAME="!s!analizar_respuesta_servicio"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">analizar_respuesta_servicio</span>
@@ -521,7 +650,7 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></UL>
+	  				<UL>Analiza una respuesta ajax en texto plana, partiendola por separadores [--toba--]</UL>
 				</p>
 						
 			
@@ -538,8 +667,8 @@ toba
 		
    		<A id="componentes" NAME="!s!componentes"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">componentes</span>
@@ -576,8 +705,8 @@ toba
 		
    		<A id="comunicar_eventos" NAME="!s!comunicar_eventos"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">comunicar_eventos</span>
@@ -619,8 +748,8 @@ toba
 		
    		<A id="comunicar_vinculo" NAME="!s!comunicar_vinculo"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">comunicar_vinculo</span>
@@ -681,8 +810,8 @@ toba
 		
    		<A id="error_comunicacion" NAME="!s!error_comunicacion"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">error_comunicacion</span>
@@ -720,8 +849,8 @@ toba
 		
    		<A id="fin_aguardar" NAME="!s!fin_aguardar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">fin_aguardar</span>
@@ -760,10 +889,86 @@ toba
 		   
 		</div>
 		
-   		<A id="imagen" NAME="!s!imagen"><!-- --></A>	
+   		<A id="get_navegacion_ajax" NAME="!s!get_navegacion_ajax"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">get_navegacion_ajax</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Object get_navegacion_ajax ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna verdadero si esta activa la navegacion via ajax de la operacion</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="hay_cambios" NAME="!s!hay_cambios"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">hay_cambios</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; boolean hay_cambios ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Determina si en alguno de los formularios activos de la pantalla sufrio modificaciones</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="imagen" NAME="!s!imagen"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">imagen</span>
@@ -800,8 +1005,8 @@ toba
 		
    		<A id="incluir" NAME="!s!incluir"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">incluir</span>
@@ -852,8 +1057,8 @@ toba
 		
    		<A id="inicio_aguardar" NAME="!s!inicio_aguardar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">inicio_aguardar</span>
@@ -894,8 +1099,8 @@ toba
 		
    		<A id="ir_a_operacion" NAME="!s!ir_a_operacion"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">ir_a_operacion</span>
@@ -906,7 +1111,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Object ir_a_operacion (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup)</code>
+							   <code>&lt;static&gt; Object ir_a_operacion (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;boolean&gt; es_popup, &lt;boolean&gt; es_zona)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -947,7 +1152,16 @@ toba
 						<span class="var-name">es_popup</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Indica si se abrira en la ventana actual o una nueva.</span>
+						<span class="var-description"> Indica si se abrira en la ventana actual o una nueva.  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">es_zona</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Indica si propaga la zona actualmente cargada (si la hay)</span>
 					</td>
 				</tr>
 				
@@ -964,8 +1178,8 @@ toba
 		
    		<A id="servicio__html_parcial" NAME="!s!servicio__html_parcial"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">servicio__html_parcial</span>
@@ -1007,8 +1221,8 @@ toba
 		
    		<A id="set_aguardar" NAME="!s!set_aguardar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_aguardar</span>
@@ -1064,8 +1278,8 @@ toba
 		
    		<A id="set_ajax" NAME="!s!set_ajax"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_ajax</span>
@@ -1126,8 +1340,8 @@ toba
 		
    		<A id="set_callback_menu" NAME="!s!set_callback_menu"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_callback_menu</span>
@@ -1175,6 +1389,82 @@ toba
 				</tr>
 				
 			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_menu_popup" NAME="!s!set_menu_popup"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_menu_popup</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_menu_popup (estado)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia la forma en la que trabaja el menu, haciendo que los links se abran en una nueva celda de memoria y en un popup</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_navegacion_ajax" NAME="!s!set_navegacion_ajax"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_navegacion_ajax</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_navegacion_ajax (estado)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Activar/Desactiva la navegacion via ajax de la operacion</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			

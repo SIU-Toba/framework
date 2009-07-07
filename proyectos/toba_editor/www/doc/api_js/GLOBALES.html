@@ -117,6 +117,11 @@ GLOBALES
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_html.html">ef_html</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
 		</span>
 	 	<br />
@@ -207,12 +212,22 @@ GLOBALES
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ga.html">ga</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="GLOBALES.html">GLOBALES</a>    
 		</span>
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
 		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="parseUri.html">parseUri</a>    
 		</span>
 	 	<br />
 	
@@ -233,6 +248,36 @@ GLOBALES
 	
 		<span style="padding-left: 1em;">		
 		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.html">YAHOO</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.html">YAHOO.util</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.CustomEvent.html">YAHOO.util.CustomEvent</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Event.html">YAHOO.util.Event</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.EventProvider.html">YAHOO.util.EventProvider</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Subscriber.html">YAHOO.util.Subscriber</a>    
 		</span>
 	 	<br />
 		 	
@@ -328,7 +373,8 @@ GLOBALES
 						<a class="method-name" href="#!s!addEvent">addEvent</A>(o, &lt;string&gt; _e, c, &lt;boolean&gt; _b)
 					</td>
 
-					<td class="method-definition"> Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores</td></tr>
+					<td class="method-definition"> Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ Usa tecnica dom-0</td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
@@ -339,6 +385,17 @@ GLOBALES
 					</td>
 
 					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!agregarEvento">agregarEvento</A>(objeto, &lt;string&gt; evento, &lt;string&gt; callback)
+					</td>
+
+					<td class="method-definition"> Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ Usa tecnica dom-2</td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
@@ -415,6 +472,26 @@ GLOBALES
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!deshabilitar_botones">deshabilitar_botones</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!ejecutar_scripts">ejecutar_scripts</A>(html)
+					</td>
+
+					<td class="method-definition"> Dado un codigo html, intepreta las secciones <script> del mismo</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#!s!es_cuit">es_cuit</A>(nro)
 					</td>
 
@@ -426,6 +503,16 @@ GLOBALES
 					</td>
 					<td nowrap class="method-definition">
 						<a class="method-name" href="#!s!es_evento">es_evento</A>(nombre)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!eval_code">eval_code</A>(code)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -499,6 +586,16 @@ GLOBALES
 					</td>
 
 					<td class="method-definition"> Busca si un valor pertenece al arreglo</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!include_css">include_css</A>(file)
+					</td>
+
+					<td class="method-definition"> </td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
@@ -780,7 +877,8 @@ GLOBALES
 			</div>
 			
 				<p class="description">
-	  				<UL>Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores</UL>
+	  				<UL>Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ Usa tecnica dom-0</UL>
 				</p>
 						
 			
@@ -870,10 +968,81 @@ GLOBALES
 		   
 		</div>
 		
-   		<A id="array_maximo" NAME="!s!array_maximo"><!-- --></A>	
+   		<A id="agregarEvento" NAME="!s!agregarEvento"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">agregarEvento</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void agregarEvento (objeto, &lt;string&gt; evento, &lt;string&gt; callback)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ Usa tecnica dom-2</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">evento</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Nombre del evento, sin el 'on' (ej. click)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">callback</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Referencia a funcion a llamar    </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">Elemento</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> base  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="array_maximo" NAME="!s!array_maximo"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">array_maximo</span>
@@ -910,8 +1079,8 @@ GLOBALES
 		
    		<A id="cambiar_atributos_en_arbol" NAME="!s!cambiar_atributos_en_arbol"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_atributos_en_arbol</span>
@@ -944,8 +1113,8 @@ GLOBALES
 		
    		<A id="cambiar_clase" NAME="!s!cambiar_clase"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_clase</span>
@@ -978,8 +1147,8 @@ GLOBALES
 		
    		<A id="cambiar_colapsado" NAME="!s!cambiar_colapsado"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_colapsado</span>
@@ -1012,8 +1181,8 @@ GLOBALES
 		
    		<A id="colapsar" NAME="!s!colapsar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">colapsar</span>
@@ -1046,8 +1215,8 @@ GLOBALES
 		
    		<A id="comparar_arreglos" NAME="!s!comparar_arreglos"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">comparar_arreglos</span>
@@ -1080,8 +1249,8 @@ GLOBALES
 		
    		<A id="descolapsar" NAME="!s!descolapsar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">descolapsar</span>
@@ -1112,10 +1281,82 @@ GLOBALES
 		   
 		</div>
 		
-   		<A id="es_cuit" NAME="!s!es_cuit"><!-- --></A>	
+   		<A id="deshabilitar_botones" NAME="!s!deshabilitar_botones"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">deshabilitar_botones</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Object deshabilitar_botones ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="ejecutar_scripts" NAME="!s!ejecutar_scripts"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">ejecutar_scripts</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void ejecutar_scripts (html)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Dado un codigo html, intepreta las secciones <script> del mismo</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="es_cuit" NAME="!s!es_cuit"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">es_cuit</span>
@@ -1148,8 +1389,8 @@ GLOBALES
 		
    		<A id="es_evento" NAME="!s!es_evento"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">es_evento</span>
@@ -1161,6 +1402,40 @@ GLOBALES
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
 							   <code>&lt;static&gt; Object es_evento (nombre)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="eval_code" NAME="!s!eval_code"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">eval_code</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void eval_code (code)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1426,10 +1701,44 @@ GLOBALES
 		   
 		</div>
 		
-   		<A id="include_source" NAME="!s!include_source"><!-- --></A>	
+   		<A id="include_css" NAME="!s!include_css"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">include_css</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void include_css (file)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="include_source" NAME="!s!include_source"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">include_source</span>
@@ -1462,8 +1771,8 @@ GLOBALES
 		
    		<A id="intercambiar_nodos" NAME="!s!intercambiar_nodos"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">intercambiar_nodos</span>
@@ -1496,8 +1805,8 @@ GLOBALES
 		
    		<A id="isset" NAME="!s!isset"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">isset</span>
@@ -1530,8 +1839,8 @@ GLOBALES
 		
    		<A id="mostrar_esperar" NAME="!s!mostrar_esperar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">mostrar_esperar</span>
@@ -1564,8 +1873,8 @@ GLOBALES
 		
    		<A id="ordenar_select" NAME="!s!ordenar_select"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">ordenar_select</span>
@@ -1602,8 +1911,8 @@ GLOBALES
 		
    		<A id="overlay" NAME="!s!overlay"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">overlay</span>
@@ -1636,8 +1945,8 @@ GLOBALES
 		
    		<A id="overlay_debug" NAME="!s!overlay_debug"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">overlay_debug</span>
@@ -1670,8 +1979,8 @@ GLOBALES
 		
    		<A id="popup_callback" NAME="!s!popup_callback"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">popup_callback</span>
@@ -1704,8 +2013,8 @@ GLOBALES
 		
    		<A id="quitar_acentos" NAME="!s!quitar_acentos"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">quitar_acentos</span>
@@ -1738,8 +2047,8 @@ GLOBALES
 		
    		<A id="quitar_clase_css" NAME="!s!quitar_clase_css"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">quitar_clase_css</span>
@@ -1772,8 +2081,8 @@ GLOBALES
 		
    		<A id="reemplazar_clase_css" NAME="!s!reemplazar_clase_css"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">reemplazar_clase_css</span>
@@ -1806,8 +2115,8 @@ GLOBALES
 		
    		<A id="salir" NAME="!s!salir"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">salir</span>
@@ -1840,8 +2149,8 @@ GLOBALES
 		
    		<A id="serializar" NAME="!s!serializar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">serializar</span>
@@ -1874,8 +2183,8 @@ GLOBALES
 		
    		<A id="solicitar_item_popup" NAME="!s!solicitar_item_popup"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">solicitar_item_popup</span>
@@ -1912,8 +2221,8 @@ GLOBALES
 		
    		<A id="toggle_nodo" NAME="!s!toggle_nodo"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">toggle_nodo</span>
@@ -1950,8 +2259,8 @@ GLOBALES
 		
    		<A id="trim" NAME="!s!trim"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">trim</span>
@@ -1984,8 +2293,8 @@ GLOBALES
 		
    		<A id="var_dump" NAME="!s!var_dump"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">var_dump</span>

@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-ei_arbol
+YAHOO.util.CustomEvent
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -290,7 +290,7 @@ ei_arbol
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>ei_arbol</h1>
+<h1>YAHOO.util.CustomEvent</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -309,7 +309,7 @@ ei_arbol
 		<tr><td valign="top" width="60%" class="class-overview">
 	   
       		<div class="description">
-   			<BR/>Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
+   			<BR/>CustomEvent
  <BR/>
 			</div>	
    				
@@ -317,24 +317,17 @@ ei_arbol
 
 <PRE>Object
    |
-   +--<a href='ei.html'>ei</a>
-         |
-         +--<b>ei_arbol</b>
+   +--<b>YAHOO.util.CustomEvent</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en ei_arbol.js
+			Ubicada en yahoo.js
 		</p>
 
 
 
 	<table border="0" cellspacing="0" cellpadding="0">
 		
-	
-			<tr><td colspan="2"><a href='../api/Componentes/Eis/toba_ei_arbol'>
-			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
-			<strong>Clase PHP equivalente: toba_ei_arbol</strong></a></td></tr>
-	<br>
 	
 	</table>
 		</td>
@@ -345,12 +338,6 @@ ei_arbol
 	
 
 <a name="sec-inherited"></a>
-
-<div class="info-box">
-		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
-		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>
-		</div>
-	</div>
 
 
 
@@ -365,114 +352,53 @@ ei_arbol
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">void</span>
+											<span class="method-result">boolean</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#abrir_nodo">abrir_nodo</A>(&lt;Element&gt; nodo)
+						<a class="method-name" href="#fire">fire</A>()
 					</td>
 
-					<td class="method-definition"> Dado un nodo UL abre el mismo</td></tr>
+					<td class="method-definition"> Notifies the subscribers.</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#cambiar_expansion">cambiar_expansion</A>(&lt;Element&gt; nodo)
+						<a class="method-name" href="#subscribe">subscribe</A>(&lt;Function&gt; fn, &lt;Object&gt; obj, &lt;boolean|Object&gt; overrideContext)
 					</td>
 
-					<td class="method-definition"> Invierte la expansión de un nodo especifico del arbol</td></tr>
+					<td class="method-definition"> Subscribes the caller to this event</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#filtrar_nodo_por_nombre">filtrar_nodo_por_nombre</A>(&lt;Element&gt; nodo, &lt;string&gt; nombre)
-					</td>
-
-					<td class="method-definition"> Filtra la apertura de nodos de acuerdo al nombre indicado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#filtro_cambio">filtro_cambio</A>()
+						<a class="method-name" href="#toString">toString</A>()
 					</td>
 
 					<td class="method-definition"> </td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">void</span>
+											<span class="method-result">boolean</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#filtro_foco">filtro_foco</A>()
+						<a class="method-name" href="#unsubscribe">unsubscribe</A>(&lt;Function&gt; fn, &lt;Object&gt; obj)
 					</td>
 
-					<td class="method-definition"> </td></tr>
+					<td class="method-definition"> Unsubscribes subscribers.</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">void</span>
+											<span class="method-result">int</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#filtro_salir">filtro_salir</A>()
+						<a class="method-name" href="#unsubscribeAll">unsubscribeAll</A>()
 					</td>
 
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">Element</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_nodo_raiz">get_nodo_raiz</A>(nombre)
-					</td>
-
-					<td class="method-definition"> Busca el nodo raiz del arbol</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">array(Element)</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_nodos_hijo">get_nodos_hijo</A>(&lt;Element&gt; padre)
-					</td>
-
-					<td class="method-definition"> Busca los nodos hijos del padre especificado</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">string</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_nombre_nodo">get_nombre_nodo</A>(&lt;Element&gt; nodo)
-					</td>
-
-					<td class="method-definition"> Retorna el nombre del nodo</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">Object</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#submit">submit</A>()
-					</td>
-
-					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#ver_propiedades">ver_propiedades</A>(id)
-					</td>
-
-					<td class="method-definition"> Dispara en el servidor el evento ver_propiedades sobre un id especifico de nodo</td></tr>
+					<td class="method-definition"> Removes all listeners</td></tr>
 			
 			</table>
 			</div>			
@@ -489,10 +415,10 @@ ei_arbol
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="ei_arbol()"><!-- --></A>
+<A NAME="YAHOO.util.CustomEvent()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">ei_arbol</span>
+				<span class="method-title">YAHOO.util.CustomEvent</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -500,16 +426,62 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ei_arbol (instancia, input_submit, autovinculo)</code>
+							   <code>YAHOO.util.CustomEvent (&lt;<a href="String.html">String</a>&gt; type, &lt;Object&gt; context, &lt;boolean&gt; silent, &lt;int&gt; signature)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>			
+						
+			<p class="description">
+  				<UL>The CustomEvent class lets you define events for your application
+ that can be subscribed to by one or more independent component.</UL>
+			</p>
 			
 
 		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				 
+				<tr>
+					<td class="indent">
+						<span class="var-name">type</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> The type of event, which is passed to the callback                   when the event fires  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">context</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> The context the event will fire from.  "this" will                   refer to this object in the callback.  Default value:                    the window object.  The listener can override this.  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">silent</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> pass true to prevent the event from writing to                   the debugsystem  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">signature</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> the signature that the custom event subscriber                   will receive. YAHOO.util.CustomEvent.LIST or                    YAHOO.util.CustomEvent.FLAT.  The default is                   YAHOO.util.CustomEvent.LIST.  </span>
+					</td>
+				</tr>
+				
+			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -521,13 +493,13 @@ ei_arbol
 		<a name='method_detail'></a>
 		
 		
-   		<A id="abrir_nodo" NAME="abrir_nodo"><!-- --></A>	
+   		<A id="fire" NAME="fire"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">abrir_nodo</span>
+				<span class="method-title">fire</span>
 			</div>
 			<br />
 			<div class="function">
@@ -535,7 +507,7 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void abrir_nodo (&lt;Element&gt; nodo)</code>
+							   <code>boolean fire ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -544,7 +516,15 @@ ei_arbol
 			</div>
 			
 				<p class="description">
-	  				<UL>Dado un nodo UL abre el mismo</UL>
+	  				<UL>Notifies the subscribers.  The callback functions will be executed
+ from the context specified when the event was created, and with the 
+ following parameters:
+   <ul>
+   <li>The type of event</li>
+   <li>All of the arguments fire() was executed with as an array</li>
+   <li>The custom object (if any) that was passed into the subscribe() 
+       method</li>
+   </ul></UL>
 				</p>
 						
 			
@@ -555,10 +535,10 @@ ei_arbol
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">nodo</span>
+						<span class="var-name">arguments</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Nodo HTML a expandir 	   </span>
+						<span class="var-description"> an arbitrary set of parameters to pass to                              the handler.  </span>
 					</td>
 				</tr>
 				
@@ -566,20 +546,27 @@ ei_arbol
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
-						
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent"> false if one of the subscribers returned false,                     true otherwise</td>
+			  </tr>
+			</table>
+   						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   
 		</div>
 		
-   		<A id="cambiar_expansion" NAME="cambiar_expansion"><!-- --></A>	
+   		<A id="subscribe" NAME="subscribe"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">cambiar_expansion</span>
+				<span class="method-title">subscribe</span>
 			</div>
 			<br />
 			<div class="function">
@@ -587,7 +574,7 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void cambiar_expansion (&lt;Element&gt; nodo)</code>
+							   <code>void subscribe (&lt;Function&gt; fn, &lt;Object&gt; obj, &lt;boolean|Object&gt; overrideContext)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -596,7 +583,7 @@ ei_arbol
 			</div>
 			
 				<p class="description">
-	  				<UL>Invierte la expansión de un nodo especifico del arbol</UL>
+	  				<UL>Subscribes the caller to this event</UL>
 				</p>
 						
 			
@@ -607,10 +594,28 @@ ei_arbol
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">nodo</span>
+						<span class="var-name">fn</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Nodo HTML a expandir 	   </span>
+						<span class="var-description">        The function to execute  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">obj</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description">       An object to be passed along when the event                               fires  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">overrideContext</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> If true, the obj passed in becomes                                     the execution context of the listener.                                    if an object, that object becomes the                                    the execution context.        </span>
 					</td>
 				</tr>
 				
@@ -625,13 +630,13 @@ ei_arbol
 		   
 		</div>
 		
-   		<A id="filtrar_nodo_por_nombre" NAME="filtrar_nodo_por_nombre"><!-- --></A>	
+   		<A id="toString" NAME="toString"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">filtrar_nodo_por_nombre</span>
+				<span class="method-title">toString</span>
 			</div>
 			<br />
 			<div class="function">
@@ -639,43 +644,16 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>Object filtrar_nodo_por_nombre (&lt;Element&gt; nodo, &lt;string&gt; nombre)</code>
+							   <code>Object toString ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Filtra la apertura de nodos de acuerdo al nombre indicado</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">nodo</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description">  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">nombre</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"></span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -686,13 +664,13 @@ ei_arbol
 		   
 		</div>
 		
-   		<A id="filtro_cambio" NAME="filtro_cambio"><!-- --></A>	
+   		<A id="unsubscribe" NAME="unsubscribe"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">filtro_cambio</span>
+				<span class="method-title">unsubscribe</span>
 			</div>
 			<br />
 			<div class="function">
@@ -700,109 +678,7 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void filtro_cambio ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="filtro_foco" NAME="filtro_foco"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">filtro_foco</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void filtro_foco ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="filtro_salir" NAME="filtro_salir"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">filtro_salir</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void filtro_salir ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="get_nodo_raiz" NAME="get_nodo_raiz"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">get_nodo_raiz</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Element get_nodo_raiz (nombre)</code>
+							   <code>boolean unsubscribe (&lt;Function&gt; fn, &lt;Object&gt; obj)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -811,45 +687,7 @@ ei_arbol
 			</div>
 			
 				<p class="description">
-	  				<UL>Busca el nodo raiz del arbol</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="get_nodos_hijo" NAME="get_nodos_hijo"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">get_nodos_hijo</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>array(Element) get_nodos_hijo (&lt;Element&gt; padre)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Busca los nodos hijos del padre especificado</UL>
+	  				<UL>Unsubscribes subscribers.</UL>
 				</p>
 						
 			
@@ -860,10 +698,19 @@ ei_arbol
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">padre</span>
+						<span class="var-name">fn</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description">  </span>
+						<span class="var-description">  The subscribed function to remove, if not supplied                        all will be removed  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">obj</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description">  The custom object passed to subscribe.  This is                         optional, but if supplied will be used to                         disambiguate multiple listeners that are the same                         (e.g., you subscribe many object using a function                         that lives on the prototype)  </span>
 					</td>
 				</tr>
 				
@@ -871,20 +718,27 @@ ei_arbol
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
-						
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent"> True if the subscriber was found and detached.</td>
+			  </tr>
+			</table>
+   						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   
 		</div>
 		
-   		<A id="get_nombre_nodo" NAME="get_nombre_nodo"><!-- --></A>	
+   		<A id="unsubscribeAll" NAME="unsubscribeAll"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">get_nombre_nodo</span>
+				<span class="method-title">unsubscribeAll</span>
 			</div>
 			<br />
 			<div class="function">
@@ -892,7 +746,7 @@ ei_arbol
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>string get_nombre_nodo (&lt;Element&gt; nodo)</code>
+							   <code>int unsubscribeAll ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -901,120 +755,22 @@ ei_arbol
 			</div>
 			
 				<p class="description">
-	  				<UL>Retorna el nombre del nodo</UL>
+	  				<UL>Removes all listeners</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
 		   
-			Parámetros:<br />		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			
+			<strong>Retorna:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">nodo</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description">  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="submit" NAME="submit"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">submit</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>Object submit ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="ver_propiedades" NAME="ver_propiedades"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">ver_propiedades</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>void ver_propiedades (id)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Dispara en el servidor el evento ver_propiedades sobre un id especifico de nodo</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">Id</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Identificador del nodo que se quiere ver mas propiedades 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
+			  <tr>
+			    <td class="indent"> The number of listeners unsubscribed</td>
+			  </tr>
+			</table>
+   						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
@@ -1028,6 +784,204 @@ ei_arbol
 
 <br />
 
+
+<a name="sec-vars"></a>
+<div class="info-box">
+		<div class="info-box-title">Propiedades</div>
+		<div class="info-box-body">
+		   	
+			 <A NAME="lastError"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">Error</span>&nbsp;&nbsp;
+						<span class="var-name">lastError</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>In order to make it possible to execute the rest of the subscriber
+ stack when one thows an exception, the subscribers exceptions are
+ caught.  The most recent exception is stored in this property</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="scope"><!-- --></A>
+	   		 
+				<div class="evenrow">
+			 
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">object</span>&nbsp;&nbsp;
+						<span class="var-name">scope</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>The context the the event will fire from by default.  Defaults to the window 
+ obj</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="signature"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">int</span>&nbsp;&nbsp;
+						<span class="var-name">signature</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>Custom events support two styles of arguments provided to the event
+ subscribers.  
+ <ul>
+ <li>YAHOO.util.CustomEvent.LIST: 
+   <ul>
+   <li>param1: event name</li>
+   <li>param2: array of arguments sent to fire</li>
+   <li>param3: <optional> a custom object supplied by the subscriber</li>
+   </ul>
+ </li>
+ <li>YAHOO.util.CustomEvent.FLAT
+   <ul>
+   <li>param1: the first argument passed to fire.  If you need to
+           pass multiple parameters, use and array or object literal</li>
+   <li>param2: <optional> a custom object supplied by the subscriber</li>
+   </ul>
+ </li>
+ </ul></UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="silent"><!-- --></A>
+	   		 
+				<div class="evenrow">
+			 
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">boolean</span>&nbsp;&nbsp;
+						<span class="var-name">silent</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>By default all custom events are logged in the debug build, set silent
+ to true to disable debug outpu for this event.</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="subscribeEvent"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type"><a href="YAHOO.util.CustomEvent.html">YAHOO.util.CustomEvent</a></span>&nbsp;&nbsp;
+						<span class="var-name">subscribeEvent</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>Custom events provide a custom event that fires whenever there is
+ a new subscriber to the event.  This provides an opportunity to
+ handle the case where there is a non-repeating event that has
+ already fired has a new subscriber.</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="subscribers"><!-- --></A>
+	   		 
+				<div class="evenrow">
+			 
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">Subscriber[]</span>&nbsp;&nbsp;
+						<span class="var-name">subscribers</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>The subscribers to this event</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="type"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">string</span>&nbsp;&nbsp;
+						<span class="var-name">type</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>The type of event, returned to subscribers when the event fires</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="!s!FLAT"><!-- --></A>
+	   		 
+				<div class="evenrow">
+			 
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">&lt;static&gt;&nbsp;int</span>&nbsp;&nbsp;
+						<span class="var-name">FLAT</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>Subscriber listener sigature constant.  The FLAT type returns two
+ parameters: the first argument passed to fire and the optional 
+ custom object</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+			 <A NAME="!s!LIST"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">&lt;static&gt;&nbsp;int</span>&nbsp;&nbsp;
+						<span class="var-name">LIST</span>
+					</span>
+					
+						<p class="description">
+			  				<UL>Subscriber listener sigature constant.  The LIST type returns three
+ parameters: the event type, the array of args passed to fire, and
+ the optional custom object</UL>
+						</p>
+											
+				</div>
+				
+			</div>			   
+			
+		</div>
+</div>
 
 
 <br />

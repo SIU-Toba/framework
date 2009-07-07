@@ -117,6 +117,11 @@ vinculador
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_html.html">ef_html</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
 		</span>
 	 	<br />
@@ -207,12 +212,22 @@ vinculador
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ga.html">ga</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="GLOBALES.html">GLOBALES</a>    
 		</span>
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
 		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="parseUri.html">parseUri</a>    
 		</span>
 	 	<br />
 	
@@ -233,6 +248,36 @@ vinculador
 	
 		<span style="padding-left: 1em;">		
 		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.html">YAHOO</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.html">YAHOO.util</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.CustomEvent.html">YAHOO.util.CustomEvent</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Event.html">YAHOO.util.Event</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.EventProvider.html">YAHOO.util.EventProvider</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="YAHOO.util.Subscriber.html">YAHOO.util.Subscriber</a>    
 		</span>
 	 	<br />
 		 	
@@ -386,7 +431,7 @@ vinculador
 											<span class="method-result"><a href="String.html">String</a></span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!get_url">get_url</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, es_menu)
+						<a class="method-name" href="#!s!get_url">get_url</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, &lt;boolean&gt; es_menu, enviar_zona)
 					</td>
 
 					<td class="method-definition"> Retorna una URL hacia un item especifico</td></tr>
@@ -410,6 +455,16 @@ vinculador
 					</td>
 
 					<td class="method-definition"> Navega hacia otro proyecto</td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!limpiar_vinculos">limpiar_vinculos</A>()
+					</td>
+
+					<td class="method-definition"> Limpia los vinculos existentes</td></tr>
 			
 			</table>
 			</div>			
@@ -813,7 +868,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; <a href="String.html">String</a> get_url (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, es_menu)</code>
+							   <code>&lt;static&gt; <a href="String.html">String</a> get_url (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, &lt;boolean&gt; es_menu, enviar_zona)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -873,6 +928,24 @@ vinculador
 					</td>
 					<td>&nbsp;
 						<span class="var-description"> Ids. de componentes destino del servicio (opcional)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">es_menu</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Indica que se invoca una operación de menu (va a limpiar la memoria)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">indica</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> que debe propagarse el editable de la zona (si existe)  </span>
 					</td>
 				</tr>
 				
@@ -981,6 +1054,44 @@ vinculador
 				</tr>
 				
 			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="limpiar_vinculos" NAME="!s!limpiar_vinculos"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">limpiar_vinculos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void limpiar_vinculos ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Limpia los vinculos existentes</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
