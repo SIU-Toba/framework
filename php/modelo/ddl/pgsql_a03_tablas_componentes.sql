@@ -317,6 +317,36 @@ CREATE TABLE apex_objeto_dependencias
 );
 --#################################################################################################
 
+CREATE SEQUENCE apex_objeto_dep_consumo_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_dep_consumo
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto_consumidor
+--: dump_order_by: objeto_consumidor, identificador
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)			NOT NULL,
+	consumo_id							int8				DEFAULT nextval('"apex_objeto_dep_consumo_seq"'::text) NOT NULL, 
+	objeto_consumidor					int8				NOT NULL,
+	objeto_proveedor					int8				NOT NULL,
+	identificador						varchar(40)			NOT NULL,
+	parametros_a						varchar(255)		NULL,
+	parametros_b						varchar(255)		NULL,
+	parametros_c						varchar(255)		NULL,
+	inicializar							smallint			NULL,
+	CONSTRAINT	"apex_objeto_consumo_depen_pk"	 PRIMARY	KEY ("consumo_id"),
+	CONSTRAINT	"apex_objeto_consumo_depen_uq"	 UNIQUE  ("proyecto","objeto_consumidor","identificador"),
+	CONSTRAINT	"apex_objeto_consumo_depen_fk_objeto_c" FOREIGN KEY ("proyecto","objeto_consumidor") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_consumo_depen_fk_objeto_p" FOREIGN KEY ("proyecto","objeto_proveedor") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--#################################################################################################
+
+
 CREATE SEQUENCE apex_objeto_eventos_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------

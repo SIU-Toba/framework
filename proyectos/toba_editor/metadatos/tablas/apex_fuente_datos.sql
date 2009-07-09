@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_fuente_datos
 ------------------------------------------------------------
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, usuario, clave, base, tiene_auditoria, parsea_errores) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, usuario, clave, base) VALUES (
 	'toba_editor', --proyecto
 	'instancia', --fuente_datos
 	'Instancia', --descripcion
@@ -16,13 +16,13 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --instancia_id
 	NULL, --administrador
 	'1', --link_instancia
+	'0', --tiene_auditoria
+	'0', --parsea_errores
 	NULL, --usuario
 	NULL, --clave
-	NULL, --base
-	'0', --tiene_auditoria
-	'0'  --parsea_errores
+	NULL  --base
 );
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, usuario, clave, base, tiene_auditoria, parsea_errores) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, usuario, clave, base) VALUES (
 	'toba_editor', --proyecto
 	'test', --fuente_datos
 	'Fuente de testeo', --descripcion
@@ -36,6 +36,8 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --instancia_id
 	NULL, --administrador
 	NULL, --link_instancia
+	'0', --tiene_auditoria
+	'0', --parsea_errores
 	'SELECT * FROM ref_deportes;
 SELECT * FROM ref_deportes WHERE id < 5;
 SELECT * FROM ref_deportes d, ref_persona_deportes p 
@@ -50,7 +52,5 @@ SELECT * FROM ref_persona_deportes WHERE persona = 1;
 SELECT * FROM ref_persona_juegos;
 SELECT * FROM ref_persona_juegos WHERE persona = 1;', --usuario
 	'0,1,2,3,4,5,6,7,8,9', --clave
-	'a:9:{s:12:\\\"perfil_datos\\\";s:1:\\\"5\\\";s:12:\\\"sql_original\\\";s:1:\\\"1\\\";s:19:\\\"omitir_no_afectados\\\";s:1:\\\"1\\\";s:7:\\\"detalle\\\";N;s:16:\\\"info_dimensiones\\\";s:1:\\\"0\\\";s:9:\\\"sql_where\\\";s:1:\\\"0\\\";s:14:\\\"sql_modificado\\\";s:1:\\\"1\\\";s:11:\\\"datos_filas\\\";s:1:\\\"1\\\";s:12:\\\"datos_listar\\\";s:1:\\\"0\\\";}', --base
-	'0', --tiene_auditoria
-	'0'  --parsea_errores
+	'a:9:{s:12:\\\"perfil_datos\\\";s:1:\\\"5\\\";s:12:\\\"sql_original\\\";s:1:\\\"1\\\";s:19:\\\"omitir_no_afectados\\\";s:1:\\\"1\\\";s:7:\\\"detalle\\\";N;s:16:\\\"info_dimensiones\\\";s:1:\\\"0\\\";s:9:\\\"sql_where\\\";s:1:\\\"0\\\";s:14:\\\"sql_modificado\\\";s:1:\\\"1\\\";s:11:\\\"datos_filas\\\";s:1:\\\"1\\\";s:12:\\\"datos_listar\\\";s:1:\\\"0\\\";}'  --base
 );

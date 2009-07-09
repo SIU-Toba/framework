@@ -122,6 +122,19 @@ class toba_migracion_1_4_0 extends toba_migracion
 
 		 //--------------------------- Configuraciones del proyecto ------------------------------------
 		 $sql[] = 'ALTER TABLE apex_proyecto ADD COLUMN codigo_ga_tracker VARCHAR(20) NULL;';
+		 //--------------------------- Asociaciones entre CNs ------------------------------------
+		$sql[] = 'CREATE TABLE apex_objeto_dep_consumo(
+					proyecto							varchar(15)			NULL,
+					consumo_id							int8				NULL, 
+					objeto_consumidor					int8				NULL,
+					objeto_proveedor					int8				NULL,
+					identificador						varchar(40)			NULL,
+					parametros_a						varchar(255)		NULL,
+					parametros_b						varchar(255)		NULL,
+					parametros_c						varchar(255)		NULL,
+					inicializar							smallint			NULL,
+					CONSTRAINT	"apex_objeto_consumo_depen_pk"	 PRIMARY	KEY ("consumo_id")
+			);';
 		 
 		$this->elemento->get_db()->ejecutar($sql);		
 	}
