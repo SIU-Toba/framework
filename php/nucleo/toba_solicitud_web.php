@@ -458,9 +458,10 @@ class toba_solicitud_web extends toba_solicitud
  	}
 
 	function generar_analizador_estadistico()
-	{	
+	{
+		$es_login = (toba::proyecto()->get_parametro('item_pre_sesion') == $this->item[1]);
 		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
-		if (! is_null($cod_ga) && $cod_ga != '') {
+		if (! is_null($cod_ga) && $cod_ga != '' && !$es_login) {
 			echo "estadista.set_codigo('$cod_ga'); \n";		
 			echo "estadista.iniciar(); \n";
 			echo "estadista.add_operacion('{$this->item[1]}'); \n";
@@ -471,6 +472,17 @@ class toba_solicitud_web extends toba_solicitud
 				echo "estadistica.set_timeout('$ventana'); \n";
 			}
 			echo "estadista.trace()";
+		} elseif ($es_login) { //Es item de login
+			//Tengo que cerrar el tag js que viene abierto de antes
+			echo "</script><script type=\"text/javascript\">"			
+			."var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");"
+			."document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));"
+			."</script>"
+			."<script type=\"text/javascript\">"
+			."try {"
+			."var pageTracker = _gat._getTracker(\"$cod_ga\");"
+			."pageTracker._trackPageview();"
+			."} catch(err) {}</script><script type=\"text/javascript\">";
 		}
 	}
 
