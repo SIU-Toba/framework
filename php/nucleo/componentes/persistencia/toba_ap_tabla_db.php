@@ -748,6 +748,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$clausula = array();
 		foreach($clave as $columna => $valor) {
 			if (isset($valor)) {
+				if (is_bool($valor)) {
+					$valor = ($valor) ? 'true' : 'false';
+				}
 				$valor = toba::db($this->_fuente)->quote($valor);
 				$clausula[] = "$tabla_alias" . "$columna = $valor";
 			} else {
