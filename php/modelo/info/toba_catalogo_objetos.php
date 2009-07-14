@@ -102,6 +102,7 @@ class toba_catalogo_objetos
 		";
 
 		//--- Recorrido
+		toba_componente_def::set_db(toba_contexto_info::get_db());
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		$this->objetos = array();
 		foreach ($datos as $dato) {
