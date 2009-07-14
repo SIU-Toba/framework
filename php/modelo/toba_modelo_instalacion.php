@@ -126,6 +126,21 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			return false;
 		}
 	}	
+	
+	/**
+	 * Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor.
+	 * Se usa el parametro 'chequea_sincro_svn' 0|1
+	 * @return boolean $chequea
+	 */
+	function chequea_sincro_svn()
+	{
+		$this->cargar_info_ini();
+		$chequea = false;
+		if (isset($this->ini_instalacion['chequea_sincro_svn'])) {
+			$chequea = ($this->ini_instalacion['chequea_sincro_svn'] == '1');
+		}
+		return $chequea;
+	}	
 
 	/**
 	* Devuelve las claves utilizadas para encriptar

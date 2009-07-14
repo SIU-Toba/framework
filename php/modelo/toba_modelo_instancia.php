@@ -50,7 +50,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	}
 	
 	/**
-	 * @returns toba_modelo_instalacion
+	 * @return toba_modelo_instalacion
 	 */
 	function get_instalacion()
 	{
@@ -874,9 +874,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->get_db()->ejecutar( $sql );
 		toba_logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
 
-		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
-			$proyecto = $this->get_proyecto($id_proyecto);
-			$proyecto->generar_estado_codigo();
+		if ($this->get_instalacion()->chequea_sincro_svn()) {
+			foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+				$proyecto = $this->get_proyecto($id_proyecto);
+				$proyecto->generar_estado_codigo();
+			}
 		}
 	}
 	

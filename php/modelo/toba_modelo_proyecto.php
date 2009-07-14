@@ -266,7 +266,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		//Verifico que no hubo actualizacion precoz,
 		//no recalculo version aca ya que hasta que no hace commit no cambia.
-		$this->chequear_actualizacion_prematura();
+		if ($this->get_instalacion()->chequea_sincro_svn()) {
+			$this->chequear_actualizacion_prematura();
+		}
 		try {
 			$this->exportar_tablas();
 			$this->exportar_componentes();
@@ -825,7 +827,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			throw $e;
 		}
 		//Al finalizar la regeneracion recalculo la revision
-		$this->generar_estado_codigo();
+		if ($this->get_instalacion()->chequea_sincro_svn()) {
+			$this->generar_estado_codigo();
+		}
 	}
 
 	//-----------------------------------------------------------

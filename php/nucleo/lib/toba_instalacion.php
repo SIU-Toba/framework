@@ -171,7 +171,7 @@ class toba_instalacion
 	 */
 	function chequea_sincro_svn()
 	{
-		$chequea = true;
+		$chequea = false;
 		if (isset($this->memoria['chequea_sincro_svn'])) {
 			$chequea = ($this->memoria['chequea_sincro_svn'] == '1');
 		}
