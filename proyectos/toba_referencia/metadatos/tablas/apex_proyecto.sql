@@ -53,5 +53,5 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --version_link
 	'1000', --tiempo_espera_ms
 	'1', --navegacion_ajax
-	'UA-9590566-2'  --codigo_ga_tracker
+	NULL  --codigo_ga_tracker
 );
