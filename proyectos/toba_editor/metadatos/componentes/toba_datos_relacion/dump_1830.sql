@@ -77,6 +77,22 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	NULL, --cascada
 	'1'  --orden
 );
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1830', --objeto
+	'43', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1501', --padre_objeto
+	'base', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'2298', --hijo_objeto
+	'consumo', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -95,6 +111,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --parametros_c
 	NULL, --inicializar
 	'1'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1180', --dep_id
+	'1830', --objeto_consumidor
+	'2298', --objeto_proveedor
+	'consumo', --identificador
+	'0', --parametros_a
+	'0', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'3'  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -130,4 +158,22 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 	'22', --padre_clave
 	'1502', --hijo_objeto
 	'49'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1830', --objeto
+	'43', --asoc_id
+	'1501', --padre_objeto
+	'21', --padre_clave
+	'2298', --hijo_objeto
+	'799'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1830', --objeto
+	'43', --asoc_id
+	'1501', --padre_objeto
+	'22', --padre_clave
+	'2298', --hijo_objeto
+	'801'  --hijo_clave
 );
