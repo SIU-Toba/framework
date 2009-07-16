@@ -1865,26 +1865,37 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function chequear_actualizacion_prematura()
 	{
 		$this->manejador_interface->mensaje("Calculando revisiones {$this->identificador} ", false);
-		$svn = new toba_svn();
-		if ($svn->hay_cliente_svn()) {
-			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
-			$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
-			if (! empty($revisiones) && $max_rev != 0){
-				foreach($revisiones as $revision){
-					if ($max_rev < $revision['revision'] && $revision['kind'] != 'dir') {
-						$msg = "PROYECTO {$this->identificador}: \n El archivo de metadatos '{$revision['archivo']}' ".
-						"tiene revision '{$revision['revision']}' que es mayor a la existente en la " .
-						"instancia.\n\n Si desea preservar las modificaciones locales se recomiendan los siguientes pasos: \n \n".
-						" * Update a revisión '$max_rev' (svn update -r $max_rev)\n".
-						" * Exportación de proyecto (toba proyecto exportar)\n".
-						" * Actualización SVN (svn update)\n".
-						" * Regeneración de proyecto (toba proyecto regenerar)\n\n".
-						"Si en cambio quiere descartar los posibles cambios locales simplemente regenere el proyecto (toba proyecto regenerar)\n\n".
-						"Este mensaje tiene como objetivo prevenir que se edite el proyecto sin antes haber sincronizado el trabajo del resto del equipo.";
-						throw new toba_error_def($msg);
-					}
-					$this->manejador_interface->progreso_avanzar();
+		//Necesito recuperar el checksum de la base de datos.
+		$checksum_anterior = $this->instancia->get_checksum_proyecto($this->identificador);
+		if (! is_null($checksum_anterior)) {
+			//Ahora calculo el checksum del directorio
+			$checksum_actual = toba_manejador_archivos::get_checksum_directorio($this->get_dir_dump());
+			if ($checksum_anterior != $checksum_actual) {
+				//Estoy en problemas
+				$msg = "PROYECTO {$this->identificador}: \n Algún archivo de metadatos ".
+				"tiene revision mayor a la existente en la " .
+				"instancia.\n\n Si desea preservar las modificaciones locales se recomiendan los siguientes pasos: \n \n";
+				
+				$svn = new toba_svn();
+				if ($svn->hay_cliente_svn()) { //Si hay cliente probablemente calcule la revision
+					$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
+					$msg .= " * Update a revisión '$max_rev' (svn update -r $max_rev)\n".
+									" * Exportación de proyecto (toba proyecto exportar)\n";
+				}else{
+					$msg .= " * Update a alguna revisión anterior (svn update -r (revision_actual - 1)) \n".
+									" * Exportación de proyecto (toba proyecto exportar)\n".
+									"	Si falla: \n".
+									//"			* Ejecutar un revert (svn revert -R directorio_metadatos)\n".
+									"			* Ejecutar los dos pasos anteriores nuevamente \n";
+									//"	Si no falla continuar ejecutando: \n";
 				}
+				$msg .=	
+				" * Actualización SVN (svn update)\n".
+				" * Regeneración de proyecto (toba proyecto regenerar)\n\n".
+				"Si en cambio quiere descartar los posibles cambios locales simplemente regenere el proyecto (toba proyecto regenerar)\n\n".
+				"Este mensaje tiene como objetivo prevenir que se edite el proyecto sin antes haber sincronizado el trabajo del resto del equipo.";
+				throw new toba_error_def($msg);
+				$this->manejador_interface->progreso_avanzar();
 			}
 		}
 		$this->manejador_interface->progreso_fin();
@@ -1892,14 +1903,22 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function generar_estado_codigo()
 	{
-		//Esto solo funciona si se dispara luego del commit sino no sirve ni pa chonga.
+		//Se cambia el chequeo de propiedades svn a checksum de archivos
 		$this->manejador_interface->mensaje("Calculando revisiones {$this->identificador} " , false);
+		$checksum_actual = toba_manejador_archivos::get_checksum_directorio($this->get_dir_dump());
+		$this->instancia->set_checksum_proyecto($this->identificador, $checksum_actual);
+
+		//Esto simplemente se calcula para darle una idea al pobre chango de cual
+		//fue la ultima revision que cargo en la base,util para el revert
 		$svn = new toba_svn();
 		if ($svn->hay_cliente_svn()) {
 			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
 			$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
 			if (! empty($revisiones)) {
 				foreach($revisiones as $revision) {
+					if (isset($revision['error'])) {
+						throw new toba_error_def($revision['error']);
+					}
 					if ($max_rev < $revision['revision']) {
 						$max_rev = $revision['revision'];
 					}

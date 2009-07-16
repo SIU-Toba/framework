@@ -369,5 +369,25 @@ class toba_manejador_archivos
 		}
 		return $usuario;
 	}
+
+	static function get_checksum_directorio($directorio)
+	{
+		$checksum = null;
+		$archivos = self::buscar_archivos_directorio_recursivo($directorio);
+		if (! empty($archivos)) {
+			$hsh_handler = hash_init('sha256');
+			$sin_error = true;
+			foreach($archivos as $archivo) {
+				$sin_error = @hash_update_file($hsh_handler, $archivo);
+				if (! $sin_error) {	//Si se produce error en el calculo aborto
+					hash_final($hsh_handler);
+					toba::logger()->error("\nError calculando checksum con el archivo '$archivo' ");
+					throw new toba_error("\nError calculando checksum con el archivo '$archivo' ");
+				}
+			}
+			$checksum = hash_final($hsh_handler);
+		}
+		return $checksum;
+	}
 }
 ?>

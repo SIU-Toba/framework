@@ -107,3 +107,21 @@ CREATE TABLE			apex_proyecto
 );
 
 --#################################################################################################
+CREATE TABLE			apex_checksum_proyectos
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo
+--: dump_order_by: proyecto
+--: zona: general
+--: desc: Especifica el checksum surgido de los metadatos actuales del proyecto
+--: version: 1.0
+--: instancia: 1
+---------------------------------------------------------------------------------------------------
+(
+	checksum						varchar(200)	NOT NULL,
+	proyecto							varchar(15)		 NOT NULL,
+	--ultima_modificacion		timestamp(0) without	time zone	DEFAULT current_timestamp NOT NULL,
+	CONSTRAINT "apex_checksum_proyectos_pk" PRIMARY KEY ("proyecto"),
+	CONSTRAINT "apex_checksum_proyectos_fk"	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+);
+--#################################################################################################

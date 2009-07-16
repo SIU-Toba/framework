@@ -7,6 +7,7 @@ class toba_db_tablas_instancia
 		return array (
   0 => 'apex_revision',
   1 => 'apex_instancia',
+  2 => 'apex_checksum_proyectos',
 );
 	}
 
@@ -97,6 +98,25 @@ class toba_db_tablas_instancia
     5 => 'administrador_2',
     6 => 'administrador_3',
     7 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_checksum_proyectos()
+	{
+		return array (
+  'archivo' => 'pgsql_a00_tablas_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'proyecto',
+  'zona' => 'general',
+  'desc' => 'Especifica el checksum surgido de los metadatos actuales del proyecto',
+  'version' => '1.0',
+  'instancia' => '1',
+  'columnas' => 
+  array (
+    0 => 'checksum',
+    1 => 'proyecto',
   ),
 );
 	}

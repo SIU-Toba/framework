@@ -1333,5 +1333,30 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		return $rev;
 	}
+
+	function get_checksum_proyecto($proyecto)
+	{
+		$proy_qtd = $this->get_db()->quote($proyecto);
+		$sql = "SELECT checksum FROM apex_checksum_proyectos WHERE proyecto = $proy_qtd;";
+		$rs = $this->get_db()->consultar_fila( $sql );
+		toba_logger::instancia()->var_dump($rs);
+		$chcks = (! empty($rs)) ? $rs['checksum']  : null;
+		return $chcks;
+	}
+
+	function set_checksum_proyecto($proyecto, $checksum)
+	{
+		$proy_qtd = $this->get_db()->quote($proyecto);
+		$cks_qtd = $this->get_db()->quote($checksum);
+		$sql = "UPDATE apex_checksum_proyectos SET checksum = $cks_qtd WHERE proyecto = $proy_qtd;";
+		$modificados = $this->get_db()->ejecutar($sql);
+
+		if ($modificados == '0') {
+			$sql = "INSERT INTO apex_checksum_proyectos (proyecto, checksum) VALUES ($proy_qtd, $cks_qtd);";
+			$modificados = $this->get_db()->ejecutar($sql);
+		}
+		toba_logger::instancia()->debug("Actualizado el checksum del proyecto $proyecto");
+	}
+
 }
 ?>
