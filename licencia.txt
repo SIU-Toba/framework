@@ -25,3 +25,4 @@ El LICENCIANTE tampoco será responsable por bugs o errores en las versiones entr
 INCLUMPLIMIENTO
 
 La violación de alguna de las cláusulas y condiciones establecidas en la presente revoca automáticamente la licencia y habilita a El LICENCIANTE a iniciar las acciones legales que crea convenientes.
+
