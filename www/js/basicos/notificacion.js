@@ -74,7 +74,7 @@ notificacion = new function() {
 				gravedad = '<img src="'+ toba.imagen('info') + '"/> ';
 			}
 			var texto = this._mensajes[i][0];
-			if (typeof this._mensajes[i][2] != 'undefined') {
+			if (typeof this._mensajes[i][2] != 'undefined' && isset(this._mensajes[i][2])) {
 				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
 			}
 			if (typeof this._mensajes[i][3] != 'undefined') {

@@ -357,7 +357,13 @@ toba = new function() {
 	 * Redefinir en caso de querer mostrar algun mensaje o accion distinta
 	 */
 	toba.error_comunicacion = function(error) {
-		alert('Error de comunicacion AJAX');
+		//Se asegura que no este navegando hacia otra página y ese sea el motivo del error ajax
+		if (typeof toba._enviado != 'undefined' && ! toba._enviado) {
+			notificacion.limpiar();
+			var mensaje = "Error de comunicación AJAX<br>";
+			notificacion.agregar(mensaje, 'error', null, var_dump(error, true));
+			notificacion.mostrar();
+		}
 	};
 
 	/**
