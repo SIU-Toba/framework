@@ -358,7 +358,7 @@ toba = new function() {
 	 */
 	toba.error_comunicacion = function(error) {
 		//Se asegura que no este navegando hacia otra página y ese sea el motivo del error ajax
-		if (typeof toba._enviado != 'undefined' && ! toba._enviado) {
+		if (typeof toba != 'undefined' && typeof toba._enviado != 'undefined' && ! toba._enviado) {
 			notificacion.limpiar();
 			var mensaje = "Error de comunicación AJAX<br>";
 			notificacion.agregar(mensaje, 'error', null, var_dump(error, true));
