@@ -274,6 +274,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->exportar_componentes();
 			$this->exportar_perfiles();
 			$this->sincronizar_archivos();
+			$this->generar_checksum(); //Regenero el checksum
 		} catch ( toba_error $e ) {
 			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
 												$e->getMessage() );
@@ -1905,8 +1906,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		//Se cambia el chequeo de propiedades svn a checksum de archivos
 		$this->manejador_interface->mensaje("Calculando revisiones {$this->identificador} " , false);
-		$checksum_actual = toba_manejador_archivos::get_checksum_directorio($this->get_dir_dump());
-		$this->instancia->set_checksum_proyecto($this->identificador, $checksum_actual);
+		$this->generar_checksum();
 
 		//Esto simplemente se calcula para darle una idea al pobre chango de cual
 		//fue la ultima revision que cargo en la base,util para el revert
@@ -1930,5 +1930,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 
+	function generar_checksum()
+	{
+		$checksum_actual = toba_manejador_archivos::get_checksum_directorio($this->get_dir_dump());
+		$this->instancia->set_checksum_proyecto($this->identificador, $checksum_actual);
+	}
 }
 ?>
