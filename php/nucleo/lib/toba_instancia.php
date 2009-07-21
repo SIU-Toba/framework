@@ -196,7 +196,7 @@ class toba_instancia
 
 	function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
-		$sql = "INSERT INTO apex_toba_solicitud_consola (proyecto, toba_solicitud_consola, usuario, llamada) 
+		$sql = "INSERT INTO apex_solicitud_consola (proyecto, solicitud_consola, usuario, llamada) 
 				VALUES (:proyecto,:toba_solicitud_consola, :usuario, :llamada);";
 		$parametros = array(
 			'proyecto' => $proyecto,
