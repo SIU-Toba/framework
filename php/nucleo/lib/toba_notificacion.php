@@ -109,7 +109,7 @@ class toba_notificacion
 				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";	
 			}			
 		}
-		echo "notificacion.mostrar()\n";
+		echo "notificacion.mostrar();\n";
 		if ($incluir_comsumos) {
 			echo toba_js::cerrar();
 		}

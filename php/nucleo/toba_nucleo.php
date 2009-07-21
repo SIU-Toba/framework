@@ -1,5 +1,7 @@
 <?php
-
+if (! defined('apex_ef_no_seteado')) {
+	define('apex_ef_no_seteado','nopar');// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
+}
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales
