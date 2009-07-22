@@ -1121,9 +1121,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		$into = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave, email"; 
 		$values = ") VALUES (:usuario, :nombre, '$algoritmo', :clave, :email";
-		foreach ($atributos as $clave => $valor) {
-			 $into .=  ", $clave";
-			 $values .=  ", :$clave";
+		foreach ($atributos as $klave => $valor) {
+			 $into .=  ", $klave";
+			 $values .=  ", :$klave";
 		}
 		$sql = $into . $values . ');';
 		
