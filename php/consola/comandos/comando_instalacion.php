@@ -44,10 +44,11 @@ class comando_instalacion extends comando_toba
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
+		/*
 		if (get_magic_quotes_gpc()) {
 			$this->consola->mensaje("------------------------------------");
 			throw new toba_error("ERROR: Necesita desactivar las 'magic_quotes_gpc' en el archivo php.ini (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");	
-		}
+		}*/
 		if (! extension_loaded('pdo')) {
 			$this->consola->mensaje("------------------------------------");
 			throw new toba_error("ERROR: Necesita activar la extension 'pdo' en el archivo php.ini");
