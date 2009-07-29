@@ -28,33 +28,44 @@ class toba_solicitud_web extends toba_solicitud
 	function procesar()
 	{
 		try {
-			$this->crear_zona();			
-			$retrasar_headers = ($this->info['basica']['retrasar_headers']);
-			// Si la pagina retrasa el envio de headers, no mando los pre_servicios ahora
-			if (! $retrasar_headers) {
-				$this->pre_proceso_servicio();
-			}
-			$this->cargar_objetos();
-			toba::cronometro()->marcar('Procesando Eventos');
-			$this->procesar_eventos();
-			if ($retrasar_headers) {
-				$this->pre_proceso_servicio();
-			}
-			toba::cronometro()->marcar('Procesando Servicio');
-			$this->procesar_servicios();
-		}catch(toba_error_db $e) {
-			toba::logger()->error($e, 'toba');
-			$mensaje = $e->getMessage();
-			$mensaje_debug = null;
-			if (toba::logger()->modo_debug()) {
-				$mensaje_debug = $e->get_mensaje();
-			}
-			toba::notificacion()->error($mensaje, $mensaje_debug);
+			$en_mantenimiento = (toba::proyecto()->get_parametro('proyecto', 'modo_mantenimiento') == 1) ;
+		}catch(toba_error $e){}
+		
+		if ($en_mantenimiento) {
+			$this->pre_proceso_servicio();	//Saca css y no queda alert pelado
+			$msg = toba::proyecto()->get_parametro('proyecto', 'mantenimiento_mensaje');
+			toba::notificacion()->info($msg);
 			toba::notificacion()->mostrar();
-		}catch(toba_error $e) {
-			toba::logger()->error($e, 'toba');
-			toba::notificacion()->error($e->getMessage());
-			toba::notificacion()->mostrar();
+		} else {
+			try {
+				$this->crear_zona();
+				$retrasar_headers = ($this->info['basica']['retrasar_headers']);
+				// Si la pagina retrasa el envio de headers, no mando los pre_servicios ahora
+				if (! $retrasar_headers) {
+					$this->pre_proceso_servicio();
+				}
+				$this->cargar_objetos();
+				toba::cronometro()->marcar('Procesando Eventos');
+				$this->procesar_eventos();
+				if ($retrasar_headers) {
+					$this->pre_proceso_servicio();
+				}
+				toba::cronometro()->marcar('Procesando Servicio');
+				$this->procesar_servicios();
+			}catch(toba_error_db $e) {
+				toba::logger()->error($e, 'toba');
+				$mensaje = $e->getMessage();
+				$mensaje_debug = null;
+				if (toba::logger()->modo_debug()) {
+					$mensaje_debug = $e->get_mensaje();
+				}
+				toba::notificacion()->error($mensaje, $mensaje_debug);
+				toba::notificacion()->mostrar();
+			}catch(toba_error $e) {
+				toba::logger()->error($e, 'toba');
+				toba::notificacion()->error($e->getMessage());
+				toba::notificacion()->mostrar();
+			}
 		}
 	}
 	
