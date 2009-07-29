@@ -84,20 +84,18 @@ class toba_ei_cuadro_def extends toba_ei_def
 												c.total							as total,
 												c.vinculo_indice				as vinculo_indice,	
 												c.usar_vinculo					as usar_vinculo		,
-												c.vinculo_carpeta				as vinculo_carpeta		,
-												c.vinculo_item					as vinculo_item		,
 												c.total_cc						as total_cc,
-												c.vinculo_target				as vinculo_target		,
-												c.vinculo_celda					as vinculo_celda	,
-												c.vinculo_popup					as vinculo_popup		,
-												c.vinculo_popup_param			as vinculo_popup_param,
-												c.vinculo_servicio 				as vinculo_servicio,
 												c.permitir_html					as permitir_html,
-												c.grupo							as grupo												
+												c.grupo							as grupo,
+												ev.identificador			as evento_asociado
 									 FROM		apex_columna_estilo e,
 												apex_objeto_ei_cuadro_columna	c
 												LEFT OUTER JOIN apex_columna_formato f	
 												ON	f.columna_formato	= c.formateo
+												LEFT OUTER JOIN	apex_objeto_eventos ev
+												ON  c.objeto_cuadro_proyecto = ev.proyecto AND
+												c.objeto_cuadro = ev.objeto AND
+												c.evento_asociado = ev.evento_id
 									 WHERE	objeto_cuadro_proyecto = $proyecto ";
 		if ( isset($componente) ) {
 			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro=$componente ";

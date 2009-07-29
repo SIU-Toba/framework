@@ -1,5 +1,4 @@
 <?php
-
 class eiform_eventos extends toba_ei_formulario
 {
 	function extender_objeto_js()
@@ -7,6 +6,7 @@ class eiform_eventos extends toba_ei_formulario
 		echo "
 			{$this->objeto_js}.evt__accion__procesar = function() {
 				if (this.ef('accion').valor() == 'V') {
+					this.ef('es_autovinculo').mostrar();
 					this.ef('accion_vin_carpeta').mostrar();
 					this.ef('accion_vin_item').mostrar();
 					this.ef('accion_vin_popup').mostrar();
@@ -21,6 +21,7 @@ class eiform_eventos extends toba_ei_formulario
 						this.ef('accion_vin_target').mostrar();
 					}
 				} else {
+					this.ef('es_autovinculo').ocultar(true);
 					this.ef('accion_vin_carpeta').ocultar();
 					this.ef('accion_vin_item').ocultar();
 					this.ef('accion_vin_target').ocultar();
@@ -56,8 +57,15 @@ class eiform_eventos extends toba_ei_formulario
 						this.ef('accion_vin_servicio').set_estado('');
 				}				
 			}			
+		//---- Procesamiento de EFs --------------------------------
+		
+		{$this->objeto_js}.evt__es_autovinculo__procesar = function(es_inicial)
+		{
+			var se_muestra = (! this.ef('es_autovinculo').chequeado() && ! this.ef('es_autovinculo').es_oculto());
+			this.ef('accion_vin_carpeta').mostrar(se_muestra, true);
+			this.ef('accion_vin_item').mostrar(se_muestra, true);
+		}
 		";
 	}
 }
-
 ?>

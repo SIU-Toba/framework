@@ -122,8 +122,10 @@ class ci_eventos extends toba_ci
 					$this->id_intermedio_evento[$id] = $dbr->nueva_fila($registros[$id], $id);
 					break;	
 				case "B":
-					//Tengo que reportarle al contenedor la eliminacion del evento
-					$id_evento = $dbr->get_fila_columna($id,"identificador");
+					//Tengo que reportarle al contenedor la eliminacion del evento					
+					$fila_chk = $dbr->get_fila($id);
+					$this->controlador()->notificar_eliminacion_evento($fila_chk);
+					$id_evento = $fila_chk['identificador']; //$dbr->get_fila_columna($id,"identificador");
 					$dbr->eliminar_fila($id);
 					break;	
 				case "M":

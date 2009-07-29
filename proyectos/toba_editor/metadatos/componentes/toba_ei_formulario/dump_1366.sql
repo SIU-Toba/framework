@@ -45,7 +45,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple) VALUES (
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'toba_editor', --proyecto
 	'52', --evento_id
 	'1366', --objeto
@@ -75,9 +75,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
 	NULL, --accion_vinculo_servicio
-	'0'  --es_seleccion_multiple
+	'0', --es_seleccion_multiple
+	'0'  --es_autovinculo
 );
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple) VALUES (
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'toba_editor', --proyecto
 	'51', --evento_id
 	'1366', --objeto
@@ -107,9 +108,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
 	NULL, --accion_vinculo_servicio
-	'0'  --es_seleccion_multiple
+	'0', --es_seleccion_multiple
+	'0'  --es_autovinculo
 );
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple) VALUES (
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'toba_editor', --proyecto
 	'163', --evento_id
 	'1366', --objeto
@@ -139,7 +141,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL, --accion_vinculo_celda
 	NULL, --accion_vinculo_servicio
-	'0'  --es_seleccion_multiple
+	'0', --es_seleccion_multiple
+	'0'  --es_autovinculo
 );
 --- FIN Grupo de desarrollo 0
 
@@ -734,7 +737,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_target', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'15', --orden
+	'16', --orden
 	'Vinculo - Target', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -810,7 +813,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_celda', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'14', --orden
+	'15', --orden
 	'Vinculo - Celda mem.', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -889,7 +892,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_carpeta', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'8', --orden
+	'9', --orden
 	'Vinculo - Carpeta', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -965,7 +968,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_item', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'9', --orden
+	'10', --orden
 	'Vinculo - Item', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1041,7 +1044,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_popup', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'12', --orden
+	'13', --orden
 	'Vinculo - Es popup', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1117,7 +1120,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_popup_param', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'13', --orden
+	'14', --orden
 	'Vinculo - Popup param.', --etiqueta
 	NULL, --etiqueta_estilo
 	'width: 400px, height: 500px, scrollbars: 1, resizable: 1', --descripcion
@@ -1196,7 +1199,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ptos_ctrl_titulo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'16', --orden
+	'17', --orden
 	'Puntos de control', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1272,7 +1275,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'filtro_ptos_control', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'17', --orden
+	'18', --orden
 	'Ver:', --etiqueta
 	NULL, --etiqueta_estilo
 	'Las opciones son: <ul><li><b>Ocultar ya utilizados en la operación</b>: Elimina los puntos de control que ya se utilizaron en pantallas anteriores del mismo item.<li><b>Filtrar por campos</b>: Solo muestra los puntos de control cuyos parametros tengan el mismo nombre que los definidos en el cuadro en edición.</ul>', --descripcion
@@ -1348,7 +1351,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ptos_de_control', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'18', --orden
+	'19', --orden
 	'Puntos de control', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1427,7 +1430,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vin_servicio_extra', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'10', --orden
+	'11', --orden
 	'Vinculo - Nombre Servicio', --etiqueta
 	NULL, --etiqueta_estilo
 	'Permite definir una forma de procesamiento alternativa para el HTTP Response del objeto destino, por defecto es generar_html. Más  [wiki:Referencia/Solicitud#Tiposdeservicios información]', --descripcion
@@ -1503,7 +1506,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'accion_vinculo_servicio', --columnas
 	'1', --obligatorio
 	'1', --oculto_relaja_obligatorio
-	'11', --orden
+	'12', --orden
 	'Nombre Servicio Manual', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -1557,6 +1560,82 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --check_desc_si
 	NULL, --check_desc_no
 	NULL, --check_ml_toggle
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, permitir_html, deshabilitar_rest_func, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_permite_no_seteado, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, popup_puede_borrar_estado, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, check_ml_toggle, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'33000057', --objeto_ei_formulario_fila
+	'1366', --objeto_ei_formulario
+	'toba_editor', --objeto_ei_formulario_proyecto
+	'es_autovinculo', --identificador
+	'ef_checkbox', --elemento_formulario
+	'es_autovinculo', --columnas
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'8', --orden
+	'Es Autovinculo', --etiqueta
+	NULL, --etiqueta_estilo
+	NULL, --descripcion
+	'0', --colapsado
+	'0', --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'0', --estado_defecto
+	'0', --solo_lectura
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_sql
+	NULL, --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_maestros
+	NULL, --carga_cascada_relaj
+	'0', --carga_permite_no_seteado
+	NULL, --carga_no_seteado
+	NULL, --carga_no_seteado_ocultar
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --edit_expreg
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --popup_puede_borrar_estado
+	NULL, --fieldset_fin
+	'1', --check_valor_si
+	'0', --check_valor_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto

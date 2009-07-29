@@ -39,6 +39,7 @@ class ci_principal extends ci_editores_toba
 				Estas columnas claves se pueden indicar en la solapa de Prop.Básicas.'
 				, 'info');
 		}
+		$this->get_entidad()->get_persistidor()->retrasar_constraints();
 		parent::evt__procesar();		
 	}	
 	
@@ -183,22 +184,11 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas__modificacion($datos)
 	{
-		if (is_null($datos['vinculo_servicio'])){
-			if (isset($datos['accion_vin_servicio_extra'])){
-				$datos['vinculo_servicio'] = $datos['accion_vin_servicio_extra'];
-			}	
-		}
-		
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 	}
 	
 	function evt__columnas__aceptar($datos)
 	{
-		if (is_null($datos['vinculo_servicio'])){
-			if (isset($datos['accion_vin_servicio_extra'])){
-				$datos['vinculo_servicio'] = $datos['accion_vin_servicio_extra'];
-			}	
-		}
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 		$this->evt__columnas__cancelar();
 	}
@@ -207,15 +197,15 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
 		$datos =  $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
-		
-		if (isset($datos['vinculo_servicio']) && ! is_null($datos['vinculo_servicio'])){
-			$servicios_basicos = array('vista_toba_impr_html','vista_pdf','vista_excel','ejecutar', apex_ef_no_seteado);
-			if (! in_array($datos['vinculo_servicio'], $servicios_basicos)){
-				$datos['accion_vin_servicio_extra'] = 'O';
-			}else{
-				$datos['accion_vin_servicio_extra'] = $datos['vinculo_servicio'];
-				$datos['vinculo_servicio'] = null;
-			}				
+
+		//Aqui comienza el engendro malefico
+		$posibles = $this->get_eventos_vinculo_cargados();
+		if (is_array($posibles)) {
+			foreach($posibles as $evento) {	//Si encuentro match con el evento
+				if (isset($evento['evento_id']) && isset($datos['evento_asociado']) &&$datos['evento_asociado'] == $evento['evento_id']) {
+					$datos['evento_asociado'] = $evento['identificador']; //Uso el nombre del evento
+				}
+			}
 		}
 		return $datos;
 	}
@@ -312,6 +302,27 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 
+	/**
+	 * Recibe la notificacion sobre un evento eliminado
+	 * @param array $evt Fila que representa el evento
+	 * @private
+	 */
+	function notificar_eliminacion_evento($evt)
+	{
+		//Chequeo contra identificador y contra id_real
+		$id_real = (isset($evt['evento_id'])) ? $evt['evento_id'] : null;
+		$identificador = $evt['identificador'];
+
+		$columnas = $this->get_entidad()->tabla('columnas')->get_filas(null, false);
+		if (is_array($columnas)) {
+			foreach($columnas as $col) {
+				if (isset($col['evento_asociado']) && ($col['evento_asociado'] == $identificador || $col['evento_asociado'] == $id_real)) {
+					throw new toba_error_def("No se puede eliminar el evento '$identificador' aún esta asociado a la columna '{$col['clave']}'");
+				}
+			}
+		}
+	}
+
 	//*******************************************************************
 	//*******************  EVENTOS  ************************************
 	//*******************************************************************
@@ -332,6 +343,13 @@ class ci_principal extends ci_editores_toba
 	function get_dbr_eventos()
 	{
 		return $this->get_entidad()->tabla('eventos');
+	}
+
+	function get_eventos_vinculo_cargados()
+	{
+		$condicion = array('accion' => 'V');
+		$datos =  $this->get_dbr_eventos()->get_filas($condicion, false, false);
+		return $datos;
 	}
 
 	//*******************************************************************

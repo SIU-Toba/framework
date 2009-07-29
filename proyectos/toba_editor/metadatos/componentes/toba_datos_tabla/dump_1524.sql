@@ -48,9 +48,9 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1524', --objeto
 	NULL, --max_registros
 	NULL, --min_registros
-	'1', --ap
-	NULL, --ap_clase
-	NULL, --ap_archivo
+	'0', --ap
+	'dt_ap_cuadro_columnas', --ap_clase
+	'db/dt_ap_cuadro_columnas.php', --ap_archivo
 	'apex_objeto_ei_cuadro_columna', --tabla
 	NULL, --alias
 	'0', --modificar_claves
@@ -429,6 +429,19 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'0', --pk
 	NULL, --secuencia
 	'100', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1524', --objeto
+	'33000041', --col_id
+	'evento_asociado', --columna
+	'E', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
 	'0'  --externa

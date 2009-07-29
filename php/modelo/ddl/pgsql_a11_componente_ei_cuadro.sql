@@ -126,20 +126,22 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	total							smallint		NULL,		
 	total_cc						varchar(100)	NULL,			-- La columna lleva un total al final?
 	usar_vinculo					smallint			NULL,
-	vinculo_carpeta					varchar(60)			NULL,
-	vinculo_item					varchar(60)			NULL,
-	vinculo_popup					smallint			NULL,
-	vinculo_popup_param				varchar(100)		NULL,
-	vinculo_target					varchar(40)			NULL,
-	vinculo_celda					varchar(40)			NULL,
-	vinculo_servicio				varchar(100)		NULL,
+	vinculo_carpeta					varchar(60)			NULL,			--OBSOLETO
+	vinculo_item					varchar(60)			NULL,				--OBSOLETO
+	vinculo_popup					smallint			NULL,				--OBSOLETO
+	vinculo_popup_param				varchar(100)		NULL,	--OBSOLETO
+	vinculo_target					varchar(40)			NULL,				--OBSOLETO
+	vinculo_celda					varchar(40)			NULL,				--OBSOLETO
+	vinculo_servicio				varchar(100)		NULL,			 --OBSOLETO
 	permitir_html					smallint			NULL,		-- Proteccion contra ataques XSS
 	grupo							varchar(255)		NULL,
+	evento_asociado			bigint		NULL,
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro", "objeto_cuadro_proyecto") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro", "objeto_cuadro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("objeto_cuadro_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("objeto_cuadro_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT "apex_col_cuadro_evento_asoc_fk" FOREIGN KEY ("objeto_cuadro_proyecto", "evento_asociado") REFERENCES "apex_objeto_eventos" ("proyecto", "evento_id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 CREATE TABLE apex_objeto_cuadro_col_cc

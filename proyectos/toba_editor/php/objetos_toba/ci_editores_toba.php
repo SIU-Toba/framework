@@ -203,7 +203,7 @@ abstract class ci_editores_toba extends toba_ci
 		return call_user_func(array($this->get_clase_info_actual(),'get_eventos_internos'),	$this->get_entidad());
 	}
 	
-	
+	function notificar_eliminacion_evento($evento) {}
 	//------------------------------------------------------------------------
 	//-------------------------- SERVICIOS --------------------------
 	//------------------------------------------------------------------------

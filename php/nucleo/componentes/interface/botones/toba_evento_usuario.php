@@ -20,8 +20,14 @@ class toba_evento_usuario extends toba_boton
 	{
 		if ( $this->posee_accion_vincular() ) {
 			if ( !isset($this->vinculo) || $forzar_instancia) {
+				$item = $this->datos['accion_vinculo_item'];
+				if ($this->datos['es_autovinculo'] == '1') {
+					$aux_it = toba::memoria()->get_item_solicitado();
+					$item =  $aux_it[1];
+				}
+
 				$this->vinculo = new toba_vinculo(	toba::proyecto()->get_id(), 
-										$this->datos['accion_vinculo_item'],
+										$item,
 										$this->datos['accion_vinculo_popup'],
 										$this->datos['accion_vinculo_popup_param'] );
 										

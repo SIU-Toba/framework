@@ -296,6 +296,7 @@ class toba_db_tablas_componente
     27 => 'accion_vinculo_celda',
     28 => 'accion_vinculo_servicio',
     29 => 'es_seleccion_multiple',
+    30 => 'es_autovinculo',
   ),
 );
 	}
@@ -602,6 +603,7 @@ class toba_db_tablas_componente
     25 => 'vinculo_servicio',
     26 => 'permitir_html',
     27 => 'grupo',
+    28 => 'evento_asociado',
   ),
 );
 	}

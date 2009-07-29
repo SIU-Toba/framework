@@ -253,5 +253,15 @@ class toba_boton
 	{
 		$this->anulado = false;
 	}
+
+	function set_en_botonera($en_botonera = true)
+	{
+			$this->datos['en_botonera'] = $en_botonera;
+	}
+
+	function set_nivel_de_fila($a_nivel_fila = false)
+	{
+			$this->datos['en_botonera'] = $a_nivel_fila;
+	}
 }
 ?>
