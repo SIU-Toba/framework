@@ -26,11 +26,8 @@ class toba_solicitud_web extends toba_solicitud
 	 * Crea la zona, carga los componentes, procesa los eventos y los servicios
 	 */
 	function procesar()
-	{
-		try {
-			$en_mantenimiento = (toba::proyecto()->get_parametro('proyecto', 'modo_mantenimiento') == 1) ;
-		}catch(toba_error $e){}
-		
+	{		
+		$en_mantenimiento = (toba::proyecto()->get_parametro('proyecto', 'modo_mantenimiento', false) == 1) ;
 		if ($en_mantenimiento) {
 			$this->pre_proceso_servicio();	//Saca css y no queda alert pelado
 			$msg = toba::proyecto()->get_parametro('proyecto', 'mantenimiento_mensaje');
