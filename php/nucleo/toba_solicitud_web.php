@@ -37,6 +37,12 @@ class toba_solicitud_web extends toba_solicitud
 			try {
 				$this->crear_zona();
 				$retrasar_headers = ($this->info['basica']['retrasar_headers']);
+				//Chequeo si necesito enviar la clase para google analytics (necesito ponerlo aca para que salga como basico)
+				//La otra forma es agregarlo a la generacion de consumos globales al medio de la generacion de HTML
+				if ($this->hacer_seguimiento() && ! $this->es_item_login()) {
+					toba_js::agregar_consumos_basicos(array('basicos/google_analytics'));
+				}
+				
 				// Si la pagina retrasa el envio de headers, no mando los pre_servicios ahora
 				if (! $retrasar_headers) {
 					$this->pre_proceso_servicio();
@@ -465,12 +471,34 @@ class toba_solicitud_web extends toba_solicitud
  		$this->autocomplete = $set;
  	}
 
+	/**
+	 *@private
+	 */
+	function hacer_seguimiento()
+	{
+		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
+		$hacer_seguimiento =  (isset($cod_ga) && trim($cod_ga) != '') ;
+		return $hacer_seguimiento;
+	}
+
+	/**
+	 *@private
+	 * @return <type>
+	 */
+	function es_item_login()
+	{
+		$es_login = (toba::proyecto()->get_parametro('item_pre_sesion') == $this->item[1]);
+		return $es_login;
+	}
+	
+	/**
+	 * @private
+	 */
 	function generar_analizador_estadistico()
 	{
 		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
-		if (isset($cod_ga) && trim($cod_ga) != '') {
-			$es_login = (toba::proyecto()->get_parametro('item_pre_sesion') == $this->item[1]);			
-			if (! $es_login) {
+		if (isset($cod_ga) && trim($cod_ga) != '') {		//No llamo a la funcion xq ya tengo el valor aca
+			if (! $this->es_item_login()) {
 				echo "estadista.set_codigo('$cod_ga'); \n";		
 				echo "estadista.iniciar(); \n";
 				echo "estadista.add_operacion('{$this->item[1]}'); \n";

@@ -18,7 +18,7 @@ class toba_js
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 'basicos/yahoo',
 						'basicos/comunicacion_server', 'basicos/notificacion',
-						'basicos/vinculador', 'basicos/google_analytics');
+						'basicos/vinculador');
 	
 	/**
 	 * @return toba_js
@@ -90,7 +90,17 @@ class toba_js
 	{
 		return toba_js::abrir().$codigo.toba_js::cerrar();
 	}
-	
+
+	/**
+	 * Permite agregar consumos basicos en runtime, normalmente se debe llamar
+	 * antes de enviar la cabecera HTML.
+	 * @param array $consumos Arreglo con consumos basicos a incluir
+	 */
+	function agregar_consumos_basicos($consumos = array())
+	{
+		self::$consumos_basicos = array_merge(self::$consumos_basicos, $consumos);
+	}
+
 	/**
 	 * Incluye los consumos globales básicos para utilizar el framework
 	 */
