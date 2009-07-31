@@ -697,7 +697,7 @@ class toba_ei_formulario extends toba_ei
 				$campos = $this->_elemento_formulario[$id_ef_maestro]->get_dato();
 				$valores = explode(apex_qs_separador, $param[1]);
 				if (!is_array($campos)) {
-					$maestros[$id_ef_maestro] = $param[1];
+					$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->normalizar_parametro_cascada($param[1]);	
 				} else {
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {

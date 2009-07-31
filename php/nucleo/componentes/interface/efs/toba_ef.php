@@ -458,7 +458,17 @@ abstract class toba_ef
     {
     	$this->estado_defecto = $estado;
     }
-	
+
+	/**
+	 * Permite normalizar un parametro recibido de una cascada a un formato estandar
+	 * @param mixed $parametro Valor que se recibio por cascada
+	 * @return mixed
+	 */
+	 function normalizar_parametro_cascada($parametro)
+	 {
+		 return $parametro;
+	 }
+	 
 	//-----------------------------------------------------
 	//-------------- CAMBIO DE PROPIEDADES -----------------
 	//-----------------------------------------------------

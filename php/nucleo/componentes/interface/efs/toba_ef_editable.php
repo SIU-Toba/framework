@@ -617,7 +617,14 @@ class toba_ef_editable_fecha extends toba_ef_editable
 				return $formato->formato_fecha($estado);
 			break;
 		}
-	}	
+	}
+
+	function normalizar_parametro_cascada($parametro)
+	 {
+		 if (isset($parametro)) {
+			return cambiar_fecha($parametro,'/','-');
+		}
+	}
 }
 //########################################################################################################
 //########################################################################################################
