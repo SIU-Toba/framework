@@ -299,7 +299,7 @@ abstract class toba_ei extends toba_componente
 	 * Dado una fila, genera el html de los eventos de la misma
 	 * @param integer $fila
 	 */
-	protected function get_invocacion_evento_fila($id, $evento, $fila, $clave_fila, $salida_como_vinculo = false, $param_extra = array())
+	protected function get_invocacion_evento_fila($evento, $fila, $clave_fila, $salida_como_vinculo = false, $param_extra = array())
 	{
 		$invoc_evt = '';
 		$id = $evento->get_id();

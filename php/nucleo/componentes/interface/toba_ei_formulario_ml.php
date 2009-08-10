@@ -978,7 +978,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 			echo "<td class='{$this->estilo_celda_actual} ei-ml-columna-evt'>\n";
-			echo $this->get_invocacion_evento_fila($id, $evento, $fila, $fila, false);			
+			echo $this->get_invocacion_evento_fila($evento, $fila, $fila, false);			
         	echo "</td>\n";
 		}	
 	}

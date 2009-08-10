@@ -1894,7 +1894,7 @@ class toba_ei_cuadro extends toba_ei
 					$evento = $this->evento($id_evt_asoc);
 					$parametros = $this->get_clave_fila_array($f);
 					$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
-					$js =  $this->get_invocacion_evento_fila($id_evt_asoc, $evento, $f, $clave_fila, true, $parametros);
+					$js =  $this->get_invocacion_evento_fila($evento, $f, $clave_fila, true, $parametros);
 					$valor = "<a href='#' onclick=\"$js\">$valor</a>";
 					$hay_evento_maneja_datos = true;
 				}
@@ -1927,7 +1927,7 @@ class toba_ei_cuadro extends toba_ei
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
 					$parametros = $this->get_clave_fila_array($f);
-					echo $this->get_invocacion_evento_fila($id, $evento, $f, $clave_fila, false, $parametros);
+					echo $this->get_invocacion_evento_fila($evento, $f, $clave_fila, false, $parametros);
 	            	echo "</td>\n";
 				}
 				//Si algun evento permite seleccionar valores
