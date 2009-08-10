@@ -295,6 +295,52 @@ abstract class toba_ei extends toba_componente
 		return $this->_eventos;
 	}
 
+	/**
+	 * Dado una fila, genera el html de los eventos de la misma
+	 * @param integer $fila
+	 */
+	protected function get_invocacion_evento_fila($id, $evento, $fila, $clave_fila, $salida_como_vinculo = false, $param_extra = array())
+	{
+		$invoc_evt = '';
+		$id = $evento->get_id();
+		if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
+			//1: Posiciono al evento en la fila
+			$evento->set_parametros($clave_fila);
+			if($evento->posee_accion_vincular()) {
+				$parametros = $param_extra;
+				$parametros[apex_ei_evento] = $id;
+				$parametros['fila'] = $fila;
+				$evento->vinculo(true)->set_parametros($parametros);
+			}
+			//2: Ventana de modificacion del evento por fila
+			//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
+			$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id;
+			if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
+				$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
+			} else {
+				//- b - ¿Existe una callback de modificacion una subclase?
+				$callback_modificacion_eventos = 'conf_evt__' . $id;
+				if (method_exists($this, $callback_modificacion_eventos)) {
+					$this->$callback_modificacion_eventos($evento, $fila);
+				}
+			}
+			//3: Genero el boton o el js para el link
+			if( ! $evento->esta_anulado() ) {
+				if (! $salida_como_vinculo) {
+						$invoc_evt = $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
+				} else {					
+					$evento->set_en_botonera(false);
+					$evento->set_nivel_de_fila(false);
+					$evento->ocultar();
+					$invoc_evt = $evento->get_invocacion_js($this->objeto_js, $this->_id);
+				}
+			} else {
+				$evento->restituir();	//Lo activo para la proxima fila
+			}
+		}
+		return $invoc_evt;
+	}
+
 	//--- Manejo de grupos de eventos --------------------------------------
 	
 	/**

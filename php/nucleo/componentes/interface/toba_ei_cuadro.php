@@ -1892,43 +1892,11 @@ class toba_ei_cuadro extends toba_ei
 					$clave_columna = isset($this->_columnas[$a]['vinculo_indice']) ? $this->_columnas[$a]['vinculo_indice'] : $this->_columnas[$a]['clave'];
 					$id_evt_asoc = $this->_columnas[$a]['evento_asociado'];		//Busco el evento asociado al vinculo
 					$evento = $this->evento($id_evt_asoc);
-					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
-						//1: Posiciono al evento en la fila
-						$evento->set_parametros($clave_fila);
-						if($evento->posee_accion_vincular()) {
-							//-- Si es un vinculo, fuerza a crear una nueva instancia del vinculo en el evento asi aloja al id de la fila y sus conf.
-							$parametros = $this->get_clave_fila_array($f);
-							$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
-							$parametros[apex_ei_evento] = $id_evt_asoc;
-							$evento->vinculo(true)->set_parametros($parametros);
-						}
-						//2: Ventana de modificacion del evento por fila
-						//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-						$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id_evt_asoc;
-						if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
-							$this->controlador->$callback_modificacion_eventos_contenedor($evento, $f);
-						} else {
-							//- b - ¿Existe una callback de modificacion una subclase?
-							$callback_modificacion_eventos = 'conf_evt__' . $id_evt_asoc;
-							if (method_exists($this, $callback_modificacion_eventos)) {
-								$this->$callback_modificacion_eventos($evento, $f);
-							}
-						}
-						//3: Genero el boton						
-						if( ! $evento->esta_anulado() ) {
-							$hay_evento_maneja_datos = true;
-							//Conviene quitarlo de botonera? Quizas quiera imprimir un punto en particular o todo el cuadro con el mismo item.
-							//Por ahora lo dejo tiene pinta que van a querer usar item de impresion medio generico
-							$evento->set_en_botonera(false);
-							$evento->set_nivel_de_fila(false);
-							$evento->ocultar();
-							$js = $evento->get_invocacion_js($this->objeto_js, $this->_id);
-						} else {
-							$evento->restituir();	//Lo activo para la proxima fila
-							$js = '';
-						}						
-						$valor = "<a href='#' onclick=\"$js\">$valor</a>";
-					}
+					$parametros = $this->get_clave_fila_array($f);
+					$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
+					$js =  $this->get_invocacion_evento_fila($id_evt_asoc, $evento, $f, $clave_fila, true, $parametros);
+					$valor = "<a href='#' onclick=\"$js\">$valor</a>";
+					$hay_evento_maneja_datos = true;
 				}
                 //*** 3) Genero el HTML
             	if(isset($this->_columnas[$a]["ancho"])){
@@ -1955,38 +1923,11 @@ class toba_ei_cuadro extends toba_ei
             }
  			//---> Creo los EVENTOS de la FILA <---
 			if ( $this->_tipo_salida == 'html' ) {
-				$hay_evento_maneja_datos = false;
+				$hay_evento_maneja_datos = true;
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
-					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
-						//1: Posiciono al evento en la fila
-						$evento->set_parametros($clave_fila);
-						if($evento->posee_accion_vincular()){
-							//-- Si es un vinculo, fuerza a crear una nueva instancia del vinculo en el evento asi aloja al id de la fila y sus conf.
-							$parametros = $this->get_clave_fila_array($f);
-							$parametros[apex_ei_evento] = $id;
-							$evento->vinculo(true)->set_parametros($parametros);
-						}
-						//2: Ventana de modificacion del evento por fila
-						//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-						$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id;
-						if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
-							$this->controlador->$callback_modificacion_eventos_contenedor($evento, $f);
-						} else {
-							//- b - ¿Existe una callback de modificacion una subclase?
-							$callback_modificacion_eventos = 'conf_evt__' . $id;
-							if (method_exists($this, $callback_modificacion_eventos)) {
-								$this->$callback_modificacion_eventos($evento, $f);
-							}
-						}
-						//3: Genero el boton
-						if( ! $evento->esta_anulado() ) {
-							$hay_evento_maneja_datos = true;
-							echo $evento->get_html($this->_submit.$f, $this->objeto_js, $this->_id);
-						} else {
-							$evento->restituir();	//Lo activo para la proxima fila
-						}
-					}
+					$parametros = $this->get_clave_fila_array($f);
+					echo $this->get_invocacion_evento_fila($id, $evento, $f, $clave_fila, false, $parametros);
 	            	echo "</td>\n";
 				}
 				//Si algun evento permite seleccionar valores

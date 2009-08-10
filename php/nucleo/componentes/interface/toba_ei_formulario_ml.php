@@ -978,34 +978,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 			echo "<td class='{$this->estilo_celda_actual} ei-ml-columna-evt'>\n";
-			if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
-				//1: Posiciono al evento en la fila
-				$evento->set_parametros($fila);
-				if($evento->posee_accion_vincular()){
-					$parametros = array();
-					$parametros[apex_ei_evento] = $id;
-					$parametros['fila'] = $fila;
-					$evento->vinculo(true)->set_parametros($parametros);	
-				}
-				//2: Ventana de modificacion del evento por fila
-				//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-				$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id;
-				if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
-					$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
-				} else {
-					//- b - ¿Existe una callback de modificacion una subclase?
-					$callback_modificacion_eventos = 'conf_evt__' . $id;
-					if (method_exists($this, $callback_modificacion_eventos)) {
-						$this->$callback_modificacion_eventos($evento, $fila);
-					}
-				}
-				//3: Genero el boton
-				if( ! $evento->esta_anulado() ) {
-					echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
-				} else {
-					$evento->restituir();	//Lo activo para la proxima fila
-				}
-			}
+			echo $this->get_invocacion_evento_fila($id, $evento, $fila, $fila, false);			
         	echo "</td>\n";
 		}	
 	}
