@@ -361,6 +361,15 @@ class toba_memoria
 		return $this->acceso_menu;
 	}
 
+	/**
+	 * Indica si se lanzo la solicitud por medio de un ef_popup.
+	 * @return boolean 
+	 */
+	function verificar_acceso_popup()
+	{
+		$valor = $this->get_parametro('ef_popup_valor');
+		return (! is_null($valor));
+	}
 	//------------------------------------------------------------------------
 	//--------- Manejo de DATOS de la INSTANCIA (no utiliza celdas) ----------
 	//------------------------------------------------------------------------

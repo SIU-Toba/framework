@@ -192,6 +192,19 @@ abstract class toba_solicitud
 	}
 
 	/**
+	 * Permite setear el tipo de pagina para la solicitud actual
+	 * @param array $tipo Arreglo asociativo con un nombre de clase y archivo, ej: array('clase' => 'toba_tp_mia', ['archivo' => 'customizacion_toba/toba_tp_mia.php']);
+	 */
+	function set_tipo_pagina($tipo)
+	{
+		$parametros = array('tipo_pagina_clase' => $tipo['clase']);
+		if (isset($tipo['archivo'])) {
+			$parametros['tipo_pagina_archivo'] = $tipo['archivo'];
+		}
+		$this->set_datos_item($parametros);
+	}
+
+	/**
 	 * Retorna el id de la operacion actual
 	 */
 	function get_id_operacion()
