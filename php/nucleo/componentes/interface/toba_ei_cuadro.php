@@ -2325,11 +2325,11 @@ class toba_ei_cuadro extends toba_ei
 		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
         echo "<TABLE width='$ancho' class='ei-base ei-cuadro-base'>";
 		// Cabecera
-		echo"<tr><td class='ei-cuadro-cabecera'>";
+		echo"<tr><td class='ei-cuadro-cabecera' colspan='$this->_cantidad_columnas_total'>";
 		$this->impresion_html_cabecera();		
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
-		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
+		echo "<tr><td class='ei-cuadro-cc-fondo' colspan='$this->_cantidad_columnas_total'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
@@ -2351,11 +2351,11 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function impresion_html_fin()
 	{			
-		if( $this->tabla_datos_es_general() ){
+		if (isset($this->_acumulador)) {
 			$this->html_cuadro_totales_columnas($this->_acumulador);
-			$this->html_acumulador_usuario();
-			$this->html_cuadro_fin();
 		}
+		$this->html_acumulador_usuario();
+		$this->html_cuadro_fin();
 		echo "</td></tr>\n";		
 		//--- FIN CONTENIDO  ---------
 		// Pie
