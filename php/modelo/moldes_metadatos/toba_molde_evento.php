@@ -38,11 +38,13 @@ class toba_molde_evento
 	function en_botonera()
 	{
 		$this->datos['en_botonera'] = 1;
+		$this->datos['sobre_fila'] = 0;
 	}
 
 	function sobre_fila()
 	{
 		$this->datos['sobre_fila'] = 1;
+		$this->datos['en_botonera'] = 0;
 	}
 
 	function implicito()
