@@ -813,6 +813,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 			$sql = substr($sql, 0, -4); 	//Se saca el ultimo AND
 		}
+
+		//Trato de ordenar directamente en la carga.. si es posible
+		$col_orden = $this->objeto_tabla->get_columnas_orden_para_sql();
+		if (! empty($col_orden)) {
+			foreach( $col_orden as $klave => $valor) {
+				$col_orden[$klave] = $this->_alias. '.' . $valor;
+			}
+			$sql .= 'ORDER BY ' . implode(','  , $col_orden);
+		}
+
 		//Se guardan los datos de la carga
 		$this->_sql_carga = array('from' => $from, 'where' => $where);
 		return $sql;
@@ -1291,7 +1301,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		foreach($externos as $externo) {			
 			$cmp_indice = array_intersect_key($externo, $claves_carga);
 			$indice = implode('_', $cmp_indice);
-			if (! empty($indice)){
+			if (isset($indice) && ($indice != '')) {
 					$campos_externos[$indice] = $externo;
 			}
 		}

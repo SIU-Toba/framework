@@ -7,6 +7,12 @@ class ci_navegacion extends toba_ci
 {
 	protected $s__filtro;
 	
+	function ini()
+	{
+		//Seteo la forma en que voy a ordenar los datos cuando los recupere.
+		$this->get_relacion()->tabla('deportes')->set_columnas_orden(array('desc_dia_semana','hora_fin'));
+	}
+
 	function get_relacion()
 	{
 		return $this->dependencia('datos');
