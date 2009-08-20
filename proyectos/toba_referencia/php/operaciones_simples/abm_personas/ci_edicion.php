@@ -69,7 +69,9 @@ class ci_edicion extends toba_ci
 
 	function conf__cuadro_deportes()	
 	{
-		return $this->get_relacion()->tabla('deportes')->get_filas();	
+		$buscador = $this->get_relacion()->tabla('deportes')->nueva_busqueda();
+		$buscador->	set_columnas_orden(array('hora_fin' => SORT_DESC,'desc_deporte' => SORT_ASC));
+		return $buscador->buscar_filas();
 	}
 
 	function evt__cuadro_deportes__seleccion($seleccion)

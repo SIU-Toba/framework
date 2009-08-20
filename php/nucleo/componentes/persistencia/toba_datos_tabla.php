@@ -22,7 +22,6 @@ class toba_datos_tabla extends toba_componente
 	protected $_clave;							// Columnas que constituyen la clave de la tabla
 	protected $_columnas;
 	protected $_posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
-	protected $_info_orden_col = array();		//Mantiene las columnas por las que se debe ordenar.
 	//Constraints
 	protected $_no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
 	// Definicion general
@@ -510,11 +509,10 @@ class toba_datos_tabla extends toba_componente
 	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
 	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones. El valor no puede ser NULL porque siempre da falso
 	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla. Sino se usa una clave posicional y la clave viaja en la columna apex_datos_clave_fila
-	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres. @see set_columnas_orden
-	 * @param boolean $reordenar_datos Este conjunto de filas es reordenado antes de devolver el resultado
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres. 
 	 * @return array Formato tipo RecordSet
 	 */
-	function get_filas($condiciones=null, $usar_id_fila=false, $usar_cursores=true, $reordenar_datos = false)
+	function get_filas($condiciones=null, $usar_id_fila=false, $usar_cursores=true)
 	{
 		$datos = array();
 		$a = 0;
@@ -528,10 +526,7 @@ class toba_datos_tabla extends toba_componente
 				$datos[$a][apex_datos_clave_fila] = $id_fila;
 			}
 			$a++;
-		}
-		if ($reordenar_datos) {
-			$datos = $this->ordenar_datos_x_columnas($datos);
-		}
+		}		
 		return $datos;
 	}
 	
@@ -1843,77 +1838,6 @@ class toba_datos_tabla extends toba_componente
 			$modificar = isset($this->_columnas[$campo]) && isset($datos_nuevos[$campo]);
 		}
 		return $modificar;
-	}
-
-	/**
-	 * Verifica si existe ordenamiento de los datos o no
-	 * @return boolean
-	 */
-	function hay_ordenamiento()
-	{
-		return (! empty($this->_info_orden_col));
-	}
-
-	/**
-	 * Retorna un arreglo con las columnas definidas para el ordenamiento
-	 * @return array
-	 */
-	function get_columnas_orden()
-	{
-		return array();
-		return $this->_info_orden_col;
-	}
-
-	/**
-	 * Retorna un arreglo con las columnas definidas para el ordenamiento,
-	 * pero quita aquellas columnas que sean resultado de columnas externas.
-	 * @return array
-	 * @ignore
-	 */
-	function get_columnas_orden_para_sql()
-	{
-		//Armo un arreglo con las cols externas resultado y las quito de las posibles seleccionadas para orden
-		$cols = array();
-		foreach($this->_info_externas_col as $columna) {
-			if (in_array($columna['columna'], $this->_info_orden_col) && $columna['es_resultado'] == '1') {
-					$cols[] = $columna['columna'];
-			}
-		}
-		$resultado = array_diff($this->_info_orden_col, $cols);
-		return $resultado;
-	}
-
-	/**
-	 * Fija que columnas se utilizaran para realizar el ordenamiento de los datos,
-	 * el orden posicional en el arreglo define que columna se utiliza antes.
-	 * @param array $cols Arreglo de nombres de columnas ej: array('id_persona', 'nombre', 'descripcion_trabajo')
-	 */
-	function set_columnas_orden($cols = array())
-	{
-		//Tengo que verificar que las columnas pertenecen a la tabla.
-		$cols_existentes = array_keys($this->_columnas);
-		foreach($cols as $posible) {
-			if (! in_array($posible, $cols_existentes)) {
-				throw new toba_error_def('La columna por la que intenta ordenar no existe: '. $posible);
-			}
-		}
-		$this->_info_orden_col = $cols;
-	}
-
-	/**
-	 * Ordena el conjunto de datos recibido segun lo especificado en $this->_info_orden_col
-	 * @param recordset $datos_orig		Conjunto de datos a ordenar
-	 * @return recordset $datos_destino Conjunto de datos ordenados
-	 * @ignore
-	 */
-	function ordenar_datos_x_columnas($datos_orig)
-	{
-		if (! empty($this->_info_orden_col)) {
-			$datos_destino = rs_ordenar_por_columnas($datos_orig, $this->_info_orden_col);
-		} else {
-			$datos_destino = $datos_orig;
-		}
-		return $datos_destino;
 	}
 }
 ?>

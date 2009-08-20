@@ -12,6 +12,7 @@ class toba_datos_busqueda
 	protected $tabla;
 	protected $padres = array();
 	protected $condiciones = array();
+	protected $_info_orden_col = array();		//Mantiene las columnas por las que se debe ordenar.
 	
 	/**
 	 * @ignore 
@@ -81,10 +82,62 @@ class toba_datos_busqueda
 		foreach ($ids as $id) {
 			$salida[] = $this->tabla->get_fila($id);
 		}
+		if ($this->hay_ordenamiento()) {
+			$salida = $this->ordenar_datos_x_columnas($salida);
+		}
 		return $salida;
 	}
-	
+
+	/**
+	 * Verifica si existe ordenamiento de los datos o no
+	 * @return boolean
+	 */
+	function hay_ordenamiento()
+	{
+		return (! empty($this->_info_orden_col));
+	}
+
+	/**
+	 * Retorna un arreglo con las columnas definidas para el ordenamiento
+	 * @return array
+	 */
+	function get_columnas_orden()
+	{
+		return $this->_info_orden_col;
+	}
+
+	/**
+	 * Fija que columnas se utilizaran para realizar el ordenamiento de los datos,
+	 * el orden posicional en el arreglo define que columna se utiliza antes.
+	 * @param array $cols Arreglo asociativo de columnas => sentido ej: array('id_persona' => SORT_ASC, 'nombre' => SORT_DESC, 'descripcion_trabajo' => SORT_ASC)
+	 */
+	function set_columnas_orden($cols = array())
+	{
+		//Tengo que verificar que las columnas pertenecen a la tabla.
+		$cols_existentes = array_keys($this->tabla->get_columnas());		
+		foreach($cols as $columna => $sentido) {
+			if (! in_array($columna, $cols_existentes)) {
+				throw new toba_error_def('La columna por la que intenta ordenar no existe: '. $columna);
+			}
+		}
+		$this->_info_orden_col = $cols;
+	}
+
+	/**
+	 * Ordena el conjunto de datos recibido segun lo especificado en $this->_info_orden_col
+	 * @param recordset $datos_orig		Conjunto de datos a ordenar
+	 * @return recordset $datos_destino Conjunto de datos ordenados
+	 * @ignore
+	 */
+	function ordenar_datos_x_columnas($datos_orig)
+	{
+		if (! empty($this->_info_orden_col)) {
+			$columnas = array_keys($this->_info_orden_col);
+			$datos_destino = rs_ordenar_por_columnas($datos_orig, $columnas, $this->_info_orden_col);
+		} else {
+			$datos_destino = $datos_orig;
+		}
+		return $datos_destino;
+	}
 }
-
-
 ?>

@@ -149,7 +149,11 @@
 		// Armo los parametros del mutisort
 		foreach ( $columnas as $id => $col ) {
 			$parametros[] =& $orden[$id];
-			$parametros[] = $tipo;
+			if (is_array($tipo)) {		//Permito que pueda recibir un arreglo  asociativo con los tipos de ordenamiento
+				$parametros[] = (isset($tipo[$col])) ? $tipo[$col] : SORT_ASC;
+			} else {
+				$parametros[] = $tipo;
+			}			
 		}
 		$parametros[] =& $rs;
 		// Como la funcion trabaja por referencia, tomo la posicion del array que me interesa ordenar
