@@ -398,6 +398,7 @@ class toba_nucleo
 			'toba_menu'								=> 'nucleo/menu/toba_menu.php',
 			'toba_menu_css'							=> 'nucleo/menu/toba_menu_css.php',
 			'toba_menu_yui'							=> 'nucleo/menu/toba_menu_yui.php',
+			'toba_menu_libmenu'						=> 'nucleo/menu/toba_menu_libmenu.php',
 			'toba_tipo_pagina'						=> 'nucleo/tipo_pagina/toba_tipo_pagina.php',
 			'toba_tp_basico'						=> 'nucleo/tipo_pagina/toba_tp_basico.php',
 			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_basico_titulo.php',

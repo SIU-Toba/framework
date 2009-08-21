@@ -1,0 +1,97 @@
+.m_m
+{
+   display: block;
+   left: 0px;
+   top: 0px;
+   width: 0px;
+   height: 0px;
+   margin-left: 3px;
+   margin-right: 3px;
+   border: 0px;
+   border-collapse: collapse;
+   font-family: Arial, Helvetica, san-serif;
+   font-weight: bold;
+   cursor: pointer;
+   background: transparent;
+   z-index: 100;
+}
+.m_s
+{
+   position: relative;
+   width: 0px;
+   border: 0px;
+   border-collapse: collapse;
+}
+.m_e
+{
+   display: none;
+   position: relative;
+   top: 0px;
+   left: 0px;
+   width: auto;
+   padding-right: 1px;
+   padding-left: 2px;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   border: solid 1px black;
+   border-collapse: collapse;
+   text-align: left;
+}
+.m_n
+{
+   display: block;
+   position: absolute;
+   left: 0px;
+   top: 0px;
+   width: 0px;
+   border: 0px;
+   border-collapse: collapse;
+}
+.m_o
+{
+   display: none;
+   position: relative;
+   left: 0px;
+   top: 0px;
+   width: auto;
+   padding-left: 3px;
+   padding-top: 3px;
+   padding-bottom: 3px;
+   border: solid 1px black;
+   border-collapse: collapse;
+   text-align: left;
+}
+.m_r
+{
+   display: block;
+   position: absolute;
+   left: 0px;
+   top: 0px;
+   padding-top: 0px;
+   padding-bottom: 0px;
+   text-align: center;
+   height: 2.5em;
+}
+table.m_al_medio
+{
+   border: 0px;
+   border-collapse: collapse;
+   width: 100%;
+   height: 100%;
+}
+td.m_al_medio
+{
+   margin: 0px;
+   border: 0px;
+   border-collapse: collapse;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.m_co  {background-color: #efefef; color: #325C8E; font-size: 9pt;}
+.m_ho  {background-color: #fafafa; color: #325C8E; font-size: 9pt;}
+.m_ce  {background-color: #efefef; color: #325C8E; font-size: 9pt;}
+.m_he  {background-color: #fafafa; color: #325C8E; font-size: 9pt;}
+.m_ca  {background-color: #ffffff; color: #325C8E; font-size: 9pt;}
+.m_ha  {background-color: #ffffff; color: #325C8E; font-size: 9pt;}
+.m_cap {background-color: #cfcfcf; color: #325C8E; font-size: 9pt;}
