@@ -1050,23 +1050,39 @@ class toba_info_editores
 	function get_mensajes($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
-		$sql = "SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
-				FROM 	apex_msg
-				WHERE proyecto = $proyecto;";
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);		
+		$clausula = array("proyecto = $proyecto");
+		return self::get_mensajes_filtrados($clausula);
+	}
+
+	function get_mensajes_filtrados($clausulas = array())
+	{
+		$sql = 'SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
+				FROM 	apex_msg ';
+		if (! empty($clausulas)) {
+			$sql = sql_concatenar_where($sql, $clausulas);
+		}
+		toba::logger()->debug("mensajes : $sql");
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
-	
+
 	function get_mensajes_objeto($objeto, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
-		$objeto = toba_contexto_info::get_db()->quote($objeto);
-		$sql = "SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
-				FROM 	apex_objeto_msg
-				WHERE 
-						objeto_proyecto = $proyecto
-					AND	objeto = $objeto";
+		$clausulas = array(	'objeto_proyecto ='. toba_contexto_info::get_db()->quote($proyecto),
+											'objeto = '.toba_contexto_info::get_db()->quote($objeto));
+		return self::get_mensajes_objeto_filtrados($clausulas);
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	function get_mensajes_objeto_filtrados($clausulas = array())
+	{
+		$sql = 'SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
+				FROM 	apex_objeto_msg';
+		if (! empty($clausulas)) {
+			$sql = sql_concatenar_where($sql, $clausulas);
+		}
+		toba::logger()->debug("mensajes : $sql");
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 

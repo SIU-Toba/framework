@@ -33,7 +33,7 @@ CREATE TABLE apex_msg
 ---------------------------------------------------------------------------------------------------
 (  
 	msg 			    					int8           DEFAULT nextval('"apex_msg_seq"'::text) NOT NULL, 
-	indice          					varchar(20)    NOT NULL,	
+	indice          					varchar(40)    NOT NULL,
 	proyecto  							varchar(15)    NOT NULL,
    msg_tipo       					varchar(20)    NOT NULL,
    descripcion_corta            	varchar(50)    NULL,
@@ -62,7 +62,7 @@ CREATE TABLE apex_item_msg
 (  
 	item_msg          		   	int8           DEFAULT nextval('"apex_item_msg_seq"'::text) NOT NULL, 
    msg_tipo          		   	varchar(20)    NOT NULL,
-	indice          					varchar(20)    NOT NULL,
+	indice          					varchar(40)    NOT NULL,
    item_id      						int8        	NULL, 
    item_proyecto       		   	varchar(15)    NOT NULL,
    item                		   	varchar(60)    NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE apex_objeto_msg
 (
    	objeto_msg        	     		int8           	DEFAULT nextval('"apex_objeto_msg_seq"'::text) NOT NULL, 
    	msg_tipo       	        		varchar(20)    	NOT NULL,
-	indice          				varchar(20)    	NOT NULL,
+	indice          				varchar(40)    	NOT NULL,
    	objeto_proyecto         		varchar(15)    	NOT NULL,	
    	objeto                  		int8	    	NOT NULL,
    	descripcion_corta            	varchar(50)    	NULL,

@@ -21,6 +21,12 @@ class toba_migracion_1_5_0 extends toba_migracion
 
 			//--------------------------------- Ahora se marcan los autovinculos de manera explicita --------------------------------
 			$sql[] = 'ALTER TABLE apex_objeto_eventos ADD COLUMN es_autovinculo SMALLINT NOT NULL DEFAULT 0;';
+
+			//--------------------------------- Cambio el tamaño de la columna indice ---------------------------------------------------
+			$sql[] = 'ALTER TABLE apex_msg ALTER indice TYPE character varying(40);';
+			$sql[] = 'ALTER TABLE apex_item_msg ALTER indice TYPE character varying(40);';
+			$sql[] = 'ALTER TABLE apex_objeto_msg ALTER indice TYPE character varying(40);';
+			
 			$this->elemento->get_db()->ejecutar($sql);
 		}
 
