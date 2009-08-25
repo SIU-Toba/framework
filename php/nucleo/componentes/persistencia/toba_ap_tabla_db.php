@@ -869,7 +869,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					}
 				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ) {
 					//-- Es un campo NULO
-					$valores_sql[$a] = "DEFAULT";
+					$valores_sql[$a] = $db->get_semantica_valor_defecto();
 					$columnas_sql[$a] = $col;
 					$this->_insert_campos_default[] = $col;
 				}else{

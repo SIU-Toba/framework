@@ -386,5 +386,10 @@ class toba_db_postgres7 extends toba_db
 		$this->cache_metadatos[$tabla] = array_values($columnas);
 		return $this->cache_metadatos[$tabla];
 	}
+
+	function get_semantica_valor_defecto()
+	{
+		return 'DEFAULT';
+	}
 }
 ?>

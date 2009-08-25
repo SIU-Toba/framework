@@ -148,7 +148,16 @@ class toba_db
 	//------------------------------------------------------------------------
 	//-- Primitivas BASICAS
 	//------------------------------------------------------------------------
-	
+	/**
+	 * Devuelve el valor que es considerado por el motor para asignar el valor
+	 * Default en la base.
+	 * @return mixed
+	 */
+	function get_semantica_valor_defecto()
+	{
+		return 'NULL';
+	}
+
 	/**
 	 * Convierte un string a una representación segura para el motor. Evita
 	 * la inyección de código malicioso dentro de la sentencia SQL
