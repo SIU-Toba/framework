@@ -190,18 +190,23 @@ class toba_svn
 			if ($xml !== false){				
 				foreach($xml->entry as $entrada) {
 					$aux_entrada = $entrada->attributes();
-					$aux_revision = $entrada->commit->attributes();
-					if (!isset($aux_entrada['kind']) || !isset($aux_entrada['path']) || !isset($aux_revision['revision'])) {
-						//Esto no genera un error SVN, pero nos revienta el XML
+					if (@(!isset($aux_entrada['kind']) || !isset($aux_entrada['path']))) {
+						//Problema de formato XML, posible drama de version.
+						toba::logger()->debug("SVN FAIL: ". var_export($aux_entrada, true));
 						$revs[] = array('error' => 'La versión de svn es demasiado antigua, por favor actualicela.');
 					} else {
-						$revs[] = array('kind' => $aux_entrada['kind'], 'archivo' => $aux_entrada['path'], 'revision' => $aux_revision['revision']);
+						if (! $entrada->xpath('commit')) {	//Es un ADD asi que aun no tiene revision de commit
+							$revs[] = array('kind' => $aux_entrada['kind'], 'archivo' => $aux_entrada['path'], 'revision' => 0);
+							toba::logger()->debug("SVN ADD: ". var_export($aux_entrada, true));
+						} else {	//Tiene todos los valores necesarios
+							$aux_revision = $entrada->commit->attributes();
+							$revs[] = array('kind' => $aux_entrada['kind'], 'archivo' => $aux_entrada['path'], 'revision' => $aux_revision['revision']);
+						}
 					}
 					unset($aux_entrada);
 					unset($aux_revision);
 				}
 			}
-			//toba::logger()->var_dump($revs);
 		} catch(toba_error $e) {
 			toba::logger()->debug("SVN: ". $e->getMessage());
 		}
