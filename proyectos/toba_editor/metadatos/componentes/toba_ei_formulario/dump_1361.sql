@@ -320,7 +320,7 @@ Hay que escribir una lista de columnas validas, separadas por comas.', --descrip
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	'50', --edit_tamano
-	'150', --edit_maximo
+	NULL, --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango

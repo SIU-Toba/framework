@@ -15,9 +15,9 @@ CREATE TABLE apex_permiso
 (
 	permiso						int8	DEFAULT nextval('"apex_permiso_seq"'::text) NOT NULL, 
 	proyecto							varchar(15)		NOT NULL,
-	nombre								varchar(100)	NOT NULL,
-	descripcion							varchar(255)	NULL,
-	mensaje_particular					varchar			NULL,
+	nombre								TEXT	NOT NULL,
+	descripcion							TEXT	NULL,
+	mensaje_particular					TEXT			NULL,
 	CONSTRAINT	"apex_per_pk" 			PRIMARY	KEY ("permiso", "proyecto"),
 	CONSTRAINT	"apex_per_uq_nombre" 	UNIQUE	("proyecto","nombre")
 );

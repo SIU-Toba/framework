@@ -23,7 +23,7 @@ CREATE TABLE apex_objeto_esquema
    objeto_esquema            	int8			NOT NULL,
    parser	            	   	varchar(30)  	NULL, -- NEATO, DOT, ETC
    descripcion            	   	varchar(80)  	NULL,
-   dot		               		varchar			NULL, --Descripcion del grafico en sintaxis DOT
+   dot		               		TEXT			NULL, --Descripcion del grafico en sintaxis DOT
    debug						smallint		NULL,
    formato						varchar(15)		NULL,
    modelo_ejecucion				varchar(15)		NULL,
@@ -33,7 +33,7 @@ CREATE TABLE apex_objeto_esquema
    alto							varchar(10)		NULL,
    dirigido						smallint		DEFAULT 1 NULL,
    -- Para el esquema_db
-   sql							varchar			NULL,
+   sql							TEXT			NULL,
    CONSTRAINT  "apex_objeto_esquema_pk" PRIMARY KEY ("objeto_esquema_proyecto","objeto_esquema"),
    CONSTRAINT  "apex_objeto_esquema_fk_objeto"  FOREIGN KEY ("objeto_esquema_proyecto","objeto_esquema") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

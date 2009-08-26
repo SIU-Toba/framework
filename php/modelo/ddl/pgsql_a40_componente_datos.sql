@@ -19,8 +19,8 @@ CREATE TABLE apex_admin_persistencia
 (
 	ap								int8				DEFAULT nextval('"apex_admin_persistencia_seq"'::text) 		NOT NULL, 
 	clase							varchar(60)			NOT	NULL,
-	archivo							varchar(120)			NOT	NULL,
-	descripcion						varchar(60)			NOT	NULL,
+	archivo							TEXT			NOT	NULL,
+	descripcion						TEXT			NOT	NULL,
 	categoria						varchar(20)			NULL,		-- Indica si es un AP de tablas o relaciones
 	CONSTRAINT	"apex_admin_persistencia_pk" PRIMARY	KEY ("ap")
 );
@@ -67,8 +67,8 @@ CREATE TABLE apex_objeto_db_registros
 --	Configuracion del AP por defecto
 	ap								int8			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(255)	NULL,
-	tabla 							varchar(120)	NULL,
+	ap_archivo						TEXT	NULL,
+	tabla 							TEXT	NULL,
 	alias 							varchar(60)		NULL,
 	modificar_claves				smallint		NULL,
 	fuente_datos_proyecto			varchar(15)		NULL,	
@@ -100,10 +100,10 @@ CREATE TABLE apex_objeto_db_registros_col
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
 	objeto 		                	int8       		NOT NULL,
 	col_id							int8			DEFAULT nextval('"apex_objeto_dbr_columna_seq"'::text) 		NOT NULL, 
-	columna		    				varchar(120)		NOT NULL, 
+	columna		    				TEXT		NOT NULL,
 	tipo							varchar(1)		NULL,
 	pk								smallint 		NULL,
-	secuencia		    			varchar(120)		NULL, 
+	secuencia		    			TEXT		NULL,
 	largo							smallint		NULL,
 	no_nulo							smallint 		NULL,
 	no_nulo_db						smallint 		NULL,
@@ -137,17 +137,17 @@ CREATE TABLE apex_objeto_db_registros_ext
 	tipo							varchar(3)		NOT NULL,
 	sincro_continua					smallint		NULL,
 --- CARGA PHP
-	metodo							varchar(100)	NULL,
-	clase							varchar(100)	NULL,
-	include							varchar(255)	NULL,
+	metodo							TEXT	NULL,
+	clase							TEXT	NULL,
+	include							TEXT	NULL,
 --- CARGA SQL
-	sql								varchar			NULL,
+	sql								TEXT		NULL,
 	dato_estricto			SMALLINT  DEFAULT	1  NULL,
 --- CARGA DAO
 	carga_dt							BIGINT NULL,
 	carga_consulta_php		BIGINT NULL,
 	permite_carga_masiva		SMALLINT NOT NULL DEFAULT 0,
-	metodo_masivo			varchar(100) NULL,
+	metodo_masivo			TEXT NULL,
 	CONSTRAINT  "apex_obj_dbr_ext_pk" PRIMARY KEY ("externa_id", "objeto", "objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_ext_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_dbr_ext_fk_datos_tabla" FOREIGN KEY ("objeto_proyecto","carga_dt") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
@@ -203,7 +203,7 @@ CREATE TABLE apex_objeto_db_registros_uniq
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
 	objeto 		                	int8       		NOT NULL,
 	uniq_id							int8			DEFAULT nextval('"apex_objeto_dbr_uniq_seq"'::text) 		NOT NULL, 
-	columnas						varchar(255)	NULL,
+	columnas						TEXT	NULL,
 	CONSTRAINT  "apex_obj_dbr_uniq_pk" PRIMARY KEY ("uniq_id", "objeto", "objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_uniq_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
 );
@@ -234,7 +234,7 @@ CREATE TABLE apex_objeto_datos_rel
 --	Configuracion del AP por defecto
 	ap								int8			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(120)	NULL,
+	ap_archivo						TEXT	NULL,
 --	Opciones de sincronizaci�n
 	sinc_susp_constraints			smallint		NULL DEFAULT 0,
 	sinc_orden_automatico			smallint		NULL DEFAULT 1,

@@ -18,7 +18,7 @@ CREATE TABLE apex_usuario_grupo_acc
 	usuario_grupo_acc				varchar(30)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	nivel_acceso					smallint		NULL,
-	descripcion						varchar			NULL,
+	descripcion						TEXT			NULL,
 	vencimiento						date			NULL,
 	dias							smallint		NULL,
 	hora_entrada					time(0) without time	zone NULL,
@@ -95,7 +95,7 @@ CREATE TABLE apex_restriccion_funcional
 (	
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional			int8				DEFAULT nextval('"apex_restriccion_funcional_seq"'::text) NOT NULL,
-	descripcion						varchar(255)		NULL,
+	descripcion						TEXT		NULL,
 	CONSTRAINT	"restriccion_funcional_pk" PRIMARY	KEY ("proyecto", "restriccion_funcional"),
 	CONSTRAINT	"restriccion_funcional_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );

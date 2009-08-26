@@ -51,8 +51,8 @@ CREATE TABLE apex_sesion_browser
 	usuario						varchar(60) 	NOT NULL,
 	ingreso						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	egreso						timestamp(0) 	without time zone		NULL,
-	observaciones				varchar(255)	NULL,
-	php_id						varchar(100)	NOT NULL,
+	observaciones				TEXT	NULL,
+	php_id						TEXT	NOT NULL,
 	ip							varchar(20)		NULL,
 	punto_acceso				varchar(80) 	NULL,
 	CONSTRAINT	"apex_ses_brw_pk" PRIMARY KEY ("sesion_browser", "proyecto") 
@@ -96,7 +96,7 @@ CREATE TABLE apex_solicitud_consola
 	solicitud_consola			int8				NOT NULL, 
 	usuario						varchar(60)			NOT NULL,
 	ip							varchar(20)			NULL,
-	llamada						varchar				NULL,
+	llamada						TEXT				NULL,
 	entorno						text				NULL,
 	CONSTRAINT	"apex_sol_consola_pk" PRIMARY KEY ("solicitud_consola", "proyecto"),
 	CONSTRAINT	"apex_sol_consola_fk_sol" FOREIGN KEY ("solicitud_consola", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
@@ -118,7 +118,7 @@ CREATE TABLE apex_solicitud_cronometro
 	solicitud	 				int8				NOT NULL,
 	marca						smallint			NOT NULL,
 	nivel_ejecucion				varchar(15)			NOT NULL,
-	texto						varchar(120)		NULL,
+	texto						TEXT		NULL,
 	tiempo						float				NULL,
 	CONSTRAINT	"apex_sol_cron_pk" PRIMARY KEY ("solicitud", "proyecto","marca"),
 	CONSTRAINT	"apex_sol_cron_fk_sol" FOREIGN KEY ("solicitud", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
@@ -142,7 +142,7 @@ CREATE TABLE apex_solicitud_observacion
 	solicitud_observacion			int8				DEFAULT nextval('"apex_solicitud_observacion_seq"'::text) NOT NULL, 
 	solicitud_obs_tipo_proyecto		varchar(15)			NULL,
 	solicitud_obs_tipo				varchar(20)			NULL,
-	observacion						varchar				NULL,
+	observacion						TEXT				NULL,
 	CONSTRAINT	"apex_sol_obs_pk" PRIMARY KEY ("solicitud_observacion"),
 	--CONSTRAINT	"apex_sol_obs_fk_sol_ot" FOREIGN KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_sol_obs_fk_sol" FOREIGN KEY ("solicitud", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
@@ -190,12 +190,12 @@ CREATE TABLE apex_log_error_login
 (
 	log_error_login 			int8				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
-	usuario						varchar 			NULL,
-	clave						varchar		 		NULL,
-	ip							varchar(100)				NULL,
+	usuario						TEXT 			NULL,
+	clave						TEXT		 		NULL,
+	ip							TEXT				NULL,
 	gravedad					smallint			NULL,
 	mensaje						text				NULL,
-	punto_acceso				varchar		 		NULL,
+	punto_acceso				TEXT		 		NULL,
 	CONSTRAINT	"apex_log_error_login_pk" PRIMARY KEY ("log_error_login")
 );
 --###################################################################################################-------------------

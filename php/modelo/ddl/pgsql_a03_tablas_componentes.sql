@@ -20,7 +20,7 @@ CREATE TABLE apex_item_zona
 	clave_editable					varchar(100)	NULL,		-- Clave	del EDITABLE manejado en la ZONA
 	archivo							varchar(80)		NULL, 		-- Archivo	donde	reside la clase que representa la ZONA
 	descripcion						varchar			NULL,		-- OBSOLETO
-	consulta_archivo				varchar(255)	NULL,
+	consulta_archivo				TEXT	NULL,
 	consulta_clase					varchar(60)		NULL,
 	consulta_metodo					varchar(80)		NULL,
 	CONSTRAINT	"apex_item_zona_pk" PRIMARY KEY ("proyecto","zona"),
@@ -57,14 +57,14 @@ CREATE TABLE apex_item
 	actividad_patron_proyecto		varchar(15)		NULL,
 	actividad_patron				varchar(20)		NULL,
 	nombre							varchar(80)		NOT NULL,
-	descripcion						varchar			NULL,
+	descripcion						TEXT		NULL,
 	actividad_accion				varchar(80)		NULL,
 	menu							smallint		NULL,
 	orden							float			NULL,
 	solicitud_registrar				smallint		NULL,
 	solicitud_obs_tipo_proyecto		varchar(15)		NULL,
 	solicitud_obs_tipo				varchar(20)		NULL,
-	solicitud_observacion			varchar(90)		NULL,
+	solicitud_observacion			TEXT		NULL,
 	solicitud_registrar_cron		smallint		NULL,
 	prueba_directorios				smallint		NULL,
 	zona_proyecto					varchar(15)		NULL,
@@ -73,9 +73,9 @@ CREATE TABLE apex_item
 	zona_listar						smallint		NULL,
 	imagen_recurso_origen			varchar(10)		NULL,
 	imagen							varchar(60)		NULL,
-	parametro_a						varchar(255)	NULL,
-	parametro_b						varchar(255)	NULL,
-	parametro_c						varchar(255)	NULL,
+	parametro_a						TEXT	NULL,
+	parametro_b						TEXT	NULL,
+	parametro_c						TEXT	NULL,
 	publico							smallint		NULL,
 	redirecciona					smallint		NULL,
 	usuario							varchar(60)		NULL,
@@ -112,7 +112,7 @@ CREATE TABLE apex_item_info
 	item_id							int8				NULL,	
 	item_proyecto					varchar(15)		NOT NULL,
 	item								varchar(60)		NOT NULL,
-	descripcion_breve				varchar(255)	NULL,
+	descripcion_breve				text	NULL,
 	descripcion_larga				text				NULL,
 	CONSTRAINT	"apex_item_info_pk"	 PRIMARY	KEY ("item_proyecto","item"),
 	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
@@ -132,7 +132,7 @@ CREATE TABLE apex_clase_tipo
 (	
 	clase_tipo						int8				DEFAULT nextval('"apex_clase_tipo_seq"'::text) NOT	NULL,	
 	descripcion_corta				varchar(40)			NOT NULL,
-	descripcion						varchar(255)		NULL,
+	descripcion						TEXT		NULL,
 	icono							varchar(60)			NULL,
 	orden							float				NULL,
 	metodologia						varchar(10)			NULL, --NOT
@@ -154,7 +154,7 @@ CREATE TABLE apex_clase
 	clase							varchar(60)		NOT NULL,
 	clase_tipo						int8			NOT NULL, 
 	archivo							varchar(80)		NULL,
-	descripcion						varchar(250)	NOT NULL,
+	descripcion						TEXT	NOT NULL,
 	icono							varchar(60)		NOT NULL, 		--> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
 	descripcion_corta				varchar(40)		NULL,			--	NOT NULL, 
 	editor_proyecto					varchar(15)		NOT NULL,
@@ -172,16 +172,16 @@ CREATE TABLE apex_clase
 	editor_id						int8			NULL,	
 	editor_ancestro_proyecto		varchar(15)		NULL,			--> Ancestro a	considerar para el EDITOR
 	editor_ancestro					varchar(60)		NULL,
-	plan_dump_objeto				varchar(255)	NULL, 			--> Lista ordenada de tablas	que poseen la definicion del objeto	(respetar FK!)
+	plan_dump_objeto				TEXT	NULL, 			--> Lista ordenada de tablas	que poseen la definicion del objeto	(respetar FK!)
 	sql_info						text			NULL, 			--> SQL	que DUMPEA el estado	del objeto
-	doc_clase						varchar(255)	NULL,			--> GIF donde hay	un	Diagrama	de	clases.
-	doc_db							varchar(255)	NULL,			--> GIF donde hay	un	DER de las tablas	que necesita la clase.
-	doc_sql							varchar(255)	NULL,			--> path	al	archivo que	crea las	tablas.
+	doc_clase						TEXT	NULL,			--> GIF donde hay	un	Diagrama	de	clases.
+	doc_db							TEXT	NULL,			--> GIF donde hay	un	DER de las tablas	que necesita la clase.
+	doc_sql							TEXT	NULL,			--> path	al	archivo que	crea las	tablas.
 	vinculos						smallint		NULL,			--> Indica si los	objetos generados	pueden tener vinculos
 	autodoc							smallint		NULL,
-	parametro_a						varchar(255)	NULL,
-	parametro_b						varchar(255)	NULL,
-	parametro_c						varchar(255)	NULL,
+	parametro_a						TEXT	NULL,
+	parametro_b						TEXT	NULL,
+	parametro_c						TEXT	NULL,
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
 	CONSTRAINT	"apex_clase_uq" UNIQUE 	("clase"),
@@ -229,29 +229,29 @@ CREATE TABLE apex_objeto
 	proyecto							varchar(15)		NOT NULL,
 	objeto								int8			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 	
 	anterior							varchar(20)		NULL,
-	identificador						varchar(100)	NULL,
+	identificador						TEXT	NULL,
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,
 	clase								varchar(60)		NOT NULL,
 	subclase							varchar(80)		NULL,
-	subclase_archivo					varchar(255)	NULL,
+	subclase_archivo					TEXT	NULL,
 	objeto_categoria_proyecto			varchar(15)		NULL,
 	objeto_categoria					varchar(30)		NULL,
-	nombre								varchar(120)	NOT NULL,
-	titulo								varchar(120)	NULL,
+	nombre								TEXT	NOT NULL,
+	titulo								TEXT	NULL,
 	colapsable							smallint		NULL,
 	descripcion							varchar			NULL,
 	fuente_datos_proyecto				varchar(15)		NULL,
 	fuente_datos						varchar(20)		NULL,
 	solicitud_registrar					smallint		NULL,	-- no mas
 	solicitud_obj_obs_tipo				varchar(20)		NULL,	-- no mas
-	solicitud_obj_observacion			varchar(255)	NULL,	-- no mas
-	parametro_a							varchar(100)	NULL,
-	parametro_b							varchar(100)	NULL,
-	parametro_c							varchar(100)	NULL,
-	parametro_d							varchar(100)	NULL,
-	parametro_e							varchar(100)	NULL,
-	parametro_f							varchar(100)	NULL,
+	solicitud_obj_observacion			TEXT	NULL,	-- no mas
+	parametro_a							TEXT	NULL,
+	parametro_b							TEXT	NULL,
+	parametro_c							TEXT	NULL,
+	parametro_d							TEXT	NULL,
+	parametro_e							TEXT	NULL,
+	parametro_f							TEXT	NULL,
 	usuario								varchar(20)		NULL,
 	creacion							timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	posicion_botonera			varchar(10)		NULL, 
@@ -279,7 +279,7 @@ CREATE TABLE apex_objeto_info
 (
 	objeto_proyecto						varchar(15)			NOT NULL,
 	objeto								int8				NOT NULL,
-	descripcion_breve					varchar(255)		NULL,
+	descripcion_breve					TEXT		NULL,
 	descripcion_larga					text				NULL,
 	CONSTRAINT	"apex_objeto_info_pk" PRIMARY	KEY ("objeto_proyecto","objeto"),
 	CONSTRAINT	"apex_objeto_info_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -304,9 +304,9 @@ CREATE TABLE apex_objeto_dependencias
 	objeto_consumidor					int8				NOT NULL,
 	objeto_proveedor					int8				NOT NULL,
 	identificador						varchar(40)			NOT NULL,
-	parametros_a						varchar(255)		NULL,
-	parametros_b						varchar(255)		NULL,
-	parametros_c						varchar(255)		NULL,
+	parametros_a						TEXT		NULL,
+	parametros_b						TEXT		NULL,
+	parametros_c						TEXT		NULL,
 	inicializar							smallint			NULL,
 	orden								smallint			NULL,
 	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("dep_id","proyecto","objeto_consumidor"),
@@ -335,9 +335,9 @@ CREATE TABLE apex_objeto_dep_consumo
 	objeto_consumidor					int8				NOT NULL,
 	objeto_proveedor					int8				NOT NULL,
 	identificador						varchar(40)			NOT NULL,
-	parametros_a						varchar(255)		NULL,
-	parametros_b						varchar(255)		NULL,
-	parametros_c						varchar(255)		NULL,
+	parametros_a						TEXT		NULL,
+	parametros_b						TEXT		NULL,
+	parametros_c						TEXT		NULL,
 	inicializar							smallint			NULL,
 	CONSTRAINT	"apex_objeto_consumo_depen_pk"	 PRIMARY	KEY ("consumo_id"),
 	CONSTRAINT	"apex_objeto_consumo_depen_uq"	 UNIQUE  ("proyecto","objeto_consumidor","identificador"),
@@ -364,15 +364,15 @@ CREATE TABLE apex_objeto_eventos
 	evento_id							int8				DEFAULT nextval('"apex_objeto_eventos_seq"'::text) NOT NULL,
 	objeto								int8				NOT NULL,
 	identificador						varchar(40)			NOT NULL,
-	etiqueta							varchar(255)		NULL,
+	etiqueta							TEXT		NULL,
 	maneja_datos						smallint			NULL DEFAULT 1,
 	sobre_fila							smallint			NULL,
-	confirmacion						varchar(255)		NULL,
+	confirmacion						TEXT		NULL,
 	estilo								varchar(40)			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
 	en_botonera							smallint			NULL DEFAULT 1,
-	ayuda								varchar				NULL,
+	ayuda								TEXT			NULL,
 	orden								smallint			NULL,
 	ci_predep							smallint			NULL, 
 	implicito							smallint			NULL,
@@ -385,10 +385,10 @@ CREATE TABLE apex_objeto_eventos
 	accion_vinculo_item					varchar(60)			NULL,
 	accion_vinculo_objeto				int8				NULL,
 	accion_vinculo_popup				smallint			NULL,
-	accion_vinculo_popup_param			varchar(100)		NULL,
+	accion_vinculo_popup_param			TEXT		NULL,
 	accion_vinculo_target				varchar(40)			NULL,
 	accion_vinculo_celda				varchar(40)			NULL,
-	accion_vinculo_servicio				varchar(100)		NULL,
+	accion_vinculo_servicio				TEXT		NULL,
 	es_seleccion_multiple				SMALLINT  NOT NULL DEFAULT 0,
 	es_autovinculo								SMALLINT NOT NULL DEFAULT 0,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("evento_id","proyecto"),
@@ -486,9 +486,9 @@ CREATE TABLE apex_arbol_items_fotos
 (
 	proyecto							varchar(15)		NOT NULL, 
 	usuario								varchar(60)		NOT NULL,
-	foto_nombre							varchar(100)	NOT NULL,
-	foto_nodos_visibles					varchar			NULL,
-	foto_opciones						varchar			NULL,
+	foto_nombre							TEXT	NOT NULL,
+	foto_nodos_visibles					TEXT			NULL,
+	foto_opciones						TEXT		NULL,
   CONSTRAINT "apex_arbol_items_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre")
   --CONSTRAINT "apex_arbol_items_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario") REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -510,9 +510,9 @@ CREATE TABLE apex_admin_album_fotos
 	proyecto							varchar(15)		NOT NULL, 
 	usuario								varchar(60)		NOT NULL,
 	foto_tipo							varchar(20)		NOT NULL,	--cat_item u cat_objeto
-	foto_nombre							varchar(100)	NOT NULL,
-	foto_nodos_visibles					varchar			NULL,
-	foto_opciones						varchar			NULL,
+	foto_nombre							TEXT	NOT NULL,
+	foto_nodos_visibles					TEXT		NULL,
+	foto_opciones						TEXT		NULL,
 	predeterminada							smallint	NULL,
   CONSTRAINT "apex_admin_album_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre", "foto_tipo")
   --CONSTRAINT "apex_admin_album_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")	REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -534,9 +534,9 @@ CREATE TABLE apex_admin_param_previsualizazion
 (
 	proyecto							varchar(15)		NOT NULL, 
 	usuario								varchar(60)		NOT NULL,
-	grupo_acceso						varchar(255)	NOT NULL,
-	punto_acceso						varchar(100)	NOT NULL,
-	perfil_datos						varchar(255)	NULL,
+	grupo_acceso						TEXT	NOT NULL,
+	punto_acceso						TEXT	NOT NULL,
+	perfil_datos						TEXT	NULL,
   CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario")
   --CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")	REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

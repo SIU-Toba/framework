@@ -156,7 +156,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	'30', --edit_tamano
-	'40', --edit_maximo
+	NULL, --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -211,7 +211,7 @@ FROM apex_msg_tipo;', --carga_sql
 	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	'20', --edit_tamano
-	'20', --edit_maximo
+	NULL, --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -265,7 +265,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
 	'30', --edit_tamano
-	'50', --edit_maximo
+	NULL, --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango

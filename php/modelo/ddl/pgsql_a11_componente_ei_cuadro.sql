@@ -20,12 +20,12 @@ CREATE TABLE apex_objeto_cuadro
 (
 	objeto_cuadro_proyecto  	varchar(15)		NOT NULL,
 	objeto_cuadro           	int8			NOT NULL,
-	titulo                  	varchar(255) 	NULL,
-	subtitulo               	varchar(255) 	NULL,
-	sql                     	varchar     	NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar
-	columnas_clave				varchar			NULL,   -- Columnas que poseen la clave, separadas por comas
+	titulo                  	TEXT 	NULL,
+	subtitulo               	TEXT 	NULL,
+	sql                     	TEXT     	NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar
+	columnas_clave				TEXT			NULL,   -- Columnas que poseen la clave, separadas por comas
 	clave_dbr					smallint		NULL,
-	archivos_callbacks      	varchar(255)	NULL,			-- Archivos donde estan las callbacks llamadas en las columnas
+	archivos_callbacks      	TEXT	NULL,			-- Archivos donde estan las callbacks llamadas en las columnas
 	ancho                   	varchar(10) 	NULL,
 	ordenar                 	smallint    	NULL,
 	paginar                 	smallint    	NULL,
@@ -36,15 +36,15 @@ CREATE TABLE apex_objeto_cuadro
 	exportar_paginado	      	smallint    	NULL,		-- Limita el paginado a la salida html	
 	exportar		           	smallint       	NULL,		-- Exportar XLS
 	exportar_rtf            	smallint       	NULL,		-- Exportar PDF
-	pdf_propiedades         	varchar			NULL,
+	pdf_propiedades         	TEXT			NULL,
 	pdf_respetar_paginacion 	smallint       	NULL,  		-- ATENCION - Eliminar a futuro
-	asociacion_columnas			varchar(255)	NULL,
+	asociacion_columnas			TEXT	NULL,
 	ev_seleccion				smallint		NULL,		-- EI cuadro, lupa -> seleccion
 	ev_eliminar					smallint		NULL,		-- EI cuadro, tacho -> eliminacion
 	dao_nucleo_proyecto			varchar(15)		NULL,
 	dao_nucleo					varchar(60)		NULL,
 	dao_metodo					varchar(80)		NULL,
-	dao_parametros				varchar(255)	NULL,
+	dao_parametros				TEXT	NULL,
 	desplegable					smallint		NULL,
 	desplegable_activo			smallint		NULL,
 	scroll						smallint		NULL,
@@ -76,11 +76,11 @@ CREATE TABLE apex_objeto_cuadro_cc
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
 	objeto_cuadro                 	int8       		NOT NULL,
 	objeto_cuadro_cc				int8			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
-	identificador					varchar(200)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
-	descripcion						varchar(200)		NULL,
+	identificador					TEXT		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
+	descripcion						TEXT		NULL,
 	orden				            float      		NOT NULL,
-	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
-	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
+	columnas_id	    				TEXT	NOT NULL,		-- Columnas utilizada para cortar
+	columnas_descripcion			TEXT	NOT NULL,		-- Columnas utilizada como titulo del corte
 	pie_contar_filas				varchar(10)		NULL,
 	pie_mostrar_titular				smallint		NULL,			-- Cabecera del PIE
 	pie_mostrar_titulos				smallint		NULL,			-- Repetir los titulos de las columnas
@@ -112,8 +112,8 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	objeto_cuadro_col				int8			DEFAULT nextval('"apex_obj_ei_cuadro_col_seq"'::text) NOT NULL, 
 	clave          					varchar(80)    	NOT NULL,		
 	orden				            float      		NOT NULL,
-	titulo                        	varchar(255)	NULL,
-	estilo_titulo                   varchar(100)	DEFAULT 'ei-cuadro-col-tit' NULL,
+	titulo                        	TEXT	NULL,
+	estilo_titulo                   TEXT	DEFAULT 'ei-cuadro-col-tit' NULL,
 	estilo    						int8		    NOT NULL,	
 	ancho							varchar(10)		NULL,		
 	formateo   						int8		    NULL,		
@@ -121,10 +121,10 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	no_ordenar						smallint		NULL,		
 	mostrar_xls						smallint		NULL,
 	mostrar_pdf						smallint		NULL,
-	pdf_propiedades          		varchar			NULL,
+	pdf_propiedades          		TEXT			NULL,
 	desabilitado					smallint		NULL,
 	total							smallint		NULL,		
-	total_cc						varchar(100)	NULL,			-- La columna lleva un total al final?
+	total_cc						TEXT	NULL,			-- La columna lleva un total al final?
 	usar_vinculo					smallint			NULL,
 	vinculo_carpeta					varchar(60)			NULL,			--OBSOLETO
 	vinculo_item					varchar(60)			NULL,				--OBSOLETO
@@ -134,7 +134,7 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	vinculo_celda					varchar(40)			NULL,				--OBSOLETO
 	vinculo_servicio				varchar(100)		NULL,			 --OBSOLETO
 	permitir_html					smallint			NULL,		-- Proteccion contra ataques XSS
-	grupo							varchar(255)		NULL,
+	grupo							TEXT		NULL,
 	evento_asociado			bigint		NULL,
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro", "objeto_cuadro_proyecto") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro", "objeto_cuadro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

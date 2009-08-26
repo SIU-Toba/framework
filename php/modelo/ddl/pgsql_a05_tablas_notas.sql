@@ -16,7 +16,7 @@ CREATE TABLE apex_nota_tipo
 (  
 	nota_tipo                  	varchar(20)    	NOT NULL,
 --	proyecto					varchar(15)		NULL,
-   	descripcion                	varchar(255)   	NOT NULL,
+   	descripcion                	TEXT   	NOT NULL,
    	icono                      	varchar(30)    	NULL,
    	CONSTRAINT  "apex_nota_tipo_pk" PRIMARY KEY ("nota_tipo")
 --	CONSTRAINT	"apex_nota_tipo_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE

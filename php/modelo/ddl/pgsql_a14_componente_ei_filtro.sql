@@ -63,44 +63,44 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	objeto_ei_filtro            		int8			NOT NULL,
 	objeto_ei_filtro_proyecto    		varchar(15)		NOT NULL,
 	tipo								varchar(30)		NOT NULL,
-	nombre								varchar(255)	NOT NULL,
-	expresion							varchar(255)	NOT NULL,
-	etiqueta							varchar(80)    	NULL,
-	descripcion             			varchar        	NULL,
+	nombre								TEXT	NOT NULL,
+	expresion							TEXT	NOT NULL,
+	etiqueta							TEXT    	NULL,
+	descripcion             			TEXT        	NULL,
 	obligatorio             			smallint       	NOT NULL DEFAULT 0,
 	inicial								smallint		NOT NULL DEFAULT 0,		
 	orden								smallint		NOT NULL DEFAULT 0,
-	estado_defecto						varchar(255)	NULL,
+	estado_defecto						TEXT	NULL,
 	opciones_es_multiple				smallint		NULL,
 	opciones_ef							varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
 	
 	-- Parametros de los efs
-	carga_metodo						varchar(100)	NULL,	-- carga ci
-	carga_clase							varchar(100)	NULL,	-- carga estatico
-	carga_include						varchar(255)	NULL,
+	carga_metodo						TEXT	NULL,	-- carga ci
+	carga_clase							TEXT	NULL,	-- carga estatico
+	carga_include						TEXT	NULL,
 	carga_dt							int8			NULL,	--carga datos_tabla
 	carga_consulta_php					int8			NULL,	--carga consulta_php
-	carga_sql							varchar			NULL,	--carga sql	
+	carga_sql							TEXT			NULL,	--carga sql
 	carga_fuente						varchar(30)		NULL,
-	carga_lista							varchar(255)	NULL,	--carga lista
-	carga_col_clave						varchar(100)	NULL,
-	carga_col_desc						varchar(100)	NULL,
+	carga_lista							TEXT	NULL,	--carga lista
+	carga_col_clave						TEXT	NULL,
+	carga_col_desc						TEXT	NULL,
 	carga_permite_no_seteado	smallint		NOT NULL DEFAULT 0,
-	carga_no_seteado					varchar(100)	NULL,
+	carga_no_seteado					TEXT	NULL,
 	carga_no_seteado_ocultar			smallint		NULL,
 	edit_tamano							smallint		NULL,
 	edit_maximo							smallint		NULL,
-	edit_mascara						varchar(100)	NULL,
-	edit_unidad							varchar(255)	NULL,
-	edit_rango							varchar(100)	NULL,
-	edit_expreg							varchar(255)	NULL,	
+	edit_mascara						TEXT	NULL,
+	edit_unidad							TEXT	NULL,
+	edit_rango							TEXT	NULL,
+	edit_expreg							TEXT	NULL,
 	popup_item							varchar(60)		NULL,
 	popup_proyecto						varchar(15)		NULL,
 	popup_editable						smallint		NULL,
 	popup_ventana						varchar(50)		NULL,
-	popup_carga_desc_metodo				varchar(100)	NULL,
-	popup_carga_desc_clase				varchar(100)	NULL,
-	popup_carga_desc_include			varchar(255)	NULL,
+	popup_carga_desc_metodo				TEXT	NULL,
+	popup_carga_desc_clase				TEXT	NULL,
+	popup_carga_desc_include			TEXT	NULL,
 	popup_puede_borrar_estado			smallint 		NULL,
 	check_valor_si						varchar(40)		NULL,
 	check_valor_no						varchar(40)		NULL,
