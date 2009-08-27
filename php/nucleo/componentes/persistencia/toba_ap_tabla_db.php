@@ -1095,18 +1095,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$parametros = $this->_proceso_carga_externa[$carga];
 				//Si la columna no solicito sincro continua, paso a la siguiente.
 				if(isset($evento)&& !($parametros["sincro_continua"])) continue;
-				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
-				$estan_todos = true;
-				foreach( $parametros['col_parametro'] as $col_llave ) {
-					if (isset($evento) && isset($this->_secuencias[$col_llave])) {
-						throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia");
-					}
-					if (!isset($fila[$col_llave])) {
-						$estan_todos = false;
-					}
-				}
 				//Si algun valor requerido no esta seteado, no ejecutar la carga				
-				if (! $estan_todos) {
+				if (! $this->verificar_existencia_valores($fila, $parametros, $evento)) {
 					continue;
 				}
 				$valores_recuperados = array_merge($valores_recuperados, $this->completa_campos_externos_fila_con_proceso($fila, $parametros));
@@ -1139,13 +1129,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$datos = $this->adjuntar_campos_externos_masivo($datos, $recuperado, $parametros);
 					} else {
 						//Aca tengo que ciclar por los datos como hice antes
-						for ($a=0;$a<count($datos);$a++) {
+						for ($a=0;$a<count($datos);$a++) {							
 							$campos_externos = $this->completa_campos_externos_fila_con_proceso($datos[$a], $parametros);
 							foreach ($campos_externos as $id => $valor) {
 								$datos[$a][$id] = $valor;
 							}
 						}
-					}					
+					}				
 				}
 			}
 			//ei_arbol($datos);
@@ -1155,31 +1145,33 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function completa_campos_externos_fila_con_proceso($fila, $proceso)
 	{
 			$recuperado = array();
-			switch($proceso['tipo']){
-				case 'sql':
-							$recuperado = $this->usar_metodo_sql_fila($fila, $proceso);
-							break;
-				case 'dao':
-							$param_dao = array();
-							foreach ($proceso['col_parametro'] as $col_llave) {
-								$param_dao[] = $fila[$col_llave];
-							}
-							$recuperado = $this->usar_metodo_dao($param_dao, $proceso);
-							break;
-				case 'd_t':
-							$param_dao = array();
-							foreach ($proceso['col_parametro'] as $col_llave) {
-								$param_dao[] = $fila[$col_llave];
-							}
-							$recuperado = $this->usar_metodo_dt($param_dao, $proceso);
-							break;
-				case 'ccp':
-							$param_dao = array();
-							foreach ($proceso['col_parametro'] as $col_llave) {
-								$param_dao[] = $fila[$col_llave];
-							}
-							$recuperado = $this->usar_clase_consulta_php($param_dao, $proceso);
-							break;
+			if ($this->verificar_existencia_valores($fila, $proceso)) {	//Verifico que esten las claves para la carga
+					switch($proceso['tipo']) {
+						case 'sql':
+									$recuperado = $this->usar_metodo_sql_fila($fila, $proceso);
+									break;
+						case 'dao':
+									$param_dao = array();
+									foreach ($proceso['col_parametro'] as $col_llave) {
+										$param_dao[] = $fila[$col_llave];
+									}
+									$recuperado = $this->usar_metodo_dao($param_dao, $proceso);
+									break;
+						case 'd_t':
+									$param_dao = array();
+									foreach ($proceso['col_parametro'] as $col_llave) {
+										$param_dao[] = $fila[$col_llave];
+									}
+									$recuperado = $this->usar_metodo_dt($param_dao, $proceso);
+									break;
+						case 'ccp':
+									$param_dao = array();
+									foreach ($proceso['col_parametro'] as $col_llave) {
+										$param_dao[] = $fila[$col_llave];
+									}
+									$recuperado = $this->usar_clase_consulta_php($param_dao, $proceso);
+									break;
+					}
 			}
 			if (! empty($recuperado)) {
 				$recuperado = $this->adjuntar_campos_externos($recuperado, $proceso);
@@ -1338,6 +1330,21 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}//fe
 		}
 		return $valores_recuperados;
+	}
+
+	protected function verificar_existencia_valores($fila, $parametros, $evento = null)
+	{
+			//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
+			$estan_todos = true;
+			foreach( $parametros['col_parametro'] as $col_llave ) {
+				if (isset($evento) && isset($this->_secuencias[$col_llave])) {
+					throw new toba_error_def("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia");
+				}
+				if (!isset($fila[$col_llave])) {
+					$estan_todos = false;
+				}
+			}
+			return $estan_todos;
 	}
 }
 ?>
