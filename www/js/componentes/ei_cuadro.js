@@ -7,11 +7,12 @@ ei_cuadro.prototype.constructor = ei_cuadro;
  * @constructor
  * @phpdoc Componentes/Eis/toba_ei_cuadro toba_ei_cuadro
  */
-function ei_cuadro(id, instancia, input_submit, filas) {
+function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
 	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._filas = filas;
+	this._id_evento_multiple = id_evento_multiple;
 }
 	
 	//---Submit 
@@ -29,6 +30,10 @@ function ei_cuadro(id, instancia, input_submit, filas) {
 					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 					break;
 				default:
+					if (this._id_evento_multiple != null) {
+						var parametros = this.get_ids_seleccionados(this._id_evento_multiple);
+						 document.getElementById(this._input_submit + '__seleccion').value = parametros.join(toba_hilo_separador_interno);
+					}
 					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
 					}
@@ -62,7 +67,7 @@ function ei_cuadro(id, instancia, input_submit, filas) {
 	ei_cuadro.prototype.set_evento = function(evento, hacer_submit, input) {
 		if (typeof hacer_submit == 'undefined') {
 			hacer_submit = true;
-		}	
+		}
 		ei.prototype.set_evento.call(this, evento, hacer_submit);
 		if (!hacer_submit) {
 			var fila = input.parentNode.parentNode.parentNode;
@@ -93,7 +98,7 @@ function ei_cuadro(id, instancia, input_submit, filas) {
 			}
 		}
 		return seleccion;
-	};	
+	};
 	
 	
 toba.confirmar_inclusion('componentes/ei_cuadro');

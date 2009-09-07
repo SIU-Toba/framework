@@ -327,7 +327,7 @@ abstract class toba_ei extends toba_componente
 			//3: Genero el boton o el js para el link
 			if( ! $evento->esta_anulado() ) {
 				if (! $salida_como_vinculo) {
-						$invoc_evt = $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
+						$invoc_evt = $evento->get_html($this->_submit.$fila, $this->objeto_js, $this->_id);
 				} else {					
 					$evento->set_en_botonera(false);
 					$evento->set_nivel_de_fila(false);

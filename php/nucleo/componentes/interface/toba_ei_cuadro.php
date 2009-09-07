@@ -463,7 +463,7 @@ class toba_ei_cuadro extends toba_ei
 						$this->cargar_seleccion();
 						$parametros = null;
 						if (isset($this->_clave_seleccionada)) {
-							$parametros = $this->_clave_seleccionada;
+							$parametros = $this->get_clave_seleccionada();
 						} else {
 							if (isset($_POST[$this->_submit_extra])) {
 								$parametros = $_POST[$this->_submit_extra];
@@ -659,22 +659,30 @@ class toba_ei_cuadro extends toba_ei
 	{	
 		$this->_clave_seleccionada = null;
 		//La seleccion se inicializa con el del pedido anterior
-		if (isset($this->_memoria['clave_seleccionada']))
+		if (isset($this->_memoria['clave_seleccionada'])) {
 			$this->_clave_seleccionada = $this->_memoria['clave_seleccionada'];
-		//La seleccion se actualiza cuando el cliente lo pide explicitamente
+		}
+		
+		//La seleccion se actualiza cuando el cliente lo pide explicitamente		
 		if(isset($_POST[$this->_submit_seleccion])) {
 			$clave = $_POST[$this->_submit_seleccion];
 			if ($clave != '') {
-				if (! isset($this->_memoria['claves_enviadas']) || ! in_array($clave, $this->_memoria['claves_enviadas'])) {
-					throw new toba_error_seguridad($this->get_txt()." La clave '$clave' del cuadro no estaba entre las enviadas");
-				}
-				$clave = explode(apex_qs_separador, $clave);				
-				//Devuelvo un array asociativo con el nombre de las claves
-				for($a=0;$a<count($clave);$a++) {
-					$this->_clave_seleccionada[$this->_columnas_clave[$a]] = $clave[$a];		
+				$multiples_claves = explode(apex_qs_sep_interno, $clave);
+				$this->_clave_seleccionada = array();					//Reinicializo el arreglo
+				foreach($multiples_claves as $klave) {
+					if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
+						throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
+					}
+					$clave = explode(apex_qs_separador, $klave);
+					//Devuelvo un array asociativo con el nombre de las claves
+					$aux = array();
+					for($a=0;$a<count($clave);$a++) {
+						$aux[$this->_columnas_clave[$a]] = $clave[$a];
+					}
+					$this->_clave_seleccionada[] = $aux;
 				}
 			}
-		}	
+		}
 	}
 
 	/**
@@ -693,6 +701,9 @@ class toba_ei_cuadro extends toba_ei
 	function seleccionar($clave)
 	{
 		$this->_clave_seleccionada = $clave;
+		if (! is_array(current($clave))) {							//Tengo un arreglo comun asignado, internamente maneja recordset.
+			$this->_clave_seleccionada = array($clave);
+		} 
 	}
 
 	/**
@@ -751,7 +762,11 @@ class toba_ei_cuadro extends toba_ei
     */
 	function get_clave_seleccionada()
 	{
-		return $this->_clave_seleccionada;
+		if (count($this->_clave_seleccionada) == '1') {
+			return current($this->_clave_seleccionada);
+		} else {
+			return $this->_clave_seleccionada;
+		}
 	}
 
 //################################################################################
@@ -1852,13 +1867,8 @@ class toba_ei_cuadro extends toba_ei
 			}        	
         	$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$clave_fila = $this->get_clave_fila($f);
-			if (is_array($this->_clave_seleccionada)) {
-				$clave_seleccionada = implode(apex_qs_separador, $this->_clave_seleccionada);	
-			} else {
-				$clave_seleccionada = $this->_clave_seleccionada;	
-			}
-			
-			$esta_seleccionada = ($clave_fila != '') && ($clave_fila == $clave_seleccionada);
+				//Llamar a this->es_clave_fila_seleccionada
+			$esta_seleccionada = $this->es_clave_fila_seleccionada($clave_fila);
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
             echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
@@ -2285,14 +2295,16 @@ class toba_ei_cuadro extends toba_ei
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
 		
-		//Si hay seleccion multiple, envia los ids de las filas 
-		$hay_multiple = ($this->get_id_evento_seleccion_multiple() !== null);
-		$filas = '';
+		//Si hay seleccion multiple, envia los ids de las filas
+		$id_evt_multiple = $this->get_id_evento_seleccion_multiple();
+		$hay_multiple = ($id_evt_multiple !== null);
+		$filas = ',[]';
 		if ($hay_multiple) {
 			$datos = (isset($this->datos) && is_array($this->datos)) ? $this->datos : array();
-			$filas = ', '.toba_js::arreglo(array_keys($datos));
+			$filas = ',' . toba_js::arreglo(array_keys($datos));
+			$id_evt_multiple = ", '$id_evt_multiple'";
 		}
-		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas);\n";
+		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas $id_evt_multiple);\n";
 	}
 	/**
 	 * @ignore 
@@ -3165,6 +3177,17 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function excel_cc_fin_nivel()
 	{
+	}
+
+	function es_clave_fila_seleccionada($clave_fila)
+	{
+		$temp_claves = array();
+		if (! is_null($this->_clave_seleccionada)) {
+			foreach ($this->_clave_seleccionada as $clave) {
+				$temp_claves[] = implode(apex_qs_separador, $clave);
+			}
+		}
+		return (in_array($clave_fila, $temp_claves));
 	}
 }
 ?>

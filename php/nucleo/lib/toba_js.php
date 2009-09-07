@@ -128,6 +128,7 @@ class toba_js
 			echo "var toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
 			echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 			echo "var toba_hilo_separador='".apex_qs_separador."'\n";
+			echo "var toba_hilo_separador_interno='". apex_qs_sep_interno. "'\n";
 			echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
 			echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
