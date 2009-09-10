@@ -30,13 +30,13 @@ function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
 					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 					break;
 				default:
-					if (this._id_evento_multiple != null) {
-						var parametros = this.get_ids_seleccionados(this._id_evento_multiple);
-						 document.getElementById(this._input_submit + '__seleccion').value = parametros.join(toba_hilo_separador_interno);
-					}
 					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
 					}
+					if (this._id_evento_multiple != null) {
+						var parametros = this.get_ids_seleccionados(this._id_evento_multiple);
+						 document.getElementById(this._input_submit + '__seleccion').value = parametros.join(toba_hilo_separador_interno);
+					}					
 					if (this._evento.parametros_extra) {
 						document.getElementById(this._input_submit + '__extra').value = this._evento.parametros_extra;
 					}					
