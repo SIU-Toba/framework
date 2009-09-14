@@ -949,13 +949,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/	
 	function compilar_metadatos_generales_grupos_acceso($limpiar_existentes=false)
 	{
+		toba_proyecto_db::set_db( $this->db );
 		if ($limpiar_existentes) {
 			$archivos = toba_manejador_archivos::get_archivos_directorio($this->get_dir_generales_compilados(), '/toba_mc_gene__grupo/');
 			foreach($archivos as $archivo) {
 				unlink($archivo);
 			}
 		}
-		$this->manejador_interface->mensaje('Grupos de acceso', false);
+		$this->manejador_interface->mensaje('Perfiles funcionales', false);
 		foreach( $this->get_indice_grupos_acceso() as $grupo_acceso ) {
 			$nombre_clase = 'toba_mc_gene__grupo_' . $grupo_acceso;
 			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
