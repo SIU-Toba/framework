@@ -240,8 +240,7 @@ class comando_nucleo extends comando_toba
 	}
 	
 	/**
-	 * Dado un release en trunk_versiones genera una version en versiones
-	 * @consola_parametros -r release -u usuario_svn [-s url_svn] [-t path temporal] [-d path destino] 
+	 * Arma los .tar.gz y .zip de todas las versiones lanzadas
 	 */
 	function opcion__comprimir_versiones()
 	{
