@@ -9,6 +9,7 @@ class toba_evento_usuario extends toba_boton
 	protected $vinculo;
 	protected $parametros = null;
 	protected $seleccion_multiple = false;
+	protected $es_check_activo = false;
 
 	/**
 	* Devuelve el vinculo asociado al evento
@@ -187,6 +188,10 @@ class toba_evento_usuario extends toba_boton
 		$this->datos['es_seleccion_multiple'] = '1';
 	}
 
+	function set_check_activo($activo)
+	{
+			$this->es_check_activo = $activo;
+	}
 	//--------- Consumo interno ------------
 	
 	/**
@@ -228,7 +233,8 @@ class toba_evento_usuario extends toba_boton
 			if (isset($js)) {
 				$extra = 'onclick="'.$js.'"';
 				$extra .= " title='$tip'";
-				$html .= toba_form::checkbox($id_submit."_".$this->get_id(), null, $this->parametros, '', $extra);
+				$valor_actual = ($this->es_check_activo) ? $this->parametros : null;
+				$html .= toba_form::checkbox($id_submit."_".$this->get_id(), $valor_actual, $this->parametros, '', $extra);
 			}
 			$html .= '</label>';
 			return $html;

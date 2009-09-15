@@ -1485,7 +1485,13 @@ class toba_ei_cuadro extends toba_ei
 	protected function get_estilo_inicio_colapsado(&$nodo)
 	{
 		$estilo = '';
-		if($this->_cortes_def[$nodo['corte']]['colapsa'] == '1'){       //El corte debe colapsarse al inicio.
+		$colapsa_x_runtime = true;
+		$colapsa_x_metadatos = ($this->_cortes_def[$nodo['corte']]['colapsa'] == '1');
+		if (method_exists($this->controlador(), 'conf__cc_inicio_colapsado')) {
+			$colapsa_x_runtime = $this->controlador()->conf__cc_inicio_colapsado($nodo['clave']);
+		}
+
+		if ($colapsa_x_metadatos && $colapsa_x_runtime) {       //El corte debe colapsarse al inicio.
 			$estilo = " style='display:none'";              //Si uso clase css javascript despues no me da bola
 		}
 		return $estilo;
@@ -1595,7 +1601,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->generar_botones();
 			echo "</td></tr>\n";
 		}
-		echo "</TABLE>\n";
+		echo "</TABLE>\n";			
 		//-- FIN zona COLAPSABLE
 		echo"</td></tr>\n";
 		echo "</table>\n";
@@ -1936,6 +1942,9 @@ class toba_ei_cuadro extends toba_ei
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
 					$parametros = $this->get_clave_fila_array($f);
+					if (isset($id_evt_seleccion)) {
+						$evento->set_check_activo($esta_seleccionada);
+					}
 					echo $this->get_invocacion_evento_fila($evento, $f, $clave_fila, false, $parametros);
 	            	echo "</td>\n";
 				}
