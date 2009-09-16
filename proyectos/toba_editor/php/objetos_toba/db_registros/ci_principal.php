@@ -345,7 +345,7 @@ class ci_principal extends ci_editores_toba
 	function conf__detalle_carga(toba_ei_formulario $form)
 	{
 		$datos = $this->get_entidad()->tabla('externas')->get();
-		if ($datos['tipo'] == 'dao') {
+		if (isset($datos['tipo']) && $datos['tipo'] == 'dao') {
 			$datos['tipo_clase'] = 'estatica';
 			if (isset($datos['carga_consulta_php']) && !is_null($datos['carga_consulta_php'])){
 				$datos['tipo_clase'] = 'consulta_php';
@@ -364,7 +364,6 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__detalle_carga__modificacion($datos)
 	{
-		//Aca hay que hacer algun otro caso
 		$this->get_entidad()->tabla('externas')->set($datos);
 	}
 	
@@ -451,7 +450,6 @@ class ci_principal extends ci_editores_toba
 
 	function ajax__crear_metodo_get_descripciones($dt, toba_ajax_respuesta $respuesta)
 	{
-		$dt = toba_contexto_info::get_db()->quote($dt);
 		$sql = $this->get_sql_carga_tabla($dt);
 		if (isset($sql)) {
 			$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);
