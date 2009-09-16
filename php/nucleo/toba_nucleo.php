@@ -535,6 +535,7 @@ class toba_nucleo
  			'toba_codigo_separador' 				=> 'modelo/moldes_codigo/toba_codigo_separador.php',
  			'toba_codigo_separador_js' 				=> 'modelo/moldes_codigo/toba_codigo_separador_js.php',
  			'toba_codigo_separador_php' 			=> 'modelo/moldes_codigo/toba_codigo_separador_php.php',
+			'toba_valida_datos'						=> 'nucleo/componentes/interface/interfaces.php',
  			//------------- Soporte a COMPONENTES -----------------------------------
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
@@ -546,6 +547,7 @@ class toba_nucleo
 			'toba_ef_combo_editable'				=> 'nucleo/componentes/interface/efs/toba_ef_combo_editable.php',
 			'toba_ef_radio'							=> 'nucleo/componentes/interface/efs/toba_ef_combo.php',
 			'toba_ef_cuit'							=> 'nucleo/componentes/interface/efs/toba_ef_cuit.php',
+			'toba_callback_errores_validacion'		=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 			'toba_ef_editable'						=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 			'toba_ef_editable_numero'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 			'toba_ef_editable_moneda'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',

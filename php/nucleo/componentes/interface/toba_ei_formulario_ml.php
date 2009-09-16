@@ -33,6 +33,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_hay_toggle = false;
 	protected $_mostrar_cabecera_sin_datos = true;
 	
+	//--- Estaticos
+	protected static $_callback_validacion_ml;
+	
 	final function __construct($id)
 	{
 		parent::__construct($id);
@@ -412,7 +415,17 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		} else {	//Hay que sacar la información extra
 			$datos = array_values($this->_datos);
 		}
+		//-- Realiza una validacion transversal de datos propia del proyecto
+		if (isset(self::$_callback_validacion_ml)) {
+			call_user_func_array(array(self::$_callback_validacion_ml, 'set_componente'), array($this));
+			call_user_func_array(array(self::$_callback_validacion_ml, 'validar_datos'), array($datos));
+		}
 		return $datos;
+	}
+	
+	static function set_callback_validacion(toba_valida_datos $validador)
+	{
+		self::$_callback_validacion_ml = $validador;
 	}
 
 	/**

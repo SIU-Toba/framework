@@ -45,6 +45,9 @@ class toba_ei_formulario extends toba_ei
 	protected $_pdf_letra_tabla = 8;
 	protected $_pdf_tabla_ancho;
 	protected $_pdf_tabla_opciones = array();
+	
+	//--- Estaticos
+	protected static $_callback_validacion;
 
 	function __construct($id)
 	{
@@ -558,7 +561,17 @@ class toba_ei_formulario extends toba_ei
 				$registro[$dato] = $estado;
 			}
 		}
+		//-- Realiza una validacion transversal de datos propia del proyecto
+		if (isset(self::$_callback_validacion)) {
+			call_user_func_array(array(self::$_callback_validacion, 'set_componente'), array($this));
+			call_user_func_array(array(self::$_callback_validacion, 'validar_datos'), array($registro));
+		}
 		return $registro;
+	}
+	
+	static function set_callback_validacion(toba_valida_datos $validador)
+	{
+		self::$_callback_validacion = $validador;
 	}
 
 	/**

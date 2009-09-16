@@ -1,4 +1,19 @@
 <?php
+
+
+interface toba_callback_errores_validacion {
+	
+	/**
+	 * Atrapa la validacion de tamaño maximo de un campo
+	 *
+	 * @param toba_ef_editable $ef campo en cuestión
+	 * @param int $maximo Tamaño maximo definido
+	 * @param string $estado Estado actual a validado
+	 * @return boolean/String True para descartar el error, o un string para mostrar un mensaje personalizado
+	 */
+	public function editable_maximo(toba_ef_editable $ef, $maximo, $estado);
+}
+
 /**
  * Elemento editable equivalente a un <input type='text'>
  * Puede manejar una mascara.
@@ -14,7 +29,8 @@ class toba_ef_editable extends toba_ef
 	protected $expreg;
 	protected $unidad;
 	protected $clase_css = 'ef-input';
-	
+	protected static $callback_errores_validacion = null;
+
 	
     static function get_lista_parametros_carga()
     {
@@ -33,6 +49,11 @@ class toba_ef_editable extends toba_ef
     	$param[] = 'edit_unidad';
     	$param[] = 'edit_expreg';
     	return $param;    	
+    }
+    
+    static function set_callback_errores_validacion(toba_callback_errores_validacion $callback) 
+    {
+    	self::$callback_errores_validacion = $callback;	
     }
     	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -119,7 +140,11 @@ class toba_ef_editable extends toba_ef
 		}
 		if ($this->estado != '' && isset($this->maximo) && ! is_null($this->maximo)) {
 			if (strlen($this->estado) > $this->maximo) {
-				return "Supera el ancho máximo {$this->maximo}";
+				if (! isset(self::$callback_errores_validacion)) {
+					return "Supera el ancho máximo {$this->maximo}";
+				} else {
+					return $callback_errores_validacion->editable_maximo($this, $this->maximo, $this->estado);
+				}
 			}
 		}
 		return true;
@@ -686,6 +711,16 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		}
 	}
 
+	function cargar_estado_post()
+	{
+		if (isset($_POST[$this->id_form])) {
+			$this->estado = trim($_POST[$this->id_form]);
+			$this->estado = str_replace("\r\n", "\n", $this->estado);
+		} else {
+			$this->estado = null;
+		}
+	}
+	
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();

@@ -80,12 +80,16 @@ class toba_testing_selenium
 	protected function test_operaciones_nodo($hijo)
 	{
 		if ($hijo['carpeta']===0) {
-			$this->gen_comando('clickAndWait','link='.$hijo['nombre']);
-			$this->gen_comando('verifyTitle', 'regexp:.*'.$hijo['nombre'].'.*');
-			$this->gen_comando('assertTextNotPresent', 'Se han encontrado los siguientes problemas');
-			if ($this->volver_inicial) {
-				$this->gen_comando('open', $this->url_base);
-			}			
+			if ($hijo['nombre']==='Salir') {
+				$this->gen_comando('click','link='.$hijo['nombre']);
+			} else {
+				$this->gen_comando('clickAndWait','link='.$hijo['nombre']);
+			    $this->gen_comando('verifyTitle', 'regexp:.*'.$hijo['nombre'].'.*');
+			    $this->gen_comando('assertTextNotPresent', 'Se han encontrado los siguientes problemas');
+			    if ($this->volver_inicial) {
+				   $this->gen_comando('open', $this->url_base);
+			    }			
+			}
 		}
 	}
 	

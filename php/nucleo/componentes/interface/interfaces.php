@@ -83,6 +83,11 @@ interface toba_nodo_arbol_form extends toba_nodo_arbol
 	
 }
 
+interface toba_valida_datos
+{
+	function set_componente($componente);
+	function validar_datos($datos);	
+}
 
 //-----------------------------------------------------------
 
