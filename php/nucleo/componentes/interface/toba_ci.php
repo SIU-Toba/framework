@@ -837,5 +837,47 @@ class toba_ci extends toba_ei
 		$this->pantalla()->vista_impresion_html( $salida );
 	}
 	
+	//---------------------------------------------------------------
+	//------------------------- SALIDA XML --------------------------
+	//---------------------------------------------------------------
+	
+	function vista_xml($inicial, $xmlns=null)
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		$xml = $this->xml_get_tag_inicio();
+		foreach ($this->get_dependencias() as $dep) 
+		{
+			if(method_exists($dep, 'vista_xml')) {
+				$xml .= $dep->vista_xml(false,$xmlns);
+			}
+		}
+
+		$xml .= $this->xml_get_tag_fin();
+		return $xml;
+	}
+	
+	function xml_get_tag_inicio() {
+		$xml = '<'.$this->xml_ns.'ci'.$this->xml_ns_url;
+		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
+		}
+		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+			$xml .= ' logo="'.$this->xml_logo.'"';
+		}
+		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+		}
+		if (isset($this->xml_orientacion)) {
+			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+		}
+		$xml .= '>';
+		return $xml;
+	}
+
+	function xml_get_tag_fin() {
+		return '</'.$this->xml_ns.'ci>';
+	}
 }
 ?>

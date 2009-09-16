@@ -31,7 +31,7 @@ class toba_instalacion
 	{
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_instalacion();
 		if(!$this->memoria || $recargar) {
-			$this->memoria = parse_ini_file( toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
+			$this->memoria = parse_ini_file( toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini', true);
 		}
 	}
 	
@@ -176,6 +176,14 @@ class toba_instalacion
 			$chequea = ($this->memoria['chequea_sincro_svn'] == '1');
 		}
 		return $chequea;
+	}
+
+	function get_xslfo_fop()
+	{
+		if (isset($this->memoria['xslfo']) && isset($this->memoria['xslfo']['fop']) && $this->memoria['xslfo']['fop'] != '') {
+			return $this->memoria['xslfo']['fop'];
+		}
+		return false;
 	}
 }
 ?>

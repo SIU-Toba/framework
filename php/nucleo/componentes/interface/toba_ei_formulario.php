@@ -1383,5 +1383,99 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	//---------------------------------------------------------------
+	//------------------------- SALIDA XML --------------------------
+	//---------------------------------------------------------------
+	
+	/*function vista_pdf(toba_vista_pdf $salida)
+	{
+		$xml = '<?xml version="1.0" ?>';
+		$xml .= $this->get_xml();
+		echo $xml;
+	}*/
+	
+	function vista_xml($inicial, $xmlns=null)
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		$this->_carga_opciones_ef->cargar();
+		$formateo = new $this->_clase_formateo('pdf');
+		
+        $ancho = null;
+        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+        } elseif (isset($this->_pdf_tabla_ancho)) {
+        		$ancho = $this->_pdf_tabla_ancho;
+        }
+        $opciones = $this->_pdf_tabla_opciones;
+        if (isset($ancho)) {
+        	$opciones['width'] = $ancho;		
+        }        
+		
+		$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
+		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
+		}
+		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+			$xml .= ' logo="'.$this->xml_logo.'"';
+		}
+		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+		}
+		if (isset($this->xml_orientacion)) {
+			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+		}
+/*		if ($this->_pdf_letra_tabla) {
+			$xml .= ' letra="'.$this->_pdf_letra_tabla.'"';
+		}*/
+		if ($this->_lista_ef_post || $opciones){ 
+			$xml .= '>';
+			if ($this->_lista_ef_post) {
+				$tmpxml = null;
+				foreach ( $this->_lista_ef_post as $ef ){
+					if ($this->_elemento_formulario[$ef]->tiene_estado() && (!isset($this->xml_ef_no_procesar) || !in_array($ef,$this->xml_ef_no_procesar))) {
+						$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
+						//Hay que formatear? Le meto pa'delante...
+						if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+							$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+							$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+							$valor = $formateo->$funcion($valor_real);
+						}else{
+							$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+						}	
+						$tmpxml .= '<'.$this->xml_ns.'dato clave="'.$etiqueta.'" valor="'.$valor.'"/>';
+					}
+				}
+				if($tmpxml) {
+					$xml .= '<'.$this->xml_ns.'datos>'.$tmpxml.'</'.$this->xml_ns.'datos>';
+				}
+			}
+			if ($opciones) {
+				$xml .= '<'.$this->xml_ns.'opciones>';
+				foreach ($opciones as $nombre=>$valor) {
+					$xml .= '<'.$this->xml_ns.'opcion nombre="'.$nombre.'" valor="'.$valor.'"/>';
+				}
+				$xml .= '</'.$this->xml_ns.'opciones>';
+			}
+			$xml .= '</'.$this->xml_ns.'tabla>';
+		} else {
+			$xml .= '/>';
+		}
+		return $xml;
+	}
+	
+	function xml_set_ef_no_procesar($ef) 
+	{
+		if(is_array($ef)) {
+			if(isset($this->xml_ef_no_procesar)) {
+				$this->xml_ef_no_procesar = array_merge($this->xml_ef_no_procesar,$ef);
+			} else {
+				$this->xml_ef_no_procesar = $ef;
+			}
+		} else {
+			$this->xml_ef_no_procesar[] = $ef;
+		}
+	}
 }
 ?>

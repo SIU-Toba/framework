@@ -379,7 +379,7 @@ CREATE TABLE apex_objeto_eventos
 	defecto								smallint			NULL,
 	display_datos_cargados				smallint			NULL, 
 	grupo								varchar(80)			NULL,
-	accion								varchar(1)			NULL,
+	accion								varchar(20)			NULL,
 	accion_imphtml_debug				smallint			NULL,
 	accion_vinculo_carpeta				varchar(60)			NULL,
 	accion_vinculo_item					varchar(60)			NULL,

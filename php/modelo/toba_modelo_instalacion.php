@@ -51,7 +51,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				throw new toba_error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
 			} else {
 				//  BASE
-				$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion );
+				$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion,true);
 			}
 			$this->ini_cargado = true;
 		}
@@ -210,6 +210,15 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		toba_logger::instancia()->debug("Actualizada definicion base '$id_base'");				
 	}			
 	
+
+	function get_xslfo_fop()
+	{
+		if (isset($this->ini_instalacion['xslfo']) && isset($this->ini_instalacion['xslfo']['fop']) && $this->ini_instalacion['xslfo']['fop'] != '') {
+			return $this->ini_instalacion['xslfo']['fop'];
+		}
+		return false;
+	}
+
 	//------------------------------------------------------------------------
 	// Relacion con el MOTOR de base de datos
 	//------------------------------------------------------------------------

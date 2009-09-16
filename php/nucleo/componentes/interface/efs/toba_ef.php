@@ -395,6 +395,7 @@ abstract class toba_ef
 				return "<div class='{$this->clase_css}'>$estado</div>";
 			break;
 			case 'pdf':
+			case 'xml':
 				return $estado;
 			case 'excel':
 				return array($estado, null);

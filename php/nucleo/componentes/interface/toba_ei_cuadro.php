@@ -1299,7 +1299,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function generar_salida($tipo)
 	{
-		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel'){
+		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel' && $tipo!='xml'){
 			throw new toba_error_seguridad("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->_tipo_salida = $tipo;
@@ -3197,6 +3197,366 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
 		return (in_array($clave_fila, $temp_claves));
+	}
+	
+		//---------------------------------------------------------------
+	//------------------------- SALIDA XML --------------------------
+	//---------------------------------------------------------------
+	
+	function vista_xml($inicial, $xmlns=null)
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		$this->salida = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
+		$titulo = $this->get_titulo();
+		if ($titulo!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+			$this->salida .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:$titulo).'"';
+		}
+		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+			$this->salida .= ' logo="'.$this->xml_logo.'"';
+		}
+		if ($this->_info_cuadro["subtitulo"] != '' || isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+			$this->salida .= ' subtitulo="'.((isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="")?trim($this->xml_subtitulo):$this->_info_cuadro["subtitulo"]).'"';
+		}
+		if (isset($this->xml_orientacion)) {
+			$this->salida .= ' orientacion="'.$this->xml_orientacion.'"';
+		}
+		$this->salida .= '>';
+		$this->generar_salida("xml");
+		$this->salida .= '</'.$this->xml_ns.'tabla>';
+		return $this->salida;
+	}	
+	
+	/**
+	 * @ignore 
+	 */
+	protected function xml_inicio(){}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function xml_fin() 
+	{
+		if( $this->tabla_datos_es_general() ){
+			if (isset($this->_acumulador) && ! $this->_xml_total_generado) {
+				$this->xml_cuadro_totales_columnas($this->_acumulador, 0, true);
+			}
+			$this->pdf_acumulador_usuario();
+			/*$this->html_cuadro_fin();					*/
+		}		
+	}
+
+	/**
+	 * @ignore 
+	 * $nodo se pasa para poder mostrar los totales aqui mismo en caso de cortes con nivel > 0
+	 */
+	protected function xml_cuadro(&$filas, &$totales, &$nodo)
+	{
+		$this->salida .='<'.$this->xml_ns.'datos>';
+		$formateo = new $this->_clase_formateo('xml');
+		//-- Valores de la tabla
+		$datos = array();		
+        foreach($filas as $f) {
+        	$this->salida .='<'.$this->xml_ns.'fila>';
+			$clave_fila = $this->get_clave_fila($f);
+			$fila = array();
+ 			//---> Creo las CELDAS de una FILA <----
+ 			foreach (array_keys($this->_columnas) as $a) {
+				$valor = "";
+                if(isset($this->_columnas[$a]["clave"])){
+					if(isset($this->datos[$f][$this->_columnas[$a]["clave"]])){
+						$valor_real = $this->datos[$f][$this->_columnas[$a]["clave"]];
+					}else{
+						$valor_real = '';
+					}
+	                //Hay que formatear?
+	                if(isset($this->_columnas[$a]["formateo"])){
+	                    $funcion = "formato_" . $this->_columnas[$a]["formateo"];
+	                    //Formateo el valor
+	                    $valor = $formateo->$funcion($valor_real);
+	                } else {
+	                	$valor = $valor_real;	
+	                }
+	            }
+	            $this->salida .= '<'.$this->xml_ns.'dato clave="'.$this->_columnas[$a]["clave"].'" valor="'.$valor.'"/>';
+            }
+            $this->salida .='</'.$this->xml_ns.'fila>';
+        }
+		list($titulos, $estilos) = $this->xml_get_titulos();
+        
+        //-- Para la tabla simple se sacan los totales como parte de la tabla
+		if (isset($totales) || isset($nodo['acumulador'])) {
+			/* Como el xml no admite continuar una tabla luego de construirla (xml_cuadro)
+			   Se opta por generar aquí los totales de niveles > 0
+			   'rompiendo' la separación establecida por el proceso general en pos de una mejor visualización
+			*/
+			if (! isset($totales)) {
+				$totales = $nodo['acumulador'];
+				$nodo['xml_acumulador_generado'] = 1; //Esto evita que se muestre la tabla con totales ya que se va a mostrar en esta misma tabla
+			} else {
+				$this->_xml_total_generado = true;
+			}
+			$temp = null;
+			$this->xml_get_fila_totales($totales, $temp, true);
+		}
+		$this->salida .='</'.$this->xml_ns.'datos>';
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function xml_get_estilo($estilo)
+	{
+    	switch($estilo) {
+    		case 'col-num-p1':
+    		case 'col-num-p2':
+    		case 'col-num-p3':
+    		case 'col-num-p4':
+    			return 'right';
+    			break;
+    		case 'col-tex-p1':
+    		case 'col-tex-p2':
+    		case 'col-tex-p3':
+    		case 'col-tex-p4':  
+    		    return 'left';
+    			break;
+    		case 'col-cen-s1':
+    		case 'col-cen-s2':
+    		case 'col-cen-s3':
+    		case 'col-cen-s4':  
+    		    return 'left';
+    			break;
+    	}		
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function xml_get_titulos()
+	{
+		foreach(array_keys($this->_columnas) as $id) {
+			$this->salida .= '<'.$this->xml_ns.'col titulo="'.$this->_columnas[$id]['titulo'].'"';
+			$estilo = $this->xml_get_estilo($this->_columnas[$id]['estilo']);
+			if (isset($estilo)) {
+				$this->salida .= ' text-align="'.$estilo.'"';
+			}
+			if(isset($this->xml_columna[$id]) && isset($this->xml_columna[$id]['ancho'])) {
+				$this->salida .= ' width="'.$this->xml_columna[$id]['ancho'].'"';
+			}
+			$this->salida .= '/>';
+		}		
+	}
+
+	/**
+	 * Muestra el mensaje correspondiente al cuadro sin datos
+	 * @param string $texto
+	 * @ignore
+	 */
+	protected function xml_mensaje_cuadro_vacio($texto)
+	{
+		$this->salida .= '<'.$this->xml_ns.'mensaje>'.$texto.'</'.$this->xml_ns.'mensaje>';
+	}
+
+	//-- Cortes de Control --
+	/**
+	 * Deduce el metodo que utilizara para generar la cabecera
+	 * @param array $nodo
+	 * @ignore
+	 */
+	protected function xml_cabecera_corte_control(&$nodo )
+	{
+		//Dedusco el metodo que tengo que utilizar para generar el contenido
+		$metodo = 'xml_cabecera_cc_contenido';
+		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}		
+		$this->$metodo($nodo);
+	}
+
+	/**
+	 * Grafica el contenido de la cabecera del corte de control
+	 * @param array $nodo
+	 */
+	protected function xml_cabecera_cc_contenido(&$nodo)
+	{
+		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
+		$valor = implode(", ",$nodo['descripcion']);
+		$this->salida .= '<'.$this->xml_ns.'cc>';		
+		if (trim($descripcion) != '') {
+			$this->salida .= strip_tags($descripcion.' '.$valor);
+		} else {
+			$this->salida .= strip_tags($valor);
+		}
+		$this->salida .= '</'.$this->xml_ns.'cc>';
+	}	
+	
+	/**
+	 * Genera el contenido de la 'cabecera' ubicada en el pie del corte de control
+	 * @param array $nodo
+	 * @return string
+	 */
+	protected function xml_cabecera_pie_cc_contenido(&$nodo)
+	{
+		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
+		$valor = implode(", ",$nodo['descripcion']);
+		if (trim($descripcion) != '') {
+			return 'Resumen ' . $descripcion . ': <b>' . $valor . '</b>';			
+		} else {
+			return 'Resumen <b>' . $valor . '</b>';
+		}
+	}
+	
+    /**
+     * @ignore 
+     */
+	protected function xml_cuadro_totales_columnas($totales,$nivel=null,$agregar_titulos=false, $estilo_linea=null)
+	{
+		/* Como el xml no admite continuar una tabla luego de construirla (xml_cuadro)
+		   Se opta por sacar los totales del mayor nivel dentro de la generación misma del cuadro general
+		   'rompiendo' la separación establecida por el proceso general en pos de una mejor visualización
+		   Ese nivel nNo entra por aqui porque se le hizo un $nodo['xml_acumulador_generado'] = 1;
+		*/
+		if($agregar_titulos) {
+			$this->xml_get_titulos();
+		}
+		$this->xml_get_fila_totales($totales, $titulos);
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function xml_get_fila_totales($totales, &$titulos=null, $resaltar=false)
+	{
+		$formateo = new $this->_clase_formateo('xml');
+		$this->salida .= '<'.$this->xml_ns.'fila>';				
+		foreach (array_keys($this->_columnas) as $clave) {
+			//Defino el valor de la columna
+		    if(isset($totales[$clave])){
+				$valor = $totales[$clave];
+				if(!isset($estilo)){
+					$estilo = $this->_columnas[$clave]["estilo"];
+				}
+				//La columna lleva un formateo?
+				if(isset($this->_columnas[$clave]["formateo"])){
+					$metodo = "formato_" . $this->_columnas[$clave]["formateo"];
+					$valor = $formateo->$metodo($valor);
+				}
+				$this->salida .= '<'.$this->xml_ns.'dato clave="'.$clave.'"';
+				if ($resaltar) {
+					$this->salida .= ' font-weight="bold"';
+				}
+				$this->salida .= ' valor="'.$valor.'"/>';
+			}else{
+				unset($titulos[$clave]);
+				$this->salida .= '<'.$this->xml_ns.'dato clave="'.$clave.'"/>';
+			}
+		}
+		$this->salida .= '</'.$this->xml_ns.'fila>';
+	}
+
+	/**
+	 * Grafica  la sumarizacion del cuadro
+	 * @param array $datos
+	 * @param string $titulo
+	 * @param integer $ancho
+	 * @param string $css
+	 * @ignore
+	 */
+	protected function xml_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
+	{
+		//Titulo
+		$this->salida .= '<'.$this->xml_ns.'sumarizar';
+		if(isset($titulo)){
+			$this->salida .= ' titulo="'.$titulo.'"';
+		}
+		$this->salida .= '>';
+		//Datos
+		foreach($datos as $desc => $valor){
+			$this->salida .= '<'.$this->xml_ns.'dato>'.$desc.': '.$valor.'</'.$this->xml_ns.'dato>';
+		}
+		$this->salida .= '</'.$this->xml_ns.'sumarizar>';
+	}	
+	
+
+	protected function xml_pie_corte_control( &$nodo, $es_ultimo )
+	{
+		//-----  Cabecera del PIE --------
+		if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
+			$metodo_redeclarado = 'xml_pie_cc_cabecera__' . $nodo['corte'];
+			if(method_exists($this, $metodo_redeclarado)){
+				$descripcion = $this->$metodo_redeclarado($nodo);
+			}else{
+			 	$descripcion = $this->xml_cabecera_pie_cc_contenido($nodo);
+			}
+			$this->salida .= '<'.$this->xml_ns.'pie tipo="texto">'.$descripcion.'</'.$this->xml_ns.'pie>';
+		}
+		//----- Totales de columna -------
+		if (isset($nodo['acumulador']) && ! isset($nodo['xml_acumulador_generado'])) {
+			/*$titulos = false;
+			if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+				$titulos = true;	
+			} Se fuerza los titulos porque si no no se entiende a cual pertenece */
+			$this->xml_cuadro_totales_columnas($nodo['acumulador'], 
+												$nodo['profundidad'], 
+												true,
+												null);
+		}
+		//------ Sumarizacion AD-HOC del usuario --------
+		if(isset($nodo['sum_usuario'])){
+			foreach($nodo['sum_usuario'] as $id => $valor){
+				$desc = $this->_sum_usuario[$id]['descripcion'];
+				$datos[$desc] = $valor;
+			}
+			$this->xml_cuadro_sumarizacion($datos,null,300,$nodo['profundidad']);
+		}
+		//----- Contar Filas
+		if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
+			$etiqueta = $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
+			$this->salida .= '<'.$this->xml_ns.'pie tipo="texto">'.$etiqueta.'</'.$this->xml_ns.'pie>';
+		}
+		
+		//----- Contenido del usuario al final del PIE
+		$metodo = 'xml_pie_cc_contenido__' . $nodo['corte'];
+		if(method_exists($this, $metodo)){
+			$this->$metodo($nodo);
+		}
+	}
+
+	protected function xml_cc_inicio_nivel()
+	{
+	}
+
+	protected function xml_cc_fin_nivel()
+	{
+	}
+	
+	function xml_acumulador_usuario()
+	{
+		if (isset($this->_sum_usuario)) {
+			foreach($this->_sum_usuario as $sum) {
+				if($sum['corte'] == 'toba_total') {
+					$metodo = $sum['metodo'];
+					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
+				}
+			}
+		}
+		if (isset($sumarizacion)) {
+			$css = 'cuadro-cc-sum-nivel-1';
+			$this->xml_cuadro_sumarizacion($sumarizacion,null,300,$css);
+		}		
+	}
+
+	function xml_set_columna_ancho($efs, $ancho=null)
+	{
+		if(is_array($efs)) {
+			foreach($efs as $ef=>$ancho) {
+				$this->xml_columna[$ef]['ancho'] = $ancho;
+			}
+		} elseif($ancho) {
+			$this->xml_columna[$efs]['ancho'] = $ancho;
+		}
 	}
 }
 ?>

@@ -578,6 +578,8 @@ class toba_nucleo
 			'toba_impr_html'						=> 'nucleo/lib/salidas/toba_impr_html.php',
 			'toba_impresion'						=> 'nucleo/lib/salidas/toba_impresion.php',
 			'toba_vista_pdf'						=> 'nucleo/lib/salidas/toba_vista_pdf.php',
+			'toba_vista_xml'						=> 'nucleo/lib/salidas/toba_vista_xml.php',
+			'toba_vista_xslfo'						=> 'nucleo/lib/salidas/toba_vista_xslfo.php',
 			'toba_vista_excel'						=> 'nucleo/lib/salidas/toba_vista_excel.php',			
  			'toba_componente_definicion'			=> 'nucleo/componentes/definicion/_interfaces.php',
 			'toba_meta_clase'						=> 'modelo/info/componentes/toba_interface_meta_clase.php',

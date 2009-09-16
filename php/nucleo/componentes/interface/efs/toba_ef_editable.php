@@ -304,6 +304,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
+			case 'xml':
 			case 'pdf':
 				return $desc;	
 			case 'excel':
@@ -360,6 +361,7 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
+			case 'xml':
 			case 'pdf':
 				return $desc;	
 			break;
@@ -415,6 +417,7 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
+			case 'xml':
 			case 'pdf':
 				return $desc;	
 			case 'excel':
@@ -635,6 +638,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
+			case 'xml':
 			case 'pdf':
 				return $desc;
 			case 'excel':

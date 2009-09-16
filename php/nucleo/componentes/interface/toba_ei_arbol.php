@@ -571,5 +571,6 @@ class toba_ei_arbol extends toba_ei
 		$consumo[] = 'componentes/ei_arbol';
 		return $consumo;
 	}
+	
 }
 ?>

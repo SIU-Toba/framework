@@ -31,6 +31,8 @@ abstract class toba_ei extends toba_componente
 	protected static $refresh_ejecuta_eventos = false;
 	protected $_notificaciones = array();	
 	protected $_mostrar_barra_superior = true;			// Indica si se muestra o no la barra superior
+	protected $xml_ns = '';
+	protected $xml_ns_url = '';
 	
 	function __construct($definicion)
 	{
@@ -852,6 +854,53 @@ abstract class toba_ei extends toba_componente
 	function vista_impresion_html( $salida )
 	{
 		$salida->titulo( $this->get_nombre() );
+	}
+	
+	//---------------------------------------------------------------
+	//----------------------  SALIDA XML  ---------------------------
+	//---------------------------------------------------------------
+	
+	function xml_set_orientacion($orientacion) 
+	{
+		$this->xml_orientacion = ($orientacion == 'landscape')?'landscape':'portrait';
+	}
+	
+	function xml_set_logo($logo)
+	{
+		$this->xml_logo = $logo;
+	}
+	
+	function xml_set_subtitulo($subtitulo) 
+	{
+		$this->xml_subtitulo = $subtitulo;
+	}
+	
+	function xml_set_titulo($titulo) 
+	{
+		$this->xml_titulo = $titulo;
+	}
+	function xml_texto($texto, $atts=array())
+	{
+		$xml = '<'.$this->xml_ns.'texto valor="'.$texto.'">';
+		foreach($atts as $k=>$att) {
+			$xml .= '<'.$this->xml_ns.'att nombre="'.$k.'" valor="'.$att.'"/>';
+		}
+		if(!array_key_exists('font-size')) {
+			$xml .= '<'.$this->xml_ns.'att nombre="font-size" valor="8pt"/>';
+		}
+		$xml .= '</'.$this->xml_ns.'texto>';
+		return $xml;
+	}
+	
+	function xml_set_ns($xmlns, $url='', $usar=true)
+	{
+		if ($xmlns=='') {
+			$this->xml_ns = '';
+			$this->xml_ns_url = '';
+		} else {
+			$this->xml_ns = ($usar)?$xmlns.':':'';
+			$this->xml_ns_url= ($url!='')?' xmlns:'.$xmlns.'="'.$url.'"':'';
+		}
 	}
 }
 ?>

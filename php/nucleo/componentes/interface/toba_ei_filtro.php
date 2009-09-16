@@ -712,6 +712,57 @@ class toba_ei_filtro extends toba_ei
 		}
 	}	
 	
+	//---------------------------------------------------------------
+	//------------------------- SALIDA XML --------------------------
+	//---------------------------------------------------------------
 	
+	function vista_xml($inicial, $xmlns=null)
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		$this->_carga_opciones_ef->cargar();		
+		$formateo = new $this->_clase_formateo('xml');
+		$tmpxml = null;
+		foreach ( $this->_columnas as $columna ){
+			if (!$columna->es_visible()){
+				continue;
+			}
+				        
+			if ($columna->get_ef()->tiene_estado()) {
+				$etiqueta = $columna->get_ef()->get_etiqueta();
+				$condicion = $columna->condicion()->get_etiqueta();
+								
+				$fn_formateo = $columna->get_formateo();
+				if (! is_null($fn_formateo)){
+					$funcion = "formato_" . $fn_formateo;
+                	$valor_real = $columna->get_ef()->get_estado();
+                	$valor = $formateo->$funcion($valor_real);
+				}else{
+					$valor = $columna->get_ef()->get_descripcion_estado('xml');
+				}
+				$tmpxml .= '<'.$this->xml_ns.'fila><'.$this->xml_ns.'dato valor="'.$etiqueta.'"/><'.$this->xml_ns.'dato valor="'.$condicion.'"/><'.$this->xml_ns.'dato valor="'.$valor.'"/></'.$this->xml_ns.'fila>';
+			}
+		}
+		if($tmpxml) {
+			$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
+			if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+				$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
+			} else {
+				$xml .= ' titulo="Filtro"';
+			}
+			if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+				$xml .= ' logo="'.$this->xml_logo.'"';
+			}
+			if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+				$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+			}
+			if (isset($this->xml_orientacion)) {
+				$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+			}
+			$xml .= '><'.$this->xml_ns.'datos><'.$this->xml_ns.'col titulo="Columna"/><'.$this->xml_ns.'col titulo="Condición"/><'.$this->xml_ns.'col titulo="Valor"/>'.$tmpxml.'</'.$this->xml_ns.'datos></'.$this->xml_ns.'tabla>';
+			return $xml;
+		}
+	}	
 }
 ?>

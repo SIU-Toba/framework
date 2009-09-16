@@ -1303,5 +1303,67 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$this->_ordenes[] = 's';
 		}//if count
 	}	
+	
+	//---------------------------------------------------------------
+	//----------------------  SALIDA XML   --------------------------
+	//---------------------------------------------------------------
+			
+	function vista_xml($inicial, $xmlns=null)
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
+		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
+		}
+		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+			$xml .= ' logo="'.$this->xml_logo.'"';
+		}
+		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+		}
+		if (isset($this->xml_orientacion)) {
+			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+		}
+		$xml .= '>';
+		$this->totalizar_columnas_impresion();		
+		$formateo = new $this->_clase_formateo('xml');
+		//-- Encabezado
+		if(isset($this->_lista_ef_post) || $this->_ordenes) {
+			$xml .= '<'.$this->xml_ns.'datos>';
+			foreach ($this->_lista_ef_post	as	$ef){
+				$xml .= '<'.$this->xml_ns.'col titulo="'.$this->_elemento_formulario[$ef]->get_etiqueta().'"/>';
+			}
+			
+			//-- Cuerpo
+			if( isset( $this->_ordenes ) ) {
+				foreach ($this->_ordenes as $fila) {
+					$xml .= '<'.$this->xml_ns.'fila>';
+					$dato = $this->_datos[$fila];
+					$this->cargar_registro_a_ef($fila, $dato);
+					$this->_carga_opciones_ef->cargar();
+					
+					foreach ($this->_lista_ef_post as $ef){
+						$this->_elemento_formulario[$ef]->ir_a_fila($fila);
+						//Hay que formatear? Le meto pa'delante...
+						if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+							$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+							$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+							$valor = $formateo->$funcion($valor_real);
+						}else{
+							$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('xml');
+			        		}	
+			        		$xml .= '<'.$this->xml_ns.'dato clave="'.$ef.'" valor="'.$valor.'"/>';
+					}
+					$xml .= '</'.$this->xml_ns.'fila>';
+				}
+			}
+			$xml .= '</'.$this->xml_ns.'datos>';
+		}
+		
+		$xml .= '</'.$this->xml_ns.'tabla>';
+		return $xml;
+	}
 }
 ?>

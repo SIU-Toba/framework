@@ -186,7 +186,55 @@ class toba_ei_esquema extends toba_ei
 			toba::logger()->error("El archivo $path_completo no se encuentra");
 		}
 	}
+	
+	//---------------------------------------------------------------
+	//------------------------- SALIDA XML --------------------------
+	//---------------------------------------------------------------
 
+	function vista_xml($inicial, $xmlns=null) 
+	{
+		if ($xmlns) {
+			$this->xml_set_ns($xmlns);
+		}
+		if (isset($this->_memoria['parametros'])) {
+			$contenido = $this->_memoria['parametros']['contenido'];
+			$formato = $this->_memoria['parametros']['formato'];
+			$es_dirigido = $this->_memoria['parametros']['es_dirigido'];
+			$archivo = self::generar_archivo($contenido, 'svg', $es_dirigido);
+			$dir_temp = toba::instalacion()->get_path_temp();
+			$xml = '<'.$this->xml_ns.'img type ="svg"'.$this->xml_ns_url;
+			if(isset($this->xml_caption)) {
+				$xml .= ' caption="'.$this->xml_caption.'"';
+			}
+			if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+				$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
+			}
+			if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+				$xml .= ' logo="'.$this->xml_logo.'"';
+			}
+			if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+				$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+			}
+			if (isset($this->xml_orientacion)) {
+				$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+			}
+			$xml .= ' src="'.toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $archivo ).'">';
+			$svg = file_get_contents(toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $archivo ));
+			$svg = substr($svg, stripos($svg, '<svg'));
+			$svg = substr($svg, 0, strripos($svg, '</svg>')+6);
+			$enc = mb_detect_encoding($svg);
+			if (strtolower(substr($enc, 0, 8)) != 'iso-8859') {
+				$svg = iconv($enc, 'iso-8859-1', $svg);
+			}
+			$xml .= $svg.'</'.$this->xml_ns.'img>';
+			return $xml;
+		}
+	}
+	
+	function xml_set_caption($caption)
+	{
+		$this->xml_caption = $caption;
+	}
 }
 
 ?>
