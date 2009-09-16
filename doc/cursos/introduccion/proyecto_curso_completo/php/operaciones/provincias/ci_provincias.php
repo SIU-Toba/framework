@@ -8,7 +8,7 @@ class ci_provincias extends toba_ci
 		$datos = toba::consulta_php('soe_consultas')->get_provincias();
 		$componente->set_datos($datos);
 	}
-	
+
 	function evt__cuadro__seleccion($seleccion)
 	{
 		//toba::logger()->notice($seleccion);
@@ -23,7 +23,7 @@ class ci_provincias extends toba_ci
 			$datos = $this->dep('tabla_provincias')->get();
 			$componente->set_datos($datos);	
 			$componente->ef('idprovincia')->set_solo_lectura();
-			$componente->evento('baja')->set_msg_confirmacion("¿Eliminar provincia \'\'{$datos['nombre']}\'\'?");			
+			$componente->evento('baja')->set_msg_confirmacion("¿Eliminar provincia \'\'{$datos['nombre']}\'\'?");
 		}
 	}
 
@@ -37,18 +37,18 @@ class ci_provincias extends toba_ci
 		} catch (toba_error_db $e) {
 			$sqlstate = $e->get_sqlstate();
 			if ($sqlstate == 'db_23505') {
-				toba::notificacion()->agregar('El codigo se encuentra duplicado');				
+				toba::notificacion()->agregar('El código se encuentra duplicado.');
 			}
 		}
 	}
-	
+
 	function evt__form__modificacion($datos)
 	{
 		$this->validar_datos($datos);
 		$this->dep('tabla_provincias')->set($datos);
 		$this->dep('tabla_provincias')->sincronizar();
 		$this->dep('tabla_provincias')->resetear();
-	}	
+	}
 
 	function evt__form__baja()
 	{
@@ -66,11 +66,11 @@ class ci_provincias extends toba_ci
 	{
 		$this->dep('tabla_provincias')->resetear();
 	}
-	
+
 	function validar_datos($datos)
 	{
 		if (strlen($datos['nombre']) < 5) {
-			throw new toba_error('El nombre es muy corto');
+			throw new toba_error('El nombre ingresado es demasiado corto.');
 		}
 	}
 }

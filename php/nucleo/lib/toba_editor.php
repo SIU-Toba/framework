@@ -40,9 +40,13 @@ class toba_editor
 		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
 		if ($fuente) {
 			//Pone la base por defecto en modo debug, para leer la cantidad y tiempo de las querys
-			$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
-			if ($base) {
-				$base->set_modo_debug(true, false);
+			try {
+				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+				if ($base) {
+					$base->set_modo_debug(true, false);
+				}				
+			} catch (toba_error $e) {
+				//Si no se tiene acceso a la base no se hace nada
 			}
 		}
 		//toba::db()->set_modo_debug(true, true);
@@ -380,17 +384,23 @@ class toba_editor
 		//Base de datos
 		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
 		if ($fuente) {
-			$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
-			$info_db = $base->get_info_debug();
-			$total = 0;
-			foreach($info_db as $info) {
-				if (isset($info['fin'])) {
-					$total += ($info['fin'] - $info['inicio']);
+			try {
+				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+				$info_db = $base->get_info_debug();
+				$total = 0;
+				foreach($info_db as $info) {
+					if (isset($info['fin'])) {
+						$total += ($info['fin'] - $info['inicio']);
+					}
 				}
-			}
-			toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
-			echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
-				count($info_db). "</a>";
+				toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
+				echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
+					count($info_db). "</a>";
+					
+			} catch (toba_error $e) {
+				//Si no se tiene acceso a la base no se hace nada
+			}			
 		}
 		
 		//Archivos

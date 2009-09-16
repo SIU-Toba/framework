@@ -21,7 +21,7 @@ class ci_edi_sedes extends toba_ci
 	function conf__form_sedes($componente)
 	{
 		$componente->set_datos($this->datos()->tabla('sede')->get());
-		if($this->datos()->esta_cargada()) {
+		if ($this->datos()->esta_cargada()) {
 			$componente->ef('institucion')->set_solo_lectura();
 		}
 	}
@@ -63,7 +63,7 @@ class ci_edi_sedes extends toba_ci
 
 	function conf__form_edificios($componente)
 	{
-		if($this->datos()->tabla('edificios')->hay_cursor()) {
+		if ($this->datos()->tabla('edificios')->hay_cursor()) {
 			$componente->set_datos($this->datos()->tabla('edificios')->get());
 		}
 	}

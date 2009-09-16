@@ -353,7 +353,7 @@ function abrir_popup(id, url, opciones, extra, dep) {
 	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus || (window.opera && ventaja_hija[id].opera);
 	if (no_esta_definida) {
 		// No fue definida, esta cerrada o no puede tener foco
-		ventana_hija[id] = window.open(url, "ventana" + id, vars);
+		ventana_hija[id] = window.open(url, "ventana_" + id, vars);
 		if (isset(ventana_hija[id]) && (! window.opera || ventana_hija[id].opera)) {
 			ventana_hija[id].focus();
 		} else {

@@ -181,11 +181,11 @@ class toba_dba
 									$server );
 		$objeto_db->conectar();
 		//Si existe el parametro del schema, ponerlo por defecto para la conexión
-		if (isset($parametros['schema'])) {
+		if (isset($parametros['schema']) && $parametros['schema'] != '') {
 			$objeto_db->set_schema($parametros['schema']);
 		}		
 		//Si existe el parametro del encoding, ponerlo por defecto para la conexión
-		if (isset($parametros['encoding'])) {
+		if (isset($parametros['encoding']) && $parametros['encoding'] != '') {
 			$objeto_db->set_encoding($parametros['encoding']);
 		}			
 		return $objeto_db;

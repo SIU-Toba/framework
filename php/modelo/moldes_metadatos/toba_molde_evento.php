@@ -35,9 +35,10 @@ class toba_molde_evento
 		$this->datos['maneja_datos'] = 1;
 	}
 	
-	function en_botonera()
+	function en_botonera($activar=true)
 	{
-		$this->datos['en_botonera'] = 1;
+		$estado = $activar ? 1 : 0;
+		$this->datos['en_botonera'] = $estado;
 		$this->datos['sobre_fila'] = 0;
 	}
 

@@ -447,6 +447,7 @@ class comando_proyecto extends comando_toba
 		$logger = toba_logger::instancia($proyecto);
 		$archivo = $logger->directorio_logs()."/sistema.log";		
 		$analizador = new toba_analizador_logger_fs($archivo);
+		$analizador->procesar_entidades_html(false);
 
 		//Identifico el ID de log a cargar
 		$param = $this->get_parametros();

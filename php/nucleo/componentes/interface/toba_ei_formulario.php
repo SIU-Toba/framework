@@ -656,11 +656,31 @@ class toba_ei_formulario extends toba_ei
 	 */	
 	function servicio__mostrar_captchas_efs()
 	{
-		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_antispam.php');
-		$texto = toba::memoria()->get_dato_sincronizado('texto-captcha');
+		$texto 		= toba::memoria()->get_dato_operacion('texto-captcha');
+		$parametros = toba::memoria()->get_dato_operacion('parametros-captcha');
+		$refrescar  = toba::memoria()->get_parametro('refrescar');
+
+		if (isset($refrescar)) {
+			$texto = null;
+		}
+		
+		$antispam = new toba_imagen_captcha($texto);
+		
+		if (!isset($texto)) {
+			$tamanio = toba::memoria()->get_dato_operacion('tamanio-texto-captcha');
+			toba::logger()->debug($tamanio);
+			$texto   = $antispam->generateCode($tamanio);
+			$antispam->set_codigo($texto);
+			toba::memoria()->set_dato_operacion('texto-captcha', $texto);
+		}
+		
 		toba::logger()->debug('Texto CAPTCHA: ' . $texto);
-		$antispam = new AntiSpam($texto);
-		$antispam->Stroke();
+		
+		if (isset($parametros)) {
+			$antispam->set_parametros_captcha($parametros);
+		}
+				
+		$antispam->show();
 	}
 
 	/**

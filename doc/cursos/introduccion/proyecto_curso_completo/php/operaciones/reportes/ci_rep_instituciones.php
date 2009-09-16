@@ -5,7 +5,7 @@ class ci_rep_instituciones extends toba_ci
 
 	function conf()
 	{
-		if (!isset($this->s__filtro)){
+		if (!isset($this->s__filtro)) {
 			$this->pantalla()->eliminar_evento('imprimir');
 		}
 	}

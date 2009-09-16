@@ -79,11 +79,11 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1000717', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
+	'500px', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -108,7 +108,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000431', --pantalla
 	'institucion', --identificador
 	'1', --orden
-	'Datos Institucion', --etiqueta
+	'Datos Institución', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -145,7 +145,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'curso', --proyecto
 	'1000431', --pantalla
 	'1000717', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'1000559'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (

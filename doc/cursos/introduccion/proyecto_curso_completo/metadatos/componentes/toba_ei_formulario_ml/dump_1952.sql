@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1952]--  CRUD Jurisdicciones - form 
+--[1952]--  Jurisdicciones - form 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'CRUD Jurisdicciones - form', --nombre
+	'Jurisdicciones - form', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'ID', --etiqueta
+	'Código', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado

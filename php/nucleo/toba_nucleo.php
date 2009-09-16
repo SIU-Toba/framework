@@ -667,8 +667,8 @@ class toba_nucleo
 			'toba_rf_carpeta'                  		=>  '/modelo/info/componentes_perfil/toba_rf_carpeta.php',             
 			'toba_rf_pantalla'               		=>  '/modelo/info/componentes_perfil/toba_rf_pantalla.php',     			
  			//------------------------- 3ros --------------------------------------
- 			'Numbers_Words_es_Ar'					=> '3ros/Numbers_Words/Words/lang.es_AR.php'
- 			
+ 			'Numbers_Words_es_Ar'					=> '3ros/Numbers_Words/Words/lang.es_AR.php',
+ 			'toba_imagen_captcha'					=> 'nucleo/lib/salidas/toba_imagen_captcha.php'
 		);
 	}
 

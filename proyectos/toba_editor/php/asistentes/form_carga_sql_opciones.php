@@ -12,7 +12,7 @@ class form_carga_sql_opciones extends toba_ei_formulario
 	protected function generar_input_ef($ef)
 	{
 		if ($ef == 'carga_php_metodo') {
-			echo $this->_elemento_formulario[$ef]->get_input();
+			parent::generar_input_ef($ef);
 			$this->generar_input_ef('carga_php_metodo_nuevo');				
 		} else {
 			parent::generar_input_ef($ef);	
@@ -54,9 +54,9 @@ class form_carga_sql_opciones extends toba_ei_formulario
 		{
 			if (this.ef('carga_origen').get_estado() == 'consulta_php') {
 				if (this.ef('carga_php_metodo').get_estado() == apex_ef_no_seteado) {
-					this.ef('carga_php_metodo_nuevo').mostrar();
+					this.ef('carga_php_metodo_nuevo').input().style.display = '';
 				} else {
-					this.ef('carga_php_metodo_nuevo').ocultar();
+					this.ef('carga_php_metodo_nuevo').input().style.display = 'none';
 				}
 			}
 		}		

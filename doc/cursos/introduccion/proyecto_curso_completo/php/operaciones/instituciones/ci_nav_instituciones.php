@@ -33,21 +33,21 @@ class ci_nav_instituciones extends toba_ci
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- Pantallas ----------------------------------------------------------------------
+	//---- Pantallas --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function conf__edicion()
 	{
 		if (!$this->dep('datos')->esta_cargada() ) {
-			$this->pantalla()->eliminar_evento('eliminar');	
+			$this->pantalla()->eliminar_evento('eliminar');
 		}
-	}	
+	}
 
 	//-----------------------------------------------------------------------------------
 	//---- DEPENDENCIAS -----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	//---- filtro_instituciones -----------------------------------------------------------------
+	//---- filtro_instituciones ---------------------------------------------------------
 
 	function evt__filtro_instituciones__filtrar($datos)
 	{
@@ -61,11 +61,11 @@ class ci_nav_instituciones extends toba_ci
 
 	function conf__filtro_instituciones($componente)
 	{
-		if(isset($this->s__filtro_institucion)){
+		if (isset($this->s__filtro_institucion)) {
 			$componente->set_datos($this->s__filtro_institucion);
 		}
 	}
-	
+
 	//---- cuadro_instituciones ---------------------------------------------------------
 
 	function evt__cuadro_instituciones__seleccion($seleccion)
@@ -76,10 +76,10 @@ class ci_nav_instituciones extends toba_ci
 
 	function conf__cuadro_instituciones($componente)
 	{
-		if(isset($this->s__filtro_institucion)){
-			$where = $this->dep('filtro_instituciones')->get_sql_where();	
+		if (isset($this->s__filtro_institucion)) {
+			$where = $this->dep('filtro_instituciones')->get_sql_where();
 			$datos = toba::consulta_php('soe_consultas')->get_instituciones($where);
-		}else{
+		} else {
 			$datos = toba::consulta_php('soe_consultas')->get_instituciones();
 		}
 		$componente->set_datos($datos);

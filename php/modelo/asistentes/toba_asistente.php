@@ -499,7 +499,7 @@ abstract class toba_asistente
 				$existente = toba_archivo_php::codigo_sacar_tags_php(file_get_contents($path));
 			}			
 			$php = $clase->generar_codigo($existente);
-			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php" . $php . "?>");
+			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php\n" . $php . "\n?>");
 			$this->registrar_elemento_creado(	'Archivo consultas', 
 												$this->get_proyecto(),
 												$this->id_molde_proyecto );

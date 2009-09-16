@@ -59,7 +59,7 @@ class soe_consultas
 	function get_provincias($pais=null)
 	{
 		$where = array();
-		if (isset($pais) && ! is_null($pais)){
+		if (isset($pais) && !is_null($pais)) {
 			$where[] = " p.idpais = ". quote($pais);
 		}
 		$sql = "SELECT 	p.idprovincia as 		id,
@@ -70,7 +70,7 @@ class soe_consultas
 						ona_pais pp
 				WHERE 	pp.idpais = p.idpais
 				ORDER by 2";
-		if(count($where)>0) {
+		if (count($where) > 0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}				
 		toba::logger()->debug($sql);

@@ -8,7 +8,13 @@ class toba_migracion_1_4_0 extends toba_migracion
 	 */
 	function instancia__cambios_estructura()
 	{
-		$sql = array();
+		/**
+		 * Se evita el mensaje 'ERROR:  cannot ALTER TABLE "apex_objeto" because it has pending trigger events' de postgres 8.3
+		 */
+		$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		$sql = array();		
 		//-----------------Tabla para especificar que columnas participan de la sumatoria de un corte de control----------------------
 		$sql[] = 'CREATE TABLE apex_objeto_cuadro_col_cc(
 							objeto_cuadro_cc BIGINT NULL,
@@ -137,6 +143,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 			);';
 		 
 		$this->elemento->get_db()->ejecutar($sql);		
+		
+		$sql = "SET CONSTRAINTS ALL DEFERRED;";
+		$this->elemento->get_db()->ejecutar($sql);
 	}
 
 	/**

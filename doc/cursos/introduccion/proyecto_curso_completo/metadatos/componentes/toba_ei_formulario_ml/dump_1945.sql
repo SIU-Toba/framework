@@ -100,7 +100,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --clase_proyecto
 	NULL, --clase
 	NULL, --auto_reset
-	NULL, --ancho
+	'100%', --ancho
 	NULL, --ancho_etiqueta
 	NULL, --expandir_descripcion
 	NULL, --campo_bl
@@ -215,7 +215,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Tipoua', --etiqueta
+	'Tipo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -223,15 +223,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_tiposua', --carga_metodo
-	'soe_consultas', --carga_clase
-	'lib/soe_consultas.php', --carga_include
+	NULL, --carga_clase
+	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
+	'3', --carga_consulta_php
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
@@ -241,7 +241,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_cascada_relaj
 	'0', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

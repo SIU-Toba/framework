@@ -22,7 +22,7 @@ class toba_cn extends toba_componente
 		foreach( $this->_lista_dependencias as $dep){
 			$this->cargar_dependencia($dep);
 			$this->_dependencias[$dep]->set_controlador($this, $dep);
-			$this->dep($dep);
+			$this->dep($dep)->inicializar();
 		}		
 	}
 	

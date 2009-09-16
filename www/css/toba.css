@@ -441,6 +441,9 @@ padding-left:4px;
 	margin-bottom: 5px;
 	margin-left: 4px;
 }
+.ef-captcha img {
+	vertical-align: middle;
+}
 .ef-popup a {
 	margin-right:5px;
 }

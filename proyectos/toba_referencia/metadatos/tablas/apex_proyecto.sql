@@ -12,7 +12,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --frames_archivo
 	NULL, --salida_impr_html_c
 	NULL, --salida_impr_html_a
-	'libmenu', --menu
+	'css', --menu
 	NULL, --path_includes
 	NULL, --path_browser
 	NULL, --administrador

@@ -119,8 +119,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL, --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0', --resaltar_efs_con_estado
 	NULL  --template
 );
 
@@ -137,7 +137,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_captcha', --elemento_formulario
 	'ef_antispam', --columnas
 	'1', --obligatorio
-	'0', --oculto_relaja_obligatorio
+	'1', --oculto_relaja_obligatorio
 	'1', --orden
 	'Código de verificación', --etiqueta
 	NULL, --etiqueta_estilo
@@ -147,8 +147,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo

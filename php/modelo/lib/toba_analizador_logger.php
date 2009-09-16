@@ -5,12 +5,18 @@ class toba_analizador_logger_fs
 	protected $archivo;
 	protected $filtros;
 	protected $ultimo_lugar;
+	protected $procesar_entidades_html = true;
 	
 	function __construct($archivo)
 	{
 		$this->archivo = $archivo;
 	}
-	
+
+	function procesar_entidades_html($activar=true)
+	{
+		$this->procesar_entidades_html = $activar;
+	}
+		
 	function analizar_cuerpo($log)
 	{
 		$cuerpo = array();
@@ -122,10 +128,12 @@ class toba_analizador_logger_fs
 		{
 				if (isset($this->filtros) && (!empty($this->filtros))){
 					if ($this->cumple_criterio_filtro($logs[$id])){
-							$logs_filtrados[] = texto_plano($logs[$id]);
+							$texto = $this->procesar_entidades_html ? texto_plano($logs[$id]) : $logs[$id];
+							$logs_filtrados[] = $texto;
 					}
 				}else{
-					$logs[$id] = texto_plano($logs[$id]);
+					$texto = $this->procesar_entidades_html ? texto_plano($logs[$id]) : $logs[$id];
+					$logs[$id] = $texto;
 				}
 		}
 		if (isset($this->filtros) && (!empty($this->filtros))){

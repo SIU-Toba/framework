@@ -244,7 +244,7 @@ class toba_ei_filtro extends toba_ei
 		if (! empty($clausulas)) {
 			return "\t\t".implode("\n\t$separador\t", $clausulas);
 		} else {
-			return 'true';
+			return '1=1';
 		}
 	}
 

@@ -92,7 +92,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columnas_clave
 	'1', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
+	'100%', --ancho
 	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
@@ -101,7 +101,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --eof_customizado
 	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -153,7 +153,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );
@@ -167,7 +167,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -184,7 +184,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );
@@ -194,11 +194,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'580', --objeto_cuadro_col
 	'numero', --clave
 	'3', --orden
-	'Numero', --titulo
+	'Número', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -215,7 +215,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );
@@ -229,7 +229,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -246,7 +246,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );
@@ -256,11 +256,11 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'582', --objeto_cuadro_col
 	'depto', --clave
 	'5', --orden
-	'Depto', --titulo
+	'Departamento', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -277,7 +277,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );

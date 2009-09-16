@@ -4,6 +4,11 @@ class toba_migracion_1_3_0 extends toba_migracion
 {
 	function instancia__cambios_estructura()
 	{
+		/**
+		 * Se evita el mensaje 'ERROR:  cannot ALTER TABLE "apex_objeto" because it has pending trigger events' de postgres 8.3
+		 */
+		$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+		$this->elemento->get_db()->ejecutar($sql);
 		$sql = array();
 		$sql[] = "ALTER TABLE apex_objeto ALTER COLUMN subclase_archivo TYPE VARCHAR(255);";
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN tiempo_espera_ms INTEGER;";
@@ -14,6 +19,9 @@ class toba_migracion_1_3_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_servicio VARCHAR(100);";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN grupo VARCHAR(255);";
 		$sql[] = "ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN carga_no_seteado_ocultar SMALLINT;";
+		$this->elemento->get_db()->ejecutar($sql);
+		
+		$sql = "SET CONSTRAINTS ALL DEFERRED;";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	

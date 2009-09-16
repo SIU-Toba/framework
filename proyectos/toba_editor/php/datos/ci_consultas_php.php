@@ -29,7 +29,7 @@ class ci_consultas_php extends toba_ci
 		$clave = $this->dependencia('datos')->get_clave_valor(0);
 		$zona = toba::solicitud()->zona();
 		if (! $zona->cargada()) {
-			$zona->cargar(array_values($clave));
+			$zona->cargar(array($clave['proyecto'],$clave['consulta_php']));
 		}
 		$this->carga_ok = true;
 		admin_util::refrescar_barra_lateral();

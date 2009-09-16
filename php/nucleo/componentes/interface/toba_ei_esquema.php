@@ -19,6 +19,8 @@ class toba_ei_esquema extends toba_ei
 		parent::__construct($id);
 		$this->_alto = isset($this->_info_esquema['alto']) ?  $this->_info_esquema['alto'] : null;
 		$this->_ancho = isset($this->_info_esquema['ancho']) ?  $this->_info_esquema['ancho'] : null;
+		//TODO: Hack para navegacion ajax con windows
+		toba_ci::set_navegacion_ajax(false);
 	}
 
 	/**

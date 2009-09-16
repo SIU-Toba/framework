@@ -52,18 +52,283 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 		$sql= "ALTER TABLE apex_objeto				ADD COLUMN identificador				varchar;";
 		$this->elemento->get_db()->ejecutar($sql);
-		$sql = "SET CONSTRAINTS ALL DEFERRED;";
-		$this->elemento->get_db()->ejecutar($sql);
-		
 		
 		//-- Dimensiones
-		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a06_tablas_dimensiones.sql';
-		$this->elemento->get_db()->ejecutar_archivo($archivo);
+		$sql = <<<EOF
+CREATE SEQUENCE apex_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_tarea
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto, tarea
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	tarea						int8			DEFAULT nextval('"apex_tarea_seq"'::text) NOT NULL, 
+	nombre						varchar(60)		NULL,	
+	tarea_clase					varchar(120)	NOT NULL,
+	tarea_objeto				bytea			NOT NULL,	
+	ejecucion_proxima			timestamp		NOT NULL,	
+	intervalo_repeticion		interval		NULL,				
+  	CONSTRAINT "apex_tarea_pk" PRIMARY KEY("tarea","proyecto"),
+  	CONSTRAINT "apex_tarea_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+CREATE INDEX index_apex_tarea_proxima_ejecucion ON apex_tarea(ejecucion_proxima);
+
+
+
+--#################################################################################################
+
+CREATE SEQUENCE apex_log_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_log_tarea
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto, log_tarea
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	log_tarea					int8			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
+	tarea						int8			NOT NULL,	
+	nombre						varchar(60)		NULL,	
+	tarea_clase					varchar(120)	NOT NULL,
+	tarea_objeto				bytea			NOT NULL,	
+	ejecucion					timestamp		NOT NULL,
+  	CONSTRAINT "apex_log_tarea_pk" PRIMARY KEY("log_tarea","proyecto"),
+  	CONSTRAINT "apex_log_tarea_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+		
+--*******************************************************************************************
+--*******************************************************************************************
+--*****************************		RELACIONES		 ****************************************
+--*******************************************************************************************
+--*******************************************************************************************
+
+CREATE SEQUENCE apex_relacion_tablas_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_relacion_tablas
+--------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: relacion_tablas
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	fuente_datos_proyecto			varchar(15)		NOT NULL,
+	fuente_datos					varchar(20)		NOT NULL,
+	proyecto						varchar(15)		NOT NULL,
+	relacion_tablas					int4			DEFAULT nextval('"apex_relacion_tablas_seq"'::text) NOT NULL,
+	tabla_1							varchar(80)		NOT NULL,
+	tabla_1_cols					varchar			NOT NULL,
+	tabla_2							varchar(80)		NOT NULL,
+	tabla_2_cols					varchar			NOT NULL,
+	CONSTRAINT	"apex_relacion_tablas_pk" PRIMARY	KEY ("relacion_tablas"),
+	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_relacion_tablas_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+);
+
+--*******************************************************************************************
+--*******************************************************************************************
+--*****************************		DIMENSIONES		 ****************************************
+--*******************************************************************************************
+--*******************************************************************************************
+
+CREATE SEQUENCE apex_dimension_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_dimension
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: dimension
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						varchar(15)		NOT NULL,
+	dimension						int4			DEFAULT nextval('"apex_dimension_seq"'::text) NOT NULL,
+	nombre							varchar(80)		NOT NULL,
+	descripcion						varchar(255)	NULL,
+	schema							varchar(60)		NULL,
+	tabla							varchar(80)		NOT NULL,
+	col_id							varchar			NOT NULL,
+	col_desc						varchar(250)	NOT NULL,
+	col_desc_separador				varchar(40)		NULL,
+	multitabla_col_tabla			varchar(80)		NULL,
+	multitabla_id_tabla				varchar(40)		NULL,
+	fuente_datos_proyecto			varchar(15)		NOT NULL,
+	fuente_datos					varchar(20)		NOT NULL,
+	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_dimension_pk" PRIMARY	KEY ("proyecto","dimension"),
+	CONSTRAINT	"apex_dimension_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+);
+--###################################################################################################
+
+CREATE SEQUENCE apex_dimension_gatillo_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_dimension_gatillo
+--------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: gatillo
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						varchar(15)		NOT NULL,
+	dimension						int4			NOT NULL,
+	gatillo							int4			DEFAULT nextval('"apex_dimension_gatillo_seq"'::text) NOT NULL,
+	tipo							varchar(20)		NOT NULL, 		-- 'directo' | 'indirecto'
+	orden							int4			NOT NULL,
+	tabla_rel_dim					varchar(80)		NOT NULL,		-- Tabla usada como gatillo
+	columnas_rel_dim				varchar			NULL,			-- Solo para directos. Si tiene mas de una columna, expresada en el mismo orden que la definicion de la dim
+	tabla_gatillo					varchar(80)		NULL,			-- Solo para indirectos. referencia a un gatillo directo
+	ruta_tabla_rel_dim				varchar			NULL,			-- Solo para indirectos. Ruta entre la tabla_rel_dim del gatillo indirecto y la tabla_rel_dim del gatillo directo. Si esta vacio es porque las dos tablas tienen entre si un FK en la db, sino, la ruta que las vincula. Estas relaciones tienen que exitir en la tabla de relaciones que esta arriba en el archivo
+	CONSTRAINT	"apex_dimension_gatillo_pk" PRIMARY	KEY ("proyecto", "gatillo"),
+	CONSTRAINT	"apex_dimension_gatillo_uq_tabla" UNIQUE ("proyecto","dimension","tabla_rel_dim"),
+	CONSTRAINT	"apex_dimension_gatillo_fk_dim"	FOREIGN KEY	("proyecto","dimension") REFERENCES	"apex_dimension" ("proyecto","dimension") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+);
+
+--###################################################################################################
+
+EOF;
+		$this->elemento->get_db()->ejecutar($sql);
 		
 		//-- Nuevo ei-filtro
-		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a14_componente_ei_filtro.sql';
-		$this->elemento->get_db()->ejecutar_archivo($archivo);
-		
+		$sql = <<<EOF
+--********************************************************************************************
+--**************************************  FILTRO *****************************************
+--********************************************************************************************
+
+CREATE TABLE apex_objeto_ei_filtro_tipo_col
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: tipo_col
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	tipo_col						varchar(30)		NOT NULL,
+	descripcion						varchar(50)		NOT NULL,
+	proyecto						varchar(15)		NOT NULL,
+	CONSTRAINT	"apex_ei_filtro_tipo_col_pk" 			PRIMARY KEY ("tipo_col"),
+	CONSTRAINT	"apex__ei_filtro_tipo_col_fk_proyecto" 	FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+);
+--#################################################################################################
+
+
+CREATE TABLE apex_objeto_ei_filtro
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_ei_filtro_proyecto
+--: dump_clave_componente: objeto_ei_filtro
+--: dump_order_by: objeto_ei_filtro
+--: dump_where: ( objeto_ei_filtro_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_ei_filtro_proyecto    	varchar(15)		NOT NULL,
+	objeto_ei_filtro       			int4  			NOT NULL,
+	ancho                  				varchar(10)    	NULL,
+	CONSTRAINT  "apex_ei_filtro_pk" PRIMARY KEY ("objeto_ei_filtro_proyecto", "objeto_ei_filtro"),
+	CONSTRAINT  "apex_ei_filtro_fk_objeto" FOREIGN KEY ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") REFERENCES "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
+
+
+CREATE SEQUENCE apex_objeto_ei_filtro_col_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_ei_filtro_col
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_ei_filtro_proyecto
+--: dump_clave_componente: objeto_ei_filtro
+--: dump_order_by: objeto_ei_filtro_col
+--: dump_where: ( objeto_ei_filtro_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_ei_filtro_col				int4			DEFAULT nextval('"apex_objeto_ei_filtro_col_seq"'::text) NOT NULL,
+	objeto_ei_filtro            		int4			NOT NULL,
+	objeto_ei_filtro_proyecto    		varchar(15)		NOT NULL,
+	tipo								varchar(30)		NOT NULL,
+	nombre								varchar(255)	NOT NULL,
+	expresion							varchar(255)	NOT NULL,
+	etiqueta							varchar(80)    	NULL,
+	descripcion             			varchar        	NULL,
+	obligatorio             			smallint       	NOT NULL DEFAULT 0,
+	inicial								smallint		NOT NULL DEFAULT 0,
+	orden								smallint		NOT NULL DEFAULT 0,
+	estado_defecto						varchar(255)	NULL,
+	opciones_es_multiple				smallint		NULL,
+	opciones_ef							varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
+
+	-- Parametros de los efs
+	carga_metodo						varchar(100)	NULL,	-- carga ci
+	carga_clase							varchar(100)	NULL,	-- carga estatico
+	carga_include						varchar(255)	NULL,
+	carga_dt							int4			NULL,	--carga datos_tabla
+	carga_consulta_php					int4			NULL,	--carga consulta_php
+	carga_sql							varchar			NULL,	--carga sql
+	carga_fuente						varchar(30)		NULL,
+	carga_lista							varchar(255)	NULL,	--carga lista
+	carga_col_clave						varchar(100)	NULL,
+	carga_col_desc						varchar(100)	NULL,
+	carga_no_seteado					varchar(100)	NULL,
+	edit_tamano							smallint		NULL,
+	edit_maximo							smallint		NULL,
+	edit_mascara						varchar(100)	NULL,
+	edit_unidad							varchar(255)	NULL,
+	edit_rango							varchar(100)	NULL,
+	edit_expreg							varchar(255)	NULL,
+	popup_item							varchar(60)		NULL,
+	popup_proyecto						varchar(15)		NULL,
+	popup_editable						smallint		NULL,
+	popup_ventana						varchar(50)		NULL,
+	popup_carga_desc_metodo				varchar(100)	NULL,
+	popup_carga_desc_clase				varchar(100)	NULL,
+	popup_carga_desc_include			varchar(255)	NULL,
+	popup_puede_borrar_estado			smallint 		NULL,
+	check_valor_si						varchar(40)		NULL,
+	check_valor_no						varchar(40)		NULL,
+	check_desc_si						varchar(100)	NULL,
+	check_desc_no						varchar(100)	NULL,
+	selec_cant_minima					smallint		NULL,
+	selec_cant_maxima					smallint		NULL,
+	selec_utilidades					smallint		NULL,
+	selec_tamano						smallint		NULL,
+	selec_ancho							varchar(30)		NULL,
+	selec_serializar					smallint		NULL,
+	selec_cant_columnas					smallint		NULL,
+	CONSTRAINT  "apex_ei_filtro_col_pk" PRIMARY KEY ("objeto_ei_filtro_col", "objeto_ei_filtro", "objeto_ei_filtro_proyecto"),
+	CONSTRAINT  "apex_ei_filtro_col_fk_padre" FOREIGN KEY ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") REFERENCES "apex_objeto_ei_filtro" ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_filtro_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_objeto_ei_filtro_tipo_col" ("tipo_col") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_filtro_col_fk_ef" FOREIGN KEY ("opciones_ef") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_ei_filtro_col_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","popup_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+);
+--###################################################################################################
+EOF;
+		$this->elemento->get_db()->ejecutar($sql);
+
 		//-- Cosas sueltas		
 		$sql = array();
 		$sql[] = "ALTER TABLE apex_fuente_datos			ADD COLUMN schema								varchar;";
@@ -195,6 +460,8 @@ class toba_migracion_1_2_0 extends toba_migracion
 		
 		$this->elemento->get_db()->ejecutar($sql);	
 
+		$sql = "SET CONSTRAINTS ALL DEFERRED;";
+		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	
 	function instancia__preparar_modelo_para_mysql()

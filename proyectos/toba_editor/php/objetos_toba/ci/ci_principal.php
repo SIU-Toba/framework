@@ -315,13 +315,14 @@ class ci_editor extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		
 		$objetos_en_pantalla =  array();
 		foreach($ids as $id){
 			$obj_a = $this->get_entidad()->tabla('objetos_pantalla')->get_fila_columna($id, 'dependencia');
-			$objetos_en_pantalla[] = array('dependencia' => $obj_a);
+			$orden = $this->get_entidad()->tabla('objetos_pantalla')->get_fila_columna($id, 'orden');
+			$objetos_en_pantalla[] = array('dependencia' => $obj_a, 'orden' => $orden);
 		}
-		$componente->set_datos($objetos_en_pantalla);
+		$salida = rs_ordenar_por_columna($objetos_en_pantalla, 'orden');
+		$componente->set_datos($salida);
 	}
 
 	function evt__pantallas_ei__modificacion($datos)
@@ -363,7 +364,7 @@ class ci_editor extends ci_editores_toba
 	//--- Asociacion de EVENTOS a pantallas  ---------------
 	//------------------------------------------------------
 
-	function conf__pantallas_evt()
+	function conf__pantallas_evt(toba_ei_formulario $form)
 	{
 		$datos = array();
 		//Meto los eventos asociados actuales por si agregaron alguno.
@@ -379,7 +380,7 @@ class ci_editor extends ci_editores_toba
 			$evt_involucrado = $this->get_entidad()->tabla('eventos')->get_fila_columna(current($id_evt_padre), 'identificador');
 			$datos[$evt_involucrado] = array('evento' => $evt_involucrado, 'asociar' => 1);
 		}
-		return $datos;
+		$form->set_datos(array_values($datos));
 	}
 
 	function evt__pantallas_evt__modificacion($datos)

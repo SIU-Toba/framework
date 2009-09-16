@@ -43,7 +43,7 @@ class ci_nav_sedes extends toba_ci
 
 	function conf__edicion() 
 	{
-		if(! $this->dep('datos')->esta_cargada()) {
+		if (!$this->dep('datos')->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}
@@ -62,7 +62,7 @@ class ci_nav_sedes extends toba_ci
 
 	function conf__cuadro_sedes($componente)
 	{
-		if(isset($this->s__filtro_sedes)){
+		if (isset($this->s__filtro_sedes)) {
 			$where = $this->dep('filtro_sedes')->get_sql_where();	
 			$datos = toba::consulta_php('soe_consultas')->get_sedes($where);
 			$componente->set_datos($datos);
@@ -83,8 +83,8 @@ class ci_nav_sedes extends toba_ci
 
 	function conf__filtro_sedes($componente)
 	{
-		if(isset($this->s__filtro_sedes)){
-			$componente->set_datos( $this->s__filtro_sedes );
+		if (isset($this->s__filtro_sedes)) {
+			$componente->set_datos($this->s__filtro_sedes);
 		}
 	}
 }
