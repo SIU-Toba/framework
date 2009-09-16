@@ -1,6 +1,5 @@
 <?php
 
-
 interface toba_callback_errores_validacion {
 	
 	/**
@@ -708,16 +707,6 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$this->maximo = $maximo;	
 		} else {
 			$this->maximo = null;	
-		}
-	}
-
-	function cargar_estado_post()
-	{
-		if (isset($_POST[$this->id_form])) {
-			$this->estado = trim($_POST[$this->id_form]);
-			$this->estado = str_replace("\r\n", "\n", $this->estado);
-		} else {
-			$this->estado = null;
 		}
 	}
 	
