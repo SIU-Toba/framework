@@ -77,6 +77,11 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 							this.ef('sobre_fila').ir_a_fila(fila_actual).chequear(false);
 						}
 					}
+					if(this.ef('es_seleccion_multiple')) {// Esta extension se usa en varios forms...
+						if (this.ef('es_seleccion_multiple').ir_a_fila(fila_actual).chequeado()) {
+							this.ef('es_seleccion_multiple').ir_a_fila(fila_actual).chequear(false);
+						}
+					}
 				}
 			}
 		";

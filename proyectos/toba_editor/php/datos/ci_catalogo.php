@@ -3,14 +3,20 @@
 class ci_catalogo extends toba_ci
 {
 	protected $datos_editores;
+	protected $s__colapsar_forms = false;
 	
 	function ini()
 	{
 		//Inicializa la lista de editores
 		$info_componentes = toba_info_editores::get_info_tipos_componente();
-		foreach($info_componentes as $componente) {
+		foreach ($info_componentes as $componente) {
 			$this->datos_editores[$componente['clase']] = array(	'proyecto' => $componente['editor_proyecto'],
 																	'item' => $componente['editor_item']);
+		}
+
+		if (! $this->s__colapsar_forms) {
+			$tablas = toba_info_editores::get_tabla_fuente_de_dt();
+			$this->s__colapsar_forms = ( empty($tablas));
 		}
 	}
 	
@@ -21,7 +27,7 @@ class ci_catalogo extends toba_ci
 	function conf__fuentes(toba_ei_cuadro $cuadro)
 	{
 		$datos = toba_info_editores::get_fuentes_datos();
-		foreach(array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'fuente.png';
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['fuente_datos']);
 			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
@@ -51,6 +57,14 @@ class ci_catalogo extends toba_ci
 																	1000237,
 																	$parametros,
 																	$img);
+
+			// Creacion / Actualizacion Automatica de datos tabla
+			$img = toba_recurso::imagen_toba("objetos/dt_refresh.gif", true, null, null);
+			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
+																	33000010,
+																	$parametros,
+																	$img);
+
 			$datos[$id]['editar'] .= "</span>";
 		}
 		$cuadro->set_datos($datos);
@@ -59,7 +73,7 @@ class ci_catalogo extends toba_ci
 	function conf__consultas(toba_ei_cuadro $cuadro)
 	{
 		$datos = toba_info_editores::get_consultas_php();
-		foreach(array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'consulta_php.gif';
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['consulta_php']);
@@ -74,6 +88,9 @@ class ci_catalogo extends toba_ci
 			$datos[$id]['editar'] = "<div class='editor-lista-vinculos'>" . $datos[$id]['editar'] . "</div>";
 		}
 		$cuadro->set_datos($datos);
+		if ($this->s__colapsar_forms) {
+			$cuadro->colapsar();
+		}
 	}
 	
 	function conf__tablas(toba_ei_cuadro $cuadro)
@@ -99,12 +116,15 @@ class ci_catalogo extends toba_ci
 			$salida[] = $datos[$tabla];
 		}
 		$cuadro->set_datos($salida);
+		if ($this->s__colapsar_forms) {
+			$cuadro->colapsar();
+		}
 	}
 
 	function conf__dimensiones($cuadro)
 	{
 		$datos = toba_info_editores::get_dimensiones();
-		foreach(array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'filtrar.png';
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['dimension']);
@@ -114,6 +134,9 @@ class ci_catalogo extends toba_ci
 																$img);
 		}
 		$cuadro->set_datos($datos);
+		if ($this->s__colapsar_forms) {
+			$cuadro->colapsar();
+		}
 	}
 
 	function conf__arbol_relaciones($componente)
@@ -123,6 +146,9 @@ class ci_catalogo extends toba_ci
 		$catalogo = new toba_catalogo_objetos($proyecto);
 		$objetos = $catalogo->get_objetos(array('clase' => 'toba_datos_relacion'));
 		$componente->set_datos($objetos);
+		if ($this->s__colapsar_forms) {
+			$componente->colapsar();
+		}
 	}
 
 	function evt__arbol_relaciones__cargar_nodo($id)
@@ -169,7 +195,7 @@ class pantalla_catalogo extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		foreach($this->_dependencias as $dep) {
+		foreach ($this->_dependencias as $dep) {
 			$dep->generar_html();	
 		}
 	}

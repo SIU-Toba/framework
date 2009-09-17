@@ -24,6 +24,11 @@ class ei_form_lista_eventos extends eiform_abm_detalle
 						this.ef('es_seleccion_multiple').ir_a_fila(filas[id_fila]).toggle(false);
 					}
 				 }
+				 if(this.ef('en_botonera')) {// Esta extension se usa en varios forms...
+					if (this.ef('en_botonera').ir_a_fila(fila).chequeado() && tildado) {
+						this.ef('en_botonera').ir_a_fila(fila).chequear(false);
+					}
+				}
 			}
 		}	
 		";

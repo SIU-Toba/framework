@@ -942,6 +942,7 @@ class toba_db_tablas_componente
     9 => 'modificar_claves',
     10 => 'fuente_datos_proyecto',
     11 => 'fuente_datos',
+    12 => 'permite_actualizacion_automatica',
   ),
 );
 	}

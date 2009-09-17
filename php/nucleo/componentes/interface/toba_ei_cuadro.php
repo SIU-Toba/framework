@@ -462,7 +462,7 @@ class toba_ei_cuadro extends toba_ei
 					default:
 						$this->cargar_seleccion();
 						$parametros = null;
-						if (isset($this->_clave_seleccionada)) {
+						if (! empty($this->_clave_seleccionada)) {
 							$parametros = $this->get_clave_seleccionada();
 						} else {
 							if (isset($_POST[$this->_submit_extra])) {
@@ -637,7 +637,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->_estructura_datos = array_unique($estructura_datos);
 		}
 		//Inicializo la seleccion
-		$this->_clave_seleccionada = null;
+		$this->_clave_seleccionada = array();
 	}
 
 	/**
@@ -645,7 +645,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function finalizar_seleccion()
 	{
-		if (isset($this->_clave_seleccionada)) {
+		if (! empty($this->_clave_seleccionada)) {
 			$this->_memoria['clave_seleccionada'] = $this->_clave_seleccionada;
 		} else {
 			unset($this->_memoria['clave_seleccionada']);
@@ -657,7 +657,7 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	protected function cargar_seleccion()
 	{	
-		$this->_clave_seleccionada = null;
+		$this->_clave_seleccionada = array();
 		//La seleccion se inicializa con el del pedido anterior
 		if (isset($this->_memoria['clave_seleccionada'])) {
 			$this->_clave_seleccionada = $this->_memoria['clave_seleccionada'];
@@ -666,22 +666,29 @@ class toba_ei_cuadro extends toba_ei
 		//La seleccion se actualiza cuando el cliente lo pide explicitamente		
 		if(isset($_POST[$this->_submit_seleccion])) {
 			$clave = $_POST[$this->_submit_seleccion];
-			if ($clave != '') {
+			if ($clave != '' || ! is_null($this->get_id_evento_seleccion_multiple())) {
 				$multiples_claves = explode(apex_qs_sep_interno, $clave);
 				$this->_clave_seleccionada = array();					//Reinicializo el arreglo
-				foreach($multiples_claves as $klave) {
-					if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
-						throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
-					}
-					$clave = explode(apex_qs_separador, $klave);
-					//Devuelvo un array asociativo con el nombre de las claves
-					$aux = array();
-					for($a=0;$a<count($clave);$a++) {
-						$aux[$this->_columnas_clave[$a]] = $clave[$a];
-					}
-					$this->_clave_seleccionada[] = $aux;
+				if (current($multiples_claves) != '') {							//Si no viene vacio $clave
+					$this->formalizar_seleccion($multiples_claves);
 				}
 			}
+		}
+	}
+
+	private function formalizar_seleccion(&$multiples_claves)
+	{
+		foreach($multiples_claves as $klave) {
+			if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
+				throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
+			}
+			$clave = explode(apex_qs_separador, $klave);
+			//Devuelvo un array asociativo con el nombre de las claves
+			$aux = array();
+			for($a=0;$a<count($clave);$a++) {
+				$aux[$this->_columnas_clave[$a]] = $clave[$a];
+			}
+			$this->_clave_seleccionada[] = $aux;
 		}
 	}
 
@@ -690,7 +697,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function deseleccionar()
 	{
-		$this->_clave_seleccionada = null;
+		$this->_clave_seleccionada = array();
 	}
 
 	/**
@@ -712,7 +719,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function hay_seleccion()
 	{
-		return isset($this->_clave_seleccionada);
+		return (! empty($this->_clave_seleccionada));
 	}
 
 	/**
@@ -3191,7 +3198,7 @@ class toba_ei_cuadro extends toba_ei
 	function es_clave_fila_seleccionada($clave_fila)
 	{
 		$temp_claves = array();
-		if (! is_null($this->_clave_seleccionada)) {
+		if (! empty($this->_clave_seleccionada)) {
 			foreach ($this->_clave_seleccionada as $clave) {
 				$temp_claves[] = implode(apex_qs_separador, $clave);
 			}

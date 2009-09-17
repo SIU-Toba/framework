@@ -26,6 +26,9 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_msg ALTER indice TYPE character varying(40);';
 			$sql[] = 'ALTER TABLE apex_item_msg ALTER indice TYPE character varying(40);';
 			$sql[] = 'ALTER TABLE apex_objeto_msg ALTER indice TYPE character varying(40);';
+
+			//------------------------------------ Define si se puede actualizar automaticamente mediante wizard ----------------------
+			$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD COLUMN permite_actualizacion_automatica smallint NOT NULL DEFAULT 1;';
 			
 			$this->elemento->get_db()->ejecutar($sql);
 		}
