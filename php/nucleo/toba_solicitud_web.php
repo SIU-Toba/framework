@@ -55,18 +55,13 @@ class toba_solicitud_web extends toba_solicitud
 				}
 				toba::cronometro()->marcar('Procesando Servicio');
 				$this->procesar_servicios();
-			}catch(toba_error_db $e) {
-				toba::logger()->error($e, 'toba');
-				$mensaje = $e->getMessage();
-				$mensaje_debug = null;
-				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $e->get_mensaje();
-				}
-				toba::notificacion()->error($mensaje, $mensaje_debug);
-				toba::notificacion()->mostrar();
 			}catch(toba_error $e) {
 				toba::logger()->error($e, 'toba');
-				toba::notificacion()->error($e->getMessage());
+				$mensaje_debug = null;
+				if (toba::logger()->modo_debug()) {
+					$mensaje_debug = $e->get_mensaje_log();
+				}				
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 				toba::notificacion()->mostrar();
 			}
 		}
@@ -134,13 +129,12 @@ class toba_solicitud_web extends toba_solicitud
 				toba::logger()->seccion("Procesando eventos...", 'toba');
 				$this->objetos[$ci]->disparar_eventos();
 			} catch (toba_error $e) {
-				$this->log->error($e, 'toba');			
-				$mensaje = $e->getMessage();
+				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $e->get_mensaje();
-				}
-				toba::notificacion()->error($mensaje, $mensaje_debug);
+					$mensaje_debug = $e->get_mensaje_log();
+				}				
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 			}
 		}
 	}
@@ -261,7 +255,11 @@ class toba_solicitud_web extends toba_solicitud
 				}
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
-				toba::notificacion()->error($e->getMessage());
+				$mensaje_debug = null;
+				if (toba::logger()->modo_debug()) {
+					$mensaje_debug = $e->get_mensaje_log();
+				}						
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 			}
 			echo toba_js::cerrar();		
 				
@@ -368,17 +366,14 @@ class toba_solicitud_web extends toba_solicitud
 			foreach ($objetos as $objeto) {
 				$objeto->generar_html();
 			}	
-		} catch(toba_error_db $e) {
+		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
-			$mensaje = $e->getMessage();
+			$mensaje = $e->get_mensaje();
 			$mensaje_debug = null;
 			if (toba::logger()->modo_debug()) {
-				$mensaje_debug = $e->get_mensaje();
+				$mensaje_debug = $e->get_mensaje_log();
 			}
 			toba::notificacion()->error($mensaje, $mensaje_debug);
-		}catch(toba_error $e) {
-			toba::logger()->error($e, 'toba');
-			toba::notificacion()->error($e->getMessage());
 		}
 
 		
@@ -414,7 +409,11 @@ class toba_solicitud_web extends toba_solicitud
 			}
 		} catch (toba_error $e) {
 			toba::logger()->error($e, 'toba');
-			toba::notificacion()->error($e->getMessage());
+			$mensaje_debug = null;
+			if (toba::logger()->modo_debug()) {
+				$mensaje_debug = $e->get_mensaje_log();
+			}				
+			toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 		}
 		toba::notificacion()->mostrar(false);
 		toba::acciones_js()->generar_js();
@@ -435,6 +434,11 @@ class toba_solicitud_web extends toba_solicitud
 			$objetos[0]->servicio__cascadas_efs();
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
+			$mensaje_debug = null;
+			if (toba::logger()->modo_debug()) {
+				$mensaje_debug = $e->get_mensaje_log();
+			}				
+			toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 		}
 	}
 		
@@ -460,6 +464,11 @@ class toba_solicitud_web extends toba_solicitud
 			$objetos[0]->servicio__ajax();
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
+			$mensaje_debug = null;
+			if (toba::logger()->modo_debug()) {
+				$mensaje_debug = $e->get_mensaje_log();
+			}				
+			toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 		}
 	}
 	

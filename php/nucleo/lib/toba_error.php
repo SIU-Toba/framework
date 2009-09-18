@@ -10,27 +10,25 @@
 */
 class toba_error extends Exception
 {
-	protected $mensaje_log;
 	protected $mensaje_solo_debug = '';
 
 	function __construct($mensaje_visible, $mensaje_solo_debug='')
 	{
 		$this->mensaje_solo_debug = $mensaje_solo_debug;
-		$this->mensaje_log = $mensaje_visible;
 		parent::__construct($mensaje_visible);
 	}
 
 	function get_mensaje()
 	{
-		return $this->mensaje_solo_debug;
+		return parent::getMessage();
 	}
 
 	function get_mensaje_log()
 	{
-		if (isset($this->mensaje_log)) {
-			return $this->mensaje_log;
+		if (isset($this->mensaje_solo_debug)) {
+			return $this->get_mensaje().' '.$this->mensaje_solo_debug;
 		} else {
-			return $this->getMessage();
+			return $this->get_mensaje();
 		}
 	}
 
@@ -213,7 +211,6 @@ class toba_error_seguridad extends toba_error
 	function __construct($mensaje)
 	{
 		parent::__construct('Error Interno', $mensaje);
-		$this->mensaje_log = $mensaje;
 	}
 }
 

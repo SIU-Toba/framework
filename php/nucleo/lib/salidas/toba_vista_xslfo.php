@@ -90,9 +90,17 @@ class toba_vista_xslfo
 	protected function crear_pdf($xml)
 	{
   		$fxml = tempnam(toba::nucleo()->toba_dir().'/temp', 'xml');
-		file_put_contents($fxml, $xml);
-		@exec($this->fop.' -xml '.$fxml.' -xsl "'.$this->xsl_proyecto.'" -pdf '.toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);
-		return file_get_contents(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);
+		if (file_put_contents($fxml, $xml) === false) {
+			throw new toba_error("Error al guardar archivo xml", "No es posible escribir en ".$fxml);
+		}
+		$archivo_pdf = toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo;
+		$salida = array();
+		$status = 0;
+		@exec($this->fop.' -xml '.$fxml.' -xsl "'.$this->xsl_proyecto.'" -pdf '.$archivo_pdf, $salida, $status);
+		if ($status != 0) {
+			throw new toba_error_usuario("Error al ejecutar {$this->fop}", "Status: $status. Mensaje: ".implode("\n", $salida));
+		}
+		return file_get_contents($archivo_pdf);
 	}
 	
 	protected function obtener_pdf($xml) 
