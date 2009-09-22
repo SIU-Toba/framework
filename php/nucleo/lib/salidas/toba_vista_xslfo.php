@@ -16,6 +16,7 @@ class toba_vista_xslfo
 	protected $fop;
 	protected $xsl_proyecto;
 	protected $xml;
+	protected $objetos = array();
 	
 	function __construct()
 	{
@@ -35,6 +36,7 @@ class toba_vista_xslfo
 	function asignar_objetos( $objetos )
 	{
 		$this->xml->asignar_objetos($objetos);
+		$this->objetos = $objetos;
 	}
 	
 	//------------------------------------------------------------------------
@@ -77,7 +79,14 @@ class toba_vista_xslfo
 	function generar_salida()
 	{	
 		$xml = $this->xml->generar_xml();
-		//exit;
+		
+		//Callback de los eis
+		foreach( $this->objetos as $objeto ) {
+			if(method_exists($objeto, 'vista_xslfo')) {
+				$objeto->vista_xslfo($this);	
+			}
+		}
+		
 		if (preg_match('&^https?://.*$&',$this->fop)) {
 			$tmp = $this->obtener_pdf($xml);
 		} else {

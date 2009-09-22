@@ -82,6 +82,11 @@ class ci_impresion extends toba_ci
 
 	}	
 	
+	function vista_xslfo(toba_vista_xslfo $vista) 
+	{
+		$vista->set_nombre_archivo("salida.pdf");
+	}
+	
 	function get_popup($clave)
 	{
 		return 'Nombre';
