@@ -127,6 +127,12 @@ class toba_evento_usuario extends toba_boton
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'xslfo');
 	}		
 	
+	function posee_accion_vista_xml()
+	{
+		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'xml');
+	}		
+	
+	
 	function posee_grupo_asociado()
 	{
 		return trim($this->datos['grupo'])!='';
@@ -294,6 +300,12 @@ class toba_evento_usuario extends toba_boton
 		} elseif ( $this->posee_accion_vista_xslfo()) {
 			// ---*** VISTA XSLFo ***---
 			$opciones['servicio'] = 'vista_xslfo';
+			$opciones['objetos_destino'] = array( $id_componente );
+			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
+			$js = "document.location.href='$url';";			
+		} elseif ( $this->posee_accion_vista_xml()) {
+			// ---*** VISTA XSLFo ***---
+			$opciones['servicio'] = 'vista_xml';
 			$opciones['objetos_destino'] = array( $id_componente );
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";			

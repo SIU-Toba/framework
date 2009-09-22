@@ -294,7 +294,6 @@ class toba_solicitud_web extends toba_solicitud
 	
 	protected function servicio__vista_pdf( $objetos )
 	{
-		//-- TO-DO: implementar la posibilidad de personalizar el objeto vista_pdf
 		$salida = new toba_vista_pdf();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
@@ -302,7 +301,6 @@ class toba_solicitud_web extends toba_solicitud
 	
 	protected function servicio__vista_xml( $objetos )
 	{
-		//-- TO-DO: implementar la posibilidad de personalizar el objeto vista_pdf
 		$salida = new toba_vista_xml();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
@@ -310,7 +308,6 @@ class toba_solicitud_web extends toba_solicitud
 
 	protected function servicio__vista_xslfo( $objetos )
 	{
-		//-- TO-DO: implementar la posibilidad de personalizar el objeto vista_pdf
 		$salida = new toba_vista_xslfo();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
