@@ -9,7 +9,8 @@ class form_varios extends toba_ei_formulario
 				$expresiones = array(
 					'mail' => 'e-mail',
 					'cuit' => 'cuit',
-					'hora' => 'hora'
+					'hora' => 'hora',
+					'id_valido' => 'id válido'
 				);
 				parent::generar_input_ef($ef);
 				echo "<br>Validaciones: ";

@@ -1199,7 +1199,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function get_indice_grupos_acceso()
 	{
-		$rs = toba_info_permisos::get_grupos_acceso();
+		$rs = toba_info_permisos::get_perfiles_funcionales();
 		$datos = array();
 		foreach($rs as $dato) {
 			$datos[] = $dato['usuario_grupo_acc'];	
@@ -1304,7 +1304,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 							item as 			componente
 					FROM apex_item 
 					WHERE proyecto = $proyecto
-					ORDER BY 1;";
+					ORDER BY 1,2;";
 			$datos = $this->db->consultar( $sql );
 		} elseif(strpos($tipo_componente,'toba_asistente')!== false) {
 			$sql = "SELECT 	o.proyecto as 		proyecto,
@@ -1315,7 +1315,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					WHERE 	o.operacion_tipo = t.operacion_tipo
 					AND		t.clase = $comp_sano
 					AND		proyecto = $proyecto
-					ORDER BY 1;";
+					ORDER BY 1,2;";
 			$datos = $this->db->consultar( $sql );
 		} else {
 			$sql = "SELECT 	proyecto as 		proyecto,
@@ -1323,7 +1323,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					FROM apex_objeto 
 					WHERE proyecto = $proyecto
 					AND clase = $comp_sano
-					ORDER BY 1;";
+					ORDER BY 1,2;";
 			$datos = $this->db->consultar( $sql );
 		}
 		return $datos;

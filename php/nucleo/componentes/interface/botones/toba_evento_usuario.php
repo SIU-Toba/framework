@@ -304,7 +304,7 @@ class toba_evento_usuario extends toba_boton
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";			
 		} elseif ( $this->posee_accion_vista_xml()) {
-			// ---*** VISTA XSLFo ***---
+			// ---*** VISTA XML ***---
 			$opciones['servicio'] = 'vista_xml';
 			$opciones['objetos_destino'] = array( $id_componente );
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );

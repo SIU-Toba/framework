@@ -312,11 +312,12 @@ class toba_instancia
 			throw new toba_error('Error recuperando informacion');
 		}
 	}
-
+	
 	/**
-	*	Devuelve los grupos de acceso de un usuario para un proyecto
-	*/
-	function get_grupos_acceso($usuario, $proyecto)
+	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
+	*	@return $value	Retorna un array de grupos de acceso
+	*/	
+	function get_perfiles_funcionales($usuario, $proyecto) 
 	{
 		$db = $this->get_db();
 		$usuario = $db->quote($usuario);
@@ -337,7 +338,15 @@ class toba_instancia
 			return $grupos;
 		} else {
 			return array();
-		}
+		}		
+	}
+
+	/**
+	* @deprecated Usar get_perfiles_funcionales
+	*/
+	function get_grupos_acceso($usuario, $proyecto)
+	{
+		return $this->get_perfiles_funcionales($usuario, $proyecto);
 	}
 	
 	/**

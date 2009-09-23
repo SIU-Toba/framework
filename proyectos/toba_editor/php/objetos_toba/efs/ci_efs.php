@@ -320,6 +320,9 @@ class ci_efs extends toba_ci
 			case 'hora':
 				$exp = '/^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/';
 				break;
+			case 'id_valido':
+				$exp = '/^[a-z0-9_]+$/';
+				break;				
 			default:
 				throw new toba_error("El tipo $tipo no es válido");
 		}

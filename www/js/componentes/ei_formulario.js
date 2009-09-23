@@ -502,7 +502,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	ei_formulario.prototype.hay_cambios = function(ef_actual) {
 		var hay_cambio = false;
 		for (id_ef in this._efs) {
-			if (! in_array(id_ef, this._cambios_excluir_efs) && isset(this._estado_inicial[id_ef])) {
+			if (! in_array(id_ef, this._cambios_excluir_efs)) {
 				var es_igual = this._es_estado_igual(this._estado_inicial[id_ef], this._efs[id_ef].get_estado());
 				if (! es_igual) {
 					hay_cambio = true;

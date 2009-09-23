@@ -68,7 +68,7 @@ class toba_item_molde extends toba_molde_elemento
 
 	function cargar_grupos_acceso_activos()
 	{
-		foreach(toba_editor::get_grupos_acceso_previsualizacion() as $grupo) {
+		foreach(toba_editor::get_perfiles_funcionales_previsualizacion() as $grupo) {
 			$this->datos->tabla('permisos')->nueva_fila(array('usuario_grupo_acc'=>$grupo));
 		}
 	}

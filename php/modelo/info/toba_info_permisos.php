@@ -4,32 +4,38 @@ class toba_info_permisos
 {
 	static function get_lista_permisos($condiciones = null)
 	{
+		if (isset($condiciones['proyecto'])) {
+			$proyecto = $condiciones['proyecto'];
+		} else {
+			$proyecto = toba_contexto_info::get_proyecto();			
+		}
+		$db =  toba_contexto_info::get_db();
 		$where = '';
 		if ($condiciones != null) {
 			if (isset($condiciones['nombre'])) {
-				$nombre = toba_contexto_info::get_db()->quote("%{$condiciones['nombre']}%");
+				$nombre = $db->quote("%{$condiciones['nombre']}%");
 				$where .= "AND	nombre ILIKE  $nombre";
 			}
 			if (isset($condiciones['descripcion'])) {
-				$descr = toba_contexto_info::get_db()->quote("%{$condiciones['descripcion']}%");
+				$descr = $db->quote("%{$condiciones['descripcion']}%");
 				$where .= "AND	descripcion ILIKE $descr ";
 			}
 		}
-		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+
 		$sql = "SELECT 	
 					permiso,
 					nombre,
 					descripcion
 				FROM apex_permiso 
 				WHERE 
-					proyecto = $proyecto
+					proyecto = ".$db->quote($proyecto)."
 					$where
 				ORDER BY nombre, descripcion
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
-	static function get_grupos_acceso($proyecto=null)
+	static function get_perfiles_funcionales($proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();	
@@ -42,6 +48,14 @@ class toba_info_permisos
 				ORDER BY nombre
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
+	/**
+	 * @deprecated Desde 1.5 Usar get_perfiles_funcionales
+	 */
+	static function get_grupos_acceso($proyecto=null)
+	{
+		return self::get_perfiles_funcionales($proyecto);
 	}
 	
 	static function get_perfiles_datos($proyecto=null)
@@ -91,6 +105,8 @@ class toba_info_permisos
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
+	
+
 	
 }
 

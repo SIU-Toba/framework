@@ -26,7 +26,7 @@ class toba_usuario implements toba_interface_usuario
 		return null;
 	}
 	
-	function get_grupos_acceso()
+	function get_perfiles_funcionales()
 	{
 		return array();	
 	}

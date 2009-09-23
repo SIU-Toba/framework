@@ -231,17 +231,26 @@ class toba_manejador_sesiones
 	{
 		return isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]);
 	}
+	
+	/**
+	*	Determina los perfiles funcionales del usuario actual
+	*/
+	function get_perfiles_funcionales()
+	{
+		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
+			return toba_editor::get_perfiles_funcionales_previsualizacion();
+		} else {
+			return $this->usuario()->get_perfiles_funcionales();
+		}
+	}	
 
 	/**
-	*	Determina el grupo de acceso del usuario actual
+	* @deprecated Desde 1.5 usar get_perfiles_funcionales
 	*/
 	function get_grupos_acceso()
 	{
-		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
-			return toba_editor::get_grupos_acceso_previsualizacion();
-		} else {
-			return $this->usuario()->get_grupos_acceso();
-		}
+		$this->get_perfiles_funcionales();
+
 	}
 
 	/**
@@ -451,7 +460,7 @@ class toba_manejador_sesiones
 	
 	private function cargar_usuario($id_usuario=null)
 	{
-		$msg_error = "No es posible cargar el usuario '$id_usuario'. El mismo no posee un grupo de acceso definido para el proyecto '{$this->proyecto}'.";
+		$msg_error = "No es posible cargar el usuario '$id_usuario'. El mismo no posee un perfil funcional definido para el proyecto '{$this->proyecto}'.";
 		if (isset($id_usuario)) {
 			toba::logger()->debug("Cargando USUARIO '$id_usuario' en el proyecto '{$this->proyecto}'",'toba');
 			$this->usuario = $this->get_usuario_proyecto($id_usuario);
@@ -459,8 +468,8 @@ class toba_manejador_sesiones
 			toba::logger()->debug("Cargando USUARIO ANONIMO en el proyecto '{$this->proyecto}'",'toba');
 			$this->usuario = new toba_usuario_anonimo('anonimo');
 		}
-		// Se controla que el usuario tenga usuario un grupo de acceso valido para el proyecto actual
-		$grupos_acceso = $this->usuario->get_grupos_acceso();
+		// Se controla que el usuario tenga usuario un perfil funcional válido para el proyecto actual
+		$grupos_acceso = $this->usuario->get_perfiles_funcionales();
 		if ( ! $grupos_acceso ) { 
 			throw new toba_error($msg_error);
 		}

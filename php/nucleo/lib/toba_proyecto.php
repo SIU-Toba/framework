@@ -341,7 +341,7 @@ class toba_proyecto
 	function get_items_menu($proyecto=null, $grupos_acceso=null)
 	{
 		if (!isset($proyecto)) $proyecto = $this->id;		
-		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
+		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 															$grupos_acceso, 
@@ -369,7 +369,7 @@ class toba_proyecto
 	 */
 	function puede_grupo_acceder_item($item)
 	{
-		$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
+		$grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales();
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles)) {
 			$this->indice_items_accesibles = array();
@@ -404,7 +404,7 @@ class toba_proyecto
 	*/
 	function get_items_zona($zona, $grupos_acceso=null)
 	{
-		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
+		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 															$grupos_acceso,
@@ -417,12 +417,20 @@ class toba_proyecto
 		return $rs;
 	}
 
-	function get_grupos_acceso_usuario_anonimo()
+	function get_perfiles_funcionales_usuario_anonimo()
 	{
 		$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
 		$grupos = array_map('trim',$grupos);
 		return $grupos;
 	}
+	
+	/**
+	 * @deprecated Desde 1.5 usar get_perfiles_funcionales_usuario_anonimo
+	 */
+	function get_grupos_acceso_usuario_anonimo()
+	{
+		return $this->get_perfiles_funcionales_usuario_anonimo();
+	}	
 
 	//------------------------  Permisos  -------------------------
 	
@@ -431,7 +439,7 @@ class toba_proyecto
 	 */
 	function get_lista_permisos($grupos_acceso=null)
 	{
-		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_grupos_acceso();	
+		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_perfiles_funcionales();	
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', $grupos_acceso, 'get_lista_permisos');
 		} else {

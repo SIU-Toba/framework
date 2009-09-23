@@ -212,7 +212,16 @@ class toba_editor
 		return $param_prev;
 	}
 
+	/**
+	 * @deprecated Desde 1.5 usar get_perfiles_funcionales_previsualizacion
+	 */
 	static function get_grupos_acceso_previsualizacion()
+	{
+		return self::get_perfiles_funcionales_previsualizacion();
+	}
+	
+
+	static function get_perfiles_funcionales_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
 		if(isset($param_prev['grupo_acceso'])) {
@@ -222,7 +231,7 @@ class toba_editor
 		} else {
 			throw new toba_error("No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización");	
 		}
-	}
+	}	
 
 	static function get_perfil_datos_previsualizacion()
 	{

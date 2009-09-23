@@ -27,12 +27,11 @@ interface toba_interface_usuario
 	 * @return string
 	 */
 	function get_nombre();
-
-
+	
 	/**
 	 *  @return array Perfiles de acceso a los que pertenece el usuario
 	 */
-	function get_grupos_acceso();
+	function get_perfiles_funcionales();	
 
 	/**
 	 * @return string ID del perfil de datos del usuario actual, null en caso de no poseer
