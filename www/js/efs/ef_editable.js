@@ -133,7 +133,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero toba_ef_editable_numero
 	 */
 	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje) {
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, expreg);
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg);
 		if (masc) {
 			this._forma_mascara = (masc.trim().toLowerCase() != 'no') ? masc : null;
 		} else {
