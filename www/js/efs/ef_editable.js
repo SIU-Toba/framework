@@ -132,7 +132,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero toba_ef_editable_numero
 	 */
-	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje) {
+	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje) {
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, expreg);
 		if (masc) {
 			this._forma_mascara = (masc.trim().toLowerCase() != 'no') ? masc : null;
@@ -202,7 +202,7 @@ ef_editable_moneda.prototype = new ef_editable_numero();
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_moneda toba_ef_editable_moneda
 	 */
-	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje)	{
+	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje)	{
 		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje);
 		this._forma_mascara = (masc) ? masc : '$ ###.###,00';
 	}
