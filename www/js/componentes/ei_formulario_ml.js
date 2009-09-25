@@ -68,13 +68,13 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}	
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
+			ef.iniciar(id_ef, this);			
 			if (es_inicial) {
 				this._estado_inicial[fila][id_ef] = this._efs[id_ef].get_estado();
 			}
 			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[fila][id_ef]);
 			}			
-			ef.iniciar(id_ef, this);
 			if (agregar_tabindex) {
 				ef.set_tab_index(this._rango_tabs[0]);
 				this._rango_tabs[0]++;

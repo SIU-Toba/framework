@@ -440,6 +440,52 @@ class toba_ei_filtro extends toba_ei
 		}
 		return null;
 	}	
+	
+	/**
+	 * Método que se utiliza en la respuesta del filtro del combo editable usando AJAX
+	 */
+	function servicio__filtrado_ef_ce()
+	{
+		require_once(toba_dir() . '/php/3ros/JSON.php');				
+		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
+			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
+		}
+		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
+		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+		
+		//Asume que no hay esquema de cascadas
+		$maestros = array();
+		
+		toba::logger()->debug("Filtrado combo_editable '$id_ef', Cadena: '$filtro', Estado de los maestros: ".var_export($maestros, true));		
+		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_ef, $maestros);
+		toba::logger()->debug("Filtrado combo_editable '$id_ef', Respuesta: ".var_export($valores, true));				
+		
+		//--- Se arma la respuesta en formato JSON
+		$json = new Services_JSON();
+		echo $json->encode($valores);
+	}
+
+	/**
+	 * Método que se utiliza en la respuesta del filtro del combo editable cuando se quiere validar un id seleccionado
+	 */
+	function servicio__filtrado_ef_ce_validar()
+	{
+		require_once(toba_dir() . '/php/3ros/JSON.php');				
+		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
+			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
+		}
+		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
+		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+
+		$descripcion = $this->_carga_opciones_ef->ejecutar_metodo_carga_descripcion_ef($id_ef, $valor);
+		$estado = array($valor => $descripcion);
+		
+		//--- Se arma la respuesta en formato JSON
+		$json = new Services_JSON();
+		echo $json->encode($estado);
+	}	
 
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------

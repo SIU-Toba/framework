@@ -68,6 +68,15 @@ function ei_filtro(id, instancia, input_submit) {
 		return this._efs[id];
 	};
 	
+	/**
+	 *	@private
+	 */
+	ei_filtro.prototype.instancia_ef  = function (objeto_ef) {
+		var id = objeto_ef.get_id();
+		return this._instancia + ".ef('"+ id + "')";
+	};	
+	
+	
 	ei_filtro.prototype.get_valores_maestros = function(id_ef) {
 		return [];
 	};

@@ -1387,13 +1387,6 @@ class toba_ei_formulario extends toba_ei
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 	
-	/*function vista_pdf(toba_vista_pdf $salida)
-	{
-		$xml = '<?xml version="1.0" ?>';
-		$xml .= $this->get_xml();
-		echo $xml;
-	}*/
-	
 	function vista_xml($inicial, $xmlns=null)
 	{
 		if ($xmlns) {

@@ -582,7 +582,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
-	'8', --orden
+	'9', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_check', --opciones_ef
@@ -636,7 +636,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
-	'9', --orden
+	'10', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_lista', --opciones_ef
@@ -690,7 +690,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
-	'10', --orden
+	'11', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_doble', --opciones_ef
@@ -734,3 +734,60 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL  --selec_cant_columnas
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 30
+INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, objeto_ei_filtro_proyecto, tipo, nombre, expresion, etiqueta, descripcion, obligatorio, inicial, orden, estado_defecto, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_permite_no_seteado, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, popup_puede_borrar_estado, check_valor_si, check_valor_no, check_desc_si, check_desc_no, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas) VALUES (
+	'30000007', --objeto_ei_filtro_col
+	'500', --objeto_ei_filtro
+	'toba_referencia', --objeto_ei_filtro_proyecto
+	'opciones', --tipo
+	'persona_combo', --nombre
+	'persona', --expresion
+	'Persona (Combo editable)', --etiqueta
+	NULL, --descripcion
+	'0', --obligatorio
+	'1', --inicial
+	'8', --orden
+	NULL, --estado_defecto
+	'0', --opciones_es_multiple
+	'ef_combo_editable', --opciones_ef
+	'get_personas', --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	'1000001', --carga_consulta_php
+	NULL, --carga_sql
+	'toba_referencia', --carga_fuente
+	NULL, --carga_lista
+	'id', --carga_col_clave
+	'nombre', --carga_col_desc
+	'0', --carga_permite_no_seteado
+	NULL, --carga_no_seteado
+	'0', --carga_no_seteado_ocultar
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_expreg
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	'get_persona_nombre', --popup_carga_desc_metodo
+	'consultas', --popup_carga_desc_clase
+	'operaciones_simples/consultas.php', --popup_carga_desc_include
+	NULL, --popup_puede_borrar_estado
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL  --selec_cant_columnas
+);
+--- FIN Grupo de desarrollo 30

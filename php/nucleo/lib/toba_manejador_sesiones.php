@@ -249,7 +249,7 @@ class toba_manejador_sesiones
 	*/
 	function get_grupos_acceso()
 	{
-		$this->get_perfiles_funcionales();
+		return $this->get_perfiles_funcionales();
 
 	}
 
