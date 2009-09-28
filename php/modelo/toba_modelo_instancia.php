@@ -474,9 +474,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();		
 	}
 
+
 	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto, $texto )
 	{
-		$contenido = "";
+		$append = false;
 		foreach ( toba_db_tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$definicion = toba_db_tablas_instancia::$tabla();
 			//Genero el SQL
@@ -498,29 +499,28 @@ class toba_modelo_instancia extends toba_modelo_elemento
 					" FROM $from " .
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
-			//$this->manejador_interface->mensaje( $sql );
-			$datos = $this->get_db()->consultar($sql);
-			toba_logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
-			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
-				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
-				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-			}			
-			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+			$sentencia = $this->get_db()->get_pdo()->query($sql);
+			
+			while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
+			  $contenido = sql_array_a_insert($tabla, $fila)."\n";
+			  $this->guardar_archivo($nombre_archivo, $contenido, $append);
+			  $append = true;
 			}
-			$this->manejador_interface->progreso_avanzar();
+	        $this->manejador_interface->progreso_avanzar();			  				
 		}
-		if ( trim( $contenido ) != '' ) {
-			$this->guardar_archivo( $nombre_archivo, $contenido );			
-		}
-	}
+	}	
 
-	private function guardar_archivo( $archivo, $contenido )
+	private function guardar_archivo($archivo, $contenido, $append = false)
 	{
-		file_put_contents( $archivo, $contenido );
+		$flags = null;
+		if ($append) {
+			$flags = FILE_APPEND;
+		}
+		file_put_contents($archivo, $contenido, $flags);
 		$this->get_sincronizador()->agregar_archivo( $archivo );
 	}
 	
+
 	//-----------------------------------------------------------
 	//	CARGAR modelo en la DB
 	//-----------------------------------------------------------
