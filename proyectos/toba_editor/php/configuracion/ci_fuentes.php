@@ -70,7 +70,7 @@ class ci_fuentes extends toba_ci
 			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
 			$instalacion = toba_modelo_catalogo::get_instalacion(null);
 			$bases = $instalacion->get_lista_bases();
-			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding'));
+			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding', 'conexiones_perfiles'));
 			if (in_array($id_base, $bases)) {
 				//---Actualiza la entrada actual
 				$instalacion->actualizar_db($id_base, $datos);

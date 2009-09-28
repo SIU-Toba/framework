@@ -328,7 +328,8 @@ class toba_instancia
 				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
 				AND		up.proyecto = ga.proyecto
 				AND		up.usuario = $usuario
-				AND		up.proyecto = $proyecto;";
+				AND		up.proyecto = $proyecto
+				ORDER BY ga.usuario_grupo_acc ASC";
 		$datos = $db->consultar($sql);
 		if($datos){
 			$grupos = array();

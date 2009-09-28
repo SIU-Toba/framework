@@ -173,9 +173,11 @@ class toba_dba
 		$server = isset($parametros['server']) ? $parametros['server'] : '';
 		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
 		$clase = "toba_db_" . $parametros['motor'];
+		list($usuario, $clave) = self::get_usuario_db($id_base, $parametros);
+		
 		$objeto_db = new $clase(	$parametros['profile'],
-									$parametros['usuario'],
-									$parametros['clave'],
+									$usuario,
+									$clave,
 									$parametros['base'],
 									$puerto,
 									$server );
@@ -190,6 +192,37 @@ class toba_dba
 		}			
 		return $objeto_db;
 	}
+	
+	private static function get_usuario_db($id_base, $parametros) 
+	{
+		$usuario = $parametros['usuario'];
+		$clave = $parametros['clave'];		
+		if (isset($parametros['conexiones_perfiles'])) {
+			//Trata de sacarlo del archivo .ini asociado
+			$perfiles = toba::usuario()->get_perfiles_funcionales();
+			if (empty($perfiles)) {
+				$seccion = 'no_autenticado';
+			} else {
+				$seccion = implode(", ", $perfiles);
+			}
+			$archivo = toba::nucleo()->toba_instalacion_dir().'/'.$parametros['conexiones_perfiles'];
+			if (! file_exists($archivo)) {
+				throw new toba_error_def("La base '$id_base' posee una referencia a un archivo de conexiones de perfiles inexistente: '$archivo'");
+			}
+			$usuarios = parse_ini_file($archivo, true );	
+			if (isset($usuarios[$seccion]))	{
+				if (! isset($usuarios[$seccion]['usuario'])) {
+					throw new toba_error_def("La definición '$seccion' del archivo '$archivo' no posee el valor 'usuario'");
+				}
+				if (! isset($usuarios[$seccion]['clave'])) {
+					throw new toba_error_def("La definición '$seccion' del archivo '$archivo' no posee el valor 'clave'");					
+				}				
+				return array($usuarios[$seccion]['usuario'], $usuarios[$seccion]['clave']);
+			}
+		}
+		return array($usuario, $clave);
+	}
+	
 
 	/**
 	*	Fuerza a reconectar en el proximo pedido de bases
@@ -223,5 +256,6 @@ class toba_dba
 	   }
 	   return self::$dba;
 	}
+	
 }
 ?>
