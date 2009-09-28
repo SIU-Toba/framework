@@ -103,7 +103,7 @@ class toba_fuente_datos
 	function configurar_parseo_errores($db)
 	{
 		if ($this->definicion['parsea_errores'] == '1'){
-			$parseador = 'toba_parser_error_db'. $this->definicion['motor'];
+			$parseador = 'toba_parser_error_db_'. $this->definicion['motor'];
 			$db->set_parser_errores(new $parseador);
 		}
 	}

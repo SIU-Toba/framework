@@ -131,7 +131,7 @@ class toba_error_db extends toba_error
 		return $this->info_error[1];
 	}
 	
-	function get_mensaje()
+	function get_mensaje_log()
 	{
 		if (PHP_SAPI != 'cli') {
 			$mensaje  = "<p><b>SQLSTATE:</b> {$this->get_sqlstate()}</p>" .
