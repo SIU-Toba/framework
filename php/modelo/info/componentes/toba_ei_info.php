@@ -24,9 +24,16 @@ abstract class toba_ei_info extends toba_componente_info
 			$id = $evt_db['identificador'];
 			$parametros = array();
 			$doc = array("Atrapa la interacción del usuario con el botón asociado");
-			if( $evt_db['sobre_fila'] ){
-				$parametros[] = '$seleccion';
-				$doc[] = '@param array $seleccion Id. de la fila seleccionada';
+			if( $evt_db['sobre_fila'] ){				
+				if ($evt_db['es_seleccion_multiple'] == '1') {
+						$parametros[] = '$datos';
+						$doc = array('Atrapa la interacción del usuario con el cuadro mediante los checks',
+						'@param array $datos Ids. correspondientes a las filas chequeadas.',
+						"El formato es de tipo recordset array(array('clave1' =>'valor', 'clave2' => 'valor'), array(....))");
+				}else{
+						$parametros[] = '$seleccion';
+						$doc[] = '@param array $seleccion Id. de la fila seleccionada';
+				}
 			}else{
 				if($evt_db['maneja_datos']) {
 					$parametros[] = '$datos';

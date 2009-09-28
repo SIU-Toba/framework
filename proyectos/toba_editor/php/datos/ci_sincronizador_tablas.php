@@ -20,7 +20,6 @@ class ci_sincronizador_tablas extends toba_ci
 
 	function evt__procesar()
 	{
-		$this->s__seleccionadas = $this->dep('cuadro')->get_clave_seleccionada();
 		if (!empty($this->s__seleccionadas) && !is_array(current($this->s__seleccionadas))) {
 			$this->s__seleccionadas = array($this->s__seleccionadas);	//Por si viene con el formato viejo
 		}
@@ -44,9 +43,9 @@ class ci_sincronizador_tablas extends toba_ci
 		$cuadro->set_datos($resultado);
 
 		//Aca miro cuales estan para seleccionar...
-		if (isset($this->s__seleccionadas)) {
+	/*	if (isset($this->s__seleccionadas)) {
 			$cuadro->seleccionar($this->s__seleccionadas);
-		}
+		}*/
 	}
 
 	function generar_listado_tablas_nuevas()
@@ -92,5 +91,9 @@ class ci_sincronizador_tablas extends toba_ci
 		return $colapsa;
 	}
 
+	function evt__cuadro__seleccion($seleccion)
+	{
+		$this->s__seleccionadas = $seleccion;
+	}
 }
 ?>

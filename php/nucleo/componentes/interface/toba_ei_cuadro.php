@@ -36,6 +36,8 @@ class toba_ei_cuadro extends toba_ei
 	protected $_submit_extra;
 	protected $_agrupacion_columnas = array();
 	protected $_layout_cant_filas = null;
+	protected $_eventos_multiples = array();						//Mantiene los nombres de los eventos multiples (simil cache)
+	protected $_datos_eventos_multiples = array();			 //Mantiene los datos de los evt multiples
 	//Orden
     protected $_orden_columna;                     	// Columna utilizada para realizar el orden
     protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
@@ -106,6 +108,7 @@ class toba_ei_cuadro extends toba_ei
     {
     	$propiedades = array();
 		$propiedades[] = "tamanio_pagina";
+		$propiedades[] = '_eventos_multiples';
 		$this->set_propiedades_sesion($propiedades);
         parent::__construct($id);
 		$this->procesar_definicion();
@@ -132,6 +135,18 @@ class toba_ei_cuadro extends toba_ei
 		$this->_submit_paginado = $this->_submit."__pagina_actual";
 	}
 	
+	/**
+	 * Espacio donde el componente cierra su configuración
+	 * @ignore
+	 */
+	function post_configurar()
+	{
+		parent::post_configurar();
+		if (empty($this->_eventos_multiples)) {
+			$this->_eventos_multiples = $this->get_ids_evento_aplicacion_multiple();
+		}
+	}
+
 	/**
 	 * @ignore 
 	 */
@@ -460,16 +475,14 @@ class toba_ei_cuadro extends toba_ei
 						$this->reportar_evento( $evento, $parametros );
 						break;
 					default:
-						$this->cargar_seleccion();
-						$parametros = null;
-						if (! empty($this->_clave_seleccionada)) {
-							$parametros = $this->get_clave_seleccionada();
-						} else {
-							if (isset($_POST[$this->_submit_extra])) {
-								$parametros = $_POST[$this->_submit_extra];
-							}
+						$this->cargar_seleccion();						//Intento cargar la seleccion comun
+						$this->cargar_eventos_multiples();		//Cargo los multiples si hay
+						$this->disparar_eventos_multiples();	//Disparo los multiples						
+						//Ahora disparo el evento que genero la interaccion,
+						//pero primero verifico que no sea parte de los multiples						
+						if (! in_array($evento, $this->_eventos_multiples)) {
+							$this->disparar_eventos_simples($evento);
 						}
-						$this->reportar_evento( $evento, $parametros );						
 				}
 			}
 		}
@@ -512,7 +525,48 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-    
+	/**
+	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
+	 */
+	function get_ids_evento_aplicacion_multiple()
+	{
+		$ids = array();
+		foreach ($this->_eventos_usuario_utilizados as $id => $evt) {
+			if ($evt->es_seleccion_multiple()) {
+				$ids[] = $id;
+			}
+		}
+		return $ids;
+	}
+
+	function disparar_eventos_multiples()
+	{
+		foreach($this->_eventos_multiples as $evento) {
+			$parametros = null;
+			if (isset($this->_datos_eventos_multiples[$evento])) {
+				$parametros = $this->_datos_eventos_multiples[$evento];
+			}
+			$this->reportar_evento($evento, $parametros);
+		}
+	}
+
+	function disparar_eventos_simples($evento)
+	{
+		$parametros = null;
+		if (! empty($this->_clave_seleccionada)) {
+			$parametros = $this->get_clave_seleccionada();
+		} else {
+			if (isset($_POST[$this->_submit_extra])) {
+				$parametros = $_POST[$this->_submit_extra];
+			}
+		}
+		$this->reportar_evento( $evento, $parametros );
+	}
+
+	private function get_nombre_evento_multiple($evento)
+	{
+		return $this->_submit . '__' . $evento;
+	}
 //################################################################################
 //############################   Procesos GENERALES   ############################
 //################################################################################
@@ -637,7 +691,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->_estructura_datos = array_unique($estructura_datos);
 		}
 		//Inicializo la seleccion
-		$this->_clave_seleccionada = array();
+		$this->_clave_seleccionada = null;
 	}
 
 	/**
@@ -657,7 +711,7 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	protected function cargar_seleccion()
 	{	
-		$this->_clave_seleccionada = array();
+		$this->_clave_seleccionada = null;
 		//La seleccion se inicializa con el del pedido anterior
 		if (isset($this->_memoria['clave_seleccionada'])) {
 			$this->_clave_seleccionada = $this->_memoria['clave_seleccionada'];
@@ -666,19 +720,30 @@ class toba_ei_cuadro extends toba_ei
 		//La seleccion se actualiza cuando el cliente lo pide explicitamente		
 		if(isset($_POST[$this->_submit_seleccion])) {
 			$clave = $_POST[$this->_submit_seleccion];
-			if ($clave != '' || ! is_null($this->get_id_evento_seleccion_multiple())) {
-				$multiples_claves = explode(apex_qs_sep_interno, $clave);
-				$this->_clave_seleccionada = array();					//Reinicializo el arreglo
-				if (current($multiples_claves) != '') {							//Si no viene vacio $clave
-					$this->formalizar_seleccion($multiples_claves);
+			if ($clave != ''  && ! in_array('seleccion', $this->_eventos_multiples)) {				//Si seleccion es multiple falla el chequeo contra la memoria
+				$this->_clave_seleccionada = $this->validar_y_separar_clave($clave);
+			}
+		}
+	}
+
+	protected function cargar_eventos_multiples()
+	{
+		$this->_datos_eventos_multiples = array();
+		foreach($this->_eventos_multiples as $nombre_evt) {
+			$id_evt_post = $this->get_nombre_evento_multiple($nombre_evt);				//ID probable del hidden en HTML			
+			if (isset($_POST[$id_evt_post])) {
+				$clv_multiple = explode(apex_qs_sep_interno, $_POST[$id_evt_post]);		//Trato de separar los varios registros
+				foreach($clv_multiple as $clv_pair) {
+					if ($clv_pair != '') {							//Si no vino vacio el hidden
+						$this->_datos_eventos_multiples[$nombre_evt][] = $this->validar_y_separar_clave($clv_pair);
+					}
 				}
 			}
 		}
 	}
 
-	private function formalizar_seleccion(&$multiples_claves)
+	private function validar_y_separar_clave(&$klave)
 	{
-		foreach($multiples_claves as $klave) {
 			if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
 				throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
 			}
@@ -688,8 +753,7 @@ class toba_ei_cuadro extends toba_ei
 			for($a=0;$a<count($clave);$a++) {
 				$aux[$this->_columnas_clave[$a]] = $clave[$a];
 			}
-			$this->_clave_seleccionada[] = $aux;
-		}
+		return $aux;
 	}
 
 	/**
@@ -697,7 +761,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function deseleccionar()
 	{
-		$this->_clave_seleccionada = array();
+		$this->_clave_seleccionada =  null; 
 	}
 
 	/**
@@ -708,9 +772,6 @@ class toba_ei_cuadro extends toba_ei
 	function seleccionar($clave)
 	{
 		$this->_clave_seleccionada = $clave;
-		if (! is_array(current($clave))) {							//Tengo un arreglo comun asignado, internamente maneja recordset.
-			$this->_clave_seleccionada = array($clave);
-		} 
 	}
 
 	/**
@@ -769,11 +830,19 @@ class toba_ei_cuadro extends toba_ei
     */
 	function get_clave_seleccionada()
 	{
-		if (count($this->_clave_seleccionada) == '1') {
-			return current($this->_clave_seleccionada);
-		} else {
-			return $this->_clave_seleccionada;
+		return $this->_clave_seleccionada;
+	}
+
+	/*
+	 * TODO VER PARA QUE CARAJOS SIRVE ESTO
+	 */
+	function es_clave_fila_seleccionada($clave_fila)
+	{
+		$temp_claves = array();
+		if (! empty($this->_clave_seleccionada)) {
+			$temp_claves[] = implode(apex_qs_separador, $this->_clave_seleccionada);
 		}
+		return (in_array($clave_fila, $temp_claves));
 	}
 
 //################################################################################
@@ -1282,20 +1351,6 @@ class toba_ei_cuadro extends toba_ei
 		return $this->_estructura_datos;		
 	}
 	
-	/**
-	 * Retorna el primer evento del tipo seleccion multiple. Si no existe retorna null
-	 */
-	function get_id_evento_seleccion_multiple()
-	{
-		foreach ($this->_eventos_usuario_utilizados as $id => $evt) {
-			if ($evt->es_seleccion_multiple()) {
-				return $id;
-			}
-		}
-		return null;
-	}	
-	
-	
 //################################################################################
 //#####################    INTERFACE GRAFICA GENERICA  ###########################
 //################################################################################
@@ -1528,6 +1583,14 @@ class toba_ei_cuadro extends toba_ei
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
 		echo toba_form::hidden($this->_submit_paginado, '');		
+
+		//Genero los hidden para los eventos multiples
+		foreach($this->_eventos_multiples as $evento) {
+			$nombre_hidden = $this->get_nombre_evento_multiple($evento);
+			if ($nombre_hidden != $this->_submit_seleccion) {	//El de seleccion ya se envia asi que no lo piso
+				echo toba_form::hidden($nombre_hidden, '');
+			}
+		}
 	}
 
 	/**
@@ -1928,9 +1991,9 @@ class toba_ei_cuadro extends toba_ei
 	            }                
 	            
 	            //Javascript de seleccion multiple
-	            $id_evt_seleccion = $this->get_id_evento_seleccion_multiple();
-	            if (isset($id_evt_seleccion)) {
-	            	$js = "onclick='{$this->objeto_js}.seleccionar(\"$f\", \"$id_evt_seleccion\")'";
+	            if (! empty($this->_eventos_multiples)) {
+					$lista_eventos_js = toba_js::arreglo($this->_eventos_multiples);
+	            	$js = "onclick='{$this->objeto_js}.seleccionar(\"$f\", \"$lista_eventos_js\")'";
 	            } else {
 	            	$js = '';
 	            }
@@ -1947,11 +2010,12 @@ class toba_ei_cuadro extends toba_ei
 			if ( $this->_tipo_salida == 'html' ) {
 				$hay_evento_maneja_datos = true;
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
-					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
+					$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
+					echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
 					$parametros = $this->get_clave_fila_array($f);
-					if (isset($id_evt_seleccion)) {
+					/*if (! empty($id_evt_seleccion)) {			//Esto aca no va... habria que ver por evento si la clave esta o no
 						$evento->set_check_activo($esta_seleccionada);
-					}
+					}*/
 					echo $this->get_invocacion_evento_fila($evento, $f, $clave_fila, false, $parametros);
 	            	echo "</td>\n";
 				}
@@ -2065,7 +2129,11 @@ class toba_ei_cuadro extends toba_ei
 	        //-- Eventos sobre fila
 			if($this->_cantidad_columnas_extra > 0){
 				foreach ($this->get_eventos_sobre_fila() as $evento) {
-					echo "<td $rowspan class='ei-cuadro-col-tit'>&nbsp;";
+					$etiqueta = '&nbsp;';
+					if ($evento->es_seleccion_multiple()) {
+						$etiqueta = $evento->get_etiqueta();
+					}
+					echo "<td $rowspan class='ei-cuadro-col-tit'>$etiqueta";
 					if (toba_editor::modo_prueba()) {
 						echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
 					}
@@ -2312,13 +2380,13 @@ class toba_ei_cuadro extends toba_ei
 		$id = toba_js::arreglo($this->_id, false);
 		
 		//Si hay seleccion multiple, envia los ids de las filas
-		$id_evt_multiple = $this->get_id_evento_seleccion_multiple();
-		$hay_multiple = ($id_evt_multiple !== null);
+		$id_evt_multiple = $this->get_ids_evento_aplicacion_multiple();
+		$hay_multiple = (! empty($id_evt_multiple));
+		$id_evt_multiple = ', '. toba_js::arreglo($id_evt_multiple);
 		$filas = ',[]';
 		if ($hay_multiple) {
 			$datos = (isset($this->datos) && is_array($this->datos)) ? $this->datos : array();
 			$filas = ',' . toba_js::arreglo(array_keys($datos));
-			$id_evt_multiple = ", '$id_evt_multiple'";
 		}
 		echo $identado."window.{$this->objeto_js} = new ei_cuadro($id, '{$this->objeto_js}', '{$this->_submit}'$filas $id_evt_multiple);\n";
 	}
@@ -3195,18 +3263,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 	}
 
-	function es_clave_fila_seleccionada($clave_fila)
-	{
-		$temp_claves = array();
-		if (! empty($this->_clave_seleccionada)) {
-			foreach ($this->_clave_seleccionada as $clave) {
-				$temp_claves[] = implode(apex_qs_separador, $clave);
-			}
-		}
-		return (in_array($clave_fila, $temp_claves));
-	}
-	
-		//---------------------------------------------------------------
+	//---------------------------------------------------------------
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 	

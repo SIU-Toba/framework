@@ -240,7 +240,6 @@ class toba_evento_usuario extends toba_boton
 			$js = $this->get_invocacion_js($objeto_js, $id_componente);
 			$html = '<label>';
 			$html .= $this->get_imagen();
-			$html .= $acceso[0];
 			if (isset($js)) {
 				$extra = 'onclick="'.$js.'"';
 				$extra .= " title='$tip'";

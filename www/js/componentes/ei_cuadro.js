@@ -7,12 +7,12 @@ ei_cuadro.prototype.constructor = ei_cuadro;
  * @constructor
  * @phpdoc Componentes/Eis/toba_ei_cuadro toba_ei_cuadro
  */
-function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
+function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._filas = filas;
-	this._id_evento_multiple = id_evento_multiple;
+	this._ids_eventos_multiple = ids_eventos_multiple;
 }
 	
 	//---Submit 
@@ -32,11 +32,7 @@ function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
 				default:
 					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
-					}
-					if (this._id_evento_multiple != null) {
-						var parametros = this.get_ids_seleccionados(this._id_evento_multiple);
-						 document.getElementById(this._input_submit + '__seleccion').value = parametros.join(toba_hilo_separador_interno);
-					}					
+					}										
 					if (this._evento.parametros_extra) {
 						document.getElementById(this._input_submit + '__extra').value = this._evento.parametros_extra;
 					}					
@@ -44,6 +40,13 @@ function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
+		}
+
+		//Aca deberia ciclar por los eventos multiples e ir asignando a los hidden los valores
+		for (var evt  in this._ids_eventos_multiple) {
+			var nombre_evt = this._ids_eventos_multiple[evt];
+			var parametros = this.get_ids_seleccionados(nombre_evt);
+			document.getElementById(this._input_submit+'__'+nombre_evt).value = parametros.join(toba_hilo_separador_interno);
 		}
 	};
 	
@@ -93,7 +96,7 @@ function ei_cuadro(id, instancia, input_submit, filas, id_evento_multiple) {
 		var seleccion = [];
 		for (i in this._filas) {
 			var check = $(this._input_submit + this._filas[i] + '_' + id_evento);
-			if (check.checked) {
+			if (check && check.checked) {
 				seleccion.push(check.value);
 			}
 		}

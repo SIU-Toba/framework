@@ -20,9 +20,6 @@ class ei_form_lista_eventos extends eiform_abm_detalle
 				var tildado = false;
 				 for (id_fila in filas) {
 					 tildado = this.ef('es_seleccion_multiple').ir_a_fila(filas[id_fila]).chequeado();
-					 if ((filas[id_fila] != fila) && (tildado)) {
-						this.ef('es_seleccion_multiple').ir_a_fila(filas[id_fila]).toggle(false);
-					}
 				 }
 				 if(this.ef('en_botonera')) {// Esta extension se usa en varios forms...
 					if (this.ef('en_botonera').ir_a_fila(fila).chequeado() && tildado) {
