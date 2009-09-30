@@ -15,6 +15,9 @@ class toba_item_def implements toba_componente_definicion
 		$estructura[] = array( 	'tabla' => 'apex_item_objeto',
 								'registros' => 'n',
 								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_item_permisos_tablas',
+								'registros' => 'n',
+								'obligatorio' => false );								
 		return $estructura;		
 	}
 	

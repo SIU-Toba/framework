@@ -60,6 +60,16 @@ INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializa
 	'toba_referencia', --proyecto
 	'3294', --item
 	'30000025', --objeto
-	'0', --orden
+	'1', --orden
 	NULL  --inicializar
+);
+
+------------------------------------------------------------
+-- apex_item_permisos_tablas
+------------------------------------------------------------
+INSERT INTO apex_item_permisos_tablas (proyecto, item, fuente_datos, tablas_modifica) VALUES (
+	'toba_referencia', --proyecto
+	'3294', --item
+	'toba_referencia', --fuente_datos
+	'ref_deportes,ref_juegos'  --tablas_modifica
 );

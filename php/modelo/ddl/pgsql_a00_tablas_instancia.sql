@@ -98,7 +98,8 @@ CREATE TABLE			apex_proyecto
 	version_link						TEXT	NULL,
 	tiempo_espera_ms					integer			NULL,
 	navegacion_ajax						smallint 		NULL,
-	codigo_ga_tracker				VARCHAR(20)		NULL,
+	codigo_ga_tracker					VARCHAR(20)		NULL,
+	permisos_por_tabla					smallint		NOT NULL DEFAULT 0,	
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto")
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","item_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE,

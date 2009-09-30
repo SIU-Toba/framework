@@ -10,7 +10,6 @@ class ci_principal extends toba_ci
 	protected $cambio_item = false;
 	private $refrescar = false;
 	
-	
 	function ini()
 	{
 		$zona = toba::zona();
@@ -220,6 +219,45 @@ class ci_principal extends toba_ci
 				unset($grupo['nombre']);
 				$dbr->nueva_fila($grupo);
 			}
+		}
+	}
+	
+	function conf__form_tablas(toba_ei_formulario_ml $form) 
+	{
+		//-- Tomar los permisos definidos y completar los que faltan
+		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
+		$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
+
+		foreach ($fuentes as $fuente) {
+			$existe = false;
+			foreach ($permisos as $permiso) {
+				if ($fuente['fuente_datos'] == $permiso['fuente_datos']) {
+					$existe = true;
+				}
+			}
+			if (! $existe) {
+				$fuente['proyecto'] = toba_editor::get_proyecto_cargado();
+				$fuente['tablas_modifica'] = '';
+				$this->get_entidad()->tabla('permisos_tablas')->nueva_fila($fuente);
+			}
+		}
+		
+		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
+		$form->set_datos($permisos);
+	}
+	
+	function evt__form_tablas__modificacion($datos) 
+	{
+		$this->get_entidad()->tabla('permisos_tablas')->procesar_filas($datos);
+	}
+	
+	function get_tablas_fuente($fuente) {
+		try {
+			return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
+		} catch (toba_error $e) {
+			toba::notificacion()->warning("La fuente '$fuente' no está definida en bases.ini. Si guarda los cambios es posible que borre información existente");
+			//No esta definida en bases.ini
+			return array();
 		}
 	}
 	

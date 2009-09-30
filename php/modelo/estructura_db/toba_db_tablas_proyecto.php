@@ -116,6 +116,7 @@ class toba_db_tablas_proyecto
     48 => 'tiempo_espera_ms',
     49 => 'navegacion_ajax',
     50 => 'codigo_ga_tracker',
+    51 => 'permisos_por_tabla',
   ),
 );
 	}

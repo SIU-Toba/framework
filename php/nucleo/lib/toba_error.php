@@ -91,7 +91,7 @@ class toba_error_db extends toba_error
 				}
 			}				
 		}else{
-			$mensaje = $this->get_mensaje();
+			$mensaje = $this->get_mensaje_log();
 		}
 		parent::__construct($mensaje);
 	}

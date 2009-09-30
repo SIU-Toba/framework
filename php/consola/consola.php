@@ -50,7 +50,7 @@ class consola implements toba_proceso_gui
 				array_shift( $argumentos );
 				$this->invocar_comando( $comando, $argumentos );
 			} catch (toba_error $e ) {
-				$this->mensaje( $e->getMessage() );	
+				$this->mensaje( $e->get_mensaje() );	
 				toba_logger::instancia()->error($e);
 			}
 		} else {

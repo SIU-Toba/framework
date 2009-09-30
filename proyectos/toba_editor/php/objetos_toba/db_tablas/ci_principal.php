@@ -15,6 +15,13 @@ class ci_principal extends ci_editores_toba
 	protected $s__ap_php_archivo;						// El archivo de la extension existe en el sistema de archivos??
 	protected $clase_actual = 'toba_datos_relacion';
 
+	function ini()
+	{
+		parent::ini();
+		//TODO: Bug ei_esquema con navegacion ajax en windows
+		toba_ci::set_navegacion_ajax(false);
+	}
+	
 	function conf()
 	{
 		parent::conf();

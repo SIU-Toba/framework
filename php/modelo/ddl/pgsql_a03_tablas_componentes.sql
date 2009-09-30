@@ -117,6 +117,31 @@ CREATE TABLE apex_item_info
 	CONSTRAINT	"apex_item_info_pk"	 PRIMARY	KEY ("item_proyecto","item"),
 	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
+
+--#################################################################################################
+
+CREATE TABLE apex_item_permisos_tablas
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: item
+--: dump_order_by: item
+--: dump_where: (	item_proyecto = '%%'	)
+--: zona: central
+--: desc:
+--: version: 1.0
+--------------------------------------------------------------------------------------------------
+(	
+	proyecto						varchar(15)		NOT NULL,
+	item							varchar(60)		NOT NULL,
+	fuente_datos					varchar(20)		NOT NULL,		
+	tablas_modifica					TEXT			NOT NULL,		--Tablas separadas por coma
+	CONSTRAINT	"apex_item_permisos_tablas_pk"	 	PRIMARY	KEY ("proyecto","item", "fuente_datos"),
+	CONSTRAINT	"apex_item_permisos_tablas_item" 	FOREIGN	KEY ("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_item_permisos_tablas_fuente"  FOREIGN KEY ("proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+);
+
 --#################################################################################################
 
 CREATE SEQUENCE apex_clase_tipo_seq	INCREMENT 1	MINVALUE	1 MAXVALUE 9223372036854775807 CACHE 1;

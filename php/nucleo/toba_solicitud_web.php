@@ -357,13 +357,14 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Se incluyen botones en la botonera de la operacion
 		$this->generar_html_botonera_sup($objetos);		
 		echo "[--toba--]";
-
+		$ok = true;
 		try {
 			//--- Se envia el HTML
 			foreach ($objetos as $objeto) {
 				$objeto->generar_html();
 			}	
 		} catch(toba_error $e) {
+			$ok = false;
 			toba::logger()->error($e, 'toba');
 			$mensaje = $e->get_mensaje();
 			$mensaje_debug = null;
@@ -398,19 +399,21 @@ class toba_solicitud_web extends toba_solicitud
 		echo "document.formulario_toba.action='$autovinculo'\n";
 		toba::vinculador()->generar_js();
 		toba_js::cargar_definiciones_runtime();
-		try {
-			foreach ($objetos as $objeto) {
-				//$objeto->servicio__html_parcial();
-				$objeto_js = $objeto->generar_js();
-				echo "\nwindow.$objeto_js.iniciar();\n";
+		if ($ok) {
+			try {
+				foreach ($objetos as $objeto) {
+					//$objeto->servicio__html_parcial();
+					$objeto_js = $objeto->generar_js();
+					echo "\nwindow.$objeto_js.iniciar();\n";
+				}
+			} catch (toba_error $e) {
+				toba::logger()->error($e, 'toba');
+				$mensaje_debug = null;
+				if (toba::logger()->modo_debug()) {
+					$mensaje_debug = $e->get_mensaje_log();
+				}				
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 			}
-		} catch (toba_error $e) {
-			toba::logger()->error($e, 'toba');
-			$mensaje_debug = null;
-			if (toba::logger()->modo_debug()) {
-				$mensaje_debug = $e->get_mensaje_log();
-			}				
-			toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 		}
 		toba::notificacion()->mostrar(false);
 		toba::acciones_js()->generar_js();
