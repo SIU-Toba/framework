@@ -122,6 +122,11 @@ class toba_evento_usuario extends toba_boton
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'X');
 	}	
 	
+	function posee_accion_respuesta_popup()
+	{
+		return ($this->posee_accion_asociada() && ($this->datos['accion'] == 'P'));
+	}
+
 	function posee_accion_vista_xslfo()
 	{
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'xslfo');
@@ -197,6 +202,17 @@ class toba_evento_usuario extends toba_boton
 	function set_seleccion_multiple()
 	{
 		$this->datos['es_seleccion_multiple'] = '1';
+	}
+
+	/**
+	 * Permite definir en runtime si el evento es una respuesta de popup o no
+	 * @param char $accion Los unicos valores permitidos son 'P' o cadena vacia.
+	 */
+	function set_accion_respuesta_popup($accion)
+	{
+		if (($accion == '') || ($accion == 'P')) {
+			$this->datos['accion'] = $accion;
+		}
 	}
 
 	function set_check_activo($activo)
@@ -321,7 +337,7 @@ class toba_evento_usuario extends toba_boton
 			}
 			// Escribo la sentencia que invocaria el vinculo
 			$js = "{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');";
-		} elseif ( $this->datos['accion'] == 'P' ) {
+		} elseif ( $this->posee_accion_respuesta_popup() ) {
 			//--- En una respuesta a un ef_popup
 			$param = addslashes(str_replace('"',"'",$this->parametros));
 			$js = "respuesta_ef_popup('$param');";
