@@ -137,7 +137,7 @@ class toba_db_tablas_componente
   'dump_clave_proyecto' => 'proyecto',
   'dump_clave_componente' => 'item',
   'dump_order_by' => 'item',
-  'dump_where' => '(	item_proyecto = \\\'%%\\\'	)',
+  'dump_where' => '(	proyecto = \\\'%%\\\'	)',
   'zona' => 'central',
   'desc' => '',
   'version' => '1.0',
