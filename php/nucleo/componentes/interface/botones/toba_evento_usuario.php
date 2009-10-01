@@ -340,7 +340,7 @@ class toba_evento_usuario extends toba_boton
 		} elseif ( $this->posee_accion_respuesta_popup() ) {
 			//--- En una respuesta a un ef_popup
 			$param = addslashes(str_replace('"',"'",$this->parametros));
-			$js = "respuesta_ef_popup('$param');";
+			$js = "iniciar_respuesta_popup(this, '$param');";
 		} else {
 			// Manejo estandar de eventos
 			$submit = toba_js::bool(! $this->es_seleccion_multiple());

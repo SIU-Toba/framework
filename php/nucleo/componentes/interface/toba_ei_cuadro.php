@@ -815,6 +815,16 @@ class toba_ei_cuadro extends toba_ei
         }
 	}
 
+	function get_descripcion_resp_popup($fila)
+	{
+		$resultado = '';
+		$clave = $this->_info_cuadro['columna_descripcion'];
+		if (! is_null($clave) && isset($this->datos[$fila][$clave])) {
+			$resultado = $this->datos[$fila][$clave];
+		}
+		return $resultado;
+	}
+	
     /**
     *	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
     */
@@ -2013,11 +2023,12 @@ class toba_ei_cuadro extends toba_ei
 					$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
 					echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
 					$parametros = $this->get_clave_fila_array($f);
-					/*if (! empty($id_evt_seleccion)) {			//Esto aca no va... habria que ver por evento si la clave esta o no
-						$evento->set_check_activo($esta_seleccionada);
-					}*/
+					if ($evento->posee_accion_respuesta_popup()) {
+						$descripcion_popup = toba_js::sanear_string($this->get_descripcion_resp_popup($f));
+						echo  toba_form::hidden($this->_submit. $f .'_descripcion', toba_js::sanear_string($this->get_descripcion_resp_popup($f)));	//Podemos hacer esto porque no vuelve nada!
+					} 
 					echo $this->get_invocacion_evento_fila($evento, $f, $clave_fila, false, $parametros);
-	            	echo "</td>\n";
+					echo "</td>\n";
 				}
 				//Si algun evento permite seleccionar valores
 				if ($hay_evento_maneja_datos) {

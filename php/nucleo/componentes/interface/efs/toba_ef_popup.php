@@ -98,13 +98,7 @@ class toba_ef_popup extends toba_ef_editable
 	 */
 	function get_descripcion_estado($tipo_salida)
 	{
-		if ( isset($this->descripcion_estado)) {
-			$valor = $this->descripcion_estado;
-		} elseif (isset($this->estado)) { 
-			$valor = $this->estado;
-		} else {
-			$valor = null;
-		}
+		$valor = $this->get_descripcion_valor();
 		switch ($tipo_salida) {
 			case 'html':
 			case 'impresion_html':
@@ -117,6 +111,18 @@ class toba_ef_popup extends toba_ef_editable
 			break;
 		}		
 	}	
+
+	protected function get_descripcion_valor()
+	{
+		if ( isset($this->descripcion_estado)) {
+			$valor = $this->descripcion_estado;
+		} elseif (isset($this->estado)  && !is_array($this->estado)) {
+			$valor = $this->estado;
+		} else {
+			$valor = null;
+		}
+		return $valor;
+	}
 	
 	function set_opciones($descripcion, $maestros_cargados=true)
 	{
@@ -141,42 +147,45 @@ class toba_ef_popup extends toba_ef_editable
 
 	function get_input()
 	{
+		$js = '';
+		$html = '';
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";		
 		if(!isset($this->estado)) $this->estado="";	
 		if (!isset($this->descripcion_estado) || $this->descripcion_estado == '') {
-			$this->descripcion_estado = $this->estado;		
+			$this->descripcion_estado = $this->get_descripcion_valor(); 
 		}
-		$js = '';	
-		$r = '';
+
+		$estado = (is_array($this->estado)) ? implode(apex_qs_separador, $this->estado) : $this->estado;
+		$html .= "<span class='{$this->clase_css}'>";
 		if ($this->cuando_cambia_valor != '') {
 			$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		}
-		$r .= "<span class='{$this->clase_css}'>";
+
 		if ($this->editable) {
-			$r .= toba_form::hidden($this->id_form."_desc", $this->estado);
 			$disabled = ($this->solo_lectura) ? "disabled" : "";
-			$r .= toba_form::text($this->id_form, $this->descripcion_estado, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
+			$html .= toba_form::hidden($this->id_form."_desc", $estado);
+			$html .= toba_form::text($this->id_form, $this->descripcion_estado, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
 			$extra = '';
 		} else {
-			$r .= toba_form::hidden($this->id_form, $this->estado, $js);
-			$r .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
+			$html .= toba_form::hidden($this->id_form, $estado, $js);
+			$html .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
 		}	
 		if (isset($this->id_vinculo)) {
 			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
-			$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
-			$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
-	        $r .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
+			$html .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
+			$html .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
+	        $html .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
 		}
 		if ($this->no_oblig_puede_borrar) {
 			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
-			$r .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
-			$r .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
-	        $r .= " href='#'>".toba_recurso::imagen_toba('limpiar.png',true,null,null,"Limpia la selección actual")."</a>";
+			$html .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
+			$html .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
+	        $html .= " href='#'>".toba_recurso::imagen_toba('limpiar.png',true,null,null,"Limpia la selección actual")."</a>";
 		}
-		$r .= $this->get_html_iconos_utilerias();
-		$r .= "</span>\n";
-		return $r;
+		$html .= $this->get_html_iconos_utilerias();
+		$html .= "</span>\n";
+		return $html;
 	}
     
 	function get_consumo_javascript()
@@ -208,6 +217,28 @@ class toba_ef_popup extends toba_ef_editable
 		}
 	}
 
+	function cargar_estado_post()
+	{
+		if (isset($_POST[$this->id_form])) {
+			$explotable = explode(apex_qs_separador, trim($_POST[$this->id_form]));
+			if (count($explotable) == 1) {
+				$this->estado = current($explotable);
+			}else{
+				$this->estado = $explotable;
+			}			
+    	} else {
+    		$this->estado = null;
+    	}
+	}
+
+	function set_estado($estado)
+	{
+   		if(isset($estado)){
+    		$this->estado= (is_array($estado)) ? $estado :  trim($estado);
+	    } else {
+	    	$this->estado = null;
+	    }
+	}
 }
 //########################################################################################################
 //########################################################################################################

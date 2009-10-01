@@ -156,7 +156,15 @@ class toba_js
 				function respuesta_ef_popup(parametros) {
 					var seleccion = parametros.split('||');
 					seleccionar(seleccion[0], seleccion[1]);
-				} ";
+				}
+
+				function iniciar_respuesta_popup(objeto, parametros)
+				{					
+					var posicion = objeto.id.ultima_ocurrencia('_');
+					var nombre = objeto.id.substr(0, posicion) + '_descripcion';
+					var descripcion = $(nombre).value;
+					seleccionar(parametros, descripcion);
+				}";
 			}
 			//-----------------------------------------------------------------------------------------------------
 			echo toba_js::cerrar();		
@@ -311,6 +319,12 @@ class toba_js
 		return pasar_a_unica_linea($cadena);
 	}
 
+	static function sanear_string($cadena)
+	{
+		$unica_linea = self::string($cadena);
+		return addslashes($unica_linea);
+	}
+	
 	/**
 	 * Retorna el codigo necesario para crear un evento en js
 	 *

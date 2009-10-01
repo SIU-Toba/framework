@@ -3,6 +3,12 @@ class toba_migracion_1_5_0 extends toba_migracion
 {
 		function instancia__cambios_estructura()
 		{
+			/**
+			 * Se evita el mensaje 'ERROR:  cannot ALTER TABLE "apex_objeto" because it has pending trigger events' de postgres 8.3
+			 */
+			$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+			$this->elemento->get_db()->ejecutar($sql);
+
 			$sql = array();
 			//------------- Nueva tabla para guardar el checksum de los proyectos, relacionado a la sincro_svn ---------
 			$sql[] = "CREATE TABLE			apex_checksum_proyectos
@@ -29,7 +35,13 @@ class toba_migracion_1_5_0 extends toba_migracion
 
 			//------------------------------------ Define si se puede actualizar automaticamente mediante wizard ----------------------
 			$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD COLUMN permite_actualizacion_automatica smallint NOT NULL DEFAULT 1;';
+
+			//----------------------------------- Define la columna descripcion que se usara para una respuesta_popup ------------
+			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN columna_descripcion TEXT NULL;';
 			
+			$this->elemento->get_db()->ejecutar($sql);
+
+			$sql = "SET CONSTRAINTS ALL DEFERRED;";
 			$this->elemento->get_db()->ejecutar($sql);
 		}
 
@@ -89,6 +101,41 @@ class toba_migracion_1_5_0 extends toba_migracion
 					WHERE	objeto_cuadro_proyecto = '{$this->elemento->get_id()}'  AND
 					objeto_cuadro = '$cuadro_id' AND objeto_cuadro_col = '$columna'; ";
 					$this->elemento->get_db()->ejecutar($sql_up);
+				}
+			}
+		}
+
+		/**
+		 * Se explicitan las segundas columnas de los cuadros con respuesta_popup
+		 * como columnas descripcion
+		 */
+		function proyecto__explicitar_descripcion_respuesta_popup()
+		{
+			//Tengo que recuperar los que tienen accion = 'P'
+			$sql = "SELECT	aoc.objeto_cuadro,
+										    aoc.columnas_clave
+						  FROM apex_objeto_eventos aoe
+						  JOIN apex_objeto_cuadro aoc
+						  ON aoe.proyecto = aoc.objeto_cuadro_proyecto AND aoe.objeto = aoc.objeto_cuadro
+						  WHERE  aoe.proyecto = '{$this->elemento->get_id()}'  AND
+										   aoe.accion = 'P'
+						  GROUP BY aoc.objeto_cuadro, aoc.columnas_clave ;";
+			$datos = $this->elemento->get_db()->consultar($sql);
+
+			foreach($datos as $evento) {
+				$columnas = explode(',' , $evento['columnas_clave']);		//Separo las columnas
+				$largo = count($columnas);
+				$col_desc = null;
+				if (isset($columnas[$largo-1]) && $columnas[$largo-1] != '') {	//Si no hay error
+					$col_desc = $columnas[$largo-1];
+					unset($columnas[$largo-1]);
+					$columnas = implode(',' , $columnas);
+				}				
+				if (! is_null($col_desc) && $columnas != '') {
+					$sql = 'UPDATE apex_objeto_cuadro SET columna_descripcion = ' . $this->elemento->get_db()->quote($col_desc) .
+					 ', columnas_clave = ' . $this->elemento->get_db()->quote($columnas);
+					$sql .= " WHERE objeto_cuadro_proyecto = '{$this->elemento->get_id()}'  AND objeto_cuadro = '{$evento['objeto_cuadro']}'; ";
+					$this->elemento->get_db()->ejecutar($sql);
 				}
 			}
 		}
