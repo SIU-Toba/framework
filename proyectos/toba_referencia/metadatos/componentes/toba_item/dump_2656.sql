@@ -28,7 +28,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'', --actividad_accion
 	'1', --menu
 	'2', --orden
-	NULL, --solicitud_registrar
+	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
 	NULL, --solicitud_observacion
@@ -37,18 +37,18 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona_proyecto
 	NULL, --zona
 	NULL, --zona_orden
-	NULL, --zona_listar
-	NULL, --imagen_recurso_origen
+	'0', --zona_listar
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	NULL, --publico
+	'0', --publico
 	'0', --redirecciona
 	NULL, --usuario
 	'0', --exportable
 	NULL, --creacion
-	NULL  --retrasar_headers
+	'0'  --retrasar_headers
 );
 --- FIN Grupo de desarrollo 0
 
@@ -62,4 +62,14 @@ INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializa
 	'1726', --objeto
 	'0', --orden
 	NULL  --inicializar
+);
+
+------------------------------------------------------------
+-- apex_item_permisos_tablas
+------------------------------------------------------------
+INSERT INTO apex_item_permisos_tablas (proyecto, item, fuente_datos, tablas_modifica) VALUES (
+	'toba_referencia', --proyecto
+	'2656', --item
+	'toba_referencia', --fuente_datos
+	'ref_deportes'  --tablas_modifica
 );

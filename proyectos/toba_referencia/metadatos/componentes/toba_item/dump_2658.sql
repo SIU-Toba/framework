@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
@@ -62,4 +62,14 @@ INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializa
 	'1731', --objeto
 	'0', --orden
 	NULL  --inicializar
+);
+
+------------------------------------------------------------
+-- apex_item_permisos_tablas
+------------------------------------------------------------
+INSERT INTO apex_item_permisos_tablas (proyecto, item, fuente_datos, tablas_modifica) VALUES (
+	'toba_referencia', --proyecto
+	'2658', --item
+	'toba_referencia', --fuente_datos
+	'ref_persona,ref_persona_deportes,ref_persona_juegos'  --tablas_modifica
 );

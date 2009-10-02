@@ -19,6 +19,9 @@ class toba_solicitud_web extends toba_solicitud
 	function __construct($info)
 	{
 		$this->info = $info;
+		if (toba_editor::activado()) {
+			toba_editor::set_item_solicitado(toba::memoria()->get_item_solicitado());
+		}
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());
 	}
 

@@ -158,6 +158,125 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}	
 	
+	//---------------------------------------------------------------------
+	//-- PERMISOS
+	//---------------------------------------------------------------------
+	
+	function get_usuario_actual()
+	{
+		$sql = "SELECT CURRENT_USER AS usuario";
+		$datos = toba::db()->consultar_fila($sql);
+		return $datos['usuario'];
+	}
+	
+	function get_rol_actual()
+	{
+		$sql = "SHOW ROLE";
+		$datos = $this->consultar_fila($sql);
+		return $datos['role'];
+	}	
+	
+	function set_rol($rol)
+	{
+		$sql = "SET ROLE $rol";
+		return $this->ejecutar($sql);
+	}
+	
+	function existe_rol($rol) 
+	{
+		$rol = $this->quote($rol);
+		$sql = "SELECT rolname FROM pg_roles WHERE rolname = $rol";		
+		$datos = $this->consultar($sql);
+		return !empty($datos);
+	}
+	
+	function crear_rol($rol)
+	{
+		$sql = "CREATE ROLE $rol NOINHERIT";
+		return $this->ejecutar($sql);
+	}
+	
+	function crear_usuario($rol, $password)
+	{
+		$password = $this->quote($password);
+		$sql = "CREATE ROLE $rol NOINHERIT LOGIN PASSWORD $password";
+		return $this->ejecutar($sql);
+	}	
+	
+	function borrar_rol($rol)
+	{
+		$rol = $this->quote($rol);		
+		$sql = "DROP ROLE $rol";
+		return $this->ejecutar($sql);
+	}
+	
+	function grant_rol($usuario, $rol)
+	{
+		$sql = "GRANT $rol TO $usuario";
+		return $this->ejecutar($sql);
+	}	
+
+	function grant_schema($usuario, $schema, $permisos = 'USAGE')
+	{
+		$sql = "GRANT $permisos ON SCHEMA \"$schema\" TO $usuario";
+		return $this->ejecutar($sql);
+	}	
+	
+	function revoke_schema($usuario, $schema, $permisos = 'ALL PRIVILEGES')
+	{
+		$sql = "REVOKE $permisos ON SCHEMA \"$schema\" FROM $usuario";
+		$this->ejecutar($sql);
+		
+		//--Revoka las tablas dentro
+		$sql = "SELECT
+					relname
+				FROM pg_class c
+					JOIN pg_namespace ns ON (c.relnamespace = ns.oid)
+				WHERE
+						relkind in ('r','v','S')
+					AND nspname = '$schema'
+		";
+		$rs = $this->consultar($sql);
+		foreach ($rs as $tabla) {
+			$sql = "REVOKE $permisos ON $schema.{$tabla['relname']} FROM $usuario CASCADE";
+			$this->ejecutar($sql);
+		}		
+	}
+	
+	function revoke_rol($usuario, $rol)
+	{
+		$sql = "REVOKE $rol FROM $usuario";
+		return $this->ejecutar($sql);
+	}
+
+	/**
+	 *	Da permisos especificos a todas las tablas de un esquema dado
+	 **/
+	function grant_tablas_schema($usuario, $schema, $privilegios ='ALL PRIVILEGES')
+	{
+		$sql = "SELECT
+					relname
+				FROM pg_class c
+					JOIN pg_namespace ns ON (c.relnamespace = ns.oid)
+				WHERE
+						relkind in ('r','v','S')
+					AND nspname = ".$this->quote($schema);
+		$tablas = $this->consultar($sql);
+		$this->grant_tablas($usuario, $schema, aplanar_matriz($tablas, 'relname'), $privilegios);
+	}	
+	
+	/**
+	 *	Da permisos especificos a todas las tablas de un esquema dado
+	 **/
+	function grant_tablas($usuario, $schema, $tablas, $privilegios ='ALL PRIVILEGES')
+	{
+		foreach ($tablas as $tabla) {
+			$sql = "GRANT $privilegios ON $schema.$tabla TO $usuario";
+			$this->ejecutar($sql);
+		}
+	}	
+
+
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------	
@@ -391,5 +510,7 @@ class toba_db_postgres7 extends toba_db
 	{
 		return 'DEFAULT';
 	}
+	
+	
 }
 ?>

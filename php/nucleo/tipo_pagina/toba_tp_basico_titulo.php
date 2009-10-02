@@ -38,7 +38,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 				$js = "abrir_popup('ayuda', '$mensaje', {width: 800, height: 600})";
 				echo "<a class='barra-superior-ayuda' href='#' onclick=\"$js\" title='Abrir ayuda'>".toba_recurso::imagen_toba("ayuda_grande.gif", true)."</a>";
 			}
-		}		
+		}	
 	}
 	
 	/**

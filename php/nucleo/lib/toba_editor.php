@@ -9,6 +9,7 @@
 class toba_editor
 {
 	private static $memoria;	// Bindeo a $_sesion
+	private static $ultimo_item;
 
 	static function get_id()
 	{
@@ -37,10 +38,28 @@ class toba_editor
 	
 	static function referenciar_memoria()
 	{
+		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
+		//Acceso a la informacion del modelo
+		toba_contexto_info::set_proyecto(toba_editor::get_proyecto_cargado());
+		toba_contexto_info::set_db(toba_editor::get_base_activa());
+				
+		if (! self::modo_prueba()) {
+			return;
+		}
 		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
 		if ($fuente) {
-			//Pone la base por defecto en modo debug, para leer la cantidad y tiempo de las querys
-			try {
+			$modelo = self::get_modelo_proyecto();		
+			try {			
+				if ($modelo->get_usa_permisos_por_tabla()) {
+					//El proyecto usa permisos por tablas para las operaciones, en modo previsualizacion se setea el rol especifico
+					$id_base = self::$memoria['instancia'].' '.self::get_proyecto_cargado().' '.$fuente;
+					$parametros = toba_dba::get_parametros_base($id_base);
+					$usuario = $modelo->get_usuario_prueba_db($fuente);
+					$parametros['usuario'] = $usuario;
+					$parametros['clave'] = $usuario;
+					toba_dba::set_parametros_base($id_base, $parametros);
+				}
+				//Pone la base por defecto en modo debug, para leer la cantidad y tiempo de las querys
 				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
 				if ($base) {
 					$base->set_modo_debug(true, false);
@@ -49,8 +68,6 @@ class toba_editor
 				//Si no se tiene acceso a la base no se hace nada
 			}
 		}
-		//toba::db()->set_modo_debug(true, true);
-		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
 		
 		//Cambia el skin
 		if (toba::memoria()->get_parametro('skin') != '') {
@@ -58,15 +75,17 @@ class toba_editor
 			toba::proyecto()->set_parametro('estilo', $skin[0]);
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 		}
+		/*if (toba::memoria()->get_parametro('skin') != '') {
+			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
+			toba::proyecto()->set_parametro('estilo', $skin[0]);
+			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
+		}*/		
 		//Cambia tipo de navegación
 		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {
 			$ajax = toba::memoria()->get_parametro('navegacion_ajax') ? true : false;
 			toba::proyecto()->set_parametro('navegacion_ajax', $ajax);
 		}
 		
-		//Acceso a la informacion del modelo
-		toba_contexto_info::set_proyecto(toba_editor::get_proyecto_cargado());
-		toba_contexto_info::set_db(toba_editor::get_base_activa());
 	}
 
 	static function finalizar()
@@ -133,6 +152,35 @@ class toba_editor
 		}
 		self::$memoria['proyecto'] = $proyecto;
 		self::get_parametros_previsualizacion(true);
+	}
+	
+	/**
+	 * Se cambio el item actual
+	 */
+	static function set_item_solicitado($item) 
+	{
+		if (isset($item) && $item[0] == self::$memoria['proyecto'] && 
+				!isset(self::$ultimo_item) && self::$ultimo_item[1] != $item[1]) {
+			self::$ultimo_item = $item;					
+			$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
+			if ($fuente) {
+				$modelo = self::get_modelo_proyecto();	
+				if ($modelo->get_usa_permisos_por_tabla()) {
+					try {
+						$rol = $modelo->get_rol_prueba_db($fuente, $item[1]);
+						if (toba::db()->existe_rol($rol)) {
+							toba::db()->set_rol($rol);
+						} else {
+							$rol = $modelo->get_rol_prueba_db_basico($fuente);
+							toba::db()->set_rol($rol);
+						}
+						toba::logger()->info("Se cambio el rol postgres a '$rol'");													
+					} catch (toba_error_db $e) {
+						toba::notificacion()->error("No fue posible cambiar el rol del usuario de conexion", $e->get_mensaje_log());
+					}
+				}	
+			}
+		}
 	}
 		
 	static function get_punto_acceso_editor()
@@ -395,7 +443,6 @@ class toba_editor
 		if ($fuente) {
 			try {
 				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
-				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
 				$info_db = $base->get_info_debug();
 				$total = 0;
 				foreach($info_db as $info) {
@@ -403,9 +450,10 @@ class toba_editor
 						$total += ($info['fin'] - $info['inicio']);
 					}
 				}
+				$rol = toba::db()->get_rol_actual();
 				toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
 				echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
-					count($info_db). "</a>";
+					count($info_db). " ($rol)</a>";
 					
 			} catch (toba_error $e) {
 				//Si no se tiene acceso a la base no se hace nada
@@ -429,11 +477,23 @@ class toba_editor
 		echo "</span>";		
 		echo "<span id='editor_previsualizacion_acc'>";
 		
+
+		//Usuario de la base
+		$modelo = self::get_modelo_proyecto();
+		if ($modelo->get_usa_permisos_por_tabla()) {
+			$actual = 'limitado';
+			$datos = array("normal" => "Normal", "limitado" => "Limitados");
+			$js = "title='Cambia temporalmente el usuario de conexión a la base' onchange=\"location.href = toba_prefijo_vinculo + '&usuario_conexion=' + this.value\"";
+			echo "Permisos DB: ".toba_form::select('cambiar_rol', $actual, $datos, 'ef-combo', $js);
+		}
+		
+		
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
 		$js = "title='Cambia temporalmente el skin de la aplicación' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
-		echo toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
+		echo "Skin: ".toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
+		
 
 		//AJAX		
 		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";

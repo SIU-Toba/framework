@@ -203,6 +203,9 @@ class toba_memoria
 		toba::logger()->debug('Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 		$this->inicializar_memoria();
+		if (toba_editor::activado()) {		
+			toba_editor::set_item_solicitado($item);
+		}
 	}
 	
 	/**
@@ -337,6 +340,7 @@ class toba_memoria
 			$this->limpiar_datos_reciclable();
 		}
 		$this->inicializar_reciclaje_global();
+		
 	}
 
 	function limpiar_memoria()

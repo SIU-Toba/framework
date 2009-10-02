@@ -271,8 +271,19 @@ class ci_principal extends toba_ci
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
+		$datos = $this->get_entidad()->tabla("base")->get();		
+		
+		//Si el proyecto usa esquema de permisos por tabla
+		$modelo_proyecto = toba_editor::get_modelo_proyecto();
+		if ($modelo_proyecto->get_usa_permisos_por_tabla()) {
+			try {
+				$modelo_proyecto->generar_roles_db_pruebas($datos['item']);
+			} catch (toba_error_db $e) {
+				toba::notificacion()->error("Error al actualizar los roles postgres para esta operación", $e->get_mensaje_log());
+			}
+		}
+		
 		if (! isset($this->s__id_item )) {		//Si el item es nuevo
-			$datos = $this->get_entidad()->tabla("base")->get();
 			admin_util::refrescar_editor_item( $datos['item'] );						
 			admin_util::redirecionar_a_editor_item( $datos['proyecto'], $datos['item']);			
 		}

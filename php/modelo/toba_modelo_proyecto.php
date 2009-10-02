@@ -182,17 +182,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 * Retorna una referencia a la fuente de datos predeterminada del proyecto
 	 * @return toba_db
 	 */
-	function get_db_negocio()
+	function get_db_negocio($fuente=null)
 	{
-		$fuentes = $this->get_indice_fuentes();
-		if (empty($fuentes)) {
-			return;
+		if (! isset($fuente)) {
+			$fuentes = $this->get_indice_fuentes();
+			if (empty($fuentes)) {
+				return;
+			}
+			$fuente = toba_info_editores::get_fuente_datos_defecto($this->identificador);
+			if (! isset($fuente)) {
+				$fuente = current($fuentes);		
+			}
 		}
-		$fuente_defecto = toba_info_editores::get_fuente_datos_defecto($this->identificador);
-		if (! isset($fuente_defecto)) {
-			$fuente_defecto = current($fuentes);		
-		}
-		$id_def_base = $this->construir_id_def_base($fuente_defecto);
+		$id_def_base = $this->construir_id_def_base($fuente);
 		return $this->get_instalacion()->conectar_base($id_def_base);		
 	}
 	
@@ -517,6 +519,155 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}	
 	
 	//-----------------------------------------------------------
+	//	PERMISOS SOBRE TABLAS EN LA BASE
+	//-----------------------------------------------------------
+		
+	function get_usa_permisos_por_tabla()
+	{
+		$proyecto = $this->db->quote($this->identificador);
+		$sql = "SELECT permisos_por_tabla FROM apex_proyecto WHERE proyecto= $proyecto";
+		$rs = $this->get_db()->consultar_fila($sql);
+		return $rs['permisos_por_tabla'] == 1;
+	}
+	
+	
+	function get_usuario_prueba_db($fuente)
+	{
+		return "temp_".$fuente;
+	}
+	
+	function get_rol_prueba_db($fuente, $id_operacion)
+	{
+		return "temp_".$fuente.'_'.$id_operacion;		
+	}
+	
+	function get_rol_prueba_db_basico($fuente)
+	{
+		return "temp_".$fuente.'_basico';		
+	}	
+			
+	
+	/**
+	 * Arma los roles de prueba del proyecto
+	 * @param int $id_operacion Si no se especifica actualiza todas las operaciones
+	 */
+	function generar_roles_db_pruebas($id_operacion = null)
+	{
+		if (!$this->get_instalacion()->es_produccion() && $this->get_usa_permisos_por_tabla()) {		
+			$this->manejador_interface->mensaje('Actualizando roles de la base de negocios', false);		
+
+			foreach (toba_info_editores::get_fuentes_datos($this->identificador) as $fuente) {	
+				if (isset($fuente['schema'])) {
+					$schema = $fuente['schema'];
+				} else {
+					$schema = 'public';
+				}			
+				try {
+					$conexion = $this->get_db_negocio($fuente['fuente_datos']);
+					if (! $conexion->existe_schema($schema)) {
+						continue;
+					}
+				} catch (toba_error_db $e) {
+					//No es posible hacer la conexion, seguir con otra fuente
+					continue;
+				}
+				$usuario = $this->get_usuario_prueba_db($fuente['fuente_datos']);	
+				try {
+					$conexion->abrir_transaccion();			
+					$rol_select = $this->get_rol_prueba_db_basico($fuente['fuente_datos']);
+					//-- Si no existe el usuario lo crea y le asigna permisos
+					if (! $conexion->existe_rol($usuario)) {
+						$conexion->crear_usuario($usuario, $usuario);
+					}		
+					if (! $conexion->existe_rol($rol_select)) {
+						$conexion->crear_rol($rol_select);
+					}
+					$conexion->grant_schema($rol_select, $schema);
+					$conexion->grant_tablas_schema($rol_select, $schema, "SELECT");
+					$conexion->grant_rol($usuario, $rol_select);
+					if (! isset($id_operacion)) {
+						foreach(toba_info_editores::get_lista_items($this->identificador) as $operacion) {
+							$this->generar_roles_db_pruebas_operacion($fuente['fuente_datos'], $schema, $conexion, $operacion['id']);
+							$this->manejador_interface->progreso_avanzar();
+						}
+					} else {
+						$this->generar_roles_db_pruebas_operacion($fuente['fuente_datos'], $schema, $conexion, $id_operacion);
+					}
+					$conexion->cerrar_transaccion();					
+				} catch (toba_error_db $e) {
+					//Error al generar permisos
+					$conexion->abortar_transaccion();
+					throw $e;						
+				}
+
+			}
+			$this->manejador_interface->progreso_fin();
+		}
+	}
+	
+	/**
+	 * Arma los roles de prueba en base a los permisos de tablas de una operación
+	 */
+	protected function generar_roles_db_pruebas_operacion($fuente, $schema, $conexion, $id_operacion)
+	{
+		$rol = $this->get_rol_prueba_db($fuente, $id_operacion);
+		$usuario = $this->get_usuario_prueba_db($fuente);
+		
+		//-- Determina tablas y schema
+		$sql = "SELECT 
+					tablas_modifica
+				FROM
+					apex_item_permisos_tablas
+				WHERE 
+						proyecto = '{$this->identificador}'
+					AND	fuente_datos = '$fuente'
+					AND item = ".$this->db->quote($id_operacion);
+		$datos = $this->db->consultar_fila($sql);
+		if (!empty($datos) && trim($datos['tablas_modifica']) != '') {
+			$tablas = explode(',', $datos['tablas_modifica']);
+		} else {
+			$tablas = array();
+		}
+			
+		$existe_rol = $conexion->existe_rol($rol);
+
+		//--Revocar permisos actuales
+		if ($existe_rol) {
+			$conexion->revoke_schema($rol, $schema, 'ALL PRIVILEGES');
+		} 
+
+		if (!empty($tablas)) {
+			//-- Crea el nuevo rol
+			if (! $existe_rol) {
+				$conexion->crear_rol($rol);
+			}
+			//-- Asignar nuevos permisos
+			$conexion->grant_schema($rol, $schema);
+			$conexion->grant_tablas_schema($rol, $schema, "SELECT");
+			$conexion->grant_tablas($rol, $schema, $tablas, "UPDATE, INSERT, DELETE");
+			
+			//-- Da permisos a las secuencias de la tabla
+			$secuencias = $conexion->get_lista_secuencias();
+			$secuencias_grant = array();
+			foreach ($secuencias as $secuencia) {
+				if (in_array($secuencia['tabla'], $tablas)) {
+					$secuencias_grant[] = $secuencia['nombre'];
+				}
+			}
+			$conexion->grant_tablas($rol, $schema, $secuencias_grant, "UPDATE");			
+			
+			//-- Asigna el usuario de prueba al rol
+			$conexion->grant_rol($usuario, $rol);
+		} else {
+			//-- Borrar el rol, ya no es necesario
+			if ($existe_rol) {
+				$conexion->revoke_rol($usuario, $rol);
+				$conexion->borrar_rol($rol);
+			}
+		}
+	}
+	
+	//-----------------------------------------------------------
 	//	CARGAR
 	//-----------------------------------------------------------
 	
@@ -821,7 +972,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->eliminar();
 			$this->cargar();
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
-			$this->instancia->actualizar_secuencias();			
+			$this->instancia->actualizar_secuencias();	
+			$this->generar_roles_db_pruebas();
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
@@ -1664,6 +1816,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				unset($parametros['base']);
 			}
 			$aplicacion->instalar($parametros);
+			$this->generar_roles_db_pruebas();
 		}
 	}
 
@@ -1685,11 +1838,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$aplicacion = $this->get_aplicacion_modelo();
 		if (isset($aplicacion)) {
-			$parametros = $this->instancia->get_parametros_db();
-			if (isset($parametros['base'])) {
-				unset($parametros['base']);
-			}
 			$aplicacion->migrar($desde, $hasta);
+			$this->generar_roles_db_pruebas();			
 		}
 	}
 	
