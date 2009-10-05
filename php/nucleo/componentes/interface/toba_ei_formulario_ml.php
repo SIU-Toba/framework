@@ -656,13 +656,17 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//-------------------------------------------------------------------------------
 	//----------------------------	  SALIDA	  -----------------------------------
 	//-------------------------------------------------------------------------------
+	function generar_html()
+	{
+		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(1000);
+		parent::generar_html();
+	}
 
 	/**
 	 * @ignore 
 	 */
 	protected function generar_formulario()
 	{
-		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(1000);		
 		//--- Si no se cargaron datos, se cargan ahora
 		if (!isset($this->_datos)) {		
 			$this->carga_inicial();

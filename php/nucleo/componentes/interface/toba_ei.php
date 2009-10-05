@@ -400,6 +400,15 @@ abstract class toba_ei extends toba_componente
 	}
 
 	/**
+	 * Devuelve True si la botonera del componente se debe ubicar arriba o en ambos extremos del mismo.
+	 * @return boolean
+	 */
+	function botonera_arriba()
+	{
+		return ($this->_posicion_botonera != 'abajo');
+	}
+
+	/**
 	 * Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente
 	 * @return boolean
 	 */
@@ -631,7 +640,8 @@ abstract class toba_ei extends toba_componente
 		
 				//---Barra de colapsado
 				$colapsado = "";
-				if ($this->_info['colapsable'] && isset($this->objeto_js)) {
+				$colapsado_coherente = ($this->hay_botones() && !$this->botonera_arriba());
+				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				}			
 				echo "<div class='$estilo' $colapsado>\n";
@@ -654,7 +664,7 @@ abstract class toba_ei extends toba_componente
 				}
 		
 				//---Barra de colapsado
-				if ($this->_info['colapsable'] && isset($this->objeto_js)) {
+				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
 					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
 				}
