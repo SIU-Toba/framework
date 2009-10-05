@@ -105,6 +105,7 @@ CREATE TABLE apex_fuente_datos
 	link_instancia				smallint		NULL,
 	tiene_auditoria			SMALLINT  NOT NULL  DEFAULT 0,
 	parsea_errores		 SMALLINT  NOT NULL  DEFAULT 0,
+	permisos_por_tabla			smallint 		NOT NULL DEFAULT 0,
 	--- test perfiles (ex db-junk!) ---
 	usuario						varchar			NULL,
 	clave						varchar			NULL,

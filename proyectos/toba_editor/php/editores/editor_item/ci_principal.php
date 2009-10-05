@@ -5,6 +5,7 @@ class ci_principal extends toba_ci
 {
 	protected $s__id_item ;
 	protected $s__inicializar_item_nuevo = true;
+	protected $s__fuentes;
 	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
 	private $elemento_eliminado = false;
 	protected $cambio_item = false;
@@ -161,6 +162,25 @@ class ci_principal extends toba_ci
 	//-- PERMISOS -------------------------------------------------
 	//----------------------------------------------------------
 	
+	function conf__pant_permisos(toba_ei_pantalla $pant)
+	{
+		if (! isset($this->s__fuentes)) {
+			$this->s__fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
+			
+		}
+		$hay_con_permisos = false;
+		foreach ($this->s__fuentes as $fuente) {
+			if ($fuente['permisos_por_tabla']) {
+				$hay_con_permisos = true;
+			}
+		}
+		if (! $hay_con_permisos) {
+			$pant->eliminar_dep("form_tablas");
+			$this->get_entidad()->tabla('permisos_tablas')->eliminar_filas();
+		}
+	}
+	
+	
 	/*
 	*	Toma los permisos actuales, les agrega los grupos faltantes y les pone descripcion
 	*/
@@ -226,19 +246,29 @@ class ci_principal extends toba_ci
 	{
 		//-- Tomar los permisos definidos y completar los que faltan
 		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
-		$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
 
-		foreach ($fuentes as $fuente) {
+		foreach ($this->s__fuentes as $fuente) {
+			$con_permisos = $fuente['permisos_por_tabla'];
 			$existe = false;
-			foreach ($permisos as $permiso) {
+			$posicion = null;
+			foreach ($permisos as $clave => $permiso) {
 				if ($fuente['fuente_datos'] == $permiso['fuente_datos']) {
 					$existe = true;
+					$posicion = $clave;
 				}
 			}
 			if (! $existe) {
-				$fuente['proyecto'] = toba_editor::get_proyecto_cargado();
-				$fuente['tablas_modifica'] = '';
-				$this->get_entidad()->tabla('permisos_tablas')->nueva_fila($fuente);
+				if ($con_permisos) {
+					//Agrega una fila vacia
+					$fuente['proyecto'] = toba_editor::get_proyecto_cargado();
+					$fuente['tablas_modifica'] = '';
+					$this->get_entidad()->tabla('permisos_tablas')->nueva_fila($fuente);
+				}
+			} else {
+				if (! $con_permisos) {
+					//Quita la fila existente
+					$this->get_entidad()->tabla('permisos_tablas')->eliminar_fila($permisos[$posicion][apex_datos_clave_fila]);
+				}
 			}
 		}
 		
@@ -275,12 +305,10 @@ class ci_principal extends toba_ci
 		
 		//Si el proyecto usa esquema de permisos por tabla
 		$modelo_proyecto = toba_editor::get_modelo_proyecto();
-		if ($modelo_proyecto->get_usa_permisos_por_tabla()) {
-			try {
-				$modelo_proyecto->generar_roles_db_pruebas($datos['item']);
-			} catch (toba_error_db $e) {
-				toba::notificacion()->error("Error al actualizar los roles postgres para esta operación", $e->get_mensaje_log());
-			}
+		try {
+			$modelo_proyecto->generar_roles_db($datos['item']);
+		} catch (toba_error_db $e) {
+			toba::notificacion()->error("Error al actualizar los roles postgres para esta operación", $e->get_mensaje_log());
 		}
 		
 		if (! isset($this->s__id_item )) {		//Si el item es nuevo

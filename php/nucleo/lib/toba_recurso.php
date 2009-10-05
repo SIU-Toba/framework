@@ -191,7 +191,7 @@ class toba_recurso
 		$ayuda_extra = '';
 		$a = '';
 		if ($tecla !== null) {
-			$ayuda_extra = "[ALT $tecla]";
+			$ayuda_extra = "[alt + shift + $tecla]";
 			$a = "accesskey='$tecla'";
 		}
 		if ($ayuda != '') {

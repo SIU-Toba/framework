@@ -10,6 +10,7 @@ class toba_editor
 {
 	private static $memoria;	// Bindeo a $_sesion
 	private static $ultimo_item;
+	private static $fuentes;
 
 	static function get_id()
 	{
@@ -26,6 +27,7 @@ class toba_editor
 			throw new toba_error('Editor: es necesario definir la instancia y proyecto a utilizar.');	
 		}
 		self::referenciar_memoria();
+		
 		self::$memoria['instancia'] = $instancia;
 		self::$memoria['proyecto'] = $proyecto;
 		//Busco el ID de la base donde reside la instancia
@@ -34,6 +36,7 @@ class toba_editor
 		//Averiguo el punto de acceso del editor
 		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);	
 		self::$memoria['punto_acceso'] = $punto_acceso[0];
+		self::$memoria['conexion_limitada'] = 1;
 	}
 	
 	static function referenciar_memoria()
@@ -46,21 +49,27 @@ class toba_editor
 		if (! self::modo_prueba()) {
 			return;
 		}
-		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
-		if ($fuente) {
-			$modelo = self::get_modelo_proyecto();		
+		//Cambia el usuario de conexion
+		$tipo_conexion = toba::memoria()->get_parametro('usuario_conexion');
+		if (isset($tipo_conexion)) {
+			self::$memoria['conexion_limitada'] = ($tipo_conexion == 'limitado');
+		}
+		self::$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
+		$modelo = self::get_modelo_proyecto();			
+		foreach (self::$fuentes as $fuente) {
 			try {			
-				if ($modelo->get_usa_permisos_por_tabla()) {
+				if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
 					//El proyecto usa permisos por tablas para las operaciones, en modo previsualizacion se setea el rol especifico
-					$id_base = self::$memoria['instancia'].' '.self::get_proyecto_cargado().' '.$fuente;
+					$id_base = self::$memoria['instancia'].' '.self::get_proyecto_cargado().' '.$fuente['fuente_datos'];
 					$parametros = toba_dba::get_parametros_base($id_base);
-					$usuario = $modelo->get_usuario_prueba_db($fuente);
+					$usuario = $modelo->get_usuario_prueba_db($fuente['fuente_datos']);
 					$parametros['usuario'] = $usuario;
 					$parametros['clave'] = $usuario;
 					toba_dba::set_parametros_base($id_base, $parametros);
 				}
+
 				//Pone la base por defecto en modo debug, para leer la cantidad y tiempo de las querys
-				$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
+				$base = toba_admin_fuentes::instancia()->get_fuente($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_db();
 				if ($base) {
 					$base->set_modo_debug(true, false);
 				}				
@@ -69,17 +78,13 @@ class toba_editor
 			}
 		}
 		
+		
 		//Cambia el skin
 		if (toba::memoria()->get_parametro('skin') != '') {
 			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
 			toba::proyecto()->set_parametro('estilo', $skin[0]);
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 		}
-		/*if (toba::memoria()->get_parametro('skin') != '') {
-			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
-			toba::proyecto()->set_parametro('estilo', $skin[0]);
-			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
-		}*/		
 		//Cambia tipo de navegación
 		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {
 			$ajax = toba::memoria()->get_parametro('navegacion_ajax') ? true : false;
@@ -161,17 +166,17 @@ class toba_editor
 	{
 		if (isset($item) && $item[0] == self::$memoria['proyecto'] && 
 				!isset(self::$ultimo_item) && self::$ultimo_item[1] != $item[1]) {
-			self::$ultimo_item = $item;					
-			$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
-			if ($fuente) {
-				$modelo = self::get_modelo_proyecto();	
-				if ($modelo->get_usa_permisos_por_tabla()) {
+			self::$ultimo_item = $item;			
+					
+			$modelo = self::get_modelo_proyecto();	
+			foreach (self::$fuentes as $fuente) {				
+				if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
 					try {
-						$rol = $modelo->get_rol_prueba_db($fuente, $item[1]);
+						$rol = $modelo->get_rol_prueba_db($fuente['fuente_datos'], $item[1]);
 						if (toba::db()->existe_rol($rol)) {
 							toba::db()->set_rol($rol);
 						} else {
-							$rol = $modelo->get_rol_prueba_db_basico($fuente);
+							$rol = $modelo->get_rol_prueba_db_basico($fuente['fuente_datos']);
 							toba::db()->set_rol($rol);
 						}
 						toba::logger()->info("Se cambio el rol postgres a '$rol'");													
@@ -457,7 +462,7 @@ class toba_editor
 					
 			} catch (toba_error $e) {
 				//Si no se tiene acceso a la base no se hace nada
-			}			
+			}
 		}
 		
 		//Archivos
@@ -479,9 +484,14 @@ class toba_editor
 		
 
 		//Usuario de la base
-		$modelo = self::get_modelo_proyecto();
-		if ($modelo->get_usa_permisos_por_tabla()) {
-			$actual = 'limitado';
+		$hay_limitado = false;
+		foreach (self::$fuentes as $fuente) {
+			if ($fuente['permisos_por_tabla']) {
+				$hay_limitado = true;
+			}
+		}		
+		if ($hay_limitado) {
+			$actual = self::$memoria['conexion_limitada'] ? 'limitado' : 'normal';
 			$datos = array("normal" => "Normal", "limitado" => "Limitados");
 			$js = "title='Cambia temporalmente el usuario de conexión a la base' onchange=\"location.href = toba_prefijo_vinculo + '&usuario_conexion=' + this.value\"";
 			echo "Permisos DB: ".toba_form::select('cambiar_rol', $actual, $datos, 'ef-combo', $js);
@@ -494,7 +504,6 @@ class toba_editor
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
 		echo "Skin: ".toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
 		
-
 		//AJAX		
 		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";
 				

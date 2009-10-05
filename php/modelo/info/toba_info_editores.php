@@ -930,7 +930,13 @@ class toba_info_editores
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
-		$sql = "SELECT proyecto, fuente_datos, descripcion as descripcion_corta, descripcion, schema
+		$sql = "SELECT 
+						proyecto, 
+						fuente_datos, 
+						descripcion as descripcion_corta, 
+						descripcion, 
+						schema,
+						permisos_por_tabla
 				FROM apex_fuente_datos
 				WHERE ( proyecto = $proyecto )
 				ORDER BY 2";

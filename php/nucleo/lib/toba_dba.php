@@ -206,7 +206,7 @@ class toba_dba
 				$seccion = implode(", ", $perfiles);
 			}
 			$archivo = toba::nucleo()->toba_instalacion_dir().'/'.$parametros['conexiones_perfiles'];
-			if (! file_exists($archivo)) {
+			if (! file_exists($archivo) || is_dir($archivo)) {
 				throw new toba_error_def("La base '$id_base' posee una referencia a un archivo de conexiones de perfiles inexistente: '$archivo'");
 			}
 			$usuarios = parse_ini_file($archivo, true );	

@@ -522,14 +522,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	PERMISOS SOBRE TABLAS EN LA BASE
 	//-----------------------------------------------------------
 		
-	function get_usa_permisos_por_tabla()
-	{
-		$proyecto = $this->db->quote($this->identificador);
-		$sql = "SELECT permisos_por_tabla FROM apex_proyecto WHERE proyecto= $proyecto";
-		$rs = $this->get_db()->consultar_fila($sql);
-		return $rs['permisos_por_tabla'] == 1;
-	}
-	
 	
 	function get_usuario_prueba_db($fuente)
 	{
@@ -551,12 +543,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 * Arma los roles de prueba del proyecto
 	 * @param int $id_operacion Si no se especifica actualiza todas las operaciones
 	 */
-	function generar_roles_db_pruebas($id_operacion = null)
+	function generar_roles_db($id_operacion = null)
 	{
-		if (!$this->get_instalacion()->es_produccion() && $this->get_usa_permisos_por_tabla()) {		
-			$this->manejador_interface->mensaje('Actualizando roles de la base de negocios', false);		
-
+		if (! $this->get_instalacion()->es_produccion()) {		
 			foreach (toba_info_editores::get_fuentes_datos($this->identificador) as $fuente) {	
+				if (! $fuente['permisos_por_tabla']) {
+					continue;
+				}
+				$this->manejador_interface->mensaje('Actualizando roles fuente '.$fuente['fuente_datos'], false);						
 				if (isset($fuente['schema'])) {
 					$schema = $fuente['schema'];
 				} else {
@@ -599,9 +593,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					$conexion->abortar_transaccion();
 					throw $e;						
 				}
-
+				$this->manejador_interface->progreso_fin();
 			}
-			$this->manejador_interface->progreso_fin();
 		}
 	}
 	
@@ -683,6 +676,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->db->retrazar_constraints();
 			$errores = $this->cargar();
 			$this->instancia->actualizar_secuencias();
+			$this->generar_roles_db();			
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
@@ -703,6 +697,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_tablas();
 		$this->cargar_componentes();
 		$errores = $this->cargar_perfiles();
+		$this->generar_roles_db();		
 		return $errores;
 	}
 
@@ -973,7 +968,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->cargar();
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
 			$this->instancia->actualizar_secuencias();	
-			$this->generar_roles_db_pruebas();
+			$this->generar_roles_db();
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
@@ -1816,7 +1811,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				unset($parametros['base']);
 			}
 			$aplicacion->instalar($parametros);
-			$this->generar_roles_db_pruebas();
+			$this->generar_roles_db();
 		}
 	}
 
@@ -1839,7 +1834,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$aplicacion = $this->get_aplicacion_modelo();
 		if (isset($aplicacion)) {
 			$aplicacion->migrar($desde, $hasta);
-			$this->generar_roles_db_pruebas();			
+			$this->generar_roles_db();			
 		}
 	}
 	
