@@ -13,6 +13,7 @@ class toba_menu_css extends toba_menu
 	protected $abrir_nueva_ventana = false;
 	protected $imagen_nueva_ventana;
 	protected $celda_memoria = 'paralela';
+	protected $menu_enviado = false;
 	
 	function __construct()
 	{
@@ -161,6 +162,7 @@ class toba_menu_css extends toba_menu
 			toba_js::cargar_consumos_globales(array('basicos/listmenu'));
 			echo toba_js::ejecutar("var horizontals = new simpleMenu('menu-h', 'horizontal');");
 		}
+		$this->menu_enviado = true;
 	}
 }
 

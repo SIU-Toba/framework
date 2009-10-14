@@ -300,7 +300,8 @@ toba = new function() {
 		if (partes[0] != '') {
 			//-- Trata de interpretar y agregar cualquier html/js adhoc generado durante los eventos
 			ejecutar_scripts(partes[0]);
-			this._ajax.raiz().parentNode.innerHTML += partes[0];
+			var nodo = this._ajax.raiz().parentNode.innerHTML;
+			nodo = nodo + partes[0];
 		}
 		
 		//-- Se cambia la barra superior (busca el fin del tag para no duplicarlo)

@@ -91,31 +91,33 @@ abstract class toba_menu
 	 */
 	function set_modo_confirmacion($mensaje, $forzar=true)
 	{
-		echo toba_js::abrir();
-		if ($forzar) {
-			$confirmar = "var confirmar = true;";
-		} else {
-			$confirmar = " 
-				var confirmar = toba.hay_cambios();
-			";
-		}
-				
-		echo "
-			function confirmar_cambios(proyecto, operacion, url, es_popup) {
-				if (! es_popup || typeof(es_popup) == 'undefined') {
-					$confirmar
-					if (confirmar) {
-						return confirm('$mensaje');
+		if ($this->menu_enviado) {
+					echo toba_js::abrir();
+					if ($forzar) {
+						$confirmar = "var confirmar = true;";
 					} else {
-						return true;
+						$confirmar = "
+							var confirmar = toba.hay_cambios();
+						";
 					}
-				} else {
-					return true;
-				}
+
+					echo "
+						function confirmar_cambios(proyecto, operacion, url, es_popup) {
+							if (! es_popup || typeof(es_popup) == 'undefined') {
+								$confirmar
+								if (confirmar) {
+									return confirm('$mensaje');
+								} else {
+									return true;
+								}
+							} else {
+								return true;
+							}
+						}
+						toba.set_callback_menu(confirmar_cambios);
+					";
+					echo toba_js::cerrar();
 			}
-			toba.set_callback_menu(confirmar_cambios);		
-		";
-		echo toba_js::cerrar();
 	}
 	
 }
