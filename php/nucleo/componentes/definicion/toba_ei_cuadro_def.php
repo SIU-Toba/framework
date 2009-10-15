@@ -60,7 +60,9 @@ class toba_ei_cuadro_def extends toba_ei_def
 										c.cc_modo_anidado_colap			as	cc_modo_anidado_colap,		
 										c.cc_modo_anidado_totcol		as	cc_modo_anidado_totcol,		
 										c.cc_modo_anidado_totcua		as	cc_modo_anidado_totcua,
-										c.columna_descripcion		as  columna_descripcion
+										c.columna_descripcion		as  columna_descripcion,
+										c.mostrar_total_registros	as mostrar_total_registros,
+										c.siempre_con_titulo	as siempre_con_titulo
 							 FROM		apex_objeto_cuadro c
 							 WHERE	objeto_cuadro_proyecto=$proyecto ";	
 		if ( isset($componente) ) {

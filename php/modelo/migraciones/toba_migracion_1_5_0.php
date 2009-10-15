@@ -38,7 +38,11 @@ class toba_migracion_1_5_0 extends toba_migracion
 
 			//----------------------------------- Define la columna descripcion que se usara para una respuesta_popup ------------
 			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN columna_descripcion TEXT NULL;';
-			
+
+			//---------------------------------- Define si se muestra o no la leyenda del paginado -------------------------------------------
+			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN mostrar_total_registros SMALLINT NOT NULL DEFAULT 0;';
+			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN siempre_con_titulo SMALLINT NOT NULL DEFAULT 0;';
+
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";

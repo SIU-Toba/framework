@@ -1592,7 +1592,6 @@ class toba_ei_cuadro extends toba_ei
 		echo toba_form::hidden($this->_submit_extra, '');
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
-		echo toba_form::hidden($this->_submit_paginado, '');		
 
 		//Genero los hidden para los eventos multiples
 		foreach($this->_eventos_multiples as $evento) {
@@ -1722,7 +1721,11 @@ class toba_ei_cuadro extends toba_ei
 	protected function html_mensaje_cuadro_vacio($texto){
 		$this->html_generar_campos_hidden();
 		echo $this->get_html_barra_editor();
+		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
+		echo "<div class='ei-cuadro-scroll' style='width: $ancho; '>\n";
+		$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
 		echo ei_mensaje($texto);
+		echo '</div>';
 		if ($this->hay_botones() && $this->botonera_abajo()) {
 			$this->generar_botones();
 		}		
@@ -2360,8 +2363,11 @@ class toba_ei_cuadro extends toba_ei
 				$ultimo = toba_recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			
-			echo "$primero $anterior Página <strong>{$this->_pagina_actual}</strong> de ";
-			echo "<strong>{$this->_cantidad_paginas}</strong> $siguiente $ultimo";
+			echo "$primero $anterior Página <strong>";
+			$js = "{$this->objeto_js}.ir_a_pagina(this.value);";
+			$tamanio = ceil(log10($this->_total_registros));
+			echo toba_form::text($this->_submit_paginado, $this->_pagina_actual, false, '', $tamanio, 'ef-numero', "onchange=\"$js\"");
+			echo "</strong> de <strong>{$this->_cantidad_paginas}</strong> $siguiente $ultimo";
 		} 
 		echo "</div>";
 	}
@@ -2373,7 +2379,9 @@ class toba_ei_cuadro extends toba_ei
 	{
 		echo"<tr><td>";		
 		$plural = ($this->_total_registros == 1) ? '' : 's';
-		echo "<div class='ei-cuadro-pag ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
+		if ($this->_info_cuadro['mostrar_total_registros'] == '1') {
+			echo "<div class='ei-cuadro-pag ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
+		}
 		echo "</td></tr>\n";
 
 	}	

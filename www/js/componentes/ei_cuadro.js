@@ -102,6 +102,10 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		}
 		return seleccion;
 	};
-	
+
+	ei_cuadro.prototype.ir_a_pagina = function(valor)
+	{
+		this.set_evento(new evento_ei('cambiar_pagina', '','', valor), true);
+	}
 	
 toba.confirmar_inclusion('componentes/ei_cuadro');

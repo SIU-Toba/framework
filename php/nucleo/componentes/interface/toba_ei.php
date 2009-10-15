@@ -622,7 +622,8 @@ abstract class toba_ei extends toba_componente
 			$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
 					 $this->_posicion_botonera == "ambos") && ! $botonera_en_item;
 			$tiene_titulo = trim($this->_info["titulo"])!="" || trim($titulo) != '';
-			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo) {
+			$fuerza_titulo = (isset($this->_info_cuadro) && $this->_info_cuadro['siempre_con_titulo'] == '1');
+			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo || $fuerza_titulo) {
 				if (!isset($titulo)) {
 					$titulo = $this->_info["titulo"];	
 				}
