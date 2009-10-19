@@ -36,8 +36,12 @@ class toba_ei_esquema extends toba_ei
 	
 	function generar_html()
 	{
-        echo "\n<table class='ei-base ei-esquema-base'>\n";		
-		echo"<tr><td style='padding:0;'>\n";		
+        $ancho = '';
+        if (isset($this->_ancho)) {
+        	$ancho = "width ='$this->_ancho'";
+        }		
+        echo "\n<table class='ei-base ei-esquema-base' $ancho>\n";		
+		echo"<tr><td style='padding:0'>\n";		
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		

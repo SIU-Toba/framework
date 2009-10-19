@@ -29,6 +29,26 @@ CREATE TABLE apex_usuario_grupo_acc
 );
 --#################################################################################################
 
+CREATE TABLE apex_usuario_grupo_acc_miembros
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: permisos
+--: dump_order_by: usuario_grupo_acc
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(	
+	proyecto							varchar(15)		NOT NULL,
+	usuario_grupo_acc					varchar(30)		NOT NULL,
+	usuario_grupo_acc_pertenece			varchar(30)		NOT NULL,	-- Perfil al cual pertenece el grupo actual
+	CONSTRAINT	"apex_usu_g_acc_miembros_pk" 			PRIMARY KEY ("proyecto","usuario_grupo_acc", "usuario_grupo_acc_pertenece"),
+	CONSTRAINT	"apex_usu_g_acc_fk_us_gru_acc"			FOREIGN KEY	("proyecto","usuario_grupo_acc")			REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,	
+	CONSTRAINT	"apex_usu_g_acc_fk_us_gru_acc_pertenece"	FOREIGN KEY	("proyecto","usuario_grupo_acc_pertenece")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	
+);
+--#################################################################################################
+
 CREATE TABLE apex_usuario_grupo_acc_item
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

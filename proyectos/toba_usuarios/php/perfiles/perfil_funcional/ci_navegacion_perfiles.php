@@ -1,12 +1,15 @@
 <?php 
 require_once('lib/consultas_instancia.php');
+require_once(toba_dir()."/php/3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_navegacion_perfiles extends toba_ci
 {
 	protected $s__filtro;
+	protected $s__ver_esquema;
 	
 	function ini__operacion()
 	{
+		$this->s__ver_esquema = false;
 		if (! is_null(admin_instancia::get_proyecto_defecto())) {
 			$this->s__filtro = array('proyecto' => admin_instancia::get_proyecto_defecto());
 		}		
@@ -21,7 +24,16 @@ class ci_navegacion_perfiles extends toba_ci
 	{
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion_perfil')->eliminar_evento('agregar');
+		} 
+		if (! $this->s__ver_esquema) {
+			$this->evento('ver_grafico')->set_etiqueta("Ver Esquema");
+			$this->pantalla()->eliminar_dep('esquema');
+		} else {
+			$this->evento('ver_grafico')->set_etiqueta("Ocultar Esquema");			
 		}
+		if (!isset($this->s__filtro)) {
+			$this->pantalla('seleccion_perfil')->eliminar_evento('ver_grafico');
+		} 		
 	}
 	
 	function conf__edicion_perfil()
@@ -46,6 +58,7 @@ class ci_navegacion_perfiles extends toba_ci
 			$alta = true;
 		}
 		$this->dep('datos')->sincronizar();
+
 		//- Sincroniza el arbol de items		
 		$this->dep('editor_perfiles')->guardar_arbol_items($alta);
 		$this->dep('datos')->resetear();
@@ -58,12 +71,20 @@ class ci_navegacion_perfiles extends toba_ci
 		$this->set_pantalla('seleccion_perfil');
 	}
 	
+
+	
 	function evt__volver()
 	{
 		$this->dep('datos')->resetear();
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');
 	}
+	
+	function evt__ver_grafico()
+	{
+		$this->s__ver_esquema = ! $this->s__ver_esquema;
+	}
+		
 	
 	function evt__eliminar()
 	{
@@ -144,6 +165,73 @@ class ci_navegacion_perfiles extends toba_ci
 		}		
 	}
 	
+	function conf__esquema(toba_ei_esquema $esquema) 
+	{
+		$grafo = $this->get_grafo();
+		$diagrama = "digraph G {
+						rankdir=LR;
+						fontsize=10;
+						node [fontsize=10, fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
+						";
+		foreach ($grafo->getNodes() as $nodo) {
+			$data = $nodo->getData();
+			$label = $data['usuario_grupo_acc'];
+			$nombre = $data['nombre'];
+			
+			$diagrama .=  "$label [label=\"$nombre\"];\n";
+			foreach ($nodo->getNeighbours() as $nodo_vecino) {			
+				//Incluyo la relación
+				$vecino =  $nodo_vecino->getData();
+				$diagrama .=  $label . " -> " . $vecino['usuario_grupo_acc']. 
+							" [label=\"miembro de\",fontsize=10,color=gray];\n";
+			}
+			
+		}
+		$diagrama .= "}";		
+		$esquema->set_datos($diagrama);
+	}
+
+	
+	function get_grafo()
+	{
+		$grafo = new Structures_Graph(true);
+		$perfiles = toba_info_permisos::get_perfiles_funcionales($this->s__filtro['proyecto']);
+		//Nodos
+		$miembros = array();
+		foreach ($perfiles as $perfil) {
+			$nodo =& new Structures_Graph_Node();
+			$nodo->setData($perfil);
+			$nodos[$perfil['usuario_grupo_acc']] =& $nodo;
+			$grafo->addNode($nodo);
+		}
+		
+		//Relaciones
+		foreach ($perfiles as $perfil) {
+			//Necesita pasarle la conexion porque aun no termino la transacción
+			$miembros = toba_info_permisos::get_perfiles_funcionales_miembros($perfil['proyecto'], $perfil['usuario_grupo_acc'], toba::db());
+			foreach ($miembros as $miembro) {
+				$nodos[$perfil['usuario_grupo_acc']]->connectTo($nodos[$miembro['usuario_grupo_acc_pertenece']]);
+			}
+		}		
+		return $grafo;		
+	}
+	
+	function validar_ciclos()
+	{
+		$tester = new Structures_Graph_Manipulator_AcyclicTest();
+		$grafo = $this->get_grafo();
+		
+		$aciclico = $tester->isAcyclic($grafo);
+		if (! $aciclico) {
+			$ciclo = array();
+			foreach ($tester->getCycle($grafo) as $nodo) {
+				$data = $nodo->getData();;
+				$ciclo[] = $data['nombre'];
+			}
+			$perfiles = implode(', ', $ciclo);
+			throw new toba_error_usuario("Existe un ciclo en la asignación de las membresías entre los perfiles: <b>$perfiles</b>.<br><br>Por favor quite alguna membresía.");
+		}
+	}		
 }
 
 ?>

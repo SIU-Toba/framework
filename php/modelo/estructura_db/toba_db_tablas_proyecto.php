@@ -47,9 +47,10 @@ class toba_db_tablas_proyecto
   0 => 'apex_usuario_perfil_datos',
   1 => 'apex_usuario_perfil_datos_dims',
   2 => 'apex_usuario_grupo_acc',
-  3 => 'apex_usuario_grupo_acc_item',
-  4 => 'apex_permiso_grupo_acc',
-  5 => 'apex_grupo_acc_restriccion_funcional',
+  3 => 'apex_usuario_grupo_acc_miembros',
+  4 => 'apex_usuario_grupo_acc_item',
+  5 => 'apex_permiso_grupo_acc',
+  6 => 'apex_grupo_acc_restriccion_funcional',
 );
 	}
 
@@ -809,6 +810,25 @@ class toba_db_tablas_proyecto
     7 => 'hora_entrada',
     8 => 'hora_salida',
     9 => 'listar',
+  ),
+);
+	}
+
+	static function apex_usuario_grupo_acc_miembros()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'usuario_grupo_acc_pertenece',
   ),
 );
 	}

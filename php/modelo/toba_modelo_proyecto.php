@@ -456,7 +456,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		//-- Perfiles Funcionales
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERMISO  $permiso");
 			$contenido = '';		
@@ -490,7 +490,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		//-- Perfiles Funcionales
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERFIL  $permiso");
 			$contenido = '';		

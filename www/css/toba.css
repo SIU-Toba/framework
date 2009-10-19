@@ -1017,6 +1017,7 @@ a.ci-tabs-boton-desact:hover {
 	visibility:hidden;
 	position:absolute;
 	background-color: white;
+	z-index:1000;
 }
 
 /*************************

@@ -12,7 +12,7 @@ class toba_auditoria_tablas_postgres
 	protected $schema_origen;
 	protected $schema_toba;
 	protected $prefijo = 'logs_';
-	protected $tablas_toba = array('apex_usuario', 'apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_usuario_perfil_datos',
+	protected $tablas_toba = array('apex_usuario', 'apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_perfil_datos',
 									'apex_usuario_perfil_datos_dims', 'apex_usuario_proyecto', 'apex_usuario_proyecto_perfil_datos',
 									'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 	

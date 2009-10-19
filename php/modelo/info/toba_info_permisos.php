@@ -50,6 +50,47 @@ class toba_info_permisos
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 	
+	static function get_perfiles_funcionales_miembros($proyecto, $perfil, $conexion = null)
+	{
+		if (! isset($conexion)) {
+			$conexion = toba_contexto_info::get_db();
+		}
+		$proyecto = $conexion->quote($proyecto);
+		$perfil = $conexion->quote($perfil);
+		$sql = "SELECT usuario_grupo_acc_pertenece
+				FROM apex_usuario_grupo_acc_miembros
+				WHERE 
+						proyecto = $proyecto
+					AND	usuario_grupo_acc = $perfil
+				ORDER BY usuario_grupo_acc_pertenece
+		";
+		return $conexion->consultar($sql);
+	}	
+		
+	
+	/**
+	 * Retorna un listado de perfiles funcionales de los cuales este perfil puede ser miembro
+	 */
+	static function get_perfiles_funcionales_pueden_ser_miembros($proyecto, $perfil=null)
+	{
+		$where = '';
+		if (isset($perfil)) {
+			$perfil = toba_contexto_info::get_db()->quote($perfil);
+			$where .= "AND usuario_grupo_acc != $perfil
+			
+			";
+		}
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
+				FROM apex_usuario_grupo_acc
+				WHERE 
+						proyecto = $proyecto
+					$where
+				ORDER BY nombre
+		";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
 	/**
 	 * @deprecated Desde 1.5 Usar get_perfiles_funcionales
 	 */
@@ -104,6 +145,21 @@ class toba_info_permisos
 				ORDER BY descripcion
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
+	function get_lista_restricciones_proyecto()
+	{
+		$proyecto = quote($this->s__proyecto);
+		$sql = "SELECT
+					restriccion_funcional as restriccion,
+					descripcion
+				FROM
+					apex_restriccion_funcional
+				WHERE
+					proyecto = $proyecto
+				ORDER BY descripcion
+				";
+		return toba::db()->consultar($sql);
 	}	
 	
 

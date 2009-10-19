@@ -1,4 +1,4 @@
-<?php 
+<?php
 class ci_editor_perfiles extends toba_ci
 {
 	protected $s__proyecto;
@@ -96,38 +96,55 @@ class ci_editor_perfiles extends toba_ci
 			$this->datos('permisos')->nueva_fila($fila);
 		}
 	}
+	
+	
+	//-----------------------------------------------------------------------------------
+	//---- form_membresia ---------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_membresia(toba_ei_formulario $form)
+	{
+		$filas = $this->datos('membresia')->get_filas();
+		$datos = array();
+		foreach ($filas as $fila) {
+			$datos[] = $fila['usuario_grupo_acc_pertenece'];
+		}
+		return array('perfiles' => $datos);
+	}
+
+	function evt__form_membresia__modificacion($datos)
+	{
+		//Elimina todas las membresias y agrega las nuevas
+		$this->datos('membresia')->eliminar_filas();
+		foreach ($datos['perfiles'] as $fila) {
+			$this->datos('membresia')->nueva_fila(array('usuario_grupo_acc_pertenece' => $fila));
+		}
+	}
 
 	//- Consultas -
 	
 	function get_lista_restricciones_proyecto()
 	{
-		$proyecto = quote($this->s__proyecto);
-		$sql = "SELECT
-					restriccion_funcional as restriccion,
-					descripcion
-				FROM
-					apex_restriccion_funcional
-				WHERE
-					proyecto = $proyecto
-				ORDER BY descripcion
-				";
-		return toba::db()->consultar($sql);
+		return toba_info_permisos::get_restricciones_proyecto($this->s__proyecto);
 	}
 	
 	function get_lista_permisos_proyecto()
 	{
-		$proyecto = quote($this->s__proyecto);
-		$sql = "SELECT
-					permiso,
-					COALESCE(descripcion, nombre) as descripcion
-				FROM
-					apex_permiso
-				WHERE
-					proyecto = $proyecto;
-				";
-		return toba::db()->consultar($sql);
+		return toba_info_permisos::get_lista_permisos(array('proyecto' => $this->s__proyecto));
 	}
 	
-}
+	function get_lista_perfiles_disponibles()
+	{
+		//Permitir seleccionar sólo aquellos que no creen ciclos
+		$datos = $this->datos('accesos')->get();
+		$perfil = null;
+		if (isset($datos) && !is_null($datos['usuario_grupo_acc'])) {
+			$perfil = $datos['usuario_grupo_acc'];
+		}		
+		return toba_info_permisos::get_perfiles_funcionales_pueden_ser_miembros($this->s__proyecto, $perfil);
+	}
+	
 
+
+}
 ?>

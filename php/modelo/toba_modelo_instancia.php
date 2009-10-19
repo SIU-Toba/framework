@@ -668,6 +668,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	{
 		$sql[] = 'DROP TABLE apex_permiso_grupo_acc';
 		$sql[] = 'DROP TABLE apex_usuario_grupo_acc_item';
+		$sql[] = 'DROP TABLE apex_usuario_grupo_acc_miembros';
 		$sql[] = 'DROP TABLE apex_usuario_proyecto';
 		$sql[] = 'DROP TABLE apex_usuario_grupo_acc';
 		$sql[] = 'DROP TABLE apex_usuario_perfil_datos';
