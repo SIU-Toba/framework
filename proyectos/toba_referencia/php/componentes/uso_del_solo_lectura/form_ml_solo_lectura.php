@@ -11,7 +11,8 @@ class form_ml_solo_lectura extends toba_ei_formulario_ml
 				solo_lectura_activo = !solo_lectura_activo;
 				for (id_fila in this._filas) {
 					for (id_ef in this._efs) {
-						this.ef(id_ef).ir_a_fila(this._filas[id_fila]).set_solo_lectura(solo_lectura_activo);
+						if (id_ef != 'editable')
+								this.ef(id_ef).ir_a_fila(this._filas[id_fila]).set_solo_lectura(solo_lectura_activo);
 					}
 				}
 				/*

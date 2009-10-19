@@ -100,6 +100,7 @@ class toba_ef_cuit extends toba_ef
 		if( !isset($this->estado)) { 
 			$this->estado="";
 		}
+		$this->analizar_cambio_solo_lectura();
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
 		$html = "<div class='{$this->clase_css}'>";
 		$html .= toba_form::text($this->id_form . "_1", substr($this->estado,0,2),$this->solo_lectura, 2, 2, 'ef-input', $this->javascript.$this->input_extra.$tab); 

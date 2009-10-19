@@ -68,6 +68,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->set_ordenar_en_linea($this->_info_formulario['filas_ordenar_en_linea']);
 		$this->_modo_agregar = array($this->_info_formulario['filas_agregar_abajo'],
 										$this->_info_formulario['filas_agregar_texto']);
+		$this->set_grupo_eventos_activo('no_cargado');
 	}
 
 	/**
@@ -468,7 +469,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 * @param array $datos Formato recordset, cada registro puede enviar su clave como clave asociativa o como columna apex_datos_clave_fila,
 	 * 						también se puede especificar una columna conteniendo el orden del registro (cual columna usar se define en el editor)
 	 */
-	function set_datos($datos)
+	function set_datos($datos, $set_cargado=true)
 	{
 		if (!is_array($datos)) {
 			throw new toba_error_def( $this->get_txt() . 
@@ -519,6 +520,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$this->_ordenes = array_keys($ordenes);
 		} else {
 			$this->_ordenes = array_keys($this->_datos);
+		}
+		if ($set_cargado && $this->_grupo_eventos_activo != 'cargado') {
+				$this->set_grupo_eventos_activo('cargado');
 		}
 	}
 

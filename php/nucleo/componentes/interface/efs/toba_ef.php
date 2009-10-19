@@ -37,6 +37,8 @@ abstract class toba_ef
 	protected $permitir_html = false;		//Hace un htmlentities para evitar ataques XSS
 	protected $check_ml_toggle = false;
 	protected $iconos = array();
+	protected $solo_lectura_base;
+	protected $solo_lectura_inteligente;
 
 
 	//--- DEPENDENCIAS ---
@@ -70,12 +72,9 @@ abstract class toba_ef
 				$this->cascada_relajada = true;
 			}
 		}
-		//Solo Lectura
-		if ((isset($parametros["solo_lectura"]))&&($parametros["solo_lectura"]==1)) {
-			$this->solo_lectura = true;
-		} else {
-			$this->solo_lectura = false;
-		}		
+		//Seteo las variables temporales de los modos solo_lectura
+		$this->solo_lectura_base = ((isset($parametros["solo_lectura"]))&&($parametros["solo_lectura"]==1));
+		$this->solo_lectura_inteligente = ((isset($parametros["solo_lectura_inteligente"]))&&($parametros["solo_lectura_inteligente"]==1));
 		//Valor FIJO
 		if(isset($parametros['estado_defecto'])){
 			$this->estado_defecto = $parametros['estado_defecto'];
@@ -113,6 +112,16 @@ abstract class toba_ef
 		}
 	}
 
+	/**
+	 * @ignore
+	 */
+	protected function analizar_cambio_solo_lectura()
+	{
+		//No tiene mucho de inteligente, solo bloquea las modificaciones.
+		$sl_bloquea_modificacion = ($this->solo_lectura_inteligente && ($this->padre->get_grupo_eventos_activo() == 'cargado'));
+		$no_es_fila_modelo_ml = ($this->get_fila_actual() !== '__fila__');
+		$this->solo_lectura = ($this->solo_lectura_base || ($sl_bloquea_modificacion && $no_es_fila_modelo_ml));
+	}
 	//-----------------------------------------------------
 	//---------- Propiedades ESTATICAS del ef -------------
 	//-----------------------------------------------------	
@@ -519,11 +528,14 @@ abstract class toba_ef
 	 */
 	function set_solo_lectura($solo_lectura = true)
 	{
-        $this->solo_lectura = $solo_lectura;
+        $this->solo_lectura_base = $solo_lectura;
     }
     
     function es_solo_lectura()
     {
+		if (! isset($this->solo_lectura)) {
+			$this->analizar_cambio_solo_lectura();
+		}
     	return $this->solo_lectura;
     }
 	

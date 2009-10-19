@@ -50,6 +50,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	function get_input()
 	{
 		//-- Si tiene un estado, ponerlo como única opción
+		$this->analizar_cambio_solo_lectura();
 		$this->opciones = array();
 		if (isset($this->descripcion_estado)) {
 			$this->opciones[$this->estado] = $this->descripcion_estado;

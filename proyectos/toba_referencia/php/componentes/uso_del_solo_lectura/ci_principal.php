@@ -96,9 +96,9 @@ class ci_principal extends toba_ci
 
 	function evt__form_ml__carga_defecto()
 	{
-		$this->datos_form_ml = array($this->datos_comunes_form(),
-									$this->datos_comunes_form(),
-									$this->datos_comunes_form());
+		$datos_comunes = $this->datos_comunes_form();
+		$datos_comunes['editable'] = 'Cargado no me podes modificar';
+		$this->datos_form_ml = array($datos_comunes, $datos_comunes, $datos_comunes);
 	}
 	
 	function conf__form_ml()

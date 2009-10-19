@@ -43,6 +43,9 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN mostrar_total_registros SMALLINT NOT NULL DEFAULT 0;';
 			$sql[] = 'ALTER TABLE apex_objeto_cuadro ADD COLUMN siempre_con_titulo SMALLINT NOT NULL DEFAULT 0;';
 
+			//---------------------------------- Nuevo comportamiento del solo lectura del ef --------------------------------------------------
+			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN solo_lectura_inteligente SMALLINT NOT NULL DEFAULT 0;';
+
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";

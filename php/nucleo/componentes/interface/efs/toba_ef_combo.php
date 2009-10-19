@@ -238,7 +238,8 @@ class toba_ef_combo extends toba_ef_seleccion
 	function get_input()
 	{
 		$html = "";
-
+		$this->analizar_cambio_solo_lectura();
+		
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
@@ -303,6 +304,7 @@ class toba_ef_radio extends toba_ef_seleccion
 	function get_input()
 	{
 		$estado = $this->get_estado_para_input();
+		$this->analizar_cambio_solo_lectura();
 		$html = '';
 		if ($this->solo_lectura) {
 			$html .= toba_form::hidden($this->id_form, $estado);			

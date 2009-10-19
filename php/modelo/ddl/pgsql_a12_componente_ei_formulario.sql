@@ -103,6 +103,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	--- PARAMETROS
 	estado_defecto						TEXT	NULL,
 	solo_lectura						smallint		NULL,
+	solo_lectura_inteligente	smallint  NOT NULL DEFAULT 0,
 	carga_metodo						TEXT	NULL,	-- carga ci
 	carga_clase							TEXT	NULL,	-- carga estatico
 	carga_include						TEXT	NULL,

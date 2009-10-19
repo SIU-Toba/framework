@@ -151,6 +151,7 @@ class toba_ef_editable extends toba_ef
 	
 	function get_input()
 	{
+		$this->analizar_cambio_solo_lectura();
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
@@ -568,6 +569,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	
 	function get_input()
 	{
+		$this->analizar_cambio_solo_lectura();
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado, $this->solo_lectura,$this->tamano,
@@ -734,7 +736,8 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	}
 			
 	function get_input()
-	{	
+	{
+		$this->analizar_cambio_solo_lectura();
 		if (!isset($this->estado)) {
 			$this->estado = '';	
 		}
