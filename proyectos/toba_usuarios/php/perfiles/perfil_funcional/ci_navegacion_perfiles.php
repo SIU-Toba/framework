@@ -138,6 +138,7 @@ class ci_navegacion_perfiles extends toba_ci
 			$datos = $this->datos('accesos')->get();
 			$componente->set_solo_lectura( array('usuario_grupo_acc') );
 		}else{
+			$componente->ef('usuario_grupo_acc')->set_expreg('/^[a-z0-9_]+$/');			
 			$datos['proyecto'] = $this->s__filtro['proyecto'];
 		}	
 		$componente->set_datos($datos);

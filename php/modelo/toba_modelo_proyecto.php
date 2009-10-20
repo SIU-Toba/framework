@@ -1138,6 +1138,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				}
 				$clase->agregar_metodo_datos('get_items_zona__'.$zona, $temp );
 			}
+			//-- Membresía -------------------
+			$miembros = toba_proyecto_db::get_perfiles_funcionales_asociados($this->get_id(), $grupo_acceso);
+			$clase->agregar_metodo_datos('get_membresia', $miembros);			
+			
 			//Guardo el archivo
 			$clase->guardar( $archivo );
 			$this->manejador_interface->progreso_avanzar();

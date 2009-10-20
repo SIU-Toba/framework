@@ -85,6 +85,12 @@ class toba_ef_editable extends toba_ef
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
+	function set_expreg($expreg) 
+	{
+		$this->expreg = $expreg;	
+	}
+	
+	
 	/**
 	 * En el caso del editable las opciones representa su estado por defecto
 	 * @param string $opciones

@@ -321,27 +321,33 @@ class toba_instancia
 	{
 		$db = $this->get_db();
 		$usuario = $db->quote($usuario);
-		$proyecto = $db->quote($proyecto);
-		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
+		$proyecto_quote = $db->quote($proyecto);
+		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,
+						(SELECT COUNT(*) FROM apex_usuario_grupo_acc_miembros mie WHERE mie.usuario_grupo_acc = up.usuario_grupo_acc) as cant_membresias
 				FROM 	apex_usuario_proyecto up,
 						apex_usuario_grupo_acc ga
 				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
 				AND		up.proyecto = ga.proyecto
 				AND		up.usuario = $usuario
-				AND		up.proyecto = $proyecto
+				AND		up.proyecto = $proyecto_quote
 				ORDER BY ga.usuario_grupo_acc ASC";
 		$datos = $db->consultar($sql);
 		if($datos){
 			$grupos = array();
 			foreach($datos as $dato) {
-				$grupos[] = $dato['grupo_acceso'];
+				 $grupo = $dato['grupo_acceso'];
+				 $grupos[] = $grupo;				 					 
+				 if ($dato['cant_membresias'] > 0) {
+				 	$grupos = array_merge($grupos, toba::proyecto()->get_perfiles_funcionales_asociados($grupo));
+				 }
 			}
+			$grupos = array_unique($grupos);
 			return $grupos;
 		} else {
 			return array();
 		}		
 	}
-
+	
 	/**
 	* @deprecated Usar get_perfiles_funcionales
 	*/

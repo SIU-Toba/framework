@@ -431,6 +431,24 @@ class toba_proyecto
 	{
 		return $this->get_perfiles_funcionales_usuario_anonimo();
 	}	
+	
+	
+	function get_perfiles_funcionales_asociados($perfil)
+	{
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$perfiles = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
+															array($perfil),
+															'get_membresia',
+															true
+														);
+			foreach ($perfiles as $perfil_miembro) {
+				$this->get_perfiles_funcionales_asociados($perfil_miembro);
+			}
+		} else {
+			$perfiles = toba_proyecto_db::get_perfiles_funcionales_asociados($this->id, $perfil);	
+		}
+		return $perfiles;		
+	}
 
 	//------------------------  Permisos  -------------------------
 	

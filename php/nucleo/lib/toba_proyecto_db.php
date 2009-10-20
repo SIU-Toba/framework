@@ -188,10 +188,38 @@ class toba_proyecto_db
     }
 
 	//---------------------  Grupos de Acceso  -------------------------
-		
+
+	/**
+	 * Retorna las membresía del perfil
+	 */
+	static function get_perfiles_funcionales_asociados($proyecto, $perfil)
+	{
+		$db = self::get_db();		
+		$proyecto_quote = $db->quote($proyecto);
+		$perfil_quote = $db->quote($perfil);
+		$sql = "SELECT 
+					gam.usuario_grupo_acc_pertenece,
+					(SELECT COUNT(*) FROM apex_usuario_grupo_acc_miembros mie WHERE mie.usuario_grupo_acc = gam.usuario_grupo_acc_pertenece) as cant_membresias
+				FROM 
+					apex_usuario_grupo_acc_miembros gam
+				WHERE 
+						gam.proyecto = $proyecto_quote
+					AND	gam.usuario_grupo_acc = $perfil_quote
+				ORDER BY gam.usuario_grupo_acc_pertenece
+		";
+		$salida = array();
+		$datos =  $db->consultar($sql);		
+		foreach ($datos as $fila) {
+			$salida[] = $fila['usuario_grupo_acc_pertenece'];			
+			if ($fila['cant_membresias'] > 0) {
+				$salida = array_merge($salida, self::get_perfiles_funcionales_asociados($proyecto, $fila['usuario_grupo_acc_pertenece']));
+			}
+		}
+		return array_unique($salida);
+	}	
+	
 	static function get_items_menu($proyecto, $grupos_acceso)
 	{
-
 		$db = self::get_db();
 		$raiz = $db->quote(self::get_item_raiz($proyecto));
 		if (empty($grupos_acceso)) {
