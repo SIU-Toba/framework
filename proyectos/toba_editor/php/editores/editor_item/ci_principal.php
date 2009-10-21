@@ -174,7 +174,7 @@ class ci_principal extends toba_ci
 				$hay_con_permisos = true;
 			}
 		}
-		if (! $hay_con_permisos) {
+		if (! $hay_con_permisos && $this->existe_dependencia('form_tablas')) {
 			$pant->eliminar_dep("form_tablas");
 			$this->get_entidad()->tabla('permisos_tablas')->eliminar_filas();
 		}
