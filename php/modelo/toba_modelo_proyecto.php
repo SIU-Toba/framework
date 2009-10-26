@@ -561,7 +561,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					if (! $conexion->existe_schema($schema)) {
 						continue;
 					}
-				} catch (toba_error_db $e) {
+				} catch (toba_error $e) {
 					//No es posible hacer la conexion, seguir con otra fuente
 					continue;
 				}

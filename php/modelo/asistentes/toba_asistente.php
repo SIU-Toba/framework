@@ -454,7 +454,7 @@ abstract class toba_asistente
 				} else {
 					$php .= "\t\$where[] = \"$id $operador \".quote(\$filtro['$id']);" . "\n";
 				}
-				$php .= "}" . '\n';
+				$php .= "}" . "\n";
 			}
 			$php .=	"\$sql = \"$sql\";" . "\n";
 			$php .= "if (count(\$where)>0) {" . "\n";
