@@ -20,11 +20,10 @@ class toba_perfil_funcional
 	function __construct()
 	{
 		$this->item = toba::memoria()->get_item_solicitado();
-		$this->id_restricciones = toba::usuario()->get_restricciones_funcionales();
+		$this->id_restricciones = toba::manejador_sesiones()->get_restricciones_funcionales();
 		if (! empty($this->id_restricciones)) {
 			$this->cargar_info_restricciones();
 		}
-		
 	}
 	
 	/**

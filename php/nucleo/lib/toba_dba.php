@@ -199,7 +199,7 @@ class toba_dba
 		$clave = $parametros['clave'];		
 		if (isset($parametros['conexiones_perfiles'])) {
 			//Trata de sacarlo del archivo .ini asociado
-			$perfiles = toba::usuario()->get_perfiles_funcionales();
+			$perfiles = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
 			if (empty($perfiles)) {
 				$seccion = 'no_autenticado';
 			} else {

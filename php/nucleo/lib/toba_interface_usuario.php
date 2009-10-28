@@ -39,9 +39,9 @@ interface toba_interface_usuario
 	function get_perfil_datos();
 
 	/**
-	 * return array Restricciones funcionales a las que pertenece el usuario
+	 * return array Restricciones funcionales a las que pertenece el usuario, opcionalmente filtrando por determinados perfiles
 	 */
-	function get_restricciones_funcionales();
+	function get_restricciones_funcionales($perfiles_funcionales = null);
 
 	//-- Manejo de bloqueos --------------------------------------------
 

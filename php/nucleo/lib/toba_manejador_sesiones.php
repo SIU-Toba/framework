@@ -13,6 +13,8 @@ class toba_manejador_sesiones
 	private $proyecto;
 	private $sesion = null;
 	private $usuario = null;
+	protected $perfiles_funcionales_activos = array();
+	
 	
 	/**
 	 * @return toba_manejador_sesiones
@@ -233,7 +235,7 @@ class toba_manejador_sesiones
 	}
 	
 	/**
-	*	Determina los perfiles funcionales del usuario actual
+	*	Determina los perfiles funcionales pertenecientes del usuario actual
 	*/
 	function get_perfiles_funcionales()
 	{
@@ -243,6 +245,41 @@ class toba_manejador_sesiones
 			return $this->usuario()->get_perfiles_funcionales();
 		}
 	}	
+	
+	
+	/**
+	*	Determina los ids de restricciones funcionales pertenecientes al usuario actual segun sus perfiles activos
+	*/
+	function get_restricciones_funcionales()
+	{
+		return toba::usuario()->get_restricciones_funcionales($this->get_perfiles_funcionales_activos());
+	}	
+		
+	/**
+	 * Retorna los perfiles funcionales activos en la sesión actual
+	 * @return array
+	 */
+	function get_perfiles_funcionales_activos()
+	{
+		return $this->perfiles_funcionales_activos;
+	}
+	
+	/**
+	 * Activa un subconjunto de los perfiles funcionales propios del usuario actual
+	 * @param array $activos
+	 */
+	function set_perfiles_funcionales_activos($activos)
+	{
+		$perfiles = $this->get_perfiles_funcionales();		
+		//Validacion
+		foreach ($activos as $perfil) {
+			if (! in_array($perfil, $perfiles)) {
+				throw new toba_error_seguridad("Se esta intentando activar el perfil '$perfil' y el mismo no pertenece al usuario actual");
+			}
+		}
+		return $this->perfiles_funcionales_activos = $activos;
+	}	
+	
 
 	/**
 	* @deprecated Desde 1.5 usar get_perfiles_funcionales
@@ -473,6 +510,7 @@ class toba_manejador_sesiones
 		if ( ! $grupos_acceso ) { 
 			throw new toba_error($msg_error);
 		}
+		$this->perfiles_funcionales_activos = $grupos_acceso;
 	}
 
 	private function registar_usuario()
@@ -597,6 +635,7 @@ class toba_manejador_sesiones
 			throw new toba_error('MANEJADOR de SESIONES: No es posible guardar el contexto.');
 		}
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario'] = serialize($this->usuario);
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos'] = serialize($this->perfiles_funcionales_activos);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
 	}
 	
@@ -621,6 +660,7 @@ class toba_manejador_sesiones
 		}
 		$this->usuario = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
 		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
+		$this->perfiles_funcionales_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos']);
 	}
 
 	//------------------------------------------------------------------

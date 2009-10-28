@@ -49,6 +49,17 @@ class toba_editor
 		if (! self::modo_prueba()) {
 			return;
 		}
+		
+		//Cambia el perfil activo
+		$perfil_activo = toba::memoria()->get_parametro('perfil_activo');
+		if (isset($perfil_activo)) {
+			if ($perfil_activo == apex_ef_no_seteado) {
+				toba::manejador_sesiones()->set_perfiles_funcionales_activos(toba::manejador_sesiones()->get_perfiles_funcionales());
+			} else {
+				toba::manejador_sesiones()->set_perfiles_funcionales_activos(array($perfil_activo));
+			}
+		}
+		
 		//Cambia el usuario de conexion
 		$tipo_conexion = toba::memoria()->get_parametro('usuario_conexion');
 		if (isset($tipo_conexion)) {
@@ -478,10 +489,21 @@ class toba_editor
 		//Session		
 		$tamano = file_size(strlen(serialize($_SESSION)), 0);
 		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
-
 		echo "</span>";		
-		echo "<span id='editor_previsualizacion_acc'>";
 		
+		//-- ACCIONES
+		echo "<span id='editor_previsualizacion_acc'>";
+		$perfiles = array(apex_ef_no_seteado => '-- Todos --');
+		foreach (toba::manejador_sesiones()->get_perfiles_funcionales() as $perfil) {
+			$perfiles[$perfil] = $perfil;
+		}
+		$actuales = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
+		$actual = null;
+		if (count($actuales) == 1) {
+			$actual = current($actuales);
+		}
+		$js = "title='Cambia el perfil actual del usuario' onchange=\"location.href = toba_prefijo_vinculo + '&perfil_activo=' + this.value\"";
+		echo "Perfiles: ".toba_form::select('cambiar_perfiles', $actual, $perfiles, 'ef-combo', $js);		
 
 		//Usuario de la base
 		$hay_limitado = false;
@@ -490,6 +512,7 @@ class toba_editor
 				$hay_limitado = true;
 			}
 		}		
+		
 		if ($hay_limitado) {
 			$actual = self::$memoria['conexion_limitada'] ? 'limitado' : 'normal';
 			$datos = array("normal" => "Normal", "limitado" => "Limitados");

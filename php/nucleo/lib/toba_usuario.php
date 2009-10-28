@@ -43,7 +43,7 @@ class toba_usuario implements toba_interface_usuario
 
 	//-------- Restricciones de acceso ------------------------
 	
-	function get_restricciones_funcionales()
+	function get_restricciones_funcionales($perfiles = null)
 	{
 		return array();
 	}
