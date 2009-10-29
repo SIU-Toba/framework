@@ -34,6 +34,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_submit_paginado;
 	protected $_submit_seleccion;
 	protected $_submit_extra;
+	protected $_submit_orden_multiple;
 	protected $_agrupacion_columnas = array();
 	protected $_layout_cant_filas = null;
 	protected $_eventos_multiples = array();						//Mantiene los nombres de los eventos multiples (simil cache)
@@ -41,6 +42,8 @@ class toba_ei_cuadro extends toba_ei
 	//Orden
     protected $_orden_columna;                     	// Columna utilizada para realizar el orden
     protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
+	protected $_columnas_orden_mul;			// Columnas para el ordenamiento multiple
+	protected $_sentido_orden_mul;				//Sentido de las columnas para el ordenamiento multiple
     protected $_ordenado = false;
 	//Paginacion
 	protected $_pagina_actual;
@@ -133,6 +136,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->_submit_seleccion = $this->_submit."__seleccion";
 		$this->_submit_extra = $this->_submit."__extra";
 		$this->_submit_paginado = $this->_submit."__pagina_actual";
+		$this->_submit_orden_multiple = $this->_submit . '__ordenamiento_multiple';
 	}
 	
 	/**
@@ -439,6 +443,7 @@ class toba_ei_cuadro extends toba_ei
 		parent::cargar_lista_eventos();
 		if($this->_info_cuadro["ordenar"]) { 
 			$this->_eventos['ordenar'] = array('maneja_datos' => true);
+			$this->_eventos['ordenar_multiple'] = array('maneja_datos' => true);
 		}
 		if ($this->_info_cuadro["paginar"]) {
 			$this->_eventos['cambiar_pagina'] = array('maneja_datos' => true);
@@ -454,7 +459,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->refrescar_ordenamiento();
 		}
 		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
-			$evento = $_POST[$this->_submit];		
+			$evento = $_POST[$this->_submit];
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->_memoria['eventos'][$evento]) ) {
 				switch ($evento) {
@@ -467,6 +472,13 @@ class toba_ei_cuadro extends toba_ei
 							} else {
 								$this->_ordenado = false;	
 							}
+						}
+						break;
+					case 'ordenar_multiple':
+						if (isset($this->_columnas_orden_mul)) {
+							$parametros = array('columnas' => $this->_columnas_orden_mul, 'sentidos' => $this->_sentido_orden_mul);
+							$exitoso = $this->reportar_evento('ordenar_multiple', $parametros);
+							$this->_ordenado = ($exitoso !== apex_ei_evt_sin_rpta && $exitoso === false);
 						}
 						break;
 					case 'cambiar_pagina':
@@ -504,10 +516,10 @@ class toba_ei_cuadro extends toba_ei
 		if (count($this->datos) > 0 ) {
 			$this->validar_estructura_datos();
 			// - 2 - Ordenamiento
-			if($this->hay_ordenamiento()){
+			if($this->hay_ordenamiento() || $this->hay_ordenamiento_multiple()){
 				$this->ordenar();
 			}
-			
+		
 			// - 3 - Cuento los registros disponibles en caso de no haber seteo explicito
 			$this->contar_registros();			
 						
@@ -1095,7 +1107,18 @@ class toba_ei_cuadro extends toba_ei
 			$this->_memoria['orden_sentido']= $this->_orden_sentido;
 		} else {
 			unset($this->_memoria['orden_sentido']);
-		}		
+		}
+		//Ordenamiento multiple
+		if (isset($this->_columnas_orden_mul)) {
+			$this->_memoria['columnas_orden_mul'] = $this->_columnas_orden_mul;
+		}else{
+			unset($this->_memoria['columnas_orden_mul']);
+		}
+		if (isset($this->_sentido_orden_mul)) {
+			$this->_memoria['sentido_orden_mul'] = $this->_sentido_orden_mul;
+		}else{
+			unset($this->_memoria['sentido_orden_mul']);
+		}
 	}
 
 	/**
@@ -1104,11 +1127,22 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function refrescar_ordenamiento()
 	{
+		$this->refrescar_ordenamiento_simple();
+		$this->refrescar_ordenamiento_multiple();
+	}
+
+	/**
+	 * @ignore
+	 */
+	private function refrescar_ordenamiento_simple()
+	{
 		//¿Viene seteado de la memoria?
-        if(isset($this->_memoria['orden_columna']))
+        if(isset($this->_memoria['orden_columna'])) {
 			$this->_orden_columna = $this->_memoria['orden_columna'];
-		if(isset($this->_memoria['orden_sentido']))
+		}
+		if(isset($this->_memoria['orden_sentido'])) {
 			$this->_orden_sentido = $this->_memoria['orden_sentido'];
+		}
 
 		//¿Lo cargo el usuario?
 		if (isset($_POST[$this->_submit_orden_columna]) && $_POST[$this->_submit_orden_columna] != '') {
@@ -1118,7 +1152,7 @@ class toba_ei_cuadro extends toba_ei
 			$nuevo_sent = $_POST[$this->_submit_orden_sentido];
 		}
 		if (isset($nueva_col) && isset($nuevo_sent)) {
-			//Si se vuelve a pedir el mismo ordenamiento, se anula			
+			//Si se vuelve a pedir el mismo ordenamiento, se anula
 			if (isset($this->_orden_columna) && $nueva_col == $this->_orden_columna &&
 				isset($this->_orden_sentido) && $nuevo_sent == $this->_orden_sentido) {
 				unset($this->_orden_columna);
@@ -1126,7 +1160,39 @@ class toba_ei_cuadro extends toba_ei
 			} else {
 				$this->_orden_columna = $nueva_col;
 				$this->_orden_sentido = $nuevo_sent;
+				//Anulo el ordenamiento multiple
+				unset($this->_columnas_orden_mul);
+				unset($this->_sentido_orden_mul);
 			}
+		}
+	}
+
+	/**
+	 * @ignore
+	 */
+	private function refrescar_ordenamiento_multiple()
+	{
+		if (isset($this->_memoria['sentido_orden_multiple'])) {
+			$this->_sentido_orden_mul = $this->_memoria['sentido_orden_multiple'];
+		}
+		if (isset($this->_memoria['columnas_orden_mul'])) {
+			$this->_columnas_orden_mul = $this->_memoria['columnas_orden_mul'];
+		}
+		if (isset($_POST[$this->_submit_orden_multiple]) && ($_POST[$this->_submit_orden_multiple] != '')) {
+			$this->_columnas_orden_mul = array();
+			$recuperado = explode(apex_qs_separador, $_POST[$this->_submit_orden_multiple]);
+			foreach($recuperado as $valores) {		//Ciclo por los distintos pares (columna,sentido)
+				if ($valores != '') {
+					$par = explode(apex_qs_sep_interno, $valores);
+					$clave = $par[0];
+					$this->get_sentido_ordenamiento($par[1]);
+					$this->_sentido_orden_mul[$clave] = $par[1];		//Sentido de ordenamiento
+					$this->_columnas_orden_mul[] = $clave;
+				}
+			}
+			//Anulo la otra forma de ordenamiento por si venia de esa.
+			unset($this->_orden_columna);
+			unset($this->_orden_sentido);
 		}
 	}
 
@@ -1139,6 +1205,11 @@ class toba_ei_cuadro extends toba_ei
         return (isset($this->_orden_sentido) && isset($this->_orden_columna));
 	}
 
+	function hay_ordenamiento_multiple()
+	{
+		return (isset($this->_columnas_orden_mul) && isset($this->_sentido_orden_mul));
+	}
+
 	/**
 	 * Método estandar de ordenamiento de los datos, decide el metodo de ordenamiento en base
 	 * al tipo de formateo de la columna, sino utiliza ordenamiento por default
@@ -1146,124 +1217,174 @@ class toba_ei_cuadro extends toba_ei
     protected function ordenar()
 	{
 		if (! $this->_ordenado) {
-			$ordenamiento = array();
-			$funcion_formateo = 'ordenamiento_' . $this->_columnas[$this->_orden_columna]['formateo'];
-			if (method_exists($this, $funcion_formateo)){
-				toba::logger()->debug('Entro en el metodo de ordenamiento: ' . $funcion_formateo);
-				$this->$funcion_formateo();
-			}else{
-				toba::logger()->debug('No se encontro el metodo de ordenamiento: ' . $funcion_formateo);
-				$this->ordenamiento_default();
+			$parametros = array();
+			$metodos = $sentidos = array();
+			if ($this->hay_ordenamiento()) {		//Ordenamiento columna simple
+				$metodos[$this->_orden_columna] = 'ordenamiento_' . $this->_columnas[$this->_orden_columna]['formateo'];
+				$sentidos[$this->_orden_columna] = $this->_orden_sentido;
+			} elseif ($this->hay_ordenamiento_multiple()) {
+				foreach($this->_columnas_orden_mul as $col) {
+					$metodos[$col] = $funcion_formateo = 'ordenamiento_' . $this->_columnas[$col]['formateo'];
+					$sentidos[$col] = $this->_sentido_orden_mul[$col];
+				}
+			}			
+			foreach($metodos as $klave => $funcion) {
+				$aux = array();
+				if (method_exists($this, $funcion)) {
+					toba::logger()->debug('Entro en el metodo de ordenamiento: ' . $funcion);
+					$aux = $this->$funcion($klave);
+				}else{
+					toba::logger()->debug('No se encontro el metodo de ordenamiento: ' . $funcion);
+					$aux = $this->ordenamiento_default($klave);
+				}
+
+				$parametros[] = $aux['ordenamiento'];
+				$parametros[] = $this->get_sentido_ordenamiento($sentidos[$klave]);
+				$parametros[] = $aux['tipo'];
 			}
+			//ei_arbol($parametros, 'parametros');
+			$parametros[] =& $this->datos;
+			call_user_func_array( 'array_multisort', $parametros );
 		} //IF
     }
 
 	/**
+	 * Método estandar de ordenamiento por hora
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
+	 *//*
+	protected function ordenamiento_hora($columna)
+	{
+		return $this->ordenar_numeros($columna);
+	}*/
+
+	/**
 	 * Método estandar de ordenamiento de fechas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_fecha()
+	protected function ordenamiento_fecha($columna)
 	{
-		$this->ordenar_fechas();
+		return $this->ordenar_fechas($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de timestamps (fecha, hora)
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_fecha_hora()
+	protected function ordenamiento_fecha_hora($columna)
 	{
-		$this->ordenar_fechas();
+		return $this->ordenar_fechas($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de monedas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_moneda()
+	protected function ordenamiento_moneda($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de numeros
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_millares()
+	protected function ordenamiento_millares($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de decimales
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_decimal()
+	protected function ordenamiento_decimal($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de tiempo expresado en numeros
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 * @see ordenamiento_fecha
 	 */
-	protected function ordenamiento_tiempo()
+	protected function ordenamiento_tiempo($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de porcentajes
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_porcentaje()
+	protected function ordenamiento_porcentaje($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de superficie
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_superficie()
+	protected function ordenamiento_superficie($columna)
 	{
-		$this->ordenar_numeros();
+		return $this->ordenar_numeros($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de caracteres en mayusculas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_mayusculas()
+	protected function ordenamiento_mayusculas($columna)
 	{
-		$this->ordenar_caracteres();
+		return $this->ordenar_caracteres($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de caracteres
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_may_ind()
+	protected function ordenamiento_may_ind($columna)
 	{
-		$this->ordenar_caracteres();
+		return $this->ordenar_caracteres($columna);
 	}
 
 	/**
 	 * Método estandar de ordenamiento de los datos, utilizando array_multisort
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
+	 * @param string $columna Nombre de la columna
+	 * @return mixed
 	 */
-	protected function ordenamiento_default()
+	protected function ordenamiento_default($columna)
 	{
+		$ordenamiento = array();
 		foreach ($this->datos as $fila){
-			$ordenamiento[] = $fila[$this->_orden_columna];
+			$ordenamiento[] = $fila[$columna];
 		}
-		//Ordeno segun el sentido
-		if($this->_orden_sentido == "asc"){
-			array_multisort($ordenamiento, SORT_ASC , $this->datos);
-		} elseif ($this->_orden_sentido == "des"){
-			array_multisort($ordenamiento, SORT_DESC , $this->datos);
-		}
+		$resultado['ordenamiento'] = $ordenamiento;
+		$resultado['tipo'] = SORT_REGULAR;
+		return $resultado;
 	}
 
 	/**
@@ -1271,17 +1392,15 @@ class toba_ei_cuadro extends toba_ei
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
-	protected function ordenar_fechas()
+	protected function ordenar_fechas($columna)
 	{
+		$ordenamiento = array();
 		foreach ($this->datos as $fila) {
-			$ordenamiento[] = strtotime($fila[$this->_orden_columna])  ;
+			$ordenamiento[] = strtotime($fila[$columna])  ;
 		}
-		//Ordeno segun el sentido
-		if($this->_orden_sentido == "asc"){
-			array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
-		} elseif ($this->_orden_sentido == "des"){
-			array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
-		}
+		$resultado['ordenamiento'] = $ordenamiento;
+		$resultado['tipo'] = SORT_NUMERIC;
+		return $resultado;
 	}
 
 	/**
@@ -1289,16 +1408,15 @@ class toba_ei_cuadro extends toba_ei
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
-	protected function ordenar_numeros()
+	protected function ordenar_numeros($columna)
 	{
+		$ordenamiento = array();
 		foreach ($this->datos as $fila){
-			$ordenamiento[] = $fila[$this->_orden_columna];
+			$ordenamiento[] = $fila[$columna];
 		}
-		if($this->_orden_sentido == "asc"){
-			array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
-		} elseif ($this->_orden_sentido == "des"){
-			array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
-		}
+		$resultado['ordenamiento'] = $ordenamiento;
+		$resultado['tipo'] = SORT_NUMERIC;
+		return $resultado;
 	}
 
 	/**
@@ -1306,17 +1424,27 @@ class toba_ei_cuadro extends toba_ei
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
-	protected function ordenar_caracteres()
+	protected function ordenar_caracteres($columna)
 	{
+		$ordenamiento = array();
 		foreach ($this->datos as $fila){
-			$ordenamiento[] = $fila[$this->_orden_columna];
+			$ordenamiento[] = $fila[$columna];
 		}
-		//Ordeno segun el sentido
-		if($this->_orden_sentido == "asc"){
-			array_multisort($ordenamiento, SORT_ASC, SORT_STRING , $this->datos);
-		} elseif ($this->_orden_sentido == "des"){
-			array_multisort($ordenamiento, SORT_DESC, SORT_STRING , $this->datos);
+		$resultado['ordenamiento'] = $ordenamiento;
+		$resultado['tipo'] = SORT_STRING;
+		return $resultado;
+	}
+
+	private function get_sentido_ordenamiento($valor = 'asc')
+	{
+		if ($valor == 'asc') {
+			$sentido = SORT_ASC;
+		}elseif ($valor == 'des') {
+			$sentido = SORT_DESC;
+		}else{
+			throw new toba_error_def('Sentido de ordenamiento inválido: '. $valor);
 		}
+		return $sentido;
 	}
 
 //################################################################################
@@ -1592,6 +1720,7 @@ class toba_ei_cuadro extends toba_ei
 		echo toba_form::hidden($this->_submit_extra, '');
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
+		echo toba_form::hidden($this->_submit_orden_multiple, '');
 
 		//Genero los hidden para los eventos multiples
 		foreach($this->_eventos_multiples as $evento) {
@@ -1687,6 +1816,11 @@ class toba_ei_cuadro extends toba_ei
 		if($this->_info_cuadro["scroll"]){
 			echo "</div>\n";
 		}
+
+		//Aca tengo que meter el javascript y el html del cosote para ordenar
+		if ($this->_info_cuadro["ordenar"]) {
+			$this->html_selector_ordenamiento();
+		}
 	}
 
 	/**
@@ -1702,6 +1836,11 @@ class toba_ei_cuadro extends toba_ei
         	$img = toba_recurso::imagen_toba('exp_xls.gif', true);
         	echo "<a href='javascript: {$this->objeto_js}.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
         }
+		if ($this->_info_cuadro["ordenar"]) {
+			$img = toba_recurso::imagen_toba('ordenar.gif', true);
+			$filas = toba_js::arreglo($this->get_filas_disponibles_selector());
+        	echo "<a href=\"javascript: {$this->objeto_js}.mostrar_selector($filas);\" title='Permite ordenar por múltiples columnas'>$img</a>";
+		}		
         if(trim($this->_info_cuadro["subtitulo"])<>""){
             echo $this->_info_cuadro["subtitulo"];
         }
@@ -1729,6 +1868,85 @@ class toba_ei_cuadro extends toba_ei
 		if ($this->hay_botones() && $this->botonera_abajo()) {
 			$this->generar_botones();
 		}		
+	}
+
+	/**
+	 * Genera el HTML que contendra el selector de ordenamiento
+	 */
+	protected function html_selector_ordenamiento()
+	{
+		//Armo el div con el HTML
+		echo "<div id='selector_ordenamiento' style='display:none;'>";
+		$this->html_botonera_selector();
+		echo "<table class='tabla-0 ei-base ei-form-base ei-ml-grilla' width='100%'>";
+		$this->html_cabecera_selector();
+		$filas = $this->html_cuerpo_selector();
+		echo '</table></div>';
+	}
+
+	/**
+	 *  Envia la botonera del selector
+	 */
+	private function html_botonera_selector()
+	{
+		//Saco la botonera para subir/bajar filas		
+		echo "<div id='botonera_selector' class='ei-ml-botonera'>";
+		echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true),
+								"onclick='{$this->objeto_js}.subir_fila_selector();'", 0, '<', 'Sube una posición la fila seleccionada');
+		echo toba_form::button_html("{$this->objeto_js}_bajar", toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true),
+								"onclick='{$this->objeto_js}.bajar_fila_selector();' ", 0, '>', 'Baja una posición la fila seleccionada');
+		echo '</div>';
+	}
+
+	/**
+	 * Genera la cabecera con los titulos del selector
+	 */
+	private function html_cabecera_selector()
+	{
+		echo "<thead>
+						<th class='ei-ml-columna'>Activar</th>
+						<th class='ei-ml-columna'>Columna</th>
+						<th class='ei-ml-columna' colspan='2'>Sentido</th>
+				</thead>";
+	}
+
+	/**
+	 *  Genera el cuerpo del selector
+	 */
+	private function html_cuerpo_selector()
+	{
+		$cuerpo = '';
+		foreach($this->_columnas as $col) {
+			//Saco el contenedor de la fila y un checkbox para seleccionar.
+			$cuerpo .= "<tr id='fila_{$col['clave']}'  onclick=\"{$this->objeto_js}.seleccionar_fila_selector('{$col['clave']}');\" class='ei-ml-fila'><td>";
+			$cuerpo .= 	toba_form::checkbox('check_'.$col['clave'], null, '0','ef-checkbox', "onclick=\"{$this->objeto_js}.activar_fila_selector('{$col['clave']}');\" ");
+			$cuerpo .= "</td><td> {$col['titulo']}</td><td>";
+
+			//Saco el radiobutton para el sentido ascendente
+			$id = $col['clave'].'0';
+			$cuerpo .=  "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='asc'  disabled/>Ascendente</label>";
+			$cuerpo .= '</td><td>' ;
+
+			//Saco el radiobutton para el sentido descendente
+			$id = $col['clave'].'1';
+			$cuerpo .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='des'  disabled/>Descendente</label>";
+			$cuerpo .= '</td></tr>';
+		}
+		$cuerpo .= "<tr class='ei-botonera'><td colspan='4'>". toba_form::button('botonazo', 'Aplicar' ,  "onclick=\"{$this->objeto_js}.aplicar_criterio_ordenamiento();\"").'</td></tr>';
+		echo $cuerpo;
+	}
+
+	/**
+	 * Obtiene las filas que estaran disponibles para ordenar.
+	 * @return array $posicion_filas
+	 */
+	private function get_filas_disponibles_selector()
+	{
+		$posicion_filas = array();
+		foreach($this->_columnas as $col) {
+			$posicion_filas[] = $col['clave'];							//Guardo las columnas que envio
+		}
+		return $posicion_filas;
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -2006,7 +2224,7 @@ class toba_ei_cuadro extends toba_ei
 	            //Javascript de seleccion multiple
 	            if (! empty($this->_eventos_multiples)) {
 					$lista_eventos_js = toba_js::arreglo($this->_eventos_multiples);
-	            	$js = "onclick='{$this->objeto_js}.seleccionar(\"$f\", \"$lista_eventos_js\")'";
+	            	$js = "onclick=\"{$this->objeto_js}.seleccionar('$f', $lista_eventos_js);\" ";
 	            } else {
 	            	$js = '';
 	            }
@@ -2229,25 +2447,6 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-    /**
-     * @ignore
-     */
-	function pdf_acumulador_usuario()
-	{
-		if (isset($this->_sum_usuario)) {
-			foreach($this->_sum_usuario as $sum) {
-				if($sum['corte'] == 'toba_total') {
-					$metodo = $sum['metodo'];
-					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
-				}
-			}
-		}
-		if (isset($sumarizacion)) {
-			$css = 'cuadro-cc-sum-nivel-1';
-			$this->pdf_cuadro_sumarizacion($sumarizacion,null,300,$css);
-		}		
-	}
-	
     /**
      * @ignore 
      */
@@ -2860,6 +3059,25 @@ class toba_ei_cuadro extends toba_ei
 			$this->salida->salto_pagina();
 		} elseif (!$es_ultimo && $nodo['profundidad'] > 0 && $this->_pdf_cortar_hoja_cc_1) {
 			$this->salida->salto_pagina();
+		}
+	}
+
+    /**
+     * @ignore
+     */
+	function pdf_acumulador_usuario()
+	{
+		if (isset($this->_sum_usuario)) {
+			foreach($this->_sum_usuario as $sum) {
+				if($sum['corte'] == 'toba_total') {
+					$metodo = $sum['metodo'];
+					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
+				}
+			}
+		}
+		if (isset($sumarizacion)) {
+			$css = 'cuadro-cc-sum-nivel-1';
+			$this->pdf_cuadro_sumarizacion($sumarizacion,null,300,$css);
 		}
 	}
 

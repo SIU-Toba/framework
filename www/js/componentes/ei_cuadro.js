@@ -13,13 +13,15 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._filas = filas;
 	this._ids_eventos_multiple = ids_eventos_multiple;
+	this._selector_fila_selec = null;			//Mantiene la fila seleccionada actualmente
+	this._filas_disponibles = [];					//Mantiene las filas disponibles para el ordenamiento
 }
 	
 	//---Submit 
 	ei_cuadro.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
-		}
+		}		
 		if (this._evento) {
 			switch (this._evento.id) {
 				case 'cambiar_pagina':
@@ -29,6 +31,9 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 					document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
 					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 					break;
+				case 'ordenar_multiple':
+					document.getElementById(this._input_submit + '__ordenamiento_multiple').value = this._evento.parametros;
+				break;
 				default:
 					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
@@ -89,8 +94,6 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		check.onclick();
 	};	
 		
-	
-
 	ei_cuadro.prototype.get_ids_seleccionados = function(id_evento)
 	{
 		var seleccion = [];
@@ -107,5 +110,177 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	{
 		this.set_evento(new evento_ei('cambiar_pagina', '','', valor), true);
 	}
-	
+
+	//------------------------------------------------------------------------------------------------------------------
+	//							FUNCIONES PARA EL SELECTOR DE ORDENAMIENTO MULTIPLE
+	//------------------------------------------------------------------------------------------------------------------
+	/**
+	 *  Metodo utilizado para lanzar el evento de ordenamiento multiple columna
+	 *  @param {array} valores Arreglo con formato array('columna' => 'sentido')
+	 */
+	ei_cuadro.prototype.set_ordenamiento_multiple = function (valores)
+	{
+		var datos = [];
+		var par_col_orden = '';
+		for (var columna in valores) {
+			if (valores[columna] !== null) {
+					par_col_orden = columna + toba_hilo_separador_interno + valores[columna];
+					datos.push(par_col_orden);
+			} else {
+				notificacion.agregar('Falta definir un sentido para la columna');
+				notificacion.mostrar();
+				notificacion.limpiar();
+				return false;
+			}
+		}
+		var parametros = datos.join(toba_hilo_separador);
+		this.set_evento(new evento_ei('ordenar_multiple', false, false, parametros), true);
+	}
+
+	/**
+	 * Metodo que muestra el selector de ordenamiento al usuario
+	 * @param {array} filas Arreglo con los id de columna que estan disponibles
+	 * @ignore
+	 */
+	ei_cuadro.prototype.mostrar_selector = function(filas)
+	{
+		this._filas_disponibles = filas;
+		var html = document.getElementById('selector_ordenamiento').innerHTML;
+		notificacion.mostrar_ventana_modal('Seleccione el criterio de ordenamiento a aplicar', html, '400px', 'overlay(true)');
+	}
+
+	/**
+	 * Metodo que deja activa una fila en particular para poder seleccionar el sentido
+	 * @param {string} fila
+	 * @ignore
+	 */
+	ei_cuadro.prototype.activar_fila_selector = function(fila)
+	{
+		var activo = document.getElementById('check_' + fila).checked;
+		var radio_asc = document.getElementById(fila + '0');
+		var radio_des = document.getElementById(fila + '1');
+
+		radio_asc.disabled = (! activo);
+		radio_des.disabled = (! activo);
+		//document.getElementById(fila + '0').disabled = (!activo);
+	}
+
+	/**
+	 * Metodo que selecciona una fila como la actual y la marca en la interfase
+	 * @param {string} fila
+	 * @ignore
+	 */
+	ei_cuadro.prototype.seleccionar_fila_selector = function(fila)
+	{
+		if (isset(this._selector_fila_selec) && (fila != this._selector_fila_selec)) {
+			this.deseleccionar_fila_selector();
+		}
+		this._selector_fila_selec = fila;
+		var nodo = document.getElementById('fila_' + this._selector_fila_selec);
+		reemplazar_clase_css(nodo, 'ei-ml-fila', 'ei-ml-fila-selec');
+	}
+
+	/**
+	 * Metodo para deseleccionar la fila actual, la desmarca en la interface
+	 * @ignore
+	 */
+	ei_cuadro.prototype.deseleccionar_fila_selector = function()
+	{
+		var nodo = document.getElementById('fila_' + this._selector_fila_selec);
+		reemplazar_clase_css(nodo, 'ei-ml-fila-selec', 'ei-ml-fila');
+	}
+
+	/**
+	 * Metodo que sube una fila en la interfase y en definitiva su prioridad para el ordenamiento
+	 * @ignore
+	 */
+	ei_cuadro.prototype.subir_fila_selector = function()
+	{
+		var posicion = this.obtener_posicion_actual(this._selector_fila_selec);
+		if (posicion != null) {
+			var anterior = posicion - 1;
+			if (this._filas_disponibles[anterior]) {
+				this.intercambiar_posiciones(anterior, posicion);
+			}
+		}
+	}
+
+	/**
+	 * Metodo que baja una fila en la interfase y en definitiva su prioridad para el ordenamiento
+	 * @ignore
+	 */
+	ei_cuadro.prototype.bajar_fila_selector = function()
+	{
+		var posicion = this.obtener_posicion_actual(this._selector_fila_selec);
+		if (posicion != null) {
+			var anterior = posicion;
+			anterior++;
+			if (this._filas_disponibles[anterior]) {
+				this.intercambiar_posiciones(posicion, anterior);
+			}
+		}
+	}
+
+	/**
+	 * Metodo que dada una fila obtiene su prioridad actual
+	 * @ignore
+	 */
+	ei_cuadro.prototype.obtener_posicion_actual = function(fila)
+	{
+		for(var indice in this._filas_disponibles) {
+			if (this._filas_disponibles[indice] == fila) {
+				return indice;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Metodo que intercambia las posiciones de dos filas en la interface,
+	 * tambien intercambia sus prioridades para el orden final
+	 * @ignore
+	 */
+	ei_cuadro.prototype.intercambiar_posiciones = function(anterior, nueva)
+	{
+		var fila_ant = this._filas_disponibles[anterior];
+		var fila_nueva = this._filas_disponibles[nueva];
+
+		var nodo_ant = document.getElementById('fila_' + fila_ant);
+		var nodo_nuevo = document.getElementById('fila_' + fila_nueva);
+
+		nodo_nuevo.swapNode(nodo_ant);
+		this._filas_disponibles[anterior] = fila_nueva;
+		this._filas_disponibles[nueva] = fila_ant;
+	}
+
+	/**
+	 * Metodo que obtiene la prioridad final de ordenamiento, arma el arreglo
+	 * con las columnas y su correspondiente sentido. Finalmente llama
+	 * al metodo que dispara el evento.
+	 * @ignore
+	 */
+	ei_cuadro.prototype.aplicar_criterio_ordenamiento = function()
+	{
+		var seleccion_actual = [];
+		var check;
+		var sentido;
+		var columna = '';
+		for (var indice in this._filas_disponibles)
+		{
+			columna = this._filas_disponibles[indice];
+			check = document.getElementById('check_' + columna).checked;
+			if (check) {
+				sentido = null;
+				var elementos = getElementsByName_iefix('input', 'radio_' + columna);
+				for(var opcion in elementos) {
+					if (elementos[opcion].checked) {
+						sentido = elementos[opcion].value;
+					}
+				}
+				seleccion_actual[columna] = sentido;
+			}
+		}
+		overlay(true);
+		this.set_ordenamiento_multiple(seleccion_actual);
+	}
 toba.confirmar_inclusion('componentes/ei_cuadro');
