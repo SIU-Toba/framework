@@ -221,18 +221,29 @@ class ci_principal extends ci_editores_toba
 
 	function conf__columna_corte($form)
 	{
+		$indice = 0;
+		$ids_visitados = array();
 		$filas = array();
 		$busqueda = $this->get_entidad()->tabla('columna_total_cc')->nueva_busqueda();
 		$busqueda->set_padre('columnas', $this->s__seleccion_columna_anterior);
 		//Inicializo con los cortes de control existentes para cuando no existe carga previa o cuando se agregan cortes.
 		foreach( $this->s__cortes_control as $corte){
-			$filas[$corte] = array('identificador' => $corte, 'total' => 0);
+			$filas[$indice] = array('identificador' => $corte, 'total' => 0);
+			$ids_visitados[$corte] = $indice;
+			$indice++;
 		}
 		//Obtengo las asociaciones entre columnas y cortes de control
 		$resultado_busqueda = $busqueda->buscar_ids();
-		foreach($resultado_busqueda  as $id_fila){
+		foreach($resultado_busqueda  as $id_fila) {
 			$col_asoc = $this->get_entidad()->tabla('columna_total_cc')->get_fila($id_fila);
-			$filas[$col_asoc['identificador']] = array('identificador' => $col_asoc['identificador'], 'total' => $col_asoc['total']);
+			if (isset($ids_visitados[$col_asoc['identificador']])) {
+				$id_tmp =  $ids_visitados[$col_asoc['identificador']];
+			}else {
+				$id_tmp = $indice;
+				$ids_visitados[$col_asoc['identificador']] = $indice;
+				$indice++;
+			}
+			$filas[$id_tmp] = array('identificador' => $col_asoc['identificador'], 'total' => $col_asoc['total']);
 		}
 		$form->set_datos($filas);
 	}
