@@ -628,7 +628,9 @@ function ejecutar_scripts(html) {
 	var re = /<script\b[\s\S]*?>([\s\S]*?)<\//ig;
 	var match;
 	while (match = re.exec(html)) {
-		eval_code(match[1]);
+		if (match[1] !== '') {			//Solo hace el eval si no viene vacio
+			eval_code(match[1]);
+		}
 	}
 };
 

@@ -297,37 +297,42 @@ toba = new function() {
 			delete(this._ajax._deps[d]);
 		}
 		var partes = this.analizar_respuesta_servicio(respuesta);
-		if (partes[0] != '') {
-			//-- Trata de interpretar y agregar cualquier html/js adhoc generado durante los eventos
-			ejecutar_scripts(partes[0]);
-			var nodo = this._ajax.raiz().parentNode.innerHTML;
-			nodo = nodo + partes[0];
-		}
-		
-		//-- Se cambia la barra superior (busca el fin del tag para no duplicarlo)
-		if (partes[1] != '' && isset($('barra_superior'))) {
-			var barra = partes[1].substr(partes[1].indexOf('>') + 1);
-			$('barra_superior').innerHTML = barra;
-		}
-
-		//-- Se agrega el html (busca el comienzo del primer div para no duplicar el table)
-		ejecutar_scripts(partes[2]);
-		this._ajax.raiz().innerHTML = partes[2].substr(partes[2].indexOf('<div'));
-		
-		//-- Se cambia el div del editor (si existe)
-		if (partes[3] != '') {
-			var div = $('editor_previsualizacion');
-			if (isset(div)) {
-				div.parentNode.removeChild(div);
+		if (partes === false) {
+				notificacion.agregar('Se ha producido un error en una etapa temprana del request, verifique el log del servidor');
+				notificacion.mostrar();
+		} else {
+			if (partes[0] != '') {
+				//-- Trata de interpretar y agregar cualquier html/js adhoc generado durante los eventos
+				ejecutar_scripts(partes[0]);
+				var nodo = this._ajax.raiz().parentNode.innerHTML;
+				nodo = nodo + partes[0];
 			}
-			document.body.innerHTML += partes[3];
-		}
-		
-		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
-		toba.set_callback_incl(partes[5]);
-		eval_code(partes[4]);
-		for (var i = 0; i < this._onload.length; i++) {
-			this._onload[i]();
+
+			//-- Se cambia la barra superior (busca el fin del tag para no duplicarlo)
+			if (partes[1] != '' && isset($('barra_superior'))) {
+				var barra = partes[1].substr(partes[1].indexOf('>') + 1);
+				$('barra_superior').innerHTML = barra;
+			}
+
+			//-- Se agrega el html (busca el comienzo del primer div para no duplicar el table)
+			ejecutar_scripts(partes[2]);
+			this._ajax.raiz().innerHTML = partes[2].substr(partes[2].indexOf('<div'));
+
+			//-- Se cambia el div del editor (si existe)
+			if (partes[3] != '') {
+				var div = $('editor_previsualizacion');
+				if (isset(div)) {
+					div.parentNode.removeChild(div);
+				}
+				document.body.innerHTML += partes[3];
+			}
+
+			//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
+			toba.set_callback_incl(partes[5]);
+			eval_code(partes[4]);		
+			for (var i = 0; i < this._onload.length; i++) {
+				this._onload[i]();
+			}
 		}
 	};
 	
@@ -345,6 +350,9 @@ toba = new function() {
 				partes.push(texto.substr(pos_anterior, pos-pos_anterior));
 				pos_anterior = pos + 10;
 			}
+		}
+		if (pos_anterior === 0) {		//Si no volvieron partes probablemente sea un js causado por un error prematuro
+			return false;						//La decision la toma el llamador
 		}
 		var restante = texto.substr(pos_anterior);
 		if (restante.length >0) {
