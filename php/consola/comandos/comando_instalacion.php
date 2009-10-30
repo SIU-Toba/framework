@@ -79,20 +79,20 @@ class comando_instalacion extends comando_toba
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
-				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ENTER utilizará localhost)', false);
+				$profile = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Ubicación (ENTER utilizará localhost)', false);
 				if ($profile == ''){
 					$profile = 'localhost';
 				}				
-				$puerto_tmp = $this->consola->dialogo_ingresar_texto( "Puerto del servicio Postgres (ENTER utilizará: $puerto)", false);
+				$puerto_tmp = $this->consola->dialogo_ingresar_texto( "PostgreSQL - Puerto (ENTER utilizará: $puerto)", false);
 				if ($puerto_tmp != ''){		
 					$puerto = $puerto_tmp;
 				}
-				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ENTER utilizará dba)', false);
+				$usuario = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Usuario (ENTER utilizará postgres)', false);
 				if ($usuario == '') {
-					$usuario = 'dba';
+					$usuario = 'postgres';
 				}
-				$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
-				$base_temp = $this->consola->dialogo_ingresar_texto( "Nombre de Base de Datos (ENTER utilizará: '$base')", false);
+				$clave = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Clave  (ENTER para usar sin clave)', false);
+				$base_temp = $this->consola->dialogo_ingresar_texto( "PostgreSQL - Base de datos (ENTER utilizará $base)", false);
 				if ($base_temp != ''){
 					$base = $base_temp;
 				}

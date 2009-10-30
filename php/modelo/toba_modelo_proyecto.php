@@ -559,10 +559,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				try {
 					$conexion = $this->get_db_negocio($fuente['fuente_datos']);
 					if (! $conexion->existe_schema($schema)) {
+						$this->manejador_interface->progreso_fin();						
 						continue;
 					}
 				} catch (toba_error $e) {
 					//No es posible hacer la conexion, seguir con otra fuente
+					$this->manejador_interface->progreso_fin();
 					continue;
 				}
 				$usuario = $this->get_usuario_prueba_db($fuente['fuente_datos']);	
@@ -697,7 +699,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_tablas();
 		$this->cargar_componentes();
 		$errores = $this->cargar_perfiles();
-		$this->generar_roles_db();		
+		$this->generar_roles_db();
 		return $errores;
 	}
 
@@ -883,6 +885,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->db->ejecutar($sql);
 	}
 	
+
 	//-----------------------------------------------------------
 	//	ELIMINAR
 	//-----------------------------------------------------------
@@ -1997,10 +2000,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$sql[] = "INSERT INTO apex_usuario_proyecto_perfil_datos (proyecto, usuario, usuario_perfil_datos)
 						VALUES ($proyecto, $usuario, $perfil);";
 		}
-		
 		// Decide un PA por defecto para el proyecto
-		if(!empty($perfil_acceso) && $set_previsualizacion && isset($url)) {
-			$funcional = $db->quote(implode(',', $perfil_acceso));
+		if(!empty($perfiles_acceso) && $set_previsualizacion && isset($url)) {
+			$funcional = $db->quote(implode(',', $perfiles_acceso));
 			if (empty($perfil_datos)) {
 				$datos = 'NULL';
 			} else {

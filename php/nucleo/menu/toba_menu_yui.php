@@ -6,7 +6,7 @@
  */
 class toba_menu_yui extends toba_menu
 {
-	private $items;
+	protected $items;
 	private $prof=1;
 	private $id=9000;
 	private $arbol;
