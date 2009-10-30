@@ -211,7 +211,7 @@ class toba_carga_opciones_ef
 		$parametros['carga_metodo'] = $parametros['popup_carga_desc_metodo'];		
 		$parametros['carga_clase'] = $parametros['popup_carga_desc_clase'];
 		$parametros['carga_include'] = $parametros['popup_carga_desc_include'];
-		return $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
+		return $this->ef_metodo_carga_php($id_ef, $parametros, array($maestros));
 	}
 	
 
@@ -279,15 +279,16 @@ class toba_carga_opciones_ef
 			if (! method_exists($clase, $parametros['carga_metodo'])) {
 				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_clase']}'");			
 			}			
-			$metodo = array($clase, $parametros['carga_metodo']);			
+			$metodo = array($clase, $parametros['carga_metodo']);	
 			return call_user_func_array($metodo, $maestros);
 		} else {
 			//--- Es un metodo del CI contenedor
 			if (! method_exists($this->_controlador->controlador(), $parametros['carga_metodo'])) {
 				$clase = get_class($this->_controlador->controlador());
 				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
-			}			
-			return call_user_func_array( array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
+			}
+			$dato = call_user_func_array(array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
+			return $dato;
 		}
 	}
 	
