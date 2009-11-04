@@ -641,8 +641,8 @@ abstract class toba_ei extends toba_componente
 		
 				//---Barra de colapsado
 				$colapsado = "";
-				$colapsado_coherente = ($this->hay_botones() && !$this->botonera_arriba());
-				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
+				$mostrar_colapsado = (!$this->hay_botones() || !$this->botonera_arriba());
+				if ($this->_info['colapsable'] && isset($this->objeto_js) && $mostrar_colapsado) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				}			
 				echo "<div class='$estilo' $colapsado>\n";
@@ -665,7 +665,7 @@ abstract class toba_ei extends toba_componente
 				}
 		
 				//---Barra de colapsado
-				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
+				if ($this->_info['colapsable'] && isset($this->objeto_js) && $mostrar_colapsado) {
 					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
 					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
 				}

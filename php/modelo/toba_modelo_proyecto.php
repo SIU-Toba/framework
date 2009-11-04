@@ -322,7 +322,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//Genero el SQL
 		if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
    			$w = stripslashes($definicion['dump_where']);
-   			$where = preg_replace("%%",$this->get_id(), $w);
+   			$where = str_replace("%%",$this->get_id(), $w);
         } else {
    			$where = " ( proyecto = '".$this->get_id()."')";
 		}
@@ -939,8 +939,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				foreach ( $lista_tablas as $t ) {
 					$info_tabla = call_user_func( array( $catalogo, $t ) );
 					if( isset( $info_tabla['dump_where'] ) ) {
-						$where = " WHERE " . preg_replace('%%', $this->identificador, stripslashes($info_tabla['dump_where']) );
-						$where = preg_replace( " dd", $t, $where );						
+						$where = " WHERE " . str_replace('%%', $this->identificador, stripslashes($info_tabla['dump_where']) );
+						$where = str_replace(" dd", $t, $where);
 					} else {
 						$where = " WHERE proyecto = '{$this->identificador}'";
 					}

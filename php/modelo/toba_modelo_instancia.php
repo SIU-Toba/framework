@@ -483,7 +483,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
        			$w = stripslashes($definicion['dump_where']);
-       			$where = preg_replace("%%",$proyecto, $w);
+       			$where = str_replace("%%", $proyecto, $w);
             }else{
        			$where = " ( proyecto = '$proyecto')";
 			}

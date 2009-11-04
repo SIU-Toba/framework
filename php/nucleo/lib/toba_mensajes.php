@@ -118,7 +118,7 @@ class toba_mensajes
 			//Si se enviaron parametros los pongo en el
 			//lugar de los comodines
 			for($a=0;$a<count($parametros);$a++){
-				$mensaje = preg_replace("%".($a+1)."%", $parametros[$a], $mensaje);
+				$mensaje = str_replace("%".($a+1)."%", $parametros[$a], $mensaje);
 			}
 			//Por si todavia quedan comodines
 			$mensaje = preg_replace("%[^ 	]*%","",$mensaje);

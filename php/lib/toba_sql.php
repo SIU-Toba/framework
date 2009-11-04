@@ -208,7 +208,7 @@
 			$i++;
 		}
 		$sql .=	"\n);\n";
-		$sql = preg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+		$sql = str_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}	
 
