@@ -430,7 +430,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$es_asociacion = false;
 		foreach($this->_columnas as $col) {
-			$es_asociacion = $es_asociacion || ($col['evento_asociado'] == $id_evento);
+			$es_asociacion = $es_asociacion || (isset($col['evento_asociado']) && $col['evento_asociado'] == $id_evento);
 		}
 		return $es_asociacion;
 	}

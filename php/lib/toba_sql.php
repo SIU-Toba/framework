@@ -21,7 +21,7 @@
 		        $reemplazo = $prefijo . " (" . implode(" AND ",$clausulas_where) . ") ";
 			}
 		}
-		return ereg_replace(apex_sql_where,$reemplazo,$sql);
+		return preg_replace(apex_sql_where,$reemplazo,$sql);
 		//if(!stristr($sql,"where"))
 	}
 
@@ -117,7 +117,7 @@
 		        $reemplazo = ", " . implode(", ",$tablas_from);
 			}
 	    }
-	    return ereg_replace(apex_sql_from,$reemplazo,$sql);
+	    return preg_replace(apex_sql_from,$reemplazo,$sql);
 	}
 	
 	/**
@@ -175,7 +175,7 @@
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
 				" VALUES ('" . implode("', '",$datos) . "');";
-		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+		$sql = preg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}
 	
@@ -208,7 +208,7 @@
 			$i++;
 		}
 		$sql .=	"\n);\n";
-		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+		$sql = preg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}	
 
@@ -219,18 +219,18 @@
 	{
 		//echo "entrada al FILTRO SQL: $sentencia <br>";
 		$temp = trim($sentencia);
-		$temp = ereg_replace("%","",$temp);
-		$temp = ereg_replace("=","",$temp);
-		$temp = ereg_replace("\"","",$temp);
-		$temp = ereg_replace("\\\\","",$temp);
-		$temp = ereg_replace("'","",$temp);
-		$temp = ereg_replace("WHERE","",$temp);
-		$temp = ereg_replace("ORDER BY","",$temp);
-		$temp = ereg_replace("GROUP BY","",$temp);
-		$temp = ereg_replace("\(","",$temp);
-		$temp = ereg_replace("\)","",$temp);
-		$temp = ereg_replace(" AND ","",$temp);
-		$temp = ereg_replace(" OR ","",$temp);
+		$temp = preg_replace("%","",$temp);
+		$temp = preg_replace("=","",$temp);
+		$temp = preg_replace("\"","",$temp);
+		$temp = preg_replace("\\\\","",$temp);
+		$temp = preg_replace("'","",$temp);
+		$temp = preg_replace("WHERE","",$temp);
+		$temp = preg_replace("ORDER BY","",$temp);
+		$temp = preg_replace("GROUP BY","",$temp);
+		$temp = preg_replace("\(","",$temp);
+		$temp = preg_replace("\)","",$temp);
+		$temp = preg_replace(" AND ","",$temp);
+		$temp = preg_replace(" OR ","",$temp);
 		//echo "salida del filtro SQL: $temp <br>";
 		return trim($temp);
 	}

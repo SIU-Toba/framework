@@ -253,7 +253,7 @@ class toba_carga_opciones_ef
         	$parametros['carga_sql'] =  sql_agregar_clausulas_where($parametros['carga_sql'],$where);
 		}
 		foreach ($maestros as $id_maestro => $valor_maestro) {
-			$parametros['carga_sql'] = ereg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
+			$parametros['carga_sql'] = preg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
 												$parametros['carga_sql']);
 		}
 		$modo = ($es_posicional) ? toba_db_fetch_num : toba_db_fetch_asoc;

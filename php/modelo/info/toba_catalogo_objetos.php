@@ -199,7 +199,7 @@ class toba_catalogo_objetos
 				o.proyecto = $proyecto
 				AND (
 					$sql_efs
-					c.dao_nucleo ILIKE $busca  OR c.dao_metodo ILIKE $busca
+					c.dao_nucleo ILIKE $busca_sano  OR c.dao_metodo ILIKE $busca_sano
 					)
 		";
 		$rs = toba_contexto_info::get_db()->consultar($sql);
@@ -231,12 +231,12 @@ class toba_catalogo_objetos
 			return "En el ef <b>{$datos['identificador']}</b>:$expl";;
 		}
 		if (isset($datos['dao_metodo'])) {
-			if (preg_match("/$buscado/", $datos['dao_metodo'])) {
+			if (preg_match("/$buscado/i", $datos['dao_metodo'])) {
 				return "<b>$buscado</b> se encontró como método <b>{$datos['dao_metodo']}</b> de la consulta php de este cuadro.";
 			}
 		}
 		if (isset($datos['dao_nucleo'])) {
-			if (eregi("$buscado", $datos['dao_nucleo'])) {
+			if (preg_match("/$buscado/i", $datos['dao_nucleo'])) {
 				return "<b>$buscado</b> se encontró en el nombre <b>{$datos['dao_nucleo']}</b> de la consulta php de este cuadro.";
 			}
 		}		

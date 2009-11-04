@@ -143,13 +143,13 @@ class toba_ei_formulario extends toba_ei
 			//Preparo el identificador	del dato	que maneja el EF.
 			//Esta parametro puede ser	un	ARRAY	o un string: exiten EF complejos	que manejan	mas de una
 			//Columna de la tabla a	la	que esta	asociada	el	ABM
-			if(ereg(",",$this->_info_formulario_ef[$a]["columnas"])){
-				 $dato =	explode(",",$this->_info_formulario_ef[$a]["columnas"]);
-				for($d=0;$d<count($dato);$d++){//Elimino espacios en las	claves
-					$dato[$d]=trim($dato[$d]);
+			if (strpos($this->_info_formulario_ef[$a]["columnas"], ',') !== false) {
+				$dato =	explode(",",$this->_info_formulario_ef[$a]["columnas"]);
+				for ($d=0; $d<count($dato); $d++){ //Elimino espacios en las	claves
+					$dato[$d] = trim($dato[$d]);
 				}
 			}else{
-				 $dato =	$this->_info_formulario_ef[$a]["columnas"];
+				 $dato = $this->_info_formulario_ef[$a]["columnas"];
 			}
 			//Nombre	del formulario.
 			$id_ef = $this->_info_formulario_ef[$a]["identificador"];

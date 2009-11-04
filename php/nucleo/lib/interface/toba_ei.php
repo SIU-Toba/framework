@@ -264,7 +264,7 @@
 				}elseif(is_null($contenido)){
 					echo "<td class='arbol-valor-null'>null</td>\n";
 				}else{
-					echo "<td class='arbol-valor'>" . ereg_replace("\n","<br>",$contenido) ."</td>\n";
+					echo "<td class='arbol-valor'>" . preg_replace("\n","<br>",$contenido) ."</td>\n";
 				}
 			}
 			echo "</tr>\n";

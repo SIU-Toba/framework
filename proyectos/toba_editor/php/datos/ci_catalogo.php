@@ -3,7 +3,7 @@
 class ci_catalogo extends toba_ci
 {
 	protected $datos_editores;
-	protected $s__colapsar_forms = false;
+	protected $s__colapsar_forms = true;
 	
 	function ini()
 	{

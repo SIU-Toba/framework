@@ -395,7 +395,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
        			$w = stripslashes($definicion['dump_where']);
-       			$where = ereg_replace("%%",'toba', $w);
+       			$where = preg_replace("%%",'toba', $w);
             } else {
        			$where = " ( proyecto = 'toba')";
 			}
