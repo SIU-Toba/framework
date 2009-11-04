@@ -53,6 +53,6 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 Desarrollado por el programa SIU (2003-2006)', --version_detalle
 	'www.siu.edu.ar/soluciones/toba', --version_link
 	'5000', --tiempo_espera_ms
-	'1', --navegacion_ajax
+	'0', --navegacion_ajax
 	NULL  --codigo_ga_tracker
 );

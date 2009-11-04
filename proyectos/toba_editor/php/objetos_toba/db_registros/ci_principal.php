@@ -71,9 +71,9 @@ class ci_principal extends ci_editores_toba
 			unset($this->s__ap_php_archivo);
 			admin_util::refrescar_barra_lateral();
 		} catch (toba_error_db $e) {
-			if( $e->get_sqlstate()==23505 ) {
+			if( $e->get_sqlstate() == "db_23505" ) {
 				$datos = $this->get_entidad()->tabla('prop_basicas')->get();
-				throw new toba_error("Ya existe un datos_tabla referenciado a la tabla: '".$datos['tabla']."'. No es posible guardar.");
+				throw new toba_error(" No es posible guardar. Ya existe un datos_tabla referenciado a la tabla: '".$datos['tabla']."'. En lugar de crear uno nuevo puede utilizar el existente", $e->get_mensaje_log());
 			}else{
 				throw $e;
 			}

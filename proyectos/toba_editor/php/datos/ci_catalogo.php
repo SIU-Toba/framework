@@ -3,7 +3,6 @@
 class ci_catalogo extends toba_ci
 {
 	protected $datos_editores;
-	protected $s__colapsar_forms = true;
 	
 	function ini()
 	{
@@ -12,11 +11,6 @@ class ci_catalogo extends toba_ci
 		foreach ($info_componentes as $componente) {
 			$this->datos_editores[$componente['clase']] = array(	'proyecto' => $componente['editor_proyecto'],
 																	'item' => $componente['editor_item']);
-		}
-
-		if (! $this->s__colapsar_forms) {
-			$tablas = toba_info_editores::get_tabla_fuente_de_dt();
-			$this->s__colapsar_forms = ( empty($tablas));
 		}
 	}
 	
@@ -68,6 +62,7 @@ class ci_catalogo extends toba_ci
 			$datos[$id]['editar'] .= "</span>";
 		}
 		$cuadro->set_datos($datos);
+		$cuadro->colapsar();
 	}
 
 	function conf__consultas(toba_ei_cuadro $cuadro)
@@ -88,9 +83,7 @@ class ci_catalogo extends toba_ci
 			$datos[$id]['editar'] = "<div class='editor-lista-vinculos'>" . $datos[$id]['editar'] . "</div>";
 		}
 		$cuadro->set_datos($datos);
-		if ($this->s__colapsar_forms) {
-			$cuadro->colapsar();
-		}
+		$cuadro->colapsar();
 	}
 	
 	function conf__tablas(toba_ei_cuadro $cuadro)
@@ -116,9 +109,7 @@ class ci_catalogo extends toba_ci
 			$salida[] = $datos[$tabla];
 		}
 		$cuadro->set_datos($salida);
-		if ($this->s__colapsar_forms) {
-			$cuadro->colapsar();
-		}
+		$cuadro->colapsar();
 	}
 
 	function conf__dimensiones($cuadro)
@@ -134,9 +125,7 @@ class ci_catalogo extends toba_ci
 																$img);
 		}
 		$cuadro->set_datos($datos);
-		if ($this->s__colapsar_forms) {
-			$cuadro->colapsar();
-		}
+		$cuadro->colapsar();
 	}
 
 	function conf__arbol_relaciones($componente)
@@ -146,9 +135,7 @@ class ci_catalogo extends toba_ci
 		$catalogo = new toba_catalogo_objetos($proyecto);
 		$objetos = $catalogo->get_objetos(array('clase' => 'toba_datos_relacion'));
 		$componente->set_datos($objetos);
-		if ($this->s__colapsar_forms) {
-			$componente->colapsar();
-		}
+		$componente->colapsar();
 	}
 
 	function evt__arbol_relaciones__cargar_nodo($id)

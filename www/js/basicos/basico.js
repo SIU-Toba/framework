@@ -419,7 +419,7 @@ function descolapsar (boton, cuerpo) {
 	if (boton) {
 		boton.src = toba.imagen('minimizar');
 	}
-	cuerpo.style.display='block';	
+	cuerpo.style.display='';	
 }
 
 

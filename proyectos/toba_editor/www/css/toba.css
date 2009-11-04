@@ -25,6 +25,19 @@
 	border:none !important;
 }
 
+/* Los cortes de control se ven muy grandotes*/
+.ei-cuadro-cc-tit-nivel-0 {
+	background-color: transparent;
+	border: none;
+	color: black;
+	font-size: 12px;
+	
+}
+/* Margen inferior a los ei_arbol */
+.ei-arbol-cuerpo {
+	margin-bottom: 4px;	
+}
+
 /*.ci-barra-sup {
 	background-color: #D5D2CD !important;
 }*/

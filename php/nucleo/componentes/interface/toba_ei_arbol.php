@@ -277,6 +277,7 @@ class toba_ei_arbol extends toba_ei
 			}
 			echo "</div>";
 		}
+		$this->generar_botones();		
 		echo "</div>";
 		echo "</div>";
 	}
