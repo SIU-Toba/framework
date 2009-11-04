@@ -374,12 +374,12 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 
 		//-- Copio el valor de los objetos_ci que ya poseen un valor definido.
-		$sql = "UPDATE apex_objeto as ao SET posicion_botonera = ci.posicion_botonera
+		$sql = "UPDATE apex_objeto SET posicion_botonera = ci.posicion_botonera
 					FROM apex_objeto_mt_me as ci
 					WHERE
-						ao.proyecto = ci.objeto_mt_me_proyecto
-						AND ao.objeto = ci.objeto_mt_me
-						AND ao.proyecto = '{$this->elemento->get_id()}';";
+						proyecto = ci.objeto_mt_me_proyecto
+						AND objeto = ci.objeto_mt_me
+						AND proyecto = '{$this->elemento->get_id()}';";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
