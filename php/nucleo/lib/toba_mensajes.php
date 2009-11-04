@@ -121,10 +121,10 @@ class toba_mensajes
 				$mensaje = str_replace("%".($a+1)."%", $parametros[$a], $mensaje);
 			}
 			//Por si todavia quedan comodines
-			$mensaje = preg_replace("%[^ 	]*%","",$mensaje);
+			$mensaje = preg_replace('/\%[^ 	]*\%/',"",$mensaje);
 		}else{
 			//No hay parametros: elimino los comodines.
-			$mensaje = preg_replace("%[^ 	]*%","",$mensaje);
+			$mensaje = preg_replace('/\%[^ 	]*\%/',"",$mensaje);
 		}
 		return $mensaje;
 	}
