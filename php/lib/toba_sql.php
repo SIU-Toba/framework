@@ -175,7 +175,7 @@
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
 				" VALUES ('" . implode("', '",$datos) . "');";
-		$sql = preg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+		$sql = str_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}
 	
