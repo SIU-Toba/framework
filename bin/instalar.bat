@@ -1,7 +1,7 @@
 @echo off
 set toba_instancia=desarrollo
 set toba_dir=%~dp0..
-php %toba_dir%\php\consola\run.php instalacion instalar
+php "%toba_dir%\php\consola\run.php" instalacion instalar
 if  errorlevel  1  goto error_php;
 
 pause;
