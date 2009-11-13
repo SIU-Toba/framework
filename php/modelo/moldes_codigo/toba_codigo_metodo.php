@@ -10,6 +10,7 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 	protected $contenido = array();
 	protected $mostrar_comentarios = true;
 	protected $phpdoc;
+	protected $tipo_funcion = '';
 	
 	function __construct($nombre, $parametros=array(), $comentarios=array(), $descripcion=null)
 	{
@@ -58,7 +59,17 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 	{
 		return $this->phpdoc;
 	}
-	
+
+	function set_tipo_funcion($tipo)
+	{
+		$this->tipo_funcion = $tipo;
+	}
+
+	function get_tipo_funcion()
+	{
+		return $this->tipo_funcion;
+	}
+
 	//--- Generacion ------------------------------------
 	
 	abstract function get_declaracion();

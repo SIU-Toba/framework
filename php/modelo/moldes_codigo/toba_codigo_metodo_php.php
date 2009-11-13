@@ -12,8 +12,11 @@ class toba_codigo_metodo_php extends toba_codigo_metodo
 			$this->parametros[$id] = $param;
 		}
 		$parametros = implode(', ',$this->parametros);
+		if ($this->tipo_funcion != '') {
+			$this->tipo_funcion .= ' ' ;			//Le agrego un espacio para separacion
+		}
 		// Cabecera
-		return "function $this->nombre($parametros)";
+		return "{$this->tipo_funcion}function $this->nombre($parametros)";
 	}
 }
 ?>

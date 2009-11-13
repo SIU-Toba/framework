@@ -7,17 +7,43 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 {
 	protected $vinculo;
 	protected $es_abrir;
+	protected $id_vinculo;
+	private $_sin_archivo = false;
 
-	function __construct($es_abrir)
+	function __construct($es_abrir, $registrar_inmediatamente = true)
 	{
 		$this->es_abrir = $es_abrir;
-		$vinculo = new toba_vinculo('toba_editor', 30000014);
-		$vinculo->set_celda_memoria('php');
+		$this->vinculo = new toba_vinculo('toba_editor', 30000014);
+		$this->vinculo->set_celda_memoria('php');
 		if ($this->es_abrir) {
-			$vinculo->set_servicio('ejecutar');
-			$vinculo->set_ajax(true);
+			$this->vinculo->set_servicio('ejecutar');
+			$this->vinculo->set_ajax(true);
 		}
-		$this->vinculo = toba::vinculador()->registrar_vinculo($vinculo);
+		if ($registrar_inmediatamente) {
+			$this->id_vinculo = toba::vinculador()->registrar_vinculo($this->vinculo);
+		}
+	}
+
+	function agregar_parametros($parametros)
+	{
+		foreach($parametros as $clave => $valor) {
+				$this->vinculo->agregar_parametro($clave, $valor);
+		}
+	}
+
+	function cambiar_item($item = 30000014)
+	{
+		$this->vinculo->set_item('toba_editor', $item);
+	}
+
+	function invocar_sin_archivo($sin_archivo)
+	{
+		$this->_sin_archivo = $sin_archivo;
+	}
+
+	function registrar()
+	{
+		$this->id_vinculo = toba::vinculador()->registrar_vinculo($this->vinculo);
 	}
 
 	function get_html(toba_ef $ef)
@@ -28,9 +54,16 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 		} else {
 			$img = toba_recurso::imagen_toba('nucleo/php.gif', true);
 		}
-		$salida = "<a href='#' onclick=\"if ($objeto_js.get_estado() == '') return;
-										vinculador.agregar_parametros({$this->vinculo}, {archivo: $objeto_js.get_estado()});
-										vinculador.invocar({$this->vinculo})\">$img</a>";
+		if (! $this->_sin_archivo) {
+			$salida = "<a href='#' onclick=\"if ($objeto_js.get_estado() == ''){return;}
+											vinculador.agregar_parametros({$this->id_vinculo}, {archivo: $objeto_js.get_estado()});
+											vinculador.invocar({$this->id_vinculo})\">$img</a>";
+		}else{
+			if (! $ef->tiene_estado()) {
+				$img = toba_recurso::imagen_toba('nucleo/extender.gif', true);
+			}
+			$salida = "<a href='#' onclick=\"vinculador.invocar({$this->id_vinculo})\">$img</a>";
+		}
 		return $salida;
 	}
 }

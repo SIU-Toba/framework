@@ -6,6 +6,7 @@ class ci_subclases extends toba_ci
 	protected $s__path_relativo;
 	protected $s__datos_nombre;
 	protected $s__subcomponente;
+	protected $s__tipo_elemento;
 	
 	protected $clase_php;
 	protected $archivo_php;
@@ -14,12 +15,9 @@ class ci_subclases extends toba_ci
 	function ini()
 	{
 		$datos = toba::zona()->get_info();
-		if (!isset($datos)){
-			throw new toba_error('Necesita seleccionar un componente para poder extenderlo');	
-		}
-		$this->s__id_componente = array('componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
+		$this->recuperar_tipo_elemento();
+		$this->recuperar_id_entidad($datos);
 		$info = $this->get_metaclase();
-		
 		if ($info->get_subclase_archivo() != '' &&  $info->get_subclase_nombre() != '') {
 			$this->s__path_relativo = dirname($info->get_subclase_archivo());
 			if ($this->s__path_relativo == '.') {
@@ -41,8 +39,12 @@ class ci_subclases extends toba_ci
 		} else {
 			$subcomponente = toba::memoria()->get_parametro('subcomponente');
 		}
-		
-		$info = toba_constructor::get_info($this->s__id_componente);
+		if (! is_null($this->s__tipo_elemento) && ($this->s__tipo_elemento != '')) {		//Busco el info correspondiente al elemento transversal
+			$nombre_info = 'toba_' . $this->s__tipo_elemento . '_info';
+			$info =  new $nombre_info($this->s__id_componente);
+		} else {
+			$info = toba_constructor::get_info($this->s__id_componente);
+		}
 		if (isset($subcomponente)) {
 			$info = $info->get_metaclase_subcomponente($subcomponente);
 			if ($info) {
@@ -58,8 +60,30 @@ class ci_subclases extends toba_ci
 	{
 		return $this->get_metaclase()->get_nombre_instancia_abreviado().'_';	
 	}
-	
 
+	private function recuperar_tipo_elemento()
+	{
+		if (! isset($this->s__tipo_elemento) || is_null($this->s__tipo_elemento)) {
+				$this->s__tipo_elemento = toba::memoria()->get_parametro('elemento_tipo');			//Busco el tipo de elemento por si es transversal
+		}
+	}
+
+	private function recuperar_id_entidad($datos)
+	{
+		if (! isset($this->s__id_componente)) {																						//Si recien entra
+			$viene_x_memoria = ((!isset($datos) || is_null($datos)) && (!is_null($this->s__tipo_elemento)));
+			if ($viene_x_memoria) {									//Es transversal viene por memoria
+					$datos['proyecto'] = toba::memoria()->get_parametro('proyecto_extension');
+					$datos['id'] = toba::memoria()->get_parametro('id_extension');
+					if (is_null($datos['proyecto']) || is_null($datos['id'])) {					//No se cargo nada... todo mal!
+						throw new toba_error('Necesita seleccionar un componente para poder extenderlo');
+					}
+					$this->s__id_componente = array('id'=>$datos['id'], 'proyecto'=>$datos['proyecto'] );
+			} else {
+				$this->s__id_componente = array('componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );
+			}
+		}
+	}
 	
 	//------------------------------------------------------------------
 	//--------	UBICACION

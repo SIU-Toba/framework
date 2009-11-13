@@ -421,7 +421,7 @@ class toba_nucleo
 			'toba_mail'								=> 'nucleo/lib/toba_mail.php',
 			'toba_planificador_tareas'				=> 'nucleo/lib/toba_planificador_tareas.php',
 			'toba_serializar_propiedades'			=> 'nucleo/lib/toba_serializar_propiedades.php',
-		
+
  			//-----------------------------------------------------------------------------------------------
 			//--------- COMPONENTES -------------------------------------------------------------------------
  			//-----------------------------------------------------------------------------------------------
@@ -596,6 +596,12 @@ class toba_nucleo
 			'toba_filtro_condicion_multi'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_multi.php',
 			'toba_filtro_condicion_negativa'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_negativa.php',
  			//-----------------------------------------------------------------------------------------------
+			'toba_elemento_transversal_info'		=> 'modelo/info/transversales/toba_elemento_transversal_info.php',
+			'toba_tipo_pagina_info'					=> 'modelo/info/transversales/toba_tipo_pagina_info.php',
+			'toba_contexto_ejecucion_info'			=> 'modelo/info/transversales/toba_contexto_ejecucion_info.php',
+			'toba_zona_info'						=> 'modelo/info/transversales/toba_zona_info.php',
+			'toba_sesion_info'						=> 'modelo/info/transversales/toba_sesion_info.php',
+			'toba_usuario_info'						=> 'modelo/info/transversales/toba_usuario_info.php',
 			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
 			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',
 			'toba_info_instancia'					=> 'modelo/info/toba_info_instancia.php',

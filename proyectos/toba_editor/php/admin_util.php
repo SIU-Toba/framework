@@ -207,5 +207,21 @@ class admin_util
 		$iconos[] = new ef_popup_utileria_php(true);
 		return $iconos;
 	}
+
+	static function get_ef_popup_utileria_extension_php($parametros = array())
+	{
+		//Armo el icono para la extension del componente
+		$icono_edicion = new ef_popup_utileria_php(false, false);
+		$icono_edicion->cambiar_item(3463);
+		$icono_edicion->agregar_parametros($parametros);
+		$icono_edicion->invocar_sin_archivo(true);
+		$icono_edicion->registrar();
+		return array($icono_edicion);
+	}
+
+	static function get_ef_popup_utileria_abrir_php()
+	{
+		return array(new ef_popup_utileria_php(true));
+	}
 }
 ?>
