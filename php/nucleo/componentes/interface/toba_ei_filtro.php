@@ -333,7 +333,6 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
-		echo $this->get_botonera_manejo_filas();
 		if ($this->botonera_abajo()) {
 			$this->generar_botones();
 		}
@@ -427,6 +426,25 @@ class toba_ei_filtro extends toba_ei
 		echo "</tbody>\n";		
 	}	
 	
+	/**
+	 * Genera la botonera del componente
+	 * @param string $clase Clase css con el que se muestra la botonera
+	 */
+	function generar_botones($clase = '', $extra='')
+	{
+		$extra .= $this->get_botonera_manejo_filas();			//Lo coloco aca porque sino debo redefinir toda la ventana superior
+
+		//----------- Generacion
+		if ($this->hay_botones()) {
+			echo "<div class='ei-botonera $clase'>";
+			echo $extra;
+			$this->generar_botones_eventos();
+			echo "</div>";
+		} elseif ($extra != '') {
+			echo $extra;
+		}
+	}
+
 	/**
 	 * @ignore 
 	 */
