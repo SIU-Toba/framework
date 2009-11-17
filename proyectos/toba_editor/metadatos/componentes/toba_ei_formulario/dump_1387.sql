@@ -370,18 +370,18 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Descripcion', --etiqueta
+	'Ayuda', --etiqueta
 	NULL, --etiqueta_estilo
 	'Descripcion para ayuda sensitiva', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_inteligente
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -406,8 +406,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4', --edit_filas
 	'50', --edit_columnas
 	NULL, --edit_wrap
-	NULL, --edit_resaltar
-	NULL, --edit_ajustable
+	'0', --edit_resaltar
+	'0', --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
 	NULL, --popup_item
@@ -681,7 +681,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'10', --orden
-	'Solo Lectura Fijo', --etiqueta
+	'Solo Lectura', --etiqueta
 	NULL, --etiqueta_estilo
 	'Fuerza a que el elemento no se pueda modificar en el cliente. Es similar a ejecutar el metodo <pre>set_solo_lectura(\'id_ef\', true);</pre> en el formulario.', --descripcion
 	'1', --colapsado
@@ -918,9 +918,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'11', --orden
-	'Solo Lectura Inteligente', --etiqueta
+	'Solo Lectura en modificación', --etiqueta
 	NULL, --etiqueta_estilo
-	'Fuerza a que el elemento no se pueda modificar en el cliente pero solo lo hace cuando el formulario se encuentra cargado.', --descripcion
+	'El campo se pone solo-lectura cuando esta cargado el formulario con datos. Sin datos (modo alta) permite modificar su estado.', --descripcion
 	'1', --colapsado
 	'0', --desactivado
 	NULL, --estilo

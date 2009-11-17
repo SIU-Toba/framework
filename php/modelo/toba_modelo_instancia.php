@@ -903,7 +903,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$lim_sup = self::cantidad_seq_grupo * ( $id_grupo_de_desarrollo + 1 );
 				$sql_nuevo = "SELECT max({$datos['campo']}) as nuevo
 							  FROM {$datos['tabla']}
-							  WHERE	{$datos['campo']} BETWEEN $lim_inf AND $lim_sup";
+							  WHERE
+								CASE regexp_replace({$datos['campo']}::text,'[^0-9]','','g') 
+									WHEN '' THEN 0 
+								ELSE {$datos['campo']}::int8
+							  	END BETWEEN $lim_inf AND $lim_sup";
 				$res = $this->get_db()->consultar($sql_nuevo, null, true);
 				$nuevo = $res[0]['nuevo'];
 				//Si no hay un maximo, es el primero del grupo

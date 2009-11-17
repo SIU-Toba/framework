@@ -195,6 +195,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 // ########################################################################################################
 		
 ef_editable_moneda.prototype = new ef_editable_numero();
+ef_editable_moneda.prototype.constructor = ef_editable_moneda;
 
 	/**
 	 * @class Elemento editable que sólo permite ingresar números que representan un valor monetario.<br>	 
@@ -220,6 +221,7 @@ ef_editable_moneda.prototype = new ef_editable_numero();
 // ########################################################################################################
 		
 ef_editable_porcentaje.prototype = new ef_editable_numero();
+ef_editable_porcentaje.prototype.constructor = ef_editable_porcentaje;
 
 	/**
 	 * @class Elemento editable que sólo permite ingresar números que representan un porcentaje
@@ -243,6 +245,7 @@ ef_editable_porcentaje.prototype = new ef_editable_numero();
 // ########################################################################################################
 	
 ef_editable_clave.prototype = new ef_editable();
+ef_editable_clave.prototype.constructor = ef_editable_clave;
 
 	/**
 	 * @class  Elemento editable que permite ingresar contraseñas, con o sin campo de confirmación.
@@ -306,6 +309,7 @@ ef_editable_clave.prototype = new ef_editable();
 // ########################################################################################################
 
 ef_editable_fecha.prototype = new ef_editable();
+ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 
 	/**
 	 * @class Elemento editable que permite ingresar fechas.<br>

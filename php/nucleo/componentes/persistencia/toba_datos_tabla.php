@@ -182,6 +182,11 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 	
+	function set_definicion_columna($columna, $propiedad, $valor) 
+	{
+		$this->_columnas[$columna][$propiedad] = $valor;
+	}
+	
 	/**
 	 * Reserva un id interno y lo retorna
 	 */
@@ -200,7 +205,7 @@ class toba_datos_tabla extends toba_componente
 		return $this->_proxima_fila;	
 	}
 
-/**
+	/**
 	 * Shorcut a toba::logger()->debug incluyendo infomación básica del componente
 	 */
 	protected function log($txt)
@@ -657,7 +662,7 @@ class toba_datos_tabla extends toba_componente
 				}
 			}
 		}
-		return array_values( $coincidencias );
+		return array_values($coincidencias);
 	}
 
 	/**

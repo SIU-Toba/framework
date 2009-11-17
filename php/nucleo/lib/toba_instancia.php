@@ -69,7 +69,7 @@ class toba_instancia
 	
 	/**
 	 * Retorna un vinculo a la base de datos que forma parte de la instancia
-	 * @return toba_db
+	 * @return toba_db_postgres7
 	 */
 	function get_db()
 	{

@@ -40,11 +40,11 @@ CREATE TABLE apex_item
 --: desc:
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
-(	
-	item_id							int8			DEFAULT nextval('"apex_item_seq"'::text) NULL,
+(
+	item_id							int8			NULL,  	--OBSOLETO
 	proyecto						varchar(15)		NOT NULL,
 	item							varchar(60)		DEFAULT nextval('"apex_item_seq"'::text) NOT NULL,
-	padre_id						int8			NULL,	
+	padre_id						int8			NULL,	--OBSOLETO	
 	padre_proyecto					varchar(15)		NOT NULL,
 	padre							varchar(60)		NOT NULL,
 	carpeta							smallint		NULL,
@@ -90,7 +90,6 @@ CREATE TABLE apex_item
 	CONSTRAINT	"apex_item_fk_niv_acc" FOREIGN KEY ("nivel_acceso") REFERENCES	"apex_nivel_acceso" ("nivel_acceso") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_pag_tipo"	FOREIGN KEY	("pagina_tipo_proyecto","pagina_tipo")	REFERENCES "apex_pagina_tipo"	("proyecto","pagina_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_zona" FOREIGN KEY ("zona_proyecto","zona")	REFERENCES "apex_item_zona" ("proyecto","zona")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
---	  CONSTRAINT  "apex_item_fk_usuario" FOREIGN	KEY ("usuario") REFERENCES	"apex_usuario"	("usuario")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -208,6 +207,7 @@ CREATE TABLE apex_clase
 	parametro_b						TEXT	NULL,
 	parametro_c						TEXT	NULL,
 	exclusivo_toba					smallint		NULL,
+	solicitud_tipo					varchar(20)		NULL,
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
 	CONSTRAINT	"apex_clase_uq" UNIQUE 	("clase"),
 	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,

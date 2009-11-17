@@ -22,7 +22,7 @@ class icono_limpiar implements toba_ef_icono_utileria
 		$objeto_js = $ef->objeto_js();
 		$javascript = "$objeto_js.resetear_estado();";
 		$salida = "<a class='icono-utileria' href='#' onclick=\"$javascript\">";
-		$salida .= toba_recurso::imagen_toba('limpiar.png', true, null, null, "Ver estado actual del campo");
+		$salida .= toba_recurso::imagen_toba('limpiar.png', true, null, null, "Resetear estado actual del campo");
 		$salida .= "</a>";
 		return $salida;
 	}

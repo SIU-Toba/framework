@@ -53,7 +53,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	NULL, --ap_archivo
 	'apex_item', --tabla
 	NULL, --alias
-	'0', --modificar_claves
+	'1', --modificar_claves
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
 	'1'  --permite_actualizacion_automatica

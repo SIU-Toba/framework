@@ -1,18 +1,22 @@
 <?php
 require_once('seleccion_imagenes.php');
 
+define('id_temporal', 'Automático');
+
 class ci_principal extends toba_ci
 {
 	protected $s__id_item ;
 	protected $s__inicializar_item_nuevo = true;
 	protected $s__fuentes;
-	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
 	private $elemento_eliminado = false;
 	protected $cambio_item = false;
 	private $refrescar = false;
 	
 	function ini()
 	{
+		//Se quita la secuencia para manejar el caso de alta de un ID alfanumerico a gusto
+		$this->get_entidad()->tabla('base')->set_definicion_columna('item', 'secuencia', null);
+		
 		$zona = toba::zona();
 		if ($zona->cargada()) {
 			list($proyecto, $item) = $zona->get_editable();
@@ -69,10 +73,9 @@ class ci_principal extends toba_ci
 		$padre_i = toba::memoria()->get_parametro('padre_i');
 		$padre_p = toba::memoria()->get_parametro('padre_p');
 		if (isset($padre_p) && isset($padre_i)) {
-			$datos = array('item' => $this->id_temporal);
+			$datos = array('item' => id_temporal);
 			$datos['padre'] = $padre_i;
 			$datos['padre_proyecto'] = $padre_p;
-
 		}
 		$dr->tabla('base')->set( $datos );
 		//Le agrego el permiso del usuario actual
@@ -88,6 +91,11 @@ class ci_principal extends toba_ci
 
 	function conf__prop_basicas(toba_ei_formulario $form)
 	{
+		
+		if (!$this->get_entidad()->esta_cargada()) {
+			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador()));
+		}
+		
 		$datos = $this->get_entidad()->tabla("base")->get();
 	
 		//Transfiere los campos accion, buffer y patron a uno comportamiento
@@ -271,7 +279,6 @@ class ci_principal extends toba_ci
 				}
 			}
 		}
-		
 		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
 		$form->set_datos($permisos);
 	}
@@ -298,9 +305,17 @@ class ci_principal extends toba_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
+		$basicos = $this->get_entidad()->tabla('base');
+		$basicos->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
+		$es_temporal = $basicos->get_columna('item') == id_temporal;
+		if ($es_temporal) {
+			//Reemplazar el automático por la secuencia
+			$basicos->set_columna_valor('item', toba::instancia()->get_db()->recuperar_nuevo_valor_secuencia('apex_item_seq'));
+		}
+		
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
+		
 		$datos = $this->get_entidad()->tabla("base")->get();		
 		
 		//Si el proyecto usa esquema de permisos por tabla
@@ -334,5 +349,7 @@ class ci_principal extends toba_ci
 		seleccion_imagenes::generar_html_listado();
 	}
 }
+
+
 
 ?>

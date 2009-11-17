@@ -102,7 +102,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -119,8 +119,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL, --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0', --resaltar_efs_con_estado
 	NULL  --template
 );
 
@@ -137,7 +137,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_numero', --elemento_formulario
 	'numero_original', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Número', --etiqueta
 	NULL, --etiqueta_estilo
@@ -147,8 +147,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_inteligente
@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
-	NULL, --edit_mascara
+	'###.###,00000', --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
 	NULL, --edit_filas
@@ -214,7 +214,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_moneda', --elemento_formulario
 	'moneda_original', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Moneda', --etiqueta
 	NULL, --etiqueta_estilo
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_barra_divisora', --elemento_formulario
 	'original', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Máscaras originales', --etiqueta
 	NULL, --etiqueta_estilo
@@ -368,7 +368,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_fecha', --elemento_formulario
 	'fecha_original', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Fecha', --etiqueta
 	NULL, --etiqueta_estilo
@@ -445,7 +445,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_barra_divisora', --elemento_formulario
 	'personales', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Máscaras Personalizadas', --etiqueta
 	NULL, --etiqueta_estilo
@@ -522,7 +522,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_numero', --elemento_formulario
 	'numero_personal', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'8', --orden
 	'Número (#.###,000000)', --etiqueta
 	NULL, --etiqueta_estilo
@@ -532,8 +532,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_inteligente
@@ -552,7 +552,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'20', --edit_tamano
+	'10', --edit_tamano
 	NULL, --edit_maximo
 	'#.###,000000', --edit_mascara
 	NULL, --edit_unidad
@@ -599,7 +599,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_moneda', --elemento_formulario
 	'moneda_personal', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Moneda (U$S #.###,##)', --etiqueta
 	NULL, --etiqueta_estilo
@@ -676,7 +676,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_barra_divisora', --elemento_formulario
 	'sin', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Sin máscaras', --etiqueta
 	NULL, --etiqueta_estilo
@@ -753,7 +753,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_numero', --elemento_formulario
 	'numero_sin', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Número', --etiqueta
 	NULL, --etiqueta_estilo

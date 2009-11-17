@@ -5,6 +5,14 @@ class form_solo_lectura extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
+		echo "{$this->objeto_js}.ini = function () {\n";
+		foreach ($this->get_efs_activos() as $id_ef) {
+			if (get_class($this->ef($id_ef)) == 'toba_ef_editable') {
+				echo "alert('$id_ef es un editable');\n";
+			}
+		}
+		echo "}";
+		
 		echo "
 			var solo_lectura_activo = false;
 			{$this->objeto_js}.evt__readonly_cliente = function() {

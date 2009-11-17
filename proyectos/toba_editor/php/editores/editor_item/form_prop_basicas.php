@@ -3,10 +3,13 @@ require_once('seleccion_imagenes.php');
 
 class form_prop_basicas extends toba_ei_formulario
 {
-
 	function extender_objeto_js()
 	{
 		echo "
+			if (window.toggle_editable) {
+				toggle_editable();
+			}
+			
 			{$this->objeto_js}.evt__menu__procesar = function() {
 				if (this.ef('menu').chequeado())
 					this.ef('orden').mostrar();
@@ -28,6 +31,52 @@ class form_prop_basicas extends toba_ei_formulario
 					this.ef('zona_orden').mostrar();
 				} else {
 					this.ef('zona_orden').ocultar();				
+				}
+			}
+			
+			
+			{$this->objeto_js}.evt__solicitud_tipo__procesar = function() {
+				var efs_web = [		
+								'publico', 'seccion_web', 'pagina_tipo', 'menu', 'orden', 
+								'retrasar_headers', 'imagen_recurso_origen', 'imagen', 'descripcion', 'zona',
+								'zona_listar', 'zona_orden'	
+							];
+					switch (this.ef('solicitud_tipo').get_estado()) {
+					case 'accion':
+						this.controlador.ocultar_tab('pant_dependencias');
+						this.controlador.mostrar_tab('pant_permisos');
+						this.ef('accion').mostrar();					
+						for (var i = 0; i < efs_web.length; i++) {
+							this.ef(efs_web[i]).ocultar();
+						}
+						break;
+					case 'web':
+						this.controlador.mostrar_tab('pant_dependencias');
+						this.controlador.mostrar_tab('pant_permisos');											
+						this.ef('accion').mostrar();					
+						for (var i = 0; i < efs_web.length; i++) {
+							this.ef(efs_web[i]).mostrar();
+						}
+						this.evt__menu__procesar();
+						this.evt__zona__procesar();
+						this.evt__zona_listar__procesar();
+						break;
+					case 'servicio_web':
+						this.controlador.mostrar_tab('pant_dependencias');
+						this.controlador.ocultar_tab('pant_permisos');						
+						this.ef('accion').ocultar();
+						for (var i = 0; i < efs_web.length; i++) {
+							this.ef(efs_web[i]).ocultar();
+						}						
+						break;
+					case 'consola':
+					default:
+						this.controlador.ocultar_tab('pant_dependencias');					
+						this.controlador.ocultar_tab('pant_permisos');
+						this.ef('accion').mostrar();					
+						for (var i = 0; i < efs_web.length; i++) {
+							this.ef(efs_web[i]).ocultar();
+						}						
 				}
 			}
 		";
@@ -54,6 +103,36 @@ class form_prop_basicas extends toba_ei_formulario
 		if ($ef != 'imagen_recurso_origen') {
 			parent::generar_html_ef($ef);
 		}	
+	}
+}
+
+class utileria_identificador implements toba_ef_icono_utileria {
+	function get_html(toba_ef $ef) 
+	{
+		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
+		$no_editable = toba_recurso::imagen_toba('limpiar.png', false);
+		$objeto_js = $ef->objeto_js();
+		echo "<script>
+			function toggle_editable() {
+				var ef = $objeto_js
+				if (!ef.input().disabled) {
+					ef.input().disabled = true;
+					\$('utileria_identificador').src = '$editable';
+					\$('utileria_identificador').title = 'Editar Identificador';
+					ef.set_estado('".id_temporal."');					
+				} else {
+					ef.input().disabled = false;				
+					\$('utileria_identificador').src = '$no_editable';
+					\$('utileria_identificador').title = 'Resetar Identificador';
+					ef.set_estado('');
+					ef.seleccionar();					
+				}
+			}
+		</script>";
+		$salida = "<a class='icono-utileria' href='#' onclick=\"toggle_editable(); return false\">";
+		$salida .= "<img id='utileria_identificador' src='$editable' title='Editar Identificador'>";
+		$salida .= "</a>";
+		return $salida;		
 	}
 }
 

@@ -4,6 +4,7 @@
 */
 class toba_modelo_proyecto extends toba_modelo_elemento
 {
+	private static $lista_proyectos;	
 	private $instancia;
 	private $identificador;
 	private $dir;
@@ -1733,9 +1734,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! isset($empaquetado['path_instalador'])) {
 			throw new toba_error("'$nombre_ini': Debe indicar 'path_instalador' en seccion [empaquetado]");
 		}
+		$path_relativo = $empaquetado['path_instalador'];
 		$empaquetado['path_instalador'] = realpath($empaquetado['path_instalador']);
 		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
-			throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_instalador']}' no es un directorio valido");
+			throw new toba_error("'$nombre_ini': La ruta '$path_relativo' no es un directorio valido");
 		}
 		$this->manejador_interface->mensaje("Copiando instalador..", false);
 		$excepciones = array($empaquetado['path_instalador'].'/ejemplo.proyecto.ini');		
@@ -1855,29 +1857,32 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	* 	Es posible que existan proyectos en otros lugares del sistema de archivos y no se listen con este método
 	* 	@return array Arreglo asociativo path relativo => id proyecto
 	*/
-	static function get_lista()
+	static function get_lista($usar_cache=true)
 	{
-		$proyectos = array();
-		$directorio_proyectos = toba_dir() . '/proyectos';
-		if( is_dir( $directorio_proyectos ) ) {
-			if ($dir = opendir($directorio_proyectos)) {
-			   while (false	!==	($archivo = readdir($dir)))	{ 
-					if( is_dir($directorio_proyectos . '/' . $archivo) 
-							&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
-						$arch_nombre = $directorio_proyectos . '/' . $archivo.'/proyecto.ini';
-						$id = $archivo;
-						//--- Si no se encuentra el archivo PROYECTO, se asume que dir=id
-						if (file_exists($arch_nombre)) {
-							$ini = new toba_ini($arch_nombre);
-							$id = $ini->get('proyecto', 'id', null, true);
+		if (! isset(self::$lista_proyectos) || ! $usar_cache) {
+			$proyectos = array();
+			$directorio_proyectos = toba_dir() . '/proyectos';
+			if( is_dir( $directorio_proyectos ) ) {
+				if ($dir = opendir($directorio_proyectos)) {
+				   while (false	!==	($archivo = readdir($dir)))	{ 
+						if( is_dir($directorio_proyectos . '/' . $archivo) 
+								&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
+							$arch_nombre = $directorio_proyectos . '/' . $archivo.'/proyecto.ini';
+							$id = $archivo;
+							//--- Si no se encuentra el archivo PROYECTO, se asume que dir=id
+							if (file_exists($arch_nombre)) {
+								$ini = new toba_ini($arch_nombre);
+								$id = $ini->get('proyecto', 'id', null, true);
+							}
+							$proyectos[$archivo] = $id;													
 						}
-						$proyectos[$archivo] = $id;													
-					}
-			   } 
-			   closedir($dir);
+				   } 
+				   closedir($dir);
+				}
 			}
+			self::$lista_proyectos = $proyectos;
 		}
-		return $proyectos;
+		return self::$lista_proyectos;
 	}
 	
 	

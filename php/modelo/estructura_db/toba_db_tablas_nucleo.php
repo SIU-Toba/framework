@@ -497,6 +497,7 @@ class toba_db_tablas_nucleo
     29 => 'parametro_b',
     30 => 'parametro_c',
     31 => 'exclusivo_toba',
+    32 => 'solicitud_tipo',
   ),
 );
 	}

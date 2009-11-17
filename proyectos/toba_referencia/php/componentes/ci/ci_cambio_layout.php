@@ -42,6 +42,27 @@ class ci_cambio_layout extends toba_ci
 			}
 		');
 	}
+	
+	function evt__cancelar()
+	{
+		//Pongo valores por defecto
+		
+		
+		$relacion = $this->dep('datos');
+		$relacion->hay_cambios();
+		
+		foreach ($relacion->tablas() as $tabla) {
+			if () { $tabla->hay_cambios();
+			} //Particular 
+			else {
+				if ($tabla->get_cantidad_filas_a_sincronizar() > 1) {
+					
+			}
+			}
+			
+		}
+		
+	}
 }
 
 

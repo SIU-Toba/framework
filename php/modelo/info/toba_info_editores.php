@@ -9,11 +9,14 @@ class toba_info_editores
 	/**
 	*	listado de tipos de componentes basico utilizado en el administrador
 	*/
-	static function get_info_tipos_componente($contenedor=null, $excluir_internos=true)
+	static function get_info_tipos_componente($contenedor=null, $excluir_internos=true, $id_contenedor=null)
 	{
 		$where = '';
 		if(isset($contenedor)){
-			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."') ";
+			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor, $id_contenedor) ) ."') ";
+			if ($contenedor == 'toba_item' && isset($id_contenedor) ) {
+				$where = " AND solicitud_tipo = (SELECT solicitud_tipo FROM apex_item WHERE item = '$id_contenedor')";
+			}
 		}
 		if($excluir_internos) {
 			$where .= " AND ct.clase_tipo <> 10 ";
@@ -47,10 +50,10 @@ class toba_info_editores
 		return $datos;
 	}
 
-	static function get_clases_validas_contenedor($contenedor)
+	static function get_clases_validas_contenedor($contenedor, $id=null)
 	{
 		if( $contenedor=='toba_item' ) {
-			return array('toba_ci', 'toba_cn');
+			return array('toba_ci', 'toba_cn', 'toba_servicio_web');
 		} elseif ($contenedor == 'toba_ci_pantalla') {
 			//Pantalla: de las cosas que pueden ir en un CI, filtro los elementos de interface y controladores
 			return self::get_lista_componentes_validos_en_contenedor('toba_ci', array(7,8));

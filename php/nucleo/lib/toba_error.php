@@ -241,6 +241,25 @@ class toba_error_ini_sesion extends toba_error
 	
 }
 
+
+/**
+ * Excepción producida en una comunicación web service  
+ */
+class toba_error_comunicacion extends toba_error
+{
+	function __construct($mensaje, $opciones, $headers)
+	{
+		if (PHP_SAPI != 'cli') {		
+			$extra = "<ul><li>Opciones: <pre>".print_r($opciones, true)."</pre>";
+			$extra .= "<li>Headers Respuesta: <pre>".print_r($headers, true)."</pre></ul>";
+		} else {
+			$extra = "\nOpciones: ".print_r($opciones, true);			
+		}
+		parent::__construct($mensaje, $extra);
+	}	
+}
+
+
 /**
  * Excepción para recargar una solicitud
  * es necesario que la operación donde se ejecute esta excepcion este marcado como "recar

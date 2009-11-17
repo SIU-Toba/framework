@@ -40,11 +40,6 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-.icono-utileria img {
-	vertical-align: top;
-	margin-right: 3px;
-}
-
 
 #php-referencia-cont {
 	bottom: 0;

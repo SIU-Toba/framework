@@ -344,5 +344,14 @@ class toba
 	{
 		return toba_acciones_js::instancia();
 	}
+	
+	/**
+	 * @return toba_servicio_web_cliente
+	 */
+	static function servicio_web($id) 
+	{
+		return toba_servicio_web_cliente::conectar($id);
+	}
+	
 }
 ?>

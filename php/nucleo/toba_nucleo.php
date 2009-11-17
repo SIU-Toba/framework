@@ -76,6 +76,38 @@ class toba_nucleo
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
+	
+	/**
+	 * Punto de entrada http al nucleo
+	 */
+	function acceso_servicio()
+	{
+		try {
+			$this->iniciar_contexto_ejecucion();
+		    //toba_http::headers_standart();
+		    $item = toba::memoria()->get_item_solicitado();
+		    if (! isset($item)) {
+				//Si no tiene ID (porque axis lo elimina del GET) usar el extra la URL
+				$servicio = basename($_SERVER['REQUEST_URI']);	//Asume que es x.php/id_servicio
+				if (strpos($servicio, '?') !== false) {
+					$servicio = substr($servicio, 0, strpos($servicio, '?')); 
+		    	}
+				$item = array(apex_pa_proyecto, $servicio);
+				toba::memoria()->set_item_solicitado($item);
+			}
+			$this->iniciar_contexto_solicitud($item);
+			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
+			$this->solicitud_en_proceso = true;
+			$this->solicitud->procesar();
+			$this->solicitud->registrar();
+			$this->solicitud->finalizar_objetos();
+			$this->finalizar_contexto_ejecucion();
+		} catch (Exception $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+		}
+		toba::logger()->guardar();
+	}	
 
 	/**
 	 * Punto de entrada desde la consola al nucleo
@@ -362,6 +394,7 @@ class toba_nucleo
 			'toba_error_validacion' 				=> 'nucleo/lib/toba_error.php',
 			'toba_error_ini_sesion'					=> 'nucleo/lib/toba_error.php',
 			'toba_error_seguridad'					=> 'nucleo/lib/toba_error.php',
+			'toba_error_comunicacion'				=> 'nucleo/lib/toba_error.php',		
 			'toba_reset_nucleo'		 				=> 'nucleo/lib/toba_error.php',
 			'toba_fuente_datos'						=> 'nucleo/lib/toba_fuente_datos.php',
 			'toba_formateo'							=> 'nucleo/lib/interface/toba_formateo.php',
@@ -656,6 +689,8 @@ class toba_nucleo
  			'toba_fecha' 							=> 'lib/toba_fecha.php',
  			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php',
 		 	'toba_acciones_js'						=> 'nucleo/lib/toba_acciones_js.php',
+			'toba_servicio_web_cliente'				=> 'nucleo/lib/toba_servicio_web_cliente.php',
+			'toba_solicitud_servicio_web'			=> 'nucleo/toba_solicitud_servicio_web.php',
  			//------------- Editor de restricciones funcionales -----------------------------
 			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               
 			'toba_rf_ci'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ci.php',               

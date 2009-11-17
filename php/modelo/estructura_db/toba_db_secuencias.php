@@ -15,7 +15,7 @@ class toba_db_secuencias
 		$datos['apex_nota_seq'] = array('campo' => 'nota', 'tabla'=> 'apex_nota');
 		$datos['apex_item_nota_seq'] = array('campo' => 'item_nota', 'tabla'=> 'apex_item_nota');
 		$datos['apex_objeto_nota_seq'] = array('campo' => 'objeto_nota', 'tabla'=> 'apex_objeto_nota');
-		$datos['apex_item_seq'] = array('campo' => 'item_id', 'tabla' => 'apex_item');
+		$datos['apex_item_seq'] = array('campo' => 'item', 'tabla' => 'apex_item');
 		$datos['apex_objeto_seq'] = array('campo' => 'objeto', 'tabla'=> 'apex_objeto');
 		$datos['apex_clase_relacion_seq'] = array('campo' => 'clase_relacion', 'tabla'=> 'apex_clase_relacion');
 		$datos['apex_log_sistema_seq'] = array('campo' => 'log_sistema', 'tabla'=> 'apex_log_sistema');
