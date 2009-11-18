@@ -3,7 +3,7 @@
  * @package Componentes
  * @subpackage Negocio
  */
-class toba_servicio_web extends toba_componente
+abstract class toba_servicio_web extends toba_componente
 {
 
 	final function __construct($id)
@@ -16,16 +16,12 @@ class toba_servicio_web extends toba_componente
 			$this->dep($dep)->inicializar();
 		}		
 	}
-	
 
-	/**
-	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
-	 * @ventana
-	 */
-	function ini()
+	function get_opciones()
 	{
-	}	
-
+		return array();
+	}
 
 }
+
 ?>

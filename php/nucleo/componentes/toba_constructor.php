@@ -19,7 +19,13 @@ class toba_constructor
 	 */
 	static function get_runtime( $id, $tipo=null, $usar_cache = false )
 	{
-		// Controla la integridad de la clave
+		list($tipo, $clase, $datos) = self::get_runtime_clase_y_datos($id, $tipo, $usar_cache);
+		return self::get_runtime_objeto($id, $tipo, $clase, $datos);
+	}
+
+	static function get_runtime_clase_y_datos( $id, $tipo=null, $usar_cache = false )
+	{
+			// Controla la integridad de la clave
 		self::control_clave_valida( $id );
 		if ( !isset( $tipo ) ) {
 			$tipo = toba_cargador::get_tipo( $id );	
@@ -49,25 +55,37 @@ class toba_constructor
 				} else {
 					$instancia_nro = count(self::$objetos_runtime_instanciados[$id['componente']]);
 				}				
-				$datos['_const_instancia_numero'] = $instancia_nro;
-				//Instancio el objeto
-				$objeto = new $clase( $datos );
-				//Controlo que pertenezca a la clase definida
-				if (! $objeto instanceof $datos['_info']['clase']) {
-					$clase_actual = get_class($objeto);
-					$clase_requerida = $datos['_info']['clase'];
-					$componente = $datos['_info']['objeto'];
-					throw new toba_error_def("La sublcase '$clase_actual' del componente '$componente' debe heredar de la clase '$clase_requerida'");
-				}
-				self::$objetos_runtime_instanciados[ $id['componente'] ][] = $objeto;
 			}
-			return self::$objetos_runtime_instanciados[ $id['componente'] ][$instancia_nro];
+			$datos['_const_instancia_numero'] = $instancia_nro;			
 		} else {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
-			return new $clase($datos);
 		}
+		return array($tipo, $clase, $datos);		
 	}
 
+	static function get_runtime_objeto($id, $tipo, $clase, $datos)
+	{
+		$objeto = new $clase( $datos );
+		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS		
+			//Controlo que pertenezca a la clase definida
+			if (! $objeto instanceof $datos['_info']['clase']) {
+				$clase_actual = get_class($objeto);
+				$clase_requerida = $datos['_info']['clase'];
+				$componente = $datos['_info']['objeto'];
+				throw new toba_error_def("La sublcase '$clase_actual' del componente '$componente' debe heredar de la clase '$clase_requerida'");
+			}
+			self::$objetos_runtime_instanciados[ $id['componente'] ][] = $objeto;
+			if (isset($datos['_const_instancia_numero'])) {
+				$instancia_nro = $datos['_const_instancia_numero'];
+			} else {
+				$instancia_nro = 0;
+			}
+			return self::$objetos_runtime_instanciados[ $id['componente'] ][$instancia_nro];
+		} else {
+			return $objeto;
+		}		
+	}
+	
 	/**
 	 * Retorna un objeto de consultas sobre un componente-toba
 	 *

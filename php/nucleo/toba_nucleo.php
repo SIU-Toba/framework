@@ -531,6 +531,11 @@ class toba_nucleo
 			'toba_cn'								=> 'nucleo/componentes/negocio/toba_cn.php',
 			'toba_cn_def'							=> 'nucleo/componentes/definicion/toba_cn_def.php',
 			'toba_cn_info'							=> 'modelo/info/componentes/toba_cn_info.php',
+			//- Servicio Web -
+			'toba_servicio_web'						=> 'nucleo/componentes/negocio/toba_servicio_web.php',
+			'toba_servicio_web_def'					=> 'nucleo/componentes/definicion/toba_servicio_web_def.php',
+			'toba_servicio_web_info'				=> 'modelo/info/componentes/toba_servicio_web_info.php',
+		
 			//- Planes de generacion de operaciones -
 			'toba_asistente_def'					=> 'nucleo/componentes/definicion/toba_asistente_def.php',
 			'toba_asistente_abms_def'				=> 'nucleo/componentes/definicion/toba_asistente_abms_def.php',

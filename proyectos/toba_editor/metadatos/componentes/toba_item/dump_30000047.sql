@@ -1,29 +1,29 @@
 ------------------------------------------------------------
---[serv_pruebas]--  Servicio Web - Pruebas 
+--[30000047]--  Editor servicio_web 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
+--- INICIO Grupo de desarrollo 30
 INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, exportable, creacion, retrasar_headers) VALUES (
 	NULL, --item_id
-	'toba_referencia', --proyecto
-	'serv_pruebas', --item
+	'toba_editor', --proyecto
+	'30000047', --item
 	NULL, --padre_id
-	'toba_referencia', --padre_proyecto
-	'30000046', --padre
+	'toba_editor', --padre_proyecto
+	'1000248', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
-	'servicio_web', --solicitud_tipo
-	'toba_referencia', --pagina_tipo_proyecto
-	'referencia', --pagina_tipo
+	'web', --solicitud_tipo
+	'toba', --pagina_tipo_proyecto
+	'titulo', --pagina_tipo
 	NULL, --actividad_buffer_proyecto
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Servicio Web - Pruebas', --nombre
+	'Editor servicio_web', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu
@@ -34,8 +34,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --solicitud_observacion
 	NULL, --solicitud_registrar_cron
 	NULL, --prueba_directorios
-	NULL, --zona_proyecto
-	NULL, --zona
+	'toba_editor', --zona_proyecto
+	'zona_objeto', --zona
 	NULL, --zona_orden
 	'0', --zona_listar
 	'apex', --imagen_recurso_origen
@@ -47,19 +47,19 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --redirecciona
 	NULL, --usuario
 	'0', --exportable
-	'2009-11-16 10:41:06', --creacion
+	'2009-11-18 08:28:55', --creacion
 	'0'  --retrasar_headers
 );
---- FIN Grupo de desarrollo 
+--- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
 -- apex_item_objeto
 ------------------------------------------------------------
 INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
 	NULL, --item_id
-	'toba_referencia', --proyecto
-	'serv_pruebas', --item
-	'30000115', --objeto
+	'toba_editor', --proyecto
+	'30000047', --item
+	'30000114', --objeto
 	'0', --orden
 	NULL  --inicializar
 );

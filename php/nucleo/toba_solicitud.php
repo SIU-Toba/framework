@@ -80,7 +80,6 @@ abstract class toba_solicitud
 		$clave['proyecto'] = $this->info['objetos'][$posicion]['objeto_proyecto'];
 		$clave['componente'] = $this->info['objetos'][$posicion]['objeto'];
 		$this->objetos[$indice] = toba_constructor::get_runtime( $clave, $clase );
-
 		$this->objetos_indice_actual++;
 		return $indice;
 	}	

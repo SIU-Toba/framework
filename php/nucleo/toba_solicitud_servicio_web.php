@@ -6,63 +6,58 @@
  */
 class toba_solicitud_servicio_web extends toba_solicitud
 {
-
 	function __construct($info)
 	{	
 		$this->info = $info;
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());		
 	}	
 	
+	protected function validar_componente()
+	{
+		toba::logger()->seccion("Iniciando componente...", 'toba');
+		if (count($this->info['objetos']) == 1) {
+			$i = 0;
+			foreach ($this->info['objetos'] as $objeto) {
+				if ($objeto['clase'] != 'toba_servicio_web') {
+					throw new toba_error_def("Necesita asociar a la operación un componente de clase toba_servicio_web");					
+				}
+			}
+		} else { 
+			if (count($this->info['objetos']) == 0) {
+				throw new toba_error_def("Necesita asociar a la operación un componente toba_servicio_web");
+			} else {
+				throw new toba_error_def("Debe asociar a la operación un único componente toba_servicio_web");
+			}
+	    }
+	}	
+	
+	
 	function procesar()
 	{
-		if (isset($this->info['basica']['item']) && $this->info['basica']['item'] == 'serv_pruebas') {
-			
-			agregar_dir_include_path(toba_dir().'/php/3ros/wsf');
-
-			
-			$opciones = array("classes" => array("toba_referencia_servicios_prueba" => array("operations" => array('eco'))));
-			$service = new WSService($opciones);
-			$payload = '<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Header/><soapenv:Body>';
-			$payload .= toba_referencia_servicios_prueba::get_payload();
-			$payload .= '</soapenv:Body></soapenv:Envelope>';
-			$service->reply($payload);
-		}		
-	}
-}
-
-abstract class toba_servicio_web_base
-{
-	function __construct()
-	{
+		$this->validar_componente();
 		
+		//-- Pide los datos para construir el componente, WSF no soporta entregar objetos creados
+		$clave['proyecto'] = $this->info['objetos'][0]['objeto_proyecto'];
+		$clave['componente'] = $this->info['objetos'][0]['objeto'];
+		list($tipo, $clase, $datos)  = toba_constructor::get_runtime_clase_y_datos($clave, $this->info['objetos'][0]['clase'], false);
+		
+		$sufijo = 'op__';
+		$metodos = array();
+		$reflexion = new ReflectionClass($clase);
+		foreach($reflexion->getMethods() as $metodo) {
+			if (strpos($metodo->name, $sufijo) === 0) {
+				$metodos[substr($metodo->name, strlen($sufijo))] = $metodo->name;
+			}	
+		}
+		$opciones = array();
+		$opciones['classes'][$clase]['operations'] = $metodos;
+		$opciones = array_merge($opciones, call_user_func(array($clase, 'get_opciones')));
+		toba::logger()->debug("Opciones del servidor: ".var_export($opciones, true), 'toba');
+		$opciones['classes'][$clase]['args'] = array($datos);
+		$service = new WSService($opciones);
+		$service->reply();
 	}
-	
-	/**
-	 * Payload de ejemplo para la publicación
-	 */
-	abstract static function get_payload();
 }
 
-
-class toba_referencia_servicios_prueba extends toba_servicio_web_base
-{
-
-	static function get_payload()
-	{
-		return '<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia"><text>Hola!</text></ns1:eco>';
-	}
-	
-	/** 
-	 * Servicio de eco
-	 * @param string $mensaje El mensaje a repetir
-	 * @return string $salida Mensaje repetido
-	 */	
-	function eco($mensaje) {
-	    $salida = new WSMessage($mensaje->str);
-	    return $salida;
-	}
-	
-	
-}
 
 ?>

@@ -319,6 +319,19 @@ class toba_datos_editores
 );
 	}
 
+	static function get_pantallas_toba_servicio_web()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => '0',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'solic_wddx.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
 }
 
 ?>
