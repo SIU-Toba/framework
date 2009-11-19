@@ -538,6 +538,14 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 			$extra .= " style='width: {$this->ancho}'";
 		}		
 		$html = '';
+		if (!$this->solo_lectura && $this->mostrar_utilidades)	{
+			$html .= "
+				<div class='ef-multi-sel-todos' id='{$this->id_form}_utilerias'>
+					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> /
+					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a>
+				</div>
+			";
+		}
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$estado = $this->get_estado_para_input();
 		$izq = array();
