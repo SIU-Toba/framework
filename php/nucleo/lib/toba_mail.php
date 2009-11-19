@@ -18,7 +18,14 @@ class toba_mail implements toba_tarea
 	protected $timeout = 30;
 	protected $reply_to;
 	protected $confirmacion;
-	
+
+	/**
+	 * Constructor de la clase
+	 * @param string $hacia  Direccion de email a la cual se enviará
+	 * @param string $asunto
+	 * @param string $cuerpo Contenido del email
+	 * @param string $desde Direccion de email desde la cual se envia (opcionalmente se obtiene desde los parametros)
+	 */
 	function __construct($hacia, $asunto, $cuerpo, $desde=null)
 	{
 		$this->hacia = $hacia;
@@ -26,12 +33,18 @@ class toba_mail implements toba_tarea
 		$this->cuerpo = $cuerpo;
 		$this->desde = $desde;
 	}
-	
+
+	/**
+	 *  Servicio que dispara el envio del email
+	 */
 	function ejecutar()
 	{
 		$this->enviar();
 	}
-	
+
+	/**
+	 *  Realiza el envio del email propiamente dicho
+	 */
 	function enviar()
 	{
 		require_once('3ros/phpmailer/class.phpmailer.php');
@@ -50,12 +63,19 @@ class toba_mail implements toba_tarea
 	   	}
 		$mail->Timeout  = $this->timeout;
 		$host = trim($this->datos_configuracion['host']);
-		if ($this->datos_configuracion['seguridad'] == 'ssl') {
-			if (! extension_loaded('openssl')) {
-				throw new toba_error('Para usar un SMTP con encriptación SSL es necesario activar la extensión "openssl" en el php.ini');
+		if (isset($this->datos_configuracion['seguridad']) && trim($this->datos_configuracion['seguridad']) != '') {
+			if ($this->datos_configuracion['seguridad'] == 'ssl') {
+				if (! extension_loaded('openssl')) {
+					throw new toba_error('Para usar un SMTP con encriptación SSL es necesario activar la extensión "openssl" en php.ini');
+				}
 			}
-			$host = 'ssl://'.$host;
-		}		
+			$mail->set('SMTPSecure', $this->datos_configuracion['seguridad']);
+		}/* else {
+			throw new toba_error('Se requiere una configuracion de seguridad para el uso del mail');		//Para el dia que queramos forzar conexion segura
+		}*/
+		if (isset($this->datos_configuracion['puerto'])) {
+			$mail->set('Port', $this->datos_configuracion['puerto']);
+		}
 		$mail->Host = trim($host);
 		if (isset($this->datos_configuracion['auth']) && $this->datos_configuracion['auth']) {
 			$mail->SMTPAuth = true;
@@ -101,22 +121,38 @@ class toba_mail implements toba_tarea
 		}			
 		
 	}
-	
+
+	/**
+	 * Configura las direcciones a las que se enviara copia carbonica
+	 * @param array $direcciones Arreglo de direcciones de email
+	 */
 	function set_cc($direcciones = array())
 	{
 		$this->cc = $direcciones;
 	}	
-	
+
+	/**
+	 * Indica que el cuerpo del email contiene codigo HTML
+	 * @param boolean $html
+	 */
 	function set_html($html=true)
 	{
 		$this->html = true;
 	}
-	
+
+	/**
+	 * Configura la direccion de email a la cual se debe responder
+	 * @param string $reply
+	 */
 	function set_reply($reply)
 	{
 		$this->reply_to = $reply;
 	}
-	
+
+	/**
+	 * Indica la direccion de email a la cual debe llegar la confirmacion
+	 * @param string $confirm
+	 */
 	function set_confirmacion($confirm)
 	{
 		$this->confirmacion = $confirm;

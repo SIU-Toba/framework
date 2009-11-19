@@ -78,6 +78,16 @@ class toba_usuario_info extends toba_elemento_transversal_info
 		$metodo->set_contenido(	'return false;');
 		$bloque[] = $metodo;
 
+		$doc = array('Permite fijar una clave para el usuario actual.');
+		$metodo = new toba_codigo_metodo_php('set_clave', array('$clave_plana'), $doc);		
+		$metodo->set_contenido(	'parent::set_clave($clave_plana);');
+		$bloque[] = $metodo;
+
+		$doc = array('Genera una clave aleatoria para un largo de caracteres dado');
+		$metodo = new toba_codigo_metodo_php('generar_clave_aleatoria', array('$long'), $doc);
+		$metodo->set_contenido(	'return parent::generar_clave_aleatoria($long);');
+		$bloque[] = $metodo;
+
 		return $bloque;
 	}
 

@@ -52,5 +52,25 @@ class toba_usuario implements toba_interface_usuario
 	{
 		return null;
 	}
+
+	//------------------------ Generacion de claves ---------------------------
+	function generar_clave_aleatoria($long)
+	{
+		$str = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+		for($cad="",$i=0;$i<$long;$i++) {
+			$cad .= substr($str,rand(0,(strlen($str)-1)),1);
+		}		
+		return $cad;
+   }
+
+   function set_clave($clave_plana)
+   {
+	  $clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
+	  $sql = "UPDATE apex_usuario
+					SET		clave = $clave ,
+					autentificacion = 'sha256'
+					WHERE	usuario = ". quote($this->get_id());
+	   toba::db()->ejecutar($sql);
+   }
 }
 ?>
