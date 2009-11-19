@@ -112,7 +112,9 @@ class toba_solicitud_web extends toba_solicitud
 			    } 
 			}
 		} else { 
-			throw new toba_error_def("Necesita asociar un objeto CI al ítem.");
+			if ($this->info['basica']['item_act_accion_script'] == '') {
+				throw new toba_error_def("Necesita asociar un objeto CI al ítem.");
+			}
 	    }
 	}
 
