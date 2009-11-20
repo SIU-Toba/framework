@@ -207,7 +207,11 @@
 	{
 		$aplanado = array();
 		foreach ($matriz as $clave => $arreglo) {
-			$aplanado[$clave] = ($campo === null) ? current($arreglo) : $arreglo[$campo];
+			if ($campo === null) {
+				$aplanado[$clave] = current($arreglo);
+			}elseif (isset($arreglo[$campo])) {
+				$aplanado[$clave] = $arreglo[$campo];
+			}			
 		}
 		return $aplanado;
 	}
