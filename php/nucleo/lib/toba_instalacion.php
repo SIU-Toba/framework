@@ -140,9 +140,9 @@ class toba_instalacion
 		}		
 	}
 	
-	function get_datos_smtp()
+	function get_datos_smtp($nombre_config = null)
 	{
-		if (! isset($this->memoria['smtp'])) {
+		if (! isset($this->memoria['smtp']) && is_null($nombre_config)) {
 			throw new toba_error('Debe definir la entrada "smtp" el archivo instalacion/instalacion.ini');
 		}
 		$path_ini_smtp = toba::nucleo()->toba_instalacion_dir().'/smtp.ini';
@@ -150,10 +150,11 @@ class toba_instalacion
 			throw new toba_error("No existe el archivo '$path_ini_smtp'");
 		}
 		$ini = new toba_ini($path_ini_smtp);
-		if (! $ini->existe_entrada($this->memoria['smtp'])) {
-			throw new toba_error("No existe la entrada '{$this->memoria['smtp']}' el archivo '$path_ini_smtp'");
+		$conf = (is_null($nombre_config)) ? $this->memoria['smtp']: $nombre_config;
+		if (! $ini->existe_entrada($conf)) {
+			throw new toba_error("No existe la entrada '$conf' el archivo '$path_ini_smtp'");
 		}
-		return $ini->get_datos_entrada($this->memoria['smtp']);
+		return $ini->get_datos_entrada($conf);
 	}
 	
 	/**

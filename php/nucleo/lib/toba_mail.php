@@ -18,7 +18,8 @@ class toba_mail implements toba_tarea
 	protected $timeout = 30;
 	protected $reply_to;
 	protected $confirmacion;
-
+	protected $nombre_conf = null;
+	
 	/**
 	 * Constructor de la clase
 	 * @param string $hacia  Direccion de email a la cual se enviará
@@ -32,6 +33,17 @@ class toba_mail implements toba_tarea
 		$this->asunto = $asunto;
 		$this->cuerpo = $cuerpo;
 		$this->desde = $desde;
+	}
+
+	/**
+	 * Permite modificar en runtime el nombre de la configuracion smtp a ser utilizada
+	 * @param string $nombre_conf  Nombre de la configuracion en el archivo smtp.ini
+	 */
+	function set_configuracion_smtp($nombre_conf = null)
+	{
+		if (! is_null($nombre_conf)) {
+			$this->nombre_conf = $nombre_conf;
+		}
 	}
 
 	/**
@@ -50,7 +62,7 @@ class toba_mail implements toba_tarea
 		require_once('3ros/phpmailer/class.phpmailer.php');
 		
 		//Pide a la instalacion la configuración del SMTP
-		$this->datos_configuracion = toba::instalacion()->get_datos_smtp();		
+		$this->datos_configuracion = toba::instalacion()->get_datos_smtp($this->nombre_conf);
 		if (! isset($this->desde)) {
 			$this->desde = $this->datos_configuracion['from'];
 		}
