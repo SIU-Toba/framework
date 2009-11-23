@@ -23,12 +23,12 @@ class extension_ci extends toba_ci
 {
 	protected $s__filtro;
 	protected $datos_estaticos = array(
-			array( 'fecha' => '2004-05-20', 'importe' => 12500, 'hora' => '200'), 
-			array( 'fecha' => '2004-05-21', 'importe' => 22200, 'hora' => '200'), 
-			array( 'fecha' => '2004-05-22', 'importe' => 4500, 'hora' => '200'), 		
-			array( 'fecha' => '2005-05-20', 'importe' => 12500, 'hora' => '200'), 
-			array( 'fecha' => '2005-05-21', 'importe' => 22200, 'hora' => 10000), 
-			array( 'fecha' => '2005-05-22', 'importe' => 4500, 'hora' => '300')	
+			array( 'fecha' => '2004-05-20', 'importe' => 12500, 'hora' => '200', 'texto' => 'Llamada a Mamá'),
+			array( 'fecha' => '2004-05-21', 'importe' => 22200, 'hora' => '200','texto' => 'Llamada a 0600'),
+			array( 'fecha' => '2004-05-22', 'importe' => 4500, 'hora' => '200','texto' => 'Llamada a celular'),
+			array( 'fecha' => '2005-05-20', 'importe' => 12500, 'hora' => '200','texto' => 'Llamada al exterior'),
+			array( 'fecha' => '2005-05-21', 'importe' => 22200, 'hora' => 10000,'texto' => 'Llamada al teatro'),
+			array( 'fecha' => '2005-05-22', 'importe' => 4500, 'hora' => '300','texto' => 'Llamada de atención')
 		);
 	
 	function evt__filtro__filtrar($datos)

@@ -1380,7 +1380,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$ordenamiento = array();
 		foreach ($this->datos as $fila){
-			$ordenamiento[] = $fila[$columna];
+			$ordenamiento[] = strtoupper($this->quita_acentos($fila[$columna]));
 		}
 		$resultado['ordenamiento'] = $ordenamiento;
 		$resultado['tipo'] = SORT_REGULAR;
@@ -1428,7 +1428,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$ordenamiento = array();
 		foreach ($this->datos as $fila){
-			$ordenamiento[] = $fila[$columna];
+			$ordenamiento[] = strtoupper($this->quita_acentos($fila[$columna]));
 		}
 		$resultado['ordenamiento'] = $ordenamiento;
 		$resultado['tipo'] = SORT_STRING;
@@ -1447,6 +1447,12 @@ class toba_ei_cuadro extends toba_ei
 		return $sentido;
 	}
 
+	function quita_acentos($cadena)
+	{
+		$tofind = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
+		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
+		return(strtr($cadena,$tofind,$replac));
+	}
 //################################################################################
 //###############################    API basica    ###############################
 //################################################################################
