@@ -26,8 +26,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Servicios Web', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
-	'0', --menu
-	NULL, --orden
+	'1', --menu
+	'4', --orden
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

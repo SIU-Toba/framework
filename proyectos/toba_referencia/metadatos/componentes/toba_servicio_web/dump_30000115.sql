@@ -15,8 +15,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_servicio_web', --clase
-	'serv_eco', --subclase
-	'varios/servicios/serv_eco.php', --subclase_archivo
+	'serv_pruebas', --subclase
+	'varios/servicios/serv_pruebas.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Servicio Web - Pruebas', --nombre

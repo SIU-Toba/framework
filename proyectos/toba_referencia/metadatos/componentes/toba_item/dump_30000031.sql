@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000031]--  Servicios Web - Cliente 
+--[30000031]--  Clientes 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'30000031', --item
 	NULL, --padre_id
 	'toba_referencia', --padre_proyecto
-	'1000203', --padre
+	'30000046', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Servicios Web - Cliente', --nombre
+	'Clientes', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

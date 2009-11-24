@@ -22,6 +22,7 @@ abstract class toba_servicio_web extends toba_componente
 		return array();
 	}
 
+
 }
 
 ?>

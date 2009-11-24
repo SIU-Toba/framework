@@ -92,6 +92,11 @@ class toba_nucleo
 				if (strpos($servicio, '?') !== false) {
 					$servicio = substr($servicio, 0, strpos($servicio, '?')); 
 		    	}
+		    	//Si es el .php a secas pide un listado de los servicios
+		    	if (basename($servicio, '.php') !== $servicio) {
+		    		toba_solicitud_servicio_web::mostrar_servicios();
+		    		die;
+		    	}
 				$item = array(apex_pa_proyecto, $servicio);
 				toba::memoria()->set_item_solicitado($item);
 			}

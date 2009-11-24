@@ -47,6 +47,18 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_referencia', --proyecto
+	'30000063', --dep_id
+	'30000110', --objeto_consumidor
+	'30000116', --objeto_proveedor
+	'form_adjunto', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
 	'30000059', --dep_id
 	'30000110', --objeto_consumidor
 	'30000111', --objeto_proveedor
@@ -96,8 +108,27 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'30000045', --pantalla
 	'pant_echo', --identificador
 	'1', --orden
-	'Hola Mundo', --etiqueta
-	NULL, --descripcion
+	'Eco', --etiqueta
+	'El servidor responde exactamente lo que envia el cliente', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL  --template
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'30000110', --objeto_ci
+	'30000047', --pantalla
+	'pant_adjuntos', --identificador
+	'2', --orden
+	'Envio de Adjuntos', --etiqueta
+	'El cliente envia una imagen y un texto. El servidor toma el texto y lo agrega a la imagen y la retorna.
+<br>
+Requiere instalar la extensión GD de PHP', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -116,6 +147,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'toba_referencia', --proyecto
 	'30000045', --pantalla
 	'30000110', --objeto_ci
-	NULL, --orden
+	'0', --orden
 	'30000059'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000047', --pantalla
+	'30000110', --objeto_ci
+	'0', --orden
+	'30000063'  --dep_id
 );

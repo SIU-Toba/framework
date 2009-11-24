@@ -302,6 +302,27 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}	
 
+	/**
+	*	Retorna la lista de items exportables de un proyecto dado
+	*/
+	static function get_items_servicios_web($proyecto=null)
+	{
+		$proyecto = isset($proyecto) ? 
+					toba_contexto_info::get_db()->quote($proyecto) : 
+					toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		$sql = "
+			SELECT 
+				item,
+				nombre
+			FROM apex_item 
+			WHERE 
+					proyecto = $proyecto
+				AND solicitud_tipo = 'servicio_web'
+			ORDER BY item;
+		";
+		return toba_contexto_info::get_db()->consultar($sql);	
+	}		
+	
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------

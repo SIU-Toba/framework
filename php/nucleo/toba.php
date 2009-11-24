@@ -348,9 +348,9 @@ class toba
 	/**
 	 * @return toba_servicio_web_cliente
 	 */
-	static function servicio_web($id) 
+	static function servicio_web($id, $opciones=array()) 
 	{
-		return toba_servicio_web_cliente::conectar($id);
+		return toba_servicio_web_cliente::conectar($id, $opciones);
 	}
 	
 }

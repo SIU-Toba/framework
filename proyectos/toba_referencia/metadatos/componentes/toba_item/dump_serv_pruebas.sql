@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[serv_pruebas]--  Servicio Web - Pruebas 
+--[serv_pruebas]--  Ejemplos de operaciones en servicios web 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Servicio Web - Pruebas', --nombre
+	'Ejemplos de operaciones en servicios web', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu
