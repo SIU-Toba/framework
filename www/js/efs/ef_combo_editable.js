@@ -130,6 +130,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 		if (valor === null) {valor = '';}
 		if (typeof valor == 'string') {valor = trim(valor);}
 		if (indice < 0 || valor === '') {valor = apex_ef_no_seteado;desc='';}
+		if (getObjectClass(valor) == 'Array' && valor.length == 0) {valor = apex_ef_no_seteado; desc= '';}
 		if (! descr) {
 			return valor;
 		} else {

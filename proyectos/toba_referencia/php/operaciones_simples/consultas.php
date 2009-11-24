@@ -94,7 +94,7 @@ class consultas
 	static function get_persona_nombre($persona)
 	{
 		if (isset($persona)) {
-			$datos = self::get_persona_datos($persona);
+			$datos = self::get_persona_datos(array('id' => $persona));
 			return $datos['nombre'];
 		} else {
 			return '';	

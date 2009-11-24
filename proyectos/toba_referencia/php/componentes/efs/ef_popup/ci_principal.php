@@ -38,7 +38,7 @@ class ci_principal extends toba_ci
 
 	function get_persona_nombre($id)
 	{
-		return consultas::get_persona_nombre(array('id' => $id));
+		return consultas::get_persona_nombre($id);
 	}
 
 	function evt__form_cascada__modificacion($datos)
