@@ -15,8 +15,8 @@ class toba_sincronizador_archivos
 	private $patron_archivos;
 	private $archivos_originales;
 	private $archivos_utilizados;
-	private $archivos_agregados;
-	private $archivos_eliminados;
+	private $archivos_agregados = array();
+	private $archivos_eliminados = array();
 	private $activado = true;
 	
 	function __construct( $dir, $patron_archivos = null )
@@ -74,6 +74,29 @@ class toba_sincronizador_archivos
 		}
 		$this->archivos_agregados = array_diff( $this->archivos_utilizados, $this->archivos_originales );
 		$this->archivos_eliminados = array_diff( $this->archivos_originales, $this->archivos_utilizados );
+		return $this->persistir_cambios();
+	}
+
+	function sincronizar_agregados()
+	{
+		if( ! $this->activado ) {
+			return array("El directorio '$this->dir' no existe.");
+		}
+		$this->archivos_agregados = array_diff( $this->archivos_utilizados, $this->archivos_originales );
+		return $this->persistir_cambios();
+	}
+
+	function sincronizar_eliminados()
+	{
+		if( ! $this->activado ) {
+			return array("El directorio '$this->dir' no existe.");
+		}
+		$this->archivos_eliminados = array_diff( $this->archivos_originales, $this->archivos_utilizados );
+		return $this->persistir_cambios();
+	}
+	
+	private function persistir_cambios()
+	{
 		if ( $this->tipo_manejo == 'svn' ) {
 			return $this->sincro_svn();
 			//print_r( $this->archivos_originales );

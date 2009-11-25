@@ -365,7 +365,29 @@ class toba_info_editores
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
-	
+
+	/**
+	*	Retorna la existencia de un item particular en un proyecto determinado
+	*/
+	static function existe_item($item, $proyecto = null)
+	{
+		$item = toba_contexto_info::get_db()->quote($item);
+		$proyecto = (! is_null($proyecto)) ?
+						toba_contexto_info::get_db()->quote($proyecto) :
+						toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		$sql = "
+			SELECT
+				nombre						as descripcion
+			FROM apex_item
+			WHERE
+				(carpeta <> '1' OR carpeta IS NULL) AND
+				proyecto = $proyecto AND
+				item = $item
+			ORDER BY nombre;
+		";
+		return toba_contexto_info::get_db()->hay_datos($sql);
+	}
+
 	/**
 	*	Retorna la lista de items en un formato adecuado para un combo
 	*/

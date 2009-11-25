@@ -440,6 +440,49 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $contenido;		
 	}
 
+	//-- ITEMS ------------------------------------------------------------------
+	
+	function exportar_item($item)
+	{
+		toba_logger::instancia()->debug( "Exportando ITEM $item en PROYECTO {$this->get_id()}");
+		$this->manejador_interface->titulo( "Exportación ITEM $item en PROYECTO {$this->get_id()}" );
+		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->get_id());
+		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->get_id() );
+		if( !( $existen_metadatos || $existe_vinculo ) ) {
+			throw new toba_error("PROYECTO: El proyecto '{$this->get_id()}' no esta asociado a la instancia actual");
+		}
+		//Verifico que no hubo actualizacion precoz,
+		//no recalculo version aca ya que hasta que no hace commit no cambia.
+		if ($this->get_instalacion()->chequea_sincro_svn()) {
+			$this->chequear_actualizacion_prematura();
+		}
+		try {
+			$this->exportar_componentes_item($item);
+			$this->get_sincronizador()->sincronizar_agregados();	//Sincronizo los archivos
+			$this->generar_checksum();													//Regenero el checksum
+		} catch ( toba_error $e ) {
+			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion del item $item:\n".
+												$e->getMessage() );
+		}
+
+		$this->manejador_interface->titulo( "Recuerde que esta operación actualmente no exporta los permisos ni los perfiles para el item." );
+	}
+
+	function exportar_componentes_item($item)
+	{
+		//Primero verifico que el item existe
+		if (toba_info_editores::existe_item($item, $this->get_id())) {
+			$arbol = toba_info_editores::get_arbol_componentes_item($this->get_id(), $item);
+			$this->manejador_interface->mensaje("Exportando componentes", false);
+			foreach($arbol as $componente) {
+				$this->exportar_componente($componente['tipo'], $componente);
+				$this->manejador_interface->progreso_avanzar();
+			}
+			$this->manejador_interface->progreso_fin();
+		} else {
+			throw new toba_error_def( "No existe el item $item \n");
+		}
+	}
 	//-- PERFILES -------------------------------------------------------------
 
 	function exportar_perfiles()
@@ -1502,7 +1545,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			return $ga[0]['id'];
 		}
 	}
-		
+
 	//-----------------------------------------------------------
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
