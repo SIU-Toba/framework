@@ -282,6 +282,10 @@ padding-left:4px;
 .ei-form-cuerpo {
 	padding-top:2px;
 }
+
+.ei-form-cuerpo td {
+	vertical-align: top;
+}
 .ei-form-fila {
 	padding: 0px 10px 5px 8px;
 	margin: 0;

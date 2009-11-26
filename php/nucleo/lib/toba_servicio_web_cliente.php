@@ -34,6 +34,7 @@ class toba_servicio_web_cliente
 		if (! isset($opciones['to'])) {
 			throw new toba_error_def("Debe indicar la URL destino en el campo 'to'");			
 		}		
+		toba::logger()->debug("Invocando servicio $id_servicio. Opciones:<br>". var_export($opciones, true));
 		$servicio = new toba_servicio_web_cliente($opciones);
 		return $servicio;
 	}
@@ -44,17 +45,6 @@ class toba_servicio_web_cliente
 		$this->wsf = new WSClient($this->opciones);
 	}
 	
-	function request($payload, $opciones=array())
-	{
-		try {
-			return $this->wsf->request(new WSMessage($payload, $opciones));
-		} catch (WSFault $fault) {
-			throw new toba_error_comunicacion($fault->__toString(), $this->opciones, $this->wsf->getLastResponseHeaders());
-		} catch (Exception $e) {
-			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
-		}
-	}
-	
 	/**
 	 * @return WSClient
 	 */
@@ -62,6 +52,28 @@ class toba_servicio_web_cliente
 	{
 		return $this->wsf;	
 	}
+	
+
+	/**
+	 * Envia un mensaje al servicio web
+	 * @param toba_servicio_web_mensaje $mensaje
+	 * @return toba_servicio_web_mensaje
+	 */
+	function request(toba_servicio_web_mensaje $mensaje)
+	{
+		try {
+			$message = $this->wsf->request($mensaje->wsf());
+			return new toba_servicio_web_mensaje($message);
+		} catch (WSFault $fault) {
+			throw new toba_error_comunicacion($fault->__toString(), $this->opciones, $this->wsf->getLastResponseHeaders());
+		} catch (Exception $e) {
+			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
+		}
+	}
+	
+
+	
+
 	
 }
 

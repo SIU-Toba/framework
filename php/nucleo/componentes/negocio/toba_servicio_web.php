@@ -21,6 +21,18 @@ abstract class toba_servicio_web extends toba_componente
 	{
 		return array();
 	}
+	
+	
+	/**
+	 * Rutea WSF hacia la extensión
+	 */
+	function __call($nombre, $argumentos)
+	{
+		$metodo = substr($nombre, 1);
+		$mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
+		$mensaje_salida = $this->$metodo($mensaje_entrada);
+		return $mensaje_salida->wsf();
+	}
 
 
 }

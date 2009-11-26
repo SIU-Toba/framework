@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000115]--  Servicio Web - Sin seguridad 
+--[30000117]--  Operaciones autorización con password 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,19 +9,19 @@
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'toba_referencia', --proyecto
-	'30000115', --objeto
+	'30000117', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_servicio_web', --clase
-	'serv_sin_seguridad', --subclase
-	'varios/servicios/serv_sin_seguridad.php', --subclase_archivo
+	'serv_password', --subclase
+	'varios/servicios/serv_password.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Servicio Web - Sin seguridad', --nombre
+	'Operaciones autorización con password', --nombre
 	NULL, --titulo
-	'0', --colapsable
+	NULL, --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -35,7 +35,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2009-11-18 10:02:11', --creacion
+	'2009-11-25 16:00:48', --creacion
 	NULL  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 30

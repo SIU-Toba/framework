@@ -700,6 +700,7 @@ class toba_nucleo
  			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php',
 		 	'toba_acciones_js'						=> 'nucleo/lib/toba_acciones_js.php',
 			'toba_servicio_web_cliente'				=> 'nucleo/lib/toba_servicio_web_cliente.php',
+			'toba_servicio_web_mensaje'				=> 'nucleo/lib/toba_servicio_web_mensaje.php',
 			'toba_solicitud_servicio_web'			=> 'nucleo/toba_solicitud_servicio_web.php',
  			//------------- Editor de restricciones funcionales -----------------------------
 			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               

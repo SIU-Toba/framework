@@ -67,7 +67,7 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		foreach($reflexion->getMethods() as $metodo) {
 			if (strpos($metodo->name, $sufijo) === 0) {
 				$servicio = substr($metodo->name, strlen($sufijo));
-				$metodos[$servicio] = $metodo->name;
+				$metodos[$servicio] = '_'.$metodo->name;
 			}	
 		}
 		$opciones = array();

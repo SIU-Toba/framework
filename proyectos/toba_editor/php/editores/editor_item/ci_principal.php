@@ -16,6 +16,9 @@ class ci_principal extends toba_ci
 	{
 		//Se quita la secuencia para manejar el caso de alta de un ID alfanumerico a gusto
 		$this->get_entidad()->tabla('base')->set_definicion_columna('item', 'secuencia', null);
+
+		//Se quita el control de concurrencia porque permite modificar claves
+		$this->get_entidad()->persistidor()->set_lock_optimista(false);
 		
 		$zona = toba::zona();
 		if ($zona->cargada()) {

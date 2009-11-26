@@ -132,6 +132,19 @@ class toba_xml_tablas
 		return $this->xml;
 	}
 	
+	
+	static function encode($valor)
+	{
+		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES));
+		$valor = utf8_encode($valor);
+		return $valor;
+	}
+	
+	static function decode($valor)
+	{
+		return utf8_decode($valor);
+	}
+	
 }
 
 
