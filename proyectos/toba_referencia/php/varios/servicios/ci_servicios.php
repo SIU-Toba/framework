@@ -5,6 +5,7 @@ class ci_servicios extends toba_ci
 	protected $s__datos_password;
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
+	protected $path_servicio;
 	
 	//-----------------------------------------------------------------------------
 	//---- Eco --------------------------------------------------------------------
@@ -12,6 +13,7 @@ class ci_servicios extends toba_ci
 
 	function conf__form_echo(toba_ei_formulario $form)
 	{
+		$this->path_servicio = 'varios/servicios/serv_sin_seguridad.php';
 		if (isset($this->s__echo)) {
 			$form->set_datos($this->s__echo);
 		}
@@ -37,6 +39,7 @@ XML;
 	
 	function conf__form_adjunto(toba_ei_formulario $form)
 	{
+		$this->path_servicio = 'varios/servicios/serv_sin_seguridad.php';		
 		if (isset($this->s__adjunto)) {
 			$datos = array();
 			$datos['adjunto'] = $this->s__adjunto['archivo'];
@@ -80,7 +83,7 @@ XML;
 		$respuesta = $servicio->request($mensaje);
 		
 		//--4 - Guarda la respuesta en un temporal
-		$this->adjunto_respuesta = toba::proyecto()->get_www_temp("salida.png");
+		$this->adjunto_respuesta = toba::proyecto()->get_www_temp('salida.png');
 		file_put_contents($this->adjunto_respuesta['path'], current($respuesta->wsf()->attachments));
 	}	
 
@@ -91,6 +94,7 @@ XML;
 
 	function conf__form_datos_password(toba_ei_formulario $form)
 	{
+		$this->path_servicio = 'varios/servicios/serv_password.php';		
 		if (isset($this->s__datos_password)) {
 			$form->set_datos($this->s__datos_password);
 		}
@@ -101,7 +105,7 @@ XML;
 		//--1- Arma una arreglo multi-dimensional
 		$this->s__datos_password = $datos;
 		$arreglo = array();
-		for ($i = $datos['dimensiones']; $i >0 ; $i--) {
+		for ($i = $datos['dimensiones']; $i > 0 ; $i--) {
 			$arreglo = array('valor' => "Valor $i", 'hijo' => $arreglo);
 			if (empty($arreglo['hijo'])) {
 				unset($arreglo['hijo']);
@@ -109,10 +113,10 @@ XML;
 		}
 	
 		//--2- Opciones de seguridad
-	    $policy = new WSPolicy(array("security" => array("useUsernameToken" => TRUE)));
-	    $security_token = new WSSecurityToken(array("user" => $this->s__datos_password['usuario'],
-	                                                "password" => $this->s__datos_password['password']));
-    	$opciones = array("policy" => $policy, "securityToken" => $security_token);
+	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
+	    $security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
+	                                                'password' => $this->s__datos_password['password']));
+    	$opciones = array('policy' => $policy, 'securityToken' => $security_token);
     	
     	//--3- Construye el cliente
 		$servicio = toba::servicio_web('seguridad_password', $opciones);
@@ -130,11 +134,80 @@ XML;
 		$this->s__datos_password['respuesta_arreglo'] = $this->formatear_valor(var_export($arreglo_resultado, true));
 	}
 	
+	//-----------------------------------------------------------------------------
+	//---- Dialogo usando encriptacion y firmado del mensaje     ------------------
+	//-----------------------------------------------------------------------------
+
+	function conf__form_echo_seguro(toba_ei_formulario $form)
+	{
+		$this->path_servicio = 'varios/servicios/serv_encriptado_firmado.php';		
+		if (isset($this->s__echo)) {
+			$form->set_datos($this->s__echo);
+		}
+	}
+
+	function evt__form_echo_seguro__enviar($datos)
+	{
+		//--1- Arma el mensaje		
+		$this->s__echo = $datos;
+		$payload = <<<XML
+<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
+	<texto>{$datos['texto']}</texto>
+</ns1:eco>
+XML;
+		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
+		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
+		
+		
+		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
+		$carpeta = dirname(__FILE__);
+		$cert_server = ws_get_cert_from_file($carpeta.'/cert_server.cert');
+		$clave_privada = ws_get_key_from_file($carpeta."/clave_cliente.pem");
+    
+		$seguridad = array("encrypt" => true,
+                       "algorithmSuite" => "Basic256Rsa15",
+                       "securityTokenReference" => "IssuerSerial");
+    
+		$policy = new WSPolicy(array("security" => $seguridad));
+		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,
+                                           "receiverCertificate" => $cert_server)
+						);		
+    	$opciones = array('policy' => $policy, 'securityToken' => $security_token);		
+		$servicio = toba::servicio_web('encriptado_firmado', $opciones);
+	
+		//-- 3 - Muestra la respuesta		
+		$respuesta = $servicio->request($mensaje);
+		toba::notificacion()->info($respuesta->get_payload());		
+	}
+		
+	
+	//-----------------------------------------------------------------------------
+	//---- Utilidades  -----------------------------------------------------------
+	//------------------------------------------------------------------------------
+	
+	function post_configurar()
+	{
+		parent::post_configurar();
+		$img = toba_recurso::imagen_toba('nucleo/php.gif', true);
+		$cliente = 'varios/servicios/ci_servicios.php';
+		$url_cliente = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $cliente), array('prefijo'=>toba_editor::get_punto_acceso_editor()));		
+		$url_servicio = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $this->path_servicio), array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$html = "<div style='float:right'><a target='logger' href='$url_cliente'>$img Ver .php del Cliente</a>";
+		$html .= "<br><a target='logger' href='$url_servicio'>$img Ver .php del Servicio</a>";
+		$url_ejemplos = 'http://labs.wso2.org/wsf/php/demo.php?name=Samples&demo=samples/index.html&src=samples';
+		$html .= "<br>Ejemplos completos de WSF <a href='$url_ejemplos'>online</a></div>";
+		$html .= $this->pantalla()->get_descripcion();		
+		$this->pantalla()->set_descripcion($html);
+	}
+	
 	function formatear_valor($valor)
 	{
-		$estilo = 'style="background-color:white; border: 1px solid gray; padding: 5px;"';		
+		$estilo = 'style="background-color: white; border: 1px solid gray; padding: 5px;"';		
 		return  "<pre $estilo>".htmlentities($valor).'</pre>';
 	}
+	
+	
+		
 	
 }
 

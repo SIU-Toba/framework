@@ -4,13 +4,19 @@ class serv_password extends toba_servicio_web
 	
 	function get_opciones()
 	{
-		$policy = new WSPolicy(array("security" => array(
-								"useUsernameToken" => true,
-								"includeTimestamp" => true)));
+		$policy = new WSPolicy(array(
+								"security" => array(
+									"useUsernameToken" => true,
+									"includeTimestamp" => true
+									)	
+								)
+							);
 		$security = new WSSecurityToken(array(
-								"user" => "toba",
-								"password" => "toba",
-								"ttl" => 300));		
+											"user" => "toba",
+											"password" => "toba",
+											"ttl" => 300
+											)
+										);		
 
 		return array(
             "policy" 			=> $policy,
@@ -19,7 +25,6 @@ class serv_password extends toba_servicio_web
 					"http://siu.edu.ar/toba_referencia/serv_pruebas/eco"		=> "eco",
 				),
 		);
-		
 	}
 
 	/**
@@ -45,7 +50,7 @@ class serv_password extends toba_servicio_web
 			$i++;		
 		} while($continuar);
 		
-		toba::logger()->var_dump($salida);
+
 		//-2- Envia el arreglo resultante
 	    return new toba_servicio_web_mensaje($salida);
 	}
