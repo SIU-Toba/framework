@@ -65,6 +65,15 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 		this.submit();
 	};
 	
+	/**
+	 * Determina cual es el evento que se utiliza cuando no se dispara ninguno explicitamente por el usuario
+	 * @param {evento_ei} evento
+	 */
+	ci.prototype.set_evento_implicito = function(evento) {
+		this._evento_implicito = evento;
+		this.reset_evento();
+	};	
+	
 
 	//---SUBMIT
 	/**

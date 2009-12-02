@@ -334,6 +334,14 @@ class toba_ei_pantalla extends toba_ei
 		//--- Filtra los eventos definidos por el usuario segun la asignacion a pantallas
 		parent::cargar_lista_eventos();
 
+		if (isset($this->_evento_implicito)) {
+			//Si el evento implicito no esta en esta pantalla, no usarlo			
+			$id = $this->_evento_implicito->get_id();
+			if (! isset($this->_eventos_usuario_utilizados[$id])) {
+				unset($this->_evento_implicito);
+			}
+		}		
+		
 		//Como los eventos de pantalla vienen indexados por identificador (al igual que los utilizados por el usuario) podemos usar eso a nuestro favor
 		// en lugar de hacer el tipico ciclo, asi obtenemos los eventos usados por el usuario en una linea.
 		$this->_eventos_usuario_utilizados = array_intersect_key($this->_eventos_usuario_utilizados, $this->_eventos_pantalla);
