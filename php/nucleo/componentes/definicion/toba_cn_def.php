@@ -44,6 +44,7 @@ class toba_cn_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_consumo']['sql'] .= "	AND		d.objeto_consumidor=$componente ";	
 		}
+		$sql['_info_consumo']['sql'] .= "	ORDER BY o.objeto;";
 		$sql['_info_consumo']['registros']='n';
 		$sql['_info_consumo']['obligatorio']=false;
 		return $sql;

@@ -29,7 +29,7 @@ class toba_ei_esquema_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_esquema']['sql'] .= "	AND     objeto_esquema=$componente ";	
 		}
-		$sql['_info_esquema']['sql'] .= ";";
+		$sql['_info_esquema']['sql'] .= " ORDER BY objeto_esquema;";
 		$sql['_info_esquema']['registros']='1';
 		$sql['_info_esquema']['obligatorio']=true;
 		return $sql;

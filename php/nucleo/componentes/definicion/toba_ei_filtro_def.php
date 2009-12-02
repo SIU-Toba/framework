@@ -31,7 +31,7 @@ class toba_ei_filtro_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_filtro']['sql'] .= "	AND		objeto_ei_filtro=$componente ";	
 		}
-		$sql['_info_filtro']['sql'] .= ";";
+		$sql['_info_filtro']['sql'] .= " ORDER BY objeto_ei_filtro;";
 		$sql['_info_filtro']['registros']='1';
 		$sql['_info_filtro']['obligatorio']=true;
 		

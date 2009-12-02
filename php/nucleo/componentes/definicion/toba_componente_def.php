@@ -79,8 +79,9 @@ class toba_componente_def implements toba_componente_definicion
 						AND			o.clase = c.clase
 						AND		o.proyecto= $proyecto";
 		if ( isset($componente) ) {
-			$sql['_info']['sql'] .= "	AND		o.objeto= $componente;";
+			$sql['_info']['sql'] .= "	AND		o.objeto= $componente";
 		}
+		$sql['_info']['sql'] .= " ORDER BY o.objeto;";
 		$sql['_info']['registros']='1';	
 		$sql['_info']['obligatorio']=true;
 		return $sql;

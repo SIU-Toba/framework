@@ -51,7 +51,7 @@ class toba_ci_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_ci']['sql'] .= "	AND		objeto_mt_me=$quote_componente ";	
 		}
-		$sql['_info_ci']['sql'] .= ";";
+		$sql['_info_ci']['sql'] .= " ORDER BY objeto_mt_me;";
 		$sql['_info_ci']['registros']='1';
 		$sql['_info_ci']['obligatorio']=true;
 		//-- PANTALLAS --------------

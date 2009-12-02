@@ -36,7 +36,7 @@ class toba_ei_formulario_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_formulario']['sql'] .= "	AND		objeto_ut_formulario=$componente ";	
 		}
-		$sql['_info_formulario']['sql'] .= ";";
+		$sql['_info_formulario']['sql'] .= " ORDER BY objeto_ut_formulario;";
 		$sql['_info_formulario']['registros']='1';
 		$sql['_info_formulario']['obligatorio']=true;
 		//EF

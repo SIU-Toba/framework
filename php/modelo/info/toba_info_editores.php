@@ -1110,7 +1110,8 @@ class toba_info_editores
 	function get_mensajes_filtrados($clausulas = array())
 	{
 		$sql = 'SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
-				FROM 	apex_msg ';
+				FROM 	apex_msg
+				ORDER BY msg';
 		if (! empty($clausulas)) {
 			$sql = sql_concatenar_where($sql, $clausulas);
 		}
@@ -1130,7 +1131,8 @@ class toba_info_editores
 	function get_mensajes_objeto_filtrados($clausulas = array())
 	{
 		$sql = 'SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
-				FROM 	apex_objeto_msg';
+				FROM 	apex_objeto_msg
+				ORDER BY objeto_msg';
 		if (! empty($clausulas)) {
 			$sql = sql_concatenar_where($sql, $clausulas);
 		}

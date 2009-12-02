@@ -81,7 +81,7 @@
 		}
 		$sql = '';
 		for ($i = 0; $i < count($palabras) ; $i++) {
-			if($separadores[$i]!=';') {
+			if($separadores[$i] !=';' && trim($separadores[$i]) != '') {
 				$sql .= $palabras[$i].$separadores[$i].' ';
 			} else {
 				$sql .= $palabras[$i].' ';
@@ -128,10 +128,10 @@
 	{
 		if (count($columnas) > 0)
 		{
-			//Busca la ultima ocurrencia de ORDER BY en el SQL
+			//Busca la ultima ocurrencia de ORDER BY en el SQL, espera el ORDER BY sin espacio entre las palabras
 			$buscado = 'ORDER BY';
 			$ultima_pos = strripos($sql, $buscado);
-			if ($ultima_pos) {	//Si la encuentra
+			if ($ultima_pos !== false) {	//Si la encuentra
 				$anexo = "";
 				$parte_inicial = substr($sql, 0, $ultima_pos + strlen($buscado));
 				$parte_final = ", ".substr($sql, $ultima_pos + strlen($buscado), strlen($sql));

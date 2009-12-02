@@ -28,7 +28,7 @@ class toba_asistente_importacion_def extends toba_asistente_def
 		if ( isset($componente) ) {
 			$sql['molde_importacion']['sql'] .= "	AND		molde=$componente ";	
 		}
-		$sql['molde_importacion']['sql'] .= ";";
+		$sql['molde_importacion']['sql'] .= " ORDER BY molde;";
 		$sql['molde_importacion']['registros']='1';
 		$sql['molde_importacion']['obligatorio']=true;
 		return $sql;

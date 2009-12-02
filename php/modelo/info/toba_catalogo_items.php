@@ -48,10 +48,8 @@ class toba_catalogo_items extends toba_catalogo_items_base
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		toba_item_def::set_db(toba_contexto_info::get_db());
 		$sql_base = toba_item_def::get_vista_extendida($this->proyecto);
-		$sql = $sql_base['basica']['sql'];
-		$sql .=	$filtro_items;
-		$sql .= "	AND		(i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')";
-		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
+		$sql = sql_concatenar_where($sql_base['basica']['sql'], array(" (i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')" . $filtro_items ));
+		$sql = sql_agregar_ordenamiento($sql,  array(array('i.carpeta', 'asc'), array('i.orden', 'asc'),array('i.nombre', 'asc')));
 		$rs = toba_contexto_info::get_db()->consultar($sql);
 		$this->items = array();
 		if (!empty($rs)) {

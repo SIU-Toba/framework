@@ -68,7 +68,7 @@ class toba_ei_cuadro_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro=$componente ";	
 		}
-		$sql['_info_cuadro']['sql'] .= ";";
+		$sql['_info_cuadro']['sql'] .= " ORDER BY objeto_cuadro;";
 		$sql['_info_cuadro']['registros']='1';
 		$sql['_info_cuadro']['obligatorio']=true;
 		//------------ Columnas ----------------

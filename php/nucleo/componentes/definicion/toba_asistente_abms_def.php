@@ -44,7 +44,7 @@ class toba_asistente_abms_def extends toba_asistente_def
 		if ( isset($componente) ) {
 			$sql['molde_abms']['sql'] .= "	AND		molde=$componente ";	
 		}
-		$sql['molde_abms']['sql'] .= ";";
+		$sql['molde_abms']['sql'] .= "ORDER BY molde;";
 		$sql['molde_abms']['registros']='1';
 		$sql['molde_abms']['obligatorio']=true;
 		//------------ Columnas ----------------

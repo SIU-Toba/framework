@@ -44,7 +44,7 @@ class toba_datos_relacion_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_estructura']['sql'] .= "	AND		objeto=$quote_componente ";	
 		}
-		$sql['_info_estructura']['sql'] .= ";";
+		$sql['_info_estructura']['sql'] .= " ORDER BY objeto;";
 		$sql['_info_estructura']['registros']='1';
 		$sql['_info_estructura']['obligatorio']=true;
 		//------------ relaciones ----------------
@@ -67,7 +67,7 @@ class toba_datos_relacion_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_relaciones']['sql'] .= "	AND		objeto=$quote_componente ";	
 		}
-		$sql['_info_relaciones']['sql'] .= ";";
+		$sql['_info_relaciones']['sql'] .= " ORDER BY objeto, asoc_id;";
 		$sql['_info_relaciones']['registros']='n';
 		$sql['_info_relaciones']['obligatorio']=false;
 		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
@@ -104,7 +104,7 @@ class toba_datos_relacion_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_columnas_asoc_rel']['sql'] .= "	AND		rca.objeto=$quote_componente ";
 		}
-		$sql['_info_columnas_asoc_rel']['sql'] .= ";";
+		$sql['_info_columnas_asoc_rel']['sql'] .= " ORDER BY rca.asoc_id, rca.padre_objeto, rca.hijo_objeto, rca.padre_clave, rca.hijo_clave;";
 		$sql['_info_columnas_asoc_rel']['registros']='n';
 		$sql['_info_columnas_asoc_rel']['obligatorio']=false;
 		return $sql;

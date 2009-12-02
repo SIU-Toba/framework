@@ -32,8 +32,9 @@ class toba_asistente_def implements toba_componente_definicion
 						WHERE	p.operacion_tipo = t.operacion_tipo
 						AND		p.proyecto=$proyecto";
 		if ( isset($componente) ) {
-			$sql['molde']['sql'] .= "	AND		p.molde=$componente;";	
+			$sql['molde']['sql'] .= "	AND		p.molde=$componente";	
 		}
+		$sql['molde']['sql'] .= "	ORDER BY molde;";
 		$sql['molde']['registros']='1';	
 		$sql['molde']['obligatorio']=true;
 		return $sql;

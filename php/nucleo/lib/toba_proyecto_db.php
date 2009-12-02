@@ -112,7 +112,7 @@ class toba_proyecto_db
 				AND dt.objeto = comp.objeto
 				AND dt.objeto_proyecto = comp.proyecto
 				AND comp.fuente_datos = $id_fuente
-		";
+				ORDER BY dt.objeto";
 		$rs = $db->consultar($sql);
 		return rs_convertir_asociativo($rs, array('tabla'), 'objeto');
 	}
@@ -169,6 +169,7 @@ class toba_proyecto_db
 	             FROM apex_ptos_control_param 
 	            WHERE proyecto    = $proyecto
 	              AND pto_control = $pto_control
+				  ORDER BY parametro;
 	        "); 
     }
 
@@ -184,6 +185,7 @@ class toba_proyecto_db
              FROM apex_ptos_control_ctrl 
             WHERE proyecto    = $proyecto
               AND pto_control = $pto_control
+			  ORDER BY archivo, clase;
         ");
     }
 
@@ -287,7 +289,8 @@ class toba_proyecto_db
 									(i.item = ui.item AND i.proyecto = ui.proyecto)
 				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
 				AND		i.proyecto = $proyecto
-				AND		($sql_grupo_acceso i.publico = 1)";
+				AND		($sql_grupo_acceso i.publico = 1)
+				ORDER BY i.item ";
 		return $db->consultar($sql);
 	}
 
@@ -342,7 +345,7 @@ class toba_proyecto_db
 			AND	per_grupo.usuario_grupo_acc IN ($grupos_acceso)
 			AND	per_grupo.permiso = per.permiso
 			AND	per_grupo.proyecto = per.proyecto
-		";
+			ORDER BY per.nombre";
 		return self::get_db()->consultar($sql);
 	}
 
@@ -444,7 +447,8 @@ class toba_proyecto_db
 					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_msg 
 				WHERE indice = $indice
-				AND proyecto = 'toba';";
+				AND proyecto = 'toba'
+				ORDER BY msg;";
 		return $db->consultar_fila($sql, toba_db_fetch_asoc, false);	
 	}
 	

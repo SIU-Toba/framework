@@ -48,7 +48,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_estructura']['sql'] .= "	AND		objeto=$componente ";	
 		}
-		$sql['_info_estructura']['sql'] .= ";";
+		$sql['_info_estructura']['sql'] .= " ORDER BY dt.objeto;";
 		$sql['_info_estructura']['registros']='1';
 		$sql['_info_estructura']['obligatorio']=true;
 		//------------ Columnas ----------------
@@ -68,7 +68,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_columnas']['sql'] .= "	AND		objeto=$componente ";	
 		}
-		$sql['_info_columnas']['sql'] .= ";";
+		$sql['_info_columnas']['sql'] .= " ORDER BY objeto, col_id;";
 		$sql['_info_columnas']['registros']='n';
 		$sql['_info_columnas']['obligatorio']=true;
 		
@@ -95,7 +95,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_externas']['sql'] .= "	AND		aore.objeto=$componente ";
 		}
-		$sql['_info_externas']['sql'] .= ";";
+		$sql['_info_externas']['sql'] .= " ORDER BY aore.objeto, aore.externa_id;";
 		$sql['_info_externas']['registros']='n';
 		$sql['_info_externas']['obligatorio']=false;
 		
@@ -116,7 +116,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_externas_col']['sql'] .= "	AND		ext_col.objeto=$componente ";	
 		}
-		$sql['_info_externas_col']['sql'] .= ";";
+		$sql['_info_externas_col']['sql'] .= " ORDER BY ext_col.objeto , ext_col.externa_id;";
 		$sql['_info_externas_col']['registros']='n';
 		$sql['_info_externas_col']['obligatorio']=false;
 
@@ -127,7 +127,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_valores_unicos']['sql'] .= "	AND		objeto=$componente ";	
 		}
-		$sql['_info_valores_unicos']['sql'] .= ";";
+		$sql['_info_valores_unicos']['sql'] .= " ORDER BY columnas;";
 		$sql['_info_valores_unicos']['registros']='n';
 		$sql['_info_valores_unicos']['obligatorio']=false;
 				

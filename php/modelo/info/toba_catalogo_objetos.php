@@ -89,8 +89,7 @@ class toba_catalogo_objetos
 		toba_componente_def::set_db(toba_contexto_info::get_db());
 		$sql_base = toba_componente_def::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['_info']['sql'];
-		$sql .= "
-				AND		o.clase IN ('" . implode("', '", $clases) . "')
+		$extras = " o.clase IN ('" . implode("', '", $clases) . "')
 				AND 	o.proyecto = $proyecto
 				$filtro_dao				
 				$filtro_id
@@ -99,9 +98,10 @@ class toba_catalogo_objetos
 				$filtro_huerfano
 				$filtro_nombre
 				$filtro_tabla
-	            ORDER BY o.nombre
 		";
 
+		$sql = sql_concatenar_where($sql, array($extras));
+		$sql = sql_agregar_ordenamiento($sql, array(array('o.nombre', 'asc')));
 		//--- Recorrido
 		toba_componente_def::set_db(toba_contexto_info::get_db());
 		$datos = toba_contexto_info::get_db()->consultar($sql);

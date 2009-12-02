@@ -45,7 +45,7 @@ class toba_info_permisos
 				FROM apex_usuario_grupo_acc
 				WHERE 
 					proyecto = $proyecto
-				ORDER BY nombre
+				ORDER BY nombre, usuario_grupo_acc
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	

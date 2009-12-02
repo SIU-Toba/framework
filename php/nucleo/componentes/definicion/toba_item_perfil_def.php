@@ -44,6 +44,7 @@ class toba_item_perfil_def extends  toba_item_perfil
 		if ( isset($componente) ) {
 			$sql['basica']['sql'] .= "	AND		i.item =$componente ";	
 		}
+		$sql['basica']['sql'] .= "	ORDER BY i.item; ";
 		$sql['basica']['registros']='1';	
 		$sql['basica']['obligatorio']=true;
 		$sql['objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,
