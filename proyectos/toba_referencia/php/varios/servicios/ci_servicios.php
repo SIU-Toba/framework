@@ -7,6 +7,15 @@ class ci_servicios extends toba_ci
 	protected $adjunto_respuesta;
 	protected $path_servicio;
 	
+	function ini()
+	{
+		if (! extension_loaded('wsf')) {
+			toba::notificacion()->error("No se encuentra instalada la extensión wsf de php.".
+			" <a href='http://toba.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb'>Ver documentación</a>");
+		}
+	}
+	
+	
 	//-----------------------------------------------------------------------------
 	//---- Eco --------------------------------------------------------------------
 	//------------------------------------------------------------------------------
@@ -163,14 +172,17 @@ XML;
 		$carpeta = dirname(__FILE__);
 		$cert_server = ws_get_cert_from_file($carpeta.'/cert_server.cert');
 		$clave_privada = ws_get_key_from_file($carpeta."/clave_cliente.pem");
+		$cert_cliente = ws_get_cert_from_file($carpeta."/cert_cliente.cert");
     
 		$seguridad = array("encrypt" => true,
                        "algorithmSuite" => "Basic256Rsa15",
                        "securityTokenReference" => "IssuerSerial");
     
 		$policy = new WSPolicy(array("security" => $seguridad));
-		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,
-                                           "receiverCertificate" => $cert_server)
+		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,	//Encriptación
+											"receiverCertificate" => $cert_server,	//Encriptación
+											"certificate" 		=> $cert_cliente,	//Firmado
+											)
 						);		
     	$opciones = array('policy' => $policy, 'securityToken' => $security_token);		
 		$servicio = toba::servicio_web('encriptado_firmado', $opciones);
