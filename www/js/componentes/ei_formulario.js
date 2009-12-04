@@ -28,6 +28,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	this._estado_inicial = {};
 	this._con_examen_cambios = false;
 	this._cambios_excluir_efs = [];
+	this._tmp_valores_esclavos = {};		//lista temporal de valores a guardar hasta que retorna la cascada
 }
 
 	/**
@@ -232,6 +233,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 */
 	ei_formulario.prototype.cascadas_en_espera = function(id_ef)
 	{
+		if (this.ef(id_ef).tiene_estado()) {	//Guardo el estado actual por si acaso vuelve en la respuesta
+			this._tmp_valores_esclavos[id_ef] = this.ef(id_ef).get_estado();
+		}
 		//Se resetea y desactiva al ef y todos sus esclavos
 		this.ef(id_ef).borrar_opciones();		
 		this.ef(id_ef).desactivar();
@@ -283,6 +287,12 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			try {
 				var datos = eval('(' + respuesta.responseText + ')');
 				this.ef(respuesta.argument).set_opciones(datos);
+				if(isset(this._tmp_valores_esclavos[respuesta.argument])) {
+					var valor_viejo = this._tmp_valores_esclavos[respuesta.argument];
+					if (isset(datos[valor_viejo])) {
+						this.ef(respuesta.argument).set_estado(valor_viejo);
+					}
+				}
 				this.evt__cascadas_fin(this.ef(respuesta.argument), datos);
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
