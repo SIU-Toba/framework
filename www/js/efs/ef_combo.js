@@ -6,8 +6,9 @@ ef_combo.prototype.constructor = ef_combo;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_combo toba_ef_combo
 	 */
-	function ef_combo(id_form, etiqueta, obligatorio, colapsado) {
+	function ef_combo(id_form, etiqueta, obligatorio, colapsado, mantiene_estado_cascada) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		this._mantiene_estado = mantiene_estado_cascada;
 	}
 
 	//---Consultas		
@@ -16,7 +17,7 @@ ef_combo.prototype.constructor = ef_combo;
 	 * Tiene algun elemento seleccionado? (distinto del no_seteado)
 	 * @type boolean
 	 */
-	ef_combo.prototype.tiene_estado = function() {
+	ef_combo.prototype.tiene_estado = function(){
 		var valor = this.get_estado();
 		return valor !== '' &&  valor != apex_ef_no_seteado;	
 	};
@@ -120,6 +121,12 @@ ef_combo.prototype.constructor = ef_combo;
 		}
 	};
 	
+	/**
+	 * Devuelve si el ef mantiene o no su valor anterior entre los pedidos de cascada
+	 */
+	ef_combo.prototype.mantiene_valor_cascada = function() {
+		return this._mantiene_estado;
+	};
 	
 // ########################################################################################################
 // ########################################################################################################

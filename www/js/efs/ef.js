@@ -484,6 +484,13 @@ ef.prototype.constructor = ef;
 	ef.prototype.cambiar_valor = function(nuevo) {
 		this.set_estado(nuevo);
 	};
+
+	/**
+	 * @ignore
+	 */
+	ef.prototype.mantiene_valor_cascada = function() {
+		return false;
+	};
 	
 //--------------------------------------------------------------------------------
 ef_fijo.prototype = new ef();

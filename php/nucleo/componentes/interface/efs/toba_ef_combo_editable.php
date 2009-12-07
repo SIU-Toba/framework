@@ -110,12 +110,13 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	
 	function crear_objeto_js()
 	{
+		$mantiene_estado_js = toba_js::bool($this->mantiene_estado_cascada);
 		if (! $this->solo_lectura) {
-			return "new ef_combo_editable({$this->parametros_js()})";
+			return "new ef_combo_editable({$this->parametros_js()}, $mantiene_estado_js)";
 		} else {
 			//--En el caso que sea solo-lectura en el server, se comporta como un combo normal en js
 			$parametros = parent::parametros_js();
-			return "new ef_combo($parametros)";
+			return "new ef_combo($parametros, $mantiene_estado_js)";
 		}
 	}
 

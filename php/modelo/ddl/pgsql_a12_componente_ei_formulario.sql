@@ -116,6 +116,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	carga_col_desc						TEXT	NULL,
 	carga_maestros						TEXT	NULL,
 	carga_cascada_relaj					smallint		NULL,
+	cascada_mantiene_estado		smallint NOT NULL DEFAULT 0,
 	carga_permite_no_seteado	smallint		NOT NULL DEFAULT 0,
 	carga_no_seteado					TEXT	NULL,
 	carga_no_seteado_ocultar			smallint		NULL,

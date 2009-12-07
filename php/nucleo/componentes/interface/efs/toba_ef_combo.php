@@ -13,13 +13,15 @@ abstract class toba_ef_seleccion extends toba_ef
 	protected $categorias;
 	protected $estado_nulo = null;
 	protected $estado_defecto;
-
+	protected $mantiene_estado_cascada = false;		//Indica si se mantendra el estado entre cada pedido de cascadas
+	
     static function get_lista_parametros_carga()
     {
     	$param = toba_ef::get_lista_parametros_carga_basico();
 		$param[] = 'carga_permite_no_seteado';
 		$param[] = 'carga_no_seteado';
 		$param[] = 'carga_no_seteado_ocultar';
+		$param[] = 'cascada_mantiene_estado';
 		return $param;
     }
 	
@@ -38,8 +40,9 @@ abstract class toba_ef_seleccion extends toba_ef
 			} else {
 				$this->estado_defecto = trim($parametros['estado_defecto']);	
 			}
-		}		
-		
+		}
+		//Evaluo si el combo tiene que recordar el estado anterior entre cada cascada
+		$this->mantiene_estado_cascada =  (isset($parametros['cascada_mantiene_estado']) && ($parametros['cascada_mantiene_estado'] == '1'));
 		if (! isset($this->estado_defecto)) {
 			$this->estado_defecto = $this->estado_nulo;
 		}	
@@ -262,7 +265,8 @@ class toba_ef_combo extends toba_ef_seleccion
 
 	function crear_objeto_js()
 	{
-		return "new ef_combo({$this->parametros_js()})";
+		$mantiene_estado_js = toba_js::bool($this->mantiene_estado_cascada);
+		return "new ef_combo({$this->parametros_js()}, $mantiene_estado_js)";
 	}
 }
 

@@ -10,12 +10,13 @@ ef_combo_editable.prototype.constructor = ef_combo_editable;
  * @phpdoc Componentes/Efs/toba_ef_combo_editable toba_ef_combo_editable
  */
  
-function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
+function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mantiene_estado_cascada) {
 	ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	this._tamano = tamano;
 	this._es_oculto = false;
 	this._buscar_todo = false;
 	this._cascadas_ajax = false;	//El esquema de casacadas se maneja de forma particular
+	this._mantiene_estado = mantiene_estado_cascada;
 }
 
 	/**
@@ -160,7 +161,13 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano) {
 			return true;
 		}	
 	};
-	
+
+	/**
+	 * Devuelve si el ef mantiene o no su valor anterior entre los pedidos de cascada
+	 */
+	ef_combo_editable.prototype.mantiene_valor_cascada = function() {
+		return this._mantiene_estado;
+	};
 	//---Comandos 
 		
 	ef_combo_editable.prototype.seleccionar = function () {
