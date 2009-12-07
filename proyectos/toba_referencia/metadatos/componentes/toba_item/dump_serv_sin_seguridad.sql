@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[serv_sin_seguridad]--  Operaciones sin autorización 
+--[serv_sin_seguridad]--  Servicio Web - sin autorización 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Operaciones sin autorización', --nombre
+	'Servicio Web - sin autorización', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu

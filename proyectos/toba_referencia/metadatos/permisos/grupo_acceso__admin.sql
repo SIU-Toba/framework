@@ -549,6 +549,12 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'toba_referencia', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
+	'serv_encriptado_firmado'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_referencia', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
 	'serv_password'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (

@@ -216,9 +216,8 @@ class comando_instancia extends comando_toba
 		$this->consola->lista($i->get_parametros_db(), 'BASE');
 		$forzar = false;
 		if ($i->existe_modelo()) {
-			if ( $this->consola->dialogo_simple('Desea eliminar primero los datos actuales de la INSTANCIA?') ) {
-				$forzar = true;
-			}
+			$this->consola->mensaje("Se guardaran los datos existentes en un schema backup");
+			$forzar = true;
 		}
 		$this->get_instancia()->cargar($forzar);
 	}

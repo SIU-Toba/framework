@@ -544,7 +544,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			// Esta el modelo cargado
 			if ( $this->existe_modelo() ) {
 				if ( $forzar_carga ) {
-					$this->eliminar();
+					//Si existe un backup previo lo borra
+					$schema_backup = $this->get_schema_db().'_backup';
+					if ($this->get_db()->existe_schema($schema_backup)) {
+						$this->get_db()->borrar_schema($schema_backup);
+					}
+					$this->get_db()->renombrar_schema($this->get_schema_db(), $schema_backup);								
 				} else {
 					throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
 				}

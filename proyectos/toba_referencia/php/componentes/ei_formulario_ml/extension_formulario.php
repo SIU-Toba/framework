@@ -7,18 +7,6 @@ class extension_formulario extends toba_ei_formulario_ml
 	function extender_objeto_js()
 	{
 		echo  "
-		
-
-			{$this->objeto_js}.iniciar_fila_orig = {$this->objeto_js}.iniciar_fila;
-			{$this->objeto_js}.iniciar_fila = function (fila, agregar_tabindex, es_inicial) {
-				this.iniciar_fila_orig(fila, agregar_tabindex, es_inicial);
-				this.ef('prueba').ir_a_fila(fila).input().onkeyup = function() {
-					var ef = {$this->objeto_js}.ef('prueba').ir_a_fila(fila);
-					ef.set_estado(ef.get_estado().toUpperCase());
-				}
-			}
-		
-		
 			/**
 			 *	Redefine la creación de una fila para agregarle valores por defecto
 			 */

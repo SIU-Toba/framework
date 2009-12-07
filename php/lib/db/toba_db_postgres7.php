@@ -152,11 +152,17 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}		
 	
-	function crear_schema($schema) {
-		
+	function crear_schema($schema) 
+	{
 		$sql = "CREATE SCHEMA $schema ";
 		return $this->ejecutar($sql);
 	}	
+	
+	function renombrar_schema($actual, $nuevo) 
+	{
+		$sql = "ALTER SCHEMA $actual RENAME TO $nuevo";
+		return $this->ejecutar($sql);
+	}		
 	
 	//---------------------------------------------------------------------
 	//-- PERMISOS

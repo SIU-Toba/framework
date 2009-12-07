@@ -1,6 +1,8 @@
 <?php
 //Tamaño de la pila de la memoria sincronizada
-define("apex_hilo_tamano","5");
+if (! defined('apex_hilo_tamano')) {
+	define("apex_hilo_tamano","5");
+}
 //Tipos de reciclado de la memoria global
 define('apex_hilo_reciclado_item',0);
 define('apex_hilo_reciclado_acceso',1);
@@ -104,7 +106,7 @@ class toba_memoria
 				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]), $parametros);
 				$this->parametros = array_merge($this->parametros, $parametros);
 				unset($this->parametros[apex_hilo_qs_parametros]);
-				unset($this->parametros["jmb76"]);//Clave agregada para complicar la encriptacion
+				unset($this->parametros["jmb76"]);	//Clave agregada para complicar la encriptacion
 			}
 		}
 		unset($this->parametros[apex_hilo_qs_id]);
