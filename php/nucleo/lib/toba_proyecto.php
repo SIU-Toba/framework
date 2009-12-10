@@ -521,7 +521,7 @@ class toba_proyecto
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
 			} else {
-				$rs = array();	
+				$rs = false;	//Para ser coherentes en la respuesta con el else
 			}
 		} else {
 			$rs = toba_proyecto_db::get_mensaje_objeto($this->id, $objeto, $indice);	
