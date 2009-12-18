@@ -395,6 +395,7 @@ class toba_nucleo
 			'toba_error_def'						=> 'nucleo/lib/toba_error.php',
 			'toba_error_permisos'					=> 'nucleo/lib/toba_error.php',
 			'toba_error_autenticacion'				=> 'nucleo/lib/toba_error.php',
+			'toba_error_autenticacion_intentos'			=> 'nucleo/lib/toba_error.php',
 			'toba_error_autorizacion'				=> 'nucleo/lib/toba_error.php',
 			'toba_error_validacion' 				=> 'nucleo/lib/toba_error.php',
 			'toba_error_ini_sesion'					=> 'nucleo/lib/toba_error.php',

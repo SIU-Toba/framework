@@ -71,7 +71,7 @@ CREATE TABLE			apex_proyecto
 	usuario_anonimo_grupos_acc			TEXT	NULL,
 	validacion_intentos					smallint		NULL,
 	validacion_intentos_min				smallint		NULL,
-	validacion_bloquear_usuario			smallint		DEFAULT 1 NULL,
+	validacion_bloquear_usuario			smallint		DEFAULT 1 NULL,			--- 0/IP , 1/Usuario , 2/Captcha
 	validacion_debug					smallint		NULL,
 	sesion_tiempo_no_interac_min		smallint		NULL,
 	sesion_tiempo_maximo_min			smallint		NULL,

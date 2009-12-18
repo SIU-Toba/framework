@@ -774,21 +774,24 @@ class toba_manejador_sesiones
 			$error = 'La combinación usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
 			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');
-			if (isset($cant_max_intentos)) {
-				$bloquear_usuario = toba::proyecto()->get_parametro('validacion_bloquear_usuario');
+			if (isset($cant_max_intentos)) {				
+				$bloquear_usuario = (toba::proyecto()->get_parametro('validacion_bloquear_usuario') == '1');
+				$lanzar_excepcion = (toba::proyecto()->get_parametro('validacion_bloquear_usuario') == '2');
 				//Bloqueo el Usuario o IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
 				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
-				if ( $bloquear_usuario ) {
+				if ( $bloquear_usuario || $lanzar_excepcion) {
 					$intentos = $this->invocar_metodo_usuario('get_cantidad_intentos_usuario_en_ventana_temporal',array($id_usuario, $ventana_temporal));
 				}else{
 					$intentos = $this->invocar_metodo_usuario('get_cantidad_intentos_en_ventana_temporal',array($ip, $ventana_temporal));
 				}
 				$supero_tope_intentos_en_ventana = $intentos > $cant_max_intentos;
 				if ( $supero_tope_intentos_en_ventana ) {
-					if ( $bloquear_usuario ) {
+					if ($bloquear_usuario) {
 						$this->invocar_metodo_usuario('bloquear_usuario',array($id_usuario));
 						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion. El usuario ha sido bloqueado.");
-					}else{
+					}elseif ($lanzar_excepcion) {
+						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.|$intentos");
+					} else {
 						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
 						throw new toba_error_autenticacion("$error. La IP ha sido bloqueada.");
 					}

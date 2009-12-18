@@ -195,6 +195,14 @@ class toba_error_autenticacion extends toba_error
 }
 
 /**
+ * Excepción producida por sobrepasar el limite de intentos de autenticacion
+ */
+class toba_error_autenticacion_intentos extends toba_error
+{
+
+}
+
+/**
  * Excepción producida por un error en la autorizacion del usuario
  */
 class toba_error_autorizacion extends toba_error
