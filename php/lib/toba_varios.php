@@ -139,6 +139,7 @@
 
 	function rs_ordenar_por_columnas( $rs, $columnas, $tipo = SORT_ASC )
 	{
+		$sentido_default = SORT_ASC;			//-- Lo necesito para pasar por referencia al call_user_func_array
 		// Armo los arrays utilizados para ORDENAR
 		$orden = array();
 		for ( $a=0; $a < count( $rs ) ; $a++ ) {
@@ -149,11 +150,13 @@
 		// Armo los parametros del mutisort
 		foreach ( $columnas as $id => $col ) {
 			$parametros[] =& $orden[$id];
-			if (is_array($tipo)) {		//Permito que pueda recibir un arreglo  asociativo con los tipos de ordenamiento
-				$parametros[] = (isset($tipo[$col])) ? $tipo[$col] : SORT_ASC;
+			if (! is_array($tipo)) {		//Valor comun 
+				$parametros[] = &$tipo;
+			} elseif (isset($tipo[$col])) {		//Es arreglo asociativo por columna
+					$parametros[] =  &$tipo[$col];
 			} else {
-				$parametros[] = $tipo;
-			}			
+				$parametros[] =  &$sentido_default;
+			}
 		}
 		$parametros[] =& $rs;
 		// Como la funcion trabaja por referencia, tomo la posicion del array que me interesa ordenar

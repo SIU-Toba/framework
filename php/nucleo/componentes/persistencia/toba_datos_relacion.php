@@ -286,11 +286,11 @@ class toba_datos_relacion extends toba_componente
 		// Se construyen los nodos
 		$obj = array();
 		foreach ($tablas as $tabla) {
-			$nodo =& new Structures_Graph_Node();
+			$nodo = new Structures_Graph_Node();
 			$proveedor = isset($tabla['objeto_proveedor']) ? $tabla['objeto_proveedor'] : $tabla['objeto'];
-			$obj[$proveedor] =& $nodo;
+			$obj[$proveedor] = $nodo;
 			$nodo->setData($tabla);
-			$grafo->addNode($nodo);
+			$grafo->addNode($obj[$proveedor]);
 		}
 		//Se agregan los arcos
 		foreach ($relaciones as $asoc) {
