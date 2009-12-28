@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'consultas', --clase
 	'operaciones_simples/consultas.php', --include
 	NULL, --sql
-	'1', --dato_estricto
+	'0', --dato_estricto
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'1', --permite_carga_masiva

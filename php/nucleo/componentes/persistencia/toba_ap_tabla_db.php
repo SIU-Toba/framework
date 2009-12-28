@@ -1288,7 +1288,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$campos_externos[$indice] = $externo;
 			}
 		}
-		if (empty($campos_externos)) {
+		if (empty($campos_externos) && $es_obligatoria) {
 			$this->log('El método de carga masiva no devuelve los campos clave, no se puede adjuntar los datos externos');
 			throw new toba_error_def('AP_TABLA_DB: ERROR El método de carga no devuelve los campos clave, no se puede adjuntar los datos externos');
 		}

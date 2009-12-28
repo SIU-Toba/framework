@@ -16,7 +16,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_servicios', --subclase
-	'varios/servicios/ci_servicios.php', --subclase_archivo
+	'servicios/ci_servicios.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Servicios Web', --nombre
@@ -87,6 +87,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'30000110', --objeto_consumidor
 	'30000119', --objeto_proveedor
 	'form_echo_seguro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'30000066', --dep_id
+	'30000110', --objeto_consumidor
+	'30000121', --objeto_proveedor
+	'form_secuencia', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -203,6 +215,23 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase_archivo
 	NULL  --template
 );
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'30000110', --objeto_ci
+	'30000050', --pantalla
+	'pant_secuencia', --identificador
+	'5', --orden
+	'Secuencia de mensajes', --etiqueta
+	'<p>Se envian tres mensajes, el primero espera respuesta (método request) mientras que los otros dos no (método send). Esta secuencia no constituye una transacción ya que cada mensaje implica un request HTTP individual y por lo tanto cada servicio tiene una sesión propia de la base de datos. Para poder usar una transacción de base de datos en el servidor es necesario wrappear las tres operaciones en una única</p>', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL  --template
+);
 --- FIN Grupo de desarrollo 30
 
 ------------------------------------------------------------
@@ -235,4 +264,11 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'30000110', --objeto_ci
 	'0', --orden
 	'30000065'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_referencia', --proyecto
+	'30000050', --pantalla
+	'30000110', --objeto_ci
+	'0', --orden
+	'30000066'  --dep_id
 );

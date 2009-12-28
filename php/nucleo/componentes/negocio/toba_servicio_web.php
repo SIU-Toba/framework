@@ -31,7 +31,11 @@ abstract class toba_servicio_web extends toba_componente
 		$metodo = substr($nombre, 1);
 		$mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
 		$mensaje_salida = $this->$metodo($mensaje_entrada);
-		return $mensaje_salida->wsf();
+		if (isset($mensaje_salida)) {
+			return $mensaje_salida->wsf();
+		} else {
+			return;
+		}
 	}
 
 

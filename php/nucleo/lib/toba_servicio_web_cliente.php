@@ -55,7 +55,7 @@ class toba_servicio_web_cliente
 	
 
 	/**
-	 * Envia un mensaje al servicio web
+	 * Envia un mensaje al servicio web y espera la respuesta
 	 * @param toba_servicio_web_mensaje $mensaje
 	 * @return toba_servicio_web_mensaje
 	 */
@@ -71,7 +71,16 @@ class toba_servicio_web_cliente
 		}
 	}
 	
-
+	function send(toba_servicio_web_mensaje $mensaje)
+	{
+		try {
+			$this->wsf->send($mensaje->wsf());
+		} catch (WSFault $fault) {
+			throw new toba_error_comunicacion($fault->__toString(), $this->opciones, $this->wsf->getLastResponseHeaders());
+		} catch (Exception $e) {
+			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
+		}
+	}
 	
 
 	

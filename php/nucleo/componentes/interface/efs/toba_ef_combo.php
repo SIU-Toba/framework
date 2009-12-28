@@ -246,7 +246,8 @@ class toba_ef_combo extends toba_ef_seleccion
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
-        	$input = toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");	
+        	$clase = $this->clase_css.' ef-input-solo-lectura';
+        	$input = toba_form::select("",$estado, $this->opciones, $clase, "disabled");	
 			$input .= toba_form::hidden($this->id_form, $estado);
             return $input;
 		} else {
@@ -257,7 +258,7 @@ class toba_ef_combo extends toba_ef_seleccion
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
-			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
+			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, $this->clase_css, $js . $this->input_extra.$extra, $this->categorias);
 			$html .= $this->get_html_iconos_utilerias();
 			return $html;
 		}

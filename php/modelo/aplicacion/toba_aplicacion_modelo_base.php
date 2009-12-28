@@ -291,6 +291,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		} else {
 			$this->regenerar_modelo_datos($base, $id_def_base);
 		}
+		
+		//Actualiza permisos de la base
+		$this->proyecto->generar_roles_db();
 	}
 
 	function desinstalar()

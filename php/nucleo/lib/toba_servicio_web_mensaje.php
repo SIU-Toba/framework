@@ -2,7 +2,7 @@
 
 class toba_servicio_web_mensaje
 {
-	protected $mensaje;
+	protected $mensaje = null;
 	protected $payload;
 	
 	/**
@@ -14,20 +14,16 @@ class toba_servicio_web_mensaje
 		if (is_string($datos)) {
 			$this->payload = $datos;
 			$this->mensaje = new WSMessage($this->payload, $opciones);			
-		} else {
-			if (is_array($datos)) {
-				$proyecto = toba::proyecto()->get_id();
-				$this->payload = "<ns1:servicio xmlns:ns1='http://toba.siu.edu.ar/$proyecto'>\n";
-				$this->payload .= self::array_a_payload($datos);
-				$this->payload .= "</ns1:servicio>";			
-				$this->mensaje = new WSMessage($this->payload, $opciones);
-			}
-			if (is_a($datos, 'WSMessage')) {
-				$this->mensaje = $datos;
-				$this->payload = $this->mensaje->str;
-			}			
-		}		
-
+		} elseif (is_array($datos)) {
+			$proyecto = toba::proyecto()->get_id();
+			$this->payload = "<ns1:servicio xmlns:ns1='http://toba.siu.edu.ar/$proyecto'>\n";
+			$this->payload .= self::array_a_payload($datos);
+			$this->payload .= "</ns1:servicio>";			
+			$this->mensaje = new WSMessage($this->payload, $opciones);
+		} elseif (is_a($datos, 'WSMessage')) {
+			$this->mensaje = $datos;
+			$this->payload = $this->mensaje->str;
+		}			
 	}
 	
 	/**

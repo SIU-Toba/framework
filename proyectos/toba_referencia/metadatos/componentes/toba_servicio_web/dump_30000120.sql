@@ -16,7 +16,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_servicio_web', --clase
 	'serv_encriptado_firmado', --subclase
-	'varios/servicios/serv_encriptado_firmado.php', --subclase_archivo
+	'servicios/serv_encriptado_firmado.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Servicio Web - Encriptación y firma', --nombre

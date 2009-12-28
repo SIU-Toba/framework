@@ -73,11 +73,6 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$opciones = array();
 		$opciones['serviceName'] = $this->info['basica']['item']; 
 		$opciones['classes'][$clase]['operations'] = $metodos;
-		if (isset($opciones_extension['actions'])) {
-			//Pasa el actions procedural a uno orientado a objetos
-			//$opciones['classes'][$clase]['actions'] = $opciones_extension['actions'];	
-			//unset($opciones_extension['actions']);
-		}
 		$opciones = array_merge($opciones, $opciones_extension);
 		toba::logger()->debug("Opciones del servidor: ".var_export($opciones, true), 'toba');
 		$opciones['classes'][$clase]['args'] = array($datos);

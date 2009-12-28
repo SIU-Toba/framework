@@ -50,7 +50,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000306', --evento_id
 	'1269', --objeto
 	'refrescar', --identificador
-	'Refrescar', --etiqueta
+	'R&efrescar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion

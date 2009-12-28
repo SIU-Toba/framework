@@ -6,6 +6,7 @@ class ci_servicios extends toba_ci
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
 	protected $path_servicio;
+	protected $datos_persona;
 	
 	function ini()
 	{
@@ -131,7 +132,7 @@ XML;
 		$servicio = toba::servicio_web('seguridad_password', $opciones);
 		
 		//--4- Hace un request a la acción específica enviando el arreglo
-		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
+		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/aplanar_array');
 		$mensaje = new toba_servicio_web_mensaje($arreglo, $opciones);
 		$respuesta = $servicio->request($mensaje);
 		
@@ -142,10 +143,13 @@ XML;
 		$this->s__datos_password['respuesta_payload'] = $this->formatear_valor($respuesta->get_payload());
 		$this->s__datos_password['respuesta_arreglo'] = $this->formatear_valor(var_export($arreglo_resultado, true));
 	}
+
+
 	
-	//-----------------------------------------------------------------------------
-	//---- Dialogo usando encriptacion y firmado del mensaje     ------------------
-	//-----------------------------------------------------------------------------
+	
+	//--------------------------------------------------------------
+	//---- Encriptacion y firmado del mensaje     ------------------
+	//--------------------------------------------------------------
 
 	function conf__form_echo_seguro(toba_ei_formulario $form)
 	{
@@ -191,6 +195,53 @@ XML;
 		$respuesta = $servicio->request($mensaje);
 		toba::notificacion()->info($respuesta->get_payload());		
 	}
+		
+	//--------------------------------------------------------------
+	//---- Secuencia de mensajes     -------------------------------
+	//--------------------------------------------------------------	
+	
+	function conf__form_secuencia(toba_ei_formulario $form)
+	{
+		$this->path_servicio = 'varios/servicios/serv_password.php';
+		if (isset($this->datos_persona)) {
+			$form->set_datos($this->datos_persona);
+		}
+	}
+	
+	function evt__form_secuencia__enviar($datos)
+	{
+		$this->datos_persona = $datos;
+		
+		//--1- Construye el cliente usando seguridad por password
+	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
+	    $security_token = new WSSecurityToken(array('user' => 'toba', 'password' => 'toba'));
+    	$opciones = array(
+    					'policy' => $policy, 
+    					'securityToken' => $security_token
+    	);
+    	$servicio = toba::servicio_web('seguridad_password', $opciones);
+    	
+    	//--2- Da de alta la persona
+    	$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/persona_alta');
+    	$mensaje = new toba_servicio_web_mensaje($this->datos_persona, $opciones);
+    	$respuesta = $servicio->request($mensaje);
+		$id_rs = $respuesta->get_array();
+    	$this->datos_persona['id'] = $id_rs['id'];		
+
+    	//--3- Le setea los juegos (utiliza send en lugar de request ya que no espera respuesta)
+    	$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/persona_set_juegos');
+    	$mensaje = new toba_servicio_web_mensaje($this->datos_persona, $opciones);
+    	$servicio->send($mensaje);    
+
+    	//--4- Le setea los deportes (utiliza send en lugar de request ya que no espera respuesta)
+    	$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/persona_set_deportes',
+    						'lastMessage' => true);
+    	$mensaje = new toba_servicio_web_mensaje($this->datos_persona, $opciones);
+    	$servicio->send($mensaje);   	
+    	
+    	//--5- Muestra la respuesta
+    	toba::notificacion()->info("Creada persona número ".$this->datos_persona['id']);    	
+	}	
 		
 	
 	//-----------------------------------------------------------------------------
