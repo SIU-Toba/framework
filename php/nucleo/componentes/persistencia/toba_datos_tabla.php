@@ -1356,15 +1356,9 @@ class toba_datos_tabla extends toba_componente
 	 */
 	protected function control_tope_minimo_filas()
 	{
-		$control_tope_minimo=true;
-		if($control_tope_minimo){
-			if( $this->_tope_min_filas != 0){
-				if( ( $this->get_cantidad_filas() < $this->_tope_min_filas) ){
-					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new toba_error_validacion("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron
-					sólo {$this->get_cantidad_filas()}).");
-				}
-			}
+		if ($this->_tope_min_filas != 0 && $this->get_cantidad_filas() < $this->_tope_min_filas) {
+				throw new toba_error_validacion("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron
+				sólo {$this->get_cantidad_filas()}).");
 		}
 	}
 

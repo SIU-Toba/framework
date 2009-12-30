@@ -147,6 +147,26 @@ class ci_catalogo extends toba_ci
 		$obj = $catalogo->get_objetos($opciones, true);
 		return $obj;
 	}	
+	
+	
+	function conf__servicios_web(toba_ei_cuadro $cuadro)
+	{
+		$cuadro->colapsar();
+		$datos = toba_info_editores::get_servicios_web_acc();
+		foreach (array_keys($datos) as $id) {
+			$datos[$id]['icono']	= 'fuente.png';
+			$parametros = array('menu' => 1,  apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['servicio_web']);
+			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
+			// Editar la fuente
+			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
+																	30000048,
+																	$parametros,
+																	$img);
+			$datos[$id]['editar'] .= "</span>";
+		}		
+		$cuadro->set_datos($datos);		
+	}
 
 	//---------------------------------------------------------------
 	//---------------------------------------------------------------

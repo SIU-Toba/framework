@@ -178,12 +178,6 @@
 	}
 
 	function ei_arbol($arbol,$identificador="DUMPEO de VALORES",$ancho="50%",$colapsado=false)
-/*
-	@@acceso: publico
-	@@desc: 
-	@@param: 
-	@@retorno:
-*/
 	{
 		//Me estan llamando por consola??
 		if(toba::solicitud() != null && toba::solicitud()->get_tipo() == 'consola'){
@@ -191,7 +185,7 @@
 			print_r($arbol);
 			//echo "</pre>";
 			return;
-		}		
+		}
 		//Javascript de colapsado de niveles (esto no es bello, pero funciona)
 		static $js = 0; // Para que entre una sola vez
 		if($js==0){
@@ -209,6 +203,7 @@
 				}</script>";
 		}
 		$js++;
+		
 		//Es un array?
 		if(is_array($arbol)){
 			echo "<div  align='center'><br>";

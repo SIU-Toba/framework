@@ -1753,17 +1753,14 @@ class toba_ei_cuadro extends toba_ei
 			$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
 		}
 		//-- Tabla BASE
-		$mostrar_cabecera = true;
 		$ancho = convertir_a_medida_tabla($ancho);
 		echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
 		echo"<tr><td style='padding:0;'>\n";
 		echo $this->get_html_barra_editor();
 		
-		if($mostrar_cabecera){
-			$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
-		}
+		$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
+		
 		//-- INICIO zona COLAPSABLE
-
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
 		echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
@@ -1864,16 +1861,23 @@ class toba_ei_cuadro extends toba_ei
 	 * @param string $texto Texto a mostrar en base a la definición del componente
 	 */
 	protected function html_mensaje_cuadro_vacio($texto){
+		$this->_memoria['claves_enviadas'] = array();
 		$this->html_generar_campos_hidden();
-		echo $this->get_html_barra_editor();
 		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
-		echo "<div class='ei-cuadro-scroll' style='width: $ancho; '>\n";
+		//-- Tabla BASE
+		$ancho = convertir_a_medida_tabla($ancho);
+		echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
+		echo"<tr><td style='padding:0;'>\n";
+		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
+		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "display:none;" : '';
+		echo "<div class='ei-cuadro-scroll ei-cuadro-cuerpo' style='width: $ancho; $colapsado' id='cuerpo_{$this->objeto_js}'>\n";
 		echo ei_mensaje($texto);
-		echo '</div>';
 		if ($this->hay_botones() && $this->botonera_abajo()) {
 			$this->generar_botones();
-		}		
+		}				
+		echo '</div></td></tr></table>';
 	}
 
 	/**

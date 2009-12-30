@@ -207,7 +207,14 @@ class comando_instancia extends comando_toba
 	function opcion__regenerar()
 	{
 		if ($this->get_instancia()->existe_modelo()) {
-			if ( $this->consola->dialogo_simple('Desea EXPORTAR antes la información local de la INSTANCIA?') ) {
+			$timestamp = $this->get_instancia()->get_fecha_exportacion_local();
+			if (isset($timestamp)) {
+				$extra = "Si responde NO se utilizaran los exportados el ".date("D j-M-y \a \l\a\s h:m ", $timestamp);
+			} else {
+				$extra = "Si responde NO la instancia será inaccesible";
+			}
+			$extra .= "\n";
+			if ( $this->consola->dialogo_simple('Desea conservar datos locales como usuarios y logs?', true, $extra) ) {
 				$this->opcion__exportar_local();
 			}
 		}

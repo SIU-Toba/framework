@@ -16,7 +16,6 @@ class ci_servicios extends toba_ci
 		}
 	}
 	
-	
 	//-----------------------------------------------------------------------------
 	//---- Eco --------------------------------------------------------------------
 	//------------------------------------------------------------------------------
@@ -27,6 +26,7 @@ class ci_servicios extends toba_ci
 		if (isset($this->s__echo)) {
 			$form->set_datos($this->s__echo);
 		}
+	
 	}
 
 	function evt__form_echo__enviar($datos)
@@ -38,7 +38,10 @@ class ci_servicios extends toba_ci
 	<texto>{$datos['texto']}</texto>
 </ns1:eco>
 XML;
-		$servicio = toba::servicio_web('sin_seguridad');
+		$opciones = array(
+			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
+		);
+		$servicio = toba::servicio_web('sin_seguridad', $opciones);
 		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload));
 		toba::notificacion()->info($respuesta->get_payload());
 	}
@@ -85,7 +88,10 @@ XML;
 </ns1:upload>
 XML;
 		//--3 -Pide el servicio
-	    $servicio = toba::servicio_web('sin_seguridad');	
+		$opciones = array(
+			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
+		);		
+	    $servicio = toba::servicio_web('sin_seguridad', $opciones);	
 		$imagen = toba::proyecto()->get_www_temp($this->s__adjunto['archivo']);
 	    $imagen_contenido = file_get_contents($imagen['path']);
 	    $opciones = array('attachments' => array('myid1' => $imagen_contenido));
@@ -126,7 +132,11 @@ XML;
 	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
 	    $security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
 	                                                'password' => $this->s__datos_password['password']));
-    	$opciones = array('policy' => $policy, 'securityToken' => $security_token);
+    	$opciones = array(
+    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password', 
+    					'policy' => $policy, 
+    					'securityToken' => $security_token
+    	);
     	
     	//--3- Construye el cliente
 		$servicio = toba::servicio_web('seguridad_password', $opciones);
@@ -188,7 +198,11 @@ XML;
 											"certificate" 		=> $cert_cliente,	//Firmado
 											)
 						);		
-    	$opciones = array('policy' => $policy, 'securityToken' => $security_token);		
+    	$opciones = array(
+    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_encriptado_firmado',    	
+    				'policy' => $policy, 
+    				'securityToken' => $security_token
+    	);		
 		$servicio = toba::servicio_web('encriptado_firmado', $opciones);
 	
 		//-- 3 - Muestra la respuesta		
@@ -216,6 +230,7 @@ XML;
 	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
 	    $security_token = new WSSecurityToken(array('user' => 'toba', 'password' => 'toba'));
     	$opciones = array(
+    		    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password',    	
     					'policy' => $policy, 
     					'securityToken' => $security_token
     	);

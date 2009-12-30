@@ -260,11 +260,15 @@ class consola implements toba_proceso_gui
 	// Interaccion con el usuario
 	//------------------------------------------------------------------------
 
-	function dialogo_simple( $texto, $defecto = null )
+	function dialogo_simple( $texto, $defecto = null, $extra=null)
 	{
 		$this->imprimir("$texto (Si o No)\n");
+		if (isset($extra)) {
+			$this->imprimir($extra);		
+		}		
 		do {
 			$this->imprimir("(s/n):");
+		
 			$respuesta = trim( fgets( STDIN ) );
 			if (isset($defecto) && $respuesta == '') {
 				$respuesta = ($defecto) ? 's' : 'n';

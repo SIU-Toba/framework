@@ -1439,6 +1439,25 @@ class toba_info_editores
 		ORDER BY tabla_1";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	//------------------------------------------------------------------------------
+	//----------  SERVICIOS WEB
+	//------------------------------------------------------------------------------	
+	
+	function get_servicios_web_acc($proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		$sql = "SELECT		
+					proyecto,
+					servicio_web
+				FROM	apex_servicio_web
+				WHERE	proyecto = $proyecto
+				ORDER BY servicio_web
+		";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
 
 }
 ?>

@@ -99,9 +99,9 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
-	'1', --eof_invisible
+	'0', --eof_invisible
 	'No hay fuentes de datos definidas', --eof_customizado
-	'0', --siempre_con_titulo
+	'1', --siempre_con_titulo
 	'0', --exportar_paginado
 	'0', --exportar
 	'0', --exportar_rtf

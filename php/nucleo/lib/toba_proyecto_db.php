@@ -437,6 +437,44 @@ class toba_proyecto_db
 		return $temp;
 	}
 
+	//------------------------  SERVICIOS WEB -----------------------
+
+	static function get_info_servicio_web($proyecto, $servicio)
+	{
+		$db = self::get_db();
+		$proyecto = $db->quote($proyecto);
+		$servicio = $db->quote($servicio);
+
+		$sql = " 	SELECT	
+						proyecto,
+						servicio_web,
+						descripcion,
+						param_to,
+						param_action					
+					FROM apex_servicio_web
+					WHERE proyecto = $proyecto
+					AND	servicio_web = $servicio";
+		$datos = $db->consultar_fila($sql);
+		$datos['parametros'] = array('to' => $datos['param_to']);
+		if (isset($datos['param_action'])) {
+			$datos['parametros']['action'] = $datos['param_action'];
+		}
+		
+		
+		//Parametros
+		$sql = " 	SELECT	parametro,					
+							valor					
+					FROM apex_servicio_web_param
+					WHERE proyecto = $proyecto
+					AND	servicio_web = $servicio
+					ORDER BY parametro";
+		foreach ($db->consultar($sql) as $fila) {
+			$datos['parametros'][$fila['parametro']] = $fila['valor'];
+		}
+		return $datos;
+	}
+	
+	
 	//------------------------  MENSAJES  -------------------------
 	
 	static function get_mensaje_toba($indice)

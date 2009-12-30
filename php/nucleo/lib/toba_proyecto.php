@@ -544,6 +544,23 @@ class toba_proyecto
 		}
 		return $rs;
 	}
+
+	//------------------------  SERVICIOS WEB  -------------------------
+
+	function get_info_servicios_web_acc($id, $proyecto=null)
+	{
+		if (! isset($proyecto)) $proyecto = $this->id;		
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__servicios_web','servicio__'.$id);
+		} else {
+			$rs = toba_proyecto_db::get_info_servicio_web($proyecto, $id);
+		}
+		if (empty($rs)) {
+			throw new toba_error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");	
+		}
+		return $rs;
+	}	
+	
 	
 	//-- Soporte a la compilacion ----------------------
 	

@@ -246,6 +246,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return false;
 		}
 	}
+	
+	function get_fecha_exportacion_local()
+	{
+		$archivo = $this->dir.'/global/usuarios.sql';
+		if (! file_exists($archivo)) {
+			return null;
+		} else {
+			return filemtime($archivo);
+		}
+	}	
 		
 	//-----------------------------------------------------------
 	//	Manipulacion de la DEFINICION

@@ -11,19 +11,21 @@ class toba_servicio_web_cliente
 	 */
 	static function conectar($id_servicio, $opciones=array())
 	{
+		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio);
+		$opciones_ini = $info['parametros'];
+		
 		//-- Lee opciones predefinidas del .ini
 		$path_ini = toba::nucleo()->toba_instalacion_dir().'/servicios_web.ini';		
 		if (! isset(self::$ini)) {
-			if (! file_exists($path_ini)) {
-				throw new toba_error_def("No existe el archivo '$path_ini'");
+			if (file_exists($path_ini)) {
+				self::$ini = new toba_ini($path_ini);				
+				if (self::$ini->existe_entrada($id_servicio)) {
+					$opciones_ini = array_merge($opciones_ini, self::$ini->get_datos_entrada($id_servicio));			
+				}		
 			}			
-			self::$ini = new toba_ini($path_ini);			
 		}
-		if (! self::$ini->existe_entrada($id_servicio)) {
-			throw new toba_error_def("No existe la entrada '$id_servicio' en el archivo '$path_ini'");
-		}		
-		$opciones_ini = self::$ini->get_datos_entrada($id_servicio);
-		//Convierte todos los '1' de texto en true-
+		
+		//Convierte todos los '1' de texto en true
 		foreach (array_keys($opciones_ini) as $id_opcion) {
 			if ($opciones_ini[$id_opcion] === '1') {
 				$opciones_ini[$id_opcion] = true;

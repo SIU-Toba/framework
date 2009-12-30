@@ -1099,6 +1099,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->compilar_metadatos_generales_mensajes();
 		$this->compilar_metadatos_generales_dimensiones();
 		$this->compilar_metadatos_generales_consultas_php();
+		$this->compilar_metadatos_generales_servicios_web();
 	}
 
 	/**
@@ -1329,6 +1330,26 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$clase->guardar( $archivo );
 		$this->manejador_interface->progreso_fin();
 	}
+	
+	/**
+	*	Compilacion acceso SERVICIOS WEB
+	*/	
+	private function compilar_metadatos_generales_servicios_web()
+	{
+		//-- Datos basicos --
+		$this->manejador_interface->mensaje('Servicios Web', false);
+		$nombre_clase = 'toba_mc_gene__servicios_web_php';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		foreach(toba_info_editores::get_servicios_web_acc() as $serv_web) {		
+			$datos = toba_proyecto_db::get_info_servicio_web($this->get_id(), $serv_web['servicio_web']);
+			$clase->agregar_metodo_datos('servicio__'.$serv_web['servicio_web'], $datos );
+			$this->manejador_interface->progreso_avanzar();
+		}
+		//Creo el archivo
+		$clase->guardar( $archivo );
+		$this->manejador_interface->progreso_fin();
+	}	
 
 	private function compilar_operaciones()
 	{
