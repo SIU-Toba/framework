@@ -22,15 +22,16 @@ class toba_servicio_web_cliente
 				if (self::$ini->existe_entrada($id_servicio)) {
 					$opciones_ini = array_merge($opciones_ini, self::$ini->get_datos_entrada($id_servicio));			
 				}		
-			}			
+			}
 		}
 		
 		//Convierte todos los '1' de texto en true
 		foreach (array_keys($opciones_ini) as $id_opcion) {
-			if ($opciones_ini[$id_opcion] === '1') {
+			if ($opciones_ini[$id_opcion] === '1' || $opciones_ini[$id_opcion] === 1) {
 				$opciones_ini[$id_opcion] = true;
 			}
 		}		
+
 		//-- Mezcla con las opciones recibidas y crea el objeto
 		$opciones = array_merge($opciones_ini, $opciones);
 		if (! isset($opciones['to'])) {
@@ -54,7 +55,6 @@ class toba_servicio_web_cliente
 	{
 		return $this->wsf;	
 	}
-	
 
 	/**
 	 * Envia un mensaje al servicio web y espera la respuesta
@@ -83,7 +83,6 @@ class toba_servicio_web_cliente
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
 		}
 	}
-	
 
 	
 }

@@ -450,14 +450,14 @@ class toba_proyecto_db
 						servicio_web,
 						descripcion,
 						param_to,
-						param_action					
+						param_wsa					
 					FROM apex_servicio_web
 					WHERE proyecto = $proyecto
 					AND	servicio_web = $servicio";
 		$datos = $db->consultar_fila($sql);
 		$datos['parametros'] = array('to' => $datos['param_to']);
-		if (isset($datos['param_action'])) {
-			$datos['parametros']['action'] = $datos['param_action'];
+		if (isset($datos['param_wsa'])) {
+			$datos['parametros']['useWSA'] = $datos['param_wsa'];
 		}
 		
 		
