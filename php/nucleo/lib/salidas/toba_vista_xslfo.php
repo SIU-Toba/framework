@@ -68,6 +68,15 @@ class toba_vista_xslfo
 	{
 		$this->tipo_salida = $tipo;
 	}
+
+	/**
+	 * Permite setear el xsl a utilizar desde fuera de la clase
+	 * @param string $xsl Nombre del archivo xsl a utilizar
+	 */
+	function set_xsl($xsl)
+	{
+		$this->xsl_proyecto = $xsl;
+	}
 	
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf

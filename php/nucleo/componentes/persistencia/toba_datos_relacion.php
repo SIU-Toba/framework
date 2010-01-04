@@ -617,5 +617,104 @@ class toba_datos_relacion extends toba_componente
 		}
 		return $resultado;
 	}
+
+	/**
+	 * Carga en el nodo xml los datos cargados en el DR. Funciona sólo para relaciones que se modelan como un árbol, no grafos.
+	 * @param SimpleXMLElement $xml Es el nodo XML donde se van a cargar todos los datos
+	 */
+	
+	function get_xml($xml){
+
+		// Controla que haya una única tabla raiz
+		if(count($this->_tablas_raiz) != 1)
+			throw new toba_error_def("El datos_relacion no posee una única tabla raiz.");
+
+		// Recupera los registros de la tabla raiz para armar cada unidad del XML.
+		$datos_raiz = $this->_dependencias[$this->_tablas_raiz[0]]->get_filas();
+		
+		// Para cada registro agrega el nodo XML correspondiente y manda a armar el contenido de cada uno
+		foreach($datos_raiz as $clave => $valor){
+			$entidad = $xml->addChild($this->_tablas_raiz[0]);
+			$this->armar_xml($entidad,$this->_tablas_raiz[0],$clave);
+		}
+	}
+	
+	/**
+	 * Arma un nodo XML para un registro de un datos tabla, con sus columnas como atributos y sus registros de tablas hijas como nuevos nodos internos
+	 * Es un método recursivo con la siguiente estructura:
+	 * a) Setea el cursor en el registro dado de la tabla dada
+	 * b) agrega los datos del registro en el que se está parado como atributos del nodo xml recibido
+	 * c) Para cada tabla hija agrega un nodo al nodo dado.
+	 * d) Para cada registro de cada tabla hija, agrega un nodo al nodo creado en c) y llama recursivamente a la función
+	 *
+	 * @param SimpleXMLElement $xml es el nodo donde se va a agregar la información
+	 * @param string $tabla la tabla de la que se van a sacar los datos
+	 * @clave int $clave es la clave del registro de la tabla del que se van a sacar los datos
+	 */
+
+	protected function armar_xml($xml,$tabla,$clave)
+	{
+		// Setea el cursor de la tabla (esto además está seteando un cursor en las tablas hijas
+		$this->_dependencias[$tabla]->set_cursor($clave);
+		
+		// Agrega los datos del registro seleccionado como atributos
+		$this->_dependencias[$tabla]->get_xml($xml);
+		
+		// Recupera las tablas hijas de la tabla que se está recorriendo
+		$tablas_hijas = $this->get_tablas_hijas($tabla);
+
+		// Para cada tabla hija, agrega un nodo al nodo dado
+		foreach($tablas_hijas as $tabla_hija){
+			$id_filas_hijas = $this->_dependencias[$tabla_hija]->get_id_filas();
+			$xml2 = $xml->addChild($tabla_hija);
+			
+			// Para cada registro de las tablas hijas seleccionado según el cursor, agrego un nodo y llamo recursivamente
+			foreach($id_filas_hijas as $id_fila_hija){
+				$xml3 = $xml2->addChild('registro');
+				$this->armar_xml($xml3,$tabla_hija,$id_fila_hija);
+			}
+		}
+	}
+
+	/**
+	 * Dada una tabla del DR, recupera los identificadores de las tablas hijas
+	 * @param string $tabla es el identificador de la tabla
+	 * @return mixed es el conjunto de identificadores de las tablas hijas
+	 */
+	protected function get_tablas_hijas($tabla)
+	{
+		// Busco el id de la tabla
+		$id_objeto_padre = null;
+		$i = 0;
+		while(!$id_objeto_padre && $i < count($this->_info_dependencias)){
+			if($this->_info_dependencias[$i]['identificador'] == $tabla){
+				$id_objeto_padre = $this->_info_dependencias[$i]['objeto'];
+			}
+			$i++;
+		}
+		
+		// Controlo que se haya encontrado la tabla
+		if(!$id_objeto_padre)
+			throw new toba_error_def("No se puede obtener el conjunto de tablas hija de la tabla $tabla que no pertenece a la relación.");
+
+		// Busco todos los id de objeto de las tablas hijas
+		$objetos_hijos = array();
+		foreach($this->_info_columnas_asoc_rel as $relacion){
+			if($relacion['padre_objeto'] == $id_objeto_padre){
+				$objetos_hijos[] = $relacion['hijo_objeto'];
+			}			
+		}
+		
+		// convierto los id de objetos en nombres de tablas
+		$tablas_hijas = array();
+		
+		for($i = 0; $i < count($this->_info_dependencias); $i++){
+			if(in_array($this->_info_dependencias[$i]['objeto'],$objetos_hijos)){
+				$tablas_hijas[] = $this->_info_dependencias[$i]['identificador'];
+			}
+		}
+		
+		return $tablas_hijas;
+	}
 }
 ?>
