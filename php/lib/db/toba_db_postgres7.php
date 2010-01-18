@@ -211,7 +211,6 @@ class toba_db_postgres7 extends toba_db
 	
 	function borrar_rol($rol)
 	{
-		$rol = $this->quote($rol);		
 		$sql = "DROP ROLE $rol";
 		return $this->ejecutar($sql);
 	}
