@@ -63,3 +63,24 @@ CREATE TABLE apex_usuario
 	CONSTRAINT	"apex_usuario_fk_tipodoc" FOREIGN KEY ("usuario_tipodoc") REFERENCES	"apex_usuario_tipodoc" ("usuario_tipodoc") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
+--#################################################################################################
+
+CREATE TABLE apex_usuario_pwd_reset
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: no_requerido
+--: dump_order_by: usuario
+--: zona: usuario
+--: desc:
+--: historica:	1
+--: usuario:	1
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	usuario							varchar(60)		NOT NULL,
+	random							varchar(128)	NOT NULL,
+	email								TEXT		NULL,
+	validez								timestamp NOT NULL DEFAULT now(),
+	bloqueado						smallint		NOT NULL DEFAULT 0,
+	CONSTRAINT	"apex_usuario_pwd_pk"	 PRIMARY	KEY ("usuario", "random")		---Quizas no deberia existir.. quien sabe
+);

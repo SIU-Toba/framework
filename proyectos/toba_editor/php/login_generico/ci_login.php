@@ -87,7 +87,7 @@ class ci_login extends toba_ci
 	{
 		toba::logger()->desactivar();
 		if (isset($datos['test_error_repetido']) && !$datos['test_error_repetido']) {
-			throw new error_autenticacion('El valor ingresado de confirmación no es correcto');
+			throw new toba_error_autenticacion('El valor ingresado de confirmación no es correcto');
 		} else {
 			$this->s__datos = $datos;
 		}
