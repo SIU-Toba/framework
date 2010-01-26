@@ -12,7 +12,6 @@
  * @package Seguridad
 	
 	To-Do:
-		* Soporta N concatenaciones, pero de un solo tipo (no se puede combinar union con union all	o un except con un union)	
 		* No soporta el uso de parentesis
  */
 class toba_perfil_datos
@@ -28,12 +27,12 @@ class toba_perfil_datos
 	protected $id_alias_unico = 0;
 	protected $relaciones_entre_tablas = array();
 	//-- Operaciones sobre conjuntos
-	protected $operaciones_de_conjuntos = array('union all' 	=> '/\sunion\s+all\s(?=\s+select)/is',
-												'union' 		=> '/\sunion\s(?=\s+select)/is',
-												'intersect all' => '/\sintersect\s+all\s(?=\s+select)/is',
-												'intersect'		=> '/\sintersect\s(?=\s+select)/is',
-												'except all' 	=> '/\sexcept\s+all\s(?=\s+select)/is',
-												'except' 		=> '/\sexcept\s(?=\s+select)/is');
+	protected $operaciones_de_conjuntos = array('union all' 	=> '\sunion\s+all\s+',	
+												'union' 		=> '\sunion\s+',
+												'intersect all' => '\sintersect\s+all\s+',	
+												'intersect'		=> '\sintersect\s+',
+												'except all' 	=> '\sexcept\s+all\s+',	
+												'except' 		=> '\sexcept\s+');	
 	protected $operacion_tipo;
 	protected $operacion_segmentos = array();
 
@@ -46,6 +45,7 @@ class toba_perfil_datos
 	
 	private function inicializar($proyecto)
 	{
+		toba::logger()->debug('Inicializando perfil de datos para el proyecto ' . $proyecto);
 		$this->proyecto = $proyecto;
 		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
@@ -220,15 +220,19 @@ class toba_perfil_datos
 		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
 		if ($this->posee_restricciones($fuente_datos)) {
 			if ($this->hay_combinaciones_de_querys($sql)) {
+				$id_operador = 0; $sql = '';
 				foreach ($this->operacion_segmentos as $id => $segmento_sql) {
-					$this->operacion_segmentos[$id] = $this->filtrar_sql($segmento_sql, $fuente_datos);
+					$sql .= $this->filtrar_sql($segmento_sql, $fuente_datos);
+					if (isset($this->operacion_tipo[$id_operador])) {
+						$sql .= "\n" . $this->operacion_tipo[$id_operador] . "\n";
+					}
+					$id_operador++;
 				}
-				$concatenador = "\n" . $this->operacion_tipo . "\n";
-				$sql = implode($concatenador, $this->operacion_segmentos);
 			} else {
 				$sql = $this->filtrar_sql($sql, $fuente_datos);
 			}
 		}
+		toba::logger()->debug('SQL con perfil de datos: ' .$sql);
 		return $sql;
 	}
 	
@@ -453,9 +457,9 @@ class toba_perfil_datos
 	{
 		$gatillos = $this->get_gatillos_activos($fuente_datos);
 		$tablas = array();
-		$clausulas = explode(",",$sql_from);
+		$clausulas = preg_split('/\s+(LEFT|RIGHT)?\s*(OUTER|inner)?\s*JOIN\s*|[\,]/is', $sql_from );			//Separo no solo por coma, sino tambien por las variantes del JOIN
 		foreach($clausulas as $clausula) {
-			$temp = preg_split("/\s+/", trim($clausula) );
+			$temp = preg_split("/\s+/", trim($clausula) );					//Separo por espacios 
 			if(isset($temp[0])) {
 				if (strpos($temp[0], '.') !== false) {
 					list($esquema, $tabla) = explode('.', $temp[0]);
@@ -464,10 +468,12 @@ class toba_perfil_datos
 				}
 				if ( in_array($tabla, $gatillos) ) {	
 					//La tabla pertenece a una dimension
-					if (isset($temp[2]) && strtolower($temp[1]) == 'as') {
+					if (isset($temp[2]) && strtolower($temp[1]) == 'as') {			//Que se trate de un AS para el alias
 						$alias = $temp[2];
-					} else {
-						$alias = isset($temp[1]) ? $temp[1] : $temp[0];
+					} elseif (isset($temp[1])) {
+						$alias = (trim($temp[1]) !='' && strtolower($temp[1]) != 'on') ? $temp[1] : $temp[0];		//Que no sea el ON de un join con tabla sin alias
+					}else {
+						$alias = $temp[0];			//Nombre de la tabla.
 					}
 					$tablas[$tabla] = $alias;
 				}
@@ -478,14 +484,14 @@ class toba_perfil_datos
 
 	function hay_combinaciones_de_querys($sql)
 	{
-		foreach ($this->operaciones_de_conjuntos as $tipo => $ereg) {
-			if (preg_match($ereg, $sql)) {
-				$partes = preg_split($ereg, $sql);
+		$pattern = '/'. implode('|', $this->operaciones_de_conjuntos) .'/is';
+		preg_match_all($pattern, $sql, $ops_encontradas);
+		if ($ops_encontradas !== false && ! empty($ops_encontradas[0]) ) {
+				$partes = preg_split($pattern, $sql);
 				$this->operacion_segmentos = array_map('trim',$partes);
-				$this->operacion_tipo = $tipo;
+				$this->operacion_tipo = current($ops_encontradas);
 				return true;
 			}
-		}
 		return false;
 	}
 
