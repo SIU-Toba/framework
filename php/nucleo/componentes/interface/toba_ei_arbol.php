@@ -28,6 +28,7 @@ class toba_ei_arbol extends toba_ei
 	protected $chequear_ids_unicos = false;
 	protected $_mostrar_ayuda = true;
 	protected $_ancho_nombres = 30;
+	protected $_ids_enviados = array();
 
 	final function __construct($datos)
 	{
@@ -40,6 +41,18 @@ class toba_ei_arbol extends toba_ei
 		if (isset($this->s__nodos_inicial)) {
 			$this->_nodos_inicial = $this->s__nodos_inicial;
 		}
+		$ids = toba::memoria()->get_dato_operacion('ei_arbol_ids_enviados');
+		if (! is_null($ids)) {
+			$this->_ids_enviados = $ids;
+		}
+	}
+
+	function destruir()
+	{
+		$this->_ids_enviados = array_unique($this->_ids_enviados);		//Saco los repetidos por si acaso
+		toba::memoria()->set_dato_operacion('ei_arbol_ids_enviados', $this->_ids_enviados);
+		//toba::logger()->var_dump($this->_ids_enviados);
+		parent::destruir();
 	}
 
 	/**
@@ -151,6 +164,18 @@ class toba_ei_arbol extends toba_ei
 	}
 
 	/**
+	 * Devuelve los ids de los nodos enviados al cliente
+	 */
+	function get_ids_nodos_enviados()
+	{
+		$resultado = array();
+		if (isset($this->_ids_enviados)) {
+			$resultado = $this->_ids_enviados;
+		}
+		return $resultado;
+	}
+	
+	/**
 	 * Carga la lista de eventos definidos desde el administrador
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
 	 * y agrega los tabs como eventos
@@ -182,7 +207,9 @@ class toba_ei_arbol extends toba_ei
 				$par = explode("=", $par);
 				if (count($par) == 2) {
 					list($id, $visible) = $par;
-					$nodos[$id] = $visible;
+					if ($this->validar_id_nodo_recibido($id)) {
+							$nodos[$id] = $visible;
+					}
 				}
 			}
 			$this->_datos_apertura = $nodos;
@@ -194,11 +221,12 @@ class toba_ei_arbol extends toba_ei
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->_memoria['eventos'][$evento]) ) {
 				$parametros = null;
-				if ($evento == 'ver_propiedades' && isset($_POST[$this->_submit."__seleccion"])) {
-					$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
+				if ($evento == 'ver_propiedades' && isset($_POST[$this->_submit."__seleccion"]) &&
+					($this->validar_id_nodo_recibido($_POST[$this->_submit."__seleccion"]))) {
+							$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
+					}
 				}
-			}
-		}
+			}		
 		$this->borrar_memoria_eventos_atendidos();
 	}
 
@@ -225,6 +253,19 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 
+	/*
+	 * Valida que el id del nodo haya sido enviado al cliente
+	 * @ignore
+	 */
+	protected function validar_id_nodo_recibido($id_nodo)
+	{
+		if (! in_array($id_nodo, $this->_ids_enviados)) {
+			toba::logger()->debug("Se intenta acceder al nodo con id $id_nodo , pero no fue enviado al cliente");
+			throw new toba_error("Se intenta acceder a un nodo que no existe.");
+		}
+		return true;
+	}
+	
 	//-------------------------------------------------------------------------------------------------------
 	//--	Generacion de HTML
 	//-------------------------------------------------------------------------------------------------------
@@ -233,6 +274,7 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function generar_html()
 	{
+		$this->_ids_enviados = array();										//Reinicio el arreglo para que guarde solo el pedido actual
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit."__apertura_datos", '');
 		echo toba_form::hidden($this->_submit."__seleccion", '');
@@ -256,6 +298,7 @@ class toba_ei_arbol extends toba_ei
 					$nodo_barra .= $nodo->get_id()."\");' ";
 					$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(),20)."</a>";
 					$barra = $nodo_barra . " > ". $barra;
+					$this->_ids_enviados[] = $nodo->get_id();															//Agrego los nodos de la barra del path
 				}
 				if ($barra != '') {
 					$barra = "<div class='ei-arbol-barra-path'>$barra</div>";
@@ -291,9 +334,9 @@ class toba_ei_arbol extends toba_ei
 		if( method_exists($nodo, 'set_ei_arbol') ){
 			$nodo->set_ei_arbol( $this );
 		}
-		
-		if ($this->chequear_ids_unicos) {
-			$id_nodo = $nodo->get_id();
+		$id_nodo = $nodo->get_id();
+		$this->_ids_enviados[] = $id_nodo;
+		if ($this->chequear_ids_unicos) {			
 			if (isset($this->ids[$id_nodo])) {
 				$clase = get_class($nodo);
 				$clase_vieja = $this->ids[$id_nodo];
