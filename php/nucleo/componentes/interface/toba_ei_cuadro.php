@@ -1237,14 +1237,21 @@ class toba_ei_cuadro extends toba_ei
 					toba::logger()->debug('No se encontro el metodo de ordenamiento: ' . $funcion);
 					$aux = $this->ordenamiento_default($klave);
 				}
+				$aux['sentido'] = $this->get_sentido_ordenamiento($sentidos[$klave]);
 
-				$parametros[] = $aux['ordenamiento'];
-				$parametros[] = $this->get_sentido_ordenamiento($sentidos[$klave]);
-				$parametros[] = $aux['tipo'];
+				$parametros[] = &$aux['ordenamiento'];
+				$parametros[] = &$aux['sentido'];
+				$parametros[] = &$aux['tipo'];
+			}			
+			$parametros[] = &$this->datos;			//Agrego el arreglo de datos a ordenar
+			//toba::logger()->debug('parametros de ordenamiento');
+			//toba::logger()->var_dump($parametros);
+			//TODO: Esto es una asquerosida! (si sin D) pero hasta que se corrija el bug es lo mejorcito para php 5.3
+			if (version_compare(PHP_VERSION, '5.3.0') !== -1) {
+					call_user_func_array( 'array_multisort', &$parametros );
+			} else {
+					call_user_func_array( 'array_multisort', $parametros );
 			}
-			//ei_arbol($parametros, 'parametros');
-			$parametros[] =& $this->datos;
-			call_user_func_array( 'array_multisort', $parametros );
 		} //IF
     }
 
