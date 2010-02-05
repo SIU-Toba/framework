@@ -337,8 +337,10 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$base = $this->proyecto->get_db_negocio();
 		
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
-		$auditoria->set_esquema_logs($this->schema_auditoria);
+		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
+		if (is_null($auditoria)) {		//No existe manejador para el motor en cuestion
+			return;
+		}
 		
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
@@ -382,7 +384,11 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$base->abrir_transaccion();
 		}
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
+		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
+		if (is_null($auditoria)) {		//No existe manejador para el motor en cuestion
+			return;
+		}
+		
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
 		} else {

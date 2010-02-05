@@ -86,12 +86,16 @@ class ci_auditoria extends toba_ci
 
 	function conf__pant_inicial()
 	{
-		$hay_datos = false;
-		$campos_propios = toba_auditoria_tablas_postgres::get_campos_propios();
+		$hay_datos = false;		
 		list($proyecto, $id_cuadro) = $this->dep('cuadro')->get_id();
 		if ($this->s__filtrar && ! is_null($this->s__filtro['tablas'])) {
 			$db = $this->get_db();
-			$auditoria = new toba_auditoria_tablas_postgres($db);
+			$auditoria = $db->get_manejador_auditoria();
+			if (is_null($auditoria)) {
+				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
+			}
+			$clase = get_class($auditoria);
+			$campos_propios = $clase::get_campos_propios();
 			$schema = $db->get_schema();
 			if (!isset($schema)) {
 				$schema = 'public';

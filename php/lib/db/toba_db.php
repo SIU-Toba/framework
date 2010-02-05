@@ -827,5 +827,22 @@ class toba_db
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}
+
+	//-----------------------------------------------------------------------------------
+	//-- AUDITORIA (se le pide una instancia de manejador a la base que ya sabe el motor)
+	//-----------------------------------------------------------------------------------
+
+	/**
+	 * Devuelve una instancia del manejador de auditoria para este motor de base de datos
+	 * ventana de extension en los hijos
+	 * @param string $schema_modelo
+	 * @param string $schema_auditoria
+	 * @param string $schema_toba
+	 * @return object
+	 */
+	function get_manejador_auditoria($schema_modelo ='public', $schema_auditoria = 'public_auditoria', $schema_toba = null)
+	{
+		return null;
+	}
 }
 ?>

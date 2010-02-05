@@ -325,6 +325,7 @@ class toba_db_postgres7 extends toba_db
 			";			
 		}
 		$sql .= 'ORDER BY nombre';
+		toba::logger()->debug($sql);
 		return $this->consultar($sql);
 	}
 	
@@ -516,6 +517,21 @@ class toba_db_postgres7 extends toba_db
 		return 'DEFAULT';
 	}
 	
-	
+	//-----------------------------------------------------------------------------------
+	//-- AUDITORIA (se le pide una instancia de manejador a la base que ya sabe el motor)
+	//-----------------------------------------------------------------------------------
+
+	/**
+	 * Devuelve una instancia del manejador de auditoria para este motor de base de datos
+	 * ventana de extension en los hijos
+	 * @param string $schema_modelo
+	 * @param string $schema_auditoria
+	 * @param string $schema_toba
+	 * @return object
+	 */
+	function get_manejador_auditoria($schema_modelo ='public', $schema_auditoria = 'public_auditoria', $schema_toba = null)
+	{
+		return new toba_auditoria_tablas_postgres($this, $schema_modelo, $schema_auditoria, $schema_toba);
+	}
 }
 ?>

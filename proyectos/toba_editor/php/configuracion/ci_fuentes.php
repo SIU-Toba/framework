@@ -132,8 +132,10 @@ class ci_fuentes extends toba_ci
 		$id_fuente = $this->dependencia('datos')->get_columna('fuente_datos');
 		$db = toba::db($id_fuente,  toba_editor::get_proyecto_cargado());
 		try{
-			$auditoria = new toba_auditoria_tablas_postgres($db, $schema, $schema_auditoria);
-			$auditoria->set_esquema_logs($schema_auditoria);
+			$auditoria = $db->get_manejador_auditoria($schema, $schema_auditoria);
+			if (is_null($auditoria)) {
+				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
+			}
 			$auditoria->agregar_tablas();	///Agrego todas las tablas
 
 			if (! $auditoria->existe()){
