@@ -115,9 +115,10 @@ class ci_fuentes extends toba_ci
 
 	function evt__form__crear_auditoria()
 	{
-		$instalacion = toba_modelo_catalogo::get_instalacion();
-		$datos = $this->dependencia('datos')->get();
+		$instalacion = toba_modelo_catalogo::get_instalacion();		
 		$instancia = toba_editor::get_id_instancia_activa();
+
+		$datos = $this->dependencia('datos')->get();
 		$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
 		if (!$instalacion->existe_base_datos_definida($id_base)) {
 			throw new toba_error("Debe definir los parámetros de conexión");
@@ -130,7 +131,11 @@ class ci_fuentes extends toba_ci
 		}
 		$schema_auditoria = $schema. '_auditoria';		
 		$id_fuente = $this->dependencia('datos')->get_columna('fuente_datos');
-		$db = toba::db($id_fuente,  toba_editor::get_proyecto_cargado());
+		$proyecto_cargado = toba_editor::get_proyecto_cargado();
+
+		//Creo el objeto para asignar los roles correctos a las tablas de auditoria
+		$modelo_proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto( $instancia, $proyecto_cargado);
+		$db = toba::db($id_fuente,  $proyecto_cargado);
 		try{
 			$auditoria = $db->get_manejador_auditoria($schema, $schema_auditoria);
 			if (is_null($auditoria)) {
@@ -143,6 +148,7 @@ class ci_fuentes extends toba_ci
 			}else{
 				$auditoria->migrar();
 			}
+			$modelo_proyecto->generar_roles_db();
 		} catch(toba_error $e){
 			throw $e;
 /*			toba::logger()->debug($e->getMessage());

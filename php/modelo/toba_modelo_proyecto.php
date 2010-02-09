@@ -633,6 +633,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					} else {
 						$this->generar_roles_db_pruebas_operacion($fuente['fuente_datos'], $schema, $conexion, $id_operacion);
 					}
+					$this->generar_roles_db_auditoria($conexion, $fuente, $schema, $rol_select);
 					$conexion->cerrar_transaccion();					
 				} catch (toba_error_db $e) {
 					//Error al generar permisos
@@ -651,6 +652,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$rol = $this->get_rol_prueba_db($fuente, $id_operacion);
 		$usuario = $this->get_usuario_prueba_db($fuente);
+		$fuente_info = toba_info_editores::get_info_fuente_datos($fuente);
 		
 		//-- Determina tablas y schema
 		$sql = "SELECT 
@@ -697,6 +699,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			
 			//-- Asigna el usuario de prueba al rol
 			$conexion->grant_rol($usuario, $rol);
+			$this->generar_roles_db_auditoria($conexion, $fuente_info, $schema, $rol);			//Le asigno los roles de las operaciones a la parte de auditoria
 		} else {
 			//-- Borrar el rol, ya no es necesario
 			if ($existe_rol) {
@@ -705,7 +708,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 		}
 	}
-	
+
+	function generar_roles_db_auditoria($conexion, $fuente, $schema, $rol)
+	{
+		if ($fuente['tiene_auditoria'] == '1') {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
+			$schema_auditoria = $schema . '_auditoria';
+			$conexion->grant_schema($rol, $schema_auditoria);
+			$conexion->grant_tablas_schema($rol, $schema_auditoria, "INSERT");
+			$conexion->grant_sp_schema($rol, $schema_auditoria, 'EXECUTE');
+		}
+	}
+
 	//-----------------------------------------------------------
 	//	CARGAR
 	//-----------------------------------------------------------

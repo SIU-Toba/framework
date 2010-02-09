@@ -982,7 +982,8 @@ class toba_info_editores
 						descripcion as descripcion_corta, 
 						descripcion, 
 						schema,
-						permisos_por_tabla
+						permisos_por_tabla,
+						tiene_auditoria
 				FROM apex_fuente_datos
 				WHERE ( proyecto = $proyecto )
 				ORDER BY 2";
@@ -1043,7 +1044,8 @@ class toba_info_editores
 		$sql = "SELECT 	*,
 						link_instancia 		as link_base_archivo,
 						fuente_datos_motor 	as motor,
-						host 				as profile
+						host 				as profile,
+						tiene_auditoria
 				FROM 	apex_fuente_datos
 				WHERE	fuente_datos = $id_fuente
 				AND 	proyecto = $proyecto";

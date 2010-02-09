@@ -95,6 +95,16 @@ class toba_fuente_datos
 			$id_solicitud = $db->quote(toba::instancia()->get_id_solicitud());
 			$usuario = $db->quote($usuario);
 			$sql = 'CREATE TEMP TABLE tt_usuario ( usuario VARCHAR(30), id_solicitud INTEGER);';
+			if ($this->definicion['permisos_por_tabla'] == '1') {
+				$id_operacion = toba::memoria()->get_item_solicitado();
+				$rol_runtime =  toba_modelo_proyecto::get_rol_prueba_db_basico($this->definicion['fuente_datos']);									//Obtengo el rol basico de prueba
+				$rol_operacion = toba_modelo_proyecto::get_rol_prueba_db($this->definicion['fuente_datos'], $id_operacion['1']);			//Obtengo el particular para la operacion
+				if ($db->existe_rol($rol_operacion)) {							//Si existe el rol para la operacion entonces lo seteo como el apropiado
+					$rol_runtime = $rol_operacion;
+				}
+
+				$sql .= "GRANT SELECT, INSERT ON tt_usuario TO $rol_runtime ;";
+			}			
 			$sql .= "INSERT INTO tt_usuario (usuario, id_solicitud) VALUES ($usuario, $id_solicitud)";
 			$db->ejecutar($sql);
 		}

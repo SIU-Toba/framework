@@ -367,6 +367,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$base->ejecutar_archivo($archivo_datos);
 			$this->manejador_interface->progreso_fin();
 		}
+		$this->proyecto->generar_roles_db();
 		if ($con_transaccion) {
 			$base->cerrar_transaccion();
 		}		

@@ -281,6 +281,26 @@ class toba_db_postgres7 extends toba_db
 		}
 	}	
 
+	function grant_sp_schema($usuario, $schema, $privilegios = 'ALL PRIVILEGES')
+	{
+			$sql = "SELECT
+											proname
+						 FROM pg_proc p
+							JOIN pg_namespace ns ON (p.pronamespace = ns.oid)
+						WHERE
+							nspname =  ".$this->quote($schema);
+			$stored_proc = $this->consultar($sql);
+			$this->grant_sp($usuario, $schema, aplanar_matriz($stored_proc, 'proname'), $privilegios);
+	}
+
+	function grant_sp($usuario, $schema, $stored_procedures, $privilegios = 'ALL PRIVILEGES')
+	{
+		foreach ($stored_procedures as $sp) {
+			$sql = "GRANT $privilegios ON FUNCTION $schema.$sp() TO $usuario";
+			toba::logger()->debug($sql);
+			$this->ejecutar($sql);
+		}
+	}
 
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
