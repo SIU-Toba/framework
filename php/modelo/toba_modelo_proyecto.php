@@ -703,6 +703,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		} else {
 			//-- Borrar el rol, ya no es necesario
 			if ($existe_rol) {
+				$this->revocar_rol_db_auditoria($conexion, $fuente_info, $schema, $rol);
 				$conexion->revoke_rol($usuario, $rol);
 				$conexion->borrar_rol($rol);
 			}
@@ -716,6 +717,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$conexion->grant_schema($rol, $schema_auditoria);
 			$conexion->grant_tablas_schema($rol, $schema_auditoria, "INSERT");
 			$conexion->grant_sp_schema($rol, $schema_auditoria, 'EXECUTE');
+		}
+	}
+
+	function revocar_rol_db_auditoria($conexion, $fuente, $schema, $rol)
+	{
+		if ($fuente['tiene_auditoria'] == '1') {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
+			$schema_auditoria = $schema . '_auditoria';
+			$conexion->revoke_sp_schema($rol, $schema_auditoria, 'EXECUTE');
+			$conexion->revoke_schema($rol, $schema_auditoria);
 		}
 	}
 

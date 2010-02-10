@@ -281,27 +281,40 @@ class toba_db_postgres7 extends toba_db
 		}
 	}	
 
-	function grant_sp_schema($usuario, $schema, $privilegios = 'ALL PRIVILEGES')
+	function grant_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES')
 	{
-			$sql = "SELECT
+		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
+		$sql = "GRANT $privilegios ON FUNCTION ";
+		foreach ($stored_procedures as $sp) {												//Los agrego separados por coma para usar 1 sola SQL
+			$sql .= " $schema.$sp(), ";
+		}
+		$sql = substr($sql, 0, -2) . " TO $usuario";											//Agrego el rol/usuario beneficiario
+		$this->ejecutar($sql);
+	}
+
+	function revoke_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES')
+	{
+		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
+		$sql = "REVOKE $privilegios ON FUNCTION ";
+		foreach ($stored_procedures as $sp) {
+			$sql .= "$schema.$sp(), ";																	//Los agrego separados por coma para usar 1 sola SQL
+		}
+		$sql = substr($sql, 0 , -2) .  " FROM $usuario";
+		$this->ejecutar($sql);
+	}
+
+	function get_sp_schema($schema)
+	{
+		$sql = "SELECT
 											proname
 						 FROM pg_proc p
 							JOIN pg_namespace ns ON (p.pronamespace = ns.oid)
 						WHERE
 							nspname =  ".$this->quote($schema);
-			$stored_proc = $this->consultar($sql);
-			$this->grant_sp($usuario, $schema, aplanar_matriz($stored_proc, 'proname'), $privilegios);
+		$stored_proc = $this->consultar($sql);
+		return aplanar_matriz($stored_proc, 'proname');								//Devuelvo la matriz sin el subindice de nombre de columna
 	}
-
-	function grant_sp($usuario, $schema, $stored_procedures, $privilegios = 'ALL PRIVILEGES')
-	{
-		foreach ($stored_procedures as $sp) {
-			$sql = "GRANT $privilegios ON FUNCTION $schema.$sp() TO $usuario";
-			toba::logger()->debug($sql);
-			$this->ejecutar($sql);
-		}
-	}
-
+	
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------	
