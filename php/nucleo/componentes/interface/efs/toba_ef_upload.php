@@ -47,7 +47,7 @@ class toba_ef_upload extends toba_ef
 			$nombre_archivo = $estado;
 		}
 		//-- Si hay un archivo lo deja marcado en sesion para la etapa siguiente
-		if (isset($nombre_archivo)) {
+		if (isset($nombre_archivo) && trim($nombre_archivo) != '') {
 			if (! $this->permitir_html) {
 				$nombre_archivo = texto_plano($nombre_archivo);
 			}
