@@ -39,8 +39,8 @@ class toba_constructor
 		//--- INSTANCIACION	---
 		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS
 			$instancia_nro = 0;
+			$clase = $tipo;
 			if (!$usar_cache || !isset(self::$objetos_runtime_instanciados[ $id['componente'] ])) {
-				$clase = $tipo;
 				//Posee una subclase asociada?
 				if ( $datos['_info']['subclase']) {
 					if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
