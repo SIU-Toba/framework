@@ -12,13 +12,13 @@ class test_dt_clave_simple extends base_test_datos
 
 	function SetUp()
 	{
-		ejecutar_sql( $this->get_sql_juego_datos() );
+		ejecutar_fuente( $this->get_sql_juego_datos() );
 		$this->dt = $this->get_dt();
 	}
 
 	function TearDown()
 	{
-		ejecutar_sql( $this->get_sql_eliminar_juego_datos() );
+		ejecutar_fuente( $this->get_sql_eliminar_juego_datos() );
 		$this->dt->resetear();
 		unset($this->dt);
 	}

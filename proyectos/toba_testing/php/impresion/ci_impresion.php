@@ -9,19 +9,17 @@ class ci_impresion extends toba_ci
 		return $propiedades;
 	}
 
-	function vista_impresion( $salida )
+	function vista_impresion($salida)
 	{
-		$salida->titulo( $this->get_nombre() );
+		$salida->titulo($this->get_nombre());
 		$salida->mensaje('Nota: Este es el Principal');
-		$this->dependencia('filtro')->vista_impresion( $salida );
-		$this->dependencia('cuadro')->vista_impresion( $salida );
+		$this->dependencia('cuadro')->vista_impresion($salida);
 		$salida->salto_pagina();
 		$salida->mensaje('Nota: Esta es una copia');
-		$this->dependencia('filtro')->vista_impresion( $salida );
-		$this->dependencia('cuadro')->vista_impresion( $salida );
+		$this->dependencia('cuadro')->vista_impresion($salida);
 		$salida->salto_pagina();
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
-		$this->dependencia('ml')->vista_impresion( $salida );
+		$this->dependencia('ml')->vista_impresion($salida);
 	}
 
 	//-------------------------------------------------------------------

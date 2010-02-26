@@ -19,18 +19,18 @@ class base_test_datos extends test_toba
 		//Si el test fallo, los objetos de la base no se borraron...
 		foreach( $this->get_sql_eliminar_tablas() as $sql ){
 			try{
-				ejecutar_sql($sql);
+				ejecutar_fuente($sql);
 			}catch(toba_error $e){
 				//todo bien! el elemento no existia
 			}
 		}
 		//Creo los elementos		
-		ejecutar_sql( $this->get_sql_tablas() );
+		ejecutar_fuente( $this->get_sql_tablas() );
 	}
 	
 	function post_run()
 	{
-		ejecutar_sql( $this->get_sql_eliminar_tablas() );
+		ejecutar_fuente( $this->get_sql_eliminar_tablas() );
 	}
 	//----------------------------------------------
 	

@@ -12,11 +12,11 @@ class test_entrega_parametros extends test_toba
 	{
 		$metodo_recuperacion = "get_parametros";
 		
-		$sql = 'SELECT elemento_formulario, descripcion FROM apex_elemento_formulario;';
+		$sql = 'SELECT elemento_formulario, descripcion FROM apex_elemento_formulario WHERE obsoleto = 0;';
 		$ef = consultar_fuente($sql, "instancia");
 		for($a=0;$a<count($ef);$a++)
 		{
-			$clase = $ef[$a]['elemento_formulario'];
+			$clase = 'toba_' . $ef[$a]['elemento_formulario'];
 			$desc = $ef[$a]['descripcion'];
 
 			try{
