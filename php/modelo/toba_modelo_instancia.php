@@ -1344,7 +1344,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_revision_proyecto($proyecto)
 	{
 		$proy_qtd = $this->get_db()->quote($proyecto);
-		$sql = "SELECT max(revision::integer) as rev FROM apex_revision WHERE proyecto = $proy_qtd;";
+		$sql = "SELECT revision::integer as rev 
+						FROM apex_revision
+						WHERE proyecto = $proy_qtd
+						AND creacion = (SELECT max(creacion) FROM apex_revision WHERE proyecto = $proy_qtd);";
 		$rs = $this->get_db()->consultar_fila( $sql );
 		toba_logger::instancia()->var_dump($rs);	
 		$rev = (! empty($rs)) ? $rs['rev']  : 0;
