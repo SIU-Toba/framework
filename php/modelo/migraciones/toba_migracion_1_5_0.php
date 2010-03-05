@@ -11,19 +11,18 @@ class toba_migracion_1_5_0 extends toba_migracion
 
 			$sql = array();
 			//------------- Nueva tabla para guardar el checksum de los proyectos, relacionado a la sincro_svn ---------
-			$sql[] = "CREATE TABLE			apex_checksum_proyectos
-							(
-								checksum						varchar(200)	NOT NULL,
-								proyecto							varchar(15)		 NOT NULL,
-								--ultima_modificacion		timestamp(0) without	time zone	DEFAULT current_timestamp NOT NULL,
-								CONSTRAINT 'apex_checksum_proyectos_pk' PRIMARY KEY ('proyecto'),
-								CONSTRAINT 'apex_checksum_proyectos_fk'	FOREIGN KEY ('proyecto') REFERENCES 'apex_proyecto' ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
-							);";
+			$sql[] = 'CREATE TABLE			apex_checksum_proyectos
+						(
+							checksum						varchar(200)	NOT NULL,
+							proyecto							varchar(15)		 NOT NULL,
+							CONSTRAINT "apex_checksum_proyectos_pk" PRIMARY KEY ("proyecto"),
+							CONSTRAINT "apex_checksum_proyectos_fk"	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+						);';
 
 			//--------------- Cambios para que los 'Vinculos' del cuadro ahora se disparen como eventos -----------------
 			$sql[] = 'ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN evento_asociado BIGINT;';
-			$sql[] = 'ALTER TABLE apex_objeto_ei_cuadro_columna ADD CONSTRAINT apex_col_cuadro_evento_asoc_fk FOREIGN KEY (objeto_cuadro_proyecto, objeto_cuadro, evento_asociado)
-							REFERENCES apex_objeto_eventos (proyecto, objeto, evento_id) ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+			$sql[] = 'ALTER TABLE apex_objeto_ei_cuadro_columna ADD CONSTRAINT apex_col_cuadro_evento_asoc_fk FOREIGN KEY (objeto_cuadro_proyecto, evento_asociado)
+							REFERENCES apex_objeto_eventos (proyecto,  evento_id) ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 
 			//--------------------------------- Ahora se marcan los autovinculos de manera explicita --------------------------------
 			$sql[] = 'ALTER TABLE apex_objeto_eventos ADD COLUMN es_autovinculo SMALLINT NOT NULL DEFAULT 0;';
@@ -57,6 +56,51 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN solo_lectura_inteligente SMALLINT NOT NULL DEFAULT 0;';
 
 			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN cascada_mantiene_estado	SMALLINT NOT NULL DEFAULT 0;';
+
+			//--------------------------------- Agrega la posibilidad de terner permisos  por tablas -------------------------------------------
+			$sql[] = 'ALTER TABLE apex_clase ADD COLUMN solicitud_tipo VARCHAR(20) NULL;';	
+
+			$sql[] = 'ALTER TABLE apex_fuente_datos ADD COLUMN permisos_por_tabla SMALLINT NOT NULL DEFAULT 0;';
+			
+			$sql[] = '
+				CREATE TABLE apex_item_permisos_tablas
+				(
+					proyecto						varchar(15)		NOT NULL,
+					item							varchar(60)		NOT NULL,
+					fuente_datos					varchar(20)		NOT NULL,
+					tablas_modifica					TEXT			NULL,		
+					CONSTRAINT	"apex_item_permisos_tablas_pk"	 	PRIMARY	KEY ("proyecto","item", "fuente_datos"),
+					CONSTRAINT	"apex_item_permisos_tablas_item" 	FOREIGN	KEY ("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+					CONSTRAINT  "apex_item_permisos_tablas_fuente"  FOREIGN KEY ("proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+				);';
+
+			//--------------------------------- Se agrega la posibilidad de usar web-services ---------------------------------------------------
+			$sql[] = 'CREATE TABLE apex_servicio_web
+							(
+							  proyecto 				 VARCHAR(15)  	NOT NULL,
+							  servicio_web           VARCHAR(50)  	NOT NULL,
+							  descripcion			 TEXT		  	NULL,
+							  param_to				 TEXT		  	NOT NULL,				
+							  param_wsa				 SMALLINT		NOT NULL DEFAULT 0,		
+							  CONSTRAINT "apex_servicio_web_pk" PRIMARY KEY("proyecto", "servicio_web"),
+							  CONSTRAINT "apex_servicio_web_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+							);';
+
+			$sql[] = 'CREATE TABLE apex_servicio_web_param
+							(
+							  proyecto 				 VARCHAR(15)  NOT NULL,
+							  servicio_web           VARCHAR(50)  NOT NULL,
+							  parametro				 TEXT		  NOT NULL,
+							  valor					 TEXT		  NOT NULL,
+							  CONSTRAINT "apex_servicio_web_param_pk" PRIMARY KEY("proyecto", "servicio_web", "parametro"),
+							  CONSTRAINT "apex_servicio_web_param_fk_serv_web" FOREIGN KEY ("proyecto", "servicio_web") REFERENCES "apex_servicio_web"("proyecto", "servicio_web") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+							);';
+
+			//--------------------------------Se corrige la clave de la tabla apex_relacion_tablas sino 2 proyectos con perfil datos pueden chocar --------------------
+			$sql[] = 'ALTER TABLE desarrollo.apex_relacion_tablas DROP CONSTRAINT apex_relacion_tablas_pk;
+						  ALTER TABLE desarrollo.apex_relacion_tablas ADD PRIMARY KEY (proyecto, relacion_tablas);';
+
+
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";

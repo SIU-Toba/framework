@@ -120,7 +120,6 @@ CREATE TABLE			apex_checksum_proyectos
 (
 	checksum						varchar(200)	NOT NULL,
 	proyecto							varchar(15)		 NOT NULL,
-	--ultima_modificacion		timestamp(0) without	time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT "apex_checksum_proyectos_pk" PRIMARY KEY ("proyecto"),
 	CONSTRAINT "apex_checksum_proyectos_fk"	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );

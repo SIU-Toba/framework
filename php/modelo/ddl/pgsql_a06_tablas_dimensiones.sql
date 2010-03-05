@@ -23,7 +23,7 @@ CREATE TABLE apex_relacion_tablas
 	tabla_1_cols					TEXT			NOT NULL,
 	tabla_2							varchar(80)		NOT NULL,
 	tabla_2_cols					TEXT			NOT NULL,
-	CONSTRAINT	"apex_relacion_tablas_pk" PRIMARY	KEY ("relacion_tablas"),
+	CONSTRAINT	"apex_relacion_tablas_pk" PRIMARY	KEY ("proyecto", "relacion_tablas"),
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_relacion_tablas_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
