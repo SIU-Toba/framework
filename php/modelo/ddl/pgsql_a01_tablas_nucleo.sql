@@ -40,7 +40,7 @@ CREATE TABLE			apex_estilo
 	descripcion				TEXT	NOT NULL,
 	proyecto				varchar(15)		NOT NULL,
 	paleta					TEXT			NULL,		--Campo serializado de colores
-	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo"),
+	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo", "proyecto"),
 	CONSTRAINT	"apex_estilo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
 );
 
