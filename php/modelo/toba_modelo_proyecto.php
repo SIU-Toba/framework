@@ -712,8 +712,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function generar_roles_db_auditoria($conexion, $fuente, $schema, $rol)
 	{
-		if ($fuente['tiene_auditoria'] == '1') {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
-			$schema_auditoria = $schema . '_auditoria';
+		$schema_auditoria = $schema . '_auditoria';
+		if ($fuente['tiene_auditoria'] == '1'  && $conexion->existe_schema($schema_auditoria)) {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
 			$conexion->grant_schema($rol, $schema_auditoria);
 			$conexion->grant_tablas_schema($rol, $schema_auditoria, "INSERT");
 			$conexion->grant_sp_schema($rol, $schema_auditoria, 'EXECUTE');
@@ -722,8 +722,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function revocar_rol_db_auditoria($conexion, $fuente, $schema, $rol)
 	{
-		if ($fuente['tiene_auditoria'] == '1') {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
-			$schema_auditoria = $schema . '_auditoria';
+		$schema_auditoria = $schema . '_auditoria';
+		if ($fuente['tiene_auditoria'] == '1' && $conexion->existe_schema($schema_auditoria)) {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
 			$conexion->revoke_sp_schema($rol, $schema_auditoria, 'EXECUTE');
 			$conexion->revoke_schema($rol, $schema_auditoria);
 		}
