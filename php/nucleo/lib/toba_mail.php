@@ -82,9 +82,8 @@ class toba_mail implements toba_tarea
 				}
 			}
 			$mail->set('SMTPSecure', $this->datos_configuracion['seguridad']);
-		}/* else {
-			throw new toba_error('Se requiere una configuracion de seguridad para el uso del mail');		//Para el dia que queramos forzar conexion segura
-		}*/
+		}
+		
 		if (isset($this->datos_configuracion['puerto']) && trim($this->datos_configuracion['puerto']) != '') {
 			$mail->set('Port', $this->datos_configuracion['puerto']);
 		}

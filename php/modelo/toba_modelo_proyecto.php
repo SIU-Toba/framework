@@ -2145,6 +2145,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$this->manejador_interface->progreso_fin();
 	}
+	
 
 	function generar_estado_codigo()
 	{
@@ -2157,14 +2158,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$svn = new toba_svn();
 		if ($svn->hay_cliente_svn()) {
 			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
-			$max_rev = $this->instancia->get_revision_proyecto($this->identificador);
+			$max_rev = 0;
 			if (! empty($revisiones)) {
 				foreach($revisiones as $revision) {
 					if (isset($revision['error'])) {
 						throw new toba_error_def($revision['error']);
 					}
-					if ($max_rev < $revision['revision']) {
-						$max_rev = $revision['revision'];
+					if ($max_rev < intval($revision['revision'])) {
+						$max_rev = intval($revision['revision']);
 					}
 				}
 				$this->manejador_interface->progreso_avanzar();		

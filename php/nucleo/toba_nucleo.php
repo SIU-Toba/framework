@@ -625,6 +625,7 @@ class toba_nucleo
 			'toba_vista_xml'						=> 'nucleo/lib/salidas/toba_vista_xml.php',
 			'toba_vista_xslfo'						=> 'nucleo/lib/salidas/toba_vista_xslfo.php',
 			'toba_vista_excel'						=> 'nucleo/lib/salidas/toba_vista_excel.php',			
+			'toba_vista_xslfo'						=> 'nucleo/lib/salidas/toba_vista_xslfo.php',
  			'toba_componente_definicion'			=> 'nucleo/componentes/definicion/_interfaces.php',
 			'toba_meta_clase'						=> 'modelo/info/componentes/toba_interface_meta_clase.php',
 			'toba_datos_editores'					=> 'modelo/info/toba_datos_editores.php',

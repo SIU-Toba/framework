@@ -167,6 +167,7 @@ class Numbers_Words_es_AR extends Numbers_Words
      */
     var $def_currency = 'ARS'; // Argentinian Peso
     
+    
     // }}}
     // {{{ toWords()
     /**
@@ -183,7 +184,7 @@ class Numbers_Words_es_AR extends Numbers_Words
      * @access private
      * @author Martin Marrese
      */
-    function toWords($num, $power = 0, $llamada_recursiva = false)
+    function toWords($num, $power = 0, $llamada_recursiva = false, $decimal = true)
     {
         // The return string;
         $ret = '';
@@ -402,12 +403,14 @@ class Numbers_Words_es_AR extends Numbers_Words
             }
         }
 
-        if ($dec){				//Aca controlo para agregar los centavos
-        	if ($decimal_con_peso){$dec = $this->toWords(trim($dec), 0, true);}
-            $ret.= ' con ' . trim ($dec) . '/100';
-        }elseif((!$dec) AND (!$llamada_recursiva)){		//Si no tiene decimales y no es una llamada recursiva
-	        $ret.= ' con 0/100';
-        }
+        if ($decimal) {
+	        if ($dec){				//Aca controlo para agregar los centavos
+	        	if ($decimal_con_peso){$dec = $this->toWords(trim($dec), 0, true);}
+	            $ret.= ' con ' . trim ($dec) . '/100';
+	        }elseif((!$dec) AND (!$llamada_recursiva)){		//Si no tiene decimales y no es una llamada recursiva
+		        $ret.= ' con 0/100';
+	        }
+    	}
         
         return $ret;
     }

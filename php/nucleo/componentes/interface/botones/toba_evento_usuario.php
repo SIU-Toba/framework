@@ -214,6 +214,14 @@ class toba_evento_usuario extends toba_boton
 			$this->datos['accion'] = $accion;
 		}
 	}
+	
+	/**
+	 * Permite definir en runtime si el evento invoca al servicio XSLFO
+	 */
+	function set_accion_xslfo()
+	{
+		$this->datos['accion'] = 'xslfo';
+	}	
 
 	function set_check_activo($activo)
 	{

@@ -1,7 +1,7 @@
 <?php
 //Tamaño de la pila de la memoria sincronizada
 if (! defined('apex_hilo_tamano')) {
-	define("apex_hilo_tamano","5");
+	define('apex_hilo_tamano','5');
 }
 //Tipos de reciclado de la memoria global
 define('apex_hilo_reciclado_item',0);

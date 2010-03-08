@@ -477,8 +477,16 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		if (this._con_examen_cambios) {
 			this._examinar_cambios();
 		}		
+
+		this.post_eliminar_fila(fila);
+		
 		return anterior;
 	};
+
+	/**
+	 * Ventana para colocar código luego de la eliminación de una fila seleccionada
+	 */
+	ei_formulario_ml.prototype.post_eliminar_fila = function(fila) {}
 	
 	/**
 	 * Elimina una fila y retorna la fila anterior en orden

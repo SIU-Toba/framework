@@ -151,6 +151,7 @@ class toba_ei_esquema extends toba_ei
 	 */
 	function servicio__mostrar_esquema($parametros = null)
 	{
+		toba::memoria()->desactivar_reciclado();
 		if (!isset($parametros)) {
 			if (!isset($this->_memoria['parametros'])) {
 				throw new toba_error_seguridad("No se pueden obtener los parámetros");

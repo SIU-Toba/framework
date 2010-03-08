@@ -21,6 +21,7 @@ class toba_relacion_entre_tablas
 	protected $tabla_hijo_id;
 	protected $mapeo_campos = array();
 	protected $mapeo_filas = array();
+	protected $mapeo_filas_eliminadas = array();
 	protected $borrado_en_cascada = true;
 	protected $es_relacion_de_inclusion = true;
 
@@ -54,6 +55,11 @@ class toba_relacion_entre_tablas
 		$this->mapeo_filas = $mapeo;	
 	}
 	
+	function set_mapeo_filas_eliminadas($mapeo)
+	{
+		$this->mapeo_filas_eliminadas = $mapeo;
+	}
+
 	function set_relacion_inclusion($inclusion)
 	{
 		$this->es_relacion_de_inclusion = $inclusion;
@@ -63,7 +69,12 @@ class toba_relacion_entre_tablas
 	{
 		return $this->mapeo_filas;
 	}	
-	
+
+	function get_mapeo_filas_eliminadas()
+	{
+		return $this->mapeo_filas_eliminadas;
+	}
+
 	function get_mapeo_campos()
 	{
 		return $this->mapeo_campos;	
@@ -212,6 +223,8 @@ class toba_relacion_entre_tablas
 	{
 		$pos_padre = $this->buscar_padre_de($id);
 		if (is_array($pos_padre)) {
+			$this->mapeo_filas_eliminadas[$pos_padre[0]][$pos_padre[1]] = 
+				$this->mapeo_filas[$pos_padre[0]][$pos_padre[1]];
 			unset($this->mapeo_filas[$pos_padre[0]][$pos_padre[1]]);
 		}
 	}	
@@ -226,10 +239,16 @@ class toba_relacion_entre_tablas
 	 * @param mixed $id_padre Id. interno de la fila padre
 	 * @return array Arreglo de ids. internos de la filas hijas
 	 */
-	function get_id_filas_hijas_de($id_padre)
+	function get_id_filas_hijas_de($id_padre,$incluir_hijos_eliminados=false)
 	{
 		if (isset($this->mapeo_filas[$id_padre])) {
-			return $this->mapeo_filas[$id_padre];
+			$filas = $this->mapeo_filas[$id_padre];
+			if ($incluir_hijos_eliminados) {
+				if (isset($this->mapeo_filas_eliminadas[$id_padre])) {
+					$filas = array_merge($filas, $this->mapeo_filas_eliminadas[$id_padre]);
+				}
+			}
+			return $filas;
 		} else { 
 			return array();
 		}
@@ -238,10 +257,10 @@ class toba_relacion_entre_tablas
 	/**
 	 * Filtra un conjunto de filas hijas de acuerdo al estado de sus padres
 	 */
-	function filtrar_filas_hijas($filas)
+	function filtrar_filas_hijas($filas, $incluir_hijos_eliminados=false)
 	{
 		if ($this->hay_cursor_en_padre()) {
-			return array_intersect($filas, $this->get_id_filas_hijas());
+			return array_intersect($filas, $this->get_id_filas_hijas($incluir_hijos_eliminados));
 		} else {
 			if ($this->es_relacion_de_inclusion) {
 				return array();
@@ -263,10 +282,10 @@ class toba_relacion_entre_tablas
 	/**
 	 * Dada la condicion del cursor de la tabla padre, retorna las filas hijas asociadas
 	 */
-	function get_id_filas_hijas()
+	function get_id_filas_hijas($incluir_hijos_eliminados=false)
 	{
 		if ($this->hay_cursor_en_padre()) {
-			return $this->get_id_filas_hijas_de($this->tabla_padre->get_cursor());
+			return $this->get_id_filas_hijas_de($this->tabla_padre->get_cursor(), $incluir_hijos_eliminados);
 		} else {
 			throw new toba_error_def($this->get_txt_error_base("La tabla padre no tiene definido un cursor"));
 		}

@@ -427,7 +427,6 @@ class ci_efs extends toba_ci
 	
 	function ajax__crear_metodo_get_descripciones($dt, toba_ajax_respuesta $respuesta)
 	{
-		$dt = toba_contexto_info::get_db()->quote($dt);
 		$sql = $this->get_sql_carga_tabla($dt);
 		if (isset($sql)) {
 			$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);			

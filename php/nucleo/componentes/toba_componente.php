@@ -569,6 +569,7 @@ abstract class toba_componente
 		$proyecto = toba_proyecto::get_id();
 		$id = toba::proyecto()->get_id_componente_por_indice($identificador_componente, $proyecto);
 		$this->agregar_dependencia( $identificador_rol, $proyecto, $id['componente'] );
+		$this->dep($identificador_rol)->inicializar();
 	}
 
 	/**

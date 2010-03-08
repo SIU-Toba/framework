@@ -590,6 +590,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$this->objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
 				}
 			}
+			unset($this->_columnas_predeterminadas_db);						
 		}
 	}
 

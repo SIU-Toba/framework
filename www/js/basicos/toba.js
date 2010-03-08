@@ -9,6 +9,7 @@ var toba;
 toba = new function() {
 	this._cons_incl = ['basicos/basico', 'basicos/toba'];
 	this._cons_carg = ['basicos/basico', 'basicos/toba'];
+	this._url_origen = document.location.href;
 	this._objetos = [];
 	this._callback_inclusion = null;
 	this._ajax = false;
@@ -368,10 +369,14 @@ toba = new function() {
 	toba.error_comunicacion = function(error) {
 		//Se asegura que no este navegando hacia otra página y ese sea el motivo del error ajax
 		if (typeof toba != 'undefined' && typeof toba._enviado != 'undefined' && ! toba._enviado) {
-			notificacion.limpiar();
-			var mensaje = "Error de comunicación AJAX<br>";
-			notificacion.agregar(mensaje, 'error', null, var_dump(error, true));
-			notificacion.mostrar();
+			var url_actual = document.location.href;
+			//-- Si se utiliza un link directo, debería permitir la navegación aunque la respuesta no llegue nunca
+			if (toba._url_origen != url_actual) {
+				notificacion.limpiar();
+				var mensaje = "Error de comunicación AJAX<br>";
+				notificacion.agregar(mensaje, 'error', null, var_dump(error, true));
+				notificacion.mostrar();
+			}
 		}
 	};
 

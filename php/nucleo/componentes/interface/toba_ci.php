@@ -536,6 +536,16 @@ class toba_ci extends toba_ei
 		return isset($this->_wizard_sentido_navegacion) && ($this->_wizard_sentido_navegacion == 1);
 	}
 
+	/**
+	 * Resetea el Cambio de Pantalla, se recupera el id de la pantalla original
+	 * @ignore
+	 */
+	protected function resetear_cambio_pantalla()
+	{
+		$this->_pantalla_id_servicio = $this->_pantalla_id_eventos;
+	}
+
+
 	//------------------------------------------------
 	//--  ETAPA SERVICIO  ----------------------------
 	//------------------------------------------------

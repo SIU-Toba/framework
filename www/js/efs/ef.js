@@ -550,6 +550,26 @@ ef_html.prototype.constructor = ef_html;
 		}
 	};
 	
+	ef_html.prototype.validar = function () {
+		if (! ef.prototype.validar.call(this)) {
+			return false;
+		}
+		var estado = this.get_estado();
+		if (this._obligatorio && ereg_nulo.test(estado)) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
+			var temp = this._expreg + '.test("' + estado + '")';
+			if (! eval(temp)) {
+				this._error = 'no es válido';
+				return false;
+			}
+		}
+		return true;
+	};
+	
+	
 	/**
 	 * @private
 	 */

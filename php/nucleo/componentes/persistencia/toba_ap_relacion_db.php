@@ -219,7 +219,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		//-- [1] Se sincroniza las operaciones de eliminación, en orden inverso
 		foreach (array_reverse($tablas) as $tabla) {
 			if($usar_cursores){
-				$filas = $tabla->get_id_filas_filtradas_por_cursor();
+				$filas = $tabla->get_id_filas_filtradas_por_cursor(true);
 				if($filas) {
 					$tabla->persistidor()->sincronizar_eliminados($filas);
 				}

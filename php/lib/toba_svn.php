@@ -132,6 +132,13 @@ class toba_svn
 		return true;		
 	}
 	
+	function verificar_cliente_svn()
+	{
+		if (! self::hay_cliente_svn()) {
+			$msg = "\n\nAtención !\nHubo un error al acceder al cliente de SVN local.\nAsegúrese de tener instalada una versión reciente y que la misma esté accesible.\nEjecute 'svn --version' para más información.";
+			throw new toba_error_def($msg);
+		} 
+	}
 	
 	function get_estado($path)
 	{
@@ -204,7 +211,7 @@ class toba_svn
 						}
 					}
 					unset($aux_entrada);
-					unset($aux_revision);
+					unset($aux_revision);					
 				}
 			}
 		} catch(toba_error $e) {

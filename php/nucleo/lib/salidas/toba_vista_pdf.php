@@ -156,6 +156,7 @@ class toba_vista_pdf
 	
 	protected function crear_pdf()
 	{
+		toba::logger()->debug("Mensajes PDF: ".$this->pdf->messages);
   		$tmp = $this->pdf->ezOutput(0);
    		$this->cabecera_http( strlen(ltrim($tmp)) );
    		echo ltrim($tmp);

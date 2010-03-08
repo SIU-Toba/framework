@@ -5,6 +5,13 @@ class toba_migracion_1_0_4 extends toba_migracion
 	
 	function instancia__cambios_estructura()
 	{
+		/**
+		 * Se evita el mensaje 'ERROR: cannot ALTER TABLE "apex_objeto_ei_formulario_ef" because it has pending trigger events' de postgres 8.3.
+		 */
+		$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+		$this->elemento->get_db()->ejecutar($sql);
+
+		$sql = array();
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_metodo varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_clase varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_include varchar";

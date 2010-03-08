@@ -16,6 +16,7 @@ class toba_datos_relacion extends toba_componente
 	protected $_persistidor;
 	protected $_cargado = false;
 	protected $_relaciones_mapeos=array();			//Mapeo entre filas de las tablas
+	protected $_relaciones_mapeos_eliminados=array();//Mapeo entre filas eliminadas en el hijo
 	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
 	protected $_info_columnas_asoc_rel;
 
@@ -24,6 +25,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	final function __construct($id)
 	{
+		$propiedades[] = "_relaciones_mapeos_eliminados";
 		$propiedades[] = "_relaciones_mapeos";
 		$propiedades[] = "_cargado";
 		$this->set_propiedades_sesion($propiedades);			
@@ -61,8 +63,10 @@ class toba_datos_relacion extends toba_componente
 		//Esta clase es la encargada de guardarle los valores en sesion a cada relación
 		//Se asume que las relaciones siempre se cargan en el mismo orden
 		$this->_relaciones_mapeos = array();
+		$this->_relaciones_mapeos_eliminados = array();
 		foreach ($this->_relaciones as $relacion) {
 			$this->_relaciones_mapeos[] = $relacion->get_mapeo_filas();
+			$this->_relaciones_mapeos_eliminados[] = $relacion->get_mapeo_filas_eliminadas();
 		}
 		if ($this->_info_estructura['debug']) {
 			$this->dump_esquema("FIN: ".$this->_info['nombre']);	
@@ -114,6 +118,9 @@ class toba_datos_relacion extends toba_componente
 				//Se recuperan los mapeos anteriores, si es que hay
 				if (isset($this->_relaciones_mapeos[$a])) {
 					$this->_relaciones[$id_relacion]->set_mapeo_filas($this->_relaciones_mapeos[$a]);
+				}
+				if (isset($this->_relaciones_mapeos_eliminados[$a])) {
+					$this->_relaciones[$id_relacion]->set_mapeo_filas_eliminadas($this->_relaciones_mapeos_eliminados[$a]);
 				}
 			}
 			//Padres sin hijos
@@ -424,10 +431,7 @@ class toba_datos_relacion extends toba_componente
 			if ($this->_info_estructura['sinc_susp_constraints']) {
 				$this->_persistidor->retrasar_constraints();
 			}
-			if ($this->_info_estructura['sinc_lock_optimista']) {
-				$this->_persistidor->set_lock_optimista();
-			}
-
+			$this->_persistidor->set_lock_optimista($this->_info_estructura['sinc_lock_optimista']);
 		}
 		return $this->_persistidor;
 	}
@@ -507,7 +511,7 @@ class toba_datos_relacion extends toba_componente
 		} else {
 			//Se sincroniza con cursores
 			foreach ($this->_dependencias as $dependencia) {
-				$filas = $dependencia->get_id_filas_filtradas_por_cursor();
+				$filas = $dependencia->get_id_filas_filtradas_por_cursor(true);
 				if($filas) {
 					$dependencia->validar($filas);
 				}
@@ -515,7 +519,7 @@ class toba_datos_relacion extends toba_componente
 			$this->evt__validar();
 			$this->persistidor()->sincronizar($usar_cursores);
 			foreach ($this->_dependencias as $dependencia) {
-				$filas = $dependencia->get_id_filas_filtradas_por_cursor();
+				$filas = $dependencia->get_id_filas_filtradas_por_cursor(true);
 				if($filas) {
 					$dependencia->notificar_fin_sincronizacion($filas);
 				}

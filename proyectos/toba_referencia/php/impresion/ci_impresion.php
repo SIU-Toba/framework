@@ -27,6 +27,15 @@ class ci_impresion extends toba_ci
 	
 	function vista_pdf(toba_vista_pdf $salida)
 	{
+		//Cambio lo márgenes accediendo directamente a la librería PDF
+		$pdf = $salida->get_pdf();
+		$pdf->ezSetMargins(80, 50, 30, 30);	//top, bottom, left, right
+				
+		//Pie de página
+		$formato = 'Página {PAGENUM} de {TOTALPAGENUM}';
+		$pdf->ezStartPageNumbers(300, 20, 8, 'left', $formato, 1);	//x, y, size, pos, texto, pagina inicio
+
+		//Inserto los componentes usando la API de toba_vista_pdf
 		$salida->titulo($this->get_nombre());
 		$salida->mensaje('Nota: Este es el Principal');
 		$this->dependencia('filtro')->vista_pdf($salida);
@@ -41,6 +50,16 @@ class ci_impresion extends toba_ci
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
 		$salida->separacion();
 		$this->dependencia('ml')->vista_pdf($salida);
+		
+		//Encabezado
+		$pdf = $salida->get_pdf();
+		foreach ($pdf->ezPages as $pageNum=>$id){
+			$pdf->reopenObject($id);
+			$imagen = toba::proyecto()->get_path().'/www/img/logo_toba_siu.jpg';
+			$pdf->addJpegFromFile($imagen, 50, 780, 141, 45);	//imagen, x, y, ancho, alto
+          	$pdf->closeObject();		
+		}		
+		
 	}
 	
 	function vista_excel(toba_vista_excel $salida)

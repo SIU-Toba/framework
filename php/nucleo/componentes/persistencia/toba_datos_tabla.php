@@ -565,19 +565,19 @@ class toba_datos_tabla extends toba_componente
 	 * @return array()
 	 * @todo Se podría optimizar este método para no recaer en tantos recorridos
 	 */
-	function get_id_filas_filtradas_por_cursor()
+	function get_id_filas_filtradas_por_cursor($incluir_eliminados=false)
 	{
 		if($this->hay_cursor()){
 			return array( $this->get_cursor() );
 		} else {
 			$coincidencias = array();
 			foreach(array_keys($this->_cambios) as $id_fila){
-				if($this->_cambios[$id_fila]['estado']!="d"){
+				if($incluir_eliminados || $this->_cambios[$id_fila]['estado']!="d"){
 					$coincidencias[] = $id_fila;
 				}
 			}
 			foreach ($this->_relaciones_con_padres as $id => $rel_padre) {
-				$coincidencias = $rel_padre->filtrar_filas_hijas($coincidencias);
+				$coincidencias = $rel_padre->filtrar_filas_hijas($coincidencias, $incluir_eliminados);
 			}
 			return $coincidencias;		
 		}
@@ -1509,7 +1509,7 @@ class toba_datos_tabla extends toba_componente
 	function sincronizar($usar_cursores=false)
 	{
 		if($usar_cursores) {
-			$filas = $this->get_id_filas_filtradas_por_cursor();
+			$filas = $this->get_id_filas_filtradas_por_cursor(false);
 			if($filas) {	// Si los cursores no filtran registros, no sincronizo nada
 				$this->validar($filas);
 				$modif = $this->persistidor()->sincronizar($filas);
@@ -1534,6 +1534,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		$this->validar($filas);
 		$modif = $this->persistidor()->sincronizar($filas);
+		$this->notificar_fin_sincronizacion($filas);
 		return $modif;
 	}
 
@@ -1721,14 +1722,17 @@ class toba_datos_tabla extends toba_componente
 	* @param boolean $usar_cursores Si esta seteado, solo se marcan como nuevas las filas marcadas por el cursor
 	*	
 	*/
-	function forzar_insercion($usar_cursores=false)
+	function forzar_insercion($usar_cursores=false, $filas=null)
 	{
 		if($usar_cursores) {
 			$filas = $this->get_id_filas_filtradas_por_cursor();
 		} else {
-			$filas = array_keys($this->_cambios);
+			if (!isset($filas)) {
+				$filas = array_keys($this->_cambios);
+			}
 		}
 		foreach( $filas as $fila) {
+			$this->log("FORZAR INSERT en FILA: $fila");
 			$this->registrar_cambio($fila, "i");
 		}
 	}
@@ -1837,6 +1841,22 @@ class toba_datos_tabla extends toba_componente
 			$modificar = isset($this->_columnas[$campo]) && isset($datos_nuevos[$campo]);
 		}
 		return $modificar;
+	}
+
+	/**
+	 * Agrega en un nodo xml los datos del registro seleccinado en la tabla por el cursor, como atributos del nodo
+	 * @param SimpleXMLElement $xml El objeto nodo xml al que se le van a agregar los atributos
+	 */
+	
+	function get_xml($xml)
+	{
+		// Recupera los datos del registro marcado por el cursor
+		$datos = $this->get();
+		
+		// Para cada columna, la agrega como atributo del nodo
+		foreach($datos as $clave => $valor){
+			$xml->addAttribute($clave,utf8_encode($valor));
+		}
 	}
 
 	/**
