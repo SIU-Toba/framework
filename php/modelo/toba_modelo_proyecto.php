@@ -1977,10 +1977,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	*	Indica si un proyecto existe en el sistema de archivos
 	*/
-	static function existe( $nombre )
+	static function existe($nombre, $cache = true )
 	{
-		$proyectos = self::get_lista();
-		if ( in_array( $nombre, $proyectos ) ) {
+		$proyectos = self::get_lista($cache);
+		if (in_array($nombre, $proyectos)) {
 			return true;	
 		} else {
 			return false;	
@@ -2001,6 +2001,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			throw new toba_error("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
 		}
 		try {
+
 			//- 2 - Modificaciones en el sistema de archivos
 			$dir_proyecto = $instancia->get_path_proyecto($nombre);
 			$url_proyecto = $instancia->get_url_proyecto($nombre);

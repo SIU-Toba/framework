@@ -1847,7 +1847,6 @@ class toba_datos_tabla extends toba_componente
 	 * Agrega en un nodo xml los datos del registro seleccinado en la tabla por el cursor, como atributos del nodo
 	 * @param SimpleXMLElement $xml El objeto nodo xml al que se le van a agregar los atributos
 	 */
-	
 	function get_xml($xml)
 	{
 		// Recupera los datos del registro marcado por el cursor
@@ -1859,20 +1858,5 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
-	/**
-	 * Agrega en un nodo xml los datos del registro seleccinado en la tabla por el cursor, como atributos del nodo
-	 * @param SimpleXMLElement $xml El objeto nodo xml al que se le van a agregar los atributos
-	 */
-	
-	function get_xml($xml)
-	{
-		// Recupera los datos del registro marcado por el cursor
-		$datos = $this->get();
-		
-		// Para cada columna, la agrega como atributo del nodo
-		foreach($datos as $clave => $valor){
-			$xml->addAttribute($clave,utf8_encode($valor));
-		}
-	}
 }
 ?>

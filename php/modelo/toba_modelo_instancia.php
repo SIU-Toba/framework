@@ -263,7 +263,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	function vincular_proyecto($proyecto, $path=null, $url=null)
 	{
-		if ( isset($path) || toba_modelo_proyecto::existe($proyecto) ) {
+		if ( isset($path) || toba_modelo_proyecto::existe($proyecto, false) ) {
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
 			$datos = array_map('trim',$datos);
