@@ -907,16 +907,17 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("Actualizando secuencias", false);		
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
+			$max = "MAX(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END)";
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
-				$sql = "SELECT setval('$seq', max({$datos['campo']})) as nuevo FROM {$datos['tabla']}"; 
+				$sql = "SELECT setval('$seq', $max) as nuevo FROM {$datos['tabla']}"; 
 				$res = $this->get_db()->consultar($sql, null, true);
 				$nuevo = $res[0]['nuevo'];
 			} else {
 				//Sino se toma utilizando los límites según el ID del grupo
 				$lim_inf = self::cantidad_seq_grupo * $id_grupo_de_desarrollo;
 				$lim_sup = self::cantidad_seq_grupo * ( $id_grupo_de_desarrollo + 1 );
-				$sql_nuevo = "SELECT max({$datos['campo']}) as nuevo
+				$sql_nuevo = "SELECT $max as nuevo
 							  FROM {$datos['tabla']}
 							  WHERE
 								CASE regexp_replace({$datos['campo']}::text,'[^0-9]','','g') 
