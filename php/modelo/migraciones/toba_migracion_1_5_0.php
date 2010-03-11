@@ -97,9 +97,11 @@ class toba_migracion_1_5_0 extends toba_migracion
 							);';
 
 			//--------------------------------Se corrige la clave de la tabla apex_relacion_tablas sino 2 proyectos con perfil datos pueden chocar --------------------
-			$sql[] = 'ALTER TABLE desarrollo.apex_relacion_tablas DROP CONSTRAINT apex_relacion_tablas_pk;
-						  ALTER TABLE desarrollo.apex_relacion_tablas ADD PRIMARY KEY (proyecto, relacion_tablas);';
+			$sql[] = 'ALTER TABLE apex_relacion_tablas DROP CONSTRAINT apex_relacion_tablas_pk;
+						  ALTER TABLE apex_relacion_tablas ADD PRIMARY KEY (proyecto, relacion_tablas);';
 
+			$sql[] = 'ALTER TABLE apex_estilo DROP CONSTRAINT apex_estilo_pk;
+						   ALTER TABLE apex_estilo ADD PRIMARY KEY (estilo, proyecto);';
 
 			$this->elemento->get_db()->ejecutar($sql);
 
