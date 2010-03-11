@@ -395,7 +395,7 @@ class ci_efs extends toba_ci
 			unset($datos['estatico']);
 		} else {
 			//--- Limpia los valores
-			$datos = array();	
+			$datos = array('carga_maestros' => null);
 			foreach ($this->mecanismos_carga as $mec) {
 				$datos[$mec] = null;
 			}
