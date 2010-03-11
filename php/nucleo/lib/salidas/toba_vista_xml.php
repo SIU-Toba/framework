@@ -14,6 +14,7 @@ class toba_vista_xml
 	protected $objetos = array();
 	protected $tipo_descarga = 'attachment';
 	protected $nombre_archivo = 'archivo.xml';
+	protected $xml_externo;	
 	
 	function __construct()
 	{
@@ -36,7 +37,16 @@ class toba_vista_xml
 	{
 		$this->nombre_archivo = $nombre;
 	}
-	
+
+	/**
+	 * Permite setear un string conteniendo XML generado externamente, esto anula la generacion
+	 * interna por medio de la vista_xml de los componentes
+	 * @param string $xml
+	 */
+	function set_xml_pre_generado($xml)
+	{
+		$this->xml_externo = $xml;
+	}
 
 	//------------------------------------------------------------------------
 	//-- Generacion del xml
@@ -53,14 +63,19 @@ class toba_vista_xml
 	}
 	
 
-	function generar_xml() {
-		$xml = '<?xml version="1.0" encoding="ISO-8859-1"?><raiz>';
-		foreach( $this->objetos as $objeto ) {
-			if(method_exists($objeto, 'vista_xml')) {
-				$xml .= $objeto->vista_xml(true);	
+	function generar_xml() 
+	{
+		if (! isset($this->xml_externo)) {																//Si no existe XML pre-generado externamente
+			$xml = '<?xml version="1.0" encoding="ISO-8859-1"?><raiz>';
+			foreach( $this->objetos as $objeto ) {
+				if(method_exists($objeto, 'vista_xml')) {
+					$xml .= $objeto->vista_xml(true);
+				}
 			}
+			$xml .= '</raiz>';
+		} else {
+			$xml = $this->xml_externo;
 		}
-		$xml .= '</raiz>';
 		return $xml;
 	}
 

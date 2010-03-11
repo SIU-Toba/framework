@@ -78,6 +78,15 @@ class toba_vista_xslfo
 		$this->xsl_proyecto = $xsl;
 	}
 	
+	/**
+	 * Devuelve una instancia de la clase que maneja la vista_xml de los componentes
+	 * @return toba_vista_xml  
+	 */
+	function get_manejador_vista_xml()
+	{
+		return $this->xml;
+	}
+
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
@@ -87,7 +96,6 @@ class toba_vista_xslfo
 	 */
 	function generar_salida()
 	{	
-		$xml = $this->xml->generar_xml();
 		
 		//Callback de los eis
 		foreach( $this->objetos as $objeto ) {
@@ -95,7 +103,7 @@ class toba_vista_xslfo
 				$objeto->vista_xslfo($this);	
 			}
 		}
-		
+		$xml = $this->xml->generar_xml();
 		if (preg_match('&^https?://.*$&',$this->fop)) {
 			$tmp = $this->obtener_pdf($xml);
 		} else {
