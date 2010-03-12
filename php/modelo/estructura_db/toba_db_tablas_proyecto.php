@@ -856,6 +856,7 @@ class toba_db_tablas_proyecto
     7 => 'hora_entrada',
     8 => 'hora_salida',
     9 => 'listar',
+    10 => 'permite_edicion',
   ),
 );
 	}
@@ -935,6 +936,7 @@ class toba_db_tablas_proyecto
     0 => 'proyecto',
     1 => 'restriccion_funcional',
     2 => 'descripcion',
+    3 => 'permite_edicion',
   ),
 );
 	}

@@ -75,7 +75,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'255', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	NULL  --externa
+	'0'  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_usuarios', --objeto_proyecto
@@ -88,7 +88,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'15', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL  --externa
+	'0'  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_usuarios', --objeto_proyecto
@@ -101,6 +101,19 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL  --externa
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'45000004', --objeto
+	'45000005', --col_id
+	'permite_edicion', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
 );
 --- FIN Grupo de desarrollo 45

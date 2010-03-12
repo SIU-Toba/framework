@@ -131,11 +131,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		if ($this->maneja_perfiles_produccion()) {
 			return $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
-		} else {		
+		} else {
 			return $this->get_dir_dump() . '/permisos';
 		}
 	}
 	
+	function get_dir_permisos_proyecto()
+	{
+		return $this->get_dir_dump() . '/permisos';
+	}
+
 	function get_dir_componentes_compilados()
 	{
 		return $this->dir . '/metadatos_compilados';
@@ -535,9 +540,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//-- Perfiles Funcionales
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
-		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
+		foreach( $this->get_indice_grupos_acceso() as $permiso ) 
+		{
 			toba_logger::instancia()->debug("PERFIL  $permiso");
-			$contenido = '';		
+			$contenido = '';
 			$where = "usuario_grupo_acc = '$permiso'";
 			$datos = array();
 			foreach($tablas as $tabla) {
@@ -549,18 +555,39 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml->guardar($archivo);
 			$this->manejador_interface->progreso_avanzar();
 		}
+		
 		//--- Perfiles de datos
 		$tablas = array('apex_usuario_perfil_datos', 'apex_usuario_perfil_datos_dims');
 		$datos = array();
-		foreach ($tablas as $tabla) {
-			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla);	
+		foreach ($tablas as $tabla) 
+		{
+			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla);
 		}
 		$archivo = $dir_perfiles."/perfiles_datos.xml";
 		$xml = new toba_xml_tablas();
 		$xml->set_tablas($datos);
 		$xml->guardar($archivo);
+		
+		//--- Restricciones Funcionales
+		$tablas = array('apex_restriccion_funcional', 
+						'apex_restriccion_funcional_cols', 
+						'apex_restriccion_funcional_ef', 
+						'apex_restriccion_funcional_ei', 
+						'apex_restriccion_funcional_evt', 
+						'apex_restriccion_funcional_filtro_cols', 
+						'apex_restriccion_funcional_pantalla');
+		$datos = array();
+		foreach ($tablas as $tabla) 
+		{
+			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla);
+		}
+		
+		$archivo = $dir_perfiles."/restricciones_funcionales.xml";
+		$xml = new toba_xml_tablas();
+		$xml->set_tablas($datos);
+		$xml->guardar($archivo);
 		$this->manejador_interface->progreso_avanzar();				
-	}	
+	}
 	
 	//-----------------------------------------------------------
 	//	PERMISOS SOBRE TABLAS EN LA BASE
@@ -852,17 +879,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$this->manejador_interface->mensaje('Cargando permisos', false);
 		$errores = array();
+		
+		$this->cargar_perfiles_proyecto();
+		
 		if ($this->maneja_perfiles_produccion()) {
 			$errores = $this->cargar_perfiles_produccion();		
-		} else {
-			$this->cargar_perfiles_proyecto();
 		}
+		
 		return $errores;
 	}
 	
 	private function cargar_perfiles_proyecto()
 	{
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_proyecto(), '|.*\.sql|' );
 		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );

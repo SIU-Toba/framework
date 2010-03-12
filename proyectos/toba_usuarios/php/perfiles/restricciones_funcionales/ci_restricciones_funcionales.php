@@ -116,9 +116,18 @@ class ci_restricciones_funcionales extends toba_ci
 	function conf__form_restriccion($componente)
 	{
 		if ($this->dep('restricciones')->esta_cargada()) {
-			$datos = $this->dep('restricciones')->get();	
+			$datos = $this->dep('restricciones')->get();
+			
+			if (toba::instalacion()->es_produccion() && !$datos['permite_edicion']) {
+				$this->pantalla()->eliminar_evento('guardar');
+				$this->pantalla()->eliminar_evento('eliminar');
+			}
 		}else{
 			$datos['proyecto'] = $this->get_proyecto_seleccionado();
+			
+			if (toba::instalacion()->es_produccion()) {
+				$componente->desactivar_efs(array('permite_edicion'));
+			}
 		}
 		$componente->set_datos($datos);
 	}

@@ -24,6 +24,7 @@ CREATE TABLE apex_usuario_grupo_acc
 	hora_entrada					time(0) without time	zone NULL,
 	hora_salida						time(0) without time	zone NULL,
 	listar							smallint			NULL,
+	permite_edicion					smallint 		NOT NULL 	DEFAULT 1,
 	CONSTRAINT	"apex_usu_g_acc_pk" PRIMARY KEY ("proyecto","usuario_grupo_acc")
 	--CONSTRAINT	"apex_usu_g_acc_fk_niv"	FOREIGN KEY	("nivel_acceso") REFERENCES "apex_nivel_acceso"	("nivel_acceso") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 );
@@ -116,6 +117,7 @@ CREATE TABLE apex_restriccion_funcional
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional			int8				DEFAULT nextval('"apex_restriccion_funcional_seq"'::text) NOT NULL,
 	descripcion						TEXT		NULL,
+	permite_edicion					smallint 			NOT NULL 	DEFAULT 1,
 	CONSTRAINT	"restriccion_funcional_pk" PRIMARY	KEY ("proyecto", "restriccion_funcional"),
 	CONSTRAINT	"restriccion_funcional_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
