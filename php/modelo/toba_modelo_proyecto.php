@@ -540,7 +540,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		{
 			toba_logger::instancia()->debug("PERFIL  $permiso");
 			$contenido = '';
-			$where = "usuario_grupo_acc = '$permiso'";
+			$where = "usuario_grupo_acc = '$permiso' AND usuario_grupo_acc IN (SELECT gc.usuario_grupo_acc FROM apex_usuario_grupo_acc AS gc WHERE gc.usuario_grupo_acc = '$permiso' AND permite_edicion = 1)";
 			$datos = array();
 			foreach($tablas as $tabla) {
 				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
@@ -574,9 +574,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 						'apex_restriccion_funcional_filtro_cols', 
 						'apex_restriccion_funcional_pantalla');
 		$datos = array();
+		$where = "restriccion_funcional IN (SELECT res.restriccion_funcional FROM apex_restriccion_funcional AS res WHERE res.permite_edicion = 1)";
 		foreach ($tablas as $tabla) 
 		{
-			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla);
+			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
 		}
 		
 		$archivo = $dir_perfiles."/restricciones_funcionales.xml";
