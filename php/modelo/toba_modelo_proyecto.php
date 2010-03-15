@@ -126,14 +126,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		return $this->get_dir_dump() . '/tablas';
 	}
-
-	function get_dir_permisos()
+		
+	function get_dir_permisos_produccion()
 	{
-		if ($this->maneja_perfiles_produccion()) {
-			return $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
-		} else {
-			return $this->get_dir_dump() . '/permisos';
-		}
+		return $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
 	}
 	
 	function get_dir_permisos_proyecto()
@@ -504,7 +500,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function exportar_perfiles_proyecto()
 	{
 		//-- Perfiles Funcionales
-		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
+		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos_proyecto() );
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERMISO  $permiso");
@@ -514,7 +510,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$contenido .= $this->get_contenido_tabla($tabla, $where);
 			}
 			if ( $contenido ) {
-				$this->guardar_archivo( $this->get_dir_permisos() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
+				$this->guardar_archivo( $this->get_dir_permisos_proyecto() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
 				$this->manejador_interface->progreso_avanzar();
 			}			
 		}
@@ -524,7 +520,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach ($tablas as $tabla ) {
 			$contenido = $this->get_contenido_tabla($tabla);	
 			if ( trim( $contenido ) != '' ) {
-				$this->guardar_archivo( $this->get_dir_permisos() .'/'. $tabla . '.sql', $contenido );			
+				$this->guardar_archivo( $this->get_dir_permisos_proyecto() .'/'. $tabla . '.sql', $contenido );			
 			}
 			$this->manejador_interface->progreso_avanzar();
 		}
@@ -532,7 +528,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function exportar_perfiles_produccion()
 	{
-		$dir_perfiles = $this->get_dir_permisos();
+		$dir_perfiles = $this->get_dir_permisos_produccion();
 		//-- Borra los perfiles anteriormente guardados, si existen
 		if (file_exists($dir_perfiles)) {
 			toba_manejador_archivos::eliminar_directorio($dir_perfiles);
@@ -567,6 +563,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$xml = new toba_xml_tablas();
 		$xml->set_tablas($datos);
 		$xml->guardar($archivo);
+		$this->manejador_interface->progreso_avanzar();
 		
 		//--- Restricciones Funcionales
 		$tablas = array('apex_restriccion_funcional', 
@@ -586,7 +583,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$xml = new toba_xml_tablas();
 		$xml->set_tablas($datos);
 		$xml->guardar($archivo);
-		$this->manejador_interface->progreso_avanzar();				
+		$this->manejador_interface->progreso_avanzar();
 	}
 	
 	//-----------------------------------------------------------
@@ -905,7 +902,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function cargar_perfiles_produccion()
 	{
 		$todos_errores = array();
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.xml$|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_produccion(), '|.*\.xml$|' );
 		foreach( $archivos as $archivo ) {
 			$perfil = basename($archivo, 'xml');
 			$xml = new toba_xml_tablas($archivo);
@@ -928,17 +925,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 		return $todos_errores;
 	}
-
-	function get_sql_carga_perfiles()
-	{
-		$salida = '';
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );		
-		foreach( $archivos as $archivo ) {
-			$salida .= file_get_contents($archivo)."\n\n";
-		}		
-		return $salida;
-	}		
-
 	
 	//------------------------------------------------------------------
 	//		PUBLICACION
