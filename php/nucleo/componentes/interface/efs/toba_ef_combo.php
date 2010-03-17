@@ -14,6 +14,7 @@ abstract class toba_ef_seleccion extends toba_ef
 	protected $estado_nulo = null;
 	protected $estado_defecto;
 	protected $mantiene_estado_cascada = false;		//Indica si se mantendra el estado entre cada pedido de cascadas
+	protected static $maximo_descripcion;
 	
     static function get_lista_parametros_carga()
     {
@@ -25,6 +26,11 @@ abstract class toba_ef_seleccion extends toba_ef
 		return $param;
     }
 	
+    static function set_maximo_descripcion($maximo)
+	{
+		self::$maximo_descripcion = $maximo;
+	}
+
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
@@ -61,6 +67,16 @@ abstract class toba_ef_seleccion extends toba_ef
 	 */
 	function set_opciones($datos, $maestros_cargados=true, $tiene_maestros=false)
 	{
+		// Si se seteó una longitud máxima para la descripción (con el método set_maximo_descripcion),
+		// se cortan los valores a ese máximo y se agrega al final '...'.
+		if (isset(self::$maximo_descripcion)) {
+			foreach ($datos as $clave => $opcion) {
+				if ($opcion && strlen($opcion) > self::$maximo_descripcion) {
+					$datos[$clave] = substr($opcion, 0, self::$maximo_descripcion) . '...';
+				}
+			}
+		}
+
 		$this->opciones_cargadas = true;
 		$this->input_extra = '';
 		if ($tiene_maestros) {
