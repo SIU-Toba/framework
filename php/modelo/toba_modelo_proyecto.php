@@ -342,6 +342,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");		
 		return $datos;		
 	}
+	
+	function get_descripcion_items(&$datos)
+	{
+		$items = toba_info_editores::get_lista_items($this->get_id());
+		$items = rs_convertir_asociativo($items, array('id'), 'descripcion');
+		foreach (array_keys($datos['apex_usuario_grupo_acc_item']) as $key)
+		{
+			if (array_key_exists($datos['apex_usuario_grupo_acc_item'][$key]['item'], $items)) {
+				$datos['apex_usuario_grupo_acc_item'][$key]['nombre'] = $items[$datos['apex_usuario_grupo_acc_item'][$key]['item']];
+			}			
+		}
+	}
 
 	
 	//-- COMPONENTES -------------------------------------------------------------
@@ -539,12 +551,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) 
 		{
 			toba_logger::instancia()->debug("PERFIL  $permiso");
-			$contenido = '';
 			$where = "usuario_grupo_acc = '$permiso' AND usuario_grupo_acc IN (SELECT gc.usuario_grupo_acc FROM apex_usuario_grupo_acc AS gc WHERE gc.usuario_grupo_acc = '$permiso' AND permite_edicion = 1)";
 			$datos = array();
 			foreach($tablas as $tabla) {
 				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
 			}
+			$this->get_descripcion_items($datos);
 			$archivo = $dir_perfiles."/perfil_$permiso.xml";
 			$xml = new toba_xml_tablas();
 			$xml->set_tablas($datos);
