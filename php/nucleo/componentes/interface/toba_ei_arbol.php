@@ -29,6 +29,7 @@ class toba_ei_arbol extends toba_ei
 	protected $_mostrar_ayuda = true;
 	protected $_ancho_nombres = 30;
 	protected $_ids_enviados = array();
+	protected $_chequear_id_nodos = true;
 
 	final function __construct($datos)
 	{
@@ -64,6 +65,16 @@ class toba_ei_arbol extends toba_ei
 		$this->_eventos['cambio_apertura'] = array();
 		$this->_eventos['ver_propiedades'] = array();
 		$this->_eventos['cargar_nodo'] = array();
+	}
+
+	/**
+	 * @ignore
+	 * Permite desactivar temporalmente el chequeo de ids de los nodos
+	 * util para el toba_editor
+	 */
+	function desactivar_chequeo_nodos()
+	{
+		$this->_chequear_id_nodos = false;
 	}
 
 	/**
@@ -195,7 +206,9 @@ class toba_ei_arbol extends toba_ei
 		//Actualiza el estado de los nodos
 		if (isset($this->_nodos_inicial)) {
 			foreach ($this->_nodos_inicial as $nodo) {
-				$this->disparar_eventos_nodo($nodo);
+				if ($nodo instanceof toba_nodo_arbol_form) {
+						$this->disparar_eventos_nodo($nodo);
+				}
 			}
 		}
 		//Se guarda el layout del arbol actual
@@ -221,7 +234,10 @@ class toba_ei_arbol extends toba_ei
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->_memoria['eventos'][$evento]) ) {
 				$parametros = null;
-				if ($evento == 'ver_propiedades' && isset($_POST[$this->_submit."__seleccion"]) &&
+				$existe_seleccion = (isset($_POST[$this->_submit."__seleccion"]));
+				$evento_propiedades = ($evento == 'ver_propiedades');
+
+				if ( $evento_propiedades && $existe_seleccion &&
 					($this->validar_id_nodo_recibido($_POST[$this->_submit."__seleccion"]))) {
 							$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
 					}
@@ -259,7 +275,7 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function validar_id_nodo_recibido($id_nodo)
 	{
-		if (! in_array($id_nodo, $this->_ids_enviados)) {
+		if ($this->_chequear_id_nodos && ! in_array($id_nodo, $this->_ids_enviados)) {
 			toba::logger()->debug("Se intenta acceder al nodo con id $id_nodo , pero no fue enviado al cliente");
 			throw new toba_error("Se intenta acceder a un nodo que no existe.");
 		}

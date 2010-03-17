@@ -17,7 +17,8 @@ class ci_catalogo_items extends ci_catalogo
 			$this->s__opciones['inicial'] = $item_selecc;
 		}
 		
-		$this->catalogador = new toba_catalogo_items(toba_editor::get_proyecto_cargado());		
+		$this->catalogador = new toba_catalogo_items(toba_editor::get_proyecto_cargado());
+		$this->dep('items')->desactivar_chequeo_nodos();
 	}
 
 	
@@ -104,12 +105,12 @@ class ci_catalogo_items extends ci_catalogo
 		}		
 	}
 	
-	function conf__items()
+	function conf__items($arbol)
 	{
 		if (isset($this->s__opciones['inicial'])) {
-			return $this->get_nodo_raiz($this->s__opciones['inicial']);
+			$arbol->set_datos($this->get_nodo_raiz($this->s__opciones['inicial']));
 		} else {
-			return $this->get_nodo_raiz();	
+			$arbol->set_datos( $this->get_nodo_raiz());
 		}
 	}
 	
