@@ -944,7 +944,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach( $archivos as $archivo ) {
 			$perfil = basename($archivo, 'xml');
 			$xml = new toba_xml_tablas($archivo);
-			$errores = $xml->insertar_db($this->db);
+			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
 				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
 				$msg .= " A continuación el detalle:";

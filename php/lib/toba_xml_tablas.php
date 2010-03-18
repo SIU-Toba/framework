@@ -84,11 +84,22 @@ class toba_xml_tablas
 		return $salida;
 	}
 	
+	function get_descripciones_items($datos)
+	{
+		$desc = array();
+		foreach (array_keys($datos['items']) as $fila)
+		{
+			$desc[$fila['item']] = $fila['nombre'];
+		}
+		
+		return $desc;
+	}
+
 	/**
 	 * Dada la información contenida en el xml intenta insertar los datos en una base
 	 * En caso de falla, se sigue adelante en la transacción utilizando SAVEPOINTs (postgres>=8.0)
 	 */
-	function insertar_db($conexion)
+	function insertar_db($conexion, $path_proyecto=null)
 	{
 		$conexion->retrazar_constraints(false);
 		$tablas = $this->get_tablas();
@@ -96,6 +107,13 @@ class toba_xml_tablas
 		$i = 0;
 		//-- Recorre cada tabla
 		foreach ($tablas as $tabla => $filas) {
+			if ($tabla == 'apex_usuario_grupo_acc_item') {
+				$dir_items = $path_proyecto . '/items.xml';
+				$xml = new toba_xml_tablas($dir_items);
+				$items = $this->get_descripciones_items($xml->get_tablas());
+			} else {
+				$items = array();
+			}
 			//-- Recorre cada fila
 			foreach ($filas as $fila) {
 				try {
@@ -106,12 +124,18 @@ class toba_xml_tablas
 					//Si no falla se libera el savepoint
 					$conexion->ejecutar('RELEASE SAVEPOINT toba_'.$i);
 				} catch (Exception $e) {
+					if ($tabla == 'apex_usuario_grupo_acc_item' && isset($fila['item'])) {
+						if (in_array($fila['item'], $items)) {
+							$extras = $items[$fila['item']];
+						}
+					}
 					//Al fallar se vuelve al estado anterior del fallo
 					$conexion->ejecutar('ROLLBACK TO SAVEPOINT toba_'.$i);
 					$errores[] = array('tabla' 		=> $tabla,
 										'sql'		=> $sql, 
 										'datos' 	=> $fila, 
-										'msg_motor' => $e->getMessage()
+										'msg_motor' => $e->getMessage(),
+										'extras'	=> isset($extras) ? $extras : ''
 										);
 				}
 				$i++;
@@ -131,8 +155,7 @@ class toba_xml_tablas
 	{
 		return $this->xml;
 	}
-	
-	
+
 	static function encode($valor)
 	{
 		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES));
