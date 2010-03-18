@@ -103,6 +103,10 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_estilo DROP CONSTRAINT apex_estilo_pk;
 						   ALTER TABLE apex_estilo ADD PRIMARY KEY (estilo, proyecto);';
 
+			//-------------------------------- Permite exportar restricciones personalizadas para no tener choques en produccion -----------------------------------------
+			$sql[] = 'ALTER TABLE apex_usuario_grupo_acc ADD COLUMN permite_edicion SMALLINT NOT NULL DEFAULT 1;';
+			$sql[] = 'ALTER TABLE apex_restriccion_funcional ADD COLUMN permite_edicion SMALLINT NOT NULL DEFAULT 1;';
+			
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";
