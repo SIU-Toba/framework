@@ -347,20 +347,27 @@ class toba_info_editores
 	/**
 	*	Retorna la lista de todos los items del proyecto actual (no carpetas)
 	*/
-	static function get_lista_items($proyecto=null)
+	static function get_lista_items($proyecto=null, $sin_carpetas=true)
 	{
 		$proyecto = isset($proyecto) ? 
 						toba_contexto_info::get_db()->quote($proyecto) : 
 						toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		
+		if ($sin_carpetas) {
+			$where = "(carpeta <> '1' OR carpeta IS NULL)";
+		} else {
+			$where = 'TRUE';
+		}
+		
 		$sql = "
 			SELECT 
 				proyecto, 
 				item 						as id, 
 				nombre						as descripcion
 			FROM apex_item 
-			WHERE 
-				(carpeta <> '1' OR carpeta IS NULL) AND
-				proyecto = $proyecto
+			WHERE
+					proyecto = $proyecto
+				AND $where
 			ORDER BY nombre;
 		";
 		return toba_contexto_info::get_db()->consultar($sql);

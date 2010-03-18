@@ -136,6 +136,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		return $this->get_dir_dump() . '/permisos';
 	}
+	
+	function get_dir_instalacion_proyecto()
+	{
+		return $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador);
+	}
 
 	function get_dir_componentes_compilados()
 	{
@@ -343,16 +348,21 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $datos;		
 	}
 	
-	function get_descripcion_items(&$datos)
+	function get_descripcion_items($datos)
 	{
-		$items = toba_info_editores::get_lista_items($this->get_id());
+		$items = toba_info_editores::get_lista_items($this->get_id(), false);
 		$items = rs_convertir_asociativo($items, array('id'), 'descripcion');
-		foreach (array_keys($datos['apex_usuario_grupo_acc_item']) as $key)
+		$items_desc = array();
+		$duplicados = array();
+		foreach (array_keys($datos) as $key)
 		{
-			if (array_key_exists($datos['apex_usuario_grupo_acc_item'][$key]['item'], $items)) {
-				$datos['apex_usuario_grupo_acc_item'][$key]['nombre'] = $items[$datos['apex_usuario_grupo_acc_item'][$key]['item']];
-			}			
+			if (!in_array($datos[$key]['item'], $duplicados)) {
+				$items_desc[] = array('item' => $datos[$key]['item'], 'nombre' => $items[$datos[$key]['item']]);
+				$duplicados[] = $datos[$key]['item'];
+			}
 		}
+		
+		return $items_desc;
 	}
 
 	
@@ -545,9 +555,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (file_exists($dir_perfiles)) {
 			toba_manejador_archivos::eliminar_directorio($dir_perfiles);
 		}
+		
 		//-- Perfiles Funcionales
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
+		
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
+		
+		$items = array();
+		
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) 
 		{
 			toba_logger::instancia()->debug("PERFIL  $permiso");
@@ -556,13 +571,23 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			foreach($tablas as $tabla) {
 				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
 			}
-			$this->get_descripcion_items($datos);
+			
 			$archivo = $dir_perfiles."/perfil_$permiso.xml";
 			$xml = new toba_xml_tablas();
 			$xml->set_tablas($datos);
 			$xml->guardar($archivo);
+			
 			$this->manejador_interface->progreso_avanzar();
+			
+			$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
 		}
+
+		//-- Se guarda la descripción de las operaciones del proyecto
+		$items = $this->get_descripcion_items($items);
+		$archivo = $this->get_dir_instalacion_proyecto() . "/items.xml";
+		$xml = new toba_xml_tablas();
+		$xml->set_tablas($items, 'items');
+		$xml->guardar($archivo);
 		
 		//--- Perfiles de datos
 		$tablas = array('apex_usuario_perfil_datos', 'apex_usuario_perfil_datos_dims');
