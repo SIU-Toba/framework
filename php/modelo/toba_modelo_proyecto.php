@@ -956,7 +956,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
-				$dir_items = $path_proyecto . '/items.xml';
+				$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
 				if (file_exists($dir_items)) {
 					$xml = new toba_xml_tablas($dir_items);
 					$items = $this->get_descripciones_items($xml->get_tablas());
