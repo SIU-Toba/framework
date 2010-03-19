@@ -465,6 +465,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	//-- ITEMS ------------------------------------------------------------------
 	
+	private function get_descripciones_items($datos)
+	{
+		$desc = array();
+		foreach (array_keys($datos['items']) as $fila)
+		{
+			$desc[$fila['item']] = $fila['nombre'];
+		}
+		return $desc;
+	}
+	
 	function exportar_item($item)
 	{
 		toba_logger::instancia()->debug( "Exportando ITEM $item en PROYECTO {$this->get_id()}");
@@ -946,6 +956,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
+				$dir_items = $path_proyecto . '/items.xml';
+				if (file_exists($dir_items)) {
+					$xml = new toba_xml_tablas($dir_items);
+					$items = $this->get_descripciones_items($xml->get_tablas());
+					foreach (array_keys($errores) as $clave) 
+					{
+						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && in_array($fila['item'], $items)) {
+							$errores[$clave]['extras'] = $items[$fila['item']];
+						}
+					}
+				}
+				
 				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
 				$msg .= " A continuación el detalle:";
 				$this->manejador_interface->separador();
