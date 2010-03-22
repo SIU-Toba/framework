@@ -130,8 +130,8 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2191', --objeto_consumidor
 	'2260', --objeto_proveedor
 	'proyecto_pd', --identificador
-	'0', --parametros_a
-	'1', --parametros_b
+	NULL, --parametros_a
+	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	'3'  --orden
