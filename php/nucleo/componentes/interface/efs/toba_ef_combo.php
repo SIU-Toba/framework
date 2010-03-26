@@ -69,7 +69,7 @@ abstract class toba_ef_seleccion extends toba_ef
 	{
 		// Si se seteó una longitud máxima para la descripción (con el método set_maximo_descripcion),
 		// se cortan los valores a ese máximo y se agrega al final '...'.
-		if (isset(self::$maximo_descripcion)) {
+		if (isset(self::$maximo_descripcion) && is_array($datos)) {
 			foreach ($datos as $clave => $opcion) {
 				if ($opcion && strlen($opcion) > self::$maximo_descripcion) {
 					$datos[$clave] = substr($opcion, 0, self::$maximo_descripcion) . '...';
