@@ -229,7 +229,6 @@ class toba_asistente_abms extends toba_asistente_1dt
 	protected function generar_cuadro($cuadro)
 	{
 		//Cabecera
-		$cuadro->set_clave($this->molde_abms['cuadro_id']);
 		$cuadro->set_nombre($this->molde['nombre'] . ' - Cuadro.');
 		if (trim($this->molde_abms['cuadro_eof']) != '') {
 			$cuadro->set_eof(trim($this->molde_abms['cuadro_eof']));
@@ -241,8 +240,12 @@ class toba_asistente_abms extends toba_asistente_1dt
 			//Si todo es en la misma pantalla le pongo scroll al cuadro
 			$cuadro->set_scroll('250px');
 		}
-		//Construyo las filas
+		//Construyo las filas 
+		$clave_dt = array();
 		foreach( $this->molde_abms_fila as $fila ) {
+			if ($fila['dt_pk'] == '1') {										//busco una posible clave para el cuadro
+				$clave_dt[] = $fila['columna'];
+			}
 			if ($fila['en_cuadro']) {
 				$columna = $fila['columna'];
 				//-- Si es una FK la columna no esta en la tabla y requiere carga, por lo que es mejor no nombrarla como la clave ya que trae problemas de reuso en la SQL
@@ -255,6 +258,11 @@ class toba_asistente_abms extends toba_asistente_1dt
 				$columna->set_formato($fila['cuadro_formato']);
 			}
 		}
+		if (! empty($clave_dt) && $this->molde_abms['cuadro_id'] == '') {			//Seteo la clave del cuadro
+			$cuadro->set_clave($clave_dt);
+		}else{
+			$cuadro->set_clave($this->molde_abms['cuadro_id']);
+		}		
 		$this->ci->php()->agregar( new toba_codigo_separador_php('Cuadro') );	
 		//--------------------------------------------------------
 		//--- conf__cuadro  --------------------------------------
@@ -329,8 +337,10 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		if ($this->molde_abms['cuadro_eliminar_filas']) {
 			$evento = $cuadro->agregar_evento('eliminar');
-			$evento->sobre_fila();
 			$evento->en_botonera(false);
+			if (! empty($clave_dt)) {
+					$evento->sobre_fila();
+			}
 			$evento->set_imagen('borrar.gif');
 			$evento->set_confirmacion($this->confirmacion_eliminar);
 			$metodo = new toba_codigo_metodo_php('evt__cuadro__eliminar',array('$datos'));
@@ -345,8 +355,10 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--- evt__cuadro__seleccion -----------------------------
 		//--------------------------------------------------------
 		$evento = $cuadro->agregar_evento('seleccion');
-		$evento->sobre_fila();
 		$evento->en_botonera(false);
+		if (! empty($clave_dt)) {
+					$evento->sobre_fila();
+		}
 		$evento->set_imagen('doc.gif');
 		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
 		$php = array("\$this->dep('datos')->cargar(\$datos);");
@@ -413,6 +425,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));		
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$evento->implicito();
+			$evento->en_botonera(false);
 			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);"));
 		} else {
 			$evento->en_botonera();

@@ -19,7 +19,7 @@ class toba_datos_tabla extends toba_componente
 	protected $_info_externas_col;
 	protected $_persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
-	protected $_clave;							// Columnas que constituyen la clave de la tabla
+	protected $_clave = array();							// Columnas que constituyen la clave de la tabla
 	protected $_columnas;
 	protected $_posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
 	//Constraints
@@ -323,7 +323,11 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_clave()
 	{
-		return $this->_clave;
+		if (empty($this->_clave)) {
+			return null;
+		}else{
+			return $this->_clave;
+		}
 	}
 	
 	/**
@@ -333,9 +337,10 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_clave_valor($id_fila)
 	{
+		$temp = array();
 		foreach( $this->_clave as $columna ){
 			$temp[$columna] = $this->get_fila_columna($id_fila, $columna);
-		}	
+		}
 		return $temp;
 	}
 
