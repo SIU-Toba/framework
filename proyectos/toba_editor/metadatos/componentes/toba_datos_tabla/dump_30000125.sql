@@ -120,7 +120,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'toba_editor', --objeto_proyecto
 	'30000125', --objeto
 	'30000025', --col_id
-	'param_action', --columna
+	'param_wsa', --columna
 	'X', --tipo
 	'0', --pk
 	'', --secuencia

@@ -367,15 +367,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'30000126', --objeto_ei_formulario_fila
 	'30000124', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
-	'param_action', --identificador
-	'ef_editable', --elemento_formulario
-	'param_action', --columnas
+	'param_wsa', --identificador
+	'ef_checkbox', --elemento_formulario
+	'param_wsa', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
-	'Acción WSA', --etiqueta
+	'WS Addressing', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Recomendado cuando se requiera encripcion, entrega a distintos destinatarios y tiempos de conexion mayores a los disponibles por TCP.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -383,7 +383,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
-	NULL, --estado_defecto
+	'0', --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_inteligente
 	NULL, --carga_metodo
@@ -402,8 +402,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'50', --edit_tamano
-	'1000', --edit_maximo
+	NULL, --edit_tamano
+	NULL, --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
@@ -423,11 +423,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --popup_carga_desc_include
 	NULL, --popup_puede_borrar_estado
 	NULL, --fieldset_fin
-	NULL, --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
-	NULL, --check_ml_toggle
+	'1', --check_valor_si
+	'0', --check_valor_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
