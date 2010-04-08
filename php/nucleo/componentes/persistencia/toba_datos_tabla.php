@@ -1268,36 +1268,39 @@ class toba_datos_tabla extends toba_componente
 	private function control_valores_unicos_fila($fila, $id=null)
 	//Controla que un registro no duplique los valores existentes
 	{
-		if(isset($this->_no_duplicado))	
-		{	//La iteracion de afuera es por cada constraint, 
-			//si hay muchos es ineficiente, pero en teoria hay pocos (en general 1)
-			foreach($this->_no_duplicado as $columnas){
-				foreach(array_keys($this->_cambios) as $id_fila)	{
-					//a) La operacion es una modificacion y estoy comparando con el registro contra su original
-					if( isset($id) && ($id_fila == $id)) continue; //Sigo con el proximo
-					//b) Comparo contra otro registro, que no este eliminado
-					if($this->_cambios[$id_fila]['estado']!="d"){
-						$combinacion_existente = true;
-						foreach($columnas as $columna)
-						{
-							if(!isset($fila[$columna])){
-								//Si las columnas del constraint no estan completas, fuera
-								return;
-							}else{
-								if($fila[$columna] != $this->_datos[$id_fila][$columna]){
-									$combinacion_existente = false;
-								}
-							}
-						}
-						if ($combinacion_existente){
-							throw new toba_error_validacion($this->get_txt().": Error de valores repetidos en columna '$columna'");
-						}
-					}
-				}				
+		if (isset($this->_no_duplicado)) {
+			foreach($this->_no_duplicado as $columnas) {				//Para cada constraint de columnas
+				$this->validar_columnas_en_fila($columnas, $fila, $id);
 			}
 		}
 	}
-	
+
+	/**
+	 * Funcion que realiza la comparacion propiamente dicha de los datos
+	 * para el control de valores unicos. Esta separacion hace que la relacion entre
+	 * los distintos constraints sea un OR.. (antes era un AND)
+	 * @ignore
+	 */
+	protected function  validar_columnas_en_fila($columnas, $fila, $id)
+	{
+		foreach(array_keys($this->_datos) as $id_fila) {					  //Recorro todos los datos cargados
+			 if (! is_null($id) && ($id_fila == $id)) continue;						//Si es la misma fila no se procesa
+			 if ($this->_cambios[$id_fila]['estado'] != 'd') {						 //Si la fila no esta marcada para borrado
+				$combinacion_existente = true;
+				foreach($columnas as $columna) {									//Comparo los valores de las columnas del constraint
+					if (isset($fila[$columna])) {
+						$combinacion_existente = $combinacion_existente && ($fila[$columna] == $this->_datos[$id_fila][$columna]);
+					}else{
+						return;										//No existe valor para la columna, el constraint no salta
+					}
+				}
+				if ($combinacion_existente) {
+					throw new toba_error_validacion($this->get_txt().": Error de valores repetidos en columna '$columna'");
+				}
+			}
+		}		
+	}
+
 	//-------------------------------------------------------------------------------
 	//-- VALIDACION global
 	//-------------------------------------------------------------------------------
