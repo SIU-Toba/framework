@@ -131,6 +131,10 @@ class ci_eventos extends toba_ci
 				case "M":
 					$id_anterior = $dbr->get_fila_columna($id, 'identificador');
 					$id_nuevo = $registros[$id]['identificador'];
+					//Aca deberia quitar todas las pantallas que fueron relacionadas al id anterior
+					if ($id_anterior != $id_nuevo) {
+						$this->controlador()->set_pantallas_evento(array(), $id_anterior);
+					}
 					$dbr->modificar_fila($id, $registros[$id]);
 					break;	
 			}
