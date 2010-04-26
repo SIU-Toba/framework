@@ -138,10 +138,9 @@ class comando_toba extends comando
 		if ( $obligatorio && is_null( $id ) ) {
 			//--- Lo pregunta explicitamente y recuerda el seteo
 			if (!isset($this->id_proyecto_actual)) {
-				 $this->id_proyecto_actual = $this->consola->dialogo_ingresar_texto('Id. del Proyecto', true);
-				 return $this->id_proyecto_actual;
+				 $this->id_proyecto_actual = $this->consola->dialogo_ingresar_texto('Id. del Proyecto', true);				 
 			}
-			throw new toba_error("Es necesario definir un PROYECTO. Utilice el modificador '-p' o defina la variable de entorno 'toba_proyecto'");
+			return $this->id_proyecto_actual;
 		}
 		return $id;
 	}
