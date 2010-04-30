@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'Objeto Nuevo - Datos Asignacion a un DR', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -102,7 +102,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -119,8 +119,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL, --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0', --resaltar_efs_con_estado
 	NULL  --template
 );
 
@@ -137,20 +137,20 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable', --elemento_formulario
 	'id_dependencia', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Dependencia', --etiqueta
 	NULL, --etiqueta_estilo
 	'El Rol es el identificador con que será conocido el [wiki:Referencia/Objetos/datos_tabla datos_tabla] desde el [wiki:Referencia/Objetos/datos_relacion datos_relacion].', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_inteligente
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -179,7 +179,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	NULL, --edit_expreg
+	'/^[a-zA-Z0-9_]+$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -214,8 +214,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'min_filas', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'min_filas', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Min. Filas', --etiqueta
 	NULL, --etiqueta_estilo
@@ -292,8 +292,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'max_filas', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'max_filas', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Max. Filas', --etiqueta
 	NULL, --etiqueta_estilo

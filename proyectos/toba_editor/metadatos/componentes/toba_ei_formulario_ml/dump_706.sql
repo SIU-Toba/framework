@@ -136,19 +136,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'descripcion', --identificador
 	'ef_editable', --elemento_formulario
 	'descripcion', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'0', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'1', --orden
 	'Descripcion', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
 	'0', --solo_lectura_inteligente
@@ -214,9 +214,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'tope', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'tope', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'1', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'2', --orden
 	'Tope', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -292,9 +292,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'valor', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'valor', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'2', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'3', --orden
 	'Valor', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion

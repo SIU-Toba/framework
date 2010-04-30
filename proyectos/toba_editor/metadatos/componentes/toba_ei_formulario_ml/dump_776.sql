@@ -136,19 +136,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'email', --identificador
 	'ef_editable', --elemento_formulario
 	'email', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'E- Mail', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	'4', --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
 	'0', --solo_lectura_inteligente
@@ -179,7 +179,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	NULL, --edit_expreg
+	'/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}/i', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -214,9 +214,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'envio', --identificador
 	'ef_checkbox', --elemento_formulario
 	'envio', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'4', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'3', --orden
 	'Envio', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -292,19 +292,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario', --identificador
 	'ef_editable', --elemento_formulario
 	'usuario', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'0', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'1', --orden
 	'Usuario', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	'4', --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
 	'0', --solo_lectura_inteligente
@@ -335,7 +335,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	NULL, --edit_expreg
+	'/^[a-zA-Z0-9_]+$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
