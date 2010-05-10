@@ -1234,7 +1234,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$nombre_metodo = $parametros['metodo'];
 		}
 
-		$id = array('proyecto' =>  toba_contexto_info::get_proyecto(), 'componente' => $parametros['tabla']);
+		$id = array('proyecto' =>  toba::proyecto()->get_id(), 'componente' => $parametros['tabla']);
 		$dt = toba_constructor::get_runtime($id, 'toba_datos_tabla');
 		 if (! method_exists($dt, $nombre_metodo)) {
 			$clase = get_class($dt);
