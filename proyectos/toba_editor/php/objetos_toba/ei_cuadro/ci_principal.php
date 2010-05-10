@@ -358,7 +358,8 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_vinculo_cargados()
 	{
-		$condicion = array('accion' => 'V');
+		//$condicion = array('accion' => 'V');	1.5: Es posible seleccionar todos los eventos como vinculos
+		$condicion = null;
 		$datos =  $this->get_dbr_eventos()->get_filas($condicion, false, false);
 		return $datos;
 	}
