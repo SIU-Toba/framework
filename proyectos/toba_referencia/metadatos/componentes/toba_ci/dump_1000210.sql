@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 1
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000210', --objeto_ci
 	'1000057', --pantalla
@@ -141,9 +141,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	NULL, --subclase
 	NULL, --subclase_archivo
-	NULL  --template
+	NULL, --template
+	NULL  --template_impresion
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000210', --objeto_ci
 	'1000058', --pantalla
@@ -158,12 +159,13 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	'pantalla_dos_columnas', --subclase
 	'componentes/ci/pantalla_dos_columnas.php', --subclase_archivo
-	NULL  --template
+	NULL, --template
+	NULL  --template_impresion
 );
 --- FIN Grupo de desarrollo 1
 
 --- INICIO Grupo de desarrollo 30
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'1000210', --objeto_ci
 	'30000041', --pantalla
@@ -178,7 +180,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	NULL, --subclase
 	NULL, --subclase_archivo
-	'<table border=\"1\">     <caption><span style=\"color: rgb(255, 0, 255);\"><span style=\"font-size: large;\"><strong>T&iacute;tulo de la tabla</strong></span></span></caption>     <tbody>         <tr>             <td><p style=\"text-align: center;\"><span style=\"font-size: large;\">Esquema</span></p>             <p>[dep id=esquema]</p></td>             <td>[dep id=cuadro1]</td>         </tr>         <tr>             <td>[dep id=form1]</td>             <td>[dep id=form2]</td>         </tr>     </tbody> </table> <p>&nbsp;</p>'  --template
+	'<table border=\"1\">     <caption><span style=\"color: rgb(255, 0, 255);\"><span style=\"font-size: large;\"><strong>T&iacute;tulo de la tabla</strong></span></span></caption>     <tbody>         <tr>             <td><p style=\"text-align: center;\"><span style=\"font-size: large;\">Esquema</span></p>             <p>[dep id=esquema]</p></td>             <td>[dep id=cuadro1]</td>         </tr>         <tr>             <td>[dep id=form1]</td>             <td>[dep id=form2]</td>         </tr>     </tbody> </table> <p>&nbsp;</p>', --template
+	NULL  --template_impresion
 );
 --- FIN Grupo de desarrollo 30
 

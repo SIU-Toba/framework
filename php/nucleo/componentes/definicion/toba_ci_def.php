@@ -68,7 +68,9 @@ class toba_ci_def extends toba_ei_def
 													orden					as orden,
 													subclase				as subclase,
 													subclase_archivo		as subclase_archivo,
-													template				as template
+													template				as template,
+													template_impresion  as template_impresion
+
 									 	FROM	apex_objeto_ci_pantalla
 										WHERE	objeto_ci_proyecto=$quote_proyecto";
 		if ( isset($componente) ) {

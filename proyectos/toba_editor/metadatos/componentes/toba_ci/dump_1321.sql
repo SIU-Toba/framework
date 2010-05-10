@@ -163,7 +163,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_editor', --objeto_ci_proyecto
 	'1321', --objeto_ci
 	'354', --pantalla
@@ -178,9 +178,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	'pantalla_codigo', --subclase
 	'editores/editor_php/pantalla_codigo.php', --subclase_archivo
-	NULL  --template
+	NULL, --template
+	NULL  --template_impresion
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_editor', --objeto_ci_proyecto
 	'1321', --objeto_ci
 	'355', --pantalla
@@ -195,9 +196,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	'pantalla_analisis', --subclase
 	'editores/editor_php/pantalla_analisis.php', --subclase_archivo
-	NULL  --template
+	NULL, --template
+	NULL  --template_impresion
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
 	'toba_editor', --objeto_ci_proyecto
 	'1321', --objeto_ci
 	'1007', --pantalla
@@ -212,7 +214,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	'pantalla_previsualizacion', --subclase
 	'editores/editor_php/pantalla_previsualizacion.php', --subclase_archivo
-	NULL  --template
+	NULL, --template
+	NULL  --template_impresion
 );
 --- FIN Grupo de desarrollo 0
 

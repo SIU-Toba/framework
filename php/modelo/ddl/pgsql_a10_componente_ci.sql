@@ -92,6 +92,7 @@ CREATE TABLE apex_objeto_ci_pantalla
 	subclase							varchar(80)			NULL,
 	subclase_archivo					varchar(255)		NULL,
 	template							TEXT				NULL,
+	template_impresion		TEXT				NULL,
 	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("pantalla","objeto_ci","objeto_ci_proyecto"),
    	CONSTRAINT  "apex_obj_ci_pan__uk" UNIQUE ("objeto_ci_proyecto","objeto_ci","identificador"),
 	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,

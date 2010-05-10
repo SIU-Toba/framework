@@ -1005,6 +1005,39 @@ class toba_ei_formulario extends toba_ei
 		echo "</table>\n";		
 	}
 
+	protected function generar_layout_template_impresion()
+	{
+		//Parseo del template
+		$pattern = '/\[ef([\s\w+=\w+]+)\]/i';
+		if (preg_match_all($pattern, $this->_info_formulario['template_impresion'], $resultado)) {
+			$salida = $this->_info_formulario['template_impresion'];
+			for ($i=0; $i < count($resultado[0]); $i++) {
+				$original = $resultado[0][$i];
+				$atributos = array();
+				foreach (explode(' ',trim($resultado[1][$i])) as $atributo) {
+					$partes = explode('=', $atributo);
+					$atributos[$partes[0]] = $partes[1];
+				}
+				if (! isset($atributos['id'])) {
+					throw new toba_error_def($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+				}
+				$etiqueta_mostrar = true;
+				if (isset($atributos['etiqueta_mostrar']) && $atributos['etiqueta_mostrar'] == 0) {
+					$etiqueta_mostrar = false;
+				}
+				$etiqueta_ancho = null;
+				if (isset($atributos['etiqueta_ancho'])) {
+					$etiqueta_ancho = $atributos['etiqueta_ancho'];
+				}
+				$html = $this->get_html_impresion_ef($atributos['id']);
+				$salida = str_replace($original, $html, $salida);
+			}
+			echo $salida;
+		} else {
+			throw new toba_error_def($this->get_txt()."Template impresión incorrecto");
+		}
+	}
+
 	/**
 	 * Genera la etiqueta y el componente HTML de un ef
 	 * @param string $ef Identificador del ef
@@ -1059,27 +1092,32 @@ class toba_ei_formulario extends toba_ei
 		return $salida;		
 	}
 	
-
+	protected function get_html_impresion_ef($ef)
+	{
+		$html =  "<td class='ei-form-etiq'>\n";
+		$html .= $this->_elemento_formulario[$ef]->get_etiqueta();
+		$html .= "</td><td class='ei-form-valor'>\n";
+		//Hay que formatear?
+		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+			$formateo = new $this->_clase_formateo('impresion_html');
+			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+			$valor = $formateo->$funcion($valor_real);
+		} else {
+			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+	    }
+		$html .= $valor;
+		$html .= "</td>\n";
+		return $html;
+	}
+	
 	/**
 	 * Genera la etiqueta y la vista de impresion de un ef
 	 * @param string $ef Identificador del ef
 	 */
 	protected function generar_html_impresion_ef($ef)
 	{
-		echo "<td class='ei-form-etiq'>\n";
-		echo $this->_elemento_formulario[$ef]->get_etiqueta();
-		echo "</td><td class='ei-form-valor'>\n";
-		//Hay que formatear?
-		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-			$formateo = new $this->_clase_formateo('impresion_html');				
-			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-			$valor = $formateo->$funcion($valor_real);
-		} else {
-			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
-	    }	
-		echo $valor;
-		echo "</td>\n";
+		echo $this->get_html_impresion_ef($ef);
 	}	
 	
 	/**
@@ -1239,7 +1277,11 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->_carga_opciones_ef->cargar();
 		$salida->subtitulo( $this->get_titulo() );
-		$this->generar_layout_impresion();
+		if (!isset($this->_info_formulario['template_impresion']) || trim($this->_info_formulario['template_impresion']) == '') {
+			$this->generar_layout_impresion();
+		} else {
+			$this->generar_layout_template_impresion();
+		}
 	}
 	
 	

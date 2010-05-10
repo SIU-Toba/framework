@@ -26,7 +26,14 @@ class toba_datos_editores
     'imagen' => 'objetos/layout.png',
     'imagen_recurso_origen' => 'apex',
   ),
-  3 => 
+ 3 =>
+  array (
+    'identificador' => '5',
+    'etiqueta' => 'Layout Impresión',
+    'imagen' => 'objetos/layout_impresion.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  4 =>
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
@@ -67,7 +74,14 @@ class toba_datos_editores
     'imagen' => 'objetos/layout.png',
     'imagen_recurso_origen' => 'apex',
   ),
-  4 => 
+4 =>
+  array (
+    'identificador' => '5',
+    'etiqueta' => 'Layout Impresión',
+    'imagen' => 'objetos/layout_impresion.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  5 =>
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',

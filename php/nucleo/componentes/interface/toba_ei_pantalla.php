@@ -764,12 +764,50 @@ class toba_ei_pantalla extends toba_ei
 	
 	function vista_impresion_html( toba_impresion $salida )
 	{
-		$salida->titulo( $this->controlador->get_titulo() );
-		foreach($this->_dependencias as $dep) {
-			$dep->vista_impresion_html( $salida );
+		if (!isset($this->_info_pantalla['template_impresion']) || trim($this->_info_pantalla['template_impresion']) == '') {
+			$salida->titulo( $this->controlador->get_titulo() );
+			foreach($this->_dependencias as $dep) {
+				$dep->vista_impresion_html( $salida );
+			}
+		} else {
+			$this->generar_layout_template_impresion($salida);
+		}
+	}
+
+	function generar_layout_template_impresion(toba_impresion $obj_salida)
+	{
+		$restantes = array_keys($this->_dependencias);
+		//Parseo del template
+		$pattern = '/\[dep([\s\w+=\w+]+)\]/i';
+		if (preg_match_all($pattern, $this->_info_pantalla['template_impresion'], $resultado)) {
+			$salida = $this->_info_pantalla['template_impresion'];
+			for ($i=0; $i < count($resultado[0]); $i++) {
+				$original = $resultado[0][$i];
+				$atributos = array();
+				foreach (explode(' ',trim($resultado[1][$i])) as $atributo) {
+					$partes = explode('=', $atributo);
+					$atributos[$partes[0]] = $partes[1];
+				}
+				if (! isset($atributos['id'])) {
+					throw new toba_error_def($this->get_txt()."Tag [dep] incorrecto, falta atributo id");
+				}
+				if (isset($this->_dependencias[$atributos['id']])) {
+					ob_start();
+					$this->_dependencias[$atributos['id']]->vista_impresion_html($obj_salida);
+					$html = ob_get_clean();
+					$salida = str_replace($original, $html, $salida);
+					array_borrar_valor($restantes, $atributos['id']);
+				}
+			}
+			echo $salida;
+		} else {
+			echo $this->_info_pantalla['template_impresion'];
+		}
+		if (! empty($restantes)) {
+			$faltan = implode(', ', $restantes);
+			throw new toba_error_def($this->get_txt(). " Template de impresión incompleto, falta incluir las siguientes dependencias: $faltan");
 		}
 	}
 	
 }
-
 ?>

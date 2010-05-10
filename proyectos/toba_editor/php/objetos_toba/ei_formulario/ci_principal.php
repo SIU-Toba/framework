@@ -107,7 +107,36 @@ class ci_principal extends ci_editores_toba
 		}
 		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
-	
+
+	//*******************************************************************
+	//** Tab de Layout Impresion     **********************************
+	//*******************************************************************
+	function conf__form_layout_impresion(toba_ei_formulario $form)
+	{
+		$form->ef('template')->get_editor()->ToolbarSet = 'Layout';
+		$form->ef('template')->get_editor()->Height = '400px';
+		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
+		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
+		unset($datos['template']);
+		if (isset($datos['template_impresion']) && trim($datos['template_impresion']) != '') {
+			$datos['tipo_layout'] = "L";
+			$datos['template'] = $datos['template_impresion'];
+		}
+		$form->set_datos($datos);
+	}
+
+	function evt__form_layout_impresion__modificacion($datos)
+	{
+		if (!isset($datos['tipo_layout'])) {
+			$datos['template_impresion'] = null;
+		}else{
+			$datos['template_impresion'] = $datos['template'];
+			unset($datos['template']);
+		}
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
+	}
+
 	function get_tipos_layout()
 	{
 		return array(

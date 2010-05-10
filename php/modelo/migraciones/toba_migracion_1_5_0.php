@@ -106,7 +106,10 @@ class toba_migracion_1_5_0 extends toba_migracion
 			//-------------------------------- Permite exportar restricciones personalizadas para no tener choques en produccion -----------------------------------------
 			$sql[] = 'ALTER TABLE apex_usuario_grupo_acc ADD COLUMN permite_edicion SMALLINT NOT NULL DEFAULT 1;';
 			$sql[] = 'ALTER TABLE apex_restriccion_funcional ADD COLUMN permite_edicion SMALLINT NOT NULL DEFAULT 1;';
-			
+
+			$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN template_impresion TEXT NULL;';
+			$sql[] = 'ALTER TABLE apex_objeto_ut_formulario ADD COLUMN template_impresion TEXT NULL;';
+
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";

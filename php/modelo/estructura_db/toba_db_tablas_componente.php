@@ -442,6 +442,7 @@ class toba_db_tablas_componente
     12 => 'subclase',
     13 => 'subclase_archivo',
     14 => 'template',
+    15 => 'template_impresion',
   ),
 );
 	}
@@ -714,6 +715,7 @@ class toba_db_tablas_componente
     35 => 'no_imprimir_efs_sin_estado',
     36 => 'resaltar_efs_con_estado',
     37 => 'template',
+    38 => 'template_impresion',
   ),
 );
 	}

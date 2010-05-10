@@ -424,7 +424,7 @@ class ci_editor extends ci_editores_toba
 		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
 		$filas = $this->get_entidad()->tabla('pantallas')->get_filas();
 		foreach (array_keys($filas) as $id) {
-			$filas[$id]['template'] = (trim($filas[$id]['template']) == '') ? 0 : 1; 
+			$filas[$id]['template'] = (!isset($filas[$id]['template']) || trim($filas[$id]['template']) == '') ? 0 : 1;
 		}
 		$cuadro->set_datos($filas);
 	}
@@ -454,7 +454,72 @@ class ci_editor extends ci_editores_toba
 		}
 		$this->get_entidad()->tabla("pantallas")->set($datos);
 	}
-	
+
+	function evt__4__salida()
+	{	//Limpio cursor y variable temporal para que no influya en la pantalla de layout impresion
+		unset($this->pant_sel_temp);
+		$this->get_entidad()->tabla('pantallas')->resetear_cursor();
+	}
+
+	// *******************************************************************
+	// *******************  tab LAYOUT IMPRESION *******************
+	// *******************************************************************
+
+	function conf__5()
+	{
+		if (! $datos = $this->get_entidad()->tabla("pantallas")->hay_cursor()) {
+			$this->pantalla()->eliminar_dep('form_layout_impresion');
+		}
+	}
+
+	function conf__cuadro_layout_impresion(toba_ei_cuadro $cuadro)
+	{
+		$cursor = $this->get_entidad()->tabla("pantallas")->get_cursor();
+		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
+		$filas = $this->get_entidad()->tabla('pantallas')->get_filas();
+		foreach (array_keys($filas) as $id) {
+			$filas[$id]['template'] = (!isset($filas[$id]['template_impresion']) || trim($filas[$id]['template_impresion']) == '') ? 0 : 1;
+		}
+		$cuadro->set_datos($filas);
+	}
+
+	function evt__cuadro_layout_impresion__seleccion($id)
+	{
+		$this->pant_sel_temp = $id;
+	}
+
+	function conf__form_layout_impresion(toba_ei_formulario $form)
+	{
+		$form->ef('template')->get_editor()->ToolbarSet = 'Layout';
+		$form->ef('template')->get_editor()->Height = '400px';
+		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
+		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
+		$datos = $this->get_entidad()->tabla("pantallas")->get();
+		unset($datos['template']);
+		if (isset($datos['template_impresion']) && trim($datos['template_impresion']) != '') {
+			$datos['tipo_layout'] = "L";
+			$datos['template'] = $datos['template_impresion'];
+		}
+		$form->set_datos($datos);
+	}
+
+	function evt__form_layout_impresion__modificacion($datos)
+	{
+		if (!isset($datos['tipo_layout'])) {
+			$datos['template_impresion'] = null;
+		} else {
+			$datos['template_impresion'] = $datos['template'];	//Cuando existe un template lo paso al otro campo
+			unset($datos['template']);												//asi puedo reusar el objeto
+		}
+		$this->get_entidad()->tabla("pantallas")->set($datos);
+	}
+
+	function evt__5__salida()
+	{	//Limpio cursor y variable temporal para que no influya en la pantalla de layout de la pantalla
+		unset($this->pant_sel_temp);
+		$this->get_entidad()->tabla('pantallas')->resetear_cursor();
+	}
+
 	function get_tipos_layout()
 	{
 		return array(
