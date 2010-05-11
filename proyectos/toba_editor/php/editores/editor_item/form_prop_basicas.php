@@ -106,7 +106,7 @@ class form_prop_basicas extends toba_ei_formulario
 	}
 }
 
-class utileria_identificador implements toba_ef_icono_utileria {
+class utileria_identificador_nuevo implements toba_ef_icono_utileria {
 	function get_html(toba_ef $ef) 
 	{
 		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
@@ -125,6 +125,33 @@ class utileria_identificador implements toba_ef_icono_utileria {
 					\$('utileria_identificador').src = '$no_editable';
 					\$('utileria_identificador').title = 'Resetar Identificador';
 					ef.set_estado('');
+					ef.seleccionar();					
+				}
+			}
+		</script>";
+		$salida = "<a class='icono-utileria' href='#' onclick=\"toggle_editable(); return false\">";
+		$salida .= "<img id='utileria_identificador' src='$editable' title='Editar Identificador'>";
+		$salida .= "</a>";
+		return $salida;		
+	}
+}
+
+class utileria_identificador_actual implements toba_ef_icono_utileria {
+	function get_html(toba_ef $ef) 
+	{
+		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
+		$objeto_js = $ef->objeto_js();
+		echo "<script>
+			function toggle_editable() {
+				var ef = $objeto_js
+				if (!ef.input().disabled) {
+					ef.input().disabled = true;
+					\$('utileria_identificador').src = '$editable';
+					\$('utileria_identificador').title = 'Editar Identificador';
+				} else {
+					ef.input().disabled = false;				
+					\$('utileria_identificador').src = '$editable';
+					\$('utileria_identificador').title = 'Resetar Identificador';
 					ef.seleccionar();					
 				}
 			}

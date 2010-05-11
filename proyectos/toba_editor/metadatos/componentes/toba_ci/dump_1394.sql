@@ -328,7 +328,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'33000011', --pantalla
 	'5', --identificador
 	'4', --orden
-	'Layout Impresión', --etiqueta
+	'Impresión', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

@@ -96,7 +96,9 @@ class ci_principal extends toba_ci
 	{
 		
 		if (!$this->get_entidad()->esta_cargada()) {
-			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador()));
+			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_nuevo()));
+		} else {
+			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_actual()));
 		}
 		
 		$datos = $this->get_entidad()->tabla("base")->get();

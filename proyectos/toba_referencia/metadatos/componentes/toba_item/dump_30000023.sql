@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000023]--  Selección Múltiple 
+--[30000023]--  Selección y Ordenamiento Múltiple 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Selección Múltiple', --nombre
+	'Selección y Ordenamiento Múltiple', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
