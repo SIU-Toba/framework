@@ -40,11 +40,19 @@ class ci_catalogo extends toba_ci
 																$parametros,
 																$img);
 			// Ver el modelo
-			$img = toba_recurso::imagen_toba("buscar.png", true, null, null);
+			$img = toba_recurso::imagen_toba("buscar.png", true, null, null, "Navegar tablas");
 			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
 																3412,
 																$parametros,
 																$img);
+																
+			// Creacion / Actualizacion Automatica de datos tabla
+			$img = toba_recurso::imagen_toba("objetos/dt_refresh.gif", true, null, null, "Creacion y actualización automatica de los datos_tabla");
+			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
+																	33000010,
+																	$parametros,
+																	$img);
+																																	
 			// Editar la fuente
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
@@ -52,12 +60,7 @@ class ci_catalogo extends toba_ci
 																	$parametros,
 																	$img);
 
-			// Creacion / Actualizacion Automatica de datos tabla
-			$img = toba_recurso::imagen_toba("objetos/dt_refresh.gif", true, null, null);
-			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																	33000010,
-																	$parametros,
-																	$img);
+
 
 			$datos[$id]['editar'] .= "</span>";
 		}
