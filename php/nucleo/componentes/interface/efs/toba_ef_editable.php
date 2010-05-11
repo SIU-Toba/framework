@@ -137,14 +137,16 @@ class toba_ef_editable extends toba_ef
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
-		}		
-		if ($this->estado != '' && isset($this->expreg)) {
-			if (! preg_match($this->expreg, $this->estado)) {
+		}
+		//Si el ef tiene estado realizo chequeos
+		if ($this->tiene_estado() && $this->estado != '') {
+			//Hago el chequeo x expresion regular si existiera
+			if (isset($this->expreg) && !preg_match($this->expreg, $this->estado)) {
 				return 'No es válido';
 			}
-		}
-		if ($this->estado != '' && isset($this->maximo) && ! is_null($this->maximo)) {
-			if (strlen($this->estado) > $this->maximo) {
+
+			//Evaluo si se supera el maximo de caracteres permitido
+			if (isset($this->maximo) && !is_null($this->maximo) && (strlen($this->estado) > $this->maximo)) {
 				if (! isset(self::$callback_errores_validacion)) {
 					return "Supera el ancho máximo {$this->maximo}";
 				} else {

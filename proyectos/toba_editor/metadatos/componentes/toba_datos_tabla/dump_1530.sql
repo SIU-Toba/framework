@@ -1042,7 +1042,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'toba_editor', --objeto_proyecto
 	'1530', --objeto
 	'33000052', --col_id
-	'solo_lectura_inteligente', --columna
+	'solo_lectura_modificacion', --columna
 	'E', --tipo
 	'0', --pk
 	NULL, --secuencia

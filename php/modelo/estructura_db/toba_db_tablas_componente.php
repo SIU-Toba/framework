@@ -757,7 +757,7 @@ class toba_db_tablas_componente
     18 => 'deshabilitar_rest_func',
     19 => 'estado_defecto',
     20 => 'solo_lectura',
-    21 => 'solo_lectura_inteligente',
+    21 => 'solo_lectura_modificacion',
     22 => 'carga_metodo',
     23 => 'carga_clase',
     24 => 'carga_include',

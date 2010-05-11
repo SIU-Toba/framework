@@ -53,7 +53,7 @@ class toba_migracion_1_5_0 extends toba_migracion
 				
 				);';
 			//---------------------------------- Nuevo comportamiento del solo lectura del ef --------------------------------------------------
-			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN solo_lectura_inteligente SMALLINT NOT NULL DEFAULT 0;';
+			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN solo_lectura_modificacion SMALLINT NOT NULL DEFAULT 0;';
 
 			$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN cascada_mantiene_estado	SMALLINT NOT NULL DEFAULT 0;';
 
