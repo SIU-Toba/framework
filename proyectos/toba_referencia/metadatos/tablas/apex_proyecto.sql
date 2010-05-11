@@ -24,9 +24,9 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'anonimo', --usuario_anonimo
 	'Usuario Anónimo', --usuario_anonimo_desc
 	'admin', --usuario_anonimo_grupos_acc
-	NULL, --validacion_intentos
+	'3', --validacion_intentos
 	NULL, --validacion_intentos_min
-	'1', --validacion_bloquear_usuario
+	'2', --validacion_bloquear_usuario
 	'0', --validacion_debug
 	NULL, --sesion_tiempo_no_interac_min
 	NULL, --sesion_tiempo_maximo_min
@@ -40,7 +40,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'1', --registrar_solicitud
 	NULL, --registrar_cronometro
 	'3294', --item_inicio_sesion
-	'30000028', --item_pre_sesion
+	'30000053', --item_pre_sesion
 	'1', --item_pre_sesion_popup
 	NULL, --item_set_sesion
 	'1', --log_archivo

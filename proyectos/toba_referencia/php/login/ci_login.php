@@ -23,7 +23,7 @@ class ci_login extends toba_ci
 
 	function ini()
 	{
-		toba_ci::set_navegacion_ajax(false);		
+		toba_ci::set_navegacion_ajax(false);
 		$this->en_popup = toba::proyecto()->get_parametro('item_pre_sesion_popup');		
 	}
 	
@@ -38,8 +38,17 @@ class ci_login extends toba_ci
 			} catch (toba_error_autenticacion $e) {
 				//-- Caso error de validación
 				toba::notificacion()->agregar($e->getMessage());
-			} catch (toba_reset_nucleo $reset) {
-				//-- Caso validacion exitosa, se redirige solo si no es popup
+			} catch (toba_error_autenticacion_intentos $e) {
+				//-- Caso varios intentos fallidos con captcha
+				$msg = $e->getMessage();
+				list($msg, $intentos) = explode('|', $e->getMessage());
+				toba::memoria()->set_dato_instancia('toba_intentos_fallidos_login', $intentos);
+			}catch (toba_reset_nucleo $reset) {
+				//-- Caso validacion exitosa, elimino la marca de intentos fallidos
+				if (toba::memoria()->get_dato_instancia('toba_intentos_fallidos_login') !== null) {
+					toba::memoria()->eliminar_dato_instancia('toba_intentos_fallidos_login');
+				}
+				//-- Se redirige solo si no es popup
 				if (! $this->en_popup) {
 					throw $reset;
 				}
@@ -77,11 +86,19 @@ class ci_login extends toba_ci
 	function evt__datos__modificacion($datos)
 	{
 		toba::logger()->desactivar();
-		$this->s__datos = $datos;
+		if (isset($datos['test_error_repetido']) && !$datos['test_error_repetido']) {
+			throw new toba_error_autenticacion('El valor ingresado de confirmación no es correcto');
+		} else {
+			$this->s__datos = $datos;
+		}
 	}
 
-	function conf__datos()
+	function conf__datos($form)
 	{
+		if (toba::memoria()->get_dato_instancia('toba_intentos_fallidos_login') === null) {
+			$form->desactivar_efs(array('test_error_repetido'));
+		}
+		
 		if (isset($this->s__datos)) {
 			if (isset($this->s__datos['clave'])) {
 				unset($this->s__datos['clave']);
