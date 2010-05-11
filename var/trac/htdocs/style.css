@@ -99,7 +99,7 @@ li * {
 
 /** Cambios globales **/
 #ctxtnav {
- display:none;
+ /*display:none;*/
 }
 #mainnav {
  border: none;
