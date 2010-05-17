@@ -90,6 +90,14 @@ class ci_restricciones_funcionales extends toba_ci
 		}		
 	}
 	
+	function conf__seleccion() 
+	{
+		if (! isset($this->s__filtro)) {
+			$this->pantalla()->eliminar_evento('agregar');
+			$this->pantalla()->eliminar_dep('cuadro_restricciones');
+		}	
+	}
+	
 	//---------------------------------------------------------------------
 	//------  CUADRO
 	//---------------------------------------------------------------------
