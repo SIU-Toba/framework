@@ -455,9 +455,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
-	'Permite edición', --etiqueta
+	'Editable en producción', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Permite limitar la edición del perfil en entornos de producción, de esa forma en cada actualización del sistema el perfil se actualiza con la nueva información', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

@@ -133,22 +133,22 @@ class ci_navegacion_perfiles extends toba_ci
 	
 	function conf__form_datos_perfil(toba_ei_formulario $componente)
 	{
+		if (toba::instalacion()->es_produccion()) {
+			$componente->desactivar_efs(array('permite_edicion'));
+		}
+		
 		$datos = array();
 		if ($this->datos('accesos')->hay_cursor()) {
 			$datos = $this->datos('accesos')->get();
 			$componente->set_solo_lectura( array('usuario_grupo_acc') );
 			
-			if (toba::instalacion()->es_produccion() && !$datos['permite_edicion']) {
+			if (toba::instalacion()->es_produccion() && isset($datos['permite_edicion']) && !$datos['permite_edicion']) {
 				$this->pantalla()->eliminar_evento('guardar');
 				$this->pantalla()->eliminar_evento('eliminar');
 			}
 		} else {
 			$componente->ef('usuario_grupo_acc')->set_expreg('/^[a-z0-9_]+$/');
 			$datos['proyecto'] = $this->s__filtro['proyecto'];
-			
-			if (toba::instalacion()->es_produccion()) {
-				$componente->desactivar_efs(array('permite_edicion'));
-			}
 		}	
 		$componente->set_datos($datos);
 	}
