@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1932]--  Edificios 
+--[1932]--  DT - sede_edificio 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Edificios', --nombre
+	'DT - sede_edificio', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'soe_edificios', --tabla
+	'sede_edificio', --tabla
 	NULL, --alias
 	'0', --modificar_claves
 	'curso', --fuente_datos_proyecto
@@ -63,16 +63,16 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 -- apex_objeto_db_registros_col
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 45
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'563', --col_id
-	'edificio', --columna
+	'45000022', --col_id
+	'id_edificio', --columna
 	'E', --tipo
 	'1', --pk
 	'soe_edificios_edificio_seq', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
 	'0'  --externa
@@ -80,12 +80,12 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'564', --col_id
-	'institucion', --columna
+	'45000023', --col_id
+	'id_sede', --columna
 	'E', --tipo
 	'0', --pk
 	'', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
 	'0'  --externa
@@ -93,20 +93,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'565', --col_id
-	'sede', --columna
-	'E', --tipo
-	'0', --pk
-	'', --secuencia
-	'-1', --largo
-	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0'  --externa
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
-	'curso', --objeto_proyecto
-	'1932', --objeto
-	'566', --col_id
+	'45000024', --col_id
 	'nombre', --columna
 	'C', --tipo
 	'0', --pk
@@ -119,7 +106,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'567', --col_id
+	'45000025', --col_id
 	'calle', --columna
 	'C', --tipo
 	'0', --pk
@@ -132,7 +119,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'568', --col_id
+	'45000026', --col_id
 	'numero', --columna
 	'C', --tipo
 	'0', --pk
@@ -145,7 +132,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'569', --col_id
+	'45000027', --col_id
 	'piso', --columna
 	'C', --tipo
 	'0', --pk
@@ -158,7 +145,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1932', --objeto
-	'570', --col_id
+	'45000028', --col_id
 	'depto', --columna
 	'C', --tipo
 	'0', --pk
@@ -168,4 +155,4 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'0', --no_nulo_db
 	'0'  --externa
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 45

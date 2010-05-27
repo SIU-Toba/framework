@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1930]--  Unidades Academicas 
+--[1930]--  DT - ua 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Unidades Academicas', --nombre
+	'DT - ua', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'soe_unidadesacad', --tabla
+	'ua', --tabla
 	NULL, --alias
 	'0', --modificar_claves
 	'curso', --fuente_datos_proyecto
@@ -63,37 +63,37 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 -- apex_objeto_db_registros_col
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 45
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1930', --objeto
-	'553', --col_id
-	'unidadacad', --columna
+	'45000013', --col_id
+	'id_ua', --columna
 	'E', --tipo
 	'1', --pk
 	'soe_unidadesacad_unidadacad_seq', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1930', --objeto
-	'554', --col_id
-	'institucion', --columna
+	'45000014', --col_id
+	'id_institucion', --columna
 	'E', --tipo
 	'0', --pk
 	'', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1930', --objeto
-	'555', --col_id
+	'45000015', --col_id
 	'nombre', --columna
 	'C', --tipo
 	'0', --pk
@@ -101,19 +101,19 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'255', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1930', --objeto
-	'556', --col_id
-	'tipoua', --columna
+	'45000016', --col_id
+	'id_ua_tipo', --columna
 	'E', --tipo
 	'0', --pk
 	'', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 45

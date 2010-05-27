@@ -851,7 +851,12 @@ class toba_ci extends toba_ei
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 	
-	function vista_xml($inicial, $xmlns=null)
+	/**
+	 * Genera el xml del componente y sus hijos
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente y sus hijos
+	 */
+	function vista_xml($xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -860,7 +865,7 @@ class toba_ci extends toba_ei
 		foreach ($this->get_dependencias() as $dep) 
 		{
 			if(method_exists($dep, 'vista_xml')) {
-				$xml .= $dep->vista_xml(false,$xmlns);
+				$xml .= $dep->vista_xml($xmlns);
 			}
 		}
 
@@ -868,6 +873,10 @@ class toba_ci extends toba_ei
 		return $xml;
 	}
 	
+	/**
+	 * Genera el tag de inicio del componente
+	 * @return string Tag de inicio del componente
+	 */
 	function xml_get_tag_inicio() {
 		$xml = '<'.$this->xml_ns.'ci'.$this->xml_ns_url;
 		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
@@ -886,6 +895,10 @@ class toba_ci extends toba_ei
 		return $xml;
 	}
 
+	/**
+	 * Genera el tag de cierre del componente
+	 * @return string Tag de cierre
+	 */
 	function xml_get_tag_fin() {
 		return '</'.$this->xml_ns.'ci>';
 	}

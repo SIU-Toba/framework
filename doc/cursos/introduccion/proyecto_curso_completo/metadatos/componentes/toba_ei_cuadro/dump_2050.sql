@@ -49,14 +49,14 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'ua', --columnas_clave
+	'id_ua', --columnas_clave
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
+	'100%', --ancho
 	'0', --ordenar
-	'0', --paginar
-	NULL, --tamano_pagina
+	'1', --paginar
+	'20', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'1', --eof_invisible
@@ -64,7 +64,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -93,11 +93,11 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'curso', --objeto_cuadro_proyecto
 	'2050', --objeto_cuadro
 	'28', --objeto_cuadro_cc
-	'insititucion', --identificador
+	'id_institucion', --identificador
 	'Institucion', --descripcion
 	'1', --orden
-	'institucion', --columnas_id
-	'institucion_nombre', --columnas_descripcion
+	'id_institucion', --columnas_id
+	'inst_nombre', --columnas_descripcion
 	'1', --pie_contar_filas
 	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
@@ -121,7 +121,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );
@@ -146,13 +146,13 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'curso', --objeto_cuadro_proyecto
 	'2050', --objeto_cuadro
 	'630', --objeto_cuadro_col
-	'ua_tipo', --clave
+	'ua_tipo_nombre', --clave
 	'2', --orden
 	'Tipo', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls
@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	NULL, --permitir_html
+	'0', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );

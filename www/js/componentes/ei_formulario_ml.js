@@ -247,7 +247,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 				hay_cambio = true;
 			} else {
 				for (id_ef in this._efs) {
-					if (! in_array(id_ef, this._cambios_excluir_efs) && isset(this._estado_inicial[this._filas[fila]][id_ef])) {
+					if (! in_array(id_ef, this._cambios_excluir_efs)) {
 						this._efs[id_ef].ir_a_fila(this._filas[fila]);
 						var es_igual = this._es_estado_igual(this._estado_inicial[this._filas[fila]][id_ef], this._efs[id_ef].get_estado());
 						if (! es_igual) {

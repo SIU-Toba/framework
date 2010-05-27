@@ -212,9 +212,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4813', --objeto_ei_formulario_fila
 	'1940', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'idpais', --identificador
+	'id_pais', --identificador
 	'ef_combo', --elemento_formulario
-	'idpais', --columnas
+	'id_pais', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'3', --orden
@@ -239,7 +239,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'id_pais', --carga_col_clave
 	'nombre', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
@@ -290,9 +290,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4814', --objeto_ei_formulario_fila
 	'1940', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'idprovincia', --identificador
+	'id_provincia', --identificador
 	'ef_combo', --elemento_formulario
-	'idprovincia', --columnas
+	'id_provincia', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
@@ -317,9 +317,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'id_provincia', --carga_col_clave
 	'nombre', --carga_col_desc
-	'idpais', --carga_maestros
+	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
@@ -368,9 +368,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4815', --objeto_ei_formulario_fila
 	'1940', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'codigopostal', --identificador
+	'cp', --identificador
 	'ef_combo', --elemento_formulario
-	'codigopostal', --columnas
+	'cp', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
@@ -395,9 +395,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'cp', --carga_col_clave
 	'nombre', --carga_col_desc
-	'idprovincia', --carga_maestros
+	'id_pais,id_provincia', --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
@@ -446,9 +446,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4832', --objeto_ei_formulario_fila
 	'1940', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'institucion', --identificador
+	'id_institucion', --identificador
 	'ef_combo', --elemento_formulario
-	'institucion', --columnas
+	'id_institucion', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
@@ -473,7 +473,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'institucion', --carga_col_clave
+	'id_institucion', --carga_col_clave
 	'nombre', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj

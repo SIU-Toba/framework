@@ -196,7 +196,12 @@ class toba_ei_esquema extends toba_ei
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 
-	function vista_xml($inicial, $xmlns=null) 
+	/**
+	 * Genera el xml del componente
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente
+	 */
+	function vista_xml($xmlns=null) 
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -236,6 +241,10 @@ class toba_ei_esquema extends toba_ei
 		}
 	}
 	
+	/**
+	 * Permite definir una leyenda para la imagen
+	 * @param string $caption 
+	 */
 	function xml_set_caption($caption)
 	{
 		$this->xml_caption = $caption;

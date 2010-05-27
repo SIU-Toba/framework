@@ -68,6 +68,9 @@ class toba_proyecto
 	
 	private function __construct($proyecto)
 	{
+		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {
+			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");	
+		}
 		toba_proyecto_db::set_db( toba::instancia()->get_db() );//Las consultas salen de la instancia actual
 		$this->id = $proyecto;
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
@@ -284,12 +287,10 @@ class toba_proyecto
 		}
 	}
 
-	function get_info_relacion_entre_tablas($fuente_datos, $proyecto=null)
+	function get_info_relacion_entre_tablas($fuente_datos, $proyecto)
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;
-		$info = array();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
-			return $this->recuperar_datos_compilados('toba_mc_gene__relacion_tablas_'.$fuente_datos, 'get_info');
+			return self::recuperar_datos_compilados('toba_mc_gene__relacion_tablas_'.$fuente_datos, 'get_info');
 		} else {
 			return toba_proyecto_db::get_info_relacion_entre_tablas($proyecto, $fuente_datos);
 		}
@@ -564,12 +565,12 @@ class toba_proyecto
 	
 	//-- Soporte a la compilacion ----------------------
 	
-	function existe_dato_compilado($clase, $metodo)
+	static function existe_dato_compilado($clase, $metodo)
 	{
 		return in_array($metodo, get_class_methods($clase));
 	}
 	
-	function recuperar_datos_compilados($clase, $metodo)
+	static function recuperar_datos_compilados($clase, $metodo)
 	{
 		return call_user_func(array($clase, $metodo));
 	}

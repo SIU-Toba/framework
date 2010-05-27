@@ -271,6 +271,15 @@ class toba_instancia
 		}
 		return $this->memoria['proyectos_accesibles'];
 	}
+	
+	function get_id_proyectos()
+	{
+		$ids = array();
+		foreach (explode(',', $this->memoria['proyectos']) as $id) {
+			$ids[] = trim($id);
+		}
+		return $ids;
+	}
 
 	//--------------------------------------------------------------------------
 	//-------------------- LOGIN USUARIOS --------------------------------------------

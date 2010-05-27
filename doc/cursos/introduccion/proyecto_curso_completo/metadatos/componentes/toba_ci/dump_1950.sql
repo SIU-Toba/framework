@@ -87,10 +87,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'curso', --proyecto
-	'898', --dep_id
+	'899', --dep_id
 	'1950', --objeto_consumidor
-	'1951', --objeto_proveedor
-	'datos', --identificador
+	'1952', --objeto_proveedor
+	'form', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -99,10 +99,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'curso', --proyecto
-	'899', --dep_id
+	'898', --dep_id
 	'1950', --objeto_consumidor
-	'1952', --objeto_proveedor
-	'form', --identificador
+	'1951', --objeto_proveedor
+	'tabla', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c

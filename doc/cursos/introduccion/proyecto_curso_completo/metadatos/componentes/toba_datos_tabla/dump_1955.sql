@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1955]--  Provincias 
+--[1955]--  DT - provincia 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Provincias', --nombre
+	'DT - provincia', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'ona_provincia', --tabla
+	'provincia', --tabla
 	NULL, --alias
 	'0', --modificar_claves
 	'curso', --fuente_datos_proyecto
@@ -63,12 +63,12 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 -- apex_objeto_db_registros_col
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 45
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1955', --objeto
-	'577', --col_id
-	'idprovincia', --columna
+	'45000002', --col_id
+	'id_provincia', --columna
 	'C', --tipo
 	'1', --pk
 	'', --secuencia
@@ -80,8 +80,8 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1955', --objeto
-	'578', --col_id
-	'idpais', --columna
+	'45000003', --col_id
+	'id_pais', --columna
 	'C', --tipo
 	'0', --pk
 	'', --secuencia
@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1955', --objeto
-	'579', --col_id
+	'45000004', --col_id
 	'nombre', --columna
 	'C', --tipo
 	'0', --pk
@@ -103,4 +103,4 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'1', --no_nulo_db
 	'0'  --externa
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 45

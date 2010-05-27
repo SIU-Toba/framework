@@ -132,8 +132,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'1000720', --objeto_ei_filtro
 	'curso', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'institucion', --nombre
-	'institucion', --expresion
+	'id_institucion', --nombre
+	'id_institucion', --expresion
 	'Institución', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -150,7 +150,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'institucion', --carga_col_clave
+	'id_institucion', --carga_col_clave
 	'nombre', --carga_col_desc
 	'1', --carga_permite_no_seteado
 	'--SELECCIONAR--', --carga_no_seteado

@@ -14,7 +14,7 @@ class toba_manejador_sesiones
 	private $sesion = null;
 	private $usuario = null;
 	protected $perfiles_funcionales_activos = array();
-	
+	private $autenticacion = null;
 	
 	/**
 	 * @return toba_manejador_sesiones
@@ -118,6 +118,15 @@ class toba_manejador_sesiones
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
 		}
+	}
+	
+	/**
+	 * Delega la autenticación del proyecto a un objeto 
+	 * @param toba_autenticable $autenticacion Objeto responsable de la autenticacion
+	 */
+	function set_autenticacion(toba_autenticable $autenticacion)
+	{
+		$this->autenticacion = $autenticacion;
 	}
 
 	//------------------------------------------------------------------
@@ -665,6 +674,8 @@ class toba_manejador_sesiones
 
 	//------------------------------------------------------------------
 
+	
+	
 	private function get_usuario_proyecto($id_usuario)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
@@ -769,7 +780,11 @@ class toba_manejador_sesiones
 			throw new toba_error('El usuario se encuentra bloqueado. Contáctese con el administrador');
 		}
 		// Disparo la autenticacion
-		$estado = $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
+		if (isset($this->autenticacion)) {
+			$estado = $this->autenticacion->autenticar($id_usuario, $clave, $datos_iniciales);
+		} else {
+			$estado = $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
+		}
 		if(!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));

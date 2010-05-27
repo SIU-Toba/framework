@@ -74,7 +74,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'900', --dep_id
 	'1954', --objeto_consumidor
 	'1955', --objeto_proveedor
-	'tabla_provincias', --identificador
+	'tabla', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -95,7 +95,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos

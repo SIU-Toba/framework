@@ -134,9 +134,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4823', --objeto_ei_formulario_fila
 	'1943', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'unidadacad', --identificador
+	'id_ua', --identificador
 	'ef_combo', --elemento_formulario
-	'unidadacad', --columnas
+	'id_ua', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
@@ -161,7 +161,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'id_ua', --carga_col_clave
 	'nombre', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj

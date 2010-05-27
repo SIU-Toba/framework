@@ -63,13 +63,16 @@ class toba_vista_xml
 	}
 	
 
+	/**
+	 * @ignore
+	 */
 	function generar_xml() 
 	{
 		if (! isset($this->xml_externo)) {																//Si no existe XML pre-generado externamente
 			$xml = '<?xml version="1.0" encoding="ISO-8859-1"?><raiz>';
 			foreach( $this->objetos as $objeto ) {
 				if(method_exists($objeto, 'vista_xml')) {
-					$xml .= $objeto->vista_xml(true);
+					$xml .= $objeto->vista_xml();
 				}
 			}
 			$xml .= '</raiz>';
@@ -79,6 +82,9 @@ class toba_vista_xml
 		return $xml;
 	}
 
+	/**
+	 * @ignore
+	 */
 	protected function cabecera_http( $longuitud )
 	{
 		header("Cache-Control: private");

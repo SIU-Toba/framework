@@ -29,7 +29,6 @@ class toba_ef_editable extends toba_ef
 	protected $unidad;
 	protected $clase_css = 'ef-input';
 	protected static $callback_errores_validacion = null;
-
 	
     static function get_lista_parametros_carga()
     {
@@ -49,8 +48,8 @@ class toba_ef_editable extends toba_ef
     	$param[] = 'edit_expreg';
     	return $param;    	
     }
-    
-    static function set_callback_errores_validacion(toba_callback_errores_validacion $callback) 
+
+	static function set_callback_errores_validacion(toba_callback_errores_validacion $callback) 
     {
     	self::$callback_errores_validacion = $callback;	
     }
@@ -150,7 +149,7 @@ class toba_ef_editable extends toba_ef
 				if (! isset(self::$callback_errores_validacion)) {
 					return "Supera el ancho máximo {$this->maximo}";
 				} else {
-					return $callback_errores_validacion->editable_maximo($this, $this->maximo, $this->estado);
+					return self::$callback_errores_validacion->editable_maximo($this, $this->maximo, $this->estado);
 				}
 			}
 		}

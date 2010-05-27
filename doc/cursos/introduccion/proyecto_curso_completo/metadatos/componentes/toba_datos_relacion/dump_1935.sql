@@ -72,7 +72,7 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	NULL, --padre_clave
 	'curso', --hijo_proyecto
 	'1930', --hijo_objeto
-	'uas', --hijo_id
+	'ua', --hijo_id
 	NULL, --hijo_clave
 	NULL, --cascada
 	'1'  --orden
@@ -101,7 +101,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'881', --dep_id
 	'1935', --objeto_consumidor
 	'1930', --objeto_proveedor
-	'uas', --identificador
+	'ua', --identificador
 	'0', --parametros_a
 	'0', --parametros_b
 	NULL, --parametros_c
@@ -118,7 +118,7 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 	'1935', --objeto
 	'29', --asoc_id
 	'1929', --padre_objeto
-	'548', --padre_clave
+	'45000005', --padre_clave
 	'1930', --hijo_objeto
-	'554'  --hijo_clave
+	'45000014'  --hijo_clave
 );

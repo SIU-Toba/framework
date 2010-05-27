@@ -11,6 +11,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	protected $descripcion_estado;
 	protected $solo_lectura = false;
 	protected $tamano = 150;
+	protected $habilitar_modo_filtrado = true;
 	
 	static function get_lista_parametros_carga()
 	{
@@ -88,6 +89,11 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 			$this->input_extra = 'disabled';
 		}
 	}
+
+	function set_modo_filtrado($estado)
+	{
+		$this->habilitar_modo_filtrado = $estado;
+	}
 	
 	function cargar_estado_post()
 	{
@@ -104,8 +110,11 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	
 	protected function parametros_js()
 	{
-		$parametros = parent::parametros_js();
-		return "$parametros, $this->tamano";
+		$parametros = parent::parametros_js().', '.$this->tamano;
+		if (!$this->solo_lectura) {
+			$parametros .= $this->habilitar_modo_filtrado?', true':', false';
+		}
+		return $parametros;
 	}	
 	
 	function crear_objeto_js()
@@ -122,7 +131,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/ef', 'efs/ef_combo_editable', 'dhtmlxCombo/codebase/dhtmlxcombo', 'dhtmlxCombo/codebase/dhtmlxcommon');
+		$consumos = array('efs/ef', 'efs/ef_combo', 'efs/ef_combo_editable', 'dhtmlxCombo/codebase/dhtmlxcombo', 'dhtmlxCombo/codebase/dhtmlxcommon');
 		return $consumos;
 	}
 

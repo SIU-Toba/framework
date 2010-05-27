@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1933]--  Sedes / Unidades Academicas 
+--[1933]--  DT - sede_ua 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Sedes / Unidades Academicas', --nombre
+	'DT - sede_ua', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'soe_sedesua', --tabla
+	'sede_ua', --tabla
 	NULL, --alias
 	'0', --modificar_claves
 	'curso', --fuente_datos_proyecto
@@ -63,44 +63,31 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 -- apex_objeto_db_registros_col
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 45
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1933', --objeto
-	'571', --col_id
-	'institucion', --columna
+	'45000017', --col_id
+	'id_sede', --columna
 	'E', --tipo
 	'1', --pk
 	'', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'curso', --objeto_proyecto
 	'1933', --objeto
-	'572', --col_id
-	'sede', --columna
+	'45000018', --col_id
+	'id_ua', --columna
 	'E', --tipo
 	'1', --pk
 	'', --secuencia
-	'-1', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	NULL  --externa
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
-	'curso', --objeto_proyecto
-	'1933', --objeto
-	'573', --col_id
-	'unidadacad', --columna
-	'E', --tipo
-	'1', --pk
-	'', --secuencia
-	'-1', --largo
-	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0'  --externa
-);
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 45

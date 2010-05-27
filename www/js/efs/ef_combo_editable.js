@@ -10,13 +10,14 @@ ef_combo_editable.prototype.constructor = ef_combo_editable;
  * @phpdoc Componentes/Efs/toba_ef_combo_editable toba_ef_combo_editable
  */
  
-function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mantiene_estado_cascada) {
+function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mantiene_estado_cascada, modo_filtro) {
 	ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	this._tamano = tamano;
 	this._es_oculto = false;
 	this._buscar_todo = false;
 	this._cascadas_ajax = false;	//El esquema de casacadas se maneja de forma particular
 	this._mantiene_estado = mantiene_estado_cascada;
+	this._modo_filtro = modo_filtro;
 }
 
 	/**
@@ -34,7 +35,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		//Crea el combo_editable
 		var combo = dhtmlXComboFromSelect(this._id_form, this._tamano);
 		window['combo_editable_'+this._id_form] = combo;
-		combo.enableFilteringMode(true);
+		combo.enableFilteringMode(this._modo_filtro);
 		
 		//Se utiliza al contenedor para que retorne una referencia estatica al ef, para el caso del ml que multiplexa el objeto por las filas
 		var callback = contenedor.instancia_ef(this) + '.proceso_tecla()';

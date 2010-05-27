@@ -1,50 +1,81 @@
+
 --
--- Name: ona_localidad; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+-- Name: institucion; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
 --
 
-CREATE TABLE ona_localidad (
-    codigopostal character varying(10) NOT NULL,
-    idpais character varying(2) NOT NULL,
-    idprovincia character varying(4) NOT NULL,
-    nombre character varying(40) NOT NULL,
-    ddn character varying(6),
-    esuniversidad integer DEFAULT 0 NOT NULL,
-    modiuniversidad integer DEFAULT 0 NOT NULL
+CREATE TABLE institucion (
+    id_institucion integer NOT NULL,
+    nombre character varying(255) NOT NULL,
+    sigla character varying(15) NOT NULL,
+    id_jurisdiccion integer
 );
 
 
 --
--- Name: ona_pais; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+-- Name: jurisdiccion; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
 --
 
-CREATE TABLE ona_pais (
-    idpais character varying(2) NOT NULL,
-    nombre character varying(40) NOT NULL,
-    ddi character varying(2),
-    esuniversidad integer DEFAULT 0 NOT NULL,
-    modiuniversidad integer DEFAULT 0 NOT NULL
+CREATE TABLE jurisdiccion (
+    id_jurisdiccion integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    estado character varying(1) NOT NULL
 );
 
 
 --
--- Name: ona_provincia; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+-- Name: localidad; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
 --
 
-CREATE TABLE ona_provincia (
-    idprovincia character varying(4) NOT NULL,
-    idpais character varying(2) NOT NULL,
+CREATE TABLE localidad (
+    cp character varying(10) NOT NULL,
+    id_pais character varying(2) NOT NULL,
+    id_provincia character varying(4) NOT NULL,
+    nombre character varying(40) NOT NULL,
+    ddn character varying(6)
+);
+
+
+--
+-- Name: pais; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pais (
+    id_pais character varying(2) NOT NULL,
+    nombre character varying(40) NOT NULL,
+    ddi character varying(2)
+);
+
+
+--
+-- Name: provincia; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+--
+
+CREATE TABLE provincia (
+    id_provincia character varying(4) NOT NULL,
+    id_pais character varying(2) NOT NULL,
     nombre character varying(40) NOT NULL
 );
 
 
 --
--- Name: soe_edificios; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+-- Name: sede; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
 --
 
-CREATE TABLE soe_edificios (
-    edificio integer NOT NULL,
-    institucion integer NOT NULL,
-    sede integer NOT NULL,
+CREATE TABLE sede (
+    id_institucion integer NOT NULL,
+    id_sede integer NOT NULL,
+    nombre character varying(255) NOT NULL,
+    cp character varying(10)
+);
+
+
+--
+-- Name: sede_edificio; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+--
+
+CREATE TABLE sede_edificio (
+    id_edificio integer NOT NULL,
+    id_sede integer NOT NULL,
     nombre character varying(255),
     calle character varying(50),
     numero character varying(5),
@@ -54,73 +85,12 @@ CREATE TABLE soe_edificios (
 
 
 --
--- Name: soe_instituciones; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+-- Name: sede_ua; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
 --
 
-CREATE TABLE soe_instituciones (
-    institucion integer NOT NULL,
-    nombre_completo character varying(255) NOT NULL,
-    nombre_abreviado character varying(50),
-    sigla character varying(15),
-    jurisdiccion integer
-);
-
-
---
--- Name: soe_jurisdicciones; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
---
-
-CREATE TABLE soe_jurisdicciones (
-    jurisdiccion integer NOT NULL,
-    descripcion character varying(100) NOT NULL,
-    estado character varying(1) NOT NULL
-);
-
-
---
--- Name: soe_sedes; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
---
-
-CREATE TABLE soe_sedes (
-    institucion integer NOT NULL,
-    sede integer NOT NULL,
-    nombre character varying(255) NOT NULL,
-    codigopostal character varying(10)
-);
-
-
---
--- Name: soe_sedesua; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
---
-
-CREATE TABLE soe_sedesua (
-    institucion integer NOT NULL,
-    sede integer NOT NULL,
-    unidadacad integer NOT NULL
-);
-
-
---
--- Name: soe_tiposua; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
---
-
-CREATE TABLE soe_tiposua (
-    tipoua integer NOT NULL,
-    descripcion character varying(50) NOT NULL,
-    detalle character varying(255),
-    estado character varying(1) NOT NULL
-);
-
-
---
--- Name: soe_unidadesacad; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
---
-
-CREATE TABLE soe_unidadesacad (
-    unidadacad integer NOT NULL,
-    institucion integer,
-    nombre character varying(255) NOT NULL,
-    tipoua integer
+CREATE TABLE sede_ua (
+    id_sede integer NOT NULL,
+    id_ua integer NOT NULL
 );
 
 
@@ -129,6 +99,7 @@ CREATE TABLE soe_unidadesacad (
 --
 
 CREATE SEQUENCE soe_edificios_edificio_seq
+    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -139,7 +110,7 @@ CREATE SEQUENCE soe_edificios_edificio_seq
 -- Name: soe_edificios_edificio_seq; Type: SEQUENCE OWNED BY; Schema: curso; Owner: -
 --
 
-ALTER SEQUENCE soe_edificios_edificio_seq OWNED BY soe_edificios.edificio;
+ALTER SEQUENCE soe_edificios_edificio_seq OWNED BY sede_edificio.id_edificio;
 
 
 --
@@ -158,7 +129,7 @@ CREATE SEQUENCE soe_instituciones_institucion_seq
 -- Name: soe_instituciones_institucion_seq; Type: SEQUENCE OWNED BY; Schema: curso; Owner: -
 --
 
-ALTER SEQUENCE soe_instituciones_institucion_seq OWNED BY soe_instituciones.institucion;
+ALTER SEQUENCE soe_instituciones_institucion_seq OWNED BY institucion.id_institucion;
 
 
 --
@@ -177,7 +148,19 @@ CREATE SEQUENCE soe_sedes_sede_seq
 -- Name: soe_sedes_sede_seq; Type: SEQUENCE OWNED BY; Schema: curso; Owner: -
 --
 
-ALTER SEQUENCE soe_sedes_sede_seq OWNED BY soe_sedes.sede;
+ALTER SEQUENCE soe_sedes_sede_seq OWNED BY sede.id_sede;
+
+
+--
+-- Name: ua_tipo; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ua_tipo (
+    id_ua_tipo integer NOT NULL,
+    nombre character varying(50) NOT NULL,
+    detalle character varying(255),
+    estado character varying(1) NOT NULL
+);
 
 
 --
@@ -185,6 +168,7 @@ ALTER SEQUENCE soe_sedes_sede_seq OWNED BY soe_sedes.sede;
 --
 
 CREATE SEQUENCE soe_tiposua_tipoua_seq
+    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -195,7 +179,19 @@ CREATE SEQUENCE soe_tiposua_tipoua_seq
 -- Name: soe_tiposua_tipoua_seq; Type: SEQUENCE OWNED BY; Schema: curso; Owner: -
 --
 
-ALTER SEQUENCE soe_tiposua_tipoua_seq OWNED BY soe_tiposua.tipoua;
+ALTER SEQUENCE soe_tiposua_tipoua_seq OWNED BY ua_tipo.id_ua_tipo;
+
+
+--
+-- Name: ua; Type: TABLE; Schema: curso; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ua (
+    id_ua integer NOT NULL,
+    id_institucion integer,
+    nombre character varying(255) NOT NULL,
+    id_ua_tipo integer
+);
 
 
 --
@@ -203,6 +199,7 @@ ALTER SEQUENCE soe_tiposua_tipoua_seq OWNED BY soe_tiposua.tipoua;
 --
 
 CREATE SEQUENCE soe_unidadesacad_unidadacad_seq
+    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -213,210 +210,205 @@ CREATE SEQUENCE soe_unidadesacad_unidadacad_seq
 -- Name: soe_unidadesacad_unidadacad_seq; Type: SEQUENCE OWNED BY; Schema: curso; Owner: -
 --
 
-ALTER SEQUENCE soe_unidadesacad_unidadacad_seq OWNED BY soe_unidadesacad.unidadacad;
+ALTER SEQUENCE soe_unidadesacad_unidadacad_seq OWNED BY ua.id_ua;
 
 
 --
--- Name: edificio; Type: DEFAULT; Schema: curso; Owner: -
+-- Name: id_institucion; Type: DEFAULT; Schema: curso; Owner: -
 --
 
-ALTER TABLE soe_edificios ALTER COLUMN edificio SET DEFAULT nextval('soe_edificios_edificio_seq'::regclass);
-
-
---
--- Name: institucion; Type: DEFAULT; Schema: curso; Owner: -
---
-
-ALTER TABLE soe_instituciones ALTER COLUMN institucion SET DEFAULT nextval('soe_instituciones_institucion_seq'::regclass);
+ALTER TABLE institucion ALTER COLUMN id_institucion SET DEFAULT nextval('soe_instituciones_institucion_seq'::regclass);
 
 
 --
--- Name: sede; Type: DEFAULT; Schema: curso; Owner: -
+-- Name: id_sede; Type: DEFAULT; Schema: curso; Owner: -
 --
 
-ALTER TABLE soe_sedes ALTER COLUMN sede SET DEFAULT nextval('soe_sedes_sede_seq'::regclass);
-
-
---
--- Name: tipoua; Type: DEFAULT; Schema: curso; Owner: -
---
-
-ALTER TABLE soe_tiposua ALTER COLUMN tipoua SET DEFAULT nextval('soe_tiposua_tipoua_seq'::regclass);
+ALTER TABLE sede ALTER COLUMN id_sede SET DEFAULT nextval('soe_sedes_sede_seq'::regclass);
 
 
 --
--- Name: unidadacad; Type: DEFAULT; Schema: curso; Owner: -
+-- Name: id_edificio; Type: DEFAULT; Schema: curso; Owner: -
 --
 
-ALTER TABLE soe_unidadesacad ALTER COLUMN unidadacad SET DEFAULT nextval('soe_unidadesacad_unidadacad_seq'::regclass);
+ALTER TABLE sede_edificio ALTER COLUMN id_edificio SET DEFAULT nextval('soe_edificios_edificio_seq'::regclass);
+
+
+--
+-- Name: id_ua; Type: DEFAULT; Schema: curso; Owner: -
+--
+
+ALTER TABLE ua ALTER COLUMN id_ua SET DEFAULT nextval('soe_unidadesacad_unidadacad_seq'::regclass);
+
+
+--
+-- Name: id_ua_tipo; Type: DEFAULT; Schema: curso; Owner: -
+--
+
+ALTER TABLE ua_tipo ALTER COLUMN id_ua_tipo SET DEFAULT nextval('soe_tiposua_tipoua_seq'::regclass);
 
 
 --
 -- Name: ona_localidad_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY ona_localidad
-    ADD CONSTRAINT ona_localidad_pkey PRIMARY KEY (codigopostal);
+ALTER TABLE ONLY localidad
+    ADD CONSTRAINT ona_localidad_pkey PRIMARY KEY (cp);
 
 
 --
 -- Name: ona_pais_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY ona_pais
-    ADD CONSTRAINT ona_pais_pkey PRIMARY KEY (idpais);
+ALTER TABLE ONLY pais
+    ADD CONSTRAINT ona_pais_pkey PRIMARY KEY (id_pais);
 
 
 --
 -- Name: ona_provincia_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY ona_provincia
-    ADD CONSTRAINT ona_provincia_pkey PRIMARY KEY (idprovincia);
+ALTER TABLE ONLY provincia
+    ADD CONSTRAINT ona_provincia_pkey PRIMARY KEY (id_provincia);
 
 
 --
 -- Name: soe_edificios_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_edificios
-    ADD CONSTRAINT soe_edificios_pkey PRIMARY KEY (edificio);
+ALTER TABLE ONLY sede_edificio
+    ADD CONSTRAINT soe_edificios_pkey PRIMARY KEY (id_edificio);
 
 
 --
 -- Name: soe_instituciones_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_instituciones
-    ADD CONSTRAINT soe_instituciones_pkey PRIMARY KEY (institucion);
+ALTER TABLE ONLY institucion
+    ADD CONSTRAINT soe_instituciones_pkey PRIMARY KEY (id_institucion);
 
 
 --
 -- Name: soe_jurisdicciones_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_jurisdicciones
-    ADD CONSTRAINT soe_jurisdicciones_pkey PRIMARY KEY (jurisdiccion);
+ALTER TABLE ONLY jurisdiccion
+    ADD CONSTRAINT soe_jurisdicciones_pkey PRIMARY KEY (id_jurisdiccion);
 
 
 --
 -- Name: soe_sedes_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_sedes
-    ADD CONSTRAINT soe_sedes_pkey PRIMARY KEY (institucion, sede);
+ALTER TABLE ONLY sede
+    ADD CONSTRAINT soe_sedes_pkey PRIMARY KEY (id_sede);
 
 
 --
--- Name: soe_sedesua_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
+-- Name: soe_sedes_ua_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_sedesua
-    ADD CONSTRAINT soe_sedesua_pkey PRIMARY KEY (institucion, sede, unidadacad);
+ALTER TABLE ONLY sede_ua
+    ADD CONSTRAINT soe_sedes_ua_pkey PRIMARY KEY (id_sede, id_ua);
 
+ALTER TABLE ONLY sede_ua ADD CONSTRAINT soe_sedes_fk FOREIGN KEY (id_sede)
+      REFERENCES sede (id_sede) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 --
 -- Name: soe_tiposua_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_tiposua
-    ADD CONSTRAINT soe_tiposua_pkey PRIMARY KEY (tipoua);
+ALTER TABLE ONLY ua_tipo
+    ADD CONSTRAINT soe_tiposua_pkey PRIMARY KEY (id_ua_tipo);
 
 
 --
 -- Name: soe_unidadesacad_pkey; Type: CONSTRAINT; Schema: curso; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY soe_unidadesacad
-    ADD CONSTRAINT soe_unidadesacad_pkey PRIMARY KEY (unidadacad);
+ALTER TABLE ONLY ua
+    ADD CONSTRAINT soe_unidadesacad_pkey PRIMARY KEY (id_ua);
 
 
 --
 -- Name: ona_localidad_idpais_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY ona_localidad
-    ADD CONSTRAINT ona_localidad_idpais_fkey FOREIGN KEY (idpais) REFERENCES ona_pais(idpais) DEFERRABLE;
+ALTER TABLE ONLY localidad
+    ADD CONSTRAINT ona_localidad_idpais_fkey FOREIGN KEY (id_pais) REFERENCES pais(id_pais) DEFERRABLE;
 
 
 --
 -- Name: ona_localidad_idprovincia_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY ona_localidad
-    ADD CONSTRAINT ona_localidad_idprovincia_fkey FOREIGN KEY (idprovincia) REFERENCES ona_provincia(idprovincia) DEFERRABLE;
+ALTER TABLE ONLY localidad
+    ADD CONSTRAINT ona_localidad_idprovincia_fkey FOREIGN KEY (id_provincia) REFERENCES provincia(id_provincia) DEFERRABLE;
 
 
 --
 -- Name: ona_provincia_idpais_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY ona_provincia
-    ADD CONSTRAINT ona_provincia_idpais_fkey FOREIGN KEY (idpais) REFERENCES ona_pais(idpais) DEFERRABLE;
+ALTER TABLE ONLY provincia
+    ADD CONSTRAINT ona_provincia_idpais_fkey FOREIGN KEY (id_pais) REFERENCES pais(id_pais) DEFERRABLE;
 
 
 --
--- Name: soe_edificios_institucion_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
+-- Name: soe_edificios_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_edificios
-    ADD CONSTRAINT soe_edificios_institucion_fkey FOREIGN KEY (institucion, sede) REFERENCES soe_sedes(institucion, sede) DEFERRABLE;
+ALTER TABLE ONLY sede_edificio
+    ADD CONSTRAINT soe_edificios_fkey FOREIGN KEY (id_sede) REFERENCES sede(id_sede);
 
 
 --
 -- Name: soe_instituciones_jurisdiccion_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_instituciones
-    ADD CONSTRAINT soe_instituciones_jurisdiccion_fkey FOREIGN KEY (jurisdiccion) REFERENCES soe_jurisdicciones(jurisdiccion) DEFERRABLE;
+ALTER TABLE ONLY institucion
+    ADD CONSTRAINT soe_instituciones_jurisdiccion_fkey FOREIGN KEY (id_jurisdiccion) REFERENCES jurisdiccion(id_jurisdiccion) DEFERRABLE;
 
 
 --
 -- Name: soe_sedes_codigopostal_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_sedes
-    ADD CONSTRAINT soe_sedes_codigopostal_fkey FOREIGN KEY (codigopostal) REFERENCES ona_localidad(codigopostal) DEFERRABLE;
+ALTER TABLE ONLY sede
+    ADD CONSTRAINT soe_sedes_codigopostal_fkey FOREIGN KEY (cp) REFERENCES localidad(cp) DEFERRABLE;
 
 
 --
 -- Name: soe_sedes_institucion_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_sedes
-    ADD CONSTRAINT soe_sedes_institucion_fkey FOREIGN KEY (institucion) REFERENCES soe_instituciones(institucion) DEFERRABLE;
-
-
---
--- Name: soe_sedesua_institucion_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
---
-
-ALTER TABLE ONLY soe_sedesua
-    ADD CONSTRAINT soe_sedesua_institucion_fkey FOREIGN KEY (institucion, sede) REFERENCES soe_sedes(institucion, sede) DEFERRABLE;
+ALTER TABLE ONLY sede
+    ADD CONSTRAINT soe_sedes_institucion_fkey FOREIGN KEY (id_institucion) REFERENCES institucion(id_institucion) DEFERRABLE;
 
 
 --
 -- Name: soe_sedesua_unidadacad_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_sedesua
-    ADD CONSTRAINT soe_sedesua_unidadacad_fkey FOREIGN KEY (unidadacad) REFERENCES soe_unidadesacad(unidadacad) DEFERRABLE;
+ALTER TABLE ONLY sede_ua
+    ADD CONSTRAINT soe_sedesua_unidadacad_fkey FOREIGN KEY (id_ua) REFERENCES ua(id_ua) DEFERRABLE;
 
 
 --
 -- Name: soe_unidadesacad_institucion_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_unidadesacad
-    ADD CONSTRAINT soe_unidadesacad_institucion_fkey FOREIGN KEY (institucion) REFERENCES soe_instituciones(institucion) DEFERRABLE;
+ALTER TABLE ONLY ua
+    ADD CONSTRAINT soe_unidadesacad_institucion_fkey FOREIGN KEY (id_institucion) REFERENCES institucion(id_institucion) DEFERRABLE;
 
 
 --
 -- Name: soe_unidadesacad_tipoua_fkey; Type: FK CONSTRAINT; Schema: curso; Owner: -
 --
 
-ALTER TABLE ONLY soe_unidadesacad
-    ADD CONSTRAINT soe_unidadesacad_tipoua_fkey FOREIGN KEY (tipoua) REFERENCES soe_tiposua(tipoua) DEFERRABLE;
+ALTER TABLE ONLY ua
+    ADD CONSTRAINT soe_unidadesacad_tipoua_fkey FOREIGN KEY (id_ua_tipo) REFERENCES ua_tipo(id_ua_tipo) DEFERRABLE;
 
 
 --

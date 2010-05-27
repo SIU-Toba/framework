@@ -105,6 +105,20 @@ class toba_ei_cuadro extends toba_ei
     protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
 	protected $_excel_cortar_hoja_cc_0 = false;										//Crea una hoja (worksheet) por corte 
 	protected $_excel_usar_formulas = true;											//Para hacer la sumatoria de los cortes usa formulas excel, sino suma en PHP
+	protected $_excel_sin_cortes = false;   // Especifica si hay que renderizar un excel sin cortes de control
+    
+	protected static $_mostrar_excel_sin_cortes = false;    // Especifica si se tiene que dar la opción de renderizar como excel sin cortes 
+	
+	/** 
+	 * Esta función debe ser utilizada desde los archivos de customización 
+	 * para mostrar la vista de excel sin cortes de control 
+	 * @param boolean $valor 
+	 */ 
+	 static function set_vista_excel_sin_cortes($valor) 
+	 { 
+	 	self::$_mostrar_excel_sin_cortes = $valor; 
+	} 
+	 	
 	
 	
     final function __construct($id)
@@ -114,6 +128,12 @@ class toba_ei_cuadro extends toba_ei
 		$propiedades[] = '_eventos_multiples';
 		$this->set_propiedades_sesion($propiedades);
         parent::__construct($id);
+
+        $this->_excel_sin_cortes = toba::memoria()->get_parametro('es_plano'); 
+ 		if ($this->_excel_sin_cortes) { 
+ 			$this->aplanar_cortes_control(); 
+ 		}         
+        
 		$this->procesar_definicion();
 		$this->inicializar_manejo_clave();	
 		if($this->existe_paginado())
@@ -1020,7 +1040,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function existen_cortes_control()
 	{
-		return (count($this->_info_cuadro_cortes)>0);
+		return (count($this->_info_cuadro_cortes)>0) && !$this->_excel_sin_cortes;
 	}
 	
 	/**
@@ -1090,6 +1110,29 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
 	}
+	
+ 	/** 
+ 	 * Metodo para aplanar los cortes de control 
+ 	 * @ignore 
+ 	*/ 
+ 	protected function aplanar_cortes_control() 
+ 	{ 
+ 		if (count($this->_info_cuadro_cortes) == 0) return; // no hay nada que aplanar 
+ 
+ 		$columnas = array(); 
+ 		foreach ($this->_info_cuadro_cortes as $cortes) { 
+ 			$ids = explode(',', $cortes['columnas_id']); 
+ 			foreach ($ids as $id) { 
+ 				$columna = array( 
+ 					'clave'  => $id, 
+ 					'titulo' => $id, 
+ 					'formateo' => 'forzar_cadena' 
+ 				); 
+ 				$columnas[] = $columna; 
+ 			} 
+ 		} 
+		$this->agregar_columnas($columnas); 
+ 	} 	
 
 //################################################################################
 //#################################    ORDEN    ##################################
@@ -1845,7 +1888,12 @@ class toba_ei_cuadro extends toba_ei
         	echo "<a href='javascript: {$this->objeto_js}.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
         }    		
         if (isset($this->_info_cuadro) && $this->_info_cuadro['exportar_xls'] == 1) {
-        	$img = toba_recurso::imagen_toba('exp_xls.gif', true);
+	 		//Si hay vista xls entonces se muestra el link común y para exportar a plano 
+	 		if (self::$_mostrar_excel_sin_cortes) { 
+	 			$img_plano = toba_recurso::imagen_toba('exp_xls_plano.gif', true); 
+	 			echo "<a href='javascript: {$this->objeto_js}.exportar_excel_sin_cortes()' title='Exporta el listado a formato Excel sin cortes (.xls)'>$img_plano</a>"; 
+	 		} 
+			$img = toba_recurso::imagen_toba('exp_xls.gif', true);		
         	echo "<a href='javascript: {$this->objeto_js}.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
         }
 		if ($this->_info_cuadro["ordenar"]) {
@@ -3523,7 +3571,12 @@ class toba_ei_cuadro extends toba_ei
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 	
-	function vista_xml($inicial, $xmlns=null)
+	/**
+	 * Genera el xml del componente
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente
+	 */
+	function vista_xml($xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -3563,7 +3616,7 @@ class toba_ei_cuadro extends toba_ei
 				$this->xml_cuadro_totales_columnas($this->_acumulador, 0, true);
 			}
 			$this->pdf_acumulador_usuario();
-			/*$this->html_cuadro_fin();					*/
+			//$this->html_cuadro_fin();					
 		}		
 	}
 
@@ -3799,7 +3852,9 @@ class toba_ei_cuadro extends toba_ei
 		$this->salida .= '</'.$this->xml_ns.'sumarizar>';
 	}	
 	
-
+	/**
+	 * @ignore 
+	 */
 	protected function xml_pie_corte_control( &$nodo, $es_ultimo )
 	{
 		//-----  Cabecera del PIE --------
@@ -3844,10 +3899,16 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	protected function xml_cc_inicio_nivel()
 	{
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function xml_cc_fin_nivel()
 	{
 	}
@@ -3868,7 +3929,12 @@ class toba_ei_cuadro extends toba_ei
 		}		
 	}
 
-	function xml_set_columna_ancho($efs, $ancho=null)
+	/**
+	 * Permite definir el ancho de las columnas 
+	 * @param mixed $efs Arreglo asociativo con la forma 'id_columna'=>'ancho', o un string con el id_columna.
+	 * @param integer $ancho Ancho de la columna. Válido sólo si el parámetro anterior es un id_columna. 
+	 */
+	function xml_set_columna_ancho($columnas, $ancho=null)
 	{
 		if(is_array($efs)) {
 			foreach($efs as $ef=>$ancho) {

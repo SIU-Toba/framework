@@ -225,7 +225,7 @@ class toba_formateo
 
 	function formato_html_br($valor)
 	{
-		$html = preg_replace("\n","<br>",$valor);
+		$html = str_replace("\n","<br>",$valor);
         if ($this->tipo_salida != 'excel') {
         	return $html;
         } else {

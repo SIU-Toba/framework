@@ -717,6 +717,15 @@ abstract class toba_ef
 	 */
 	abstract function get_input();
 	
+	/**
+	 * Retorna la referencia al componente padre o formulario
+	 * @return toba_formulario
+	 */
+	function controlador()
+	{
+		return $this->padre;	
+	}
+	
 }
 
 ?>

@@ -779,8 +779,12 @@ class toba_ei_filtro extends toba_ei
 	//---------------------------------------------------------------
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
-	
-	function vista_xml($inicial, $xmlns=null)
+	/**
+	 * Genera el xml del componente
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente
+	 */
+	function vista_xml($xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);

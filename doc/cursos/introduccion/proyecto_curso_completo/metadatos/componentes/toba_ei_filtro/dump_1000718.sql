@@ -119,7 +119,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 INSERT INTO apex_objeto_ei_filtro (objeto_ei_filtro_proyecto, objeto_ei_filtro, ancho) VALUES (
 	'curso', --objeto_ei_filtro_proyecto
 	'1000718', --objeto_ei_filtro
-	NULL  --ancho
+	'100%'  --ancho
 );
 
 ------------------------------------------------------------
@@ -132,8 +132,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'1000718', --objeto_ei_filtro
 	'curso', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'jurisdiccion', --nombre
-	'si.jurisdiccion', --expresion
+	'id_jurisdiccion', --nombre
+	'inst.id_jurisdiccion', --expresion
 	'Jurisdicción', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -150,7 +150,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'id_jurisdiccion', --carga_col_clave
 	'nombre', --carga_col_desc
 	'1', --carga_permite_no_seteado
 	'--SELECCIONAR--', --carga_no_seteado

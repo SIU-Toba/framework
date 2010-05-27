@@ -453,13 +453,42 @@ class toba_db_postgres7 extends toba_db
 						a.attnotnull as 		not_null,
 						a.atthasdef as 			tiene_predeterminado,
 						d.adsrc as 				valor_predeterminado,
-						ic.relname AS 			nombre_indice,
-						i.indisunique AS 		uk,
-						i.indisprimary AS 		pk,
 						'' as					secuencia,
 						fc.relname				as fk_tabla,
 						fa.attname				as fk_campo,						
-						a.attnum as 			orden
+						a.attnum as 			orden,
+						EXISTS (SELECT 
+									indisprimary 
+								FROM 
+									pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid AND indisprimary = TRUE 
+								WHERE 
+									(	a.attrelid = i.indrelid 
+								     AND (i.indkey[0] = a.attnum 
+										OR i.indkey[1] = a.attnum 
+										OR i.indkey[2] = a.attnum 
+										OR i.indkey[3] = a.attnum 
+										OR i.indkey[4] = a.attnum 
+										OR i.indkey[5] = a.attnum 
+										OR i.indkey[6] = a.attnum 
+										OR i.indkey[7] = a.attnum)
+									)
+								) as pk,
+						EXISTS (SELECT 
+									indisunique 
+								FROM 
+									pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid AND indisunique = TRUE 
+								WHERE 
+									( 	a.attrelid = i.indrelid 
+								     AND (i.indkey[0] = a.attnum 
+										OR i.indkey[1] = a.attnum 
+										OR i.indkey[2] = a.attnum 
+										OR i.indkey[3] = a.attnum 
+										OR i.indkey[4] = a.attnum 
+										OR i.indkey[5] = a.attnum 
+										OR i.indkey[6] = a.attnum 
+										OR i.indkey[7] = a.attnum)
+									)
+								) as uk
 				FROM 	pg_class c,
 						pg_type t,
 						pg_namespace as n,						
@@ -476,17 +505,6 @@ class toba_db_postgres7 extends toba_db
 										AND const.contype='f'
 										AND const.conkey[1] = a.attnum
 								)
-							---- Indices
-							LEFT OUTER JOIN ( pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid ) 
-								ON ( a.attrelid = i.indrelid 
-									AND (i.indkey[0] = a.attnum 
-										OR i.indkey[1] = a.attnum 
-										OR i.indkey[2] = a.attnum 
-										OR i.indkey[3] = a.attnum 
-										OR i.indkey[4] = a.attnum 
-										OR i.indkey[5] = a.attnum 
-										OR i.indkey[6] = a.attnum 
-										OR i.indkey[7] = a.attnum) )
 				WHERE 
 						c.relkind in ('r','v') 
 					AND c.relname=$tabla_sana
@@ -496,21 +514,17 @@ class toba_db_postgres7 extends toba_db
 					AND a.attrelid = c.oid 
 					AND c.relnamespace = n.oid
 						$where
-				ORDER BY a.attnum;";
+				ORDER BY a.attnum";
+
 		$columnas = $this->consultar($sql);
 		if(!$columnas){
 			throw new toba_error("La tabla '$tabla' no existe");	
 		}
 		//2) Normalizo VALORES
-		$procesadas = array();
 		$columnas_booleanas = array('uk','pk','not_null','tiene_predeterminado');
-		foreach(array_keys($columnas) as $id) {
-			//El query de arriba duplica columnas si pertenecen a mas de un indice...
-			//Esto es un fix momentaneo que anda para la mayoria de los casos...(jaja?)
-			if(isset($procesadas[$columnas[$id]['nombre']])) {
-				unset($columnas[$id]);
-				continue;
-			}
+		
+		foreach(array_keys($columnas) as $id) 
+		{
 			//Estas columnas manejan string en vez de booleanos
 			foreach($columnas_booleanas as $x) {
 				if($columnas[$id][$x]=='t'){
@@ -538,8 +552,6 @@ class toba_db_postgres7 extends toba_db
 					$columnas[$id]['secuencia'] = $match[3];
 				}			
 			}
-			//Guardo las que procese
-			$procesadas[$columnas[$id]['nombre']] = $id;
 		}
 		$this->cache_metadatos[$tabla] = array_values($columnas);
 		return $this->cache_metadatos[$tabla];

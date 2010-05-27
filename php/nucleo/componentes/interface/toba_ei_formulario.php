@@ -1072,8 +1072,11 @@ class toba_ei_formulario extends toba_ei
 		if (isset($this->_info_formulario['resaltar_efs_con_estado']) 
 				&& $this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
 			$clase .= ' ei-form-fila-filtrada';
-		}			
-		$salida .= "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
+		}
+		$es_fieldset = ($this->_elemento_formulario[$ef] instanceof toba_ef_fieldset);
+		if (! $es_fieldset) {							//Si es fieldset no puedo sacar el <div> porque el navegador cierra visualmente inmediatamente el ef.
+			$salida .= "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
+		}
 		if ($this->_elemento_formulario[$ef]->tiene_etiqueta() && $con_etiqueta) {
 			$salida .= $this->get_etiqueta_ef($ef, $ancho_etiqueta);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
@@ -1088,7 +1091,9 @@ class toba_ei_formulario extends toba_ei
 		} else {		
 			$salida .= $this->get_input_ef($ef);
 		}
-		$salida .= "</div>\n";	
+		if (! $es_fieldset) {
+			$salida .= "</div>\n";
+		}
 		return $salida;		
 	}
 	
@@ -1429,7 +1434,12 @@ class toba_ei_formulario extends toba_ei
 	//------------------------- SALIDA XML --------------------------
 	//---------------------------------------------------------------
 	
-	function vista_xml($inicial, $xmlns=null)
+	/**
+	 * Genera el xml del componente
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente
+	 */
+	function vista_xml($xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -1500,6 +1510,10 @@ class toba_ei_formulario extends toba_ei
 		return $xml;
 	}
 	
+	/**
+	 * Permite definir elementos de formulario que no se desea incluir en el XML
+	 * @param mixed $ef Arreglo de tipo ("id_ef1", "id_ef2"), o un id_ef
+	 */
 	function xml_set_ef_no_procesar($ef) 
 	{
 		if(is_array($ef)) {

@@ -871,25 +871,49 @@ abstract class toba_ei extends toba_componente
 	//----------------------  SALIDA XML  ---------------------------
 	//---------------------------------------------------------------
 	
+	/**
+	 * Permite definir la orientación de la página del pdf
+	 * @param string $orientacion Orientación landscape o portrait
+	 */
 	function xml_set_orientacion($orientacion) 
 	{
 		$this->xml_orientacion = ($orientacion == 'landscape')?'landscape':'portrait';
 	}
 	
+	/**
+	 * Permite definir una imagen que se ubica a la izquierda de la cabecera del pdf
+	 * @todo Actualmente sólo permite imagenes de tipo jpg
+	 * @param string $logo Path al archivo de la imagen
+	 */
 	function xml_set_logo($logo)
 	{
 		$this->xml_logo = $logo;
 	}
 	
+	/**
+	 * Permite definir un subtítulo, que se ubica debajo del título 
+	 * @param string $subtitulo
+	 */
 	function xml_set_subtitulo($subtitulo) 
 	{
 		$this->xml_subtitulo = $subtitulo;
 	}
 	
+	/**
+	 * Permite definir el título del pdf
+	 * @param string $titulo
+	 */
 	function xml_set_titulo($titulo) 
 	{
 		$this->xml_titulo = $titulo;
 	}
+	
+	/**
+	 * Permite agregar un texto dentro del pdf
+	 * @param string $texto
+	 * @param array $atts Arreglo asociativo con la forma 'atributo'=>'valor', con atributos del texto (font-size, font-weight, etc)
+	 * @return string XML necesario para la inclusión del texto.
+	 */
 	function xml_texto($texto, $atts=array())
 	{
 		$xml = '<'.$this->xml_ns.'texto valor="'.$texto.'">';
@@ -903,11 +927,19 @@ abstract class toba_ei extends toba_componente
 		return $xml;
 	}
 	
+	/**
+	 * Permite definir un namespace en el xml resultante del componente
+	 * por ejemplo:
+	 * 	&lt;alias:ci xmlns:alias="url"&gt;
+	 * @param string $xmlns Alias del namespace
+	 * @param string $url Url del namespace 
+	 * @param boolean $usar Define si el componente debe utilizar este namespace
+	 */
 	function xml_set_ns($xmlns, $url='', $usar=true)
 	{
-		if ($xmlns=='') {
+		if ($xmlns=='' || $xmlns==null) {
 			$this->xml_ns = '';
-			$this->xml_ns_url = '';
+			$this->xml_ns_url = ($url!='')?' xmlns="'.$url.'"':'';
 		} else {
 			$this->xml_ns = ($usar)?$xmlns.':':'';
 			$this->xml_ns_url= ($url!='')?' xmlns:'.$xmlns.'="'.$url.'"':'';

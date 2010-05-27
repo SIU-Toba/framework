@@ -137,7 +137,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nombre', --identificador
 	'ef_editable', --elemento_formulario
 	'nombre', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Nombre', --etiqueta
@@ -212,9 +212,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4830', --objeto_ei_formulario_fila
 	'1945', --objeto_ei_formulario
 	'curso', --objeto_ei_formulario_proyecto
-	'tipoua', --identificador
+	'id_ua_tipo', --identificador
 	'ef_combo', --elemento_formulario
-	'tipoua', --columnas
+	'id_ua_tipo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
@@ -230,8 +230,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
-	'0', --solo_lectura_inteligente
-	'get_tiposua', --carga_metodo
+	'get_ua_tipos', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
@@ -239,7 +238,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_sql
 	'curso', --carga_fuente
 	NULL, --carga_lista
-	'id', --carga_col_clave
+	'id_ua_tipo', --carga_col_clave
 	'nombre', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj

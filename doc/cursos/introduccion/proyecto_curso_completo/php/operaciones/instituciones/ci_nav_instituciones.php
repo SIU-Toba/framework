@@ -1,5 +1,4 @@
 <?php
-
 class ci_nav_instituciones extends toba_ci
 {
 	protected $s__filtro_institucion;
@@ -15,20 +14,19 @@ class ci_nav_instituciones extends toba_ci
 
 	function evt__eliminar()
 	{
-		$this->dep('datos')->eliminar_todo();
+		$this->dep('relacion')->eliminar_todo();			
 		$this->set_pantalla('seleccion');
 	}
 
 	function evt__guardar()
 	{
-		$this->dep('datos')->sincronizar();
-		$this->dep('datos')->resetear();
+		$this->dep('relacion')->sincronizar();
 		$this->set_pantalla('seleccion');
 	}
 
 	function evt__volver()
 	{
-		$this->dep('datos')->resetear();
+		$this->dep('relacion')->resetear();
 		$this->set_pantalla('seleccion');
 	}
 
@@ -36,10 +34,10 @@ class ci_nav_instituciones extends toba_ci
 	//---- Pantallas --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__edicion()
+	function conf__edicion($pantalla)
 	{
-		if (!$this->dep('datos')->esta_cargada() ) {
-			$this->pantalla()->eliminar_evento('eliminar');
+		if (!$this->dep('relacion')->esta_cargada()) {
+			$pantalla->eliminar_evento('eliminar');
 		}
 	}
 
@@ -70,18 +68,14 @@ class ci_nav_instituciones extends toba_ci
 
 	function evt__cuadro_instituciones__seleccion($seleccion)
 	{
-		$this->dep('datos')->cargar($seleccion);
+		$this->dep('relacion')->cargar($seleccion);
 		$this->set_pantalla('edicion');
 	}
 
 	function conf__cuadro_instituciones($componente)
 	{
-		if (isset($this->s__filtro_institucion)) {
-			$where = $this->dep('filtro_instituciones')->get_sql_where();
-			$datos = toba::consulta_php('soe_consultas')->get_instituciones($where);
-		} else {
-			$datos = toba::consulta_php('soe_consultas')->get_instituciones();
-		}
+		$where = $this->dep('filtro_instituciones')->get_sql_where();
+		$datos = toba::consulta_php('consultas')->get_instituciones($where);
 		$componente->set_datos($datos);
 	}
 }

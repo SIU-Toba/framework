@@ -1837,13 +1837,23 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function es_campo_modificado($campo, $id_viejos, $datos_nuevos)
 	{
+		if (! isset($this->_columnas[$campo])) {
+			return false;
+		}
 		if (isset($this->_datos[$id_viejos][$campo])) {
 			$viejo = $this->_datos[$id_viejos][$campo];
 			if (is_bool($viejo)) {
 				$viejo = $viejo ? 1 : 0;
 			}
-			//--- Comparacion por igualdad estricta con un cast a string
-			$modificar = (trim((string) $viejo) !== trim((string) $datos_nuevos[$campo]));
+			switch ($this->_columnas[$campo]['tipo']) {
+				case 'N':
+					//--- Comparacion por igualdad estricta con un cast a Float en caso de Tipo Numero
+					$modificar = (float)$viejo !== (float)$datos_nuevos[$campo];
+				break;
+			  default:
+					//--- Comparacion por igualdad estricta con un cast a string
+					$modificar = (trim((string) $viejo) !== trim((string) $datos_nuevos[$campo]));
+			}
 		} else {
 			//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)
 			$modificar = isset($this->_columnas[$campo]) && isset($datos_nuevos[$campo]);

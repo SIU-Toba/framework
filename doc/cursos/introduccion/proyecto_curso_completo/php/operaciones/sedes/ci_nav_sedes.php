@@ -6,7 +6,7 @@ class ci_nav_sedes extends toba_ci
 
 	function ini()
 	{
-		$this->dep('datos')->tabla('uas')->set_no_duplicado(array('unidadacad'));
+		$this->dep('relacion')->tabla('sede_ua')->set_no_duplicado(array('unidadacad'));
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -20,20 +20,20 @@ class ci_nav_sedes extends toba_ci
 
 	function evt__eliminar()
 	{
-		$this->dep('datos')->eliminar_todo();
+		$this->dep('relacion')->eliminar_todo();
 		$this->set_pantalla('seleccion');
 	}
 
 	function evt__guardar()
 	{
-		$this->dep('datos')->sincronizar();
-		$this->dep('datos')->resetear();
+		$this->dep('relacion')->sincronizar();
+		$this->dep('relacion')->resetear();
 		$this->set_pantalla('seleccion');
 	}
 
 	function evt__volver()
 	{
-		$this->dep('datos')->resetear();
+		$this->dep('relacion')->resetear();
 		$this->set_pantalla('seleccion');
 	}
 
@@ -43,7 +43,7 @@ class ci_nav_sedes extends toba_ci
 
 	function conf__edicion() 
 	{
-		if (!$this->dep('datos')->esta_cargada()) {
+		if (!$this->dep('relacion')->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}
@@ -56,7 +56,7 @@ class ci_nav_sedes extends toba_ci
 
 	function evt__cuadro_sedes__seleccion($seleccion)
 	{
-		$this->dep('datos')->cargar($seleccion);
+		$this->dep('relacion')->cargar($seleccion);
 		$this->set_pantalla('edicion');
 	}
 
@@ -64,7 +64,7 @@ class ci_nav_sedes extends toba_ci
 	{
 		if (isset($this->s__filtro_sedes)) {
 			$where = $this->dep('filtro_sedes')->get_sql_where();	
-			$datos = toba::consulta_php('soe_consultas')->get_sedes($where);
+			$datos = toba::consulta_php('consultas')->get_sedes($where);
 			$componente->set_datos($datos);
 		}
 	}

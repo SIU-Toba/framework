@@ -89,7 +89,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'institucion, sede', --columnas_clave
+	'id_institucion, id_sede', --columnas_clave
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
@@ -164,7 +164,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'curso', --objeto_cuadro_proyecto
 	'1946', --objeto_cuadro
 	'575', --objeto_cuadro_col
-	'codigopostal', --clave
+	'cp', --clave
 	'2', --orden
 	'Código Postal', --titulo
 	NULL, --estilo_titulo

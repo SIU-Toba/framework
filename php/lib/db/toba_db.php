@@ -29,6 +29,16 @@ class toba_db
 	protected $parser_errores = null;
 	protected $sentencias = array();
 	
+	protected $desactivar_consulta = false;
+	protected $desactivar_ejecucion = false;
+	
+	protected $registrar_ejecucion = false;
+	protected $registrar_consultas = false;
+
+	protected $registro_ejecucion = array();
+	protected $registro_consulta = array();
+	protected $registro_sentencias = array();
+	
 	/**
 	 * @param string $profile Host donde se localiza el servidor
 	 * @param string $usuario Nombre del usuario utilizado para conectar
@@ -145,6 +155,86 @@ class toba_db
 		}
 	}
 
+	/**
+	 * Activa/desactiva el resgistro de los comandos de ejecución.
+	 * @param boolean $desactivar_ejecucion Indica si se ejecuta el comando y se registra(FALSE) o si solamente se registra(TRUE). Por defecto FALSE
+	 * @param boolean $activar TRUE activa el resgistro, FALSE desactiva el registro. Por defecto TRUE
+	 */
+	function activar_registro_ejecucion($desactivar_ejecucion = false, $activar = true)
+	{
+		$this->registrar_ejecucion = $activar;
+		$this->desactivar_ejecucion = $desactivar_ejecucion;
+	}
+
+	/**
+	 * Activa/desactiva el resgistro de los comandos de consulta.
+	 * @param boolean $desactivar_consulta Indica si se ejecuta el comando y se registra(FALSE) o si solamente se registra(TRUE). Por defecto FALSE
+	 * @param boolean $activar TRUE activa el resgistro, FALSE desactiva el registro. Por defecto TRUE
+	 */
+	function activar_registro_consulta($desactivar_consulta = false, $activar = true)
+	{
+		$this->registrar_consultas = $activar;
+		$this->desactivar_consulta = $desactivar_consulta;
+	}
+
+	/**
+	 * Exporta el registro de los comandos de ejecución y consulta a archivos.
+	 * @param string $archivo_ejecucion Archivo al que se desea exportar el contenido del registro de ejecución.
+	 * @param string $archivo_consulta Archivo al que se desea exportar el contenido del registro de consulta.
+	 */
+	function exportar_registro($archivo_ejecucion = '', $archivo_consulta = '')
+	{
+		try {
+			// Validaciones
+			if ($this->registrar_ejecucion)
+			{
+				$pos = strrpos($archivo_ejecucion, '\\');
+				if ($pos === false) {
+					$ee = new Exception('Ruta del archivo de ejecución inválida');
+					throw $ee;
+				}
+				
+				if (!file_exists(substr($archivo_ejecucion, 0, $pos))) {
+					$ee = new Exception('Ruta del archivo de ejecución inexistente');
+					throw $ee;
+				}
+			}
+
+			if ($this->registrar_consultas)
+			{
+				$pos = strrpos($archivo_consulta, '\\');
+				if ($pos === false) {
+					$ee = new Exception('Ruta del archivo de consulta inválida');
+					throw $ee;
+				}
+				
+				if (!file_exists(substr($archivo_consulta, 0, $pos))) {
+					$ee = new Exception('Ruta del archivo de consulta inexistente');
+					throw $ee;
+				}
+			}
+			
+			$encabezado = str_repeat('-', 80). "\r\n--Fecha: ". date('d/m/Y H:i:s'). "\r\n";
+			
+			if ($this->registrar_ejecucion) {
+				file_put_contents($archivo_ejecucion, $encabezado, FILE_APPEND);
+				foreach(array_keys($this->registro_ejecucion) as $id) {
+					file_put_contents($archivo_ejecucion, $this->registro_ejecucion[$id]."\r\n", FILE_APPEND);
+				}
+			}
+			
+			if ($this->registrar_consultas) {
+				file_put_contents($archivo_consulta, $encabezado, FILE_APPEND);
+				foreach(array_keys($this->registro_consulta) as $id) {
+					file_put_contents($archivo_consulta, $this->registro_consulta[$id]."\r\n", FILE_APPEND);	
+				}
+			}
+		} catch (Exception $e) {
+			echo($e->getMessage());
+			toba::logger()->error($e->getMessage());
+		}
+	}
+
 	//------------------------------------------------------------------------
 	//-- Primitivas BASICAS
 	//------------------------------------------------------------------------
@@ -187,9 +277,16 @@ class toba_db
 		if (is_array($sql)) {
 			foreach(array_keys($sql) as $id) {
 				try {
-					if ($this->debug) $this->log_debug_inicio($sql[$id]);
-					$afectados += $this->conexion->exec($sql[$id]);
-					if ($this->debug) $this->log_debug_fin();
+
+					if ($this->registrar_ejecucion) {
+						$this->registro_ejecucion[] = $sql[$id];
+					}
+					
+					if (!$this->desactivar_ejecucion) {
+						if ($this->debug) $this->log_debug_inicio($sql[$id]);						
+						$afectados += $this->conexion->exec($sql[$id]);
+						if ($this->debug) $this->log_debug_fin();						
+					}
 				} catch (PDOException $e) {
 					toba::logger()->error($e->getMessage());
 					$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
@@ -198,9 +295,14 @@ class toba_db
 			}
 		} else {
 			try {
-				if ($this->debug) $this->log_debug_inicio($sql);
-				$afectados += $this->conexion->exec($sql);
-				if ($this->debug) $this->log_debug_fin();
+				if ($this->registrar_ejecucion) {
+					$this->registro_ejecucion[] = $sql;
+				}
+				if (! $this->desactivar_ejecucion) {
+					if ($this->debug) $this->log_debug_inicio($sql);
+					$afectados += $this->conexion->exec($sql);
+					if ($this->debug) $this->log_debug_fin();
+				}
 			} catch (PDOException $e) {
 				toba::logger()->error($e->getMessage());
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
@@ -222,7 +324,7 @@ class toba_db
 	{
 		$afectados = 0;
 		try {
-			if ($this->debug) $this->log_debug_inicio($sql);			
+			if ($this->debug) $this->log_debug_inicio($sql);
 			$stm = $this->conexion->prepare($sql);
 			$stm->execute($parametros);
 			if ($this->debug) $this->log_debug_fin();			
@@ -249,10 +351,17 @@ class toba_db
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}
 		try {
-			if ($this->debug) $this->log_debug_inicio($sql);
-			$statement = $this->conexion->query($sql);
-			if ($this->debug) $this->log_debug_fin($sql);
-			return $statement->fetchAll($tipo_fetch);
+			if ($this->registrar_consultas) {
+				$this->registro_consulta[] = $sql;
+			}
+			if ($this->desactivar_consulta) {
+				return array();
+			} else {
+				if ($this->debug) $this->log_debug_inicio($sql);				
+				$statement = $this->conexion->query($sql);
+				if ($this->debug) $this->log_debug_fin($sql);
+				return $statement->fetchAll($tipo_fetch);
+			}
 		} catch (PDOException $e) {
 			toba::logger()->error($e->getMessage());
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
@@ -275,10 +384,17 @@ class toba_db
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}		
 		try {
-			if ($this->debug) $this->log_debug_inicio($sql);
-			$statement = $this->conexion->query($sql);
-			if ($this->debug) $this->log_debug_fin();
-			return $statement->fetch($tipo_fetch);
+			if ($this->registrar_consultas) {
+				$this->registro_consulta[] = $sql;
+			}
+			if ($this->desactivar_consulta) {
+				return array();
+			} else {
+				if ($this->debug) $this->log_debug_inicio($sql);				
+				$statement = $this->conexion->query($sql);
+				if ($this->debug) $this->log_debug_fin();
+				return $statement->fetch($tipo_fetch);
+			}
 		} catch (PDOException $e) {
 			toba::logger()->error($e->getMessage());			
 			if ($lanzar_excepcion) {
@@ -290,7 +406,6 @@ class toba_db
 		}		
 	}
 
-	
 	/**
 	*	Ejecuta una consulta sql y retorna true si existen datos
 	* 	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base
@@ -336,6 +451,10 @@ class toba_db
 	{
 		$id = count($this->sentencias);
 		$this->sentencias[$id] = array('sql' => $sql);
+		
+		if ($this->registrar_consultas || $this->registrar_ejecucion) {
+			$this->registro_sentencias[$id] = $sql;
+		}
 		$this->sentencias[$id]['id'] = $this->conexion->prepare($sql, $opciones);
 		if ($this->sentencias[$id]['id'] === false ) {
 			throw new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
@@ -358,10 +477,22 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
-			$this->sentencias[$id]['id']->execute($parametros);
-			if ($this->debug) $this->log_debug_fin();
-			return $this->sentencias[$id]['id']->rowCount();
+			if ($this->registrar_ejecucion) {
+				if (isset($this->registro_sentencias[$id])) {
+					$sentencia = "/*\r\nSENTENCIA: " . $this->registro_sentencias[$id] . "\r\n";
+					$sentencia .= "PARAMETROS: " . implode("||", $parametros) . "\r\n*/";
+					$this->registro_ejecucion[] = $sentencia;
+				}
+			}
+			
+			if ($this->desactivar_ejecucion) {
+				return 0;
+			} else {
+				if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);				
+				$this->sentencias[$id]['id']->execute($parametros);
+				if ($this->debug) $this->log_debug_fin();
+				return $this->sentencias[$id]['id']->rowCount();
+			}
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
@@ -385,10 +516,22 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
-			$this->sentencias[$id]['id']->execute($parametros);
-			if ($this->debug) $this->log_debug_fin();
-			return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
+			if ($this->registrar_consultas) {
+				if (isset($this->registro_sentencias[$id])) {
+					$sentencia = "/* \r\nSENTENCIA: " . $this->registro_sentencias[$id] . "\r\n";
+					$sentencia .= "PARAMETROS: " . implode("||", $parametros) . "\r\n*/";
+					$this->registro_consulta[] = $sentencia;
+				}
+			}
+			
+			if ($this->desactivar_consulta) {
+				return false;
+			} else {
+				if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
+				$this->sentencias[$id]['id']->execute($parametros);
+				if ($this->debug) $this->log_debug_fin();
+				return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
+			}
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
@@ -413,10 +556,22 @@ class toba_db
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		try {
-			if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);
-			$this->sentencias[$id]['id']->execute($parametros);
-			if ($this->debug) $this->log_debug_fin();
-			return $this->sentencias[$id]['id']->fetch($tipo_fetch);
+			if ($this->registrar_consultas) {
+				if (isset($this->registro_sentencias[$id])) {
+					$sentencia = "/*\r\nSENTENCIA: " . $this->registro_sentencias[$id] . "\r\n";
+					$sentencia .= "PARAMETROS: " . implode("||", $parametros) . "\r\n*/";
+					$this->registro_consulta[] = $sentencia;
+				}
+			}
+			
+			if ($this->desactivar_consulta) {
+				return false;
+			} else {
+				if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);				
+				$this->sentencias[$id]['id']->execute($parametros);
+				if ($this->debug) $this->log_debug_fin();				
+				return $this->sentencias[$id]['id']->fetch($tipo_fetch);
+			}
 		} catch (PDOException $e) {
 			$ee = new toba_error_db($e, $this->cortar_sql($this->sentencias[$id]['sql']), $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
@@ -435,7 +590,11 @@ class toba_db
 		if(!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
-		return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
+		if ($this->desactivar_consulta) {
+			return false;
+		} else {
+			return $this->sentencias[$id]['id']->fetchAll($tipo_fetch);
+		}
 	}
 
 	/**

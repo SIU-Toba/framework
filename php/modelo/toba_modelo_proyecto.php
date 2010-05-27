@@ -956,14 +956,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
+				//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
 				$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
 				if (file_exists($dir_items)) {
 					$xml = new toba_xml_tablas($dir_items);
 					$items = $this->get_descripciones_items($xml->get_tablas());
-					foreach (array_keys($errores) as $clave) 
-					{
+					foreach (array_keys($errores) as $clave) {
 						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && in_array($fila['item'], $items)) {
-							$errores[$clave]['extras'] = $items[$fila['item']];
+							if (isset($items[$fila['item']])) {
+								$errores[$clave]['extras'] = $items[$fila['item']];
+							} else {
+								$errores[$clave]['extras'] = '';
+							}
 						}
 					}
 				}

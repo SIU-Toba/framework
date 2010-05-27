@@ -272,6 +272,23 @@ class toba
 	}
 
 	/**
+	 * Retorna un componente por ID
+	 * @param integer $id
+	 * @return toba_componente
+	 */
+	static function componente_por_id($id)
+	{
+		$id_comp['proyecto'] = toba_proyecto::get_id();
+		$id_comp['componente'] = $id;
+		$comp = toba_constructor::get_runtime($id_comp, null, true);
+		if (! $comp->inicializado()) {
+			$comp->inicializar();
+		}
+		return $comp;
+	}
+
+
+	/**
 	 * Retorna un componente de tipo CONTROLADOR de NEGOCIO por INDICE
 	 * @param string $indice
 	 * @return toba_cn

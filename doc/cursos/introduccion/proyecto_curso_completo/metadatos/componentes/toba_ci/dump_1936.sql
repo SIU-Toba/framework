@@ -196,18 +196,6 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'curso', --proyecto
-	'882', --dep_id
-	'1936', --objeto_consumidor
-	'1935', --objeto_proveedor
-	'datos', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
 --- FIN Grupo de desarrollo 0
 
 --- INICIO Grupo de desarrollo 1
@@ -237,6 +225,21 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'curso', --proyecto
+	'882', --dep_id
+	'1936', --objeto_consumidor
+	'1935', --objeto_proveedor
+	'relacion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 0
+
 ------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
@@ -249,7 +252,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'400px', --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos

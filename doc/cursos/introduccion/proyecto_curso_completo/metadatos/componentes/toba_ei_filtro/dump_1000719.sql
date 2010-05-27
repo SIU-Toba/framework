@@ -133,7 +133,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'curso', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
 	'nombre', --nombre
-	'nombre_completo', --expresion
+	'nombre', --expresion
 	'Nombre', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio

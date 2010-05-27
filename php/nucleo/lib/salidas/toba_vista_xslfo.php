@@ -87,6 +87,15 @@ class toba_vista_xslfo
 		return $this->xml;
 	}
 
+	/**
+	 * Devuelve una instancia de la clase que maneja la vista_xml de los componentes
+	 * @return toba_vista_xml  
+	 */
+	function get_manejador_vista_xml()
+	{
+		return $this->xml;
+	}
+
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
@@ -113,6 +122,9 @@ class toba_vista_xslfo
 		echo ltrim($tmp);
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function crear_pdf($xml)
 	{
   		$fxml = tempnam(toba::nucleo()->toba_dir().'/temp', 'xml');
@@ -129,7 +141,10 @@ class toba_vista_xslfo
 		return file_get_contents($archivo_pdf);
 	}
 	
-	protected function obtener_pdf($xml) 
+	/**
+	 * @ignore 
+	 */
+	protected function obtener_pdf($xml)
 	{
 		/*
 		  Hay problemas para procesar en servidores remotos... por tema de recursos, es decir,
@@ -159,6 +174,9 @@ class toba_vista_xslfo
 		return base64_decode($pdf);
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function cabecera_http( $longuitud )
 	{
 		header("Cache-Control: private");

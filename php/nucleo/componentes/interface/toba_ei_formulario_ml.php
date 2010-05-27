@@ -1334,8 +1334,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//---------------------------------------------------------------
 	//----------------------  SALIDA XML   --------------------------
 	//---------------------------------------------------------------
-			
-	function vista_xml($inicial, $xmlns=null)
+	/**
+	 * Genera el xml del componente
+	 * @param string $xmlns Namespace para el componente
+	 * @return string XML del componente
+	 */		
+	function vista_xml($xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);

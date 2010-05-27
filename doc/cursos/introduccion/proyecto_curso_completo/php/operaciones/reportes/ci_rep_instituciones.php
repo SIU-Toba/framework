@@ -18,7 +18,7 @@ class ci_rep_instituciones extends toba_ci
 	{
 		if (isset($this->s__filtro)) {
 			$where = $this->dep('filtro')->get_sql_where();	
-			$datos = toba::consulta_php('soe_consultas')->reporte_instituciones($where);
+			$datos = toba::consulta_php('consultas')->reporte_instituciones($where);
 			$cuadro->set_datos($datos);
 		}
 	}

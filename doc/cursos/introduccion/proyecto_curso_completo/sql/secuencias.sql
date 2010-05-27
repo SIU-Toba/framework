@@ -1,5 +1,5 @@
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_edificios', 'edificio'), (SELECT max(edificio) FROM soe_edificios), true);
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_instituciones', 'institucion'), (SELECT max(institucion) FROM soe_instituciones), true);
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_sedes', 'sede'), (SELECT max(sede) FROM soe_sedes), true);
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_tiposua', 'tipoua'),(SELECT max(tipoua) FROM soe_tiposua), true);
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_unidadesacad', 'unidadacad'), (SELECT max(unidadacad) FROM soe_unidadesacad), true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('sede_edificio', 'id_edificio'), (SELECT max(id_edificio) FROM sede_edificio), true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('institucion', 'id_institucion'), (SELECT max(id_institucion) FROM institucion), true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('sede', 'id_sede'), (SELECT max(id_sede) FROM sede), true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ua_tipo', 'id_ua_tipo'),(SELECT max(id_ua_tipo) FROM ua_tipo), true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ua', 'id_ua'), (SELECT max(id_ua) FROM ua), true);
