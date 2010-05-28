@@ -32,7 +32,7 @@ class toba_fuente_datos
 															$reusar);
 				$this->crear_usuario_para_auditoria($this->db);
 				$this->post_conectar();
-				if (isset($this->definicion['schema'])) {
+				if (isset($this->definicion['schema']) && $this->db->get_schema() == null) {
 					$this->db->set_schema($this->definicion['schema']);
 				}
 				$this->configurar_parseo_errores($this->db);
@@ -46,7 +46,7 @@ class toba_fuente_datos
 															$this->definicion['fuente_datos'],
 															$reusar);
 			$this->crear_usuario_para_auditoria($db);
-			if (isset($this->definicion['schema'])) {
+			if (isset($this->definicion['schema'])  && $this->db->get_schema() == null) {
 				$db->set_schema($this->definicion['schema']);
 			}
 			$this->configurar_parseo_errores($db);
