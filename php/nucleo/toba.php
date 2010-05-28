@@ -369,6 +369,14 @@ class toba
 	{
 		return toba_servicio_web_cliente::conectar($id, $opciones);
 	}
-	
+
+	/**
+	 * Devuelve un contenedor para el manejo de gadgets
+	 * @return toba_contenedor_gadgets
+	 */
+	static function gadgets()
+	{
+		return toba_contenedor_gadgets::instancia();
+	}
 }
 ?>

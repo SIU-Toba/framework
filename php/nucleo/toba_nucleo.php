@@ -2,6 +2,12 @@
 if (! defined('apex_ef_no_seteado')) {
 	define('apex_ef_no_seteado','nopar');// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
 }
+if (! defined('apex_tipo_gadget_interno')) {
+define ('apex_tipo_gadget_interno', 'I');
+}
+if (! defined('apex_tipo_gadget_shindig')) {
+define('apex_tipo_gadget_shindig', 'S');
+}
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales
@@ -707,6 +713,9 @@ class toba_nucleo
 			'toba_servicio_web_cliente'				=> 'nucleo/lib/toba_servicio_web_cliente.php',
 			'toba_servicio_web_mensaje'				=> 'nucleo/lib/toba_servicio_web_mensaje.php',
 			'toba_solicitud_servicio_web'			=> 'nucleo/toba_solicitud_servicio_web.php',
+			'toba_contenedor_gadgets'				=> 'nucleo/lib/toba_contenedor_gadgets.php',
+			'toba_gadget'							=> 'nucleo/lib/toba_gadget.php',
+			'toba_gadget_shindig'							=> 'nucleo/lib/toba_gadget_shindig.php',
  			//------------- Editor de restricciones funcionales -----------------------------
 			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               
 			'toba_rf_ci'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ci.php',               

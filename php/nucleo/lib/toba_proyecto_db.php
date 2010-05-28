@@ -519,5 +519,32 @@ class toba_proyecto_db
 		";
 		return self::get_db()->consultar_fila($sql);	
 	}
+	
+	//------------------------  GADGETS  -------------------------	
+	static function get_gadgets_proyecto($proyecto, $usuario) {
+		$db = self::get_db();
+		$proyecto = $db->quote($proyecto);
+		$usuario = $db->quote($usuario);
+		$sql = "SELECT		g.gadget,
+											g.gadget_url,
+											g.titulo,
+											g.descripcion,
+											u.orden,
+											g.proyecto,
+											coalesce(u.eliminable, 'S'::varchar) as eliminable,
+											g.tipo_gadget,
+											g.subclase,
+											g.subclase_archivo
+					FROM
+						apex_usuario_proyecto_gadgets u
+					INNER JOIN
+						apex_gadgets g ON g.gadget = u.gadget
+					WHERE
+						u.usuario = $usuario
+					AND u.proyecto = $proyecto
+					ORDER BY orden;  ";
+
+		return $db->consultar($sql);
+	}
 }
 ?>

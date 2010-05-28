@@ -30,16 +30,17 @@ class toba_db_tablas_proyecto
   22 => 'apex_relacion_tablas',
   23 => 'apex_dimension',
   24 => 'apex_dimension_gatillo',
-  25 => 'apex_objeto_ei_filtro_tipo_col',
-  26 => 'apex_molde_opciones_generacion',
-  27 => 'apex_permiso',
-  28 => 'apex_restriccion_funcional',
-  29 => 'apex_restriccion_funcional_ef',
-  30 => 'apex_restriccion_funcional_pantalla',
-  31 => 'apex_restriccion_funcional_evt',
-  32 => 'apex_restriccion_funcional_ei',
-  33 => 'apex_restriccion_funcional_cols',
-  34 => 'apex_restriccion_funcional_filtro_cols',
+  25 => 'apex_gadgets',
+  26 => 'apex_objeto_ei_filtro_tipo_col',
+  27 => 'apex_molde_opciones_generacion',
+  28 => 'apex_permiso',
+  29 => 'apex_restriccion_funcional',
+  30 => 'apex_restriccion_funcional_ef',
+  31 => 'apex_restriccion_funcional_pantalla',
+  32 => 'apex_restriccion_funcional_evt',
+  33 => 'apex_restriccion_funcional_ei',
+  34 => 'apex_restriccion_funcional_cols',
+  35 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
@@ -728,6 +729,31 @@ class toba_db_tablas_proyecto
     6 => 'columnas_rel_dim',
     7 => 'tabla_gatillo',
     8 => 'ruta_tabla_rel_dim',
+  ),
+);
+	}
+
+	static function apex_gadgets()
+	{
+		return array (
+  'archivo' => 'pgsql_a07_tablas_gadgets.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto, gadget',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'gadget',
+    1 => 'proyecto',
+    2 => 'gadget_url',
+    3 => 'titulo',
+    4 => 'descripcion',
+    5 => 'tipo_gadget',
+    6 => 'subclase',
+    7 => 'subclase_archivo',
   ),
 );
 	}

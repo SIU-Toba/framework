@@ -19,6 +19,7 @@ class toba_db_tablas_instancia
   2 => 'apex_arbol_items_fotos',
   3 => 'apex_admin_album_fotos',
   4 => 'apex_admin_param_previsualizazion',
+  5 => 'apex_usuario_proyecto_gadgets',
 );
 	}
 
@@ -483,6 +484,29 @@ class toba_db_tablas_instancia
   array (
     0 => 'ip',
     1 => 'momento',
+  ),
+);
+	}
+
+	static function apex_usuario_proyecto_gadgets()
+	{
+		return array (
+  'archivo' => 'pgsql_a07_tablas_gadgets.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto, gadget, usuario',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'instancia' => '1',
+  'columnas' => 
+  array (
+    0 => 'usuario',
+    1 => 'proyecto',
+    2 => 'gadget',
+    3 => 'orden',
+    4 => 'eliminable',
   ),
 );
 	}

@@ -562,7 +562,63 @@ class toba_proyecto
 		return $rs;
 	}	
 	
-	
+	//------------------------  GADGETS  -------------------------
+	/**
+	 * Recupera los gadgets disponibles en la base de datos
+	 * para el usuario en un proyecto especifico
+	 * @param string $usuario	Id del usuario
+	 * @param string $proyecto	Id del proyecto
+	 * @return array Arreglo con objetos toba_gadget o vacio en su defecto.
+	 */
+	function get_gadgets_proyecto($usuario, $proyecto=null)
+	{
+		if (is_null($proyecto)) $proyecto = $this->id;			//Si no pasan proyecto tomo el actual
+		$gadgets = array();
+		$info_gadgets = toba_proyecto_db::get_gadgets_proyecto($proyecto, $usuario);
+		if (! empty($info_gadgets)){
+			foreach($info_gadgets as $info) {
+				$gadgets[] = $this->get_objeto_gadget($info);
+			}
+		}
+		return $gadgets;
+	}
+
+	/**
+	 * Instancia el objeto correspondiente de acuerdo a la informacion recibida
+	 * ademas asigna los valores de las propiedades existentes
+	 * @param <type> $info
+	 * @ignore
+	 */
+	private function get_objeto_gadget($info)
+	{
+		switch ($info['tipo_gadget']) {
+			case apex_tipo_gadget_shindig:
+
+								$objeto = new toba_gadget_shindig($info['gadget']);
+								$objeto->set_gadget_url($info['gadget_url']);
+								break;
+			case apex_tipo_gadget_interno:
+				
+							if (! isset($info['subclase']) || ! isset($info['subclase_archivo'])) {
+								throw new toba_error_def('La definición de subclase para el gadget esta incompleta');
+							} else {
+								$clase = $info['subclase'];
+								require_once($info['subclase_archivo']);
+								$objeto = new $clase($info['gadget']);
+								$objeto->set_clase($clase, $info['subclase_archivo']);
+							}
+							break;
+			default:
+							throw new toba_error_def('El tipo de gadget recuperado no es válido.');
+		}
+		if (isset($info['titulo'])) {$objeto->set_titulo($info['titulo']);}
+		if (isset($info['descripcion'])) {$objeto->set_descripcion($info['descripcion']);}
+		if (isset($info['orden'])) {$objeto->set_orden($info['orden']);}
+		if (isset($info['eliminable'])) {$objeto->set_eliminable($info['eliminable']);}
+
+		return $objeto;
+	}
+
 	//-- Soporte a la compilacion ----------------------
 	
 	static function existe_dato_compilado($clase, $metodo)
