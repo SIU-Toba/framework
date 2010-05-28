@@ -5,14 +5,13 @@ class ci_edi_sedes extends toba_ci
 	function relacion()
 	{
 		return $this->controlador->dep('relacion');
-	}	
-	
+	}
 
 	function get_lista_uas()
 	{
 		$datos = $this->relacion()->tabla('sede')->get();
 		return toba::consulta_php('consultas')->get_ua($datos['id_institucion']);
-	}	
+	}
 	
 	//-----------------------------------------------------------------------------------
 	//---- DEPENDENCIAS -----------------------------------------------------------------
@@ -93,6 +92,5 @@ class ci_edi_sedes extends toba_ci
 	{
 		$componente->set_datos($this->relacion()->tabla('sede_ua')->get_filas());
 	}
-
 }
 ?>

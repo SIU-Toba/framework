@@ -4,11 +4,6 @@ class ci_nav_sedes extends toba_ci
 {
 	protected $s__filtro_sedes;
 
-	function ini()
-	{
-		$this->dep('relacion')->tabla('sede_ua')->set_no_duplicado(array('unidadacad'));
-	}
-
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -41,10 +36,10 @@ class ci_nav_sedes extends toba_ci
 	//---- Configuracion de pantallas ---------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__edicion() 
+	function conf__edicion($pantalla)
 	{
 		if (!$this->dep('relacion')->esta_cargada()) {
-			$this->pantalla()->eliminar_evento('eliminar');
+			$pantalla->eliminar_evento('eliminar');
 		}
 	}
 

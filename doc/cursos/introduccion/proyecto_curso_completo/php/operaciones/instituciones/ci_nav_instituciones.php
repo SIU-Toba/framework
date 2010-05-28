@@ -14,13 +14,14 @@ class ci_nav_instituciones extends toba_ci
 
 	function evt__eliminar()
 	{
-		$this->dep('relacion')->eliminar_todo();			
+		$this->dep('relacion')->eliminar_todo();
 		$this->set_pantalla('seleccion');
 	}
 
 	function evt__guardar()
 	{
 		$this->dep('relacion')->sincronizar();
+		$this->dep('relacion')->resetear();
 		$this->set_pantalla('seleccion');
 	}
 

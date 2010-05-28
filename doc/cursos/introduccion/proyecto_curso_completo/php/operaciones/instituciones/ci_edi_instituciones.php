@@ -1,7 +1,6 @@
 <?php
 class ci_edi_instituciones extends toba_ci
 {
-
 	function tabla($id)
 	{
 		return $this->controlador->dep('relacion')->tabla($id);	
