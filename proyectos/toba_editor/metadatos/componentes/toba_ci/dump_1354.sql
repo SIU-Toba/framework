@@ -368,7 +368,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1354', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'750px', --ancho
+	'650px', --ancho
 	'400px', --alto
 	'ambos', --posicion_botonera
 	'tab_h', --tipo_navegacion
@@ -397,7 +397,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'356', --pantalla
 	'0', --identificador
 	'1', --orden
-	'Propiedades Basicas', --etiqueta
+	'Básicas', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -493,7 +493,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'33000012', --pantalla
 	'5', --identificador
 	'5', --orden
-	'Layout Impresión', --etiqueta
+	'Layout Impr.', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -514,14 +514,14 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'toba_editor', --proyecto
 	'356', --pantalla
 	'1354', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'23'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'toba_editor', --proyecto
 	'356', --pantalla
 	'1354', --objeto_ci
-	'2', --orden
+	'1', --orden
 	'31'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (

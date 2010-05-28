@@ -1898,7 +1898,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//--- Incluye el instalador base
 		$this->manejador_interface->titulo("Copiando archivos");		
 		if (! isset($empaquetado['path_instalador'])) {
-			throw new toba_error("'$nombre_ini': Debe indicar 'path_instalador' en seccion [empaquetado]");
+			$empaquetado['path_instalador'] = toba_dir().'/instalador'; 
 		}
 		$path_relativo = $empaquetado['path_instalador'];
 		$empaquetado['path_instalador'] = realpath($empaquetado['path_instalador']);
