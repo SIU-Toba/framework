@@ -87,15 +87,6 @@ class toba_vista_xslfo
 		return $this->xml;
 	}
 
-	/**
-	 * Devuelve una instancia de la clase que maneja la vista_xml de los componentes
-	 * @return toba_vista_xml  
-	 */
-	function get_manejador_vista_xml()
-	{
-		return $this->xml;
-	}
-
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
