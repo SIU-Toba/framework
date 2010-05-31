@@ -110,6 +110,32 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN template_impresion TEXT NULL;';
 			$sql[] = 'ALTER TABLE apex_objeto_ut_formulario ADD COLUMN template_impresion TEXT NULL;';
 
+			$sql[] = 'CREATE TABLE apex_gadgets
+							(
+							  gadget					 SERIAL NOT NULL,
+							  proyecto				    VARCHAR(15) NOT NULL,
+							  gadget_url			  VARCHAR(250) NULL,
+							  titulo						 VARCHAR(50) NULL,
+							  descripcion			 VARCHAR(250) NULL,
+							  tipo_gadget			 CHAR(1) NOT NULL,
+							  subclase				   VARCHAR(80) NULL,
+							  subclase_archivo	VARCHAR(255) NULL,
+							  CONSTRAINT "apex_gadget_pk" PRIMARY KEY ("proyecto", "gadget"),
+							  CONSTRAINT "apex_usuario_proyecto_gadgets_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+							);';
+
+			$sql[] = "CREATE TABLE apex_usuario_proyecto_gadgets
+							(
+							  usuario				  VARCHAR(60) NOT NULL,
+							  proyecto				  VARCHAR(15) NOT NULL,
+							  gadget				   INTEGER		NOT NULL,
+							  orden						INTEGER		NOT NULL DEFAULT 1,
+							  eliminable			CHAR(1) NOT NULL DEFAULT 'S',
+							  CONSTRAINT \"apex_usuario_proyecto_gadgets_pk\" PRIMARY KEY (\"usuario\", \"proyecto\", \"gadget\"),
+							  CONSTRAINT \"apex_usuario_proyecto_gadgets_fk_usuario\" FOREIGN KEY (\"usuario\") REFERENCES \"apex_usuario\" (\"usuario\") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+							  CONSTRAINT \"apex_usuario_proyecto_gadgets_fk_proyecto\" FOREIGN KEY (\"proyecto\") REFERENCES \"apex_proyecto\" (\"proyecto\") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+							  CONSTRAINT \"apex_usuario_proyecto_gadgets_fk_gadget\" FOREIGN KEY (\"proyecto\", \"gadget\") REFERENCES \"apex_gadgets\" (\"proyecto\", \"gadget\") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+							);";
 			$this->elemento->get_db()->ejecutar($sql);
 
 			$sql = "SET CONSTRAINTS ALL DEFERRED;";
