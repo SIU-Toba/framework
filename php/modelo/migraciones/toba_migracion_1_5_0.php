@@ -110,6 +110,8 @@ class toba_migracion_1_5_0 extends toba_migracion
 			$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN template_impresion TEXT NULL;';
 			$sql[] = 'ALTER TABLE apex_objeto_ut_formulario ADD COLUMN template_impresion TEXT NULL;';
 
+			//------------------------------------ --------------------Tablas donde se alojaran los gadgets --------------------------------------------------------------------
+			$sql[] = "CREATE SEQUENCE apex_gadgets_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;";
 			$sql[] = 'CREATE TABLE apex_gadgets
 							(
 							  gadget					 SERIAL NOT NULL,

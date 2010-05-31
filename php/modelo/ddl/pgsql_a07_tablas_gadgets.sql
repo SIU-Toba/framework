@@ -5,7 +5,7 @@
 --**************************************************************************************************
 
 --#################################################################################################
-
+CREATE SEQUENCE apex_gadgets_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_gadgets
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -17,7 +17,7 @@ CREATE TABLE apex_gadgets
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-  gadget					 SERIAL NOT NULL,
+  gadget					int8 DEFAULT nextval('"apex_gadgets_seq"'::text) NOT NULL,
   proyecto				    VARCHAR(15) NOT NULL,
   gadget_url			  VARCHAR(250) NULL,
   titulo						 VARCHAR(50) NULL,

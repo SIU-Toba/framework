@@ -56,6 +56,7 @@ class toba_db_secuencias
 		$datos['apex_tarea_seq'] = array('campo' => 'tarea', 'tabla' => 'apex_tarea');
 		$datos['apex_log_tarea_seq'] = array('campo' => 'log_tarea', 'tabla' => 'apex_log_tarea');
 		$datos['apex_objeto_dep_consumo_seq'] = array('campo' => 'consumo_id', 'tabla'=> 'apex_objeto_dep_consumo');
+		$datos['apex_gadgets_seq'] = array('campo' => 'gadget', 'tabla'=> 'apex_gadgets');
 		return $datos;
 	}
 
