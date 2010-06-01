@@ -15,7 +15,9 @@ class toba_info_editores
 		if(isset($contenedor)){
 			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor, $id_contenedor) ) ."') ";
 			if ($contenedor == 'toba_item' && isset($id_contenedor) ) {
-				$where = " AND solicitud_tipo = (SELECT solicitud_tipo FROM apex_item WHERE item = '$id_contenedor')";
+				$proyecto = toba_contexto_info::get_proyecto();
+				$where = " AND solicitud_tipo = (SELECT solicitud_tipo FROM apex_item 
+					WHERE item = '$id_contenedor' AND proyecto = '$proyecto')";
 			}
 		}
 		if($excluir_internos) {
