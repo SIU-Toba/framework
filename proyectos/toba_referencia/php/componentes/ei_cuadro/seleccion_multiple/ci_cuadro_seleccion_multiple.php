@@ -8,9 +8,9 @@ class ci_cuadro_seleccion_multiple extends toba_ci
 			$datos = array();
 			for ($i = 0; $i < 10; $i++) {
 				$datos['fila'.$i] = array(
-					'a' => 'a'.$i,
-					'b' => 'b'.$i,
-					'c' => 'c'.$i,
+					'a' => 'a'. ($i - 1) ,
+					'b' => ($i + 4),
+					'c' => ($i % 2),
 					'd' => 'd'.$i,
 					'i' => $i,
 				);
