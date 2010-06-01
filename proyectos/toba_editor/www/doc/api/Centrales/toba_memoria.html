@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -238,7 +278,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_memoria.php [<span class="field">line 42</span>]
+			Ubicada en /nucleo/lib/toba_memoria.php [<span class="field">line 44</span>]
 		</p>	
 		<br>
 	
@@ -273,7 +313,7 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																																																																	<tr>
+																																																																																																																																																																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -574,6 +614,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#verificar_acceso_menu" title="details" class="method-name">verificar_acceso_menu</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#verificar_acceso_popup" title="details" class="method-name">verificar_acceso_popup</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Indica si se lanzo la solicitud por medio de un ef_popup.</td></tr>
 													</table>
 			</div>
 			<br />
@@ -593,7 +640,7 @@
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
 <br />
 
@@ -615,7 +662,7 @@
 <a name="methodget_item_solicitado_original" id="get_item_solicitado_original"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		    		    		<span class="method-title">static method get_item_solicitado_original</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 293]</span>
+		    		    		<span class="method-title">static method get_item_solicitado_original</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
 </div>
 <br />
 
@@ -651,7 +698,7 @@
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 
@@ -677,7 +724,7 @@
 	
 		
 	
-	<span class="method-title">desactivar_reciclado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 653]</span>
+	<span class="method-title">desactivar_reciclado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 668]</span>
 </div>
 <br />
 
@@ -702,7 +749,7 @@
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 187]</span>
 </div>
 <br />
 
@@ -728,7 +775,7 @@
 	
 		
 	
-	<span class="method-title">dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 348]</span>
+	<span class="method-title">dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 354]</span>
 </div>
 <br />
 
@@ -753,7 +800,7 @@
 	
 		
 	
-	<span class="method-title">eliminar_archivos_temporales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 842]</span>
+	<span class="method-title">eliminar_archivos_temporales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 857]</span>
 </div>
 <br />
 
@@ -778,7 +825,7 @@
 	
 		
 	
-	<span class="method-title">eliminar_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 448]</span>
+	<span class="method-title">eliminar_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 463]</span>
 </div>
 <br />
 
@@ -816,7 +863,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">eliminar_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 412]</span>
 </div>
 <br />
 
@@ -854,7 +901,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 507]</span>
+	<span class="method-title">eliminar_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 522]</span>
 </div>
 <br />
 
@@ -892,7 +939,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 612]</span>
+	<span class="method-title">eliminar_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 627]</span>
 </div>
 <br />
 
@@ -929,7 +976,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">en_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 547]</span>
+	<span class="method-title">en_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 562]</span>
 </div>
 <br />
 
@@ -981,7 +1028,7 @@ $tira_excepcion = true]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 458]</span>
+	<span class="method-title">existe_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 473]</span>
 </div>
 <br />
 
@@ -1019,7 +1066,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
+	<span class="method-title">existe_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 422]</span>
 </div>
 <br />
 
@@ -1057,7 +1104,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 518]</span>
+	<span class="method-title">existe_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 533]</span>
 </div>
 <br />
 
@@ -1095,7 +1142,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 818]</span>
+	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 833]</span>
 </div>
 <br />
 
@@ -1120,7 +1167,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 560]</span>
+	<span class="method-title">get_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 575]</span>
 </div>
 <br />
 
@@ -1166,7 +1213,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_celda_memoria_actual_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
+	<span class="method-title">get_celda_memoria_actual_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
 </div>
 <br />
 
@@ -1191,7 +1238,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 436]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 451]</span>
 </div>
 <br />
 
@@ -1237,7 +1284,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
+	<span class="method-title">get_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 396]</span>
 </div>
 <br />
 
@@ -1290,7 +1337,7 @@ $eliminar_dato = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 493]</span>
+	<span class="method-title">get_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
 </div>
 <br />
 
@@ -1336,7 +1383,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 598]</span>
+	<span class="method-title">get_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 613]</span>
 </div>
 <br />
 
@@ -1389,7 +1436,7 @@ $celda = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 219]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
 </div>
 <br />
 
@@ -1415,7 +1462,7 @@ $celda = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_objetos_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
+	<span class="method-title">get_id_objetos_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 250]</span>
 </div>
 <br />
 
@@ -1441,7 +1488,7 @@ $celda = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
+	<span class="method-title">get_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
 </div>
 <br />
 
@@ -1475,7 +1522,7 @@ $celda = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 256]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
 </div>
 <br />
 
@@ -1521,7 +1568,7 @@ $canal&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 274]</span>
 </div>
 <br />
 
@@ -1555,7 +1602,7 @@ $canal&nbsp;
 	
 		
 	
-	<span class="method-title">get_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
+	<span class="method-title">get_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
 </div>
 <br />
 
@@ -1581,7 +1628,7 @@ $canal&nbsp;
 	
 		
 	
-	<span class="method-title">inicializar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 327]</span>
+	<span class="method-title">inicializar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 332]</span>
 </div>
 <br />
 
@@ -1606,7 +1653,7 @@ $canal&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 568]</span>
+	<span class="method-title">limpiar_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 583]</span>
 </div>
 <br />
 
@@ -1644,7 +1691,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 466]</span>
+	<span class="method-title">limpiar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 481]</span>
 </div>
 <br />
 
@@ -1670,7 +1717,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
+	<span class="method-title">limpiar_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 430]</span>
 </div>
 <br />
 
@@ -1696,7 +1743,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_datos_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 526]</span>
+	<span class="method-title">limpiar_datos_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 541]</span>
 </div>
 <br />
 
@@ -1722,7 +1769,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
+	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 348]</span>
 </div>
 <br />
 
@@ -1747,7 +1794,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">limpiar_memoria_sincronizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 619]</span>
+	<span class="method-title">limpiar_memoria_sincronizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 634]</span>
 </div>
 <br />
 
@@ -1772,7 +1819,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">prefijo_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
+	<span class="method-title">prefijo_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
 </div>
 <br />
 
@@ -1798,7 +1845,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">registrar_archivo_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 835]</span>
+	<span class="method-title">registrar_archivo_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 850]</span>
 </div>
 <br />
 
@@ -1835,7 +1882,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">set_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 539]</span>
+	<span class="method-title">set_array_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 554]</span>
 </div>
 <br />
 
@@ -1880,7 +1927,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
+	<span class="method-title">set_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
 </div>
 <br />
 
@@ -1925,7 +1972,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 372]</span>
+	<span class="method-title">set_dato_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 387]</span>
 </div>
 <br />
 
@@ -1970,7 +2017,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 483]</span>
+	<span class="method-title">set_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
 </div>
 <br />
 
@@ -2015,7 +2062,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 585]</span>
+	<span class="method-title">set_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 600]</span>
 </div>
 <br />
 
@@ -2067,7 +2114,7 @@ $celda = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">set_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -2104,7 +2151,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">set_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+	<span class="method-title">set_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 241]</span>
 </div>
 <br />
 
@@ -2141,7 +2188,7 @@ $servicio&nbsp;
 	
 		
 	
-	<span class="method-title">usuario_solicita_cronometrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 311]</span>
+	<span class="method-title">usuario_solicita_cronometrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -2166,7 +2213,7 @@ $servicio&nbsp;
 	
 		
 	
-	<span class="method-title">verificar_acceso_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 359]</span>
+	<span class="method-title">verificar_acceso_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 365]</span>
 </div>
 <br />
 
@@ -2185,6 +2232,32 @@ $servicio&nbsp;
 		
 		<br />
 </div>
+<a name="methodverificar_acceso_popup" id="verificar_acceso_popup"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">verificar_acceso_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 374]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean verificar_acceso_popup(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Indica si se lanzo la solicitud por medio de un ef_popup. </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 
@@ -2194,7 +2267,7 @@ $servicio&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

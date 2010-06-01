@@ -79,6 +79,9 @@
 	    			<a href="../SalidaGrafica/toba_menu_css.html">					menu_css
 					</a>    		
 	 <br />
+	    			<a href="../SalidaGrafica/toba_menu_libmenu.html">					menu_libmenu
+					</a>    		
+	 <br />
 	    			<a href="../SalidaGrafica/toba_menu_yui.html">					menu_yui
 					</a>    		
 	 <br />
@@ -110,6 +113,12 @@
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_vista_pdf.html">					vista_pdf
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_xml.html">					vista_xml
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_xslfo.html">					vista_xslfo
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_zona.html">					zona
@@ -184,7 +193,7 @@
 						</td>
 						<td class="method-definition"><a href="#abrir" title="details" class="method-name">abrir</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Incluye en tag &lt;SCRIPT&gt; con los atributos por defecto usados en el framework</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#arreglo" title="details" class="method-name">arreglo</a>()&nbsp;&nbsp;</td>
@@ -242,6 +251,11 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#sanear_string" title="details" class="method-name">sanear_string</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#string" title="details" class="method-name">string</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Reemplaza los strings multilinea por cadenas válidas en JS</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
@@ -249,7 +263,14 @@
 						</td>
 						<td class="method-definition"><a href="#version" title="details" class="method-name">version</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																		<tr>
+																																	<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_consumos_basicos" title="details" class="method-name">agregar_consumos_basicos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite agregar consumos basicos en runtime, normalmente se debe llamar  antes de enviar la cabecera HTML.</td></tr>
+																																																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -263,7 +284,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#identar" title="details" class="method-name">identar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cambia el nivel de identado agregando $nivel</td></tr>
-																																																	</table>
+																																																										</table>
 			</div>
 			<br />
 		</div>
@@ -280,7 +301,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodabrir" id="abrir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method abrir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
@@ -303,9 +324,9 @@
 		<br />
 </div>
 <a name="methodarreglo" id="arreglo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method arreglo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 254]</span>
+		<span class="method-title">static method arreglo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
 </div>
 <br />
 
@@ -352,9 +373,9 @@ $seg_nivel_assoc = true]&nbsp;
 		<br />
 </div>
 <a name="methodbool" id="bool"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method bool</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 242]</span>
+		<span class="method-title">static method bool</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
 </div>
 <br />
 
@@ -387,9 +408,9 @@ $bool&nbsp;
 		<br />
 </div>
 <a name="methodcargar_consumos_basicos" id="cargar_consumos_basicos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method cargar_consumos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+		<span class="method-title">static method cargar_consumos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
 </div>
 <br />
 
@@ -410,9 +431,9 @@ $bool&nbsp;
 		<br />
 </div>
 <a name="methodcargar_consumos_globales" id="cargar_consumos_globales"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cargar_consumos_globales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
+		<span class="method-title">static method cargar_consumos_globales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
 </div>
 <br />
 
@@ -445,9 +466,9 @@ $consumos&nbsp;
 		<br />
 </div>
 <a name="methodcargar_definiciones_runtime" id="cargar_definiciones_runtime"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method cargar_definiciones_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
+		<span class="method-title">static method cargar_definiciones_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
 </div>
 <br />
 
@@ -467,7 +488,7 @@ $consumos&nbsp;
 		<br />
 </div>
 <a name="methodcerrar" id="cerrar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method cerrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
@@ -490,7 +511,7 @@ $consumos&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
 </div>
@@ -525,9 +546,9 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodevento" id="evento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
+		<span class="method-title">static method evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
 </div>
 <br />
 
@@ -574,9 +595,9 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar" id="finalizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
+		<span class="method-title">static method finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
 </div>
 <br />
 
@@ -596,7 +617,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodincluir" id="incluir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method incluir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
@@ -631,7 +652,7 @@ $archivo&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
 </div>
@@ -652,10 +673,44 @@ $archivo&nbsp;
 		
 		<br />
 </div>
+<a name="methodsanear_string" id="sanear_string"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method sanear_string</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void sanear_string(
+
+$cadena&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cadena:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodstring" id="string"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method string</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
+		<span class="method-title">static method string</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 317]</span>
 </div>
 <br />
 
@@ -710,8 +765,46 @@ $cadena&nbsp;
 		<br />
 </div>
 
-<a name="methodidentado" id="identado"><!-- --></a>
+<a name="methodagregar_consumos_basicos" id="agregar_consumos_basicos"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_consumos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_consumos_basicos(
+[array
+$consumos = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite agregar consumos basicos en runtime, normalmente se debe llamar  antes de enviar la cabecera HTML. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$consumos:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo con consumos basicos a incluir</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodidentado" id="identado"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -737,7 +830,7 @@ $cadena&nbsp;
 		<br />
 </div>
 <a name="methodidentar" id="identar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -783,7 +876,7 @@ $nivel&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

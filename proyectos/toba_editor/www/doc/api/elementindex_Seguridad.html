@@ -13,19 +13,19 @@
 	<td class="header-top-left"><img src="media/logo.png" border="0" alt="phpDocumentor " /></td>
   	<td class="header-top-center">
   		<div class="package">
-              	<a href="li_Debug.html">Debug</a>
-        	        		|
-        	              	<a href="li_Seguridad.html">Seguridad</a>
-        	        		|
-        	              	<a href="li_Centrales.html">Centrales</a>
-        	        		|
-        	              	<a href="li_Fuentes.html">Fuentes</a>
+              	<a href="li_Centrales.html">Centrales</a>
         	        		|
         	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
+        	              	<a href="li_Componentes.html">Componentes</a>
+        	        		|
         	              	<a href="li_Varios.html">Varios</a>
         	        		|
-        	              	<a href="li_Componentes.html">Componentes</a>
+        	              	<a href="li_Fuentes.html">Fuentes</a>
+        	        		|
+        	              	<a href="li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="li_Debug.html">Debug</a>
         	            </div>
    	</td>	
     <td class="header-top-right">
@@ -106,12 +106,12 @@
 <h1>Element index for package Seguridad</h1>
 	<h3>Package indexes</h3>
 	<ul>
-				<li><a href="elementindex_Debug.html">Debug</a></li>
-							<li><a href="elementindex_Centrales.html">Centrales</a></li>
-					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
+				<li><a href="elementindex_Centrales.html">Centrales</a></li>
 					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
-					<li><a href="elementindex_Varios.html">Varios</a></li>
 					<li><a href="elementindex_Componentes.html">Componentes</a></li>
+					<li><a href="elementindex_Varios.html">Varios</a></li>
+					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
+							<li><a href="elementindex_Debug.html">Debug</a></li>
 			</ul>
 	[ <a href="elementindex_Seguridad.html#a">a</a> ]
 	[ <a href="elementindex_Seguridad.html#b">b</a> ]
@@ -296,6 +296,8 @@
 		<dl>
 							<dt><b>$gatillos_activos</b></dt>
 				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$gatillos_activos">toba_perfil_datos::$gatillos_activos</a></dd>
+							<dt><b>generar_clave_aleatoria</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodgenerar_clave_aleatoria">toba_usuario::generar_clave_aleatoria()</a></dd>
 							<dt><b>get_alias_unico</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_alias_unico">toba_perfil_datos::get_alias_unico()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Provee alias de tablas unicos para la construccion de subquerys anidados.</dd>
 							<dt><b>get_cantidad_instancias_activas</b></dt>
@@ -315,13 +317,11 @@
 							<dt><b>get_gatillos_activos</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_gatillos_activos">toba_perfil_datos::get_gatillos_activos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve la lista de gatillos que esta utilizando el esquema para filtrar SQLs</dd>
 							<dt><b>get_grupos_acceso</b></dt>
-				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_grupos_acceso">toba_manejador_sesiones::get_grupos_acceso()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina el grupo de acceso del usuario actual</dd>
-							<dt><b>get_grupos_acceso</b></dt>
-				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_grupos_acceso">toba_usuario::get_grupos_acceso()</a></dd>
-							<dt><b>get_id</b></dt>
-				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_id">toba_usuario::get_id()</a></dd>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_grupos_acceso">toba_manejador_sesiones::get_grupos_acceso()</a></dd>
 							<dt><b>get_id</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_id">toba_perfil_datos::get_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;retorna el perfil de datos del usuario</dd>
+							<dt><b>get_id</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_id">toba_usuario::get_id()</a></dd>
 							<dt><b>get_id_sesion</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_id_sesion">toba_manejador_sesiones::get_id_sesion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve el ID de la sesion actual. Este es el ID utilizado por toba para registrar la sesion en la base.</dd>
 							<dt><b>get_id_usuario_instancia</b></dt>
@@ -334,6 +334,12 @@
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_lista_dimensiones_restringidas">toba_perfil_datos::get_lista_dimensiones_restringidas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un array con las dimensiones sobre las que se establecieron restricciones</dd>
 							<dt><b>get_nombre</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_nombre">toba_usuario::get_nombre()</a></dd>
+							<dt><b>get_perfiles_funcionales</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_perfiles_funcionales">toba_usuario::get_perfiles_funcionales()</a></dd>
+							<dt><b>get_perfiles_funcionales</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_perfiles_funcionales">toba_manejador_sesiones::get_perfiles_funcionales()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina los perfiles funcionales pertenecientes del usuario actual</dd>
+							<dt><b>get_perfiles_funcionales_activos</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_perfiles_funcionales_activos">toba_manejador_sesiones::get_perfiles_funcionales_activos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los perfiles funcionales activos en la sesión actual</dd>
 							<dt><b>get_perfil_datos</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_perfil_datos">toba_manejador_sesiones::get_perfil_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina el perfil de datos del usuario actual</dd>
 							<dt><b>get_perfil_datos</b></dt>
@@ -346,6 +352,8 @@
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_restricciones_dimension">toba_perfil_datos::get_restricciones_dimension()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna las restricciones aplicadas sobre una dimensión específica</dd>
 							<dt><b>get_restricciones_funcionales</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodget_restricciones_funcionales">toba_usuario::get_restricciones_funcionales()</a></dd>
+							<dt><b>get_restricciones_funcionales</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_restricciones_funcionales">toba_manejador_sesiones::get_restricciones_funcionales()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina los ids de restricciones funcionales pertenecientes al usuario actual segun sus perfiles activos</dd>
 							<dt><b>get_rf_cuadro_cols_no_visibles</b></dt>
 				<dd>in file toba_perfil_funcional.php, method <a href="Seguridad/toba_perfil_funcional.html#methodget_rf_cuadro_cols_no_visibles">toba_perfil_funcional::get_rf_cuadro_cols_no_visibles()</a></dd>
 							<dt><b>get_rf_eis_no_visibles</b></dt>
@@ -371,15 +379,13 @@
 							<dt><b>get_cantidad_intentos_usuario_en_ventana_temporal</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_cantidad_intentos_usuario_en_ventana_temporal">toba_usuario_basico::get_cantidad_intentos_usuario_en_ventana_temporal()</a></dd>
 							<dt><b>get_grupos_acceso</b></dt>
-				<dd>in file toba_usuario_anonimo.php, method <a href="Seguridad/TiposUsuario/toba_usuario_anonimo.html#methodget_grupos_acceso">toba_usuario_anonimo::get_grupos_acceso()</a></dd>
-							<dt><b>get_grupos_acceso</b></dt>
-				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_grupos_acceso">toba_usuario_basico::get_grupos_acceso()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un array de grupos de acceso para el proyecto actual</dd>
+				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_grupos_acceso">toba_usuario_basico::get_grupos_acceso()</a></dd>
+							<dt><b>get_id</b></dt>
+				<dd>in file toba_usuario_anonimo.php, method <a href="Seguridad/TiposUsuario/toba_usuario_anonimo.html#methodget_id">toba_usuario_anonimo::get_id()</a></dd>
 							<dt><b>get_id</b></dt>
 				<dd>in file toba_usuario_no_autenticado.php, method <a href="Seguridad/TiposUsuario/toba_usuario_no_autenticado.html#methodget_id">toba_usuario_no_autenticado::get_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el identificador del usuario</dd>
 							<dt><b>get_id</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_id">toba_usuario_basico::get_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el identificador del usuario</dd>
-							<dt><b>get_id</b></dt>
-				<dd>in file toba_usuario_anonimo.php, method <a href="Seguridad/TiposUsuario/toba_usuario_anonimo.html#methodget_id">toba_usuario_anonimo::get_id()</a></dd>
 							<dt><b>get_nombre</b></dt>
 				<dd>in file toba_usuario_no_autenticado.php, method <a href="Seguridad/TiposUsuario/toba_usuario_no_autenticado.html#methodget_nombre">toba_usuario_no_autenticado::get_nombre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el nombre del usuario</dd>
 							<dt><b>get_nombre</b></dt>
@@ -388,6 +394,10 @@
 				<dd>in file toba_usuario_anonimo.php, method <a href="Seguridad/TiposUsuario/toba_usuario_anonimo.html#methodget_nombre">toba_usuario_anonimo::get_nombre()</a></dd>
 							<dt><b>get_parametro</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_parametro">toba_usuario_basico::get_parametro()</a></dd>
+							<dt><b>get_perfiles_funcionales</b></dt>
+				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_perfiles_funcionales">toba_usuario_basico::get_perfiles_funcionales()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un array de perfiles funcionales a los que el usuario actual tiene acceso en este proyecto</dd>
+							<dt><b>get_perfiles_funcionales</b></dt>
+				<dd>in file toba_usuario_anonimo.php, method <a href="Seguridad/TiposUsuario/toba_usuario_anonimo.html#methodget_perfiles_funcionales">toba_usuario_anonimo::get_perfiles_funcionales()</a></dd>
 							<dt><b>get_perfil_datos</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodget_perfil_datos">toba_usuario_basico::get_perfil_datos()</a></dd>
 							<dt><b>get_restricciones_funcionales</b></dt>
@@ -483,6 +493,8 @@
 	<div>
 		<h2>p</h2>
 		<dl>
+							<dt><b>$perfiles_funcionales_activos</b></dt>
+				<dd>in file toba_manejador_sesiones.php, variable <a href="Seguridad/toba_manejador_sesiones.html#var$perfiles_funcionales_activos">toba_manejador_sesiones::$perfiles_funcionales_activos</a></dd>
 							<dt><b>$proyecto</b></dt>
 				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$proyecto">toba_perfil_datos::$proyecto</a></dd>
 							<dt><b>posee_dimension</b></dt>
@@ -530,8 +542,6 @@
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodreconocer_dimensiones_implicadas">toba_perfil_datos::reconocer_dimensiones_implicadas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una</dd>
 							<dt><b>registrar_error_login</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodregistrar_error_login">toba_usuario::registrar_error_login()</a></dd>
-							<dt><b>$restricciones_funcionales</b></dt>
-				<dd>in file toba_usuario_basico.php, variable <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#var$restricciones_funcionales">toba_usuario_basico::$restricciones_funcionales</a></dd>
 							<dt><b>registrar_error_login</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodregistrar_error_login">toba_usuario_basico::registrar_error_login()</a></dd>
 					</dl>
@@ -563,8 +573,14 @@
 				<dd>in file toba_perfil_datos.php, class constant <a href="Seguridad/toba_perfil_datos.html#constseparador_multicol_db">toba_perfil_datos::separador_multicol_db</a></dd>
 							<dt><b>sesion</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodsesion">toba_manejador_sesiones::sesion()</a></dd>
+							<dt><b>set_autenticacion</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodset_autenticacion">toba_manejador_sesiones::set_autenticacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Delega la autenticación del proyecto a un objeto</dd>
+							<dt><b>set_clave</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodset_clave">toba_usuario::set_clave()</a></dd>
 							<dt><b>set_derechos</b></dt>
 				<dd>in file toba_derechos.php, method <a href="Seguridad/toba_derechos.html#methodset_derechos">toba_derechos::set_derechos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia la lista de permisos del usuario actual</dd>
+							<dt><b>set_perfiles_funcionales_activos</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodset_perfiles_funcionales_activos">toba_manejador_sesiones::set_perfiles_funcionales_activos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Activa un subconjunto de los perfiles funcionales propios del usuario actual</dd>
 					</dl>
 	</div>
 	<a name="t"></a>
@@ -642,7 +658,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

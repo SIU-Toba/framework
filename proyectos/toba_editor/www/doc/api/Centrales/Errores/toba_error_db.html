@@ -58,6 +58,12 @@
 		    			<a href="../../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -243,7 +283,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_error.php [<span class="field">line 44</span>]
+			Ubicada en /nucleo/lib/toba_error.php [<span class="field">line 42</span>]
 		</p>	
 		<br>
 	
@@ -333,7 +373,7 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_mensaje" title="details" class="method-name">get_mensaje</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_mensaje_log" title="details" class="method-name">get_mensaje_log</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -408,7 +448,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -470,7 +510,7 @@ $es_comando = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_codigo_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
+	<span class="method-title">get_codigo_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
 </div>
 <br />
 
@@ -489,20 +529,20 @@ $es_comando = false]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
+<a name="methodget_mensaje_log" id="get_mensaje_log"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">get_mensaje_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_mensaje(
+		<code>void get_mensaje_log(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -513,7 +553,7 @@ $es_comando = false]&nbsp;
 
 			<div class="notes">Redefinición de:</div>
 		<dl>
-			<dt><a href="../../Centrales/Errores/toba_error.html#methodget_mensaje">toba_error::get_mensaje()</a></dt>
+			<dt><a href="../../Centrales/Errores/toba_error.html#methodget_mensaje_log">toba_error::get_mensaje_log()</a></dt>
 					</dl>
 		
 		<br />
@@ -524,7 +564,7 @@ $es_comando = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+	<span class="method-title">get_mensaje_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
 </div>
 <br />
 
@@ -549,7 +589,7 @@ $es_comando = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_sqlstate</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">get_sqlstate</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
 </div>
 <br />
 
@@ -574,7 +614,7 @@ $es_comando = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_sql_ejecutado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
+	<span class="method-title">get_sql_ejecutado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -600,7 +640,7 @@ $es_comando = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">parsear_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+	<span class="method-title">parsear_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
 </div>
 <br />
 
@@ -659,7 +699,7 @@ $final&nbsp;
 	
 		
 	
-	<span class="method-title">set_info_error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+	<span class="method-title">set_info_error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -696,7 +736,7 @@ $error&nbsp;
 	
 		
 	
-	<span class="method-title">set_mensaje_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">set_mensaje_motor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -733,7 +773,7 @@ $mensaje&nbsp;
 	
 		
 	
-	<span class="method-title">set_sql_ejecutado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">set_sql_ejecutado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
 </div>
 <br />
 
@@ -773,7 +813,7 @@ $sql&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

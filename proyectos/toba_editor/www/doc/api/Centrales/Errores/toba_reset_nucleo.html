@@ -58,6 +58,12 @@
 		    			<a href="../../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -241,7 +281,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_error.php [<span class="field">line 251</span>]
+			Ubicada en /nucleo/lib/toba_error.php [<span class="field">line 275</span>]
 		</p>	
 		<br>
 	
@@ -269,7 +309,7 @@
 										
 										
 										<dt>
-											<span class="method-definition">cnstructor __construct ( [$message = ], [$code = ] )</span>
+											<span class="method-definition">cnstructor __construct ( [$message = ], [$code = ], [$previous = ] )</span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -314,6 +354,17 @@
 										
 										<dt>
 											<span class="method-definition">gtMessage (  )</span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition">gtPrevious (  )</span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -422,7 +473,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
 </div>
 <br />
 
@@ -459,7 +510,7 @@ $id_item = null]&nbsp;
 
 			<div class="notes">Redefinición de:</div>
 		<dl>
-			<dt>Exception::constructor __construct ( [$message = ], [$code = ] )</dt>
+			<dt>Exception::constructor __construct ( [$message = ], [$code = ], [$previous = ] )</dt>
 					</dl>
 		
 		<br />
@@ -470,7 +521,7 @@ $id_item = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
+	<span class="method-title">get_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
 </div>
 <br />
 
@@ -495,7 +546,7 @@ $id_item = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
+	<span class="method-title">set_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
 </div>
 <br />
 
@@ -535,7 +586,7 @@ $item&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

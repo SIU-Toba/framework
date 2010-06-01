@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -263,12 +303,17 @@
 						</td>
 						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																										<tr><td></td><td class="method-definition" nowrap>static
+																													<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#existe_dato_compilado" title="details" class="method-name">existe_dato_compilado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																	<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el id del proyecto actualmente cargado en el pedido de página</td></tr>
-																																																																																																																																									<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																																		<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_path" title="details" class="method-name">get_path</a>()&nbsp;&nbsp;</td>
@@ -278,7 +323,7 @@
 						</td>
 						<td class="method-definition"><a href="#get_path_php" title="details" class="method-name">get_path_php</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' del proyecto</td></tr>
-																																																								<tr><td></td><td class="method-definition" nowrap>static
+																																																																										<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#hay_instancia" title="details" class="method-name">hay_instancia</a>()&nbsp;&nbsp;</td>
@@ -288,7 +333,12 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																					<tr>
+																																						<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#recuperar_datos_compilados" title="details" class="method-name">recuperar_datos_compilados</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -302,14 +352,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#es_multiproyecto" title="details" class="method-name">es_multiproyecto</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#existe_dato_compilado" title="details" class="method-name">existe_dato_compilado</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -332,7 +375,14 @@
 						<td class="method-definition">Retorna el flag de compilacion del proyecto</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_gadgets_proyecto" title="details" class="method-name">get_gadgets_proyecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Recupera los gadgets disponibles en la base de datos</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_grupos_acceso_usuario_anonimo" title="details" class="method-name">get_grupos_acceso_usuario_anonimo</a>()&nbsp;&nbsp;</td>
@@ -381,6 +431,13 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_info_servicios_web_acc" title="details" class="method-name">get_info_servicios_web_acc</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
@@ -399,7 +456,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_lista_permisos" title="details" class="method-name">get_lista_permisos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual</td></tr>
+						<td class="method-definition">Retorna la lista de permisos globales (tambien llamados derechos) de un grupo de acceso en el proyecto actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -439,6 +496,20 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_perfiles_funcionales_asociados" title="details" class="method-name">get_perfiles_funcionales_asociados</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_perfiles_funcionales_usuario_anonimo" title="details" class="method-name">get_perfiles_funcionales_usuario_anonimo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_version</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_version" title="details" class="method-name">get_version</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el número de versión propio del proyecto</td></tr>
@@ -470,14 +541,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#quitar_item_menu" title="details" class="method-name">quitar_item_menu</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#recuperar_datos_compilados" title="details" class="method-name">recuperar_datos_compilados</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -524,7 +588,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
@@ -539,6 +603,47 @@
     </td></tr></table><br /></div>
 
 	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodexiste_dato_compilado" id="existe_dato_compilado"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 624]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void existe_dato_compilado(
+
+$clase, 
+$metodo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clase:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$metodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -571,7 +676,7 @@
 <a name="methodget_path" id="get_path"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+		<span class="method-title">static method get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
 </div>
 <br />
 
@@ -594,7 +699,7 @@
 <a name="methodget_path_php" id="get_path_php"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
+		<span class="method-title">static method get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
 </div>
 <br />
 
@@ -658,14 +763,55 @@
 		
 		<br />
 </div>
+<a name="methodrecuperar_datos_compilados" id="recuperar_datos_compilados"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 629]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void recuperar_datos_compilados(
+
+$clase, 
+$metodo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clase:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$metodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="methodcargar_info_basica" id="cargar_info_basica"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
 </div>
 <br />
 
@@ -698,12 +844,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodes_multiproyecto" id="es_multiproyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
 </div>
 <br />
 
@@ -722,57 +868,13 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodexiste_dato_compilado" id="existe_dato_compilado"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 524]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void existe_dato_compilado(
-
-$clase, 
-$metodo&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clase:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$metodo:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodget_definicion_dependencia" id="get_definicion_dependencia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
+	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
 </div>
 <br />
 
@@ -816,7 +918,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 473]</span>
 </div>
 <br />
 
@@ -854,7 +956,7 @@ $permiso&nbsp;
 	
 		
 	
-	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
+	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
 </div>
 <br />
 
@@ -874,13 +976,66 @@ $permiso&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_grupos_acceso_usuario_anonimo" id="get_grupos_acceso_usuario_anonimo"><!-- --></a>
+<a name="methodget_gadgets_proyecto" id="get_gadgets_proyecto"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_grupos_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 420]</span>
+	<span class="method-title">get_gadgets_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_gadgets_proyecto(
+string
+$usuario, [string
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Recupera los gadgets disponibles en la base de datos <p>para el usuario en un proyecto especifico</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Id del usuario</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Id del proyecto</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo con objetos toba_gadget o vacio en su defecto.</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_grupos_acceso_usuario_anonimo" id="get_grupos_acceso_usuario_anonimo"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_grupos_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 431]</span>
 </div>
 <br />
 
@@ -894,18 +1049,26 @@ $permiso&nbsp;
 
 	
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 1.5 usar get_perfiles_funcionales_usuario_anonimo</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_id_componente_por_indice" id="get_id_componente_por_indice"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_componente_por_indice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
+	<span class="method-title">get_id_componente_por_indice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 262]</span>
 </div>
 <br />
 
@@ -944,12 +1107,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_consulta_php" id="get_info_consulta_php"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
+	<span class="method-title">get_info_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 535]</span>
 </div>
 <br />
 
@@ -988,12 +1151,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_dimension" id="get_info_dimension"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+	<span class="method-title">get_info_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
 </div>
 <br />
 
@@ -1032,12 +1195,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_fuente_datos" id="get_info_fuente_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 315]</span>
+	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -1076,12 +1239,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_punto_control" id="get_info_punto_control"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
+	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
 </div>
 <br />
 
@@ -1120,12 +1283,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_relacion_entre_tablas" id="get_info_relacion_entre_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_relacion_entre_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
+	<span class="method-title">get_info_relacion_entre_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 290]</span>
 </div>
 <br />
 
@@ -1134,8 +1297,8 @@ $proyecto = null]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_info_relacion_entre_tablas(
 
-$fuente_datos, [
-$proyecto = null]&nbsp;
+$fuente_datos, 
+$proyecto&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1163,13 +1326,57 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_info_servicios_web_acc" id="get_info_servicios_web_acc"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_info_servicios_web_acc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 551]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_info_servicios_web_acc(
+
+$id, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_items_menu" id="get_items_menu"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 341]</span>
+	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
@@ -1229,7 +1436,7 @@ $solo_primer_nivel&nbsp;
 	
 		
 	
-	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
+	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
 </div>
 <br />
 
@@ -1274,7 +1481,7 @@ $grupos_acceso = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
+	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 459]</span>
 </div>
 <br />
 
@@ -1288,7 +1495,7 @@ $grupos_acceso = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual </div>
+	<div class="description">Retorna la lista de permisos globales (tambien llamados derechos) de un grupo de acceso en el proyecto actual </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1312,7 +1519,7 @@ $grupos_acceso = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 490]</span>
+	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 517]</span>
 </div>
 <br />
 
@@ -1356,7 +1563,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 474]</span>
+	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
 </div>
 <br />
 
@@ -1393,7 +1600,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 458]</span>
+	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 485]</span>
 </div>
 <br />
 
@@ -1430,7 +1637,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 
@@ -1490,7 +1697,7 @@ $obligatorio = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -1510,13 +1717,75 @@ $obligatorio = true]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_perfiles_funcionales_asociados" id="get_perfiles_funcionales_asociados"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_perfiles_funcionales_asociados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 437]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_perfiles_funcionales_asociados(
+
+$perfil&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$perfil:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_perfiles_funcionales_usuario_anonimo" id="get_perfiles_funcionales_usuario_anonimo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_perfiles_funcionales_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 421]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_perfiles_funcionales_usuario_anonimo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_version" id="get_version"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
 </div>
 <br />
 
@@ -1542,7 +1811,7 @@ $obligatorio = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
+	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
 </div>
 <br />
 
@@ -1588,7 +1857,7 @@ $archivo = &quot;&quot;]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
+	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 234]</span>
 </div>
 <br />
 
@@ -1634,7 +1903,7 @@ $archivo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 370]</span>
+	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
 </div>
 <br />
 
@@ -1672,7 +1941,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">quitar_item_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 362]</span>
+	<span class="method-title">quitar_item_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 363]</span>
 </div>
 <br />
 
@@ -1703,57 +1972,13 @@ $item&nbsp;
 		
 		<br />
 </div>
-<a name="methodrecuperar_datos_compilados" id="recuperar_datos_compilados"><!-- --></a>
+<a name="methodrecuperar_datos_compilados_grupo" id="recuperar_datos_compilados_grupo"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void recuperar_datos_compilados(
-
-$clase, 
-$metodo&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clase:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$metodo:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodrecuperar_datos_compilados_grupo" id="recuperar_datos_compilados_grupo"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">recuperar_datos_compilados_grupo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 534]</span>
+	<span class="method-title">recuperar_datos_compilados_grupo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 634]</span>
 </div>
 <br />
 
@@ -1813,12 +2038,12 @@ $orden = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_parametro" id="set_parametro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
 </div>
 <br />
 
@@ -1866,7 +2091,7 @@ $valor&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

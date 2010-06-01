@@ -58,6 +58,12 @@
 		    			<a href="Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="Centrales/toba_interface_sesion.html">					interface_sesion
@@ -274,6 +314,11 @@
 						<td class="method-definition"><a href="#componente" title="details" class="method-name">componente</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna un componente por INDICE</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="Componentes/toba_componente.html">toba_componente</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#componente_por_id" title="details" class="method-name">componente_por_id</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un componente por ID</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#consulta_php" title="details" class="method-name">consulta_php</a>()&nbsp;&nbsp;</td>
@@ -308,6 +353,11 @@
 						</td>
 						<td class="method-definition"><a href="#fuente" title="details" class="method-name">fuente</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna una referencia a una fuente de datos declarada en el proyecto</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="Centrales/toba_contenedor_gadgets.html">toba_contenedor_gadgets</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#gadgets" title="details" class="method-name">gadgets</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un contenedor para el manejo de gadgets</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="Centrales/toba_instalacion.html">toba_instalacion</a></span>&nbsp;&nbsp;
 						</td>
@@ -374,6 +424,11 @@
 						<td class="method-definition"><a href="#puntos_control" title="details" class="method-name">puntos_control</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el objeto que contiene información de los puntos de control</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="Centrales/toba_servicio_web_cliente.html">toba_servicio_web_cliente</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#servicio_web" title="details" class="method-name">servicio_web</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="Centrales/toba_sesion.html">toba_sesion</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#sesion" title="details" class="method-name">sesion</a>()&nbsp;&nbsp;</td>
@@ -403,7 +458,7 @@
 						</td>
 						<td class="method-definition"><a href="#zona" title="details" class="method-name">zona</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Una zona representa un menu alrededor de un concepto central. Utilizada por ejemplo para mostrar un menú de opciones relacionado con un cliente particular.</td></tr>
-																																																																																																																																																																																																																																																																																						</table>
+																																																																																																																																																																																																																																																																																																																	</table>
 			</div>
 			<br />
 		</div>
@@ -422,7 +477,7 @@
 <a name="methodacciones_js" id="acciones_js"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method acciones_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
+		<span class="method-title">static method acciones_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -445,7 +500,7 @@
 <a name="methodcn" id="cn"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
+		<span class="method-title">static method cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
 </div>
 <br />
 
@@ -512,10 +567,45 @@ $indice&nbsp;
 		
 		<br />
 </div>
-<a name="methodconsulta_php" id="consulta_php"><!-- --></a>
+<a name="methodcomponente_por_id" id="componente_por_id"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
+		<span class="method-title">static method componente_por_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="Componentes/toba_componente.html">toba_componente</a> componente_por_id(
+integer
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna un componente por ID </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodconsulta_php" id="consulta_php"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
@@ -548,7 +638,7 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodcontexto_ejecucion" id="contexto_ejecucion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
 </div>
@@ -571,7 +661,7 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodcronometro" id="cronometro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
 </div>
@@ -594,7 +684,7 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methoddb" id="db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
@@ -636,7 +726,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodderechos" id="derechos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method derechos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
 </div>
@@ -659,7 +749,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodencriptador" id="encriptador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method encriptador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
@@ -682,7 +772,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodfuente" id="fuente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
 </div>
@@ -709,6 +799,29 @@ $id_fuente = null]&nbsp;
 				<td>
 							</td></tr>
 				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgadgets" id="gadgets"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method gadgets</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="Centrales/toba_contenedor_gadgets.html">toba_contenedor_gadgets</a> gadgets(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un contenedor para el manejo de gadgets </div>
 
 	<br />
 	
@@ -903,7 +1016,7 @@ $id_fuente = null]&nbsp;
 <a name="methodperfil_de_datos" id="perfil_de_datos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method perfil_de_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
+		<span class="method-title">static method perfil_de_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
 </div>
 <br />
 
@@ -926,7 +1039,7 @@ $id_fuente = null]&nbsp;
 <a name="methodperfil_funcional" id="perfil_funcional"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method perfil_funcional</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 304]</span>
+		<span class="method-title">static method perfil_funcional</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
 </div>
 <br />
 
@@ -949,7 +1062,7 @@ $id_fuente = null]&nbsp;
 <a name="methodplanificador_tareas" id="planificador_tareas"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method planificador_tareas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
+		<span class="method-title">static method planificador_tareas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -1027,8 +1140,49 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodsesion" id="sesion"><!-- --></a>
+<a name="methodservicio_web" id="servicio_web"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method servicio_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 368]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="Centrales/toba_servicio_web_cliente.html">toba_servicio_web_cliente</a> servicio_web(
+
+$id, [
+$opciones = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$opciones:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodsesion" id="sesion"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
 </div>
@@ -1051,7 +1205,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsolicitud" id="solicitud"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
@@ -1074,7 +1228,7 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodtabla" id="tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 241]</span>
 </div>
@@ -1116,7 +1270,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodusuario" id="usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
@@ -1139,7 +1293,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodvinculador" id="vinculador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method vinculador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
@@ -1162,7 +1316,7 @@ $fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
 </div>
@@ -1194,7 +1348,7 @@ $fuente = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

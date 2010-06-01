@@ -336,6 +336,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Negocio/toba_servicio_web.html">					servicio_web
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Filtro<br />
@@ -414,6 +419,11 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_valida_datos.html">					valida_datos
 					</a>    	    		</span>
     		
 	 <br />
@@ -857,7 +867,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
@@ -1196,6 +1206,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_xml" title="details" class="method-name">get_xml</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega en un nodo xml los datos del registro seleccinado en la tabla por el cursor, como atributos del nodo</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#hay_cambios" title="details" class="method-name">hay_cambios</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina si los datos cargados en la tabla difieren de los datos existentes en la base al inicio de la transacción</td></tr>
@@ -1340,6 +1357,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_definicion_columna" title="details" class="method-name">set_definicion_columna</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_es_unico_registro" title="details" class="method-name">set_es_unico_registro</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Indica que la tabla maneja un único registro en memoria, habilitando la api get/set</td></tr>
 																				<tr>
@@ -1409,12 +1433,12 @@
 			<a name='method_detail'></a>
 
 <a name="methodanexar_datos" id="anexar_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1474]</span>
+	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1481]</span>
 </div>
 <br />
 
@@ -1462,12 +1486,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodcambiar_padre_fila" id="cambiar_padre_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 903]</span>
+	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 913]</span>
 </div>
 <br />
 
@@ -1507,12 +1531,12 @@ $nuevos_padres&nbsp;
 		<br />
 </div>
 <a name="methodcargar" id="cargar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1424]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1431]</span>
 </div>
 <br />
 
@@ -1545,12 +1569,12 @@ $clave = array()]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_con_datos" id="cargar_con_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1443]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1450]</span>
 </div>
 <br />
 
@@ -1583,13 +1607,13 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodcontrol_tope_maximo_filas" id="control_tope_maximo_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">control_tope_maximo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1369]</span>
+	<span class="method-title">control_tope_maximo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1376]</span>
 </div>
 <br />
 
@@ -1630,13 +1654,13 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodcontrol_tope_minimo_filas" id="control_tope_minimo_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1352]</span>
+	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1365]</span>
 </div>
 <br />
 
@@ -1665,7 +1689,7 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methoddefinir_metodo_carga_dao" id="definir_metodo_carga_dao"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
@@ -1725,7 +1749,7 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1756,12 +1780,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodeliminar" id="eliminar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1557]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1565]</span>
 </div>
 <br />
 
@@ -1789,12 +1813,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_fila" id="eliminar_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 935]</span>
+	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 945]</span>
 </div>
 <br />
 
@@ -1835,12 +1859,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_filas" id="eliminar_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 968]</span>
+	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 978]</span>
 </div>
 <br />
 
@@ -1873,12 +1897,12 @@ $con_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_todo" id="eliminar_todo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1545]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1553]</span>
 </div>
 <br />
 
@@ -1899,12 +1923,12 @@ $con_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodesta_cargada" id="esta_cargada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1433]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1440]</span>
 </div>
 <br />
 
@@ -1925,12 +1949,12 @@ $con_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodes_campo_modificado" id="es_campo_modificado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_campo_modificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1827]</span>
+	<span class="method-title">es_campo_modificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1838]</span>
 </div>
 <br />
 
@@ -1977,13 +2001,13 @@ $datos_nuevos&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar_fila" id="evt__validar_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1322]</span>
+	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1335]</span>
 </div>
 <br />
 
@@ -2022,14 +2046,14 @@ $fila&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar_ingreso" id="evt__validar_ingreso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
     		
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1234]</span>
+	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1244]</span>
 </div>
 <br />
 
@@ -2083,12 +2107,12 @@ $id = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_fila" id="existe_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 743]</span>
+	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 753]</span>
 </div>
 <br />
 
@@ -2121,12 +2145,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodexiste_fila_condicion" id="existe_fila_condicion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 763]</span>
+	<span class="method-title">existe_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 773]</span>
 </div>
 <br />
 
@@ -2166,12 +2190,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodforzar_insercion" id="forzar_insercion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1725]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1733]</span>
 </div>
 <br />
 
@@ -2180,7 +2204,8 @@ $usar_cursores = true]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void forzar_insercion(
 [boolean
-$usar_cursores = false]&nbsp;
+$usar_cursores = false], [
+$filas = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -2195,6 +2220,12 @@ $usar_cursores = false]&nbsp;
 				<span class="var-name">$usar_cursores:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si esta seteado, solo se marcan como nuevas las filas marcadas por el cursor</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$filas:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -2204,12 +2235,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodget" id="get"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1095]</span>
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1105]</span>
 </div>
 <br />
 
@@ -2230,12 +2261,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_alias" id="get_alias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1657]</span>
+	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1665]</span>
 </div>
 <br />
 
@@ -2256,12 +2287,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_blob" id="get_blob"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1150]</span>
+	<span class="method-title">get_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1160]</span>
 </div>
 <br />
 
@@ -2301,12 +2332,12 @@ $id_fila = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cambios_fila" id="get_cambios_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_cambios_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1781]</span>
+	<span class="method-title">get_cambios_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1792]</span>
 </div>
 <br />
 
@@ -2347,12 +2378,12 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_filas" id="get_cantidad_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 733]</span>
+	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 743]</span>
 </div>
 <br />
 
@@ -2385,12 +2416,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_filas_a_sincronizar" id="get_cantidad_filas_a_sincronizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
+	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 370]</span>
 </div>
 <br />
 
@@ -2411,12 +2442,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_clave" id="get_clave"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 324]</span>
 </div>
 <br />
 
@@ -2437,12 +2468,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_clave_valor" id="get_clave_valor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 338]</span>
 </div>
 <br />
 
@@ -2483,12 +2514,12 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_columna" id="get_columna"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 717]</span>
+	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 727]</span>
 </div>
 <br />
 
@@ -2529,12 +2560,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_columnas" id="get_columnas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1630]</span>
+	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1638]</span>
 </div>
 <br />
 
@@ -2555,12 +2586,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_cursor" id="get_cursor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 488]</span>
+	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
 </div>
 <br />
 
@@ -2581,12 +2612,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_fila" id="get_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 668]</span>
+	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 678]</span>
 </div>
 <br />
 
@@ -2627,12 +2658,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_filas" id="get_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 515]</span>
+	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 525]</span>
 </div>
 <br />
 
@@ -2669,7 +2700,7 @@ $usar_cursores = true]&nbsp;
 				<td>
 				<span class="var-name">$usar_cursores:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Este conjunto de filas es afectado por la presencia de cursores en las tablas padres</span>			</td></tr>
+				<span class="var-description"> Este conjunto de filas es afectado por la presencia de cursores en las tablas padres.</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2687,12 +2718,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_fila_columna" id="get_fila_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 687]</span>
+	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 697]</span>
 </div>
 <br />
 
@@ -2740,12 +2771,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_fuente" id="get_fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1639]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1647]</span>
 </div>
 <br />
 
@@ -2766,12 +2797,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_id_filas" id="get_id_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 539]</span>
+	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 549]</span>
 </div>
 <br />
 
@@ -2810,12 +2841,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_filas_a_sincronizar" id="get_id_filas_a_sincronizar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 378]</span>
+	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 388]</span>
 </div>
 <br />
 
@@ -2856,12 +2887,12 @@ $cambios = array(&quot;d&quot;,&quot;i&quot;,&quot;u&quot;)]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_filas_filtradas_por_cursor" id="get_id_filas_filtradas_por_cursor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">get_id_filas_filtradas_por_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 563]</span>
+	<span class="method-title">get_id_filas_filtradas_por_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
 </div>
 <br />
 
@@ -2869,7 +2900,8 @@ $cambios = array(&quot;d&quot;,&quot;i&quot;,&quot;u&quot;)]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>array() get_id_filas_filtradas_por_cursor(
-boolean
+[
+$incluir_eliminados = false], boolean
 $usar_cursores&nbsp;
 )</code>
     </td></tr></table>
@@ -2885,6 +2917,12 @@ $usar_cursores&nbsp;
 				<span class="var-name">$usar_cursores:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Este conjunto de filas es afectado por la presencia de cursores en las tablas padres</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir_eliminados:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -2900,12 +2938,12 @@ $usar_cursores&nbsp;
 		<br />
 </div>
 <a name="methodget_id_fila_condicion" id="get_id_fila_condicion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 619]</span>
+	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 629]</span>
 </div>
 <br />
 
@@ -2953,12 +2991,12 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_fila_padre" id="get_id_fila_padre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 600]</span>
+	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 610]</span>
 </div>
 <br />
 
@@ -2998,12 +3036,12 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_id_padres" id="get_id_padres"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 585]</span>
+	<span class="method-title">get_id_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 595]</span>
 </div>
 <br />
 
@@ -3043,12 +3081,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_persistidor" id="get_persistidor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1413]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1420]</span>
 </div>
 <br />
 
@@ -3076,12 +3114,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_proximo_id" id="get_proximo_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
+	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -3102,12 +3140,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_relacion" id="get_relacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
+	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
 </div>
 <br />
 
@@ -3128,12 +3166,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_tabla" id="get_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1647]</span>
+	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1655]</span>
 </div>
 <br />
 
@@ -3154,12 +3192,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_tope_max_filas" id="get_tope_max_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 341]</span>
+	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
 </div>
 <br />
 
@@ -3188,12 +3226,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_tope_min_filas" id="get_tope_min_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
+	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
 </div>
 <br />
 
@@ -3222,12 +3260,12 @@ $tabla_padre&nbsp;
 		<br />
 </div>
 <a name="methodget_valores_columna" id="get_valores_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 703]</span>
+	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 713]</span>
 </div>
 <br />
 
@@ -3267,13 +3305,51 @@ $columna&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_xml" id="get_xml"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1868]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_xml(
+SimpleXMLElement
+$xml&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega en un nodo xml los datos del registro seleccinado en la tabla por el cursor, como atributos del nodo </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">SimpleXMLElement</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$xml:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> El objeto nodo xml al que se le van a agregar los atributos</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodhay_cambios" id="hay_cambios"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1751]</span>
+	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1762]</span>
 </div>
 <br />
 
@@ -3299,7 +3375,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">hay_cambios_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1771]</span>
+	<span class="method-title">hay_cambios_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1782]</span>
 </div>
 <br />
 
@@ -3337,7 +3413,7 @@ $id_fila&nbsp;
 	
 		
 	
-	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
+	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
 </div>
 <br />
 
@@ -3402,7 +3478,7 @@ $id_fila&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
+	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
 </div>
 <br />
 
@@ -3453,7 +3529,7 @@ $txt&nbsp;
 	
 		    		
 	
-	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 847]</span>
+	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 857]</span>
 </div>
 <br />
 
@@ -3513,7 +3589,7 @@ $nuevos_padres = null]&nbsp;
 	
 		
 	
-	<span class="method-title">nueva_busqueda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">nueva_busqueda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 312]</span>
 </div>
 <br />
 
@@ -3539,7 +3615,7 @@ $nuevos_padres = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 800]</span>
+	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 810]</span>
 </div>
 <br />
 
@@ -3599,7 +3675,7 @@ $id_nuevo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1386]</span>
+	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1393]</span>
 </div>
 <br />
 
@@ -3625,7 +3701,7 @@ $id_nuevo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1674]</span>
+	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1682]</span>
 </div>
 <br />
 
@@ -3651,7 +3727,7 @@ $id_nuevo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1026]</span>
+	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1036]</span>
 </div>
 <br />
 
@@ -3697,7 +3773,7 @@ $ids_padres = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1742]</span>
+	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1753]</span>
 </div>
 <br />
 
@@ -3750,7 +3826,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
+	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 193]</span>
 </div>
 <br />
 
@@ -3776,7 +3852,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1566]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1574]</span>
 </div>
 <br />
 
@@ -3802,7 +3878,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
+	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 488]</span>
 </div>
 <br />
 
@@ -3828,7 +3904,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">restaurar_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 468]</span>
+	<span class="method-title">restaurar_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
 </div>
 <br />
 
@@ -3854,7 +3930,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1074]</span>
+	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1084]</span>
 </div>
 <br />
 
@@ -3892,7 +3968,7 @@ $fila&nbsp;
 	
 		
 	
-	<span class="method-title">set_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1117]</span>
+	<span class="method-title">set_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1127]</span>
 </div>
 <br />
 
@@ -3944,7 +4020,7 @@ $id_fila = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1003]</span>
+	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1013]</span>
 </div>
 <br />
 
@@ -3996,7 +4072,7 @@ $con_cursores = false]&nbsp;
 	
 		
 	
-	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 453]</span>
+	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 463]</span>
 </div>
 <br />
 
@@ -4028,13 +4104,64 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_es_unico_registro" id="set_es_unico_registro"><!-- --></a>
+<a name="methodset_definicion_columna" id="set_definicion_columna"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_es_unico_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 438]</span>
+	<span class="method-title">set_definicion_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_definicion_columna(
+
+$columna, 
+$propiedad, 
+$valor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$columna:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$propiedad:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_es_unico_registro" id="set_es_unico_registro"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_es_unico_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 448]</span>
 </div>
 <br />
 
@@ -4067,12 +4194,12 @@ $unico&nbsp;
 		<br />
 </div>
 <a name="methodset_fila_columna_valor" id="set_fila_columna_valor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 982]</span>
+	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 992]</span>
 </div>
 <br />
 
@@ -4119,12 +4246,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodset_no_duplicado" id="set_no_duplicado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 429]</span>
+	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 439]</span>
 </div>
 <br />
 
@@ -4157,12 +4284,12 @@ $columnas&nbsp;
 		<br />
 </div>
 <a name="methodset_tope_max_filas" id="set_tope_max_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
 </div>
 <br />
 
@@ -4195,12 +4322,12 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodset_tope_min_filas" id="set_tope_min_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
+	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 425]</span>
 </div>
 <br />
 
@@ -4233,12 +4360,12 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodsincronizar" id="sincronizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1510]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1517]</span>
 </div>
 <br />
 
@@ -4279,12 +4406,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodsincronizar_filas" id="sincronizar_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sincronizar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1534]</span>
+	<span class="method-title">sincronizar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1541]</span>
 </div>
 <br />
 
@@ -4325,12 +4452,12 @@ $filas&nbsp;
 		<br />
 </div>
 <a name="methodvalidar" id="validar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1298]</span>
+	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1311]</span>
 </div>
 <br />
 
@@ -4371,7 +4498,7 @@ $filas = array()]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

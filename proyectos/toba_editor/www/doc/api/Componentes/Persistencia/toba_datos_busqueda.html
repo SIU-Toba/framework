@@ -336,6 +336,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Negocio/toba_servicio_web.html">					servicio_web
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Filtro<br />
@@ -417,6 +422,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_valida_datos.html">					valida_datos
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -492,7 +502,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																<tr>
+																																																																																											<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
@@ -510,9 +520,30 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_columnas_orden" title="details" class="method-name">get_columnas_orden</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un arreglo con las columnas definidas para el ordenamiento</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#hay_ordenamiento" title="details" class="method-name">hay_ordenamiento</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Verifica si existe ordenamiento de los datos o no</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#limpiar_condiciones" title="details" class="method-name">limpiar_condiciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Limpia las condiciones</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_columnas_orden" title="details" class="method-name">set_columnas_orden</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Fija que columnas se utilizaran para realizar el ordenamiento de los datos,  el orden posicional en el arreglo define que columna se utiliza antes.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -545,12 +576,12 @@
 			<a name='method_detail'></a>
 
 <a name="methodbuscar_filas" id="buscar_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">buscar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+	<span class="method-title">buscar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
 </div>
 <br />
 
@@ -579,12 +610,12 @@
 		<br />
 </div>
 <a name="methodbuscar_ids" id="buscar_ids"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">buscar_ids</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
+	<span class="method-title">buscar_ids</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
 </div>
 <br />
 
@@ -612,13 +643,65 @@
 		
 		<br />
 </div>
-<a name="methodlimpiar_condiciones" id="limpiar_condiciones"><!-- --></a>
+<a name="methodget_columnas_orden" id="get_columnas_orden"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_columnas_orden</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_columnas_orden(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna un arreglo con las columnas definidas para el ordenamiento </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodhay_ordenamiento" id="hay_ordenamiento"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_condiciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+	<span class="method-title">hay_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean hay_ordenamiento(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Verifica si existe ordenamiento de los datos o no </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodlimpiar_condiciones" id="limpiar_condiciones"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">limpiar_condiciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
@@ -638,13 +721,51 @@
 		
 		<br />
 </div>
+<a name="methodset_columnas_orden" id="set_columnas_orden"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_columnas_orden</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_columnas_orden(
+[array
+$cols = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Fija que columnas se utilizaran para realizar el ordenamiento de los datos,  el orden posicional en el arreglo define que columna se utiliza antes. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cols:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo asociativo de columnas =&gt; sentido ej: array('id_persona' =&gt; SORT_ASC, 'nombre' =&gt; SORT_DESC, 'descripcion_trabajo' =&gt; SORT_ASC)</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_condicion" id="set_condicion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
+	<span class="method-title">set_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 
@@ -696,7 +817,7 @@ $valor&nbsp;
 	
 		
 	
-	<span class="method-title">set_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
+	<span class="method-title">set_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
 </div>
 <br />
 
@@ -744,7 +865,7 @@ $id_padre&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

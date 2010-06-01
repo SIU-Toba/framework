@@ -203,6 +203,28 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodactivar_registro_consulta">activar_registro_consulta()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Activa/desactiva el resgistro de los comandos de consulta.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodactivar_registro_ejecucion">activar_registro_ejecucion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Activa/desactiva el resgistro de los comandos de ejecución.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodcerrar_transaccion">cerrar_transaccion()</a></span>
 										</dt>
 										<dd>
@@ -313,6 +335,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodexportar_registro">exportar_registro()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Exporta el registro de los comandos de ejecución y consulta a archivos.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodget_definicion_columnas">get_definicion_columnas()</a></span>
 										</dt>
 										<dd>
@@ -357,6 +390,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodget_manejador_auditoria">get_manejador_auditoria()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve una instancia del manejador de auditoria para este motor de base de datos</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodget_opciones_sql_campo_externo">get_opciones_sql_campo_externo()</a></span>
 										</dt>
 										<dd>
@@ -383,6 +427,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Retorna una referencia al objeto PDO interno</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodget_semantica_valor_defecto">get_semantica_valor_defecto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve el valor que es considerado por el motor para asignar el valor  Default en la base.</span>
 										</dd>
 										
 																			
@@ -576,7 +631,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																									<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -602,6 +657,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#borrar_rol" title="details" class="method-name">borrar_rol</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#borrar_schema" title="details" class="method-name">borrar_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -616,6 +678,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#crear_rol" title="details" class="method-name">crear_rol</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_schema" title="details" class="method-name">crear_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -623,7 +692,21 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#crear_usuario" title="details" class="method-name">crear_usuario</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#existe_columna" title="details" class="method-name">existe_columna</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#existe_rol" title="details" class="method-name">existe_rol</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -678,9 +761,79 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">object</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_manejador_auditoria" title="details" class="method-name">get_manejador_auditoria</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve una instancia del manejador de auditoria para este motor de base de datos</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_rol_actual" title="details" class="method-name">get_rol_actual</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_schema" title="details" class="method-name">get_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_semantica_valor_defecto" title="details" class="method-name">get_semantica_valor_defecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_sp_schema" title="details" class="method-name">get_sp_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_usuario_actual" title="details" class="method-name">get_usuario_actual</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#grant_rol" title="details" class="method-name">grant_rol</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#grant_schema" title="details" class="method-name">grant_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#grant_sp_schema" title="details" class="method-name">grant_sp_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#grant_tablas" title="details" class="method-name">grant_tablas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Da permisos especificos a todas las tablas de un esquema dado</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#grant_tablas_schema" title="details" class="method-name">grant_tablas_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Da permisos especificos a todas las tablas de un esquema dado</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -707,7 +860,35 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#renombrar_schema" title="details" class="method-name">renombrar_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#retrazar_constraints" title="details" class="method-name">retrazar_constraints</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#revoke_rol" title="details" class="method-name">revoke_rol</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#revoke_schema" title="details" class="method-name">revoke_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#revoke_sp_schema" title="details" class="method-name">revoke_sp_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -722,6 +903,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_encoding" title="details" class="method-name">set_encoding</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_rol" title="details" class="method-name">set_rol</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -876,8 +1064,45 @@ $puerto&nbsp;
 		
 		<br />
 </div>
-<a name="methodborrar_schema" id="borrar_schema"><!-- --></a>
+<a name="methodborrar_rol" id="borrar_rol"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void borrar_rol(
+
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodborrar_schema" id="borrar_schema"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -914,7 +1139,7 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -940,6 +1165,43 @@ $schema&nbsp;
 			<dt><a href="../../Fuentes/toba_db.html#methodcerrar_transaccion">toba_db::cerrar_transaccion()</a></dt>
 						<dd>Ejecuta un COMMIT en la conexión</dd>
 					</dl>
+		
+		<br />
+</div>
+<a name="methodcrear_rol" id="crear_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crear_rol(
+
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
 		
 		<br />
 </div>
@@ -980,13 +1242,57 @@ $schema&nbsp;
 		
 		<br />
 </div>
-<a name="methodexiste_columna" id="existe_columna"><!-- --></a>
+<a name="methodcrear_usuario" id="crear_usuario"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crear_usuario(
+
+$rol, 
+$password&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$password:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodexiste_columna" id="existe_columna"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 382]</span>
 </div>
 <br />
 
@@ -1014,6 +1320,43 @@ $tabla&nbsp;
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodexiste_rol" id="existe_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void existe_rol(
+
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -1067,7 +1410,7 @@ $esquema&nbsp;
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 365]</span>
 </div>
 <br />
 
@@ -1111,7 +1454,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 278]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 436]</span>
 </div>
 <br />
 
@@ -1190,7 +1533,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
+	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
 </div>
 <br />
 
@@ -1215,7 +1558,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 328]</span>
 </div>
 <br />
 
@@ -1259,7 +1602,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
+	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
 </div>
 <br />
 
@@ -1267,6 +1610,88 @@ $esquema = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_lista_tablas_y_vistas(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 577]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>object get_manejador_auditoria(
+[string
+$schema_modelo = 'public'], [string
+$schema_auditoria = 'public_auditoria'], [string
+$schema_toba = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve una instancia del manejador de auditoria para este motor de base de datos <p>ventana de extension en los hijos</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_modelo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_auditoria:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_toba:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Fuentes/toba_db.html#methodget_manejador_auditoria">toba_db::get_manejador_auditoria()</a></dt>
+						<dd>Devuelve una instancia del manejador de auditoria para este motor de base de datos</dd>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodget_rol_actual" id="get_rol_actual"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_rol_actual(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1297,6 +1722,355 @@ $esquema = null]&nbsp;
     </td></tr></table><br /></div>
 
 	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 560]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_semantica_valor_defecto(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Fuentes/toba_db.html#methodget_semantica_valor_defecto">toba_db::get_semantica_valor_defecto()</a></dt>
+						<dd>Devuelve el valor que es considerado por el motor para asignar el valor  Default en la base.</dd>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodget_sp_schema" id="get_sp_schema"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_sp_schema(
+
+$schema&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_usuario_actual(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgrant_rol" id="grant_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void grant_rol(
+
+$usuario, 
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgrant_schema" id="grant_schema"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void grant_schema(
+
+$usuario, 
+$schema, [
+$permisos = 'USAGE']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$permisos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgrant_sp_schema" id="grant_sp_schema"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void grant_sp_schema(
+
+$usuario, 
+$schema, [
+$privilegios = 'ALL PRIVILEGES']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$privilegios:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgrant_tablas" id="grant_tablas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void grant_tablas(
+
+$usuario, 
+$schema, 
+$tablas, [
+$privilegios = 'ALL PRIVILEGES']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Da permisos especificos a todas las tablas de un esquema dado </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tablas:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$privilegios:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgrant_tablas_schema" id="grant_tablas_schema"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void grant_tablas_schema(
+
+$usuario, 
+$schema, [
+$privilegios = 'ALL PRIVILEGES']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Da permisos especificos a todas las tablas de un esquema dado </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$privilegios:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -1458,8 +2232,52 @@ $secuencia&nbsp;
 		
 		<br />
 </div>
-<a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
+<a name="methodrenombrar_schema" id="renombrar_schema"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">renombrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void renombrar_schema(
+
+$actual, 
+$nuevo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$actual:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nuevo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1497,6 +2315,152 @@ $retrazar = true]&nbsp;
 			<dt><a href="../../Fuentes/toba_db.html#methodretrazar_constraints">toba_db::retrazar_constraints()</a></dt>
 						<dd>Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma</dd>
 					</dl>
+		
+		<br />
+</div>
+<a name="methodrevoke_rol" id="revoke_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void revoke_rol(
+
+$usuario, 
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrevoke_schema" id="revoke_schema"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void revoke_schema(
+
+$usuario, 
+$schema, [
+$permisos = 'ALL PRIVILEGES']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$permisos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrevoke_sp_schema" id="revoke_sp_schema"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 295]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void revoke_sp_schema(
+
+$usuario, 
+$schema, [
+$privilegios = 'ALL PRIVILEGES']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$privilegios:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
 		
 		<br />
 </div>
@@ -1562,8 +2526,45 @@ $encoding&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_schema" id="set_schema"><!-- --></a>
+<a name="methodset_rol" id="set_rol"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_rol(
+
+$rol&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_schema" id="set_schema"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1609,7 +2610,7 @@ $schema&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

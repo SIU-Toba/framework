@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -261,9 +301,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_web.html">toba_solicitud_web</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
 					<td>
-											Solicitud pensada para contener el ciclo request-response http  La etapa de request se la denomina de 'eventos'  La etapa de response se la denomina de 'servicios'
+											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_servicio_web.html">toba_solicitud_servicio_web</a></td>
+					<td>
+											
 										</td>
 				</tr>
 								<tr>
@@ -273,9 +319,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_web.html">toba_solicitud_web</a></td>
 					<td>
-											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
+											Solicitud pensada para contener el ciclo request-response http  La etapa de request se la denomina de 'eventos'  La etapa de response se la denomina de 'servicios'
 										</td>
 				</tr>
 							</table>
@@ -292,7 +338,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																					<tr>
+																																																																																																																																																																																														<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -416,6 +462,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_tipo_pagina" title="details" class="method-name">set_tipo_pagina</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite setear el tipo de pagina para la solicitud actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">zona</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#zona" title="details" class="method-name">zona</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
@@ -481,13 +534,16 @@ $usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
+				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+							</li>
+					<li>
+				<a href="../Centrales/toba_solicitud_servicio_web.html#method__construct">toba_solicitud_servicio_web::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -559,7 +615,7 @@ $parametros = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
+	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
 </div>
 <br />
 
@@ -592,7 +648,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">es_item_publico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+	<span class="method-title">es_item_publico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
 </div>
 <br />
 
@@ -617,7 +673,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 166]</span>
+	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
 </div>
 <br />
 
@@ -642,7 +698,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">finalizar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+	<span class="method-title">finalizar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
 </div>
 <br />
 
@@ -668,7 +724,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">get_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
 </div>
 <br />
 
@@ -706,7 +762,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
 </div>
 <br />
 
@@ -732,7 +788,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
+	<span class="method-title">get_id_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 209]</span>
 </div>
 <br />
 
@@ -758,7 +814,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
 </div>
 <br />
 
@@ -783,7 +839,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">guardar_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">guardar_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
 </div>
 <br />
 
@@ -808,7 +864,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
+	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
 </div>
 <br />
 
@@ -834,7 +890,7 @@ $prop = null]&nbsp;
 	
 		
 	
-	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
+	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -879,7 +935,7 @@ $tipo = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
+	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 112]</span>
 </div>
 <br />
 
@@ -907,14 +963,17 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
-								: Crea la zona, carga los componentes, procesa los eventos y los servicios
+				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+							</li>
+					<li>
+				<a href="../Centrales/toba_solicitud_servicio_web.html#methodprocesar">toba_solicitud_servicio_web::procesar()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
+								: Crea la zona, carga los componentes, procesa los eventos y los servicios
 							</li>
 				</ul>
 		<br />
@@ -925,7 +984,7 @@ $tipo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
 </div>
 <br />
 
@@ -945,10 +1004,10 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
+				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
 							</li>
 				</ul>
 		<br />
@@ -996,7 +1055,7 @@ $cronometrar&nbsp;
 	
 		
 	
-	<span class="method-title">set_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
+	<span class="method-title">set_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 187]</span>
 </div>
 <br />
 
@@ -1028,13 +1087,51 @@ $prop = array()]&nbsp;
 		
 		<br />
 </div>
-<a name="methodzona" id="zona"><!-- --></a>
+<a name="methodset_tipo_pagina" id="set_tipo_pagina"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+	<span class="method-title">set_tipo_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_tipo_pagina(
+array
+$tipo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite setear el tipo de pagina para la solicitud actual </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo asociativo con un nombre de clase y archivo, ej: array('clase' =&gt; 'toba_tp_mia', ['archivo' =&gt; 'customizacion_toba/toba_tp_mia.php']);</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodzona" id="zona"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
 </div>
 <br />
 
@@ -1062,7 +1159,7 @@ $prop = array()]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

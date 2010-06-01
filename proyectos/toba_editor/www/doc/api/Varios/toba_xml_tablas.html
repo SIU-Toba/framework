@@ -151,14 +151,24 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																									<tr>
+																								<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#decode" title="details" class="method-name">decode</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#encode" title="details" class="method-name">encode</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_xml_tablas</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
+																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -209,9 +219,77 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methoddecode" id="decode"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method decode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 143]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void decode(
+
+$valor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodencode" id="encode"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method encode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void encode(
+
+$valor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -248,7 +326,7 @@ $archivo = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_tablas" id="get_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -274,12 +352,12 @@ $archivo = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_xml" id="get_xml"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
+	<span class="method-title">get_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
 </div>
 <br />
 
@@ -299,12 +377,12 @@ $archivo = null]&nbsp;
 		<br />
 </div>
 <a name="methodguardar" id="guardar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
+	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
 </div>
 <br />
 
@@ -336,7 +414,7 @@ $archivo&nbsp;
 		<br />
 </div>
 <a name="methodinsertar_db" id="insertar_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -350,7 +428,8 @@ $archivo&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void insertar_db(
 
-$conexion&nbsp;
+$conexion, [
+$path_proyecto = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -365,6 +444,12 @@ $conexion&nbsp;
 				<span class="var-name">$conexion:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$path_proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -374,7 +459,7 @@ $conexion&nbsp;
 		<br />
 </div>
 <a name="methodset_tablas" id="set_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -434,7 +519,7 @@ $nodo_raiz = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

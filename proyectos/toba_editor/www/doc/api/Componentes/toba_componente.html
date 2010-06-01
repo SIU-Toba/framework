@@ -336,6 +336,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Negocio/toba_servicio_web.html">					servicio_web
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Filtro<br />
@@ -417,6 +422,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_valida_datos.html">					valida_datos
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -477,6 +487,8 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
+Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Negocio/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+
 		<tr>
 			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/Objetos.html'>
 				<img border='0' style='vertical-align: middle' src="../media/wiki-small.png" />
@@ -507,6 +519,12 @@
 					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
 					<td>
 											Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_servicio_web.html">toba_servicio_web</a></td>
+					<td>
+											
 										</td>
 				</tr>
 								<tr>
@@ -853,22 +871,16 @@ $definicion&nbsp;
 				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Negocio/toba_servicio_web.html#method__construct">toba_servicio_web::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -877,13 +889,22 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
+				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -1182,7 +1203,7 @@ $cargar_en_demanda&nbsp;
 	
 		
 	
-	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 619]</span>
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 620]</span>
 </div>
 <br />
 
@@ -1245,14 +1266,10 @@ $id&nbsp;
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
-								: Destructor del componente
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
@@ -1262,6 +1279,13 @@ $id&nbsp;
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
+								: Destructor del componente
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#methoddestruir">toba_ei_arbol::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
@@ -1314,7 +1338,7 @@ $no_eliminar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 628]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 629]</span>
 </div>
 <br />
 
@@ -1359,7 +1383,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 646]</span>
+	<span class="method-title">get_cantidad_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 647]</span>
 </div>
 <br />
 
@@ -1385,7 +1409,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 637]</span>
+	<span class="method-title">get_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 638]</span>
 </div>
 <br />
 
@@ -1411,7 +1435,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 655]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 656]</span>
 </div>
 <br />
 
@@ -2122,7 +2146,7 @@ $props&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

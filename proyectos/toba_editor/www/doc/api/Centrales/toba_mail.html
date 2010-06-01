@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -263,13 +303,13 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																											<tr>
+																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_mail</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Constructor de la clase</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -283,42 +323,49 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ejecutar" title="details" class="method-name">ejecutar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Servicio que dispara el envio del email</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#enviar" title="details" class="method-name">enviar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Realiza el envio del email propiamente dicho</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_cc" title="details" class="method-name">set_cc</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Configura las direcciones a las que se enviara copia carbonica</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_configuracion_smtp" title="details" class="method-name">set_configuracion_smtp</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite modificar en runtime el nombre de la configuracion smtp a ser utilizada</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_confirmacion" title="details" class="method-name">set_confirmacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Indica la direccion de email a la cual debe llegar la confirmacion</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_html" title="details" class="method-name">set_html</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Indica que el cuerpo del email contiene codigo HTML</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_reply" title="details" class="method-name">set_reply</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Configura la direccion de email a la cual se debe responder</td></tr>
 													</table>
 			</div>
 			<br />
@@ -337,12 +384,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
 </div>
 <br />
 
@@ -350,42 +397,43 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_mail __construct(
-
-$hacia, 
-$asunto, 
-$cuerpo, [
+string
+$hacia, string
+$asunto, string
+$cuerpo, [string
 $desde = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Constructor de la clase </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$hacia:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Direccion de email a la cual se enviará</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$asunto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$cuerpo:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Contenido del email</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$desde:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Direccion de email desde la cual se envia (opcionalmente se obtiene desde los parametros)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -395,12 +443,12 @@ $desde = null]&nbsp;
 		<br />
 </div>
 <a name="methodagregar_adjunto" id="agregar_adjunto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
+	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
 </div>
 <br />
 
@@ -440,12 +488,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
@@ -457,7 +505,8 @@ $path_archivo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Servicio que dispara el envio del email </div>
+
 	<br />
 	
 
@@ -469,12 +518,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodenviar" id="enviar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
@@ -486,7 +535,8 @@ $path_archivo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Realiza el envio del email propiamente dicho </div>
+
 	<br />
 	
 
@@ -494,12 +544,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodset_cc" id="set_cc"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
 </div>
 <br />
 
@@ -507,21 +557,60 @@ $path_archivo&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_cc(
-[
+[array
 $direcciones = array()]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Configura las direcciones a las que se enviara copia carbonica </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$direcciones:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Arreglo de direcciones de email</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_configuracion_smtp" id="set_configuracion_smtp"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_configuracion_smtp(
+[string
+$nombre_conf = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite modificar en runtime el nombre de la configuracion smtp a ser utilizada </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre_conf:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Nombre de la configuracion en el archivo smtp.ini</span>			</td></tr>
 				</table>
 
 	<br />
@@ -536,7 +625,7 @@ $direcciones = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
+	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
 </div>
 <br />
 
@@ -544,17 +633,18 @@ $direcciones = array()]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_confirmacion(
-
+string
 $confirm&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Indica la direccion de email a la cual debe llegar la confirmacion </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$confirm:&nbsp;</span></td>
 				<td>
@@ -573,7 +663,7 @@ $confirm&nbsp;
 	
 		
 	
-	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
+	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -581,17 +671,18 @@ $confirm&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_html(
-[
+[boolean
 $html = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Indica que el cuerpo del email contiene codigo HTML </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$html:&nbsp;</span></td>
 				<td>
@@ -610,7 +701,7 @@ $html = true]&nbsp;
 	
 		
 	
-	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
+	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
 <br />
 
@@ -618,17 +709,18 @@ $html = true]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_reply(
-
+string
 $reply&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Configura la direccion de email a la cual se debe responder </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$reply:&nbsp;</span></td>
 				<td>
@@ -650,7 +742,7 @@ $reply&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

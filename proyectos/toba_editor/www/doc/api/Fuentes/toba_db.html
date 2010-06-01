@@ -156,6 +156,12 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
+					<td>
+											Driver de conexión via ODBC
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
 					<td>
 											Driver de conexión con mysql.
@@ -173,12 +179,6 @@
 											Driver de conexión con postgres
 										</td>
 				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
-					<td>
-											Driver de conexión via ODBC
-										</td>
-				</tr>
 							</table>
 			<br />
 		</div>
@@ -193,7 +193,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																							<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -214,6 +214,20 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#abrir_transaccion" title="details" class="method-name">abrir_transaccion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ejecuta un BEGIN TRANSACTION en la conexión</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#activar_registro_consulta" title="details" class="method-name">activar_registro_consulta</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Activa/desactiva el resgistro de los comandos de consulta.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#activar_registro_ejecucion" title="details" class="method-name">activar_registro_ejecucion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Activa/desactiva el resgistro de los comandos de ejecución.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -291,6 +305,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#exportar_registro" title="details" class="method-name">exportar_registro</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Exporta el registro de los comandos de ejecución y consulta a archivos.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_definicion_columnas" title="details" class="method-name">get_definicion_columnas</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -318,6 +339,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">object</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_manejador_auditoria" title="details" class="method-name">get_manejador_auditoria</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve una instancia del manejador de auditoria para este motor de base de datos</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_opciones_sql_campo_externo" title="details" class="method-name">get_opciones_sql_campo_externo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina la sql,clave y desc de un campo externo de una tabla</td></tr>
@@ -335,6 +363,13 @@
 													<td nowrap class="method-definition"><span class="method-result">PDO</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_pdo" title="details" class="method-name">get_pdo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna una referencia al objeto PDO interno</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_semantica_valor_defecto" title="details" class="method-name">get_semantica_valor_defecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el valor que es considerado por el motor para asignar el valor  Default en la base.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -470,7 +505,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
 <br />
 
@@ -530,6 +565,9 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
+							</li>
+					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
 							</li>
 					<li>
@@ -537,9 +575,6 @@ $puerto = null]&nbsp;
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
-							</li>
-					<li>
-				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -550,7 +585,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 461]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 629]</span>
 </div>
 <br />
 
@@ -586,7 +621,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 452]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 620]</span>
 </div>
 <br />
 
@@ -616,13 +651,103 @@ $puerto = null]&nbsp;
 				</ul>
 		<br />
 </div>
+<a name="methodactivar_registro_consulta" id="activar_registro_consulta"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">activar_registro_consulta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void activar_registro_consulta(
+[boolean
+$desactivar_consulta = false], [boolean
+$activar = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Activa/desactiva el resgistro de los comandos de consulta. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$desactivar_consulta:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Indica si se ejecuta el comando y se registra(FALSE) o si solamente se registra(TRUE). Por defecto FALSE</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$activar:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> TRUE activa el resgistro, FALSE desactiva el registro. Por defecto TRUE</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodactivar_registro_ejecucion" id="activar_registro_ejecucion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">activar_registro_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void activar_registro_ejecucion(
+[boolean
+$desactivar_ejecucion = false], [boolean
+$activar = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Activa/desactiva el resgistro de los comandos de ejecución. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$desactivar_ejecucion:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Indica si se ejecuta el comando y se registra(FALSE) o si solamente se registra(TRUE). Por defecto FALSE</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$activar:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> TRUE activa el resgistro, FALSE desactiva el registro. Por defecto TRUE</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 638]</span>
 </div>
 <br />
 
@@ -658,7 +783,7 @@ $puerto = null]&nbsp;
 		    	
 		
 	
-	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
 </div>
 <br />
 
@@ -690,7 +815,7 @@ $puerto = null]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 348]</span>
 </div>
 <br />
 
@@ -749,7 +874,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
 </div>
 <br />
 
@@ -816,7 +941,7 @@ $lanzar_excepcion = true]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 799]</span>
+	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 967]</span>
 </div>
 <br />
 
@@ -861,7 +986,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
 </div>
 <br />
 
@@ -887,7 +1012,7 @@ $sql&nbsp;
 		    	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 274]</span>
 </div>
 <br />
 
@@ -931,7 +1056,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
 </div>
 <br />
 
@@ -969,7 +1094,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 481]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 649]</span>
 </div>
 <br />
 
@@ -1015,7 +1140,7 @@ $sentencias&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 771]</span>
+	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 939]</span>
 </div>
 <br />
 
@@ -1055,13 +1180,58 @@ $campo&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
+<a name="methodexportar_registro" id="exportar_registro"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 527]</span>
+	<span class="method-title">exportar_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void exportar_registro(
+[string
+$archivo_ejecucion = ''], [string
+$archivo_consulta = '']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Exporta el registro de los comandos de ejecución y consulta a archivos. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo_ejecucion:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Archivo al que se desea exportar el contenido del registro de ejecución.</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo_consulta:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Archivo al que se desea exportar el contenido del registro de consulta.</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 695]</span>
 </div>
 <br />
 
@@ -1100,12 +1270,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_dsn" id="get_dsn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 500]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 668]</span>
 </div>
 <br />
 
@@ -1138,12 +1308,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_error_toba" id="get_error_toba"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 817]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 985]</span>
 </div>
 <br />
 
@@ -1183,12 +1353,12 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodget_info_debug" id="get_info_debug"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+	<span class="method-title">get_info_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -1208,13 +1378,72 @@ $descripcion&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1002]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>object get_manejador_auditoria(
+[string
+$schema_modelo = 'public'], [string
+$schema_auditoria = 'public_auditoria'], [string
+$schema_toba = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve una instancia del manejador de auditoria para este motor de base de datos <p>ventana de extension en los hijos</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_modelo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_auditoria:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema_toba:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_manejador_auditoria">toba_db_postgres7::get_manejador_auditoria()</a>
+								: Devuelve una instancia del manejador de auditoria para este motor de base de datos
+							</li>
+				</ul>
+		<br />
+</div>
 <a name="methodget_opciones_sql_campo_externo" id="get_opciones_sql_campo_externo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 735]</span>
+	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 903]</span>
 </div>
 <br />
 
@@ -1252,7 +1481,7 @@ $campo&nbsp;
 	
 		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -1278,7 +1507,7 @@ $campo&nbsp;
 	
 		
 	
-	<span class="method-title">get_pdo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
+	<span class="method-title">get_pdo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
 </div>
 <br />
 
@@ -1298,13 +1527,45 @@ $campo&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_sql_carga_descripciones" id="get_sql_carga_descripciones"><!-- --></a>
+<a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_semantica_valor_defecto(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el valor que es considerado por el motor para asignar el valor  Default en la base. </div>
+
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_semantica_valor_defecto">toba_db_postgres7::get_semantica_valor_defecto()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodget_sql_carga_descripciones" id="get_sql_carga_descripciones"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 712]</span>
+	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 880]</span>
 </div>
 <br />
 
@@ -1345,12 +1606,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_sql_carga_tabla" id="get_sql_carga_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 641]</span>
+	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 809]</span>
 </div>
 <br />
 
@@ -1391,12 +1652,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo_datos_generico" id="get_tipo_datos_generico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 536]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 704]</span>
 </div>
 <br />
 
@@ -1429,12 +1690,12 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodhay_datos" id="hay_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 293]</span>
+	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -1481,12 +1742,12 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodquote" id="quote"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 256]</span>
 </div>
 <br />
 
@@ -1519,12 +1780,12 @@ $dato&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 509]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 677]</span>
 </div>
 <br />
 
@@ -1564,12 +1825,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 518]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 686]</span>
 </div>
 <br />
 
@@ -1596,12 +1857,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodsentencia" id="sentencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 323]</span>
 </div>
 <br />
 
@@ -1647,12 +1908,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_cantidad_afectados" id="sentencia_cantidad_afectados"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 437]</span>
+	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 605]</span>
 </div>
 <br />
 
@@ -1693,12 +1954,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_consultar" id="sentencia_consultar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
+	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 513]</span>
 </div>
 <br />
 
@@ -1759,12 +2020,12 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_consultar_fila" id="sentencia_consultar_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 400]</span>
+	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 552]</span>
 </div>
 <br />
 
@@ -1832,12 +2093,12 @@ $lanzar_excepcion = true]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_datos" id="sentencia_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
+	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 588]</span>
 </div>
 <br />
 
@@ -1885,12 +2146,12 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_ejecutar" id="sentencia_ejecutar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
+	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 474]</span>
 </div>
 <br />
 
@@ -1951,12 +2212,12 @@ $tipo_fetch&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_preparar" id="sentencia_preparar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
+	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 450]</span>
 </div>
 <br />
 
@@ -2010,12 +2271,12 @@ $opciones = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_modo_debug" id="set_modo_debug"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -2055,12 +2316,12 @@ $loguear = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_parser_errores" id="set_parser_errores"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_parser_errores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
+	<span class="method-title">set_parser_errores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
 </div>
 <br />
 
@@ -2100,7 +2361,7 @@ $parser&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

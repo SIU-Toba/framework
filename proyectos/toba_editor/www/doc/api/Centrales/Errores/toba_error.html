@@ -58,6 +58,12 @@
 		    			<a href="../../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_contenedor_gadgets.html">					contenedor_gadgets
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -65,6 +71,15 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget.html">					gadget
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_imagen_captcha.html">					imagen_captcha
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_instalacion.html">					instalacion
@@ -100,6 +115,12 @@
 	    			<a href="../../Centrales/toba_serializar_propiedades.html">					serializar_propiedades
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_cliente.html">					servicio_web_cliente
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_servicio_web_mensaje.html">					servicio_web_mensaje
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_sesion.html">					sesion
 					</a>    		
 	 <br />
@@ -110,6 +131,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_consola.html">					solicitud_consola
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_solicitud_servicio_web.html">					solicitud_servicio_web
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_solicitud_web.html">					solicitud_web
@@ -141,7 +165,17 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_autenticacion_intentos.html">					error_autenticacion_intentos
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_comunicacion.html">					error_comunicacion
 					</a>    	    		</span>
     		
 	 <br />
@@ -189,7 +223,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+		    			<a href="../../Centrales/toba_autenticable.html">					autenticable
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_callback_errores_validacion.html">					callback_errores_validacion
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_interface_sesion.html">					interface_sesion
@@ -288,6 +328,12 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_autenticacion_intentos.html">toba_error_autenticacion_intentos</a></td>
+					<td>
+											Excepción producida por sobrepasar el limite de intentos de autenticacion
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_autorizacion.html">toba_error_autorizacion</a></td>
 					<td>
 											Excepción producida por un error en la autorizacion del usuario
@@ -309,6 +355,12 @@
 					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_ini_sesion.html">toba_error_ini_sesion</a></td>
 					<td>
 											Excepción producida cuando falla la incializacion predefinida de una sesion
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_comunicacion.html">toba_error_comunicacion</a></td>
+					<td>
+											Excepción producida en una comunicación web service
 										</td>
 				</tr>
 							</table>
@@ -333,7 +385,7 @@
 										
 										
 										<dt>
-											<span class="method-definition">cnstructor __construct ( [$message = ], [$code = ] )</span>
+											<span class="method-definition">cnstructor __construct ( [$message = ], [$code = ], [$previous = ] )</span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -378,6 +430,17 @@
 										
 										<dt>
 											<span class="method-definition">gtMessage (  )</span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition">gtPrevious (  )</span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -481,12 +544,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
 </div>
 <br />
 
@@ -523,7 +586,7 @@ $mensaje_solo_debug = '']&nbsp;
 
 			<div class="notes">Redefinición de:</div>
 		<dl>
-			<dt>Exception::constructor __construct ( [$message = ], [$code = ] )</dt>
+			<dt>Exception::constructor __construct ( [$message = ], [$code = ], [$previous = ] )</dt>
 					</dl>
 		
 			<div class="notes">Redefinido en subclases como:</div>
@@ -537,16 +600,19 @@ $mensaje_solo_debug = '']&nbsp;
 					<li>
 				<a href="../../Centrales/Errores/toba_error_validacion.html#method__construct">toba_error_validacion::__construct()</a>
 							</li>
+					<li>
+				<a href="../../Centrales/Errores/toba_error_comunicacion.html#method__construct">toba_error_comunicacion::__construct()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
+	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
 </div>
 <br />
 
@@ -563,21 +629,15 @@ $mensaje_solo_debug = '']&nbsp;
 	
 
 		
-			<div class="notes">Redefinido en subclases como:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Centrales/Errores/toba_error_db.html#methodget_mensaje">toba_error_db::get_mensaje()</a>
-							</li>
-				</ul>
 		<br />
 </div>
 <a name="methodget_mensaje_log" id="get_mensaje_log"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_mensaje_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	<span class="method-title">get_mensaje_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
 </div>
 <br />
 
@@ -594,6 +654,12 @@ $mensaje_solo_debug = '']&nbsp;
 	
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Centrales/Errores/toba_error_db.html#methodget_mensaje_log">toba_error_db::get_mensaje_log()</a>
+							</li>
+				</ul>
 		<br />
 </div>
 		</div>
@@ -605,7 +671,7 @@ $mensaje_solo_debug = '']&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>
