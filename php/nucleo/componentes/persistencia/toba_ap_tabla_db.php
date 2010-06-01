@@ -924,7 +924,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$binarios = array();
 		$registro = $this->datos[$id_registro];
-		$cambios_reales = $this->objeto_tabla->get_cambios_fila($id_registro);
+		$cambios_reales = $this->objeto_tabla->get_cambios_fila($id_registro, $registro);
 		
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();

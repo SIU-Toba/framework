@@ -1789,11 +1789,15 @@ class toba_datos_tabla extends toba_componente
 	 * Calcula las diferencias entre el valor original de la fila al momento de carga y el valor actual
 	 * @return array Asociativo campo => array('anterior' => $anterior, 'actual' => $actual)
 	 */
-	function get_cambios_fila($id_fila)
+	function get_cambios_fila($id_fila, $datos_ap = array())
 	{
 		$diferencias = array();
-		$datos_nuevos = $this->_datos[$id_fila];
 		$datos_viejos = $this->_cambios[$id_fila]['original'];
+		if (empty($datos_ap)) {												//Si el administrador de persistencia no pide comparacion especifica
+				$datos_nuevos = $this->_datos[$id_fila];	//utilizo los datos internos del datos_tabla.
+		} else {
+				$datos_nuevos = $datos_ap;
+		}
 		foreach ($this->_columnas as $campo => $col) {
 			if (!$col['externa']) {
 				if ($col['tipo'] != 'B') {
