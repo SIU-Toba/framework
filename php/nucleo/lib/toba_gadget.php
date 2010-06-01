@@ -53,7 +53,7 @@ abstract class toba_gadget
 
 	function get_orden()
 	{
-		$result = (isset($this->_datos['orden'])) ? $this->_datos['orden'] : '';
+		$result = (isset($this->_datos['orden'])) ? $this->_datos['orden'] : '1';
 		return $result;
 	}
 

@@ -374,7 +374,7 @@ class toba
 	 * Devuelve un contenedor para el manejo de gadgets
 	 * @return toba_contenedor_gadgets
 	 */
-	static function gadgets()
+	static function contenedor_gadgets()
 	{
 		return toba_contenedor_gadgets::instancia();
 	}
