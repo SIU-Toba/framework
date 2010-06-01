@@ -1284,19 +1284,28 @@ class toba_ei_cuadro extends toba_ei
 				}
 				$aux['sentido'] = $this->get_sentido_ordenamiento($sentidos[$klave]);
 
+				//Agrego los parametros para el multisort x referencia como es requerido.
 				$parametros[] = &$aux['ordenamiento'];
 				$parametros[] = &$aux['sentido'];
 				$parametros[] = &$aux['tipo'];
+				
+				/* Hacking PHP  5.3.x:
+				 * Se guarda el contenido de la variable $aux para que PHP en el momento
+				 * de realizar el unset($aux) no me transforme las referencias asignadas a $parametros
+				 * en valores concretos.
+				 */
+				$garbage[] = $aux;
+				/*
+				 * Se hace el unset de la variable para que se renueve la direccion de memoria
+				 * al hacer la asignacion $aux = array(); sino usa siempre la misma y
+				 * por tanto nunca ordena.
+				 */
+				unset($aux);
 			}			
-			$parametros[] = &$this->datos;			//Agrego el arreglo de datos a ordenar
+			$parametros[] = &$this->datos;			//Agrego el arreglo de datos a ordenar x referencia
 			//toba::logger()->debug('parametros de ordenamiento');
 			//toba::logger()->var_dump($parametros);
-			//TODO: Esto es una asquerosida! (si sin D) pero hasta que se corrija el bug es lo mejorcito para php 5.3
-			if (version_compare(PHP_VERSION, '5.3.0') !== -1) {
-					call_user_func_array( 'array_multisort', &$parametros );
-			} else {
-					call_user_func_array( 'array_multisort', $parametros );
-			}
+			call_user_func_array( 'array_multisort', $parametros );
 		} //IF
     }
 
