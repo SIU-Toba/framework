@@ -348,7 +348,7 @@ ei_cuadro
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
-		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>
+		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>, <a href="ei.html#filtrado_ef_ce_comunicar">filtrado_ef_ce_comunicar</a>, <a href="ei.html#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta</a>, <a href="ei.html#filtrado_ef_ce_validar">filtrado_ef_ce_validar</a>, <a href="ei.html#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion</a>
 		</div>
 	</div>
 
@@ -375,10 +375,30 @@ ei_cuadro
 			
 					<tr><td class="method-definition " nowrap>
 													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#exportar_excel_sin_cortes">exportar_excel_sin_cortes</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
 						<a class="method-name" href="#get_ids_seleccionados">get_ids_seleccionados</A>(id_evento)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#ir_a_pagina">ir_a_pagina</A>(valor)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -402,6 +422,16 @@ ei_cuadro
 					</td>
 
 					<td class="method-definition"> Informa al componente la presencia de un nuevo evento</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_ordenamiento_multiple">set_ordenamiento_multiple</A>(&lt;array&gt; valores)
+					</td>
+
+					<td class="method-definition"> Metodo utilizado para lanzar el evento de ordenamiento multiple columna</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -440,7 +470,7 @@ ei_cuadro
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ei_cuadro (id, instancia, input_submit, filas)</code>
+							   <code>ei_cuadro (id, instancia, input_submit, filas, ids_eventos_multiple)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -495,10 +525,44 @@ ei_cuadro
 		   
 		</div>
 		
-   		<A id="get_ids_seleccionados" NAME="get_ids_seleccionados"><!-- --></A>	
+   		<A id="exportar_excel_sin_cortes" NAME="exportar_excel_sin_cortes"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">exportar_excel_sin_cortes</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void exportar_excel_sin_cortes ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_ids_seleccionados" NAME="get_ids_seleccionados"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_ids_seleccionados</span>
@@ -510,6 +574,40 @@ ei_cuadro
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
 							   <code>Object get_ids_seleccionados (id_evento)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="ir_a_pagina" NAME="ir_a_pagina"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">ir_a_pagina</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void ir_a_pagina (valor)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -624,10 +722,62 @@ ei_cuadro
 		   
 		</div>
 		
-   		<A id="submit" NAME="submit"><!-- --></A>	
+   		<A id="set_ordenamiento_multiple" NAME="set_ordenamiento_multiple"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">set_ordenamiento_multiple</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object set_ordenamiento_multiple (&lt;array&gt; valores)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Metodo utilizado para lanzar el evento de ordenamiento multiple columna</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">valores</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Arreglo con formato array('columna' => 'sentido')</span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="submit" NAME="submit"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>

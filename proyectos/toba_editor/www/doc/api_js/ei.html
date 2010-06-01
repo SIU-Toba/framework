@@ -464,6 +464,52 @@ ei
 			
 					<tr><td class="method-definition " nowrap>
 													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#filtrado_ef_ce_comunicar">filtrado_ef_ce_comunicar</A>(&lt;string&gt; id_ef, valor, fila)
+					</td>
+
+					<td class="method-definition"> Filtrado de opciones de los combos editables:<br>
+ Se comunica al servidor que debe refrescar las opciones de un ef combo editable en base al valor tipeado por el usuario
+ Este método dispara la llamada asincronica al servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta</A>(&lt;Object&gt; respuesta)
+					</td>
+
+					<td class="method-definition"> Filtrado de opciones de los combos editables:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef ce puntual</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion</A>(&lt;Object&gt; respuesta)
+					</td>
+
+					<td class="method-definition"> Filtrado de opciones de los combos editables:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef ce puntual</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#filtrado_ef_ce_validar">filtrado_ef_ce_validar</A>(&lt;string&gt; id_ef, valor, fila)
+					</td>
+
+					<td class="method-definition"> Filtrado de opciones de los combos editables:<br>
+ Se comunica al servidor para validar un valor que no está entre las opciones visibles
+ Este método dispara la llamada asincronica al servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
@@ -1068,6 +1114,246 @@ ei
 						
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="filtrado_ef_ce_comunicar" NAME="filtrado_ef_ce_comunicar"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">filtrado_ef_ce_comunicar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void filtrado_ef_ce_comunicar (&lt;string&gt; id_ef, valor, fila)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Filtrado de opciones de los combos editables:<br>
+ Se comunica al servidor que debe refrescar las opciones de un ef combo editable en base al valor tipeado por el usuario
+ Este método dispara la llamada asincronica al servidor</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del ef a refrescar (un ef esclavo)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">string</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description">) valor. Formato: ef-;-valor- 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="filtrado_ef_ce_respuesta" NAME="filtrado_ef_ce_respuesta"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">filtrado_ef_ce_respuesta</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void filtrado_ef_ce_respuesta (&lt;Object&gt; respuesta)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Filtrado de opciones de los combos editables:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef ce puntual</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">respuesta</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> La respuesta es un objeto no asociativo con claves responseText que contiene las nuevas opciones del ef 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="filtrado_ef_ce_respuesta_validacion" NAME="filtrado_ef_ce_respuesta_validacion"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">filtrado_ef_ce_respuesta_validacion</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void filtrado_ef_ce_respuesta_validacion (&lt;Object&gt; respuesta)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Filtrado de opciones de los combos editables:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef ce puntual</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">respuesta</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> La respuesta es un objeto no asociativo con claves responseText que contiene las nuevas opciones del ef 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="filtrado_ef_ce_validar" NAME="filtrado_ef_ce_validar"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">filtrado_ef_ce_validar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void filtrado_ef_ce_validar (&lt;string&gt; id_ef, valor, fila)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Filtrado de opciones de los combos editables:<br>
+ Se comunica al servidor para validar un valor que no está entre las opciones visibles
+ Este método dispara la llamada asincronica al servidor</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del ef a refrescar (un ef esclavo)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">string</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description">) valor. Formato: ef-;-valor- 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion()</a></UL>
+		   </UL>
 		   
 		   
 		</div>

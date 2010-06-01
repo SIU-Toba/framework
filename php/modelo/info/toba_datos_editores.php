@@ -2,6 +2,19 @@
 
 class toba_datos_editores
 {
+	static function get_pantallas_toba_servicio_web()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => '0',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'solic_wddx.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
 	static function get_pantallas_toba_ei_formulario()
 	{
 		return array (
@@ -26,14 +39,14 @@ class toba_datos_editores
     'imagen' => 'objetos/layout.png',
     'imagen_recurso_origen' => 'apex',
   ),
- 3 =>
+  3 => 
   array (
     'identificador' => '5',
-    'etiqueta' => 'Layout Impresión',
+    'etiqueta' => 'Impresión',
     'imagen' => 'objetos/layout_impresion.png',
     'imagen_recurso_origen' => 'apex',
   ),
-  4 =>
+  4 => 
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
@@ -49,7 +62,7 @@ class toba_datos_editores
   0 => 
   array (
     'identificador' => '0',
-    'etiqueta' => 'Propiedades Basicas',
+    'etiqueta' => 'Básicas',
     'imagen' => 'objetos/multi_etapa.gif',
     'imagen_recurso_origen' => 'apex',
   ),
@@ -74,14 +87,14 @@ class toba_datos_editores
     'imagen' => 'objetos/layout.png',
     'imagen_recurso_origen' => 'apex',
   ),
-4 =>
+  4 => 
   array (
     'identificador' => '5',
-    'etiqueta' => 'Layout Impresión',
+    'etiqueta' => 'Layout Impr.',
     'imagen' => 'objetos/layout_impresion.png',
     'imagen_recurso_origen' => 'apex',
   ),
-  5 =>
+  5 => 
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
@@ -328,19 +341,6 @@ class toba_datos_editores
     'identificador' => '3',
     'etiqueta' => 'Eventos',
     'imagen' => 'evento.png',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_servicio_web()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => '0',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'solic_wddx.gif',
     'imagen_recurso_origen' => 'apex',
   ),
 );
