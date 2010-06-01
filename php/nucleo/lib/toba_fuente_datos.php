@@ -95,7 +95,7 @@ class toba_fuente_datos
 			$id_solicitud = $db->quote(toba::instancia()->get_id_solicitud());
 			$usuario = $db->quote($usuario);
 			$sql = 'CREATE TEMP TABLE tt_usuario ( usuario VARCHAR(30), id_solicitud INTEGER);';
-			if ($this->definicion['permisos_por_tabla'] == '1') {
+			if (isset($this->definicion['permisos_por_tabla']) && $this->definicion['permisos_por_tabla'] == '1') {
 				$id_operacion = toba::memoria()->get_item_solicitado();
 				$rol_runtime =  toba_modelo_proyecto::get_rol_prueba_db_basico($this->definicion['fuente_datos']);									//Obtengo el rol basico de prueba
 				$rol_operacion = toba_modelo_proyecto::get_rol_prueba_db($this->definicion['fuente_datos'], $id_operacion['1']);			//Obtengo el particular para la operacion
