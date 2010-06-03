@@ -125,7 +125,7 @@ class toba_vista_xslfo
 		$archivo_pdf = toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo;
 		$salida = array();
 		$status = 0;
-		@exec($this->fop.' -xml '.$fxml.' -xsl "'.$this->xsl_proyecto.'" -pdf '.$archivo_pdf, $salida, $status);
+		@exec('"'.$this->fop.'" -xml '.$fxml.' -xsl "'.$this->xsl_proyecto.'" -pdf '.$archivo_pdf, $salida, $status);
 		if ($status != 0) {
 			throw new toba_error_usuario("Error al ejecutar {$this->fop}", "Status: $status. Mensaje: ".implode("\n", $salida));
 		}
