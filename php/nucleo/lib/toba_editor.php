@@ -179,22 +179,25 @@ class toba_editor
 				!isset(self::$ultimo_item) && self::$ultimo_item[1] != $item[1]) {
 			self::$ultimo_item = $item;			
 					
-			$modelo = self::get_modelo_proyecto();	
-			foreach (self::$fuentes as $fuente) {				
-				if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
-					try {
-						$rol = $modelo->get_rol_prueba_db($fuente['fuente_datos'], $item[1]);
-						if (toba::db()->existe_rol($rol)) {
-							toba::db()->set_rol($rol);
-						} else {
-							$rol = $modelo->get_rol_prueba_db_basico($fuente['fuente_datos']);
-							toba::db()->set_rol($rol);
+			$modelo = self::get_modelo_proyecto();
+
+			if (isset(self::$fuentes)) {
+				foreach (self::$fuentes as $fuente) {				
+					if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
+						try {
+							$rol = $modelo->get_rol_prueba_db($fuente['fuente_datos'], $item[1]);
+							if (toba::db()->existe_rol($rol)) {
+								toba::db()->set_rol($rol);
+							} else {
+								$rol = $modelo->get_rol_prueba_db_basico($fuente['fuente_datos']);
+								toba::db()->set_rol($rol);
+							}
+							toba::logger()->info("Se cambio el rol postgres a '$rol'");													
+						} catch (toba_error_db $e) {
+							toba::notificacion()->error("No fue posible cambiar el rol del usuario de conexion", $e->get_mensaje_log());
 						}
-						toba::logger()->info("Se cambio el rol postgres a '$rol'");													
-					} catch (toba_error_db $e) {
-						toba::notificacion()->error("No fue posible cambiar el rol del usuario de conexion", $e->get_mensaje_log());
 					}
-				}	
+				}
 			}
 		}
 	}
