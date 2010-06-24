@@ -24,21 +24,22 @@ class toba_db_tablas_nucleo
   0 => 'apex_menu',
   1 => 'apex_log_sistema_tipo',
   2 => 'apex_fuente_datos_motor',
-  3 => 'apex_grafico',
-  4 => 'apex_recurso_origen',
-  5 => 'apex_nivel_acceso',
-  6 => 'apex_solicitud_tipo',
-  7 => 'apex_columna_estilo',
-  8 => 'apex_columna_formato',
-  9 => 'apex_usuario_tipodoc',
-  10 => 'apex_clase_tipo',
-  11 => 'apex_msg_tipo',
-  12 => 'apex_nota_tipo',
-  13 => 'apex_objeto_mt_me_tipo_nav',
-  14 => 'apex_admin_persistencia',
-  15 => 'apex_tipo_datos',
-  16 => 'apex_molde_operacion_tipo',
-  17 => 'apex_molde_operacion_tipo_dato',
+  3 => 'apex_recurso_origen',
+  4 => 'apex_nivel_acceso',
+  5 => 'apex_solicitud_tipo',
+  6 => 'apex_columna_estilo',
+  7 => 'apex_columna_formato',
+  8 => 'apex_usuario_tipodoc',
+  9 => 'apex_clase_tipo',
+  10 => 'apex_msg_tipo',
+  11 => 'apex_nota_tipo',
+  12 => 'apex_objeto_mt_me_tipo_nav',
+  13 => 'apex_mapa_tipo',
+  14 => 'apex_grafico',
+  15 => 'apex_admin_persistencia',
+  16 => 'apex_tipo_datos',
+  17 => 'apex_molde_operacion_tipo',
+  18 => 'apex_molde_operacion_tipo_dato',
 );
 	}
 
@@ -217,26 +218,6 @@ class toba_db_tablas_nucleo
     16 => 'usuario',
     17 => 'clave',
     18 => 'base',
-  ),
-);
-	}
-
-	static function apex_grafico()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'grafico',
-  'zona' => 'general',
-  'desc' => 'Tipo	de	grafico',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'grafico',
-    1 => 'descripcion_corta',
-    2 => 'descripcion',
-    3 => 'parametros',
   ),
 );
 	}
@@ -619,6 +600,44 @@ class toba_db_tablas_nucleo
     0 => 'tipo_col',
     1 => 'descripcion',
     2 => 'proyecto',
+  ),
+);
+	}
+
+	static function apex_mapa_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a15_componente_ei_mapa.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'mapa_tipo',
+  'zona' => 'general',
+  'desc' => 'Tipo	de	grafico',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'mapa_tipo',
+    1 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_grafico()
+	{
+		return array (
+  'archivo' => 'pgsql_a16_componente_ei_grafico.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'grafico',
+  'zona' => 'general',
+  'desc' => 'Tipo	de	grafico',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'grafico',
+    1 => 'descripcion_corta',
+    2 => 'descripcion',
+    3 => 'parametros',
   ),
 );
 	}

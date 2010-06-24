@@ -28,20 +28,23 @@ class toba_db_tablas_componente
   20 => 'apex_objeto_esquema',
   21 => 'apex_objeto_ei_filtro',
   22 => 'apex_objeto_ei_filtro_col',
-  23 => 'apex_objeto_db_registros',
-  24 => 'apex_objeto_db_registros_col',
-  25 => 'apex_objeto_db_registros_ext',
-  26 => 'apex_objeto_db_registros_ext_col',
-  27 => 'apex_objeto_db_registros_uniq',
-  28 => 'apex_objeto_datos_rel',
-  29 => 'apex_objeto_datos_rel_asoc',
-  30 => 'apex_objeto_rel_columnas_asoc',
-  31 => 'apex_molde_operacion',
-  32 => 'apex_molde_operacion_log',
-  33 => 'apex_molde_operacion_log_elementos',
-  34 => 'apex_molde_operacion_abms',
-  35 => 'apex_molde_operacion_abms_fila',
-  36 => 'apex_molde_operacion_importacion',
+  23 => 'apex_objeto_mapa',
+  24 => 'apex_objeto_ei_mapa_layer',
+  25 => 'apex_objeto_grafico',
+  26 => 'apex_objeto_db_registros',
+  27 => 'apex_objeto_db_registros_col',
+  28 => 'apex_objeto_db_registros_ext',
+  29 => 'apex_objeto_db_registros_ext_col',
+  30 => 'apex_objeto_db_registros_uniq',
+  31 => 'apex_objeto_datos_rel',
+  32 => 'apex_objeto_datos_rel_asoc',
+  33 => 'apex_objeto_rel_columnas_asoc',
+  34 => 'apex_molde_operacion',
+  35 => 'apex_molde_operacion_log',
+  36 => 'apex_molde_operacion_log_elementos',
+  37 => 'apex_molde_operacion_abms',
+  38 => 'apex_molde_operacion_abms_fila',
+  39 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -941,6 +944,77 @@ class toba_db_tablas_componente
     49 => 'selec_ancho',
     50 => 'selec_serializar',
     51 => 'selec_cant_columnas',
+  ),
+);
+	}
+
+	static function apex_objeto_mapa()
+	{
+		return array (
+  'archivo' => 'pgsql_a15_componente_ei_mapa.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_mapa_proyecto',
+  'dump_clave_componente' => 'objeto_mapa',
+  'dump_order_by' => 'objeto_mapa',
+  'dump_where' => '( objeto_mapa_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_mapa_proyecto',
+    1 => 'objeto_mapa',
+    2 => 'mapa_tipo',
+  ),
+);
+	}
+
+	static function apex_objeto_ei_mapa_layer()
+	{
+		return array (
+  'archivo' => 'pgsql_a15_componente_ei_mapa.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_ei_mapa_proyecto',
+  'dump_clave_componente' => 'objeto_ei_mapa',
+  'dump_order_by' => 'objeto_ei_mapa, objeto_ei_mapa_layer',
+  'dump_where' => '( objeto_ei_mapa_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_ei_mapa_layer',
+    1 => 'objeto_ei_mapa_proyecto',
+    2 => 'objeto_ei_mapa',
+    3 => 'identificador',
+  ),
+);
+	}
+
+	static function apex_objeto_grafico()
+	{
+		return array (
+  'archivo' => 'pgsql_a16_componente_ei_grafico.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_grafico_proyecto',
+  'dump_clave_componente' => 'objeto_grafico',
+  'dump_order_by' => 'objeto_grafico',
+  'dump_where' => '( objeto_grafico_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_grafico_proyecto',
+    1 => 'objeto_grafico',
+    2 => 'grafico',
+    3 => 'descripcion',
   ),
 );
 	}

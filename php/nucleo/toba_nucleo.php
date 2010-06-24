@@ -549,7 +549,14 @@ class toba_nucleo
 			'toba_servicio_web'						=> 'nucleo/componentes/negocio/toba_servicio_web.php',
 			'toba_servicio_web_def'					=> 'nucleo/componentes/definicion/toba_servicio_web_def.php',
 			'toba_servicio_web_info'				=> 'modelo/info/componentes/toba_servicio_web_info.php',
-		
+			//- MAPA -
+			'toba_ei_mapa'						=> 'nucleo/componentes/interface/toba_ei_mapa.php',
+			'toba_ei_mapa_def'					=> 'nucleo/componentes/definicion/toba_ei_mapa_def.php',
+			'toba_ei_mapa_info'					=> 'modelo/info/componentes/toba_ei_mapa_info.php',		
+			//- GRAFICO
+			'toba_ei_grafico'						=> 'nucleo/componentes/interface/toba_ei_grafico.php',
+			'toba_ei_grafico_def'					=> 'nucleo/componentes/definicion/toba_ei_grafico_def.php',
+			'toba_ei_grafico_info'					=> 'modelo/info/componentes/toba_ei_grafico_info.php',		
 			//- Planes de generacion de operaciones -
 			'toba_asistente_def'					=> 'nucleo/componentes/definicion/toba_asistente_def.php',
 			'toba_asistente_abms_def'				=> 'nucleo/componentes/definicion/toba_asistente_abms_def.php',

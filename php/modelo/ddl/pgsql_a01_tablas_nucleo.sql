@@ -116,24 +116,6 @@ CREATE TABLE apex_fuente_datos
 );
 --#################################################################################################
 
-CREATE TABLE apex_grafico
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: grafico
---: zona: general
---: desc: Tipo	de	grafico
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	grafico						varchar(30)			NOT NULL,
-	descripcion_corta			varchar(40)			NULL,	--NOT
-	descripcion					TEXT		NOT NULL,
-	parametros					TEXT				NULL,
-	CONSTRAINT	"apex_tipo_grafico_pk" PRIMARY KEY ("grafico") 
-);
---#################################################################################################--
-
 CREATE TABLE apex_recurso_origen
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
