@@ -34,12 +34,11 @@ class toba_db_tablas_nucleo
   10 => 'apex_msg_tipo',
   11 => 'apex_nota_tipo',
   12 => 'apex_objeto_mt_me_tipo_nav',
-  13 => 'apex_mapa_tipo',
-  14 => 'apex_grafico',
-  15 => 'apex_admin_persistencia',
-  16 => 'apex_tipo_datos',
-  17 => 'apex_molde_operacion_tipo',
-  18 => 'apex_molde_operacion_tipo_dato',
+  13 => 'apex_grafico',
+  14 => 'apex_admin_persistencia',
+  15 => 'apex_tipo_datos',
+  16 => 'apex_molde_operacion_tipo',
+  17 => 'apex_molde_operacion_tipo_dato',
 );
 	}
 
@@ -600,24 +599,6 @@ class toba_db_tablas_nucleo
     0 => 'tipo_col',
     1 => 'descripcion',
     2 => 'proyecto',
-  ),
-);
-	}
-
-	static function apex_mapa_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a15_componente_ei_mapa.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'mapa_tipo',
-  'zona' => 'general',
-  'desc' => 'Tipo	de	grafico',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'mapa_tipo',
-    1 => 'descripcion',
   ),
 );
 	}

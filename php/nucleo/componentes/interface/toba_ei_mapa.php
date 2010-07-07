@@ -5,6 +5,18 @@
  * @subpackage Eis
  * @jsdoc ei ei
  * @wiki Referencia/Objetos/ei_esquema
+ 
+ 
+ 
+ 
+	- A este le falta el disparar_eventos, que busque en el get o post lo que el toolbar envio y llame al reportar_eventos del ci
+	- 
+ 
+ 
+ 
+ 
+ 
+ 
  */
 class toba_ei_mapa extends toba_ei
 {

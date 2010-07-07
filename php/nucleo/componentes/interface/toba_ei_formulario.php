@@ -734,7 +734,7 @@ class toba_ei_formulario extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {
-						throw new excepction_toba("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
