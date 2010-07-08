@@ -46,8 +46,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 INSERT INTO apex_objeto_grafico (objeto_grafico_proyecto, objeto_grafico, descripcion, grafico, ancho, alto) VALUES (
 	'toba_referencia', --objeto_grafico_proyecto
 	'1000643', --objeto_grafico
-	NULL, --descripcion
-	'pie', --grafico
-	NULL, --ancho
-	NULL  --alto
+	'Hola!', --descripcion
+	'lin', --grafico
+	'500px', --ancho
+	'500px'  --alto
 );
