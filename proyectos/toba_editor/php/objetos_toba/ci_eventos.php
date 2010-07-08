@@ -125,14 +125,15 @@ class ci_eventos extends toba_ci
 					//Tengo que reportarle al contenedor la eliminacion del evento					
 					$fila_chk = $dbr->get_fila($id);
 					$this->controlador()->notificar_eliminacion_evento($fila_chk);
-					$id_evento = $fila_chk['identificador']; //$dbr->get_fila_columna($id,"identificador");
+					$id_evento = $fila_chk['identificador'];
 					$dbr->eliminar_fila($id);
 					break;	
 				case "M":
 					$id_anterior = $dbr->get_fila_columna($id, 'identificador');
 					$id_nuevo = $registros[$id]['identificador'];
-					//Aca deberia quitar todas las pantallas que fueron relacionadas al id anterior
-					if ($id_anterior != $id_nuevo) {
+					//Aca deberia quitar todas las pantallas que fueron relacionadas al id anterior, solo sirve para CI
+					//por eso la pregunta por el metodo
+					if ($id_anterior != $id_nuevo && method_exists($this->controlador(), 'set_pantallas_evento')) {
 						$this->controlador()->set_pantallas_evento(array(), $id_anterior);
 					}
 					$dbr->modificar_fila($id, $registros[$id]);
