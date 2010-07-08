@@ -102,8 +102,8 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'1000627', --objeto_consumidor
 	'1000628', --objeto_proveedor
 	'prop_basicas', --identificador
-	'0', --parametros_a
-	'0', --parametros_b
+	'1', --parametros_a
+	'1', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	'2'  --orden
