@@ -1,11 +1,12 @@
 <?php
 /**
- * Genera un esquema utilizando GraphViz
+ * Genera un Grafico
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei ei
- * @wiki Referencia/Objetos/ei_esquema
- */
+ * @wiki Referencia/Objetos/ei_grafico
+*/ 
+ 
 class toba_ei_grafico extends toba_ei
 {
 	protected $_prefijo = 'esq';	
@@ -17,8 +18,8 @@ class toba_ei_grafico extends toba_ei
 	final function __construct($id)
 	{
 		parent::__construct($id);
-		$this->_alto = isset($this->_info_esquema['alto']) ?  $this->_info_esquema['alto'] : null;
-		$this->_ancho = isset($this->_info_esquema['ancho']) ?  $this->_info_esquema['ancho'] : null;
+		//$this->_alto = isset($this->_info_esquema['alto']) ?  $this->_info_esquema['alto'] : null;
+		//$this->_ancho = isset($this->_info_esquema['ancho']) ?  $this->_info_esquema['ancho'] : null;
 		//TODO: Hack para navegacion ajax con windows
 		toba_ci::set_navegacion_ajax(false);
 	}
@@ -36,11 +37,11 @@ class toba_ei_grafico extends toba_ei
 	
 	function generar_html()
 	{
-        $ancho = '';
-        if (isset($this->_ancho)) {
-        	$ancho = "width ='$this->_ancho'";
-        }		
-        echo "\n<table class='ei-base ei-esquema-base' $ancho>\n";		
+        //$ancho = '';
+        //if (isset($this->_ancho)) {
+        //	$ancho = "width ='$this->_ancho'";
+        //}
+        echo "\n<table class='ei-base ei-esquema-base'>\n";		
 		echo"<tr><td style='padding:0'>\n";		
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
@@ -48,14 +49,14 @@ class toba_ei_grafico extends toba_ei
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>";
 		//Campo de sincronizacion con JS
 		echo toba_form::hidden($this->_submit, '');
+		
 		if (isset($this->_contenido)) {
-			//Se arma el archivo .dot
-			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->_contenido", 'toba');
-			$this->generar_esquema($this->_contenido, $this->_info_esquema['formato'],
-			$this->_info_esquema['dirigido'], $this->_ancho,
-									$this->_alto);
+			echo $this->_contenido;
 		}
-		$this->generar_botones();
+		ei_arbol($this->_info_grafico, "INFO GRAFICO");
+
+
+		//$this->generar_botones();
 		echo "</div></td></tr>\n";
 		echo "</table>\n";
 	}

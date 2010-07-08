@@ -988,8 +988,10 @@ class toba_db_tablas_componente
   array (
     0 => 'objeto_grafico_proyecto',
     1 => 'objeto_grafico',
-    2 => 'grafico',
-    3 => 'descripcion',
+    2 => 'descripcion',
+    3 => 'grafico',
+    4 => 'ancho',
+    5 => 'alto',
   ),
 );
 	}

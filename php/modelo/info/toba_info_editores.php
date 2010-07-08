@@ -1469,6 +1469,16 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 	
+	//------------------------------------------------------------------------------
+	//----------  GRAFICOS
+	//------------------------------------------------------------------------------
+
+	function get_lista_tipos_grafico()
+	{
+		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		$sql = "SELECT grafico as id, descripcion_corta as desc FROM apex_grafico";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
 
 }
 ?>
