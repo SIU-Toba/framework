@@ -14,7 +14,7 @@
 
 // Old code
 //Object.prototype.objRef = null;
-var imgDir = '/img';
+var imgDir = toba_alias + '/img';
 var pixel_img = new Image(); pixel_img.src = imgDir + '/pixel.gif';
 var browser = new Browser();
 var dragObj = new Object();
