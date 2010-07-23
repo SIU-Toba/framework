@@ -46,5 +46,5 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 INSERT INTO apex_objeto_mapa (objeto_mapa_proyecto, objeto_mapa, mapfile_path) VALUES (
 	'toba_referencia', --objeto_mapa_proyecto
 	'1000632', --objeto_mapa
-	'path a un .map'  --mapfile_path
+	'componentes/ei_mapa/index.map'  --mapfile_path
 );

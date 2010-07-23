@@ -26,6 +26,9 @@ class toba_ei_mapa extends toba_ei
 
 	final function __construct($id)
 	{
+		if (! extension_loaded('php_mapscript') && ! extension_loaded('MapScript')) {
+			throw new toba_error('La extensión php_mapscript no se encuentra cargada, verifique la instalación.');
+		}
 		parent::__construct($id);
 		//TODO: Hack para navegacion ajax con windows*/
 		toba_ci::set_navegacion_ajax(false);
@@ -34,7 +37,8 @@ class toba_ei_mapa extends toba_ei
 	protected function preparar_componente()
 	{
 		if (isset($this->_info_mapa['mapfile_path'])) {
-			$this->_mapa = ms_newMapObj($this->_info_mapa['mapfile_path']);
+			$ruta = toba::proyecto()->get_path_php(). '/'. $this->_info_mapa['mapfile_path'];
+			$this->_mapa = ms_newMapObj($ruta);
 		} else {
 			toba::logger()->error('El componente '. $this->_id[1] . ' no posee un archivo map definido.');
 			throw new toba_error_def('Falta especificar un map file para el componente');

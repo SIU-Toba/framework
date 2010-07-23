@@ -1,0 +1,198 @@
+MAP
+#
+# Start of map file
+#
+NAME ARGENTINA
+STATUS ON
+SIZE 435 474
+UNITS KILOMETERS
+#EXTENT -73.719055 -55.575152 -53.054415 -20.903570
+#EXTENT -73.597264 -55.078448 -53.562864 -21.676640
+EXTENT -78.056534697674 -55.078448 -49.103593302326 -21.67664
+IMAGECOLOR 255 255 255
+SHAPEPATH "data/"
+
+    
+#
+# Start of web interface definition (including WMS enabling metadata)
+#
+WEB
+  IMAGEPATH "/srv/www/htdocs/cpres/temp/"
+  IMAGEURL "http://localhost/cpres/temp/"
+END
+
+PROJECTION
+  "proj=longlat"
+  "ellps=WGS84" 
+  "datum=WGS84" 
+END
+
+QUERYMAP
+  STATUS ON
+  STYLE HILITE
+  COLOR 247 123 0
+END
+
+#
+# Start of reference
+#
+REFERENCE
+  IMAGE graphics/reference.gif
+  EXTENT -73.597264 -55.078448 -53.562864 -21.676640
+  SIZE 55 110
+  STATUS ON
+  OUTLINECOLOR 255 0 0
+  COLOR -1 -1 -1
+END
+
+#
+# Start of legend
+#
+LEGEND
+#  IMAGECOLOR 255 0 0
+  LABEL
+    TYPE BITMAP
+    SIZE TINY
+    COLOR 0 0 0
+  END
+  STATUS EMBED
+  TRANSPARENT ON
+  POSITION lr
+END
+#
+# Start of scalebar
+#
+SCALEBAR
+  BACKGROUNDCOLOR 255 255 255
+  IMAGECOLOR 255 255 255
+  LABEL
+    COLOR 0 0 0
+    SIZE medium    
+  END
+  STYLE 0
+  SIZE 80 2
+  COLOR 0 0 0
+  UNITS KILOMETERS
+  INTERVALS 1
+  TRANSPARENT ON
+  STATUS ON
+END
+
+SYMBOL
+  NAME 'circle'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+END
+
+SYMBOL
+  NAME 'quadrat'
+  TYPE VECTOR
+  POINTS 
+   0 0
+   0 1
+   1 1
+   1 0
+   0 0 
+  END
+  FILLED TRUE
+END
+
+LAYER
+  NAME "DEPTOCEN"
+  CONNECTIONTYPE POSTGIS
+  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
+  DATA "the_geom from depto_plano"
+  STATUS ON
+  TYPE POLYGON
+  TRANSPARENCY 100
+  MAXSCALE 55000
+  CLASS
+    OUTLINECOLOR 192 192 192
+    SYMBOL 'circle'
+    SIZE 1
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 2
+  END
+  METADATA
+    queryable "TRUE"
+  END
+END
+
+LAYER
+  NAME "PROVCEN"
+  CONNECTIONTYPE POSTGIS
+  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
+  DATA "the_geom from provincia_plano"
+  STATUS ON
+  TYPE POLYGON
+  TRANSPARENCY 100
+  CLASS
+    OUTLINECOLOR 0 0 0
+    SYMBOL 'circle'
+    SIZE 2
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 2
+  END
+END
+
+LAYER
+  NAME "PROVCEN_LABEL"
+  CONNECTIONTYPE POSTGIS
+  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
+  DATA "the_geom from provincia_plano"
+  STATUS ON
+  TYPE ANNOTATION
+  LABELITEM nombre
+  CLASS
+    LABEL
+      COLOR 0 0 0
+      POSITION CC
+      SIZE SMALL
+      WRAP " "
+    END
+  END
+END
+
+LAYER
+  CONNECTIONTYPE POSTGIS
+  NAME "IESNU"
+  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
+  DATA "the_geom from (select ua.oid as oid, ua.the_geom as the_geom, ua.id_region from unidades_academicas as ua, instituciones as i WHERE ua.univ_id = i.univ_id AND id_tipo_institucion = 2) AS foo using SRID=4326 using UNIQUE oid"
+  STATUS ON
+  TYPE POINT
+  TEMPLATE "prueba_template.html"
+  CLASSITEM 'id_region'
+  CLASS 
+    NAME "S/R"
+    EXPRESSION ""
+    COLOR 0 0 0
+    SYMBOL 'quadrat'
+    SIZE 4
+  END
+  TOLERANCEUNITS pixels
+  TOLERANCE 5
+END
+
+LAYER
+  CONNECTIONTYPE POSTGIS
+  NAME "UNIVERSIDADES"
+  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
+  DATA "the_geom from (select ua.oid as oid, ua.the_geom as the_geom, ua.id_region from unidades_academicas as ua, instituciones as i WHERE ua.univ_id = i.univ_id AND id_tipo_institucion = 1) AS foo using SRID=4326 using UNIQUE oid"
+  STATUS ON
+  TYPE POINT
+  TEMPLATE "prueba_template.html"
+  CLASSITEM 'id_region'
+  CLASS 
+    NAME "S/R"
+    EXPRESSION ""
+    COLOR 0 0 0
+    SYMBOL 'circle'
+    SIZE 7
+  END
+  TOLERANCEUNITS pixels
+  TOLERANCE 5
+END
+
+
+END
