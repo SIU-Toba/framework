@@ -30,6 +30,7 @@ class toba_ef_editable extends toba_ef
 	protected $clase_css = 'ef-input';
 	protected static $callback_errores_validacion = null;
 	
+	
     static function get_lista_parametros_carga()
     {
     	$parametros = toba_ef::get_lista_parametros_carga_basico();    
@@ -83,12 +84,6 @@ class toba_ef_editable extends toba_ef
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
-	
-	function set_expreg($expreg) 
-	{
-		$this->expreg = $expreg;	
-	}
-	
 	
 	/**
 	 * En el caso del editable las opciones representa su estado por defecto
@@ -158,7 +153,6 @@ class toba_ef_editable extends toba_ef
 	
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
@@ -576,7 +570,6 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado, $this->solo_lectura,$this->tamano,
@@ -654,14 +647,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 				return $formato->formato_fecha($estado);
 			break;
 		}
-	}
-
-	function normalizar_parametro_cascada($parametro)
-	 {
-		 if (isset($parametro)) {
-			return cambiar_fecha($parametro,'/','-');
-		}
-	}
+	}	
 }
 //########################################################################################################
 //########################################################################################################
@@ -722,7 +708,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$this->maximo = null;	
 		}
 	}
-	
+
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
@@ -743,8 +729,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	}
 			
 	function get_input()
-	{
-		$this->analizar_cambio_solo_lectura();
+	{	
 		if (!isset($this->estado)) {
 			$this->estado = '';	
 		}

@@ -453,5 +453,17 @@ class toba_codigo_clase
 		return $datos;
 	}
 	//--------------------------------------------------------------
+
+	/**
+	 * Guarda el código que genera esta clase en $path
+	 * @param string $path
+	 */
+	function guardar($path)
+	{
+		$codigo = $this->get_codigo();
+		// Agregamos los tags php
+		$codigo = "<?php\n$codigo?>";
+		file_put_contents($path, $codigo);
+	}
 }
 ?>

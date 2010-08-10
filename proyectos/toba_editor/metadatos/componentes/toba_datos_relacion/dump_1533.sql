@@ -7,7 +7,7 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
+INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'toba_editor', --proyecto
 	'1533', --objeto
 	NULL, --anterior
@@ -15,6 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_relacion', --clase
+	'12', --punto_montaje
 	'odr_datos_tabla', --subclase
 	'db/odr_datos_tabla.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -43,14 +44,15 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_datos_rel
 ------------------------------------------------------------
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
+INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_montaje, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
 	'toba_editor', --proyecto
 	'1533', --objeto
 	'0', --debug
 	NULL, --clave
 	'3', --ap
-	'ap_relacion_objeto', --ap_clase
-	'db/ap_relacion_objeto.php', --ap_archivo
+	'12', --punto_montaje
+	'ap_relacion_datos_tabla', --ap_clase
+	'db/ap_relacion_datos_tabla.php', --ap_archivo
 	'0', --sinc_susp_constraints
 	'1', --sinc_orden_automatico
 	'1'  --sinc_lock_optimista
@@ -162,6 +164,25 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 12
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1533', --objeto
+	'12000001', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1527', --padre_objeto
+	'prop_basicas', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'12000115', --hijo_objeto
+	'fks', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'7'  --orden
+);
+--- FIN Grupo de desarrollo 12
+
 ------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
@@ -204,7 +225,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	NULL  --orden
+	'4'  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -216,9 +237,24 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	NULL  --orden
+	'5'  --orden
 );
 --- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 12
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'12000098', --dep_id
+	'1533', --objeto_consumidor
+	'12000115', --objeto_proveedor
+	'fks', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'7'  --orden
+);
+--- FIN Grupo de desarrollo 12
 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
@@ -243,7 +279,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'0', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	NULL  --orden
+	'6'  --orden
 );
 --- FIN Grupo de desarrollo 0
 
@@ -393,4 +429,22 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 	'180', --padre_clave
 	'1000233', --hijo_objeto
 	'1000084'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1533', --objeto
+	'12000001', --asoc_id
+	'1527', --padre_objeto
+	'169', --padre_clave
+	'12000115', --hijo_objeto
+	'12000030'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1533', --objeto
+	'12000001', --asoc_id
+	'1527', --padre_objeto
+	'170', --padre_clave
+	'12000115', --hijo_objeto
+	'12000031'  --hijo_clave
 );

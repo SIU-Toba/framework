@@ -1,5 +1,5 @@
 <?php 
-class eiform_login extends toba_ei_formulario
+class eiform_login extends toba_testing_pers_ei_formulario
 {
 
 	//-----------------------------------------------------------------------------------

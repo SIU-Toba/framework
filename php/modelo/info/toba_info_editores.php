@@ -1352,7 +1352,8 @@ class toba_info_editores
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
-		$sql = "SELECT		clase,
+		$sql = "SELECT		punto_montaje,
+							clase,
 							archivo
 					FROM	apex_consulta_php
 					WHERE	proyecto = $proyecto AND consulta_php = $consulta
@@ -1369,7 +1370,13 @@ class toba_info_editores
 			$datos = self::get_consulta_php($consulta_php, $proyecto);
 			$archivo_nombre = $datos['archivo'];
 		}
-		$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo_nombre;			
+		if (isset($datos['punto_montaje'])) {
+			$punto = toba_modelo_pms::get_pm($datos['punto_montaje']);
+			$archivo  = $punto->get_path_absoluto().'/'.$archivo_nombre;
+		} else {
+			$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo_nombre;
+		}
+		
 		if (! file_exists($archivo)) {
 			//-- Puede ser que sea un archivo de toba
 			$archivo = toba_nucleo::toba_dir().'/php/'.$archivo_nombre;
@@ -1467,8 +1474,7 @@ class toba_info_editores
 				ORDER BY servicio_web
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
-	}	
-	
+	}
 	//------------------------------------------------------------------------------
 	//----------  GRAFICOS
 	//------------------------------------------------------------------------------
@@ -1480,5 +1486,16 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
+	//------------------------------------------------------------------------------
+	//----------  PUNTOS DE MONTAJE
+	//------------------------------------------------------------------------------
+
+	static function get_pms($proyecto = null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		$sql = "SELECT * FROM apex_puntos_montaje WHERE proyecto=$proyecto";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
 }
 ?>

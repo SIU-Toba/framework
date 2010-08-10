@@ -116,7 +116,17 @@ class catalogo_general extends toba_nodo_basico
         'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '1000197', array(), $opciones ),
 			  'target'  => apex_frame_centro
 		) );		
-		
+
+		//----------------------------------------------------------------------
+      	$hijos[22] = new toba_nodo_basico('Puntos de Montaje', $this);
+  		$hijos[22]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("punto_montaje.png", false),
+							'ayuda' => null ) );
+	  	$hijos[22]->agregar_utileria( array(
+        'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
+        'ayuda'   => 'Editar los PUNTOS DE MONTAJE del proyecto',
+        'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '12000088', array(), $opciones ),
+			  'target'  => apex_frame_centro
+		) );
 		
 		//----------------------------------------------------------------------
 		if( toba_editor::acceso_recursivo() ) {
@@ -130,7 +140,9 @@ class catalogo_general extends toba_nodo_basico
 				  'target'  => apex_frame_centro
 			) );
 		}
-		//----------------------------------------------------------------------		
+		//----------------------------------------------------------------------
+//		$hijos[28] = new toba_nodo_basico('Puntos de MONTAJE', $this);
+		//----------------------------------------------------------------------
 		$this->set_hijos($hijos);
 	}
 }

@@ -7,7 +7,7 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 30
-INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
+INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'toba_referencia', --proyecto
 	'30000023', --objeto
 	NULL, --anterior
@@ -15,6 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
+	'12000003', --punto_montaje
 	'ci_uso_del_menu', --subclase
 	'varios/uso_del_menu/ci_uso_del_menu.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -71,7 +72,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 30
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'30000023', --objeto_ci
 	'30000013', --pantalla
@@ -90,9 +91,10 @@ Como en todos los ejemplos de este proyecto, es posible ver los códigos fuentes 
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000003'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'30000023', --objeto_ci
 	'30000014', --pantalla
@@ -113,9 +115,10 @@ Si el cambio se quiere aplicar de forma global, es preciso hacerlo durante el in
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000003'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'30000023', --objeto_ci
 	'30000015', --pantalla
@@ -131,9 +134,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000003'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
 	'30000023', --objeto_ci
 	'30000016', --pantalla
@@ -151,6 +155,7 @@ Para probar el cambio intente navegar a cualquier opción del menú', --descripcio
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000003'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 30

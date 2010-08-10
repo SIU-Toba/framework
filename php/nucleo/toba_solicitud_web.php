@@ -566,7 +566,9 @@ class toba_solicitud_web extends toba_solicitud
 			//Carga el TP a demanda
 			if (!class_exists($this->info['basica']['tipo_pagina_clase'])){
 				if ($this->info['basica']['tipo_pagina_archivo']) {
-					require_once($this->info['basica']['tipo_pagina_archivo']);
+					$punto = toba::puntos_montaje()->get_por_id($this->info['basica']['punto_montaje']);
+					$path  = $punto->get_path_absoluto().'/'.$this->info['basica']['tipo_pagina_archivo'];
+					require_once($path);
 				}
 			}
 			$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();

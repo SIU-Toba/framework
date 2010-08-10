@@ -1,6 +1,6 @@
 <?php
 
-class ci extends toba_ci
+class ci extends toba_testing_pers_ci
 { 
 	protected $datos_ml;
 	protected $datos_formulario;

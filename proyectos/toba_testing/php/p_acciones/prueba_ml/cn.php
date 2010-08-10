@@ -1,6 +1,6 @@
 <?php
 
-class cn extends toba_cn 
+class cn extends toba_testing_pers_cn 
 { 
 	function evt__procesar_especifico()
 	{

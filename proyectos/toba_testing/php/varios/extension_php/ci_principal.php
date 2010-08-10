@@ -1,5 +1,5 @@
 <?php
-class ci_principal extends toba_ci
+class ci_principal extends toba_testing_pers_ci
 {
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{

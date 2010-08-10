@@ -153,6 +153,7 @@ CREATE TABLE apex_objeto_cuadro_col_cc
 --: dump: componente
 --: dump_clave_proyecto: objeto_cuadro_proyecto
 --: dump_clave_componente: objeto_cuadro
+--: clave_elemento: objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col
 --: dump_order_by: objeto_cuadro, objeto_cuadro_col, objeto_cuadro_cc
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto

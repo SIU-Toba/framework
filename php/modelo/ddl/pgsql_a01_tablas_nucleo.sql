@@ -31,6 +31,8 @@ CREATE TABLE			apex_estilo
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: proyecto, estilo
+--: clave_proyecto: proyecto
+--: clave_elemento: estilo
 --: zona: general
 --: desc: Skins
 --: version: 1.0
@@ -85,6 +87,8 @@ CREATE TABLE apex_fuente_datos
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: fuente_datos
+--: clave_proyecto: proyecto
+--: clave_elemento: fuente_datos
 --: zona: general
 --: desc: Bases de datos a	las que se puede acceder
 --: version: 1.0
@@ -172,6 +176,8 @@ CREATE TABLE apex_elemento_formulario
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: elemento_formulario
+--: clave_proyecto: proyecto
+--: clave_elemento: elemento_formulario
 --: zona: general
 --: desc: Elementos de formulario soportados
 --: version: 1.0
@@ -196,6 +202,8 @@ CREATE TABLE apex_solicitud_obs_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
+--: clave_proyecto: proyecto
+--: clave_elemento: solicitud_obs_tipo
 --: dump_order_by: solicitud_obs_tipo
 --: zona: general
 --: desc:
@@ -209,6 +217,34 @@ CREATE TABLE apex_solicitud_obs_tipo
 	CONSTRAINT	"apex_sol_obs_tipo_pk" PRIMARY KEY ("proyecto","solicitud_obs_tipo"),
 	CONSTRAINT	"apex_sol_obs_tipo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
+
+
+--#################################################################################################
+CREATE SEQUENCE apex_puntos_montaje_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE TABLE apex_puntos_montaje
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: id
+--: clave_proyecto: proyecto
+--: clave_elemento: id
+--: zona: general
+--: desc: tabla de puntos de montaje
+--: version: 1.6
+---------------------------------------------------------------------------------------------------
+(
+	id									int8				DEFAULT nextval('"apex_puntos_montaje_seq"'::text)	NOT NULL,
+	etiqueta							varchar(50)			NOT NULL,
+	proyecto							varchar(15)			NOT NULL,
+	proyecto_ref						varchar(15)			NULL,
+	descripcion							TEXT				NULL,
+	path_pm								TEXT				NOT NULL,
+	tipo								varchar(20)			NOT NULL,
+
+	UNIQUE								("etiqueta","proyecto"),
+	CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id"),
+	CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+);
 --#################################################################################################
 
 CREATE TABLE apex_pagina_tipo
@@ -216,6 +252,8 @@ CREATE TABLE apex_pagina_tipo
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: pagina_tipo
+--: clave_proyecto: proyecto
+--: clave_elemento: pagina_tipo
 --: zona: general
 --: desc:
 --: version: 1.0
@@ -230,8 +268,10 @@ CREATE TABLE apex_pagina_tipo
 	include_abajo						TEXT	NULL,
 	exclusivo_toba						smallint		NULL,
 	contexto							TEXT	NULL,	--	Establece variables de CONTEXTO?	Cuales?
+	punto_montaje						int8			NULL,
 	CONSTRAINT	"apex_pagina_tipo_pk" PRIMARY	KEY ("proyecto","pagina_tipo"),
-	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 
@@ -306,6 +346,8 @@ CREATE TABLE apex_ptos_control_param
 --: dump: multiproyecto
 --: dump_order_by: proyecto
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: pto_control
 --: zona: nucleo
 --: desc:
 --: version: 1.0
@@ -325,6 +367,8 @@ CREATE TABLE apex_ptos_control_ctrl
 --: dump: multiproyecto
 --: dump_order_by: proyecto
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: pto_control, clase
 --: zona: nucleo
 --: desc:
 --: version: 1.0
@@ -348,6 +392,8 @@ CREATE TABLE	apex_consulta_php
 --: dump: multiproyecto
 --: dump_order_by: proyecto
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: consulta_php
 --: zona: nucleo
 --: desc:
 --: version: 1.0
@@ -356,10 +402,12 @@ CREATE TABLE	apex_consulta_php
   	proyecto 					VARCHAR(15)  	NOT NULL,
 	consulta_php				int8			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
   	clase                   	VARCHAR(60)  	NOT NULL,
-  	archivo                 	TEXT 	NOT NULL,
-  	descripcion                	TEXT 	NULL,
+  	archivo                 	TEXT			NOT NULL,
+  	descripcion                	TEXT			NULL,
+	punto_montaje				int8			NULL,
   	CONSTRAINT "apex_consulta_php_pk" PRIMARY KEY("consulta_php","proyecto"),
-  	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+  	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
 
@@ -372,6 +420,8 @@ CREATE TABLE	apex_tarea
 --: dump: multiproyecto
 --: dump_order_by: proyecto, tarea
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: tarea
 --: zona: nucleo
 --: instancia:	1
 --: desc:
@@ -390,8 +440,6 @@ CREATE TABLE	apex_tarea
 );
 CREATE INDEX index_apex_tarea_proxima_ejecucion ON apex_tarea(ejecucion_proxima);
 
-
-
 --#################################################################################################
 
 CREATE SEQUENCE apex_log_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
@@ -401,6 +449,8 @@ CREATE TABLE	apex_log_tarea
 --: dump: multiproyecto
 --: dump_order_by: proyecto, log_tarea
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: log_tarea
 --: zona: nucleo
 --: instancia:	1
 --: desc:
@@ -426,6 +476,8 @@ CREATE TABLE apex_servicio_web
 --: dump: multiproyecto
 --: dump_order_by: proyecto
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: servicio_web
 --: zona: nucleo
 --: desc:
 --: version: 1.0
@@ -448,6 +500,8 @@ CREATE TABLE apex_servicio_web_param
 --: dump: multiproyecto
 --: dump_order_by: proyecto
 --: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: servicio_web, parametro
 --: zona: nucleo
 --: desc:
 --: version: 1.0

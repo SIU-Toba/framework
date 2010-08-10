@@ -422,7 +422,9 @@ class toba_datos_relacion extends toba_componente
 			if ($particular	&& isset($this->_info_estructura['ap_archivo']) && isset($this->_info_estructura['ap_clase']) ) {
 				$clase = $this->_info_estructura['ap_clase'];
 				if( ! class_exists($clase) ) {
-					require_once($this->_info_estructura['ap_archivo']);
+					$punto = toba::puntos_montaje()->get_por_id($this->_info_estructura['punto_montaje']);
+					$path  = $punto->get_path_absoluto().'/'.$this->_info_estructura['ap_archivo'];
+					require_once($path);
 				}
 			} else {
 				$clase = "toba_ap_relacion_db";

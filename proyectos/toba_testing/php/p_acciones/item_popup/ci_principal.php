@@ -1,6 +1,6 @@
 <?php
 
-class ci_principal extends toba_ci
+class ci_principal extends toba_testing_pers_ci
 {
 	function extender_objeto_js()
 	{

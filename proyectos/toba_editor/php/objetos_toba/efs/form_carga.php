@@ -7,11 +7,25 @@ class form_carga extends toba_ei_formulario
 	{
 		echo "
 			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista'];
+
+			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial)
+			{
+				if (!inicial) {
+					this.ef('carga_include').cambiar_valor('');
+				}
+			}
+			
+			{$this->objeto_js}.modificar_vinculo__ef_carga_include = function(id_vinculo)
+			{
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+			}
 			
 			{$this->objeto_js}.evt__tipo_clase__procesar = function(inicial) {
 				var cheq = this.ef('tipo_clase').get_estado();
 				this.ef('carga_include').mostrar((cheq == 'estatica'), true);
 				this.ef('carga_clase').mostrar((cheq == 'estatica'), true);
+				this.ef('punto_montaje').mostrar((cheq == 'estatica'));
 				this.ef('carga_consulta_php').mostrar((cheq == 'consulta_php'), true);
 				this.ef('carga_dt').mostrar((cheq == 'datos_tabla'), true);
 				this.ef('carga_metodo_lista').mostrar((cheq == 'consulta_php'), true);
@@ -22,7 +36,7 @@ class form_carga extends toba_ei_formulario
 						this.ef('carga_col_desc').mostrar(cheq != apex_ef_no_seteado);
 				}
 				var div = $('nodo_carga_metodo');
-				if (div) {				
+				if (div) {
 					div.innerHTML = '';
 				}
 				this.ef('carga_metodo').mostrar(cheq != apex_ef_no_seteado);

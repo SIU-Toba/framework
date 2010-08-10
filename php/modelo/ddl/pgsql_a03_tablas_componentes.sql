@@ -9,6 +9,9 @@ CREATE TABLE apex_item_zona
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: zona
+--: clave_proyecto: proyecto
+--: clave_elemento: proyecto, zona
+--: diff_clave: zona
 --: zona: usuario
 --: desc:
 --: version: 1.0
@@ -23,8 +26,10 @@ CREATE TABLE apex_item_zona
 	consulta_archivo				TEXT	NULL,
 	consulta_clase					varchar(60)		NULL,
 	consulta_metodo					varchar(80)		NULL,
+	punto_montaje					int8			NULL,
 	CONSTRAINT	"apex_item_zona_pk" PRIMARY KEY ("proyecto","zona"),
-	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -125,6 +130,7 @@ CREATE TABLE apex_item_permisos_tablas
 --: dump: componente
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: item
+--: clave_elemento: proyecto, item, fuente_datos
 --: dump_order_by: item
 --: dump_where: (	proyecto = '%%'	)
 --: zona: central
@@ -168,6 +174,8 @@ CREATE TABLE apex_clase
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
+--: clave_proyecto: proyecto
+--: clave_elemento: clas
 --: dump_order_by: clase
 --: zona: central
 --: desc:
@@ -223,6 +231,8 @@ CREATE TABLE apex_clase_relacion
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: clase_relacion
+--: clave_proyecto: proyecto
+--: clave_elemento: clase_relacion
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -258,6 +268,7 @@ CREATE TABLE apex_objeto
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,
 	clase								varchar(60)		NOT NULL,
+	punto_montaje						int8			NULL,
 	subclase							varchar(80)		NULL,
 	subclase_archivo					TEXT	NULL,
 	objeto_categoria_proyecto			varchar(15)		NULL,
@@ -284,7 +295,8 @@ CREATE TABLE apex_objeto
 	CONSTRAINT  "apex_objeto_identificador_uq" UNIQUE ("proyecto","identificador"),
 	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 --  CONSTRAINT  "apex_objeto_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 );
 --#################################################################################################
@@ -431,6 +443,7 @@ CREATE TABLE apex_ptos_control_x_evento
 --: dump: componente
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: objeto
+--: clave_elemento: proyecto, pto_control, evento_id
 --: dump_order_by: objeto, evento_id
 --: zona: nucleo
 --: desc:
@@ -455,6 +468,7 @@ CREATE TABLE apex_item_objeto
 --: dump: componente
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: item
+--: clave_elemento: proyecto, item, objeto
 --: dump_order_by: item, objeto
 --: zona: central
 --: desc:

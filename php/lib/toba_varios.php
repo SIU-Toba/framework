@@ -5,6 +5,18 @@
 		return toba_nucleo::toba_dir();
 	}
 
+	/**
+	 * comienza_con
+	 * Testea si el string $haystack comienza con $needle
+	 *
+	 * @param     string
+	 * @param     string
+	 * @return    bool
+	 */
+	function comienza_con($haystack, $needle){
+		return strpos($haystack, $needle) === 0;
+	}
+
 	function array_elem_limitrofes($arreglo, $elem)
 	{
 		$arreglo = array_values($arreglo);
@@ -126,7 +138,54 @@
 		}		
 		return $salida;
 	}
-	
+
+	/**
+	 * Elimina los campos del array con valor null. No se modifica el arreglo
+	 * pasado por parámetro, se devuelve uno nuevo con las componentes vacías
+	 * eliminadas
+	 * @param array $array
+	 * @return array
+	 */
+	function array_eliminar_nulls(&$array)
+	{
+		$nuevo_array = array();
+
+		foreach ($array as $columna => $valor) {
+			if (!is_null($valor)) {
+				$nuevo_array[$columna] = $valor;
+			}
+		}
+
+		return $nuevo_array;
+	}
+
+	/**
+	 * Borra todos los subarrays vacíos de $array. Modifica la variable de entrada
+	 * @param array $array
+	 */
+	function array_borrar_subarrays_vacios(&$array)
+	{
+		foreach ($array as $key => $data) {
+			if (empty($data)) {
+				unset($array[$key]);
+			}
+		}
+	}
+
+	/**
+	 * Si el parámetro no es un arreglo o es un arreglo sin la componente 0 mete
+	 * el parámetro dentro de un arreglo
+	 * @param mixed $elem
+	 * @return array
+	 */
+	function array_wrap($elem)
+	{
+		if (!is_array($elem) || !isset($elem[0])) {
+			return array($elem);
+		}
+		return $elem;
+	}
+
 	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
 	{
 		$rs_columna = array();
@@ -629,5 +688,5 @@
 		$filesizename = array(" B", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
 		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), $decimales) . $filesizename[$i] : '0 Bytes';
 	}
-	
+
 ?>

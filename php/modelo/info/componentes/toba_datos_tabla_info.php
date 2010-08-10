@@ -70,7 +70,7 @@ class toba_datos_tabla_info extends toba_componente_info
 		
 		$iconos = array();
 		if (isset($this->datos['_info_estructura']['ap_sub_clase_archivo'])) {
-			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_sub_clase_archivo']) ) {
+			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_sub_clase_archivo'], $this->datos['_info_estructura']['punto_montaje']) ) {
 				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
@@ -121,6 +121,15 @@ class toba_datos_tabla_info extends toba_componente_info
 	//-- Generacion de METADATOS para otros componentes
 	//---------------------------------------------------------------------
 
+	private function is_col_fk($col) {
+		foreach ($this->datos['_info_fks'] as $fk) {
+			if ($fk['columna_ext'] == $col) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	*	Exporta la definicion de una manera entendible para el datos_tabla de la tabla 
 	*		donde se guardan los EFs del ei_formulario
@@ -130,7 +139,13 @@ class toba_datos_tabla_info extends toba_componente_info
 		$datos = array();
 		$a=0;
 		foreach($this->datos['_info_columnas'] as $columna){
-			if( (!$columna['pk']) || $incluir_pk){
+			// HACK: Evitamos que se carguen las columnas de las tablas extendidas
+			// que son foreign keys para evitar repetición de columnas
+			if ($this->is_col_fk($columna['columna'])) {
+				continue;
+			}
+
+			if( (!$columna['pk']) || $incluir_pk) {
 				$datos[$a]['identificador'] = $columna['columna'];
 				$datos[$a]['columnas'] = $columna['columna'];
 				$datos[$a]['etiqueta'] = ucfirst(  str_replace("_"," ",$columna['columna']) );

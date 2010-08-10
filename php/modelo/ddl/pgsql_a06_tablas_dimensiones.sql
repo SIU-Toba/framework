@@ -10,6 +10,8 @@ CREATE TABLE apex_relacion_tablas
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: relacion_tablas
+--: clave_proyecto: proyecto
+--: clave_elemento: relacion_tablas
 --: zona: usuario
 --: desc:
 --: version: 1.0
@@ -40,6 +42,8 @@ CREATE TABLE apex_dimension
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: dimension
+--: clave_proyecto: proyecto
+--: clave_elemento: dimension
 --: zona: usuario
 --: desc:
 --: version: 1.0
@@ -70,6 +74,8 @@ CREATE TABLE apex_dimension_gatillo
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: gatillo
+--: clave_proyecto: proyecto
+--: clave_elemento: gatillo
 --: zona: usuario
 --: desc:
 --: version: 1.0

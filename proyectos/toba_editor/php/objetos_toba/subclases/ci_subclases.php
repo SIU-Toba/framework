@@ -7,6 +7,7 @@ class ci_subclases extends toba_ci
 	protected $s__datos_nombre;
 	protected $s__subcomponente;
 	protected $s__tipo_elemento;
+	protected $s__pm;
 	
 	protected $clase_php;
 	protected $archivo_php;
@@ -84,15 +85,26 @@ class ci_subclases extends toba_ci
 			}
 		}
 	}
+
+	private function recuperar_punto_montaje()
+	{
+		if (!isset($this->s__pm)) {
+			$pm = toba::memoria()->get_parametro('punto_montaje');
+			if (isset($pm)) {
+				$this->s__pm = toba_modelo_pms::get_pm($pm);
+			}
+		}
+		return $this->s__pm;
+	}
 	
 	//------------------------------------------------------------------
 	//--------	UBICACION
 	//------------------------------------------------------------------
-		
+
 	function conf__carpetas(toba_ei_archivos $archivos)
 	{
 		$archivos->set_solo_carpetas(true);
-		$absoluto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())."/php/";
+		$absoluto = $this->recuperar_punto_montaje()->get_path_absoluto();
 		$archivos->set_path_absoluto($absoluto);
 		$inicial = toba::memoria()->get_parametro('ef_popup_valor');
 		if ($inicial != null) {
@@ -111,7 +123,11 @@ class ci_subclases extends toba_ci
 		if ($relativo != '') {
 			$relativo = '/'.$relativo;
 		}
-		return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()).'/php'.$relativo;
+		$pm_id = $this->get_metaclase()->get_punto_montaje();
+		$pm = toba_modelo_pms::get_pm($pm_id);
+		return $pm->get_path_absoluto().$relativo;
+
+//		return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())..$relativo;
 	}
 	
 	function evt__pant_ubicacion__salida()

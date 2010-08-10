@@ -1,5 +1,5 @@
 <?php 
-class la_subclase extends toba_ei_formulario
+class la_subclase extends toba_testing_pers_ei_formulario
 {
 }
 

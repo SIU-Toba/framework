@@ -7,7 +7,7 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
+INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'toba_editor', --proyecto
 	'1524', --objeto
 	NULL, --anterior
@@ -15,6 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
+	'12', --punto_montaje
 	'odt_cuadro_columnas', --subclase
 	'db/odt_cuadro_columnas.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -43,15 +44,17 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	NULL, --max_registros
 	NULL, --min_registros
+	'12', --punto_montaje
 	'0', --ap
 	'dt_ap_cuadro_columnas', --ap_clase
 	'db/dt_ap_cuadro_columnas.php', --ap_archivo
 	'apex_objeto_ei_cuadro_columna', --tabla
+	NULL, --tabla_ext
 	NULL, --alias
 	'0', --modificar_claves
 	'toba_editor', --fuente_datos_proyecto
@@ -64,7 +67,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'133', --col_id
@@ -75,9 +78,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'15', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'134', --col_id
@@ -88,9 +92,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'135', --col_id
@@ -101,9 +106,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'136', --col_id
@@ -114,9 +120,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'40', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'137', --col_id
@@ -127,9 +134,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'138', --col_id
@@ -140,9 +148,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'100', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'139', --col_id
@@ -153,9 +162,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'140', --col_id
@@ -166,9 +176,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'10', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'141', --col_id
@@ -179,9 +190,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'142', --col_id
@@ -192,9 +204,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'20', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'143', --col_id
@@ -205,9 +218,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'144', --col_id
@@ -218,9 +232,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'145', --col_id
@@ -231,9 +246,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'146', --col_id
@@ -244,9 +260,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'-1', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'147', --col_id
@@ -257,9 +274,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'148', --col_id
@@ -270,9 +288,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'226', --col_id
@@ -283,9 +302,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'295', --col_id
@@ -296,9 +316,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'100', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'601', --col_id
@@ -309,9 +330,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'-1', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'602', --col_id
@@ -322,9 +344,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'60', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'603', --col_id
@@ -335,9 +358,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'60', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'604', --col_id
@@ -348,9 +372,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'-1', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'605', --col_id
@@ -361,9 +386,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'100', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'606', --col_id
@@ -374,9 +400,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'40', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'607', --col_id
@@ -387,12 +414,13 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'40', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 0
 
 --- INICIO Grupo de desarrollo 30
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'30000004', --col_id
@@ -403,9 +431,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'30000005', --col_id
@@ -416,12 +445,13 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'255', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 30
 
 --- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'33000002', --col_id
@@ -432,9 +462,10 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'100', --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1524', --objeto
 	'33000041', --col_id
@@ -445,7 +476,8 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0'  --externa
+	'0', --externa
+	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 33
 

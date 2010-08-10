@@ -49,6 +49,7 @@ class toba_componente_def implements toba_componente_definicion
 									o.parametro_f               	as parametro_f,              
 									o.usuario                   	as usuario,                  
 									o.creacion                  	as creacion,
+									o.punto_montaje					as punto_montaje,
 									c.editor_proyecto 				as clase_editor_proyecto,
 									c.editor_item 					as clase_editor_item,
 									c.archivo 						as clase_archivo,

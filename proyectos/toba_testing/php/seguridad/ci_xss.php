@@ -1,6 +1,6 @@
 <?php 
 
-class ci_xss extends toba_ci
+class ci_xss extends toba_testing_pers_ci
 {
 	protected $prueba1;
 	protected $prueba2;

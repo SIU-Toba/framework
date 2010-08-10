@@ -229,7 +229,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
 					}
 					$tabla->persistidor()->sincronizar_eliminados($filas_tablas[$tabla]);
-				}			
+				}
 			} else {
 				$tabla->persistidor()->sincronizar_eliminados();
 			}

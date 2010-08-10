@@ -54,8 +54,8 @@ class toba_db
 		$this->base     = $base;
 		$this->puerto = $puerto;
 	}
-	
-	
+
+
 	function set_parser_errores(toba_parser_error_db $parser)
 	{
 		$this->parser_errores = $parser;
@@ -403,7 +403,7 @@ class toba_db
 			} else {
 				return $e->getMessage();
 			}
-		}		
+		}
 	}
 
 	/**
@@ -433,6 +433,17 @@ class toba_db
 		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
 		return $this->ejecutar($str);
 		//}
+	}
+
+	/**
+	 * Devuelve el id del último insert en la base. Si el motor es postgres
+	 * se debe indicar la secuencia correspondiente para tener resultados significativos
+	 * @param string $secuencia Nombre de la secuencia que tiene asociada el id
+	 * @return mixed
+	 */
+	function ultimo_insert_id($secuencia = null)
+	{
+		return $this->conexion->lastInsertId($secuencia);
 	}
 
 	//------------------------------------------------------------------------

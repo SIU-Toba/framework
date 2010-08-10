@@ -13,18 +13,24 @@ define("apex_db_registros_separador","%");
  * @subpackage Persistencia
  */
  
-class toba_ap_tabla_db implements toba_ap_tabla
+abstract class toba_ap_tabla_db implements toba_ap_tabla
 {
+	const tipo_tabla_unica = 'st';
+	const tipo_multitabla  = 'mt';
+
+	/**
+	 * @var toba_datos_tabla
+	 */
 	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
 	protected $_columnas;						// DATOS_TABLA: Estructura del objeto
 	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
-	protected $_cambios;							// DATOS_TABLA: Estado de los cambios
+	protected $_cambios;						// DATOS_TABLA: Estado de los cambios
 	protected $_tabla;							// DATOS_TABLA: Tabla
 	protected $_alias;							// DATOS_TABLA: Alias
 	protected $_clave;							// DATOS_TABLA: Clave
 	protected $_fuente;							// DATOS_TABLA: Fuente de datos
 	protected $_secuencias;
-	protected $_columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
+	protected $_columnas_predeterminadas_db;	// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
 	protected $_sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
 	protected $_schema;
 	//-------------------------------
@@ -46,7 +52,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * @param toba_datos_tabla $datos_tabla Tabla que persiste
 	 */
-	final function __construct($datos_tabla)
+	function __construct($datos_tabla)
 	{
 		$this->objeto_tabla = $datos_tabla;
 		$this->_tabla = $this->objeto_tabla->get_tabla();
@@ -60,8 +66,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$this->_secuencias[$columna['columna']] = $columna['secuencia'];
 			}
 		}
-		$this->inicializar();
-		$this->ini();
 	}
 	
 	/**
@@ -269,6 +273,18 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	function get_lock_optimista()
 	{
 		return $this->_lock_optimista;
+	}
+
+	/**
+	 * recibe una columna y una tabla y devuelve verdadero si la columna
+	 * pertenece a la tabla y falso en caso contrario
+	 */
+	function pertenece_a_tabla(&$col, $tabla)
+	{
+		// si no está seteado $col['tabla'] entonces no puede ser un ap
+		// multitabla, por tanto todas las columnas perteneces a la tabla $this->_tabla
+		// porque no hay otra ;)
+		return !isset($col['tabla']) || $tabla == $col['tabla'];
 	}
 
 	//-------------------------------------------------------------------------------
@@ -488,7 +504,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		}else{
 			$registros = array_keys($this->_cambios);
 		}
-		foreach($registros as $registro){
+		
+		foreach($registros as $registro) {
 			if ($this->_cambios[$registro]['estado'] == 'u') {
 				$this->evt__pre_update($registro);
 				$this->modificar_registro_db($registro);
@@ -510,18 +527,22 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function insertar_registro_db($id_registro)
 	{
+		$this->_insert_campos_default = array();
 		$this->ejecutar_sql_insert($id_registro);
 		
 		//Actualizo las secuencias
 		if(count($this->_secuencias)>0){
 			foreach($this->_secuencias as $columna => $secuencia){
+				if ($this->es_seq_tabla_ext($columna)) {
+					continue;
+				}
 				$valor = recuperar_secuencia($secuencia, $this->_fuente);
 				//El valor es necesario en el evt__post_insert!!
 				$this->datos[$id_registro][$columna] = $valor;
 				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
-		
+
 		//Actualizo los valores que tomaron los DEFAULT enviados
 		if (! empty($this->_insert_campos_default)) {
 			$id = array();
@@ -529,10 +550,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$id[$campo_clave] = $this->datos[$id_registro][$campo_clave];
 			}
 			$where = $this->generar_clausula_where_lineal($id, false);
-			$sql =	"SELECT\n\t" . implode(", \n\t", $this->_insert_campos_default);
-			$sql .= "\nFROM\n\t {$this->_tabla}";
-			$sql .= "\nWHERE ".implode(' AND ', $where);
+			$sql =	$this->get_sql_campos_default($where);
 			$fila_base = toba::db($this->_fuente)->consultar_fila($sql);
+
 			if ($fila_base === false) {
 				throw new toba_error("Se esperaba encontrar un registro", $sql);
 			}
@@ -542,6 +562,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		}
 	}
 
+	abstract protected function es_seq_tabla_ext($col);
+
+	abstract protected function get_sql_campos_default($where);
+	
 	/**
 	 * Ejecuta un update de un registro en la base
 	 * @param mixed $id_registro Clave interna del registro
@@ -560,7 +584,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function eliminar_registro_db($id_registro)
 	{
 		$sql = $this->generar_sql_delete($id_registro);
-		$this->log("registro: $id_registro - " . $sql); 
+		$this->log("registro: $id_registro - " . $sql);
 		$this->ejecutar_sql($sql, $id_registro);
 		return $sql;
 	}
@@ -796,16 +820,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$columnas = array();
 			foreach ($this->_columnas as $col) {
 				if(!$col['externa'] && $col['tipo'] != 'B') {
-					$columnas[] = $this->_alias  . "." . $col['columna'];
+					$columnas[] = $this->get_select_col($col['columna']);
 				}
 			}
 		}
 		//Si no se explicitan los from se asume que es la tabla local
 		if (!isset($from)) {
-			$from = array($this->_tabla . ' as '. $this->_alias);
+			$from = array($this->get_from_default());
 		}
 
-		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas); 
+		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas);
 		$sql .= "\nFROM\n\t" . implode(", ", $from);
 		if(! empty($where)) {
 			$sql .= "\nWHERE";
@@ -818,8 +842,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		//Se guardan los datos de la carga
 		$this->_sql_carga = array('from' => $from, 'where' => $where);
 		return $sql;
-	}	
-	
+	}
+
+
+	abstract protected function get_select_col($col);
+
+	abstract protected function get_from_default();
+
 	/**
 	 * Retorna la sentencia sql utilizada previamente para la carga de esta tabla, pero seleccionando solo algunos campos
 	 * @param array $campos Columnas que se traen de la carga
@@ -840,17 +869,19 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */
-	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false)
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null)
 	{
 		$a=0;
 		$registro = $this->datos[$id_registro];
 		$binarios = array();
 		$db = toba::db($this->_fuente);
+		$valores_sql = array();
+		$columnas_sql = array();
 		$valores_sql_binarios = array();
 		$columnas_sql_binarios = array();
-		$this->_insert_campos_default = array();		
-		foreach($this->_columnas as $columna)
-		{
+		$tabla = (is_null($tabla)) ? $this->_tabla : $tabla;
+		foreach($this->_columnas as $columna) {
+			if (!$this->pertenece_a_tabla($columna, $tabla)) continue;
 			$col = $columna['columna'];
 			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
 			$es_binario = ($columna['tipo'] == 'B');
@@ -882,6 +913,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 							$registro[$col] = 0;
 						}
 					}
+					
 					if ($this->_hacer_trim_datos) {
 						$valores_sql[$a] =  $db->quote(trim($registro[$col]));
 					} else {
@@ -895,7 +927,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		// Para evitar un "bug" de PDO se colocan los campos de tipo binario al inicio de la sentencia INSERT.
 		$valores_sql = array_merge($valores_sql_binarios, $valores_sql);
 		$columnas_sql = array_merge($columnas_sql_binarios, $columnas_sql);
-		$sql = "INSERT INTO " . $this->_tabla .
+		$sql = "INSERT INTO " . $tabla .
 					" ( " . implode(", ", $columnas_sql) . " ) ".
 					"\n VALUES (" . implode(", ", $valores_sql) . ");";
 		if ($solo_retornar) {
@@ -915,21 +947,25 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$stmt->execute();
 		}
 	}	
-	
+
+	abstract protected function get_flag_mod_clave();
+
 	/**
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */	
-	protected function ejecutar_sql_update($id_registro)
+	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null)
 	{
 		$binarios = array();
 		$registro = $this->datos[$id_registro];
 		$cambios_reales = $this->objeto_tabla->get_cambios_fila($id_registro, $registro);
+		$tabla = (is_null($tabla)) ? $this->_tabla : $tabla;
 		
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
 		$db = toba::db($this->_fuente);
-		foreach($this->_columnas as $columna){
+		foreach($this->_columnas as $columna) {
+			if (!$this->pertenece_a_tabla($columna, $tabla)) continue;
 			$col = $columna['columna'];
 			$es_binario = ($columna['tipo'] == 'B');
 			$es_secuencia = ($columna['secuencia'] != "");
@@ -938,7 +974,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			
 			//columna modificable: realmente se modifico, no es secuencia, no es externa, 
 			$es_modificable = !$es_secuencia && !$es_externa  && isset($cambios_reales[$col])
-							&& (!$es_clave || ($es_clave && $this->_flag_modificacion_clave ));  //	no es PK (excepto que se se declare explicitamente la alteracion de PKs)
+							&& (!$es_clave || ($es_clave && $this->get_flag_mod_clave() ));  //	no es PK (excepto que se se declare explicitamente la alteracion de PKs)
 							
 			if( $es_modificable ){
 				if ($es_binario) {
@@ -971,9 +1007,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return null;	
 		}
 		//Armo el SQL
-		$sql = "UPDATE " . $this->_tabla . "\nSET ".
+		$where = (is_null($where)) ? $this->generar_sql_where_registro($id_registro) : $where;
+		$sql = "UPDATE " . $tabla . "\nSET ".
 				implode(",\n\t",$set) .
-				"\nWHERE " . implode("\n\tAND ",$this->generar_sql_where_registro($id_registro) ) .";";
+				"\nWHERE " . implode("\n\tAND ", $where ) .";";
 		$this->log("registro: $id_registro\n " . $sql);
 		if (empty($binarios)) {
 			$this->ejecutar_sql($sql, $id_registro);
@@ -990,8 +1027,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			if ($this->_lock_optimista && $reg == 0) {
 				$this->evt__perdida_sincronizacion($id_registro, $sql);
 			}
-		}		
-	}	
+		}
+	}
 	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
@@ -1018,6 +1055,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */	
 	function generar_sql_where_registro($id_registro)
 	{
+		$id = array();
 		if (! $this->_lock_optimista) {
 			//Sin lock optimista arma el where sólo con las claves
 			foreach($this->_clave as $clave){
@@ -1025,8 +1063,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 		} else {
 			//Con lock optimista arma el where con todos los campos originales, asegurando que no sean columnas externas
-			$id = array();
 			foreach ($this->_columnas as $col) {
+				if (!$this->pertenece_a_tabla($col, $this->_tabla)) continue;
 				if(!$col['externa'] && $col['tipo'] != 'B') {
 					if (isset($this->_cambios[$id_registro]['original'][$col['columna']])) {
 						$id[$col['columna']] = $this->_cambios[$id_registro]['original'][$col['columna']];

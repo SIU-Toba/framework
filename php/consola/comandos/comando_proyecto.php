@@ -95,7 +95,105 @@ class comando_proyecto extends comando_toba
 
 
 	/**
+	 * Extiende las clases de las componentes de toba con las clases de los proyectos
+	 * @consola_no_mostrar
+	 */
+	function opcion__extender_clases_toba()
+	{
+		$proyecto = $this->get_proyecto();
+		if (util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'toba')) {
+			$this->consola->mensaje('Extensión exitosa. No olvide ejecutar el comando toba proyecto revincular');
+		}
+	}
+
+//	/**
+//	 * Agrega el punto de montaje del proyecto
+//	 * @consola_no_mostrar
+//	 */
+//	function opcion__montaje_proyecto()
+//	{
+//		$proyecto = $this->get_proyecto();
+//		$pms = $proyecto->get_pms();
+//		$pms
+//		toba::puntos_montaje($proyecto)->crear_punto_montaje_proyecto();
+//	}
+//
+//	/**
+//	 * Agrega el punto de montaje de la personalización del proyecto
+//	 * @consola_no_mostrar
+//	 */
+//	function opcion__montaje_personalizacion()
+//	{
+//		$proyecto = $this->get_proyecto();
+//		toba::puntos_montaje($proyecto)->crear_punto_montaje_personalizacion();
+//	}
+
+	function opcion__actualizar_proyecto()
+	{
+		$proyecto = $this->get_proyecto();
+		
+		$instalacion = $proyecto->get_instalacion();
+		$instancia = $proyecto->get_instancia();
+		$params = $instalacion->get_parametros_base($instancia->get_ini_base());
+		$params['schema'] = 'desarrollo';
+		$instalacion->actualizar_db($instancia->get_ini_base(), $params);
+	}
+
+	/**
+	 * Hace que un proyecto pueda ser personalizado.
+	 */
+	function opcion__personalizable()
+	{
+		$proyecto = $this->get_proyecto();
+
+		if (!$proyecto->tiene_clases_extendidas('toba')) {
+			$mensaje  = "Debe extender las clases de toba primero con el comando ";
+			$mensaje .= "toba proyecto extender_clases_toba";
+			$this->consola->mensaje($mensaje);
+			return;
+		}
+		util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
+		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
+		$pms = $proyecto->get_pms();
+//		$pms->crear_pm_personalizacion();
+		$proyecto->generar_autoload($this->consola);
+
+		$mensaje  = "El proyecto ya es personalizable. Ahora debe revincular las clases";
+		$this->consola->mensaje($mensaje);
+	}
+
+	/**
+	 *	Revincula las clases que representan componentes. Reescribe código, utilizar con CUIDADO.
+	 */
+	function opcion__revincular()
+	{
+		$params = $this->get_parametros();
+		if (!isset($params['-d']) || !isset($params['-a'])) {
+			$mensaje  = 'Debe especificar de y hasta donde se quiere revincular ';
+			$mensaje .= 'con los parametros -d (toba|proyecto) y -a (proyecto|personalizacion)';
+			$this->consola->mensaje($mensaje);
+			return;
+		}
+		$de = $params['-d'];
+		$a  = $params['-a'];
+		$proyecto = $this->get_proyecto();
+		util_modelo_proyecto::revincular_componentes($proyecto, $de, $a);
+		$mensaje  = "Las clases del proyecto fueron revinculadas exitosamente";
+		$this->consola->mensaje($mensaje);
+	}
+
+	/**
+	 * Regenera el autoload del proyecto. Ejecutar cuando se crea una nueva clase.
+	 */
+	function opcion__autoload()
+	{
+		$proyecto = $this->get_proyecto();
+		$proyecto->generar_autoload($this->consola);
+	}
+
+	/**
 	* Crea un proyecto NUEVO.
+	* @consola_parametros Opcional: [-x] Si se utiliza esta opción el proyecto creado será personalizable
 	* @gtk_icono nucleo/agregar.gif 
 	* @gtk_no_mostrar 1
 	*/
@@ -104,6 +202,7 @@ class comando_proyecto extends comando_toba
 		$id_instancia = $this->get_id_instancia_actual();
 		$id_proyecto = $this->get_id_proyecto_actual();
 		$instancia = $this->get_instancia($id_instancia);
+		$params = $this->get_parametros();
 		
 		// --  Creo el proyecto
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
@@ -112,12 +211,26 @@ class comando_proyecto extends comando_toba
 		$this->consola->progreso_fin();
 		
 		// -- Asigno un nuevo item de login
-		$proyecto = $this->get_proyecto($id_proyecto);		
+		$proyecto = $this->get_proyecto($id_proyecto);
 		$proyecto->actualizar_login();
+
+		$pms = $proyecto->get_pms();
+
+		// Extendemos las clases de toba a clases del proyecto
+		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'toba');
+		$pms->crear_pm_proyecto();
+		// -- Modifica el proyecto para que sea apto para personalizaciones
+		if (isset($params['-x'])) {
+			util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
+			util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
+			$pms->crear_pm_personalizacion();
+		}
+		$proyecto->generar_autoload($this->consola);
 		
 		// -- Exporto el proyecto creado
 		$proyecto->exportar();
 		$instancia->exportar_local();
+
 		if (! $proyecto->esta_publicado()) {
 			$this->consola->separador();
 			$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);

@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class subclase_ci extends toba_ci
+class subclase_ci extends toba_testing_pers_ci
 {
 	function extender_objeto_js()
 	{

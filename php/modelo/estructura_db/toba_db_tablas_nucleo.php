@@ -10,11 +10,12 @@ class toba_db_tablas_nucleo
   2 => 'apex_fuente_datos',
   3 => 'apex_elemento_formulario',
   4 => 'apex_solicitud_obs_tipo',
-  5 => 'apex_pagina_tipo',
-  6 => 'apex_clase',
-  7 => 'apex_clase_relacion',
-  8 => 'apex_msg',
-  9 => 'apex_objeto_ei_filtro_tipo_col',
+  5 => 'apex_puntos_montaje',
+  6 => 'apex_pagina_tipo',
+  7 => 'apex_clase',
+  8 => 'apex_clase_relacion',
+  9 => 'apex_msg',
+  10 => 'apex_objeto_ei_filtro_tipo_col',
 );
 	}
 
@@ -49,6 +50,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'proyecto',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'proyecto',
   'zona' => 'general',
   'desc' => 'Tabla maestra	de	proyectos',
   'version' => '1.0',
@@ -105,6 +108,8 @@ class toba_db_tablas_nucleo
     48 => 'tiempo_espera_ms',
     49 => 'navegacion_ajax',
     50 => 'codigo_ga_tracker',
+    51 => 'extension_toba',
+    52 => 'extension_proyecto',
   ),
 );
 	}
@@ -136,6 +141,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'proyecto, estilo',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'estilo',
   'zona' => 'general',
   'desc' => 'Skins',
   'version' => '1.0',
@@ -193,6 +200,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'fuente_datos',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'fuente_datos',
   'zona' => 'general',
   'desc' => 'Bases de datos a	las que se puede acceder',
   'version' => '1.0',
@@ -285,6 +294,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'elemento_formulario',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'elemento_formulario',
   'zona' => 'general',
   'desc' => 'Elementos de formulario soportados',
   'version' => '1.0',
@@ -309,6 +320,8 @@ class toba_db_tablas_nucleo
   'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'solicitud_obs_tipo',
   'dump_order_by' => 'solicitud_obs_tipo',
   'zona' => 'general',
   'desc' => '',
@@ -323,6 +336,31 @@ class toba_db_tablas_nucleo
 );
 	}
 
+	static function apex_puntos_montaje()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'id',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'id',
+  'zona' => 'general',
+  'desc' => 'tabla de puntos de montaje',
+  'version' => '1.6',
+  'columnas' => 
+  array (
+    0 => 'id',
+    1 => 'etiqueta',
+    2 => 'proyecto',
+    3 => 'proyecto_ref',
+    4 => 'descripcion',
+    5 => 'path_pm',
+    6 => 'tipo',
+  ),
+);
+	}
+
 	static function apex_pagina_tipo()
 	{
 		return array (
@@ -330,6 +368,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'pagina_tipo',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'pagina_tipo',
   'zona' => 'general',
   'desc' => '',
   'version' => '1.0',
@@ -344,6 +384,7 @@ class toba_db_tablas_nucleo
     6 => 'include_abajo',
     7 => 'exclusivo_toba',
     8 => 'contexto',
+    9 => 'punto_montaje',
   ),
 );
 	}
@@ -439,6 +480,8 @@ class toba_db_tablas_nucleo
   'archivo' => 'pgsql_a03_tablas_componentes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'clas',
   'dump_order_by' => 'clase',
   'zona' => 'central',
   'desc' => '',
@@ -489,6 +532,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase_relacion',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'clase_relacion',
   'zona' => 'central',
   'desc' => '',
   'version' => '1.0',
@@ -528,6 +573,8 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'msg',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'msg',
   'zona' => 'central',
   'desc' => '',
   'version' => '1.0',

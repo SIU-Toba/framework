@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_validacion_js extends toba_ci
+class ci_validacion_js extends toba_testing_pers_ci
 {
 	protected $datos;
 	

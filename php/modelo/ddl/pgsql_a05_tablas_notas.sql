@@ -29,6 +29,8 @@ CREATE TABLE apex_nota
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: nota
+--: clave_proyecto: proyecto
+--: clave_elemento: nota
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -59,6 +61,8 @@ CREATE TABLE apex_item_nota
 --: dump: multiproyecto
 --: dump_order_by: item_nota
 --: dump_where: ( item_proyecto = '%%' )
+--: clave_proyecto: item_proyecto
+--: clave_elemento: item_nota
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -91,6 +95,8 @@ CREATE TABLE apex_objeto_nota
 --: dump: multiproyecto
 --: dump_order_by: objeto_nota
 --: dump_where: ( objeto_proyecto = '%%' )
+--: clave_proyecto: objeto_proyecto
+--: clave_elemento: objeto_nota
 --: zona: central
 --: desc:
 --: version: 1.0

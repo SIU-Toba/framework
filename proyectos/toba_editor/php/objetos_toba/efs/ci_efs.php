@@ -347,10 +347,11 @@ class ci_efs extends toba_ci
 					$disponible != 'tipo_clase' &&
 					$disponible != 'carga_metodo_lista' &&
 					$disponible != 'sep_carga' &&
-					$disponible != 'sep') {
+					$disponible != 'sep' &&
+					$disponible != 'punto_montaje') {
 				if (isset($fila[$disponible])) {
-					unset($fila[$disponible]);	
-				}						
+					unset($fila[$disponible]);
+				}
 				$this->dependencia('param_carga')->desactivar_efs($disponible);
 			}
 		}

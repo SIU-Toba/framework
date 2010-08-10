@@ -43,6 +43,8 @@ CREATE TABLE			apex_proyecto
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: proyecto
+--: clave_proyecto: proyecto
+--: clave_elemento: proyecto
 --: zona: general
 --: desc: Tabla maestra	de	proyectos
 --: version: 1.0
@@ -99,6 +101,8 @@ CREATE TABLE			apex_proyecto
 	tiempo_espera_ms					integer			NULL,
 	navegacion_ajax						smallint 		NULL,
 	codigo_ga_tracker					VARCHAR(20)		NULL,
+	extension_toba						boolean			NULL,
+	extension_proyecto					boolean			NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto")
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","item_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE,

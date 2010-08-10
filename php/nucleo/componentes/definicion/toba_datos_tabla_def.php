@@ -20,6 +20,9 @@ class toba_datos_tabla_def extends toba_componente_def
 		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros_uniq',
 								'registros' => 'n',
 								'obligatorio' => false );
+		$estructura[] = array(	'tabla' => 'apex_objeto_db_columna_fks',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 	
@@ -30,18 +33,21 @@ class toba_datos_tabla_def extends toba_componente_def
 		$proyecto = self::$db->quote($proyecto);
 		if (isset($componente)) {
 			$componente = self::$db->quote($componente);
-		}			
+		}
+		
 		//------------- Info base de la estructura ----------------
 		$sql['_info_estructura']['sql'] = "SELECT	dt.tabla    as tabla,
 											dt.alias          	as alias,
 											dt.min_registros  	as min_registros,
 											dt.max_registros  	as max_registros,
-											dt.ap				as ap			,	
+											dt.ap				as ap			,
+											dt.punto_montaje	as punto_montaje,
 											dt.ap_clase			as ap_sub_clase	,	
 											dt.ap_archivo	    as ap_sub_clase_archivo,
 											dt.modificar_claves as ap_modificar_claves,
 											ap.clase			as ap_clase,
-											ap.archivo			as ap_clase_archivo
+											ap.archivo			as ap_clase_archivo,
+											dt.tabla_ext		as tabla_ext
 					 FROM		apex_objeto_db_registros as dt
 				 				LEFT OUTER JOIN apex_admin_persistencia ap ON dt.ap = ap.ap
 					 WHERE		objeto_proyecto=$proyecto ";
@@ -62,7 +68,8 @@ class toba_datos_tabla_def extends toba_componente_def
 						largo			,	
 						no_nulo			,	
 						no_nulo_db		,
-						externa
+						externa			,
+						tabla
 					 FROM		apex_objeto_db_registros_col 
 					 WHERE		objeto_proyecto = $proyecto ";
 		if ( isset($componente) ) {
@@ -130,7 +137,21 @@ class toba_datos_tabla_def extends toba_componente_def
 		$sql['_info_valores_unicos']['sql'] .= " ORDER BY columnas;";
 		$sql['_info_valores_unicos']['registros']='n';
 		$sql['_info_valores_unicos']['obligatorio']=false;
-				
+
+		//------------ FKS para el caso multitabla ----------------
+		$sql['_info_fks']['sql'] = "
+			SELECT columna, columna_ext
+			FROM apex_objeto_db_columna_fks
+			WHERE objeto_proyecto = $proyecto
+		";
+
+		if ( isset($componente) ) {
+			$sql['_info_fks']['sql'] .= "	AND		objeto=$componente ";
+		}
+		
+		$sql['_info_fks']['sql']			.= " ORDER BY columna;";
+		$sql['_info_fks']['registros']		= 'n';
+		$sql['_info_fks']['obligatorio']	= false;
 		return $sql;
 	}
 

@@ -1,5 +1,5 @@
 <?php
-class ci_perfil_funcional_interno extends toba_ci
+class ci_perfil_funcional_interno extends toba_testing_pers_ci
 {
 	protected $s__datos;
 	

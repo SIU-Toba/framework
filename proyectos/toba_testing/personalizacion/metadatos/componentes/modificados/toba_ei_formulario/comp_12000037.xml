@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<componente id="12000037">
+	<tabla nombre="apex_objeto_ei_formulario_ef">
+		<registro estado="2" clave="objeto_ei_formulario_fila:12000030">
+			<columna nombre="etiqueta" valor="Nombre editado" valor_original="Nombre"/>
+		</registro>
+		<registro estado="2" clave="objeto_ei_formulario_fila:12000031">
+			<columna nombre="elemento_formulario" valor="ef_checkbox" valor_original="ef_editable"/>
+		</registro>
+	</tabla>
+</componente>

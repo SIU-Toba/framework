@@ -566,6 +566,7 @@ class toba_ei_formulario extends toba_ei
 			call_user_func_array(array(self::$_callback_validacion, 'set_componente'), array($this));
 			call_user_func_array(array(self::$_callback_validacion, 'validar_datos'), array($registro));
 		}
+		
 		return $registro;
 	}
 	

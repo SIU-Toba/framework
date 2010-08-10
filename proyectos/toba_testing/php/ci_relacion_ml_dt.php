@@ -1,6 +1,6 @@
 <?php
 
-class ci_relacion_ml_dt extends toba_ci
+class ci_relacion_ml_dt extends toba_testing_pers_ci
 {
 	protected $s__id_fila_uno;
 	protected $s__id_fila_dos;

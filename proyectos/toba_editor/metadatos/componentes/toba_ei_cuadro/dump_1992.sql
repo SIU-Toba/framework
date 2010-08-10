@@ -7,7 +7,7 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
+INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'toba_editor', --proyecto
 	'1992', --objeto
 	NULL, --anterior
@@ -15,6 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_cuadro', --clase
+	'12', --punto_montaje
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -99,12 +100,12 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
-	'1', --eof_invisible
+	'0', --eof_invisible
 	'No hay datos_tablas definidos', --eof_customizado
-	'0', --siempre_con_titulo
-	NULL, --exportar_paginado
+	'1', --siempre_con_titulo
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

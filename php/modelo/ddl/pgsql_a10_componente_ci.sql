@@ -84,7 +84,7 @@ CREATE TABLE apex_objeto_ci_pantalla
 	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,
 	descripcion							TEXT				NULL,
-	tip									TEXT		NULL,
+	tip									TEXT				NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
 	objetos								varchar				NULL,	--OBSOLETO
@@ -92,11 +92,13 @@ CREATE TABLE apex_objeto_ci_pantalla
 	subclase							varchar(80)			NULL,
 	subclase_archivo					varchar(255)		NULL,
 	template							TEXT				NULL,
-	template_impresion		TEXT				NULL,
+	template_impresion					TEXT				NULL,
+	punto_montaje						int8				NULL,
 	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("pantalla","objeto_ci","objeto_ci_proyecto"),
    	CONSTRAINT  "apex_obj_ci_pan__uk" UNIQUE ("objeto_ci_proyecto","objeto_ci","identificador"),
 	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 CREATE TABLE apex_objetos_pantalla
@@ -105,6 +107,7 @@ CREATE TABLE apex_objetos_pantalla
 --: dump: componente
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: objeto_ci
+--: clave_elemento: proyecto, objeto_ci, pantalla, dep_id
 --: dump_order_by: proyecto, objeto_ci, pantalla, dep_id
 --: dump_where: (	proyecto =	'%%' )
 --: zona: objeto
@@ -129,6 +132,7 @@ CREATE TABLE apex_eventos_pantalla
 --: dump: componente
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: objeto_ci
+--: clave_elemento: proyecto, objeto_ci, pantalla, evento_id
 --: dump_order_by: proyecto, objeto_ci, pantalla, evento_id
 --: dump_where: (	proyecto =	'%%' )
 --: zona: objeto

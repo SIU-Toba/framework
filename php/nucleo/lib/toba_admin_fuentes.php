@@ -66,7 +66,7 @@ class toba_admin_fuentes
 				$clase = $parametros['subclase_nombre'];
 			} else {
 				$clase = "toba_fuente_datos";
-			}		
+			}
 			require_once($archivo);
 			$this->fuentes[$id] = new $clase($parametros);
 		}

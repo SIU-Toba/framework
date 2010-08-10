@@ -111,12 +111,17 @@ class toba_manejador_archivos
 	/**
 	 *	Buscador de archivos
 	 */
-	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false )
+	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false, &$exclude_dirs = array() )
 	{
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
 		}
+
+		if (in_array($directorio, $exclude_dirs)) {
+			return $archivos_ok;
+		}
+
 		if ( ! $recursivo_subdir ) {
 			if ( $dir = opendir( $directorio ) ) {
 				while (false	!==	($archivo = readdir($dir)))	{
@@ -127,7 +132,7 @@ class toba_manejador_archivos
 			   closedir($dir); 
 			}
 		} else {
-			$archivos_ok = self::buscar_archivos_directorio_recursivo( $directorio );
+			$archivos_ok = self::buscar_archivos_directorio_recursivo( $directorio, $exclude_dirs);
 		}
 		//Si existe un patron activado, filtro los archivos
 		if( isset( $patron ) ){
@@ -145,18 +150,23 @@ class toba_manejador_archivos
 	/**
 	*	Busca en profundidad los archivos existentes dentro de un directorio
 	*/
-	function buscar_archivos_directorio_recursivo( $directorio )
+	function buscar_archivos_directorio_recursivo( $directorio, &$exclude_dirs = array() )
 	{
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
 		} 
 		$archivos = array();
 		$d = dir( $directorio );
+
+		if (in_array($directorio, $exclude_dirs)) {
+			return $archivos;
+		}
+
 		while($archivo = $d->read()) {
 			if (  $archivo != ".svn" && $archivo != "." && $archivo != "..") {
 				$path = $directorio.'/'.$archivo;
 				if ( is_dir( $path ) ) {
-					$archivos = array_merge( self::buscar_archivos_directorio_recursivo( $path ), $archivos ) ;
+					$archivos = array_merge( self::buscar_archivos_directorio_recursivo( $path, $exclude_dirs ), $archivos ) ;
 				} else {
 					$archivos[] = $path;
 				}

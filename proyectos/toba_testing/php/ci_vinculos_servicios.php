@@ -1,5 +1,5 @@
 <?php
-class ci_vinculos_servicios extends toba_ci
+class ci_vinculos_servicios extends toba_testing_pers_ci
 {
 	protected $s__datos;
 	protected $s__seleccionado = null;

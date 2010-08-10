@@ -143,7 +143,7 @@ abstract class toba_componente
 	{
 		toba::logger()->debug($this->get_txt() . get_class($this). ": " . $txt, 'toba');
 	}
-		
+	
 	/**
 	 * @ignore
 	 */

@@ -16,6 +16,7 @@ class toba_recurso
 		if (! isset($proyecto)) {
 			$proyecto = toba::proyecto()->get_id();	
 		}
+
 		return toba::instancia()->get_url_proyecto($proyecto);
 	}
 	
@@ -40,6 +41,7 @@ class toba_recurso
 				$alias = "toba";
 			}
 		}
+		
 		return '/'.$alias;		
 	}
 

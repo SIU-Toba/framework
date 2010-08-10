@@ -61,7 +61,7 @@ class toba_datos_tabla extends toba_componente
 		$propiedades[] = "_blobs";
 		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
-		for($a=0; $a<count($this->_info_columnas);$a++){
+		for($a=0; $a < count($this->_info_columnas); $a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
 			$this->_columnas[ $this->_info_columnas[$a]['columna'] ] =& $this->_info_columnas[$a];
 			if($this->_info_columnas[$a]['pk']==1){
@@ -396,6 +396,15 @@ class toba_datos_tabla extends toba_componente
 		return $ids;
 	}
 
+	/**
+	 * Devuelve las fks que asocian a las tablas extendidas
+	 * @return array
+	 */
+	function get_fks()
+	{
+		return $this->_info_fks;
+	}
+
 	//-------------------------------------------------------------------------------
 	//-- Configuracion
 	//-------------------------------------------------------------------------------
@@ -518,7 +527,9 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
 	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
 	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones. El valor no puede ser NULL porque siempre da falso
-	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla. Sino se usa una clave posicional y la clave viaja en la columna apex_datos_clave_fila
+	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean
+	 * las claves internas del datos_tabla. Sino se usa una clave posicional y
+	 * la clave viaja en la columna apex_datos_clave_fila
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres. 
 	 * @return array Formato tipo RecordSet
 	 */
@@ -526,8 +537,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		$datos = array();
 		$a = 0;
-		foreach( $this->get_id_fila_condicion($condiciones, $usar_cursores) as $id_fila )
-		{
+		foreach( $this->get_id_fila_condicion($condiciones, $usar_cursores) as $id_fila ) {
 			if($usar_id_fila){
 				$datos[$id_fila] = $this->_datos[$id_fila];
 			}else{
@@ -808,7 +818,7 @@ class toba_datos_tabla extends toba_componente
 	 * @return mixed Id. interno de la fila creada
 	 */
 	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
-	{		
+	{
 		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
@@ -828,7 +838,6 @@ class toba_datos_tabla extends toba_componente
 			$id_nuevo = $this->_proxima_fila;
 		}
 		$this->_proxima_fila = $id_nuevo + 1;
-				
 		//Se notifica a las relaciones del alta
 		foreach ($this->_relaciones_con_padres as $padre => $relacion) {
 			$id_padre = null;
@@ -1404,8 +1413,10 @@ class toba_datos_tabla extends toba_componente
 				$include = $this->_info_estructura['ap_clase_archivo'];
 			}
 			if( ! class_exists($clase) ) {
-				require_once($include);
-			}			
+				$punto = toba::puntos_montaje()->get_por_id($this->_info_estructura['punto_montaje']);
+				$path  = $punto->get_path_absoluto().'/'.$clase.'.php';
+				require_once($path);
+			}
 			$this->_persistidor = new $clase( $this );
 			if($this->_info_estructura['ap_modificar_claves']){
 				$this->_persistidor->activar_modificacion_clave();
@@ -1655,6 +1666,14 @@ class toba_datos_tabla extends toba_componente
 	function get_tabla()
 	{
 		return $this->_info_estructura['tabla'];
+	}
+
+	/**
+	 * Devuelve el nombre de la tabla extendida
+	 */
+	function get_tabla_extendida()
+	{
+		return $this->_info_estructura['tabla_ext'];
 	}
 
 	/**

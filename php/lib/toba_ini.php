@@ -116,6 +116,7 @@ class toba_ini
 				foreach ( $datos as $directiva => $valor ) {
 					$ini .= "$directiva = $valor\n";
 				}
+
 			} else {
 				$ini .= "$nombre = $datos\n";
 			}

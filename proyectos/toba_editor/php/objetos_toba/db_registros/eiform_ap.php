@@ -30,13 +30,35 @@ class eiform_ap extends toba_ei_formulario
 		{$this->objeto_js}.evt__ap__procesar = function () {
 			var flag;
 			flag = this.ef('ap').valor();
-			if( flag == 0 ){
-				this.ef('ap_clase').mostrar();
-				this.ef('ap_archivo').mostrar();
-			}else{
-				this.ef('ap_clase').ocultar(true);
-				this.ef('ap_archivo').ocultar(true);
+			switch (flag) {
+				case '0':
+					this.ef('ap_clase').mostrar();
+					this.ef('ap_archivo').mostrar();
+					this.ef('modificar_claves').mostrar();
+					this.ef('punto_montaje').mostrar();
+					this.ef('tabla_ext').ocultar(true);
+					if (this.hay_cambios()) {
+						this.set_evento(new evento_ei('cargar_tablas',true,''));
+					}
+					break;
+				case '1':
+					this.ef('ap_clase').ocultar(true);
+					this.ef('ap_archivo').ocultar(true);
+					this.ef('tabla_ext').ocultar(true);
+					this.ef('punto_montaje').ocultar(true);
+					this.ef('modificar_claves').mostrar();
+					if (this.hay_cambios()) {
+						this.set_evento(new evento_ei('cargar_tablas',true,''));
+					}
+					break;
+				case '4':
+					this.ef('tabla_ext').mostrar();
+					this.ef('modificar_claves').ocultar(true);
+					this.ef('ap_clase').ocultar(true);
+					this.ef('ap_archivo').ocultar(true);
+					this.ef('punto_montaje').ocultar(true);
 			}
+		
 			if (this.get_boton('extender_ap')) {
 				if (flag == 0) {
 					this.mostrar_boton('extender_ap');
@@ -50,6 +72,20 @@ class eiform_ap extends toba_ei_formulario
 			$this->js_abrir;
 			return false;
 		}
+
+		{$this->objeto_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
+        {
+			var estado = this.ef('punto_montaje').get_estado();
+			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+		}
+
+		{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+			  if (!inicial) {
+				  this.ef('ap_archivo').cambiar_valor('');
+				  this.ef('ap_clase').cambiar_valor('');
+			  }
+		  }
+
 		";
 		if ( isset($this->texto_recarga) ) {
 			$usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
@@ -61,7 +97,13 @@ class eiform_ap extends toba_ei_formulario
 							this.set_evento(new evento_ei('cargar_tablas',true,''));
 						}
 					}
-				}		
+				}
+                {$this->objeto_js}.evt__tabla_ext__procesar = function(es_inicial)
+				{
+					if (! es_inicial && this.ef('tabla_ext').get_estado() != apex_ef_no_seteado) {
+                        this.set_evento(new evento_ei('cargar_tablas',true,''));
+					}
+				}
 			";
 		}
 	}

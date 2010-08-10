@@ -174,7 +174,8 @@ class toba_ei_esquema extends toba_ei
 			case 'svg':
 				$tipo_salida = "image/svg+xml";				
 			break;
-		}		
+		}
+		
 		$archivo = self::generar_archivo($contenido, $formato, $es_dirigido);
 		$dir_temp = toba::instalacion()->get_path_temp();
 		$path_completo = $dir_temp . "/" . $archivo;

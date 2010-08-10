@@ -1,5 +1,5 @@
 <?php 
-class ci_datos_usuario extends toba_ci
+class ci_datos_usuario extends toba_testing_pers_ci
 {
 	function ini()
 	{

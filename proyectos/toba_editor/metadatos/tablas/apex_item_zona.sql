@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_item_zona
 ------------------------------------------------------------
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_carpeta', --zona
 	'Editor de carpetas', --nombre
@@ -11,9 +11,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_consulta_php', --zona
 	'Consulta PHP', --nombre
@@ -22,9 +23,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_dimension', --zona
 	'Dimensiones', --nombre
@@ -33,9 +35,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_fuente', --zona
 	'Editor de fuente', --nombre
@@ -44,9 +47,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_grupo_acceso', --zona
 	'Editor de usuario_grupo', --nombre
@@ -55,9 +59,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_item', --zona
 	'Edicion de Operaciones', --nombre
@@ -66,9 +71,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_objeto', --zona
 	'Edicion de Objetos', --nombre
@@ -77,9 +83,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_servicio_web', --zona
 	'Servicio Web Accesible', --nombre
@@ -88,9 +95,10 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );
-INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'zona_usuario', --zona
 	'Editor de usuario', --nombre
@@ -99,5 +107,6 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
-	NULL  --consulta_metodo
+	NULL, --consulta_metodo
+	'12'  --punto_montaje
 );

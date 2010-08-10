@@ -1,6 +1,6 @@
 <?php
 
-class ci_opciones_ef_seleccion extends toba_ci
+class ci_opciones_ef_seleccion extends toba_testing_pers_ci
 {
 	protected $s__datos_form;
 	protected $s__datos_ml;

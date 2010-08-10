@@ -68,6 +68,16 @@ class toba_modelo_catalogo
 	}
 
 	/**
+	 * Devuelve una referencia a los puntos de montaje de un proyecto
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return toba_modelo_pms
+	 */
+	function get_pms(toba_modelo_proyecto $proyecto)
+	{
+		return new toba_modelo_pms($proyecto);
+	}
+
+	/**
 	*	Devuelve una referencia al NUCLEO
 	* @return toba_modelo_nucleo 
 	*/

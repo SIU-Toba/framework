@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class form_validaciones_server extends toba_ei_formulario
+class form_validaciones_server extends toba_testing_pers_ei_formulario
 {
 	function extender_objeto_js()
 	{

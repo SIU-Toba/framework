@@ -1,6 +1,6 @@
 <?php
 
-class ml extends toba_ei_formulario_ml
+class ml extends toba_testing_pers_ei_formulario_ml
 {
 	function extender_objeto_js()
 	{

@@ -51,7 +51,7 @@ class toba_datos_relacion_info extends toba_componente_info
 		}		
 		if (isset($this->datos['_info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
-			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo']) ) {
+			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo'], $this->datos['_info_estructura']['punto_montaje']) ) {
 				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',

@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_pagina_tipo
 ------------------------------------------------------------
-INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES (
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto, punto_montaje) VALUES (
 	'toba_referencia', --proyecto
 	'referencia', --pagina_tipo
 	'Páginas de operaciones de referencia', --descripcion
@@ -11,9 +11,10 @@ INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, 
 	NULL, --include_arriba
 	NULL, --include_abajo
 	NULL, --exclusivo_toba
-	NULL  --contexto
+	NULL, --contexto
+	'12000003'  --punto_montaje
 );
-INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES (
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto, punto_montaje) VALUES (
 	'toba_referencia', --proyecto
 	'tutorial', --pagina_tipo
 	'Páginas del tutorial', --descripcion
@@ -22,5 +23,6 @@ INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, 
 	NULL, --include_arriba
 	NULL, --include_abajo
 	NULL, --exclusivo_toba
-	NULL  --contexto
+	NULL, --contexto
+	'12000003'  --punto_montaje
 );

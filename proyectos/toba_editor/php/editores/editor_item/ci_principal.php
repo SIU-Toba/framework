@@ -80,6 +80,7 @@ class ci_principal extends toba_ci
 			$datos['padre'] = $padre_i;
 			$datos['padre_proyecto'] = $padre_p;
 		}
+		
 		$dr->tabla('base')->set( $datos );
 		//Le agrego el permiso del usuario actual
 		foreach( toba::usuario()->get_grupos_acceso() as $grupo) {
@@ -320,7 +321,6 @@ class ci_principal extends toba_ci
 		
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
-		
 		$datos = $this->get_entidad()->tabla("base")->get();		
 		
 		//Si el proyecto usa esquema de permisos por tabla

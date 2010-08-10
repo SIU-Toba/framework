@@ -21,6 +21,8 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 			toba_editor::referenciar_memoria();
 		}
 		toba_zona::set_modo_url(true);
+		$clases = array('ci_editores_toba');
+		toba_modelo_proyecto::set_clases_excluidas_autoload($clases);
 	}
 
 	function conf__final()

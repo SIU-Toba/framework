@@ -699,7 +699,9 @@ class toba_ci extends toba_ei
 			$info['_eventos_pantalla'] = $evt_pantalla;
 			$info['_const_instancia_numero'] = 0;
 			if (isset($info_pantalla['subclase_archivo'])) {
-				require_once($info_pantalla['subclase_archivo']);
+				$pm = toba::puntos_montaje()->get_por_id($info_pantalla['punto_montaje']);
+				$path = $pm->get_path_absoluto().'/'.$info_pantalla['subclase_archivo'];
+				require_once($path);
 			}
 			$clase = 'toba_ei_pantalla';
 			if (isset($info_pantalla['subclase'])) {

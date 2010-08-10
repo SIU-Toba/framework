@@ -529,6 +529,7 @@ abstract class toba_ef
 	function set_solo_lectura($solo_lectura = true)
 	{
         $this->solo_lectura_base = $solo_lectura;
+		$this->es_solo_lectura();
     }
     
     function es_solo_lectura()

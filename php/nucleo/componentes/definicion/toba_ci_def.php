@@ -17,7 +17,11 @@ class toba_ci_def extends toba_ei_def
 								'obligatorio' => true );
 		$estructura[] = array( 	'tabla' => 'apex_objeto_ci_pantalla',
 								'registros' => 'n',
-								'obligatorio' => true );
+								'obligatorio' => true,
+								'diff_clave' => 'identificador',
+								'diff_excluir' => array(
+									'pantalla'
+								));
 		$estructura[] = array( 	'tabla' => 'apex_objetos_pantalla',
 								'registros' => 'n',
 								'obligatorio' => false );
@@ -66,6 +70,7 @@ class toba_ci_def extends toba_ei_def
 													objetos				  	as objetos,
 													eventos					as eventos,
 													orden					as orden,
+													punto_montaje			as punto_montaje,
 													subclase				as subclase,
 													subclase_archivo		as subclase_archivo,
 													template				as template,

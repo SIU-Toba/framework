@@ -248,7 +248,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		$iconos = array();
 		if (isset($this->datos['_info']['subclase_archivo'])) {
 			// Administracion de la Subclase PHP}
-			if (admin_util::existe_archivo_subclase($this->datos['_info']['subclase_archivo'])) {
+			if (admin_util::existe_archivo_subclase($this->datos['_info']['subclase_archivo'], $this->datos['_info']['punto_montaje'])) {
 				$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 			} else {
@@ -383,7 +383,20 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	
 	function get_clase_nombre()
 	{
-		return str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);
+		$id_proyecto = toba_contexto_info::get_proyecto();
+		$id_instancia = toba::instancia()->get_id();
+		$proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto($id_instancia, $id_proyecto);
+		
+		if ($proyecto->tiene_clases_proyecto_extendidas()) {
+			$replacement = $id_proyecto.'_pers_';
+		} elseif ($proyecto->tiene_clases_toba_extendidas()) {
+			$replacement = $id_proyecto.'_';
+		} else {
+			$replacement = 'toba_';
+		}
+		
+		$aux = str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);	// Se deja esta línea para que conserve el mismo comportamiento
+		return str_replace('toba_', $replacement, $aux);
 	}
 
 	function get_clase_archivo()
@@ -401,10 +414,14 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		return $this->datos['_info']['subclase_archivo'];	
 	}
 
+	function get_punto_montaje()
+	{
+		return $this->datos['_info']['punto_montaje'];
+	}
+
 	function get_molde_vacio()
 	{
 		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
-	
 		//-- Ini 
 		$doc = 'Se ejecuta al inicio de todos los request en donde participa el componente';
 		$metodo = new toba_codigo_metodo_php('ini', array(), array($doc));

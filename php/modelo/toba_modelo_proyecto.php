@@ -16,6 +16,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
 	const template_proyecto = '/php/modelo/template_proyecto';
+	const patron_nombre_autoload = '%id_proyecto%_autoload';
+	const patron_nombre_autoload_pers = '%id_proyecto%_pers_autoload';
+	private static $clases_exc_autoload = array();
+
+	static function set_clases_excluidas_autoload($clases)
+	{
+		self::$clases_exc_autoload = $clases;
+	}
+
+	static function get_clases_excluidas_autoload()
+	{
+		return self::$clases_exc_autoload;
+	}
 
 	function __construct( toba_modelo_instancia $instancia, $identificador )
 	{
@@ -175,7 +188,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{	
 		return $this->instancia->get_instalacion();
 	}
-	
+
+	/**
+	 * @return toba_db_postgres7
+	 */
 	function get_db($refrescar = false)
 	{
 		if (! isset($this->db) || $refrescar) {
@@ -222,8 +238,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$id_def_base = $this->construir_id_def_base($fuente_defecto);
 		return $this->get_instalacion()->get_parametros_base($id_def_base);		
 	}
-	
-	
+
+	/**
+	 * Devuelve el manejador de puntos de montaje para este proyecto
+	 * @return toba_modelo_pms
+	 */
+	function get_pms()
+	{
+		return toba_modelo_catalogo::instanciacion()->get_pms($this);
+	}
+
+
 	/**
 	 * Determina si el proyecto debe guardar/cargar sus perfiles desde la instalacion (produccion) o el proyecto (desarrollo)
 	 *
@@ -289,7 +314,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 												$e->getMessage() );
 		}
 	}
-	
+
+
 	private function sincronizar_archivos()
 	{
 		$obs = $this->get_sincronizador()->sincronizar();
@@ -406,14 +432,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cant_reg_exp = 0;
 		//Recupero metadatos
 		$metadatos = toba_cargador::instancia()->get_metadatos_simples( $id, $tipo, $this->db );
+
 		//Obtengo el nombre del componente
 		if ( isset($metadatos['apex_objeto']) ) {
 			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
 		} elseif (isset($metadatos['apex_molde_operacion'])) {
 			$nombre_componente = $metadatos['apex_molde_operacion'][0]['nombre'];	
-		} else {
+		} elseif (isset($metadatos['apex_item'][0]['nombre'])) {
 			$nombre_componente = $metadatos['apex_item'][0]['nombre'];		
-		}
+		} else {
+            throw new toba_error("Los metadatos para el componente con id {$id['componente']} no existen");
+        }
 		//Genero el CONTENIDO
 		$contenido = "------------------------------------------------------------\n";
 		$contenido .= "--[{$id['componente']}]--  $nombre_componente \n";
@@ -1202,6 +1231,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->compilar_metadatos_generales_dimensiones();
 		$this->compilar_metadatos_generales_consultas_php();
 		$this->compilar_metadatos_generales_servicios_web();
+		$this->compilar_metadatos_generales_pms();
+
 	}
 
 	/**
@@ -1453,6 +1484,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}	
 
+	private function compilar_metadatos_generales_pms()
+	{
+		$this->manejador_interface->mensaje('Puntos de Montaje', false);
+		$nombre_clase = 'toba_mc_gene__pms';
+		$archivo = $this->get_dir_generales_compilados().'/'.$nombre_clase.'.php';
+		$clase = new toba_clase_datos($nombre_clase);
+
+		$datos = toba_proyecto_db::get_pms($this->get_id());
+		$clase->agregar_metodo_datos('get_pms', $datos);
+
+		$clase->guardar($archivo);
+	}
+
 	private function compilar_operaciones()
 	{
 		$this->manejador_interface->mensaje('Operaciones resumidas', false);
@@ -1493,7 +1537,218 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		file_put_contents( $archivo, $contenido );
 		$this->get_sincronizador()->agregar_archivo( $archivo );
 	}
-	
+
+	//-----------------------------------------------------------
+	//	Autoload
+	//-----------------------------------------------------------
+
+	function generar_autoload(consola $consola)
+	{
+		$montaje_proyecto = $this->get_dir().'/php';
+		$id_proyecto = $this->get_id();
+		
+		$param = array(
+	 		$montaje_proyecto => array(
+	 			'archivo_salida' => $id_proyecto.'_autoload.php',
+	 			'dirs_excluidos' => array(),
+				'extras' => array(),
+	 		),
+		);
+
+		if ($this->es_personalizable()) {
+			$montaje_personalizacion = $this->get_dir().'/'.toba_personalizacion::dir_personalizacion.'/php';
+
+			// Los parámetros deberían ser cargados del proyecto.ini
+			$param[$montaje_personalizacion] = array(
+				'archivo_salida' => $id_proyecto.'_pers_autoload.php',
+				'dirs_excluidos' => array(),
+				'extras' => array(),
+			);
+		}
+
+		// Union de los 2 arreglos
+//		$clases = array_unique(array_merge($this->get_clases_extendidas(), self::get_clases_excluidas_autoload()));
+//		$clases[] = 'ci_editores_toba';
+		$extractor = new toba_extractor_clases($consola, $param);
+//		$extractor->set_extends_excluidos($clases);
+		$extractor->generar();
+	}
+
+	//-----------------------------------------------------------
+	//	Personalización
+	//-----------------------------------------------------------
+
+	/**
+	 * Devuelve true si el proyecto es personalizable
+	 * @return boolean
+	 */
+	function es_personalizable()
+	{
+		return $this->tiene_clases_proyecto_extendidas();
+	}
+
+	/**
+	 * Identifica si las clases de $de están extendidas
+	 * @param string $de valores posibles: toba | proyecto
+	 * @return boolean
+	 */
+	function tiene_clases_extendidas($de)
+	{
+		if ($de == 'toba') {
+			return $this->tiene_clases_toba_extendidas();
+		} else {
+			return $this->tiene_clases_proyecto_extendidas();
+		}
+	}
+
+	function tiene_clases_toba_extendidas()
+	{
+		$db	= $this->get_db();
+		$id_proyecto = $db->quote($this->get_id());
+		$select = 'extension_toba';
+		$sql = "SELECT $select FROM apex_proyecto WHERE proyecto=$id_proyecto";
+		$fila = $db->consultar_fila($sql);
+		return $fila[$select];
+	}
+
+	function tiene_clases_proyecto_extendidas()
+	{
+		$db	= $this->get_db();
+		$id_proyecto = $db->quote($this->get_id());
+		$select = 'extension_proyecto';
+		$sql = "SELECT $select FROM apex_proyecto WHERE proyecto=$id_proyecto";
+		$fila = $db->consultar_fila($sql);
+		return $fila[$select];
+	}
+
+	/**
+	 * @return array arreglo de strings representando los nombres de las clases extendidas
+	 */
+	protected function get_clases_extendidas()
+	{
+		if ($this->tiene_clases_proyecto_extendidas()) {
+			// Si las clases extendidas son las del proyecto entonces se devuelven
+			// las clases de la personalización
+			return $this->get_clases_componentes_personalizacion();
+		} elseif ($this->tiene_clases_toba_extendidas()) {
+			// Si las clases extendidas son las de toba pero no las del proyecto
+			// entonces se devuelven las clases del proyecto
+			return $this->get_clases_componentes_proyecto();
+		} else {	// Si no se hizo ninguna de las 2 extensiones se devuelven las clases de toba
+			return $this->get_clases_componentes_toba();
+		}
+	}
+
+	protected function get_componentes_toba()
+	{
+		return util_modelo_proyecto::get_componentes_toba($this);
+	}
+
+	protected function get_clases_componentes_toba()
+	{
+		return util_modelo_proyecto::get_clases_componentes_toba($this);
+	}
+
+	function get_clases_componentes_proyecto()
+	{
+		$comp_de_toba = $this->get_componentes_toba();
+		$id_proyecto = $this->get_id();
+		$clases = array();
+		foreach($comp_de_toba as $componente) {
+			$clases[] = $id_proyecto.'_'.$componente;
+		}
+		return $clases;
+	}
+
+	function get_clases_componentes_personalizacion()
+	{
+		$comp_de_toba = $this->get_componentes_toba();
+		$id_proyecto = $this->get_id();
+		$clases = array();
+		foreach($comp_de_toba as $componente) {
+			$clases[] = $id_proyecto.'_pers_'.$componente;
+		}
+		return $clases; 
+	}
+
+	//-----------------------------------------------------------
+	//	Puntos de montaje y dependencias entre proyectos
+	//-----------------------------------------------------------
+
+	function agregar_dependencia($id_proyecto)
+	{
+		$deps = $this->get_dependencias();
+		if (!in_array($id_proyecto, $deps)) {
+			$deps[] = $id_proyecto;
+		}
+		$this->set_dependencias($deps);
+	}
+
+	function quitar_dependencia($id_proyecto)
+	{
+		$deps  = $this->get_dependencias();
+		$index = array_search($id_proyecto, $deps);
+		if ($index !== false) { // existe la dependencia
+			unset($deps[$index]);
+		}
+		$this->set_dependencias($deps);
+	}
+
+	/**
+	 * Devuelve verdadero en caso de que el proyecto cumpla con todas sus dependencias
+	 * sino devuelve falso
+	 * @return boolean
+	 */
+	function cumple_dependencias()
+	{
+		return count($this->get_dependencias_faltantes()) > 0;
+	}
+
+	function get_dependencias_faltantes()
+	{
+		$deps = $this->get_dependencias();
+		$proyectos_instancia = toba::instancia()->get_proyectos_accesibles();
+		$proyectos_faltantes = array();
+
+		foreach($deps as $dep) {
+			if (!in_array($dep, $proyectos_instancia)) { // Si no está en la instancia
+				$proyectos_faltantes[] = $dep;
+			}
+		}
+
+		return $proyectos_faltantes;
+	}
+
+	// metodo dependencias no cumplidas
+
+	function get_dependencias()
+	{
+		$path_ini = $this->get_dir().'/proyecto.ini';
+		$contenido = file_get_contents($path_ini);
+		$matches = array();
+		preg_match_all('#^dependencias\s*=\s*(.*)$#im', $contenido, $matches);
+		if (empty($matches[1])) {
+			return array();
+		} else {
+			return explode(',', $matches[1][0]);
+		}
+	}
+
+	protected function set_dependencias($deps)
+	{
+		$path_ini = $this->get_dir().'/proyecto.ini';
+		$contenido = file_get_contents($path_ini);
+		$deps_lista = implode(',', $deps);
+		if (preg_match('#^dependencias(?:\s)*=(?:\s)*(.*)$#im', $contenido)) {
+			$replacement = (empty($deps)) ? '' : "\ndependencias = $deps_lista";
+			$contenido = preg_replace('#\ndependencias(?:\s)=(?:\s)(.*)$#im', $replacement, $contenido);
+		} else {
+			$contenido = preg_replace('#\[proyecto\]#im', "[proyecto]\ndependencias = $deps_lista", $contenido);
+		}
+		
+		file_put_contents($path_ini, $contenido);
+	}
+
 	//-----------------------------------------------------------
 	//	Informacion sobre METADATOS
 	//-----------------------------------------------------------
@@ -1787,7 +2042,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 	}
 	
-	function ejecutar_migracion_particular($version, $metodo)
+	function ejecutar_migracion_particular(toba_version $version, $metodo)
 	{
 		$this->get_db()->abrir_transaccion();		
 		$version->ejecutar_migracion('proyecto', $this, $metodo, $this->manejador_interface);

@@ -2,6 +2,9 @@
 
 class toba_migracion_1_4_0 extends toba_migracion
 {
+//	function personalizacion__
+
+
 	/**
 	 *  Se agrega la tabla:
 	 *				-  apex_objeto_cuadro_col_cc
@@ -414,6 +417,7 @@ class toba_migracion_1_4_0 extends toba_migracion
 					 WHERE	objeto_ei_filtro_proyecto = '{$this->elemento->get_id()}' AND carga_no_seteado IS NOT NULL ;";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
+
 }
 
 ?>

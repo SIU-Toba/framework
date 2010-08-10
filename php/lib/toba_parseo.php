@@ -59,7 +59,7 @@
 	{
 		$tags = array();
 		$salida = array();
-		preg_match_all("/@([\w]+) (.*)/", $com, $salida, PREG_SET_ORDER);
+		preg_match_all("/@([\w]+)(.*)/", $com, $salida, PREG_SET_ORDER);
 		foreach ($salida as $tag) {
 			$tags[trim($tag[1])] = trim($tag[2]);
 		}

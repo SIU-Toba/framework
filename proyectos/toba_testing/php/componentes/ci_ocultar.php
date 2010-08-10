@@ -1,5 +1,5 @@
 <?php 
-class ci_ocultar extends toba_ci
+class ci_ocultar extends toba_testing_pers_ci
 {
 
 	function conf__arbol()

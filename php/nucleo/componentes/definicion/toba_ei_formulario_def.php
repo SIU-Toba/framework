@@ -7,10 +7,15 @@ class toba_ei_formulario_def extends toba_ei_def
 		$estructura = parent::get_estructura();
 		$estructura[] = array( 	'tabla' => 'apex_objeto_ut_formulario',
 								'registros' => '1',
+								'diff_clave' => 'objeto_ut_formulario',
 								'obligatorio' => false );
 		$estructura[] = array( 	'tabla' => 'apex_objeto_ei_formulario_ef',
 								'registros' => 'n',
-								'obligatorio' => false );
+								'obligatorio' => false,
+								'diff_clave' => 'identificador',
+								'diff_excluir' => array(
+									'objeto_ei_formulario_fila'
+								));
 		return $estructura;		
 	}
 

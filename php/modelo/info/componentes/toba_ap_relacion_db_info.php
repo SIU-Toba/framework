@@ -98,6 +98,11 @@ class toba_ap_relacion_db_info implements toba_meta_clase
 	{
 		return 'nucleo/componentes/persistencia/toba_ap_relacion_db.php';
 	}
+
+	function get_punto_montaje()
+	{
+		return $this->datos['punto_montaje'];
+	}
 	
 	function get_subclase_nombre()
 	{

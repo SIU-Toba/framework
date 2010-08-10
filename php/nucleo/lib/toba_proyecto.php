@@ -172,6 +172,15 @@ class toba_proyecto
 		return $this->get_parametro('listar_multiproyecto');
 	}
 
+	function es_personalizable()
+	{
+		$db = toba_proyecto_db::get_db();
+		$id_proyecto = $db->quote($this->get_id());
+		$sql = "SELECT extension_proyecto FROM apex_proyecto WHERE proyecto=$id_proyecto";
+		$fila = $db->consultar_fila($sql);
+		return $fila['extension_proyecto'];
+	}
+
 	/**
 	 * Retorna el path base absoluto del proyecto
 	 */
@@ -561,6 +570,24 @@ class toba_proyecto
 		}
 		return $rs;
 	}	
+
+	//------------------------  PUNTOS DE MONTAJE  -------------------------
+
+	function get_info_pms()
+	{
+		$proyecto = $this->id;
+		if (toba::nucleo()->utilizar_metadatos_compilados($proyecto)) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__pms', 'get_pms');
+		} else {
+			$rs = toba_proyecto_db::get_pms($proyecto);
+		}
+		if (empty($rs)) {
+			throw new toba_error("No se pueden encontrar puntos de montaje en el proyecto '$proyecto'");
+		}
+
+		return $rs;
+	}
+
 	
 	//------------------------  GADGETS  -------------------------
 	/**

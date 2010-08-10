@@ -158,14 +158,16 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	selec_ancho							varchar(30)		NULL,
 	selec_serializar					smallint		NULL,
 	selec_cant_columnas					smallint		NULL,
-	upload_extensiones					TEXT	NULL,
+	upload_extensiones					TEXT			NULL,
+	punto_montaje						int8			NULL,
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_fila", "objeto_ei_formulario", "objeto_ei_formulario_proyecto"),
 	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario", "objeto_ei_formulario_proyecto") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario", "objeto_ut_formulario_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_datos_tabla" FOREIGN KEY ("objeto_ei_formulario_proyecto","carga_dt") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_consulta_php" FOREIGN KEY ("objeto_ei_formulario_proyecto","carga_consulta_php") REFERENCES "apex_consulta_php" ("proyecto", "consulta_php") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_ei_f_ef_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","popup_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_ei_f_ef_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","popup_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 

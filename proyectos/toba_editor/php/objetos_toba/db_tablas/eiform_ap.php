@@ -27,18 +27,32 @@ class eiform_ap extends toba_ei_formulario
 			if( flag == 3 ){
 				this.ef('ap_clase').mostrar();
 				this.ef('ap_archivo').mostrar();
+				this.ef('punto_montaje').mostrar();
 				if (this.get_boton('extender_ap')) {
 					this.mostrar_boton('extender_ap');
 				}				
 			}else{
 				this.ef('ap_clase').ocultar(true);
 				this.ef('ap_archivo').ocultar(true);
+				this.ef('punto_montaje').ocultar(true);
 				if (this.get_boton('extender_ap')) {
 					this.ocultar_boton('extender_ap');
 				}				
 			}
 		}
 
+		{$this->objeto_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
+        {
+			var estado = this.ef('punto_montaje').get_estado();
+			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+		}
+
+		{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+			  if (!inicial) {
+				  this.ef('ap_archivo').cambiar_valor('');
+				  this.ef('ap_clase').cambiar_valor('');
+			  }
+		  }
 		{$this->objeto_js}.evt__abrir_php = function () {
 			$this->js_abrir;
 			return false;

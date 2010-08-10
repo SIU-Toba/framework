@@ -27,6 +27,8 @@ CREATE TABLE apex_msg
 --: proyecto: toba
 --: dump: nucleo_multiproyecto
 --: dump_order_by: msg
+--: clave_proyecto: proyecto
+--: clave_elemento: msg
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -55,6 +57,8 @@ CREATE TABLE apex_item_msg
 --: dump: multiproyecto
 --: dump_order_by: item_msg
 --: dump_where: ( item_proyecto = '%%' )
+--: clave_proyecto: item_proyecto
+--: clave_elemento: item_msg
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -86,6 +90,8 @@ CREATE TABLE apex_objeto_msg
 --: dump: multiproyecto
 --: dump_order_by: objeto_msg
 --: dump_where: ( objeto_proyecto = '%%' )
+--: clave_proyecto: objeto_proyecto
+--: clave_elemento: objeto_msg
 --: zona: objeto
 --: desc:
 --: version: 1.0

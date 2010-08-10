@@ -1570,6 +1570,7 @@ class toba_ei_cuadro extends toba_ei
 			throw new toba_error_seguridad("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->_tipo_salida = $tipo;
+		
 		if( $this->datos_cargados() ){
 			$this->inicializar_generacion();
 			$this->generar_inicio();

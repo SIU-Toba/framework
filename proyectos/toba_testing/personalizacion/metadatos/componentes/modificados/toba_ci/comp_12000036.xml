@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<componente id="12000036">
+	<tabla nombre="apex_objeto_ci_pantalla">
+		<registro estado="2" clave="pantalla:12000024">
+			<columna nombre="etiqueta" valor="Pantalla" valor_original="Pantalla Inicial"/>
+		</registro>
+	</tabla>
+	<tabla nombre="apex_objetos_pantalla">
+		<registro estado="2" clave="proyecto:toba_testing;objeto_ci:12000036;pantalla:12000024;dep_id:12000028">
+			<columna nombre="orden" valor="0" valor_original="###$$$NULL$$$###"/>
+		</registro>
+	</tabla>
+</componente>

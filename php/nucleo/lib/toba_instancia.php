@@ -31,6 +31,7 @@ class toba_instancia
 	private function __construct($recargar)
 	{
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_instancia();
+
 		if(!$this->memoria || $recargar) {
 			$this->memoria = $this->get_datos_instancia( self::get_id() );
 		}
@@ -56,12 +57,15 @@ class toba_instancia
 	static function get_id()
 	{
 		if ( ! isset(self::$id)) {
+//			var_dump($_SERVER);
 			if (defined('apex_pa_instancia')) {
 				self::$id = apex_pa_instancia;
 			} elseif (isset($_SERVER['TOBA_INSTANCIA'])) {
 				self::$id = $_SERVER['TOBA_INSTANCIA'];
+//			} elseif (isset($_SERVER['toba_instancia'])) {
+//				self::$id = $_SERVER['toba_instancia'];
 			} else {
-				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
+				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no existe la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
 			}
 		}		
 		return self::$id;
@@ -116,6 +120,12 @@ class toba_instancia
 		} else {
 			return toba_dir() . "/proyectos/" . $proyecto;
 		}
+	}
+
+	function get_path_ini()
+	{
+		$id_instancia = toba::instancia()->get_id();
+		return toba::nucleo()->toba_instalacion_dir(). '/'.toba_modelo_instancia::dir_prefijo.$id_instancia . '/'. toba_modelo_instancia::toba_instancia;
 	}
 
 	function get_directiva_compilacion($proyecto)

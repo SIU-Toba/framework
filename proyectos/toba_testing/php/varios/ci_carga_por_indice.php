@@ -1,6 +1,6 @@
 <?php 
 
-class ci_carga_por_indice extends toba_ci
+class ci_carga_por_indice extends toba_testing_pers_ci
 {
 	function ini()
 	{

@@ -50,7 +50,7 @@ abstract class ci_editores_toba extends toba_ci
 				toba::notificacion()->agregar("El elemento seleccionado no existe.","error");
 				$this->falla_carga = true;	
 			}
-		}		
+		}
 		return $this->dependencia('datos');
 	}
 
@@ -154,6 +154,7 @@ abstract class ci_editores_toba extends toba_ci
 		}
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
+
 		if( $this->componente_existe_en_db() ) {
 			//Algun cambio de valor del componente puede cambiar el display de la zona
 			toba::zona()->recargar();

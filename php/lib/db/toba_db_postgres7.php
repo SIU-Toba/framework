@@ -8,6 +8,7 @@ class toba_db_postgres7 extends toba_db
 {
 	protected $cache_metadatos = array(); //Guarda un cache de los metadatos de cada tabla
 	protected $schema;
+	protected $transaccion_abierta = false;
 	
 	
 	function __construct($profile, $usuario, $clave, $base, $puerto)
@@ -40,7 +41,7 @@ class toba_db_postgres7 extends toba_db
 			return $this->schema;
 		}
 	}
-	
+
 	function set_encoding($encoding)
 	{
 		$sql = "SET CLIENT_ENCODING TO '$encoding'";
@@ -52,7 +53,7 @@ class toba_db_postgres7 extends toba_db
 		$sql = "SET datestyle TO 'iso';";
 		$this->ejecutar($sql);	
 	}
-	
+
 	/**
 	*	Recupera el valor actual de una secuencia
 	*	@param string $secuencia Nombre de la secuencia
@@ -84,24 +85,55 @@ class toba_db_postgres7 extends toba_db
 	{
 		$sql = 'BEGIN TRANSACTION';
 		$this->ejecutar($sql);
+		$this->transaccion_abierta = true;
 		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK TRANSACTION';
-		$this->ejecutar($sql);		
+		$this->ejecutar($sql);
+		$this->transaccion_abierta = false;
 		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION";
-		$this->ejecutar($sql);		
+		$this->ejecutar($sql);
+		$this->transaccion_abierta = false;
 		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
-	
+	/**
+	 * @return boolean Devuelve true si hay una transacción abierta y false en caso contrario
+	 */
+	function transaccion_abierta()
+	{
+		return $this->transaccion_abierta;
+	}
+
+	function agregar_savepoint($nombre)
+	{
+		$sql = "SAVEPOINT $nombre";
+		$this->ejecutar($sql);
+		toba_logger::instancia()->debug("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+	}
+
+	function abortar_savepoint($nombre)
+	{
+		$sql = "ROLLBACK TO SAVEPOINT $nombre";
+		$this->ejecutar($sql);
+		toba_logger::instancia()->debug("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+	}
+
+	function liberar_savepoint($nombre)
+	{
+		$sql = "RELEASE SAVEPOINT $nombre";
+		$this->ejecutar($sql);
+		toba_logger::instancia()->debug("************ liberar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+	}
+
 	/**
 	*	Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.
 	*	@param string $tabla Nombre de la tabla en la que se insertarán los datos
@@ -151,7 +183,14 @@ class toba_db_postgres7 extends toba_db
 		$sql = "DROP SCHEMA $schema CASCADE";
 		return $this->ejecutar($sql);
 	}		
-	
+
+	function borrar_schema_si_existe($schema)
+	{
+		if ($this->existe_schema($schema)) {
+			$this->borrar_schema($schema);
+		}
+	}
+
 	function crear_schema($schema) 
 	{
 		$sql = "CREATE SCHEMA $schema ";
@@ -163,7 +202,56 @@ class toba_db_postgres7 extends toba_db
 		$sql = "ALTER SCHEMA $actual RENAME TO $nuevo";
 		return $this->ejecutar($sql);
 	}		
-	
+
+    /**
+     * Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES >= 8.3
+     * @param string $actual el nombre del schema a clonar
+     * @param string $nuevo el nombre del nuevo schema
+     */
+    public function clonar_schema($actual, $nuevo)
+    {
+		$sql = "
+            CREATE OR REPLACE FUNCTION clone_schema(source_schema text, dest_schema text) RETURNS void AS
+            \$BODY$
+            DECLARE
+              objeto text;
+              buffer text;
+            BEGIN
+                EXECUTE 'CREATE SCHEMA ' || dest_schema ;
+
+                FOR objeto IN
+                    SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = source_schema
+                LOOP
+                    buffer := dest_schema || '.' || objeto;
+                    EXECUTE 'CREATE SEQUENCE ' || buffer;
+                    BEGIN
+                        --EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT nextval(' || quote_literal(source_schema ||'.'|| objeto) || '))' || ')';
+                        EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT last_value FROM ' || source_schema ||'.'|| objeto || ')' || ')';
+                    EXCEPTION WHEN OTHERS THEN
+                    END;
+                END LOOP;
+
+                FOR objeto IN
+                    SELECT table_name::text FROM information_schema.tables WHERE table_schema = source_schema
+                LOOP
+                    buffer := dest_schema || '.' || objeto;
+                    EXECUTE 'CREATE TABLE ' || buffer || ' (LIKE ' || source_schema || '.' || objeto || ' INCLUDING CONSTRAINTS INCLUDING INDEXES INCLUDING DEFAULTS)';
+                    EXECUTE 'INSERT INTO ' || buffer || '(SELECT * FROM ' || source_schema || '.' || objeto || ')';
+                END LOOP;
+
+            END;
+            \$BODY$
+            LANGUAGE plpgsql VOLATILE;
+        ";
+		
+        $this->ejecutar($sql);
+        
+        $actual = $this->quote($actual);
+        $nuevo = $this->quote($nuevo);
+        $sql = "SELECT clone_schema($actual, $nuevo)";
+        $this->ejecutar($sql);
+    }
+
 	//---------------------------------------------------------------------
 	//-- PERMISOS
 	//---------------------------------------------------------------------
@@ -366,6 +454,7 @@ class toba_db_postgres7 extends toba_db
 	{
 		$tabla = $this->quote($tabla);
 		$schema = $this->quote($schema);
+		
 		$sql = "SELECT
 					table_name
 				FROM
@@ -445,7 +534,7 @@ class toba_db_postgres7 extends toba_db
 		}
 		$tabla_sana = $this->quote($tabla);
 		//1) Busco definicion
-		$sql = "SELECT 	a.attname as 			nombre,
+		$sql = "SELECT  a.attname as 			nombre,
 						t.typname as 			tipo,
 						a.attlen as 			tipo_longitud,
 						a.atttypmod as 			longitud,
@@ -457,6 +546,7 @@ class toba_db_postgres7 extends toba_db
 						fc.relname				as fk_tabla,
 						fa.attname				as fk_campo,						
 						a.attnum as 			orden,
+						c.relname as			tabla,
 						EXISTS (SELECT 
 									indisprimary 
 								FROM 
@@ -561,7 +651,80 @@ class toba_db_postgres7 extends toba_db
 	{
 		return 'DEFAULT';
 	}
-	
+
+	/**
+	 * Devuelve el nombre de la columna que es una secuencia en la tabla $tabla del schema $schema.
+	 * Si no se especifica el schema se utiliza el que tiene por defecto la base
+	 * @return string nombre de la columna si la tabla tiene secuencia. Sino devuelve null
+	 */
+	function get_secuencia_tabla($tabla, $schema = null)
+	{
+		if (is_null($schema)) {
+			$schema = $this->get_schema();
+		}
+
+		$sql = "
+		SELECT column_name
+		FROM information_schema.columns
+		WHERE
+			table_name   = '$tabla'
+			AND	table_schema = '$schema'
+			AND ((column_default LIKE '%seq\"''::text)::regclass)') OR (column_default LIKE '%seq''::text)::regclass)'))
+		";
+
+		$result = $this->consultar($sql);
+		if (isset($result[0])) {
+			return $result[0]['column_name'];
+		} else {
+			return null;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------
+	//-- UTILIDADES PG_DUMP
+	//-----------------------------------------------------------------------------------
+
+	/**
+	 * Devuelve una tabla del sistema como un arreglo de INSERTS obtenida a partir
+	 * del pg_dump de postgres
+	 * @param string $bd	El nombre de la base
+	 * @param string $schema	El schema al que pertenece la tabla
+	 * @param string $tabla		La tabla a exportar
+	 * @param string $host		
+	 * @param string $usuario
+	 * @param string $pass
+	 * @return array
+	 */
+	function pgdump_get_tabla($bd, $schema, $tabla, $host, $usuario, $pass = null)
+	{
+		$comando = "pg_dump  -a -i -d -t $schema.$tabla -h $host -U $usuario $bd";
+		$tabla = array();
+
+		if (!is_null($pass)) putenv("PGPASSWORD=$pass");
+		
+		exec($comando, $tabla, $exito);
+
+		if ($exito > 0) {
+			throw new toba_error("Error ejecutando pg_dump. Comando ejecutado: $comando");
+		}
+
+		$this->pgdump_limpiar($tabla);
+
+		return $tabla;
+	}
+
+	protected function pgdump_limpiar(&$array)
+	{
+		$borrando = true;
+
+		foreach ($array as $key => $elem) {
+			if (comienza_con($elem, 'INSERT')) {
+				continue;
+			}
+			unset($array[$key]);
+		}
+	}
+
 	//-----------------------------------------------------------------------------------
 	//-- AUDITORIA (se le pide una instancia de manejador a la base que ya sabe el motor)
 	//-----------------------------------------------------------------------------------

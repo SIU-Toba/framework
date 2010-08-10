@@ -229,7 +229,9 @@ abstract class toba_solicitud
 		if (trim($this->info['basica']['item_zona'])!="") {
 			//--- Tiene subclase?
 			if (isset($this->info['basica']['item_zona_archivo'])) {
-				require_once($this->info['basica']['item_zona_archivo']);
+				$punto = toba::puntos_montaje()->get_por_id($this->info['basica']['zona_punto_montaje']);
+				$path  = $punto->get_path_absoluto().'/'.$this->info['basica']['item_zona_archivo'];
+				require_once($path);
 				$clase = $this->info['basica']['item_zona'];
 			}
 			//--- Tiene consulta?

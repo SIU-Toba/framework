@@ -2,6 +2,9 @@
 
 class comando
 {
+	/**
+	 * @var consola
+	 */
 	protected $consola;
 	protected $argumentos;
 
@@ -98,9 +101,10 @@ class comando
 				$nombre = $temp[1];
 				$comentario = $metodo->getDocComment();
 				$opciones[ $nombre ] = array(
-						'ayuda' => parsear_doc_comment($comentario),
-						'tags' => parsear_doc_tags($comentario)	
+					'ayuda' => parsear_doc_comment($comentario),
+					'tags' => parsear_doc_tags($comentario)
 				);
+				
 			}
 		}
 		return $opciones;		

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<tabla id="apex_puntos_montaje">
+	<registro estado="1">
+		<columna nombre="id" valor="12000006"/>
+		<columna nombre="etiqueta" valor="prueba"/>
+		<columna nombre="proyecto" valor="toba_testing"/>
+		<columna nombre="proyecto_ref" valor="toba_referencia"/>
+		<columna nombre="descripcion" valor=""/>
+		<columna nombre="path_pm" valor="php"/>
+		<columna nombre="tipo" valor="proyecto_toba"/>
+	</registro>
+</tabla>

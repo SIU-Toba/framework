@@ -5,8 +5,12 @@ class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
 	protected $clase_actual = 'toba_datos_tabla';	
+	protected $s__ap;									// El tipo de ap seleccionado en las propiedades básicas
 	protected $s__ap_php_db;							// La base posee registro de la existencia de una extension??
 	protected $s__ap_php_archivo;						// El archivo de la extension existe en el sistema de archivos??
+	protected $s__fks;
+	protected $s__tabla;
+	protected $s__tabla_ext;
 	
 	function conf()
 	{
@@ -48,6 +52,10 @@ class ci_principal extends ci_editores_toba
 		$this->dep('base')->desactivar_efs('fuente_datos');
 	}
 
+	/**
+	 *
+	 * @return toba_datos_relacion
+	 */
 	function get_entidad()
 	{
 		$this->dependencia('datos')->tabla('externas')->set_es_unico_registro(false);
@@ -127,6 +135,9 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos',$datos['fuente_datos']);
 		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos_proyecto',$datos['fuente_datos_proyecto']);
 		$this->get_entidad()->tabla('prop_basicas')->set($datos);
+		$this->s__ap = $datos['ap'];
+		$this->s__tabla = $datos['tabla'];
+		$this->s__tabla_ext = $datos['tabla_ext'];
 	}
 
 	function get_tablas($fuente)
@@ -168,27 +179,38 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//**  COLUMNAS  *****************************************************
 	//*******************************************************************
-	
-	
-	function conf__columnas()
+
+	function conf__2()
 	{
-		return $this->get_entidad()->tabla('columnas')->get_filas(null,true);	
+		if ($this->s__ap != toba_ap_tabla_db_mt::id_ap_mt) {
+			$this->pantalla()->eliminar_dep('fks');
+		}
+	}
+
+	function conf__columnas($form)
+	{
+		return $this->get_entidad()->tabla('columnas')->get_filas(null,true);
 	}
 
 	function evt__columnas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla('columnas')->procesar_filas($datos);
+		
 		if (! $this->verificar_existencia_columna_clave($datos)){
 			toba::notificacion()->agregar('No existe una Clave Primaria asociada a esta tabla','error');
 		}
 	}
 
 	//-- Generacion automatica de columnas!!
-	
 	function evt__columnas__leer_db($datos)
 	{
 		$this->evt__columnas__modificacion($datos);
 		$this->get_entidad()->actualizar_campos();
+	}
+
+	function evt__fks__modificacion($datos)
+	{
+		$this->get_entidad()->tabla('fks')->procesar_filas($datos);
 	}
 
 	function verificar_existencia_columna_clave($datos)
@@ -199,7 +221,54 @@ class ci_principal extends ci_editores_toba
 		}				
 		return $hay_pk;
 	}
-	
+
+	function conf__fks(toba_ei_formulario_ml $form)
+	{
+		$filas = $this->get_entidad()->tabla('fks')->get_filas(null, true);
+		$form->set_datos($filas);
+	}
+
+
+	function get_columnas_original()
+	{
+		return $this->get_columnas($this->s__tabla);
+	}
+
+	function get_columnas_ext()
+	{
+		return $this->get_columnas($this->s__tabla_ext);
+	}
+
+	protected function get_columnas($tabla, $plano = false)
+	{
+		$columnas = $this->get_entidad()->tabla('columnas')->get_filas(null,true);
+		$rs = array();
+		foreach ($columnas as $cursor => $columna) {
+			if ($columna['tabla'] == $tabla) {
+				if ($plano) {
+					$rs[] = $columna['columna'];
+				} else {
+					$rs[] = array(
+						'id' => $cursor,
+						'nombre'=>$columna['columna']
+					);
+				}
+			}
+		}
+		
+		return $rs;
+	}
+
+	function get_tabla_original()
+	{
+		return $this->s__tabla;
+	}
+
+	function get_tabla_ext()
+	{
+		return $this->s__tabla_ext;
+	}
+
 	//*******************************************************************
 	//**  EXTERNAS  *****************************************************
 	//*******************************************************************	

@@ -1,6 +1,6 @@
 <?php
 
-class form_ml_solo_lectura extends toba_ei_formulario_ml
+class form_ml_solo_lectura extends toba_testing_pers_ei_formulario_ml
 {
 	function extender_objeto_js()
 	{

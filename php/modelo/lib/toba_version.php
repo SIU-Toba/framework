@@ -285,6 +285,7 @@ class toba_version
 		$archivo = $this->path_migraciones()."/$nombre_clase.php";
 		require_once($archivo);
 		$migracion = new $nombre_clase($elemento);
+		echo $nombre_clase;
 		$clase = new ReflectionClass($nombre_clase);
 		foreach ($clase->getMethods() as $metodo) {
 			$nombre_metodo = $metodo->getName();

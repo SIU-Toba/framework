@@ -147,7 +147,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		);
 		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {
 			// Hay PHP asociado
-			if ( admin_util::existe_archivo_subclase($this->datos['subclase_archivo']) ) {
+			if ( admin_util::existe_archivo_subclase($this->datos['subclase_archivo'], $this->datos['punto_montaje']) ) {
 				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			$this->datos['identificador'] );
@@ -218,6 +218,11 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		}
 		$molde->ultimo_elemento()->set_contenido($php);
 		return $molde;
+	}
+
+	function get_punto_montaje()
+	{
+		return $this->datos['punto_montaje'];
 	}
 	
 	function get_subclase_nombre()

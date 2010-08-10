@@ -1,5 +1,5 @@
 <?php
-class form_perfil_funcional extends toba_ei_formulario
+class form_perfil_funcional extends toba_testing_pers_ei_formulario
 {
 
 	//-----------------------------------------------------------------------------------

@@ -87,15 +87,23 @@ class admin_util
 		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_proyecto('reflexion/abrir.gif', false)."' $ayuda>";		
 	}
 
-	static function existe_archivo_subclase($path_relativo)
+	static function existe_archivo_subclase($path_relativo, $pm_id = null)
 	{
-		$path_real = self::get_path_archivo($path_relativo);
+//		ei_arbol(debug_backtrace());
+		$path_real = self::get_path_archivo($path_relativo, $pm_id);
 		return file_exists($path_real) && is_file($path_real);
 	}
 	
-	static function get_path_archivo($path_relativo)
+	static function get_path_archivo($path_relativo, $pm_id = null)
 	{
-		return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
+		if (!is_null($pm_id)) {
+			$pm = toba_modelo_pms::get_pm($pm_id);
+			$path = $pm->get_path_absoluto().'/';
+		} else {
+			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
+		}
+		toba::logger()->crit($path . $path_relativo);
+		return $path . $path_relativo;
 	}
 	
 	/**

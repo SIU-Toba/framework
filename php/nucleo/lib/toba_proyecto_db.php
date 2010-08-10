@@ -519,6 +519,18 @@ class toba_proyecto_db
 		";
 		return self::get_db()->consultar_fila($sql);	
 	}
+
+	//------------------------  PUNTOS DE MONTAJE  -------------------------
+	/**
+	 * Retorna el listado completo de los puntos de montaje de un proyecto
+	 */
+	static function get_pms($proyecto)
+	{
+		$proyecto = self::get_db()->quote($proyecto);
+		$sql = "SELECT * FROM apex_puntos_montaje WHERE proyecto=$proyecto";
+		return self::get_db()->consultar($sql);
+	}
+
 	
 	//------------------------  GADGETS  -------------------------	
 	static function get_gadgets_proyecto($proyecto, $usuario) {

@@ -231,7 +231,16 @@ class toba
 	{
 		return toba_puntos_control::instancia();
 	}
-	
+
+	/**
+	 * Retorna el objeto que contiene información de los puntos de montaje
+	 * @return toba_pms
+	 */
+	static function puntos_montaje()
+	{
+		return toba_pms::instancia();
+	}
+
 	/**
 	 * Retorna un componente datos_tabla de una tabla específica del sistema
 	 * @param string $nombre_tabla
@@ -248,6 +257,7 @@ class toba
 		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
 		//Se pide el dt con el cache activado asi evita duplicar las instancias
 		$comp = toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+
 		if (! $comp->inicializado()) {
 			$comp->inicializar();
 		}

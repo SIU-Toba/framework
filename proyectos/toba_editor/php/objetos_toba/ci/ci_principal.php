@@ -43,7 +43,7 @@ class ci_editor extends ci_editores_toba
 				foreach ($datos_pantalla as $pantalla) {
 					if (isset($pantalla['subclase']) && $pantalla['subclase'] &&  isset($pantalla['subclase_archivo'])) {
 						$this->s__pantalla_php_db[$pantalla['x_dbr_clave']] = $pantalla['identificador'];
-						if( admin_util::existe_archivo_subclase($pantalla['subclase_archivo'])) {
+						if( admin_util::existe_archivo_subclase($pantalla['subclase_archivo'], $pantalla['punto_montaje'])) {
 							$this->s__pantalla_php_archivo[$pantalla['x_dbr_clave']] = true;
 						}
 					}
@@ -283,6 +283,7 @@ class ci_editor extends ci_editores_toba
 			//-- Debo pasarle el id de la pantalla a extender
 			$pantalla = $this->get_entidad()->tabla("pantallas")->get();
 			$obj->evento('extender')->vinculo()->agregar_parametro('subcomponente', $pantalla['identificador']);
+//			$obj->evento('extender')->vinculo()->agregar_parametro('punto_montaje', $pantalla['punto_montaje']);
 		} else {
 			$obj->eliminar_evento('extender');			
 			// Link al editor
@@ -290,7 +291,7 @@ class ci_editor extends ci_editores_toba
 																				'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 			$obj->evento('ver_php')->vinculo()->set_parametros($parametros);
-			
+
 			if (isset($this->s__pantalla_php_archivo[$id_actual])) {
 				// Apertura de archivos
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],

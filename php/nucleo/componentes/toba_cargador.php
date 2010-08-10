@@ -93,6 +93,112 @@ class toba_cargador
 	}
 
 	/**
+	*	Retorna los metadatos de un componente, tal cual existen en las tablas
+	*	del mismo. Este metodo es utilizado por el exportador de personalizaciones.
+	*	El parametro DB tiene como objetivo brindar este servicio a la consola
+	*	La diferencia con get_metadatos_simples es que reordena los resultados
+	*	de manera que sea más fácil computar la diferencia
+	*/
+	function get_metadatos_simples_diff( $componente, $tipo=null, $db = null )
+	{
+		$metadatos = array();
+		if ( !isset( $tipo ) ) {
+			$tipo = self::get_tipo( $componente );
+		}
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = toba::instancia()->get_db();
+		}
+		$clase_def = $tipo . '_def';
+		$estructura = call_user_func(array($clase_def,'get_estructura'));
+		
+		foreach ($estructura as $seccion) {
+			$tabla = $seccion['tabla'];
+			$id = $db->quote($componente['componente']);
+			$proyecto = $db->quote($componente['proyecto']);
+			$definicion = toba_db_tablas_componente::$tabla();
+			//Genero el SQL
+			$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
+					" FROM $tabla " .
+					" WHERE {$definicion['dump_clave_proyecto']} = $proyecto " .
+					" AND {$definicion['dump_clave_componente']} = $id " .
+					" ORDER BY {$definicion['dump_order_by']} ;\n";
+			$data = $db->consultar( $sql );
+
+			/*
+			 * Todo lo que sigue es la reorganización de tablas para facilitar
+			 * la comparación de registros. $clave es la secuencia de la tabla,
+			 * $clave_insercion es la clave que se utilizará para chequear conflictos
+			 * de unique key
+			 */
+
+			$clave = $this->armar_clave($db, $tabla, $definicion, $seccion['registros']);
+			$reorganizado = $this->reorganizar_tablas($tabla, $data, $clave);
+			$metadatos[$tabla] = $reorganizado;
+		}
+
+		return $metadatos;
+	}
+
+	protected function armar_clave($db, $tabla, &$definicion, $cant_registros)
+	{
+		$clave = $db->get_secuencia_tabla($tabla);
+
+		if (is_null($clave)) {
+			if ($cant_registros != 1) {
+				if (isset($definicion['clave_elemento'])) {	// Si está definido clave_elemento la armamos de ahí
+					$exp_clave_elem = explode(',', $definicion['clave_elemento']);
+					foreach (array_keys($exp_clave_elem) as $key) {
+						$exp_clave_elem[$key] = '%'.trim($exp_clave_elem[$key]).'%';
+					}
+					$clave = implode(';', $exp_clave_elem);
+				} else {
+					print_r($definicion);
+					throw new toba_error("TOBA CARGADOR: Falta definir la clave de la tabla $tabla");
+				}
+			} else {	// Si la cantidad de registros es uno la clave se forma a partir del proyecto y la clave componente
+				$clave_proyecto = $definicion['dump_clave_proyecto'];
+				$clave_comp = $definicion['dump_clave_componente'];
+				$clave = "%$clave_proyecto%;%$clave_comp%";
+			}
+		} else {	// Si tiene secuencia la tabla se utiliza esa como clave
+			$clave = "%$clave%";
+		}
+
+		return $clave;
+	}
+
+	/**
+	 *
+	 * @param array $registros
+	 * @param string $claves es un string separado por ; con las claves del registro.
+	 * @return <type>
+	 */
+	protected function reorganizar_tablas($tabla, &$registros, $claves)
+	{
+		$reorganizado = array();
+		
+		foreach (array_keys($registros) as $registro_key) {
+			$exp_claves = explode(';', $claves);
+			$clave_reg = $claves;
+			foreach ($exp_claves as $clave) {
+				$clave_limpia = substr($clave, 1, -1);	//removemos los %% 
+				$clave_reg = str_replace("$clave",
+										$clave_limpia.':'.$registros[$registro_key][$clave_limpia],
+										$clave_reg);
+			}
+			
+			$reorganizado[$clave_reg] = array();
+			
+			foreach ($registros[$registro_key] as $columna => $valor) {
+				$reorganizado[$clave_reg][$columna] = $valor;
+			}
+		}
+
+		return $reorganizado;
+	}
+
+	/**
 	*	Retorna los metadatos extendidos de un componente
 	*	Este metodo es utilizado por el constructor de runtimes e infos
 	*/

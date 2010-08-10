@@ -1,5 +1,5 @@
 <?php 
-class cn_carga_por_indice extends toba_cn
+class cn_carga_por_indice extends toba_testing_pers_cn
 {
 	function test()
 	{

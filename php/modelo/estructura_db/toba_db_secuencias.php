@@ -58,6 +58,8 @@ class toba_db_secuencias
 		$datos['apex_objeto_dep_consumo_seq'] = array('campo' => 'consumo_id', 'tabla'=> 'apex_objeto_dep_consumo');
 		$datos['apex_gadgets_seq'] = array('campo' => 'gadget', 'tabla'=> 'apex_gadgets');
 //		$datos['apex_ei_mapa_layer_seq'] = array('campo' => 'objeto_ei_mapa_layer', 'tabla'=> 'apex_objeto_ei_mapa_layer');
+		$datos['apex_puntos_montaje_seq'] = array('campo' => 'id', 'tabla'=> 'apex_puntos_montaje');
+		$datos['apex_objeto_db_columna_fks_seq'] = array('campo' => 'id', 'tabla'=> 'apex_objeto_db_columna_fks');
 		return $datos;
 	}
 

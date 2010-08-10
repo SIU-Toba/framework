@@ -1,6 +1,6 @@
 <?php
 
-class ci_serializacion_propiedades extends toba_ci
+class ci_serializacion_propiedades extends toba_testing_pers_ci
 {
 	protected $s__entero;
 	protected $s__arreglo_basico;

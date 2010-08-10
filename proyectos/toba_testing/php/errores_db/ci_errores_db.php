@@ -1,5 +1,5 @@
 <?php 
-class ci_errores_db extends toba_ci
+class ci_errores_db extends toba_testing_pers_ci
 {
 	protected $sentencias =  array(
 		//PK

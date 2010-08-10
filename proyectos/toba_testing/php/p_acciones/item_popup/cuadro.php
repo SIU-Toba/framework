@@ -1,6 +1,6 @@
 <?php
 
-class cuadro extends toba_ei_cuadro
+class cuadro extends toba_testing_pers_ei_cuadro
 {
     function obtener_clave_pura_fila($fila)
 	//Genero la CLAVE
