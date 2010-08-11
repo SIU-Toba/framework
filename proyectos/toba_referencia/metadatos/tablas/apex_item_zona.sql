@@ -12,7 +12,7 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	'operaciones_simples/consultas.php', --consulta_archivo
 	'consultas', --consulta_clase
 	'get_persona_datos', --consulta_metodo
-	NULL  --punto_montaje
+	'12000003'  --punto_montaje
 );
 INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_referencia', --proyecto
@@ -24,7 +24,7 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	'componentes/ci/ci_wizard.php', --consulta_archivo
 	'ci_wizard', --consulta_clase
 	'get_info_zona', --consulta_metodo
-	NULL  --punto_montaje
+	'12000003'  --punto_montaje
 );
 INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (
 	'toba_referencia', --proyecto
@@ -36,5 +36,5 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --consulta_archivo
 	NULL, --consulta_clase
 	NULL, --consulta_metodo
-	NULL  --punto_montaje
+	'12000003'  --punto_montaje
 );
