@@ -95,7 +95,7 @@ class ci_auditoria extends toba_ci
 				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
 			}
 			$clase = get_class($auditoria);
-			$campos_propios = $clase::get_campos_propios();
+			$campos_propios = call_user_func(array($clase, 'get_campos_propios'));
 			$schema = $db->get_schema();
 			if (!isset($schema)) {
 				$schema = 'public';

@@ -1,6 +1,6 @@
 <?php
 
-class apdb_usuario_basicas extends toba_ap_tabla_db
+class apdb_usuario_basicas extends toba_ap_tabla_db_s
 {
 	protected function evt__pre_update($id)
 	{
