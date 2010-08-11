@@ -61,6 +61,9 @@ class toba_datos_tabla_info extends toba_componente_info
 	function get_utilerias()
 	{
 		//--- Mejora para el caso de que la query sea una unica
+		if (isset($this->datos['_info']['punto_montaje'])) {
+			$this->datos['_info_estructura']['punto_montaje'] = $this->datos['_info']['punto_montaje'];
+		}
 		if (isset($this->datos['_info']['ap_clase'])) {
 			$this->datos['_info_estructura']['ap_clase'] = $this->datos['_info']['ap_clase'];
 		}
