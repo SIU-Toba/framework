@@ -3,7 +3,7 @@
 class toba_modelo_pms
 {
 	const prefijo_ini = 'pm_';
-	const pm_php  = 'php';
+	const pm_php  = 'proyecto';
 	const pm_pers = 'personalizacion';
 
 	/**

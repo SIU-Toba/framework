@@ -5,10 +5,12 @@ class toba_usuario_info extends toba_elemento_transversal_info
 	function ini()
 	{
 		$proyecto = quote($this->_id['proyecto']);
-		$sql = "SELECT usuario_subclase,
-						usuario_subclase_archivo
-					FROM apex_proyecto
-					WHERE	proyecto = $proyecto;";
+		$sql = "SELECT
+					pm_usuario,
+					usuario_subclase,
+					usuario_subclase_archivo
+				FROM apex_proyecto
+				WHERE proyecto = $proyecto;";
 
 		$this->_datos['_info'] = toba::db()->consultar_fila($sql);
 		toba::logger()->debug($sql);
@@ -40,6 +42,11 @@ class toba_usuario_info extends toba_elemento_transversal_info
 	function get_clase_archivo()
 	{
 		return 'nucleo/lib/toba_usuario.php';
+	}
+
+	function get_punto_montaje()
+	{
+		return $this->_datos['_info']['pm_usuario'];
 	}
 
 	function get_subclase_nombre()

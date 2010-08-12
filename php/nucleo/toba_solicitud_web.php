@@ -331,15 +331,19 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__vista_toba_impr_html( $objetos )
 	{
+		$pm = toba::proyecto()->get_parametro('pm_impresion');
 		$clase = toba::proyecto()->get_parametro('salida_impr_html_c');
 		$archivo = toba::proyecto()->get_parametro('salida_impr_html_a');
 		if ( $clase && $archivo ) {
 			//El proyecto posee un objeto de impresion HTML personalizado
-			require_once($archivo);
-			$salida = new $clase();	
+			$punto = toba::puntos_montaje()->get_por_id($pm);
+			$path  = $punto->get_path_absoluto().'/'.$archivo;
+			require_once($path);
+			$salida = new $clase();
 		} else {
 			$salida = new toba_impr_html();
 		}
+		$salida = toba_configuracion::impresion_html();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}

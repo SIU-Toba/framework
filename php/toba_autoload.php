@@ -411,6 +411,7 @@ class toba_autoload
 		'toba_tp_normal' => 'nucleo/tipo_pagina/toba_tp_normal.php',
 		'toba_tp_popup' => 'nucleo/tipo_pagina/toba_tp_popup.php',
 		'toba' => 'nucleo/toba.php',
+		'toba_configuracion' => 'nucleo/toba_configuracion.php',
 		'toba_nucleo' => 'nucleo/toba_nucleo.php',
 		'toba_solicitud' => 'nucleo/toba_solicitud.php',
 		'toba_solicitud_accion' => 'nucleo/toba_solicitud_accion.php',

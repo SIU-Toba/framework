@@ -5,10 +5,12 @@ class toba_sesion_info extends toba_elemento_transversal_info
 	function ini()
 	{
 		$proyecto = quote($this->_id['proyecto']);
-		$sql = "SELECT sesion_subclase,
-						sesion_subclase_archivo
-					 FROM apex_proyecto
-					WHERE	proyecto = $proyecto;";
+		$sql = "SELECT
+					pm_sesion,
+					sesion_subclase,
+					sesion_subclase_archivo
+				FROM apex_proyecto
+				WHERE proyecto = $proyecto;";
 
 		$this->_datos['_info'] = toba::db()->consultar_fila($sql);
 		toba::logger()->debug($sql);
@@ -38,6 +40,12 @@ class toba_sesion_info extends toba_elemento_transversal_info
 	{
 		return 'nucleo/lib/toba_sesion.php';
 	}
+
+	function get_punto_montaje()
+	{
+		return $this->_datos['_info']['pm_sesion'];
+	}
+
 
 	function get_subclase_nombre()
 	{

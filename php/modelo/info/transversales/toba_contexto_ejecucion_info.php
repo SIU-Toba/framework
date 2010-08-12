@@ -4,10 +4,12 @@ class toba_contexto_ejecucion_info extends toba_elemento_transversal_info
 	function ini()
 	{
 		$proyecto = quote($this->_id['proyecto']);
-		$sql = "SELECT contexto_ejecucion_subclase,
-						 contexto_ejecucion_subclase_archivo
-					 FROM apex_proyecto
-					 WHERE	proyecto = $proyecto;";
+		$sql = "SELECT
+					pm_contexto,
+					contexto_ejecucion_subclase,
+					contexto_ejecucion_subclase_archivo
+				FROM apex_proyecto
+				WHERE proyecto = $proyecto;";
 
 		$this->_datos['_info'] = toba::db()->consultar_fila($sql);
 		toba::logger()->debug($sql);
@@ -26,7 +28,7 @@ class toba_contexto_ejecucion_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 		$db->ejecutar($sql);
 	}
-	
+
 	function get_clase_nombre()
 	{
 		return 'toba_contexto_ejecucion';
@@ -35,6 +37,11 @@ class toba_contexto_ejecucion_info extends toba_elemento_transversal_info
 	function get_clase_archivo()
 	{
 		return 'nucleo/lib/toba_contexto_ejecucion.php';
+	}
+
+	function get_punto_montaje()
+	{
+		return $this->_datos['_info']['pm_contexto'];
 	}
 
 	function get_subclase_nombre()

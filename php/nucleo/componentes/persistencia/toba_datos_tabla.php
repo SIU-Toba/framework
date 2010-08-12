@@ -1414,7 +1414,7 @@ class toba_datos_tabla extends toba_componente
 			}
 			if( ! class_exists($clase) ) {
 				$punto = toba::puntos_montaje()->get_por_id($this->_info_estructura['punto_montaje']);
-				$path  = $punto->get_path_absoluto().'/'.$clase.'.php';
+				$path  = $punto->get_path_absoluto().'/'.$include;
 				require_once($path);
 			}
 			$this->_persistidor = new $clase( $this );

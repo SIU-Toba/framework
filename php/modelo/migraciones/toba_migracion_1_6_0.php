@@ -54,7 +54,18 @@ class toba_migracion_1_6_0 extends toba_migracion
 				CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 			);
 		';
-		
+		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_contexto int8;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("pm_contexto") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
+		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_sesion int8;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("pm_sesion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
+		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_usuario int8;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("pm_usuario") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
+		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_impresion int8;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("pm_impresion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
 		$sql[] = 'ALTER TABLE apex_objeto ADD punto_montaje int8;';
 		$sql[] = 'ALTER TABLE apex_objeto ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
@@ -94,15 +105,19 @@ class toba_migracion_1_6_0 extends toba_migracion
 					etiqueta, proyecto, proyecto_ref, descripcion, path_pm, tipo
 				)
 				VALUES (
-					'php', $proyecto, $proyecto, 'punto de montaje por defecto proyectos toba', 'php', 'proyecto_toba'
+					'php', $proyecto, $proyecto, 'punto de montaje por defecto proyectos toba', 'proyecto', 'proyecto_toba'
 				)
 		;";
 		$this->elemento->get_db()->ejecutar($sql);
 		$id_pm = $this->elemento->get_db()->recuperar_secuencia('apex_puntos_montaje_seq');
-//		$id_pm = $this->elemento->get_db()->consultar_fila("SELECT id FROM apex_puntos_montaje WHERE etiqueta='php' AND proyecto=$proyecto");
+//		$id_pm = $this->elemento->get_db()->consultar_fila("SELECT id FROM apex_puntos_montaje WHERE etiqueta='proyecto' AND proyecto=$proyecto");
 //		$id_pm = $this->elemento->get_db()->quote($id_pm['id']);
 
 		$sql = array();
+		$sql[] = "UPDATE apex_proyecto SET pm_contexto=$id_pm WHERE proyecto=$proyecto";
+		$sql[] = "UPDATE apex_proyecto SET pm_sesion=$id_pm WHERE proyecto=$proyecto";
+		$sql[] = "UPDATE apex_proyecto SET pm_usuario=$id_pm WHERE proyecto=$proyecto";
+		$sql[] = "UPDATE apex_proyecto SET pm_impresion=$id_pm WHERE proyecto=$proyecto";
 		$sql[] = "UPDATE apex_objeto SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
 		$sql[] = "UPDATE apex_item_zona SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
 		$sql[] = "UPDATE apex_objeto_datos_rel SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
@@ -114,9 +129,9 @@ class toba_migracion_1_6_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
-	function proyecto__ap_mt()
+	function proyecto__extension_componentes()
 	{
-		// Agregar el valor del campo tabla en apex_objeto_db_registros_col con la tabla a la que pertenece
+
 	}
 }
 ?>

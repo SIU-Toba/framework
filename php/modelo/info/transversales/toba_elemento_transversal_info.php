@@ -1,6 +1,6 @@
 <?php
 
-class toba_elemento_transversal_info implements toba_meta_clase
+abstract class toba_elemento_transversal_info implements toba_meta_clase
 {
 	protected $_tipo_elemento;
 	protected $_datos;
@@ -57,7 +57,7 @@ class toba_elemento_transversal_info implements toba_meta_clase
 	}
 
 	function get_metaclase_subcomponente($subcomponente)
-	{		
+	{
 	}
 
 	function get_molde_subclase()
