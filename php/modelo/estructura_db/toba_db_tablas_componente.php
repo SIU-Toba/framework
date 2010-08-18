@@ -30,21 +30,22 @@ class toba_db_tablas_componente
   22 => 'apex_objeto_ei_filtro_col',
   23 => 'apex_objeto_mapa',
   24 => 'apex_objeto_grafico',
-  25 => 'apex_objeto_db_registros',
-  26 => 'apex_objeto_db_registros_col',
-  27 => 'apex_objeto_db_columna_fks',
-  28 => 'apex_objeto_db_registros_ext',
-  29 => 'apex_objeto_db_registros_ext_col',
-  30 => 'apex_objeto_db_registros_uniq',
-  31 => 'apex_objeto_datos_rel',
-  32 => 'apex_objeto_datos_rel_asoc',
-  33 => 'apex_objeto_rel_columnas_asoc',
-  34 => 'apex_molde_operacion',
-  35 => 'apex_molde_operacion_log',
-  36 => 'apex_molde_operacion_log_elementos',
-  37 => 'apex_molde_operacion_abms',
-  38 => 'apex_molde_operacion_abms_fila',
-  39 => 'apex_molde_operacion_importacion',
+  25 => 'apex_objeto_codigo',
+  26 => 'apex_objeto_db_registros',
+  27 => 'apex_objeto_db_registros_col',
+  28 => 'apex_objeto_db_columna_fks',
+  29 => 'apex_objeto_db_registros_ext',
+  30 => 'apex_objeto_db_registros_ext_col',
+  31 => 'apex_objeto_db_registros_uniq',
+  32 => 'apex_objeto_datos_rel',
+  33 => 'apex_objeto_datos_rel_asoc',
+  34 => 'apex_objeto_rel_columnas_asoc',
+  35 => 'apex_molde_operacion',
+  36 => 'apex_molde_operacion_log',
+  37 => 'apex_molde_operacion_log_elementos',
+  38 => 'apex_molde_operacion_abms',
+  39 => 'apex_molde_operacion_abms_fila',
+  40 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -1002,6 +1003,31 @@ class toba_db_tablas_componente
     3 => 'grafico',
     4 => 'ancho',
     5 => 'alto',
+  ),
+);
+	}
+
+	static function apex_objeto_codigo()
+	{
+		return array (
+  'archivo' => 'pgsql_a17_componente_ei_codigo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_codigo_proyecto',
+  'dump_clave_componente' => 'objeto_codigo',
+  'dump_order_by' => 'objeto_codigo',
+  'dump_where' => '( objeto_codigo_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_codigo_proyecto',
+    1 => 'objeto_codigo',
+    2 => 'descripcion',
+    3 => 'ancho',
+    4 => 'alto',
   ),
 );
 	}

@@ -107,11 +107,7 @@ CREATE TABLE			apex_proyecto
 	codigo_ga_tracker					VARCHAR(20)		NULL,
 	extension_toba						boolean			NULL,
 	extension_proyecto					boolean			NULL,
-	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
-	CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("pm_contexto") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("pm_sesion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("pm_usuario") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("pm_impresion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto")
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","item_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES	"apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
