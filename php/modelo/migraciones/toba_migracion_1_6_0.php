@@ -105,7 +105,7 @@ class toba_migracion_1_6_0 extends toba_migracion
 					etiqueta, proyecto, proyecto_ref, descripcion, path_pm, tipo
 				)
 				VALUES (
-					'php', $proyecto, $proyecto, 'punto de montaje por defecto proyectos toba', 'proyecto', 'proyecto_toba'
+					'proyecto', $proyecto, $proyecto, 'punto de montaje por defecto proyectos toba', 'php', 'proyecto_toba'
 				)
 		;";
 		$this->elemento->get_db()->ejecutar($sql);
