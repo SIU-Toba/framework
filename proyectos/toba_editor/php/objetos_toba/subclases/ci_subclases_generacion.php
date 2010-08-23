@@ -46,7 +46,7 @@ class ci_subclases_generacion extends toba_ci
 	}
 
 	function conf()
-	{	
+	{    
 		$metodos = $this->get_metodos_a_generar();
 		$archivo_php = new toba_archivo_php($this->s__path_archivo);
 		
@@ -57,6 +57,7 @@ class ci_subclases_generacion extends toba_ci
 
 		//-- Puede generar código?
 		if (! $this->s__es_esclavo) {
+			$this->pantalla()->eliminar_tab('pant_edicion');
 			$this->pantalla()->eliminar_tab('pant_opciones');
 		}
 	}    

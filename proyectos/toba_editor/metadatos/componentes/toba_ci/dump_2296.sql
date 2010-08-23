@@ -413,7 +413,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2296', --objeto_ci
 	'1187', --pantalla
 	'pant_vista_previa', --identificador
-	'2', --orden
+	'1', --orden
 	'Archivo', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -435,7 +435,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2296', --objeto_ci
 	'12000089', --pantalla
 	'pant_edicion', --identificador
-	'1', --orden
+	'2', --orden
 	'Editor de código', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
