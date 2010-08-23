@@ -17,6 +17,20 @@
 		return strpos($haystack, $needle) === 0;
 	}
 
+	/**
+	 * Si $var está seteada la devuelve, sino devuelve el valor por defecto
+	 * de la misma
+	 * @param mixed $var
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	function get_var(&$var, $default = null) {
+		if (isset($var)) {
+			return $var;
+		}
+		return $default;
+	}
+
 	function array_elem_limitrofes($arreglo, $elem)
 	{
 		$arreglo = array_values($arreglo);

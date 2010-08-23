@@ -38,8 +38,6 @@ class toba_testing_autoload
 		'toba_testing_ei_filtro' => 'extension_toba/componentes/toba_testing_ei_filtro.php',
 		'toba_testing_ei_formulario' => 'extension_toba/componentes/toba_testing_ei_formulario.php',
 		'toba_testing_ei_formulario_ml' => 'extension_toba/componentes/toba_testing_ei_formulario_ml.php',
-		'toba_testing_ei_grafico' => 'extension_toba/componentes/toba_testing_ei_grafico.php',
-		'toba_testing_ei_mapa' => 'extension_toba/componentes/toba_testing_ei_mapa.php',
 		'toba_testing_servicio_web' => 'extension_toba/componentes/toba_testing_servicio_web.php',
 		'ci_impresion' => 'impresion/ci_impresion.php',
 		'ci_login' => 'login/ci_login.php',

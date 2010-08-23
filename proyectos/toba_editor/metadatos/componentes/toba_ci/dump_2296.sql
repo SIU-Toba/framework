@@ -316,6 +316,21 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
+--- INICIO Grupo de desarrollo 12
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'12000106', --dep_id
+	'2296', --objeto_consumidor
+	'12000130', --objeto_proveedor
+	'codigo', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 12
+
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -355,7 +370,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -379,7 +394,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2296', --objeto_ci
 	'1186', --pantalla
 	'pant_opciones', --identificador
-	'2', --orden
+	'3', --orden
 	'Generación de código', --etiqueta
 	'Toba brinda la posibilidad de generar automáticamente la cáscara de la subclase. A continuación seleccione los métodos a incluir en la generación', --descripcion
 	NULL, --tip
@@ -398,7 +413,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2296', --objeto_ci
 	'1187', --pantalla
 	'pant_vista_previa', --identificador
-	'1', --orden
+	'2', --orden
 	'Archivo', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -413,6 +428,28 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'12'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 12
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'2296', --objeto_ci
+	'12000089', --pantalla
+	'pant_edicion', --identificador
+	'1', --orden
+	'Editor de código', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	NULL  --punto_montaje
+);
+--- FIN Grupo de desarrollo 12
 
 ------------------------------------------------------------
 -- apex_objetos_pantalla
@@ -430,6 +467,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'2296', --objeto_ci
 	'2', --orden
 	'1178'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'12000089', --pantalla
+	'2296', --objeto_ci
+	NULL, --orden
+	'12000106'  --dep_id
 );
 
 ------------------------------------------------------------

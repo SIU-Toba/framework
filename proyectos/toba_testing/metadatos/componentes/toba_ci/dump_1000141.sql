@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'ci_activacion', --subclase
 	'p_acciones/efs/ci_activacion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -143,7 +143,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 1
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_testing', --objeto_ci_proyecto
 	'1000141', --objeto_ci
 	'1000023', --pantalla
@@ -161,9 +161,10 @@ Dar siguiente sin cargar datos! Si funciona bien no muestra error', --descripcio
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000005'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_testing', --objeto_ci_proyecto
 	'1000141', --objeto_ci
 	'1000024', --pantalla
@@ -179,7 +180,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000005'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 1
 

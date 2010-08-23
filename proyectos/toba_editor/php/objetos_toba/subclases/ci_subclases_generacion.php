@@ -1,13 +1,12 @@
-<?php 
-
+<?php
 /**
- * Esta subclase puede trabajar de dos maneras:
- *  - Esclava de un wizard que edita la sublcases de componentes
- *  - Usada directamente como visor/editor php
- */
+	* Esta subclase puede trabajar de dos maneras:
+	*  - Esclava de un wizard que edita la sublcases de componentes
+	*  - Usada directamente como visor/editor php
+	*/
 class ci_subclases_generacion extends toba_ci
 {
-	protected $s__datos_opciones;	
+	protected $s__datos_opciones;    
 	protected $s__datos_metodos;
 	protected $s__path_archivo;
 	protected $s__es_esclavo;
@@ -47,11 +46,11 @@ class ci_subclases_generacion extends toba_ci
 	}
 
 	function conf()
-	{
+	{	
 		$metodos = $this->get_metodos_a_generar();
 		$archivo_php = new toba_archivo_php($this->s__path_archivo);
 		
-		//-- Se va a modificar algo?		
+		//-- Se va a modificar algo?        
 		if (! empty($metodos) || $archivo_php->esta_vacio()) {
 			$this->pantalla()->tab('pant_vista_previa')->set_etiqueta('Vista Previa');
 		}
@@ -60,7 +59,7 @@ class ci_subclases_generacion extends toba_ci
 		if (! $this->s__es_esclavo) {
 			$this->pantalla()->eliminar_tab('pant_opciones');
 		}
-	}	
+	}    
 	
 	function conf__pant_opciones()
 	{
@@ -74,7 +73,7 @@ class ci_subclases_generacion extends toba_ci
 	
 	//-----------------------------------------------------------------
 	//---------- OPCIONES 
-	//-----------------------------------------------------------------	
+	//-----------------------------------------------------------------    
 	function conf__form_opciones(toba_ei_formulario $form)
 	{
 		if (isset($this->s__datos_opciones)) {
@@ -89,7 +88,7 @@ class ci_subclases_generacion extends toba_ci
 	
 	function get_opciones()
 	{
-		return $this->s__datos_opciones;		
+		return $this->s__datos_opciones;        
 	}
 	
 	//-----------------------------------------------------------------
@@ -107,15 +106,29 @@ class ci_subclases_generacion extends toba_ci
 	{
 		$this->s__datos_metodos = $datos;
 	}
-	
+
+	//-----------------------------------------------------------------
+	//---------- EDITOR DE CODIGO
+	//-----------------------------------------------------------------
+
+	function conf__codigo(toba_ei_codigo $codigo)
+	{
+		$codigo->set_datos($this->get_codigo_vista_previa());
+	}
+
+	function evt__codigo__modificacion($datos)
+	{
+		file_put_contents($this->s__path_archivo, $datos);
+	}
+
 	//-----------------------------------------------------------------
 	//---------- VISTA PREVIA 
-	//-----------------------------------------------------------------	
+	//-----------------------------------------------------------------    
 	
 	function evt__eliminar()
 	{
 		unlink($this->s__path_archivo);
-	}	
+	}    
 
 
 	function evt__svn_blame()
@@ -126,22 +139,22 @@ class ci_subclases_generacion extends toba_ci
 	function evt__svn_revert()
 	{
 		$this->comando_svn = 'revert';
-	}	
+	}    
 	
 	function evt__svn_diff()
 	{
 		$this->comando_svn = 'diff';
-	}	
+	}    
 	
 	function evt__svn_add()
 	{
 		$this->comando_svn = 'add';
-	}		
+	}        
 	
 	function get_previsualizacion()
 	{
-		return $this->previsualizacion;	
-	}	
+		return $this->previsualizacion;    
+	}    
 	
 	function get_info_archivo()
 	{
@@ -151,7 +164,7 @@ class ci_subclases_generacion extends toba_ci
 	function conf__pant_vista_previa()
 	{
 		$path = $this->s__path_archivo;
-		$svn = new toba_svn();		
+		$svn = new toba_svn();        
 		if (! isset($this->comando_svn)) {
 			$codigo = $this->get_codigo_vista_previa();
 		} else {
@@ -164,15 +177,15 @@ class ci_subclases_generacion extends toba_ci
 					break;
 				case 'diff':
 					$codigo = $svn->diff($path);
-					break;			
+					break;            
 				case 'revert':
 					$svn->revert($path);
 					$codigo = $this->get_codigo_vista_previa();
-					break;				
+					break;                
 				case 'add':
 					$svn->add($path);
 					$codigo = $this->get_codigo_vista_previa();
-					break;									
+					break;                                    
 			}
 		}
 
@@ -202,11 +215,11 @@ class ci_subclases_generacion extends toba_ci
 			case 'normal':
 				$nombre = 'sin modificar';
 				$img = toba_recurso::imagen_proyecto('svn/normal.png', true, 16, 16, $nombre);
-				break;		
+				break;        
 			case 'conflicted':
 				$nombre = 'En Conflicto';
 				$img = toba_recurso::imagen_proyecto('svn/conflict.png', true, 16, 16, $nombre);
-				break;	
+				break;    
 			case 'deleted':
 				$nombre = 'borrado';
 				$img = toba_recurso::imagen_proyecto('svn/deleted.png', true, 16, 16, $nombre);
@@ -220,13 +233,13 @@ class ci_subclases_generacion extends toba_ci
 				$svn_blame = false;
 				$nombre = 'ignorado';
 				$img = toba_recurso::imagen_proyecto('svn/ignored.png', true, 16, 16, $nombre);
-				break;	
+				break;    
 		}
 		$this->info_archivo = "$path <span style='font-size: 9px; color:gray'>($nombre)</span>";
 		$this->previsualizacion = $codigo;
 
 		$existe_archivo = file_exists($path);
-		$ver_comandos_svn = $svn->hay_cliente_svn();		
+		$ver_comandos_svn = $svn->hay_cliente_svn();        
 		if (! $svn->hay_cliente_svn()) {
 			$ver_comandos_svn = false;
 		}
@@ -238,7 +251,7 @@ class ci_subclases_generacion extends toba_ci
 		}
 		if (!$ver_comandos_svn || !$svn_blame) {
 			$this->pantalla()->eliminar_evento('svn_blame');
-		}			
+		}            
 		if (!$ver_comandos_svn || !$svn_diff) {
 			$this->pantalla()->eliminar_evento('svn_diff');
 			$this->pantalla()->eliminar_evento('svn_revert');
@@ -264,7 +277,7 @@ class ci_subclases_generacion extends toba_ci
 			}
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
 			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
-			$codigo = "<?php\n".$codigo."\n?>";
+			$codigo = "\n".$codigo."\n";
 			return $codigo;
 		} else {
 			//-- Muestra el original
@@ -291,13 +304,13 @@ class ci_subclases_generacion extends toba_ci
 					$metodos[] = end($clave);
 				}
 			}
-		}		
+		}        
 		return $metodos;
 	}
 	
 	function resetear_metodos()
 	{
-		$this->s__datos_metodos = array();		
+		$this->s__datos_metodos = array();        
 	}
 
 	//-------------------------------------------------------------------------------
@@ -318,7 +331,6 @@ class ci_subclases_generacion extends toba_ci
 		$archivo_php->abrir();
 	}
 
- 
+	
 }
-
 ?>

@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_calendario', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'calendario_prueba', --subclase
 	'varios/extension_php/calendario_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto

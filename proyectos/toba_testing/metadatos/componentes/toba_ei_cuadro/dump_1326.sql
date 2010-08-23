@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_cuadro', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'subclase_cuadro', --subclase
 	'p_acciones/administrador/test_elemento_toba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto

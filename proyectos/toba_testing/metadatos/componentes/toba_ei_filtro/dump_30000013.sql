@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_filtro', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'filtro_prueba', --subclase
 	'varios/extension_php/filtro_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto

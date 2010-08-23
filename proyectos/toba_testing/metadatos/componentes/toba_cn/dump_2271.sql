@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_cn', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'cn_carga_por_indice', --subclase
 	'varios/cn_carga_por_indice.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto

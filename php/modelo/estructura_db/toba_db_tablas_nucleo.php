@@ -485,7 +485,7 @@ class toba_db_tablas_nucleo
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'clas',
+  'clave_elemento' => 'clase',
   'dump_order_by' => 'clase',
   'zona' => 'central',
   'desc' => '',

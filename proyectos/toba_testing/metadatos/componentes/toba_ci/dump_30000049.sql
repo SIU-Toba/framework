@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'ci_opciones_ef_seleccion', --subclase
 	'seguridad/opciones_ef_seleccion/ci_opciones_ef_seleccion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 30
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_testing', --objeto_ci_proyecto
 	'30000049', --objeto_ci
 	'30000029', --pantalla
@@ -171,9 +171,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000005'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_testing', --objeto_ci_proyecto
 	'30000049', --objeto_ci
 	'30000030', --pantalla
@@ -189,9 +190,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000005'  --punto_montaje
 );
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion) VALUES (
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_testing', --objeto_ci_proyecto
 	'30000049', --objeto_ci
 	'30000031', --pantalla
@@ -207,7 +209,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase
 	NULL, --subclase_archivo
 	NULL, --template
-	NULL  --template_impresion
+	NULL, --template_impresion
+	'12000005'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 30
 

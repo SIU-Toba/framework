@@ -1311,3 +1311,10 @@ a.ci-tabs-boton-desact:hover {
 	font-size: 12px;
 	color: #F9F9F9;
 }
+
+/***************************************
+	Estilos Codemirror
+****************************************/
+.CodeMirror-wrapping {
+	background-color: #fff;
+}

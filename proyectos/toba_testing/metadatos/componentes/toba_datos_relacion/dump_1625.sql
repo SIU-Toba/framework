@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_relacion', --clase
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'dr_prueba', --subclase
 	'varios/extension_php/dr_prueba.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
@@ -46,12 +46,13 @@ En 1 departamento se realizan N tareas asociadas a él.
 ------------------------------------------------------------
 -- apex_objeto_datos_rel
 ------------------------------------------------------------
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
+INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_montaje, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
 	'toba_testing', --proyecto
 	'1625', --objeto
 	'0', --debug
 	NULL, --clave
 	'3', --ap
+	'12000005', --punto_montaje
 	'dr_ap_prueba', --ap_clase
 	'varios/extension_php/dr_ap_prueba.php', --ap_archivo
 	'0', --sinc_susp_constraints

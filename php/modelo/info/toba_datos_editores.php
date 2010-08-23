@@ -266,14 +266,14 @@ class toba_datos_editores
 );
 	}
 
-	static function get_pantallas_toba_ei_grafico()
+	static function get_pantallas_toba_ei_codigo()
 	{
 		return array (
   0 => 
   array (
     'identificador' => 'pant_inicial',
     'etiqueta' => 'Pantalla Inicial',
-    'imagen' => 'objetos/grafico.gif',
+    'imagen' => 'objetos/code.gif',
     'imagen_recurso_origen' => 'apex',
   ),
 );
@@ -360,6 +360,19 @@ class toba_datos_editores
 	}
 
 	static function get_pantallas_toba_servicio_web()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => '0',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'solic_wddx.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_toba_ei_grafico()
 	{
 		return array (
   0 => 

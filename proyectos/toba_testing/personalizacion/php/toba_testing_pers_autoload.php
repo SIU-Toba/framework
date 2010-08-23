@@ -16,6 +16,7 @@ class toba_testing_pers_autoload
 	}
 
 	static $clases = array(
+		'ci_simple' => 'ci_simple.php',
 		'toba_testing_pers_ci' => 'extension_toba/componentes/toba_testing_pers_ci.php',
 		'toba_testing_pers_cn' => 'extension_toba/componentes/toba_testing_pers_cn.php',
 		'toba_testing_pers_datos_relacion' => 'extension_toba/componentes/toba_testing_pers_datos_relacion.php',
@@ -31,6 +32,7 @@ class toba_testing_pers_autoload
 		'toba_testing_pers_ei_grafico' => 'extension_toba/componentes/toba_testing_pers_ei_grafico.php',
 		'toba_testing_pers_ei_mapa' => 'extension_toba/componentes/toba_testing_pers_ei_mapa.php',
 		'toba_testing_pers_servicio_web' => 'extension_toba/componentes/toba_testing_pers_servicio_web.php',
+		'toba_testing_pers_autoload' => 'toba_testing_pers_autoload.php',
 	);
 }
 ?>

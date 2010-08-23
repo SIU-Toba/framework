@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_proyecto
 ------------------------------------------------------------
-INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con_frames, frames_clase, frames_archivo, salida_impr_html_c, salida_impr_html_a, menu, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std, version_toba, requiere_validacion, usuario_anonimo, usuario_anonimo_desc, usuario_anonimo_grupos_acc, validacion_intentos, validacion_intentos_min, validacion_bloquear_usuario, validacion_debug, sesion_tiempo_no_interac_min, sesion_tiempo_maximo_min, sesion_subclase, sesion_subclase_archivo, contexto_ejecucion_subclase, contexto_ejecucion_subclase_archivo, usuario_subclase, usuario_subclase_archivo, encriptar_qs, registrar_solicitud, registrar_cronometro, item_inicio_sesion, item_pre_sesion, item_pre_sesion_popup, item_set_sesion, log_archivo, log_archivo_nivel, fuente_datos, pagina_tipo, version, version_fecha, version_detalle, version_link, tiempo_espera_ms, navegacion_ajax, codigo_ga_tracker, extension_toba, extension_proyecto) VALUES (
+INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con_frames, frames_clase, frames_archivo, pm_impresion, salida_impr_html_c, salida_impr_html_a, menu, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std, version_toba, requiere_validacion, usuario_anonimo, usuario_anonimo_desc, usuario_anonimo_grupos_acc, validacion_intentos, validacion_intentos_min, validacion_bloquear_usuario, validacion_debug, sesion_tiempo_no_interac_min, sesion_tiempo_maximo_min, pm_sesion, sesion_subclase, sesion_subclase_archivo, pm_contexto, contexto_ejecucion_subclase, contexto_ejecucion_subclase_archivo, pm_usuario, usuario_subclase, usuario_subclase_archivo, encriptar_qs, registrar_solicitud, registrar_cronometro, item_inicio_sesion, item_pre_sesion, item_pre_sesion_popup, item_set_sesion, log_archivo, log_archivo_nivel, fuente_datos, pagina_tipo, version, version_fecha, version_detalle, version_link, tiempo_espera_ms, navegacion_ajax, codigo_ga_tracker, extension_toba, extension_proyecto) VALUES (
 	'toba_testing', --proyecto
 	'Proyecto destinado a contener elementos disponibles a los casos de test automáticos.', --descripcion
 	'Toba - Testing', --descripcion_corta
@@ -10,6 +10,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --con_frames
 	NULL, --frames_clase
 	NULL, --frames_archivo
+	'12000005', --pm_impresion
 	NULL, --salida_impr_html_c
 	NULL, --salida_impr_html_a
 	'css', --menu
@@ -30,10 +31,13 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'0', --validacion_debug
 	NULL, --sesion_tiempo_no_interac_min
 	NULL, --sesion_tiempo_maximo_min
+	'12000005', --pm_sesion
 	NULL, --sesion_subclase
 	NULL, --sesion_subclase_archivo
+	'12000005', --pm_contexto
 	NULL, --contexto_ejecucion_subclase
 	NULL, --contexto_ejecucion_subclase_archivo
+	'12000005', --pm_usuario
 	NULL, --usuario_subclase
 	NULL, --usuario_subclase_archivo
 	'0', --encriptar_qs
@@ -54,6 +58,6 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'5000', --tiempo_espera_ms
 	NULL, --navegacion_ajax
 	NULL, --codigo_ga_tracker
-	NULL, --extension_toba
-	NULL  --extension_proyecto
+	'1', --extension_toba
+	'1'  --extension_proyecto
 );
