@@ -89,6 +89,44 @@ class toba_migracion_1_6_0 extends toba_migracion
 
 		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD punto_montaje int8;';
 		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
+		//Tabla para los ei_mapa
+		$sql[] = 'CREATE TABLE apex_objeto_mapa
+						(
+						   objeto_mapa_proyecto   	varchar(15)		NOT NULL,
+						   objeto_mapa            	int8			NOT NULL,
+						   mapfile_path				varchar(200)	NULL,
+						   CONSTRAINT  "apex_objeto_mapa_pk" PRIMARY KEY ("objeto_mapa_proyecto","objeto_mapa"),
+						   CONSTRAINT  "apex_objeto_mapa_fk_objeto"  FOREIGN KEY ("objeto_mapa_proyecto","objeto_mapa") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+						  );';
+
+		//Tablas para los ei_graficos
+		$sql[] = 'ALTER TABLE apex_grafico ALTER COLUMN grafico TYPE varchar(20);';
+		
+		$sql [] = 'CREATE TABLE apex_objeto_grafico
+						(
+						   objeto_grafico_proyecto   	varchar(15)		NOT NULL,
+						   objeto_grafico            	int8			NOT NULL,
+						   descripcion            	   	varchar(80)  	NULL,
+						   grafico						varchar(20)		NOT NULL,
+						   ancho						varchar(10)		NULL,
+						   alto							varchar(10)		NULL,
+						   CONSTRAINT  "apex_objeto_grafico_pk" PRIMARY KEY ("objeto_grafico_proyecto","objeto_grafico"),
+						   CONSTRAINT  "apex_objeto_grafico_fk_objeto"  FOREIGN KEY ("objeto_grafico_proyecto","objeto_grafico") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+						   CONSTRAINT  "apex_objeto_grafico_fk_grafico"  FOREIGN KEY ("grafico") REFERENCES "apex_grafico" ("grafico") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+						);';
+		
+		$sql[] = 'CREATE TABLE apex_objeto_codigo
+						(
+						   objeto_codigo_proyecto   	varchar(15)		NOT NULL,
+						   objeto_codigo            	int8			NOT NULL,
+						   descripcion            	   	varchar(80)  	NULL,
+						   ancho						varchar(10)		NULL,
+						   alto							varchar(10)		NULL,
+						   CONSTRAINT  "apex_objeto_codigo_pk" PRIMARY KEY ("objeto_codigo_proyecto","objeto_codigo"),
+						   CONSTRAINT  "apex_objeto_codigo_fk_objeto"  FOREIGN KEY ("objeto_codigo_proyecto","objeto_codigo") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+						);';
+
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 
