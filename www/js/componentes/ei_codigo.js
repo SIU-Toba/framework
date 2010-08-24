@@ -8,6 +8,7 @@ ei_codigo.prototype.constructor = ei_codigo;
  */
 function ei_codigo(id, dim, input_submit, input_codigo) {
 	this._id = id;
+	this._class_iframe = this._id + '_frame';
 	this._input_submit = input_submit;
 	this._input_codigo = input_codigo;
 	
@@ -16,6 +17,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 	    width: dim[0],
 	    height: dim[1],
 		content: textarea.value,
+		iframeClass: this._class_iframe,
 		basefiles: ["codemirror_base.js"],
 		stylesheet: [
 			toba_alias + "/css/codemirror/xmlcolors.css",
@@ -34,7 +36,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
-
+		
 		if (this._evento) {
 			this.set_datos(this._evento.id);
 		} else if (this._evento_implicito) {
@@ -46,5 +48,24 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		document.getElementById(this._input_submit).value = id_evento;
 		document.getElementById(this._input_codigo).value = this._mirror.getCode();
 	}
+
+	ei_codigo.prototype.puede_submit = function()
+	{
+		var tiene_errores = this.tiene_errores();
+		if (tiene_errores) {
+			notificacion.agregar("El código ingresado tiene errores, verifique"
+								 + "los nodos resaltados e intente de nuevo");
+			return false;
+		}
+
+		return true;
+	}
+
+	ei_codigo.prototype.tiene_errores = function() {
+		var iframe = getElementsByClass(this._class_iframe)[0];
+		var errors = getElementsByClass('syntax-error', iframe.contentWindow.document);
+		return errors.length > 0;
+	}
+
 
 toba.confirmar_inclusion('componentes/ei_codigo');
