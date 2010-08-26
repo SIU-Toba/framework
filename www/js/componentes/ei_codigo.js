@@ -11,6 +11,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 	this._class_iframe = this._id + '_frame';
 	this._input_submit = input_submit;
 	this._input_codigo = input_codigo;
+	indentUnit  = 4;	// se deja como variable global para que el indentador propio pueda accederla
 	
 	var textarea = document.getElementById('code');
 	this._mirror = CodeMirror.fromTextArea('code', {
@@ -27,7 +28,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 			toba_alias + "/css/codemirror/phpcolors.css"
 		],
 		path: toba_alias + "/js/codemirror/",
-		indentUnit: 4,
+		indentUnit: indentUnit,
 		autoMatchParens: true
 	});
 }
@@ -84,6 +85,14 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		return true;
 	}
 
+	ei_codigo.prototype.get_frame = function() {
+		return getElementsByClass(this._class_iframe, document, 'iframe')[0];
+	}
+
+	ei_codigo.prototype.get_indent_unit = function() {
+		return this.get_frame().contentWindow.indentUnit;
+	}
+
 	//-------------------------------------------------------------------------
 	//--------------------------API PARA USO EXTERNO---------------------------
 	//-------------------------------------------------------------------------
@@ -111,7 +120,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 	}
 
 	ei_codigo.prototype.tiene_errores = function() {
-		var iframe = getElementsByClass(this._class_iframe, document, 'iframe')[0];
+		var iframe = this.get_frame();
 		var errors = getElementsByClass('syntax-error', iframe.contentWindow.document);
 		return errors.length > 0;
 	}
