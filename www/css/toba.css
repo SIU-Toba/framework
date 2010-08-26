@@ -1318,3 +1318,14 @@ a.ci-tabs-boton-desact:hover {
 .CodeMirror-wrapping {
 	background-color: #fff;
 }
+.CodeMirror-line-numbers {
+	background-color:#EEEEEE;
+	color:#AAAAAA;
+	font-family:monospace;
+	font-size:10pt;
+	line-height:1.1em;
+	margin:0;
+	padding:0.4em;
+	text-align:right;
+	width:2.2em;
+}

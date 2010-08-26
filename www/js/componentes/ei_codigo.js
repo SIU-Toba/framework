@@ -19,6 +19,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		content: textarea.value,
 		iframeClass: this._class_iframe,
 		basefiles: ["codemirror_base.js"],
+		parserConfig: {customPHPIndentor: this.indentador },
 		stylesheet: [
 			toba_alias + "/css/codemirror/xmlcolors.css",
 			toba_alias + "/css/codemirror/jscolors.css",
@@ -30,6 +31,29 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		autoMatchParens: true
 	});
 }
+
+	//-------------------------------------------------------------------------
+	//-------------------------------METODOS-----------------------------------
+	//-------------------------------------------------------------------------
+
+	ei_codigo.prototype.indentador = function(lexical) {
+		return function(firstChars) {
+			var firstChar = firstChars && firstChars.charAt(0), type = lexical.type;
+			var closing = firstChar == type;
+			if (type == "form" && firstChar == "{")
+				return lexical.indented;
+			else if (type == "stat" || type == "form")
+				return lexical.indented + indentUnit;
+			else if (lexical.info == "switch" && !closing)
+				return lexical.indented + (/^(?:case|default)\b/.test(firstChars) ? indentUnit : 2 * indentUnit);
+			else if (lexical.align)
+				return lexical.column - (closing ? 1 : 0);
+			else if (lexical.prev == undefined)
+				return lexical.indented;
+			else
+				return lexical.indented + (closing ? 0 : indentUnit);
+			};
+	};
 
 	//---Submit
 	ei_codigo.prototype.submit = function() {
@@ -51,8 +75,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 
 	ei_codigo.prototype.puede_submit = function()
 	{
-		var tiene_errores = this.tiene_errores();
-		if (tiene_errores) {
+		if (this.tiene_errores()) {
 			notificacion.agregar("El código ingresado tiene errores, verifique"
 								 + "los nodos resaltados e intente de nuevo");
 			return false;
@@ -61,11 +84,36 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 		return true;
 	}
 
+	//-------------------------------------------------------------------------
+	//--------------------------API PARA USO EXTERNO---------------------------
+	//-------------------------------------------------------------------------
+	ei_codigo.prototype.buscar = function() {
+		var texto = prompt("Ingrese el texto a buscar:", "");
+		if (!texto) return;
+		var first = true;
+		do {
+			var cursor = this._mirror.getSearchCursor(texto, first);
+			first = false;
+			while (cursor.findNext()) {
+				cursor.select();
+				if (!confirm("Desea buscar de nuevo?"))	return;
+			}
+		} while (confirm("Se llegó al final del documento. Comenzar desde arriba?"));
+	}
+
+	ei_codigo.prototype.set_numeros_linea = function(valor) {
+		this._mirror.setLineNumbers(valor);
+	}
+
+	ei_codigo.prototype.cambiar_tabsize = function(size) {
+		this._mirror.setIndentUnit(size);
+		this._mirror.reindent();
+	}
+
 	ei_codigo.prototype.tiene_errores = function() {
-		var iframe = getElementsByClass(this._class_iframe)[0];
+		var iframe = getElementsByClass(this._class_iframe, document, 'iframe')[0];
 		var errors = getElementsByClass('syntax-error', iframe.contentWindow.document);
 		return errors.length > 0;
 	}
-
 
 toba.confirmar_inclusion('componentes/ei_codigo');
