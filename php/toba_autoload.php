@@ -313,6 +313,8 @@ class toba_autoload
 		'toba_ei_grafico' => 'nucleo/componentes/interface/toba_ei_grafico.php',
 		'toba_ei_mapa' => 'nucleo/componentes/interface/toba_ei_mapa.php',
 		'toba_ei_pantalla' => 'nucleo/componentes/interface/toba_ei_pantalla.php',
+		'toba_grafico_conf' => 'nucleo/componentes/interface/toba_grafico_data/toba_grafico_conf.php',
+		'toba_grafico_data' => 'nucleo/componentes/interface/toba_grafico_data/toba_grafico_data.php',
 		'toba_cn' => 'nucleo/componentes/negocio/toba_cn.php',
 		'toba_servicio_web' => 'nucleo/componentes/negocio/toba_servicio_web.php',
 		'toba_ap_tabla' => 'nucleo/componentes/persistencia/toba_ap.php',
