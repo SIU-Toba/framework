@@ -78,7 +78,7 @@ function ei_codigo(id, dim, input_submit, input_codigo) {
 	{
 		if (this.tiene_errores()) {
 			notificacion.agregar("El código ingresado tiene errores, verifique"
-								 + "los nodos resaltados e intente de nuevo");
+								 + " los nodos resaltados e intente de nuevo");
 			return false;
 		}
 
