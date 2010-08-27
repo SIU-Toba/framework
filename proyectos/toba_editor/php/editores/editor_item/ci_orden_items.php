@@ -1,5 +1,4 @@
 <?php 
-
 class ci_orden_items extends toba_ci
 {
 	
@@ -15,7 +14,7 @@ class ci_orden_items extends toba_ci
 	
 	function evt__items__modificacion($datos)
 	{
-		foreach( array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			unset($datos[$id]['imagen']);
 			unset($datos[$id]['imagen_recurso_origen']);
 			unset($datos[$id]['nombre']);
@@ -29,7 +28,7 @@ class ci_orden_items extends toba_ci
 		$filas = $this->dep('datos')->get_filas();
 		$ordenadas = rs_ordenar_por_columna($filas, 'nombre');
 		$orden = 1;
-		foreach(array_keys($ordenadas) as $id) {
+		foreach (array_keys($ordenadas) as $id) {
 			$ordenadas[$id]['orden'] = $orden;
 			$ordenadas[$id][apex_ei_analisis_fila] = 'M';
 			$orden++;
@@ -40,7 +39,7 @@ class ci_orden_items extends toba_ci
 	function conf__items($ml)
 	{
 		$filas = $this->dep('datos')->get_filas();
-		foreach($filas as $id => $fila) {
+		foreach ($filas as $id => $fila) {
 			if ($fila['carpeta']) {
 				$img = toba_recurso::imagen_toba('nucleo/carpeta.gif', true);
 			} else {
@@ -52,7 +51,7 @@ class ci_orden_items extends toba_ci
 			}
 			$filas[$id]['imagen'] = "<div style='text-align:right'>$img</div>";
 			if ($fila['item'] == $fila['padre']) {
-				unset($filas[$id]);	
+				unset($filas[$id]);    
 			}
 		}
 		$ml->set_datos($filas);
@@ -61,7 +60,7 @@ class ci_orden_items extends toba_ci
 	function evt__procesar()
 	{
 		$this->dep('datos')->sincronizar();
-	}	
+	}    
 }
 
 ?>
