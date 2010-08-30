@@ -14,12 +14,7 @@ class toba_rf_ci extends toba_rf_componente
 		$obj_pantalla = $this->cargar_datos_objetos_pantalla();
 		foreach($pantallas as $pantalla) {
 			//Creo la pantalla
-			if ($pantalla['orden']=='' || $pantalla['orden']=='1') {
-				$primera = true;
-			}else{
-				$primera = false;
-			}
-			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla'], $primera);
+			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla']);
 			$grupo->agregar_hijo($p);
 			//Cargo las dependencias
 			$deps_pantalla = array();

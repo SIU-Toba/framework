@@ -504,13 +504,19 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Retorna la pantalla que se muestra al iniciar el componente en la operación
-	 * Por defecto retorna la primer pantalla definida en el editor.
+	 * Por defecto retorna la primer pantalla definida en el editor salvo que la rf la oculte
 	 * Extender para definir una pantalla distinta a través de un método dinámico
 	 * @return string Identificador de la pantalla
 	 */
 	function get_pantalla_inicial()
 	{
-		return $this->_info_ci_me_pantalla[0]["identificador"];
+		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
+		for ($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)	{
+			if (! in_array($this->_info_ci_me_pantalla[$a]['pantalla'], $no_visibles)) {
+				return $this->_info_ci_me_pantalla[$a]["identificador"];
+			}
+		}
+		throw new toba_error_def('No se encuentra una pantalla libre de restricción funcional para asignar como inicial');
 	}
 	
 	
