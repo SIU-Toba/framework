@@ -8,7 +8,7 @@ class ci_editor_codigo extends toba_testing_pers_ci
 	function conf__codigo(toba_ei_codigo $codigo)
 	{
 		$codigo->set_datos("
-		<?php
+			
 			class pepe extends pepe_abs {
 				function conf__pepe(xxx pepe) {
 					pepe->set_datos('dato');
@@ -18,5 +18,4 @@ class ci_editor_codigo extends toba_testing_pers_ci
 	}
 
 }
-
 ?>

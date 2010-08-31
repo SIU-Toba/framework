@@ -8,36 +8,36 @@
  *
  *
  * 	function __conf($grafico)
-	{
-		// CAso normal
- 		$grafico->conf()->agregar_serie('Pepe', array(1,2,5,34,6,76,78,7));
- 			- El conf se instancia en una factory que aplica configuraciones globales del toba o del proyecto
+  {
+  // CAso normal
+  $grafico->conf()->agregar_serie('Pepe', array(1,2,5,34,6,76,78,7));
+  - El conf se instancia en una factory que aplica configuraciones globales del toba o del proyecto
 
-		// Parametro extraño
-		//$grafico->renderer()->
+  // Parametro extraño
+  //$grafico->renderer()->
 
-		// Grafico de otro tipo
-		$g = new jpga
-		$grafico->instan
+  // Grafico de otro tipo
+  $g = new jpga
+  $grafico->instan
 
-	}
+  }
  *
  *
-*/ 
- 
+ */
 class toba_ei_grafico extends toba_ei
 {
-	protected $_prefijo = 'esq';	
+
+	protected $_prefijo = 'esq';
 	protected $_alto;
 	protected $_ancho;
-	protected $_contenido;				// Instrucciones GraphViz
-	protected $_archivo_generado;		// Archivo generado por las instrucciones
-	
+	protected $_contenido;	// Instrucciones GraphViz
+	protected $_archivo_generado;  // Archivo generado por las instrucciones
+
 	final function __construct($id)
 	{
 		parent::__construct($id);
-		$this->_alto = isset($this->_info_grafico['alto']) ?  $this->_info_grafico['alto'] : null;
-		$this->_ancho = isset($this->_info_grafico['ancho']) ?  $this->_info_grafico['ancho'] : null;
+		$this->_alto = isset($this->_info_grafico['alto']) ? $this->_info_grafico['alto'] : null;
+		$this->_ancho = isset($this->_info_grafico['ancho']) ? $this->_info_grafico['ancho'] : null;
 		//TODO: Hack para navegacion ajax con windows
 		toba_ci::set_navegacion_ajax(false);
 	}
@@ -57,47 +57,46 @@ class toba_ei_grafico extends toba_ei
 		// LINE N dim
 		// BAR N DIM
 		if (isset($datos)) {
-			$this->_contenido = $datos;	
-		$this->_memoria['parametros'] = $parametros;
+			$this->_contenido = $datos;
+			$this->_memoria['parametros'] = $parametros;
 		}
 		// Se lo llena con datos
 	}
-	
+
 	function generar_html()
 	{
 
 		// Se genera un grafico y va a un archivo
 		// dejar el path en $this->s__path
-
-        //$ancho = '';
-        //if (isset($this->_ancho)) {
-        //	$ancho = "width ='$this->_ancho'";
-        //}
-        echo "\n<table class='ei-base ei-esquema-base'>\n";		
-		echo"<tr><td style='padding:0'>\n";		
+		//$ancho = '';
+		//if (isset($this->_ancho)) {
+		//	$ancho = "width ='$this->_ancho'";
+		//}
+		ei_arbol($this->_info_grafico, "INFO GRAFICO");
+		echo "\n<table class='ei-base ei-esquema-base'>\n";
+		echo"<tr><td style='padding:0'>\n";
 		echo $this->get_html_barra_editor();
-		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
-		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		
+		$this->generar_html_barra_sup(null, true, "ei-esquema-barra-sup");
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>";
 		//Campo de sincronizacion con JS
 		echo toba_form::hidden($this->_submit, '');
-		
+
 		if (isset($this->_contenido)) {
 			echo $this->_contenido;
 		}
 		ei_arbol($this->_info_grafico, "INFO GRAFICO");
 
 		$destino = array($this->_id);
-		$url = toba::vinculador()->get_url(null,null,array(), array('servicio' => 'mostrar_grafico',
-																		'objetos_destino' => $destino));
-				echo "<img src='$url' $ancho $alto border='0'>";
+		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_grafico',
+					'objetos_destino' => $destino));
+		echo "<img src='$url' $ancho $alto border='0'>";
 
 		//$this->generar_botones();
 		echo "</div></td></tr>\n";
 		echo "</table>\n";
 	}
-	
-	
+
 	/**
 	 * En base a la definicion que dejo el componente en el request anterior
 	 * se construye el esquema y se le hace un passthru al cliente
@@ -123,16 +122,11 @@ class toba_ei_grafico extends toba_ei
 			$formato = $parametros['formato'];
 			$es_dirigido = $parametros['es_dirigido'];
 		}
-			break;
+		break;
 
-
-
-
-
-
-			header("Content-type: $tipo_salida");
-			header("Content-Length: " . filesize($path_completo));	
-			fpassthru($fp);
+		header("Content-type: $tipo_salida");
+		header("Content-Length: " . filesize($path_completo));
+		fpassthru($fp);
 
 		ob_clean();
 
@@ -140,7 +134,7 @@ class toba_ei_grafico extends toba_ei
 
 		toba::logger()->error("El archivo $path_completo no se encuentra");
 	}
-	
+
 }
 
 ?>
