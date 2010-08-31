@@ -585,7 +585,7 @@
 	
 	function get_url_desarrollos($forzar_alternativo=false)
 	{
-		return "http://desarrollos.siu.edu.ar";
+		return "http://repositorio.siu.edu.ar";
 	}	
 	
 	function comparar($valor1, $operador, $valor2)
