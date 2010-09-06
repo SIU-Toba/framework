@@ -26,18 +26,25 @@
  */
 class toba_ei_grafico extends toba_ei
 {
-
-	protected $_prefijo = 'esq';
+	protected $_tipo;
 	protected $_alto;
 	protected $_ancho;
 	protected $_contenido;	// Instrucciones GraphViz
+	/**
+	 * @var toba_ei_grafico_conf
+	 */
+	protected $_conf;
+	
 	protected $_archivo_generado;  // Archivo generado por las instrucciones
+	protected $s__path;
 
 	final function __construct($id)
 	{
 		parent::__construct($id);
-		$this->_alto = isset($this->_info_grafico['alto']) ? $this->_info_grafico['alto'] : null;
-		$this->_ancho = isset($this->_info_grafico['ancho']) ? $this->_info_grafico['ancho'] : null;
+		$this->_alto  = get_var($this->_info_grafico['alto'], 300);
+		$this->_ancho = get_var($this->_info_grafico['ancho'], 650);
+		$this->_tipo  = get_var($this->_info_grafico['grafico']);
+		$this->ini_conf();
 		//TODO: Hack para navegacion ajax con windows
 		toba_ci::set_navegacion_ajax(false);
 	}
@@ -45,6 +52,32 @@ class toba_ei_grafico extends toba_ei
 	function ini()
 	{
 		// Instancia $this->grafico
+	}
+
+	protected function ini_conf()
+	{
+		// pie | bar | lin | otro
+		switch ($this->_tipo) {
+			case 'pie':
+				$this->_conf = new toba_ei_grafico_conf_torta($this->_ancho, $this->_alto);
+				break;
+			case 'bar':
+				$this->_conf = new toba_ei_grafico_conf_barras($this->_ancho, $this->_alto);
+			default: break;
+		}
+	}
+
+	/**
+	 *
+	 * @return toba_ei_grafico_conf
+	 */
+	function conf($id_serie = null)
+	{
+		if (!is_null($id_serie)) {
+			$this->_conf->set_id_serie($id_serie);
+		}
+		
+		return $this->_conf;
 	}
 
 	/**
@@ -60,7 +93,8 @@ class toba_ei_grafico extends toba_ei
 			$this->_contenido = $datos;
 			$this->_memoria['parametros'] = $parametros;
 		}
-		// Se lo llena con datos
+		// Se lee un flag del editor para ver si se aplica o no la configuración global
+		$this->conf()->aplicar_conf_global();
 	}
 
 	function generar_html()
@@ -72,7 +106,7 @@ class toba_ei_grafico extends toba_ei
 		//if (isset($this->_ancho)) {
 		//	$ancho = "width ='$this->_ancho'";
 		//}
-		ei_arbol($this->_info_grafico, "INFO GRAFICO");
+//		ei_arbol($this->_info_grafico, "INFO GRAFICO");
 		echo "\n<table class='ei-base ei-esquema-base'>\n";
 		echo"<tr><td style='padding:0'>\n";
 		echo $this->get_html_barra_editor();
@@ -85,12 +119,14 @@ class toba_ei_grafico extends toba_ei
 		if (isset($this->_contenido)) {
 			echo $this->_contenido;
 		}
-		ei_arbol($this->_info_grafico, "INFO GRAFICO");
+		
+		$this->_conf->generar_imagen();
+		$this->s__path = $this->_conf->get_path();
 
 		$destino = array($this->_id);
-		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_grafico',
+		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'eliminar_imagen',
 					'objetos_destino' => $destino));
-		echo "<img src='$url' $ancho $alto border='0'>";
+		echo "<img src='$url' $this->_ancho $this->_alto border='0'>";
 
 		//$this->generar_botones();
 		echo "</div></td></tr>\n";
@@ -98,41 +134,14 @@ class toba_ei_grafico extends toba_ei
 	}
 
 	/**
-	 * En base a la definicion que dejo el componente en el request anterior
-	 * se construye el esquema y se le hace un passthru al cliente
-	 * @param array $parametros
+	 * Elimina la imagen generada del gráfico
 	 */
-	function servicio__mostrar_grafico($parametros = null)
+	function servicio__eliminar_imagen($parametros = null)
 	{
-		// Se lee $this->s__path y se hace el passthru
-		// elimino el archivo
-
-
-		ob_start();
-		toba::memoria()->desactivar_reciclado();
-		if (!isset($parametros)) {
-			if (!isset($this->_memoria['parametros'])) {
-				throw new toba_error_seguridad("No se pueden obtener los parámetros");
-			}
-			$contenido = $this->_memoria['parametros']['contenido'];
-			$formato = $this->_memoria['parametros']['formato'];
-			$es_dirigido = $this->_memoria['parametros']['es_dirigido'];
-		} else {
-			$contenido = $parametros['contenido'];
-			$formato = $parametros['formato'];
-			$es_dirigido = $parametros['es_dirigido'];
-		}
-		break;
-
-		header("Content-type: $tipo_salida");
-		header("Content-Length: " . filesize($path_completo));
-		fpassthru($fp);
-
-		ob_clean();
-
-		ob_flush();
-
-		toba::logger()->error("El archivo $path_completo no se encuentra");
+		$handle = fopen($this->s__path, 'rb');
+		fpassthru($handle);
+		fclose($handle);
+		unlink($this->s__path);
 	}
 
 }

@@ -48,6 +48,18 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 12
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_testing', --proyecto
+	'12000113', --dep_id
+	'12000131', --objeto_consumidor
+	'12000135', --objeto_proveedor
+	'barras', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_testing', --proyecto
 	'12000112', --dep_id
 	'12000131', --objeto_consumidor
 	'12000134', --objeto_proveedor
@@ -121,4 +133,11 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'12000131', --objeto_ci
 	NULL, --orden
 	'12000112'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_testing', --proyecto
+	'12000091', --pantalla
+	'12000131', --objeto_ci
+	NULL, --orden
+	'12000113'  --dep_id
 );
