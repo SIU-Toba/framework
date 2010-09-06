@@ -22,7 +22,7 @@ class toba_ei_mapa extends toba_ei
 	protected $_layers_activos = array();
 	protected $_extent_activo;
 
-	protected $_info_eventos = array('info','conf');
+	protected $_info_eventos = array('conf');
 
 	final function __construct($id)
 	{
@@ -140,6 +140,11 @@ class toba_ei_mapa extends toba_ei
 		}
 	}
 
+	function get_nombre_layers()
+	{
+		return $this->_layers;
+	}
+
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	//																													VALIDACIONES																									    //
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -156,6 +161,7 @@ class toba_ei_mapa extends toba_ei
 	private function verificar_extent_valido($xmin, $ymin, $xmax, $ymax)
 	{
 		//Deberia  verificar que son todos nros reales.
+		//TODO: verificar que los boundaries no se excedan
 		if (! is_numeric($xmin) || ! is_numeric($ymin) || ! is_numeric($xmax)  || ! is_numeric($ymax)) {
 			toba::logger()->error("El extent seleccionado para el mapa {$this->_info_mapa['mapfile_path']} no es válido: ($xmin, $ymin, $xmax, $ymax)");
 			throw new toba_error_validacion('El extent seleccionado no es válido');
@@ -193,7 +199,7 @@ class toba_ei_mapa extends toba_ei
 		echo toba_form::hidden($this->_submit, '');
 		//Div donde se mostrara el mapa
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
-		echo "<div style=\"$ancho $alto\"  id='cuerpo_{$this->objeto_js}' > </div>";
+		echo "<div style=\"$ancho $alto\"  id='cuerpo__{$this->objeto_js}' > </div>";
 	}
 
 	function generar_control_de_layers()
@@ -356,14 +362,16 @@ class toba_ei_mapa extends toba_ei
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	function get_consumo_javascript()
 	{
-		return array('componentes/ei_mapa');
+		return array('componentes/ei_mapa', 'utilidades/varios','utilidades/ms_tools', 'utilidades/ms_map', 'utilidades/point_overlay');
 	}
 
 	protected function crear_objeto_js()
 	{
-		$identado = toba_js::instancia()->identado();		
-		echo $identado. "window.{$this->objeto_js} = new msMap(document.getElementById('cuerpo_{$this->objeto_js}'), 'standardRight');\n";
-		echo $this->get_selector_layer_js();
+		$identado = toba_js::instancia()->identado();
+		$id = toba_js::arreglo($this->_id, false);
+		echo $identado . "window.{$this->objeto_js} = new ei_mapa($id,'{$this->objeto_js}', '{$this->_submit}');";
+		//echo $identado. "window.{$this->objeto_js} = new msMap(document.getElementById('cuerpo_{$this->objeto_js}'), 'standardRight');\n";
+		//echo $this->get_selector_layer_js();
 	}
 
 	protected function iniciar_objeto_js()
@@ -372,19 +380,21 @@ class toba_ei_mapa extends toba_ei
 		$identado = toba_js::instancia()->identado();
 
 		//Obtengo el Full Extent del mapa, los zooms intermedios los maneja el cliente
-		$extent = "'{$this->_extent->minx}' ,' {$this->_extent->maxx}', '{$this->_extent->miny}'";
+		$extent = "'{$this->_extent->minx}' ,' {$this->_extent->maxx}', '{$this->_extent->miny}', '{$this->_extent->maxy}'";
 		//Obtengo la lista de Layers original del mapa
 		$layers = implode(' ' ,$this->_layers);
 
 		//Se agrega al objeto al singleton toba
 		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";
 
-
 		//Envio todas las variables necesarias en el cliente
-		echo $identado. "{$this->objeto_js}.setCgi('$url');\n";
-		echo $identado. "{$this->objeto_js}.setFullExtent($extent);\n";
-		echo $identado. "{$this->objeto_js}.setLayers('$layers');\n";
-		echo $identado. "{$this->objeto_js}.redraw();\n";
+		echo $identado. "{$this->objeto_js}.set_url('$url');\n";
+		echo $identado. "{$this->objeto_js}.set_extent($extent);\n";
+		echo $identado. "{$this->objeto_js}.set_layers('$layers');\n";		
+		echo $identado."{$this->objeto_js}.set_layers_activos(".toba_js::arreglo(array_fill_keys($this->_layers_activos,1),true)."); \n";
+
+		echo $identado. "{$this->objeto_js}.iniciar();\n";
+		echo $identado. "{$this->objeto_js}.render();\n";
 
 		//-- EVENTO implicito --
 /*		if (isset($this->_evento_implicito) && is_object($this->_evento_implicito)){
@@ -396,7 +406,7 @@ class toba_ei_mapa extends toba_ei
 		}*/
 	}
 
-	protected function get_selector_layer_js()
+/*	protected function get_selector_layer_js()
 	{
 		//envio una lista de los layers del mapa y voy seleccionando los activos con los checks
 		//Luego que selecciono seteo los activos y disparo un pedido de actualizacion
@@ -422,7 +432,6 @@ class toba_ei_mapa extends toba_ei
 				window.{$this->objeto_js}.setLayers(layers_resultado.join(' '));
 				window.{$this->objeto_js}.redraw();
 			};";
-	}
+	}*/
 }
-
 ?>

@@ -25,6 +25,7 @@ CREATE TYPE t_tipos_instituciones AS ENUM (
 --
 -- Name: area_disc_rama; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
+DROP TABLE IF EXISTS area_disc_rama CASCADE;
 
 CREATE TABLE area_disc_rama (
     area_id character varying(5) NOT NULL,
@@ -41,7 +42,7 @@ SET default_with_oids = true;
 --
 -- Name: depto_plano; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS depto_plano CASCADE;
 CREATE TABLE depto_plano (
     idpais character(2) NOT NULL,
     idprovincia character(2) NOT NULL,
@@ -57,7 +58,7 @@ SET default_with_oids = false;
 --
 -- Name: instituciones; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS instituciones CASCADE;
 CREATE TABLE instituciones (
     univ_id bigint NOT NULL,
     id_tipo_institucion integer NOT NULL,
@@ -71,7 +72,7 @@ SET default_with_oids = true;
 --
 -- Name: localidad_plano; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS localidad_plano CASCADE;
 CREATE TABLE localidad_plano (
     longitud character varying(10) NOT NULL,
     latitud character varying(10) NOT NULL,
@@ -86,7 +87,7 @@ CREATE TABLE localidad_plano (
 --
 -- Name: localidades_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
-
+DROP SEQUENCE IF EXISTS localidades_id_seq CASCADE;
 CREATE SEQUENCE localidades_id_seq
     INCREMENT BY 1
     NO MAXVALUE
@@ -99,7 +100,7 @@ SET default_with_oids = false;
 --
 -- Name: modalidades; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS modalidades CASCADE;
 CREATE TABLE modalidades (
     id_modalidad integer NOT NULL,
     descripcion character varying(20) NOT NULL
@@ -109,7 +110,7 @@ CREATE TABLE modalidades (
 --
 -- Name: niveles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS niveles CASCADE;
 CREATE TABLE niveles (
     id_nivel character(1) NOT NULL,
     desc_nivel character varying(30) NOT NULL
@@ -121,7 +122,7 @@ SET default_with_oids = true;
 --
 -- Name: provincia_plano; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS provincia_plano CASCADE;
 CREATE TABLE provincia_plano (
     idpais character(2) NOT NULL,
     idprovincia character(2) NOT NULL,
@@ -136,7 +137,7 @@ SET default_with_oids = false;
 --
 -- Name: regimenes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS regimenes CASCADE;
 CREATE TABLE regimenes (
     id_regimen character(2) NOT NULL,
     desc_regimen character varying(30) NOT NULL
@@ -146,7 +147,7 @@ CREATE TABLE regimenes (
 --
 -- Name: regiones; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS regiones CASCADE;
 CREATE TABLE regiones (
     id_region character(5) NOT NULL,
     desc_region character varying(30) NOT NULL,
@@ -158,7 +159,7 @@ CREATE TABLE regiones (
 --
 -- Name: tipos_instituciones; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS tipos_instituciones CASCADE;
 CREATE TABLE tipos_instituciones (
     id_tipo_institucion integer NOT NULL,
     descripcion character varying(20) NOT NULL
@@ -168,7 +169,7 @@ CREATE TABLE tipos_instituciones (
 --
 -- Name: tipos_normas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS tipos_normas CASCADE;
 CREATE TABLE tipos_normas (
     id_tipo_norma character(2) NOT NULL,
     desc_tipo_norma character varying(20) NOT NULL
@@ -178,7 +179,7 @@ CREATE TABLE tipos_normas (
 --
 -- Name: titulos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS titulos CASCADE;
 CREATE TABLE titulos (
     area_id character varying(5) NOT NULL,
     id_modalidad integer NOT NULL,
@@ -206,7 +207,7 @@ CREATE TABLE titulos (
 --
 -- Name: titulos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
-
+DROP SEQUENCE  IF EXISTS titulos_id_seq CASCADE;
 CREATE SEQUENCE titulos_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -225,6 +226,7 @@ ALTER SEQUENCE titulos_id_seq OWNED BY titulos.id;
 --
 -- Name: unidades_acad_geo; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
+DROP TABLE IF EXISTS unidades_acad_geo CASCADE;
 CREATE TABLE unidades_acad_geo
 (
   iduniversidad integer NOT NULL,
@@ -252,7 +254,7 @@ SET default_with_oids = true;
 --
 -- Name: unidades_academicas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
-
+DROP TABLE IF EXISTS unidades_academicas CASCADE;
 CREATE TABLE unidades_academicas (
     univ_id bigint NOT NULL,
     ua_id bigint NOT NULL,

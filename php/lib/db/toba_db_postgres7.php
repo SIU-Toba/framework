@@ -42,6 +42,13 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
+	function get_parametros()
+	{
+		$parametros = parent::get_parametros();
+		$parametros['schema'] = $this->schema;
+		return $parametros;
+	}
+
 	function set_encoding($encoding)
 	{
 		$sql = "SET CLIENT_ENCODING TO '$encoding'";

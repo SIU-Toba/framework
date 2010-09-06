@@ -105,10 +105,11 @@ class toba_db
 	 */
 	function get_parametros()
 	{
-		$parametros['HOST'] = $this->profile;
-		$parametros['USUARIO'] = $this->usuario;
-		$parametros['CLAVE'] = $this->clave;
-		$parametros['BASE'] = $this->base;
+		$parametros['profile'] = $this->profile;
+		$parametros['usuario'] = $this->usuario;
+		$parametros['clave'] = $this->clave;
+		$parametros['base'] = $this->base;
+		$parametros['puerto'] = $this->puerto;
 		return $parametros;
 	}
 
