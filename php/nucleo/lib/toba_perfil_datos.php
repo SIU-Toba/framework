@@ -239,6 +239,7 @@ class toba_perfil_datos
 	function filtrar_sql($sql, $fuente_datos=null)
 	{
 		$where = array();
+		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 1 -- Busco GATILLOS en el SQL
 		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
 		//-- 2 -- Busco las dimensiones implicadas
@@ -248,7 +249,6 @@ class toba_perfil_datos
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
 		}
-		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 4 -- Altero el SQL
 		if(! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
@@ -590,7 +590,7 @@ class toba_perfil_datos
 		if (! empty($resultado)) {
 			return implode(' ',$resultado);
 		}
-		return $sql;
+		return'';
 	}
 }
 ?>
