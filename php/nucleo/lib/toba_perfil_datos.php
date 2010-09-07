@@ -248,6 +248,7 @@ class toba_perfil_datos
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
 		}
+		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 4 -- Altero el SQL
 		if(! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
@@ -574,6 +575,22 @@ class toba_perfil_datos
 			}
 		}
 		return $test;
+	}
+
+	/**
+	 *  Quita los comentarios de la sentencia SQL con formato -- o el tipico formato /* * /
+	 *  @param string $sql  Sentencia a la que se le quiere quitar los comentarios
+	 *  @return string 
+	 */
+	protected function quitar_comentarios_sql($sql)
+	{
+		//\/\*(.|[\r\n])*?\*\/|(-{2,}[\w+|\s+|\r])(.)*
+		$expresion = "/\/\*(.|[\r\n])*?\*\/|(-{2,}[\w+|\s+|\r])(.)*/im";
+		$resultado = preg_split($expresion, $sql);
+		if (! empty($resultado)) {
+			return implode(' ',$resultado);
+		}
+		return $sql;
 	}
 }
 ?>
