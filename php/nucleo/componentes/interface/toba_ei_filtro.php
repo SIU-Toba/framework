@@ -62,6 +62,7 @@ class toba_ei_filtro extends toba_ei
 		}
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $efs, $parametros_efs);
+		//$this->_carga_opciones_ef->registrar_cascadas();
 	}
 
 	/**
@@ -74,6 +75,25 @@ class toba_ei_filtro extends toba_ei
 			return array_keys($this->_columnas);
 		}
 		return array();
+	}
+
+	/**
+	 * Elimina una o varias columnas del filtro, las mismas no se enviaran al cliente ni participaran
+	 *  del formado de las clausulas
+	 * @param array $ids_columnas Arreglo de identificadores de columnas a eliminar
+	 */
+	function eliminar_columnas($ids_columnas = array())
+	{
+		foreach($ids_columnas as $id) {
+			if (! isset($this->_columnas[$id])) {
+				toba::logger()->error("Se intento eliminar la colunma $id pero esta no existe");
+				throw new toba_error('Se intenta eliminar una columna del filtro que no existe');
+			}
+			//Si todo va bien elimino la columna y ademas quito el EF de las cascadas para que no quede el maestro pegado.
+			//$this->_carga_opciones_ef->quitar_ef($id);
+			unset($this->_columnas[$id]);
+		}
+		//$this->_carga_opciones_ef->registrar_cascadas();
 	}
 
 	/**
@@ -269,6 +289,10 @@ class toba_ei_filtro extends toba_ei
 	 */
 	function columna($nombre)
 	{
+		if (! isset($this->_columnas[$nombre])) {
+			toba::logger()->error("Se intento acceder la colunma $nombre pero esta no existe");
+			throw new toba_error('Se intenta acceder una columna del filtro que no existe');
+		}
 		return $this->_columnas[$nombre];
 	}
 	
