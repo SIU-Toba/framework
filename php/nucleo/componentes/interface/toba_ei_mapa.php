@@ -13,8 +13,8 @@ class toba_ei_mapa extends toba_ei
 	//Variables que mantienen la info inicial
 	protected $_mapa;
 	protected $_extent;
-	protected $_layers;
-	protected $_grupos;
+	//protected $_layers;
+//	protected $_grupos;
 
 	//Variables modificables en el conf o cuando vuelven los parametros
 	protected $_alto_viewport = '';
@@ -50,11 +50,8 @@ class toba_ei_mapa extends toba_ei
 	function analizar_layers()
 	{
 		//Primero busco todos los layers del  mapa
-		$this->_grupos = $this->_mapa->getAllGroupNames();
-		$this->_layers = $this->_mapa->getAllLayerNames();
 		$this->_extent = $this->_mapa->extent;			//Desgraciadamente no hay Api para este objeto
-
-		$this->_layers_activos = $this->_layers;	//Inicializo los layers activos en los que devolvio el mapa.
+		$this->_layers_activos = $this->get_nombre_layers();	//Inicializo los layers activos en los que devolvio el mapa.
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -128,9 +125,7 @@ class toba_ei_mapa extends toba_ei
 
 	function get_grupos()
 	{
-		if (isset($this->_grupos)) {
-			return $this->_grupos;
-		}
+		return $this->_mapa->getAllGroupNames();
 	}
 
 	function get_mapa()
@@ -142,7 +137,7 @@ class toba_ei_mapa extends toba_ei
 
 	function get_nombre_layers()
 	{
-		return $this->_layers;
+		return $this->_mapa->getAllLayerNames();
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -150,8 +145,9 @@ class toba_ei_mapa extends toba_ei
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	private function verificar_layers_validos($layers)
 	{
+		$layers_referencia = $this->get_nombre_layers();
 		foreach($layers as $layer) {
-			if (! in_array($layer, $this->_layers)) {
+			if (! in_array($layer, $layers_referencia)) {
 				toba::logger()->error("El layer $layer no es valido para el mapa {$this->_info_mapa['mapfile_path']}");
 				throw new toba_error_validacion("El layer $layer no es válido");
 			}
@@ -206,8 +202,9 @@ class toba_ei_mapa extends toba_ei
 	{
 		echo "<div id = 'control_layers_{$this->objeto_js}'  class='layer-ctrl'>";
 		//Recorro los grupos que pueda haber
-		if (! empty($this->_grupos)) {
-				foreach( $this->_grupos as $grupo) {
+		$grupos = $this->get_grupos();
+		if (! empty($grupos)) {
+				foreach( $grupos as $grupo) {
 					//Recupero los layers que esten dentro del grupo por indice
 					$this->get_separador_grupo($grupo);
 					$layer_idxs = $this->_mapa->getLayerIndexByGroup($grupo);
@@ -220,7 +217,8 @@ class toba_ei_mapa extends toba_ei
 				}
 		} else {				//Si no hay grupos en el Mapfile entonces muestro los mapas
 				echo "<p><span style='font-weight: bold; font-variant:small-caps;'> Layers Disponibles </span></p><hr/>";
-				foreach ($this->_layers as $layer) {
+				$layers_disp = $this->get_nombre_layers();
+				foreach ($layers_disp as $layer) {
 					$id_ef = $this->objeto_js. '_chck_'. $layer;
 					$this->get_selector_layer($id_ef, $layer);
 				}
@@ -288,7 +286,7 @@ class toba_ei_mapa extends toba_ei
 
 	protected function get_url_mapa()
 	{
-		$this->_memoria['parametros'] = array('layers' => $this->_layers);
+		$this->_memoria['parametros'] = array('layers' => $this->get_nombre_layers());
 		$destino = array($this->_id);
 		$url = toba::vinculador()->get_url(null, null, array(),array('servicio' => 'ejecutar',
 																											 'objetos_destino' => $destino));
@@ -311,7 +309,8 @@ class toba_ei_mapa extends toba_ei
 
 		//Aca le digo cuales son los layers activos
 		if (! empty($this->_layers_activos)) {
-			foreach($this->_layers as $layer) {
+			$layers_disp = $this->get_nombre_layers();
+			foreach($layers_disp as $layer) {
 				if (in_array($layer, $this->_layers_activos)) {
 					$this->_mapa->getLayerByName($layer)->set('status', MS_ON);
 				}else{
@@ -382,7 +381,7 @@ class toba_ei_mapa extends toba_ei
 		//Obtengo el Full Extent del mapa, los zooms intermedios los maneja el cliente
 		$extent = "'{$this->_extent->minx}' ,' {$this->_extent->maxx}', '{$this->_extent->miny}', '{$this->_extent->maxy}'";
 		//Obtengo la lista de Layers original del mapa
-		$layers = implode(' ' ,$this->_layers);
+		$layers = implode(' ' ,$this->get_nombre_layers());
 
 		//Se agrega al objeto al singleton toba
 		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";
