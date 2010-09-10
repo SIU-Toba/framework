@@ -1,117 +1,43 @@
 <?php
 /**
- * Esta clase almacena la información particular de cada gráfico. Como así
- * también provee métodos para obtener el objeto jgraph ya configurado
- * @author andres
+ * Esta clase representa el wrapper de más bajo nivel para la librería jpgraph.
+ * La única utilidad que provee es la de graficar la imágen, de esta manera
+ * se quita la responsabilidad al usuario sobre el tiempo en el cuál se tiene
+ * que generar la imagen
  */
-
-abstract class toba_ei_grafico_conf
+class toba_ei_grafico_conf
 {
-	/**
-	 * Arreglo donde se guardan las series de datos del gráfico
-	 * @var array
-	 */
-	protected $series;
-
-	/**
-	 * La serie que se está configurando actualmente
-	 * @var string
-	 */
-	protected $serie_actual;
-
 	/**
 	 * @var Graph
 	 */
 	protected $canvas;
-	
-	protected $ancho, $alto, $path;
 
 
-	function  __construct($ancho, $alto)
+    function canvas__set($canvas)
 	{
-		$this->series	= array();
-		$this->ancho	= $ancho;
-		$this->alto		= $alto;
-		$this->init_canvas();
+		$this->canvas = $canvas;
 	}
 
-	/**
-	 * Prepara el objeto para que edite la serie con id $id_serie
-	 * @param string $id_serie
-	 */
-	function set_id_serie($id_serie)
+	function canvas__get()
 	{
-		if (!isset($this->series[$id_serie])) {
-			throw new toba_error("La serie con id $id_serie no existe.");
+		if (!isset($this->canvas)) {
+			throw new toba_error("No hay ningún canvas seteado");
 		}
-		
-		$this->serie_actual = $id_serie;
-	}
 
-	protected function init_canvas()
-	{
-		$this->canvas = new Graph($this->ancho, $this->alto);
-		$this->canvas->SetScale("textlin");
-	}
-
-	/**
-	 * Agrega una serie de datos al gráfico
-	 */
-	abstract function agregar_serie($id, $datos);
-	
-	abstract function aplicar_conf_global();
-
-	function generar_imagen()
-	{
-		// Se genera el path para la ubicación temporal de la imágen
-		$this->generar_path();
-
-		// escribimos la imagen a un archivo
-		$this->canvas->Stroke($this->path);
-	}
-	
-	/**
-	 * Devuelve el contenedor de gráficos de jpgraph
-	 * @return Graph
-	 */
-	function get_canvas()
-	{
 		return $this->canvas;
 	}
 
-	function set_titulo_canvas($titulo)
-	{
-		$this->canvas->title->Set($titulo);
-	}
-
-
-	abstract function set_titulo($titulo);
-	
-	function get_path()
-	{
-		if (!isset($this->path)) {
-			throw new toba_error("El path se setea luego de generar la imagen.");
-		}
-
-		return $this->path;
-	}
-
-	protected function generar_path()
-	{
-		$this->path = toba_dir().'/temp/'.uniqid().'.png';
-	}
-
 	/**
-	 * Devuelve la serie que está siendo editada actualmente
+	 * Genera la imagen
+	 * @param string $path path completo de la imagen a generar
 	 */
-	protected function get_serie()
+	function imagen__generar($path)
 	{
-		if (!isset($this->serie_actual)) {
-			throw new toba_error("Antes de comenzar a configurar el "
-								 ."objeto debe invocar al método agregar_serie");
+		if (!isset($this->canvas)) {
+			throw new toba_error("Generación de imágen: No hay ningún canvas seteado");
 		}
-		
-		return $this->series[$this->serie_actual];
+		// escribimos la imagen a un archivo
+		$this->canvas->Stroke($path);
 	}
 }
 ?>

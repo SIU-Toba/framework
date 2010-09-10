@@ -6,30 +6,13 @@
  * @jsdoc ei ei
  * @wiki Referencia/Objetos/ei_grafico
  *
- *
- * 	function __conf($grafico)
-  {
-  // CAso normal
-  $grafico->conf()->agregar_serie('Pepe', array(1,2,5,34,6,76,78,7));
-  - El conf se instancia en una factory que aplica configuraciones globales del toba o del proyecto
-
-  // Parametro extraño
-  //$grafico->renderer()->
-
-  // Grafico de otro tipo
-  $g = new jpga
-  $grafico->instan
-
-  }
- *
- *
  */
 class toba_ei_grafico extends toba_ei
 {
 	protected $_tipo;
 	protected $_alto;
 	protected $_ancho;
-	protected $_contenido;	// Instrucciones GraphViz
+
 	/**
 	 * @var toba_ei_grafico_conf
 	 */
@@ -63,6 +46,12 @@ class toba_ei_grafico extends toba_ei
 				break;
 			case 'bar':
 				$this->_conf = new toba_ei_grafico_conf_barras($this->_ancho, $this->_alto);
+				break;
+			case 'lin':
+				$this->_conf = new toba_ei_grafico_conf_lineas($this->_ancho, $this->_alto);
+				break;
+			case 'otro':
+				$this->_conf = new toba_ei_grafico_conf();
 			default: break;
 		}
 	}
@@ -71,42 +60,20 @@ class toba_ei_grafico extends toba_ei
 	 *
 	 * @return toba_ei_grafico_conf
 	 */
-	function conf($id_serie = null)
-	{
-		if (!is_null($id_serie)) {
-			$this->_conf->set_id_serie($id_serie);
-		}
-		
+	function conf()
+	{		
 		return $this->_conf;
 	}
 
 	/**
 	 * Cambia el esquema actual
-	 * @param string $datos Esquema Graphviz
+	 * @param string $datos 
 	 */
 	function set_datos($datos)
-	{
-		// PIE array una dimensiones
-		// LINE N dim
-		// BAR N DIM
-		if (isset($datos)) {
-			$this->_contenido = $datos;
-			$this->_memoria['parametros'] = $parametros;
-		}
-		// Se lee un flag del editor para ver si se aplica o no la configuración global
-		$this->conf()->aplicar_conf_global();
-	}
+	{}
 
 	function generar_html()
 	{
-
-		// Se genera un grafico y va a un archivo
-		// dejar el path en $this->s__path
-		//$ancho = '';
-		//if (isset($this->_ancho)) {
-		//	$ancho = "width ='$this->_ancho'";
-		//}
-//		ei_arbol($this->_info_grafico, "INFO GRAFICO");
 		echo "\n<table class='ei-base ei-esquema-base'>\n";
 		echo"<tr><td style='padding:0'>\n";
 		echo $this->get_html_barra_editor();
@@ -116,15 +83,11 @@ class toba_ei_grafico extends toba_ei
 		//Campo de sincronizacion con JS
 		echo toba_form::hidden($this->_submit, '');
 
-		if (isset($this->_contenido)) {
-			echo $this->_contenido;
-		}
-		
-		$this->_conf->generar_imagen();
-		$this->s__path = $this->_conf->get_path();
+		$this->s__path = toba_dir().'/temp/'.uniqid().'.png';
+		$this->_conf->imagen__generar($this->s__path);
 
 		$destino = array($this->_id);
-		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'eliminar_imagen',
+		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_imagen',
 					'objetos_destino' => $destino));
 		echo "<img src='$url' $this->_ancho $this->_alto border='0'>";
 
@@ -136,14 +99,25 @@ class toba_ei_grafico extends toba_ei
 	/**
 	 * Elimina la imagen generada del gráfico
 	 */
-	function servicio__eliminar_imagen($parametros = null)
+	function servicio__mostrar_imagen($parametros = null)
 	{
 		$handle = fopen($this->s__path, 'rb');
 		fpassthru($handle);
 		fclose($handle);
 		unlink($this->s__path);
 	}
+/*
+	function vista_pdf(toba_vista_pdf $salida )
+	{
+		$salida->insertar_imagen($this->s__path);
+	}
 
+	function destruir()
+	{
+		parent::destruir();
+		unlink($this->s__path);
+	}
+*/
 }
 
 ?>

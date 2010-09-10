@@ -93,7 +93,16 @@ class toba_instalacion
 		} else {
 			return false;	
 		}
-	}	
+	}
+
+	function get_fonts_path()
+	{
+		if (isset($this->memoria['fonts_path'])) {
+			return $this->memoria['fonts_path'];
+		} else {
+			return false;
+		}
+	}
 	
 	function arreglo_png_ie()
 	{

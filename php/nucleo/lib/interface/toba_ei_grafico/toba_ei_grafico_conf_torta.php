@@ -5,38 +5,63 @@
  *
  * @author andres
  */
-require_once ('3ros/jpgraph/jpgraph.php');
-require_once ('3ros/jpgraph/jpgraph_pie.php');
-
-class toba_ei_grafico_conf_torta extends toba_ei_grafico_conf
+class toba_ei_grafico_conf_torta extends toba_ei_grafico_conf_especifico
 {
-	function init_canvas()
+	/************************************************************************/
+	// METODOS INTERNOS
+	/************************************************************************/
+	protected function init_canvas()
 	{
 		$this->canvas = new PieGraph($this->ancho, $this->alto);
 	}
 
-	/**
-	 * @param string $id
-	 * @param array $datos
-	 * @return toba_ei_grafico_conf_torta
-	 */
-	function agregar_serie($id, $datos)
+	protected function  set_up_jpgraph()
 	{
-		$pie = new PiePlot($datos);
-		$this->series[$id] = $pie;
-		$this->canvas->Add($pie);
-
-		$this->set_id_serie($id);
-		return $this;
+		parent::set_up_jpgraph();
+		require_once (toba_dir() . '/php/3ros/jpgraph/jpgraph_pie.php');
 	}
 
+	protected function get_plot($data)
+	{
+		return new PiePlot($data);
+	}
+	
+	/************************************************************************/
+	// METODOS DE API CANVAS
+	/************************************************************************/
+
+	/************************************************************************/
+	// METODOS DE API SERIES
+	/************************************************************************/
+	/**
+	 * @param string $titulo
+	 * @return toba_ei_grafico_conf_torta
+	 */
+	function serie__set_titulo($titulo)
+	{
+		$this->serie__get_activa()->title->Set($titulo);
+
+		return $this;
+	}
+	
 	/**
 	 * @param array $leyendas
 	 * @return toba_ei_grafico_conf_torta 
 	 */
-	function set_leyendas($leyendas)
+	function serie__set_leyendas($leyendas)
 	{
-		$this->get_serie()->SetLegends($leyendas);
+		$this->serie__get_activa()->SetLegends($leyendas);
+
+		return $this;
+	}
+
+	/**
+	 * Setea el tema de colores
+	 * @param string $tema puede ser: earth | pastel | sand | water
+	 */
+	function serie__set_tema($tema)
+	{
+		$this->serie__get_activa()->SetTheme($tema);
 
 		return $this;
 	}
@@ -46,20 +71,9 @@ class toba_ei_grafico_conf_torta extends toba_ei_grafico_conf
 	 * @param double $y entre 0 y 1
 	 * @return toba_ei_grafico_conf_torta
 	 */
-	function set_centro($x, $y = 0.5)
+	function serie__set_centro($x, $y = 0.5)
 	{
-		$this->get_serie()->SetCenter($x, $y);
-
-		return $this;
-	}
-
-	/**
-	 * @param string $titulo
-	 * @return toba_ei_grafico_conf_torta
-	 */
-	function set_titulo($titulo)
-	{
-		$this->get_serie()->title->Set($titulo);
+		$this->serie__get_activa()->SetCenter($x, $y);
 
 		return $this;
 	}
@@ -69,22 +83,13 @@ class toba_ei_grafico_conf_torta extends toba_ei_grafico_conf
 	 * @param array $indices
 	 * @return toba_ei_grafico_conf_torta
 	 */
-	function separar_porciones($indices)
+	function serie__separar_porciones($indices)
 	{
 		foreach ($indices as $i) {
-			$this->get_serie()->ExplodeSlice($i);
+			$this->serie__get_activa()->ExplodeSlice($i);
 		}
 		
 		return $this;
-	}
-
-	function aplicar_conf_global()
-	{
-		// Se consume la configuración global del gráfico
-		$conf_global = toba_configuracion::ei_grafico_conf();
-		$this->canvas->title->SetColor($conf_global->get_color_titulo());
-
-		$this->get_serie()->SetSliceColors($conf_global->get_colores_grafico());
 	}
 
 }
