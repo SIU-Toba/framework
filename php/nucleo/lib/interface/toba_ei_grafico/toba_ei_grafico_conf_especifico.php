@@ -53,7 +53,7 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	protected function init_canvas()
 	{
 		$this->canvas__set(new Graph($this->ancho, $this->alto));
-		$this->canvas__get()->SetScale("textlin");
+		$this->canvas()->SetScale("textlin");
 	}
 
 	/**
@@ -65,15 +65,6 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	/************************************************************************/
 	// METODOS DE API CANVAS
 	/************************************************************************/
-
-	/**
-	 * Devuelve el contenedor de gráficos de jpgraph
-	 * @return Graph
-	 */
-	function canvas()
-	{
-		return $this->canvas;
-	}
 
 	function canvas__set_titulo($titulo)
 	{

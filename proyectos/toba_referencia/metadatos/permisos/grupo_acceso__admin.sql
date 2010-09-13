@@ -530,6 +530,27 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 );
 --- FIN Grupo de desarrollo 10
 
+--- INICIO Grupo de desarrollo 12
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_referencia', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'12000091'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_referencia', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'12000092'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_referencia', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'12000093'  --item
+);
+--- FIN Grupo de desarrollo 12
+
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_referencia', --proyecto

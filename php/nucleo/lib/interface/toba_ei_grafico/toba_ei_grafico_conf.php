@@ -17,8 +17,12 @@ class toba_ei_grafico_conf
 	{
 		$this->canvas = $canvas;
 	}
-
-	function canvas__get()
+	
+	/**
+	 * Devuelve el contenedor de gráficos de jpgraph
+	 * @return Graph
+	 */
+	function canvas()
 	{
 		if (!isset($this->canvas)) {
 			throw new toba_error("No hay ningún canvas seteado");
