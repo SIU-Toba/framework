@@ -181,6 +181,14 @@ class toba_proyecto
 		return $fila['extension_proyecto'];
 	}
 
+	function get_clases_extendidas()
+	{
+		return array(
+			$this->get_parametro('extension_toba'),
+			$this->get_parametro('extension_proyecto')
+		);
+	}
+
 	/**
 	 * Retorna el path base absoluto del proyecto
 	 */

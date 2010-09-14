@@ -31,6 +31,27 @@
 		return $default;
 	}
 
+	/**
+	 * Devuelve el nombre de la clase de acuerdo a la extensión de proyecto
+	 * que se indique
+	 * @param string $nombre
+	 * @param string $proyecto
+	 * @param array $extensiones arreglo asociativo con 2 parámetros: el 1ro es
+	 * extension_toba y el 2do extension_proyecto. Se obtiene de
+	 * toba::proyecto()->get_clases_extendidas()
+	 */
+	function get_nombre_clase_extendida($nombre, $proyecto, $extensiones)
+	{
+		$res = substr($nombre, strlen('toba_'));
+		if ($extensiones[1]) {
+			return $proyecto.'_pers_'.$res;
+		} else if ($extensiones[0]) {
+			return $proyecto.'_'.$res;
+		}
+
+		return $nombre;
+	}
+
 	function array_elem_limitrofes($arreglo, $elem)
 	{
 		$arreglo = array_values($arreglo);

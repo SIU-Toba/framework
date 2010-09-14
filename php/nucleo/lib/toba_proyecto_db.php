@@ -72,7 +72,9 @@ class toba_proyecto_db
 						version_link					,
 						tiempo_espera_ms				,
 						navegacion_ajax					,
-						codigo_ga_tracker				
+						codigo_ga_tracker				,
+						extension_toba					,
+						extension_proyecto
 				FROM 	apex_proyecto p 
 							LEFT OUTER JOIN apex_menu m ON (p.menu = m.menu)
 							LEFT OUTER JOIN apex_estilo est ON (p.estilo = est.estilo)

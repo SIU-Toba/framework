@@ -46,9 +46,10 @@ class toba_constructor
 				if ( $datos['_info']['subclase']) {
 					if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
 						self::cargar_clase($datos);
-//						require_once($datos['_info']['subclase_archivo']);
 					}
 					$clase = $datos['_info']['subclase'];
+				} else {
+					$clase = get_nombre_clase_extendida($clase, $id['proyecto'], toba::proyecto()->get_clases_extendidas());
 				}
 				//Averiguo cuantas instancias previas de este componente fueron creadas
 				if (! isset(self::$objetos_runtime_instanciados[ $id['componente'] ])) {
