@@ -442,7 +442,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		$archivo = self::get_archivo_alias_apache();
 		$conf = file_get_contents($archivo);
-		$encontre = preg_match('/[\#Proyecto:[\s]*]*'.$id_proyecto.'[\s]+/', $conf);
+		$encontre = preg_match('/^(?:\s)*#Proyecto:(?:\s)*'.$id_proyecto.'/im', $conf);
 		return ($encontre !== 0 && $encontre !== false);
 	}
 	
