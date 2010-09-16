@@ -174,11 +174,7 @@ class toba_proyecto
 
 	function es_personalizable()
 	{
-		$db = toba_proyecto_db::get_db();
-		$id_proyecto = $db->quote($this->get_id());
-		$sql = "SELECT extension_proyecto FROM apex_proyecto WHERE proyecto=$id_proyecto";
-		$fila = $db->consultar_fila($sql);
-		return $fila['extension_proyecto'];
+		return $this->get_parametro('extension_proyecto');
 	}
 
 	function get_clases_extendidas()
