@@ -1,7 +1,7 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
-class ap_persona_juegos extends toba_ap_tabla_db
+class ap_persona_juegos extends toba_ap_tabla_db_s
 {
 	/*
 		Cuando una persona da de alta un JUEGO, se los anota en la oferta de juegos!
