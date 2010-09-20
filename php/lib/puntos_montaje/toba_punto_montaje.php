@@ -90,7 +90,10 @@ class toba_punto_montaje
 			$nombre = toba_modelo_pms::prefijo_ini.$this->get_etiqueta();
 			if (!isset($datos[$nombre])) {
 				throw new toba_error("Punto de montaje: el punto de montaje
-					{$this->get_etiqueta()} no existe en $path_instancia_ini");
+					{$this->get_etiqueta()} no existe en $path_instancia_ini.
+					Debe agregar en instancia.ini la entrada
+					'pm_{$this->get_etiqueta()} = path' donde path es la ubicación
+					absoluta en el sistema de archivos.");
 			}
 			$this->path = $datos[$nombre];
 		}
