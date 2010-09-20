@@ -59,6 +59,34 @@ class form_varios extends toba_ei_formulario
 			{$this->objeto_js}.respuesta_expreg = function(datos) {
 				this.ef('edit_expreg').set_estado(datos);
 			}
+
+			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+				if (!inicial) {
+					this.ef('popup_carga_desc_include').cambiar_valor('');
+					this.ef('popup_carga_desc_clase').cambiar_valor('');
+				}
+			}
+
+			{$this->objeto_js}.evt__popup_carga_desc_include__procesar = function(inicial) {
+				var archivo = this.ef('popup_carga_desc_include').valor();
+				if (!inicial && this.ef('popup_carga_desc_clase').valor() == '') {
+					var basename = archivo.replace( /.*\//, '' );
+					var clase = basename.substring(0, basename.lastIndexOf('.'));
+					this.ef('popup_carga_desc_clase').cambiar_valor(clase);
+				}
+			}
+
+			{$this->objeto_js}.modificar_vinculo__ef_popup_carga_desc_include = function(id_vinculo)
+            {
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+            }
+
+			{$this->objeto_js}.modificar_vinculo__extender = function(id_vinculo)
+			{
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+            }
 		";
 	}
 }

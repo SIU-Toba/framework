@@ -127,6 +127,10 @@ class toba_migracion_1_6_0 extends toba_migracion
 						   CONSTRAINT  "apex_objeto_codigo_fk_objeto"  FOREIGN KEY ("objeto_codigo_proyecto","objeto_codigo") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 						);';
 
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN carga_maestros TEXT  NULL;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN punto_montaje bigint  NULL;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD CONSTRAINT	"apex_ei_filtro_col_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 

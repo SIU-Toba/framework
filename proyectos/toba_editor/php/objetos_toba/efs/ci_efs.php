@@ -268,7 +268,7 @@ class ci_efs extends toba_ci
 		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 				
 		//--- Se desactivan los efs que no forman parte de la definicion
-		$param = $this->get_definicion_parametros();
+		$param = $this->get_definicion_parametros(false);
 		$todos = $this->dependencia('param_varios')->get_nombres_ef();
 		$efs_a_desactivar = array();
 		foreach ($todos as $disponible) {

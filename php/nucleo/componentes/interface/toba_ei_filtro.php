@@ -62,7 +62,7 @@ class toba_ei_filtro extends toba_ei
 		}
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $efs, $parametros_efs);
-		//$this->_carga_opciones_ef->registrar_cascadas();
+		$this->_carga_opciones_ef->registrar_cascadas();
 	}
 
 	/**
@@ -75,6 +75,12 @@ class toba_ei_filtro extends toba_ei
 			return array_keys($this->_columnas);
 		}
 		return array();
+	}
+
+	protected function existe_columna($id)
+	{
+		$ids_actuales = $this->get_ids_columnas();
+		return (in_array($id, $ids_actuales));
 	}
 
 	/**
@@ -90,10 +96,10 @@ class toba_ei_filtro extends toba_ei
 				throw new toba_error('Se intenta eliminar una columna del filtro que no existe');
 			}
 			//Si todo va bien elimino la columna y ademas quito el EF de las cascadas para que no quede el maestro pegado.
-			//$this->_carga_opciones_ef->quitar_ef($id);
+			$this->_carga_opciones_ef->quitar_ef($id);
 			unset($this->_columnas[$id]);
 		}
-		//$this->_carga_opciones_ef->registrar_cascadas();
+		$this->_carga_opciones_ef->registrar_cascadas();
 	}
 
 	/**
@@ -412,6 +418,7 @@ class toba_ei_filtro extends toba_ei
 		echo "<tbody>";			
 		$estilo_celda = "ei-filtro-fila";
 		foreach ($this->_columnas as $nombre_col => $columna) {
+			$this->analizar_visualizacion_columna ($columna);			
 			if ($columna->es_visible()) {
 				$estilo_fila = "";
 			} else {
@@ -482,6 +489,85 @@ class toba_ei_filtro extends toba_ei
 		}
 		return null;
 	}	
+
+	private function analizar_visualizacion_columna($columna)
+	{
+		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();		//Obtengo todos los maestros
+		//Si alguno de los maestros es visible, la columna en si misma se vuelve visible inicialmente.
+		foreach($cascadas_maestros[$columna->get_nombre()] as $maestro) {
+			if (isset($this->_columnas[$maestro]) && $this->_columnas[$maestro]->es_visible()) {
+					$this->_columnas[$columna->get_nombre()]->set_visible(true);				//Seteo como visible la columna
+			}
+		}
+	}
+	
+	//-----------------------------------------------------------
+	// Cascadas
+	//-----------------------------------------------------------
+	
+	function servicio__cascadas_columnas()
+	{
+		require_once(toba_dir() . '/php/3ros/JSON.php');
+		if (! isset($_GET['cascadas-col']) || ! isset($_GET['cascadas-maestros'])) {
+			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");
+		}
+		$id_columna = trim(toba::memoria()->get_parametro('cascadas-col'));		
+		if (! $this->existe_columna($id_columna)) {
+			throw new toba_error_seguridad($this->get_txt()." No existe la columna  '$id_columna'");
+		}
+		$maestros = array();
+		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
+		$ids_maestros = $cascadas_maestros[$id_columna];
+		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
+			if (trim($par) != '') {
+				$param = explode("-;-", trim($par));
+				if (count($param) != 2) {
+					throw new toba_error_seguridad("Cascadas: Cantidad incorrecta de parametros ($par).");
+				}
+				$id_col_maestro = $param[0];
+
+				//--- Verifique que este entre los maestros y lo elimina de la lista
+				if (!in_array($id_col_maestro, $ids_maestros)) {
+					throw new toba_error_seguridad("Cascadas: El ef '$id_col_maestro' no esta entre los maestros de '$id_columna'");
+				}
+				array_borrar_valor($ids_maestros, $id_col_maestro);
+
+				$campos =  $this->columna($id_col_maestro)->get_nombre(); 
+				$valores = explode(apex_qs_separador, $param[1]);
+				if (!is_array($campos)) {
+					$maestros[$id_col_maestro] = $this->columna($id_col_maestro)->get_ef()->normalizar_parametro_cascada($param[1]);
+				} else {
+					//--- Manejo de claves múltiples
+					if (count($valores) != count($campos)) {
+						throw new toba_error("Cascadas: El ef $id_col_maestro maneja distinta cantidad de datos que los campos pasados");
+					}
+					$valores_clave = array();
+					for ($i=0; $i < count($campos) ; $i++) {
+						$valores_clave[$campos[$i]] = $valores[$i];
+					}
+					$maestros[$id_col_maestro] = $valores_clave;
+				}
+			}
+		}
+		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
+		foreach ($ids_maestros as $id_col_maestro) {
+			if (is_null($this->columna($id_col_maestro)->get_estado())) {
+				throw new toba_error_seguridad("Cascadas: El ef maestro '$id_col_maestro' no tiene estado cargado");
+			}
+			$maestros[$id_col_maestro] = $this->columna($id_col_maestro)->get_estado();
+		}
+		toba::logger()->debug("Cascadas '$id_columna', Estado de los maestros: ".var_export($maestros, true));
+		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_columna, $maestros);
+		toba::logger()->debug("Cascadas '$id_columna', Respuesta: ".var_export($valores, true));
+
+		//--Guarda los datos en sesion para que los controle a la vuelta PHP
+		$sesion = (isset($valores) && is_array($valores)) ? array_keys($valores) : null;
+		$this->columna($id_columna)->get_ef()->guardar_dato_sesion($sesion, true);
+
+		//--- Se arma la respuesta en formato JSON
+		$json = new Services_JSON();
+		echo $json->encode($valores);
+	}
 	
 	/**
 	 * Método que se utiliza en la respuesta del filtro del combo editable usando AJAX
@@ -496,8 +582,52 @@ class toba_ei_filtro extends toba_ei
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
 		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
 		
-		//Asume que no hay esquema de cascadas
-		$maestros = array();
+		//--- Resuelve la cascada
+		$maestros = array($id_ef => $filtro);
+		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
+		$ids_maestros = $cascadas_maestros[$id_ef];
+		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
+			if (trim($par) != '') {
+				$param = explode("-;-", trim($par));
+				if (count($param) != 2) {
+					throw new toba_error_seguridad("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");
+				}
+				$id_ef_maestro = $param[0];
+
+				//--- Verifique que este entre los maestros y lo elimina de la lista
+				if (!in_array($id_ef_maestro, $ids_maestros)) {
+					throw new toba_error_seguridad("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+				}
+				array_borrar_valor($ids_maestros, $id_ef_maestro);
+
+				$campos = $this->columna($id_ef_maestro)->get_nombre();
+				$valores = explode(apex_qs_separador, $param[1]);
+				if (!is_array($campos)) {
+					$maestros[$id_ef_maestro] = $param[1];
+				} else {
+					//--- Manejo de claves múltiples
+					if (count($valores) != count($campos)) {
+						throw new excepction_toba("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+					}
+					$valores_clave = array();
+					for ($i=0; $i < count($campos) ; $i++) {
+						$valores_clave[$campos[$i]] = $valores[$i];
+					}
+					$maestros[$id_ef_maestro] = $valores_clave;
+				}
+			}
+		}
+		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
+		foreach ($ids_maestros as $id_ef_maestro) {
+			if (isset($fila_actual)) {
+				//-- Caso especial del ML, necesita ir a la fila actual y recargar su estado
+				$this->ef($id_ef_maestro)->cargar_estado_post();
+			}
+			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
+				throw new toba_error_seguridad("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+			}
+			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
+		}
 		
 		toba::logger()->debug("Filtrado combo_editable '$id_ef', Cadena: '$filtro', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_ef, $maestros);
@@ -538,9 +668,12 @@ class toba_ei_filtro extends toba_ei
 	 */
 	protected function crear_objeto_js()
 	{
+		$efs_esclavos = $this->_carga_opciones_ef->get_cascadas_esclavos();
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
-		echo $identado."window.{$this->objeto_js} = new ei_filtro($id, '{$this->objeto_js}', '{$this->_submit}');\n";
+		$esclavos = toba_js::arreglo($this->_carga_opciones_ef->get_cascadas_esclavos(), true, false);
+		$maestros = toba_js::arreglo($this->_carga_opciones_ef->get_cascadas_maestros(), true, false);
+		echo $identado."window.{$this->objeto_js} = new ei_filtro($id, '{$this->objeto_js}', '{$this->_submit}', $maestros, $esclavos);\n";
 		foreach ($this->_columnas as $columna) {
 			$visible = $columna->es_visible() ? 'true' : 'false';
 			$compuesto = $columna->es_compuesto() ? 'true' : 'false';

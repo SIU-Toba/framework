@@ -25,7 +25,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	
 	static function get_lista_parametros()
 	{
-		//$parametros[] = 'combo_editable_carga_tit';
+		$parametros[] = 'punto_montaje';
 		$parametros[] = 'edit_tamano';
 		$parametros[] = 'popup_carga_desc_metodo';
 		$parametros[] = 'popup_carga_desc_clase';
