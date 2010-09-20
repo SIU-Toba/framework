@@ -544,9 +544,9 @@ abstract class toba_componente
 	/**
 	 * Agregar dinámicamente una dependencia al componente actual
 	 *
-	 * @param string $identificador ID. del componente
+	 * @param string $identificador ID. de la dependencia
 	 * @param string $proyecto 
-	 * @param string $tipo Tipo de componente
+	 * @param string $objeto ID. de componente en el proyecto
 	 */
 	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
