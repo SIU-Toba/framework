@@ -29,6 +29,7 @@
 	 */
 	ei_mapa.prototype.iniciar= function ()
 	{
+		var metodo_extension = 'evt__mapa__iniciar';
 		//Creo el objeto del mapa
 		this._mapa = new msMap(document.getElementById('cuerpo__' + this._instancia));
 		this._mapa.setCgi(this._url);
@@ -48,6 +49,9 @@
 		this._toolbar.addTool(new msTool('Zoom', 'area', _iconZoomboxButton, true));
 
 
+		if (existe_funcion(this, metodo_extension)) {
+			this[metodo_extension]();
+		}
 		this._toolbar.redraw();
 		this._toolbar.activateButtons();
 		
