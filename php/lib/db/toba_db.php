@@ -348,6 +348,10 @@ class toba_db
 	*/	
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
+		if ( is_null($sql)) {
+			toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			throw new toba_error('Se debe especificar una sentencia SQL bien formada');
+		}
 		if (! isset($tipo_fetch)) {
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}
@@ -381,6 +385,10 @@ class toba_db
 	*/		
 	function consultar_fila($sql, $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
+		if ( is_null($sql)) {
+			toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			throw new toba_error('Se debe especificar una sentencia SQL bien formada');
+		}
 		if (! isset($tipo_fetch)) {
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}		
