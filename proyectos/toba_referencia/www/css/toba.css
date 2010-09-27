@@ -14,6 +14,13 @@
 	background-color: #EEEFF2;
 }
 
+.ci-simple-cont .ei-base {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
 /* Página de login normal */
 #js_ci_30000140_cont {
 	width: auto !important;

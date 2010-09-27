@@ -472,7 +472,7 @@ class comando_instalacion extends comando_toba
 		do {
 			$es_invalido = false;
 			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (ENTER utilizará 0)', false);
-			$mensaje = "Debe ser un entero positivo, mas info en http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
+			$mensaje = "Debe ser un entero positivo, mas info en http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
 			if ($id_desarrollo == '') {
 				$id_desarrollo = 0;
 			}

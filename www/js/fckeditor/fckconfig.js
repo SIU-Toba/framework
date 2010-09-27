@@ -58,7 +58,7 @@ FCKConfig.AutoGrowMax = 400 ;
 // FCKConfig.ProtectedSource.Add( /<\?[\s\S]*?\?>/g ) ;	// PHP style server side code
 // FCKConfig.ProtectedSource.Add( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi ) ;	// ASP.Net style tags <asp:control>
 
-FCKConfig.AutoDetectLanguage	= true ;
+FCKConfig.AutoDetectLanguage	= false ;
 FCKConfig.DefaultLanguage		= 'es' ;
 FCKConfig.ContentLangDirection	= 'ltr' ;
 

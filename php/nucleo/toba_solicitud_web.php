@@ -318,6 +318,18 @@ class toba_solicitud_web extends toba_solicitud
 		$salida->generar_salida();
 	}
 	
+	protected function servicio__vista_jasperreports( $objetos )
+	{
+		$salida = new toba_vista_jasperreports();		
+		//Callback de los eis
+		foreach( $this->objetos as $objeto ) {
+			if(method_exists($objeto, 'vista_jasperreports')) {
+				$objeto->vista_jasperreports($salida);	
+			}
+		}
+		$salida->generar_salida();
+	}	
+	
 	protected function servicio__vista_excel($objetos)
 	{
 		$salida = new toba_vista_excel();

@@ -239,7 +239,9 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		set_time_limit(0);
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+			set_time_limit(0);
+		}
 		$this->controlar_requisitos_basicos();
 		agregar_dir_include_path(toba_proyecto::get_path_php());
 		toba::manejador_sesiones()->iniciar();

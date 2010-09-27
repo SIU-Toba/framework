@@ -130,7 +130,12 @@ class toba_evento_usuario extends toba_boton
 	function posee_accion_vista_xslfo()
 	{
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'xslfo');
-	}		
+	}	
+
+	function posee_accion_vista_jasperreports()
+	{
+		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'jasperreports');
+	}			
 	
 	function posee_accion_vista_xml()
 	{
@@ -323,6 +328,12 @@ class toba_evento_usuario extends toba_boton
 		} elseif ( $this->posee_accion_vista_xslfo()) {
 			// ---*** VISTA XSLFo ***---
 			$opciones['servicio'] = 'vista_xslfo';
+			$opciones['objetos_destino'] = array( $id_componente );
+			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
+			$js = "document.location.href='$url';";			
+		} elseif ( $this->posee_accion_vista_jasperreports()) {
+			// ---*** VISTA JASPERREPORTS ***---
+			$opciones['servicio'] = 'vista_jasperreports';
 			$opciones['objetos_destino'] = array( $id_componente );
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";			

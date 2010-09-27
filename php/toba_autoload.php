@@ -343,6 +343,7 @@ class toba_autoload
 		'toba_vista_pdf' => 'nucleo/lib/salidas/toba_vista_pdf.php',
 		'toba_vista_xml' => 'nucleo/lib/salidas/toba_vista_xml.php',
 		'toba_vista_xslfo' => 'nucleo/lib/salidas/toba_vista_xslfo.php',
+		'toba_vista_jasperreports' => 'nucleo/lib/salidas/toba_vista_jasperreports.php',
 		'toba_acciones_js' => 'nucleo/lib/toba_acciones_js.php',
 		'toba_admin_fuentes' => 'nucleo/lib/toba_admin_fuentes.php',
 		'toba_ajax_respuesta' => 'nucleo/lib/toba_ajax_respuesta.php',

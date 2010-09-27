@@ -104,8 +104,10 @@ class toba_tp_basico extends toba_tipo_pagina
 	protected function comienzo_cuerpo_basico()
 	{
 		echo "<body>\n";		
+		$cerrar = toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false);
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
-		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
+		echo "\n<div id='overlay'>";
+		echo "<div id='overlay_contenido'></div></div>";		
 		$wait = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$wait' style='vertical-align: middle;' alt='' /> Procesando...";
@@ -113,7 +115,10 @@ class toba_tp_basico extends toba_tipo_pagina
 		
 		$logo = toba_recurso::imagen_proyecto('logo.gif', false);
 		echo "<div id='capa_espera'>
-				<div><img src='$logo' /><p>Procesando. Por favor aguarde...</p><img src='$wait'></div>
+				<div>
+					<img class='overlay-cerrar' title='Cerrar ventana' src='$cerrar' onclick='mostrar_esperar()' />
+					<img src='$logo' /><p>Procesando. Por favor aguarde...</p><img src='$wait'>
+				</div>
 			</div>
 		";
 	}

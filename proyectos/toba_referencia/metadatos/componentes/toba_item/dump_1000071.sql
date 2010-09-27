@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000071]--  Exportación e Impresión 
+--[1000071]--  Exportación de un CI 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Exportación e Impresión', --nombre
+	'Exportación de un CI', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu
