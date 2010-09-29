@@ -355,7 +355,6 @@ class toba_solicitud_web extends toba_solicitud
 		} else {
 			$salida = new toba_impr_html();
 		}
-		$salida = toba_configuracion::impresion_html();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}
