@@ -177,7 +177,7 @@ class toba_nucleo
 			}
 			return $solicitud;
 		} else {														// Estoy fuera de la sesion. Solo se puede acceder a lo publico
-			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
+			$mensaje_error = 'La sesión no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
 			if(!$item[0] || !$item[1]) {
 				throw new toba_error_def('ERROR: No esta definido el ITEM de LOGIN');	
