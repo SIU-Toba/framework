@@ -22,7 +22,7 @@ class toba_evento_usuario extends toba_boton
 		if ( $this->posee_accion_vincular() ) {
 			if ( !isset($this->vinculo) || $forzar_instancia) {
 				$item = $this->datos['accion_vinculo_item'];
-				if ($this->datos['es_autovinculo'] == '1') {
+				if ($this->es_autovinculo()) {
 					$aux_it = toba::memoria()->get_item_solicitado();
 					$item =  $aux_it[1];
 				}
@@ -82,7 +82,7 @@ class toba_evento_usuario extends toba_boton
 		if ($hay_item) {
 			$es_autovinculo = (toba::solicitud()->get_id_operacion() == $this->datos['accion_vinculo_item']);
 		} else {
-			$es_autovinculo = true;
+			$es_autovinculo = (isset($this->datos['es_autovinculo']) && ($this->datos['es_autovinculo'] == '1'));
 		}
 		return $es_autovinculo;
 	}
