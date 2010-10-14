@@ -22,8 +22,8 @@
 <link rel="icon" href="<?php echo $ico;?>" type="image/x-icon" /><link rel="shortcut icon" href="<?php echo $ico;?>" type="image/x-icon" />
 </head>
 
-<frameset rows="*" cols="380,*" frameborder="YES" border="1" bordercolor="#553DA1" framespacing="0" id='frameset_admin'>
-  <frameset rows="59,*" frameborder="YES" border="1"  bordercolor="#553DA1" framespacing="0">
+<frameset rows="*" cols="380,*" frameborder="No" border="0" framespacing="0" id='frameset_admin'>
+  <frameset rows="90,*" frameborder="NO" border="0"  framespacing="0">
     <frame src="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000241)?>" name="<?php echo  apex_frame_control ?>" scrolling="NO">
     <frame src="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000239, array(), array('menu' => true, 'celda_memoria' => 'lateral')); ?>" name="<?php echo  apex_frame_lista ?>" scrolling="auto">
   </frameset>

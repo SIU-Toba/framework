@@ -337,14 +337,51 @@ TD.barra-obj-id {
 	background-color: #a7a5a6;
 	text-align: left
 }
-
+.listado-barra-fila {
+		background-color: #244268;
+}
+.listado-barra:first-child {
+	background: transparent;
+}
+.listado-barra-logo {
+	/* background-image: url('../img/borde_superior.png'); */
+	font-size: 20px;
+	color:white;
+	font-weight:bold;
+	padding-left: 22px;
+	padding-top:5px;
+	padding-bottom: 5px;
+	font-family: 'Helvetica';
+	border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+	border-right: 1px solid #FAE2C8;
+	border-bottom: 1px solid #CA531B;
+	background-image: -webkit-gradient(
+	    linear,
+	    left top,
+	    left bottom,
+	    color-stop(0.5, #f59500),
+	    color-stop(0.5, #e68a23)
+	);
+	background-image: -moz-linear-gradient(
+	    center top,
+	    #f59500 50%,
+	    #e68a23 50%
+	);	
+}
+.listado-barra-logo a {
+	color: white;
+	text-decoration:none;	
+}
+.listado-barra-superior select {
+	width: 100px;
+}
 TD.listado-barra-superior {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
 	 PADDING-BOTTOM: 0px;
 	 MARGIN: 0px;
 	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #D5CECD;
      /*BACKGROUND-COLOR: #231f20;*/
 	 TEXT-ALIGN: right
 }
@@ -378,21 +415,34 @@ TD.listado-tabn-m {
 	 BACKGROUND-COLOR: #231f20;
 	 TEXT-ALIGN: center
 }
-TD.listado-tabi {
-	BORDER-RIGHT: #a7a5a6 1px solid;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: #a7a5a6 1px solid;
-	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 2px;
-	 MARGIN: 0px;
-	 BORDER-LEFT: #a7a5a6 1px solid;
-	 COLOR: #7b7979;
-	 PADDING-TOP: 2px;
-	 BORDER-BOTTOM: #a7a5a6 1px solid;
-	 BACKGROUND-COLOR: #EEEAE6;
-	 TEXT-ALIGN: center
+.listado-tabc {
+	background-image: -webkit-gradient(
+	    linear,
+	    left top,
+	    left bottom,
+	    color-stop(0.5, #5368a1),
+	    color-stop(0.5, #234068)
+	);
+	background-image: -moz-linear-gradient(
+	    center top,
+	    #5368a1 50%,
+	    #234068 50%
+	);		
+	width: 158px;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: #123360 1px solid ;
+	border-bottom: 1px solid #7586a2;
+}
+.listado-tabi {
+	padding: 2px;
+	width: 32px;
+	text-align: center;
+	border-left: 1px solid #143568;
+}
+.listado-tabi:first-child {
+	border: 0;
 }
 TD.listado-normal {
 	PADDING-RIGHT: 0px;

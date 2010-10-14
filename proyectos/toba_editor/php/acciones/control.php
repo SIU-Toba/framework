@@ -90,17 +90,18 @@ function abrir_toba_instancia(){
 </script>
 
 <table width='100%'  class='tabla-0' >
-<tr><td class='listado-barra-superior'><?php echo gif_nulo(1,4) ?></td></tr>
-<tr><td  class='listado-barra-superior'>
+<tr><td><div class='listado-barra-logo'>
+        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000265) ?>" target="<?php echo  apex_frame_centro ?>">
+		SIU-TOBA
+		</a></div>
+</td></tr>
+<tr class='listado-barra-fila'><td  class='listado-barra-superior'>
 
-	<table class='tabla-0' width='100%'>
+	<table class='tabla-0'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
-        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000265) ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
-		 <?php echo toba_recurso::imagen_toba('icono_24.png',true)?></a>
+	        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
 		 </td>
-		<td width='100%'><?php echo gif_nulo(3,1) ?></td>
 <?php
 		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
@@ -116,7 +117,7 @@ function abrir_toba_instancia(){
 			$proyectos[$proy] = $proy;
 		}
 		$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
-		echo toba_form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
+		echo toba_form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', $js_cambio);
 		echo "</td>";		
 
 		echo "<td class='listado-barra-superior-tabi'>";
@@ -125,15 +126,12 @@ function abrir_toba_instancia(){
 		echo "</td>";		
 ?>
 
-		<td><?php echo gif_nulo(3,1) ?></td>
-
+		<td><?php echo gif_nulo(10,1) ?></td>
+		<td><div class='tabla-0 listado-tabc'><table class='tabla-0'>
 		<td class='listado-tabi'>
 		<a title="Administración de Usuarios" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><?php echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
 		</td>
-
-
-		<td><?php echo gif_nulo(5,1) ?></td>
-
+	
          <td class='listado-tabi'>
         <a  href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 <?php 
@@ -161,13 +159,12 @@ function abrir_toba_instancia(){
 	$url = toba::vinculador()->get_url(toba_editor::get_id(),'1000003',$parametros, array('param_html' => $html_extra, 'celda_memoria' => 'logger'));
 ?>
          <td class='listado-tabi'><?php echo $url ?></td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-         <td><a title='Cerrar la sesión' href="#" class="list-obj"  onclick='javascript:salir();return false;'>
+         <td  class='listado-tabi'><a title='Cerrar la sesión' href="#" class="list-obj"  onclick='javascript:salir();return false;'>
 		 <?php echo toba_recurso::imagen_toba("finalizar_sesion.gif",true) ?></a></td>
-		<td><?php echo gif_nulo(3,1) ?></td>
-
+		 </table></div>
+		 </td>	
+		 <td><?php echo gif_nulo(5,1) ?></td>
+		 	 
 	</tr>
 	</table>
 </td></tr>
@@ -208,7 +205,7 @@ function abrir_toba_instancia(){
 	);
 
 	$estilo = 'padding:0; background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
-	echo "<tr><td style='$estilo' class='ci-tabs-h-lista'>";		
+	echo "<tr  class='listado-barra-fila'><td style='$estilo' class='ci-tabs-h-lista'>";		
 	echo "<ul>\n";
 	$id = 'id="tab_inicial"';
 	foreach( $tabs as $tab ) {
