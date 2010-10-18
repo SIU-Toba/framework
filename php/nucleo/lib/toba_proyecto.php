@@ -192,6 +192,11 @@ class toba_proyecto
 	{
 		return toba::instancia()->get_path_proyecto(self::get_id());
 	}
+
+    static function get_path_pers()
+    {
+        return self::get_path().'/'.toba_personalizacion::dir_personalizacion;
+    }
 	
 	/**
 	 * Retorna el flag de compilacion del proyecto
@@ -232,6 +237,17 @@ class toba_proyecto
 		$path_real = $this->get_path() . "/www/" . $archivo;
 		$path_browser = toba_recurso::url_proyecto();
 		if ($archivo != "") {
+		 	$path_browser .= "/" . $archivo;
+		}
+		return array(	"path" => $path_real,
+						"url" => $path_browser);
+	}
+
+    function get_www_pers($archivo="")
+	{
+		$path_real = $this->get_path_pers() . "/www/" . $archivo;
+		$path_browser = toba_recurso::url_proyecto($this->id, true);
+        if ($archivo != "") {
 		 	$path_browser .= "/" . $archivo;
 		}
 		return array(	"path" => $path_real,

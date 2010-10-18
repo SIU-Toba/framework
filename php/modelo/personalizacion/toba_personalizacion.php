@@ -13,6 +13,7 @@ class toba_personalizacion {
 	const dir_metadatos		= 'metadatos/';
 	const dir_logs			= 'logs/';
 	const dir_php			= 'php/';
+    const dir_www           = 'www/';
 	const nombre_plan		= 'plan.xml';
 	const template_archivo_componente	= 'comp_%id%.xml';
 	const template_archivo_tabla		= 'tabla_%id%.xml';
@@ -59,7 +60,7 @@ class toba_personalizacion {
 	static function get_registro_conflictos()
 	{
 		if (!isset(self::$registro_conflictos)) {
-			self::$registro_conflictos = new  toba_registro_conflictos();
+			self::$registro_conflictos = new toba_registro_conflictos();
 		}
 
 		return self::$registro_conflictos;
@@ -73,15 +74,6 @@ class toba_personalizacion {
 		$this->consola	= $consola;
 		$this->init_dirs();
 		$this->cargar_ini();
-		$this->init_logger();
-	}
-
-	protected function init_logger()
-	{
-
-//		toba::logger()->guardar_en_archivo($this->dir.'/logs/personalizacion.log');
-////		toba::logger()->seccion("zXXXXXXz", 'toba');
-////		toba::logger()->error('cobo', 'toba');
 	}
 
 	function iniciar()

@@ -9,15 +9,20 @@ class toba_recurso
 	/**
 	 * Retorna la URL base del proyecto
 	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
+     * @param boolean $pres Opcional, si está en true entonces se devuelve la url relativa a la personalización
 	 * @return string
 	 */	
-	static function url_proyecto($proyecto = null)
+	static function url_proyecto($proyecto = null, $pers = false)
 	{
 		if (! isset($proyecto)) {
 			$proyecto = toba::proyecto()->get_id();	
 		}
-
-		return toba::instancia()->get_url_proyecto($proyecto);
+        if ($pers) {
+            return toba::instancia()->get_url_proyecto_pers($proyecto);
+        } else {
+            return toba::instancia()->get_url_proyecto($proyecto);
+        }
+		
 	}
 	
 	/**
@@ -96,7 +101,17 @@ class toba_recurso
 	 */
 	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
 	{
-		$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+        if (toba::proyecto()->es_personalizable()) {
+            $www = toba::proyecto()->get_www_pers("img/".$imagen);
+            if (file_exists($www['path'])) {
+                $src = $www['url'];
+            } else { // el proy es personalizable pero no está definida esta imagen en particular
+                $src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+            }
+        } else {
+            $src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+        }
+        
 		if ($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
 		}else{
@@ -222,7 +237,7 @@ class toba_recurso
 		return toba_recurso::url_toba() . "/js/" . $javascript;
 	}
 	
-	static function link_css($archivo='toba', $rol='screen', $buscar_en_proyecto=true) 
+	static function link_css($archivo='toba', $rol='screen', $buscar_en_proyecto=true)
 	{
 		$link = '';
 		
@@ -239,12 +254,20 @@ class toba_recurso
 		//--- Incluye el del proyecto, si existe
 		if ($buscar_en_proyecto) {
 			$proyecto = toba_proyecto::get_id();
-			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$archivo.css";
-			if (file_exists($path)) {
-				$url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
-				$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
-			}
-			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/".$archivo."_hack_ie.css";
+            $path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$archivo.css";
+            if (file_exists($path)) {
+                $url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
+                $link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+            }
+            if (toba::proyecto()->es_personalizable()) {
+                $www = toba::proyecto()->get_www_pers("css/$archivo.css");
+                if (file_exists($www['path'])) {
+                    $url = $www['url'];
+                    $link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+                }
+            }
+
+            $path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/".$archivo."_hack_ie.css";
 			if (file_exists($path)) {
 				$url = toba_recurso::url_proyecto($proyecto) . "/css/".$archivo."_hack_ie.css";
 				$link .= "<!--[if lt IE 8]>\n";

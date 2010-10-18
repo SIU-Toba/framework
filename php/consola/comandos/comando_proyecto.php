@@ -106,27 +106,28 @@ class comando_proyecto extends comando_toba
 		}
 	}
 
-//	/**
-//	 * Agrega el punto de montaje del proyecto
-//	 * @consola_no_mostrar
-//	 */
-//	function opcion__montaje_proyecto()
-//	{
-//		$proyecto = $this->get_proyecto();
-//		$pms = $proyecto->get_pms();
-//		$pms
-//		toba::puntos_montaje($proyecto)->crear_punto_montaje_proyecto();
-//	}
-//
-//	/**
-//	 * Agrega el punto de montaje de la personalización del proyecto
-//	 * @consola_no_mostrar
-//	 */
-//	function opcion__montaje_personalizacion()
-//	{
-//		$proyecto = $this->get_proyecto();
-//		toba::puntos_montaje($proyecto)->crear_punto_montaje_personalizacion();
-//	}
+    /**
+     * Hace personalizable un proyecto, se usa desde la opción crear y personalizable
+     * @param boolean $publicar decide si se presenta el diálogo de publicación o no
+     */
+    protected function hacer_personalizable($publicar = true)
+    {
+        $proyecto = $this->get_proyecto();
+        $pms = $proyecto->get_pms();
+        
+        util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
+        util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
+        $pms->crear_pm_personalizacion();
+        
+        if ($publicar) {
+            $this->consola->separador();
+            $agregar = $this->consola->dialogo_simple("El proyecto ya es personalizable. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
+            if ($agregar) {
+                $proyecto->publicar_pers();
+                $this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
+            }
+        }
+    }
 
 	function opcion__actualizar_proyecto()
 	{
@@ -152,10 +153,7 @@ class comando_proyecto extends comando_toba
 			$this->consola->mensaje($mensaje);
 			return;
 		}
-		util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
-		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
-		$pms = $proyecto->get_pms();
-//		$pms->crear_pm_personalizacion();
+        $this->hacer_personalizable();
 		$proyecto->generar_autoload($this->consola);
 
 		$mensaje  = "El proyecto ya es personalizable. Ahora debe revincular las clases";
@@ -221,9 +219,7 @@ class comando_proyecto extends comando_toba
 		$pms->crear_pm_proyecto();
 		// -- Modifica el proyecto para que sea apto para personalizaciones
 		if (isset($params['-x'])) {
-			util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
-			util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
-			$pms->crear_pm_personalizacion();
+			$this->hacer_personalizable(false);
 		}
 		$proyecto->generar_autoload($this->consola);
 		

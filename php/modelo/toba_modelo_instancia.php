@@ -219,6 +219,29 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->cargar_info_ini();
 	}
 
+    function get_url_proyecto_pers($proyecto)
+	{
+		if (isset($this->datos_ini[$proyecto]['url_pers'])) {
+			return $this->datos_ini[$proyecto]['url_pers'];
+		}
+	}
+
+	function set_url_proyecto_pers($id_proyecto, $url)
+	{
+		$ini = $this->get_ini();
+		if ($ini->existe_entrada($id_proyecto)) {
+			$conf_proy = $ini->get_datos_entrada($id_proyecto);
+		} else {
+			$conf_proy = array();
+		}
+		$conf_proy['url_pers'] = $url;
+		$ini->agregar_entrada($id_proyecto, $conf_proy);
+		$ini->guardar();
+		toba_logger::instancia()->debug("Cambiando la url de personalización del proyecto '$id_proyecto' a '$url'");
+		// Recargo la inicializacion de la instancia
+		$this->cargar_info_ini();
+	}
+
 	function get_lista_proyectos_vinculados()
 	{
 		return $this->ini_proyectos_vinculados;

@@ -119,10 +119,26 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		return $url;
 	}
-	
+
+    function get_url_pers()
+    {
+        $id = $this->get_id();
+        $url = $this->instancia->get_url_proyecto_pers($id);
+        if ($url == '') {
+            $version = $this->get_version_proyecto();
+			$url = '/'.$id.'_pers/'.$version->get_release();
+        }
+        return $url;
+    }
+
 	function get_dir()
 	{
 		return $this->dir;	
+	}
+
+    function get_dir_pers()
+	{
+		return $this->dir.'/'.toba_personalizacion::dir_personalizacion;
 	}
 
 	function get_dir_dump()
@@ -1035,13 +1051,34 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 															$this->get_instancia()->get_id(),
 															$this->get_id());
 			$this->actualizar_punto_acceso($url, $this->get_id());
+            if ($this->es_personalizable()) {
+                $this->publicar_pers();
+            }
 		}
 	}
-	
-	function despublicar()
+
+    function publicar_pers($url=null)
+	{
+		if (! $this->esta_publicado_pers()) {
+			if ($url == '') {
+				$url = $this->get_url_pers();
+			}
+			$this->instancia->set_url_proyecto_pers($this->get_id(), $url);
+			toba_modelo_instalacion::agregar_alias_apache($url,
+															$this->get_dir_pers(),
+															$this->get_instancia()->get_id(),
+															$this->get_id(),
+                                                            true);
+		}
+	}
+
+    function despublicar()
 	{
 		if ($this->esta_publicado()) {
 			toba_modelo_instalacion::quitar_alias_apache($this->get_id());
+            if ($this->es_personalizable()) {
+                toba_modelo_instalacion::quitar_alias_apache($this->get_id(), true);
+            }
 		}
 	}
 	
@@ -1049,7 +1086,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		return toba_modelo_instalacion::existe_alias_apache($this->get_id());
 	}
-	
+
+    function esta_publicado_pers()
+    {
+        return toba_modelo_instalacion::existe_alias_apache($this->get_id(), true);
+    }
+
 	private function actualizar_punto_acceso($url, $proyecto)
 	{				
 		$punto = $this->db->quote($url);

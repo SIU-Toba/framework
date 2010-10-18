@@ -260,7 +260,18 @@ class toba_instancia
 			return '/'.$proy;
 		}
 	}
-
+    
+    function get_url_proyecto_pers($proy)
+	{
+		if (isset($this->memoria[$proy]['url_pers'])) {
+			return $this->memoria[$proy]['url_pers'];
+		} elseif (toba::proyecto()->get_id() == $proy && isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
+			//---Es el actual y hay una directiva en el ALIAS
+			return '/'.$_SERVER['TOBA_PROYECTO_ALIAS'];
+		} else {
+			return '/'.$proy.'_pers';
+		}
+	}
 	/**
 	 * Retorna la lista de proyectos a los cuales el usuario actual puede ingresar
 	 */

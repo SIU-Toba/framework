@@ -422,12 +422,17 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	 * Agrega al archivo toba.conf la definicion del proyecto
 	 */
-	static function agregar_alias_apache($alias, $dir, $instancia, $id_proyecto)
+	static function agregar_alias_apache($alias, $dir, $instancia, $id_proyecto, $pers = false)
 	{
 		$archivo = self::get_archivo_alias_apache();
 				
 		//--- Se agrega el proyecto al archivo
-		$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
+        if ($pers) {
+            $template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto_pers.conf');
+        } else {
+            $template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
+        }
+		
 		$editor = new toba_editor_texto();
 		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
 		$editor->agregar_sustitucion( '|__proyecto_dir__|', toba_manejador_archivos::path_a_unix($dir) );
@@ -438,19 +443,30 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
 	
-	static function existe_alias_apache($id_proyecto)
+	static function existe_alias_apache($id_proyecto, $pers = false)
 	{
 		$archivo = self::get_archivo_alias_apache();
 		$conf = file_get_contents($archivo);
-		$encontre = preg_match('/^(?:\s)*#Proyecto:(?:\s)*'.$id_proyecto.'/im', $conf);
+        if ($pers) {
+            $encontre = preg_match('/^(?:\s)*#Proyecto_pers:(?:\s)*'.$id_proyecto.'/im', $conf);
+        } else {
+            $encontre = preg_match('/^(?:\s)*#Proyecto:(?:\s)*'.$id_proyecto.'/im', $conf);
+        }
+		
 		return ($encontre !== 0 && $encontre !== false);
 	}
 	
-	static function quitar_alias_apache($id_proyecto)
+	static function quitar_alias_apache($id_proyecto, $pers = false)
 	{
 		$archivo = self::get_archivo_alias_apache();
 		$conf = file_get_contents($archivo);
-		$str_inicio = '#Proyecto: '.$id_proyecto;
+        
+        if ($pers) {
+            $str_inicio = '#Proyecto_pers: '.$id_proyecto;
+        } else {
+            $str_inicio = '#Proyecto: '.$id_proyecto;
+        }
+		
 		$str_fin = '</Directory>';
 		$inicio = strpos($conf, $str_inicio);
 		if ($inicio !== false) {
