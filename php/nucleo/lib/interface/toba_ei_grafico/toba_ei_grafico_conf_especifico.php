@@ -44,7 +44,10 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	protected function set_up_jpgraph()
 	{
 		if (!defined("TTF_DIR")) {
-			define("TTF_DIR", toba::instalacion()->get_fonts_path());
+            $path = toba::instalacion()->get_fonts_path();
+            if ($path !== false) {
+                define("TTF_DIR", $path);
+            }
 		}
 		
 		require_once (toba_dir() . '/php/3ros/jpgraph/jpgraph.php');
@@ -69,7 +72,6 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	function canvas__set_titulo($titulo)
 	{
 		$this->canvas->title->Set($titulo);
-		$this->canvas->title->SetFont(FF_VERDANA, FS_BOLD, 14);
 	}
 
 	/************************************************************************/
