@@ -127,7 +127,18 @@ class catalogo_general extends toba_nodo_basico
         'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '12000088', array(), $opciones ),
 			  'target'  => apex_frame_centro
 		) );
-		
+
+		//----------------------------------------------------------------------
+      	$hijos[23] = new toba_nodo_basico('Administracion de Proyecto', $this);
+  		$hijos[23]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("compilar.png", false),
+							'ayuda' => null ) );
+	  	$hijos[23]->agregar_utileria( array(
+        'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
+        'ayuda'   => 'Exportar/Regenerar el proyecto',
+        'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '33000023', array(), $opciones ),
+			  'target'  => apex_frame_centro
+		) );
+
 		//----------------------------------------------------------------------
 		if( toba_editor::acceso_recursivo() ) {
 	      	$hijos[27] = new toba_nodo_basico('Tipos de COMPONENTES', $this);
