@@ -129,6 +129,15 @@
 		//Esto por ahora no hace nada... deberia setear los eventos en el oculto y enviar el form al servidor
 	}
 
+	ei_mapa.prototype.get_punto_click = function (evento)
+	{
+		var punto = [];
+		
+		punto['X'] = this._mapa.getClick_X(evento);			//Recupero la posicion en el eje X
+		punto['Y'] = this._mapa.getClick_Y(evento);			//Recupero la posicion en el eje Y
+
+		return punto;
+	}
 	//------------------------------------------------------------------------------------------------//
 	//											 MANEJO LAYERS													  //
 	//------------------------------------------------------------------------------------------------//

@@ -154,45 +154,4 @@ LAYER
   END
 END
 
-LAYER
-  CONNECTIONTYPE POSTGIS
-  NAME "IESNU"
-  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
-  DATA "the_geom from (select ua.oid as oid, ua.the_geom as the_geom, ua.id_region from unidades_academicas as ua, instituciones as i WHERE ua.univ_id = i.univ_id AND id_tipo_institucion = 2) AS foo using SRID=4326 using UNIQUE oid"
-  STATUS ON
-  TYPE POINT
-  TEMPLATE "prueba_template.html"
-  CLASSITEM 'id_region'
-  CLASS 
-    NAME "S/R"
-    EXPRESSION ""
-    COLOR 0 0 0
-    SYMBOL 'quadrat'
-    SIZE 4
-  END
-  TOLERANCEUNITS pixels
-  TOLERANCE 5
-END
-
-LAYER
-  CONNECTIONTYPE POSTGIS
-  NAME "UNIVERSIDADES"
-  CONNECTION "user=postgres dbname=cpres password=postgres host=localhost port=5432"
-  DATA "the_geom from (select ua.oid as oid, ua.the_geom as the_geom, ua.id_region from unidades_academicas as ua, instituciones as i WHERE ua.univ_id = i.univ_id AND id_tipo_institucion = 1) AS foo using SRID=4326 using UNIQUE oid"
-  STATUS ON
-  TYPE POINT
-  TEMPLATE "prueba_template.html"
-  CLASSITEM 'id_region'
-  CLASS 
-    NAME "S/R"
-    EXPRESSION ""
-    COLOR 0 0 0
-    SYMBOL 'circle'
-    SIZE 7
-  END
-  TOLERANCEUNITS pixels
-  TOLERANCE 5
-END
-
-
 END

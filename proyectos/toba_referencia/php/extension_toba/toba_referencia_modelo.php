@@ -38,19 +38,6 @@ class toba_referencia_modelo extends toba_aplicacion_modelo_base
 			$base->ejecutar_archivo($estructura);
 			$this->manejador_interface->progreso_fin();
 		}
-
-		$estructura_gis = $this->proyecto->get_dir().'/sql/estructura_gis.sql';
-		if (file_exists($estructura_gis) && $this->crear_modelo_gis()) {			
-			//Modifico el esquema porque la libreria para gis no los soporta
-			$base->set_schema(" public, pg_catalog");
-
-			$this->manejador_interface->mensaje('Creando estructura GIS', false);
-			$this->manejador_interface->progreso_avanzar();
-			$base->ejecutar_archivo($estructura_gis);
-			$this->manejador_interface->progreso_fin();
-			//Vuelvo a colocar el schema como estaba antes
-			$base->set_schema("{$this->schema_modelo}, public, pg_catalog");
-		}
 	}
 
 	function cargar_datos(toba_db $base)
@@ -66,14 +53,6 @@ class toba_referencia_modelo extends toba_aplicacion_modelo_base
 			if (file_exists($datos)) {
 				$this->manejador_interface->mensaje('Cargando datos básicos', false);
 				$base->ejecutar_archivo($datos);
-				$this->manejador_interface->progreso_fin();
-			}
-
-			$datos_gis = $this->proyecto->get_dir().'/sql/datos_gis.sql';
-			if (file_exists($datos_gis) && $this->instalar_complemento_gis) {
-				$base->set_schema(" public, pg_catalog");
-				$this->manejador_interface->mensaje('Cargando datos GIS', false);
-				$base->ejecutar_archivo($datos_gis);
 				$this->manejador_interface->progreso_fin();
 			}
 		}

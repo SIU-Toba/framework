@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_mapa', --clase
 	'12000003', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'mapa', --subclase
+	'componentes/ei_mapa/mapa.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Ejemplo 1 - mapa', --nombre
