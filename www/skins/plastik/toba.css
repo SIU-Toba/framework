@@ -6,6 +6,9 @@ body {
 }
 .enc-version {
 }
+
+
+
 ul.horizontal a, ul.horizontal a:visited {
 	background: #fafbfe;
 	border:1px solid #8d8e90;
@@ -27,6 +30,16 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-boton {
  margin-right: 3px;
 }
+.ei-barra-sup, .ci-botonera {
+	background: url("../img/barra-sup.gif") repeat-x top;
+}
+.barra-superior {
+	background: url('../img/barra-sup.gif') repeat-x top;
+}
+.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
+	background: url('../img/cuadro-col-titulo.gif') repeat-x top;
+}
+
 .barra-superior {
 	color: #ffffff;
 	border-top: 1px solid #000000;
