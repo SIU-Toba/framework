@@ -188,7 +188,7 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	 * @type Element
 	 */
 	ei_arbol.prototype.get_nodo_raiz = function(nombre) {
-		return $(this._instancia + '_nodo_raiz');
+		return $$(this._instancia + '_nodo_raiz');
 	};	
 
 	/**
@@ -257,11 +257,11 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	};	
 	
 	ei_arbol.prototype.filtro_foco = function() {
-		$(this._input_submit + '_filtro_rapido').value = '';
+		$$(this._input_submit + '_filtro_rapido').value = '';
 	};
 	
 	ei_arbol.prototype.filtro_cambio = function() {
-		var filtro = $(this._input_submit + '_filtro_rapido').value;
+		var filtro = $$(this._input_submit + '_filtro_rapido').value;
 		filtro = filtro.toLowerCase().trim();
 		filtro = quitar_acentos(filtro);
 		if (filtro !== '' || isset(this._ultimo_filtro)) {
@@ -272,9 +272,9 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	
 	ei_arbol.prototype.filtro_salir = function() {
 		this.filtro_cambio();
-		var filtro = $(this._input_submit + '_filtro_rapido').value;
+		var filtro = $$(this._input_submit + '_filtro_rapido').value;
 		if (filtro === '') {
-			$(this._input_submit + '_filtro_rapido').value = 'Buscar...';
+			$$(this._input_submit + '_filtro_rapido').value = 'Buscar...';
 			this._ultimo_filtro = null;
 		}
 	};	

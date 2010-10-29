@@ -159,7 +159,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.toggle_checkbox = function (id_ef) {
 		var ef = this.ef(id_ef);
-		var toggle = $('toggle_' + ef._id_form_orig);
+		var toggle = $$('toggle_' + ef._id_form_orig);
 		for (id_fila in this._filas) {
 			ef.ir_a_fila(this._filas[id_fila]).chequear(toggle.checked);
 		}
@@ -167,7 +167,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	ei_formulario_ml.prototype._comprobar_toggle = function (fila, id_ef) {
 		var ef = this.ef(id_ef);
-		var toggle = $('toggle_' + ef._id_form_orig);		
+		var toggle = $$('toggle_' + ef._id_form_orig);		
 		if (!ef.ir_a_fila(fila).chequeado() && toggle.checked) {
 			 toggle.checked = false;
 		}
@@ -652,8 +652,8 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.refrescar_sin_filas = function () {
 		if (!this._cabecera_visible_sin_datos) {
-			var cabecera = $('cabecera_' + this._instancia);
-			var pie = $('pie_' + this._instancia);
+			var cabecera = $$('cabecera_' + this._instancia);
+			var pie = $$('pie_' + this._instancia);
 			if (cabecera) {
 				cabecera.style.display = (this._filas.length) ? '' : 'none';
 			}

@@ -26,6 +26,10 @@
 <style type='text/css'>
 .ci-tabs-h-lista a {
 	padding: 5px 10px 2px 3px;
+	min-height: 20px;
+}
+#barra_superior {
+	display:none;
 }
 </style>
 <script type="text/javascript" language='javascript'>
@@ -62,15 +66,6 @@ function abrir_toba_instancia(){
 	$js_editor = toba_recurso::js('editor.js');
 	$datos = toba_editor::get_parametros_previsualizacion_js();
 	$parametros_previsualizacion = toba_js::arreglo($datos, true);
-	
-	$url_li_sel = 'url("'.toba_recurso::imagen_skin('tabs/left_on.gif').'") no-repeat left top';
-	$url_a_sel = 'url("'.toba_recurso::imagen_skin('tabs/right_on.gif').'") no-repeat right top';
-	$url_li = 'url("'.toba_recurso::imagen_skin('tabs/left.gif').'") no-repeat left top';
-	$url_a = 'url("'.toba_recurso::imagen_skin('tabs/right.gif').'") no-repeat right top';	
-	$estilo_li_sel = "background: $url_li_sel";
-	$estilo_a_sel = "background: $url_a_sel";
-	$estilo_li = "background: $url_li";
-	$estilo_a = "background: $url_a";
 ?>
 <SCRIPT language='JavaScript1.4' type='text/javascript' src='<?php echo $js_editor  ?>'></SCRIPT>
 <SCRIPT language='JavaScript1.4' type='text/javascript' >
@@ -80,16 +75,14 @@ function abrir_toba_instancia(){
 	function seleccionar_tab(span)
 	{
 		if (isset(tab_actual)) {
-			tab_actual.parentNode.style.background = '<?php echo $url_li ?>';
-			tab_actual.style.background = '<?php echo $url_a ?>';
+			tab_actual.parentNode.className = 'ci-tabs-h-solapa';
 		}
-		span.parentNode.style.background = '<?php echo $url_li_sel ?>';
-		span.style.background = '<?php echo $url_a_sel ?>';
+		span.parentNode.className = 'ci-tabs-h-solapa-sel';
 		tab_actual = span;
 	}
 </script>
 
-<table width='100%'  class='tabla-0' >
+<table width='100%' class='tabla-0' >
 <tr><td><div class='listado-barra-logo'>
         <a title='Página inicial del editor' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(),1000265) ?>" target="<?php echo  apex_frame_centro ?>">
 		SIU-TOBA
@@ -97,7 +90,7 @@ function abrir_toba_instancia(){
 </td></tr>
 <tr class='listado-barra-fila'><td  class='listado-barra-superior'>
 
-	<table class='tabla-0'>
+	<table class='tabla-0' style='margin-top: 6px'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
 	        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
@@ -197,25 +190,30 @@ function abrir_toba_instancia(){
 			'ayuda' => 'Código PHP del proyecto',
 		),	
 		array(
-			'nombre' => '',
+			'nombre' => 'Conf.',
 			'imagen' => toba_recurso::imagen_toba('configurar.png',true),
 			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1000258,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Configuración general del proyecto',
 		),				
 	);
 
-	$estilo = 'padding:0; background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
-	echo "<tr  class='listado-barra-fila'><td style='$estilo' class='ci-tabs-h-lista'>";		
-	echo "<ul>\n";
+	echo "<tr  class='listado-barra-fila'><td class='ci-tabs-h-lista' ";		
+	echo "<ul  style='margin-top: 6px'>\n";
 	$id = 'id="tab_inicial"';
+	$i = 0;
 	foreach( $tabs as $tab ) {
-		
-		echo "<li class='ci-tabs-h-solapa' style='$estilo_li'>";
-		echo "<a $id href='{$tab['url']}' title='{$tab['ayuda']}'  onclick='seleccionar_tab(this)' style='$estilo_a' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
+		if ($i == 0) {
+			$class = 'ci-tabs-h-solapa-sel';
+		} else {
+			$class = 'ci-tabs-h-solapa';
+		}
+		echo "<li class='$class'>";
+		echo "<a $id href='{$tab['url']}' title='{$tab['ayuda']}'  onclick='seleccionar_tab(this)' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
 		echo "</li>";
 		$id = '';
+		$i++;
 	}
-	echo toba_js::ejecutar('$("tab_inicial").onclick()');	
+	echo toba_js::ejecutar('$$("tab_inicial").onclick()');	
 	echo "</ul>";
 	echo "</td></tr>\n";
 ?>

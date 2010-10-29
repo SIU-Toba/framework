@@ -85,7 +85,7 @@ img {
 	font-weight: bold;
 }
 body, textarea {
-	font: normal normal normal 10px Verdana, Arial, Helvetica, sans-serif; 
+	font: normal normal normal 10px Arial, Verdana, Helvetica, sans-serif; 
 }
 input, select {
 	font-size: 10px;
@@ -1019,7 +1019,7 @@ a.ci-tabs-boton-desact:hover {
 	z-index:100;
 	_width: 200px;
 	max-width: 200px;
-	font: normal normal normal 11px Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	font: normal normal normal 11px Arial, Verdana, Helvetica, sans-serif; 
 }			
 #div_calendario {
 	visibility:hidden;

@@ -35,7 +35,7 @@ class form_carga extends toba_ei_formulario
 					if (this.ef('carga_col_desc'))
 						this.ef('carga_col_desc').mostrar(cheq != apex_ef_no_seteado);
 				}
-				var div = $('nodo_carga_metodo');
+				var div = $$('nodo_carga_metodo');
 				if (div) {
 					div.innerHTML = '';
 				}
@@ -125,11 +125,11 @@ class form_carga extends toba_ei_formulario
 					this.ef('carga_col_clave').mostrar(true);
 				if (this.ef('carga_col_desc'))					
 					this.ef('carga_col_desc').mostrar(true);				
-				var div = $('nodo_carga_metodo');
+				var div = $$('nodo_carga_metodo');
 				if (! div) {
 					this.ef('carga_metodo').get_contenedor().innerHTML += '<span id=\"nodo_carga_metodo\"></span>';	
 				}			
-				div = $('nodo_carga_metodo');				
+				div = $$('nodo_carga_metodo');				
 				if (! existe) {
 					this.ef('carga_metodo').set_estado('');
 					var link = '<a href=\"javascript: {$this->objeto_js}.generar_metodo()\" ';
@@ -148,7 +148,7 @@ class form_carga extends toba_ei_formulario
 			
 			{$this->objeto_js}.respuesta_crear_dt = function(datos) {
 				if (datos) {
-					var div = $('nodo_carga_metodo');				
+					var div = $$('nodo_carga_metodo');				
 					div.innerHTML = '';				
 					this.ef('carga_metodo').set_estado('get_descripciones');
 					if (this.ef('carga_col_clave'))

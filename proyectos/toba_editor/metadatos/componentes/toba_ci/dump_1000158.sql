@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_prop_basicas', --identificador
 	'1', --orden
 	'Propiedades Básicas', --etiqueta
-	NULL, --descripcion
+	'Hola Mara', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'nucleo/carpeta.gif', --imagen
@@ -235,7 +235,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'toba_editor', --proyecto
 	'1000028', --pantalla
 	'1000158', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'1000045'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (

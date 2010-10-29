@@ -140,7 +140,7 @@ toba = new function() {
 			var vinculo = vinculador.get_url(null, null, 'html_parcial', null, [ this._ajax._id ] );
 			
 			//Averigua si posee algún ef upload
-			conexion.setForm($('formulario_toba'), this._hay_uploads());
+			conexion.setForm($$('formulario_toba'), this._hay_uploads());
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
 			if (this._enviado) {
@@ -223,7 +223,7 @@ toba = new function() {
 	 */
 	toba.set_menu_popup = function(estado) {	
 		//var links = $("menu-h").getElementsByTagName("a");
-		var links = getElementsByClass('nivel-0', $('menu-h'));
+		var links = getElementsByClass('nivel-0', $$('menu-h'));
 		for (var i=0; i<links.length; i++) {
 			if (estado) {
 				agregar_clase_css(links[i], "menu-link-alt");
@@ -310,9 +310,9 @@ toba = new function() {
 			}
 
 			//-- Se cambia la barra superior (busca el fin del tag para no duplicarlo)
-			if (partes[1] != '' && isset($('barra_superior'))) {
+			if (partes[1] != '' && isset($$('barra_superior'))) {
 				var barra = partes[1].substr(partes[1].indexOf('>') + 1);
-				$('barra_superior').innerHTML = barra;
+				$$('barra_superior').innerHTML = barra;
 			}
 
 			//-- Se agrega el html (busca el comienzo del primer div para no duplicar el table)
@@ -321,7 +321,7 @@ toba = new function() {
 
 			//-- Se cambia el div del editor (si existe)
 			if (partes[3] != '') {
-				var div = $('editor_previsualizacion');
+				var div = $$('editor_previsualizacion');
 				if (isset(div)) {
 					div.parentNode.removeChild(div);
 				}

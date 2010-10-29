@@ -67,7 +67,7 @@ function editor_cambiar_ajax() {
 function editor_cambiar_ajax_icono()
 {
 	var nueva = toba.get_navegacion_ajax();
-	var img = $('editor_ajax').firstChild;
+	var img = $$('editor_ajax').firstChild;
 	var nuevo_src;
 	if (nueva) {
 		nuevo_src = img.src.reemplazar('_off', '_on');

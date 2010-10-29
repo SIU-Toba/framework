@@ -6,18 +6,7 @@
 		if (isset($usuario_actual)) {
 			$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
 			if (in_array($usuario_actual, $usuarios_defecto)) {
-				echo "<style type='text/css'>
-					#overlay_contenido {
-						width: 90%;
-					}
-					.overlay-mensaje {
-						max-height: 100%;
-						overflow: visible;
-					}
-					li {
-						padding-top: 5px;
-					}
-				</style>";
+
 				$html = "
 						<strong>Recomendado cambiar usuario APACHE</strong><br><br>
 						<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>$usuario_actual</strong> del sistema.
@@ -67,6 +56,18 @@
 //ei_arbol($_SESSION, 'SESION', null, true);
 
 //--- VERSION
+echo "<style type='text/css'>
+	#overlay_contenido {
+		width: 90%;
+	}
+	.overlay-mensaje {
+		max-height: 100%;
+		overflow: visible;
+	}
+	li {
+		padding-top: 5px;
+	}
+</style>";
 
 $url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
@@ -89,22 +90,25 @@ $url_login = $url_trac.'/trac/toba/login';
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 		//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
-		$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
-		echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
-		echo $version->__toString()."</a>";
 		echo "</div>";
-		echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
+		echo "<div class='logo-inicio'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 		$tamano = file_size(strlen(serialize($_SESSION)));
 		echo "Tamaño de la sesión: <b>$tamano</b><br>";
-		echo "</div>";
-		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
+
+		$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
+		echo "<a target='wiki' style='text-decoration:none; font-size: 16px; font-weight: bold;margin-top: 25px;float:left' href='$cambios' $ayuda>Versión ";
+		echo $version->__toString()."</a>";
+		
+		
 		$vinc = toba::vinculador()->get_url(null, null, array('phpinfo' =>1));
-		echo "<a style='text-decoration:none' href='$vinc' title='Ver información acerca de la instalación PHP de este servidor'>";
+		echo "<a style='text-decoration:none; float:right; text-align: center; ' href='$vinc' title='Ver información acerca de la instalación PHP de este servidor'>";
 		echo toba_recurso::imagen_proyecto('php-med-trans.png', true);
 		echo "<br>".phpversion();
 		echo "</a>";
+
+		
 		echo "</div>";
 	}
 

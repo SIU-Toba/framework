@@ -74,9 +74,13 @@ class toba_tp_basico extends toba_tipo_pagina
 	protected function estilos_css()
 	{
 		echo "
+		<link rel='stylesheet' href='".toba_recurso::url_toba()."/js/formalize/stylesheets/formalize.css' /> 		
 		<style type='text/css'>
 			#overlay, #capa_espera {
 				background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");     			
+			}
+			#barra_superior {
+				display:none;
 			}
 		</style>			
 		";
@@ -116,7 +120,7 @@ class toba_tp_basico extends toba_tipo_pagina
 
 	function barra_superior()
 	{
-		echo "<div id='barra_superior' class='barra-superior'>\n";		
+		echo "<div id='barra_superior' class='barra-superior'>";		
 	}
 }
 ?>

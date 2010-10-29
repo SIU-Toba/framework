@@ -474,7 +474,7 @@ class toba_ei_pantalla extends toba_ei
 				echo "<table class='tabla-0' width='100%'>\n";
 				//Tabs
 				$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
-				echo "<tr><td style='$estilo' class='ci-tabs-h-lista'>";
+				echo "<tr><td class='ci-tabs-h-lista'>";
 				$this->generar_tabs_horizontales();
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente

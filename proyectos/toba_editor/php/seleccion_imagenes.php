@@ -48,7 +48,7 @@ class seleccion_imagenes
 						}
 					}
 					var imagen_src = prefijo + '/' + imagen.get_estado();
-					$('editor_imagen_src'$mas_fila).src= imagen_src;
+					$$('editor_imagen_src'$mas_fila).src= imagen_src;
 				}
 			}
 			
@@ -76,12 +76,12 @@ class seleccion_imagenes
 			$objeto_js.respuesta_listado = function(resp) {
 				notificacion.mostrar_ventana_modal('Seleccione la imagen',
 								 resp.responseText, '400px', 'overlay(true)');
-				$('editor_imagen_filtro').focus();
+				$$('editor_imagen_filtro').focus();
 			}
 			
 			function filtrar_imagenes(actual)
 			{
-				var tds = $('editor_imagen_listado').getElementsByTagName('td');
+				var tds = $$('editor_imagen_listado').getElementsByTagName('td');
 				if (tds) {
 					for (var i =0 ; i < tds.length ; i++) {
 						if (tds[i].getAttribute('imagen').toLowerCase().indexOf(actual.toLowerCase()) == -1 ) {

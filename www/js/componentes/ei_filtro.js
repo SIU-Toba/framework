@@ -149,7 +149,7 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 			//'Elimina' la fila en el DOM
 		var id_fila = this._instancia + '_fila' + fila;
 		cambiar_clase(document.getElementById(id_fila).cells, 'ei-fitro-ml-fila', 'ei-filtro-fila-selec');
-		$(id_fila).style.display = 'none';
+		$$(id_fila).style.display = 'none';
 		
 		//Elimina la fila en la lista interna
 		for (i in this._filas) { 
@@ -169,14 +169,14 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 
 	ei_filtro.prototype.crear_fila = function(id) {
 		if (id == undefined) {
-			var input = $(this._instancia + '_nuevo');
+			var input = $$(this._instancia + '_nuevo');
 			var id = input.value;
 		}
 		if (id == 'nopar' || in_array(id, this._filas)) {
 			//Ya se agrego antes
 			return;
 		}
-		$(this._instancia + '_fila' + id).style.display = '';		
+		$$(this._instancia + '_fila' + id).style.display = '';		
 		this._filas.push(id);
 		for (var esclavo in this._esclavos[id])	 {
 			this.crear_fila(this._esclavos[id][esclavo]);
@@ -459,18 +459,18 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 			var id_combo = 'col_' + this._input_submit + columna;			
 			var condicion = this.get_condicion(columna);
 			if (condicion == 'entre') {
-				$(id_combo + '_ef_extra').style.display = '';
-				$(id_combo + '_label_extra').style.display = '';
+				$$(id_combo + '_ef_extra').style.display = '';
+				$$(id_combo + '_label_extra').style.display = '';
 			} else {
-				$(id_combo + '_ef_extra').style.display = 'none';
-				$(id_combo + '_label_extra').style.display = 'none';
+				$$(id_combo + '_ef_extra').style.display = 'none';
+				$$(id_combo + '_label_extra').style.display = 'none';
 			}
 		}
 	};
 	
 	ei_filtro.prototype.get_condicion = function (columna) {
 		var id_combo = 'col_' + this._input_submit + columna;
-		return $(id_combo).value;
+		return $$(id_combo).value;
 	};	
 	
 	/**
@@ -542,7 +542,7 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 	 * @private
 	 */
 	ei_filtro.prototype.refrescar_botonera = function () {
-		var combo = $(this._instancia + '_nuevo');
+		var combo = $$(this._instancia + '_nuevo');
 		var hay_faltantes = false;
 		for (var i=0; i<combo.length; i++) {
 			var id = combo.options[i].value;
@@ -557,7 +557,7 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 			}
 		}
 		var display = (! hay_faltantes) ? 'none' : '';
-		$('botonera_' + this._instancia).style.display = display;
+		$$('botonera_' + this._instancia).style.display = display;
 	};
 	
 	/**

@@ -431,7 +431,7 @@ class toba_editor
 		echo "<div id='editor_previsualizacion'>";
 		/*echo "<div id='editor_previsualizacion_colap'><img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
 				src='".toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)."'
-				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/></div>";*/
+				onclick='toggle_nodo(\$\$(\"editor_previsualizacion_cont\"))'/></div>";*/
 
 		echo "<span id='editor_previsualizacion_cont'>";
 		echo "<span id='editor_previsualizacion_vis'>";

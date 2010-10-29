@@ -284,14 +284,14 @@ ei.prototype.constructor = ei;
 	};
 	
 	ei.prototype.agregar_notificacion = function(mensaje, nivel) {
-		var div = $(this._input_submit + '_notificacion');
+		var div = $$(this._input_submit + '_notificacion');
 		var img = '<img src="'+ toba.imagen(nivel) + '"/> ';
 		var clase = 'ei-barra-sup-desc-' + nivel;		
 		div.innerHTML += "<table class='tabla-0 " + clase+ "'><tr><td class='ei-barra-sup-desc-img'>" + img +"</td><td>" + mensaje + "</td></table>\n";
 	};	
 
 	ei.prototype.limpiar_notificaciones = function() {
-		var div = $(this._input_submit + '_notificacion');
+		var div = $$(this._input_submit + '_notificacion');
 		div.innerHTML = '';
 	};	
 	

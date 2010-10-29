@@ -6,7 +6,7 @@ class toba_tipo_pagina_info extends toba_elemento_transversal_info
 		$proyecto = quote($this->_id['proyecto']);
 		$tipo_pagina = quote($this->_id['id']);
 		$sql = "SELECT clase_nombre,
-						clase_archivo
+						clase_archivo, punto_montaje
 					FROM apex_pagina_tipo
 					WHERE	proyecto = $proyecto
 					AND pagina_tipo = $tipo_pagina;";
@@ -59,6 +59,12 @@ class toba_tipo_pagina_info extends toba_elemento_transversal_info
 	{
 		return $this->_datos['_info']['clase_archivo'];
 	}
+	
+
+	function get_punto_montaje()
+	{
+		return $this->_datos['_info']['punto_montaje'];
+	}	
 
 	function get_molde_vacio()
 	{

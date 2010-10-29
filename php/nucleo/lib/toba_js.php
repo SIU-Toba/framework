@@ -16,7 +16,8 @@ class toba_js
 	private static $basicos_cargados = false;
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
-						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 'basicos/yahoo',
+						'basicos/basico', 'basicos/toba', 'basicos/jquery-1.4.3.min', 'formalize/jquery.formalize.js', 
+						'utilidades/datadumper', 'basicos/yahoo',
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 	
@@ -162,7 +163,7 @@ class toba_js
 				{					
 					var posicion = objeto.id.ultima_ocurrencia('_');
 					var nombre = objeto.id.substr(0, posicion) + '_descripcion';
-					var descripcion = $(nombre).value;
+					var descripcion = $$(nombre).value;
 					seleccionar(parametros, descripcion);
 				}";
 			}

@@ -117,13 +117,13 @@ class utileria_identificador_nuevo implements toba_ef_icono_utileria {
 				var ef = $objeto_js
 				if (!ef.input().disabled) {
 					ef.input().disabled = true;
-					\$('utileria_identificador').src = '$editable';
-					\$('utileria_identificador').title = 'Editar Identificador';
+					\$\$('utileria_identificador').src = '$editable';
+					\$\$('utileria_identificador').title = 'Editar Identificador';
 					ef.set_estado('".id_temporal."');					
 				} else {
 					ef.input().disabled = false;				
-					\$('utileria_identificador').src = '$no_editable';
-					\$('utileria_identificador').title = 'Resetar Identificador';
+					\$\$('utileria_identificador').src = '$no_editable';
+					\$\$('utileria_identificador').title = 'Resetar Identificador';
 					ef.set_estado('');
 					ef.seleccionar();					
 				}
@@ -146,12 +146,12 @@ class utileria_identificador_actual implements toba_ef_icono_utileria {
 				var ef = $objeto_js
 				if (!ef.input().disabled) {
 					ef.input().disabled = true;
-					\$('utileria_identificador').src = '$editable';
-					\$('utileria_identificador').title = 'Editar Identificador';
+					\$\$('utileria_identificador').src = '$editable';
+					\$\$('utileria_identificador').title = 'Editar Identificador';
 				} else {
 					ef.input().disabled = false;				
-					\$('utileria_identificador').src = '$editable';
-					\$('utileria_identificador').title = 'Resetar Identificador';
+					\$\$('utileria_identificador').src = '$editable';
+					\$\$('utileria_identificador').title = 'Resetar Identificador';
 					ef.seleccionar();					
 				}
 			}

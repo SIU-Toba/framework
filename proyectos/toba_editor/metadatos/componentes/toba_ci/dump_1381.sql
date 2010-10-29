@@ -51,11 +51,11 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'57', --evento_id
 	'1381', --objeto
 	'refrescar', --identificador
-	'&Refrescar', --etiqueta
+	NULL, --etiqueta
 	'1', --maneja_datos
 	'0', --sobre_fila
 	NULL, --confirmacion
-	'ei-boton-izq', --estilo
+	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'refrescar.png', --imagen
 	'1', --en_botonera
@@ -87,7 +87,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000389', --evento_id
 	'1381', --objeto
 	'asistente', --identificador
-	'Crear', --etiqueta
+	'Asistente', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion

@@ -26,7 +26,7 @@ class pant_tipo_operacion extends toba_ei_pantalla
 	{
 		echo "
 		{$this->objeto_js}.evt__show = function() {
-			toggle_nodo($('operacion_vista_previa'));
+			toggle_nodo($$('operacion_vista_previa'));
 			return false;
 		}
 		";

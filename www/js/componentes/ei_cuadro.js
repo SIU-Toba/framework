@@ -89,7 +89,7 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	
 	ei_cuadro.prototype.seleccionar = function(fila, id_evento)
 	{
-		var check = $(this._input_submit + fila + '_' + id_evento);
+		var check = $$(this._input_submit + fila + '_' + id_evento);
 		check.checked = !check.checked;
 		check.onclick();
 	};	
@@ -98,7 +98,7 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	{
 		var seleccion = [];
 		for (i in this._filas) {
-			var check = $(this._input_submit + this._filas[i] + '_' + id_evento);
+			var check = $$(this._input_submit + this._filas[i] + '_' + id_evento);
 			if (check && check.checked) {
 				seleccion.push(check.value);
 			}

@@ -103,7 +103,7 @@ class zona_objeto extends zona_editor
 		$datos = consultar_fuente($sql);			
 		if (! empty($datos)) {
 			$cant = count($datos);
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($('zona_objeto_item_img'), $('zona_objeto_item'));\" title='Mostrar / Ocultar'";
+			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($$('zona_objeto_item_img'), $$('zona_objeto_item'));\" title='Mostrar / Ocultar'";
 			echo "<table width='100%' class='tabla-0'>";
 			echo "<tr><td  class='barra-obj-io' $colapsado>".
 					"<img class='ei-barra-colapsar' id='zona_objeto_item_img' src='$img_min'>".
@@ -158,7 +158,7 @@ class zona_objeto extends zona_editor
 
 		if (! empty($datos)) {
 			$cant = count($datos);
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($('zona_objeto_cont_img'), $('zona_objeto_cont'));\" title='Mostrar / Ocultar'";
+			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($$('zona_objeto_cont_img'), $$('zona_objeto_cont'));\" title='Mostrar / Ocultar'";
 
 			echo "<table width='100%' class='tabla-0'>";
 			echo "<tr><td  class='barra-obj-io' $colapsado>".
@@ -230,7 +230,7 @@ class zona_objeto extends zona_editor
 		$rs = consultar_fuente($sql);
 		if (!empty($rs)) {
 			$cant = count($rs);
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($('zona_objeto_dep_img'), $('zona_objeto_dep'));\" title='Mostrar / Ocultar'";
+			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($$('zona_objeto_dep_img'), $$('zona_objeto_dep'));\" title='Mostrar / Ocultar'";
 			echo "<table width='100%' class='tabla-0'>";
 			echo "<tr><td  class='barra-obj-io' $colapsado>".
 					"<img class='ei-barra-colapsar' id='zona_objeto_dep_img' src='$img_min'>".

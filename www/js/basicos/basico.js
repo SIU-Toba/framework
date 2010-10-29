@@ -519,7 +519,7 @@ function quitar_clase_css(nodo, clase) {
 	}
 }
 
-function $() {
+function $$() {
 	var elements = [];
 	for (var i = 0; i < arguments.length; i++) {
 		var element = arguments[i];

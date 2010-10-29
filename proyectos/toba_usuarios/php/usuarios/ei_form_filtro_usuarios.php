@@ -31,9 +31,9 @@ class ei_form_filtro_usuarios extends toba_ei_formulario
 		{
 			var opcion = this.ef('pertenencia').valor();
 			if (opcion == 'T' || opcion == 'S') {
-				$('ef_form_2189_filtroproyecto').style.display = 'none';
+				$$('ef_form_2189_filtroproyecto').style.display = 'none';
 			}else{
-				$('ef_form_2189_filtroproyecto').style.display = '';
+				$$('ef_form_2189_filtroproyecto').style.display = '';
 			}
 		}
 		";

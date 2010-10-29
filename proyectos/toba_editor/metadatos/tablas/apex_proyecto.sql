@@ -6,7 +6,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'toba_editor', --proyecto
 	'Editor Toba', --descripcion
 	'Toba - Editor', --descripcion_corta
-	'cubos', --estilo
+	'2.0', --estilo
 	'1', --con_frames
 	NULL, --frames_clase
 	NULL, --frames_archivo

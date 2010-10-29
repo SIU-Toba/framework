@@ -34,7 +34,7 @@ class php_referencia
 			Extensiones utilizadas:
 			<ul>';
 			foreach ($this->archivos as $i => $archivo) {
-				echo '<li><a href="#archivo_'.$i.'" title="Ver extensión" onclick="toggle_nodo($(\'archivo_'.$i.'\'));">'.
+				echo '<li><a href="#archivo_'.$i.'" title="Ver extensión" onclick="toggle_nodo($$(\'archivo_'.$i.'\'));">'.
 						basename($archivo)."</a></li>";
 			}
 			echo "</ul></div>";

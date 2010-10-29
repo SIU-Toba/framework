@@ -20,6 +20,17 @@ class toba_tp_basico_titulo extends toba_tp_basico
 		echo "</div>\n\n";
 	}
 	
+	protected function estilos_css()
+	{
+		parent::estilos_css();
+		echo "
+		<style type='text/css'>
+			#barra_superior {
+				display:block;
+			}
+		</style>			
+		";
+	}	
 	
 	protected function generar_ayuda()
 	{

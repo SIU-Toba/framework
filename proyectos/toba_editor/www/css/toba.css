@@ -7,6 +7,15 @@
 	padding-top: 2px;
 	white-space: normal;
 }
+.logo-inicio {
+	width: 600px;
+	height: 220px;
+	background-color:white;
+	padding: 20px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;	
+	-webkit-border-radius: 10px;	
+}
 
 .ef-barra-divisora div {
 	font-weight: normal;
@@ -38,9 +47,9 @@
 	margin-bottom: 4px;	
 }
 
-/*.ci-barra-sup {
-	background-color: #D5D2CD !important;
-}*/
+.ci-barra-sup {
+	margin-bottom: -25px;
+}
 .barra-separador {
 	font-size:9px;
 }
@@ -91,7 +100,7 @@
 }
 #editor_imagen_listado div {
 	font-size: 11px;
-	font-family: Tahoma, Arial, sans-serif;	
+	font-family: Verdana, Tahoma, Arial, sans-serif;	
 	margin: 5px;
 }
 .ei-barra-sup-desc-info {
@@ -344,7 +353,7 @@ TD.barra-obj-id {
 	background: transparent;
 }
 .listado-barra-logo {
-	/* background-image: url('../img/borde_superior.png'); */
+	margin-left: -1px;
 	font-size: 20px;
 	color:white;
 	font-weight:bold;
@@ -356,6 +365,7 @@ TD.barra-obj-id {
 	-moz-border-radius: 6px 6px 0 0;
 	border-right: 1px solid #FAE2C8;
 	border-bottom: 1px solid #CA531B;
+	
 	background-image: -webkit-gradient(
 	    linear,
 	    left top,

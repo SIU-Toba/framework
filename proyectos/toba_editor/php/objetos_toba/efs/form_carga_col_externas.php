@@ -13,7 +13,7 @@ class form_carga_col_externas extends toba_ei_formulario
 				this.ef('carga_consulta_php').mostrar((cheq == 'consulta_php'), true);
 				this.ef('carga_dt').mostrar((cheq == 'datos_tabla'), true);
 				this.ef('carga_metodo_lista').mostrar((cheq == 'consulta_php'), true);
-				var div = $('nodo_carga_metodo');
+				var div = $$('nodo_carga_metodo');
 				if (div) {
 					div.innerHTML = '';
 				}
@@ -76,11 +76,11 @@ class form_carga_col_externas extends toba_ei_formulario
 
 			{$this->objeto_js}.respuesta_existe_dt = function(existe) {
 				this.ef('carga_metodo').mostrar();
-				var div = $('nodo_carga_metodo');
+				var div = $$('nodo_carga_metodo');
 				if (! div) {
 					this.ef('carga_metodo').get_contenedor().innerHTML += '<span id=\"nodo_carga_metodo\"></span>';
 				}
-				div = $('nodo_carga_metodo');
+				div = $$('nodo_carga_metodo');
 				if (! existe) {
 					this.ef('carga_metodo').set_estado('');
 					var link = '<a href=\"javascript: {$this->objeto_js}.generar_metodo()\" ';
@@ -99,7 +99,7 @@ class form_carga_col_externas extends toba_ei_formulario
 
 			{$this->objeto_js}.respuesta_crear_dt = function(datos) {
 				if (datos) {
-					var div = $('nodo_carga_metodo');
+					var div = $$('nodo_carga_metodo');
 					div.innerHTML = '';
 					this.ef('carga_metodo').set_estado('get_descripciones');
 				}

@@ -15,7 +15,7 @@ class ml_paleta extends toba_ei_formulario_ml
 			$fila = $this->ef($ef)->get_fila_actual();
 			$id_form = $this->ef($ef)->get_id_form();
 			$contenido = gif_nulo(16, 16);
-			echo "<span id='css_".$ef.'_'.$fila."' onclick='colorpicker($(\"$id_form\"))'
+			echo "<span id='css_".$ef.'_'.$fila."' onclick='colorpicker($$(\"$id_form\"))'
 					title='Seleccionar otro color' class='css-preview' >$contenido</span>";
 		}
 	}
@@ -39,13 +39,13 @@ class ml_paleta extends toba_ei_formulario_ml
 			contenedor.innerHTML = '<div class=\"overlay-titulo\">' + img + titulo + '</div>' + mensaje;
 			makeColorSelectors();
 			overlay();
-			$('colorselector').value = valor;
-			$('colorselector').onchange();
+			$$('colorselector').value = valor;
+			$$('colorselector').onchange();
 		}
 		
 		function colorpicker_aceptar()
 		{	
-			document.nodo_colorpicker.value=$('colorselector').value;
+			document.nodo_colorpicker.value=$$('colorselector').value;
 			document.nodo_colorpicker.onblur();
 			overlay();
 		}
@@ -66,10 +66,10 @@ class ml_paleta extends toba_ei_formulario_ml
 						estado = '#' + estado;
 						this.ef(id_ef).ir_a_fila(fila).set_estado(estado);
 					}
-					$('css_' + id_ef + '_' + fila).style.display = '';
-					$('css_' + id_ef + '_' + fila).style.background = estado;
+					$$('css_' + id_ef + '_' + fila).style.display = '';
+					$$('css_' + id_ef + '_' + fila).style.background = estado;
 				} else {
-					$('css_' + id_ef + '_' + fila).style.display = 'none';
+					$$('css_' + id_ef + '_' + fila).style.display = 'none';
 				}
 			}
 			";

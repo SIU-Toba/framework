@@ -154,14 +154,14 @@ function overlay(limpiar) {
 	if (! visible) {
 		scroll(0,0);
 		window.firstFocus = function() {};
-		var boton = $('boton_overlay');
+		var boton = $$('boton_overlay');
 		if (boton) {
 			boton.focus();
 		}
 		
 	} 
 	if (isset(limpiar) && limpiar) {
-		$('overlay_contenido').innerHTML = '';
+		$$('overlay_contenido').innerHTML = '';
 	}
 }
 
