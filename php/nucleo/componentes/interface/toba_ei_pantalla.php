@@ -572,6 +572,11 @@ class toba_ei_pantalla extends toba_ei
 		$pattern = '/\[dep([\s\w+=\w+]+)\]/i';
 		if (preg_match_all($pattern, $this->_info_pantalla['template'], $resultado)) {
 			$salida = $this->_info_pantalla['template'];
+			if (count($resultado[0]) > count($restantes)) {		//Para cuando se hizo un pantalla->eliminar_dep();
+				toba::logger()->debug(' Dependencias Template:');
+				toba::logger()->var_dump($resultado[0]);
+				throw new toba_error_def($this->get_txt(). " Template incompleto, faltan dependencias en la pantalla:");
+			}
 			for ($i=0; $i < count($resultado[0]); $i++) {
 				$original = $resultado[0][$i];
 				$atributos = array();
@@ -585,14 +590,14 @@ class toba_ei_pantalla extends toba_ei
 				if (isset($this->_dependencias[$atributos['id']])) {
 					ob_start();
 					$this->_dependencias[$atributos['id']]->generar_html();
-					$html = ob_get_clean();				
+					$html = ob_get_clean();
 					$salida = str_replace($original, $html, $salida);
 					array_borrar_valor($restantes, $atributos['id']);
 				}
 			}
 			echo $salida;
 		} else {
-			echo $this->_info_pantalla['template']; 
+			echo $this->_info_pantalla['template'];
 		}
 		if (! empty($restantes)) {
 			$faltan = implode(', ', $restantes);

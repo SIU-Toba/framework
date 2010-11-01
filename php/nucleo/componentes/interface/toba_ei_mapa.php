@@ -13,8 +13,6 @@ class toba_ei_mapa extends toba_ei
 	//Variables que mantienen la info inicial
 	protected $_mapa;
 	protected $_extent;
-	//protected $_layers;
-//	protected $_grupos;
 
 	//Variables modificables en el conf o cuando vuelven los parametros
 	protected $_alto_viewport = '';

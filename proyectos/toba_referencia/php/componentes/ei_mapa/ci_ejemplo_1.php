@@ -5,6 +5,8 @@ class ci_ejemplo_1 extends toba_ci
 	//---- mapa -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	protected $fuente_no_configurada = false;
+	
 	function conf__pant_inicial(toba_ei_pantalla $pantalla)
 	{
 		try {
@@ -13,7 +15,8 @@ class ci_ejemplo_1 extends toba_ci
 			$msg = 'Para utilizar el ejemplo GIS es necesario instalar la base de datos disponible en: <a href="http://repositorio.siu.edu.ar/trac/toba/attachment/wiki/Descargar/">Ejemplo GIS</a> <BR>';
 			$msg .= 'Luego configure apropiadamente la fuente de datos para GIS';
 			$pantalla->set_descripcion($msg, 'info');
-			$pantalla->eliminar_dep('mapa');			
+			$pantalla->eliminar_dep('mapa');
+			$this->fuente_no_configurada = true;
 		}
 	}
 	
@@ -38,6 +41,20 @@ class ci_ejemplo_1 extends toba_ci
 			$obj->getLayerByName($nombre)->set('connection', $dns_conexion);		//Aca accedo al objeto de mapscript
 		}
 	}
+
+	function generar_html()
+	{
+		try {
+			 parent::generar_html();
+		} catch(toba_error_def $e) {
+			if ($this->fuente_no_configurada) {
+				throw new toba_error('Por favor configure la fuente de datos para ejecutar el ejemplo');
+			} else {
+				throw $e;
+			}
+		}
+	}
+	
 }
 
 ?>
