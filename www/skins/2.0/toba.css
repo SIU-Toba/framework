@@ -28,13 +28,17 @@ form {
 	    #5368a1 50%,
 	    #234068 50%
 	);		
-	border-radius: 6px 6px 0 0;
-	-moz-border-radius: 6px 6px 0 0;	
-	-webkit-border-radius: 6px 6px 0 0;;
 	border: #082d5a 1px solid ;
 	border-bottom: 1px solid #002556;
 	color: white;
 	min-height: 38px;
+}
+.ef-barra-divisora {
+	border-bottom:1px dotted gray;
+	text-align: right;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	font-size: 11px;
 }
 
 .zona-items {
@@ -69,10 +73,10 @@ form {
 	padding: 3px;	
 }
 .item-barra {
-	margin-top: 6px;
+	margin-top: 8px;
 }
 .item-barra-tit {
-	font-size: 14px;
+	font-size: 13px;
 }
 .item-barra-ayuda {
 	padding-left: 5px;
@@ -85,6 +89,10 @@ form {
 }
 .zona-barra-desc {
 	font-size: 14px;
+}
+
+#enc-logo {
+	background-color: #D0D5DB;	
 }
 
 /*************************
@@ -112,6 +120,7 @@ form {
 		EI
 **************************/
 .ei-barra-sup-sin-tit {
+	margin-bottom: -25px;
 }
 .ei-barra-sup {
 	background-image: -webkit-gradient(
@@ -133,7 +142,19 @@ form {
 .ei-barra-sup-sin-tit .ei-botonera {
 	background-color: #244268;
 }
-
+.ei-barra-sup-desc-info, .ci-wiz-enc {
+	color: #000000;
+	background-color: #ecf0f3 !important;
+	border:1px dotted #ccc;	
+}
+.ei-barra-sup-desc-warning, .ci-pant-desc-warning {
+	background-color: #FFFFE1;
+	border: 1px solid #B7C8F6;
+}
+.ei-barra-sup-desc-error, .ci-pant-desc-error {
+	background-color: #F1D3D9;
+	border: 1px solid #B7C8F6;
+}
 
 
 /***************** 
@@ -143,7 +164,6 @@ form {
 	background-color: white;
 }
 .ci-base {
-	width: 100%;
 	border-radius: 6px;
 	-moz-border-radius: 6px;	
 	-webkit-border-radius: 6px;	
@@ -226,8 +246,13 @@ form {
 }
 .ci-botonera {
 	border-top: 1px solid #ddd;
-	padding: 4px;
+	margin-left: 4px;
+	margin-right: 4px;
+	padding: 8px 4px 8px 4px;
 }
+
+
+
 /*************************
 	WIZARD
 *****************************/
@@ -247,7 +272,23 @@ form {
 	padding: 0;
 }
 
-
+/********************************
+	ML - Cuadros
+*********************************/
+.ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-fila, .ei-filtro-fila-selec {
+	border-bottom:1px solid #ECF0F3;
+	border-right:1px solid #859BC4;
+	margin-right:3px;
+	padding:2px 5px 2px 5px;	
+}
+.ei-ml-base {
+	border:1px solid #859BC4;
+	border-left:1px solid #859BC4;
+	border-right:1px solid #859BC4;
+}	
+.ei-ml-grilla, .ei-filtro-grilla  {
+	margin: 0;
+}
 /****************************
 	VARIOS
 *****************************/

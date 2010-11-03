@@ -47,9 +47,7 @@
 	margin-bottom: 4px;	
 }
 
-.ci-barra-sup {
-	margin-bottom: -25px;
-}
+
 .barra-separador {
 	font-size:9px;
 }
@@ -309,19 +307,28 @@ TD.lista-e2 {
 }
 
 TD.barra-obj-io {
-	BORDER-RIGHT: #4f4c4d 1px solid;
-	 PADDING-RIGHT: 10px;
-	 BORDER-TOP: #4f4c4d 1px solid;
-	 PADDING-LEFT: 10px;
+	background-image: -webkit-gradient(
+	    linear,
+	    left top,
+	    left bottom,
+	    color-stop(0.5, #7485b3),
+	    color-stop(0.5, #5268a1)
+	);
+	background-image: -moz-linear-gradient(
+	    center top,
+	    #7485b3 50%,
+	    #5268a1 50%
+	);		
+	border: #082d5a 1px solid ;
+	border-bottom: 1px solid #002556;
+	color: white;
+	min-height: 38px;	
+	padding: 6px 10px 6px 10px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 12px;
 	 PADDING-BOTTOM: 6px;
-	 BORDER-LEFT: #4f4c4d 1px solid;
-	 COLOR: #231f20;
+	 COLOR: white;
 	 PADDING-TOP: 6px;
-	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 BACKGROUND-COLOR: #a7a5a6;
-	 TEXT-ALIGN: left
 }
 TD.barra-obj-link, TD.barra-obj-id {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -361,8 +368,6 @@ TD.barra-obj-id {
 	padding-top:5px;
 	padding-bottom: 5px;
 	font-family: 'Helvetica';
-	border-radius: 6px 6px 0 0;
-	-moz-border-radius: 6px 6px 0 0;
 	border-right: 1px solid #FAE2C8;
 	border-bottom: 1px solid #CA531B;
 	
@@ -384,7 +389,8 @@ TD.barra-obj-id {
 	text-decoration:none;	
 }
 .listado-barra-superior select {
-	width: 100px;
+	width: 150px;
+	margin-right: 5px;
 }
 TD.listado-barra-superior {
 	PADDING-RIGHT: 0px;

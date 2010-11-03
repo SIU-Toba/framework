@@ -17,7 +17,7 @@ class toba_ei_codigo extends toba_ei
 	final function __construct($id)
 	{	
 		parent::__construct($id);
-		$this->_ancho = get_var($this->_info_codigo['ancho'], '500px');
+		$this->_ancho = get_var($this->_info_codigo['ancho'], '600px');
 		$this->_alto = get_var($this->_info_codigo['alto'], '300px');
 		$this->_id_post_codigo = $this->_submit.'_params';
 	}

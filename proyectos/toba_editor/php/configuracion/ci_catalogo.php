@@ -19,11 +19,10 @@ class ci_catalogo extends toba_ci
 	{
 	}
 
-	function conf__arbol($componente)
+	function conf__arbol(toba_ei_arbol $componente)
 	{
-		$arbol = array( new catalogo_general());
-		$componente->set_datos( $arbol );
-		$componente->set_nivel_apertura(5);
+		$catalogo = new catalogo_general();
+		$componente->set_datos($catalogo->get_hijos());
 	}
 }
 
