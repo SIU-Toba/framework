@@ -110,17 +110,17 @@ var Sizer = function()
 		// Fit the dialog container's layout to the inner iframe's external size.
 		RefreshContainerSize : function()
 		{
-			var frmMain = $$( 'frmMain' ) ;
+			var frmMain = $( 'frmMain' ) ;
 
 			if ( frmMain )
 			{
 				// Get the container size.
-				var height = $$( 'contents' ).offsetHeight ;
+				var height = $( 'contents' ).offsetHeight ;
 
 				// Subtract the size of other elements.
-				height -= $$( 'TitleArea' ).offsetHeight ;
-				height -= $$( 'TabsRow' ).offsetHeight ;
-				height -= $$( 'PopupButtons' ).offsetHeight ;
+				height -= $( 'TitleArea' ).offsetHeight ;
+				height -= $( 'TabsRow' ).offsetHeight ;
+				height -= $( 'PopupButtons' ).offsetHeight ;
 
 				frmMain.style.height = Math.max( height, 0 ) + 'px' ;
 			}
@@ -149,7 +149,7 @@ var Sizer = function()
 		{
 			if ( bAutoSize )
 			{
-				var frmMain		= $$( 'frmMain' ) ;
+				var frmMain		= $( 'frmMain' ) ;
 				var innerDoc	= frmMain.contentWindow.document ;
 				var isStrict	= FCKTools.IsStrictMode( innerDoc ) ;
 
@@ -193,7 +193,7 @@ var Sizer = function()
 	}
 
 	/**
-	 * IE6 has a similar bug where it sometimes thinks $$('contents') has an
+	 * IE6 has a similar bug where it sometimes thinks $('contents') has an
 	 * offsetHeight of 0 (#2114).
 	 */
 	if ( FCKBrowserInfo.IsIE && !FCKBrowserInfo.IsIE7 )
@@ -222,7 +222,7 @@ var Throbber = function()
 
 	var updateThrobber = function()
 	{
-		var throbberParent = $$( 'throbberBlock' ) ;
+		var throbberParent = $( 'throbberBlock' ) ;
 		var throbberBlocks = throbberParent.childNodes ;
 		var lastClass = throbberParent.lastChild.className ;
 
@@ -245,7 +245,7 @@ var Throbber = function()
 				return ;
 			}
 
-			var throbberParent = $$( 'throbberBlock' ) ;
+			var throbberParent = $( 'throbberBlock' ) ;
 
 			if (throbberParent.childNodes.length == 0)
 			{
@@ -256,7 +256,7 @@ var Throbber = function()
 			}
 
 			// Center the throbber.
-			var frm = $$( 'contents' ) ;
+			var frm = $( 'contents' ) ;
 			var frmCoords = FCKTools.GetDocumentPosition( window, frm ) ;
 			var x = frmCoords.x + ( frm.offsetWidth - throbberParent.offsetWidth ) / 2 ;
 			var y = frmCoords.y + ( frm.offsetHeight - throbberParent.offsetHeight ) / 2 ;
@@ -267,8 +267,8 @@ var Throbber = function()
 			throbberParent.style.visibility = ''  ;
 
 			// Hide tabs and buttons:
-			$$( 'Tabs' ).style.visibility = 'hidden' ;
-			$$( 'PopupButtons' ).style.visibility = 'hidden' ;
+			$( 'Tabs' ).style.visibility = 'hidden' ;
+			$( 'PopupButtons' ).style.visibility = 'hidden' ;
 
 			// Setup the animation interval.
 			timer = setInterval( updateThrobber, 100 ) ;
@@ -282,11 +282,11 @@ var Throbber = function()
 				timer = null ;
 			}
 
-			$$( 'throbberBlock' ).style.visibility = 'hidden' ;
+			$( 'throbberBlock' ).style.visibility = 'hidden' ;
 
 			// Show tabs and buttons:
-			$$( 'Tabs' ).style.visibility = '' ;
-			$$( 'PopupButtons' ).style.visibility = '' ;
+			$( 'Tabs' ).style.visibility = '' ;
+			$( 'PopupButtons' ).style.visibility = '' ;
 		}
 	} ;
 }() ;
@@ -441,9 +441,9 @@ var Tabs = function()
 		for ( var sCode in oTabs )
 		{
 			if ( sCode == tabCode )
-				$$( oTabs[sCode] ).className = 'PopupTabSelected' ;
+				$( oTabs[sCode] ).className = 'PopupTabSelected' ;
 			else
-				$$( oTabs[sCode] ).className = 'PopupTab' ;
+				$( oTabs[sCode] ).className = 'PopupTab' ;
 		}
 
 		if ( typeof( window.frames["frmMain"].OnDialogTabChange ) == 'function' )
@@ -460,7 +460,7 @@ var Tabs = function()
 		if ( typeof( oTabs[ tabCode ] ) != 'undefined' )
 			return ;
 
-		var eTabsRow = $$( 'Tabs' ) ;
+		var eTabsRow = $( 'Tabs' ) ;
 
 		var oCell = eTabsRow.insertCell(  eTabsRow.cells.length - 1 ) ;
 		oCell.noWrap = true ;
@@ -475,13 +475,13 @@ var Tabs = function()
 		if ( startHidden )
 			oDiv.style.display = 'none' ;
 
-		eTabsRow = $$( 'TabsRow' ) ;
+		eTabsRow = $( 'TabsRow' ) ;
 
 		oCell.appendChild( oDiv ) ;
 
 		if ( eTabsRow.style.display == 'none' )
 		{
-			var eTitleArea = $$( 'TitleArea' ) ;
+			var eTitleArea = $( 'TitleArea' ) ;
 			eTitleArea.className = 'PopupTitle' ;
 
 			oDiv.className = 'PopupTabSelected' ;
@@ -500,14 +500,14 @@ var Tabs = function()
 
 	window.SetTabVisibility = function( tabCode, isVisible )
 	{
-		var oTab = $$( oTabs[ tabCode ] ) ;
+		var oTab = $( oTabs[ tabCode ] ) ;
 		oTab.style.display = isVisible ? '' : 'none' ;
 
 		if ( ! isVisible && oTab.className == 'PopupTabSelected' )
 		{
 			for ( var sCode in oTabs )
 			{
-				if ( $$( oTabs[sCode] ).style.display != 'none' )
+				if ( $( oTabs[sCode] ).style.display != 'none' )
 				{
 					setSelectedTab( sCode ) ;
 					break ;
@@ -582,7 +582,7 @@ var onReadyRegister = function()
 		FCKTools.DisableSelection( document.body ) ;
 
 		// Make the title area draggable.
-		var titleElement = $$( 'header' ) ;
+		var titleElement = $( 'header' ) ;
 		titleElement.onmousedown = DragAndDrop.MouseDownHandler ;
 
 		// Connect mousemove and mouseup events from dialog frame and outer window to dialog dragging logic.
@@ -598,7 +598,7 @@ var onReadyRegister = function()
 				var currentParent = ParentDialog() ;
 				while ( currentParent )
 				{
-					var blockerFrame = currentParent.contentWindow.$$( 'blocker' ) ;
+					var blockerFrame = currentParent.contentWindow.$( 'blocker' ) ;
 					if ( blockerFrame.readyState == 'complete' )
 						DragAndDrop.RegisterHandlers( blockerFrame.contentWindow ) ;
 					else
@@ -641,7 +641,7 @@ var onReadyRegister = function()
 		E.FCKLanguageManager.TranslatePage( document ) ;
 
 		// Create the IFRAME that holds the dialog contents.
-		$$( 'innerContents' ).innerHTML = '<iframe id="frmMain" src="' + Args().Page + '" name="frmMain" frameborder="0" width="100%" height="100%" scrolling="auto" style="visibility: hidden;" allowtransparency="true"><\/iframe>' ;
+		$( 'innerContents' ).innerHTML = '<iframe id="frmMain" src="' + Args().Page + '" name="frmMain" frameborder="0" width="100%" height="100%" scrolling="auto" style="visibility: hidden;" allowtransparency="true"><\/iframe>' ;
 	} ;
 
 	window.InnerDialogLoaded = function()
@@ -652,7 +652,7 @@ var onReadyRegister = function()
 
 		Throbber.Hide() ;
 
-		var frmMain = $$('frmMain') ;
+		var frmMain = $('frmMain') ;
 		var innerWindow = frmMain.contentWindow ;
 		var innerDoc = innerWindow.document ;
 
@@ -679,7 +679,7 @@ var onReadyRegister = function()
 
 	window.SetOkButton = function( showIt )
 	{
-		$$('btnOk').style.visibility = ( showIt ? '' : 'hidden' ) ;
+		$('btnOk').style.visibility = ( showIt ? '' : 'hidden' ) ;
 	} ;
 
 	window.Ok = function()
@@ -706,8 +706,8 @@ var onReadyRegister = function()
 
 		// Points the src to a non-existent location to avoid loading errors later, in case the dialog
 		// haven't been completed loaded at this point.
-		if ( $$( 'frmMain' ) )
-			$$( 'frmMain' ).src = FCKTools.GetVoidUrl() ;
+		if ( $( 'frmMain' ) )
+			$( 'frmMain' ).src = FCKTools.GetVoidUrl() ;
 
 		if ( !dontFireChange && !FCK.EditMode )
 		{
@@ -727,7 +727,7 @@ var onReadyRegister = function()
 
 	window.SetEnabled = function( isEnabled )
 	{
-		var cover = $$( 'cover' ) ;
+		var cover = $( 'cover' ) ;
 		cover.style.display = isEnabled ? 'none' : '' ;
 
 		if ( FCKBrowserInfo.IsIE && !FCKBrowserInfo.IsIE7 )
@@ -744,7 +744,7 @@ var onReadyRegister = function()
 			}
 			else
 			{
-				var blocker = $$( 'blocker' ) ;
+				var blocker = $( 'blocker' ) ;
 				if ( blocker && blocker.parentNode )
 					blocker.parentNode.removeChild( blocker ) ;
 			}
@@ -803,7 +803,7 @@ document.write( Args().Title ) ;
 			// Set the class name for language direction.
 			document.body.className += ' ' + langDir ;
 
-			var cover = $$( 'cover' ) ;
+			var cover = $( 'cover' ) ;
 			cover.style.backgroundColor = FCKConfig.BackgroundBlockerColor ;
 			FCKDomTools.SetOpacity( cover, FCKConfig.BackgroundBlockerOpacity ) ;
 // ]]>
