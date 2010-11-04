@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'300px', --alto
 	'ambos', --posicion_botonera
 	'tab_h', --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_prop_basicas', --identificador
 	'1', --orden
 	'Propiedades Básicas', --etiqueta
-	'Hola Mara', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'nucleo/carpeta.gif', --imagen

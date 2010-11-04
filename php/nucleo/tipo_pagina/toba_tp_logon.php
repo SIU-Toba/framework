@@ -8,6 +8,13 @@ class toba_tp_logon extends toba_tp_basico
 {
 	function barra_superior()
 	{
+		echo "
+			<style type='text/css'>
+				.cuerpo {
+					
+				}
+			</style>
+		";
 		echo "<div id='barra-superior' class='barra-superior-login'>\n";		
 	}	
 

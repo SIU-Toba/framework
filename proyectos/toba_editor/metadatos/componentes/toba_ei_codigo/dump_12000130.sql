@@ -88,6 +88,6 @@ INSERT INTO apex_objeto_codigo (objeto_codigo_proyecto, objeto_codigo, descripci
 	'toba_editor', --objeto_codigo_proyecto
 	'12000130', --objeto_codigo
 	NULL, --descripcion
-	'700px', --ancho
+	'800px', --ancho
 	'500px'  --alto
 );

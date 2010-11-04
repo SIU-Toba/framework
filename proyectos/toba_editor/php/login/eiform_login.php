@@ -33,6 +33,14 @@ class eiform_login extends toba_ei_formulario
 			if( !es_inicial && this.ef('autologin')) {
 				this.loguearse();
 			}
+			var proyecto = this.ef('proyecto').get_estado();
+			if( !es_inicial && !this.ef('autologin')) {
+				if (this.ef('usuario').get_estado() != '' && this.ef('clave').get_estado() != ''
+					&& proyecto != apex_ef_no_seteado && proyecto != '') {
+					this.controlador.submit();				
+				}
+			}
+			
 		}
 		";
 	}

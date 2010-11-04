@@ -109,11 +109,14 @@ form {
 	background-color: white;
 }
 .login-pie {
-	background-color: white;
 	margin-top: 0;
 	padding-top: 15px;
 	padding-bottom: 5px;
-	border-bottom: 1px solid black;
+	color: white;
+}
+.login-pie a {
+	color: white;
+	font-weight: bold;
 }
 
 /*************************
@@ -271,7 +274,9 @@ form {
 .ci-wiz-toc {
 	padding: 0;
 }
-
+.ci-wiz-titulo {
+	color: black;
+}
 /********************************
 	ML - Cuadros
 *********************************/
@@ -289,6 +294,22 @@ form {
 .ei-ml-grilla, .ei-filtro-grilla  {
 	margin: 0;
 }
+
+/********************************
+	OVERLAY
+********************************/
+#overlay_contenido {
+     background-color: #fafbfe;
+     border:1px solid #868789;     
+}
+.overlay-titulo {
+	border-bottom: 1px solid #868789;	
+}
+.overlay-botonera {
+	border-top: 1px solid #868789;
+}
+
+
 /****************************
 	VARIOS
 *****************************/

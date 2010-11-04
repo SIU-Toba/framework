@@ -37,7 +37,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'toba_editor', --zona_proyecto
 	'zona_objeto', --zona
 	'200', --zona_orden
-	'1', --zona_listar
+	'0', --zona_listar
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a

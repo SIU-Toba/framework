@@ -17,8 +17,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
-	'toba', --pagina_tipo_proyecto
-	'vacio', --pagina_tipo
+	'toba_editor', --pagina_tipo_proyecto
+	'editor_frame_izq', --pagina_tipo
 	'toba', --actividad_buffer_proyecto
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
@@ -26,9 +26,9 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Catálogo', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
-	NULL, --menu
+	'0', --menu
 	'0', --orden
-	NULL, --solicitud_registrar
+	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
 	NULL, --solicitud_observacion
@@ -37,18 +37,18 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona_proyecto
 	NULL, --zona
 	NULL, --zona_orden
-	NULL, --zona_listar
-	NULL, --imagen_recurso_origen
+	'0', --zona_listar
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	NULL, --publico
+	'0', --publico
 	'0', --redirecciona
 	NULL, --usuario
 	'0', --exportable
 	NULL, --creacion
-	NULL  --retrasar_headers
+	'0'  --retrasar_headers
 );
 --- FIN Grupo de desarrollo 0
 

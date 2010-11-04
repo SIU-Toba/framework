@@ -192,7 +192,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'2286', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'90%', --ancho
+	NULL, --ancho
 	'400px', --alto
 	'abajo', --posicion_botonera
 	'wizard', --tipo_navegacion
@@ -259,7 +259,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1183', --pantalla
 	'pant_generacion', --identificador
 	'3', --orden
-	'Visualización y Generación de Código', --etiqueta
+	'Código', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
