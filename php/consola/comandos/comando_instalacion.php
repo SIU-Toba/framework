@@ -118,6 +118,11 @@ class comando_instalacion extends comando_toba
 				}				
 			} while ($puede_conectar !== true);
 		}	
+		//--- Pido el password para el usuario por defecto
+		$pwd = $this->consola->dialogo_ingresar_texto('Toba - Clave usuario administrador', true);
+		if (strtoupper($pwd) == 'TOBA') {
+			$this->consola->mensaje('Este password puede crear un OJO de seguridad, por favor cambialo lo antes posible', true);
+		}
 
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
 		if ($this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
@@ -167,7 +172,7 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto
-		$instancia->agregar_usuario( 'toba', 'Usuario Toba', 'toba');
+		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $proyecto->get_grupo_acceso_admin();
