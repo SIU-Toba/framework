@@ -45,6 +45,8 @@ class toba_ei_cuadro extends toba_ei
 	protected $_columnas_orden_mul;			// Columnas para el ordenamiento multiple
 	protected $_sentido_orden_mul;				//Sentido de las columnas para el ordenamiento multiple
     protected $_ordenado = false;
+	protected $_ordenar_con_cortes = false;		//Indica si se contemplan los cortes de control en el ordenamiento
+	
 	//Paginacion
 	protected $_pagina_actual;
 	protected $_tamanio_pagina;
@@ -1139,6 +1141,15 @@ class toba_ei_cuadro extends toba_ei
 //################################################################################
 
 	/**
+	 * Define si los cortes de control seran considerados al ordenar los datos del cuadro
+	 * @param boolean $usar 
+	 */
+	function set_usar_ordenamiento_con_cortes($usar = true)
+	{
+		$this->_ordenar_con_cortes = $usar;
+	}
+
+	/**
 	 * @ignore 
 	 */
 	protected function finalizar_ordenamiento()
@@ -1264,6 +1275,14 @@ class toba_ei_cuadro extends toba_ei
 		if (! $this->_ordenado) {
 			$parametros = array();
 			$metodos = $sentidos = array();
+			//Contemplo los cortes de control para el ordenamiento.
+			if ($this->_ordenar_con_cortes	&& $this->existen_cortes_control()) {
+					foreach($this->_cortes_def as $corte) {
+							$col = current($corte['descripcion']);				//Recupero la columna por la cual ordenar
+							$metodos[$col] = 'ordenamiento_default';
+							$sentidos[$col] = 'asc';
+					}
+			}
 			if ($this->hay_ordenamiento()) {		//Ordenamiento columna simple
 				$metodos[$this->_orden_columna] = 'ordenamiento_' . $this->_columnas[$this->_orden_columna]['formateo'];
 				$sentidos[$this->_orden_columna] = $this->_orden_sentido;
@@ -1272,7 +1291,7 @@ class toba_ei_cuadro extends toba_ei
 					$metodos[$col] = $funcion_formateo = 'ordenamiento_' . $this->_columnas[$col]['formateo'];
 					$sentidos[$col] = $this->_sentido_orden_mul[$col];
 				}
-			}			
+			}
 			foreach($metodos as $klave => $funcion) {
 				$aux = array();
 				if (method_exists($this, $funcion)) {
