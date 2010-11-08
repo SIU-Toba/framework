@@ -10,10 +10,10 @@ class ci_ejemplo_1 extends toba_ci
 	{
 		$grafico->conf()->canvas__set_titulo('Gráfico de torta');
 		if (isset($this->s__fuente) && $this->s__fuente == 'verdana') {
-            $grafico->conf()->canvas()->title->SetFont(FF_VERDANA, FS_BOLD, 14);
-        } else {
-            $grafico->conf()->canvas()->title->SetFont(FF_FONT2, FS_BOLD);
-        }
+			$grafico->conf()->canvas()->title->SetFont(FF_VERDANA, FS_BOLD, 14);
+		} else {
+			$grafico->conf()->canvas()->title->SetFont(FF_FONT2, FS_BOLD);
+		}
 		
 		/**********************PRIMER SERIE********************************/
 		$datos = array(13, 5, 3, 15, 10);
@@ -47,6 +47,15 @@ class ci_ejemplo_1 extends toba_ci
 	function evt__form__modificacion($datos)
 	{
 		$this->s__fuente = $datos['fuente'];
+	}
+    
+	function conf__form(form_torta_fuente $form)
+	{
+        if (isset($this->s__fuente) && $this->s__fuente == 'verdana') {
+            $form->ef('fuente')->set_estado('verdana');
+        } else {
+            $form->ef('fuente')->set_estado('default');
+        }
 	}
 
 }
