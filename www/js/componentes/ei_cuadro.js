@@ -90,8 +90,10 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	ei_cuadro.prototype.seleccionar = function(fila, id_evento)
 	{
 		var check = $$(this._input_submit + fila + '_' + id_evento);
-		check.checked = !check.checked;
-		check.onclick();
+		if (check) {
+			check.checked = !check.checked;
+			check.onclick();
+		}
 	};	
 		
 	ei_cuadro.prototype.get_ids_seleccionados = function(id_evento)

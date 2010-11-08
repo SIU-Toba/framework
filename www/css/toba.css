@@ -781,6 +781,7 @@ padding-left:4px;
 	float:left;
 	margin:0;
 	padding:0 0 0 9px;
+	list-style:none;	
 }
 .ci-tabs-h-lista img {
 	border: none;

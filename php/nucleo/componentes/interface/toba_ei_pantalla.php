@@ -539,7 +539,7 @@ class toba_ei_pantalla extends toba_ei
 					$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
 				}
 			}
-			echo "<hr class='ci-pant-sep' />\n";
+			echo "<div class='ci-pant-sep'></div>\n";
 		}
 		$this->generar_layout();
 		echo "<div id='{$this->objeto_js}_pie'></div>";
@@ -555,7 +555,7 @@ class toba_ei_pantalla extends toba_ei
 			$existe_previo = 0;
 			foreach($this->_dependencias as $dep) {
 				if($existe_previo){ //Separador
-					echo "<hr class='ci-pant-sep-ei'/>\n";
+					echo "<div class='ci-pant-sep-ei'></div>\n";
 				}
 				$dep->generar_html();	
 				$existe_previo = 1;

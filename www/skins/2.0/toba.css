@@ -33,13 +33,7 @@ form {
 	color: white;
 	min-height: 38px;
 }
-.ef-barra-divisora {
-	border-bottom:1px dotted gray;
-	text-align: right;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	font-size: 11px;
-}
+
 
 .zona-items {
 	background-image: -webkit-gradient(
@@ -95,6 +89,29 @@ form {
 	background-color: #D0D5DB;	
 }
 
+/**************************
+		MENU
+***************************/
+
+ul.horizontal a, ul.horizontal a:visited {
+	border:1px solid #8d8e90;
+	margin-right:2px;
+}
+a.nivel-0, a.nivel-0:visited {
+	background-color: #D0D5DB !important;
+	border:none !important;
+}
+ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
+	background-color:#7176b0;
+	color: #ffffff;
+}
+a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited {
+	background-color: #D0D5DB !important;
+	border:1px solid #8d8e90 !important;
+	color: #000000 !important;
+}
+
+
 /*************************
 		Login
 **************************/
@@ -140,7 +157,11 @@ form {
 	);
 	border: 1px solid #5268a1;
 	color: white;
+	min-height: 20px;
 
+}
+.ei-barra-sup img {
+	vertical-align: middle;
 }
 .ei-barra-sup-sin-tit .ei-botonera {
 	background-color: #244268;
@@ -158,7 +179,9 @@ form {
 	background-color: #F1D3D9;
 	border: 1px solid #B7C8F6;
 }
-
+.ei-arbol-ver-prop {
+	color: black;
+}
 
 /***************** 
 		CI
@@ -254,6 +277,11 @@ form {
 	padding: 8px 4px 8px 4px;
 }
 
+.ci-pant-sep-ei {
+	border-bottom:1px dotted gray;
+	margin-top:5px;
+	margin-bottom: 10px;
+}	
 
 
 /*************************
@@ -277,8 +305,97 @@ form {
 .ci-wiz-titulo {
 	color: black;
 }
+
 /********************************
-	ML - Cuadros
+	CUADRO
+*******************************/
+.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
+	background: url('cuadro-col-titulo.gif') repeat-x top;
+}
+/*************************
+		CUADRO
+**************************/
+.ei-cuadro-cuerpo {
+	border: 1px solid #868789;
+}
+.ei-cuadro-pag img {
+	vertical-align: middle;
+}
+.ei-cuadro-cuerpo {
+	padding:0;
+	margin:0;
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;	
+}
+.ei-cuadro-scroll {
+	padding:2px;
+}
+.ei-cuadro-fila,  .ei-cuadro-total { 
+	border-left: 1px solid #eeeeee;
+	border-right: 1px solid #eeeeee;
+}
+.ei-cuadro-totales {
+	border-top: 1px solid #868789;
+	padding:4px;
+}
+.ei-cuadro-cc-fondo, .ei-ml-grilla, .ei-filtro-grilla {
+	border-bottom:1px solid #868789;
+	padding-left:1px;
+}
+.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
+	padding-top: 2px;
+	padding-bottom:2px;
+	padding-left: 6px;
+	border: 1px solid #949495;
+	font-weight: normal;
+	font-family: Tahoma;
+	text-align:left;
+}
+.ei-cuadro-col-tit-grupo {
+	text-align: center;
+}
+.ei-cuadro-fila-sel, .ei-ml-fila-selec, .ei-filtro-fila-selec {
+	padding-top:2px;
+	padding-bottom:2px;
+	background-color: #7485B3 !important;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+	color:white !important;
+}
+.ei-cuadro-celda-impar {
+	background-color:#ffffff;
+}
+.ei-cuadro-celda-par, .ei-ml-fila, .ei-filtro-fila {
+	background-color: #eeeff2;
+}
+.ei-ml-fila, .ei-filtro-fila {
+	border-top: 1px solid #eeeeee;
+	padding-top:2px;
+	padding-bottom:2px;	
+}
+
+.col-num-p2,.col-num-p4,.col-tex-p2,.col-tex-p4, .col-cen-s2, .col-cen-s4 {
+	color: #aa0000;
+	font-weight: bold;
+}
+.ei-cuadro-celda-impar .col-num-p3, 
+.ei-cuadro-celda-impar .col-num-p4, 
+.ei-cuadro-celda-impar .col-tex-p3, 
+.ei-cuadro-celda-impar .col-tex-p4, 
+.ei-cuadro-celda-impar .col-cen-s3, 
+.ei-cuadro-celda-impar .col-cen-s4 {
+	background-color: #f5f5f5;
+}
+.ei-cuadro-celda-par .col-num-p3, 
+.ei-cuadro-celda-par .col-num-p4, 
+.ei-cuadro-celda-par .col-tex-p3, 
+.ei-cuadro-celda-par .col-tex-p4, 
+.ei-cuadro-celda-par .col-cen-s3, 
+.ei-cuadro-celda-par .col-cen-s4 {
+	background-color: #ececf5;
+}
+/********************************
+	ML
 *********************************/
 .ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-fila, .ei-filtro-fila-selec {
 	border-bottom:1px solid #ECF0F3;
@@ -293,6 +410,31 @@ form {
 }	
 .ei-ml-grilla, .ei-filtro-grilla  {
 	margin: 0;
+}
+
+
+/******************************
+	FORM
+******************************/
+.ei-form-fila {
+	min-height: 18px;
+}
+
+/********************************
+	EF
+********************************/
+.ef-barra-divisora {
+	border-bottom:1px dotted gray;
+	text-align: right;
+	padding-bottom: 5px;
+	padding-top: 10px;
+	font-size: 11px;
+}
+.ef-fijo {
+	font-size: 13px;
+}
+.ei-form-etiq, .ei-form-etiq-oblig {
+	margin-top: -2px;
 }
 
 /********************************

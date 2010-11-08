@@ -1,5 +1,5 @@
 /** Cambios al skin **/
-.encabezado {
+/*.encabezado {
 	margin-bottom:0;
 }
 .cuerpo {
@@ -18,10 +18,17 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+*/
 
+.ci-base {
+	width: 100% !important;
+}
+.ci-simple-cont .ei-base {
+	margin-left: auto;
+	margin-right: auto;
+}
 
-
-/* Página de login normal */
+/* Pï¿½gina de login normal */
 #js_ci_30000140_cont {
 	width: auto !important;
 }

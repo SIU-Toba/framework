@@ -88,15 +88,9 @@ $url_login = $url_trac.'/trac/toba/login';
 		}
 		$version = toba_modelo_instalacion::get_version_actual();
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
-		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
-		//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
-		echo "</div>";
 		echo "<div class='logo-inicio'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
-		$tamano = file_size(strlen(serialize($_SESSION)));
-		echo "Tamaño de la sesión: <b>$tamano</b><br>";
-
 		$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 		echo "<a target='wiki' style='text-decoration:none; font-size: 16px; font-weight: bold;margin-top: 25px;float:left' href='$cambios' $ayuda>Versión ";
 		echo $version->__toString()."</a>";

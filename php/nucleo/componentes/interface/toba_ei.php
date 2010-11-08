@@ -650,12 +650,6 @@ abstract class toba_ei extends toba_componente
 				if ($botonera_sup) {
 					$this->generar_botones();
 				}						
-				//---Barra de mensajeria		
-				if (isset($this->objeto_js)) {
-					echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
-					echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
-					echo "</a>";
-				}
 				//--- Descripcion Tooltip
 				if(trim($this->_info["descripcion"])!="" &&  $this->_modo_descripcion_tooltip){
 					echo '<span class="ei-barra-sup-desc">';
@@ -668,6 +662,10 @@ abstract class toba_ei extends toba_componente
 				if ($this->_info['colapsable'] && isset($this->objeto_js) && $mostrar_colapsado) {
 					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
 					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
+				} else {
+					if ($titulo != '') {
+						echo gif_nulo("1px", "20px");
+					}
 				}
 	
 				//---Titulo			
@@ -687,13 +685,6 @@ abstract class toba_ei extends toba_componente
 			}
 			echo "</div>";
 			$this->_notificaciones = array();
-		} else {
-			//---Barra de mensajeria		
-			if (isset($this->objeto_js)) {
-				echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
-				echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
-				echo "</a>";
-			}
 		}
 		
 	}

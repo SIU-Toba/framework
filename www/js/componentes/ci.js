@@ -214,16 +214,10 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * Muestra en la barra del componente un icono de acceso a las notificaciones
 	 * @see notificacion
 	 * @param {boolean} mostrar Mostrar (true) u ocultar (false);
+	 * @deprecated
 	 */
 	ci.prototype.notificar = function(mostrar) {
-		var barra = document.getElementById('barra_' + this._instancia);
-		if (barra) {
-			if (mostrar) {
-				barra.style.display = '';
-			} else {
-				barra.style.display = 'none';
-			}
-		}
+
 	};
 
 	//---Navegación 

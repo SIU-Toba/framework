@@ -95,14 +95,15 @@ class ci_principal extends toba_ci
 
 	function conf__prop_basicas(toba_ei_formulario $form)
 	{
-		
-		if (!$this->get_entidad()->esta_cargada()) {
-			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_nuevo()));
-		} else {
-			$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_actual()));
+		$datos = $this->get_entidad()->tabla("base")->get();
+		if ($datos['carpeta'] != 1) {
+			if (!$this->get_entidad()->esta_cargada()) {
+				$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_nuevo()));
+			} else {
+				$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_actual()));
+			}
 		}
 		
-		$datos = $this->get_entidad()->tabla("base")->get();
 	
 		//Transfiere los campos accion, buffer y patron a uno comportamiento
 		if (isset($datos['actividad_accion']) && $datos['actividad_accion'] != '') {
