@@ -12,7 +12,7 @@
 						<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>$usuario_actual</strong> del sistema.
 								Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
 							<p>En cambio para ambientes de <strong>desarrollo</strong>, este toba_editor necesita abrir y guardar archivos, ejecutar comandos svn, etc,
-								necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamso seguir los siguentes pasos:</p>
+								necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamos seguir los siguentes pasos:</p>
 				";
 				if (toba_manejador_archivos::es_windows()) {
 					$html .= "
