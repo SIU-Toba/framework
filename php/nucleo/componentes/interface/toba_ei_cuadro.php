@@ -1869,7 +1869,9 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_totales_columnas($this->_acumulador);
 		}
 		$this->html_acumulador_usuario();
-		$this->html_cuadro_fin();
+		if( $this->tabla_datos_es_general() ){
+			$this->html_cuadro_fin();
+		}
 
 		echo "</td></tr>\n";
 		//--- FIN CONTENIDO  ---------
