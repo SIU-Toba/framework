@@ -50,7 +50,7 @@ ef.prototype.constructor = ef;
 	ef.prototype.get_id = function() { 
 		return this._id;	
 	};
-	
+
 	/**
 	 * Retorna verdadero si el ef tiene algún valor cargado
 	 * @type boolean
@@ -190,7 +190,17 @@ ef.prototype.constructor = ef;
 		}
 		return true;
 	};	
-	
+
+	/**
+	 * Modifica la obligatoriedad actual del ef
+	 * @param {boolean} es_obligatorio Nuevo valor
+	 * Requiere tildar cascada relajada en el editor
+	 */
+	ef.prototype.set_obligatorio = function (es_obligatorio) {
+		this._obligatorio_orig = es_obligatorio;
+		this._obligatorio	   = es_obligatorio;
+	};
+
 	/**
 	 * @private
 	 */

@@ -6,32 +6,22 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
  * @package    PHPExcel_RichText
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
-
-
-/** PHPExcel_RichText_ITextElement */
-require_once 'PHPExcel/RichText/ITextElement.php';
-
-/** PHPExcel_RichText_TextElement */
-require_once 'PHPExcel/RichText/TextElement.php';
-
-/** PHPExcel_Style_Font */
-require_once 'PHPExcel/Style/Font.php';
 
 
 /**
@@ -39,17 +29,17 @@ require_once 'PHPExcel/Style/Font.php';
  *
  * @category   PHPExcel
  * @package    PHPExcel_RichText
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_RichText_Run extends PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
-{	
+{
 	/**
 	 * Font
 	 *
 	 * @var PHPExcel_Style_Font
 	 */
 	private $_font;
-	
+
     /**
      * Create a new PHPExcel_RichText_Run instance
      *
@@ -61,26 +51,41 @@ class PHPExcel_RichText_Run extends PHPExcel_RichText_TextElement implements PHP
     	$this->setText($pText);
     	$this->_font = new PHPExcel_Style_Font();
     }
-	
+
 	/**
 	 * Get font
 	 *
 	 * @return PHPExcel_Style_Font
-	 */	
+	 */
 	public function getFont() {
 		return $this->_font;
 	}
-	
+
 	/**
 	 * Set font
 	 *
 	 * @param	PHPExcel_Style_Font		$pFont		Font
 	 * @throws 	Exception
-	 */	
+	 * @return PHPExcel_RichText_ITextElement
+	 */
 	public function setFont(PHPExcel_Style_Font $pFont = null) {
 		$this->_font = $pFont;
+		return $this;
 	}
-	    
+
+	/**
+	 * Get hash code
+	 *
+	 * @return string	Hash code
+	 */
+	public function getHashCode() {
+    	return md5(
+    		  $this->getText()
+    		. $this->_font->getHashCode()
+    		. __CLASS__
+    	);
+    }
+
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

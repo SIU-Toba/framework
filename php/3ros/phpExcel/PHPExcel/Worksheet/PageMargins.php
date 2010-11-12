@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Worksheet_PageMargins
 {			
@@ -104,9 +104,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Left
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setLeft($pValue) {
     	$this->_left = $pValue;
+    	return $this;
     }
     
     /**
@@ -122,9 +124,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Right
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setRight($pValue) {
     	$this->_right = $pValue;
+    	return $this;
     }
     
     /**
@@ -140,9 +144,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Top
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setTop($pValue) {
     	$this->_top = $pValue;
+    	return $this;
     }
     
     /**
@@ -158,9 +164,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Bottom
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setBottom($pValue) {
     	$this->_bottom = $pValue;
+    	return $this;
     }
     
     /**
@@ -176,9 +184,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Header
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setHeader($pValue) {
     	$this->_header = $pValue;
+    	return $this;
     }
     
     /**
@@ -194,9 +204,11 @@ class PHPExcel_Worksheet_PageMargins
      * Set Footer
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_PageMargins
      */
     public function setFooter($pValue) {
     	$this->_footer = $pValue;
+    	return $this;
     }
         
 	/**

@@ -292,7 +292,9 @@ class toba_datos_relacion extends toba_componente
 		$grafo = new Structures_Graph(true);
 		// Se construyen los nodos
 		$obj = array();
+		$nodo = null;
 		foreach ($tablas as $tabla) {
+			unset($nodo);
 			$nodo = new Structures_Graph_Node();
 			$proveedor = isset($tabla['objeto_proveedor']) ? $tabla['objeto_proveedor'] : $tabla['objeto'];
 			$obj[$proveedor] = $nodo;

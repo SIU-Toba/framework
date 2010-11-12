@@ -65,7 +65,8 @@
 					continue;
 				}
 				if( ( (strtolower($palabra) == 'group') && (strtolower($palabras[$posicion+1]) == 'by') )
-					|| (  (strtolower($palabra) == 'order') && (strtolower($palabras[$posicion+1]) == 'by') ) ) {
+					|| (  (strtolower($palabra) == 'order') && (strtolower($palabras[$posicion+1]) == 'by') ) 
+					|| (  strtolower($palabra) == 'limit') ) {
 					$punto_insercion = $posicion - 1;
 					continue;
 				}

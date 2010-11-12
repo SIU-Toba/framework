@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Cell
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,17 +31,10 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Cell
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Cell_Hyperlink
 {
-	/**
-	 * Cell representing the hyperlink
-	 *
-	 * @var PHPExcel_Cell
-	 */
-	private $_cell;
-	
 	/**
 	 * URL to link the cell to
 	 *
@@ -59,19 +52,15 @@ class PHPExcel_Cell_Hyperlink
     /**
      * Create a new PHPExcel_Cell_Hyperlink
      *
-     * @param 	PHPExcel_Cell		$pCell		Parent cell
      * @param 	string				$pUrl		Url to link the cell to
      * @param	string				$pTooltip	Tooltip to display on the hyperlink
      * @throws	Exception
      */
-    public function __construct(PHPExcel_Cell $pCell = null, $pUrl = '', $pTooltip = '')
+    public function __construct($pUrl = '', $pTooltip = '')
     {
     	// Initialise member variables
 		$this->_url 		= $pUrl;
 		$this->_tooltip 	= $pTooltip;
- 	
-    	// Set cell
-    	$this->_parent 		= $pCell;
     }
 	
 	/**
@@ -87,9 +76,11 @@ class PHPExcel_Cell_Hyperlink
 	 * Set URL
 	 *
 	 * @param	string	$value
+	 * @return PHPExcel_Cell_Hyperlink
 	 */
 	public function setUrl($value = '') {
 		$this->_url = $value;
+		return $this;
 	}
 	
 	/**
@@ -105,27 +96,20 @@ class PHPExcel_Cell_Hyperlink
 	 * Set tooltip
 	 *
 	 * @param	string	$value
+	 * @return PHPExcel_Cell_Hyperlink
 	 */
 	public function setTooltip($value = '') {
 		$this->_tooltip = $value;
+		return $this;
 	}
 	
-    /**
-     * Get parent
-     *
-     * @return PHPExcel_Cell
-     */
-    public function getParent() {
-    	return $this->_parent;
-    }
-    
 	/**
-	 * Set Parent
+	 * Is this hyperlink internal? (to another sheet)
 	 *
-	 * @param	PHPExcel_Cell	$value
+	 * @return boolean
 	 */
-	public function setParent($value = null) {
-		$this->_parent = $value;
+	public function isInternal() {
+		return strpos($this->_url, 'sheet://') !== false;
 	}
 	
 	/**
@@ -137,7 +121,6 @@ class PHPExcel_Cell_Hyperlink
     	return md5(
     		  $this->_url
     		. $this->_tooltip
-    		. $this->_parent->getCoordinate()
     		. __CLASS__
     	);
     }

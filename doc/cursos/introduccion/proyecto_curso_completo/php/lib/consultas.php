@@ -141,7 +141,7 @@ class consultas
 		return toba::db()->consultar($sql);
 	}
 
-	function reporte_instituciones($where="")
+	function reporte_instituciones($where='true')
 	{
 		$sql = "SELECT 	ua.id_ua,
 						ua.nombre 			as ua_nombre,
@@ -154,7 +154,7 @@ class consultas
 						ua_tipo	as ua_tipo
 				WHERE
 						inst.id_institucion = ua.id_institucion
-					AND	ua.id_ua_tipo = ua.id_ua_tipo 
+					AND	ua.id_ua_tipo = ua_tipo.id_ua_tipo 
 					AND		
 						$where
 				ORDER BY inst.nombre";

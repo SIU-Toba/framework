@@ -3196,9 +3196,9 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->salida = $salida;		
 		$titulo = $this->get_titulo();
-		$this->salida->set_hoja_nombre($titulo);
 		$cant_columnas = count($this->_columnas);
 		if ($titulo != '') {
+			$this->salida->set_hoja_nombre($titulo);
 			$this->salida->titulo($titulo, $cant_columnas);
 		}
 		if ($this->_info_cuadro["subtitulo"] != '') {

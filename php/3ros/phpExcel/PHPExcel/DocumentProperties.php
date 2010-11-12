@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_DocumentProperties
 {
@@ -98,6 +98,13 @@ class PHPExcel_DocumentProperties
 	 */
 	private $_category;
 	
+	/**
+	 * Company
+	 * 
+	 * @var string
+	 */
+	private $_company;
+	
     /**
      * Create a new PHPExcel_DocumentProperties
      */
@@ -113,6 +120,7 @@ class PHPExcel_DocumentProperties
     	$this->_description		= '';
     	$this->_keywords		= '';
     	$this->_category		= '';
+    	$this->_company 		= 'Microsoft Corporation';
     }
     
     /**
@@ -128,9 +136,11 @@ class PHPExcel_DocumentProperties
      * Set Creator
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setCreator($pValue = '') {
     	$this->_creator = $pValue;
+    	return $this;
     }
     
     /**
@@ -146,9 +156,11 @@ class PHPExcel_DocumentProperties
      * Set Last Modified By
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setLastModifiedBy($pValue = '') {
     	$this->_lastModifiedBy = $pValue;
+    	return $this;
     }
     
     /**
@@ -164,12 +176,14 @@ class PHPExcel_DocumentProperties
      * Set Created
      *
      * @param datetime $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setCreated($pValue = null) {
     	if (is_null($pValue)) {
     		$pValue = time();
     	}
     	$this->_created = $pValue;
+    	return $this;
     }
     
     /**
@@ -185,12 +199,14 @@ class PHPExcel_DocumentProperties
      * Set Modified
      *
      * @param datetime $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setModified($pValue = null) {
     	if (is_null($pValue)) {
     		$pValue = time();
     	}
     	$this->_modified = $pValue;
+    	return $this;
     }
     
     /**
@@ -206,9 +222,11 @@ class PHPExcel_DocumentProperties
      * Set Title
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setTitle($pValue = '') {
     	$this->_title = $pValue;
+    	return $this;
     }
     
     /**
@@ -224,9 +242,11 @@ class PHPExcel_DocumentProperties
      * Set Description
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setDescription($pValue = '') {
     	$this->_description = $pValue;
+    	return $this;
     }
     
     /**
@@ -242,9 +262,11 @@ class PHPExcel_DocumentProperties
      * Set Subject
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setSubject($pValue = '') {
     	$this->_subject = $pValue;
+    	return $this;
     }
     
     /**
@@ -260,9 +282,11 @@ class PHPExcel_DocumentProperties
      * Set Keywords
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setKeywords($pValue = '') {
     	$this->_keywords = $pValue;
+    	return $this;
     }
     
     /**
@@ -278,9 +302,31 @@ class PHPExcel_DocumentProperties
      * Set Category
      *
      * @param string $pValue
+     * @return PHPExcel_DocumentProperties
      */
     public function setCategory($pValue = '') {
     	$this->_category = $pValue;
+    	return $this;
+    }
+    
+    /**
+     * Get Company
+     *
+     * @return string
+     */
+    public function getCompany() {
+    	return $this->_company;
+    }
+    
+    /**
+     * Set Company
+     *
+     * @param string $pValue
+     * @return PHPPowerPoint_DocumentProperties
+     */
+    public function setCompany($pValue = '') {
+    	$this->_company = $pValue;
+    	return $this;
     }
         
 	/**

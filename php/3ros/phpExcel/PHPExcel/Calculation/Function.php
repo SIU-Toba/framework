@@ -2,27 +2,27 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
  * @package    PHPExcel_Calculation
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Calculation
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Calculation_Function {
 	/* Function categories */
@@ -46,28 +46,28 @@ class PHPExcel_Calculation_Function {
 	const CATEGORY_MATH_AND_TRIG			= 'Math and Trig';
 	const CATEGORY_STATISTICAL				= 'Statistical';
 	const CATEGORY_TEXT_AND_DATA			= 'Text and Data';
-  
+
 	/**
 	 * Category (represented by CATEGORY_*)
 	 *
 	 * @var string
 	 */
 	private $_category;
-	
+
 	/**
 	 * Excel name
 	 *
 	 * @var string
 	 */
 	private $_excelName;
-	
+
 	/**
 	 * PHPExcel name
 	 *
 	 * @var string
 	 */
 	private $_phpExcelName;
-	
+
     /**
      * Create a new PHPExcel_Calculation_Function
      *
@@ -78,7 +78,7 @@ class PHPExcel_Calculation_Function {
      */
     public function __construct($pCategory = null, $pExcelName = null, $pPHPExcelName = null)
     {
-    	if (!is_null($pCategory) && !is_null($pExcelName) && !is_null($pPHPExcelName)) { 
+    	if (!is_null($pCategory) && !is_null($pExcelName) && !is_null($pPHPExcelName)) {
     		// Initialise values
     		$this->_category 		= $pCategory;
     		$this->_excelName 		= $pExcelName;
@@ -87,7 +87,7 @@ class PHPExcel_Calculation_Function {
     		throw new Exception("Invalid parameters passed.");
     	}
     }
-    
+
     /**
      * Get Category (represented by CATEGORY_*)
      *
@@ -96,7 +96,7 @@ class PHPExcel_Calculation_Function {
     public function getCategory() {
     	return $this->_category;
     }
-    
+
     /**
      * Set Category (represented by CATEGORY_*)
      *
@@ -110,7 +110,7 @@ class PHPExcel_Calculation_Function {
     		throw new Exception("Invalid parameter passed.");
     	}
     }
-	
+
     /**
      * Get Excel name
      *
@@ -119,7 +119,7 @@ class PHPExcel_Calculation_Function {
     public function getExcelName() {
     	return $this->_excelName;
     }
-    
+
     /**
      * Set Excel name
      *
@@ -128,7 +128,7 @@ class PHPExcel_Calculation_Function {
     public function setExcelName($value) {
     	$this->_excelName = $value;
     }
-    
+
     /**
      * Get PHPExcel name
      *
@@ -137,7 +137,7 @@ class PHPExcel_Calculation_Function {
     public function getPHPExcelName() {
     	return $this->_phpExcelName;
     }
-    
+
     /**
      * Set PHPExcel name
      *

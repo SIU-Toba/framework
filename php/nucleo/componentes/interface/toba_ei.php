@@ -641,8 +641,9 @@ abstract class toba_ei extends toba_componente
 		
 				//---Barra de colapsado
 				$colapsado = "";
-				$mostrar_colapsado = (!$this->hay_botones() || !$this->botonera_arriba());
-				if ($this->_info['colapsable'] && isset($this->objeto_js) && $mostrar_colapsado) {
+				// Se colapsa cuando no hay botones o cuando hay pero no esta la botonera arriba
+				$colapsado_coherente = (! $this->hay_botones() || ($this->hay_botones() && !$this->botonera_arriba()));	
+				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				}			
 				echo "<div class='$estilo' $colapsado>\n";

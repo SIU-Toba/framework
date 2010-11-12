@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Worksheet_RowDimension
 {			
@@ -57,7 +57,28 @@ class PHPExcel_Worksheet_RowDimension
 	 * @var bool
 	 */
 	private $_visible;
-		
+	
+	/**
+	 * Outline level
+	 *
+	 * @var int
+	 */
+	private $_outlineLevel = 0;
+	
+	/**
+	 * Collapsed
+	 *
+	 * @var bool
+	 */
+	private $_collapsed;
+
+	/**
+	 * Index to cellXf. Null value means row has no explicit cellXf format.
+	 *
+	 * @var int|null
+	 */
+	private $_xfIndex;
+
     /**
      * Create a new PHPExcel_Worksheet_RowDimension
      *
@@ -69,6 +90,11 @@ class PHPExcel_Worksheet_RowDimension
     	$this->_rowIndex		= $pIndex;
     	$this->_rowHeight		= -1;
     	$this->_visible			= true;
+    	$this->_outlineLevel	= 0;
+    	$this->_collapsed		= false;
+
+		// set row dimension as unformatted by default
+		$this->_xfIndex = null;
     }
     
     /**
@@ -84,9 +110,11 @@ class PHPExcel_Worksheet_RowDimension
      * Set Row Index
      *
      * @param int $pValue
+     * @return PHPExcel_Worksheet_RowDimension
      */
     public function setRowIndex($pValue) {
     	$this->_rowIndex = $pValue;
+    	return $this;
     }
     
     /**
@@ -102,9 +130,11 @@ class PHPExcel_Worksheet_RowDimension
      * Set Row Height
      *
      * @param double $pValue
+     * @return PHPExcel_Worksheet_RowDimension
      */
     public function setRowHeight($pValue = -1) {
     	$this->_rowHeight = $pValue;
+    	return $this;
     }
     
     /**
@@ -120,11 +150,82 @@ class PHPExcel_Worksheet_RowDimension
      * Set Visible
      *
      * @param bool $pValue
+     * @return PHPExcel_Worksheet_RowDimension
      */
     public function setVisible($pValue = true) {
     	$this->_visible = $pValue;
+    	return $this;
     }
-        
+    
+    /**
+     * Get Outline Level
+     *
+     * @return int
+     */
+    public function getOutlineLevel() {
+    	return $this->_outlineLevel;
+    }
+    
+    /**
+     * Set Outline Level
+     *
+     * Value must be between 0 and 7
+     *
+     * @param int $pValue
+     * @throws Exception
+     * @return PHPExcel_Worksheet_RowDimension
+     */
+    public function setOutlineLevel($pValue) {
+    	if ($pValue < 0 || $pValue > 7) {
+    		throw new Exception("Outline level must range between 0 and 7.");
+    	}
+    	
+    	$this->_outlineLevel = $pValue;
+    	return $this;
+    }
+    
+    /**
+     * Get Collapsed
+     *
+     * @return bool
+     */
+    public function getCollapsed() {
+    	return $this->_collapsed;
+    }
+    
+    /**
+     * Set Collapsed
+     *
+     * @param bool $pValue
+     * @return PHPExcel_Worksheet_RowDimension
+     */
+    public function setCollapsed($pValue = true) {
+    	$this->_collapsed = $pValue;
+    	return $this;
+    }
+
+	/**
+	 * Get index to cellXf
+	 *
+	 * @return int
+	 */
+	public function getXfIndex()
+	{
+		return $this->_xfIndex;
+	}
+
+	/**
+	 * Set index to cellXf
+	 *
+	 * @param int $pValue
+	 * @return PHPExcel_Worksheet_RowDimension
+	 */
+	public function setXfIndex($pValue = 0)
+	{
+		$this->_xfIndex = $pValue;
+		return $this;
+	}
+
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

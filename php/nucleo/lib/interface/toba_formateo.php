@@ -64,7 +64,7 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return number_format($valor,2,',','.') . $this->get_separador()."%";
 		} else {
-			return array($valor, array('numberformat' => 
+			return array($valor / 100, array('numberformat' => 
 						array('code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00)
 					));			
 		}

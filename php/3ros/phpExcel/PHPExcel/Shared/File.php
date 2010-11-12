@@ -2,27 +2,27 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2007 PHPExcel
+ * Copyright (c) 2006 - 2010 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
  * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/lgpl.txt	LGPL
- * @version    1.5.0, 2007-10-23
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.3c, 2010-06-01
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2007 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Shared_File
 {
@@ -63,4 +63,74 @@ class PHPExcel_Shared_File
 			return file_exists($pFilename);
 		}
 	}
+
+	/**
+	 * Returns canonicalized absolute pathname, also for ZIP archives
+	 *
+	 * @param string $pFilename
+	 * @return string
+	 */
+	public static function realpath($pFilename) {
+		// Returnvalue
+		$returnValue = '';
+
+		// Try using realpath()
+		$returnValue = realpath($pFilename);
+
+		// Found something?
+		if ($returnValue == '' || is_null($returnValue)) {
+			$pathArray = explode('/' , $pFilename);
+			while(in_array('..', $pathArray) && $pathArray[0] != '..') {
+				for ($i = 0; $i < count($pathArray); ++$i) {
+					if ($pathArray[$i] == '..' && $i > 0) {
+						unset($pathArray[$i]);
+						unset($pathArray[$i - 1]);
+						break;
+					}
+				}
+			}
+			$returnValue = implode('/', $pathArray);
+		}
+
+		// Return
+		return $returnValue;
+	}
+
+	/**
+	 * Get the systems temporary directory.
+	 *
+	 * @return string
+	 */
+	public static function sys_get_temp_dir()
+	{
+		// sys_get_temp_dir is only available since PHP 5.2.1
+		// http://php.net/manual/en/function.sys-get-temp-dir.php#94119
+
+		if ( !function_exists('sys_get_temp_dir')) {
+			if( $temp = getenv('TMP') ) {
+				return realpath($temp);
+			}
+			if( $temp = getenv('TEMP') ) {
+				return realpath($temp);
+			}
+			if( $temp = getenv('TMPDIR') ) {
+				return realpath($temp);
+			}
+
+			// trick for creating a file in system's temporary dir
+			// without knowing the path of the system's temporary dir
+			$temp = tempnam(__FILE__, '');
+			if (file_exists($temp)) {
+				unlink($temp);
+				return realpath(dirname($temp));
+			}
+
+			return null;
+
+		}
+
+		// use ordinary built-in PHP function
+		return realpath(sys_get_temp_dir());
+	}
+
 }

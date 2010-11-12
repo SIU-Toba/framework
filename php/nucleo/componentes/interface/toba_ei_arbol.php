@@ -87,7 +87,7 @@ class toba_ei_arbol extends toba_ei
 	}
 	
 	/**
-	 * Determina el ancho máximo de un nombre de un nodo, a partir de ese tamaño se utilizan puntos suspensivos
+	 * Determina el ancho mÃ¡ximo de un nombre de un nodo, a partir de ese tamaÃ±o se utilizan puntos suspensivos
 	 * @param integer $caracteres
 	 */
 	function set_ancho_nombres($caracteres)
@@ -580,11 +580,12 @@ class toba_ei_arbol extends toba_ei
 		if (! isset($limite)) {
 			$limite = $this->_ancho_nombres;
 		}
-		if (strlen($nombre) <= $limite)
-		return $nombre;
-		else
-		return substr($nombre, 0, $limite)."...";
-		return $nombre;
+		if (strlen($nombre) <= $limite) {
+			return $nombre;
+		} else {
+			//Quotear por si es html y el recorte lo rompe
+			return texto_plano(substr($nombre, 0, $limite))."..."; 
+		}
 	}
 
 	//-------------------------------------------------------------------------------

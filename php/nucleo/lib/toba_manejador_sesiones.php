@@ -30,6 +30,9 @@ class toba_manejador_sesiones
 	private function __construct()
 	{
 		if (PHP_SAPI != 'cli') {
+			if (session_id() != '') {
+				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
+			}
 			session_name('TOBA_SESSID');
 			session_start();
 		}
@@ -590,7 +593,7 @@ class toba_manejador_sesiones
 		$this->sesion->conf__final();
 		toba::instancia()->cerrar_sesion($this->get_id_sesion(), $observaciones);
 		if (PHP_SAPI != 'cli') {
-			session_regenerate_id();
+			session_regenerate_id(true);
 		}
 	}
 

@@ -125,7 +125,7 @@ class toba_vista_excel
 	{
 		$hoja = $this->excel->createSheet();
 		if (isset($nombre)) {
-			$hoja->setTitle($nombre);
+			$hoja->setTitle(utf8_encode(strval($nombre)));
 		}
 		$this->excel->setActiveSheetIndex($this->excel->getSheetCount()-1);
 		$this->cursor = $this->cursor_base;
@@ -136,7 +136,7 @@ class toba_vista_excel
 		if (strlen($nombre) > 31) {
 			$nombre = substr($nombre, 0, 30);
 		}
-		$this->excel->getActiveSheet()->setTitle($nombre);
+		$this->excel->getActiveSheet()->setTitle(utf8_encode(strval($nombre)));
 	}
 	
 	function get_hoja_nombre()
@@ -223,7 +223,7 @@ class toba_vista_excel
 				$inicio = $origen[0] + $x;	//Desplazado X columnas a derecha horizontalmente
 				//-- Pone el titulo de la columna
 				if (isset($valor) || !isset($opciones[$clave]['borrar_estilos_nulos'])) {
-					$hoja->setCellValueByColumnAndRow($inicio, $origen[1], $valor);
+					$hoja->setCellValueByColumnAndRow($inicio, $origen[1],utf8_encode(strval($valor)));
 					$hoja->getStyleByColumnAndRow($inicio, $origen[1])->applyFromArray($estilo_titulos);
 				}
 				//-- Maneja la agrupacion
@@ -233,7 +233,7 @@ class toba_vista_excel
 					} else {
 					 	$grupo_actual = '';
 					}
-					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, $grupo_actual);					
+					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_encode(strval($grupo_actual)));					
 					$hoja->getStyleByColumnAndRow($inicio, $origen[1]-1)->applyFromArray($estilo_titulos);
 					if ($ultimo_grupo != $grupo_actual) {
 						if (isset($agrupacion[$grupo_actual]) && count($agrupacion[$grupo_actual]) > 1) {
@@ -244,7 +244,7 @@ class toba_vista_excel
 					}
 					if ($grupo_actual == '') {
 						//El grupo es vacio o no tiene grupo, hay que mergear verticalmente esta unica fila
-						$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, $valor);
+						$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_encode(strval($valor)));
 						$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $inicio, $origen[1]);
 					}
 					$ultimo_grupo = $grupo_actual;					
@@ -261,7 +261,7 @@ class toba_vista_excel
 			$x = 0;
 			foreach($filas as $clave => $valor) {
 				$columnas[$clave] = $x;
-				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, $valor);
+				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, utf8_encode(strval($valor)));
 				if (! isset($opciones[$clave]['estilo']['borders'])) {
 					$opciones[$clave]['estilo']['borders']= array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde);
 				}
@@ -290,7 +290,7 @@ class toba_vista_excel
 			$total = "=SUM($desde:$hasta)";
 			$destino_x = $origen[0]+$columnas[$clave];
 			$destino_y =  $origen[1] + $y;
-			$hoja->setCellValueByColumnAndRow($destino_x, $destino_y, $total);
+			$hoja->setCellValueByColumnAndRow($destino_x, $destino_y, utf8_encode(strval($total)) );
 			$estilo = $hoja->getStyleByColumnAndRow($destino_x, $destino_y);
 			unset($opciones[$clave]['estilo']['borders']);
 			$estilo->applyFromArray($opciones[$clave]['estilo']);			
@@ -340,7 +340,7 @@ class toba_vista_excel
 			$this->cursor[1]++;
  		}
 		$hoja = $this->excel->getActiveSheet();		
- 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1], $texto);
+ 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1],utf8_encode(strval($texto)) );
  		$hoja->setBreak('A1', PHPExcel_Worksheet::BREAK_COLUMN   );
  		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
  		$estilo->applyFromArray($estilos);
