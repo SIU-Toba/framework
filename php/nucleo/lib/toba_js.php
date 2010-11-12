@@ -21,7 +21,6 @@ class toba_js
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 	
-	
 	/**
 	 * @return toba_js
 	 */
@@ -29,9 +28,14 @@ class toba_js
 	{
 		if (! isset(self::$instancia)) {
 			self::$instancia = new toba_js();
+			if (toba::proyecto()->get_parametro('es_css3')) {			
+				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize';
+				self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';
+			}
 		}
 		return self::$instancia;
 	}
+	
 
 	/**
 	*	Retorna el string de identado actual para el código JS

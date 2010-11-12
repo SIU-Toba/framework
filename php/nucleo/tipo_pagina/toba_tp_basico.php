@@ -73,8 +73,42 @@ class toba_tp_basico extends toba_tipo_pagina
 	
 	protected function estilos_css()
 	{
+		if (toba::proyecto()->get_parametro('es_css3')) {		
+			echo "<link rel='stylesheet' href='".toba_recurso::url_toba()."/js/formalize/stylesheets/formalize.css' />";
+		} else {
+			echo "
+				<style type='text/css'>
+	            #overlay, #capa_espera {
+	                background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");               
+	            }
+	            .barra-superior {
+	                background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;
+	            }
+	            .ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
+	                background: url(". toba_recurso::imagen_skin('cuadro-col-titulo.gif') .") repeat-x top;
+	            }
+	            .ei-barra-sup, .ci-botonera {
+	                background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;
+	            }
+	            .ci-tabs-h-lista {
+	            	background: url('".toba_recurso::imagen_skin('tabs/bg.gif')."') repeat-x bottom;
+	            }
+	            .ci-tabs-h-solapa {
+					background:url('".toba_recurso::imagen_skin('tabs/left.gif')."') no-repeat left top;	            
+	            }
+	            .ci-tabs-h-solapa a {				
+	            	background:url('".toba_recurso::imagen_skin('tabs/right.gif')."') no-repeat right top;
+	            }	            
+	            .ci-tabs-h-solapa-sel {
+					background:url('".toba_recurso::imagen_skin('tabs/left_on.gif')."') no-repeat left top;	            
+	            }
+	            .ci-tabs-h-solapa-sel a {				
+	            	background:url('".toba_recurso::imagen_skin('tabs/right_on.gif')."') no-repeat right top;
+	            }
+				</style>
+			";
+		}
 		echo "
-		<link rel='stylesheet' href='".toba_recurso::url_toba()."/js/formalize/stylesheets/formalize.css' /> 		
 		<style type='text/css'>
 			#overlay, #capa_espera {
 				background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");     			
