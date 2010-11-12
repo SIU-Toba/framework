@@ -172,7 +172,7 @@ function abrir_toba_instancia(){
 			'ayuda' => 'Operaciones disponibles en el Proyecto',
 		),
 		array(
-			'nombre' => 'Comp.',
+			'nombre' => 'Componentes',
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto.gif",true),
 			'url' => toba::vinculador()->get_url(toba_editor::get_id(),1240,null, array('menu' => true, 'celda_memoria' => 'lateral')),
 			'ayuda' => 'Componentes disponibles en el Proyecto',

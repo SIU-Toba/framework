@@ -50,6 +50,60 @@ class toba_datos_editores
 );
 	}
 
+	static function get_pantallas_toba_cn()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/negocio.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'pant_dependencias',
+    'etiqueta' => 'Composición',
+    'imagen' => 'objetos/asociar_objeto.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  2 => 
+  array (
+    'identificador' => 'consumo',
+    'etiqueta' => 'Consumo',
+    'imagen' => 'objetos/relaciones.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_toba_datos_relacion()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'p_prop_basicas',
+    'etiqueta' => 'Propiedades basicas',
+    'imagen' => 'objetos/datos_relacion.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'p_tablas',
+    'etiqueta' => 'Tablas',
+    'imagen' => 'objetos/datos_tabla.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  2 => 
+  array (
+    'identificador' => 'p_relaciones',
+    'etiqueta' => 'Relaciones',
+    'imagen' => 'objetos/relaciones.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
 	static function get_pantallas_toba_datos_tabla()
 	{
 		return array (
@@ -84,28 +138,21 @@ class toba_datos_editores
 );
 	}
 
-	static function get_pantallas_toba_datos_relacion()
+	static function get_pantallas_toba_ei_arbol()
 	{
 		return array (
   0 => 
   array (
-    'identificador' => 'p_prop_basicas',
-    'etiqueta' => 'Propiedades basicas',
-    'imagen' => 'objetos/datos_relacion.gif',
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/arbol.gif',
     'imagen_recurso_origen' => 'apex',
   ),
   1 => 
   array (
-    'identificador' => 'p_tablas',
-    'etiqueta' => 'Tablas',
-    'imagen' => 'objetos/datos_tabla.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  2 => 
-  array (
-    'identificador' => 'p_relaciones',
-    'etiqueta' => 'Relaciones',
-    'imagen' => 'objetos/relaciones.gif',
+    'identificador' => 'p_eventos',
+    'etiqueta' => 'Eventos',
+    'imagen' => 'evento.png',
     'imagen_recurso_origen' => 'apex',
   ),
 );
@@ -119,6 +166,39 @@ class toba_datos_editores
     'identificador' => '0',
     'etiqueta' => 'Propiedades Básicas',
     'imagen' => 'objetos/archivos.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_toba_ei_calendario()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/calendario.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_toba_ei_codigo()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'pant_inicial',
+    'etiqueta' => 'Pantalla Inicial',
+    'imagen' => 'objetos/code.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'pant_eventos',
+    'etiqueta' => 'Eventos',
+    'imagen' => 'evento.png',
     'imagen_recurso_origen' => 'apex',
   ),
 );
@@ -151,6 +231,26 @@ class toba_datos_editores
   3 => 
   array (
     'identificador' => '3',
+    'etiqueta' => 'Eventos',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_toba_ei_esquema()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/esquema.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'p_eventos',
     'etiqueta' => 'Eventos',
     'imagen' => 'evento.png',
     'imagen_recurso_origen' => 'apex',
@@ -253,6 +353,19 @@ class toba_datos_editores
 );
 	}
 
+	static function get_pantallas_toba_ei_grafico()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'pant_inicial',
+    'etiqueta' => 'Pantalla Inicial',
+    'imagen' => 'objetos/grafico.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
 	static function get_pantallas_toba_ei_mapa()
 	{
 		return array (
@@ -266,113 +379,7 @@ class toba_datos_editores
 );
 	}
 
-	static function get_pantallas_toba_ei_codigo()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'pant_inicial',
-    'etiqueta' => 'Pantalla Inicial',
-    'imagen' => 'objetos/code.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_ei_arbol()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/arbol.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  1 => 
-  array (
-    'identificador' => 'p_eventos',
-    'etiqueta' => 'Eventos',
-    'imagen' => 'evento.png',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_cn()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/negocio.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  1 => 
-  array (
-    'identificador' => 'pant_dependencias',
-    'etiqueta' => 'Composición',
-    'imagen' => 'objetos/asociar_objeto.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  2 => 
-  array (
-    'identificador' => 'consumo',
-    'etiqueta' => 'Consumo',
-    'imagen' => 'objetos/relaciones.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_ei_calendario()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/calendario.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_ei_esquema()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/esquema.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  1 => 
-  array (
-    'identificador' => 'p_eventos',
-    'etiqueta' => 'Eventos',
-    'imagen' => 'evento.png',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
 	static function get_pantallas_toba_servicio_web()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => '0',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'solic_wddx.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_toba_ei_grafico()
 	{
 		return array (
   0 => 

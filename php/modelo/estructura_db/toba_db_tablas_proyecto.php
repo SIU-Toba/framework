@@ -35,13 +35,6 @@ class toba_db_tablas_proyecto
   27 => 'apex_objeto_ei_filtro_tipo_col',
   28 => 'apex_molde_opciones_generacion',
   29 => 'apex_permiso',
-  30 => 'apex_restriccion_funcional',
-  31 => 'apex_restriccion_funcional_ef',
-  32 => 'apex_restriccion_funcional_pantalla',
-  33 => 'apex_restriccion_funcional_evt',
-  34 => 'apex_restriccion_funcional_ei',
-  35 => 'apex_restriccion_funcional_cols',
-  36 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
@@ -54,7 +47,14 @@ class toba_db_tablas_proyecto
   3 => 'apex_usuario_grupo_acc_miembros',
   4 => 'apex_usuario_grupo_acc_item',
   5 => 'apex_permiso_grupo_acc',
-  6 => 'apex_grupo_acc_restriccion_funcional',
+  6 => 'apex_restriccion_funcional',
+  7 => 'apex_grupo_acc_restriccion_funcional',
+  8 => 'apex_restriccion_funcional_ef',
+  9 => 'apex_restriccion_funcional_pantalla',
+  10 => 'apex_restriccion_funcional_evt',
+  11 => 'apex_restriccion_funcional_ei',
+  12 => 'apex_restriccion_funcional_cols',
+  13 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
@@ -150,7 +150,8 @@ class toba_db_tablas_proyecto
     0 => 'estilo',
     1 => 'descripcion',
     2 => 'proyecto',
-    3 => 'paleta',
+    3 => 'es_css3',
+    4 => 'paleta',
   ),
 );
 	}
@@ -1034,7 +1035,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional',
   'zona' => 'usuario',
   'desc' => '',
@@ -1073,7 +1074,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, objeto_ei_formulario_fila',
   'zona' => 'usuario',
   'desc' => '',
@@ -1096,7 +1097,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, pantalla',
   'zona' => 'usuario',
   'desc' => '',
@@ -1118,7 +1119,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, evento_id',
   'zona' => 'usuario',
   'desc' => '',
@@ -1139,7 +1140,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, objeto',
   'zona' => 'usuario',
   'desc' => '',
@@ -1160,7 +1161,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, objeto_cuadro_col',
   'zona' => 'usuario',
   'desc' => '',
@@ -1182,7 +1183,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'restriccion_funcional, objeto_ei_filtro_col',
   'zona' => 'usuario',
   'desc' => '',

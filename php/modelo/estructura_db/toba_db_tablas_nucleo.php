@@ -155,7 +155,8 @@ class toba_db_tablas_nucleo
     0 => 'estilo',
     1 => 'descripcion',
     2 => 'proyecto',
-    3 => 'paleta',
+    3 => 'es_css3',
+    4 => 'paleta',
   ),
 );
 	}

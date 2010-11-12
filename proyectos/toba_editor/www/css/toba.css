@@ -319,6 +319,7 @@ TD.barra-obj-io {
 	    #7485b3 50%,
 	    #5268a1 50%
 	);		
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#7485b3, endColorstr=#5268a1)";	
 	border: #082d5a 1px solid ;
 	border-bottom: 1px solid #002556;
 	color: white;
@@ -383,6 +384,7 @@ TD.barra-obj-id {
 	    #f59500 50%,
 	    #e68a23 50%
 	);	
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f59500, endColorstr=#e68a23)";	
 }
 .listado-barra-logo a {
 	color: white;
@@ -443,7 +445,8 @@ TD.listado-tabn-m {
 	    center top,
 	    #5368a1 50%,
 	    #234068 50%
-	);		
+	);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#5368a1, endColorstr=#234068)";
 	width: 158px;
 	border-radius: 6px;
 	-moz-border-radius: 6px;

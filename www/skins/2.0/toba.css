@@ -28,6 +28,8 @@ form {
 	    #5368a1 50%,
 	    #234068 50%
 	);		
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#5368a1, endColorstr=#244268)";
+	
 	border: #082d5a 1px solid ;
 	border-bottom: 1px solid #002556;
 	color: white;
@@ -48,6 +50,7 @@ form {
 	    #5368a1 50%,
 	    #244268 50%
 	);		
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#5368a1, endColorstr=#244268)";	
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
@@ -60,9 +63,11 @@ form {
 }
 .zona-items a {
 	border-left:1px solid #143568;
-	width: 24px;
+	min-width: 24px;
 	display: block;
 	float: left;
+	color: white;
+	text-decoration: none;
 	text-align: center;
 	padding: 3px;	
 }
@@ -139,9 +144,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 /*************************
 		EI
 **************************/
-.ei-barra-sup-sin-tit {
+.ei-barra-sup-sin-tit.ci-barra-sup-tabs {
 	margin-bottom: -25px;
 }
+
 .ei-barra-sup {
 	background-image: -webkit-gradient(
 	    linear,
@@ -155,6 +161,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	    #7485b3 50%,
 	    #5368a1 50%
 	);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#7485b3, endColorstr=#5368a1)";	
 	border: 1px solid #5268a1;
 	color: white;
 	min-height: 20px;
@@ -246,6 +253,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	    color-stop(0.5, #7386b1),
 	    color-stop(0.5, #53689f)
 	);		
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#7386b1, endColorstr=#53689f)";	
 }
 .ci-tabs-h-solapa a {
 	color:white;
@@ -269,6 +277,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	    color-stop(0.5, #e9e9e9),
 	    color-stop(0.5, #ffffff)
 	);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#e9e9e9, endColorstr=#ffffff)";	
 }
 .ci-botonera {
 	border-top: 1px solid #ddd;
@@ -418,6 +427,9 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 ******************************/
 .ei-form-fila {
 	min-height: 18px;
+}
+.ei-form-cuerpo {
+	padding-top:10px;
 }
 
 /********************************

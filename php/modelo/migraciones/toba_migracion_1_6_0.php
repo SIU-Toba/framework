@@ -19,6 +19,8 @@ class toba_migracion_1_6_0 extends toba_migracion
 
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD tabla_ext text;';
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_col ADD tabla varchar(200);';
+		$sql[] = 'ALTER TABLE apex_estilo ADD es_css3 smallint	NOT NULL DEFAULT 0';
+		
 
 		$sql[] = 'CREATE SEQUENCE apex_objeto_db_columna_fks_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;';
 		$sql[] = '

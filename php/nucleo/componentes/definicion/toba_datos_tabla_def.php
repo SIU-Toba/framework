@@ -123,7 +123,7 @@ class toba_datos_tabla_def extends toba_componente_def
 		if ( isset($componente) ) {
 			$sql['_info_externas_col']['sql'] .= "	AND		ext_col.objeto=$componente ";	
 		}
-		$sql['_info_externas_col']['sql'] .= " ORDER BY col.columna;";
+		$sql['_info_externas_col']['sql'] .= " ORDER BY ext_col.col_id;";
 		$sql['_info_externas_col']['registros']='n';
 		$sql['_info_externas_col']['obligatorio']=false;
 

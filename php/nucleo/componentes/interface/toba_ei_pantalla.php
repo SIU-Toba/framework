@@ -433,7 +433,11 @@ class toba_ei_pantalla extends toba_ei
 		$ancho = isset($this->_info_ci["ancho"]) ? "style='width:{$this->_info_ci["ancho"]};'" : '';
 		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td style='padding:0;'>\n";
 		echo $this->controlador->get_html_barra_editor();
-		$this->generar_html_barra_sup(null,true,"ci-barra-sup");
+		$class_extra = '';
+		if ($this->_info_ci['tipo_navegacion'] == self::NAVEGACION_TAB_HORIZONTAL) {
+			$class_extra = 'ci-barra-sup-tabs';
+		}
+		$this->generar_html_barra_sup(null,true,"ci-barra-sup $class_extra");
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 		
