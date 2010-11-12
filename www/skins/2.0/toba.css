@@ -161,7 +161,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 
 }
 .ei-barra-sup img {
-	vertical-align: middle;
+	vertical-align: sub;
 }
 .ei-barra-sup-sin-tit .ei-botonera {
 	background-color: #244268;

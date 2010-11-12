@@ -12,6 +12,35 @@ class pantalla_login extends toba_ei_pantalla
 			}
 		";
 		echo toba_js::ejecutar($codigo_js);
+		echo "
+			<style type='text/css'>
+			.ci-barra-sup {
+				-moz-border-radius:6px 6px 0 0;
+				border-radius:6px 6px 0 0;
+				-webkit-border-radius:6px 6px 0 0;
+				padding: 3px;
+					background-image: -webkit-gradient(
+				    linear,
+				    left top,
+				    left bottom,
+				    color-stop(0.5, #7485b3),
+				    color-stop(0.5, #5368a1)
+				);
+				background-image: -moz-linear-gradient(
+				    center top,
+				    #7485b3 50%,
+				    #5368a1 50%
+				);
+				margin-bottom: 3px;
+								
+								
+			}
+			.cuerpo {
+				border-top: 2px solid black;
+
+			}
+			</style>
+		";
 		parent::generar_html();	
 	}	
 }
