@@ -250,6 +250,7 @@ class toba_perfil_datos
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
 		}
+		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 4 -- Altero el SQL
 		if(! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');
@@ -591,7 +592,8 @@ class toba_perfil_datos
 		if (! empty($resultado)) {
 			return implode(' ',$resultado);
 		}
-		return'';
+		return $sql;
 	}
+
 }
 ?>

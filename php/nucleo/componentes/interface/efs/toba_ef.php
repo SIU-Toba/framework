@@ -490,7 +490,7 @@ abstract class toba_ef
 	function ir_a_fila($agregado="")
 	{
 		$this->agregado_form = $agregado;
-		$this->id_form = $this->id_form_orig . $agregado;
+		$this->id_form = ($agregado !== '') ? $agregado . '_' . $this->id_form_orig :  $this->id_form_orig;
 	}
 
 	/**

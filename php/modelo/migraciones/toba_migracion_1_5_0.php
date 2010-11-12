@@ -226,9 +226,9 @@ class toba_migracion_1_5_0 extends toba_migracion
 				$largo = count($columnas);
 				$col_desc = null;
 				if (isset($columnas[$largo-1]) && $columnas[$largo-1] != '') {	//Si no hay error
-					$col_desc = $columnas[$largo-1];
+					$col_desc = trim($columnas[$largo-1]);
 					unset($columnas[$largo-1]);
-					$columnas = implode(',' , $columnas);
+					$columnas = implode(',' , array_map('trim', $columnas));
 				}				
 				if (! is_null($col_desc) && $columnas != '') {
 					$sql = 'UPDATE apex_objeto_cuadro SET columna_descripcion = ' . $this->elemento->get_db()->quote($col_desc) .

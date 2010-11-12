@@ -108,7 +108,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->identificador;
 	}
 	
-	
 	function get_url()
 	{
 		$id = $this->get_id();
@@ -179,6 +178,32 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_dir_generales_compilados()
 	{
 		return $this->dir . '/metadatos_compilados/gene';
+	}
+	
+	function get_lista_tablas_perfil_funcional()
+	{
+		return array('apex_usuario_grupo_acc', 
+					 'apex_usuario_grupo_acc_miembros', 
+					 'apex_usuario_grupo_acc_item', 
+					 'apex_permiso_grupo_acc', 
+					 'apex_grupo_acc_restriccion_funcional');
+	}
+	
+	function get_lista_tablas_perfil_datos()
+	{
+		return array('apex_usuario_perfil_datos', 
+					 'apex_usuario_perfil_datos_dims');
+	}
+	
+	function get_lista_tablas_restricciones()
+	{
+		return array('apex_restriccion_funcional', 
+					 'apex_restriccion_funcional_cols', 
+					 'apex_restriccion_funcional_ef', 
+					 'apex_restriccion_funcional_ei', 
+					 'apex_restriccion_funcional_evt', 
+					 'apex_restriccion_funcional_filtro_cols', 
+					 'apex_restriccion_funcional_pantalla');
 	}
 
 	/**
@@ -334,8 +359,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	private function sincronizar_archivos()
 	{
-		$obs = $this->get_sincronizador()->sincronizar();
-		$this->manejador_interface->lista( $obs, 'Observaciones' );
+		if (!$this->maneja_perfiles_produccion()) {
+			$obs = $this->get_sincronizador()->sincronizar();
+			$this->manejador_interface->lista( $obs, 'Observaciones' );	
+		}
 	}
 
 	//-- TABLAS -------------------------------------------------------------
@@ -578,7 +605,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		//-- Perfiles Funcionales
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos_proyecto() );
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
+		$tablas = $this->get_lista_tablas_perfil_funcional();
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERMISO  $permiso");
 			$contenido = '';		
@@ -593,9 +620,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		
 		//-- Perfiles de datos
-		$tablas = array('apex_usuario_perfil_datos', 'apex_usuario_perfil_datos_dims');
+		$tablas = $this->get_lista_tablas_perfil_datos();
 		foreach ($tablas as $tabla ) {
 			$contenido = $this->get_contenido_tabla($tabla);	
+			if ( trim( $contenido ) != '' ) {
+				$this->guardar_archivo( $this->get_dir_permisos_proyecto() .'/'. $tabla . '.sql', $contenido );			
+			}
+			$this->manejador_interface->progreso_avanzar();
+		}
+		
+		//-- Restricciones Funcionales
+		$tablas = $this->get_lista_tablas_restricciones();
+		foreach ($tablas as $tabla ) {
+			$contenido = $this->get_contenido_tabla($tabla);
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_archivo( $this->get_dir_permisos_proyecto() .'/'. $tabla . '.sql', $contenido );			
 			}
@@ -612,29 +649,33 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		
 		//-- Perfiles Funcionales
+		toba_logger::instancia()->debug("Exportación a xml de perfiles funcionales '{$this->identificador}'");
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
-		
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
-		
-		$items = array();
-		
+		$items = array(); //-- Util para recuperar la descripción asociada al item (si es que la tiene) en las siguientes etapas
+		$tablas = $this->get_lista_tablas_perfil_funcional();
+		$proyecto = $this->db->quote($this->identificador);
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) 
 		{
 			toba_logger::instancia()->debug("PERFIL  $permiso");
-			$where = "usuario_grupo_acc = '$permiso' AND usuario_grupo_acc IN (SELECT gc.usuario_grupo_acc FROM apex_usuario_grupo_acc AS gc WHERE gc.usuario_grupo_acc = '$permiso' AND permite_edicion = 1)";
+			$where = "usuario_grupo_acc IN (SELECT gc.usuario_grupo_acc FROM apex_usuario_grupo_acc AS gc WHERE gc.proyecto = $proyecto AND gc.usuario_grupo_acc = '$permiso' AND gc.permite_edicion = 1)";
 			$datos = array();
-			foreach($tablas as $tabla) {
-				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
+			foreach($tablas as $tabla) 
+			{
+				$contenido = $this->get_contenido_tabla_datos($tabla, $where);
+				if (!empty($contenido)) {
+					$datos[$tabla] = $contenido;
+				}
 			}
 			
-			$archivo = $dir_perfiles."/perfil_$permiso.xml";
-			$xml = new toba_xml_tablas();
-			$xml->set_tablas($datos);
-			$xml->guardar($archivo);
+			if (!empty($datos)) {
+				$archivo = $dir_perfiles."/perfil_$permiso.xml";
+				$xml = new toba_xml_tablas();
+				$xml->set_tablas($datos);
+				$xml->guardar($archivo);
+				$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
+			}
 			
 			$this->manejador_interface->progreso_avanzar();
-			
-			$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
 		}
 
 		//-- Se guarda la descripción de las operaciones del proyecto
@@ -645,37 +686,46 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$xml->guardar($archivo);
 		
 		//--- Perfiles de datos
-		$tablas = array('apex_usuario_perfil_datos', 'apex_usuario_perfil_datos_dims');
+		toba_logger::instancia()->debug("Exportación a xml de perfiles de datos '{$this->identificador}'");
+		$tablas = $this->get_lista_tablas_perfil_datos();
 		$datos = array();
 		foreach ($tablas as $tabla) 
 		{
-			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla);
+			$contenido = $this->get_contenido_tabla_datos($tabla);
+			if (!empty($contenido)) {
+				$datos[$tabla] = $contenido;
+			}
 		}
-		$archivo = $dir_perfiles."/perfiles_datos.xml";
-		$xml = new toba_xml_tablas();
-		$xml->set_tablas($datos);
-		$xml->guardar($archivo);
+		
+		if (!empty($datos)) {
+			$archivo = $dir_perfiles."/perfiles_datos.xml";
+			$xml = new toba_xml_tablas();
+			$xml->set_tablas($datos);
+			$xml->guardar($archivo);
+		}
+		
 		$this->manejador_interface->progreso_avanzar();
 		
 		//--- Restricciones Funcionales
-		$tablas = array('apex_restriccion_funcional', 
-						'apex_restriccion_funcional_cols', 
-						'apex_restriccion_funcional_ef', 
-						'apex_restriccion_funcional_ei', 
-						'apex_restriccion_funcional_evt', 
-						'apex_restriccion_funcional_filtro_cols', 
-						'apex_restriccion_funcional_pantalla');
+		toba_logger::instancia()->debug("Exportación a xml de restricciones funcionales '{$this->identificador}'");
+		$tablas = $this->get_lista_tablas_restricciones();
 		$datos = array();
 		$where = "restriccion_funcional IN (SELECT res.restriccion_funcional FROM apex_restriccion_funcional AS res WHERE res.permite_edicion = 1)";
-		foreach ($tablas as $tabla) 
+		foreach ($tablas as $tabla)
 		{
-			$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
+			$contenido = $this->get_contenido_tabla_datos($tabla, $where);
+			if (!empty($contenido)) {
+				$datos[$tabla] = $contenido;
+			}
 		}
 		
-		$archivo = $dir_perfiles."/restricciones_funcionales.xml";
-		$xml = new toba_xml_tablas();
-		$xml->set_tablas($datos);
-		$xml->guardar($archivo);
+		if (!empty($datos)) {
+			$archivo = $dir_perfiles."/restricciones_funcionales.xml";
+			$xml = new toba_xml_tablas();
+			$xml->set_tablas($datos);
+			$xml->guardar($archivo);	
+		}
+		
 		$this->manejador_interface->progreso_avanzar();
 	}
 	
@@ -884,6 +934,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_componentes();
 		$errores = $this->cargar_perfiles();
 		$this->generar_roles_db();
+		//Regenero el checksum para el proyecto
+		if ($this->get_instalacion()->chequea_sincro_svn()) {
+			$this->generar_estado_codigo();
+		}
 		return $errores;
 	}
 
@@ -973,6 +1027,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_perfiles_proyecto();
 		
 		if ($this->maneja_perfiles_produccion()) {
+			$this->eliminar_permisos_editables();
 			$errores = $this->cargar_perfiles_produccion();		
 		}
 		
@@ -982,6 +1037,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function cargar_perfiles_proyecto()
 	{
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_proyecto(), '|.*\.sql|' );
+		$es_produccion = $this->maneja_perfiles_produccion();
+		//-- En producción no se cargan los perfiles de datos?
+		foreach ( $archivos as $clave => $archivo) {
+			if ($es_produccion && in_array(basename($archivo, '.sql'), $this->get_lista_tablas_perfil_datos())) {
+				unset($archivos[$clave]);
+			}
+		}
 		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
@@ -994,10 +1056,28 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	private function cargar_perfiles_produccion()
 	{
+		$this->manejador_interface->mensaje("Cargando perfiles propios", false);
 		$todos_errores = array();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_produccion(), '|.*\.xml$|' );
+		
+		//-- Se coloca al inicio el xml con las restricciones.
+		$hay_restricciones = false;
+		foreach ($archivos as $indice => $archivo)
+		{
+			$perfil = basename($archivo, '.xml');
+			if ($perfil == 'restricciones_funcionales') {
+				$restricciones = array($archivo);
+				unset($archivos[$indice]);
+				$hay_restricciones = true;
+			}
+		}
+		
+		if ($hay_restricciones) {
+			$archivos = array_merge($restricciones, $archivos);
+		}
+		
 		foreach( $archivos as $archivo ) {
-			$perfil = basename($archivo, 'xml');
+			$perfil = basename($archivo, '.xml');
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
@@ -1187,17 +1267,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->eliminar();
 			$this->cargar();
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
-			$this->instancia->actualizar_secuencias();	
+			$this->instancia->actualizar_secuencias();
 			$this->generar_roles_db();
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
 			throw $e;
-		}
-		//Al finalizar la regeneracion recalculo la revision
-		if ($this->get_instalacion()->chequea_sincro_svn()) {
-			$this->generar_estado_codigo();
-		}
+		}		
 	}
 
 	//-----------------------------------------------------------
@@ -2556,6 +2632,31 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$checksum_actual = toba_manejador_archivos::get_checksum_directorio($this->get_dir_dump());
 		$this->instancia->set_checksum_proyecto($this->identificador, $checksum_actual);
+	}
+	
+	function eliminar_permisos_editables()
+	{
+		$this->manejador_interface->mensaje("Eliminando perfiles editables", false);
+		toba_logger::instancia()->debug("Eliminando perfiles editables '{$this->identificador}'");
+		$proyecto = $this->db->quote($this->identificador);
+		$where = "proyecto = $proyecto AND usuario_grupo_acc IN (SELECT gc.usuario_grupo_acc FROM apex_usuario_grupo_acc AS gc WHERE gc.proyecto = $proyecto AND gc.permite_edicion = 1)";
+		foreach(array_reverse($this->get_lista_tablas_perfil_funcional()) as $tabla) {
+			$sql = "DELETE FROM $tabla WHERE $where";
+			$cant = $this->db->ejecutar($sql);
+			toba_logger::instancia()->debug("$tabla ($cant)");
+			$this->manejador_interface->progreso_avanzar();
+		}
+		
+		toba_logger::instancia()->debug("Eliminando restricciones editables '{$this->identificador}'");
+		$where = "proyecto = $proyecto AND restriccion_funcional IN (SELECT res.restriccion_funcional FROM apex_restriccion_funcional AS res WHERE res.proyecto = $proyecto AND res.permite_edicion = 1)";
+		foreach(array_reverse($this->get_lista_tablas_restricciones()) as $tabla) {
+			$sql = "DELETE FROM $tabla WHERE $where";
+			$this->db->ejecutar($sql);
+			$cant = $this->db->ejecutar($sql);
+			toba_logger::instancia()->debug("$tabla ($cant)");
+			$this->manejador_interface->progreso_avanzar();
+		}
+		$this->manejador_interface->progreso_fin();
 	}
 }
 ?>

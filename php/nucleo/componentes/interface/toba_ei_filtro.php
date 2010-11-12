@@ -283,7 +283,9 @@ class toba_ei_filtro extends toba_ei
 		$where = array();
 		if (isset($this->_columnas_datos)) {
 			foreach ($this->_columnas_datos as $columna) {
-				$where[$columna->get_nombre()] = $columna->get_sql_where();
+				if ($columna->tiene_estado()) {
+					$where[$columna->get_nombre()] = $columna->get_sql_where();
+				}
 			}
 		}
 		return $where;		
@@ -578,6 +580,7 @@ class toba_ei_filtro extends toba_ei
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
 		}
+		toba::memoria()->desactivar_reciclado();
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
 		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
@@ -628,6 +631,7 @@ class toba_ei_filtro extends toba_ei
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
+
 		
 		toba::logger()->debug("Filtrado combo_editable '$id_ef', Cadena: '$filtro', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_ef, $maestros);
@@ -938,10 +942,11 @@ class toba_ei_filtro extends toba_ei
 	//---------------------------------------------------------------
 	/**
 	 * Genera el xml del componente
+	 * @param boolean $inicial Si es el primer elemento llamado desde vista_xml
 	 * @param string $xmlns Namespace para el componente
 	 * @return string XML del componente
 	 */
-	function vista_xml($xmlns=null)
+	function vista_xml($inicial=false, $xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -971,23 +976,15 @@ class toba_ei_filtro extends toba_ei
 		}
 		if($tmpxml) {
 			$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
-			if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
-				$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
-			} else {
-				$xml .= ' titulo="Filtro"';
-			}
-			if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
-				$xml .= ' logo="'.$this->xml_logo.'"';
-			}
-			if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
-				$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
-			}
-			if (isset($this->xml_orientacion)) {
-				$xml .= ' orientacion="'.$this->xml_orientacion.'"';
-			}
-			$xml .= '><'.$this->xml_ns.'datos><'.$this->xml_ns.'col titulo="Columna"/><'.$this->xml_ns.'col titulo="Condición"/><'.$this->xml_ns.'col titulo="Valor"/>'.$tmpxml.'</'.$this->xml_ns.'datos></'.$this->xml_ns.'tabla>';
+			if (trim($this->_info["titulo"])=="" && (!isset($this->xml_titulo) || $this->xml_titulo == '')) {
+				$this->xml_set_titulo('Filtro');
+			} 
+			$xml .= $this->xml_get_att_comunes();
+			$xml .= '>';
+			$xml .= $this->xml_get_elem_comunes();
+			$xml .= '<'.$this->xml_ns.'datos><'.$this->xml_ns.'col titulo="Columna"/><'.$this->xml_ns.'col titulo="Condición"/><'.$this->xml_ns.'col titulo="Valor"/>'.$tmpxml.'</'.$this->xml_ns.'datos></'.$this->xml_ns.'tabla>';
 			return $xml;
 		}
-	}	
+	}
 }
 ?>

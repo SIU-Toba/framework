@@ -24,6 +24,7 @@ class ci_gadgets extends toba_ci
 		$gadget_nuevo = new toba_gadget_shindig();
 		$gadget_nuevo->set_titulo('Gadget Manual');
 		$gadget_nuevo->set_gadget_url('http://www.tc.df.gov.br/MpjTcdf/AlcCalc.xml');
+		$gadget_nuevo->set_orden(3);
 
 		//Lo agrego al contenedor
 		$this->container->agregar_gadgets(array($gadget_nuevo));

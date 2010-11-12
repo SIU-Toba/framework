@@ -107,7 +107,7 @@ CREATE SEQUENCE apex_restriccion_funcional_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9
 CREATE TABLE apex_restriccion_funcional
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional
 --: zona: usuario
 --: desc:
@@ -144,7 +144,7 @@ CREATE TABLE apex_grupo_acc_restriccion_funcional
 CREATE TABLE apex_restriccion_funcional_ef
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, objeto_ei_formulario_fila
 --: zona: usuario
 --: desc:
@@ -175,7 +175,7 @@ CREATE TABLE apex_restriccion_funcional_ef
 CREATE TABLE apex_restriccion_funcional_pantalla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, pantalla
 --: zona: usuario
 --: desc:
@@ -205,7 +205,7 @@ CREATE TABLE apex_restriccion_funcional_pantalla
 CREATE TABLE apex_restriccion_funcional_evt
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, evento_id
 --: zona: usuario
 --: desc:
@@ -233,7 +233,7 @@ CREATE TABLE apex_restriccion_funcional_evt
 CREATE TABLE apex_restriccion_funcional_ei
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, objeto
 --: zona: usuario
 --: desc:
@@ -261,7 +261,7 @@ CREATE TABLE apex_restriccion_funcional_ei
 CREATE TABLE apex_restriccion_funcional_cols
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, objeto_cuadro_col
 --: zona: usuario
 --: desc:
@@ -290,7 +290,7 @@ CREATE TABLE apex_restriccion_funcional_cols
 CREATE TABLE apex_restriccion_funcional_filtro_cols
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: restriccion_funcional, objeto_ei_filtro_col
 --: zona: usuario
 --: desc:

@@ -1336,28 +1336,19 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//---------------------------------------------------------------
 	/**
 	 * Genera el xml del componente
+	 * @param boolean $inicial Si es el primer elemento llamado desde vista_xml
 	 * @param string $xmlns Namespace para el componente
 	 * @return string XML del componente
 	 */		
-	function vista_xml($xmlns=null)
+	function vista_xml($inicial=false, $xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
 		}
 		$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
-		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
-			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
-		}
-		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
-			$xml .= ' logo="'.$this->xml_logo.'"';
-		}
-		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
-			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
-		}
-		if (isset($this->xml_orientacion)) {
-			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
-		}
+		$xml .= $this->xml_get_att_comunes();
 		$xml .= '>';
+		$xml .= $this->xml_get_elem_comunes();
 		$this->totalizar_columnas_impresion();		
 		$formateo = new $this->_clase_formateo('xml');
 		//-- Encabezado

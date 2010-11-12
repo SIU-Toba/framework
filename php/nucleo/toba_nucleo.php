@@ -291,6 +291,8 @@ class toba_nucleo
 	{
 		if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {
 			return $_SERVER['TOBA_INSTALACION_DIR'];
+		} elseif (isset($_SERVER['toba_instalacion_dir'])) {
+			return $_SERVER['toba_instalacion_dir'];
 		} else {
 			return self::toba_dir().'/instalacion';
 		}

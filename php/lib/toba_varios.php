@@ -223,6 +223,9 @@
 
 	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
 	{
+		if (empty($rs)) {
+			return $rs;
+		}
 		$rs_columna = array();
 		foreach ($rs as $registro) {
 			$rs_columna[] = $registro[$columna];
@@ -233,6 +236,9 @@
 
 	function rs_ordenar_por_columnas( $rs, $columnas, $tipo = SORT_ASC )
 	{
+		if (empty($rs)) {
+			return $rs;
+		}
 		$sentido_default = SORT_ASC;			//-- Lo necesito para pasar por referencia al call_user_func_array
 		// Armo los arrays utilizados para ORDENAR
 		$orden = array();

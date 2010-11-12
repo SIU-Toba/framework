@@ -40,9 +40,27 @@ class toba_contenedor_gadgets
 		if (! empty($this->gadgets)) {
 			$this->configurar_consumos_globales_js();
 			echo toba_recurso::link_css('gadgets', 'screen');
-			echo "<div class='gadgets-container'>";
+			echo "<div id='gadgets-container' class='gadgets-container'>";
 			$this->generar_html_gadgets();
 			echo '</div>';
+			echo toba_js::abrir();
+			echo '
+				var gc = document.getElementById("gadgets-container");
+				var e;
+				if(document.getElementsByClassName) {
+				 	e = document.getElementsByClassName("encabezado")[0];
+				} else {
+					var divs = document.getElementsByTagName("div");
+					for(var i in divs) {
+						if(divs[i].className == "encabezado") {
+							e = divs[i];
+							break;
+						}
+					}
+				}
+				gc.style.top = (e.clientHeight + 5)+"px";
+			';
+			echo toba_js::cerrar();
 		}
 	}
 

@@ -38,7 +38,7 @@ abstract class toba_filtro_columna
 	function set_estado($estado)
 	{
 		if ($this->hay_condicion_fija()){
-			if  (isset($estado['condicion']) &&($this->_estado['condicion'] != $estado['condicion'])){	//Si la condicion no viene seteada retorna al default
+			if  (isset($estado['condicion']) && isset($this->_estado)  &&($this->_estado['condicion'] != $estado['condicion'])){	//Si la condicion no viene seteada retorna al default
 				$msg = "Existe una condicion fija para la columna '".$this->get_nombre().
 							"' la misma no se puede cambiar seteando el estado.";
 				throw new toba_error_def($msg);
@@ -180,6 +180,11 @@ abstract class toba_filtro_columna
 	function get_estado()
 	{
 		return $this->_estado;
+	}
+
+	function tiene_estado()
+	{
+		return isset($this->_estado);
 	}
 	
 	function get_cant_condiciones()

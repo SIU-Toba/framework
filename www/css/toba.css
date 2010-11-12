@@ -440,6 +440,18 @@ padding-left:4px;
 }
 .ef-combo {
 }
+.ef-combo-editable {
+}
+.ef-combo-editable-ayuda {
+		color: #AAAAAA;
+		display: block;
+		font-style: italic;
+		top: -16px;
+		left: 8px;
+		height: 0px;
+		position: relative;		
+		z-index: 99;
+}
 .ef-checkbox {
 }
 .ef-cuit {

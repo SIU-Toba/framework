@@ -30,6 +30,7 @@ class toba_ei_arbol extends toba_ei
 	protected $_ancho_nombres = 30;
 	protected $_ids_enviados = array();
 	protected $_chequear_id_nodos = true;
+	protected $_id_persistidor_sesion;
 
 	final function __construct($datos)
 	{
@@ -39,10 +40,12 @@ class toba_ei_arbol extends toba_ei
 	function inicializar($parametros = array())
 	{
 		parent::inicializar($parametros);
+		//Creo un identificador unico para almacenar la lista de nodos enviados al cliente.
+		$this->_id_persistidor_sesion = $this->_canal . 'ei_arbol_ids_enviados';
 		if (isset($this->s__nodos_inicial)) {
 			$this->_nodos_inicial = $this->s__nodos_inicial;
 		}
-		$ids = toba::memoria()->get_dato_operacion('ei_arbol_ids_enviados');
+		$ids = toba::memoria()->get_dato_operacion($this->_id_persistidor_sesion);
 		if (! is_null($ids)) {
 			$this->_ids_enviados = $ids;
 		}
@@ -51,7 +54,7 @@ class toba_ei_arbol extends toba_ei
 	function destruir()
 	{
 		$this->_ids_enviados = array_unique($this->_ids_enviados);		//Saco los repetidos por si acaso
-		toba::memoria()->set_dato_operacion('ei_arbol_ids_enviados', $this->_ids_enviados);
+		toba::memoria()->set_dato_operacion($this->_id_persistidor_sesion, $this->_ids_enviados);
 		//toba::logger()->var_dump($this->_ids_enviados);
 		parent::destruir();
 	}

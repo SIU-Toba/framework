@@ -21,12 +21,16 @@ class toba_vista_xslfo
 	function __construct()
 	{
 		$this->xml = new toba_vista_xml();
+
 		//$this->fop se debe obtener desde la variable en instalacion.ini
 		$fop = toba::instalacion()->get_xslfo_fop();
-		$this->fop = ($fop)?$fop:(toba_manejador_archivos::es_windows()?'fop.bat':'fop');
+		$this->fop = $fop ? $fop : (toba_manejador_archivos::es_windows() ? 'fop.bat' : 'fop');
+		$this->fop = toba_manejador_archivos::path_a_plataforma($this->fop);
+
 		$prxsl = toba::proyecto()->get_path().'/exportaciones/pdf_proyecto.xsl';
 		$toxsl = toba::nucleo()->toba_dir().'/exportaciones/pdf.xsl';
-		$this->xsl_proyecto = (toba_manejador_archivos::existe_archivo_en_path($prxsl))?$prxsl:$toxsl;
+		$this->xsl_proyecto = toba_manejador_archivos::existe_archivo_en_path($prxsl) ? $prxsl : $toxsl;
+		$this->xsl_proyecto = toba_manejador_archivos::path_a_plataforma($this->xsl_proyecto);
 	}
 	
 
@@ -118,17 +122,25 @@ class toba_vista_xslfo
 	 */
 	protected function crear_pdf($xml)
 	{
-  		$fxml = tempnam(toba::nucleo()->toba_dir().'/temp', 'xml');
+  		$fxml = toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
 		if (file_put_contents($fxml, $xml) === false) {
 			throw new toba_error("Error al guardar archivo xml", "No es posible escribir en ".$fxml);
 		}
-		$archivo_pdf = toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo;
-		$salida = array();
-		$status = 0;
-		@exec('"'.$this->fop.'" -xml '.$fxml.' -xsl "'.$this->xsl_proyecto.'" -pdf '.$archivo_pdf, $salida, $status);
-		if ($status != 0) {
-			throw new toba_error_usuario("Error al ejecutar {$this->fop}", "Status: $status. Mensaje: ".implode("\n", $salida));
+
+		$archivo_pdf = toba_manejador_archivos::path_a_plataforma(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);
+		if (file_exists($archivo_pdf)) {
+			unlink($archivo_pdf);
 		}
+
+		$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
+		shell_exec($comando);
+		if (!file_exists($archivo_pdf)) {
+			throw new toba_error_usuario("Error al ejecutar el comando '$comando'");
+		}
+		if (file_exists($fxml)) {
+			unlink($fxml);
+		}
+
 		return file_get_contents($archivo_pdf);
 	}
 	

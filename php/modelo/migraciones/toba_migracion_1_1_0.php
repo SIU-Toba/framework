@@ -31,7 +31,7 @@ class toba_migracion_1_1_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos_proyecto		varchar(15)";		
 		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos				varchar(20)";				
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN pagina_tipo							varchar(20)";				
-		$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (fuente_datos, tabla)";
+		//$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (fuente_datos, tabla)";
 		$sql[] = "	CREATE TABLE apex_objeto_db_registros_uniq
 					(
 						objeto_proyecto    			   	varchar(15)		NOT NULL,
@@ -397,6 +397,18 @@ EOF;
 					fuente_datos_proyecto = '{$this->elemento->get_id()}'
 				WHERE
 					objeto_proyecto = '{$this->elemento->get_id()}'
+		";
+		$sql = "UPDATE
+					apex_objeto_db_registros
+				SET
+					fuente_datos = apex_objeto.fuente_datos,
+					fuente_datos_proyecto = '{$this->elemento->get_id()}'
+				FROM
+					apex_objeto
+				WHERE
+					apex_objeto_db_registros.objeto_proyecto = apex_objeto.proyecto AND
+					apex_objeto_db_registros.objeto = apex_objeto.objeto AND
+					apex_objeto_db_registros.objeto_proyecto = '{$this->elemento->get_id()}'
 		";
 		try {
 			return $this->elemento->get_db()->ejecutar($sql);

@@ -904,15 +904,14 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 					$valores_sql[$a] = $db->get_semantica_valor_defecto();
 					$columnas_sql[$a] = $col;
 					$this->_insert_campos_default[] = $col;
-				}else{
-					if(	toba_tipo_datos::numero($columna['tipo']) ){
-						//-- Los booleanos muchas veces se representan como enteros en la base
+				} else {
+					if (is_bool($registro[$col])) {		//Si es un valor booleano lo transformo a entero
 						if ($registro[$col] === true) {
 							$registro[$col] = 1;
 						} elseif ($registro[$col] === false) {
 							$registro[$col] = 0;
 						}
-					}
+					}						
 					
 					if ($this->_hacer_trim_datos) {
 						$valores_sql[$a] =  $db->quote(trim($registro[$col]));

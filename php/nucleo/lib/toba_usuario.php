@@ -65,12 +65,17 @@ class toba_usuario implements toba_interface_usuario
 
        function set_clave($clave_plana)
        {
-	      $clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
-	      $sql = "UPDATE apex_usuario
-					    SET		clave = $clave_enc ,
-					    autentificacion = 'sha256'
-					    WHERE	usuario = ". quote($this->get_id());
-	      toba::instancia()->get_db()->ejecutar($sql);
+		   $this->set_clave_usuario($clave_plana, $this->get_id());
        }
+
+	   function set_clave_usuario ($clave_plana, $usuario)
+		{
+			$clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
+			$sql = "UPDATE apex_usuario
+						SET		clave = $clave_enc ,
+						autentificacion = 'sha256'
+						WHERE	usuario = ". quote($usuario);
+			toba::instancia()->get_db()->ejecutar($sql);
+		}
 }
 ?>

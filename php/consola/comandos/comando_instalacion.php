@@ -157,6 +157,10 @@ class comando_instalacion extends comando_toba
 			//--- Elimina el proyecto toba_testing 
 			unset($proyectos['toba_testing']);
 		}
+			if (isset($proyectos['curso_intro'])) {
+			//--- Elimina el proyecto curso_intro 
+			unset($proyectos['curso_intro']);
+		}		
 		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
 		
 		//-- Carga la instancia

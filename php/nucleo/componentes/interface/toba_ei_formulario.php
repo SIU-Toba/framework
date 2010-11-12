@@ -782,6 +782,7 @@ class toba_ei_formulario extends toba_ei
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
 		}
+		toba::memoria()->desactivar_reciclado();
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
 		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
@@ -1437,10 +1438,11 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Genera el xml del componente
+	 * @param boolean $inicial Si es el primer elemento llamado desde vista_xml
 	 * @param string $xmlns Namespace para el componente
 	 * @return string XML del componente
 	 */
-	function vista_xml($xmlns=null)
+	function vista_xml($inicial=false, $xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -1460,23 +1462,13 @@ class toba_ei_formulario extends toba_ei
         }        
 		
 		$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
-		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
-			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
-		}
-		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
-			$xml .= ' logo="'.$this->xml_logo.'"';
-		}
-		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
-			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
-		}
-		if (isset($this->xml_orientacion)) {
-			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
-		}
+		$xml .= $this->xml_get_att_comunes();
 /*		if ($this->_pdf_letra_tabla) {
 			$xml .= ' letra="'.$this->_pdf_letra_tabla.'"';
 		}*/
+		$xml .= '>';
+		$xml .= $this->xml_get_elem_comunes();
 		if ($this->_lista_ef_post || $opciones){ 
-			$xml .= '>';
 			if ($this->_lista_ef_post) {
 				$tmpxml = null;
 				foreach ( $this->_lista_ef_post as $ef ){
@@ -1504,10 +1496,8 @@ class toba_ei_formulario extends toba_ei
 				}
 				$xml .= '</'.$this->xml_ns.'opciones>';
 			}
-			$xml .= '</'.$this->xml_ns.'tabla>';
-		} else {
-			$xml .= '/>';
 		}
+		$xml .= '</'.$this->xml_ns.'tabla>';
 		return $xml;
 	}
 	

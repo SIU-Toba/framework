@@ -144,6 +144,7 @@ CREATE TABLE apex_relacion_tablas
 --*******************************************************************************************
 --*******************************************************************************************
 
+DROP TABLE IF EXISTS apex_dimension CASCADE;
 CREATE SEQUENCE apex_dimension_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_dimension
 ---------------------------------------------------------------------------------------------------

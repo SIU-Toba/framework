@@ -837,6 +837,7 @@ class toba_db
 		$where = array();
 		$left = array();
 		$candidatos_descripcion = array();
+		$nro_alias = 0;						// EJPomares - SDN - 26/08/2010
 		foreach ($columnas as $columna) {
 			if ($columna['pk']) {
 				$claves[] = $columna['nombre'];	
@@ -853,7 +854,8 @@ class toba_db
 				$externo = $this->get_opciones_sql_campo_externo($columna);
 				$alias_externo = sql_get_alias( $externo['tabla']);
 				if (in_array($alias_externo, $aliases)) {
-					$alias_externo = $externo['tabla']; //En caso de existir el alias, usa el nombre de la tabla
+					$nro_alias += 1;				// EJPomares - SDN - 26/08/2010
+					$alias_externo .= $nro_alias;
 				}
 				$aliases[] = $alias_externo;
 				if (isset($externo['descripcion'])) {				

@@ -38,7 +38,7 @@ class eiform_eventos extends toba_ei_formulario
 					this.ef('accion_vin_servicio').ocultar();
 				}
 			}
-			{$this->objeto_js}.evt__accion_vin_popup__procesar = function() {
+			{$this->objeto_js}.evt__accion_vin_popup__procesar = function(es_inicial) {
 				if (this.ef('accion').valor() == 'V') {
 					if (this.ef('accion_vin_popup').chequeado()) {
 						this.ef('accion_vin_popup_par').mostrar();

@@ -189,18 +189,18 @@ ef.prototype.constructor = ef;
 			}
 		}
 		return true;
-	};	
-
-	/**
-	 * Modifica la obligatoriedad actual del ef
-	 * @param {boolean} es_obligatorio Nuevo valor
-	 * Requiere tildar cascada relajada en el editor
-	 */
-	ef.prototype.set_obligatorio = function (es_obligatorio) {
-		this._obligatorio_orig = es_obligatorio;
-		this._obligatorio	   = es_obligatorio;
 	};
 
+	/**
+	* Modifica la obligatoriedad actual del ef
+	* @param {boolean} es_obligatorio Nuevo valor
+	* Requiere tildar cascada relajada en el editor
+	*/
+	ef.prototype.set_obligatorio = function (es_obligatorio) {
+	    this._obligatorio_orig = es_obligatorio;
+	    this._obligatorio      = es_obligatorio;
+	};
+	
 	/**
 	 * @private
 	 */
@@ -426,7 +426,7 @@ ef.prototype.constructor = ef;
 	 * @see #sin_fila
 	 */
 	ef.prototype.ir_a_fila = function(fila) {
-		this._id_form = this._id_form_orig + fila;
+		this._id_form = fila + '_' + this._id_form_orig;
 		return this;	
 	};
 	
@@ -436,7 +436,8 @@ ef.prototype.constructor = ef;
 	 * @see #ir_a_fila
 	 */
 	ef.prototype.get_fila_actual = function() {
-		return this._id_form.substring(this._id_form_orig.length);
+		var indice = this._id_form.indexOf('_');
+		return this._id_form.substring(0, indice);
 	};
 	
 	/**

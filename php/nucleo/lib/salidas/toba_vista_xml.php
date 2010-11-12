@@ -72,7 +72,7 @@ class toba_vista_xml
 			$xml = '<?xml version="1.0" encoding="ISO-8859-1"?><raiz>';
 			foreach( $this->objetos as $objeto ) {
 				if(method_exists($objeto, 'vista_xml')) {
-					$xml .= $objeto->vista_xml();
+					$xml .= $objeto->vista_xml(true);
 				}
 			}
 			$xml .= '</raiz>';

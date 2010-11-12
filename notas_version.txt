@@ -1,0 +1,27 @@
+=== 1.5.1 ===
+ * Bugfix en toba_ei_filtro, se modifica chequeo de condicion fija que se estaba disparando siempre debido al reseteo del estado para la columna previa asignacion.
+ * Bugfix temporal en el editor de objetos tabla, no se escapaban las comillas en la secuencia y generaban un problema en JS que impedia editar el objeto
+ * Bugfix en la generacion del checksum, se deja de usar toba_db::ejecutar y se pasa a toba_db::sentencia para poder verificar si hubo fila actualizada en windows.
+ * Se mueve la generacion del checksum dentro del metodo cargar de toba_modelo_proyecto, va a generar de gusto el checksum en muchas oportunidades pero evita problemas por caminos de ejecucion distintos.
+ * Bugfix en generacion html del cuadro cuando tenia cortes de control
+ * Bugfix en el formateo de columnas porcentaje para la exportacion a excel del ei_cuadro
+ * Bugfix en la operacion de recuperacion de password y agregado de funcion estatica a la clase toba_usuario para cambiar la clave
+ * Bugfix en el editor del componente cuadro, se quitan expresiones regulares.
+ * Bugfix se hace explicito el path al proyecto para evitar que se cargue otra version de un mismo proyecto a consecuencia del orden en la lectura del directorio.
+ * Bugfix cuando mas de dos FK apuntaban a la misma tabla se producia un error al armar la SQL de carga para la tabla.
+ * Bugfix al exportar y cargar perfiles y restricciones funcionales en producción. Al exportar se evita que se guarde un xml sin datos y el cargar carga las restricciones funcionales primero para que no falle la carga de perfiles, en el caso en el que estos haya una asociación a restricciones.
+ * Bugfix en formulario_ml, cuando los identificadores de efs terminaban en numeros consecutivos se podia producir un cruzamiento al leer los datos del POST.
+ * Se agrega al ef_combo_editable un mensaje de ayuda al usuario que se muestra grisado sobre el input del combo hasta que se tipea o setea un valor.
+ * Bugfix en el comando regenerar de la instancia. Se perdía el path del proyecto y el flag usar_perfiles_propios
+ * Bugfix en el comando regenerar del proyecto en producción. Se eliminaba los perfiles editables en producción que no eran del proyecto.
+ * Bugfix cuando se colocaba mas de un ei_arbol x ci se producia un error al recuperar los nodos enviados al cliente.
+ 
+ === 1.5.2 ===
+ * Bugfix comentarios en perfiles de datos (#740 [4861] del trunk)
+ 
+ === 1.5.3 ===
+ * Bugfix editor de restricciones funcionales cuando habia etiquetas con html
+ * Bugfix carga de proyectos, al vincular un proyecto que no se encontraba en la carpeta por defecto fallaba si no se le pasaba el path de carga.
+ * Bugfix editor de datos_relacion, se desactiva el combo de seleccion de tablas en la modificacion.
+ * Bugfix cuando se ejecutaba un item desde consola no siempre se elegia correctamente la carpeta instalacion de Toba.
+ 

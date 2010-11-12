@@ -105,18 +105,6 @@ class catalogo_general extends toba_nodo_basico
 			  'target'  => apex_frame_centro
 		) );
 		
-		
-		//----------------------------------------------------------------------
-      	$hijos[21] = new toba_nodo_basico('Restricciones Funcionales', $this);
-  		$hijos[21]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/grupo.gif", false),
-							'ayuda' => null ) );
-	  	$hijos[21]->agregar_utileria( array(
-        'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
-        'ayuda'   => 'Editar RESTRICCIONES FUNCIONALES del proyecto',
-        'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '1000197', array(), $opciones ),
-			  'target'  => apex_frame_centro
-		) );		
-
 		//----------------------------------------------------------------------
       	$hijos[22] = new toba_nodo_basico('Puntos de Montaje', $this);
   		$hijos[22]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("punto_montaje.png", false),

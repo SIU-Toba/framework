@@ -297,10 +297,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$datos_ini = array();
 			if (isset($path)) {
 				 $datos_ini['path'] = $path;
+			}elseif (is_null($path)) {
+				$datos_ini['path'] = $this->get_path_proyecto($proyecto);
+				toba_logger::instancia()->debug("El path elegido para el proyecto '$proyecto' es {$datos_ini['path']}");
 			}
 			if (isset($url)) {
-				 $datos_ini['url'] = $url;
-			}				
+				$datos_ini['url'] = $url;
+			} elseif (is_null($url)) {
+				$datos_ini['url'] = $this->get_url_proyecto($proyecto);
+				toba_logger::instancia()->debug("La url elegida para el proyecto '$proyecto' es {$datos_ini['url']}");
+			}
+			$usar_perfiles_propios = $this->get_proyecto_usar_perfiles_propios($proyecto);
+			if ($usar_perfiles_propios) {
+				$datos_ini['usar_perfiles_propios'] = $usar_perfiles_propios;
+				toba_logger::instancia()->debug("El proyecto '$proyecto' usa perfiles propios");
+			}
 			if (! empty($datos_ini)) {
 				$ini->agregar_entrada($proyecto, $datos_ini);
 			}
@@ -775,6 +786,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				}else{
 					$proyecto->cargar_informacion_reducida();										
 				}
+				if (isset($this->datos_ini[$id_proyecto])) {
+					$path = (isset($this->datos_ini[$id_proyecto]['path'])) ? $this->datos_ini[$id_proyecto]['path'] : null;
+				}
+				$this->vincular_proyecto($id_proyecto, $path);
 			}
 		}	
 		return $errores;
@@ -1396,11 +1411,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$proy_qtd = $this->get_db()->quote($proyecto);
 		$cks_qtd = $this->get_db()->quote($checksum);
 		$sql = "UPDATE apex_checksum_proyectos SET checksum = $cks_qtd WHERE proyecto = $proy_qtd;";
-		$modificados = $this->get_db()->ejecutar($sql);
+		$modificados = $this->get_db()->sentencia($sql);
 
 		if ($modificados == '0') {
 			$sql = "INSERT INTO apex_checksum_proyectos (proyecto, checksum) VALUES ($proy_qtd, $cks_qtd);";
-			$modificados = $this->get_db()->ejecutar($sql);
+			$modificados = $this->get_db()->sentencia($sql);
 		}
 		toba_logger::instancia()->debug("Actualizado el checksum del proyecto $proyecto");
 	}

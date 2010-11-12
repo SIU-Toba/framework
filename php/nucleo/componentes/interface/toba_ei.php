@@ -33,6 +33,18 @@ abstract class toba_ei extends toba_componente
 	protected $_mostrar_barra_superior = true;			// Indica si se muestra o no la barra superior
 	protected $xml_ns = '';
 	protected $xml_ns_url = '';
+	protected $xml_atts_ei = '';
+	protected $xml_ancho;
+	protected $xml_alto;
+	protected $xml_tabla_cols;
+	protected $xml_incluir_pie = true;
+	protected $xml_incluir_cabecera = true;
+	protected $xml_pie;
+	protected $xml_cabecera;
+	protected $xml_alto_pie;
+	protected $xml_alto_cabecera;
+	protected $xml_copia;
+	protected $xml_margenes=array("sup"=>false,"inf"=>false, "izq"=>false, "der"=>false);
 	
 	function __construct($definicion)
 	{
@@ -864,18 +876,19 @@ abstract class toba_ei extends toba_componente
 	//---------------------------------------------------------------
 	
 	/**
-	 * Permite definir la orientación de la página del pdf
-	 * @param string $orientacion Orientación landscape o portrait
+	 * Define la orientación de la página
+	 * 
+	 * @param string $orientacion Soporta los valores 'landscape' o 'portrait' (default).
 	 */
-	function xml_set_orientacion($orientacion) 
+	function xml_set_orientacion($orientacion='portrait') 
 	{
 		$this->xml_orientacion = ($orientacion == 'landscape')?'landscape':'portrait';
 	}
 	
 	/**
-	 * Permite definir una imagen que se ubica a la izquierda de la cabecera del pdf
-	 * @todo Actualmente sólo permite imagenes de tipo jpg
-	 * @param string $logo Path al archivo de la imagen
+	 * Define el logo de la institución a utilizar en la cabecera del pdf
+	 * 
+	 * @param string $logo Path a la imagen
 	 */
 	function xml_set_logo($logo)
 	{
@@ -883,8 +896,21 @@ abstract class toba_ei extends toba_componente
 	}
 	
 	/**
-	 * Permite definir un subtítulo, que se ubica debajo del título 
-	 * @param string $subtitulo
+	 * Define el titulo a utilizar en la cabecera del pdf
+	 * 
+	 * @param string $titulo
+	 */
+	
+	function xml_set_titulo($titulo) 
+	{
+		$this->xml_titulo = $titulo;
+	}
+	
+	/**
+	 * Define el subtítulo a utilizar en la cabecera del pdf
+	 *  
+	 * @param $subtitulo
+	 * @return unknown_type
 	 */
 	function xml_set_subtitulo($subtitulo) 
 	{
@@ -892,46 +918,310 @@ abstract class toba_ei extends toba_componente
 	}
 	
 	/**
-	 * Permite definir el título del pdf
-	 * @param string $titulo
+	 * Define las dimensiones de la página
+	 * 
+	 * @param string $ancho
+	 * @param string $alto
+	 */	
+	function xml_set_dim_pagina($ancho=false, $alto=false) {
+		$this->xml_ancho = $ancho;
+		$this->xml_alto = $alto;
+	}
+
+	/**
+	 * Define si se crea el pié de página.
+	 * 
+	 * @param boolean $incluir default true
 	 */
-	function xml_set_titulo($titulo) 
-	{
-		$this->xml_titulo = $titulo;
+	function xml_set_incluir_pie($incluir=true) {
+		$this->xml_incluir_pie = $incluir;	
 	}
 	
 	/**
-	 * Permite agregar un texto dentro del pdf
-	 * @param string $texto
-	 * @param array $atts Arreglo asociativo con la forma 'atributo'=>'valor', con atributos del texto (font-size, font-weight, etc)
-	 * @return string XML necesario para la inclusión del texto.
+	 * Define el pié de página. 
+	 * El parámetro $pie debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
+	 * Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.
+	 * Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.
+	 * Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.
+	 * 
+	 * @param string $pie
 	 */
-	function xml_texto($texto, $atts=array())
-	{
-		$xml = '<'.$this->xml_ns.'texto valor="'.$texto.'">';
+	function xml_set_pie($pie=false) {
+		$this->xml_pie = !$pie?false:'<pie>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'), $pie).'</pie>';	
+	}
+	
+	/**
+	 * Define el alto del pié de página. 
+	 * @param string $alto
+	 */
+	function xml_set_alto_pie($alto=false) {
+		$this->xml_alto_pie = $alto;	
+	}
+	
+	/**
+	 * Define si se crea la cabecera de la página.
+	 * 
+	 * @param boolean $incluir default true
+	 */
+	function xml_set_incluir_cabecera($incluir=true) {
+		$this->xml_incluir_cabecera = $incluir;	
+	}
+
+	/**
+	 * Define la cabecera de página. 
+	 * El parámetro $cabecera debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
+	 * Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.
+	 * Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.
+	 * Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.
+	 * 
+	 * @param string $cabecera
+	 */
+	function xml_set_cabecera($cabecera=false) {
+		$this->xml_cabecera = !$cabecera?false:'<cabecera>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'),$cabecera).'</cabecera>';	
+	}
+
+	/**
+	 * Define el alto de la cabecera de página. 
+	 * @param string $alto
+	 */
+	function xml_set_alto_cabecera($alto=false) {
+		$this->xml_alto_cabecera = $alto;	
+	}
+	
+	/**
+	 * Define los márgenes de la página. $margenes debe ser un array de tipo 'nombre'=>'valor', 
+	 * donde 'sup', 'inf', 'izq' y 'der' son los nombres para definir los márgenes superior, 
+	 * inferior, izquierdo y derecho respectivamente.
+	 * 
+	 * @param array $margenes 
+	 */
+	function xml_set_margenes($margenes=array()) {
+		foreach($margenes as $k=>$m) {
+			if(isset($this->xml_margenes[$k])) {
+				$this->xml_margenes[$k] = $m;			
+			}
+		}
+	}
+	
+	/**
+	 * Forma genérica de definir parámetros de usuario. El parámetro $atts debe ser un array de tipo
+	 * "nombre"=>"valor".
+	 * 
+	 * @param array $atts
+	 */
+	function xml_set_atts_ei($atts=array()) {
 		foreach($atts as $k=>$att) {
-			$xml .= '<'.$this->xml_ns.'att nombre="'.$k.'" valor="'.$att.'"/>';
+			$this->xml_atts_ei .= ' '.$k.'="'.$att.'"';
 		}
-		if(!array_key_exists('font-size')) {
-			$xml .= '<'.$this->xml_ns.'att nombre="font-size" valor="8pt"/>';
+	}
+
+	/**
+	 * Define el numero de copias que deben aparecer en el pdf.
+	 * 
+	 * @param int $copias
+	 */
+	function xml_set_nro_copias($copias=1) {
+		$this->xml_copia = $copias;	
+	}
+	
+	/**
+	 * Retorna los atributos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf.
+	 * 
+	 * @return string con atributos a incluir en un tag xml 
+	 */
+	function xml_get_att_comunes() {
+		$xml = '';
+		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
 		}
-		$xml .= '</'.$this->xml_ns.'texto>';
+		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
+			$xml .= ' logo="url(\''.$this->xml_logo.'\')"';
+		}
+		if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
+			$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
+		}
+		if (isset($this->xml_orientacion)) {
+			$xml .= ' orientacion="'.$this->xml_orientacion.'"';
+		}
+		if (isset($this->xml_ancho) && $this->xml_ancho) {
+			$xml .= ' ancho="'.$this->xml_ancho.'"';
+		}
+		if (isset($this->xml_alto) && $this->xml_alto) {
+			$xml .= ' alto="'.$this->xml_alto.'"';
+		}
+		if (!$this->xml_incluir_pie) {
+			$xml .= ' pie="false"';
+		}
+		if (!$this->xml_incluir_cabecera) {
+			$xml .= ' cabecera="false"';
+		}
+		if ($this->xml_alto_cabecera) {
+			$xml .= ' cab_size="'.$this->xml_alto_cabecera.'"';
+		}
+		if ($this->xml_alto_pie) {
+			$xml .= ' pie_size="'.$this->xml_alto_pie.'"';
+		}
+		if ($this->xml_copia) {
+			$xml .= ' copia="'.$this->xml_copia.'"';
+		}
+		foreach($this->xml_margenes as $k=>$m) {
+			if($m) {
+				$xml .= ' margen_'.$k.'="'.$m.'"';
+			}
+		}
+		return $xml.$this->xml_atts_ei;
+	}
+
+	/**
+	 * Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié.
+	 * 
+	 * @return string con xml de los elementos a incluir.
+	 */
+	function xml_get_elem_comunes() {
+		$xml = '';
+		if($this->xml_cabecera) {
+			$xml .= $this->xml_cabecera;
+		}
+		if($this->xml_pie) {
+			$xml .= $this->xml_pie;
+		}
 		return $xml;
 	}
 	
 	/**
-	 * Permite definir un namespace en el xml resultante del componente
-	 * por ejemplo:
-	 * 	&lt;alias:ci xmlns:alias="url"&gt;
-	 * @param string $xmlns Alias del namespace
-	 * @param string $url Url del namespace 
-	 * @param boolean $usar Define si el componente debe utilizar este namespace
+	 * Devuelve un string con el xml de un texto y sus atributos a incluir
+	 *  
+	 * @param string $texto
+	 * @param array $atts Array de tipo 'nombre'=>'valor' 
+	 * @return string
+	 */
+	function xml_texto($texto, $atts=array())
+	{
+		$xml = '<'.$this->xml_ns.'texto ';
+		foreach($atts as $k=>$att) {
+			$xml .= ' '.$k.'="'.$att.'"';
+		}
+		if(!array_key_exists('font-size',$atts)) {
+			$xml .= ' font-size="8pt"';
+		}
+		$xml .= '>'.$texto.'</'.$this->xml_ns.'texto>';
+		return $xml;
+	}
+	
+	/**
+	 * Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las 
+	 * filas, y el segundo nivel representan las columnas dentro de una fila. Es decir $datos[0] representa la 
+	 * primer fila, y $datos[0][0] representa la primer columna de la primer fila. $datos[n][m] a su vez, puede ser
+	 * tanto un string como un array. Si es un string, se toma este como valor de la celda. Si es un array, debe ser de
+	 * tipo 'key'=>'value' donde 'key' represente un atributo de la celda de la tabla (atributos del elemento table-cell 
+	 * de xsl-fo). Si existe $datos[n][m]['valor'], entonces no es tomado como atributo, sino como el valor de la celda. 
+	 * $datos[n][m]['valor'] puede ser tanto un array como un string. Si es string, se incluye diréctamente. Si es array,
+	 * se concatenan todos los valores y se incluye el string resultante. Como valor de una celda se puede incluir otro xml.   
+	 * 
+	 * @param array $datos
+	 * @param boolean $es_formulario Indica que cuando el array tiene una fila se deba tratar como un formulario.
+	 * @return string
+	 */
+	function xml_tabla($datos=array(), $es_formulario=true) {
+		$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
+		if(isset($this->xml_tabla_cols) || $datos) {
+			$xml .= '><'.$this->xml_ns.'datos>';
+			$sfila = (count($datos) > 1 || !$es_formulario)?'<'.$this->xml_ns.'fila>':'';
+			$efila = (count($datos) > 1 || !$es_formulario)?'</'.$this->xml_ns.'fila>':'';
+			foreach($datos as $fila) {
+				$xml .= $sfila;
+				foreach($fila as $dato) {
+					$xml .= '<'.$this->xml_ns.'dato';
+					if(is_array($dato)) {
+						foreach($dato as $k=>$v) {
+							if($k != 'valor') {
+								$xml .= ' '.$k.'="'.$v.'"';
+							}
+						}
+						if(!isset($dato['valor'])) {
+							$xml .= '/>';
+						} else {
+							$xml .= '>'.(is_array($dato['valor'])?implode('',$dato['valor']):$dato['valor']).'</dato>';
+						}
+					} else {
+						$xml .= '>'.$dato.'</dato>';
+					}
+				}
+				$xml .= $efila;
+			}
+			$xml .= $this->xml_tabla_cols;
+			$xml .= '</'.$this->xml_ns.'datos></'.$this->xml_ns.'tabla>';
+		} else {
+			$xml .= '/>';
+		}
+		return $xml;
+	}
+	
+	/**
+	 * Devuelve un string con el xml de una imagen a incluir.
+	 * 
+	 * @param string $src Path al archivo de la imagen
+	 * @param string $tipo 'svg' o 'jpg' (default)
+	 * @param string $titulo
+	 * @param string $caption
+	 * @return string
+	 */
+	function xml_imagen($src, $tipo='jpg', $titulo=false, $caption=false) {
+		$xml = '<'.$this->xml_ns.'img type ="'.$tipo.'"'.$this->xml_ns_url;
+		if($caption) {
+			$xml .= ' caption="'.$this->xml_caption.'"';
+		}
+		if($titulo) {
+			$xml .= ' titulo="'.$this->xml_caption.'"';
+		}
+		$xml .= ' src="url(\''.$src.'\')"';
+		if ($tipo=='svg') {
+			$svg = file_get_contents($src);
+			$svg = substr($svg, stripos($svg, '<svg'));
+			$svg = substr($svg, 0, strripos($svg, '</svg>')+6);
+			$enc = mb_detect_encoding($svg);
+			if (strtolower(substr($enc, 0, 8)) != 'iso-8859') {
+				$svg = iconv($enc, 'iso-8859-1', $svg);
+			}
+			$xml .= $svg.'</'.$this->xml_ns.'img>';
+		} else {
+			$xml .= '/>';
+		}
+		return $xml;
+	}
+	
+	/**
+	 * Define atributos comunes a columnas de una tabla (atributos del elemento table-column 
+	 * de xsl-fo).
+	 *  
+	 * @param array $cols Array de tipo 'nombre'=>'valor'
+	 */
+	function xml_set_tabla_cols($cols=array()) {
+		if($cols) {
+			foreach($cols as $col) {
+				$this->xml_tabla_cols .= '<'.$this->xml_ns.'col';
+				foreach($col as $k=>$v) {
+					$this->xml_tabla_cols .= ' '.$k.'="'.$v.'"';
+				}
+				$this->xml_tabla_cols .= '/>';
+			}
+		} else {
+			$this->xml_tabla_cols = '';
+		}
+	}
+	
+	/**
+	 * Define un namespace a utilizar con los elementos xml.
+	 * 
+	 * @param string $xmlns El namespace propiamente dicho
+	 * @param string $url un url del namespace 
+	 * @param boolean $usar Usar el namespace en este elemento o sólo declararlo.
 	 */
 	function xml_set_ns($xmlns, $url='', $usar=true)
 	{
-		if ($xmlns=='' || $xmlns==null) {
+		if ($xmlns=='') {
 			$this->xml_ns = '';
-			$this->xml_ns_url = ($url!='')?' xmlns="'.$url.'"':'';
+			$this->xml_ns_url = '';
 		} else {
 			$this->xml_ns = ($usar)?$xmlns.':':'';
 			$this->xml_ns_url= ($url!='')?' xmlns:'.$xmlns.'="'.$url.'"':'';

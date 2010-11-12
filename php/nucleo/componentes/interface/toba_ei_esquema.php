@@ -199,10 +199,11 @@ class toba_ei_esquema extends toba_ei
 
 	/**
 	 * Genera el xml del componente
+	 * @param boolean $inicial Si el elemento es el primero llamado desde vista_xml
 	 * @param string $xmlns Namespace para el componente
 	 * @return string XML del componente
 	 */
-	function vista_xml($xmlns=null) 
+	function vista_xml($inicial=false, $xmlns=null) 
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
@@ -217,19 +218,9 @@ class toba_ei_esquema extends toba_ei
 			if(isset($this->xml_caption)) {
 				$xml .= ' caption="'.$this->xml_caption.'"';
 			}
-			if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
-				$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
-			}
-			if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
-				$xml .= ' logo="'.$this->xml_logo.'"';
-			}
-			if (isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
-				$xml .= ' subtitulo="'.trim($this->xml_subtitulo).'"';
-			}
-			if (isset($this->xml_orientacion)) {
-				$xml .= ' orientacion="'.$this->xml_orientacion.'"';
-			}
+			$xml .= $this->xml_get_att_comunes();
 			$xml .= ' src="'.toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $archivo ).'">';
+			$xml .= $this->xml_get_elem_comunes();
 			$svg = file_get_contents(toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $archivo ));
 			$svg = substr($svg, stripos($svg, '<svg'));
 			$svg = substr($svg, 0, strripos($svg, '</svg>')+6);

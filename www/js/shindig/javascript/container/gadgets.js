@@ -511,8 +511,8 @@ gadgets.IfrGadget.prototype.getTitleBarContent = function(continuation) {
       this.cssClassTitle + '">' + (this.title ? this.title : 'Title') + '</span> | <span class="' +
       this.cssClassTitleButtonBar + '">' + settingsButton +
       '<a href="#" onclick="gadgets.container.getGadget(' + this.id +
-      ').handleToggle();return false;" class="' + this.cssClassTitleButton +
-      '">toggle</a></span>'+(this.elim?'<img '+
+      ').handleToggle(this);return false;" class="' + this.cssClassTitleButton +
+      '">Minimizar</a></span>'+(this.elim?'<img '+
       'style="float:right; margin-right: 5px; margin-left: 5px; margin-top: 1px; '+
       'margin-bottom: 1px; width: 15px; height: 15px" '+
       'onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)"'+
@@ -583,12 +583,18 @@ gadgets.IfrGadget.prototype.getUserPrefsParams = function() {
   return params;
 };
 
-gadgets.IfrGadget.prototype.handleToggle = function() {
+gadgets.IfrGadget.prototype.handleToggle = function(anchor) {
   var gadgetIframe = document.getElementById(this.getIframeId());
   if (gadgetIframe) {
     var gadgetContent = gadgetIframe.parentNode;
     var display = gadgetContent.style.display;
-    gadgetContent.style.display = display ? '' : 'none';
+    if(display) {
+    	gadgetContent.style.display =  '';
+    	anchor.innerHTML = 'Minimizar';
+    } else {
+    	gadgetContent.style.display =  'none';
+    	anchor.innerHTML = 'Maximizar';
+    }
   }
 };
 
@@ -805,6 +811,8 @@ gadgets.IfrContainer.prototype.gadgetClass = gadgets.IfrGadget;
 
 gadgets.IfrContainer.prototype.gadgetService = new gadgets.IfrGadgetService();
 
+gadgets.IfrContainer.prototype.nowRendering = null;
+
 gadgets.IfrContainer.prototype.setParentUrl = function(url) {
   if (!url.match(/^http[s]?:\/\//)) {
     url = document.location.href.match(/^[^?#]+\//)[0] + url;
@@ -818,6 +826,7 @@ gadgets.IfrContainer.prototype.setParentUrl = function(url) {
  * @param {Object} gadget Gadget object
  */
 gadgets.IfrContainer.prototype.renderGadget = function(gadget) {
+  this.nowRendering = gadget;
   var chrome = this.layoutManager.getGadgetChrome(gadget);
   gadget.render(chrome);
 };

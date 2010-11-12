@@ -75,7 +75,7 @@ class ci_recordatorio_pwd extends toba_ci
 	function verificar_usuario_activo($usuario)
 	{
 		try {
-		    toba_usuario::es_usuario_bloqueado($usuario);		//Tengo que verificar que el negro existe
+		   toba::instancia()->get_info_usuario($usuario);		//Tengo que verificar que el negro existe
 		} catch (toba_error_db $e) {												  //Ni true ni false... revienta... el mono no existe
 		    toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
 		    return false;
@@ -91,7 +91,7 @@ class ci_recordatorio_pwd extends toba_ci
 		//Genero un pseudorandom unico... 
 		$tmp_rand = $this->get_random_temporal();
 		$link = $this->generar_link_confirmacion($this->usuario, $tmp_rand);	//Genero el link para el mail
-		
+
 		//Se envia el mail a la direccion especificada por el usuario.
 	    $asunto = 'Solicitud de cambio de contraseña';
 	    $cuerpo_mail = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
@@ -154,7 +154,7 @@ class ci_recordatorio_pwd extends toba_ci
 		toba::instancia()->get_db()->abrir_transaccion();
 	    try {
 			//Seteo la clave para el usuario
-			toba::usuario($datos_orig[0]['id_usuario'])->set_clave($clave_tmp);
+			toba_usuario::set_clave_usuario($clave_tmp, $datos_orig[0]['id_usuario']);
 			//Enviar nuevo mail con la clave temporaria
 			$mail = new toba_mail($datos_orig[0]['email'], $asunto, $cuerpo_mail);
 			$mail->set_html(true);

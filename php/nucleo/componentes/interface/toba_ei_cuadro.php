@@ -3604,33 +3604,24 @@ class toba_ei_cuadro extends toba_ei
 	
 	/**
 	 * Genera el xml del componente
+	 * @param boolean $inicial Si es el primer elemento llamado desde vista_xml
 	 * @param string $xmlns Namespace para el componente
 	 * @return string XML del componente
 	 */
-	function vista_xml($xmlns=null)
+	function vista_xml($inicial=false, $xmlns=null)
 	{
 		if ($xmlns) {
 			$this->xml_set_ns($xmlns);
 		}
 		$this->salida = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
-		$titulo = $this->get_titulo();
-		if ($titulo!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
-			$this->salida .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:$titulo).'"';
-		}
-		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {
-			$this->salida .= ' logo="'.$this->xml_logo.'"';
-		}
-		if ($this->_info_cuadro["subtitulo"] != '' || isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="") {
-			$this->salida .= ' subtitulo="'.((isset($this->xml_subtitulo) && trim($this->xml_subtitulo)!="")?trim($this->xml_subtitulo):$this->_info_cuadro["subtitulo"]).'"';
-		}
-		if (isset($this->xml_orientacion)) {
-			$this->salida .= ' orientacion="'.$this->xml_orientacion.'"';
-		}
+		$this->xml_set_titulo($this->get_titulo());
+		$this->salida .= $this->xml_get_att_comunes();
 		$this->salida .= '>';
+		$this->salida .= $this->xml_get_elem_comunes();
 		$this->generar_salida("xml");
 		$this->salida .= '</'.$this->xml_ns.'tabla>';
 		return $this->salida;
-	}	
+	}		
 	
 	/**
 	 * @ignore 
@@ -3647,7 +3638,7 @@ class toba_ei_cuadro extends toba_ei
 				$this->xml_cuadro_totales_columnas($this->_acumulador, 0, true);
 			}
 			$this->pdf_acumulador_usuario();
-			//$this->html_cuadro_fin();					
+			/*$this->html_cuadro_fin();					*/
 		}		
 	}
 
@@ -3759,7 +3750,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function xml_mensaje_cuadro_vacio($texto)
 	{
-		$this->salida .= '<'.$this->xml_ns.'mensaje>'.$texto.'</'.$this->xml_ns.'mensaje>';
+		$this->salida .= '<'.$this->xml_ns.'texto valor="'.$texto.'"/>';
 	}
 
 	//-- Cortes de Control --
@@ -3965,7 +3956,7 @@ class toba_ei_cuadro extends toba_ei
 	 * @param mixed $efs Arreglo asociativo con la forma 'id_columna'=>'ancho', o un string con el id_columna.
 	 * @param integer $ancho Ancho de la columna. Válido sólo si el parámetro anterior es un id_columna. 
 	 */
-	function xml_set_columna_ancho($columnas, $ancho=null)
+	function xml_set_columna_ancho($efs, $ancho=null)
 	{
 		if(is_array($efs)) {
 			foreach($efs as $ef=>$ancho) {
