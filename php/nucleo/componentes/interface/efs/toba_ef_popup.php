@@ -2,7 +2,7 @@
 
 /**
  * Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
- * El ef solo se encarga del componente grafico que lanza el popup y de recibir el estado desde el popup, pero no de 
+ * El ef solo se encarga del componente grafico que lanza el popup y de recibir el estado desde el popup, pero no de
  * armar la operación de popup ni su forma de elección del valor
  * @package Componentes
  * @subpackage Efs
@@ -10,10 +10,10 @@
  */
 class toba_ef_popup extends toba_ef_editable
 {
-    protected $descripcion_estado;
-    protected $item_destino;
-    protected $item_destino_proyecto;
-    protected $ventana;
+	protected $descripcion_estado;
+	protected $item_destino;
+	protected $item_destino_proyecto;
+	protected $ventana;
 	protected $editable;
 	protected $vinculo;
 	protected $id_vinculo;
@@ -22,19 +22,19 @@ class toba_ef_popup extends toba_ef_editable
 	protected $img_editar = 'editar.gif';
 
 	static function get_lista_parametros_carga()
-    {
-    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
+	{
+		$parametros = toba_ef::get_lista_parametros_carga_basico();
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
 		return $parametros;
-    }
-     
-    static function get_lista_parametros()
-    {
-    	$parametros[] = 'edit_tamano';
-    	$parametros[] = 'edit_maximo';
-    	$parametros[] = 'popup_item';
+	}
+	 
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'edit_tamano';
+		$parametros[] = 'edit_maximo';
+		$parametros[] = 'popup_item';
 		$parametros[] = 'popup_proyecto';
 		$parametros[] = 'popup_ventana';
 		$parametros[] = 'popup_editable';
@@ -44,15 +44,15 @@ class toba_ef_popup extends toba_ef_editable
 		$parametros[] = 'popup_puede_borrar_estado';
 		return $parametros;
 	}
-	
+
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros)
-	{ 
-        if(isset($parametros['popup_ventana'])){
-            $this->ventana = trim($parametros['popup_ventana']);
-            unset($parametros['popup_ventana']);
-        }else{
-        	$this->ventana = null;
-    	}
+	{
+		if(isset($parametros['popup_ventana'])){
+			$this->ventana = trim($parametros['popup_ventana']);
+			unset($parametros['popup_ventana']);
+		}else{
+			$this->ventana = null;
+		}
 		$this->editable = false;
 		if (isset($parametros['popup_editable'])) {
 			$this->editable = $parametros['popup_editable'];
@@ -62,12 +62,12 @@ class toba_ef_popup extends toba_ef_editable
 			$this->no_oblig_puede_borrar = 	$parametros['popup_puede_borrar_estado'];
 			unset($parametros['popup_puede_borrar_estado']);
 		}
-    	$this->item_destino = $parametros['popup_item'];
+		$this->item_destino = $parametros['popup_item'];
 		$this->item_destino_proyecto = $parametros['popup_proyecto'];
-		$this->vinculo = new toba_vinculo(	$this->item_destino_proyecto, 
-										$this->item_destino,
-										true,
-										$this->ventana );
+		$this->vinculo = new toba_vinculo(	$this->item_destino_proyecto,
+		$this->item_destino,
+		true,
+		$this->ventana );
 		$this->vinculo->agregar_opcion('menu',true);
 		$this->vinculo->set_celda_memoria('popup');
 		if (is_null($this->ventana)) {
@@ -76,23 +76,23 @@ class toba_ef_popup extends toba_ef_editable
 															'height'=>500,
 															'width'=>500 ), true );
 		}
-        $this->id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo );
+		$this->id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo );
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
-	
+
 	/**
 	 * Retorna el vinculo asociado al popup
 	 */
 	function vinculo()
 	{
-		return $this->vinculo;	
+		return $this->vinculo;
 	}
-	
+
 	function carga_depende_de_estado()
 	{
-		return !$this->editable;	
+		return !$this->editable;
 	}
-	
+
 	/**
 	 * Retorna la descripción asociada a la opción actualmente seleccionada
 	 */
@@ -103,14 +103,14 @@ class toba_ef_popup extends toba_ef_editable
 			case 'html':
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$valor</div>";
-			break;
+				break;
 			case 'pdf':
 				return $valor;
 			case 'excel':
-				return array($valor, null);	
-			break;
-		}		
-	}	
+				return array($valor, null);
+				break;
+		}
+	}
 
 	protected function get_descripcion_valor()
 	{
@@ -123,7 +123,7 @@ class toba_ef_popup extends toba_ef_editable
 		}
 		return $valor;
 	}
-	
+
 	function set_opciones($descripcion, $maestros_cargados=true)
 	{
 		//--- No se actualiza $this->opciones_cargadas porque los popups requieren
@@ -132,14 +132,14 @@ class toba_ef_popup extends toba_ef_editable
 		if (! $maestros_cargados) {
 			$this->solo_lectura = 1;
 		}
-		$this->descripcion_estado = $descripcion;		
+		$this->descripcion_estado = $descripcion;
 	}
-	
-	function set_puede_borrar_estado($puede=true) 
+
+	function set_puede_borrar_estado($puede=true)
 	{
 		$this->no_oblig_puede_borrar = $puede;
 	}
-	
+
 	function set_imagen_editar($url)
 	{
 		$this->img_editar = $url;
@@ -151,10 +151,10 @@ class toba_ef_popup extends toba_ef_editable
 		$html = '';
 		$this->analizar_cambio_solo_lectura();
 		$tab = $this->padre->get_tab_index();
-		$extra = " tabindex='$tab'";		
-		if(!isset($this->estado)) $this->estado="";	
+		$extra = " tabindex='$tab'";
+		if(!isset($this->estado)) $this->estado="";
 		if (!isset($this->descripcion_estado) || $this->descripcion_estado == '') {
-			$this->descripcion_estado = $this->get_descripcion_valor(); 
+			$this->descripcion_estado = $this->get_descripcion_valor();
 		}
 
 		$estado = (is_array($this->estado)) ? implode(apex_qs_separador, $this->estado) : $this->estado;
@@ -171,50 +171,80 @@ class toba_ef_popup extends toba_ef_editable
 		} else {
 			$html .= toba_form::hidden($this->id_form, $estado, $js);
 			$html .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
-		}	
+		}
 		if (isset($this->id_vinculo)) {
 			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
 			$html .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 			$html .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
-	        $html .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
+			$html .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
 		}
 		if ($this->no_oblig_puede_borrar) {
 			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
 			$html .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
 			$html .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
-	        $html .= " href='#'>".toba_recurso::imagen_toba('limpiar.png',true,null,null,"Limpia la selección actual")."</a>";
+			$html .= " href='#'>".$this->get_imagen_limpiar()."</a>";
 		}
 		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</span>\n";
 		return $html;
 	}
-    
+
+	function get_imagen_abrir()
+	{
+		if (!isset($this->img_editar)) {
+			return toba_recurso::imagen_toba('editar.gif', true,16,16,"Seleccionar un elemento");
+		} else {
+			return $this->img_editar;
+		}
+	}
+
+	function set_img_editar($img, $tooltip="Seleccionar un elemento")
+	{
+		$this->img_editar = toba_recurso::imagen_proyecto($img,true,null,null,$tooltip);
+	}
+
+	function get_imagen_limpiar()
+	{
+		if (!isset($this->custom_img_limpiar)) {
+			return toba_recurso::imagen_toba('limpiar.png',true,null,null, 'Limpia la selección actual');
+		} else {
+			return $this->custom_img_limpiar;
+		}
+	}
+
+	function set_img_limpiar($img,$tooltip="Limpia la selección actual")
+	{
+		$this->custom_img_limpiar = toba_recurso::imagen_proyecto($img,true,null,null,$tooltip);
+	}
+
+
+
 	function get_consumo_javascript()
 	{
 		return array_merge(toba_ef::get_consumo_javascript(), array('efs/ef_popup'));
-	}	
-	
+	}
+
 	function parametros_js()
 	{
 		$vinculo = (is_numeric($this->id_vinculo)) ? $this->id_vinculo : "null";
 		return toba_ef::parametros_js().", $vinculo";
 	}
-	
+
 	function crear_objeto_js()
 	{
 		return "new ef_popup({$this->parametros_js()})";
-	}		
-	
+	}
+
 	function resetear_estado()
 	{
 		if (isset($this->descripcion_estado)) {
-			$this->descripcion_estado = '';		
+			$this->descripcion_estado = '';
 		}
 		if($this->tiene_estado()){
 			unset($this->estado);
 		}
 		if (isset($this->estado_defecto)) {
-			$this->estado = $this->estado_defecto;	
+			$this->estado = $this->estado_defecto;
 		}
 	}
 
@@ -226,19 +256,19 @@ class toba_ef_popup extends toba_ef_editable
 				$this->estado = current($explotable);
 			}else{
 				$this->estado = $explotable;
-			}			
-    	} else {
-    		$this->estado = null;
-    	}
+			}
+		} else {
+			$this->estado = null;
+		}
 	}
 
 	function set_estado($estado)
 	{
-   		if(isset($estado)){
-    		$this->estado= (is_array($estado)) ? $estado :  trim($estado);
-	    } else {
-	    	$this->estado = null;
-	    }
+		if(isset($estado)){
+			$this->estado= (is_array($estado)) ? $estado :  trim($estado);
+		} else {
+			$this->estado = null;
+		}
 	}
 }
 //########################################################################################################
