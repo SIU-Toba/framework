@@ -53,7 +53,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -91,7 +91,7 @@ En caso que los ejemplos tengan código asociado, el acceso al mismo estará dispo
 <br><br>
 Se recomienda acompañar el recorrido usando la [wiki_toba:Referencia documentación wiki] para ir profundizando los conceptos.
 <br><br>
-Finalmente por cualquier duda o sugerencia sobre el funcionamiento, organización o documentación del framework dejamos disponible una [url:https://listas.siu.edu.ar/mailman/listinfo/toba.usuarios lista de correo] de libre suscripción.', --descripcion
+Finalmente por cualquier duda o sugerencia sobre el funcionamiento, organización o documentación del framework dejamos disponible el [url:http://comunidad.siu.edu.ar/ foro comunidad toba] de libre suscripción.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

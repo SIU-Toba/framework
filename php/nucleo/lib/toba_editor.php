@@ -93,8 +93,12 @@ class toba_editor
 		//Cambia el skin
 		if (toba::memoria()->get_parametro('skin') != '') {
 			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
+			$sql = "SELECT es_css3 FROM apex_estilo WHERE estilo = ".quote($skin[0])." AND proyecto =".quote($skin[1]);
+			$datos = toba::instancia()->get_db()->consultar_fila($sql);
 			toba::proyecto()->set_parametro('estilo', $skin[0]);
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
+			toba::proyecto()->set_parametro('es_css3', $datos['es_css3']);
+			
 		}
 		//Cambia tipo de navegación
 		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {

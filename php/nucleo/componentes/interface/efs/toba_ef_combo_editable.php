@@ -10,7 +10,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 {	
 	protected $descripcion_estado;
 	protected $solo_lectura = false;
-	protected $tamano = 150;
+	protected $tamano = 200;
 	protected $habilitar_modo_filtrado = true;
 	
 	static function get_lista_parametros_carga()

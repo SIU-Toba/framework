@@ -1,4 +1,3 @@
-
 body {
 	background-color: #244268;
 }
@@ -99,11 +98,12 @@ form {
 ***************************/
 
 ul.horizontal a, ul.horizontal a:visited {
+	background-color:#D0D5DB;	
 	border:1px solid #8d8e90;
 	margin-right:2px;
 }
 a.nivel-0, a.nivel-0:visited {
-	background-color: #D0D5DB !important;
+	background-color: transparent !important;
 	border:none !important;
 }
 ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
@@ -290,7 +290,54 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-bottom:1px dotted gray;
 	margin-top:5px;
 	margin-bottom: 10px;
-}	
+}
+
+/**************************
+	TABS V
+***************************/
+.ci-tabs-v-lista {
+}
+.ci-tabs-v-cont {
+	border: 1px solid #868789;
+}
+.ci-tabs-v-margen-sup {
+	height: 5px;
+}
+.ci-tabs-v-solapa a, .ci-tabs-v-solapa-sel{
+	font-weight: normal;
+	font-size: 11px;
+	font-family: Tahoma;	
+	color: #000000;
+	padding-left:3px;
+}
+.ci-tabs-v-desactivado a {
+	color:gray;
+	text-decoration:none;
+	cursor: default;
+}
+.ci-tabs-v-solapa-sel {
+	padding-top:2px;
+	padding-bottom:2px;
+	background-color: #7579BA !important;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+	color:white !important;
+
+}
+
+.ci-tabs-v-boton {
+	color:#000000;
+	text-decoration:none;
+}
+.ci-tabs-h-solapa .ci-tabs-boton-desact {
+	color:#ccc !important;
+	cursor: default;
+}
+.ci-tabs-v-solapa  .ci-tabs-boton-desact {
+	color:#ccc;
+	text-decoration:none;
+	cursor: default;
+}
 
 
 /*************************
@@ -467,6 +514,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 /****************************
 	VARIOS
 *****************************/
+
 .editor-vista-previa-codigo {
 		width: auto !important;
-}	
+}
+.mscross {
+	border: 1px solid gray;
+	background-color: white;
+}

@@ -86,7 +86,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		var e = addEvent(this.input(), 'ontecla', callback); 
 		combo.attachEvent('onKeyPressed', e);
 
-		this._put_mensaje_ayuda();
+		if (!this.tiene_estado()) {
+			this._put_mensaje_ayuda();
+		}
 		//Caso solo_lectura de las cascadas
 		if (solo_lectura) {
 			this.set_solo_lectura();

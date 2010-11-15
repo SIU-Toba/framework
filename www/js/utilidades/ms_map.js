@@ -71,7 +71,7 @@ function msMap(DivTag)
 	var _pixel_h;
 
 	var _toolbars = new Array(); // Array of toolbars
-	var _iconLoading = imgDir + 'button_loading.png';
+	var _iconLoading = imgDir + 'button_loading.gif';
 
 	// WMS.GetMap protocol specific
 	var _wms_imageformat = 'image/png';
