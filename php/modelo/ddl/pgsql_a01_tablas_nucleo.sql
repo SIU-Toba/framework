@@ -243,7 +243,7 @@ CREATE TABLE apex_puntos_montaje
 	tipo								varchar(20)			NOT NULL,
 
 	UNIQUE								("etiqueta","proyecto"),
-	CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id"),
+	CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id", "proyecto"),
 	CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
 --#################################################################################################
@@ -272,7 +272,7 @@ CREATE TABLE apex_pagina_tipo
 	punto_montaje						int8			NULL,
 	CONSTRAINT	"apex_pagina_tipo_pk" PRIMARY	KEY ("proyecto","pagina_tipo"),
 	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 
@@ -408,7 +408,7 @@ CREATE TABLE	apex_consulta_php
 	punto_montaje				int8			NULL,
   	CONSTRAINT "apex_consulta_php_pk" PRIMARY KEY("consulta_php","proyecto"),
   	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
 

@@ -98,7 +98,7 @@ CREATE TABLE apex_objeto_ci_pantalla
    	CONSTRAINT  "apex_obj_ci_pan__uk" UNIQUE ("objeto_ci_proyecto","objeto_ci","identificador"),
 	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("objeto_ci_proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 CREATE TABLE apex_objetos_pantalla

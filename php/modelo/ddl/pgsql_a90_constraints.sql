@@ -76,7 +76,7 @@
 	-- IMMEDIATE;
 
 
-	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("pm_contexto") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
-	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("pm_sesion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
-	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("pm_usuario") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
-	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("pm_impresion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
+	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("proyecto", "pm_contexto") REFERENCES "apex_puntos_montaje"	("proyecto","id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
+	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("proyecto", "pm_sesion") REFERENCES "apex_puntos_montaje"	("proyecto","id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
+	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("proyecto", "pm_usuario") REFERENCES "apex_puntos_montaje"	("proyecto","id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;
+	ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("proyecto", "pm_impresion") REFERENCES "apex_puntos_montaje"	("proyecto","id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;

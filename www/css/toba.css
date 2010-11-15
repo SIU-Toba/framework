@@ -1063,6 +1063,9 @@ a.ci-tabs-boton-desact:hover {
      max-height: 300px;
      overflow: auto;
 }
+.overlay-mensaje img {
+	vertical-align: middle;
+}
 .overlay-debug{
 	 display: none;
 }

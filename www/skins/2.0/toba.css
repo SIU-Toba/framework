@@ -215,6 +215,9 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ci-cuerpo {
 	padding: 0;
 }
+.ci-simple-cont {
+	padding: 5px;
+}
 .ci-tabs-h-lista {
 	margin-left: -3px;
 	width:105%;
@@ -455,7 +458,6 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 *********************************/
 .ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-fila, .ei-filtro-fila-selec {
 	border-bottom:1px solid #ECF0F3;
-	border-right:1px solid #859BC4;
 	margin-right:3px;
 	padding:2px 5px 2px 5px;	
 }

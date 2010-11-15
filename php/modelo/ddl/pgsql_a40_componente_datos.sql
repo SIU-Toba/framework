@@ -82,7 +82,7 @@ CREATE TABLE apex_objeto_db_registros
 	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES   "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_fuente"  FOREIGN KEY ("fuente_datos_proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("objeto_proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 
@@ -280,7 +280,7 @@ CREATE TABLE apex_objeto_datos_rel
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("objeto", "proyecto"),
 	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("objeto", "proyecto") REFERENCES   "apex_objeto" ("objeto", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --###################################################################################################
 
