@@ -288,6 +288,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		return toba_modelo_catalogo::instanciacion()->get_pms($this);
 	}
+	
+	
 
 
 	/**
@@ -1793,6 +1795,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Puntos de montaje y dependencias entre proyectos
 	//-----------------------------------------------------------
 
+	function set_pm_defecto($punto) 
+	{
+		$db = $this->get_db();
+		$id_punto = $db->quote($punto->get_id());
+		$sql = "UPDATE apex_proyecto 
+				SET pm_impresion = $id_punto,
+					pm_sesion = $id_punto,
+					pm_contexto = $id_punto,
+					pm_usuario = $id_punto
+				WHERE proyecto = ".$db->quote($this->identificador);
+		$db->ejecutar($sql);
+	}
+	
 	function agregar_dependencia($id_proyecto)
 	{
 		$deps = $this->get_dependencias();
@@ -2097,17 +2112,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola(	$this->instancia->get_id(), 
 																	toba_editor::get_id() );
 		//--- Averiguo la fuente destino
-		$proyecto = $this->db->quote($this->identificador);
-		$sql = "SELECT proyecto, fuente_datos, descripcion_corta
-				FROM apex_fuente_datos
-				WHERE ( proyecto = $proyecto)
-				ORDER BY 2";
-		$fuentes = $this->get_db()->consultar($sql);
-		if (empty($fuentes)) {
+		$sql = "SELECT fuente_datos, pm_contexto FROM apex_proyecto WHERE proyecto = ".quote($this->identificador);
+		$defecto = toba::db()->consultar_fila($sql);
+		if (empty($defecto['fuente_datos'])) {
 			throw new toba_error("El proyecto no tiene definida una fuente de datos.");
-		} else {
-			$fuente = current($fuentes);
-		}
+		}		
+		if (empty($defecto['pm_contexto'])) {
+			throw new toba_error("El proyecto no tiene definida un punto de montaje para el contexto.");
+		}			
 		
 		//--- Clonando
 		$id = array(	'proyecto' => toba_editor::get_id(),
@@ -2117,8 +2129,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$nuevos_datos['proyecto'] = $this->identificador;
 		$nuevos_datos['padre_proyecto'] = $this->identificador;
 		$nuevos_datos['padre'] = toba_info_editores::get_item_raiz($this->identificador);
-		$nuevos_datos['fuente_datos'] = $fuente['fuente_datos'];
-		$nuevos_datos['fuente_datos_proyecto'] = $nuevos_datos['proyecto'];
+		$nuevos_datos['fuente_datos'] = $defecto['fuente_datos'];
+		$nuevos_datos['fuente_datos_proyecto'] = $this->identificador;
+		$nuevos_datos['punto_montaje'] = $defecto['pm_contexto'];
 		$directorio = 'login';
 		$clave = $info_item->clonar($nuevos_datos, $directorio);
 		

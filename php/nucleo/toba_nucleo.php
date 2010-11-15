@@ -264,7 +264,9 @@ class toba_nucleo
 	{
 		toba::manejador_sesiones()->finalizar();
 		toba::contexto_ejecucion()->conf__final();
-		$this->solicitud->guardar_cronometro();
+		if (isset($this->solicitud)) {
+			$this->solicitud->guardar_cronometro();
+		}
 	}
 	
 	function controlar_requisitos_basicos()

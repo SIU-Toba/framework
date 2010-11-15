@@ -46,7 +46,9 @@
 .ei-arbol-cuerpo {
 	margin-bottom: 4px;	
 }
-
+.ei-arbol-nombre {
+	font-size:11px;
+}
 
 .barra-separador {
 	font-size:9px;

@@ -117,6 +117,9 @@ class toba_modelo_pms
 		$registro = toba_pm_a_registro::insert($punto, $this->db);
 		$registro->grabar();
 		
+		//Se actualiza el registro con el serial asignado
+		$punto->set_id($this->db->recuperar_secuencia("apex_puntos_montaje_seq"));
+		
 		if ($punto->es_de_proyecto()) {
 			if (!$punto->es_interno()) {
 				$this->proyecto->agregar_dependencia($punto->get_proyecto_referenciado());
@@ -207,6 +210,7 @@ class toba_modelo_pms
 		$punto->set_descripcion('Punto de montaje por defecto de todos los proyectos de toba');
 		$punto->set_path('php');
 		$this->guardar($punto); // creamos el punto de montaje php del proyecto
+		$this->proyecto->set_pm_defecto($punto);
 	}
 
 	/**

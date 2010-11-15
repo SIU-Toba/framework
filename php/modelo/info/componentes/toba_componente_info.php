@@ -140,6 +140,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 			if (isset($nuevos_datos['fuente_datos'])) {
 				$datos_objeto['fuente_datos'] = $nuevos_datos['fuente_datos'];
 			}
+			//-- Punto de montaje tambien se propaga
+			if (isset($nuevos_datos['punto_montaje'])) {
+				$datos_objeto['punto_montaje'] = $nuevos_datos['punto_montaje'];
+			}	
+	
 			//-- SE CLONA
 			$id_clon = $hijo->clonar($datos_objeto, $dir_subclases, $con_transaccion);
 			//--- En el componente actual se reemplaza la dependencia por el clon
@@ -147,6 +152,14 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 								array('identificador' => $hijo->rol_en_consumidor()));
 			$dr->tabla('dependencias')->modificar_fila(current($id_fila), 
 								array('objeto_proveedor' => $id_clon['componente']));
+		}
+		//Se intenta acceder a las pantallas para pasarle el nuevo punto de montaje
+		if (isset($nuevos_datos['punto_montaje'])) {
+			try {
+				$pantallas = $dr->tabla('pantallas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+			} catch (Exception $e) {
+				
+			}
 		}
 		$dr->sincronizar();
 		

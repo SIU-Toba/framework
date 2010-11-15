@@ -579,6 +579,7 @@ class toba_item_info implements toba_nodo_arbol
 	 */
 	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion=true)
 	{
+		$campos_extra = array('fuente_datos', 'fuente_datos_proyecto', 'punto_montaje' );
 		//-- Cargo el DR asociado
 		$id_dr = toba_info_editores::get_dr_de_clase('toba_item');
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
@@ -591,7 +592,7 @@ class toba_item_info implements toba_nodo_arbol
 				$campo = 'nombre';
 				$valor = $valor . $dr->tabla('base')->get_fila_columna(0, $campo);
 			}
-			if ($campo != 'fuente_datos' && $campo != 'fuente_datos_proyecto') {
+			if (! in_array($campo, $campos_extra)) {
 				$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
 			}
 		}
@@ -622,6 +623,10 @@ class toba_item_info implements toba_nodo_arbol
 			if (isset($nuevos_datos['fuente_datos'])) {
 				$datos_objeto['fuente_datos'] = $nuevos_datos['fuente_datos'];
 			}
+			//-- Punto de montaje tambien se propaga
+			if (isset($nuevos_datos['punto_montaje'])) {
+				$datos_objeto['punto_montaje'] = $nuevos_datos['punto_montaje'];
+			}			
 			$nuevo_hijo = $hijo->clonar($datos_objeto, $dir_subclases, false);
 			$fila = array('objeto' => $nuevo_hijo['componente'], 
 							'proyecto' => $nuevo_hijo['proyecto'], 

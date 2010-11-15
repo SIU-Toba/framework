@@ -208,20 +208,20 @@ class comando_proyecto extends comando_toba
 		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios );
 		$this->consola->progreso_fin();
 		
-		// -- Asigno un nuevo item de login
-		$proyecto = $this->get_proyecto($id_proyecto);
-		$proyecto->actualizar_login();
-
-		$pms = $proyecto->get_pms();
-
 		// Extendemos las clases de toba a clases del proyecto
+		$proyecto = $this->get_proyecto($id_proyecto);
+		$pms = $proyecto->get_pms();
 		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'toba');
 		$pms->crear_pm_proyecto();
+		
 		// -- Modifica el proyecto para que sea apto para personalizaciones
 		if (isset($params['-x'])) {
 			$this->hacer_personalizable(false);
 		}
 		$proyecto->generar_autoload($this->consola);
+
+		// -- Asigno un nuevo item de login
+		$proyecto->actualizar_login();
 		
 		// -- Exporto el proyecto creado
 		$proyecto->exportar();
