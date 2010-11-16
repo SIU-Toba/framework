@@ -6,7 +6,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'toba_referencia', --proyecto
 	'Documentación de Referencia de Toba', --descripcion
 	'Toba - Referencia', --descripcion_corta
-	'2.0', --estilo
+	'plastik', --estilo
 	NULL, --con_frames
 	NULL, --frames_clase
 	NULL, --frames_archivo
