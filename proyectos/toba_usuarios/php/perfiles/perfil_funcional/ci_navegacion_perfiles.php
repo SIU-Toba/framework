@@ -209,7 +209,7 @@ class ci_navegacion_perfiles extends toba_ci
 		//Nodos
 		$miembros = array();
 		foreach ($perfiles as $perfil) {
-			$nodo =& new Structures_Graph_Node();
+			$nodo = new Structures_Graph_Node();
 			$nodo->setData($perfil);
 			$nodos[$perfil['usuario_grupo_acc']] =& $nodo;
 			$grafo->addNode($nodo);
