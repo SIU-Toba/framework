@@ -883,9 +883,13 @@ class toba_info_editores
 	/**
 	* Tipos de pagina
 	*/
-	function get_tipos_pagina()
+	function get_tipos_pagina($proyecto = null)
 	{
-		$proyecto =  toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		if (!isset($proyecto)) {
+			$proyecto =  toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
+		} else {
+			$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		}
 		$sql = "SELECT proyecto, pagina_tipo, descripcion
 				FROM apex_pagina_tipo 
 				WHERE ( proyecto = 'toba' OR proyecto = $proyecto)

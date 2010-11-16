@@ -112,7 +112,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
-	NULL, --botonera_barra_item
+	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -138,9 +138,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_opciones', --identificador
 	'1', --orden
 	'Opciones', --etiqueta
-	'Esta utilidad clona un item completo, incluyendo sus objetos en profundidad y las subclases si poseen.', --descripcion
+	'Esta utilidad clona una operación completa, incluyendo sus componentes en profundidad y las subclases si poseen.', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
 	NULL, --eventos
@@ -159,7 +159,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'toba_editor', --proyecto
 	'1000017', --pantalla
 	'1000133', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'1000017'  --dep_id
 );
 

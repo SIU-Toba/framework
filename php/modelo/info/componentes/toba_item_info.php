@@ -603,6 +603,16 @@ class toba_item_info implements toba_nodo_arbol
 		if ($con_transaccion) {
 			abrir_transaccion('instancia');	
 		}
+		
+		//Se pasa la fuente a los permisos por tablas
+		if (isset($nuevos_datos['pagina_tipo'])) {
+			$dr->tabla('base')->set_columna_valor('pagina_tipo', 			$nuevos_datos['pagina_tipo']);
+			$dr->tabla('base')->set_columna_valor('pagina_tipo_proyecto', 	$nuevos_datos['pagina_tipo_proyecto']);
+		}
+		if (isset($nuevos_datos['fuente_datos'])) {
+			$dr->tabla('permisos_tablas')->set_columna_valor('fuente_datos', $nuevos_datos['fuente_datos']);
+		}		
+		
 		//--- Se clonan los hijos y se agregan como dependencias
 		$dr->tabla('objetos')->eliminar_filas();		
 		$i=0;		
