@@ -153,13 +153,18 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 			$dr->tabla('dependencias')->modificar_fila(current($id_fila), 
 								array('objeto_proveedor' => $id_clon['componente']));
 		}
-		//Se intenta acceder a las pantallas para pasarle el nuevo punto de montaje
+		//Se intenta acceder a las pantallas/db_registros para pasarle el nuevo punto de montaje
 		if (isset($nuevos_datos['punto_montaje'])) {
 			try {
-				$pantallas = $dr->tabla('pantallas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+				$dr->tabla('pantallas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
 			} catch (Exception $e) {
 				
 			}
+			try {
+				$dr->tabla('prop_basicas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+			} catch (Exception $e) {
+				
+			}			
 		}
 		$dr->sincronizar();
 		

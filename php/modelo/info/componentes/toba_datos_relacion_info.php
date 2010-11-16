@@ -157,6 +157,11 @@ class toba_datos_relacion_info extends toba_componente_info
 		if (!$con_transaccion) {
 			$dr->persistidor()->desactivar_transaccion();
 		}
+		
+		//-- Punto de montaje tambien se propaga
+		if (isset($nuevos_datos['punto_montaje'])) {
+			$dr->tabla('prop_basicas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+		}			
 
 		//--- Si tiene subclase, se copia el archivo y se cambia
 		if ($dir_subclases !== false) {
@@ -184,6 +189,10 @@ class toba_datos_relacion_info extends toba_componente_info
 			if (isset($nuevos_datos['fuente_datos'])) {
 				$datos_objeto['fuente_datos'] = $nuevos_datos['fuente_datos'];
 			}
+			//-- Punto de montaje tambien se propaga
+			if (isset($nuevos_datos['punto_montaje'])) {
+				$datos_objeto['punto_montaje'] = $nuevos_datos['punto_montaje'];
+			}				
 
 			//-- SE CLONA
 			$id_clon = $hijo->clonar($datos_objeto, $dir_subclases, $con_transaccion);

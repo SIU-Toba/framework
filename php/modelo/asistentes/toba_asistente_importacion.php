@@ -41,6 +41,7 @@ class toba_asistente_importacion extends toba_asistente
 		$opciones['proyecto'] = $this->id_molde_proyecto;
 		$opciones['fuente_datos'] = $datos_destino['fuente'];
 		$opciones['fuente_datos_proyecto'] = $this->id_molde_proyecto;
+		$opciones['punto_montaje'] = $datos_destino['punto_montaje'];
 		foreach ($item_origen->get_hijos() as $hijo) {
 			$id_nuevo_hijo = $hijo->clonar($opciones, $datos_destino['carpeta_archivos'], false);
 			$item->asociar_objeto($id_nuevo_hijo['componente']);

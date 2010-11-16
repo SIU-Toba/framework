@@ -27,11 +27,7 @@ class toba_js
 	static function instancia() 
 	{
 		if (! isset(self::$instancia)) {
-			self::$instancia = new toba_js();
-			if (toba::proyecto()->get_parametro('es_css3')) {			
-				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize';
-				self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';
-			}
+			self::$instancia = new toba_js();			
 		}
 		return self::$instancia;
 	}
@@ -113,6 +109,10 @@ class toba_js
 	static function cargar_consumos_basicos()
 	{
 		if (! self::$basicos_cargados) {
+			if (toba::proyecto()->get_parametro('es_css3')) {
+				self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';
+				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize';
+			}			
 			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
 								'info' => toba_recurso::imagen_toba('info_chico.gif', false),
 								'warning' => toba_recurso::imagen_toba('warning.gif', false),  
