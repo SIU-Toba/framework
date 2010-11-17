@@ -110,7 +110,7 @@ class comando_nucleo extends comando_toba
 	function opcion__versionar()
 	{
 		$error = null; $salida = null;		
-		$url_svn = 'http://192.168.124.25/svn/toba';
+		$url_svn = 'http://repositorio.siu.edu.ar/svn/toba';
 		$dir_temp = '/tmp';
 		$destino = '/var/www/downloads/toba';		
 		$rama_branch = 'trunk_versiones';
