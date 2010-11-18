@@ -16,6 +16,10 @@ class toba_referencia_modelo extends toba_aplicacion_modelo_base
 		return $parametros['base'];
 	}	
 	
+	function get_fuente_defecto() {
+		return 'toba_referencia';
+	}	
+	
 	function get_version_nueva()
 	{
 		return $this->get_instalacion()->get_version_actual();

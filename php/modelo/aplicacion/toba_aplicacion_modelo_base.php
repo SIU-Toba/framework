@@ -50,17 +50,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//Si no se harcodeo el schema del proyecto, trata de averiguarlo
 		if (! isset($this->schema_modelo)) {
 			$encontrado = false;
-			$fuentes = $this->proyecto->get_indice_fuentes();
-			if (empty($fuentes)) {
-					//TODO: Leer de proyecto.ini ?
-			} else { 
-				$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
-				if ($this->instalacion->existe_base_datos_definida($id_def_base)) {			
-					$parametros = $this->instalacion->get_parametros_base($id_def_base);
-					if (isset($parametros['schema'])) {
-						$this->schema_modelo = $parametros['schema']; 
-						$encontrado = true;
-					}
+			$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());
+			if ($this->instalacion->existe_base_datos_definida($id_def_base)) {			
+				$parametros = $this->instalacion->get_parametros_base($id_def_base);
+				if (isset($parametros['schema'])) {
+					$this->schema_modelo = $parametros['schema']; 
+					$encontrado = true;
 				}
 			}
 			if (! $encontrado) {
@@ -248,6 +243,16 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	
 	}
 	
+	function get_fuente_defecto()
+	{
+		//--- Se asume que la base a instalar corresponde a la primer fuente
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (empty($fuentes)) {
+			throw new toba_error("No existen fuentes definidas");
+		}		
+		return current($fuentes);		
+	}
+	
 	/**
 	 * @param array $datos_servidor Asociativo con los parámetros de conexión a la base
 	 */
@@ -257,14 +262,10 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			return;
 		}
 		$version = $this->get_version_nueva();
-		$fuentes = $this->proyecto->get_indice_fuentes();
-		if (empty($fuentes)) {
-			return;
-		}
+
 		$id = $this->proyecto->get_id();
 		$this->manejador_interface->titulo("Instalando $id ".$version->__toString());		
-		//--- Se asume que la base a instalar corresponde a la primer fuente
-		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());
 		
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
@@ -298,14 +299,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 
 	function desinstalar()
 	{
-		$fuentes = $this->proyecto->get_indice_fuentes();
-		if (empty($fuentes)) {
-			return;
-		}
 		$id = $this->proyecto->get_id();
 		$this->manejador_interface->titulo("Desinstalando $id");		
-		//--- Se asume que la base a desinstalar corresponde a la primer fuente
-		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());
 		
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if ($this->instalacion->existe_base_datos_definida($id_def_base)) {
