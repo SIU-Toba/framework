@@ -119,7 +119,7 @@ class comando_instalacion extends comando_toba
 			} while ($puede_conectar !== true);
 		}	
 		//--- Pido el password para el usuario por defecto
-		$pwd = $this->consola->dialogo_ingresar_texto('Toba - Clave usuario administrador', true);
+		$pwd = $this->consola->dialogo_ingresar_texto('Toba - Clave (usuario "toba")', true);
 		if (strtoupper($pwd) == 'TOBA') {
 			$this->consola->mensaje('Este password puede crear un OJO de seguridad, por favor cambialo lo antes posible', true);
 		}
