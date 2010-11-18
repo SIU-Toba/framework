@@ -45,6 +45,11 @@ class ci_mascaras extends toba_ci
 	{
 		$this->s__datos_expreg = $datos;
 	}
+
+	function get_fecha_inicio($nro)
+	{
+		return array("$nro/4/2001", '24:88');
+	}
 }
 
 ?>

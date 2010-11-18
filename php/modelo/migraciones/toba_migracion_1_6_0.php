@@ -133,6 +133,8 @@ class toba_migracion_1_6_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN punto_montaje bigint  NULL;';
 		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD CONSTRAINT	"apex_ei_filtro_col_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
+		$sql[] = "INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, proyecto, obsoleto) VALUES('ef_editable_fecha_hora', 'ef_editable', 'fecha hora', 'toba', '0');";
+
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 

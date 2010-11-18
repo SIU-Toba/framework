@@ -649,6 +649,187 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		}
 	}	
 }
+
+//########################################################################################################
+//########################################################################################################
+/**
+ * Elemento editable que permite ingresar fechas con horario
+ * @package Componentes
+ * @subpackage Efs
+ * @jsdoc ef_editable_fecha_hora ef_editable_fecha_hora
+ */
+class toba_ef_editable_fecha_hora extends toba_ef_editable
+{
+	static protected $rango_fechas_global;
+	protected $rango_fechas;
+
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		if (! isset($parametros['edit_tamano'])) {
+			$parametros['edit_tamano'] = "10";//Esto deberia depender del tipo de fecha
+		}
+		if (isset(self::$rango_fechas_global)) {
+			$this->rango_fechas = self::$rango_fechas_global;
+		}
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+	}
+
+	static function get_lista_parametros()
+	{
+		$param = toba_ef_editable::get_lista_parametros();
+		array_borrar_valor($param, 'edit_unidad');
+		return $param;
+	}
+
+	/**
+	* Cambia el rango de fechas aceptado por todas las instancias del ef_fecha_hora
+	*/
+	static function set_rango_valido_global($desde, $hasta)
+	{
+		self::$rango_fechas_global = array($desde, $hasta);
+	}
+
+	function set_estado($estado="")
+	{
+		toba::logger()->var_dump($estado);
+		if(is_array($estado) && isset($estado['0']) && isset($estado['1'])) {
+			$this->estado = array('fecha' => cambiar_fecha($estado['0'],'-','/') , 'hora' => $estado['1']);
+		} else {
+			$this->estado = null;
+		}
+	}
+
+	function get_estado()
+	{
+		// En este punto se formatea la fecha
+		if($this->tiene_estado()){
+			return array(cambiar_fecha($this->estado['fecha'],'/','-') , $this->estado['hora']);
+		}else{
+			return null;
+		}
+	}
+
+	function tiene_estado()
+	{
+		//Verifico que sea distinto de null y que ambas componenetes esten seteadas.
+		return (! is_null($this->estado) && isset($this->estado['fecha']) && isset($this->estado['hora']));
+	}
+
+	function cargar_estado_post()
+	{
+		if (isset($_POST[$this->id_form. '_fecha'])) {
+			$this->estado = array( 'fecha' => trim($_POST[$this->id_form .'_fecha']), 'hora' => trim($_POST[$this->id_form . '_hora']));
+    	} else {
+    		$this->estado = null;
+    	}
+	}
+
+	function get_consumo_javascript()
+	{
+		$consumo = parent::get_consumo_javascript();
+		$consumo[] = "efs/fecha";
+		return $consumo;
+	}
+
+	function get_input()
+	{
+		$estado_fecha = (! is_null($this->estado)) ? $this->estado['fecha']: '';
+		$estado_hora = (! is_null($this->estado))? $this->estado['hora'] : '';
+		
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
+		$id_form_fecha = $this->id_form . '_fecha';
+		$id_form_hora = $this->id_form . '_hora';
+		$html = "<span class='ef-fecha-hora'>";
+		$html .= toba_form::text($id_form_fecha ,$estado_fecha, $this->solo_lectura,$this->tamano, $this->tamano, $this->clase_css, $this->input_extra.$tab);
+		$visibilidad = "style= 'visibility:hidden;'";
+		if (! $this->solo_lectura) {	//Hay que ver si es solo lectura por la cascada o que?
+			$visibilidad = "style= 'visibility:visible;'";
+		}
+		$html .= "<a id='link_". $this->id_form . "' ";
+		$html .= " onclick='calendario.select(document.getElementById(\"$id_form_fecha\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
+		$html .= " href='#' name='link_". $this->id_form . "' $visibilidad>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
+
+		$html .= toba_form::text($id_form_hora, $estado_hora, $this->solo_lectura, 5,  5, $this->clase_css . '  ef-numero ', $this->input_extra. $tab);
+		$html .= $this->get_html_iconos_utilerias();
+		$html .= "</span>\n";
+		return $html;
+	}
+
+	/**
+	* Valida que sea una fecha válida con la funcion php checkdate
+	*/
+	function validar_estado()
+	{
+		$padre = parent::validar_estado();
+		if ($padre !== true) {
+			return $padre;
+		}
+		if ($this->tiene_estado()) {
+			$fecha = explode('/',$this->estado['fecha']);
+			if (count($fecha) != 3) {
+				return "El campo no es una fecha valida (3).";
+			}
+			if ( ! is_numeric($fecha[0]) || !is_numeric($fecha[1]) || !is_numeric($fecha[2]) ) {
+				return "El campo no es una fecha valida (2).";
+			}
+			if (! checkdate($fecha[1],$fecha[0],$fecha[2])) {
+				return "El campo no es una fecha valida (1).";
+			}
+			if (isset($this->rango_fechas)) {
+				//TODO: Falta validación en el servidor
+			}
+
+			$hora = explode(':', $this->estado['hora']);
+			if (! is_numeric($hora[0]) || ! is_numeric($hora[1])) {
+				return "El campo no es una hora valida (4).";
+			}
+
+			if (! checktime($hora[0], $hora[1])) {
+				return "El campo no es una hora valida (5).";
+			}
+		}
+		return true;
+	}
+
+	function parametros_js()
+	{
+		if (isset($this->rango_fechas)) {
+			$desde = explode('-', $this->rango_fechas[0]);
+			$hasta = explode('-', $this->rango_fechas[1]);
+			$desde[1]--;
+			$hasta[1]--;
+			$rango = "[new Date('{$desde[0]}','{$desde[1]}','{$desde[2]}'), new Date('{$hasta[0]}','{$hasta[1]}','{$hasta[2]}')]";
+		} else {
+			$rango = 'null';
+		}
+		return parent::parametros_js().", $rango";
+	}
+
+	function crear_objeto_js()
+	{
+		return "new ef_editable_fecha_hora({$this->parametros_js()})";
+	}
+
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$estado = $this->get_estado();
+		$desc = (! is_null($estado)) ? $formato->formato_fecha($estado[0]) . " $estado[1] " : '';
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+				break;
+			case 'xml':
+			case 'pdf':
+				return $desc;
+			case 'excel':
+				return $formato->formato_fecha($estado[0]);
+				break;
+		}
+	}
+}
+
 //########################################################################################################
 //########################################################################################################
 

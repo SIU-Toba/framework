@@ -42,3 +42,4 @@ item_destino: Item que se invoca;
 ventana: ancho, alto, scroll (yes | no);', 'toba', NULL, '0', '1', '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto, es_seleccion, es_seleccion_multiple) VALUES ('ef_radio', 'ef', 'radio', NULL, 'toba', NULL, '0', '1', '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto, es_seleccion, es_seleccion_multiple) VALUES ('ef_upload', 'ef', 'upload', NULL, 'toba', NULL, '0', NULL, NULL);
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto, es_seleccion, es_seleccion_multiple) VALUES ('ef_editable_fecha_hora', 'ef_editable', 'fecha hora', NULL, 'toba', NULL, '0', '0', '0');

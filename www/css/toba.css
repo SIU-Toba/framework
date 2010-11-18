@@ -479,7 +479,9 @@ padding-left:4px;
 	white-space: nowrap;
 	margin-right: 5px;
 }
-
+.ef-fecha-hora img {
+	vertical-align: middle;
+}
 /*************************
 		EI - CUADRO
 **************************/
