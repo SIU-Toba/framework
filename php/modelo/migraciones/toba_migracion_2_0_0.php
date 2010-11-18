@@ -1,6 +1,6 @@
 <?php
 
-class toba_migracion_1_6_0 extends toba_migracion
+class toba_migracion_2_0_0 extends toba_migracion
 {
     function instancia__cambios_estructura()
 	{
