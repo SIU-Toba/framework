@@ -1,244 +1,85 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="../../../../external.html?link=http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  
+
+  <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/Objetos - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
-.wikipage h2 {border-bottom: 1px solid gray;}
-
-/* trac php syntax highlighting */
-.code-block {
-    line-height: 1em;
-    font-family: Courier, monotype;
-    font-size: 12px;
-    }
-.h_question { color: #0000BB; } /* highlight.default */
-.hphp_commentline { color: #FF8000; } /* highlight.comment */
-.hphp_operator { color: #007700; } /* highlight.keyword */
-.hphp_word { color: #007700; } /* highlight.keyword */
-.hphp_default {}
-.hphp_variable { color: #0000BB; } /* highlight.default */
-.hphp_hstring { color: #DD0000; } /* highlight.string */
-.hphp_simplestring { color: #DD0000; } /* highlight.string */
-.h_tagunknown {}
-.h_default {}
-
-.code-keyword { color: #007700; font-weight: normal; }
-.code-lang { color: #0000BB; font-weight: normal; }
-.code-comment { color: #FF8000; font-weight: normal;}
-.code-string { color: #DD0000; font-weight: normal;}
-
-pre { padding:0; margin: 0}
-
-.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
-.tablas-screenshots table { width: 90%; border: 1px solid gray; }
-.tablas-screenshots td { }
-.tablas-screenshots table.wiki td { border: 1px solid gray; }
-
-#tkt-changes-hdr {
-    clear: both;
-    padding-top: 30px;
-}
-.wiki-toc {
-    clear: right;
-    min-width: 160px;
-    background-color:#F7F7F7;    
-    border: 1px solid #D7D7D7;
-}
-.wiki-toc .active {
-    background-color: #890C71;
-    padding: 1px;
-}
-.wiki-toc .active a {
-    color:white; 
-}
-.wiki-toc .active a:hover {
-    background-color:  #890C71;
-}
-.indice-general {
-/*    background-color: #FFFFDD;*/
-}
-.wikipage h1 {
-    padding-top: 5px;
-}
-.wikipage h2 {
- padding: 2px;
-}
-h1 {
-    font-size: 28px;
-}
-.wikipage h2 {
-    background-color: #890C71;
-    color: white;
-    padding-left: 10px;
-    margin-top: 30px;
-    font-size: 100%;
-    border: 1px solid gray;
-}
-.wikipage h3 {
-    font-size:100%;
-}
-.wikipage {
-padding-right:10px;
-}
-li {
-    margin-bottom:6px;
-}
-li * {
-    margin-bottom:3px;
-}
-/*a {
- color: #890C71;
-}*/
-@media print {
- .wiki-toc { display: none }
-}
-#tkt-changes-hdr, .tkt-chg-list { 
-    font-size:80%;
-    text-align:right;
-}
-
-/** Cambios globales **/
-#ctxtnav {
- /*display:none;*/
-}
-#mainnav {
- border: none;
- background: white;
- margin: 0;
- padding-top: 10px;
- padding-bottom: 35px;
-border-bottom:1px solid #CCCCCC;
-
-}
-#mainnav li {
- border: 1px solid lightGray;
-}
-#header {
- display:none;
-}
-body {
-    margin: 0;
-    padding: 0;
-      background-color:#F3F3F3;	    
-}
-#content {
-clear: both;
-
-}
-#banner {
-    background-color: white;
-    padding-right:10px;
-    padding-top:10px;
-}
-
-#mainnav .active :link, #mainnav .active :visited {
-background:#890B72;
-border-right:1px solid #000000;
-border-top:medium none;
-color:#EEEEEE;
-font-weight:bold;
-}
-#mainnav :link, #mainnav :visited {
- border: none;
- background: transparent;
-}
-:link, :visited {
-/* color: #1020EB;*/
-/* color: #0C1BBC; */
- color: #67065D ;
-
-}
-#main {
- padding-left: 10px;
-}
-#footer {
- background-color: white;
- border-bottom: 1px solid;
-}
-</style>
- <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
-</head>
-
-			<body>
-			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
-			  <tr>
-			
-				<td class='header-top-left'><img src='../../../../../api/media/logo.png' border='0'/></td>
-			    <td class='header-top-right'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/wiki.png' />
-			    	<a href='../../../../../api/index.html'  title='Navegar hacia la documentación PHP'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/php-small.png' /></a> 
-			    	<a href='../../../../../api_js/index.html'  title='Navegar hacia la documentación Javascript'>    		
-			    	<img border='0' style='vertical-align: middle' src='../../../../../api/media/javascript-small.png' /></a>
-			  </tr>
-			
-			  <tr>
-			    <td colspan='2' class='header-menu'>
-			  		  [ <a href='http://desarrollos.siu.edu.ar/trac/toba/wiki/Referencia/Objetos' title='El sitio online contiene contenidos mas detallados y actualizados'
-						class='menu'>Ver online</a> ]
-			    </td>
-			
-			  </tr>
-			  <tr><td colspan='2' class='header-line'><img src='../../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
-			</table>
-		
-
-<script type="text/javascript" src="../../chrome/site/mootools.js"></script>
-<script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
-<link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
-<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
-
-<div id="banner">
-
-<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
-
-<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- <div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div>
-</form>
-
-
-
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
-</div>
-
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
-<div id="main">
-
-
-
-
-<div id="ctxtnav" class="nav">
- <h2>Wiki Navigation</h2>
- <ul>
-   <li><a href="../../wiki.html">Start Page</a></li>
-   <li><a href="../TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos?action=diff&amp;version=77">Last Change</a></li>
- </ul>
- <hr />
-</div>
-
-<div id="content" class="wiki">
-
- 
-  
-  
-   
-   <div class="wikipage">
-    <div id="searchable"><p>
-<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Objetos
-</p>
-<h1 id="Componentes">Componentes</h1>
+    <title>
+      Referencia/Objetos – SIU-Toba
+    </title>
+        <link rel="search" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search" />
+        <link rel="help" href="../TracGuide.html" />
+        <link rel="alternate" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/Objetos?format=txt" type="text/x-trac-wiki" title="Plain Text" />
+        <link rel="up" href="../Referencia.html" title="View parent page" />
+        <link rel="start" href="../../wiki.html" />
+        <link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="../../../../external.html?link=https://repositorio.siu.edu.ar/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="../../../../external.html?link=https://repositorio.siu.edu.ar/favicon.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search/opensearch" title="Search SIU-Toba" />
+    <script type="text/javascript" src="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/chrome/common/js/jquery.js"></script><script type="text/javascript" src="../../chrome/common/js/trac.js"></script><script type="text/javascript" src="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/trac/toba/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor("Link to this section");
+      });
+    </script>
+    <script type="text/javascript" src="../../chrome/site/mootools.js"></script>
+    <script type="text/javascript" src="../../chrome/site/slimbox.js"></script>
+    <link rel="stylesheet" href="../../chrome/site/portada.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../chrome/site/slimbox.css" type="text/css" media="screen" />
+    <a style="position: absolute; top: 5px; left:5px;border-bottom:none !important;" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
+    <link rel="stylesheet" type="text/css" href="../../chrome/site/style.css" />
+  </head>
+  <body>
+<a style="position: absolute; top: 5px; left:5px;border-bottom:none !important;" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu_original.gif" width="282" height="90" alt="SIU-Toba" /></a>
+    <div id="siteheader">
+    </div>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" alt="Toba" height="90" width="282" /></a>
+      </div>
+      <form id="search" action="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../TracGuide.html">Help/Guide</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/about">About Trac</a></li><li class="last"><a href="../../prefs.html">Preferences</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="../../wiki.html">Wiki</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/query">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="../Referencia.html">Up</a></li><li><a href="../WikiStart.html">Start Page</a> / <a href="../Referencia.html">Referencia</a> / Objetos</li><li><a href="../TitleIndex.html">Index</a></li><li><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/Objetos?action=history">History</a></li><li class="last"><a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/Objetos?action=diff&amp;version=77">Last Change</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="wiki">
+      <p class="path noprint">
+        <a class="pathentry" title="View Referencia" href="../Referencia.html">Referencia</a><span class="pathentry sep">/</span><a class="pathentry" title="View Referencia/Objetos" href="Objetos.html">Objetos</a>
+        <br style="clear: both" />
+      </p>
+      <div class="wikipage searchable">
+        
+          <h1 id="Componentes">Componentes</h1>
 <p>
 Una operación se define en base a <i>componentes</i>. Estos cubren distintos aspectos de una operación, categorizándolos según su función: interface, control o persistencia. El comportamiento particular de los componentes es determinado por:
 </p>
@@ -251,27 +92,27 @@ Los Elementos de interface (ei) son controles gráficos puros:
 </p>
 <blockquote>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a>: Formulario de edición simple y sus <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="efs.html">elementos de formulario (efs)</a>.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> <a class="wiki" href="Objetos/ei_formulario_ml.html">ei_formulario_ml</a>: Formulario de edición de múltiples líneas.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_filtro.html">ei_filtro</a>:  Filtro de selección.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/cuadro_array.gif' /> <a class="wiki" href="Objetos/ei_cuadro.html">ei_cuadro</a>: Grilla para mostrar y seleccionar datos.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/calendario.gif' /> <a class="wiki" href="Objetos/ei_calendario.html">ei_calendario</a>: Calendario para visualizar contenidos diarios y seleccionar días o semanas.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/arbol.gif' /> <a class="wiki" href="Objetos/ei_arbol.html">ei_arbol</a>: Visualiza una estructura de árbol en HTML.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/archivos.gif' /> <a class="wiki" href="Objetos/ei_archivos.html">ei_archivos</a>: Permite navegar el sistema de archivos del servidor bajo una carpeta dada.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/esquema.gif' /> <a class="wiki" href="Objetos/ei_esquema.html">ei_esquema</a>: Muestra un esquema utilizando <a class="ext-link" href="../../../../external.html?link=http://www.graphviz.org/"><span class="icon">GraphViz</span></a>.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a>: Formulario de edición simple y sus <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="efs.html">elementos de formulario (efs)</a>.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/ut_formulario_ml.gif' /> <a class="wiki" href="Objetos/ei_formulario_ml.html">ei_formulario_ml</a>: Formulario de edición de múltiples líneas.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_filtro.html">ei_filtro</a>:  Filtro de selección.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/cuadro_array.gif' /> <a class="wiki" href="Objetos/ei_cuadro.html">ei_cuadro</a>: Grilla para mostrar y seleccionar datos.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/calendario.gif' /> <a class="wiki" href="Objetos/ei_calendario.html">ei_calendario</a>: Calendario para visualizar contenidos diarios y seleccionar días o semanas.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/arbol.gif' /> <a class="wiki" href="Objetos/ei_arbol.html">ei_arbol</a>: Visualiza una estructura de árbol en HTML.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/archivos.gif' /> <a class="wiki" href="Objetos/ei_archivos.html">ei_archivos</a>: Permite navegar el sistema de archivos del servidor bajo una carpeta dada.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/esquema.gif' /> <a class="wiki" href="Objetos/ei_esquema.html">ei_esquema</a>: Muestra un esquema utilizando <a class="ext-link" href="../../../../external.html?link=http://www.graphviz.org/"><span class="icon"> </span>GraphViz</a>.<br />
 </p>
 </blockquote>
-<ul><li>Comunicación <i>Cliente</i> →  <i>Servidor</i>: Cada uno de estos componentes dispara distintos <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/reflexion/evento.gif' /> <strong><a class="wiki" href="Eventos.html">eventos</a></strong> que representan las interacciones del usuario. Por ejemplo a un formulario se le puede definir los eventos Alta, Modificación, Baja y Cancelar. Las capas inferiores toman estos eventos brindando comportamiento a estas acciones, en este caso dándole una lógica de ABM.
+<ul><li>Comunicación <i>Cliente</i> →  <i>Servidor</i>: Cada uno de estos componentes dispara distintos <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/img/reflexion/evento.gif' /> <strong><a class="wiki" href="Eventos.html">eventos</a></strong> que representan las interacciones del usuario. Por ejemplo a un formulario se le puede definir los eventos Alta, Modificación, Baja y Cancelar. Las capas inferiores toman estos eventos brindando comportamiento a estas acciones, en este caso dándole una lógica de ABM.
 </li></ul><ul><li>Comunicación <i>Servidor</i> →  <i>Cliente</i>: Una vez escuchados todos los eventos se entra en una etapa de <strong><a class="wiki" href="Configuracion.html">configuración</a></strong> de los componentes, preparándolos para la próxima renderización o <strong><a class="wiki" href="Solicitud.html#Tiposdeservicio">servicio</a></strong>. Por ejemplo, en el caso de la lógica ABM, durante la configuración se le brindará los datos al formulario, se harán solo-lecutra algunos campos y demás. Finalmente se brindaría el servicio generando el HTML del formulario en cuestión.
 </li></ul><h2 id="Controladores">Controladores</h2>
 <blockquote>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="Objetos/ci.html">Controlador de Interface</a> (ci): Contienen otros componentes <a class="wiki" href="Configuracion.html">configurándolos</a>, escuchando sus <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Eventos.html">eventos</a>, agrupándolos en pantallas y determinando la lógica de navegación entre las mismas. Son el nexo entre las capas de <i>persistencia</i> o <i>negocio</i> y la de <i>interface</i>.
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="Objetos/ci.html">Controlador de Interface</a> (ci): Contienen otros componentes <a class="wiki" href="Configuracion.html">configurándolos</a>, escuchando sus <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Eventos.html">eventos</a>, agrupándolos en pantallas y determinando la lógica de navegación entre las mismas. Son el nexo entre las capas de <i>persistencia</i> o <i>negocio</i> y la de <i>interface</i>.
 </p>
 </blockquote>
 <blockquote>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/negocio.gif' /> <a class="wiki" href="Objetos/cn.html">Controlador de Negocio</a> (cn): desacoplan la lógica de la interface de las clases de negocio propias o de los componentes de datos. 
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/negocio.gif' /> <a class="wiki" href="Objetos/cn.html">Controlador de Negocio</a> (cn): desacoplan la lógica de la interface de las clases de negocio propias o de los componentes de datos. 
 </p>
 </blockquote>
 <h2 id="Persistencia">Persistencia</h2>
@@ -285,49 +126,43 @@ Los elementos de persistencia (prefijados como <i>datos</i>) permiten modelar ta
 </blockquote>
 <blockquote>
 <p>
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="Objetos/datos_tabla.html">datos_tabla</a>: Abstracción de una tabla.<br />
-<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="Objetos/datos_relacion.html">datos_relacion</a>: Abstracción de una relación entre tablas.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="Objetos/datos_tabla.html">datos_tabla</a>: Abstracción de una tabla.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../external.gif?link=http://desarrollos.siu.edu.ar/toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="Objetos/datos_relacion.html">datos_relacion</a>: Abstracción de una relación entre tablas.<br />
 <a class="wiki" href="Objetos/AP.html">Administradores de persistencia</a>: Mecanismos de carga y sincronización con un medio de persistencia.
 </p>
 </blockquote>
-</div>
-   </div>
-   
-  
-  <script type="text/javascript">
-   addHeadingLinks(document.getElementById("searchable"), "Link to this section");
-  </script>
- 
- 
-</div>
 
-<script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Objetos?format=txt">Plain Text</a></li></ul></div>
-
-</div>
-
-<div id="footer">
- <hr />
- <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
-   alt="Trac Powered"/></a>
- <p class="left">
-  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
-  By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
- </p>
- <p class="right">
-  Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
- </p>
-</div>
-
-
-<script type='text/javascript'>
+        
+        
+      </div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/Objetos?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">
+        Powered by <a href="../../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/about"><strong>Trac 0.11.7</strong></a><br />
+        By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right">Creado por SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a></p>
+    </div>
+    <div id="sitefooter">
+    </div>
+<script type="text/javascript">
 if (document.getElementById('link_php')) {
 document.getElementById('link_php').onclick = function() {
-    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    location.href = '../../../../external.html?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/index.html';
     return false;
 }
 document.getElementById('link_js').onclick = function() {
-    location.href = '../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    location.href = '../../../../external.html?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api_js/index.html';
     return false;
 }
 document.getElementById('link_wiki').onclick = function() {
@@ -335,9 +170,7 @@ document.getElementById('link_wiki').onclick = function() {
     return false;
 }
 }
-
 </script>
- </body>
+  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
-

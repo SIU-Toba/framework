@@ -1,25 +1,19 @@
-/* Trac CSS */
-body {
- background: #fff;
- color: #000;
- margin: 10px;
- padding: 0;
-}
+body { background: #fff; color: #000; margin: 10px; padding: 0; }
 body, th, td {
- font: normal 13px verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+ font: normal 13px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif;
 }
 h1, h2, h3, h4 {
- font-family: arial,verdana,'Bitstream Vera Sans',helvetica,sans-serif;
+ font-family: Arial,Verdana,'Bitstream Vera Sans',Helvetica,sans-serif;
  font-weight: bold;
  letter-spacing: -0.018em;
+ page-break-after: avoid;
 }
-h1 { font-size: 19px; margin: .15em 1em 0 0 }
+h1 { font-size: 19px; margin: .15em 1em 0.5em 0 }
 h2 { font-size: 16px }
 h3 { font-size: 14px }
 hr { border: none;  border-top: 1px solid #ccb; margin: 2em 0 }
 address { font-style: normal }
 img { border: none }
-tt { white-space: pre }
 
 .underline { text-decoration: underline }
 ol.loweralpha { list-style-type: lower-alpha }
@@ -34,14 +28,12 @@ ol.arabic     { list-style-type: decimal }
  color: #b00;
  border-bottom: 1px dotted #bbb;
 }
-:link:hover, :visited:hover {
- background-color: #eee;
- color: #555;
-}
+:link:hover, :visited:hover { background-color: #eee; color: #555 }
 h1 :link, h1 :visited ,h2 :link, h2 :visited, h3 :link, h3 :visited,
 h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited {
  color: inherit;
 }
+.trac-rawlink { border-bottom: none }
 
 /* Heading anchors */
 .anchor:link, .anchor:visited {
@@ -60,10 +52,13 @@ h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
 
 @media screen {
  a.ext-link .icon {
-  background: url(../extlink.gif) left center no-repeat;
-  padding-left: 16px;
+  background: url(../extlink.gif) center center no-repeat;
+  padding-left: 12px;
  }
- * html a.ext-link .icon { display: inline-block; }
+ a.mail-link .icon {
+  background: url(../envelope.png) center center no-repeat;
+  padding-left: 14px;
+ }
 }
 
 /* Forms */
@@ -90,8 +85,16 @@ input[type=text]:focus, input.textwidget:focus, textarea:focus {
  border: 1px solid #886;
 }
 option { border-bottom: 1px dotted #d7d7d7 }
-fieldset { border: 1px solid #d7d7d7; padding: .5em; margin: 0 }
-fieldset.iefix { background: transparent; border: none; padding: 0; margin: 0 }
+fieldset { border: 1px solid #d7d7d7; padding: .5em; margin: 1em 0 }
+form p.hint, form span.hint { color: #666; font-size: 85%; font-style: italic; margin: .5em 0;
+  padding-left: 1em;
+}
+fieldset.iefix {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
 * html fieldset.iefix { width: 98% }
 fieldset.iefix p { margin: 0 }
 legend { color: #999; padding: 0 .25em; font-size: 90%; font-weight: bold }
@@ -103,7 +106,7 @@ label.disabled { color: #d7d7d7 }
  font-size: 70%;
  border-width: 1px;
  border-style: dotted;
- margin: 0;
+ margin: 0 .1em;
  padding: 0.1em;
  background: none;
 }
@@ -200,18 +203,19 @@ label.disabled { color: #d7d7d7 }
  border-right: 1px solid #d7d7d7;
  display: inline;
  font-size: 11px;
- line-height: 16px;
+ line-height: 1.5;
  padding: 0 1em;
  white-space: nowrap;
 }
 #altlinks li.last { border-right: none }
 #altlinks li :link, #altlinks li :visited {
- background-position: 0 -1px;
  background-repeat: no-repeat;
+ color: #666;
  border: none;
+ padding: 0 0 2px;
 }
 #altlinks li a.ics { background-image: url(../ics.png); padding-left: 22px }
-#altlinks li a.rss { background-image: url(../xml.png); padding-left: 42px }
+#altlinks li a.rss { background-image: url(../feed.png); padding-left: 20px }
 
 /* Footer */
 #footer {
@@ -299,10 +303,19 @@ label.disabled { color: #d7d7d7 }
 .wikipage { padding-left: 18px }
 .wikipage h1, .wikipage h2, .wikipage h3 { margin-left: -18px }
 
-a.missing:link, a.missing:visited, span.missing { color: #998 }
-a.missing:link, a.missing:visited { background: #fafaf0 }
+a.missing:link, a.missing:visited, a.missing, span.missing,
+a.forbidden, span.forbidden { color: #998 }
 a.missing:hover { color: #000 }
-a.closed:link, a.closed:visited { text-decoration: line-through }
+a.closed:link, a.closed:visited, span.closed { text-decoration: line-through }
+
+/* User-selectable styles for blocks */
+.important {
+ background: #fcb;
+ border: 1px dotted #d00;
+ color: #500;
+ padding: 0 .5em 0 .5em;
+ margin: .5em;
+}
 
 dl.wiki dt { font-weight: bold }
 dl.compact dt { float: left; padding-right: .5em }
@@ -335,10 +348,12 @@ table.wiki {
 table.wiki td { border: 1px solid #ccc;  padding: .1em .25em; }
 
 .wikitoolbar {
+ margin-top: 0.3em;
+ margin-left: 2px;
  border: solid #d7d7d7;
  border-width: 1px 1px 1px 0;
  height: 18px;
- width: 208px;
+ width: 234px;
 }
 .wikitoolbar :link, .wikitoolbar :visited {
  background: transparent url(../edit_toolbar.png) no-repeat;
@@ -362,6 +377,7 @@ table.wiki td { border: 1px solid #ccc;  padding: .1em .25em; }
 .wikitoolbar a#hr { background-position: 0 -80px }
 .wikitoolbar a#np { background-position: 0 -96px }
 .wikitoolbar a#br { background-position: 0 -112px }
+.wikitoolbar a#img { background-position: 0 -128px }
 
 /* Styles for the form for adding attachments. */
 #attachment .field { margin-top: 1.3em }
@@ -377,7 +393,6 @@ table.wiki td { border: 1px solid #ccc;  padding: .1em .25em; }
 #attachments .attachments { margin-left: 2em; padding: 0 }
 #attachments dt { display: list-item; list-style: square; }
 #attachments dd { font-style: italic; margin-left: 0; padding-left: 0; }
-
 
 /* Styles for tabular listings such as those used for displaying directory
    contents and report results. */
@@ -412,7 +427,7 @@ table.listing th.asc a { background-image: url(../asc.png) }
 table.listing th.desc a { background-image: url(../desc.png) }
 table.listing tbody td, table.listing tbody th {
  border: 1px dotted #ddd;
- padding: .33em .5em;
+ padding: .3em .5em;
  vertical-align: top;
 }
 table.listing tbody td a:hover, table.listing tbody th a:hover {
@@ -422,6 +437,33 @@ table.listing tbody tr { border-top: 1px solid #ddd }
 table.listing tbody tr.even { background-color: #fcfcfc }
 table.listing tbody tr.odd { background-color: #f7f7f7 }
 table.listing tbody tr:hover { background: #eed !important }
+table.listing tbody tr.focus { background: #ddf !important }
+
+/* Styles for the page history table
+   (extends the styles for "table.listing") */
+#fieldhist td { padding: 0 .5em }
+#fieldhist td.date, #fieldhist td.diff, #fieldhist td.version,
+#fieldhist td.author {
+ white-space: nowrap;
+}
+#fieldhist td.version { text-align: center }
+#fieldhist td.comment { width: 100% }
+
+/* Auto-completion interface */
+.suggestions { background: #fff; border: 1px solid #886; color: #222; }
+.suggestions ul {
+  font-family: sans-serif;
+  max-height: 20em;
+  min-height: 3em;
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  width: 440px;
+}
+* html .suggestions ul { height: 10em; }
+.suggestions li { background: #fff; cursor: pointer; padding: 2px 5px }
+.suggestions li.selected { background: #b9b9b9 }
 
 /* Styles for the error page (and rst errors) */
 #content.error .message, div.system-message {
@@ -431,9 +473,89 @@ table.listing tbody tr:hover { background: #eed !important }
  padding: .5em;
  margin: 1em 0;
 }
-#content.error pre, div.system-message pre { margin-left: 1em; overflow: auto }
+#content.error div.message pre, div.system-message pre {
+  margin-left: 1em;
+  overflow: hidden;
+  white-space: normal;
+}
 div.system-message p { margin: 0; }
 div.system-message p.system-message-title { font-weight: bold; }
+
+#warning.system-message { background: #ffb; border: 1px solid #000; }
+#warning.system-message li { list-style-type: square; }
+
+#notice.system-message { background: #dfd; border: 1px solid #000; }
+#notice.system-message li { list-style-type: square; }
+
+#content.error form.newticket { display: inline; }
+#content.error form.newticket textarea { display: none; }
+
+#content.error #systeminfo { margin: 1em; width: auto; }
+#content.error #systeminfo th { font-weight: bold; text-align: right; }
+
+#content.error #traceback { margin-left: 1em; }
+#content.error #traceback :link, #content.error #traceback :visited {
+  border: none;
+}
+#content.error #tbtoggle { font-size: 80%; }
+#content.error #traceback div { margin-left: 1em; }
+#content.error #traceback h3 { font-size: 95%; margin: .5em 0 0; }
+#content.error #traceback :link var, #content.error #traceback :visited var {
+  font-family: monospace;
+  font-style: normal;
+  font-weight: bold;
+}
+#content.error #traceback span.file { color: #666; font-size: 85%; }
+#content.error #traceback ul { list-style: none; margin: .5em 0; padding: 0; }
+#content.error #traceback ol {
+  border: 1px dotted #d7d7d7;
+  color: #999;
+  font-size: 85%;
+  line-height: 1;
+  margin: .5em 0;
+}
+#content.error #traceback ol li { white-space: pre; }
+#content.error #traceback ol li.current { background: #e6e6e6; color: #333; }
+#content.error #traceback ol li code { color: #666; }
+#content.error #traceback ol li.current code { color: #000; }
+#content.error #traceback table { margin: .5em 0 1em;  }
+#content.error #traceback th, #content.error #traceback td {
+  font-size: 85%; padding: 1px;
+}
+#content.error #traceback th var {
+  font-family: monospace;
+  font-style: normal;
+}
+#content.error #traceback td code { white-space: pre; }
+#content.error #traceback pre { font-size: 95%; }
+
+#content .paging { margin: 0 0 2em; padding: .5em 0 0;
+  font-size: 85%; line-height: 2em; text-align: center;
+}
+#content .paging .current { 
+  padding: .1em .3em;
+  border: 1px solid #333;
+  background: #999; color: #fff; 
+}
+
+#content .paging :link, #content .paging :visited {
+  padding: .1em .3em;
+  border: 1px solid #666;
+  background: transparent; color: #666;
+}
+#content .paging :link:hover, #content .paging :visited:hover {
+  background: #999; color: #fff;  border-color: #333;
+}
+#content .paging .previous a, 
+#content .paging .next a {
+  font-size: 150%; font-weight: bold; border: none;
+}
+#content .paging .previous a:hover,
+#content .paging .next a:hover {
+  background: transparent; color: #666;
+}
+
+#content h2 .numresults { color: #666; font-size: 90%; }
 
 /* Styles for search word highlighting */
 @media screen {
@@ -446,27 +568,9 @@ div.system-message p.system-message-title { font-weight: bold; }
 
 @media print {
  #header, #altlinks, #footer, #help { display: none }
- .nav, form, .buttons form, form .buttons, form .inlinebuttons { display: none }
+ .nav, form, .buttons form, form .buttons, form .inlinebuttons,
+ .noprint, .trac-rawlink {
+   display: none;
+ }
  form.printableform { display: block }
 }
-
-			#altlinks, #search, #header, #metanav, #ctxtnav, #mainnav {
-				display: none;
-			}
-			#footer {
-				display: none;
-			}
-			td.header-menu{ background-color: #BD0000; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
-				border: 1px solid #333366; color: white;
-			}
-			td.header-top-left{font-size: 16pt; font-weight: bold; padding: 10px; text-align: left; }
-			td.header-top-center{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right;
-				padding-top: 40px;
-			 }
-			td.header-top-right{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right; }
-			
-			.menu { color:white;}
-			body { margin: 0; padding: 0; }
-			div.wiki { padding-left: 10px; }	
-			h2 {background-color: #BD0000 !important;}		
-		

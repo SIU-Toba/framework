@@ -1,394 +1,194 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="../../../external.html?link=http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  
+
+  <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>WikiRestructuredTextLinks - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiRestructuredTextLinks?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
-.wikipage h2 {border-bottom: 1px solid gray;}
-
-/* trac php syntax highlighting */
-.code-block {
-    line-height: 1em;
-    font-family: Courier, monotype;
-    font-size: 12px;
-    }
-.h_question { color: #0000BB; } /* highlight.default */
-.hphp_commentline { color: #FF8000; } /* highlight.comment */
-.hphp_operator { color: #007700; } /* highlight.keyword */
-.hphp_word { color: #007700; } /* highlight.keyword */
-.hphp_default {}
-.hphp_variable { color: #0000BB; } /* highlight.default */
-.hphp_hstring { color: #DD0000; } /* highlight.string */
-.hphp_simplestring { color: #DD0000; } /* highlight.string */
-.h_tagunknown {}
-.h_default {}
-
-.code-keyword { color: #007700; font-weight: normal; }
-.code-lang { color: #0000BB; font-weight: normal; }
-.code-comment { color: #FF8000; font-weight: normal;}
-.code-string { color: #DD0000; font-weight: normal;}
-
-pre { padding:0; margin: 0}
-
-.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
-.tablas-screenshots table { width: 90%; border: 1px solid gray; }
-.tablas-screenshots td { }
-.tablas-screenshots table.wiki td { border: 1px solid gray; }
-
-#tkt-changes-hdr {
-    clear: both;
-    padding-top: 30px;
-}
-.wiki-toc {
-    clear: right;
-    min-width: 160px;
-    background-color:#F7F7F7;    
-    border: 1px solid #D7D7D7;
-}
-.wiki-toc .active {
-    background-color: #890C71;
-    padding: 1px;
-}
-.wiki-toc .active a {
-    color:white; 
-}
-.wiki-toc .active a:hover {
-    background-color:  #890C71;
-}
-.indice-general {
-/*    background-color: #FFFFDD;*/
-}
-.wikipage h1 {
-    padding-top: 5px;
-}
-.wikipage h2 {
- padding: 2px;
-}
-h1 {
-    font-size: 28px;
-}
-.wikipage h2 {
-    background-color: #890C71;
-    color: white;
-    padding-left: 10px;
-    margin-top: 30px;
-    font-size: 100%;
-    border: 1px solid gray;
-}
-.wikipage h3 {
-    font-size:100%;
-}
-.wikipage {
-padding-right:10px;
-}
-li {
-    margin-bottom:6px;
-}
-li * {
-    margin-bottom:3px;
-}
-/*a {
- color: #890C71;
-}*/
-@media print {
- .wiki-toc { display: none }
-}
-#tkt-changes-hdr, .tkt-chg-list { 
-    font-size:80%;
-    text-align:right;
-}
-
-/** Cambios globales **/
-#ctxtnav {
- /*display:none;*/
-}
-#mainnav {
- border: none;
- background: white;
- margin: 0;
- padding-top: 10px;
- padding-bottom: 35px;
-border-bottom:1px solid #CCCCCC;
-
-}
-#mainnav li {
- border: 1px solid lightGray;
-}
-#header {
- display:none;
-}
-body {
-    margin: 0;
-    padding: 0;
-      background-color:#F3F3F3;	    
-}
-#content {
-clear: both;
-
-}
-#banner {
-    background-color: white;
-    padding-right:10px;
-    padding-top:10px;
-}
-
-#mainnav .active :link, #mainnav .active :visited {
-background:#890B72;
-border-right:1px solid #000000;
-border-top:medium none;
-color:#EEEEEE;
-font-weight:bold;
-}
-#mainnav :link, #mainnav :visited {
- border: none;
- background: transparent;
-}
-:link, :visited {
-/* color: #1020EB;*/
-/* color: #0C1BBC; */
- color: #67065D ;
-
-}
-#main {
- padding-left: 10px;
-}
-#footer {
- background-color: white;
- border-bottom: 1px solid;
-}
-</style>
- <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
-</head>
-
-			<body>
-			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
-			  <tr>
-			
-				<td class='header-top-left'><img src='../../../../api/media/logo.png' border='0'/></td>
-			    <td class='header-top-right'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/wiki.png' />
-			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentación PHP'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/php-small.png' /></a> 
-			    	<a href='../../../../api_js/index.html'  title='Navegar hacia la documentación Javascript'>    		
-			    	<img border='0' style='vertical-align: middle' src='../../../../api/media/javascript-small.png' /></a>
-			  </tr>
-			
-			  <tr>
-			    <td colspan='2' class='header-menu'>
-			  		  [ <a href='http://desarrollos.siu.edu.ar/trac/toba/wiki/WikiRestructuredTextLinks' title='El sitio online contiene contenidos mas detallados y actualizados'
-						class='menu'>Ver online</a> ]
-			    </td>
-			
-			  </tr>
-			  <tr><td colspan='2' class='header-line'><img src='../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
-			</table>
-		
-
-<script type="text/javascript" src="../chrome/site/mootools.js"></script>
-<script type="text/javascript" src="../chrome/site/slimbox.js"></script>
-<link rel="stylesheet" href="../chrome/site/portada.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../chrome/site/slimbox.css" type="text/css" media="screen" />
-<a style='position: absolute; top: 5px; left:5px;border-bottom:none !important;' href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
-
-<div id="banner">
-
-<div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
-
-<form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- <div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div>
-</form>
-
-
-
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
-</div>
-
-<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a accesskey="3" href="../../../external.html?link=https://localhost/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/query">View Tickets</a></li><li><a accesskey="7" href="../../../external.html?link=https://localhost/trac/toba/newticket">New Ticket</a></li><li class="last"><a accesskey="4" href="../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
-<div id="main">
-
-
-
-
-<div id="ctxtnav" class="nav">
- <h2>Wiki Navigation</h2>
- <ul>
-   <li><a href="../wiki.html">Start Page</a></li>
-   <li><a href="TitleIndex.html">Index by Title</a></li>
-   <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
-   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiRestructuredTextLinks?action=diff&amp;version=4">Last Change</a></li>
- </ul>
- <hr />
-</div>
-
-<div id="content" class="wiki">
-
- 
-  
-  
-   
-   <div class="wikipage">
-    <div id="searchable"><h1 id="TracLinksinreStructuredText"><a class="wiki" href="TracLinks.html">TracLinks</a> in reStructuredText</h1>
+    <title>
+      WikiRestructuredTextLinks – SIU-Toba
+    </title>
+        <link rel="search" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search" />
+        <link rel="help" href="TracGuide.html" />
+        <link rel="alternate" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/WikiRestructuredTextLinks?format=txt" type="text/x-trac-wiki" title="Plain Text" />
+        <link rel="start" href="../wiki.html" />
+        <link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="../../../external.html?link=https://repositorio.siu.edu.ar/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="../../../external.html?link=https://repositorio.siu.edu.ar/favicon.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search/opensearch" title="Search SIU-Toba" />
+    <script type="text/javascript" src="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/chrome/common/js/jquery.js"></script><script type="text/javascript" src="../chrome/common/js/trac.js"></script><script type="text/javascript" src="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/trac/toba/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor("Link to this section");
+      });
+    </script>
+    <script type="text/javascript" src="../chrome/site/mootools.js"></script>
+    <script type="text/javascript" src="../chrome/site/slimbox.js"></script>
+    <link rel="stylesheet" href="../chrome/site/portada.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../chrome/site/slimbox.css" type="text/css" media="screen" />
+    <a style="position: absolute; top: 5px; left:5px;border-bottom:none !important;" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a>
+    <link rel="stylesheet" type="text/css" href="../chrome/site/style.css" />
+  </head>
+  <body>
+<a style="position: absolute; top: 5px; left:5px;border-bottom:none !important;" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu_original.gif" width="282" height="90" alt="SIU-Toba" /></a>
+    <div id="siteheader">
+    </div>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" alt="Toba" height="90" width="282" /></a>
+      </div>
+      <form id="search" action="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="TracGuide.html">Help/Guide</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/about">About Trac</a></li><li class="last"><a href="../prefs.html">Preferences</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="../wiki.html">Wiki</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/timeline">Timeline</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/roadmap">Roadmap</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/query">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="WikiStart.html">Start Page</a> / WikiRestructuredTextLinks</li><li><a href="TitleIndex.html">Index</a></li><li><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/WikiRestructuredTextLinks?action=history">History</a></li><li class="last"><a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/WikiRestructuredTextLinks?action=diff&amp;version=5">Last Change</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable">
+        
+          <h1 id="TracLinksinreStructuredText"><a class="wiki" href="TracLinks.html">TracLinks</a> in reStructuredText</h1>
 <p>
-This document is for testing the <tt></tt>..trac::<tt></tt> directive. The page is written like
+This document illustrates how to use the <tt>:trac:</tt> role in reStructuredText. The page is written like:
 </p>
 <pre class="wiki">{{{
 #!rst 
+Examples:
 
-Examples
-...
-...
+ * Tickets: :trac:`#1` or :trac:`ticket:1`
+ * Ticket comments: :trac:`comment:ticket:1:2`
+ * Reports: :trac:`{1}` or :trac:`report:1`
+ * Changesets: :trac:`r1`, :trac:`[1]` or :trac:`changeset:1`
+ * Revision log: :trac:`r1:3`, :trac:`[1:3]` or :trac:`log:@1:3`, :trac:`log:trunk@1:3`
+ * Diffs (since version 0.10): :trac:`diff:@20:30`, :trac:`diff:tags/trac-0.9.2/wiki-default//tags/trac-0.9.3/wiki-default` or :trac:`diff:trunk/trac@3538//sandbox/vc-refactoring/trac@3539`
+ * Wiki pages: :trac:`CamelCase` or :trac:`wiki:CamelCase`
+ * Milestones: :trac:`milestone:1.0`
+ * Attachment: :trac:`attachment:ticket:944:attachment.1073.diff`
+ * Files: :trac:`source:trunk/COPYING`
+ * A specific file revision: :trac:`source:/trunk/COPYING@200`
+ * A particular line of a specific file revision: :trac:`source:/trunk/COPYING@200#L25`
 
+An explicit label can be specified, separated from the link by a space:
+
+ * See :trac:`#1 ticket 1` and the :trac:`source:trunk/COPYING license`.
 }}}
 </pre><p>
-This is a list of example uses of the <i>trac</i> directive, providing use of <a class="wiki" href="TracLinks.html">TracLinks</a> in <a class="wiki" href="WikiRestructuredText.html">WikiRestructuredText</a>.
+Provided you have docutils installed, the above block will render as:
 </p>
-<div class="document" id="examples">
-<h1 class="title">Examples</h1>
-<div class="section">
-<h1><a id="trac-role" name="trac-role">trac role</a></h1>
-<p>Syntax is `link`:trac: or :trac:`link`, and could be put anywhere in the text. 'link' has the same format as explain for the <tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span></tt> directive below.</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">In</span> <span class="pre">the</span> <span class="pre">middle</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">text</span> <span class="pre">`WikiFormatting`:trac:</span> <span class="pre">see!!!!</span></tt></dt>
-<dd>In the middle of my text <a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">WikiFormatting</a> see!!!!</dd>
-</dl>
-<p>or</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">In</span> <span class="pre">the</span> <span class="pre">middle</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">text</span> <span class="pre">:trac:`WikiFormatting`</span> <span class="pre">see!!!!</span></tt></dt>
-<dd>In the middle of my text <a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">WikiFormatting</a> see!!!!</dd>
-</dl>
-</div>
-<div class="section">
-<h1><a id="wiki" name="wiki">wiki</a></h1>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">WikiFormatting</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">WikiFormatting</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">wiki:WikiFormatting</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">wiki:WikiFormatting</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">wiki:WikiFormatting</span> <span class="pre">WikiFormatting</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">WikiFormatting</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">wiki:WikiFormatting</span> <span class="pre">LinkText</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">LinkText</a></dd>
-</dl>
-</div>
-<div class="section">
-<h1><a id="tickets" name="tickets">tickets</a></h1>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">#1</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/ticket/1">#1</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">#1</span> <span class="pre">ticket</span> <span class="pre">one</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/ticket/1">ticket one</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">ticket:1</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/ticket/1">ticket:1</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">ticket:1</span> <span class="pre">ticket</span> <span class="pre">one</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/ticket/1">ticket one</a></dd>
-</dl>
-</div>
-<div class="section">
-<h1><a id="reports" name="reports">reports</a></h1>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">{1}</span></tt></dt>
-<dd><a class="missing reference" href="{1}.html">{1}</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">{1}</span> <span class="pre">report</span> <span class="pre">one</span></tt></dt>
-<dd><a class="missing reference" href="{1}.html">report one</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">report:1</span></tt></dt>
-<dd><a class="missing reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/report%3A1">report:1</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">report:1</span> <span class="pre">report</span> <span class="pre">one</span></tt></dt>
-<dd><a class="missing reference" href="../../../external.html?link=https://localhost/trac/toba/wiki/report%3A1">report one</a></dd>
-</dl>
-</div>
-<div class="section">
-<h1><a id="changesets" name="changesets">changesets</a></h1>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">[42]</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/changeset/42">[42]</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">[42]</span> <span class="pre">changeset</span> <span class="pre">42</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/changeset/42">changeset 42</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">changeset:42</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/changeset/42">changeset:42</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">changeset:42</span> <span class="pre">changeset</span> <span class="pre">42</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/changeset/42">changeset 42</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">foo</span></tt></dt>
-<dd><a class="missing reference" href="foo.html">foo</a></dd>
-</dl>
-</div>
-<div class="section">
-<h1><a id="files" name="files">files</a></h1>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">browser:/trunk/trac</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/trac">browser:/trunk/trac</a></dd>
-</dl>
-<p>The leading <tt class="docutils literal"><span class="pre">/</span></tt> can be omitted...</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">repos:trunk/trac</span> <span class="pre">trunk/trac</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/trac">trunk/trac</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">source:trunk/trac</span> <span class="pre">Trac</span> <span class="pre">source</span> <span class="pre">code</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/trac">Trac source code</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">browser:trunk/README</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/README">browser:trunk/README</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">repos:trunk/README</span> <span class="pre">trunk/README</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/README">trunk/README</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">source:trunk/README</span> <span class="pre">README</span> <span class="pre">in</span> <span class="pre">trunk</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/README">README in trunk</a></dd>
-</dl>
-<p>Note that if <tt class="docutils literal"><span class="pre">hoo</span></tt> is a file, the link targets its revision log. In order to see the file's content, you need to specify the revision explicitely, like here:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">browser:/trunk/README#latest</span> <span class="pre">latest</span> <span class="pre">of</span> <span class="pre">trunk/README</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/README?rev=latest">latest of trunk/README</a></dd>
-<dt><tt class="docutils literal"><span class="pre">..</span> <span class="pre">trac::</span> <span class="pre">repos:trunk/README#42</span> <span class="pre">trunk/README</span> <span class="pre">in</span> <span class="pre">rev</span> <span class="pre">42</span></tt></dt>
-<dd><a class="reference" href="../../../external.html?link=https://localhost/trac/toba/browser/trunk/README?rev=42">trunk/README in rev 42</a></dd>
-</dl>
-</div>
+<hr />
+<div class="document">
+<p>Examples:</p>
+<blockquote>
+<ul class="simple">
+<li>Tickets: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/ticket/1">#1</a> or <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/ticket/1">ticket:1</a></li>
+<li>Ticket comments: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/ticket/1#comment:2">comment:ticket:1:2</a></li>
+<li>Reports: <a class="missing reference external" href="{1}.html">{1}</a> or <a class="missing reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/report%3A1">report:1</a></li>
+<li>Changesets: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset/1">r1</a>, <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset/1">[1]</a> or <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset/1">changeset:1</a></li>
+<li>Revision log: <a class="reference external" href="../log/index98e0.html?revs=1-3">r1:3</a>, <a class="reference external" href="../log/index98e0.html?revs=1-3">[1:3]</a> or <a class="reference external" href="../log/index98e0.html?revs=1-3">log:&#64;1:3</a>, <a class="reference external" href="../log/trunk98e0.html?revs=1-3">log:trunk&#64;1:3</a></li>
+<li>Diffs (since version 0.10): <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset?new=30&amp;old=20">diff:&#64;20:30</a>, <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset?new_path=tags%2Ftrac-0.9.3%2Fwiki-default&amp;old_path=tags%2Ftrac-0.9.2%2Fwiki-default">diff:tags/trac-0.9.2/wiki-default//tags/trac-0.9.3/wiki-default</a> or <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/changeset?new=3539&amp;new_path=sandbox%2Fvc-refactoring%2Ftrac&amp;old=3538&amp;old_path=trunk%2Ftrac">diff:trunk/trac&#64;3538//sandbox/vc-refactoring/trac&#64;3539</a></li>
+<li>Wiki pages: <a class="reference external" href="CamelCase.html">CamelCase</a> or <a class="reference external" href="CamelCase.html">wiki:CamelCase</a></li>
+<li>Milestones: <pre class="literal-block">
+WARNING: :trac:`milestone:1.0` is not a valid TracLink
+</pre>
+</li>
+<li>Attachment: <pre class="literal-block">
+WARNING: :trac:`attachment:ticket:944:attachment.1073.diff` is not a valid TracLink
+</pre>
+</li>
+<li>Files: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser/trunk/COPYING">source:trunk/COPYING</a></li>
+<li>A specific file revision: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser/trunk/COPYING?rev=200">source:/trunk/COPYING&#64;200</a></li>
+<li>A particular line of a specific file revision: <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser/trunk/COPYING?rev=200#L25">source:/trunk/COPYING&#64;200#L25</a></li>
+</ul>
+</blockquote>
+<p>An explicit label can be specified, separated from the link by a space:</p>
+<blockquote>
+<ul class="simple">
+<li>See <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/ticket/1">ticket 1</a> and the <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/browser/trunk/COPYING">license</a>.</li>
+</ul>
+</blockquote>
 </div>
 <hr />
 <p>
-See also: <a class="wiki" href="WikiRestructuredTextLinks.html">WikiRestructuredTextLinks</a>, <a class="wiki" href="TracLinks.html">TracLinks</a>
+Note also that any of the above could have been written using substitution references and the <tt>trac::</tt> directive:
 </p>
+<pre class="wiki">{{{
+#!rst
+See |ticket123|.
+
+ .. |ticket123| trac:: ticket:123 this ticket
+}}}
+</pre><p>
+This renders as:
+</p>
+<hr />
+<div class="document">
+<p>See <a class="reference external" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/ticket/123">this ticket</a>.</p>
+<blockquote>
+</blockquote>
 </div>
-   </div>
-   
-  
-  <script type="text/javascript">
-   addHeadingLinks(document.getElementById("searchable"), "Link to this section");
-  </script>
- 
- 
-</div>
+<hr />
+<p>
+See also: <a class="wiki" href="WikiRestructuredText.html">WikiRestructuredText</a>, <a class="wiki" href="TracLinks.html">TracLinks</a>
+</p>
 
-<script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiRestructuredTextLinks?format=txt">Plain Text</a></li></ul></div>
-
-</div>
-
-<div id="footer">
- <hr />
- <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.org/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
-   alt="Trac Powered"/></a>
- <p class="left">
-  Powered by <a href="../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
-  By <a href="../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
- </p>
- <p class="right">
-  Creado por SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
- </p>
-</div>
-
-
-<script type='text/javascript'>
+        
+        
+      </div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/wiki/WikiRestructuredTextLinks?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.org/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">
+        Powered by <a href="../../../external.html?link=https://repositorio.siu.edu.ar/trac/toba/about"><strong>Trac 0.11.7</strong></a><br />
+        By <a href="../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right">Creado por SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a></p>
+    </div>
+    <div id="sitefooter">
+    </div>
+<script type="text/javascript">
 if (document.getElementById('link_php')) {
 document.getElementById('link_php').onclick = function() {
-    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html';
+    location.href = '../../../external.html?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api/index.html';
     return false;
 }
 document.getElementById('link_js').onclick = function() {
-    location.href = '../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html';
+    location.href = '../../../external.html?link=http://desarrollos.siu.edu.ar/toba_editor_trunk/doc/api_js/index.html';
     return false;
 }
 document.getElementById('link_wiki').onclick = function() {
@@ -396,9 +196,7 @@ document.getElementById('link_wiki').onclick = function() {
     return false;
 }
 }
-
 </script>
- </body>
+  </body>
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
-
