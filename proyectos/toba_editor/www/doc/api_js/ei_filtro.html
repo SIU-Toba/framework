@@ -47,6 +47,16 @@ ei_filtro
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="c.Event.html">c.Event</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="c.fx.html">c.fx</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ci.html">ci</a>    
 		</span>
 	 	<br />
@@ -182,6 +192,11 @@ ei_filtro
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_codigo.html">ei_codigo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_cuadro.html">ei_cuadro</a>    
 		</span>
 	 	<br />
@@ -198,6 +213,11 @@ ei_filtro
 	
 		<span style="padding-left: 1em;">		
 		<a href="ei_formulario_ml.html">ei_formulario_ml</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_mapa.html">ei_mapa</a>    
 		</span>
 	 	<br />
 	
@@ -378,7 +398,65 @@ ei_filtro
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#crear_fila">crear_fila</A>()
+						<a class="method-name" href="#cascadas_cambio_maestro">cascadas_cambio_maestro</A>(&lt;string&gt; id_ef)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#cascadas_comunicar">cascadas_comunicar</A>(&lt;string&gt; id_ef, valores)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Se comunica al servidor que debe refrescar el valor de un ef en base a valores especificos de sus efs maestros
+ Este método dispara la llamada asincronica al servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#cascadas_maestros_preparados">cascadas_maestros_preparados</A>(&lt;string&gt; id_esclavo)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Determina si los maestros de un ef esclavo tienen sus valores cargados</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#cascadas_preparar_esclavo">cascadas_preparar_esclavo</A>(&lt;string&gt; id_esclavo)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Un ef esclavo esta listo para refrescar su valor en base a sus maestros,
+ para esto en este metodo se recolecta los valores de sus maestros y se dispara
+ la comunicación con el servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#cascadas_respuesta">cascadas_respuesta</A>(&lt;Object&gt; respuesta)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef puntual</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#crear_fila">crear_fila</A>(id)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -429,6 +507,29 @@ ei_filtro
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#evt__cascadas_fin">evt__cascadas_fin</A>(&lt;<a href="ef.html">ef</a>&gt; ef_esclavo, &lt;Object&gt; datos)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Ventana de ejecución posterior a la respuesta de una cascada.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#evt__cascadas_inicio">evt__cascadas_inicio</A>(&lt;<a href="ef.html">ef</a>&gt; ef_maestro)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Ventana de ejecución anterior al pedido de respuesta de la cascada
+ Extender para agregar un comportamiento anterior a la respuesta</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#get_condicion">get_condicion</A>(columna)
 					</td>
 
@@ -436,13 +537,14 @@ ei_filtro
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">void</span>
+											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#get_valores_maestros">get_valores_maestros</A>(id_ef)
+						<a class="method-name" href="#get_valores_maestros">get_valores_maestros</A>(id_esclavo)
 					</td>
 
-					<td class="method-definition"> </td></tr>
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Retorna el estado actual de los maestros directos de un esclavo</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -544,7 +646,7 @@ ei_filtro
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ei_filtro (id, instancia, input_submit)</code>
+							   <code>ei_filtro (id, instancia, input_submit, maestros, esclavos)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -599,10 +701,291 @@ ei_filtro
 		   
 		</div>
 		
-   		<A id="crear_fila" NAME="crear_fila"><!-- --></A>	
+   		<A id="cascadas_cambio_maestro" NAME="cascadas_cambio_maestro"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">cascadas_cambio_maestro</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void cascadas_cambio_maestro (&lt;string&gt; id_ef)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Identificador del ef maestro que sufrio una modificación 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="cascadas_comunicar" NAME="cascadas_comunicar"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">cascadas_comunicar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void cascadas_comunicar (&lt;string&gt; id_ef, valores)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Se comunica al servidor que debe refrescar el valor de un ef en base a valores especificos de sus efs maestros
+ Este método dispara la llamada asincronica al servidor</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del ef a refrescar (un ef esclavo)  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">string</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> valores Lista plana de valores. Formato: ef1-;-valor1-|-ef2-;-valor2-|- etc. 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#cascadas_respuesta">cascadas_respuesta()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="cascadas_maestros_preparados" NAME="cascadas_maestros_preparados"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">cascadas_maestros_preparados</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>boolean cascadas_maestros_preparados (&lt;string&gt; id_esclavo)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Determina si los maestros de un ef esclavo tienen sus valores cargados</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_esclavo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Identificador del ef esclavo  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="cascadas_preparar_esclavo" NAME="cascadas_preparar_esclavo"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">cascadas_preparar_esclavo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void cascadas_preparar_esclavo (&lt;string&gt; id_esclavo)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Un ef esclavo esta listo para refrescar su valor en base a sus maestros,
+ para esto en este metodo se recolecta los valores de sus maestros y se dispara
+ la comunicación con el servidor</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_esclavo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Identificador del ef esclavo que se refrescara 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="cascadas_respuesta" NAME="cascadas_respuesta"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">cascadas_respuesta</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void cascadas_respuesta (&lt;Object&gt; respuesta)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef puntual</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">respuesta</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> La respuesta es un objeto asociativo con claves responseText que contiene el nuevo valor del ef 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="crear_fila" NAME="crear_fila"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">crear_fila</span>
@@ -613,7 +996,7 @@ ei_filtro
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void crear_fila ()</code>
+							   <code>void crear_fila (id)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -635,8 +1018,8 @@ ei_filtro
 		
    		<A id="deseleccionar_actual" NAME="deseleccionar_actual"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">deseleccionar_actual</span>
@@ -677,8 +1060,8 @@ ei_filtro
 		
    		<A id="ef" NAME="ef"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">ef</span>
@@ -715,8 +1098,8 @@ ei_filtro
 		
    		<A id="eliminar_fila" NAME="eliminar_fila"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">eliminar_fila</span>
@@ -749,8 +1132,8 @@ ei_filtro
 		
    		<A id="eliminar_seleccionada" NAME="eliminar_seleccionada"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">eliminar_seleccionada</span>
@@ -786,10 +1169,127 @@ ei_filtro
 		   
 		</div>
 		
-   		<A id="get_condicion" NAME="get_condicion"><!-- --></A>	
+   		<A id="evt__cascadas_fin" NAME="evt__cascadas_fin"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">evt__cascadas_fin</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void evt__cascadas_fin (&lt;<a href="ef.html">ef</a>&gt; ef_esclavo, &lt;Object&gt; datos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Ventana de ejecución posterior a la respuesta de una cascada.
+ Extender para agregar un comportamiento post-respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">ef_esclavo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Instancia del ef esclavo destino de la cascada  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">datos</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Datos de respuesta usados en la cascada  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="evt__cascadas_inicio" NAME="evt__cascadas_inicio"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">evt__cascadas_inicio</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void evt__cascadas_inicio (&lt;<a href="ef.html">ef</a>&gt; ef_maestro)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Ventana de ejecución anterior al pedido de respuesta de la cascada
+ Extender para agregar un comportamiento anterior a la respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">ef_maestro</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Instancia del ef maestro que inicia la cascada  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_condicion" NAME="get_condicion"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">get_condicion</span>
@@ -822,8 +1322,8 @@ ei_filtro
 		
    		<A id="get_valores_maestros" NAME="get_valores_maestros"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_valores_maestros</span>
@@ -834,13 +1334,18 @@ ei_filtro
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void get_valores_maestros (id_ef)</code>
+							   <code>Object get_valores_maestros (id_esclavo)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Retorna el estado actual de los maestros directos de un esclavo</UL>
+				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -856,8 +1361,8 @@ ei_filtro
 		
    		<A id="puede_submit" NAME="puede_submit"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">puede_submit</span>
@@ -895,8 +1400,8 @@ ei_filtro
 		
    		<A id="refrescar_foco" NAME="refrescar_foco"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">refrescar_foco</span>
@@ -933,8 +1438,8 @@ ei_filtro
 		
    		<A id="resetear_errores" NAME="resetear_errores"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">resetear_errores</span>
@@ -971,8 +1476,8 @@ ei_filtro
 		
    		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">seleccionar</span>
@@ -1009,8 +1514,8 @@ ei_filtro
 		
    		<A id="set_ef_valido" NAME="set_ef_valido"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_ef_valido</span>
@@ -1081,8 +1586,8 @@ ei_filtro
 		
    		<A id="submit" NAME="submit"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>
@@ -1120,8 +1625,8 @@ ei_filtro
 		
    		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">validar</span>

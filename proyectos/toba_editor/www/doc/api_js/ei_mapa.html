@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-vinculador
+ei_mapa
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -310,7 +310,7 @@ vinculador
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>vinculador</h1>
+<h1>ei_mapa</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -327,32 +327,24 @@ vinculador
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
-	   
-      		<div class="description">
-   			<BR/>Permite construir URLs para navegar hacia items del proyecto pasando parámetros específicos
- <BR/>
-			</div>	
-   				
+	   			
 
 
 <PRE>Object
    |
-   +--<b>vinculador</b>
+   +--<a href='ei.html'>ei</a>
+         |
+         +--<b>ei_mapa</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en vinculador.js
+			Ubicada en ei_mapa.js
 		</p>
 
 
 
 	<table border="0" cellspacing="0" cellpadding="0">
 		
-	
-			<tr><td colspan="2"><a href='../api/Centrales/toba_vinculador'>
-			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
-			<strong>Clase PHP equivalente: toba::vinculador()</strong></a></td></tr>
-	<br>
 	
 	</table>
 		</td>
@@ -363,6 +355,12 @@ vinculador
 	
 
 <a name="sec-inherited"></a>
+
+<div class="info-box">
+		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
+		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>, <a href="ei.html#filtrado_ef_ce_comunicar">filtrado_ef_ce_comunicar</a>, <a href="ei.html#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta</a>, <a href="ei.html#filtrado_ef_ce_validar">filtrado_ef_ce_validar</a>, <a href="ei.html#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion</a>
+		</div>
+	</div>
 
 
 
@@ -375,53 +373,166 @@ vinculador
 		<div class="method-summary">		
 			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!activar_vinculo">activar_vinculo</A>(&lt;string&gt; identificador)
+						<a class="method-name" href="#acercarse">acercarse</A>(e)
 					</td>
 
-					<td class="method-definition"> Activa un vinculo registrado en PHP previamente desactivado</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!agregar_parametros">agregar_parametros</A>(&lt;string&gt; identificador, &lt;Object&gt; parametros)
+						<a class="method-name" href="#alejarse">alejarse</A>(e)
 					</td>
 
-					<td class="method-definition"> Toma un vinculo registrado en PHP y le agrega parametros</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!agregar_vinculo">agregar_vinculo</A>(identificador, datos)
+						<a class="method-name" href="#area">area</A>(e)
 					</td>
 
-					<td class="method-definition"> Registra un nuevo vinculo
- A travez de este metodo el vinculador de PHP habla con el de JS.</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result"><a href="String.html">String</a></span>
+											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!concatenar_parametros_url">concatenar_parametros_url</A>(&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)
+						<a class="method-name" href="#change_layers">change_layers</A>(obj)
 					</td>
 
-					<td class="method-definition"> Toma una URL y le agrega parametros</td></tr>
+					<td class="method-definition"> Permite seleccionar/deseleccionar un layer en particular y refresca
+ el mapa de acuerdo a la seleccion</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#desplazar">desplazar</A>(e)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_punto_click">get_punto_click</A>(evento)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#iniciar">iniciar</A>()
+					</td>
+
+					<td class="method-definition"> Funcion para inicializar el componente</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#puede_submit">puede_submit</A>()
+					</td>
+
+					<td class="method-definition"> Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#render">render</A>()
+					</td>
+
+					<td class="method-definition"> Dispara el renderizado del mapa que hara una llamada para
+ obtener la nueva imagen</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#resetear_posicion">resetear_posicion</A>(e)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_extent">set_extent</A>(xmin, xmax, ymin, ymax)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_layers">set_layers</A>(layers, cambiar_mapa)
+					</td>
+
+					<td class="method-definition"> Permite setear la totalidad de los layers que tiene el mapa</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_layers_activos">set_layers_activos</A>(layers)
+					</td>
+
+					<td class="method-definition"> Setea la lista de layers actualmente activos (util para el control de layers unicamente)</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_url">set_url</A>(url_pedido)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#submit">submit</A>()
+					</td>
+
+					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!crear">crear</A>(destino, servicio, parametros, objetos)
+						<a class="method-name" href="#!s!set_alto_mapa">set_alto_mapa</A>(alto)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -431,7 +542,7 @@ vinculador
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!crear_autovinculo">crear_autovinculo</A>(servicio, parametros, objetos)
+						<a class="method-name" href="#!s!set_ancho_mapa">set_ancho_mapa</A>(ancho)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -441,50 +552,20 @@ vinculador
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!desactivar_vinculo">desactivar_vinculo</A>(&lt;string&gt; identificador)
+						<a class="method-name" href="#!s!set_evento">set_evento</A>(evento)
 					</td>
 
-					<td class="method-definition"> Desactiva un vinculo registrado en PHP.</td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result"><a href="String.html">String</a></span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!get_url">get_url</A>(&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, &lt;boolean&gt; es_menu, enviar_zona)
-					</td>
-
-					<td class="method-definition"> Retorna una URL hacia un item especifico</td></tr>
+					<td class="method-definition"> </td></tr>
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!invocar">invocar</A>(&lt;string&gt; identificador)
+						<a class="method-name" href="#!s!set_ubicacion_controles">set_ubicacion_controles</A>(ubicacion)
 					</td>
 
-					<td class="method-definition"> Invoca un vinculo registrado en PHP</td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!ir_a_proyecto">ir_a_proyecto</A>(&lt;string&gt; proyecto)
-					</td>
-
-					<td class="method-definition"> Navega hacia otro proyecto</td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!limpiar_vinculos">limpiar_vinculos</A>()
-					</td>
-
-					<td class="method-definition"> Limpia los vinculos existentes</td></tr>
+					<td class="method-definition"> </td></tr>
 			
 			</table>
 			</div>			
@@ -501,10 +582,10 @@ vinculador
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="vinculador()"><!-- --></A>
+<A NAME="ei_mapa()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">vinculador</span>
+				<span class="method-title">ei_mapa</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -512,13 +593,17 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>vinculador ()</code>
+							   <code>ei_mapa (id, instancia, input_submit)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>			
+						
+			<p class="description">
+  				<UL>Constructor</UL>
+			</p>
 			
 
 		   <!-- METHOD PARAMETERS START -->
@@ -533,13 +618,13 @@ vinculador
 		<a name='method_detail'></a>
 		
 		
-   		<A id="activar_vinculo" NAME="!s!activar_vinculo"><!-- --></A>	
+   		<A id="acercarse" NAME="acercarse"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">activar_vinculo</span>
+				<span class="method-title">acercarse</span>
 			</div>
 			<br />
 			<div class="function">
@@ -547,34 +632,16 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void activar_vinculo (&lt;string&gt; identificador)</code>
+							   <code>void acercarse (e)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Activa un vinculo registrado en PHP previamente desactivado</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">identificador</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -585,13 +652,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="agregar_parametros" NAME="!s!agregar_parametros"><!-- --></A>	
+   		<A id="alejarse" NAME="alejarse"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">agregar_parametros</span>
+				<span class="method-title">alejarse</span>
 			</div>
 			<br />
 			<div class="function">
@@ -599,43 +666,16 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void agregar_parametros (&lt;string&gt; identificador, &lt;Object&gt; parametros)</code>
+							   <code>void alejarse (e)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Toma un vinculo registrado en PHP y le agrega parametros</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">identificador</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del vinculo previamente generado  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">parametros</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )	  	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -646,13 +686,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="agregar_vinculo" NAME="!s!agregar_vinculo"><!-- --></A>	
+   		<A id="area" NAME="area"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">agregar_vinculo</span>
+				<span class="method-title">area</span>
 			</div>
 			<br />
 			<div class="function">
@@ -660,18 +700,13 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void agregar_vinculo (identificador, datos)</code>
+							   <code>void area (e)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Registra un nuevo vinculo
- A travez de este metodo el vinculador de PHP habla con el de JS.</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -685,13 +720,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="concatenar_parametros_url" NAME="!s!concatenar_parametros_url"><!-- --></A>	
+   		<A id="change_layers" NAME="change_layers"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">concatenar_parametros_url</span>
+				<span class="method-title">change_layers</span>
 			</div>
 			<br />
 			<div class="function">
@@ -699,7 +734,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; <a href="String.html">String</a> concatenar_parametros_url (&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)</code>
+							   <code>void change_layers (obj)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -708,34 +743,12 @@ vinculador
 			</div>
 			
 				<p class="description">
-	  				<UL>Toma una URL y le agrega parametros</UL>
+	  				<UL>Permite seleccionar/deseleccionar un layer en particular y refresca
+ el mapa de acuerdo a la seleccion</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">vinculo</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> URL original  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">parametros</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )  </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -746,13 +759,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="crear" NAME="!s!crear"><!-- --></A>	
+   		<A id="desplazar" NAME="desplazar"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">crear</span>
+				<span class="method-title">desplazar</span>
 			</div>
 			<br />
 			<div class="function">
@@ -760,7 +773,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Object crear (destino, servicio, parametros, objetos)</code>
+							   <code>void desplazar (e)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -777,20 +790,16 @@ vinculador
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
-		   <UL>   
-			   <B>Deprecated</B> <I>Desde 1.1.0 usar, get_url  </I><BR/><BR/><B>See:</B><UL>- <a href="#!s!get_url">get_url()</a></UL>
-		   </UL>
-		   
 		   
 		</div>
 		
-   		<A id="crear_autovinculo" NAME="!s!crear_autovinculo"><!-- --></A>	
+   		<A id="get_punto_click" NAME="get_punto_click"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">crear_autovinculo</span>
+				<span class="method-title">get_punto_click</span>
 			</div>
 			<br />
 			<div class="function">
@@ -798,7 +807,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Object crear_autovinculo (servicio, parametros, objetos)</code>
+							   <code>Object get_punto_click (evento)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -815,20 +824,16 @@ vinculador
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
-		   <UL>   
-			   <B>Deprecated</B> <I>Desde 1.1.0 usar, get_url  </I><BR/><BR/><B>See:</B><UL>- <a href="#!s!get_url">get_url()</a></UL>
-		   </UL>
-		   
 		   
 		</div>
 		
-   		<A id="desactivar_vinculo" NAME="!s!desactivar_vinculo"><!-- --></A>	
+   		<A id="iniciar" NAME="iniciar"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">desactivar_vinculo</span>
+				<span class="method-title">iniciar</span>
 			</div>
 			<br />
 			<div class="function">
@@ -836,7 +841,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void desactivar_vinculo (&lt;string&gt; identificador)</code>
+							   <code>void iniciar ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -845,25 +850,11 @@ vinculador
 			</div>
 			
 				<p class="description">
-	  				<UL>Desactiva un vinculo registrado en PHP. De esta forma no se va a invocar</UL>
+	  				<UL>Funcion para inicializar el componente</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">identificador</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -874,13 +865,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="get_url" NAME="!s!get_url"><!-- --></A>	
+   		<A id="puede_submit" NAME="puede_submit"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">get_url</span>
+				<span class="method-title">puede_submit</span>
 			</div>
 			<br />
 			<div class="function">
@@ -888,7 +879,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; <a href="String.html">String</a> get_url (&lt;string&gt; proyecto, &lt;string&gt; operacion, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos, &lt;boolean&gt; es_menu, enviar_zona)</code>
+							   <code>boolean puede_submit ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -897,79 +888,12 @@ vinculador
 			</div>
 			
 				<p class="description">
-	  				<UL>Retorna una URL hacia un item especifico</UL>
+	  				<UL>Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">proyecto</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> destino, por defecto el actual  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">operacion</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> destino, por defecto el actual  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">servicio</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Servicio a solicitar (opcional) por defecto generar_html  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">parametros</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">objetos</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Ids. de componentes destino del servicio (opcional)  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">es_menu</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Indica que se invoca una operación de menu (va a limpiar la memoria)  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">indica</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> que debe propagarse el editable de la zona (si existe)  </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -980,13 +904,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="invocar" NAME="!s!invocar"><!-- --></A>	
+   		<A id="render" NAME="render"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">invocar</span>
+				<span class="method-title">render</span>
 			</div>
 			<br />
 			<div class="function">
@@ -994,7 +918,7 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void invocar (&lt;string&gt; identificador)</code>
+							   <code>void render ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1003,25 +927,12 @@ vinculador
 			</div>
 			
 				<p class="description">
-	  				<UL>Invoca un vinculo registrado en PHP</UL>
+	  				<UL>Dispara el renderizado del mapa que hara una llamada para
+ obtener la nueva imagen</UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">identificador</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -1032,13 +943,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="ir_a_proyecto" NAME="!s!ir_a_proyecto"><!-- --></A>	
+   		<A id="resetear_posicion" NAME="resetear_posicion"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">ir_a_proyecto</span>
+				<span class="method-title">resetear_posicion</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1046,34 +957,16 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void ir_a_proyecto (&lt;string&gt; proyecto)</code>
+							   <code>void resetear_posicion (e)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Navega hacia otro proyecto</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">proyecto</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Id. del proyecto destino 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -1084,13 +977,13 @@ vinculador
 		   
 		</div>
 		
-   		<A id="limpiar_vinculos" NAME="!s!limpiar_vinculos"><!-- --></A>	
+   		<A id="set_extent" NAME="set_extent"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">limpiar_vinculos</span>
+				<span class="method-title">set_extent</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1098,7 +991,41 @@ vinculador
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void limpiar_vinculos ()</code>
+							   <code>void set_extent (xmin, xmax, ymin, ymax)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_layers" NAME="set_layers"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_layers</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_layers (layers, cambiar_mapa)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1107,8 +1034,255 @@ vinculador
 			</div>
 			
 				<p class="description">
-	  				<UL>Limpia los vinculos existentes</UL>
+	  				<UL>Permite setear la totalidad de los layers que tiene el mapa</UL>
 				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_layers_activos" NAME="set_layers_activos"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_layers_activos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_layers_activos (layers)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Setea la lista de layers actualmente activos (util para el control de layers unicamente)</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_url" NAME="set_url"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_url</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_url (url_pedido)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="submit" NAME="submit"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">submit</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object submit ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_alto_mapa" NAME="!s!set_alto_mapa"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_alto_mapa</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Object set_alto_mapa (alto)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_ancho_mapa" NAME="!s!set_ancho_mapa"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_ancho_mapa</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Object set_ancho_mapa (ancho)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_evento" NAME="!s!set_evento"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_evento</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_evento (evento)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_ubicacion_controles" NAME="!s!set_ubicacion_controles"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_ubicacion_controles</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_ubicacion_controles (ubicacion)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
