@@ -832,7 +832,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$hasta = toba_modelo_instalacion::get_version_actual();		
 			$instancia->get_db()->abrir_transaccion();	
 			$instancia->migrar_rango_versiones($desde, $hasta, 1, false);
-			var_dump($instancia->get_proyecto($id_proyecto)->get_dir_dump());
 			$instancia->get_proyecto($id_proyecto)->exportar();
 			$instancia->get_db()->abortar_transaccion();	//Aborta la transaccion para que no afecte la instancia vieja
 			$instancia->get_db()->destruir();
