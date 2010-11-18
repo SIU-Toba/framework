@@ -777,7 +777,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	 */
 	function importar_migrar_proyecto($id_instancia, $id_proyecto, $dir_toba_viejo)
 	{
+		$path_proyecto = toba_dir().'/proyectos/'.$id_proyecto;
 		$excepcion = null;
+		$url = null;
 		try {
 			$dir_original = $this->get_dir();
 			$dir_backup = $dir_original.'.'.date('YmdHms');
@@ -791,7 +793,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			}
 			
 			//--- Traer configuraciones de la instancia vieja
-			$instancia = $this->get_instancia($id_instancia);			
+			$instancia = $this->get_instancia($id_instancia);
+											
 			$archivo_ini_bases = $dir_toba_viejo.'/instalacion/bases.ini';
 			if (! file_exists($archivo_ini_bases)) {
 				throw new toba_error("No se encuentra el archivo $archivo_ini_bases");
@@ -814,13 +817,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$this->manejador_interface->titulo("2.- Apuntando la instancia nueva a la de la versión anterior");
 			$proyectos_vinculados = $instancia->get_lista_proyectos_vinculados();
 			$instancia->set_proyectos_vinculados(array($id_proyecto));
-			$path = null;
-			$url = null;
-			if (isset($conf_instancia[$id_proyecto])) {
-				$path = isset($conf_instancia[$id_proyecto]['path']) ? $conf_instancia[$id_proyecto]['path'] : null;
-				$url = isset($conf_instancia[$id_proyecto]['$url']) ? $conf_instancia[$id_proyecto]['$url'] : null;
-			}
-			$instancia->vincular_proyecto($id_proyecto, $path, $url);			
+			$instancia->vincular_proyecto($id_proyecto, $path_proyecto, $url);			
 
 			//--- Apuntar la instancia actual a la instancia externa			
 			$this->actualizar_db($instancia->get_ini_base(), $bases_viejas[$id_base_instancia]);
@@ -835,6 +832,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$hasta = toba_modelo_instalacion::get_version_actual();		
 			$instancia->get_db()->abrir_transaccion();	
 			$instancia->migrar_rango_versiones($desde, $hasta, 1, false);
+			var_dump($instancia->get_proyecto($id_proyecto)->get_dir_dump());
 			$instancia->get_proyecto($id_proyecto)->exportar();
 			$instancia->get_db()->abortar_transaccion();	//Aborta la transaccion para que no afecte la instancia vieja
 			$instancia->get_db()->destruir();
@@ -857,13 +855,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$instancia->cargar_info_ini();
 			$instancia->get_db(true);	//Refresca la base
 			//Si existe una entrada actual en el instancias.ini viejo, replicarla en el actual
-			$path = null;
-			$url = null;
-			if (isset($conf_instancia[$id_proyecto])) {
-				$path = isset($conf_instancia[$id_proyecto]['path']) ? $conf_instancia[$id_proyecto]['path'] : null;
-				$url = isset($conf_instancia[$id_proyecto]['$url']) ? $conf_instancia[$id_proyecto]['$url'] : null;
-			}
-			$instancia->vincular_proyecto($id_proyecto, $path, $url);
+			$instancia->vincular_proyecto($id_proyecto, $path_proyecto, $url);
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$proyecto->regenerar();
 			
