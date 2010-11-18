@@ -131,7 +131,7 @@ class toba_datos_busqueda
 	 */
 	function ordenar_datos_x_columnas($datos_orig)
 	{
-		if (! empty($this->_info_orden_col)) {
+		if (! empty($this->_info_orden_col) && ! empty($datos_orig)) {
 			$columnas = array_keys($this->_info_orden_col);
 			$datos_destino = rs_ordenar_por_columnas($datos_orig, $columnas, $this->_info_orden_col);
 		} else {
