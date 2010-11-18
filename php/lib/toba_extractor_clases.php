@@ -84,6 +84,19 @@ class toba_extractor_clases
 			$this->generar_archivo($path.'/'.$data['archivo_salida'], $arreglo, $path);
 		}
 	}
+	
+    function generar_vacio()
+	{
+		foreach ($this->puntos_montaje as $path => $data) {
+			if (!is_dir($path)) {
+				$this->consola->mensaje("\n[WARNING] El punto de montaje $path no se encuentra, por lo tanto los archivos de este punto de montaje no serán cargados");
+				continue;	// simplemente se ignora
+			}
+
+			$this->init_registro();
+			$this->generar_archivo($path.'/'.$data['archivo_salida'], '', $path);
+		}
+	}	
 
 	protected function obtener_archivos($path, $excluidos = array())
 	{

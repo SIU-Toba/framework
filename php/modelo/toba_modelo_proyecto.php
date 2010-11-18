@@ -1662,7 +1662,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Autoload
 	//-----------------------------------------------------------
 
-	function generar_autoload(consola $consola)
+	function generar_autoload(consola $consola, $generar_vacio=false)
 	{
 		$montaje_proyecto = $this->get_dir().'/php';
 		$id_proyecto = $this->get_id();
@@ -1691,7 +1691,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 //		$clases[] = 'ci_editores_toba';
 		$extractor = new toba_extractor_clases($consola, $param);
 //		$extractor->set_extends_excluidos($clases);
-		$extractor->generar();
+		if (! $generar_vacio) {
+			$extractor->generar();
+		} else {
+			$extractor->generar_vacio();
+		}
+		
 	}
 
 	//-----------------------------------------------------------

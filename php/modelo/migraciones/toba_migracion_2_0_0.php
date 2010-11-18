@@ -175,9 +175,9 @@ class toba_migracion_2_0_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
-	function proyecto__extension_componentes()
+	function proyecto__autoload()
 	{
-
+		$this->elemento->generar_autoload($this->manejador_interface, true);
 	}
 }
 ?>
