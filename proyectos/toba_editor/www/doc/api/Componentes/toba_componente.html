@@ -240,6 +240,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_codigo.html">					ei_codigo
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_cuadro.html">					ei_cuadro
 					</a>    	    		</span>
     		
@@ -261,6 +266,16 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_formulario_ml.html">					ei_formulario_ml
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_grafico.html">					ei_grafico
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_mapa.html">					ei_mapa
 					</a>    	    		</span>
     		
 	 <br />
@@ -877,6 +892,9 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
 							</li>
 					<li>
@@ -898,10 +916,16 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_mapa.html#method__construct">toba_ei_mapa::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
@@ -925,9 +949,8 @@ $definicion&nbsp;
 		<code>void agregar_dependencia(
 string
 $identificador, string
-$proyecto, 
-$objeto, string
-$tipo&nbsp;
+$proyecto, string
+$objeto&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -941,7 +964,7 @@ $tipo&nbsp;
 				<td>
 				<span class="var-name">$identificador:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> ID. del componente</span>			</td></tr>
+				<span class="var-description"> ID. de la dependencia</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
@@ -951,15 +974,9 @@ $tipo&nbsp;
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$tipo:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Tipo de componente</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
 				<span class="var-name">$objeto:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> ID. de componente en el proyecto</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1838,6 +1855,9 @@ $nivel = null]&nbsp;
 					<li>
 				<a href="../Componentes/Eis/toba_ci.html#methodini">toba_ci::ini()</a>
 								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_grafico.html#methodini">toba_ei_grafico::ini()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodini">toba_datos_tabla::ini()</a>

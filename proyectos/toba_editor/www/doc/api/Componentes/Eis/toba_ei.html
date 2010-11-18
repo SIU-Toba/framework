@@ -240,6 +240,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_codigo.html">					ei_codigo
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_ei_cuadro.html">					ei_cuadro
 					</a>    	    		</span>
     		
@@ -261,6 +266,16 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_ei_formulario_ml.html">					ei_formulario_ml
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_grafico.html">					ei_grafico
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_mapa.html">					ei_mapa
 					</a>    	    		</span>
     		
 	 <br />
@@ -490,7 +505,7 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Efs/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../../wiki/trac/toba/wiki/Referencia/Objetos.html'>
@@ -500,7 +515,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		
 				
 			
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Efs/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
+Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
 
 		<tr><td colspan="2"><a href='../../../api_js/ei.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -525,6 +540,12 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<div class="info-box-title">Subclases directas</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_codigo.html">toba_ei_codigo</a></td>
+					<td>
+											Genera un editor de código
+										</td>
+				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_archivos.html">toba_ei_archivos</a></td>
 					<td>
@@ -562,6 +583,12 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_mapa.html">toba_ei_mapa</a></td>
+					<td>
+											Genera un cliente para mapas GIS
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_esquema.html">toba_ei_esquema</a></td>
 					<td>
 											Genera un esquema utilizando GraphViz
@@ -571,6 +598,12 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ci.html">toba_ci</a></td>
 					<td>
 											Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_grafico.html">toba_ei_grafico</a></td>
+					<td>
+											Genera un Grafico
 										</td>
 				</tr>
 								<tr>
@@ -957,7 +990,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 						</td>
 						<td class="method-definition"><a href="#set_refresh_ejecuta_eventos" title="details" class="method-name">set_refresh_ejecuta_eventos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Hace que los componentes reenvien sus eventos cuando se hace un refresh sobre la pagina</td></tr>
-																																																																																																																		<tr>
+																																																																																																																																																																																																																																																									<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1231,46 +1264,151 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 						<td class="method-definition">Impresion HTML por defecto</td></tr>
 																				<tr>
 						<td nowrap align="right">
-														    															
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_get_att_comunes" title="details" class="method-name">xml_get_att_comunes</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna los atributos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_get_elem_comunes" title="details" class="method-name">xml_get_elem_comunes</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_imagen" title="details" class="method-name">xml_imagen</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un string con el xml de una imagen a incluir.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_alto_cabecera" title="details" class="method-name">xml_set_alto_cabecera</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define el alto de la cabecera de página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_alto_pie" title="details" class="method-name">xml_set_alto_pie</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define el alto del pié de página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_atts_ei" title="details" class="method-name">xml_set_atts_ei</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Forma genérica de definir parámetros de usuario. El parámetro $atts debe ser un array de tipo  &quot;nombre&quot;=&gt;&quot;valor&quot;.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_cabecera" title="details" class="method-name">xml_set_cabecera</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define la cabecera de página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_dim_pagina" title="details" class="method-name">xml_set_dim_pagina</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define las dimensiones de la página</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_incluir_cabecera" title="details" class="method-name">xml_set_incluir_cabecera</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define si se crea la cabecera de la página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_incluir_pie" title="details" class="method-name">xml_set_incluir_pie</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define si se crea el pié de página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_set_logo" title="details" class="method-name">xml_set_logo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite definir una imagen que se ubica a la izquierda de la cabecera del pdf</td></tr>
+						<td class="method-definition">Define el logo de la institución a utilizar en la cabecera del pdf</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_margenes" title="details" class="method-name">xml_set_margenes</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define los márgenes de la página. $margenes debe ser un array de tipo 'nombre'=&gt;'valor',  donde 'sup', 'inf', 'izq' y 'der' son los nombres para definir los márgenes superior,  inferior, izquierdo y derecho respectivamente.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_nro_copias" title="details" class="method-name">xml_set_nro_copias</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define el numero de copias que deben aparecer en el pdf.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_set_ns" title="details" class="method-name">xml_set_ns</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite definir un namespace en el xml resultante del componente</td></tr>
+						<td class="method-definition">Define un namespace a utilizar con los elementos xml.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_set_orientacion" title="details" class="method-name">xml_set_orientacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite definir la orientación de la página del pdf</td></tr>
+						<td class="method-definition">Define la orientación de la página</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_pie" title="details" class="method-name">xml_set_pie</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define el pié de página.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">unknown_type</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_set_subtitulo" title="details" class="method-name">xml_set_subtitulo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite definir un subtítulo, que se ubica debajo del título</td></tr>
+						<td class="method-definition">Define el subtítulo a utilizar en la cabecera del pdf</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_set_tabla_cols" title="details" class="method-name">xml_set_tabla_cols</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Define atributos comunes a columnas de una tabla (atributos del elemento table-column  de xsl-fo).</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_set_titulo" title="details" class="method-name">xml_set_titulo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite definir el título del pdf</td></tr>
+						<td class="method-definition">Define el titulo a utilizar en la cabecera del pdf</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#xml_tabla" title="details" class="method-name">xml_tabla</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#xml_texto" title="details" class="method-name">xml_texto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite agregar un texto dentro del pdf</td></tr>
+						<td class="method-definition">Devuelve un string con el xml de un texto y sus atributos a incluir</td></tr>
 													</table>
 			</div>
 			<br />
@@ -1290,7 +1428,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 <a name="methodset_refresh_ejecuta_eventos" id="set_refresh_ejecuta_eventos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_refresh_ejecuta_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+		<span class="method-title">static method set_refresh_ejecuta_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
@@ -1329,7 +1467,7 @@ $activado = true]&nbsp;
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
 <br />
 
@@ -1365,6 +1503,9 @@ $definicion&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
 							</li>
 					<li>
@@ -1386,10 +1527,16 @@ $definicion&nbsp;
 				<a href="../../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Eis/toba_ei_mapa.html#method__construct">toba_ei_mapa::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
@@ -1403,7 +1550,7 @@ $definicion&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
 </div>
 <br />
 
@@ -1441,7 +1588,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_notificacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 544]</span>
+	<span class="method-title">agregar_notificacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 556]</span>
 </div>
 <br />
 
@@ -1493,7 +1640,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">botonera_abajo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">botonera_abajo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 409]</span>
 </div>
 <br />
 
@@ -1519,7 +1666,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">botonera_arriba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
+	<span class="method-title">botonera_arriba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 418]</span>
 </div>
 <br />
 
@@ -1545,7 +1692,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
+	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -1571,7 +1718,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 552]</span>
+	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 564]</span>
 </div>
 <br />
 
@@ -1597,7 +1744,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">descolapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 561]</span>
+	<span class="method-title">descolapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
 </div>
 <br />
 
@@ -1623,7 +1770,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
@@ -1679,7 +1826,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
 </div>
 <br />
 
@@ -1717,7 +1864,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
 </div>
 <br />
 
@@ -1762,7 +1909,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">existe_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">existe_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -1802,7 +1949,7 @@ $id&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">extender_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 818]</span>
+	<span class="method-title">extender_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 822]</span>
 </div>
 <br />
 
@@ -1842,7 +1989,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 489]</span>
+	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
 </div>
 <br />
 
@@ -1894,7 +2041,7 @@ $retornar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 431]</span>
+	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 443]</span>
 </div>
 <br />
 
@@ -1951,7 +2098,7 @@ $extra = '']&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 447]</span>
+	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 459]</span>
 </div>
 <br />
 
@@ -1997,7 +2144,7 @@ $excluir_botonera = false]&nbsp;
 	
 		
 	
-	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 614]</span>
+	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 626]</span>
 </div>
 <br />
 
@@ -2050,7 +2197,7 @@ $estilo = &quot;&quot;]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 463]</span>
+	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 475]</span>
 </div>
 <br />
 
@@ -2103,7 +2250,7 @@ $retornar = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
+	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 238]</span>
 </div>
 <br />
 
@@ -2144,7 +2291,7 @@ $retornar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
+	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
 </div>
 <br />
 
@@ -2170,7 +2317,7 @@ $retornar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 761]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 765]</span>
 </div>
 <br />
 
@@ -2196,7 +2343,7 @@ $retornar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 799]</span>
+	<span class="method-title">get_id_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 803]</span>
 </div>
 <br />
 
@@ -2223,7 +2370,7 @@ $retornar = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_invocacion_evento_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 304]</span>
+	<span class="method-title">get_invocacion_evento_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -2297,7 +2444,7 @@ $param_extra = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 295]</span>
+	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
 </div>
 <br />
 
@@ -2323,7 +2470,7 @@ $param_extra = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 286]</span>
+	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
 </div>
 <br />
 
@@ -2349,7 +2496,7 @@ $param_extra = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">get_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 821]</span>
+	<span class="method-title">get_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 825]</span>
 </div>
 <br />
 
@@ -2380,7 +2527,7 @@ $param_extra = array()]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 523]</span>
+	<span class="method-title">get_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 535]</span>
 </div>
 <br />
 
@@ -2426,7 +2573,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
+	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
 </div>
 <br />
 
@@ -2452,7 +2599,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">mostrar_barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 705]</span>
+	<span class="method-title">mostrar_barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 709]</span>
 </div>
 <br />
 
@@ -2491,7 +2638,7 @@ $estado = true]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 272]</span>
+	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -2537,7 +2684,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 570]</span>
+	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
 </div>
 <br />
 
@@ -2575,7 +2722,7 @@ $colapsable&nbsp;
 	
 		
 	
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 592]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 604]</span>
 </div>
 <br />
 
@@ -2627,7 +2774,7 @@ $tipo = 'info']&nbsp;
 	
 		
 	
-	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 352]</span>
+	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -2665,7 +2812,7 @@ $grupo&nbsp;
 	
 		
 	
-	<span class="method-title">set_modo_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 602]</span>
+	<span class="method-title">set_modo_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 614]</span>
 </div>
 <br />
 
@@ -2703,7 +2850,7 @@ $tooltip = true]&nbsp;
 	
 		
 	
-	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
+	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 594]</span>
 </div>
 <br />
 
@@ -2741,7 +2888,7 @@ $titulo&nbsp;
 	
 		    		
 	
-	<span class="method-title">tiene_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 512]</span>
+	<span class="method-title">tiene_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 524]</span>
 </div>
 <br />
 
@@ -2787,7 +2934,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 854]</span>
+	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 858]</span>
 </div>
 <br />
 
@@ -2825,7 +2972,7 @@ $salida&nbsp;
 	
 		
 	
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 865]</span>
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 869]</span>
 </div>
 <br />
 
@@ -2876,13 +3023,413 @@ $salida&nbsp;
 				</ul>
 		<br />
 </div>
+<a name="methodxml_get_att_comunes" id="xml_get_att_comunes"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">xml_get_att_comunes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1032]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_get_att_comunes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna los atributos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf. </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>con atributos a incluir en un tag xml</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodxml_get_elem_comunes" id="xml_get_elem_comunes"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">xml_get_elem_comunes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1080]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_get_elem_comunes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié. </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>con xml de los elementos a incluir.</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodxml_imagen" id="xml_imagen"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1169]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_imagen(
+string
+$src, [string
+$tipo = 'jpg'], [string
+$titulo = false], [string
+$caption = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un string con el xml de una imagen a incluir. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$src:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Path al archivo de la imagen</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> 'svg' o 'jpg' (default)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$titulo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$caption:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_alto_cabecera" id="xml_set_alto_cabecera"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_alto_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 987]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_alto_cabecera(
+[string
+$alto = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define el alto de la cabecera de página. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_alto_pie" id="xml_set_alto_pie"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_alto_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 957]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_alto_pie(
+[string
+$alto = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define el alto del pié de página. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_atts_ei" id="xml_set_atts_ei"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_atts_ei</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1012]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_atts_ei(
+[array
+$atts = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Forma genérica de definir parámetros de usuario. El parámetro $atts debe ser un array de tipo  &quot;nombre&quot;=&gt;&quot;valor&quot;. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$atts:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_cabecera" id="xml_set_cabecera"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 979]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_cabecera(
+[string
+$cabecera = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define la cabecera de página. <p>El parámetro $cabecera debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.  Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.  Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.  Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cabecera:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_dim_pagina" id="xml_set_dim_pagina"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_dim_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 926]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_dim_pagina(
+[string
+$ancho = false], [string
+$alto = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define las dimensiones de la página </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_incluir_cabecera" id="xml_set_incluir_cabecera"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_incluir_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 966]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_incluir_cabecera(
+[boolean
+$incluir = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define si se crea la cabecera de la página. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> default true</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_incluir_pie" id="xml_set_incluir_pie"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_incluir_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 936]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_incluir_pie(
+[boolean
+$incluir = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define si se crea el pié de página. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> default true</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodxml_set_logo" id="xml_set_logo"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		    	
+	
 		
 	
-	<span class="method-title">xml_set_logo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 888]</span>
+	<span class="method-title">xml_set_logo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 893]</span>
 </div>
 <br />
 
@@ -2896,7 +3443,7 @@ $logo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite definir una imagen que se ubica a la izquierda de la cabecera del pdf </div>
+	<div class="description">Define el logo de la institución a utilizar en la cabecera del pdf </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -2905,17 +3452,87 @@ $logo&nbsp;
 				<td>
 				<span class="var-name">$logo:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Path al archivo de la imagen</span>			</td></tr>
+				<span class="var-description"> Path a la imagen</span>			</td></tr>
 				</table>
 
 	<br />
 	
-<strong>Information Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Actualmente sólo permite imagenes de tipo jpg</td>
-  </tr>
-</table>
+
+		
+		<br />
+</div>
+<a name="methodxml_set_margenes" id="xml_set_margenes"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_margenes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 998]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_margenes(
+[array
+$margenes = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define los márgenes de la página. $margenes debe ser un array de tipo 'nombre'=&gt;'valor',  donde 'sup', 'inf', 'izq' y 'der' son los nombres para definir los márgenes superior,  inferior, izquierdo y derecho respectivamente. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$margenes:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_nro_copias" id="xml_set_nro_copias"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_nro_copias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1023]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_nro_copias(
+[int
+$copias = 1]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define el numero de copias que deben aparecer en el pdf. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$copias:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
 
 		
 		<br />
@@ -2926,7 +3543,7 @@ $logo&nbsp;
 	
 		
 	
-	<span class="method-title">xml_set_ns</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 938]</span>
+	<span class="method-title">xml_set_ns</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1220]</span>
 </div>
 <br />
 
@@ -2942,7 +3559,7 @@ $usar = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite definir un namespace en el xml resultante del componente <p>por ejemplo:  	&amp;lt;alias:ci xmlns:alias=&quot;url&quot;&amp;gt;</p></div>
+	<div class="description">Define un namespace a utilizar con los elementos xml. </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -2951,19 +3568,19 @@ $usar = true]&nbsp;
 				<td>
 				<span class="var-name">$xmlns:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Alias del namespace</span>			</td></tr>
+				<span class="var-description"> El namespace propiamente dicho</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$url:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Url del namespace</span>			</td></tr>
+				<span class="var-description"> un url del namespace</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$usar:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Define si el componente debe utilizar este namespace</span>			</td></tr>
+				<span class="var-description"> Usar el namespace en este elemento o sólo declararlo.</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2978,7 +3595,7 @@ $usar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">xml_set_orientacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 878]</span>
+	<span class="method-title">xml_set_orientacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 883]</span>
 </div>
 <br />
 
@@ -2986,13 +3603,13 @@ $usar = true]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void xml_set_orientacion(
-string
-$orientacion&nbsp;
+[string
+$orientacion = 'portrait']&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite definir la orientación de la página del pdf </div>
+	<div class="description">Define la orientación de la página </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -3001,7 +3618,45 @@ $orientacion&nbsp;
 				<td>
 				<span class="var-name">$orientacion:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Orientación landscape o portrait</span>			</td></tr>
+				<span class="var-description"> Soporta los valores 'landscape' o 'portrait' (default).</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_pie" id="xml_set_pie"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 949]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_pie(
+[string
+$pie = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define el pié de página. <p>El parámetro $pie debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.  Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.  Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.  Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pie:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -3011,35 +3666,73 @@ $orientacion&nbsp;
 		<br />
 </div>
 <a name="methodxml_set_subtitulo" id="xml_set_subtitulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">xml_set_subtitulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 897]</span>
+	<span class="method-title">xml_set_subtitulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 915]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void xml_set_subtitulo(
-string
+		<code>unknown_type xml_set_subtitulo(
+$subtitulo
 $subtitulo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite definir un subtítulo, que se ubica debajo del título </div>
+	<div class="description">Define el subtítulo a utilizar en la cabecera del pdf </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<span class="var-type">$subtitulo</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$subtitulo:&nbsp;</span></td>
 				<td>
 							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_set_tabla_cols" id="xml_set_tabla_cols"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_set_tabla_cols</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1199]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void xml_set_tabla_cols(
+[array
+$cols = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Define atributos comunes a columnas de una tabla (atributos del elemento table-column  de xsl-fo). </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cols:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Array de tipo 'nombre'=&gt;'valor'</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3054,7 +3747,7 @@ $subtitulo&nbsp;
 	
 		
 	
-	<span class="method-title">xml_set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 906]</span>
+	<span class="method-title">xml_set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 904]</span>
 </div>
 <br />
 
@@ -3068,7 +3761,7 @@ $titulo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite definir el título del pdf </div>
+	<div class="description">Define el titulo a utilizar en la cabecera del pdf </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -3086,13 +3779,58 @@ $titulo&nbsp;
 		
 		<br />
 </div>
-<a name="methodxml_texto" id="xml_texto"><!-- --></a>
+<a name="methodxml_tabla" id="xml_tabla"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
-		    		
+		
 	
-	<span class="method-title">xml_texto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 917]</span>
+	<span class="method-title">xml_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1125]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_tabla(
+[array
+$datos = array()], [boolean
+$es_formulario = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las <p>filas, y el segundo nivel representan las columnas dentro de una fila. Es decir $datos[0] representa la  primer fila, y $datos[0][0] representa la primer columna de la primer fila. $datos[n][m] a su vez, puede ser  tanto un string como un array. Si es un string, se toma este como valor de la celda. Si es un array, debe ser de  tipo 'key'=&gt;'value' donde 'key' represente un atributo de la celda de la tabla (atributos del elemento table-cell  de xsl-fo). Si existe $datos[n][m]['valor'], entonces no es tomado como atributo, sino como el valor de la celda.  $datos[n][m]['valor'] puede ser tanto un array como un string. Si es string, se incluye diréctamente. Si es array,  se concatenan todos los valores y se incluye el string resultante. Como valor de una celda se puede incluir otro xml.</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$es_formulario:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Indica que cuando el array tiene una fila se deba tratar como un formulario.</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodxml_texto" id="xml_texto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">xml_texto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1098]</span>
 </div>
 <br />
 
@@ -3107,7 +3845,7 @@ $atts = array()]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite agregar un texto dentro del pdf </div>
+	<div class="description">Devuelve un string con el xml de un texto y sus atributos a incluir </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -3122,19 +3860,11 @@ $atts = array()]&nbsp;
 				<td>
 				<span class="var-name">$atts:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Arreglo asociativo con la forma 'atributo'=&gt;'valor', con atributos del texto (font-size, font-weight, etc)</span>			</td></tr>
+				<span class="var-description"> Array de tipo 'nombre'=&gt;'valor'</span>			</td></tr>
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>XML necesario para la inclusión del texto.</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />

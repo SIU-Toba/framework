@@ -112,6 +112,9 @@
 	    			<a href="../SalidaGrafica/toba_vista_excel.html">					vista_excel
 					</a>    		
 	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_jasperreports.html">					vista_jasperreports
+					</a>    		
+	 <br />
 	    			<a href="../SalidaGrafica/toba_vista_pdf.html">					vista_pdf
 					</a>    		
 	 <br />
@@ -260,9 +263,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodayuda" id="ayuda"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		    		<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
+		    		<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
 </div>
 <br />
 
@@ -324,9 +327,9 @@ $delay_ayuda = 1000]&nbsp;
 		<br />
 </div>
 <a name="methodimagen" id="imagen"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+		<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
 <br />
 
@@ -401,9 +404,9 @@ $estilo = '']&nbsp;
 		<br />
 </div>
 <a name="methodimagen_de_origen" id="imagen_de_origen"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+		<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
 </div>
 <br />
 
@@ -443,9 +446,9 @@ $origen&nbsp;
 		<br />
 </div>
 <a name="methodimagen_proyecto" id="imagen_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
+		<span class="method-title">static method imagen_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -520,9 +523,9 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodimagen_skin" id="imagen_skin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
+		<span class="method-title">static method imagen_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -590,9 +593,9 @@ $mapa = null]&nbsp;
 		<br />
 </div>
 <a name="methodimagen_toba" id="imagen_toba"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+		<span class="method-title">static method imagen_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
 </div>
 <br />
 
@@ -674,9 +677,9 @@ $tooltip&nbsp;
 		<br />
 </div>
 <a name="methodjs" id="js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+		<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
 </div>
 <br />
 
@@ -709,9 +712,9 @@ $javascript&nbsp;
 		<br />
 </div>
 <a name="methodlink_css" id="link_css"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
+		<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
 </div>
 <br />
 
@@ -757,9 +760,9 @@ $buscar_en_proyecto = true]&nbsp;
 		<br />
 </div>
 <a name="methodurl_proyecto" id="url_proyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
+		<span class="method-title">static method url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
 </div>
 <br />
 
@@ -768,7 +771,9 @@ $buscar_en_proyecto = true]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>static string url_proyecto(
 [string
-$proyecto = null]&nbsp;
+$proyecto = null], [
+$pers = false], boolean
+$pres&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -783,6 +788,18 @@ $proyecto = null]&nbsp;
 				<span class="var-name">$proyecto:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Opcional, sino se toma el actual si hay sesión</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pres:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Opcional, si está en true entonces se devuelve la url relativa a la personalización</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pers:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -792,9 +809,9 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodurl_skin" id="url_skin"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method url_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+		<span class="method-title">static method url_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
 <br />
 
@@ -834,9 +851,9 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodurl_toba" id="url_toba"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		    		<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+		    		<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
 </div>
 <br />
 

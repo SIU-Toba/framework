@@ -198,14 +198,18 @@
 				<dd>in file toba_db.php, constant <a href="Fuentes/_lib---db---toba_db.php.html#defineapex_sql_separador">apex_sql_separador</a></dd>
 							<dt><b>apex_sql_where</b></dt>
 				<dd>in file toba_db.php, constant <a href="Fuentes/_lib---db---toba_db.php.html#defineapex_sql_where">apex_sql_where</a></dd>
-							<dt><b>abortar_transaccion</b></dt>
-				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a></dd>
+							<dt><b>abortar_savepoint</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodabortar_savepoint">toba_db_postgres7::abortar_savepoint()</a></dd>
 							<dt><b>abortar_transaccion</b></dt>
 				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un ROLLBACK WORK en la conexión</dd>
-							<dt><b>abrir_transaccion</b></dt>
-				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a></dd>
+							<dt><b>abortar_transaccion</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a></dd>
 							<dt><b>abrir_transaccion</b></dt>
 				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un BEGIN WORK en la conexión</dd>
+							<dt><b>abrir_transaccion</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a></dd>
+							<dt><b>agregar_savepoint</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodagregar_savepoint">toba_db_postgres7::agregar_savepoint()</a></dd>
 					</dl>
 	</div>
 	<a name="b"></a>
@@ -223,6 +227,8 @@
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodborrar_rol">toba_db_postgres7::borrar_rol()</a></dd>
 							<dt><b>borrar_schema</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodborrar_schema">toba_db_postgres7::borrar_schema()</a></dd>
+							<dt><b>borrar_schema_si_existe</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodborrar_schema_si_existe">toba_db_postgres7::borrar_schema_si_existe()</a></dd>
 					</dl>
 	</div>
 	<a name="c"></a>
@@ -265,9 +271,11 @@
 							<dt><b>$cache_metadatos</b></dt>
 				<dd>in file toba_db_postgres7.php, variable <a href="Fuentes/Drivers/toba_db_postgres7.html#var$cache_metadatos">toba_db_postgres7::$cache_metadatos</a></dd>
 							<dt><b>cerrar_transaccion</b></dt>
-				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un COMMIT WORK en la conexión</dd>
-							<dt><b>cerrar_transaccion</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a></dd>
+							<dt><b>cerrar_transaccion</b></dt>
+				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un COMMIT WORK en la conexión</dd>
+							<dt><b>clonar_schema</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodclonar_schema">toba_db_postgres7::clonar_schema()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES &gt;= 8.3</dd>
 							<dt><b>crear_rol</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodcrear_rol">toba_db_postgres7::crear_rol()</a></dd>
 							<dt><b>crear_schema</b></dt>
@@ -428,11 +436,11 @@
 							<dt><b>get_definicion_columnas</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_definicion_columnas">toba_db_postgres7::get_definicion_columnas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina</dd>
 							<dt><b>get_dsn</b></dt>
-				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a></dd>
-							<dt><b>get_dsn</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a></dd>
 							<dt><b>get_dsn</b></dt>
 				<dd>in file toba_db_mysql.php, method <a href="Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a></dd>
+							<dt><b>get_dsn</b></dt>
+				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a></dd>
 							<dt><b>get_lista_secuencias</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_lista_secuencias">toba_db_postgres7::get_lista_secuencias()</a></dd>
 							<dt><b>get_lista_tablas</b></dt>
@@ -441,10 +449,14 @@
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_lista_tablas_y_vistas">toba_db_postgres7::get_lista_tablas_y_vistas()</a></dd>
 							<dt><b>get_manejador_auditoria</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_manejador_auditoria">toba_db_postgres7::get_manejador_auditoria()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve una instancia del manejador de auditoria para este motor de base de datos</dd>
+							<dt><b>get_parametros</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_parametros">toba_db_postgres7::get_parametros()</a></dd>
 							<dt><b>get_rol_actual</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_rol_actual">toba_db_postgres7::get_rol_actual()</a></dd>
 							<dt><b>get_schema</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_schema">toba_db_postgres7::get_schema()</a></dd>
+							<dt><b>get_secuencia_tabla</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_secuencia_tabla">toba_db_postgres7::get_secuencia_tabla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve el nombre de la columna que es una secuencia en la tabla $tabla del schema $schema.</dd>
 							<dt><b>get_semantica_valor_defecto</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_semantica_valor_defecto">toba_db_postgres7::get_semantica_valor_defecto()</a></dd>
 							<dt><b>get_sp_schema</b></dt>
@@ -506,6 +518,8 @@
 		<dl>
 							<dt><b>$loguear</b></dt>
 				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$loguear">toba_db::$loguear</a></dd>
+							<dt><b>liberar_savepoint</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodliberar_savepoint">toba_db_postgres7::liberar_savepoint()</a></dd>
 					</dl>
 	</div>
 	<a name="m"></a>
@@ -558,6 +572,10 @@
 				<dd>in file toba_fuente_datos.php, method <a href="Fuentes/toba_fuente_datos.html#methodpost_conectar">toba_fuente_datos::post_conectar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para personalizar las acciones posteriores a la conexión</dd>
 							<dt><b>pre_conectar</b></dt>
 				<dd>in file toba_fuente_datos.php, method <a href="Fuentes/toba_fuente_datos.html#methodpre_conectar">toba_fuente_datos::pre_conectar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para personalizar las acciones previas a la conexión</dd>
+							<dt><b>pgdump_get_tabla</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodpgdump_get_tabla">toba_db_postgres7::pgdump_get_tabla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve una tabla del sistema como un arreglo de INSERTS obtenida a partir</dd>
+							<dt><b>pgdump_limpiar</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodpgdump_limpiar">toba_db_postgres7::pgdump_limpiar()</a></dd>
 					</dl>
 	</div>
 	<a name="q"></a>
@@ -724,6 +742,8 @@
 				<dd>in file toba_parser_error_db.php, class <a href="Fuentes/toba_parser_error_db.html">toba_parser_error_db</a></dd>
 							<dt><b>toba_parser_error_db_postgres7</b></dt>
 				<dd>in file toba_parser_error_db_postgres7.php, class <a href="Fuentes/toba_parser_error_db_postgres7.html">toba_parser_error_db_postgres7</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Clase que parsea mensajes de error en lenguaje natural generados por un motor postgres, e intenta armar un mensaje entendible para el usuario</dd>
+							<dt><b>$transaccion_abierta</b></dt>
+				<dd>in file toba_db_postgres7.php, variable <a href="Fuentes/Drivers/toba_db_postgres7.html#var$transaccion_abierta">toba_db_postgres7::$transaccion_abierta</a></dd>
 							<dt><b>toba_db_informix.php</b></dt>
 				<dd>procedural page <a href="Fuentes/Drivers/_lib---db---toba_db_informix.php.html">toba_db_informix.php</a></dd>
 							<dt><b>toba_db_mysql.php</b></dt>
@@ -740,6 +760,8 @@
 				<dd>in file toba_db_odbc.php, class <a href="Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión via ODBC</dd>
 							<dt><b>toba_db_postgres7</b></dt>
 				<dd>in file toba_db_postgres7.php, class <a href="Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión con postgres</dd>
+							<dt><b>transaccion_abierta</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodtransaccion_abierta">toba_db_postgres7::transaccion_abierta()</a></dd>
 					</dl>
 	</div>
 	<a name="u"></a>
@@ -753,6 +775,8 @@
 		<dl>
 							<dt><b>$usuario</b></dt>
 				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$usuario">toba_db::$usuario</a></dd>
+							<dt><b>ultimo_insert_id</b></dt>
+				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodultimo_insert_id">toba_db::ultimo_insert_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve el id del último insert en la base. Si el motor es postgres</dd>
 					</dl>
 	</div>
 	<a name="v"></a>

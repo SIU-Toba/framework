@@ -240,6 +240,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_codigo.html">					ei_codigo
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_cuadro.html">					ei_cuadro
 					</a>    	    		</span>
     		
@@ -261,6 +266,16 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_formulario_ml.html">					ei_formulario_ml
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_grafico.html">					ei_grafico
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_mapa.html">					ei_mapa
 					</a>    	    		</span>
     		
 	 <br />
@@ -508,6 +523,11 @@
 						<td class="method-definition"><a href="#buscar_runtime" title="details" class="method-name">buscar_runtime</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el objeto-php que representa un runtime YA INSTANCIADO previamente con 	con get_runtime()</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#cargar_clase" title="details" class="method-name">cargar_clase</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">info_componente</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_info" title="details" class="method-name">get_info</a>()&nbsp;&nbsp;</td>
@@ -537,7 +557,7 @@
 						</td>
 						<td class="method-definition"><a href="#set_refresco_forzado" title="details" class="method-name">set_refresco_forzado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Fuerza a que todos los componentes requeridos en este pedido de página no surjan de algún cache (util para testeos)</td></tr>
-																																																																																</table>
+																																																																																									</table>
 			</div>
 			<br />
 		</div>
@@ -554,9 +574,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodbuscar_runtime" id="buscar_runtime"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method buscar_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
+		<span class="method-title">static method buscar_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
 </div>
 <br />
 
@@ -602,10 +622,53 @@ $tipo&nbsp;
 		
 		<br />
 </div>
+<a name="methodcargar_clase" id="cargar_clase"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			<span class="method-title">static method cargar_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void cargar_clase(
+
+&$datos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodget_info" id="get_info"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
+		<span class="method-title">static method get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
 </div>
 <br />
 
@@ -682,7 +745,7 @@ $resumumidos&nbsp;
 <a name="methodget_metadatos_compilados" id="get_metadatos_compilados"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_metadatos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
+		<span class="method-title">static method get_metadatos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
 </div>
 <br />
 
@@ -821,7 +884,7 @@ $usar_cache = false]&nbsp;
 <a name="methodget_runtime_objeto" id="get_runtime_objeto"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_runtime_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+		<span class="method-title">static method get_runtime_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
 <br />
 
@@ -876,7 +939,7 @@ $datos&nbsp;
 <a name="methodset_refresco_forzado" id="set_refresco_forzado"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_refresco_forzado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+		<span class="method-title">static method set_refresco_forzado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
 </div>
 <br />
 

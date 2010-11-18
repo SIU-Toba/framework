@@ -145,7 +145,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																											<tr>
+																																																																																																																																																																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -308,6 +308,14 @@
 						<td class="method-definition">Ejecuta el filtrado de SQL sobre un conjunto de SQLs</td></tr>
 																				<tr>
 						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#quitar_comentarios_sql" title="details" class="method-name">quitar_comentarios_sql</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Quita los comentarios de la sentencia SQL con formato -- o el tipico formato /* * /</td></tr>
+																				<tr>
+						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -377,7 +385,7 @@
 	
 		
 	
-	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 456]</span>
+	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 459]</span>
 </div>
 <br />
 
@@ -421,7 +429,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 402]</span>
+	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
 </div>
 <br />
 
@@ -537,7 +545,8 @@ $fuente&nbsp;
 		<code>void filtrar(
 
 $sql, [
-$fuente_datos = null]&nbsp;
+$fuente_datos = null], [
+$dimensiones_desactivar = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -556,6 +565,12 @@ $fuente_datos = null]&nbsp;
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$fuente_datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dimensiones_desactivar:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -582,7 +597,8 @@ $fuente_datos = null]&nbsp;
 		<code>void filtrar_sql(
 
 $sql, [
-$fuente_datos = null]&nbsp;
+$fuente_datos = null], [
+$dimensiones_desactivar = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -602,6 +618,12 @@ $fuente_datos = null]&nbsp;
 				<span class="var-name">$fuente_datos:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dimensiones_desactivar:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -616,7 +638,7 @@ $fuente_datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
+	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 380]</span>
 </div>
 <br />
 
@@ -642,7 +664,7 @@ $fuente_datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 413]</span>
+	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 416]</span>
 </div>
 <br />
 
@@ -751,7 +773,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 505]</span>
+	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
 </div>
 <br />
 
@@ -789,7 +811,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 383]</span>
+	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
 </div>
 <br />
 
@@ -978,7 +1000,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 350]</span>
+	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
 </div>
 <br />
 
@@ -1036,7 +1058,7 @@ $alias_tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 291]</span>
+	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 294]</span>
 </div>
 <br />
 
@@ -1095,7 +1117,7 @@ $alias_tabla&nbsp;
 	
 		
 	
-	<span class="method-title">hay_combinaciones_de_querys</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 485]</span>
+	<span class="method-title">hay_combinaciones_de_querys</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 488]</span>
 </div>
 <br />
 
@@ -1268,7 +1290,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 525]</span>
+	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
 </div>
 <br />
 
@@ -1321,13 +1343,60 @@ $mostrar_filas = false]&nbsp;
 		
 		<br />
 </div>
-<a name="methodreconocer_dimensiones_implicadas" id="reconocer_dimensiones_implicadas"><!-- --></a>
+<a name="methodquitar_comentarios_sql" id="quitar_comentarios_sql"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">quitar_comentarios_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 587]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string quitar_comentarios_sql(
+string
+$sql&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Quita los comentarios de la sentencia SQL con formato -- o el tipico formato /* * / </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Sentencia a la que se le quiere quitar los comentarios</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodreconocer_dimensiones_implicadas" id="reconocer_dimensiones_implicadas"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
+	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 267]</span>
 </div>
 <br />
 

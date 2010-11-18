@@ -240,6 +240,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_codigo.html">					ei_codigo
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_cuadro.html">					ei_cuadro
 					</a>    	    		</span>
     		
@@ -261,6 +266,16 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_ei_formulario_ml.html">					ei_formulario_ml
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_grafico.html">					ei_grafico
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ei_mapa.html">					ei_mapa
 					</a>    	    		</span>
     		
 	 <br />
@@ -502,7 +517,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																										<tr><td></td><td class="method-definition" nowrap>static
+																																																												<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">string</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_tipo" title="details" class="method-name">get_tipo</a>()&nbsp;&nbsp;</td>
@@ -512,7 +527,15 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																	<tr>
+																																										<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#armar_clave" title="details" class="method-name">armar_clave</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -533,7 +556,22 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_metadatos_simples" title="details" class="method-name">get_metadatos_simples</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna los metadatos de un componente, tal cual existen en las tablas</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_metadatos_simples_diff" title="details" class="method-name">get_metadatos_simples_diff</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna los metadatos de un componente, tal cual existen en las tablas 	del mismo. Este metodo es utilizado por el exportador de personalizaciones.</td></tr>
 																																						<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result"><type></span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#reorganizar_tablas" title="details" class="method-name">reorganizar_tablas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -557,9 +595,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_tipo" id="get_tipo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+		<span class="method-title">static method get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 281]</span>
 </div>
 <br />
 
@@ -592,7 +630,7 @@ $componente&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
@@ -614,13 +652,80 @@ $componente&nbsp;
 		<br />
 </div>
 
+<a name="methodarmar_clave" id="armar_clave"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">armar_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 143]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void armar_clave(
+
+$db, 
+$tabla, 
+&$definicion, 
+$cant_registros&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$db:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$definicion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cant_registros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodget_metadatos_extendidos" id="get_metadatos_extendidos"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
+	<span class="method-title">get_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
 </div>
 <br />
 
@@ -679,7 +784,7 @@ $resumidos = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_metadatos_redefinidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">get_metadatos_redefinidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
 </div>
 <br />
 
@@ -763,13 +868,132 @@ $db = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_metadatos_simples_diff" id="get_metadatos_simples_diff"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_metadatos_simples_diff</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_metadatos_simples_diff(
+
+$componente, [
+$tipo = null], [
+$db = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna los metadatos de un componente, tal cual existen en las tablas 	del mismo. Este metodo es utilizado por el exportador de personalizaciones. <p>El parametro DB tiene como objetivo brindar este servicio a la consola 	La diferencia con get_metadatos_simples es que reordena los resultados 	de manera que sea más fácil computar la diferencia</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$db:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodreorganizar_tablas" id="reorganizar_tablas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">reorganizar_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><type> reorganizar_tablas(
+
+$tabla, 
+&$registros, string
+$claves, array
+$registros&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$registros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$claves:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> es un string separado por ; con las claves del registro.</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$registros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodset_metadatos_extendidos" id="set_metadatos_extendidos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+	<span class="method-title">set_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 

@@ -616,6 +616,17 @@
 											<span class="method-definition"></span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodultimo_insert_id">ultimo_insert_id()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve el id del último insert en la base. Si el motor es postgres</span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 											</td>
@@ -631,12 +642,19 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																				<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_db_postgres7</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#abortar_savepoint" title="details" class="method-name">abortar_savepoint</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -657,6 +675,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_savepoint" title="details" class="method-name">agregar_savepoint</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#borrar_rol" title="details" class="method-name">borrar_rol</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -671,8 +696,22 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#borrar_schema_si_existe" title="details" class="method-name">borrar_schema_si_existe</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cerrar_transaccion" title="details" class="method-name">cerrar_transaccion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#clonar_schema" title="details" class="method-name">clonar_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES &gt;= 8.3</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -769,6 +808,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_parametros" title="details" class="method-name">get_parametros</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_rol_actual" title="details" class="method-name">get_rol_actual</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -778,6 +824,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_schema" title="details" class="method-name">get_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_secuencia_tabla" title="details" class="method-name">get_secuencia_tabla</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el nombre de la columna que es una secuencia en la tabla $tabla del schema $schema.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -841,6 +894,28 @@
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#insert_masivo" title="details" class="method-name">insert_masivo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#liberar_savepoint" title="details" class="method-name">liberar_savepoint</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#pgdump_get_tabla" title="details" class="method-name">pgdump_get_tabla</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve una tabla del sistema como un arreglo de INSERTS obtenida a partir</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#pgdump_limpiar" title="details" class="method-name">pgdump_limpiar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -918,6 +993,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_schema" title="details" class="method-name">set_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#transaccion_abierta" title="details" class="method-name">transaccion_abierta</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -936,12 +1018,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 13]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
 <br />
 
@@ -1004,13 +1086,50 @@ $puerto&nbsp;
 		
 		<br />
 </div>
+<a name="methodabortar_savepoint" id="abortar_savepoint"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">abortar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void abortar_savepoint(
+
+$nombre&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -1040,7 +1159,7 @@ $puerto&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
 </div>
 <br />
 
@@ -1064,13 +1183,50 @@ $puerto&nbsp;
 		
 		<br />
 </div>
-<a name="methodborrar_rol" id="borrar_rol"><!-- --></a>
+<a name="methodagregar_savepoint" id="agregar_savepoint"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+	<span class="method-title">agregar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_savepoint(
+
+$nombre&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodborrar_rol" id="borrar_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
 </div>
 <br />
 
@@ -1102,12 +1258,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodborrar_schema" id="borrar_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+	<span class="method-title">borrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 
@@ -1138,13 +1294,50 @@ $schema&nbsp;
 		
 		<br />
 </div>
+<a name="methodborrar_schema_si_existe" id="borrar_schema_si_existe"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">borrar_schema_si_existe</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void borrar_schema_si_existe(
+
+$schema&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
 </div>
 <br />
 
@@ -1168,13 +1361,66 @@ $schema&nbsp;
 		
 		<br />
 </div>
-<a name="methodcrear_rol" id="crear_rol"><!-- --></a>
+<a name="methodclonar_schema" id="clonar_schema"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">clonar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void clonar_schema(
+string
+$actual, string
+$nuevo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES &gt;= 8.3 </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$actual:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> el nombre del schema a clonar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nuevo:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> el nombre del nuevo schema</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodcrear_rol" id="crear_rol"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
+	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 294]</span>
 </div>
 <br />
 
@@ -1206,12 +1452,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodcrear_schema" id="crear_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">crear_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
 </div>
 <br />
 
@@ -1243,12 +1489,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodcrear_usuario" id="crear_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
 </div>
 <br />
 
@@ -1287,12 +1533,12 @@ $password&nbsp;
 		<br />
 </div>
 <a name="methodexiste_columna" id="existe_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 382]</span>
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
 </div>
 <br />
 
@@ -1331,12 +1577,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodexiste_rol" id="existe_rol"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
+	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 286]</span>
 </div>
 <br />
 
@@ -1368,12 +1614,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodexiste_schema" id="existe_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">existe_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
 </div>
 <br />
 
@@ -1405,12 +1651,12 @@ $esquema&nbsp;
 		<br />
 </div>
 <a name="methodexiste_tabla" id="existe_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 365]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
 </div>
 <br />
 
@@ -1449,12 +1695,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 436]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 532]</span>
 </div>
 <br />
 
@@ -1498,12 +1744,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_dsn" id="get_dsn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 20]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
 </div>
 <br />
 
@@ -1528,12 +1774,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_secuencias" id="get_lista_secuencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
+	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 502]</span>
 </div>
 <br />
 
@@ -1553,12 +1799,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 328]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
 </div>
 <br />
 
@@ -1597,12 +1843,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas_y_vistas" id="get_lista_tablas_y_vistas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
+	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -1622,12 +1868,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 577]</span>
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 747]</span>
 </div>
 <br />
 
@@ -1678,13 +1924,43 @@ $schema_toba = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_parametros" id="get_parametros"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_parametros(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Fuentes/toba_db.html#methodget_parametros">toba_db::get_parametros()</a></dt>
+						<dd>Retorna los parámetros con los que fue construida la conexión</dd>
+					</dl>
+		
+		<br />
+</div>
 <a name="methodget_rol_actual" id="get_rol_actual"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
+	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
 </div>
 <br />
 
@@ -1709,7 +1985,7 @@ $schema_toba = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">get_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
@@ -1728,13 +2004,66 @@ $schema_toba = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
+<a name="methodget_secuencia_tabla" id="get_secuencia_tabla"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_secuencia_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 667]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_secuencia_tabla(
+
+$tabla, [
+$schema = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el nombre de la columna que es una secuencia en la tabla $tabla del schema $schema. <p>Si no se especifica el schema se utiliza el que tiene por defecto la base</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>nombre de la columna si la tabla tiene secuencia. Sino devuelve null</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 560]</span>
+	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 657]</span>
 </div>
 <br />
 
@@ -1759,12 +2088,12 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_sp_schema" id="get_sp_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
+	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 401]</span>
 </div>
 <br />
 
@@ -1796,12 +2125,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 266]</span>
 </div>
 <br />
 
@@ -1821,12 +2150,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodgrant_rol" id="grant_rol"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 313]</span>
 </div>
 <br />
 
@@ -1865,12 +2194,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodgrant_schema" id="grant_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
 </div>
 <br />
 
@@ -1916,12 +2245,12 @@ $permisos = 'USAGE']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_sp_schema" id="grant_sp_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
+	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 379]</span>
 </div>
 <br />
 
@@ -1967,12 +2296,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas" id="grant_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
 </div>
 <br />
 
@@ -2026,12 +2355,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas_schema" id="grant_tablas_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 355]</span>
 </div>
 <br />
 
@@ -2078,12 +2407,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodinsert_masivo" id="insert_masivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
+	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
 </div>
 <br />
 
@@ -2144,13 +2473,169 @@ $valor_nulo = &quot;\\N&quot;]&nbsp;
 		
 		<br />
 </div>
+<a name="methodliberar_savepoint" id="liberar_savepoint"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">liberar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void liberar_savepoint(
+
+$nombre&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodpgdump_get_tabla" id="pgdump_get_tabla"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">pgdump_get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 705]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array pgdump_get_tabla(
+string
+$bd, string
+$schema, string
+$tabla, string
+$host, string
+$usuario, [string
+$pass = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve una tabla del sistema como un arreglo de INSERTS obtenida a partir <p>del pg_dump de postgres</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$bd:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> El nombre de la base</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> El schema al que pertenece la tabla</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> La tabla a exportar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$host:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pass:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodpgdump_limpiar" id="pgdump_limpiar"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			
+	
+	<span class="method-title">pgdump_limpiar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 723]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void pgdump_limpiar(
+
+&$array&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$array:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodrecuperar_nuevo_valor_secuencia" id="recuperar_nuevo_valor_secuencia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_nuevo_valor_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
+	<span class="method-title">recuperar_nuevo_valor_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
 </div>
 <br />
 
@@ -2187,7 +2672,7 @@ $secuencia&nbsp;
 	
 		    		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
 </div>
 <br />
 
@@ -2238,7 +2723,7 @@ $secuencia&nbsp;
 	
 		
 	
-	<span class="method-title">renombrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+	<span class="method-title">renombrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
 </div>
 <br />
 
@@ -2282,7 +2767,7 @@ $nuevo&nbsp;
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
 </div>
 <br />
 
@@ -2324,7 +2809,7 @@ $retrazar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
+	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
 </div>
 <br />
 
@@ -2368,7 +2853,7 @@ $rol&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
+	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
 </div>
 <br />
 
@@ -2419,7 +2904,7 @@ $permisos = 'ALL PRIVILEGES']&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 295]</span>
+	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 390]</span>
 </div>
 <br />
 
@@ -2470,7 +2955,7 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 	
 		
 	
-	<span class="method-title">set_datestyle_iso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+	<span class="method-title">set_datestyle_iso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
 </div>
 <br />
 
@@ -2495,7 +2980,7 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 	
 		
 	
-	<span class="method-title">set_encoding</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+	<span class="method-title">set_encoding</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
@@ -2532,7 +3017,7 @@ $encoding&nbsp;
 	
 		
 	
-	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
 </div>
 <br />
 
@@ -2569,7 +3054,7 @@ $rol&nbsp;
 	
 		
 	
-	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
@@ -2597,6 +3082,39 @@ $schema&nbsp;
 
 	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodtransaccion_abierta" id="transaccion_abierta"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">transaccion_abierta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean transaccion_abierta(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Devuelve true si hay una transacción abierta y false en caso contrario</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
