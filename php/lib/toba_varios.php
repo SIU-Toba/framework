@@ -730,4 +730,14 @@
 		return $size ? round($size/pow(1024, ($i = floor(log($size, 1024)))), $decimales) . $filesizename[$i] : '0 Bytes';
 	}
 
+	function checktime($horas, $minutos, $segundos = null)
+	{
+		$valida = ($horas >= 0 && $horas < 24);							//Inicializa validando las horas 0-23
+		$valida = $valida && ($minutos >= 0 && $minutos < 60);  //chequea los minutos
+		if (! is_null($segundos)) {													// Si estan disponibles los segundos entonces los verifica tambien
+			$valida = $valida && ($segundos >= 0 && $segundos < 60);
+		}
+		return $valida;
+	}
+
 ?>
