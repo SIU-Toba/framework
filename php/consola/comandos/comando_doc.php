@@ -33,7 +33,7 @@ class comando_doc extends comando_toba
 			unlink($arch);
 		}
 		//--- Se baja de la web		
-		$comando = 'httrack "https://localhost/trac/toba/wiki" -v -s0 -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
+		$comando = 'httrack "https://repositorio.siu.edu.ar/trac/toba/wiki" -v -s0 -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
 					-*WikiMacros* -*diff* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*/Reuniones*';
