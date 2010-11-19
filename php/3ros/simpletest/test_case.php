@@ -65,7 +65,7 @@
          *    @access public
          */
         function &createInvoker() {
-            $invoker = &new SimpleErrorTrappingInvoker(new SimpleInvoker($this));
+            $invoker = new SimpleErrorTrappingInvoker(new SimpleInvoker($this));
             return $invoker;
         }
 
@@ -78,7 +78,7 @@
          *    @access protected
          */
         function &_createRunner(&$reporter) {
-            $runner = &new SimpleRunner($this, $reporter);
+            $runner = new SimpleRunner($this, $reporter);
             return $runner;
         }
 
@@ -92,7 +92,7 @@
         function run(&$reporter) {
             SimpleTest::setCurrent($this);
             $reporter->paintCaseStart($this->getLabel());
-            $this->_runner = &$this->_createRunner($reporter);
+            $this->_runner = $this->_createRunner($reporter);
             $this->_runner->run();
             $this->_runner = false;
             $reporter->paintCaseEnd($this->getLabel());
@@ -202,7 +202,7 @@
          *    @access public
          */
         function swallowErrors() {
-            $queue = &SimpleErrorQueue::instance();
+            $queue = SimpleErrorQueue::instance();
             $queue->clear();
         }
 
@@ -366,7 +366,7 @@
          *    @access public
          */
         function addTestCase(&$test_case) {
-            $this->_test_cases[] = &$test_case;
+            $this->_test_cases[] = $test_case;
         }
 
         /**
@@ -379,7 +379,7 @@
          */
         function addTestClass($class) {
             if ($this->_getBaseTestCase($class) == 'grouptest') {
-                $this->_test_cases[] = &new $class();
+                $this->_test_cases[] = new $class();
             } else {
                 $this->_test_cases[] = $class;
             }
@@ -533,7 +533,7 @@
             for ($i = 0, $count = count($this->_test_cases); $i < $count; $i++) {
                 if (is_string($this->_test_cases[$i])) {
                     $class = $this->_test_cases[$i];
-                    $test = &new $class();
+                    $test = new $class();
                     $test->run($reporter);
                 } else {
                     $this->_test_cases[$i]->run($reporter);

@@ -45,7 +45,7 @@
          *    @access public
          */
         function assertNull($value, $message = "%s") {
-            $dumper = &new SimpleDumper();
+            $dumper = new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($value) . "] should be null");
@@ -60,7 +60,7 @@
          *    @access public
          */
         function assertNotNull($value, $message = "%s") {
-            $dumper = &new SimpleDumper();
+            $dumper = new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($value) . "] should not be null");
@@ -209,7 +209,7 @@
          *    @access public
          */
         function assertReference(&$first, &$second, $message = "%s") {
-            $dumper = &new SimpleDumper();
+            $dumper = new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($first) .
@@ -230,7 +230,7 @@
          *    @access public
          */
         function assertCopy(&$first, &$second, $message = "%s") {
-            $dumper = &new SimpleDumper();
+            $dumper = new SimpleDumper();
             $message = sprintf(
                     $message,
                     "[" . $dumper->describeValue($first) .
@@ -297,7 +297,7 @@
          *    @access public
          */
         function assertNoErrors($message = "%s") {
-            $queue = &SimpleErrorQueue::instance();
+            $queue = SimpleErrorQueue::instance();
             return $this->assertTrue(
                     $queue->isEmpty(),
                     sprintf($message, "Should be no errors"));
@@ -313,7 +313,7 @@
          *    @access public
          */
         function assertError($expected = false, $message = "%s") {
-            $queue = &SimpleErrorQueue::instance();
+            $queue = SimpleErrorQueue::instance();
             if ($queue->isEmpty()) {
                 $this->fail(sprintf($message, "Expected error not found"));
                 return;

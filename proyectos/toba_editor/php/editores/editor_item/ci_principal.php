@@ -96,7 +96,7 @@ class ci_principal extends toba_ci
 	function conf__prop_basicas(toba_ei_formulario $form)
 	{
 		$datos = $this->get_entidad()->tabla("base")->get();
-		if ($datos['carpeta'] != 1) {
+		if (!isset($datos['carpeta']) || $datos['carpeta'] != 1) {
 			if (!$this->get_entidad()->esta_cargada()) {
 				$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_nuevo()));
 			} else {

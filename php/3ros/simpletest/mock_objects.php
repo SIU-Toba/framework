@@ -183,7 +183,7 @@
             $descriptions = array();
             if (is_array($args)) {
                 foreach ($args as $arg) {
-                    $dumper = &new SimpleDumper();
+                    $dumper = new SimpleDumper();
                     $descriptions[] = $dumper->describeValue($arg);
                 }
             }

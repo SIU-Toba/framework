@@ -36,7 +36,7 @@ abstract class toba_test extends UnitTestCase
 	*/
 	function &_createRunner(&$reporter) 
 	{
-		$runner = &new toba_test_runner($this, $reporter);
+		$runner = new toba_test_runner($this, $reporter);
 		if($this->separar_pruebas) {
 			$runner->separar_pruebas(true);
 		}

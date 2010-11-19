@@ -39,18 +39,21 @@ $url_referencia = toba_recurso::url_proyecto('toba_referencia');
 echo "
 	<style type='text/css'>
 		a {
-			text-decoration:none;	
+			text-decoration:none;
+			color: white;	
 		}
 		a:hover {
 			text-decoration:underline;
 		}
-		ul { text-align: left; margin-left:30%;}
+		ul { text-align: left; margin-left:30%;
+			
+		}
 		h2 {
-		    background-color: #890C71;
-		    color: white;
+		    background-color: white;
+		    color: black;
 		    padding-left: 10px;
 		    margin-top: 20px;
-		    border: 1px solid gray;
+		    border: 1px solid black;
 			font-size: 16px;
 		}		
 		h2 div {
