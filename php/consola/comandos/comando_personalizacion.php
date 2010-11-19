@@ -8,18 +8,21 @@ class comando_personalizacion extends comando_toba
     
     static function get_info()
 	{
-		return 'Herramientas de personalizacion';
+		return 'Administracion de PERSONALIZACIONES';
 	}
 
 
-    function opcion__test()
-    {
-		$p = $this->get_proyecto();
-		$p->get_pms()->migrar_proyecto();
-//		define('apex_pa_proyecto', $p->get_id());
-//		toba::puntos_montaje($p)->usar_punto_montaje_proyecto();
-    }
+//    function opcion__test()
+//    {
+//		$p = $this->get_proyecto();
+//		$p->get_pms()->migrar_proyecto();
+////		define('apex_pa_proyecto', $p->get_id());
+////		toba::puntos_montaje($p)->usar_punto_montaje_proyecto();
+//    }
 
+    /**
+     * Prepara un proyecto para comenzar a ser personalizado
+     */
     function opcion__comenzar()
     {
 		$this->consola->titulo('Preparando personalizacion');
@@ -29,6 +32,9 @@ class comando_personalizacion extends comando_toba
         $this->consola->titulo('Personalizacion preparada');
     }
 
+    /**
+     * Exporta la personalización realizada
+     */
     function opcion__exportar()
     {
         $this->consola->titulo('Exportando la personalizacion');
@@ -48,6 +54,10 @@ class comando_personalizacion extends comando_toba
 		$pers->chequear_conflictos();
     }
 
+    /**
+     * Importa la personalización que está en el directorio personalización del
+     * proyecto
+     */
     function opcion__importar()
     {
         $this->consola->titulo('Aplicando la personalizacion');

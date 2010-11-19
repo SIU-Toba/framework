@@ -21,6 +21,7 @@ class menu_toba extends menu
 						'base',
 						'instancia',
 						'proyecto',
+                        'personalizacion',
 						'test'
 
 		);	
