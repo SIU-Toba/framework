@@ -1,16 +1,4 @@
 <?php
-		$egg = date("d-m") == '28-12';
-		if ($egg && ! isset($_SESSION['egg_28_diciembre'])) {
-			echo "<style>body {background-color:black; color: white; font-familiy:arial; text-align:center}</style>";
-			echo "<h1 style='text-align:center'>Toba</h1>";
-			echo toba_recurso::imagen_proyecto('reflexion/pwned.jpg', true);
-			echo "by <a href='#' onclick='getElementById(\"div\").style.display=\"\"'>chackal</a>";
-			$img = toba_recurso::imagen_proyecto('reflexion/haha.jpg', true);
-			echo "<div id='div' style='display:none'><h1>Que la inocencia te sea productiva!!</h1>$img</div>";
-			$_SESSION['egg_28_diciembre'] = true;
-			die;
-		}		
-
 	$proyecto = toba::proyecto()->get_parametro('descripcion');
 	$ico = toba_recurso::imagen_proyecto('favicon.ico');
 ?>
