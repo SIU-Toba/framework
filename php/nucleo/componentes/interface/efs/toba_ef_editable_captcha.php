@@ -128,7 +128,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$this->estado  = false;
 		$longitud      = strlen($this->texto); //la longitud maxima de caracteres del ef
 		$tab 		   = ' tabindex="'.$this->padre->get_tab_index().'"';		
-		$input 		   = toba_form::text($this->id_form, $this->estado, $this->solo_lectura, $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
+		$input 		   = toba_form::text($this->id_form, $this->estado, $this->es_solo_lectura(), $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		$url		   = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_captchas_efs', 'objetos_destino' => array( $this->padre->get_id() )));
 		
 		if ($this->permite_refrescar_codigo) {

@@ -154,7 +154,7 @@ class toba_ef_editable extends toba_ef
 	function get_input()
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
-		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
+		$input = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
 			$input = "<span class='ef-editable-unidad'>".$input .' '.$this->unidad.'</span>';
 		}
@@ -572,9 +572,9 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
-		$html .= toba_form::text($this->id_form,$this->estado, $this->solo_lectura,$this->tamano,
+		$html .= toba_form::text($this->id_form,$this->estado, $this->es_solo_lectura(),$this->tamano,
 								$this->tamano, $this->clase_css, $this->input_extra.$tab);
-		if (! $this->solo_lectura) {
+		if (! $this->es_solo_lectura()) {
 			$html .= "<a id='link_". $this->id_form . "' ";
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
 			$html .= " href='#' name='link_". $this->id_form . "'>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
@@ -740,16 +740,16 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 		$id_form_fecha = $this->id_form . '_fecha';
 		$id_form_hora = $this->id_form . '_hora';
 		$html = "<span class='ef-fecha-hora'>";
-		$html .= toba_form::text($id_form_fecha ,$estado_fecha, $this->solo_lectura,$this->tamano, $this->tamano, $this->clase_css, $this->input_extra.$tab);
+		$html .= toba_form::text($id_form_fecha ,$estado_fecha, $this->es_solo_lectura(),$this->tamano, $this->tamano, $this->clase_css, $this->input_extra.$tab);
 		$visibilidad = "style= 'visibility:hidden;'";
-		if (! $this->solo_lectura) {	//Hay que ver si es solo lectura por la cascada o que?
+		if (! $this->es_solo_lectura()) {	//Hay que ver si es solo lectura por la cascada o que?
 			$visibilidad = "style= 'visibility:visible;'";
 		}
 		$html .= "<a id='link_". $this->id_form . "' ";
 		$html .= " onclick='calendario.select(document.getElementById(\"$id_form_fecha\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
 		$html .= " href='#' name='link_". $this->id_form . "' $visibilidad>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
 
-		$html .= toba_form::text($id_form_hora, $estado_hora, $this->solo_lectura, 5,  5, $this->clase_css . '  ef-numero ', $this->input_extra. $tab);
+		$html .= toba_form::text($id_form_hora, $estado_hora, $this->es_solo_lectura(), 5,  5, $this->clase_css . '  ef-numero ', $this->input_extra. $tab);
 		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</span>\n";
 		return $html;
@@ -915,7 +915,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$this->estado = '';	
 		}
 		$html = "";
-		if($this->solo_lectura){
+		if($this->es_solo_lectura()){
 			$clase = $this->clase.' ef-input-solo-lectura';
 			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $clase, $this->wrap, " readonly");
 		}else{

@@ -54,7 +54,7 @@ class toba_ef_upload extends toba_ef
 			toba::memoria()->set_dato_sincronizado($this->id_form."_cargado", true);
 		}
 		$salida = "";
-		if (! $this->solo_lectura) {
+		if (! $this->es_solo_lectura()) {
 			if (isset($nombre_archivo) && $nombre_archivo != '') {
 				$salida .= toba_form::archivo($this->id_form, null, $this->clase_css, "style='display:none'");
 				$salida .= "<div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";

@@ -358,7 +358,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 		$this->analizar_cambio_solo_lectura();
 		$estado = $this->get_estado_para_input();
 		$html = "";
-		if (!$this->solo_lectura && $this->mostrar_utilidades)	{
+		if (!$this->es_solo_lectura() && $this->mostrar_utilidades)	{
 			$html .= "
 				<div class='ef-multi-sel-todos' id='{$this->id_form}_utilerias'>
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> / 
@@ -368,7 +368,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";
-		$extra .= ($this->solo_lectura) ? "disabled" : "";
+		$extra .= ($this->es_solo_lectura()) ? "disabled" : "";
 		if (isset($this->ancho)) {
 			$extra .= " style='width: {$this->ancho}'";
 		}
@@ -436,7 +436,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 		$tab = $this->padre->get_tab_index();
 		$input_extra = " tabindex='$tab'";
 		
-		if ($this->mostrar_utilidades && !$this->solo_lectura)	{
+		if ($this->mostrar_utilidades && !$this->es_solo_lectura())	{
 			$html .= "
 				<div id='{$this->id_form}_utilerias' class='ef-multi-sel-todos'>
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> / 
@@ -454,7 +454,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 			if (! $this->permitir_html) {
 				$clave = texto_plano($clave);
 			}
-			if (! $this->solo_lectura) {
+			if (! $this->es_solo_lectura()) {
 				$checkeado =  $ok ? "checked" : "";
 				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox' $input_extra>";
 				$input_extra = '';
@@ -538,7 +538,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 			$extra .= " style='width: {$this->ancho}'";
 		}		
 		$html = '';
-		if (!$this->solo_lectura && $this->mostrar_utilidades)	{
+		if (!$this->es_solo_lectura() && $this->mostrar_utilidades)	{
 			$html .= "
 				<div class='ef-multi-sel-todos' id='{$this->id_form}_utilerias'>
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> /
@@ -565,7 +565,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$img_izq = toba_recurso::imagen_toba('nucleo/paginacion/no_anterior.gif', false);
 		$boton_izq = "<img src='$img_izq' id='{$this->id_form}_img_der' onclick=\"$ef_js.pasar_a_izquierda()\" class='ef-multi-doble-boton'>";
 		
-		$disabled = ($this->solo_lectura) ? "disabled" : "";
+		$disabled = ($this->es_solo_lectura()) ? "disabled" : "";
 		$html .= "<table class='{$this->clase_css}'>";
 		$html .= "<tr><td>$etiq_izq</td><td></td><td>$etiq_der</td></tr>";
 		$html .= "<tr><td>";

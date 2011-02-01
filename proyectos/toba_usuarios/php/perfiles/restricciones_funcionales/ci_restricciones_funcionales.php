@@ -5,6 +5,13 @@ class ci_restricciones_funcionales extends toba_ci
 	protected $s__restriccion = -1;
 	protected $s__filtro;
 	
+	function ini__operacion()
+	{
+		if (! is_null(admin_instancia::get_proyecto_defecto())) {
+			$this->s__filtro = array('proyecto' => admin_instancia::get_proyecto_defecto());
+		}		
+	}	
+	
 	function evt__guardar()
 	{
 		$raices = $this->dep('arbol')->get_datos();
@@ -121,7 +128,7 @@ class ci_restricciones_funcionales extends toba_ci
 	//------  FORM
 	//---------------------------------------------------------------------
 		
-	function conf__form_restriccion($componente)
+	function conf__form_restriccion(toba_ei_formulario $componente)
 	{
 		if ($this->dep('restricciones')->esta_cargada()) {
 			$datos = $this->dep('restricciones')->get();
@@ -132,12 +139,13 @@ class ci_restricciones_funcionales extends toba_ci
 			}
 		}else{
 			$datos['proyecto'] = $this->get_proyecto_seleccionado();
-			
-			if (toba::instalacion()->es_produccion()) {
-				$componente->desactivar_efs(array('permite_edicion'));
-			}
 		}
 		$componente->set_datos($datos);
+		
+		if (toba::instalacion()->es_produccion()) {
+			$componente->desactivar_efs(array('restriccion_funcional', 'permite_edicion'));
+			
+		}
 	}
 	
 	function evt__form_restriccion__modificacion($datos)

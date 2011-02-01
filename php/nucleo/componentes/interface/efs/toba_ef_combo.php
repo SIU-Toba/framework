@@ -261,7 +261,7 @@ class toba_ef_combo extends toba_ef_seleccion
 		
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
-        if ($this->solo_lectura) {
+        if ($this->es_solo_lectura()) {
         	$clase = $this->clase_css.' ef-input-solo-lectura';
         	$input = toba_form::select("",$estado, $this->opciones, $clase, "disabled");	
 			$input .= toba_form::hidden($this->id_form, $estado);
@@ -327,7 +327,7 @@ class toba_ef_radio extends toba_ef_seleccion
 		$estado = $this->get_estado_para_input();
 		$this->analizar_cambio_solo_lectura();
 		$html = '';
-		if ($this->solo_lectura) {
+		if ($this->es_solo_lectura()) {
 			$html .= toba_form::hidden($this->id_form, $estado);			
 		}
 		$callback = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
@@ -348,7 +348,7 @@ class toba_ef_radio extends toba_ef_seleccion
 	    	$id = $this->id_form . $i;    		
 	    	$html .= "\t<td><label class='{$this->clase_css}' for='$id'>";
 	    	$es_actual = (strval($estado) == strval($clave));
-			if (! $this->solo_lectura) {
+			if (! $this->es_solo_lectura()) {
 	    		$sel = ($es_actual) ? "checked" : "";
 	    		if (! $this->permitir_html) {
 	    			$clave = texto_plano($clave);

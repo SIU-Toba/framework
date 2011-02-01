@@ -164,7 +164,7 @@ class toba_ef_popup extends toba_ef_editable
 		}
 
 		if ($this->editable) {
-			$disabled = ($this->solo_lectura) ? "disabled" : "";
+			$disabled = ($this->es_solo_lectura()) ? "disabled" : "";
 			$html .= toba_form::hidden($this->id_form."_desc", $estado);
 			$html .= toba_form::text($this->id_form, $this->descripcion_estado, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
 			$extra = '';
@@ -173,13 +173,13 @@ class toba_ef_popup extends toba_ef_editable
 			$html .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
 		}
 		if (isset($this->id_vinculo)) {
-			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
+			$display = ($this->es_solo_lectura()) ? "visibility:hidden" : "";
 			$html .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 			$html .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
 			$html .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
 		}
 		if ($this->no_oblig_puede_borrar) {
-			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
+			$display = ($this->es_solo_lectura()) ? "visibility:hidden" : "";
 			$html .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
 			$html .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
 			$html .= " href='#'>".$this->get_imagen_limpiar()."</a>";

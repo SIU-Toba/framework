@@ -60,7 +60,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
-        if ($this->solo_lectura) {
+        if ($this->es_solo_lectura()) {
         	$html .= toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");
 			$html .= toba_form::hidden($this->id_form, $estado);
             return $html;
@@ -111,7 +111,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	protected function parametros_js()
 	{
 		$parametros = parent::parametros_js().', '.$this->tamano;
-		if (!$this->solo_lectura) {
+		if (!$this->es_solo_lectura()) {
 			$parametros .= $this->habilitar_modo_filtrado?', true':', false';
 		}
 		return $parametros;
@@ -120,7 +120,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	function crear_objeto_js()
 	{
 		$mantiene_estado_js = toba_js::bool($this->mantiene_estado_cascada);
-		if (! $this->solo_lectura) {
+		if (! $this->es_solo_lectura()) {
 			return "new ef_combo_editable({$this->parametros_js()}, $mantiene_estado_js)";
 		} else {
 			//--En el caso que sea solo-lectura en el server, se comporta como un combo normal en js
