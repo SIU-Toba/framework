@@ -492,7 +492,7 @@ class toba_ei_filtro extends toba_ei
 		return null;
 	}	
 
-	private function analizar_visualizacion_columna($columna)
+	protected function analizar_visualizacion_columna($columna)
 	{
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();		//Obtengo todos los maestros
 		//Si alguno de los maestros es visible, la columna en si misma se vuelve visible inicialmente.
