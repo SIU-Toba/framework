@@ -97,7 +97,7 @@ class admin_util
 	static function get_path_archivo($path_relativo, $pm_id = null)
 	{
 		if (!is_null($pm_id)) {
-			$pm = toba_modelo_pms::get_pm($pm_id);
+			$pm = toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
 			$path = $pm->get_path_absoluto().'/';
 		} else {
 			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";

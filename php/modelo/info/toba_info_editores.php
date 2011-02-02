@@ -1375,7 +1375,7 @@ class toba_info_editores
 			$archivo_nombre = $datos['archivo'];
 		}
 		if (isset($datos['punto_montaje'])) {
-			$punto = toba_modelo_pms::get_pm($datos['punto_montaje']);
+			$punto = toba_modelo_pms::get_pm($datos['punto_montaje'], $proyecto);
 			$archivo  = $punto->get_path_absoluto().'/'.$archivo_nombre;
 		} else {
 			$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo_nombre;
@@ -1385,7 +1385,7 @@ class toba_info_editores
 			//-- Puede ser que sea un archivo de toba
 			$archivo = toba_nucleo::toba_dir().'/php/'.$archivo_nombre;
 		}
-		$metodos = array();		
+		$metodos = array();
 		if (file_exists($archivo)) {
 			$metodos = toba_archivo_php::codigo_get_nombre_metodos(file_get_contents($archivo), true);
 		} 

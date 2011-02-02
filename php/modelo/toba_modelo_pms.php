@@ -86,14 +86,7 @@ class toba_modelo_pms
 	 */
 	function get_por_id($id)
 	{
-		$id = $this->db->quote($id);
-		$sql = "SELECT * FROM apex_puntos_montaje WHERE id=$id";
-		$registro = $this->db->consultar_fila($sql);
-		if (empty($registro)) {
-			throw new toba_error("PUNTOS MONTAJE: El punto de montaje con id $id no existe");
-		} else {
-			return toba_punto_montaje_factory::construir($registro);
-		}
+		return $this->get_pm($id, $this->proyecto->get_id());
 	}
 
 	/**
@@ -234,10 +227,11 @@ class toba_modelo_pms
 	 * Shortcut para no instanciar el modelo sólo para obtener un pm
 	 * @param string $id
 	 */
-	static function get_pm($id)
+	static function get_pm($id, $proyecto)
 	{
 		$id = toba::db()->quote($id);
-		$sql = "SELECT * FROM apex_puntos_montaje WHERE id=$id";
+		$proyecto = toba::db()->quote($proyecto);
+		$sql = "SELECT * FROM apex_puntos_montaje WHERE id=$id AND proyecto = $proyecto";
 		$registro = toba::db()->consultar_fila($sql);
 		if (empty($registro)) {
 			throw new toba_error("PUNTOS MONTAJE: El punto de montaje con id $id no existe");
