@@ -513,6 +513,7 @@ class toba_ei_filtro extends toba_ei
 		if (! isset($_GET['cascadas-col']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");
 		}
+		toba::memoria()->desactivar_reciclado();
 		$id_columna = trim(toba::memoria()->get_parametro('cascadas-col'));		
 		if (! $this->existe_columna($id_columna)) {
 			throw new toba_error_seguridad($this->get_txt()." No existe la columna  '$id_columna'");
