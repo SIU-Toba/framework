@@ -79,7 +79,7 @@ class toba_memoria
 		//toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
 		$this->id = uniqid('');
-		$this->url_actual = $_SERVER["PHP_SELF"];
+		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);
         //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
 		//		Este ID me permite ubicar la memoria correcta para el request ACTUAL
 		if(isset($_GET[apex_hilo_qs_id])){
