@@ -22,6 +22,13 @@
 		this._mapa = null;
 		this._ubicacion_controles = 'standardRight';
 		this._toolbar = null;
+		this._temp_valor_mapa = '';										//Variable que contendra valores temporales
+		//Identificadores de los campos utilizados por el mapa
+		this._param_click = 'coordenada_click' + id[1];
+		this._param_mapsize = 'mapsize' + id[1];
+		this._param_mapext = 'mapext' + id[1];
+		this._param_layers = 'layers' + id[1];
+
 	}
 
 	/**
@@ -29,7 +36,10 @@
 	 */
 	ei_mapa.prototype.iniciar= function ()
 	{
+		//Nombres de los metodos que se pueden extender para configurar el mapa
 		var metodo_extension = 'evt__mapa__iniciar';
+		var metodo_eventos = 'configurar_toolbar_eventos';
+
 		//Creo el objeto del mapa
 		this._mapa = new msMap(document.getElementById('cuerpo__' + this._instancia));
 		this._mapa.setCgi(this._url);
@@ -42,13 +52,10 @@
 		this._toolbar = new msToolbar (this._mapa, this._ubicacion_controles, false, this);
 		this._mapa.setToolbar(this._toolbar);
 
-		this._toolbar.addTool(new msTool('Full Extent', 'resetear_posicion', _iconFullExtentButton));
-		this._toolbar.addTool(new msTool('Zoom In',  'acercarse', _iconZoominButton));
-		this._toolbar.addTool(new msTool('Zoom Out', 'alejarse', _iconZoomoutButton));
-		this._toolbar.addTool(new msTool('Pan', 'desplazar', _iconPanButton, true)); 
-		this._toolbar.addTool(new msTool('Zoom', 'area', _iconZoomboxButton, true));
-
-
+		if (existe_funcion(this, metodo_eventos)) {
+			this[metodo_eventos]();
+		}
+		
 		if (existe_funcion(this, metodo_extension)) {
 			this[metodo_extension]();
 		}
@@ -124,11 +131,6 @@
 		this._mapa.fullExtent();
 	}
 
-	ei_mapa.set_evento = function(evento)
-	{
-		//Esto por ahora no hace nada... deberia setear los eventos en el oculto y enviar el form al servidor
-	}
-
 	ei_mapa.prototype.get_punto_click = function (evento)
 	{
 		var punto = [];
@@ -173,16 +175,24 @@
 		} else {
 			this._lista_layers_activos[layer_actual] = 0;
 		}
+		
+		var resultado = this.get_layers_activos();
+		this.set_layers(resultado.join(' '), true);
+		this.render();
+	}
 
+	/**
+	 * Devuelve un arreglo con la lista de layers activos a este momento
+	 */
+	ei_mapa.prototype.get_layers_activos = function()
+	{
 		var resultado = [];
 		for (var layer  in  this._lista_layers_activos) {
 			if (this._lista_layers_activos[layer] == 1) {
 				resultado.push(layer);
 			}
 		}
-
-		this.set_layers(resultado.join(' '), true);
-		this.render();
+		return resultado;
 	}
 
 	//----------------------------------------------------------------------------------------------///
@@ -197,14 +207,24 @@
 
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
+	/**
+	 * Realiza el submit del componente
+	 */
 	ei_mapa.prototype.submit = function()
 	{
-		return true;
-	}
+		if (this.controlador && !this.controlador.en_submit()) {
+			return this.controlador.submit();
+		}
+		if (this._evento) {
+			//Recupero los datos del mapa y el punto clickeado para enviarlos como datos del evento.
+			document.getElementById(this._param_click).value = this._temp_valor_mapa['X'] + ',' + this._temp_valor_mapa['Y'];
+			document.getElementById(this._param_mapsize).value = this._mapa.width() + ' ' + this._mapa.height();
+			document.getElementById(this._param_mapext).value = this._mapa.getExtentActual().join(' ');
+			document.getElementById(this._param_layers).value = this.get_layers_activos().join(' ');
 
-	ei_mapa.prototype.puede_submit = function()
-	{
-		return true;
+			//Marco la ejecucion del evento para que la clase PHP lo reconozca
+			document.getElementById(this._input_submit).value = this._evento.id;
+		}
 	}
 
 	toba.confirmar_inclusion('componentes/ei_mapa');

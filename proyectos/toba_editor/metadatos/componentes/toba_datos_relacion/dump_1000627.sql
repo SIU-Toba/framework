@@ -81,6 +81,41 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000009', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1501', --padre_objeto
+	'base', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'1505', --hijo_objeto
+	'eventos', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000010', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1505', --padre_objeto
+	'eventos', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000033', --hijo_objeto
+	'puntos_control', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'3'  --orden
+);
+--- FIN Grupo de desarrollo 33
+
 ------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
@@ -98,6 +133,24 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	'1'  --orden
 );
+--- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000033', --dep_id
+	'1000627', --objeto_consumidor
+	'1505', --objeto_proveedor
+	'eventos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'3'  --orden
+);
+--- FIN Grupo de desarrollo 33
+
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
 	'1000469', --dep_id
@@ -111,6 +164,21 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2'  --orden
 );
 --- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000039', --dep_id
+	'1000627', --objeto_consumidor
+	'10000033', --objeto_proveedor
+	'puntos_control', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'4'  --orden
+);
+--- FIN Grupo de desarrollo 33
 
 ------------------------------------------------------------
 -- apex_objeto_rel_columnas_asoc
@@ -132,4 +200,40 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 	'22', --padre_clave
 	'1000628', --hijo_objeto
 	'1000421'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000009', --asoc_id
+	'1501', --padre_objeto
+	'21', --padre_clave
+	'1505', --hijo_objeto
+	'87'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000009', --asoc_id
+	'1501', --padre_objeto
+	'22', --padre_clave
+	'1505', --hijo_objeto
+	'88'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000010', --asoc_id
+	'1505', --padre_objeto
+	'87', --padre_clave
+	'10000033', --hijo_objeto
+	'10000010'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'toba_editor', --proyecto
+	'1000627', --objeto
+	'33000010', --asoc_id
+	'1505', --padre_objeto
+	'335', --padre_clave
+	'10000033', --hijo_objeto
+	'10000012'  --hijo_clave
 );

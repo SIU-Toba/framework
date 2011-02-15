@@ -42,6 +42,11 @@ class ci_ejemplo_1 extends toba_ci
 		}
 	}
 
+	function evt__mapa__nosenada($datos)
+	{
+		ei_arbol($datos);
+	}
+
 	function generar_html()
 	{
 		try {

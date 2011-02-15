@@ -289,6 +289,19 @@ function msMap(DivTag)
 		_ext_Ymin = Ymin;
 		_ext_Ymax = ((this.height() / this.width())*(_ext_Xmax - _ext_Xmin)) + _ext_Ymin;
 	}
+
+	this.getExtentActual = function()
+	{
+		var result = [];
+		
+		result['xmin'] = (_ext_Xmin - i.wPixel2real(this.getBorder()));
+		result['ymin'] = (_ext_Ymin - i.hPixel2real(_map_h_bord));
+		result['xmax'] = (_ext_Xmax + i.wPixel2real(this.getBorder()));
+		result['ymax'] = (_ext_Ymax + i.hPixel2real(_map_h_bord));
+		
+		return result;
+	}
+
 	//------------------------------------------------------------------------------------------------------------------------------------------//
 	//																	AUX METHODS																							//
 	//------------------------------------------------------------------------------------------------------------------------------------------//
