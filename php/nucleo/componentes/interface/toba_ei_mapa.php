@@ -541,15 +541,15 @@ class toba_ei_mapa extends toba_ei
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
 		echo $identado . "window.{$this->objeto_js} = new ei_mapa($id,'{$this->objeto_js}', '{$this->_submit}'); \n";
+
+		$this->generar_funciones_eventos_js();
 	}
 
 	/**
-	 * Genera la botonera a partir de los eventos del componente
-	 * Por cada evento se genera una funcion que lo atiende y luego
-	 * se agrega un icono en el toolbar del mapa
-	 *@ignore
-	 */
-	protected function generar_botones_eventos_js()
+	*  Por cada evento se genera una funcion que lo atiende
+	* @ignore
+	*/
+	protected function generar_funciones_eventos_js()
 	{
 		$identado = toba_js::instancia()->identado();
 		//Si existen eventos definidos entonces genero una funcion js x cada evento que se dispara desde la toolbar
@@ -563,6 +563,17 @@ class toba_ei_mapa extends toba_ei
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Genera la botonera a partir de los eventos del componente
+	 *  y  agrega un icono en el toolbar del mapa
+	 *@ignore
+	 */
+	protected function generar_botones_eventos_js()
+	{
+		$identado = toba_js::instancia()->identado();
+		//Si existen eventos definidos entonces genero una funcion js x cada evento que se dispara desde la toolbar
 
 		echo $identado. '//---------------- CONFIG. BOTONERA DEL MAPA ----------------'. "\n";
 		//Agrego lo que seria el grupo basico de eventos del mapa
