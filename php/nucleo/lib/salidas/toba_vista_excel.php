@@ -23,6 +23,7 @@ class toba_vista_excel
 	protected $writer = 'Excel5';
 	protected $cursor_base = array(0,1);
 	protected $cursor = array(0,1);
+	protected $temp_salida;
 	
 	function __construct()
 	{
@@ -76,7 +77,7 @@ class toba_vista_excel
 		foreach( $this->objetos as $objeto ) {
 			$objeto->vista_excel( $this );	
 		}
-		$this->stream_excel();
+		$this->crear_excel();
 	}
 
 	/**
@@ -88,23 +89,27 @@ class toba_vista_excel
 		return $this->excel;
 	}
 
-	protected function stream_excel()
+	function enviar_archivo()
+	{
+		$longitud = filesize($this->temp_salida);
+		if (file_exists($this->temp_salida)) {
+			$fp = fopen($this->temp_salida, 'r');
+			$this->cabecera_http($longitud);
+			fpassthru($fp);
+			fclose($fp);
+			unlink($this->temp_salida);
+		}
+	}
+
+	protected function crear_excel()
 	{
 		$writer = 'PHPExcel_Writer_'.$this->writer;
 		$archivo = explode('_', $writer);
 		$archivo = implode('/', $archivo).'.php';
 		require_once($archivo);
 		$writer = new $writer($this->excel);
-		$path = toba::proyecto()->get_path_temp().'/'.uniqid();
-		$writer->save($path);
-		$longitud = filesize($path);
-		if (file_exists($path)) {
-			$fp = fopen($path, 'r');
-			$this->cabecera_http($longitud);
-			fpassthru($fp);
-			fclose($fp);
-			unlink($path);
-		}		
+		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid();
+		$writer->save($this->temp_salida);
 	}
 	
 	protected function cabecera_http($longitud)

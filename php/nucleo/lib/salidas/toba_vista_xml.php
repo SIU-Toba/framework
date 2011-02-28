@@ -14,7 +14,8 @@ class toba_vista_xml
 	protected $objetos = array();
 	protected $tipo_descarga = 'attachment';
 	protected $nombre_archivo = 'archivo.xml';
-	protected $xml_externo;	
+	protected $xml_externo;
+	protected $temp_salida;
 	
 	function __construct()
 	{
@@ -57,11 +58,17 @@ class toba_vista_xml
 	 */
 	function generar_salida()
 	{	
-		$xml = $this->generar_xml();
-		$this->cabecera_http( strlen(ltrim($xml)) );
-		echo ltrim($xml);
+		$this->temp_salida = $this->generar_xml();
 	}
-	
+
+	/**
+	 * @ignore
+	 */
+	function enviar_archivo()
+	{
+		$this->cabecera_http( strlen(ltrim($this->temp_salida)) );
+		echo ltrim($this->temp_salida);
+	}
 
 	/**
 	 * @ignore

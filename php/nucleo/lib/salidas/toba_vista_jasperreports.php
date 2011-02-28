@@ -102,13 +102,15 @@ class toba_vista_jasperreports
 			$this->conexion = toba::db();
 		}
 		$this->crear_pdf();
+	}
+
+	function enviar_archivo()
+	{
 		$this->cabecera_http(filesize($this->temp_salida));
 		readfile($this->temp_salida);
 		unlink($this->temp_salida);		
 	}
-	
-
-	
+		
 	/**
 	 * @ignore 
 	 */

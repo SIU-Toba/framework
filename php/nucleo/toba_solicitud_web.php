@@ -302,6 +302,7 @@ class toba_solicitud_web extends toba_solicitud
 		$salida = new toba_vista_pdf();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
+		$salida->enviar_archivo();
 	}
 	
 	protected function servicio__vista_xml( $objetos )
@@ -309,6 +310,7 @@ class toba_solicitud_web extends toba_solicitud
 		$salida = new toba_vista_xml();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
+		$salida->enviar_archivo();
 	}
 
 	protected function servicio__vista_xslfo( $objetos )
@@ -316,6 +318,7 @@ class toba_solicitud_web extends toba_solicitud
 		$salida = new toba_vista_xslfo();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
+		$salida->enviar_archivo();
 	}
 	
 	protected function servicio__vista_jasperreports( $objetos )
@@ -328,6 +331,7 @@ class toba_solicitud_web extends toba_solicitud
 			}
 		}
 		$salida->generar_salida();
+		$salida->enviar_archivo();
 	}	
 	
 	protected function servicio__vista_excel($objetos)
@@ -335,6 +339,7 @@ class toba_solicitud_web extends toba_solicitud
 		$salida = new toba_vista_excel();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
+		$salida->enviar_archivo();
 	}
 	
 

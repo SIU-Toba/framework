@@ -21,6 +21,7 @@ class toba_vista_pdf
 	protected $texto_pie;
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
+	protected $temp_salida;
 	
 	function __construct()
 	{
@@ -126,7 +127,7 @@ class toba_vista_pdf
 			$objeto->vista_pdf( $this );	
 		}
 		$this->parar_numeracion_paginas();
-		$this->crear_pdf();		
+		return $this->crear_pdf();
 	}
 	
 	/**
@@ -157,9 +158,16 @@ class toba_vista_pdf
 	protected function crear_pdf()
 	{
 		toba::logger()->debug("Mensajes PDF: ".$this->pdf->messages);
-  		$tmp = $this->pdf->ezOutput(0);
-   		$this->cabecera_http( strlen(ltrim($tmp)) );
-   		echo ltrim($tmp);
+  		$this->temp_salida = $this->pdf->ezOutput(0);
+	}
+
+	/**
+	 * @ignore
+	 */
+	function enviar_archivo()
+	{
+   		$this->cabecera_http( strlen(ltrim($this->temp_salida)) );
+   		echo ltrim($this->temp_salida);
 	}
 	
 	protected function cabecera_http( $longuitud )
