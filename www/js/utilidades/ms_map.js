@@ -546,8 +546,6 @@ function msMap(DivTag)
 		_ext_Xmax -= (this.width() - rr) * _pixel_w;
 		_ext_Ymax -= tt * _pixel_h;
 		_ext_Ymin += (this.height() - bb) * _pixel_h;
-
-		i.redraw();
 	}
 
 	this.zoomPerc = function(p_perc)
@@ -607,6 +605,7 @@ function msMap(DivTag)
 		del_event(document, "mousemove", i.zoomGo, flag);
 		del_event(document, "mouseup", i.zoomStop, flag);
 		i.zoomboxExtent();
+		i.redraw();
 	}
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -683,6 +682,12 @@ function msMap(DivTag)
 		del_event(document, "mousemove", i.dragGo, flag);
 		del_event(document, "mouseup", i.dragStop, flag);
 
+		i.calculatePan(event);
+		i.redraw();
+	}
+
+	this.calculatePan = function(event)
+	{
 		var xx, yy;
 		var x = i.getClick_X(event) + DL_GetElementLeft(i.getTagMap());
 		var y = i.getClick_Y(event) + DL_GetElementTop(i.getTagMap());
@@ -752,17 +757,11 @@ function msMap(DivTag)
 		_ext_Xmax = _ext_Xmax - x_real;
 		_ext_Ymin = _ext_Ymin + y_real;
 		_ext_Ymax = _ext_Ymax + y_real;
-		i.redraw();
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------//
 	//																			CLICK METHODS
 	//-------------------------------------------------------------------------------------------------------------------------------------------------//
-	/*this.addClickTool = function()
-	{ //xxx
-		i.getToolbar(0).addMapTool('Select', i.setActionSelect, _iconSelectButton);
-	}*/
-
 	this.getClick_X = function(p_event)
 	{
 		var my_x;
