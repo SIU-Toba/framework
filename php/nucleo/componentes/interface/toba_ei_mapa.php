@@ -21,10 +21,8 @@ class toba_ei_mapa extends toba_ei
 	protected $_extent_activo;
 
 	protected $_info_eventos = array('conf');
-	protected $_param_punto_click = 'coordenada_click';
-	protected $_param_mapsize = 'mapsize';
 	protected $_param_mapext = 'mapext';
-	protected $_param_layers = 'layers';
+	protected $_param_extra = 'map_extra';
 
 	final function __construct($id)
 	{
@@ -34,10 +32,8 @@ class toba_ei_mapa extends toba_ei
 		parent::__construct($id);
 		//TODO: Hack para navegacion ajax con windows*/
 		toba_ci::set_navegacion_ajax(false);
-		$this->_param_punto_click .= $this->_id[1];
-		$this->_param_mapsize .= $this->_id[1];
 		$this->_param_mapext .= $this->_id[1];
-		$this->_param_layers .= $this->_id[1];
+		$this->_param_extra .= $this->_id[1];
 	}
 
 	/**
@@ -78,7 +74,7 @@ class toba_ei_mapa extends toba_ei
 		$evento = null;
 		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
 			$evento = $_POST[$this->_submit];
-		}
+		}		
 		return $evento;
 	}
 
@@ -130,20 +126,16 @@ class toba_ei_mapa extends toba_ei
 	function get_datos()
 	{
 		$datos = array();
+		$size = null;
+		$layers = null;
+		$extra = null;
 
-		if ($this->hay_evento_interaccion()) { //Se proceso un evento del mapa
-			//Recupero las coordenadas donde se clickeo.
-			if (isset($_POST[$this->_param_punto_click]) && ($_POST[$this->_param_punto_click] != '')) {
-				list($x, $y) = explode(',' , $_POST[$this->_param_punto_click]);
-				$datos['coordenadas'] = array('x' => $x, 'y' => $y);
-			}
-			//Recupero el tamaño del viewport desde el POST
-			$size =  (isset($_POST[$this->_param_mapsize]) && ($_POST[$this->_param_mapsize] != '')) ? $_POST[$this->_param_mapsize] : null;
-			//Recupero el extent a usar 
+		 //Se proceso un evento del mapa solo viene el extent y el parametro extra
+		if ($this->hay_evento_interaccion()) {
+			//Recupero el extent a usar			
 			$extent =  (isset($_POST[$this->_param_mapext]) && ($_POST[$this->_param_mapext] != '')) ? $_POST[$this->_param_mapext] : null;
-			//Recupero los layers activos
-			$layers =  (isset($_POST[$this->_param_layers]) && ($_POST[$this->_param_layers] != '')) ? $_POST[$this->_param_layers] : null;			
-
+			//Recupero los datos extra que pudo enviar el evento
+			$extra = (isset($_POST[$this->_param_extra]) && ($_POST[$this->_param_extra] != '')) ? $_POST[$this->_param_extra] : null;
 		} else {								//Hace llamada ajax el cliente del mapa, viene todo por GET no hay evento
 			//Recupero el tamaño del viewport desde el GET
 			$size = toba::memoria()->get_parametro('mapsize');
@@ -156,6 +148,7 @@ class toba_ei_mapa extends toba_ei
 		$datos['size'] = (! is_null($size)) ? explode(' ', $size) : array();
 		$datos['extent'] = (! is_null($extent)) ? explode(' ' , $extent) : array();
 		$datos['layers'] =  (! is_null($layers)) ?  explode(' ' , $layers) : array();
+		$datos['extra'] = $extra;
 
 		return $datos;
 	}
@@ -344,10 +337,8 @@ class toba_ei_mapa extends toba_ei
 	{
 		//Campos de sincronizacion con JS
 		echo toba_form::hidden($this->_submit, '');
-		echo toba_form::hidden($this->_param_punto_click, '');
-		echo toba_form::hidden($this->_param_mapsize , '');
+		echo toba_form::hidden($this->_param_extra , '');
 		echo toba_form::hidden($this->_param_mapext , '');
-		echo toba_form::hidden($this->_param_layers , '');
 	}
 
 	/**
@@ -621,10 +612,9 @@ class toba_ei_mapa extends toba_ei
 		$identado = toba_js::instancia()->identado();
 		$evento = $this->evento($evento_id)->get_evt_javascript();
 		//Genero la funcion en js que procesara el evento
-		echo $identado. "{$this->objeto_js}.evt__mapa__$evento_id = function(evento) \n".
+		echo $identado. "{$this->objeto_js}.evt__mapa__disparador_$evento_id = function(evento) \n".
 		$identado ."{\n".
 		$identado. "	if (evento != undefined) { \n".
-		$identado. "		this._temp_valor_mapa = this.get_punto_click(evento); \n".
 		$identado. "		this.set_evento($evento); \n" .
 		$identado."	} \n	} \n";
 
@@ -645,7 +635,7 @@ class toba_ei_mapa extends toba_ei
 			$icono = '_icon'.$evento_id;
 
 			$etiqueta = $this->evento($evento_id)->get_etiqueta();			
-			echo $identado. "this._toolbar.addTool(new msTool('$etiqueta', 'evt__mapa__$evento_id', $icono, true)); \n";
+			echo $identado. "this._toolbar.addTool(new msTool('$etiqueta', 'evt__mapa__disparador_$evento_id', $icono, true)); \n";
 	}
 
 	/**
@@ -658,7 +648,15 @@ class toba_ei_mapa extends toba_ei
 		$identado = toba_js::instancia()->identado();
 
 		//Obtengo el Full Extent del mapa, los zooms intermedios los maneja el cliente
-		$extent = "'{$this->_extent->minx}' ,' {$this->_extent->maxx}', '{$this->_extent->miny}', '{$this->_extent->maxy}'";
+		$extent_full = "'{$this->_extent->minx}' ,' {$this->_extent->maxx}', '{$this->_extent->miny}', '{$this->_extent->maxy}'";
+
+		//Porcion actualmente visible, si no hay valores tomo el extent full como referencia
+		if (isset($this->_extent_activo)) {
+			$extent = "'".$this->_extent_activo['xmin']."' ,'". $this->_extent_activo['xmax'] . "', '". $this->_extent_activo['ymin']. "', '". $this->_extent_activo['ymax']. "'";
+		} else {
+			$extent = $extent_full;
+		}
+
 		//Obtengo la lista de Layers original del mapa
 		$layers = implode(' ' ,$this->get_nombre_layers());
 
@@ -670,6 +668,7 @@ class toba_ei_mapa extends toba_ei
 
 		//Envio todas las variables necesarias en el cliente
 		echo $identado. "{$this->objeto_js}.set_url('$url');\n";
+		echo $identado. "{$this->objeto_js}.set_full_extent($extent_full); \n";
 		echo $identado. "{$this->objeto_js}.set_extent($extent);\n";
 		echo $identado. "{$this->objeto_js}.set_layers('$layers');\n";		
 		echo $identado."{$this->objeto_js}.set_layers_activos(".toba_js::arreglo(array_fill_keys($this->_layers_activos,1),true)."); \n";

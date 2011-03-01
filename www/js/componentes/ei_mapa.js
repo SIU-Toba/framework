@@ -10,6 +10,7 @@
 		this._instancia = instancia;
 		this._input_submit = input_submit;
 		this._extent = null;
+		this._extent_full = null;
 		this._ancho = null;;
 		this._alto = null;
 		this._url = null;
@@ -22,13 +23,10 @@
 		this._mapa = null;
 		this._ubicacion_controles = 'standardRight';
 		this._toolbar = null;
-		this._temp_valor_mapa = '';										//Variable que contendra valores temporales
+		
 		//Identificadores de los campos utilizados por el mapa
-		this._param_click = 'coordenada_click' + id[1];
-		this._param_mapsize = 'mapsize' + id[1];
 		this._param_mapext = 'mapext' + id[1];
-		this._param_layers = 'layers' + id[1];
-
+		this._param_extra = 'map_extra' + id[1];
 	}
 
 	/**
@@ -45,7 +43,8 @@
 		this._mapa.setCgi(this._url);
 		this._mapa.setWidth(this._ancho);
 		this._mapa.setHeight(this._alto);
-		this._mapa.setFullExtent(this._extent[0], this._extent[1], this._extent[2]);
+		this._mapa.setFullExtent(this._extent_full[0], this._extent_full[1], this._extent_full[2]);
+		this._mapa.setExtent(this._extent[0], this._extent[1], this._extent[2]);
 		this._mapa.setLayers(this._layers);
 
 		//Creo el objeto que representara al toolbar
@@ -74,17 +73,22 @@
 		this._extent = [xmin, xmax, ymin, ymax];
 	}
 
+	ei_mapa.prototype.set_full_extent = function (xmin, xmax, ymin, ymax)
+	{
+		this._extent_full = [xmin, xmax, ymin, ymax];
+	}
+
 	ei_mapa.prototype.set_url = function(url_pedido)
 	{
 		this._url = url_pedido;
 	}
 
-	ei_mapa.set_ubicacion_controles = function (ubicacion)
+	ei_mapa.prototype.set_ubicacion_controles = function (ubicacion)
 	{
 		this._ubicacion_controles = ubicacion;
 	}
 
-	ei_mapa.set_ancho_mapa = function (ancho)
+	ei_mapa.prototype.set_ancho_mapa = function (ancho)
 	{
 		if (isNaN(ancho)) {
 			notificacion.agregar('El ancho para el mapa no es correcto', 'error');
@@ -93,13 +97,18 @@
 		this._ancho = ancho;
 	}
 
-	ei_mapa.set_alto_mapa = function (alto)
+	ei_mapa.prototype.set_alto_mapa = function (alto)
 	{
 		if (isNaN(alto)) {
 			notificacion.agregar('El alto para el mapa no es correcto', 'error');
 			return false;
 		}
 		this._alto = alto;
+	}
+
+	ei_mapa.prototype.setear_parametros = function(valor)
+	{
+		document.getElementById(this._param_map_extra).value = valor;
 	}
 	//------------------------------------------------------------------------------------------------//
 	//											MANEJO DE EVENTOS											//
@@ -207,6 +216,17 @@
 
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
+	ei_mapa.prototype.validar = function() {
+		var ok = true;
+		var validacion_particular = 'evt__validar_datos';
+		if(this._evento && this._evento.validar) {
+			if (existe_funcion(this, validacion_particular)) {
+				ok = this[validacion_particular]();
+			}			
+		}
+		return ok;
+	};
+	
 	/**
 	 * Realiza el submit del componente
 	 */
@@ -217,10 +237,8 @@
 		}
 		if (this._evento) {
 			//Recupero los datos del mapa y el punto clickeado para enviarlos como datos del evento.
-			document.getElementById(this._param_click).value = this._temp_valor_mapa['X'] + ',' + this._temp_valor_mapa['Y'];
-			document.getElementById(this._param_mapsize).value = this._mapa.width() + ' ' + this._mapa.height();
-			document.getElementById(this._param_mapext).value = this._mapa.getExtentActual().join(' ');
-			document.getElementById(this._param_layers).value = this.get_layers_activos().join(' ');
+			var extent = this._mapa.getExtentActual();
+			document.getElementById(this._param_mapext).value = extent['xmin'] + ' ' + extent['ymin'] + ' ' + extent['xmax'] + ' ' + extent['ymax'];
 
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
