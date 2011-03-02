@@ -10,6 +10,7 @@ class toba_mail implements toba_tarea
 	protected $hacia;
 	protected $asunto;
 	protected $cuerpo;
+	protected $desde_nombre;
 	protected $html = false;
 	protected $cc = array();
 	protected $datos_configuracion;
@@ -47,6 +48,15 @@ class toba_mail implements toba_tarea
 	}
 
 	/**
+	 *  Método para obtener la configuración del servidor SMTP
+	 */
+	function get_datos_configuracion_smtp()
+	{
+		//Pide a la instalacion la configuración del SMTP
+		return toba::instalacion()->get_datos_smtp($this->nombre_conf);
+	}
+
+	/**
 	 *  Servicio que dispara el envio del email
 	 */
 	function ejecutar()
@@ -61,8 +71,8 @@ class toba_mail implements toba_tarea
 	{
 		require_once('3ros/phpmailer/class.phpmailer.php');
 		
-		//Pide a la instalacion la configuración del SMTP
-		$this->datos_configuracion = toba::instalacion()->get_datos_smtp($this->nombre_conf);
+		//Se obtiene la configuración del SMTP
+		$this->datos_configuracion = $this->get_datos_configuracion_smtp();
 		if (! isset($this->desde)) {
 			$this->desde = $this->datos_configuracion['from'];
 		}
@@ -94,7 +104,11 @@ class toba_mail implements toba_tarea
 			$mail->Password = trim($this->datos_configuracion['clave']);
 		}		
 		$mail->From     = $this->desde;
-		$mail->FromName = $this->desde;
+		if (isset($this->desde_nombre)){
+			$mail->FromName = $this->desde_nombre;
+		} else {
+			$mail->FromName = $this->desde;			
+		}
 		$mail->AddAddress($this->hacia);
 		foreach($this->cc as $copia){
 			$mail->AddCC($copia);
@@ -160,6 +174,15 @@ class toba_mail implements toba_tarea
 		$this->reply_to = $reply;
 	}
 
+	/**
+	 * Configura el FromName para el envío del mail
+	 * @param string $from_name
+	 */
+	function set_remitente($from_name)
+	{
+		$this->desde_nombre = $from_name;
+	}
+	
 	/**
 	 * Indica la direccion de email a la cual debe llegar la confirmacion
 	 * @param string $confirm
