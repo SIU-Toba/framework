@@ -108,7 +108,7 @@
 
 	ei_mapa.prototype.setear_parametros = function(valor)
 	{
-		document.getElementById(this._param_map_extra).value = valor;
+		document.getElementById(this._param_extra).value = valor;
 	}
 	//------------------------------------------------------------------------------------------------//
 	//											MANEJO DE EVENTOS											//

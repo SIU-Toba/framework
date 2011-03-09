@@ -133,6 +133,66 @@ function msMap(DivTag)
 		_control = controlType;
 	}
 
+	this.get_zoombox_x_first = function()
+	{
+		return _zoombox_x_first;
+	}
+
+	this.get_zoombox_x_last = function()
+	{
+		return _zoombox_x_last;
+	}
+	
+	this.get_zoombox_y_first = function()
+	{
+		return _zoombox_y_first;
+	}
+
+	this.get_zoombox_y_last = function()
+	{
+		return _zoombox_y_last;
+	}
+	
+	this.get_ext_Xmin = function()
+	{
+		return _ext_Xmin;
+	}
+	
+	this.get_ext_Xmax = function()
+	{
+		return _ext_Xmax;
+	}
+	
+	this.get_ext_Ymin = function()
+	{
+		return _ext_Ymin;
+	}
+	
+	this.get_ext_Ymax = function()
+	{
+		return _ext_Ymax;
+	}
+	
+	this.get_pixel_w = function()
+	{
+		return _pixel_w;
+	}
+	
+	this.get_pixel_h = function()
+	{
+		return _pixel_h;
+	}
+	
+	this.get_map_h_bord = function()
+	{
+		return _map_h_bord;
+	}
+	
+	this.get_map_w_bord = function()
+	{
+		return _map_w_bord;
+	}
+	
 	this.getTagMap = function()
 	{
 		if (_tagMap == null) {
