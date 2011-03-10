@@ -60,7 +60,6 @@ class toba_ef_checkbox extends toba_ef
     	if (!isset($this->estado)) {
     		$this->estado = null;
 		}
-    	$this->analizar_cambio_solo_lectura();
          if ($this->es_solo_lectura()) {
             $html_devuelto = toba_form::hidden($this->id_form, $this->seleccionado() ? $this->valor : $this->valor_no_seteado);
             if ($this->seleccionado()) {
@@ -310,7 +309,6 @@ class toba_ef_html extends toba_ef
 		}else{
 			$estado = "";
 		}		
-		$this->analizar_cambio_solo_lectura();
 		if ($this->es_solo_lectura()) {
 			$html = "<div class='ef-html' style='width: {$this->ancho}'>$estado</div>";
 		} else {

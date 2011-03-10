@@ -355,7 +355,6 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$estado = $this->get_estado_para_input();
 		$html = "";
 		if (!$this->es_solo_lectura() && $this->mostrar_utilidades)	{
@@ -429,7 +428,6 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 	
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$estado = $this->get_estado_para_input();
 		$html = "";
 		$i = 0;
@@ -531,7 +529,6 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";
 		if (isset($this->ancho)) {

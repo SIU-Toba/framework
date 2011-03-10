@@ -149,7 +149,6 @@ class toba_ef_popup extends toba_ef_editable
 	{
 		$js = '';
 		$html = '';
-		$this->analizar_cambio_solo_lectura();
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";
 		if(!isset($this->estado)) $this->estado="";

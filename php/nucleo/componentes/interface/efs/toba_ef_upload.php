@@ -35,7 +35,6 @@ class toba_ef_upload extends toba_ef
 	
 	function get_input()
 	{
-		$this->analizar_cambio_solo_lectura();
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";		
 		$estado = $this->get_estado_input();

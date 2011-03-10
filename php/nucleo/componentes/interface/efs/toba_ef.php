@@ -529,7 +529,7 @@ abstract class toba_ef
 	function set_solo_lectura($solo_lectura = true)
 	{
         $this->solo_lectura_base = $solo_lectura;
-		$this->es_solo_lectura();
+		$this->analizar_cambio_solo_lectura();		//Se agrega para que en el ML el solo_lectura se pueda aplicar en distintas filas.
     }
     
     function es_solo_lectura()
