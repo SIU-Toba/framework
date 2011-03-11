@@ -457,6 +457,22 @@ class toba_ei_mapa extends toba_ei
 		$salida = toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 
 		//Aca le digo cuales son los layers activos
+		$this->mapa_setear_estado_layers();
+
+		//Aca le digo cual es el extent activo
+		$this->mapa_setear_extent_activo();
+
+		//Dibujo el mapa y envio la salida a archivo.
+		$this->generar_salida($salida);
+
+		return $nombre_archivo;
+	}
+
+	/**
+	 * @ignore
+	 */
+	function mapa_setear_estado_layers ()
+	{
 		if (! empty($this->_layers_activos)) {
 			$layers_disp = $this->get_nombre_layers();
 			foreach($layers_disp as $layer) {
@@ -467,19 +483,26 @@ class toba_ei_mapa extends toba_ei
 				}
 			}
 		}
+	}
 
-		//Aca le digo cual es el extent activo
+	/**
+	 * @ignore
+	 */
+	function mapa_setear_extent_activo()
+	{
 		if (isset($this->_extent_activo)) {
 			$this->_mapa->setExtent($this->_extent_activo['xmin'], $this->_extent_activo['ymin'], $this->_extent_activo['xmax'], $this->_extent_activo['ymax']);
 		}
+	}
 
-		//Aca deberia ir algo para extender la consulta o algo por el estilo
-
-		//Dibujo el mapa y envio la salida a archivo.
+	/**
+	 * Dibuja el mapa utilizando una funcion especifica
+	 * @param string $salida Nombre del archivo de salida
+	 */
+	function generar_salida($salida)
+	{
 		$img = $this->_mapa->draw();
 		$img->saveImage($salida,$this->_mapa);
-
-		return $nombre_archivo;
 	}
 
 	/**
