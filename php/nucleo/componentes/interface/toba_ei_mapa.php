@@ -112,9 +112,9 @@ class toba_ei_mapa extends toba_ei
 		}		
 
 		//Si existe un evento puntual entonces lo disparo, sino va por el camino de la generacion de la imagen nomas
-		if (isset($evento)) {
+		if (isset($evento) && isset($this->_memoria['eventos'][$evento])) {
 				$this->reportar_evento($evento, $datos);
-		}
+		} 
 		$this->post_eventos();
 	}
 
