@@ -313,7 +313,7 @@ abstract class toba_ei extends toba_componente
 	 * Dado una fila, genera el html de los eventos de la misma
 	 * @param integer $fila
 	 */
-	protected function get_invocacion_evento_fila($evento, $fila, $clave_fila, $salida_como_vinculo = false, $param_extra = array())
+	function get_invocacion_evento_fila($evento, $fila, $clave_fila, $salida_como_vinculo = false, $param_extra = array())
 	{
 		$invoc_evt = '';
 		$id = $evento->get_id();
@@ -1226,6 +1226,26 @@ abstract class toba_ei extends toba_componente
 			$this->xml_ns = ($usar)?$xmlns.':':'';
 			$this->xml_ns_url= ($url!='')?' xmlns:'.$xmlns.'="'.$url.'"':'';
 		}
+	}
+
+	function xml_get_informacion_basica_vista()
+	{
+		//Mantener el orden de las variables ya que se recuperan con list.
+		//Temporal hasta que se separen las vistas de los otros componentes.
+		return array($this->xml_ns,
+							$this->xml_ns_url,
+							$this->xml_atts_ei,
+							$this->xml_ancho,
+							$this->xml_alto,
+							$this->xml_tabla_cols,
+							$this->xml_incluir_pie,
+							$this->xml_incluir_cabecera,
+							$this->xml_pie,
+							$this->xml_cabecera,
+							$this->xml_alto_pie,
+							$this->xml_alto_cabecera,
+							$this->xml_copia,
+							$this->xml_margenes );
 	}
 }
 ?>
