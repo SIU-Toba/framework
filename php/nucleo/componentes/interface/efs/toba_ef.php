@@ -534,7 +534,8 @@ abstract class toba_ef
     
     function es_solo_lectura()
     {
-		if (! isset($this->solo_lectura)) {
+		$es_fila_modelo_ml = ($this->get_fila_actual() === '__fila__');
+		if (! isset($this->solo_lectura) || $es_fila_modelo_ml) {		//Inicializo la variable o reanalizo su estado cuando se trata de la fila modelo del ML.
 			$this->analizar_cambio_solo_lectura();
 		}
     	return $this->solo_lectura;
