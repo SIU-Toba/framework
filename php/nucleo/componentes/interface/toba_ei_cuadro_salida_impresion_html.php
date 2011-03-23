@@ -149,8 +149,6 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 		$class = "ei-cuadro-cc-tit-nivel-$nivel_css";
 		if($this->_cuadro->get_cortes_modo() == apex_cuadro_cc_tabular) {
 				$total_columnas = $this->_cuadro->get_cantidad_columnas_total();
-
-				//$js = '';///"onclick=\"$objeto_js.colapsar_corte('$id_unico');\"";
 				if ($this->_cuadro->debe_colapsar_cortes()) {
 					echo "<table width='100%' class='tabla-0' border='0'><tr><td width='100%' class='$class ei-cuadro-cc-colapsable'>";
 				} else {
@@ -158,7 +156,6 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 				}
 				$this->$metodo($nodo);
 				if ($this->_cuadro->debe_colapsar_cortes()) {
-					//$img = toba_recurso::imagen_toba('colapsado.gif', true, null, null, null, null, $js);
 					echo "</td><td class='$class ei-cuadro-cc-colapsable impresion-ocultable'>&nbsp;</td></tr></table>";
 				}else {
 					echo "</td></tr>\n";

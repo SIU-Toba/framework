@@ -411,16 +411,56 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		if($this->_cuadro->get_cortes_modo() == apex_cuadro_cc_tabular){				//MODO TABULAR
 			$indice = $this->_cuadro->get_indice_cortes();
 			$total_columnas = $this->_cuadro->get_cantidad_columnas_total();
-			$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
+			
 
 			if( ! $this->_cuadro->tabla_datos_es_general() ) {
 				echo "<table class='tabla-0'  width='100%'>";
 			}
+
+			//-----  Cabecera del PIE --------
+			$this->html_cabecera_pie($indice, $nodo, $total_columnas);
 			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 			$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
-			$css_pie_cab = 'ei-cuadro-cc-pie-cab-nivel-'.$nivel_css;
-			//-----  Cabecera del PIE --------
-			if($indice[$nodo['corte']]['pie_mostrar_titular']){
+			//----- Totales de columna -------
+			if (isset($nodo['acumulador'])) {
+				$titulos = false;
+				if($indice[$nodo['corte']]['pie_mostrar_titulos']) {
+					$titulos = true;
+				}
+				$this->html_cuadro_totales_columnas($nodo['acumulador'],
+													'ei-cuadro-cc-sum-nivel-'.$nivel_css,
+													$titulos,
+													$css_pie);
+			}
+			//------ Sumarizacion AD-HOC del usuario --------
+			$this->html_sumarizacion_usuario($nodo, $total_columnas);
+			//----- Contar Filas
+			if($indice[$nodo['corte']]['pie_contar_filas']) {
+				echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
+				echo $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
+				echo "</td></tr>\n";
+			}
+			//----- Contenido del usuario al final del PIE
+			$this->html_pie_pie($nodo, $total_columnas, $es_ultimo);
+			if( ! $this->_cuadro->tabla_datos_es_general() ) {
+				echo "</table>";
+			}
+		}else{																//MODO ANIDADO
+			echo "</li>\n";
+		}
+	}
+
+	/**
+	 * @ignore
+	 * @param <type> $nodo
+	 * @param <type> $total_columnas
+	 */
+	function html_cabecera_pie($indice, $nodo, $total_columnas)
+	{
+		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+		$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
+		$css_pie_cab = 'ei-cuadro-cc-pie-cab-nivel-'.$nivel_css;
+		if($indice[$nodo['corte']]['pie_mostrar_titular']) {
 				$metodo_redeclarado = 'html_pie_cc_cabecera__' . $nodo['corte'];
 				if(method_exists($this, $metodo_redeclarado)){
 					$descripcion = $this->$metodo_redeclarado($nodo);
@@ -430,51 +470,48 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 				echo "<tr><td class='$css_pie' colspan='$total_columnas'>\n";
 				echo "<div class='$css_pie_cab'>$descripcion<div>";
 				echo "</td></tr>\n";
-			}
-			//----- Totales de columna -------
-			if (isset($nodo['acumulador'])) {
-				$titulos = false;
-				if($indice[$nodo['corte']]['pie_mostrar_titulos']){
-					$titulos = true;
-				}
-				$this->html_cuadro_totales_columnas($nodo['acumulador'],
-													'ei-cuadro-cc-sum-nivel-'.$nivel_css,
-													$titulos,
-													$css_pie);
-			}
-			//------ Sumarizacion AD-HOC del usuario --------
-			if(isset($nodo['sum_usuario'])){
-				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-				$css = 'ei-cuadro-cc-sum-nivel-'.$nivel_css;
-				foreach($nodo['sum_usuario'] as $id => $valor){
-					$desc = $acumulador_usuario[$id]['descripcion'];
-					$datos[$desc] = $valor;
-				}
-				echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
-				$this->html_cuadro_sumarizacion($datos,null,300,$css);
-				echo "</td></tr>\n";
-			}
-			//----- Contar Filas
-			if($indice[$nodo['corte']]['pie_contar_filas']){
-				echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
-				echo $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
-				echo "</td></tr>\n";
-			}
-			//----- Contenido del usuario al final del PIE
-			$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
-			if(method_exists($this, $metodo)){
-				echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
-				$this->$metodo($nodo, $es_ultimo);
-				echo "</td></tr>\n";
-			}
-			if( ! $this->_cuadro->tabla_datos_es_general() ) {
-				echo "</table>";
-			}
-		}else{																//MODO ANIDADO
-			echo "</li>\n";
 		}
 	}
 
+	/**
+	 * @ignore
+	 * @param <type> $nodo
+	 * @param <type> $total_columnas
+	 */
+	function html_pie_pie($nodo, $total_columnas, $es_ultimo)
+	{
+		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+		$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
+		$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
+		if(method_exists($this, $metodo)){
+			echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
+			$this->$metodo($nodo, $es_ultimo);
+			echo "</td></tr>\n";
+		}
+	}
+
+	/**
+	 * @ignore
+	 * @param <type> $nodo
+	 */
+	function html_sumarizacion_usuario($nodo, $total_columnas)
+	{
+		if(isset($nodo['sum_usuario'])) {
+			$datos = array();
+			$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			$css = 'ei-cuadro-cc-sum-nivel-'.$nivel_css;
+			$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
+			foreach($nodo['sum_usuario'] as $id => $valor) {
+				$desc = $acumulador_usuario[$id]['descripcion'];
+				$datos[$desc] = $valor;
+			}
+			echo "<tr><td  class='$css_pie' colspan='$total_columnas'>\n";
+			$this->html_cuadro_sumarizacion($datos,null,300,$css);
+			echo "</td></tr>\n";
+		}
+	}
+	
 	/**
 	 * Retorna el CONTENIDO de la cabecera del PIE del corte de control
 	 * Muestra las columnas seleccionadas como descripcion del corte separadas por comas
@@ -625,11 +662,11 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			// Armo el vinculo.
 			$clave_columna = isset($columnas[$id_columna]['vinculo_indice']) ? $columnas[$id_columna]['vinculo_indice'] : $columnas[$id_columna]['clave'];
 			$id_evt_asoc = $columnas[$id_columna]['evento_asociado'];		//Busco el evento asociado al vinculo
-			$evento = $this->evento($id_evt_asoc);
+			$evento = $this->_cuadro->evento($id_evt_asoc);
 			$parametros = $this->_cuadro->get_clave_fila_array($id_fila);
 			$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
 			$js =  $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, true, $parametros);
-			$valor = "<a href='#' onclick=\"$js\">$valor</a>";
+			$valor = "<a href='#' onclick=\"$js\">$valor_real</a>";
 			return $valor;
 	}
 	

@@ -64,26 +64,6 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 			$clave_fila = $this->_cuadro->get_clave_fila($f);
  			//---> Creo las CELDAS de una FILA <----
 			$datos[] = $this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo);
- 			/*foreach (array_keys($columnas) as $a) {
-				$valor = "";
-                if(isset($columnas[$a]["clave"])){
-					if(isset($datos_cuadro[$f][$columnas[$a]["clave"]])){
-						$valor_real = $datos_cuadro[$f][$columnas[$a]["clave"]];
-					}else{
-						$valor_real = '';
-					}
-	                //Hay que formatear?
-	                if(isset($columnas[$a]["formateo"])){
-	                    $funcion = "formato_" . $columnas[$a]["formateo"];
-	                    //Formateo el valor
-	                    $valor = $formateo->$funcion($valor_real);
-	                } else {
-	                	$valor = $valor_real;
-	                }
-	            }
-	            $fila[$columnas[$a]["clave"]] = $valor;
-            }*/
-            //$datos[] = $fila;
         }
 		list($titulos, $estilos) = $this->pdf_get_titulos();
 
@@ -110,12 +90,19 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
         } else {
         	$ancho = $this->_pdf_tabla_ancho;
         }
-        $opciones = $this->_pdf_tabla_opciones;
+        $opciones = $this->get_opciones_columnas();
         $opciones['width'] = $ancho;
         $opciones['cols'] = $estilos;
         $this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_tabla);
+	}
 
+	/**
+	 * @ignore
+	 */
+	function get_opciones_columnas()
+	{
+		return $this->_pdf_tabla_opciones;
 	}
 
 	/**
@@ -326,27 +313,10 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 		//-----  Cabecera del PIE --------
 		$indice_cortes = $this->_cuadro->get_indice_cortes();
 		$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
-		
-		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']){
-			$metodo_redeclarado = 'pdf_pie_cc_cabecera__' . $nodo['corte'];
-			if(method_exists($this, $metodo_redeclarado)){
-				$descripcion = $this->$metodo_redeclarado($nodo);
-			}else{
-			 	$descripcion = $this->pdf_cabecera_pie_cc_contenido($nodo);
-			}
-			if ($nodo['profundidad'] > 0) {
-				$opciones = $this->_pdf_cabecera_pie_cc_1_op;
-			} else {
-				$opciones = $this->_pdf_cabecera_pie_cc_0_op;
-			}
-			$this->_objeto_toba_salida->texto($descripcion, $this->_pdf_letra_tabla, $opciones);
-		}
+
+		$this->pdf_cabecera_pie($indice_cortes, $nodo);
 		//----- Totales de columna -------
 		if (isset($nodo['acumulador']) && ! isset($nodo['pdf_acumulador_generado'])) {
-			/*$titulos = false;
-			if($indice_cortes[$nodo['corte']]['pie_mostrar_titulos']){
-				$titulos = true;
-			} Se fuerza los titulos porque si no no se entiende a cual pertenece */
 			$this->pdf_cuadro_totales_columnas($nodo['acumulador'],
 												$nodo['profundidad'],
 												true,
@@ -367,6 +337,29 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 		}
 
 		//----- Contenido del usuario al final del PIE
+		$this->pdf_pie_pie($nodo, $es_ultimo);
+	}
+
+	function pdf_cabecera_pie($indice_cortes, $nodo)
+	{
+		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']) {
+			$metodo_redeclarado = 'pdf_pie_cc_cabecera__' . $nodo['corte'];
+			if(method_exists($this, $metodo_redeclarado)){
+				$descripcion = $this->$metodo_redeclarado($nodo);
+			}else{
+			 	$descripcion = $this->pdf_cabecera_pie_cc_contenido($nodo);
+			}
+			if ($nodo['profundidad'] > 0) {
+				$opciones = $this->_pdf_cabecera_pie_cc_1_op;
+			} else {
+				$opciones = $this->_pdf_cabecera_pie_cc_0_op;
+			}
+			$this->_objeto_toba_salida->texto($descripcion, $this->_pdf_letra_tabla, $opciones);
+		}
+	}
+
+	function pdf_pie_pie($nodo, $es_ultimo)
+	{
 		$metodo = 'pdf_pie_cc_contenido__' . $nodo['corte'];
 		if(method_exists($this, $metodo)){
 			$this->$metodo($nodo);

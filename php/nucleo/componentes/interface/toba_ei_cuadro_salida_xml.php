@@ -76,31 +76,9 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		$datos_cuadro = $this->_cuadro->get_datos();
 
 		//-- Valores de la tabla
-		$datos = array();
 		foreach($filas as $f) {
 			$this->_objeto_toba_salida .='<'.$this->xml_ns.'fila>';
-			$clave_fila = $this->_cuadro->get_clave_fila($f);
-			$fila = array();
-			//---> Creo las CELDAS de una FILA <----
-			foreach (array_keys($columnas) as $a) {
-				$valor = "";
-				if(isset($columnas[$a]["clave"])){
-						if(isset($datos_cuadro[$f][$columnas[$a]["clave"]])){
-						$valor_real = $datos_cuadro[$f][$columnas[$a]["clave"]];
-					}else{
-						$valor_real = '';
-					}
-					//Hay que formatear?
-					if(isset($columnas[$a]["formateo"])){
-						$funcion = "formato_" . $columnas[$a]["formateo"];
-						//Formateo el valor
-						$valor = $formateo->$funcion($valor_real);
-					} else {
-						$valor = $valor_real;
-					}
-				}
-				$this->_objeto_toba_salida .= '<'.$this->xml_ns.'dato clave="'.$columnas[$a]["clave"].'" valor="'.$valor.'"/>';
-			}
+			$this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo);
 			$this->_objeto_toba_salida .='</'.$this->xml_ns.'fila>';
 		}
 		list($titulos, $estilos) = $this->xml_get_titulos();
@@ -123,6 +101,30 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		$this->_objeto_toba_salida .='</'.$this->xml_ns.'datos>';		
 	}
 
+	function generar_layout_fila($columnas, $datos_cuadro, $id_fila, $formateo)
+	{
+		//---> Creo las CELDAS de una FILA <----
+			foreach (array_keys($columnas) as $a) {
+				$valor = "";
+				if(isset($columnas[$a]["clave"])){
+						if(isset($datos_cuadro[$id_fila][$columnas[$a]["clave"]])){
+						$valor_real = $datos_cuadro[$id_fila][$columnas[$a]["clave"]];
+					}else{
+						$valor_real = '';
+					}
+					//Hay que formatear?
+					if(isset($columnas[$a]["formateo"])){
+						$funcion = "formato_" . $columnas[$a]["formateo"];
+						//Formateo el valor
+						$valor = $formateo->$funcion($valor_real);
+					} else {
+						$valor = $valor_real;
+					}
+				}
+				$this->_objeto_toba_salida .= '<'.$this->xml_ns.'dato clave="'.$columnas[$a]["clave"].'" valor="'.$valor.'"/>';
+			}
+	}
+	
 	/**
 	 * @ignore
 	 */
@@ -290,21 +292,9 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		$indice_cortes = $this->_cuadro->get_indice_cortes();
 		$sumarizador = $this->_cuadro->get_acumulador_usuario();
 
-		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']){
-			$metodo_redeclarado = 'xml_pie_cc_cabecera__' . $nodo['corte'];
-			if(method_exists($this, $metodo_redeclarado)){
-				$descripcion = $this->$metodo_redeclarado($nodo);
-			}else{
-			 	$descripcion = $this->xml_cabecera_pie_cc_contenido($nodo);
-			}
-			$this->_objeto_toba_salida .= '<'.$this->xml_ns.'pie tipo="texto">'.$descripcion.'</'.$this->xml_ns.'pie>';
-		}
+		$this->xml_cabecera_pie($indice_cortes, $nodo);
 		//----- Totales de columna -------
 		if (isset($nodo['acumulador']) && ! isset($nodo['xml_acumulador_generado'])) {
-			/*$titulos = false;
-			if($indice_cortes[$nodo['corte']]['pie_mostrar_titulos']){
-				$titulos = true;
-			} Se fuerza los titulos porque si no no se entiende a cual pertenece */
 			$this->xml_cuadro_totales_columnas($nodo['acumulador'],
 												$nodo['profundidad'],
 												true,
@@ -325,6 +315,24 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		}
 
 		//----- Contenido del usuario al final del PIE
+		$this->xml_pie_pie($nodo);
+	}
+
+	function xml_cabecera_pie($indice_cortes, $nodo)
+	{
+		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']){
+			$metodo_redeclarado = 'xml_pie_cc_cabecera__' . $nodo['corte'];
+			if(method_exists($this, $metodo_redeclarado)){
+				$descripcion = $this->$metodo_redeclarado($nodo);
+			}else{
+			 	$descripcion = $this->xml_cabecera_pie_cc_contenido($nodo);
+			}
+			$this->_objeto_toba_salida .= '<'.$this->xml_ns.'pie tipo="texto">'.$descripcion.'</'.$this->xml_ns.'pie>';
+		}
+	}
+
+	function xml_pie_pie($nodo)
+	{
 		$metodo = 'xml_pie_cc_contenido__' . $nodo['corte'];
 		if(method_exists($this, $metodo)){
 			$this->$metodo($nodo);

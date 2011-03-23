@@ -63,39 +63,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		$datos = array();
 		$estilos = array();
         foreach($filas as $f) {
-			$clave_fila = $this->_cuadro->get_clave_fila($f);
-			$fila = array();
- 			//---> Creo las CELDAS de una FILA <----
- 			foreach (array_keys($columnas) as $clave) {
-				$valor = "";
-                if(isset($columnas[$clave]["clave"])){
-					if(isset($datos_cuadro[$f][$clave])){
-						$valor_real = $datos_cuadro[$f][$clave];
-					}else{
-						$valor_real = '';
-					}
-	                //Hay que formatear?
-	                $estilo = array();
-	                if(isset($columnas[$clave]["formateo"])){
-	                    $funcion = "formato_" . $columnas[$clave]["formateo"];
-	                    //Formateo el valor
-	                    list($valor, $estilo) = $formateo->$funcion($valor_real);
-	                    if (! isset($estilo)) {
-	                    	$estilo = array();
-	                    }
-	                } else {
-	                	$valor = $valor_real;
-	                }
-	                $estilos[$clave]['estilo'] = $this->excel_get_estilo($columnas[$clave]['estilo']);
-	                $estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
-	                $estilos[$clave]['ancho'] = 'auto';
-	                if (isset($columnas[$clave]['grupo']) && $columnas[$clave]['grupo'] != '') {
-	                	$estilos[$clave]['grupo'] = $columnas[$clave]['grupo'];
-	                }
-	            }
-	            $fila[$clave] = $valor;
-            }
-            $datos[] = $fila;
+            $datos[] = $this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo, $estilos);
         }
 		$titulos = $this->excel_get_titulos();
 
@@ -110,6 +78,42 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
        $coordenadas = $this->_objeto_toba_salida->tabla($datos, $titulos, $estilos, $col_totales);
        $nodo['excel_rango'] = $coordenadas;
        $nodo['excel_rango_hoja'] = $this->_objeto_toba_salida->get_hoja_nombre();
+	}
+
+	function generar_layout_fila ($columnas, $datos_cuadro, $id_fila, $formateo, &$estilos)
+	{
+		$fila = array();
+		//---> Creo las CELDAS de una FILA <----
+		foreach (array_keys($columnas) as $clave) {
+			$valor = "";
+			if(isset($columnas[$clave]["clave"])){
+				if(isset($datos_cuadro[$id_fila][$clave])){
+					$valor_real = $datos_cuadro[$id_fila][$clave];
+				}else{
+					$valor_real = '';
+				}
+				//Hay que formatear?
+				$estilo = array();
+				if(isset($columnas[$clave]["formateo"])) {
+					$funcion = "formato_" . $columnas[$clave]["formateo"];
+					//Formateo el valor
+					list($valor, $estilo) = $formateo->$funcion($valor_real);
+					if (! isset($estilo)) {
+						$estilo = array();
+					}
+				} else {
+					$valor = $valor_real;
+				}
+				$estilos[$clave]['estilo'] = $this->excel_get_estilo($columnas[$clave]['estilo']);
+				$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
+				$estilos[$clave]['ancho'] = 'auto';
+				if (isset($columnas[$clave]['grupo']) && $columnas[$clave]['grupo'] != '') {
+					$estilos[$clave]['grupo'] = $columnas[$clave]['grupo'];
+				}
+			}
+			$fila[$clave] = $valor;
+		}
+		return $fila;
 	}
 
 		/**
@@ -224,7 +228,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			$estilos[$clave]['estilo'] = $estilo_base;
 			$estilos[$clave]['borrar_estilos_nulos'] = 1;
 			//--Acumulador
-		    if (isset($nodo['acumulador'][$clave])){
+		    if (isset($nodo['acumulador'][$clave])) {
 		    	if ($this->_excel_usar_formulas) {
 		    		//-- Calcular la sumatoria de celdas
 					if ($es_total_general) {
@@ -298,20 +302,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		$acumulador = $this->_cuadro->get_acumulador_usuario();
 
 		//-----  Cabecera del PIE --------
-		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']){
-			$metodo_redeclarado = 'excel_pie_cc_cabecera__' . $nodo['corte'];
-			if(method_exists($this, $metodo_redeclarado)){
-				$descripcion = $this->$metodo_redeclarado($nodo);
-			}else{
-			 	$descripcion = $this->excel_cabecera_pie_cc_contenido($nodo);
-			}
-			if ($nodo['profundidad'] > 0) {
-				$opciones = $this->_excel_cabecera_pie_cc_1_op;
-			} else {
-				$opciones = $this->_excel_cabecera_pie_cc_0_op;
-			}
-			$this->_objeto_toba_salida->texto($descripcion, $opciones, $span);
-		}
+		$this->excel_cabecera_pie($indice_cortes, $nodo, $span);
 
 		//----- Totales de columna -------
 		if (isset($nodo['acumulador'])) {
@@ -345,6 +336,29 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			$this->_objeto_toba_salida->texto($formula, $this->_excel_contar_filas_op, 1, null, $cursor);
 		}
 		//----- Contenido del usuario al final del PIE
+		$this->excel_pie_pie($nodo, $es_ultimo);
+	}
+
+	function excel_cabecera_pie($indice_cortes, $nodo, $span)
+	{
+		if($indice_cortes[$nodo['corte']]['pie_mostrar_titular']){
+			$metodo_redeclarado = 'excel_pie_cc_cabecera__' . $nodo['corte'];
+			if(method_exists($this, $metodo_redeclarado)){
+				$descripcion = $this->$metodo_redeclarado($nodo);
+			}else{
+			 	$descripcion = $this->excel_cabecera_pie_cc_contenido($nodo);
+			}
+			if ($nodo['profundidad'] > 0) {
+				$opciones = $this->_excel_cabecera_pie_cc_1_op;
+			} else {
+				$opciones = $this->_excel_cabecera_pie_cc_0_op;
+			}
+			$this->_objeto_toba_salida->texto($descripcion, $opciones, $span);
+		}
+	}
+
+	function excel_pie_pie($nodo, $es_ultimo)
+	{
 		$metodo = 'excel_pie_cc_contenido__' . $nodo['corte'];
 		if(method_exists($this, $metodo)){
 			$this->$metodo($nodo);
