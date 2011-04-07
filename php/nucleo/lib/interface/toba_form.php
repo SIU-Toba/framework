@@ -102,13 +102,18 @@ class toba_form
     		$sel = ($actual == $clave) ? "checked" : "";
     		$clave = texto_plano($clave);
     		$valor = texto_plano($valor);
-    		$html .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='$nombre' value='$clave' $sel $html_clase $extra $tab_index />$valor</label>\n";
+    		$html .= self::radio_manual($id, $nombre, $clave, $sel, $html_clase, $extra, $tab_index, $valor);
     		$tab_index = '';
     		$i++;
     	}
 		return $html;
     }
-    
+
+	static function radio_manual($id, $nombre, $clave, $sel, $html_clase, $extra, $tab_index, $valor)
+	{
+		return  "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='$nombre' value='$clave' $sel $html_clase $extra $tab_index />$valor</label>\n";
+	}
+
     static function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {

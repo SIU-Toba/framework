@@ -340,13 +340,15 @@ abstract class toba_ei extends toba_componente
 			}
 			//3: Genero el boton o el js para el link
 			if( ! $evento->esta_anulado() ) {
-				if (! $salida_como_vinculo) {
-						$invoc_evt = $evento->get_html($this->_submit.$fila, $this->objeto_js, $this->_id);
-				} else {					
+				if ($salida_como_vinculo) {								//Si es un vinculo lo que se envia
 					$evento->set_en_botonera(false);
 					$evento->set_nivel_de_fila(false);
 					$evento->ocultar();
 					$invoc_evt = $evento->get_invocacion_js($this->objeto_js, $this->_id);
+				} else if ($evento->posee_accionar_diferido()) {		//Si es un evento que no dispara submit inmediatamente (solo para el cuadro por ahora)
+					$invoc_evt = $evento->get_html_evento_diferido($id .$this->_submit, $fila, $this->objeto_js, $this->_id);
+				} else {																				//Cualquier otro evento, inclusive los de multiple seleccion.
+					$invoc_evt = $evento->get_html($this->_submit.$fila, $this->objeto_js, $this->_id);
 				}
 			} else {
 				$evento->restituir();	//Lo activo para la proxima fila

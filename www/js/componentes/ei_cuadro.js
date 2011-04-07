@@ -15,6 +15,7 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	this._ids_eventos_multiple = ids_eventos_multiple;
 	this._selector_fila_selec = null;			//Mantiene la fila seleccionada actualmente
 	this._filas_disponibles = [];					//Mantiene las filas disponibles para el ordenamiento
+	this._fila_seleccion_anterior = null;
 }
 	
 	//---Submit 
@@ -79,10 +80,10 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		ei.prototype.set_evento.call(this, evento, hacer_submit);
 		if (!hacer_submit) {
 			var fila = input.parentNode.parentNode.parentNode;
-			if (input.checked) {
-				agregar_clase_css(fila, 'ei-cuadro-fila-sel');
+			if (in_array(evento, this._ids_eventos_multiple)) {
+				this.seleccionar_fila_multiple(input, fila);
 			} else {
-				quitar_clase_css(fila, 'ei-cuadro-fila-sel');
+				this.seleccionar_fila(input, fila);
 			}
 		}
 	};	
@@ -111,6 +112,24 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	ei_cuadro.prototype.ir_a_pagina = function(valor)
 	{
 		this.set_evento(new evento_ei('cambiar_pagina', '','', valor), true);
+	}
+
+	ei_cuadro.prototype.seleccionar_fila_multiple = function(input, fila)
+	{
+		if (input.checked) {
+				agregar_clase_css(fila, 'ei-cuadro-fila-sel');
+			} else {
+				quitar_clase_css(fila, 'ei-cuadro-fila-sel');
+			}
+	}
+
+	ei_cuadro.prototype.seleccionar_fila = function(input, fila)
+	{		
+		if (this._fila_seleccion_anterior != null) {
+			quitar_clase_css(this._fila_seleccion_anterior, 'ei-cuadro-fila-sel');
+		}	
+		this._fila_seleccion_anterior = fila;		
+		agregar_clase_css(fila, 'ei-cuadro-fila-sel');
 	}
 
 	//------------------------------------------------------------------------------------------------------------------

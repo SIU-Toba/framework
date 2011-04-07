@@ -597,6 +597,9 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 			 //---> Creo las CELDAS de una FILA <----
             echo "<tr class='$estilo_fila' >\n";
+
+			//---> Creo los EVENTOS de la FILA  previos a las columnas<---
+			$this->html_cuadro_celda_evento($id_fila, $clave_fila, true);
  			foreach (array_keys($columnas) as $a) {
                 //*** 1) Recupero el VALOR
 				$valor = "";
@@ -643,7 +646,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
                 //Termino la CELDA
             }
 			//---> Creo los EVENTOS de la FILA <---
-			$this->html_cuadro_celda_evento($id_fila, $clave_fila);
+			$this->html_cuadro_celda_evento($id_fila, $clave_fila, false);
             echo "</tr>\n";
 	}
 
@@ -670,18 +673,21 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			return $valor;
 	}
 	
-	protected function html_cuadro_celda_evento($id_fila, $clave_fila)
+	protected function html_cuadro_celda_evento($id_fila, $clave_fila, $pre_columnas)
 	{
 		foreach ($this->_cuadro->get_eventos_sobre_fila() as $id => $evento) {
-			$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
-			echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
-			$parametros = $this->_cuadro->get_clave_fila_array($id_fila);
-			if ($evento->posee_accion_respuesta_popup()) {
-				$descripcion_popup = toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila));
-				echo  toba_form::hidden($this->_submit. $f .'_descripcion', toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila)));	//Podemos hacer esto porque no vuelve nada!
+			$grafico_evento = !($pre_columnas xor $evento->tiene_alineacion_pre_columnas());		//Decido si se debe graficar el boton en este lugar (logica explicada en html_cuadro_cabecera_columna_evento)
+			if ($grafico_evento) {
+					$parametros = $this->_cuadro->get_clave_fila_array($id_fila);
+					$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
+					echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
+					if ($evento->posee_accion_respuesta_popup()) {
+						$descripcion_popup = toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila));
+						echo  toba_form::hidden($this->_submit. $f .'_descripcion', toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila)));	//Podemos hacer esto porque no vuelve nada!
+					}
+					echo $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, false, $parametros);	//ESto hay que ver como lo modifico para que de bien
+					echo "</td>\n";
 			}
-			echo $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, false, $parametros);	//ESto hay que ver como lo modifico para que de bien
-			echo "</td>\n";
 		}
 		//Se agrega la clave a la lista de enviadas
 		$this->_cuadro->agregar_clave_enviada($clave_fila);
@@ -737,6 +743,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
         	$html_columnas_agrupadas = '';
         	$grupo_actual = null;
 	        echo "<tr>\n";
+			$this->html_cuadro_cabecera_columna_evento($rowspan, true);
 	        foreach (array_keys($columnas) as $a) {
 	        	$html_columna = '';
 	        	//El alto de la columna, si esta agrupada es uno sino es el general
@@ -773,7 +780,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	        	}
 	        }
 	        //-- Eventos sobre fila
-			$this->html_cuadro_cabecera_columna_evento($rowspan);
+			$this->html_cuadro_cabecera_columna_evento($rowspan, false);
 	        echo "</tr>\n";
 			//-- Columnas Agrupadas
 			if ($html_columnas_agrupadas != '') {
@@ -784,7 +791,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
         }
 	}
 
-	protected function html_cuadro_cabecera_columna_evento($rowspan)
+	protected function html_cuadro_cabecera_columna_evento($rowspan, $pre_columnas)
 	{
 		 //-- Eventos sobre fila
 			if($this->_cuadro->cant_eventos_sobre_fila() > 0) {
@@ -793,12 +800,25 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 					if ($evento->es_seleccion_multiple()) {
 						$etiqueta = $evento->get_etiqueta();
 					}
-					echo "<td $rowspan class='ei-cuadro-col-tit'>$etiqueta";
-					if (toba_editor::modo_prueba()) {
-						$info_comp = $this->_cuadro->get_informacion_basica_componente();
-						echo toba_editor::get_vinculo_evento($this->_cuadro->get_id(), $info_comp['clase_editor_item'], $evento->get_id())."\n";
+
+					/**
+					 * Condiciones gobernantes:
+					 *  Evento con alineacion a Izquierda
+					 *  Se estan graficando eventos pre-columnas de datos
+					 *
+					 *
+					 * El evento se grafica unicamente cuando se dan ambas condiciones o
+					 * cuando no se cumple ninguna de las dos, logicamente  eso seria:
+					 * ((A || !B) && (!A || B)) lo cual es igual a un XOR negado.
+					 */
+					if ( !($pre_columnas xor $evento->tiene_alineacion_pre_columnas())) {
+						echo "<td $rowspan class='ei-cuadro-col-tit'>$etiqueta";
+						if (toba_editor::modo_prueba()) {
+							$info_comp = $this->_cuadro->get_informacion_basica_componente();
+							echo toba_editor::get_vinculo_evento($this->_cuadro->get_id(), $info_comp['clase_editor_item'], $evento->get_id())."\n";
+						}
+						echo "</td>\n";
 					}
-					echo "</td>\n";
 				}
 			}
 	}

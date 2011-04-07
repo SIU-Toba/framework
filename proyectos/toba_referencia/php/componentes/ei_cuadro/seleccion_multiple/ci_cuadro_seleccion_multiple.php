@@ -24,7 +24,8 @@ class ci_cuadro_seleccion_multiple extends toba_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
-		$cuadro->evento('seleccion')->set_seleccion_multiple();
+		$cuadro->evento('seleccion')->set_disparo_diferido(true);
+		$cuadro->evento('seleccion')->set_alineacion_pre_columnas(true);
 		$cuadro->set_datos($this->datos);
 	}
 	

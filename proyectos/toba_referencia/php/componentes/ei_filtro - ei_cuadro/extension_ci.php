@@ -52,6 +52,8 @@ class extension_ci extends toba_ci
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		$cuadro->set_formateo_columna('hora', 'hora', 'formateo_proyecto');
+		$cuadro->evento('seleccion')->set_alineacion_pre_columnas(true);	//Defino que el evento de seleccion se graficara antes de las columnas de datos
+		$cuadro->evento('baja')->set_alineacion_pre_columnas(true);	//Defino que el evento de seleccion se graficara antes de las columnas de datos
 		if (!isset($this->s__filtro) || $this->s__filtro['metodo'] == 'estatica') {
 			return $this->datos_estaticos;
 		} else {

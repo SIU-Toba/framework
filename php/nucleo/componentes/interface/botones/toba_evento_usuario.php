@@ -10,6 +10,8 @@ class toba_evento_usuario extends toba_boton
 	protected $parametros = null;
 	protected $seleccion_multiple = false;
 	protected $es_check_activo = false;
+	protected $tiene_alineacion_pre_columnas = false;
+	protected $accion_disparo_diferido = false;
 
 	/**
 	* Devuelve el vinculo asociado al evento
@@ -184,7 +186,16 @@ class toba_evento_usuario extends toba_boton
 	{
 		return (isset($this->datos['es_seleccion_multiple']) && $this->datos['es_seleccion_multiple'] == '1');
 	}
-	
+
+	function tiene_alineacion_pre_columnas()
+	{
+		return $this->tiene_alineacion_pre_columnas;
+	}
+
+	function posee_accionar_diferido()
+	{
+		return $this->accion_disparo_diferido;
+	}
 	//--------- Seters ---------------------
 	
 	function set_parametros($parametros = null)
@@ -232,8 +243,17 @@ class toba_evento_usuario extends toba_boton
 	{
 			$this->es_check_activo = $activo;
 	}
-	//--------- Consumo interno ------------
-	
+
+	function set_alineacion_pre_columnas($valor = true)
+	{
+		$this->tiene_alineacion_pre_columnas = $valor;
+	}
+
+	function set_disparo_diferido($disparo_diferido)
+	{
+		$this->accion_disparo_diferido = $disparo_diferido;
+	}
+
 	/**
 	 *	Genera el HTML del BOTON
 	 */
@@ -261,8 +281,8 @@ class toba_evento_usuario extends toba_boton
 			$tecla = $acceso[1];			
 			$js = $this->get_invocacion_js($objeto_js, $id_componente);
 			if (isset($js)) {
-				$js = 'onclick="'.$js.'"';
-				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+				$js = 'onclick="'.$js.'"';				
+					return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla,
 												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 			}
 		} else {
@@ -278,6 +298,29 @@ class toba_evento_usuario extends toba_boton
 			$html .= '</label>';
 			return $html;
 		}
+	}
+
+	/**
+	 * Genera el radio para un evento de seleccion en dos pasos
+	 */
+	function get_html_evento_diferido($id_submit, $fila, $objeto_js, $id_componente)
+	{
+		if ( $this->anulado ) return null;
+		$tab_order = toba_manejador_tabs::instancia()->siguiente();
+		$tip = '';
+		$html = '';
+		if (isset($this->datos['ayuda'])) {
+			$tip = $this->datos['ayuda'];
+		}
+		$clase_predeterminada = $this->esta_sobre_fila() ? 'ei-boton-fila' : 'ei-boton';
+		$clase = ( isset($this->datos['estilo']) && (trim( $this->datos['estilo'] ) != "")) ? $this->datos['estilo'] : $clase_predeterminada;
+		$estilo_inline = $this->oculto ? 'display: none' : null;
+		$js = $this->get_invocacion_js($objeto_js, $id_componente);
+		if (isset($js)) {
+			$js = 'onclick="'.$js.'"';
+			$html =  toba_form::radio_manual($id_submit . $fila, $id_submit, $this->parametros, '', $clase, $js, $tab_order, '');
+		}
+		return $html;
 	}
 
 	/**
@@ -362,7 +405,7 @@ class toba_evento_usuario extends toba_boton
 			$js = "iniciar_respuesta_popup(this, '$param');";
 		} else {
 			// Manejo estandar de eventos
-			$submit = toba_js::bool(! $this->es_seleccion_multiple());
+			$submit = toba_js::bool(! ($this->es_seleccion_multiple() || $this->posee_accionar_diferido()));
 			$js = "{$objeto_js}.set_evento(".$this->get_evt_javascript().", $submit, this);";
 		}
 		return $js;
