@@ -87,10 +87,28 @@ class toba_ei_arbol extends toba_ei
 	function set_apertura_nodos($datos_apertura)
 	{
 		$this->_datos_apertura = $datos_apertura;
+		if (isset($this->_nodos_inicial)) {
+			foreach ($this->_nodos_inicial as $nodo) {
+				$this->set_apertura_nodo($nodo);
+			}
+		}
+	}
+	/**
+	 * Se comunica la apertura a un nodo y se invoca el mÈtodo recursivamente a sus hijos
+	 * @param toba_nodo_basico $nodo
+	 */
+	function set_apertura_nodo($nodo)
+	{
+		if (($nodo instanceof toba_nodo_arbol_form) && isset($this->_datos_apertura[$nodo->get_id()])) {
+			$nodo->set_apertura($this->_datos_apertura[$nodo->get_id()]);
+		}
+		foreach ($nodo->get_hijos() as $hijo) {
+			$this->set_apertura_nodo($hijo);
+		}
 	}
 	
 	/**
-	 * Determina el ancho m√°ximo de un nombre de un nodo, a partir de ese tama√±o se utilizan puntos suspensivos
+	 * Determina el ancho m·ximo de un nombre de un nodo, a partir de ese tamaÒo se utilizan puntos suspensivos
 	 * @param integer $caracteres
 	 */
 	function set_ancho_nombres($caracteres)
