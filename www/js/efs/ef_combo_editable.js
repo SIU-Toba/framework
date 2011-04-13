@@ -147,7 +147,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		srch_txt_old = combo.getComboText();
 		//Si es '*' busco todo
 		this._buscar_todo = (srch_txt_old == '*');
-		srch_txt = srch_txt_old.replace(/[*\]\[?\\+\(\)\/\}\{\"-\']/gi, '');
+		srch_txt = srch_txt_old.replace(/^[*\]\[?\\+\(\)\/\}\{\"-\']/gi, '');
 		if (srch_txt != srch_txt_old) {	
 			combo.setComboText(srch_txt);		
 		} 
