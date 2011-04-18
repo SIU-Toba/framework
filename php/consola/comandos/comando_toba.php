@@ -206,11 +206,15 @@ class comando_toba extends comando
 		*/		
 		$usuarios = array();
 		$ok = 1;
+		if ($instancia->get_instalacion()->es_produccion()) {
+			$datos = $instancia->get_usuarios_administradores($this->id_proyecto_actual);
+		} else {
+			$datos = $instancia->get_lista_usuarios();
+		}
 		switch ( $ok ) {
 			case 0:			// Usuario toba (pero..existe?)
 				break;	
-			case 1:			// Todos
-				$datos = $instancia->get_lista_usuarios();
+			case 1:			// Todos				
 				foreach ( $datos as $dato ) {
 					$usuarios[] = $dato['usuario'];
 				}
