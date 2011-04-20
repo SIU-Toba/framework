@@ -1,28 +1,30 @@
-ei_filtro.prototype = new ei();
-ei_filtro.prototype.constructor = ei_filtro;
+	ei_filtro.prototype = new ei();
+	ei_filtro.prototype.constructor = ei_filtro;
 
-/**
- * @class ei_filtro
- * @constructor
- * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
- */
-function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
-	this._id = id;
-	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
-	this._input_submit = input_submit;			//Campo que se setea en el submit del form
-	this._silencioso = false;
-	
-	this.controlador = null;							//Referencia al CI contenedor	
-	this._efs = {};		
-	this._efs_procesar = {};					//ID de los ef's que poseen procesamiento						
-	this._evento_implicito = null;				//No hay evento prefijado
-	this._seleccionada = null;
-	this._filas = [];
-	this._compuestos = [];
-	this._maestros = maestros;
-	this._esclavos = esclavos;
-	this._tmp_valores_esclavos = {};		//lista temporal de valores a guardar hasta que retorna la cascada
-}
+	/**
+	 * @class ei_filtro
+	 * @constructor
+	 * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
+	 */
+	function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
+		this._id = id;
+		this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
+		this._input_submit = input_submit;			//Campo que se setea en el submit del form
+		this._silencioso = false;
+
+		this.controlador = null;							//Referencia al CI contenedor
+		this._efs = {};
+		this._efs_procesar = {};					//ID de los ef's que poseen procesamiento
+		this._evento_implicito = null;				//No hay evento prefijado
+		this._seleccionada = null;
+		this._filas = [];
+		this._compuestos = [];
+		this._maestros = maestros;
+		this._esclavos = esclavos;
+		this._tmp_valores_esclavos = {};		//lista temporal de valores a guardar hasta que retorna la cascada
+		this._cambios_excluir_efs = [];
+		this._boton_procesar_cambios;
+	}
 
 	/**
 	 *	@private
@@ -593,5 +595,25 @@ function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 			delete(this._seleccionada);
 		}
 	};
+
+	ei_filtro.prototype.set_procesar_cambios = function(examinar, boton_destino, excluir_efs) {
+		this._con_examen_cambios = examinar;
+		if (! isset(excluir_efs)) {
+			excluir_efs = [];
+		}
+		this._cambios_excluir_efs = excluir_efs;
+		if (boton_destino) {
+			this._boton_procesar_cambios = boton_destino;
+			this.evt__procesar_cambios = this._procesar_cambios;	//Se brinda una implementacion por defecto
+		}
+	};
+
+	ei_filtro.prototype._procesar_cambios = function(existen_cambios) {
+		if (existen_cambios) {
+			this.activar_boton(this._boton_procesar_cambios);
+		} else {
+			this.desactivar_boton(this._boton_procesar_cambios);
+		}
+	};	
 
 toba.confirmar_inclusion('componentes/ei_filtro');

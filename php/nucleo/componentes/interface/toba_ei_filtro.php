@@ -684,6 +684,20 @@ class toba_ei_filtro extends toba_ei
 			$compuesto = $columna->es_compuesto() ? 'true' : 'false';
 			echo $identado."{$this->objeto_js}.agregar_ef({$columna->crear_objeto_js()}, '{$columna->get_nombre()}', $visible, $compuesto);\n";
 		}
+
+		//Ciclo por los eventos para definir el comportamiento que lance el predeterminado
+		foreach (array_keys($this->_eventos_usuario_utilizados) as $id_evento) {
+			if ($this->evento($id_evento)->es_predeterminado()) {
+				$excluidos = array();
+				foreach ($this->_columnas as $columna) {		//Aca tengo que ciclar por las columnas
+					if ($columna->es_solo_lectura()) {
+						$excluidos[] = $columna->get_ef()->get_id();
+					}
+				}
+				$excluidos = toba_js::arreglo($excluidos);
+				echo $identado."{$this->objeto_js}.set_procesar_cambios(true, '$id_evento', $excluidos);\n";
+			}
+		}
 	}
 	
 	/**
