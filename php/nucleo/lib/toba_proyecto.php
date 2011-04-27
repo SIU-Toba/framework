@@ -68,8 +68,12 @@ class toba_proyecto
 	
 	private function __construct($proyecto)
 	{
-		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {
-			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");	
+		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {		//El proyecto no existe o no esta cargado en la instancia
+			if (! toba::instalacion()->es_produccion()) {
+						throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+			} else {
+						die;		//En produccion no se loguea nada, se mata inmediatamente el proceso
+			}
 		}
 		toba_proyecto_db::set_db( toba::instancia()->get_db() );//Las consultas salen de la instancia actual
 		$this->id = $proyecto;
