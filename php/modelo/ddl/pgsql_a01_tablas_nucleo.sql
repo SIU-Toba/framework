@@ -65,6 +65,33 @@ CREATE TABLE apex_log_sistema_tipo
 );
 
 --#################################################################################################
+CREATE SEQUENCE apex_puntos_montaje_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE TABLE apex_puntos_montaje
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: id
+--: clave_proyecto: proyecto
+--: clave_elemento: id
+--: zona: general
+--: desc: tabla de puntos de montaje
+--: version: 1.6
+---------------------------------------------------------------------------------------------------
+(
+	id									int8				DEFAULT nextval('"apex_puntos_montaje_seq"'::text)	NOT NULL,
+	etiqueta							varchar(50)			NOT NULL,
+	proyecto							varchar(15)			NOT NULL,
+	proyecto_ref						varchar(15)			NULL,
+	descripcion							TEXT				NULL,
+	path_pm								TEXT				NOT NULL,
+	tipo								varchar(20)			NOT NULL,
+
+	UNIQUE								("etiqueta","proyecto"),
+	CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id", "proyecto"),
+	CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+);
+
+--#################################################################################################
 
 CREATE TABLE apex_fuente_datos_motor
 ---------------------------------------------------------------------------------------------------
@@ -101,6 +128,7 @@ CREATE TABLE apex_fuente_datos
 	descripcion_corta			varchar(40)		NULL,	--	NOT NULL,
 	fuente_datos_motor			varchar(30)		NULL,
 	host						varchar(60)		NULL,
+	punto_montaje					int8 NULL,
 	subclase_archivo			TEXT 	NULL,
 	subclase_nombre				varchar(60) 	NULL,
 	orden						smallint		NULL,
@@ -117,7 +145,8 @@ CREATE TABLE apex_fuente_datos
 	base						varchar			NULL,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT "apex_fuente_datos_fk_punto_montaje" FOREIGN KEY ("proyecto", "punto_montaje") REFERENCES "apex_puntos_montaje"	("proyecto","id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -219,33 +248,6 @@ CREATE TABLE apex_solicitud_obs_tipo
 	CONSTRAINT	"apex_sol_obs_tipo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
-
---#################################################################################################
-CREATE SEQUENCE apex_puntos_montaje_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
-CREATE TABLE apex_puntos_montaje
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: id
---: clave_proyecto: proyecto
---: clave_elemento: id
---: zona: general
---: desc: tabla de puntos de montaje
---: version: 1.6
----------------------------------------------------------------------------------------------------
-(
-	id									int8				DEFAULT nextval('"apex_puntos_montaje_seq"'::text)	NOT NULL,
-	etiqueta							varchar(50)			NOT NULL,
-	proyecto							varchar(15)			NOT NULL,
-	proyecto_ref						varchar(15)			NULL,
-	descripcion							TEXT				NULL,
-	path_pm								TEXT				NOT NULL,
-	tipo								varchar(20)			NOT NULL,
-
-	UNIQUE								("etiqueta","proyecto"),
-	CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id", "proyecto"),
-	CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
-);
 --#################################################################################################
 
 CREATE TABLE apex_pagina_tipo

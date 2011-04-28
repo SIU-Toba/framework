@@ -176,6 +176,7 @@ CREATE TABLE apex_objeto_db_registros_ext
 	metodo							TEXT	NULL,
 	clase							TEXT	NULL,
 	include							TEXT	NULL,
+	punto_montaje			int8		NULL,
 --- CARGA SQL
 	sql								TEXT		NULL,
 	dato_estricto			SMALLINT  DEFAULT	1  NULL,
@@ -187,8 +188,8 @@ CREATE TABLE apex_objeto_db_registros_ext
 	CONSTRAINT  "apex_obj_dbr_ext_pk" PRIMARY KEY ("externa_id", "objeto", "objeto_proyecto"),
 	CONSTRAINT  "apex_obj_dbr_ext_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_dbr_ext_fk_datos_tabla" FOREIGN KEY ("objeto_proyecto","carga_dt") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_dbr_ext_fk_consulta_php" FOREIGN KEY ("objeto_proyecto","carga_consulta_php") REFERENCES "apex_consulta_php" ("proyecto", "consulta_php") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
-
+	CONSTRAINT  "apex_obj_dbr_ext_fk_consulta_php" FOREIGN KEY ("objeto_proyecto","carga_consulta_php") REFERENCES "apex_consulta_php" ("proyecto", "consulta_php") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_obj_dbr_ext_fk_punto_montaje" FOREIGN KEY ("objeto_proyecto", "punto_montaje") REFERENCES "apex_puntos_montaje" ("proyecto", "id")  ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --###################################################################################################

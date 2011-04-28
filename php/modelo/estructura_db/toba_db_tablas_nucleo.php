@@ -7,10 +7,10 @@ class toba_db_tablas_nucleo
 		return array (
   0 => 'apex_proyecto',
   1 => 'apex_estilo',
-  2 => 'apex_fuente_datos',
-  3 => 'apex_elemento_formulario',
-  4 => 'apex_solicitud_obs_tipo',
-  5 => 'apex_puntos_montaje',
+  2 => 'apex_puntos_montaje',
+  3 => 'apex_fuente_datos',
+  4 => 'apex_elemento_formulario',
+  5 => 'apex_solicitud_obs_tipo',
   6 => 'apex_pagina_tipo',
   7 => 'apex_clase',
   8 => 'apex_clase_relacion',
@@ -179,6 +179,31 @@ class toba_db_tablas_nucleo
 );
 	}
 
+	static function apex_puntos_montaje()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'id',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'id',
+  'zona' => 'general',
+  'desc' => 'tabla de puntos de montaje',
+  'version' => '1.6',
+  'columnas' => 
+  array (
+    0 => 'id',
+    1 => 'etiqueta',
+    2 => 'proyecto',
+    3 => 'proyecto_ref',
+    4 => 'descripcion',
+    5 => 'path_pm',
+    6 => 'tipo',
+  ),
+);
+	}
+
 	static function apex_fuente_datos_motor()
 	{
 		return array (
@@ -218,19 +243,20 @@ class toba_db_tablas_nucleo
     3 => 'descripcion_corta',
     4 => 'fuente_datos_motor',
     5 => 'host',
-    6 => 'subclase_archivo',
-    7 => 'subclase_nombre',
-    8 => 'orden',
-    9 => 'schema',
-    10 => 'instancia_id',
-    11 => 'administrador',
-    12 => 'link_instancia',
-    13 => 'tiene_auditoria',
-    14 => 'parsea_errores',
-    15 => 'permisos_por_tabla',
-    16 => 'usuario',
-    17 => 'clave',
-    18 => 'base',
+    6 => 'punto_montaje',
+    7 => 'subclase_archivo',
+    8 => 'subclase_nombre',
+    9 => 'orden',
+    10 => 'schema',
+    11 => 'instancia_id',
+    12 => 'administrador',
+    13 => 'link_instancia',
+    14 => 'tiene_auditoria',
+    15 => 'parsea_errores',
+    16 => 'permisos_por_tabla',
+    17 => 'usuario',
+    18 => 'clave',
+    19 => 'base',
   ),
 );
 	}
@@ -337,31 +363,6 @@ class toba_db_tablas_nucleo
     1 => 'solicitud_obs_tipo',
     2 => 'descripcion',
     3 => 'criterio',
-  ),
-);
-	}
-
-	static function apex_puntos_montaje()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo_multiproyecto',
-  'dump_order_by' => 'id',
-  'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'id',
-  'zona' => 'general',
-  'desc' => 'tabla de puntos de montaje',
-  'version' => '1.6',
-  'columnas' => 
-  array (
-    0 => 'id',
-    1 => 'etiqueta',
-    2 => 'proyecto',
-    3 => 'proyecto_ref',
-    4 => 'descripcion',
-    5 => 'path_pm',
-    6 => 'tipo',
   ),
 );
 	}
