@@ -832,6 +832,134 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 
 //########################################################################################################
 //########################################################################################################
+/**
+ * Elemento editable que permite ingresar fechas con horario
+ * @package Componentes
+ * @subpackage Efs
+ * @jsdoc ef_editable_fecha_hora ef_editable_fecha_hora
+ */
+class toba_ef_editable_hora extends toba_ef_editable
+{
+	protected $rango_horas;
+
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		if (! isset($parametros['edit_tamano'])) {
+			$parametros['edit_tamano'] = "5";//Esto deberia depender del tipo de fecha
+		}
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+	}
+
+	static function get_lista_parametros()
+	{
+		$param = toba_ef_editable::get_lista_parametros();
+		array_borrar_valor($param, 'edit_unidad');
+		return $param;
+	}
+
+	function cargar_estado_post()
+	{
+		$this->estado = null;		
+		if (isset($_POST[$this->id_form])) {
+			$this->estado = trim($_POST[$this->id_form]);			
+		}
+	}
+
+	function get_consumo_javascript()
+	{
+		$consumo = parent::get_consumo_javascript();
+		$consumo[] = "efs/fecha";
+		return $consumo;
+	}
+
+	function get_input()
+	{
+		$estado_hora = (! is_null($this->estado))? $this->estado : '';
+
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
+		$html = "<span class='ef-fecha-hora'>";
+		$visibilidad = "style= 'visibility:hidden;'";
+		if (! $this->es_solo_lectura()) {	//Hay que ver si es solo lectura por la cascada o que?
+			$visibilidad = "style= 'visibility:visible;'";
+		}
+		$html .= toba_form::text($this->id_form, $estado_hora, $this->es_solo_lectura(), 5,  5, $this->clase_css . '  ef-numero ', $this->input_extra. $tab);
+		$html .= $this->get_html_iconos_utilerias();
+		$html .= "</span>\n";
+		return $html;
+	}
+
+	function set_estado($estado)
+	{
+		if(isset($estado)) {	
+			$value = explode(':', trim($estado));		//Lo separo por los dos puntos
+			$this->estado = $value[0] .':'. $value[1];	// Y tomo los dos primeros componentes hh:mm
+		} else {
+			$this->estado = null;	
+		}
+	}
+
+	/**
+	* Valida que sea una fecha válida con la funcion php checkdate
+	*/
+	function validar_estado()
+	{
+		$padre = parent::validar_estado();		
+		if ($padre !== true) {
+			return $padre;
+		}
+		
+		if ($this->tiene_estado()) {
+			$hora = explode(':', $this->estado);
+			if (! is_numeric($hora[0]) || ! is_numeric($hora[1])) {
+				return "El campo no es una hora valida (1).";
+			}
+
+			if (! checktime($hora[0], $hora[1])) {
+				return "El campo no es una hora valida (2).";
+			}
+		}
+		return true;
+	}
+
+	function parametros_js()
+	{
+		if (isset($this->rango_horas)) {
+			$desde = explode(':', $this->rango_horas[0]);
+			$hasta = explode(':', $this->rango_horas[1]);
+			$rango = "[new Date(0,0,0,'{$desde[0]}','{$desde[1]}'), new Date(0,0,0,'{$hasta[0]}','{$hasta[1]}')]";
+		} else {
+			$rango = 'null';
+		}
+		return parent::parametros_js().", $rango";
+	}
+
+	function crear_objeto_js()
+	{
+		return "new ef_editable_hora({$this->parametros_js()})";
+	}
+
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$estado = $this->get_estado();
+		$desc = (! is_null($estado)) ? $formato->formato_hora($estado) : '';
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+				break;
+			case 'xml':
+			case 'pdf':
+				return $desc;
+			case 'excel':
+				return $formato->formato_hora($estado);
+				break;
+		}
+	}
+}
+
+//########################################################################################################
+//########################################################################################################
 
 /**
  * Elemento editable que permite ingresar textos largos, equivalene a un tag <textarea>
@@ -849,16 +977,16 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	protected $ajustable;
 	protected $maximo;
 	
-    static function get_lista_parametros()
-    {
-    	$param[] = 'edit_filas';
-    	$param[] = 'edit_columnas';
-    	$param[] = 'edit_wrap';
-    	$param[] = 'edit_maximo';
-    	$param[] = 'edit_resaltar';
-    	$param[] = 'edit_ajustable';
-    	return $param;
-    }		
+	static function get_lista_parametros()
+	{
+		$param[] = 'edit_filas';
+		$param[] = 'edit_columnas';
+		$param[] = 'edit_wrap';
+		$param[] = 'edit_maximo';
+		$param[] = 'edit_resaltar';
+		$param[] = 'edit_ajustable';
+		return $param;
+	}		
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -873,7 +1001,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$this->resaltar = 0;
 		}
 		$parametros['edit_tamano'] = isset($parametros["edit_columnas"]) ? $parametros["edit_columnas"] : 40;
-		
+
 		if(isset($parametros['edit_maximo']) && $parametros['edit_maximo']!="") {
 			$maximo = $parametros['edit_maximo'];
 			unset($parametros['edit_maximo']);
@@ -882,7 +1010,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		unset($parametros['edit_filas']);
 		unset($parametros['edit_columnas']);
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		
+
 		if (isset($maximo)) {
 			$this->maximo = $maximo;	
 		} else {
@@ -904,11 +1032,11 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		if (isset($_POST[$this->id_form])) {
 			$this->estado = trim($_POST[$this->id_form]);
 			$this->estado = str_replace("\r\n", "\n", $this->estado);
-    	} else {
-    		$this->estado = null;
-    	}
+		} else {
+			$this->estado = null;
+		}
 	}
-			
+
 	function get_input()
 	{	
 		if (!isset($this->estado)) {
@@ -933,7 +1061,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
-	
+
 	function set_estado($estado)
 	{
 		parent::set_estado($estado);
@@ -943,12 +1071,12 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			}
 		}
 	}
-	
+
 	function crear_objeto_js()
 	{
 		return "new ef_textarea({$this->parametros_js()})";
 	}			
-	
+
 	function parametros_js()
 	{
 		$maximo = isset($this->maximo) ? "'{$this->maximo}'" : 'null';

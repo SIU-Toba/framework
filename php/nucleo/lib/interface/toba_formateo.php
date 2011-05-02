@@ -193,44 +193,61 @@ class toba_formateo
 		}
 	}
 	
-	function formato_fecha_hora($fecha){
+	function formato_fecha_hora($fecha)
+	{
 		if (isset($fecha) && ($fecha!='')) {
 			$desc = cambiar_fecha($fecha,'-','/', true);
 		} else {
 			$desc = '';
 		};
 		if ($this->tipo_salida != 'excel') {
-	    	return $desc;
+			return $desc;
 		} else {
 			return array($desc, array('numberformat' => 
-					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY )
-				));							
+				array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DATETIME )
+			));							
 		}
 	}	
-   
-    function formato_checkbox($valor)
-    {
-    	
-        if ($valor === true || $valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's') {
-            $html = "SI";
-        } else {
-            $html = "NO";
-        }
-        if ($this->tipo_salida != 'excel') {
-        	return $html;
-        } else {
-        	return array($html, null);
-        }
-    }
+	
+	function formato_hora($hora) 
+	{
+		if (isset($hora) && ($hora !='')) {
+			$desc = $hora;
+		} else {
+			$desc = '';
+		};
+		if ($this->tipo_salida != 'excel') {
+			return $desc;
+		} else {
+			$desc = cambiar_hora_formato_12($desc);
+			return array($desc, array('numberformat' =>
+					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME1 )
+				));
+		}
+	}
+
+	function formato_checkbox($valor)
+	{
+		if ($valor === true || $valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's') {
+			$html = "SI";
+		} else {
+			$html = "NO";
+		}
+		if ($this->tipo_salida != 'excel') {
+			return $html;
+		} else {
+			return array($html, null);
+		}
+	}
 
 	function formato_html_br($valor)
 	{
 		$html = str_replace("\n","<br>",$valor);
-        if ($this->tipo_salida != 'excel') {
-        	return $html;
-        } else {
-        	return array($valor, null);
-        }
+		if ($this->tipo_salida != 'excel') {
+			return $html;
+		} else {
+			return array($valor, null);
+		}
 	}
 
 	function formato_imagen_toba($valor)
@@ -247,7 +264,7 @@ class toba_formateo
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		$salida =number_format($valor,2,',','.') . $this->get_separador() . "Km²";
+		$salida = number_format(doubleval($valor),2,',','.') . $this->get_separador() . "Km²";
 		if ($this->tipo_salida != 'excel') {
 			return $salida;
 		} else {

@@ -707,8 +707,8 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 				return cal_error ("Formato de Hora Inválido: '" + hora + "'. El Formato Aceptado es hh:mm.", mostrar_error);
 		}
 
-		var er_time =  /^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/;
-		if (! er_time.exec(hora)) {
+		var er_time =  new RegExp(/^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/);
+		if (! er_time.test(hora)) {
 			return cal_error("Formato de Hora Inválido: '" + hora + "'. El Formato Aceptado es hh:mm.",  mostrar_error);
 		}
 		return true;
@@ -783,6 +783,253 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 			var inputs = this.input();
 			inputs[0].focus();
 			inputs[0].select();
+			return true;
+		} catch(e) {
+			return false;
+		}
+	};
+
+	// ########################################################################################################
+	// ########################################################################################################
+
+ef_editable_hora.prototype = new ef_editable();
+ef_editable_hora.prototype.constructor = ef_editable_hora;
+
+	/**
+	* @class Elemento editable que permite ingresar fechas.<br>
+	* Para esto utiliza una m?scara <em>dd/mm/yyyy</em>
+	* @constructor
+	* @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
+	*/
+	function ef_editable_hora(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);						//Llamo al padre
+
+		//Creo los dos elementos que voy a manejar aca para el caso
+		this._forma_mascara_hora = '##:##';
+		this._rango_valido = rango;
+	}
+
+	ef_editable_hora.prototype.iniciar = function(id, controlador) {
+		ef.prototype.iniciar.call(this, id, controlador);
+		var input_obj = this.input();
+
+		this._mascara_hora = new mascara_generica(this._forma_mascara_hora);
+		this._mascara_hora.attach(input_obj);
+	};
+
+	/**
+	 * Devuelve un arreglo con una primera componente referenciando a la componente fecha
+	 * y una segunda componente referenciando a la componente hora.
+	 *@type Array
+	 */
+	/*ef_editable_hora.prototype.input = function() {
+		var parte_hora =  this._id_form;
+		return  document.getElementById(parte_hora);
+	}*/
+
+	/**
+	 * Devuelve un arreglo con los valores para la fecha y hora.
+	 *@type Array
+	 */
+	ef_editable_hora.prototype.get_estado = function() {
+		return this.input().value;
+	};
+
+	/**
+	* Retorna el estado actual como un objeto javascript <a href=http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Date>Date</a>
+	* @type Date
+	*/
+	ef_editable_hora.prototype.hora = function() {
+		if (this.tiene_estado() && this.validar()) {
+			var estado = this.get_estado();
+			var componentes = estado.split(':');
+			return new Date(0,0,0, componentes[1], componentes[0]);
+		}
+		return null;
+	};
+
+	/**
+	 * Cambia el estado del ef en base a un string conteniendo la hora
+	 */
+	ef_editable_hora.prototype.set_hora = function(hora) {
+		this.set_estado(hora);
+	}
+
+	ef_editable_hora.prototype.es_oculto = function() {
+		var nodo = this.nodo();
+		if (! nodo) {
+			nodo = this.input();
+		}
+		var inputs = this.input();
+		var input_oculto = (inputs && inputs.style && inputs.style.display == 'none');
+		return nodo.style.display == 'none' || input_oculto;
+	};
+
+	/**
+	 *	Recibe un arreglo cuya primera componente pertenece a la parte de la fecha
+	 * y con segunda componente perteneciente a la porcion de la hora.
+	 */
+	ef_editable_hora.prototype.set_estado = function (nuevo) {		
+		var componente = this.input();
+		var hay_estado = true;
+
+		//Seteo la componente Hora
+ 		if (isset(nuevo)) {
+			if (this._mascara_hora) {
+				var valor_h = this._mascara_hora.format(nuevo, false, true);
+				componente.value = valor_h;
+				var desc_h = document.getElementById(this._id_form + '_desc');
+				if (desc_h) {
+					desc_h.value = valor_h;
+				}
+			}
+ 		} else {
+			componente.value = null;
+			hay_estado = false;
+		}
+
+		if (! hay_estado && componente.onchange) {
+			componente.onchange();
+		}
+		if (componente.onblur) {
+			componente.onblur();
+		}
+	}
+
+	/**
+	 * Cambia las opciones disponibles de selección
+	 * Solo se aplica si el elemento maneja una serie de opciones desde donde se elige su estado
+	 */
+	ef_editable_hora.prototype.set_opciones = function(opciones) {
+		this.set_estado(opciones);
+		this.activar();
+	};
+
+	ef_editable_hora.prototype.resetear_estado = function() {
+		this.set_estado(null);
+	};
+
+	ef_editable_hora.prototype.validar = function() {
+		var estado = this.get_estado();
+		if (! ef.prototype.validar.call(this)) {		//Valido directamente contra ef.
+			return false;
+		}
+
+		//Valido obligatoriedad del dato
+		if (this._obligatorio && ereg_nulo.test(estado)) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
+			var temp = this._expreg + '.test("' + estado + '")';
+			if (! eval(temp)) {
+				this._error = 'no es válido';
+				return false;
+			}
+		}
+
+		//Valido que la hora este dentro de los valores correctos.
+		valida = this.validar_hora(estado, false);
+		if (valida !== true) {
+			this._error = valida;
+			return false;
+		}
+
+		//Valido contra un rango valido (que incluye hora) si se lo especifico
+		if (estado.length == '1' && this._rango_valido) {
+			var hora = estado.split(':');
+			var actual = new Date(0, 0, 0, hora[0], hora[1]);
+			if (actual < this._rango_valido[0]) {
+				var piso = this._rango_valido[0].getHours() + ':' + this._rango_valido[0].getMinutes();
+				this._error = 'Debe ser mayor al ' + piso;
+				return false;
+			}
+			if (actual > this._rango_valido[1]) {
+				var techo = this._rango_valido[1].getHours() + ':' + this._rango_valido[1].getMinutes();
+				this._error = 'Debe ser menor al ' + techo;
+				return false;
+			}
+		}
+		return true;
+	};
+
+	/**
+	 * Valida que la hora tenga el formato y valores correctos
+	 * @ignore
+	 */
+	ef_editable_hora.prototype.validar_hora = function(hora, mostrar_error) {
+		if (mostrar_error == null) mostrar_error = true;
+		if (hora.length == '0') return true;
+
+		var comp = hora.split(':');
+		if (comp.length != '2') {
+				return cal_error ("Formato de Hora Inválido: '" + hora + "'. El Formato Aceptado es hh:mm.", mostrar_error);
+		}
+
+		var er_time =  new RegExp(/^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/);
+		if (! er_time.test(hora)) {
+			return cal_error("Formato de Hora Inválido: '" + hora + "'. El Formato Aceptado es hh:mm.",  mostrar_error);
+		}
+		return true;
+	}
+
+	/**
+	 *	Setea si el componente esta solo_lectura o no.
+	 */
+	ef_editable_hora.prototype.set_solo_lectura = function(solo_lectura) {
+		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
+		var input = this.input();
+		if (isset(input)) {
+			input.readOnly = solo_lectura;
+			this._solo_lectura = solo_lectura;
+		}
+	};
+
+	/**
+	 *	Devuelve el valor formateado de acuerdo a la mascara
+	 */
+	ef_editable_hora.prototype.formatear_valor = function(valor) {
+		if (this._forma_mascara_hora) {
+			return this._forma_mascara_hora.format(valor, false, true);
+		} else {
+			return valor;
+		}
+	};
+
+	/**
+	 * Retorna el tabIndex actual del elemento.
+	 * Este número es utilizado para ciclar por los distintos elementos usando la tecla TAB
+	 * @type int
+	 * @return string
+	 */
+	ef_editable_hora.prototype.get_tab_index = function () {
+		var input = this.input();
+		if (isset(input)) {
+			return input.tabIndex;
+		}
+	};
+
+	/**
+	 * Cambia el tabIndex actual del elemento.
+	 * Este número es utilizado para ciclar por los distintos elementos usando la tecla TAB
+	 * @param {int} tab_index Nuevo orden
+	 */
+	ef_editable_hora.prototype.set_tab_index = function(tab_index) {
+		if (this.input()) {
+			this.input().tabIndex = tab_index;
+		}
+	};
+
+	/**
+	 * Intenta forzar el foco visual al elemento, esto generalmente pone el cursor y la atención visual en el elemento
+	 * @type boolean
+	 * @return Verdadero si se pudo seleccionar/dar foco, falso en caso contrario
+	 */
+	ef_editable_hora.prototype.seleccionar = function () {
+		try {
+			var inputs = this.input();
+			inputs.focus();
+			inputs.select();
 			return true;
 		} catch(e) {
 			return false;

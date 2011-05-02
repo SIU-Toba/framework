@@ -714,6 +714,24 @@
 	}	
 	
 	/**
+	 * Convierte una hora de formato 24 a 12
+	 * @param string $hora Cadena representando la hora que se quiere convertir
+	 */
+	function cambiar_hora_formato_12($hora_original)
+	{
+		if (isset($hora_original) && $hora_original != '') {
+			$valores = explode(':', $hora_original);
+			if ($valores !== false && ! is_empty($valores)) {
+				$hora = ($valores[0] < 12) ? $valores[0] : $valores[0]  - 12;
+				$am_pm = ($valores[0] < 12) ? 'AM' : 'PM';
+				$minutos = $valores[1];
+				return "$hora:$minutos $am_pm";
+			}
+		}
+		return null;
+	}
+		
+	/**
 	 * Purifica una cadena a incluir en la salida html, previniendo ataques XSS 
 	 * @param string $texto
 	 * @return string
