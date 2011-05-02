@@ -516,7 +516,7 @@ class toba_ei_cuadro extends toba_ei
 		if (is_null($clase)) {
 			throw new toba_error_seguridad('Se debe indicar un nombre de clase válido para el tipo de salida seleccionado ');
 		}
-		$this->_manejador_tipo_salida[$tipo] = $clase;
+		$this->_manejador_tipo_salida[$tipo_salida] = $clase;
 	}
 
 	//################################################################################

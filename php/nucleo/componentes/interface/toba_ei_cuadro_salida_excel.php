@@ -30,7 +30,12 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 	//--------------------------------------------------------------------------------
 	//----------------------  SALIDA EXCEL  ----------------------------------
 	//--------------------------------------------------------------------------------
-	
+
+	function get_resultado_generacion()
+	{
+		return $this->_objeto_toba_salida;
+	}
+
 	/**
 	 * @ignore
 	 */
