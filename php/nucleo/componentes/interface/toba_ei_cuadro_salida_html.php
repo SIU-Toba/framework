@@ -682,8 +682,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 					$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
 					echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
 					if ($evento->posee_accion_respuesta_popup()) {
-						$descripcion_popup = toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila));
-						echo  toba_form::hidden($this->_submit. $f .'_descripcion', toba_js::sanear_string($this->get_descripcion_resp_popup($id_fila)));	//Podemos hacer esto porque no vuelve nada!
+						$descripcion_popup = toba_js::sanear_string($this->_cuadro->get_descripcion_resp_popup($id_fila));
+						echo  toba_form::hidden($this->_cuadro->get_id_form(). $id_fila .'_descripcion', toba_js::sanear_string($this->_cuadro->get_descripcion_resp_popup($id_fila)));	//Podemos hacer esto porque no vuelve nada!
 					}
 					echo $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, false, $parametros);	//ESto hay que ver como lo modifico para que de bien
 					echo "</td>\n";
