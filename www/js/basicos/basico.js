@@ -351,9 +351,10 @@ function abrir_popup(id, url, opciones, extra, dep) {
 		vars += extra;
 	}
 	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus || (window.opera && ventaja_hija[id].opera);
-	if (no_esta_definida) {
+	if (no_esta_definida) {				
 		// No fue definida, esta cerrada o no puede tener foco
-		ventana_hija[id] = window.open(url, "ventana_" + id, vars);
+		//Agrego el id de item a la ventana para que cuando enlace popups en cadena no repita
+		ventana_hija[id] = window.open(url, "ventana_" + window.toba_hilo_item[1] + id, vars);
 		if (isset(ventana_hija[id]) && (! window.opera || ventana_hija[id].opera)) {
 			ventana_hija[id].focus();
 		} else {
