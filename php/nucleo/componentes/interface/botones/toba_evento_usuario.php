@@ -318,7 +318,8 @@ class toba_evento_usuario extends toba_boton
 		$js = $this->get_invocacion_js($objeto_js, $id_componente);
 		if (isset($js)) {
 			$js = 'onclick="'.$js.'"';
-			$html =  toba_form::radio_manual($id_submit . $fila, $id_submit, $this->parametros, '', $clase, $js, $tab_order, '');
+			$valor_actual = ($this->es_check_activo) ? 'checked' : '';
+			$html =  toba_form::radio_manual($id_submit . $fila, $id_submit, $this->parametros, $valor_actual, $clase, $js, $tab_order, '');
 		}
 		return $html;
 	}
