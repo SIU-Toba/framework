@@ -587,11 +587,16 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		}
 	}
 
+	function get_estilo_seleccion($clave_fila)
+	{
+		$esta_seleccionada = $this->_cuadro->es_clave_fila_seleccionada($clave_fila);
+		return ($esta_seleccionada) ? 'ei-cuadro-fila-sel' : 'ei-cuadro-fila';
+	}
+
 	function generar_layout_fila($columnas, $datos, $id_fila,  $clave_fila, $evt_multiples, $objeto_js, $estilo_fila, $formateo)
 	{
-			$esta_seleccionada = $this->_cuadro->es_clave_fila_seleccionada($clave_fila);
-			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
-			
+			$estilo_seleccion = $this->get_estilo_seleccion($clave_fila);
+
 			  //Javascript de seleccion multiple
 			$js = $this->get_invocacion_js_eventos_multiples($evt_multiples, $id_fila, $objeto_js);
 
