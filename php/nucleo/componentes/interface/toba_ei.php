@@ -49,7 +49,7 @@ abstract class toba_ei extends toba_componente
 	function __construct($definicion)
 	{
 		parent::__construct($definicion);
-        $this->_submit = $this->_prefijo.'_'.$this->_id[1];
+		$this->_submit = $this->_prefijo.'_'.$this->_id[1];
 		$this->objeto_js = "js_".$this->_submit;
 		$this->_posicion_botonera = (! is_null($this->_info['posicion_botonera'])) ? $this->_info['posicion_botonera'] : 'abajo';
 		$this->preparar_componente();

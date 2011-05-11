@@ -66,14 +66,14 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 		//-- Valores de la tabla
 		$datos = array();
-        foreach($filas as $f) {
+		foreach($filas as $f) {
 			$clave_fila = $this->_cuadro->get_clave_fila($f);
- 			//---> Creo las CELDAS de una FILA <----
+			//---> Creo las CELDAS de una FILA <----
 			$datos[] = $this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo);
-        }
+		}
 		list($titulos, $estilos) = $this->pdf_get_titulos();
 
-        //-- Para la tabla simple se sacan los totales como parte de la tabla
+	        //-- Para la tabla simple se sacan los totales como parte de la tabla
 		if (isset($totales) || isset($nodo['acumulador'])) {
 			/* Como el pdf no admite continuar una tabla luego de construirla (pdf_cuadro)
 			   Se opta por generar aquí los totales de niveles > 0
@@ -89,17 +89,17 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 			$datos[] = $this->pdf_get_fila_totales($totales, $temp, true);
 		}
 
-        //-- Genera la tablas
-        $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
-        } else {
-        	$ancho = $this->_pdf_tabla_ancho;
-        }
-        $opciones = $this->get_opciones_columnas();
-        $opciones['width'] = $ancho;
-        $opciones['cols'] = $estilos;
-        $this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
+		//-- Genera la tablas
+		$ancho = null;
+		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+			$ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
+		} else {
+			$ancho = $this->_pdf_tabla_ancho;
+		}
+		$opciones = $this->get_opciones_columnas();
+		$opciones['width'] = $ancho;
+		$opciones['cols'] = $estilos;
+		$this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_tabla);
 	}
 
@@ -123,25 +123,25 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 	{
 		$fila = array();
 		foreach (array_keys($columnas) as $a) {
-				$valor = "";
-                if(isset($columnas[$a]["clave"])){
-					if(isset($datos_cuadro[$id_fila][$columnas[$a]["clave"]])){
-						$valor_real = $datos_cuadro[$id_fila][$columnas[$a]["clave"]];
-					}else{
-						$valor_real = '';
-					}
-	                //Hay que formatear?
-	                if(isset($columnas[$a]["formateo"])){
-	                    $funcion = "formato_" . $columnas[$a]["formateo"];
-	                    //Formateo el valor
-	                    $valor = $formateo->$funcion($valor_real);
-	                } else {
-	                	$valor = $valor_real;
-	                }
-	            }
-	            $fila[$columnas[$a]["clave"]] = $valor;
-            }
-			return $fila;
+			$valor = "";
+			if(isset($columnas[$a]["clave"])){
+				if(isset($datos_cuadro[$id_fila][$columnas[$a]["clave"]])){
+					$valor_real = $datos_cuadro[$id_fila][$columnas[$a]["clave"]];
+				}else{
+					$valor_real = '';
+				}
+				//Hay que formatear?
+				if(isset($columnas[$a]["formateo"])){
+					$funcion = "formato_" . $columnas[$a]["formateo"];
+					//Formateo el valor
+					$valor = $formateo->$funcion($valor_real);
+				} else {
+					$valor = $valor_real;
+				}
+			}
+			$fila[$columnas[$a]["clave"]] = $valor;
+		}
+		return $fila;
 	}
 
 	/**
@@ -149,17 +149,17 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 	 */
 	protected function pdf_get_titulos()
 	{
-        $titulos = array();
-        $estilos = array();
+		$titulos = array();
+		$estilos = array();
 		$columnas = $this->_cuadro->get_columnas();
-        foreach(array_keys($columnas) as $id) {
-        	$titulos[$id] = $columnas[$id]['titulo'];
-        	$estilo = $this->pdf_get_estilo($columnas[$id]['estilo']);
-        	if (isset($estilo)) {
-        		$estilos[$id] = $estilo;
-        	}
-        }
-        return array($titulos, $estilos);
+		foreach(array_keys($columnas) as $id) {
+			$titulos[$id] = $columnas[$id]['titulo'];
+			$estilo = $this->pdf_get_estilo($columnas[$id]['estilo']);
+			if (isset($estilo)) {
+				$estilos[$id] = $estilo;
+			}
+		}
+		return array($titulos, $estilos);
 	}
 
 	/**

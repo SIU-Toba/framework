@@ -22,8 +22,8 @@ class toba_ei_cuadro extends toba_ei
 
 	protected $_columnas_clave;
 	protected $_cantidad_columnas;                 	// Cantidad de columnas a mostrar
-    protected $_cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
-    protected $_cantidad_columnas_total;            	// Cantidad total de columnas
+	protected $_cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
+	protected $_cantidad_columnas_total;            	// Cantidad total de columnas
 
 	protected $_clave_seleccionada;
 	
@@ -63,11 +63,11 @@ class toba_ei_cuadro extends toba_ei
 	protected $_datos_eventos_multiples = array();			 //Mantiene los datos de los evt multiples
 
 	//Ordenamiento
-    protected $_orden_columna;                     	// Columna utilizada para realizar el orden
-    protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
+	protected $_orden_columna;                     	// Columna utilizada para realizar el orden
+	protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
 	protected $_columnas_orden_mul;			// Columnas para el ordenamiento multiple
 	protected $_sentido_orden_mul;				//Sentido de las columnas para el ordenamiento multiple
-    protected $_ordenado = false;
+	protected $_ordenado = false;
 	protected $_ordenar_con_cortes = false;		//Indica si se contemplan los cortes de control en el ordenamiento
 
 	protected $_tipo_salida;
@@ -80,6 +80,10 @@ class toba_ei_cuadro extends toba_ei
 	protected static $_mostrar_excel_sin_cortes = false;    // Especifica si se tiene que dar la opción de renderizar como excel sin cortes
 	protected $_clase_formateo = 'toba_formateo';
 
+	//Modo de clave segura
+	private $_modo_clave_segura = true;				//Switchea a modo compatibilidad hacia atras
+	private $_index_mapeo_clave_segura = 1;			//Indice que se devolvera al cliente
+	protected $_mapeo_clave_segura = array();			//Arreglo que contendra el mapeo hasta que sea enviado a sesion
 
 	final function __construct($id)
 	{
@@ -90,7 +94,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->inicializar_manejo_clave();
 		if($this->existe_paginado()) {
 			$this->inicializar_paginado();
-		}
+		}		
 		if (isset($this->_memoria['ordenado'])) {
 			$this->_ordenado = $this->_memoria['ordenado'];
 		}
@@ -106,6 +110,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->finalizar_seleccion();
 		$this->finalizar_ordenamiento();
 		$this->finalizar_paginado();
+		$this->finalizar_ids_seguros();		
 		parent::destruir();
 	}
 
@@ -121,9 +126,10 @@ class toba_ei_cuadro extends toba_ei
 		$this->_submit_seleccion = $this->_submit."__seleccion";
 		$this->_submit_extra = $this->_submit."__extra";
 		$this->_submit_paginado = $this->_submit."__pagina_actual";
-		$this->_submit_orden_multiple = $this->_submit . '__ordenamiento_multiple';
+		$this->_submit_orden_multiple = $this->_submit . '__ordenamiento_multiple';			
+		$this->inicializar_ids_seguros();	
 	}
-
+	
 	/**
 	 * @ignore
 	 */
@@ -489,16 +495,16 @@ class toba_ei_cuadro extends toba_ei
 	 * Retorna el conjunto de datos que actualmente posee el cuadro
 	 * @return array
 	 */
-    function get_datos()
-    {
-        return $this->datos;
-    }
+	function get_datos()
+	{
+		return $this->datos;
+	}
 
 	/**
 	 * @ignore
 	 * @return <type>
 	 */
-    function get_estructura_datos()
+	function get_estructura_datos()
 	{
 		return $this->_estructura_datos;
 	}
@@ -517,6 +523,33 @@ class toba_ei_cuadro extends toba_ei
 			throw new toba_error_seguridad('Se debe indicar un nombre de clase válido para el tipo de salida seleccionado ');
 		}
 		$this->_manejador_tipo_salida[$tipo_salida] = $clase;
+	}
+	
+	function desactivar_modo_clave_segura()
+	{
+		$this->_modo_clave_segura = false;
+	}
+	
+	function usa_modo_seguro()
+	{
+		return $this->_modo_clave_segura;
+	}
+
+	/**
+	 * Recupera de la sesion el mapeo original de las claves del cuadro
+	 * @param integer $cuadro Id del componente
+	 * @param integer $clave Id de la fila a recuperar
+	 * @return mixed 
+	 */
+	static function recuperar_clave_fila($cuadro, $clave)
+	{
+		$indice = 'ids_seguros_'. $cuadro;
+		$valores_seguros = toba::memoria()->get_dato($indice);
+		if (isset($valores_seguros[$clave])) {
+			return $valores_seguros[$clave];
+		} else {
+			return null;
+		}
 	}
 
 	//################################################################################
@@ -679,6 +712,22 @@ class toba_ei_cuadro extends toba_ei
 			unset($this->_memoria['clave_seleccionada']);
 		}
 	}
+	
+	protected function inicializar_ids_seguros()
+	{
+		if ($this->usa_modo_seguro()) {
+			$indice = 'ids_seguros_' . $this->_id[1];
+			$this->_mapeo_clave_segura = toba::memoria()->get_dato($indice);
+		}
+	}
+	
+	protected function finalizar_ids_seguros()
+	{
+		if ($this->usa_modo_seguro()) {
+			$indice = 'ids_seguros_' . $this->_id[1];
+			toba::memoria()->set_dato($indice, $this->_mapeo_clave_segura);
+		}
+	}
 
 	/**
 	 * @ignore
@@ -722,15 +771,19 @@ class toba_ei_cuadro extends toba_ei
 
 	private function validar_y_separar_clave(&$klave)
 	{
-			if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
-				throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
-			}
+		if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
+			throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
+		}		
+		if ($this->_modo_clave_segura) {		
+			$aux = (isset($this->_mapeo_clave_segura[$klave])) ? $this->_mapeo_clave_segura[$klave] : array();
+		} else {
 			$clave = explode(apex_qs_separador, $klave);
 			//Devuelvo un array asociativo con el nombre de las claves
 			$aux = array();
 			for($a=0;$a<count($clave);$a++) {
 				$aux[$this->_columnas_clave[$a]] = $clave[$a];
 			}
+		}
 		return $aux;
 	}
 
@@ -770,43 +823,48 @@ class toba_ei_cuadro extends toba_ei
 	function get_clave_fila($fila)
 	{
 		$id_fila = "";
-		if (isset($this->_columnas_clave)) {
-			foreach($this->_columnas_clave as $clave) {
-			$id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+		if ($this->_modo_clave_segura) {
+			$id_fila = $fila;
+			$this->_mapeo_clave_segura[$id_fila] = $this->get_clave_fila_array($fila);			
+		} else {
+			if (isset($this->_columnas_clave)) {
+				foreach($this->_columnas_clave as $clave) {
+				$id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+				}
 			}
+			$id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));
 		}
-		$id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));
 		return $id_fila;
 	}
 
 	/**
-     * Retorna un arreglo con las claves de la fila dada
-     * @param integer $fila Numero de fila
-     * @return array Arreglo columna=>valor
-     */
+	 * Retorna un arreglo con las claves de la fila dada
+	 * @param integer $fila Numero de fila
+	 * @return array Arreglo columna=>valor
+	 */
 	function get_clave_fila_array($fila)
 	{
-        if (isset($this->_columnas_clave)) {
-	        foreach($this->_columnas_clave as $clave){
-	            $array[$clave] = $this->datos[$fila][$clave];
-	        }
-	        return $array;
-        }
+		if (isset($this->_columnas_clave)) {
+			foreach($this->_columnas_clave as $clave){
+				$array[$clave] = $this->datos[$fila][$clave];
+			}
+			return $array;
+		}
 	}
 
 	 /**
-    *	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
-    */
+	*	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
+	*/
 	function get_clave()
 	{
 		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar get_clave_seleccionada");
 		return $this->get_clave_seleccionada();
 	}
 
-    /**
-    *	En caso de existir una fila seleccionada, retorna su clave
+	/**
+	*	En caso de existir una fila seleccionada, retorna su clave
 	*	@return array Arreglo asociativo id_clave => valor_clave
-    */
+	*/
 	function get_clave_seleccionada()
 	{
 		return $this->_clave_seleccionada;
@@ -819,11 +877,19 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function es_clave_fila_seleccionada($clave_fila)
 	{
-		$temp_claves = array();
+		$resultado = false;
 		if (! empty($this->_clave_seleccionada)) {
-			$temp_claves[] = implode(apex_qs_separador, $this->_clave_seleccionada);
+			if ($this->usa_modo_seguro()) {
+				$fila = $this->_mapeo_clave_segura[$clave_fila];
+				$conj_resultado = array_diff_assoc($this->_clave_seleccionada, $fila);			
+				$resultado = (empty($conj_resultado));
+			} else {
+				$temp_claves = array();
+				$temp_claves[] = implode(apex_qs_separador, $this->_clave_seleccionada);
+				$resultado =  (in_array($clave_fila, $temp_claves));
+			}
 		}
-		return (in_array($clave_fila, $temp_claves));
+		return $resultado;
 	}
 
 	/**
@@ -1829,8 +1895,8 @@ class toba_ei_cuadro extends toba_ei
 	 * Carga el cuadro con un conjunto de datos
 	 * @param array $datos Arreglo en formato RecordSet
 	 */
-    function set_datos($datos)
-    {
+	function set_datos($datos)
+	{
 		$this->datos = $datos;
 		if (!is_array($this->datos)) {
 			throw new toba_error_def( $this->get_txt() .
@@ -1977,39 +2043,39 @@ class toba_ei_cuadro extends toba_ei
 				ei_arbol($this->_cortes_control,"\$this->_cortes_control");
 			}
 		}else{
-            if ($this->_info_cuadro["eof_invisible"]!=1){
-                if(trim($this->_info_cuadro["eof_customizado"])!=""){
+			if ($this->_info_cuadro["eof_invisible"]!=1){
+				if(trim($this->_info_cuadro["eof_customizado"])!=""){
 					$texto = $this->_info_cuadro["eof_customizado"];
-                }else{
+				}else{
 					$texto = "No hay datos cargados";
-                }
+				}
 				$this->generar_mensaje_cuadro_vacio($texto);
-            }
+			}
 		}
 	}
 
 	function instanciar_manejador_tipo_salida($tipo)
 	{
-			//Si existe seteo explicito de parte del usuario para el tipo de salida
-			if (isset($this->_manejador_tipo_salida[$tipo])) {
-				$clase =  $this->_manejador_tipo_salida[$tipo];
-			} else {
-					//Verifico que sea uno de los tipos estandar o disparo excepcion
-					switch($tipo) {
-						case 'html':
-						case 'impresion_html':
-						case 'pdf':
-						case 'excel':
-						case 'xml':
-								$clase = 'toba_ei_cuadro_salida_' . $this->_tipo_salida;
-								break;
-						default:
-								throw new toba_error_def('El tipo de salida solicitado carece de una clase que lo soporte');
-					}
+		//Si existe seteo explicito de parte del usuario para el tipo de salida
+		if (isset($this->_manejador_tipo_salida[$tipo])) {
+			$clase =  $this->_manejador_tipo_salida[$tipo];
+		} else {
+			//Verifico que sea uno de los tipos estandar o disparo excepcion
+			switch($tipo) {
+				case 'html':
+				case 'impresion_html':
+				case 'pdf':
+				case 'excel':
+				case 'xml':
+						$clase = 'toba_ei_cuadro_salida_' . $this->_tipo_salida;
+						break;
+				default:
+						throw new toba_error_def('El tipo de salida solicitado carece de una clase que lo soporte');
 			}
-			if (isset($clase)) {
-					$this->_salida = new $clase($this);
-			}
+		}
+		if (isset($clase)) {
+				$this->_salida = new $clase($this);
+		}
 	}
 
 	 /**

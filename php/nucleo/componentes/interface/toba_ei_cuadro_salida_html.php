@@ -175,27 +175,27 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$info_cuadro = $this->_cuadro->get_informacion_basica_cuadro();
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 		
-        if (isset($info_cuadro) && $info_cuadro['exportar_pdf'] == 1) {
-        	$img = toba_recurso::imagen_toba('extension_pdf.png', true);
-        	echo "<a href='javascript: $objeto_js.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
-        }
-        if (isset($info_cuadro) && $info_cuadro['exportar_xls'] == 1) {
-	 		//Si hay vista xls entonces se muestra el link común y para exportar a plano
-	 		if ($this->_cuadro->permite_exportacion_excel_plano()) {
-	 			$img_plano = toba_recurso::imagen_toba('exp_xls_plano.gif', true);
-	 			echo "<a href='javascript: $objeto_js.exportar_excel_sin_cortes()' title='Exporta el listado a formato Excel sin cortes (.xls)'>$img_plano</a>";
-	 		}
+		if (isset($info_cuadro) && $info_cuadro['exportar_pdf'] == 1) {
+			$img = toba_recurso::imagen_toba('extension_pdf.png', true);
+			echo "<a href='javascript: $objeto_js.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
+		}
+		if (isset($info_cuadro) && $info_cuadro['exportar_xls'] == 1) {
+			//Si hay vista xls entonces se muestra el link común y para exportar a plano
+			if ($this->_cuadro->permite_exportacion_excel_plano()) {
+				$img_plano = toba_recurso::imagen_toba('exp_xls_plano.gif', true);
+				echo "<a href='javascript: $objeto_js.exportar_excel_sin_cortes()' title='Exporta el listado a formato Excel sin cortes (.xls)'>$img_plano</a>";
+			}
 			$img = toba_recurso::imagen_toba('exp_xls.gif', true);
-        	echo "<a href='javascript: $objeto_js.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
-        }
+			echo "<a href='javascript: $objeto_js.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
+		}
 		if ($info_cuadro["ordenar"]) {
 			$img = toba_recurso::imagen_toba('ordenar.gif', true);
 			$filas = toba_js::arreglo($this->_cuadro->get_filas_disponibles_selector());
-        	echo "<a href=\"javascript: $objeto_js.mostrar_selector($filas);\" title='Permite ordenar por múltiples columnas'>$img</a>";
+			echo "<a href=\"javascript: $objeto_js.mostrar_selector($filas);\" title='Permite ordenar por múltiples columnas'>$img</a>";
 		}
-        if(trim($info_cuadro["subtitulo"])<>""){
-            echo $info_cuadro["subtitulo"];
-        }
+		if(trim($info_cuadro["subtitulo"])<>""){
+			echo $info_cuadro["subtitulo"];
+		}
 	}
 
 	/**
@@ -560,23 +560,23 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 		$evt_multiples = $this->_cuadro->get_eventos_multiples();
 
-        foreach($filas as $f)
-        {
-        	if (!is_null($layout_cant_columnas) && ($i % $layout_cant_columnas == 0)) {
-        		$ancho = floor(100 / (count($filas) / $layout_cant_columnas));
-        		echo "<td><table class='ei-cuadro-agrupador-filas' width='$ancho%' >";
+		foreach($filas as $f)
+		{
+			if (!is_null($layout_cant_columnas) && ($i % $layout_cant_columnas == 0)) {
+				$ancho = floor(100 / (count($filas) / $layout_cant_columnas));
+				echo "<td><table class='ei-cuadro-agrupador-filas' width='$ancho%' >";
 			}
-        	$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
+			$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$clave_fila = $this->_cuadro->get_clave_fila($f);
 
 			//Genero el html de la fila, junto con sus eventos y vinculos
 			$this->generar_layout_fila($columnas, $datos, $f, $clave_fila, $evt_multiples, $objeto_js, $estilo_fila, $formateo);
-            $par = !$par;
-            if (isset($layout_cant_columnas) && $i % $layout_cant_columnas == $layout_cant_columnas-1) {
-        		echo "</table></td>";
-        	}
-        	$i++;
-        }
+			$par = !$par;
+			if (isset($layout_cant_columnas) && $i % $layout_cant_columnas == $layout_cant_columnas-1) {
+				echo "</table></td>";
+			}
+			$i++;
+		}
 		
 		if (isset($layout_cant_columnas)) {
 			echo "</tr>";
@@ -595,64 +595,64 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	function generar_layout_fila($columnas, $datos, $id_fila,  $clave_fila, $evt_multiples, $objeto_js, $estilo_fila, $formateo)
 	{
-			$estilo_seleccion = $this->get_estilo_seleccion($clave_fila);
+		$estilo_seleccion = $this->get_estilo_seleccion($clave_fila);
 
-			  //Javascript de seleccion multiple
-			$js = $this->get_invocacion_js_eventos_multiples($evt_multiples, $id_fila, $objeto_js);
+		  //Javascript de seleccion multiple
+		$js = $this->get_invocacion_js_eventos_multiples($evt_multiples, $id_fila, $objeto_js);
 
-			 //---> Creo las CELDAS de una FILA <----
-            echo "<tr class='$estilo_fila' >\n";
+		 //---> Creo las CELDAS de una FILA <----
+		echo "<tr class='$estilo_fila' >\n";
 
-			//---> Creo los EVENTOS de la FILA  previos a las columnas<---
-			$this->html_cuadro_celda_evento($id_fila, $clave_fila, true);
- 			foreach (array_keys($columnas) as $a) {
-                //*** 1) Recupero el VALOR
-				$valor = "";
-                if(isset($columnas[$a]["clave"])) {
-					if(isset($datos[$id_fila][$columnas[$a]["clave"]])) {
-						$valor_real = $datos[$id_fila][$columnas[$a]["clave"]];
-						//-- Hace el saneamiento para evitar inyección XSS
-						if (!isset($columnas[$a]['permitir_html']) || $columnas[$a]['permitir_html'] == 0) {
-							  $valor_real = texto_plano($valor_real);
-						}
-					}else{
-						$valor_real = null;
-						//ATENCION!! hay una columna que no esta disponible!
+		//---> Creo los EVENTOS de la FILA  previos a las columnas<---
+		$this->html_cuadro_celda_evento($id_fila, $clave_fila, true);
+		foreach (array_keys($columnas) as $a) {
+			//*** 1) Recupero el VALOR
+			$valor = "";
+			if(isset($columnas[$a]["clave"])) {
+				if(isset($datos[$id_fila][$columnas[$a]["clave"]])) {
+					$valor_real = $datos[$id_fila][$columnas[$a]["clave"]];
+					//-- Hace el saneamiento para evitar inyección XSS
+					if (!isset($columnas[$a]['permitir_html']) || $columnas[$a]['permitir_html'] == 0) {
+						  $valor_real = texto_plano($valor_real);
 					}
-	                //Hay que formatear?
-	                if(isset($columnas[$a]["formateo"])) {
-	                    $funcion = "formato_" . $columnas[$a]["formateo"];
-	                    //Formateo el valor
-	                    $valor = $formateo->$funcion($valor_real);
-	                } else {
-	                	$valor = $valor_real;
-	                }
-	            }
-
-	            //*** 2) La celda posee un vinculo??
-				if ($columnas[$a]['usar_vinculo'] )  {
-						$valor = $this->get_html_cuadro_celda_vinculo($columnas, $a, $id_fila, $clave_fila, $valor);
+				}else{
+					$valor_real = null;
+					//ATENCION!! hay una columna que no esta disponible!
 				}
+				//Hay que formatear?
+				if(isset($columnas[$a]["formateo"])) {
+					$funcion = "formato_" . $columnas[$a]["formateo"];
+					//Formateo el valor
+					$valor = $formateo->$funcion($valor_real);
+				} else {
+					$valor = $valor_real;
+				}
+			}
 
-                //*** 3) Genero el HTML
-				$ancho = "";
-            	if(isset($columnas[$a]["ancho"])) {
-	                $ancho = " width='". $columnas[$a]["ancho"] . "'";
-	            }
+			//*** 2) La celda posee un vinculo??
+			if ($columnas[$a]['usar_vinculo'] )  {
+					$valor = $this->get_html_cuadro_celda_vinculo($columnas, $a, $id_fila, $clave_fila, $valor);
+			}
 
-	          //Emito el valor de la celda
-                echo "<td class='$estilo_seleccion ".$columnas[$a]["estilo"]."' $ancho $js>\n";
-                if (trim($valor) !== '') {
-                	echo $valor;
-                } else {
-                	echo '&nbsp;';
-                }
-                echo "</td>\n";
-                //Termino la CELDA
-            }
-			//---> Creo los EVENTOS de la FILA <---
-			$this->html_cuadro_celda_evento($id_fila, $clave_fila, false);
-            echo "</tr>\n";
+			//*** 3) Genero el HTML
+			$ancho = "";
+			if(isset($columnas[$a]["ancho"])) {
+				$ancho = " width='". $columnas[$a]["ancho"] . "'";
+			}
+
+		  //Emito el valor de la celda
+			echo "<td class='$estilo_seleccion ".$columnas[$a]["estilo"]."' $ancho $js>\n";
+			if (trim($valor) !== '') {
+				echo $valor;
+			} else {
+				echo '&nbsp;';
+			}
+			echo "</td>\n";
+			//Termino la CELDA
+		}
+		//---> Creo los EVENTOS de la FILA <---
+		$this->html_cuadro_celda_evento($id_fila, $clave_fila, false);
+		echo "</tr>\n";
 	}
 
 	protected function get_invocacion_js_eventos_multiples($evt_multiples, $id_fila, $objeto_js)
@@ -667,15 +667,15 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	
 	protected function get_html_cuadro_celda_vinculo($columnas, $id_columna, $id_fila, $clave_fila, $valor_real)
 	{
-			// Armo el vinculo.
-			$clave_columna = isset($columnas[$id_columna]['vinculo_indice']) ? $columnas[$id_columna]['vinculo_indice'] : $columnas[$id_columna]['clave'];
-			$id_evt_asoc = $columnas[$id_columna]['evento_asociado'];		//Busco el evento asociado al vinculo
-			$evento = $this->_cuadro->evento($id_evt_asoc);
-			$parametros = $this->_cuadro->get_clave_fila_array($id_fila);
-			$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
-			$js =  $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, true, $parametros);
-			$valor = "<a href='#' onclick=\"$js\">$valor_real</a>";
-			return $valor;
+		// Armo el vinculo.
+		$clave_columna = isset($columnas[$id_columna]['vinculo_indice']) ? $columnas[$id_columna]['vinculo_indice'] : $columnas[$id_columna]['clave'];
+		$id_evt_asoc = $columnas[$id_columna]['evento_asociado'];		//Busco el evento asociado al vinculo
+		$evento = $this->_cuadro->evento($id_evt_asoc);
+		$parametros = $this->get_parametros_interaccion($id_fila, $clave_fila);
+		$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
+		$js =  $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, true, $parametros);
+		$valor = "<a href='#' onclick=\"$js\">$valor_real</a>";
+		return $valor;
 	}
 	
 	protected function html_cuadro_celda_evento($id_fila, $clave_fila, $pre_columnas)
@@ -683,7 +683,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		foreach ($this->_cuadro->get_eventos_sobre_fila() as $id => $evento) {
 			$grafico_evento = !($pre_columnas xor $evento->tiene_alineacion_pre_columnas());		//Decido si se debe graficar el boton en este lugar (logica explicada en html_cuadro_cabecera_columna_evento)
 			if ($grafico_evento) {
-					$parametros = $this->_cuadro->get_clave_fila_array($id_fila);
+					$parametros = $this->get_parametros_interaccion($id_fila, $clave_fila);
 					$clase_alineamiento = ($evento->es_seleccion_multiple())?  'col-cen-s1' : '';	//coloco centrados los checkbox si es multiple
 					echo "<td class='ei-cuadro-fila-evt $clase_alineamiento' width='1%'>\n";
 					if ($evento->posee_accion_respuesta_popup()) {
@@ -698,6 +698,16 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$this->_cuadro->agregar_clave_enviada($clave_fila);
 	}
 
+	private function get_parametros_interaccion($id_fila, $clave_fila)
+	{
+		if ($this->_cuadro->usa_modo_seguro()) {
+			$parametros = array('fila_safe' => $clave_fila);
+		} else {
+			$parametros =  $this->_cuadro->get_clave_fila_array($id_fila);
+		}
+		return $parametros;
+	}
+		
 	/**
 	 *@ignore
 	 */
@@ -724,12 +734,12 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$alguna_tiene_titulo = false;
 		$columnas = $this->_cuadro->get_columnas();
 		foreach(array_keys($columnas) as $clave) {
-        	if (trim($columnas[$clave]["titulo"]) != '') {
-        		$alguna_tiene_titulo = true;
-        		break;
-        	}
+			if (trim($columnas[$clave]["titulo"]) != '') {
+				$alguna_tiene_titulo = true;
+				break;
+			}
 		}
-        if ($alguna_tiene_titulo) {
+		if ($alguna_tiene_titulo) {
 			/*
 			 * Verifico si el grupo tiene columnas visibles, sino no lo muestro,
 			 * al mismo tiempo intersecto las columnas del grupo con las visibles para que no se expanda de mas el colspan.
@@ -744,88 +754,88 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 				$columnas_agrupadas[$klave] = array_intersect($grupo, $columnas_act_id);
 			}
 
-        	$rowspan = ! $hay_grupo_visible ? '' : "rowspan='2'";
-        	$html_columnas_agrupadas = '';
-        	$grupo_actual = null;
-	        echo "<tr>\n";
+			$rowspan = ! $hay_grupo_visible ? '' : "rowspan='2'";
+			$html_columnas_agrupadas = '';
+			$grupo_actual = null;
+			echo "<tr>\n";
 			$this->html_cuadro_cabecera_columna_evento($rowspan, true);
-	        foreach (array_keys($columnas) as $a) {
-	        	$html_columna = '';
-	        	//El alto de la columna, si esta agrupada es uno sino es el general
-	        	$rowspan_col = isset($columnas[$a]['grupo']) ? "" : $rowspan;
+			foreach (array_keys($columnas) as $a) {
+				$html_columna = '';
+				//El alto de la columna, si esta agrupada es uno sino es el general
+				$rowspan_col = isset($columnas[$a]['grupo']) ? "" : $rowspan;
 
-	            if(isset($columnas[$a]["ancho"])){
-	                $ancho = " width='". $columnas[$a]["ancho"] . "'";
-	            }else{
-	                $ancho = "";
-	            }
-	            $estilo_columna = $columnas[$a]["estilo_titulo"];
-	            if(!$estilo_columna){
-	            	$estilo_columna = 'ei-cuadro-col-tit';
-	            }
-	            $html_columna .= "<td $rowspan_col class='$estilo_columna' $ancho>\n";
-	            $html_columna .= $this->html_cuadro_cabecera_columna(    $columnas[$a]["titulo"],
-	                                        $columnas[$a]["clave"],
-	                                        $a );
-	            $html_columna .= "</td>\n";
+				if(isset($columnas[$a]["ancho"])){
+					$ancho = " width='". $columnas[$a]["ancho"] . "'";
+				}else{
+					$ancho = "";
+				}
+				$estilo_columna = $columnas[$a]["estilo_titulo"];
+				if(!$estilo_columna){
+					$estilo_columna = 'ei-cuadro-col-tit';
+				}
+				$html_columna .= "<td $rowspan_col class='$estilo_columna' $ancho>\n";
+				$html_columna .= $this->html_cuadro_cabecera_columna(    $columnas[$a]["titulo"],
+											$columnas[$a]["clave"],
+											$a );
+				$html_columna .= "</td>\n";
 
-	        	if (! isset($columnas[$a]['grupo']) || $columnas[$a]['grupo'] == '') {
-	        		//Si no es una columna agrupada,saca directamente su html
-	        		echo $html_columna;
-	        		$grupo_actual = null;
-	        	} else {
-	        		//Guarda el html de la columna para sacarlo una fila mas abajo
-	        		$html_columnas_agrupadas .= $html_columna;
-	        		//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
-	        		if (! isset($grupo_actual) || $grupo_actual != $columnas[$a]['grupo']) {
-		        		$grupo_actual = $columnas[$a]['grupo'];
-		        		$cant_col = count(array_unique($columnas_agrupadas[$grupo_actual]));		//Cuando se fija manualmente el grupo y se re procesa la definicion trae la misma columna + de una vez
-		        		echo "<td class='ei-cuadro-col-tit ei-cuadro-col-tit-grupo' colspan='$cant_col'>$grupo_actual</td>";
-	        		}
-	        	}
-	        }
-	        //-- Eventos sobre fila
+				if (! isset($columnas[$a]['grupo']) || $columnas[$a]['grupo'] == '') {
+					//Si no es una columna agrupada,saca directamente su html
+					echo $html_columna;
+					$grupo_actual = null;
+				} else {
+					//Guarda el html de la columna para sacarlo una fila mas abajo
+					$html_columnas_agrupadas .= $html_columna;
+					//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
+					if (! isset($grupo_actual) || $grupo_actual != $columnas[$a]['grupo']) {
+						$grupo_actual = $columnas[$a]['grupo'];
+						$cant_col = count(array_unique($columnas_agrupadas[$grupo_actual]));		//Cuando se fija manualmente el grupo y se re procesa la definicion trae la misma columna + de una vez
+						echo "<td class='ei-cuadro-col-tit ei-cuadro-col-tit-grupo' colspan='$cant_col'>$grupo_actual</td>";
+					}
+				}
+			}
+			//-- Eventos sobre fila
 			$this->html_cuadro_cabecera_columna_evento($rowspan, false);
-	        echo "</tr>\n";
+			echo "</tr>\n";
 			//-- Columnas Agrupadas
 			if ($html_columnas_agrupadas != '') {
 				echo "<tr>\n";
 				echo $html_columnas_agrupadas;
 				echo "</tr>\n";
 			}
-        }
+		}
 	}
 
 	protected function html_cuadro_cabecera_columna_evento($rowspan, $pre_columnas)
 	{
 		 //-- Eventos sobre fila
-			if($this->_cuadro->cant_eventos_sobre_fila() > 0) {
-				foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
-					$etiqueta = '&nbsp;';
-					if ($evento->es_seleccion_multiple()) {
-						$etiqueta = $evento->get_etiqueta();
-					}
+		if($this->_cuadro->cant_eventos_sobre_fila() > 0) {
+			foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
+				$etiqueta = '&nbsp;';
+				if ($evento->es_seleccion_multiple()) {
+					$etiqueta = $evento->get_etiqueta();
+				}
 
-					/**
-					 * Condiciones gobernantes:
-					 *  Evento con alineacion a Izquierda
-					 *  Se estan graficando eventos pre-columnas de datos
-					 *
-					 *
-					 * El evento se grafica unicamente cuando se dan ambas condiciones o
-					 * cuando no se cumple ninguna de las dos, logicamente  eso seria:
-					 * ((A || !B) && (!A || B)) lo cual es igual a un XOR negado.
-					 */
-					if ( !($pre_columnas xor $evento->tiene_alineacion_pre_columnas())) {
-						echo "<td $rowspan class='ei-cuadro-col-tit'>$etiqueta";
-						if (toba_editor::modo_prueba()) {
-							$info_comp = $this->_cuadro->get_informacion_basica_componente();
-							echo toba_editor::get_vinculo_evento($this->_cuadro->get_id(), $info_comp['clase_editor_item'], $evento->get_id())."\n";
-						}
-						echo "</td>\n";
+				/**
+				 * Condiciones gobernantes:
+				 *  Evento con alineacion a Izquierda
+				 *  Se estan graficando eventos pre-columnas de datos
+				 *
+				 *
+				 * El evento se grafica unicamente cuando se dan ambas condiciones o
+				 * cuando no se cumple ninguna de las dos, logicamente  eso seria:
+				 * ((A || !B) && (!A || B)) lo cual es igual a un XOR negado.
+				 */
+				if ( !($pre_columnas xor $evento->tiene_alineacion_pre_columnas())) {
+					echo "<td $rowspan class='ei-cuadro-col-tit'>$etiqueta";
+					if (toba_editor::modo_prueba()) {
+						$info_comp = $this->_cuadro->get_informacion_basica_componente();
+						echo toba_editor::get_vinculo_evento($this->_cuadro->get_id(), $info_comp['clase_editor_item'], $evento->get_id())."\n";
 					}
+					echo "</td>\n";
 				}
 			}
+		}
 	}
 	
 	/**
@@ -833,13 +843,13 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	 * @ignore
 	 */
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
-    {
-    	$salida = '';
+	{
+		$salida = '';
 		$eventos = $this->_cuadro->get_eventos();
 		$columnas = $this->_cuadro->get_columnas();
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 
-        //--- ¿Es ordenable?
+		//--- ¿Es ordenable?
 		if (	isset($eventos['ordenar'])
 				&& $columnas[$indice]["no_ordenar"] != 1
 				/*&& $this->_tipo_salida == 'html' */) {
@@ -848,24 +858,24 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			$sentido[] = array('des', 'Ordenar descendente');
 			$salida .= "<span class='ei-cuadro-orden'>";
 			foreach($sentido as $sen){
-			    $sel="";
-			    if ($this->_cuadro->es_sentido_ordenamiento_seleccionado($columna, $sen[0])) {
+				$sel="";
+				if ($this->_cuadro->es_sentido_ordenamiento_seleccionado($columna, $sen[0])) {
 					$sel = "_sel";//orden ACTIVO
-			    }
+				}
 
 				//Comunicación del evento
 				$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
 				$evento_js = toba_js::evento('ordenar', $eventos['ordenar'], $parametros);
 				$js = "$objeto_js.set_evento($evento_js);";
-			    $src = toba_recurso::imagen_toba("nucleo/sentido_". $sen[0] . $sel . ".gif");
+				$src = toba_recurso::imagen_toba("nucleo/sentido_". $sen[0] . $sel . ".gif");
 				$salida .= toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
 			}
 			$salida .= "</span>";
 		}
 		//--- Nombre de la columna
 		if (trim($columna) != '' || trim($columnas[$indice]["vinculo_indice"])!="") {
-            $salida .= $titulo;
-        }
+			$salida .= $titulo;
+		}
 		//---Editor de la columna
 		if ( toba_editor::modo_prueba() /*&& $this->_tipo_salida == 'html' */){
 			$item_editor = "1000253";
@@ -874,11 +884,11 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			$salida .= toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);
 		}
 		return $salida;
-    }
+	}
 
 	 /**
-     * @ignore
-     */
+	 * @ignore
+	 */
 	function html_acumulador_usuario()
 	{
 		$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
