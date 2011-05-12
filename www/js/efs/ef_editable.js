@@ -843,7 +843,7 @@ ef_editable_hora.prototype.constructor = ef_editable_hora;
 		if (this.tiene_estado() && this.validar()) {
 			var estado = this.get_estado();
 			var componentes = estado.split(':');
-			return new Date(0,0,0, componentes[1], componentes[0]);
+			return new Date(0,0,0, componentes[0], componentes[1]);
 		}
 		return null;
 	};
