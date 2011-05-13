@@ -208,6 +208,18 @@ class toba_perfil_datos
 		}
 	}
 
+	static function get_restricciones_usuario($usuario, $proyecto)
+	{
+		$perfil = toba_proyecto_implementacion::get_perfil_datos($usuario, $proyecto);
+		if ($perfil !== null) {
+			$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones($proyecto, $perfil);
+			return $restricciones;
+		} else {
+			toba::logger()->error("El usuario $usuario no posee perfil de datos en el proyecto $proyecto");
+			throw new toba_error_def("El usuario no posee perfil de datos en el proyecto");
+		}
+	}
+	
 	//--------------------------------------------------------------------
 	//----- API Filtrado -------------
 	//--------------------------------------------------------------------
