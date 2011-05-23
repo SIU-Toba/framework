@@ -187,7 +187,7 @@ class toba_carga_opciones_ef
 		} else {
 			throw new toba_error_def('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
 		}
-		
+		$salida = $this->ajustar_descripciones($id_ef, $salida);
 		if (! isset($parametros['carga_no_seteado_ocultar'])) {
 			$parametros['carga_no_seteado_ocultar'] = false;
 		}
@@ -200,6 +200,24 @@ class toba_carga_opciones_ef
 		} else {
 			return $salida;	
 		}
+	}
+
+	/**
+	 * Si se seteó una longitud máxima para la descripción de un EF seleccionable,
+	 * se cortan los valores a ese máximo y se agrega al final '...'.
+	 * @ignore 
+	 */
+	function ajustar_descripciones($id_ef, $datos)
+	{
+		$maximo_descripcion = $this->_efs[$id_ef]->get_maximo_descripcion();
+		if (isset($maximo_descripcion) && is_array($datos)) {
+			foreach ($datos as $clave => $opcion) {
+				if ($opcion && strlen($opcion) > $maximo_descripcion) {
+					$datos[$clave] = substr($opcion, 0, $maximo_descripcion) . '...';
+				}
+			}
+		}
+		return $datos;
 	}
 
 	/**
