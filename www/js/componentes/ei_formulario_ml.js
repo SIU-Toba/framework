@@ -599,6 +599,13 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	//----Botonera
 	/**
+	 * Referencia al tag html del boton agregar
+	 */	
+	ei_formulario_ml.prototype.boton_agregar = function() {
+		return document.getElementById(this._instancia + '_agregar');
+	};
+	
+	/**
 	 * Referencia al tag html del boton eliminar
 	 */
 	ei_formulario_ml.prototype.boton_eliminar = function() {
