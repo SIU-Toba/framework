@@ -653,11 +653,16 @@
 	function encriptar_con_sal($clave, $metodo, $sal=null)
 	{
 	    if ($sal === null) {
-	        $sal = substr(md5(uniqid(rand(), true)), 0, 10);
+	        $sal = get_salt();
 	    } else {
 	        $sal = substr($sal, 0, 10);
 	    }
 	    return $sal . hash($metodo, $sal . $clave);		
+	}
+	
+	function get_salt()
+	{
+		return substr(md5(uniqid(rand(), true)), 0, 10);
 	}
 	
 	function dormir($tiempo)

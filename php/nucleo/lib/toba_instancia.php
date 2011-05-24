@@ -339,7 +339,20 @@ class toba_instancia
 			if(!empty($rs))	return $rs[0];
 		} catch (toba_error_db $e ) {
 			toba::logger()->info($e->getMessagge());
-			throw new toba_error('Error recuperando informacion');
+			throw new toba_error('Error recuperando información');
+		}
+	}
+
+	function get_pregunta_secreta($usuario)
+	{
+		try {
+			$sql = 'SELECT pregunta, respuesta FROM apex_usuario_pregunta_secreta WHERE activa = 1 AND usuario = :usuario';
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$rs = $this->get_db()->sentencia_consultar($id, array('usuario' => $usuario));
+			if (!empty($rs)) return $rs[0];
+		} catch (toba_error_db $e) {
+			toba::logger()->info($e->getMessage());
+			throw new toba_error('Error recuperando información');
 		}
 	}
 	

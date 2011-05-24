@@ -27,6 +27,7 @@ class toba_db_tablas_instancia
 	{
 		return array (
   0 => 'apex_usuario',
+  1 => 'apex_usuario_pregunta_secreta',
 );
 	}
 
@@ -213,6 +214,29 @@ class toba_db_tablas_instancia
     20 => 'hora_entrada',
     21 => 'hora_salida',
     22 => 'ip_permitida',
+  ),
+);
+	}
+
+	static function apex_usuario_pregunta_secreta()
+	{
+		return array (
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'usuario',
+  'zona' => 'usuario',
+  'desc' => '',
+  'instancia' => '1',
+  'usuario' => '1',
+  'version' => '2.0',
+  'columnas' => 
+  array (
+    0 => 'cod_pregunta_secreta',
+    1 => 'usuario',
+    2 => 'pregunta',
+    3 => 'respuesta',
+    4 => 'activa',
   ),
 );
 	}

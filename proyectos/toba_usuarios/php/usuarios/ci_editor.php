@@ -2,7 +2,7 @@
 
 class ci_editor extends toba_ci
 {	
-	const clave_falsa = "xS34Io9gF2JD";					//La clave no se envia al cliente
+	const clave_falsa = 'xS34Io9gF2JD';					//La clave no se envia al cliente
 	
 	protected $s__proyecto;
 	protected $s__usuario;
@@ -15,7 +15,7 @@ class ci_editor extends toba_ci
 	
 	function datos($tabla)
 	{
-		return	$this->controlador->dep('datos')->tabla($tabla);
+		return $this->controlador->dep('datos')->tabla($tabla);
 	}
 	
 	function limpiar_datos()
@@ -77,17 +77,17 @@ class ci_editor extends toba_ci
 	function conf__cuadro_proyectos($componente)
 	{	
 		$proyectos = consultas_instancia::get_lista_proyectos();
-		foreach ($proyectos as $id => $proyecto){
+		foreach ($proyectos as $id => $proyecto) {
 			$grupos_acceso = $this->datos('proyecto')->get_filas(array('proyecto' => $proyecto['proyecto']));
 			$grupos = array();
 			//-- Perfil funcional -------------------------
-			foreach ($grupos_acceso as $ga){
+			foreach ($grupos_acceso as $ga) {
 				$grupos[] = $ga['grupo_acceso'];
 			}
 			$proyectos[$id]['grupos_acceso'] = empty($grupos) ? '<span style="color:gray">-- Sin Acceso --</span>' : implode(', ', $grupos);
 			//-- Perfil datos -----------------------------
 			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('proyecto' => $proyecto['proyecto']));
-			if($perfil_datos){
+			if ($perfil_datos) {
 				$proyectos[$id]['perfil_datos'] = $perfil_datos[0]['perfil_datos_nombre'];
 			} else {
 				$proyectos[$id]['perfil_datos'] = '&nbsp;';
@@ -103,13 +103,13 @@ class ci_editor extends toba_ci
 		}
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
-		foreach ($id as $clave){
+		foreach ($id as $clave) {
 			$this->datos('proyecto')->eliminar_fila($clave);
 		}
 		$fila = array();
 		$fila['proyecto'] = $this->s__proyecto;
 		$fila['usuario'] = $this->s__usuario;
-		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso){
+		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso) {
 			$fila['usuario_grupo_acc'] = $grupo_acceso;
 			$this->datos('proyecto')->nueva_fila($fila);
 		}
@@ -120,9 +120,9 @@ class ci_editor extends toba_ci
 			$fila['proyecto'] = $this->s__proyecto;
 			$fila['usuario'] = $this->s__usuario;
 			$fila['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->datos('proyecto_pd')->nueva_fila($fila);
-			}else{
+			} else {
 				$this->datos('proyecto_pd')->modificar_fila($id[0], $fila);
 			}
 		} else if (! empty($id)) {
@@ -136,12 +136,12 @@ class ci_editor extends toba_ci
 	{
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion( array('proyecto' => $this->s__proyecto) );
-		foreach ($id as $clave){
+		foreach ($id as $clave) {
 			$this->datos('proyecto')->eliminar_fila($clave);
 		}
 		//-- Perfil datos -----------------------------
 		$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
-		if(!empty($id)) {
+		if (!empty($id)) {
 			$this->datos('proyecto_pd')->eliminar_fila($id[0]);
 		}
 		$this->limpiar_datos();
@@ -159,23 +159,54 @@ class ci_editor extends toba_ci
 			$datos['proyecto'] = $this->s__proyecto;
 			$datos['clave'] = self::clave_falsa;
 			//-- Perfil funcional -------------------------
-			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+			$grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
 			if (empty($grupo_acc)) {
 				$componente->eliminar_evento('baja');
 			}
 			
 			$ga_seleccionados = array();
-			foreach ($grupo_acc as $i=>$ga){
+			foreach ($grupo_acc as $i=>$ga) {
 				$ga_seleccionados[] = $ga['usuario_grupo_acc'];
 			}
 			$datos['usuario_grupo_acc'] = $ga_seleccionados;
 			//-- Perfil datos -----------------------------
 			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
-			if($perfil_datos){
+			if ($perfil_datos) {
 				$datos['usuario_perfil_datos'] = $perfil_datos[0]['usuario_perfil_datos'];
 			}
 			$componente->set_datos($datos);
 		}
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_pregunta_secreta --------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_pregunta_secreta(toba_ei_formulario_ml $form_ml)
+	{
+		$datos = $this->datos('pregunta_secreta')->get_filas();
+		foreach ($datos as $klave => $fila) {
+			$datos[$klave]['activa'] = ($datos[$klave]['activa'] == '1') ? 'SI' : 'NO';
+		}
+		$form_ml->set_datos($datos);
+	}
+
+	function evt__form_pregunta_secreta__modificacion($datos)
+	{
+		$hay_alta = false;
+		//Solo una de las preguntas tiene que estar activa.
+		foreach ($datos as $klave => $fila) {
+			if ($fila['apex_ei_analisis_fila'] == 'A') {
+				$datos[$klave]['activa'] = '1';
+				$hay_alta = true;
+			} elseif (isset($datos[$klave]['activa'])) {
+				unset($datos[$klave]['activa']);
+			}
+		}
+		if ($hay_alta) {		//Si hay una fila nueva deshabilito las anteriores
+			$this->datos('pregunta_secreta')->set_columna_valor('activa', '0');
+		}
+		$this->datos('pregunta_secreta')->procesar_filas($datos);
 	}
 		
 	//---- Consultas ---------------------------------------------------

@@ -84,3 +84,27 @@ CREATE TABLE apex_usuario_pwd_reset
 	bloqueado						smallint		NOT NULL DEFAULT 0,
 	CONSTRAINT	"apex_usuario_pwd_pk"	 PRIMARY	KEY ("usuario", "random")		---Quizas no deberia existir.. quien sabe
 );
+
+--#################################################################################################
+CREATE SEQUENCE apex_usuario_pregunta_secreta_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE TABLE apex_usuario_pregunta_secreta
+
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo
+--: dump_order_by: usuario
+--: zona: usuario
+--: desc:
+--: instancia:	1
+--: usuario:	1
+--: version: 2.0
+---------------------------------------------------------------------------------------------------
+(
+	cod_pregunta_secreta		int8	DEFAULT nextval('"apex_usuario_pregunta_secreta_seq"'::text)	NOT NULL,
+	usuario					varchar(60) NOT NULL, 
+	pregunta					text NOT NULL, 
+	respuesta				text NOT NULL, 
+	activa					smallint NOT NULL DEFAULT 1, 
+	CONSTRAINT apex_usuario_pregunta_secreta_pk PRIMARY KEY (cod_pregunta_secreta), 
+	CONSTRAINT apex_usuario_pregunta_secreta_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
+) ;
