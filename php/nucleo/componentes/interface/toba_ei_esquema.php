@@ -146,7 +146,7 @@ class toba_ei_esquema extends toba_ei
 				<div id='marco_$objeto_js' style='height: {$alto}px; width: {$ancho}px; overflow: hidden; position: absolute; top: 0: left: 0;'>
 					$imagen_real
 				</div>
-				<div id='mapa_$objeto_js' style='position: absolute; top: 0; left: 0; width: {$ancho_mapa}px; height: {$alto_mapa}px; border: 1px solid black; overflow: hidden'>
+				<div id='mapa_$objeto_js' style='position: absolute; top: 0; left: 0; border: 1px solid black; overflow: hidden'>
 					<div id='lupa_$objeto_js' style='position: absolute; top: 0: left: 0; border: 1px solid red'></div>
 					$imagen_mapa
 				</div>
