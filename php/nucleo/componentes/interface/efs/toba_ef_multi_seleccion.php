@@ -247,6 +247,11 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 	{
 		return true;	
 	}
+
+	function permite_seleccion_multiple()
+	{
+		return true;
+	}
 	
 	function es_estado_unico() 
 	{

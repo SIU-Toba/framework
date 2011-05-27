@@ -187,7 +187,9 @@ class toba_carga_opciones_ef
 		} else {
 			throw new toba_error_def('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
 		}
-		$salida = $this->ajustar_descripciones($id_ef, $salida);
+		if (! $this->_efs[$id_ef]->permite_seleccion_multiple()) {
+			$salida = $this->ajustar_descripciones($id_ef, $salida);
+		}
 		if (! isset($parametros['carga_no_seteado_ocultar'])) {
 			$parametros['carga_no_seteado_ocultar'] = false;
 		}

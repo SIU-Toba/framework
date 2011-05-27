@@ -171,6 +171,14 @@ abstract class toba_ef
 	{
 		return false;
 	}
+	/**
+	 * El ef permite seleccionable permite elegir más de un valor?
+	 * @return boolean
+	 */
+	function permite_seleccion_multiple()
+	{
+		return false;
+	}
 
 	/**
 	 * El ef maneja un único valor como estado? O maneja un arreglo de estados?
