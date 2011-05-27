@@ -142,7 +142,7 @@ class toba_vista_xslfo
 		$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
 		shell_exec($comando);
 		if (!file_exists($archivo_pdf)) {
-			throw new toba_error_usuario("Error al ejecutar el comando '$comando'");
+			throw new toba_error_usuario("Error al ejecutar el comando '".$comando."'");
 		}
 		if (file_exists($fxml)) {
 			unlink($fxml);

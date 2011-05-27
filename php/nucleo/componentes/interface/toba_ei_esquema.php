@@ -13,6 +13,7 @@ class toba_ei_esquema extends toba_ei
 	protected $_ancho;
 	protected $_contenido;				// Instrucciones GraphViz
 	protected $_archivo_generado;		// Archivo generado por las instrucciones
+	protected $_incluir_mapa = false;
 	
 	final function __construct($id)
 	{
@@ -34,6 +35,18 @@ class toba_ei_esquema extends toba_ei
 		}
 	}
 	
+	/**
+	 * 
+	 * Incluir mapa de la imagen. Es necesario que esté
+	 * definido un ancho y un alto.
+	 * 
+	 * @param boolean $incluir.  
+	 */
+	function set_incluir_mapa($incluir=null)
+	{
+		$this->_incluir_mapa = $incluir;
+	}
+	
 	function generar_html()
 	{
         $ancho = '';
@@ -53,7 +66,7 @@ class toba_ei_esquema extends toba_ei
 			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->_contenido", 'toba');
 			$this->generar_esquema($this->_contenido, $this->_info_esquema['formato'],
 			$this->_info_esquema['dirigido'], $this->_ancho,
-									$this->_alto);
+									$this->_alto, $this->_incluir_mapa, $this->objeto_js);
 		}
 		$this->generar_botones();
 		echo "</div></td></tr>\n";
@@ -63,7 +76,7 @@ class toba_ei_esquema extends toba_ei
 	/**
 	 * @ignore 
 	 */
-	protected function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
+	protected function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null, $incluir_mapa=null, $objeto_js=null)
 	{
 		$parametros = array("contenido" => $contenido, 
 							'formato' => $formato,
@@ -73,7 +86,7 @@ class toba_ei_esquema extends toba_ei
 		$this->_memoria['parametros'] = $parametros;
 		$url = toba::vinculador()->get_url(null,null,array(), array('servicio' => 'mostrar_esquema', 
 																		'objetos_destino' => $destino));
-		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
+		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto, $incluir_mapa, $objeto_js);
 	}
 
 	/**
@@ -83,23 +96,178 @@ class toba_ei_esquema extends toba_ei
 	 * @param string $ancho
 	 * @param string $alto
 	 */
-	static function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
+	static function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null, $incluir_mapa=null, $objeto_js=null)
 	{
-		$ancho = isset($ancho) ? "width='$ancho'" : "";
-		$alto = isset($alto) ? "height='$alto'" : "";
-		switch ($formato) {
-			case 'png':
-			case 'gif':
-				echo "<img src='$url' $ancho $alto border='0'>";				
-			break;
-			case 'svg':
-				/*toba_js::cargar_consumos_globales(array("utilidades/svglib"));
-				echo toba_js::abrir();
-				echo "//aviso_instalacion_svg()";
-				echo toba_js::cerrar();	*/
-				echo "<embed src='$url' type='image/svg+xml' $ancho $alto palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'>\n";
-				echo "</embed>"; 
-			break;
+		if(!$incluir_mapa || !($ancho && $alto)) {
+			$ancho = isset($ancho) ? "width='$ancho'" : "";
+			$alto = isset($alto) ? "height='$alto'" : "";
+			switch ($formato) {
+				case 'png':
+				case 'gif':
+					echo "<img src='$url' $ancho $alto border='0'>";				
+				break;
+				case 'svg':
+					/*toba_js::cargar_consumos_globales(array("utilidades/svglib"));
+					echo toba_js::abrir();
+					echo "//aviso_instalacion_svg()";
+					echo toba_js::cerrar();	*/
+					echo "<embed src='$url' type='image/svg+xml' $ancho $alto palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'>\n";
+					echo "</embed>"; 
+				break;
+			}
+		} else {
+			//Sacamos el ratio (el lado mas largo del mapa tendrá 100px)
+/*			$ratio = ($ancho>$alto)?100/$ancho:100/$alto;
+			$alto_mapa = $alto*$ratio;
+			$ancho_mapa = $ancho*$ratio;*/
+			switch ($formato) {
+				case 'png':
+				case 'gif':
+					$imagen_real = "<img id='imagen_real_$objeto_js' src='$url' border='0'>";				
+					$imagen_mapa = "<img id='imagen_mapa_$objeto_js' src='$url' border='0'>";
+				break;
+				case 'svg':
+					/*toba_js::cargar_consumos_globales(array("utilidades/svglib"));
+					echo toba_js::abrir();
+					echo "//aviso_instalacion_svg()";
+					echo toba_js::cerrar();	*/
+					$imagen_real = "<embed id='imagen_real_$objeto_js' src='$url' type='image/svg+xml' palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'></embed>"; 
+					$imagen_mapa = "<embed id='imagen_mapa_$objeto_js' src='$url' type='image/svg+xml' palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'></embed>";
+				break;
+			}
+			echo "
+			<div class='ei-barra-sup ci-barra-sup ei-barra-sup-sin-botonera' style='height: 20px; width: {$ancho}px; color: white; position: relative'>
+				<span id='colapsado_mapa_$objeto_js' style='position: absolute; width: 16px; height: 16px; left: 0px;  text-align: center; padding: 2px'>".toba_recurso::imagen_toba('colapsado.gif', true). "</span>
+				<div style='height: 20px;position: absolute; left: 20px; width: ".($ancho - 20)."px'> 
+					<span id='escala_mapa_$objeto_js' style='position: absolute; width: 16px; height: 16px; right: 0px; text-align: center; padding: 2px; border-right: 1px solid black'>".toba_recurso::imagen_toba('transform-move.png', true). "</span>
+				</div>
+			</div>
+			<div style='height: {$alto}px; width: {$ancho}px; position: relative'>
+				<div id='marco_$objeto_js' style='height: {$alto}px; width: {$ancho}px; overflow: hidden; position: absolute; top: 0: left: 0;'>
+					$imagen_real
+				</div>
+				<div id='mapa_$objeto_js' style='position: absolute; top: 0; left: 0; width: {$ancho_mapa}px; height: {$alto_mapa}px; border: 1px solid black; overflow: hidden'>
+					<div id='lupa_$objeto_js' style='position: absolute; top: 0: left: 0; border: 1px solid red'></div>
+					$imagen_mapa
+				</div>
+				
+			</div>";
+
+			$tam_mapa = '';		
+			if (substr($incluir_mapa, -1) == '%') {
+				$tam_mapa = ($alto<$ancho?$alto:$ancho) * ((integer)substr($incluir_mapa, 0, -1)) / 100; 
+			} elseif(strtolower(substr($incluir_mapa, -2)) == 'px') {
+				$tam_mapa = substr($incluir_mapa, 0, -2);
+			} else {
+				$tam_mapa = $incluir_mapa;
+			}
+			echo toba_js::incluir(toba_recurso::js('basicos/jquery-1.4.3.min.js'));
+			echo toba_js::incluir(toba_recurso::js('utilidades/jquery-ui-1.8.13.custom.min.js'));
+			echo toba_js::abrir();
+			echo "
+			document.readyFunc = function(e) {
+				
+				var img_real = document.getElementById('imagen_real_$objeto_js');
+				if (img_real.clientHeight > 0 && img_real.clientWidth > 0) {
+				
+					var marco = document.getElementById('marco_$objeto_js');
+					var mapa = document.getElementById('mapa_$objeto_js');
+					var escala = document.getElementById('escala_mapa_$objeto_js');
+					var colapsado = document.getElementById('colapsado_mapa_$objeto_js');
+					var lupa = document.getElementById('lupa_$objeto_js');
+					var img_mapa = document.getElementById('imagen_mapa_$objeto_js');
+					var ancho_mapa = 200 > marco.clientHeight?marco.clientHeight:200;
+					var ratio;
+					var alto_mapa;
+					var escalar_$objeto_js = function(skipImg) {
+						ratio = ancho_mapa/img_real.clientWidth;
+						alto_mapa = img_real.clientHeight*ratio;
+						if(alto_mapa > marco.clientHeight) {
+							ratio = marco.clientHeight/img_real.clientHeight;
+							alto_mapa = img_real.clientHeight*ratio;
+							ancho_mapa = img_real.clientWidth*ratio;
+						}
+						mapa.style.height= alto_mapa+'px';
+						mapa.style.width= ancho_mapa+'px';
+						escala.style.left= (ancho_mapa-39)+'px';
+						if(!skipImg) {
+							img_mapa.style.height= alto_mapa+'px';
+							img_mapa.style.width= ancho_mapa+'px';
+							lupa.style.height=((marco.clientHeight*ratio)-2)+'px';//-2: Hay que tener en cuenta el borde
+							lupa.style.width=((marco.clientWidth*ratio)-2)+'px';
+							lupa.style.top=(marco.scrollTop*ratio)+'px';
+							lupa.style.left=(marco.scrollLeft*ratio)+'px';
+						}
+					};
+					escalar_$objeto_js();
+					
+					lupa.date = new Date();
+					$(lupa).draggable({
+						containment: 'parent',
+						/*drag: function() {
+							var d = new Date();
+							if(d.getTime() - lupa.date.getTime() > 100) {
+								var t = parseInt(lupa.style.top.substr(0, lupa.style.top.length-2))/ratio; 
+								var l = parseInt(lupa.style.left.substr(0, lupa.style.left.length-2))/ratio;
+								marco.scrollTop = t;
+								marco.scrollLeft = l;
+								lupa.date = d;
+							} 
+						},*/ 
+						stop: function() {
+							var t = parseInt(lupa.style.top.substr(0, lupa.style.top.length-2))/ratio; 
+							var l = parseInt(lupa.style.left.substr(0, lupa.style.left.length-2))/ratio;
+							marco.scrollTop = t;
+							marco.scrollLeft = l;
+						}
+					});
+					$(colapsado).click(function() {
+						$(mapa).slideToggle('slow', function() {
+							escala.style.display = this.style.display;
+						});
+					});
+					$(escala).draggable({
+						containment: 'parent', 
+						axis: 'x',
+						drag: function() {
+							var left = escala.style.left;
+							ancho_mapa = parseInt(left.substr(0, left.length - 2))+39;
+							escalar_$objeto_js(true);
+						},
+						stop: function() {
+							escalar_$objeto_js();
+						}
+					});
+					$(img_mapa).click(function(event) {
+						var x = event.offsetX?event.offsetX:event.layerX;
+						var y = event.offsetY?event.offsetY:event.layerY;
+						var lh = parseInt(lupa.style.height.substr(0, lupa.style.height.length-2)); 
+						var lw = parseInt(lupa.style.width.substr(0, lupa.style.width.length-2));
+						
+						var l = x - (lw/2) - 1; //-1: Hay que tener en cuenta el borde 
+						var t = y - (lh/2) - 1; 
+						if(l < 0) {
+							l = 0;
+						} else if (l + lw + 2 > ancho_mapa) {
+							l = ancho_mapa - lw - 2;
+						}
+						if(t < 0) {
+							t = 0;
+						} else if (t + lh + 2 > alto_mapa) {
+							t = alto_mapa - lh - 2;
+						}
+						lupa.style.top = t+'px';
+						lupa.style.left = l+'px';
+						marco.scrollTop = t/ratio;
+						marco.scrollLeft = l/ratio;
+					});
+				} else { 
+					setTimeout('$(document).ready(document.readyFunc)', 100);
+				}
+			};
+			$(document).ready(document.readyFunc);
+			";
+			echo toba_js::cerrar();
 		}
 	}
 
