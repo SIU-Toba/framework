@@ -120,6 +120,12 @@ class toba_ei_esquema extends toba_ei
 /*			$ratio = ($ancho>$alto)?100/$ancho:100/$alto;
 			$alto_mapa = $alto*$ratio;
 			$ancho_mapa = $ancho*$ratio;*/
+			if(substr($alto, -2) == 'px') {
+				$alto = substr($alto, 0, -2); 
+			}
+			if(substr($ancho, -2) == 'px') {
+				$ancho = substr($ancho, 0, -2); 
+			}
 			switch ($formato) {
 				case 'png':
 				case 'gif':
@@ -179,6 +185,10 @@ class toba_ei_esquema extends toba_ei
 					var ancho_mapa = 200 > marco.clientHeight?marco.clientHeight:200;
 					var ratio;
 					var alto_mapa;
+					if(marco.clientHeight > img_real.clientHeight && marco.clientWidth > img_real.clientWidth) {
+						escala.style.display = 'none';
+						mapa.style.display = 'none';
+					}
 					var escalar_$objeto_js = function(skipImg) {
 						ratio = ancho_mapa/img_real.clientWidth;
 						alto_mapa = img_real.clientHeight*ratio;
