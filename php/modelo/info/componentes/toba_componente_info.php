@@ -155,16 +155,36 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		}
 		//Se intenta acceder a las pantallas/db_registros para pasarle el nuevo punto de montaje
 		if (isset($nuevos_datos['punto_montaje'])) {
+			//Trato de setear el punto de montaje para las pantallas
 			try {
 				$dr->tabla('pantallas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
 			} catch (Exception $e) {
 				
 			}
+			//Trato de setear el punto de montaje para las propiedades basicas
 			try {
 				$dr->tabla('prop_basicas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
 			} catch (Exception $e) {
 				
-			}			
+			}
+			//Trato de setear el punto de montaje para los efs
+			try {
+				$dr->tabla('efs')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+			} catch (Exception $e) {
+				
+			}
+			//Trato de setear el punto de montaje para las columnas del filtro
+			try {
+				$dr->tabla('cols')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+			} catch (Exception $e) {
+				
+			}
+			//Trato de setear el punto de montaje para las columnas externas del datos tabla
+			try {
+				$dr->tabla('externas')->set_columna_valor('punto_montaje', $nuevos_datos['punto_montaje']);
+			} catch (Exception $e) {
+				
+			}
 		}
 		$dr->sincronizar();
 		
