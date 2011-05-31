@@ -287,7 +287,9 @@ class toba_carga_opciones_ef
 	{
 		if (isset($parametros['carga_include']) || isset($parametros['carga_clase'])) {
 			if(!class_exists($parametros['carga_clase']) && isset($parametros['carga_include']) && $parametros['carga_include'] != '') {
-				require_once($parametros['carga_include']);
+				$pm = toba::puntos_montaje()->get_por_id($parametros['punto_montaje']);
+				$path = $pm->get_path_absoluto().'/'.$parametros['carga_include'];
+				require_once($path);
 			}
 			$instanciable = (isset($parametros['instanciable']) && $parametros['instanciable']=='1');
 			if ($instanciable) {
@@ -308,7 +310,7 @@ class toba_carga_opciones_ef
 				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
 			}
 			$dato = call_user_func_array(array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
-			return $dato;
+			//return $dato;
 		}
 	}
 	
