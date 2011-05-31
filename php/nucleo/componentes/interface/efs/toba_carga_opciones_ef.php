@@ -310,7 +310,7 @@ class toba_carga_opciones_ef
 				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
 			}
 			$dato = call_user_func_array(array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
-			//return $dato;
+			return $dato;
 		}
 	}
 	
