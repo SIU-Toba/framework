@@ -25,7 +25,7 @@ class toba_db_postgres7 extends toba_db
 	}
 	
 	/**
-	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos 
+	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
 	 * @param string $schema
 	 */
 	function set_schema($schema)
@@ -210,6 +210,20 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}		
 
+	function existe_lenguaje($lang)
+	{
+		$lang = $this->quote($lang);
+		$sql = "SELECT COUNT(*) FROM pg_language WHERE lanname=$lang";
+		$res = $this->consultar($sql);
+		return $res[0]['count'] > 0;
+	}
+
+	function crear_lenguaje($lang)
+	{
+		$sql = "CREATE LANGUAGE plpgsql";
+		return $this->ejecutar($sql);
+	}
+
     /**
      * Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES >= 8.3
      * @param string $actual el nombre del schema a clonar
@@ -217,6 +231,10 @@ class toba_db_postgres7 extends toba_db
      */
     public function clonar_schema($actual, $nuevo)
     {
+		if (!$this->existe_lenguaje('plpgsql')) {
+			$this->crear_lenguaje('plpgsql');
+		}
+		
 		$sql = "
             CREATE OR REPLACE FUNCTION clone_schema(source_schema text, dest_schema text) RETURNS void AS
             \$BODY$
@@ -248,7 +266,7 @@ class toba_db_postgres7 extends toba_db
 
             END;
             \$BODY$
-            LANGUAGE plpgsql VOLATILE;
+            LANGUAGE plpgsql;
         ";
 		
         $this->ejecutar($sql);

@@ -106,28 +106,28 @@ class comando_proyecto extends comando_toba
 		}
 	}
 
-    /**
-     * Hace personalizable un proyecto, se usa desde la opción crear y personalizable
-     * @param boolean $publicar decide si se presenta el diálogo de publicación o no
-     */
-    protected function hacer_personalizable($publicar = true)
-    {
-        $proyecto = $this->get_proyecto();
-        $pms = $proyecto->get_pms();
-        
-        util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
-        util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
-        $pms->crear_pm_personalizacion();
-        
-        if ($publicar) {
-            $this->consola->separador();
-            $agregar = $this->consola->dialogo_simple("El proyecto ya es personalizable. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
-            if ($agregar) {
-                $proyecto->publicar_pers();
-                $this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
-            }
-        }
-    }
+	/**
+	 * Hace personalizable un proyecto, se usa desde la opción crear y personalizable
+	 * @param boolean $publicar decide si se presenta el diálogo de publicación o no
+	 */
+	protected function hacer_personalizable($publicar = true)
+	{
+		$proyecto = $this->get_proyecto();
+		$pms = $proyecto->get_pms();
+
+		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
+		util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
+		$pms->crear_pm_personalizacion();
+
+		if ($publicar) {
+			$this->consola->separador();
+			$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf para los recursos personalizados?", true);
+			if ($agregar) {
+				$proyecto->publicar_pers();
+				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
+			}
+		}
+	}
 
 	function opcion__actualizar_proyecto()
 	{
@@ -156,7 +156,7 @@ class comando_proyecto extends comando_toba
         $this->hacer_personalizable();
 		$proyecto->generar_autoload($this->consola);
 
-		$mensaje  = "El proyecto ya es personalizable. Ahora debe revincular las clases";
+		$mensaje  = "El proyecto ya es personalizable. Ahora debe revincular las clases con el comando toba proyecto revincular";
 		$this->consola->mensaje($mensaje);
 	}
 
@@ -185,8 +185,47 @@ class comando_proyecto extends comando_toba
 	 */
 	function opcion__autoload()
 	{
+		$params = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-		$proyecto->generar_autoload($this->consola);
+		$extractor = $proyecto->generar_autoload($this->consola, false, true);
+		$clases_repetidas = $extractor->get_clases_repetidas();
+		$pms_no_encontrados = $extractor->get_pms_no_encontrados();
+		
+		if (isset($params['-v'])) {
+			if (count($pms_no_encontrados) > 0) {
+				$this->consola->separador('Puntos de montaje no encontrados');
+			}
+
+			if (count($clases_repetidas) > 0) {
+				foreach ($clases_repetidas as $montaje => $clase) {
+					$this->consola->separador("Clases repetidas de '[$montaje]'");
+
+					foreach ($clase as $key => $paths) {
+						$this->consola->mensaje("\n[$key]");
+						foreach ($paths as $path) {
+							$this->consola->mensaje($path, true);
+						}
+					}
+				}
+			}
+		} else {
+			$hubo_error = false;
+			if (count($pms_no_encontrados) > 0) {
+				$hubo_error = true;
+				$this->consola->mensaje("Hubo puntos de montaje no encontrados.");
+			}
+
+			if (count($clases_repetidas) > 0) {
+				$hubo_error = true;
+				$this->consola->mensaje("Existen clases repetidas.");
+			}
+
+			if ($hubo_error) {
+				$this->consola->mensaje('Ejecute el comando con la opción -v para más información.');
+			} else {
+				$this->consola->mensaje("Se generaron los archivos correctamente");
+			}
+		}
 	}
 
 	/**

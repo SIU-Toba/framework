@@ -67,9 +67,9 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		//-- Valores de la tabla
 		$datos = array();
 		$estilos = array();
-        foreach($filas as $f) {
-            $datos[] = $this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo, $estilos);
-        }
+		foreach($filas as $f) {
+			$datos[] = $this->generar_layout_fila($columnas, $datos_cuadro, $f, $formateo, $estilos);
+		}
 		$titulos = $this->excel_get_titulos();
 
 		//-- Para la tabla simple se sacan los totales como parte de la tabla
@@ -79,10 +79,10 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			$col_totales = array_keys($totales);
 		}
 
-        //-- Genera la tabla
-       $coordenadas = $this->_objeto_toba_salida->tabla($datos, $titulos, $estilos, $col_totales);
-       $nodo['excel_rango'] = $coordenadas;
-       $nodo['excel_rango_hoja'] = $this->_objeto_toba_salida->get_hoja_nombre();
+		//-- Genera la tabla
+		$coordenadas = $this->_objeto_toba_salida->tabla($datos, $titulos, $estilos, $col_totales);
+		$nodo['excel_rango'] = $coordenadas;
+		$nodo['excel_rango_hoja'] = $this->_objeto_toba_salida->get_hoja_nombre();
 	}
 
 	function generar_layout_fila ($columnas, $datos_cuadro, $id_fila, $formateo, &$estilos)
@@ -102,13 +102,13 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 				if(isset($columnas[$clave]["formateo"])) {
 					$funcion = "formato_" . $columnas[$clave]["formateo"];
 					//Formateo el valor
-					list($valor, $estilo) = $formateo->$funcion($valor_real);
+					list($valor, $estilo) = $formateo->$funcion($valor_real);					
 					if (! isset($estilo)) {
 						$estilo = array();
 					}
 				} else {
 					$valor = $valor_real;
-				}
+				}				
 				$estilos[$clave]['estilo'] = $this->excel_get_estilo($columnas[$clave]['estilo']);
 				$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
 				$estilos[$clave]['ancho'] = 'auto';
@@ -127,11 +127,11 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 	protected function excel_get_titulos()
 	{
 		$columnas = $this->_cuadro->get_columnas();
-        $titulos = array();
-        foreach(array_keys($columnas) as $id) {
-        	$titulos[$id] = $columnas[$id]['titulo'];
-        }
-        return $titulos;
+		$titulos = array();
+		foreach(array_keys($columnas) as $id) {
+			$titulos[$id] = $columnas[$id]['titulo'];
+		}
+		return $titulos;
 	}
 
 	/**
@@ -139,7 +139,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 	 * @param string $texto
 	 * @ignore
 	 */
-	protected function excel_mensaje_cuadro_vacio($texto)
+	function excel_mensaje_cuadro_vacio($texto)
 	{
 		$this->_objeto_toba_salida->texto($texto);
 	}
@@ -251,12 +251,12 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		    		$formula = $nodo['acumulador'][$clave];
 		    	}
 				//La columna lleva un formateo?
-                $estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($columnas[$clave]['estilo']));
+				$estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($columnas[$clave]['estilo']));
 				if(isset($columnas[$clave]["formateo"])){
 					$metodo = "formato_" . $columnas[$clave]["formateo"];
 					list($temp, $estilo) = $formateo->$metodo($formula);
 					if (isset($estilo)) {
-	                	$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
+						$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
 					}
 				}
 				$datos[$clave] = $formula;
@@ -429,26 +429,29 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 	 */
 	protected function excel_get_estilo($estilo)
 	{
-    	switch($estilo) {
-    		case 'col-num-p1':
-    		case 'col-num-p2':
-    		case 'col-num-p3':
-    		case 'col-num-p4':
-    			return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT));
-    			break;
-    		case 'col-tex-p1':
-    		case 'col-tex-p2':
-    		case 'col-tex-p3':
-    		case 'col-tex-p4':
-    		    return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
-    			break;
-    		case 'col-cen-s1':
-    		case 'col-cen-s2':
-    		case 'col-cen-s3':
-    		case 'col-cen-s4':
-    		    return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
-    			break;
-    	}
+		switch($estilo) {
+			case 'col-num-p1':
+			case 'col-num-p2':
+			case 'col-num-p3':
+			case 'col-num-p4':
+				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT));
+				break;
+			case 'col-tex-p1':
+			case 'col-tex-p2':
+			case 'col-tex-p3':
+			case 'col-tex-p4':
+				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
+				break;
+			case 'col-cen-s1':
+			case 'col-cen-s2':
+			case 'col-cen-s3':
+			case 'col-cen-s4':
+				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
+				break;
+			default:
+				return array();
+		}
+		return array();
 	}
 }
 ?>

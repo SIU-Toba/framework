@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2010 PHPExcel
+ * Copyright (c) 2006 - 2011 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.3c, 2010-06-01
+ * @version    1.7.6, 2011-02-27
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_CachedObjectStorage_CacheBase {
 
@@ -98,9 +98,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
      *	@throws	Exception
      */
 	public function updateCacheData(PHPExcel_Cell $cell) {
-		$pCoord = $cell->getCoordinate();
-
-		return $this->addCacheData($pCoord,$cell);
+		return $this->addCacheData($cell->getCoordinate(),$cell);
 	}	//	function updateCacheData()
 
 
@@ -116,7 +114,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 			$this->_currentObjectID = $this->_currentObject = null;
 		}
 
-		if (isset($this->_cellCache[$pCoord])) {
+		if (is_object($this->_cellCache[$pCoord])) {
 			$this->_cellCache[$pCoord]->detach();
 			unset($this->_cellCache[$pCoord]);
 		}
@@ -140,14 +138,35 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	 */
 	public function getSortedCellList() {
 		$sortKeys = array();
-		foreach ($this->_cellCache as $coord => $value) {
-			preg_match('/^(\w+)(\d+)$/U',$coord,$matches);
-			list(,$colNum,$rowNum) = $matches;
-			$sortKeys[$coord] =  str_pad($rowNum . str_pad($colNum,3,'@',STR_PAD_LEFT),12,'0',STR_PAD_LEFT);
+		foreach (array_keys($this->_cellCache) as $coord) {
+			list($column,$row) = sscanf($coord,'%[A-Z]%d');
+			$sortKeys[sprintf('%09d%3s',$row,$column)] = $coord;
 		}
-		asort($sortKeys);
+		ksort($sortKeys);
 
-		return array_keys($sortKeys);
+		return array_values($sortKeys);
 	}	//	function sortCellList()
+
+
+	protected function _getUniqueID() {
+		if (function_exists('posix_getpid')) {
+			$baseUnique = posix_getpid();
+		} else {
+			$baseUnique = mt_rand();
+		}
+		return uniqid($baseUnique,true);
+	}
+
+	/**
+	 *	Clone the cell collection
+	 *
+	 *	@return	void
+	 */
+	public function copyCellCollection(PHPExcel_Worksheet $parent) {
+		$this->_parent = $parent;
+		if ((!is_null($this->_currentObject)) && (is_object($this->_currentObject))) {
+			$this->_currentObject->attach($parent);
+		}
+	}	//	function copyCellCollection()
 
 }

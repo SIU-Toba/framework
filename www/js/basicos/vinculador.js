@@ -177,8 +177,15 @@ vinculador = new function() {
 	vinculador.agregar_vinculo = function(identificador, datos) {
 		this._vinculos[ identificador ] = datos;
 	};
-	
-	/** 
+
+        /**
+         * Limpia los parametros de un vinculo
+         */
+	vinculador.limpiar_parametros = function(id_vinculo) {
+                this._vinculos[id_vinculo].parametros = [];
+	};
+
+        /**
 	 * Limpia los vinculos existentes
 	 */
 	vinculador.limpiar_vinculos = function() {

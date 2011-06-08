@@ -874,7 +874,7 @@ class toba_ci extends toba_ei
 		foreach ($this->get_dependencias() as $dep) 
 		{
 			if(method_exists($dep, 'vista_xml')) {
-				$xml .= $dep->vista_xml(false,$xmlns);
+				$xml .= $dep->vista_xml($xmlns);
 			}
 		}
 

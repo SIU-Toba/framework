@@ -114,7 +114,6 @@
 				<fo:page-sequence master-reference="report" force-page-count="no-force" initial-page-number="1">
 				<xsl:attribute name="id">rps<xsl:value-of select="$loop"/></xsl:attribute>
 				<xsl:if test="not(child::*[position()=1]/@pie) or child::*[position()=1]/@pie != 'false'">
-				<xsl:if test="not(child::*[position()=1]/@pie) or child::*[position()=1]/@pie != 'false'">
 				<fo:static-content flow-name="xsl-region-after">
 				<fo:block border-before-width="thin" border-before-style="solid">
 					<xsl:choose>

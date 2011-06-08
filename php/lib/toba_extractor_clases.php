@@ -27,33 +27,34 @@ class toba_extractor_clases
 	protected $registro;
 	protected $clases_repetidas;
 
-	/**
-	 * @var consola
-	 */
-	protected $consola;
+	protected $pms_no_encontrados;
 
-	function  __construct($consola, $puntos_montaje)
+	function  __construct($puntos_montaje)
 	{
-		$this->consola = $consola;
+		$this->pms_no_encontrados = array();
 		$this->puntos_montaje = $puntos_montaje;
 		$this->extends_excluidos = array();
 	}
 
 	/**
-	 * @ignore
+	 * Devuelve un arreglo de los puntos de montaje que no fueron encontrados
+	 * mientras se construía el archivo de autoload
+	 * @return array un arreglo con los paths de los puntos de montaje no
+	 * encontrados
 	 */
-	function comparar()
+	function get_pms_no_encontrados()
 	{
-		$toba = toba_nucleo::get_indice_archivos();
-		$toba_keys = array_keys($toba);
-		$aca_keys = array_keys(toba_autoload::$clases);
-		$toba_no_aca = 0;
-		foreach($toba_keys as $clase) {
-			if (!in_array($clase, $aca_keys)) {
-				echo "$clase:" .$toba[$clase]."\n";
-				$toba_no_aca++;
-			}
-		}
+		return $this->pms_no_encontrados;
+	}
+
+	/**
+	 * Devuelve un arreglo ordenado por punto de montaje que contiene las clases
+	 * repetidas que se encontraron para cada pm
+	 * @return array
+	 */
+	function get_clases_repetidas()
+	{
+		return $this->clases_repetidas;
 	}
 
 	/**
@@ -67,13 +68,13 @@ class toba_extractor_clases
 
     function generar()
 	{
+		$this->init_registro();
 		foreach ($this->puntos_montaje as $path => $data) {
 			if (!is_dir($path)) {
-				$this->consola->mensaje("\n[WARNING] El punto de montaje $path no se encuentra, por lo tanto los archivos de este punto de montaje no serán cargados");
+				$this->pms_no_encontrados[] = $path;
 				continue;	// simplemente se ignora
 			}
 
-			$this->init_registro();
 			
 			$dirs_excluidos = (isset($data['dirs_excluidos'])) ? $data['dirs_excluidos'] : array();
 			$archivos  = $this->obtener_archivos($path, $dirs_excluidos);
@@ -87,13 +88,13 @@ class toba_extractor_clases
 	
     function generar_vacio()
 	{
+		$this->init_registro();
 		foreach ($this->puntos_montaje as $path => $data) {
 			if (!is_dir($path)) {
-				$this->consola->mensaje("\n[WARNING] El punto de montaje $path no se encuentra, por lo tanto los archivos de este punto de montaje no serán cargados");
+				$this->pms_no_encontrados[] = $path;
 				continue;	// simplemente se ignora
 			}
 
-			$this->init_registro();
 			$this->generar_archivo($path.'/'.$data['archivo_salida'], '', $path);
 		}
 	}	
@@ -186,17 +187,14 @@ class toba_extractor_clases
 		$metodo_cargador = "\tstatic function cargar(\$nombre)\n\t{\n\t\tif (self::existe_clase(\$nombre)) { require_once(dirname(__FILE__) .'/'. self::\$clases[\$nombre]); }\n\t}\n";
 		$clase = sprintf("<?php\n%s\nclass %s \n{\n%s\n%s\n%s\n}\n?>", $comentario, $nombre_clase, $metodo_consultor, $metodo_cargador, $arreglo);
 
-//		if (file_exists($path)) {	// Hacemos un backup por las dudas que se rompa
-//			file_put_contents($path.'.bak', file_get_contents($path));
-//		}
 		file_put_contents($path, $clase);
-		$this->mostrar_clases_repetidas();
 	}
 
 	protected function mostrar_clases_repetidas()
 	{
 		foreach ($this->clases_repetidas as $montaje => $clase) {
-			$this->consola->mensaje("\n[$montaje] Existen clases repetidas, la única que se cargará en el autoload será la última de cada lista", true);
+			$this->mensajes[] = "\n[$montaje] Existen clases repetidas, la única
+					que se cargará en el autoload será la última de cada lista";
 			foreach ($clase as $key => $paths) {
 				$this->consola->mensaje("\n[$key]");
 				foreach ($paths as $path) {

@@ -13,6 +13,7 @@ abstract class toba_registro {
 	// Las columnas del registro
 	protected $columnas = array();
 
+    protected $conversion_auto_latin1 = true;
 	/**
 	 * La bd donde se tiene que guardar el registro
 	 * @var toba_db_postgres7
@@ -23,7 +24,19 @@ abstract class toba_registro {
 	{
 		$this->db = $db;
 		$this->set_tabla($nombre_tabla);
+        $this->conversion_auto_latin1 = function_exists('mb_detect_encoding');
 	}
+
+    /**
+     * Si es verdadero todos los strings que se pasen como parametro $valor a
+     * add_columna van a ser convertidos automáticamente a latin1 si están en
+     * utf8
+     * @param <type> $param
+     */
+    function set_conversion_auto_latin1($param)
+    {
+        $this->conversion_auto_latin1 = $param;
+    }
 
 	/**
 	 * Graba el registro en la base
@@ -39,6 +52,10 @@ abstract class toba_registro {
 		if (empty($columna)) {
 			throw  new toba_error('REGISTRO: No se puede agregar una columna cuyo nombre es vacío');
 		}
+        if ($this->conversion_auto_latin1) {
+            $valor = utf8_d_seguro($valor);
+        }
+        
 		$this->columnas[$columna]['valor'] = $valor;
 	}
 

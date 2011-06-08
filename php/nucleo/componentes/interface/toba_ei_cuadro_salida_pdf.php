@@ -167,7 +167,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 	 * @param string $texto
 	 * @ignore
 	 */
-	protected function pdf_mensaje_cuadro_vacio($texto)
+	function pdf_mensaje_cuadro_vacio($texto)
 	{
 		$this->_objeto_toba_salida->texto($texto);
 	}

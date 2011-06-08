@@ -40,7 +40,7 @@ abstract class toba_tarea_pers {
 	 */
 	protected function cargar_componente()
 	{
-		$contenido = file_get_contents($this->item_plan->get_path());
+		$contenido = file_get_contents($this->item_plan->get_path_absoluto());
 		$this->raw_data = simplexml_load_string($contenido, 'SimpleXMLIterator');
 	}
 

@@ -32,6 +32,14 @@ class toba_nucleo
 		return self::$instancia;
 	}
 
+	static function get_indice_archivos()
+	{
+		// Dado que esta función se usa en el entorno del instalador no se puede
+		// registrar el autoload del núcleo xq resulta en comportamiento extraño
+		require_once(self::toba_dir().'/php/toba_autoload.php');
+		return toba_autoload::$clases;
+	}
+
 	private function __construct()
 	{
 		$this->cargar_includes_basicos();
@@ -258,6 +266,11 @@ class toba_nucleo
 			$punto_pers = toba::puntos_montaje()->get(toba_modelo_pms::pm_pers);
 			$punto_pers->registrar_autoload();
 		}
+	}
+
+	protected function get_archivos_autoload()
+	{
+		return toba_autoload::$clases;
 	}
 
 	protected function finalizar_contexto_ejecucion()

@@ -1221,9 +1221,9 @@ abstract class toba_ei extends toba_componente
 	 */
 	function xml_set_ns($xmlns, $url='', $usar=true)
 	{
-		if ($xmlns=='') {
+		if ($xmlns=='' || $xmlns==null) {
 			$this->xml_ns = '';
-			$this->xml_ns_url = '';
+			$this->xml_ns_url = ($url!='')?' xmlns="'.$url.'"':'';
 		} else {
 			$this->xml_ns = ($usar)?$xmlns.':':'';
 			$this->xml_ns_url= ($url!='')?' xmlns:'.$xmlns.'="'.$url.'"':'';

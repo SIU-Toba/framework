@@ -162,7 +162,7 @@ class toba_manejador_archivos
 			return $archivos;
 		}
 
-		while($archivo = $d->read()) {
+		while(false !== ($archivo = $d->read())) {
 			if (  $archivo != ".svn" && $archivo != "." && $archivo != "..") {
 				$path = $directorio.'/'.$archivo;
 				if ( is_dir( $path ) ) {

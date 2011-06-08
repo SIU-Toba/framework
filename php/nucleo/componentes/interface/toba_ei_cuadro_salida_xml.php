@@ -150,7 +150,7 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 	 * @param string $texto
 	 * @ignore
 	 */
-	protected function xml_mensaje_cuadro_vacio($texto)
+	function xml_mensaje_cuadro_vacio($texto)
 	{
 		$this->_objeto_toba_salida .= '<'.$this->xml_ns.'texto valor="'.$texto.'"/>';
 	}

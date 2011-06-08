@@ -327,7 +327,7 @@ class comando_nucleo extends comando_toba
 //	 			'extends_excluidos' => array() <-- opcional. Las clases que extienden de las clases enumeradas acá no serán incluidas
 	 		)
 		);
-		$extractor = new toba_extractor_clases($this->consola, $param);
+		$extractor = new toba_extractor_clases($param);
 		$extractor->generar();
 //		$extractor->comparar();
 	}

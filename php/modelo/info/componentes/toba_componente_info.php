@@ -414,12 +414,17 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	{
 		$nombre = $this->get_subclase_nombre();
 		if ($nombre == '') {
-			$nombre = $this->get_clase_nombre();
+			$nombre = $this->get_clase_extendida_nombre();
 		}
 		return $nombre;
 	}
 	
 	function get_clase_nombre()
+	{
+		return  str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);	// Se deja esta línea para que conserve el mismo comportamiento
+	}
+	
+	function get_clase_extendida_nombre()
 	{
 		$id_proyecto = toba_contexto_info::get_proyecto();
 		$id_instancia = toba::instancia()->get_id();
@@ -432,9 +437,8 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		} else {
 			$replacement = 'toba_';
 		}
-		
 		$aux = str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);	// Se deja esta línea para que conserve el mismo comportamiento
-		return str_replace('toba_', $replacement, $aux);
+		return str_replace('toba_', $replacement, $aux);		
 	}
 
 	function get_clase_archivo()
@@ -459,7 +463,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 
 	function get_molde_vacio()
 	{
-		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
+		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_extendida_nombre() );
 		//-- Ini 
 		$doc = 'Se ejecuta al inicio de todos los request en donde participa el componente';
 		$metodo = new toba_codigo_metodo_php('ini', array(), array($doc));

@@ -11,6 +11,12 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	
 	function ini()
 	{
+		//Averiguo cual es el punto de montaje /php
+		$db = toba_contexto_info::get_db(); 
+		$datos = $this->datos->tabla('base')->get_clave_valor(0);		
+		$sql = 'SELECT pm_contexto FROM apex_proyecto WHERE proyecto = '.$db->quote($datos['proyecto']);
+		$rs = $db->consultar_fila($sql);
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'punto_montaje', $rs['pm_contexto']);						
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'clase',$this->clase);
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'clase_proyecto',$this->clase_proyecto);
 		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();		

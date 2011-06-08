@@ -307,8 +307,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
@@ -343,11 +343,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000257', --popup_item
 	'toba_editor', --popup_proyecto
 	'1', --popup_editable
-	'width: 400,height: 400,scroll: yes', --popup_ventana
+	'width: 400,height: 400,scrollbars: yes', --popup_ventana
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
+	'0', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si
 	NULL, --check_valor_no

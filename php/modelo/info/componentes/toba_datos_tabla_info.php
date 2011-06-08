@@ -43,6 +43,9 @@ class toba_datos_tabla_info extends toba_componente_info
 		if (isset($nuevos_datos['fuente_datos']) && $nuevos_datos['fuente_datos'] != $this->datos['_info']['fuente']) {
 			$distinto = true;
 		}
+		if (isset($nuevos_datos['punto_montaje']) && $nuevos_datos['punto_montaje'] != $this->datos['_info']['punto_montaje']) {
+			$distinto = true;
+		}
 		if ($distinto) {
 			return parent::clonar($nuevos_datos, $dir_subclases, $con_transaccion);
 		} else {

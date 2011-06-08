@@ -341,6 +341,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 			if (! empty($clave_dt)) {
 					$evento->sobre_fila();
 			}
+			$evento->en_botonera(false);
 			$evento->set_imagen('borrar.gif');
 			$evento->set_confirmacion($this->confirmacion_eliminar);
 			$metodo = new toba_codigo_metodo_php('evt__cuadro__eliminar',array('$datos'));
@@ -359,6 +360,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		if (! empty($clave_dt)) {
 					$evento->sobre_fila();
 		}
+		$evento->en_botonera(false);
 		$evento->set_imagen('doc.gif');
 		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
 		$php = array("\$this->dep('datos')->cargar(\$datos);");

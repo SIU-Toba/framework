@@ -19,27 +19,28 @@ class toba_datos_relacion extends toba_componente
 	protected $_relaciones_mapeos_eliminados=array();//Mapeo entre filas eliminadas en el hijo
 	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
 	protected $_info_columnas_asoc_rel;
+	protected $_tablas_inactivas = array();
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	final function __construct($id)
 	{
 		$propiedades[] = "_relaciones_mapeos_eliminados";
 		$propiedades[] = "_relaciones_mapeos";
 		$propiedades[] = "_cargado";
-		$this->set_propiedades_sesion($propiedades);			
+		$this->set_propiedades_sesion($propiedades);
 		parent::__construct($id);
 		$this->crear_tablas();
 	}
 	
 	/**
 	 * Método interno para iniciar el componente una vez construido
-	 * @ignore 
+	 * @ignore
 	 */
 	function inicializar($parametros=array())
 	{
-		parent::inicializar($parametros);	
+		parent::inicializar($parametros);
 		$this->crear_relaciones();
 		if ($this->_info_estructura['debug']) {
 			$this->dump_esquema("INICIO: ".$this->_info['nombre']);	
@@ -129,6 +130,18 @@ class toba_datos_relacion extends toba_componente
 			//No hay relaciones
 			$this->_relaciones = array();
 			$this->_tablas_raiz = array_keys($this->_dependencias);
+		}
+	}
+
+	/**
+	 * Deshabilita la tabla o las tablas recibidas para la carga y la sincronización
+	 */
+	function desactivar_tablas($tablas)
+	{
+		if (is_array($tablas)) {
+			$this->_tablas_inactivas = $tablas;
+		} else {
+			$this->_tablas_inactivas = array($tablas);
 		}
 	}
 
@@ -254,7 +267,9 @@ class toba_datos_relacion extends toba_componente
 		if ($this->_info_estructura['sinc_orden_automatico']) {
 			//-- Se construye el orden topológico
 			$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
-			$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
+			$deps = $this->get_tablas_activas();
+			$rel = $this->get_relaciones_activas();
+			$grafo = self::grafo_relaciones($deps, $rel);
 			$parciales = $sorter->sort($grafo);
 			$ordenes = array();
 			for ($i =0; $i<count($parciales) ; $i++) {
@@ -269,7 +284,7 @@ class toba_datos_relacion extends toba_componente
 			return $tablas;
 		} else {
 			//-- Se toma el orden natural en el cual se definieron las tablas
-			return $this->_dependencias;
+			return $this->get_tablas_activas();
 		}
 	}
 
@@ -339,7 +354,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Retorna las tablas de una relacion
+	 * Retorna las tablas de una relación
 	 * @return array de toba_datos_tabla
 	 */
 	function get_tablas()
@@ -347,6 +362,43 @@ class toba_datos_relacion extends toba_componente
 		return $this->_dependencias;
 	}
 
+	/**
+	 * Retorna las tablas que están habilitadas para la carga y la sincronización
+	 * @return array de toba_datos_tabla
+	 */
+	function get_tablas_activas()
+	{
+		if (empty($this->_tablas_inactivas)) {
+			return $this->_info_dependencias;
+		} else {
+			$tablas_activas = array();
+			foreach ($this->_info_dependencias as $indx => $dep) {
+				if (! in_array($dep['identificador'], $this->_tablas_inactivas)) {
+					$tablas_activas[] = $dep;
+				}
+			}
+			return $tablas_activas;
+		}
+	}
+
+		/**
+	 * Retorna relaciones de las tablas que están habilitadas para la carga y la sincronización
+	 * @return array de toba_datos_tabla
+	 */
+	function get_relaciones_activas()
+	{
+		if (empty($this->_tablas_inactivas)) {
+			return $this->_info_relaciones;
+		} else {
+			$relaciones_activas = array();
+			foreach ($this->_info_relaciones as $indx => $rel) {
+				if (! in_array($rel['padre_id'], $this->_tablas_inactivas) && ! in_array($rel['hijo_id'], $this->_tablas_inactivas)) {
+					$relaciones_activas[] = $rel;
+				}
+			}
+			return $relaciones_activas;
+		}
+	}
 
 	/**
 	 * Determina si una tabla es parte de la relación

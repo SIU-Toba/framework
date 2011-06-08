@@ -117,10 +117,10 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	ei_cuadro.prototype.seleccionar_fila_multiple = function(input, fila)
 	{
 		if (input.checked) {
-				agregar_clase_css(fila, 'ei-cuadro-fila-sel');
-			} else {
-				quitar_clase_css(fila, 'ei-cuadro-fila-sel');
-			}
+			agregar_clase_css(fila, 'ei-cuadro-fila-sel');
+		} else {
+			quitar_clase_css(fila, 'ei-cuadro-fila-sel');
+		}
 	}
 
 	ei_cuadro.prototype.seleccionar_fila = function(input, fila)
@@ -132,6 +132,43 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		agregar_clase_css(fila, 'ei-cuadro-fila-sel');
 	}
 
+	ei_cuadro.prototype.invertir_seleccionados = function(id_evento)
+	{
+		if (! in_array(id_evento, this._ids_eventos_multiple)) {
+			return false;
+		}
+		
+		for (i in this._filas) {
+			this.seleccionar(this._filas[i], id_evento);
+		}
+	};
+	
+	ei_cuadro.prototype.seleccionar_todos = function(id_evento)
+	{
+		if (! in_array(id_evento, this._ids_eventos_multiple)) {
+			return false;
+		}
+		
+		for (i in this._filas) {
+			var check = $$(this._input_submit + this._filas[i] + '_' + id_evento);
+			if (check && !check.checked) {
+				this.seleccionar(this._filas[i], id_evento);
+			}
+		}
+	};
+	ei_cuadro.prototype.deseleccionar_todos = function(id_evento)
+	{
+		if (! in_array(id_evento, this._ids_eventos_multiple)) {
+			return false;
+		}
+		
+		for (i in this._filas) {
+			var check = $$(this._input_submit + this._filas[i] + '_' + id_evento);
+			if (check && check.checked) {
+				this.seleccionar(this._filas[i], id_evento);
+			}
+		}
+	};
 	//------------------------------------------------------------------------------------------------------------------
 	//							FUNCIONES PARA EL SELECTOR DE ORDENAMIENTO MULTIPLE
 	//------------------------------------------------------------------------------------------------------------------

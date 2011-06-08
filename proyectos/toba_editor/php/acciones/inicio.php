@@ -87,7 +87,7 @@ $url_login = $url_trac.'/trac/toba/login';
 			controlar_usuario();
 		}
 		$version = toba_modelo_instalacion::get_version_actual();
-		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
+		$cambios = "$url_trac/trac/toba/wiki/Versiones/".($version->get_release('.').'.0');
 		echo "<div class='logo-inicio'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "<br><br>Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";

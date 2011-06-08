@@ -227,7 +227,7 @@ class toba_perfil_datos
 	/**
 	*	Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual
 	*/
-	function filtrar($sql, $fuente_datos=null,$dimensiones_desactivar = null)
+	function filtrar($sql, $fuente_datos=null)
 	{
 		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
 		if ($this->posee_restricciones($fuente_datos)) {
@@ -241,14 +241,14 @@ class toba_perfil_datos
 					$id_operador++;
 				}
 			} else {
-				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar);
+				$sql = $this->filtrar_sql($sql, $fuente_datos);
 			}
 		}
 		toba::logger()->debug('SQL con perfil de datos: ' .$sql);
 		return $sql;
 	}
 	
-	function filtrar_sql($sql, $fuente_datos=null,$dimensiones_desactivar = null)
+	function filtrar_sql($sql, $fuente_datos=null)
 	{
 		$where = array();
 		$sql = $this->quitar_comentarios_sql($sql);
@@ -258,17 +258,16 @@ class toba_perfil_datos
 		$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
 		//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
 		foreach( $dimensiones_implicadas as $dimension => $tabla ) {
-			if(isset($dimensiones_desactivar) && in_array($dimension,$dimensiones_desactivar)) continue;
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
 		}
 		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 4 -- Altero el SQL
 		if(! empty($where)) {
-			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');
+			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
 		}
 		return $sql;
-	}
+	}	
 	
 	/**
 	*	Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una

@@ -1662,7 +1662,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Autoload
 	//-----------------------------------------------------------
 
-	function generar_autoload(consola $consola, $generar_vacio=false)
+	/**
+	 * Genera el archivo de autoload de un proyecto
+	 * @param consola $consola la consola desde que se invocó el comando
+	 * @param boolean $generar_vacio si se desea generar el archivo vacío
+	 * @param boolean $ret_obj_autoload si se retorna el obj de autoload
+	 */
+	function generar_autoload(consola $consola, $generar_vacio=false, $ret_obj_autoload = false)
 	{
 		$montaje_proyecto = $this->get_dir().'/php';
 		$id_proyecto = $this->get_id();
@@ -1689,14 +1695,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		// Union de los 2 arreglos
 //		$clases = array_unique(array_merge($this->get_clases_extendidas(), self::get_clases_excluidas_autoload()));
 //		$clases[] = 'ci_editores_toba';
-		$extractor = new toba_extractor_clases($consola, $param);
+		$extractor = new toba_extractor_clases($param);
 //		$extractor->set_extends_excluidos($clases);
 		if (! $generar_vacio) {
 			$extractor->generar();
 		} else {
 			$extractor->generar_vacio();
 		}
-		
+
+		if ($ret_obj_autoload) {
+			return $extractor;
+		}
 	}
 
 	//-----------------------------------------------------------
@@ -2628,6 +2637,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//fue la ultima revision que cargo en la base,util para el revert
 		$svn = new toba_svn();
 		if ($svn->hay_cliente_svn()) {
+			$max_rev = 0;
 			$revisiones = $svn->get_revisiones_dir_recursivos($this->get_dir_dump());
 			$max_rev = 0;
 			if (! empty($revisiones)) {
@@ -2639,9 +2649,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 						$max_rev = intval($revision['revision']);
 					}
 				}
-				$this->manejador_interface->progreso_avanzar();		
-				$this->instancia->set_revision_proyecto($this->identificador, $max_rev);
 			}
+			$this->manejador_interface->progreso_avanzar();		
+			$this->instancia->set_revision_proyecto($this->identificador, $max_rev);
 		}
 		$this->manejador_interface->progreso_fin();
 	}

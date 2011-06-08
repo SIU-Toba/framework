@@ -24,11 +24,12 @@ class toba_vista_jasperreports
 
 	protected function cargar_jasper()
 	{
+		throw new toba_error('Aun estamos desarrollando esta funcionalidad.... puede que nos falte algo');
 		define ("JAVA_HOSTS", "127.0.0.1:8081");
-        //Incluimos la libreria JavaBridge
-        require_once("3ros/JavaBridge/java/Java.inc");
+		//Incluimos la libreria JavaBridge
+		require_once("3ros/JavaBridge/java/Java.inc");
 
-        //Creamos una variable que va a contener todas las librerías java presentes
+	        //Creamos una variable que va a contener todas las librerías java presentes
 		$path_libs = toba_dir().'/php/3ros/JasperReports';
 		$handle = opendir($path_libs);
 		$classpath = "";
@@ -39,14 +40,14 @@ class toba_vista_jasperreports
 			//Añadimos las librerías
 			java_require($classpath);
             
-            //Creamos el objeto JasperReport que permite obtener el reporte
+			//Creamos el objeto JasperReport que permite obtener el reporte
 			$this->jasper = new JavaClass("net.sf.jasperreports.engine.JasperFillManager");
  
-        } catch (JavaException $ex){
-			$trace = new Java("java.io.ByteArrayOutputStream");
-			$ex->printStackTrace(new Java("java.io.PrintStream", $trace));
-            print "java stack trace: $trace\n";
-        }		
+			} catch (JavaException $ex){
+				$trace = new Java("java.io.ByteArrayOutputStream");
+				$ex->printStackTrace(new Java("java.io.PrintStream", $trace));
+				print "java stack trace: $trace\n";
+			}		
 	}
 	
 	//------------------------------------------------------------------------

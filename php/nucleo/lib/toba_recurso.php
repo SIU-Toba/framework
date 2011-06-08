@@ -101,17 +101,17 @@ class toba_recurso
 	 */
 	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
 	{
-        if (toba::proyecto()->es_personalizable()) {
-            $www = toba::proyecto()->get_www_pers("img/".$imagen);
-            if (file_exists($www['path'])) {
-                $src = $www['url'];
-            } else { // el proy es personalizable pero no está definida esta imagen en particular
-                $src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
-            }
-        } else {
-            $src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
-        }
-        
+		if (toba::proyecto()->es_personalizable()) {
+			$www = toba::proyecto()->get_www_pers("img/".$imagen);
+			if (file_exists($www['path'])) {
+				$src = $www['url'];
+			} else { // el proy es personalizable pero no está definida esta imagen en particular
+				$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+			}
+		} else {
+			$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+		}
+
 		if ($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
 		}else{

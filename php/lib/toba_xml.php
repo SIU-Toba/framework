@@ -11,7 +11,7 @@ class toba_xml {
 	{
 		$this->xml = new XMLWriter();
 		$this->xml->openUri($path);
-		$this->xml->startDocument('1.0');
+		$this->xml->startDocument('1.0', 'ISO-8859-1');
 		$this->xml->setIndent(true);
 		$this->xml->setIndentString(self::indent_string);
 	}
@@ -26,16 +26,28 @@ class toba_xml {
 		$this->xml->endElement();
 	}
 
-	function add_atributo($nombre, $valor)
+    /**
+     *
+     * @param <type> $nombre
+     * @param <type> $valor un string
+     * @param boolean si desea convertir el valor automaticamente de latin1 a utf8
+     */
+	function add_atributo($nombre, $valor, $conv_utf8 = false)
 	{
-		$this->xml->startAttribute($nombre);
-		$this->xml->text($valor);
-		$this->xml->endAttribute();
+        $this->xml->startAttribute($nombre);
+
+        if ($conv_utf8) {
+            $this->xml->text(utf8_e_seguro($valor));
+        } else {
+            $this->xml->text($valor);
+        }
+        $this->xml->endAttribute();
 	}
 
 	function cerrar_documento()
 	{
-		$this->xml->endDocument();
+       $this->xml->endDocument();
+       $this->xml->flush();
 	}
 }
 ?>

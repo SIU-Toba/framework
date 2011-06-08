@@ -53,6 +53,8 @@ class toba_personalizacion {
 	protected $consola;
 
 	protected static $registro_conflictos;
+	protected static $instancia;
+
 
 	/**
 	 * @return toba_registro_conflictos

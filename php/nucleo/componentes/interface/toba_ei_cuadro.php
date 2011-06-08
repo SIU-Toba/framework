@@ -98,8 +98,8 @@ class toba_ei_cuadro extends toba_ei
 		if (isset($this->_memoria['ordenado'])) {
 			$this->_ordenado = $this->_memoria['ordenado'];
 		}
-		$this->inspeccionar_sumarizaciones_usuario();
-	}
+			$this->inspeccionar_sumarizaciones_usuario();
+		}
 
 
 	function destruir()
@@ -1318,8 +1318,8 @@ class toba_ei_cuadro extends toba_ei
 				break;
 		}
 	}
-
-
+	
+ 
 	//################################################################################
 	//#################################    ORDEN    ##################################
 	//################################################################################

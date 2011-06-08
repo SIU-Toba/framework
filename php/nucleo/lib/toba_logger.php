@@ -6,6 +6,9 @@ define('TOBA_LOG_NOTICE',   5);     /** Normal but significant */
 define('TOBA_LOG_INFO',     6);     /** Informational */
 define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 
+if (! defined('E_DEPRECATED')) {		//Fix para PHP 5.2.x o anteriores
+	define('E_DEPRECATED', 8192);
+}
 /**
  * Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis
  * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
@@ -48,6 +51,7 @@ class toba_logger
 	const separador = "-o-o-o-o-o-";
 	const fin_encabezado = "==========";
 	const limite_mensaje = 100000; //100 KB
+	static private $errores_manejables = array(E_WARNING, E_NOTICE, E_DEPRECATED);
 	static private $instancia;
 	private $ref_niveles;
 	private $proyecto_actual;
@@ -100,8 +104,16 @@ class toba_logger
 		}
 		return self::$instancia[$proyecto];	
 	}
-	
-	
+
+	static function manejador_errores_recuperables($error_nro, $error_string, $error_archivo = '', $error_linea = 0)
+	{
+		$instancia  = self::instancia();
+		$instancia->error("Se produjo una salida inesperada: \n ($error_nro) $error_string \n En el archivo $error_archivo ($error_linea)");
+		if (! in_array($error_nro, self::$errores_manejables)) {
+			return false;						// Que lo trate el manejador de errores de PHP ya que no es uno de los que dejan texto nomas.
+		}
+	}
+
 	function get_proyecto_actual()
 	{
 		if (class_exists('toba_proyecto')) {

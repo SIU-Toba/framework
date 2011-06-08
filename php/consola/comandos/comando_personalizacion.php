@@ -25,11 +25,11 @@ class comando_personalizacion extends comando_toba
      */
     function opcion__comenzar()
     {
-		$this->consola->titulo('Preparando personalizacion');
+		$this->consola->mensaje('Preparando personalización. Este proceso puede tardar varios minutos...');
         $p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
         $pers->iniciar();
-        $this->consola->titulo('Personalizacion preparada');
+		$this->consola->mensaje('Personalización preparada');
     }
 
     /**
@@ -37,11 +37,11 @@ class comando_personalizacion extends comando_toba
      */
     function opcion__exportar()
     {
-        $this->consola->titulo('Exportando la personalizacion');
+        $this->consola->mensaje('Exportando la personalizacion. Este proceso puede llevar varios minutos...');
         $p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
         $pers->exportar();
-        $this->consola->titulo('Exportacion terminada');
+        $this->consola->mensaje('Exportacion terminada.');
     }
 
 	/**
@@ -60,11 +60,11 @@ class comando_personalizacion extends comando_toba
      */
     function opcion__importar()
     {
-        $this->consola->titulo('Aplicando la personalizacion');
+        $this->consola->mensaje('Importando la personalizacion...');
         $p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
         $pers->aplicar();
-        $this->consola->titulo('Aplicacion terminada');
+        $this->consola->mensaje('Importación terminada');
     }
 }
 ?>

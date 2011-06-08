@@ -1,7 +1,7 @@
 body {
 	margin: 0px 0px 0px 0px;
 	font-size: 10px;
-	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 #menu-h, .enc-salir, .enc-usuario {
 	display: none;

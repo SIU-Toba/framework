@@ -21,7 +21,7 @@
   float: left;
   margin: 4px;
   border: 1px solid #7aa5d6;
-}
+ }
 
 .gadgets-gadget {
   border: none;
@@ -58,6 +58,7 @@
 
 .gadgets-gadget-content {
   padding: 4px;
+  background-image:url(fondo.png);
 }
 
 .gadgets-log-entry {

@@ -7,79 +7,78 @@
  */
 class toba_ef_checkbox extends toba_ef
 {
-    protected $valor;
-    protected $valor_no_seteado;
-    protected $valor_info = 'Sí';
-    protected $valor_info_no_seteado = 'No';
-    protected $clase_css = 'ef-checkbox';
+	protected $valor;
+	protected $valor_no_seteado;
+	protected $valor_info = 'Sí';
+	protected $valor_info_no_seteado = 'No';
+	protected $clase_css = 'ef-checkbox';
     
-    static function get_lista_parametros()
-    {
-    	return array(
-    					'check_valor_si',
-    					'check_valor_no',
-    					'check_desc_si',
-    					'check_desc_no',
-    					'check_ml_toggle'
-    	);
-    }
- 
-    
-    function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
-    {
+	static function get_lista_parametros()
+	{
+		return array(
+						'check_valor_si',
+						'check_valor_no',
+						'check_desc_si',
+						'check_desc_no',
+						'check_ml_toggle'
+		);
+	}
+
+
+	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+	{
 		//VAlor FIJO
 		if(isset($parametros['estado_defecto'])){
 			$this->estado_defecto = $parametros['estado_defecto'];		
 			$this->estado = $this->estado_defecto;
 		}
 		if (isset($parametros['check_valor_si'])){
-		    $this->valor = $parametros['check_valor_si'];
+			$this->valor = $parametros['check_valor_si'];
 		} else {
 			$this->valor = '1';
 		}
 		if (isset($parametros['check_valor_no'])){
-		    $this->valor_no_seteado = $parametros['check_valor_no'];
+			$this->valor_no_seteado = $parametros['check_valor_no'];
 		} else {
 			$this->valor_no_seteado = '0';	
 		}	
 		if (isset($parametros["check_desc_si"])){
-		    $this->valor_info = $parametros["check_desc_si"];
+			$this->valor_info = $parametros["check_desc_si"];
 		}
 		if (isset($parametros["check_desc_no"])){
-		    $this->valor_info_no_seteado = $parametros["check_desc_no"];
+			$this->valor_info_no_seteado = $parametros["check_desc_no"];
 		}		
 		if (isset($parametros["check_ml_toggle"])){
-		    $this->check_ml_toggle = $parametros["check_ml_toggle"];
+			$this->check_ml_toggle = $parametros["check_ml_toggle"];
 		}			
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
-    }
+	}
     
 	function get_input()
-    {
-    	//Esto es para eliminar un notice en php 5.0.4
-    	if (!isset($this->estado)) {
-    		$this->estado = null;
+	{
+		//Esto es para eliminar un notice en php 5.0.4
+		if (!isset($this->estado)) {
+			$this->estado = null;
 		}
-         if ($this->es_solo_lectura()) {
-            $html_devuelto = toba_form::hidden($this->id_form, $this->seleccionado() ? $this->valor : $this->valor_no_seteado);
-            if ($this->seleccionado()) {
-                $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_on.gif',true,16,16);
-            } else {
-                $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);            
-            }
-            return $html_devuelto;   
-         } else {
-         	$js = '';
+		 if ($this->es_solo_lectura()) {
+			$html = toba_form::hidden($this->id_form, $this->seleccionado() ? $this->valor : $this->valor_no_seteado);
+			if ($this->seleccionado()) {
+				$html .= toba_recurso::imagen_toba('nucleo/efcheck_on.gif',true,16,16);
+			} else {
+				$html .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);            
+			}
+		 } else {
+			$js = '';
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}         	
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";		
-            $html = toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
-			$html .= $this->get_html_iconos_utilerias();
-			return $html;
-         }            
-    }
+			$html = toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
+		 }
+		 $html .= $this->get_html_iconos_utilerias();
+		 return $html;
+	}
 
 	function set_estado($estado)
 	//Carga el estado interno

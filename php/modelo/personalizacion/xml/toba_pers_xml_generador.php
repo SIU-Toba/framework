@@ -22,10 +22,10 @@ abstract class toba_pers_xml_generador
 	protected function agregar_al_plan($id, $path = null)
 	{
 		$this->plan->abrir_elemento(toba_pers_xml_elementos::tarea);
-		$this->plan->add_atributo(toba_pers_xml_atributos::id, $id);
+		$this->plan->add_atributo(toba_pers_xml_atributos::id, $id, true);
 
 		if (!is_null($path)) {
-			$this->plan->add_atributo(toba_pers_xml_atributos::path, $path);
+			$this->plan->add_atributo(toba_pers_xml_atributos::path, $path, true);
 		}
 
 		$this->plan->cerrar_elemento();

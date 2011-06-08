@@ -425,7 +425,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000257', --popup_item
 	'toba_editor', --popup_proyecto
 	'1', --popup_editable
-	'width: 400,height: 400,scroll: yes', --popup_ventana
+	'width: 400,height: 400,scrollbars: yes', --popup_ventana
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include

@@ -48,24 +48,27 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 			div_msj.setAttribute('id', div_name);
 			div_msj.setAttribute('class', 'ef-combo-editable-ayuda');
 			combo.appendChild(div_msj);
-
 			if (div_msj.addEventListener) {
 			//Si usa estandares (Mozilla)
 				div_msj.addEventListener('click', function(){inp_field.focus();}, false);
-			} else 
+			} else {
 				if (div_msj.attachEvent) {
 				//IE 
 				div_msj.attachEvent('onclick', function(){inp_field.focus();});
 				}
-
+			}
 			this._msj_ayuda_div = div_msj;
-		}
+		} /*else {
+			this._msj_ayuda_div.style.visibility = 'hidden';				
+		}*/
+		
 		this._msj_ayuda_div.innerHTML = mensaje;
 	};
 
 	ef_combo_editable.prototype._quitar_mensaje_ayuda = function() {
 		if (! this._msj_ayuda_habilitado) return;
 		if (this._msj_ayuda_div != undefined) {
+			//this._msj_ayuda_div.style.visibility = 'hidden';			
 			this._msj_ayuda_div.parentNode.removeChild(this._msj_ayuda_div);
 			this._msj_ayuda_div = undefined;
 		}
@@ -86,7 +89,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		var e = addEvent(this.input(), 'ontecla', callback); 
 		combo.attachEvent('onKeyPressed', e);
 
-		if (!this.tiene_estado()) {
+		if (! this.tiene_texto()) {
 			this._put_mensaje_ayuda();
 		}
 		//Caso solo_lectura de las cascadas
@@ -95,6 +98,11 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		}
 	};	
 	
+	ef_combo_editable.prototype.tiene_texto = function()
+	{
+		var srch_txt = this._get_combo().getComboText();
+		return (this.tiene_estado() || srch_txt != '');		
+	}
 
 	
 	ef_combo_editable.prototype.cuando_cambia_valor = function(callback) {
@@ -254,7 +262,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		var combo = this._get_combo();
 		combo.unSelectOption();
 		combo.callEvent("onChange",[]);
-		this._put_mensaje_ayuda();
+		if (! this.tiene_texto()) {
+			this._put_mensaje_ayuda();
+		}
 	};
 	
 	/**

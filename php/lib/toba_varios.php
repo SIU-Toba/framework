@@ -6,6 +6,35 @@
 	}
 
 	/**
+	* Chequea que el encoding del string no sea utf8. Si no lo es hace la conversión,
+	* sino lo devuelve como lo recibió
+	* @param string $s
+	* @return string $s en utf8
+	*/
+	function utf8_e_seguro($s)
+	{
+		if (mb_detect_encoding($s, "UTF-8", true) == "UTF-8") {
+			return $s;
+		}
+
+		return utf8_encode($s);
+	}
+
+	/**
+	* Si $s está en utf8 lo convierte a latin1, sino lo deja como está
+	* @param string $s
+	* @return string $s en latin1
+	*/
+	function utf8_d_seguro($s)
+	{
+		if (mb_detect_encoding($s, "UTF-8", true) == "UTF-8") {
+			return utf8_decode($s);
+		}
+
+		return $s;
+	}
+
+	/**
 	 * comienza_con
 	 * Testea si el string $haystack comienza con $needle
 	 *
@@ -726,10 +755,10 @@
 	{
 		if (isset($hora_original) && $hora_original != '') {
 			$valores = explode(':', $hora_original);
-			if ($valores !== false && ! is_empty($valores)) {
+			if ($valores !== false && ! empty($valores)) {
 				$hora = ($valores[0] < 12) ? $valores[0] : $valores[0]  - 12;
 				$am_pm = ($valores[0] < 12) ? 'AM' : 'PM';
-				$minutos = $valores[1];
+				$minutos = isset($valores[1]) ? $valores[1]: '00';
 				return "$hora:$minutos $am_pm";
 			}
 		}

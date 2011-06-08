@@ -25,7 +25,7 @@ class toba_test_grupo_casos extends GroupTest
 			}
             if (is_string($this->_test_cases[$i])) {
                 $class = $this->_test_cases[$i];
-                $test = &new $class();
+                $test = new $class();
                 if($this->separar_pruebas) {
                 	$test->separar_pruebas(true);
                 }

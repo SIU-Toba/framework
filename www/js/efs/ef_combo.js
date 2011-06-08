@@ -92,7 +92,10 @@ ef_combo.prototype.constructor = ef_combo;
 	 * Elimina las opciones disponibles en el combo
 	 */		
 	ef_combo.prototype.borrar_opciones = function() {
-		this.input().options.length = 0;
+		var input = this.input();
+		if (input.options) {	
+			input.options.length = 0;
+		}
 	};	
 	
 	/**
@@ -100,8 +103,12 @@ ef_combo.prototype.constructor = ef_combo;
 	 * @param valores Objeto asociativo id=>valor
 	 */	
 	ef_combo.prototype.set_opciones = function(valores) {
+		this.borrar_opciones();
+
 		var input = this.input();
-		input.options.length = 0;//Borro las opciones que existan
+		if (! input.options) {
+			input.options = [];
+		}
 		//Creo los OPTIONS recuperados
 		var hay_datos = false;
 		for (id in valores){

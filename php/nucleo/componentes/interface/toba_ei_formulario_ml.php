@@ -411,25 +411,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$orden++;
 		}
 		if ($analizar_diferencias) {
-			//Analizo la procedencia del registro: es alta o modificación
-			$datos = $this->_datos;
-			foreach (array_keys($datos) as $id_fila) {
-				//Si la fila que viene desde el POST estaba entra las recibidas del CI en el request anterior
-				//es una fila modificada, sino para el CI es una nueva 
-				if (in_array($id_fila, $this->_filas_recibidas)) {
-					$datos[$id_fila][apex_ei_analisis_fila] = 'M';
-				} else {
-					$datos[$id_fila][apex_ei_analisis_fila] = 'A';
-				}
-			}
-			
-			//Se buscan los registros borrados
-			foreach ($this->_filas_recibidas as $recibida) {
-				//Si la recibida en el request anterior no vino junto a los datos se borro
-				if (! in_array($recibida, array_keys($datos))) {
-					$datos[$recibida] = array(apex_ei_analisis_fila => 'B');
-				}
-			}
+			$datos = $this->analizar_diferencias($this->_datos);
 		} else {	//Hay que sacar la información extra
 			$datos = array_values($this->_datos);
 		}
@@ -438,6 +420,30 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			call_user_func_array(array(self::$_callback_validacion_ml, 'set_componente'), array($this));
 			call_user_func_array(array(self::$_callback_validacion_ml, 'validar_datos'), array($datos));
 		}
+		return $datos;
+	}
+	
+	function analizar_diferencias($datos)
+	{
+		//Analizo la procedencia del registro: es alta o modificación
+		foreach (array_keys($datos) as $id_fila) {
+			//Si la fila que viene desde el POST estaba entra las recibidas del CI en el request anterior
+			//es una fila modificada, sino para el CI es una nueva 
+			if (in_array($id_fila, $this->_filas_recibidas)) {
+				$datos[$id_fila][apex_ei_analisis_fila] = 'M';
+			} else {
+				$datos[$id_fila][apex_ei_analisis_fila] = 'A';
+			}
+		}
+
+		//Se buscan los registros borrados
+		foreach ($this->_filas_recibidas as $recibida) {
+			//Si la recibida en el request anterior no vino junto a los datos se borro
+			if (! in_array($recibida, array_keys($datos))) {
+				$datos[$recibida] = array(apex_ei_analisis_fila => 'B');
+			}
+		}
+
 		return $datos;
 	}
 	
@@ -517,7 +523,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//---Ordenar por la columna que se establece
 		//El ML no ordena el arreglo, porque esto cambiaria las claves asociativas
 		//por eso mantiene la variable $this->_ordenes
-		if ($this->_info_formulario['columna_orden']) {
+		if (isset($this->_info_formulario['columna_orden'])) {
 			$ordenes = array();
 			//-- Permite que un orden no sea especificado, se asume que va ultimo
 			$maximo = 0;
@@ -1316,7 +1322,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if(count($this->_lista_ef_totales)>0){
 			$fila_totales = array();
 			foreach($this->_lista_ef_totales as $total_col){
-				if($this->_datos) {
+				if(isset($this->_datos) && is_array($this->_datos)) {
 					foreach($this->_datos as $fila){
 						if(isset($fila_totales[$total_col])){
 							$fila_totales[$total_col] += $fila[$total_col];

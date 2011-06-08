@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2010 PHPExcel
+ * Copyright (c) 2006 - 2011 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.3c, 2010-06-01
+ * @version    1.7.6, 2011-02-27
  */
 
 
@@ -31,7 +31,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Style_Borders implements PHPExcel_IComparable
 {
@@ -315,6 +315,12 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 				if (array_key_exists('diagonaldirection', $pStyles)) {
 					$this->setDiagonalDirection($pStyles['diagonaldirection']);
 				}
+				if (array_key_exists('allborders', $pStyles)) {
+					$this->getLeft()->applyFromArray($pStyles['allborders']);
+					$this->getRight()->applyFromArray($pStyles['allborders']);
+					$this->getTop()->applyFromArray($pStyles['allborders']);
+					$this->getBottom()->applyFromArray($pStyles['allborders']);
+				}
 			}
 		} else {
 			throw new Exception("Invalid style array passed.");
@@ -489,7 +495,7 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 	public function __clone() {
 		$vars = get_object_vars($this);
 		foreach ($vars as $key => $value) {
-			if (is_object($value)) {
+			if ((is_object($value)) && ($key != '_parent')) {
 				$this->$key = clone $value;
 			} else {
 				$this->$key = $value;

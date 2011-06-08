@@ -266,7 +266,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 		//-- Revisar si faltan filas
 		for (i in this._estado_inicial) {
-			if (! isset(this._filas[i])) {
+			if (! in_array(i , this._filas)) {
 				hay_cambio = true;
 			}
 		}
@@ -803,6 +803,26 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 
 	};
+
+        ei_formulario_ml.prototype.ocultar_boton_fila = function(fila, evento) {
+            var boton = document.getElementById(this._input_submit + fila + '_' +evento);
+            boton.style.display = 'none';
+        };
+        
+        ei_formulario_ml.prototype.mostrar_boton_fila = function(fila, evento) {
+            var boton = document.getElementById(this._input_submit + fila + '_' +evento);
+            boton.style.display = '';
+        };
+
+        ei_formulario_ml.prototype.desactivar_boton_fila = function(fila, evento) {
+            var boton = document.getElementById(this._input_submit + fila + '_' +evento);
+            boton.disabled = true;
+        };
+
+        ei_formulario_ml.prototype.activar_boton_fila = function(fila, evento) {
+            var boton = document.getElementById(this._input_submit + fila + '_' +evento);
+            boton.disabled = false;
+        };
 	
 
 //Determina si un atributo es un evento

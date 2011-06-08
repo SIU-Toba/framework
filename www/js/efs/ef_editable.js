@@ -538,7 +538,7 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 			var arr = this.get_estado();
 			var comp_fecha= arr[0].split('/');
 			var comp_hora = arr[1].split(':');
-			return new Date(comp_fecha[2], comp_fecha[1] - 1, comp_fecha[0], comp_hora[1], comp_hora[0]);
+			return new Date(comp_fecha[2], comp_fecha[1] - 1, comp_fecha[0], comp_hora[0], comp_hora[1]);
 		}
 		return null;
 	};

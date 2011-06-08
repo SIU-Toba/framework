@@ -877,7 +877,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			$salida .= $titulo;
 		}
 		//---Editor de la columna
-		if ( toba_editor::modo_prueba() /*&& $this->_tipo_salida == 'html' */){
+		if ( toba_editor::modo_prueba()) {
 			$item_editor = "1000253";
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_cuadro->get_id()),
 									'columna' => $columna );
@@ -911,18 +911,38 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		}
 	}
 
+	protected function html_cuadro_columnas_relleno($cantidad_columnas)
+	{
+		if($cantidad_columnas > 0) {
+			echo "<td colspan='$cantidad_columnas'>&nbsp;</td>\n";
+		}
+	}
+		
 	  /**
-     * @ignore
-     */
+	 * @ignore
+	 */
 	protected function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
 	{
 		$formateo = $this->_cuadro->get_instancia_clase_formateo('html');
 		$columnas = $this->_cuadro->get_columnas();
 		$cant_evt_fila = $this->_cuadro->cant_eventos_sobre_fila();
 
+		//Calculo la cantidad de eventos pre y post columnas del cuadro
+		$cant_evt_pre_columnas = 0;		
+		if ($cant_evt_fila > 0) {
+			foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
+				if ( $evento->tiene_alineacion_pre_columnas()) {
+					$cant_evt_pre_columnas++;
+				}
+			}
+		}
+		$cant_evt_restantes = $cant_evt_fila - $cant_evt_pre_columnas;
+		
+		//Agrego las cabeceras si es necesario
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
-		if($agregar_titulos || (! $this->_cuadro->tabla_datos_es_general()) ){
+		if($agregar_titulos || (! $this->_cuadro->tabla_datos_es_general())) { 
 			echo "<tr>\n";
+			$this->html_cuadro_columnas_relleno($cant_evt_pre_columnas);
 			foreach (array_keys($columnas) as $clave) {
 			    if(isset($totales[$clave])){
 					$valor = $columnas[$clave]["titulo"];
@@ -931,14 +951,13 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
 			}
-	        //-- Eventos sobre fila
-			if($cant_evt_fila > 0){
-				echo "<td colspan='$cant_evt_fila'></td>\n";
-			}
+			//-- Eventos sobre fila
+			$this->html_cuadro_columnas_relleno($cant_evt_restantes);
 			echo "</tr>\n";
 		}
 		if ($totales !== null){
 			echo "<tr class='ei-cuadro-totales'>\n";
+			$this->html_cuadro_columnas_relleno($cant_evt_pre_columnas);
 			foreach (array_keys($columnas) as $clave) {
 				//Defino el valor de la columna
 			    if(isset($totales[$clave])){
@@ -956,10 +975,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
 			}
-	        //-- Eventos sobre fila
-			if($cant_evt_fila > 0){
-				echo "<td colspan='$cant_evt_fila'>&nbsp;</td>\n";
-			}
+			//-- Eventos sobre fila
+			$this->html_cuadro_columnas_relleno($cant_evt_restantes);
 			echo "</tr>\n";
 		}//if totales
 	}

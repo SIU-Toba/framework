@@ -11,10 +11,12 @@ class toba_importador_plan implements Iterator {
 	 */
 	protected $it_actual;
 	protected $tipo_actual;
+	protected $path_metadatos;
 
     function __construct($path_plan = null)
 	{
 		if (isset($path_plan)) {
+			$this->path_metadatos = dirname($path_plan);
 			// Cargamos el xml
 			$this->cargar_plan($path_plan);
 		}
@@ -47,7 +49,7 @@ class toba_importador_plan implements Iterator {
 	function current()
 	{
 		$xml_item = $this->it_actual->current();
-		$item_plan =  new  toba_importador_plan_item($this->tipo_actual, (string)$xml_item['id'], (string)$xml_item['path']);
+		$item_plan =  new  toba_importador_plan_item($this->path_metadatos, $this->tipo_actual, (string)$xml_item['id'], (string)$xml_item['path']);
 		return $item_plan;
 	}
 

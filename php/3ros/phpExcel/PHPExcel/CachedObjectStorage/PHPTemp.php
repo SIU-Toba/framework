@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2010 PHPExcel
+ * Copyright (c) 2006 - 2011 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.3c, 2010-06-01
+ * @version    1.7.6, 2011-02-27
  */
 
 
@@ -31,12 +31,14 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache {
 
 	private $_fileHandle = null;
 
+
+	private $_memoryCacheSize = null;
 
 	private function _storeData() {
 		$this->_currentObject->detach();
@@ -102,6 +104,24 @@ class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_
 	}	//	function getCacheData()
 
 
+	/**
+	 *	Clone the cell collection
+	 *
+	 *	@return	void
+	 */
+	public function copyCellCollection(PHPExcel_Worksheet $parent) {
+		parent::copyCellCollection($parent);
+		//	Open a new stream for the cell cache data
+		$newFileHandle = fopen('php://temp/maxmemory:'.$this->_memoryCacheSize,'a+');
+		//	Copy the existing cell cache data to the new stream
+		fseek($this->_fileHandle,0);
+		while (!feof($this->_fileHandle)) {
+			fwrite($newFileHandle,fread($this->_fileHandle, 1024));
+		}
+		$this->_fileHandle = $newFileHandle;
+	}	//	function copyCellCollection()
+
+
 	public function unsetWorksheetCells() {
 		if(!is_null($this->_currentObject)) {
 			$this->_currentObject->detach();
@@ -118,11 +138,11 @@ class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_
 
 
 	public function __construct(PHPExcel_Worksheet $parent, $memoryCacheSize = '1MB') {
-		$memoryCacheSize	= (isset($arguments['memoryCacheSize']))	? $arguments['memoryCacheSize']	: '1MB';
+		$this->_memoryCacheSize	= (isset($arguments['memoryCacheSize']))	? $arguments['memoryCacheSize']	: '1MB';
 
 		parent::__construct($parent);
 		if (is_null($this->_fileHandle)) {
-			$this->_fileHandle = fopen('php://temp/maxmemory:'.$memoryCacheSize,'a+');
+			$this->_fileHandle = fopen('php://temp/maxmemory:'.$this->_memoryCacheSize,'a+');
 		}
 	}	//	function __construct()
 

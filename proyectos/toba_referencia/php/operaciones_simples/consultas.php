@@ -95,6 +95,9 @@ class consultas
 	{
 		if (isset($persona)) {
 			$datos = self::get_persona_datos(array('id' => $persona));
+		}
+		
+		if (! empty($datos)) {
 			return $datos['nombre'];
 		} else {
 			return '';	
@@ -164,7 +167,7 @@ class consultas
 	
 	static function get_paises($filtro=null, $locale=null)
 	{
-		if (! isset($filtro) || trim($filtro) == '') {
+		if (! isset($filtro) || ($filtro == null) || trim($filtro) == '') {
 			return array();
 		}
 		$where = '';

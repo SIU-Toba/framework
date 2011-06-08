@@ -115,7 +115,7 @@ abstract class toba_gadget
 		}
 		echo "</div>\n";
 		echo "<div id='gadget-content-{$gadget['orden']}' class='gadgets-gadget-content'>";
-		echo "<div style='background-color:white; width: 250px; padding: 3px;'>";
+		echo "<div style='background:none; width: 250px; padding: 3px;'>";
 		if($solicitud->get_datos_item('tipo_pagina_clase') == 'toba_tipo_pagina') {
 			/*
 			 * bug en la linea 231, de la función servicio__generar_html de toba_solicitud_web

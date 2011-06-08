@@ -46,6 +46,12 @@ class eiform_ap extends toba_ei_formulario
 			var estado = this.ef('punto_montaje').get_estado();
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}
+		
+		{$this->objeto_js}.modificar_vinculo__extender_ap = function(id_vinculo)
+		{
+			var estado = this.ef('punto_montaje').get_estado();
+			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+		}		
 
 		{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
 			  if (!inicial) {

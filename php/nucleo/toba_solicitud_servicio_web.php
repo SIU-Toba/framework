@@ -52,6 +52,7 @@ class toba_solicitud_servicio_web extends toba_solicitud
 	
 	function procesar()
 	{
+		set_error_handler('toba_logger::manejador_errores_recuperables', E_ALL);
 		$this->validar_componente();
 		
 		//-- Pide los datos para construir el componente, WSF no soporta entregar objetos creados
@@ -79,8 +80,7 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		agregar_dir_include_path(toba_dir().'/php/3ros/wsf');
 		$service = new WSService($opciones);
 		$service->reply();
-	}
-	
+	}	
 }
 
 
