@@ -131,13 +131,6 @@ class toba_ef_editable extends toba_ef
 		}
 	}
 
-	function normalizar_parametro_cascada($parametro) 
-	{ 
-		if (isset($parametro)) { 
-			return cambiar_fecha($parametro,'/','-'); 
-		} 
-	} 
-
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();
@@ -517,20 +510,20 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	static protected $rango_fechas_global;
 	protected $rango_fechas;
 	
-    static function get_lista_parametros()
-    {
-    	$param = toba_ef_editable::get_lista_parametros();
-    	array_borrar_valor($param, 'edit_unidad');
-    	return $param;
-    }	
-    
-    /**
-     * Cambia el rango de fechas aceptado por todas las instancias del ef_fecha
-     */
-    static function set_rango_valido_global($desde, $hasta)
-    {
-    	self::$rango_fechas_global = array($desde, $hasta);
-    }
+	static function get_lista_parametros()
+	{
+		$param = toba_ef_editable::get_lista_parametros();
+		array_borrar_valor($param, 'edit_unidad');
+		return $param;
+	}	
+
+	/**
+	* Cambia el rango de fechas aceptado por todas las instancias del ef_fecha
+	*/
+	static function set_rango_valido_global($desde, $hasta)
+	{
+		self::$rango_fechas_global = array($desde, $hasta);
+	}
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -552,6 +545,13 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	    }
 	}
 	
+	function normalizar_parametro_cascada($parametro) 
+	{ 
+		if (isset($parametro)) { 
+			return cambiar_fecha($parametro,'/','-'); 
+		} 
+	} 
+
 	/**
 	 * Valida que las fechas ingresadas estén dentro del rango de fechas
 	 *

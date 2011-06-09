@@ -83,8 +83,8 @@ class toba_form
     static function checkbox($nombre,$actual,$valor,$clase="ef-checkbox",$extra="")
     //Checkbox STANDART. recibe el valor y el valor actual
     {
-        $s = "";
-        if($valor==$actual) $s = "CHECKED";
+        $s = ""; 
+        if(!is_null($valor) && !is_null($actual) && $valor == $actual) $s = "CHECKED";		//Castea null a cero, por ende en necesario evitarlo
         $valor = texto_plano($valor);
         return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra />\n";
     }
