@@ -101,11 +101,11 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_logger.php [<span class="field">line 46</span>]
+			Ubicada en /nucleo/lib/toba_logger.php [<span class="field">line 49</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /var/www/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/PuntosDeAcceso.html'>
@@ -137,6 +137,11 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Este es un singleton por proyecto</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#manejador_errores_recuperables" title="details" class="method-name">manejador_errores_recuperables</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																																																																																																																																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -274,7 +279,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Registra un suceso netamente informativo, para una inspección posterior</td></tr>
-																													<tr>
+																																						<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
@@ -404,9 +409,9 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
@@ -438,6 +443,61 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodmanejador_errores_recuperables" id="manejador_errores_recuperables"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method manejador_errores_recuperables</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void manejador_errores_recuperables(
+
+$error_nro, 
+$error_string, [
+$error_archivo = ''], [
+$error_linea = 0]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$error_nro:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$error_string:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$error_archivo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$error_linea:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="methodanexar_a_archivo" id="anexar_a_archivo"><!-- --></a>
 <div class="oddrow">
@@ -446,7 +506,7 @@ $proyecto = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">anexar_a_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 518]</span>
+	<span class="method-title">anexar_a_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 530]</span>
 </div>
 <br />
 
@@ -498,7 +558,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">borrar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 587]</span>
+	<span class="method-title">borrar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 599]</span>
 </div>
 <br />
 
@@ -525,7 +585,7 @@ $archivo&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">ciclar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 526]</span>
+	<span class="method-title">ciclar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 538]</span>
 </div>
 <br />
 
@@ -578,7 +638,7 @@ $archivo&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">construir_traza</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
+	<span class="method-title">construir_traza</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 219]</span>
 </div>
 <br />
 
@@ -630,7 +690,7 @@ $pasos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">crit</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
+	<span class="method-title">crit</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
 </div>
 <br />
 
@@ -675,7 +735,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 389]</span>
+	<span class="method-title">debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 401]</span>
 </div>
 <br />
 
@@ -720,7 +780,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
+	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
 </div>
 <br />
 
@@ -746,7 +806,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 430]</span>
+	<span class="method-title">directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
 </div>
 <br />
 
@@ -771,7 +831,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 330]</span>
+	<span class="method-title">error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
@@ -816,7 +876,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
+	<span class="method-title">get_cantidad_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 270]</span>
 </div>
 <br />
 
@@ -841,7 +901,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensajes_minimo_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
+	<span class="method-title">get_mensajes_minimo_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
 </div>
 <br />
 
@@ -866,7 +926,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 289]</span>
+	<span class="method-title">get_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
 </div>
 <br />
 
@@ -891,7 +951,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_niveles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
+	<span class="method-title">get_niveles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
 </div>
 <br />
 
@@ -916,7 +976,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_proyecto_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">get_proyecto_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -941,7 +1001,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
 </div>
 <br />
 
@@ -966,7 +1026,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
+	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
 </div>
 <br />
 
@@ -993,7 +1053,7 @@ $proyecto = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">guardar_archivo_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 489]</span>
+	<span class="method-title">guardar_archivo_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
 </div>
 <br />
 
@@ -1045,7 +1105,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">guardar_en_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 444]</span>
+	<span class="method-title">guardar_en_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 456]</span>
 </div>
 <br />
 
@@ -1089,7 +1149,7 @@ $forzar_salida = false]&nbsp;
 	
 		
 	
-	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 393]</span>
 </div>
 <br />
 
@@ -1135,7 +1195,7 @@ $proyecto = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">mascara</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
+	<span class="method-title">mascara</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 418]</span>
 </div>
 <br />
 
@@ -1181,7 +1241,7 @@ $nivel&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">mascara_hasta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 411]</span>
+	<span class="method-title">mascara_hasta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
 </div>
 <br />
 
@@ -1227,7 +1287,7 @@ $nivel&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 253]</span>
+	<span class="method-title">mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 265]</span>
 </div>
 <br />
 
@@ -1260,7 +1320,7 @@ $nivel&nbsp;
 	
 		
 	
-	<span class="method-title">modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 294]</span>
+	<span class="method-title">modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
 </div>
 <br />
 
@@ -1285,7 +1345,7 @@ $nivel&nbsp;
 	
 		
 	
-	<span class="method-title">notice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
+	<span class="method-title">notice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
 </div>
 <br />
 
@@ -1330,7 +1390,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">obsoleto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 347]</span>
+	<span class="method-title">obsoleto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 359]</span>
 </div>
 <br />
 
@@ -1396,7 +1456,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">seccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">seccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 409]</span>
 </div>
 <br />
 
@@ -1441,7 +1501,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 439]</span>
+	<span class="method-title">set_directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 451]</span>
 </div>
 <br />
 
@@ -1478,7 +1538,7 @@ $dir&nbsp;
 	
 		
 	
-	<span class="method-title">set_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+	<span class="method-title">set_nivel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
 </div>
 <br />
 
@@ -1515,7 +1575,7 @@ $nivel&nbsp;
 	
 		
 	
-	<span class="method-title">trace</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
+	<span class="method-title">trace</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
 </div>
 <br />
 
@@ -1560,7 +1620,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">var_dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 314]</span>
+	<span class="method-title">var_dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
 </div>
 <br />
 
@@ -1605,7 +1665,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">warning</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 338]</span>
+	<span class="method-title">warning</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 350]</span>
 </div>
 <br />
 

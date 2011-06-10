@@ -145,7 +145,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																				<tr>
+																																																																																																																																																															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_restricciones_usuario" title="details" class="method-name">get_restricciones_usuario</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																																									<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -257,7 +262,7 @@
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_restricciones_dimension" title="details" class="method-name">get_restricciones_dimension</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna las restricciones aplicadas sobre una dimensión específica</td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -353,6 +358,47 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodget_restricciones_usuario" id="get_restricciones_usuario"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_restricciones_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_restricciones_usuario(
+
+$usuario, 
+$proyecto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="evenrow">
@@ -385,7 +431,7 @@
 	
 		
 	
-	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 459]</span>
+	<span class="method-title">buscar_gatillos_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
 </div>
 <br />
 
@@ -429,7 +475,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
+	<span class="method-title">buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 416]</span>
 </div>
 <br />
 
@@ -535,7 +581,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">filtrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+	<span class="method-title">filtrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
 </div>
 <br />
 
@@ -545,8 +591,7 @@ $fuente&nbsp;
 		<code>void filtrar(
 
 $sql, [
-$fuente_datos = null], [
-$dimensiones_desactivar = null]&nbsp;
+$fuente_datos = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -567,12 +612,6 @@ $dimensiones_desactivar = null]&nbsp;
 				<span class="var-name">$fuente_datos:&nbsp;</span></td>
 				<td>
 							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$dimensiones_desactivar:&nbsp;</span></td>
-				<td>
-							</td></tr>
 				</table>
 
 	<br />
@@ -587,7 +626,7 @@ $dimensiones_desactivar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">filtrar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 239]</span>
+	<span class="method-title">filtrar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
 </div>
 <br />
 
@@ -597,8 +636,7 @@ $dimensiones_desactivar = null]&nbsp;
 		<code>void filtrar_sql(
 
 $sql, [
-$fuente_datos = null], [
-$dimensiones_desactivar = null]&nbsp;
+$fuente_datos = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -618,12 +656,6 @@ $dimensiones_desactivar = null]&nbsp;
 				<span class="var-name">$fuente_datos:&nbsp;</span></td>
 				<td>
 							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$dimensiones_desactivar:&nbsp;</span></td>
-				<td>
-							</td></tr>
 				</table>
 
 	<br />
@@ -638,7 +670,7 @@ $dimensiones_desactivar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 380]</span>
+	<span class="method-title">get_alias_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 391]</span>
 </div>
 <br />
 
@@ -664,7 +696,7 @@ $dimensiones_desactivar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 416]</span>
+	<span class="method-title">get_clausula_from</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
 </div>
 <br />
 
@@ -773,7 +805,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
+	<span class="method-title">get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
 </div>
 <br />
 
@@ -811,7 +843,7 @@ $fuente_datos&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
+	<span class="method-title">get_lista_columnas_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
 </div>
 <br />
 
@@ -1000,7 +1032,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
+	<span class="method-title">get_where_aplicacion_restriccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -1058,7 +1090,7 @@ $alias_tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 294]</span>
+	<span class="method-title">get_where_dimension_gatillo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 305]</span>
 </div>
 <br />
 
@@ -1117,7 +1149,7 @@ $alias_tabla&nbsp;
 	
 		
 	
-	<span class="method-title">hay_combinaciones_de_querys</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 488]</span>
+	<span class="method-title">hay_combinaciones_de_querys</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 499]</span>
 </div>
 <br />
 
@@ -1290,7 +1322,7 @@ $fuente&nbsp;
 	
 		
 	
-	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
+	<span class="method-title">probar_sqls</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 539]</span>
 </div>
 <br />
 
@@ -1350,7 +1382,7 @@ $mostrar_filas = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">quitar_comentarios_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 587]</span>
+	<span class="method-title">quitar_comentarios_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 598]</span>
 </div>
 <br />
 
@@ -1396,7 +1428,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 267]</span>
+	<span class="method-title">reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 278]</span>
 </div>
 <br />
 

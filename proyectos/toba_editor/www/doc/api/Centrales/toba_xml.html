@@ -73,6 +73,24 @@
 	    			<a href="../Centrales/toba_control.html">					control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida.html">					ei_cuadro_salida
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_excel.html">					ei_cuadro_salida_excel
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_html.html">					ei_cuadro_salida_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_impresion_html.html">					ei_cuadro_salida_impresion_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_pdf.html">					ei_cuadro_salida_pdf
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_xml.html">					ei_cuadro_salida_xml
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_ei_grafico_conf.html">					ei_grafico_conf
 					</a>    		
 	 <br />
@@ -530,7 +548,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">add_atributo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
+	<span class="method-title">add_atributo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
 </div>
 <br />
 
@@ -538,9 +556,10 @@ $nombre&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void add_atributo(
-
-$nombre, 
-$valor&nbsp;
+<type>
+$nombre, <type>
+$valor, [boolean
+$conv_utf8 = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -549,17 +568,23 @@ $valor&nbsp;
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type"><type></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$nombre:&nbsp;</span></td>
 				<td>
 							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type"><type></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$valor:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> un string</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$conv_utf8:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> si desea convertir el valor automaticamente de latin1 a utf8</span>			</td></tr>
 				</table>
 
 	<br />
@@ -574,7 +599,7 @@ $valor&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_documento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+	<span class="method-title">cerrar_documento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
 </div>
 <br />
 

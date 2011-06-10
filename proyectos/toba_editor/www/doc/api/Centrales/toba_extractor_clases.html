@@ -73,6 +73,24 @@
 	    			<a href="../Centrales/toba_control.html">					control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida.html">					ei_cuadro_salida
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_excel.html">					ei_cuadro_salida_excel
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_html.html">					ei_cuadro_salida_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_impresion_html.html">					ei_cuadro_salida_impresion_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_pdf.html">					ei_cuadro_salida_pdf
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_xml.html">					ei_cuadro_salida_xml
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_ei_grafico_conf.html">					ei_grafico_conf
 					</a>    		
 	 <br />
@@ -381,7 +399,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																													<tr>
+																																																																																																																																								<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -411,6 +429,27 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#generar_arreglo" title="details" class="method-name">generar_arreglo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#generar_vacio" title="details" class="method-name">generar_vacio</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_clases_repetidas" title="details" class="method-name">get_clases_repetidas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un arreglo ordenado por punto de montaje que contiene las clases</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_pms_no_encontrados" title="details" class="method-name">get_pms_no_encontrados</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un arreglo de los puntos de montaje que no fueron encontrados</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -497,12 +536,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
 </div>
 <br />
 
@@ -511,7 +550,6 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_extractor_clases __construct(
 
-$consola, 
 $puntos_montaje&nbsp;
 )</code>
     </td></tr></table>
@@ -520,12 +558,6 @@ $puntos_montaje&nbsp;
 	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$consola:&nbsp;</span></td>
-				<td>
-							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -541,12 +573,12 @@ $puntos_montaje&nbsp;
 		<br />
 </div>
 <a name="methodgenerar" id="generar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">generar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
+	<span class="method-title">generar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
 </div>
 <br />
 
@@ -566,13 +598,13 @@ $puntos_montaje&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_archivo" id="generar_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">generar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">generar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
 </div>
 <br />
 
@@ -626,13 +658,13 @@ $punto_montaje&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_arreglo" id="generar_arreglo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">generar_arreglo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
+	<span class="method-title">generar_arreglo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
 </div>
 <br />
 
@@ -685,6 +717,91 @@ $extras = array()]&nbsp;
 		
 		<br />
 </div>
+<a name="methodgenerar_vacio" id="generar_vacio"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">generar_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void generar_vacio(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_clases_repetidas" id="get_clases_repetidas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_clases_repetidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_clases_repetidas(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un arreglo ordenado por punto de montaje que contiene las clases <p>repetidas que se encontraron para cada pm</p></div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_pms_no_encontrados" id="get_pms_no_encontrados"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_pms_no_encontrados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_pms_no_encontrados(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un arreglo de los puntos de montaje que no fueron encontrados <p>mientras se construía el archivo de autoload</p></div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>un arreglo con los paths de los puntos de montaje no  encontrados</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodinit_registro" id="init_registro"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
@@ -692,7 +809,7 @@ $extras = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">init_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
+	<span class="method-title">init_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
 </div>
 <br />
 
@@ -726,7 +843,7 @@ $extras = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">mostrar_clases_repetidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
+	<span class="method-title">mostrar_clases_repetidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 193]</span>
 </div>
 <br />
 
@@ -760,7 +877,7 @@ $extras = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">obtener_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+	<span class="method-title">obtener_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -813,7 +930,7 @@ $excluidos = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">preparar_excluidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+	<span class="method-title">preparar_excluidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
 </div>
 <br />
 
@@ -866,7 +983,7 @@ $excluidos&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">registrar_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">registrar_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
 </div>
 <br />
 
@@ -925,7 +1042,7 @@ $path&nbsp;
 	
 		
 	
-	<span class="method-title">set_extends_excluidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+	<span class="method-title">set_extends_excluidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 

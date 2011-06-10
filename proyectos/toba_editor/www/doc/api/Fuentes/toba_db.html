@@ -156,9 +156,9 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
 					<td>
-											Driver de conexión via ODBC
+											Driver de conexión con postgres
 										</td>
 				</tr>
 								<tr>
@@ -168,15 +168,15 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
 					<td>
-											Driver de conexión con informix
+											Driver de conexión via ODBC
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
 					<td>
-											Driver de conexión con postgres
+											Driver de conexión con informix
 										</td>
 				</tr>
 							</table>
@@ -572,16 +572,16 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -613,11 +613,11 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a>
-								: Ejecuta un ROLLBACK WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a>
+								: Ejecuta un ROLLBACK WORK en la conexión
 							</li>
 				</ul>
 		<br />
@@ -649,11 +649,11 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a>
-								: Ejecuta un BEGIN WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a>
+								: Ejecuta un BEGIN WORK en la conexión
 							</li>
 				</ul>
 		<br />
@@ -775,11 +775,11 @@ $activar = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a>
-								: Ejecuta un COMMIT WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a>
+								: Ejecuta un COMMIT WORK en la conexión
 							</li>
 				</ul>
 		<br />
@@ -1303,13 +1303,13 @@ $tabla&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
+							</li>
+					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a>
-							</li>
-					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
 							</li>
 				</ul>
 		<br />

@@ -112,6 +112,16 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html">					ef_editable_fecha_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_hora.html">					ef_editable_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_moneda.html">					ef_editable_moneda
 					</a>    	    		</span>
     		
@@ -882,7 +892,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																												<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																																																																																																																							<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">Structures_Graph</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#grafo_relaciones" title="details" class="method-name">grafo_relaciones</a>()&nbsp;&nbsp;</td>
@@ -902,6 +912,13 @@
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar" title="details" class="method-name">cargar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Utiliza la carga por clave del administrador de persistencia</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#desactivar_tablas" title="details" class="method-name">desactivar_tablas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Deshabilita la tabla o las tablas recibidas para la carga y la sincronización</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1014,8 +1031,22 @@
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_relaciones_activas" title="details" class="method-name">get_relaciones_activas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna relaciones de las tablas que están habilitadas para la carga y la sincronización</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_tablas" title="details" class="method-name">get_tablas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna las tablas de una relacion</td></tr>
+						<td class="method-definition">Retorna las tablas de una relación</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_tablas_activas" title="details" class="method-name">get_tablas_activas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna las tablas que están habilitadas para la carga y la sincronización</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    														    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
@@ -1135,7 +1166,7 @@
 <a name="methodgrafo_relaciones" id="grafo_relaciones"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 290]</span>
+		<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 305]</span>
 </div>
 <br />
 
@@ -1182,7 +1213,7 @@ $relaciones&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">armar_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 663]</span>
+	<span class="method-title">armar_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 715]</span>
 </div>
 <br />
 
@@ -1242,7 +1273,7 @@ $clave&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 457]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 509]</span>
 </div>
 <br />
 
@@ -1282,13 +1313,51 @@ $clave = array()]&nbsp;
 		
 		<br />
 </div>
-<a name="methoddisparar_validacion_tablas" id="disparar_validacion_tablas"><!-- --></a>
+<a name="methoddesactivar_tablas" id="desactivar_tablas"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 392]</span>
+	<span class="method-title">desactivar_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar_tablas(
+
+$tablas&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Deshabilita la tabla o las tablas recibidas para la carga y la sincronización </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tablas:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddisparar_validacion_tablas" id="disparar_validacion_tablas"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 444]</span>
 </div>
 <br />
 
@@ -1309,12 +1378,12 @@ $clave = array()]&nbsp;
 		<br />
 </div>
 <a name="methoddump_contenido" id="dump_contenido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
+	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
 </div>
 <br />
 
@@ -1347,12 +1416,12 @@ $etiqueta = null]&nbsp;
 		<br />
 </div>
 <a name="methoddump_esquema" id="dump_esquema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
 </div>
 <br />
 
@@ -1385,12 +1454,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodeliminar" id="eliminar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		    		
 	
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 568]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 620]</span>
 </div>
 <br />
 
@@ -1424,12 +1493,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_todo" id="eliminar_todo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 557]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 609]</span>
 </div>
 <br />
 
@@ -1450,12 +1519,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodesta_cargada" id="esta_cargada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 476]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
 </div>
 <br />
 
@@ -1476,14 +1545,14 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar" id="evt__validar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
     		
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 387]</span>
+	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 439]</span>
 </div>
 <br />
 
@@ -1518,12 +1587,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_tabla" id="existe_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 356]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 408]</span>
 </div>
 <br />
 
@@ -1556,12 +1625,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodforzar_insercion" id="forzar_insercion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 495]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 547]</span>
 </div>
 <br />
 
@@ -1582,12 +1651,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_columnas_tabla_hija" id="get_columnas_tabla_hija"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_columnas_tabla_hija</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 618]</span>
+	<span class="method-title">get_columnas_tabla_hija</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 670]</span>
 </div>
 <br />
 
@@ -1619,12 +1688,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_columnas_tabla_padre" id="get_columnas_tabla_padre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_columnas_tabla_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 607]</span>
+	<span class="method-title">get_columnas_tabla_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 659]</span>
 </div>
 <br />
 
@@ -1656,12 +1725,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_conjunto_datos_interno" id="get_conjunto_datos_interno"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 403]</span>
+	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 455]</span>
 </div>
 <br />
 
@@ -1682,12 +1751,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_fuente" id="get_fuente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 587]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 639]</span>
 </div>
 <br />
 
@@ -1708,12 +1777,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -1734,12 +1803,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_persistidor" id="get_persistidor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
 </div>
 <br />
 
@@ -1766,13 +1835,47 @@ $datos&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_relaciones_activas" id="get_relaciones_activas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_relaciones_activas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 388]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_relaciones_activas(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna relaciones de las tablas que están habilitadas para la carga y la sincronización </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>de toba_datos_tabla</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodget_tablas" id="get_tablas"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 345]</span>
+	<span class="method-title">get_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -1784,7 +1887,41 @@ $datos&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna las tablas de una relacion </div>
+	<div class="description">Retorna las tablas de una relación </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>de toba_datos_tabla</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_tablas_activas" id="get_tablas_activas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_tablas_activas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_tablas_activas(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna las tablas que están habilitadas para la carga y la sincronización </div>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -1801,13 +1938,13 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodget_tablas_hijas" id="get_tablas_hijas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_tablas_hijas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 692]</span>
+	<span class="method-title">get_tablas_hijas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 744]</span>
 </div>
 <br />
 
@@ -1853,12 +1990,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_tablas_raiz" id="get_tablas_raiz"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 578]</span>
+	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 630]</span>
 </div>
 <br />
 
@@ -1879,12 +2016,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_xml" id="get_xml"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 634]</span>
+	<span class="method-title">get_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 686]</span>
 </div>
 <br />
 
@@ -1917,12 +2054,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodhay_cambios" id="hay_cambios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 596]</span>
+	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 648]</span>
 </div>
 <br />
 
@@ -1943,13 +2080,13 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodini" id="ini"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
 <br />
 
@@ -1981,12 +2118,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodorden_carga" id="orden_carga"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 281]</span>
+	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
 </div>
 <br />
 
@@ -2015,12 +2152,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodorden_sincronizacion" id="orden_sincronizacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
+	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 265]</span>
 </div>
 <br />
 
@@ -2049,12 +2186,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodpersistidor" id="persistidor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 419]</span>
+	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 471]</span>
 </div>
 <br />
 
@@ -2075,12 +2212,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodresetear" id="resetear"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 365]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -2101,12 +2238,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodresetear_cursores" id="resetear_cursores"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 376]</span>
+	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 428]</span>
 </div>
 <br />
 
@@ -2127,12 +2264,12 @@ $xml&nbsp;
 		<br />
 </div>
 <a name="methodset_cargado" id="set_cargado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 485]</span>
+	<span class="method-title">set_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
 </div>
 <br />
 
@@ -2165,12 +2302,12 @@ $cargado&nbsp;
 		<br />
 </div>
 <a name="methodsincronizar" id="sincronizar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 505]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 557]</span>
 </div>
 <br />
 
@@ -2203,12 +2340,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodsincronizar_filas" id="sincronizar_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">sincronizar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
+	<span class="method-title">sincronizar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 589]</span>
 </div>
 <br />
 
@@ -2241,12 +2378,12 @@ $filas_tablas&nbsp;
 		<br />
 </div>
 <a name="methodtabla" id="tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 332]</span>
+	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 347]</span>
 </div>
 <br />
 

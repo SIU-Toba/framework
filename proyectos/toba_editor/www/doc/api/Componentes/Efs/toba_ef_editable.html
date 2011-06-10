@@ -112,6 +112,16 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html">					ef_editable_fecha_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_hora.html">					ef_editable_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_moneda.html">					ef_editable_moneda
 					</a>    	    		</span>
     		
@@ -506,7 +516,7 @@
 		<table border="0" cellspacing="0" cellpadding="0">
 			
 			
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
+Deprecated: Function split() is deprecated in /var/www/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
 
 		<tr><td colspan="2"><a href='../../../api_js/ef_editable.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -532,12 +542,6 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_captcha.html">toba_ef_editable_captcha</a></td>
-					<td>
-											Editbox + imagen aleatoria para captcha
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_numero.html">toba_ef_editable_numero</a></td>
 					<td>
 											Elemento editable que sólo permite ingresar números
@@ -556,9 +560,27 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html">toba_ef_editable_fecha_hora</a></td>
+					<td>
+											Elemento editable que permite ingresar fechas con horario
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_hora.html">toba_ef_editable_hora</a></td>
+					<td>
+											Elemento editable que permite ingresar fechas con horario
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_textarea.html">toba_ef_editable_textarea</a></td>
 					<td>
 											Elemento editable que permite ingresar textos largos, equivalene a un tag &lt;textarea&gt;
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_captcha.html">toba_ef_editable_captcha</a></td>
+					<td>
+											Editbox + imagen aleatoria para captcha
 										</td>
 				</tr>
 							</table>
@@ -968,6 +990,17 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodpermite_seleccion_multiple">permite_seleccion_multiple()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">El ef permite seleccionable permite elegir más de un valor?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodquitar_maestro">quitar_maestro()</a></span>
 										</dt>
 										<dd>
@@ -1202,7 +1235,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 						</td>
 						<td class="method-definition"><a href="#set_callback_errores_validacion" title="details" class="method-name">set_callback_errores_validacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																												<tr>
+																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1256,6 +1289,13 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_expreg" title="details" class="method-name">set_expreg</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_opciones" title="details" class="method-name">set_opciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">En el caso del editable las opciones representa su estado por defecto</td></tr>
 																				<tr>
@@ -1289,7 +1329,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
 </div>
@@ -1314,9 +1354,6 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros">toba_ef_popup::get_lista_parametros()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_lista_parametros">toba_ef_editable_captcha::get_lista_parametros()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodget_lista_parametros">toba_ef_editable_numero::get_lista_parametros()</a>
 							</li>
 					<li>
@@ -1326,13 +1363,22 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_lista_parametros">toba_ef_editable_fecha::get_lista_parametros()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodget_lista_parametros">toba_ef_editable_fecha_hora::get_lista_parametros()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodget_lista_parametros">toba_ef_editable_hora::get_lista_parametros()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_lista_parametros">toba_ef_editable_textarea::get_lista_parametros()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_lista_parametros">toba_ef_editable_captcha::get_lista_parametros()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_lista_parametros_carga" id="get_lista_parametros_carga"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 34]</span>
 </div>
@@ -1363,7 +1409,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<br />
 </div>
 <a name="methodset_callback_errores_validacion" id="set_callback_errores_validacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method set_callback_errores_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
 </div>
@@ -1398,7 +1444,7 @@ $callback&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1491,9 +1537,6 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#method__construct">toba_ef_popup::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#method__construct">toba_ef_editable_captcha::__construct()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#method__construct">toba_ef_editable_numero::__construct()</a>
 							</li>
 					<li>
@@ -1506,18 +1549,27 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#method__construct">toba_ef_editable_fecha::__construct()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#method__construct">toba_ef_editable_fecha_hora::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#method__construct">toba_ef_editable_hora::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#method__construct">toba_ef_editable_textarea::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#method__construct">toba_ef_editable_captcha::__construct()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
 </div>
 <br />
 
@@ -1545,21 +1597,27 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodcargar_estado_post">toba_ef_popup::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodcargar_estado_post">toba_ef_editable_captcha::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodcargar_estado_post">toba_ef_editable_fecha_hora::cargar_estado_post()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodcargar_estado_post">toba_ef_editable_hora::cargar_estado_post()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodcargar_estado_post">toba_ef_editable_textarea::cargar_estado_post()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodcargar_estado_post">toba_ef_editable_captcha::cargar_estado_post()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -1602,18 +1660,24 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodcrear_objeto_js">toba_ef_editable_fecha::crear_objeto_js()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodcrear_objeto_js">toba_ef_editable_fecha_hora::crear_objeto_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodcrear_objeto_js">toba_ef_editable_hora::crear_objeto_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodcrear_objeto_js">toba_ef_editable_textarea::crear_objeto_js()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
 </div>
 <br />
 
@@ -1644,18 +1708,24 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_consumo_javascript">toba_ef_editable_fecha::get_consumo_javascript()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodget_consumo_javascript">toba_ef_editable_fecha_hora::get_consumo_javascript()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodget_consumo_javascript">toba_ef_editable_hora::get_consumo_javascript()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_consumo_javascript">toba_ef_editable_textarea::get_consumo_javascript()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_input" id="get_input"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -1683,27 +1753,33 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_input">toba_ef_popup::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_input">toba_ef_editable_captcha::get_input()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_clave.html#methodget_input">toba_ef_editable_clave::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_input">toba_ef_editable_fecha::get_input()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodget_input">toba_ef_editable_fecha_hora::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodget_input">toba_ef_editable_hora::get_input()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_input">toba_ef_editable_textarea::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_input">toba_ef_editable_captcha::get_input()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodparametros_js" id="parametros_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
 </div>
 <br />
 
@@ -1737,18 +1813,24 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodparametros_js">toba_ef_editable_fecha::parametros_js()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodparametros_js">toba_ef_editable_fecha_hora::parametros_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodparametros_js">toba_ef_editable_hora::parametros_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodparametros_js">toba_ef_editable_textarea::parametros_js()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodset_estado" id="set_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
 </div>
 <br />
 
@@ -1791,9 +1873,52 @@ $estado&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodset_estado">toba_ef_editable_fecha::set_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodset_estado">toba_ef_editable_fecha_hora::set_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodset_estado">toba_ef_editable_hora::set_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodset_estado">toba_ef_editable_textarea::set_estado()</a>
 							</li>
 				</ul>
+		<br />
+</div>
+<a name="methodset_expreg" id="set_expreg"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_expreg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_expreg(
+
+$expreg&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$expreg:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
 		<br />
 </div>
 <a name="methodset_opciones" id="set_opciones"><!-- --></a>
@@ -1802,7 +1927,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
+	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
 </div>
 <br />
 
@@ -1853,7 +1978,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
 </div>
 <br />
 
@@ -1878,6 +2003,9 @@ $maestros_cargados = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodtiene_estado">toba_ef_editable_fecha_hora::tiene_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodtiene_estado">toba_ef_editable_captcha::tiene_estado()</a>
 							</li>
 				</ul>
@@ -1889,7 +2017,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
 </div>
 <br />
 
@@ -1922,6 +2050,14 @@ $maestros_cargados = true]&nbsp;
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodvalidar_estado">toba_ef_editable_fecha::validar_estado()</a>
+								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodvalidar_estado">toba_ef_editable_fecha_hora::validar_estado()</a>
+								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodvalidar_estado">toba_ef_editable_hora::validar_estado()</a>
 								: Valida que sea una fecha válida con la funcion php checkdate
 							</li>
 				</ul>

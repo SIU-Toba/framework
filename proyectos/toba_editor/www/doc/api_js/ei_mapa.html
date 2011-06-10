@@ -107,6 +107,16 @@ ei_mapa
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ef_editable_fecha_hora.html">ef_editable_fecha_hora</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_hora.html">ef_editable_hora</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ef_editable_moneda.html">ef_editable_moneda</a>    
 		</span>
 	 	<br />
@@ -358,7 +368,7 @@ ei_mapa
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
-		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>, <a href="ei.html#filtrado_ef_ce_comunicar">filtrado_ef_ce_comunicar</a>, <a href="ei.html#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta</a>, <a href="ei.html#filtrado_ef_ce_validar">filtrado_ef_ce_validar</a>, <a href="ei.html#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion</a>
+		<div class="info-box-body"><a href="ei.html#ini">ini</a>, <a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>, <a href="ei.html#exportar_pdf">exportar_pdf</a>, <a href="ei.html#exportar_excel">exportar_excel</a>, <a href="ei.html#agregar_notificacion">agregar_notificacion</a>, <a href="ei.html#limpiar_notificaciones">limpiar_notificaciones</a>, <a href="ei.html#filtrado_ef_ce_comunicar">filtrado_ef_ce_comunicar</a>, <a href="ei.html#filtrado_ef_ce_respuesta">filtrado_ef_ce_respuesta</a>, <a href="ei.html#filtrado_ef_ce_validar">filtrado_ef_ce_validar</a>, <a href="ei.html#filtrado_ef_ce_respuesta_validacion">filtrado_ef_ce_respuesta_validacion</a>
 		</div>
 	</div>
 
@@ -429,6 +439,16 @@ ei_mapa
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_layers_activos">get_layers_activos</A>()
+					</td>
+
+					<td class="method-definition"> Devuelve un arreglo con la lista de layers activos a este momento</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#get_punto_click">get_punto_click</A>(evento)
 					</td>
 
@@ -443,17 +463,6 @@ ei_mapa
 					</td>
 
 					<td class="method-definition"> Funcion para inicializar el componente</td></tr>
-			
-					<tr><td class="method-definition " nowrap>
-													 
-											<span class="method-result">boolean</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#puede_submit">puede_submit</A>()
-					</td>
-
-					<td class="method-definition"> Determina si el componente puede hacer submit en base 
- al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -478,10 +487,40 @@ ei_mapa
 			
 					<tr><td class="method-definition " nowrap>
 													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_alto_mapa">set_alto_mapa</A>(alto)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_ancho_mapa">set_ancho_mapa</A>(ancho)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
 						<a class="method-name" href="#set_extent">set_extent</A>(xmin, xmax, ymin, ymax)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_full_extent">set_full_extent</A>(xmin, xmax, ymin, ymax)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -511,7 +550,27 @@ ei_mapa
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_ubicacion_controles">set_ubicacion_controles</A>(ubicacion)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#set_url">set_url</A>(url_pedido)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#setear_parametros">setear_parametros</A>(valor)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -524,45 +583,14 @@ ei_mapa
 						<a class="method-name" href="#submit">submit</A>()
 					</td>
 
-					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</td></tr>
+					<td class="method-definition"> Realiza el submit del componente</td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_alto_mapa">set_alto_mapa</A>(alto)
-					</td>
-
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">Object</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_ancho_mapa">set_ancho_mapa</A>(ancho)
-					</td>
-
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_evento">set_evento</A>(evento)
-					</td>
-
-					<td class="method-definition"> </td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">void</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_ubicacion_controles">set_ubicacion_controles</A>(ubicacion)
+						<a class="method-name" href="#validar">validar</A>()
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -793,10 +821,48 @@ ei_mapa
 		   
 		</div>
 		
-   		<A id="get_punto_click" NAME="get_punto_click"><!-- --></A>	
+   		<A id="get_layers_activos" NAME="get_layers_activos"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">get_layers_activos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object get_layers_activos ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Devuelve un arreglo con la lista de layers activos a este momento</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_punto_click" NAME="get_punto_click"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_punto_click</span>
@@ -829,8 +895,8 @@ ei_mapa
 		
    		<A id="iniciar" NAME="iniciar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">iniciar</span>
@@ -851,45 +917,6 @@ ei_mapa
 			
 				<p class="description">
 	  				<UL>Funcion para inicializar el componente</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="puede_submit" NAME="puede_submit"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">puede_submit</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>boolean puede_submit ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Determina si el componente puede hacer submit en base 
- al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
 				</p>
 						
 			
@@ -977,6 +1004,74 @@ ei_mapa
 		   
 		</div>
 		
+   		<A id="set_alto_mapa" NAME="set_alto_mapa"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_alto_mapa</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object set_alto_mapa (alto)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_ancho_mapa" NAME="set_ancho_mapa"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_ancho_mapa</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object set_ancho_mapa (ancho)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
    		<A id="set_extent" NAME="set_extent"><!-- --></A>	
 	   		 
 				<div class="oddrow">
@@ -1011,10 +1106,44 @@ ei_mapa
 		   
 		</div>
 		
-   		<A id="set_layers" NAME="set_layers"><!-- --></A>	
+   		<A id="set_full_extent" NAME="set_full_extent"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_full_extent</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_full_extent (xmin, xmax, ymin, ymax)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_layers" NAME="set_layers"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_layers</span>
@@ -1051,8 +1180,8 @@ ei_mapa
 		
    		<A id="set_layers_activos" NAME="set_layers_activos"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_layers_activos</span>
@@ -1074,6 +1203,40 @@ ei_mapa
 				<p class="description">
 	  				<UL>Setea la lista de layers actualmente activos (util para el control de layers unicamente)</UL>
 				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_ubicacion_controles" NAME="set_ubicacion_controles"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_ubicacion_controles</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_ubicacion_controles (ubicacion)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -1121,10 +1284,44 @@ ei_mapa
 		   
 		</div>
 		
-   		<A id="submit" NAME="submit"><!-- --></A>	
+   		<A id="setear_parametros" NAME="setear_parametros"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">setear_parametros</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void setear_parametros (valor)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="submit" NAME="submit"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>
@@ -1144,8 +1341,7 @@ ei_mapa
 			</div>
 			
 				<p class="description">
-	  				<UL>Inicia el proceso de submit, este proceso recorre todos los componentes
- validandolos y preparandolos para una comunicación con el servidor</UL>
+	  				<UL>Realiza el submit del componente</UL>
 				</p>
 						
 			
@@ -1160,47 +1356,13 @@ ei_mapa
 		   
 		</div>
 		
-   		<A id="set_alto_mapa" NAME="!s!set_alto_mapa"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">set_alto_mapa</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Object set_alto_mapa (alto)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="set_ancho_mapa" NAME="!s!set_ancho_mapa"><!-- --></A>	
+   		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">set_ancho_mapa</span>
+				<span class="method-title">validar</span>
 			</div>
 			<br />
 			<div class="function">
@@ -1208,75 +1370,7 @@ ei_mapa
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Object set_ancho_mapa (ancho)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="set_evento" NAME="!s!set_evento"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">set_evento</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void set_evento (evento)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="set_ubicacion_controles" NAME="!s!set_ubicacion_controles"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">set_ubicacion_controles</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void set_ubicacion_controles (ubicacion)</code>
+							   <code>Object validar ()</code>
 							</td></tr>
 						</table>
 					</td></tr>

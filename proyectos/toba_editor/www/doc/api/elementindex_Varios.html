@@ -15,17 +15,17 @@
   		<div class="package">
               	<a href="li_Centrales.html">Centrales</a>
         	        		|
-        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
-        	        		|
         	              	<a href="li_Componentes.html">Componentes</a>
         	        		|
         	              	<a href="li_Varios.html">Varios</a>
         	        		|
-        	              	<a href="li_Fuentes.html">Fuentes</a>
+        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
+        	        		|
+        	              	<a href="li_Debug.html">Debug</a>
         	        		|
         	              	<a href="li_Seguridad.html">Seguridad</a>
         	        		|
-        	              	<a href="li_Debug.html">Debug</a>
+        	              	<a href="li_Fuentes.html">Fuentes</a>
         	            </div>
    	</td>	
     <td class="header-top-right">
@@ -113,11 +113,11 @@
 	<h3>Package indexes</h3>
 	<ul>
 				<li><a href="elementindex_Centrales.html">Centrales</a></li>
-					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Componentes.html">Componentes</a></li>
-							<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
-					<li><a href="elementindex_Seguridad.html">Seguridad</a></li>
+							<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Debug.html">Debug</a></li>
+					<li><a href="elementindex_Seguridad.html">Seguridad</a></li>
+					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
 			</ul>
 	[ <a href="elementindex_Varios.html#a">a</a> ]
 	[ <a href="elementindex_Varios.html#b">b</a> ]
@@ -258,8 +258,12 @@
 				<dd>in file toba_archivo_php.php, variable <a href="Varios/toba_archivo_php.html#var$contenido">toba_archivo_php::$contenido</a></dd>
 							<dt><b>cambiar_fecha</b></dt>
 				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functioncambiar_fecha">cambiar_fecha()</a></dd>
+							<dt><b>cambiar_hora_formato_12</b></dt>
+				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functioncambiar_hora_formato_12">cambiar_hora_formato_12()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Convierte una hora de formato 24 a 12</dd>
 							<dt><b>checkout</b></dt>
 				<dd>in file toba_svn.php, method <a href="Varios/toba_svn.html#methodcheckout">toba_svn::checkout()</a></dd>
+							<dt><b>checktime</b></dt>
+				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functionchecktime">checktime()</a></dd>
 							<dt><b>chmod_recursivo</b></dt>
 				<dd>in file toba_manejador_archivos.php, method <a href="Varios/toba_manejador_archivos.html#methodchmod_recursivo">toba_manejador_archivos::chmod_recursivo()</a></dd>
 							<dt><b>cifrar</b></dt>
@@ -451,9 +455,9 @@
 							<dt><b>get_checksum_directorio</b></dt>
 				<dd>in file toba_manejador_archivos.php, method <a href="Varios/toba_manejador_archivos.html#methodget_checksum_directorio">toba_manejador_archivos::get_checksum_directorio()</a></dd>
 							<dt><b>get_codigo</b></dt>
-				<dd>in file toba_archivo_php.php, method <a href="Varios/toba_archivo_php.html#methodget_codigo">toba_archivo_php::get_codigo()</a></dd>
-							<dt><b>get_codigo</b></dt>
 				<dd>in file toba_clase_php.php, method <a href="Varios/toba_clase_php.html#methodget_codigo">toba_clase_php::get_codigo()</a></dd>
+							<dt><b>get_codigo</b></dt>
+				<dd>in file toba_archivo_php.php, method <a href="Varios/toba_archivo_php.html#methodget_codigo">toba_archivo_php::get_codigo()</a></dd>
 							<dt><b>get_codigo_php_puro</b></dt>
 				<dd>in file toba_archivo_php.php, method <a href="Varios/toba_archivo_php.html#methodget_codigo_php_puro">toba_archivo_php::get_codigo_php_puro()</a></dd>
 							<dt><b>get_datos_entrada</b></dt>
@@ -470,6 +474,8 @@
 				<dd>in file toba_svn.php, method <a href="Varios/toba_svn.html#methodget_revisiones_dir_recursivos">toba_svn::get_revisiones_dir_recursivos()</a></dd>
 							<dt><b>get_revision_origen</b></dt>
 				<dd>in file toba_svn.php, method <a href="Varios/toba_svn.html#methodget_revision_origen">toba_svn::get_revision_origen()</a></dd>
+							<dt><b>get_salt</b></dt>
+				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functionget_salt">get_salt()</a></dd>
 							<dt><b>get_subdirectorios</b></dt>
 				<dd>in file toba_manejador_archivos.php, method <a href="Varios/toba_manejador_archivos.html#methodget_subdirectorios">toba_manejador_archivos::get_subdirectorios()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve la lista de subdirectorios de un directorio</dd>
 							<dt><b>get_tablas</b></dt>
@@ -790,6 +796,10 @@
 				<dd>in file toba_svn.php, variable <a href="Varios/toba_svn.html#var$url_base">toba_svn::$url_base</a></dd>
 							<dt><b>update</b></dt>
 				<dd>in file toba_svn.php, method <a href="Varios/toba_svn.html#methodupdate">toba_svn::update()</a></dd>
+							<dt><b>utf8_d_seguro</b></dt>
+				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functionutf8_d_seguro">utf8_d_seguro()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Si $s está en utf8 lo convierte a latin1, sino lo deja como está</dd>
+							<dt><b>utf8_e_seguro</b></dt>
+				<dd>in file toba_varios.php, function <a href="Varios/_lib---toba_varios.php.html#functionutf8_e_seguro">utf8_e_seguro()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Chequea que el encoding del string no sea utf8. Si no lo es hace la conversión,</dd>
 					</dl>
 	</div>
 	<a name="v"></a>

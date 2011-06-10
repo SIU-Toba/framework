@@ -112,6 +112,16 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Efs/toba_ef_editable_fecha_hora.html">					ef_editable_fecha_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Efs/toba_ef_editable_hora.html">					ef_editable_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Efs/toba_ef_editable_moneda.html">					ef_editable_moneda
 					</a>    	    		</span>
     		
@@ -502,7 +512,7 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Negocio/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /var/www/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Componentes/Negocio/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/Objetos.html'>
@@ -531,21 +541,9 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
 					<td>
-											Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_servicio_web.html">toba_servicio_web</a></td>
-					<td>
-											
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
-					<td>
-											Clase base de los componentes gráficos o elementos de interface (ei)
+											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
 										</td>
 				</tr>
 								<tr>
@@ -555,9 +553,21 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
+					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_servicio_web.html">toba_servicio_web</a></td>
 					<td>
-											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
+					<td>
+											Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
+					<td>
+											Clase base de los componentes gráficos o elementos de interface (ei)
 										</td>
 				</tr>
 							</table>
@@ -883,22 +893,13 @@ $definicion&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Negocio/toba_servicio_web.html#method__construct">toba_servicio_web::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -907,28 +908,37 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ei_mapa.html#method__construct">toba_ei_mapa::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -1279,14 +1289,12 @@ $id&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
+								: Destructor del componente
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
@@ -1295,18 +1303,20 @@ $id&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
 								: Destructor del componente
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_arbol.html#methoddestruir">toba_ei_arbol::destruir()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
-								: Destructor del componente
+				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
 							</li>
 				</ul>
 		<br />
@@ -1849,6 +1859,14 @@ $nivel = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Componentes/Persistencia/toba_datos_relacion.html#methodini">toba_datos_relacion::ini()</a>
+								: Ventana para agregar configuraciones particulares al inicio de la vida completa del componente
+							</li>
+					<li>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodini">toba_datos_tabla::ini()</a>
+								: Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+							</li>
+					<li>
 				<a href="../Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a>
 								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
 							</li>
@@ -1858,14 +1876,6 @@ $nivel = null]&nbsp;
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_grafico.html#methodini">toba_ei_grafico::ini()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodini">toba_datos_tabla::ini()</a>
-								: Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
-							</li>
-					<li>
-				<a href="../Componentes/Persistencia/toba_datos_relacion.html#methodini">toba_datos_relacion::ini()</a>
-								: Ventana para agregar configuraciones particulares al inicio de la vida completa del componente
 							</li>
 				</ul>
 		<br />

@@ -112,6 +112,16 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html">					ef_editable_fecha_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_hora.html">					ef_editable_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_moneda.html">					ef_editable_moneda
 					</a>    	    		</span>
     		
@@ -506,7 +516,7 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Eis/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /var/www/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../../wiki/trac/toba/wiki/Referencia/Objetos/ei_esquema.html'>
@@ -516,7 +526,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		
 				
 			
-Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trunk/proyectos/toba_editor/www/doc/api/Componentes/Eis/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
+Deprecated: Function split() is deprecated in /var/www/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
 
 		<tr><td colspan="2"><a href='../../../api_js/ei.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -992,6 +1002,17 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 										</dt>
 										<dd>
 											<span class="method-definition">Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodxml_get_informacion_basica_vista">xml_get_informacion_basica_vista()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 										
 																			
@@ -1574,7 +1595,7 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 						</td>
 						<td class="method-definition"><a href="#generar_sentencia_incrustacion" title="details" class="method-name">generar_sentencia_incrustacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Genera el tag HTML necesario para incluir el archivo generado por GrahpViz</td></tr>
-																																																												<tr>
+																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1602,6 +1623,13 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_datos" title="details" class="method-name">set_datos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cambia el esquema actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_incluir_mapa" title="details" class="method-name">set_incluir_mapa</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Incluir mapa de la imagen. Es necesario que esté  definido un ancho y un alto.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -1633,9 +1661,9 @@ Deprecated: Function split() is deprecated in /home/smarconi/proyectos/toba_trun
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodgenerar_archivo" id="generar_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		    		<span class="method-title">static method generar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
+		    		<span class="method-title">static method generar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
 </div>
 <br />
 
@@ -1690,9 +1718,9 @@ $es_dirigido = true]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_sentencia_incrustacion" id="generar_sentencia_incrustacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method generar_sentencia_incrustacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+		<span class="method-title">static method generar_sentencia_incrustacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -1704,7 +1732,9 @@ string
 $url, string
 $formato, [string
 $ancho = null], [string
-$alto = null]&nbsp;
+$alto = null], [
+$incluir_mapa = null], [
+$objeto_js = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1737,6 +1767,18 @@ $alto = null]&nbsp;
 				<span class="var-name">$alto:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir_mapa:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$objeto_js:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -1747,12 +1789,12 @@ $alto = null]&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
 </div>
 <br />
 
@@ -1788,12 +1830,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html" id="generar_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -1813,12 +1855,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodservicio__mostrar_esquema" id="servicio__mostrar_esquema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">servicio__mostrar_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
+	<span class="method-title">servicio__mostrar_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 330]</span>
 </div>
 <br />
 
@@ -1851,12 +1893,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_datos" id="set_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
@@ -1888,13 +1930,58 @@ $datos&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_incluir_mapa" id="set_incluir_mapa"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_incluir_mapa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_incluir_mapa(
+[
+$incluir = null], boolean
+$incluir.&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Incluir mapa de la imagen. Es necesario que esté  definido un ancho y un alto. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir.:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodvista_xml" id="vista_xml"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">vista_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
+	<span class="method-title">vista_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 384]</span>
 </div>
 <br />
 
@@ -1947,7 +2034,7 @@ $xmlns = null]&nbsp;
 	
 		
 	
-	<span class="method-title">xml_set_caption</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+	<span class="method-title">xml_set_caption</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 418]</span>
 </div>
 <br />
 

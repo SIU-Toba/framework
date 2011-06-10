@@ -642,7 +642,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -717,6 +717,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#crear_lenguaje" title="details" class="method-name">crear_lenguaje</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_rol" title="details" class="method-name">crear_rol</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -739,6 +746,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#existe_columna" title="details" class="method-name">existe_columna</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#existe_lenguaje" title="details" class="method-name">existe_lenguaje</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -1018,7 +1032,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1087,7 +1101,7 @@ $puerto&nbsp;
 		<br />
 </div>
 <a name="methodabortar_savepoint" id="abortar_savepoint"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1124,7 +1138,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1154,7 +1168,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodabrir_transaccion" id="abrir_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1184,7 +1198,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodagregar_savepoint" id="agregar_savepoint"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1221,12 +1235,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodborrar_rol" id="borrar_rol"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
 </div>
 <br />
 
@@ -1258,7 +1272,7 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodborrar_schema" id="borrar_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1295,7 +1309,7 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodborrar_schema_si_existe" id="borrar_schema_si_existe"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1332,7 +1346,7 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1362,12 +1376,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodclonar_schema" id="clonar_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">clonar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+	<span class="method-title">clonar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -1414,13 +1428,50 @@ $nuevo&nbsp;
 		
 		<br />
 </div>
+<a name="methodcrear_lenguaje" id="crear_lenguaje"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">crear_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crear_lenguaje(
+
+$lang&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$lang:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodcrear_rol" id="crear_rol"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 294]</span>
+	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 312]</span>
 </div>
 <br />
 
@@ -1494,7 +1545,7 @@ $schema&nbsp;
 	
 		
 	
-	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
+	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
 </div>
 <br />
 
@@ -1538,7 +1589,7 @@ $password&nbsp;
 	
 		
 	
-	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 496]</span>
 </div>
 <br />
 
@@ -1576,13 +1627,50 @@ $tabla&nbsp;
 		
 		<br />
 </div>
-<a name="methodexiste_rol" id="existe_rol"><!-- --></a>
+<a name="methodexiste_lenguaje" id="existe_lenguaje"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 286]</span>
+	<span class="method-title">existe_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void existe_lenguaje(
+
+$lang&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$lang:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodexiste_rol" id="existe_rol"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 304]</span>
 </div>
 <br />
 
@@ -1614,7 +1702,7 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodexiste_schema" id="existe_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1651,12 +1739,12 @@ $esquema&nbsp;
 		<br />
 </div>
 <a name="methodexiste_tabla" id="existe_tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
 </div>
 <br />
 
@@ -1695,12 +1783,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 532]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 550]</span>
 </div>
 <br />
 
@@ -1744,7 +1832,7 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_dsn" id="get_dsn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1774,12 +1862,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_secuencias" id="get_lista_secuencias"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 502]</span>
+	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 520]</span>
 </div>
 <br />
 
@@ -1799,12 +1887,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 441]</span>
 </div>
 <br />
 
@@ -1843,12 +1931,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas_y_vistas" id="get_lista_tablas_y_vistas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
+	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
 </div>
 <br />
 
@@ -1868,12 +1956,12 @@ $esquema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 747]</span>
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 765]</span>
 </div>
 <br />
 
@@ -1925,7 +2013,7 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros" id="get_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1955,12 +2043,12 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_rol_actual" id="get_rol_actual"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
+	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 291]</span>
 </div>
 <br />
 
@@ -1980,7 +2068,7 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_schema" id="get_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2005,12 +2093,12 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_secuencia_tabla" id="get_secuencia_tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_secuencia_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 667]</span>
+	<span class="method-title">get_secuencia_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 685]</span>
 </div>
 <br />
 
@@ -2058,12 +2146,12 @@ $schema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 657]</span>
+	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 675]</span>
 </div>
 <br />
 
@@ -2088,12 +2176,12 @@ $schema = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_sp_schema" id="get_sp_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 401]</span>
+	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 419]</span>
 </div>
 <br />
 
@@ -2125,12 +2213,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 266]</span>
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -2150,12 +2238,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodgrant_rol" id="grant_rol"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 313]</span>
+	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
 </div>
 <br />
 
@@ -2194,12 +2282,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodgrant_schema" id="grant_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -2245,12 +2333,12 @@ $permisos = 'USAGE']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_sp_schema" id="grant_sp_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 379]</span>
+	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
 </div>
 <br />
 
@@ -2296,12 +2384,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas" id="grant_tablas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
+	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 389]</span>
 </div>
 <br />
 
@@ -2355,12 +2443,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas_schema" id="grant_tablas_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 355]</span>
+	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
 </div>
 <br />
 
@@ -2407,7 +2495,7 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodinsert_masivo" id="insert_masivo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -2474,7 +2562,7 @@ $valor_nulo = &quot;\\N&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodliberar_savepoint" id="liberar_savepoint"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -2511,12 +2599,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodpgdump_get_tabla" id="pgdump_get_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">pgdump_get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 705]</span>
+	<span class="method-title">pgdump_get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 723]</span>
 </div>
 <br />
 
@@ -2584,13 +2672,13 @@ $pass = null]&nbsp;
 		<br />
 </div>
 <a name="methodpgdump_limpiar" id="pgdump_limpiar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">pgdump_limpiar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 723]</span>
+	<span class="method-title">pgdump_limpiar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 741]</span>
 </div>
 <br />
 
@@ -2630,7 +2718,7 @@ $pass = null]&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_nuevo_valor_secuencia" id="recuperar_nuevo_valor_secuencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2667,7 +2755,7 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -2718,7 +2806,7 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodrenombrar_schema" id="renombrar_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2762,7 +2850,7 @@ $nuevo&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -2804,12 +2892,12 @@ $retrazar = true]&nbsp;
 		<br />
 </div>
 <a name="methodrevoke_rol" id="revoke_rol"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
+	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -2848,12 +2936,12 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodrevoke_schema" id="revoke_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
+	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
 </div>
 <br />
 
@@ -2899,12 +2987,12 @@ $permisos = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodrevoke_sp_schema" id="revoke_sp_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 390]</span>
+	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 408]</span>
 </div>
 <br />
 
@@ -2950,7 +3038,7 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodset_datestyle_iso" id="set_datestyle_iso"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -2975,7 +3063,7 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodset_encoding" id="set_encoding"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -3012,12 +3100,12 @@ $encoding&nbsp;
 		<br />
 </div>
 <a name="methodset_rol" id="set_rol"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
+	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
 </div>
 <br />
 
@@ -3049,7 +3137,7 @@ $rol&nbsp;
 		<br />
 </div>
 <a name="methodset_schema" id="set_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -3087,7 +3175,7 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodtransaccion_abierta" id="transaccion_abierta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		

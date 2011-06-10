@@ -73,6 +73,24 @@
 	    			<a href="../Centrales/toba_control.html">					control
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida.html">					ei_cuadro_salida
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_excel.html">					ei_cuadro_salida_excel
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_html.html">					ei_cuadro_salida_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_impresion_html.html">					ei_cuadro_salida_impresion_html
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_pdf.html">					ei_cuadro_salida_pdf
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_ei_cuadro_salida_xml.html">					ei_cuadro_salida_xml
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_ei_grafico_conf.html">					ei_grafico_conf
 					</a>    		
 	 <br />
@@ -387,7 +405,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																				<tr>
+																																																																																																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -415,6 +433,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#enviar" title="details" class="method-name">enviar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Realiza el envio del email propiamente dicho</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_datos_configuracion_smtp" title="details" class="method-name">get_datos_configuracion_smtp</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Método para obtener la configuración del servidor SMTP</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -448,6 +473,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_remitente" title="details" class="method-name">set_remitente</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Configura el FromName para el envío del mail</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_reply" title="details" class="method-name">set_reply</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Configura la direccion de email a la cual se debe responder</td></tr>
 													</table>
@@ -468,12 +500,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
@@ -527,12 +559,12 @@ $desde = null]&nbsp;
 		<br />
 </div>
 <a name="methodagregar_adjunto" id="agregar_adjunto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
+	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
 </div>
 <br />
 
@@ -572,12 +604,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
@@ -602,12 +634,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodenviar" id="enviar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
+	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
@@ -627,13 +659,39 @@ $path_archivo&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_datos_configuracion_smtp" id="get_datos_configuracion_smtp"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_datos_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_datos_configuracion_smtp(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Método para obtener la configuración del servidor SMTP </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_cc" id="set_cc"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
+	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
 </div>
 <br />
 
@@ -671,7 +729,7 @@ $direcciones = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">set_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+	<span class="method-title">set_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
 </div>
 <br />
 
@@ -709,7 +767,7 @@ $nombre_conf = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
 </div>
 <br />
 
@@ -747,7 +805,7 @@ $confirm&nbsp;
 	
 		
 	
-	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
 </div>
 <br />
 
@@ -779,13 +837,51 @@ $html = true]&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_reply" id="set_reply"><!-- --></a>
+<a name="methodset_remitente" id="set_remitente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">set_remitente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_remitente(
+string
+$from_name&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Configura el FromName para el envío del mail </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$from_name:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_reply" id="set_reply"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 

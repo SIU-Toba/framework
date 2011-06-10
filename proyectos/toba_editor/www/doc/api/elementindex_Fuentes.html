@@ -15,17 +15,17 @@
   		<div class="package">
               	<a href="li_Centrales.html">Centrales</a>
         	        		|
-        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
-        	        		|
         	              	<a href="li_Componentes.html">Componentes</a>
         	        		|
         	              	<a href="li_Varios.html">Varios</a>
         	        		|
-        	              	<a href="li_Fuentes.html">Fuentes</a>
+        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
+        	        		|
+        	              	<a href="li_Debug.html">Debug</a>
         	        		|
         	              	<a href="li_Seguridad.html">Seguridad</a>
         	        		|
-        	              	<a href="li_Debug.html">Debug</a>
+        	              	<a href="li_Fuentes.html">Fuentes</a>
         	            </div>
    	</td>	
     <td class="header-top-right">
@@ -121,12 +121,12 @@
 	<h3>Package indexes</h3>
 	<ul>
 				<li><a href="elementindex_Centrales.html">Centrales</a></li>
-					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Componentes.html">Componentes</a></li>
 					<li><a href="elementindex_Varios.html">Varios</a></li>
-							<li><a href="elementindex_Seguridad.html">Seguridad</a></li>
+					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Debug.html">Debug</a></li>
-			</ul>
+					<li><a href="elementindex_Seguridad.html">Seguridad</a></li>
+					</ul>
 	[ <a href="elementindex_Fuentes.html#a">a</a> ]
 	[ <a href="elementindex_Fuentes.html#b">b</a> ]
 	[ <a href="elementindex_Fuentes.html#c">c</a> ]
@@ -181,13 +181,13 @@
 		<h2>a</h2>
 		<dl>
 							<dt><b>abortar_transaccion</b></dt>
-				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodabortar_transaccion">toba_db::abortar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un ROLLBACK en la conexión</dd>
-							<dt><b>abortar_transaccion</b></dt>
 				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functionabortar_transaccion">abortar_transaccion()</a></dd>
-							<dt><b>abrir_transaccion</b></dt>
-				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functionabrir_transaccion">abrir_transaccion()</a></dd>
+							<dt><b>abortar_transaccion</b></dt>
+				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodabortar_transaccion">toba_db::abortar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un ROLLBACK en la conexión</dd>
 							<dt><b>abrir_transaccion</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodabrir_transaccion">toba_db::abrir_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un BEGIN TRANSACTION en la conexión</dd>
+							<dt><b>abrir_transaccion</b></dt>
+				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functionabrir_transaccion">abrir_transaccion()</a></dd>
 							<dt><b>activar_registro_consulta</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodactivar_registro_consulta">toba_db::activar_registro_consulta()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Activa/desactiva el resgistro de los comandos de consulta.</dd>
 							<dt><b>activar_registro_ejecucion</b></dt>
@@ -251,9 +251,9 @@
 							<dt><b>cargar_relaciones</b></dt>
 				<dd>in file toba_info_relacion_entre_tablas.php, method <a href="Fuentes/toba_info_relacion_entre_tablas.html#methodcargar_relaciones">toba_info_relacion_entre_tablas::cargar_relaciones()</a></dd>
 							<dt><b>cerrar_transaccion</b></dt>
-				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodcerrar_transaccion">toba_db::cerrar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un COMMIT en la conexión</dd>
-							<dt><b>cerrar_transaccion</b></dt>
 				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functioncerrar_transaccion">cerrar_transaccion()</a></dd>
+							<dt><b>cerrar_transaccion</b></dt>
+				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodcerrar_transaccion">toba_db::cerrar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un COMMIT en la conexión</dd>
 							<dt><b>conectar</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodconectar">toba_db::conectar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Crea una conexion a la base</dd>
 							<dt><b>configurar_parseo_errores</b></dt>
@@ -276,6 +276,8 @@
 				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un COMMIT WORK en la conexión</dd>
 							<dt><b>clonar_schema</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodclonar_schema">toba_db_postgres7::clonar_schema()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES &gt;= 8.3</dd>
+							<dt><b>crear_lenguaje</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodcrear_lenguaje">toba_db_postgres7::crear_lenguaje()</a></dd>
 							<dt><b>crear_rol</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodcrear_rol">toba_db_postgres7::crear_rol()</a></dd>
 							<dt><b>crear_schema</b></dt>
@@ -344,6 +346,8 @@
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodexportar_registro">toba_db::exportar_registro()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Exporta el registro de los comandos de ejecución y consulta a archivos.</dd>
 							<dt><b>existe_columna</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodexiste_columna">toba_db_postgres7::existe_columna()</a></dd>
+							<dt><b>existe_lenguaje</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodexiste_lenguaje">toba_db_postgres7::existe_lenguaje()</a></dd>
 							<dt><b>existe_rol</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodexiste_rol">toba_db_postgres7::existe_rol()</a></dd>
 							<dt><b>existe_schema</b></dt>
@@ -588,9 +592,9 @@
 		<h2>q</h2>
 		<dl>
 							<dt><b>quote</b></dt>
-				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functionquote">quote()</a></dd>
-							<dt><b>quote</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodquote">toba_db::quote()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Convierte un string a una representación segura para el motor. Evita</dd>
+							<dt><b>quote</b></dt>
+				<dd>in file toba_db.php, function <a href="Fuentes/_nucleo---lib---toba_db.php.html#functionquote">quote()</a></dd>
 					</dl>
 	</div>
 	<a name="r"></a>
