@@ -81,13 +81,13 @@ class toba_ei_cuadro extends toba_ei
 	protected $_clase_formateo = 'toba_formateo';
 
 	//Modo de clave segura
-	private $_modo_clave_segura = true;				//Switchea a modo compatibilidad hacia atras
+	protected $_modo_clave_segura = true;				//Switchea a modo compatibilidad hacia atras
 	private $_index_mapeo_clave_segura = 1;			//Indice que se devolvera al cliente
 	protected $_mapeo_clave_segura = array();			//Arreglo que contendra el mapeo hasta que sea enviado a sesion
 
 	final function __construct($id)
 	{
-		$this->set_propiedades_sesion(array('tamanio_pagina', '_eventos_multiples'));		//Guardo en sesion aquello que me interesa
+		$this->set_propiedades_sesion(array('tamanio_pagina', '_eventos_multiples', '_modo_clave_segura'));		//Guardo en sesion aquello que me interesa
 		parent::__construct($id);
 
 		$this->procesar_definicion();			//Evaluar si no se puede retrasar hasta el inicializar
@@ -818,18 +818,19 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	* Retorna la clave serializada de una fila dada
 	* @param integer $fila Numero de fila
+	* @param boolean $forzar_claves_reales Obliga a devolver los valores reales de las claves, aun cuando se encuentre en modo seguro.
 	* @return string Clave serializada
 	*/
-	function get_clave_fila($fila)
+	function get_clave_fila($fila, $forzar_claves_reales = false)
 	{
 		$id_fila = "";
-		if ($this->_modo_clave_segura) {
+		if ($this->_modo_clave_segura && !$forzar_claves_reales) {
 			$id_fila = $fila;
 			$this->_mapeo_clave_segura[$id_fila] = $this->get_clave_fila_array($fila);			
 		} else {
 			if (isset($this->_columnas_clave)) {
 				foreach($this->_columnas_clave as $clave) {
-				$id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+					$id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
 				}
 			}
 			$id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));
