@@ -131,7 +131,8 @@ class toba_mail implements toba_tarea
 			$archivo = tempnam($dir_temp, 'adjunto');
 			file_put_contents($archivo, $this->adjuntos[$id_adjunto]['archivo']);
 			$temporales[] = $archivo;
-			$mail->AddAttachment($archivo, $this->adjuntos[$id_adjunto]['nombre']);
+		   	$tipo = $mail->_mime_types($this->adjuntos[$id_adjunto]['tipo']);
+			$mail->AddAttachment($archivo, $this->adjuntos[$id_adjunto]['nombre'], 'base64', $tipo);
 		}
 		
 		$exito = $mail->Send();
@@ -196,12 +197,16 @@ class toba_mail implements toba_tarea
 	 * Agrega un archivo adjunto al mail
 	 * @param string $nombre Nombre del archivo a mostrarse en el correo
 	 * @param string $path_archivo Path al archivo en el disco
+	 * @param string $encoding Encoding del archivo
+   	 * @param string $tipo File extension (MIME) type
 	 */
-	function agregar_adjunto($nombre, $path_archivo)
+	function agregar_adjunto($nombre, $path_archivo, $encoding = 'base64', $tipo = '')
 	{
 		$this->adjuntos[] = array(
 			'nombre' => $nombre,
 			'archivo' => file_get_contents($path_archivo),
+			'encoding' => $encoding,
+			'tipo' => $tipo
 		);
 	}	
 }

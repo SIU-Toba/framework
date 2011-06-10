@@ -257,9 +257,8 @@ class toba_ef_combo extends toba_ef_seleccion
 		$estado = $this->get_estado_para_input();
         if ($this->es_solo_lectura()) {
         	$clase = $this->clase_css.' ef-input-solo-lectura';
-        	$input = toba_form::select("",$estado, $this->opciones, $clase, "disabled");	
-			$input .= toba_form::hidden($this->id_form, $estado);
-            return $input;
+        	$html .= toba_form::select("",$estado, $this->opciones, $clase, "disabled");
+			$html .= toba_form::hidden($this->id_form, $estado);
 		} else {
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";
@@ -269,9 +268,9 @@ class toba_ef_combo extends toba_ef_seleccion
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
 			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, $this->clase_css, $js . $this->input_extra.$extra, $this->categorias);
-			$html .= $this->get_html_iconos_utilerias();
-			return $html;
 		}
+		$html .= $this->get_html_iconos_utilerias();
+		return $html;
 	}	
 
 	function crear_objeto_js()
