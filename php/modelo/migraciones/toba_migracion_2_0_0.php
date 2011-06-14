@@ -177,7 +177,11 @@ class toba_migracion_2_0_0 extends toba_migracion
 		$sql[] = "UPDATE apex_pagina_tipo SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
 		$sql[] = "UPDATE apex_consulta_php SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
 		$sql[] = "UPDATE apex_objeto_ci_pantalla SET punto_montaje=$id_pm WHERE objeto_ci_proyecto=$proyecto";
-		$sql[] = "UPDATE apex_objeto_ei_formulario_ef SET punto_montaje=$id_pm WHERE objeto_ei_formulario_proyecto=$proyecto";
+		$sql[] = "UPDATE apex_objeto_ei_formulario_ef SET punto_montaje=$id_pm WHERE objeto_ei_formulario_proyecto=$proyecto";				
+		$sql[] = "UPDATE apex_fuente_datos SET punto_montaje=$id_pm WHERE proyecto=$proyecto";
+		$sql[] = "UPDATE apex_objeto_db_registros_ext SET punto_montaje=$id_pm WHERE objeto_proyecto=$proyecto";
+		$sql[] = "UPDATE apex_objeto_ei_filtro_col SET punto_montaje=$id_pm WHERE objeto_ei_filtro_proyecto=$proyecto";
+		
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
