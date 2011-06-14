@@ -1,0 +1,10 @@
+#!/bin/sh
+export toba_dir=/usr/local/proyectos/toba_trunk
+export PATH="$toba_dir/bin:$PATH"
+toba nucleo zipversion -r $1
+dirdestino= ls /tmp/toba
+for i in $dirdestino; do
+   scp $i usuario@server:/var/www/downloads/toba
+done
+rm -f /tmp/toba/*
+

@@ -1,0 +1,9 @@
+#!/bin/sh
+export toba_dir=/usr/local/proyectos/toba_trunk
+export PATH="$toba_dir/bin:$PATH"
+toba nucleo versionar -r $1 -u cambiar_usuario
+dirdestino = ls /tmp/toba
+for i in $dirdestino; do
+  scp $i usuario@server:/var/www/downloads/toba
+done
+rm -f /tmp/toba/*
