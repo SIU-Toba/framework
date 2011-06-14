@@ -12,7 +12,7 @@ class toba_ef_checkbox extends toba_ef
 	protected $valor_info = 'Sí';
 	protected $valor_info_no_seteado = 'No';
 	protected $clase_css = 'ef-checkbox';
-    
+
 	static function get_lista_parametros()
 	{
 		return array(
@@ -23,8 +23,8 @@ class toba_ef_checkbox extends toba_ef
 						'check_ml_toggle'
 		);
 	}
-
-
+ 
+    
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		//VAlor FIJO
@@ -53,7 +53,7 @@ class toba_ef_checkbox extends toba_ef
 		}			
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
 	}
-    
+
 	function get_input()
 	{
 		//Esto es para eliminar un notice en php 5.0.4
@@ -262,11 +262,11 @@ class toba_ef_html extends toba_ef
 	}	
 	
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
-    {
+	{
 		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";
 		$this->alto = (isset($parametros['editor_alto']))? $parametros['editor_alto'] : "300px";
 		$this->botonera = (isset($parametros['editor_botonera']))? $parametros['editor_botonera'] : "Toba";
-        parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
+		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}
 
 	function get_consumo_javascript()
@@ -291,7 +291,10 @@ class toba_ef_html extends toba_ef
 			$this->fckeditor->Height = $this->alto;
 			$this->fckeditor->ToolbarSet = $this->botonera;
 			$this->fckeditor->Config['SkinPath'] = $url.'editor/skins/silver/';
-			$this->fckeditor->Config['DefaultLanguage'] = 'es';
+			$this->fckeditor->Config['DefaultLanguage'] = 'es';					
+		} elseif ($this->controlador() instanceof toba_ei_formulario_ml) {	
+			//Si es un ML tengo que cambiar el id del ef, ya que depende de la fila.
+			$this->fckeditor->InstanceName = $this->id_form;
 		}
 		return $this->fckeditor;		
 	}
