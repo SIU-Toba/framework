@@ -19,6 +19,8 @@ abstract class toba_registro_conflicto
 	 * @var toba_registro
 	 */
 	protected $registro;
+	
+	protected $descripcion_componente; 
 
 	function __construct($registro)
 	{
@@ -35,6 +37,11 @@ abstract class toba_registro_conflicto
 		return $this->numero;
 	}
 
+	function set_descripcion_componente($desc)
+	{
+		$this->descripcion_componente = $desc;
+	}
+	
 	abstract function get_descripcion();
 }
 ?>

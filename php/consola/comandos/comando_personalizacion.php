@@ -23,48 +23,69 @@ class comando_personalizacion extends comando_toba
     /**
      * Prepara un proyecto para comenzar a ser personalizado
      */
-    function opcion__comenzar()
-    {
+	function opcion__comenzar()
+	{
 		$this->consola->mensaje('Preparando personalización. Este proceso puede tardar varios minutos...');
-        $p = $this->get_proyecto();
+		$p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
-        $pers->iniciar();
+		$pers->iniciar();
 		$this->consola->mensaje('Personalización preparada');
-    }
+	}
 
-    /**
-     * Exporta la personalización realizada
-     */
-    function opcion__exportar()
-    {
-        $this->consola->mensaje('Exportando la personalizacion. Este proceso puede llevar varios minutos...');
-        $p = $this->get_proyecto();
+	/**
+	 * Exporta la personalización realizada
+	 */
+	function opcion__exportar()
+	{
+		$this->consola->mensaje('Exportando la personalizacion. Este proceso puede llevar varios minutos...');
+		$p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
-        $pers->exportar();
-        $this->consola->mensaje('Exportacion terminada.');
-    }
+		$pers->exportar();
+		$this->consola->mensaje('Exportacion terminada.');
+	}
 
 	/**
 	 * Chequeo de conflictos. Ejecute este comando antes de importar la personalización
 	 */
 	function opcion__conflictos()
-    {
+	{
 		$p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
 		$pers->chequear_conflictos();
-    }
+		toba_manejador_archivos::crear_archivo_con_datos($p->get_dir(). '/temp/conflictos_verificados.mrk', 'mark1');
+	}
 
-    /**
-     * Importa la personalización que está en el directorio personalización del
-     * proyecto
-     */
-    function opcion__importar()
-    {
-        $this->consola->mensaje('Importando la personalizacion...');
-        $p = $this->get_proyecto();
+	/**
+	*  Importa la personalización que está en el directorio personalización del proyecto
+	* @consola_parametros Opcional: [-t] Ejecuta toda la importacion dentro de una transaccion
+	*/
+	function opcion__importar()
+	{
+		$p = $this->get_proyecto();
+		
+		//Verificar que se haya ejecutado si o si la opcion de conflicto
+		$archivo = $p->get_dir().'/temp/conflictos_verificados.mrk';
+		$verifico_conflictos = toba_manejador_archivos::existe_archivo_en_path($archivo);
+		if (! $verifico_conflictos) {
+			$this->consola->mensaje('Antes de realizar la importación debe ejecutar el comando \'conflictos\'');
+			return;
+		}
+		
+		$this->consola->mensaje('Importando la personalizacion...');
 		$pers = new toba_personalizacion($p, $this->consola);
-        $pers->aplicar();
-        $this->consola->mensaje('Importación terminada');
-    }
+		
+		//Verifico si la ejecucion se quiere hacer dentro de una transaccion.
+		$param = $this->get_parametros();
+		if ( isset($param['-t'] )) {
+			$pers->set_ejecucion_con_transaccion_global();
+		}
+		
+		//Aplico la personalizacion
+		$pers->aplicar();
+		$this->consola->mensaje('Proceso Finalizado');
+		
+		//Elimino la marca  de conflictos para que no pueda volver a ejecutarse la importacion.
+		toba_manejador_archivos::ejecutar("rm -f $archivo", $stdout, $stderr);		
+	}
 }
 ?>

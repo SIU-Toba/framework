@@ -26,28 +26,31 @@ class toba_xml {
 		$this->xml->endElement();
 	}
 
-    /**
-     *
-     * @param <type> $nombre
-     * @param <type> $valor un string
-     * @param boolean si desea convertir el valor automaticamente de latin1 a utf8
-     */
+	/**
+	 *
+	 * @param <type> $nombre
+	 * @param <type> $valor un string
+	 * @param boolean si desea convertir el valor automaticamente de latin1 a utf8
+	 */
 	function add_atributo($nombre, $valor, $conv_utf8 = false)
 	{
-        $this->xml->startAttribute($nombre);
+		$this->xml->startAttribute($nombre);
+		if (is_bool($valor)) {
+			$valor = ($valor) ? 'TRUE': 'FALSE';
+		}
 
-        if ($conv_utf8) {
-            $this->xml->text(utf8_e_seguro($valor));
-        } else {
-            $this->xml->text($valor);
-        }
-        $this->xml->endAttribute();
+		if ($conv_utf8) {
+			$this->xml->text(utf8_e_seguro($valor));
+		} else {
+			$this->xml->text($valor);
+		}
+		$this->xml->endAttribute();
 	}
 
 	function cerrar_documento()
 	{
-       $this->xml->endDocument();
-       $this->xml->flush();
+	   $this->xml->endDocument();
+	   $this->xml->flush();
 	}
 }
 ?>

@@ -9,12 +9,12 @@ class toba_ci_def extends toba_ei_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
+		$estructura[] = array( 	'tabla' => 'apex_objeto_mt_me',
+								'registros' => '1',
+								'obligatorio' => true );		
 		$estructura[] = array( 	'tabla' => 'apex_objeto_dependencias',
 								'registros' => 'n',
 								'obligatorio' => false );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_mt_me',
-								'registros' => '1',
-								'obligatorio' => true );
 		$estructura[] = array( 	'tabla' => 'apex_objeto_ci_pantalla',
 								'registros' => 'n',
 								'obligatorio' => true,
@@ -24,10 +24,10 @@ class toba_ci_def extends toba_ei_def
 								));
 		$estructura[] = array( 	'tabla' => 'apex_objetos_pantalla',
 								'registros' => 'n',
-								'obligatorio' => false );
+								'obligatorio' => false );				
 		$estructura[] = array( 	'tabla' => 'apex_eventos_pantalla',
 								'registros' => 'n',
-								'obligatorio' => false );
+								'obligatorio' => false );				
 		return $estructura;		
 	}
 	

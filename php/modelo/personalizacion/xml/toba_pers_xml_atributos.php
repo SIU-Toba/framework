@@ -14,5 +14,6 @@ class toba_pers_xml_atributos
 	const clave		= 'clave';
 	const diff_clave	 = 'diff_clave';
 	const valor_original = 'valor_original';
+	const descripcion = 'descripcion';
 }
 ?>

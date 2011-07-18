@@ -101,6 +101,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
+		$xml->add_atributo(toba_pers_xml_atributos::descripcion, $componente['tipo'], true);		
 
 		foreach ($componente['metadata'] as $key_tabla => $contenido) {
 			if (empty($contenido)) continue;
@@ -142,7 +143,8 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
-
+		$xml->add_atributo(toba_pers_xml_atributos::descripcion, $componente['tipo'], true);
+		
 		foreach ($componente['metadata'] as $key_tabla => $contenido) {
 			if (empty($contenido)) continue;
 

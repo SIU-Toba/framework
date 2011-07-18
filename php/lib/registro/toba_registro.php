@@ -8,35 +8,37 @@ abstract class toba_registro {
 	protected $tipo;
 
 	// La tabla a la que pertenece el registro
-    protected $tabla;
+	protected $tabla;
 
 	// Las columnas del registro
 	protected $columnas = array();
 
-    protected $conversion_auto_latin1 = true;
+	protected $conversion_auto_latin1 = true;
 	/**
 	 * La bd donde se tiene que guardar el registro
 	 * @var toba_db_postgres7
 	 */
 	protected $db;
+	
+	protected $conflictos;
 
 	function  __construct($db, $nombre_tabla)
 	{
 		$this->db = $db;
 		$this->set_tabla($nombre_tabla);
-        $this->conversion_auto_latin1 = function_exists('mb_detect_encoding');
+		$this->conversion_auto_latin1 = function_exists('mb_detect_encoding');
 	}
 
-    /**
-     * Si es verdadero todos los strings que se pasen como parametro $valor a
-     * add_columna van a ser convertidos automáticamente a latin1 si están en
-     * utf8
-     * @param <type> $param
-     */
-    function set_conversion_auto_latin1($param)
-    {
-        $this->conversion_auto_latin1 = $param;
-    }
+	/**
+	 * Si es verdadero todos los strings que se pasen como parametro $valor a
+	 * add_columna van a ser convertidos automáticamente a latin1 si están en
+	 * utf8
+	 * @param <type> $param
+	 */
+	function set_conversion_auto_latin1($param)
+	{
+		$this->conversion_auto_latin1 = $param;
+	}
 
 	/**
 	 * Graba el registro en la base
@@ -52,10 +54,10 @@ abstract class toba_registro {
 		if (empty($columna)) {
 			throw  new toba_error('REGISTRO: No se puede agregar una columna cuyo nombre es vacío');
 		}
-        if ($this->conversion_auto_latin1) {
-            $valor = utf8_d_seguro($valor);
-        }
-        
+		if ($this->conversion_auto_latin1) {
+			$valor = utf8_d_seguro($valor);
+		}
+
 		$this->columnas[$columna]['valor'] = $valor;
 	}
 
@@ -100,52 +102,44 @@ abstract class toba_registro {
 		return $this->db;
 	}
 
+	function analizar_conflictos()
+	{
+		$this->conflictos = array();
+		$schema = $this->db->get_schema();
+		if (!$this->db->existe_tabla($schema, $this->tabla)) {
+			$this->conflictos[] =  new toba_registro_conflictos_tabla_inexistente($this);
+		}
+
+		$error = $this->check_constraints();
+		if ($error !== false) {
+			$this->conflictos[] =  new toba_registro_conflicto_constraints($this, $error);
+		}	
+	}
+		
 	/**
 	 * @return array arreglo con los toba_registro_conflictos del registro
 	 */
 	function get_conflictos()
 	{
-		$conflictos = array();
-
-		$schema = $this->db->get_schema();
-
-		if (!$this->db->existe_tabla($schema, $this->tabla)) {
-			$conflictos[] =  new toba_registro_conflictos_tabla_inexistente($this);
-			return $conflictos;
+		if (! isset($this->conflictos)) {
+			$this->analizar_conflictos();
 		}
-
-		$error = $this->check_constraints();
-		if ($error !== false) {
-			$conflictos[] =  new toba_registro_conflicto_constraints($this, $error);
-			return $conflictos;
-		}
-
-		return $conflictos;
+		return $this->conflictos;
 	}
 
 	protected function check_constraints()
 	{
-		$estaba_abierta = $this->db->transaccion_abierta();
-		if (!$estaba_abierta) {	// Si no estaba abierta la abro
-			$this->db->abrir_transaccion();
-		}
-
 		$this->db->agregar_savepoint('chequeo_conflicto');
 		$sql = $this->to_sql();
 		$fallo = false;
 
 		try {
 			$this->db->ejecutar($sql);
+			$this->db->liberar_savepoint('chequeo_conflicto');
 		} catch (toba_error_db $e) {
 			$fallo = $e;
+			$this->db->abortar_savepoint('chequeo_conflicto');	
 		}
-
-		$this->db->abortar_savepoint('chequeo_conflicto');
-
-		if (!$estaba_abierta) {	// Si no estaba abierta la abrí recién. Entonces la aborto
-			$this->db->abortar_transaccion();
-		}
-
 		return $fallo;
 	}
 

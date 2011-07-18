@@ -16,6 +16,11 @@ abstract class toba_importador {
 		$this->cargar_tareas();
 	}
 
+	function rewind()
+	{
+		$this->iterador = 0;
+	}
+	
 	/**
 	 *
 	 * @return importador_tarea

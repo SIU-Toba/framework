@@ -8,12 +8,12 @@ class toba_datos_relacion_def extends toba_componente_def
 		$estructura[] = array( 	'tabla' => 'apex_objeto_datos_rel',
 								'registros' => '1',
 								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_datos_rel_asoc',
-								'registros' => 'n',
-								'obligatorio' => true );
 		$estructura[] = array( 	'tabla' => 'apex_objeto_dependencias',
 								'registros' => 'n',
 								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_datos_rel_asoc',
+								'registros' => 'n',
+								'obligatorio' => true );		
 		$estructura[] = array( 	'tabla' => 'apex_objeto_rel_columnas_asoc',
 								'registros' => 'n',
 								'obligatorio' => false );

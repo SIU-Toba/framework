@@ -13,7 +13,7 @@ class toba_personalizacion {
 	const dir_metadatos		= 'metadatos/';
 	const dir_logs			= 'logs/';
 	const dir_php			= 'php/';
-    const dir_www           = 'www/';
+	const dir_www           = 'www/';
 	const nombre_plan		= 'plan.xml';
 	const template_archivo_componente	= 'comp_%id%.xml';
 	const template_archivo_tabla		= 'tabla_%id%.xml';
@@ -55,7 +55,8 @@ class toba_personalizacion {
 	protected static $registro_conflictos;
 	protected static $instancia;
 
-
+	protected $modo_ejecucion_transcaccional = false;
+	
 	/**
 	 * @return toba_registro_conflictos
 	 */
@@ -78,6 +79,63 @@ class toba_personalizacion {
 		$this->cargar_ini();
 	}
 
+	protected function clonar_schema_windows($schema_viejo, $schema_nuevo, $base, $user, $pass, $port)
+	{
+		$temp_dir = $this->proyecto->get_dir(). '/temp';
+		$salida = toba_manejador_archivos::path_a_windows($temp_dir.'/dump.sql');
+		$bat = "
+			@echo off
+			SET PGUSER=$user
+			SET PGPASSWORD=$pass
+			psql -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base
+			pg_dump -p $port --inserts --no-owner -x -n $schema_nuevo $base  > $salida
+			psql -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base
+			psql -d $base -p $port < $salida
+		";
+		$bat_file = $temp_dir.'/clonar_schema.bat';
+		file_put_contents($bat_file, $bat);
+		system('cmd /c "'.$bat_file.'"');
+        unlink($bat_file);
+        unlink($salida);
+	}
+	
+	protected function clonar_schema_linux($schema_viejo, $schema_nuevo, $base, $user, $pass, $port)
+	{
+		$temp_dir = $this->proyecto->get_dir(). '/temp';
+		$salida = $temp_dir.'/dump.sql';
+		
+		$sh  = "export PGUSER=$user\n";
+		$sh .= "export PGPASSWORD=$pass\n";
+		$sh .= "psql -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base\n";
+		$sh .= "pg_dump -p $port --inserts --no-owner -x -n $schema_nuevo $base > $salida\n";
+		$sh .= "psql -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base\n";
+		$sh .= "psql -d $base -p $port < $salida\n";
+
+		$sh_file = $temp_dir.'/clonar_schema.sh';
+		
+		file_put_contents($sh_file, $sh);
+		chmod($sh_file, 0755);
+		exec($sh_file);
+		unlink($sh_file);
+		unlink($salida);
+	}
+	
+	protected function clonar_schema($schema_viejo, $schema_nuevo)
+	{
+		$params = $this->db->get_parametros();
+		$base = $params['base'];
+		$puerto = $params['puerto'];
+		$usuario = $params['usuario'];
+		$clave = $params['clave'];
+		
+		if (toba_manejador_archivos::es_windows()) {
+			$this->clonar_schema_windows($schema_viejo, $schema_nuevo, $base, $usuario, $clave, $puerto);
+		} else {
+			$this->clonar_schema_linux($schema_viejo, $schema_nuevo, $base, $usuario, $clave, $puerto);
+		}
+	}
+   
+    
 	function iniciar()
 	{
 		$schema_o = $this->get_schema_original();
@@ -85,7 +143,7 @@ class toba_personalizacion {
 
 		$this->db->set_schema('public');	// en este schema insertamos la funcion
 		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");
-		$this->db->clonar_schema($schema_o, $schema_t);
+        $this->clonar_schema($schema_o, $schema_t);
 
 		// se cambia el schema del proyecto para que todos los cambios sean sobre el nuevo schema
 		$this->cambiar_schema_proyecto($schema_t);
@@ -96,6 +154,9 @@ class toba_personalizacion {
 		$this->ini->guardar();
 	}
 
+	//------------------------------------------------------------------------------------------------------------------------------------------------------//
+	//									OPERACIONES									     //
+	//------------------------------------------------------------------------------------------------------------------------------------------------------//	
 	function exportar()
 	{
 		if (!$this->iniciada()) {
@@ -104,13 +165,29 @@ class toba_personalizacion {
 		$this->crear_directorios();
 
 		$this->exportar_tablas();
-		$this->exportar_componentes();
+		$this->exportar_componentes();	//Aca hay que asegurarse que se agregue la clase del componente como descripcion
 	}
 
+	/**
+	 * Chequea los posibles conflictos para la importacion y los guarda en un archivo de log
+	 */
 	function chequear_conflictos()
 	{
-		$this->conflictos_tablas();
-		$this->conflictos_componentes();
+		$importador_tablas =  new toba_importador_tablas($this->dir_tablas.self::nombre_plan, $this->db);					
+		$importador_componentes =  new  toba_importador_componentes($this->dir_componentes.self::nombre_plan, $this->db);		
+		
+		//Ejecuto todo dentro de una transaccion destinada a abortarse, 
+		//esto me permite resolver algunas cuestiones temporales que el chequeo a puro registro no.
+		$this->db->abrir_transaccion();		
+		
+		//Analizo los conflictos
+		$this->analizar_conflictos($importador_tablas);
+		$this->analizar_conflictos($importador_componentes);
+		
+		//Aborto la transaccion
+		$this->db->abortar_transaccion();
+		
+		//Guardo un archivo con el log de los conflictos
 		$path_log = $this->dir.'logs/conflictos.log';
 		$reg_conflictos = self::get_registro_conflictos();
 		if ($this->consola) {
@@ -120,17 +197,120 @@ class toba_personalizacion {
 		}
 	}
 
+	/**
+	 * Importa una personalizacion, tiene 2 modos de accion:
+	 * Transaccion Global, se importa todo o nada.
+	 * Transaccion a nivel de componente, se importa solo lo que no da error.
+	 */
 	function aplicar()
 	{
 		if (!$this->existe()) {
 			throw  new  toba_error("PERSONALIZACION: No existe la carpeta de personalización");
 		}
-
-		$this->aplicar_tablas();
-		$this->aplicar_componentes();
+		
+		//Instancio ambos importadores
+		$importador_tablas = new toba_importador_tablas($this->dir_tablas.self::nombre_plan, $this->db);
+		$importador_componentes =  new  toba_importador_componentes($this->dir_componentes.self::nombre_plan, $this->db);		
+		
+		//Empiezo haciendo el chequeo de conflictos para los componentes
+		//En una transaccion destinada a abortar
+		//------------------------------------------------------------------------------------------//
+		$this->db->abrir_transaccion();
+		$this->analizar_conflictos($importador_componentes, false);
+		$this->db->abortar_transaccion();
+		//------------------------------------------------------------------------------------------//
+		
+		//Comienzo la importacion propiamente dicha		
+		if ($this->ejecutar_en_transaccion_global()) {			
+			$this->db->abrir_transaccion();					
+			$this->db->retrazar_constraints();	//Retraso los triggers para evitar problemas de fk
+		}		
+		
+		//Aplico la personalizacion a tablas y componentes
+		try {
+			$this->aplicar_cambios($importador_tablas);
+			$this->aplicar_cambios($importador_componentes);
+		} catch (toba_error_db $e) {
+			$this->db->abortar_transaccion();				//Hubo problemas de SQL, aborto todo
+			if ($this->consola) {
+				$this->consola->mensaje("Ocurrio un error en la importacion \n");
+			}
+		} catch(toba_error_usuario $e) {
+			$this->db->abortar_transaccion();				//El usuario decidio no continuar, saco mensaje por pantalla
+			if ($this->consola) {
+				$this->consola->mensaje($e->getMessage());
+			}
+		}
+				
+		if ($this->db->transaccion_abierta() && $this->ejecutar_en_transaccion_global()) {
+			$this->db->cerrar_transaccion();				//Cierro la transaccion si aun esta abierta. Esto es, se ejecuto sin problemas
+		}
 	}
 
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	//										PROCESOS										      //
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	protected function exportar_tablas()
+	{
+		$schema_o = $this->get_schema_original();
+		$schema_a = $this->get_schema_personalizacion();
+		
+		$rec =  new toba_recuperador_tablas($this->proyecto, $schema_a, $schema_o);
+		$tablas = $rec->get_data();
+		
+		$generador =  new  toba_pers_xml_generador_tablas();
+		$generador->init_plan($this->dir_tablas . toba_personalizacion::nombre_plan);
+		$generador->generar_tablas($this->dir_tablas, $tablas->get_diferentes());
+		$generador->finalizar_plan();
+	}
+	
+	protected function exportar_componentes()
+	{
+		$schema_o = $this->get_schema_original();
+		$schema_a = $this->get_schema_personalizacion();
 
+		$rec =  new  toba_recuperador_componentes($this->proyecto, $schema_a, $schema_o);
+		$datos = $rec->get_data();
+
+		$generador =  new  toba_pers_xml_generador_componentes();
+		$generador->init_plan($this->dir_componentes.toba_personalizacion::nombre_plan);
+		$generador->generar_componentes_borradas($this->dir_componentes, $datos->get_unicos($schema_o));
+		$generador->generar_componentes_modificadas($this->dir_componentes, $datos->get_diferentes());
+		$generador->generar_componentes_nuevas($this->dir_componentes, $datos->get_unicos($schema_a));				
+		$generador->finalizar_plan();
+	}
+	
+
+	//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	/**
+	 * @param toba_importador $importador
+	 * @param boolean $exportar_a_archivo 
+	 */
+	protected function analizar_conflictos($importador, $exportar_a_archivo = true)
+	{
+		while ($tarea = $importador->get_siguiente_tarea()) {
+			$tarea->registrar_conflictos($exportar_a_archivo);
+		}		
+	}
+	
+	//------------------------------------------------------------------------------------------------------------------------------------------------------------------//	
+	/**
+	 * @param toba_importador $importador 
+	 */
+	protected function aplicar_cambios($importador)
+	{
+		$importador->rewind();							//Reposiciono el iterador al comienzo debido al chequeo de conflictos
+		while ($tarea = $importador->get_siguiente_tarea()) {
+			if ($this->ejecutar_en_transaccion_global()) {		//Si hay una transaccion global se lo informo a la tarea
+				$tarea->set_ejecuta_transaccion_global();
+			}
+			$tarea->ejecutar($this->consola);
+		}		
+	}
+	
+	//------------------------------------------------------------------------------------------------------------------------------------------------------//
+	//								METODOS AUXILIARES									      //
+	//------------------------------------------------------------------------------------------------------------------------------------------------------//	
 	function get_db()
 	{
 		return $this->db;
@@ -241,80 +421,16 @@ class toba_personalizacion {
 		foreach ($sub_dirs as $sub_dir) {
 			toba_manejador_archivos::crear_arbol_directorios($sub_dir);
 		}
-	}
-
-	//*************************************************************************
-	//TABLAS
-	//*************************************************************************
-
-	protected function exportar_tablas()
+	}		
+	
+	function set_ejecucion_con_transaccion_global()
 	{
-		$schema_o = $this->get_schema_original();
-		$schema_a = $this->get_schema_personalizacion();
-		$rec =  new toba_recuperador_tablas($this->proyecto, $schema_a, $schema_o);
-		$tablas = $rec->get_data();
-		
-		$generador =  new  toba_pers_xml_generador_tablas();
-		$generador->init_plan($this->dir_tablas . toba_personalizacion::nombre_plan);
-		$generador->generar_tablas($this->dir_tablas, $tablas->get_diferentes());
-		$generador->finalizar_plan();
+		$this->modo_ejecucion_transcaccional = true;
 	}
-
-	/**
-	 * @param toba_registro_conflictos $conflictos
-	 */
-	protected function conflictos_tablas()
+	
+	function ejecutar_en_transaccion_global()
 	{
-		$importador = new toba_importador_tablas($this->dir_tablas.self::nombre_plan, $this->db);
-		while ($tarea = $importador->get_siguiente_tarea()) {
-			$tarea->registrar_conflictos();
-		}
-	}
-
-	protected function aplicar_tablas()
-	{
-		$importador = new toba_importador_tablas($this->dir_tablas.self::nombre_plan, $this->db);
-		while ($tarea = $importador->get_siguiente_tarea()) {
-			$tarea->ejecutar($this->consola);
-		}
-	}
-
-
-	//*************************************************************************
-	//COMPONENTES
-	//*************************************************************************
-
-	protected function exportar_componentes()
-	{
-		$schema_o = $this->get_schema_original();
-		$schema_a = $this->get_schema_personalizacion();
-
-		$rec =  new  toba_recuperador_componentes($this->proyecto, $schema_a, $schema_o);
-		$datos = $rec->get_data();
-
-		$generador =  new  toba_pers_xml_generador_componentes();
-		$generador->init_plan($this->dir_componentes.toba_personalizacion::nombre_plan);
-		$generador->generar_componentes_borradas($this->dir_componentes, $datos->get_unicos($schema_o));
-		$generador->generar_componentes_modificadas($this->dir_componentes, $datos->get_diferentes());
-		$generador->generar_componentes_nuevas($this->dir_componentes, $datos->get_unicos($schema_a));
-		$generador->finalizar_plan();
-	}
-
-	protected function conflictos_componentes()
-	{
-		$importador =  new  toba_importador_componentes($this->dir_componentes.self::nombre_plan, $this->db);
-		while ($tarea = $importador->get_siguiente_tarea()) {
-			$tarea->registrar_conflictos();
-		}
-	}
-
-	protected function aplicar_componentes()
-	{
-		$importador =  new  toba_importador_componentes($this->dir_componentes.self::nombre_plan, $this->db);
-
-		while ($tarea = $importador->get_siguiente_tarea()) {
-			$tarea->ejecutar($this->consola);
-		}
+		return $this->modo_ejecucion_transcaccional;
 	}
 }
 ?>

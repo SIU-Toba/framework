@@ -141,30 +141,37 @@ class toba_cargador
 	}
 
 	protected function armar_clave($db, $tabla, &$definicion, $cant_registros)
-	{
-		$clave = $db->get_secuencia_tabla($tabla);
-
-		if (is_null($clave)) {
+	{		
+		$clausulas_clave = array();
+		if (isset($definicion['dump_clave_proyecto'])) {			//Si el proyecto es parte de la clave
+			$clausulas_clave[] = '%'. $definicion['dump_clave_proyecto'] .'%';
+		}
+		if (isset($definicion['dump_clave_componente'])) {		//Si existe un id de componente en la clave
+			$clausulas_clave[] = '%'.$definicion['dump_clave_componente'].'%';
+		}
+		
+		//Busco una posible columna secuencia en la tabla.
+		$clave_db = $db->get_secuencia_tabla($tabla);		
+		if (! is_null($clave_db)) {
+			$clausulas_clave[] = "%$clave_db%";
+		} else {
+			//No existe columna secuencia pero la tabla permite N registros
 			if ($cant_registros != 1) {
-				if (isset($definicion['clave_elemento'])) {	// Si está definido clave_elemento la armamos de ahí
+				if (isset($definicion['clave_elemento'])) {			// Si está definido clave_elemento la armamos de ahí
+					$clausulas_clave = array();				//Reinicializo para armar con este conjunto de columnas
 					$exp_clave_elem = explode(',', $definicion['clave_elemento']);
-					foreach (array_keys($exp_clave_elem) as $key) {
-						$exp_clave_elem[$key] = '%'.trim($exp_clave_elem[$key]).'%';
+					foreach (array_keys($exp_clave_elem) as $key) {						
+						$clausulas_clave[] = '%'.trim($exp_clave_elem[$key]).'%';
 					}
-					$clave = implode(';', $exp_clave_elem);
 				} else {
 					print_r($definicion);
 					throw new toba_error("TOBA CARGADOR: Falta definir la clave de la tabla $tabla");
 				}
-			} else {	// Si la cantidad de registros es uno la clave se forma a partir del proyecto y la clave componente
-				$clave_proyecto = $definicion['dump_clave_proyecto'];
-				$clave_comp = $definicion['dump_clave_componente'];
-				$clave = "%$clave_proyecto%;%$clave_comp%";
-			}
-		} else {	// Si tiene secuencia la tabla se utiliza esa como clave
-			$clave = "%$clave%";
+			} 
 		}
-
+		
+		$clausulas_clave = array_unique($clausulas_clave);	//Quito posibles columnas repetidas
+		$clave = implode(';', $clausulas_clave);
 		return $clave;
 	}
 

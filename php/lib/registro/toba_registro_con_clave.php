@@ -32,17 +32,20 @@ abstract class toba_registro_con_clave extends toba_registro
 
 	function get_conflictos()
 	{
+		//Busco el registro a modificar
+		$reg_original	= $this->get_registro_a_actualizar();		
+		$reg_count	= count($reg_original);
+		
+		//Ejecuto la SQL para analizar conflictos de indices
 		$conflictos	= parent::get_conflictos();
 		if (count($conflictos) > 0) {
 			return $conflictos;	// Si el padre devolvió algún conflicto este impide que se chequeen el resto de los toba_registro_conflictos
 		}
 
-		$reg_original	= $this->get_registro_a_actualizar();
-		$reg_count		= count($reg_original);
-
-		if ($reg_count < 1) {	// No existe el registro a actualizar
+		//Analizo si el registro no fue encontrado o si no se pudo determinar cual se debia modificar
+		if ($reg_count < 1) {	
 			$conflictos[] =  new toba_registro_conflicto_inexistente($this);
-		} else if ($reg_count > 1) {	// No se puede identificar unívocamente el registro a actualizar
+		} else if ($reg_count > 1) {	
 			$conflictos[] =  new toba_registro_conflicto_univoco($this);
 		}
 

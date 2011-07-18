@@ -246,14 +246,13 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	protected function hay_cambios_ext($id_registro)
 	{
 		$registro = $this->datos[$id_registro];
-		foreach (array_keys($registro) as $col) {
-			if ($this->get_tabla($col) == $this->_tabla_ext) {
-				if (!empty($registro[$col])) {
+		foreach($this->_columnas as $col) {
+			if ($this->get_tabla($col['columna']) == $this->_tabla_ext) {
+				if (!empty($registro[$col['columna']])) {
 					return true;
 				}
 			}
 		}
-
 		return false;
 	}
 }
