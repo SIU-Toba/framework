@@ -353,6 +353,20 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 	{
 	}
 
+	/**
+	 * @ignore
+	 */
+	function xml_inicio_zona_colapsable()
+	{
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function xml_fin_zona_colapsable()
+	{
+	}	
+	
 	function xml_acumulador_usuario()
 	{
 		$acumulador = $this->_cuadro->get_acumulador_usuario();

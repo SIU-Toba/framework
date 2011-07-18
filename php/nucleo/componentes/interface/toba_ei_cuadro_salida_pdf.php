@@ -407,6 +407,14 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 	{
 	}
 
+	function pdf_inicio_zona_colapsable()
+	{		
+	}
+	
+	function pdf_fin_zona_colapsable()
+	{		
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------------------------------
 
 	/**

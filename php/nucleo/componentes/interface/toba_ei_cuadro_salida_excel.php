@@ -23,7 +23,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 											);
 	protected $_excel_cabecera_pie_cc_0_op =  array();
 	protected $_excel_cabecera_pie_cc_1_op = array();
-    protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
+	protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
 	protected $_excel_cortar_hoja_cc_0 = false;										//Crea una hoja (worksheet) por corte
 	protected $_excel_usar_formulas = true;											//Para hacer la sumatoria de los cortes usa formulas excel, sino suma en PHP
 
@@ -91,10 +91,10 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		//---> Creo las CELDAS de una FILA <----
 		foreach (array_keys($columnas) as $clave) {
 			$valor = "";
-			if(isset($columnas[$clave]["clave"])){
-				if(isset($datos_cuadro[$id_fila][$clave])){
+			if(isset($columnas[$clave]["clave"])) {
+				if(isset($datos_cuadro[$id_fila][$clave])) {
 					$valor_real = $datos_cuadro[$id_fila][$clave];
-				}else{
+				} else {
 					$valor_real = '';
 				}
 				//Hay que formatear?
@@ -103,7 +103,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 					$funcion = "formato_" . $columnas[$clave]["formateo"];
 					//Formateo el valor
 					list($valor, $estilo) = $formateo->$funcion($valor_real);					
-					if (! isset($estilo)) {
+					if (is_null($estilo)) {
 						$estilo = array();
 					}
 				} else {
@@ -421,7 +421,15 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 	{
 	}
 
-		/**
+	function excel_inicio_zona_colapsable()
+	{
+	}
+	
+	function excel_fin_zona_colapsable()
+	{
+	}
+	
+	/**
 	 * Define que constante de estilos PHPExcel retornar basandose en la entrada
 	 * @param string $estilo
 	 * @return array
