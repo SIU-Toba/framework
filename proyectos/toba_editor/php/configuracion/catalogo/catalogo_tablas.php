@@ -224,13 +224,17 @@ class catalogo_tablas
 					$dr_sincro->tabla('columnas')->eliminar_fila(current($id_interno));
 				 }
 			}
-		} else {		//Es un DT nuevo
+		} else {		//Es un DT nuevo			
+			
+			$pms_proyecto = toba_info_editores::get_pms(toba_editor::get_proyecto_cargado());		
+			$pm_default = current($pms_proyecto);
 			$datos = array('nombre' => $tabla_nombre, 'proyecto' => $this->_proyecto, 
 										'clase_proyecto' => 'toba', 'clase' => 'toba_datos_tabla',
-										'fuente_datos_proyecto' => $this->_proyecto, 'fuente_datos' => $this->_fuente);
+										'fuente_datos_proyecto' => $this->_proyecto, 'fuente_datos' => $this->_fuente,
+										'punto_montaje' => $pm_default['id']);
 			
 			$dr_sincro->tabla('base')->set($datos);
-			$dr_sincro->tabla('prop_basicas')->set(array('ap'=>1, 'permite_actualizacion_automatica' => '1'));	
+			$dr_sincro->tabla('prop_basicas')->set(array('ap'=>1, 'permite_actualizacion_automatica' => '1', 'punto_montaje' => $pm_default['id']));	
 			$dr_sincro->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla_nombre);
 
 			$columnas = $this->get_columnas_base($tabla_nombre);
