@@ -597,9 +597,9 @@ class toba_proyecto
 
 	//------------------------  PUNTOS DE MONTAJE  -------------------------
 
-	function get_info_pms()
+	function get_info_pms($proyecto = null)
 	{
-		$proyecto = $this->id;
+		if (is_null($proyecto)) $proyecto = $this->id;
 		if (toba::nucleo()->utilizar_metadatos_compilados($proyecto)) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__pms', 'get_pms');
 		} else {

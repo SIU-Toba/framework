@@ -36,7 +36,6 @@ class toba_constructor
 		} else {
 			$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
 		}
-		
 		//--- INSTANCIACION	---
 		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS
 			$instancia_nro = 0;
@@ -45,7 +44,7 @@ class toba_constructor
 				//Posee una subclase asociada?
 				if ( $datos['_info']['subclase']) {
 					if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
-						self::cargar_clase($datos);
+						self::cargar_clase($datos, $id['proyecto']);
 					}
 					$clase = $datos['_info']['subclase'];
 				} else {
@@ -66,12 +65,12 @@ class toba_constructor
 		return array($tipo, $clase, $datos);		
 	}
 
-	protected static function cargar_clase(&$datos)
+	protected static function cargar_clase(&$datos, $id_proyecto)
 	{
 		$clase = $datos['_info']['subclase_archivo'];
 
 		$path = '';
-		$punto = toba::puntos_montaje()->get_por_id($datos['_info']['punto_montaje']);
+		$punto = toba::puntos_montaje()->get_instancia_pm_proyecto($id_proyecto, $datos['_info']['punto_montaje']);
 		$path  = $punto->get_path_absoluto().'/';
 		toba::logger()->info("PUNTO MONTAJE: se cargó la clase $clase del punto de montaje {$punto->get_etiqueta()}. El path del mismo es {$punto->get_path_absoluto()}");
 

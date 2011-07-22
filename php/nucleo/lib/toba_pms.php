@@ -9,14 +9,14 @@ class toba_pms
 
 	static private $instancia;
 
-    static function instancia()
-    {
+	static function instancia()
+	{
 		if (!isset(self::$instancia)) {
 			self::$instancia = new toba_pms();
 		}
 		return self::$instancia;
-    }
-
+	}
+		
 	// Cosas dinámicas -----------------------------------------------------
 
 	protected $pms;
@@ -88,5 +88,16 @@ class toba_pms
 		$proyecto = toba::proyecto()->get_id();
 		throw new toba_error("PUNTOS DE MONTAJE: El punto de montaje con id '$id' no existe en el proyecto '$proyecto'");
 	}
+	
+	function get_instancia_pm_proyecto($proyecto, $id)
+	{		
+		$puntos = $this->convertir(toba::proyecto()->get_info_pms($proyecto));
+		foreach ($puntos as $punto) {
+			if ($punto->get_id() == $id) {
+				return $punto;
+			}
+		}
+	}
+
 }
 ?>
