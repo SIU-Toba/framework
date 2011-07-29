@@ -542,9 +542,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function get_descripciones_items($datos)
 	{
 		$desc = array();
-		foreach (array_keys($datos['items']) as $fila)
-		{
-			$desc[$fila['item']] = $fila['nombre'];
+		if (! empty($datos)) {
+			foreach (array_keys($datos['items']) as $fila) {
+				$desc[$fila['item']] = $fila['nombre'];
+			}
 		}
 		return $desc;
 	}
@@ -1089,9 +1090,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					$xml = new toba_xml_tablas($dir_items);
 					$items = $this->get_descripciones_items($xml->get_tablas());
 					foreach (array_keys($errores) as $clave) {
-						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && in_array($fila['item'], $items)) {
-							if (isset($items[$fila['item']])) {
-								$errores[$clave]['extras'] = $items[$fila['item']];
+						$id_item = (isset($errores[$clave]['datos']['item']))?  $errores[$clave]['datos']['item'] : null;
+						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && array_key_exists($id_item, $items)) {
+							if (! is_null($id_item) && isset($items[$id_item])) {
+								$errores[$clave]['extras'] = $items[$id_item];
 							} else {
 								$errores[$clave]['extras'] = '';
 							}
