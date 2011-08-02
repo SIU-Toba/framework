@@ -123,14 +123,19 @@ class catalogo_tablas
 	{
 		$resultado = array();
 		try {
-			$id['proyecto'] = toba_contexto_info::get_proyecto();
-			$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($this->_fuente)->get_id_datos_tabla($tabla);
-			//Se pide el dt con el cache activado asi evita duplicar las instancias
-			$dt_en_cuestion = toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
-			if (! $dt_en_cuestion->inicializado()) {
-				$dt_en_cuestion->inicializar();
-			}
-			$resultado =  $dt_en_cuestion->get_columnas();
+			//Obtengo el id del datos_tabla para la tabla X
+			$componente = toba_admin_fuentes::instancia()->get_fuente($this->_fuente)->get_id_datos_tabla($tabla);
+			$db = toba_contexto_info::get_db();								//Obtengo la base del contexto para usar la instancia de toba
+			toba_datos_tabla_def::set_db($db);
+			
+			//Busco la definicion de columnas del datos_tabla en cuestion
+			$proyecto = toba_contexto_info::get_proyecto();
+			$dt_info = toba_datos_tabla_def::get_vista_extendida($proyecto, $componente);
+			$rs = $db->consultar($dt_info['_info_columnas']['sql']);		
+			//Convierto el arreglo devuelto a un formato indexado por nombre de columna
+			for($a=0; $a < count($rs); $a++) { 
+				$resultado[ $rs[$a]['columna'] ] =& $rs[$a];
+			}	
 		} catch(toba_error $e) {
 			toba::logger()->error(" Búsqueda DT '$tabla': " .$e->getMessage());
 		}
