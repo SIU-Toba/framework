@@ -45,7 +45,8 @@ class form_prop_basicas extends toba_ei_formulario
 					case 'accion':
 						this.controlador.ocultar_tab('pant_dependencias');
 						this.controlador.mostrar_tab('pant_permisos');
-						this.ef('accion').mostrar();					
+						this.ef('accion').mostrar();	
+						this.ef('punto_montaje').mostrar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}
@@ -53,7 +54,8 @@ class form_prop_basicas extends toba_ei_formulario
 					case 'web':
 						this.controlador.mostrar_tab('pant_dependencias');
 						this.controlador.mostrar_tab('pant_permisos');											
-						this.ef('accion').mostrar();					
+						this.ef('accion').mostrar();
+						this.ef('punto_montaje').mostrar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).mostrar();
 						}
@@ -65,6 +67,7 @@ class form_prop_basicas extends toba_ei_formulario
 						this.controlador.mostrar_tab('pant_dependencias');
 						this.controlador.ocultar_tab('pant_permisos');						
 						this.ef('accion').ocultar();
+						this.ef('punto_montaje').ocultar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}						
@@ -73,11 +76,30 @@ class form_prop_basicas extends toba_ei_formulario
 					default:
 						this.controlador.ocultar_tab('pant_dependencias');					
 						this.controlador.ocultar_tab('pant_permisos');
-						this.ef('accion').mostrar();					
+						this.ef('accion').mostrar();
+						this.ef('punto_montaje').mostrar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}						
 				}
+			}
+			
+			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+				if (!inicial) {
+					this.ef('accion').cambiar_valor('');
+				}
+			}
+
+			{$this->objeto_js}.modificar_vinculo__ef_accion = function(id_vinculo)
+			{
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+			}
+			
+			{$this->objeto_js}.modificar_vinculo__extender = function(id_vinculo)
+			{
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 			}
 		";
 		seleccion_imagenes::generar_js($this->objeto_js);

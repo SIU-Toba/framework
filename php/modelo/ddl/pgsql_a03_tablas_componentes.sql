@@ -63,7 +63,8 @@ CREATE TABLE apex_item
 	actividad_patron				varchar(20)		NULL,
 	nombre							varchar(80)		NOT NULL,
 	descripcion						TEXT		NULL,
-	actividad_accion				varchar(80)		NULL,
+	punto_montaje						int8			NULL,
+	actividad_accion					TEXT		NULL,
 	menu							smallint		NULL,
 	orden							float			NULL,
 	solicitud_registrar				smallint		NULL,
@@ -95,6 +96,7 @@ CREATE TABLE apex_item
 	CONSTRAINT	"apex_item_fk_niv_acc" FOREIGN KEY ("nivel_acceso") REFERENCES	"apex_nivel_acceso" ("nivel_acceso") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_pag_tipo"	FOREIGN KEY	("pagina_tipo_proyecto","pagina_tipo")	REFERENCES "apex_pagina_tipo"	("proyecto","pagina_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_zona" FOREIGN KEY ("zona_proyecto","zona")	REFERENCES "apex_item_zona" ("proyecto","zona")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_item_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje")  REFERENCES "apex_puntos_montaje" ("proyecto", "id")  ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 

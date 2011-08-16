@@ -25,7 +25,10 @@ class toba_migracion_2_1_0 extends toba_migracion
 				   CONSTRAINT apex_usuario_pregunta_secreta_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
 				) ;';
 		
-		
+		$sql[] = 'ALTER TABLE apex_item ALTER actividad_accion TYPE text;';
+		$sql[] = 'ALTER TABLE apex_item ADD COLUMN punto_montaje int8 NULL;';
+		$sql[] = 'ALTER TABLE apex_item ADD FOREIGN KEY (proyecto, punto_montaje) REFERENCES apex_puntos_montaje (proyecto, id) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE;';
+			
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 
