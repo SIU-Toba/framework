@@ -33,7 +33,7 @@ class ci_ejemplo_1 extends toba_ci
 		$obj = $mapa->get_mapa();
 		$ruta = toba::proyecto()->get_www_temp();
 		$obj->web->set('imageurl', $ruta['url']);
-		$obj->web->set('imageurl', $ruta['path']);
+		$obj->web->set('imagepath', $ruta['path']);
 
 		//Obtengo los layers y ciclo para fijarle la conexion correcta de la base a modo de ejemplo
 		$layers = $mapa->get_nombre_layers();					//Aca accedo al objeto toba_ei_mapa

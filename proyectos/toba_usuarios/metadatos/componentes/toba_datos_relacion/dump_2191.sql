@@ -59,64 +59,6 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 );
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel_asoc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'2191', --objeto
-	'37', --asoc_id
-	NULL, --identificador
-	'toba_usuarios', --padre_proyecto
-	'2182', --padre_objeto
-	'basica', --padre_id
-	NULL, --padre_clave
-	'toba_usuarios', --hijo_proyecto
-	'2183', --hijo_objeto
-	'proyecto', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'1'  --orden
-);
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'2191', --objeto
-	'42', --asoc_id
-	NULL, --identificador
-	'toba_usuarios', --padre_proyecto
-	'2182', --padre_objeto
-	'basica', --padre_id
-	NULL, --padre_clave
-	'toba_usuarios', --hijo_proyecto
-	'2260', --hijo_objeto
-	'proyecto_pd', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'2'  --orden
-);
---- FIN Grupo de desarrollo 0
-
---- INICIO Grupo de desarrollo 33
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'2191', --objeto
-	'33000011', --asoc_id
-	NULL, --identificador
-	'toba_usuarios', --padre_proyecto
-	'2182', --padre_objeto
-	'basica', --padre_id
-	NULL, --padre_clave
-	'toba_usuarios', --hijo_proyecto
-	'33000064', --hijo_objeto
-	'pregunta_secreta', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'3'  --orden
-);
---- FIN Grupo de desarrollo 33
-
-------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -176,6 +118,64 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3'  --orden
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'2191', --objeto
+	'37', --asoc_id
+	NULL, --identificador
+	'toba_usuarios', --padre_proyecto
+	'2182', --padre_objeto
+	'basica', --padre_id
+	NULL, --padre_clave
+	'toba_usuarios', --hijo_proyecto
+	'2183', --hijo_objeto
+	'proyecto', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'2191', --objeto
+	'42', --asoc_id
+	NULL, --identificador
+	'toba_usuarios', --padre_proyecto
+	'2182', --padre_objeto
+	'basica', --padre_id
+	NULL, --padre_clave
+	'toba_usuarios', --hijo_proyecto
+	'2260', --hijo_objeto
+	'proyecto_pd', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'2191', --objeto
+	'33000011', --asoc_id
+	NULL, --identificador
+	'toba_usuarios', --padre_proyecto
+	'2182', --padre_objeto
+	'basica', --padre_id
+	NULL, --padre_clave
+	'toba_usuarios', --hijo_proyecto
+	'33000064', --hijo_objeto
+	'pregunta_secreta', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'3'  --orden
+);
+--- FIN Grupo de desarrollo 33
 
 ------------------------------------------------------------
 -- apex_objeto_rel_columnas_asoc

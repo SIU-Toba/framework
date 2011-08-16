@@ -212,7 +212,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Tipo de [wiki:Referencia/efs elemento de formulario]', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Etiqueta para el formulario', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	'0', --permitir_html
@@ -370,7 +370,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Forma de identificar la columna. Se utiliza en el api para hacer <pre>$filtro->columna($id)->...</pre>', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	'0', --permitir_html
@@ -449,7 +449,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Indicar si el campo es obligatorio', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --permitir_html

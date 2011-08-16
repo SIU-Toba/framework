@@ -242,7 +242,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, punto_montaje, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
 	'toba_editor', --objeto_proyecto
 	'2298', --objeto
 	'8', --externa_id
@@ -251,6 +251,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_info_dependencia', --metodo
 	'toba_info_editores', --clase
 	'modelo/info/toba_info_editores.php', --include
+	NULL, --punto_montaje
 	NULL, --sql
 	'0', --dato_estricto
 	NULL, --carga_dt

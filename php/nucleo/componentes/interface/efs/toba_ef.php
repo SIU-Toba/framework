@@ -59,8 +59,8 @@ abstract class toba_ef
 		$this->ir_a_fila();
 		$this->etiqueta = $etiqueta;
 		$this->descripcion = $descripcion;
-     	$this->dato = $dato;
-     	list($this->obligatorio, $this->obligatorio_oculto_relaj)  = $obligatorio;
+		$this->dato = $dato;
+		list($this->obligatorio, $this->obligatorio_oculto_relaj)  = $obligatorio;
 		
 		//---- Declaracion de dependencias
 		if (isset($parametros['carga_maestros'])) {
@@ -75,6 +75,9 @@ abstract class toba_ef
 		//Seteo las variables temporales de los modos solo_lectura
 		$this->solo_lectura_base = ((isset($parametros["solo_lectura"]))&&($parametros["solo_lectura"]==1));
 		$this->solo_lectura_modificacion = ((isset($parametros["solo_lectura_modificacion"]))&&($parametros["solo_lectura_modificacion"]==1));
+		if (isset($parametros['estilo'])) {
+			$this->clase_css = $parametros['estilo'];				//Estilo del EF, no de la etiqueta
+		}
 		//Valor FIJO
 		if(isset($parametros['estado_defecto'])){
 			$this->estado_defecto = $parametros['estado_defecto'];

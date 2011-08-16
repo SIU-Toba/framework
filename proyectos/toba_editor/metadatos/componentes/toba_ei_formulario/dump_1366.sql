@@ -212,7 +212,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Texto orientativo a mostrar cuando se posiciona el mouse sobre el elemento grafico que dispara el evento.', --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Texto de confirmacion a mostrar antes de disparar el evento.', --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --permitir_html

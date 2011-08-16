@@ -186,7 +186,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, punto_montaje, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1735', --objeto
 	'0', --externa_id
@@ -195,6 +195,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	NULL, --metodo
 	NULL, --clase
 	NULL, --include
+	NULL, --punto_montaje
 	'SELECT nombre as desc_deporte FROM ref_deportes WHERE id = \'%deporte%\';', --sql
 	'1', --dato_estricto
 	NULL, --carga_dt
@@ -202,7 +203,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'0', --permite_carga_masiva
 	NULL  --metodo_masivo
 );
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, punto_montaje, sql, dato_estricto, carga_dt, carga_consulta_php, permite_carga_masiva, metodo_masivo) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1735', --objeto
 	'1', --externa_id
@@ -211,6 +212,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'get_dia_semana', --metodo
 	'consultas', --clase
 	'operaciones_simples/consultas.php', --include
+	NULL, --punto_montaje
 	NULL, --sql
 	'0', --dato_estricto
 	NULL, --carga_dt

@@ -59,45 +59,6 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 );
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel_asoc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 10
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_editor', --proyecto
-	'10000024', --objeto
-	'10000002', --asoc_id
-	NULL, --identificador
-	'toba_editor', --padre_proyecto
-	'10000022', --padre_objeto
-	'apex_ptos_control', --padre_id
-	NULL, --padre_clave
-	'toba_editor', --hijo_proyecto
-	'10000028', --hijo_objeto
-	'apex_ptos_ctrl_param', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'1'  --orden
-);
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_editor', --proyecto
-	'10000024', --objeto
-	'10000004', --asoc_id
-	NULL, --identificador
-	'toba_editor', --padre_proyecto
-	'10000022', --padre_objeto
-	'apex_ptos_control', --padre_id
-	NULL, --padre_clave
-	'toba_editor', --hijo_proyecto
-	'10000035', --hijo_objeto
-	'ptos_control_ctrl', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'2'  --orden
-);
---- FIN Grupo de desarrollo 10
-
-------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -137,6 +98,45 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --parametros_c
 	NULL, --inicializar
 	'1'  --orden
+);
+--- FIN Grupo de desarrollo 10
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 10
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	'10000002', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'10000022', --padre_objeto
+	'apex_ptos_control', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000028', --hijo_objeto
+	'apex_ptos_ctrl_param', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	'10000004', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'10000022', --padre_objeto
+	'apex_ptos_control', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000035', --hijo_objeto
+	'ptos_control_ctrl', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
 );
 --- FIN Grupo de desarrollo 10
 

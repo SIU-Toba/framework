@@ -61,6 +61,7 @@ class consultas
 			}
 		}
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where ORDER BY nombre";
+		$sql = toba::perfil_de_datos()->filtrar($sql);
 		return consultar_fuente($sql);
 	}
 	

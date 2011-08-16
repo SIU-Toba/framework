@@ -96,7 +96,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	descripcion             			TEXT        	NULL,
 	colapsado							smallint		NULL,
 	desactivado             			smallint       	NULL,
-	estilo   				 			int8		    NULL,		
+	estilo   				 			TEXT		    NULL,		
 	total								smallint		NULL,		
 	inicializacion          			TEXT        	NULL,
 	permitir_html						smallint		NULL,	-- Permite estados incluyendo codigo html
@@ -162,7 +162,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	punto_montaje						int8			NULL,
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_fila", "objeto_ei_formulario", "objeto_ei_formulario_proyecto"),
 	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario", "objeto_ei_formulario_proyecto") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario", "objeto_ut_formulario_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	---CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_datos_tabla" FOREIGN KEY ("objeto_ei_formulario_proyecto","carga_dt") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_consulta_php" FOREIGN KEY ("objeto_ei_formulario_proyecto","carga_consulta_php") REFERENCES "apex_consulta_php" ("proyecto", "consulta_php") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

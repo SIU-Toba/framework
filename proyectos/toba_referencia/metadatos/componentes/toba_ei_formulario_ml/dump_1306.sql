@@ -215,7 +215,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -294,7 +294,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -373,7 +373,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -452,7 +452,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -531,7 +531,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
 	NULL, --permitir_html

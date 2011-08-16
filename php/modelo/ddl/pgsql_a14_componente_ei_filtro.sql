@@ -95,6 +95,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	edit_unidad							TEXT	NULL,
 	edit_rango							TEXT	NULL,
 	edit_expreg							TEXT	NULL,
+	estilo								TEXT	NULL,
 	popup_item							varchar(60)		NULL,
 	popup_proyecto						varchar(15)		NULL,
 	popup_editable						smallint		NULL,

@@ -204,15 +204,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'con_descuento', --identificador
 	'ef_checkbox', --elemento_formulario
 	'con_descuento', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'c/desc', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -283,15 +283,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'descuento', --identificador
 	'ef_editable_moneda', --elemento_formulario
 	'descuento', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Descuento', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -363,14 +363,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_fecha', --elemento_formulario
 	'fecha', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Fecha', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -442,14 +442,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable_moneda', --elemento_formulario
 	'importe', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Importe', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'4', --estilo
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -520,19 +520,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'neto', --identificador
 	'ef_editable_moneda', --elemento_formulario
 	'neto', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Neto', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
-	'4', --estilo
+	'0', --colapsado
+	'0', --desactivado
+	NULL, --estilo
 	'1', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'1', --solo_lectura
 	'0', --solo_lectura_modificacion

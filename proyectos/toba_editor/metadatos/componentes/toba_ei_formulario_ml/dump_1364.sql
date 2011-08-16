@@ -179,7 +179,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Ancho de la columna.', --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
-	'0', --estilo
+	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --permitir_html
@@ -258,7 +258,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Codigo que identifica al campo dentro del array asociativo provisto al form para cargar datos.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	'0', --permitir_html
@@ -337,7 +337,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Define el título de la columna', --descripcion
 	'0', --colapsado
 	'0', --desactivado
-	'0', --estilo
+	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	'0', --permitir_html

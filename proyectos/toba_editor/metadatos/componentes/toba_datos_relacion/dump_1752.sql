@@ -59,64 +59,6 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 );
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel_asoc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_editor', --proyecto
-	'1752', --objeto
-	'1', --asoc_id
-	'base -> basicas', --identificador
-	'toba_editor', --padre_proyecto
-	'1501', --padre_objeto
-	'base', --padre_id
-	NULL, --padre_clave
-	'toba_editor', --hijo_proyecto
-	'1753', --hijo_objeto
-	'prop_basicas', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'1'  --orden
-);
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_editor', --proyecto
-	'1752', --objeto
-	'4', --asoc_id
-	'base -> eventos', --identificador
-	'toba_editor', --padre_proyecto
-	'1501', --padre_objeto
-	'base', --padre_id
-	NULL, --padre_clave
-	'toba_editor', --hijo_proyecto
-	'1505', --hijo_objeto
-	'eventos', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'2'  --orden
-);
---- FIN Grupo de desarrollo 0
-
---- INICIO Grupo de desarrollo 10
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_editor', --proyecto
-	'1752', --objeto
-	'10000005', --asoc_id
-	NULL, --identificador
-	'toba_editor', --padre_proyecto
-	'1505', --padre_objeto
-	'eventos', --padre_id
-	NULL, --padre_clave
-	'toba_editor', --hijo_proyecto
-	'10000033', --hijo_objeto
-	'puntos_control', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'3'  --orden
-);
---- FIN Grupo de desarrollo 10
-
-------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -171,6 +113,64 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --parametros_c
 	NULL, --inicializar
 	'4'  --orden
+);
+--- FIN Grupo de desarrollo 10
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1752', --objeto
+	'1', --asoc_id
+	'base -> basicas', --identificador
+	'toba_editor', --padre_proyecto
+	'1501', --padre_objeto
+	'base', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'1753', --hijo_objeto
+	'prop_basicas', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1752', --objeto
+	'4', --asoc_id
+	'base -> eventos', --identificador
+	'toba_editor', --padre_proyecto
+	'1501', --padre_objeto
+	'base', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'1505', --hijo_objeto
+	'eventos', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 10
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1752', --objeto
+	'10000005', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1505', --padre_objeto
+	'eventos', --padre_id
+	NULL, --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000033', --hijo_objeto
+	'puntos_control', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'3'  --orden
 );
 --- FIN Grupo de desarrollo 10
 
