@@ -18,6 +18,7 @@ class toba_vista_xslfo
 	protected $xml;
 	protected $objetos = array();
 	protected $temp_salida;
+	protected $callback_preproceso;
 	
 	function __construct()
 	{
@@ -82,6 +83,54 @@ class toba_vista_xslfo
 	{
 		$this->xsl_proyecto = $xsl;
 	}
+
+	/**
+	 * @param toba_vista_xslfo_callback_generacion $object 
+	 * @ignore
+	 */
+	function set_callback_preproceso($object)
+	{
+		$this->callback_preproceso = $object;		
+	}
+
+	//------------------------------------------------------------------------
+	//-- Obtencion de datos
+	//------------------------------------------------------------------------
+	/**
+	 * Devuelve el nombre del archivo pdf destino con la ruta absoluta
+	 * @return string 
+	 */
+	function get_nombre_archivo_destino()
+	{
+		return toba_manejador_archivos::path_a_plataforma(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);		
+	}
+	
+	/**
+	 * Devuelve el nombre del archivo xml con ruta absoluta
+	 * @return string
+	 */
+	function get_nombre_archivo_xml()
+	{
+		return toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
+	}
+
+	/**
+	 * Devuelve el nombre del archivo xsl con ruta absoluta
+	 * @return string
+	 */
+	function get_nombre_archivo_xsl()
+	{
+		return $this->xsl_proyecto;
+	}
+	
+	/**
+	 * Devuelve el comando para realizar una llamada a fop
+	 * @return string
+	 */
+	function get_path_to_fop()
+	{
+		return $this->fop;
+	}	
 	
 	/**
 	 * Devuelve una instancia de la clase que maneja la vista_xml de los componentes
@@ -91,7 +140,7 @@ class toba_vista_xslfo
 	{
 		return $this->xml;
 	}
-
+	
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
@@ -129,18 +178,26 @@ class toba_vista_xslfo
 	 */
 	protected function crear_pdf($xml)
 	{
-  		$fxml = toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
+		//Escribo el xml
+  		$fxml = $this->get_nombre_archivo_xml();
 		if (file_put_contents($fxml, $xml) === false) {
 			throw new toba_error("Error al guardar archivo xml", "No es posible escribir en ".$fxml);
 		}
 
-		$archivo_pdf = toba_manejador_archivos::path_a_plataforma(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);
+		//Si existe el archivo pdf, lo borro.
+		$archivo_pdf = $this->get_nombre_archivo_destino();
 		if (file_exists($archivo_pdf)) {
 			unlink($archivo_pdf);
 		}
 
-		$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
-		shell_exec($comando);
+		//Si se configuro una forma alternativa de generacion mediante fop
+		if (isset($this->callback_preproceso)) {
+			$this->callback_preproceso->generar($this);
+		} else {
+			$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
+			shell_exec($comando);		
+		}
+		
 		if (!file_exists($archivo_pdf)) {
 			throw new toba_error_usuario("Error al ejecutar el comando '".$comando."'");
 		}
