@@ -81,6 +81,7 @@ class ci_catalogo extends toba_ci
 			$columnas[1]['estilo'] = 'col-num-p1';
 			$cuadro->agregar_columnas($columnas);
 		}
+		$cuadro->desactivar_modo_clave_segura();
 		$cuadro->set_datos($this->s__datos);
 	}
 
