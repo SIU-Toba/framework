@@ -19,6 +19,7 @@ class toba_vista_xslfo
 	protected $objetos = array();
 	protected $temp_salida;
 	protected $callback_preproceso;
+	protected $xml_proyecto;
 	
 	function __construct()
 	{
@@ -33,6 +34,7 @@ class toba_vista_xslfo
 		$toxsl = toba::nucleo()->toba_dir().'/exportaciones/pdf.xsl';
 		$this->xsl_proyecto = toba_manejador_archivos::existe_archivo_en_path($prxsl) ? $prxsl : $toxsl;
 		$this->xsl_proyecto = toba_manejador_archivos::path_a_plataforma($this->xsl_proyecto);
+		$this->xml_proyecto = toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
 	}
 	
 
@@ -111,7 +113,7 @@ class toba_vista_xslfo
 	 */
 	function get_nombre_archivo_xml()
 	{
-		return toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
+		return $this->xml_proyecto;
 	}
 
 	/**
