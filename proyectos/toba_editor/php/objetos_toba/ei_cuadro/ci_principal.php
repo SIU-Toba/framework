@@ -206,7 +206,7 @@ class ci_principal extends ci_editores_toba
 					$datos['evento_asociado'] = $evento['identificador']; //Uso el nombre del evento
 				}
 			}
-		}
+		}		
 		return $datos;
 	}
 

@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --orden
 	NULL, --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'col-tex-p1', --estilo
 	NULL, --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice

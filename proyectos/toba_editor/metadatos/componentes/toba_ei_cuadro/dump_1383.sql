@@ -240,7 +240,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2', --orden
 	'Nombre', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
-	'4', --estilo
+	'col-tex-p1', --estilo
 	NULL, --ancho
 	'5', --formateo
 	NULL, --vinculo_indice
@@ -271,7 +271,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --orden
 	NULL, --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
+	'col-num-p1', --estilo
 	NULL, --ancho
 	'15', --formateo
 	NULL, --vinculo_indice

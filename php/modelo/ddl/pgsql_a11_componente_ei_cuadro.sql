@@ -24,7 +24,7 @@ CREATE TABLE apex_objeto_cuadro
 	subtitulo               	TEXT 	NULL,
 	sql                     	TEXT     	NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar
 	columnas_clave				TEXT			NULL,   -- Columnas que poseen la clave, separadas por comas
-	columna_descripcion		TEXT	NULL, --Columna que mantiene la descripcion para respuesta popup
+	columna_descripcion			TEXT	NULL, --Columna que mantiene la descripcion para respuesta popup
 	clave_dbr					smallint		NULL,
 	archivos_callbacks      	TEXT	NULL,			-- Archivos donde estan las callbacks llamadas en las columnas
 	ancho                   	varchar(10) 	NULL,
@@ -115,9 +115,9 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	objeto_cuadro_col				int8			DEFAULT nextval('"apex_obj_ei_cuadro_col_seq"'::text) NOT NULL, 
 	clave          					varchar(80)    	NOT NULL,		
 	orden				            float      		NOT NULL,
-	titulo                        	TEXT	NULL,
-	estilo_titulo                   TEXT	DEFAULT 'ei-cuadro-col-tit' NULL,
-	estilo    						int8		    NOT NULL,	
+	titulo                        	TEXT			NULL,
+	estilo_titulo                   TEXT			DEFAULT 'ei-cuadro-col-tit' NULL,
+	estilo    						TEXT		    NULL,	
 	ancho							varchar(10)		NULL,		
 	formateo   						int8		    NULL,		
 	vinculo_indice	      			varchar(20) 	NULL,       
@@ -142,7 +142,6 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_col", "objeto_cuadro", "objeto_cuadro_proyecto"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro", "objeto_cuadro_proyecto") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro", "objeto_cuadro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("objeto_cuadro_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT "apex_col_cuadro_evento_asoc_fk" FOREIGN KEY ("objeto_cuadro_proyecto", "evento_asociado") REFERENCES "apex_objeto_eventos" ("proyecto", "evento_id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

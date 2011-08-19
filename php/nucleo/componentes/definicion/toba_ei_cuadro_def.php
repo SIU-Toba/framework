@@ -76,7 +76,7 @@ class toba_ei_cuadro_def extends toba_ei_def
 												c.objeto_cuadro_col				as objeto_cuadro_col,
 												c.titulo						as titulo,
 												c.estilo_titulo					as estilo_titulo,		
-												e.css							as estilo,	 
+												c.estilo						as estilo,	 
 												c.ancho							as ancho,	 
 												c.clave							as clave,		
 												f.funcion						as formateo,	 
@@ -86,12 +86,12 @@ class toba_ei_cuadro_def extends toba_ei_def
 												c.pdf_propiedades				as pdf_propiedades,
 												c.total							as total,
 												c.vinculo_indice				as vinculo_indice,	
-												c.usar_vinculo					as usar_vinculo		,
+												c.usar_vinculo					as usar_vinculo,
 												c.total_cc						as total_cc,
 												c.permitir_html					as permitir_html,
 												c.grupo							as grupo,
 												ev.identificador			as evento_asociado
-									 FROM		apex_columna_estilo e,
+									 FROM		
 												apex_objeto_ei_cuadro_columna	c
 												LEFT OUTER JOIN apex_columna_formato f	
 												ON	f.columna_formato	= c.formateo
@@ -103,8 +103,7 @@ class toba_ei_cuadro_def extends toba_ei_def
 		if ( isset($componente) ) {
 			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro=$componente ";
 		}
-		$sql['_info_cuadro_columna']['sql'] .= "	AND		c.estilo = e.columna_estilo	
-					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
+		$sql['_info_cuadro_columna']['sql'] .= " AND ( c.desabilitado != '1' OR c.desabilitado IS NULL )
 					 ORDER BY orden;";
 		$sql['_info_cuadro_columna']['registros']='n';
 		$sql['_info_cuadro_columna']['obligatorio']=true;

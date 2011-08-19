@@ -15,11 +15,19 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 				this.ef('vinculo_indice').mostrar(se_muestra, true);
 			}
 					
-			{$this->objeto_js}.evt__estilo__procesar = function(inicial) {
-				var estado = this.ef('estilo').get_estado();	
+			{$this->objeto_js}.evt__estilo_precarga__procesar = function(inicial) {
+				var estado = this.ef('estilo_precarga').get_estado();	
 				var input = this.ef('prueba_estilo').input();
 				input.className = editor_col_css[estado] + ' columna-preview';
-			}			
+			}
+			
+			{$this->objeto_js}.evt__estilo__procesar = function(inicial) {
+				if (! inicial) {
+					var estilo = this.ef('estilo').get_estado();
+					var input = this.ef('prueba_estilo').input();
+					input.className = estilo + ' columna-preview';	
+				}
+			}
 		";
 	}
 }

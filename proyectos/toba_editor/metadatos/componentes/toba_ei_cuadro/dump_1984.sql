@@ -229,7 +229,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --orden
 	'Nombre', --titulo
 	NULL, --estilo_titulo
-	'5', --estilo
+	'col-tex-p2', --estilo
 	NULL, --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice
@@ -260,7 +260,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'3', --orden
 	'Generaciones', --titulo
 	NULL, --estilo_titulo
-	'2', --estilo
+	'col-num-p3', --estilo
 	NULL, --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2', --orden
 	'Carpeta Archivos', --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'col-tex-p1', --estilo
 	NULL, --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice

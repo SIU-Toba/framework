@@ -1100,10 +1100,24 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_lista_estilos_columnas()
+	function get_lista_estilos_columnas($id_estilo = null)
 	{
 		$sql = 'SELECT columna_estilo, css FROM apex_columna_estilo';
+		if (! is_null($id_estilo)){
+			$sql .= ' WHERE columna_estilo = '. quote($id_estilo);
+		}
+		
 		return toba_contexto_info::get_db()->consultar($sql);
+	}
+	
+	function get_nombre_clase_css($id_estilo)
+	{
+		$nombre = '';
+		$disponibles = self::get_lista_estilos_columnas($id_estilo);
+		if (! empty($disponibles)) {
+			$nombre = $disponibles[0]['css'];
+		}	
+		return $nombre;
 	}
 	
 	function get_estilo_defecto_formateo_columna($formateo)
