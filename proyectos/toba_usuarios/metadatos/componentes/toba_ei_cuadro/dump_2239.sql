@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --orden
 	'Fecha y Hora', --titulo
 	NULL, --estilo_titulo
-	'7', --estilo
+	'col-cen-s1', --estilo
 	NULL, --ancho
 	'18', --formateo
 	NULL, --vinculo_indice
@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'5', --orden
 	'Tiempo respuesta', --titulo
 	NULL, --estilo_titulo
-	'0', --estilo
+	'col-num-p1', --estilo
 	NULL, --ancho
 	'10', --formateo
 	NULL, --vinculo_indice
@@ -200,7 +200,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'3', --orden
 	'Id. Operación', --titulo
 	NULL, --estilo_titulo
-	'0', --estilo
+	'col-num-p1', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
@@ -231,7 +231,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'6', --orden
 	'Obs.', --titulo
 	NULL, --estilo_titulo
-	'0', --estilo
+	'col-num-p1', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
@@ -262,7 +262,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'4', --orden
 	'Operación', --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'col-tex-p1', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
@@ -296,7 +296,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2', --orden
 	'Id. Acceso', --titulo
 	NULL, --estilo_titulo
-	'1', --estilo
+	'col-num-p2', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
