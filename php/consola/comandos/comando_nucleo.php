@@ -119,10 +119,7 @@ class comando_nucleo extends comando_toba
 		$param = $this->get_parametros();		
 		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
 			throw new toba_error("Es necesario indicar el release con '-r'");
-		}
-		if ( !isset($param['-u']) ||  (trim($param['-u']) == '') ) {
-			throw new toba_error("Es necesario indicar el usuario svn con '-u'");
-		}
+		}		
 		if (isset($param['-s']) && (trim($param['-s']) != '') ) {
 			$url_svn = $param['-s'];
 		}
@@ -133,7 +130,6 @@ class comando_nucleo extends comando_toba
 			$destino = $param['d'];
 		}
 		$release = $param['-r'];		
-		$usuario = $param['-u'];
 		
 		//-- Averiguo cual es el siguiente numero
 		$versiones = explode("\n", trim(`svn ls $url_svn/$rama_versiones`));
