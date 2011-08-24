@@ -111,7 +111,7 @@ class comando_nucleo extends comando_toba
 	{
 		$url_svn = 'http://repositorio.siu.edu.ar/svn/toba';
 		$dir_temp = '/tmp';
-		$destino = $dir_temp;
+		$destino = '/tmp/toba';
 		$rama_versiones = 'versiones';
 		$rama_branch = 'trunk_versiones';
 		
@@ -190,7 +190,7 @@ class comando_nucleo extends comando_toba
 		//-- Borro temporales
 		$this->consola->mensaje("Borrando archivos temporales.", false);
 		toba_manejador_archivos::eliminar_directorio($export_dir);
-		$this->consola->progreso_fin();		
+		$this->consola->progreso_fin();
 	}
 		
 	/**
@@ -202,7 +202,7 @@ class comando_nucleo extends comando_toba
 		$error = null; $salida = null;		
 		$url_svn = 'http://repositorio.siu.edu.ar/svn/toba';
 		$dir_temp = '/tmp';
-		$destino = '/var/www/downloads/toba';		
+		$destino = '/tmp/toba';		
 		$rama_branch = 'trunk_versiones';
 		$rama_versiones = 'versiones';
 		$mensaje_commit = 'Rama %s: Preparacion lanzamiento version %s';
