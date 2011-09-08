@@ -337,7 +337,7 @@ class toba_js
 	 * @param string $id Id. del evento
 	 * @param string $evento Datos del evento, en forma de arreglo
 	 */
-	static function evento($id, $evento, $parametros = null)
+	static function evento($id, $evento, $parametros = null, $es_implicito = false)
 	{
 		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
 		$js_validar = isset( $evento['maneja_datos'] ) ? toba_js::bool($evento['maneja_datos']) : "true";
@@ -347,8 +347,13 @@ class toba_js
 			$param = (isset($parametros)) ? ", '".addslashes(str_replace('"',"'",$parametros))."'" : '';			
 		}
 
+		$implicito = '';
+		if ($es_implicito) { 				
+			$implicito =  ($param == '')? ",''" : '';			
+			$implicito .= ', '. toba_js::bool(true);
+		}
 
-		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
+		return "new evento_ei('$id', $js_validar, $js_confirm $param $implicito)";
 	}	
 	
 	//----------------------------------------------------------------------------------

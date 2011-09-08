@@ -5,10 +5,11 @@
  * @param confirmar ¿Se debe confirmar antes de hacer submit?
  * @constructor 
  */
-function evento_ei(id, validar, confirmar, parametros) {
+function evento_ei(id, validar, confirmar, parametros, es_implicito) {
 	this.id = id;
 	this.validar = (typeof validar == 'undefined') ? true : validar;
 	this.confirmar = (typeof confirmar == 'undefined') ? false : confirmar;
+	this.es_implicito = (typeof es_implicito == 'undefined') ? false: es_implicito;
 	this.parametros = parametros;
 	this._silencioso = false;
 	this._id_dep = null;
@@ -22,6 +23,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 function ei(instancia, input_submit) {
 	this._instancia = instancia;
 	this._input_submit = input_submit;
+	this._evento_condicionado_a_datos = false;
 	
 	/**
 	 * Componente padre o contenedor del actual
@@ -54,6 +56,14 @@ ei.prototype.constructor = ei;
 	
 	//----------------------------------------------------------------
 	//---Eventos	 
+	/**
+	 * Indica si los eventos implicitos del componente estan condicionados al cambio de datos
+	 * @param {boolean} esta_condicionado
+	 **/
+	ei.prototype.set_eventos_condicionados_por_datos = function(esta_condicionado)
+	{
+		this._evento_condicionado_a_datos = esta_condicionado;
+	}
 	
 	/**
 	 * Informa al componente la presencia de un nuevo evento

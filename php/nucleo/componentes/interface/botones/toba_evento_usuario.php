@@ -332,7 +332,7 @@ class toba_evento_usuario extends toba_boton
 		$evento = array();
 		$evento['confirmacion'] = $this->get_msg_confirmacion();
 		$evento['maneja_datos'] = $this->maneja_datos();
-		return toba_js::evento($this->get_id(), $evento, $this->parametros);
+		return toba_js::evento($this->get_id(), $evento, $this->parametros, $this->es_implicito());
 	}
 	
 	/**

@@ -91,7 +91,6 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	
-	
 	/**
 	 * Retorna el estado actual de los efs en un Objeto asociativo id_ef=>valor
 	 *	@type Object
@@ -109,7 +108,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
-		if (this._evento) {
+		if (this._evento && this.debe_disparar_evento()) {
 			//Enviar la noticia del submit a los efs
 			for (id_ef in this._efs) {
 				this._efs[id_ef].submit();
@@ -135,7 +134,18 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		return true;
 	};
 
-
+	ei_formulario.prototype.debe_disparar_evento = function()
+	{
+		var debe = true;
+		if (this._evento_condicionado_a_datos && this._evento.es_implicito) {
+			var cambios = false;
+			for (id_ef in this._efs) {
+				cambios = (cambios || this.hay_cambios(id_ef));
+			}			
+			debe = cambios;
+		}
+		return debe;
+	}
 
 	//---- Cascadas
 

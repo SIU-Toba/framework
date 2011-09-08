@@ -21,6 +21,7 @@ abstract class toba_ei extends toba_componente
 	protected $_eventos_usuario = array();				// Eventos declarados en el administrador
 	protected $_eventos_usuario_utilizados = array();	// Lista de eventos del usuario que estan activos
 	protected $_eventos_usuario_utilizados_sobre_fila;	// Lista de eventos del administrador que se utilizaran
+	protected $_disparo_evento_condicionado_a_datos = false;
 	protected $_botones_graficados_ad_hoc = array();		// Lista de botones que se imprimieron por orden del usuario
 	protected $_grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $_utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
@@ -212,6 +213,15 @@ abstract class toba_ei extends toba_componente
 		}		
 	}
 
+	/**
+	 * Especifica si el disparo de los eventos implicitos debe estar asociado al cambio de datos o no
+	 * @param boolean $disparo 
+	 */
+	function set_disparo_eventos_condicionado_datos($disparo = true)
+	{
+		$this->_disparo_evento_condicionado_a_datos = $disparo;		
+	}
+	
 	//--- Manejo interno --------------------------------------
 	
 	/**
@@ -291,6 +301,17 @@ abstract class toba_ei extends toba_componente
 		}
 	}
 
+	protected function reportar_evento_interno($evento)
+	{
+		$this->_eventos_atendidos[] = $evento;		//Se guarda que eventos se atendieron para que no se vuelvan a ejecutar en caso de refresh
+		if (isset($this->_id_en_controlador)) {
+			$parametros = func_get_args();
+			$parametros	= array_merge(array($this->_id_en_controlador), $parametros);
+			return call_user_func_array( array($this->controlador, 'registrar_evento_interno'), $parametros);
+		}		
+	}
+	
+	
 	/**
 	 * Retorna todos los eventos definidos por el usuario, excluyendo los internos del componente
 	 * @return array(toba_evento_usuario)

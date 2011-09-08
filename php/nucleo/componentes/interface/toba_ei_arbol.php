@@ -64,10 +64,11 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function cargar_eventos()
 	{
-		parent::cargar_lista_eventos();
+		$this->cargar_lista_eventos();
+/*		parent::cargar_lista_eventos();
 		$this->_eventos['cambio_apertura'] = array();
 		$this->_eventos['ver_propiedades'] = array();
-		$this->_eventos['cargar_nodo'] = array();
+		$this->_eventos['cargar_nodo'] = array();*/
 	}
 
 	/**
@@ -216,7 +217,9 @@ class toba_ei_arbol extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
+		$this->_eventos['cambio_apertura'] = array();
 		$this->_eventos['ver_propiedades'] = array('maneja_datos' => true);
+		$this->_eventos['cargar_nodo'] = array();
 	}
 
 	/**
@@ -248,7 +251,7 @@ class toba_ei_arbol extends toba_ei
 			}
 			$this->_datos_apertura = $nodos;
 			//Se reporta el cambio de layout al padre
-			$this->reportar_evento("cambio_apertura", $this->_datos_apertura);
+			$this->reportar_evento_interno("cambio_apertura", $this->_datos_apertura);
 		}
 		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
 			$evento = $_POST[$this->_submit];
@@ -260,7 +263,7 @@ class toba_ei_arbol extends toba_ei
 
 				if ( $evento_propiedades && $existe_seleccion &&
 					($this->validar_id_nodo_recibido($_POST[$this->_submit."__seleccion"]))) {
-							$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
+							$this->reportar_evento_interno( $evento, $_POST[$this->_submit."__seleccion"] );
 					}
 				}
 			}		
@@ -621,7 +624,7 @@ class toba_ei_arbol extends toba_ei
 	{
 		toba::memoria()->desactivar_reciclado();
 		$id_nodo = toba::memoria()->get_parametro('id_nodo');
-		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
+		$nodo = $this->reportar_evento_interno('cargar_nodo', $id_nodo);
 		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
 			$html = $this->recorrer_hijos(current($nodo), 0);
 			echo $html;

@@ -1105,6 +1105,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario_ml";
 		echo "($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $filas, {$this->_siguiente_id_fila}, $seleccionada, $en_linea, $maestros, $esclavos, $invalidos);\n";
+		if ($this->_disparo_evento_condicionado_a_datos) {
+			echo $identado . "{$this->objeto_js}.set_eventos_condicionados_por_datos(true);";
+		}		
 		foreach ($this->_lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

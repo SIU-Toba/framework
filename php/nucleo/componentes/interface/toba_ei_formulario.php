@@ -1228,6 +1228,9 @@ class toba_ei_formulario extends toba_ei
 		$id = toba_js::arreglo($this->_id, false);
 		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $maestros, $esclavos, $invalidos);\n";
+		if ($this->_disparo_evento_condicionado_a_datos) {
+			echo $identado . "{$this->objeto_js}.set_eventos_condicionados_por_datos(true);";
+		}
 		foreach ($this->_lista_ef_post as $ef) {
 			if (! in_array($ef, $this->_efs_generados)) {
 				throw new toba_error_def($this->get_txt()." Error en la redefinición del layout: Falta salida ef '$ef'");

@@ -282,7 +282,7 @@ class toba_ci extends toba_ei
 				$this->$metodo($this->_evento_actual_param);
 			
 				//Comunico el evento al contenedor
-				$this->reportar_evento( $this->_evento_actual );
+				$this->reportar_evento_interno( $this->_evento_actual );
 			}else{
 				$this->_log->info($this->get_txt() . "[ evento ]  El METODO [ $metodo ] no existe - '{$this->_evento_actual}' no fue atrapado", 'toba');
 			}
@@ -315,17 +315,55 @@ class toba_ci extends toba_ei
 		if (method_exists($this, $metodo)) {
 			$this->_log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
 			$componente = $this->dep($id);
+			//if ($this->debe_disparar_evento($componente, $evento)) {			//Por si se requiere el esquema en PHP
       		if ($componente->tiene_puntos_control($evento)) {
   				toba::puntos_control()->ejecutar_puntos_control($componente, $evento, $parametros);
       		}
 		    return call_user_func_array(array($this, $metodo), $parametros);
+			//}
 		} else {
 			$this->_log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
 			return apex_ei_evt_sin_rpta;
 		}
 	}	
 
+	/**
+	 * Dispara un evento interno dentro del nivel actual
+	 * Puede recibir N parametros adicionales (ej <pre>$this->registrar_evento_interno('form', ',modificacion', $datos, $fila,...)</pre>)
+	 * @param string $id Id. o rol que tiene la dependencia en este objeto
+	 * @param string $evento Id. del evento
+	 * @ignore 
+	 */	
+	function registrar_evento_interno($id, $evento)
+	{
+		$parametros	= func_get_args();
+		array_splice($parametros, 0 , 2);
+		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
+		if (method_exists($this, $metodo)) {
+			$this->_log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
+			return call_user_func_array(array($this, $metodo), $parametros);
+		} else {
+			$this->_log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
+			return apex_ei_evt_sin_rpta;
+		}		
+	}
 
+	/**
+	 * Define si el evento en cuestion debe ser disparado para el componente
+	 * @param toba_ei_componente $componente
+	 * @param string $evento
+	 * @return boolean
+	 */
+	private function debe_disparar_evento($componente, $evento)
+	{
+		//Nuevo esquema de disparo de eventos			
+		// se debe disparar unicamente si hubo cambios en los datos del comp., es implicito y esta setedo el disparo selectivo.
+		$es_evt_implicito =  $componente->evento($evento)->es_implicito();
+		if ($this->_disparo_evento_condicionado_a_datos && $es_evt_implicito) {
+			return $componente->hay_cambios();			
+		}
+		return true;
+	}
 	//------------------------------------------------
 	//--  Eventos Predefinidos------------------------
 	//------------------------------------------------

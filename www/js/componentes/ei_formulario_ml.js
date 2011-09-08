@@ -289,7 +289,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
-		if (this._evento) {
+		if (this._evento && this.debe_disparar_evento()) {
 			for (fila in this._filas) {
 				for (id_ef in this._efs) {
 					this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
@@ -311,6 +311,21 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			return true;
 		}
 	};
+	
+	ei_formulario.prototype.debe_disparar_evento = function()
+	{
+		var debe = true;
+		if (this._evento_condicionado_a_datos && this._evento.es_implicito) {
+			var cambios = false;
+			for (fila in this._filas) {
+				for (id_ef in this._efs) {
+					cambios = (cambios || this.hay_cambios(fila, id_ef));
+				}			
+			}
+			debe = cambios;
+		}
+		return debe;
+	}
 	
 	//---- Cascadas
 	ei_formulario_ml.prototype.cascadas_cambio_maestro = function(id_ef)
