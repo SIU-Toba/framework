@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ class WS_WSDL_Binding
     private $wsdl_location;
     private $fun_mapping;
     private $r_actions;
+    private $port;
 
     /**
      * The constructor of the WS_WSDL_Binding class                    
@@ -45,8 +46,14 @@ class WS_WSDL_Binding
         $this->wsdl_location = $wsdl_ep;
         $this->fun_mapping = $ops_to_functions;
         $this->r_actions = $r_actions;
-    }
-
+	$url = parse_url($this->wsdl_location);
+        if(array_key_exists('port',$url))
+	{
+		$this->port = $url['port'];
+	}else{
+		$this->port=80;
+ 	}
+}
     /**
      * Function for creating Binding element when the binding style in doc-lit
      * @param DomDocument $binding_doc DomDocument element of the wsdl document 
@@ -83,7 +90,12 @@ class WS_WSDL_Binding
                         $action_value = $this->r_actions[$key];
                     }
                     else {
-                        $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
+		        if ($this->port == 80)
+	                       $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
+                        elseif ($this->port == 443)
+        	               $action_value = WS_WSDL_Const::WS_WSDL_HTTPS_ATTR_NAME.$this->wsdl_location."/".$key;
+                        else
+	                       $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
                     }
                 }
             }
@@ -158,8 +170,13 @@ class WS_WSDL_Binding
                     if($this->r_actions != NULL && array_key_exists($key, $this->r_actions)) {
                         $action_value = $this->r_actions[$key];
                     }
-                    else {
-                        $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
+   	               else {
+	      	        if ($this->port == 80)
+                          $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
+                        elseif ($this->port == 443)
+                          $action_value = WS_WSDL_Const::WS_WSDL_HTTPS_ATTR_NAME.$this->wsdl_location."/".$key;
+                        else
+                           $action_value = WS_WSDL_Const::WS_WSDL_HTTP_ATTR_NAME.$this->wsdl_location."/".$key;
                     }
                 }
             }

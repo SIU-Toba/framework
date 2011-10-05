@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,8 +68,10 @@ function wsf_create_payload_for_class_map(DomDocument $payload_dom,
     // This is not expected in the class map mode to have params with no childs
     // So mark it as an unknown schema
 
-    // here we always expect structures with childs
-    if(!$sig_node->hasChildNodes()) {
+    // here we always expect structures with childs unless it is simple content model
+    if(!($sig_node->attributes->getNamedItem(WSF_CONTENT_MODEL) &&
+                $sig_node->attributes->getNamedItem(WSF_CONTENT_MODEL)->value == WSF_SIMPLE_CONTENT) && 
+                !$sig_node->hasChildNodes()) {
         
         // Just take the first namespace in the map to create the xml elements in 
         // the unknown structure..
@@ -152,7 +154,7 @@ function wsf_create_payload_for_array(DomDocument $payload_dom,
     $classmap = NULL;
     if($sig_node->hasAttributes()) {
         if(!is_array($user_arguments)) {
-            ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, $payload_node->localName. 
+            ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, $payload_dom->localName. 
                 " can not be empty, note: just set to NULL to make it as NULL");
             wsf_set_nil_element(NULL, $parent_node, $root_node, $prefix_i, $namespace_map);
             return;
@@ -532,6 +534,7 @@ function wsf_serialize_simple_types(DomNode $sig_param_node, $user_val,
                     $ele = $payload_dom->createElement($node_name);
                     $parent_node->appendChild($ele);
                     if(is_object($user_val)) {
+                      //  echo wsf_test_serialize_node($sig_param_node) ."<val>".print_r($user_val, true)."</val>" ;
                         wsf_create_payload_for_class_map($payload_dom, $sig_param_node,
                          $ele, $root_node, $user_val, $classmap,
                          $prefix_i, $namespace_map, $mtom_on, $attachment_map);
@@ -794,7 +797,8 @@ function wsf_build_content_model(DomNode $sig_node, array $user_arguments,
     $sig_param_nodes = $sig_node->childNodes;
     foreach($sig_param_nodes as $sig_param_node) {
         if($sig_param_node->nodeName == WSF_PARAM) {
-            $param_name = $sig_param_node->attributes->getNamedItem(WSF_NAME)->value;
+            if($sig_param_node->attributes->getNamedItem(WSF_NAME))
+	    $param_name = $sig_param_node->attributes->getNamedItem(WSF_NAME)->value;
 
             // users are not expected to provide it in exact sequence..
             // for both all and sequences we build the xml same order as in the schema
@@ -901,7 +905,6 @@ function wsf_convert_classobj_to_array($sig_node, $user_obj) {
     /* for the simple content type we expect the "VALUE" attribute */
     if($sig_param_attrs->getNamedItem(WSF_CONTENT_MODEL) &&
             $sig_param_attrs->getNamedItem(WSF_CONTENT_MODEL)->value == WSF_SIMPLE_CONTENT) {
-
         $extension_type = "";
         if($sig_param_attrs->getNamedItem(WSF_EXTENSION)) {
             $extension_type = $sig_param_attrs->getNamedItem(WSF_EXTENSION)->value;
@@ -1053,26 +1056,49 @@ function wsf_wsdl_serialize_php_value($xsd_type, $data_value,
  * @return string serialized to string
  */
 function wsf_convert_php_type_to_string($xsd_type, $data_value) {
-    $serialized_value = $data_value;
-    if($serialized_value === NULL) {
-        return "";
-    }
-    $xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
-
-    if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
-        //retrieve the php type
-        $type = $xsd_php_mapping_table[$xsd_type];
-
-        if($type == "boolean") {
-            if($data_value == FALSE) {
-                $serialized_value = "false";
-            }
-            else
-            {
-                $serialized_value = "true";
-            }
-        }
-    }
+	
+	$serialized_value = $data_value;
+	if($serialized_value === NULL) {
+		return "";
+	}
+	
+	// we treat dateTime value differently
+	if($xsd_type == "dateTime" || $xsd_type == "date" || $xsd_type == "time") {
+		
+		if(gettype($data_value) == "integer") {
+			if($xsd_type == "dateTime") {
+				$serialized_value = date("Y-m-d", $data_value)."T".date("H:i:s", $data_value)."Z";
+			}
+			else if($xsd_type == "date") {
+				$serialized_value = date("Y-m-d", $data_value);
+			}
+			else if($xsd_type == "time") {
+					$serialized_value = date("H:i:s", $data_value)."Z";
+				}
+		}
+		else {
+			// hope the other type is the string as it is
+			$serialized_value = (string)$data_value;
+		}
+	}
+	else {
+		$xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
+		
+		if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
+			//retrieve the php type
+			$type = $xsd_php_mapping_table[$xsd_type];
+			
+			if($type == "boolean") {
+				if($data_value == FALSE) {
+					$serialized_value = "false";
+				}
+				else
+				{
+					$serialized_value = "true";
+				}
+			}
+		}
+	}
     return $serialized_value."";
 }
 

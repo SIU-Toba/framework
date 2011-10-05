@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@
 function wsf_arguments($argv) {
     $_ARG = array ();
     foreach ($argv as $arg) {
-        if (ereg('--([^=]+)=(.*)', $arg, $reg)) {
+        if (preg_match('/--([^=]+)=(.*)/', $arg, $reg)) {
             $_ARG[$reg[1]] = $reg[2];
         }
-        elseif (ereg('^-([a-zA-Z0-9])', $arg, $reg)) {
+        elseif (preg_match('/^-([a-zA-Z0-9])/', $arg, $reg)) {
             $_ARG[$reg[1]] = 'true';
         } else {
             $_ARG['input'][] = $arg;

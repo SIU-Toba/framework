@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -258,7 +258,7 @@ function wsf_is_multiple_endpoints(DomDocument $sig_model_dom) {
  * @param string $endpoint_address service endpoint address
  * @return DomNode operation DomNode of the Sig model
  */
-function wsf_find_operation(DomDocument $sig_model_dom, $operation_name, $service_name, $port_name, $is_multiple) {
+function wsf_find_operation(DomDocument $sig_model_dom, $operation_name, $service_name, $endpoint_address , $port_name, $is_multiple) {
     require_once('wsf_wsdl_consts.php');
     require_once('wsf_wsdl_util.php');
 
@@ -908,61 +908,6 @@ function wsf_wsdl_util_xsd_to_php_type_map() {
     return $map;
 }
 
-function wsf_wsdl_util_serialize_php_value($xsd_type, $data_value) {
-    $xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
-    $serialized_value = $data_value;
-
-    ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, "serializing ".$data_value);
-    
-    if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
-        $type = $xsd_php_mapping_table[$xsd_type];
-
-        if($type == "boolean") {
-            if($data_value == FALSE) {
-                $serialized_value = "false";
-            }
-            else
-            {
-                $serialized_value = "true";
-            }
-        }
-    }
-
-    if($serialized_value === NULL) return "";
-    return $serialized_value."";
-}
-
-
-function wsf_wsdl_util_convert_value($xsd_type, $data_value) {
-    $xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
-
-    ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, "deserializing ".$data_value);
-
-    $converted_value = $data_value;
-    if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
-        $type = $xsd_php_mapping_table[$xsd_type];
-        if($type == 'integer') {
-            $converted_value = (int)($data_value);
-        }
-        else if ($type == 'float') {
-            $converted_value = (float)($data_value);
-        }
-        else if ($type == 'boolean') {
-            $converted_value = ($data_value === "true");
-        }
-        else if ($type == 'string') {
-            $converted_value = $data_value;
-        }
-        else {
-            $converted_value = $data_value;
-        }
-    }
-    
-    ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, "deserialized to ".$converted_value);
-
-    return $converted_value;
-}
-
 function wsf_is_rpc_enc_wsdl($binding_node, $operation_name) {
     if(!$binding_node) {
         return FALSE;
@@ -1300,7 +1245,7 @@ function wsf_get_wsdl_imports($wsdl_dom, $relative_url, &$already_imported_wsdls
 
 /* normalize_url */
 function wsf_normalize_url($url) {
-    $tokens = split("/", $url);
+    $tokens = explode("/", $url);
 
     $state = 0;
     /**

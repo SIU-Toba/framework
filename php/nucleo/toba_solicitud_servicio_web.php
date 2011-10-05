@@ -61,6 +61,8 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$clave['componente'] = $this->info['objetos'][0]['objeto'];
 		list($tipo, $clase, $datos) = toba_constructor::get_runtime_clase_y_datos($clave, $this->info['objetos'][0]['clase'], false);
 		$opciones_extension = call_user_func(array($clase, 'get_opciones'));
+
+		$wsdl = (strpos($_SERVER['REQUEST_URI'], "?wsdl") !== false);
 		
 		$sufijo = 'op__';
 		$metodos = array();
@@ -68,7 +70,8 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		foreach($reflexion->getMethods() as $metodo) {
 			if (strpos($metodo->name, $sufijo) === 0) {
 				$servicio = substr($metodo->name, strlen($sufijo));
-				$metodos[$servicio] = '_'.$metodo->name;
+				$prefijo = $wsdl ? '' : '_';
+				$metodos[$servicio] = $prefijo.$metodo->name;
 			}	
 		}
 		$opciones = array();

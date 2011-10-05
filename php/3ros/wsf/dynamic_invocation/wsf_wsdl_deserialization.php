@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -866,7 +866,7 @@ function wsf_infer_content_model(DomNode &$current_child, DomNode $sig_node, $cl
                     }
                     else
                     {
-                        if($min_occurs == 0) {
+                        if($min_occurs != 0) {
                             ws_log_write(__FILE__, __LINE__, WSF_LOG_ERROR, "minOccurs != 0 element ". $param_name ." doesn't exist in the sequence.");
                             if($current_child->localName != NULL){
                                 ws_log_write(__FILE__, __LINE__, WSF_LOG_ERROR, $current_child->localName. " is found in place of ". $param_name);
@@ -992,7 +992,9 @@ function wsf_infer_attributes(DomNode $parent_node, DomNode $sig_node) {
                         $parse_tree[$param_name] = $converted_value;
                     }
                 }
-            }
+            }else if($sig_param_node->nodeName == WSF_INHERITED_CONTENT) {
+		 $parse_tree = array_merge($parse_tree, wsf_infer_attributes($parent_node, $sig_param_node));
+	    } 
         }
     }
     return $parse_tree;
@@ -1055,27 +1057,34 @@ function wsf_wsdl_deserialize_string_value($xsd_type, $data_value, $sig_param_no
  * @return cast type
  */
 function wsf_convert_string_to_php_type($xsd_type, $data_value) {
-    $xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
-
-    $converted_value = $data_value;
-    if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
-        $type = $xsd_php_mapping_table[$xsd_type];
-        if($type == 'integer') {
-            $converted_value = (int)($data_value);
-        }
-        else if ($type == 'float') {
-            $converted_value = (float)($data_value);
-        }
-        else if ($type == 'boolean') {
-            $converted_value = ($data_value === "true");
-        }
-        else if ($type == 'string') {
-            $converted_value = $data_value;
-        }
-        else {
-            $converted_value = $data_value;
-        }
-    }
+	// we treat dateTime value differently
+	if($xsd_type == "dateTime" || $xsd_type == "date" || $xsd_type == "time") {
+		$date_value = str_replace("T", " ", $data_value);
+		$converted_value = strtotime($date_value);
+	}
+	else {
+		$xsd_php_mapping_table = wsf_wsdl_util_xsd_to_php_type_map();
+		
+		$converted_value = $data_value;
+		if(array_key_exists($xsd_type, $xsd_php_mapping_table)) {
+			$type = $xsd_php_mapping_table[$xsd_type];
+			if($type == 'integer') {
+				$converted_value = (int)($data_value);
+			}
+			else if ($type == 'float') {
+				$converted_value = (float)($data_value);
+			}
+			else if ($type == 'boolean') {
+				$converted_value = ($data_value === "true");
+			}
+			else if ($type == 'string') {
+					$converted_value = $data_value;
+				}
+				else {
+					$converted_value = $data_value;
+				}
+		}
+	}
     return $converted_value;
 }
 

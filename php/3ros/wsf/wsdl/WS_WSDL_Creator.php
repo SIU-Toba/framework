@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ class WS_WSDL_Creator
      * @param string $ns namespace
      * @param string $wsdl_ver wsdl_version(wsdl1.1 or wsdl2)
      */
-    function __construct($f_arry, $class_arry, $service, $endpoints,
+    function __construct($f_arry, $class_arry, $service, $endpoint,
                          $binding_style,  $ns , $wsdl_ver,
                          $op_arry, $classmap, $annotations, $r_actions, $use_wsa)
     {
@@ -67,7 +67,7 @@ class WS_WSDL_Creator
             $this->namespace = $ns;
         }
 
-        $this->endpoint = $endpoints;
+        $this->endpoint = $endpoint;
         $this->f_arry = $f_arry;
         $this->class_arry = $class_arry;
         $this->service_name = $service;

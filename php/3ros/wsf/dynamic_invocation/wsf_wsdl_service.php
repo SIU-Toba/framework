@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -188,7 +188,7 @@ function wsf_serivce_invoke_function($operation_node, $function_name, $class_nam
     }
 
     ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, print_r($arg_array, TRUE));
-    
+	
 
     if($class_name != NULL) {
         // First call the constructor
@@ -206,9 +206,10 @@ function wsf_serivce_invoke_function($operation_node, $function_name, $class_nam
             $method = $class->getMethod($function_name);
             if(($classmap != NULL && !empty($classmap)) || $is_direct_list) {
                 // for direct lists we follow same api as classmap
+				
                 $response_value = $method->invokeArgs($class_inst, $arg_array);
             }
-            else {
+			else {
                 $response_value = $method->invokeArgs($class_inst, $arg_array);
             }
         }
@@ -219,14 +220,13 @@ function wsf_serivce_invoke_function($operation_node, $function_name, $class_nam
     else
     {
         if(($classmap != NULL && !empty($classmap)) || $is_direct_list) {
-            // for direct lists we follow same api as classmap
-            $response_value = call_user_func_array($function_name, $arg_array);
+			// for direct lists we follow same api as classmap
+			$response_value = call_user_func_array($function_name, $arg_array);
         }
-        else {
+		else {
             $response_value = call_user_func_array($function_name, $arg_array);
         }
     }
-
 
     $attachment_map = array();
 

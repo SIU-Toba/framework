@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,9 +135,9 @@ class WS_WSDL_Operations
         if($classname != NULL)
         {
             $class = new ReflectionClass($classname);
-            $method = $class->getMethod($operationName);
+            $operation = $class->getMethod($operationName);
 
-            $doc_comment = $method->getDocComment();
+            $doc_comment = $operation->getDocComment();
         }
         else
         {
@@ -183,7 +183,7 @@ class WS_WSDL_Operations
                 foreach($matching as $matchs)
                 {
                     $i++;
-                    $this->xsdMapArry[$i] = $matchs[1];
+                    $this->xsdMapArry[$this->operationName][$i] = $matchs[1];
 
                 }
             }
@@ -217,6 +217,7 @@ class WS_WSDL_Operations
                     }
 
                     $j++;
+		    $k++;
                     $this->createdTypes[$type_name] = 1;
                     $this->phpMapArry[$j] = $type_name;
 
@@ -226,7 +227,6 @@ class WS_WSDL_Operations
                     }
                     else
                     {
-                        $k++;
                         $releventType = $this->checkValidTypes($j, $k);
                     } 
                     $this->xsdTypes[$operationName][self::WS_OPERATION_INPUT_TAG][$element_name] = array("type"=>$releventType,
@@ -271,6 +271,7 @@ class WS_WSDL_Operations
                 }
 
                 $j++;
+                $k++;
                 $this->phpMapArry[$j] = $type_name;
 
                 if($is_object == "object")
@@ -279,7 +280,7 @@ class WS_WSDL_Operations
                 }
                 else
                 {
-                    $k++;
+                    //$k++;
                     $returnType = $this->checkValidTypes($j, $k);
                 } 
 
@@ -312,8 +313,8 @@ class WS_WSDL_Operations
     function checkValidTypes($keyIndex, $keyXsdIndex)
     {
         $keyPHPArray = NULL;
-        if(array_key_exists($keyXsdIndex, $this->xsdMapArry)) {
-            $keyPHPArray = $this->xsdMapArry[$keyXsdIndex];
+        if(array_key_exists($keyXsdIndex, $this->xsdMapArry[$this->operationName])) {
+            $keyPHPArray = $this->xsdMapArry[$this->operationName][$keyXsdIndex];
         }
 
         $PHPType = NULL;

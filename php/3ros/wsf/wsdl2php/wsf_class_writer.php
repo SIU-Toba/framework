@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2005-2008 WSO2, Inc. http://wso2.com
+ * Copyright (c) 2005-2010 WSO2, Inc. http://wso2.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ function wsf_write_content_model($parent_node, &$child_array, &$derived_classes_
     foreach ($param_child_list as $param_child) {
         if($param_child->nodeName == WSF_PARAM) {
             $param_attr = $param_child->attributes;
-            $param_name = "";
+            $param_name = $param_type = "";
             $parm_type = NULL;
             if($param_attr->getNamedItem(WSF_NAME)) {
                 $param_name = $param_attr->getNamedItem(WSF_NAME)->value;
@@ -445,7 +445,6 @@ function wsf_wsdl2php($wsdl_location) {
         foreach ($op_child_list as $op_child) {
             if($op_child->nodeName == WSF_W2P_BINDING_DETAILS) {
                 $op_binding_childs = $op_child->childNodes;
-
                 foreach($op_binding_childs as $op_binding_child) {
                     if($op_binding_child->nodeName == WSF_SOAPHEADER) {
                         if($op_binding_child->attributes->getNamedItem(WSF_HEADER_FOR_ATTRIBUTE)) {
@@ -460,8 +459,11 @@ function wsf_wsdl2php($wsdl_location) {
                     }
                     
                     if($op_binding_child->attributes->getNamedItem(WSF_TYPE)) {
-                        $param_node = $op_binding_child->firstChild;
-                        $class_name = $param_node->attributes->getNamedItem(WSF_TYPE)->value;
+			$param_node = $op_binding_child->firstChild;
+		
+			if($param_node && $param_node->attributes->getNamedItem(WSF_TYPE)){
+		
+			$class_name = $param_node->attributes->getNamedItem(WSF_TYPE)->value;
                         if($direction == WSF_WSDL_INPUT) {
                             if (($param_node->attributes && $param_node->attributes->getNamedItem(WSF_WSDL_SIMPLE) && 
                                  $param_node->attributes->getNamedItem(WSF_WSDL_SIMPLE)->value == 'no') ||
@@ -506,7 +508,6 @@ function wsf_wsdl2php($wsdl_location) {
 
                             $out_headers ++;
                         }
-                    }
 
                     if (($param_node->attributes && $param_node->attributes->getNamedItem(WSF_WSDL_SIMPLE) && 
                          $param_node->attributes->getNamedItem(WSF_WSDL_SIMPLE)->value == 'no') ||
@@ -515,8 +516,10 @@ function wsf_wsdl2php($wsdl_location) {
                         $code_for_header = wsf_write_sub_classes($param_node);
                         $code .= $code_for_header;
                     }
-                }
+		 }
+	       }
             }
+          }
         }
 
 
