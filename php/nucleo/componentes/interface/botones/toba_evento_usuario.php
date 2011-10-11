@@ -74,7 +74,7 @@ class toba_evento_usuario extends toba_boton
 	
 	function es_implicito()
 	{
-		return ( $this->datos['implicito'] == true );
+		return (isset($this->datos['implicito']) && ($this->datos['implicito'] == true ));
 	}
 	
 	function es_autovinculo()
