@@ -17,10 +17,10 @@ class serv_sin_seguridad extends toba_servicio_web
 	 * @return string $texto total price
 	 *(maps to the xs:string XML schema type )
 	 */		
-	function op__eco(toba_servicio_web_mensaje $mensaje) 
+	function op__eco(toba_servicio_web_mensaje $mensaje, $headers) 
 	{
 		$xml = new SimpleXMLElement($mensaje->get_payload());
-	    $texto = (string) $xml->texto;
+		$texto = (string) $xml->texto .' - ' .$headers['tag_name'];
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/pruebas">
 	<texto>$texto</texto>

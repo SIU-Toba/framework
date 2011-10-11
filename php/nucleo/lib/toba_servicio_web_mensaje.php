@@ -4,38 +4,60 @@ class toba_servicio_web_mensaje
 {
 	protected $mensaje = null;
 	protected $payload;
+	protected $datos;
+	protected $opciones;
 	
 	/**
 	 * @param mixed $datos Puede ser el XML del payload o un arreglo
 	 * @param array $opciones Arreglo opcional de opciones WSF
 	 */	
 	function __construct($datos, $opciones=array()) 
-	{
-		if (is_string($datos)) {
-			$this->payload = $datos;
-			$this->mensaje = new WSMessage($this->payload, $opciones);			
-		} elseif (is_array($datos)) {
-			$proyecto = toba::proyecto()->get_id();
-			$this->payload = "<ns1:servicio xmlns:ns1='http://toba.siu.edu.ar/$proyecto'>\n";
-			$this->payload .= self::array_a_payload($datos);
-			$this->payload .= "</ns1:servicio>";			
-			$this->mensaje = new WSMessage($this->payload, $opciones);
-		} elseif (is_a($datos, 'WSMessage')) {
-			$this->mensaje = $datos;
-			$this->payload = $this->mensaje->str;
-		}			
+	{		
+		$this->datos = $datos;
+		$this->opciones = $opciones;		
 	}
 	
+	/**
+	 *  Crea el objeto WSMessage propiamente dicho y ademas determina que comprende el payload
+	 * @ignore
+	 */
+	protected function instanciar_mensaje()
+	{
+		if (is_string($this->datos)) {
+			$this->payload = $this->datos;
+			$this->mensaje = new WSMessage($this->payload, $this->opciones);			
+		} elseif (is_array($this->datos)) {
+			$proyecto = toba::proyecto()->get_id();
+			$this->payload = "<ns1:servicio xmlns:ns1='http://toba.siu.edu.ar/$proyecto'>\n";
+			$this->payload .= self::array_a_payload($this->datos);
+			$this->payload .= "</ns1:servicio>";			
+			$this->mensaje = new WSMessage($this->payload, $this->opciones);
+		} elseif (is_a($this->datos, 'WSMessage')) {
+			$this->mensaje = $this->datos;
+			$this->payload = $this->mensaje->str;
+		}					
+	}
+			
 	/**
 	 * @return WSMessage
 	 */
 	function wsf()
 	{
+		if (! isset($this->mensaje)) {
+			$this->instanciar_mensaje();
+		}
+		
 		return $this->mensaje;	
 	}
 	
+	/**
+	 * @return string 
+	 */
 	function get_payload()
 	{
+		if (! isset($this->payload)) {
+			$this->instanciar_mensaje();
+		}
 		return $this->payload;
 	}
 	
@@ -44,7 +66,7 @@ class toba_servicio_web_mensaje
 	 */
 	function get_array()
 	{
-		$xml = new SimpleXMLElement($this->payload);
+		$xml = new SimpleXMLElement($this->get_payload());
 		return self::payload_a_array($xml);
 	}
 	
@@ -95,7 +117,50 @@ class toba_servicio_web_mensaje
 		return $salida;	
 	}	
 	
+	/**
+	 * Firma el mensaje completo usando Openssl
+	 * @param string $clave_privada Ruta al archivo que posee la clave privada
+	 */
+	function firmar_mensaje($clave_privada)
+	{
+		//Aca concateno los headers y los datos para hacer el rsa firma
+		$headers = $this->get_datos_headers($this->opciones['inputHeaders']);
+		$mensaje = $this->datos;
+		if (is_a($this->datos, 'WSMessage')) {		//Si es un objeto mensaje, pido la representacion en string
+			$mensaje = $this->datos->str;
+		}		
+		
+		$cadena_a_firmar = $mensaje . implode('', $headers);
+		$priv_key_id = openssl_get_privatekey('file://' .$clave_privada);
+		if (! openssl_sign($cadena_a_firmar, $firma, $priv_key_id)) {
+			throw new toba_error('No fue posible firmar el mensaje, se anula el envio');
+		}
+		
+		//Si no falla entonces agrego la firma a los headers del mensaje
+		$header_firma = new WSHeader(array('name' => 'firma' , 'data' => base64_encode($firma)));
+		$this->opciones['inputHeaders'][] = $header_firma;
+	}
+	
+	/**
+	 * Devuelve los datos de los headers como un arreglo de datos
+	 * @param array $headers Arreglo de objetos WSMessage
+	 * @return array
+	 */
+	private function get_datos_headers($headers)
+	{
+		$datos = array();
+		$aux_iterador = $headers;
+		while (! empty($aux_iterador)) {
+			$elem = array_shift($aux_iterador);
+			if (is_a($elem->data, 'WSMessage')) {				//Si es otro mensaje, lo agrego a la cola
+				$aux_iterador[] = $elem->data;
+			} elseif (is_array($elem->data)) {					//Es posible que sea un arreglo de WSMessage
+				$aux_iterador = array_merge($aux_iterador, $elem->data);	
+			}else {
+				$datos[] = $elem->data;				
+			}
+		}
+		return $datos;
+	}	
 }
-
-
 ?>

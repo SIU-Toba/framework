@@ -33,6 +33,9 @@ class ci_servicios extends toba_ci
 	{
 		$this->s__echo = $datos;
 
+		$header1 = new WSHeader(array('name' => 'tag_name', 'data' => 'Este texto no te lo esperabas, es parte del header'));
+		$header2 = new WSHeader(array('name' => 'tag_name2', 'data' => 'Prueba y Error'));
+		
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
 	<texto>{$datos['texto']}</texto>
@@ -42,7 +45,7 @@ XML;
 			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
 		);
 		$servicio = toba::servicio_web('sin_seguridad', $opciones);
-		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload));
+		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload, array('inputHeaders' => array(new WSHeader( array('name' => 'grupo', 'data' => array($header1, $header2)))))));
 		toba::notificacion()->info($respuesta->get_payload());
 	}
 
