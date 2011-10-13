@@ -22,7 +22,8 @@ class menu_toba extends menu
 						'instancia',
 						'proyecto',
                         'personalizacion',
-						'test'
+						'test',
+						'servicios_web'
 
 		);	
 	}

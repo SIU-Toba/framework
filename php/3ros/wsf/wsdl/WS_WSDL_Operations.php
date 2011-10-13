@@ -118,7 +118,7 @@ class WS_WSDL_Operations
         }
     }
 
-    public function getOperations() {
+    private function getOperations() {
         return $this->operations;
     }
 
@@ -177,7 +177,7 @@ class WS_WSDL_Operations
         }
         else
         {
-            if(preg_match_all('|xs:?(\w+).*|', $doc_comment, $matching, PREG_SET_ORDER))
+            if(preg_match_all('|xs:?(\w+).*|', $doc_comment, $matching, PREG_SET_ORDER ))
             {
                 $i = 0;
                 foreach($matching as $matchs)
@@ -189,6 +189,16 @@ class WS_WSDL_Operations
             }
             $j = 0;
             $k = 0;
+            
+            ///SIU: Inicio
+            $first_param = strpos($doc_comment, "@param");
+            if ($first_param !== false) {
+            	$documentation = substr($doc_comment, 0, $first_param); 
+            	$documentation = trim(str_replace(array("*", "/"), "", $documentation));
+				$this->operations[$operationName]['documentation'] = $documentation;            	
+            }
+            ///SIU: Fin
+            
             if(preg_match_all(
                     '|@param\s+(?:(\[\s*\d*\s*,[^\]]*\])\s+)?(?:(array)\s+of\s+)?(?:(object)\s+)?(\w+)\s+\$(\w+)\s+(.*)|',
                     $doc_comment,
@@ -202,6 +212,7 @@ class WS_WSDL_Operations
                     $is_object = $match[3];
                     $type_name = $match[4];
                     $element_name = $match[5];
+                    
 
                     // the default is set to NULL
                     $min = NULL;
@@ -233,7 +244,8 @@ class WS_WSDL_Operations
                                                                              "array" => $is_array,
                                                                              "object"=> $is_object,
                                                                              "min" => $min,
-                                                                             "max" => $max);
+                                                                             "max" => $max,
+                    														 "documentation" => $match[6]);
 
                     
                     // the following information is used in building the message element

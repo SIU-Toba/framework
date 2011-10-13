@@ -47,6 +47,7 @@ class WS_WSDL_Interface
 
     public function createInterface(DomDocument $interface_doc, DomElement $interface_root)
     {
+    	
         $interface_ele = $interface_doc->createElementNS(WS_WSDL_Const::WS_WSDL2_NAMESPACE,
                          self::WS_WSDL2_INTERFACE_INTERFACE_ATTR_NAME);
         $interface_ele->setAttribute(self::WS_WSDL_INTERFACE_NAME_ATTR_NAME,

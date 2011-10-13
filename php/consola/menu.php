@@ -48,8 +48,7 @@ class menu
 		// Armo la coleccion de comandos
 		$comandos = array();
 		foreach ( $this->get_info_comandos() as $comando => $info ) {
-			$temp = explode('_', $comando);
-			$comandos[ $temp[1] ] = $info;
+			$comandos[substr($comando, strlen('comando_'))] = $info;
 		}
 		// Muestro la lista
 		$this->consola->subtitulo("Comandos disponibles");

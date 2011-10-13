@@ -136,7 +136,7 @@ XML;
 	    $security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
 	                                                'password' => $this->s__datos_password['password']));
     	$opciones = array(
-    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password', 
+    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/seguridad_password', 
     					'policy' => $policy, 
     					'securityToken' => $security_token
     	);

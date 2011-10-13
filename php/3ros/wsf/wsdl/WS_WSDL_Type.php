@@ -439,6 +439,7 @@ class WS_WSDL_Type
                     }
                     foreach ($params_in_out as $paramName => $paramValue)
                     {
+                    	
                         $xsd_type =  $paramValue["type"];
                         $element_ele = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SOAP_XML_SCHEMA_NAMESPACE,
                                                           WS_WSDL_Const::WS_WSDL_ELEMENT_ATTR_NAME);
@@ -482,6 +483,9 @@ class WS_WSDL_Type
                     $ct->appendChild($comtype);
                     $seq = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SOAP_XML_SCHEMA_NAMESPACE,
                                                       WS_WSDL_Const::WS_WSDL_SEQUENCE_ATTR_NAME);
+                                                      
+                    
+		                                                      
 
                     $comtype->appendChild($seq);
                     foreach ($params_in_out as $paramName => $paramValue)
@@ -532,6 +536,12 @@ class WS_WSDL_Type
                         
 
                         $seq->appendChild($element_ele);
+			            //----SIU: INICO
+			            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+			                                               "documentation");
+			            $part->nodeValue = $paramValue['documentation'];
+			            $seq->appendChild($part);         
+			            //----SIU: FIN                                   
 
                     }
                     $return_array[$function_name][WS_WSDL_Const::WS_WSDL_INPUT_ATTR_NAME] = TRUE;

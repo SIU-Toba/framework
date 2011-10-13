@@ -85,6 +85,8 @@ class WS_WSDL_Message
                 $mep_patterns = array(WS_WSDL_Const::WS_WSDL_INPUT_ATTR_NAME,
                           WS_WSDL_Const::WS_WSDL_OUTPUT_ATTR_NAME);
             }
+            
+                        
             foreach($mep_patterns as $type)
             {
 
@@ -95,8 +97,12 @@ class WS_WSDL_Message
                     if($value == $name) {
                         $msg_ele->setAttribute(WS_WSDL_Const::WS_WSDL_NAME_ATTR_NAME,
                                           "$key".ucfirst($attr_name_to_postfix_map[$type]));
+                        
                     }
                 }
+
+                
+                
                 $part = $msg_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
                                                   WS_WSDL_Const::WS_WSDL_PART_ATTR_NAME);
                 $part->setAttribute(WS_WSDL_Const::WS_WSDL_NAME_ATTR_NAME,

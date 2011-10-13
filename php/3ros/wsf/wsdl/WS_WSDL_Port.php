@@ -50,7 +50,7 @@ class WS_WSDL_Port
      * @param DomElement $port_root service dom element
      */
 
-    public function createPortType(DomDocument $port_doc, DomElement $port_root)
+    public function createPortType(DomDocument $port_doc, DomElement $port_root, $operations)
     {
        $attr_name_to_postfix_map = array(WS_WSDL_Const::WS_WSDL_INPUT_ATTR_NAME => WS_WSDL_Const::WS_WSDL_OPERTION_INPUT_TAG,
                                          WS_WSDL_Const::WS_WSDL_OUTPUT_ATTR_NAME => WS_WSDL_Const::WS_WSDL_OPERTION_OUTPUT_TAG);
@@ -58,6 +58,7 @@ class WS_WSDL_Port
                                                WS_WSDL_Const::WS_WSDL_PORTTYPE_ATTR_NAME);
         $port_el->setAttribute(WS_WSDL_Const::WS_WSDL_NAME_ATTR_NAME,
                                $this->service_name."PortType");
+                               
         foreach($this->operations as $name => $params)
         {
             $operation = $port_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
@@ -67,6 +68,13 @@ class WS_WSDL_Port
                     $operation->setAttribute(WS_WSDL_Const::WS_WSDL_NAME_ATTR_NAME, $key);
                 }
             }
+            //----SIU: INICO
+            $part = $port_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+                                               "documentation");
+            $part->nodeValue = $operations[$name]['documentation'];
+            $operation->appendChild($part);            
+            //----SIU: FIN                               
+            
             // be sensitive to the available directions
             $directions_arr = array();
             // we anyway have the input message

@@ -151,9 +151,11 @@ class WS_WSDL_Creator
                 $ele_names_info = $type_obj->createDocLitType($wsdl_dom, $wsdl_root_ele, $schemaTypes);
             }
 
+            		
             $msg_obj = new WS_WSDL_Message($operations, $this->ops_to_functions, $this->classmap);
             $msg_obj->createDocLitMessage($wsdl_dom, $wsdl_root_ele, $ele_names_info);
         }
+        
 
         if ($this->Binding_style == WS_WSDL_Const::WSF_WSDL_RPC) {
             $type_obj = new WS_WSDL_Type($this->namespace, $this->ops_to_functions, $this->classmap);
@@ -171,7 +173,7 @@ class WS_WSDL_Creator
 
         $port_obj = new WS_WSDL_Port($this->service_name, $ele_names_info, $this->ops_to_functions, 
                                             $this->use_wsa, $this->r_actions);
-        $port_obj->createPortType($wsdl_dom, $wsdl_root_ele, $ele_names_info);
+        $port_obj->createPortType($wsdl_dom, $wsdl_root_ele, $ele_names_info, $operations);
 
         if ($this->Binding_style == WS_WSDL_Const::WSF_WSDL_DOCLIT) {
             $bind_obj = new WS_WSDL_Binding($this->service_name,

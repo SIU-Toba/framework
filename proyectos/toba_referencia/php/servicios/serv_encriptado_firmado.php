@@ -31,9 +31,7 @@ class serv_encriptado_firmado extends toba_servicio_web
 	/**
 	 * Responde exactamente con la misma cadena enviada
 	 * @param string $texto texto a repetir
-	 * (maps to the xs:string XML schema type )
-	 * @return string $texto total price
-	 *(maps to the xs:string XML schema type )
+	 * @return string $texto texto repetido
 	 */		
 	function op__eco(toba_servicio_web_mensaje $mensaje) 
 	{
