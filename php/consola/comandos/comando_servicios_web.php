@@ -15,7 +15,7 @@ class comando_servicios_web extends comando_toba
 	}
 
 	/**
-	 * Genera la documentaciï¿½n de los servicios web disponibles en el proyecto (requiere tener publicado el proyecto en localhost)
+	 * Genera la documentación de los servicios web disponibles en el proyecto (requiere tener publicado el proyecto en localhost)
 	 */
 	function opcion__generar_doc()
 	{
