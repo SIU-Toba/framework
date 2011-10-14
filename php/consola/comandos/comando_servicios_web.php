@@ -27,6 +27,7 @@ class comando_servicios_web extends comando_toba
 		if (! file_exists($carpeta_doc)) {
 			mkdir($carpeta_doc, 0777, true);
 		}
+		$this->consola->mensaje("Generando documentacion...");		
 		copy(toba_dir(). '/php/modelo/var/wsdl-viewer.xsl', $carpeta_doc.'/wsdl-viewer.xsl');
 		copy(toba_dir(). '/php/modelo/var/wsdl-viewer.css', $carpeta_doc.'/wsdl-viewer.css');
 		$include = '<?xml-stylesheet type="text/xsl" href="wsdl-viewer.xsl"?>';
@@ -41,6 +42,7 @@ class comando_servicios_web extends comando_toba
 		<div id='inner_box'><div class='page'>
 		<ul>";
 		foreach ($servicios as $servicio) {
+			$this->consola->mensaje("Servicio: ".$servicio['item']);			
 			$url = $prefijo.$proyecto->get_url().$sufijo.$servicio['item']."?wsdl2";
 			$wsdl = file_get_contents($url);
 			$wsdl = str_replace($search, $search.$include, $wsdl);
@@ -50,6 +52,7 @@ class comando_servicios_web extends comando_toba
 		}
 		$index_page .= "</ul></div></div></body></html>";
 		file_put_contents($carpeta_doc."/index.html", $index_page);
+		$this->consola->mensaje("Listo. Navegar hacia file://".$carpeta_doc."/index.html");		
 
 	}
 	
