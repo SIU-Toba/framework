@@ -599,7 +599,8 @@
 	        <xsl:apply-templates select="ws2:documentation" mode="documentation.render"/>
 
 	        <xsl:if test="$ENABLE-STYLEOPTYPEPATH">
-		<!-- TODO: add the operation attributes - according the WSDL 2.0 spec. -->
+		<!-- TODO: add the operation attributes - according the WSDL 2.0 spec.
+-->
 	</xsl:if>
 	        <xsl:apply-templates select="ws2:input|ws2:output|../ws2:fault[@name = ws2:infault/@ref or @name = ws2:outfault/@ref]"
                               mode="operations.message">
@@ -945,7 +946,8 @@
 	     <xsl:variable name="base-type" select="$consolidated-xsd[@name = $type-name][1]"/>
 	     <!-- xsl:if test="not($type/@abstract)">
 		<xsl:apply-templates select="$type"/>
-	</xsl:if -->
+	</xsl:if
+-->
 	<xsl:if test="$base-type != 'Array'">
 		       <xsl:apply-templates select="$base-type" mode="operations.message.part">
 			         <xsl:with-param name="anti.recursion" select="$anti.recursion"/>
@@ -1880,7 +1882,8 @@
 	        <xsl:if test="not($consolidated-wsdl/*[local-name() = 'service']/@name)">
 		
 
-<!-- If the WS is without implementation, just with binding points = WS interface -->
+<!-- If the WS is without implementation, just with binding points = WS interface
+-->
 
 		<xsl:apply-templates select="$consolidated-wsdl/ws:binding" mode="service-start"/>
 		          <xsl:apply-templates select="$consolidated-wsdl/ws2:interface" mode="service"/>
@@ -1927,7 +1930,8 @@
 			            <xsl:otherwise>
 				
 
-<!-- TODO: Error message or handling somehow this unexpected situation -->
+<!-- TODO: Error message or handling somehow this unexpected situation
+-->
 
 			</xsl:otherwise>
 		          </xsl:choose>

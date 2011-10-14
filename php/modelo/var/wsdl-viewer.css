@@ -16,7 +16,7 @@ body {
 	height: auto;
 	color: white;
 	background-color: teal;
-	font: normal 80%/120% Arial, Helvetica, sans-serif;
+	font: normal 80%/120% Helvetica;
 }
 
 #outer_box {
@@ -90,7 +90,7 @@ body {
 #links a {
 	display: block;
 	padding: 0 2px;
-	color: blue;
+	color: #890B72;
 	width: auto;
 	border: 1px solid white;
 	text-decoration: none;
@@ -169,7 +169,7 @@ body {
 	margin-top: 1px;
 	padding-top: 9px;
 	padding-bottom: 7px;
-	color: blue;
+	color: #890B72;
 	background-color: gainsboro;
 } 
 
@@ -212,13 +212,14 @@ body {
 }
 
 #footer {
+	display: none;
 	clear: both;
 	margin: 0;
 	padding: .5em 2em;
 	color: gray;
 	background-color: gainsboro;
 	font-size: 80%;
-	border-top: 1px dotted gray;
+	border-top: 1px solid gray;
 	text-align: right
 }
 
@@ -257,7 +258,6 @@ html>body #rightColumn {
 */
 
 .page {
-	border-bottom: 3px dotted navy;
 	margin: 0;
 	padding: 10px 0 20px 0;
 }
@@ -274,17 +274,17 @@ html>body #rightColumn {
 	font-weight: bold;
 	padding-bottom: .5em;
 	margin-right: 0;
-	color: darkblue;
+	color: dark#890B72;
 }
 
 .value {
 	margin-left: 147px;
-	color: darkblue;
+	color: dark#890B72;
 	padding-bottom: .5em;
 }
 
 strong, strong a {
-	color: darkblue;
+	color: dark#890B72;
 	font-weight: bold;
 	letter-spacing: 1px;
 	margin-left: 2px;
@@ -299,18 +299,18 @@ strong, strong a {
 
 a.local:link,
 a.local:visited {
-	color: blue; 
+	color: #890B72; 
 	margin-left: 10px;
-	border-bottom: 1px dotted blue;
+	border-bottom: 1px solid #890B72;
 	text-decoration: none;
 	font-style: italic;
 }
 
 a.local:hover {
 	background-color: gainsboro; 
-	color: darkblue;
+	color: dark#890B72;
 	padding-bottom: 1px;
-	border-bottom: 1px solid darkblue;
+	border-bottom: 1px solid dark#890B72;
 }
 
 a.target:link,
@@ -406,7 +406,7 @@ html .floatcontainer {
 	color: red;
 	font-weight: bold;
 	font-style:normal;
-	border-left: 1px dotted silver;
+	border-left: 1px solid silver;
 }
 
 .xml-element div {
@@ -414,12 +414,12 @@ html .floatcontainer {
 }
 
 .xml-att {
-	color: blue;
+	color: #890B72;
 	font-weight: bold;
 }
 
 .xml-att-val {
-	color: blue;
+	color: #890B72;
 	font-weight: normal;
 }
 
@@ -449,7 +449,6 @@ html .floatcontainer {
 */
 h1, h2, h3 {
 	margin: 10px 10px 2px;
-	font-family: Georgia, Times New Roman, Times, Serif;
 	font-weight: normal;
 	}
 
@@ -480,13 +479,13 @@ h3 {
 .port {
 	margin-bottom: 10px;
 	padding-bottom: 10px;
-	border-bottom: 1px dashed gray;
+	border-bottom: 1px solid gray;
 }
 
 .operation {
 	margin-bottom: 20px;
 	padding-bottom: 10px;
-	border-bottom: 1px dashed gray;
+	border-bottom: 1px solid gray;
 }
 
 
