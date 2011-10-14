@@ -245,7 +245,7 @@ class WS_WSDL_Operations
                                                                              "object"=> $is_object,
                                                                              "min" => $min,
                                                                              "max" => $max,
-                    														 "documentation" => $match[6]);
+                    														 "documentation" => $match[6]);	//SIU 
 
                     
                     // the following information is used in building the message element
@@ -300,7 +300,8 @@ class WS_WSDL_Operations
                                                                              "array" => $is_array,
                                                                              "object"=> $is_object,
                                                                              "min" => $min,
-                                                                             "max" => $max);
+                                                                             "max" => $max,
+                															 "documentation" => $match_r[6]);
 
                 $this->createdTypes[$type_name] = 1;
 

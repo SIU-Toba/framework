@@ -50,7 +50,7 @@ class WS_WSDL_Port
      * @param DomElement $port_root service dom element
      */
 
-    public function createPortType(DomDocument $port_doc, DomElement $port_root, $operations)
+    public function createPortType(DomDocument $port_doc, DomElement $port_root, $extra, $operations)
     {
        $attr_name_to_postfix_map = array(WS_WSDL_Const::WS_WSDL_INPUT_ATTR_NAME => WS_WSDL_Const::WS_WSDL_OPERTION_INPUT_TAG,
                                          WS_WSDL_Const::WS_WSDL_OUTPUT_ATTR_NAME => WS_WSDL_Const::WS_WSDL_OPERTION_OUTPUT_TAG);

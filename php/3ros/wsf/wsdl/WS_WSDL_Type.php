@@ -667,8 +667,16 @@ class WS_WSDL_Type
                         {
                             $element_ele->setAttribute(WS_WSDL_Const::WS_WSDL_TYPE_ATTR_NAME, WS_WSDL_Const::WS_WSDL_XSD_ATTR_NAME.$xsd_type);
                         }
-                        
+
                         $seq->appendChild($element_ele);
+                        
+			            //----SIU: INICO
+			            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+			                                               "documentation");
+			            $part->nodeValue = $paramValue['documentation'];
+			            $seq->appendChild($part);         
+			            //----SIU: FIN                             
+                        
                     }
                     $return_array[$function_name][WS_WSDL_Const::WS_WSDL_OUTPUT_ATTR_NAME] = TRUE;
                 }
