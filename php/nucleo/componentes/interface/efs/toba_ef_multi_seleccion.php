@@ -19,19 +19,19 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 	protected $cant_maxima;
 	protected $cant_minima;
 		
-    static function get_lista_parametros()
-    {
-    	$param[] = 'selec_cant_minima';
-    	$param[] = 'selec_cant_maxima';
-    	$param[] = 'selec_utilidades';
-    	$param[] = 'selec_serializar';
-    	return $param;    	
-    }
-    
-    static function get_lista_parametros_carga()
-    {
-    	return toba_ef::get_lista_parametros_carga_basico();	
-    }
+	static function get_lista_parametros()
+	{
+		$param[] = 'selec_cant_minima';
+		$param[] = 'selec_cant_maxima';
+		$param[] = 'selec_utilidades';
+		$param[] = 'selec_serializar';
+		return $param;    	
+	}
+
+	static function get_lista_parametros_carga()
+	{
+		return toba_ef::get_lista_parametros_carga_basico();	
+	}
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -214,26 +214,29 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 	/**
 	 * La validación verifica si se cumple con la cantidad mínima y máxima
 	 */
-    function validar_estado()
-    {
+	function validar_estado()
+	{
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
 		}
+		if ($this->confirma_excepcion_validacion()) {
+			return true;
+		}
 		if (isset($this->cant_minima)) { 
 			if (count($this->estado) < $this->cant_minima){
 				$elemento = ($this->cant_minima == 1) ? "un elemento" : "{$this->cant_minima} elementos";
-                return "Seleccione al menos $elemento.";
+				return "Seleccione al menos $elemento.";
 			}
 		}
 		if (isset($this->cant_maxima)){ 
 			if (count($this->estado) > $this->cant_maxima){
 				$elemento = ($this->cant_maxima == 1) ? "un elemento" : "{$this->cant_maxima} elementos";				
-                return "No puede seleccionar más de $elemento.";
+				return "No puede seleccionar más de $elemento.";
 			}
 		}
 		return true;
-    }
+	}
 	
 	protected function parametros_js()
 	{
@@ -345,13 +348,13 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 {
 	protected $clase_css = 'ef-multi-sel-lista';
 	
-    static function get_lista_parametros()
-    {
-    	$param = parent::get_lista_parametros();
-    	$param[] = 'selec_tamano';
-    	$param[] = 'selec_ancho';
-    	return $param;    	
-    }	
+	static function get_lista_parametros()
+	{
+		$param = parent::get_lista_parametros();
+		$param[] = 'selec_tamano';
+		$param[] = 'selec_ancho';
+		return $param;    	
+	}	
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -401,12 +404,12 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 	protected $clase_css = 'ef-multi-sel-check';
 	protected $cantidad_columnas = 1;	
 	
-    static function get_lista_parametros()
-    {
-    	$param = toba_ef_multi_seleccion::get_lista_parametros();
-    	$param[] = 'selec_cant_columnas';
-    	return $param;    	
-    }	
+	static function get_lista_parametros()
+	{
+		$param = toba_ef_multi_seleccion::get_lista_parametros();
+		$param[] = 'selec_cant_columnas';
+		return $param;    	
+	}	
     
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -449,8 +452,8 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 		$html .= "<div id='{$this->id_form}_opciones' class='{$this->clase_css}'><table>\n";
 		foreach ($this->opciones as $clave => $descripcion) {
 			if ($i % $this->cantidad_columnas == 0) {
-    			$html .= "<tr>\n";	
-    		}
+					$html .= "<tr>\n";	
+			}
 			$id = $this->id_form.$i;			
 			$html .= "\t<td><label class='ef-multi-check' for='$id'>";
 			$ok = in_array($clave, $estado);
@@ -475,14 +478,14 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 			$html .= "$descripcion</label></td>\n";		
 			$i++;
 			if ($i % $this->cantidad_columnas == 0) {
-    			$html .= "</tr>\n";	
-    		}  
+				$html .= "</tr>\n";	
+			}  
 		}
-    	$sobran = $i % $this->cantidad_columnas;
-    	if ($sobran > 0) {
-    		$html .= str_repeat("\t<td></td>\n", $sobran);
-    		$html .= "</tr>\n";	
-    	}		
+		$sobran = $i % $this->cantidad_columnas;
+		if ($sobran > 0) {
+			$html .= str_repeat("\t<td></td>\n", $sobran);
+			$html .= "</tr>\n";	
+		}		
 		$html .= "</table>";
 		$html .= "</div>\n";
 		$html .= $this->get_html_iconos_utilerias();
@@ -504,13 +507,13 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 {
 	protected $clase_css = 'ef-multi-sel-check';	
 	
-    static function get_lista_parametros()
-    {
-    	$param = parent::get_lista_parametros();
-    	$param[] = 'selec_tamano';
-    	$param[] = 'selec_ancho';
-    	return $param;    	
-    }	
+	static function get_lista_parametros()
+	{
+		$param = parent::get_lista_parametros();
+		$param[] = 'selec_tamano';
+		$param[] = 'selec_ancho';
+		return $param;    	
+	}	
 		
 	protected function parametros_js()
 	{

@@ -83,18 +83,18 @@ class toba_ef_checkbox extends toba_ef
 	function set_estado($estado)
 	//Carga el estado interno
 	{
-   		if(isset($estado)){								
-    		$this->estado=$estado;
+		if(isset($estado)){								
+			$this->estado=$estado;
 			return true;
-	    }else{
+		}else{
 			//Si el valor no seteado existe, paso el estado a ese valor.
 			if (isset($this->valor_no_seteado)) {
-	    		$this->estado = $this->valor_no_seteado;
-	    		return true;
+				$this->estado = $this->valor_no_seteado;
+				return true;
 			} else {
-    			$this->estado = null;			
+				$this->estado = null;			
 			}
-    	}
+		}
 		return false;
 	}
 	
@@ -102,9 +102,9 @@ class toba_ef_checkbox extends toba_ef
 	{
 		if(isset($_POST[$this->id_form])) {
 			$this->set_estado($_POST[$this->id_form]);
-    	} else {
-    		$this->set_estado(null);
-    	}
+		} else {
+			$this->set_estado(null);
+		}
 		return false;		
 	}
 	
@@ -171,24 +171,24 @@ class toba_ef_fijo extends toba_ef_oculto
 	}
 	
     
-    static function get_lista_parametros_carga()
-    {
-    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
+	static function get_lista_parametros_carga()
+	{
+		$parametros = toba_ef::get_lista_parametros_carga_basico();    
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
 		return $parametros;
-    }  	
+	}  	
 	
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
-    {
+	{
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
 		if(isset($parametros['fijo_sin_estado']) && $parametros['fijo_sin_estado'] == 1){
 			$this->maneja_datos = false;
 		}else{
 			$this->maneja_datos = true;
 		}
-		
+
 	}
    
 	function set_estado($estado=null)
@@ -211,7 +211,7 @@ class toba_ef_fijo extends toba_ef_oculto
 	}	
 	
 	function get_input()
-    {
+	{
 		$estado = (isset($this->estado)) ? $this->estado : null;
 		if (! $this->permitir_html) {
 			$estado = texto_plano($estado);

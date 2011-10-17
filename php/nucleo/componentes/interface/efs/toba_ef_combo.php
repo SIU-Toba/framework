@@ -16,17 +16,17 @@ abstract class toba_ef_seleccion extends toba_ef
 	protected $mantiene_estado_cascada = false;		//Indica si se mantendra el estado entre cada pedido de cascadas
 	protected static $maximo_descripcion;
 	
-    static function get_lista_parametros_carga()
-    {
-    	$param = toba_ef::get_lista_parametros_carga_basico();
+	static function get_lista_parametros_carga()
+	{
+		$param = toba_ef::get_lista_parametros_carga_basico();
 		$param[] = 'carga_permite_no_seteado';
 		$param[] = 'carga_no_seteado';
 		$param[] = 'carga_no_seteado_ocultar';
 		$param[] = 'cascada_mantiene_estado';
 		return $param;
-    }
-	
-    static function set_maximo_descripcion($maximo)
+	}
+
+	static function set_maximo_descripcion($maximo)
 	{
 		self::$maximo_descripcion = $maximo;
 	}
@@ -199,12 +199,12 @@ abstract class toba_ef_seleccion extends toba_ef
 			}
 		}
 		if (is_array($this->dato)) {
-            //Deduzco el estado de la opcion seleccionada
+	            //Deduzco el estado de la opcion seleccionada
 			if ($seleccion == apex_ef_no_seteado){
 				$this->estado = $this->estado_nulo;
 			} else {
 				$cant_datos = count($this->dato);
-	            $valores = explode(apex_qs_separador, $seleccion);
+				$valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
 					throw new toba_error_def("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");
@@ -255,9 +255,9 @@ class toba_ef_combo extends toba_ef_seleccion
 		
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
-        if ($this->es_solo_lectura()) {
-        	$clase = $this->clase_css.' ef-input-solo-lectura';
-        	$html .= toba_form::select("",$estado, $this->opciones, $clase, "disabled");
+		if ($this->es_solo_lectura()) {
+			$clase = $this->clase_css.' ef-input-solo-lectura';
+			$html .= toba_form::select("",$estado, $this->opciones, $clase, "disabled");
 			$html .= toba_form::hidden($this->id_form, $estado);
 		} else {
 			$tab = $this->padre->get_tab_index();
@@ -295,12 +295,12 @@ class toba_ef_radio extends toba_ef_seleccion
 	protected $clase_css = 'ef-radio';	
 	protected $cantidad_columnas = 1;	
 	
-    static function get_lista_parametros()
-    {
-    	$param = toba_ef_seleccion::get_lista_parametros();
-    	$param[] = 'selec_cant_columnas';
-    	return $param;
-    }
+	static function get_lista_parametros()
+	{
+		$param = toba_ef_seleccion::get_lista_parametros();
+		$param[] = 'selec_cant_columnas';
+		return $param;
+	}
     
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -326,25 +326,25 @@ class toba_ef_radio extends toba_ef_seleccion
 		//--- Se guarda el callback en el <div> asi puede ser recuperada en caso de que se borren las opciones
 		$html .= "<div id='opciones_{$this->id_form}' $callback>\n";
 		$html .= "<table>\n";
-    	if (!is_array($this->opciones)) {
-    		$datos = array();	
-    	} else {
-    		$datos = $this->opciones;	
-    	}
+		if (!is_array($this->opciones)) {
+			$datos = array();	
+		} else {
+			$datos = $this->opciones;	
+		}
 		$i=0;
 		$tab_index = "tabindex='".$this->padre->get_tab_index()."'";
-    	foreach ($datos as $clave => $valor) {
-    		if ($i % $this->cantidad_columnas == 0) {
-    			$html .= "<tr>\n";	
-    		}
-	    	$id = $this->id_form . $i;    		
-	    	$html .= "\t<td><label class='{$this->clase_css}' for='$id'>";
-	    	$es_actual = (strval($estado) == strval($clave));
+		foreach ($datos as $clave => $valor) {
+			if ($i % $this->cantidad_columnas == 0) {
+				$html .= "<tr>\n";	
+			}
+			$id = $this->id_form . $i;    		
+			$html .= "\t<td><label class='{$this->clase_css}' for='$id'>";
+			$es_actual = (strval($estado) == strval($clave));
 			if (! $this->es_solo_lectura()) {
-	    		$sel = ($es_actual) ? "checked" : "";
-	    		if (! $this->permitir_html) {
-	    			$clave = texto_plano($clave);
-	    		}
+				$sel = ($es_actual) ? "checked" : "";
+				if (! $this->permitir_html) {
+					$clave = texto_plano($clave);
+				}
 				$html .= "<input type='radio' id='$id' name='{$this->id_form}' value='$clave' $sel $callback $tab_index />";
 				$tab_index = '';
 			} else {
@@ -356,16 +356,16 @@ class toba_ef_radio extends toba_ef_seleccion
 				$valor = texto_plano($valor);
 			}
 			$html .= "$valor</label></td>\n";			
-    		$i++;
-    		if ($i % $this->cantidad_columnas == 0) {
-    			$html .= "</tr>\n";	
-    		}    		
-    	}
-    	$sobran = $i % $this->cantidad_columnas;
-    	if ($sobran > 0) {
-    		$html .= str_repeat("\t<td></td>\n", $sobran);
-    		$html .= "</tr>\n";	
-    	}
+			$i++;
+			if ($i % $this->cantidad_columnas == 0) {
+				$html .= "</tr>\n";	
+			}    		
+		}
+		$sobran = $i % $this->cantidad_columnas;
+		if ($sobran > 0) {
+			$html .= str_repeat("\t<td></td>\n", $sobran);
+			$html .= "</tr>\n";	
+		}
 		$html .= "</table>";
 		$html .= "</div>\n";
 		$html .= $this->get_html_iconos_utilerias();

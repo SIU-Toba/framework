@@ -59,10 +59,10 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
-        if ($this->es_solo_lectura()) {
-        	$html .= toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");
+		if ($this->es_solo_lectura()) {
+			$html .= toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");
 			$html .= toba_form::hidden($this->id_form, $estado);
-            return $html;
+			return $html;
 		} else {
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";

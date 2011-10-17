@@ -51,6 +51,8 @@ abstract class toba_ef
 	protected $campo_valor;
 	protected $opciones_cargadas = false;
 	
+	static protected $_excepciones;		
+	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->id = $id;		
@@ -210,6 +212,16 @@ abstract class toba_ef
 		return true;	
 	}
 		
+	static function set_excepciones($excepciones)
+	{
+		self::$_excepciones = $excepciones;
+	}
+	
+	static function get_excepciones() 
+	{
+		return self::$_excepciones;
+	}
+		
 	//-----------------------------------------------------
 	//------ Propiedades relacionadas con la carga --------
 	//-----------------------------------------------------		
@@ -297,35 +309,35 @@ abstract class toba_ef
 	 * @return boolean
 	 * @see set_obligatorio	
 	 */
-    function es_obligatorio()
-    {
-    	return $this->obligatorio;	
-    }
-    
-    /**
-     * Retorna la clase css asociada a la etiqueta
-	 * @return string
-     */
-    function get_estilo_etiqueta()
-    {
-    	return $this->estilo_etiqueta;	
-    }
+	function es_obligatorio()
+	{
+		return $this->obligatorio;	
+	}
 
-    /**
-     * El checkbox esta configurado en los ML para tener un tilde sel/des todos?
-     * @return boolean
-     */
-    function get_toggle()
-    {
-    	return $this->check_ml_toggle;
-    }
-    
-    /**
-     * Un ef no expandido se muestra oculto en el layout del formulario.
-     * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
-     * @return boolean
-     * @see set_expandido
-     */
+	/**
+	 * Retorna la clase css asociada a la etiqueta
+	 * @return string
+	 */
+	function get_estilo_etiqueta()
+	{
+		return $this->estilo_etiqueta;	
+	}
+
+	/**
+	 * El checkbox esta configurado en los ML para tener un tilde sel/des todos?
+	 * @return boolean
+	 */
+	function get_toggle()
+	{
+		return $this->check_ml_toggle;
+	}
+
+	/**
+	 * Un ef no expandido se muestra oculto en el layout del formulario.
+	 * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
+	 * @return boolean
+	 * @see set_expandido
+	 */
 	function esta_expandido()
 	{
 		return $this->expandido;
@@ -453,32 +465,47 @@ abstract class toba_ef
 	 * Chequea la validez del estado actual del ef
 	 * @return mixed Retorna true cuando es valido y un string con el mensaje cuando es inválido
 	 */
-    function validar_estado()
-    {
-    	$obligatorio = false;
-    	if ($this->obligatorio) {
-    		if (! $this->cascada_relajada) {
-    			$obligatorio = true;
-    		} else {
-    			$obligatorio = $this->padre->ef_tiene_maestros_seteados($this->id);
-    		}
-    		if ($this->obligatorio_oculto_relaj) {
-    			$obligatorio = false;	
-    		}
-    	}
-        if ($obligatorio && !$this->tiene_estado()) {
+	function validar_estado()
+	{
+		$obligatorio = false;
+		if ($this->obligatorio) {
+			if (! $this->cascada_relajada) {
+				$obligatorio = true;
+			} else {
+				$obligatorio = $this->padre->ef_tiene_maestros_seteados($this->id);
+			}
+			if ($this->obligatorio_oculto_relaj) {
+				$obligatorio = false;	
+			}
+		}
+		if ($obligatorio && !$this->tiene_estado()) {
 			return "El campo es obligatorio";
-        }
-        return true;
-    }
+		}
+		return true;
+	}
     
-    /**
-     * Cambia el valor que toma el ef cuando no se lo carga con un estado
-     */
-    function set_estado_defecto($estado)
-    {
-    	$this->estado_defecto = $estado;
-    }
+	/**
+	 * Permite chequear si el valor del ef cae dentro de las excepciones
+	 * @ignore
+	 * @return boolean
+	 */
+	protected function confirma_excepcion_validacion()
+	{
+		if (isset(self::$_excepciones)) {			//Se fija si el valor es parte de las excepciones
+			if (in_array($this->estado, self::$_excepciones)) {
+				return true;
+			}
+		}			
+		return false;		
+	}
+		
+	/**
+	 * Cambia el valor que toma el ef cuando no se lo carga con un estado
+	 */
+	function set_estado_defecto($estado)
+	{
+		$this->estado_defecto = $estado;
+	}
 
 	/**
 	 * Permite normalizar un parametro recibido de una cascada a un formato estandar
@@ -539,43 +566,43 @@ abstract class toba_ef
 	 */
 	function set_solo_lectura($solo_lectura = true)
 	{
-        $this->solo_lectura_base = $solo_lectura;
+		$this->solo_lectura_base = $solo_lectura;
 		$this->analizar_cambio_solo_lectura();		//Se agrega para que en el ML el solo_lectura se pueda aplicar en distintas filas.
-    }
+	}
     
-    function es_solo_lectura()
-    {
+	function es_solo_lectura()
+	{
 		$es_fila_modelo_ml = ($this->get_fila_actual() === '__fila__');
 		if (! isset($this->solo_lectura) || $es_fila_modelo_ml) {		//Inicializo la variable o reanalizo su estado cuando se trata de la fila modelo del ML.
 			$this->analizar_cambio_solo_lectura();
 		}
-    	return $this->solo_lectura;
-    }
+		return $this->solo_lectura;
+	}
 	
-    /**
-     * Cambia la obligatoriedad de un ef
-     * Notar que este cambio no se persiste para el siguiente pedido.
-     * Para cambiar la obligatoriedad durante todo un ciclo cliente-servidor usar {@link toba_ei_formulario::set_efs_obligatorios() set_efs_obligatorios del formulario}
-     * @param boolean $obligatorio
-     */
-    function set_obligatorio($obligatorio = true)
-    {
-	    $this->obligatorio = $obligatorio;
-    }
+	/**
+	 * Cambia la obligatoriedad de un ef
+	 * Notar que este cambio no se persiste para el siguiente pedido.
+	 * Para cambiar la obligatoriedad durante todo un ciclo cliente-servidor usar {@link toba_ei_formulario::set_efs_obligatorios() set_efs_obligatorios del formulario}
+	 * @param boolean $obligatorio
+	 */
+	function set_obligatorio($obligatorio = true)
+	{
+		$this->obligatorio = $obligatorio;
+	}
     
-    /**
-     * Cambia la clase css aplicada a la etiqueta
-     * @param string $estilo
-     */
-    function set_estilo_etiqueta($estilo)
-    {
-    	$this->estilo_etiqueta = $estilo;	
-    }
+	/**
+	 * Cambia la clase css aplicada a la etiqueta
+	 * @param string $estilo
+	 */
+	function set_estilo_etiqueta($estilo)
+	{
+		$this->estilo_etiqueta = $estilo;	
+	}
 
 	/**
 	 * Determina si un ef se muestra o no expandido
-     * Un ef no expandido se muestra oculto en el layout del formulario.
-     * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
+	 * Un ef no expandido se muestra oculto en el layout del formulario.
+	 * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
 	 * @param boolean $expandido
 	 */
 	function set_expandido($expandido)
@@ -589,11 +616,11 @@ abstract class toba_ef
 	 */
 	function set_estado($estado)
 	{
-   		if(isset($estado)){								
-    		$this->estado=$estado;
-	    } else {
-	    	$this->estado = null;	
-	    }
+		if(isset($estado)){								
+			$this->estado=$estado;
+		} else {
+			$this->estado = null;	
+		}
 	}
 
 	/**

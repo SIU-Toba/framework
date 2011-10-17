@@ -31,29 +31,29 @@ class toba_ef_editable extends toba_ef
 	protected static $callback_errores_validacion = null;
 	
 	
-    static function get_lista_parametros_carga()
-    {
-    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
+	static function get_lista_parametros_carga()
+	{
+		$parametros = toba_ef::get_lista_parametros_carga_basico();    
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
 		return $parametros;    	
-    }
-    	
-    static function get_lista_parametros()
-    {
-    	$param[] = 'edit_tamano';
-    	$param[] = 'edit_maximo';
-    	$param[] = 'edit_mascara';
-    	$param[] = 'edit_unidad';
-    	$param[] = 'edit_expreg';
-    	return $param;    	
-    }
+	}
+
+	static function get_lista_parametros()
+	{
+		$param[] = 'edit_tamano';
+		$param[] = 'edit_maximo';
+		$param[] = 'edit_mascara';
+		$param[] = 'edit_unidad';
+		$param[] = 'edit_expreg';
+		return $param;    	
+	}
 
 	static function set_callback_errores_validacion(toba_callback_errores_validacion $callback) 
-    {
-    	self::$callback_errores_validacion = $callback;	
-    }
+	{
+		self::$callback_errores_validacion = $callback;	
+	}
     	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -106,20 +106,20 @@ class toba_ef_editable extends toba_ef
 	
 	function set_estado($estado)
 	{
-   		if(isset($estado)){								
-    		$this->estado=trim($estado);
-	    } else {
-	    	$this->estado = null;	
-	    }
+		if(isset($estado)){								
+			$this->estado=trim($estado);
+		} else {
+			$this->estado = null;	
+		}
 	}
 	
 	function cargar_estado_post()
 	{
 		if (isset($_POST[$this->id_form])) {
 			$this->estado = trim($_POST[$this->id_form]);
-    	} else {
-    		$this->estado = null;
-    	}
+		} else {
+			$this->estado = null;
+		}
 	}	
 
 	function tiene_estado()
@@ -203,12 +203,12 @@ class toba_ef_editable_numero extends toba_ef_editable
 	protected $mensaje_defecto;
 	protected $clase_css = 'ef-numero';
 
-    static function get_lista_parametros()
-    {
-    	$param = parent::get_lista_parametros();
-    	$param[] = 'edit_rango';
-    	return $param;
-    }
+	static function get_lista_parametros()
+	{
+		$param = parent::get_lista_parametros();
+		$param[] = 'edit_rango';
+		return $param;
+	}
     
   	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -287,13 +287,16 @@ class toba_ef_editable_numero extends toba_ef_editable
 	/**
 	 * Valida que el número cumpla con el rango preestablecido (si lo hay)
 	 */
-    function validar_estado()
+	function validar_estado()
 	{
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
 		}
-        if ($this->tiene_estado()) {
+		if ($this->tiene_estado()) {
+			if ($this->confirma_excepcion_validacion()) {
+				return true;
+			}
 			if (! is_numeric($this->estado)) {
 				return "El campo es numérico";
 			}
@@ -447,13 +450,13 @@ class toba_ef_editable_clave extends toba_ef_editable
 {
 	protected $confirmar_clave = false;
 	
-    static function get_lista_parametros()
-    {
-    	$param[] = 'edit_tamano';
-    	$param[] = 'edit_maximo';
-    	$param[] = 'edit_confirmar_clave';
-    	return $param;
-    }
+	static function get_lista_parametros()
+	{
+		$param[] = 'edit_tamano';
+		$param[] = 'edit_maximo';
+		$param[] = 'edit_confirmar_clave';
+		return $param;
+	}
     
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -538,11 +541,11 @@ class toba_ef_editable_fecha extends toba_ef_editable
 
 	function set_estado($estado="")
 	{
-  		if($estado!="") {
-    		$this->estado = cambiar_fecha($estado,'-','/');
-	    } else {
-	    	$this->estado = null;	
-	    }
+		if($estado!="") {
+			$this->estado = cambiar_fecha($estado,'-','/');
+		} else {
+			$this->estado = null;	
+		}
 	}
 	
 	function normalizar_parametro_cascada($parametro) 
@@ -599,21 +602,24 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	/**
 	 * Valida que sea una fecha válida con la funcion php checkdate
 	 */
-    function validar_estado()
+	function validar_estado()
 	{
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
 		}
 		if ($this->tiene_estado()) {
-            $fecha = explode('/',$this->estado); 
-            if (count($fecha) != 3) {
+			if ($this->confirma_excepcion_validacion()) {
+				return true;
+			}			
+			$fecha = explode('/',$this->estado); 
+			if (count($fecha) != 3) {
 				return "El campo no es una fecha valida (3).";
-            }
-            if ( ! is_numeric($fecha[0]) || !is_numeric($fecha[1]) || !is_numeric($fecha[2]) ) {
+			}
+			if ( ! is_numeric($fecha[0]) || !is_numeric($fecha[1]) || !is_numeric($fecha[2]) ) {
 				return "El campo no es una fecha valida (2).";
-            }
-            if (! checkdate($fecha[1],$fecha[0],$fecha[2])) {
+			}
+			if (! checkdate($fecha[1],$fecha[0],$fecha[2])) {
 				return "El campo no es una fecha valida (1).";
 			}
 			if (isset($this->rango_fechas)) {
@@ -731,9 +737,9 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	{
 		if (isset($_POST[$this->id_form. '_fecha'])) {
 			$this->estado = array( 'fecha' => trim($_POST[$this->id_form .'_fecha']), 'hora' => trim($_POST[$this->id_form . '_hora']));
-    	} else {
-    		$this->estado = null;
-    	}
+		} else {
+			$this->estado = null;
+		}
 	}
 
 	function get_consumo_javascript()
@@ -778,6 +784,9 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 		}
 		if ($this->tiene_estado()) {
 			$fecha = explode('/',$this->estado['fecha']);
+			if ($this->confirma_excepcion_validacion()) {
+				return true;
+			}			
 			if (count($fecha) != 3) {
 				return "El campo no es una fecha valida (3).";
 			}
@@ -918,9 +927,11 @@ class toba_ef_editable_hora extends toba_ef_editable
 		$padre = parent::validar_estado();		
 		if ($padre !== true) {
 			return $padre;
-		}
-		
+		}		
 		if ($this->tiene_estado()) {
+			if ($this->confirma_excepcion_validacion()) {
+				return true;
+			}
 			$hora = explode(':', $this->estado);
 			if (! is_numeric($hora[0]) || ! is_numeric($hora[1])) {
 				return "El campo no es una hora valida (1).";

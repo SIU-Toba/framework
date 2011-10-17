@@ -32,16 +32,16 @@ abstract class toba_ef_sin_estado extends toba_ef
 		return false;
 	}
 	
-    function validar_estado()
-    {
-    	return true;
-    }
-	
-    function get_javascript()
-    //Devuelve el javascript del elemento
-    {
-        return "";
-    }
+	function validar_estado()
+	{
+		return true;
+	}
+
+	function get_javascript()
+	//Devuelve el javascript del elemento
+	{
+		return "";
+	}
 
 	function get_consumo_javascript()
 	//Esta funcion permite que un EF declare la necesidad de incluir

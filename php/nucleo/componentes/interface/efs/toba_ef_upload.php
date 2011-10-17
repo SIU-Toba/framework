@@ -76,11 +76,11 @@ class toba_ef_upload extends toba_ef
 	
 	function get_estado_input()
 	{
-        if (isset($this->estado)) {
-            return $this->estado;
-        }else{
-            return null;
-        }
+		if (isset($this->estado)) {
+			return $this->estado;
+		}else{
+			return null;
+		}
 	}
 	
 	function cargar_estado_post()
@@ -116,7 +116,7 @@ class toba_ef_upload extends toba_ef
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
-		}		
+		}
 		if ($this->archivo_subido) {
 			$id = $this->estado['error'];
 			switch($id){

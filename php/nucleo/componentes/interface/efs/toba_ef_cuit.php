@@ -13,19 +13,19 @@ class toba_ef_cuit extends toba_ef
 	protected $_desactivar_validacion = false;
 
 	static function get_lista_parametros_carga()
-    {
+	{
 		return array();
-    }
-    	
-    static function get_lista_parametros()
-    {
-    	return array();
-    }	
+	}
 
-    /**
-     * Permite agregar excepciones al algoritmo de validacion de CUIT
-     * @param array $excepciones
-     */
+	static function get_lista_parametros()
+	{
+		return array();
+	}	
+
+	/**
+	 * Permite agregar excepciones al algoritmo de validacion de CUIT
+	 * @param array $excepciones
+	 */
 	static function set_excepciones($excepciones)
 	{
 		self::$_excepciones = $excepciones;
@@ -50,11 +50,11 @@ class toba_ef_cuit extends toba_ef
 	
 	function set_estado($estado)
 	{
-   		if(isset($estado)){								
-    		$this->estado=trim($estado);
-	    } else {
-	    	$this->estado = null;	
-	    }
+		if(isset($estado)){								
+			$this->estado=trim($estado);
+		} else {
+			$this->estado = null;	
+		}
 	}
 	
 	function tiene_estado()
@@ -86,11 +86,8 @@ class toba_ef_cuit extends toba_ef
 		if ($this->estado == '' || $this->_desactivar_validacion) {
 			return true;
 		}
-		if (isset(self::$_excepciones)) {
-			// Busca el cuit en las excepciones
-			if (in_array($this->estado, self::$_excepciones)) {
-				return true;
-			}
+		if ($this->confirma_excepcion_validacion()) {
+			return true;
 		}
 		return self::validar_cuit($this->estado);
 	}

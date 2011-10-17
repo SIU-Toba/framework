@@ -32,23 +32,23 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	
 	//-- Gets
 	
-    static function get_lista_parametros_carga()
-    {
-     	$parametros = array();    
+	static function get_lista_parametros_carga()
+	{
+		$parametros = array();    
 		return $parametros;    	
-    }
+	}
+
+	static function get_lista_parametros()
+	{
+		$param = parent::get_lista_parametros();
+		array_borrar_valor($param, 'edit_expreg');
+		array_borrar_valor($param, 'edit_mascara');
+		array_borrar_valor($param, 'edit_unidad');
+		array_borrar_valor($param, 'edit_maximo');
+		return $param;    	
+	}
     
-    static function get_lista_parametros()
-    {
-	   	$param = parent::get_lista_parametros();
-    	array_borrar_valor($param, 'edit_expreg');
-    	array_borrar_valor($param, 'edit_mascara');
-    	array_borrar_valor($param, 'edit_unidad');
-    	array_borrar_valor($param, 'edit_maximo');
-    	return $param;    	
-    }
-    
-    //-- Sets
+	//-- Sets
 	/**
 	 * Permite setear parametros que afectan a la generacion de la imagen.
 	 * Las lista de parámetros posibles es la siguiente:
@@ -165,11 +165,11 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		if (isset($_POST[$this->id_form])) {
 			$texto_imagen = strtoupper(toba::memoria()->get_dato_operacion('texto-captcha'));
 			$texto_ef 	  = strtoupper(trim($_POST[$this->id_form]));
-			
+
 			$this->estado = ($texto_imagen == $texto_ef) ? true : false;
-    	} else {
-    		$this->estado = false;
-    	}
+		} else {
+			$this->estado = false;
+		}
 	}
 
 	function get_estado()
