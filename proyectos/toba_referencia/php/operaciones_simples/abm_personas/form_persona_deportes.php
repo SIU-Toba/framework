@@ -8,8 +8,8 @@ class form_persona_deportes extends toba_ei_formulario
 		//El lapso de horas tiene que ser valido (inicio < fin)
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
-				var hora_i = parseFloat( this.ef('hora_inicio').valor() );
-				var hora_f = parseFloat( this.ef('hora_fin').valor() );
+				var hora_i = this.ef('hora_inicio').hora();
+				var hora_f = this.ef('hora_fin').hora();
 				if ( hora_i >= hora_f ) {
 						var mensaje = \"La 'Hora inicio' tiene que ser menor a la 'Hora fin.'.\";
 						notificacion.agregar(mensaje);

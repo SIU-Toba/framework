@@ -70,8 +70,8 @@ CREATE TABLE ref_persona_deportes (
     persona integer NOT NULL,
     deporte integer NOT NULL,
     dia_semana integer,
-    hora_inicio integer,
-    hora_fin integer
+    hora_inicio time without time zone null,
+    hora_fin time without time zone null
 );
 COMMENT ON TABLE ref_persona_deportes IS 'Deportes de personas';
 COMMENT ON COLUMN ref_persona_deportes.id IS 'Clave';

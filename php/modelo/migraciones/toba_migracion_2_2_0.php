@@ -29,6 +29,10 @@ class toba_migracion_2_2_0 extends toba_migracion
 		//Elimino la columna temporal
 		$sql[] = 'ALTER TABLE apex_objeto_ei_cuadro_columna DROP COLUMN estilo_temp;';
 		
+		//Agrego al ei_filtro una columna de tipo hora y fecha_hora
+		$sql[] = "INSERT INTO apex_objeto_ei_filtro_tipo_col (tipo_col, descripcion, proyecto) VALUES ('hora', 'Hora', 'toba');";
+		$sql[] = "INSERT INTO apex_objeto_ei_filtro_tipo_col (tipo_col, descripcion, proyecto) VALUES ('fecha_hora', ' Fecha y Hora', 'toba');";		
+		
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 

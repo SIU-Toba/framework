@@ -86,9 +86,9 @@ INSERT INTO ref_persona VALUES (1, 'Horacio', '2000-3-3');
 -- Data for Name: ref_persona_deportes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO ref_persona_deportes VALUES (1, 1, 5, 3, 17, 19);
-INSERT INTO ref_persona_deportes VALUES (2, 2, 6, 4, 17, 19);
-INSERT INTO ref_persona_deportes VALUES (3, 1, 7, 3, 17, 19);
+INSERT INTO ref_persona_deportes VALUES (1, 1, 5, 3, '14:15', '16:35');
+INSERT INTO ref_persona_deportes VALUES (2, 2, 6, 4, '17:00', '19:00');
+INSERT INTO ref_persona_deportes VALUES (3, 1, 7, 3, '18:00', '20:00');
 
 
 --

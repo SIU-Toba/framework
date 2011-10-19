@@ -22,7 +22,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'ABM Personas - Deportes', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_referencia', --fuente_datos_proyecto
 	'toba_referencia', --fuente_datos
@@ -202,7 +202,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -219,8 +219,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	'NO', --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL, --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0', --resaltar_efs_con_estado
 	NULL, --template
 	NULL  --template_impresion
 );
@@ -238,7 +238,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_combo', --elemento_formulario
 	'deporte', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Deporte', --etiqueta
 	NULL, --etiqueta_estilo
@@ -317,7 +317,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_combo', --elemento_formulario
 	'dia_semana', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Dia semana', --etiqueta
 	NULL, --etiqueta_estilo
@@ -393,25 +393,25 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1739', --objeto_ei_formulario
 	'toba_referencia', --objeto_ei_formulario_proyecto
 	'hora_inicio', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_editable_hora', --elemento_formulario
 	'hora_inicio', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Hora inicio', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
-	'17', --estado_defecto
-	NULL, --solo_lectura
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'17:00', --estado_defecto
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_horas_dia', --carga_metodo
+	NULL, --carga_metodo
 	'consultas', --carga_clase
 	'operaciones_simples/consultas.php', --carga_include
 	NULL, --carga_dt
@@ -472,25 +472,25 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1739', --objeto_ei_formulario
 	'toba_referencia', --objeto_ei_formulario_proyecto
 	'hora_fin', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_editable_hora', --elemento_formulario
 	'hora_fin', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Hora fin.', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
-	'19', --estado_defecto
-	NULL, --solo_lectura
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'19:00', --estado_defecto
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_horas_dia', --carga_metodo
+	NULL, --carga_metodo
 	'consultas', --carga_clase
 	'operaciones_simples/consultas.php', --carga_include
 	NULL, --carga_dt
