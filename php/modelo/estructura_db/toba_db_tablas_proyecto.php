@@ -16,25 +16,24 @@ class toba_db_tablas_proyecto
   8 => 'apex_ptos_control_param',
   9 => 'apex_ptos_control_ctrl',
   10 => 'apex_consulta_php',
-  11 => 'apex_servicio_web',
-  12 => 'apex_servicio_web_param',
-  13 => 'apex_item_zona',
-  14 => 'apex_clase',
-  15 => 'apex_clase_relacion',
-  16 => 'apex_conversion',
-  17 => 'apex_msg',
-  18 => 'apex_item_msg',
-  19 => 'apex_objeto_msg',
-  20 => 'apex_nota',
-  21 => 'apex_item_nota',
-  22 => 'apex_objeto_nota',
-  23 => 'apex_relacion_tablas',
-  24 => 'apex_dimension',
-  25 => 'apex_dimension_gatillo',
-  26 => 'apex_gadgets',
-  27 => 'apex_objeto_ei_filtro_tipo_col',
-  28 => 'apex_molde_opciones_generacion',
-  29 => 'apex_permiso',
+  11 => 'apex_item_zona',
+  12 => 'apex_clase',
+  13 => 'apex_clase_relacion',
+  14 => 'apex_conversion',
+  15 => 'apex_msg',
+  16 => 'apex_item_msg',
+  17 => 'apex_objeto_msg',
+  18 => 'apex_nota',
+  19 => 'apex_item_nota',
+  20 => 'apex_objeto_nota',
+  21 => 'apex_relacion_tablas',
+  22 => 'apex_dimension',
+  23 => 'apex_dimension_gatillo',
+  24 => 'apex_gadgets',
+  25 => 'apex_objeto_ei_filtro_tipo_col',
+  26 => 'apex_molde_opciones_generacion',
+  27 => 'apex_permiso',
+  28 => 'apex_servicio_web',
 );
 	}
 
@@ -383,53 +382,6 @@ class toba_db_tablas_proyecto
     3 => 'archivo',
     4 => 'descripcion',
     5 => 'punto_montaje',
-  ),
-);
-	}
-
-	static function apex_servicio_web()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'proyecto',
-  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
-  'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'servicio_web',
-  'zona' => 'nucleo',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'servicio_web',
-    2 => 'descripcion',
-    3 => 'param_to',
-    4 => 'param_wsa',
-  ),
-);
-	}
-
-	static function apex_servicio_web_param()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'proyecto',
-  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
-  'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'servicio_web, parametro',
-  'zona' => 'nucleo',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'servicio_web',
-    2 => 'parametro',
-    3 => 'valor',
   ),
 );
 	}
@@ -1197,6 +1149,30 @@ class toba_db_tablas_proyecto
     3 => 'objeto_ei_filtro_col',
     4 => 'objeto_ei_filtro',
     5 => 'no_visible',
+  ),
+);
+	}
+
+	static function apex_servicio_web()
+	{
+		return array (
+  'archivo' => 'pgsql_a80_tablas_servicios_web.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'servicio_web',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'servicio_web',
+    2 => 'descripcion',
+    3 => 'param_to',
+    4 => 'param_wsa',
   ),
 );
 	}

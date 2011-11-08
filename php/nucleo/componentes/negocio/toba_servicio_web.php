@@ -101,7 +101,7 @@ abstract class toba_servicio_web extends toba_componente
 	protected function servicio_con_firma()
 	{
 		$va_firmado = true;
-		$id_servicio = $this->id[1];	//El nombre del servicio lo obtengo del identificador del item
+		$id_servicio = $this->id[1];	//El nombre del servicio lo obtengo del identificador del item?
 		$ini = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
 		if (! is_null($ini) && $ini->existe_entrada($id_servicio)) {
 			$datos = $ini->get($id_servicio, 'firmado', 1, false );		//Por defecto firmo el mensaje (desactivar explicitamente)
@@ -117,11 +117,20 @@ abstract class toba_servicio_web extends toba_componente
 	 */
 	protected function get_clave_publica($headers)
 	{
-		return null;
+		$proyecto = quote($this->_id[0]);
+		$servicio = quote($this->_id[1]);
 		
-		//TODO: Aca tendria que recuperarse el nombre del archivo de acuerdo al grupo de datos que viene en los headers		
-		//$ini = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
-		return toba::nucleo()->toba_instalacion_dir(). '/servicios/id_rsa.pub';
+		$clave = implode('', $headers);
+		$id = hash( 'sha512',$str_headers);
+		$id = quote($id);
+		
+		$sql = "SELECT * FROM apex_mapeo_rsa_kp WHERE servicio_web = $servicio AND proyecto = $proyecto AND id = $id AND anulada = 0;";
+		$datos = toba::instancia()->get_db()->consultar($sql);
+	
+		if (isset($datos['pub_key'])) {
+			return $datos['pub_key'];			
+		}
+		return null;
 	}		
 }
 ?>

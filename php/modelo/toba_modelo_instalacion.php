@@ -153,6 +153,15 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return $claves;
 	}
 	
+	function get_archivos_certificado_ssl()
+	{
+		$this->cargar_info_ini();
+		if (isset($this->ini_instalacion['cert'])) {
+			return array($this->ini_instalacion['cert'], $this->ini_instalacion['key']);
+		}
+		return null;
+	}
+		
 	function get_parametros_base( $id_base )
 	{
 		$this->cargar_info_ini();		
@@ -427,11 +436,11 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$archivo = self::get_archivo_alias_apache();
 				
 		//--- Se agrega el proyecto al archivo
-        if ($pers) {
-            $template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto_pers.conf');
-        } else {
-            $template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
-        }
+		if ($pers) {
+			$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto_pers.conf');
+		} else {
+			$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
+		}
 		
 		$editor = new toba_editor_texto();
 		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
@@ -447,11 +456,11 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		$archivo = self::get_archivo_alias_apache();
 		$conf = file_get_contents($archivo);
-        if ($pers) {
-            $encontre = preg_match('/^(?:\s)*#Proyecto_pers:(?:\s)*'.$id_proyecto.'/im', $conf);
-        } else {
-            $encontre = preg_match('/^(?:\s)*#Proyecto:(?:\s)*'.$id_proyecto.'/im', $conf);
-        }
+		if ($pers) {
+			$encontre = preg_match('/^(?:\s)*#Proyecto_pers:(?:\s)*'.$id_proyecto.'/im', $conf);
+		} else {
+			$encontre = preg_match('/^(?:\s)*#Proyecto:(?:\s)*'.$id_proyecto.'/im', $conf);
+		}
 		
 		return ($encontre !== 0 && $encontre !== false);
 	}
@@ -461,11 +470,11 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$archivo = self::get_archivo_alias_apache();
 		$conf = file_get_contents($archivo);
         
-        if ($pers) {
-            $str_inicio = '#Proyecto_pers: '.$id_proyecto;
-        } else {
-            $str_inicio = '#Proyecto: '.$id_proyecto;
-        }
+		if ($pers) {
+			$str_inicio = '#Proyecto_pers: '.$id_proyecto;
+		} else {
+			$str_inicio = '#Proyecto: '.$id_proyecto;
+		}
 		
 		$str_fin = '</Directory>';
 		$inicio = strpos($conf, $str_inicio);
@@ -925,5 +934,20 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		}
 		return $ini_conf;
 	}
+	
+	function agregar_info_certificado_ssl($datos)
+	{
+		$this->cargar_info_ini(true);
+		$this->cambiar_info_basica(array('X509' =>$datos));
+	}
+	
+	function get_archivos_certificado()
+	{
+		$this->cargar_info_ini();
+		if (isset($this->ini_instalacion['X509'])) {
+			return $this->ini_instalacion['X509'];			
+		}
+		return null;
+	}	
 }
 ?>

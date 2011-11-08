@@ -130,12 +130,13 @@ class toba_servicio_web_cliente
 	 */
 	function get_clave_privada()
 	{	
+		//Esto deberia salir del archivo existente dentro del directorio del servicio web
 		$clave = null;
-		$id_servicio = $this->id_servicio. '_prvk_file';
-		$ini_conf = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
-		if (! is_null($ini_conf) && $ini_conf->existe_entrada($id_servicio)) {
-			$aux = $ini_conf->get_datos_entrada($id_servicio);
-			$clave = toba::nucleo()->toba_instalacion_dir(). '/' . $aux['path'];
+		$directorio = toba::nucleo()->toba_instalacion_dir(). '/servicios/'. $this->id_servicio;		//Directorio perteneciente al servicio		
+		$ini_conf = new toba_ini($directorio . '/servicio.ini');
+		if (! is_null($ini_conf) && $ini_conf->existe_entrada('RSA')) {
+			$aux = $ini_conf->get_datos_entrada('RSA');
+			$clave = $directorio. '/' . $aux['privada'];
 		}				
 		return $clave;
 	}
@@ -147,13 +148,18 @@ class toba_servicio_web_cliente
 	function get_clave_publica()
 	{
 		$clave = null;
-		$id_servicio = $this->id_servicio. '_pubk_file';	
-		$ini_conf = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
-		if (! is_null($ini_conf) &&  $ini_conf->existe_entrada($id_servicio)) {
-			$aux = $ini_conf->get_datos_entrada($id_servicio);			
-			$clave = toba::nucleo()->toba_instalacion_dir() .  '/' . $aux['path'];
+		$directorio = toba::nucleo()->toba_instalacion_dir(). '/servicios/'. $this->id_servicio;		//Directorio perteneciente al servicio		
+		$ini_conf = new toba_ini($directorio . '/servicio.ini');
+		if (! is_null($ini_conf) &&  $ini_conf->existe_entrada('RSA')) {
+			$aux = $ini_conf->get_datos_entrada('RSA');			
+			$clave = $directorio .  '/' . $aux['public'];
 		}		
 		return $clave;
+	}
+		
+	function get_conf_comunicacion()
+	{
+		
 	}
 }
 ?>

@@ -33,6 +33,21 @@ class toba_migracion_2_2_0 extends toba_migracion
 		$sql[] = "INSERT INTO apex_objeto_ei_filtro_tipo_col (tipo_col, descripcion, proyecto) VALUES ('hora', 'Hora', 'toba');";
 		$sql[] = "INSERT INTO apex_objeto_ei_filtro_tipo_col (tipo_col, descripcion, proyecto) VALUES ('fecha_hora', ' Fecha y Hora', 'toba');";		
 		
+		//Agrego tablas para los servicios web
+		$sql[] = "CREATE SEQUENCE apex_mapeo_rsa_kp_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;";
+		$sql[] = 'CREATE TABLE apex_mapeo_rsa_kp
+				(
+				cod_mapeo			int8	DEFAULT nextval(\'"apex_mapeo_rsa_kp_seq"\'::text) NOT NULL,
+				proyecto				VARCHAR(15) NOT NULL, 
+				servicio_web			VARCHAR(50) NOT NULL,
+				id					TEXT NOT NULL,		--Hash
+				pub_key				TEXT NOT NULL,		--ruta archivo
+				anulada				SMALLINT NOT NULL DEFAULT 0,
+				CONSTRAINT "apex_mapeo_rsa_kp_pk" PRIMARY KEY("cod_mapeo","proyecto", "servicio_web"),
+				CONSTRAINT "apex_mapeo_rsa_kp_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+				CONSTRAINT "apex_mapeo_rsa_kp_fk_item" FOREIGN KEY ("servicio_web", "proyecto") REFERENCES "apex_item"("item", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+				);';
+		
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 
