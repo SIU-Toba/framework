@@ -34,6 +34,7 @@ class toba_db_tablas_proyecto
   26 => 'apex_molde_opciones_generacion',
   27 => 'apex_permiso',
   28 => 'apex_servicio_web',
+  29 => 'apex_servicio_web_param',
 );
 	}
 
@@ -1173,6 +1174,29 @@ class toba_db_tablas_proyecto
     2 => 'descripcion',
     3 => 'param_to',
     4 => 'param_wsa',
+  ),
+);
+	}
+
+	static function apex_servicio_web_param()
+	{
+		return array (
+  'archivo' => 'pgsql_a80_tablas_servicios_web.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'servicio_web, parametro',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'servicio_web',
+    2 => 'parametro',
+    3 => 'valor',
   ),
 );
 	}

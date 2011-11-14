@@ -8,8 +8,7 @@ class toba_db_tablas_instancia
   0 => 'apex_revision',
   1 => 'apex_instancia',
   2 => 'apex_checksum_proyectos',
-  3 => 'apex_servicio_web_param',
-  4 => 'apex_mapeo_rsa_kp',
+  3 => 'apex_mapeo_rsa_kp',
 );
 	}
 
@@ -584,7 +583,7 @@ class toba_db_tablas_instancia
 );
 	}
 
-	static function apex_servicio_web_param()
+	static function apex_mapeo_rsa_kp()
 	{
 		return array (
   'archivo' => 'pgsql_a80_tablas_servicios_web.sql',
@@ -593,43 +592,19 @@ class toba_db_tablas_instancia
   'dump_order_by' => 'proyecto, servicio_web',
   'dump_where' => '(	proyecto =	\\\'%%\\\' )',
   'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'servicio_web, parametro',
+  'clave_elemento' => 'cod_mapeo, servicio_web',
   'zona' => 'general',
-  'desc' => 'Guarda la asociacion entre certificados y servicios',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'servicio_web',
-    2 => 'parametro',
-    3 => 'valor',
-    4 => 'VARCHAR(15)',
-    5 => 'VARCHAR(50)',
-    6 => 'TEXT',
-  ),
-  'instancia' => '1',
-);
-	}
-
-	static function apex_mapeo_rsa_kp()
-	{
-		return array (
-  'archivo' => 'pgsql_a80_tablas_servicios_web.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'proyecto, servicio_web',
-  'zona' => 'general',
-  'desc' => 'Especifica el mapeo entre los parametros del usuario y sus claves RSA',
+  'desc' => 'Guarda asociacion entre claves RSA y servicio',
   'version' => '1.0',
   'instancia' => '1',
   'columnas' => 
   array (
-    0 => 'int8',
-    1 => 'VARCHAR(15)',
-    2 => 'VARCHAR(50)',
-    3 => 'TEXT',
-    4 => 'TEXT',
-    5 => 'SMALLINT',
+    0 => 'cod_mapeo',
+    1 => 'proyecto',
+    2 => 'servicio_web',
+    3 => 'id',
+    4 => 'pub_key',
+    5 => 'anulada',
   ),
 );
 	}
