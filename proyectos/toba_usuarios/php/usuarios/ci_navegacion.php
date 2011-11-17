@@ -87,6 +87,7 @@ class ci_navegacion extends toba_ci
 				break;
 			}
 			$componente->set_datos($datos);
+			$componente->desactivar_modo_clave_segura();
 		}
 	}
 	
