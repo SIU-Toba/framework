@@ -127,7 +127,13 @@ class toba_instancia
 		$id_instancia = toba::instancia()->get_id();
 		return toba::nucleo()->toba_instalacion_dir(). '/'.toba_modelo_instancia::dir_prefijo.$id_instancia . '/'. toba_modelo_instancia::toba_instancia;
 	}
-
+	
+	function get_path_instalacion_proyecto($proyecto)
+	{
+		$id_instancia = toba::instancia()->get_id();
+		return toba::nucleo()->toba_instalacion_dir() . '/' . toba_modelo_instancia::dir_prefijo. $id_instancia . '/' . toba_modelo_instancia::prefijo_dir_proyecto . $proyecto;	
+	}
+	
 	function get_directiva_compilacion($proyecto)
 	{
 		if (isset($this->memoria[$proyecto]['metadatos_compilados'])) {

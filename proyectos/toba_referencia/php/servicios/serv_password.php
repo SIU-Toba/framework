@@ -3,21 +3,30 @@ class serv_password extends toba_servicio_web
 {
 	
 	function get_opciones()
-	{
-		$policy = new WSPolicy(array(
-								"security" => array(
-									"useUsernameToken" => true,
-									"includeTimestamp" => true
-									)	
-								)
-							);
-		$security = new WSSecurityToken(array(
+	{						
+		$seguridad = array("encrypt" => true,
+					"algorithmSuite" => "Basic256Rsa15",
+					"securityTokenReference" => "IssuerSerial");
+ 
+		$policy = new WSPolicy(array("security"=> $seguridad));			
+		/*$security = new WSSecurityToken(array(
 											"user" => "toba",
 											"password" => "toba",
+											'passwordType' => 'Digest',
 											"ttl" => 300
 											)
+										);		*/				
+		$archivos_ssl = toba::instalacion()->get_configuracion_certificados_ssl();			//Exigido por WSF 2.1.0 con certificados
+		if (empty($archivos_ssl)) {
+			throw new toba_error_def('Falta informacion de certificados ssl, ejecute comando conf_ssl_server');
+		}
+		$certificado_cliente = ws_get_cert_from_file($archivos_ssl['cert_cliente']);
+		$clave_privada = ws_get_cert_from_file($archivos_ssl['clave_server']);		
+		$security = new WSSecurityToken(array(
+											"privateKey" => $clave_privada,
+											"receiverCertificate" => $certificado_cliente)
 										);		
-
+		
 		return array(
 			"reliable"			=> true,		
             "policy" 			=> $policy,

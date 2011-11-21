@@ -101,7 +101,7 @@ abstract class toba_servicio_web extends toba_componente
 	protected function servicio_con_firma()
 	{
 		$va_firmado = true;
-		$id_servicio = $this->id[1];	//El nombre del servicio lo obtengo del identificador del item?
+		$id_servicio = $this->_solicitud->get_id_operacion();				//Obtengo el id del servicio web desde el item
 		$ini = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
 		if (! is_null($ini) && $ini->existe_entrada($id_servicio)) {
 			$datos = $ini->get($id_servicio, 'firmado', 1, false );		//Por defecto firmo el mensaje (desactivar explicitamente)

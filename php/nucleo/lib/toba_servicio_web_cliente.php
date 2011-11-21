@@ -108,7 +108,8 @@ class toba_servicio_web_cliente
 	{
 		$headers = array();
 		$id_servicio = $this->id_servicio;
-		$directorio = toba::nucleo()->toba_instalacion_dir(). '/servicios/'. $id_servicio;		//Directorio perteneciente al servicio
+		$proyecto = toba::proyecto()->get_id();
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
 		
 		//Obtener el archivo con la configuracion de headers
 		$archivo = $directorio . '/headers.ini';
@@ -132,7 +133,10 @@ class toba_servicio_web_cliente
 	{	
 		//Esto deberia salir del archivo existente dentro del directorio del servicio web
 		$clave = null;
-		$directorio = toba::nucleo()->toba_instalacion_dir(). '/servicios/'. $this->id_servicio;		//Directorio perteneciente al servicio		
+		$id_servicio = $this->id_servicio;
+		$proyecto = toba::proyecto()->get_id();		
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
+
 		$ini_conf = new toba_ini($directorio . '/servicio.ini');
 		if (! is_null($ini_conf) && $ini_conf->existe_entrada('RSA')) {
 			$aux = $ini_conf->get_datos_entrada('RSA');
@@ -148,7 +152,10 @@ class toba_servicio_web_cliente
 	function get_clave_publica()
 	{
 		$clave = null;
-		$directorio = toba::nucleo()->toba_instalacion_dir(). '/servicios/'. $this->id_servicio;		//Directorio perteneciente al servicio		
+		$id_servicio = $this->id_servicio;
+		$proyecto = toba::proyecto()->get_id();
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
+
 		$ini_conf = new toba_ini($directorio . '/servicio.ini');
 		if (! is_null($ini_conf) &&  $ini_conf->existe_entrada('RSA')) {
 			$aux = $ini_conf->get_datos_entrada('RSA');			
@@ -156,10 +163,33 @@ class toba_servicio_web_cliente
 		}		
 		return $clave;
 	}
-		
-	function get_conf_comunicacion()
+	
+	/**
+	 * Devuelve un objeto WSF con la configuracion de certificados ssl existente o null
+	 * @param string $proyecto
+	 * @param string $servicio
+	 * @return WSSecurityToken 
+	 */
+	static function get_ws_token($proyecto, $servicio)
 	{
-		
+		$security_token = null;
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$servicio";		//Directorio perteneciente al servicio
+		$ini_conf = new toba_ini($directorio. "/servicio.ini");
+		//Busco los datos para los certificados en el archivo perteneciente al servicio
+		if (! is_null($ini_conf) && $ini_conf->existe_entrada('cliente_certificado')) {
+			$config = $ini_conf->get_datos_entrada('cliente_certificado');
+			
+			//Cargo las claves y armo el objeto WSF
+			$clave_cliente = ws_get_key_from_file($directorio . '/'. $config['clave_cliente']);
+			$cert_cliente = ws_get_cert_from_file($directorio . '/'.$config['cert_cliente']);
+			$cert_server = ws_get_cert_from_file($directorio . '/'.$config['cert_server']);		
+			$security_token = new WSSecurityToken(array("privateKey" => $clave_cliente,		
+												"receiverCertificate" => $cert_server,	
+												"certificate" 		=> $cert_cliente	
+												)
+						);		
+		}
+		return $security_token;
 	}
 }
 ?>

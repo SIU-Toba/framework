@@ -132,16 +132,28 @@ XML;
 		}
 	
 		//--2- Opciones de seguridad
-	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
-	    $security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
-	                                                'password' => $this->s__datos_password['password']));
-    	$opciones = array(
-    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/seguridad_password', 
+		//$policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
+		$seguridad = array("encrypt" => true,
+					"algorithmSuite" => "Basic256Rsa15",
+					"securityTokenReference" => "IssuerSerial");
+ 
+		$policy = new WSPolicy(array("security"=> $seguridad));
+		/*$security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
+			'password' => $this->s__datos_password['password'],
+			'passwordType' => 'Digest'));*/
+		
+		$security_token = toba_servicio_web_cliente::get_ws_token(toba::proyecto()->get_id(), 'seguridad_password');		//Requerido por WSF 2.1.0
+		if ( is_null($security_token)) {
+			throw new toba_error_def('Falta configuración de seguridad del servicio, ejecute el comando configurar_consumo');			
+		}
+		
+		$opciones = array(
+    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password', 
     					'policy' => $policy, 
     					'securityToken' => $security_token
-    	);
+					);
     	
-    	//--3- Construye el cliente
+		//--3- Construye el cliente
 		$servicio = toba::servicio_web('seguridad_password', $opciones);
 		
 		//--4- Hace un request a la acción específica enviando el arreglo

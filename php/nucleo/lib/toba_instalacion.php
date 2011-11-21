@@ -200,5 +200,18 @@ class toba_instalacion
 		}
 		return false;
 	}
+	
+	/**
+	 * Devuelve un arreglo con las rutas a los certificados ssl
+	 * @return array
+	 */
+	function get_configuracion_certificados_ssl()
+	{
+		$conf = array();
+		if (isset($this->memoria['X509'])) {
+			$conf =  $this->memoria['X509'];
+		}
+		return $conf;
+	}
 }
 ?>
