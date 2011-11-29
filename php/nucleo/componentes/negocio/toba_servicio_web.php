@@ -125,8 +125,7 @@ abstract class toba_servicio_web extends toba_componente
 		$id = quote($id);
 		
 		$sql = "SELECT * FROM apex_mapeo_rsa_kp WHERE servicio_web = $servicio AND proyecto = $proyecto AND id = $id AND anulada = 0;";
-		$datos = toba::instancia()->get_db()->consultar($sql);
-	
+		$datos = toba::instancia()->get_db()->consultar_fila($sql);
 		if (isset($datos['pub_key'])) {
 			return $datos['pub_key'];			
 		}
