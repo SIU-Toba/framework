@@ -60,6 +60,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_clave = $this->objeto_tabla->get_clave();
 		$this->_columnas = $this->objeto_tabla->get_columnas();
 		$this->_fuente = $this->objeto_tabla->get_fuente();
+		$this->_schema = $this->objeto_tabla->get_schema();		
+		
 		//Determino las secuencias de la tabla
 		foreach($this->_columnas as $columna){
 			if( $columna['secuencia']!=""){
@@ -250,7 +252,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	
 	function set_schema($schema) 
 	{
-		$this->_tabla = $schema.'.'.$this->objeto_tabla->get_tabla();
+		$this->_schema = $schema;
 	}
 	
 	/**
@@ -287,6 +289,12 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		return !isset($col['tabla']) || $tabla == $col['tabla'];
 	}
 
+	protected function agregar_schema($elemento)
+	{
+		$resultado = (is_null($this->_schema)) ? $elemento : $this->_schema . '.' . $elemento;
+		return $resultado;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -531,11 +539,13 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$this->ejecutar_sql_insert($id_registro);
 		
 		//Actualizo las secuencias
-		if(count($this->_secuencias)>0){
-			foreach($this->_secuencias as $columna => $secuencia){
+		if(count($this->_secuencias)>0) {
+			foreach($this->_secuencias as $columna => $secuencia) {
 				if ($this->es_seq_tabla_ext($columna)) {
 					continue;
 				}
+				
+				$secuencia = $this->agregar_schema($secuencia);			
 				$valor = recuperar_secuencia($secuencia, $this->_fuente);
 				//El valor es necesario en el evt__post_insert!!
 				$this->datos[$id_registro][$columna] = $valor;
@@ -661,7 +671,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		}
 		$where = $this->generar_clausula_where_lineal($id, false);
 		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas);
-		$sql .= "\nFROM\n\t {$this->_tabla}";
+		$sql .= "\nFROM\n\t " . $this->agregar_schema($this->_tabla);
 		$sql .= "\nWHERE ".implode(' AND ', $where);
 		$fila_base = toba::db($this->_fuente)->consultar_fila($sql);
 		
@@ -869,19 +879,24 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */
-	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null)
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array())
 	{
 		$a=0;
 		$registro = $this->datos[$id_registro];
-		$binarios = array();
 		$db = toba::db($this->_fuente);
+		
+		//Arreglos donde se guardara la informacion
+		$binarios = array();		
 		$valores_sql = array();
 		$columnas_sql = array();
 		$valores_sql_binarios = array();
 		$columnas_sql_binarios = array();
+		
+		//Determinacion para el DT multitabla		
 		$tabla = (is_null($tabla)) ? $this->_tabla : $tabla;
-		foreach($this->_columnas as $columna) {
-			if (!$this->pertenece_a_tabla($columna, $tabla)) continue;
+		$columnas = (empty($cols_tabla)) ? $this->_columnas : $cols_tabla;
+	
+		foreach($columnas as $columna) {
 			$col = $columna['columna'];
 			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
 			$es_binario = ($columna['tipo'] == 'B');
@@ -926,7 +941,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		// Para evitar un "bug" de PDO se colocan los campos de tipo binario al inicio de la sentencia INSERT.
 		$valores_sql = array_merge($valores_sql_binarios, $valores_sql);
 		$columnas_sql = array_merge($columnas_sql_binarios, $columnas_sql);
-		$sql = "INSERT INTO " . $tabla .
+		$sql = "INSERT INTO " . $this->agregar_schema($tabla) .
 					" ( " . implode(", ", $columnas_sql) . " ) ".
 					"\n VALUES (" . implode(", ", $valores_sql) . ");";
 		if ($solo_retornar) {
@@ -953,18 +968,18 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */	
-	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null)
+	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array())
 	{
 		$binarios = array();
 		$registro = $this->datos[$id_registro];
 		$cambios_reales = $this->objeto_tabla->get_cambios_fila($id_registro, $registro);
 		$tabla = (is_null($tabla)) ? $this->_tabla : $tabla;
+		$columnas = (empty($cols_tabla)) ? $this->_columnas : $cols_tabla;
 		
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
 		$db = toba::db($this->_fuente);
-		foreach($this->_columnas as $columna) {
-			if (!$this->pertenece_a_tabla($columna, $tabla)) continue;
+		foreach($columnas as $columna) {
 			$col = $columna['columna'];
 			$es_binario = ($columna['tipo'] == 'B');
 			$es_secuencia = ($columna['secuencia'] != "");
@@ -1007,7 +1022,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		}
 		//Armo el SQL
 		$where = (is_null($where)) ? $this->generar_sql_where_registro($id_registro) : $where;
-		$sql = "UPDATE " . $tabla . "\nSET ".
+		$sql = "UPDATE " . $this->agregar_schema($tabla) . "\nSET ".
 				implode(",\n\t",$set) .
 				"\nWHERE " . implode("\n\tAND ", $where ) .";";
 		$this->log("registro: $id_registro\n " . $sql);
@@ -1037,11 +1052,11 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$registro = $this->datos[$id_registro];
 		if($this->_baja_logica){
-			$sql = "UPDATE " . $this->_tabla .
+			$sql = "UPDATE " . $this->agregar_schema($this->_tabla) .
 					" SET " . $this->_baja_logica_columna . " = '". $this->_baja_logica_valor ."' " .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro)) .";";
 		}else{
-			$sql = "DELETE FROM " . $this->_tabla .
+			$sql = "DELETE FROM " . $this->agregar_schema($this->_tabla) .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
 		}
 		return $sql;
@@ -1100,7 +1115,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	function consultar_columna_blob($id_registro, $columna)
 	{
 		$this->get_estado_datos_tabla();
-		$sql = "SELECT $columna FROM " . $this->_tabla .
+		$sql = "SELECT $columna FROM " . $this->agregar_schema($this->_tabla) .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
 			
 		$this->log("Carga BLOB de columna '$columna' de fila '$id_registro':\n ". $sql);

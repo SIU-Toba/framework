@@ -9,13 +9,14 @@ class toba_db_tablas_nucleo
   1 => 'apex_estilo',
   2 => 'apex_puntos_montaje',
   3 => 'apex_fuente_datos',
-  4 => 'apex_elemento_formulario',
-  5 => 'apex_solicitud_obs_tipo',
-  6 => 'apex_pagina_tipo',
-  7 => 'apex_clase',
-  8 => 'apex_clase_relacion',
-  9 => 'apex_msg',
-  10 => 'apex_objeto_ei_filtro_tipo_col',
+  4 => 'apex_fuente_datos_schemas',
+  5 => 'apex_elemento_formulario',
+  6 => 'apex_solicitud_obs_tipo',
+  7 => 'apex_pagina_tipo',
+  8 => 'apex_clase',
+  9 => 'apex_clase_relacion',
+  10 => 'apex_msg',
+  11 => 'apex_objeto_ei_filtro_tipo_col',
 );
 	}
 
@@ -257,6 +258,28 @@ class toba_db_tablas_nucleo
     17 => 'usuario',
     18 => 'clave',
     19 => 'base',
+  ),
+);
+	}
+
+	static function apex_fuente_datos_schemas()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'fuente_datos, nombre',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'fuente_datos, nombre',
+  'zona' => 'general',
+  'desc' => 'Esquemas pertenecientes a la BD',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'fuente_datos',
+    2 => 'nombre',
+    3 => 'principal',
   ),
 );
 	}

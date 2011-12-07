@@ -210,6 +210,17 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}		
 
+	function get_lista_schemas_disponibles()
+	{
+		$sql = 'SELECT n.nspname AS esquema
+				FROM pg_catalog.pg_namespace n
+				WHERE   (n.nspname !~ \'^pg_\') 
+					AND  (n.nspname <> \'information_schema\')
+					AND  (n.nspname !~ \'_backup$\')
+				ORDER BY 1;';
+		return $this->consultar($sql);
+	}
+	
 	function existe_lenguaje($lang)
 	{
 		$lang = $this->quote($lang);

@@ -1,23 +1,27 @@
-<?php 
-
+<?php
 class ci_fuentes extends toba_ci
 {
-	protected $carga_ok;
+	protected $s__carga_ok;
+	protected $s__nombre_fuente;
+	protected $lista_esquemas;
+	protected $s__datos_bases_ini = array();
 
 	function ini()
 	{
 		if ($editable = toba::zona()->get_editable()) {
 			$clave['proyecto'] = toba_editor::get_proyecto_cargado();
-			$clave['fuente_datos'] = $editable[1];
-			$this->carga_ok = $this->dependencia('datos')->cargar($clave);
+			$clave['fuente_datos'] = $editable[1];						
+			if (! $this->dependencia('datos')->esta_cargada()) {
+				$this->s__carga_ok = $this->dependencia('datos')->cargar($clave);								
+			}
 		}			
 	}
 
 	function conf()
 	{
-		if(!$this->carga_ok) {
+		if(!$this->s__carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
-		}	
+		} 
 	}
 
 	function get_lista_bases()
@@ -32,18 +36,37 @@ class ci_fuentes extends toba_ci
 		}
 		return $datos;
 	}
+	
+	function get_lista_schemas()
+	{
+		if (! isset($this->lista_esquemas)) {
+			$db = toba_editor::db_proyecto_cargado($this->s__nombre_fuente);
+			$this->lista_esquemas = $db->get_lista_schemas_disponibles();
+		}
+		return $this->lista_esquemas;
+	}
 
 	//---- Eventos CI -------------------------------------------------------
 
 	function evt__guardar()
 	{
+		//Primero grabo el archivo bases.ini	
+		if (isset($this->s__datos_bases_ini['motor']) && trim($this->s__datos_bases_ini['motor']) != '') {
+			$instancia = toba_editor::get_id_instancia_activa();
+			$id_base = "$instancia {$this->s__datos_bases_ini['proyecto']} {$this->s__datos_bases_ini['fuente_datos']}";
+			$this->persistir_archivo_conf($id_base, $this->s__datos_bases_ini);		
+		}
+		
+		//Ahora grabo los datos en la instancia
 		$this->dependencia('datos')->sincronizar();
-		$clave = $this->dependencia('datos')->get_clave_valor(0);
+		
+		//Aca tendria que agregar los schemas a la bd.
+		$clave = $this->dependencia('datos')->tabla('fuente')->get_clave_valor(0);
 		$zona = toba::solicitud()->zona();
 		if (! $zona->cargada()) {
 			$zona->cargar(array_values($clave));
 		}
-		$this->carga_ok = true;
+		$this->s__carga_ok = true;
 		admin_util::refrescar_barra_lateral();
 	}
 
@@ -51,7 +74,7 @@ class ci_fuentes extends toba_ci
 	{
 		$this->dependencia('datos')->eliminar_todo();
 		toba::solicitud()->zona()->resetear();
-		$this->carga_ok = false;
+		$this->s__carga_ok = false;
 		admin_util::refrescar_barra_lateral();
 	}
 	
@@ -65,61 +88,75 @@ class ci_fuentes extends toba_ci
 		$datos_orig = $datos;
 
 		//--- Actualiza bases.ini
-		if (isset($datos['motor'])) {
-			$instancia = toba_editor::get_id_instancia_activa();
-			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
-			$instalacion = toba_modelo_catalogo::get_instalacion(null);
-			$bases = $instalacion->get_lista_bases();
-			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding', 'conexiones_perfiles'));
-			if (trim($datos['conexiones_perfiles'] == '')) {
-				unset($datos['conexiones_perfiles']);
-			}
-			if (in_array($id_base, $bases)) {
-				//---Actualiza la entrada actual
-				$instalacion->actualizar_db($id_base, $datos);
-			} else {
-				//---Crea una nueva entrada	
-				$instalacion->agregar_db($id_base, $datos);
-			}
-		}
+		$tmp_datos = array_merge($this->s__datos_bases_ini, $datos);
+		$this->s__datos_bases_ini = $tmp_datos;
+		
 		// Se eliminan columnas del 
 		unset($datos_orig['usuario']);
 		unset($datos_orig['clave']);
 		unset($datos_orig['base']);
 		unset($datos_orig['puerto']);
-		$this->dependencia('datos')->set($datos_orig);
+		unset($datos_orig['conexiones_perfiles']);
+		unset($datos_orig['motor']);
+		unset($datos_orig['profile']);
+		$this->dependencia('datos')->tabla('fuente')->set($datos_orig);		
+		$this->s__nombre_fuente = $datos_orig['fuente_datos'];
 	}
 
-	function conf__form()
+	function conf__form($form)
 	{
-		$datos = $this->dependencia('datos')->get();
-		
-		if (isset($datos['fuente_datos'])) {
+		$datos = array();
+		if ($this->s__carga_ok) {
+			$datos = $this->dependencia('datos')->tabla('fuente')->get();
 			$instancia = toba_editor::get_id_instancia_activa();
-			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
-			$datos['entrada'] = "<strong>[$id_base]</strong>";
-			
-			//--- Rellena con la info de bases.ini si existe
-			$instalacion = toba_modelo_catalogo::get_instalacion();
-			$bases = $instalacion->get_lista_bases();
-			if (in_array($id_base, $bases)) {
-				$datos = array_merge($datos, $instalacion->get_parametros_base($id_base));
-			}
-		} else {
-			$this->dep('form')->desactivar_efs(array('separador', 'entrada', 'motor', 'profile',
-													'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding'));
+			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";	
+			if (! isset($this->s__datos_bases_ini) || empty($this->s__datos_bases_ini)) {
+				$this->s__datos_bases_ini = $this->cargar_archivo_ini($id_base);			
+			}	
 		}
-		$this->dep('form')->ef('subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
-		return $datos;
+		
+		$form->ef('subclase_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
+		if (isset($datos['fuente_datos'])) {
+			$datos = array_merge($datos, $this->s__datos_bases_ini);
+			$datos['entrada'] = "<strong>[$id_base]</strong>";
+		} else {
+			$form->desactivar_efs(array('separador', 'entrada', 'motor', 'profile',	'usuario', 'clave', 'base', 'puerto'));
+		}
+		
+		$form->set_datos($datos);		
+		
+		//Controlo que tabs mostrar en base a los datos del form		
+		if (! isset($datos['base']) || trim($datos['base']) == '' ) {			
+			$this->pantalla()->eliminar_tab(2);
+			$this->pantalla()->eliminar_tab(3);			
+		}
+
 	}
 
-	function evt__form__crear_auditoria()
+	//-----------------------------------------------------------------------------------
+	//---- form_auditoria ---------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_auditoria(toba_ei_formulario $form)
+	{
+		$datos = $this->dependencia('datos')->tabla('fuente')->get();
+		$form->set_datos($datos);
+	}
+
+	function evt__form_auditoria__modificacion($datos)
+	{
+		if (isset($datos['tiene_auditoria'])) {
+			$this->dependencia('datos')->tabla('fuente')->set_columna_valor('tiene_auditoria', $datos['tiene_auditoria']);
+		}
+	}	
+	
+	function evt__form_auditoria__crear_auditoria()
 	{
 		$instalacion = toba_modelo_catalogo::get_instalacion();		
 		$instancia = toba_editor::get_id_instancia_activa();
+		$proyecto_cargado = toba_editor::get_proyecto_cargado();
 
-		$datos = $this->dependencia('datos')->get();
-		$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
+		$id_base = "$instancia $proyecto_cargado {$this->s__nombre_fuente}";
 		if (!$instalacion->existe_base_datos_definida($id_base)) {
 			throw new toba_error("Debe definir los parámetros de conexión");
 		}
@@ -130,34 +167,104 @@ class ci_fuentes extends toba_ci
 			$schema = $parametros['schema'];
 		}
 		$schema_auditoria = $schema. '_auditoria';		
-		$id_fuente = $this->dependencia('datos')->get_columna('fuente_datos');
-		$proyecto_cargado = toba_editor::get_proyecto_cargado();
-
+		
 		//Creo el objeto para asignar los roles correctos a las tablas de auditoria
 		$modelo_proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto( $instancia, $proyecto_cargado);
-		$db = toba::db($id_fuente,  $proyecto_cargado);
-		try{
+		$db = toba_editor::db_proyecto_cargado($this->s__nombre_fuente);//,  $proyecto_cargado);
+		try {
 			$auditoria = $db->get_manejador_auditoria($schema, $schema_auditoria);
 			if (is_null($auditoria)) {
 				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
 			}
 			$auditoria->agregar_tablas();	///Agrego todas las tablas
 
-			if (! $auditoria->existe()){
+			if (! $auditoria->existe()) {
 				$auditoria->crear();
-			}else{
+			} else {
 				$auditoria->migrar();
 			}
 			$modelo_proyecto->generar_roles_db();
-		} catch(toba_error $e){
+		} catch(toba_error $e) {
 			throw $e;
-/*			toba::logger()->debug($e->getMessage());
-			toba::notificacion()->agregar('Error al crear el esquema de auditoria', 'error');
-			return false;*/
 		}
 		toba::notificacion()->agregar('Esquema creado satisfactoriamente', 'info');
-		$this->dependencia('datos')->set_columna_valor('tiene_auditoria', '1');
+		$this->dependencia('datos')->tabla('fuente')->set_columna_valor('tiene_auditoria', '1');
 		return true;
 	}
+
+
+	//-----------------------------------------------------------------------------------
+	//---- form_schemas -----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_schemas(eiform_fuente_datos_esquemas $form)
+	{
+		$manejados = array();
+		
+		//El encoding lo sacamos del bases ini
+		$datos_base = $this->s__datos_bases_ini;
+		$encoding = (isset($datos_base['encoding'])) ? $datos_base['encoding'] : '';
+		
+		$datos_basicos = $this->dependencia('datos')->tabla('fuente')->get();
+		$datos_schemas = $this->dependencia('datos')->tabla('esquemas')->get_filas(null, false, false);
+		foreach($datos_schemas as $schema) {
+			$manejados[] =  $schema['nombre'];
+		}		
+		$datos_form = array('schema' => $datos_basicos['schema'], 'encoding' => $encoding, 'esquemas_manejados' => $manejados);
+		$form->set_datos($datos_form);
+	}
+
+	function evt__form_schemas__modificacion($datos)
+	{
+		//Grabo la informacion en la base
+		if (isset($datos['schema'])) {
+			$this->dependencia('datos')->tabla('fuente')->set_columna_valor('schema', $datos['schema']);
+		}
+	
+		$esquemas_seleccionados =  $datos['esquemas_manejados'];
+		if (count($esquemas_seleccionados) > 0) {
+			$this->dependencia('datos')->tabla('esquemas')->eliminar_filas();
+			foreach($esquemas_seleccionados as $esquema) {
+				$this->dependencia('datos')->tabla('esquemas')->nueva_fila(array('nombre' => $esquema, 'principal' => 0));
+			}			
+		}
+		
+		//Agrego o modifico la informacion en bases ini
+		if (isset($datos['encoding']) || isset($datos['schema'])) {
+			$this->s__datos_bases_ini = array_merge($this->s__datos_bases_ini, $datos);
+			$instancia = toba_editor::get_id_instancia_activa();
+			$proyecto_cargado = toba_editor::get_proyecto_cargado();
+			$id_base = "$instancia $proyecto_cargado {$this->s__nombre_fuente}";
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------------
+	//				METODOS AUXILIARES
+	//----------------------------------------------------------------------------------------------------------
+	function persistir_archivo_conf($id_base, $datos)
+	{
+		$instalacion = toba_modelo_catalogo::get_instalacion(null);
+		$bases = $instalacion->get_lista_bases();
+		$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding', 'conexiones_perfiles')); 
+		if (isset($datos['conexiones_perfiles']) || is_null($datos['conexiones_perfiles'])) {
+			unset($datos['conexiones_perfiles']);
+		}
+		if (in_array($id_base, $bases)) {
+			//---Actualiza la entrada actual
+			$instalacion->actualizar_db($id_base, $datos);
+		} else {
+			//---Crea una nueva entrada	
+			$instalacion->agregar_db($id_base, $datos);
+		}		
+	}
+		
+	function cargar_archivo_ini($id_base)
+	{
+		$instalacion = toba_modelo_catalogo::get_instalacion(null);
+		if ($instalacion->existe_base_datos_definida($id_base)) {
+			return $instalacion->get_parametros_base($id_base);
+		}
+		return array();
+	}	
 }
 ?>

@@ -76,6 +76,7 @@ CREATE TABLE apex_objeto_db_registros
 	fuente_datos_proyecto			varchar(15)		NULL,	
 	fuente_datos					varchar(20)		NULL,
 	permite_actualizacion_automatica	SMALLINT NOT NULL DEFAULT 1,
+	esquema						TEXT	NULL,
 --	Fin configuracion del AP
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("objeto", "objeto_proyecto"),
 	CONSTRAINT	"apex_objeto_dbr_uq_tabla" UNIQUE ("fuente_datos_proyecto", "fuente_datos", "tabla"),
@@ -83,6 +84,7 @@ CREATE TABLE apex_objeto_db_registros
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES   "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_fuente"  FOREIGN KEY ("fuente_datos_proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_puntos_montaje" FOREIGN KEY ("objeto_proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+--- CONSTRAINT	"apex_objeto_fk_fuente_schemas" FOREIGN KEY ("objeto_proyecto", "fuente_datos", "esquema") REFERENCES "apex_fuente_datos_schemas" ("proyecto", "fuente_datos", "nombre") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 

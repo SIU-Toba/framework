@@ -98,10 +98,13 @@ class eiform_ap extends toba_ei_formulario
 						}
 					}
 				}
-                {$this->objeto_js}.evt__tabla_ext__procesar = function(es_inicial)
+						
+				{$this->objeto_js}.evt__tabla_ext__procesar = function(es_inicial)
 				{
 					if (! es_inicial && this.ef('tabla_ext').get_estado() != apex_ef_no_seteado) {
-                        this.set_evento(new evento_ei('cargar_tablas',true,''));
+						if( $usar_confirm || confirm('{$this->texto_recarga}')) {
+							this.set_evento(new evento_ei('cargar_tablas',true,''));
+						}
 					}
 				}
 			";

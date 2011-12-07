@@ -47,7 +47,8 @@ class toba_datos_tabla_def extends toba_componente_def
 											dt.modificar_claves as ap_modificar_claves,
 											ap.clase			as ap_clase,
 											ap.archivo			as ap_clase_archivo,
-											dt.tabla_ext		as tabla_ext
+											dt.tabla_ext		as tabla_ext, 
+											dt.esquema		as esquema
 					 FROM		apex_objeto_db_registros as dt
 				 				LEFT OUTER JOIN apex_admin_persistencia ap ON dt.ap = ap.ap
 					 WHERE		objeto_proyecto=$proyecto ";

@@ -100,6 +100,18 @@ class toba_proyecto_db
 				AND 	proyecto = $proyecto";
 		return $db->consultar_fila($sql);
 	}
+	
+	static function get_info_fuente_schemas($proyecto, $id_fuente)
+	{
+		$db = self::get_db();
+		$id_fuente = $db->quote($id_fuente);
+		$proyecto = $db->quote($proyecto);
+		$sql = "SELECT 	*
+				FROM 	apex_fuente_datos_schemas		
+				WHERE	fuente_datos = $id_fuente
+				AND 	proyecto = $proyecto";
+		return $db->consultar_fila($sql);
+	}		
 
 	static function get_mapeo_tabla_dt($proyecto, $id_fuente)
 	{

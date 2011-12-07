@@ -32,7 +32,7 @@ class ci_principal extends ci_editores_toba
 		// Se configura el FORM para que dispare el evento de recarga de tablas.
 		$cols = $this->dep('datos')->tabla('columnas')->get_cantidad_filas();
 		$this->pantalla()->tab('2')->set_etiqueta("Columnas [$cols]");
-		if( ($this->get_id_pantalla() == '1') ){
+		if( ($this->get_id_pantalla() == '1') ) {
 			if($cols > 0) {
 				$uniq = $this->dep('datos')->tabla('valores_unicos')->get_cantidad_filas();
 				$exts = $this->dep('datos')->tabla('externas')->get_cantidad_filas();
@@ -44,7 +44,7 @@ class ci_principal extends ci_editores_toba
 																"Los cambios no seran actualizados hasta presionar el boton \'Guardar\'.".
 																" ATENCION: Si no recarga los valores automaticamente, hágalo a mano para ".
 																" que la definicion de la tabla y las columnas coincida.");
-			}else{
+			} else {
 				$this->dep('prop_basicas')->set_modo_recarga('');
 			}
 		}
@@ -140,10 +140,22 @@ class ci_principal extends ci_editores_toba
 		$this->s__tabla_ext = $datos['tabla_ext'];
 	}
 
-	function get_tablas($fuente)
+	function get_tablas($fuente, $schema = null)
 	{
-		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas();
+		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas(false, $schema);
 	}
+	
+	function get_schema($fuente = null)
+	{
+		if (is_null($fuente) || ! is_array($fuente)) {
+			throw new toba_error_modelo('No se proporciono un ID válido para la fuente de datos', 'Se intenta obtener los esquemas configurados para una fuente inexistente');
+		}
+		$datos = toba_info_editores::get_schemas_fuente($fuente['fuente_datos_proyecto'], $fuente['fuente_datos']);
+		if (empty($datos)) {
+			$datos = array(array('schema' => 'public'));
+		}
+		return $datos;
+	}	
 	
 	/* Evento de generacion de columnas en base a la tabla seleccionada */
 	function evt__prop_basicas__cargar_tablas($datos)

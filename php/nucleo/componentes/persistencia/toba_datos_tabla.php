@@ -818,7 +818,7 @@ class toba_datos_tabla extends toba_componente
 	 * @return mixed Id. interno de la fila creada
 	 */
 	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
-	{
+	{		
 		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
@@ -1676,6 +1676,18 @@ class toba_datos_tabla extends toba_componente
 		return $this->_info_estructura['tabla_ext'];
 	}
 
+	/**
+	 * Retorna el schema de BD sobre el que trabaja el datos_tabla
+	 * @return string 
+	 */
+	function get_schema()
+	{
+		if (isset($this->_info_estructura['esquema'])) {
+			return $this->_info_estructura['esquema'];
+		}
+		return null;
+	}	
+	
 	/**
 	 * Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs
 	 * Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla

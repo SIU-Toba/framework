@@ -1081,7 +1081,25 @@ class toba_info_editores
 		$rs = toba_contexto_info::get_db()->consultar($sql);
 		return ($rs[0]['cantidad'] > 0);
 	}
-
+	
+	/**
+	 * Obtiene la lista de schemas configurados para la fuente de datos particular
+	 */
+	static function get_schemas_fuente($proyecto, $fuente)
+	{
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		$fuente = toba_contexto_info::get_db()->quote($fuente);
+		
+		$sql = "SELECT	nombre as \"schema\",
+						principal
+				FROM  apex_fuente_datos_schemas 
+				WHERE	
+						proyecto = $proyecto
+				AND		fuente_datos = $fuente;"; 
+		$rs = toba_contexto_info::get_db()->consultar($sql);
+		return $rs;
+	}
+	
 	/**
 	*	Lista de Skins
 	*/

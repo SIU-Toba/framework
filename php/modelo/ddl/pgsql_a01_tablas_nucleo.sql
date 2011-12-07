@@ -150,6 +150,27 @@ CREATE TABLE apex_fuente_datos
 );
 --#################################################################################################
 
+CREATE TABLE apex_fuente_datos_schemas
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: fuente_datos, nombre
+--: clave_proyecto: proyecto
+--: clave_elemento: fuente_datos, nombre
+--: zona: general
+--: desc: Esquemas pertenecientes a la BD
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto			VARCHAR(15)	NOT NULL,
+	fuente_datos		VARCHAR(15)	NOT NULL, 
+	nombre			TEXT		NOT NULL,
+	principal			SMALLINT	NOT NULL DEFAULT 0,
+	CONSTRAINT	"apex_fuente_datos_schemas_pk" PRIMARY KEY ("proyecto", "fuente_datos", "nombre"),
+	CONSTRAINT	"apex_fuente_datos_schemas_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto", "fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--#################################################################################################
+
 CREATE TABLE apex_recurso_origen
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
