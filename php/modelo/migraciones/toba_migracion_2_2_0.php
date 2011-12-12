@@ -60,7 +60,7 @@ class toba_migracion_2_2_0 extends toba_migracion
 				);';
 		
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD COLUMN esquema TEXT NULL;';
-	//	$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD CONSTRAINT "apex_objeto_fk_fuente_schemas" FOREIGN KEY ("objeto_proyecto", "fuente_datos", "esquema") REFERENCES "apex_fuente_datos_schemas" ("proyecto", "fuente_datos", "nombre") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD CONSTRAINT "apex_objeto_fk_fuente_schemas" FOREIGN KEY ("objeto_proyecto", "fuente_datos", "esquema") REFERENCES "apex_fuente_datos_schemas" ("proyecto", "fuente_datos", "nombre") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
@@ -68,29 +68,13 @@ class toba_migracion_2_2_0 extends toba_migracion
 		$sql = "SET CONSTRAINTS ALL DEFERRED;";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
-		
-	//CREAR METODO PARA CARGAR LOS ESQUEMAS EN LAS FUENTES DE DATO EXISTENTES  (PROBLEMA: REQUIERE CONECTARSE A BASE NEGOCIO)
-	function proyecto__fuentes_schemas()
-	{	
-		//TODO: Falta acceder a la bd del proyecto y rescatar los schemas
-		$proyecto = $this->elemento->get_db()->quote($this->elemento->get_id());		
-		//Tengo que determinar la fuente de datos del proyecto 
-				
-		//Tengo que determinar cuales son los esquemas de la fuente de datos
-		//$instalacion = $this->elemento->instancia->get_instalacion();
-		
-		
-		
-		//$schemas_disp = $this->elemento->get_db_negocio()->get_lista_schemas_disponibles();
-		
-		//Agrego los esquemas a la tabla correspondiente
-	/*	$sql = array();
-		foreach($schemas_disp as $schema) {
-			$sql[] = "INSERT INTO apex_fuente_datos_schemas (proyecto, fuente_datos, nombre) VALUES ($proyecto, $nombre_fuente, {$schema['esquema']});";
-		}
-		if (! empty($sql)) {			
-			$this->elemento->get_db()->ejecutar($sql);
-		}*/
-	}	
+	
+	function proyecto__alerta_fuente_datos()
+	{
+		$msg1 = 'ATENCION!!!! : ';
+		$this->manejador_interface->mensaje($msg1, true);
+		$msg = 'Por favor edite las fuentes de datos del proyecto y agregue los schemas que considere necesarios para su trabajo.';
+		$this->manejador_interface->mensaje($msg, true);		
+	}
 }
 ?>

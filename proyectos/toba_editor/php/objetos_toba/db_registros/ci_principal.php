@@ -142,6 +142,10 @@ class ci_principal extends ci_editores_toba
 
 	function get_tablas($fuente, $schema = null)
 	{
+		$esquema = $this->get_entidad()->tabla('prop_basicas')->get_columna('esquema');
+		if (is_null($schema) && ! is_null($esquema)) {			
+			$schema = $esquema;
+		}	
 		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas(false, $schema);
 	}
 	

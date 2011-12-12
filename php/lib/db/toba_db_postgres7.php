@@ -445,38 +445,51 @@ class toba_db_postgres7 extends toba_db
 		
 	function get_lista_tablas_y_vistas()
 	{
-		return $this->get_lista_tablas(true);
+		$esquema = null;
+		if (isset($this->schema)) {
+			$esquema = $this->schema;
+		}		
+		return $this->get_lista_tablas_bd(true, $esquema);	
 	}
 	
 	
 	function get_lista_tablas($incluir_vistas=false, $esquema=null)
 	{
-		$sql_esquema = '';
-		if (! isset($esquema) && isset($this->schema)) {
+		if (is_null($esquema) && isset($this->schema)) {
 			$esquema = $this->schema;
 		}
-		if (isset($esquema)) {
+		return $this->get_lista_tablas_bd($incluir_vistas, $esquema);
+	}
+		
+	function get_lista_tablas_bd($incluir_vistas=false, $esquema=null)
+	{
+		$sql_esquema = '';
+		if (! is_null($esquema)) {
 			$esquema = $this->quote($esquema);
 			$sql_esquema .= " AND schemaname= $esquema " ;
 		}
-		$sql = "SELECT tablename as nombre
+		$sql = "SELECT tablename as nombre,
+					  schemaname as esquema
 				FROM 
 					pg_tables
 				WHERE 
 						tablename NOT LIKE 'pg_%'
 					AND tablename NOT LIKE 'sql_%' 
+					AND schemaname NOT LIKE 'pg_temp_%'
 					AND schemaname != 'information_schema'
 					$sql_esquema
 		";
 		if ($incluir_vistas) {
 			$sql .= "
 				UNION
-				SELECT viewname as nombre
+				SELECT viewname as nombre,
+						schemaname as esquema
 				FROM 
 					pg_views
 				WHERE 
 						viewname NOT LIKE 'pg_%'
 					AND viewname NOT LIKE 'sql_%' 
+					AND schemaname NOT LIKE 'pg_temp_%'
 					AND schemaname != 'information_schema'
 					$sql_esquema
 			";			
@@ -485,7 +498,7 @@ class toba_db_postgres7 extends toba_db
 		toba::logger()->debug($sql);
 		return $this->consultar($sql);
 	}
-	
+		
 	function existe_tabla($schema, $tabla)
 	{
 		$tabla = $this->quote($tabla);

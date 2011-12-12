@@ -695,9 +695,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	'nombre', --carga_col_clave
 	'nombre', --carga_col_desc
-	'fuente_datos,esquema', --carga_maestros
-	'0', --carga_cascada_relaj
-	'0', --cascada_mantiene_estado
+	'fuente_datos', --carga_maestros
+	'1', --carga_cascada_relaj
+	'1', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
 	'-- Seleccione --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
@@ -935,9 +935,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	'nombre', --carga_col_clave
 	'nombre', --carga_col_desc
-	'fuente_datos,esquema', --carga_maestros
-	'0', --carga_cascada_relaj
-	'0', --cascada_mantiene_estado
+	'fuente_datos', --carga_maestros
+	'1', --carga_cascada_relaj
+	'1', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
 	'-- Seleccione --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
