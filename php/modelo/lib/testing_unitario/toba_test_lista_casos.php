@@ -77,11 +77,12 @@ class toba_test_lista_casos
 								$nombre_clase = substr($file_interno, 0, $pos_punto);
 								require_once("$path_completo/$file_interno");
 								$nombre = call_user_func(array($nombre_clase, "get_descripcion"));
-								if ($nombre == '')
+								if ($nombre == '') {
 									$nombre = $nombre_clase;
+								}
 								$id_categoria = substr($file, 5);
 								$casos[] = array('id' => $nombre_clase, 'nombre' => $nombre, 'categoria' => $id_categoria, 'archivo' => "$path_completo/$file_interno");
-						    }
+							}
 						}
 						closedir($handle_interno);  
 					}

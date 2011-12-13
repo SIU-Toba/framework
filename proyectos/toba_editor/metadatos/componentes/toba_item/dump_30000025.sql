@@ -25,10 +25,10 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Testing Selenium', --nombre
 	'Permite generar casos de test a ejecutarse en [url:http://seleniumhq.org/ selenium]', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
-	'0', --menu
-	NULL, --orden
+	'1', --menu
+	'1', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
@@ -47,7 +47,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --publico
 	'0', --redirecciona
 	NULL, --usuario
-	'0', --exportable
+	'1', --exportable
 	'2009-05-28 15:28:47', --creacion
 	'0'  --retrasar_headers
 );

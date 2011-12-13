@@ -56,8 +56,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	'proyecto', --imagen_recurso_origen
-	'reflexion/abrir.gif', --imagen
+	'apex', --imagen_recurso_origen
+	'abrir.gif', --imagen
 	'0', --en_botonera
 	'Abre el archivo del caso de test en el editor por defecto.', --ayuda
 	'1', --orden
@@ -92,20 +92,20 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --sql
 	'id', --columnas_clave
 	NULL, --columna_descripcion
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	NULL, --ancho
-	NULL, --ordenar
-	NULL, --paginar
+	'0', --ordenar
+	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
+	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'1', --eof_invisible
 	NULL, --eof_customizado
 	'0', --siempre_con_titulo
-	NULL, --exportar_paginado
-	NULL, --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_paginado
+	'0', --exportar
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -117,7 +117,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	NULL, --scroll
+	'0', --scroll
 	NULL, --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap

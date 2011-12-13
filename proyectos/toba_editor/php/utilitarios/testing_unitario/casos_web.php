@@ -1,6 +1,5 @@
 <?php
-require_once('utilitarios/testing_unitario/reporter_toba.php');
-
+	
 class casos_web extends toba_ci
 {
 	protected $selecciones;
@@ -16,7 +15,7 @@ class casos_web extends toba_ci
 	{
 		$cuadro->colapsar();
 		$lista = array();
-	    foreach (toba_test_lista_casos::get_casos() as $caso) {
+		foreach (toba_test_lista_casos::get_casos() as $caso) {
 			if (in_array($caso['id'], $this->selecciones['casos'])) {
 				$lista[] = $caso;
 			}
@@ -26,7 +25,7 @@ class casos_web extends toba_ci
 	
 	function evt__lista_archivos__abrir($caso_sel)
 	{
-	    foreach (toba_test_lista_casos::get_casos() as $caso) {
+		foreach (toba_test_lista_casos::get_casos() as $caso) {
 			if ($caso['id'] == $caso_sel['id']) {
 				$archivo = new toba_archivo_php($caso['archivo']);
 				$archivo->abrir();
@@ -65,12 +64,12 @@ class pantalla_testing extends toba_ei_pantalla
 			foreach (toba_test_lista_casos::get_categorias() as $categoria) {
 				$test = new GroupTest($categoria['nombre']);
 				$hay_uno = false;
-			    foreach (toba_test_lista_casos::get_casos() as $caso) {
-				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
+				foreach (toba_test_lista_casos::get_casos() as $caso) {
+					if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
 						$hay_uno = true;
 						require_once($caso['archivo']);
-				        $test->addTestCase(new $caso['id']($caso['nombre']));
-				    }
+						$test->addTestCase(new $caso['id']($caso['nombre']));
+					}
 				}		
 				if ($hay_uno) {
 					
@@ -80,11 +79,11 @@ class pantalla_testing extends toba_ei_pantalla
 					}
 					//-------
 										
-					$test->run(new reporter_toba());
+					$test->run(new toba_test_reporter());
 					
 					//--- COBERTURA DE CODIGO (OPCIONAL) ----
 					$arch = 'PHPUnit2/Util/CodeCoverage/Renderer.php';
-					toba_manejador_archivos::existe_archivo_en_path($arch);
+					$existe = toba_manejador_archivos::existe_archivo_en_path($arch);
 					if (function_exists("xdebug_start_code_coverage") && $existe) {
 						require_once($arch);
 						$cubiertos = xdebug_get_code_coverage();
@@ -98,11 +97,11 @@ class pantalla_testing extends toba_ei_pantalla
 								$archivos[$archivo] = $cubiertos[$archivo];
 							}
 						}
-					    $cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
-					    $path_temp = toba::proyecto()->get_path_temp_www();
-					    $salida = $path_temp['real'] ."/cobertura.html";
-					    $cc->renderToFile($salida);
-					    echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
+						$cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
+						$path_temp = toba::proyecto()->get_path_temp_www();
+						$salida = $path_temp['real'] ."/cobertura.html";
+						$cc->renderToFile($salida);
+						echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
 					}
 					//-------
 				
@@ -126,14 +125,10 @@ class pantalla_seleccion  extends toba_ei_pantalla
 	function generar_layout()
 	{
 		parent::generar_layout();
-
-		$opciones = array('param_html' => array('texto' => 'Testing JS'));
-		$test_js = toba::vinculador()->get_url('toba_editor', 1000269, null, $opciones);		
-		echo "<br>".$test_js;
-		
+	
 		$opciones = array('param_html' => array('texto' => 'Testing Selenium'));
 		$test_selenium = toba::vinculador()->get_url('toba_editor', 30000025, null, $opciones);		
-		echo "<br>".$test_selenium;
+		echo '<br>'.$test_selenium;
 	}
 	
 }

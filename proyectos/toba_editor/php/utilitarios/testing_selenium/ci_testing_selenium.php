@@ -1,5 +1,4 @@
 <?php
-require_once('modelo/lib/toba_testing_selenium.php');
 
 class ci_testing_selenium extends toba_ci
 {
