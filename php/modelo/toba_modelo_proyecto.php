@@ -825,21 +825,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$fuente_info = toba_info_editores::get_info_fuente_datos($fuente);
 		
 		//-- Determina tablas y schema
-		$sql = "SELECT 
-					tablas_modifica
-				FROM
-					apex_item_permisos_tablas
-				WHERE 
-						proyecto = '{$this->identificador}'
-					AND	fuente_datos = '$fuente'
-					AND item = ".$this->db->quote($id_operacion);
-		$datos = $this->db->consultar_fila($sql);
-		if (!empty($datos) && trim($datos['tablas_modifica']) != '') {
-			$tablas = explode(',', $datos['tablas_modifica']);
-		} else {
-			$tablas = array();
-		}
-			
+		$tablas = $this->get_lista_tablas_con_permisos($fuente, $id_operacion);
 		$existe_rol = $conexion->existe_rol($rol);
 
 		//--Revocar permisos actuales
@@ -897,6 +883,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$conexion->revoke_sp_schema($rol, $schema_auditoria, 'EXECUTE');
 			$conexion->revoke_schema($rol, $schema_auditoria);
 		}
+	}
+	
+	protected function get_lista_tablas_con_permisos($fuente, $id_operacion)
+	{
+		$sql = "SELECT 
+					tablas_modifica
+				FROM
+					apex_item_permisos_tablas
+				WHERE 
+						proyecto = '{$this->identificador}'
+					AND	fuente_datos = '$fuente'
+					AND item = ".$this->db->quote($id_operacion);
+		$datos = $this->db->consultar_fila($sql);
+		if (!empty($datos) && trim($datos['tablas_modifica']) != '') {
+			$tablas = explode(',', $datos['tablas_modifica']);
+		} else {
+			$tablas = array();
+		}
+		return $tablas;
 	}
 
 	//-----------------------------------------------------------
@@ -1135,13 +1140,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 															$this->get_instancia()->get_id(),
 															$this->get_id());
 			$this->actualizar_punto_acceso($url, $this->get_id());
-            if ($this->es_personalizable()) {
-                $this->publicar_pers();
-            }
+			if ($this->es_personalizable()) {
+				$this->publicar_pers();
+			}
 		}
 	}
 
-    function publicar_pers($url=null)
+	function publicar_pers($url=null)
 	{
 		if (! $this->esta_publicado_pers()) {
 			if ($url == '') {
@@ -1152,29 +1157,29 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 															$this->get_dir_pers(),
 															$this->get_instancia()->get_id(),
 															$this->get_id(),
-                                                            true);
+															true);
 		}
 	}
 
-    function despublicar()
+	function despublicar()
 	{
 		if ($this->esta_publicado()) {
 			toba_modelo_instalacion::quitar_alias_apache($this->get_id());
-            if ($this->es_personalizable()) {
-                toba_modelo_instalacion::quitar_alias_apache($this->get_id(), true);
-            }
+			if ($this->es_personalizable()) {
+				toba_modelo_instalacion::quitar_alias_apache($this->get_id(), true);
+			}
 		}
 	}
-	
+
 	function esta_publicado()
 	{
 		return toba_modelo_instalacion::existe_alias_apache($this->get_id());
 	}
 
-    function esta_publicado_pers()
-    {
-        return toba_modelo_instalacion::existe_alias_apache($this->get_id(), true);
-    }
+	function esta_publicado_pers()
+	{
+		return toba_modelo_instalacion::existe_alias_apache($this->get_id(), true);
+	}
 
 	private function actualizar_punto_acceso($url, $proyecto)
 	{				
@@ -2688,5 +2693,53 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$this->manejador_interface->progreso_fin();
 	}
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------//
+	function crear_script_generacion_roles_db()
+	{
+		//$proyecto = $this->db->quote($this->identificador);
+		$sentencias = array();
+		
+		//Primero obtengo los perfiles funcionales del proyecto
+		$grupos = $this->get_indice_grupos_acceso();		
+		$fuentes = $this->get_indice_fuentes();
+		
+		//Para cada perfil obtengo las operaciones involucradas
+		foreach($grupos as $perfil) {
+			$nombre_final = $this->get_nombre_rol($perfil);
+			$sentencias[] = $this->get_db()->crear_rol($nombre_final, false);
+			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));			
+			foreach ($fuentes as $fuente) {				
+				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);
+				$sql = $this->get_sql_generacion_rol($nombre_final, $fuente, $permisos_tablas);
+				$sentencias = array_merge($sentencias, $sql);
+			}
+		}
+		
+		//Guardo las SQL en el archivo de salida.
+	}
+	
+	function get_tablas_permitidas_x_fuente($fuente, $operaciones)
+	{
+		$conjunto = array();									//Para cada operacion obtengo las tablas involucradas
+		foreach($operaciones as $item) {
+			$tmp_datos = $this->get_lista_tablas_con_permisos($fuente, $item);
+			$conjunto = array_merge($conjunto, $tmp_datos);
+		}
+		
+		return array_unique($conjunto);
+	}
+		
+	function get_sql_generacion_permisos_rol($rol, $fuente, $permisos_tablas)
+	{
+		
+		
+	}
+	
+	function get_nombre_rol($perfil) 
+	{
+		return $this->identificador . '_' . $perfil;		//Analizar si no conviene generar un ID por fuente 
+	}
+	
 }
 ?>

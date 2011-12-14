@@ -320,10 +320,14 @@ class toba_db_postgres7 extends toba_db
 		return !empty($datos);
 	}
 	
-	function crear_rol($rol)
+	function crear_rol($rol, $ejecutar=true)
 	{
 		$sql = "CREATE ROLE $rol NOINHERIT";
-		return $this->ejecutar($sql);
+		if ($ejecutar) {
+			return $this->ejecutar($sql);
+		} else {
+			return $sql;
+		}
 	}
 	
 	function crear_usuario($rol, $password)
