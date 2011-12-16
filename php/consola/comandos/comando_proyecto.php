@@ -614,5 +614,18 @@ class comando_proyecto extends comando_toba
 		echo $res;
 	}
 
+	/**
+	 *  Genera el script de creacion de roles en bd y asignacion de permisos a los mismos
+	 */
+	function opcion__roles_script()
+	{
+		$proyecto = $this->get_proyecto();		
+		try {
+			$proyecto->crear_script_generacion_roles_db();
+			$this->consola->mensaje('Se generaron los archivos correspondientes a los roles');
+		} catch (toba_error $e) {
+			$this->consola->mensaje($e->getMessage());
+		}
+	}
 }
 ?>

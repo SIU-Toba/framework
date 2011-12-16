@@ -27,11 +27,13 @@ class toba_db_postgres7 extends toba_db
 	/**
 	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
 	 * @param string $schema
+	 * @param boolean $ejecutar
 	 */
-	function set_schema($schema)
+	function set_schema($schema, $ejecutar = true)
 	{
 		$this->schema = $schema;
-		$sql = "SET search_path TO $schema";
+		$sql = "SET search_path TO $schema;";
+		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);
 	}
 	
@@ -49,9 +51,10 @@ class toba_db_postgres7 extends toba_db
 		return $parametros;
 	}
 
-	function set_encoding($encoding)
+	function set_encoding($encoding, $ejecutar = true)
 	{
-		$sql = "SET CLIENT_ENCODING TO '$encoding'";
+		$sql = "SET CLIENT_ENCODING TO '$encoding';";
+		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);		
 	}
 
@@ -66,16 +69,18 @@ class toba_db_postgres7 extends toba_db
 	*	@param string $secuencia Nombre de la secuencia
 	*	@return string Siguiente numero de la secuencia
 	*/	
-	function recuperar_secuencia($secuencia)
+	function recuperar_secuencia($secuencia, $ejecutar=true)
 	{
 		$sql = "SELECT currval('$secuencia') as seq;";
+		if (! $ejecutar) { return $sql; }
 		$datos = $this->consultar($sql);
 		return $datos[0]['seq'];
 	}
 
-	function recuperar_nuevo_valor_secuencia($secuencia)
+	function recuperar_nuevo_valor_secuencia($secuencia, $ejecutar = true)
 	{
 		$sql = "SELECT nextval('$secuencia') as seq;";
+		if (! $ejecutar) { return $sql; }
 		$datos = $this->consultar($sql);
 		return $datos[0]['seq'];
 	}
@@ -83,14 +88,14 @@ class toba_db_postgres7 extends toba_db
 	function retrazar_constraints($retrazar = true)
 	{
 		$tipo = $retrazar ? 'DEFERRED' : 'IMMEDIATE';
-		$this->ejecutar("SET CONSTRAINTS ALL $tipo");
+		$this->ejecutar("SET CONSTRAINTS ALL $tipo;");
 		toba_logger::instancia()->debug("************ Se cambia el chequeo de constraints ($tipo) ****************", 'toba');		
 	}
 	
 
 	function abrir_transaccion()
 	{
-		$sql = 'BEGIN TRANSACTION';
+		$sql = 'BEGIN TRANSACTION;';
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = true;
 		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
@@ -98,7 +103,7 @@ class toba_db_postgres7 extends toba_db
 	
 	function abortar_transaccion()
 	{
-		$sql = 'ROLLBACK TRANSACTION';
+		$sql = 'ROLLBACK TRANSACTION;';
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = false;
 		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
@@ -106,7 +111,7 @@ class toba_db_postgres7 extends toba_db
 	
 	function cerrar_transaccion()
 	{
-		$sql = "COMMIT TRANSACTION";
+		$sql = "COMMIT TRANSACTION;";
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = false;
 		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
@@ -122,21 +127,21 @@ class toba_db_postgres7 extends toba_db
 
 	function agregar_savepoint($nombre)
 	{
-		$sql = "SAVEPOINT $nombre";
+		$sql = "SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
 		toba_logger::instancia()->debug("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
 	}
 
 	function abortar_savepoint($nombre)
 	{
-		$sql = "ROLLBACK TO SAVEPOINT $nombre";
+		$sql = "ROLLBACK TO SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
 		toba_logger::instancia()->debug("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
 	}
 
 	function liberar_savepoint($nombre)
 	{
-		$sql = "RELEASE SAVEPOINT $nombre";
+		$sql = "RELEASE SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
 		toba_logger::instancia()->debug("************ liberar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
 	}
@@ -180,14 +185,15 @@ class toba_db_postgres7 extends toba_db
 				FROM
 					information_schema.schemata
 				WHERE 
-					schema_name = $esquema";
+					schema_name = $esquema;";
 		$rs = $this->consultar_fila($sql);
 		return $rs['cant'] > 0;
 	}
 	
-	function borrar_schema($schema)
+	function borrar_schema($schema, $ejecutar = true)
 	{
-		$sql = "DROP SCHEMA $schema CASCADE";
+		$sql = "DROP SCHEMA $schema CASCADE;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}		
 
@@ -198,15 +204,17 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
-	function crear_schema($schema) 
+	function crear_schema($schema, $ejecutar = true) 
 	{
-		$sql = "CREATE SCHEMA $schema ";
+		$sql = "CREATE SCHEMA $schema;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}	
 	
-	function renombrar_schema($actual, $nuevo) 
+	function renombrar_schema($actual, $nuevo, $ejecutar = true) 
 	{
-		$sql = "ALTER SCHEMA $actual RENAME TO $nuevo";
+		$sql = "ALTER SCHEMA $actual RENAME TO $nuevo;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}		
 
@@ -224,14 +232,14 @@ class toba_db_postgres7 extends toba_db
 	function existe_lenguaje($lang)
 	{
 		$lang = $this->quote($lang);
-		$sql = "SELECT COUNT(*) FROM pg_language WHERE lanname=$lang";
+		$sql = "SELECT COUNT(*) FROM pg_language WHERE lanname=$lang;";
 		$res = $this->consultar($sql);
 		return $res[0]['count'] > 0;
 	}
 
 	function crear_lenguaje($lang)
 	{
-		$sql = "CREATE LANGUAGE plpgsql";
+		$sql = 'CREATE LANGUAGE plpgsql;';
 		return $this->ejecutar($sql);
 	}
 
@@ -284,7 +292,7 @@ class toba_db_postgres7 extends toba_db
         
         $actual = $this->quote($actual);
         $nuevo = $this->quote($nuevo);
-        $sql = "SELECT clone_schema($actual, $nuevo)";
+        $sql = "SELECT clone_schema($actual, $nuevo);";
         $this->ejecutar($sql);
     }
 
@@ -294,91 +302,94 @@ class toba_db_postgres7 extends toba_db
 	
 	function get_usuario_actual()
 	{
-		$sql = "SELECT CURRENT_USER AS usuario";
+		$sql = 'SELECT CURRENT_USER AS usuario;';
 		$datos = toba::db()->consultar_fila($sql);
 		return $datos['usuario'];
 	}
 	
 	function get_rol_actual()
 	{
-		$sql = "SHOW ROLE";
+		$sql = 'SHOW ROLE;';
 		$datos = $this->consultar_fila($sql);
 		return $datos['role'];
 	}	
 	
-	function set_rol($rol)
+	function set_rol($rol, $ejecutar = true)
 	{
-		$sql = "SET ROLE $rol";
+		$sql = "SET ROLE $rol;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}
 	
 	function existe_rol($rol) 
 	{
 		$rol = $this->quote($rol);
-		$sql = "SELECT rolname FROM pg_roles WHERE rolname = $rol";		
+		$sql = "SELECT rolname FROM pg_roles WHERE rolname = $rol;";		
 		$datos = $this->consultar($sql);
 		return !empty($datos);
 	}
 	
 	function crear_rol($rol, $ejecutar=true)
 	{
-		$sql = "CREATE ROLE $rol NOINHERIT";
-		if ($ejecutar) {
-			return $this->ejecutar($sql);
-		} else {
-			return $sql;
-		}
+		$sql = "CREATE ROLE $rol NOINHERIT;";
+		if (! $ejecutar) { return $sql; }		
+		return $this->ejecutar($sql);		
 	}
 	
-	function crear_usuario($rol, $password)
+	function crear_usuario($rol, $password, $ejecutar = true)
 	{
 		$password = $this->quote($password);
-		$sql = "CREATE ROLE $rol NOINHERIT LOGIN PASSWORD $password";
+		$sql = "CREATE ROLE $rol NOINHERIT LOGIN PASSWORD $password;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}	
 	
-	function borrar_rol($rol)
+	function borrar_rol($rol, $ejecutar = true)
 	{
-		$sql = "DROP ROLE $rol";
+		$sql = "DROP ROLE IF EXISTS $rol;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}
 	
-	function grant_rol($usuario, $rol)
+	function grant_rol($usuario, $rol, $ejecutar = true)
 	{
-		$sql = "GRANT $rol TO $usuario";
+		$sql = "GRANT $rol TO $usuario;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}	
 
-	function grant_schema($usuario, $schema, $permisos = 'USAGE')
+	function grant_schema($usuario, $schema, $permisos = 'USAGE', $ejecutar = true)
 	{
-		$sql = "GRANT $permisos ON SCHEMA \"$schema\" TO $usuario";
+		$sql = "GRANT $permisos ON SCHEMA \"$schema\" TO $usuario;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}	
 	
-	function revoke_schema($usuario, $schema, $permisos = 'ALL PRIVILEGES')
+	function revoke_schema($usuario, $schema, $permisos = 'ALL PRIVILEGES', $ejecutar = true)
 	{
-		$sql = "REVOKE $permisos ON SCHEMA \"$schema\" FROM $usuario";
-		$this->ejecutar($sql);
+		$sql[] = "REVOKE $permisos ON SCHEMA \"$schema\" FROM $usuario;";
 		
 		//--Revoka las tablas dentro
-		$sql = "SELECT
+		$sql_rs = "SELECT
 					relname
 				FROM pg_class c
 					JOIN pg_namespace ns ON (c.relnamespace = ns.oid)
 				WHERE
 						relkind in ('r','v','S')
-					AND nspname = '$schema'
-		";
-		$rs = $this->consultar($sql);
+					AND nspname = '$schema' ;";
+		$rs = $this->consultar($sql_rs);
 		foreach ($rs as $tabla) {
-			$sql = "REVOKE $permisos ON $schema.{$tabla['relname']} FROM $usuario CASCADE";
-			$this->ejecutar($sql);
-		}		
+			$sql[] = "REVOKE $permisos ON $schema.{$tabla['relname']} FROM $usuario CASCADE;";
+		}
+		
+		if (! $ejecutar) { return $sql; }
+		$this->ejecutar($sql);		
 	}
 	
-	function revoke_rol($usuario, $rol)
+	function revoke_rol($usuario, $rol, $ejecutar = true)
 	{
-		$sql = "REVOKE $rol FROM $usuario";
+		$sql = "REVOKE $rol FROM $usuario;";
+		if (! $ejecutar) { return $sql; }
 		return $this->ejecutar($sql);
 	}
 
@@ -401,33 +412,37 @@ class toba_db_postgres7 extends toba_db
 	/**
 	 *	Da permisos especificos a todas las tablas de un esquema dado
 	 **/
-	function grant_tablas($usuario, $schema, $tablas, $privilegios ='ALL PRIVILEGES')
+	function grant_tablas($usuario, $schema, $tablas, $privilegios ='ALL PRIVILEGES', $ejecutar = true)
 	{
+		$sql = array();
 		foreach ($tablas as $tabla) {
-			$sql = "GRANT $privilegios ON $schema.$tabla TO $usuario";
-			$this->ejecutar($sql);
+			$sql[] = "GRANT $privilegios ON $schema.$tabla TO $usuario;";
 		}
+		if (! $ejecutar) { return $sql; }
+		$this->ejecutar($sql);
 	}	
 
-	function grant_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES')
+	function grant_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES', $ejecutar = true)
 	{
 		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
 		$sql = "GRANT $privilegios ON FUNCTION ";
 		foreach ($stored_procedures as $sp) {												//Los agrego separados por coma para usar 1 sola SQL
 			$sql .= " $schema.$sp(), ";
 		}
-		$sql = substr($sql, 0, -2) . " TO $usuario";											//Agrego el rol/usuario beneficiario
+		$sql = substr($sql, 0, -2) . " TO $usuario;";											//Agrego el rol/usuario beneficiario
+		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);
 	}
 
-	function revoke_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES')
+	function revoke_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES', $ejecutar = true)
 	{
 		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
 		$sql = "REVOKE $privilegios ON FUNCTION ";
 		foreach ($stored_procedures as $sp) {
 			$sql .= "$schema.$sp(), ";																	//Los agrego separados por coma para usar 1 sola SQL
 		}
-		$sql = substr($sql, 0 , -2) .  " FROM $usuario";
+		$sql = substr($sql, 0 , -2) .  " FROM $usuario;";
+		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);
 	}
 
@@ -498,8 +513,7 @@ class toba_db_postgres7 extends toba_db
 					$sql_esquema
 			";			
 		}
-		$sql .= 'ORDER BY nombre';
-		toba::logger()->debug($sql);
+		$sql .= 'ORDER BY nombre;';
 		return $this->consultar($sql);
 	}
 		
@@ -567,7 +581,7 @@ class toba_db_postgres7 extends toba_db
 			 	adsrc like '%nextval%'
 			 	AND a.attnum > 0 AND NOT a.attisdropped
 			 	$where
-			ORDER BY a.attname
+			ORDER BY a.attname;
 		";
 		return $this->consultar($sql);
 	}
@@ -657,7 +671,7 @@ class toba_db_postgres7 extends toba_db
 					AND a.attrelid = c.oid 
 					AND c.relnamespace = n.oid
 						$where
-				ORDER BY a.attnum";
+				ORDER BY a.attnum;";
 
 		$columnas = $this->consultar($sql);
 		if(!$columnas){
@@ -722,7 +736,7 @@ class toba_db_postgres7 extends toba_db
 		WHERE
 			table_name   = '$tabla'
 			AND	table_schema = '$schema'
-			AND ((column_default LIKE '%seq\"''::text)::regclass)') OR (column_default LIKE '%seq''::text)::regclass)'))
+			AND ((column_default LIKE '%seq\"''::text)::regclass)') OR (column_default LIKE '%seq''::text)::regclass)'));
 		";
 
 		$result = $this->consultar($sql);

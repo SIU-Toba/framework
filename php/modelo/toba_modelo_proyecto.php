@@ -401,7 +401,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
    			$w = stripslashes($definicion['dump_where']);
    			$where = str_replace("%%",$this->get_id(), $w);
-        } else {
+		} else {
    			$where = " ( proyecto = '".$this->get_id()."')";
 		}
 		if(isset($where_extra)) $where = $where . ' AND ('. $where_extra .')';
@@ -486,8 +486,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		} elseif (isset($metadatos['apex_item'][0]['nombre'])) {
 			$nombre_componente = $metadatos['apex_item'][0]['nombre'];		
 		} else {
-            throw new toba_error("Los metadatos para el componente con id {$id['componente']} no existen");
-        }
+			throw new toba_error("Los metadatos para el componente con id {$id['componente']} no existen");
+		}
 		//Genero el CONTENIDO
 		$contenido = "------------------------------------------------------------\n";
 		$contenido .= "--[{$id['componente']}]--  $nombre_componente \n";
@@ -2695,48 +2695,103 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------//
+	/**
+	 *  Genera un script por fuente de datos para crear los roles y darles permisos
+	 */
 	function crear_script_generacion_roles_db()
 	{
-		//$proyecto = $this->db->quote($this->identificador);
 		$sentencias = array();
+		$prefijo_archivo = $this->identificador.'_roles_';
+		toba_proyecto_db::set_db( $this->db );
 		
 		//Primero obtengo los perfiles funcionales del proyecto
 		$grupos = $this->get_indice_grupos_acceso();		
 		$fuentes = $this->get_indice_fuentes();
-		
-		//Para cada perfil obtengo las operaciones involucradas
+		//Para cada perfil
 		foreach($grupos as $perfil) {
 			$nombre_final = $this->get_nombre_rol($perfil);
-			$sentencias[] = $this->get_db()->crear_rol($nombre_final, false);
-			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));			
-			foreach ($fuentes as $fuente) {				
-				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);
-				$sql = $this->get_sql_generacion_rol($nombre_final, $fuente, $permisos_tablas);
-				$sentencias = array_merge($sentencias, $sql);
+			$sql[] = $this->get_db()->borrar_rol($nombre_final, false);											//Elimino rol existente y creo uno nuevo
+			$sql[] = $this->get_db()->crear_rol($nombre_final, false);
+			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));		//Obtengo las operaciones para el perfil
+			foreach ($fuentes as $fuente) {
+				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);		//Obtengo las tablas que usan las operaciones en esta fuente
+				$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);					//Genero las SQLs para los GRANT				
+				if (! empty($sql_rol)) {
+					$sentencias[$fuente] = array_merge($sql, $sql_rol);
+					$sql = array();										//Reinicializo para evitar que el rol se cree nuevamente.
+				}
 			}
 		}
-		
-		//Guardo las SQL en el archivo de salida.
+
+		//Grabo los datos a los diferentes archivos.
+		foreach ($fuentes as $fuente) {
+			$nombre_archivo = $prefijo_archivo . '_' . $fuente. '.sql';
+			if (! empty ($sentencias[$fuente])) {
+				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {
+					throw new toba_error('PROYECTO: Se produjo un error en la generación del script, verifique los logs', 'Se produjo un error al guardar los datos para la fuente '. $fuente);
+				}
+			}
+		}
 	}
 	
+	/**
+	 * Devuelve que tablas son utilizadas en la fuente por las operaciones indicadas
+	 * @param string $fuente
+	 * @param array $operaciones
+	 * @return array 
+	 */
 	function get_tablas_permitidas_x_fuente($fuente, $operaciones)
 	{
 		$conjunto = array();									//Para cada operacion obtengo las tablas involucradas
+		$resultado = array();		
 		foreach($operaciones as $item) {
-			$tmp_datos = $this->get_lista_tablas_con_permisos($fuente, $item);
+			$tmp_datos = $this->get_lista_tablas_con_permisos($fuente, $item['item']);
 			$conjunto = array_merge($conjunto, $tmp_datos);
+		}		
+		foreach($conjunto as $tabla) {
+			$resultado[$tabla] = array('tabla' => $tabla);
 		}
 		
-		return array_unique($conjunto);
-	}
-		
-	function get_sql_generacion_permisos_rol($rol, $fuente, $permisos_tablas)
-	{
-		
-		
+		return $resultado;
 	}
 	
-	function get_nombre_rol($perfil) 
+	/**
+	 * Devuelve un arreglo de sentencias SQL que realizan el GRANT de los permisos
+	 * @param string $rol
+	 * @param string $fuente
+	 * @param array $tablas
+	 * @return array 
+	 */
+	protected function get_sql_generacion_permisos_rol($rol, $fuente, $tablas)
+	{		
+		//Obtener parametros de la fuente de datos para sacar el schema
+		$id_def_base = $this->construir_id_def_base($fuente);
+		$parametros =  $this->get_instalacion()->get_parametros_base($id_def_base);			
+		$schema = 'public';
+		if (isset($parametros['schema'])) {
+			$schema = $parametros['schema'];
+		}
+		
+		//Voy pasandole los permisos x cada tabla.
+		$sqls = array();
+		foreach($tablas as $tabla) {
+			$permisos = 'ALL PRIVILEGES';
+			if (isset($tabla['permisos'])) {
+				$permisos = $tabla['permisos'];
+			}
+			
+			$tmp_sql = $this->get_db()->grant_tablas($rol, $schema, array($tabla['tabla']), $permisos, false);			
+			$sqls = array_merge($sqls, $tmp_sql);
+		}		
+		return $sqls;
+	}
+	
+	/**
+	 * Devuelve un nombre estandar de rol 
+	 * @param string $perfil
+	 * @return string 
+	 */
+	protected function get_nombre_rol($perfil) 
 	{
 		return $this->identificador . '_' . $perfil;		//Analizar si no conviene generar un ID por fuente 
 	}
