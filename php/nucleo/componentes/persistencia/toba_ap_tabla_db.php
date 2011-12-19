@@ -990,7 +990,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			$es_modificable = !$es_secuencia && !$es_externa  && isset($cambios_reales[$col])
 							&& (!$es_clave || ($es_clave && $this->get_flag_mod_clave() ));  //	no es PK (excepto que se se declare explicitamente la alteracion de PKs)
 							
-			if( $es_modificable ){
+			if( $es_modificable ) {
 				if ($es_binario) {
 					$blob = $this->objeto_tabla->_get_blob_transaccion($id_registro, $col);
 					if ($blob === false) {
@@ -1032,8 +1032,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			$pdo = toba::db($this->_fuente)->get_pdo();
 			$stmt = $pdo->prepare($sql);
 			$i = 1;
-			foreach ($binarios as $binario) {
-				$stmt->bindParam($i, $binario, PDO::PARAM_LOB);
+			foreach (array_keys($binarios) as $clave) {
+				$stmt->bindParam($i, $binarios[$clave], PDO::PARAM_LOB);
 				$i++;
 			}
 			$stmt->execute();
