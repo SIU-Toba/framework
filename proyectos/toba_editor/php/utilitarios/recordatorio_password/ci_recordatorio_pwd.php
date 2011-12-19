@@ -146,7 +146,11 @@ class ci_recordatorio_pwd extends toba_ci
 	{
 		try {
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
-			return $datos;
+			$clave = toba::instalacion()->get_claves_encriptacion();		
+			$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));
+			$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));
+
+			return $aux;
 		} catch (toba_error $e) {
 			toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
 			return array();

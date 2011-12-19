@@ -187,6 +187,8 @@ class ci_editor extends toba_ci
 		$datos = $this->datos('pregunta_secreta')->get_filas();
 		foreach ($datos as $klave => $fila) {
 			$datos[$klave]['activa'] = ($datos[$klave]['activa'] == '1') ? 'SI' : 'NO';
+			$datos[$klave]['pregunta'] = $this->desencriptar_datos($datos[$klave]['pregunta']);
+			$datos[$klave]['respuesta'] = $this->desencriptar_datos($datos[$klave]['respuesta']);
 		}
 		$form_ml->set_datos($datos);
 	}
@@ -202,6 +204,8 @@ class ci_editor extends toba_ci
 			} elseif (isset($datos[$klave]['activa'])) {
 				unset($datos[$klave]['activa']);
 			}
+			$datos[$klave]['pregunta'] = $this->encriptar_datos($datos[$klave]['pregunta']);
+			$datos[$klave]['respuesta'] = $this->encriptar_datos($datos[$klave]['respuesta']);
 		}
 		if ($hay_alta) {		//Si hay una fila nueva deshabilito las anteriores
 			$this->datos('pregunta_secreta')->set_columna_valor('activa', '0');
@@ -222,5 +226,16 @@ class ci_editor extends toba_ci
 		return toba::db()->consultar($sql);
 	}
 	
+	private function encriptar_datos($dato_original)
+	{	
+		$clave = toba::instalacion()->get_claves_encriptacion();		
+		return mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'],0,8));		
+	}
+	
+	private function desencriptar_datos($dato_encriptado)
+	{
+		$clave = toba::instalacion()->get_claves_encriptacion();		
+		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_encriptado, MCRYPT_MODE_CBC, substr($clave['db'],0,8));		
+	}
 }
 ?>
