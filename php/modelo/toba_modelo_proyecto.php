@@ -2698,7 +2698,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	 *  Genera un script por fuente de datos para crear los roles y darles permisos
 	 */
-	function crear_script_generacion_roles_db()
+	function crear_script_generacion_roles_db($dir = '')
 	{
 		$sentencias = array();
 		$prefijo_archivo = $this->identificador.'_roles_';
@@ -2725,7 +2725,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 		//Grabo los datos a los diferentes archivos.
 		foreach ($fuentes as $fuente) {
-			$nombre_archivo = $prefijo_archivo . '_' . $fuente. '.sql';
+			$nombre_archivo = $dir . $prefijo_archivo . '_' . $fuente. '.sql';
 			if (! empty ($sentencias[$fuente])) {
 				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {
 					throw new toba_error('PROYECTO: Se produjo un error en la generación del script, verifique los logs', 'Se produjo un error al guardar los datos para la fuente '. $fuente);
