@@ -2717,7 +2717,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);		//Obtengo las tablas que usan las operaciones en esta fuente
 				$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);					//Genero las SQLs para los GRANT				
 				if (! empty($sql_rol)) {
-					$sentencias[$fuente] = array_merge($sql, $sql_rol);
+					$sentencias[$fuente] = (! isset($sentencias[$fuente])) ? array_merge($sql, $sql_rol): array_merge($sentencias[$fuente], $sql, $sql_rol);					
 					$sql = array();										//Reinicializo para evitar que el rol se cree nuevamente.
 				}
 			}
