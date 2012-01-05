@@ -763,7 +763,16 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			$this->evt__perdida_sincronizacion($id_fila, $sql);
 		}
 	}
-
+	
+	protected function ejecutar_con_binarios($sql, $binarios, $id_fila = null)
+	{
+		$sen = toba::db($this->_fuente)->sentencia_preparar($sql);
+		toba::db($this->_fuente)->sentencia_agregar_binarios($sen, $binarios);
+		$reg = toba::db($this->_fuente)->sentencia_ejecutar($sen);
+		if ($this->_lock_optimista && isset($id_fila) && $reg == 0) {
+			$this->evt__perdida_sincronizacion($id_fila, $sql);
+		}
+	}
 	
 	/**
 	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
@@ -951,14 +960,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		if (empty($binarios)) {
 			$this->ejecutar_sql($sql);			
 		} else {
-			$pdo = toba::db($this->_fuente)->get_pdo();
-			$stmt = $pdo->prepare($sql);
-			$i = 1;
-			foreach (array_keys($binarios) as $clave) {
-				$stmt->bindParam($i, $binarios[$clave], PDO::PARAM_LOB);
-				$i++;
-			}
-			$stmt->execute();
+			$this->ejecutar_con_binarios($sql, $binarios);
 		}
 	}	
 
@@ -1028,19 +1030,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$this->log("registro: $id_registro\n " . $sql);
 		if (empty($binarios)) {
 			$this->ejecutar_sql($sql, $id_registro);
-		} else {
-			$pdo = toba::db($this->_fuente)->get_pdo();
-			$stmt = $pdo->prepare($sql);
-			$i = 1;
-			foreach (array_keys($binarios) as $clave) {
-				$stmt->bindParam($i, $binarios[$clave], PDO::PARAM_LOB);
-				$i++;
-			}
-			$stmt->execute();
-			$reg = $stmt->rowCount();
-			if ($this->_lock_optimista && $reg == 0) {
-				$this->evt__perdida_sincronizacion($id_registro, $sql);
-			}
+		} else {			
+			$this->ejecutar_con_binarios($sql, $binarios, $id_registro);
 		}
 	}
 	

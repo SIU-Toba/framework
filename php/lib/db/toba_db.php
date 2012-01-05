@@ -483,6 +483,29 @@ class toba_db
 	}
 	
 	/**
+	 *	Agrega datos binarios a una sentencia SQL preparada con 'preparar_sentencia'
+	 * 
+	 *	@param integer ID de la sentencia
+	 *	@param array Arreglo con los resource apuntando a los binarios
+	 *	@throws toba_error en caso de que alguno de los parametros no se pueda agregar
+	 */
+	function sentencia_agregar_binarios($id, $binarios=array()) 
+	{
+		if(!isset($this->sentencias[$id]['id'])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		$i = 1;		
+		$exito = true;
+		foreach (array_keys($binarios) as $clave) {
+			$exito = $exito && $this->sentencias[$id]['id']->bindParam($i, $binarios[$clave], PDO::PARAM_LOB);
+			$i++;
+		}			
+		if (! $exito) {				
+			throw new toba_error('No se pudo agregar la totalidad de los datos binarios');
+		}
+	}
+	
+	/**
 	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
 	* 	
 	*	@param integer ID de la sentencia
@@ -491,7 +514,7 @@ class toba_db
 	*	@return integer Cantidad de registros afectados
 	*	@throws toba_error_db en caso de error
 	*/		
-	function sentencia_ejecutar($id, $parametros=array())
+	function sentencia_ejecutar($id, $parametros=null)
 	{
 		if(!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
@@ -508,7 +531,7 @@ class toba_db
 			if ($this->desactivar_ejecucion) {
 				return 0;
 			} else {
-				if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);				
+				if ($this->debug) $this->log_debug_inicio($this->sentencias[$id]['sql']);								
 				$this->sentencias[$id]['id']->execute($parametros);
 				if ($this->debug) $this->log_debug_fin();
 				return $this->sentencias[$id]['id']->rowCount();
@@ -530,7 +553,7 @@ class toba_db
 	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
 	*	@throws toba_error_db en caso de error
 	*/		
-	function sentencia_consultar($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	function sentencia_consultar($id, $parametros=null, $tipo_fetch=toba_db_fetch_asoc)
 	{
 		if (!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
@@ -569,7 +592,7 @@ class toba_db
 	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
 	*	@throws toba_error_db en caso de error
 	*/
-	function sentencia_consultar_fila($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
+	function sentencia_consultar_fila($id, $parametros=null, $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
 
 		if (!isset($this->sentencias[$id]['id'])) {
