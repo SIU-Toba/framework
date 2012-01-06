@@ -254,6 +254,14 @@ ef_editable_clave.prototype.constructor = ef_editable_clave;
 	 */
 	function ef_editable_clave(id_form, etiqueta, obligatorio, colapsado)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		
+		//Variables para el password strength meter
+		// -- Toggle to true or false, if you want to change what is checked in the password
+		this.bCheckNumbers = true;
+		this.bCheckUpperCase = true;
+		this.bCheckLowerCase = true;
+		this.bCheckPunctuation = true;
+		this.nPasswordLifetime = 365;
 	}
 
 	ef_editable_clave.prototype.validar = function() {
@@ -305,6 +313,99 @@ ef_editable_clave.prototype.constructor = ef_editable_clave;
 		}
 	};
 	
+	// Check password
+	ef_editable_clave.prototype.checkPassword = function(strPassword) {
+		// Reset combination count
+		var nCombinations = 0;
+
+		// Check numbers
+		if (this.bCheckNumbers) {
+			strCheck = "0123456789";
+			if (doesContain(strPassword, strCheck) > 0) { 
+				nCombinations += strCheck.length; 
+			}
+		}
+
+		// Check upper case
+		if (this.bCheckUpperCase) {
+			strCheck = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			if (doesContain(strPassword, strCheck) > 0) { 
+				nCombinations += strCheck.length; 
+			}
+		}
+
+		// Check lower case
+		if (this.bCheckLowerCase) {
+			strCheck = "abcdefghijklmnopqrstuvwxyz";
+			if (doesContain(strPassword, strCheck) > 0) { 
+				nCombinations += strCheck.length; 
+			}
+		}
+
+		// Check punctuation
+		if (this.bCheckPunctuation) {
+			strCheck = ";:-_=+\|//?^&!.@$£#*()%~<>{}[]";
+			if (doesContain(strPassword, strCheck) > 0) { 
+				nCombinations += strCheck.length; 
+			}
+		}
+
+		// Calculate
+		// -- 500 tries per second => minutes 
+		var nDays = ((Math.pow(nCombinations, strPassword.length) / 500) / 2) / 86400;
+
+		// Number of days out of password lifetime setting
+		var nPerc = nDays / this.nPasswordLifetime;
+
+		return nPerc;
+	}
+
+	// Runs password through check and then updates GUI 
+	ef_editable_clave.prototype.runPassword = function (strPassword, strFieldID) 
+	{	
+		 // Get controls
+		var ctlBar = document.getElementById(strFieldID + "_bar"); 
+		var ctlText = document.getElementById(strFieldID + "_text");
+		if (!ctlBar || !ctlText)
+			return;
+
+		// Check password
+		nPerc = this.checkPassword(strPassword);
+
+		// Set new width
+		var nRound = Math.log(nPerc) * 5;
+		if (nRound < (strPassword.length * 5)) {		//Feedback visual para el usuario cuando el porcentaje es demasiado pequeño 
+			nRound = strPassword.length * 6; 
+		}
+
+		if (nRound > 100) {
+			nRound = 100;
+		}
+
+		// Color and text
+		if (nRound > 95) {
+			strText = "Muy Seguro";
+			strColor = "#3bce08";
+		} else if (nRound > 75) {
+			strText = "Seguro";
+			strColor = "orange";
+		} else if (nRound > 50) {
+			strText = "Mediocre";
+			strColor = "#ffd801";
+		} else {
+			strColor = "red"; 	
+			if (strPassword == 'toba') {
+				strText = 'definitivamente no';
+			} else {
+				strText = "Inseguro";
+			}
+		}
+
+		ctlBar.style.width = nRound + "%";
+		ctlBar.style.backgroundColor = strColor;
+
+		ctlText.innerHTML = "<span style='white-spacen: nowrap; color: " + strColor + ";'>" + strText + "</span>";
+	}
 // ########################################################################################################
 // ########################################################################################################
 

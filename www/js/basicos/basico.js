@@ -122,6 +122,19 @@ String.prototype.pad = function(len, str, side) {
 		return this+p;
 	}
 };
+
+// Checks a string for a list of characters
+function doesContain(strPassword, strCheck)
+ {
+	nCount = 0; 
+	for (i = 0; i < strPassword.length; i++) {
+		if (strCheck.indexOf(strPassword.charAt(i)) > -1) { 
+				nCount++; 
+		} 
+	} 
+
+	return nCount; 
+} 
 //---ARRAY
 //----------------------------------------------------------
 

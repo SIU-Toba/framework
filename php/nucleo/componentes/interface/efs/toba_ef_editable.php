@@ -470,9 +470,16 @@ class toba_ef_editable_clave extends toba_ef_editable
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index(2).'"';
 		$estado = isset($this->estado)? $this->estado : "";
-		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
-		if ($this->confirmar_clave) {
-			$html .= "<br />".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
+		
+		$opciones_extra = $this->input_extra . $tab;
+		$estilo_extra = ' style="display:block;" ';
+		$js = " onKeyUp=\"{$this->objeto_js()}.runPassword(this.value,'{$this->id_form}');\" ";
+		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input',$js. $opciones_extra );
+		if ($this->confirmar_clave) {										//Agrego div para mostrar la 'fortaleza' del pwd y tambien ef para confirmacion
+			$html .= '<div  class="ef-editable-clave-barra-info">					
+					<div id="'.$this->id_form.'_text" style="font-size: 10px;"></div>
+					<div id="'.$this->id_form.'_bar" class="ef-editable-clave-fortaleza"></div></div>';			
+			$html .= toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $opciones_extra . $estilo_extra);			
 		}
 		$html .= $this->get_html_iconos_utilerias();
 		return $html;

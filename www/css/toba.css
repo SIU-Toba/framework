@@ -482,6 +482,18 @@ padding-left:4px;
 .ef-fecha-hora img {
 	vertical-align: middle;
 }
+.ef-editable-clave-barra-info {
+	width: 100px;
+	float: right;
+	position: relative;
+	top: -10px;
+}
+.ef-editable-clave-fortaleza {
+	font-size: 1px;
+	height: 3px;
+	width: 0px;
+	border: 1px solid white;
+}
 /*************************
 		EI - CUADRO
 **************************/
