@@ -68,13 +68,35 @@ class toba_migracion_2_2_0 extends toba_migracion
 		$sql = "SET CONSTRAINTS ALL DEFERRED;";
 		$this->elemento->get_db()->ejecutar($sql);
 	}
+		
+	function proyecto__convertir_preguntas_secretas()
+	{
+		$clave = $this->elemento->get_instalacion()->get_claves_encriptacion();			//Obtengo las claves con las que voy a encriptar
+		
+		$sql = 'SELECT cod_pregunta_secreta, pregunta, respuesta FROM apex_usuario_pregunta_secreta;';
+		$preguntas = $this->elemento->get_db()->consultar($sql);
+		if (! empty($preguntas)) {													//Si se recuperaron preguntas/respuestas secretas
+			$sqls = array();
+			foreach($preguntas as $dato) {
+				$id = $dato['cod_pregunta_secreta'];
+				$preg = mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));	
+				$resp = mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));	
+			
+				$sqls[] = "UPDATE apex_usuario_pregunta_secreta SET pregunta = '$preg', respuesta = '$resp' WHERE cod_pregunta_secreta = '$id';";	//Encripto y armo la SQL correspondiente
+			}
+			if (! empty($sqls)) {
+				$this->elemento->get_db()->ejecutar($sqls);
+			}
+		}		
+	}
 	
 	function proyecto__alerta_fuente_datos()
 	{
+		//--- Esta alerta esta xq no nos podemos conectar a la fuente de datos de negocio para obtener los schemas existentes, asi que se debe configurar manualmente desde el editor.
 		$msg1 = 'ATENCION!!!! : ';
 		$this->manejador_interface->mensaje($msg1, true);
 		$msg = 'Por favor edite las fuentes de datos del proyecto y agregue los schemas que considere necesarios para su trabajo.';
 		$this->manejador_interface->mensaje($msg, true);		
-	}
+	}	
 }
 ?>
