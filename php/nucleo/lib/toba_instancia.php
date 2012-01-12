@@ -362,6 +362,19 @@ class toba_instancia
 		}
 	}
 	
+	function get_lista_claves_usadas($usuario)
+	{
+		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario ;'; 
+		try {
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$rs = $this->get_db()->sentencia_consultar($id, array('usuario' => $usuario));
+			return $rs; 
+		} catch (toba_error_db $e) {
+			toba::logger()->info($e->getMessage());
+			throw new toba_error('Error recuperando información');
+		}
+	}
+	
 	/**
 	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
 	*	@return $value	Retorna un array de grupos de acceso

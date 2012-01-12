@@ -108,3 +108,27 @@ CREATE TABLE apex_usuario_pregunta_secreta
 	CONSTRAINT apex_usuario_pregunta_secreta_pk PRIMARY KEY (cod_pregunta_secreta), 
 	CONSTRAINT apex_usuario_pregunta_secreta_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
 ) ;
+
+--#################################################################################################
+CREATE SEQUENCE apex_usuario_pwd_usados_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE TABLE apex_usuario_pwd_usados
+
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo
+--: dump_order_by: usuario
+--: zona: usuario
+--: desc:
+--: instancia:	1
+--: usuario:	1
+--: version: 2.0
+---------------------------------------------------------------------------------------------------
+(
+	cod_pwd_pasados		int8 DEFAULT nextval('"apex_usuario_pwd_usados_seq"'::text) NOT NULL, 
+	usuario		VARCHAR(60)		NOT NULL, 
+	clave		VARCHAR(128)	NOT NULL, 
+	algoritmo		VARCHAR(10)		NOT NULL,
+	CONSTRAINT	apex_usuario_pwd_usados_pk PRIMARY KEY (cod_pwd_pasados), 
+	CONSTRAINT	apex_usuario_pwd_usados_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE,
+	CONSTRAINT apex_usuario_pwd_usados_uk UNIQUE (usuario, clave)
+);

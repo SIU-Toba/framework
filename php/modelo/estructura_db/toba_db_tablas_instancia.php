@@ -29,6 +29,7 @@ class toba_db_tablas_instancia
 		return array (
   0 => 'apex_usuario',
   1 => 'apex_usuario_pregunta_secreta',
+  2 => 'apex_usuario_pwd_usados',
 );
 	}
 
@@ -238,6 +239,28 @@ class toba_db_tablas_instancia
     2 => 'pregunta',
     3 => 'respuesta',
     4 => 'activa',
+  ),
+);
+	}
+
+	static function apex_usuario_pwd_usados()
+	{
+		return array (
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'usuario',
+  'zona' => 'usuario',
+  'desc' => '',
+  'instancia' => '1',
+  'usuario' => '1',
+  'version' => '2.0',
+  'columnas' => 
+  array (
+    0 => 'cod_pwd_pasados',
+    1 => 'usuario',
+    2 => 'clave',
+    3 => 'algoritmo',
   ),
 );
 	}

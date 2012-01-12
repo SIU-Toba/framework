@@ -62,6 +62,43 @@ class toba_migracion_2_2_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD COLUMN esquema TEXT NULL;';
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD CONSTRAINT "apex_objeto_fk_fuente_schemas" FOREIGN KEY ("objeto_proyecto", "fuente_datos", "esquema") REFERENCES "apex_fuente_datos_schemas" ("proyecto", "fuente_datos", "nombre") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		
+		//Tabla para guardar las claves utilizadas anteriormente
+		$sql[] = 'CREATE SEQUENCE apex_usuario_pwd_usados_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;';
+		$sql[] = 'CREATE TABLE apex_usuario_pwd_usados
+				(
+					cod_pwd_pasados		int8 DEFAULT nextval(\'"apex_usuario_pwd_usados_seq"\'::text) NOT NULL, 
+					usuario		VARCHAR(60)		NOT NULL, 
+					clave		VARCHAR(128)	NOT NULL, 
+					algoritmo		VARCHAR(10)		NOT NULL,
+					CONSTRAINT	apex_usuario_pwd_usados_pk PRIMARY KEY (cod_pwd_pasados), 
+					CONSTRAINT	apex_usuario_pwd_usados_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE,
+					CONSTRAINT apex_usuario_pwd_usados_uk UNIQUE (usuario, clave)
+				);';
+		//SP + Trigger que se encarga de hacer la copia
+		$sql[] = 'CREATE OR REPLACE FUNCTION sp_old_pwd_copy()
+				  RETURNS trigger AS
+				$BODY$
+								DECLARE
+								BEGIN
+									IF (TG_OP = \'INSERT\') OR (TG_OP = \'DELETE\') THEN
+										RAISE EXCEPTION \'Error en la programación del trigger\';
+									END IF;
+
+									IF (OLD.clave != NEW.clave) OR (OLD.autentificacion != NEW.autentificacion) THEN
+										INSERT INTO apex_usuario_pwd_usados (usuario, clave, algoritmo) VALUES (OLD.usuario, OLD.clave, OLD.autentificacion);
+									END IF;
+									RETURN NULL;
+								END;
+							$BODY$
+				  LANGUAGE plpgsql VOLATILE
+				  COST 100;';
+		
+		$sql[] = 'CREATE TRIGGER tusuario_pwd_pasados
+				  AFTER UPDATE
+				  ON apex_usuario
+				  FOR EACH ROW
+				  EXECUTE PROCEDURE sp_old_pwd_copy();';
+		
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 

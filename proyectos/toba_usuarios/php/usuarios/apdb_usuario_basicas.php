@@ -10,8 +10,12 @@ class apdb_usuario_basicas extends toba_ap_tabla_db_s
 			$usuario = quote($this->datos[$id]['usuario']);
 			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = $usuario";
 			$rs = toba::db($this->_fuente)->consultar($sql);
-			if ($rs[0]['clave'] != $this->datos[$id]['clave']
-					|| $rs[0]['autentificacion'] != $this->datos[$id]['autentificacion']) {
+			
+			$cambio_clave = ($rs[0]['clave'] != $this->datos[$id]['clave']);
+			$cambio_metodo = ($rs[0]['autentificacion'] != $this->datos[$id]['autentificacion']);
+			if ($cambio_clave || $cambio_metodo) {				
+				//Antes de encriptar la clave verifico que no se esta usando una clave anterior
+				toba_usuario::verificar_clave_no_utilizada($this->datos[$id]['clave'], $this->datos[$id]['usuario']);				
 				$this->encriptar_clave($id, $this->datos[$id]['autentificacion']);
 			}
 		}

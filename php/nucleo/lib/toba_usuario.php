@@ -63,19 +63,33 @@ class toba_usuario implements toba_interface_usuario
 		return $cad;
 	}
 
-       function set_clave($clave_plana)
-       {
-		   $this->set_clave_usuario($clave_plana, $this->get_id());
-       }
+	function set_clave($clave_plana)
+	{
+		$this->set_clave_usuario($clave_plana, $this->get_id());
+	}
 
-	   function set_clave_usuario ($clave_plana, $usuario)
-		{
-			$clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
-			$sql = "UPDATE apex_usuario
-						SET		clave = $clave_enc ,
-						autentificacion = 'sha256'
-						WHERE	usuario = ". quote($usuario);
-			toba::instancia()->get_db()->ejecutar($sql);
+	function set_clave_usuario ($clave_plana, $usuario)
+	{
+		$clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
+		$sql = "UPDATE apex_usuario
+					SET		clave = $clave_enc ,
+					autentificacion = 'sha256'
+					WHERE	usuario = ". quote($usuario);
+		toba::instancia()->get_db()->ejecutar($sql);
+	}
+	
+	function verificar_clave_no_utilizada($clave_plana, $usuario) 
+	{
+		$claves = toba::instancia()->get_lista_claves_usadas($usuario);
+		if (! empty($claves)) {
+			foreach($claves as $clave) {
+				$test_key = encriptar_con_sal($clave_plana, $clave['algoritmo'], $clave['clave']);			
+				if ($clave['clave'] == $test_key) {
+					toba::logger()->debug('El usuario selecciono una clave ya utilizada anteriormente');
+					throw new toba_error_usuario('La clave fue utilizada anteriormente, por favor seleccione una nueva');
+				}	
+			}		
 		}
+	}
 }
 ?>
