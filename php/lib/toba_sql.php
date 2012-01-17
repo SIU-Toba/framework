@@ -166,17 +166,16 @@
 		}
 		foreach(array_keys($datos) as $columna){
 			if(is_null( $datos[$columna] )){
-				$datos[$columna] = "%%NULL%%";//Identifico los nulos
+				$datos[$columna] = "NULL";//Identifico los nulos
 			}else{
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
 				}				
-				$datos[$columna] = $db->escapar_caracteres($datos[$columna]);//Escapo caracteres
+				$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
-				" VALUES ('" . implode("', '",$datos) . "');";
-		$sql = str_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+				" VALUES (" . implode(", ",$datos) . ");";
 		return $sql;	
 	}
 	
@@ -191,12 +190,12 @@
 		}
 		foreach(array_keys($datos) as $columna){
 			if(is_null( $datos[$columna] )){
-				$datos[$columna] = "%%NULL%%";//Identifico los nulos
+				$datos[$columna] = "NULL";//Identifico los nulos
 			}else{
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
 				}
-				$datos[$columna] = $db->escapar_caracteres($datos[$columna]);//Escapo caracteres
+				$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(', ',array_keys($datos)) . ')'. 
@@ -205,11 +204,10 @@
 		$i = 1;
 		foreach ($datos as $clave => $valor) {
 			$coma = ($i < count($datos)) ? ',' : ' ';
-			$sql .= "\n\t'$valor'$coma --$clave";			//Sacar las comillas simples cuando el quote funcione correctamente
+			$sql .= "\n\t$valor$coma --$clave";			//Sacar las comillas simples cuando el quote funcione correctamente
 			$i++;
 		}
 		$sql .=	"\n);\n";
-		$sql = str_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}	
 

@@ -63,12 +63,7 @@ class toba_db_postgres7 extends toba_db
 		$sql = "SET datestyle TO 'iso';";
 		$this->ejecutar($sql);	
 	}
-	
-	/*function escapar_caracteres($dato)	
-	{
-		return $this->quote($dato);		//TODO: Activar cuando el driver de PDO de soporte para postgres 9.1
-	}*/
-	 
+		 
 	/**
 	 *  Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.
 	 */
@@ -588,7 +583,7 @@ class toba_db_postgres7 extends toba_db
 			SELECT 
 				c.relname as tabla,
 				a.attname as campo,
-				replace( substring(adef.adsrc,'\'[^\']*\''), '\'', '' ) as nombre
+				replace( substring(adef.adsrc,'''[^'']*'''), '''', '' ) as nombre
 			FROM
 				pg_catalog.pg_attribute a 
 					LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum

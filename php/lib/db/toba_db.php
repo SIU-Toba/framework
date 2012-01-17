@@ -267,16 +267,7 @@ class toba_db
 		}
 	}
 	
-	/**
-	 * Escapa los caracteres a un nivel muy basico, debe ser redefinido para cada motor
-	 * @param string $dato
-	 * @return string
-	 */
-	function escapar_caracteres($dato)
-	{
-		return addslashes($dato);		
-	}	
-	
+		
 	/**
 	 *  Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.
 	 *  redefinido en los hijos
