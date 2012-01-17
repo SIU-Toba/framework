@@ -63,7 +63,25 @@ class toba_db_postgres7 extends toba_db
 		$sql = "SET datestyle TO 'iso';";
 		$this->ejecutar($sql);	
 	}
-
+	
+	/*function escapar_caracteres($dato)	
+	{
+		return $this->quote($dato);		//TODO: Activar cuando el driver de PDO de soporte para postgres 9.1
+	}*/
+	 
+	/**
+	 *  Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.
+	 */
+	function crear_lenguaje_procedural()
+	{
+		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
+		$rs = $this->consultar($sql);
+		if (empty($rs)) {
+			$sql = 'CREATE LANGUAGE plpgsql';
+			$this->ejecutar($sql);
+		}
+	}
+	
 	/**
 	*	Recupera el valor actual de una secuencia
 	*	@param string $secuencia Nombre de la secuencia

@@ -375,7 +375,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 				}
 				for ( $a = 0; $a < $regs ; $a++ ) {
-					$contenido .= sql_array_a_insert( $tabla, $datos[$a] )."\n";
+					$contenido .= sql_array_a_insert( $tabla, $datos[$a], $instancia->get_db() )."\n";
 				}
 				if ( trim( $contenido ) != '' ) {
 					$this->guardar_tabla_archivo($tabla, $contenido);
@@ -394,10 +394,10 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$definicion = toba_db_tablas_nucleo::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
-       			$w = stripslashes($definicion['dump_where']);
-       			$where = str_replace("%%",'toba', $w);
-            } else {
-       			$where = " ( proyecto = 'toba')";
+					$w = stripslashes($definicion['dump_where']);
+					$where = str_replace("%%",'toba', $w);
+			} else {
+					$where = " ( proyecto = 'toba')";
 			}
 			$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .
@@ -414,7 +414,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			}
 			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
 			for ( $a = 0; $a < $regs ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] )."\n";
+				$contenido .= sql_array_a_insert( $tabla, $datos[$a], $instancia->get_db() )."\n";
 			}
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_tabla_archivo($tabla, $contenido);

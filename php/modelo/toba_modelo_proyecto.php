@@ -523,7 +523,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					$grupo_actual = $grupo;
 				}
 			}
-			$contenido .= sql_array_a_insert_formateado( $tabla, $datos[$a] );
+			$contenido .= sql_array_a_insert_formateado( $tabla, $datos[$a] , $this->db);
 		}
 		if ($grupo_actual !== -1) {
 			$contenido .= "--- FIN Grupo de desarrollo $grupo_actual\n";

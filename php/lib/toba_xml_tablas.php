@@ -101,7 +101,7 @@ class toba_xml_tablas
 				try {
 					//Guarda un savepoint por si falla la ejecucion
 					$conexion->ejecutar('SAVEPOINT toba_'.$i);
-					$sql = sql_array_a_insert($tabla, $fila);
+					$sql = sql_array_a_insert($tabla, $fila, $conexion);
 					$conexion->ejecutar($sql);
 					//Si no falla se libera el savepoint
 					$conexion->ejecutar('RELEASE SAVEPOINT toba_'.$i);

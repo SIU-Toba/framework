@@ -159,7 +159,7 @@
 	 * Convierte un array asociativo en una sentencia de INSERT
 	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
 	 */
-	function sql_array_a_insert($tabla, $datos)
+	function sql_array_a_insert($tabla, $datos, $db = null)
 	{
 		if(!is_array($datos)){
 			throw new toba_error("Los datos tienen que ser un array");	
@@ -171,7 +171,7 @@
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
 				}				
-				$datos[$columna] = addslashes($datos[$columna]);//Escapo caracteres
+				$datos[$columna] = $db->escapar_caracteres($datos[$columna]);//Escapo caracteres
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
@@ -184,7 +184,7 @@
 	 * Convierte un array asociativo en una sentencia de INSERT formateada para evitar conflictos cuando hay merges
 	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
 	 */
-	function sql_array_a_insert_formateado($tabla, $datos)
+	function sql_array_a_insert_formateado($tabla, $datos, $db = null)
 	{
 		if(!is_array($datos)){
 			throw new toba_error("Los datos tienen que ser un array");	
@@ -196,16 +196,16 @@
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
 				}
-				$datos[$columna] = addslashes($datos[$columna]);//Escapo caracteres
+				$datos[$columna] = $db->escapar_caracteres($datos[$columna]);//Escapo caracteres
 			}
 		}
-		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
-				" VALUES (";
+		$sql = "INSERT INTO $tabla (" . implode(', ',array_keys($datos)) . ')'. 
+				' VALUES (';
 
 		$i = 1;
 		foreach ($datos as $clave => $valor) {
 			$coma = ($i < count($datos)) ? ',' : ' ';
-			$sql .= "\n\t'".$valor."'$coma --$clave";
+			$sql .= "\n\t'$valor'$coma --$clave";			//Sacar las comillas simples cuando el quote funcione correctamente
 			$i++;
 		}
 		$sql .=	"\n);\n";

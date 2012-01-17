@@ -482,7 +482,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 			}			
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+				$contenido .= sql_array_a_insert( $tabla, $datos[$a] , $this->get_db());
 			}
 			$this->manejador_interface->progreso_avanzar();
 		}
@@ -526,19 +526,19 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$definicion = toba_db_tablas_instancia::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
-       			$w = stripslashes($definicion['dump_where']);
-       			$where = str_replace("%%", $proyecto, $w);
-            }else{
-       			$where = " ( proyecto = '$proyecto')";
+				$w = stripslashes($definicion['dump_where']);
+				$where = str_replace("%%", $proyecto, $w);
+			}else{
+				$where = " ( proyecto = '$proyecto')";
 			}
 			$from = "$tabla dd";
 			if( isset($definicion['dump_from']) && ( trim($definicion['dump_from']) != '') ) {
-       			$from .= ", ".stripslashes($definicion['dump_from']);
-            }
-            $columnas = array();
-            foreach ($definicion['columnas'] as $columna ) {
-            	$columnas[] = "dd.$columna";
-            }
+				$from .= ", ".stripslashes($definicion['dump_from']);
+		         }
+			$columnas = array();
+			foreach ($definicion['columnas'] as $columna ) {
+				$columnas[] = "dd.$columna";
+			}
 			$sql = 'SELECT ' . implode(', ',$columnas) .
 					" FROM $from " .
 					" WHERE $where " .
@@ -546,11 +546,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$sentencia = $this->get_db()->get_pdo()->query($sql);
 			
 			while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
-			  $contenido = sql_array_a_insert($tabla, $fila)."\n";
+			  $contenido = sql_array_a_insert($tabla, $fila, $this->get_db())."\n";
 			  $this->guardar_archivo($nombre_archivo, $contenido, $append);
 			  $append = true;
 			}
-	        $this->manejador_interface->progreso_avanzar();			  				
+			$this->manejador_interface->progreso_avanzar();			  				
 		}
 	}	
 
