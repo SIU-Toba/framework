@@ -157,9 +157,9 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	NULL, --punto_montaje
 	'SELECT identificador 
 FROM  apex_objeto_eventos
-WHERE proyecto = \'%proyecto%\' AND
-objeto = \'%objeto_ci%\' AND
-evento_id = \'%evento_id%\'', --sql
+WHERE proyecto = ''%proyecto%'' AND
+objeto = ''%objeto_ci%'' AND
+evento_id = ''%evento_id%''', --sql
 	'0', --dato_estricto
 	NULL, --carga_dt
 	NULL, --carga_consulta_php

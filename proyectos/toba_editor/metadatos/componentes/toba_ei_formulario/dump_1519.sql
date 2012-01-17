@@ -1504,7 +1504,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	'SELECT solicitud_tipo, descripcion_corta 
 FROM apex_solicitud_tipo 
-WHERE solicitud_tipo <> \'fantasma\'
+WHERE solicitud_tipo <> ''fantasma''
 ORDER BY 2', --carga_sql
 	'instancia', --carga_fuente
 	NULL, --carga_lista

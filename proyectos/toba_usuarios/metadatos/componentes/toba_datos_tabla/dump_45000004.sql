@@ -44,7 +44,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema) VALUES (
 	'toba_usuarios', --objeto_proyecto
 	'45000004', --objeto
 	NULL, --max_registros
@@ -59,7 +59,8 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'0', --modificar_claves
 	'toba_usuarios', --fuente_datos_proyecto
 	'toba_usuarios', --fuente_datos
-	'1'  --permite_actualizacion_automatica
+	'1', --permite_actualizacion_automatica
+	NULL  --esquema
 );
 
 ------------------------------------------------------------
@@ -102,7 +103,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'restriccion_funcional', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_restriccion_funcional_seq\"', --secuencia
+	'"apex_restriccion_funcional_seq"', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db

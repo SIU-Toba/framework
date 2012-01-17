@@ -699,7 +699,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'11', --orden
 	'Solo Lectura', --etiqueta
 	NULL, --etiqueta_estilo
-	'Fuerza a que el elemento no se pueda modificar en el cliente. Es similar a ejecutar el metodo <pre>set_solo_lectura(\'id_ef\', true);</pre> en el formulario.', --descripcion
+	'Fuerza a que el elemento no se pueda modificar en el cliente. Es similar a ejecutar el metodo <pre>set_solo_lectura(''id_ef'', true);</pre> en el formulario.', --descripcion
 	'1', --colapsado
 	'0', --desactivado
 	NULL, --estilo

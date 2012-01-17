@@ -841,7 +841,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'8', --orden
 	'Consulta', --etiqueta
 	NULL, --etiqueta_estilo
-	'Clases de consulta definidas en la sección \'datos\' del editor', --descripcion
+	'Clases de consulta definidas en la sección ''datos'' del editor', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

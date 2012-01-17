@@ -161,7 +161,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	'SELECT estilo, descripcion 
 FROM apex_estilo 
-WHERE descripcion <> \'no\'
+WHERE descripcion <> ''no''
 ORDER BY descripcion', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
@@ -243,7 +243,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	'SELECT estilo, descripcion 
 FROM apex_estilo 
-WHERE descripcion <> \'no\'
+WHERE descripcion <> ''no''
 ORDER BY descripcion', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista

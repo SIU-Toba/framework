@@ -103,7 +103,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'gatillo', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_dimension_gatillo_seq\"', --secuencia
+	'"apex_dimension_gatillo_seq"', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db

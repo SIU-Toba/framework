@@ -75,7 +75,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'msg', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_msg_seq\"', --secuencia
+	'"apex_msg_seq"', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db

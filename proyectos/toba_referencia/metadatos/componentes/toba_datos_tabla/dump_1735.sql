@@ -44,7 +44,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1735', --objeto
 	NULL, --max_registros
@@ -59,7 +59,8 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'0', --modificar_claves
 	'toba_referencia', --fuente_datos_proyecto
 	'toba_referencia', --fuente_datos
-	'1'  --permite_actualizacion_automatica
+	'1', --permite_actualizacion_automatica
+	NULL  --esquema
 );
 
 ------------------------------------------------------------
@@ -196,7 +197,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	NULL, --clase
 	NULL, --include
 	NULL, --punto_montaje
-	'SELECT nombre as desc_deporte FROM ref_deportes WHERE id = \'%deporte%\';', --sql
+	'SELECT nombre as desc_deporte FROM ref_deportes WHERE id = ''%deporte%'';', --sql
 	'1', --dato_estricto
 	NULL, --carga_dt
 	NULL, --carga_consulta_php

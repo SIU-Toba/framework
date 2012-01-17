@@ -89,7 +89,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'consulta_php', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_consulta_php_seq\"', --secuencia
+	'"apex_consulta_php_seq"', --secuencia
 	'-1', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db

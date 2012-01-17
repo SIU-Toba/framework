@@ -1651,7 +1651,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'8', --orden
 	'Demora cartel espera', --etiqueta
 	NULL, --etiqueta_estilo
-	'Indicar la cantidad de milisegundos que tarda en mostrarse automáticamente un cartel de \'Aguarde por favor\', útil para dar un feedback visual en operaciones que tardan mucho tiempo. Ingresar 0 para desactivar esta funcionalidad', --descripcion
+	'Indicar la cantidad de milisegundos que tarda en mostrarse automáticamente un cartel de ''Aguarde por favor'', útil para dar un feedback visual en operaciones que tardan mucho tiempo. Ingresar 0 para desactivar esta funcionalidad', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

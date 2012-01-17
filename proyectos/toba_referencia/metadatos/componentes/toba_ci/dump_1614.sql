@@ -277,7 +277,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab', --identificador
 	'3', --orden
 	'Cortes TAB. (2)', --etiqueta
-	'Redefinicion estetica. Se modifica el contenido de las cabeceras de los cortes de control \'Zona\'.', --descripcion
+	'Redefinicion estetica. Se modifica el contenido de las cabeceras de los cortes de control ''Zona''.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -296,7 +296,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_sah_1', --identificador
 	'8', --orden
 	'Cortes TAB. Sum AH 1', --etiqueta
-	'Se agrega una sumarizacion AD-HOC en el corte \'Zona\'. Para lograr este tipo de sumarizaciones hace falta una extension del cuadro.', --descripcion
+	'Se agrega una sumarizacion AD-HOC en el corte ''Zona''. Para lograr este tipo de sumarizaciones hace falta una extension del cuadro.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -315,7 +315,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_s', --identificador
 	'5', --orden
 	'Cortes TAB. Sum', --etiqueta
-	'Se agregan sumarizaciones por columna. Todas las columnas se agregan en todos los cortes y en la sumariacion total. Se agrega una cuenta de registros en el corte \'Zona\'.', --descripcion
+	'Se agregan sumarizaciones por columna. Todas las columnas se agregan en todos los cortes y en la sumariacion total. Se agrega una cuenta de registros en el corte ''Zona''.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -334,7 +334,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_regs', --identificador
 	'4', --orden
 	'Cortes TAB. (regs.)', --etiqueta
-	'Se agrega una cuenta de filas al corte de control \'Localidades\'.', --descripcion
+	'Se agrega una cuenta de filas al corte de control ''Localidades''.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -353,7 +353,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_full', --identificador
 	'10', --orden
 	'Cortes TAB. FULL', --etiqueta
-	'Cabeceras de PIE,  titulos de las columnas en los totales y conteo de filas para el corte \'Zona\' (Este comportamiento NO requier de una extension).', --descripcion
+	'Cabeceras de PIE,  titulos de las columnas en los totales y conteo de filas para el corte ''Zona'' (Este comportamiento NO requier de una extension).', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -372,7 +372,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_sah_2', --identificador
 	'9', --orden
 	'Cortes TAB. Sum AH 2', --etiqueta
-	'Se agrega una sumarizacion AD-HOC en los cortes \'Zona\' y \'Localidad\' (Para lograr este tipo de sumarizaciones hace falta una extension de los cuadros).', --descripcion
+	'Se agrega una sumarizacion AD-HOC en los cortes ''Zona'' y ''Localidad'' (Para lograr este tipo de sumarizaciones hace falta una extension de los cuadros).', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -391,7 +391,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_2', --identificador
 	'2', --orden
 	'Cortes TAB. (1)', --etiqueta
-	'Se utiliza la columna \'zona\' para generar un corte de control.', --descripcion
+	'Se utiliza la columna ''zona'' para generar un corte de control.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -410,7 +410,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_est_1', --identificador
 	'6', --orden
 	'Cortes TAB. (Est.)', --etiqueta
-	'Redefinicion estetica. Se modifica el contenido de las cabeceras de los cortes de control \'Zona\'. Para realizar este tipo de customizaciones se necesita extender el cuadro.<br>Además se utiliza el colapsado inicial de los cortes de control.', --descripcion
+	'Redefinicion estetica. Se modifica el contenido de las cabeceras de los cortes de control ''Zona''. Para realizar este tipo de customizaciones se necesita extender el cuadro.<br>Además se utiliza el colapsado inicial de los cortes de control.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -429,7 +429,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_est_2', --identificador
 	'7', --orden
 	'Cortes TAB. (Est. 2)', --etiqueta
-	'Redefinicion estetica. Se agrega un texto customizado en el pie del corte de control \'Zona\'. Para esto es necesario definir una subclase.', --descripcion
+	'Redefinicion estetica. Se agrega un texto customizado en el pie del corte de control ''Zona''. Para esto es necesario definir una subclase.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -448,7 +448,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuadro_cc_tab_full_e', --identificador
 	'11', --orden
 	'Cortes TAB. FULL (e)', --etiqueta
-	'Redefinicion de estetica y sumarizaciones. La unica redefinicion que no se utilizo antes es la modificacion del contenido de la cabecera del pie, en el corte de control \'Localidad\' (se accede a los acumuladores de la sumarizacion del toba).', --descripcion
+	'Redefinicion de estetica y sumarizaciones. La unica redefinicion que no se utilizo antes es la modificacion del contenido de la cabecera del pie, en el corte de control ''Localidad'' (se accede a los acumuladores de la sumarizacion del toba).', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

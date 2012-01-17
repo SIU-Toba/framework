@@ -226,7 +226,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'sql', --identificador
 	'2', --orden
 	'Lote de pruebas', --etiqueta
-	'Este campo debe completarse con una lista de SQLs separados por  el caracter \";\"', --descripcion
+	'Este campo debe completarse con una lista de SQLs separados por  el caracter ";"', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'sql.gif', --imagen

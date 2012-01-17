@@ -653,7 +653,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'7', --orden
 	'Indice', --etiqueta
 	NULL, --etiqueta_estilo
-	'Este campo se utiliza para acceder en runtime a una referencia del componente a travez de un indice textual ( Utilizando el metodo toba::componente(\'INDICE\') )', --descripcion
+	'Este campo se utiliza para acceder en runtime a una referencia del componente a travez de un indice textual ( Utilizando el metodo toba::componente(''INDICE'') )', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

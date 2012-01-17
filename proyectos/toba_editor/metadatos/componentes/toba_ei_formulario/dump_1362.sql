@@ -195,28 +195,28 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
             <td>[ef id=estilo etiqueta_ancho=0]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=prueba_estilo]</td>
+            <td colspan="2">[ef id=prueba_estilo]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=no_ordenar]</td>
+            <td colspan="2">[ef id=no_ordenar]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=total]</td>
+            <td colspan="2">[ef id=total]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=estilo_titulo]</td>
+            <td colspan="2">[ef id=estilo_titulo]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=usar_vinculo]</td>
+            <td colspan="2">[ef id=usar_vinculo]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=evento_asociado]</td>
+            <td colspan="2">[ef id=evento_asociado]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=vinculo_indice]</td>
+            <td colspan="2">[ef id=vinculo_indice]</td>
         </tr>
         <tr>
-            <td colspan=\"2\">[ef id=grupo]</td>
+            <td colspan="2">[ef id=grupo]</td>
         </tr>
     </tbody>
 </table>', --template
@@ -880,7 +880,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'8', --orden
 	'Evento Asociado', --etiqueta
 	NULL, --etiqueta_estilo
-	'Permite Asociar el \'Vinculo\' a un evento del objeto.', --descripcion
+	'Permite Asociar el ''Vinculo'' a un evento del objeto.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

@@ -292,7 +292,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'edicion', --identificador
 	'2', --orden
 	'Edicion', --etiqueta
-	'ATENCION: Los datos relacionados con los componentes no pertenecen al proyecto TOBA_EDITOR sino al nucleo del ambiente. Si se edita algo en esta pantalla debe ser bajado al sistema de archivos con: \"toba nucleo exportar_datos\"', --descripcion
+	'ATENCION: Los datos relacionados con los componentes no pertenecen al proyecto TOBA_EDITOR sino al nucleo del ambiente. Si se edita algo en esta pantalla debe ser bajado al sistema de archivos con: "toba nucleo exportar_datos"', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

@@ -121,7 +121,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	NULL, --subclase
 	NULL, --subclase_archivo
-	'<table style=\'width:100%\'>
+	'<table style=''width:100%''>
     <tbody>
         <tr>
             <td>[dep id=formulario]</td>

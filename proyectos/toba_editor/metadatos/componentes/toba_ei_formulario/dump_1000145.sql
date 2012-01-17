@@ -1173,7 +1173,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'21', --orden
 	'Cascada Relajada', --etiqueta
 	NULL, --etiqueta_estilo
-	'Si esta seleccionado, la obligatoriedad del campo se elimina en caso de que algunos de sus ef\'s maestros no tengan estado.', --descripcion
+	'Si esta seleccionado, la obligatoriedad del campo se elimina en caso de que algunos de sus ef''s maestros no tengan estado.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1410,7 +1410,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'18', --orden
 	'Ocultar No-Selección si no hay datos', --etiqueta
 	NULL, --etiqueta_estilo
-	'Oculta la opción de la \'No Selección\' en caso que no existan otras opciones.', --descripcion
+	'Oculta la opción de la ''No Selección'' en caso que no existan otras opciones.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1489,7 +1489,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'8', --orden
 	'Consulta', --etiqueta
 	NULL, --etiqueta_estilo
-	'Clases de consulta definidas en la sección \'datos\' del editor', --descripcion
+	'Clases de consulta definidas en la sección ''datos'' del editor', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

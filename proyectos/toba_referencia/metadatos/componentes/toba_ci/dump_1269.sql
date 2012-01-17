@@ -150,7 +150,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'0', --identificador
 	'1', --orden
 	'En un formulario común', --etiqueta
-	'Para definir una cascada entre dos efs, se edita el elemento \'esclavo\' y se le indica cual es el ef \'maestro\' del cual depende. [wiki_toba:Referencia/efs#Cascadas Ver más]', --descripcion
+	'Para definir una cascada entre dos efs, se edita el elemento ''esclavo'' y se le indica cual es el ef ''maestro'' del cual depende. [wiki_toba:Referencia/efs#Cascadas Ver más]', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

@@ -183,7 +183,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	NULL, --subclase
 	NULL, --subclase_archivo
-	'<table border=\"1\">     <caption><span style=\"color: rgb(255, 0, 255);\"><span style=\"font-size: large;\"><strong>T&iacute;tulo de la tabla</strong></span></span></caption>     <tbody>         <tr>             <td><p style=\"text-align: center;\"><span style=\"font-size: large;\">Esquema</span></p>             <p>[dep id=esquema]</p></td>             <td>[dep id=cuadro1]</td>         </tr>         <tr>             <td>[dep id=form1]</td>             <td>[dep id=form2]</td>         </tr>     </tbody> </table> <p>&nbsp;</p>', --template
+	'<table border="1">     <caption><span style="color: rgb(255, 0, 255);"><span style="font-size: large;"><strong>T&iacute;tulo de la tabla</strong></span></span></caption>     <tbody>         <tr>             <td><p style="text-align: center;"><span style="font-size: large;">Esquema</span></p>             <p>[dep id=esquema]</p></td>             <td>[dep id=cuadro1]</td>         </tr>         <tr>             <td>[dep id=form1]</td>             <td>[dep id=form2]</td>         </tr>     </tbody> </table> <p>&nbsp;</p>', --template
 	NULL, --template_impresion
 	'12000003'  --punto_montaje
 );

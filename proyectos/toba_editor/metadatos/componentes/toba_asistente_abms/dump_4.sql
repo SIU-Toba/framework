@@ -110,7 +110,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'7', --cuadro_formato
 	'E', --dt_tipo_dato
 	NULL, --dt_largo
-	'\"apex_dimension_seq\"', --dt_secuencia
+	'"apex_dimension_seq"', --dt_secuencia
 	'1', --dt_pk
 	'ef_editable_numero', --elemento_formulario
 	'0', --ef_obligatorio

@@ -159,9 +159,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT \'bb\', \'Bahía Blanca\' WHERE \'ar\' = \'%pais%\' AND \'ba\' = \'%provincia%\'
+	'SELECT ''bb'', ''Bahía Blanca'' WHERE ''ar'' = ''%pais%'' AND ''ba'' = ''%provincia%''
 UNION
-SELECT \'sj\', \'San Juan\' WHERE \'ar\' = \'%pais%\' AND \'sj\' = \'%provincia%\'', --carga_sql
+SELECT ''sj'', ''San Juan'' WHERE ''ar'' = ''%pais%'' AND ''sj'' = ''%provincia%''', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave
@@ -240,9 +240,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT \'ar\', \'%oculto% - Argentina\'
+	'SELECT ''ar'', ''%oculto% - Argentina''
 UNION
-SELECT \'br\', \'%oculto% - Brasil\'', --carga_sql
+SELECT ''br'', ''%oculto% - Brasil''', --carga_sql
 	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave
@@ -321,9 +321,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT \'ba\', \'%oculto% - Buenos Aires\' WHERE \'ar\' = \'%pais%\'
+	'SELECT ''ba'', ''%oculto% - Buenos Aires'' WHERE ''ar'' = ''%pais%''
 UNION
-SELECT \'sj\', \'%oculto% - San Juan\' WHERE \'ar\' = \'%pais%\'', --carga_sql
+SELECT ''sj'', ''%oculto% - San Juan'' WHERE ''ar'' = ''%pais%''', --carga_sql
 	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave

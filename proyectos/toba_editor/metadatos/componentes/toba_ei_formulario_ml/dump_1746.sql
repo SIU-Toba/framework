@@ -650,7 +650,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5', --orden
 	'Datos', --etiqueta
 	NULL, --etiqueta_estilo
-	'Si este flag esta desactivado los subcomponentes no validan datos ni procesan eventos (util en \'cancelar\'). Indica si el evento respeta el manejo de datos de todos los EI contenidos.', --descripcion
+	'Si este flag esta desactivado los subcomponentes no validan datos ni procesan eventos (util en ''cancelar''). Indica si el evento respeta el manejo de datos de todos los EI contenidos.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

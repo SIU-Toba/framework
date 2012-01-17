@@ -172,7 +172,7 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'SELECT identificador as dependencia
 FROM  apex_objeto_dependencias
 WHERE
-proyecto = \'%proyecto%\' AND objeto_consumidor = \'%objeto_ci%\' AND dep_id = \'%dep_id%\'', --sql
+proyecto = ''%proyecto%'' AND objeto_consumidor = ''%objeto_ci%'' AND dep_id = ''%dep_id%''', --sql
 	'0', --dato_estricto
 	NULL, --carga_dt
 	NULL, --carga_consulta_php

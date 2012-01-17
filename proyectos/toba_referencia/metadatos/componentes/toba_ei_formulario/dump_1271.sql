@@ -122,7 +122,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --analisis_cambios
 	'0', --no_imprimir_efs_sin_estado
 	'0', --resaltar_efs_con_estado
-	'<table style=\"\">
+	'<table style="">
     <tbody>
         <tr>
             <td>[ef id=id]</td>
@@ -137,12 +137,12 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
         <tr>
             <td>[ef id=otra_descripcion]</td>
             <td>[ef id=comentarios]</td>
-            <td style=\"text-align: left;\">[ef id=otro]</td>
+            <td style="text-align: left;">[ef id=otro]</td>
         </tr>
     </tbody>
 </table>
 <p>&nbsp;</p>
-<p style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 128);\">Texto</span> <span style=\"color: rgb(255, 0, 255);\">insertado</span> <span style=\"color: rgb(204, 153, 255);\">con</span> <span style=\"color: rgb(255, 0, 0);\">fck_editor</span></p>', --template
+<p style="text-align: center;"><span style="color: rgb(0, 0, 128);">Texto</span> <span style="color: rgb(255, 0, 255);">insertado</span> <span style="color: rgb(204, 153, 255);">con</span> <span style="color: rgb(255, 0, 0);">fck_editor</span></p>', --template
 	NULL  --template_impresion
 );
 

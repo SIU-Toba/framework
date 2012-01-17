@@ -262,7 +262,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'SELECT ap, descripcion FROM apex_admin_persistencia
-WHERE categoria = \'R\'', --carga_sql
+WHERE categoria = ''R''', --carga_sql
 	'instancia', --carga_fuente
 	NULL, --carga_lista
 	'ap', --carga_col_clave

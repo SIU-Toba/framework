@@ -269,7 +269,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2', --orden
 	'Validación remota', --etiqueta
 	'Esta pantalla presenta dos validaciones pedidas al servidor:<ul>
-<li>Ante cada cambio de fecha inmediatamente se hace un pedido asincronico de validación por feriado (ingresar fechas como <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"25/12/2007\")\'>25/12/2007</a> o <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"9/7/2008\")\'>9/7/2008</a>). 
+<li>Ante cada cambio de fecha inmediatamente se hace un pedido asincronico de validación por feriado (ingresar fechas como <a href=''#'' onclick=''ejemplo_cambiar_fecha("25/12/2007")''>25/12/2007</a> o <a href=''#'' onclick=''ejemplo_cambiar_fecha("9/7/2008")''>9/7/2008</a>). 
 <li>Cuando el usuario decide confirmar los cambios se envían todas las fechas al servidor para que se validen en conjunto, pudiendo detener el proceso de submit del formulario.
 </ul>
 Para ambas validaciones se utiliza la llamada javascript <strong>this.ajax()</strong> construyendo la respuesta en el server con <strong>$respuesta->set($salida)</strong>.<br><br>

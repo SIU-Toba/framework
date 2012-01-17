@@ -103,7 +103,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'fila', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_molde_operacion_abms_fila_seq\"', --secuencia
+	'"apex_molde_operacion_abms_fila_seq"', --secuencia
 	'-1', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db

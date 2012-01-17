@@ -131,7 +131,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'relacion_tablas', --columna
 	'E', --tipo
 	'1', --pk
-	'\"apex_relacion_tablas_seq\"', --secuencia
+	'"apex_relacion_tablas_seq"', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
