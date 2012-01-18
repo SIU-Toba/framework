@@ -98,6 +98,18 @@ class toba_migracion_2_2_0 extends toba_migracion
 				  ON apex_usuario
 				  FOR EACH ROW
 				  EXECUTE PROCEDURE sp_old_pwd_copy();';
+
+		//Tabla para incluir sets de prueba para los perfiles de datos.
+		$sql[] = 'CREATE TABLE apex_perfil_datos_set_prueba
+				(		
+					proyecto					varchar(15)		NOT NULL,
+					fuente_datos				varchar(20)		NOT NULL,
+					lote						TEXT			NULL,
+					seleccionados				TEXT			NULL, 
+					parametros				TEXT			NULL,
+					CONSTRAINT	"apex_perfil_datos_set_prueba_pk" PRIMARY KEY ("proyecto","fuente_datos"),
+					CONSTRAINT	"apex_perfil_datos_set_prueba_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto", "fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+				);';
 		
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
@@ -125,6 +137,27 @@ class toba_migracion_2_2_0 extends toba_migracion
 				$this->elemento->get_db()->ejecutar($sqls);
 			}
 		}		
+	}
+
+	function proyecto__migrar_lote_pruebas_perfil_datos()
+	{
+		$db = $this->elemento->get_db();
+		$proyecto = $this->elemento->get_id();
+		$sql = "SELECT fuente_datos, usuario, clave, base FROM apex_fuente_datos WHERE usuario ILIKE '%select%' OR  usuario ILIKE '%FROM%' ;" ;
+		$fuentes_a_migrar = $db->consultar($sql);
+		if (! empty($fuentes_a_migrar)) {			
+			foreach ($fuentes_a_migrar as $fuente) {
+				//Inserto el registro correspondiente en la tabla nueva
+				$sql_in = 'INSERT INTO apex_perfil_datos_set_prueba (proyecto, fuente_datos, lote, seleccionados, parametros) VALUES (';
+				$sql_in .= $db->quote($proyecto) . ',' .  $db->quote($fuente['fuente_datos']) .',';
+				$sql_in .= $db->quote($fuente['usuario']). ',' . $db->quote($fuente['clave']) . ',' . $db->quote($fuente['base']) . ');';
+				$db->ejecutar($sql_in);
+				
+				//Elimino los valores de la otra tabla, no incide ya que se sacan de bases.ini los reales
+				$sql_up = 'UPDATE apex_fuente_datos SET usuario = NULL, clave = NULL, base = NULL WHERE proyecto = '. $db->quote($proyecto) . ' AND fuente_datos = ' . $db->quote($fuente['fuente_datos']). ';' ;
+				$db->ejecutar($sql_up);
+			}
+		}
 	}
 	
 	function proyecto__alerta_fuente_datos()

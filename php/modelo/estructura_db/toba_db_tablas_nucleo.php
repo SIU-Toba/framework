@@ -13,10 +13,11 @@ class toba_db_tablas_nucleo
   5 => 'apex_elemento_formulario',
   6 => 'apex_solicitud_obs_tipo',
   7 => 'apex_pagina_tipo',
-  8 => 'apex_clase',
-  9 => 'apex_clase_relacion',
-  10 => 'apex_msg',
-  11 => 'apex_objeto_ei_filtro_tipo_col',
+  8 => 'apex_perfil_datos_set_prueba',
+  9 => 'apex_clase',
+  10 => 'apex_clase_relacion',
+  11 => 'apex_msg',
+  12 => 'apex_objeto_ei_filtro_tipo_col',
 );
 	}
 
@@ -459,6 +460,29 @@ class toba_db_tablas_nucleo
     4 => 'descripcion_corta',
     5 => 'parametros',
     6 => 'estilo_defecto',
+  ),
+);
+	}
+
+	static function apex_perfil_datos_set_prueba()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'fuente_datos',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'fuente_datos, proyecto',
+  'zona' => 'general',
+  'desc' => 'Lote de pruebas para los perfiles de datos de la fuente',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'fuente_datos',
+    2 => 'lote',
+    3 => 'seleccionados',
+    4 => 'parametros',
   ),
 );
 	}

@@ -493,3 +493,23 @@ CREATE TABLE	apex_log_tarea
 );
 
 --#################################################################################################
+CREATE TABLE apex_perfil_datos_set_prueba
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: fuente_datos
+--: clave_proyecto: proyecto
+--: clave_elemento: fuente_datos, proyecto
+--: zona: general
+--: desc: Lote de pruebas para los perfiles de datos de la fuente
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(		
+	proyecto					varchar(15)		NOT NULL,
+	fuente_datos				varchar(20)		NOT NULL,
+	lote						TEXT			NULL,
+	seleccionados				TEXT			NULL, 
+	parametros				TEXT			NULL,
+	CONSTRAINT	"apex_perfil_datos_set_prueba_pk" PRIMARY KEY ("proyecto","fuente_datos"),
+	CONSTRAINT	"apex_perfil_datos_set_prueba_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto", "fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
