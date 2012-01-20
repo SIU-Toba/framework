@@ -11,12 +11,12 @@ class ci_prueba extends toba_ci
 	protected $pruebas = array();	
 	
 	function ini()
-	{
+	{		
 		$this->proyecto = toba_editor::get_proyecto_cargado();				//Obtengo el proyecto cargado en el editor
 		if ($editable = toba::zona()->get_editable()) {
 			$this->fuente = $editable[1];								//La fuente a  editar viene por la zona
 			if(! $this->dep('datos')->esta_cargada() ) {
-				$this->dep('datos')->cargar(array('fuente_datos'=>$this->fuente));
+				$this->dep('datos')->cargar(array('fuente_datos'=>$this->fuente, 'proyecto' => $this->proyecto));
 				$datos = $this->dep('datos')->get();
 				// Si no hay lote, saco la pantalla de la prueba
 				if(trim($datos['lote']) == '') {
