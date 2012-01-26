@@ -22,6 +22,9 @@ class comando_servicios_web extends comando_toba
 	 */
 	function opcion__generar_doc()
 	{
+		$param = $this->get_parametros();
+		$forzar_reemplazo = isset($param["-r"]) ? ($param["-r"] == 1) : false;
+				
 		$prefijo = "http://localhost";
 		$sufijo = "/servicios.php/";
 		$proyecto =$this->get_proyecto();
@@ -31,8 +34,12 @@ class comando_servicios_web extends comando_toba
 			mkdir($carpeta_doc, 0777, true);
 		}
 		$this->consola->mensaje("Generando documentacion...");		
-		copy(toba_dir(). '/php/modelo/var/wsdl-viewer.xsl', $carpeta_doc.'/wsdl-viewer.xsl');
-		copy(toba_dir(). '/php/modelo/var/wsdl-viewer.css', $carpeta_doc.'/wsdl-viewer.css');
+		if ($forzar_reemplazo || !file_exists($carpeta_doc.'/wsdl-viewer.xsl')) {
+			copy(toba_dir(). '/php/modelo/var/wsdl-viewer.xsl', $carpeta_doc.'/wsdl-viewer.xsl');
+		}
+		if ($forzar_reemplazo || !file_exists($carpeta_doc.'/wsdl-viewer.css')) {		
+			copy(toba_dir(). '/php/modelo/var/wsdl-viewer.css', $carpeta_doc.'/wsdl-viewer.css');
+		}
 		$include = '<?xml-stylesheet type="text/xsl" href="wsdl-viewer.xsl"?>';
 		$search = '"utf-8"?>';
 		$index_page = "<html><head>
