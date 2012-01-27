@@ -14,8 +14,8 @@ class toba_migracion_2_0_0 extends toba_migracion
 		$sql = array();
 		
 		// AP MULTITABLA
-		$sql[] = 'ALTER TABLE apex_proyecto ADD extension_toba boolean;';
-		$sql[] = 'ALTER TABLE apex_proyecto ADD extension_proyecto boolean;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD extension_toba boolean  DEFAULT FALSE;';
+		$sql[] = 'ALTER TABLE apex_proyecto ADD extension_proyecto boolean  DEFAULT FALSE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD tabla_ext text;';
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_col ADD tabla varchar(200);';
