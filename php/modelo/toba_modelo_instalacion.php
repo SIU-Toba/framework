@@ -401,15 +401,19 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 
 	static function crear( $id_grupo_desarrollo, $alias_nucleo )
 	{
-		toba_modelo_instalacion::crear_directorio();
-		toba_modelo_instalacion::actualizar_version( toba_modelo_instalacion::get_version_actual() );
+		self::crear_directorio();
+		self::actualizar_version( toba_modelo_instalacion::get_version_actual() );
 		$apex_clave_get = md5(uniqid(rand(), true)); 
 		$apex_clave_db = md5(uniqid(rand(), true)); 
 		$editor = toba_manejador_archivos::es_windows() ? 'start' : '';
-		toba_modelo_instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo );
-		toba_modelo_instalacion::crear_info_bases();
-		toba_modelo_instalacion::crear_directorio_proyectos();
+		self::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo );
+		copy(toba_dir(). '/php/modelo/var/smtp.ini',	self::dir_base().'/smtp.ini');
+		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
+		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
+		self::crear_info_bases();
+		self::crear_directorio_proyectos();
 		self::crear_archivo_apache($alias_nucleo);
+		
 	}
 	
 	static function crear_archivo_apache($alias_nucleo)
@@ -578,8 +582,10 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->agregar_entrada( 'url', $url );
 		$ini->agregar_entrada( 'es_produccion', '0');
+		$ini->agregar_entrada( 'autenticacion', 'toba  ;Disponibles: toba|openid|ldap');		
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');
+
 		}
 		$ini->guardar( self::archivo_info_basica() );
 		toba_logger::instancia()->debug("Creado archivo ".self::archivo_info_basica());

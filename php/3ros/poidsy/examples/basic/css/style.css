@@ -1,0 +1,365 @@
+/* Main styles */
+* 
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Sans Unicode",sans-serif, arial;
+	font-size: 12px;
+}
+
+body 
+{
+background: #EBECED;
+color: #000000;
+width: 100%;
+margin: 0;
+padding: 0;
+}
+
+/* Image styles */
+img 
+{ 
+	border: none;
+}
+
+/* Link styles */
+a 
+{
+	color: #3D3D3D;
+	text-decoration: none;
+}
+
+a:hover 
+{
+	color: #000000;
+}
+
+a:visited 
+{
+	text-decoration: none;
+}
+
+:link, :visited 
+{
+	text-decoration: none;
+	color: #3D3D3D;
+	border-bottom: 0px;
+}
+
+:link:hover, :visited:hover 
+{
+	background-color: transparent;
+	color: #000000;
+}
+
+/* Heading and paragraph styles */
+h1 :link, h1 :visited ,h2 :link, h2 :visited, h3 :link, h3 :visited,
+h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited 
+{
+	color: inherit;
+}
+
+h1, h2, h3, h4, h5 
+{
+	font-weight: normal;
+	padding: 10px;
+}
+
+h1 
+{ 
+	font-size: 2.0em; 
+	font-weight: bold; 
+}
+
+h2 
+{ 
+	font-size: 1.7em; 
+	padding-left: 15px;
+}
+
+h3 
+{ 
+	font-size: 1.5em; 
+	padding-left: 20px;
+}
+
+h4 
+{ 
+	font-size: 1.3em; 
+	padding-left: 25px;
+}
+
+h5 
+{ 
+	font-size: 1.1em; 
+	padding-left: 30px;
+}
+
+p 
+{
+	padding-bottom: 1.2em;
+	padding-bottom: 1.0em;
+	padding: 10px;
+	padding-left: 30px;
+}
+
+ul, ol 
+{ 
+	padding: 0px;
+	padding-left: 10px;
+	list-style-position: inside;
+	overflow: auto;
+}
+
+/* Forms */
+form
+{
+background-color: #E4E5E6;
+border: 2px solid #8A8A8A;
+margin-left: auto;
+margin-right: auto;
+margin-top: 20px;
+padding-bottom: 1em;
+width: 25%;
+}
+
+fieldset
+{
+border: 1px solid #E6E6E6;
+margin: 0;
+padding: 0.5em;
+width: 100%; 
+}
+
+legend 
+{ 
+	color: #3D3D3D; 
+	padding: 0 .25em; 
+	font-size: 90%; 
+	font-weight: bold; 
+}
+
+label 
+{
+    float: left;
+    width: 35%;
+    margin-right: 0.5em;
+    padding-top: 0.2em;
+    text-align: right;
+    font-style: italic;
+}
+
+input, textarea, select 
+{ 
+	margin: 2px 
+}
+
+input, select 
+{ 
+	vertical-align: middle;	
+}
+
+input[type=button], input[type=submit], input[type=reset] 
+{
+	background: #E6E6E6;
+	color: #000000;
+	border: 1px outset #000000;
+	padding: .1em .5em;
+
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover 
+{
+	color: #8B2942;
+}
+
+input[type=button][disabled], input[type=submit][disabled],
+input[type=reset][disabled] 
+{
+	background: #FFFFFF;
+	border: 1px outset #E6E6E6;
+	border-style: solid;
+	color: #000000;
+}
+
+select, input[type=text], input[type=password], input.textwidget, textarea
+{ 
+border: 1px solid #8a8a8a;
+color: #111111;
+}
+
+input[type=text], input[type=password], input.textwidget 
+{ 
+	padding: .25em .5em 
+}
+
+select:focus, input[type=text]:focus, input[type=password]:focus, input.textwidget:focus, textarea:focus 
+{
+	border: 1px solid #000000;
+}
+
+/* OpenASelect styles */
+.error
+{
+	color: red; 
+	font-weight: bold;
+	background: #fdc;
+	padding: .5em;
+	margin: 1em 0;
+	margin-right: auto;
+	margin-left: 20px;
+	width: 60%;
+}
+
+.warning
+{
+	color: orange; 
+	font-weight: bold;
+	background: #fdc;
+	padding: .5em;
+ 	margin: 20px auto;
+	width: 60%;
+}
+
+.warning a
+{
+	color: orange;
+	text-decoration: underline;
+}
+
+.oaForm
+{
+	padding-top: 20px;	
+}
+
+.imageSelection fieldset
+{
+	border: 0px;
+}
+
+.imageSelection ul
+{
+	list-style-type: none;
+}
+
+.imageSelection li a, .imageSelection li img
+{
+	vertical-align: middle;
+	line-height: 60px;
+}
+
+.imageSelection img
+{
+	opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.imageSelection img:hover
+{
+	opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+/* OpenASelect specific elements */
+#header
+{
+/*
+background:  #EBECED url("/openaselect/etc/img/company.png") no-repeat;
+*/
+background:  #EBECED;
+background-position: 10px center;
+text-align: center;
+}
+
+#header img
+{
+margin-bottom: 40px;
+margin-top: 60px;
+}
+
+#subheader
+{
+background-color: #494A67;
+color: #FFFFFF;
+line-height: 40px;
+display:none;
+}
+
+#content
+{
+background: none repeat scroll 0 0 #EBECED;
+text-align: center;
+min-height: 400px;
+margin: 0px;
+}
+
+#footer
+{
+	border-top: 2px solid #874E4E;
+	vertical-align: top;
+}
+
+#footer1,#footer2,#footer3 {
+	float: left;
+	width: 33%;
+}
+
+#footer1
+{
+	text-align: left;
+	padding: 10px 0px 10px 5px;
+}
+
+#footer2
+{
+	text-align: center;
+	padding: 10px 0px 10px 0px;
+}
+
+#footer3
+{
+	text-align: right;
+}
+
+#logout_form input[type=text]
+{
+	width: 50%;
+	background: transparent;
+}
+
+#selectionForm
+{
+
+}
+
+#userinfo_form fieldset 
+{ 
+	width: 90%;	
+}
+
+#userinfo_form input[type=text]
+{
+	width: 60%;
+	background: transparent;
+}
+
+#userinfo_form label 
+{
+    width: 300px;
+}
+
+#userinfo_form .attributeName
+{
+	overflow: hidden;
+}
+
+#wait 
+{
+	text-align: center;
+	font-weight: bold;
+	padding: .5em;
+	margin: 1em 0;
+	margin-right: auto;
+	margin-left: 20px;
+	width: 60%;
+}

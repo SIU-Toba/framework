@@ -5,9 +5,21 @@ class toba_autenticacion_ldap implements toba_autenticable
 	protected $server;
 	protected $dn;
 	
-	function __construct($server, $dn) {
+	function __construct($server=null, $dn=null) {
 		$this->server = $server;
 		$this->dn = $dn;
+		
+		//--- Levanto la CONFIGURACION de ldap.ini
+		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/ldap.ini';
+		if (is_file( $archivo_ini_instalacion ) ) {
+			$datos = parse_ini_file( $archivo_ini_instalacion,true);
+			if (isset($datos['basicos']['server'])) {
+				$this->server = $datos['basicos']['server']; 
+			}
+			if (isset($datos['basicos']['dn'])) {
+				$this->dn = $datos['basicos']['dn'];
+			}			
+		}
 	}
 	
 	/**

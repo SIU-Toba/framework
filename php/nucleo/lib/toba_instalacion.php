@@ -54,6 +54,18 @@ class toba_instalacion
 	}
 	
 	/**
+	* Retorna el metodo de autenticacion toba|ldap|openid
+	*/
+	function get_tipo_autenticacion()
+	{
+		if (isset($this->memoria['autenticacion'])) {
+			return $this->memoria['autenticacion'];
+		} else {
+			return 'toba';
+		}
+	}	
+	
+	/**
 	 * Retorna un número que representa al grupo de trabajo y con el cual se indexaran los metadatos
 	 * Pensado para poder hacer trabajos concurrentes entre grupos de trabajo geograficamente distribuidos
 	 *

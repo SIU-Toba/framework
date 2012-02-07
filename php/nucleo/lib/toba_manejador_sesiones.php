@@ -98,6 +98,7 @@ class toba_manejador_sesiones
 	 */
 	function logout($observaciones=null)
 	{
+		unset($_SESSION['openid']);
 		if ( !($this->existe_sesion_activa() && $this->existe_usuario_activo()) ) {
 			throw new toba_error('No existe una sesion de la cual desloguearse.');
 		}
@@ -130,6 +131,22 @@ class toba_manejador_sesiones
 	function set_autenticacion(toba_autenticable $autenticacion)
 	{
 		$this->autenticacion = $autenticacion;
+	}
+	
+	function get_autenticacion() {
+		if (toba::instalacion()->get_tipo_autenticacion() == 'toba') {
+			return null;
+		}
+		if (!isset($this->autenticacion)) {
+			switch (toba::instalacion()->get_tipo_autenticacion()) {
+				case 'ldap':
+					$this->set_autenticacion(new toba_autenticacion_ldap());
+					break;
+				case 'openid':
+					$this->set_autenticacion(new toba_autenticacion_openid());
+			}
+		}		
+		return $this->autenticacion;
 	}
 
 	//------------------------------------------------------------------
@@ -691,6 +708,10 @@ class toba_manejador_sesiones
 		}
 	}
 	
+	public function invocar_autenticar($id_usuario, $clave, $datos_iniciales) {
+		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );		
+	}
+	
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
@@ -783,10 +804,10 @@ class toba_manejador_sesiones
 			throw new toba_error('El usuario se encuentra bloqueado. Contáctese con el administrador');
 		}
 		// Disparo la autenticacion
-		if (isset($this->autenticacion)) {
+		if ($this->get_autenticacion() != null) {
 			$estado = $this->autenticacion->autenticar($id_usuario, $clave, $datos_iniciales);
 		} else {
-			$estado = $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
+			$estado = $this->invocar_autenticar($id_usuario, $clave, $datos_iniciales);
 		}
 		if(!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';

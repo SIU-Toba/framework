@@ -1,0 +1,68 @@
+# Welcome to Poidsy 0.6 ########################################################
+
+Poidsy is a PHP OpenID consumer (or *relaying party* in OpenID 2.0 parlance). It
+is designed to be extremely simple for developers to use, hiding as much of the
+OpenID logic as possible.
+
+## Prerequisites ###############################################################
+
+Poidsy requires:
+
+ * PHP 5.2.10 or above, and
+ * `allow_url_fopen` set to `true` in PHP's configuration
+
+To associate with identity providers (as opposed to using "dumb"
+authentication), it needs:
+
+ * The `hash_hmac` function (available by default in PHP 5.2.0 unless explicitly
+   disabled), and
+ * The ability to write to the `keycache.php` file in the Poidsy directory
+
+Finally, to enable Diffie-Hellman key exchange, it also needs:
+
+ * The `gmp` library (preferred), or
+ * The `bcmath` library.
+
+You can check all of these at a glance by extracting the Poidsy distribution (or
+checking out the source code) and viewing the bundled `test.php` page in your
+browser.
+
+## Installation ################################################################
+
+Poidsy requires no explicit installation. Simple extract all of the files and
+you're ready to go. If you extract the files to a directory accessible via your
+webserver (you don't need to, if you don't want), the included demo consumers
+should work out of the box.
+
+## Using Poidsy ################################################################
+
+Instructions for using Poidsy and integrating it into an existing authentication
+solution are available on the website:
+
+    http://apps.md87.co.uk/openid/instructions.php
+
+In short, you need to include Poidsy's `processor.php` script whenever an OpenID
+action needs to be performed. Usually, this will be when the user first gives
+you their identity and you want to verify it, and when the user's identity
+provider sends them back to you with results.
+
+Poidsy uses PHP sessions to store temporary data and to expose relevant
+information to you once the identification procedure is complete. You therefore
+need to make sure you call `session_start()` before including the processor, and
+when you need to use any results.
+
+A concise example of a stand-alone consumer is available in the `examples/basic`
+directory.
+
+## Contributing, reporting bugs, etc ###########################################
+
+Poidsy is open source software, released under the MIT license. The latest
+source code is available via GitHub: http://github.com/csmith/Poidsy. Bugs and
+feature requests are logged on the issue tracker in the GitHub project. If
+you've made changes to Poidsy and are willing to share them, please push them
+and use the 'Pull Request' functionality in GitHub. Alternatively, feel free to
+e-mail me patches.
+
+If you need help with Poidsy, or want to get in touch, I can be found on IRC
+in #MDbot on Quakenet (irc.quakenet.org), or can be reached via e-mail at
+chris@dmdirc.com.

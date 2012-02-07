@@ -1,0 +1,382 @@
+/* Main styles */
+* 
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Sans Unicode",sans-serif, arial;
+	font-size: 11px;
+}
+
+body 
+{
+	background:  #FFFFFF;
+	color: #000000;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Image styles */
+img 
+{ 
+	border: none;
+}
+
+/* Link styles */
+a 
+{
+	color: #3D3D3D;
+	text-decoration: none;
+}
+
+a:hover 
+{
+	color: #000000;
+}
+
+a:visited 
+{
+	text-decoration: none;
+}
+
+:link, :visited 
+{
+	text-decoration: none;
+	color: #3D3D3D;
+	border-bottom: 0px;
+}
+
+:link:hover, :visited:hover 
+{
+	background-color: transparent;
+	color: #000000;
+}
+
+/* Heading and paragraph styles */
+h1 :link, h1 :visited ,h2 :link, h2 :visited, h3 :link, h3 :visited,
+h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited 
+{
+	color: inherit;
+}
+
+h1, h2, h3, h4, h5 
+{
+	font-weight: normal;
+	padding: 2px;
+}
+
+h1 
+{ 
+	font-size: 1.5em; 
+	font-weight: bold; 
+}
+
+h2 
+{ 
+	font-size: 1.4em; 
+}
+
+h3 
+{ 
+	font-size: 1.3em; 
+}
+
+h4 
+{ 
+	font-size: 1.2em; 
+}
+
+h5 
+{ 
+	font-size: 1.1em; 
+}
+
+
+p 
+{
+	padding-bottom: 0.5em;
+	padding-bottom: 0.5em;
+	padding: 2px;
+}
+
+ul, ol 
+{ 
+	padding: 0px;
+	padding-left: 5px;
+	list-style-position: inside;
+	overflow: auto;
+}
+
+/* Forms */
+form 
+{
+	margin-left: 2px; 
+	margin-right: 2px; 
+}
+
+
+fieldset 
+{ 
+	border: 1px solid #E6E6E6; 
+	padding: .5em; 
+	margin: 0; 
+	margin-bottom: 10px; 
+
+}
+
+legend 
+{ 
+	color: #3D3D3D; 
+	padding: 0 .25em; 
+	font-size: 90%; 
+	font-weight: bold; 
+    white-space: normal;
+}
+
+label 
+{
+    float: left;
+    margin-right: 0.5em;
+    padding-top: 0.2em;
+    text-align: right;
+    font-style: italic;
+}
+
+input, textarea, select 
+{ 
+	margin: 2px;
+}
+
+input, select 
+{ 
+	vertical-align: middle;	
+}
+
+input[type=button], input[type=submit], input[type=reset] 
+{
+	background: #E6E6E6;
+	color: #000000;
+	border: 1px outset #000000;
+	padding: .1em .5em;
+
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover 
+{
+	color: #8B2942;
+}
+
+input[type=button][disabled], input[type=submit][disabled],
+input[type=reset][disabled] 
+{
+	background: #FFFFFF;
+	border: 1px outset #E6E6E6;
+	border-style: solid;
+	color: #000000;
+}
+
+select, input[type=text], input[type=password], input.textwidget, textarea 
+{ 
+	border: 1px solid #E6E6E6;
+	color: #111111;
+}
+
+input[type=text], input[type=password], input.textwidget 
+{ 
+	padding: .25em;
+	width: 95%; 
+}
+
+select:focus, input[type=text]:focus, input[type=password]:focus, input.textwidget:focus, textarea:focus 
+{
+	border: 1px solid #000000;
+}
+
+
+/* OpenASelect styles */
+.error
+{
+	color: red; 
+	font-weight: bold;
+	background: #fdc;
+	padding: .2em;
+	margin: 1em 0;
+	margin-right: 5px;
+	margin-left: 5px;
+
+}
+
+.warning
+{
+	color: orange; 
+	font-weight: bold;
+	background: #fdc;
+	padding: .2em;
+	margin: 1em 0;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.warning a
+{
+	color: orange;
+	text-decoration: underline;
+}
+
+.oaForm
+{
+	padding-top: 5px;	
+}
+
+.imageSelection fieldset
+{
+	border: 0px;
+}
+
+.imageSelection ul
+{
+	list-style-type: none;
+}
+
+.imageSelection li a, .imageSelection li img
+{
+	vertical-align: middle;
+	line-height: 60px;
+}
+
+.imageSelection img
+{
+	opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.imageSelection img:hover
+{
+	opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+/* OpenASelect specific elements */
+#header
+{
+	/*
+	background:  #E6E6E6 url("/openaselect/etc/img/company.png") no-repeat;
+	*/	
+	background:  #E6E6E6; 
+	background-position: 10px center;
+	text-align: right; 
+}
+
+#header img
+{
+	margin: 5px;
+	width: 40px;
+}
+
+#subheader
+{
+	background-color: #494A67;
+	color: #FFFFFF;
+	line-height: 20px;
+}
+
+#content
+{
+	background:  transparent;
+	margin: 5px;	
+}
+
+#contentMain legend span
+{
+	display: block;  
+	width: 100%;
+}
+
+#footer
+{
+	border-top: 2px solid #874E4E;
+	vertical-align: top;
+}
+
+#footer1,#footer3 {
+	float: left;
+	width: 0%;
+}
+
+#footer1
+{
+	display:none;
+	text-align: left;
+	padding: 10px 0px 10px 5px;
+}
+
+#footer2
+{
+	text-align: center;
+        width: 100%;
+}
+
+#footer3
+{
+	display:none;
+	text-align: right;
+}
+
+#logout_form input[type=text]
+{
+	width: 50%;
+	background: transparent;
+}
+
+#selectionForm
+{
+
+}
+
+#userinfo_form fieldset 
+{ 
+	width: 90%;	
+}
+
+#userinfo_form input[type=text]
+{
+	background: transparent;
+}
+
+#userinfo_form label 
+{
+    text-align: left;
+    width: 97%;
+}
+
+#userinfo_form ul
+{
+	float:left;
+	width: 97%;
+}
+
+#userinfo_form .attributeName
+{
+	overflow: hidden;
+}
+
+#wait 
+{
+	text-align: center;
+	font-weight: bold;
+	padding: .5em;
+	margin: 1em 0;
+	margin-right: auto;
+	margin-left: 20px;
+
+}
+
+#wait img
+{
+ 	width: 50px;
+}
+
+#logout_form input
+{
+	bottom: 0;
+}

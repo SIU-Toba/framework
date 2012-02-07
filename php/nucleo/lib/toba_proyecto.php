@@ -152,7 +152,6 @@ class toba_proyecto
 			return toba::instalacion()->get_version();
 		}
 	}	
-	
 	/**
 	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
 	 * @return toba_db
@@ -275,7 +274,7 @@ class toba_proyecto
 			return $this->get_www('temp');
 		}
 	}
-	
+
 	//--------------  Carga dinamica de COMPONENTES --------------
 
 	function get_definicion_dependencia($id_componente, $proyecto=null)
