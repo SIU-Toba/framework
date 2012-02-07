@@ -26,7 +26,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --usuario_anonimo_desc
 	NULL, --usuario_anonimo_grupos_acc
 	NULL, --validacion_intentos
-	NULL, --validacion_intentos_min
+	'5', --validacion_intentos_min
 	'1', --validacion_bloquear_usuario
 	'0', --validacion_debug
 	NULL, --sesion_tiempo_no_interac_min

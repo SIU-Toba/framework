@@ -111,10 +111,17 @@ class toba_migracion_2_2_0 extends toba_migracion
 					CONSTRAINT	"apex_perfil_datos_set_prueba_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto", "fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 				);';
 		
+		$sql[] = 'ALTER TABLE apex_proyecto ALTER COLUMN validacion_intentos_min SET DEFAULT 5;';
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);
 
 		$sql = "SET CONSTRAINTS ALL DEFERRED;";
+		$this->elemento->get_db()->ejecutar($sql);
+	}
+	
+	function instancia__setear_ventana_tiempo_default ()
+	{	//Pongo 5 minutos como tiempo minimo de ventana para errores de login
+		$sql[] = 'UPDATE apex_proyecto SET validacion_intentos_min = 5 WHERE validacion_intentos_min IS NULL;';		
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 		

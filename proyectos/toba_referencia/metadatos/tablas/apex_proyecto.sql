@@ -26,7 +26,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'Usuario Anónimo', --usuario_anonimo_desc
 	'admin', --usuario_anonimo_grupos_acc
 	'3', --validacion_intentos
-	NULL, --validacion_intentos_min
+	'5', --validacion_intentos_min
 	'2', --validacion_bloquear_usuario
 	'0', --validacion_debug
 	NULL, --sesion_tiempo_no_interac_min
