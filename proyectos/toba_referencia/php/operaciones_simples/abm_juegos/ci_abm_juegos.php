@@ -34,8 +34,6 @@ class ci_abm_juegos extends toba_ci
 
 	function evt__formulario__alta($datos)
 	{
-		print_r($_POST);
-		die;
 		$this->dep('datos')->nueva_fila($datos);
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();
