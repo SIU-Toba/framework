@@ -84,16 +84,16 @@ class toba_ei_grafico extends toba_ei
 		echo toba_form::hidden($this->_submit, '');
 
 		$this->s__path = toba_dir().'/temp/'.uniqid().'.png';
-        try {
-        $this->_conf->imagen__generar($this->s__path);
-        } catch (JpGraphException $e) {
-            
-            throw new toba_error("TOBA EI GRAFICO: Error en la librería jpgraph. 
-                El error reportado fue el siguiente: '".$e->getMessage()."'. Si este
-                es un error de fuentes intente definir el path de las fuentes en
-                su sistema a través de la entrada fonts_path en el archivo instancia.ini.
-                Ejemplo: 'fonts_path = /usr/share/fonts/truetype/msttcorefonts/'");
-        }
+		try {
+			$this->_conf->imagen__generar($this->s__path);
+		} catch (JpGraphException $e) {
+
+			throw new toba_error("TOBA EI GRAFICO: Error en la librería jpgraph. 
+				El error reportado fue el siguiente: '".$e->getMessage()."'. Si este
+				es un error de fuentes intente definir el path de las fuentes en
+				su sistema a través de la entrada fonts_path en el archivo instancia.ini.
+				Ejemplo: 'fonts_path = /usr/share/fonts/truetype/msttcorefonts/'");
+		}
 		
 
 		$destino = array($this->_id);
@@ -116,18 +116,16 @@ class toba_ei_grafico extends toba_ei
 		fclose($handle);
 		unlink($this->s__path);
 	}
-/*
+	
+	/**
+	 * Realiza la exportacion a pdf del gráfico
+	 * @param toba_vista_pdf $salida 
+	 */
 	function vista_pdf(toba_vista_pdf $salida )
 	{
+		$this->_conf->imagen__generar($this->s__path);
 		$salida->insertar_imagen($this->s__path);
 	}
-
-	function destruir()
-	{
-		parent::destruir();
-		unlink($this->s__path);
-	}
-*/
 }
 
 ?>
