@@ -250,6 +250,7 @@ class toba_ef_html extends toba_ef
 	protected $ancho;
 	protected $alto;
 	protected $botonera;
+	protected $templates_ck;
 	protected $fckeditor;
 	protected $colapsada = false;
 
@@ -272,31 +273,31 @@ class toba_ef_html extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = "fckeditor/fckeditor";
+		$consumo[] = "ckeditor/ckeditor";
 		return $consumo;
 	}
 	
 	/**
 	 * Retorna el objeto fckeditor para poder modificarlo según su propia API
+	 * @param mixed valor a pasarle al editor
 	 * @return fckeditor
 	 */
-	function get_editor()
+	function get_editor($valor)
 	{
+		$opciones = array();
 		if (! isset($this->fckeditor)) {
-			require_once(toba_dir().'/www/js/fckeditor/fckeditor_php5.php');
-			$url = toba_recurso::url_toba().'/js/fckeditor/';
-			$this->fckeditor = new FCKeditor($this->id_form) ;
-			$this->fckeditor->BasePath = $url;
-			$this->fckeditor->Width = $this->ancho;
-			$this->fckeditor->Height = $this->alto;
-			$this->fckeditor->ToolbarSet = $this->botonera;
-			$this->fckeditor->Config['SkinPath'] = $url.'editor/skins/silver/';
-			$this->fckeditor->Config['DefaultLanguage'] = 'es';					
-		} elseif ($this->controlador() instanceof toba_ei_formulario_ml) {	
-			//Si es un ML tengo que cambiar el id del ef, ya que depende de la fila.
-			$this->fckeditor->InstanceName = $this->id_form;
-		}
-		return $this->fckeditor;		
+			require_once(toba_dir().'/www/js/ckeditor/ckeditor_php5.php');
+			$url = toba_recurso::url_toba().'/js/ckeditor/';
+			$this->fckeditor = new CKeditor($url) ;
+			$opciones['width'] = $this->ancho;
+			$opciones['height'] = $this->alto;
+			$opciones['toolbar'] = $this->botonera;
+			$opciones['skin'] = 'kama';
+			if (isset($this->templates_ck)) {
+				$opciones['templates_files'] = $this->templates_ck;
+			}
+		} 
+		return $this->fckeditor->editor($this->id_form, $valor, $opciones);
 	}
 	
 	function set_barra_colapsada($colapsada)
@@ -304,6 +305,26 @@ class toba_ef_html extends toba_ef
 		$this->colapsada = $colapsada;
 	}
 
+	function set_botonera($botonera)
+	{
+		$this->botonera = $botonera;
+	}
+	
+	function set_alto($alto)
+	{
+		$this->alto = $alto;
+	}
+	
+	function set_ancho($ancho)
+	{
+		$this->ancho = $ancho;
+	}
+	
+	function set_path_template($path)
+	{
+		$this->templates_ck = $path;
+	}
+	
 	function get_input()
 	{
 		if(isset($this->estado)){
@@ -314,9 +335,7 @@ class toba_ef_html extends toba_ef
 		if ($this->es_solo_lectura()) {
 			$html = "<div class='ef-html' style='width: {$this->ancho}'>$estado</div>";
 		} else {
-			$fck_editor = $this->get_editor();
-			$fck_editor->Value = $estado;			
-			$html = $fck_editor->CreateHtml() ;
+			$html = $this->get_editor($estado);
 		}
 		return $html;
 	}

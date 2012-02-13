@@ -26,7 +26,7 @@ class ci_ef_html extends toba_ci
 		
 		if ($this->cambiar_toolbar) {
 			//Se utilizar el API de fckeditor para cambiar el toolbar
-			$form->ef('editable')->get_editor()->ToolbarSet = 'Default';
+			$form->ef('editable')->set_botonera('Full');
 		}
 	}
 }

@@ -541,9 +541,9 @@ ef_html.prototype.constructor = ef_html;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
-	ef_html.prototype.get_editor = function() {
-		if (isset(window.FCKeditorAPI)) {
-			return FCKeditorAPI.GetInstance(this._id_form) ;
+	ef_html.prototype.get_editor = function() {		
+		if (isset(CKEDITOR.instances)) {
+			return CKEDITOR.instances[this._id_form];
 		} else {
 			return null;
 		}
@@ -552,7 +552,7 @@ ef_html.prototype.constructor = ef_html;
 	ef_html.prototype.get_estado = function() {
 		var editor = this.get_editor();
 		if (editor) {
-			return this.get_editor().GetHTML();
+			return this.get_editor().getData();
 		} else {
 			var input = this.input();
 			if (input !== null) {
@@ -580,15 +580,11 @@ ef_html.prototype.constructor = ef_html;
 		return true;
 	};
 	
-	
-	/**
-	 * @private
-	 */
-	ef_html.prototype.submit = function () {
-		var editor = this.get_editor();
-		if (editor) {
-			this.input().value = this.get_estado();
-		}
+	ef_html.prototype.set_estado = function(nuevo) {
+		this.get_editor().setData(nuevo);
+		if (this.input().onchange) {
+			this.input().onchange();
+		}		
 	};
-	
+		
 toba.confirmar_inclusion('efs/ef');

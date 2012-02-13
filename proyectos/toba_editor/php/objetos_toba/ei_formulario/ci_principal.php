@@ -89,10 +89,10 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__form_layout(toba_ei_formulario $form)
 	{
-		$form->ef('template')->get_editor()->ToolbarSet = 'Layout';
-		$form->ef('template')->get_editor()->Height = '400px';
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
-		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
+		$form->ef('template')->set_botonera( 'Layout');
+		$form->ef('template')->set_alto('400px');		
+		$form->ef('template')->set_path_template($vinculo);		
 		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		if (isset($datos['template']) && trim($datos['template']) != '') {
 			$datos['tipo_layout'] = "L";
@@ -151,50 +151,40 @@ class ci_principal extends ci_editores_toba
  		if (isset($imagen)) {
  			return parent::servicio__ejecutar();		
  		}
- 		$url = toba::proyecto()->get_www('img/fck_templates/');
- 		$salida = '<?xml version="1.0" encoding="utf-8" ?>
-<Templates imagesBasePath="'.$url['url'].'">
-	<Template title="Lineal" image="tabla_1_col.gif">
-		<Description>Un campo debajo del otro, es el layout original</Description>
-		<Html>
-			<![CDATA[
-';
-		$salida .= $this->get_template_lineal();
-		$salida .= '
-			]]>
-		</Html>
-	</Template>
-	<Template title="Tabla Lineal" image="tabla_1_col.gif">
-		<Description>Tabla con un campo debajo del otro</Description>
-		<Html>
-			<![CDATA[
-';
-		$salida .= $this->get_template_columnas(1);
-		$salida .= '
-			]]>
-		</Html>
-	</Template>	
-	<Template title="Tabla Dos Columnas" image="tabla_2_col.gif">
-		<Description>Se arma una tabla tomando los campos en el orden definido, incluyendo dos campos por fila</Description>
-		<Html>
-			<![CDATA[
-';
-		$salida .= $this->get_template_columnas(2);
-		$salida .= '
-			]]>
-		</Html>
-	</Template>
-	<Template title="Tabla Tres Columnas" image="tabla_3_col.gif">
-		<Description>Se arma una tabla tomando los campos en el orden definido, incluyendo tres campos por fila</Description>
-		<Html>
-			<![CDATA[
-';
-		$salida .= $this->get_template_columnas(3);
-		$salida .= '
-			]]>
-		</Html>
-	</Template>	
-</Templates>';
+		$url = toba::proyecto()->get_www('img/fck_templates/');
+		$salida = "
+			CKEDITOR.addTemplates('toba_layout', 
+			{
+				imagesPath: '$url', 
+				templates:
+					[
+						{
+							title: 'Lineal',
+							image: 'tabla_1_col.gif', 
+							description: 'Un campo debajo del otro, es el layout original' ,
+							html: '{$this->get_template_lineal()}'
+						},
+						{
+							title: 'Tabla Lineal', 
+							image: 'tabla_1_col.gif', 
+							description: 'Un campo debajo del otro, es el layout original' , 
+							html: '{$this->get_template_columnas(1)}'
+						},
+						{
+							title: 'Tabla Dos Columnas', 
+							image: 'tabla_2_col.gif',
+							description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo dos campos por fila' , 
+							html: '{$this->get_template_columnas(2)}'
+						},
+						{
+							title: 'Tabla Tres Columnas',
+							image: 'tabla_3_col.gif', 
+							description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo tres campos por fila' , 
+							html: '{$this->get_template_columnas(3)}'
+						}
+					]
+			}); ";
+		
 		echo $salida;
 	}
 	
