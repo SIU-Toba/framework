@@ -52,7 +52,12 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	{
 		$this->modelo->borrar_auditoria();
 	}		
-		
+	
+	function opcion__purgar_auditoria()
+	{
+		$tiempo = $this->manejador_interface->dialogo_ingresar_texto('Ingrese el periodo de datos a mantener (meses)', false);
+		$this->modelo->purgar_auditoria($tiempo);
+	}
 }
 
 ?>

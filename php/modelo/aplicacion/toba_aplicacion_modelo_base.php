@@ -399,7 +399,35 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		$this->manejador_interface->progreso_fin();
 	}
+	
+	function purgar_auditoria($tiempo = 0, $tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
+	{
+		$this->manejador_interface->mensaje('Limpiando las tablas de auditoria', false);
+		$this->manejador_interface->progreso_avanzar();
+		$base = $this->proyecto->get_db_negocio();
+		if ($con_transaccion) {
+			$base->abrir_transaccion();			
+		}
 		
+		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
+		if (is_null($auditoria)) {	//No existe manejador para el motor en cuestion
+			return;
+		}
+		
+		if (empty($tablas)) {
+			$auditoria->agregar_tablas($prefijo_tablas);
+		} else {
+			foreach($tablas as $tabla) {
+				$auditoria->agregar_tabla($tabla);
+			}
+		}		
+		$auditoria->purgar($tiempo);
+		if ($con_transaccion) {
+			$base->cerrar_transaccion();
+		}
+		$this->manejador_interface->progreso_fin();
+	}
+	
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema
 	 * @param toba_version $desde

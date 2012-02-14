@@ -143,8 +143,16 @@ class toba_auditoria_tablas_postgres
 		}
 	}
 	
-
-		
+	function purgar($lapso_tiempo = 0)
+	{
+		foreach($this->tablas as $t) {
+			$nombre = $this->prefijo. $t;
+			if ($this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+				$this->purgar_datos($nombre, $lapso_tiempo);
+			}
+		}
+	}
+	
 	function eliminar() 
 	{			
 		$this->eliminar_triggers($this->tablas, $this->schema_origen);
@@ -466,7 +474,11 @@ class toba_auditoria_tablas_postgres
 		return $pks;		
 	}
 
-		
+	function purgar_datos($tabla, $lapso_tiempo)
+	{
+		$tiempo = $this->conexion->quote($lapso_tiempo . ' months' );
+		$sql = 'DELETE FROM '. $this->schema_logs . ".$tabla WHERE auditoria_fecha::timestamp  < (now() - interval $tiempo);";
+		$this->conexion->ejecutar($sql);
+	}	
 }
-
 ?>
