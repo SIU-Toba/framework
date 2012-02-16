@@ -769,6 +769,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$sen = toba::db($this->_fuente)->sentencia_preparar($sql);
 		toba::db($this->_fuente)->sentencia_agregar_binarios($sen, $binarios);
 		$reg = toba::db($this->_fuente)->sentencia_ejecutar($sen);
+		toba::db($this->_fuente)->sentencia_eliminar($sen);
 		if ($this->_lock_optimista && isset($id_fila) && $reg == 0) {
 			$this->evt__perdida_sincronizacion($id_fila, $sql);
 		}

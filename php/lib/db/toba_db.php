@@ -513,7 +513,18 @@ class toba_db
 			throw new toba_error('No se pudo agregar la totalidad de los datos binarios');
 		}
 	}
-	
+
+	/**
+	 * Quita una SQL del arreglo de sentencias.
+	 * Se usa para liberar el resource de un blob y poder seguir operando con el archivo.
+	 *
+	 * @param integer $id Identificador de la sentencia.
+	 */
+	function sentencia_eliminar($id)
+	{
+		unset($this->sentencias[$id]);
+	}
+
 	/**
 	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
 	* 	
