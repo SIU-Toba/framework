@@ -7,7 +7,7 @@ class tester_caso_modifpantalla extends tester_caso
 		"INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (12000004, 12000008, 12000060, 'ejemplo');",
 
 		// tabla: apex_log_objeto
-		"INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000075, '2010-05-19 16:00:29', 'toba', 'ejemplo', 12000008, NULL, NULL);",
+		"INSERT INTO toba_logs.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000075, '2010-05-19 16:00:29', 'toba', 'ejemplo', 12000008, NULL, NULL);",
 
 		// tabla: apex_objeto_ci_pantalla
 		"UPDATE apex_objeto_ci_pantalla SET orden = 1, etiqueta = 'Pantalla Uno', imagen_recurso_origen = 'apex' WHERE objeto_ci_proyecto = 'ejemplo' AND objeto_ci = 12000008 AND pantalla = 12000004 AND identificador = 'pant_inicial' AND etiqueta = 'Pantalla Inicial';",

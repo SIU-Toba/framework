@@ -166,7 +166,7 @@ class toba_planificador_tareas
 			$manejador_interface->mensaje($mensaje_debug);
 		}		
 		
-		$sql = "INSERT INTO apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
+		$sql = "INSERT INTO toba_logs.apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
 				SELECT proyecto, tarea, nombre, tarea_clase, tarea_objeto, NOW()
 				FROM apex_tarea WHERE tarea=$id AND proyecto = $proyecto
 		";

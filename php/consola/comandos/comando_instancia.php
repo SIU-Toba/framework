@@ -106,6 +106,8 @@ class comando_instancia extends comando_toba
 				$instancia->crear_alias_proyectos();
 			}
 		}
+		//Creo el esquema basico de logs de Toba.
+		//$instancia->crear_modelo_logs_toba();		
 	}
 
 	/**
@@ -217,11 +219,14 @@ class comando_instancia extends comando_toba
 			if ( $this->consola->dialogo_simple('Desea conservar datos locales como usuarios y logs?', true, $extra) ) {
 				$this->opcion__exportar_local();
 			}
-		}
+		}							
 		$this->consola->enter();
 		$i = $this->get_instancia();
 		$this->consola->lista($i->get_parametros_db(), 'BASE');
 		$forzar = false;
+		
+		//Para ejecutar migraciones a la instancia mediante el instalador		
+		$this->ejecutar_ventana_migracion_version();
 		if ($i->existe_modelo()) {
 			$this->consola->mensaje("Se guardaran los datos existentes en un schema backup");
 			$forzar = true;
@@ -410,5 +415,23 @@ class comando_instancia extends comando_toba
 		$this->get_instancia()->dump_info_tablas();
 	}
 	*/	
+	
+	function ejecutar_ventana_migracion_version()
+	{
+		$path_migracion_instancia = toba_dir(). '/php/modelo/migraciones_instancia';	//Armo la ubicacion en donde se hallan los pasos de migracion de la instancia
+		
+		$version_actual = new toba_version($this->get_instancia()->get_version_actual());		//Recupero la version de la instancia existente
+		$actual_codigo  = new toba_version(toba_modelo_instalacion::get_version_actual());			//Recupero la version actual del codigo instalado
+	
+		$version_actual->set_path_migraciones($path_migracion_instancia);				//Cambio el path a las migraciones por defecto
+		$versiones = $version_actual->get_secuencia_migraciones($actual_codigo, $path_migracion_instancia);			//Calculo cuales son los pasos a dar
+		if (empty($versiones)) {
+			return;
+		}
+		foreach(array_keys($versiones) as $version) {
+			$versiones[$version]->set_path_migraciones($path_migracion_instancia);				//Hago la migracion para cada version intermedia
+			$this->get_instancia()->migrar_version($versiones[$version], false, true);
+		}
+	}
 }
 ?>

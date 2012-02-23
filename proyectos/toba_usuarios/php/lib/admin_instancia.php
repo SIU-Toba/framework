@@ -87,7 +87,7 @@ class admin_instancia
 	
 	function get_lista_ips_rechazadas()
 	{
-		$sql = 'SELECT momento, ip FROM apex_log_ip_rechazada;';
+		$sql = 'SELECT momento, ip FROM toba_logs.apex_log_ip_rechazada;';
 		return toba::db()->consultar($sql);
 	}
 
@@ -107,13 +107,13 @@ class admin_instancia
 	function eliminar_bloqueo($ip)
 	{
 		$ip = quote($ip);
-		$sql = "DELETE FROM apex_log_ip_rechazada WHERE ip = $ip";
+		$sql = "DELETE FROM toba_logs.apex_log_ip_rechazada WHERE ip = $ip";
 		toba::db()->ejecutar($sql);
 	}
 	
 	function eliminar_bloqueos()
 	{
-		$sql = "DELETE FROM apex_log_ip_rechazada;";
+		$sql = "DELETE FROM toba_logs.apex_log_ip_rechazada;";
 		toba::db()->ejecutar($sql);
 	}
 	

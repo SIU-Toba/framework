@@ -217,3 +217,55 @@ CREATE TABLE apex_log_ip_rechazada
 );
 
 --###################################################################################################-------------------
+
+CREATE SEQUENCE apex_log_tarea_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_log_tarea
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: log_tarea
+--: dump_where: (	proyecto =	'%%' )
+--: clave_proyecto: proyecto
+--: clave_elemento: log_tarea
+--: zona: nucleo
+--: desc:
+--: historica: 1
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	log_tarea					int8			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
+	tarea						int8			NOT NULL,	
+	nombre						TEXT		NULL,
+	tarea_clase					varchar(120)	NOT NULL,
+	tarea_objeto				bytea			NOT NULL,	
+	ejecucion					timestamp		NOT NULL,
+  	CONSTRAINT "apex_log_tarea_pk"  PRIMARY KEY ("log_tarea","proyecto")
+  	--CONSTRAINT "apex_log_tarea_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--#################################################################################################
+
+CREATE SEQUENCE apex_log_objeto_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_log_objeto
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: log_objeto
+--: dump_where: objeto_proyecto ='%%'
+--: zona: solicitud
+--: desc:
+--: historica: 1
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	log_objeto							int8			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
+	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
+	usuario								varchar(60) 	NULL,
+	objeto_proyecto          			varchar(15)  	NOT NULL,
+	objeto								int8			NULL,
+	item								varchar(60)		NULL,
+	observacion							varchar			NULL,
+	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")
+);
+

@@ -739,7 +739,14 @@ class toba_db_postgres7 extends toba_db
 	 */
 	function get_secuencia_tabla($tabla, $schema = null)
 	{
-		if (is_null($schema)) {
+		
+		$result = $this->get_secuencia_tablas(array($tabla), $schema);
+		if (! empty($result)) {
+			return $result[$tabla];
+		} else {
+			return null;
+		}
+		/*if (is_null($schema)) {
 			$schema = $this->get_schema();
 		}
 
@@ -757,9 +764,34 @@ class toba_db_postgres7 extends toba_db
 			return $result[0]['column_name'];
 		} else {
 			return null;
-		}
+		}*/
 	}
 
+	function get_secuencia_tablas($tablas, $schema = null)
+	{
+		$secuencias = array();
+		$tablas_usadas = implode ("','" , $tablas);			
+		if (is_null($schema)) {
+			$schema = $this->get_schema();
+		}	
+
+		$sql = "
+			SELECT column_name, table_name
+			FROM information_schema.columns
+			WHERE
+				table_name   IN ('$tablas_usadas')
+				AND	table_schema = '$schema'
+				AND ((column_default LIKE '%seq\"''::text)::regclass)') OR (column_default LIKE '%seq''::text)::regclass)')); ";
+
+		$result = $this->consultar($sql);
+		if (! empty($result)) {
+			foreach($result as $valores) {
+				$secuencias[$valores['table_name']] = $valores['column_name'];
+			}
+		}
+		return $secuencias;
+	}
+	
 	//-----------------------------------------------------------------------------------
 	//-- UTILIDADES PG_DUMP
 	//-----------------------------------------------------------------------------------

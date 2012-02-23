@@ -12,7 +12,7 @@ class tester_caso_nuevoform extends tester_caso
 {
 	protected $sql = array(
 		// tabla: apex_log_objeto
-		"INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000072, '2010-05-19 15:47:44', 'toba', 'ejemplo', 12000059, NULL, NULL);",
+		"INSERT INTO toba_logs.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000072, '2010-05-19 15:47:44', 'toba', 'ejemplo', 12000059, NULL, NULL);",
 
 		// tabla: apex_objeto
 		"INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES ('ejemplo', 12000059, NULL, NULL, NULL, 'toba', 'toba_ei_formulario', NULL, NULL, NULL, NULL, 'ci_item_original - form', NULL, 0, NULL, 'ejemplo', 'ejemplo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-05-19 15:47:44', 'abajo');",

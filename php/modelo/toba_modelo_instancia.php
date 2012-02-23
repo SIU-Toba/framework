@@ -15,6 +15,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	const archivo_usuarios = 'usuarios.sql';
 	const archivo_logs = 'logs_acceso.sql';
 	const cantidad_seq_grupo = 1000000;
+	const ddl_archivo_tablas_log = 'pgsql_a04_tablas_log_instancia';
 	protected $proyectos_ya_migrados = array('toba_testing', 'toba_referencia', 'toba_editor');	
 	private $instalacion;					// Referencia a la instalacion en la que esta metida la instancia
 	private $identificador;					// Identificador de la instancia
@@ -509,7 +510,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		toba_manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 		$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 		$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-		$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );
 		
 		///-- Si estamos en produccion y se editaron los perfiles del proyecto, exportarlos localmente
 		if ($this->instalacion->es_produccion() && $this->get_proyecto_usar_perfiles_propios($proyecto)) {
@@ -565,6 +565,25 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	}
 	
 
+	function eliminar_archivos_log()
+	{
+		//Elimino los logs de la instancia		
+		$log_instancia = $this->get_dir() . '/' . self::dir_datos_globales .'/'. $this->nombre_log;
+		if (file_exists($log_instancia)) {
+			unlink($log_instancia);
+		}
+		
+		//Elimino los logs para cada proyecto
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
+			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
+			$nombre = $dir_proyecto .'/'. $this->nombre_log;
+			if (file_exists($nombre)) {
+				unlink ($nombre);
+				$this->manejador_interface->progreso_avanzar();
+			}
+		}		
+	}
+	
 	//-----------------------------------------------------------
 	//	CARGAR modelo en la DB
 	//-----------------------------------------------------------
@@ -618,6 +637,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->generar_info_carga();
 		$this->actualizar_secuencias();
 		$this->set_version(toba_modelo_instalacion::get_version_actual());
+		$this->crear_modelo_logs_toba();
 		return $errores;
 	}
 	
@@ -648,6 +668,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->cargar_proyectos(true);
 			// Cargo la informacion de la instancia
 			$this->cargar_informacion_instancia();
+			$this->crear_modelo_logs_toba();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
@@ -665,6 +686,19 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		toba_logger::instancia()->debug("Modelo creado");		
 	}
 	
+	/**
+	 * Crea el esquema de logs basico de Toba 
+	 */
+	function crear_modelo_logs_toba()
+	{
+		if (! $this->get_db()->existe_schema('toba_logs')) {
+			$actual = $this->get_db()->get_schema();
+			$this->crear_tablas_log();
+			$this->actualizar_secuencias_tablas_log();
+			$this->get_db()->set_schema($actual);
+		}
+	}
+	
 	private function crear_tablas()
 	{
 		$this->manejador_interface->mensaje('Creando las tablas del framework', false);
@@ -672,12 +706,30 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
 		foreach( $archivos as $archivo ) {
-			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");			
-			$this->manejador_interface->progreso_avanzar();
-
+			if (self::ddl_archivo_tablas_log != basename($archivo, '.sql')) {		//Excluyo el archivo de logs para que se genere aparte			
+				$cant = $this->get_db()->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");			
+				$this->manejador_interface->progreso_avanzar();
+			}
 		}
 		$this->manejador_interface->progreso_fin();
+	}
+	
+	private function crear_tablas_log()
+	{
+		$this->manejador_interface->mensaje('Creando las tablas de log', false);
+		
+		$sql[] = 'CREATE SCHEMA toba_logs;';		//Creo el schema ya que no existe
+		$this->get_db()->ejecutar($sql);
+		$this->get_db()->set_schema('toba_logs');
+		
+		$directorio = toba_modelo_nucleo::get_dir_ddl();
+		$nombre = $directorio . '/' . self::ddl_archivo_tablas_log. '.sql';
+		if (file_exists($nombre)) {
+			$cant = $this->get_db()->ejecutar_archivo( $nombre );
+			toba_logger::instancia()->debug($nombre . ". ($cant)");			
+			$this->manejador_interface->progreso_avanzar();
+		}
 	}
 	
 	function get_sql_crear_tablas()
@@ -706,10 +758,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$cant = $this->get_db()->ejecutar_archivo( $archivo );
 		toba_logger::instancia()->debug($archivo . ". ($cant)");			
 		$this->manejador_interface->progreso_avanzar();
-		$archivo = $directorio . "/pgsql_a04_tablas_solicitudes.sql" ;
-		$cant = $this->get_db()->ejecutar_archivo( $archivo );
-		toba_logger::instancia()->debug($archivo . ". ($cant)");			
-		$this->manejador_interface->progreso_avanzar();
 		$this->manejador_interface->progreso_fin();		
 	}
 
@@ -723,23 +771,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$sql[] = 'DROP TABLE apex_usuario_perfil_datos';
 		$sql[] = 'DROP TABLE apex_usuario';
 		$sql[] = 'DROP TABLE apex_usuario_tipodoc';
-		$sql[] = 'DROP TABLE apex_log_ip_rechazada';
-		$sql[] = 'DROP TABLE apex_log_error_login';
-		$sql[] = 'DROP TABLE apex_log_sistema';
-		$sql[] = 'DROP TABLE apex_solicitud_observacion';
-		$sql[] = 'DROP TABLE apex_solicitud_cronometro';
-		$sql[] = 'DROP TABLE apex_solicitud_consola';
-		$sql[] = 'DROP TABLE apex_solicitud_browser';
-		$sql[] = 'DROP TABLE apex_sesion_browser';
-		$sql[] = 'DROP TABLE apex_solicitud';
 		$sql[] = 'DROP TABLE apex_revision';
 		$sql[] = 'DROP TABLE apex_instancia';
 		$sql[] = 'DROP TABLE apex_proyecto';
-		$sql[] = 'DROP SEQUENCE apex_solicitud_seq';
-		$sql[] = 'DROP SEQUENCE apex_sesion_browser_seq';
-		$sql[] = 'DROP SEQUENCE apex_solicitud_observacion_seq';
-		$sql[] = 'DROP SEQUENCE apex_log_sistema_seq';
-		$sql[] = 'DROP SEQUENCE apex_log_error_login_seq';
 		$this->get_db()->ejecutar($sql);
 	}
 		
@@ -749,9 +783,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$directorio = toba_modelo_nucleo::get_dir_metadatos();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
-			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->progreso_avanzar();			
+				$cant = $this->get_db()->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->progreso_avanzar();	
 		}
 		$this->manejador_interface->progreso_fin();		
 	}
@@ -927,7 +961,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$sql = "INSERT INTO apex_revision ( revision , proyecto) VALUES ('$revision', 'toba')";
 		$this->get_db()->ejecutar( $sql );
 		toba_logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
-
 		if ($this->get_instalacion()->chequea_sincro_svn()) {
 			foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 				$proyecto = $this->get_proyecto($id_proyecto);
@@ -945,7 +978,24 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("Actualizando secuencias", false);		
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
-			$max = "MAX(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END)";
+				$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
+		}
+		$this->manejador_interface->progreso_fin();
+	}
+	
+	function actualizar_secuencias_tablas_log()
+	{
+		toba_logger::instancia()->debug('Actualizando SECUENCIAS tablas log');
+		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
+		foreach ( toba_db_secuencias::get_lista_secuencias_tablas_log() as $seq => $datos ) {
+			$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
+		}
+		$this->manejador_interface->progreso_fin();
+	}
+	
+	function ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq)
+	{
+		$max = "MAX(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END)";
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
 				$sql = "SELECT setval('$seq', $max) as nuevo FROM {$datos['tabla']}"; 
@@ -977,8 +1027,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 			toba_logger::instancia()->debug("SECUENCIA $seq: $nuevo");
 			$this->manejador_interface->progreso_avanzar();			
-		}
-		$this->manejador_interface->progreso_fin();
 	}
 	
 	function get_sql_actualizar_secuencias()
@@ -1204,7 +1252,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function desbloquear_ips()
 	{
-		$sql = "DELETE FROM apex_log_ip_rechazada";
+		$sql = "DELETE FROM toba_logs.apex_log_ip_rechazada";
 		$cant = $this->get_db()->ejecutar($sql);
 		$this->manejador_interface->mensaje("Ips liberadas: $cant");
 	}

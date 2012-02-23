@@ -6,9 +6,6 @@ class toba_db_secuencias
 {
 	static function get_lista()
 	{
-		$datos['apex_sesion_browser_seq'] = array( 'campo' => 'sesion_browser', 'tabla' => 'apex_sesion_browser' );
-		$datos['apex_solicitud_seq'] = array( 'campo' => 'solicitud', 'tabla' => 'apex_solicitud' );
-		$datos['apex_solicitud_observacion_seq'] = array( 'campo' => 'solicitud_observacion', 'tabla' => 'apex_solicitud_observacion' );
 		$datos['apex_clase_tipo_seq'] = array('campo' => 'clase_tipo', 'tabla'=> 'apex_clase_tipo');
 		$datos['apex_columna_estilo_seq'] = array('campo' => 'columna_estilo', 'tabla'=> 'apex_columna_estilo');
 		$datos['apex_columna_formato_seq'] = array('campo' => 'columna_formato', 'tabla'=> 'apex_columna_formato');
@@ -18,11 +15,6 @@ class toba_db_secuencias
 		$datos['apex_item_seq'] = array('campo' => 'item', 'tabla' => 'apex_item');
 		$datos['apex_objeto_seq'] = array('campo' => 'objeto', 'tabla'=> 'apex_objeto');
 		$datos['apex_clase_relacion_seq'] = array('campo' => 'clase_relacion', 'tabla'=> 'apex_clase_relacion');
-		$datos['apex_log_sistema_seq'] = array('campo' => 'log_sistema', 'tabla'=> 'apex_log_sistema');
-		$datos['apex_sesion_browser_seq'] = array('campo' => 'sesion_browser', 'tabla'=> 'apex_sesion_browser');
-		$datos['apex_solicitud_seq'] = array('campo' => 'solicitud', 'tabla'=> 'apex_solicitud');
-		$datos['apex_solicitud_observacion_seq'] = array('campo' => 'solicitud_observacion', 'tabla'=> 'apex_solicitud_observacion');
-		$datos['apex_log_error_login_seq'] = array('campo' => 'log_error_login', 'tabla'=> 'apex_log_error_login');
 		$datos['apex_item_msg_seq'] = array('campo' => 'item_msg', 'tabla'=> 'apex_item_msg');
 		$datos['apex_objeto_msg_seq'] = array('campo' => 'objeto_msg', 'tabla'=> 'apex_objeto_msg');
 		$datos['apex_msg_seq'] = array('campo' => 'msg', 'tabla'=> 'apex_msg');
@@ -32,7 +24,6 @@ class toba_db_secuencias
 		$datos['apex_obj_ei_cuadro_col_seq'] = array('campo' => 'objeto_cuadro_col', 'tabla'=> 'apex_objeto_ei_cuadro_columna');	
 		$datos['apex_obj_ci_pantalla_seq'] = array('campo' => 'pantalla', 'tabla'=> 'apex_objeto_ci_pantalla');
 		$datos['apex_obj_ei_form_fila_seq'] = array('campo' => 'objeto_ei_formulario_fila', 'tabla'=> 'apex_objeto_ei_formulario_ef');
-		$datos['apex_log_objeto_seq'] = array('campo' => 'log_objeto', 'tabla'=> 'apex_log_objeto');
 		$datos['apex_obj_ei_cuadro_cc_seq'] = array('campo' => 'objeto_cuadro_cc', 'tabla'=> 'apex_objeto_cuadro_cc');	
 		$datos['apex_objeto_dep_seq'] = array('campo' => 'dep_id', 'tabla'=> 'apex_objeto_dependencias');
 		$datos['apex_objeto_eventos_seq'] = array('campo' => 'evento_id', 'tabla'=> 'apex_objeto_eventos');
@@ -54,14 +45,23 @@ class toba_db_secuencias
 		$datos['apex_restriccion_funcional_seq'] = array('campo' => 'restriccion_funcional', 'tabla' => 'apex_restriccion_funcional');
 		$datos['apex_objeto_ei_filtro_col_seq'] = array('campo' => 'objeto_ei_filtro_col', 'tabla' => 'apex_objeto_ei_filtro_col');
 		$datos['apex_tarea_seq'] = array('campo' => 'tarea', 'tabla' => 'apex_tarea');
-		$datos['apex_log_tarea_seq'] = array('campo' => 'log_tarea', 'tabla' => 'apex_log_tarea');
 		$datos['apex_objeto_dep_consumo_seq'] = array('campo' => 'consumo_id', 'tabla'=> 'apex_objeto_dep_consumo');
 		$datos['apex_gadgets_seq'] = array('campo' => 'gadget', 'tabla'=> 'apex_gadgets');
-//		$datos['apex_ei_mapa_layer_seq'] = array('campo' => 'objeto_ei_mapa_layer', 'tabla'=> 'apex_objeto_ei_mapa_layer');
 		$datos['apex_puntos_montaje_seq'] = array('campo' => 'id', 'tabla'=> 'apex_puntos_montaje');
 		$datos['apex_objeto_db_columna_fks_seq'] = array('campo' => 'id', 'tabla'=> 'apex_objeto_db_columna_fks');
 		return $datos;
 	}
 
+	static function get_lista_secuencias_tablas_log()
+	{		
+		$datos['apex_sesion_browser_seq'] = array('campo' => 'sesion_browser', 'tabla'=> 'apex_sesion_browser');		
+		$datos['apex_solicitud_seq'] = array( 'campo' => 'solicitud', 'tabla' => 'apex_solicitud' );
+		$datos['apex_solicitud_observacion_seq'] = array('campo' => 'solicitud_observacion', 'tabla'=> 'apex_solicitud_observacion');
+		$datos['apex_log_error_login_seq'] = array('campo' => 'log_error_login', 'tabla'=> 'apex_log_error_login');
+		$datos['apex_log_sistema_seq'] = array('campo' => 'log_sistema', 'tabla'=> 'apex_log_sistema');				
+		$datos['apex_log_tarea_seq'] = array('campo' => 'log_tarea', 'tabla' => 'apex_log_tarea');	
+		$datos['apex_log_objeto_seq'] = array('campo' => 'log_objeto', 'tabla'=> 'apex_log_objeto');		
+		return $datos;
+	}
 }
 ?>

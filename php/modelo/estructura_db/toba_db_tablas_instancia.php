@@ -16,11 +16,10 @@ class toba_db_tablas_instancia
 	{
 		return array (
   0 => 'apex_tarea',
-  1 => 'apex_log_tarea',
-  2 => 'apex_arbol_items_fotos',
-  3 => 'apex_admin_album_fotos',
-  4 => 'apex_admin_param_previsualizazion',
-  5 => 'apex_usuario_proyecto_gadgets',
+  1 => 'apex_arbol_items_fotos',
+  2 => 'apex_admin_album_fotos',
+  3 => 'apex_admin_param_previsualizazion',
+  4 => 'apex_usuario_proyecto_gadgets',
 );
 	}
 
@@ -36,12 +35,13 @@ class toba_db_tablas_instancia
 	static function get_lista_proyecto_log()
 	{
 		return array (
-  0 => 'apex_log_objeto',
-  1 => 'apex_solicitud',
-  2 => 'apex_sesion_browser',
-  3 => 'apex_solicitud_browser',
-  4 => 'apex_solicitud_consola',
-  5 => 'apex_solicitud_observacion',
+  0 => 'apex_solicitud',
+  1 => 'apex_sesion_browser',
+  2 => 'apex_solicitud_browser',
+  3 => 'apex_solicitud_consola',
+  4 => 'apex_solicitud_observacion',
+  5 => 'apex_log_tarea',
+  6 => 'apex_log_objeto',
 );
 	}
 
@@ -152,33 +152,6 @@ class toba_db_tablas_instancia
 );
 	}
 
-	static function apex_log_tarea()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'proyecto, log_tarea',
-  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
-  'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'log_tarea',
-  'zona' => 'nucleo',
-  'instancia' => '1',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'log_tarea',
-    2 => 'tarea',
-    3 => 'nombre',
-    4 => 'tarea_clase',
-    5 => 'tarea_objeto',
-    6 => 'ejecucion',
-  ),
-);
-	}
-
 	static function apex_usuario()
 	{
 		return array (
@@ -265,31 +238,6 @@ class toba_db_tablas_instancia
 );
 	}
 
-	static function apex_log_objeto()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'log_objeto',
-  'dump_where' => 'objeto_proyecto =\\\'%%\\\'',
-  'zona' => 'solicitud',
-  'desc' => '',
-  'historica' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'log_objeto',
-    1 => 'momento',
-    2 => 'usuario',
-    3 => 'objeto_proyecto',
-    4 => 'objeto',
-    5 => 'item',
-    6 => 'observacion',
-  ),
-);
-	}
-
 	static function apex_arbol_items_fotos()
 	{
 		return array (
@@ -361,7 +309,7 @@ class toba_db_tablas_instancia
 	static function apex_solicitud()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud',
@@ -385,7 +333,7 @@ class toba_db_tablas_instancia
 	static function apex_sesion_browser()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'sesion_browser',
@@ -410,7 +358,7 @@ class toba_db_tablas_instancia
 	static function apex_solicitud_browser()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_browser',
@@ -431,7 +379,7 @@ class toba_db_tablas_instancia
 	static function apex_solicitud_consola()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_consola',
@@ -454,7 +402,7 @@ class toba_db_tablas_instancia
 	static function apex_solicitud_observacion()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_observacion',
@@ -477,7 +425,7 @@ class toba_db_tablas_instancia
 	static function apex_log_sistema()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'log_sistema',
@@ -499,7 +447,7 @@ class toba_db_tablas_instancia
 	static function apex_log_error_login()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'log_error_login',
@@ -524,7 +472,7 @@ class toba_db_tablas_instancia
 	static function apex_log_ip_rechazada()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'ip',
@@ -536,6 +484,58 @@ class toba_db_tablas_instancia
   array (
     0 => 'ip',
     1 => 'momento',
+  ),
+);
+	}
+
+	static function apex_log_tarea()
+	{
+		return array (
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'log_tarea',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'clave_proyecto' => 'proyecto',
+  'clave_elemento' => 'log_tarea',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'historica' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'log_tarea',
+    2 => 'tarea',
+    3 => 'nombre',
+    4 => 'tarea_clase',
+    5 => 'tarea_objeto',
+    6 => 'ejecucion',
+  ),
+);
+	}
+
+	static function apex_log_objeto()
+	{
+		return array (
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'log_objeto',
+  'dump_where' => 'objeto_proyecto =\\\'%%\\\'',
+  'zona' => 'solicitud',
+  'desc' => '',
+  'historica' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'log_objeto',
+    1 => 'momento',
+    2 => 'usuario',
+    3 => 'objeto_proyecto',
+    4 => 'objeto',
+    5 => 'item',
+    6 => 'observacion',
   ),
 );
 	}

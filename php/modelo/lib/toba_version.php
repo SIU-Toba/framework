@@ -14,6 +14,7 @@ class toba_version
 			$this->build = 'trunk';
 			return ;
 		}
+		$this->path_migraciones = toba_dir().'/php/modelo/migraciones';			
 		$formato = 'El formato debe ser x.y.z (inestable-build). Donde (inestable-build) es opcional';
 		$numero = trim($numero);
 		$this->build = null;
@@ -59,11 +60,17 @@ class toba_version
 				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas ".$formato);
 			}
 		}
+		
 	}
 	
 	function path_migraciones()
 	{
-		return toba_dir()."/php/modelo/migraciones";		
+		return $this->path_migraciones;		
+	}
+	
+	function set_path_migraciones($path)
+	{
+		$this->path_migraciones = $path;
 	}
 
 	function __toString()
