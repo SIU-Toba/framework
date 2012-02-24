@@ -462,7 +462,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		toba_manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
+		//$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
 		$this->manejador_interface->progreso_fin();
 	}
 
