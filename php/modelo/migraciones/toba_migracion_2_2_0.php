@@ -137,6 +137,7 @@ class toba_migracion_2_2_0 extends toba_migracion
 		foreach($secuencias as $tabla => $secuencia) {									//Genero las SQL para mover las tablas de schema
 			$sql[] = 'ALTER TABLE '. $tabla . ' SET SCHEMA toba_logs;' ;
 			$sql[] = 'ALTER SEQUENCE '. $secuencia . ' SET SCHEMA toba_logs;' ;
+			$sql[] = 'ALTER TABLE toba_logs.' . $tabla . " ALTER COLUMN log_objeto SET DEFAULT nextval(('toba_logs.\"$secuencia\"'::text)::regclass);";
 			$this->manejador_interface->progreso_avanzar();
 		}
 		$this->elemento->get_db()->ejecutar($sql);		

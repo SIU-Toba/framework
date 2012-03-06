@@ -21,7 +21,7 @@ CREATE TABLE apex_solicitud
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto					varchar(15)		NOT NULL,
-	solicitud	 				int8			DEFAULT nextval('"apex_solicitud_seq"'::text) NOT NULL, 
+	solicitud	 				int8			DEFAULT nextval('toba_logs."apex_solicitud_seq"'::text) NOT NULL, 
 	solicitud_tipo				varchar(20)		NOT NULL,
 	item_proyecto				varchar(15)		NOT NULL,
 	item 						varchar(60)		NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE apex_sesion_browser
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	sesion_browser				int8			DEFAULT nextval('"apex_sesion_browser_seq"'::text) NOT NULL, 
+	sesion_browser				int8			DEFAULT nextval('toba_logs."apex_sesion_browser_seq"'::text) NOT NULL, 
 	proyecto					varchar(15)		NOT NULL,
 	usuario						varchar(60) 	NOT NULL,
 	ingreso						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE apex_solicitud_observacion
 (
 	proyecto						varchar(15)			NULL,		-- NOT!
 	solicitud	 					int8				NOT NULL,
-	solicitud_observacion			int8				DEFAULT nextval('"apex_solicitud_observacion_seq"'::text) NOT NULL, 
+	solicitud_observacion			int8				DEFAULT nextval('toba_logs."apex_solicitud_observacion_seq"'::text) NOT NULL, 
 	solicitud_obs_tipo_proyecto		varchar(15)			NULL,
 	solicitud_obs_tipo				varchar(20)			NULL,
 	observacion						TEXT				NULL,
@@ -166,7 +166,7 @@ CREATE TABLE apex_log_sistema
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_sistema		 			int8				DEFAULT nextval('"apex_log_sistema_seq"'::text) NOT NULL, 
+	log_sistema		 			int8				DEFAULT nextval('toba_logs."apex_log_sistema_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario						varchar(60) 		NULL,
 	log_sistema_tipo			varchar(20) 		NOT NULL,
@@ -188,7 +188,7 @@ CREATE TABLE apex_log_error_login
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_error_login 			int8				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
+	log_error_login 			int8				DEFAULT nextval('toba_logs."apex_log_error_login_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario						TEXT 			NULL,
 	clave						TEXT		 		NULL,
@@ -234,7 +234,7 @@ CREATE TABLE	apex_log_tarea
 ---------------------------------------------------------------------------------------------------
 (
   	proyecto 					VARCHAR(15)  	NOT NULL,
-	log_tarea					int8			DEFAULT nextval('"apex_log_tarea_seq"'::text) NOT NULL, 
+	log_tarea					int8			DEFAULT nextval('toba_logs."apex_log_tarea_seq"'::text) NOT NULL, 
 	tarea						int8			NOT NULL,	
 	nombre						TEXT		NULL,
 	tarea_clase					varchar(120)	NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE apex_log_objeto
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	log_objeto							int8			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
+	log_objeto							int8			DEFAULT nextval('toba_logs."apex_log_objeto_seq"'::text) NOT NULL, 
 	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario								varchar(60) 	NULL,
 	objeto_proyecto          			varchar(15)  	NOT NULL,
