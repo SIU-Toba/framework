@@ -78,6 +78,27 @@ class toba_usuario implements toba_interface_usuario
 		toba::instancia()->get_db()->ejecutar($sql);
 	}
 	
+	function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null)
+	{
+		if (is_null($dias_validez)) {		//Anulo el vencimiento
+			$accion = 'vencimiento = NULL';
+		} else {								//Actualizo el vencimiento con la cantidad de dias restantes
+			$accion = "vencimiento = (now() + '$dias_validez days')::date"; 
+		}
+		
+		$sql = "UPDATE apex_usuario SET $accion  WHERE usuario = ". quote($usuario);
+		toba::logger()->debug($sql);
+		toba::instancia()->get_db()->abrir_transaccion();
+		try {
+			$this->set_clave_usuario($clave_plana, $usuario);
+			toba::instancia()->get_db()->ejecutar($sql);
+			toba::instancia()->get_db()->cerrar_transaccion();			
+		} catch (toba_error_db $e) {
+			toba::instancia()->get_db()->abortar_transaccion();
+			throw new toba_error_usuario('No se pudo modificar la clave, contacte a un administrador del sistema');
+		}
+	}
+	
 	function verificar_clave_no_utilizada($clave_plana, $usuario) 
 	{
 		$claves = toba::instancia()->get_lista_claves_usadas($usuario);
@@ -89,6 +110,19 @@ class toba_usuario implements toba_interface_usuario
 					throw new toba_error_usuario('La clave fue utilizada anteriormente, por favor seleccione una nueva');
 				}	
 			}		
+		}
+	}
+	
+	function verificar_clave_vencida($id_usuario)
+	{
+		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
+		if ( empty($datos_usuario) ) {
+			if ($usar_log) {
+				toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');
+			}
+			return false;
+		} else {
+			return ($datos_usuario['clave_vencida'] === 1);
 		}
 	}
 }

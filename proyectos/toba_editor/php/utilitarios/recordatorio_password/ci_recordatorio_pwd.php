@@ -227,8 +227,12 @@ class ci_recordatorio_pwd extends toba_ci
 		//Cambio la clave del flaco, envio el nuevo mail y bloqueo el random
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
+			//Recupero los dias de validez de la clave, si existe
+			$dias = toba::proyecto()->get_parametro('dias_validez_clave',null, false);
+			
 			//Seteo la clave para el usuario
-			toba_usuario::set_clave_usuario($clave_tmp, $datos_orig[0]['id_usuario']);
+			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig[0]['id_usuario'], $dias);
+			
 			//Enviar nuevo mail con la clave temporaria
 			$mail = new toba_mail($datos_orig[0]['email'], $asunto, $cuerpo_mail);
 			$mail->set_html(true);

@@ -15,6 +15,7 @@ class toba_manejador_sesiones
 	private $usuario = null;
 	protected $perfiles_funcionales_activos = array();
 	private $autenticacion = null;
+	private $contrasenia_vencida = false;
 	
 	/**
 	 * @return toba_manejador_sesiones
@@ -63,6 +64,10 @@ class toba_manejador_sesiones
 			$this->procesar_acceso_proyecto($datos_iniciales);
 		}
 		$this->autenticar($id_usuario, $clave, $datos_iniciales);
+		if ($this->contrasenia_vencida) {	//Si se vencio la contraseña del usuario redirecciono al item correspondiente
+			$this->contrasenia_vencida = false;
+			throw new  toba_error_login_contrasenia_vencida('La contraseña actual del usuario ha caducado');
+		}
 		
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
 		
@@ -837,6 +842,11 @@ class toba_manejador_sesiones
 				}
 			}
 			throw new toba_error_autenticacion($error);
+		}
+		if ($this->get_autenticacion() != null) {
+			$this->contrasenia_vencida = $this->autenticacion->verificar_clave_vencida($id_usuario);
+		} else {
+			$this->contrasenia_vencida = $this->invocar_metodo_usuario('verificar_clave_vencida', array( $id_usuario) );
 		}
 	}
 

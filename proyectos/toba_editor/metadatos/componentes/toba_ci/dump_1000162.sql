@@ -86,6 +86,21 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000050', --dep_id
+	'1000162', --objeto_consumidor
+	'33000073', --objeto_proveedor
+	'form_passwd_vencido', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 33
+
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -142,6 +157,28 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1000162', --objeto_ci
+	'33000031', --pantalla
+	'cambiar_contrasenia', --identificador
+	'2', --orden
+	'Contraseña', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	'12'  --punto_montaje
+);
+--- FIN Grupo de desarrollo 33
+
 ------------------------------------------------------------
 -- apex_objetos_pantalla
 ------------------------------------------------------------
@@ -165,4 +202,11 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1000162', --objeto_ci
 	'1', --orden
 	'30000082'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'33000031', --pantalla
+	'1000162', --objeto_ci
+	'0', --orden
+	'33000050'  --dep_id
 );

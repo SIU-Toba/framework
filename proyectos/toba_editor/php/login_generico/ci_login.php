@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 class ci_login extends toba_ci
 {
 	protected $s__datos;
@@ -32,11 +31,11 @@ class ci_login extends toba_ci
 			} catch (toba_error_autenticacion $e) {
 				//-- Caso error de validación
 				toba::notificacion()->agregar($e->getMessage());
-			}			
+			}
 		}
 	}
 	
-	function conf()
+	function conf__login()
 	{
 		if ( ! toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->pantalla()->eliminar_dep('seleccion_usuario');
@@ -72,8 +71,8 @@ class ci_login extends toba_ci
 			if (toba::instalacion()->get_tipo_autenticacion() == 'openid' && isset($this->s__datos_openid)) {
 				toba::manejador_sesiones()->get_autenticacion()->set_provider($this->s__datos_openid);
 			}
-			$usuario = 	isset($this->s__datos['usuario']) ? $this->s__datos['usuario'] : '';
-			$clave = isset($this->s__datos['clave']) ? $this->s__datos['clave'] : '';
+			$usuario = (isset($this->s__datos['usuario'])) ? $this->s__datos['usuario'] : '';
+			$clave = (isset($this->s__datos['clave'])) ? $this->s__datos['clave'] : '';
 
 			try {
 				toba::manejador_sesiones()->login($usuario, $clave);
@@ -85,6 +84,8 @@ class ci_login extends toba_ci
 				list($msg, $intentos) = explode('|', $e->getMessage());
 				toba::notificacion()->agregar($msg);
 				toba::memoria()->set_dato_instancia('toba_intentos_fallidos_login', $intentos);
+			} catch (toba_error_login_contrasenia_vencida $e) {
+				$this->set_pantalla('cambiar_contrasenia');
 			} catch (toba_reset_nucleo $reset) {
 				//-- Caso validacion exitosa, elimino la marca de intentos fallidos
 				if (toba::memoria()->get_dato_instancia('toba_intentos_fallidos_login') !== null) {
@@ -177,6 +178,29 @@ class ci_login extends toba_ci
 	function conf__seleccion_usuario()
 	{
 		return toba::instancia()->get_lista_usuarios();
+	}
+	
+	//-----------------------------------------------------------------------------------
+	//---- form_passwd_vencido ----------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function evt__form_passwd_vencido__modificacion($datos)
+	{
+		$usuario = $this->s__datos['usuario'];
+		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
+			//Obtengo los dias de validez de la nueva clave
+			$dias = toba::proyecto()->get_parametro('dias_validez_clave',null, false);
+			toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
+			toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
+		} else {
+			throw new toba_error_usuario('La clave ingresada no es correcta');
+		}
+		$this->set_pantalla('login');
+	}
+
+	function evt__form_passwd_vencido__cancelar()
+	{
+		$this->set_pantalla('login');
 	}
 	
 	//-------------------------------------------------------------------

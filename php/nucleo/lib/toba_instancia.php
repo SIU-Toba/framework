@@ -339,7 +339,15 @@ class toba_instancia
 	function get_info_autenticacion($usuario)
 	{
 		try {
-			$sql = 'SELECT clave, autentificacion FROM apex_usuario WHERE usuario = :usuario';
+			$sql = 'SELECT clave, 
+						  autentificacion, 
+						  CASE WHEN (vencimiento IS NOT NULL) THEN
+							(now()::date > vencimiento::date)::integer		/*Verifico si la clave esta vencida*/
+						  ELSE
+						         0
+						  END  as clave_vencida
+				     FROM apex_usuario 
+			              WHERE usuario = :usuario';
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 			if(!empty($rs))	return $rs[0];

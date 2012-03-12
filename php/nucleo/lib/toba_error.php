@@ -203,6 +203,14 @@ class toba_error_autenticacion_intentos extends toba_error
 }
 
 /**
+ * Excepción producida por sobrepasar el limite de dias de validez de la contraseña 
+ */
+class toba_error_login_contrasenia_vencida extends toba_error
+{
+
+}
+
+/**
  * Excepción producida por un error en la autorizacion del usuario
  */
 class toba_error_autorizacion extends toba_error
