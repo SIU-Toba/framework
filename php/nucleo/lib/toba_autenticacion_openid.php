@@ -160,6 +160,11 @@ class toba_autenticacion_openid  implements toba_autenticable
 		}		
 	}
 	
+	function verificar_clave_vencida($id_usuario)
+	{
+		return false;
+	}
+	
 	protected function iniciar_pedido($url=null) 
 	{
 		global $_POIDSY;

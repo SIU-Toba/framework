@@ -76,9 +76,11 @@ class toba_autenticacion_ldap implements toba_autenticable
 		toba::logger()->debug("[Autenticación LDAP] OK");
 		return true;
 	}
-		
-	
-	
+			
+	function verificar_clave_vencida($id_usuario)
+	{
+		return false;
+	}
 	
 }
 
