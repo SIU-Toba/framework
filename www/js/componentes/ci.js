@@ -151,7 +151,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 			}
 			//- 3 - Hay que confirmar la ejecucion del evento?
 			//La confirmacion se solicita escribiendo el texto de la misma
-			if(this._evento.confirmar !== "") {
+			if(trim(this._evento.confirmar) !== "") {
 				if (!this._silencioso && !(confirm(this._evento.confirmar))){
 					this.reset_evento();
 					return false;

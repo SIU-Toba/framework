@@ -79,6 +79,8 @@ class toba_ei_cuadro extends toba_ei
 	protected $_excel_usar_formulas;
 	protected static $_mostrar_excel_sin_cortes = false;    // Especifica si se tiene que dar la opción de renderizar como excel sin cortes
 	protected $_clase_formateo = 'toba_formateo';
+	
+	protected $_etiqueta_cantidad_filas;
 
 	//Modo de clave segura
 	protected $_modo_clave_segura = true;				//Switchea a modo compatibilidad hacia atras
@@ -90,6 +92,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->set_propiedades_sesion(array('tamanio_pagina', '_eventos_multiples', '_modo_clave_segura'));		//Guardo en sesion aquello que me interesa
 		parent::__construct($id);
 
+		$this->analizar_cortes_excel();
 		$this->procesar_definicion();			//Evaluar si no se puede retrasar hasta el inicializar
 		$this->inicializar_manejo_clave();
 		if($this->existe_paginado()) {
@@ -98,8 +101,10 @@ class toba_ei_cuadro extends toba_ei
 		if (isset($this->_memoria['ordenado'])) {
 			$this->_ordenado = $this->_memoria['ordenado'];
 		}
+		if ($this->existen_cortes_control()) {
 			$this->inspeccionar_sumarizaciones_usuario();
 		}
+	}
 
 
 	function destruir()
@@ -135,7 +140,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function analizar_cortes_excel()
 	{
-		  $this->_salida_sin_cortes = toba::memoria()->get_parametro('es_plano');
+		$this->_salida_sin_cortes = toba::memoria()->get_parametro('es_plano');
  		if ($this->_salida_sin_cortes) {
  			$this->aplanar_cortes_control();
  		}
@@ -164,10 +169,12 @@ class toba_ei_cuadro extends toba_ei
 		$no_visibles = toba::perfil_funcional()->get_rf_cuadro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
 			$alguno_eliminado = false;
-			for($a=0; $a < count($this->_info_cuadro_columna); $a++){
+			$limite = count($this->_info_cuadro_columna);				//Para evitar el recalculo en cada vuelta				
+			for($a=0; $a < $limite; $a++) {
 				if (in_array($this->_info_cuadro_columna[$a]['objeto_cuadro_col'], $no_visibles)) {
 					$clave = $this->_info_cuadro_columna[$a]['clave'];
-					array_splice($this->_info_cuadro_columna, $a, 1);
+					array_splice($this->_info_cuadro_columna, $a, 1);		//Elimina el elemento y reorganiza indices
+					$a--; $limite--;									//por eso vuelvo puntero atras y descuento 1 del maximo
 					$alguno_eliminado = true;
 					toba::logger()->debug("Restricción funcional. Se filtro la columna: $clave", 'toba');
 				}
@@ -218,7 +225,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$estructura_datos = array();
 		$cantidad_cortes = count($this->_info_cuadro_cortes);
-		for($a=0; $a< $cantidad_cortes; $a++){
+		for($a=0; $a< $cantidad_cortes; $a++) {
 			$id_corte = $this->_info_cuadro_cortes[$a]['identificador'];
 			//Genero el Indice
 			$this->_cortes_indice[$id_corte] =& $this->_info_cuadro_cortes[$a];
@@ -337,6 +344,15 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function agregar_columnas($columnas)
 	{
+		$this->agregar_columnas_perezoso($columnas);
+		$this->procesar_definicion_columnas();  //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+	}	
+
+	/**
+	 * @ignore
+	 */
+	private function agregar_columnas_perezoso($columnas)
+	{
 		$arreglo_default = array('estilo' => 'col-tex-p1', 'estilo_titulo' => 'ei-cuadro-col-tit', 'total_cc' => '',
 			'total' => '0', 'usar_vinculo' => '0', 'no_ordenar' => '0', 'formateo' => null);
 		
@@ -344,10 +360,8 @@ class toba_ei_cuadro extends toba_ei
 			$columnas[$clave] = array_merge($arreglo_default, $valor);
 		}
 		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
-		$this->procesar_definicion_columnas();  //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
-	}	
-
-
+	}
+	
 	/**
 	 * Agrupa columnas adyacentes bajo una etiqueta común
 	 *
@@ -1018,7 +1032,7 @@ class toba_ei_cuadro extends toba_ei
  				$columnas[] = $columna;
  			}
  		}
-		$this->agregar_columnas($columnas);
+		$this->agregar_columnas_perezoso($columnas);
  	} 
 
 	/**
@@ -1139,6 +1153,24 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore
+	 */
+	function calcular_totales_sumarizacion_usuario()
+	{
+		$sumarizacion = array();		
+		$acumulador_usuario = $this->get_acumulador_usuario();
+		if (isset($acumulador_usuario)) {
+			foreach($acumulador_usuario as $sum) {
+				if($sum['corte'] == 'toba_total') {
+					$metodo = $sum['metodo'];
+					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
+				}
+			}
+		}
+		return $sumarizacion;		
+	}
+	
 	/**
 	 * @ignore
 	 */
@@ -2023,6 +2055,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 		$this->_tipo_salida = $tipo;
 		$this->instanciar_manejador_tipo_salida($tipo);
+				
 		if (! is_null($objeto_toba_salida)) {		//Si se esta usando una clase particular de toba para la salida
 			$this->_salida->set_instancia_toba_salida($objeto_toba_salida);
 		}
@@ -2369,6 +2402,19 @@ class toba_ei_cuadro extends toba_ei
 		return  new $this->_clase_formateo($tipo);
 	}
 
+	function set_etiqueta_cantidad_filas($etiqueta)
+	{
+		$this->_etiqueta_cantidad_filas = $etiqueta;
+	}
+	
+	function get_etiqueta_cantidad_filas()
+	{
+		if (isset($this->_etiqueta_cantidad_filas)) {
+			return $this->_etiqueta_cantidad_filas;
+		} else {
+			return null;
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT --

@@ -58,9 +58,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 				}
 			}
 			this._msj_ayuda_div = div_msj;
-		} /*else {
+		} else {
 			this._msj_ayuda_div.style.visibility = 'hidden';				
-		}*/
+		}
 		
 		this._msj_ayuda_div.innerHTML = mensaje;
 	};
@@ -200,7 +200,11 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	ef_combo_editable.prototype.set_solo_lectura = function(solo_lectura) {
 		this._get_combo().disable(typeof solo_lectura == 'undefined' || solo_lectura);
 		this._solo_lectura = typeof solo_lectura == 'undefined' || solo_lectura;
-		this._quitar_mensaje_ayuda();
+		if (typeof solo_lectura == 'undefined' || solo_lectura) {
+			this._quitar_mensaje_ayuda();
+		} else if (! this.tiene_texto()) {
+			this._put_mensaje_ayuda();
+		}
 	};
 	
 	ef_combo_editable.prototype.set_permite_escribir = function(permite_escribir) {
@@ -348,6 +352,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		if (mostrar) {
 			this._get_combo().show(true);
 			this._es_oculto = false;
+			if (! this.tiene_texto()) {
+				this._put_mensaje_ayuda();
+			}
 		} else {
 			this.ocultar(resetear);	
 		}

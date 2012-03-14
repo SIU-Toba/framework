@@ -329,7 +329,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	function html_inicio_zona_colapsable($id_unico, $estilo)
 	{
-			echo "<table class='tabla-0' id='$id_unico' width='100%' border='1' $estilo><tr><td>\n";
+			echo "<table class='tabla-0' id='$id_unico' width='100%' $estilo><tr><td>\n";
 	}
 
 	function html_fin_zona_colapsable()
@@ -891,19 +891,10 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	 */
 	function html_acumulador_usuario()
 	{
-		$acumulador_usuario = $this->_cuadro->get_acumulador_usuario();
+		$sumarizacion = $this->_cuadro->calcular_totales_sumarizacion_usuario();
 		$total_columnas = $this->_cuadro->get_cantidad_columnas_total();
-		$datos = $this->_cuadro->get_datos();
-
-		if (isset($acumulador_usuario)) {
-			foreach($acumulador_usuario as $sum) {
-				if($sum['corte'] == 'toba_total') {
-					$metodo = $sum['metodo'];
-					$sumarizacion[$sum['descripcion']] = $this->$metodo($datos);
-				}
-			}
-		}
-		if (isset($sumarizacion)) {
+		
+		if (! empty($sumarizacion)) {
 			$css = 'cuadro-cc-sum-nivel-1';
 			echo "<tr><td colspan='$total_columnas'>\n";
 			$this->html_cuadro_sumarizacion($sumarizacion,null,300,$css);

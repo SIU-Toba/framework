@@ -65,8 +65,11 @@ class ci_principal extends ci_editores_toba
 	function validar()
 	{
 		$datos = $this->get_entidad()->tabla('columnas')->get_filas();
-		if (! $this->verificar_existencia_columna_clave($datos)){
-			throw new toba_error('La tabla debe tener una columna como Clave Primaria');
+		if (! $this->verificar_existencia_columna_clave($datos)) {
+			throw new toba_error_def('La tabla debe tener una columna como Clave Primaria');
+		}
+		if (! $this->verificar_existencia_columna_valores_unicos()) {
+			throw new toba_error_def('Verifique las restricciones de valores únicos');
 		}
 	}
 	
@@ -237,7 +240,32 @@ class ci_principal extends ci_editores_toba
 		}				
 		return $hay_pk;
 	}
-
+	
+	function verificar_existencia_columna_valores_unicos()
+	{
+		$esta_completo = true;
+		//Recupero los ids de las columnas actuales
+		$columnas = $this->get_entidad()->tabla('columnas')->get_filas();
+		$cols_aux = array();
+		foreach($columnas as $col) {
+			$cols_aux[] = $col['columna'];
+		}
+		
+		//Recupero las columnas de los valores unicos
+		$valores_unicos = $this->get_entidad()->tabla('valores_unicos')->get_filas();
+		$columnas_unicas = array();
+		foreach ($valores_unicos as $valor) {
+			$aux = explode (',' , $valor['columnas']);
+			$columnas_unicas = array_merge($columnas_unicas, $aux);
+		}
+		if (! empty($columnas_unicas)) {
+			$resultado = array_intersect($columnas_unicas, $cols_aux);
+			$esta_completo = (count($columnas_unicas) == count($resultado));		
+		}
+		
+		return $esta_completo;
+	}
+	
 	function conf__fks(toba_ei_formulario_ml $form)
 	{
 		$filas = $this->get_entidad()->tabla('fks')->get_filas(null, true);

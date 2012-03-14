@@ -140,6 +140,7 @@ class toba_solicitud_web extends toba_solicitud
 					$mensaje_debug = $e->get_mensaje_log();
 				}				
 				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
+				toba::notificacion()->set_titulo($e->get_titulo_ventana());
 			}
 		}
 	}
@@ -324,12 +325,7 @@ class toba_solicitud_web extends toba_solicitud
 	protected function servicio__vista_jasperreports( $objetos )
 	{
 		$salida = new toba_vista_jasperreports();		
-		//Callback de los eis
-		foreach( $this->objetos as $objeto ) {
-			if(method_exists($objeto, 'vista_jasperreports')) {
-				$objeto->vista_jasperreports($salida);	
-			}
-		}
+		$salida->asignar_objetos($objetos);
 		$salida->generar_salida();
 		$salida->enviar_archivo();
 	}	

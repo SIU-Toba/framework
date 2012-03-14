@@ -4,12 +4,12 @@ class ci_previsualizacion extends toba_ci
 {
 	private $modificacion = false;
 
-	function extender_objeto_js()
+	/*function extender_objeto_js()
 	{
 		if ($this->modificacion) {
 			echo "top.frame_control.document.location.reload();";	
 		}
-	}
+	}*/
 	
 	function get_grupos_acceso()
 	{

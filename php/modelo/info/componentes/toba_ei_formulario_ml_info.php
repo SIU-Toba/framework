@@ -28,11 +28,11 @@ class toba_ei_formulario_ml_info extends toba_ei_formulario_info
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->tipo_analisis() == 'EVENTOS') {
 			$eventos['registro_alta']['parametros'] = array('id_fila', 'datos');
-			$eventos['registro_alta']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_alta']['comentarios'] = array("El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación");
 			$eventos['registro_baja']['parametros'] = array('id_fila');
-			$eventos['registro_baja']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_baja']['comentarios'] = array("El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación");
 			$eventos['registro_modificacion']['parametros'] = array('id_fila', 'datos');
-			$eventos['registro_modificacion']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_modificacion']['comentarios'] = array("El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación");
 		}
 		return $eventos;
 	}

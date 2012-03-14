@@ -89,6 +89,26 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 		}
 	}
 
+	function get_descripcion_estado($tipo_salida)
+	{
+		if (isset($this->descripcion_estado)) {
+			$valor = $this->descripcion_estado;
+		} else {
+			$valor = null;
+		}
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$valor</div>";
+			break;
+			case 'pdf':
+				return $valor;
+			case 'excel':		
+				return array($valor, null);
+			break;
+		}
+	}
+
 	function set_modo_filtrado($estado)
 	{
 		$this->habilitar_modo_filtrado = $estado;

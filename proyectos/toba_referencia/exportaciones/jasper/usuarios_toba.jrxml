@@ -4,8 +4,8 @@
 	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" isDefault="false" fontName="Arial" fontSize="12"/>
-	<queryString language="SQL">
-		<![CDATA[select * from desarrollo.apex_usuario]]>
+	<queryString>
+		<![CDATA[select usuario, nombre from apex_usuario]]>
 	</queryString>
 	<field name="usuario" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

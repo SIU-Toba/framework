@@ -32,6 +32,8 @@ class ci_jasper extends toba_ci
 			throw new toba_error_def("Parámetro no definido");
 		}
 		$report->set_path_reporte($this->s__paths[$path]);
+		$db = toba::instancia()->get_db();
+		$report->set_conexion($db);
 	}
 	
 	

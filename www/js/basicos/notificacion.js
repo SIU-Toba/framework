@@ -13,6 +13,7 @@ var notificacion;
 notificacion = new function() {
 	this._mensajes = [];
 	this._responsable = null;
+	this._titulo = 'Información';
 };
 	
 	/**
@@ -24,7 +25,25 @@ notificacion = new function() {
 	notificacion.agregar = function(mensaje, gravedad, sujeto, mensaje_debug) {
 		if (!gravedad) {gravedad = 'error';}
 		this._mensajes.push([mensaje, gravedad, sujeto, mensaje_debug]);
+
+		switch (gravedad)
+		{
+			case 'error': 	this._titulo = 'Se han encontrado los siguientes problemas:';
+							break;
+			case 'warning': this._titulo = 'Aviso:';
+							break;
+			default:
+							this._titulo = 'Información';				
+		}
 	};
+
+	/**
+	* Permite cambiar el titulo de la ventana de notificación de mensajes
+	* @param string Titulo de la ventana
+	*/	
+	notificacion.set_titulo_ventana = function (titulo) {
+		this._titulo = titulo;	
+	}
 
 	/**
 	 * Muestra una ventana con los mensajes encolados hasta el momento
@@ -61,14 +80,11 @@ notificacion = new function() {
 			return;	
 		}
 		var mensaje = '<div class="overlay-mensaje">';
-		var titulo = 'Información';		
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad = '';
 			if (this._mensajes[i][1] == 'error') {
-				titulo = 'Se han encontrado los siguientes problemas:';
 				gravedad = '<img src="'+ toba.imagen('error') + '"/> ';
 			} else if (this._mensajes[i][1] == 'warning') {
-				titulo = 'Aviso:';
 				gravedad = '<img src="'+ toba.imagen('warning') + '"/> ';
 			} else {
 				gravedad = '<img src="'+ toba.imagen('info') + '"/> ';
@@ -86,7 +102,7 @@ notificacion = new function() {
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
 		mensaje += "</div><div class='overlay-botonera'><input id='boton_overlay' class='ei-boton' type='button' value='Aceptar' onclick='overlay()'/></div>";
-		this.mostrar_ventana_modal(titulo, mensaje);
+		this.mostrar_ventana_modal(this._titulo, mensaje);
 	};
 	
 	notificacion.mostrar_ventana_modal = function(titulo, mensaje, ancho, accion_cerrar) {

@@ -382,18 +382,8 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
      */
 	function pdf_acumulador_usuario()
 	{
-		$acumulador = $this->_cuadro->get_acumulador_usuario();
-		$datos = $this->_cuadro->get_datos();
-
-		if (isset($acumulador)) {
-			foreach($acumulador as $sum) {
-				if($sum['corte'] == 'toba_total') {
-					$metodo = $sum['metodo'];
-					$sumarizacion[$sum['descripcion']] = $this->$metodo($datos);
-				}
-			}
-		}
-		if (isset($sumarizacion)) {
+		$sumarizacion = $this->_cuadro->calcular_totales_sumarizacion_usuario();
+		if (! empty($sumarizacion)) {
 			$css = 'cuadro-cc-sum-nivel-1';
 			$this->pdf_cuadro_sumarizacion($sumarizacion,null,300,$css);
 		}

@@ -537,10 +537,12 @@ class WS_WSDL_Type
 
                         $seq->appendChild($element_ele);
 			            //----SIU: INICO
-			            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
-			                                               "documentation");
-			            $part->nodeValue = $paramValue['documentation'];
-			            $seq->appendChild($part);         
+			            if (isset($paramValue['documentation'])) {
+				            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+				                                               "documentation");
+				            $part->nodeValue = $paramValue['documentation'];
+				            $seq->appendChild($part);
+			            }         
 			            //----SIU: FIN                                   
 
                     }
@@ -671,10 +673,12 @@ class WS_WSDL_Type
                         $seq->appendChild($element_ele);
                         
 			            //----SIU: INICO
-			            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
-			                                               "documentation");
-			            $part->nodeValue = $paramValue['documentation'];
-			            $seq->appendChild($part);         
+			            if (isset($paramValue['documentation'])) {
+				            $part = $wsdl_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+				                                               "documentation");
+				            $part->nodeValue = $paramValue['documentation'];
+				            $seq->appendChild($part);
+			            }         
 			            //----SIU: FIN                             
                         
                     }

@@ -175,6 +175,10 @@ class toba_db_postgres7 extends toba_db
 		$clave = "password={$this->clave}";
 		$conn_string = "$host $puerto $base $usuario $clave";
 		$dbconn = pg_connect($conn_string);
+		if (isset($this->schema)) {
+			$sql = "SET search_path TO {$this->schema};";
+			pg_query($dbconn, $sql);
+		}
 		$salida = pg_copy_from($dbconn,$tabla,$datos,$delimitador,$valor_nulo);
 		if (!$salida) {
 			$mensaje = pg_last_error($dbconn);

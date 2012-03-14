@@ -1,7 +1,7 @@
 <?php
 class ap_relacion_datos_tabla extends ap_relacion_objeto
 {
-    function  evt__post_sincronizacion()
+	function  evt__post_sincronizacion()
 	{
 		parent::evt__post_sincronizacion();
 		$props_basicas = $this->objeto_relacion->tabla('prop_basicas')->get();

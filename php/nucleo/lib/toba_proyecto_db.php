@@ -265,7 +265,7 @@ class toba_proyecto_db
 								ON	(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE
 					(i.menu = 1)
-				AND i.item != i.padre	--no es raiz
+				AND i.item != i.padre	/*no es raiz*/
 				AND	($sql_grupo_acceso i.publico = 1)
 				AND		(i.proyecto = $proyecto)
 				ORDER BY i.padre,i.orden;";

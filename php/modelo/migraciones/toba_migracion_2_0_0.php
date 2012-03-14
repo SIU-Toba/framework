@@ -52,45 +52,45 @@ class toba_migracion_2_0_0 extends toba_migracion
 				tipo								varchar(20)			NOT NULL,
 
 				UNIQUE								("etiqueta","proyecto"),
-				CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id"),
+				CONSTRAINT	"apex_punto_montaje_pk"	PRIMARY KEY ("id", "proyecto"),
 				CONSTRAINT	"apex_proyecto_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 			);
 		';
 		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_contexto int8;';
-		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("pm_contexto") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		//$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_contexto" FOREIGN KEY ("pm_contexto") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_sesion int8;';
-		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("pm_sesion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		//$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_sesion" FOREIGN KEY ("pm_sesion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_usuario int8;';
-		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("pm_usuario") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		//$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_usuario" FOREIGN KEY ("pm_usuario") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_proyecto ADD pm_impresion int8;';
-		$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("pm_impresion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		//$sql[] = 'ALTER TABLE apex_proyecto ADD CONSTRAINT "apex_objeto_fk_pm_impresion" FOREIGN KEY ("pm_impresion") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_objeto ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_item_zona ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_item_zona ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';		
+		$sql[] = 'ALTER TABLE apex_item_zona ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';		
 		
 		$sql[] = 'ALTER TABLE apex_objeto_datos_rel ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_objeto_datos_rel ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_datos_rel ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id","proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "objeto_proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 		
 		$sql[] = 'ALTER TABLE apex_pagina_tipo ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_pagina_tipo ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_pagina_tipo ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_consulta_php ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_consulta_php ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_consulta_php ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_ci_pantalla ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "objeto_ci_proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD punto_montaje int8;';
-		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT "apex_objeto_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "objeto_ei_formulario_proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		//Tabla para los ei_mapa
 		$sql[] = 'CREATE TABLE apex_objeto_mapa
@@ -131,15 +131,15 @@ class toba_migracion_2_0_0 extends toba_migracion
 
 		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN carga_maestros TEXT  NULL;';
 		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN punto_montaje bigint  NULL;';
-		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD CONSTRAINT	"apex_ei_filtro_col_fk_puntos_montaje" FOREIGN KEY ("punto_montaje")	REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD CONSTRAINT	"apex_ei_filtro_col_fk_puntos_montaje" FOREIGN KEY ("punto_montaje", "objeto_ei_filtro_proyecto")	REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		$sql[] = "INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, proyecto, obsoleto) VALUES('ef_editable_fecha_hora', 'ef_editable', 'fecha hora', 'toba', '0');";
 
 		$sql[] = 'ALTER TABLE apex_fuente_datos ADD punto_montaje  int8;';
-		$sql[] = 'ALTER TABLE apex_fuente_datos  ADD CONSTRAINT "apex_fuente_datos_fk_punto_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"	("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_fuente_datos  ADD CONSTRAINT "apex_fuente_datos_fk_punto_montaje" FOREIGN KEY ("punto_montaje", "proyecto") REFERENCES "apex_puntos_montaje"	("id", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext ADD punto_montaje  int8;';
-		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext  ADD CONSTRAINT "apex_obj_dbr_ext_fk_punto_montaje" FOREIGN KEY ("punto_montaje") REFERENCES "apex_puntos_montaje"  ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
+		$sql[] = 'ALTER TABLE apex_objeto_db_registros_ext  ADD CONSTRAINT "apex_obj_dbr_ext_fk_punto_montaje" FOREIGN KEY ("punto_montaje", "objeto_proyecto") REFERENCES "apex_puntos_montaje"  ("id", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE;';
 
 		// Agregar registros por defecto del proyecto que se está migrando
 		$this->elemento->get_db()->ejecutar($sql);

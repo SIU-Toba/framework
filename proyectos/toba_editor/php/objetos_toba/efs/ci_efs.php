@@ -398,7 +398,9 @@ class ci_efs extends toba_ci
 			//--- Limpia los valores
 			$datos = array('carga_maestros' => null);
 			foreach ($this->mecanismos_carga as $mec) {
-				$datos[$mec] = null;
+				if ($mec != 'punto_montaje') {				//No blanqueo el punto de montaje
+					$datos[$mec] = null;					//generalmente es el mismo para el EF, pero hay que separar este campo en 2 (proxima version)
+				}
 			}
 		}
 		//-- Si selecciona otro mecanismo o tipo de clase de carga php, blanquear el datos tabla

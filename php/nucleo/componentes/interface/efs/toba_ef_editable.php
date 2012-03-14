@@ -737,7 +737,12 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	function tiene_estado()
 	{
 		//Verifico que sea distinto de null y que ambas componenetes esten seteadas.
-		return (! is_null($this->estado) && isset($this->estado['fecha']) && isset($this->estado['hora']));
+		$hay_fecha = $hay_hora = true;
+		if (! is_null($this->estado)) {
+			$hay_fecha = (isset($this->estado['fecha']) && trim($this->estado['fecha'] != ''));
+			$hay_hora = (isset($this->estado['hora']) && trim($this->estado['hora'] != ''));
+		}
+		return ($hay_fecha && $hay_hora);
 	}
 
 	function cargar_estado_post()

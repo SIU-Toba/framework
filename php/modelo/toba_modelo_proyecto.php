@@ -119,16 +119,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $url;
 	}
 
-    function get_url_pers()
-    {
-        $id = $this->get_id();
-        $url = $this->instancia->get_url_proyecto_pers($id);
-        if ($url == '') {
-            $version = $this->get_version_proyecto();
+	function get_url_pers()
+	{
+		$id = $this->get_id();
+		$url = $this->instancia->get_url_proyecto_pers($id);
+		if ($url == '') {
+			$version = $this->get_version_proyecto();
 			$url = '/'.$id.'_pers/'.$version->get_release();
-        }
-        return $url;
-    }
+		}
+		return $url;
+	}
 
 	function get_dir()
 	{
@@ -2317,6 +2317,29 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_manejador_archivos::copiar_directorio($empaquetado['path_instalador'], $empaquetado['path_destino'], 
 														$excepciones, $this->manejador_interface, false);
 		$this->manejador_interface->progreso_fin();
+
+		//-----Creo un autoload con las clases del instalador + las que se redefinieron del mismo				
+		$this->manejador_interface->mensaje('Generando autoload instalador...', false);
+		$destino_relativo = 'proyectos/'.$this->get_id().'/aplicacion';	
+		$extras = array();
+		$redefinidos = $ini->get('instalador_clases_redefinidas', null, null, false);
+		if (! is_null($redefinidos)) {
+			foreach($redefinidos as $clase) {
+				$nombre = basename($clase, '.php');
+				$extras[$nombre] = $destino_relativo . '/'. $clase;		
+			}
+		}
+		
+		$pm = array(
+			$empaquetado['path_destino'] => array(
+				'archivo_salida' => "instalador_autoload.php",
+				'dirs_excluidos' => array(),
+				'extras' => $extras				
+			));
+		
+		$generador_autoload = new toba_extractor_clases($pm);
+		$generador_autoload->generar();		
+		$this->manejador_interface->progreso_fin();		
 		
 		//--- Empaqueta el núcleo de toba y lo deja en destino
 		$this->manejador_interface->mensaje("Copiando framework", false);	
@@ -2351,7 +2374,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}			
 		}
 
-		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);
+		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
 		$this->manejador_interface->progreso_fin();
 
 	}

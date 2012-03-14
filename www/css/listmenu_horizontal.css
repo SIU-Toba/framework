@@ -17,7 +17,7 @@ ul.horizontal {
 	cursor:default;
 	z-index:5;
 	top:5px;
-	}
+}
 
 ul.horizontal li {
 	width:auto;
@@ -26,16 +26,16 @@ ul.horizontal li {
 	text-align:left;
 	left:10.55em;
 	margin:0 0 0 -1px;
-	}
+}
 	
 * html ul.horizontal li {
 	margin:0 -10.55em 0 10.55em;
-	}
+}
 
 ul[class^="horizontal"] li {
 	margin:0 -10.55em 0 10.45em;
 	left:0.05em;
-	}
+}
 
 ul.horizontal ul {
 	z-index:2020;
@@ -43,16 +43,20 @@ ul.horizontal ul {
 	cursor:default;
 	position:absolute;
 	top:auto;
-	width:8.2em;
+	width: auto;
+	min-width: 200px;
 	margin:0 0 0 0;
 	left:-2000px;
-	}
+}
 	
 ul.horizontal ul li {
-	width: 200px;
+	display: block;
+	float: none;
+	width: auto;
 	left:auto;
 	margin:-1px 0 0 0;
-	}
+	white-space: nowrap;
+}
 
 ul.horizontal ul.wider, ul.horizontal ul.wider li {
 	width:12.2em;
@@ -81,8 +85,6 @@ ul.horizontal a, ul.horizontal a:visited {
 ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
 }
 
-
-
 ul.horizontal a { float:left; }
 @media Screen, Projection { ul.horizontal a { float:none; } }
 ul.horizontal a:not(:nth-child(n)) { float:left; }
@@ -96,9 +98,7 @@ ul.horizontal ul a { float:none !important; }
 	}
 * html ul.horizontal li { position:static; }
 * html ul.horizontal a { position:relative; }
-ul[class^="horizontal"] ul { display:none; }
-ul[class^="horizontal"] ul { displa\y:block; }
-
+ul[class^="horizontal"] ul { display:block; }
 
 a.menu-link-alt {
 	text-decoration: underline !important;

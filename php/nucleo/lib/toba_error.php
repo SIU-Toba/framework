@@ -11,10 +11,12 @@
 class toba_error extends Exception
 {
 	protected $mensaje_solo_debug = '';
+	protected $titulo_ventana;
 
-	function __construct($mensaje_visible, $mensaje_solo_debug='')
+	function __construct($mensaje_visible, $mensaje_solo_debug='', $titulo_ventana = null)
 	{
 		$this->mensaje_solo_debug = $mensaje_solo_debug;
+		$this->titulo_ventana = $titulo_ventana;
 		parent::__construct($mensaje_visible);
 	}
 
@@ -31,7 +33,11 @@ class toba_error extends Exception
 			return $this->get_mensaje();
 		}
 	}
-
+	
+	function get_titulo_ventana()
+	{
+		return $this->titulo_ventana;
+	}
 }
 
 

@@ -47,7 +47,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_lock_optimista = true;
 	//-------------------------------
 	protected $_insert_campos_default = array();
-
+	protected $_usar_perfil_de_datos = false;
 	
 	/**
 	 * @param toba_datos_tabla $datos_tabla Tabla que persiste
@@ -114,7 +114,14 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	//-------------------------------------------------------------------------------
 	//------  Configuracion  --------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
+	/**
+	 * Activa el uso de perfil de datos en la carga del componente
+	 */
+	function activar_perfil_de_datos()
+	{
+		$this->_usar_perfil_de_datos = true;
+	}
+	
 	/**
 	 * Utilizar una transaccion de BD cuando sincroniza la tabla
 	 */
@@ -858,6 +865,9 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			}
 			$sql = substr($sql, 0, -4); 	//Se saca el ultimo AND
 		}
+		if ($this->_usar_perfil_de_datos) {					//Si el datos_tabla maneja perfil de datos
+			$sql = toba::perfil_de_datos()->filtrar($sql);				
+		}
 
 		//Se guardan los datos de la carga
 		$this->_sql_carga = array('from' => $from, 'where' => $where);
@@ -1176,8 +1186,10 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 						//Aca tengo que ciclar por los datos como hice antes
 						for ($a=0;$a<count($datos);$a++) {							
 							$campos_externos = $this->completa_campos_externos_fila_con_proceso($datos[$a], $parametros);
-							foreach ($campos_externos as $id => $valor) {
-								$datos[$a][$id] = $valor;
+							if (is_array($campos_externos)) {
+								foreach ($campos_externos as $id => $valor) {
+									$datos[$a][$id] = $valor;
+								}
 							}
 						}
 					}				

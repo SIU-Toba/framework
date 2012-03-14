@@ -245,9 +245,10 @@ class toba
 	 * Retorna un componente datos_tabla de una tabla específica del sistema
 	 * @param string $nombre_tabla
 	 * @param string $fuente Fuente a la que pertenece la tabla, si no se especifica se utiliza la por defecto del proyecto
+	 * @param boolean $reusar Indica si se reutiliza una instancia existente o se crea un objeto nuevo. Por defecto true.
 	 * @return toba_datos_tabla
 	 */
-	static function tabla($nombre_tabla, $fuente = null)
+	static function tabla($nombre_tabla, $fuente = null, $reusar = true)
 	{
 		if(!isset($fuente)) {
 			$fuente = toba_admin_fuentes::get_fuente_predeterminada(true);	
@@ -256,7 +257,7 @@ class toba
 		$id['proyecto'] = toba_proyecto::get_id();
 		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
 		//Se pide el dt con el cache activado asi evita duplicar las instancias
-		$comp = toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+		$comp = toba_constructor::get_runtime($id, 'toba_datos_tabla', $reusar);
 
 		if (! $comp->inicializado()) {
 			$comp->inicializar();

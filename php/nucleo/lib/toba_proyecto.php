@@ -379,8 +379,7 @@ class toba_proyecto
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 															$grupos_acceso, 
 															'get_items_menu',
-															true,
-															array('padre','orden'));
+															true);
 		} else {
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}

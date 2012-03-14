@@ -69,10 +69,12 @@ class WS_WSDL_Port
                 }
             }
             //----SIU: INICO
-            $part = $port_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
-                                               "documentation");
-            $part->nodeValue = $operations[$name]['documentation'];
-            $operation->appendChild($part);            
+            if (isset($operations[$name]['documentation'])) {
+	            $part = $port_doc->createElementNS(WS_WSDL_Const::WS_SCHEMA_WSDL_NAMESPACE,
+	                                               "documentation");
+	            $part->nodeValue = $operations[$name]['documentation'];
+	            $operation->appendChild($part);
+            }            
             //----SIU: FIN                               
             
             // be sensitive to the available directions

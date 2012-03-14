@@ -79,7 +79,7 @@ class toba_personalizacion {
 		$this->cargar_ini();
 	}
 
-	protected function clonar_schema_windows($schema_viejo, $schema_nuevo, $base, $user, $pass, $port)
+	protected function clonar_schema_windows($schema_viejo, $schema_nuevo, $profile, $base, $user, $pass, $port)
 	{
 		$temp_dir = $this->proyecto->get_dir(). '/temp';
 		$salida = toba_manejador_archivos::path_a_windows($temp_dir.'/dump.sql');
@@ -87,10 +87,10 @@ class toba_personalizacion {
 			@echo off
 			SET PGUSER=$user
 			SET PGPASSWORD=$pass
-			psql -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base
-			pg_dump -p $port --inserts --no-owner -x -n $schema_nuevo $base  > $salida
-			psql -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base
-			psql -d $base -p $port < $salida
+			psql -h $profile -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base
+			pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_nuevo $base  > $salida
+			psql -h $profile -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base
+			psql -h $profile -d $base -p $port < $salida
 		";
 		$bat_file = $temp_dir.'/clonar_schema.bat';
 		file_put_contents($bat_file, $bat);
@@ -99,39 +99,40 @@ class toba_personalizacion {
         unlink($salida);
 	}
 	
-	protected function clonar_schema_linux($schema_viejo, $schema_nuevo, $base, $user, $pass, $port)
+	protected function clonar_schema_linux($schema_viejo, $schema_nuevo, $profile, $base, $user, $pass, $port)
 	{
 		$temp_dir = $this->proyecto->get_dir(). '/temp';
 		$salida = $temp_dir.'/dump.sql';
 		
 		$sh  = "export PGUSER=$user\n";
 		$sh .= "export PGPASSWORD=$pass\n";
-		$sh .= "psql -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base\n";
-		$sh .= "pg_dump -p $port --inserts --no-owner -x -n $schema_nuevo $base > $salida\n";
-		$sh .= "psql -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base\n";
-		$sh .= "psql -d $base -p $port < $salida\n";
+		$sh .= "psql -h $profile -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base\n";
+		$sh .= "pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_nuevo $base > $salida\n";
+		$sh .= "psql -h $profile -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base\n";
+		$sh .= "psql -h $profile -d $base -p $port < $salida\n";
 
 		$sh_file = $temp_dir.'/clonar_schema.sh';
 		
 		file_put_contents($sh_file, $sh);
 		chmod($sh_file, 0755);
 		exec($sh_file);
-		unlink($sh_file);
+		//unlink($sh_file);
 		unlink($salida);
 	}
 	
 	protected function clonar_schema($schema_viejo, $schema_nuevo)
 	{
 		$params = $this->db->get_parametros();
+		$profile = $params['profile'];
 		$base = $params['base'];
 		$puerto = $params['puerto'];
 		$usuario = $params['usuario'];
 		$clave = $params['clave'];
 		
 		if (toba_manejador_archivos::es_windows()) {
-			$this->clonar_schema_windows($schema_viejo, $schema_nuevo, $base, $usuario, $clave, $puerto);
+			$this->clonar_schema_windows($schema_viejo, $schema_nuevo, $profile, $base, $usuario, $clave, $puerto);
 		} else {
-			$this->clonar_schema_linux($schema_viejo, $schema_nuevo, $base, $usuario, $clave, $puerto);
+			$this->clonar_schema_linux($schema_viejo, $schema_nuevo, $profile, $base, $usuario, $clave, $puerto);
 		}
 	}
    

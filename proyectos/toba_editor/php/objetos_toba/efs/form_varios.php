@@ -49,7 +49,8 @@ class form_varios extends toba_ei_formulario
 			{
 				var cheq = this.ef('popup_carga_desc_estatico').chequeado();
 				this.ef('popup_carga_desc_include').mostrar(cheq, true);
-				this.ef('popup_carga_desc_clase').mostrar(cheq, true);				
+				this.ef('popup_carga_desc_clase').mostrar(cheq, true);
+				this.ef('punto_montaje').mostrar(cheq);
 			}
 			
 			{$this->objeto_js}.pedir_expreg = function(tipo) {

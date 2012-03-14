@@ -23,7 +23,7 @@ class odr_datos_tabla extends toba_datos_relacion
 			$columnas = array_merge($columnas, $fuente->get_definicion_columnas($tabla_ext));
 		}
 		
-		foreach(array_keys($columnas) as $id){
+		foreach(array_keys($columnas) as $id) {
 			$columnas[$id]['columna'] = $columnas[$id]['nombre'];	
 			$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];
 			if ($columnas[$id]['tipo'] == 'C' && $columnas[$id]['longitud'] > 0) {
@@ -32,7 +32,7 @@ class odr_datos_tabla extends toba_datos_relacion
 		}
 		$dbr = $this->tabla("columnas");
 		$actuales = $dbr->get_filas(null, true);
-		for($a=0;$a<count($columnas);$a++){
+		for($a=0;$a<count($columnas);$a++) {
 			try{
 				//--- Evita incluir dos veces el mismo nombre
 				$nueva = true;
@@ -44,7 +44,7 @@ class odr_datos_tabla extends toba_datos_relacion
 				if ($nueva) {
 					$dbr->nueva_fila($columnas[$a]);
 				}
-			}catch(toba_error $e){
+			}catch(toba_error $e) {
 				if ($columnas[$a]['tabla'] == $tabla) {
 					toba::notificacion()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}' al datos_tabla de laa tabla $tabla. " . $e->getMessage());
 				} else {

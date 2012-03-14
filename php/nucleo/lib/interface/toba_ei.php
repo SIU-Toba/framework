@@ -128,7 +128,7 @@
         if($nota!="") $alt = " alt='$nota' ";
         $ancho = convertir_a_medida_tabla($ancho);
         $alto = convertir_a_medida_tabla($alto, 'height');
-		return "<img src='". toba_recurso::imagen_toba("nulo.gif"). "' $ancho $alto $alt />";
+		return "<img class='gif-nulo-tobita' src='". toba_recurso::imagen_toba("nulo.gif"). "' $ancho $alto $alt />";
 	}
 
 	function ei_linea($ancho="100%")

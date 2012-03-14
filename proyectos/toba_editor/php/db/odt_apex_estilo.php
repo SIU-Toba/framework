@@ -17,7 +17,8 @@ class dt_apex_estilo extends toba_datos_tabla
 		$sql = 'SELECT
 			ae.estilo,
 			ae.descripcion,
-			ap.descripcion_corta as proyecto_nombre
+			ap.descripcion_corta as proyecto_nombre,
+			ae.es_css3
 		FROM
 			apex_estilo as ae,
 			apex_proyecto as ap

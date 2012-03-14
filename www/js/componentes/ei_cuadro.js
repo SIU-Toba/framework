@@ -95,7 +95,7 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 			check.checked = !check.checked;
 			check.onclick();
 		}
-	};	
+	};
 		
 	ei_cuadro.prototype.get_ids_seleccionados = function(id_evento)
 	{

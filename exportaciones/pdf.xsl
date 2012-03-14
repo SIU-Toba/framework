@@ -303,7 +303,11 @@
 								<fo:block font-weight="bold"
 									margin-right="1cm">
 									<xsl:value-of select="@clave" />
-									:
+									<xsl:choose>
+										<xsl:when test="@clave!=''">
+									        :
+									    </xsl:when>
+								    </xsl:choose>
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell>

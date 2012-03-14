@@ -895,7 +895,7 @@ class toba_datos_tabla extends toba_componente
 			
 			/*
 				Como los campos externos pueden necesitar un campo que no entrego la
-				interface, primero actualizo los valores y despues tomo la fila y la
+				interfaz, primero actualizo los valores y despues tomo la fila y la
 				proceso con la actualizacion de campos externos
 			*/
 			//Si la tabla posee campos externos, le pido la nueva fila al persistidor
@@ -1053,7 +1053,7 @@ class toba_datos_tabla extends toba_componente
 									Si los datos provienen de un ML, active la opción de analizar filas.");
 			}
 		}
-		//--- El id de la fila se asume que la key del registro o la columna apex_datos_clave_fila
+		//--- Se asume que el id de la fila es la key del registro o la columna apex_datos_clave_fila. 
 		foreach ($filas as $id => $fila) {
 			$id_explicito = false;
 			if (isset($fila[apex_datos_clave_fila])) {

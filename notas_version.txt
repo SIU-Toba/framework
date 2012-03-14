@@ -1,21 +1,4 @@
-=== 2.0.1 ===
-
- * Bugfix formulario_ml la funcion hay_cambios detectaba mal el borrado de filas.
+=== 2.1.1 ===
  
-=== 2.0.3 ===
- * Bug en calculo de solo_lectura
- * Faltaba compilar los metadatos de toba_usuarios
- * Faltaba imagen de descolapsado de skin nuevo
- * Mejoras a visualización de restricciones funcionales en producción
- * Se cambia el scope de la funcion analizar_visualizacion_columna para que se pueda extender la generacion del cuerpo del filtro
- * Se modifica la funcion estatica para obtener un punto de montaje, no estaba contemplando el proyecto
- * Se desactiva el reciclado de memoria en las cascadas del filtro
- * Se cambia la forma de chequear la presencia de datos en el metodo que totaliza las columnas del ml durante la impresion.
- * Se corrige el input de los EFs checkbox y combo. Los íconos de utilería asociados se muestran siempre, independientemente de que el EF esté como "sólo lectura".
- * Toba_mail ahora puede especificar la codificacion con la que se envia un documento adjunto.
- * Bugfix al seleccionar el archivo para la subclase de la fuente de datos
- * Bugfix en el editor de datos_tabla al especificar el mecanismo de carga de las columnas externas
- * Se agrega api al datos relación para poder inhabilitar una o varias tablas para la carga y la sincronización
- * Bugfix en el seteo y control de solo lectura en los efs.
- * Se agrega manejador de errores propio para las solicitudes de servicio web
- 
+=== 2.0.4 ===
+ * Bugfix en el generador automatico de datos tabla.

@@ -698,10 +698,6 @@ abstract class toba_ei extends toba_componente
 				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
 					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
-				} else {
-					if ($titulo != '') {
-						echo gif_nulo("1px", "20px");
-					}
 				}
 	
 				//---Titulo			

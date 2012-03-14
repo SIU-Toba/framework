@@ -736,6 +736,10 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 		}*/
 	};
 
+	ef_editable_fecha_hora.prototype.tiene_estado = function() {
+		var estado = this.get_estado();
+		return ((estado[0] != '') && (estado[1] != ''));
+	};
 
 	ef_editable_fecha_hora.prototype.resetear_estado = function() {
 		this.set_estado([null,null]);

@@ -82,21 +82,21 @@
 		}
 		$sql = '';
 		for ($i = 0; $i < count($palabras) ; $i++) {
-			if($separadores[$i] !=';' && trim($separadores[$i]) != '') {
-				$sql .= $palabras[$i].$separadores[$i].' ';
+			if(trim($separadores[$i]) !=';') {
+				$sql .= $palabras[$i].$separadores[$i];
 			} else {
-				$sql .= $palabras[$i].' ';
+				$sql .= $palabras[$i];
 			}
 			//--- Concateno la clausula WHERE -------------------------------
 			if ($i == $punto_insercion) {
 				$sql .= ($posee_where) ? ' AND ' : ' WHERE ';
 				$sql .= "\n";
 				if ($comentario != '') {
-					$sql .=	"-------- $comentario --------\n";
+					$sql .=	"/*-------- $comentario --------*/\n";
 				}
 				$sql .= implode(' AND ', $clausulas_where);
 				if ($comentario != '') {
-					$sql .=	"\n------------------------\n";
+					$sql .=	"\n/*------------------------*/\n";
 				}					
 				$sql .= "\n";
 			}
@@ -107,6 +107,42 @@
 		return $sql;
 	}
 
+	function sql_concatenar_clausulas_producto_cartesiano($sql, $fuente_datos , $where)
+	{		
+		//-- 1: Preparo el SQL
+		// Le saco el ';' de atras
+		$sql = trim($sql);
+		if(  substr($sql, -1, 1) ==';') {
+			$sql = substr($sql, 0, (strlen($sql)-1) );
+		}		
+		//-- 2: Regenero la SQL copiando los tokens ---
+		$en_join = false;
+		$sql_final = '';
+		$tabla = '';
+		$tokens = preg_split("/(\s+)/",$sql);		//ei_arbol($tokens);
+		$cant = count($tokens);
+		for ($i = 0; $i < $cant ; $i++) {		
+			if ($en_join  && isset($where[$tabla])) {		//Estoy dentro de un JOIN y existe una clausula para esa tabla
+				if ((stripos($tokens[$i],'(') !== false ) && (strlen($tokens[$i]) == 1)) {	//Si es un parentesis que abre
+					$sql_final .= $tokens[$i] . $where[$tabla] . ' AND ';			//Primero va el parentesis y luego la expresion
+				} else {				
+					$sql_final .= $where[$tabla] . ' AND ' .$tokens[$i] . ' ';		//Sino primero la expresion y luego lo que venga
+				}
+				unset($where[$tabla]);
+				continue;
+			}
+			
+			$sql_final .= $tokens[$i] . ' ';				//paso el token actual para seguir armando la SQL
+			if ( stripos($tokens[$i],'on') !== false ) {
+				$tabla = $tokens[$i-1];				//Busco la tabla del join
+				$en_join = true;
+			}elseif (stripos($tokens[$i],'JOIN') !== false) {		//es la clausula del proximo JOIN
+				$en_join = false;
+			}
+		}
+		return $sql_final;
+	}
+		
 	/**
 	 * Concatena tablas a la clausula FROM de un SQL
 	 */	
@@ -170,8 +206,12 @@
 			}else{
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
+				}			
+				if (is_bool($datos[$columna])) {
+					$datos[$columna] = ($datos[$columna]) ? 'TRUE' : 'FALSE';
+				} else {
+					$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
 				}				
-				$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
@@ -195,7 +235,11 @@
 				if (is_resource($datos[$columna])) {
 					$datos[$columna] = stream_get_contents($datos[$columna]);
 				}
-				$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
+				if (is_bool($datos[$columna])) {
+					$datos[$columna] = ($datos[$columna]) ? 'TRUE' : 'FALSE';
+				} else {
+					$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
+				}
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(', ',array_keys($datos)) . ')'. 

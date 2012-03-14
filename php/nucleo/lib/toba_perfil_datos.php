@@ -35,6 +35,7 @@ class toba_perfil_datos
 												'except' 		=> '\sexcept\s+');	
 	protected $operacion_tipo;
 	protected $operacion_segmentos = array();
+	protected $operadores_asimetricos;				//Arreglo que mantiene posicionalmente la ocurrencia de left/right join dentro del from
 
 	function __construct()
 	{
@@ -227,7 +228,7 @@ class toba_perfil_datos
 	/**
 	*	Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual
 	*/
-	function filtrar($sql, $fuente_datos=null)
+	function filtrar($sql, $fuente_datos=null,$dimensiones_desactivar = null)
 	{
 		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
 		if ($this->posee_restricciones($fuente_datos)) {
@@ -241,16 +242,17 @@ class toba_perfil_datos
 					$id_operador++;
 				}
 			} else {
-				$sql = $this->filtrar_sql($sql, $fuente_datos);
+				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar);
 			}
 		}
 		toba::logger()->debug('SQL con perfil de datos: ' .$sql);
 		return $sql;
 	}
 	
-	function filtrar_sql($sql, $fuente_datos=null)
+	function filtrar_sql($sql, $fuente_datos=null,$dimensiones_desactivar = null)
 	{
-		$where = array();
+		$where = $where_join = array();
+		$this->operadores_asimetricos = array();
 		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 1 -- Busco GATILLOS en el SQL
 		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
@@ -258,16 +260,28 @@ class toba_perfil_datos
 		$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
 		//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
 		foreach( $dimensiones_implicadas as $dimension => $tabla ) {
+			if(isset($dimensiones_desactivar) && in_array($dimension,$dimensiones_desactivar)) continue;
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
-			$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
+			//Genero la clausula para la tabla gatillo			
+			$where_gatillo = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);			
+			if (isset($this->operadores_asimetricos[$tabla]) && ($this->operadores_asimetricos[$tabla] != ',')) {			//Si existe un operador opcional para la tabla gatillo
+				$where_join[$tabla] = $where_gatillo;
+			} else {
+				$where[] = $where_gatillo;											//Lo incorporo a las clausulas del where
+			}
 		}
-		$sql = $this->quitar_comentarios_sql($sql);
+		$sql = $this->quitar_comentarios_sql($sql);		
 		//-- 4 -- Altero el SQL
 		if(! empty($where)) {
-			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
+			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');
+		}
+		
+		// -- 5 -- Altero el From cuando hay left/right joins (Esta detras porque sql_concatenar_where no se banca subselects)
+		if (! empty($where_join)) {					
+			$sql = sql_concatenar_clausulas_producto_cartesiano($sql, $fuente_datos, $where_join);
 		}
 		return $sql;
-	}	
+	}
 	
 	/**
 	*	Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una
@@ -469,12 +483,14 @@ class toba_perfil_datos
 	*/
 	function buscar_gatillos_from($sql_from, $fuente_datos)
 	{
-		$gatillos = $this->get_gatillos_activos($fuente_datos);
+		$i = 0;		
 		$tablas = array();
+		$gatillos = $this->get_gatillos_activos($fuente_datos);
 		$clausulas = preg_split('/\s+(LEFT|RIGHT)?\s*(OUTER|inner)?\s*JOIN\s*|[\,]/is', $sql_from );			//Separo no solo por coma, sino tambien por las variantes del JOIN
+		$operadores = $this->buscar_operadores_asimetricos($sql_from);
 		foreach($clausulas as $clausula) {
 			$temp = preg_split("/\s+/", trim($clausula) );					//Separo por espacios 
-			if(isset($temp[0])) {
+			if(isset($temp[0])) {				
 				if (strpos($temp[0], '.') !== false) {
 					list($esquema, $tabla) = explode('.', $temp[0]);
 				} else {
@@ -489,13 +505,26 @@ class toba_perfil_datos
 					}else {
 						$alias = $temp[0];			//Nombre de la tabla.
 					}
-					$tablas[$tabla] = $alias;
+					$tablas[$tabla] = $alias;					
+				}
+				if (isset($operadores[$i])) {
+					$this->operadores_asimetricos[$tabla] = $operadores[$i];		//Guardo el operador encontrado para esta tabla
 				}
 			}
+			$i++;
 		}
 		return $tablas;
 	}
 
+	private function buscar_operadores_asimetricos($sql_from)
+	{
+		preg_match_all('/(\s+(LEFT|RIGHT)?\s*(OUTER|inneR)?\s*JOIN\s*|[\,])/is', $sql_from, $ops );
+		if (! empty($ops)) {
+			return array_merge(array('0' => NULL), $ops[1]);		//La componente cero tiene todo el string matcheado, yo necesito el primer nivel de parentesis
+		}
+		return array();
+	}
+	
 	function hay_combinaciones_de_querys($sql)
 	{
 		$pattern = '/'. implode('|', $this->operaciones_de_conjuntos) .'/is';

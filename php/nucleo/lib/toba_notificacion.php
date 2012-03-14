@@ -10,6 +10,7 @@ class toba_notificacion
 {
 	private $mensajes = array();
 	static private $instancia;
+	protected $titulo;
 	
 	static function instancia()
 	{
@@ -30,8 +31,10 @@ class toba_notificacion
 	 */
 	function agregar($mensaje, $nivel='error',$extras=null)
 	{
-		$this->mensajes[] = array($mensaje, $nivel, $extras);
-		toba::logger()->debug("Mensaje a usuario: ".$mensaje, 'toba');
+		if (! is_null($mensaje) && trim($mensaje) != '') {
+			$this->mensajes[] = array($mensaje, $nivel, $extras);
+			toba::logger()->debug("Mensaje a usuario: ".$mensaje, 'toba');
+		}
 	}
 	
 	/**
@@ -73,6 +76,13 @@ class toba_notificacion
 		$this->agregar(toba::mensajes()->get($indice, $parametros), $nivel);
 	}
 
+	function set_titulo($titulo)
+	{
+		if (! is_null($titulo)) {
+			$this->titulo = $titulo;
+		}
+	}
+
 	/**
 	 * Reporta la existencia de mensajes
 	 * @return boolean 
@@ -108,6 +118,9 @@ class toba_notificacion
 			}else{
 				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";	
 			}			
+		}
+		if (isset($this->titulo)) {
+			echo "notificacion.set_titulo_ventana('{$this->titulo}');\n";
 		}
 		echo "notificacion.mostrar();\n";
 		if ($incluir_comsumos) {

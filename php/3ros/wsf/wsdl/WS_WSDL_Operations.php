@@ -169,10 +169,12 @@ class WS_WSDL_Operations
                                                                             "array" => NULL,
                                                                             "object" => NULL);
 
-            $this->createdTypes[$match[1]] = 2;
-            $this->operations[$operationName][self::WS_OPERATION_OUTPUT_TAG][] =
-                array(self::WS_OPERATION_NAME_TAG => self::WS_OPERATION_RET_TAG,
-                      self::WS_OPERATION_TYPE_TAG => $match[1]);
+            if (isset($match)) {
+	            $this->createdTypes[$match[1]] = 2;
+	            $this->operations[$operationName][self::WS_OPERATION_OUTPUT_TAG][] =
+	                array(self::WS_OPERATION_NAME_TAG => self::WS_OPERATION_RET_TAG,
+	                      self::WS_OPERATION_TYPE_TAG => $match[1]);
+            }
 
         }
         else
