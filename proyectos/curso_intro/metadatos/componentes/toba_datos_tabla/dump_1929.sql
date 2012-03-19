@@ -44,7 +44,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema) VALUES (
 	'curso_intro', --objeto_proyecto
 	'1929', --objeto
 	NULL, --max_registros
@@ -59,7 +59,8 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'0', --modificar_claves
 	'curso_intro', --fuente_datos_proyecto
 	'curso_intro', --fuente_datos
-	'1'  --permite_actualizacion_automatica
+	'1', --permite_actualizacion_automatica
+	NULL  --esquema
 );
 
 ------------------------------------------------------------
