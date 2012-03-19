@@ -68,7 +68,6 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	ef_combo_editable.prototype._quitar_mensaje_ayuda = function() {
 		if (! this._msj_ayuda_habilitado) return;
 		if (this._msj_ayuda_div != undefined) {
-			//this._msj_ayuda_div.style.visibility = 'hidden';			
 			this._msj_ayuda_div.parentNode.removeChild(this._msj_ayuda_div);
 			this._msj_ayuda_div = undefined;
 		}
@@ -181,7 +180,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	ef_combo_editable.prototype.get_estado = function(descr) {
 		if (typeof descr == 'undefined') {
 				descr = false;
-			}	
+		}	
 		var combo = this._get_combo();
 		var valor = combo.getSelectedValue();
 		var desc = combo.getSelectedText();
@@ -264,11 +263,10 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	
 	ef_combo_editable.prototype.resetear_estado = function() {
 		var combo = this._get_combo();
+		combo.setComboText('');
 		combo.unSelectOption();
 		combo.callEvent("onChange",[]);
-		if (! this.tiene_texto()) {
-			this._put_mensaje_ayuda();
-		}
+		this._put_mensaje_ayuda();
 	};
 	
 	/**
@@ -334,8 +332,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		this._es_oculto = true;		
 		if (resetear) {
 			this.resetear_estado();
+		} else {
+			this._quitar_mensaje_ayuda();
 		}
-		this._quitar_mensaje_ayuda();
 	};
 	
 	/**
