@@ -932,8 +932,19 @@ class toba_ei_cuadro extends toba_ei
 	* @return boolean
 	*/
 	function existen_cortes_control()
-	{
-		return (count($this->_info_cuadro_cortes)>0) && !$this->_salida_sin_cortes;
+	{		
+		$cortes_activos = 0;		
+		if (is_null($this->_cortes_def)) {						//Si no hay cortes procesados aun, tomo los definidos en base
+			$cortes_activos = count($this->_info_cuadro_cortes);
+		} elseif (! empty($this->_cortes_def)) {					
+			$datos_corte = reset($this->_cortes_def);			//Ciclo por los cortes que se procesaron en la definicion
+			do {
+				if ($datos_corte['habilitado'] == 1) {				//Si el corte esta activo dejo de buscar.
+					$cortes_activos++;
+				}				
+			} while ($datos_corte = next($this->_cortes_def) && $cortes_activos == 0);		
+		}
+		return (($cortes_activos > 0) && !$this->_salida_sin_cortes);
 	}
 
 	/**
@@ -964,7 +975,12 @@ class toba_ei_cuadro extends toba_ei
 		}
 
 		//Armo el arreglo con los datos basicos del corte
-		$db_corte = array('identificador' => $corte['identificador'], 'columnas_id' => $corte['columnas_id'], 'columnas_descripcion' => $corte['columnas_descripcion']);
+		$db_corte = array('identificador' => $corte['identificador'], 'columnas_id' => $corte['columnas_id'], 'columnas_descripcion' => $corte['columnas_descripcion'], 'descripcion' => $corte['descripcion']);
+		//Ahora agrego los opcionales
+		$db_corte['pie_contar_filas'] = (isset($corte['pie_contar_filas'])) ? $corte['pie_contar_filas'] : 0;
+		$db_corte['pie_mostrar_titulos'] = (isset($corte['pie_mostrar_titulos'])) ? $corte['pie_mostrar_titulos'] : 0;
+		$db_corte['pie_mostrar_titular'] = (isset($corte['pie_mostrar_titular'])) ? $corte['pie_mostrar_titular'] : 0;
+		$db_corte['imp_paginar'] = (isset($corte['imp_paginar'])) ? $corte['imp_paginar'] : 0;		
 		$db_corte['modo_inicio_colapsado'] = (isset($corte['inicio_colapsado'])) ? $corte['inicio_colapsado'] : 0;
 		$this->_info_cuadro_cortes[] = $db_corte;
 
