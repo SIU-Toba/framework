@@ -292,6 +292,7 @@ class toba_evento_usuario extends toba_boton
 			if (isset($js)) {
 				$extra = 'onclick="'.$js.'"';
 				$extra .= " title='$tip'";
+				$extra .= $this->activado ? '' : ' disabled';
 				$valor_actual = ($this->es_check_activo) ? $this->parametros : null;
 				$html .= toba_form::checkbox($id_submit."_".$this->get_id(), $valor_actual, $this->parametros, '', $extra);
 			}
