@@ -2,7 +2,7 @@
 
 class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 {
-	var $tiempo_minimo_control = 30; //tiempo expresado en segundos
+	public $tiempo_minimo_control = 30; //tiempo expresado en segundos
 	protected $chequeado = false;
 	
 	function conf__inicial()
@@ -10,11 +10,11 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 		require_once('admin_util.php');		
 		//*********  FRAMES entorno EDICION ************
 		//-- FRAME control
-		define("apex_frame_control","frame_control");
+		define('apex_frame_control', 'frame_control');
 		//-- FRAME lista
-		define("apex_frame_lista","frame_lista");
+		define('apex_frame_lista', 'frame_lista');
 		//-- FRAME central
-		define("apex_frame_centro","frame_centro");
+		define('apex_frame_centro', 'frame_centro');
 		// Emular el contexto en el consumo por consola.
 		if (php_sapi_name() === 'cli') {
 			toba_editor::iniciar(toba::instancia()->get_id(), toba_editor::get_id());

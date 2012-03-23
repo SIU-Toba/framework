@@ -10,7 +10,7 @@ class catalogo_tablas
 	protected $_tablas_nuevas = array();
 	protected $_tabla_x_schema = array();
 
-	function __construct($proyecto = null, $fuente = null)
+	function __construct($proyecto=null, $fuente=null)
 	{
 		$this->_proyecto = $proyecto;
 		$this->_fuente = $fuente;
@@ -21,18 +21,18 @@ class catalogo_tablas
 		$this->buscar_lista_tablas();								//Obtengo todas las tablas
 		$this->verificar_schemas_fuente();							//Verifico si los schemas estan cargados		
 		$this->buscar_dt_lockeados();							//Obtengo aquellos no actualizables
-		$this->_tablas_nuevas =  $this->_tablas;
+		$this->_tablas_nuevas = $this->_tablas;
 		//Ahora tengo que sacar los actualizados
-		foreach ( $this->_tablas as $clave => $tabla) {
-				$columnas_dt = $this->get_columnas_dt($tabla['tabla']);
-				if (! empty($columnas_dt)) {																			//Si existe un DT
-					$columnas_base = $this->get_columnas_base($tabla['tabla']);
-					$modificaciones = $this->cambios_a_realizar($columnas_dt, $columnas_base);
-					unset($this->_tablas_nuevas[$clave]);													//La quito de entre las tablas nuevas
-					if (! empty($modificaciones)) {
-						$this->_tablas_actualizables[$tabla['tabla']] = $modificaciones;
-					}
+		foreach ($this->_tablas as $clave => $tabla) {
+			$columnas_dt = $this->get_columnas_dt($tabla['tabla']);
+			if (! empty($columnas_dt)) {																			//Si existe un DT
+				$columnas_base = $this->get_columnas_base($tabla['tabla']);
+				$modificaciones = $this->cambios_a_realizar($columnas_dt, $columnas_base);
+				unset($this->_tablas_nuevas[$clave]);													//La quito de entre las tablas nuevas
+				if (! empty($modificaciones)) {
+					$this->_tablas_actualizables[$tabla['tabla']] = $modificaciones;
 				}
+			}
 		}
 	}
 
@@ -82,7 +82,7 @@ class catalogo_tablas
 	{
 		$this->_tablas = array();
 		$lista_inicial = toba::db($this->_fuente, $this->_proyecto)->get_lista_tablas_bd();
-		foreach($lista_inicial as $tabla) {
+		foreach ($lista_inicial as $tabla) {
 			$this->_tablas[] = array('tabla' => $tabla['nombre']);
 			$this->_tabla_x_schema[$tabla['nombre']] = $tabla['esquema'];
 		}		
@@ -137,7 +137,7 @@ class catalogo_tablas
 	{
 		$resultado = array();
 		try {
-			$resultado =  toba::db($this->_fuente, $this->_proyecto)->get_definicion_columnas($tabla);
+			$resultado = toba::db($this->_fuente, $this->_proyecto)->get_definicion_columnas($tabla);
 		}catch (toba_error_db $e) {
 			toba::logger()->error("Búsqueda Propiedades tabla ' $tabla': " . $e->getMessage());
 		}
@@ -158,8 +158,8 @@ class catalogo_tablas
 			$dt_info = toba_datos_tabla_def::get_vista_extendida($proyecto, $componente);
 			$rs = $db->consultar($dt_info['_info_columnas']['sql']);		
 			//Convierto el arreglo devuelto a un formato indexado por nombre de columna
-			for($a=0; $a < count($rs); $a++) { 
-				$resultado[ $rs[$a]['columna'] ] =& $rs[$a];
+			for ($a = 0; $a < count($rs); $a++) { 
+				$resultado[$rs[$a]['columna']] =& $rs[$a];
 			}	
 		} catch(toba_error $e) {
 			toba::logger()->error(" Búsqueda DT '$tabla': " .$e->getMessage());
@@ -173,8 +173,8 @@ class catalogo_tablas
 		$cambios = array();
 		//Genero 2 arreglos base para realizar la comparacion normalizando la estructura
 		$aux_base = array();
-		foreach($cols_base as $col) {
-			$temp = array ('columna' => $col['nombre'], 'tipo' => $col['tipo']);
+		foreach ($cols_base as $col) {
+			$temp = array('columna' => $col['nombre'], 'tipo' => $col['tipo']);
 			if ($col['tipo'] == 'C') {$temp['largo'] = $col['longitud'];}
 			if (isset($col['not_null'])) {$temp['no_nulo_db'] = (int) $col['not_null'];}
 			if (isset($col['pk'])) {$temp['pk'] = (int) $col['pk'];}
@@ -183,7 +183,7 @@ class catalogo_tablas
 		}
 
 		$aux_dt = array();
-		foreach($cols_dt as $clave => $valor) {
+		foreach ($cols_dt as $clave => $valor) {
 			if ($valor['externa'] != '1') {
 				$aux_dt[$clave] = array('columna' => $valor['columna'], 'tipo' => $valor['tipo']);
 				if ($valor['tipo'] == 'C') {$aux_dt[$clave]['largo'] = $valor['largo'];}
@@ -201,7 +201,7 @@ class catalogo_tablas
 		if (! empty($cols_faltantes)) {$cambios['B'] = $cols_faltantes;}
 
 		//Veo si hay diferencias entre las propiedades de las columnas
-		foreach($aux_base as $klave => $col) {
+		foreach ($aux_base as $klave => $col) {
 			if (isset($aux_dt[$klave])) {										//Si existe la columna en el DT
 				$resultado_base = array_diff_assoc($col, $aux_dt[$klave]);			//Calculo la diferencia entre los arreglos de propiedades
 				if (! empty($resultado_base)) {									//Si hay resultado distinto de vacio ==> hay diferencia entre las columnas
@@ -216,14 +216,14 @@ class catalogo_tablas
 	function desactivar_no_procesadas($procesadas)
 	{
 		$total_tablas = array();
-		foreach(array_keys($this->_tablas_actualizables) as $tabla) {
+		foreach (array_keys($this->_tablas_actualizables) as $tabla) {
 			$total_tablas[] = array('tabla' => $tabla);
 		}
-		foreach($this->_tablas_nuevas as $tabla) {
+		foreach ($this->_tablas_nuevas as $tabla) {
 			$total_tablas[] = array('tabla' => $tabla['tabla']);
 		}
 		$resultado = array_diff($total_tablas, $procesadas);
-		foreach($resultado as $tb) {
+		foreach ($resultado as $tb) {
 			$id = $this->get_id_objeto($tb['tabla']);
 			if (! is_null($id)) {
 				$sql = 'UPDATE apex_objeto_db_registros SET permite_actualizacion_automatica = 0
@@ -249,11 +249,11 @@ class catalogo_tablas
 			 $dr_sincro->actualizar_campos();
 			 $dr_sincro->tabla('prop_basicas')->set_fila_columna_valor(0, 'esquema', $this->_tabla_x_schema[$tabla_nombre]);
 			 //Aca aun falta quitar las columnas
-			 if (isset($this->_tablas_actualizables[$tabla_nombre]['B'])) {
-				foreach(array_keys($this->_tablas_actualizables[$tabla_nombre]['B']) as $borrable) {
+			if (isset($this->_tablas_actualizables[$tabla_nombre]['B'])) {
+				foreach (array_keys($this->_tablas_actualizables[$tabla_nombre]['B']) as $borrable) {
 					$id_interno = $dr_sincro->tabla('columnas')->get_id_fila_condicion(array('columna' => $borrable));
 					$dr_sincro->tabla('columnas')->eliminar_fila(current($id_interno));
-				 }
+				}
 			}
 		} else {		//Es un DT nuevo			
 			
@@ -266,11 +266,11 @@ class catalogo_tablas
 			
 			$dr_sincro->tabla('base')->set($datos);
 			$dr_sincro->tabla('prop_basicas')->set(array('ap'=>1, 'permite_actualizacion_automatica' => '1', 'punto_montaje' => $pm_default['id']));	
-			$dr_sincro->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla_nombre);
+			$dr_sincro->tabla('prop_basicas')->set_fila_columna_valor(0, 'tabla', $tabla_nombre);
 			$dr_sincro->tabla('prop_basicas')->set_fila_columna_valor(0, 'esquema', $this->_tabla_x_schema[$tabla_nombre]);
 
 			$columnas = $this->get_columnas_base($tabla_nombre);
-			foreach($columnas as $col) {
+			foreach ($columnas as $col) {
 				$datos_col = array();
 				$datos_col['columna'] = $col['nombre'];
 				$datos_col['no_nulo_db'] = (int) $col['not_null'];

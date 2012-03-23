@@ -7,7 +7,7 @@ class ci_grupo extends toba_ci
 	function ini()
 	{
 		$zona = toba::solicitud()->zona();
-		if ($editable = $zona->get_editable()){
+		if ($editable = $zona->get_editable()) {
 			$clave['proyecto'] = $editable[0];
 			$clave['usuario_grupo_acc'] = $editable[1];
 			$this->carga_ok = $this->dependencia('datos')->cargar($clave);
@@ -16,7 +16,7 @@ class ci_grupo extends toba_ci
 
 	function conf()
 	{
-		if(!$this->carga_ok) {
+		if (!$this->carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}	
 	}

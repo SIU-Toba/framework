@@ -116,7 +116,7 @@ class form_prop_basicas extends toba_ei_formulario
 			$origen = $this->ef('imagen_recurso_origen')->get_estado();
 			$img = $this->ef($ef)->get_estado();
 			seleccion_imagenes::generar_input_ef($origen, $img, $this->objeto_js);
-			echo "</div>";
+			echo '</div>';
 		} 
 	}
 	
@@ -128,7 +128,8 @@ class form_prop_basicas extends toba_ei_formulario
 	}
 }
 
-class utileria_identificador_nuevo implements toba_ef_icono_utileria {
+class utileria_identificador_nuevo implements toba_ef_icono_utileria 
+{
 	function get_html(toba_ef $ef) 
 	{
 		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
@@ -153,12 +154,13 @@ class utileria_identificador_nuevo implements toba_ef_icono_utileria {
 		</script>";
 		$salida = "<a class='icono-utileria' href='#' onclick=\"toggle_editable(); return false\">";
 		$salida .= "<img id='utileria_identificador' src='$editable' title='Editar Identificador'>";
-		$salida .= "</a>";
+		$salida .= '</a>';
 		return $salida;		
 	}
 }
 
-class utileria_identificador_actual implements toba_ef_icono_utileria {
+class utileria_identificador_actual implements toba_ef_icono_utileria 
+{
 	function get_html(toba_ef $ef) 
 	{
 		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
@@ -180,7 +182,7 @@ class utileria_identificador_actual implements toba_ef_icono_utileria {
 		</script>";
 		$salida = "<a class='icono-utileria' href='#' onclick=\"toggle_editable(); return false\">";
 		$salida .= "<img id='utileria_identificador' src='$editable' title='Editar Identificador'>";
-		$salida .= "</a>";
+		$salida .= '</a>';
 		return $salida;		
 	}
 }

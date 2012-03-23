@@ -110,7 +110,7 @@ class ci_catalogo_items extends ci_catalogo
 		if (isset($this->s__opciones['inicial'])) {
 			$arbol->set_datos($this->get_nodo_raiz($this->s__opciones['inicial']));
 		} else {
-			$arbol->set_datos( $this->get_nodo_raiz());
+			$arbol->set_datos($this->get_nodo_raiz());
 		}
 	}
 	

@@ -15,24 +15,24 @@ class ci_prueba extends toba_ci
 		$this->proyecto = toba_editor::get_proyecto_cargado();				//Obtengo el proyecto cargado en el editor
 		if ($editable = toba::zona()->get_editable()) {
 			$this->fuente = $editable[1];								//La fuente a  editar viene por la zona
-			if(! $this->dep('datos')->esta_cargada() ) {
+			if (! $this->dep('datos')->esta_cargada()) {
 				$this->dep('datos')->cargar(array('fuente_datos'=>$this->fuente, 'proyecto' => $this->proyecto));
 				$datos = $this->dep('datos')->get();
 				// Si no hay lote, saco la pantalla de la prueba
-				if(trim($datos['lote']) == '') {
+				if (trim($datos['lote']) == '') {
 					$this->set_pantalla('sql');								//Redireccion temprana a la pantalla correcta
 					$this->pantalla()->eliminar_tab('test');
 				}				
 				// Seteo elegidos
-				if(isset($datos['seleccionados']) && ($datos['seleccionados'] != '')) {
-					$this->s__sqls_elegidos = explode(',',$datos['seleccionados']);					
+				if (isset($datos['seleccionados']) && ($datos['seleccionados'] != '')) {
+					$this->s__sqls_elegidos = explode(',', $datos['seleccionados']);					
 				}
 				// Seteo los parametros del TEST
-				if(isset($datos['parametros']) && ($datos['parametros'] != '')) {
+				if (isset($datos['parametros']) && ($datos['parametros'] != '')) {
 					$this->s__detalle_test = unserialize(stripslashes($datos['parametros']));					
 				}
 			}
-		}else{
+		} else {
 			throw new toba_error('ERROR: Esta operacion debe ser llamada desde la zona de fuentes');
 		}	
 	}
@@ -44,7 +44,7 @@ class ci_prueba extends toba_ci
 	
 	function evt__ejecutar()
 	{
-		if( isset($this->s__sqls_elegidos) ) {
+		if (isset($this->s__sqls_elegidos)) {
 			$this->grabar_info_test();
 			$this->ejecutar_test();
 			$this->dep('form_elegir_sql')->colapsar();
@@ -55,7 +55,7 @@ class ci_prueba extends toba_ci
 	//---------------------------  Configuracion de la pantalla de testeo
 	function conf__test($pantalla)
 	{
-		if( count($this->get_perfiles_datos()) == 0 ) {
+		if (count($this->get_perfiles_datos()) == 0) {
 			$pantalla->eliminar_dep('form_elegir_sql');
 			$pantalla->eliminar_dep('form_test');
 			$pantalla->eliminar_evento('ejecutar');
@@ -68,8 +68,8 @@ class ci_prueba extends toba_ci
 	{
 		unset($this->s__sqls_elegidos);
 		unset($this->s__sqls_a_ejecutar);
-		foreach($datos as $id => $dato) {
-			if($dato['utilizar']) {
+		foreach ($datos as $id => $dato) {
+			if ($dato['utilizar']) {
 				$this->s__sqls_elegidos[] = $id;
 				$this->s__sqls_a_ejecutar[] = trim($dato['sql']);
 			}
@@ -78,7 +78,7 @@ class ci_prueba extends toba_ci
 
 	function conf__form_elegir_sql(toba_ei_formulario_ml $form_ml)
 	{
-		$form_ml->set_datos( $this->get_sqls_form() );
+		$form_ml->set_datos($this->get_sqls_form());
 	}
 
 	//-- Elijo los parametros de la prueba ---------------------------------------------------
@@ -89,7 +89,7 @@ class ci_prueba extends toba_ci
 
 	function conf__form_test(toba_ei_formulario $form)
 	{
-		if(isset($this->s__detalle_test)) {
+		if (isset($this->s__detalle_test)) {
 			$form->set_datos($this->s__detalle_test);	
 		}
 	}
@@ -117,7 +117,7 @@ class ci_prueba extends toba_ci
 
 	function grabar_info_test()
 	{
-		$temp['seleccionados'] = implode(',',$this->s__sqls_elegidos);
+		$temp['seleccionados'] = implode(',', $this->s__sqls_elegidos);
 		$temp['parametros'] = addslashes(serialize($this->s__detalle_test));
 		$this->dep('datos')->set($temp);
 		$this->dep('datos')->sincronizar();			
@@ -126,13 +126,13 @@ class ci_prueba extends toba_ci
 	function get_sqls_form()
 	{
 		$datos = $this->dep('datos')->get();
-		$sqls = explode(';',$datos['lote']);
+		$sqls = explode(';', $datos['lote']);
 		$temp = array();
-		foreach($sqls as $id => $sql) {
-			if($sql) {
+		foreach ($sqls as $id => $sql) {
+			if ($sql) {
 				$temp[$id]['sql'] = trim($sql);
-				if( isset( $this->s__sqls_elegidos )) {
-					if( in_array($id, $this->s__sqls_elegidos) ) {
+				if (isset( $this->s__sqls_elegidos )) {
+					if (in_array($id, $this->s__sqls_elegidos)) {
 						$temp[$id]['utilizar'] = 1;
 					} else {
 						$temp[$id]['utilizar'] = 0;
@@ -157,34 +157,34 @@ class ci_prueba extends toba_ci
 	//--------------------- Ejecucion de los test -----------------------------------
 	function ejecutar_test()
 	{
-		toba::perfil_de_datos()->set_perfil( toba_editor::get_proyecto_cargado(), $this->s__detalle_test['perfil_datos']);		
+		toba::perfil_de_datos()->set_perfil(toba_editor::get_proyecto_cargado(), $this->s__detalle_test['perfil_datos']);		
 		$this->cabecera_prueba = toba::perfil_de_datos()->get_info($this->fuente);
 		if (toba::perfil_de_datos()->posee_restricciones($this->fuente)) {
-			$this->pruebas = toba::perfil_de_datos()->probar_sqls( 	$this->fuente, 
-																	$this->s__sqls_a_ejecutar,
-																	$this->s__detalle_test['datos_filas'],
-																	$this->s__detalle_test['datos_listar'] );
+			$this->pruebas = toba::perfil_de_datos()->probar_sqls($this->fuente, 
+														$this->s__sqls_a_ejecutar,
+														$this->s__detalle_test['datos_filas'],
+														$this->s__detalle_test['datos_listar']);
 			// Oculto la informacion que no se solicito
-			foreach( array_keys($this->pruebas) as $id) {
+			foreach (array_keys($this->pruebas) as $id) {
 				// Ocultar no procesados
-				if(! $this->pruebas[$id]['modificado'] && $this->s__detalle_test['omitir_no_afectados'] ) {
+				if (! $this->pruebas[$id]['modificado'] && $this->s__detalle_test['omitir_no_afectados']) {
 					unset($this->pruebas[$id]);
 				}
 				// Ocultar el SQL original
-				if(! $this->s__detalle_test['sql_original']) {
+				if (! $this->s__detalle_test['sql_original']) {
 					unset($this->pruebas[$id]['sql_original']);
 				}
 				// Ocultar analisis de dimensiones
-				if(! $this->s__detalle_test['info_dimensiones']) {
+				if (! $this->s__detalle_test['info_dimensiones']) {
 					unset($this->pruebas[$id]['gatillos']);
 					unset($this->pruebas[$id]['dimensiones']);
 				}
 				// Ocultar el WHERE
-				if(! $this->s__detalle_test['sql_where']) {
+				if (! $this->s__detalle_test['sql_where']) {
 					unset($this->pruebas[$id]['where']);
 				}			
 				// Ocultar SQL modificado
-				if(! $this->s__detalle_test['sql_modificado']) {
+				if (! $this->s__detalle_test['sql_modificado']) {
 					unset($this->pruebas[$id]['sql_modificado']);
 				}
 			}

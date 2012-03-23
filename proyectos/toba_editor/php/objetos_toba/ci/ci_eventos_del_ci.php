@@ -1,5 +1,5 @@
 <?php
-require_once("objetos_toba/ci_eventos.php");
+require_once('objetos_toba/ci_eventos.php');
 /**
  * Wrapper del ci_eventos destinado a manejar las particularidades de un evento en un ci
  */
@@ -40,9 +40,9 @@ class ci_eventos_del_ci extends ci_eventos
 	 */
 	function post_eventos()
 	{
-		if(isset($this->temp_importar_eventos['modelo'])) {
+		if (isset($this->temp_importar_eventos['modelo'])) {
 			$eventos = $this->controlador->get_eventos_estandar($this->temp_importar_eventos['modelo']);
-			foreach($eventos as $evento) {
+			foreach ($eventos as $evento) {
 				try{
 					$this->get_tabla()->nueva_fila($evento);
 					//--- Se agrega el evento en todas las pantallas existentes

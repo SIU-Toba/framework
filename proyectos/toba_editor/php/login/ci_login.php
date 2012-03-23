@@ -75,7 +75,7 @@ class ci_login extends toba_ci
 		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->s__datos['usuario'] = $this->s__datos['autologin'];
 			$this->s__datos['clave'] = null;
-		}else{
+		} else {
 			if (!isset($this->s__datos['clave'])) {
 				throw new toba_error('Es necesario ingresar la clave');
 			}
@@ -85,21 +85,21 @@ class ci_login extends toba_ci
 			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
 		} catch ( toba_error $e ) {
 			//toba_editor::finalizar();
-			toba::notificacion()->agregar( $e->getMessage() );
+			toba::notificacion()->agregar($e->getMessage());
 		}
 	}
 
 	function conf__datos()
 	{	
 		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
-			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
+			$this->dependencia('datos')->desactivar_efs(array('usuario', 'clave'));
 		} else {
 			$this->dependencia('datos')->desactivar_efs('autologin');
 		}
 		if (isset($this->s__datos['clave'])) {
 			unset($this->s__datos['clave']);
 		}
-		if(!isset($this->s__datos['instancia'])) {
+		if (!isset($this->s__datos['instancia'])) {
 			$this->s__datos['instancia'] = toba::instancia()->get_id();
 		}
 		return $this->s__datos;	
@@ -113,7 +113,7 @@ class ci_login extends toba_ci
 		$usuarios = $instancia->get_lista_usuarios('toba_editor');
 		$datos = array();
 		$a = 0;
-		foreach( $usuarios as $x => $desc) {
+		foreach ($usuarios as $x => $desc) {
 			$datos[$a]['id'] = $desc['usuario'];
 			$datos[$a]['nombre'] = $desc['usuario'] . ' - ' . $desc['nombre'];
 			$a++;
@@ -126,7 +126,7 @@ class ci_login extends toba_ci
 		$instancias = toba_modelo_instancia::get_lista();
 		$datos = array();
 		$a = 0;
-		foreach( $instancias as $x) {
+		foreach ($instancias as $x) {
 			$datos[$a]['id'] = $x;
 			$datos[$a]['desc'] = $x;
 			$a++;
@@ -141,7 +141,7 @@ class ci_login extends toba_ci
 		$proyectos = $instancia->get_lista_proyectos_vinculados();
 		$datos = array();
 		$a = 0;
-		foreach( $proyectos as $x) {
+		foreach ($proyectos as $x) {
 			$datos[$a]['id'] = $x;
 			$datos[$a]['desc'] = $x;
 			$a++;

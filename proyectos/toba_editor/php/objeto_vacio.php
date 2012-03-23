@@ -13,7 +13,7 @@ class objeto_vacio
 	
 	function __call($metodo, $argumentos)
 	{
-		echo $this->nombre . " -> " . $metodo . "()<br>";
+		echo $this->nombre . ' -> ' . $metodo . '()<br>';
 		//Llamar a un metodo desde aca cuelga al apache
 		//$this->agregar_llamada($metodo, $argumentos); 
 	}
@@ -30,8 +30,8 @@ class objeto_vacio
 
 	function agregar_llamada($metodo, $argumentos)
 	{
-		$this->llamada[ $this->proxima ] = $metodo;
-		$this->llamada[ $this->proxima ] = $argumentos;
+		$this->llamada[$this->proxima] = $metodo;
+		$this->llamada[$this->proxima] = $argumentos;
 		$this->proxima++;
 	}
 
@@ -42,7 +42,7 @@ class objeto_vacio
 
 	function dump_llamadas()
 	{
-		ei_arbol($this->llamada,"Llamadas a " . $this->nombre);	
+		ei_arbol($this->llamada, 'Llamadas a ' . $this->nombre);	
 	}
 }
 ?>

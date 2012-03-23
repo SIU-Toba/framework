@@ -10,7 +10,7 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 	protected $id_vinculo;
 	private $_sin_archivo = false;
 
-	function __construct($es_abrir, $registrar_inmediatamente = true)
+	function __construct($es_abrir, $registrar_inmediatamente=true)
 	{
 		$this->es_abrir = $es_abrir;
 		$this->vinculo = new toba_vinculo('toba_editor', 30000014);
@@ -26,12 +26,12 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 
 	function agregar_parametros($parametros)
 	{
-		foreach($parametros as $clave => $valor) {
+		foreach ($parametros as $clave => $valor) {
 				$this->vinculo->agregar_parametro($clave, $valor);
 		}
 	}
 
-	function cambiar_item($item = 30000014)
+	function cambiar_item($item=30000014)
 	{
 		$this->vinculo->set_item('toba_editor', $item);
 	}
@@ -58,7 +58,7 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 			$salida = "<a href='#' onclick=\"if ($objeto_js.get_estado() == ''){return;}
 											vinculador.agregar_parametros({$this->id_vinculo}, {archivo: $objeto_js.get_estado()});
 											vinculador.invocar({$this->id_vinculo})\">$img</a>";
-		}else{
+		} else {
 			if (! $ef->tiene_estado()) {
 				$img = toba_recurso::imagen_toba('nucleo/extender.gif', true);
 			}

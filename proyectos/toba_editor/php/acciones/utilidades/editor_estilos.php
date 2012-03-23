@@ -1,8 +1,7 @@
 <?php
 	$plantilla = toba::memoria()->get_parametro('plantilla');
-	if (isset($_POST['elem_nueva_plantilla']))
-	{
-		$archivo_css = toba::instalacion()->get_path()."/www/css/".apex_proyecto_estilo.".css";
+	if (isset($_POST['elem_nueva_plantilla'])) {
+		$archivo_css = toba::instalacion()->get_path().'/www/css/'.apex_proyecto_estilo.'.css';
 		$texto_css = $_POST['elem_nueva_plantilla'];
 		$texto_css = str_replace(';', ";\n\t", $texto_css);
 		file_put_contents($archivo_css, $texto_css);
@@ -58,7 +57,7 @@
 <!-- <link rel="stylesheet" href="csseditor/style/css.css" type="text/css" />
 	 <script type="text/javascript" src="csseditor/javascript/css.js"></script> -->
 <script language="javascript" type="text/javascript">
-	var frame_editado = top.<?php echo apex_frame_centro?>; 
+	var frame_editado = top.<?php echo apex_frame_centro; ?>; 
 	
 	//----Recorrido del DOM
 	function recorrer_nodo(nodo)
@@ -140,7 +139,7 @@
 		
 	function cargar_plantilla() {
 		for (i =0; i < frame_editado.document.styleSheets.length; i++) {
-			if (frame_editado.document.styleSheets[i].href == '<?php echo $plantilla?>')
+			if (frame_editado.document.styleSheets[i].href == '<?php echo $plantilla; ?>')
 				plantilla = frame_editado.document.styleSheets[i];
 		}
 	}

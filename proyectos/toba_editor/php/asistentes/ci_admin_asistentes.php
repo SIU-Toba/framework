@@ -35,7 +35,7 @@ class ci_admin_asistentes extends toba_ci
 	
 	function cargar_editor_molde($forzar=false)
 	{
-		if( !$this->existe_dependencia('asistente') || $forzar ) {
+		if (!$this->existe_dependencia('asistente') || $forzar) {
 			$this->agregar_dependencia('asistente', 'toba_editor', $this->s__datos_asistente['ci']);
 		}
 	}
@@ -95,11 +95,11 @@ class ci_admin_asistentes extends toba_ci
 	{
 		$this->pantalla()->set_descripcion($this->s__datos_asistente['descripcion_corta']);
 		$this->pantalla()->agregar_dep('asistente');		
-		if( $this->s__molde_preexistente ) {
+		if ($this->s__molde_preexistente) {
 			$this->pantalla()->eliminar_evento('volver_editar');	
 		}
 		$completo = $this->asistente()->posee_informacion_completa();
-		if( $completo !== true) {
+		if ($completo !== true) {
 			if (is_array($completo)) {
 				$this->pantalla()->set_descripcion('Datos faltantes: <ul><li>'.implode('</li><li>', $completo).'</ul>');
 			}
@@ -114,31 +114,31 @@ class ci_admin_asistentes extends toba_ci
 	
 	function evt__siguiente_generar()
 	{
-			$this->dep('asistente')->validar_datos_ingresados();
-			$this->dep('asistente')->sincronizar();							
-			$this->s__molde_preexistente = true;
-			$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
-			if( $this->generacion_requiere_confirmacion() ) {
-				$this->set_pantalla('pant_confirmacion');
-			} else {
-				$this->evt__generar();
-			}
+		$this->dep('asistente')->validar_datos_ingresados();
+		$this->dep('asistente')->sincronizar();							
+		$this->s__molde_preexistente = true;
+		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
+		if ($this->generacion_requiere_confirmacion()) {
+			$this->set_pantalla('pant_confirmacion');
+		} else {
+			$this->evt__generar();
+		}
 	}
 
 	function generacion_requiere_confirmacion()
 	{
 		try {
 			$bloqueos = $this->asistente(true)->get_bloqueos();
-			if (! empty($bloqueos) ) {
+			if (! empty($bloqueos)) {
 				return true;
 			}
 			$confirmaciones = $this->asistente()->get_opciones_generacion();
-			if(! empty($confirmaciones) ) {
+			if (! empty($confirmaciones)) {
 				return true;
 			}
 			return false;
 		} catch ( toba_error_asistentes $e ) {
-			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
+			toba::notificacion()->agregar('El molde que desea cargar posee errores en su definicion: ' . $e->getMessage());
 		}		
 	}
 
@@ -151,23 +151,23 @@ class ci_admin_asistentes extends toba_ci
 		try {
 			//Si hay algun tema bloqueante, no dejo hacer nada
 			$bloqueos = $this->asistente(true)->get_bloqueos();
-			if(! empty($bloqueos)) {
+			if (! empty($bloqueos)) {
 				$this->pantalla()->eliminar_evento('generar');
 				$this->pantalla()->eliminar_dep('form_generaciones');
 				toba::notificacion()->agregar('Existen problemas que imposibilitan la ejecución del molde. '
 												.' Por favor edite el mismo y vuelva a intentar. '
 												.'Los errores se describen a continuacion.');
-				foreach($bloqueos as $bloqueo) {
+				foreach ($bloqueos as $bloqueo) {
 					toba::notificacion()->agregar($bloqueo);	
 				}
 			}
 			// Si no hay opciones de generacion, excluyo el form de opciones
 			$opciones = $this->asistente()->get_opciones_generacion();
-			if(empty($opciones)) {
+			if (empty($opciones)) {
 				$this->pantalla()->eliminar_dep('form_generaciones');
 			}
 		} catch ( toba_error_asistentes $e ) {
-			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
+			toba::notificacion()->agregar('El molde que desea cargar posee errores en su definicion: ' . $e->getMessage());
 			$this->pantalla()->eliminar_evento('generar');
 			$this->pantalla()->eliminar_dep('form_generaciones');
 		}
@@ -180,7 +180,7 @@ class ci_admin_asistentes extends toba_ci
 
 	function conf__form_generaciones($componente)
 	{
-		$componente->set_datos( $this->asistente()->get_opciones_generacion() );
+		$componente->set_datos($this->asistente()->get_opciones_generacion());
 	}
 	
 	function evt__form_generaciones__modificacion($datos)
@@ -190,7 +190,7 @@ class ci_admin_asistentes extends toba_ci
 	
 	function evt__generar()
 	{
-		$this->asistente()->ejecutar(toba::zona()->get_info('item'), $this->s__opciones_generacion );
+		$this->asistente()->ejecutar(toba::zona()->get_info('item'), $this->s__opciones_generacion);
 		admin_util::refrescar_editor_item(toba::zona()->get_info('item'));
 	}	
 
@@ -202,13 +202,13 @@ class ci_admin_asistentes extends toba_ci
 		}
 		if ($reset || !isset($this->asistente)) {
 			if ($this->s__molde_preexistente) {
-				$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
+				$this->asistente = toba_catalogo_asistentes::cargar_por_molde($this->s__clave_molde['proyecto'], 
 																				$this->s__clave_molde['molde'], 
 																				 $datos);
 				$this->asistente->preparar_molde();
 			} else {
-				$this->asistente = toba_catalogo_asistentes::cargar_por_tipo_operacion(	$this->s__datos_asistente['operacion_tipo'], 
-																				$datos );
+				$this->asistente = toba_catalogo_asistentes::cargar_por_tipo_operacion($this->s__datos_asistente['operacion_tipo'], 
+																				$datos);
 			}
 		}
 		return $this->asistente;

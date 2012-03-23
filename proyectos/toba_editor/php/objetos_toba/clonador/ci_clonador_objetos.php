@@ -17,8 +17,8 @@ class ci_clonador_objetos extends toba_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "id_objeto";
-		$propiedades[] = "datos";
+		$propiedades[] = 'id_objeto';
+		$propiedades[] = 'datos';
 		return $propiedades;
 	}		
 	
@@ -31,8 +31,8 @@ class ci_clonador_objetos extends toba_ci
 		$clase = toba::zona()->get_tipo_componente();
 		$datos = toba_info_editores::get_contenedores_validos($clase);
 		$destinos = array();
-		$a=0;
-		foreach( $datos as $dato ) {
+		$a = 0;
+		foreach ($datos as $dato) {
 			$destinos[$a]['clase'] = $dato;
 			$a++;
 		}
@@ -47,7 +47,7 @@ class ci_clonador_objetos extends toba_ci
 					return toba_info_editores::get_lista_items();
 					break;
 				default:
-					$tipo = "componente,".$clase;
+					$tipo = 'componente,'.$clase;
 					return toba_info_editores::get_lista_objetos_toba($tipo);
 			}
 		}
@@ -76,7 +76,7 @@ class ci_clonador_objetos extends toba_ci
 				//Validaciones 
 				if ($this->destino['tipo'] == 'toba_ci' || $this->destino['tipo'] == 'toba_datos_relacion') {
 					if (!isset($this->destino['id_dependencia'])) {
-						throw new toba_error("El identificador es obligatorio");
+						throw new toba_error('El identificador es obligatorio');
 					}
 				}				
 				//Se convierten los tipos a los que entiende el asignador
@@ -103,7 +103,7 @@ class ci_clonador_objetos extends toba_ci
 	
 	function evt__procesar()
 	{
-		abrir_transaccion("instancia");
+		abrir_transaccion('instancia');
 		$directorio = false;
 		if ($this->datos['con_subclases']) {
 			$directorio = $this->datos['carpeta_subclases'];
@@ -119,7 +119,7 @@ class ci_clonador_objetos extends toba_ci
 			$asignador = new asignador_objetos($clon, $this->destino);
 			$asignador->asignar();
 		}
-		cerrar_transaccion("instancia");
+		cerrar_transaccion('instancia');
 		admin_util::redireccionar_a_editor_objeto($clon['proyecto'], $clon['objeto']);
 	}
 }

@@ -14,7 +14,7 @@ class ci_consultas_php extends toba_ci
 
 	function conf()
 	{
-		if(!$this->carga_ok) {
+		if (!$this->carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}	
 	}
@@ -35,21 +35,21 @@ class ci_consultas_php extends toba_ci
 		admin_util::refrescar_barra_lateral();
 		//Si no existe el archivo, lo creo
 		$datos = $this->dependencia('datos')->get();
-		if(! admin_util::existe_archivo_subclase($datos['archivo']) ){
-			$this->crear_archivo( admin_util::get_path_archivo($datos['archivo']) , $datos['clase']);
+		if (! admin_util::existe_archivo_subclase($datos['archivo'])) {
+			$this->crear_archivo(admin_util::get_path_archivo($datos['archivo']), $datos['clase']);
 		}
 	}
 
 	protected function crear_archivo($archivo, $clase)
 	{
-		$php = "<php?" . salto_linea();
+		$php = '<php?' . salto_linea();
 		$php .= salto_linea();
 		$php .= "class $clase" . salto_linea();
-		$php .= "{" .salto_linea();
+		$php .= '{' .salto_linea();
 		$php .= salto_linea();
-		$php .= "}" .salto_linea();
+		$php .= '}' .salto_linea();
 		$php .= salto_linea();
-		$php .= "?>";
+		$php .= '?>';
 		toba_manejador_archivos::crear_archivo_con_datos($archivo, $php);
 	}
 

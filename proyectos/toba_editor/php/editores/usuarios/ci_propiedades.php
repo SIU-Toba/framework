@@ -2,10 +2,10 @@
 
 class ci_propiedades extends toba_ci
 {
-	protected $usuario_actual='';
+	protected $usuario_actual = '';
 	protected $grupo_acceso;
 	protected $eliminado = false;
-	const clave_falsa = "xS34Io9gF2JD";
+	const clave_falsa = 'xS34Io9gF2JD';
 	
 	function ini()
 	{
@@ -41,7 +41,7 @@ class ci_propiedades extends toba_ci
 
 	function conf()
 	{
-		if(! isset($this->usuario_actual)){
+		if (! isset($this->usuario_actual)) {
 			$this->pantalla()->eliminar_estado_sesion('eliminar');
 		}
 	}		
@@ -69,7 +69,7 @@ class ci_propiedades extends toba_ci
 	{
 		$this->dependencia('datos')->eliminar();
 		$this->eliminado = true;
-		toba::notificacion()->agregar("El usuario ha sido eliminado.", 'info');
+		toba::notificacion()->agregar('El usuario ha sido eliminado.', 'info');
 		$this->evt__cancelar();
 	}
 	//-------------------------------------------------------------------

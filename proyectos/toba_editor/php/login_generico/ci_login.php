@@ -60,7 +60,7 @@ class ci_login extends toba_ci
 				$this->pantalla()->eliminar_dep('datos');
 			}			
 			if ($this->pantalla()->existe_evento('Ingresar')) {
-				$this->pantalla()->eliminar_evento("Ingresar");
+				$this->pantalla()->eliminar_evento('Ingresar');
 			}
 		}		
 	}	
@@ -127,7 +127,7 @@ class ci_login extends toba_ci
 			$form->desactivar_efs(array('test_error_repetido'));
 		}
 		if (toba::instalacion()->get_tipo_autenticacion() != 'openid') {
-			$form->set_titulo("");
+			$form->set_titulo('');
 		}
 		if (isset($this->s__datos)) {
 			if (isset($this->s__datos['clave'])) {
@@ -189,7 +189,7 @@ class ci_login extends toba_ci
 		$usuario = $this->s__datos['usuario'];
 		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
 			//Obtengo los dias de validez de la nueva clave
-			$dias = toba::proyecto()->get_parametro('dias_validez_clave',null, false);
+			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
 			toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
 			toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
 		} else {
@@ -229,12 +229,12 @@ class ci_login extends toba_ci
 			$finalizar = toba::memoria()->get_parametro(apex_sesion_qs_finalizar);
 			//Si cierra la sesión y es popup, cierra la ventana y al parent (si existe) lo recarga			
 			if (isset($finalizar)) {
-				echo "
+				echo '
 					if (window.opener &&  window.opener.location) {
 						window.opener.location.href = window.opener.location.href; 
 					}
 					window.close();
-				";
+				';
 			}
 			if (toba::manejador_sesiones()->existe_usuario_activo()) {
 				//Si ya esta logueado y se abre el sistema en popup, abrirlo

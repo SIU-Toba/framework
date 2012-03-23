@@ -31,19 +31,19 @@ class ci_editor extends ci_editores_toba
 	function conf()
 	{
 		if (isset($this->pant_sel_temp)) {
-		 	$this->get_entidad()->tabla("pantallas")->set_cursor($this->pant_sel_temp);			
+		 	$this->get_entidad()->tabla('pantallas')->set_cursor($this->pant_sel_temp);			
 		}
 		parent::conf();
 		//Mecanismo para saber si la extension PHP de un AP ya exite en la DB y posee archivo
-		if ( !isset($this->s__pantalla_php_db) ) {
+		if (!isset($this->s__pantalla_php_db)) {
 			$this->s__pantalla_php_db = array();
 			$this->s__pantalla_php_archivo = array();
-			if ( $this->componente_existe_en_db() ) {
+			if ($this->componente_existe_en_db()) {
 				$datos_pantalla = $this->get_entidad()->tabla('pantallas')->get_filas();
 				foreach ($datos_pantalla as $pantalla) {
 					if (isset($pantalla['subclase']) && $pantalla['subclase'] &&  isset($pantalla['subclase_archivo'])) {
 						$this->s__pantalla_php_db[$pantalla['x_dbr_clave']] = $pantalla['identificador'];
-						if( admin_util::existe_archivo_subclase($pantalla['subclase_archivo'], $pantalla['punto_montaje'])) {
+						if (admin_util::existe_archivo_subclase($pantalla['subclase_archivo'], $pantalla['punto_montaje'])) {
 							$this->s__pantalla_php_archivo[$pantalla['x_dbr_clave']] = true;
 						}
 					}
@@ -68,7 +68,7 @@ class ci_editor extends ci_editores_toba
 	//****************************************************************************
 	function conf__prop_basicas($form)
 	{
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		$datos['posicion_botonera'] = $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
 		$form->set_datos($datos);
 	}
@@ -77,7 +77,7 @@ class ci_editor extends ci_editores_toba
 	{
 		$this->get_entidad()->tabla('base')->set_columna_valor('posicion_botonera', $datos['posicion_botonera']);
 		unset($datos['posicion_botonera']);
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 
 	// *******************************************************************
@@ -121,12 +121,12 @@ class ci_editor extends ci_editores_toba
 	
 	function hay_pant_sel()
 	{
-		return $this->get_entidad()->tabla("pantallas")->hay_cursor();
+		return $this->get_entidad()->tabla('pantallas')->hay_cursor();
 	}
 	
 	function get_pant_actual()
 	{
-		return $this->get_entidad()->tabla("pantallas")->get_cursor();
+		return $this->get_entidad()->tabla('pantallas')->get_cursor();
 	}
 	
 	function get_datos_pantalla_actual()
@@ -138,31 +138,29 @@ class ci_editor extends ci_editores_toba
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
 		$this->s__pantalla_dep_asoc = array();
-		if($registros = $this->get_entidad()->tabla('dependencias')->get_filas())
-		{
-			foreach($registros as $reg){
-				$clase = explode(',' , $reg['clase']);
-				if (! in_array('toba_datos_tabla', $clase) && ! in_array('toba_datos_relacion', $clase)){
-						$this->s__pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
+		if ($registros = $this->get_entidad()->tabla('dependencias')->get_filas()) {
+			foreach ($registros as $reg) {
+				$clase = explode(',', $reg['clase']);
+				if (! in_array('toba_datos_tabla', $clase) && ! in_array('toba_datos_relacion', $clase)) {
+						$this->s__pantalla_dep_asoc[$reg['identificador']] = $reg['identificador'];
 				}
 			}
 		}
 		//--- Armo la lista de EVENTOS disponibles
 		$this->s__pantalla_evt_asoc = array();
-		if($registros = $this->get_entidad()->tabla('eventos')->get_filas())
-		{
-			foreach($registros as $reg){
-				$this->s__pantalla_evt_asoc[ $reg['identificador'] ] = $reg['identificador'];
+		if ($registros = $this->get_entidad()->tabla('eventos')->get_filas()) {
+			foreach ($registros as $reg) {
+				$this->s__pantalla_evt_asoc[$reg['identificador']] = $reg['identificador'];
 			}
 		}		
 
 		//--- Se selecciono una pantalla?
 		if ($this->hay_pant_sel()) {
 			$this->dependencia('pantallas_lista')->seleccionar($this->get_pant_actual());
-			if( empty($this->s__pantalla_dep_asoc) ) {
+			if (empty($this->s__pantalla_dep_asoc)) {
 				$pantalla->eliminar_dep('pantallas_ei');
 			}
-			if( empty($this->s__pantalla_evt_asoc) ){
+			if (empty($this->s__pantalla_evt_asoc)) {
 				$pantalla->eliminar_dep('pantallas_evt');			
 			}			
 		} else {
@@ -174,17 +172,17 @@ class ci_editor extends ci_editores_toba
 	
 	function evt__2__salida()
 	{
-		$this->get_entidad()->tabla("pantallas")->resetear_cursor();
+		$this->get_entidad()->tabla('pantallas')->resetear_cursor();
 	}
 
 	function evt__cancelar_pantalla()
 	{
-		$this->get_entidad()->tabla("pantallas")->resetear_cursor();
+		$this->get_entidad()->tabla('pantallas')->resetear_cursor();
 	}
 
 	function evt__aceptar_pantalla()
 	{
-		$this->get_entidad()->tabla("pantallas")->resetear_cursor();
+		$this->get_entidad()->tabla('pantallas')->resetear_cursor();
 	}
 
 	//----------------------------------------------------------
@@ -198,24 +196,24 @@ class ci_editor extends ci_editores_toba
 			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
-		$dbr = $this->get_entidad()->tabla("pantallas");
+		$dbr = $this->get_entidad()->tabla('pantallas');
 		$orden = 1;
-		foreach(array_keys($registros) as $id) {
+		foreach (array_keys($registros) as $id) {
 			//Creo el campo orden basado en el orden real de las filas
 			//ATENCION:  Ya esta soportado en el ML
 			$registros[$id]['orden'] = $orden;
 			$orden++;
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
-			switch($accion){
-				case "A":
+			switch ($accion) {
+				case 'A':
 					$dbr->nueva_fila($registros[$id], null, $id);
 					break;	
-				case "B":
+				case 'B':
 					$dbr->eliminar_fila($id);
 					break;	
-				case "M":
-					$dbr->modificar_fila( $id, $registros[$id]);
+				case 'M':
+					$dbr->modificar_fila($id, $registros[$id]);
 					break;	
 			}
 		}		
@@ -232,17 +230,17 @@ class ci_editor extends ci_editores_toba
 		if (!empty($datos_dbr)) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$orden[] = $datos_dbr[$a]['orden'];
 			}
-			array_multisort($orden, SORT_ASC , $datos_dbr);
+			array_multisort($orden, SORT_ASC, $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
 			// No se solicita asi del DBR porque array_multisort no conserva claves numericas
 			// y las claves internas del DBR lo son
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
-				unset( $datos_dbr[$a][apex_db_registros_clave] );
-				$datos[ $id_dbr ] = $datos_dbr[$a];
+				unset($datos_dbr[$a][apex_db_registros_clave]);
+				$datos[$id_dbr] = $datos_dbr[$a];
 			}
 			//ei_arbol($datos,"Datos para el ML: POST proceso");
 		} else {
@@ -256,11 +254,11 @@ class ci_editor extends ci_editores_toba
 		$ml->set_datos($datos);		
 		
 		//--- Se setea al ml el proximo ID
-		$ml->set_proximo_id( $this->get_entidad()->tabla("pantallas")->get_proximo_id() );
+		$ml->set_proximo_id($this->get_entidad()->tabla('pantallas')->get_proximo_id());
 	
 		//--Protejo la evento seleccionada de la eliminacion		
-		if( $this->hay_pant_sel() ) {
-			$this->dependencia("pantallas_lista")->set_fila_protegida($this->get_pant_actual());
+		if ($this->hay_pant_sel()) {
+			$this->dependencia('pantallas_lista')->set_fila_protegida($this->get_pant_actual());
 		}
 		return $datos;
 	}
@@ -281,21 +279,21 @@ class ci_editor extends ci_editores_toba
 			$obj->eliminar_evento('ver_php');
 			$obj->eliminar_evento('abrir_php');
 			//-- Debo pasarle el id de la pantalla a extender
-			$pantalla = $this->get_entidad()->tabla("pantallas")->get();
+			$pantalla = $this->get_entidad()->tabla('pantallas')->get();
 			$obj->evento('extender')->vinculo()->agregar_parametro('subcomponente', $pantalla['identificador']);
-//			$obj->evento('extender')->vinculo()->agregar_parametro('punto_montaje', $pantalla['punto_montaje']);
+			//$obj->evento('extender')->vinculo()->agregar_parametro('punto_montaje', $pantalla['punto_montaje']);
 		} else {
 			$obj->eliminar_evento('extender');			
 			// Link al editor
 			$parametros = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
-																				'componente'=> $this->id_objeto['objeto']),
+																			'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 			$obj->evento('ver_php')->vinculo()->set_parametros($parametros);
 
 			if (isset($this->s__pantalla_php_archivo[$id_actual])) {
 				// Apertura de archivos
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
-																				'componente'=> $this->id_objeto['objeto']),
+																			'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 				$obj->set_js_abrir($abrir['js']);
 			} else {
@@ -316,8 +314,8 @@ class ci_editor extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		$objetos_en_pantalla =  array();
-		foreach($ids as $id){
+		$objetos_en_pantalla = array();
+		foreach ($ids as $id) {
 			$obj_a = $this->get_entidad()->tabla('objetos_pantalla')->get_fila_columna($id, 'dependencia');
 			$orden = $this->get_entidad()->tabla('objetos_pantalla')->get_fila_columna($id, 'orden');
 			$objetos_en_pantalla[] = array('dependencia' => $obj_a, 'orden' => $orden);
@@ -332,14 +330,14 @@ class ci_editor extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('objetos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		foreach($ids as $id){
+		foreach ($ids as $id) {
 			$this->get_entidad()->tabla('objetos_pantalla')->eliminar_fila($id);
 		}
 
 		//Seteo los cursores correspondientes y doy de alta los registros
 		$this->get_entidad()->tabla('pantallas')->set_cursor($this->get_pant_actual());
 		$orden = 0;
-		foreach($datos as $dato){
+		foreach ($datos as $dato) {
 			$id = $this->get_entidad()->tabla('dependencias')->get_id_fila_condicion(array('identificador' => $dato['dependencia']));
 			$this->get_entidad()->tabla('dependencias')->set_cursor(current($id));
 			$this->get_entidad()->tabla('objetos_pantalla')->nueva_fila(array('orden' => $orden, 'dependencia' => $dato['dependencia']));
@@ -352,8 +350,8 @@ class ci_editor extends ci_editores_toba
 	function combo_dependencias()
 	{
 		$datos = null;
-		$a=0;
-		foreach( $this->s__pantalla_dep_asoc as $dep => $info){
+		$a = 0;
+		foreach ($this->s__pantalla_dep_asoc as $dep => $info) {
 			$datos[$a]['id'] = $dep; 
 			$datos[$a]['desc'] = $info; 
 			$a++;
@@ -369,14 +367,14 @@ class ci_editor extends ci_editores_toba
 	{
 		$datos = array();
 		//Meto los eventos asociados actuales por si agregaron alguno.
-		foreach( $this->s__pantalla_evt_asoc as $dep){
+		foreach ($this->s__pantalla_evt_asoc as $dep) {
 			$datos[$dep] = array('evento' => $dep, 'asociar' => 0);
 		}
 		//Busco la asociacion hecha
 		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		foreach($ids as $id) {
+		foreach ($ids as $id) {
 			$id_evt_padre = $this->get_entidad()->tabla('eventos_pantalla')->get_id_padres(array($id), 'eventos');
 			$evt_involucrado = $this->get_entidad()->tabla('eventos')->get_fila_columna(current($id_evt_padre), 'identificador');
 			$datos[$evt_involucrado] = array('evento' => $evt_involucrado, 'asociar' => 1);
@@ -390,14 +388,14 @@ class ci_editor extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
 		$busqueda->set_padre('pantallas', $this->get_pant_actual());
 		$ids = $busqueda->buscar_ids();
-		foreach($ids as $id){
+		foreach ($ids as $id) {
 			$evt_involucrado = $this->get_entidad()->tabla('eventos_pantalla')->eliminar_fila($id);
 		}
 
 		//Ahora meto las filas nuevas
 		$this->get_entidad()->tabla('pantallas')->set_cursor($this->get_pant_actual());
-		foreach($datos as $evt){
-			if ($evt['asociar'] == '1'){
+		foreach ($datos as $evt) {
+			if ($evt['asociar'] == '1') {
 				$id_ev = $this->get_entidad()->tabla('eventos')->get_id_fila_condicion(array('identificador' => $evt['evento']));
 				$this->get_entidad()->tabla('eventos')->set_cursor(current($id_ev));
 				$this->get_entidad()->tabla('eventos_pantalla')->nueva_fila(array('identificador' => $evt['evento']));
@@ -414,14 +412,14 @@ class ci_editor extends ci_editores_toba
 
 	function conf__4()
 	{
-		if (! $datos = $this->get_entidad()->tabla("pantallas")->hay_cursor()) {
+		if (! $this->get_entidad()->tabla('pantallas')->hay_cursor()) {
 			$this->pantalla()->eliminar_dep('form_layout');
 		}
 	}
 	
 	function conf__cuadro_layout(toba_ei_cuadro $cuadro)
 	{
-		$cursor = $this->get_entidad()->tabla("pantallas")->get_cursor();
+		$cursor = $this->get_entidad()->tabla('pantallas')->get_cursor();
 		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
 		$filas = $this->get_entidad()->tabla('pantallas')->get_filas();
 		foreach (array_keys($filas) as $id) {
@@ -441,9 +439,9 @@ class ci_editor extends ci_editores_toba
 		$form->ef('template')->get_editor()->Height = '400px';
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
 		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
-		$datos = $this->get_entidad()->tabla("pantallas")->get();
+		$datos = $this->get_entidad()->tabla('pantallas')->get();
 		if (isset($datos['template']) && trim($datos['template']) != '') {
-			$datos['tipo_layout'] = "L";
+			$datos['tipo_layout'] = 'L';
 		}
 		$form->set_datos($datos);
 	}
@@ -453,7 +451,7 @@ class ci_editor extends ci_editores_toba
 		if (!isset($datos['tipo_layout'])) {
 			$datos['template'] = null;
 		}
-		$this->get_entidad()->tabla("pantallas")->set($datos);
+		$this->get_entidad()->tabla('pantallas')->set($datos);
 	}
 
 	function evt__4__salida()
@@ -468,14 +466,14 @@ class ci_editor extends ci_editores_toba
 
 	function conf__5()
 	{
-		if (! $datos = $this->get_entidad()->tabla("pantallas")->hay_cursor()) {
+		if (! $this->get_entidad()->tabla('pantallas')->hay_cursor()) {
 			$this->pantalla()->eliminar_dep('form_layout_impresion');
 		}
 	}
 
 	function conf__cuadro_layout_impresion(toba_ei_cuadro $cuadro)
 	{
-		$cursor = $this->get_entidad()->tabla("pantallas")->get_cursor();
+		$cursor = $this->get_entidad()->tabla('pantallas')->get_cursor();
 		$cuadro->seleccionar(array(apex_datos_clave_fila => $cursor));
 		$filas = $this->get_entidad()->tabla('pantallas')->get_filas();
 		foreach (array_keys($filas) as $id) {
@@ -495,10 +493,10 @@ class ci_editor extends ci_editores_toba
 		$form->ef('template')->get_editor()->Height = '400px';
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
 		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
-		$datos = $this->get_entidad()->tabla("pantallas")->get();
+		$datos = $this->get_entidad()->tabla('pantallas')->get();
 		unset($datos['template']);
 		if (isset($datos['template_impresion']) && trim($datos['template_impresion']) != '') {
-			$datos['tipo_layout'] = "L";
+			$datos['tipo_layout'] = 'L';
 			$datos['template'] = $datos['template_impresion'];
 		}
 		$form->set_datos($datos);
@@ -512,7 +510,7 @@ class ci_editor extends ci_editores_toba
 			$datos['template_impresion'] = $datos['template'];	//Cuando existe un template lo paso al otro campo
 			unset($datos['template']);												//asi puedo reusar el objeto
 		}
-		$this->get_entidad()->tabla("pantallas")->set($datos);
+		$this->get_entidad()->tabla('pantallas')->set($datos);
 	}
 
 	function evt__5__salida()
@@ -532,7 +530,7 @@ class ci_editor extends ci_editores_toba
 	{
 		//Determina si el ejecutar es por este ci o por el del parent 
  		$imagen = toba::memoria()->get_parametro('imagen');
- 		if (isset($imagen)) {
+		if (isset($imagen)) {
  			return parent::servicio__ejecutar();		
  		}
  		$url = toba::proyecto()->get_www('img/fck_templates/');
@@ -584,7 +582,7 @@ class ci_editor extends ci_editores_toba
 			if ($existe_previo) {
 				$salida .= "<hr>\n";
 			}
-			$salida .= "[dep id=".$dep['dependencia']."]\n";
+			$salida .= '[dep id='.$dep['dependencia']."]\n";
 			$existe_previo = true;
 		}
 		return $salida;
@@ -648,7 +646,7 @@ class ci_editor extends ci_editores_toba
 	{
 		$pant_disponibles = $this->get_entidad()->tabla('pantallas')->get_id_filas();
 		$busqueda = $this->get_entidad()->tabla('eventos_pantalla')->nueva_busqueda();
-		foreach($pant_disponibles as $pantalla_id){
+		foreach ($pant_disponibles as $pantalla_id) {
 			//Busco el evento en la pantalla para ver si ya esta.
 			$busqueda->set_padre('pantallas', $pantalla_id);
 			$busqueda->set_condicion('identificador', '==', $evento);
@@ -660,15 +658,13 @@ class ci_editor extends ci_editores_toba
 			$evento_debe_estar = (is_null($pant_presentes) || in_array($pantalla, $pant_presentes));
 
 
-			if ($evento_debe_estar && !$evento_esta){
+			if ($evento_debe_estar && !$evento_esta) {
 				//Hay que agregarlo
 				$this->get_entidad()->tabla('pantallas')->set_cursor($pantalla_id);
 				$id_evt = $this->get_entidad()->tabla('eventos')->get_id_fila_condicion(array('identificador' => $evento));
 				$this->get_entidad()->tabla('eventos')->set_cursor(current($id_evt));
 				$this->get_entidad()->tabla('eventos_pantalla')->nueva_fila(array('identificador' => $evento));
-			}
-			
-			if (!$evento_debe_estar && $evento_esta){
+			} elseif (!$evento_debe_estar && $evento_esta) {
 				//Hay que eliminarlo de la pantalla
 				$this->get_entidad()->tabla('eventos_pantalla')->eliminar_fila(current($id_evt));
 			}
@@ -689,7 +685,7 @@ class ci_editor extends ci_editores_toba
 		
 		//Agrego todas las pantallas para las cuales el evento es valido
 		$pantallas = array();
-		foreach($ids_eventos_p as $id_p){
+		foreach ($ids_eventos_p as $id_p) {
 			$datos_p = $this->get_entidad()->tabla('eventos_pantalla')->get_fila($id_p);
 			//Busco el Id de la pantalla, accediendo al padre porque si es fila nueva aun no esta seteado en eventos_pantalla
 			$id_pant = $this->get_entidad()->tabla('eventos_pantalla')->get_id_padres(array($id_p), 'pantallas');
@@ -703,8 +699,7 @@ class ci_editor extends ci_editores_toba
 		$pantallas = $this->get_entidad()->tabla('pantallas')->get_filas();
 		//Se contruye un nombre mas completo
 		foreach (array_keys($pantallas) as $pant) {
-			$pantallas[$pant]['nombre'] = '('.$pantallas[$pant]['identificador'].') '.
-											$pantallas[$pant]['etiqueta'];
+			$pantallas[$pant]['nombre'] = '('.$pantallas[$pant]['identificador'].') '.$pantallas[$pant]['etiqueta'];
 		}
 		return $pantallas;
 	}

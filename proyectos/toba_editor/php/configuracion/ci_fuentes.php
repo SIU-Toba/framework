@@ -19,7 +19,7 @@ class ci_fuentes extends toba_ci
 
 	function conf()
 	{
-		if(!$this->s__carga_ok) {
+		if (!$this->s__carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		} 
 	}
@@ -29,7 +29,7 @@ class ci_fuentes extends toba_ci
 		$bases = toba_dba::get_bases_definidas();
 		$datos = array();
 		$orden = 0;
-		foreach($bases as $base => $descripcion) {
+		foreach ($bases as $base => $descripcion) {
 			$datos[$orden]['id'] = $base;
 			$datos[$orden]['nombre'] = $base .' --- '. $descripcion['base'] .'@'. $descripcion['profile'];
 			$orden++;
@@ -158,7 +158,7 @@ class ci_fuentes extends toba_ci
 
 		$id_base = "$instancia $proyecto_cargado {$this->s__nombre_fuente}";
 		if (!$instalacion->existe_base_datos_definida($id_base)) {
-			throw new toba_error("Debe definir los parámetros de conexión");
+			throw new toba_error('Debe definir los parámetros de conexión');
 		}
 		$parametros = $instalacion->get_parametros_base($id_base);
 		if (! isset($parametros['schema'])) {
@@ -169,7 +169,7 @@ class ci_fuentes extends toba_ci
 		$schema_auditoria = $schema. '_auditoria';		
 		
 		//Creo el objeto para asignar los roles correctos a las tablas de auditoria
-		$modelo_proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto( $instancia, $proyecto_cargado);
+		$modelo_proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto($instancia, $proyecto_cargado);
 		$db = toba_editor::db_proyecto_cargado($this->s__nombre_fuente);//,  $proyecto_cargado);
 		try {
 			$auditoria = $db->get_manejador_auditoria($schema, $schema_auditoria);
@@ -207,8 +207,8 @@ class ci_fuentes extends toba_ci
 		
 		$datos_basicos = $this->dependencia('datos')->tabla('fuente')->get();
 		$datos_schemas = $this->dependencia('datos')->tabla('esquemas')->get_filas(null, false, false);
-		foreach($datos_schemas as $schema) {
-			$manejados[] =  $schema['nombre'];
+		foreach ($datos_schemas as $schema) {
+			$manejados[] = $schema['nombre'];
 		}		
 		$datos_form = array('schema' => $datos_basicos['schema'], 'encoding' => $encoding, 'esquemas_manejados' => $manejados);
 		$form->set_datos($datos_form);
@@ -221,10 +221,10 @@ class ci_fuentes extends toba_ci
 			$this->dependencia('datos')->tabla('fuente')->set_columna_valor('schema', $datos['schema']);
 		}
 	
-		$esquemas_seleccionados =  $datos['esquemas_manejados'];
+		$esquemas_seleccionados = $datos['esquemas_manejados'];
 		if (count($esquemas_seleccionados) > 0) {
 			$this->dependencia('datos')->tabla('esquemas')->eliminar_filas();
-			foreach($esquemas_seleccionados as $esquema) {
+			foreach ($esquemas_seleccionados as $esquema) {
 				$this->dependencia('datos')->tabla('esquemas')->nueva_fila(array('nombre' => $esquema, 'principal' => 0));
 			}			
 		}

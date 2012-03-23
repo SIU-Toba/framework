@@ -30,3 +30,4 @@ class ci_principal extends ci_editores_toba
 	}
 
 }
+?>

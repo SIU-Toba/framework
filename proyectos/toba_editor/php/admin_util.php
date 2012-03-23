@@ -35,7 +35,7 @@ class admin_util
 	static function refrescar_editor_item($ir_a_item=null)
 	{
 		echo toba_js::abrir();
-		$frame = "parent.".apex_frame_lista;
+		$frame = 'parent.'.apex_frame_lista;
 		echo "if ($frame.js_arbol_1368_items) {\n";
 		if (isset($ir_a_item)) {
 			echo "$frame.js_arbol_1368_items.ver_propiedades('$ir_a_item');\n";
@@ -80,27 +80,27 @@ class admin_util
 	{
 		$parametros = array('archivo' => $archivo);
 		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true );
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),3463, $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 3463, $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = toba_recurso::ayuda(null, 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]');
 		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_proyecto('reflexion/abrir.gif', false)."' $ayuda>";		
 	}
 
-	static function existe_archivo_subclase($path_relativo, $pm_id = null)
+	static function existe_archivo_subclase($path_relativo, $pm_id=null)
 	{
-//		ei_arbol(debug_backtrace());
+		//ei_arbol(debug_backtrace());
 		$path_real = self::get_path_archivo($path_relativo, $pm_id);
 		return file_exists($path_real) && is_file($path_real);
 	}
 	
-	static function get_path_archivo($path_relativo, $pm_id = null)
+	static function get_path_archivo($path_relativo, $pm_id=null)
 	{
 		if (!is_null($pm_id)) {
 			$pm = toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
 			$path = $pm->get_path_absoluto().'/';
 		} else {
-			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
+			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php/';
 		}
 		toba::logger()->crit($path . $path_relativo);
 		return $path . $path_relativo;
@@ -123,10 +123,10 @@ class admin_util
 				break;
 				
 			case 'proyecto':
-				return toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado())."/img/".$img;
+				return toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado()).'/img/'.$img;
 				break;
 				
-			default: throw new toba_error("No esta contemplado el origen $origen");
+			default: throw new toba_error("No esta contemplado el origen $origen");				
 		}
 	}
 	
@@ -148,7 +148,7 @@ class admin_util
 				
 			case 'proyecto':
 				$cargado = toba_editor::get_proyecto_cargado();
-				return toba::instancia()->get_path_proyecto($cargado)."/www/img";				
+				return toba::instancia()->get_path_proyecto($cargado).'/www/img';				
 				break;
 				
 			default: throw new toba_error("No esta contemplado el origen $origen");
@@ -162,22 +162,22 @@ class admin_util
 	static function get_acceso_abrir_php($componente, $item_visualizador=30000014, $parametros=array())
 	{
 		$id = array('proyecto'=>$componente[0], 'componente' =>$componente[1]);
-		$utileria = self::get_utileria_editor_abrir_php( $item_visualizador,  $id, 'reflexion/abrir.gif', $parametros);
-		return "<a href=\"" . $utileria['vinculo'] ."\"". " title='".$utileria['ayuda']. "'>" .
+		$utileria = self::get_utileria_editor_abrir_php($item_visualizador, $id, 'reflexion/abrir.gif', $parametros);
+		return '<a href="' . $utileria['vinculo'] .'"'. " title='".$utileria['ayuda']. "'>" .
 				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']).
 				"</a>\n";
 	}
 	
-	static function get_acceso_ver_php($componente, $item_visualizador=30000014, $frame=apex_frame_centro, $parametros= array())
+	static function get_acceso_ver_php($componente, $item_visualizador=30000014, $frame=apex_frame_centro, $parametros=array())
 	{
 		$id = array('proyecto'=>$componente[0],'componente' =>$componente[1]) ;
-		$utileria = admin_util::get_utileria_editor_ver_php( $item_visualizador, $id, 'nucleo/php.gif', $parametros);
+		$utileria = admin_util::get_utileria_editor_ver_php($item_visualizador, $id, 'nucleo/php.gif', $parametros);
 		return "<a href='" . $utileria['vinculo'] ."' target='".$frame."' title='".$utileria['ayuda']."'>" .
 				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']).
 				"</a>\n";
 	}
 
-	static function get_utileria_editor_abrir_php($item_visualizador, $id_componente, $icono='reflexion/abrir.gif', $parametros = array())
+	static function get_utileria_editor_abrir_php($item_visualizador, $id_componente, $icono='reflexion/abrir.gif', $parametros=array())
 	{
 		$param_local = array(apex_hilo_qs_zona => $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente']);
 		$parametros = array_merge($param_local, $parametros);
@@ -195,12 +195,12 @@ class admin_util
 		);
 	}
 
-	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono = 'nucleo/php.gif', $parametros = array())
+	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono='nucleo/php.gif', $parametros=array())
 	{
 		$param_local = array(apex_hilo_qs_zona => $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente']);
 		$parametros = array_merge($param_local, $parametros);
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),$item_visualizador, $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), $item_visualizador, $parametros, $opciones);
 		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),
 				'ayuda' => 'Ver el contenido del archivo PHP',
 				'vinculo' => $vinculo,
@@ -216,7 +216,7 @@ class admin_util
 		return $iconos;
 	}
 
-	static function get_ef_popup_utileria_extension_php($parametros = array())
+	static function get_ef_popup_utileria_extension_php($parametros=array())
 	{
 		//Armo el icono para la extension del componente
 		$icono_edicion = new ef_popup_utileria_php(false, false);

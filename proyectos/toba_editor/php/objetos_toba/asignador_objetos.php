@@ -60,7 +60,7 @@ class asignador_objetos
 						$orden
 					)
 			";
-		ejecutar_fuente($sql,'instancia');
+		ejecutar_fuente($sql, 'instancia');
 	}
 	
 	protected function asignar_a_ci()
@@ -73,7 +73,7 @@ class asignador_objetos
 			  			'{$this->destino['id_dependencia']}'
 		  			) 
 		  		";
-		ejecutar_fuente($sql,'instancia');
+		ejecutar_fuente($sql, 'instancia');
 		//Aca obtengo la secuencia de la dependencia y la retorno.
 		$id = toba::db('instancia')->recuperar_secuencia('apex_objeto_dep_seq');
 		return $id;
@@ -88,7 +88,7 @@ class asignador_objetos
 			  			'{$this->origen['objeto']}', 
 			  			'{$this->destino['id_dependencia']}'
 		  			) ;	";
-		ejecutar_fuente($sql,'instancia');
+		ejecutar_fuente($sql, 'instancia');
 
 		//Aca obtengo la secuencia de la dependencia y la retorno.
 		$id = toba::db('instancia')->recuperar_secuencia('apex_objeto_dep_seq');
@@ -108,7 +108,7 @@ class asignador_objetos
 								pantalla = '.quote($this->destino['pantalla']).' )
 						);';
 				
-		ejecutar_fuente($sql,'instancia');
+		ejecutar_fuente($sql, 'instancia');
 	}
 	
 	protected function asignar_a_datos_relacion()
@@ -124,7 +124,7 @@ class asignador_objetos
 		  			'{$this->destino['max_filas']}'
 	  			) 
 	  		";
-		ejecutar_fuente($sql,'instancia');		
+		ejecutar_fuente($sql, 'instancia');		
 	}
 }
 ?>

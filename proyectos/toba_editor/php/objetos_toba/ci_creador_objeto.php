@@ -12,7 +12,7 @@ class ci_creador_objeto extends toba_ci
 	function ini()
 	{
 		if (! toba_info_editores::hay_fuente_definida(toba_editor::get_proyecto_cargado())) {
-			throw new toba_error("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
+			throw new toba_error('El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.');
 		}		
 		
 		if (isset($this->clase_actual)) {
@@ -73,23 +73,23 @@ class ci_creador_objeto extends toba_ci
 		$des = '';
 		switch ($this->get_id_pantalla()) {
 			case 'tipos':
-				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de [wiki:Referencia/Objetos objeto] a crear.";
+				$des = '<strong>Tipo de objeto</strong><br>Seleccione el tipo de [wiki:Referencia/Objetos objeto] a crear.';
 				switch ($this->destino['tipo']) {
 					case 'toba_item': 
-						$des .= "<br>El objeto construido se asignará automáticamente al 
-								<strong>item</strong> seleccionado.";
+						$des .= '<br>El objeto construido se asignará automáticamente al 
+								<strong>item</strong> seleccionado.';
 						break;
 					case 'toba_ci':
-						$des .= "<br>El objeto construido se asignará automáticamente al 
-								<strong>CI</strong> seleccionado,<br> con el rol ingresado.";
+						$des .= '<br>El objeto construido se asignará automáticamente al 
+								<strong>CI</strong> seleccionado,<br> con el rol ingresado.';
 						break;		
 					case 'toba_ci_pantalla':
-						$des .= "<br>El objeto construido se asignará automáticamente a la 
-								<strong>pantalla</strong> seleccionada,<br> con el rol ingresado.";
+						$des .= '<br>El objeto construido se asignará automáticamente a la 
+								<strong>pantalla</strong> seleccionada,<br> con el rol ingresado.';
 						break;		
 					case 'datos_relacion':
-						$des .= "<br>El datos_tabla construido se asignará automáticamente al
-								<strong>datos_relacion</strong> seleccionado,<br> con el rol ingresado.";								
+						$des .= '<br>El datos_tabla construido se asignará automáticamente al
+								<strong>datos_relacion</strong> seleccionado,<br> con el rol ingresado.';								
 				}
 				break;
 			case 'construccion':
@@ -98,10 +98,10 @@ class ci_creador_objeto extends toba_ci
 						Construyendo un [wiki:Referencia/Objetos/$clase_reducida {$this->clase_actual['clase']}]";
 				break;			
 			case 'asignacion':
-				$des = "<strong>Asignación</strong><br>Para poder asignarlo necesita indicar con que identificador se conocera el objeto en el CI.";
+				$des = '<strong>Asignación</strong><br>Para poder asignarlo necesita indicar con que identificador se conocera el objeto en el CI.';
 				break;
 			case 'asignacion_dr':
-				$des = "<strong>Asignación a un datos_relacion</strong><br>Ingrese los datos de la tabla en la relación.";
+				$des = '<strong>Asignación a un datos_relacion</strong><br>Ingrese los datos de la tabla en la relación.';
 				break;
 		}
 		if ($des != '') {
@@ -177,7 +177,7 @@ class ci_creador_objeto extends toba_ci
 	{
 		$clave = array('componente' => $this->destino['objeto'],
 						'proyecto' => $this->destino['proyecto']);
-		$nombre = "";
+		$nombre = '';
 		if (isset($this->destino)) {
 			switch ($this->destino['tipo']) {
 				case 'toba_item': 
@@ -235,13 +235,13 @@ class ci_creador_objeto extends toba_ci
 													$this->objeto_construido['objeto']);
 	}
 
-  /**
-   * Retorna el objeto destino en el cual se creará el objeto en edicion.
-   */
-  function get_destino_objeto()
-  {
-    return $this->destino['objeto'];
-  }
+	/**
+	* Retorna el objeto destino en el cual se creará el objeto en edicion.
+	*/
+	function get_destino_objeto()
+	{
+		return $this->destino['objeto'];
+	}
 	
 	//------------------------------------------------------------------------
 	//-------------------------- SERVICIOS --------------------------

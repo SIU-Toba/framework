@@ -8,7 +8,7 @@ class ci_seleccionar_carpeta extends toba_ci
 	{
 		$ei->set_solo_carpetas(true);
 		$inicial = toba::memoria()->get_parametro('ef_popup_valor');
-		$absoluto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())."/php/";
+		$absoluto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()).'/php/';
 		$ei->set_path_absoluto($absoluto);
 		if ($inicial != null) {
 			$ei->set_path(dirname($inicial));

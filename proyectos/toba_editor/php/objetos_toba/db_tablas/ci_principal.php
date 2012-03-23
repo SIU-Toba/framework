@@ -31,10 +31,10 @@ class ci_principal extends ci_editores_toba
 			$this->s__ap_php_archivo = false;
 			if ( $this->componente_existe_en_db() ) {
 				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
-				if( ( $datos_ap['ap'] == 3 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo'] ) {
+				if (( $datos_ap['ap'] == 3 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo']) {
 					$this->s__ap_php_db = true;	//El AP esta extendido
 				}
-				if( admin_util::existe_archivo_subclase($datos_ap['ap_archivo']) ) {
+				if (admin_util::existe_archivo_subclase($datos_ap['ap_archivo'])) {
 					$this->s__ap_php_archivo = true; //La extension existe
 				}
 			}
@@ -68,7 +68,7 @@ class ci_principal extends ci_editores_toba
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
-				$form->set_js_abrir( $abrir['js'] );
+				$form->set_js_abrir($abrir['js']);
 				$eliminar_extension = true;
 			} else {
 				$form->evento('ver_php')->set_imagen('nucleo/php_ap_inexistente.gif');
@@ -84,12 +84,12 @@ class ci_principal extends ci_editores_toba
 			$form->eliminar_evento('extender_ap');
 		}
 		$form->ef('ap_archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
-		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
+		$form->set_datos($this->get_entidad()->tabla('prop_basicas')->get());
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 
 	//*******************************************************************
@@ -98,7 +98,7 @@ class ci_principal extends ci_editores_toba
 
 	function conf__dependencias()
 	{
-		return $this->get_entidad()->tabla('dependencias')->get_filas(null,true);	
+		return $this->get_entidad()->tabla('dependencias')->get_filas(null, true);	
 	}
 
 	function evt__dependencias__modificacion($datos)
@@ -114,8 +114,9 @@ class ci_principal extends ci_editores_toba
 					//Si se modifica el identificador de una dependencia, propagarlo a las relaciones
 					$id_anterior = $this->get_entidad()->tabla('dependencias')->get_fila_columna($id, 'identificador');
 					$id_nuevo = $dep['identificador'];
-					if ($id_anterior != $id_nuevo)
+					if ($id_anterior != $id_nuevo) {
 						$this->modificar_id_en_relaciones($id_anterior, $id_nuevo);
+					}
 					break;
 			}
 		}
@@ -128,17 +129,16 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 
 	function get_tabla_relaciones()
-	//Abastecimiento al CI de relaciones
-	{
-		return $this->get_entidad()->tabla("relaciones");	
+	{	//Abastecimiento al CI de relaciones
+		return $this->get_entidad()->tabla('relaciones');	
 	}
 
 	function get_lista_tablas()
 	{
 		$datos = array();
-		$tablas = $this->get_entidad()->tabla("dependencias")->get_filas();
-		for($a=0;$a<count($tablas);$a++){
-			$datos[$a]['objeto'] = $tablas[$a]['identificador']. "," .$tablas[$a]['objeto_proveedor'];
+		$tablas = $this->get_entidad()->tabla('dependencias')->get_filas();
+		for ($a = 0; $a < count($tablas); $a++) {
+			$datos[$a]['objeto'] = $tablas[$a]['identificador']. ',' .$tablas[$a]['objeto_proveedor'];
 			$datos[$a]['desc'] = $tablas[$a]['identificador'];
 		}
 		return $datos;
@@ -154,17 +154,17 @@ class ci_principal extends ci_editores_toba
 	*/
 	function eliminar_relaciones_con_dependencia($id_dep)
 	{
-		$relaciones = $this->get_entidad()->tabla("relaciones")->get_filas(array(), true);
+		$relaciones = $this->get_entidad()->tabla('relaciones')->get_filas(array(), true);
 		foreach ($relaciones as $id => $relacion) {
 			if ($relacion['hijo_id'] == $id_dep || $relacion['padre_id'] == $id_dep) {
-				$this->get_entidad()->tabla("relaciones")->eliminar_fila($id);
+				$this->get_entidad()->tabla('relaciones')->eliminar_fila($id);
 			}
 		}
 	}
 	
 	function modificar_id_en_relaciones($anterior, $nuevo)
 	{
-		$relaciones = $this->get_entidad()->tabla("relaciones")->get_filas(array(), true);
+		$relaciones = $this->get_entidad()->tabla('relaciones')->get_filas(array(), true);
 		foreach ($relaciones as $id => $relacion) {
 			if ($relacion['hijo_id'] == $anterior) {
 				$this->get_entidad()->tabla('relaciones')->set_fila_columna_valor($id, 'hijo_id', $nuevo);
@@ -181,12 +181,12 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__opciones()
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		return $this->get_entidad()->tabla('prop_basicas')->get();
 	}
 	
 	function evt__opciones__modificacion($datos)
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->set($datos);
+		return $this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 }
 ?>

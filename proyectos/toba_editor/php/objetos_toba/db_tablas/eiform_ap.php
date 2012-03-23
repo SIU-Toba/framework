@@ -2,7 +2,7 @@
 
 class eiform_ap extends toba_ei_formulario
 {
-	protected $js_abrir='';
+	protected $js_abrir = '';
 	
 	function set_js_abrir($js)
 	{

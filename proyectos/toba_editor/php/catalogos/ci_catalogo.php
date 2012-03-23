@@ -39,8 +39,9 @@ abstract class ci_catalogo extends toba_ci
 	function conf__filtro()
 	{
 		$this->dependencia('filtro')->colapsar();
-		if (isset($this->s__opciones))
+		if (isset($this->s__opciones)) {
 			return $this->s__opciones;
+		}
 	}
 	
 	function evt__filtro__cancelar()
@@ -68,16 +69,16 @@ abstract class ci_catalogo extends toba_ci
 				$esta_la_inicial = true;
 			}
 			if ($foto['predeterminada'] == 1) {
-				$fotos[$id]['defecto'] = "home.png";
+				$fotos[$id]['defecto'] = 'home.png';
 				//Carga la por defecto
 				if (!isset($this->s__opciones) && !isset($this->s__apertura)) { 
 					$this->s__apertura = $foto['foto_nodos_visibles'];
 					$this->apertura_selecc = $this->s__apertura;
 					$this->s__opciones = $foto['foto_opciones'];
 				}
-			}
-			else 
+			} else {
 				$fotos[$id]['defecto'] = 'nulo.gif';
+			}
 		}
 		return $fotos;
 	}
@@ -108,10 +109,10 @@ abstract class ci_catalogo extends toba_ci
 
 	function evt__fotos__foto($nombre)
 	{
-		if (trim($nombre) !== ''){
+		if (trim($nombre) !== '') {
 			$this->album_fotos->agregar_foto($nombre, $this->s__apertura, $this->s__opciones);
 			$this->evt__fotos__seleccion($nombre);
-		}else{
+		} else {
 			throw new toba_error('Toda Foto requiere un nombre, especifiquelo por favor');
 		}
 	}		

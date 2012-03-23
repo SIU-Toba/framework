@@ -7,8 +7,8 @@ class ci_cronometro extends toba_ci
 	
 	function ini()
 	{
-		$solicitud = toba::memoria()->get_parametro("solicitud");
-		$proyecto = toba::memoria()->get_parametro("solicitud_proy");
+		$solicitud = toba::memoria()->get_parametro('solicitud');
+		$proyecto = toba::memoria()->get_parametro('solicitud_proy');
 		
 		if ($proyecto) {
 			$this->s__proyecto = $proyecto;
@@ -41,7 +41,7 @@ class ci_cronometro extends toba_ci
 	
 	function evt__borrar()
 	{
-		$sql = "DELETE FROM toba_logs.apex_solicitud_cronometro";
+		$sql = 'DELETE FROM toba_logs.apex_solicitud_cronometro';
 		toba::instancia()->get_db()->ejecutar($sql);
 		$this->s__solicitud = null;
 	}

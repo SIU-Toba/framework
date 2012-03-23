@@ -12,8 +12,7 @@ class ci_puntos_montaje extends toba_ci
 
 	function ini()
 	{
-		$proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto(
-											toba::instancia()->get_id(),
+		$proyecto = toba_modelo_catalogo::instanciacion()->get_proyecto(toba::instancia()->get_id(),
 											toba_editor::get_proyecto_cargado());
 		$this->pms = $proyecto->get_pms();
 	}
@@ -167,8 +166,8 @@ class ci_puntos_montaje extends toba_ci
 		$this->pms->guardar($punto);
 	}
 
-    function grabar_proyecto($datos)
-    {
+	function grabar_proyecto($datos)
+	{
 		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 
 		if ($datos['tipo'] == toba_punto_montaje::tipo_proyecto) {
@@ -179,7 +178,7 @@ class ci_puntos_montaje extends toba_ci
 		$punto = toba_punto_montaje_factory::construir($datos);
 
 		$this->pms->guardar($punto);
-    }
+	}
 
 	function eliminar($datos)
 	{

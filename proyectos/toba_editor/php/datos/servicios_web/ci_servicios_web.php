@@ -15,7 +15,7 @@ class ci_servicios_web extends toba_ci
 
 	function conf()
 	{
-		if(!$this->carga_ok) {
+		if (!$this->carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}	
 	}

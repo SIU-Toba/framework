@@ -6,7 +6,7 @@
 class seleccion_imagenes
 {
 
-	static function generar_input_ef($origen, $img, $objeto_js, $fila ='')
+	static function generar_input_ef($origen, $img, $objeto_js, $fila='')
 	{
 		$predeterminada = toba_recurso::imagen_toba('image-missing-16.png', false);
 		if ($img != '') {
@@ -14,8 +14,8 @@ class seleccion_imagenes
 		} else {
 			$actual = $predeterminada;	
 		}
-			echo "<img nohack='1' title='Elegir la imagen desde un listado' onclick='$objeto_js.elegir_imagen($fila)'
-					 id='editor_imagen_src$fila' src='$actual' onError='this.src=\"$predeterminada\"'/>";		
+		echo "<img nohack='1' title='Elegir la imagen desde un listado' onclick='$objeto_js.elegir_imagen($fila)'
+					id='editor_imagen_src$fila' src='$actual' onError='this.src=\"$predeterminada\"'/>";		
 	}
 	
 	static function generar_js($objeto_js, $con_fila=false)
@@ -39,7 +39,7 @@ class seleccion_imagenes
 					if (origen == 'apex') {
 						prefijo = toba_alias + '/img';
 					} else if (origen == 'skin') {
-						prefijo = '".admin_util::url_imagen_de_origen('','skin')."';
+						prefijo = '".admin_util::url_imagen_de_origen('', 'skin')."';
 					} else {
 						if (toba_proyecto_editado_alias != '') {
 							prefijo = toba_proyecto_editado_alias + '/img';
@@ -121,9 +121,9 @@ class seleccion_imagenes
 		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
 		$checkeado = $recursivo ? 'checked' : '';
 		echo "<label><input type='checkbox'  onclick='recargar(this.checked ? 1 : 0)' $checkeado /> Recursivo</label>";
-		echo "</div><hr />";
+		echo '</div><hr />';
 		echo "<div id='editor_imagen_listado'>";
-		echo "<table>";
+		echo '<table>';
 		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', $recursivo);
 		$archivos = array();
 		foreach ($temp as $archivo) {
@@ -137,12 +137,12 @@ class seleccion_imagenes
 		$total = count($archivos);
 		foreach ($archivos as $archivo) {
 			if ($cant % $columnas == 1) {
-				echo "<tr>";
+				echo '<tr>';
 			}
-			$relativo = substr($archivo, strlen($dir)+1);
+			$relativo = substr($archivo, strlen($dir) + 1);
 			$archivo = basename($relativo);
 			echo "<td title='Seleccionar imagen' imagen='$relativo' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
-					<img nohack='1' src='".$url."/".$relativo."' />
+					<img nohack='1' src='".$url.'/'.$relativo."' />
 					<div>$archivo</div>
 				</td>\n";
 			
@@ -154,7 +154,7 @@ class seleccion_imagenes
 		if ($cant % $columnas != 0) {
 			echo "</tr>\n";
 		}
-		echo "</table></div>";
+		echo '</table></div>';
 	}	
 
 	

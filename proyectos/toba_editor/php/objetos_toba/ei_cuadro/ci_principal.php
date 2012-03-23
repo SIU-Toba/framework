@@ -19,7 +19,7 @@ class ci_principal extends ci_editores_toba
 		//¿Se selecciono un ef desde afuera?
 		if (isset($col)) {
 			$this->set_pantalla(2);
-			$id_interno = $this->get_entidad()->tabla("columnas")->get_id_fila_condicion(array('clave'=>$col));
+			$id_interno = $this->get_entidad()->tabla('columnas')->get_id_fila_condicion(array('clave'=>$col));
 			if (count($id_interno) == 1) {
 				$this->evt__columnas_lista__seleccion($id_interno[0]);			
 			} else {
@@ -30,14 +30,13 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__procesar()
 	{
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		$tiene_clave = ($datos['clave_dbr'] == 1 || $datos['columnas_clave'] != '');
 		if (!$tiene_clave && $this->get_dbr_eventos()->hay_evento_de_fila()) {
 			toba::notificacion()->agregar('El cuadro no tiene definido cuales de sus columnas
 				forman la <strong>clave de los registros</strong>. Esto hace que los eventos asociados a las filas no
 				puedan propagar el valor que las representa.<br><br>
-				Estas columnas claves se pueden indicar en la solapa de Prop.Básicas.'
-				, 'info');
+				Estas columnas claves se pueden indicar en la solapa de Prop.Básicas.', 'info');
 		}
 		$this->get_entidad()->get_persistidor()->retrasar_constraints();
 		parent::evt__procesar();		
@@ -49,7 +48,7 @@ class ci_principal extends ci_editores_toba
 
 	function conf__prop_basicas()
 	{
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		$datos['posicion_botonera'] = $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
 		return $datos;
 	}
@@ -58,7 +57,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->get_entidad()->tabla('base')->set_columna_valor('posicion_botonera', $datos['posicion_botonera']);
 		unset($datos['posicion_botonera']);
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 
 	//*******************************************************************
@@ -67,7 +66,7 @@ class ci_principal extends ci_editores_toba
 
 	function mostrar_columna_detalle()
 	{
-		if( isset($this->s__seleccion_columna) ){
+		if (isset($this->s__seleccion_columna)) {
 			return true;	
 		}
 		return false;
@@ -77,22 +76,21 @@ class ci_principal extends ci_editores_toba
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
 		$this->s__cortes_control = array();
-		if($registros = $this->get_entidad()->tabla('cortes')->get_filas())
-		{
-			foreach($registros as $reg){
-				$this->s__cortes_control[ $reg['identificador'] ] = $reg['identificador'];
+		if ($registros = $this->get_entidad()->tabla('cortes')->get_filas()) {
+			foreach ($registros as $reg) {
+				$this->s__cortes_control[$reg['identificador']] = $reg['identificador'];
 			}
 		}
 		//--- Configuro la pantalla
-		if( $this->mostrar_columna_detalle() ){
+		if ($this->mostrar_columna_detalle()) {
 			$pantalla->eliminar_dep('columnas_importar');
 			$existen_cortes = count($this->s__cortes_control) > 0;
-			if( ! $existen_cortes ){
+			if (! $existen_cortes) {
 				$pantalla->eliminar_dep('columna_corte');
 			}
 			$this->dependencia('columnas_lista')->set_fila_protegida($this->s__seleccion_columna);
-			$this->dependencia("columnas_lista")->seleccionar($this->s__seleccion_columna);
-		}else{
+			$this->dependencia('columnas_lista')->seleccionar($this->s__seleccion_columna);
+		} else {
 			$pantalla->eliminar_dep('columnas');
 			$pantalla->eliminar_dep('columna_corte');
 			$this->dependencia('columnas_importar')->colapsar();
@@ -116,9 +114,9 @@ class ci_principal extends ci_editores_toba
 			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
-		$dbr = $this->get_entidad()->tabla("columnas");
+		$dbr = $this->get_entidad()->tabla('columnas');
 		$orden = 1;
-		foreach(array_keys($registros) as $id)
+		foreach (array_keys($registros) as $id)
 		{
 			//Creo el campo orden basado en el orden real de las filas
 			$registros[$id]['orden'] = $orden;
@@ -135,13 +133,13 @@ class ci_principal extends ci_editores_toba
 			}
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
-				case "A":
+				case 'A':
 					$this->id_intermedio_columna[$id] = $dbr->nueva_fila($registros[$id]);
 					break;	
-				case "B":
+				case 'B':
 					$dbr->eliminar_fila($id);
 					break;	
-				case "M":
+				case 'M':
 					$dbr->modificar_fila($id, $registros[$id]);
 					break;	
 			}
@@ -150,20 +148,20 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__columnas_lista()
 	{
-		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() ) {
+		if ($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas()) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0;$a < count($datos_dbr); $a++) {
 				$orden[] = $datos_dbr[$a]['orden'];
 			}
-			array_multisort($orden, SORT_ASC , $datos_dbr);
+			array_multisort($orden, SORT_ASC, $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
 			//No se solicita asi del DBR porque array_multisort no conserva claves numericas
 			// y las claves internas del DBR lo son
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
-				unset( $datos_dbr[$a][apex_db_registros_clave] );
-				$datos[ $id_dbr ] = $datos_dbr[$a];
+				unset( $datos_dbr[$a][apex_db_registros_clave]);
+				$datos[$id_dbr] = $datos_dbr[$a];
 			}
 			//ei_arbol($datos,"Datos para el ML: POST proceso");
 			return $datos;
@@ -172,7 +170,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas_lista__seleccion($id)
 	{
-		if(isset($this->id_intermedio_columna[$id])){
+		if (isset($this->id_intermedio_columna[$id])) {
 			$id = $this->id_intermedio_columna[$id];
 		}
 		$this->s__seleccion_columna = $id;
@@ -196,12 +194,12 @@ class ci_principal extends ci_editores_toba
 	function conf__columnas()
 	{
 		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
-		$datos =  $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
+		$datos = $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
 
 		//Aqui comienza el engendro malefico
 		$posibles = $this->get_eventos_vinculo_cargados();
 		if (is_array($posibles)) {
-			foreach($posibles as $evento) {	//Si encuentro match con el evento
+			foreach ($posibles as $evento) {	//Si encuentro match con el evento
 				if (isset($evento['evento_id']) && isset($datos['evento_asociado']) &&$datos['evento_asociado'] == $evento['evento_id']) {
 					$datos['evento_asociado'] = $evento['identificador']; //Uso el nombre del evento
 				}
@@ -227,18 +225,18 @@ class ci_principal extends ci_editores_toba
 		$busqueda = $this->get_entidad()->tabla('columna_total_cc')->nueva_busqueda();
 		$busqueda->set_padre('columnas', $this->s__seleccion_columna_anterior);
 		//Inicializo con los cortes de control existentes para cuando no existe carga previa o cuando se agregan cortes.
-		foreach( $this->s__cortes_control as $corte){
+		foreach ($this->s__cortes_control as $corte) {
 			$filas[$indice] = array('identificador' => $corte, 'total' => 0);
 			$ids_visitados[$corte] = $indice;
 			$indice++;
 		}
 		//Obtengo las asociaciones entre columnas y cortes de control
 		$resultado_busqueda = $busqueda->buscar_ids();
-		foreach($resultado_busqueda  as $id_fila) {
+		foreach ($resultado_busqueda  as $id_fila) {
 			$col_asoc = $this->get_entidad()->tabla('columna_total_cc')->get_fila($id_fila);
 			if (isset($ids_visitados[$col_asoc['identificador']])) {
-				$id_tmp =  $ids_visitados[$col_asoc['identificador']];
-			}else {
+				$id_tmp = $ids_visitados[$col_asoc['identificador']];
+			} else {
 				$id_tmp = $indice;
 				$ids_visitados[$col_asoc['identificador']] = $indice;
 				$indice++;
@@ -251,10 +249,10 @@ class ci_principal extends ci_editores_toba
 	function evt__columna_corte__modificacion($datos)
 	{
 		//Borro los datos anteriores de la tabla para solo colocar los nuevos
-		if (! empty($datos)){
+		if (! empty($datos)) {
 			$busqueda = $this->get_entidad()->tabla('columna_total_cc')->nueva_busqueda();
 			$busqueda->set_padre('columnas', $this->s__seleccion_columna_anterior);
-			foreach($busqueda->buscar_ids() as $id_fila){
+			foreach ($busqueda->buscar_ids() as $id_fila) {
 				$this->get_entidad()->tabla('columna_total_cc')->eliminar_fila($id_fila);
 			}
 		}
@@ -262,9 +260,9 @@ class ci_principal extends ci_editores_toba
 		//Setear cursor en tabla columnas con $this->s__seleccion_columna_anterior
 		$this->get_entidad()->tabla('columnas')->set_cursor($this->s__seleccion_columna_anterior);
 		// Buscar id para setear cursor en tabla cortes mediante el identificador
-		foreach($datos as $valores){
+		foreach ($datos as $valores) {
 			$id = $this->get_entidad()->tabla('cortes')->get_id_fila_condicion(array('identificador' => $valores['identificador']));
-			if ($valores['total'] == 1){
+			if ($valores['total'] == 1) {
 				$this->get_entidad()->tabla('cortes')->set_cursor(current($id));
 				$this->get_entidad()->tabla('columna_total_cc')->nueva_fila($valores);				//Guardo los valores en la tabla
 			}
@@ -287,14 +285,14 @@ class ci_principal extends ci_editores_toba
 	function post_eventos()
 	{
 		if ($this->disparar_importacion_columnas) {
-			if(isset($this->s__importacion_cols['datos_tabla'])){
-				$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
-								'componente' => $this->s__importacion_cols['datos_tabla'] );
-				$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
+			if (isset($this->s__importacion_cols['datos_tabla'])) {
+				$clave = array('proyecto' => toba_editor::get_proyecto_cargado(),
+								'componente' => $this->s__importacion_cols['datos_tabla']);
+				$dt = toba_constructor::get_info($clave, 'toba_datos_tabla');
 				$this->s__importacion_cols = $dt->exportar_datos_columnas($this->s__importacion_cols['pk']);
 				//ei_arbol($this->s__importacion_cols);
-				$cols = $this->get_entidad()->tabla("columnas");
-				foreach($this->s__importacion_cols as $col){
+				$cols = $this->get_entidad()->tabla('columnas');
+				foreach ($this->s__importacion_cols as $col) {
 					try{
 						$cols->nueva_fila($col);
 					}catch(toba_error $e){
@@ -308,7 +306,7 @@ class ci_principal extends ci_editores_toba
 
 	function conf__columnas_importar()
 	{
-		if(isset($this->s__importacion_cols)){
+		if (isset($this->s__importacion_cols)) {
 			return $this->s__importacion_cols;
 		}
 	}
@@ -326,7 +324,7 @@ class ci_principal extends ci_editores_toba
 
 		$columnas = $this->get_entidad()->tabla('columnas')->get_filas(null, false);
 		if (is_array($columnas)) {
-			foreach($columnas as $col) {
+			foreach ($columnas as $col) {
 				if (isset($col['evento_asociado']) && ($col['evento_asociado'] == $identificador || $col['evento_asociado'] == $id_real)) {
 					throw new toba_error_def("No se puede eliminar el evento '$identificador' aún esta asociado a la columna '{$col['clave']}'");
 				}
@@ -360,7 +358,7 @@ class ci_principal extends ci_editores_toba
 	{
 		//$condicion = array('accion' => 'V');	1.5: Es posible seleccionar todos los eventos como vinculos
 		$condicion = null;
-		$datos =  $this->get_dbr_eventos()->get_filas($condicion, false, false);
+		$datos = $this->get_dbr_eventos()->get_filas($condicion, false, false);
 		return $datos;
 	}
 
@@ -370,12 +368,12 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__prop_cortes()
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		return $this->get_entidad()->tabla('prop_basicas')->get();
 	}
 
 	function evt__prop_cortes__modificacion($datos)
 	{
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 
 	function evt__cortes__modificacion($datos)
@@ -385,16 +383,15 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__cortes()
 	{
-		if($datos_dbr = $this->get_entidad()->tabla('cortes')->get_filas() )
-		{
-			for($a=0;$a<count($datos_dbr);$a++){
+		if($datos_dbr = $this->get_entidad()->tabla('cortes')->get_filas()) {
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$orden[] = $datos_dbr[$a]['orden'];
 			}
-			array_multisort($orden, SORT_ASC , $datos_dbr);
-			for($a=0;$a<count($datos_dbr);$a++){
+			array_multisort($orden, SORT_ASC, $datos_dbr);
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
-				unset( $datos_dbr[$a][apex_db_registros_clave] );
-				$datos[ $id_dbr ] = $datos_dbr[$a];
+				unset($datos_dbr[$a][apex_db_registros_clave]);
+				$datos[$id_dbr] = $datos_dbr[$a];
 			}
 			return $datos;
 		}

@@ -11,9 +11,9 @@ class ci_cols extends ci_efs
 
 	function get_tipo_ef()
 	{
-		$tipo = $this->get_tabla()->get_fila_columna( $this->s__seleccion_efs, "tipo");
+		$tipo = $this->get_tabla()->get_fila_columna($this->s__seleccion_efs, 'tipo');
 		$datos = $this->get_tabla()->get_fila($this->s__seleccion_efs);
-		$metodo = "get_clase_ef";
+		$metodo = 'get_clase_ef';
 		if ($tipo !== 'opciones') {
 			return call_user_func(array('toba_filtro_columna_'.$datos['tipo'], $metodo));
 		} else {
@@ -55,7 +55,7 @@ class ci_cols extends ci_efs
 	function verificar_cantidad_maestros($datos)
 	{
 		if (isset($datos['carga_maestros'])) {
-			$maestros = explode(',' , $datos['carga_maestros']);
+			$maestros = explode(',', $datos['carga_maestros']);
 			if (count($maestros) > 1) {
 				throw new toba_error_def('Las columnas de un filtro pueden tener a lo sumo una columna como maestro');
 			}

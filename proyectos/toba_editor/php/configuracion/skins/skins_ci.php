@@ -33,7 +33,7 @@ class skins_ci extends toba_ci
 
 	function conf__formulario(toba_ei_formulario $form)
 	{
-		if($this->dep('datos')->hay_cursor()){
+		if ($this->dep('datos')->hay_cursor()) {
 			$form->set_datos($this->dep('datos')->get());
 		} 
 		if (! $this->dep('datos')->esta_cargada()) {
@@ -86,7 +86,7 @@ class skins_ci extends toba_ci
 			$template = str_replace('{$'.$clave.'}', $valor, $template);
 		}
 		file_put_contents($archivo_salida, $template);
-		$this->pantalla()->set_descripcion("Plantilla css generada. Recuerde generar una imagen <b>barra-sup.gif</b> (o copiarlo de un skin existente) ".
+		$this->pantalla()->set_descripcion('Plantilla css generada. Recuerde generar una imagen <b>barra-sup.gif</b> (o copiarlo de un skin existente) '.
 											"y guardarla en <b>$dir_salida</b>", 'warning');
 		$this->dep('datos')->sincronizar();		
 	}	
@@ -117,13 +117,13 @@ class skins_ci extends toba_ci
 			foreach ($arreglo as $clave => $valor) {
 				$pos = strpos($clave, '_');
 				$tipo = substr($clave, 0, $pos);
-				$clase = substr($clave, $pos+1);
+				$clase = substr($clave, $pos + 1);
 				$filas[$clase][$tipo] = $valor;
 			}
 			$paletas = array();
 			foreach ($filas as $clase => $valores) {
 				$valores['clave'] = $clase;
-				$valores['nombre'] = ucfirst(str_replace('_', ' ',$clase));
+				$valores['nombre'] = ucfirst(str_replace('_', ' ', $clase));
 				foreach ($this->colores as $color) {
 					if (! isset($valores[$color])) {
 						$valores[$color] = apex_ef_no_seteado;

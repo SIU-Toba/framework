@@ -13,7 +13,7 @@ class form_varios extends toba_ei_formulario
 					'id_valido' => 'id válido'
 				);
 				parent::generar_input_ef($ef);
-				echo "<br>Validaciones: ";
+				echo '<br>Validaciones: ';
 				$inicial = '';
 				foreach ($expresiones as $id => $desc) {
 					echo "$inicial<a href='javascript: {$this->objeto_js}.pedir_expreg(\"$id\");'>$desc</a>";

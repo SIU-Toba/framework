@@ -7,7 +7,7 @@ class casos_web extends toba_ci
 	function mantener_estado_sesion()
 	{
 		$atributos = parent::mantener_estado_sesion();
-		$atributos[] = "selecciones";
+		$atributos[] = 'selecciones';
 		return $atributos;
 	}
 	
@@ -40,8 +40,9 @@ class casos_web extends toba_ci
 
 	function conf__seleccion()
 	{
-		if (isset($this->selecciones))
+		if (isset($this->selecciones)) {
 			return $this->selecciones;
+		}
 	}	
 	
 	function get_selecciones()
@@ -74,7 +75,7 @@ class pantalla_testing extends toba_ei_pantalla
 				if ($hay_uno) {
 					
 					//--- COBERTURA DE CODIGO (OPCIONAL) ----					
-					if (function_exists("xdebug_start_code_coverage")) {
+					if (function_exists('xdebug_start_code_coverage')) {
 					    xdebug_start_code_coverage();
 					}
 					//-------
@@ -84,22 +85,22 @@ class pantalla_testing extends toba_ei_pantalla
 					//--- COBERTURA DE CODIGO (OPCIONAL) ----
 					$arch = 'PHPUnit2/Util/CodeCoverage/Renderer.php';
 					$existe = toba_manejador_archivos::existe_archivo_en_path($arch);
-					if (function_exists("xdebug_start_code_coverage") && $existe) {
+					if (function_exists('xdebug_start_code_coverage') && $existe) {
 						require_once($arch);
 						$cubiertos = xdebug_get_code_coverage();
 						//Se limpian las referencias a simpletest y a librerias de testing en gral.
 						$archivos = array();
 						foreach (array_keys($cubiertos) as $archivo) {
 							if (! strpos($archivo, 'simpletest') 
-									&&  ! strpos($archivo, 'PHPUnit')
-									&& ! strpos($archivo,'testing_automatico/')
+									&& ! strpos($archivo, 'PHPUnit')
+									&& ! strpos($archivo, 'testing_automatico/')
 									&& ! strpos($archivo, '/test_')) {
 								$archivos[$archivo] = $cubiertos[$archivo];
 							}
 						}
-						$cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
+						$cc = PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML', array('tests' => $archivos));
 						$path_temp = toba::proyecto()->get_path_temp_www();
-						$salida = $path_temp['real'] ."/cobertura.html";
+						$salida = $path_temp['real'] .'/cobertura.html';
 						$cc->renderToFile($salida);
 						echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
 					}
@@ -108,12 +109,13 @@ class pantalla_testing extends toba_ei_pantalla
 				}
 			}
 		} catch (Exception $e) {
-			if (method_exists($e, 'mensaje_web'))
+			if (method_exists($e, 'mensaje_web')) {
 				echo ei_mensaje($e->mensaje_web(), 'error');
-			else
+			} else {
 				echo $e;
+			}
 		}
-		echo "</div><br>";
+		echo '</div><br>';
 		$this->dep('lista_archivos')->generar_html();		
 	}	
 }

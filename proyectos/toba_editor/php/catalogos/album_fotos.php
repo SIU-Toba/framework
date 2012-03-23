@@ -9,7 +9,7 @@ class album_fotos
 		$this->tipo = $tipo_fotos;
 	}
 
-	function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
+	function agregar_foto($nombre, $nodos_visibles, $opciones, $pred=false)
 	{
 		abrir_transaccion();
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
@@ -17,7 +17,7 @@ class album_fotos
 		$opciones = addslashes(serialize($opciones));
 		$proyecto = toba_editor::get_proyecto_cargado();
 		$usuario = toba::usuario()->get_id();
-		$es_pred = ($pred) ? "1" : "0";
+		$es_pred = ($pred) ? '1' : '0';
 		$sql = "INSERT INTO apex_admin_album_fotos
 					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
 					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones', '{$this->tipo}', $es_pred)";
@@ -91,7 +91,7 @@ class album_fotos
 		toba::db()->ejecutar($sql);
 	}
 	
-	function fotos($nombre = null)
+	function fotos($nombre=null)
 	{
 		$proyecto = quote(toba_editor::get_proyecto_cargado());
 		$usuario = quote(toba::usuario()->get_id());
@@ -128,10 +128,11 @@ class album_fotos
 	function foto($nombre)
 	{
 		$fotos = $this->fotos($nombre);
-		if (count($fotos) == 0)
+		if (count($fotos) == 0) {
 			return false;
-		else
+		} else {
 			return $fotos[0];
+		}
 	}
 }
 

@@ -13,7 +13,7 @@ abstract class ci_editores_toba extends toba_ci
 	{
 		//Cargo el editable de la zona		
 		$zona = toba::solicitud()->zona();
-		if ($editable = $zona->get_editable()){
+		if ($editable = $zona->get_editable()) {
 			list($proyecto, $objeto) = $editable;
 		}	
 		//Se notifica un objeto y un proyecto	
@@ -22,7 +22,7 @@ abstract class ci_editores_toba extends toba_ci
 			$selecciono_otro = (!isset($this->id_objeto) || 
 						($this->id_objeto['proyecto'] != $proyecto || $this->id_objeto['objeto'] != $objeto));
 			if ($selecciono_otro) {
-				$this->set_objeto( 	array('proyecto'=>$proyecto, 'objeto'=>$objeto) );
+				$this->set_objeto(array('proyecto'=>$proyecto, 'objeto'=>$objeto));
 				$this->cambio_objeto = true;
 			} else {
 				$this->cambio_objeto = false;	
@@ -30,7 +30,9 @@ abstract class ci_editores_toba extends toba_ci
 		}
 		//Llegada a un TAB especifico desde el arbol
 		$etapa = toba::memoria()->get_parametro('etapa');
-		if( isset($etapa) ) $this->set_pantalla($etapa);
+		if (isset($etapa)) {
+			$this->set_pantalla($etapa);
+		}
 		//Llegada desde un evento
 		$evento = toba::memoria()->get_parametro('evento');
 		if (isset($evento)) {
@@ -40,14 +42,13 @@ abstract class ci_editores_toba extends toba_ci
 	}
 	
 	function get_entidad()
-	//Acceso al DATOS_RELACION
-	{
-		if($this->cambio_objeto && !$this->falla_carga){
+	{		//Acceso al DATOS_RELACION
+		if ($this->cambio_objeto && !$this->falla_carga) {
 			toba::logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
-			if( $this->dependencia('datos')->cargar( $this->id_objeto ) ){
+			if ($this->dependencia('datos')->cargar($this->id_objeto)) {
 				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
-			}else{
-				toba::notificacion()->agregar("El elemento seleccionado no existe.","error");
+			} else {
+				toba::notificacion()->agregar('El elemento seleccionado no existe.', 'error');
 				$this->falla_carga = true;	
 			}
 		}
@@ -62,19 +63,19 @@ abstract class ci_editores_toba extends toba_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "id_objeto";
-		$propiedades[] = "cargado";
+		$propiedades[] = 'id_objeto';
+		$propiedades[] = 'cargado';
 		return $propiedades;
 	}	
 	
 	function set_objeto($id)
 	{
-		$this->id_objeto = 	$id;
+		$this->id_objeto = $id;
 	}
 
 	function conf()
 	{
-		if(! $this->get_entidad()->esta_cargada()){
+		if (! $this->get_entidad()->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}
@@ -85,7 +86,7 @@ abstract class ci_editores_toba extends toba_ci
 		$this->elemento_eliminado = true;
 		$zona = toba::solicitud()->zona();
 		$zona->resetear();
-		toba::notificacion()->agregar("El elemento ha sido eliminado.", "info");		
+		toba::notificacion()->agregar('El elemento ha sido eliminado.', 'info');		
 		admin_util::refrescar_editor_item();
 	}
 	
@@ -102,11 +103,11 @@ abstract class ci_editores_toba extends toba_ci
 			$form->desactivar_efs(array('fuente_datos'));
 		}
 		
-		$reg = $this->get_entidad()->tabla("base")->get();
+		$reg = $this->get_entidad()->tabla('base')->get();
 		$es_alta = !isset($this->id_objeto);
 		if ($es_alta) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
-			$nombre = "";
+			$nombre = '';
 			if (isset($this->controlador)
 					 && method_exists($this->controlador, 'get_nombre_destino')
 					 && $this->controlador->hay_destino()) {
@@ -131,12 +132,12 @@ abstract class ci_editores_toba extends toba_ci
 	function evt__base__modificacion($datos)
 	{
 		if (!isset($datos['fuente_datos'])) {
-			$datos['fuente_datos'] = NULL;	
+			$datos['fuente_datos'] = null;	
 		}
 		if (!isset($datos['fuente_datos_proyecto'])) {
-			$datos['fuente_datos_proyecto'] = NULL;	
+			$datos['fuente_datos_proyecto'] = null;	
 		}
-		$this->get_entidad()->tabla("base")->set($datos);
+		$this->get_entidad()->tabla('base')->set($datos);
 	}
 	
 	// *******************************************************************
@@ -155,13 +156,13 @@ abstract class ci_editores_toba extends toba_ci
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
 
-		if( $this->componente_existe_en_db() ) {
+		if ($this->componente_existe_en_db()) {
 			//Algun cambio de valor del componente puede cambiar el display de la zona
 			toba::zona()->recargar();
 		}
 		// Seteo el objeto INTERNO
 		$datos = $this->get_entidad()->tabla('base')->get();
-		$this->set_objeto( array('proyecto'=>$datos['proyecto'], 'objeto'=>$datos['objeto']) );
+		$this->set_objeto(array('proyecto'=>$datos['proyecto'], 'objeto'=>$datos['objeto']));
 	}
 	
 	//---------------------------------------------------------------
@@ -173,7 +174,7 @@ abstract class ci_editores_toba extends toba_ci
 		if (isset($this->clase_actual)) {
 			return $this->clase_actual;
 		} else {
-			throw new toba_error("El editor actual no tiene definida sobre que clase de objeto trabaja");
+			throw new toba_error('El editor actual no tiene definida sobre que clase de objeto trabaja');
 		}
 	}
 	
@@ -191,8 +192,8 @@ abstract class ci_editores_toba extends toba_ci
 		Todos los EI que tienen un tab de eventos necesitan implementar estos metodos.
 		Actualmente solo se utilizan en el CI
 	*/
-	function eliminar_evento($id){}
-	function modificar_evento($id_anterior, $id_nuevo){}
+	function eliminar_evento($id) {}
+	function modificar_evento($id_anterior, $id_nuevo) {}
 	
 	function get_modelos_evento()
 	{
@@ -201,7 +202,7 @@ abstract class ci_editores_toba extends toba_ci
 	
 	function get_eventos_internos()
 	{
-		return call_user_func(array($this->get_clase_info_actual(),'get_eventos_internos'),	$this->get_entidad());
+		return call_user_func(array($this->get_clase_info_actual(),'get_eventos_internos'), $this->get_entidad());
 	}
 	
 	function notificar_eliminacion_evento($evento) {}

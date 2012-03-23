@@ -74,7 +74,7 @@ class ci_recordatorio_pwd extends toba_ci
 	{
 		//Si llego hasta aca es porque la respuesta funco, sino explota en la modificacion del form		
 		$this->enviar_mail_aviso_cambio();
-		toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela' , 'info');				
+		toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela', 'info');
 		$this->set_pantalla('pant_inicial');
 	}
 	
@@ -114,7 +114,7 @@ class ci_recordatorio_pwd extends toba_ci
 		$datos = $this->recuperar_pregunta_secreta($this->s__usuario);
 		$salt = get_salt();
 		$clave1 = encriptar_con_sal(trim($datos['respuesta']), 'SHA256', $salt);
-		$clave2 = encriptar_con_sal(trim($datos_usuario['respuesta']), 'SHA256',$salt);
+		$clave2 = encriptar_con_sal(trim($datos_usuario['respuesta']), 'SHA256', $salt);
 		if ($clave1 !== $clave2) {
 			toba::logger()->error("Se intento cambiar la clave al usuario: {$this->s__usuario} pero falló la respuesta al desafío");
 			throw new toba_error('Respuesta no Válida');
@@ -147,8 +147,8 @@ class ci_recordatorio_pwd extends toba_ci
 		try {
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
 			$clave = toba::instalacion()->get_claves_encriptacion();		
-			$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));
-			$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'],0,8));
+			$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+			$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
 
 			return $aux;
 		} catch (toba_error $e) {
@@ -170,7 +170,7 @@ class ci_recordatorio_pwd extends toba_ci
 		$asunto = 'Solicitud de cambio de contraseña';
 		$cuerpo_mail = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
 		. 'Si usted solicito dicho cambio haga click en el siguiente link: </br></br>'
-		. $link. "</br> El mismo será válido unicamente por 24hs.</p>";
+		. $link. '</br> El mismo será válido unicamente por 24hs.</p>';
 
 		//Guardo el random asociado al usuario y envio el mail
 		toba::instancia()->get_db()->abrir_transaccion();
@@ -181,7 +181,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->enviar();
 			toba::instancia()->get_db()->cerrar_transaccion();
 		} catch (toba_error $e) {
-			toba::instancia()->get_db()>abortar_transaccion();
+			toba::instancia()->get_db()->abortar_transaccion();
 			toba::logger()->debug('Proceso de envio de random a cuenta: '. $e->getMessage());
 			throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');
 		}
@@ -193,7 +193,7 @@ class ci_recordatorio_pwd extends toba_ci
 	function get_random_temporal()
 	{
 		$uuid = uniqid(rand(), true);
-		$rnd = sha1( microtime() . $uuid . rand());
+		$rnd = sha1(microtime() . $uuid . rand());
 		return $rnd;
 	}
 
@@ -205,7 +205,7 @@ class ci_recordatorio_pwd extends toba_ci
 		$path = toba::proyecto()->get_www();
 		$opciones = array('param_html' => array('tipo' => 'normal' , 'texto' => 'Click Aqui'), 'prefijo' => $_SERVER['SERVER_NAME']. $path['url']);
 		$parametros = array('usuario' => $usuario, 'randr' => $random);
-		return toba::vinculador()->get_url (null, null , $parametros, $opciones);
+		return toba::vinculador()->get_url(null, null, $parametros, $opciones);
 	}
 
 	/*
@@ -222,13 +222,13 @@ class ci_recordatorio_pwd extends toba_ci
 		//Armo el mail nuevo
 		$asunto = 'Nueva contraseña';
 		$cuerpo_mail = '<p>Se ha recibido su confirmación exitosamente, su contraseña fue cambiada a: </br>' .
-		$clave_tmp . "</br> Por favor en cuanto pueda cambiela a una contraseña más segura. </br> Gracias. </p> ";
+		$clave_tmp . '</br> Por favor en cuanto pueda cambiela a una contraseña más segura. </br> Gracias. </p> ';
 
 		//Cambio la clave del flaco, envio el nuevo mail y bloqueo el random
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
 			//Recupero los dias de validez de la clave, si existe
-			$dias = toba::proyecto()->get_parametro('dias_validez_clave',null, false);
+			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
 			
 			//Seteo la clave para el usuario
 			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig[0]['id_usuario'], $dias);
@@ -258,7 +258,7 @@ class ci_recordatorio_pwd extends toba_ci
 		$up_sql = toba::instancia()->get_db()->sentencia_preparar($sql);
 		$rs = toba::instancia()->get_db()->sentencia_ejecutar($up_sql, array('usuario'=>$this->s__usuario));
 
-		$sql = "INSERT INTO apex_usuario_pwd_reset (usuario, random, email) VALUES (:usuario, :random, :mail);";
+		$sql = 'INSERT INTO apex_usuario_pwd_reset (usuario, random, email) VALUES (:usuario, :random, :mail);';
 		//toba::logger()->debug(array('usuario'=>$this->usuario, 'random' => $random, 'mail' => $mail));
 		$in_sql = toba::instancia()->get_db()->sentencia_preparar($sql);
 		$rs = toba::instancia()->get_db()->sentencia_ejecutar($in_sql, array('usuario'=>$this->s__usuario, 'random' => $random, 'mail' => $mail));
@@ -282,9 +282,9 @@ class ci_recordatorio_pwd extends toba_ci
 
 	function bloquear_random_utilizado($usuario, $random)
 	{
-		$sql = "UPDATE apex_usuario_pwd_reset  SET bloqueado = 1
+		$sql = 'UPDATE apex_usuario_pwd_reset  SET bloqueado = 1
 					 WHERE 	usuario = :usuario
-					 AND random = :random";
+					 AND random = :random';
 		//toba::instancia()->get_db()->set_modo_debug(true, true);
 		$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 		$rs = toba::instancia()->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario, 'random' => $random));

@@ -8,8 +8,8 @@ class ci_navegacion extends toba_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion";
-		$propiedades[] = "filtro";
+		$propiedades[] = 'seleccion';
+		$propiedades[] = 'filtro';
 		return $propiedades;
 	}
 	
@@ -42,12 +42,13 @@ class ci_navegacion extends toba_ci
 
 	function conf__filtro()
 	{
-		if(isset($this->filtro)){
+		if (isset($this->filtro)) {
 			return $this->filtro;
 		}
 	}
 
-	function evt__filtro__cancelar(){
+	function evt__filtro__cancelar()
+	{
 		unset($this->filtro);	
 	}
 	

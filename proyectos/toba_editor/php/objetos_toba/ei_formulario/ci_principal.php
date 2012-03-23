@@ -37,7 +37,7 @@ class ci_principal extends ci_editores_toba
 	//****************************************************************************
 	function conf__prop_basicas()
 	{
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		$datos['posicion_botonera'] = $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
 		return $datos;
 	}
@@ -46,7 +46,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->get_entidad()->tabla('base')->set_columna_valor('posicion_botonera', $datos['posicion_botonera']);
 		unset($datos['posicion_botonera']);
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
 
 	//*******************************************************************
@@ -90,12 +90,12 @@ class ci_principal extends ci_editores_toba
 	function conf__form_layout(toba_ei_formulario $form)
 	{
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
-		$form->ef('template')->set_botonera( 'Layout');
+		$form->ef('template')->set_botonera('Layout');
 		$form->ef('template')->set_alto('400px');		
 		$form->ef('template')->set_path_template($vinculo);		
 		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		if (isset($datos['template']) && trim($datos['template']) != '') {
-			$datos['tipo_layout'] = "L";
+			$datos['tipo_layout'] = 'L';
 		}
 		$form->set_datos($datos);
 	}
@@ -120,7 +120,7 @@ class ci_principal extends ci_editores_toba
 		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		unset($datos['template']);
 		if (isset($datos['template_impresion']) && trim($datos['template_impresion']) != '') {
-			$datos['tipo_layout'] = "L";
+			$datos['tipo_layout'] = 'L';
 			$datos['template'] = $datos['template_impresion'];
 		}
 		$form->set_datos($datos);
@@ -130,7 +130,7 @@ class ci_principal extends ci_editores_toba
 	{
 		if (!isset($datos['tipo_layout'])) {
 			$datos['template_impresion'] = null;
-		}else{
+		} else {
 			$datos['template_impresion'] = $datos['template'];
 			unset($datos['template']);
 		}
@@ -148,9 +148,9 @@ class ci_principal extends ci_editores_toba
 	{
 		//Determina si el ejecutar es por este ci o por el del parent 
  		$imagen = toba::memoria()->get_parametro('imagen');
- 		if (isset($imagen)) {
- 			return parent::servicio__ejecutar();		
- 		}
+		if (isset($imagen)) {
+			return parent::servicio__ejecutar();		
+		}
 		$url = toba::proyecto()->get_www('img/fck_templates/');
 		$salida = "
 			CKEDITOR.addTemplates('toba_layout', 

@@ -10,7 +10,7 @@ class ci_comparador extends toba_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "estilos";
+		$propiedades[] = 'estilos';
 		return $propiedades;
 	}
 

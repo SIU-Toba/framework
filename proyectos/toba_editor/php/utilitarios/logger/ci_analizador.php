@@ -33,7 +33,7 @@ class ci_analizador extends toba_ci
 	function ajax__get_datos_logger($anterior_mod, toba_ajax_respuesta $respuesta)
 	{
 		$res = $this->analizador->get_pedido($this->s__seleccion);
-		$info_operacion =$this->pantalla()->generar_html_info_operacion($res);
+		$info_operacion = $this->pantalla()->generar_html_info_operacion($res);
 		$encabezado = $this->pantalla()->generar_html_encabezado($res);
 		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
 		$ultima_mod = $this->timestamp_archivo();
@@ -72,7 +72,7 @@ class ci_analizador extends toba_ci
 	function cargar_analizador()
 	{
 		if (isset($this->s__opciones)) {
-			$this->archivo = $this->get_logger()->directorio_logs()."/sistema.log";		
+			$this->archivo = $this->get_logger()->directorio_logs().'/sistema.log';		
 			$this->analizador = new toba_analizador_logger_fs($this->archivo);
 			$this->analizador->set_filtro($this->s__opciones);
 		}
@@ -122,7 +122,7 @@ class ci_analizador extends toba_ci
 	{
 		if (isset($this->s__seleccion)) {
 			if ($this->s__seleccion == 'ultima') {
-				$this->s__seleccion = $this->analizador->get_cantidad_pedidos() -1;
+				$this->s__seleccion = $this->analizador->get_cantidad_pedidos() - 1;
 			} else {
 				$this->s__seleccion--;
 			}
@@ -133,7 +133,7 @@ class ci_analizador extends toba_ci
 	{
 		if (isset($this->s__seleccion)) {
 			$ultima = $this->analizador->get_cantidad_pedidos();
-			if ($this->s__seleccion == $ultima -1 ) {
+			if ($this->s__seleccion == ($ultima - 1) ) {
 				$this->s__seleccion = 'ultima';
 			} else {
 				$this->s__seleccion++;				
@@ -169,7 +169,7 @@ class ci_analizador extends toba_ci
 	
 	function conf__pedidos()
 	{
-		if (isset($this->s__opciones)){
+		if (isset($this->s__opciones)) {
 			$this->analizador->set_filtro($this->s__opciones);
 		}
 		$logs = $this->analizador->get_logs_archivo();
@@ -189,13 +189,13 @@ class ci_analizador extends toba_ci
 	function evt__pedidos__seleccion($id)
 	{
 		$this->s__seleccion = $id['numero'];
-		$this->set_pantalla("visor");
+		$this->set_pantalla('visor');
 	}
 	
 	function evt__pedidos__ultima()
 	{
 		$this->s__seleccion = 'ultima';
-		$this->set_pantalla("visor");
+		$this->set_pantalla('visor');
 	}
 }
 

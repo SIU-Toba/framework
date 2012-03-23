@@ -10,23 +10,22 @@ class ci_dependencias extends toba_ci
 	protected $seleccion_dependencia;
 	protected $seleccion_dependencia_anterior;
 
-	function destruir()
+	/*function destruir()
 	{
 		parent::destruir();
 		//ei_arbol($this->get_tabla()->info(true));
-	}
+	}*/
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_dependencia";
-		$propiedades[] = "seleccion_dependencia_anterior";
+		$propiedades[] = 'seleccion_dependencia';
+		$propiedades[] = 'seleccion_dependencia_anterior';
 		return $propiedades;
 	}
 
-	function get_tabla()
-	//Acceso al db_tablas
-	{
+	function get_tabla()	
+	{	//Acceso al db_tablas
 		if (! isset($this->tabla)) {
 			$this->tabla = $this->controlador->get_dbr_dependencias();
 		}
@@ -37,7 +36,7 @@ class ci_dependencias extends toba_ci
 	{
 		unset($this->seleccion_dependencia_anterior);
 		unset($this->seleccion_dependencia);
-		$this->dependencia("cuadro")->deseleccionar();
+		$this->dependencia('cuadro')->deseleccionar();
 	}
 
 	//-------------------------------------------------------------
@@ -51,7 +50,7 @@ class ci_dependencias extends toba_ci
 	
 	function evt__formulario__baja()
 	{
-		$id_dep = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior,"identificador");
+		$id_dep = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior, 'identificador');
 		$this->get_tabla()->eliminar_fila($this->seleccion_dependencia_anterior);
 		$this->evt__formulario__cancelar();
 	}
@@ -59,14 +58,14 @@ class ci_dependencias extends toba_ci
 	function evt__formulario__modificacion($datos)
 	{
 		$id_nuevo = $datos['identificador'];
-		$id_anterior = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior, "identificador");
+		$id_anterior = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior, 'identificador');
 		$this->get_tabla()->modificar_fila($this->seleccion_dependencia_anterior, $datos);
 		$this->evt__formulario__cancelar();
 	}
 	
 	function conf__formulario()
 	{
-		if(isset($this->seleccion_dependencia)){
+		if (isset($this->seleccion_dependencia)) {
 			$this->seleccion_dependencia_anterior = $this->seleccion_dependencia;
 			return $this->get_tabla()->get_fila($this->seleccion_dependencia_anterior);
 		}

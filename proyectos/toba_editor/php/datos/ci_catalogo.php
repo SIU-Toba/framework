@@ -9,7 +9,7 @@ class ci_catalogo extends toba_ci
 		//Inicializa la lista de editores
 		$info_componentes = toba_info_editores::get_info_tipos_componente();
 		foreach ($info_componentes as $componente) {
-			$this->datos_editores[$componente['clase']] = array(	'proyecto' => $componente['editor_proyecto'],
+			$this->datos_editores[$componente['clase']] = array('proyecto' => $componente['editor_proyecto'],
 																	'item' => $componente['editor_item']);
 		}
 	}
@@ -23,46 +23,43 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_fuentes_datos();
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'fuente.png';
-			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['fuente_datos']);
+			$parametros = array(apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['fuente_datos']);
 			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
 			// Probar dimensiones
-			if ( toba_info_editores::get_cantidad_dimensiones_fuente($datos[$id]['fuente_datos']) > 0 ) {
-				$img = toba_recurso::imagen_toba("probar_dimensiones.png", true, null, null, 'Probar dimensiones');
-				$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
+			if (toba_info_editores::get_cantidad_dimensiones_fuente($datos[$id]['fuente_datos']) > 0) {
+				$img = toba_recurso::imagen_toba('probar_dimensiones.png', true, null, null, 'Probar dimensiones');
+				$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
 																	3461,
 																	$parametros,
 																	$img);
 			}
 			// Relaciones
-			$img = toba_recurso::imagen_toba("solic_wddx.gif", true, null, null, 'Relaciones entre tablas');
-			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
+			$img = toba_recurso::imagen_toba('solic_wddx.gif', true, null, null, 'Relaciones entre tablas');
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
 																3442,
 																$parametros,
 																$img);
 			// Ver el modelo
-			$img = toba_recurso::imagen_toba("buscar.png", true, null, null, "Navegar tablas");
-			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
+			$img = toba_recurso::imagen_toba('buscar.png', true, null, null, 'Navegar tablas');
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
 																3412,
 																$parametros,
 																$img);
 																
 			// Creacion / Actualizacion Automatica de datos tabla
-			$img = toba_recurso::imagen_toba("objetos/dt_refresh.gif", true, null, null, "Creacion y actualización automatica de los datos_tabla");
-			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																	33000010,
-																	$parametros,
-																	$img);
+			$img = toba_recurso::imagen_toba('objetos/dt_refresh.gif', true, null, null, 'Creacion y actualización automatica de los datos_tabla');
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
+																33000010,
+																$parametros,
+																$img);
 																																	
 			// Editar la fuente
-			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
-			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																	1000237,
-																	$parametros,
-																	$img);
-
-
-
-			$datos[$id]['editar'] .= "</span>";
+			$img = toba_recurso::imagen_toba('objetos/editar.gif', true, null, null);
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
+																1000237,
+																$parametros,
+																$img);
+			$datos[$id]['editar'] .= '</span>';
 		}
 		$cuadro->set_datos($datos);
 		$cuadro->colapsar();
@@ -73,17 +70,16 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_consultas_php();
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'consulta_php.gif';
-			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+			$img = toba_recurso::imagen_toba('objetos/editar.gif', true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['consulta_php']);
-			$datos[$id]['editar'] = $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																'3398',	$parametros, $img);
-			if(admin_util::existe_archivo_subclase($datos[$id]['archivo'])) {
+			$datos[$id]['editar'] = $this->tag_vinculo_editor(toba_editor::get_id(), '3398', $parametros, $img);
+			if (admin_util::existe_archivo_subclase($datos[$id]['archivo'])) {
 				$id_consulta = array($datos[$id]['proyecto'], $datos[$id]['consulta_php']);
 				$parametros['archivo'] = $datos[$id]['archivo'];
-				$datos[$id]['editar'] = admin_util::get_acceso_ver_php( $id_consulta, 30000014, apex_frame_centro, $parametros). $datos[$id]['editar'];
-				$datos[$id]['editar'] = admin_util::get_acceso_abrir_php( $id_consulta , 30000014, $parametros) . $datos[$id]['editar'];				
+				$datos[$id]['editar'] = admin_util::get_acceso_ver_php($id_consulta, 30000014, apex_frame_centro, $parametros). $datos[$id]['editar'];
+				$datos[$id]['editar'] = admin_util::get_acceso_abrir_php($id_consulta, 30000014, $parametros) . $datos[$id]['editar'];				
 			}
-			$datos[$id]['editar'] = "<div class='editor-lista-vinculos'>" . $datos[$id]['editar'] . "</div>";
+			$datos[$id]['editar'] = "<div class='editor-lista-vinculos'>" . $datos[$id]['editar'] . '</div>';
 		}
 		$cuadro->set_datos($datos);
 		$cuadro->colapsar();
@@ -120,9 +116,9 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_dimensiones();
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'filtrar.png';
-			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+			$img = toba_recurso::imagen_toba('objetos/editar.gif', true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['dimension']);
-			$datos[$id]['editar'] = $this->tag_vinculo_editor( 	toba_editor::get_id(),
+			$datos[$id]['editar'] = $this->tag_vinculo_editor(toba_editor::get_id(),
 																'3441',
 																$parametros,
 																$img);
@@ -161,12 +157,12 @@ class ci_catalogo extends toba_ci
 			$parametros = array('menu' => 1,  apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['servicio_web']);
 			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
 			// Editar la fuente
-			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
-			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
+			$img = toba_recurso::imagen_toba('objetos/editar.gif', true, null, null);
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor(toba_editor::get_id(),
 																	30000048,
 																	$parametros,
 																	$img);
-			$datos[$id]['editar'] .= "</span>";
+			$datos[$id]['editar'] .= '</span>';
 		}		
 		$cuadro->set_datos($datos);		
 	}
@@ -176,12 +172,11 @@ class ci_catalogo extends toba_ci
 
 	function tag_vinculo_editor($item_editor_proyecto, $item_editor, $parametros, $contenido, $ayuda=null)
 	{
-		$url =  toba::vinculador()->get_url( 	$item_editor_proyecto, 
+		$url = toba::vinculador()->get_url($item_editor_proyecto, 
 												$item_editor,
 												$parametros,
-												array('menu' => true, 'celda_memoria' => 'central')
-											);
-		$ayuda = isset($ayuda) ? " title=\"".$ayuda."\" " : '';
+												array('menu' => true, 'celda_memoria' => 'central'));
+		$ayuda = isset($ayuda) ? ' title="'.$ayuda.'" ' : '';
 		return "<a href='".$url."' target='".apex_frame_centro."' ".$ayuda." >".$contenido."</a>\n";
 	}
 

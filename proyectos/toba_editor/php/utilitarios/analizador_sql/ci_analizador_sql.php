@@ -19,8 +19,8 @@ class ci_analizador_sql extends toba_ci
 			throw new toba_error('No se encontró información de consultas ejecutadas');
 		}
 		$datos = $info['datos'];
-		require_once "3ros/Text_Highlighter/Highlighter.php";
-		$hlSQL = Text_Highlighter::factory("SQL");
+		require_once('3ros/Text_Highlighter/Highlighter.php');
+		$hlSQL = Text_Highlighter::factory('SQL');
 		$i = 1;
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['numero'] = $i;
@@ -54,15 +54,15 @@ class ci_analizador_sql extends toba_ci
 		if (isset($info['datos'][$seleccion['id']])) {
 			$fuente = $info['fuente'];
 			$base = toba_admin_fuentes::instancia()->get_fuente($fuente, toba_editor::get_proyecto_cargado())->get_db();
-			$sql = "EXPLAIN ANALYZE  ".$info['datos'][$seleccion['id']]['sql'];
+			$sql = 'EXPLAIN ANALYZE  '.$info['datos'][$seleccion['id']]['sql'];
 			$base->abrir_transaccion();
 			$datos = $base->consultar($sql, toba_db_fetch_num);
 			$base->abortar_transaccion();
-			$salida = "";
+			$salida = '';
 			foreach ($datos as $fila) {
 				$salida .= $fila[0]."\n   ";
 			}
-			$salida = "<pre>".$salida."</pre>";
+			$salida = '<pre>'.$salida.'</pre>';
 			toba::notificacion()->info($salida);		
 		}
 	}

@@ -10,7 +10,7 @@ class ci_principal extends ci_editores_toba
 		return $this->get_entidad()->tabla('eventos');
 	}
 	
-/*	function get_eventos_estandar($modelo)
+	/*function get_eventos_estandar($modelo)
 	{
 		return info_ei::get_lista_eventos_estandar($modelo);
 	}*/

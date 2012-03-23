@@ -1,5 +1,5 @@
 <?php
-require_once(toba_dir()."/php/3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
+require_once(toba_dir().'/php/3ros/Graph/Graph.php');	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_relaciones extends toba_ci
 {
@@ -16,7 +16,7 @@ class ci_relaciones extends toba_ci
 
 	function mostrar_detalle_relacion()
 	{
-		if( isset($this->s__seleccion_relacion) ){
+		if (isset($this->s__seleccion_relacion)) {
 			return true;
 		}
 		return false;
@@ -38,7 +38,7 @@ class ci_relaciones extends toba_ci
 
 	function conf()
 	{
-		if( $this->mostrar_detalle_relacion() ){
+		if ($this->mostrar_detalle_relacion()) {
 			$this->get_datos_relacion_activa();
 			$this->pantalla()->eliminar_dep('relaciones_esquema');
 			$this->dependencia('relaciones_lista')->set_fila_protegida($this->s__seleccion_relacion);
@@ -57,7 +57,7 @@ class ci_relaciones extends toba_ci
 		$this->s__seleccion_relacion_anterior = $this->s__seleccion_relacion;
 		$this->get_entidad()->tabla('relaciones')->set_cursor($this->s__seleccion_relacion);
 		$datos = $this->get_entidad()->tabla('columnas_relacion')->get_filas();
-		foreach($datos as $klave => $valor){
+		foreach ($datos as $klave => $valor) {
 			$datos[$klave]['columna_padre'] = $valor['padre_clave'];
 			$datos[$klave]['columna_hija'] = $valor['hijo_clave'];
 		}
@@ -71,13 +71,13 @@ class ci_relaciones extends toba_ci
 		$busqueda = $this->get_entidad()->tabla('columnas_relacion')->nueva_busqueda();
 		$busqueda->set_padre('relaciones', $this->s__seleccion_relacion_anterior);
 		$ids = $busqueda->buscar_ids();
-		foreach($ids as $id){
+		foreach ($ids as $id) {
 			$this->get_entidad()->tabla('columnas_relacion')->eliminar_fila($id);
 		}
 
 		//Ahora tengo que dar de alta las relaciones nuevas
 		$this->get_entidad()->tabla('relaciones')->set_cursor($this->s__seleccion_relacion_anterior);
-		foreach($datos as $klave => $valor){
+		foreach ($datos as $klave => $valor) {
 			$datos[$klave]['padre_clave'] = $valor['columna_padre'];
 			$datos[$klave]['hijo_clave'] = $valor['columna_hija'];
 			unset($datos[$klave]['columna_padre']);
@@ -111,13 +111,13 @@ class ci_relaciones extends toba_ci
 		$diagrama .= "node [shape=record];\n";
 		foreach ($grafo->getNodes() as $nodo) {
 			$datos = $nodo->getData();
-			$diagrama .=  $datos['identificador']."\n";
+			$diagrama .= $datos['identificador']."\n";
 			foreach ($nodo->getNeighbours() as $nodo_vecino) {
 				$datos_vecino = $nodo_vecino->getData();
-				$diagrama .= $datos['identificador'] . " -> " . $datos_vecino['identificador'] . "\n";
+				$diagrama .= $datos['identificador'] . ' -> ' . $datos_vecino['identificador'] . "\n";
 			}
 		}
-		$diagrama .= "}";
+		$diagrama .= '}';
 		$esquema->set_datos($diagrama);
 	}
 	//-----------------------------------------------------------------------------------
@@ -128,18 +128,18 @@ class ci_relaciones extends toba_ci
 	{
 		$datos = array();
 		$relaciones = $this->get_entidad()->tabla('relaciones')->get_filas();
-		foreach($relaciones as $key => $valor){
+		foreach ($relaciones as $key => $valor) {
 			$datos[$key] = $this->conversion_fila_a_form($valor);
 		}
 		$form_ml->set_datos($datos);
-		if (isset($this->s__seleccion_relacion)){
+		if (isset($this->s__seleccion_relacion)) {
 			$form_ml->set_solo_lectura();
 		}
 	}
 
 	function evt__relaciones_lista__seleccion($id)
 	{
-		if(isset($this->id_intermedio_relaciones[$id])){
+		if (isset($this->id_intermedio_relaciones[$id])) {
 			$id = $this->id_intermedio_relaciones[$id];
 		}
 		$this->s__seleccion_relacion = $id;
@@ -148,24 +148,24 @@ class ci_relaciones extends toba_ci
 	function evt__relaciones_lista__modificacion($registros)
 	{
 		$tabla = $this->get_entidad()->tabla('relaciones');
-		foreach(array_keys($registros) as $id)
+		foreach (array_keys($registros) as $id)
 		{
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
-			switch($accion){
-				case "A":
+			switch ($accion) {
+				case 'A':
 					$fila = $this->conversion_form_a_fila($registros[$id]);
 					$this->id_intermedio_relaciones[$id] = $tabla->nueva_fila($fila);
 					break;
-				case "B":
+				case 'B':
 					$tabla->eliminar_fila($id);
 					break;
-				case "M":
+				case 'M':
 					//Convierto los datos nuevos al formato del dT
 					$fila = $this->conversion_form_a_fila($registros[$id]);
 
 					//Antes de modificar la fila tengo que matar las relaciones existentes entre columnas.. de otra forma van a quedar mal asociadas las columnas.
-					if ($tabla->es_campo_modificado('padre_objeto', $id, $fila) || $tabla->es_campo_modificado('hijo_objeto', $id, $fila)){
+					if ($tabla->es_campo_modificado('padre_objeto', $id, $fila) || $tabla->es_campo_modificado('hijo_objeto', $id, $fila)) {
 						$tabla->set_cursor($id);
 						$this->get_entidad()->tabla('columnas_relacion')->eliminar_filas(true);
 						$tabla->restaurar_cursor();
@@ -184,20 +184,20 @@ class ci_relaciones extends toba_ci
 			' mecanismo de sincronización no puede encontrar automaticamente un orden sin violar'.
 			'las constraints de la BD. Se recomienda deshabilitar el chequeo de constraints hasta el'.
 			'final de la transacción.';
-			$this->informar_msg($msg, "info");
+			$this->informar_msg($msg, 'info');
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------
 	function get_columnas_padre()
 	{
-		$datos = toba_info_editores::get_lista_dt_columnas( $this->rel_activa_padre );
+		$datos = toba_info_editores::get_lista_dt_columnas($this->rel_activa_padre);
 		return $datos;
 	}
 
 	function get_columnas_hija()
 	{
-		$datos =  toba_info_editores::get_lista_dt_columnas( $this->rel_activa_hijo );
+		$datos = toba_info_editores::get_lista_dt_columnas($this->rel_activa_hijo);
 		return $datos;
 	}
 
@@ -208,17 +208,16 @@ class ci_relaciones extends toba_ci
 		$this->rel_activa_hijo = $relacion_activa['hijo_objeto'];
 	}
 
-		function conversion_form_a_fila($datos)
-	//Adapta el contenido del form a una fila
-	{
+	function conversion_form_a_fila($datos)
+	{		//Adapta el contenido del form a una fila
 		//-- PADRE --
-		$padre = explode(",",$datos['padre']);
+		$padre = explode(',', $datos['padre']);
 		$datos['padre_id'] = $padre[0];
 		$datos['padre_proyecto'] = toba_editor::get_proyecto_cargado();
 		$datos['padre_objeto'] = $padre[1];
 		unset($datos['padre']);
 		//-- HIJO --
-		$hijo = explode(",",$datos['hija']);
+		$hijo = explode(',', $datos['hija']);
 		$datos['hijo_id'] = $hijo[0];
 		$datos['hijo_proyecto'] = toba_editor::get_proyecto_cargado();
 		$datos['hijo_objeto'] = $hijo[1];
@@ -227,10 +226,9 @@ class ci_relaciones extends toba_ci
 	}
 
 	function conversion_fila_a_form($fila)
-	//Adapta el contenido de una fila al form
-	{
-		$fila['padre'] = $fila['padre_id'] . "," . $fila['padre_objeto'];
-		$fila['hija'] = $fila['hijo_id'] . "," . $fila['hijo_objeto'];
+	{	//Adapta el contenido de una fila al form
+		$fila['padre'] = $fila['padre_id'] . ',' . $fila['padre_objeto'];
+		$fila['hija'] = $fila['hijo_id'] . ',' . $fila['hijo_objeto'];
 		unset($fila['padre_id']);
 		unset($fila['padre_objeto']);
 		unset($fila['hijo_id']);

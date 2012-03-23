@@ -12,7 +12,7 @@ class ci_administracion_proyecto extends toba_ci
 	{
 		$this->_proyecto_actual = toba_editor::get_proyecto_cargado();
 		$this->_log_comando = new administracion_proceso_gui();
-		$this->_instancia_actual =  toba_modelo_catalogo::instanciacion()->get_instancia( toba::instancia()->get_id(), $this->_log_comando);
+		$this->_instancia_actual = toba_modelo_catalogo::instanciacion()->get_instancia(toba::instancia()->get_id(), $this->_log_comando);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ class ci_administracion_proyecto extends toba_ci
 		}
 	}
 
-	function  generar_linea_comando_proyecto($comando)
+	function generar_linea_comando_proyecto($comando)
 	{
 		return "toba proyecto $comando -p  {$this->_proyecto_actual}";
 	}

@@ -14,9 +14,9 @@ class ci_ei_codigo extends ci_editores_toba
 	}
 
 	function get_dbr_eventos()
-    {
-        return $this->get_entidad()->tabla('eventos');
-    }
+	{
+		return $this->get_entidad()->tabla('eventos');
+	}
 
 	function get_eventos_estandar($modelo)
 	{

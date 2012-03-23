@@ -55,7 +55,7 @@ class ci_catalogo extends toba_ci
 
 			$datos = array();
 			foreach ($archivos as $archivo) {
-				$path_relativo = substr($archivo, strlen($carpeta)+1);
+				$path_relativo = substr($archivo, strlen($carpeta) + 1);
 				$nombre = basename($archivo);
 				if (strlen($nombre) > 30) {
 					$nombre = substr($nombre, 0, 30).'...';

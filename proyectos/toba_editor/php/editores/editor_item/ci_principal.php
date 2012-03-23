@@ -27,30 +27,29 @@ class ci_principal extends toba_ci
 			if (isset($item) && isset($proyecto)) {
 				//Se determina si es un nuevo item
 				$es_nuevo = (!isset($this->s__id_item ) || 
-							($this->s__id_item['proyecto'] != $proyecto || $this->s__id_item ['item'] != $item));
+							($this->s__id_item['proyecto'] != $proyecto || $this->s__id_item['item'] != $item));
 				if ($es_nuevo) {
-					$this->set_item( array('proyecto'=>$proyecto, 'item'=>$item) );
+					$this->set_item(array('proyecto'=>$proyecto, 'item'=>$item));
 					$this->cambio_item = true;
 				}
 			}
 		} else {
 			//Creacion de un item nuevo
-			if ( $this->s__inicializar_item_nuevo ) {
+			if ($this->s__inicializar_item_nuevo) {
 				unset($this->s__id_item );
 				$datos = $this->get_entidad();
 				$datos->resetear();
-				$this->inicializar_item( $datos );
+				$this->inicializar_item($datos);
 				$this->s__inicializar_item_nuevo = false;
 			}
 		}
 	}
 	
 	function get_entidad()
-	//Acceso al DATOS_RELACION
-	{
-		if ($this->cambio_item){
-			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->s__id_item );
-			$this->dependencia('datos')->cargar( $this->s__id_item );
+	{	//Acceso al DATOS_RELACION
+		if ($this->cambio_item) {
+			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->s__id_item);
+			$this->dependencia('datos')->cargar($this->s__id_item);
 		}
 		return $this->dependencia('datos');
 	}	
@@ -62,7 +61,7 @@ class ci_principal extends toba_ci
 	
 	function conf()
 	{
-		if(! $this->get_entidad()->esta_cargada()){
+		if (! $this->get_entidad()->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}	
@@ -70,7 +69,7 @@ class ci_principal extends toba_ci
 	/**
 	*	Inicializacion de un ITEM nuevo, llega el DR vacio
 	*/
-	function inicializar_item( $dr )
+	function inicializar_item($dr)
 	{
 		//Ver si el padre viene por post
 		$padre_i = toba::memoria()->get_parametro('padre_i');
@@ -81,11 +80,11 @@ class ci_principal extends toba_ci
 			$datos['padre_proyecto'] = $padre_p;
 		}
 		
-		$dr->tabla('base')->set( $datos );
+		$dr->tabla('base')->set($datos);
 		//Le agrego el permiso del usuario actual
-		foreach( toba::usuario()->get_grupos_acceso() as $grupo) {
-			$permiso_usuario_actual = array('usuario_grupo_acc' => $grupo );
-			$dr->tabla('permisos')->nueva_fila( $permiso_usuario_actual );
+		foreach (toba::usuario()->get_grupos_acceso() as $grupo) {
+			$permiso_usuario_actual = array('usuario_grupo_acc' => $grupo);
+			$dr->tabla('permisos')->nueva_fila($permiso_usuario_actual);
 		}
 	}
 
@@ -95,7 +94,7 @@ class ci_principal extends toba_ci
 
 	function conf__prop_basicas(toba_ei_formulario $form)
 	{
-		$datos = $this->get_entidad()->tabla("base")->get();
+		$datos = $this->get_entidad()->tabla('base')->get();
 		if (!isset($datos['carpeta']) || $datos['carpeta'] != 1) {
 			if (!$this->get_entidad()->esta_cargada()) {
 				$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_nuevo()));
@@ -146,7 +145,7 @@ class ci_principal extends toba_ci
 			}
 		}
 		unset($registro['comportamiento']);
-		$this->get_entidad()->tabla("base")->set($registro);
+		$this->get_entidad()->tabla('base')->set($registro);
 	}
 	
 	//----------------------------------------------------------
@@ -156,7 +155,7 @@ class ci_principal extends toba_ci
 	{
 		$objetos = $this->get_entidad()->tabla('objetos')->get_filas(null, true);
 		//Si no hay objetos tratar de inducir las clases dependientes del patron
-		if (count($objetos) == 0) {
+		/*if (count($objetos) == 0) {
  			$basicas =$this->get_entidad()->tabla("base")->get();
  			//Es patron?
  			if (isset($basicas['actividad_patron']) && $basicas['actividad_patron'] != 'especifico') {
@@ -164,7 +163,7 @@ class ci_principal extends toba_ci
 				//$objetos[] = array('clase' => 'toba,toba_ci', apex_ei_analisis_fila => 'A');
  			}
 			
-		}
+		}*/
 		return $objetos;
 	}
 	
@@ -190,7 +189,7 @@ class ci_principal extends toba_ci
 			}
 		}
 		if (! $hay_con_permisos && $this->existe_dependencia('form_tablas')) {
-			$pant->eliminar_dep("form_tablas");
+			$pant->eliminar_dep('form_tablas');
 			$this->get_entidad()->tabla('permisos_tablas')->eliminar_filas();
 		}
 	}
@@ -202,8 +201,9 @@ class ci_principal extends toba_ci
 	function conf__permisos()
 	{
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
-		if (!$asignados)
+		if (!$asignados) {
 			$asignados = array();
+		}
 		$grupos = toba_info_permisos::get_grupos_acceso(toba_editor::get_proyecto_cargado());
 		$datos = array();
 		foreach ($grupos as $grupo) {
@@ -213,14 +213,14 @@ class ci_principal extends toba_ci
 				//Si esta asignado ponerle el nombre del grupo y chequear el checkbox
 				if ($asignado['usuario_grupo_acc'] == $grupo['usuario_grupo_acc']) {
 					$grupo['tiene_permiso'] = 1;
-					$grupo['item'] = $this->s__id_item ['item'];
+					$grupo['item'] = $this->s__id_item['item'];
 					$esta_asignado = true;
 				}
 			}
 			//Si no esta asignado poner el item y deschequear el checkbox
 			if (!$esta_asignado) {
 				$grupo['tiene_permiso'] = 0;
-				$grupo['item'] = $this->s__id_item ['item'];
+				$grupo['item'] = $this->s__id_item['item'];
 			}
 			$datos[] = $grupo;
 		}
@@ -231,12 +231,12 @@ class ci_principal extends toba_ci
 	{
 		$dbr = $this->get_entidad()->tabla('permisos');
 		$asignados = $dbr->get_filas(array(), true);
-		if (!$asignados)
+		if (!$asignados) {
 			$asignados = array();		
-//		ei_arbol($asignados, 'asignados');
-//		ei_arbol($grupos, 'nuevos');
-		foreach ($grupos as $grupo)
-		{
+		}
+		//ei_arbol($asignados, 'asignados');
+		//ei_arbol($grupos, 'nuevos');
+		foreach ($grupos as $grupo) {
 			$estaba_asignado = false;
 			foreach ($asignados as $id => $asignado) {
 				//¿Estaba asignado anteriormente?
@@ -295,7 +295,8 @@ class ci_principal extends toba_ci
 		$this->get_entidad()->tabla('permisos_tablas')->procesar_filas($datos);
 	}
 	
-	function get_tablas_fuente($fuente) {
+	function get_tablas_fuente($fuente) 
+	{
 		try {
 			return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
 		} catch (toba_error $e) {
@@ -313,7 +314,7 @@ class ci_principal extends toba_ci
 	{
 		//Seteo los datos asociados al uso de este editor
 		$basicos = $this->get_entidad()->tabla('base');
-		$basicos->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
+		$basicos->set_fila_columna_valor(0, 'proyecto', toba_editor::get_proyecto_cargado());
 		$es_temporal = $basicos->get_columna('item') == id_temporal;
 		if ($es_temporal) {
 			//Reemplazar el automático por la secuencia
@@ -322,26 +323,26 @@ class ci_principal extends toba_ci
 		
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
-		$datos = $this->get_entidad()->tabla("base")->get();		
+		$datos = $this->get_entidad()->tabla('base')->get();		
 		
 		//Si el proyecto usa esquema de permisos por tabla
 		$modelo_proyecto = toba_editor::get_modelo_proyecto();
 		try {
 			$modelo_proyecto->generar_roles_db($datos['item']);
 		} catch (toba_error_db $e) {
-			toba::notificacion()->error("Error al actualizar los roles postgres para esta operación", $e->get_mensaje_log());
+			toba::notificacion()->error('Error al actualizar los roles postgres para esta operación', $e->get_mensaje_log());
 		}
 		
 		if (! isset($this->s__id_item )) {		//Si el item es nuevo
-			admin_util::refrescar_editor_item( $datos['item'] );						
-			admin_util::redirecionar_a_editor_item( $datos['proyecto'], $datos['item']);			
+			admin_util::refrescar_editor_item($datos['item']);						
+			admin_util::redirecionar_a_editor_item($datos['proyecto'], $datos['item']);			
 		}
 	}
 
 	function evt__eliminar()
 	{
 		$this->get_entidad()->eliminar();
-		toba::notificacion()->agregar("La operación ha sido eliminada","info");
+		toba::notificacion()->agregar('La operación ha sido eliminada', 'info');
 		toba::zona()->resetear();
 		admin_util::refrescar_editor_item();
 	}

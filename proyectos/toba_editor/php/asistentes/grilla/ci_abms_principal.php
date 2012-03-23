@@ -63,7 +63,7 @@ class ci_abms_principal extends ci_asistente_base
 		$tabla = $this->dep('datos')->tabla('filas');
 		//$ml->set_ordenar_en_linea(true);
 		$ml->set_proximo_id($tabla->get_proximo_id());
-		$ml->set_datos( $tabla->get_filas(null, true));		
+		$ml->set_datos($tabla->get_filas(null, true));		
 	}
 	
 	function evt__form_filas__modificacion($datos)

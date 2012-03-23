@@ -9,9 +9,9 @@ class ci_sincronizador_tablas extends toba_ci
 	function ini__operacion()
 	{
 		list($proyecto, $fuente) = toba::zona()->get_editable();
-		$this->s__catalogo =  new catalogo_tablas($proyecto, $fuente);
+		$this->s__catalogo = new catalogo_tablas($proyecto, $fuente);
 		$this->s__catalogo->cargar();
-	//	$this->s__seleccionadas = $this->s__catalogo->get_tablas_preseleccionadas();		//Por ahora esto no tiene sentido
+		//$this->s__seleccionadas = $this->s__catalogo->get_tablas_preseleccionadas();		//Por ahora esto no tiene sentido
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class ci_sincronizador_tablas extends toba_ci
 			$this->s__seleccionadas = array($this->s__seleccionadas);	//Por si viene con el formato viejo
 		}
 		$this->s__catalogo->desactivar_no_procesadas($this->s__seleccionadas);
-		foreach($this->s__seleccionadas as $tabla) {
+		foreach ($this->s__seleccionadas as $tabla) {
 			$this->s__catalogo->confirmar_acciones($tabla['tabla']);
 		}
 
@@ -43,7 +43,7 @@ class ci_sincronizador_tablas extends toba_ci
 		$cuadro->set_datos($resultado);
 
 		//Aca miro cuales estan para seleccionar...
-	/*	if (isset($this->s__seleccionadas)) {
+		/*if (isset($this->s__seleccionadas)) {
 			$cuadro->seleccionar($this->s__seleccionadas);
 		}*/
 	}
@@ -52,8 +52,8 @@ class ci_sincronizador_tablas extends toba_ci
 	{
 		$resultado = array();
 		$nuevas = $this->s__catalogo->get_tablas_nuevas();
-		foreach($nuevas as $alta) {
-			$resultado[] = array('tabla' => $alta['tabla'], 'cambio' => "Se creará un Datos Tabla.");
+		foreach ($nuevas as $alta) {
+			$resultado[] = array('tabla' => $alta['tabla'], 'cambio' => 'Se creará un Datos Tabla.');
 		}
 		return $resultado;
 	}
@@ -63,14 +63,14 @@ class ci_sincronizador_tablas extends toba_ci
 		$resultado = array();
 		$modificables = $this->s__catalogo->get_tablas_actualizables();
 		//ei_arbol($modificables);
-		foreach($modificables as $klave => $mod) {
+		foreach ($modificables as $klave => $mod) {
 			$cambios = '';
-			if (isset($mod['A'])) {$cambios .= ' Columnas nuevas: <strong>' . implode(', ' , array_keys($mod['A'])) . "</strong><br/>";}
-			if (isset($mod['B'])) {$cambios .= ' Columnas a quitar: <strong>' . implode(', ' , array_keys($mod['B'])) . "</strong><br/>";}
+			if (isset($mod['A'])) {$cambios .= ' Columnas nuevas: <strong>' . implode(', ', array_keys($mod['A'])) . '</strong><br/>';}
+			if (isset($mod['B'])) {$cambios .= ' Columnas a quitar: <strong>' . implode(', ', array_keys($mod['B'])) . '</strong><br/>';}
 			if (isset($mod['M'])) {
 				foreach(array_keys($mod['M']) as $col) {
 					$cambios .= " En la columna <strong>$col</strong> se cambiaran las siguientes propiedades: <br/>";
-					$cambios .= ' * ' . implode (', ' , array_keys($mod['M'][$col])). '<BR>';
+					$cambios .= ' * ' . implode(', ', array_keys($mod['M'][$col])). '<BR>';
 				}
 			}
 			$resultado[] = array('tabla' => $klave, 'cambio' => $cambios);
@@ -82,8 +82,8 @@ class ci_sincronizador_tablas extends toba_ci
 	{
 		$colapsa = true;
 		if (isset($this->s__seleccionadas)) {
-			foreach($this->s__seleccionadas as $tabla) {
-				if (in_array($tabla['tabla'], $claves)){
+			foreach ($this->s__seleccionadas as $tabla) {
+				if (in_array($tabla['tabla'], $claves)) {
 					$colapsa = false;
 				}
 			}

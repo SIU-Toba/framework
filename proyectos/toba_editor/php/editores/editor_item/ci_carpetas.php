@@ -6,7 +6,7 @@ class ci_carpetas extends ci_principal
 	function evt__prop_basicas__modificacion($registro)
 	{
 		$registro['carpeta'] = 1;
-		$this->get_entidad()->tabla("base")->set($registro);
+		$this->get_entidad()->tabla('base')->set($registro);
 	}
 
 }

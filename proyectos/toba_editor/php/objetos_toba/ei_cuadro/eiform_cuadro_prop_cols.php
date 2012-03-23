@@ -6,7 +6,7 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 	{
 		//--- Se insertan los css de cada estilo para hacer la visualización
 		$estilos = rs_convertir_asociativo(toba_info_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
-		echo "var editor_col_css=".toba_js::arreglo($estilos, true);
+		echo 'var editor_col_css='.toba_js::arreglo($estilos, true);
 		echo "
 			{$this->objeto_js}.evt__usar_vinculo__procesar = function(inicial) {
 

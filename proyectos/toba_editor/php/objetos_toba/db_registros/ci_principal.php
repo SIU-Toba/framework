@@ -16,15 +16,15 @@ class ci_principal extends ci_editores_toba
 	{
 		parent::conf();
 		//Mecanismo para saber si la extension PHP de un AP ya exite en la DB y posee archivo
-		if ( !isset($this->s__ap_php_db) ) {
+		if (!isset($this->s__ap_php_db)) {
 			$this->s__ap_php_db = false;
 			$this->s__ap_php_archivo = false;
-			if ( $this->componente_existe_en_db() ) {
+			if ($this->componente_existe_en_db()) {
 				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
-				if( ( $datos_ap['ap'] == 0 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo'] ) {
+				if (( $datos_ap['ap'] == 0 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo']) {
 					$this->s__ap_php_db = true;	//El AP esta extendido
 				}
-				if( admin_util::existe_archivo_subclase($datos_ap['ap_archivo']) ) {
+				if (admin_util::existe_archivo_subclase($datos_ap['ap_archivo'])) {
 					$this->s__ap_php_archivo = true; //La extension existe
 				}
 			}
@@ -32,18 +32,18 @@ class ci_principal extends ci_editores_toba
 		// Se configura el FORM para que dispare el evento de recarga de tablas.
 		$cols = $this->dep('datos')->tabla('columnas')->get_cantidad_filas();
 		$this->pantalla()->tab('2')->set_etiqueta("Columnas [$cols]");
-		if( ($this->get_id_pantalla() == '1') ) {
-			if($cols > 0) {
+		if (($this->get_id_pantalla() == '1')) {
+			if ($cols > 0) {
 				$uniq = $this->dep('datos')->tabla('valores_unicos')->get_cantidad_filas();
 				$exts = $this->dep('datos')->tabla('externas')->get_cantidad_filas();
 				$txt_uniq = ($uniq > 0)? " - Valores únicos: $uniq" : '';
 				$txt_exts = ($exts > 0)? " - Cargas externas: $exts": '';
-				$this->dep('prop_basicas')->set_modo_recarga("¿Desea recargar las columnas de la tabla?" .
-																" Se eliminaran los elementos definidos anteriormente. ".
+				$this->dep('prop_basicas')->set_modo_recarga('¿Desea recargar las columnas de la tabla?' .
+																' Se eliminaran los elementos definidos anteriormente. '.
 																" (Columnas: $cols $txt_exts $txt_uniq)." .
-																"Los cambios no seran actualizados hasta presionar el boton \'Guardar\'.".
-																" ATENCION: Si no recarga los valores automaticamente, hágalo a mano para ".
-																" que la definicion de la tabla y las columnas coincida.");
+																'Los cambios no seran actualizados hasta presionar el boton \'Guardar\'.'.
+																' ATENCION: Si no recarga los valores automaticamente, hágalo a mano para '.
+																' que la definicion de la tabla y las columnas coincida.');
 			} else {
 				$this->dep('prop_basicas')->set_modo_recarga('');
 			}
@@ -82,10 +82,10 @@ class ci_principal extends ci_editores_toba
 			unset($this->s__ap_php_archivo);
 			admin_util::refrescar_barra_lateral();
 		} catch (toba_error_db $e) {
-			if( $e->get_sqlstate() == "db_23505" ) {
+			if ($e->get_sqlstate() == 'db_23505') {
 				$datos = $this->get_entidad()->tabla('prop_basicas')->get();
-				throw new toba_error(" No es posible guardar. Ya existe un datos_tabla referenciado a la tabla: '".$datos['tabla']."'. En lugar de crear uno nuevo puede utilizar el existente", $e->get_mensaje_log());
-			}else{
+				throw new toba_error(' No es posible guardar. Ya existe un datos_tabla referenciado a la tabla: \''.$datos['tabla'].'\'. En lugar de crear uno nuevo puede utilizar el existente', $e->get_mensaje_log());
+			} else {
 				throw $e;
 			}
 		}
@@ -99,18 +99,18 @@ class ci_principal extends ci_editores_toba
 	{
 		// Hay extension
 		$param_editor = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
-																			'componente'=> $this->id_objeto['objeto']),
-																		'ap');
+																	'componente'=> $this->id_objeto['objeto']),
+																	'ap');
 
 		$eliminar_extension = !isset($this->id_objeto); //Si es alta no se puede extender
-		if ( $this->s__ap_php_db ) {
+		if ($this->s__ap_php_db) {
 			$form->evento('ver_php')->vinculo()->set_parametros($param_editor);
-			if ( $this->s__ap_php_archivo ) {
+			if ($this->s__ap_php_archivo) {
 				// El archivo de la extension existe
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
-																				'componente'=> $this->id_objeto['objeto']),
+																			'componente'=> $this->id_objeto['objeto']),
 																			'ap');
-				$form->set_js_abrir( $abrir['js'] );
+				$form->set_js_abrir($abrir['js']);
 				$eliminar_extension = true;
 			} else {
 				$form->evento('ver_php')->set_imagen('nucleo/php_ap_inexistente.gif');
@@ -122,7 +122,7 @@ class ci_principal extends ci_editores_toba
 			$form->eliminar_evento('abrir_php');
 			$form->evento('extender_ap')->vinculo()->set_parametros($param_editor);			
 		}
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		if (! isset($datos['fuente_datos'])) {
 			$datos['fuente_datos_proyecto'] = toba_editor::get_proyecto_cargado();
 			$datos['fuente_datos'] = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
@@ -135,15 +135,15 @@ class ci_principal extends ci_editores_toba
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos',$datos['fuente_datos']);
-		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos_proyecto',$datos['fuente_datos_proyecto']);
+		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos', $datos['fuente_datos']);
+		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos_proyecto', $datos['fuente_datos_proyecto']);
 		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 		$this->s__ap = $datos['ap'];
 		$this->s__tabla = $datos['tabla'];
 		$this->s__tabla_ext = $datos['tabla_ext'];
 	}
 
-	function get_tablas($fuente, $schema = null)
+	function get_tablas($fuente, $schema=null)
 	{
 		$esquema = $this->get_entidad()->tabla('prop_basicas')->get_columna('esquema');
 		if (is_null($schema) && ! is_null($esquema)) {			
@@ -152,7 +152,7 @@ class ci_principal extends ci_editores_toba
 		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas(false, $schema);
 	}
 	
-	function get_schema($fuente = null)
+	function get_schema($fuente=null)
 	{
 		if (is_null($fuente) || ! is_array($fuente)) {
 			throw new toba_error_modelo('No se proporciono un ID válido para la fuente de datos', 'Se intenta obtener los esquemas configurados para una fuente inexistente');
@@ -189,9 +189,9 @@ class ci_principal extends ci_editores_toba
 	function get_abreviacion_clase_actual()
 	{
 		$datos = $this->get_entidad()->tabla('base')->get();
-		if (isset($datos['nombre'])){
+		if (isset($datos['nombre'])) {
 			return $datos['nombre'];
-		}else{
+		} else {
 			return call_user_func(array($this->get_clase_info_actual(), 'get_tipo_abreviado'));
 		}
 	}
@@ -208,15 +208,15 @@ class ci_principal extends ci_editores_toba
 
 	function conf__columnas($form)
 	{
-		return $this->get_entidad()->tabla('columnas')->get_filas(null,true);
+		return $this->get_entidad()->tabla('columnas')->get_filas(null, true);
 	}
 
 	function evt__columnas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla('columnas')->procesar_filas($datos);
 		
-		if (! $this->verificar_existencia_columna_clave($datos)){
-			toba::notificacion()->agregar('No existe una Clave Primaria asociada a esta tabla','error');
+		if (! $this->verificar_existencia_columna_clave($datos)) {
+			toba::notificacion()->agregar('No existe una Clave Primaria asociada a esta tabla', 'error');
 		}
 	}
 
@@ -235,7 +235,7 @@ class ci_principal extends ci_editores_toba
 	function verificar_existencia_columna_clave($datos)
 	{
 		$hay_pk = false;
-		foreach($datos as $columnas){
+		foreach ($datos as $columnas) {
 			$hay_pk = $hay_pk || ($columnas['pk'] == '1');
 		}				
 		return $hay_pk;
@@ -247,7 +247,7 @@ class ci_principal extends ci_editores_toba
 		//Recupero los ids de las columnas actuales
 		$columnas = $this->get_entidad()->tabla('columnas')->get_filas();
 		$cols_aux = array();
-		foreach($columnas as $col) {
+		foreach ($columnas as $col) {
 			$cols_aux[] = $col['columna'];
 		}
 		
@@ -255,7 +255,7 @@ class ci_principal extends ci_editores_toba
 		$valores_unicos = $this->get_entidad()->tabla('valores_unicos')->get_filas();
 		$columnas_unicas = array();
 		foreach ($valores_unicos as $valor) {
-			$aux = explode (',' , $valor['columnas']);
+			$aux = explode(',', $valor['columnas']);
 			$columnas_unicas = array_merge($columnas_unicas, $aux);
 		}
 		if (! empty($columnas_unicas)) {
@@ -283,9 +283,9 @@ class ci_principal extends ci_editores_toba
 		return $this->get_columnas($this->s__tabla_ext);
 	}
 
-	protected function get_columnas($tabla, $plano = false)
+	protected function get_columnas($tabla, $plano=false)
 	{
-		$columnas = $this->get_entidad()->tabla('columnas')->get_filas(null,true);
+		$columnas = $this->get_entidad()->tabla('columnas')->get_filas(null, true);
 		$rs = array();
 		foreach ($columnas as $cursor => $columna) {
 			if ($columna['tabla'] == $tabla) {
@@ -348,7 +348,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$datos = $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0));
 		$res = array();
-		foreach($datos as $fila) {
+		foreach ($datos as $fila) {
 			if ($fila['secuencia'] == '') {
 				$res[] = $fila;
 			}
@@ -359,7 +359,7 @@ class ci_principal extends ci_editores_toba
 	function conf__externas(toba_ei_formulario_ml $ml)
 	{
 		$ml->set_proximo_id($this->get_entidad()->tabla('externas')->get_proximo_id());
-		$datos = $this->get_entidad()->tabla('externas')->get_filas(null,true);
+		$datos = $this->get_entidad()->tabla('externas')->get_filas(null, true);
 		foreach (array_keys($datos) as $id) {
 			$buscador = $this->get_entidad()->tabla('externas_col')->nueva_busqueda();
 			$buscador->set_padre('externas', $id);
@@ -401,15 +401,15 @@ class ci_principal extends ci_editores_toba
 			}
 			$accion = $fila[apex_ei_analisis_fila];
 			unset($fila[apex_ei_analisis_fila]);
-			switch($accion){
-				case "A":
+			switch ($accion) {
+				case 'A':
 					$this->get_entidad()->tabla('externas')->nueva_fila($fila, null, $id);
 					$this->reasociar_columnas_externas($id, $col_parametros, $col_resultados);
 					break;	
-				case "B":
+				case 'B':
 					$this->get_entidad()->tabla('externas')->eliminar_fila($id);
 					break;	
-				case "M":
+				case 'M':
 					$this->get_entidad()->tabla('externas')->modificar_fila($id, $fila);
 					$this->reasociar_columnas_externas($id, $col_parametros, $col_resultados);					
 					break;	
@@ -440,13 +440,13 @@ class ci_principal extends ci_editores_toba
 				$this->get_entidad()->tabla('externas_col')->eliminar_fila($id_hija);
 			}
 			//--- Columnas Parámetros
-			foreach($col_parametros as $col_par) {
+			foreach ($col_parametros as $col_par) {
 				$padre = array('externas' => $id_ext, 'columnas' => $col_par);
 				$this->get_entidad()->tabla('externas_col')->nueva_fila(array('es_resultado' => 0),
 																		$padre);
 			}
 			//--- Columnas Resultado
-			foreach($col_resultados as $col_par) {
+			foreach ($col_resultados as $col_par) {
 				$padre = array('externas' => $id_ext, 'columnas' => $col_par);
 				$this->get_entidad()->tabla('externas_col')->nueva_fila(array('es_resultado' => 1),
 																		$padre);
@@ -460,10 +460,10 @@ class ci_principal extends ci_editores_toba
 		$datos = $this->get_entidad()->tabla('externas')->get();
 		if (isset($datos['tipo']) && $datos['tipo'] == 'dao') {
 			$datos['tipo_clase'] = 'estatica';
-			if (isset($datos['carga_consulta_php']) && !is_null($datos['carga_consulta_php'])){
+			if (isset($datos['carga_consulta_php']) && !is_null($datos['carga_consulta_php'])) {
 				$datos['tipo_clase'] = 'consulta_php';
 				$datos['carga_metodo_lista'] = $datos['metodo'];
-			}elseif(isset($datos['carga_dt']) && !is_null($datos['carga_dt'])){
+			} elseif (isset($datos['carga_dt']) && !is_null($datos['carga_dt'])) {
 				$datos['tipo_clase'] = 'datos_tabla';
 			}
 		}	
@@ -520,8 +520,8 @@ class ci_principal extends ci_editores_toba
 	//*************************************************************************
 	function get_mecanismos_carga()
 	{
-		return array(  array('id' =>'dao', 'nombre' => 'Metodo PHP'),
-								array('id' => 'sql', 'nombre' => 'Consulta SQL'));
+		return array( array('id' =>'dao', 'nombre' => 'Metodo PHP'),
+					array('id' => 'sql', 'nombre' => 'Consulta SQL'));
 	}
 
 	function get_tipos_clase()

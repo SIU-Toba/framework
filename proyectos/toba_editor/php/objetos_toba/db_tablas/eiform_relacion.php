@@ -30,8 +30,8 @@ class eiform_relacion extends toba_ei_formulario
 				$this->ef('padre_columnas')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "</table>\n";
-				echo "</fieldset>";
-			echo "</td><td class='abm-fila'>\n";
+				echo '</fieldset>';
+				echo "</td><td class='abm-fila'>\n";
 				echo "<fieldset style='padding: 10px'><legend>Tabla HIJA</legend>";
 				echo "<table class='tabla-0'  width='100%'>";
 				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
@@ -41,7 +41,7 @@ class eiform_relacion extends toba_ei_formulario
 				$this->ef('hija_columnas')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "</table>\n";
-				echo "</fieldset>";
+				echo '</fieldset>';
 			echo "</td></tr>\n";
 			echo "</table>\n";
 		echo "</td></tr>\n";
@@ -51,9 +51,9 @@ class eiform_relacion extends toba_ei_formulario
 		echo "</table>\n";
 	}
 
-	function extender_objeto_js()
+	/*function extender_objeto_js()
 	{
-/*
+
 		echo "	{$this->objeto_js}.evt__validar_datos = function (){
 				var salida = true;
 				for (elementos in this._efs) {
@@ -69,7 +69,7 @@ class eiform_relacion extends toba_ei_formulario
 				return salida;
 			}
 			";
-*/
-	}
+
+	}*/
 }
 ?>

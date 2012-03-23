@@ -15,7 +15,7 @@ class ci_dimensiones extends toba_ci
 
 	function conf()
 	{
-		if(!$this->s__carga_ok) {
+		if (!$this->s__carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
 			$this->pantalla()->eliminar_tab('pant_gatillos_d');
 			$this->pantalla()->eliminar_tab('pant_gatillos_i');
@@ -59,9 +59,9 @@ class ci_dimensiones extends toba_ci
 
 	function conf__formulario($form)
 	{
-		if($this->s__carga_ok) {
+		if ($this->s__carga_ok) {
 			$form->ef('fuente_datos')->set_solo_lectura();
-			$form->set_datos( $this->dependencia('datos')->tabla('dimension')->get() );
+			$form->set_datos($this->dependencia('datos')->tabla('dimension')->get());
 		}
 	}
 
@@ -73,7 +73,7 @@ class ci_dimensiones extends toba_ci
 	{
 		$temp = $this->dependencia('datos')->tabla('gatillos')->get_filas(array('tipo'=>$tipo));
 		$utilizadas = array();
-		foreach($temp as $t){
+		foreach ($temp as $t) {
 			$utilizadas[] = $t['tabla_rel_dim'];
 		}
 		return $utilizadas;
@@ -84,7 +84,7 @@ class ci_dimensiones extends toba_ci
 	function evt__form_gatillos_dir__modificacion($datos)
 	{
 		$tablas_utilizadas = $this->get_tablas_gatillo();
-		foreach(array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			$datos[$id]['tipo'] = 'directo';
 		}	
 		$this->dependencia('datos')->tabla('gatillos')->procesar_filas($datos);
@@ -92,31 +92,31 @@ class ci_dimensiones extends toba_ci
 
 	function conf__form_gatillos_dir($form)
 	{
-		$gatillos = $this->dependencia('datos')->tabla('gatillos')->get_filas( array('tipo'=>'directo') );
+		$gatillos = $this->dependencia('datos')->tabla('gatillos')->get_filas(array('tipo'=>'directo'));
 		$form->set_datos($gatillos);
-		$form->set_tablas_utilizadas($this->get_tablas_gatillo('indirecto'),'INDIRECTOS');
+		$form->set_tablas_utilizadas($this->get_tablas_gatillo('indirecto'), 'INDIRECTOS');
 	}
 
 	//--------- INDIRECTOS ------------------------
 
 	function conf__pant_gatillos_i($pantalla)
 	{
-		if(count($this->get_tablas_gatillo('directo'))==0) {
-			$pantalla->set_descripcion("Para definir gatillos INDIRECTOS, es necesario configurar previamente los gatillos DIRECTOS.");
+		if (count($this->get_tablas_gatillo('directo')) == 0) {
+			$pantalla->set_descripcion('Para definir gatillos INDIRECTOS, es necesario configurar previamente los gatillos DIRECTOS.');
 			$pantalla->eliminar_dep('form_gatillos_indir');
 		}	
 	}
 
 	function evt__form_gatillos_indir__modificacion($datos)
 	{
-		foreach(array_keys($datos) as $id) {
+		foreach (array_keys($datos) as $id) {
 			$datos[$id]['tipo'] = 'indirecto';
 			//control de caminos validos entre tablas
 			$camino = array();
 			$camino[] = $datos[$id]['tabla_rel_dim'];
 			if (isset($datos[$id]['ruta_tabla_rel_dim'])) {
 				//Contiene un camino intermedio
-				$temp = explode( ',', $datos[$id]['ruta_tabla_rel_dim']);
+				$temp = explode(',', $datos[$id]['ruta_tabla_rel_dim']);
 				$temp = array_map('trim', $temp);
 				$camino = array_merge($camino, $temp);
 			}
@@ -128,9 +128,9 @@ class ci_dimensiones extends toba_ci
 
 	function conf__form_gatillos_indir($form)
 	{
-		$gatillos = $this->dependencia('datos')->tabla('gatillos')->get_filas( array('tipo'=>'indirecto') );
+		$gatillos = $this->dependencia('datos')->tabla('gatillos')->get_filas(array('tipo'=>'indirecto'));
 		$form->set_datos($gatillos);
-		$form->set_tablas_utilizadas($this->get_tablas_gatillo('directo'),'DIRECTOS');
+		$form->set_tablas_utilizadas($this->get_tablas_gatillo('directo'), 'DIRECTOS');
 	}
 
 	//-------------------------------------------------------------------
@@ -163,7 +163,7 @@ class ci_dimensiones extends toba_ci
 	{
 		$datos = $this->dependencia('datos')->tabla('gatillos')->get_filas(array('tipo'=>'directo'));
 		$indirectos = array();
-		foreach($datos as $dato){
+		foreach ($datos as $dato) {
 			$indirectos[]['gatillo_directo'] = $dato['tabla_rel_dim'];
 		}
 		return $indirectos;
@@ -176,10 +176,10 @@ class ci_dimensiones extends toba_ci
 	function conf__elementos()
 	{
 		$datos = $this->dependencia('datos')->tabla('dimension')->get();
-		$id = explode(',',$datos['col_id']);
-		$desc = explode(',',$datos['col_desc']);
-		$sql = "SELECT " . implode(" || ' - ' || ",$id) . " as clave, " 
-						. implode(' || ',$desc) . " as descripcion
+		$id = explode(',', $datos['col_id']);
+		$desc = explode(',', $datos['col_desc']);
+		$sql = 'SELECT ' . implode(" || ' - ' || ", $id) . ' as clave, ' 
+						. implode(' || ', $desc) . " as descripcion
 				FROM {$datos['tabla']}
 				ORDER BY descripcion";
 		$datos = toba_editor::db_proyecto_cargado($datos['fuente_datos'])->consultar($sql);

@@ -26,7 +26,7 @@ class ci_subclases_generacion extends toba_ci
 			$asume_php = false;
 		}
 		if (isset($archivo)) {
-			if (strpos($archivo, '..') !== FALSE) {
+			if (strpos($archivo, '..') !== false) {
 				//Evita que se pasen ../ en la url
 				throw new toba_error_seguridad("El parámetro '$archivo' no es un path válido");
 			}
@@ -274,7 +274,7 @@ class ci_subclases_generacion extends toba_ci
 		//-- Se va a modificar algo?
 		if ($this->s__es_esclavo && (! empty($metodos) || $archivo_php->esta_vacio())) {
 			if (! method_exists($this->controlador(), 'get_metaclase')) {
-				throw new toba_error("No se invoco correctamente en el visor de archivos PHP");
+				throw new toba_error('No se invoco correctamente en el visor de archivos PHP');
 			}
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
 			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
@@ -326,7 +326,7 @@ class ci_subclases_generacion extends toba_ci
 	function evt__abrir()
 	{
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
-		if( !$archivo_php->existe() ) {
+		if (!$archivo_php->existe()) {
 			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $archivo_php->nombre() . '\').');
 		}
 		$archivo_php->abrir();

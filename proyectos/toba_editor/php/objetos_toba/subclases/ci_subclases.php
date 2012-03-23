@@ -35,14 +35,14 @@ class ci_subclases extends toba_ci
 	function get_metaclase()
 	{
 		//-- Acceso a un SUBCOMPONENTE
-		if(isset($this->s__subcomponente)){ //Cargue un subcomponente en un request anterior.
+		if (isset($this->s__subcomponente)) { //Cargue un subcomponente en un request anterior.
 			$subcomponente = $this->s__subcomponente;
 		} else {
 			$subcomponente = toba::memoria()->get_parametro('subcomponente');
 		}
 		if (! is_null($this->s__tipo_elemento) && ($this->s__tipo_elemento != '')) {		//Busco el info correspondiente al elemento transversal
 			$nombre_info = 'toba_' . $this->s__tipo_elemento . '_info';
-			$info =  new $nombre_info($this->s__id_componente);
+			$info = new $nombre_info($this->s__id_componente);
 		} else {
 			$info = toba_constructor::get_info($this->s__id_componente);
 		}
@@ -50,7 +50,7 @@ class ci_subclases extends toba_ci
 			$info = $info->get_metaclase_subcomponente($subcomponente);
 			if ($info) {
 				$this->s__subcomponente = $subcomponente;
-			}else{
+			} else {
 				throw new toba_error('ERROR cargando el SUBCOMPONENTE: No es posible acceder a la definicion del mismo.');
 			}
 		}	
@@ -74,12 +74,12 @@ class ci_subclases extends toba_ci
 		if (! isset($this->s__id_componente)) {																						//Si recien entra
 			$viene_x_memoria = ((!isset($datos) || is_null($datos)) && (!is_null($this->s__tipo_elemento)));
 			if ($viene_x_memoria) {									//Es transversal viene por memoria
-					$datos['proyecto'] = toba::memoria()->get_parametro('proyecto_extension');
-					$datos['id'] = toba::memoria()->get_parametro('id_extension');
-					if (is_null($datos['proyecto']) || is_null($datos['id'])) {					//No se cargo nada... todo mal!
-						throw new toba_error('Necesita seleccionar un componente para poder extenderlo');
-					}
-					$this->s__id_componente = array('id'=>$datos['id'], 'proyecto'=>$datos['proyecto'] );
+				$datos['proyecto'] = toba::memoria()->get_parametro('proyecto_extension');
+				$datos['id'] = toba::memoria()->get_parametro('id_extension');
+				if (is_null($datos['proyecto']) || is_null($datos['id'])) {					//No se cargo nada... todo mal!
+					throw new toba_error('Necesita seleccionar un componente para poder extenderlo');
+				}
+				$this->s__id_componente = array('id'=>$datos['id'], 'proyecto'=>$datos['proyecto'] );
 			} else {
 				$this->s__id_componente = array('componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );
 			}
@@ -124,10 +124,10 @@ class ci_subclases extends toba_ci
 			$relativo = '/'.$relativo;
 		}
 		$pm_id = $this->get_metaclase()->get_punto_montaje();
-		$pm = toba_modelo_pms::get_pm($pm_id,toba_editor::get_proyecto_cargado());
+		$pm = toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
 		return $pm->get_path_absoluto().$relativo;
 
-//		return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())..$relativo;
+		//return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())..$relativo;
 	}
 	
 	function evt__pant_ubicacion__salida()
@@ -167,7 +167,7 @@ class ci_subclases extends toba_ci
 		//-- Sincroniza el cambio con la base
 		$path_relativo = $this->get_path_relativo();
 		if ($path_relativo != '') {
-			$path_relativo.= '/';
+			$path_relativo .= '/';
 		}
 		$datos['subclase_archivo'] = $path_relativo.$this->s__datos_nombre['nombre'].'.php';
 		$this->get_metaclase()->set_subclase($this->s__datos_nombre['nombre'], $datos['subclase_archivo']);
@@ -209,42 +209,41 @@ class ci_subclases extends toba_ci
 		
 		// Se definen los EFs del formulario en runtime.
 		$clave = array('componente' => '2291', 'proyecto' => 'toba_editor');
-        $metadatos = toba_cargador::instancia()->get_metadatos_extendidos($clave, 'toba_ei_formulario');
+		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos($clave, 'toba_ei_formulario');
         
-        $ef_base = array(
+		$ef_base = array(
 			'obligatorio' => 0,
-        	'elemento_formulario' => 'ef_checkbox',
-        	'descripcion' => '',
-        	'colapsado' => 0,
-        	'oculto_relaja_obligatorio' => 0
-        );
-        $metadatos['_info_formulario_ef'] = array();
+			'elemento_formulario' => 'ef_checkbox',
+			'descripcion' => '',
+			'colapsado' => 0,
+			'oculto_relaja_obligatorio' => 0
+		);
+		$metadatos['_info_formulario_ef'] = array();
        
         
-        $i = 0;
-        foreach ($grupos as $id_grupo => $metodos) {
-        	if ($id_grupo == '') {
-        		$id_grupo = 'Propios';
-        	}
-        	$nombre_grupo = "$id_grupo <div><a href='javascript: cambiar_grupo(\"$id_grupo\", true);'>todos</a> / <a href='javascript: cambiar_grupo(\"$id_grupo\", false);''>ninguno</a></div>";
-        	$separador = $ef_base;
-        	$separador['identificador'] = "sep_$i";
-        	$separador['columnas'] = $separador['identificador'];
-        	$separador['etiqueta'] = $nombre_grupo;
-        	$separador['elemento_formulario'] = 'ef_barra_divisora';        	
-        	$metadatos['_info_formulario_ef'][] = $separador;
+		$i = 0;
+		foreach ($grupos as $id_grupo => $metodos) {
+			if ($id_grupo == '') {
+				$id_grupo = 'Propios';
+			}
+			$nombre_grupo = "$id_grupo <div><a href='javascript: cambiar_grupo(\"$id_grupo\", true);'>todos</a> / <a href='javascript: cambiar_grupo(\"$id_grupo\", false);''>ninguno</a></div>";
+			$separador = $ef_base;
+			$separador['identificador'] = "sep_$i";
+			$separador['columnas'] = $separador['identificador'];
+			$separador['etiqueta'] = $nombre_grupo;
+			$separador['elemento_formulario'] = 'ef_barra_divisora';        	
+			$metadatos['_info_formulario_ef'][] = $separador;
         	
-        	foreach ($metodos as $id => $metodo) {
-	        	$ef = $ef_base;
-		       	$ef['identificador'] = "metodo_".$id_grupo."_$id";
-	        	$ef['columnas'] = $ef['identificador'];
-	        	$ef['etiqueta'] = $metodo->get_descripcion();
-	        	$ef['descripcion'] = $metodo->get_doc();
-	        	$metadatos['_info_formulario_ef'][] = $ef;
-	        	
-        	}
-        	$i++;
-        }
+			foreach ($metodos as $id => $metodo) {
+				$ef = $ef_base;
+				$ef['identificador'] = 'metodo_'.$id_grupo."_$id";
+				$ef['columnas'] = $ef['identificador'];
+				$ef['etiqueta'] = $metodo->get_descripcion();
+				$ef['descripcion'] = $metodo->get_doc();
+				$metadatos['_info_formulario_ef'][] = $ef;
+			}
+			$i++;
+		}
 		toba_cargador::instancia()->set_metadatos_extendidos($metadatos, $clave);
 	}
 
@@ -257,7 +256,7 @@ class ci_subclases extends toba_ci
 		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
 	
 		$clase_php->generar($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
-		$this->pantalla()->set_descripcion("Clase generada correctamente");
+		$this->pantalla()->set_descripcion('Clase generada correctamente');
 		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 		
 		//Resetea los métodos para que fuerze al usuario a elegir otros si quiere generar nuevamente la clase
@@ -276,7 +275,7 @@ class ci_subclases extends toba_ci
 	function abrir_archivo()
 	{
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
-		if( !$archivo_php->existe() ) {
+		if ( !$archivo_php->existe()) {
 			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $archivo_php->nombre() . '\').');	
 		}
 		$archivo_php->abrir();		

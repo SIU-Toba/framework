@@ -26,7 +26,7 @@ class ci_efs extends toba_ci
 
 	function mostrar_efs_detalle()
 	{
-		if( isset($this->s__seleccion_efs) ){
+		if (isset($this->s__seleccion_efs)) {
 			return true;	
 		}
 		return false;
@@ -48,7 +48,7 @@ class ci_efs extends toba_ci
 	function conf()
 	{
 		$this->pantalla()->agregar_dep('efs_lista');		
-		if ($this->mostrar_efs_detalle() ){
+		if ($this->mostrar_efs_detalle()) {
 			$this->dependencia('efs_lista')->set_fila_protegida($this->s__seleccion_efs);
 			$this->dependencia('efs_lista')->seleccionar($this->s__seleccion_efs);
 			$this->pantalla()->agregar_dep('efs');
@@ -111,15 +111,15 @@ class ci_efs extends toba_ci
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
-				case "A":
+				case 'A':
 					//Por defecto el campo 'columnas' es igual a $this->campo_clave
 					$registros[$id]['columnas'] = $registros[$id][$this->campo_clave];
 					$this->id_intermedio_efs[$id] = $this->get_tabla()->nueva_fila($registros[$id]);
 					break;	
-				case "B":
+				case 'B':
 					$this->get_tabla()->eliminar_fila($id);
 					break;	
-				case "M":
+				case 'M':
 					//---Si se cambia un identificador que estaba ligado con us columna se cambia tambien el valor de la columna
 					$anterior_id = $this->get_tabla()->get_fila_columna($id, $this->campo_clave);
 					$anterior_col = $this->get_tabla()->get_fila_columna($id, 'columnas');
@@ -136,21 +136,20 @@ class ci_efs extends toba_ci
 	
 	function conf__efs_lista()
 	{
-		if($datos_dbr = $this->get_tabla()->get_filas() )
-		{
+		if ($datos_dbr = $this->get_tabla()->get_filas()) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$orden[] = $datos_dbr[$a]['orden'];
 			}
-			array_multisort($orden, SORT_ASC , $datos_dbr);
+			array_multisort($orden, SORT_ASC, $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
 			//No se solicita asi del DBR porque array_multisort no conserva claves numericas
 			// y las claves internas del DBR lo son
-			for($a=0;$a<count($datos_dbr);$a++){
+			for ($a = 0; $a < count($datos_dbr); $a++) {
 				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
-				unset( $datos_dbr[$a][apex_db_registros_clave] );
-				$datos[ $id_dbr ] = $datos_dbr[$a];
+				unset($datos_dbr[$a][apex_db_registros_clave]);
+				$datos[$id_dbr] = $datos_dbr[$a];
 			}
 			//ei_arbol($datos,"Datos para el ML: POST proceso");
 			return $datos;
@@ -159,7 +158,7 @@ class ci_efs extends toba_ci
 
 	function evt__efs_lista__seleccion($id)
 	{
-		if(isset($this->id_intermedio_efs[$id])){
+		if (isset($this->id_intermedio_efs[$id])) {
 			$id = $this->id_intermedio_efs[$id];
 		}
 		$this->s__seleccion_efs = $id;
@@ -236,17 +235,17 @@ class ci_efs extends toba_ci
 		return $posibles;
 	}
 	
-	function get_definicion_parametros($carga = false)
+	function get_definicion_parametros($carga=false)
 	{
 		$ef = $this->get_tipo_ef();
-		$metodo = ($carga) ? "get_lista_parametros_carga" : "get_lista_parametros";
+		$metodo = ($carga) ? 'get_lista_parametros_carga' : 'get_lista_parametros';
 		$parametros = call_user_func(array('toba_'.$ef, $metodo));
 		return $parametros;
 	}
 	
 	function get_tipo_ef()
 	{
-		return $this->get_tabla()->get_fila_columna( $this->s__seleccion_efs, "elemento_formulario");
+		return $this->get_tabla()->get_fila_columna($this->s__seleccion_efs, 'elemento_formulario');
 	}
 	
 	function set_parametros($parametros)
@@ -262,7 +261,7 @@ class ci_efs extends toba_ci
 	{
 		$tipo_ef = $this->get_tipo_ef();
 		if (in_array($tipo_ef, array('ef_editable_numero','ef_editable_moneda', 'ef_editable_numero_porcentaje'))) {
-			$form->set_descripcion("Definir los [wiki:Referencia/efs/numero parámetros del número]");
+			$form->set_descripcion('Definir los [wiki:Referencia/efs/numero parámetros del número]');
 			$form->set_modo_descripcion(false);
 		}
 		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
@@ -286,8 +285,7 @@ class ci_efs extends toba_ci
 			array_borrar_valor($efs_a_desactivar, 'popup_carga_desc_estatico');
 			//-- Si esta seteado el item, buscar la carpeta asociada
 			if (isset($fila['popup_item']) && isset($fila['popup_proyecto'])) {
-				$fila['popup_carpeta'] = toba_info_editores::get_carpeta_de_item(	$fila['popup_item'], 
-																			$fila['popup_proyecto']);
+				$fila['popup_carpeta'] = toba_info_editores::get_carpeta_de_item($fila['popup_item'], $fila['popup_proyecto']);
 			}
 		}
 		$this->dependencia('param_varios')->desactivar_efs($efs_a_desactivar);
@@ -312,7 +310,7 @@ class ci_efs extends toba_ci
 		$exp = null;
 		switch($tipo) {
 			case 'mail':
-				$exp ='/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i';
+				$exp = '/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i';
 				break;
 			case 'cuit':
 				$exp = '/^[0-9]{2}-[0-9]{8}-[0-9]$/';
@@ -469,18 +467,18 @@ class ci_efs extends toba_ci
 	*/
 	function post_eventos()
 	{
-		if(	$this->disparar_importacion_efs ) {
-			if(isset($this->s__importacion_efs['datos_tabla'])){
-				$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
-											'componente' => $this->s__importacion_efs['datos_tabla'] );
-				$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
+		if ($this->disparar_importacion_efs ) {
+			if (isset($this->s__importacion_efs['datos_tabla'])) {
+				$clave = array('proyecto' => toba_editor::get_proyecto_cargado(),
+											'componente' => $this->s__importacion_efs['datos_tabla']);
+				$dt = toba_constructor::get_info($clave, 'toba_datos_tabla');
 				$this->s__importacion_efs = $dt->exportar_datos_efs($this->s__importacion_efs['pk']);
-				foreach($this->s__importacion_efs as $ef){
-					try{
+				foreach ($this->s__importacion_efs as $ef) {
+					try {
 						if (! $this->get_tabla()->existe_fila_condicion(array($this->campo_clave => $ef[$this->campo_clave]))) {
 							$this->get_tabla()->nueva_fila($ef);						
 						}
-					}catch(toba_error $e){
+					} catch(toba_error $e) {
 						toba::notificacion()->agregar("Error agregando el EF '{$ef[$this->campo_clave]}'. " . $e->getMessage());
 					}
 				}
@@ -491,7 +489,7 @@ class ci_efs extends toba_ci
 
 	function conf__efs_importar()
 	{
-		if(isset($this->s__importacion_efs)){
+		if (isset($this->s__importacion_efs)) {
 			return $this->s__importacion_efs;
 		}
 	}
@@ -512,7 +510,7 @@ class ci_efs extends toba_ci
 				}
 			}
 		}
-		$diagrama .= " }";
+		$diagrama .= ' }';
 		return $diagrama;
 	}
 	

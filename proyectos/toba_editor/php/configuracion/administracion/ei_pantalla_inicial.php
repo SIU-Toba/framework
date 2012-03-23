@@ -19,7 +19,7 @@ class ei_pantalla_inicial extends toba_ei_pantalla
 					</style>";
 		parent::generar_layout();
 		echo "<fieldset> <legend> Comando Ejecutado</legend>$comando_ejecutado</fieldset><br>";
-		echo "<fieldset><legend>Salida de Consola: </legend>";
+		echo '<fieldset><legend>Salida de Consola: </legend>';
 		echo "<div class='div-consola'>$log</div></fieldset>";
 	}
 

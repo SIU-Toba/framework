@@ -9,11 +9,11 @@ class ci_ini_sesion extends toba_ci
 	
 	function evt__form__modificacion($datos)
 	{
-		if ( isset($datos)) {
+		if (isset($datos)) {
 			try {
 				toba::manejador_sesiones()->iniciar_sesion_proyecto($datos);
 			} catch ( toba_error_login $e ) {
-				toba::notificacion()->agregar( $e->getMessage() );
+				toba::notificacion()->agregar($e->getMessage());
 			}
 		}		
 	}
@@ -38,7 +38,7 @@ class ci_ini_sesion extends toba_ci
 		$proyectos = $instancia->get_lista_proyectos_vinculados();
 		$datos = array();
 		$a = 0;
-		foreach( $proyectos as $x) {
+		foreach ($proyectos as $x) {
 			$datos[$a]['id'] = $x;
 			$datos[$a]['desc'] = $x;
 			$a++;

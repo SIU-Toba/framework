@@ -6,14 +6,14 @@ class ci_simulacion extends toba_ci
 	function ini()
 	{
 		$zona = toba::solicitud()->zona();
-		if ($editable = $zona->get_editable()){
+		if ($editable = $zona->get_editable()) {
 			$componente['proyecto'] = $editable[0];
 			$componente['componente'] = $editable[1];
-		}else{
+		} else {
 			throw new toba_error('Este item se utiliza desde la zona de objetos');
 		}
 		toba_editor::iniciar_contexto_proyecto_cargado();
-		$this->agregar_dependencia( 'componente', $componente['proyecto'], $componente['componente']);
+		$this->agregar_dependencia('componente', $componente['proyecto'], $componente['componente']);
 	}
 
 	function conf()

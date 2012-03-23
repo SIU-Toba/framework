@@ -16,7 +16,7 @@ class odr_ei_cuadro extends toba_datos_relacion
 		}
 		if ($hay_sobre_fila) {
 			$datos = $this->tabla('prop_basicas')->get();
-			if( !isset($datos['clave_dbr']) && ( !isset($datos['columnas_clave']) || (trim($datos['columnas_clave'])=="") ) ){
+			if (!isset($datos['clave_dbr']) && ( !isset($datos['columnas_clave']) || (trim($datos['columnas_clave']) == ''))) {
 				throw new toba_error_def("Al existir un evento catalogado como 'a nivel de fila', es necesario definir una clave para el cuadro");
 			}
 		}

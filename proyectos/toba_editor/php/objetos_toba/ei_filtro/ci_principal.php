@@ -22,8 +22,8 @@ class ci_principal extends ci_editores_toba
 
 	function conf__prop_basicas()
 	{
-		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
-		$datos['posicion_botonera'] =  $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
+		$datos['posicion_botonera'] = $this->get_entidad()->tabla('base')->get_columna('posicion_botonera');
 		return $datos;
 	}
 
@@ -31,7 +31,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->get_entidad()->tabla('base')->set_columna_valor('posicion_botonera', $datos['posicion_botonera']);
 		unset($datos['posicion_botonera']);
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);		
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);		
 	}
 
 	//*******************************************************************

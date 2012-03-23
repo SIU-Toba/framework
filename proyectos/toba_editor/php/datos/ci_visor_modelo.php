@@ -9,7 +9,7 @@ class ci_visor_modelo extends toba_ci
 	{
 		if ($editable = toba::zona()->get_editable()) {
 			$this->fuente = $editable[1];
-		}else{
+		} else {
 			throw new toba_error('ERROR: Esta operacion debe ser llamada desde la zona de fuentes');
 		}
 	}
@@ -48,18 +48,18 @@ class ci_visor_modelo extends toba_ci
 	function conf__columnas(toba_ei_cuadro $cuadro)
 	{
 		$columnas = toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_definicion_columnas($this->s__tabla);
-		foreach(array_keys($columnas) as $id) {
-			if($columnas[$id]['pk']) {
-				$columnas[$id]['pk'] = toba_recurso::imagen_toba("aplicar.png", true, null, null);
-			}else{
+		foreach (array_keys($columnas) as $id) {
+			if ($columnas[$id]['pk']) {
+				$columnas[$id]['pk'] = toba_recurso::imagen_toba('aplicar.png', true, null, null);
+			} else {
 				$columnas[$id]['pk'] = '&nbsp;';
 			}
-			if($columnas[$id]['not_null']) {
-				$columnas[$id]['not_null'] = toba_recurso::imagen_toba("aplicar.png", true, null, null);
+			if ($columnas[$id]['not_null']) {
+				$columnas[$id]['not_null'] = toba_recurso::imagen_toba('aplicar.png', true, null, null);
 			} else {
 				$columnas[$id]['not_null'] = '&nbsp;';				
 			}
-			if(!$columnas[$id]['secuencia']) {
+			if (!$columnas[$id]['secuencia']) {
 				$columnas[$id]['secuencia'] = '&nbsp;';				
 			}
 		}
@@ -69,8 +69,8 @@ class ci_visor_modelo extends toba_ci
 	function evt__columnas__seleccion($seleccion)
 	{
 		$columnas = toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_definicion_columnas($this->s__tabla);
-		foreach( $columnas as $columna) {
-			if($seleccion['nombre'] === $columna['nombre']) {
+		foreach ($columnas as $columna) {
+			if ($seleccion['nombre'] === $columna['nombre']) {
 				$this->s__tabla = $columna['fk_tabla'];
 			}
 		}

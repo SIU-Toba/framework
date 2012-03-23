@@ -28,7 +28,7 @@ class pantalla_visor extends toba_ei_pantalla
 	function generar_html_fs()
 	{
 		if (! $this->controlador->existe_archivo_log()) {
-			echo ei_mensaje("No hay logs registrados para el proyecto ".
+			echo ei_mensaje('No hay logs registrados para el proyecto '.
 							"<strong>{$this->controlador->get_proyecto()}</strong>");
 			return;
 		}			
@@ -36,12 +36,12 @@ class pantalla_visor extends toba_ei_pantalla
 		$niveles = toba::logger()->get_niveles();
 		$niveles = array_reverse($niveles);		
 
-		$res =$this->controlador->get_analizador()->get_pedido($seleccion);
-		$encabezado =$this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
+		$res = $this->controlador->get_analizador()->get_pedido($seleccion);
+		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
 
 		//--- Opciones
-		$selec = ($seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$seleccion}";
-		echo "<div>";
+		$selec = ($seleccion == 'ultima') ? 'Última solicitud' : "Solicitud {$seleccion}";
+		echo '<div>';
 		echo "<span class='logger-proyecto' title='{$this->controlador->get_analizador()->get_archivo_nombre()}' style='text-align:right;'>";
 		
 		echo ucfirst($this->controlador->get_proyecto());
@@ -57,17 +57,17 @@ class pantalla_visor extends toba_ei_pantalla
 			$this->generar_boton('siguiente');
 			$this->generar_boton('ultima');
 		}
-		echo "</span>";
+		echo '</span>';
 		echo "<br><div id='logger_info_operacion'>";
 		echo $this->generar_html_info_operacion($res);
-		echo "</div>";
+		echo '</div>';
 
 		$valor_check = 0;
-		if ($this->controlador->get_estado_encabezados() === true){
+		if ($this->controlador->get_estado_encabezados() === true) {
 			$valor_check = 1;
 		}
 		
-		$check = toba_form::checkbox("con_encabezados", $valor_check, 1, "ef-checkbox"," onclick=\"{$this->objeto_js}.evt__con_encabezados__click(this)\" ");
+		$check = toba_form::checkbox('con_encabezados', $valor_check, 1, 'ef-checkbox', " onclick=\"{$this->objeto_js}.evt__con_encabezados__click(this)\" ");
 		echo "<label>$check Ver Encabezados</label><br>";
 		echo "</div><hr style='clear:both' />";
 
@@ -75,64 +75,64 @@ class pantalla_visor extends toba_ei_pantalla
 		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 
 		$display_encabezados = 'none';
-		if ($this->controlador->get_estado_encabezados() === true){
+		if ($this->controlador->get_estado_encabezados() === true) {
 			$display_encabezados = '';
 		}
 
 		//--- Encabezado 
 		echo "<ul id='logger_encabezados' style='display:$display_encabezados;list-style-type: none;padding: 0;margin: 0'>";
 		echo $this->generar_html_encabezado($res);
-		echo "</ul>";
+		echo '</ul>';
 
 		//---- Niveles
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'>";
-		echo "<strong>Niveles</strong>";
+		echo '<strong>Niveles</strong>';
 		echo "<ul class='logger-opciones'>";
 		foreach ($niveles as $nivel) {
 			$img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
-			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
+			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : '';
 			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
 			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
 		}
-		echo "</ul>";
-		echo "</div>";
+		echo '</ul>';
+		echo '</div>';
 
 		$proyecto_actual = $this->controlador->get_proyecto();
 		$mostrar = $this->controlador->get_seleccion_modo_detalle();
 		$lista_valida = array($proyecto_actual => ucfirst($proyecto_actual), 'toba' => 'Nucleo', 'no_seteado' => 'Todos');
  		//echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
-		echo "<strong>Mostrar mensajes</strong>";
+		echo '<strong>Mostrar mensajes</strong>';
 		echo "<ul id='logger_proyectos' class='logger-opciones'>";
-		echo "<li>".toba_form::select("opciones_proyectos", $mostrar, $lista_valida,  null, "onchange='{$this->objeto_js}.mostrar_proyecto()'")."</li>";
-		echo "</ul>";		
-		echo "</div>";
+		echo '<li>'.toba_form::select('opciones_proyectos', $mostrar, $lista_valida,  null, "onchange='{$this->objeto_js}.mostrar_proyecto()'").'</li>';
+		echo '</ul>';		
+		echo '</div>';
 		
 		//--- Detalles
 		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
 		echo $detalle;
 		echo "</ol>\n";		
-		echo "</div>";
+		echo '</div>';
 	}	
 	
 	function generar_html_info_operacion($res)
 	{
-		$encabezado =$this->controlador->get_analizador()->analizar_encabezado($res);
+		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
 		$string = '';
-		if (isset($encabezado['operacion'])){			
-			$string .=  "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>{$encabezado['operacion']}</span><br>";
+		if (isset($encabezado['operacion'])) {			
+			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>{$encabezado['operacion']}</span><br>";
 		}
 		
-		if (isset($encabezado['fecha'])){
+		if (isset($encabezado['fecha'])) {
 			$fecha_ref = new toba_fecha();
 			$fecha_log = new toba_fecha();
 			$fecha_log->set_timestamp(strtotime($encabezado['fecha']));
 			
 			$fecha = $fecha_log->get_timestamp_pantalla(); 
-			if ($fecha_ref->es_igual_que($fecha_log)){
+			if ($fecha_ref->es_igual_que($fecha_log)) {
 				$fecha = 'Hoy  ' . date('H:i:s', strtotime($encabezado['fecha']));
 			}		
-			$string .=  "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>$fecha</span><br>";
+			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>$fecha</span><br>";
 		}
 
 		return $string;
@@ -140,20 +140,20 @@ class pantalla_visor extends toba_ei_pantalla
 
 	function generar_html_encabezado($res)
 	{
-		$encabezado =$this->controlador->get_analizador()->analizar_encabezado($res);
-		$enc = "";
+		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
+		$enc = '';
 		//--- Encabezado		
 		foreach ($encabezado as $clave => $valor) {
-			$enc .= "<li><strong>".ucfirst($clave)."</strong>: $valor</li>\n";
+			$enc .= '<li><strong>'.ucfirst($clave)."</strong>: $valor</li>\n";
 		}
-		$enc .= "<li><hr></li>";
+		$enc .= '<li><hr></li>';
 		return $enc;
 	}
 	
 	function generar_html_detalles($res)
 	{
 		$niveles = toba::logger()->get_niveles();
-		$cuerpo =$this->controlador->get_analizador()->analizar_cuerpo($res);
+		$cuerpo = $this->controlador->get_analizador()->analizar_cuerpo($res);
 		$cant_por_nivel = array();
 		foreach ($niveles as $nivel) {
 			$cant_por_nivel[$nivel] = 0;
@@ -161,19 +161,18 @@ class pantalla_visor extends toba_ei_pantalla
 		$detalle = '';
 		foreach ($cuerpo as $linea) {
 			//¿Es una sección?
-			if (substr($linea['mensaje'], 0,10) == "[SECCION] ") {
+			if (substr($linea['mensaje'], 0, 10) == '[SECCION] ') {
 				$linea['mensaje'] = substr($linea['mensaje'], 10);
-				$img ='';
-				$clase = "logger-seccion";
-			//Es normal
-			} else {
+				$img = '';
+				$clase = 'logger-seccion';			
+			} else {	//Es normal
 				$img = toba_recurso::imagen_proyecto('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
-				$clase = "logger-normal";	
+				$clase = 'logger-normal';	
 			}
 			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
 			$detalle .= "$img ";
 			$detalle .= $this->txt2html($linea['mensaje']);
-			$detalle .= "</li>";	
+			$detalle .= '</li>';	
 			$cant_por_nivel[$linea['nivel']]++;
 		}
 		return array($detalle, $cant_por_nivel);
@@ -183,18 +182,18 @@ class pantalla_visor extends toba_ei_pantalla
 	function txt2html($txt)	
 	{
 		$txt = trim($txt);
-		$texto_traza = "[TRAZA]";
+		$texto_traza = '[TRAZA]';
 		$pos_traza = strpos($txt, $texto_traza);
 		$salto = strpos($txt, "\n", 0);		
 		
 		//¿Contiene una traza?		
 		if ($pos_traza !== false) {
 			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
-			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
+			$txt_traza = trim(substr($txt, $pos_traza + strlen($texto_traza)));
 			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span><span class='logger-traza-detalle' style='display:none;'>$txt_traza</span>";
 		} elseif ($salto !== false) {
 			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
-			$txt = substr($txt,0,$salto)."<pre>".substr($txt, $salto)."</pre>";
+			$txt = substr($txt, 0, $salto).'<pre>'.substr($txt, $salto).'</pre>';
 		}
 		return $txt;
 	}		
@@ -207,16 +206,16 @@ class pantalla_visor extends toba_ei_pantalla
 		$niveles = toba::logger()->get_niveles();		
 		$parametros = array();
 ?>
-			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo();?>';
-			var niveles = <?php echo toba_js::arreglo($niveles)?>;
+			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo(); ?>';
+			var niveles = <?php echo toba_js::arreglo($niveles); ?>;
 			var niveles_actuales = {length: 0};
 
-			<?php echo $this->objeto_js?>.evt__refrescar = function() {
+			<?php echo $this->objeto_js; ?>.evt__refrescar = function() {
 				this.ajax('get_datos_logger', ultima_mod, this, this.respuesta_refresco);
 				return false;
 			}
 			
-			<?php echo $this->objeto_js?>.respuesta_refresco = function(resp)
+			<?php echo $this->objeto_js; ?>.respuesta_refresco = function(resp)
 			{
 				if (resp != null) {
 					toba.inicio_aguardar();				
@@ -245,7 +244,7 @@ class pantalla_visor extends toba_ei_pantalla
 				refrescar_detalle();
 			}
 
-			<?php echo $this->objeto_js?>.mostrar_proyecto = function (inicial)
+			<?php echo $this->objeto_js; ?>.mostrar_proyecto = function (inicial)
 			{
 				obj_combo = document.getElementById('opciones_proyectos');
 				valor = obj_combo.options[obj_combo.selectedIndex].value;
@@ -311,17 +310,17 @@ class pantalla_visor extends toba_ei_pantalla
 				}
 			}
 
-			<?php echo $this->objeto_js?>.dump_response = function(resp){
+			<?php echo $this->objeto_js; ?>.dump_response = function(resp){
 					//Esta funcion esta para desechar la respuesta, la cual no existe
 			}
 
-			<?php echo $this->objeto_js?>.evt__con_encabezados__click = function(obj){
+			<?php echo $this->objeto_js; ?>.evt__con_encabezados__click = function(obj){
 				toggle_nodo(document.getElementById('logger_encabezados'));
 				this.ajax('set_estado_encabezados', obj.checked, this, this.dump_response);
 				return false;
 			}
 
-			<?php echo $this->objeto_js?>.mostrar_proyecto(true);
+			<?php echo $this->objeto_js; ?>.mostrar_proyecto(true);
 <?php
 	}
 	

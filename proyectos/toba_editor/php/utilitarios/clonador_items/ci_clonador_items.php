@@ -61,7 +61,7 @@ class ci_clonador_items extends toba_ci
 			$this->opciones = array();
 			list($proyecto_actual, $item_actual) = toba::zona()->get_editable();
 			$id = array('proyecto' => $proyecto_actual, 'componente' => $item_actual);
-			$sql = "SELECT pagina_tipo_proyecto, pagina_tipo FROM apex_item WHERE proyecto = ".quote($proyecto_actual). " AND item = ".quote($item_actual);
+			$sql = 'SELECT pagina_tipo_proyecto, pagina_tipo FROM apex_item WHERE proyecto = '.quote($proyecto_actual). ' AND item = '.quote($item_actual);
 			$datos = toba::db()->consultar_fila($sql);		
 			$this->opciones['proyecto']				= $proyecto_actual;
 			$this->opciones['pagina_tipo_proyecto']	= $datos['pagina_tipo_proyecto'];
