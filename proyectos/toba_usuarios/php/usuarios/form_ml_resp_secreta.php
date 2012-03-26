@@ -4,7 +4,7 @@ class form_ml_resp_secreta extends toba_ei_formulario_ml
 	
 	protected function generar_formulario_cuerpo()
 	{
-		echo "<tbody>";			
+		echo '<tbody>';			
 		if ($this->_registro_nuevo !== false) {
 			$template = (is_array($this->_registro_nuevo)) ? $this->_registro_nuevo : array();
 			$this->agregar_registro($template);
@@ -16,16 +16,16 @@ class form_ml_resp_secreta extends toba_ei_formulario_ml
 		}
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
 		if ( $this->_info_formulario['filas_agregar'] && $this->_info_formulario['filas_agregar_online']) {
-			$this->_datos["__fila__"] = array();
-			$this->_ordenes[] = "__fila__";
+			$this->_datos['__fila__'] = array();
+			$this->_ordenes[] = '__fila__';
 		}
 		$a = 0;		
 		foreach ($this->_ordenes as $fila) {
 			$dato = $this->_datos[$fila];
 			//Si la fila es el template ocultarla
-			if ($fila !== "__fila__") {
+			if ($fila !== '__fila__') {
 				$this->_filas_enviadas[] = $fila;
-				$estilo_fila = "";
+				$estilo_fila = '';
 				$es_fila_modelo = false;
 			} else {
 				$estilo_fila = "style='display:none;'";
@@ -33,9 +33,9 @@ class form_ml_resp_secreta extends toba_ei_formulario_ml
 			}
 			//Determinar el estilo de la fila
 			if (isset($this->_clave_seleccionada) && $fila == $this->_clave_seleccionada) {
-				$this->estilo_celda_actual = "ei-ml-fila-selec";				
+				$this->estilo_celda_actual = 'ei-ml-fila-selec';				
 			} else {
-				$this->estilo_celda_actual = "ei-ml-fila";
+				$this->estilo_celda_actual = 'ei-ml-fila';
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
 			//--- Se cargan las opciones de los efs de esta fila
@@ -58,9 +58,9 @@ class form_ml_resp_secreta extends toba_ei_formulario_ml
 			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
 				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-ordenar'>\n";
 				echo "<a href='javascript: {$this->objeto_js}.subir_seleccionada();' id='{$this->objeto_js}_subir$fila' style='visibility:hidden' title='Subir la fila'>".
-					toba_recurso::imagen_toba('nucleo/orden_subir.gif', true)."</a>";
+					toba_recurso::imagen_toba('nucleo/orden_subir.gif', true).'</a>';
 				echo "<a href='javascript: {$this->objeto_js}.bajar_seleccionada();' id='{$this->objeto_js}_bajar$fila' style='visibility:hidden' title='Bajar la fila'>".
-					toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true)."</a>";
+					toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true).'</a>';
 				echo "</td>\n";
 			}			
 			//--Creo los EVENTOS de la FILA

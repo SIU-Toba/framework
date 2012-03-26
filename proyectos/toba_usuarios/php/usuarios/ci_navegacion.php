@@ -53,7 +53,7 @@ class ci_navegacion extends toba_ci
 
 	function conf__filtro($componente)
 	{
-		if(isset($this->s__filtro)) {
+		if (isset($this->s__filtro)) {
 			$componente->set_datos($this->s__filtro);
 		} 
 	}
@@ -75,16 +75,16 @@ class ci_navegacion extends toba_ci
 			switch ($this->s__filtro['pertenencia']){
 				case 'P' :
 					$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro);
-				break;
+					break;
 				case 'N' :
 					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro);
-				break;
+					break;
 				case 'T':
 					$datos = consultas_instancia::get_lista_usuarios($this->s__filtro);
-				break;
+					break;
 				case 'S' :
 					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro);
-				break;
+					break;
 			}
 			$componente->set_datos($datos);
 			$componente->desactivar_modo_clave_segura();

@@ -21,17 +21,17 @@ class ci_auditoria extends toba_ci
 		if (isset($schema)) {
 			return $schema.'_auditoria';
 		} else {
-			return "public_auditoria";
+			return 'public_auditoria';
 		}		
 	}
 	
-	function get_db($proyecto = null)
+	function get_db($proyecto=null)
 	{
 		if (! isset($proyecto)) {
 			$proyecto = $this->s__filtro['proyecto'];
 		}
 		$id = toba_info_editores::get_fuente_datos_defecto($proyecto);
-		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente( $id, $proyecto);
+		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente($id, $proyecto);
 		return $fuente_datos->get_db();
 	}	
 	
@@ -46,7 +46,7 @@ class ci_auditoria extends toba_ci
 	}
 	
 	
-	function get_tablas($proyecto = null)
+	function get_tablas($proyecto=null)
 	{
 		if (! isset($proyecto)) {
 			$proyecto = $this->s__filtro['proyecto'];
@@ -107,7 +107,7 @@ class ci_auditoria extends toba_ci
 			}
 			$auditoria->set_esquema_logs($this->get_esquema());
 			//--- Se recorre cada tabla buscada y se crea dinamicamente un cuadro
-			foreach($this->s__filtro['tablas'] as $tabla) { 
+			foreach ($this->s__filtro['tablas'] as $tabla) { 
 				$datos = $auditoria->get_datos($tabla, $this->s__filtro);
 				if (! empty($datos)) {
 					$hay_datos = true;
@@ -148,10 +148,10 @@ class ci_auditoria extends toba_ci
 	function analizar_diferencias(& $datos, $campos_clave, $campos_propios)
 	{
 		$indice = array();
-		foreach($datos as $id_fila => $fila) {
+		foreach ($datos as $id_fila => $fila) {
 			//-- Se indexa el registro actual
 			$claves = array();
-			foreach($campos_clave as $clave) {
+			foreach ($campos_clave as $clave) {
 				$claves[] = $fila[$clave];
 			}
 			$hash_fila = implode(apex_qs_separador, $claves);
@@ -161,7 +161,7 @@ class ci_auditoria extends toba_ci
 			} else {
 				unset($fila_anterior);
 			}
-			foreach($fila as $campo => $valor) {
+			foreach ($fila as $campo => $valor) {
 				if (! in_array($campo, $campos_propios) && isset($fila_anterior)) {
 					if ($valor !== $fila_anterior[$campo]) {	//Se produjo un cambio el valor con respecto a su inmediato anterior
 						if ($valor == '') {

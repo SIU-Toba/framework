@@ -44,7 +44,7 @@ class ci_sesiones extends toba_ci
 
 	function conf__filtro($componente)
 	{
-		if(isset($this->s__filtro)) {
+		if (isset($this->s__filtro)) {
 			$componente->set_datos($this->s__filtro);
 		}
 	}
@@ -59,8 +59,8 @@ class ci_sesiones extends toba_ci
 
 	function conf__sesiones($componente)
 	{
-		if(isset($this->s__filtro)) {
-			$componente->set_datos( consultas_instancia::get_sesiones($this->s__filtro['proyecto'], $this->s__filtro) );
+		if (isset($this->s__filtro)) {
+			$componente->set_datos(consultas_instancia::get_sesiones($this->s__filtro['proyecto'], $this->s__filtro));
 		}
 	}
 
@@ -82,8 +82,8 @@ class ci_sesiones extends toba_ci
 	function conf__solicitudes($componente)
 	{
 		$solicitud = isset($this->s__id_solicitud) ? $this->s__id_solicitud : null;
-		if (isset($this->s__sesion)){
-			$componente->set_datos( consultas_instancia::get_solicitudes_browser($this->s__sesion, $solicitud) );
+		if (isset($this->s__sesion)) {
+			$componente->set_datos(consultas_instancia::get_solicitudes_browser($this->s__sesion, $solicitud));
 		}
 	}
 

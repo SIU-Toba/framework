@@ -135,7 +135,7 @@ class ci_editor extends toba_ci
 	function evt__form_proyectos__baja()
 	{
 		//-- Perfil funcional -------------------------
-		$id = $this->datos('proyecto')->get_id_fila_condicion( array('proyecto' => $this->s__proyecto) );
+		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto' => $this->s__proyecto));
 		foreach ($id as $clave) {
 			$this->datos('proyecto')->eliminar_fila($clave);
 		}
@@ -229,13 +229,13 @@ class ci_editor extends toba_ci
 	private function encriptar_datos($dato_original)
 	{	
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'],0,8));		
+		return mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
 	}
 	
 	private function desencriptar_datos($dato_encriptado)
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_encriptado, MCRYPT_MODE_CBC, substr($clave['db'],0,8));		
+		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_encriptado, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
 	}
 }
 ?>

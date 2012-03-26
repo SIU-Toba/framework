@@ -113,7 +113,7 @@ class admin_instancia
 	
 	function eliminar_bloqueos()
 	{
-		$sql = "DELETE FROM toba_logs.apex_log_ip_rechazada;";
+		$sql = 'DELETE FROM toba_logs.apex_log_ip_rechazada;';
 		toba::db()->ejecutar($sql);
 	}
 	
@@ -126,7 +126,7 @@ class admin_instancia
 	
 	function eliminar_bloqueo_usuarios()
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1";
+		$sql = 'UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1';
 		toba::db()->ejecutar($sql);	
 	}
 	
@@ -139,7 +139,7 @@ class admin_instancia
 	
 	function agregar_bloqueo_usuarios()
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0";
+		$sql = 'UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0';
 		toba::db()->ejecutar($sql);	
 	}
 	

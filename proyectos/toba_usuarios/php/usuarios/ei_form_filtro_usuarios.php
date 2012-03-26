@@ -12,9 +12,9 @@ class ei_form_filtro_usuarios extends toba_ei_formulario
 				echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};'>";
 				$this->generar_input_ef('pertenencia');
 				$this->generar_input_ef('proyecto');
-				echo "</div>";
-				echo "</div>";
-			}else{
+				echo '</div>';
+				echo '</div>';
+			} else {
 				if ($ef <> 'proyecto') {
 					$this->generar_html_ef($ef);	
 				}				

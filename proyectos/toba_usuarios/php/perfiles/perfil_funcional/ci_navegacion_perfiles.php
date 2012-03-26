@@ -26,10 +26,10 @@ class ci_navegacion_perfiles extends toba_ci
 			$this->pantalla('seleccion_perfil')->eliminar_evento('agregar');
 		} 
 		if (! $this->s__ver_esquema) {
-			$this->evento('ver_grafico')->set_etiqueta("Ver Esquema");
+			$this->evento('ver_grafico')->set_etiqueta('Ver Esquema');
 			$this->pantalla()->eliminar_dep('esquema');
 		} else {
-			$this->evento('ver_grafico')->set_etiqueta("Ocultar Esquema");			
+			$this->evento('ver_grafico')->set_etiqueta('Ocultar Esquema');			
 		}
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion_perfil')->eliminar_evento('ver_grafico');
@@ -55,9 +55,9 @@ class ci_navegacion_perfiles extends toba_ci
 		$dir = $proyecto->get_dir(). '/';
 		try {			
 			$proyecto->crear_script_generacion_roles_db($dir);
-			toba::notificacion()->agregar("Se han generado los scripts de actualización de roles de base de datos.\n Los mismos se encuentran en el directorio raiz del proyecto, recuerde ejecutarlos",'info');				
+			toba::notificacion()->agregar('Se han generado los scripts de actualización de roles de base de datos.\n Los mismos se encuentran en el directorio raiz del proyecto, recuerde ejecutarlos', 'info');				
 		} catch (toba_error $e) {
-			toba::notificacion()->agregar('No se ha podido generar los scripts de actualización de roles de base de datos, por favor utilice el comando toba proyecto roles_script','error');				
+			toba::notificacion()->agregar('No se ha podido generar los scripts de actualización de roles de base de datos, por favor utilice el comando toba proyecto roles_script', 'error');				
 		}		
 	}
 	
@@ -68,7 +68,7 @@ class ci_navegacion_perfiles extends toba_ci
 		//- Sincronizar la relacion
 		if ($this->dep('datos')->esta_cargada()) {
 			$alta = false;
-		}else{
+		} else {
 			$alta = true;
 		}
 		$this->dep('datos')->sincronizar();
@@ -156,7 +156,7 @@ class ci_navegacion_perfiles extends toba_ci
 		$datos = array();
 		if ($this->datos('accesos')->hay_cursor()) {
 			$datos = $this->datos('accesos')->get();
-			$componente->set_solo_lectura( array('usuario_grupo_acc') );
+			$componente->set_solo_lectura(array('usuario_grupo_acc'));
 			
 			if (toba::instalacion()->es_produccion() && isset($datos['permite_edicion']) && !$datos['permite_edicion']) {
 				$this->pantalla()->eliminar_evento('guardar');
@@ -194,26 +194,26 @@ class ci_navegacion_perfiles extends toba_ci
 	function conf__esquema(toba_ei_esquema $esquema) 
 	{
 		$grafo = $this->get_grafo();
-		$diagrama = "digraph G {
+		$diagrama = 'digraph G {
 						rankdir=LR;
 						fontsize=10;
 						node [fontsize=10, fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
-						";
+						';
 		foreach ($grafo->getNodes() as $nodo) {
 			$data = $nodo->getData();
 			$label = $data['usuario_grupo_acc'];
 			$nombre = $data['nombre'];
 			
-			$diagrama .=  "$label [label=\"$nombre\"];\n";
+			$diagrama .= "$label [label=\"$nombre\"];\n";
 			foreach ($nodo->getNeighbours() as $nodo_vecino) {			
 				//Incluyo la relación
-				$vecino =  $nodo_vecino->getData();
-				$diagrama .=  $label . " -> " . $vecino['usuario_grupo_acc']. 
+				$vecino = $nodo_vecino->getData();
+				$diagrama .= $label . ' -> ' . $vecino['usuario_grupo_acc']. 
 							" [label=\"miembro de\",fontsize=10,color=gray];\n";
 			}
 			
 		}
-		$diagrama .= "}";		
+		$diagrama .= '}';		
 		$esquema->set_datos($diagrama);
 	}
 
@@ -251,7 +251,7 @@ class ci_navegacion_perfiles extends toba_ci
 		if (! $aciclico) {
 			$ciclo = array();
 			foreach ($tester->getCycle($grafo) as $nodo) {
-				$data = $nodo->getData();;
+				$data = $nodo->getData();
 				$ciclo[] = $data['nombre'];
 			}
 			$perfiles = implode(', ', $ciclo);

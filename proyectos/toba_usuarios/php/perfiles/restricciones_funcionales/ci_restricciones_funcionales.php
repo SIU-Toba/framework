@@ -17,7 +17,7 @@ class ci_restricciones_funcionales extends toba_ci
 		$raices = $this->dep('arbol')->get_datos();
 		if ($this->dep('restricciones')->esta_cargada()) {
 			$alta = false;
-		}else{
+		} else {
 			$alta = true;
 		}
 		$this->dep('restricciones')->persistidor()->desactivar_transaccion();
@@ -26,7 +26,7 @@ class ci_restricciones_funcionales extends toba_ci
 		if ($alta) {
 			$restriccion = toba::db()->recuperar_secuencia('apex_restriccion_funcional_seq');	
 		}		
-		foreach($raices as $raiz) {
+		foreach ($raices as $raiz) {
 			if ($alta) {
 				$raiz->set_restriccion($restriccion);
 			}
@@ -137,7 +137,7 @@ class ci_restricciones_funcionales extends toba_ci
 				$this->pantalla()->eliminar_evento('guardar');
 				$this->pantalla()->eliminar_evento('eliminar');
 			}
-		}else{
+		} else {
 			$datos['proyecto'] = $this->get_proyecto_seleccionado();
 		}
 		$componente->set_datos($datos);
@@ -152,7 +152,7 @@ class ci_restricciones_funcionales extends toba_ci
 	{
 		if ($this->dep('restricciones')->esta_cargada()) {
 			$this->dep('restricciones')->set($datos);	
-		}else{
+		} else {
 			$this->dep('restricciones')->nueva_fila($datos);	
 		}
 	}	

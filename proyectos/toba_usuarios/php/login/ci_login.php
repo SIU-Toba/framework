@@ -26,8 +26,8 @@ class ci_login extends toba_ci
 			}			
 			try {
 				toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave']);
-			} catch ( toba_error_autenticacion $e ) {
-				toba::notificacion()->agregar( $e->getMessage() );
+			} catch (toba_error_autenticacion $e) {
+				toba::notificacion()->agregar($e->getMessage());
 			}
 		}
 	}

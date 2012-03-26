@@ -36,8 +36,10 @@ class ci_editor_perfiles extends toba_ci
 		$raices = $this->dep('arbol_perfiles')->get_datos();
 		$datos = $this->datos('accesos')->get();
 		if (isset($datos) && !is_null($raices)) {
-			foreach($raices as $raiz) {
-				if ($alta) $raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
+			foreach ($raices as $raiz) {
+				if ($alta) {
+					$raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
+				}
 				$raiz->sincronizar();	
 			}
 		}
@@ -69,7 +71,7 @@ class ci_editor_perfiles extends toba_ci
 		$this->datos('restricciones')->eliminar_filas();
 		$restricciones = $datos['restriccion'];
 		$fila = array();
-		foreach ($restricciones as $id=>$restriccion){
+		foreach ($restricciones as $id=>$restriccion) {
 			$fila['proyecto'] = $this->s__proyecto;
 			$fila['restriccion_funcional'] = $restriccion;
 			$fila['usuario_grupo_acc'] = $this->s__grupo_acceso;
@@ -89,7 +91,7 @@ class ci_editor_perfiles extends toba_ci
 		$this->datos('permisos')->eliminar_filas();
 		$permisos = $datos['permiso'];
 		$fila = array();
-		foreach ($permisos as $id=>$permiso){
+		foreach ($permisos as $id=>$permiso) {
 			$fila['proyecto'] = $this->s__proyecto;
 			$fila['permiso'] = $permiso;
 			$fila['usuario_grupo_acc'] = $this->s__grupo_acceso;

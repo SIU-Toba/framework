@@ -5,10 +5,10 @@ class ci_bloqueo_usuarios extends toba_ci
 
 	function conf()
 	{
-		if ( consultas_instancia::get_cantidad_usuarios_bloqueados() == 0) {
+		if (consultas_instancia::get_cantidad_usuarios_bloqueados() == 0) {
 			$this->pantalla()->eliminar_evento('desbloquear');	
 		}	
-		if ( consultas_instancia::get_cantidad_usuarios_desbloqueados() == 0) {
+		if (consultas_instancia::get_cantidad_usuarios_desbloqueados() == 0) {
 			$this->pantalla()->eliminar_evento('bloquear');	
 		}	
 	}
@@ -19,12 +19,12 @@ class ci_bloqueo_usuarios extends toba_ci
 			if ($this->s__filtro['estado']) {
 				$this->dep('cuadro_usuarios')->eliminar_evento('bloquear');
 				$this->pantalla()->eliminar_evento('bloquear');
-			}else{
+			} else {
 				$this->dep('cuadro_usuarios')->eliminar_evento('desbloquear');
 				$this->pantalla()->eliminar_evento('desbloquear');
 			}
 			$componente->set_datos($this->s__filtro);
-		}else{
+		} else {
 			$this->pantalla()->eliminar_evento('desbloquear');	
 			$this->pantalla()->eliminar_evento('bloquear');	
 		}
@@ -55,11 +55,11 @@ class ci_bloqueo_usuarios extends toba_ci
 		if (isset($this->s__filtro)) {
 			if ($this->s__filtro['estado']) {
 				$titulo = 'Listado de Usuarios Bloqueados';
-			}else{
+			} else {
 				$titulo = 'Listado de Usuarios Desbloqueados';
 			}
 			$componente->set_titulo($titulo);
-			$componente->set_datos( admin_instancia::get_lista_usuarios_bloqueados($this->s__filtro['estado']) );	
+			$componente->set_datos(admin_instancia::get_lista_usuarios_bloqueados($this->s__filtro['estado']));	
 		}		
 	}
 

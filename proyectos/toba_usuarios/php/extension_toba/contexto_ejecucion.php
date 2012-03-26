@@ -8,6 +8,8 @@ class contexto_ejecucion implements toba_interface_contexto_ejecucion
 		require_once('lib/consultas_instancia.php');
 	}
 	
-	function conf__final(){}
+	function conf__final()
+	{		
+	}
 }
 ?>

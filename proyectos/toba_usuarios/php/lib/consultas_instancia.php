@@ -54,16 +54,16 @@ class consultas_instancia
 		$proyecto = quote($proyecto);
 		$where = '';
 		$filtro_sano = quote($filtro);
-		if(isset($filtro['sesion'])){
+		if (isset($filtro['sesion'])) {
 			$where .= " AND se.sesion_browser = {$filtro_sano['sesion']} ";
 		} else {
-			if(isset($filtro['desde'])) {
+			if (isset($filtro['desde'])) {
 				$where .= " AND date(se.ingreso) >= {$filtro_sano['desde']} ";
 			}
-			if(isset($filtro['hasta'])) {
+			if (isset($filtro['hasta'])) {
 				$where .= " AND date(se.ingreso) <= {$filtro_sano['hasta']} ";
 			}
-			if(isset($filtro['usuario'])) {
+			if (isset($filtro['usuario'])) {
 				$where .= " AND usuario = {$filtro_sano['usuario']} ";
 			}
 		}
@@ -173,22 +173,22 @@ class consultas_instancia
 	//------ Usuarios -----------------------------------------------------
 	//---------------------------------------------------------------------
 
-	function get_lista_usuarios($filtro = null)
+	function get_lista_usuarios($filtro=null)
 	{
 		$where = '';
 		$condiciones = array();
-		if(isset($filtro)){
-			if(isset($filtro['nombre'])){
+		if (isset($filtro)) {
+			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
 				$condiciones[] = "(nombre ILIKE $quote)";
 			}
-			if(isset($filtro['usuario'])){
+			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
 				$condiciones[] = "(usuario ILIKE $quote)";
 			}
 		}
-		if($condiciones) {
-			$where = ' WHERE ' . implode(' AND ',$condiciones);	
+		if ($condiciones) {
+			$where = ' WHERE ' . implode(' AND ', $condiciones);	
 		}
 		$sql = "SELECT 	usuario,
 						nombre
@@ -200,20 +200,20 @@ class consultas_instancia
 	
 	static function get_usuarios_no_vinculados($filtro=null)
 	{
-		$where = "WHERE		up.proyecto IS NULL";
+		$where = 'WHERE	up.proyecto IS NULL';
 		$condiciones = array();
-		if(isset($filtro)){
-			if(isset($filtro['nombre'])){
+		if (isset($filtro)) {
+			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
 				$condiciones[] = "(nombre ILIKE $quote)";
 			}
-			if(isset($filtro['usuario'])){
+			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
 				$condiciones[] = "(usuario ILIKE $quote)";
 			}
 		}
 		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ',$condiciones);
+			$where .= 'AND' . implode(' AND ', $condiciones);
 		}
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
@@ -251,18 +251,18 @@ class consultas_instancia
 					AND		up.proyecto = $proyecto";
 
 		$condiciones = array();
-		if(isset($filtro)){
-			if(isset($filtro['nombre'])){
+		if (isset($filtro)) {
+			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
 				$condiciones[] = "(u.nombre ILIKE $quote)";
 			}
-			if(isset($filtro['usuario'])){
+			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
 				$condiciones[] = "(u.usuario ILIKE $quote)";
 			}
 		}
 		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ',$condiciones);
+			$where .= 'AND' . implode(' AND ', $condiciones);
 		}
 		$sql = "SELECT 	up.proyecto as proyecto,
 						up.usuario as usuario, 
@@ -276,13 +276,13 @@ class consultas_instancia
 				";
 		$datos = toba::db()->consultar($sql);
 		$temp = array();
-		foreach( $datos as $dato ) {
+		foreach ($datos as $dato) {
 			$temp[$dato['usuario']]['proyecto'] = $dato['proyecto'];
 			$temp[$dato['usuario']]['usuario'] = $dato['usuario'];
 			$temp[$dato['usuario']]['nombre'] = $dato['nombre'];
-			if(isset($temp[$dato['usuario']]['grupo_acceso'])) {
+			if (isset($temp[$dato['usuario']]['grupo_acceso'])) {
 				$temp[$dato['usuario']]['grupo_acceso'] .= ', ' . $dato['grupo_acceso'];
-			}else{
+			} else {
 				$temp[$dato['usuario']]['grupo_acceso'] = $dato['grupo_acceso'];
 			}
 		}
@@ -297,19 +297,19 @@ class consultas_instancia
 			$join = " AND up.proyecto = $proyecto";
 		}
 		$condiciones = array();
-		if(isset($filtro)){
-			if(isset($filtro['nombre'])){
+		if (isset($filtro)) {
+			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
 				$condiciones[] = "(u.nombre ILIKE $quote)";
 			}
-			if(isset($filtro['usuario'])){
+			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
 				$condiciones[] = "(u.usuario ILIKE $quote)";
 			}
 		}
 		$where = '';
 		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ',$condiciones);
+			$where .= 'AND' . implode(' AND ', $condiciones);
 		}
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
