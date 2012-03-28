@@ -91,8 +91,10 @@ class ci_principal extends ci_editores_toba
 	{
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
 		$form->ef('template')->set_botonera('Layout');
-		$form->ef('template')->set_alto('400px');		
-		$form->ef('template')->set_path_template($vinculo);		
+		$form->ef('template')->set_alto('400px');				
+		//$archivo = toba_recurso::url_toba() . '/js/ckeditor/plugins/templates/templates/toba_layout.js';
+		$form->ef('template')->set_path_template(array($vinculo));
+		 
 		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		if (isset($datos['template']) && trim($datos['template']) != '') {
 			$datos['tipo_layout'] = 'L';
@@ -113,10 +115,10 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	function conf__form_layout_impresion(toba_ei_formulario $form)
 	{
-		$form->ef('template')->get_editor()->ToolbarSet = 'Layout';
-		$form->ef('template')->get_editor()->Height = '400px';
 		$vinculo = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'ejecutar'));
-		$form->ef('template')->get_editor()->Config['TemplatesXmlPath'] = $vinculo;
+		$form->ef('template')->set_botonera('Layout');
+		$form->ef('template')->set_alto('400px');		
+		$form->ef('template')->set_path_template(array($vinculo));		
 		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
 		unset($datos['template']);
 		if (isset($datos['template_impresion']) && trim($datos['template_impresion']) != '') {
@@ -151,39 +153,39 @@ class ci_principal extends ci_editores_toba
 		if (isset($imagen)) {
 			return parent::servicio__ejecutar();		
 		}
-		$url = toba::proyecto()->get_www('img/fck_templates/');
+		$url = toba::proyecto()->get_www('img/fck_templates/') ;
 		$salida = "
-			CKEDITOR.addTemplates('toba_layout', 
-			{
-				imagesPath: '$url', 
-				templates:
-					[
-						{
-							title: 'Lineal',
-							image: 'tabla_1_col.gif', 
-							description: 'Un campo debajo del otro, es el layout original' ,
-							html: '{$this->get_template_lineal()}'
-						},
-						{
-							title: 'Tabla Lineal', 
-							image: 'tabla_1_col.gif', 
-							description: 'Un campo debajo del otro, es el layout original' , 
-							html: '{$this->get_template_columnas(1)}'
-						},
-						{
-							title: 'Tabla Dos Columnas', 
-							image: 'tabla_2_col.gif',
-							description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo dos campos por fila' , 
-							html: '{$this->get_template_columnas(2)}'
-						},
-						{
-							title: 'Tabla Tres Columnas',
-							image: 'tabla_3_col.gif', 
-							description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo tres campos por fila' , 
-							html: '{$this->get_template_columnas(3)}'
-						}
-					]
-			}); ";
+		CKEDITOR.addTemplates('default', 
+		{
+			imagesPath: '{$url['url']}', \n
+			templates: \n
+				[ \n
+					{ \n
+						title: 'Lineal', \n
+						image: 'tabla_1_col.gif', \n
+						description: 'Un campo debajo del otro, es el layout original' , \n
+						html: '{$this->get_template_lineal()}' \n
+					},\n
+					{ \n
+						title: 'Tabla Lineal', \n
+						image: 'tabla_1_col.gif', \n
+						description: 'Un campo debajo del otro, es el layout original' , \n
+						html: '{$this->get_template_columnas(1)}' \n
+					},\n
+					{ \n
+						title: 'Tabla Dos Columnas',  \n
+						image: 'tabla_2_col.gif', \n
+						description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo dos campos por fila' ,  \n
+						html: '{$this->get_template_columnas(2)}' \n
+					}, \n
+					{ \n
+						title: 'Tabla Tres Columnas', \n
+						image: 'tabla_3_col.gif',  \n
+						description: 'Se arma una tabla tomando los campos en el orden definido, incluyendo tres campos por fila' ,  \n
+						html: '{$this->get_template_columnas(3)}' \n
+					} \n
+				] \n
+		}); ";
 		
 		echo $salida;
 	}
@@ -220,7 +222,7 @@ class ci_principal extends ci_editores_toba
 		$total = count($efs);
 		foreach ($efs as $ef) {
 			if (! $ef['desactivado']) {
-				$salida .= '[ef id='.$ef['identificador']."]\n";
+				$salida .= '[ef id='.$ef['identificador'].']';
 			}
 		}
 		return $salida;		

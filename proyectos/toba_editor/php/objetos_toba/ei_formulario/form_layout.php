@@ -13,8 +13,8 @@ class form_layout extends toba_ei_formulario
 			{
 				if (this.ef('tipo_layout').tiene_estado()) {
 					this.ef('template').mostrar();
-					if (! es_inicial && this.ef('template').get_estado() == '') {
-						{$this->objeto_js}.ef('template').get_editor().Commands.GetCommand('Templates').Execute();
+					if (! es_inicial && trim(this.ef('template').get_estado()) == '') {
+						this.ef('template').get_editor().execCommand('templates');
 					}
 				} else {
 					this.ef('template').ocultar();
