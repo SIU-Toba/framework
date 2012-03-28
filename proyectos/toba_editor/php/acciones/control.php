@@ -197,7 +197,7 @@ function abrir_toba_instancia(){
 		),				
 	);
 
-	echo "<tr  class='listado-barra-fila'><td class='ci-tabs-h-lista' ";		
+	echo "<tr  class='listado-barra-fila'><td class='ci-tabs-h-lista'>\n";		
 	echo "<ul  style='margin-top: 6px'>\n";
 	$id = 'id="tab_inicial"';
 	$i = 0;

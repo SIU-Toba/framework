@@ -285,6 +285,10 @@ class toba_carga_opciones_ef
 	 */
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
+        // Fix. En la descripci?n de un popup $maestros llega con el valor directamente,
+        // no como un arreglo con el valor como lo espera call_user_func
+        $maestros = (! is_array($maestros)) ? array($maestros) : $maestros;
+        
 		if (isset($parametros['carga_include']) || isset($parametros['carga_clase'])) {
 			if(!class_exists($parametros['carga_clase']) && isset($parametros['carga_include']) && $parametros['carga_include'] != '') {
 				$pm = toba::puntos_montaje()->get_por_id($parametros['punto_montaje']);
