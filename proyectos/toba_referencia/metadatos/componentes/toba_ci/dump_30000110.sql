@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'12000003', --punto_montaje
-	'ci_servicios', --subclase
-	'servicios/ci_servicios.php', --subclase_archivo
+	'ci_cliente', --subclase
+	'servicios/sin_seguridad/ci_cliente.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Servicios Web', --nombre
@@ -187,32 +187,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'30000048', --pantalla
 	'pant_datos_password', --identificador
 	'3', --orden
-	'Arreglos (c/autenticación de password)', --etiqueta
+	'Arreglos', --etiqueta
 	'Se envia un arreglo de N-dimensiones con claves asociativas, en el servidor se reduce a un arreglo numérico. 
 <ul>
 <li>Para enviar un arreglo simplemente se lo pasa al constructor de <em>toba_servicio_web_mensaje</em></li>
 <li>Para transformar la respuesta XML en un arreglo se usa la api <em>$mensaje->get_array()</em>
-<li>Se usa una autenticación con password  (ws-security y ws-addressing)
 </ul>', --descripcion
-	NULL, --tip
-	'apex', --imagen_recurso_origen
-	NULL, --imagen
-	NULL, --objetos
-	NULL, --eventos
-	NULL, --subclase
-	NULL, --subclase_archivo
-	NULL, --template
-	NULL, --template_impresion
-	'12000003'  --punto_montaje
-);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
-	'toba_referencia', --objeto_ci_proyecto
-	'30000110', --objeto_ci
-	'30000049', --pantalla
-	'pant_encriptacion_firma', --identificador
-	'4', --orden
-	'Encriptación y firma de mensajes', --etiqueta
-	'En la comunicación se envia un mensaje encriptado desde el cliente. También el cliente firma el mensaje para asegurar su identidad.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -229,7 +209,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'30000110', --objeto_ci
 	'30000050', --pantalla
 	'pant_secuencia', --identificador
-	'5', --orden
+	'4', --orden
 	'Secuencia de mensajes', --etiqueta
 	'<p>Se envian tres mensajes, el primero espera respuesta (método request) mientras que los otros dos no (método send). Esta secuencia no constituye una transacción ya que cada mensaje implica un request HTTP individual y por lo tanto cada servicio tiene una sesión propia de la base de datos. Para poder usar una transacción de base de datos en el servidor es necesario wrappear las tres operaciones en una única</p>', --descripcion
 	NULL, --tip
@@ -268,13 +248,6 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'30000110', --objeto_ci
 	'0', --orden
 	'30000064'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'toba_referencia', --proyecto
-	'30000049', --pantalla
-	'30000110', --objeto_ci
-	'0', --orden
-	'30000065'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'toba_referencia', --proyecto

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000031]--  Clientes 
+--[30000031]--  Sin Seguridad 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,12 +23,12 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Clientes', --nombre
+	'Sin Seguridad', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000003', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
-	'0', --orden
+	'1', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

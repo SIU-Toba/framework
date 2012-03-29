@@ -1,12 +1,12 @@
 <?php
-class ci_servicios extends toba_ci
+class ci_cliente extends toba_ci
 {
 	protected $s__echo;
 	protected $s__datos_password;
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
-	protected $path_servicio;
 	protected $datos_persona;
+	protected $path_servicio = "sin_seguridad/servicio.php";
 	
 	function ini()
 	{
@@ -22,20 +22,15 @@ class ci_servicios extends toba_ci
 
 	function conf__form_echo(toba_ei_formulario $form)
 	{
-		$this->path_servicio = 'varios/servicios/serv_sin_seguridad.php';
 		if (isset($this->s__echo)) {
 			$form->set_datos($this->s__echo);
 		}
-	
+
 	}
 
 	function evt__form_echo__enviar($datos)
 	{
 		$this->s__echo = $datos;
-
-		$header1 = new WSHeader(array('name' => 'tag_name', 'data' => 'Este texto no te lo esperabas, es parte del header'));
-		$header2 = new WSHeader(array('name' => 'tag_name2', 'data' => 'Prueba y Error'));
-		
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
 	<texto>{$datos['texto']}</texto>
@@ -45,7 +40,7 @@ XML;
 			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
 		);
 		$servicio = toba::servicio_web('sin_seguridad', $opciones);
-		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload, array('inputHeaders' => array(new WSHeader( array('name' => 'grupo', 'data' => array($header1, $header2)))))));
+		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload));
 		toba::notificacion()->info($respuesta->get_payload());
 	}
 
@@ -55,7 +50,6 @@ XML;
 	
 	function conf__form_adjunto(toba_ei_formulario $form)
 	{
-		$this->path_servicio = 'varios/servicios/serv_sin_seguridad.php';		
 		if (isset($this->s__adjunto)) {
 			$datos = array();
 			$datos['adjunto'] = $this->s__adjunto['archivo'];
@@ -113,7 +107,6 @@ XML;
 
 	function conf__form_datos_password(toba_ei_formulario $form)
 	{
-		$this->path_servicio = 'varios/servicios/serv_password.php';		
 		if (isset($this->s__datos_password)) {
 			$form->set_datos($this->s__datos_password);
 		}
@@ -131,30 +124,13 @@ XML;
 			}
 		}
 	
-		//--2- Opciones de seguridad
-		//$policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
-		$seguridad = array("encrypt" => true,
-					"algorithmSuite" => "Basic256Rsa15",
-					"securityTokenReference" => "IssuerSerial");
- 
-		$policy = new WSPolicy(array("security"=> $seguridad));
-		/*$security_token = new WSSecurityToken(array('user' => $this->s__datos_password['usuario'],
-			'password' => $this->s__datos_password['password'],
-			'passwordType' => 'Digest'));*/
-		
-		$security_token = toba_servicio_web_cliente::get_ws_token(toba::proyecto()->get_id(), 'seguridad_password');		//Requerido por WSF 2.1.0
-		if ( is_null($security_token)) {
-			throw new toba_error_def('Falta configuración de seguridad del servicio, ejecute el comando configurar_consumo');			
-		}
-		
+		//--2- Opciones
 		$opciones = array(
-    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password', 
-    					'policy' => $policy, 
-    					'securityToken' => $security_token
+    					'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad', 
 					);
     	
 		//--3- Construye el cliente
-		$servicio = toba::servicio_web('seguridad_password', $opciones);
+		$servicio = toba::servicio_web('sin_seguridad', $opciones);
 		
 		//--4- Hace un request a la acción específica enviando el arreglo
 		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/aplanar_array');
@@ -170,68 +146,12 @@ XML;
 	}
 
 
-	
-	
-	//--------------------------------------------------------------
-	//---- Encriptacion y firmado del mensaje     ------------------
-	//--------------------------------------------------------------
-
-	function conf__form_echo_seguro(toba_ei_formulario $form)
-	{
-		$this->path_servicio = 'varios/servicios/serv_encriptado_firmado.php';		
-		if (isset($this->s__echo)) {
-			$form->set_datos($this->s__echo);
-		}
-	}
-
-	function evt__form_echo_seguro__enviar($datos)
-	{
-		//--1- Arma el mensaje		
-		$this->s__echo = $datos;
-		$payload = <<<XML
-<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
-	<texto>{$datos['texto']}</texto>
-</ns1:eco>
-XML;
-		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
-		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
-		
-		
-		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
-		$carpeta = dirname(__FILE__);
-		$cert_server = ws_get_cert_from_file($carpeta.'/cert_server.cert');
-		$clave_privada = ws_get_key_from_file($carpeta."/clave_cliente.pem");
-		$cert_cliente = ws_get_cert_from_file($carpeta."/cert_cliente.cert");
-    
-		$seguridad = array("encrypt" => true,
-                       "algorithmSuite" => "Basic256Rsa15",
-                       "securityTokenReference" => "IssuerSerial");
-    
-		$policy = new WSPolicy(array("security" => $seguridad));
-		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,	//Encriptación
-											"receiverCertificate" => $cert_server,	//Encriptación
-											"certificate" 		=> $cert_cliente,	//Firmado
-											)
-						);		
-    	$opciones = array(
-    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_encriptado_firmado',    	
-    				'policy' => $policy, 
-    				'securityToken' => $security_token
-    	);		
-		$servicio = toba::servicio_web('encriptado_firmado', $opciones);
-	
-		//-- 3 - Muestra la respuesta		
-		$respuesta = $servicio->request($mensaje);
-		toba::notificacion()->info($respuesta->get_payload());		
-	}
-		
 	//--------------------------------------------------------------
 	//---- Secuencia de mensajes     -------------------------------
 	//--------------------------------------------------------------	
 	
 	function conf__form_secuencia(toba_ei_formulario $form)
 	{
-		$this->path_servicio = 'varios/servicios/serv_password.php';
 		if (isset($this->datos_persona)) {
 			$form->set_datos($this->datos_persona);
 		}
@@ -241,15 +161,10 @@ XML;
 	{
 		$this->datos_persona = $datos;
 		
-		//--1- Construye el cliente usando seguridad por password
-	    $policy = new WSPolicy(array('security' => array('useUsernameToken' => true)));
-	    $security_token = new WSSecurityToken(array('user' => 'toba', 'password' => 'toba'));
     	$opciones = array(
-    		    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_password',    	
-    					'policy' => $policy, 
-    					'securityToken' => $security_token
+    		    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad',    	
     	);
-    	$servicio = toba::servicio_web('seguridad_password', $opciones);
+    	$servicio = toba::servicio_web('sin_seguridad', $opciones);
     	
     	//--2- Da de alta la persona
     	$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/persona_alta');
@@ -282,7 +197,7 @@ XML;
 	{
 		parent::post_configurar();
 		$img = toba_recurso::imagen_toba('nucleo/php.gif', true);
-		$cliente = 'varios/servicios/ci_servicios.php';
+		$cliente = 'servicios/sin_seguridad/ci_cliente.php';
 		$url_cliente = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $cliente), array('prefijo'=>toba_editor::get_punto_acceso_editor()));		
 		$url_servicio = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $this->path_servicio), array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$html = "<div style='float:right'><a target='logger' href='$url_cliente'>$img Ver .php del Cliente</a>";

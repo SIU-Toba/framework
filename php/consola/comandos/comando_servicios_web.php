@@ -13,14 +13,65 @@ class comando_servicios_web extends comando_toba
 		$this->consola->mensaje("INVOCACION: toba servicio_web OPCION");
 		$this->consola->enter();
 	}
+	
+	protected function get_servicio_serv() 
+	{
+		$proyecto = $this->get_proyecto();
+		$parametros = $this->get_parametros();
+		if (isset($parametros['-s'])) {
+			$servicio = $parametros['-s'];
+			$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());
+			foreach($servicios_disponibles as $serv) {
+				if ($servicio == $serv['item']) {
+					return $servicio;
+				}
+			}			
+			throw new toba_error("El servicio $servicio no esta definido en el proyecto");
+		} else {
+			//Elijo el servicio web sobre el que trabajare
+			$servicios_lista = array();
+			$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());
+			foreach($servicios_disponibles as $serv) {
+				$servicios_lista[$serv['item']] = $serv['nombre'];
+			}
+			$servicio = $this->consola->dialogo_lista_opciones($servicios_lista, 'Seleccione el servicio web');
+		}		
+		return $servicio;
+	} 
+	
+	protected function get_servicio_cli()
+	{
+		$proyecto = $this->get_proyecto();
+		$parametros = $this->get_parametros();
+		if (isset($parametros['-s'])) {
+			$servicio = $parametros['-s'];
+			$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());
+			foreach($servicios_disponibles as $serv) {
+				if ($servicio == $serv['servicio_web']) {
+					return $servicio;
+				}
+			}
+			throw new toba_error("El consumo del servicio $servicio no esta definido en el proyecto");
+		} else {
+			//Elijo el servicio web sobre el que trabajare
+			$servicios_lista = array();
+			$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());
+			foreach($servicios_disponibles as $serv) {
+				$servicios_lista[$serv['servicio_web']] = $serv['servicio_web'];
+			}
+			$servicio = $this->consola->dialogo_lista_opciones($servicios_lista, 'Seleccione el servicio web');
+		}
+		return $servicio;
+	}	
 
 	//--------------------------------------------------------------------------------------------------------------------------------------//
 	//								SERVER										   //
 	//--------------------------------------------------------------------------------------------------------------------------------------//	
 	/**
-	 * Genera la documentación de los servicios web provistos por el proyecto (requiere tener publicado el proyecto en localhost)
+	 * Genera la documentacion de los servicios web provistos por el proyecto (requiere tener publicado el proyecto en localhost)
+	 *        -r 0|1 reemplaza la documentacion existente
 	 */
-	function opcion__generar_doc()
+	function opcion__serv_generar_doc()
 	{
 		$param = $this->get_parametros();
 		$forzar_reemplazo = isset($param["-r"]) ? ($param["-r"] == 1) : false;
@@ -68,8 +119,10 @@ class comando_servicios_web extends comando_toba
 	
 	/**
 	 *  Agrega la ruta de los archivos .cert / .pem que seran usados para brindar servicios web seguros
+	 *        -d Directorio donde se encuentra la CA
+	 *      
 	 */
-	function opcion__conf_ssl_server()
+	function opcion__serv_generar_cert()
 	{		
 		//Pido el directorio donde se encuentra la Certificate Authority
 		$ca_dir = $this->consola->dialogo_ingresar_texto('Directorio donde se encuentra la CA');
@@ -99,161 +152,141 @@ class comando_servicios_web extends comando_toba
 	}
 	
 	/**
-	 * Genera un paquete firmado de headers que se intercambiaran durante el pedido de servicio web
+	 * Genera un .zip conteniendo el certificado y firma, para ser importado por un cliente especifico
+	 *        -p Proyecto
+	 *        -s Servicio a exportar        
+	 *        -c 0|1 genera certificados (activado por defecto)
+	 *        -h clave=valor Headers a incluir, separar por comas para ingresar mas de uno
+	 *        -d Path destino (path actual por defecto)
 	 */
-	function opcion__paquete_cliente()
+	function opcion__serv_exportar_config()
 	{
+		$parametros = $this->get_parametros();
+
 		//Pa arrancar pido el proyecto
 		$proyecto = $this->get_proyecto();
-		
-		//Busco los archivos de certificados del servidor (son necesarios para la comunicacion, fallo rapido)
 		$instalacion = new toba_modelo_instalacion();
-		$archivos = $instalacion->get_archivos_certificado();
-		if (is_null($archivos)) {
-			throw new toba_error('No existe informacion disponible de certificados SSL, utilice el comando toba servicios_web conf_ssl_server');
-		}
+	
 			
-		//Elijo el servicio web sobre el que trabajare
-		$servicios_lista = array();		
-		$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());		
-		foreach($servicios_disponibles as $serv) {
-			$servicios_lista[$serv['item']] = $serv['nombre'];
-		}		
-		$servicio = $this->consola->dialogo_lista_opciones($servicios_lista, 'Seleccione el servicio web');
-				
+		$servicio = $this->get_servicio_serv();			
 		//Creo el directorio para el servicio web
-		$punto_partida =  $proyecto->get_dir_instalacion_proyecto(). '/servicios';						
-		$dir_servicio = $punto_partida . '/'. $servicio;
-		toba_manejador_archivos::crear_arbol_directorios($dir_servicio, 0755);
+		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();						
+		$dir_servicio_cliente = $punto_partida . '/servicios_cli/'. $servicio;
+		$dir_servicio_servidor = $punto_partida . '/servicios_serv/'. $servicio;
+		toba_manejador_archivos::crear_arbol_directorios($dir_servicio_cliente, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($dir_servicio_servidor, 0755);
 		
 		//Aca hago el ciclo para pedir los datos
-		$datos = array();
-		$pregunta = $this->consola->dialogo_ingresar_texto('Existen parámetros a enviar?[s/n]');
-		$seguir = $hay_parametros =  (strtolower($pregunta) == 's');
-		//$this->consola->mensaje('Parametros a enviar por defecto', true);
-		while ($seguir)  {
-			$id = $this->consola->dialogo_ingresar_texto('Identificador del dato');
-			$valor = $this->consola->dialogo_ingresar_texto('Valor para el dato');
-			$datos[$id] = $valor;
-			
-			$rta = $this->consola->dialogo_ingresar_texto('Desea seguir? [s/n]');
-			$seguir = ($rta == 's');
+		$headers = array();
+		$hay_parametros = false;
+		if (! isset($parametros['-h'])) {
+			$pregunta = $this->consola->dialogo_ingresar_texto('Existen parámetros a enviar?[s/n]');
+			$seguir = $hay_parametros =  (strtolower($pregunta) == 's');
+			//$this->consola->mensaje('Parametros a enviar por defecto', true);
+			while ($seguir)  {
+				$id = $this->consola->dialogo_ingresar_texto('Identificador del dato');
+				$valor = $this->consola->dialogo_ingresar_texto('Valor para el dato');
+				$headers[$id] = $valor;
+				
+				$rta = $this->consola->dialogo_ingresar_texto('Desea seguir? [s/n]');
+				$seguir = ($rta == 's');
+			} 
+		} else {
+			if (trim($parametros['-h']) != '') {
+				$param_headers = explode(",", trim($parametros['-h']));
+				foreach ($param_headers as $param_header) {
+					list($clave, $valor) = explode("=", trim($param_header));
+					$headers[$clave] = $valor;
+					$hay_parametros = true;
+				}
+			}
 		}
 		
-		//Aca genero el archivo headers.ini en el directorio del servicio
-		if ($hay_parametros) {
-			$archivo_headers = $dir_servicio . '/headers.ini';		
-			$in_headers = new toba_ini($archivo_headers);
-			$in_headers->agregar_titulo('Este archivo contiene los headers por defecto para el servicio '. $servicio);
-			$in_headers->agregar_entrada('headers', $datos);
-			$in_headers->guardar();
-		}
-		//Aca copio el certificado del servidor
-		$nombre = basename($archivos['cert_server']);				//Certificado X509 servidor
-		copy($archivos['cert_server'], $dir_servicio . '/server.cert');
 		
-		//Aca copio los archivos de certificado para el cliente
-		copy($archivos['cert_cliente'], $dir_servicio . '/cliente.cert');
-		copy($archivos['clave_cliente'], $dir_servicio . '/cliente.key');
+		if (!isset($parametros['-c']) || $parametros['-c'] != 0) {
+			$datos_cert_cliente = $this->generar_certificados($dir_servicio_servidor, "cliente");
+			$datos_cert_servidor = $this->generar_certificados($dir_servicio_servidor, "servidor");
+			$cert_server = array('cert_cliente' => $datos_cert_cliente[1], 'clave_server' =>  $datos_cert_servidor[0]);
+			$cert_cliente = array('cert_cliente' => $datos_cert_cliente[1], 'clave_cliente' =>  $datos_cert_cliente[0], 'cert_server' =>  $datos_cert_servidor[1]);
+		} else {
+			$cert_server = array();
+			$cert_cliente = array();
+		}		
 		
 		//Aca genero el par de claves RSA		
 		$datos_rsa = array();
 		if ($hay_parametros) {
-			$key_pair = $this->generar_par_claves($dir_servicio, $servicio);
-		
-			//Copio la clave publica al directorio de claves del servidor		
-			$destino = $instalacion->get_dir(). '/servicios/rsa/'.$key_pair['nombre'].'.public';
+			$key_pair = $this->generar_par_claves($dir_servicio_cliente, $servicio);
+			$destino = $dir_servicio_servidor.'/'.$key_pair['nombre'].'.public';
 			copy($key_pair['publica'], $destino);
-			$datos_rsa = array('privada' => $key_pair['nombre']. '.pkey',  'publica' => $key_pair['nombre']. '.public');			
+			$datos_rsa = array('privada' => "./".$key_pair['nombre']. '.pkey',  'publica' => "./".$key_pair['nombre']. '.public');			
 		}
 		
-		$datos_cert = array('cert_cliente' => 'cliente.cert', 'clave_cliente' => 'cliente.key', 'cert_server' => 'server.cert');
-		$this->generar_archivo_configuracion($datos_cert,$datos_rsa, $dir_servicio);		
-		
-		//Aca guardo las claves en la base de datos
-		if ($hay_parametros) {
-			$this->asociar_claves_servicio($proyecto, $servicio, $datos, $destino);			
-		}
-		$dir_actual = getcwd();	
-		
+		//Genero configuracion Cliente
+		$this->generar_configuracion_cliente($cert_cliente, $datos_rsa, $headers, $dir_servicio_cliente);
+				
+		//Guardo archivo configuracion servidor
+		$this->generar_configuracion_servidor($dir_servicio_servidor, $cert_server, $headers, $destino);
+		$this->consola->mensaje("Se guardo la configuracion en: $dir_servicio_servidor", true);
+
+		if (!isset($parametros['-d'])) {
+			$dir_actual = getcwd();
+		} else {
+			$dir_actual = $parametros['-d'];
+		}	
+
 		//Aca zipeo todo y armo el paquete
 		$nombre_archivo  = "$servicio.zip";
-		$comando = "cd $punto_partida ; zip -1 -m -r $nombre_archivo  $servicio";
+		$comando = "cd $dir_servicio_cliente/.. ; zip -1 -m -r $nombre_archivo  $servicio";
 		if ( toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) != 0) {			
 			toba_logger::instancia()->debug("Error al armar el zip: $comando \n $stderr");
 			throw new toba_error ('No se pudo armar el paquete especificado');
 		}
 		
 		//Dejo el archivo zip en el directorio donde se ejecuta el comando
-		rename("$punto_partida/$nombre_archivo", "$dir_actual/$nombre_archivo");
+		rename($punto_partida."/servicios_cli/$nombre_archivo", "$dir_actual/$nombre_archivo");
 		
 		//Aca informo donde esta el archivo
-		$this->consola->mensaje("El archivo del paquete es $nombre_archivo ");
+		$this->consola->mensaje("El .zip generado es: $dir_actual/$nombre_archivo");
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------//
 	//								CLIENTE										   //
 	//--------------------------------------------------------------------------------------------------------------------------------------//		
+
 	/**
-	 *  Agrega información sobre un servicio web consumido
+	 *  Importa el .zip generado por el servidor
+ 	 *        -p Proyecto
+ 	 *        -s Servicio a importar
+ 	 *        -z Archivo zip        
 	 */
-	function opcion__agregar_consumo()
-	{
-		//Pa arrancar pido el proyecto
-		$proyecto = $this->get_proyecto();		
-		$servicio = $this->consola->dialogo_ingresar_texto('ID Servicio web');		
-		$descripcion = $this->consola->dialogo_ingresar_texto('Ingrese una descripción significativa');		
-		
-		//Obtengo en que url se supone que esta el web_service
-		$url = $this->consola->dialogo_ingresar_texto('Ingrese URL de acceso al WS');		
-		$aux = $this->consola->dialogo_ingresar_texto('Usa WSA? [s/n]');
-		$usa_addressing = (strtolower($aux) == 's') ? 1: 0;
-
-		//Pido los parametros basicos  del servicio web, esto no son los headers
-		$parametros = array();		
-		$preg1 = $this->consola->dialogo_ingresar_texto('El servicio tiene parámetros?');
-		if (strtolower($preg1) == 's') {
-			do {
-				$form = $this->consola->get_formulario("Valores para los parámetros:");
-				$form->agregar_campo(array('id'=>'parametro', 'nombre' => 'Nombre Parámetro'));
-				$form->agregar_campo(array('id'=>'valor', 'nombre' => 'Valor'));
-				$datos = $form->procesar();
-
-				$pregunta = $this->consola->dialogo_ingresar_texto('Desea Ingresar otro par?[s/n]');
-				$quiero_seguir = (strtolower($pregunta) == 's');
-				$parametros[] = $datos;
-			} while ($quiero_seguir);
-		}
-
-		$this->guardar_info_servicio_web($proyecto, $servicio, $parametros, $descripcion, $url, $usa_addressing);		
-	}	
-	
-	/**
-	 *  Configura un consumo existente con el paquete recibido del proveedor del servicio
-	 */
-	function opcion__configurar_consumo()
+	function opcion__cli_importar_config()
 	{
 		//Pa arrancar pido el proyecto y servicio a configurar
 		$proyecto = $this->get_proyecto();		
-		
-		$servicios_lista = array();		
-		$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());		
-		foreach($servicios_disponibles as $serv) {
-			$servicios_lista[$serv['servicio_web']] = $serv['servicio_web'];
-		}		
-		$servicio = $this->consola->dialogo_lista_opciones($servicios_lista, 'Seleccione el servicio web');		
-		$dir_arranque = $proyecto->get_dir_instalacion_proyecto() . '/servicios';
-				
-		//Selecciono el paquete enviado desde el proveedor del servicio
-		$this->consola->mensaje('Ingrese la ruta al paquete que contiene la informacion', true);
-		do {
-			$archivo = $this->consola->dialogo_ingresar_texto('Ruta');
+		$servicio = $this->get_servicio_cli();
+			
+		$dir_arranque = $proyecto->get_dir_instalacion_proyecto() . '/servicios_cli';
+		toba_manejador_archivos::crear_arbol_directorios($dir_arranque, 0755);		
+
+		$parametros = $this->get_parametros();
+		if (isset($parametros['-z'])) {
+			$archivo = $parametros['-z'];
 			$error = (!file_exists($archivo));			
 			if ($error) {
 				$this->consola->mensaje('El archivo no se encuentra en la ruta especificada', true);
+				return;
 			}
-		} while ($error);
-
+		} else {		
+			//Selecciono el paquete enviado desde el proveedor del servicio
+			do {
+				$archivo = $this->consola->dialogo_ingresar_texto('Ruta completa archivo .zip');
+				$error = (!file_exists($archivo));			
+				if ($error) {
+					$this->consola->mensaje('El archivo no se encuentra en la ruta especificada', true);
+				}
+			} while ($error);
+		}
 		//Descomprimo el archivo en el directorio
 		$comando = "unzip -o  $archivo  -d $dir_arranque";
 		if ( toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) != 0) {			
@@ -263,8 +296,11 @@ class comando_servicios_web extends comando_toba
 		
 		//Tengo que renombrar el directorio a lo que sea que eligio el usuario como nombre del servicio
 		chdir($dir_arranque);
+		if (file_exists($dir_arranque."/$servicio")) {
+			toba_manejador_archivos::eliminar_directorio($dir_arranque."/$servicio");
+		}
 		rename(basename($archivo, '.zip'), $servicio);					
-		$this->consola->mensaje('Se importo correctamente el paquete de configuracion', true);
+		$this->consola->mensaje("Se importo correctamente. La configuracion se guardo en: $dir_arranque/$servicio", true);
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -324,6 +360,49 @@ class comando_servicios_web extends comando_toba
 		return $datos;
 	}
 		
+	
+	protected function generar_certificados($directorio, $prefijo)
+	{
+		if (! file_exists($dir_servicio_servidor."/$prefijo.crt") || ! file_exists($dir_servicio_servidor."/$prefijo.pkey")) {
+			$pass = uniqid();
+			$cmd = "openssl genrsa  -passout pass:$pass -des3 -out $directorio/$prefijo.pkey.sign 1024";
+			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+			if ($exito != '0') {
+				$this->consola->error($stderr);
+				$this->consola->enter();
+				die;
+			}
+			
+			$cmd = "openssl req -new -key $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.csr -passin pass:$pass -batch";
+			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+			if ($exito != '0') {
+				$this->consola->error($stderr);
+				$this->consola->enter();
+				die;
+			}
+			
+			$cmd = "openssl rsa -in $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.pkey -passin pass:$pass";
+			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+			if ($exito != '0') {
+				$this->consola->error($stderr);
+				$this->consola->enter();
+				die;
+			}
+			
+			$cmd = "openssl x509 -req -days 20000 -in $directorio/$prefijo.csr -signkey $directorio/$prefijo.pkey -out $directorio/$prefijo.crt";
+			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+			if ($exito != '0') {
+				$this->consola->error($stderr);
+				$this->consola->enter();
+				die;
+			}
+			
+			unlink("$directorio/$prefijo.pkey.sign");
+			unlink("$directorio/$prefijo.csr");			
+		}
+		return array("./$prefijo.pkey", "./$prefijo.crt");
+	}
+	
 	/**
 	 * Genera un par de claves RSA de 1024 bits
 	 * @param string $directorio
@@ -362,33 +441,25 @@ class comando_servicios_web extends comando_toba
 	 * @param array $headers
 	 * @param string $destino 
 	 */
-	protected function asociar_claves_servicio($proyecto, $servicio, $headers, $destino)
+	protected function generar_configuracion_servidor($directorio, $cert_server, $headers,  $archivo_rsa)
 	{
-		//Primero hago un hash sobre todos los headers
-		$str_headers = implode('', $headers);
-		$id = hash('sha512', $str_headers);
-
-		$db = $proyecto->get_instancia()->get_db();						
-		$proyecto_id = $db->quote($proyecto->get_id());
-		$servicio =  $db->quote($servicio);
-		$id =  $db->quote($id);
-		$ruta_pubk =  $db->quote($destino);
-			
-		try {
-			$db->abrir_transaccion();
-			//Invalido cualquier clave anterior que pueda tener dicho hash para el servicio
-			$sql = "UPDATE apex_mapeo_rsa_kp SET anulada = 1 WHERE proyecto = $proyecto_id AND  servicio_web = $servicio AND id = $id;";
-			$db->ejecutar($sql);
-
-			//Agrego el mapeo nuevo
-			$sql = "INSERT INTO apex_mapeo_rsa_kp (proyecto, servicio_web, id, pub_key) VALUES ($proyecto_id, $servicio, $id, $ruta_pubk);";
-			$db->ejecutar($sql);
-			
-			$db->cerrar_transaccion();
-		} catch(toba_error_db $e) {
-			$db->abortar_transaccion();			
-			throw new toba_error('No se pudo guardar la clave');
-		}		
+		$config = new toba_ini($directorio . '/clientes.ini');
+		$config->agregar_titulo('Este archivo contiene la ruta de los certificados y claves publicas que se usan para confirmar la firma RSA de los mensajes');
+		if (! empty($cert_server)) {
+			$config->agregar_entrada('certificado', $cert_server);
+		}
+		if (! empty($headers)) {
+			$nombre = array();
+			ksort($headers);
+			foreach ($headers as $id => $valor) {
+				$nombre[] = $id.'='.$valor;
+			}
+			$nombre = implode(',', $nombre);
+			$datos = array();
+			$datos['archivo'] = "./".basename($archivo_rsa);
+			$config->agregar_entrada($nombre, $datos);
+		}
+		$config->guardar();
 	}
 	
 	/**
@@ -397,13 +468,17 @@ class comando_servicios_web extends comando_toba
 	 * @param array $datos_rsa
 	 * @param string $directorio 
 	 */
-	protected function generar_archivo_configuracion($datos_cert, $datos_rsa, $directorio)
+	protected function generar_configuracion_cliente($datos_cert, $datos_rsa, $headers, $directorio)
 	{
 		$firmado = (! empty($datos_rsa)) ? 1: 0;
 		$config = new toba_ini($directorio . '/servicio.ini');
 		$config->agregar_titulo('Este archivo contiene la ruta de los archivos que se usan para firmar con RSA los mensajes');
-		$config->agregar_entrada('cliente_certificado', $datos_cert);
-		$config->agregar_entrada('firmado' , $firmado);
+		if (! empty($datos_cert)) {
+			$config->agregar_entrada('certificado', $datos_cert);
+		}
+		if (! empty($headers)) {
+			$config->agregar_entrada('headers', $headers);
+		}
 		if ($firmado == 1) {
 			$config->agregar_entrada('RSA', $datos_rsa);
 		}		

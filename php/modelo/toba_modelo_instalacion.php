@@ -929,32 +929,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			return toba_version::inicial();
 		}
 	}	
-	
-	//----------------------------------------------------- SERVICIOS WEB -----------------------------------------------------------------
-	static function get_archivo_configuracion_servicios_web()
-	{
-		//Esto quizas deberia estar en toba_varios
-		$ini_conf = null;
-		$path_ini = self::dir_base().'/servicios_web.ini';		
-		if (file_exists($path_ini)) {
-			$ini_conf = new toba_ini($path_ini);				
-		}
-		return $ini_conf;
-	}
-	
-	function agregar_info_certificado_ssl($datos)
-	{
-		$this->cargar_info_ini(true);
-		$this->cambiar_info_basica(array('X509' =>$datos));
-	}
-	
-	function get_archivos_certificado()
-	{
-		$this->cargar_info_ini();
-		if (isset($this->ini_instalacion['X509'])) {
-			return $this->ini_instalacion['X509'];			
-		}
-		return null;
-	}	
+
 }
 ?>

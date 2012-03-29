@@ -2,7 +2,6 @@
 
 class toba_servicio_web_cliente
 {
-	static protected $ini;	
 	protected $wsf;
 	protected $opciones;
 	protected $id_servicio;
@@ -15,15 +14,14 @@ class toba_servicio_web_cliente
 		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio);
 		$opciones_ini = $info['parametros'];
 		
-		//-- Lee opciones predefinidas del .ini
-		if (! isset(self::$ini)) {
-			self::$ini = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
-			if (! is_null(self::$ini)) {
-				if (self::$ini->existe_entrada($id_servicio)) {
-					$opciones_ini = array_merge($opciones_ini, self::$ini->get_datos_entrada($id_servicio));			
-				}		
+		$proyecto = toba::proyecto()->get_id();
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$id_servicio";		//Directorio perteneciente al servicio
+		if (file_exists($directorio.'/servicio.ini')) {
+			$ini = new toba_ini($directorio.'/servicio.ini');
+			if ($ini->existe_entrada('conexion')) {
+				$opciones_ini = array_merge($opciones_ini, $ini->get_datos_entrada('conexion'));
 			}
-		}
+		}					
 		
 		//Convierte todos los '1' de texto en true
 		foreach (array_keys($opciones_ini) as $id_opcion) {
@@ -62,11 +60,13 @@ class toba_servicio_web_cliente
 	 * @param toba_servicio_web_mensaje $mensaje
 	 * @return toba_servicio_web_mensaje
 	 */
-	function request(toba_servicio_web_mensaje $mensaje)
+	function request(toba_servicio_web_mensaje $mensaje, $usar_configuraciones = true)
 	{
 		try {
 			//Antes de hacer el request, mando a firmar el mensaje con la clave privada.
-			$this->sign($mensaje);
+			if ($usar_configuraciones) {
+				$this->configurar($mensaje);
+			}
 			$message = $this->wsf->request($mensaje->wsf());
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {
@@ -88,14 +88,28 @@ class toba_servicio_web_cliente
 	}
 
 	/**.
-	 *  Dispara el firmado del mensaje 
+	 *  Dispara el firmado/encriptacion del mensaje en base a la configuracion actual 
 	 *  @ignore
 	 */
-	protected function sign(toba_servicio_web_mensaje $mensaje)
+	protected function configurar(toba_servicio_web_mensaje $mensaje)
 	{
-		$archivo = $this->get_clave_privada();
-		if (! is_null($archivo)) {
-			$mensaje->firmar_mensaje($archivo);	
+		$clave = null;
+		$id_servicio = $this->id_servicio;
+		$proyecto = toba::proyecto()->get_id();
+		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$id_servicio";		//Directorio perteneciente al servicio
+		if (! file_exists($directorio) || ! file_exists($directorio . '/servicio.ini')) {
+			//No hay configuracion, no se firma ni encripta
+			return;
+		}
+		$ini_conf = new toba_ini($directorio . '/servicio.ini');
+		if ($ini_conf->existe_entrada('headers')) {
+			$headers = $ini_conf->get('headers');
+			ksort($headers);
+			$mensaje->set_headers($headers);
+		}
+		if ($ini_conf->existe_entrada('RSA')) {
+			$clave = $directorio. '/' . $ini_conf->get('RSA', 'privada');			
+			$mensaje->firmar_mensaje($clave);
 		}
 	}
 
@@ -124,27 +138,7 @@ class toba_servicio_web_cliente
 		}
 		return $headers;
 	}
-	
-	/**
-	 * Devuelve la ruta al archivo que contiene la clave privada
-	 * @return string 
-	 */
-	function get_clave_privada()
-	{	
-		//Esto deberia salir del archivo existente dentro del directorio del servicio web
-		$clave = null;
-		$id_servicio = $this->id_servicio;
-		$proyecto = toba::proyecto()->get_id();		
-		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
 
-		$ini_conf = new toba_ini($directorio . '/servicio.ini');
-		if (! is_null($ini_conf) && $ini_conf->existe_entrada('RSA')) {
-			$aux = $ini_conf->get_datos_entrada('RSA');
-			$clave = $directorio. '/' . $aux['privada'];
-		}				
-		return $clave;
-	}
-	
 	/**
 	 * Devuelve la ruta al archivo que contiene la clave publica
 	 * @return string 

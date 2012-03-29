@@ -5,6 +5,9 @@
  */
 abstract class toba_servicio_web extends toba_componente
 {
+	protected static $opciones = array();	
+	protected static $ini;
+	protected $mapeo_headers = array();
 
 	final function __construct($id)
 	{
@@ -15,6 +18,8 @@ abstract class toba_servicio_web extends toba_componente
 			$this->_dependencias[$dep]->set_controlador($this, $dep);
 			$this->dep($dep)->inicializar();
 		}		
+		
+		$this->inicializar();
 	}
 
 	function get_opciones()
@@ -22,6 +27,42 @@ abstract class toba_servicio_web extends toba_componente
 		return array();
 	}
 	
+	/**
+	 * @ignore Metodo interno que llama la solicitud web para 
+	 */
+	public static function _get_opciones($id, $clase)
+	{
+		if (! isset(self::$ini)) {
+			$proyecto = toba::proyecto()->get_id();
+			$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_serv/".$id;		//Directorio perteneciente al servicio
+			if (file_exists($directorio.'/clientes.ini')) {
+				self::$ini = new toba_ini($directorio.'/clientes.ini');
+			}
+		}
+		if (isset(self::$ini)) {		
+			if (self::$ini->existe_entrada('conexion')) {
+				self::$opciones = self::$ini->get_datos_entrada('conexion');
+			}
+			if (self::$ini->existe_entrada('certificado')) {
+				//Agrego los certificados manualmente
+				chdir($directorio);
+				$certificado_cliente = ws_get_cert_from_file(self::$ini->get("certificado", "cert_cliente"));
+				$clave_privada = ws_get_cert_from_file(self::$ini->get("certificado", "clave_server"));
+				$seguridad = array("encrypt" => true,
+												"algorithmSuite" => "Basic256Rsa15",
+												"securityTokenReference" => "IssuerSerial");
+				$policy = new WSPolicy(array("security"=> $seguridad));
+				$security = new WSSecurityToken(array(
+							"privateKey" => $clave_privada,
+							"receiverCertificate" => $certificado_cliente)
+				);
+				self::$opciones['policy'] = $policy;
+				self::$opciones['securityToken'] = $security;
+			}
+		}
+		self::$opciones = array_merge(self::$opciones, call_user_func(array($clase, 'get_opciones')));		
+		return self::$opciones;
+	}	
 	
 	/**
 	 * Rutea WSF hacia la extensión
@@ -54,18 +95,20 @@ abstract class toba_servicio_web extends toba_componente
 	{
 		$headers = array();
 		$datos = $mensaje->wsf()->outputHeaders;
-		foreach($datos as $encabezado) {		
-			$pila[] = simplexml_load_string($encabezado->str);
-		}
-		while(! empty($pila)) {
-			$elemento = array_shift($pila);
-			foreach($elemento->children() as $hijo) {
-				$pila[] = $hijo;				
-			}			
-			if ($elemento->count() == 0) {						//Si es una hoja obtengo el valor							
-				$name = $elemento->getName();
-				$value = (string) $elemento;				
-				$headers[$name] = $value;
+		if (isset($datos)) {
+			foreach($datos as $encabezado) {		
+				$pila[] = simplexml_load_string($encabezado->str);
+			}
+			while(! empty($pila)) {
+				$elemento = array_shift($pila);
+				foreach($elemento->children() as $hijo) {
+					$pila[] = $hijo;				
+				}			
+				if ($elemento->count() == 0) {						//Si es una hoja obtengo el valor							
+					$name = $elemento->getName();
+					$value = (string) $elemento;				
+					$headers[$name] = $value;
+				}
 			}
 		}
 		return $headers;
@@ -79,57 +122,45 @@ abstract class toba_servicio_web extends toba_componente
 	protected function verificar_firma($headers, $contenido_mensaje )
 	{
 		//Recuperar la firma calculada en el cliente
-		if (! empty($headers)) {
-			if (isset($headers['firma'] )) {			
-				$firma_original = base64_decode($headers['firma']);
-				unset($headers['firma']); 
-
-				//Ahora verifico la firma
-				$clave_necesaria = $this->get_clave_publica($headers);		
-				$data = $contenido_mensaje. implode('',$headers);
-
-				$pub_key_id = openssl_get_publickey('file://'.$clave_necesaria);
-				if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
-					throw new toba_error('El mensaje no es válido o no fue posible procesar su firma correctamente');
-				}
-			} else {
-				throw new toba_error('El mensaje no viene firmado, se anula el pedido');
+		if (! empty($headers) && isset($headers['firma'] )) {
+			$firma_original = base64_decode($headers['firma']);
+			unset($headers['firma']);
+			
+			if (isset($headers['Security'])) {
+				unset($headers['Security']);
 			}
+			$data = $contenido_mensaje. implode('',$headers);
+			
+			//Busco la clave publica
+			$nombre = array();
+			ksort($headers);
+			foreach ($headers as $id => $valor) {
+				$nombre[] = $id.'='.$valor;
+			}
+			$nombre = implode(',', $nombre);
+			if (! isset($this->mapeo_headers[$nombre])) {
+				throw new toba_error("El mensaje no contiene headers definidos ('$nombre' no existe)");
+			}
+			$archivo = $this->mapeo_headers[$nombre];
+			
+			//Ahora verifico la firma
+			$pub_key_id = openssl_get_publickey('file://'.$archivo);
+			toba::logger()->debug("Utilizando clave publica file://$archivo");
+			if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
+				throw new toba_error('El mensaje no es válido o no fue posible procesar su firma correctamente');
+			}
+		} else {
+			throw new toba_error('El mensaje no viene firmado, se anula el pedido');
 		}
 	}	
 	
 	protected function servicio_con_firma()
 	{
-		$va_firmado = true;
-		$id_servicio = $this->_solicitud->get_id_operacion();				//Obtengo el id del servicio web desde el item
-		$ini = toba_modelo_instalacion::get_archivo_configuracion_servicios_web();
-		if (! is_null($ini) && $ini->existe_entrada($id_servicio)) {
-			$datos = $ini->get($id_servicio, 'firmado', 1, false );		//Por defecto firmo el mensaje (desactivar explicitamente)
-			$va_firmado = ($datos == '1'); 
-		}
-		return $va_firmado;
+		return isset(self::$opciones['firmado']) ? self::$opciones['firmado'] : false;
 	}		
-	
-	/**
-	 * Devuelve la ruta al archivo que contiene la clave publica
-	 * @param array $headers
-	 * @return string
-	 */
-	protected function get_clave_publica($headers)
-	{
-		$proyecto = quote($this->_id[0]);
-		$servicio = quote($this->_id[1]);
-		
-		$clave = implode('', $headers);
-		$id = hash( 'sha512',$str_headers);
-		$id = quote($id);
-		
-		$sql = "SELECT * FROM apex_mapeo_rsa_kp WHERE servicio_web = $servicio AND proyecto = $proyecto AND id = $id AND anulada = 0;";
-		$datos = toba::instancia()->get_db()->consultar_fila($sql);
-		if (isset($datos['pub_key'])) {
-			return $datos['pub_key'];			
-		}
-		return null;
-	}		
+
+	function agregar_mapeo_headers($header, $archivo) {
+		$this->mapeo_headers[$header] = $archivo;
+	}
 }
 ?>

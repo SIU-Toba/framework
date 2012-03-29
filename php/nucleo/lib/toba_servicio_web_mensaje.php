@@ -139,6 +139,7 @@ class toba_servicio_web_mensaje
 		//Si no falla entonces agrego la firma a los headers del mensaje
 		$header_firma = new WSHeader(array('name' => 'firma' , 'data' => base64_encode($firma)));
 		$this->opciones['inputHeaders'][] = $header_firma;
+		toba::logger()->debug("Firmando mensaje del servicio_web");
 	}
 	
 	/**
@@ -161,6 +162,23 @@ class toba_servicio_web_mensaje
 			}
 		}
 		return $datos;
-	}	
+	}
+
+	function set_headers($asociativo) {
+		$data = array();
+		foreach ($asociativo as $clave => $valor) {
+			$data[] = new WSHeader(array('name' => $clave, 'data' => $valor));
+		}
+		$headers = array(
+				new WSHeader(
+					array(
+						'name' => 'datos', 
+						'data' => $data
+				)
+			)
+		);
+		$this->opciones['inputHeaders'] = $headers;
+		toba::logger()->debug("Incluyendo headers en el mensaje del servicio_web");
+	}
 }
 ?>
