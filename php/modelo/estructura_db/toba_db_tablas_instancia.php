@@ -8,7 +8,6 @@ class toba_db_tablas_instancia
   0 => 'apex_revision',
   1 => 'apex_instancia',
   2 => 'apex_checksum_proyectos',
-  3 => 'apex_mapeo_rsa_kp',
 );
 	}
 
@@ -602,32 +601,6 @@ class toba_db_tablas_instancia
     0 => 'proyecto',
     1 => 'usuario_perfil_datos',
     2 => 'usuario',
-  ),
-);
-	}
-
-	static function apex_mapeo_rsa_kp()
-	{
-		return array (
-  'archivo' => 'pgsql_a80_tablas_servicios_web.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'proyecto, servicio_web',
-  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
-  'clave_proyecto' => 'proyecto',
-  'clave_elemento' => 'cod_mapeo, servicio_web',
-  'zona' => 'general',
-  'desc' => 'Guarda asociacion entre claves RSA y servicio',
-  'version' => '1.0',
-  'instancia' => '1',
-  'columnas' => 
-  array (
-    0 => 'cod_mapeo',
-    1 => 'proyecto',
-    2 => 'servicio_web',
-    3 => 'id',
-    4 => 'pub_key',
-    5 => 'anulada',
   ),
 );
 	}

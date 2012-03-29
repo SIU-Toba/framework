@@ -135,7 +135,6 @@ class toba_db_catalogo_general
   127 => 'apex_usuario_proyecto_perfil_datos',
   128 => 'apex_servicio_web',
   129 => 'apex_servicio_web_param',
-  130 => 'apex_mapeo_rsa_kp',
 );
 	}
 
