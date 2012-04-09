@@ -37,7 +37,7 @@ class form_prop_basicas extends toba_ei_formulario
 			
 			{$this->objeto_js}.evt__solicitud_tipo__procesar = function() {
 				var efs_web = [		
-								'publico', 'seccion_web', 'pagina_tipo', 'menu', 'orden', 
+								'seccion_web', 'pagina_tipo', 'menu', 'orden', 
 								'retrasar_headers', 'imagen_recurso_origen', 'imagen', 'descripcion', 'zona',
 								'zona_listar', 'zona_orden'	
 							];
@@ -47,6 +47,7 @@ class form_prop_basicas extends toba_ei_formulario
 						this.controlador.mostrar_tab('pant_permisos');
 						this.ef('accion').mostrar();	
 						this.ef('punto_montaje').mostrar();
+						this.ef('publico').mostrar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}
@@ -56,6 +57,7 @@ class form_prop_basicas extends toba_ei_formulario
 						this.controlador.mostrar_tab('pant_permisos');											
 						this.ef('accion').mostrar();
 						this.ef('punto_montaje').mostrar();
+						this.ef('publico').mostrar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).mostrar();
 						}
@@ -68,6 +70,7 @@ class form_prop_basicas extends toba_ei_formulario
 						this.controlador.ocultar_tab('pant_permisos');						
 						this.ef('accion').ocultar();
 						this.ef('punto_montaje').ocultar();
+						this.ef('publico').ocultar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}						
@@ -78,6 +81,7 @@ class form_prop_basicas extends toba_ei_formulario
 						this.controlador.ocultar_tab('pant_permisos');
 						this.ef('accion').mostrar();
 						this.ef('punto_montaje').mostrar();
+						this.ef('publico').ocultar();
 						for (var i = 0; i < efs_web.length; i++) {
 							this.ef(efs_web[i]).ocultar();
 						}						

@@ -260,21 +260,23 @@ class toba_carga_opciones_ef
 	 */
 	protected function ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional)
 	{
-        //Armo la sentencia que limita al proyecto
-        $sql_where = "";
-        if (isset($parametros['columna_proyecto'])) {
-    		$sql_where .= $parametros["columna_proyecto"] . " = '".toba::proyecto()->get_id()."' ";
+		//Armo la sentencia que limita al proyecto
+		$sql_where = "";
+		if (isset($parametros['columna_proyecto'])) {
+			$sql_where .= $parametros["columna_proyecto"] . " = '".toba::proyecto()->get_id()."' ";
 			if (isset($parametros["incluir_toba"]) && $parametros["incluir_toba"]) {
-		        $sql_where .= " OR ".$parametros["columna_proyecto"]." = 'toba'";
+				$sql_where .= " OR ".$parametros["columna_proyecto"]." = 'toba'";
 			}
-        }
+		}
 		if ($sql_where != '') {
-	        $where[] = "(" . $sql_where .")";
-        	$parametros['carga_sql'] =  sql_agregar_clausulas_where($parametros['carga_sql'],$where);
+			$where[] = "(" . $sql_where .")";
+			$parametros['carga_sql'] =  sql_agregar_clausulas_where($parametros['carga_sql'],$where);
 		}
 		foreach ($maestros as $id_maestro => $valor_maestro) {
-			$parametros['carga_sql'] = str_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
-												$parametros['carga_sql']);
+			if (is_array($valor_maestro)) {
+				$valor_maestro = '{'.implode(',' , $valor_maestro) . '}';		//Si es un arreglo lo tomo como array
+			}
+			$parametros['carga_sql'] = str_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro, $parametros['carga_sql']);
 		}
 		$modo = ($es_posicional) ? toba_db_fetch_num : toba_db_fetch_asoc;
 		return toba::db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
@@ -285,9 +287,9 @@ class toba_carga_opciones_ef
 	 */
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
-        // Fix. En la descripci?n de un popup $maestros llega con el valor directamente,
-        // no como un arreglo con el valor como lo espera call_user_func
-        $maestros = (! is_array($maestros)) ? array($maestros) : $maestros;
+		// Fix. En la descripci?n de un popup $maestros llega con el valor directamente,
+		// no como un arreglo con el valor como lo espera call_user_func
+		$maestros = (! is_array($maestros)) ? array($maestros) : $maestros;
         
 		if (isset($parametros['carga_include']) || isset($parametros['carga_clase'])) {
 			if(!class_exists($parametros['carga_clase']) && isset($parametros['carga_include']) && $parametros['carga_include'] != '') {
