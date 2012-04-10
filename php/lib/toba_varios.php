@@ -6,8 +6,7 @@
 	}
 
 	/**
-	* Chequea que el encoding del string no sea utf8. Si no lo es hace la conversión,
-	* sino lo devuelve como lo recibió
+	* Convierte el string a UTF-8 a menos que ya se encuentre en dicho encoding.
 	* @param string $s
 	* @return string $s en utf8
 	*/
@@ -21,7 +20,7 @@
 	}
 
 	/**
-	* Si $s está en utf8 lo convierte a latin1, sino lo deja como está
+	* Convierte a LATIN-1 un string UTF-8, a menos que no este en ese encoding.
 	* @param string $s
 	* @return string $s en latin1
 	*/
