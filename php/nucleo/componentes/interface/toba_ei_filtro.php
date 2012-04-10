@@ -34,7 +34,7 @@ class toba_ei_filtro extends toba_ei
 	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 
 	 */	
-	function inicializar($parametros)
+	function inicializar($parametros=array())
 	{
 		parent::inicializar($parametros);
 		//$this->_nombre_formulario =	$parametros["nombre_formulario"];

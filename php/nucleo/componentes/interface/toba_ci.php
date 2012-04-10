@@ -78,12 +78,12 @@ class toba_ci extends toba_ei
 	/**
 	 * @ignore 
 	 */
-	function inicializar($parametro=null)
+	function inicializar($parametro=array())
 	{
 		$this->_inicializado = true;
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria desincronizada		
-		if(isset($parametro)){
-			$this->_nombre_formulario = $parametro["nombre_formulario"];
+		if(isset($parametro['nombre_formulario'])){
+			$this->_nombre_formulario = $parametro['nombre_formulario'];
 		}
 		if ($this->_ini_operacion) {
 			$this->_log->debug($this->get_txt(). "[callback][ ini__operacion ]", 'toba');

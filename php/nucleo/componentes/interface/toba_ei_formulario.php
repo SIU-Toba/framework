@@ -95,10 +95,12 @@ class toba_ei_formulario extends toba_ei
 	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 
 	 */	
-	function inicializar($parametros)
+	function inicializar($parametros=array())
 	{
 		parent::inicializar($parametros);
-		$this->_nombre_formulario =	$parametros["nombre_formulario"];
+		if (isset($parametros['nombre_formulario'])) {
+			$this->_nombre_formulario =	$parametros["nombre_formulario"];
+		}
 		if (isset($this->_info_formulario['ancho_etiqueta']) && $this->_info_formulario['ancho_etiqueta'] != '') {
 			$this->_ancho_etiqueta = $this->_info_formulario['ancho_etiqueta'];
 		}	
