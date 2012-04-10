@@ -2,7 +2,7 @@
 
 class cuadro_popup extends toba_testing_pers_ei_cuadro
 {
-	function extender_objeto_js()
+	/*function extender_objeto_js()				Funciona en versiones previas a la 2.0
 	{
 		echo "
 			{$this->objeto_js}.evt__seleccion = function(id) {
@@ -12,7 +12,7 @@ class cuadro_popup extends toba_testing_pers_ei_cuadro
 			}
 		
 		";
-	}
+	}*/
 
 
 }

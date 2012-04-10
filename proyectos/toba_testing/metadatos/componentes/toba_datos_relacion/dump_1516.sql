@@ -59,45 +59,6 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 );
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel_asoc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_testing', --proyecto
-	'1516', --objeto
-	'1', --asoc_id
-	'Maestro -> Detalle A', --identificador
-	'toba_testing', --padre_proyecto
-	'1513', --padre_objeto
-	'maestro', --padre_id
-	NULL, --padre_clave
-	'toba_testing', --hijo_proyecto
-	'1514', --hijo_objeto
-	'detalle_a', --hijo_id
-	NULL, --hijo_clave
-	'0', --cascada
-	'1'  --orden
-);
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'toba_testing', --proyecto
-	'1516', --objeto
-	'2', --asoc_id
-	'Maestro -> Detalle B', --identificador
-	'toba_testing', --padre_proyecto
-	'1513', --padre_objeto
-	'maestro', --padre_id
-	NULL, --padre_clave
-	'toba_testing', --hijo_proyecto
-	'1515', --hijo_objeto
-	'detalle_b', --hijo_id
-	NULL, --hijo_clave
-	'0', --cascada
-	'2'  --orden
-);
---- FIN Grupo de desarrollo 0
-
-------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -137,6 +98,45 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --parametros_c
 	NULL, --inicializar
 	NULL  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_testing', --proyecto
+	'1516', --objeto
+	'1', --asoc_id
+	'Maestro -> Detalle A', --identificador
+	'toba_testing', --padre_proyecto
+	'1513', --padre_objeto
+	'maestro', --padre_id
+	NULL, --padre_clave
+	'toba_testing', --hijo_proyecto
+	'1514', --hijo_objeto
+	'detalle_a', --hijo_id
+	NULL, --hijo_clave
+	'0', --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_testing', --proyecto
+	'1516', --objeto
+	'2', --asoc_id
+	'Maestro -> Detalle B', --identificador
+	'toba_testing', --padre_proyecto
+	'1513', --padre_objeto
+	'maestro', --padre_id
+	NULL, --padre_clave
+	'toba_testing', --hijo_proyecto
+	'1515', --hijo_objeto
+	'detalle_b', --hijo_id
+	NULL, --hijo_clave
+	'0', --cascada
+	'2'  --orden
 );
 --- FIN Grupo de desarrollo 0
 

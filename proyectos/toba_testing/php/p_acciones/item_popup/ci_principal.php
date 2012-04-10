@@ -15,14 +15,15 @@ class ci_principal extends toba_testing_pers_ci
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
-	function conf__cuadro()
+	function conf__cuadro($cuadro)
 	{
+		$cuadro->desactivar_modo_clave_segura();
 		$datos = array(
 			array('clave' => 1, 'valor' => 'Uno'),
 			array('clave' => 2, 'valor' => 'Dos'),
 			array('clave' => 3, 'valor' => 'Tres')
 		);
-		return $datos;	
+		$cuadro->set_datos($datos);
 	}
 
 }

@@ -1,6 +1,7 @@
 -- Creación del schema de testing y las tablas necesarias para probar la personalización de tablas a través del ap multitabla
 
 CREATE SCHEMA "testing" AUTHORIZATION "postgres";
+set search_path = testing, public, pg_catalog;
 
 CREATE SEQUENCE "testing"."seq_maestra" INCREMENT 1  MINVALUE 1 MAXVALUE 9223372036854775807  START 149 CACHE 1;
 CREATE TABLE "testing"."maestra" (

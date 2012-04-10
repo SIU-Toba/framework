@@ -337,7 +337,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT 1,\'Uno\' UNION SELECT 2,\'Dos\' UNION SELECT 3,\'Tres\'', --carga_sql
+	'SELECT 1,''Uno'' UNION SELECT 2,''Dos'' UNION SELECT 3,''Tres''', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave

@@ -317,9 +317,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT \'clave_dinamica\' as clave, \'%combo_dao1% - %combo_dao2%\' as valor
+	'SELECT ''clave_dinamica'' as clave, ''%combo_dao1% - %combo_dao2%'' as valor
 UNION
-SELECT \'clave_fija\' as clave, \'valor_fijo\' as valor', --carga_sql
+SELECT ''clave_fija'' as clave, ''valor_fijo'' as valor', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave
@@ -635,7 +635,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'select \'%combo_lista%\'', --carga_sql
+	'select ''%combo_lista%''', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave

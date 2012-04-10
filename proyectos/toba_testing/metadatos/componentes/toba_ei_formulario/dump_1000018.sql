@@ -870,7 +870,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'select \'El estado es %popup_sql%\'', --carga_sql
+	'select ''El estado es %popup_sql%''', --carga_sql
 	NULL, --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave

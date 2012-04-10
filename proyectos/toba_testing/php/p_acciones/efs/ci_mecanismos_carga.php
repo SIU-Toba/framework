@@ -5,11 +5,9 @@ class ci_mecanismos_carga extends toba_testing_pers_ci
 	protected $registro;
 	protected $datos_ml;
 	
-	function mantener_estado_sesion()
+	function set_propiedades_sesion()
 	{
-		$atr = parent::mantener_estado_sesion();
-		$atr[] = 'registro';
-		return $atr;
+		$atr = parent::set_propiedades_sesion(array('registro'));
 	}
 	
 	function get_editable_dao()
@@ -33,6 +31,9 @@ class ci_mecanismos_carga extends toba_testing_pers_ci
 	
 	function conf__form()
 	{
+		if (! isset($this->registro)) {
+			$this->registro['popup_dao'] = 4;
+		}	
 		return $this->registro;	
 	}
 	

@@ -2,8 +2,8 @@
 class pant_linux extends toba_ei_pantalla
 {
 	/**
-	 * Permite modificar la forma en que se grafica la pantalla, por defecto un componente sobre el otro
-	 */
+		* Permite modificar la forma en que se grafica la pantalla, por defecto un componente sobre el otro
+		*/
 	function generar_layout()
 	{
 		$nombre = toba::proyecto()->get_path_php(). '/varios/line_endings/archivo_linux.php';
@@ -17,7 +17,7 @@ class pant_linux extends toba_ei_pantalla
 
 		assert(strrchr($codigo_actual, 13) === false);
 		$metodo = new toba_codigo_metodo_php('extender_objeto_js');
-		$metodo->set_contenido("alert('soy un alert nuevo');". "\n"."alert(4);");
+		$metodo->set_contenido("echo \"alert('soy un alert nuevo');". "\n"."alert(4);\"");
 		$nuevo_codigo = $archivo->codigo_agregar_metodo($codigo_actual, $metodo->get_codigo());
 		$archivo->insertar(toba_archivo_php::codigo_sacar_tags_php($nuevo_codigo));
 
@@ -35,5 +35,4 @@ class pant_linux extends toba_ei_pantalla
 		$tsvn->revert($nombre);
 	}
 }
-
 ?>

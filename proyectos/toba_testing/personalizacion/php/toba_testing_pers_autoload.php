@@ -24,6 +24,7 @@ class toba_testing_pers_autoload
 		'toba_testing_pers_ei_arbol' => 'extension_toba/componentes/toba_testing_pers_ei_arbol.php',
 		'toba_testing_pers_ei_archivos' => 'extension_toba/componentes/toba_testing_pers_ei_archivos.php',
 		'toba_testing_pers_ei_calendario' => 'extension_toba/componentes/toba_testing_pers_ei_calendario.php',
+		'toba_testing_pers_ei_codigo' => 'extension_toba/componentes/toba_testing_pers_ei_codigo.php',
 		'toba_testing_pers_ei_cuadro' => 'extension_toba/componentes/toba_testing_pers_ei_cuadro.php',
 		'toba_testing_pers_ei_esquema' => 'extension_toba/componentes/toba_testing_pers_ei_esquema.php',
 		'toba_testing_pers_ei_filtro' => 'extension_toba/componentes/toba_testing_pers_ei_filtro.php',

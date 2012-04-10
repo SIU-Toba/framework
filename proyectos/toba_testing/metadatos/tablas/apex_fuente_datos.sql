@@ -2,17 +2,18 @@
 ------------------------------------------------------------
 -- apex_fuente_datos
 ------------------------------------------------------------
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, punto_montaje, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
 	'toba_testing', --proyecto
 	'instancia', --fuente_datos
 	'Instancia de Toba', --descripcion
 	'instancia', --descripcion_corta
 	'postgres7', --fuente_datos_motor
 	NULL, --host
+	NULL, --punto_montaje
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden
-	NULL, --schema
+	'desarrollo', --schema
 	'desarrollo', --instancia_id
 	NULL, --administrador
 	'1', --link_instancia
@@ -23,17 +24,18 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --clave
 	NULL  --base
 );
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, punto_montaje, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
 	'toba_testing', --proyecto
 	'perfil_datos', --fuente_datos
 	'Fuente de testeo de perfiles de datos', --descripcion
 	NULL, --descripcion_corta
 	NULL, --fuente_datos_motor
 	NULL, --host
+	NULL, --punto_montaje
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden
-	NULL, --schema
+	'testing', --schema
 	NULL, --instancia_id
 	NULL, --administrador
 	NULL, --link_instancia
@@ -44,17 +46,18 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --clave
 	NULL  --base
 );
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, punto_montaje, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
 	'toba_testing', --proyecto
 	'referencia', --fuente_datos
 	'toba_referencia', --descripcion
 	NULL, --descripcion_corta
 	NULL, --fuente_datos_motor
 	NULL, --host
+	NULL, --punto_montaje
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden
-	NULL, --schema
+	'referencia', --schema
 	NULL, --instancia_id
 	NULL, --administrador
 	NULL, --link_instancia
@@ -65,13 +68,14 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --clave
 	NULL  --base
 );
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, punto_montaje, subclase_archivo, subclase_nombre, orden, schema, instancia_id, administrador, link_instancia, tiene_auditoria, parsea_errores, permisos_por_tabla, usuario, clave, base) VALUES (
 	'toba_testing', --proyecto
 	'testing', --fuente_datos
 	'Base de testing', --descripcion
 	NULL, --descripcion_corta
 	NULL, --fuente_datos_motor
 	NULL, --host
+	NULL, --punto_montaje
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden
