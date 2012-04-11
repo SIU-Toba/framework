@@ -1237,7 +1237,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$catalogos['toba_db_tablas_proyecto'][] = 'get_lista';
 		$catalogos['toba_db_tablas_proyecto'][] = 'get_lista_permisos';
 		$catalogos['toba_db_tablas_instancia'][] = 'get_lista_proyecto';
-		$catalogos['toba_db_tablas_instancia'][] = 'get_lista_proyecto_log';
 		$catalogos['toba_db_tablas_instancia'][] = 'get_lista_proyecto_usuario';
 		foreach( $catalogos as $catalogo => $indices ) {
 			foreach( $indices as $indice ) {
