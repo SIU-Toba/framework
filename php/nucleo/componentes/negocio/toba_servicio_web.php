@@ -46,7 +46,13 @@ abstract class toba_servicio_web extends toba_componente
 			if (self::$ini->existe_entrada('certificado')) {
 				//Agrego los certificados manualmente
 				chdir($directorio);
+				if (! file_exists(self::$ini->get("certificado", "cert_cliente"))) {
+					throw new toba_error("El archivo ".self::$ini->get("certificado", "cert_cliente")." no existe");
+				}
 				$certificado_cliente = ws_get_cert_from_file(self::$ini->get("certificado", "cert_cliente"));
+				if (! file_exists(self::$ini->get("certificado", "clave_server"))) {
+					throw new toba_error("El archivo ".self::$ini->get("certificado", "clave_server")." no existe");
+				}				
 				$clave_privada = ws_get_cert_from_file(self::$ini->get("certificado", "clave_server"));
 				$seguridad = array("encrypt" => true,
 												"algorithmSuite" => "Basic256Rsa15",

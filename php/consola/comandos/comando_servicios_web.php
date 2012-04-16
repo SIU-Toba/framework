@@ -114,60 +114,75 @@ class comando_servicios_web extends comando_toba
 		$index_page .= "</ul></div></div></body></html>";
 		file_put_contents($carpeta_doc."/index.html", $index_page);
 		$this->consola->mensaje("Listo. Navegar hacia file://".$carpeta_doc."/index.html");		
-
 	}
 	
 	/**
-	 *  Agrega la ruta de los archivos .cert / .pem que seran usados para brindar servicios web seguros
-	 *        -d Directorio donde se encuentra la CA
+	 *  Genera o configura los archivos de certificados necesario para seguridad a nivel capa de transporte
+	 *        Opcional: -d Directorio donde se encuentra la CA, para certficados ya generados
 	 *      
 	 */
 	function opcion__serv_generar_cert()
 	{		
-		//Pido el directorio donde se encuentra la Certificate Authority
-		$ca_dir = $this->consola->dialogo_ingresar_texto('Directorio donde se encuentra la CA');
+		$parametros = $this->get_parametros();
+		$servicio = $this->get_servicio_serv();
+		//Creo el directorio para el servicio web
+		$proyecto = $this->get_proyecto();
+		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();
+		$dir_servicio_servidor = $punto_partida . '/servicios_serv/'. $servicio;		
+		toba_manejador_archivos::crear_arbol_directorios($dir_servicio_servidor, 0755);
 		
-		//Pido ruta del archivo de certificados y de la clave		
-		$servidor = $this->obtener_ruta_archivos_certificados_ssl('Servidor', $ca_dir);
-		$cliente = $this->obtener_ruta_archivos_certificados_ssl('Cliente', $ca_dir);
 		
-		//Acomodo los datos
-		$datos = array();
-		$datos['ca_dir'] = $ca_dir;
-		$datos['cert_server'] = $servidor['cert'];
-		$datos['clave_server'] = $servidor['key'];
-		$datos['cert_cliente'] = $cliente['cert'];
-		$datos['clave_cliente'] = $cliente['key'];		
-		
-		//Agrego esa info al archivo instalacion.ini
-		$modelo = new toba_modelo_instalacion();
-		$modelo->agregar_info_certificado_ssl($datos);
-		
-		//Todo: Hace falta copiar los certificados en instalacion/servicios/certificados al menos los del cliente? 
-		//Por ahora esta quedando en instalacion.ini la ruta
-		
-		//Creo el directorio donde se colocaran los archivos para las claves RSA
-		$dir = $modelo->get_dir() . '/servicios/rsa';
-		toba_manejador_archivos::crear_arbol_directorios($dir, '755');
+		if (isset($parametros['-d'])) {
+			//Pido el directorio donde se encuentra la Certificate Authority
+			$ca_dir = $parametros['-d'];
+			
+			//Pido ruta del archivo de certificados y de la clave		
+			$servidor = $this->obtener_ruta_archivos_certificados_ssl('Servidor', $ca_dir);
+			$cliente = $this->obtener_ruta_archivos_certificados_ssl('Cliente', $ca_dir);
+			
+			//Acomodo los datos
+			$datos = array();
+			$datos['ca_dir'] = $ca_dir;
+			$datos['cert_server'] = $servidor['cert'];
+			$datos['clave_server'] = $servidor['key'];
+			$datos['cert_cliente'] = $cliente['cert'];
+			$datos['clave_cliente'] = $cliente['key'];		
+			
+			//Agrego esa info al archivo instalacion.ini
+			$modelo = new toba_modelo_instalacion();
+			$modelo->agregar_info_certificado_ssl($datos);
+		} else {
+			$datos_cert_cliente = $this->generar_certificados($dir_servicio_servidor, "cert_cliente");
+			$datos_cert_servidor = $this->generar_certificados($dir_servicio_servidor, "cert_servidor");
+			$cert_server = array('cert_cliente' => $datos_cert_cliente[1], 'clave_server' =>  $datos_cert_servidor[0]);
+			$cert_cliente = array('cert_cliente' => $datos_cert_cliente[1], 'clave_cliente' =>  $datos_cert_cliente[0], 'cert_server' =>  $datos_cert_servidor[1]);
+		}
+		$this->generar_configuracion_servidor($dir_servicio_servidor, array_merge($cert_server, $cert_cliente));
+		$this->consola->mensaje("Ok. Certificados generados en '$dir_servicio_servidor'");
 	}
 	
 	/**
 	 * Genera un .zip conteniendo el certificado y firma, para ser importado por un cliente especifico
 	 *        -p Proyecto
 	 *        -s Servicio a exportar        
-	 *        -c 0|1 genera certificados (activado por defecto)
 	 *        -h clave=valor Headers a incluir, separar por comas para ingresar mas de uno
 	 *        -d Path destino (path actual por defecto)
 	 */
 	function opcion__serv_exportar_config()
 	{
+		
 		$parametros = $this->get_parametros();
+		
+		if (isset($parametros['-d'])) {
+			$dir_actual = $parametros['-d'];
+		} else {
+			$dir_actual = getcwd();
+		}
 
 		//Pa arrancar pido el proyecto
 		$proyecto = $this->get_proyecto();
 		$instalacion = new toba_modelo_instalacion();
 	
-			
 		$servicio = $this->get_servicio_serv();			
 		//Creo el directorio para el servicio web
 		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();						
@@ -201,40 +216,37 @@ class comando_servicios_web extends comando_toba
 				}
 			}
 		}
-		
-		
-		if (!isset($parametros['-c']) || $parametros['-c'] != 0) {
-			$datos_cert_cliente = $this->generar_certificados($dir_servicio_servidor, "cliente");
-			$datos_cert_servidor = $this->generar_certificados($dir_servicio_servidor, "servidor");
-			$cert_server = array('cert_cliente' => $datos_cert_cliente[1], 'clave_server' =>  $datos_cert_servidor[0]);
-			$cert_cliente = array('cert_cliente' => $datos_cert_cliente[1], 'clave_cliente' =>  $datos_cert_cliente[0], 'cert_server' =>  $datos_cert_servidor[1]);
-		} else {
-			$cert_server = array();
-			$cert_cliente = array();
-		}		
-		
+
 		//Aca genero el par de claves RSA		
 		$datos_rsa = array();
+		$destino = null;
 		if ($hay_parametros) {
 			$key_pair = $this->generar_par_claves($dir_servicio_cliente, $servicio);
 			$destino = $dir_servicio_servidor.'/'.$key_pair['nombre'].'.public';
 			copy($key_pair['publica'], $destino);
-			$datos_rsa = array('privada' => "./".$key_pair['nombre']. '.pkey',  'publica' => "./".$key_pair['nombre']. '.public');			
+			$datos_rsa = array('privada' => "./".$key_pair['nombre']. '.pkey',  'publica' => "./".$key_pair['nombre']. '.public');
+			//Guardo archivo configuracion servidor
+			$this->generar_configuracion_servidor($dir_servicio_servidor, array(), $headers, $destino);
+			$this->consola->mensaje("Se guardo la configuracion en: $dir_servicio_servidor", true);
+		}
+		
+		//Agrego el path de los certificados, si existe
+		$cert_cliente = array();
+		if (file_exists($dir_servicio_servidor.'/clientes.ini')) {
+			$config = new toba_ini($dir_servicio_servidor . '/clientes.ini');
+			if ($config->existe_entrada("certificado")) {
+				$cert_cliente['cert_cliente'] = './cert_cliente.cert';
+				$cert_cliente['clave_cliente'] = './cert_cliente.pkey';
+				$cert_cliente['cert_server'] = './cert_server.cert';
+				chdir($dir_servicio_servidor);
+				copy($config->get("certificado", "cert_cliente"), $dir_servicio_cliente.'/'.$cert_cliente['cert_cliente']);
+				copy($config->get("certificado", "clave_cliente"), $dir_servicio_cliente.'/'.$cert_cliente['clave_cliente']);
+				copy($config->get("certificado", "cert_server"), $dir_servicio_cliente.'/'.$cert_cliente['cert_server']);				
+			}
 		}
 		
 		//Genero configuracion Cliente
 		$this->generar_configuracion_cliente($cert_cliente, $datos_rsa, $headers, $dir_servicio_cliente);
-				
-		//Guardo archivo configuracion servidor
-		$this->generar_configuracion_servidor($dir_servicio_servidor, $cert_server, $headers, $destino);
-		$this->consola->mensaje("Se guardo la configuracion en: $dir_servicio_servidor", true);
-
-		if (!isset($parametros['-d'])) {
-			$dir_actual = getcwd();
-		} else {
-			$dir_actual = $parametros['-d'];
-		}	
-
 		//Aca zipeo todo y armo el paquete
 		$nombre_archivo  = "$servicio.zip";
 		$comando = "cd $dir_servicio_cliente/.. ; zip -1 -m -r $nombre_archivo  $servicio";
@@ -363,44 +375,42 @@ class comando_servicios_web extends comando_toba
 	
 	protected function generar_certificados($directorio, $prefijo)
 	{
-		if (! file_exists($dir_servicio_servidor."/$prefijo.crt") || ! file_exists($dir_servicio_servidor."/$prefijo.pkey")) {
-			$pass = uniqid();
-			$cmd = "openssl genrsa  -passout pass:$pass -des3 -out $directorio/$prefijo.pkey.sign 1024";
-			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-			if ($exito != '0') {
-				$this->consola->error($stderr);
-				$this->consola->enter();
-				die;
-			}
-			
-			$cmd = "openssl req -new -key $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.csr -passin pass:$pass -batch";
-			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-			if ($exito != '0') {
-				$this->consola->error($stderr);
-				$this->consola->enter();
-				die;
-			}
-			
-			$cmd = "openssl rsa -in $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.pkey -passin pass:$pass";
-			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-			if ($exito != '0') {
-				$this->consola->error($stderr);
-				$this->consola->enter();
-				die;
-			}
-			
-			$cmd = "openssl x509 -req -days 20000 -in $directorio/$prefijo.csr -signkey $directorio/$prefijo.pkey -out $directorio/$prefijo.crt";
-			$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-			if ($exito != '0') {
-				$this->consola->error($stderr);
-				$this->consola->enter();
-				die;
-			}
-			
-			unlink("$directorio/$prefijo.pkey.sign");
-			unlink("$directorio/$prefijo.csr");			
+		$pass = uniqid();
+		$cmd = "openssl genrsa  -passout pass:$pass -des3 -out $directorio/$prefijo.pkey.sign 1024";
+		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		if ($exito != '0') {
+			$this->consola->error($stderr);
+			$this->consola->enter();
+			die;
 		}
-		return array("./$prefijo.pkey", "./$prefijo.crt");
+		
+		$cmd = "openssl req -new -key $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.csr -passin pass:$pass -batch";
+		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		if ($exito != '0') {
+			$this->consola->error($stderr);
+			$this->consola->enter();
+			die;
+		}
+		
+		$cmd = "openssl rsa -in $directorio/$prefijo.pkey.sign -out $directorio/$prefijo.pkey -passin pass:$pass";
+		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		if ($exito != '0') {
+			$this->consola->error($stderr);
+			$this->consola->enter();
+			die;
+		}
+		
+		$cmd = "openssl x509 -req -days 20000 -in $directorio/$prefijo.csr -signkey $directorio/$prefijo.pkey -out $directorio/$prefijo.cert";
+		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		if ($exito != '0') {
+			$this->consola->error($stderr);
+			$this->consola->enter();
+			die;
+		}
+		
+		unlink("$directorio/$prefijo.pkey.sign");
+		unlink("$directorio/$prefijo.csr");			
+		return array("./$prefijo.pkey", "./$prefijo.cert");
 	}
 	
 	/**
@@ -441,12 +451,12 @@ class comando_servicios_web extends comando_toba
 	 * @param array $headers
 	 * @param string $destino 
 	 */
-	protected function generar_configuracion_servidor($directorio, $cert_server, $headers,  $archivo_rsa)
+	protected function generar_configuracion_servidor($directorio, $cert, $headers=array(),  $archivo_rsa = null)
 	{
 		$config = new toba_ini($directorio . '/clientes.ini');
 		$config->agregar_titulo('Este archivo contiene la ruta de los certificados y claves publicas que se usan para confirmar la firma RSA de los mensajes');
-		if (! empty($cert_server)) {
-			$config->agregar_entrada('certificado', $cert_server);
+		if (! empty($cert)) {
+			$config->agregar_entrada('certificado', $cert);
 		}
 		if (! empty($headers)) {
 			$nombre = array();

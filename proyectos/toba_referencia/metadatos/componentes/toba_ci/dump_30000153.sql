@@ -108,7 +108,12 @@ En este ejemplo ambos niveles son configurados con archivos presentes en la carp
 Para ello es necesario ejecutar en consola los siguientes pasos previo correr esta operación:
 
 <ol>
-<li>Generar y exportar la configuración del lado <b>servidor</b>. En este caso se envia un id de dependencia:<pre>toba servicios_web serv_exportar_config
+<li>Generar los certificados, esto lo hace el <b>servidor</b>:
+<pre>toba servicios_web serv_generar_cert
+ -p toba_referencia
+ -s serv_certificado_firmado_configuracion
+</pre>
+<li>Exportar la configuración del lado <b>servidor</b>. En este caso se envia un id de dependencia:<pre>toba servicios_web serv_exportar_config
  -p toba_referencia
  -s serv_certificado_firmado_configuracion
  -h dependencia=agronomia
