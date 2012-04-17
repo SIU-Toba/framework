@@ -308,4 +308,15 @@ class toba_reset_nucleo extends Exception
 		return $this->item;
 	}
 }
+
+class toba_error_servicio_web extends toba_error
+{
+	function __construct($mensaje_visible, $mensaje_solo_debug='', $titulo_ventana = null)
+	{
+		$this->mensaje_solo_debug = $mensaje_solo_debug;
+		$this->titulo_ventana = $titulo_ventana;
+		throw new WSFault('Sender', $mensaje_visible);
+	}
+}
+
 ?>
