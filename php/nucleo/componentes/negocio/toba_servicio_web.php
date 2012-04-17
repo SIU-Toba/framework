@@ -157,7 +157,7 @@ abstract class toba_servicio_web extends toba_componente
 			$nombre = implode(',', $nombre);
 
 			if (! isset(self::$mapeo_headers[$nombre])) {
-				throw new toba_error("El mensaje no contiene headers definidos ('$nombre' no existe)");
+				throw new toba_error_servicio_web("El mensaje no contiene headers definidos ('$nombre' no existe)");
 			}
 			$archivo = self::$mapeo_headers[$nombre];
 			
@@ -168,10 +168,10 @@ abstract class toba_servicio_web extends toba_componente
 			}
 			toba::logger()->debug("Utilizando clave publica file://$archivo");
 			if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
-				throw new toba_error('El mensaje no es válido o no fue posible procesar su firma correctamente');
+				throw new toba_error_servicio_web('El mensaje no es válido o no fue posible procesar su firma correctamente');
 			}
 		} else {
-			throw new toba_error('El mensaje no viene firmado, se anula el pedido');
+			throw new toba_error_servicio_web('El mensaje no viene firmado, se anula el pedido');
 		}
 	}	
 	
