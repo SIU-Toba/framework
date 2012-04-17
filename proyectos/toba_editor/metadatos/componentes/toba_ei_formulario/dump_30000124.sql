@@ -296,12 +296,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'param_to', --identificador
 	'ef_editable', --elemento_formulario
 	'param_to', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'URL', --etiqueta
 	NULL, --etiqueta_estilo
-	'Equivalente al parámetro <em>to</em> de WSF', --descripcion
+	'Equivalente al parámetro <em>to</em> de WSF. Opcional, generalmente esto se fija durante la instalación', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
