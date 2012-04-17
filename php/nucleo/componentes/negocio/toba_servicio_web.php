@@ -7,7 +7,7 @@ abstract class toba_servicio_web extends toba_componente
 {
 	protected static $opciones = array();	
 	protected static $ini;
-	protected $mapeo_headers = array();
+	protected static $mapeo_headers = array();
 
 	final function __construct($id)
 	{
@@ -39,13 +39,13 @@ abstract class toba_servicio_web extends toba_componente
 				self::$ini = new toba_ini($directorio.'/clientes.ini');
 			}
 		}
-		if (isset(self::$ini)) {		
+		if (isset(self::$ini)) {
+			chdir($directorio);
 			if (self::$ini->existe_entrada('conexion')) {
 				self::$opciones = self::$ini->get_datos_entrada('conexion');
 			}
 			if (self::$ini->existe_entrada('certificado')) {
 				//Agrego los certificados manualmente
-				chdir($directorio);
 				if (! file_exists(self::$ini->get("certificado", "cert_cliente"))) {
 					throw new toba_error("El archivo ".self::$ini->get("certificado", "cert_cliente")." no existe");
 				}
@@ -64,6 +64,16 @@ abstract class toba_servicio_web extends toba_componente
 				);
 				self::$opciones['policy'] = $policy;
 				self::$opciones['securityToken'] = $security;
+			}
+			//Averiguo los headers definidos
+			foreach (self::$ini->get_extradas() as $entrada => $valor) {
+				if (strpos($entrada, '=')) {
+					if (file_exists($valor['archivo'])) {
+						self::agregar_mapeo_headers($entrada, realpath($valor['archivo']));
+					} else {
+						throw new toba_error("El archivo {$valor['archivo']} no existe");
+					}
+				}
 			}
 		}
 		self::$opciones = array_merge(self::$opciones, call_user_func(array($clase, 'get_opciones')));		
@@ -130,12 +140,13 @@ abstract class toba_servicio_web extends toba_componente
 		//Recuperar la firma calculada en el cliente
 		if (! empty($headers) && isset($headers['firma'] )) {
 			$firma_original = base64_decode($headers['firma']);
-			unset($headers['firma']);
-			
-			if (isset($headers['Security'])) {
-				unset($headers['Security']);
+			$extra_headers = array('firma', 'Security', 'Action', 'MessageID', 'To');
+			foreach (array_keys($headers) as $id) {
+				if (in_array($id, $extra_headers)) {
+					unset($headers[$id]);
+				}
 			}
-			$data = $contenido_mensaje. implode('',$headers);
+			$data = trim($contenido_mensaje. implode('',$headers));
 			
 			//Busco la clave publica
 			$nombre = array();
@@ -144,13 +155,17 @@ abstract class toba_servicio_web extends toba_componente
 				$nombre[] = $id.'='.$valor;
 			}
 			$nombre = implode(',', $nombre);
-			if (! isset($this->mapeo_headers[$nombre])) {
+
+			if (! isset(self::$mapeo_headers[$nombre])) {
 				throw new toba_error("El mensaje no contiene headers definidos ('$nombre' no existe)");
 			}
-			$archivo = $this->mapeo_headers[$nombre];
+			$archivo = self::$mapeo_headers[$nombre];
 			
 			//Ahora verifico la firma
-			$pub_key_id = openssl_get_publickey('file://'.$archivo);
+			$pub_key_id = openssl_pkey_get_public('file://'.$archivo);
+			if ($pub_key_id === false) {
+				throw new toba_error("No fue posible obtener una clave publica del archivo $pub_key_id");
+			}
 			toba::logger()->debug("Utilizando clave publica file://$archivo");
 			if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
 				throw new toba_error('El mensaje no es válido o no fue posible procesar su firma correctamente');
@@ -162,11 +177,14 @@ abstract class toba_servicio_web extends toba_componente
 	
 	protected function servicio_con_firma()
 	{
+		if (! empty(self::$mapeo_headers)) {
+			return true;
+		} 
 		return isset(self::$opciones['firmado']) ? self::$opciones['firmado'] : false;
 	}		
 
-	function agregar_mapeo_headers($header, $archivo) {
-		$this->mapeo_headers[$header] = $archivo;
+	static function agregar_mapeo_headers($header, $archivo) {
+		self::$mapeo_headers[$header] = $archivo;
 	}
 }
 ?>

@@ -125,12 +125,12 @@ class toba_servicio_web_mensaje
 	{
 		//Aca concateno los headers y los datos para hacer el rsa firma
 		$headers = $this->get_datos_headers($this->opciones['inputHeaders']);
+		
 		$mensaje = $this->datos;
 		if (is_a($this->datos, 'WSMessage')) {		//Si es un objeto mensaje, pido la representacion en string
 			$mensaje = $this->datos->str;
-		}		
-		
-		$cadena_a_firmar = $mensaje . implode('', $headers);
+		}
+		$cadena_a_firmar = trim($mensaje . implode('', $headers));
 		$priv_key_id = openssl_get_privatekey('file://' .$clave_privada);
 		if (! openssl_sign($cadena_a_firmar, $firma, $priv_key_id)) {
 			throw new toba_error('No fue posible firmar el mensaje, se anula el envio');
@@ -155,10 +155,12 @@ class toba_servicio_web_mensaje
 			$elem = array_shift($aux_iterador);
 			if (is_a($elem->data, 'WSMessage')) {				//Si es otro mensaje, lo agrego a la cola
 				$aux_iterador[] = $elem->data;
+			} elseif (is_a($elem->data, 'WSHeader')) {				//Si es un header, lo agrego a la cola
+				$aux_iterador[] = $elem->data;
 			} elseif (is_array($elem->data)) {					//Es posible que sea un arreglo de WSMessage
 				$aux_iterador = array_merge($aux_iterador, $elem->data);	
 			}else {
-				$datos[] = $elem->data;				
+				$datos[$elem->name] = trim($elem->data);				
 			}
 		}
 		return $datos;

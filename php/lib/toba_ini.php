@@ -29,6 +29,11 @@ class toba_ini
 	//	Manipulacion de ENTADAS
 	//-----------------------------------------------------------
 
+	function get_extradas()
+	{
+		return $this->entradas;
+	}
+	
 	function existe_entrada($seccion, $nombre=null)
 	{
 		if (! isset($nombre)) {
