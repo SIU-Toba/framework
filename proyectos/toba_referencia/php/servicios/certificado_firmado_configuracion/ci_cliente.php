@@ -24,14 +24,8 @@ class ci_cliente extends toba_ci
 	{
 		//--1- Arma el mensaje	(incluyendo los headers)
 		$this->s__echo = $datos;
-		$payload = <<<XML
-		<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
-			<texto>{$datos['texto']}</texto>
-		</ns1:eco>
-XML;
-	
 		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
-		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
+		$mensaje = new toba_servicio_web_mensaje($this->s__echo, $opciones);
 	
 		//--2- Arma el servicio
 		$opciones = array(

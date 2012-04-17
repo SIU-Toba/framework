@@ -125,50 +125,6 @@ class toba_servicio_web_cliente
 		}
 	}
 
-	/**
-	 * Obtiene los headers por defecto que se deben agregar al mensaje
-	 * Los mismos estan fijados en el archivo de configuracion para el servicio
-	 * @return array(WSHeader) 
-	 */
-	protected function get_headers_configuracion()
-	{
-		$headers = array();
-		$id_servicio = $this->id_servicio;
-		$proyecto = toba::proyecto()->get_id();
-		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
-		
-		//Obtener el archivo con la configuracion de headers
-		$archivo = $directorio . '/headers.ini';
-		if (toba_manejador_archivos::existe_archivo_en_path($archivo)) {
-			$ini_headers = new toba_ini($archivo);
-			$datos = $ini_headers->get('headers', null, null);
-			if (! is_null($datos)) {									//Agregar un headers por cada valor disponible
-				foreach($datos as $klave => $valor) {
-					$headers[] = new WSHeader(array('name' => $klave, 'data' => $valor));					
-				}
-			}
-		}
-		return $headers;
-	}
-
-	/**
-	 * Devuelve la ruta al archivo que contiene la clave publica
-	 * @return string 
-	 */
-	function get_clave_publica()
-	{
-		$clave = null;
-		$id_servicio = $this->id_servicio;
-		$proyecto = toba::proyecto()->get_id();
-		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios/$id_servicio";		//Directorio perteneciente al servicio
-
-		$ini_conf = new toba_ini($directorio . '/servicio.ini');
-		if (! is_null($ini_conf) &&  $ini_conf->existe_entrada('RSA')) {
-			$aux = $ini_conf->get_datos_entrada('RSA');			
-			$clave = $directorio .  '/' . $aux['public'];
-		}		
-		return $clave;
-	}
 	
 	/**
 	 * Devuelve un objeto WSF con la configuracion de certificados ssl existente o null

@@ -502,39 +502,5 @@ class comando_servicios_web extends comando_toba
 		$config->guardar();		
 	}
 	
-	/**
-	 * Agrega un servicio web y sus parametros en el cliente.
-	 * @param toba_modelo_proyecto $proyecto
-	 * @param string $servicio_web
-	 * @param array $parametros
-	 * @param string $descripcion
-	 * @param string $url
-	 * @param integer $wsa 
-	 */
-	protected function guardar_info_servicio_web($proyecto, $servicio_web, $parametros, $descripcion = null, $url = null, $wsa = 0)
-	{
-		$db = $proyecto->get_instancia()->get_db();
-		$proyecto_id = $db->quote($proyecto->get_id());
-		$servicio_web = $db->quote($servicio_web);
-		$desc = $db->quote($descripcion);
-		$to = $db->quote($url);
-		$wsa = $db->quote($wsa);				
-		
-		$sql[] = "INSERT INTO apex_servicio_web (proyecto, servicio_web, descripcion, param_to, param_wsa) VALUES ($proyecto_id, $servicio_web, $desc, $to, $wsa);";		
-		foreach($parametros as $param) {
-			$valores = $db->quote($param);
-			$sql[] = "INSERT INTO apex_servicio_web_param (proyecto, servicio_web, parametro, valor) VALUES ($proyecto_id, $servicio_web, {$valores['parametro']}, {$valores['valor']});";
-		}
-		
-		try {
-			$db->abrir_transaccion();
-			$db->ejecutar($sql);
-			$db->cerrar_transaccion();
-		} catch (toba_error_db $e) {
-			$db->abortar_transaccion();
-			toba_logger::instancia()->debug("WS: ". $e->getMessage());
-			throw new toba_error ('Se produjo un error al intentar guardar la configuración, consulte el log');
-		}		
-	}
 }
 ?>

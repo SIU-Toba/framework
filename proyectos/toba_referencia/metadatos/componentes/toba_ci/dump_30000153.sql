@@ -98,7 +98,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	'El servidor responde exactamente lo que envia el cliente.
+	'El servidor responde con un agregado a la cadena enviada.
 Hay dos niveles de seguridad aplicados:
 <ul><li>Capa de transporte: Se utilizan los certificados para garantizar una comunicación segura (firmada y encriptada)
 <li>Comunicación Punto a Punto: Se utilizan los encabezados SOAP para enviar una firma del mensaje (esquema RSA)

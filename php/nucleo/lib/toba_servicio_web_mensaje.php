@@ -28,7 +28,7 @@ class toba_servicio_web_mensaje
 			$this->mensaje = new WSMessage($this->payload, $this->opciones);			
 		} elseif (is_array($this->datos)) {
 			$proyecto = toba::proyecto()->get_id();
-			$this->payload = "<ns1:servicio xmlns:ns1='http://toba.siu.edu.ar/$proyecto'>\n";
+			$this->payload = "<ns1:servicio xmlns:ns1=\"http://toba.siu.edu.ar/$proyecto\">\n";
 			$this->payload .= self::array_a_payload($this->datos);
 			$this->payload .= "</ns1:servicio>";			
 			$this->mensaje = new WSMessage($this->payload, $this->opciones);
@@ -126,9 +126,15 @@ class toba_servicio_web_mensaje
 		//Aca concateno los headers y los datos para hacer el rsa firma
 		$headers = $this->get_datos_headers($this->opciones['inputHeaders']);
 		
-		$mensaje = $this->datos;
+		$mensaje = $this->payload;
 		if (is_a($this->datos, 'WSMessage')) {		//Si es un objeto mensaje, pido la representacion en string
 			$mensaje = $this->datos->str;
+		}
+		if (is_array($this->datos)) {
+			$proyecto = toba::proyecto()->get_id();			
+			$mensaje = "<ns1:servicio xmlns:ns1=\"http://toba.siu.edu.ar/$proyecto\">\n";
+			$mensaje .= self::array_a_payload($this->datos);
+			$mensaje .= "</ns1:servicio>";			
 		}
 		$cadena_a_firmar = trim($mensaje . implode('', $headers));
 		$priv_key_id = openssl_get_privatekey('file://' .$clave_privada);
