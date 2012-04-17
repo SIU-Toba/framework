@@ -166,24 +166,28 @@ class comando_servicios_web extends comando_toba
 	 *        -p Proyecto
 	 *        -s Servicio a exportar        
 	 *        -h clave=valor Headers a incluir, separar por comas para ingresar mas de uno
-	 *        -d Path destino (path actual por defecto)
+	 *        -d Path destino (opcional)
+	 *        -u URL del sistema (opcional)        
 	 */
 	function opcion__serv_exportar_config()
 	{
+		//Pa arrancar pido el proyecto
+		$proyecto = $this->get_proyecto();
+		$instalacion = new toba_modelo_instalacion();
 		
+		$servicio = $this->get_servicio_serv();
+
+		//Parametros
 		$parametros = $this->get_parametros();
-		
 		if (isset($parametros['-d'])) {
 			$dir_actual = $parametros['-d'];
 		} else {
 			$dir_actual = getcwd();
 		}
-
-		//Pa arrancar pido el proyecto
-		$proyecto = $this->get_proyecto();
-		$instalacion = new toba_modelo_instalacion();
-	
-		$servicio = $this->get_servicio_serv();			
+		$url_sistema = null;
+		if (isset($parametros['-u'])) {
+			$url_sistema = $parametros['-u'].'/servicios.php/'.$servicio;
+		} 
 		//Creo el directorio para el servicio web
 		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();						
 		$dir_servicio_cliente = $punto_partida . '/servicios_cli/'. $servicio;
@@ -246,7 +250,7 @@ class comando_servicios_web extends comando_toba
 		}
 		
 		//Genero configuracion Cliente
-		$this->generar_configuracion_cliente($cert_cliente, $datos_rsa, $headers, $dir_servicio_cliente);
+		$this->generar_configuracion_cliente($cert_cliente, $datos_rsa, $headers, $dir_servicio_cliente, $url_sistema);
 		//Aca zipeo todo y armo el paquete
 		$nombre_archivo  = "$servicio.zip";
 		$comando = "cd $dir_servicio_cliente/.. ; zip -1 -m -r $nombre_archivo  $servicio";
@@ -478,11 +482,14 @@ class comando_servicios_web extends comando_toba
 	 * @param array $datos_rsa
 	 * @param string $directorio 
 	 */
-	protected function generar_configuracion_cliente($datos_cert, $datos_rsa, $headers, $directorio)
+	protected function generar_configuracion_cliente($datos_cert, $datos_rsa, $headers, $directorio, $url_sistema)
 	{
 		$firmado = (! empty($datos_rsa)) ? 1: 0;
 		$config = new toba_ini($directorio . '/servicio.ini');
 		$config->agregar_titulo('Este archivo contiene la ruta de los archivos que se usan para firmar con RSA los mensajes');
+		if ($url_sistema != null) {
+			$config->agregar_entrada("conexion", array('to' => $url_sistema));
+		}
 		if (! empty($datos_cert)) {
 			$config->agregar_entrada('certificado', $datos_cert);
 		}
