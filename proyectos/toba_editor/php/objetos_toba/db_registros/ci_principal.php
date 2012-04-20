@@ -41,7 +41,7 @@ class ci_principal extends ci_editores_toba
 				$this->dep('prop_basicas')->set_modo_recarga('¿Desea recargar las columnas de la tabla?' .
 																' Se eliminaran los elementos definidos anteriormente. '.
 																" (Columnas: $cols $txt_exts $txt_uniq)." .
-																'Los cambios no seran actualizados hasta presionar el boton \'Guardar\'.'.
+																'Los cambios no seran actualizados hasta presionar el boton Guardar.'.
 																' ATENCION: Si no recarga los valores automaticamente, hágalo a mano para '.
 																' que la definicion de la tabla y las columnas coincida.');
 			} else {
