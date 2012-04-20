@@ -7,7 +7,8 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_checkbox toba_ef_checkbox
 	 */
-	function ef_checkbox(id_form, etiqueta, obligatorio, colapsado) {
+	function ef_checkbox(id_form, etiqueta, obligatorio, colapsado, valor_chequeado) {
+		this._valor_positivo = valor_chequeado;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 	
@@ -38,7 +39,7 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 		var chequeado;
 		if (input.type == 'hidden') {
 			//Caso particular del solo-lectura en server
-			chequeado = input.value;
+			chequeado = (input.value == this._valor_positivo);
 		} else {
 			chequeado = input.checked;
 		}			

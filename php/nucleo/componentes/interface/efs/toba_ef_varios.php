@@ -28,27 +28,27 @@ class toba_ef_checkbox extends toba_ef
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		//VAlor FIJO
-		if(isset($parametros['estado_defecto'])){
+		if (isset($parametros['estado_defecto'])) {
 			$this->estado_defecto = $parametros['estado_defecto'];		
 			$this->estado = $this->estado_defecto;
 		}
-		if (isset($parametros['check_valor_si'])){
+		if (isset($parametros['check_valor_si'])) {
 			$this->valor = $parametros['check_valor_si'];
 		} else {
 			$this->valor = '1';
 		}
-		if (isset($parametros['check_valor_no'])){
+		if (isset($parametros['check_valor_no'])) {
 			$this->valor_no_seteado = $parametros['check_valor_no'];
 		} else {
 			$this->valor_no_seteado = '0';	
 		}	
-		if (isset($parametros["check_desc_si"])){
+		if (isset($parametros["check_desc_si"])) {
 			$this->valor_info = $parametros["check_desc_si"];
 		}
-		if (isset($parametros["check_desc_no"])){
+		if (isset($parametros["check_desc_no"])) {
 			$this->valor_info_no_seteado = $parametros["check_desc_no"];
 		}		
-		if (isset($parametros["check_ml_toggle"])){
+		if (isset($parametros["check_ml_toggle"])) {
 			$this->check_ml_toggle = $parametros["check_ml_toggle"];
 		}			
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -125,6 +125,13 @@ class toba_ef_checkbox extends toba_ef
 		return isset($this->estado) && 
 				($this->estado == $this->valor);
 	}	
+
+	protected function parametros_js()
+	{
+		$param_padre = parent::parametros_js();
+		$params = "$param_padre,  {$this->valor}";		//Le paso el valor que tomaria estando checkeado para comparar en modo solo lectura
+		return $params;
+	}
 	
 	function crear_objeto_js()
 	{
