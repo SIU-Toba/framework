@@ -146,7 +146,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_echo', --identificador
 	'1', --orden
 	'Hola Mundo', --etiqueta
-	'El servidor responde exactamente lo que envia el cliente', --descripcion
+	'El servidor responde exactamente lo que envia el cliente, <br> solo que en forma inversa.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

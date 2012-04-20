@@ -33,7 +33,7 @@ class ci_cliente extends toba_ci
 		$this->s__echo = $datos;
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
-	<texto>{$datos['texto']}</texto>
+	<texto>{$datos['valor']} {$datos['clave']}</texto>
 </ns1:eco>
 XML;
 		$opciones = array(
