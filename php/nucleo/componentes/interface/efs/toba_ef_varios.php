@@ -129,7 +129,7 @@ class toba_ef_checkbox extends toba_ef
 	protected function parametros_js()
 	{
 		$param_padre = parent::parametros_js();
-		$params = "$param_padre,  {$this->valor}";		//Le paso el valor que tomaria estando checkeado para comparar en modo solo lectura
+		$params = "$param_padre,  '{$this->valor}' ";		//Le paso el valor que tomaria estando checkeado para comparar en modo solo lectura
 		return $params;
 	}
 	
