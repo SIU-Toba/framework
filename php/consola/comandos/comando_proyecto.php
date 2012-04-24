@@ -117,7 +117,11 @@ class comando_proyecto extends comando_toba
 
 		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'proyecto');
 		util_modelo_proyecto::crear_arbol_personalizacion($proyecto->get_dir());
-		$pms->crear_pm_personalizacion();
+		try {
+			$pms->crear_pm_personalizacion();
+		} catch (toba_error_db $e) {
+			$this->consola->mensaje('No se pudo crear el punto de montaje para la personalización, puede que existiera o se haya producido un error, verifique los logs' , true);
+		}
 
 		if ($publicar) {
 			$this->consola->separador();

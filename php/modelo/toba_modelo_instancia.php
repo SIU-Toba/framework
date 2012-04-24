@@ -574,14 +574,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		
 		//Elimino los logs para cada proyecto
-		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
-			$nombre = $dir_proyecto .'/'. $this->nombre_log;
-			if (file_exists($nombre)) {
-				unlink ($nombre);
-				$this->manejador_interface->progreso_avanzar();
+		foreach($this->get_lista_proyectos_vinculados() as $proyecto) {
+			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto).'/logs';
+			if (file_exists( $dir_proyecto )) {
+				toba_manejador_archivos::eliminar_directorio($dir_proyecto);
 			}
-		}		
+			$this->manejador_interface->progreso_avanzar();
+		}
 	}
 	
 	//-----------------------------------------------------------
@@ -1148,24 +1147,20 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function eliminar_logs()
 	{
-
+		$schema = '';
+		if ($this->get_db()->existe_schema('toba_logs')) {
+			$schema = 'toba_logs.';
+		}
 		//--- Borra logs en las tablas
 		$tablas = toba_db_tablas_instancia::get_lista_proyecto_log();
 		$tablas = array_merge($tablas, toba_db_tablas_instancia::get_lista_global_log());
 		foreach($tablas as $tabla) {
-			$sql = 'DELETE FROM '.$tabla;			
+			$sql = 'DELETE FROM '. $schema. $tabla;
 			$this->get_db()->ejecutar($sql);
 			$this->manejador_interface->progreso_avanzar();
 		}
-		//--- Borra logs en los proyecto
-		foreach($this->get_lista_proyectos_vinculados() as $proyecto) {
-			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto).'/logs';
-			if (file_exists( $dir_proyecto )) {
-				toba_manejador_archivos::eliminar_directorio($dir_proyecto);
-			}
-			$this->manejador_interface->progreso_avanzar();
-		}
 		
+		$this->eliminar_archivos_log();		
 	}
 	
 	//-----------------------------------------------------------
