@@ -198,7 +198,7 @@ class ci_principal extends ci_editores_toba
 		$i = 0;
 		$total = count($efs);
 		foreach ($efs as $ef) {
-			if (! $ef['desactivado']) {
+			if (! isset($ef['desactivado']) || ! $ef['desactivado']) {
 				if ($i % $columnas == 0) {
 					$salida .= '<tr>';
 				}				
@@ -221,7 +221,7 @@ class ci_principal extends ci_editores_toba
 		$i = 0;
 		$total = count($efs);
 		foreach ($efs as $ef) {
-			if (! $ef['desactivado']) {
+			if (!isset($ef['desactivado']) || ! $ef['desactivado']) {
 				$salida .= '[ef id='.$ef['identificador'].']';
 			}
 		}

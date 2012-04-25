@@ -79,16 +79,16 @@ class toba_tp_basico extends toba_tipo_pagina
 			echo "
 				<style type='text/css'>
 	            #overlay, #capa_espera {
-	                background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");               
+	                background-image:url('". toba_recurso::imagen_toba('nucleo/overlay.gif'). "');               
 	            }
 	            .barra-superior {
-	                background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;
+	                background: url('". toba_recurso::imagen_skin('barra-sup.gif') ."') repeat-x top;
 	            }
 	            .ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
-	                background: url(". toba_recurso::imagen_skin('cuadro-col-titulo.gif') .") repeat-x top;
+	                background: url('". toba_recurso::imagen_skin('cuadro-col-titulo.gif') ."') repeat-x top;
 	            }
 	            .ei-barra-sup, .ci-botonera {
-	                background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;
+	                background: url('". toba_recurso::imagen_skin('barra-sup.gif') ."') repeat-x top;
 	            }
 	            .ci-tabs-h-lista {
 	            	background: url('".toba_recurso::imagen_skin('tabs/bg.gif')."') repeat-x bottom;
@@ -111,7 +111,7 @@ class toba_tp_basico extends toba_tipo_pagina
 		echo "
 		<style type='text/css'>
 			#overlay, #capa_espera {
-				background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");     			
+				background-image:url('". toba_recurso::imagen_toba('nucleo/overlay.gif'). "');     			
 			}
 			#barra_superior {
 				display:none;
