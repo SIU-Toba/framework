@@ -59,7 +59,7 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 		
 		//--Fila Extra
 		$this->_ef->ir_a_fila('extra');		
-		if (isset($this->_estado) && $this->_estado['condicion'] == 'entre') {
+		if (isset($this->_estado) && $this->_estado['condicion'] == 'entre' && isset($this->_estado['valor']['hasta'])) {
 			$this->_ef->set_estado($this->_estado['valor']['hasta']);
 		}
 		echo "<div id='{$this->_id_form_cond}_ef_extra' style='display:none'>";		
