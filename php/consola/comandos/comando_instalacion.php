@@ -364,19 +364,19 @@ class comando_instalacion extends comando_toba
 		$toba_dir = toba_dir();
 		$this->consola->subtitulo('Cambiando permisos de archivos navegables');
 		$comandos = array(
-			array("chown $usuario $toba_dir/www -R", "Archivos navegables comunes:\n"),
-			array("chmod o+w $toba_dir/www -R", ''),			
-			array("chown $usuario $toba_dir/instalacion -R", "Archivos de configuración:\n"),
-			array("chmod o+w $toba_dir/instalacion -R", ''),			
-			array("chown $usuario $toba_dir/temp -R", "Archivos temporales comunes:\n"),
+			array("chown -R $usuario $toba_dir/www", "Archivos navegables comunes:\n"),
+			array("chmod -R o+w $toba_dir/www", ''),			
+			array("chown -R $usuario $toba_dir/instalacion", "Archivos de configuración:\n"),
+			array("chmod -R o+w $toba_dir/instalacion", ''),			
+			array("chown -R $usuario $toba_dir/temp", "Archivos temporales comunes:\n"),
 			array("chmod o+w $toba_dir/temp", '')
 		);
 		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
 			$id_proyecto = basename($proyecto);
-			$comandos[] = array("chown $usuario $proyecto/www -R", "Archivos navegables de $id_proyecto:\n");
-			$comandos[] = array("chmod o+w $proyecto/www -R", '');
-			$comandos[] = array("chown $usuario $proyecto/temp -R", "Archivos temporales de $id_proyecto:\n");
-			$comandos[] = array("chmod o+w $proyecto/temp -R", '');
+			$comandos[] = array("chown -R $usuario $proyecto/www", "Archivos navegables de $id_proyecto:\n");
+			$comandos[] = array("chmod -R o+w $proyecto/www", '');
+			$comandos[] = array("chown -R $usuario $proyecto/temp", "Archivos temporales de $id_proyecto:\n");
+			$comandos[] = array("chmod -R o+w $proyecto/temp", '');
 		}		
 		foreach ($comandos as $comando) {
 			$this->consola->mensaje($comando[1], false);
@@ -384,10 +384,10 @@ class comando_instalacion extends comando_toba
 		}
 		
 		if (isset($grupo)) {
-			$comando = "chgrp $grupo $toba_dir -R";
+			$comando = "chgrp -R $grupo $toba_dir";
 			$this->consola->subtitulo("\nCambiando permisos globales para el grupo $grupo");
 			$this->consola->mensaje("   ".$comando. exec($comando));
-			$comando = "chmod g+w $toba_dir -R";
+			$comando = "chmod -R g+w $toba_dir";
 			$this->consola->mensaje("   ".$comando. exec($comando));
 		}
 	}
