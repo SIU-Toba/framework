@@ -12,6 +12,25 @@ class toba_recuperador_componentes extends toba_recuperador {
 		$this->componentes_db =  new toba_recuperador_utildb_componentes($this->proyecto);
 	}
 
+	protected function get_unicos($schema) 
+	{
+		$data = array();
+		$el_otro_schema = $this->get_otro_schema($schema);
+
+		$this->db->set_schema($schema);
+		
+		foreach (toba_recuperador_utildb_componentes::get_lista_tipos_componentes() as $tipo) {
+			$condicion = $this->armar_condicion($tipo, $el_otro_schema, true);
+			$componentes = $this->componentes_db->get_componentes($tipo, $condicion, $schema);
+			if (!empty($componentes)) {
+				$data[] = $this->add_metadata($tipo, $componentes);
+			}
+		}
+		array_borrar_subarrays_vacios($data);
+
+		return $data;
+	}
+	
 	protected function get_diferencia()
 	{
 		$data = array();
@@ -40,6 +59,7 @@ class toba_recuperador_componentes extends toba_recuperador {
 			$this->db->set_schema($this->schema_a);
 
 			$diff = $this->diff($nuevo, $viejo);
+
 			if (!empty($diff)) {
 				$diferencia[] = array(
 					'tipo'		=> $tipo,
@@ -105,22 +125,6 @@ class toba_recuperador_componentes extends toba_recuperador {
 		}
 	}
 
-	protected function get_unicos($schema) 
-	{
-		$data = array();
-		$el_otro_schema = $this->get_otro_schema($schema);
-
-		$this->db->set_schema($schema);
-		
-		foreach (toba_recuperador_utildb_componentes::get_lista_tipos_componentes() as $tipo) {
-			$condicion = $this->armar_condicion($tipo, $el_otro_schema, true);
-			$componentes = $this->componentes_db->get_componentes($tipo, $condicion, $schema);
-			$data[] = $this->add_metadata($tipo, $componentes);
-		}
-		array_borrar_subarrays_vacios($data);
-		return $data;
-	}
-
 	protected function add_metadata($tipo, &$componentes, $borrados = false)
 	{
 		$res = array();
@@ -132,7 +136,7 @@ class toba_recuperador_componentes extends toba_recuperador {
 			);
 			if (!$borrados) {
 				$aux['metadata'] =	toba_cargador::instancia()
-									->get_metadatos_simples($id, $tipo, $this->db);
+									->get_metadatos_simples_diff($id, $tipo, $this->db);
 			}
 			$res[] = $aux;
 		}

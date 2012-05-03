@@ -73,7 +73,13 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 
 		foreach (array_keys($data) as $tipo) {
 			foreach ($data[$tipo] as $comp) {
-				$this->agregar_al_plan($comp['id']['componente']);
+				$this->agregar_al_plan($comp['id']['componente'], $this->get_path_componente($path_borrados
+												, $comp['tipo']
+												, $comp['id']['componente']));
+				$path_absoluto = $this->get_path_componente($path . $path_borrados
+												, $comp['tipo']
+												, $comp['id']['componente']);
+				$this->generar_componente_borrada($comp, $path_absoluto);
 			}
 		}
 
@@ -92,6 +98,42 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 		return $path_tipo.$valido;
 	}
 
+	/**
+	 * @param <type> $componente
+	 * @param <type> $path
+	 */
+	private function generar_componente_borrada(&$componente, $path)
+	{
+		$xml =  new toba_xml($path);
+		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
+		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
+		$xml->add_atributo(toba_pers_xml_atributos::descripcion, $componente['tipo'], true);		
+
+		
+		
+		foreach ($componente['metadata'] as $key_tabla => $contenido) {
+			if (empty($contenido)) continue;
+			$xml->abrir_elemento(toba_pers_xml_elementos::tabla);
+			$xml->add_atributo(toba_pers_xml_atributos::nombre, $key_tabla, true);
+			
+			foreach ($contenido as $clave => $registro) {
+				$estado = toba_personalizacion::registro_deleted;
+				$xml->abrir_elemento(toba_pers_xml_elementos::registro);
+				$xml->add_atributo(toba_pers_xml_atributos::estado, $estado, true);
+
+				if ($this->grabo_clave($estado)) {
+					$xml->add_atributo(toba_pers_xml_atributos::clave, $clave, true);
+				}
+
+				$xml->cerrar_elemento();
+			}
+			$xml->cerrar_elemento();
+		}
+
+		$xml->cerrar_elemento();
+		$xml->cerrar_documento();
+	}
+	
 	/**
 	 * @param <type> $componente
 	 * @param <type> $path
