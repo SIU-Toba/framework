@@ -30,27 +30,46 @@ abstract class toba_registro_con_clave extends toba_registro
 		return implode(',', $res);
 	}
 
-	function get_conflictos()
+	function analizar_conflictos() 
 	{
-		//Busco el registro a modificar
-		$reg_original	= $this->get_registro_a_actualizar();		
+		$reg_original	= $this->get_registro_a_actualizar();
 		$reg_count	= count($reg_original);
 		
 		//Ejecuto la SQL para analizar conflictos de indices
-		$conflictos	= parent::get_conflictos();
-		if (count($conflictos) > 0) {
-			return $conflictos;	// Si el padre devolvió algún conflicto este impide que se chequeen el resto de los toba_registro_conflictos
+		parent::analizar_conflictos();
+		if (count($this->conflictos) > 0) {
+			return;	// Si el padre devolvió algún conflicto este impide que se chequeen el resto de los toba_registro_conflictos
 		}
 
 		//Analizo si el registro no fue encontrado o si no se pudo determinar cual se debia modificar
 		if ($reg_count < 1) {	
-			$conflictos[] =  new toba_registro_conflicto_inexistente($this);
+			$this->conflictos[] =  new toba_registro_conflicto_inexistente($this);
 		} else if ($reg_count > 1) {	
-			$conflictos[] =  new toba_registro_conflicto_univoco($this);
+			$this->conflictos[] =  new toba_registro_conflicto_univoco($this);
 		}
-
-		return $conflictos;
 	}
+	
+//	function get_conflictos()
+//	{
+//		//Busco el registro a modificar
+//		$reg_original	= $this->get_registro_a_actualizar();		
+//		$reg_count	= count($reg_original);
+//		
+//		//Ejecuto la SQL para analizar conflictos de indices
+//		$conflictos	= parent::get_conflictos();
+//		if (count($conflictos) > 0) {
+//			return $conflictos;	// Si el padre devolvió algún conflicto este impide que se chequeen el resto de los toba_registro_conflictos
+//		}
+//
+//		//Analizo si el registro no fue encontrado o si no se pudo determinar cual se debia modificar
+//		if ($reg_count < 1) {	
+//			$conflictos[] =  new toba_registro_conflicto_inexistente($this);
+//		} else if ($reg_count > 1) {	
+//			$conflictos[] =  new toba_registro_conflicto_univoco($this);
+//		}
+//
+//		return $conflictos;
+//	}
 
 	/**
 	 * Hace un select con la condición del update y devuelve la cantidad el
@@ -61,6 +80,8 @@ abstract class toba_registro_con_clave extends toba_registro
 		$where	= $this->armar_where();
 		$sql	= "SELECT * FROM $this->tabla WHERE $where";
 		$regs	= $this->db->consultar($sql);
+		print_r($sql.': '); echo "\n";
+//		print_r($regs);
 		return $regs;
 	}
 
