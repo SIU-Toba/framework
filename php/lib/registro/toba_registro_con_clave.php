@@ -80,8 +80,6 @@ abstract class toba_registro_con_clave extends toba_registro
 		$where	= $this->armar_where();
 		$sql	= "SELECT * FROM $this->tabla WHERE $where";
 		$regs	= $this->db->consultar($sql);
-		print_r($sql.': '); echo "\n";
-//		print_r($regs);
 		return $regs;
 	}
 
