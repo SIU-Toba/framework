@@ -19,11 +19,11 @@
         	        		|
         	              	<a href="li_Varios.html">Varios</a>
         	        		|
+        	              	<a href="li_Seguridad.html">Seguridad</a>
+        	        		|
         	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="li_Debug.html">Debug</a>
-        	        		|
-        	              	<a href="li_Seguridad.html">Seguridad</a>
         	        		|
         	              	<a href="li_Fuentes.html">Fuentes</a>
         	            </div>
@@ -109,9 +109,9 @@
 				<li><a href="elementindex_Centrales.html">Centrales</a></li>
 					<li><a href="elementindex_Componentes.html">Componentes</a></li>
 					<li><a href="elementindex_Varios.html">Varios</a></li>
-					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
+							<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Debug.html">Debug</a></li>
-							<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
+					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
 			</ul>
 	[ <a href="elementindex_Seguridad.html#a">a</a> ]
 	[ <a href="elementindex_Seguridad.html#b">b</a> ]
@@ -173,8 +173,6 @@
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodautenticar">toba_usuario::autenticar()</a></dd>
 							<dt><b>autenticar</b></dt>
 				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodautenticar">toba_usuario_basico::autenticar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Realiza la autentificacion.</dd>
-							<dt><b>autenticar_ldap</b></dt>
-				<dd>in file toba_usuario_basico.php, method <a href="Seguridad/TiposUsuario/toba_usuario_basico.html#methodautenticar_ldap">toba_usuario_basico::autenticar_ldap()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Realiza la autentificacion utilizando un servidor LDAP</dd>
 					</dl>
 	</div>
 	<a name="b"></a>
@@ -301,6 +299,8 @@
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodgenerar_clave_aleatoria">toba_usuario::generar_clave_aleatoria()</a></dd>
 							<dt><b>get_alias_unico</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodget_alias_unico">toba_perfil_datos::get_alias_unico()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Provee alias de tablas unicos para la construccion de subquerys anidados.</dd>
+							<dt><b>get_autenticacion</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_autenticacion">toba_manejador_sesiones::get_autenticacion()</a></dd>
 							<dt><b>get_cantidad_instancias_activas</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodget_cantidad_instancias_activas">toba_manejador_sesiones::get_cantidad_instancias_activas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve la cantidad de instancias que poseen un usuario activo</dd>
 							<dt><b>get_cantidad_instancias_cargadas</b></dt>
@@ -451,6 +451,8 @@
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodinstancia">toba_manejador_sesiones::instancia()</a></dd>
 							<dt><b>instancia</b></dt>
 				<dd>in file toba_derechos.php, method <a href="Seguridad/toba_derechos.html#methodinstancia">toba_derechos::instancia()</a></dd>
+							<dt><b>invocar_autenticar</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodinvocar_autenticar">toba_manejador_sesiones::invocar_autenticar()</a></dd>
 					</dl>
 	</div>
 	<a name="l"></a>
@@ -485,6 +487,8 @@
 				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operacion_segmentos">toba_perfil_datos::$operacion_segmentos</a></dd>
 							<dt><b>$operacion_tipo</b></dt>
 				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operacion_tipo">toba_perfil_datos::$operacion_tipo</a></dd>
+							<dt><b>$operadores_asimetricos</b></dt>
+				<dd>in file toba_perfil_datos.php, variable <a href="Seguridad/toba_perfil_datos.html#var$operadores_asimetricos">toba_perfil_datos::$operadores_asimetricos</a></dd>
 					</dl>
 	</div>
 	<a name="p"></a>
@@ -556,6 +560,8 @@
 				<dd>in file toba_manejador_sesiones.php, method <a href="Seguridad/toba_manejador_sesiones.html#methodrecargar_info_proyecto">toba_manejador_sesiones::recargar_info_proyecto()</a></dd>
 							<dt><b>reconocer_dimensiones_implicadas</b></dt>
 				<dd>in file toba_perfil_datos.php, method <a href="Seguridad/toba_perfil_datos.html#methodreconocer_dimensiones_implicadas">toba_perfil_datos::reconocer_dimensiones_implicadas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una</dd>
+							<dt><b>reemplazar_clave_vencida</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodreemplazar_clave_vencida">toba_usuario::reemplazar_clave_vencida()</a></dd>
 							<dt><b>registrar_error_login</b></dt>
 				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodregistrar_error_login">toba_usuario::registrar_error_login()</a></dd>
 							<dt><b>registrar_error_login</b></dt>
@@ -668,6 +674,10 @@
 		<dl>
 							<dt><b>validar</b></dt>
 				<dd>in file toba_derechos.php, method <a href="Seguridad/toba_derechos.html#methodvalidar">toba_derechos::validar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Valida que el usuario actual tenga un permiso particular</dd>
+							<dt><b>verificar_clave_no_utilizada</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodverificar_clave_no_utilizada">toba_usuario::verificar_clave_no_utilizada()</a></dd>
+							<dt><b>verificar_clave_vencida</b></dt>
+				<dd>in file toba_usuario.php, method <a href="Seguridad/toba_usuario.html#methodverificar_clave_vencida">toba_usuario::verificar_clave_vencida()</a></dd>
 					</dl>
 	</div>
 <br />

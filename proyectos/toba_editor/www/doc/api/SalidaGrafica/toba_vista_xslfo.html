@@ -195,7 +195,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																<tr>
+																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -209,6 +209,34 @@
 													<td nowrap class="method-definition"><span class="method-result"><a href="../SalidaGrafica/toba_vista_xml.html">toba_vista_xml</a></span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_manejador_vista_xml" title="details" class="method-name">get_manejador_vista_xml</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Devuelve una instancia de la clase que maneja la vista_xml de los componentes</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_nombre_archivo_destino" title="details" class="method-name">get_nombre_archivo_destino</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el nombre del archivo pdf destino con la ruta absoluta</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_nombre_archivo_xml" title="details" class="method-name">get_nombre_archivo_xml</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el nombre del archivo xml con ruta absoluta</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_nombre_archivo_xsl" title="details" class="method-name">get_nombre_archivo_xsl</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el nombre del archivo xsl con ruta absoluta</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_path_to_fop" title="details" class="method-name">get_path_to_fop</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el comando para realizar una llamada a fop</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -253,7 +281,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
 </div>
 <br />
 
@@ -278,7 +306,7 @@
 	
 		
 	
-	<span class="method-title">get_manejador_vista_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
+	<span class="method-title">get_manejador_vista_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -298,13 +326,117 @@
 		
 		<br />
 </div>
+<a name="methodget_nombre_archivo_destino" id="get_nombre_archivo_destino"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_nombre_archivo_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_archivo_destino(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el nombre del archivo pdf destino con la ruta absoluta </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_nombre_archivo_xml" id="get_nombre_archivo_xml"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_nombre_archivo_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_archivo_xml(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el nombre del archivo xml con ruta absoluta </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_nombre_archivo_xsl" id="get_nombre_archivo_xsl"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_nombre_archivo_xsl</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_archivo_xsl(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el nombre del archivo xsl con ruta absoluta </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_path_to_fop" id="get_path_to_fop"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_path_to_fop</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_path_to_fop(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el comando para realizar una llamada a fop </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_nombre_archivo" id="set_nombre_archivo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
 </div>
 <br />
 
@@ -341,7 +473,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
 </div>
 <br />
 
@@ -379,7 +511,7 @@ $tipo&nbsp;
 	
 		
 	
-	<span class="method-title">set_xsl</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
+	<span class="method-title">set_xsl</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
 </div>
 <br />
 

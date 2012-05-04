@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -404,12 +423,12 @@
 						</td>
 						<td class="method-definition"><a href="#array_a_payload" title="details" class="method-name">array_a_payload</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																						<tr><td></td><td class="method-definition" nowrap>static
+																																															<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#payload_a_array" title="details" class="method-name">payload_a_array</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																	<tr>
+																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -421,16 +440,30 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#firmar_mensaje" title="details" class="method-name">firmar_mensaje</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Firma el mensaje completo usando Openssl</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_array" title="details" class="method-name">get_array</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el payload del mensaje como un array de N-dimensiones</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_payload" title="details" class="method-name">get_payload</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_headers" title="details" class="method-name">set_headers</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -454,9 +487,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodarray_a_payload" id="array_a_payload"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method array_a_payload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
+		<span class="method-title">static method array_a_payload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
 </div>
 <br />
 
@@ -495,9 +528,9 @@ $nivel = 0]&nbsp;
 		<br />
 </div>
 <a name="methodpayload_a_array" id="payload_a_array"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method payload_a_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+		<span class="method-title">static method payload_a_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
 </div>
 <br />
 
@@ -530,12 +563,12 @@ $nodo_xml&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
 <br />
 
@@ -573,13 +606,51 @@ $opciones = array()]&nbsp;
 		
 		<br />
 </div>
+<a name="methodfirmar_mensaje" id="firmar_mensaje"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">firmar_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void firmar_mensaje(
+string
+$clave_privada&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Firma el mensaje completo usando Openssl </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clave_privada:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ruta al archivo que posee la clave privada</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_array" id="get_array"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+	<span class="method-title">get_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
 </div>
 <br />
 
@@ -605,14 +676,14 @@ $opciones = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">get_payload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">get_payload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_payload(
+		<code>string get_payload(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -624,13 +695,50 @@ $opciones = array()]&nbsp;
 		
 		<br />
 </div>
-<a name="methodwsf" id="wsf"><!-- --></a>
+<a name="methodset_headers" id="set_headers"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">wsf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
+	<span class="method-title">set_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_headers(
+
+$asociativo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$asociativo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodwsf" id="wsf"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">wsf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 

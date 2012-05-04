@@ -395,6 +395,16 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Filtro/toba_filtro_columna_fecha_hora.html">					filtro_columna_fecha_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Filtro/toba_filtro_columna_hora.html">					filtro_columna_hora
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Filtro/toba_filtro_columna_numero.html">					filtro_columna_numero
 					</a>    	    		</span>
     		
@@ -560,7 +570,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -581,6 +591,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_modificacion_clave" title="details" class="method-name">activar_modificacion_clave</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Permite que las modificaciones puedan cambiar las claves del registro</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#activar_perfil_de_datos" title="details" class="method-name">activar_perfil_de_datos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Activa el uso de perfil de datos en la carga del componente</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -631,6 +648,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#adjuntar_campos_externos_masivo" title="details" class="method-name">adjuntar_campos_externos_masivo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_schema" title="details" class="method-name">agregar_schema</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -689,6 +714,14 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#desactivar_transaccion" title="details" class="method-name">desactivar_transaccion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">No utilizar una transaccion de BD cuando sincroniza la tabla</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#ejecutar_con_binarios" title="details" class="method-name">ejecutar_con_binarios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
@@ -1005,7 +1038,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1048,12 +1081,12 @@ $datos_tabla&nbsp;
 		<br />
 </div>
 <a name="methodactivar_baja_logica" id="activar_baja_logica"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">activar_baja_logica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+	<span class="method-title">activar_baja_logica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
 </div>
 <br />
 
@@ -1093,12 +1126,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodactivar_modificacion_clave" id="activar_modificacion_clave"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">activar_modificacion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
+	<span class="method-title">activar_modificacion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -1123,13 +1156,39 @@ $valor&nbsp;
 		
 		<br />
 </div>
+<a name="methodactivar_perfil_de_datos" id="activar_perfil_de_datos"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">activar_perfil_de_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void activar_perfil_de_datos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Activa el uso de perfil de datos en la carga del componente </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodactivar_proceso_carga_externa_consulta_php" id="activar_proceso_carga_externa_consulta_php"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">activar_proceso_carga_externa_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
+	<span class="method-title">activar_proceso_carga_externa_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
 </div>
 <br />
 
@@ -1215,7 +1274,7 @@ $metodo_masivo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">activar_proceso_carga_externa_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">activar_proceso_carga_externa_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
 </div>
 <br />
 
@@ -1309,7 +1368,7 @@ $metodo_masivo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">activar_proceso_carga_externa_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">activar_proceso_carga_externa_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
 </div>
 <br />
 
@@ -1396,7 +1455,7 @@ $metodo_masivo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">activar_proceso_carga_externa_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
+	<span class="method-title">activar_proceso_carga_externa_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
 </div>
 <br />
 
@@ -1462,7 +1521,7 @@ $estricto = true]&nbsp;
 	
 		
 	
-	<span class="method-title">activar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+	<span class="method-title">activar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
 </div>
 <br />
 
@@ -1489,7 +1548,7 @@ $estricto = true]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">adjuntar_campos_externos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1348]</span>
+	<span class="method-title">adjuntar_campos_externos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1367]</span>
 </div>
 <br />
 
@@ -1542,7 +1601,7 @@ $parametros&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">adjuntar_campos_externos_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1317]</span>
+	<span class="method-title">adjuntar_campos_externos_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1336]</span>
 </div>
 <br />
 
@@ -1595,13 +1654,59 @@ $parametros&nbsp;
 		
 		<br />
 </div>
-<a name="methodcargar_con_datos" id="cargar_con_datos"><!-- --></a>
+<a name="methodagregar_schema" id="agregar_schema"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			
+	
+	<span class="method-title">agregar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 299]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_schema(
+
+$elemento&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$elemento:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodcargar_con_datos" id="cargar_con_datos"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 388]</span>
 </div>
 <br />
 
@@ -1656,12 +1761,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_con_sql" id="cargar_con_sql"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
+	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -1716,12 +1821,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_con_where" id="cargar_con_where"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
+	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -1776,12 +1881,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_con_where_from_especifico" id="cargar_con_where_from_especifico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 335]</span>
+	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 350]</span>
 </div>
 <br />
 
@@ -1843,12 +1948,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_por_clave" id="cargar_por_clave"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 302]</span>
+	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 317]</span>
 </div>
 <br />
 
@@ -1908,12 +2013,12 @@ $usar_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodcarga_inicial_campos_externos" id="carga_inicial_campos_externos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">carga_inicial_campos_externos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1146]</span>
+	<span class="method-title">carga_inicial_campos_externos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1163]</span>
 </div>
 <br />
 
@@ -1945,13 +2050,13 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodcompleta_campos_externos_fila_con_proceso" id="completa_campos_externos_fila_con_proceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">completa_campos_externos_fila_con_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1183]</span>
+	<span class="method-title">completa_campos_externos_fila_con_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1202]</span>
 </div>
 <br />
 
@@ -1998,12 +2103,12 @@ $proceso&nbsp;
 		<br />
 </div>
 <a name="methoddesactivar_transaccion" id="desactivar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">desactivar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
+	<span class="method-title">desactivar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -2023,6 +2128,66 @@ $proceso&nbsp;
 		
 		<br />
 </div>
+<a name="methodejecutar_con_binarios" id="ejecutar_con_binarios"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			
+	
+	<span class="method-title">ejecutar_con_binarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 774]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void ejecutar_con_binarios(
+
+$sql, 
+$binarios, [
+$id_fila = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$binarios:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_fila:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodejecutar_sql" id="ejecutar_sql"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
@@ -2030,7 +2195,7 @@ $proceso&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 748]</span>
+	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 765]</span>
 </div>
 <br />
 
@@ -2084,7 +2249,7 @@ $id_fila = null]&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">es_seq_tabla_ext</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 565]</span>
+	<span class="method-title">es_seq_tabla_ext</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
 </div>
 <br />
 
@@ -2141,7 +2306,7 @@ $col&nbsp;
     		
 		
 	
-	<span class="method-title">evt__perdida_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 645]</span>
+	<span class="method-title">evt__perdida_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 662]</span>
 </div>
 <br />
 
@@ -2194,7 +2359,7 @@ $sql_origen&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 739]</span>
+	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 756]</span>
 </div>
 <br />
 
@@ -2248,7 +2413,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 711]</span>
+	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 728]</span>
 </div>
 <br />
 
@@ -2301,7 +2466,7 @@ $id_registro&nbsp;
     		
 		
 	
-	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 633]</span>
+	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 650]</span>
 </div>
 <br />
 
@@ -2335,7 +2500,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 725]</span>
+	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 742]</span>
 </div>
 <br />
 
@@ -2389,7 +2554,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 732]</span>
+	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 749]</span>
 </div>
 <br />
 
@@ -2443,7 +2608,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 704]</span>
+	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 721]</span>
 </div>
 <br />
 
@@ -2496,7 +2661,7 @@ $id_registro&nbsp;
     		
 		
 	
-	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 626]</span>
+	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 643]</span>
 </div>
 <br />
 
@@ -2530,7 +2695,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 718]</span>
+	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 735]</span>
 </div>
 <br />
 
@@ -2583,7 +2748,7 @@ $id_registro&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_flag_mod_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 950]</span>
+	<span class="method-title">get_flag_mod_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 978]</span>
 </div>
 <br />
 
@@ -2628,7 +2793,7 @@ $id_registro&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_from_default</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 850]</span>
+	<span class="method-title">get_from_default</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 880]</span>
 </div>
 <br />
 
@@ -2672,7 +2837,7 @@ $id_registro&nbsp;
 	
 		
 	
-	<span class="method-title">get_lock_optimista</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
+	<span class="method-title">get_lock_optimista</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 282]</span>
 </div>
 <br />
 
@@ -2698,7 +2863,7 @@ $id_registro&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_select_col</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 848]</span>
+	<span class="method-title">get_select_col</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 878]</span>
 </div>
 <br />
 
@@ -2755,7 +2920,7 @@ $col&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_sql_campos_default</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 567]</span>
+	<span class="method-title">get_sql_campos_default</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 584]</span>
 </div>
 <br />
 
@@ -2811,7 +2976,7 @@ $where&nbsp;
 	
 		
 	
-	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1083]</span>
+	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1100]</span>
 </div>
 <br />
 
@@ -2838,7 +3003,7 @@ $where&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_valores_llaves</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1304]</span>
+	<span class="method-title">get_valores_llaves</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1323]</span>
 </div>
 <br />
 
@@ -2890,7 +3055,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
 </div>
 <br />
 
@@ -2918,7 +3083,7 @@ $parametros&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
@@ -2960,7 +3125,7 @@ $parametros&nbsp;
 		    		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
 </div>
 <br />
 
@@ -3011,7 +3176,7 @@ $parametros&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
+	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
@@ -3057,7 +3222,7 @@ $txt&nbsp;
 	
 		
 	
-	<span class="method-title">pertenece_a_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 282]</span>
+	<span class="method-title">pertenece_a_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 291]</span>
 </div>
 <br />
 
@@ -3102,7 +3267,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">set_lock_optimista</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
+	<span class="method-title">set_lock_optimista</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
 </div>
 <br />
 
@@ -3140,7 +3305,7 @@ $usar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
+	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
 </div>
 <br />
 
@@ -3177,7 +3342,7 @@ $schema&nbsp;
 	
 		
 	
-	<span class="method-title">set_usar_trim</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+	<span class="method-title">set_usar_trim</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
 </div>
 <br />
 
@@ -3215,7 +3380,7 @@ $usar&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
 </div>
 <br />
 
@@ -3272,7 +3437,7 @@ $filas = array()]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
+	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 513]</span>
 </div>
 <br />
 
@@ -3323,7 +3488,7 @@ $filas = array()]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 461]</span>
 </div>
 <br />
 
@@ -3374,7 +3539,7 @@ $filas = array()]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 471]</span>
+	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 486]</span>
 </div>
 <br />
 
@@ -3421,7 +3586,7 @@ $filas = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">usar_clase_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1285]</span>
+	<span class="method-title">usar_clase_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1304]</span>
 </div>
 <br />
 
@@ -3481,7 +3646,7 @@ $es_carga_inicial = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">usar_metodo_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1240]</span>
+	<span class="method-title">usar_metodo_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1259]</span>
 </div>
 <br />
 
@@ -3541,7 +3706,7 @@ $es_carga_inicial = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">usar_metodo_dt</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1265]</span>
+	<span class="method-title">usar_metodo_dt</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1284]</span>
 </div>
 <br />
 
@@ -3601,7 +3766,7 @@ $es_carga_inicial = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">usar_metodo_sql_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1220]</span>
+	<span class="method-title">usar_metodo_sql_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1239]</span>
 </div>
 <br />
 
@@ -3654,7 +3819,7 @@ $parametros&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">verificar_existencia_valores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1373]</span>
+	<span class="method-title">verificar_existencia_valores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1392]</span>
 </div>
 <br />
 

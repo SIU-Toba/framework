@@ -310,6 +310,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Seguridad/toba_usuario.html#methodreemplazar_clave_vencida">reemplazar_clave_vencida()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Seguridad/toba_usuario.html#methodregistrar_error_login">registrar_error_login()</a></span>
 										</dt>
 										<dd>
@@ -338,6 +349,28 @@
 											<span class="method-definition"></span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Seguridad/toba_usuario.html#methodverificar_clave_no_utilizada">verificar_clave_no_utilizada()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Seguridad/toba_usuario.html#methodverificar_clave_vencida">verificar_clave_vencida()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 											</td>
@@ -358,11 +391,6 @@
 						</td>
 						<td class="method-definition"><a href="#autenticar" title="details" class="method-name">autenticar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Realiza la autentificacion.</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">$value</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#autenticar_ldap" title="details" class="method-name">autenticar_ldap</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Realiza la autentificacion utilizando un servidor LDAP</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -405,7 +433,7 @@
 													<td nowrap class="method-definition"><span class="method-result">toba_usuario_basico</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																												<tr>
+																																																																																			<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
@@ -538,67 +566,10 @@ $usar_log = true]&nbsp;
 		
 		<br />
 </div>
-<a name="methodautenticar_ldap" id="autenticar_ldap"><!-- --></a>
+<a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		    		<span class="method-title">static method autenticar_ldap</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static $value autenticar_ldap(
-
-$id_usuario, 
-$clave, [
-$datos_iniciales = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Realiza la autentificacion utilizando un servidor LDAP </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$id_usuario:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clave:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$datos_iniciales:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
+		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
 </div>
 <br />
 
@@ -634,9 +605,9 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_usuario" id="bloquear_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+		<span class="method-title">static method bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -672,9 +643,9 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodes_ip_rechazada" id="es_ip_rechazada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
+		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -710,9 +681,9 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodes_usuario_bloqueado" id="es_usuario_bloqueado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
+		<span class="method-title">static method es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -748,9 +719,9 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_en_ventana_temporal" id="get_cantidad_intentos_en_ventana_temporal"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 209]</span>
+		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
 </div>
 <br />
 
@@ -793,9 +764,9 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_usuario_en_ventana_temporal" id="get_cantidad_intentos_usuario_en_ventana_temporal"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
+		<span class="method-title">static method get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
 </div>
 <br />
 
@@ -838,9 +809,9 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_error_login" id="registrar_error_login"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
+		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -891,12 +862,12 @@ $texto&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
 </div>
 <br />
 
@@ -932,12 +903,12 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_grupos_acceso" id="get_grupos_acceso"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
+	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
 </div>
 <br />
 
@@ -965,12 +936,12 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
 <br />
 
@@ -995,12 +966,12 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
 </div>
 <br />
 
@@ -1025,12 +996,12 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_parametro" id="get_parametro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
 </div>
 <br />
 
@@ -1062,12 +1033,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodget_perfiles_funcionales" id="get_perfiles_funcionales"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_perfiles_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
+	<span class="method-title">get_perfiles_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
 </div>
 <br />
 
@@ -1100,12 +1071,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodget_perfil_datos" id="get_perfil_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_perfil_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">get_perfil_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
 </div>
 <br />
 
@@ -1129,12 +1100,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodget_restricciones_funcionales" id="get_restricciones_funcionales"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_restricciones_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">get_restricciones_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
 </div>
 <br />
 

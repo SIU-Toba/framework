@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -500,7 +519,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -559,12 +578,12 @@ $desde = null]&nbsp;
 		<br />
 </div>
 <a name="methodagregar_adjunto" id="agregar_adjunto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -574,7 +593,9 @@ $desde = null]&nbsp;
 		<code>void agregar_adjunto(
 string
 $nombre, string
-$path_archivo&nbsp;
+$path_archivo, [string
+$encoding = 'base64'], [string
+$tipo = '']&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -595,6 +616,18 @@ $path_archivo&nbsp;
 				<span class="var-name">$path_archivo:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Path al archivo en el disco</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$encoding:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Encoding del archivo</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> File extension (MIME) type</span>			</td></tr>
 				</table>
 
 	<br />
@@ -604,7 +637,7 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -634,7 +667,7 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodenviar" id="enviar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -660,7 +693,7 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodget_datos_configuracion_smtp" id="get_datos_configuracion_smtp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -686,12 +719,12 @@ $path_archivo&nbsp;
 		<br />
 </div>
 <a name="methodset_cc" id="set_cc"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
+	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
 </div>
 <br />
 
@@ -724,7 +757,7 @@ $direcciones = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_configuracion_smtp" id="set_configuracion_smtp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -762,12 +795,12 @@ $nombre_conf = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_confirmacion" id="set_confirmacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
+	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
 </div>
 <br />
 
@@ -800,12 +833,12 @@ $confirm&nbsp;
 		<br />
 </div>
 <a name="methodset_html" id="set_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
+	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -838,12 +871,12 @@ $html = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_remitente" id="set_remitente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_remitente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
+	<span class="method-title">set_remitente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -876,12 +909,12 @@ $from_name&nbsp;
 		<br />
 </div>
 <a name="methodset_reply" id="set_reply"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
 <br />
 

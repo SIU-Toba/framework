@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -415,7 +434,7 @@
 						</td>
 						<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el id de la instancia actual</td></tr>
-																																																																																																																																																																				<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																																																																						<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_instancia.html">toba_instancia</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -551,6 +570,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_lista_claves_usadas" title="details" class="method-name">get_lista_claves_usadas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_lista_usuarios" title="details" class="method-name">get_lista_usuarios</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Utilizada en el login automatico</td></tr>
 																				<tr>
@@ -567,6 +593,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_path_ini" title="details" class="method-name">get_path_ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_path_instalacion_proyecto" title="details" class="method-name">get_path_instalacion_proyecto</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -690,7 +723,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
 </div>
@@ -712,7 +745,7 @@
 		<br />
 </div>
 <a name="methodget_datos_instancia" id="get_datos_instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
 </div>
@@ -747,7 +780,7 @@ $id_instancia&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
@@ -770,7 +803,7 @@ $id_instancia&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
 </div>
@@ -805,12 +838,12 @@ $recargar = false]&nbsp;
 </div>
 
 <a name="methodabrir_sesion" id="abrir_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
+	<span class="method-title">abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 556]</span>
 </div>
 <br />
 
@@ -856,12 +889,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodagregar_usuario" id="agregar_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 569]</span>
+	<span class="method-title">agregar_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 596]</span>
 </div>
 <br />
 
@@ -915,12 +948,12 @@ $atributos = array()]&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 445]</span>
+	<span class="method-title">bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 472]</span>
 </div>
 <br />
 
@@ -952,12 +985,12 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_usuario" id="bloquear_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 493]</span>
+	<span class="method-title">bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 520]</span>
 </div>
 <br />
 
@@ -989,12 +1022,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_sesion" id="cerrar_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 544]</span>
+	<span class="method-title">cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 571]</span>
 </div>
 <br />
 
@@ -1033,12 +1066,12 @@ $observaciones = null]&nbsp;
 		<br />
 </div>
 <a name="methoddesbloquear_usuario" id="desbloquear_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">desbloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 579]</span>
+	<span class="method-title">desbloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 606]</span>
 </div>
 <br />
 
@@ -1070,12 +1103,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodes_ip_rechazada" id="es_ip_rechazada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
+	<span class="method-title">es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 450]</span>
 </div>
 <br />
 
@@ -1107,12 +1140,12 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodes_usuario_bloqueado" id="es_usuario_bloqueado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 504]</span>
+	<span class="method-title">es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 531]</span>
 </div>
 <br />
 
@@ -1144,12 +1177,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_en_ventana_temporal" id="get_cantidad_intentos_en_ventana_temporal"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 456]</span>
+	<span class="method-title">get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 483]</span>
 </div>
 <br />
 
@@ -1188,12 +1221,12 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_usuario_en_ventana_temporal" id="get_cantidad_intentos_usuario_en_ventana_temporal"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 476]</span>
+	<span class="method-title">get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 503]</span>
 </div>
 <br />
 
@@ -1232,7 +1265,7 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_db" id="get_db"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1258,12 +1291,12 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_directiva_compilacion" id="get_directiva_compilacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
+	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -1295,12 +1328,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_grupos_acceso" id="get_grupos_acceso"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
 </div>
 <br />
 
@@ -1347,12 +1380,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_id_proyectos" id="get_id_proyectos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
+	<span class="method-title">get_id_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 302]</span>
 </div>
 <br />
 
@@ -1372,12 +1405,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_id_sesion" id="get_id_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
+	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 546]</span>
 </div>
 <br />
 
@@ -1397,12 +1430,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_id_solicitud" id="get_id_solicitud"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
+	<span class="method-title">get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
 </div>
 <br />
 
@@ -1422,12 +1455,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_info_autenticacion" id="get_info_autenticacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
+	<span class="method-title">get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 339]</span>
 </div>
 <br />
 
@@ -1459,12 +1492,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_info_usuario" id="get_info_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_info_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 315]</span>
+	<span class="method-title">get_info_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
 </div>
 <br />
 
@@ -1504,13 +1537,50 @@ $usuario&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_lista_claves_usadas" id="get_lista_claves_usadas"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_lista_claves_usadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_lista_claves_usadas(
+
+$usuario&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_lista_usuarios" id="get_lista_usuarios"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
+	<span class="method-title">get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
 </div>
 <br />
 
@@ -1601,8 +1671,45 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_path_proyecto" id="get_path_proyecto"><!-- --></a>
+<a name="methodget_path_instalacion_proyecto" id="get_path_instalacion_proyecto"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_path_instalacion_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_path_instalacion_proyecto(
+
+$proyecto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_path_proyecto" id="get_path_proyecto"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1640,12 +1747,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_perfiles_funcionales" id="get_perfiles_funcionales"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_perfiles_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 363]</span>
+	<span class="method-title">get_perfiles_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 390]</span>
 </div>
 <br />
 
@@ -1693,12 +1800,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_pregunta_secreta" id="get_pregunta_secreta"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_pregunta_secreta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
+	<span class="method-title">get_pregunta_secreta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -1730,12 +1837,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_proyectos_accesibles" id="get_proyectos_accesibles"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 278]</span>
+	<span class="method-title">get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -1768,7 +1875,7 @@ $refrescar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_schema_db" id="get_schema_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1793,12 +1900,12 @@ $refrescar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_url_proyecto" id="get_url_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
+	<span class="method-title">get_url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
 </div>
 <br />
 
@@ -1831,12 +1938,12 @@ $proy&nbsp;
 		<br />
 </div>
 <a name="methodget_url_proyectos" id="get_url_proyectos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+	<span class="method-title">get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -1869,12 +1976,12 @@ $proys&nbsp;
 		<br />
 </div>
 <a name="methodget_url_proyecto_pers" id="get_url_proyecto_pers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_url_proyecto_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
+	<span class="method-title">get_url_proyecto_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 270]</span>
 </div>
 <br />
 
@@ -1906,12 +2013,12 @@ $proy&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_error_login" id="registrar_error_login"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 434]</span>
+	<span class="method-title">registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 461]</span>
 </div>
 <br />
 
@@ -1957,12 +2064,12 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_marca_cronometro" id="registrar_marca_cronometro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+	<span class="method-title">registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
 </div>
 <br />
 
@@ -2029,12 +2136,12 @@ $tiempo&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud" id="registrar_solicitud"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
+	<span class="method-title">registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
 </div>
 <br />
 
@@ -2087,12 +2194,12 @@ $tipo_solicitud&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_browser" id="registrar_solicitud_browser"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
 </div>
 <br />
 
@@ -2152,12 +2259,12 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_consola" id="registrar_solicitud_consola"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
+	<span class="method-title">registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
 </div>
 <br />
 
@@ -2210,12 +2317,12 @@ $llamada&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_observaciones" id="registrar_solicitud_observaciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
+	<span class="method-title">registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -2268,12 +2375,12 @@ $observacion&nbsp;
 		<br />
 </div>
 <a name="methodvincular_usuario" id="vincular_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">vincular_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 574]</span>
+	<span class="method-title">vincular_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 601]</span>
 </div>
 <br />
 

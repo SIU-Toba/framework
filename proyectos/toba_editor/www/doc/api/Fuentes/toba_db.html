@@ -156,15 +156,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
-					<td>
-											Driver de conexión con postgres
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
 					<td>
 											Driver de conexión con mysql.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
+					<td>
+											Driver de conexión con informix
 										</td>
 				</tr>
 								<tr>
@@ -174,9 +174,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
 					<td>
-											Driver de conexión con informix
+											Driver de conexión con postgres
 										</td>
 				</tr>
 							</table>
@@ -193,7 +193,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																													<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																								<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -264,6 +264,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cortar_sql" title="details" class="method-name">cortar_sql</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#crear_lenguaje_procedural" title="details" class="method-name">crear_lenguaje_procedural</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -428,6 +435,13 @@
 						<td class="method-definition">Crea una PDO_STATEMENT y lo ejecuta.</td></tr>
 																				<tr>
 						<td nowrap align="right">
+														    															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#sentencia_agregar_binarios" title="details" class="method-name">sentencia_agregar_binarios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega datos binarios a una sentencia SQL preparada con 'preparar_sentencia'</td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
@@ -461,6 +475,13 @@
 													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#sentencia_ejecutar" title="details" class="method-name">sentencia_ejecutar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#sentencia_eliminar" title="details" class="method-name">sentencia_eliminar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Quita una SQL del arreglo de sentencias.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    																					    								
@@ -572,16 +593,16 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -592,7 +613,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 649]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 692]</span>
 </div>
 <br />
 
@@ -613,11 +634,11 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
-							</li>
-					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a>
 								: Ejecuta un ROLLBACK WORK en la conexión
+							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
 							</li>
 				</ul>
 		<br />
@@ -628,7 +649,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 640]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 683]</span>
 </div>
 <br />
 
@@ -649,11 +670,11 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
-							</li>
-					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a>
 								: Ejecuta un BEGIN WORK en la conexión
+							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
 							</li>
 				</ul>
 		<br />
@@ -754,7 +775,7 @@ $activar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 658]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 701]</span>
 </div>
 <br />
 
@@ -775,11 +796,11 @@ $activar = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
-							</li>
-					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a>
 								: Ejecuta un COMMIT WORK en la conexión
+							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
 							</li>
 				</ul>
 		<br />
@@ -822,7 +843,7 @@ $activar = true]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
 </div>
 <br />
 
@@ -881,7 +902,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 395]</span>
 </div>
 <br />
 
@@ -948,7 +969,7 @@ $lanzar_excepcion = true]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 989]</span>
+	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1032]</span>
 </div>
 <br />
 
@@ -987,8 +1008,41 @@ $sql&nbsp;
 		
 		<br />
 </div>
-<a name="methoddestruir" id="destruir"><!-- --></a>
+<a name="methodcrear_lenguaje_procedural" id="crear_lenguaje_procedural"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">crear_lenguaje_procedural</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crear_lenguaje_procedural(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos. <p>redefinido en los hijos</p></div>
+
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcrear_lenguaje_procedural">toba_db_postgres7::crear_lenguaje_procedural()</a>
+								: Crea el lenguaje plpgsql unicamente si el mismo aun no existe para la base de datos.
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methoddestruir" id="destruir"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1014,12 +1068,12 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -1058,12 +1112,12 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodejecutar_archivo" id="ejecutar_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 436]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 445]</span>
 </div>
 <br />
 
@@ -1096,12 +1150,12 @@ $archivo&nbsp;
 		<br />
 </div>
 <a name="methodejecutar_transaccion" id="ejecutar_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 669]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 712]</span>
 </div>
 <br />
 
@@ -1141,13 +1195,13 @@ $sentencias&nbsp;
 		<br />
 </div>
 <a name="methodes_campo_candidato_descripcion" id="es_campo_candidato_descripcion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 961]</span>
+	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1004]</span>
 </div>
 <br />
 
@@ -1188,7 +1242,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodexportar_registro" id="exportar_registro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1233,12 +1287,12 @@ $archivo_consulta = '']&nbsp;
 		<br />
 </div>
 <a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 715]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 758]</span>
 </div>
 <br />
 
@@ -1277,12 +1331,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_dsn" id="get_dsn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 688]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 731]</span>
 </div>
 <br />
 
@@ -1303,24 +1357,24 @@ $tabla&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
-							</li>
-					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a>
 							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_error_toba" id="get_error_toba"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1007]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1050]</span>
 </div>
 <br />
 
@@ -1360,7 +1414,7 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodget_info_debug" id="get_info_debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1386,12 +1440,12 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1024]</span>
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1067]</span>
 </div>
 <br />
 
@@ -1445,12 +1499,12 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_opciones_sql_campo_externo" id="get_opciones_sql_campo_externo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 925]</span>
+	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 968]</span>
 </div>
 <br />
 
@@ -1483,7 +1537,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros" id="get_parametros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1515,7 +1569,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_pdo" id="get_pdo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1541,7 +1595,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1573,12 +1627,12 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_sql_carga_descripciones" id="get_sql_carga_descripciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 902]</span>
+	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 945]</span>
 </div>
 <br />
 
@@ -1619,12 +1673,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_sql_carga_tabla" id="get_sql_carga_tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 829]</span>
+	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 872]</span>
 </div>
 <br />
 
@@ -1665,12 +1719,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo_datos_generico" id="get_tipo_datos_generico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 724]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 767]</span>
 </div>
 <br />
 
@@ -1703,12 +1757,12 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodhay_datos" id="hay_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 426]</span>
+	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
 </div>
 <br />
 
@@ -1755,7 +1809,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodquote" id="quote"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1793,12 +1847,12 @@ $dato&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 697]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 740]</span>
 </div>
 <br />
 
@@ -1838,12 +1892,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 706]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 749]</span>
 </div>
 <br />
 
@@ -1870,12 +1924,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodsentencia" id="sentencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 324]</span>
+	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -1920,13 +1974,64 @@ $parametros = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodsentencia_agregar_binarios" id="sentencia_agregar_binarios"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		    	
+		
+	
+	<span class="method-title">sentencia_agregar_binarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void sentencia_agregar_binarios(
+integer
+$id, [array
+$binarios = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega datos binarios a una sentencia SQL preparada con 'preparar_sentencia' </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> ID de la sentencia</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$binarios:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo con los resource apuntando a los binarios</span>			</td></tr>
+				</table>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Throws:</strong>&nbsp;&nbsp;</td><td>toba_error en caso de que alguno de los parametros no se pueda agregar</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
 <a name="methodsentencia_cantidad_afectados" id="sentencia_cantidad_afectados"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 625]</span>
+	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 668]</span>
 </div>
 <br />
 
@@ -1972,7 +2077,7 @@ $id&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 533]</span>
+	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 576]</span>
 </div>
 <br />
 
@@ -1982,7 +2087,7 @@ $id&nbsp;
 		<code>array sentencia_consultar(
 integer
 $id, [array
-$parametros = array()], [string
+$parametros = null], [string
 $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 )</code>
     </td></tr></table>
@@ -2038,7 +2143,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 572]</span>
+	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 615]</span>
 </div>
 <br />
 
@@ -2048,7 +2153,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<code>array sentencia_consultar_fila(
 integer
 $id, [array
-$parametros = array()], [string
+$parametros = null], [string
 $tipo_fetch = toba_db_fetch_asoc], [
 $lanzar_excepcion = true]&nbsp;
 )</code>
@@ -2111,7 +2216,7 @@ $lanzar_excepcion = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 608]</span>
+	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 651]</span>
 </div>
 <br />
 
@@ -2164,7 +2269,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 494]</span>
+	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
 </div>
 <br />
 
@@ -2174,7 +2279,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<code>integer sentencia_ejecutar(
 integer
 $id, [array
-$parametros = array()], string
+$parametros = null], string
 $tipo_fetch&nbsp;
 )</code>
     </td></tr></table>
@@ -2224,13 +2329,51 @@ $tipo_fetch&nbsp;
 		
 		<br />
 </div>
-<a name="methodsentencia_preparar" id="sentencia_preparar"><!-- --></a>
+<a name="methodsentencia_eliminar" id="sentencia_eliminar"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">sentencia_eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 523]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void sentencia_eliminar(
+integer
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Quita una SQL del arreglo de sentencias. <p>Se usa para liberar el resource de un blob y poder seguir operando con el archivo.</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Identificador de la sentencia.</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodsentencia_preparar" id="sentencia_preparar"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
+	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 479]</span>
 </div>
 <br />
 
@@ -2284,7 +2427,7 @@ $opciones = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_modo_debug" id="set_modo_debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2329,7 +2472,7 @@ $loguear = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_parser_errores" id="set_parser_errores"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -2366,12 +2509,12 @@ $parser&nbsp;
 		<br />
 </div>
 <a name="methodultimo_insert_id" id="ultimo_insert_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ultimo_insert_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 453]</span>
+	<span class="method-title">ultimo_insert_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 462]</span>
 </div>
 <br />
 

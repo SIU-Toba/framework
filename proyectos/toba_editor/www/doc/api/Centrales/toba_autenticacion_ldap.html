@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -404,7 +423,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																					<tr>
+																																														<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -418,6 +437,13 @@
 													<td nowrap class="method-definition"><span class="method-result">$value</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#autenticar" title="details" class="method-name">autenticar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Realiza la autentificacion utilizando un servidor LDAP</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#verificar_clave_vencida" title="details" class="method-name">verificar_clave_vencida</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -436,7 +462,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -449,9 +475,9 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_autenticacion_ldap __construct(
-
-$server, 
-$dn&nbsp;
+[
+$server = null], [
+$dn = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -480,12 +506,12 @@ $dn&nbsp;
 		<br />
 </div>
 <a name="methodautenticar" id="autenticar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">autenticar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+	<span class="method-title">autenticar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
 </div>
 <br />
 
@@ -539,6 +565,47 @@ $datos_iniciales = null]&nbsp;
 				<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../Centrales/toba_autenticable.html#methodautenticar">toba_autenticable::autenticar()</a></dt>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodverificar_clave_vencida" id="verificar_clave_vencida"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">verificar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void verificar_clave_vencida(
+
+$id_usuario&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+				<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../Centrales/toba_autenticable.html#methodverificar_clave_vencida">toba_autenticable::verificar_clave_vencida()</a></dt>
 					</dl>
 		
 		<br />

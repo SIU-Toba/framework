@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -403,6 +422,12 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
+					<td>
+											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_web.html">toba_solicitud_web</a></td>
 					<td>
 											Solicitud pensada para contener el ciclo request-response http  La etapa de request se la denomina de 'eventos'  La etapa de response se la denomina de 'servicios'
@@ -412,12 +437,6 @@
 					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_servicio_web.html">toba_solicitud_servicio_web</a></td>
 					<td>
 											
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
-					<td>
-											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
 										</td>
 				</tr>
 								<tr>
@@ -592,7 +611,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -636,13 +655,13 @@ $usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+							</li>
+					<li>
 				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_servicio_web.html#method__construct">toba_solicitud_servicio_web::__construct()</a>
-							</li>
-					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
@@ -651,7 +670,7 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodcargar_objeto" id="cargar_objeto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -711,7 +730,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_zona" id="crear_zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -745,7 +764,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodes_item_publico" id="es_item_publico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -770,7 +789,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_ayuda" id="existe_ayuda"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -795,7 +814,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar_objetos" id="finalizar_objetos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -821,7 +840,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_datos_item" id="get_datos_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -859,7 +878,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -885,7 +904,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_operacion" id="get_id_operacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -911,7 +930,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo" id="get_tipo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -936,7 +955,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodguardar_cronometro" id="guardar_cronometro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -961,7 +980,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodhay_zona" id="hay_zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -987,7 +1006,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodobservar" id="observar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1032,7 +1051,7 @@ $tipo = null]&nbsp;
 		<br />
 </div>
 <a name="methodprocesar" id="procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -1065,14 +1084,14 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+							</li>
+					<li>
 				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
 								: Crea la zona, carga los componentes, procesa los eventos y los servicios
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_servicio_web.html#methodprocesar">toba_solicitud_servicio_web::procesar()</a>
-							</li>
-					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
@@ -1081,7 +1100,7 @@ $tipo = null]&nbsp;
 		<br />
 </div>
 <a name="methodregistrar" id="registrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1115,7 +1134,7 @@ $tipo = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_cronometrar" id="set_cronometrar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1152,7 +1171,7 @@ $cronometrar&nbsp;
 		<br />
 </div>
 <a name="methodset_datos_item" id="set_datos_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1190,7 +1209,7 @@ $prop = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_tipo_pagina" id="set_tipo_pagina"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1228,7 +1247,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		

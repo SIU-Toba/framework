@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -405,13 +424,13 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_registro_delete.html">toba_registro_delete</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_registro_update.html">toba_registro_update</a></td>
 					<td>
 											
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_registro_update.html">toba_registro_update</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_registro_delete.html">toba_registro_delete</a></td>
 					<td>
 											
 										</td>
@@ -450,6 +469,17 @@
 										
 										<dt>
 											<span class="method-definition"><a href="../Centrales/toba_registro.html#methodadd_columna">add_columna()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../Centrales/toba_registro.html#methodanalizar_conflictos">analizar_conflictos()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -640,6 +670,13 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#analizar_conflictos" title="details" class="method-name">analizar_conflictos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
 						</td>
@@ -653,13 +690,6 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_clave" title="details" class="method-name">get_clave</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cada clave es una dupla campo:valor. Si hay varias claves se devuelven  las duplas separadas por coma (Como vienen especificadas en el xml).</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_conflictos" title="details" class="method-name">get_conflictos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -734,10 +764,10 @@ $nombre_tabla&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_registro_delete.html#method__construct">toba_registro_delete::__construct()</a>
+				<a href="../Centrales/toba_registro_update.html#method__construct">toba_registro_update::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_registro_update.html#method__construct">toba_registro_update::__construct()</a>
+				<a href="../Centrales/toba_registro_delete.html#method__construct">toba_registro_delete::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -786,8 +816,43 @@ $valor&nbsp;
 		
 		<br />
 </div>
-<a name="methodarmar_where" id="armar_where"><!-- --></a>
+<a name="methodanalizar_conflictos" id="analizar_conflictos"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">analizar_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void analizar_conflictos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../Centrales/toba_registro.html#methodanalizar_conflictos">toba_registro::analizar_conflictos()</a></dt>
+					</dl>
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Centrales/toba_registro_update.html#methodanalizar_conflictos">toba_registro_update::analizar_conflictos()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodarmar_where" id="armar_where"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -821,7 +886,7 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_clave" id="get_clave"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -844,41 +909,6 @@ $valor&nbsp;
 	
 
 		
-		<br />
-</div>
-<a name="methodget_conflictos" id="get_conflictos"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_conflictos(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-			<div class="notes">Redefinición de:</div>
-		<dl>
-			<dt><a href="../Centrales/toba_registro.html#methodget_conflictos">toba_registro::get_conflictos()</a></dt>
-					</dl>
-		
-			<div class="notes">Redefinido en subclases como:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Centrales/toba_registro_update.html#methodget_conflictos">toba_registro_update::get_conflictos()</a>
-							</li>
-				</ul>
 		<br />
 </div>
 <a name="methodget_registro_a_actualizar" id="get_registro_a_actualizar"><!-- --></a>

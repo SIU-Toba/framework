@@ -61,6 +61,9 @@
 	    			<a href="../../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -436,6 +455,12 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_login_contrasenia_vencida.html">toba_error_login_contrasenia_vencida</a></td>
+					<td>
+											Excepción producida por sobrepasar el limite de dias de validez de la contraseña
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_autorizacion.html">toba_error_autorizacion</a></td>
 					<td>
 											Excepción producida por un error en la autorizacion del usuario
@@ -463,6 +488,12 @@
 					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_comunicacion.html">toba_error_comunicacion</a></td>
 					<td>
 											Excepción producida en una comunicación web service
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Centrales/Errores/toba_error_servicio_web.html">toba_error_servicio_web</a></td>
+					<td>
+											Error interno de toba
 										</td>
 				</tr>
 							</table>
@@ -607,7 +638,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																														<tr>
+																																																							<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -628,6 +659,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_mensaje_log" title="details" class="method-name">get_mensaje_log</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_titulo_ventana" title="details" class="method-name">get_titulo_ventana</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -646,12 +684,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
 <br />
 
@@ -661,7 +699,8 @@
 		<code>toba_error __construct(
 
 $mensaje_visible, [
-$mensaje_solo_debug = '']&nbsp;
+$mensaje_solo_debug = ''], [
+$titulo_ventana = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -679,6 +718,12 @@ $mensaje_solo_debug = '']&nbsp;
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$mensaje_solo_debug:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$titulo_ventana:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -705,16 +750,19 @@ $mensaje_solo_debug = '']&nbsp;
 					<li>
 				<a href="../../Centrales/Errores/toba_error_comunicacion.html#method__construct">toba_error_comunicacion::__construct()</a>
 							</li>
+					<li>
+				<a href="../../Centrales/Errores/toba_error_servicio_web.html#method__construct">toba_error_servicio_web::__construct()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
+	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
 </div>
 <br />
 
@@ -734,12 +782,12 @@ $mensaje_solo_debug = '']&nbsp;
 		<br />
 </div>
 <a name="methodget_mensaje_log" id="get_mensaje_log"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_mensaje_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
+	<span class="method-title">get_mensaje_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -762,6 +810,31 @@ $mensaje_solo_debug = '']&nbsp;
 				<a href="../../Centrales/Errores/toba_error_db.html#methodget_mensaje_log">toba_error_db::get_mensaje_log()</a>
 							</li>
 				</ul>
+		<br />
+</div>
+<a name="methodget_titulo_ventana" id="get_titulo_ventana"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_titulo_ventana</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_titulo_ventana(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
 		<br />
 </div>
 		</div>

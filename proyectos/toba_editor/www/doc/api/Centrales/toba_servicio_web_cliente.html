@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -404,6 +423,11 @@
 						</td>
 						<td class="method-definition"><a href="#conectar" title="details" class="method-name">conectar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">WSSecurityToken</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_ws_token" title="details" class="method-name">get_ws_token</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un objeto WSF con la configuracion de certificados ssl existente o null</td></tr>
 																																																			<tr>
 						<td nowrap align="right">
 															
@@ -411,7 +435,7 @@
 													<td nowrap class="method-definition"><span class="method-result">toba_servicio_web_cliente</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																													<tr>
+																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -489,14 +513,56 @@ $opciones = array()]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_ws_token" id="get_ws_token"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_ws_token</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static WSSecurityToken get_ws_token(
+string
+$proyecto, string
+$servicio&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un objeto WSF con la configuracion de certificados ssl existente o null </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$servicio:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -505,7 +571,8 @@ $opciones = array()]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_servicio_web_cliente __construct(
 
-$opciones&nbsp;
+$opciones, 
+$id_servicio&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -519,6 +586,12 @@ $opciones&nbsp;
 				<span class="var-name">$opciones:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_servicio:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -528,12 +601,12 @@ $opciones&nbsp;
 		<br />
 </div>
 <a name="methodrequest" id="request"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">request</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
+	<span class="method-title">request</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
 </div>
 <br />
 
@@ -542,7 +615,8 @@ $opciones&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code><a href="../Centrales/toba_servicio_web_mensaje.html">toba_servicio_web_mensaje</a> request(
 <a href="../Centrales/toba_servicio_web_mensaje.html">toba_servicio_web_mensaje</a>
-$mensaje&nbsp;
+$mensaje, [
+$usar_configuraciones = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -557,6 +631,12 @@ $mensaje&nbsp;
 				<span class="var-name">$mensaje:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_configuraciones:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -566,12 +646,12 @@ $mensaje&nbsp;
 		<br />
 </div>
 <a name="methodsend" id="send"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">send</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
+	<span class="method-title">send</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
 </div>
 <br />
 
@@ -603,12 +683,12 @@ $mensaje&nbsp;
 		<br />
 </div>
 <a name="methodwsf" id="wsf"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">wsf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
+	<span class="method-title">wsf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
 </div>
 <br />
 

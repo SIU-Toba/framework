@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -405,7 +424,7 @@
 						</td>
 						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																									<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																																											<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_instalacion.html">toba_instalacion</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -445,6 +464,13 @@
 													<td nowrap class="method-definition"><span class="method-result">Arreglo</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_claves_encriptacion" title="details" class="method-name">get_claves_encriptacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Claves utilizadas para encriptar el querystring y cosas en la base</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_configuracion_certificados_ssl" title="details" class="method-name">get_configuracion_certificados_ssl</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un arreglo con las rutas a los certificados ssl</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -498,6 +524,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_tipo_autenticacion" title="details" class="method-name">get_tipo_autenticacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el metodo de autenticacion toba|ldap|openid</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_url" title="details" class="method-name">get_url</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)</td></tr>
@@ -532,7 +565,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
@@ -554,7 +587,7 @@
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
 </div>
@@ -589,12 +622,12 @@ $recargar = false]&nbsp;
 </div>
 
 <a name="methodarreglo_png_ie" id="arreglo_png_ie"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">arreglo_png_ie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 112]</span>
+	<span class="method-title">arreglo_png_ie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
 </div>
 <br />
 
@@ -614,12 +647,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodchequea_sincro_svn" id="chequea_sincro_svn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">chequea_sincro_svn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 187]</span>
+	<span class="method-title">chequea_sincro_svn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
 </div>
 <br />
 
@@ -640,12 +673,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodes_js_comprimido" id="es_js_comprimido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_js_comprimido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
+	<span class="method-title">es_js_comprimido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
 </div>
 <br />
 
@@ -666,12 +699,12 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodes_produccion" id="es_produccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_produccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
+	<span class="method-title">es_produccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -692,7 +725,7 @@ $recargar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_claves_encriptacion" id="get_claves_encriptacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -725,13 +758,39 @@ $recargar = false]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_configuracion_certificados_ssl" id="get_configuracion_certificados_ssl"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_configuracion_certificados_ssl</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_configuracion_certificados_ssl(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un arreglo con las rutas a los certificados ssl </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_datos_smtp" id="get_datos_smtp"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_datos_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">get_datos_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
 </div>
 <br />
 
@@ -768,7 +827,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_editor_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+	<span class="method-title">get_editor_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
 </div>
 <br />
 
@@ -794,7 +853,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_fonts_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+	<span class="method-title">get_fonts_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
 </div>
 <br />
 
@@ -819,7 +878,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_grupo_desarrollo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+	<span class="method-title">get_id_grupo_desarrollo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
 </div>
 <br />
 
@@ -845,7 +904,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_numero_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
+	<span class="method-title">get_numero_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
@@ -871,7 +930,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
+	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
 </div>
 <br />
 
@@ -897,7 +956,7 @@ $nombre_config = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
 </div>
 <br />
 
@@ -917,13 +976,39 @@ $nombre_config = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_url" id="get_url"><!-- --></a>
+<a name="methodget_tipo_autenticacion" id="get_tipo_autenticacion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
+	<span class="method-title">get_tipo_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_tipo_autenticacion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el metodo de autenticacion toba|ldap|openid </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_url" id="get_url"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 162]</span>
 </div>
 <br />
 
@@ -944,12 +1029,12 @@ $nombre_config = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_version" id="get_version"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
+	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
 </div>
 <br />
 
@@ -970,12 +1055,12 @@ $nombre_config = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_xslfo_fop" id="get_xslfo_fop"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_xslfo_fop</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
+	<span class="method-title">get_xslfo_fop</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
 </div>
 <br />
 

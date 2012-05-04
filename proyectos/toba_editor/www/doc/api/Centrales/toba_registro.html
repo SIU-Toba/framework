@@ -61,6 +61,9 @@
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_openid.html">					autenticacion_openid
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_configuracion.html">					configuracion
 					</a>    		
 	 <br />
@@ -238,6 +241,9 @@
 	    			<a href="../Centrales/toba_tarea_php.html">					tarea_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_test_reporter.html">					test_reporter
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_validaciones.html">					validaciones
 					</a>    		
 	 <br />
@@ -294,12 +300,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_login_contrasenia_vencida.html">					error_login_contrasenia_vencida
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_permisos.html">					error_permisos
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_seguridad.html">					error_seguridad
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_servicio_web.html">					error_servicio_web
 					</a>    	    		</span>
     		
 	 <br />
@@ -341,6 +357,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_tarea.html">					tarea
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_vista_xslfo_callback_generacion.html">					vista_xslfo_callback_generacion
 					</a>    		
 	 <br />
 	  </div>
@@ -427,7 +446,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																			<tr>
+																																																																																																																																																																												<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -440,6 +459,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#add_columna" title="details" class="method-name">add_columna</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#analizar_conflictos" title="details" class="method-name">analizar_conflictos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -589,7 +615,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
 <br />
 
@@ -631,10 +657,10 @@ $nombre_tabla&nbsp;
 				<a href="../Centrales/toba_registro_con_clave.html#method__construct">toba_registro_con_clave::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_registro_delete.html#method__construct">toba_registro_delete::__construct()</a>
+				<a href="../Centrales/toba_registro_update.html#method__construct">toba_registro_update::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_registro_update.html#method__construct">toba_registro_update::__construct()</a>
+				<a href="../Centrales/toba_registro_delete.html#method__construct">toba_registro_delete::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_registro_insert.html#method__construct">toba_registro_insert::__construct()</a>
@@ -648,7 +674,7 @@ $nombre_tabla&nbsp;
 	
 		
 	
-	<span class="method-title">add_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+	<span class="method-title">add_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
@@ -686,14 +712,48 @@ $valor&nbsp;
 		
 		<br />
 </div>
-<a name="methodcheck_constraints" id="check_constraints"><!-- --></a>
+<a name="methodanalizar_conflictos" id="analizar_conflictos"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">analizar_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void analizar_conflictos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Centrales/toba_registro_con_clave.html#methodanalizar_conflictos">toba_registro_con_clave::analizar_conflictos()</a>
+							</li>
+					<li>
+				<a href="../Centrales/toba_registro_update.html#methodanalizar_conflictos">toba_registro_update::analizar_conflictos()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodcheck_constraints" id="check_constraints"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">check_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">check_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
 </div>
 <br />
 
@@ -721,12 +781,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodexiste_columna" id="existe_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
 </div>
 <br />
 
@@ -758,12 +818,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_conflictos" id="get_conflictos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">get_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 122]</span>
 </div>
 <br />
 
@@ -788,24 +848,15 @@ $columna&nbsp;
 
 
 		
-			<div class="notes">Redefinido en subclases como:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Centrales/toba_registro_con_clave.html#methodget_conflictos">toba_registro_con_clave::get_conflictos()</a>
-							</li>
-					<li>
-				<a href="../Centrales/toba_registro_update.html#methodget_conflictos">toba_registro_update::get_conflictos()</a>
-							</li>
-				</ul>
 		<br />
 </div>
 <a name="methodget_conflictos_solubles" id="get_conflictos_solubles"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_conflictos_solubles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+	<span class="method-title">get_conflictos_solubles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 162]</span>
 </div>
 <br />
 
@@ -825,12 +876,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_conflicto_irresoluble" id="get_conflicto_irresoluble"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_conflicto_irresoluble</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">get_conflicto_irresoluble</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
 </div>
 <br />
 
@@ -850,12 +901,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_db" id="get_db"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
+	<span class="method-title">get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
@@ -875,12 +926,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_tabla" id="get_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
 <br />
 
@@ -906,12 +957,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo" id="get_tipo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
+	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -931,12 +982,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_valor" id="get_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
+	<span class="method-title">get_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
 </div>
 <br />
 
@@ -969,12 +1020,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodgrabar" id="grabar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grabar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+	<span class="method-title">grabar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
 </div>
 <br />
 
@@ -995,12 +1046,12 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodset_conversion_auto_latin1" id="set_conversion_auto_latin1"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_conversion_auto_latin1</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+	<span class="method-title">set_conversion_auto_latin1</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
@@ -1033,12 +1084,12 @@ $param&nbsp;
 		<br />
 </div>
 <a name="methodset_tabla" id="set_tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+	<span class="method-title">set_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 
@@ -1070,12 +1121,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodtiene_conflictos" id="tiene_conflictos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">tiene_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
+	<span class="method-title">tiene_conflictos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
 </div>
 <br />
 
@@ -1095,12 +1146,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodto_sql" id="to_sql"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">to_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
+	<span class="method-title">to_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
 </div>
 <br />
 
@@ -1129,10 +1180,10 @@ $tabla&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_registro_delete.html#methodto_sql">toba_registro_delete::to_sql()</a>
+				<a href="../Centrales/toba_registro_update.html#methodto_sql">toba_registro_update::to_sql()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_registro_update.html#methodto_sql">toba_registro_update::to_sql()</a>
+				<a href="../Centrales/toba_registro_delete.html#methodto_sql">toba_registro_delete::to_sql()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_registro_insert.html#methodto_sql">toba_registro_insert::to_sql()</a>
