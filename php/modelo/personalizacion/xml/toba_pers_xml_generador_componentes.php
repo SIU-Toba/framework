@@ -10,7 +10,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	function generar_componentes_nuevas($path, &$data)
 	{
 		if (empty($data)) return;
-
+		
 		$path_nuevos = toba_personalizacion::dir_nuevos;
 		$this->plan->abrir_elemento(toba_pers_xml_elementos::nuevas);
 		
@@ -66,19 +66,20 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	function generar_componentes_borradas($path, &$data)
 	{
 		if (empty($data)) return;
-
-		$path_borrados	= toba_personalizacion::dir_borrados;
-
+		
+		$path_borrados = toba_personalizacion::dir_borrados;
 		$this->plan->abrir_elemento(toba_pers_xml_elementos::borradas);
 
 		foreach (array_keys($data) as $tipo) {
 			foreach ($data[$tipo] as $comp) {
-				$this->agregar_al_plan($comp['id']['componente'], $this->get_path_componente($path_borrados
-												, $comp['tipo']
-												, $comp['id']['componente']));
+				$path_componente = $this->get_path_componente($path_borrados
+															  , $comp['tipo']
+															  , $comp['id']['componente']);				
+				$this->agregar_al_plan($comp['id']['componente'], $path_componente);
+				
 				$path_absoluto = $this->get_path_componente($path . $path_borrados
-												, $comp['tipo']
-												, $comp['id']['componente']);
+															  , $comp['tipo']
+															  , $comp['id']['componente']);								
 				$this->generar_componente_borrada($comp, $path_absoluto);
 			}
 		}
@@ -88,14 +89,10 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 
 	protected function get_path_componente($path_inicial, $tipo, $id)
 	{
-		$path_tipo = $path_inicial.$tipo.'/';
-		toba_manejador_archivos::crear_arbol_directorios($path_tipo);
-
-		$candidato = str_replace('%id%', $id
-								 , toba_personalizacion::template_archivo_componente);
-
+		$candidato = str_replace('%id%', $id , toba_personalizacion::template_archivo_componente);
 		$valido = toba_manejador_archivos::nombre_valido($candidato);
-		return $path_tipo.$valido;
+		
+		return $path_inicial.$tipo.'/'.$valido;
 	}
 
 	/**
@@ -104,14 +101,15 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	 */
 	private function generar_componente_borrada(&$componente, $path)
 	{
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path));		
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
 		$xml->add_atributo(toba_pers_xml_atributos::descripcion, $componente['tipo'], true);		
-
 		
-		
-		foreach ($componente['metadata'] as $key_tabla => $contenido) {
+		//La eliminacion se hace en el orden inverso.
+		$datos_componente = array_reverse($componente['metadata'], true);		
+		foreach ($datos_componente as $key_tabla => $contenido) {
 			if (empty($contenido)) continue;
 			$xml->abrir_elemento(toba_pers_xml_elementos::tabla);
 			$xml->add_atributo(toba_pers_xml_atributos::nombre, $key_tabla, true);
@@ -140,6 +138,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	 */
 	private function generar_componente_modificada(&$componente, $path)
 	{
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path));	//Creo el directorio si aun no existe
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
@@ -182,6 +181,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 
 	private function generar_componente_nueva(&$componente, $path)
 	{
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path));	//Creo el directorio si aun no existe		
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
@@ -209,6 +209,6 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 		$xml->cerrar_elemento();
 		$xml->cerrar_documento();
 	}
-
+	
 }
 ?>

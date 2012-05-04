@@ -144,7 +144,7 @@ class toba_personalizacion {
 
 		$this->db->set_schema('public');	// en este schema insertamos la funcion
 		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");
-        $this->clonar_schema($schema_o, $schema_t);
+		$this->clonar_schema($schema_o, $schema_t);
 
 		// se cambia el schema del proyecto para que todos los cambios sean sobre el nuevo schema
 		$this->cambiar_schema_proyecto($schema_t);
@@ -399,13 +399,8 @@ class toba_personalizacion {
 		$this->dir = $this->proyecto->get_dir().'/'.self::dir_personalizacion.'/';
 		$this->dir_metadatos = $this->dir . self::dir_metadatos;
 		
-		$dirs = array(
-			'tablas' => $this->dir_metadatos . self::dir_tablas,
-			'componentes' => $this->dir_metadatos . self::dir_componentes
-		);
-		$this->dir_tablas = $dirs['tablas'];
-		$this->dir_componentes = $dirs['componentes'];
-
+		$this->dir_tablas = $this->dir_metadatos . self::dir_tablas;
+		$this->dir_componentes = $this->dir_metadatos . self::dir_componentes;
 	}
 
 	protected function crear_directorios()
@@ -415,13 +410,12 @@ class toba_personalizacion {
 		toba_manejador_archivos::crear_arbol_directorios($this->dir_tablas);
 
 		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes);
-		$sub_dirs = array(	$this->dir_componentes.self::dir_nuevos
-							, $this->dir_componentes.self::dir_modificados
-							, $this->dir_componentes.self::dir_borrados);
-
-		foreach ($sub_dirs as $sub_dir) {
-			toba_manejador_archivos::crear_arbol_directorios($sub_dir);
-		}
+		
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_nuevos);
+		
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_modificados);
+		
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_borrados);		
 	}		
 	
 	function set_ejecucion_con_transaccion_global()

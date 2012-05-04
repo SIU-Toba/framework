@@ -126,48 +126,22 @@ abstract class toba_registro {
 		}
 		return $this->conflictos;
 	}
-	
+
 	protected function check_constraints()
 	{
-		$estaba_abierta = $this->db->transaccion_abierta();
-		if (!$estaba_abierta) {	// Si no estaba abierta la abro
-			$this->db->abrir_transaccion();
-		}
-
 		$this->db->agregar_savepoint('chequeo_conflicto');
 		$sql = $this->to_sql();
 		$fallo = false;
 
 		try {
 			$this->db->ejecutar($sql);
+			$this->db->liberar_savepoint('chequeo_conflicto');
 		} catch (toba_error_db $e) {
 			$fallo = $e;
+			$this->db->abortar_savepoint('chequeo_conflicto');	
 		}
-
-		$this->db->abortar_savepoint('chequeo_conflicto');
-
-		if (!$estaba_abierta) {	// Si no estaba abierta la abrí recién. Entonces la aborto
-			$this->db->abortar_transaccion();
-		}
-
 		return $fallo;
 	}
-	
-//	protected function check_constraints()
-//	{
-//		$this->db->agregar_savepoint('chequeo_conflicto');
-//		$sql = $this->to_sql();
-//		$fallo = false;
-//
-//		try {
-//			$this->db->ejecutar($sql);
-//			$this->db->liberar_savepoint('chequeo_conflicto');
-//		} catch (toba_error_db $e) {
-//			$fallo = $e;
-//			$this->db->abortar_savepoint('chequeo_conflicto');	
-//		}
-//		return $fallo;
-//	}
 
 	function tiene_conflictos()
 	{
