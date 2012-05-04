@@ -204,9 +204,9 @@ def.setNumber = function(_v, _d){
 		// find the last zero, which indicates the minimum number
 		// of decimal places to show
 		var md = dm.lastIndexOf("0")+1;
-		// if the number of decimal places is greater than the mask, then round off
+		// if the number of decimal places is greater than the mask, then trunc off
 		if( v_despues_decimal.length > dm.length ) {
-			v_despues_decimal = String(Math.round(Number(v_despues_decimal.substring(0, dm.length + 1))/10));
+			v_despues_decimal = String(Math.floor(Number(v_despues_decimal.substring(0, dm.length + 1))/10));
 			v_despues_decimal = v_despues_decimal.pad(dm.length, '0', 'PAD_LEFT');
 		} else { // otherwise, pad the string w/the required zeros
 			while( v_despues_decimal.length < md ) {
