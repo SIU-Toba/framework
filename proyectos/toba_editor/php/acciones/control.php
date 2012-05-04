@@ -127,8 +127,9 @@ function abrir_toba_instancia(){
 	
          <td class='listado-tabi'>
         <a  href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(), '3357'); ?>" class="list-obj"  target="<?php echo  apex_frame_centro; ?>">
-<?php 
-		$ayuda = '<a target=wiki href='.toba_recurso::url_proyecto().'/doc/wiki/trac/toba/wiki.html title=\\\'Documentación WIKI\\\'>';
+<?php
+
+		$ayuda = '<a target=wiki href='.get_url_desarrollos().'/trac/toba title=\\\'Documentación WIKI\\\'>';			
 		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/wiki-small.png ></a> ';
 		$ayuda .= '<a target=api href='.toba_recurso::url_proyecto().'/doc/api/index.html title=\\\'Documentación código PHP\\\'>';
 		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/php-small.png></a> ';

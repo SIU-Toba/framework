@@ -1,5 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-localhost	TRUE	/trac/toba	FALSE	1999999999	trac_form_token	4c00334dad0323d6f49978a3
-localhost	TRUE	/trac/toba	FALSE	1999999999	trac_session	0a7889e1ce5d7c515b511a8d
-

@@ -80,11 +80,6 @@ echo "
 <h2>Offline<div>Contenido correspondiente a esta versión</div></h2>
 		<ul>
 			<li>
-				<a target='wiki' href='".toba_recurso::url_proyecto()."/doc/wiki/trac/toba/wiki.html' title='Lugar central de la documentación'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/wiki-small.png'>
-						Wiki</a>
-			</li>
-			<li>
 				<a target='api' href='".toba_recurso::url_proyecto()."/doc/api/index.html' title='Documentación de referencia de la API PHP disponible'>
 					<img src='".toba_recurso::url_proyecto()."/doc/api/media/php-small.png'>
 						API PHP</a>
