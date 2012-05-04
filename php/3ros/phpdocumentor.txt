@@ -3,4 +3,3 @@ Para utilizar phpdocumentor:
  - Incluirlo en php/3eros/PhpDocumentor
 
 Incluir el contenido de la carpeta _phpdocumentor en donde corresponda (son modificaciones al paquete original)
-ln -s $toba_dir/php/3ros/_PhpDocumentor/toba_hands $toba_dir/php/3ros/PhpDocumentor/phpDocumentor/Converters/HTML/Smarty/templates/toba_hands 
