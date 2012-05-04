@@ -28,7 +28,7 @@ abstract class toba_servicio_web extends toba_componente
 	}
 	
 	/**
-	 * @ignore Metodo interno que llama la solicitud web para 
+	 * @ignore Metodo interno que llama la solicitud web para obtener las configuraciones del servicio 
 	 */
 	public static function _get_opciones($id, $clase)
 	{
@@ -66,7 +66,7 @@ abstract class toba_servicio_web extends toba_componente
 				self::$opciones['securityToken'] = $security;
 			}
 			//Averiguo los headers definidos
-			foreach (self::$ini->get_extradas() as $entrada => $valor) {
+			foreach (self::$ini->get_entradas() as $entrada => $valor) {
 				if (strpos($entrada, '=')) {
 					if (file_exists($valor['archivo'])) {
 						self::agregar_mapeo_headers($entrada, realpath($valor['archivo']));
