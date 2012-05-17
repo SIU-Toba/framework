@@ -29,7 +29,7 @@ class toba_ini
 	//	Manipulacion de ENTADAS
 	//-----------------------------------------------------------
 
-	function get_extradas()
+	function get_entradas()
 	{
 		return $this->entradas;
 	}

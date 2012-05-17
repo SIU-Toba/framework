@@ -167,6 +167,12 @@ abstract class toba_servicio_web extends toba_componente
 				throw new toba_error("No fue posible obtener una clave publica del archivo $pub_key_id");
 			}
 			toba::logger()->debug("Utilizando clave publica file://$archivo");
+			
+			//Descomentar para ver los detalles de la firma
+			//toba::logger()->debug("Data: ".var_export($data, true));
+			//toba::logger()->debug("Firma original: ".var_export($firma_original, true));
+			//toba::logger()->debug("Pub key: ".var_export($pub_key_id, true));
+			
 			if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
 				throw new toba_error_servicio_web('El mensaje no es válido o no fue posible procesar su firma correctamente');
 			}

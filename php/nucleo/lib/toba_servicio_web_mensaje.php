@@ -125,12 +125,11 @@ class toba_servicio_web_mensaje
 	{
 		//Aca concateno los headers y los datos para hacer el rsa firma
 		$headers = $this->get_datos_headers($this->opciones['inputHeaders']);
-		
-		$mensaje = $this->payload;
-		if (is_a($this->datos, 'WSMessage')) {		//Si es un objeto mensaje, pido la representacion en string
-			$mensaje = $this->datos->str;
+		$mensaje = $this->datos;
+		if (is_a($mensaje, 'WSMessage')) {		//Si es un objeto mensaje, pido la representacion en string
+			$mensaje = $mensaje->str;
 		}
-		if (is_array($this->datos)) {
+		if (is_array($mensaje)) {
 			$proyecto = toba::proyecto()->get_id();			
 			$mensaje = "<ns1:servicio xmlns:ns1=\"http://toba.siu.edu.ar/$proyecto\">\n";
 			$mensaje .= self::array_a_payload($this->datos);
@@ -146,6 +145,11 @@ class toba_servicio_web_mensaje
 		$header_firma = new WSHeader(array('name' => 'firma' , 'data' => base64_encode($firma)));
 		$this->opciones['inputHeaders'][] = $header_firma;
 		toba::logger()->debug("Firmando mensaje del servicio_web");
+		
+		//Descomentar para ver los detalles de la firma		
+		//toba::logger()->debug("Data: ".var_export($cadena_a_firmar, true));
+		//toba::logger()->debug("Firma : ".var_export(base64_decode($firma), true));
+		//toba::logger()->debug("Priv key: ".var_export($priv_key_id, true));
 	}
 	
 	/**
