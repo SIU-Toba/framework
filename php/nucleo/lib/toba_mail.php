@@ -13,6 +13,7 @@ class toba_mail implements toba_tarea
 	protected $desde_nombre;
 	protected $html = false;
 	protected $cc = array();
+	protected $bcc = array();
 	protected $datos_configuracion;
 	protected $adjuntos = array();
 	protected $debug = false;
@@ -114,6 +115,10 @@ class toba_mail implements toba_tarea
 			$mail->AddCC($copia);
 		}
 		
+		foreach($this->bcc as $copia){
+			$mail->AddBCC($copia);
+		}
+		
 		if (isset($this->reply_to)){
 			$mail->AddReplyTo($this->reply_to);
 		}
@@ -155,7 +160,17 @@ class toba_mail implements toba_tarea
 	function set_cc($direcciones = array())
 	{
 		$this->cc = $direcciones;
-	}	
+	}
+	
+	/**
+	 * Configura las direcciones a las que se enviara copia carbónica oculta
+	 * @param array $direcciones Arreglo de direcciones de email
+	 */
+	function set_bcc($direcciones = array())
+	{
+		$this->bcc = $direcciones;
+	}
+	
 
 	/**
 	 * Indica que el cuerpo del email contiene codigo HTML
