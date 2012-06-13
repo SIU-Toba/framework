@@ -6,7 +6,7 @@ class ci_cliente extends toba_ci
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
 	protected $datos_persona;
-	protected $path_servicio = "certificado_firmado/servicio.php";
+	protected $path_servicio = "certificado_firmado_configuracion/servicio.php";
 	
 	function ini()
 	{
@@ -16,60 +16,31 @@ class ci_cliente extends toba_ci
 		}
 	}
 	
-	
+
 	/**
-	* Seguridad programada completamente
-	*/	
+	 * Seguridad configurada en la instalacion
+	 */
 	function evt__form__enviar($datos)
 	{
-		$carpeta = dirname(__FILE__);
-		
-		//--1- Arma el mensaje	(incluyendo los headers)	
+		//--1- Arma el mensaje	(incluyendo los headers)
 		$this->s__echo = $datos;
-		$payload = <<<XML
-<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
-	<texto>{$datos['clave']}{$datos['valor']}</texto>
-</ns1:eco>
-XML;
-
-		$headers = array(
-			'dependencia' => 'agronomia',
-			'otro' => 'test'
+		$opciones = array(
+					'action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco',
 		);
-		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
-		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
-		$mensaje->set_headers($headers);
-		$mensaje->firmar_mensaje($carpeta.'/headers_cliente.pkey');
-		
-		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
-		$cert_server = ws_get_cert_from_file($carpeta.'/servidor.crt');
-		$clave_privada = ws_get_key_from_file($carpeta."/cliente.pkey");
-		$cert_cliente = ws_get_cert_from_file($carpeta."/cliente.crt");
-    
-		$seguridad = array("encrypt" => true,
-                       "algorithmSuite" => "Basic256Rsa15",
-                       "securityTokenReference" => "IssuerSerial");
-    
-		$policy = new WSPolicy(array("security" => $seguridad));
-		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,	//Encriptación
-											"receiverCertificate" => $cert_server,	//Encriptación
-											"certificate" 		=> $cert_cliente,	//Firmado
-											)
-						);		
-    	$opciones = array(
-    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_certificado_firmado_codigo',    	
-    				'policy' => $policy, 
-    				'securityToken' => $security_token
-    	);		
-		$servicio = toba::servicio_web('certificado_firmado_codigo', $opciones);
+		$mensaje = new toba_servicio_web_mensaje($this->s__echo, $opciones);
 	
-		//-- 3 - Muestra la respuesta		
-		$respuesta = $servicio->request($mensaje, false);	//Se evita usar la configuracion ya que todo se hizo por codigo
-		toba::notificacion()->info($respuesta->get_payload());		
-	}
-		
-
-		
+		//--2- Arma el servicio
+		$opciones = array(
+		    'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_configuracion', 
+			'firmado' => true	//Fuerza a que siempre se le tenga que configurar la firma del mensaje
+		);
+		$servicio = toba::servicio_web('seguro_configuracion', $opciones);
+	
+		//-- 3 - Muestra la respuesta
+		$respuesta = $servicio->request($mensaje);
+		toba::notificacion()->info($respuesta->get_payload());
+	}	
+	
 	
 	//-----------------------------------------------------------------------------
 	//---- Utilidades  -----------------------------------------------------------

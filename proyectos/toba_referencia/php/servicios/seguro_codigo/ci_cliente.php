@@ -6,7 +6,7 @@ class ci_cliente extends toba_ci
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
 	protected $datos_persona;
-	protected $path_servicio = "certificado_firmado_configuracion/servicio.php";
+	protected $path_servicio = "certificado_firmado/servicio.php";
 	
 	function ini()
 	{
@@ -16,28 +16,57 @@ class ci_cliente extends toba_ci
 		}
 	}
 	
-
+	
 	/**
-	 * Seguridad configurada en la instalacion
-	 */
+	* Seguridad programada completamente
+	*/	
 	function evt__form__enviar($datos)
 	{
-		//--1- Arma el mensaje	(incluyendo los headers)
+		$carpeta = dirname(__FILE__);
+		
+		//--1- Arma el mensaje	(incluyendo los headers)	
 		$this->s__echo = $datos;
+		$clave = xml_encode($datos['clave']);
+		$valor = xml_encode($datos['valor']);
+		$payload = <<<XML
+<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
+	<texto>$clave $valor</texto>
+</ns1:eco>
+XML;
 		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
-		$mensaje = new toba_servicio_web_mensaje($this->s__echo, $opciones);
+		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
+		
+		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
+		$cert_server = ws_get_cert_from_file($carpeta.'/servidor.crt');
+		$clave_privada = ws_get_key_from_file($carpeta."/cliente.pkey");
+		$cert_cliente = ws_get_cert_from_file($carpeta."/cliente.crt");
+    
+		$seguridad = array(	
+						"sign" => true,
+						"encrypt" => true,
+                        "algorithmSuite" => "Basic256Rsa15",
+                        "securityTokenReference" => "IssuerSerial");
+    
+		$policy = new WSPolicy(array("security" => $seguridad));
+		$security_token = new WSSecurityToken(array("privateKey" => $clave_privada,	//Encriptación
+											"receiverCertificate" => $cert_server,	//Encriptación
+											"certificate" 		=> $cert_cliente,	//Firmado
+											)
+						);		
+    	$opciones = array(
+    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_codigo',    	
+    				'policy' => $policy, 
+    				'securityToken' => $security_token
+    	);		
+		$servicio = toba::servicio_web('seguro', $opciones);
 	
-		//--2- Arma el servicio
-		$opciones = array(
-		    'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_certificado_firmado_configuracion',    	
-		);
-		$servicio = toba::servicio_web('certificado_firmado_configuracion', $opciones);
-	
-		//-- 3 - Muestra la respuesta
+		//-- 3 - Muestra la respuesta		
 		$respuesta = $servicio->request($mensaje);
-		toba::notificacion()->info($respuesta->get_payload());
-	}	
-	
+		toba::notificacion()->info($respuesta->get_payload());		
+	}
+		
+
+		
 	
 	//-----------------------------------------------------------------------------
 	//---- Utilidades  -----------------------------------------------------------
@@ -48,7 +77,7 @@ class ci_cliente extends toba_ci
 		parent::post_configurar();
 		$img = toba_recurso::imagen_toba('nucleo/php.gif', true);
 		$cliente = 'servicios/certificado_firmado/ci_cliente.php';
-		$url_cliente = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $cliente), array('prefijo'=>toba_editor::get_punto_acceso_editor()));		
+		$url_cliente = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $cliente), array('prefijo' => toba_editor::get_punto_acceso_editor()));		
 		$url_servicio = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $this->path_servicio), array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$html = "<div style='float:right; background-color:white; padding: 10px'><a target='logger' href='$url_cliente'>$img Ver .php del Cliente</a>";
 		$html .= "<br><a target='logger' href='$url_servicio'>$img Ver .php del Servicio</a>";

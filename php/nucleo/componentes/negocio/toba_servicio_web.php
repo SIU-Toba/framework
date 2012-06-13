@@ -7,8 +7,12 @@ abstract class toba_servicio_web extends toba_componente
 {
 	protected static $opciones = array();	
 	protected static $ini;
-	protected static $mapeo_headers = array();
-
+	protected static $mapeo_firmas = array();
+	
+	protected $mensaje_entrada;
+	protected $headers_entrada;
+	protected $id_cliente;
+	
 	final function __construct($id)
 	{
 		parent::__construct($id);
@@ -39,43 +43,58 @@ abstract class toba_servicio_web extends toba_componente
 				self::$ini = new toba_ini($directorio.'/clientes.ini');
 			}
 		}
+		$seguro = false;
 		if (isset(self::$ini)) {
 			chdir($directorio);
 			if (self::$ini->existe_entrada('conexion')) {
 				self::$opciones = self::$ini->get_datos_entrada('conexion');
 			}
 			if (self::$ini->existe_entrada('certificado')) {
+				$seguridad = array(
+						"sign" => true,
+						"encrypt" => true,
+						"algorithmSuite" => "Basic256Rsa15",
+						"securityTokenReference" => "IssuerSerial");
+				$policy = new WSPolicy(array("security"=> $seguridad));				
+				
 				//Agrego los certificados manualmente
-				if (! file_exists(self::$ini->get("certificado", "cert_cliente"))) {
-					throw new toba_error("El archivo ".self::$ini->get("certificado", "cert_cliente")." no existe");
-				}
-				$certificado_cliente = ws_get_cert_from_file(self::$ini->get("certificado", "cert_cliente"));
-				if (! file_exists(self::$ini->get("certificado", "clave_server"))) {
-					throw new toba_error("El archivo ".self::$ini->get("certificado", "clave_server")." no existe");
+				if (! file_exists(self::$ini->get("certificado", "clave_servidor"))) {
+					throw new toba_error("El archivo ".self::$ini->get("certificado", "clave_servidor")." no existe");
 				}				
-				$clave_privada = ws_get_cert_from_file(self::$ini->get("certificado", "clave_server"));
-				$seguridad = array("encrypt" => true,
-												"algorithmSuite" => "Basic256Rsa15",
-												"securityTokenReference" => "IssuerSerial");
-				$policy = new WSPolicy(array("security"=> $seguridad));
-				$security = new WSSecurityToken(array(
+				$clave_privada = ws_get_cert_from_file(self::$ini->get("certificado", "clave_servidor"));
+
+				if (! file_exists(self::$ini->get("certificado", "cert_servidor"))) {
+					throw new toba_error("El archivo ".self::$ini->get("certificado", "cert_servidor")." no existe");
+				}
+				$certificado_servidor = ws_get_cert_from_file(self::$ini->get("certificado", "cert_servidor"));			
+				
+				$certificados = array(
 							"privateKey" => $clave_privada,
-							"receiverCertificate" => $certificado_cliente)
-				);
+							"certificate" => $certificado_servidor);
+				$security = new WSSecurityToken($certificados);
 				self::$opciones['policy'] = $policy;
 				self::$opciones['securityToken'] = $security;
+				$seguro = true;
 			}
-			//Averiguo los headers definidos
-			foreach (self::$ini->get_entradas() as $entrada => $valor) {
+			//Averiguo los IDs de firmas definidos
+			foreach (self::$ini->get_entradas() as $entrada => $valores) {
 				if (strpos($entrada, '=')) {
-					if (file_exists($valor['archivo'])) {
-						self::agregar_mapeo_headers($entrada, realpath($valor['archivo']));
+					if (file_exists($valores['archivo'])) {
+						$pares = array();
+						foreach(explode(",", $entrada) as $par) {
+							list($clave, $valor) = explode('=', trim($par));
+							$pares[$clave] = $valor;							
+						}
+						self::agregar_mapeo_firmas(realpath($valores['archivo']), $pares, $valores['fingerprint']);
 					} else {
-						throw new toba_error("El archivo {$valor['archivo']} no existe");
+						throw new toba_error("El archivo {$valores['archivo']} no existe");
 					}
 				}
 			}
 		}
+		if (!$seguro && self::servicio_con_firma()) {
+			throw new toba_error_seguridad("El servicio web esta configurado para requerir firma, sin embargo no se esta encriptando/firmando la conexion");
+		}		
 		self::$opciones = array_merge(self::$opciones, call_user_func(array($clase, 'get_opciones')));		
 		return self::$opciones;
 	}	
@@ -85,16 +104,19 @@ abstract class toba_servicio_web extends toba_componente
 	 */
 	function __call($nombre, $argumentos)
 	{
+		//Elimina el guion bajo inicial y llama al metodo op__X
+		if (substr($nombre, 0, 1) != '_') {
+	       throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $nombre);
+		}
 		$metodo = substr($nombre, 1);
-		$mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
+		$this->mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
 		
 		//Aca puedo obtener los headers para el metodo y tambien verificar que la firma es correcta
-		$headers = $this->obtener_headers($mensaje_entrada);
+
 		if ($this->servicio_con_firma()) {
-			$this->verificar_firma($headers, $mensaje_entrada->get_payload());		
+			$this->validar_certificado_cliente();
 		}
-		
-		$mensaje_salida = $this->$metodo($mensaje_entrada, $headers);
+		$mensaje_salida = $this->$metodo($this->mensaje_entrada);
 		if (isset($mensaje_salida)) {
 			return $mensaje_salida->wsf();
 		} else {
@@ -102,95 +124,112 @@ abstract class toba_servicio_web extends toba_componente
 		}
 	}
 	
-	/**
-	 * Devuelve un arreglo con los datos de los headers
-	 * @param WSMessage $mensaje
-	 * @return array
-	 */
-	function obtener_headers($mensaje)
+	function validar_certificado_cliente()
 	{
-		$headers = array();
-		$datos = $mensaje->wsf()->outputHeaders;
-		if (isset($datos)) {
-			foreach($datos as $encabezado) {		
-				$pila[] = simplexml_load_string($encabezado->str);
-			}
-			while(! empty($pila)) {
-				$elemento = array_shift($pila);
-				foreach($elemento->children() as $hijo) {
-					$pila[] = $hijo;				
-				}			
-				if ($elemento->count() == 0) {						//Si es una hoja obtengo el valor							
-					$name = $elemento->getName();
-					$value = (string) $elemento;				
-					$headers[$name] = $value;
-				}
-			}
+		$cert = $this->get_certificado_cliente();
+		$cert_decodificado = base64_decode($cert);
+		$fingerprint = sha1($cert_decodificado);
+		
+		//Verifica si existe fingerprint
+		toba::logger()->debug("Fingerprint recibida: $fingerprint");
+		if (! isset(self::$mapeo_firmas[$fingerprint])) {
+			throw new toba_error_servicio_web('El mensaje no es válido o no fue posible procesar su firma correctamente');
 		}
-		return $headers;
+		//Valida el certificado completo
+		if (self::decodificar_certificado(self::$mapeo_firmas[$fingerprint]['archivo']) !== $cert_decodificado) {
+			throw new toba_error_seguridad('Error verificando firma del mensaje, tiene mismo fingerprint pero difiere en el contenido');
+		}		
+		$this->id_cliente = self::$mapeo_firmas[$fingerprint]['id'];
+		toba::logger()->debug("ID Cliente: ".print_r($this->id_cliente, true));
 	}
 	
 	/**
-	 * Verifica la firma del mensaje completo
-	 * @param array $headers
-	 * @param string $contenido_mensaje 
+	 * 	 Retorna el certificado utilizado por el cliente para la firma del mensaje actual
 	 */
-	protected function verificar_firma($headers, $contenido_mensaje )
+	function get_certificado_cliente()
 	{
-		//Recuperar la firma calculada en el cliente
-		if (! empty($headers) && isset($headers['firma'] )) {
-			$firma_original = base64_decode($headers['firma']);
-			$extra_headers = array('firma', 'Security', 'Action', 'MessageID', 'To');
-			foreach (array_keys($headers) as $id) {
-				if (in_array($id, $extra_headers)) {
-					unset($headers[$id]);
+		$headers = $this->get_headers();
+		if (! isset($headers['Security'])) {
+			 throw new toba_error_servicio_web("El mensaje no esta firmado correctamente");
+		}
+		$xml = $headers['Security'];
+		$namespaces = $xml->getNamespaces();
+		return (string) $xml->children($namespaces['wsse'])->BinarySecurityToken;
+	}
+
+	function get_id_cliente($parametro=null)
+	{
+		if (! isset($this->id_cliente)) {
+			return null;
+		}	
+		if (isset($parametro)) {
+			return $this->id_cliente[$parametro];
+		} else {
+			return $this->id_cliente;
+		}
+	}
+
+	
+	/**
+	 * Devuelve un arreglo con los datos de los headers
+	 * @return array
+	 */
+	function get_headers()
+	{
+		if (! isset($this->headers_entrada)) {
+			$headers = array();
+			$datos = $this->mensaje_entrada->wsf()->outputHeaders;
+			if (isset($datos)) {
+				$pila = array();
+				foreach($datos as $encabezado) {		
+					$pila[] = simplexml_load_string($encabezado->str);
+				}
+				while(! empty($pila)) {
+					$elemento = array_shift($pila);
+					foreach($elemento->children() as $hijo) {
+						$pila[] = $hijo;				
+					}			
+					if ($elemento->count() == 0) {						//Si es una hoja obtengo el valor							
+						$name = $elemento->getName();
+						$value = $elemento;				
+						$headers[$name] = $value;
+					}
 				}
 			}
-			$data = trim($contenido_mensaje. implode('',$headers));
-			
-			//Busco la clave publica
-			$nombre = array();
-			ksort($headers);
-			foreach ($headers as $id => $valor) {
-				$nombre[] = $id.'='.$valor;
-			}
-			$nombre = implode(',', $nombre);
-
-			if (! isset(self::$mapeo_headers[$nombre])) {
-				throw new toba_error_servicio_web("El mensaje no contiene headers definidos ('$nombre' no existe)");
-			}
-			$archivo = self::$mapeo_headers[$nombre];
-			
-			//Ahora verifico la firma
-			$pub_key_id = openssl_pkey_get_public('file://'.$archivo);
-			if ($pub_key_id === false) {
-				throw new toba_error("No fue posible obtener una clave publica del archivo $pub_key_id");
-			}
-			toba::logger()->debug("Utilizando clave publica file://$archivo");
-			
-			//Descomentar para ver los detalles de la firma
-			//toba::logger()->debug("Data: ".var_export($data, true));
-			//toba::logger()->debug("Firma original: ".var_export($firma_original, true));
-			//toba::logger()->debug("Pub key: ".var_export($pub_key_id, true));
-			
-			if (openssl_verify($data, $firma_original, $pub_key_id) != 1) {
-				throw new toba_error_servicio_web('El mensaje no es válido o no fue posible procesar su firma correctamente');
-			}
-		} else {
-			throw new toba_error_servicio_web('El mensaje no viene firmado, se anula el pedido');
+			$this->headers_entrada = $headers;
 		}
-	}	
-	
-	protected function servicio_con_firma()
+		return $this->headers_entrada;
+	}
+
+	protected static function servicio_con_firma()
 	{
-		if (! empty(self::$mapeo_headers)) {
+		if (! empty(self::$mapeo_firmas)) {
 			return true;
 		} 
 		return isset(self::$opciones['firmado']) ? self::$opciones['firmado'] : false;
 	}		
 
-	static function agregar_mapeo_headers($header, $archivo) {
-		self::$mapeo_headers[$header] = $archivo;
+	static function agregar_mapeo_firmas($archivo, $id, $fingerprint = null) {
+		if (! isset($fingerprint)) {
+			$fingerprint = sha1(self::decodificar_certificado($archivo));
+		}
+		self::$mapeo_firmas[$fingerprint] = array('id' => $id, 'archivo' => $archivo);
+	}
+	
+	static function decodificar_certificado($archivo) {
+		if (! file_exists($archivo)) {
+			throw new toba_error("El certificado $archivo no existe");
+		}
+		$resource = openssl_x509_read(file_get_contents($archivo));
+		$output = null;
+		$result = openssl_x509_export($resource, $output);
+		if($result !== false) {
+			$output = str_replace('-----BEGIN CERTIFICATE-----', '', $output);
+			$output = str_replace('-----END CERTIFICATE-----', '', $output);
+			return base64_decode($output);
+		} else {
+			throw new toba_error("El archivo $archivo no es un certificado valido");
+		}		
 	}
 }
 ?>

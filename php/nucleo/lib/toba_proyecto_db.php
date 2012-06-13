@@ -473,6 +473,9 @@ class toba_proyecto_db
 					WHERE proyecto = $proyecto
 					AND	servicio_web = $servicio";
 		$datos = $db->consultar_fila($sql);
+		if (empty($datos)) {
+			return $datos;
+		}
 		$datos['parametros'] = array('to' => $datos['param_to']);
 		if (isset($datos['param_wsa'])) {
 			$datos['parametros']['useWSA'] = $datos['param_wsa'];

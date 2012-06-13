@@ -2,18 +2,26 @@
 
 class servicio extends toba_servicio_web
 {
+	
+	function get_opciones()
+	{
+		return array(
+					'firmado' => true			//Fuerza que siempre la conexion este firmada/encriptada
+		);	
+	}
+	
 	/**
 	 * @param array $mensaje
 	 * @return string 
 	 */
-	function op__eco(toba_servicio_web_mensaje $mensaje, $headers)
+	function op__eco(toba_servicio_web_mensaje $mensaje)
 	{
 		$array = $mensaje->get_array();
-		if (isset($headers['dependencia'])) {
-			$dependencia = $headers['dependencia'];
-		} else {
+		$dependencia = $this->get_id_cliente('dependencia');
+		if (! isset($dependencia)) {
 			$dependencia = "No presente";
 		}		
+		$dependencia = xml_encode($dependencia);
 		$payload = array("Clave: {$array['clave']}. Valor: {$array['valor']}. Dependencia: $dependencia");
 		return new toba_servicio_web_mensaje($payload);
 	}

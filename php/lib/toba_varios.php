@@ -790,5 +790,14 @@
 		}
 		return $valida;
 	}
+	
+	
+	function xml_encode($valor) {
+		return toba_xml_tablas::encode($valor);
+	}
+	
+	function xml_decode($valor) {
+		return toba_xml_tablas::decode($valor);
+	}	
 
 ?>

@@ -34,7 +34,7 @@ class toba_xml_tablas
 			$nodo_raiz = $this->xml;
 		}
 		if (! is_int($nombre)) {
-			$nombre = utf8_encode($nombre);
+			$nombre = utf8_e_seguro($nombre);
 		} else {
 			$nombre = 'fila';
 		}
@@ -45,8 +45,8 @@ class toba_xml_tablas
 				//--Acceso recursivo para los registros o composición de tablas
 				$this->set_tablas($valor, $clave, $actual);
 			} else {
-				$valor = utf8_encode($valor);
-				$clave = utf8_encode($clave);
+				$valor = utf8_e_seguro($valor);
+				$clave = utf8_e_seguro($clave);
 				$actual->appendChild($this->xml->createElement($clave, $valor));
 			}			
 		}
@@ -65,17 +65,17 @@ class toba_xml_tablas
 		$datos = simplexml_load_file($this->archivo);
 		$salida = array();
 		foreach ($datos as $tabla => $filas) {
-			$tabla = utf8_decode($tabla);
+			$tabla = utf8_d_seguro($tabla);
 			$salida[$tabla] = array();
 			foreach ($filas as $fila) {
 				$registro = array();
 				$vars = get_object_vars($fila);
 				foreach ($vars as $clave => $valor) {
-					$valor = utf8_decode(strval($valor));
+					$valor = utf8_d_seguro(strval($valor));
 					if ($valor === '') {
 						$valor = null;
 					}
-					$registro[utf8_decode($clave)] = $valor;
+					$registro[utf8_d_seguro($clave)] = $valor;
 				}
 				$salida[$tabla][] = $registro;				
 			}
@@ -136,16 +136,17 @@ class toba_xml_tablas
 	static function encode($valor)
 	{
 		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES));
-		$valor = utf8_encode($valor);
+		$valor = utf8_e_seguro($valor);
 		return $valor;
 	}
 	
 	static function decode($valor)
 	{
-		return utf8_decode($valor);
+		return utf8_d_seguro($valor);
 	}
 	
 }
+
 
 
 ?>

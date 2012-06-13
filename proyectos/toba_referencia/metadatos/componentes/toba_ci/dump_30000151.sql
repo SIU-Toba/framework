@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'12000003', --punto_montaje
 	'ci_cliente', --subclase
-	'servicios/certificado_firmado_codigo/ci_cliente.php', --subclase_archivo
+	'servicios/seguro_codigo/ci_cliente.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Certificado y Firmado', --nombre

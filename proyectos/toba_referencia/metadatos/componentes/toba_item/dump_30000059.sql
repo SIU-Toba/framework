@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000059]--  Certificado y firmado (via configuracion) 
+--[30000059]--  Seguro (via configuracion) 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,12 +23,12 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Certificado y firmado (via configuracion)', --nombre
+	'Seguro (via configuracion)', --nombre
 	NULL, --descripcion
 	'12000003', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
-	'7', --orden
+	'4', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

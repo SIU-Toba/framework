@@ -2,23 +2,42 @@
 
 class servicio extends toba_servicio_web
 {
+	function inicializar()
+	{
+		//Agrego la clave publica dinamicamente
+		$carpeta = dirname(__FILE__);
+		
+		//Asocia un ID (agronomia=..) a un certificado de cliente dado 
+		$this->agregar_mapeo_firmas($carpeta.'/cliente.crt', 
+								array(
+									'dependencia' => 'agronomia',
+									'otro' => 'test'
+								) 
+							);
+	}
 
 	function get_opciones()
 	{
 		$carpeta = dirname(__FILE__);
-		$certificado_cliente = ws_get_cert_from_file($carpeta."/cliente.crt");
+		
+		//Agrego los certificados manualmente
+		$cert_cliente = ws_get_cert_from_file($carpeta."/cliente.crt");
+		$cert_server = ws_get_cert_from_file($carpeta.'/servidor.crt');
 		$clave_privada = ws_get_cert_from_file($carpeta."/servidor.pkey");
-		$seguridad = array("encrypt" => true,
+		$seguridad = array(
+					"sign" => true,
+					"encrypt" => true,
 					"algorithmSuite" => "Basic256Rsa15",
 					"securityTokenReference" => "IssuerSerial");
 
 		$policy = new WSPolicy(array("security"=> $seguridad));
 		$security = new WSSecurityToken(array(
 											"privateKey" => $clave_privada,
-											"receiverCertificate" => $certificado_cliente)
+											"certificate" => $cert_server)
 		);
 
 		return array(
+			"firmado"			=> true,			//Esta opción fuerza a que el mensaje tiene que estar firmado con RSA
             "policy" 			=> $policy,
             "securityToken"		=> $security,
              'actions' => array(
@@ -36,10 +55,12 @@ class servicio extends toba_servicio_web
 	function op__eco(toba_servicio_web_mensaje $mensaje)
 	{
 		$xml = new SimpleXMLElement($mensaje->get_payload());
-		$texto = (string) $xml->texto;
+		$texto = xml_encode(xml_decode($xml->texto));
+		$dependencia = xml_encode($this->get_id_cliente('dependencia'));		
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/pruebas">
-	<texto>$texto</texto>
+	<texto>Texto: $texto 
+	Dependencia: $dependencia</texto>
 </ns1:eco>
 XML;
 		return new toba_servicio_web_mensaje($payload);

@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'12000003', --punto_montaje
 	'ci_cliente', --subclase
-	'servicios/certificado_firmado_configuracion/ci_cliente.php', --subclase_archivo
+	'servicios/seguro_configuracion/ci_cliente.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Certificado y firmado (via configuracion)', --nombre
@@ -101,27 +101,19 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'El servidor responde con un agregado a la cadena enviada.
 Hay dos niveles de seguridad aplicados:
 <ul><li>Capa de transporte: Se utilizan los certificados para garantizar una comunicación segura (firmada y encriptada)
-<li>Comunicación Punto a Punto: Se utilizan los encabezados SOAP para enviar una firma del mensaje (esquema RSA)
+<li>Comunicación Punto a Punto: Se toma el certificado enviado por el cliente y se lo coteja contra la configuración local, si no esta definido se rechaza
 </ul>
 
 En este ejemplo ambos niveles son configurados con archivos presentes en la carpeta <em>instalacion</em>.<br>
 Para ello es necesario ejecutar en consola los siguientes pasos previo correr esta operación:
 
 <ol>
-<li>Generar los certificados, esto lo hace el <b>servidor</b>:
-<pre>toba servicios_web serv_generar_cert
- -p toba_referencia
- -s serv_certificado_firmado_configuracion
+<li>Generar los certificados comunes a todos los clientes, esto lo hace el <b>servidor</b>:
+<pre>toba servicios_web serv_generar_cert -p toba_referencia  -s serv_seguro_configuracion
 </pre>
-<li>Exportar la configuración del lado <b>servidor</b>. En este caso se envia un id de dependencia:<pre>toba servicios_web serv_exportar_config
- -p toba_referencia
- -s serv_certificado_firmado_configuracion
- -h dependencia=agronomia
+<li>Exportar la configuración del lado <b>servidor</b>. En este caso se envia un id de dependencia:<pre>toba servicios_web serv_exportar_config -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia
 </pre>
-<li>Importar configuración del lado <b>cliente</b><pre>toba servicios_web cli_importar_config 
--p toba_referencia 
--s certificado_firmado_configuracion
--z ./serv_certificado_firmado_configuracion.zip
+<li>Importar configuración del lado <b>cliente</b><pre>toba servicios_web cli_importar_config -p toba_referencia -s seguro_configuracion-z ./serv_seguro_configuracion.zip
 <pre>
 </ol>', --descripcion
 	NULL, --tip
