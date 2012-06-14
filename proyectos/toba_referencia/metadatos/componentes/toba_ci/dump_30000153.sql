@@ -108,13 +108,15 @@ En este ejemplo ambos niveles son configurados con archivos presentes en la carp
 Para ello es necesario ejecutar en consola los siguientes pasos previo correr esta operación:
 
 <ol>
-<li>Generar los certificados comunes a todos los clientes, esto lo hace el <b>servidor</b>:
-<pre>toba servicios_web serv_generar_cert -p toba_referencia  -s serv_seguro_configuracion
-</pre>
-<li>Exportar la configuración del lado <b>servidor</b>. En este caso se envia un id de dependencia:<pre>toba servicios_web serv_exportar_config -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia
-</pre>
-<li>Importar configuración del lado <b>cliente</b><pre>toba servicios_web cli_importar_config -p toba_referencia -s seguro_configuracion-z ./serv_seguro_configuracion.zip
-<pre>
+<li>Generar la clave privada y certificado para cada proyecto (en este caso el mismo proyecto es cliente y servidor)
+<pre>toba servicios_web generar_cert -p toba_referencia</pre>
+
+<li>En el cliente: Tomar el archivo de salida del comando anterior e importar el certificado del servidor para este consumo de servicio especifico:
+<pre>toba servicios_web importar_cert -p toba_referencia -c cli_seguro_configuracion ARCHIVO</pre>
+
+
+<li>En el servidor: Tomar el archivo de salida del comando anterior e importar el certificado del cliente con un ID especifico:
+<pre>toba servicios_web importar_cert -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia ARCHIVO</pre>
 </ol>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

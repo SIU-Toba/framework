@@ -22,7 +22,6 @@ abstract class toba_servicio_web extends toba_componente
 			$this->_dependencias[$dep]->set_controlador($this, $dep);
 			$this->dep($dep)->inicializar();
 		}		
-		
 		$this->inicializar();
 	}
 
@@ -39,8 +38,8 @@ abstract class toba_servicio_web extends toba_componente
 		if (! isset(self::$ini)) {
 			$proyecto = toba::proyecto()->get_id();
 			$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_serv/".$id;		//Directorio perteneciente al servicio
-			if (file_exists($directorio.'/clientes.ini')) {
-				self::$ini = new toba_ini($directorio.'/clientes.ini');
+			if (file_exists($directorio.'/servicio.ini')) {
+				self::$ini = new toba_ini($directorio.'/servicio.ini');
 			}
 		}
 		$seguro = false;

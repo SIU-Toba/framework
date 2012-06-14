@@ -58,7 +58,7 @@ XML;
     				'policy' => $policy, 
     				'securityToken' => $security_token
     	);		
-		$servicio = toba::servicio_web('seguro', $opciones);
+		$servicio = toba::servicio_web('cli_seguro', $opciones);
 	
 		//-- 3 - Muestra la respuesta		
 		$respuesta = $servicio->request($mensaje);

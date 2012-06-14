@@ -34,7 +34,7 @@ class ci_cliente extends toba_ci
 		    'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_configuracion', 
 			'firmado' => true	//Fuerza a que siempre se le tenga que configurar la firma del mensaje
 		);
-		$servicio = toba::servicio_web('seguro_configuracion', $opciones);
+		$servicio = toba::servicio_web('cli_seguro_configuracion', $opciones);
 	
 		//-- 3 - Muestra la respuesta
 		$respuesta = $servicio->request($mensaje);

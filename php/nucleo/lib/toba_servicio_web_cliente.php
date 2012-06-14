@@ -111,7 +111,7 @@ class toba_servicio_web_cliente
 	{
 		$security_token = null;
 		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$servicio";		//Directorio perteneciente al servicio
-		$ini_conf = new toba_ini($directorio. "/servicio.ini");
+		$ini_conf = new toba_ini($directorio. "/cliente.ini");
 
 		//Busco los datos para los certificados en el archivo perteneciente al servicio
 		if (! is_null($ini_conf) && $ini_conf->existe_entrada('certificado')) {
@@ -129,10 +129,10 @@ class toba_servicio_web_cliente
 			}			
 			$cert_cliente = ws_get_cert_from_file($config['cert_cliente']);
 			
-			if (! file_exists($config['cert_server'])) {
-				throw new toba_error("El archivo ".$config['cert_server']." no existe");
+			if (! file_exists($config['cert_servidor'])) {
+				throw new toba_error("El archivo ".$config['cert_servidor']." no existe");
 			}			
-			$cert_server = ws_get_cert_from_file($config['cert_server']);
+			$cert_server = ws_get_cert_from_file($config['cert_servidor']);
 					
 			$security_token = new WSSecurityToken(array("privateKey" => $clave_cliente,		
 												"receiverCertificate" => $cert_server,	

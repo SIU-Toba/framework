@@ -39,7 +39,7 @@ XML;
 		$opciones = array(
 			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
 		);
-		$servicio = toba::servicio_web('sin_seguridad', $opciones);
+		$servicio = toba::servicio_web('cli_sin_seguridad', $opciones);
 		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload));
 		toba::notificacion()->info($respuesta->get_payload());
 	}
@@ -88,7 +88,7 @@ XML;
 		$opciones = array(
 			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'
 		);		
-	    $servicio = toba::servicio_web('sin_seguridad', $opciones);	
+	    $servicio = toba::servicio_web('cli_sin_seguridad', $opciones);	
 		$imagen = toba::proyecto()->get_www_temp($this->s__adjunto['archivo']);
 	    $imagen_contenido = file_get_contents($imagen['path']);
 	    $opciones = array('attachments' => array('myid1' => $imagen_contenido));
@@ -130,7 +130,7 @@ XML;
 					);
     	
 		//--3- Construye el cliente
-		$servicio = toba::servicio_web('sin_seguridad', $opciones);
+		$servicio = toba::servicio_web('cli_sin_seguridad', $opciones);
 		
 		//--4- Hace un request a la acción específica enviando el arreglo
 		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/aplanar_array');
@@ -164,7 +164,7 @@ XML;
     	$opciones = array(
     		    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad',    	
     	);
-    	$servicio = toba::servicio_web('sin_seguridad', $opciones);
+    	$servicio = toba::servicio_web('cli_sin_seguridad', $opciones);
     	
     	//--2- Da de alta la persona
     	$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/persona_alta');
