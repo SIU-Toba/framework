@@ -594,7 +594,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'autenticacion', 'toba  ;Disponibles: toba|openid|ldap');		
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');
-
 		}
 		$ini->guardar( self::archivo_info_basica() );
 		toba_logger::instancia()->debug("Creado archivo ".self::archivo_info_basica());

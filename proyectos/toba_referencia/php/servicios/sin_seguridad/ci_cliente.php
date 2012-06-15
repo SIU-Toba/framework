@@ -6,7 +6,7 @@ class ci_cliente extends toba_ci
 	protected $s__adjunto;
 	protected $adjunto_respuesta;
 	protected $datos_persona;
-	protected $path_servicio = "sin_seguridad/servicio.php";
+	protected $path_servicio = "servicios/sin_seguridad/servicio.php";
 	
 	function ini()
 	{
@@ -202,8 +202,8 @@ XML;
 		$url_servicio = toba::vinculador()->get_url('toba_editor', '30000014', array('archivo' => $this->path_servicio), array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$html = "<div style='float:right'><a target='logger' href='$url_cliente'>$img Ver .php del Cliente</a>";
 		$html .= "<br><a target='logger' href='$url_servicio'>$img Ver .php del Servicio</a>";
-		$url_ejemplos = 'http://labs.wso2.org/wsf/php/demo.php?name=Samples&demo=samples/index.html&src=samples';
-		$html .= "<br>Ejemplos completos de WSF <a href='$url_ejemplos'>online</a></div>";
+		$url_ejemplos = 'http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb';
+		$html .= "<br>Documentación de <a target='_blank' href='$url_ejemplos'>servicios web en toba</a></div>";
 		$html .= $this->pantalla()->get_descripcion();		
 		$this->pantalla()->set_descripcion($html);
 	}

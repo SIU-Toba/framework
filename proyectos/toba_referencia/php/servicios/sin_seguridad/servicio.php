@@ -4,6 +4,7 @@ class serv_sin_seguridad extends toba_servicio_web
 	function get_opciones()
 	{
 		return array(
+			'firmado'			=> false,		//Explicitamente se hace publico el servicio
 			'requestXOP'		=> true,
 			'useMTOM'			=> true,
 			'actions' => array(

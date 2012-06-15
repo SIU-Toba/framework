@@ -112,11 +112,11 @@ Para ello es necesario ejecutar en consola los siguientes pasos previo correr es
 <pre>toba servicios_web generar_cert -p toba_referencia</pre>
 
 <li>En el cliente: Tomar el archivo de salida del comando anterior e importar el certificado del servidor para este consumo de servicio especifico:
-<pre>toba servicios_web importar_cert -p toba_referencia -c cli_seguro_configuracion ARCHIVO</pre>
+<pre>toba servicios_web cli_configurar -p toba_referencia -s cli_seguro_configuracion -c ARCHIVO</pre>
 
 
 <li>En el servidor: Tomar el archivo de salida del comando anterior e importar el certificado del cliente con un ID especifico:
-<pre>toba servicios_web importar_cert -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia ARCHIVO</pre>
+<pre>toba servicios_web serv_configurar -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia -c ARCHIVO</pre>
 </ol>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

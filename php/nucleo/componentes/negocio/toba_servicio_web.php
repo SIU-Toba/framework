@@ -91,9 +91,6 @@ abstract class toba_servicio_web extends toba_componente
 				}
 			}
 		}
-		if (!$seguro && self::servicio_con_firma()) {
-			throw new toba_error_seguridad("El servicio web esta configurado para requerir firma, sin embargo no se esta encriptando/firmando la conexion");
-		}		
 		self::$opciones = array_merge(self::$opciones, call_user_func(array($clase, 'get_opciones')));		
 		return self::$opciones;
 	}	
@@ -103,6 +100,14 @@ abstract class toba_servicio_web extends toba_componente
 	 */
 	function __call($nombre, $argumentos)
 	{
+		//trac/toba/wiki/Referencia/ServiciosWeb/Seguridad		
+		if (!isset(self::$opciones['securityToken']) && self::servicio_con_firma()) {
+			if (toba::instalacion()->es_produccion()) {
+				throw new toba_error_seguridad("El servicio web esta configurado para requerir firma, sin embargo no se esta encriptando/firmando la conexion");
+			} else {
+				throw new toba_error_servicio_web("El servicio web esta configurado para requerir firma, sin embargo no se <a target='_blank' href='http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb/Seguridad#configuracion'>configuro correctamente</a> el servicio importando los certificados de los clientes.");
+			}
+		}
 		//Elimina el guion bajo inicial y llama al metodo op__X
 		if (substr($nombre, 0, 1) != '_') {
 	       throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $nombre);
@@ -205,7 +210,7 @@ abstract class toba_servicio_web extends toba_componente
 		if (! empty(self::$mapeo_firmas)) {
 			return true;
 		} 
-		return isset(self::$opciones['firmado']) ? self::$opciones['firmado'] : false;
+		return isset(self::$opciones['seguro']) ? self::$opciones['seguro'] : true;
 	}		
 
 	static function agregar_mapeo_firmas($archivo, $id, $fingerprint = null) {
