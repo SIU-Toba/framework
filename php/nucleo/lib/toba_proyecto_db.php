@@ -375,7 +375,9 @@ class toba_proyecto_db
 		$proyecto = $db->quote($proyecto);
 		$clase = $db->quote($clase);
 		$sql = "SELECT		clase,
-							archivo
+							archivo,
+							archivo_clase,
+							punto_montaje
 					FROM	apex_consulta_php
 					WHERE	proyecto = $proyecto AND clase = $clase ";
 		return self::get_db()->consultar_fila($sql);	

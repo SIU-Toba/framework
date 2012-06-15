@@ -61,7 +61,7 @@ abstract class toba_asistente
 	function posee_informacion_completa()
 	{
 		$datos_molde = $this->dr_molde->tabla('molde')->get();	
-		if( isset($datos_molde['carpeta_archivos']) && isset($datos_molde['prefijo_clases']) ) {
+		if (isset($datos_molde['carpeta_archivos']) && isset($datos_molde['prefijo_clases'])) {
 			return true;	
 		}
 		return false;
@@ -108,8 +108,8 @@ abstract class toba_asistente
 	function ejecutar($id_item, $retorno_opciones_generacion=null, $con_transaccion  = true)
 	{
 		//Registro las opciones de generacion
-		if(isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion) ) {
-			foreach( $retorno_opciones_generacion as $opcion) {
+		if (isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion)) {
+			foreach ($retorno_opciones_generacion as $opcion) {
 				$this->retorno_opciones_generacion[$opcion['opcion']] = $opcion['estado'];
 			}
 		}
@@ -161,6 +161,8 @@ abstract class toba_asistente
 		$item = new toba_item_molde($this);
 		$item->cargar($id_item);
 		$item->set_ci($this->ci);
+		$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
+		$item->set_punto_montaje($pm);		
 		$item->generar();
 
 		$this->generar_archivos_consultas();
@@ -215,10 +217,7 @@ abstract class toba_asistente
 	*/
 	function agregar_opcion_generacion($id, $texto, $ayuda=null)
 	{
-		$opcion = array(	'opcion'	=> $id,
-							'texto'		=> $texto,
-							'ayuda'		=> $ayuda,
-							'estado'	=> 1 );
+		$opcion = array('opcion' => $id, 'texto' => $texto, 'ayuda' => $ayuda, 'estado'=> 1);
 		$this->envio_opciones_generacion[] = $opcion;
 	}
 	
@@ -231,7 +230,7 @@ abstract class toba_asistente
 		if ($this->asumir_confirmacion) {
 			return true;
 		}
-		if(isset($this->retorno_opciones_generacion[$opcion])) {
+		if (isset($this->retorno_opciones_generacion[$opcion])) {
 			return $this->retorno_opciones_generacion[$opcion];
 		} else {
 			throw new toba_error_asistentes("ASISTENTE: La opcion de generacion '$opcion' no existe!");	
@@ -260,7 +259,7 @@ abstract class toba_asistente
 
 	function generar_efs($form, $filas, $es_filtro=false)
 	{
-		foreach( $filas as $fila ) {
+		foreach ($filas as $fila) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
 			$ef->set_etiqueta($fila['etiqueta']);
 			if (! $es_filtro) {
@@ -268,20 +267,19 @@ abstract class toba_asistente
 				$ef->set_propiedad('obligatorio', $fila['ef_obligatorio']);
 			}			
 			//Largo EDITABLEs
-			if($fila['dt_largo']){
-				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
-				if($fila['dt_largo'] > 60) {
-					$ef->set_propiedad('edit_tamano',60);
+			if($fila['dt_largo']) {
+				$ef->set_propiedad('edit_maximo', $fila['dt_largo']);
+				if ($fila['dt_largo'] > 60) {
+					$ef->set_propiedad('edit_tamano', 60);
 				} else {
-					$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
+					$ef->set_propiedad('edit_tamano', $fila['dt_largo']);
 				}
 			}
 			if (isset($fila['ef_carga_origen'])) {
 				$ef->set_propiedad('carga_no_seteado', '-- Seleccione --');
-				switch ($fila['ef_carga_origen']) {
-					
+				switch ($fila['ef_carga_origen']) {					
 					case 'datos_tabla':
-						if(!$fila['ef_carga_php_metodo']){
+						if (!$fila['ef_carga_php_metodo']) {
 							$metodo_recuperacion = 'get_descripciones';
 						} else {
 							$metodo_recuperacion = $fila['ef_carga_php_metodo'];
@@ -292,8 +290,8 @@ abstract class toba_asistente
 
 						//-- Setea propiedades del ef
 						$ef->set_propiedad('carga_metodo', $metodo_recuperacion);						
-						$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
-						$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
+						$ef->set_propiedad('carga_col_clave', $fila['ef_carga_col_clave']);
+						$ef->set_propiedad('carga_col_desc', $fila['ef_carga_col_desc']);
 						if (isset($fila['ef_carga_sql'])) {
 							$molde_dt->crear_metodo_consulta($metodo_recuperacion, $fila['ef_carga_sql']);
 						}											
@@ -308,10 +306,10 @@ abstract class toba_asistente
 							$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
 							$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
 							if(isset($fila['ef_carga_sql'])){
-								$this->crear_consulta_php(	$fila['ef_carga_php_include'],
-															$fila['ef_carga_php_clase'],
-															$fila['ef_carga_php_metodo'],
-															$fila['ef_carga_sql'] );
+								$this->crear_consulta_php($fila['ef_carga_php_include'],
+														$fila['ef_carga_php_clase'],
+														$fila['ef_carga_php_metodo'],
+														$fila['ef_carga_sql']);
 							}
 						}
 						break;
@@ -376,6 +374,9 @@ abstract class toba_asistente
 		if ( is_null($molde)) {
 					$molde = new toba_datos_tabla_molde($this);
 					$this->generar_datos_tabla($molde, $tabla, null);
+					//Recupero el punto de montaje y se lo seteo
+					$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
+					$molde->set_punto_montaje($pm);
 		}
 		return $molde;
 	}
@@ -395,6 +396,7 @@ abstract class toba_asistente
 
 		$molde = new toba_datos_relacion_molde($this);
 		$this->generar_datos_relacion($molde);
+		
 		return $molde;
 	}
 
@@ -489,21 +491,37 @@ abstract class toba_asistente
 		foreach($this->archivos_consultas as $path_relativo => $clase) {
 			//Control para que no hayan metodos duplicados, se hace aca
 			//porque sino se pierde el acceso al editor. El control se deberia hacer en la carga misma
-			if( count($clase->get_indice_metodos_php()) 
-				!= count(array_unique($clase->get_indice_metodos_php())) ) {
-				throw new toba_error("Existen nombres de metodos duplicados!");
+			if (count($clase->get_indice_metodos_php()) 
+				!= count(array_unique($clase->get_indice_metodos_php()))) {
+				throw new toba_error('Existen nombres de metodos duplicados!');
 			}
-			$path = toba::instancia()->get_path_proyecto($this->id_molde_proyecto) . '/php/'. $path_relativo;
+			
+			$path = $this->directorio_absoluto(). $path_relativo;				
 			$existente = null;
 			if( file_exists($path) && is_file($path) ) {
 				$existente = toba_archivo_php::codigo_sacar_tags_php(file_get_contents($path));
 			}			
 			$php = $clase->generar_codigo($existente);
 			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php\n" . $php . "\n?>");
-			$this->registrar_elemento_creado(	'Archivo consultas', 
-												$this->get_proyecto(),
-												$this->id_molde_proyecto );
+			$this->registrar_elemento_creado('Archivo consultas', $this->get_proyecto(),	$this->id_molde_proyecto );
 		}
+	}
+	
+	/**
+	 * Determina el directorio absoluto utilizando el punto de montaje o el dir por defecto del proyecto
+	 * @return string $path
+	 * @ignore
+	 */
+	function directorio_absoluto()
+	{
+		$id_pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
+		if (! is_null($id_pm) && ($id_pm !== 0)) {
+			$punto_montaje = toba_pms::instancia()->get_instancia_pm_proyecto($this->get_proyecto(), $id_pm);
+			$path = $punto_montaje->get_path_absoluto() . '/';
+		} else {
+			$path = toba::instancia()->get_path_proyecto($this->id_molde_proyecto) . '/php/';
+		}
+		return $path;
 	}
 }
 ?>

@@ -101,8 +101,21 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	function get_clave_componente_generado()
 	{
 		$datos = $this->datos->tabla('base')->get_clave_valor(0);
-		return array(	'clave' => $datos['objeto'],
-						'proyecto' => $datos['proyecto']);
+		return array('clave' => $datos['objeto'], 'proyecto' => $datos['proyecto']);
+	}
+	
+	//----------------------------------------------------------
+	//	Ubicacion mediante punto de montaje
+	//----------------------------------------------------------
+	function directorio_absoluto()
+	{
+		$datos = $this->datos->tabla('base')->get_fila(0);		
+		if (!is_null($datos['punto_montaje']) && ($datos['punto_montaje'] !== 0)) { 	
+			$punto_montaje = toba_pms::instancia()->get_instancia_pm_proyecto($datos['proyecto'], $datos['punto_montaje']);
+			return $punto_montaje->get_path_absoluto(). '/' . $this->directorio_relativo();
+		} else {
+			return parent::directorio_absoluto();
+		}
 	}
 }
 ?>

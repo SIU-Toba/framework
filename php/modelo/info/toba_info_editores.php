@@ -607,6 +607,7 @@ class toba_info_editores
 						o.clase as 				clase,
 						o.subclase as			subclase,
 						o.subclase_archivo as	subclase_archivo,
+						o.punto_montaje as		punto_montaje,
 						c.icono as				icono,
 						(SELECT COUNT(*) 
 							FROM apex_objeto_dependencias dd
@@ -627,6 +628,7 @@ class toba_info_editores
 									'proyecto' => $datos[0]['proyecto'],
 									'subclase' => $datos[0]['subclase'],
 									'subclase_archivo' => $datos[0]['subclase_archivo'],
+									'punto_montaje' => $datos[0]['punto_montaje'],
 									'icono' => $datos[0]['icono'],
 									'nombre' => $datos[0]['nombre'],
 									'consumidores_externos' => $datos[0]['consumidores_externos']);
@@ -1399,7 +1401,7 @@ class toba_info_editores
 	
 	function get_metodos_consulta_php($consulta_php, $proyecto=null)
 	{
-		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		if (is_null($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		if (is_array($consulta_php)) {
 			$archivo_nombre = $consulta_php['carga_php_include'];
 		} else {

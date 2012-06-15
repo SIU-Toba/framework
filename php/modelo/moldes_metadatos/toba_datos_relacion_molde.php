@@ -40,7 +40,6 @@ class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
 			'sinc_orden_automatico' => 1
 		);
 		$this->datos->tabla('prop_basicas')->set($predeterminados);
-
 	}
 
 	function crear_relaciones()
@@ -68,14 +67,20 @@ class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
 	//----------------------------------------------------------------------------------------------------------------//
 	function set_ap($ap_clase, $ap_archivo)
 	{
+		//Recupero el punto de montaje del componente y lo coloco para el AP.
+		$pm = $this->datos->tabla('base')->get_fila_columna(0, 'punto_montaje');		
+		
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ap_clase',$ap_clase);
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ap_archivo',$ap_archivo);
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'punto_montaje', $pm);
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------//
 	function agregar_tabla($nombre_tabla)
 	{
+		$pm = $this->datos->tabla('base')->get_fila_columna(0, 'punto_montaje');		//Seteo el punto de montaje en la tabla nueva		
 		$this->tablas[$nombre_tabla] = new toba_datos_tabla_molde($this->asistente);
+		$this->tablas[$nombre_tabla]->set_punto_montaje($pm);
 	}
 
 	function agregar_relacion_tablas($tabla_padre, $tabla_hija)

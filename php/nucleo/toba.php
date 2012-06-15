@@ -355,8 +355,19 @@ class toba
 		if (!isset(self::$consultas_php[$clase])) {
 			$datos = toba::proyecto()->get_info_consulta_php($clase);
 			if( $datos['archivo'] ) {
-				require_once($datos['archivo']);
-				self::$consultas_php[$clase] = new $clase();
+				if (isset($datos['punto_montaje']) && toba::puntos_montaje()->existe_por_id($datos['punto_montaje'])) {
+					$path_pm = toba::puntos_montaje()->get_por_id($datos['punto_montaje'])->get_path_absoluto();
+					$archivo = $path_pm.'/'.$datos['archivo'];
+				} else {
+					$archivo = $datos['archivo'];
+				}
+				require_once($archivo);
+				if($datos['archivo_clase'] && $datos['archivo_clase']!=''){
+					$clase_php = $datos['archivo_clase'];
+				} else {
+					$clase_php = $clase;
+				}
+				self::$consultas_php[$clase] = new $clase_php();
 			} else {
 				throw new toba_error("La consulta_php solicitada no posee un archivo asociado");
 			}

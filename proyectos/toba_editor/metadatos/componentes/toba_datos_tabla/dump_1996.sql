@@ -138,6 +138,20 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'0', --externa
 	NULL  --tabla
 );
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1996', --objeto
+	'811', --col_id
+	'archivo_clase', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'60', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	'apex_consulta_php'  --tabla
+);
 --- FIN Grupo de desarrollo 0
 
 --- INICIO Grupo de desarrollo 12

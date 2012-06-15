@@ -60,6 +60,11 @@ class toba_molde_zona extends toba_molde_elemento
 		$this->datos->set_fila_columna_valor(0, 'consulta_metodo', $metodo);
 	}
 
+	function set_punto_montaje($pm)
+	{
+		$this->datos->set_fila_columna_valor(0, 'punto_montaje', $pm);						
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------
 	function get_clave_componente_generado()
 	{

@@ -129,7 +129,7 @@ abstract class toba_tarea_pers {
 
 	protected function io_conflicto_soluble(consola $consola, toba_registro_conflicto $conflicto)
 	{
-		return $consola->dialogo_simple("Se encontró el siguiente conflicto: {$conflicto->get_descripcion()}. Desea continuar?");
+		return $consola->dialogo_simple("Se encontró el siguiente conflicto: {$conflicto->get_descripcion()}. Desea importar este cambio de cualquier manera?");
 	}
 
 	protected function io_conflicto_irresoluble(consola $consola, toba_registro_conflicto $conflicto)

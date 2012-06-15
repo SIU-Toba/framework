@@ -134,14 +134,22 @@ class toba_modelo_operacion
 		foreach ($arbol_componentes as $comp) {
 			$opcion = $opciones[$comp['componente']];			
 			if ($opcion['eliminar'] && $opcion['eliminar_archivo']) {
-				$archivo = $comp['subclase_archivo'];
-				$archivo = toba::instancia()->get_path_proyecto($this->id_proyecto).'/php/'.$archivo;
+				$archivo = $this->get_path_archivo($comp);
 				unlink($archivo);
 			}			
 		}		
-	}	
+	}
 	
-	
+	function get_path_archivo($datos)
+	{
+		if (isset($datos['punto_montaje']) && ($datos['punto_montaje'] !== 0)) {
+			$punto_montaje = toba_pms::instancia()->get_instancia_pm_proyecto($this->id_proyecto, $datos['punto_montaje']);
+			$path = $punto_montaje->get_path_absoluto() . '/'. $datos['subclase_archivo'];
+		} else { 
+			$path = toba::instancia()->get_path_proyecto($this->id_proyecto).'/php/'.$datos['subclase_archivo'];	
+		}
+		return $path;
+	}
 }
 
 ?>

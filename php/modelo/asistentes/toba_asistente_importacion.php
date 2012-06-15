@@ -28,7 +28,7 @@ class toba_asistente_importacion extends toba_asistente
 		//--- Carga el item acual
 		$item = new toba_item_molde($this);
 		$item->cargar($id_item);
-			
+					
 		//--- Clona el ci actual 
 		$datos_destino = $this->dr_molde->tabla('molde')->get();
 		$datos_origen = $this->dr_molde->tabla('base')->get();
@@ -43,6 +43,7 @@ class toba_asistente_importacion extends toba_asistente
 		$opciones['fuente_datos_proyecto'] = $this->id_molde_proyecto;
 		if (isset($datos_destino['punto_montaje'])) {
 			$opciones['punto_montaje'] = $datos_destino['punto_montaje'];
+			$item->set_punto_montaje($datos_destino['punto_montaje']);		
 		}
 		foreach ($item_origen->get_hijos() as $hijo) {	
 			$id_nuevo_hijo = $hijo->clonar($opciones, $datos_destino['carpeta_archivos'], false);

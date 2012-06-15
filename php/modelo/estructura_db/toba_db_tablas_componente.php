@@ -1333,6 +1333,7 @@ class toba_db_tablas_componente
     5 => 'carpeta_archivos',
     6 => 'prefijo_clases',
     7 => 'fuente',
+    8 => 'punto_montaje',
   ),
 );
 	}
@@ -1420,6 +1421,7 @@ class toba_db_tablas_componente
     14 => 'cuadro_carga_php_metodo',
     15 => 'datos_tabla_validacion',
     16 => 'apdb_pre',
+    17 => 'punto_montaje',
   ),
 );
 	}
@@ -1469,6 +1471,7 @@ class toba_db_tablas_componente
     26 => 'ef_carga_tabla',
     27 => 'ef_carga_col_clave',
     28 => 'ef_carga_col_desc',
+    29 => 'punto_montaje',
   ),
 );
 	}

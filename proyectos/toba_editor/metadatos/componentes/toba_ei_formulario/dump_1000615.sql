@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	'12', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_molde', --subclase
+	'asistentes/form_molde.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Asistente de operaciones - Importación - molde', --nombre
@@ -140,7 +140,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'carpeta_archivos', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'1', --orden
+	'2', --orden
 	'Carpeta archivos', --etiqueta
 	NULL, --etiqueta_estilo
 	'Carpeta relativa al path php del proyecto en donde se almacenarán las clases generadas automáticamente por el asistente.', --descripcion
@@ -219,7 +219,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'prefijo_clases', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'3', --orden
 	'Prefijo clases', --etiqueta
 	NULL, --etiqueta_estilo
 	'Puede prefijar un nombre a cada clase PHP generada automáticamente por el asistente.', --descripcion
@@ -298,7 +298,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fuente', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'3', --orden
+	'4', --orden
 	'Fuente', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -380,8 +380,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'punto_montaje', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'4', --orden
-	'Punto de Montaje Destino', --etiqueta
+	'1', --orden
+	'Punto de Montaje', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado

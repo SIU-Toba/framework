@@ -39,7 +39,7 @@ class toba_molde_evento
 	{
 		$estado = $activar ? 1 : 0;
 		$this->datos['en_botonera'] = $estado;
-		$this->datos['sobre_fila'] = 0;
+		$this->datos['sobre_fila'] = 1 - $estado;
 	}
 
 	function sobre_fila()

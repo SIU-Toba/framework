@@ -16,10 +16,12 @@ CREATE TABLE apex_molde_opciones_generacion
 	proyecto						varchar(15)			NOT NULL,
 	uso_autoload					smallint			NULL,		-- Hace que no se generen require_once
 	origen_datos_cuadro				varchar(20)			NULL,		-- metodologia usada para proveer datos: consulta_php, datos_tabla
+	punto_montaje					int8			NULL,
 	carga_php_include				TEXT		NULL,		-- consulta_php por defecto
 	carga_php_clase					TEXT		NULL,		-- consulta_php por defecto
 	CONSTRAINT "apex_molde_opciones_generacion_pk" PRIMARY KEY("proyecto"),
-	CONSTRAINT "apex_molde_opciones_generacion_fk_proy" 	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT "apex_molde_opciones_generacion_fk_proy" 	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_molde_opciones_generacion_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje") REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -97,12 +99,14 @@ CREATE TABLE apex_molde_operacion
 	carpeta_archivos           	TEXT 	NOT NULL,
 	prefijo_clases				varchar(30)		NOT NULL,
 	fuente						varchar(20)		NOT NULL,
+	punto_montaje					int8			NULL,
 	CONSTRAINT  "apex_molde_operacion_pk" PRIMARY KEY ("molde", "proyecto"),
 	CONSTRAINT 	"apex_molde_operacion_item" UNIQUE ("proyecto","item"),
 	CONSTRAINT	"apex_molde_operacion_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_molde_operacion_fk_item" FOREIGN	KEY ("item", "proyecto") REFERENCES	"apex_item"	("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_fk_tipo"  FOREIGN KEY ("operacion_tipo") REFERENCES   "apex_molde_operacion_tipo" ("operacion_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_molde_operacion_abms_fk_fuente" FOREIGN KEY	("proyecto","fuente") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_molde_operacion_abms_fk_fuente" FOREIGN KEY	("proyecto","fuente") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_molde_operacion_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje")	REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -192,8 +196,10 @@ CREATE TABLE apex_molde_operacion_abms
 	cuadro_carga_php_metodo				TEXT	NULL,
 	datos_tabla_validacion				smallint		NULL,
 	apdb_pre							smallint		NULL,	-- Hay que poner uno por ventana.
+	punto_montaje					int8			NULL,
 	CONSTRAINT  "apex_molde_operacion_abms_pk" PRIMARY KEY ("proyecto","molde"),
-	CONSTRAINT  "apex_molde_operacion_abms_fk_molde" FOREIGN KEY ("molde", "proyecto") REFERENCES "apex_molde_operacion" ("molde", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_molde_operacion_abms_fk_molde" FOREIGN KEY ("molde", "proyecto") REFERENCES "apex_molde_operacion" ("molde", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_molde_operacion_abms_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje") REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -241,6 +247,7 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	ef_carga_tabla						TEXT	NULL,
 	ef_carga_col_clave					TEXT	NULL,
 	ef_carga_col_desc					TEXT	NULL,
+	punto_montaje					int8			NULL,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_pk" PRIMARY KEY ("fila","molde","proyecto"),
 	CONSTRAINT	"apex_molde_operacion_abms_fila_uq" UNIQUE 	("proyecto","molde","columna"),
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_molde" FOREIGN KEY ("molde","proyecto") REFERENCES "apex_molde_operacion" ("molde","proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
@@ -248,7 +255,8 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_estilo" FOREIGN KEY ("cuadro_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_formato" FOREIGN KEY ("cuadro_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_tipo_datos" FOREIGN KEY ("dt_tipo_dato") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_tipo_datos" FOREIGN KEY ("dt_tipo_dato") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_molde_operacion_abms_fila_fk_puntos_montaje" FOREIGN KEY ("proyecto", "punto_montaje") REFERENCES "apex_puntos_montaje"	("proyecto", "id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 

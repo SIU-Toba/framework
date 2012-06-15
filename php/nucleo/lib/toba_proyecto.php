@@ -177,7 +177,20 @@ class toba_proyecto
 
 	function es_personalizable()
 	{
-		return $this->get_parametro('extension_proyecto');
+		$rs = $this->get_parametro('extension_proyecto');
+		
+		return $rs;
+	}
+	
+	function personalizacion_activa()
+	{
+		$ini_path = $this->get_path_pers().'/personalizacion.ini';
+		if (is_file($ini_path)) {
+			$ini = new toba_ini($ini_path);
+			return $ini->get_datos_entrada('iniciada') == 'si';
+		} else {
+			return false;
+		}
 	}
 
 	function get_clases_extendidas()

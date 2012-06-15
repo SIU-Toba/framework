@@ -848,6 +848,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$secuencias_grant = array();
 			foreach ($secuencias as $secuencia) {
 				if (in_array($secuencia['tabla'], $tablas)) {
+					$pos_schema = strpos($secuencia['nombre'], '.');	//Busco un punto por si tiene acoplado el schema
+					if ($pos_schema !== false) {
+						$secuencia['nombre'] = substr($secuencia['nombre'], $pos_schema + 1);	//Le sumo 1 para evitar el punto separador.
+					}
 					$secuencias_grant[] = $secuencia['nombre'];
 				}
 			}

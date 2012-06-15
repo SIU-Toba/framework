@@ -48,6 +48,11 @@ class toba_molde_tipo_pagina extends toba_molde_elemento
 		$this->datos->set_fila_columna_valor(0, 'clase_archivo', $archivo);
 	}
 
+	function set_punto_montaje($pm)
+	{
+		$this->datos->set_fila_columna_valor(0, 'punto_montaje', $pm);						
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------
 	function get_clave_componente_generado()
 	{

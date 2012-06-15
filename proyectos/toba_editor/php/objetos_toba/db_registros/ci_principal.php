@@ -23,12 +23,13 @@ class ci_principal extends ci_editores_toba
 				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
 				if (( $datos_ap['ap'] == 0 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo']) {
 					$this->s__ap_php_db = true;	//El AP esta extendido
-				}
-				if (admin_util::existe_archivo_subclase($datos_ap['ap_archivo'])) {
+				}			
+				if (admin_util::existe_archivo_subclase($datos_ap['ap_archivo'],$datos_ap['punto_montaje'])) {
 					$this->s__ap_php_archivo = true; //La extension existe
 				}
 			}
 		}
+		
 		// Se configura el FORM para que dispare el evento de recarga de tablas.
 		$cols = $this->dep('datos')->tabla('columnas')->get_cantidad_filas();
 		$this->pantalla()->tab('2')->set_etiqueta("Columnas [$cols]");

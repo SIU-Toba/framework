@@ -19,7 +19,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 		$datos = array('nombre' => $tabla);
 		$this->datos->tabla('base')->set($datos);		
 		$this->datos->tabla('prop_basicas')->set(array('ap'=>1));	//Admin persistencia por defecto
-		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla);		
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'tabla', $tabla);		
 	}
 	
 	function cargar($id)
@@ -43,14 +43,18 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 
 	function set_ap($subclase, $archivo)
 	{
+		//Recupero el punto de montaje del componente y lo coloco para el AP.
+		$pm = $this->datos->tabla('base')->get_fila_columna(0, 'punto_montaje');		
+		
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ap',0);
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ap_clase',$subclase);
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ap_archivo',$archivo);
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'punto_montaje', $pm);		
 	}
 
 	function permitir_modificar_pks()
 	{
-		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'modificar_claves',1);		
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'modificar_claves', 1);		
 	}
 
 	//-- Columnas ---------------------------------------
@@ -72,17 +76,6 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	//---------------------------------------------------
 	//-- API de subclase
 	//---------------------------------------------------		
-
-	function archivo_relativo()
-	{
-		return $this->archivo;		
-	}
-
-	function directorio_absoluto()
-	{
-		$path_proyecto = toba::instancia()->get_path_proyecto($this->proyecto);
-		return  $path_proyecto . '/php';
-	}
 	
 	/**
 	 * Para el datos tabla, al querer acceder a la extension se crea sola ya que es global al proyecto
@@ -93,8 +86,8 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	{
 		if (! isset($this->molde_php)) {
 			if (! $this->extendido()) {
-				$clase = 'dt_'.$this->get_tabla_nombre();
-				$archivo = $this->carpeta_archivo.'/'.$clase.'.php';
+				$clase = 'dt_'.$this->get_tabla_nombre();				
+				$archivo = $this->carpeta_archivo.'/'.$clase.'.php';				
 			} else {
 				//-- Ya estaba extendido previamente, se carga la clase
 				$clase = $this->datos->tabla('base')->get_columna('subclase');

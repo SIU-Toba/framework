@@ -426,6 +426,7 @@ CREATE TABLE	apex_consulta_php
   	proyecto 					VARCHAR(15)  	NOT NULL,
 	consulta_php				int8			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
   	clase                   	VARCHAR(60)  	NOT NULL,
+  	archivo_clase              	VARCHAR(60)  	NULL,
   	archivo                 	TEXT			NOT NULL,
   	descripcion                	TEXT			NULL,
 	punto_montaje				int8			NULL,

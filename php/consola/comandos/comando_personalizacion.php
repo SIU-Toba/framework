@@ -23,7 +23,7 @@ class comando_personalizacion extends comando_toba
     /**
      * Prepara un proyecto para comenzar a ser personalizado
      */
-	function opcion__comenzar()
+	function opcion__iniciar()
 	{
 		$this->consola->mensaje('Preparando personalización. Este proceso puede tardar varios minutos...');
 		$p = $this->get_proyecto();
@@ -44,6 +44,17 @@ class comando_personalizacion extends comando_toba
 		$this->consola->mensaje('Exportacion terminada.');
 	}
 
+	/**
+	 * Desactiva la personalización
+	 */
+	function opcion__desactivar()
+	{
+		$p = $this->get_proyecto();
+		$pers = new toba_personalizacion($p, $this->consola);
+		$pers->desactivar();
+		$this->consola->mensaje('La personalización actual fue desactivada.');
+	}
+	
 	/**
 	 * Chequeo de conflictos. Ejecute este comando antes de importar la personalización
 	 */
@@ -85,7 +96,7 @@ class comando_personalizacion extends comando_toba
 		$this->consola->mensaje('Proceso Finalizado');
 		
 		//Elimino la marca  de conflictos para que no pueda volver a ejecutarse la importacion.
-		toba_manejador_archivos::ejecutar("rm -f $archivo", $stdout, $stderr);		
+		unlink($archivo);
 	}
 }
 ?>

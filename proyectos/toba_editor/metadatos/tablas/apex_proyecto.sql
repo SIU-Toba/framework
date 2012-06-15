@@ -59,6 +59,6 @@ Desarrollado por el programa SIU (2003-2006)', --version_detalle
 	'5000', --tiempo_espera_ms
 	'0', --navegacion_ajax
 	NULL, --codigo_ga_tracker
-	NULL, --extension_toba
-	NULL  --extension_proyecto
+	FALSE, --extension_toba
+	FALSE  --extension_proyecto
 );

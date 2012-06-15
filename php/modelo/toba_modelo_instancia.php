@@ -287,18 +287,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	function vincular_proyecto($proyecto, $path=null, $url=null)
 	{
-		if ( isset($path) || toba_modelo_proyecto::existe($proyecto, false) ) {
+		if (isset($path) || toba_modelo_proyecto::existe($proyecto, false)) {
+			$datos_ini = array();
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
-			$datos = array_map('trim',$datos);
-			if ( ! in_array( $proyecto, $datos ) ) {
-				$datos[] = $proyecto;
-				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
+			$proyectos_instancia = array_map('trim',$datos);
+			
+			//Si el proyecto esta en la instancia levanto sus datos previos
+			$existe_proyecto  = (in_array($proyecto, $proyectos_instancia));
+			if ($existe_proyecto && $ini->existe_entrada($proyecto)) {
+				$datos_ini = $ini->get_datos_entrada($proyecto);
 			}
-			$datos_ini = array();
+						
 			if (isset($path)) {
 				 $datos_ini['path'] = $path;
-			}elseif (is_null($path)) {
+			} elseif (is_null($path)) {
 				$datos_ini['path'] = $this->get_path_proyecto($proyecto);
 				toba_logger::instancia()->debug("El path elegido para el proyecto '$proyecto' es {$datos_ini['path']}");
 			}
@@ -307,15 +310,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			} elseif (is_null($url)) {
 				$datos_ini['url'] = $this->get_url_proyecto($proyecto);
 				toba_logger::instancia()->debug("La url elegida para el proyecto '$proyecto' es {$datos_ini['url']}");
-			}
+			}			
 			$usar_perfiles_propios = $this->get_proyecto_usar_perfiles_propios($proyecto);
 			if ($usar_perfiles_propios) {
 				$datos_ini['usar_perfiles_propios'] = $usar_perfiles_propios;
 				toba_logger::instancia()->debug("El proyecto '$proyecto' usa perfiles propios");
 			}
-			if (! empty($datos_ini)) {
-				$ini->agregar_entrada($proyecto, $datos_ini);
+						
+			if (! $existe_proyecto) {		//Si no existe el proyecto lo agrego junto a sus datos
+				$proyectos_instancia[] = $proyecto;
+				$ini->set_datos_entrada('proyectos', implode(', ', $proyectos_instancia));
+				if (! empty($datos_ini)) { $ini->agregar_entrada($proyecto, $datos_ini); }
+			} else {
+				if (! empty($datos_ini)) { $ini->set_datos_entrada($proyecto, $datos_ini); }
 			}
+			
 			$ini->guardar();			
 			toba_logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
 			// Recargo la inicializacion de la instancia

@@ -58,6 +58,6 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'5000', --tiempo_espera_ms
 	NULL, --navegacion_ajax
 	NULL, --codigo_ga_tracker
-	NULL, --extension_toba
-	NULL  --extension_proyecto
+	FALSE, --extension_toba
+	FALSE  --extension_proyecto
 );

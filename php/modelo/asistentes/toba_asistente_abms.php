@@ -43,7 +43,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$nombre_tabla = $this->dr_molde->tabla('base')->get_columna('tabla');
 		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');
 		//Si el nombre de la fuente no esta en el DR, trato de obtenerlo del asistente.
-		if (isset($this->molde) && is_null($nombre_fuente)){
+		if (isset($this->molde) && is_null($nombre_fuente)) {
 			$nombre_fuente = $this->get_fuente();
 		}
 		$db = toba::db($nombre_fuente, toba_editor::get_proyecto_cargado());
@@ -61,21 +61,31 @@ class toba_asistente_abms extends toba_asistente_1dt
 	
 	protected function generar()
 	{
+		$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
+		
 		$clase = 'ci'.$this->molde['prefijo_clases'];
 		$this->ci->set_nombre($this->molde['nombre'] . ' - CI');
+		$this->ci->set_punto_montaje($pm);
 		$this->ci->extender($clase , $clase . '.php');
 		$this->ci->set_ancho('500px');
 		$this->ci->set_alto('300px');
 		//- Creo dependencias -----------------------------------
 		$relacion = $this->ci->agregar_dep('toba_datos_relacion', 'datos');
+		$relacion->set_punto_montaje($pm);		
 		$relacion->agregar_tabla($this->molde_abms['tabla']);
 		$relacion->agregar_definicion_tabla($this->molde_abms['tabla'], $this->molde_abms_fila);
+		
 		$cuadro = $this->ci->agregar_dep('toba_ei_cuadro', 'cuadro');
+		$cuadro->set_punto_montaje($pm);
+		
 		$form = $this->ci->agregar_dep('toba_ei_formulario', 'formulario');
+		$form->set_punto_montaje($pm);
+		
 		$this->generar_datos_relacion($relacion);		
 
 		if ($this->molde_abms['gen_usa_filtro']) {
 			$filtro = $this->ci->agregar_dep('toba_ei_formulario', 'filtro');			
+			$filtro->set_punto_montaje($pm);
 			$this->generar_filtro($filtro);
 		}
 		$this->generar_cuadro($cuadro);
@@ -200,7 +210,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$asignacion = "\$this->s__datos_filtro = \$datos;";
 		if($this->molde_abms['filtro_comprobar_parametros']) {
 			//Solo guarda el filtro si existe una variable seteada
-			$metodo->set_contenido(array(	"if (array_no_nulo(\$datos)) {",
+			$metodo->set_contenido(array("if (array_no_nulo(\$datos)) {",
 											"\t$asignacion",
 											"} else { ",
 											"\ttoba::notificacion()->agregar('$this->mensaje_filtro_incompleto');",
@@ -242,7 +252,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		}
 		//Construyo las filas 
 		$clave_dt = array();
-		foreach( $this->molde_abms_fila as $fila ) {
+		foreach($this->molde_abms_fila as $fila) {
 			if ($fila['dt_pk'] == '1') {										//busco una posible clave para el cuadro
 				$clave_dt[] = $fila['columna'];
 			}
@@ -288,9 +298,9 @@ class toba_asistente_abms extends toba_asistente_1dt
 			}
 			//----> Los datos son provistos por un archivo de consultas php
 			$php_recuperacion = "toba::consulta_php('{$this->molde_abms['cuadro_carga_php_clase']}')->{$this->molde_abms['cuadro_carga_php_metodo']}";
-			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
+			if(isset($this->molde_abms['cuadro_carga_sql'])) { // La consulta no existes
 				//$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
-				$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
+				$this->crear_consulta_php($this->molde_abms['cuadro_carga_php_include'],
 											$this->molde_abms['cuadro_carga_php_clase'],
 											$this->molde_abms['cuadro_carga_php_metodo'],
 											$this->molde_abms['cuadro_carga_sql'],
@@ -358,9 +368,8 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$evento = $cuadro->agregar_evento('seleccion');
 		$evento->en_botonera(false);
 		if (! empty($clave_dt)) {
-					$evento->sobre_fila();
+			$evento->sobre_fila();
 		}
-		$evento->en_botonera(false);
 		$evento->set_imagen('doc.gif');
 		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
 		$php = array("\$this->dep('datos')->cargar(\$datos);");
@@ -386,13 +395,13 @@ class toba_asistente_abms extends toba_asistente_1dt
 			}
 		}
 		$this->generar_efs($form, $filas);
-		$this->ci->php()->agregar( new toba_codigo_separador_php('Formulario') );	
+		$this->ci->php()->agregar(new toba_codigo_separador_php('Formulario'));	
 		//--------------------------------------------------------
 		//--- conf__formulario  ----------------------------------
 		//--------------------------------------------------------
 		$tabla_actual = $this->molde_abms['tabla'];
-		$metodo = new toba_codigo_metodo_php('conf__formulario',array('toba_ei_formulario $form'));
-		$contenido = array(	"if (\$this->dep('datos')->esta_cargada()) {",
+		$metodo = new toba_codigo_metodo_php('conf__formulario', array('toba_ei_formulario $form'));
+		$contenido = array("if (\$this->dep('datos')->esta_cargada()) {",
 										"\t\$form->set_datos(\$this->dep('datos')->tabla('$tabla_actual')->get());");
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$contenido[] = "} else {";
@@ -412,8 +421,8 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$evento->maneja_datos();
 			$evento->set_predeterminado();
 			$evento->set_grupos('no_cargado');
-			$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
-			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);",
+			$metodo = new toba_codigo_metodo_php('evt__formulario__alta', array('$datos'));
+			$metodo->set_contenido( array("\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);",
 											"\$this->dep('datos')->sincronizar();",
 											"\$this->resetear();"));
 			$this->ci->php()->agregar($metodo);

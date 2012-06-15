@@ -85,12 +85,14 @@ class toba_datos_relacion_info extends toba_componente_info
 		if (isset($this->datos['_info_estructura']['ap_archivo'])) {
 			$archivo = $this->datos['_info_estructura']['ap_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba::instancia()->get_path_proyecto($this->proyecto)."/php/";
-			if (isset($proyecto_dest)) {
-				$path_destino = toba::instancia()->get_path_proyecto($proyecto_dest)."/php/";
-			} else {
-				$path_destino = $path_origen;	
-			}
+			
+			$id_pm_origen = $this->get_punto_montaje();						
+			$id_pm_destino = $dr->tabla('base')->get_fila_columna(0, 'punto_montaje');							
+			
+			//Busco los directorios de copia utilizando los puntos de montaje
+			$path_origen = $this->get_path_clonacion($id_pm_origen,$this->proyecto);
+			$path_destino = $this->get_path_clonacion($id_pm_destino, $proyecto_dest, $path_origen);
+			
 			$dr->tabla('prop_basicas')->set_fila_columna_valor(0, 'ap_archivo', $nuevo_archivo);
 			//--- Si el dir. destino no existe, se lo crea
 			if (!file_exists($path_destino.$dir_subclases)) {

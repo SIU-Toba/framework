@@ -404,9 +404,10 @@ class toba_db_tablas_proyecto
     0 => 'proyecto',
     1 => 'consulta_php',
     2 => 'clase',
-    3 => 'archivo',
-    4 => 'descripcion',
-    5 => 'punto_montaje',
+    3 => 'archivo_clase',
+    4 => 'archivo',
+    5 => 'descripcion',
+    6 => 'punto_montaje',
   ),
 );
 	}
@@ -875,8 +876,9 @@ class toba_db_tablas_proyecto
     0 => 'proyecto',
     1 => 'uso_autoload',
     2 => 'origen_datos_cuadro',
-    3 => 'carga_php_include',
-    4 => 'carga_php_clase',
+    3 => 'punto_montaje',
+    4 => 'carga_php_include',
+    5 => 'carga_php_clase',
   ),
 );
 	}

@@ -60,6 +60,7 @@ class toba_migracion_2_2_0 extends toba_migracion
 					CONSTRAINT apex_usuario_pwd_usados_uk UNIQUE (usuario, clave)
 				);';
 		//SP + Trigger que se encarga de hacer la copia
+		$sql[] = 'CREATE OR REPLACE LANGUAGE plpgsql;';
 		$sql[] = 'CREATE OR REPLACE FUNCTION sp_old_pwd_copy()
 				  RETURNS trigger AS
 				$BODY$

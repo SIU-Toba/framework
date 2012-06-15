@@ -59,12 +59,14 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 			$fila = current($filas);
 			$archivo = $this->datos['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba::instancia()->get_path_proyecto($this->proyecto)."/php/";
-			if (isset($proyecto_dest)) {
-				$path_destino = toba::instancia()->get_path_proyecto($proyecto_dest)."/php/";
-			} else {
-				$path_destino = $path_origen;	
-			}
+			
+			$id_pm_origen = $this->get_punto_montaje();						
+			$id_pm_destino = $dr->tabla('base')->get_fila_columna(0, 'punto_montaje');							
+			
+			//Busco los directorios de copia utilizando los puntos de montaje
+			$path_origen = $this->get_path_clonacion($id_pm_origen,$this->proyecto);
+			$path_destino = $this->get_path_clonacion($id_pm_destino, $proyecto_dest, $path_origen);
+			
 			//--- Si el dir. destino no existe, se lo crea
 			if (!file_exists($path_destino.$dir_subclases)) {
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
@@ -74,6 +76,18 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 			}
 			$dr->tabla('pantallas')->set_fila_columna_valor($fila, 'subclase_archivo', $nuevo_archivo);						
 		}
+	}
+	
+	protected function get_path_clonacion($id_punto, $proyecto, $path_default='')
+	{
+		$path_final = $path_default;
+		$pm = toba_pms::instancia()->get_instancia_pm_proyecto($proyecto, $id_punto);		//Instancio el pm para el proyecto
+		if (! is_null($pm)) {
+			$path_final = $pm->get_path_absoluto(). '/';								//Si existe recupero el path al punto, sino uso el generico del proyecto
+		} elseif (isset($proyecto)) {
+			$path_final = toba::instancia()->get_path_proyecto($proyecto).'/php/';	
+		}		
+		return $path_final;		
 	}
 	
 	//---------------------------------------------------------------------	

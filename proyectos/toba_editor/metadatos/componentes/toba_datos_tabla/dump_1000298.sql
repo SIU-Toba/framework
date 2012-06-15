@@ -181,3 +181,20 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000298', --objeto
+	'33000112', --col_id
+	'punto_montaje', --columna
+	'E', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	NULL  --tabla
+);
+--- FIN Grupo de desarrollo 33

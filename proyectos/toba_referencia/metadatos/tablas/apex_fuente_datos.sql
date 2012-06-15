@@ -41,7 +41,7 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	'1', --link_instancia
 	'1', --tiene_auditoria
 	'0', --parsea_errores
-	'1', --permisos_por_tabla
+	'0', --permisos_por_tabla
 	NULL, --usuario
 	NULL, --clave
 	NULL  --base

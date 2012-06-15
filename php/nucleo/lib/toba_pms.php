@@ -57,6 +57,22 @@ class toba_pms
 	}
 
 	/**
+	 * Devuelve verdadero si el punto con id $id existe en el proyecto
+	 * @param string $id
+	 * @return boolean
+	 */
+	function existe_por_id($id)
+	{
+		foreach ($this->pms as $punto) {
+			if ($punto->get_id() == $id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	
+	/**
 	 * Devuelve un punto de montaje del proyecto actual con etiqueta $etiqueta
 	 * @param string $etiqueta
 	 * @return toba_punto_montaje

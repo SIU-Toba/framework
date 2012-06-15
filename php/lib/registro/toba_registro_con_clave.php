@@ -3,6 +3,7 @@
 abstract class toba_registro_con_clave extends toba_registro
 {
     protected $clave;
+	protected $reg_orig;
 
 	function  __construct($db, $nombre_tabla)
 	{
@@ -55,10 +56,13 @@ abstract class toba_registro_con_clave extends toba_registro
 	 */
 	protected function get_registro_a_actualizar()
 	{
-		$where	= $this->armar_where();
-		$sql	= "SELECT * FROM $this->tabla WHERE $where";
-		$regs	= $this->db->consultar($sql);
-		return $regs;
+		if (!isset($this->reg_orig)) {
+			$where	= $this->armar_where();
+			$sql	= "SELECT * FROM $this->tabla WHERE $where";
+			$this->reg_orig = $this->db->consultar($sql);	
+		}
+		
+		return $this->reg_orig;
 	}
 
 

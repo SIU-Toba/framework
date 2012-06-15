@@ -101,9 +101,7 @@ class toba_item_molde extends toba_molde_elemento
 	function asociar_objeto($clave)
 	{
 		static $a = 0;
-		$this->datos->tabla('objetos')->nueva_fila( array(	'proyecto'=>$this->proyecto,
-															'objeto'=>$clave,
-															'orden'=> $a ));
+		$this->datos->tabla('objetos')->nueva_fila(array('proyecto' => $this->proyecto, 'objeto' => $clave, 'orden' => $a));
 		$a++;
 	}
 

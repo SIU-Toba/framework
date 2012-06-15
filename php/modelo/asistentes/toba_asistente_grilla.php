@@ -20,15 +20,20 @@ class toba_asistente_grilla extends toba_asistente_1dt
 	
 	function generar()
 	{	
+		$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
 		//ei_arbol(array($this->molde, $this->molde_abms, $this->molde_abms_fila));
 		$this->ci->set_titulo($this->molde['nombre']);
+		$this->ci->set_punto_montaje($pm);
 		$this->ci->agregar_pantalla(1, 'Pantalla');
 		$this->crear_extension();
 		//- Creo dependencias -----------------------------------
 		$form = $this->ci->agregar_dep('toba_ei_formulario_ml', 'formulario');
+		$form->set_punto_montaje($pm);
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario_ml($form);
+		
 		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
+		$tabla->set_punto_montaje($pm);
 		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		//- Eventos del CI ---------------------------------------
 		$evento = $this->ci->agregar_evento('guardar');

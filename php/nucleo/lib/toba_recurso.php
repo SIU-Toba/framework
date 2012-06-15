@@ -101,7 +101,7 @@ class toba_recurso
 	 */
 	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
 	{
-		if (toba::proyecto()->es_personalizable()) {
+		if (toba::proyecto()->personalizacion_activa()) {
 			$www = toba::proyecto()->get_www_pers("img/".$imagen);
 			if (file_exists($www['path'])) {
 				$src = $www['url'];
@@ -259,7 +259,7 @@ class toba_recurso
                 $url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
                 $link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
             }
-            if (toba::proyecto()->es_personalizable()) {
+            if (toba::proyecto()->personalizacion_activa()) {
                 $www = toba::proyecto()->get_www_pers("css/$archivo.css");
                 if (file_exists($www['path'])) {
                     $url = $www['url'];
