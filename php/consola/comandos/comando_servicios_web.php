@@ -158,7 +158,7 @@ class comando_servicios_web extends comando_toba
 		//Genera configuracion
 		$this->generar_configuracion_cliente($dir_servicio, $parametros['-c'], $url_sistema);
 	
-		$this->consola->mensaje("Ok. Certificado importado correctamente. ");
+		$this->consola->mensaje("Ok. Certificado del servidor importado correctamente en el cliente");
 	}
 	
 	/**
@@ -210,7 +210,7 @@ class comando_servicios_web extends comando_toba
 		//Genera configuracion
 		$this->generar_configuracion_servidor($dir_servicio_servidor, $headers, $parametros['-c']);
 
-		$this->consola->mensaje("Ok. Certificado importado correctamente");
+		$this->consola->mensaje("Ok. Certificado del cliente importado correctamente en el servidor");
 	}	
 	
 	/**
@@ -252,6 +252,7 @@ class comando_servicios_web extends comando_toba
 		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
 			$this->consola->error($stderr);
+			$this->consola->error("Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
 			$this->consola->enter();
 			die;
 		}
