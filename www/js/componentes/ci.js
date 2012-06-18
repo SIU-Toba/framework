@@ -20,6 +20,8 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	this._evento_implicito = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
 	this.reset_evento();
 	this._ajax = ajax;
+	this._pantallas = {};
+	this._pantallas_inactivas = {};
 }
 
 	/**
@@ -29,6 +31,18 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 		objeto.set_controlador(this, identificador);
 		this._deps[identificador] = objeto;
 	};
+
+	/**
+	 *	@private
+	 */
+	ci.prototype.agregar_pantallas = function (pantallas_disponibles) {
+		this._pantallas = pantallas_disponibles;
+		for (var ind in this._pantallas) {
+			if (! this._pantallas[ind]) {					//Ciclo por las pantallas desactivando aquellas que asi deben estar
+				this.desactivar_tab(identificador);
+			}
+		}
+	}
 
 	/**
 	 * Retorna la referencia a un componente hijo o dependiente del actual
@@ -227,7 +241,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * @param {string} pantalla Id. de la pantalla destino
 	 */
 	ci.prototype.ir_a_pantalla = function(pantalla) {
-		if (this.evt__salida_tab(pantalla)) {
+		if (this.existe_pantalla(pantalla) && this.evt__salida_tab(pantalla)) {
 			this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
 		}
 	};
@@ -264,12 +278,14 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * @see #desactivar_tab
 	 */
 	ci.prototype.activar_tab = function(id) {
-		var boton = this.get_tab(id);
-		if(boton){
-			if (typeof boton.onclick_viejo != 'undefined') {
-				boton.onclick = boton.onclick_viejo;
+		if (this.existe_pantalla(id) && isset(this._pantallas_inactivas[id])) {	//Si la pantalla esta efectivamente inactiva
+			this._pantallas[id] = true;								
+			var boton = this.get_tab(id);
+			if(boton) {											//Obtengo el elemento y le actualizo el evento onclick
+				boton.onclick = this._pantallas_inactivas[id];
+				this._pantallas_inactivas[id] = null;
+				boton.className = '';
 			}
-			boton.className = '';
 		}
 	};
 
@@ -279,11 +295,14 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * @see #activar_tab
 	 */
 	ci.prototype.desactivar_tab = function(id) {
-		var boton = this.get_tab(id);
-		if(boton) {
-			boton.onclick_viejo = boton.onclick;
-			boton.onclick = '';
-			boton.className = 'ci-tabs-boton-desact';
+		if (this.existe_pantalla(id) && ! isset(this._pantallas_inactivas[id])) {	//Si la pantalla esta efectivamente activa
+			this._pantallas[id] = false;							//Desactivo la pantalla
+			var boton = this.get_tab(id);			
+			if(boton) {
+				this._pantallas_inactivas[id] = boton.onclick;
+				boton.onclick = '';
+				boton.className = 'ci-tabs-boton-desact';
+			}
 		}
 	};
 
@@ -293,9 +312,11 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * @see #desactivar_tab
 	 */
 	ci.prototype.mostrar_tab = function (id) {
-		tab = this.get_tab(id);
-		if(tab) {
-			tab.parentNode.style.display = '';
+		if (this.existe_pantalla(id)) {
+			tab = this.get_tab(id);
+			if(tab) {
+				tab.parentNode.style.display = '';
+			}
 		}
 	};
 
@@ -305,9 +326,11 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	 * @see #mostrar_tab
 	 */
 	ci.prototype.ocultar_tab = function (id) {
-		tab = this.get_tab(id);
-		if(tab) {
-			tab.parentNode.style.display = 'none';
+		if (this.existe_pantalla(id)) {		
+			tab = this.get_tab(id);
+			if(tab) {
+				tab.parentNode.style.display = 'none';
+			}
 		}
 	};
 
@@ -323,8 +346,18 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 			notificacion.mostrar();
 			throw mensaje;
 		}
-		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
+		if (this.existe_pantalla(id)) {
+			return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
+		}
 	};	
+	
+	ci.prototype.existe_pantalla = function (id)
+	{
+		if (isset(this._pantallas[id])) {
+			return true;
+		}
+		return false;
+	}	
 	
 	/**
 	 * Retorna la referencia al tag HTML al pie del cuerpo del CI

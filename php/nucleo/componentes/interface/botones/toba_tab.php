@@ -38,16 +38,11 @@ class toba_tab extends toba_boton
 		$tip = str_replace("'", "\\'",$tip);			
 		$acceso = toba_recurso::ayuda($tecla, $tip);
 		$id = $id_submit.'_cambiar_tab_'.$evento;
+		$js = "onclick=\"{$id_componente}.ir_a_pantalla('$evento');return false;\"";
+		$js_extra = '';		
 		if ( $this->activado ) {
-			$js = "onclick=\"{$id_componente}.ir_a_pantalla('$evento');return false;\"";
-			$js_extra = '';
 			$clase_boton = '';			
 		} else {
-			// Si el tab esta desactivado, le tengo que dejar en onclick en una propiedad para que el codigo JS la pueda usar.
-			$js = '';
-			$js_extra = toba_js::abrir();
-			$js_extra .= "document.getElementById('$id').onclick_viejo = function(event) { {$id_componente}.ir_a_pantalla('$evento');return false;}";
-			$js_extra .= toba_js::cerrar();
 			$clase_boton = 'ci-tabs-boton-desact';
 		}
 		if( $tipo == 'H' ) {	//********************* TABs HORIZONTALES **********************
@@ -86,5 +81,7 @@ class toba_tab extends toba_boton
 		$id_tab++;
 		return $html;
 	}	
+	
+	
 }
 ?>

@@ -736,10 +736,19 @@ class toba_ei_pantalla extends toba_ei
 		//Crea le objeto CI
 		echo $identado."window.{$this->objeto_js} = new ci($id, '{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}', $ajax);\n";
 
-		//Crea los objetos hijos
-		$objetos = array();
-		toba_js::instancia()->identar(1);		
-		foreach($this->_dependencias as $id => $dep)	{
+		//Agrega la lista de pantallas con las que trabaja el ci
+		toba_js::instancia()->identar(1);				
+		if ($this->_info_ci['tipo_navegacion'] == self::NAVEGACION_TAB_HORIZONTAL || $this->_info_ci['tipo_navegacion']  ==  self::NAVEGACION_TAB_VERTICAL) {
+			$pantallas_activas = array();
+			foreach($this->_lista_tabs as $id => $tab) {
+				$pantallas_activas[$id] = toba_js::bool($tab->esta_activado());
+			}
+			echo $identado."window.{$this->objeto_js}.agregar_pantallas(".toba_js::arreglo($pantallas_activas, true)."); \n";
+		}
+				
+		//Crea los objetos hijos		
+		$objetos = array();		
+		foreach($this->_dependencias as $id => $dep) {
 			$objetos[$id] = $dep->generar_js();
 		}
 		$identado = toba_js::instancia()->identar(-1);		
