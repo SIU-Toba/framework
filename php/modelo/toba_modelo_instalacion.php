@@ -268,7 +268,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				$sql = "CREATE DATABASE \"$base_a_crear\" ";
 				$db->ejecutar($sql);
 			}
-			$db->crear_lenguaje_procedural();
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
 		} else {

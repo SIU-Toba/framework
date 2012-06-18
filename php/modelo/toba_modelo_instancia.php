@@ -612,6 +612,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		//Inicio el proceso de carga
 		try	{
 			$this->get_db()->abrir_transaccion();
+			$this->get_db()->crear_lenguaje_procedural();
+				
 			// Esta el modelo cargado
 			if ( $this->existe_modelo() ) {
 				if ( $forzar_carga ) {
