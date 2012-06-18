@@ -9,7 +9,7 @@ class eiform_cuadro_prop_basicas extends toba_ei_formulario
 		echo "
 		{$this->objeto_js}.evt__clave_dbr__procesar = function (inicial) {
 			if( this.ef('clave_dbr').chequeado() ){
-				this.ef('columnas_clave').ocultar();
+				this.ef('columnas_clave').ocultar(true);
 			}else{
 				this.ef('columnas_clave').mostrar();
 			}

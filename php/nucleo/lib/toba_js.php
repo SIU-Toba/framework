@@ -111,7 +111,7 @@ class toba_js
 		if (! self::$basicos_cargados) {
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';
-				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize';
+				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
 			}			
 			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
 								'info' => toba_recurso::imagen_toba('info_chico.gif', false),
