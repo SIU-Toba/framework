@@ -23,6 +23,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	this._agregado_en_linea = en_linea;
 	this._cabecera_visible_sin_datos = true;
 	this._cambios_excluir_efs = [];
+    this._cambio_fila = false;
 }
 
 	/**
@@ -243,7 +244,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		var hay_cambio = false;
 		//-- Revisar si hay filas nuevas o si cambiar los valores de los efs
 		for (fila in this._filas) {
-			if (! isset(this._estado_inicial[this._filas[fila]])) {
+			if (! isset(this._estado_inicial[this._filas[fila]]) || this._cambio_fila) {
 				hay_cambio = true;
 			} else {
 				for (id_ef in this._efs) {
@@ -386,6 +387,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila anterior en orden
 	 */
 	ei_formulario_ml.prototype.subir_seleccionada = function () {
+        this._cambio_fila = true;
 		//Busco las posiciones a intercambiar
 		var pos_anterior = null;
 		for (posicion in this._filas) {
@@ -405,6 +407,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila posterior en orden
 	 */	
 	ei_formulario_ml.prototype.bajar_seleccionada = function () {
+        this._cambio_fila = true;
 		//Busco las posiciones a intercambiar
 		var pos_siguiente = null;
 		for (posicion = this._filas.length - 1; posicion >= 0; posicion--) {

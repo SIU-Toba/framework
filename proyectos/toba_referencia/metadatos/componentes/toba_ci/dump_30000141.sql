@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	NULL, --punto_montaje
+	'12000003', --punto_montaje
 	'ci_jasper', --subclase
 	'impresion/jasper/ci_jasper.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto

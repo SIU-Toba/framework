@@ -461,7 +461,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$editor->agregar_sustitucion( '|__proyecto_alias__|', $alias ); 
 		$editor->agregar_sustitucion( '|__proyecto_id__|', $id_proyecto); 
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
-		$editor->agregar_sustitucion( '|__instalacion_dir__|', self::dir_base() );
+		$editor->agregar_sustitucion( '|__instalacion_dir__|', toba_manejador_archivos::path_a_unix(self::dir_base()));
 		$salida = $editor->procesar( $template );
 		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
