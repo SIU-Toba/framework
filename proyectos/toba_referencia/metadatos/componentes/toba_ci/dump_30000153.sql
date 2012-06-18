@@ -104,7 +104,7 @@ Hay dos niveles de seguridad aplicados:
 <li>Comunicación Punto a Punto: Se toma el certificado enviado por el cliente y se lo coteja contra la configuración local, si no esta definido se rechaza
 </ul>
 
-En este ejemplo ambos niveles son configurados con archivos presentes en la carpeta <em>instalacion</em>.<br>
+En este ejemplo ambos niveles son <a href=''http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb/Seguridad#configuracion'' target=''_blank''>configurados con archivos</a> presentes en la carpeta <em>instalacion</em>.<br>
 Para ello es necesario ejecutar en consola los siguientes pasos previo correr esta operación:
 
 <ol>
@@ -115,7 +115,7 @@ Para ello es necesario ejecutar en consola los siguientes pasos previo correr es
 <pre>toba servicios_web cli_configurar -p toba_referencia -s cli_seguro_configuracion -c ARCHIVO</pre>
 
 
-<li>En el servidor: Tomar el archivo de salida del comando anterior e importar el certificado del cliente con un ID especifico:
+<li>En el servidor: Tomar el archivo de salida del 1er comando e importar el certificado del cliente con un ID especifico:
 <pre>toba servicios_web serv_configurar -p toba_referencia -s serv_seguro_configuracion -h dependencia=agronomia -c ARCHIVO</pre>
 </ol>', --descripcion
 	NULL, --tip

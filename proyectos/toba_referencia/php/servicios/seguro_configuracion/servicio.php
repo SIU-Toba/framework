@@ -6,7 +6,7 @@ class servicio extends toba_servicio_web
 	function get_opciones()
 	{
 		return array(
-					'firmado' => true			//Fuerza que siempre la conexion este firmada/encriptada
+					'seguro' => true			//Fuerza que siempre la conexion este firmada/encriptada
 		);	
 	}
 	

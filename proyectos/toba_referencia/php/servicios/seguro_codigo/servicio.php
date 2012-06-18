@@ -37,7 +37,7 @@ class servicio extends toba_servicio_web
 		);
 
 		return array(
-			"firmado"			=> true,			//Esta opción fuerza a que el mensaje tiene que estar firmado con RSA
+			"seguro"			=> true,			//Esta opción fuerza a que el mensaje tiene que estar firmado/encriptado
             "policy" 			=> $policy,
             "securityToken"		=> $security,
              'actions' => array(

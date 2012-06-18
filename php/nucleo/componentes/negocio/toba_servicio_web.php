@@ -142,7 +142,7 @@ abstract class toba_servicio_web extends toba_componente
 		//Valida el certificado completo
 		if (self::decodificar_certificado(self::$mapeo_firmas[$fingerprint]['archivo']) !== $cert_decodificado) {
 			throw new toba_error_seguridad('Error verificando firma del mensaje, tiene mismo fingerprint pero difiere en el contenido');
-		}		
+		}
 		$this->id_cliente = self::$mapeo_firmas[$fingerprint]['id'];
 		toba::logger()->debug("ID Cliente: ".print_r($this->id_cliente, true));
 	}

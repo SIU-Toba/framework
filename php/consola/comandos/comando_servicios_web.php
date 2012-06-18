@@ -159,9 +159,7 @@ class comando_servicios_web extends comando_toba
 		$this->generar_configuracion_cliente($dir_servicio, $parametros['-c'], $url_sistema);
 	
 		$this->consola->mensaje("Ok. Certificado importado correctamente. ");
-		$this->consola->mensaje("El certificado publico del cliente esta disponible en");
-		$this->consola->mensaje("$dir_instalacion/publica.crt");
-	}	
+	}
 	
 	/**
 	 *  Genera la configuracion de un servicio, importando el certificado del cliente
@@ -313,9 +311,7 @@ class comando_servicios_web extends comando_toba
 	 */
 	protected function generar_configuracion_cliente($directorio, $cert_servidor, $url_sistema)
 	{
-		$firmado = (! empty($datos_rsa)) ? 1: 0;
 		$config = new toba_ini($directorio . '/cliente.ini');
-		$config->agregar_titulo('Este archivo contiene la ruta de los archivos que se usan para firmar con RSA los mensajes');
 		if ($url_sistema != null) {
 			$config->agregar_entrada("conexion", array('to' => $url_sistema));
 		}

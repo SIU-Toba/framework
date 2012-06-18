@@ -49,9 +49,8 @@ class toba_servicio_web_cliente
 		if (! isset($opciones['to'])) {
 			throw new toba_error_def("Debe indicar la URL destino en el campo 'to'");			
 		}		
-		if (isset($opciones['firmado']) && $opciones['firmado'] && ! isset($seguridad)) {
-			throw new toba_error("El servicio web esta configurado para requerir firma, sin embargo no se esta encriptando/firmando la conexion. 
-					Chequee la documentación para configurar los certificados");
+		if (isset($opciones['seguro']) && $opciones['seguro'] && ! isset($seguridad)) {
+			throw new toba_error("El servicio web esta configurado para requerir firma, sin embargo no se <a target='_blank' href='http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb/Seguridad#configuracion'>configuro correctamente</a> el servicio importando el certificado del servidor.");			
 		}
 		toba::logger()->debug("Invocando servicio $id_servicio. Opciones:<br>". var_export($opciones, true));
 		$servicio = new toba_servicio_web_cliente($opciones, $id_servicio);
