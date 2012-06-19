@@ -25,14 +25,13 @@ class ci_cliente extends toba_ci
 		//--1- Arma el mensaje	(incluyendo los headers)
 		$this->s__echo = $datos;
 		$opciones = array(
-					'action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco',
+				'action' => 'eco',
 		);
 		$mensaje = new toba_servicio_web_mensaje($this->s__echo, $opciones);
 	
 		//--2- Arma el servicio
 		$opciones = array(
-		    'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_configuracion', 
-			'seguro' => true	//Fuerza a que siempre se le tenga que configurar la firma/encriptacion del mensaje
+		    'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_configuracion',
 		);
 		$servicio = toba::servicio_web('cli_seguro_configuracion', $opciones);
 	

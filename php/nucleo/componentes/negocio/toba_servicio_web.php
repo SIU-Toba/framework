@@ -114,17 +114,21 @@ abstract class toba_servicio_web extends toba_componente
 		}
 		$metodo = substr($nombre, 1);
 		$this->mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
-		
-		//Aca puedo obtener los headers para el metodo y tambien verificar que la firma es correcta
 
-		if ($this->servicio_con_firma()) {
-			$this->validar_certificado_cliente();
-		}
-		$mensaje_salida = $this->$metodo($this->mensaje_entrada);
-		if (isset($mensaje_salida)) {
-			return $mensaje_salida->wsf();
-		} else {
-			return;
+		try {
+			if ($this->servicio_con_firma()) {
+				$this->validar_certificado_cliente();
+			}
+				
+			$mensaje_salida = $this->$metodo($this->mensaje_entrada);
+			if (isset($mensaje_salida)) {
+				return $mensaje_salida->wsf();
+			} else {
+				return;
+			}
+		} catch (toba_error_servicio_web $e) {
+			toba::logger()->error($e->get_mensaje(). $e->get_mensaje_log());
+			throw new WSFault("Sender", utf8_e_seguro($e->get_mensaje()), null, $e->get_codigo());
 		}
 	}
 	

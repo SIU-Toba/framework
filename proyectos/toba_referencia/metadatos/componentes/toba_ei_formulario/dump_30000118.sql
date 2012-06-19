@@ -393,7 +393,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
-	'Request - Payload', --etiqueta
+	'Request - Payload (utf8)', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -472,7 +472,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
-	'Respuesta - Payload', --etiqueta
+	'Respuesta - Payload (utf8)', --etiqueta
 	NULL, --etiqueta_estilo
 	'Los indices numericos de los arreglos no se pueden representar en XML, por lo que se les agrega un sufijo en el payload', --descripcion
 	'0', --colapsado

@@ -33,8 +33,7 @@ class ci_cliente extends toba_ci
 	<texto>$clave $valor</texto>
 </ns1:eco>
 XML;
-		$opciones = array('action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco');
-		$mensaje = new toba_servicio_web_mensaje($payload, $opciones);
+		$mensaje = new toba_servicio_web_mensaje($payload);
 		
 		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
 		$cert_server = ws_get_cert_from_file($carpeta.'/servidor.crt');
@@ -54,7 +53,8 @@ XML;
 											)
 						);		
     	$opciones = array(
-    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_codigo',    	
+    	    		'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_seguro_codigo',
+    				'action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/eco',
     				'policy' => $policy, 
     				'securityToken' => $security_token
     	);		
@@ -64,10 +64,7 @@ XML;
 		$respuesta = $servicio->request($mensaje);
 		toba::notificacion()->info($respuesta->get_payload());		
 	}
-		
 
-		
-	
 	//-----------------------------------------------------------------------------
 	//---- Utilidades  -----------------------------------------------------------
 	//------------------------------------------------------------------------------
@@ -92,10 +89,7 @@ XML;
 		$estilo = 'style="background-color: white; border: 1px solid gray; padding: 5px;"';		
 		return  "<pre $estilo>".htmlentities($valor).'</pre>';
 	}
-	
-	
-		
-	
+
 }
 
 ?>

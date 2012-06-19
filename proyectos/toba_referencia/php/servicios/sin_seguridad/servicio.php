@@ -12,6 +12,7 @@ class serv_sin_seguridad extends toba_servicio_web
 							"http://siu.edu.ar/toba_referencia/serv_pruebas/persona_alta"			=> "persona_alta",
 							"http://siu.edu.ar/toba_referencia/serv_pruebas/persona_set_deportes"	=> "persona_set_deportes",		
 							"http://siu.edu.ar/toba_referencia/serv_pruebas/persona_set_juegos"		=> "persona_set_juegos",		
+							"http://siu.edu.ar/toba_referencia/serv_pruebas/enviar_excepcion"		=> "enviar_excepcion",
 			),			
 		);
 	}
@@ -23,10 +24,10 @@ class serv_sin_seguridad extends toba_servicio_web
 	 * @return string $texto total price
 	 *(maps to the xs:string XML schema type )
 	 */
-	function op__eco(toba_servicio_web_mensaje $mensaje, $headers)
+	function op__eco(toba_servicio_web_mensaje $mensaje)
 	{
 		$xml = new SimpleXMLElement($mensaje->get_payload());
-		$texto = (string) $xml->texto;
+		$texto = xml_encode((string) $xml->texto);
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/pruebas">
 	<texto>Respuesta: $texto</texto>
@@ -142,6 +143,13 @@ XML;
 			toba::logger()->debug("Creada Juego $juego para persona ".$datos['id']);
 		}
 		return;
+	}
+	
+	
+	function op__enviar_excepcion(toba_servicio_web_mensaje $mensaje)
+	{
+		$datos = $mensaje->get_array();
+		throw new toba_error_servicio_web($datos['mensaje'], $datos['codigo']);
 	}
 
 }

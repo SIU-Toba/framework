@@ -4,6 +4,7 @@ class ci_cliente extends toba_ci
 	protected $s__echo;
 	protected $s__datos_password;
 	protected $s__adjunto;
+	protected $s__datos_excepciones;
 	protected $adjunto_respuesta;
 	protected $datos_persona;
 	protected $path_servicio = "servicios/sin_seguridad/servicio.php";
@@ -31,9 +32,11 @@ class ci_cliente extends toba_ci
 	function evt__form_echo__enviar($datos)
 	{
 		$this->s__echo = $datos;
+		$valor = xml_encode($datos['valor']);
+		$clave = xml_encode($datos['clave']);
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
-	<texto>{$datos['valor']} {$datos['clave']}</texto>
+	<texto>$clave $valor</texto>
 </ns1:eco>
 XML;
 		$opciones = array(
@@ -41,7 +44,7 @@ XML;
 		);
 		$servicio = toba::servicio_web('cli_sin_seguridad', $opciones);
 		$respuesta = $servicio->request(new toba_servicio_web_mensaje($payload));
-		toba::notificacion()->info($respuesta->get_payload());
+		toba::notificacion()->info(xml_decode($respuesta->get_payload()));
 	}
 
 	//-----------------------------------------------------------------------------
@@ -72,7 +75,7 @@ XML;
 			// Mover los archivos subidos al servidor del directorio temporal PHP a uno propio.
 			move_uploaded_file($datos['adjunto']['tmp_name'], $img['path']);
 		}
-		$this->s__adjunto['texto'] = $datos['texto'];
+		$this->s__adjunto['texto'] = xml_encode($datos['texto']);
 		
 		//--2 -Arma el mensaje 
 		$payload = <<<XML
@@ -118,7 +121,7 @@ XML;
 		$this->s__datos_password = $datos;
 		$arreglo = array();
 		for ($i = $datos['dimensiones']; $i > 0 ; $i--) {
-			$arreglo = array('valor' => "Valor $i", 'hijo' => $arreglo);
+			$arreglo = array('valor' => "Número $i", 'hijo' => $arreglo);
 			if (empty($arreglo['hijo'])) {
 				unset($arreglo['hijo']);
 			}
@@ -187,6 +190,38 @@ XML;
     	//--5- Muestra la respuesta
     	toba::notificacion()->info("Creada persona número ".$this->datos_persona['id']);    	
 	}	
+		
+	
+	
+	//--------------------------------------------------------------
+	//---- Excepciones     -------------------------------
+	//--------------------------------------------------------------
+	
+	function conf__form_excepciones(toba_ei_formulario $form)
+	{
+		if (isset($this->s__datos_excepciones)) {
+			$form->set_datos($this->s__datos_excepciones);
+		}
+	}
+	
+	function evt__form_excepciones__enviar($datos)
+	{
+		$this->s__datos_excepciones = $datos;
+		$opciones = array(
+				'action' => 'http://siu.edu.ar/toba_referencia/serv_pruebas/enviar_excepcion',
+				'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad',
+		);
+		$servicio = toba::servicio_web('cli_sin_seguridad', $opciones);
+		 
+		//--2- Da de alta la persona
+		$mensaje = new toba_servicio_web_mensaje($this->s__datos_excepciones);
+		
+		try {
+			$respuesta = $servicio->request($mensaje);
+		} catch (toba_error_servicio_web $e) {
+			toba::notificacion()->info($e->get_mensaje().' (codigo "'.$e->get_codigo().'")');
+		}
+	}
 		
 	
 	//-----------------------------------------------------------------------------

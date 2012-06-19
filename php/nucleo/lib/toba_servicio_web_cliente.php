@@ -83,7 +83,7 @@ class toba_servicio_web_cliente
 			$message = $this->wsf->request($mensaje->wsf());
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {
-			throw new toba_error_comunicacion($fault->__toString(), $this->opciones, $this->wsf->getLastResponseHeaders());
+			throw new toba_error_servicio_web($fault->Reason, $fault->Detail);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
 		}

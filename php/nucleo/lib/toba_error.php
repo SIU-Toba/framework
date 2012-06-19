@@ -311,11 +311,17 @@ class toba_reset_nucleo extends Exception
 
 class toba_error_servicio_web extends toba_error
 {
-	function __construct($mensaje_visible, $mensaje_solo_debug='', $titulo_ventana = null)
+	protected $codigo;
+	
+	function __construct($mensaje_visible, $codigo_error=null, $mensaje_solo_debug='')
 	{
-		$this->mensaje_solo_debug = $mensaje_solo_debug;
-		$this->titulo_ventana = $titulo_ventana;
-		throw new WSFault('Sender', $mensaje_visible);
+		parent::__construct($mensaje_visible, $mensaje_solo_debug);
+		$this->codigo = $codigo_error;
+	}
+	
+	function get_codigo() 
+	{
+		return $this->codigo;	
 	}
 }
 
