@@ -79,6 +79,10 @@ abstract class toba_test extends UnitTestCase
                 $message);
     }
 	
+    function get_proyecto() {
+		return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+	}
+
 	abstract function get_descripcion();
 }
 

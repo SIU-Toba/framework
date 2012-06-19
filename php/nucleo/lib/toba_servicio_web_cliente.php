@@ -11,10 +11,10 @@ class toba_servicio_web_cliente
 	 */
 	static function conectar($id_servicio, $opciones=array())
 	{
-		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio);
+		$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio, $proyecto);
 		$opciones_ini = $info['parametros'];
 		
-		$proyecto = toba::proyecto()->get_id();
 		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$id_servicio";		//Directorio perteneciente al servicio
 		if (file_exists($directorio.'/servicio.ini')) {
 			$ini = new toba_ini($directorio.'/servicio.ini');
@@ -24,7 +24,7 @@ class toba_servicio_web_cliente
 		}					
 
 		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
-		$security_token = self::get_ws_token(toba::proyecto()->get_id(), $id_servicio);
+		$security_token = self::get_ws_token($proyecto, $id_servicio);
 		if (isset($security_token)) {
 			$seguridad = array(
 					"sign" => true,
@@ -48,7 +48,7 @@ class toba_servicio_web_cliente
 		$opciones = array_merge($opciones_ini, $opciones);
 		if (! isset($opciones['to'])) {
 			throw new toba_error_def("Debe indicar la URL destino en el campo 'to'");			
-		}		
+		}
 		if (isset($opciones['seguro']) && $opciones['seguro'] && ! isset($seguridad)) {
 			throw new toba_error("El servicio web esta configurado para requerir firma, sin embargo no se <a target='_blank' href='http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb/Seguridad#configuracion'>configuro correctamente</a> el servicio importando el certificado del servidor.");			
 		}
