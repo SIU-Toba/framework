@@ -54,13 +54,11 @@ var tipclick = {
 	},
 	
 	_get_pos_offset : function(what, is_left) {
-		var total_offset = (is_left) ? what.offsetLeft : what.offsetTop;
-		var parentEl = what.offsetParent;
-		while (parentEl !== null) {
-			total_offset = (is_left) ? total_offset + parentEl.offsetLeft : total_offset + parentEl.offsetTop;
-			parentEl = parentEl.offsetParent;
+		if (is_left) {  
+			return $(what).offset().left;
+		} else {
+			return $(what).offset().top;
 		}
-		return total_offset;
 	},
 	
 	_clear_browser_edge : function(obj, is_horizontal) {
