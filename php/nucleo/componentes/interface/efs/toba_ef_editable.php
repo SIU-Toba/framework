@@ -29,6 +29,7 @@ class toba_ef_editable extends toba_ef
 	protected $unidad;
 	protected $clase_css = 'ef-input';
 	protected static $callback_errores_validacion = null;
+	protected static $ratio_pixel;
 	
 	
 	static function get_lista_parametros_carga()
@@ -55,6 +56,15 @@ class toba_ef_editable extends toba_ef
 		self::$callback_errores_validacion = $callback;	
 	}
     	
+	/**
+	 * Permite hacer que todos los efs traduzcan su tamaño visual a pixeles con un porcentaje dado
+	 * @param int $porcentaja 
+	 */
+	static function set_tamano_multiplicado_pixels($porcentaje = 1)
+	{
+		self::$ratio_pixel = $porcentaje;
+	}
+	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//VAlor FIJO
@@ -158,6 +168,11 @@ class toba_ef_editable extends toba_ef
 	
 	function get_input()
 	{
+		if (isset(self::$ratio_pixel)) {
+			$en_pixels = floor($this->tamano * self::$ratio_pixel);
+			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
+		}	
+		
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
@@ -468,6 +483,11 @@ class toba_ef_editable_clave extends toba_ef_editable
     
 	function get_input()
 	{
+		if (isset(self::$ratio_pixel)) {
+			$en_pixels = floor($this->tamano * self::$ratio_pixel);
+			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
+		}	
+		
 		$tab = ' tabindex="'.$this->padre->get_tab_index(2).'"';
 		$estado = isset($this->estado)? $this->estado : "";
 		
@@ -591,7 +611,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	}
 	
 	function get_input()
-	{
+	{		
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado, $this->es_solo_lectura(),$this->tamano,
@@ -762,7 +782,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	}
 
 	function get_input()
-	{
+	{		
 		$estado_fecha = (! is_null($this->estado)) ? $this->estado['fecha']: '';
 		$estado_hora = (! is_null($this->estado))? $this->estado['hora'] : '';
 		

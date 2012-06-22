@@ -21,6 +21,8 @@ class toba_vista_jasperreports
 	protected $xpath_data;
 	protected $modo_archivo = false;
 	
+	private $lista_jrprint = array();
+	
 	function __construct()
 	{
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_').'.pdf';		
@@ -98,6 +100,14 @@ class toba_vista_jasperreports
 		$this->parametros->put($nombre, new Java($tipo, $valor));
 	}
 
+	/**
+	 * Permite eliminar todos los parametros que se le pasan al reporte 
+	 */
+	function reset_parametros()
+	{
+		$this->parametros->clear();		//Borra la lista de parametros
+	}
+	
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
@@ -118,6 +128,23 @@ class toba_vista_jasperreports
 	function set_tipo_descarga( $tipo )
 	{
 		$this->tipo_salida = $tipo;
+	}
+	
+	/**
+	 * @param $reporte JRPrint 
+	 */	
+	function agregar_metareporte($reporte)
+	{
+		$this->lista_jrprint[] = $reporte;
+	}
+	
+	/**
+	 * @ignore
+	 * @return boolean 
+	 */
+	function hay_metareportes()
+	{
+		return (!empty($this->lista_jrprint));
 	}
 	
 	//------------------------------------------------------------------------
@@ -199,8 +226,15 @@ class toba_vista_jasperreports
 			if(method_exists($objeto, 'vista_jasperreports')) {
 				$objeto->vista_jasperreports($this);	
 			}
-		}				
-		$this->crear_pdf();
+		}	
+		
+		//Uno los distintos metareportes (jrprint) en un solo archivo para enviar el pdf.
+		if (! $this->hay_metareportes()) {
+			// Pego los datos al jasper y creo el jprint		
+			$this->completar_con_datos();
+		}
+				
+		$this->crear_pdf();					//Aca uno todos los jprint en uno solito
 	}
 			
 	/**
@@ -208,10 +242,23 @@ class toba_vista_jasperreports
 	 */
 	protected function crear_pdf()
 	{		
-		if (! isset($this->path_reporte)) {
+		//Uno todos los metareportes para generar un solo archivo
+		$master_print = $this->unir_metareportes();
+
+		////Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
+		$export_manager = new JavaClass("net.sf.jasperreports.engine.JasperExportManager");
+		$export_manager->exportReportToPdfFile($master_print, $this->temp_salida);		
+	}
+	
+	/**
+	 * Genera un archivo jrprint y lo agrega al spool de union
+	 */
+	function completar_con_datos()
+	{
+		if (! isset($this->path_reporte)) {				//Lo chequeo aca adentro por si la funcion se llama mas de una vez
 			throw new toba_error_def("Falta definir el .jasper con set_path_reporte");
 		}	
-				
+
 		if ($this->modo_archivo) {									//Si el conjunto de datos viene de un archivo comun
 			$jrl = new JavaClass("net.sf.jasperreports.engine.util.JRLoader");		
 			$jrxmlutil = new JavaClass("net.sf.jasperreports.engine.util.JRXmlUtils");		
@@ -219,11 +266,11 @@ class toba_vista_jasperreports
 			$document = $jrxmlutil->parse($jrl->getLocationInputStream($this->xml_path));
 			//Pongo el archivo con los datos como parametro y creo el reporte
 			$this->parametros->put($jrxpath->PARAMETER_XML_DATA_DOCUMENT, $document);		
-			$print = $this->jasper->fillReportToFile($this->path_reporte, $this->parametros);			
+			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros);			
 		}  else {													//El conjunto de datos viene de una db o datasource
 			if (! isset($this->conexion)) {
 				$this->conexion = $this->instanciar_conexion_default();
-			}			
+			}			 
 			if ($this->conexion instanceof toba_db) {						//Si es una base toba, le configuro el schema
 				$con1 = $this->configurar_bd($this->conexion);
 			} else {
@@ -231,14 +278,35 @@ class toba_vista_jasperreports
 			}
 			
 			//Creo el reporte finalmente con la conexion JDBC
-			$print = $this->jasper->fillReportToFile($this->path_reporte, $this->parametros, $con1);
+			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros, $con1);
 			$con1->close();
-		}		     
-		////Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
-		$export_manager = new JavaClass("net.sf.jasperreports.engine.JasperExportManager");
-		$export_manager->exportReportToPdfFile($print, $this->temp_salida);		
+		}		
+		$this->lista_jrprint[] = $print;
 	}
 
+	/**
+	 * Permite unir todos los jrprint en un solo archivo, a futuro quizas se devuelva directamente el arreglo
+	 * @return jrprint $master_print
+	 */
+	protected function unir_metareportes()
+	{
+		$master_print = array_shift($this->lista_jrprint);									//Busco el primero y lo saco
+
+		//Para cada uno de los pdfs restantes
+		$max = count($this->lista_jrprint);
+		for($pdfx = 0; $pdfx < $max; $pdfx++) {
+			$cant_hojas = java_values($this->lista_jrprint[$pdfx]->getPages()->size());			//Recupero la cantidad de hojas del metareporte X
+			for ($count = 0; $count < $cant_hojas; $count++) {
+				$master_print->addPage($this->lista_jrprint[$pdfx]->getPages()->get($count));	//Agrego la hoja en cuestion para cada metareporte X
+			}
+		}
+		return $master_print;
+	}
+	
+	//------------------------------------------------------------------------
+	//-- Definicion de fuente de datos
+	//------------------------------------------------------------------------
+	
 	/**
 	 * Crea una conexion por defecto, ya sea JDataSource o toba_db
 	 * @return mixed

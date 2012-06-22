@@ -271,7 +271,7 @@ toba = new function() {
 	};
 
 	/**
-	 *	Determina si en alguno de los formularios activos de la pantalla sufrio modificaciones
+	 * Determina si en alguno de los formularios activos de la pantalla sufrio modificaciones
 	 *  @return {boolean}
 	 */
 	toba.hay_cambios = function() {
@@ -302,6 +302,10 @@ toba = new function() {
 				notificacion.agregar('Se ha producido un error en una etapa temprana del request, verifique el log del servidor');
 				notificacion.mostrar();
 		} else {
+			
+			//Reseteo la variable que contiene los objetos del pedido de pagina anterior.
+			this._objetos = [];
+			
 			if (partes[0] != '') {
 				//-- Trata de interpretar y agregar cualquier html/js adhoc generado durante los eventos
 				ejecutar_scripts(partes[0]);

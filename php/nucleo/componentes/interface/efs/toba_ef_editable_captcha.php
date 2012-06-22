@@ -120,6 +120,10 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	
 	function get_input()
 	{
+		if (isset(self::$ratio_pixel)) {
+			$en_pixels = floor($this->tamano * self::$ratio_pixel);
+			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
+		}	
 		$this->generar_texto_aleatorio();
 		toba::memoria()->set_dato_operacion('texto-captcha', $this->texto);
 		toba::memoria()->set_dato_operacion('tamanio-texto-captcha', $this->longitud);
