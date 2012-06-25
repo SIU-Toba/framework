@@ -47,11 +47,11 @@
 	function add_event(obj, event_id, func)
 	{
 		if (obj.addEventListener) {
-			obj.addEventListener(event_id, func, false)
-		} else if(obj.attachEvent)	{
+			obj.addEventListener(event_id, func, false);
+		} else if(obj.attachEvent) {
 			event_id = 'on'+event_id;
-			obj.attachEvent(event_id, func)
-		} else	{
+			obj.attachEvent(event_id, func);
+		} else {
 			obj[event_id] = func;
 		}
 	}
@@ -60,7 +60,7 @@
 	{
 		if (obj.removeEventListener) {
 			obj.removeEventListener(event_id, funct, flag);
-		} else if(obj.detachEvent)	{
+		} else if(obj.detachEvent) {
 			obj.detachEvent(event_id, funct);
 			obj.detachEvent('on'+event_id, funct);
 		}
@@ -147,160 +147,68 @@
 		return;
 	}
 
-// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// Determining Element Page Coordinates, Part 4:
-// http://www.webreference.com/dhtml/diner/realpos4/9.html
-function DL_GetElement(eElement, top)
-{
-   if (!eElement && this) {			// if argument is invalid (not specified, is null or is 0)
-      eElement = this;					// and function is a method
-	}												// identify the element as the method owner
-	
-	var DL_bIE = document.all ? true : false; // initialize var to identify IE
-	var nLeftPos = eElement.offsetLeft;       // initialize var to store calculations
-	var nTopPos = eElement.offsetTop;         // initialize var to store calculations
-	var eParElement = eElement.offsetParent;  // identify first offset parent element
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	// Determining Element Page Coordinates, Part 4:
+	// http://www.webreference.com/dhtml/diner/realpos4/9.html
+	function DL_GetElement(eElement, top)
+	{
+		if (!eElement && this) {			// if argument is invalid (not specified, is null or is 0)
+			eElement = this;					// and function is a method
+		}												// identify the element as the method owner
 
-   while (eParElement != null) {
-	   // move up through element hierarchy
-      if(DL_bIE) {                            // if browser is IE, then...
-         if( (eParElement.tagName != "TABLE") && (eParElement.tagName != "BODY") ) {   // if parent is not a table or the body, then...
-            nLeftPos += eParElement.clientLeft; // append cell border width to calcs
-            nTopPos += eParElement.clientTop; // append cell border width to calcs			
-         }
-      } else {                                  // if browser is Gecko, then...
-         if(eParElement.tagName == "TABLE")  // if parent is a table, then...
-         {                                   // get its border as a number
-            var nParBorder = parseInt(eParElement.border);
-            if(isNaN(nParBorder))            // if no valid border attribute, then...
-            {                                // check the table's frame attribute
-               var nParFrame = eParElement.getAttribute('frame');
-               if(nParFrame != null) {        // if frame has ANY value, then...
-                  nLeftPos += 1;             // append one pixel to counter
-               }
-            } else if(nParBorder > 0) {          // if a border width is specified, then...
-               nLeftPos += nParBorder;       // append the border width to counter
-            }
-         }
-         // sm 20051010
-         if(eParElement.tagName == "DIV") {
-           var bord = parseInt(eParElement.style.border);
-           if ( bord > 0 ) { nLeftPos += bord; }
-         }
-      }
-      nLeftPos += eParElement.offsetLeft;    // append left offset of parent
-      nTopPos += eParElement.offsetTop;      // append top offset of parent
-      eParElement = eParElement.offsetParent; // and move up the element hierarchy
-   }                                         // until no more offset parents exist
+		var DL_bIE = document.all ? true : false; // initialize var to identify IE
+		var nLeftPos = eElement.offsetLeft;       // initialize var to store calculations
+		var nTopPos = eElement.offsetTop;         // initialize var to store calculations
+		var eParElement = eElement.offsetParent;  // identify first offset parent element
 
-	if (top) {								//Retorno la variable de acuerdo a lo que pidieron
-		return nTopPos;
-	} else {
-		return nLeftPos;
-	}
-}
-
-function DL_GetElementLeft(eElement)
-{
-	return DL_GetElement(eElement, false);
-  /* if (!eElement && this) {        // if argument is invalid (not specified, is null or is 0)
-      eElement = this;                // and function is a method
-   }                                         // identify the element as the method owner
-   
-   var DL_bIE = document.all ? true : false; // initialize var to identify IE
-   var nLeftPos = eElement.offsetLeft;       // initialize var to store calculations
-   var eParElement = eElement.offsetParent;  // identify first offset parent element
-
-   while (eParElement != null) {
-	   // move up through element hierarchy
-      if(DL_bIE) {                            // if browser is IE, then...
-         if( (eParElement.tagName != "TABLE") && (eParElement.tagName != "BODY") ) {   // if parent is not a table or the body, then...
-            nLeftPos += eParElement.clientLeft; // append cell border width to calcs
-         }
-      } else {                                  // if browser is Gecko, then...
-         if(eParElement.tagName == "TABLE")  // if parent is a table, then...
-         {                                   // get its border as a number
-            var nParBorder = parseInt(eParElement.border);
-            if(isNaN(nParBorder))            // if no valid border attribute, then...
-            {                                // check the table's frame attribute
-               var nParFrame = eParElement.getAttribute('frame');
-               if(nParFrame != null) {        // if frame has ANY value, then...
-                  nLeftPos += 1;             // append one pixel to counter
-				  nTopPos += 1;              // append one pixel to counter
-               }
-            } else if(nParBorder > 0) {          // if a border width is specified, then...
-               nLeftPos += nParBorder;       // append the border width to counter
-			    nTopPos += nParBorder;        // append the border width to counter
-            }
-         }
-         // sm 20051010
-         if(eParElement.tagName == "DIV") {
-			var bord = parseInt(eParElement.style.border);
-			if ( bord > 0 ) {
-				nLeftPos += bord;
-				nTopPos += bord;
+		while (eParElement != null) {
+			// move up through element hierarchy
+			if(DL_bIE) {                            // if browser is IE, then...
+				if( (eParElement.tagName != "TABLE") && (eParElement.tagName != "BODY") ) {   // if parent is not a table or the body, then...
+				nLeftPos += eParElement.clientLeft; // append cell border width to calcs
+				nTopPos += eParElement.clientTop; // append cell border width to calcs			
+				}
+			} else {                                  // if browser is Gecko, then...
+				if(eParElement.tagName == "TABLE")  // if parent is a table, then...
+				{                                   // get its border as a number
+				var nParBorder = parseInt(eParElement.border);
+				if(isNaN(nParBorder))            // if no valid border attribute, then...
+				{                                // check the table's frame attribute
+					var nParFrame = eParElement.getAttribute('frame');
+					if(nParFrame != null) {        // if frame has ANY value, then...
+						nLeftPos += 1;             // append one pixel to counter
+					}
+				} else if(nParBorder > 0) {          // if a border width is specified, then...
+					nLeftPos += nParBorder;       // append the border width to counter
+				}
+				}
+				// sm 20051010
+				if(eParElement.tagName == "DIV") {
+				var bord = parseInt(eParElement.style.border);
+				if ( bord > 0 ) { nLeftPos += bord; }
+				}
 			}
-         }
-      }
-      nLeftPos += eParElement.offsetLeft;    // append left offset of parent
-      eParElement = eParElement.offsetParent; // and move up the element hierarchy
-   }                                         // until no more offset parents exist
-   return nLeftPos;                          // return the number calculated*/
-}
+			nLeftPos += eParElement.offsetLeft;    // append left offset of parent
+			nTopPos += eParElement.offsetTop;      // append top offset of parent
+			eParElement = eParElement.offsetParent; // and move up the element hierarchy
+		}                                         // until no more offset parents exist
 
-function DL_GetElementTop(eElement)
-{
-	return DL_GetElement(eElement, true);
-	/*
-   if (!eElement && this)        // if argument is invalid
-   {											// (not specified, is null or is 0)
-      eElement = this;                       // and function is a method
-   }                                         // identify the element as the method owner
+		if (top) {								//Retorno la variable de acuerdo a lo que pidieron
+			return nTopPos;
+		} else {
+			return nLeftPos;
+		}
+	}
 
-   var DL_bIE = document.all ? true : false; // initialize var to identify IE
+	function DL_GetElementLeft(eElement)
+	{
+		return DL_GetElement(eElement, false);  
+	}
 
-   var nTopPos = eElement.offsetTop;         // initialize var to store calculations
-   var eParElement = eElement.offsetParent;  // identify first offset parent element
-
-   while (eParElement != null)
-   {                                         // move up through element hierarchy
-      if(DL_bIE)                             // if browser is IE, then...
-      {
-         if( (eParElement.tagName != "TABLE") && (eParElement.tagName != "BODY") )
-         {                                   // if parent a table cell, then...
-            nTopPos += eParElement.clientTop; // append cell border width to calcs
-         }
-      }
-      else                                   // if browser is Gecko, then...
-      {
-         if(eParElement.tagName == "TABLE")  // if parent is a table, then...
-         {                                   // get its border as a number
-            var nParBorder = parseInt(eParElement.border);
-            if(isNaN(nParBorder))            // if no valid border attribute, then...
-            {                                // check the table's frame attribute
-               var nParFrame = eParElement.getAttribute('frame');
-               if(nParFrame != null)         // if frame has ANY value, then...
-               {
-                  nTopPos += 1;              // append one pixel to counter
-               }
-            }
-            else if(nParBorder > 0)          // if a border width is specified, then...
-            {
-               nTopPos += nParBorder;        // append the border width to counter
-            }
-         }
-         // sm 20051010
-         if(eParElement.tagName == "DIV")
-         {
-           var bord = parseInt(eParElement.style.border);
-           if ( bord > 0 ) { nTopPos += bord; }
-         }
-      }
-      nTopPos += eParElement.offsetTop;      // append top offset of parent
-      eParElement = eParElement.offsetParent; // and move up the element hierarchy
-   }                                         // until no more offset parents exist
-   return nTopPos;                           // return the number calculated*/
-}
+	function DL_GetElementTop(eElement)
+	{
+		return DL_GetElement(eElement, true);
+	}
 
 	//--------------------------------------------------------------------------------------------------------------------------//
 	//															CLASES EXTRAS

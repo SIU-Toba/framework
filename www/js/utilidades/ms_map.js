@@ -627,17 +627,18 @@ function msMap(DivTag)
 		var y = i.getClick_Y(event);
 		if ( isNaN(this.getTagLoading().style.display) )
 		{
-			if (browser.isNS) {
+			i.setZoomboxFirst(x, y);			
+			if (! browser.isIE) {
+				event.stopPropagation();
+				event.preventDefault();				
 				document.addEventListener("mousemove", i.zoomGo,   true);
 				document.addEventListener("mouseup",   i.zoomStop, true);
-				event.preventDefault();
-			} else	{											//IE event model 
-				document.attachEvent("onmousemove", i.zoomGo);
-				document.attachEvent("onmouseup",   i.zoomStop);
+			} else {											//IE event model 
 				window.event.cancelBubble = true;
 				window.event.returnValue = false;
+				document.attachEvent("onmousemove", i.zoomGo);
+				document.attachEvent("onmouseup",   i.zoomStop);
 			}
-			i.setZoomboxFirst(x, y);
 		}
 	}
 
@@ -647,9 +648,10 @@ function msMap(DivTag)
 		var y = i.getClick_Y(event);
 
 		i.setZoomboxWH(x, y);
-		if (browser.isNS) {
+		if (! browser.isIE) {
+			event.stopPropagation();			
 			event.preventDefault();
-		} else	{
+		} else {
 			window.event.cancelBubble = true;
 			window.event.returnValue = false;
 		}
@@ -659,9 +661,6 @@ function msMap(DivTag)
 	{
 		// Stop capturing mousemove and mouseup events.
 		var flag = true;
-		if (browser.isOP) {
-			flag=false;
-		}
 		del_event(document, "mousemove", i.zoomGo, flag);
 		del_event(document, "mouseup", i.zoomStop, flag);
 		i.zoomboxExtent();
@@ -693,19 +692,20 @@ function msMap(DivTag)
 		// Update element's z-index.
 		//dragObj.elNode.style.zIndex = ++dragObj.zIndex;       // Serve???
 		// Capture mousemove and mouseup events on the page.
-		// xxxxxxxxxxxxxxxx yyyyyyyyyyyyyyyyyyyyyyyy
+		// xxxxxxxxxxxxxxxx yyyyyyyyyyyyyyyyyyyyyyyy				
 		if ( isNaN(this.getTagLoading().style.display) )
 		{
-				if (browser.isNS) {
-					document.addEventListener("mousemove", i.dragGo,   true);
-					document.addEventListener("mouseup",   i.dragStop, true);
-					event.preventDefault();
-				} else	{
-					document.attachEvent("onmousemove", i.dragGo);
-					document.attachEvent("onmouseup",   i.dragStop);
-					window.event.cancelBubble = true;
-					window.event.returnValue = false;
-				}
+			if (! browser.isIE) {
+				event.stopPropagation();
+				event.preventDefault();				
+				document.addEventListener("mousemove", i.dragGo,   true);
+				document.addEventListener("mouseup",   i.dragStop, true);
+			} else {
+				window.event.cancelBubble = true;
+				window.event.returnValue = false;				
+				document.attachEvent("onmousemove", i.dragGo);
+				document.attachEvent("onmouseup",   i.dragStop);
+			}
 		}
 	}
 
@@ -721,9 +721,10 @@ function msMap(DivTag)
 		i.getTagOverlay().style.left = parseInt(dragObj.elNode.style.left) + i.getBorder() +'px';
 		i.getTagOverlay().style.top  = parseInt(dragObj.elNode.style.top)  +_map_h_bord +'px';
 
-		if (browser.isNS) {
+		if (! browser.isIE) {
+			event.stopPropagation();
 			event.preventDefault();
-		} else	{
+		} else {
 			window.event.cancelBubble = true;
 			window.event.returnValue = false;
 		}
@@ -731,14 +732,8 @@ function msMap(DivTag)
 
 	this.dragStop = function(event)
 	{
-		// Clear the drag element global.
-		//dragObj.elNode = null;
-
 		// Stop capturing mousemove and mouseup events.
 		var flag = true;
-		if (browser.isOP) {
-			flag=false;
-		}
 		del_event(document, "mousemove", i.dragGo, flag);
 		del_event(document, "mouseup", i.dragStop, flag);
 
@@ -1098,6 +1093,9 @@ function msMap(DivTag)
 			if (cord.length == 3) {
 				_read_cookie = true;
 			}
+		}*/
+		/*if (ie) {
+			window.event.cancelBubble = true;
 		}*/
 
 		this.getMainTag().className = 'mscross';  // css

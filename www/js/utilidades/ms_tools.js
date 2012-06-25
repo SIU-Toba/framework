@@ -123,7 +123,7 @@ function msTool(p_title, p_event_name, p_icon, usa_evento_auxiliar)
 
 		this.removeEvents = function()
 		{
-			for (i=0; i < _toolbarArray.length; i++){
+			for (i=0; i < _toolbarArray.length; i++) {
 				_toolbarArray[i].removeEvent();
 			}
 		}
@@ -136,8 +136,8 @@ function msTool(p_title, p_event_name, p_icon, usa_evento_auxiliar)
 		this.activateButtons = function ()
 		{
 			// Activate first button with map function
-			for (i=0; i < _toolbarArray.length; i++)	{
-				if (_toolbarArray[i].haveMapEvent() == true)	{
+			for (i=0; i < _toolbarArray.length; i++) {
+				if (_toolbarArray[i].haveMapEvent() == true) {
 					_toolbarArray[i].eventClick();
 					break;
 				}
@@ -149,7 +149,7 @@ function msTool(p_title, p_event_name, p_icon, usa_evento_auxiliar)
 		//------------------------------------------------------------------------------------------------------------------------------//
 		this.drawLeft = function()
 		{
-				for (i=0; i < _toolbarArray.length; i++){
+				for (i=0; i < _toolbarArray.length; i++) {
 					setPos(_toolbarArray[i].getTag(), 3, (i*40)+5 );
 				}
 				box.style.left   = '0px';
@@ -164,7 +164,7 @@ function msTool(p_title, p_event_name, p_icon, usa_evento_auxiliar)
 				box.style.top    = '0px';
 				box.style.width  = '40px';
 				box.style.height = _tagMap.style.height;
-				for (i=0; i < _toolbarArray.length; i++)	{
+				for (i=0; i < _toolbarArray.length; i++) {
 					setPos(_toolbarArray[i].getTag(), parseInt(box.style.left)+5, (i*40)+5);
 				}
 		}
@@ -182,7 +182,7 @@ function msTool(p_title, p_event_name, p_icon, usa_evento_auxiliar)
 
 		this.redraw = function()
 		{
-			if ( (_control == 'standard')  ||	(_control == 'standardRight') || (_control == 'standardCornerRight') )	{
+			if ( (_control == 'standard')  ||	(_control == 'standardRight') || (_control == 'standardCornerRight') ) {
 				this.drawRight();
 			} else	if ( (_control == 'standardLeft') || (_control == 'standardCornerLeft') ) {
 				this.drawLeft();

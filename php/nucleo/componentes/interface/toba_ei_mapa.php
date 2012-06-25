@@ -41,12 +41,17 @@ class toba_ei_mapa extends toba_ei
 	 */
 	protected function preparar_componente()
 	{
-		if (isset($this->_info_mapa['mapfile_path'])) {
-			$ruta = toba::proyecto()->get_path_php(). '/'. $this->_info_mapa['mapfile_path'];
-			$this->_mapa = ms_newMapObj($ruta);
-		} else {
+		if (!isset($this->_info_mapa['mapfile_path'])) {
 			toba::logger()->error('El componente '. $this->_id[1] . ' no posee un archivo map definido.');
-			throw new toba_error_def('Falta especificar un map file para el componente');
+			throw new toba_error_def('Falta especificar un map file para el componente');			
+		}
+				
+		$ruta = toba::proyecto()->get_path_php(). '/'. $this->_info_mapa['mapfile_path'];
+		try {
+			$this->_mapa = new MapObj($ruta);
+		} catch (Exception $e) {
+			toba::logger()->error($e->getMessage());
+			throw new toba_error('No se pudo crear el objeto Mapserver');
 		}
 		$this->analizar_layers();
 		parent::preparar_componente();
@@ -171,11 +176,11 @@ class toba_ei_mapa extends toba_ei
 	 */
 	function set_viewport($ancho, $alto)
 	{
-			if (!is_numeric($ancho) || !is_numeric($alto)) {
-				throw new toba_error_usuario('El tamaño del viewport no es válido', "Se eligio ('$ancho', '$alto') como tamaño para el viewport y no es válido");
-			}
-			$this->_ancho_viewport = $ancho;
-			$this->_alto_viewport = $alto;	
+		if (!is_numeric($ancho) || !is_numeric($alto)) {
+			throw new toba_error_usuario('El tamaño del viewport no es válido', "Se eligio ('$ancho', '$alto') como tamaño para el viewport y no es válido");
+		}
+		$this->_ancho_viewport = $ancho;
+		$this->_alto_viewport = $alto;	
 	}
 
 	/**
@@ -298,7 +303,7 @@ class toba_ei_mapa extends toba_ei
 	 */
 	function generar_html()
 	{
-        echo "\n<table class='ei-base' >\n";
+		echo "\n<table class='ei-base' >\n";
 		echo"<tr><td style='padding:0'>\n";
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
@@ -315,10 +320,10 @@ class toba_ei_mapa extends toba_ei
 	 */
 	protected function generar_viewport()
 	{
-        $ancho = ''; $alto = '';
-        if (isset($this->_ancho_viewport)) {
-        	$ancho = 'width: '.$this->_ancho_viewport.'px;';
-        }
+		$ancho = ''; $alto = '';
+		if (isset($this->_ancho_viewport)) {
+			$ancho = 'width: '.$this->_ancho_viewport.'px;';
+		}
 		if (isset($this->_alto_viewport)) {
 			$alto = 'height: '.$this->_alto_viewport .'px;';
 		}
@@ -381,7 +386,11 @@ class toba_ei_mapa extends toba_ei
 	protected function get_selector_layer($id_ef, $nombre_layer)
 	{
 		$actual = $nombre_layer;
-		$status = $this->_mapa->getLayerByName($nombre_layer)->getMetadata('status');		
+		$layer_obj = $this->_mapa->getLayerByName($actual);
+		if (is_null($layer_obj)) {
+			throw new toba_error('El mapa no contiene la capa '. $actual);			
+		}		
+		$status = $layer_obj	->getMetadata('status');		
 		if ($status === MS_OFF) {					//Si el layer no esta activo en el mapfile
 			$actual = '';
 		} elseif (! empty($this->_layers_activos) && ! in_array($nombre_layer, $this->_layers_activos)) {  //Si no viene en la lista de layers activos actualmente
@@ -476,10 +485,15 @@ class toba_ei_mapa extends toba_ei
 		if (! empty($this->_layers_activos)) {
 			$layers_disp = $this->get_nombre_layers();
 			foreach($layers_disp as $layer) {
+				$lay_obj = $this->_mapa->getLayerByName($layer);
+				if (is_null($lay_obj)) {
+					throw new toba_error('En el mapa no se encuentra cargada la capa ' .$layer);
+				}
+				//De acuerdo a si esta o no seleccionado, muestro u oculto el layer.
 				if (in_array($layer, $this->_layers_activos)) {
-					$this->_mapa->getLayerByName($layer)->set('status', MS_ON);
+					$lay_obj->set('status', MS_ON);
 				}else{
-					$this->_mapa->getLayerByName($layer)->set('status', MS_OFF);
+					$lay_obj->set('status', MS_OFF);
 				}
 			}
 		}
@@ -502,6 +516,9 @@ class toba_ei_mapa extends toba_ei
 	function generar_salida($salida)
 	{
 		$img = $this->_mapa->draw();
+		if (is_null($img)) {
+			throw new toba_error('No se pudo graficar el mapa');
+		}
 		$img->saveImage($salida,$this->_mapa);
 	}
 
