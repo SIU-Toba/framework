@@ -292,13 +292,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
 			$proyectos_instancia = array_map('trim',$datos);
-			
-			//Si el proyecto esta en la instancia levanto sus datos previos
+
 			$existe_proyecto  = (in_array($proyecto, $proyectos_instancia));
-			if ($existe_proyecto && $ini->existe_entrada($proyecto)) {
+			if (! $existe_proyecto) {								//Si el proyecto no existe en la instancia lo agrego
+				$proyectos_instancia[] = $proyecto;
+				$ini->set_datos_entrada('proyectos', implode(', ', $proyectos_instancia));							
+			} elseif ($ini->existe_entrada($proyecto)) {				//Si ya estaba, levanto sus datos anteriores
 				$datos_ini = $ini->get_datos_entrada($proyecto);
 			}
-						
+			
+			//Actualizo los datos del proyecto si se cambiaron 
 			if (isset($path)) {
 				 $datos_ini['path'] = $path;
 			} elseif (is_null($path)) {
@@ -317,12 +320,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				toba_logger::instancia()->debug("El proyecto '$proyecto' usa perfiles propios");
 			}
 						
-			if (! $existe_proyecto) {		//Si no existe el proyecto lo agrego junto a sus datos
-				$proyectos_instancia[] = $proyecto;
-				$ini->set_datos_entrada('proyectos', implode(', ', $proyectos_instancia));
-				if (! empty($datos_ini)) { $ini->agregar_entrada($proyecto, $datos_ini); }
+			if (! $ini->existe_entrada($proyecto)) {			//Si no hay entrada previa para los datos del proyecto
+				$ini->agregar_entrada($proyecto, $datos_ini); 
 			} else {
-				if (! empty($datos_ini)) { $ini->set_datos_entrada($proyecto, $datos_ini); }
+				$ini->set_datos_entrada($proyecto, $datos_ini); 
 			}
 			
 			$ini->guardar();			
