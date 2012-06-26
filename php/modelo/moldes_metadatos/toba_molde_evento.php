@@ -51,6 +51,8 @@ class toba_molde_evento
 	function implicito()
 	{
 		$this->datos['implicito'] = 1;
+		$this->datos['sobre_fila'] = 0;
+		$this->datos['en_botonera'] = 0;		
 	}
 	
 	function set_predeterminado()

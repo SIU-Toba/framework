@@ -81,7 +81,6 @@ class toba_asistente_grilla extends toba_asistente_1dt
 		$evento = $form->agregar_evento('modificacion');
 		$evento->maneja_datos();
 		$evento->implicito();
-		$evento->en_botonera(false);
 	}
 }
 ?>

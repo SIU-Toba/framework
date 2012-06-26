@@ -436,7 +436,6 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));		
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$evento->implicito();
-			$evento->en_botonera(false);
 			$metodo->set_contenido( array(	"\$this->dep('datos')->tabla('$tabla_actual')->set(\$datos);"));
 		} else {
 			$evento->en_botonera();
