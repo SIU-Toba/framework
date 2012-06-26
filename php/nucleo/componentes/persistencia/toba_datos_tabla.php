@@ -1887,7 +1887,11 @@ class toba_datos_tabla extends toba_componente
 				break;
 			  default:
 					//--- Comparacion por igualdad estricta con un cast a string
-					$modificar = (trim((string) $viejo) !== trim((string) $datos_nuevos[$campo]));
+					if ($this->persistidor()->get_usar_trim()) {
+						$modificar = (trim((string) $viejo) !== trim((string) $datos_nuevos[$campo]));
+					} else  {
+						$modificar = (((string) $viejo) !== ((string) $datos_nuevos[$campo]));
+					}
 			}
 		} else {
 			//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)

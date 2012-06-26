@@ -271,6 +271,11 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$this->_hacer_trim_datos = $usar;
 	}
 
+	function get_usar_trim()
+	{
+		return $this->_hacer_trim_datos;
+	}
+	
 	/**
 	 * Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición
 	 */
