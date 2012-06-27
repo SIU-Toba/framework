@@ -373,10 +373,11 @@ abstract class toba_asistente
 		//Si no encontre ningun dt entonces lo genero
 		if ( is_null($molde)) {
 					$molde = new toba_datos_tabla_molde($this);
-					$this->generar_datos_tabla($molde, $tabla, null);
-					//Recupero el punto de montaje y se lo seteo
-					$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
-					$molde->set_punto_montaje($pm);
+					$this->generar_datos_tabla($molde, $tabla, null);					
+					if (isset($this->dr_molde)) {		//Recupero el punto de montaje y se lo seteo si estoy en un asistente
+						$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');
+						$molde->set_punto_montaje($pm);
+					}					
 		}
 		return $molde;
 	}

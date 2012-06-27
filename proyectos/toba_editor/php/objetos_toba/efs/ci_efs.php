@@ -410,7 +410,6 @@ class ci_efs extends toba_ci
 			
 	function ajax__existe_metodo_dt($dt, toba_ajax_respuesta $respuesta)
 	{
-		$dt = toba_contexto_info::get_db()->quote($dt);
 		$subclase = toba_info_editores::get_subclase_componente($dt);
 		if (isset($subclase) && !empty($subclase)) {
 			$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
