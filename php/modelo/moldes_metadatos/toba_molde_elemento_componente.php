@@ -66,7 +66,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		return $this->molde_php;	
 	}
 	
-	function generar_archivo()
+	/*function generar_archivo()
 	{
 		if (file_exists($this->archivo_absoluto())) {
 			//if( $this->asistente->consultar_opcion_generacion($this->get_id_opcion_archivo()) ) {
@@ -77,7 +77,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		} else {
 			return parent::generar_archivo();
 		}	
-	}
+	}*/
 	
 	//---------------------------------------------------
 	//-- Generacion de METADATOS & ARCHIVOS
