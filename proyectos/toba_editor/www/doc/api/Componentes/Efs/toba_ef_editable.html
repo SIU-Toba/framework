@@ -1267,7 +1267,12 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 						</td>
 						<td class="method-definition"><a href="#set_callback_errores_validacion" title="details" class="method-name">set_callback_errores_validacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																					<tr>
+																																															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_tamano_multiplicado_pixels" title="details" class="method-name">set_tamano_multiplicado_pixels</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite hacer que todos los efs traduzcan su tamaño visual a pixeles con un porcentaje dado</td></tr>
+																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1330,7 +1335,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_opciones" title="details" class="method-name">set_opciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">En el caso del editable las opciones representa su estado por defecto</td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1361,9 +1366,9 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
+		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 
@@ -1410,9 +1415,9 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<br />
 </div>
 <a name="methodget_lista_parametros_carga" id="get_lista_parametros_carga"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 34]</span>
+		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
 </div>
 <br />
 
@@ -1441,9 +1446,9 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<br />
 </div>
 <a name="methodset_callback_errores_validacion" id="set_callback_errores_validacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method set_callback_errores_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
+		<span class="method-title">static method set_callback_errores_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
 </div>
 <br />
 
@@ -1474,6 +1479,48 @@ $callback&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_tamano_multiplicado_pixels" id="set_tamano_multiplicado_pixels"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method set_tamano_multiplicado_pixels</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_tamano_multiplicado_pixels(
+[
+$porcentaje = 1], int
+$porcentaja&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite hacer que todos los efs traduzcan su tamaño visual a pixeles con un porcentaje dado </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$porcentaja:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$porcentaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="oddrow">
@@ -1481,7 +1528,7 @@ $callback&nbsp;
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
 </div>
 <br />
 
@@ -1601,7 +1648,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
 </div>
 <br />
 
@@ -1649,7 +1696,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -1709,7 +1756,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
 <br />
 
@@ -1757,7 +1804,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
 </div>
 <br />
 
@@ -1783,6 +1830,9 @@ $parametros&nbsp;
 		<ul class="redefinitions">
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_input">toba_ef_editable_captcha::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodget_input">toba_ef_editable_numero::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_clave.html#methodget_input">toba_ef_editable_clave::get_input()</a>
@@ -1811,7 +1861,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
 </div>
 <br />
 
@@ -1862,7 +1912,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -1922,7 +1972,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set_expreg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+	<span class="method-title">set_expreg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
 </div>
 <br />
 
@@ -1959,7 +2009,7 @@ $expreg&nbsp;
 	
 		
 	
-	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
 </div>
 <br />
 
@@ -2010,7 +2060,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
 </div>
 <br />
 
@@ -2049,7 +2099,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 

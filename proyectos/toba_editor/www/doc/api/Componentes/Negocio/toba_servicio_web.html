@@ -907,45 +907,60 @@
 																								<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#agregar_mapeo_headers" title="details" class="method-name">agregar_mapeo_headers</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"><a href="#agregar_mapeo_firmas" title="details" class="method-name">agregar_mapeo_firmas</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																					<tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#decodificar_certificado" title="details" class="method-name">decodificar_certificado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																								<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#servicio_con_firma" title="details" class="method-name">servicio_con_firma</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_servicio_web</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																													<tr>
+																																						<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_certificado_cliente" title="details" class="method-name">get_certificado_cliente</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el certificado utilizado por el cliente para la firma del mensaje actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_headers" title="details" class="method-name">get_headers</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve un arreglo con los datos de los headers</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_id_cliente" title="details" class="method-name">get_id_cliente</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_opciones" title="details" class="method-name">get_opciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#obtener_headers" title="details" class="method-name">obtener_headers</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Devuelve un arreglo con los datos de los headers</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-						    									
-						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#servicio_con_firma" title="details" class="method-name">servicio_con_firma</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#validar_certificado_cliente" title="details" class="method-name">validar_certificado_cliente</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#verificar_firma" title="details" class="method-name">verificar_firma</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Verifica la firma del mensaje completo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -969,20 +984,21 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodagregar_mapeo_headers" id="agregar_mapeo_headers"><!-- --></a>
-<div class="oddrow">
+<a name="methodagregar_mapeo_firmas" id="agregar_mapeo_firmas"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method agregar_mapeo_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+		<span class="method-title">static method agregar_mapeo_firmas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void agregar_mapeo_headers(
+		<code>static void agregar_mapeo_firmas(
 
-$header, 
-$archivo&nbsp;
+$archivo, 
+$id, [
+$fingerprint = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -993,9 +1009,49 @@ $archivo&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$header:&nbsp;</span></td>
+				<span class="var-name">$archivo:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$fingerprint:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddecodificar_certificado" id="decodificar_certificado"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method decodificar_certificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void decodificar_certificado(
+
+$archivo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -1010,14 +1066,45 @@ $archivo&nbsp;
 		
 		<br />
 </div>
+<a name="methodservicio_con_firma" id="servicio_con_firma"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			<span class="method-title">static method servicio_con_firma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void servicio_con_firma(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
 <br />
 
@@ -1052,13 +1139,102 @@ $id&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_certificado_cliente" id="get_certificado_cliente"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_certificado_cliente(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el certificado utilizado por el cliente para la firma del mensaje actual </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_headers" id="get_headers"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_headers(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve un arreglo con los datos de los headers </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id_cliente" id="get_id_cliente"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_id_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_id_cliente(
+[
+$parametro = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametro:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_opciones" id="get_opciones"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
+	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -1077,128 +1253,27 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodobtener_headers" id="obtener_headers"><!-- --></a>
+<a name="methodvalidar_certificado_cliente" id="validar_certificado_cliente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">obtener_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
+	<span class="method-title">validar_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>array obtener_headers(
-WSMessage
-$mensaje&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Devuelve un arreglo con los datos de los headers </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">WSMessage</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$mensaje:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodservicio_con_firma" id="servicio_con_firma"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-    			
-	
-	<span class="method-title">servicio_con_firma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void servicio_con_firma(
+		<code>void validar_certificado_cliente(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodverificar_firma" id="verificar_firma"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
 	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-    			
-	
-	<span class="method-title">verificar_firma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 138]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void verificar_firma(
-array
-$headers, string
-$contenido_mensaje&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Verifica la firma del mensaje completo </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$headers:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$contenido_mensaje:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
 
 		
 		<br />
@@ -1209,7 +1284,7 @@ $contenido_mensaje&nbsp;
 	
 		
 	
-	<span class="method-title">__call</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+	<span class="method-title">__call</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 

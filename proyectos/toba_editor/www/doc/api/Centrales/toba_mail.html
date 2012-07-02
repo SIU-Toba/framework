@@ -424,7 +424,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																						<tr>
+																																																																																																																															<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -459,6 +459,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_datos_configuracion_smtp" title="details" class="method-name">get_datos_configuracion_smtp</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Método para obtener la configuración del servidor SMTP</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_bcc" title="details" class="method-name">set_bcc</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Configura las direcciones a las que se enviara copia carbónica oculta</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -524,7 +531,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
 </div>
 <br />
 
@@ -583,7 +590,7 @@ $desde = null]&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
+	<span class="method-title">agregar_adjunto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -642,7 +649,7 @@ $tipo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
 </div>
 <br />
 
@@ -672,7 +679,7 @@ $tipo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+	<span class="method-title">enviar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
 <br />
 
@@ -698,7 +705,7 @@ $tipo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">get_datos_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
+	<span class="method-title">get_datos_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
 </div>
 <br />
 
@@ -718,13 +725,51 @@ $tipo = '']&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_cc" id="set_cc"><!-- --></a>
+<a name="methodset_bcc" id="set_bcc"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">set_bcc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_bcc(
+[array
+$direcciones = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Configura las direcciones a las que se enviara copia carbónica oculta </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$direcciones:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo de direcciones de email</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_cc" id="set_cc"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_cc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
 </div>
 <br />
 
@@ -757,12 +802,12 @@ $direcciones = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_configuracion_smtp" id="set_configuracion_smtp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
+	<span class="method-title">set_configuracion_smtp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 
@@ -795,12 +840,12 @@ $nombre_conf = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_confirmacion" id="set_confirmacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
+	<span class="method-title">set_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
 </div>
 <br />
 
@@ -833,12 +878,12 @@ $confirm&nbsp;
 		<br />
 </div>
 <a name="methodset_html" id="set_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
+	<span class="method-title">set_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
 </div>
 <br />
 
@@ -871,12 +916,12 @@ $html = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_remitente" id="set_remitente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_remitente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
+	<span class="method-title">set_remitente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -909,12 +954,12 @@ $from_name&nbsp;
 		<br />
 </div>
 <a name="methodset_reply" id="set_reply"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
+	<span class="method-title">set_reply</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 

@@ -191,12 +191,19 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																											<tr>
+																																																																																																																																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">toba_vista_jasperreports</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_metareporte" title="details" class="method-name">agregar_metareporte</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -211,15 +218,66 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#enviar_archivo" title="details" class="method-name">enviar_archivo</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#compilar_reporte" title="details" class="method-name">compilar_reporte</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#set_conexion" title="details" class="method-name">set_conexion</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#completar_con_datos" title="details" class="method-name">completar_con_datos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Genera un archivo jrprint y lo agrega al spool de union</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">JDBC</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#configurar_bd" title="details" class="method-name">configurar_bd</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Configura el schema para la conexion toba_db que se le provee</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#enviar_archivo" title="details" class="method-name">enviar_archivo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_nombre_archivo_generado" title="details" class="method-name">get_nombre_archivo_generado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el nombre del archivo pdf destino con la ruta absoluta</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#instanciar_conexion_default" title="details" class="method-name">instanciar_conexion_default</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Crea una conexion por defecto, ya sea JDataSource o toba_db</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#reset_parametros" title="details" class="method-name">reset_parametros</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite eliminar todos los parametros que se le pasan al reporte</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_archivo_xml" title="details" class="method-name">set_archivo_xml</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Setea la ruta a un archivo conteniendo el xml con los datos para el reporte</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_conexion" title="details" class="method-name">set_conexion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Setea una conexion a BD/JDataSource</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -248,6 +306,21 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_tipo_descarga" title="details" class="method-name">set_tipo_descarga</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Permite setear el tipo de descarga pdf desde el browser, inline o attachment</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_xml" title="details" class="method-name">set_xml</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Setea un string xml con los datos para el reporte</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">jrprint</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#unir_metareportes" title="details" class="method-name">unir_metareportes</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite unir todos los jrprint en un solo archivo, a futuro quizas se devuelva directamente el arreglo</td></tr>
 													</table>
 			</div>
 			<br />
@@ -271,7 +344,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 20]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
 </div>
 <br />
 
@@ -290,14 +363,51 @@
 		
 		<br />
 </div>
-<a name="methodcargar_jasper" id="cargar_jasper"><!-- --></a>
+<a name="methodagregar_metareporte" id="agregar_metareporte"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_metareporte</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_metareporte(
+$reporte
+$reporte&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">$reporte</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$reporte:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> JRPrint</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcargar_jasper" id="cargar_jasper"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_jasper</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+	<span class="method-title">cargar_jasper</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
 </div>
 <br />
 
@@ -324,13 +434,137 @@
 		
 		<br />
 </div>
+<a name="methodcompilar_reporte" id="compilar_reporte"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">compilar_reporte</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void compilar_reporte(
+
+$path_plantilla, [
+$path_reporte = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$path_plantilla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$path_reporte:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcompletar_con_datos" id="completar_con_datos"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">completar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void completar_con_datos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Genera un archivo jrprint y lo agrega al spool de union </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodconfigurar_bd" id="configurar_bd"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">configurar_bd</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>JDBC configurar_bd(
+
+&$conexion, <a href="../Fuentes/toba_db.html">toba_db</a>
+$conexion&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Configura el schema para la conexion toba_db que se le provee </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"><a href="../Fuentes/toba_db.html">toba_db</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$conexion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">&$conexion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodenviar_archivo" id="enviar_archivo"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">enviar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">enviar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -349,13 +583,145 @@
 		
 		<br />
 </div>
+<a name="methodget_nombre_archivo_generado" id="get_nombre_archivo_generado"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_nombre_archivo_generado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_archivo_generado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve el nombre del archivo pdf destino con la ruta absoluta </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodinstanciar_conexion_default" id="instanciar_conexion_default"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">instanciar_conexion_default</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed instanciar_conexion_default(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Crea una conexion por defecto, ya sea JDataSource o toba_db </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodreset_parametros" id="reset_parametros"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">reset_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void reset_parametros(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite eliminar todos los parametros que se le pasan al reporte </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_archivo_xml" id="set_archivo_xml"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_archivo_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_archivo_xml(
+string
+$ruta_xml, [string
+$xpath_data_search = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Setea la ruta a un archivo conteniendo el xml con los datos para el reporte </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ruta_xml:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ruta al archivo xml</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$xpath_data_search:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> XPath al nodo que contiene los datos. Opcional</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_conexion" id="set_conexion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
+	<span class="method-title">set_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
 </div>
 <br />
 
@@ -363,17 +729,18 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_conexion(
-
+mixed
 $db&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Setea una conexion a BD/JDataSource </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$db:&nbsp;</span></td>
 				<td>
@@ -392,7 +759,7 @@ $db&nbsp;
 	
 		
 	
-	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
 </div>
 <br />
 
@@ -429,7 +796,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
 </div>
 <br />
 
@@ -481,7 +848,7 @@ $valor = 0]&nbsp;
 	
 		
 	
-	<span class="method-title">set_path_reporte</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
+	<span class="method-title">set_path_reporte</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
 </div>
 <br />
 
@@ -519,7 +886,7 @@ $path&nbsp;
 	
 		
 	
-	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
+	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
 </div>
 <br />
 
@@ -547,6 +914,86 @@ $tipo&nbsp;
 
 	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodset_xml" id="set_xml"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_xml</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_xml(
+string
+$xml, [string
+$xpath_data_search = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Setea un string xml con los datos para el reporte </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$xml:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> String con los datos en formato xml</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$xpath_data_search:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> XPath al nodo que contiene los datos.Opcional</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodunir_metareportes" id="unir_metareportes"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">unir_metareportes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>jrprint unir_metareportes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite unir todos los jrprint en un solo archivo, a futuro quizas se devuelva directamente el arreglo </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
