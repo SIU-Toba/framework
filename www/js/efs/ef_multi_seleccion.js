@@ -262,6 +262,12 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		}
 	};
 	
+	ef_multi_seleccion_check.prototype.get_tab_index = function() {
+		var elem = this.get_elementos();
+		if (elem.length > 0) {
+			return elem[0].tabIndex;
+		}
+	};
 
 	
 // ########################################################################################################

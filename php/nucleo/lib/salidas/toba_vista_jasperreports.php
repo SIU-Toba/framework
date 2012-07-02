@@ -83,7 +83,8 @@ class toba_vista_jasperreports
 				$tipo = "java.util.Date";				
 				break;	
 			case 'S':
-				$tipo = "java.lang.String";				
+				$tipo = "java.lang.String";
+				$valor = utf8_e_seguro($valor);	
 				break;
 			case 'E':
 				$tipo = "java.lang.Integer";				
@@ -93,6 +94,7 @@ class toba_vista_jasperreports
 				break;
 			default:
 				$tipo = "java.lang.String";
+				$valor = utf8_e_seguro($valor);	
 				break;
 		}
 
@@ -111,6 +113,16 @@ class toba_vista_jasperreports
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
+
+	/**
+	 * Devuelve el nombre del archivo pdf destino con la ruta absoluta
+	 * @return string 
+	 */
+	function get_nombre_archivo_generado()
+	{
+		return $this->temp_salida;
+	}
+
 
 	/**
 	 * @param string $nombre Nombre del archivo pdf + la extension del mismo (pdf)

@@ -175,7 +175,7 @@ class toba_ef_popup extends toba_ef_editable
 			$extra = '';
 		} else {
 			$html .= toba_form::hidden($this->id_form, $estado, $js);
-			$html .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
+			$html .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", " $extra disabled ");
 		}
 		if (isset($this->id_vinculo)) {
 			$display = ($this->es_solo_lectura()) ? "visibility:hidden" : "";

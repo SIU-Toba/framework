@@ -86,6 +86,14 @@
 		return [];
 	};
 	
+	/**
+	 * Devuelve si una columna dada esta activa o no en el filtro.
+	 * @param string id Identificador de la columna
+	 * @type boolean
+	 */
+	ei_filtro.prototype.esta_activa = function(id) {
+		return (in_array(id, this._filas));
+	};
 
 	//---Submit 
 	ei_filtro.prototype.submit = function() {

@@ -81,31 +81,28 @@ class toba_servicio_web_mensaje
 				$valor = self::payload_a_array($hijo);
 			}
 			$clave = (string) $hijo->getName();
-			if (substr($clave, 0, 4) === 'fila') {
-				//El xml no puede tener claves numericas, se quita el sufijo
-				if (is_numeric(substr($clave, 5))) {
-					$clave = substr($clave, 5);
-				}
+			if (substr($clave, 0, 4) === 'tfg_') {
+				$salida[] = $valor;
+			} else {
+				$salida[$clave] = $valor;
 			}
-			$salida[$clave] = $valor;
 			
 		}		
 		return $salida;
 	}
 	
-	static function array_a_payload($array, $nivel=0)
+	static function array_a_payload($array, $nivel=0, $clave_padre = '')
 	{
 		$salida = '';
 		$tab = str_repeat("\t", $nivel);
 		foreach ($array as $clave => $valor) {
-			if (is_numeric($clave)) {
-				//El xml no puede tener claves numericas, se le anexa un sufijo
-				$clave = 'fila_'.$clave;
+			if (is_numeric($clave)) {				
+				$clave = 'tfg_'.$clave_padre;	//El xml no puede tener claves numericas, se define una clave unica para los posicionales
 			}
 			$clave = toba_xml_tablas::encode($clave);
 			$salida .= "$tab<$clave>";
 			if (is_array($valor)) {
-				$salida .= "\n".self::array_a_payload($valor, $nivel+1);
+				$salida .= "\n".self::array_a_payload($valor, $nivel + 1, $clave);
 				$salida .= "$tab</$clave>\n";				
 			} else {
 				$valor = toba_xml_tablas::encode($valor);				
