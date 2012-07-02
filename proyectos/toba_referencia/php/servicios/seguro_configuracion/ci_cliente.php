@@ -37,7 +37,7 @@ class ci_cliente extends toba_ci
 	
 		//-- 3 - Muestra la respuesta
 		$respuesta = $servicio->request($mensaje);
-		toba::notificacion()->info($respuesta->get_payload());
+		toba::notificacion()->info(print_r($respuesta->get_array(), true));
 	}	
 	
 	

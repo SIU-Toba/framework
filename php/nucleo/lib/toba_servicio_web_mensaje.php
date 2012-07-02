@@ -2,6 +2,8 @@
 
 class toba_servicio_web_mensaje
 {
+	const id_fila_generica = '_toba_fila_';
+	
 	protected $mensaje = null;
 	protected $payload;
 	protected $datos;
@@ -81,7 +83,7 @@ class toba_servicio_web_mensaje
 				$valor = self::payload_a_array($hijo);
 			}
 			$clave = (string) $hijo->getName();
-			if (substr($clave, 0, 4) === 'tfg_') {
+			if (substr($clave, 0, strlen(self::id_fila_generica)) === self::id_fila_generica) {
 				$salida[] = $valor;
 			} else {
 				$salida[$clave] = $valor;
@@ -96,8 +98,12 @@ class toba_servicio_web_mensaje
 		$salida = '';
 		$tab = str_repeat("\t", $nivel);
 		foreach ($array as $clave => $valor) {
-			if (is_numeric($clave)) {				
-				$clave = 'tfg_'.$clave_padre;	//El xml no puede tener claves numericas, se define una clave unica para los posicionales
+			$empieza_con_numero = strlen($clave) > 0 && ctype_digit(substr($clave, 0, 1));
+			if ($empieza_con_numero && is_string($clave)) {
+				throw new toba_error_def("El arreglo contiene una clave asociativa ($clave) que comienza con un número, XML no acepta tags que comienzen con numeros");
+			}
+			if ($empieza_con_numero) {				
+				$clave = self::id_fila_generica.$clave_padre;	//El xml no puede tener claves numericas, se define una clave unica para los posicionales
 			}
 			$clave = toba_xml_tablas::encode($clave);
 			$salida .= "$tab<$clave>";
