@@ -57,6 +57,20 @@ class toba_formateo
 		}		
 	}	
 
+	function formato_decimal_estricto($valor)
+	{
+		if ($this->tipo_salida != 'excel') {
+				return number_format($valor,2,',','.');
+		} else {
+			$estilo = array($valor, array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
+					));	
+			
+			
+			return $estilo;
+		}		
+	}
+	
 	function formato_porcentaje($valor)
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
@@ -221,8 +235,7 @@ class toba_formateo
 		} else {
 			$desc = cambiar_hora_formato_12($desc);
 			return array($desc, array('numberformat' =>
-					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME1 )
-				));
+					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME1 )));
 		}
 	}
 

@@ -5,7 +5,7 @@ INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('6', 'may_ind', NULL, 'Mayusculas sin cortar texto', 'Mayusculas sin cortar texto', NULL, '4');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('7', 'millares', NULL, 'Pone un \".\" cada MILLAR', 'Pone un \".\" cada MILLAR', NULL, '0');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('8', 'fecha', NULL, 'Formato fecha', 'Fecha (dd/mm/aaaa)', NULL, '7');
-INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('9', 'decimal', NULL, NULL, 'Decimal 2 posiciones (100,00)', NULL, '0');
+INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('9', 'decimal', NULL, NULL, 'Decimal 2 posiciones (opcionales)', NULL, '0');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('10', 'tiempo', NULL, NULL, 'Tiempo en SEGUNDOS', NULL, '7');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('11', 'porcentaje', NULL, NULL, 'Porcentaje (100,00 %)', NULL, '0');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('12', 'escapar', NULL, NULL, 'Escapar Caracteres', NULL, '4');
@@ -15,3 +15,4 @@ INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('16', 'imagen_proyecto', NULL, 'Imagen del proyecto', 'Imagen del proyecto', NULL, '7');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('17', 'superficie', NULL, NULL, 'Superficie', NULL, '0');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('18', 'fecha_hora', NULL, 'Formato fecha-hora', 'Fecha y Hora (dd/mm/aaaa H:M:S)', NULL, '7');
+INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('33000001', 'decimal_estricto', NULL, NULL, 'Decimal 2 posiciones (100,00)', NULL, '0');

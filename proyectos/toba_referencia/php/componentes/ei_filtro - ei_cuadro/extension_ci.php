@@ -5,16 +5,22 @@ class formateo_proyecto extends toba_formateo
 {
 	
 	/**
-	 * @param integer $valor Cantidad total de segundos
-	 * @return cadena en formato H:M:S
-	 */
+		* @param integer $valor Cantidad total de segundos
+		* @return cadena en formato H:M:S
+		*/
 	function formato_hora($valor)
 	{
-		$segundos = str_pad($valor % 60, 2, 0, STR_PAD_LEFT);		
+		 $segundos = str_pad($valor % 60, 2, 0, STR_PAD_LEFT);        
 		$minutos = floor($valor / 60);
 		$horas = floor($minutos / 60);
-		$minutos = str_pad($minutos % 60, 2, 0, STR_PAD_LEFT);
-		return "$horas:$minutos:$segundos";
+		$minutos = str_pad($minutos % 60, 2, 0, STR_PAD_LEFT);	 
+		
+		$desc = "$horas:$minutos:$segundos";
+		 if ($this->tipo_salida != 'excel') {	
+			return $desc;
+		} else {
+			return parent::formato_hora($desc);
+		}
 	}
 }
 
@@ -52,8 +58,8 @@ class extension_ci extends toba_ci
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		$cuadro->set_formateo_columna('hora', 'hora', 'formateo_proyecto');
-		$cuadro->evento('seleccion')->set_alineacion_pre_columnas(true);	//Defino que el evento de seleccion se graficara antes de las columnas de datos
-		$cuadro->evento('baja')->set_alineacion_pre_columnas(true);	//Defino que el evento de seleccion se graficara antes de las columnas de datos
+		$cuadro->evento('seleccion')->set_alineacion_pre_columnas(true);    //Defino que el evento de seleccion se graficara antes de las columnas de datos
+		$cuadro->evento('baja')->set_alineacion_pre_columnas(true);    //Defino que el evento de seleccion se graficara antes de las columnas de datos
 		if (!isset($this->s__filtro) || $this->s__filtro['metodo'] == 'estatica') {
 			return $this->datos_estaticos;
 		} else {
@@ -73,10 +79,10 @@ class extension_ci extends toba_ci
 	
 	function evt__cuadro__ordenar($param)
 	{
-        $columna = $param['columna']; 
-        $sentido = $param['sentido']; 
-        toba::notificacion()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
-        return true;
+		$columna = $param['columna']; 
+		$sentido = $param['sentido']; 
+		toba::notificacion()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
+		return true;
 	}
 	
 	function evt__mi_evento()
@@ -98,5 +104,4 @@ class extension_ci extends toba_ci
 	}
 
 }
-
 ?>
