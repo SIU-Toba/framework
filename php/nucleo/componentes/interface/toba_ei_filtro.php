@@ -24,10 +24,16 @@ class toba_ei_filtro extends toba_ei
 	protected $_pdf_tabla_ancho;
 	protected $_pdf_tabla_opciones = array();
 	
+	protected static $_condicion_fija_impide_eliminacion = false;
 	
 	final function __construct($definicion)
 	{
 		parent::__construct($definicion);
+	}
+	
+	static function set_condicion_fija_no_elimina($valor)
+	{		
+		self::$_condicion_fija_impide_eliminacion = $valor;
 	}
 	
 	/**
@@ -445,8 +451,13 @@ class toba_ei_filtro extends toba_ei
 
 			//-- Borrar a nivel de fila
 			echo "<td class='$estilo_celda ei-filtro-borrar'>";
-			//Si es obligatoria no se puede borrar
-			if (!$columna->es_solo_lectura() && !$columna->es_obligatorio() && !$columna->hay_condicion_fija()) {
+			//Si es obligatoria no se puede borrar			
+			$quitar_boton_eliminar = ($columna->es_solo_lectura() || 
+							           $columna->es_obligatorio() ||
+							          ($columna->hay_condicion_fija() &&
+							           self::$_condicion_fija_impide_eliminacion));
+			
+			if (! $quitar_boton_eliminar) {
 				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
 									"onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();'", 
 									$this->_rango_tabs[0]++, null, 'Elimina la fila');
