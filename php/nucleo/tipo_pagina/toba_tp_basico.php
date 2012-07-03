@@ -41,7 +41,7 @@ class toba_tp_basico extends toba_tipo_pagina
 	
 	protected function cabecera_html()
 	{
-		echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+		echo "<!DOCTYPE html>";
 		echo "<HTML>\n";
 		echo "<HEAD>\n";
 		echo "<title>".$this->titulo_pagina()."</title>\n";

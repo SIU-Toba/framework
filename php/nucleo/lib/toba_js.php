@@ -180,7 +180,7 @@ class toba_js
 			
 			if (toba::instalacion()->arreglo_png_ie()) {
 				///---Arreglo PNGs IE
-				$url = toba_recurso::js("utilidades/pngbehavior.htc");			
+				$url = toba_recurso::js("utilidades/pngbehavior.htc");
 				echo "<!--[if lt IE 7]>
 					<style type='text/css'>
 						img {
@@ -189,6 +189,10 @@ class toba_js
 					</style>
 					<![endif]-->\n";
 			}
+			$url = toba_recurso::js('basicos/html5shiv.js');
+			echo "	<!--[if lt IE 9]>
+						<script src='$url'></script>
+					<![endif]-->\n";
 			self::$basicos_cargados = true;
 		}
 	}

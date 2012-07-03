@@ -1,6 +1,6 @@
 .dhx_combo_img{
 	position:absolute;
-	top:0px;
+	top:2px;
 	right:0px;
 	width:17px;
 	height:18px;
@@ -14,21 +14,43 @@
 }
 .dhx_combo_input{
 	color:#333333;
-	/*font-family: Arial;
-	font-size: 9pt;*/
 	border:0px;
-	padding:2px 2px 2px 2px;
 	position:absolute;
 	top:0px;
 }
-.dhx_combo_box{
-	position:relative;
-	text-align:left;
-	border:1px solid #7F9DB9;
-	height:18px;
-	_height:22px;
-	overflow:hidden;
-    background-color: white;
+.dhx_combo_box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-background-clip: padding;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	-webkit-appearance: none;
+	background-color: white;
+	border: 1px solid;
+	border-color: #848484 #c1c1c1 #e1e1e1;
+	padding: 2px 3px;
+	text-align: left;
+	height: 2.3em;
+	vertical-align: top;
+	position: relative;
+}
+
+.dhx_combo_box input {
+	border: none;
+	padding: 0;
+	height: 1.6em;
+}
+
+.dhx_combo_box input:focus {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 .dhx_combo_list{
@@ -38,8 +60,6 @@
    overflow-x:hidden;
    border:1px solid black;
    height:100px;
-   /*font-family: Arial;
-   font-size: 9pt;*/
    background-color: white;
 }
 
@@ -49,7 +69,7 @@
 	padding:2px 2px 2px 2px;
 }
 .dhx_selected_option{
-	background-color:#7F9DB9;//navy;
+	background-color:#7F9DB9;
 	color:white;
 }
 
