@@ -46,10 +46,8 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 
 	ef_combo_editable.prototype._quitar_mensaje_ayuda = function() {
 		if (! this._msj_ayuda_habilitado) return;
-		if (this._msj_ayuda_div != undefined) {
-			this._msj_ayuda_div.parentNode.removeChild(this._msj_ayuda_div);
-			this._msj_ayuda_div = undefined;
-		}
+		var inp_field = this.input();
+		inp_field.setAttribute('placeholder', '');
 	};
 
 	//---Comandos
@@ -331,7 +329,6 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	};
 
 	ef_combo_editable.prototype.inhabilitar_mensaje_ayuda = function() {
-		//if (this._msj_ayuda_habilitado) this._quitar_mensaje_ayuda();
 		this._msj_ayuda_habilitado = false;
 	};
 
