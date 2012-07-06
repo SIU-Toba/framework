@@ -21,6 +21,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	this._msj_ayuda_div;
 	this._msj_ayuda_texto = 'Texto a filtrar o (*) para ver todo.';
 	this._msj_ayuda_habilitado = true;
+	
+	this._permite_solo_selecciones = false;
+	this._ultimas_opciones_server = [];
 }
 
 	/**
@@ -161,7 +164,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		var indice = combo.getIndexByValue(valor);
 		if (valor === null) {valor = '';}
 		if (typeof valor == 'string') {valor = trim(valor);}
-		if (indice < 0 || valor === '') {valor = apex_ef_no_seteado;desc='';}
+		if (indice < 0 || valor === '') {valor = apex_ef_no_seteado; desc='';}
 		if (getObjectClass(valor) == 'Array' && valor.length == 0) {valor = apex_ef_no_seteado; desc= '';}
 		if (! descr) {
 			return valor;
@@ -230,8 +233,9 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	
 	ef_combo_editable.prototype.resetear_estado = function() {
 		var combo = this._get_combo();
-		combo.setComboText('');
-		combo.unSelectOption();
+		combo.unSelectOption();					//Deselecciona la opcion
+		combo.setComboText('');					//Elimina el estado visible		
+		combo.setComboValue('');				//Elimina el estado interno que se envia al server
 		combo.callEvent("onChange",[]);
 	};
 	
@@ -260,9 +264,11 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		
 		//Creo los OPTIONS recuperados
 		var datos = [];
-		for (i in valores) {
+		this._ultimas_opciones_server = [];
+		for (i in valores) {			
 			if (i != 'nopar') {
 				datos.push([i, valores[i]]);
+				this._ultimas_opciones_server.push(i);			
 			}
 		}
 		combo.addOption(datos);
@@ -331,5 +337,33 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	ef_combo_editable.prototype.inhabilitar_mensaje_ayuda = function() {
 		this._msj_ayuda_habilitado = false;
 	};
+	
+	/**
+	 * Define si el combo editable solo permitira elegir entre las opciones o tambien dar altas
+	 * @param boolean valor
+	 */
+	ef_combo_editable.prototype.permitir_solo_selecciones = function (valor) {
+		this._permite_solo_selecciones = valor;
+	}
 
+	ef_combo_editable.prototype.submit = function () {	
+		if (! this._solo_lectura) {
+			var es_nuevo = this._es_estado_nuevo();
+			if (es_nuevo && this._permite_solo_selecciones) {
+				this.resetear_estado();
+			}
+		}
+		ef.prototype.submit.call(this);
+	};	
+
+	/**
+	 * Devuelve si el estado del combo es nuevo o esta entre las opciones
+	 * @private
+	 */
+	ef_combo_editable.prototype._es_estado_nuevo = function()
+	{
+		var estado_actual = this.get_estado();
+		return (! in_array(estado_actual, this._ultimas_opciones_server));
+	}
+	
 toba.confirmar_inclusion('efs/ef_combo_editable');
