@@ -968,6 +968,9 @@ class toba_ei_cuadro extends toba_ei
 		if (! isset($corte['columnas_descripcion'])) {
 			throw new toba_error_def('El corte de control no posee la/s columna/s para la descripción');
 		}
+		if (! isset($corte['descripcion'])) {
+			$corte['descripcion'] = '';
+		}
 
 		$hay_que_totalizar = (isset($corte['total']) && $corte['total'] == '1');
 		if ($hay_que_totalizar && (!isset($corte['columna']) || empty($corte['columna']))) {
