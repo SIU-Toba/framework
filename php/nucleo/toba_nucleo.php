@@ -62,7 +62,7 @@ class toba_nucleo
 	{
 		try {
 			$this->iniciar_contexto_ejecucion();
-		    toba_http::headers_standart();
+			toba_http::headers_standart();
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud_en_proceso = true;
@@ -252,6 +252,7 @@ class toba_nucleo
 		}
 		$this->controlar_requisitos_basicos();
 		agregar_dir_include_path(toba_proyecto::get_path_php());
+		$this->recuperar_revision_recursos();
 		toba::manejador_sesiones()->iniciar();
 		toba::contexto_ejecucion()->conf__inicial();
 		$this->registrar_autoloaders_proyecto();
@@ -414,6 +415,30 @@ class toba_nucleo
 			'/php/nucleo/lib/interface/toba_ei.php',
 			'/php/nucleo/lib/toba_debug.php'
 		);
+	}
+	
+	private function recuperar_revision_recursos()
+	{
+		$svn = new toba_svn();		
+		if (! toba::memoria()->existe_dato_instancia('toba_revision_recursos_cliente')) {
+			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn()) {
+				$version = toba::instalacion()->get_version()->__toString();
+			} else {
+				$path_recursos = $this->toba_dir(). '/www';
+				$version = $svn->get_revision($path_recursos)->__toString();
+			}
+			toba::memoria()->set_dato_instancia('toba_revision_recursos_cliente', $version);
+		}
+		
+		if (! toba::memoria()->existe_dato_instancia('proyecto_revision_recursos_cliente')) {
+			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn()) {
+				$version = toba::proyecto()->get_version()->__toString();
+			} else {
+				$path_recursos = toba::proyecto()->get_path(). '/www';
+				$version = $svn->get_revision($path_recursos)->__toString();
+			}
+			toba::memoria()->set_dato_instancia('proyecto_revision_recursos_cliente', $version);
+		}
 	}
 }
 ?>

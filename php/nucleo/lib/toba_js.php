@@ -82,6 +82,10 @@ class toba_js
 	 */
 	static function incluir($archivo) 
 	{
+		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente'); 
+		if (! is_null($version)) {
+			$archivo = $archivo . "?av=$version";
+		}
 		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
 	}
 
@@ -189,10 +193,9 @@ class toba_js
 					</style>
 					<![endif]-->\n";
 			}
-			$url = toba_recurso::js('basicos/html5shiv.js');
-			echo "	<!--[if lt IE 9]>
-						<script src='$url'></script>
-					<![endif]-->\n";
+			echo "	<!--[if lt IE 9]>".
+						self::incluir(toba_recurso::js('basicos/html5shiv.js'))
+					."<![endif]-->\n";
 			self::$basicos_cargados = true;
 		}
 	}

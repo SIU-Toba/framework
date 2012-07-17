@@ -169,21 +169,37 @@ class toba_svn
 	function get_url($path)
 	{
 		$cmd = "svn info \"$path\" --xml";
-		$xml = simplexml_load_string(`$cmd`);
-		if (isset($xml->entry)) {
-			return $xml->entry->url;
-		}
+		try{
+			$xml_rs = $this->ejecutar($cmd, true, true);
+			$xml = simplexml_load_string($xml_rs);
+			if (isset($xml->info->entry)) {
+				return $xml->info->entry->url;
+			}			
+			if (isset($xml->entry)) {
+				return $xml->entry->url;
+			}
+		} catch(toba_error $e) {
+			toba::logger()->debug("SVN: ". $e->getMessage());
+		}			
 	}
 	
 	function get_revision($path)
 	{
 		$cmd = "svn info \"$path\" --xml";
-		$xml = simplexml_load_string(`$cmd`);
-		if (isset($xml->entry->revision)) {
-			return $xml->entry->revision;
-		}
-		if (isset($xml->entry[0]['revision'])) {
-			return $xml->entry[0]['revision'];
+		try{
+			$xml_rs = $this->ejecutar($cmd, true, true);
+			$xml = simplexml_load_string($xml_rs);
+			if (isset($xml->info->entry->revision)) {
+				return $xml->info->entry->revision;
+			}
+			if (isset($xml->entry->revision)) {
+				return $xml->entry->revision;
+			}
+			if (isset($xml->entry[0]['revision'])) {
+				return $xml->entry[0]['revision'];
+			}
+		} catch(toba_error $e) {
+			toba::logger()->debug("SVN: ". $e->getMessage());
 		}
 	}
 

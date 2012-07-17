@@ -109,7 +109,9 @@ class toba_recurso
 				$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
 			}
 		} else {
-			$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
+			$version = toba::memoria()->get_dato_instancia('proyecto_revision_recursos_cliente');
+			$agregado_url = (!  is_null($version)) ? "?av=$version": '';
+			$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen. $agregado_url;
 		}
 
 		if ($html){
@@ -151,7 +153,9 @@ class toba_recurso
 	 */		
 	static function imagen_toba($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null,$js=null)
 	{
-		$src = toba_recurso::url_toba() . "/img/" . $imagen;
+		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente');
+		$agregado_url = (!  is_null($version)) ? "?av=$version": '';		
+		$src = toba_recurso::url_toba() . '/img/' . $imagen . $agregado_url ;
 		if($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $alt,$mapa,$js);
 		}else{
@@ -240,34 +244,40 @@ class toba_recurso
 	static function link_css($archivo='toba', $rol='screen', $buscar_en_proyecto=true)
 	{
 		$link = '';
-		
+
+		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente');
+		$agregado_url = (!  is_null($version)) ? "?av=$version": '';		
+
 		//--- Incluye primero el del nucleo
-		$url = toba_recurso::url_toba()."/css/$archivo.css";
+		$url = toba_recurso::url_toba()."/css/$archivo.css$agregado_url";
 		$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
-		
+
 		//--- Incluye el del skin si es el estandar
 		if ($archivo == 'toba') {
-			$url = toba_recurso::url_skin()."/toba.css";
+			$url = toba_recurso::url_skin()."/toba.css$agregado_url";
 			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
 		}
-		
+
 		//--- Incluye el del proyecto, si existe
 		if ($buscar_en_proyecto) {
+			$version = toba::memoria()->get_dato_instancia('proyecto_revision_recursos_cliente');
+			$agregado_url = (!  is_null($version)) ? "?av=$version": '';		
+			
 			$proyecto = toba_proyecto::get_id();
-            $path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$archivo.css";
-            if (file_exists($path)) {
-                $url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
-                $link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
-            }
-            if (toba::proyecto()->personalizacion_activa()) {
-                $www = toba::proyecto()->get_www_pers("css/$archivo.css");
-                if (file_exists($www['path'])) {
-                    $url = $www['url'];
-                    $link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
-                }
-            }
+			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$archivo.css";
+			if (file_exists($path)) {
+				$url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css$agregado_url";
+				$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+			}
+			if (toba::proyecto()->personalizacion_activa()) {
+				$www = toba::proyecto()->get_www_pers("css/$archivo.css");
+				if (file_exists($www['path'])) {
+					$url = $www['url']. $agregado_url;
+					$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+				}
+			}
 
-            $path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/".$archivo."_hack_ie.css";
+			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/".$archivo."_hack_ie.css";
 			if (file_exists($path)) {
 				$url = toba_recurso::url_proyecto($proyecto) . "/css/".$archivo."_hack_ie.css";
 				$link .= "<!--[if lt IE 8]>\n";
