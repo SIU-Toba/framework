@@ -14,8 +14,7 @@ abstract class toba_ef_seleccion extends toba_ef
 	protected $estado_nulo = null;
 	protected $estado_defecto;
 	protected $mantiene_estado_cascada = false;		//Indica si se mantendra el estado entre cada pedido de cascadas
-	protected static $maximo_descripcion;
-	
+		
 	static function get_lista_parametros_carga()
 	{
 		$param = toba_ef::get_lista_parametros_carga_basico();
@@ -24,16 +23,6 @@ abstract class toba_ef_seleccion extends toba_ef
 		$param[] = 'carga_no_seteado_ocultar';
 		$param[] = 'cascada_mantiene_estado';
 		return $param;
-	}
-
-	static function set_maximo_descripcion($maximo)
-	{
-		self::$maximo_descripcion = $maximo;
-	}
-
-	static function get_maximo_descripcion()
-	{
-		return self::$maximo_descripcion;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)

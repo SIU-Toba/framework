@@ -52,6 +52,18 @@ abstract class toba_ef
 	protected $opciones_cargadas = false;
 	
 	static protected $_excepciones;		
+	static protected $maximo_descripcion;
+
+	
+	static function set_maximo_descripcion($maximo)
+	{
+		self::$maximo_descripcion = $maximo;
+	}
+
+	static function get_maximo_descripcion()
+	{
+		return self::$maximo_descripcion;
+	}
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -516,7 +528,7 @@ abstract class toba_ef
 	 {
 		 return $parametro;
 	 }
-	 
+	  
 	//-----------------------------------------------------
 	//-------------- CAMBIO DE PROPIEDADES -----------------
 	//-----------------------------------------------------
