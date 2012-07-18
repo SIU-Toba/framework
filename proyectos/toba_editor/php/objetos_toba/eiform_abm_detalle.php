@@ -32,7 +32,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		// La fila seleccionada no se puede eliminar
 		if (isset($this->fila_protegida)) {
 			echo "	{$this->objeto_js}.evt__baja = function (fila) {
-					if( fila == {$this->fila_protegida}	){
+					if( fila == {$this->fila_protegida}) {
 						alert('No es posible eliminar la columna que se esta editando');
 						return false;
 					}else{

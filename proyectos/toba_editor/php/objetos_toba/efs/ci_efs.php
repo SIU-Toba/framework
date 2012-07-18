@@ -164,6 +164,14 @@ class ci_efs extends toba_ci
 		$this->s__seleccion_efs = $id;
 	}
 
+	function conf_fila__efs_lista($fila)
+	{
+		if ($this->dep('efs_lista')->existe_ef('elemento_formulario')) {
+			$desactivar = (isset($this->s__seleccion_efs) && ($fila == $this->s__seleccion_efs));
+			$this->dep('efs_lista')->ef('elemento_formulario')->set_solo_lectura($desactivar);
+		}
+	}
+	
 	//-----------------------------------------
 	//---- EI: Info detalla de un EF ----------
 	//-----------------------------------------
