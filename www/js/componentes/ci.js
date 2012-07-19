@@ -39,7 +39,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 		this._pantallas = pantallas_disponibles;
 		for (var ind in this._pantallas) {
 			if (! this._pantallas[ind]) {					//Ciclo por las pantallas desactivando aquellas que asi deben estar
-				this.desactivar_tab(identificador);
+				this.desactivar_tab(ind);
 			}
 		}
 	}
@@ -298,9 +298,9 @@ function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 		if (this.existe_pantalla(id) && ! isset(this._pantallas_inactivas[id])) {	//Si la pantalla esta efectivamente activa
 			this._pantallas[id] = false;							//Desactivo la pantalla
 			var boton = this.get_tab(id);			
-			if(boton) {
+			if(isset(boton)) {
 				this._pantallas_inactivas[id] = boton.onclick;
-				boton.onclick = '';
+				boton.onclick = null;
 				boton.className = 'ci-tabs-boton-desact';
 			}
 		}

@@ -741,7 +741,7 @@ class toba_ei_pantalla extends toba_ei
 		if ($this->_info_ci['tipo_navegacion'] == self::NAVEGACION_TAB_HORIZONTAL || $this->_info_ci['tipo_navegacion']  ==  self::NAVEGACION_TAB_VERTICAL) {
 			$pantallas_activas = array();
 			foreach($this->_lista_tabs as $id => $tab) {
-				$pantallas_activas[$id] = toba_js::bool($tab->esta_activado());
+				$pantallas_activas[$id] = $tab->esta_activado();
 			}
 			echo $identado."window.{$this->objeto_js}.agregar_pantallas(".toba_js::arreglo($pantallas_activas, true)."); \n";
 		}

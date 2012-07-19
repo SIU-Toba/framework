@@ -273,7 +273,7 @@ class toba_js
 	 */
 	static function bool($bool)
 	{
-		return ($bool) ? "true" : "false";
+		return ($bool) ? 'true' : 'false';
 	}
 
 	/**
@@ -293,6 +293,8 @@ class toba_js
 					if (is_array($valor)) { 
 						//RECURSIVIDAD
 						$js .= "$id: ".self::arreglo($valor, $seg_nivel_assoc)." ,";
+					} elseif (is_bool($valor)) {
+						$js .= "$id: ". self::bool($valor) . ' ,';
 					} else {
 						$valor = addslashes($valor);				
 						$js .= "$id: '$valor', ";
@@ -310,6 +312,8 @@ class toba_js
 					$js .= "null,";
 				} elseif (is_numeric($valor)) {
 					$js .= "$valor,";
+				} elseif (is_bool($valor)) {
+					$js .= self::bool($valor) . ' ,';
 				} elseif (is_array($valor)) {
 					//RECURSIVIDAD
 					$js .= self::arreglo($valor, $seg_nivel_assoc).",";
