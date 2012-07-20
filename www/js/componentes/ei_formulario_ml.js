@@ -205,7 +205,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * @private
 	 */
 	ei_formulario_ml.prototype.validar_fila = function(id_fila) {
-		ok = true;
+		var ok = true;
 		for (id_ef in this._efs) {
 			ok = this.validar_fila_ef(this._filas[id_fila], id_ef) && ok;
 		}
