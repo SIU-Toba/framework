@@ -110,7 +110,7 @@ class toba_recurso
 			}
 		} else {
 			$version = toba::memoria()->get_dato_instancia('proyecto_revision_recursos_cliente');
-			$agregado_url = (!  is_null($version)) ? "?av=$version": '';
+			$agregado_url = (!  is_null($version) && trim($imagen) != '') ? "?av=$version": '';
 			$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen. $agregado_url;
 		}
 
@@ -154,7 +154,7 @@ class toba_recurso
 	static function imagen_toba($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null,$js=null)
 	{
 		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente');
-		$agregado_url = (!  is_null($version)) ? "?av=$version": '';		
+		$agregado_url = (!  is_null($version) && trim($imagen) != '') ? "?av=$version": '';
 		$src = toba_recurso::url_toba() . '/img/' . $imagen . $agregado_url ;
 		if($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $alt,$mapa,$js);
