@@ -1193,13 +1193,13 @@ class toba_ei_formulario extends toba_ei
 				$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
 			}
 		}
-		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();					
+		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();
 		$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
 		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
-		return "<label style='_width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
-	}	
+		return "<label style='width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+	}
 	
 	/**
 	 * @ignore 

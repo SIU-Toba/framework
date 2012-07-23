@@ -309,7 +309,7 @@ padding-left:4px;
 .ei-form-etiq, .ei-form-etiq-oblig {
 	float: left;
 	margin-right: 4px;
-	margin-top: 3px;	
+	line-height: 23px;
 }
 .ei-form-etiq-oblig, .ei-filtro-etiq-oblig {
 	font-weight: bold;
