@@ -2,7 +2,12 @@
 class toba_migracion_2_2_0 extends toba_migracion
 {
 	function instancia__cambios_estructura()
-	{
+	{		
+		//Verifico si esta el lenguaje creado
+		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
+		$rs = $this->elemento->get_db()->consultar($sql);
+		$existe = (! empty($rs));
+		
 		/**
 		* Se evita el mensaje 'ERROR:  cannot ALTER TABLE "apex_objeto" because
 		* it has pending trigger events' de postgres 8.3
@@ -60,7 +65,10 @@ class toba_migracion_2_2_0 extends toba_migracion
 					CONSTRAINT apex_usuario_pwd_usados_uk UNIQUE (usuario, clave)
 				);';
 		//SP + Trigger que se encarga de hacer la copia
-		$sql[] = 'CREATE OR REPLACE LANGUAGE plpgsql;';
+		if (! $existe) {
+			$sql[] = 'CREATE LANGUAGE plpgsql;';
+		}
+		
 		$sql[] = 'CREATE OR REPLACE FUNCTION sp_old_pwd_copy()
 				  RETURNS trigger AS
 				$BODY$
