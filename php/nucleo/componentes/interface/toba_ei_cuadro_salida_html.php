@@ -414,7 +414,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			
 
 			if( ! $this->_cuadro->tabla_datos_es_general() ) {
-				echo "<table class='tabla-0'  width='100%'>";
+				echo "<table class='tabla-0 ei-cuadro-cc-resumen' width='100%'>";
 			}
 
 			//-----  Cabecera del PIE --------

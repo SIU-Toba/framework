@@ -559,6 +559,10 @@ padding-left:4px;
 	empty-cells: hide
 }
 
+.ei-cuadro-cc-resumen {
+	margin-bottom: 3px;
+}
+
 .ei-cuadro-cc-fondo {
 	padding: 0px;
 }
