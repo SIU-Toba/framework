@@ -326,6 +326,7 @@ class toba_autoload
 		'toba_ei_pantalla' => 'nucleo/componentes/interface/toba_ei_pantalla.php',
 		'toba_cn' => 'nucleo/componentes/negocio/toba_cn.php',
 		'toba_servicio_web' => 'nucleo/componentes/negocio/toba_servicio_web.php',
+		'toba_modelo_servicio_web' => 'modelo/toba_modelo_servicio_web.php',
 		'toba_ap_tabla' => 'nucleo/componentes/persistencia/toba_ap.php',
 		'toba_ap_relacion' => 'nucleo/componentes/persistencia/toba_ap.php',
 		'toba_ap_relacion_db' => 'nucleo/componentes/persistencia/toba_ap_relacion_db.php',

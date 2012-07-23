@@ -305,7 +305,7 @@ class toba_info_editores
 	}	
 
 	/**
-	*	Retorna la lista de items exportables de un proyecto dado
+	*	Retorna la lista de items que corresponden con servicios_web
 	*/
 	static function get_items_servicios_web($proyecto=null)
 	{

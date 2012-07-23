@@ -10,7 +10,7 @@ class comando_servicios_web extends comando_toba
 	
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("INVOCACION: toba servicio_web OPCION");
+		$this->consola->mensaje("INVOCACION: toba servicios_web OPCION");
 		$this->consola->enter();
 	}
 	
@@ -18,9 +18,9 @@ class comando_servicios_web extends comando_toba
 	{
 		$proyecto = $this->get_proyecto();
 		$parametros = $this->get_parametros();
+		$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());		
 		if (isset($parametros['-s'])) {
 			$servicio = $parametros['-s'];
-			$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());
 			foreach($servicios_disponibles as $serv) {
 				if ($servicio == $serv['item']) {
 					return $servicio;
@@ -30,7 +30,6 @@ class comando_servicios_web extends comando_toba
 		} else {
 			//Elijo el servicio web sobre el que trabajare
 			$servicios_lista = array();
-			$servicios_disponibles = toba_info_editores::get_items_servicios_web($proyecto->get_id());
 			foreach($servicios_disponibles as $serv) {
 				$servicios_lista[$serv['item']] = $serv['nombre'];
 			}
@@ -43,9 +42,9 @@ class comando_servicios_web extends comando_toba
 	{
 		$proyecto = $this->get_proyecto();
 		$parametros = $this->get_parametros();
+		$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());		
 		if (isset($parametros['-s'])) {
 			$servicio = $parametros['-s'];
-			$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());
 			foreach($servicios_disponibles as $serv) {
 				if ($servicio == $serv['servicio_web']) {
 					return $servicio;
@@ -55,7 +54,6 @@ class comando_servicios_web extends comando_toba
 		} else {
 			//Elijo el servicio web sobre el que trabajare
 			$servicios_lista = array();
-			$servicios_disponibles = toba_info_editores::get_servicios_web_acc($proyecto->get_id());
 			foreach($servicios_disponibles as $serv) {
 				$servicios_lista[$serv['servicio_web']] = $serv['servicio_web'];
 			}
@@ -63,7 +61,7 @@ class comando_servicios_web extends comando_toba
 		}
 		return $servicio;
 	}	
-
+	
 	//--------------------------------------------------------------------------------------------------------------------------------------//
 	//								SERVER										   //
 	//--------------------------------------------------------------------------------------------------------------------------------------//	
@@ -73,26 +71,19 @@ class comando_servicios_web extends comando_toba
 	 */
 	function opcion__serv_generar_doc()
 	{
+		if (! extension_loaded('wsf')) {
+			throw new toba_error('La extensión wsf no se encuentra cargada, verifique la instalación.');
+		}
 		$param = $this->get_parametros();
 		$forzar_reemplazo = isset($param["-r"]) ? ($param["-r"] == 1) : false;
 				
-		$prefijo = "http://localhost";
-		$sufijo = "/servicios.php/";
 		$proyecto =$this->get_proyecto();
 		$servicios = toba_info_editores::get_items_servicios_web();
 		$carpeta_doc = $proyecto->get_dir()."/doc/servicios_web";
 		if (! file_exists($carpeta_doc)) {
 			mkdir($carpeta_doc, 0777, true);
-		}
+		}				
 		$this->consola->mensaje("Generando documentacion...");		
-		if ($forzar_reemplazo || !file_exists($carpeta_doc.'/wsdl-viewer.xsl')) {
-			copy(toba_dir(). '/php/modelo/var/wsdl-viewer.xsl', $carpeta_doc.'/wsdl-viewer.xsl');
-		}
-		if ($forzar_reemplazo || !file_exists($carpeta_doc.'/wsdl-viewer.css')) {		
-			copy(toba_dir(). '/php/modelo/var/wsdl-viewer.css', $carpeta_doc.'/wsdl-viewer.css');
-		}
-		$include = '<?xml-stylesheet type="text/xsl" href="wsdl-viewer.xsl"?>';
-		$search = '"utf-8"?>';
 		$index_page = "<html><head>
 		<link href='wsdl-viewer.css' rel='stylesheet' type='text/css' media='screen'/>
 		</head>
@@ -102,18 +93,15 @@ class comando_servicios_web extends comando_toba
 		</div>
 		<div id='inner_box'><div class='page'>
 		<ul>";
-		foreach ($servicios as $servicio) {
-			$this->consola->mensaje("Servicio: ".$servicio['item']);			
-			$url = $prefijo.$proyecto->get_url().$sufijo.$servicio['item']."?wsdl2";
-			$wsdl = file_get_contents($url);
-			$wsdl = str_replace($search, $search.$include, $wsdl);
-			$file = $servicio['item'].".wsdl.xml";
-			file_put_contents($carpeta_doc."/".$file, $wsdl);
-			$index_page .= "<li><a href='$file'>{$servicio['item']}</a></li>";			
+		foreach ($servicios as $serv_datos) {
+			$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $serv_datos['item'], $this->consola);			
+			$file = $servicio->generar_documentacion($carpeta_doc, $forzar_reemplazo);
+			$index_page .= "<li><a href='$file'>{$serv_datos['item']}</a></li>";
+			unset($servicio);
 		}
 		$index_page .= "</ul></div></div></body></html>";
 		file_put_contents($carpeta_doc."/index.html", $index_page);
-		$this->consola->mensaje("Listo. Navegar hacia file://".$carpeta_doc."/index.html");		
+		$this->consola->mensaje("Listo. Navegar hacia file://".$carpeta_doc."/index.html");
 	}
 	
 	/**
@@ -127,8 +115,7 @@ class comando_servicios_web extends comando_toba
 	{
 		$parametros = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-		$instalacion = new toba_modelo_instalacion();
-		$servicio = $this->get_servicio_cli();
+		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $this->get_servicio_cli(), $this->consola);
 	
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
 		if (!file_exists($dir_instalacion.'/privada.key')) {
@@ -146,7 +133,7 @@ class comando_servicios_web extends comando_toba
 	
 		//Creo el directorio para el servicio web
 		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();
-		$dir_servicio = $punto_partida . '/servicios_cli/'. $servicio;
+		$dir_servicio = $punto_partida . '/servicios_cli/'. $servicio->get_id();
 		toba_manejador_archivos::crear_arbol_directorios($dir_servicio, 0755);
 		
 		//Se especifico una URL?
@@ -156,7 +143,7 @@ class comando_servicios_web extends comando_toba
 		}
 		
 		//Genera configuracion
-		$this->generar_configuracion_cliente($dir_servicio, $parametros['-c'], $url_sistema);
+		$servicio->generar_configuracion_cliente($dir_servicio, $parametros['-c'], $url_sistema);
 	
 		$this->consola->mensaje("Ok. Certificado del servidor importado correctamente en el cliente");
 	}
@@ -172,8 +159,8 @@ class comando_servicios_web extends comando_toba
 	{
 		$parametros = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-		$instalacion = new toba_modelo_instalacion();
-		$servicio = $this->get_servicio_serv();
+		//$instalacion = new toba_modelo_instalacion();
+		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto,  $this->get_servicio_serv(), $this->consola);
 
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
 		if (!file_exists($dir_instalacion.'/privada.key')) {
@@ -196,7 +183,7 @@ class comando_servicios_web extends comando_toba
 		
 		//Creo el directorio para el servicio web
 		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();
-		$dir_servicio_servidor = $punto_partida . '/servicios_serv/'. $servicio;
+		$dir_servicio_servidor = $punto_partida . '/servicios_serv/'. $servicio->get_id();
 		toba_manejador_archivos::crear_arbol_directorios($dir_servicio_servidor, 0755);
 
 		//Parseo el ID del cliente
@@ -208,7 +195,7 @@ class comando_servicios_web extends comando_toba
 		}		
 		
 		//Genera configuracion
-		$this->generar_configuracion_servidor($dir_servicio_servidor, $headers, $parametros['-c']);
+		$servicio->generar_configuracion_servidor($dir_servicio_servidor, $headers, $parametros['-c']);
 
 		$this->consola->mensaje("Ok. Certificado del cliente importado correctamente en el servidor");
 	}	
@@ -223,15 +210,21 @@ class comando_servicios_web extends comando_toba
 		$parametros = $this->get_parametros();
 		//Creo el directorio para el servicio web
 		$proyecto = $this->get_proyecto();
-		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
-		
+		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();		
 		if (file_exists($dir_instalacion.'/privada.key') && ! isset($parametros['-r'])) {
 			$this->consola->error("Ya existe la clave privada del proyecto en '$dir_instalacion/privada.key'. Para sobreescribirla indique el parametro -r");
 			die;
 		}
-		$this->generar_certificado($dir_instalacion);
-		$this->consola->mensaje("Ok. Certificado publico generado en:");
-		$this->consola->mensaje("$dir_instalacion/publica.crt");	
+		
+		try {
+			toba_modelo_servicio_web::generar_certificados($proyecto, $dir_instalacion);
+			$this->consola->mensaje("Ok. Certificado publico generado en:");
+			$this->consola->mensaje("$dir_instalacion/publica.crt");				
+		} catch (toba_error_usuario $e) {
+			$this->consola->mensaje('Se ha producido un error durante el proceso', true);
+			$this->consola->error($e->getMessage());
+		}
+		//$this->generar_certificado($dir_instalacion);
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -239,7 +232,7 @@ class comando_servicios_web extends comando_toba
 	//----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
-	protected function generar_certificado($directorio)
+	/*protected function generar_certificado($directorio)
 	{
 		$dir_inst = $this->get_instalacion()->get_dir();
 		if (! file_exists($dir_inst.'/openssl.ini')) {
@@ -265,7 +258,7 @@ class comando_servicios_web extends comando_toba
 			die;
 		}		
 		unlink("$directorio/privada.key.sign");
-	}
+	}*/
 	
 	/**
 	 * Asocia el proyecto y servicio con el nombre del archivo que contiene la clave publica
@@ -274,7 +267,7 @@ class comando_servicios_web extends comando_toba
 	 * @param array $headers
 	 * @param string $destino 
 	 */
-	protected function generar_configuracion_servidor($directorio, $headers=array(), $cert_cliente)
+	/*protected function generar_configuracion_servidor($directorio, $headers=array(), $cert_cliente)
 	{
 		$config = new toba_ini($directorio . '/servicio.ini');
 		if (! $config->existe_entrada("certificado")) {
@@ -302,7 +295,7 @@ class comando_servicios_web extends comando_toba
 		$config->agregar_entrada($nombre, $datos);
 		
 		$config->guardar();
-	}
+	}*/
 	
 	/**
 	 * Graba el archivo de configuracion del servicio dentro del directorio que luego sera enviado al cliente.
@@ -310,7 +303,7 @@ class comando_servicios_web extends comando_toba
 	 * @param array $datos_rsa
 	 * @param string $directorio 
 	 */
-	protected function generar_configuracion_cliente($directorio, $cert_servidor, $url_sistema)
+	/*protected function generar_configuracion_cliente($directorio, $cert_servidor, $url_sistema)
 	{
 		$config = new toba_ini($directorio . '/cliente.ini');
 		if ($url_sistema != null) {
@@ -333,7 +326,7 @@ class comando_servicios_web extends comando_toba
 			$config->agregar_entrada('certificado', $datos_cert);
 		}
 		$config->guardar();		
-	}
+	}*/
 	
 }
 ?>
