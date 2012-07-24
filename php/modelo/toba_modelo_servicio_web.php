@@ -50,7 +50,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$proy_id = $this->db->quote($this->proyecto->get_id());
 		$ws_id = $this->db->quote($this->identificador);		
 		$wsa = ($this->wsa) ? '1': '0';
-		$sqls[] = "INSERT INTO apex_servicio_web (proyecto, servicio_web, wsa) VALUES ($proy_id, $ws_id, $wsa);";
+		$sqls[] = "INSERT INTO apex_servicio_web (proyecto, servicio_web, param_wsa) VALUES ($proy_id, $ws_id, $wsa);";
 		
 		//Agrego los parametros de configuracion al servicio
 		if (is_array($this->parametros_ws)) {
