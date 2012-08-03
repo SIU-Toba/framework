@@ -327,9 +327,8 @@ toba = new function() {
 			if (partes[3] != '') {
 				var div = $$('editor_previsualizacion');
 				if (isset(div)) {
-					div.parentNode.removeChild(div);
+					div.innerHTML = partes[3];
 				}
-				document.body.innerHTML += partes[3];
 			}
 
 			//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine

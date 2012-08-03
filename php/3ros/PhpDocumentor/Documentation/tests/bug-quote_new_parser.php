@@ -21,6 +21,5 @@ $bqnp_tester = "testing this $parser;$me thingo\"";
  */
 function bqnp_testie()
 {
-    static $test = "testing this $parser;$me thingo\"";
 }
 ?>

@@ -416,12 +416,12 @@ class toba_editor
 	/*
 	*	Zona de vinculos de los items
 	*/
-	static function generar_zona_vinculos_item( $item, $accion )
+	static function generar_zona_vinculos_item( $item, $accion, $enviar_div_wrapper = true )
 	{
 		if (! self::acceso_recursivo()) {
 			toba::solicitud()->set_cronometrar(true);
 		}
-		toba_js::cargar_consumos_globales(array('utilidades/toba_editor'));				
+		toba_js::cargar_consumos_globales(array('utilidades/toba_editor'));
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegación interna de la operación via AJAX');
@@ -431,12 +431,13 @@ class toba_editor
 		$link_analizador_sql = toba::vinculador()->get_url('toba_editor', '30000030', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_archivos = toba::vinculador()->get_url('toba_editor', '30000029', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
-		$estilo = toba::proyecto()->get_parametro('estilo');
-		echo "<div id='editor_previsualizacion'>";
+		$estilo = toba::proyecto()->get_parametro('estilo');		
+		if ($enviar_div_wrapper) {
+			echo "<div id='editor_previsualizacion'>";
 		/*echo "<div id='editor_previsualizacion_colap'><img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
 				src='".toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)."'
 				onclick='toggle_nodo(\$\$(\"editor_previsualizacion_cont\"))'/></div>";*/
-
+		}
 		echo "<span id='editor_previsualizacion_cont'>";
 		echo "<span id='editor_previsualizacion_vis'>";
 
@@ -551,15 +552,17 @@ class toba_editor
 		echo "<a href='#' onclick='return toba_invocar_editor()' $html_ayuda_editor>".toba_recurso::imagen_toba('icono_16.png', true)."</a>\n";
 		echo "</span>";
 		echo "</span>";
-
-		echo "</div>";
 		
-		
+			
 		echo "<div class='div-editor' style='position:absolute; top: 40px;'>";
 		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
 			self::mostrar_vinculo($vinculo);
 		}
 		echo "</div>";
+		if ($enviar_div_wrapper) {
+			echo "</div>";
+
+		}
 	}
 	
 	static protected function get_archivos_incluidos()

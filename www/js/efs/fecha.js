@@ -1201,7 +1201,8 @@ function CP_select(inputobj, linkname, format) {
 // Get style block needed to display the calendar correctly
 function getCalendarStyles() {
 	var result = "";
-	var p = "";
+	/*Incluido directamente en toba.css
+	 * var p = "";
 	if (this!=null && typeof(this.cssPrefix)!="undefined" && this.cssPrefix!=null && this.cssPrefix!="") { p=this.cssPrefix; }
 	result += "<STYLE>\n";
 	result += "."+p+"cpYearNavigation,."+p+"cpMonthNavigation { background-color:#C0C0C0; text-align:center; vertical-align:center; text-decoration:none; color:#000000; font-weight:bold; }\n";
@@ -1218,7 +1219,7 @@ function getCalendarStyles() {
 	result += "A."+p+"cpTodayText { color:black; }\n";
 	result += "."+p+"cpTodayTextDisabled { color:#D0D0D0; }\n";
 	result += "."+p+"cpBorder { border:solid thin #808080; }\n";
-	result += "</STYLE>\n";
+	result += "</STYLE>\n";*/
 	return result;
 	}
 
@@ -1513,13 +1514,14 @@ function CP_getCalendar() {
         
         
 //--- Creacion dinamico del div de la fecha
-var div_fecha = "<div id='div_calendario'></div>";
 if (pagina_cargada) {
-	document.body.innerHTML += div_fecha;
-	document.body.innerHTML += getCalendarStyles();
+    var html_doc = document.getElementsByTagName('body').item(0);
+    var js = document.createElement('div');
+    js.setAttribute('id', 'div_calendario');
+    html_doc.appendChild(js);	
 } else {
+	var div_fecha = "<div id='div_calendario'></div>";	
 	document.write(div_fecha);
-	document.write(getCalendarStyles());
 }
 
 var calendario = new CalendarPopup('div_calendario');

@@ -1,7 +1,7 @@
 <?php
 /** @package tests */
 /** test2 was lost, isn't any more */
-function test
+function test()
 {
 }
 /** @package tests */
