@@ -392,5 +392,41 @@ class consultas_instancia
 		$datos = toba::db()->consultar($sql);
 		return $datos;
 	}
+	
+	//---------------------------------------------------------------------
+	//------ Perfil de Datos ----------------------------------------------
+	//---------------------------------------------------------------------
+	static function get_servicios_web_ofrecidos($proyecto)
+	{		
+		$proyecto_sano = quote($proyecto);
+		$sql = "
+			SELECT 
+				item as servicio_web,
+				nombre,
+				web_service_activo as activado
+			FROM apex_item 
+			WHERE 
+				proyecto = $proyecto_sano
+				AND solicitud_tipo = 'servicio_web'
+			ORDER BY item;
+		";
+		return toba::db()->consultar($sql);
+	}
+		
+	static function get_servicios_web_consumidos($filtro)
+	{		
+		$where_filtro = array();
+		if (isset($filtro['proyecto'])) { $where_filtro[] = 'proyecto = '. quote($filtro['proyecto']); } 		
+		
+		$sql = "SELECT 
+				servicio_web, 
+				param_to, 
+				param_wsa
+			      FROM	 apex_servicio_web ";
+		if (! empty($where_filtro)) {
+			$sql = sql_concatenar_where($sql, $where_filtro);
+		}
+		return toba::db()->consultar($sql);		
+	}
 }
 ?>

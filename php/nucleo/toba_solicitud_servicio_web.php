@@ -46,7 +46,10 @@ class toba_solicitud_servicio_web extends toba_solicitud
 			} else {
 				throw new toba_error_def("Debe asociar a la operación un único componente toba_servicio_web");
 			}
-	    }
+		}
+		if ($this->info['basica']['web_service_activo'] == 0) {
+			throw new toba_error_servicio_web('Servicio no activo');
+		}
 	}	
 	
 	

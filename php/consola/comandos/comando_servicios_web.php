@@ -118,7 +118,7 @@ class comando_servicios_web extends comando_toba
 		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $this->get_servicio_cli(), $this->consola);
 	
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
-		if (!file_exists($dir_instalacion.'/privada.key')) {
+		if (! toba_modelo_servicio_web::existe_archivo_certificado($proyecto)) {
 			$this->consola->error("No existe la clave privada/certificado del proyecto en '$dir_instalacion/privada.key'. Puede generarlos usando el comando generar_cert");
 			die;
 		}
@@ -130,12 +130,7 @@ class comando_servicios_web extends comando_toba
 			$this->consola->error("No fue posible encontrar el certificado en '{$parametros['-c']}'");
 			die;
 		}
-	
-		//Creo el directorio para el servicio web
-		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();
-		$dir_servicio = $punto_partida . '/servicios_cli/'. $servicio->get_id();
-		toba_manejador_archivos::crear_arbol_directorios($dir_servicio, 0755);
-		
+			
 		//Se especifico una URL?
 		$url_sistema = null;
 		if (isset($parametros['-u'])) {
@@ -143,7 +138,7 @@ class comando_servicios_web extends comando_toba
 		}
 		
 		//Genera configuracion
-		$servicio->generar_configuracion_cliente($dir_servicio, $parametros['-c'], $url_sistema);
+		$servicio->generar_configuracion_cliente($parametros['-c'], $url_sistema);
 	
 		$this->consola->mensaje("Ok. Certificado del servidor importado correctamente en el cliente");
 	}
@@ -153,17 +148,16 @@ class comando_servicios_web extends comando_toba
 	 *   -p Proyecto
 	 *   -s Servicio a configurar
 	 *   -c Certificado del cliente a importar
-	 *   -h clave=valor Identificador del cliente
+	 *   -h clave=valor Identificador del cliente, varias opciones separadas por coma (,)
 	 */
 	function opcion__serv_configurar()
 	{
 		$parametros = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-		//$instalacion = new toba_modelo_instalacion();
 		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto,  $this->get_servicio_serv(), $this->consola);
 
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
-		if (!file_exists($dir_instalacion.'/privada.key')) {
+		if (! toba_modelo_servicio_web::existe_archivo_certificado($proyecto)) {
 			$this->consola->error("No existe la clave privada/certificado del proyecto en '$dir_instalacion/privada.key'. Puede generarlos usando el comando generar_cert");
 			die;
 		}		
@@ -181,11 +175,6 @@ class comando_servicios_web extends comando_toba
 			die;
 		}
 		
-		//Creo el directorio para el servicio web
-		$punto_partida =  $proyecto->get_dir_instalacion_proyecto();
-		$dir_servicio_servidor = $punto_partida . '/servicios_serv/'. $servicio->get_id();
-		toba_manejador_archivos::crear_arbol_directorios($dir_servicio_servidor, 0755);
-
 		//Parseo el ID del cliente
 		$headers = array();
 		$param_headers = explode(",", trim($parametros['-h']));
@@ -195,7 +184,7 @@ class comando_servicios_web extends comando_toba
 		}		
 		
 		//Genera configuracion
-		$servicio->generar_configuracion_servidor($dir_servicio_servidor, $headers, $parametros['-c']);
+		$servicio->generar_configuracion_servidor($parametros['-c'], $headers);
 
 		$this->consola->mensaje("Ok. Certificado del cliente importado correctamente en el servidor");
 	}	
@@ -211,7 +200,7 @@ class comando_servicios_web extends comando_toba
 		//Creo el directorio para el servicio web
 		$proyecto = $this->get_proyecto();
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();		
-		if (file_exists($dir_instalacion.'/privada.key') && ! isset($parametros['-r'])) {
+		if (toba_modelo_servicio_web::existe_archivo_certificado($proyecto) && ! isset($parametros['-r'])) {
 			$this->consola->error("Ya existe la clave privada del proyecto en '$dir_instalacion/privada.key'. Para sobreescribirla indique el parametro -r");
 			die;
 		}
@@ -224,109 +213,6 @@ class comando_servicios_web extends comando_toba
 			$this->consola->mensaje('Se ha producido un error durante el proceso', true);
 			$this->consola->error($e->getMessage());
 		}
-		//$this->generar_certificado($dir_instalacion);
-	}
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------
-	//							METODOS AUXILIARES
-	//----------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	
-	/*protected function generar_certificado($directorio)
-	{
-		$dir_inst = $this->get_instalacion()->get_dir();
-		if (! file_exists($dir_inst.'/openssl.ini')) {
-			$this->consola->error("No existe el archivo '$dir_inst/openssl.ini'. Necesita copiarlo de la carpeta toba/php/modelo/var");
-			$this->consola->enter();
-			die;			
-		}
-		
-		$cmd = "openssl req -x509 -nodes -days 20000 -newkey rsa:1024 -keyout $directorio/privada.key.sign -config $dir_inst/openssl.ini -out $directorio/publica.crt";
-		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-		if ($exito != '0') {
-			$this->consola->error($stderr);
-			$this->consola->error("Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
-			$this->consola->enter();
-			die;
-		}
-		
-		$cmd = "openssl rsa -in $directorio/privada.key.sign -out $directorio/privada.key";
-		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-		if ($exito != '0') {
-			$this->consola->error($stderr);
-			$this->consola->enter();
-			die;
-		}		
-		unlink("$directorio/privada.key.sign");
-	}*/
-	
-	/**
-	 * Asocia el proyecto y servicio con el nombre del archivo que contiene la clave publica
-	 * @param toba_modelo_proyecto $proyecto
-	 * @param string $servicio
-	 * @param array $headers
-	 * @param string $destino 
-	 */
-	/*protected function generar_configuracion_servidor($directorio, $headers=array(), $cert_cliente)
-	{
-		$config = new toba_ini($directorio . '/servicio.ini');
-		if (! $config->existe_entrada("certificado")) {
-			$cert = array();
-			$cert['clave_servidor'] = "../../privada.key";	//Se utiliza la clave de todo el proyecto
-			$cert['cert_servidor'] = "../../publica.crt";	//Se utiliza el cert de todo el proyecto
-			$config->agregar_entrada('certificado', $cert);
-		}
-		
-		//Armo ID de cliente
-		$nombre = array();
-		ksort($headers);
-		foreach ($headers as $id => $valor) {
-			$nombre[] = $id.'='.$valor;
-		}
-		$nombre = implode(',', $nombre);
-
-		//Guarda el certificado del cliente
-		$nombre_archivo = str_replace("=", "_", $nombre);
-		copy($cert_cliente, $directorio."/$nombre_archivo.crt");
-		
-		$datos = array();
-		$datos['archivo'] = "./$nombre_archivo.crt";
-		$datos['fingerprint'] = sha1(toba_servicio_web::decodificar_certificado($directorio."/$nombre_archivo.crt"));
-		$config->agregar_entrada($nombre, $datos);
-		
-		$config->guardar();
-	}*/
-	
-	/**
-	 * Graba el archivo de configuracion del servicio dentro del directorio que luego sera enviado al cliente.
-	 * @param array $datos_cert
-	 * @param array $datos_rsa
-	 * @param string $directorio 
-	 */
-	/*protected function generar_configuracion_cliente($directorio, $cert_servidor, $url_sistema)
-	{
-		$config = new toba_ini($directorio . '/cliente.ini');
-		if ($url_sistema != null) {
-			$config->agregar_entrada("conexion", array('to' => $url_sistema));
-		}
-		if (! $config->existe_entrada('certificado', 'clave_cliente')) {
-			$cert = array();
-			$cert['clave_cliente'] = "../../privada.key";	//Se utiliza la clave de todo el proyecto
-			$cert['cert_cliente'] = "../../publica.crt";	//Se utiliza el cert de todo el proyecto
-		} else {
-			$cert = $config->get_datos_entrada("certificado");  //Mantiene clave y cert actuales del cliente
-		}
-
-		//Guarda el certificado del servidor
-		copy($cert_servidor, $directorio."/cert_servidor.crt");
-		$cert['cert_servidor'] = "./cert_servidor.crt";
-		$config->agregar_entrada('certificado', $cert);
-				
-		if (! empty($datos_cert)) {
-			$config->agregar_entrada('certificado', $datos_cert);
-		}
-		$config->guardar();		
-	}*/
-	
+	}	
 }
 ?>

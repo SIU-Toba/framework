@@ -14,6 +14,8 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$sql[] = "UPDATE apex_columna_formato SET descripcion_corta = 'Decimal 2 posiciones (opcionales)' WHERE columna_formato = '9';" ;
 		$sql[] = "INSERT INTO  apex_columna_formato (funcion, descripcion_corta, estilo_defecto) VALUES ('decimal_estricto', 'Decimal 2 posiciones (100,00)', '0');" ;
 				
+		$sql[] = 'ALTER TABLE apex_item ADD COLUMN web_service_activo smallint NOT NULL DEFAULT 0;';
+		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
