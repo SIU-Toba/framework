@@ -14,7 +14,51 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$this->identificador = $identificador;
 		$this->db = $this->proyecto->get_db();
 	}
+
+	static function path_clave_privada($proyecto)
+	{
+		return  $proyecto->get_dir_instalacion_proyecto(). '/privada.key';	
+	}
 	
+	static function path_clave_publica($proyecto)
+	{
+		return  $proyecto->get_dir_instalacion_proyecto(). '/publica.crt';	
+	}
+
+	static function existe_archivo_certificado(toba_modelo_proyecto $proyecto)
+	{
+		$dir_inicial = $proyecto->get_dir_instalacion_proyecto();	
+		return toba_manejador_archivos::existe_archivo_en_path($dir_inicial.'/privada.key');
+	}
+	
+	static function get_ini_cliente(toba_modelo_proyecto $proyecto, $id_servicio)
+	{
+		$directorio = $proyecto->get_dir_instalacion_proyecto(). "/servicios_cli/$id_servicio";		//Directorio perteneciente al servicio
+		toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);		
+		$ini = new toba_ini($directorio.'/cliente.ini');
+		return $ini;
+	}
+	
+	static function get_ini_server(toba_modelo_proyecto  $proyecto, $id_servicio)
+	{
+		$directorio = $proyecto->get_dir_instalacion_proyecto(). "/servicios_serv/$id_servicio";		//Directorio perteneciente al servicio
+		toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);		
+		$ini = new toba_ini($directorio.'/servicio.ini');	
+		return $ini;
+	}
+
+	static function generar_id_entrada_cliente($headers)
+	{
+		$nombre = array();
+		ksort($headers);
+		foreach ($headers as $id => $valor) {
+			$nombre[] = $id.'='.$valor;
+		}
+		$nombre = implode(',', $nombre);
+		return $nombre;
+	}
+
+	//------------------------------------------------------------------------------------------------------------------//
 	function get_id()
 	{
 		return $this->identificador;
@@ -138,10 +182,10 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param array $datos_cert
 	 * @param string $url_sistema 
 	 */
-	function generar_configuracion_cliente($directorio, $cert_servidor, $url_sistema)
+	function generar_configuracion_cliente($cert_servidor, $url_sistema)
 	{
-		$config = new toba_ini($directorio . '/cliente.ini');
-		if ($url_sistema != null) {
+		$config = self::get_ini_cliente($this->proyecto, $this->get_id());
+		if (! is_null($url_sistema)) {
 			$config->agregar_entrada("conexion", array('to' => $url_sistema));
 		}
 		if (! $config->existe_entrada('certificado', 'clave_cliente')) {
@@ -153,6 +197,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		}
 
 		//Guarda el certificado del servidor
+		$directorio = $this->get_dir_instalacion_cliente();
 		copy($cert_servidor, $directorio."/cert_servidor.crt");
 		$cert['cert_servidor'] = "./cert_servidor.crt";
 		$config->agregar_entrada('certificado', $cert);
@@ -169,9 +214,9 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param array $headers
 	 * @param cert_cliente
 	 */
-	function generar_configuracion_servidor($directorio, $headers=array(), $cert_cliente)
+	function generar_configuracion_servidor($cert_cliente, $headers = array())
 	{
-		$config = new toba_ini($directorio . '/servicio.ini');
+		$config = self::get_ini_server($this->proyecto, $this->get_id());
 		if (! $config->existe_entrada("certificado")) {
 			$cert = array();
 			$cert['clave_servidor'] = "../../privada.key";	//Se utiliza la clave de todo el proyecto
@@ -180,14 +225,10 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		}
 		
 		//Armo ID de cliente
-		$nombre = array();
-		ksort($headers);
-		foreach ($headers as $id => $valor) {
-			$nombre[] = $id.'='.$valor;
-		}
-		$nombre = implode(',', $nombre);
+		$nombre = self::generar_id_entrada_cliente($headers);
 
 		//Guarda el certificado del cliente
+		$directorio = $this->get_dir_instalacion_servidor();
 		$nombre_archivo = toba_manejador_archivos::nombre_valido(str_replace("=", "_", $nombre));
 		copy($cert_cliente, $directorio."/$nombre_archivo.crt");
 		
@@ -198,5 +239,35 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		
 		$config->guardar();
 	}
+
+	/**
+	 * Permite activar o desactivar un servicio web determinado
+	 * @param toba_modelo_proyecto $proyecto
+	 * @param string $id_servicio
+	 * @param smallint $estado 
+	 */
+	function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
+	{
+		$parametros = array('estado' => $estado, 'proyecto' => $proyecto->get_id(),  'servicio' => $id_servicio);		
+		$sql = "UPDATE apex_item SET  web_service_activo = :estado WHERE proyecto = :proyecto AND item = :servicio ;";
+
+		$db = $proyecto->get_db();		
+		$id_sql = $db->sentencia_preparar($sql);		
+		$db->sentencia_ejecutar($id_sql, $parametros);	
+	}
+	
+	//--------------------------------------------------------------------------------------------------------------------------------------//
+	private function get_dir_instalacion_cliente()
+	{
+		$directorio = $this->proyecto->get_dir_instalacion_proyecto(). '/servicios_cli/'. $this->get_id();		//Directorio perteneciente al servicio
+		return $directorio;
+	}
+	
+	private function get_dir_instalacion_servidor()
+	{
+		$directorio = $this->proyecto->get_dir_instalacion_proyecto(). '/servicios_serv/'. $this->get_id();		//Directorio perteneciente al servicio
+		return $directorio;		
+	}
+	
 }
 ?>
