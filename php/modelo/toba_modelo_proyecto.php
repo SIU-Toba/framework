@@ -2822,5 +2822,42 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->identificador . '_' . $perfil;		//Analizar si no conviene generar un ID por fuente 
 	}
 	
+	//------------------------------------------------------------------------------------------//
+	//				SERVICIOS WEB						//
+	//-----------------------------------------------------------------------------------------//
+	
+	function get_servicios_web_ofrecidos()
+	{		
+		$sql = "
+			SELECT 
+				item as servicio_web,
+				nombre,
+				web_service_activo as activado
+			FROM apex_item 
+			WHERE 
+				proyecto = '{$this->get_id()}'
+				AND solicitud_tipo = 'servicio_web'
+			ORDER BY item;
+		";
+		return  $this->get_db()->consultar($sql);
+	}
+	
+	function desactivar_servicios_web()
+	{
+		$desactivados = array();
+		$this->get_db()->abrir_transaccion();		
+		try {
+			$servicios = $this->get_servicios_web_ofrecidos();
+			foreach($servicios as $serv) {
+				toba_modelo_servicio_web::set_estado_activacion( $this, $serv['servicio_web'], 0);
+				$desactivados[] = $serv['servicio_web'];
+			}
+			$this->get_db()->cerrar_transaccion();
+		} catch (toba_error_db $e) {
+			$this->get_db()->abortar_transaccion();
+			throw $e;
+		}
+		return $desactivados;
+	}
 }
 ?>

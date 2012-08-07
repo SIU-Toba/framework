@@ -239,5 +239,23 @@ abstract class toba_servicio_web extends toba_componente
 			throw new toba_error("El archivo $archivo no es un certificado valido");
 		}		
 	}
+		
+	/**
+	 * Retorna la misma cadena enviada al servidor
+	 * @param string $texto texto a repetir
+	 * @return string $texto texto repetido
+	 */
+	function op__eco(toba_servicio_web_mensaje $mensaje)
+	{
+		$xml = new SimpleXMLElement($mensaje->get_payload());
+		$texto = xml_encode(xml_decode($xml->texto));
+		$payload = <<<XML
+<ns1:eco xmlns:ns1="http://siu.edu.ar/toba/pruebas">
+	<texto>$texto</texto>
+</ns1:eco>
+XML;
+		return new toba_servicio_web_mensaje($payload);
+	}
+
 }
 ?>

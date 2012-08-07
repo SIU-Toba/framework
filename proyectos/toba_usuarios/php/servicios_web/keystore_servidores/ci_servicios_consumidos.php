@@ -7,7 +7,15 @@ class ci_servicios_consumidos extends toba_ci
 	
 	protected $nombre_archivo;	
 	protected $cert;
-	
+
+	function ini__operacion()
+	{
+		$proy_defecto = admin_instancia::get_proyecto_defecto();
+		if (! is_null($proy_defecto)) {
+			$this->s__filtro = array('proyecto' => $proy_defecto);
+		}
+	}
+		
 	function get_modelo_proyecto()
 	{
 		if (! isset($this->modelo_proyecto)) {

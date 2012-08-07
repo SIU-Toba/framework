@@ -11,6 +11,14 @@ class ci_servicios_ofrecidos extends toba_ci
 	protected $s__parametros = array();
 		
 	protected $s__activos= array();
+
+	function ini__operacion()
+	{
+		$proy_defecto = admin_instancia::get_proyecto_defecto();
+		if (! is_null($proy_defecto)) {
+			$this->s__filtro = array('proyecto' => $proy_defecto);
+		}
+	}
 	
 	function get_modelo_proyecto()
 	{
@@ -27,7 +35,7 @@ class ci_servicios_ofrecidos extends toba_ci
 	//-----------------------------------------------------------------------------------
 
 	function conf__filtro(form_proyecto $form)
-	{
+	{	
 		if (isset($this->s__filtro)) {
 			$form->set_datos($this->s__filtro);
 		}
@@ -48,7 +56,7 @@ class ci_servicios_ofrecidos extends toba_ci
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		if (isset($this->s__filtro) && empty($this->s__datos)) {
-			$this->s__datos = $this->complementar_datos(consultas_instancia::get_servicios_web_ofrecidos($this->s__filtro['proyecto']));
+			$this->s__datos = $this->get_modelo_proyecto()->get_servicios_web_ofrecidos();
 		}
 		$cuadro->set_datos( $this->s__datos);					
 	}

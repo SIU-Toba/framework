@@ -394,25 +394,8 @@ class consultas_instancia
 	}
 	
 	//---------------------------------------------------------------------
-	//------ Perfil de Datos ----------------------------------------------
-	//---------------------------------------------------------------------
-	static function get_servicios_web_ofrecidos($proyecto)
-	{		
-		$proyecto_sano = quote($proyecto);
-		$sql = "
-			SELECT 
-				item as servicio_web,
-				nombre,
-				web_service_activo as activado
-			FROM apex_item 
-			WHERE 
-				proyecto = $proyecto_sano
-				AND solicitud_tipo = 'servicio_web'
-			ORDER BY item;
-		";
-		return toba::db()->consultar($sql);
-	}
-		
+	//------ Servicios Web ------------------------------------------
+	//---------------------------------------------------------------------		
 	static function get_servicios_web_consumidos($filtro)
 	{		
 		$where_filtro = array();
