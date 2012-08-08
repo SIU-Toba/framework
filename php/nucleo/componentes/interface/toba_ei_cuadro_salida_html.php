@@ -285,20 +285,22 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		
 		$cuerpo = '';
 		foreach($columnas as $col) {
-			//Saco el contenedor de la fila y un checkbox para seleccionar.
-			$cuerpo .= "<tr id='fila_{$col['clave']}'  onclick=\"$objeto_js.seleccionar_fila_selector('{$col['clave']}');\" class='ei-ml-fila'><td>";
-			$cuerpo .= 	toba_form::checkbox('check_'.$col['clave'], null, '0','ef-checkbox', "onclick=\"$objeto_js.activar_fila_selector('{$col['clave']}');\" ");
-			$cuerpo .= "</td><td> {$col['titulo']}</td><td>";
+			if ($col['no_ordenar'] != 1) {
+				//Saco el contenedor de la fila y un checkbox para seleccionar.
+				$cuerpo .= "<tr id='fila_{$col['clave']}'  onclick=\"$objeto_js.seleccionar_fila_selector('{$col['clave']}');\" class='ei-ml-fila'><td>";
+				$cuerpo .= 	toba_form::checkbox('check_'.$col['clave'], null, '0','ef-checkbox', "onclick=\"$objeto_js.activar_fila_selector('{$col['clave']}');\" ");
+				$cuerpo .= "</td><td> {$col['titulo']}</td><td>";
 
-			//Saco el radiobutton para el sentido ascendente
-			$id = $col['clave'].'0';
-			$cuerpo .=  "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='asc'  disabled/>Ascendente</label>";
-			$cuerpo .= '</td><td>' ;
+				//Saco el radiobutton para el sentido ascendente
+				$id = $col['clave'].'0';
+				$cuerpo .=  "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='asc'  disabled/>Ascendente</label>";
+				$cuerpo .= '</td><td>' ;
 
-			//Saco el radiobutton para el sentido descendente
-			$id = $col['clave'].'1';
-			$cuerpo .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='des'  disabled/>Descendente</label>";
-			$cuerpo .= '</td></tr>';
+				//Saco el radiobutton para el sentido descendente
+				$id = $col['clave'].'1';
+				$cuerpo .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='des'  disabled/>Descendente</label>";
+				$cuerpo .= '</td></tr>';
+			}
 		}
 		$cuerpo .= "<tr class='ei-botonera'><td colspan='4'>". toba_form::button('botonazo', 'Aplicar' ,  "onclick=\"$objeto_js.aplicar_criterio_ordenamiento();\"").'</td></tr>';
 		echo $cuerpo;

@@ -2396,7 +2396,9 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$posicion_filas = array();
 		foreach($this->_columnas as $col) {
-			$posicion_filas[] = $col['clave'];							//Guardo las columnas que envio
+			if ($col['no_ordenar'] != 1) {
+				$posicion_filas[] = $col['clave'];							//Guardo las columnas que envio
+			}
 		}
 		return $posicion_filas;
 	}
