@@ -25,6 +25,26 @@ abstract class toba_servicio_web extends toba_componente
 		$this->inicializar();
 	}
 
+	protected static function cargar_ini()
+	{
+		if (! isset(self::$ini)) {
+			$modelo = toba_modelo_catalogo::instanciacion();	
+			$modelo->set_db(toba::db());	
+			$proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), toba::proyecto()->get_id());
+			self::$ini = toba_modelo_servicio_web::get_ini_server($proyecto, $id);
+		}
+	}
+		
+	public static function esta_activo($id)
+	{	
+		$activo = false;
+		self::cargar_ini();
+		if (isset(self::$ini) && self::$ini->existe_entrada('general', 'activo')) {
+			$activo = (self::$ini->get('general', 'activo') == '1');
+		}
+		return $activo;
+	}
+	
 	function get_opciones()
 	{
 		return array();
@@ -35,14 +55,8 @@ abstract class toba_servicio_web extends toba_componente
 	 */
 	public static function _get_opciones($id, $clase)
 	{
-		if (! isset(self::$ini)) {
-			$proyecto = toba::proyecto()->get_id();
-			$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_serv/".$id;		//Directorio perteneciente al servicio
-			if (file_exists($directorio.'/servicio.ini')) {
-				self::$ini = new toba_ini($directorio.'/servicio.ini');
-			}
-		}
 		$seguro = false;
+		self::cargar_ini();		
 		if (isset(self::$ini)) {
 			chdir($directorio);
 			if (self::$ini->existe_entrada('conexion')) {
@@ -239,7 +253,10 @@ abstract class toba_servicio_web extends toba_componente
 			throw new toba_error("El archivo $archivo no es un certificado valido");
 		}		
 	}
-		
+	
+	//-------------------------------------------------------------------------------------------------//
+	//				OPERACION TEST							//
+	//------------------------------------------------------------------------------------------------//
 	/**
 	 * Retorna la misma cadena enviada al servidor
 	 * @param string $texto texto a repetir

@@ -47,9 +47,6 @@ class toba_solicitud_servicio_web extends toba_solicitud
 				throw new toba_error_def("Debe asociar a la operación un único componente toba_servicio_web");
 			}
 		}
-		if ($this->info['basica']['web_service_activo'] == 0) {
-			throw new toba_error_servicio_web('Servicio no activo');
-		}
 	}	
 	
 	
@@ -63,8 +60,13 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$clave['proyecto'] = $this->info['objetos'][0]['objeto_proyecto'];
 		$clave['componente'] = $this->info['objetos'][0]['objeto'];
 		list($tipo, $clase, $datos) = toba_constructor::get_runtime_clase_y_datos($clave, $this->info['objetos'][0]['clase'], false);
+		
+		//Verifico si el servicio web esta activo y puede ser invocado
+		if (! toba_servicio_web::esta_activo($this->info['basica']['item'])) {
+			throw new toba_error_servicio_web('Servicio inactivo');
+		}
+		
 		$opciones_extension = toba_servicio_web::_get_opciones($this->info['basica']['item'], $clase);
-
 		$wsdl = (strpos($_SERVER['REQUEST_URI'], "?wsdl") !== false);
 		
 		$sufijo = 'op__';

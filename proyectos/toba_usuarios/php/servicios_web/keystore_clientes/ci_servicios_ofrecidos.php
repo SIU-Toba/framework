@@ -1,16 +1,14 @@
 <?php
 class ci_servicios_ofrecidos extends toba_ci
 {
+	protected $cert;	
 	protected $s__filtro;
 	protected $s__datos = array();
-	protected $cert;	
 	protected $s__seleccionado;
 	
 	protected $s__conf_disponibles;
 	protected $s__conf_activa;	
 	protected $s__parametros = array();
-		
-	protected $s__activos= array();
 
 	function ini__operacion()
 	{
@@ -56,7 +54,7 @@ class ci_servicios_ofrecidos extends toba_ci
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		if (isset($this->s__filtro) && empty($this->s__datos)) {
-			$this->s__datos = $this->get_modelo_proyecto()->get_servicios_web_ofrecidos();
+			$this->s__datos = $this->complementar_datos($this->get_modelo_proyecto()->get_servicios_web_ofrecidos());
 		}
 		$cuadro->set_datos( $this->s__datos);					
 	}
@@ -72,9 +70,10 @@ class ci_servicios_ofrecidos extends toba_ci
 		$conf_final = array();	
 		//Tengo que agarrar los archivos ini de configuracion.
 		foreach ($datos as $dato) {
-			$id_servicio = $dato['servicio_web'];	
+			$id_servicio = $dato['servicio_web'];
+			$activo = toba_modelo_servicio_web::esta_activo($this->get_modelo_proyecto(), $id_servicio);
 			$aux = $this->recuperar_clientes_configurados($id_servicio);
-			$conf_final[$id_servicio] = array_merge($dato, array('cantidad_configuraciones' => count($aux)));
+			$conf_final[$id_servicio] = array_merge($dato, array('activado' => $activo, 'cantidad_configuraciones' => count($aux)));
 		}
 		return $conf_final;
 	}
@@ -227,7 +226,7 @@ class ci_servicios_ofrecidos extends toba_ci
 		if (isset($this->cert)) {													//Si se agrega un archivo de certificado, le paso los parametros nuevos			
 			$servicio = new toba_modelo_servicio_web($proyecto, $this->s__seleccionado);
 			$servicio->generar_configuracion_servidor($this->cert['path'], $headers);
-		}  elseif (! empty($this->s__parametros)) {									//En este caso, cambio los parametros
+		}  elseif (! empty($this->s__parametros) && isset($this->s__conf_activa)) {									//En este caso, cambio los parametros
 			$nombre = toba_modelo_servicio_web::generar_id_entrada_cliente($headers);
 			$ini->agregar_entrada($nombre, $temp_data);
 			$ini->guardar();			

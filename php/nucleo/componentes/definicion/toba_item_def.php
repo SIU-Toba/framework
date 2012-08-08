@@ -74,8 +74,7 @@ class toba_item_def implements toba_componente_definicion
 						(SELECT COUNT(*) FROM apex_item 
 							WHERE padre = i.item AND proyecto = i.proyecto AND (solicitud_tipo <> 'fantasma' OR solicitud_tipo IS NULL) AND item != i.item) as cant_items_hijos,
 						m.molde as molde,
-						i.retrasar_headers		as retrasar_headers,
-						i.web_service_activo	as web_service_activo
+						i.retrasar_headers		as retrasar_headers
 				FROM	apex_item i	
 							LEFT OUTER JOIN apex_item_zona z	ON	( i.zona_proyecto	= z.proyecto AND i.zona	= z.zona	)
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)

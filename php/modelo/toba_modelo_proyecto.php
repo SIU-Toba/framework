@@ -2831,8 +2831,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$sql = "
 			SELECT 
 				item as servicio_web,
-				nombre,
-				web_service_activo as activado
+				nombre
 			FROM apex_item 
 			WHERE 
 				proyecto = '{$this->get_id()}'
@@ -2845,17 +2844,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function desactivar_servicios_web()
 	{
 		$desactivados = array();
-		$this->get_db()->abrir_transaccion();		
-		try {
-			$servicios = $this->get_servicios_web_ofrecidos();
-			foreach($servicios as $serv) {
-				toba_modelo_servicio_web::set_estado_activacion( $this, $serv['servicio_web'], 0);
+		$servicios = $this->get_servicios_web_ofrecidos();
+		foreach($servicios as $serv) {
+			if (! toba_modelo_servicio_web::esta_activo($this, $serv['servicio_web'])) {				//Esto en realidad verifica si existe o no la configuracion
+				toba_modelo_servicio_web::set_estado_activacion( $this, $serv['servicio_web'], 0);	//Explicito la desactivacion
 				$desactivados[] = $serv['servicio_web'];
 			}
-			$this->get_db()->cerrar_transaccion();
-		} catch (toba_error_db $e) {
-			$this->get_db()->abortar_transaccion();
-			throw $e;
 		}
 		return $desactivados;
 	}

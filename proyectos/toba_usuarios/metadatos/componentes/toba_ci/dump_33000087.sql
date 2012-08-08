@@ -256,8 +256,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen
 	NULL, --objetos
 	NULL, --eventos
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'pant_edicion_serv_ofrecidos', --subclase
+	'/servicios_web/keystore_clientes/pant_edicion_serv_ofrecidos.php', --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
 	'12000004'  --punto_montaje

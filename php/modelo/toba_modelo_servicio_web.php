@@ -58,6 +58,16 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		return $nombre;
 	}
 
+	static function esta_activo(toba_modelo_proyecto $proyecto, $id_servicio)
+	{
+		$activo = false;
+		$ini = self::get_ini_server($proyecto, $id_servicio);
+		if (isset($ini) && $ini->existe_entrada('general', 'activo')) {
+			$activo = ($ini->get('general', 'activo') == '1');
+		}
+		return $activo;
+	}
+	
 	//------------------------------------------------------------------------------------------------------------------//
 	function get_id()
 	{
@@ -236,7 +246,8 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$datos['archivo'] = "./$nombre_archivo.crt";
 		$datos['fingerprint'] = sha1(toba_servicio_web::decodificar_certificado($directorio."/$nombre_archivo.crt"));
 		$config->agregar_entrada($nombre, $datos);
-		
+
+		$config->agregar_entrada('general', array('activo' => '0'));				//Desactivo el WS por defecto
 		$config->guardar();
 	}
 
@@ -248,12 +259,13 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 */
 	function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
 	{
-		$parametros = array('estado' => $estado, 'proyecto' => $proyecto->get_id(),  'servicio' => $id_servicio);		
-		$sql = "UPDATE apex_item SET  web_service_activo = :estado WHERE proyecto = :proyecto AND item = :servicio ;";
-
-		$db = $proyecto->get_db();		
-		$id_sql = $db->sentencia_preparar($sql);		
-		$db->sentencia_ejecutar($id_sql, $parametros);	
+		$ini = self::get_ini_server($proyecto, $id_servicio);
+		if (! $ini->existe_entrada('general', 'activo')) {
+			$ini->agregar_entrada('general', array('activo' => $estado));
+		} else {
+			$ini->set_datos_entrada('general', array('activo' => $estado));
+		}		
+		$ini->guardar();
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------//
