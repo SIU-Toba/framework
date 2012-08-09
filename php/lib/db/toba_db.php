@@ -88,7 +88,7 @@ class toba_db
 				throw $ee;				
 			}
 		}
-	}		
+	}
 	
 	/**
 	 * Retorna una referencia al objeto PDO interno
