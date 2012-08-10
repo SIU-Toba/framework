@@ -25,7 +25,7 @@ abstract class toba_servicio_web extends toba_componente
 		$this->inicializar();
 	}
 
-	protected static function cargar_ini()
+	protected static function cargar_ini($id)
 	{
 		if (! isset(self::$ini)) {
 			$modelo = toba_modelo_catalogo::instanciacion();	
@@ -38,7 +38,7 @@ abstract class toba_servicio_web extends toba_componente
 	public static function esta_activo($id)
 	{	
 		$activo = false;
-		self::cargar_ini();
+		self::cargar_ini($id);
 		if (isset(self::$ini) && self::$ini->existe_entrada('general', 'activo')) {
 			$activo = (self::$ini->get('general', 'activo') == '1');
 		}
@@ -56,7 +56,8 @@ abstract class toba_servicio_web extends toba_componente
 	public static function _get_opciones($id, $clase)
 	{
 		$seguro = false;
-		self::cargar_ini();		
+		self::cargar_ini($id);	
+		$directorio = toba_instancia::get_path_instalacion_proyecto(toba::proyecto()->get_id()). "/servicios_serv/$id";	
 		if (isset(self::$ini)) {
 			chdir($directorio);
 			if (self::$ini->existe_entrada('conexion')) {
@@ -264,7 +265,9 @@ abstract class toba_servicio_web extends toba_componente
 	 */
 	function op__eco(toba_servicio_web_mensaje $mensaje)
 	{
+		toba::logger()->debug('Entro al servicio web');
 		$xml = new SimpleXMLElement($mensaje->get_payload());
+		toba::logger()->debug('El payload para testeo es: ' .$xml->texto);
 		$texto = xml_encode(xml_decode($xml->texto));
 		$payload = <<<XML
 <ns1:eco xmlns:ns1="http://siu.edu.ar/toba/pruebas">

@@ -6,6 +6,17 @@ class toba_servicio_web_cliente
 	protected $opciones;
 	protected $id_servicio;
 	
+	protected static $modelo_proyecto;
+	protected static function get_modelo_proyecto()
+	{
+		if (! isset(self::$modelo_proyecto)) {
+			$modelo = toba_modelo_catalogo::instanciacion();	
+			$modelo->set_db(toba::db());	
+			$proyecto_id = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+			self::$modelo_proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $proyecto_id);
+		}
+	}
+	
 	/**
 	 * @return toba_servicios_web
 	 */
@@ -15,13 +26,11 @@ class toba_servicio_web_cliente
 		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio, $proyecto);
 		$opciones_ini = $info['parametros'];
 		
-		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$id_servicio";		//Directorio perteneciente al servicio
-		if (file_exists($directorio.'/servicio.ini')) {
-			$ini = new toba_ini($directorio.'/servicio.ini');
-			if ($ini->existe_entrada('conexion')) {
-				$opciones_ini = array_merge($opciones_ini, $ini->get_datos_entrada('conexion'));
-			}
-		}					
+		self::get_modelo_proyecto();
+		$ini = toba_modelo_servicio_web::get_ini_cliente(self::$modelo_proyecto, $id_servicio);
+		if ($ini->existe_entrada('conexion')) {
+			$opciones_ini = array_merge($opciones_ini, $ini->get_datos_entrada('conexion'));
+		}
 
 		//--2- Arma el servicio indicando certificado del server y clave privada del cliente
 		$security_token = self::get_ws_token($proyecto, $id_servicio);
@@ -83,7 +92,7 @@ class toba_servicio_web_cliente
 			$message = $this->wsf->request($mensaje->wsf());
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {
-			throw new toba_error_servicio_web($fault->Reason, $fault->Detail);
+			throw new toba_error_servicio_web($fault->Reason);//, $fault->Detail);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
 		}
@@ -109,8 +118,9 @@ class toba_servicio_web_cliente
 	static function get_ws_token($proyecto, $servicio)
 	{
 		$security_token = null;
+		self::get_modelo_proyecto();
+		$ini_conf = toba_modelo_servicio_web::get_ini_cliente(self::$modelo_proyecto, $servicio);
 		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$servicio";		//Directorio perteneciente al servicio
-		$ini_conf = new toba_ini($directorio. "/cliente.ini");
 
 		//Busco los datos para los certificados en el archivo perteneciente al servicio
 		if (! is_null($ini_conf) && $ini_conf->existe_entrada('certificado')) {

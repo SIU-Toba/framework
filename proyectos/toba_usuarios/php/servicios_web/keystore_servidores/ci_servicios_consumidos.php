@@ -41,9 +41,9 @@ class ci_servicios_consumidos extends toba_ci
 		} elseif (! is_null($url)) {										//Estoy modificando los datos de la URL en el ini
 			$ini = toba_modelo_servicio_web::get_ini_cliente($proyecto, $this->s__seleccionado);
 			if ($ini->existe_entrada('conexion')) {
-				$ini->set_datos_entrada('conexion', array('param_to' => $url));
+				$ini->set_datos_entrada('conexion', array('to' => $url));
 			} else {
-				$ini->agregar_entrada('conexion', array('param_to' => $url));
+				$ini->agregar_entrada('conexion', array('to' => $url));
 			}
 			$ini->guardar();
 		}
@@ -101,6 +101,46 @@ class ci_servicios_consumidos extends toba_ci
 		}
 	}
 	
+	function ajax__test_configuracion($clave_param, toba_ajax_respuesta $respuesta)
+	{
+		toba::memoria()->desactivar_reciclado();		
+		//Recupero la fila del cuadro
+		$parametro = toba_ei_cuadro::recuperar_clave_fila('33000078', $clave_param);	
+		if (is_null($parametro)) {							//Si no existe la fila informada desde el cliente retorno.
+			$respuesta->set('Esta seguro que este es un servicio correcto?');
+			return false;
+		}
+		
+		//Armo el payload para el servicio de eco con el random a testear
+		$rnd = xml_encode(md5(rand(1, 435)));				
+		$payload = <<<XML
+<ns1:eco xmlns:ns1="http://siu.edu.ar/toba/serv_pruebas"><texto>$rnd</texto></ns1:eco>
+XML;
+		//---------------------------------------------------------------------//			
+		try {			
+			//Obtengo las opciones de configuracion manualmente, porque se encuentra en otro proyecto
+			$ini = toba_modelo_servicio_web::get_ini_cliente($this->get_modelo_proyecto(), $parametro['servicio_web']);
+			$opciones =  $ini->get_datos_entrada('conexion');			
+
+			//Lo armo asi porque esta configurado en otro proyecto entonces no puedo usar toba::servicio_web
+			$servicio = new toba_servicio_web_cliente($opciones, $parametro['servicio_web']);			
+			$respuesta_ws = $servicio->request(new toba_servicio_web_mensaje($payload, array('action' => 'eco')));
+		} catch (toba_error_servicio_web $s) {													//Capturo errores del servicio web
+			$respuesta->set('Se produjo un error inesperado en la atención del servicio, comuniquese con el proveedor del mismo.');
+			return false;
+		} catch (toba_error $e) {																//Capturo cualquier otro error local a la creacion del pedido
+			$respuesta->set('Se produjo un error inesperado en la inicializacion del pedido, verifique la configuración.');
+			return false;
+		} 
+
+		//Parseo el XML de la respuesta para obtener el dato y comparo con el random que envie
+		$xml_rta = new SimpleXMLElement($respuesta_ws->get_payload());
+		if ($rnd == $xml_rta->texto) {
+			$respuesta->set('La configuracion es correcta');
+		} else {
+			$respuesta->set('La configuración no es correcta');
+		}
+	}
 	//-----------------------------------------------------------------------------------
 	//---- form_basico_ws ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -186,7 +226,7 @@ class ci_servicios_consumidos extends toba_ci
 			$id_servicio = $dato['servicio_web'];	
 			$conf_inicial = toba_modelo_servicio_web::get_ini_cliente($proyecto, $id_servicio);		//Intento obtener la info del archivo de configuracion
 			if ($conf_inicial->existe_entrada('conexion')) {
-				$conf_final[$id_servicio] = array_merge($dato, $conf_inicial->get_datos_entrada('conexion'));
+				$conf_final[$id_servicio] = array_merge($dato, array('param_to' => $conf_inicial->get('conexion', 'to')));
 			} else {
 				$conf_final[$id_servicio] = $dato;
 			}
