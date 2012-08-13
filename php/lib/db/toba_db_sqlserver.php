@@ -15,11 +15,12 @@ class toba_db_sqlserver extends toba_db
 	
 	function get_dsn()
 	{
+		$profile = $this->profile; 
 		if ($this->puerto != '') {
-			$this->profile = "$this->profile, {$this->puerto}";
+			$profile = "{$this->profile}, {$this->puerto}";
 		}
 		
-		return "sqlserver:host=$this->profile;dbname=$this->base;";
+		return "sqlserver:host=$profile;dbname=$this->base;";
 	}
 	
 }
