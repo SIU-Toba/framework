@@ -24,6 +24,12 @@ class toba_db_postgres7 extends toba_db
 		return "pgsql:host=$this->profile;dbname=$this->base;$puerto";	
 	}
 	
+	function get_parametros()
+	{
+		$parametros = parent::get_parametros();
+		$parametros['schema'] = $this->schema;
+		return $parametros;
+	}
 	/**
 	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
 	 * @param string $schema
@@ -44,13 +50,6 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
-	function get_parametros()
-	{
-		$parametros = parent::get_parametros();
-		$parametros['schema'] = $this->schema;
-		return $parametros;
-	}
-
 	function set_encoding($encoding, $ejecutar = true)
 	{
 		$sql = "SET CLIENT_ENCODING TO '$encoding';";
@@ -69,12 +68,15 @@ class toba_db_postgres7 extends toba_db
 	 */
 	function crear_lenguaje_procedural()
 	{
-		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
+		if (! $this->existe_lenguaje('plpgsql')) {
+			$this->crear_lenguaje('plpgsql');
+		}
+		/*$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
 		$rs = $this->consultar($sql);
 		if (empty($rs)) {
 			$sql = 'CREATE LANGUAGE plpgsql';
 			$this->ejecutar($sql);
-		}
+		}*/
 	}
 	
 	/**
@@ -256,7 +258,7 @@ class toba_db_postgres7 extends toba_db
 
 	function crear_lenguaje($lang)
 	{
-		$sql = 'CREATE LANGUAGE plpgsql;';
+		$sql = "CREATE LANGUAGE $lang;";
 		return $this->ejecutar($sql);
 	}
 
@@ -750,25 +752,6 @@ class toba_db_postgres7 extends toba_db
 		} else {
 			return null;
 		}
-		/*if (is_null($schema)) {
-			$schema = $this->get_schema();
-		}
-
-		$sql = "
-		SELECT column_name
-		FROM information_schema.columns
-		WHERE
-			table_name   = '$tabla'
-			AND	table_schema = '$schema'
-			AND ((column_default LIKE '%seq\"''::text)::regclass)') OR (column_default LIKE '%seq''::text)::regclass)'));
-		";
-
-		$result = $this->consultar($sql);
-		if (isset($result[0])) {
-			return $result[0]['column_name'];
-		} else {
-			return null;
-		}*/
 	}
 
 	function get_secuencia_tablas($tablas, $schema = null)
@@ -796,6 +779,41 @@ class toba_db_postgres7 extends toba_db
 		return $secuencias;
 	}
 	
+	/**
+	 *  Devuelve una lista de los triggers en el esquema, segun estado, nombre y tablas.
+	 * @param string $schema	Nombre del schema
+	 * @param string $nombre	Comienzo del nombre de/los triggers
+	 * @param char $estado		Estado de disparo actual del trigger (O=Origen, D=Disable, A=Always, R=Replica)
+	 * @param array $tablas		Tablas involucradas con los triggers
+	 * @return array
+	 */
+	function get_triggers_schema($schema, $nombre = '', $estado = 'O', $tablas = array())
+	{
+		$where = array();
+		$esquema = $this->quote($schema);
+		$estado = $this->quote($estado);
+		$sql = "  SELECT t.*, 
+					     c.relname as tabla, 
+				              n.nspname as schema
+				FROM pg_trigger as t,
+				            pg_class as c, 
+					   pg_namespace as n 
+				WHERE  
+					  t.tgrelid = c.oid 
+					  AND c.relnamespace = n.oid 
+					  AND n.nspname = $esquema
+					  AND t.tgenabled = $estado ";
+		
+		if (trim($nombre) != '') {
+			$sql .= ' AND t.tgname ILIKE '. $this->quote($nombre.'%');
+		}		
+		if (! empty($tablas)) {
+			$tablas = $this->quote($tablas);
+			$sql  .= ' AND C.relname IN ('. implode(',', $tablas) . ')';
+		}
+		return $this->consultar($sql);
+	}
+	
 	//-----------------------------------------------------------------------------------
 	//-- UTILIDADES PG_DUMP
 	//-----------------------------------------------------------------------------------
@@ -813,19 +831,20 @@ class toba_db_postgres7 extends toba_db
 	 */
 	function pgdump_get_tabla($bd, $schema, $tabla, $host, $usuario, $pass = null)
 	{
+		$exito = 0;
 		$comando = "pg_dump  -a -i -d -t $schema.$tabla -h $host -U $usuario $bd";
 		$tabla = array();
 
-		if (!is_null($pass)) putenv("PGPASSWORD=$pass");
+		if (!is_null($pass)) {
+			putenv("PGPASSWORD=$pass");
+		}
 		
 		exec($comando, $tabla, $exito);
-
 		if ($exito > 0) {
 			throw new toba_error("Error ejecutando pg_dump. Comando ejecutado: $comando");
 		}
 
 		$this->pgdump_limpiar($tabla);
-
 		return $tabla;
 	}
 

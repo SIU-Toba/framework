@@ -75,7 +75,14 @@ class toba_auditoria_tablas_postgres
 	{
 		$this->schema_logs = $esquema;
 	}	
+		
+	function reset_tablas()
+	{
+		unset($this->tablas);
+		$this->tablas = array();
+	}
 	
+	//-----------------------------------------------------------------------------------------------------------------------//
 	function crear() 
 	{ 
 		if (! isset($this->tablas)) {
@@ -88,18 +95,18 @@ class toba_auditoria_tablas_postgres
 		$this->crear_funciones($this->schema_origen);
 		foreach ($this->tablas as $t) {
 			$this->crear_tabla($t, $this->schema_origen);
-	    }		
+		}		
 		$this->crear_sp($this->tablas, $this->schema_origen);
 		$this->crear_triggers($this->tablas, $this->schema_origen);
 			    
-	    //-- Schema de toba
+		//-- Schema de toba
 		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->crear_funciones($this->schema_toba);
 			foreach ($this->tablas_toba as $t) {
 				$this->crear_tabla($t, $this->schema_toba);
-	    	}			
-	    	$this->crear_sp($this->tablas_toba, $this->schema_toba);
-	    	$this->crear_triggers($this->tablas_toba, $this->schema_toba);
+			}			
+			$this->crear_sp($this->tablas_toba, $this->schema_toba);
+			$this->crear_triggers($this->tablas_toba, $this->schema_toba);
 		}
 		return true;
 	}	
@@ -108,23 +115,13 @@ class toba_auditoria_tablas_postgres
 	{
 		$this->crear_funciones($this->schema_origen);
 		foreach ($this->tablas as $t) {
-			$nombre = $this->prefijo.$t;
-			if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
-				$this->crear_tabla($t, $this->schema_origen);
-			} else {
-				$this->actualizar_tabla($t, $this->schema_origen);
-			}
+			$this->migrar_tabla($t, $this->schema_origen);
 		}
 		
 		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
 			$this->crear_funciones($this->schema_toba);
 			foreach ($this->tablas_toba as $t) {
-				$nombre = $this->prefijo.$t;
-				if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
-					$this->crear_tabla($t, $this->schema_toba);
-				} else {
-					$this->actualizar_tabla($t, $this->schema_toba);
-				}
+				$this->migrar_tabla($t, $this->schema_toba);
 			}
 		}		
 		$this->regenerar();
@@ -162,7 +159,31 @@ class toba_auditoria_tablas_postgres
 		$this->eliminar_schema();
 		return true;
 	}	
+		
+	function desactivar_triggers_auditoria()
+	{
+		$this->set_estado_activacion_triggers($this->tablas, $this->schema_origen, false);		
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {		
+			$this->set_estado_activacion_triggers($this->tablas_toba, $this->schema_toba, false);
+		}
+	}
 	
+	function activar_triggers_auditoria()
+	{
+		$this->set_estado_activacion_triggers($this->tablas, $this->schema_origen, true);		
+		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {		
+			$this->set_estado_activacion_triggers($this->tablas_toba, $this->schema_toba, true);
+		}
+	}
+	
+	function get_triggers_activos()
+	{
+		//Busco todos los triggers del esquema, que sean de auditoria y se disparen ahi mismo.
+		$triguers = $this->conexion->get_triggers_schema($this->schema_origen, 'tauditoria_', 'O');
+		return $triguers;
+	}
+	
+	//---------------------------------------------------------------------------------------------------------//
 	/**
 	 * True en caso de existir el esquema con los logs nuevos.
 	 * False en caso contrario.
@@ -184,15 +205,15 @@ class toba_auditoria_tablas_postgres
 	
 	
 	//------- FUNCIONES DE CREACION DE LOGS -------------------------------------
+
+	protected function crear_schema() 
+	{
+		$this->conexion->crear_schema($this->schema_logs);
+	}
 	
 	protected function crear_lenguaje()
 	{
-		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
-		$rs = $this->conexion->consultar($sql);
-		if (empty($rs)) {
-			$sql = 'CREATE LANGUAGE plpgsql';
-			$this->conexion->ejecutar($sql);
-		}
+		$this->conexion->crear_lenguaje_procedural();
 	}
 	
 	protected function crear_funciones($schema) 
@@ -220,71 +241,36 @@ class toba_auditoria_tablas_postgres
 		";
 		$this->conexion->ejecutar($sql);
 	}
-	
-	protected function crear_schema() 
+
+	protected function migrar_tabla($t, $schema)
 	{
-		$sql = "CREATE SCHEMA {$this->schema_logs}; ";
-		$this->conexion->ejecutar($sql);
+		$nombre = $this->prefijo.$t;
+		if (! $this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+			$this->crear_tabla($t, $schema);
+		} else {
+			$this->actualizar_tabla($t, $schema);
+		}
 	}
-	
 	
 	protected function crear_tabla($t, $schema)
 	{
 	   $campos = $this->conexion->get_definicion_columnas($t, $schema);
 	   $sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
-	   $sql .= "auditoria_usuario varchar(30), 
+	   $sql .= 'auditoria_usuario varchar(30), 
 	   			auditoria_fecha timestamp, 
 	   			auditoria_operacion char(1),
 	   			auditoria_id_solicitud integer,
-	   	"; 		   
+	   	'; 		   
 		foreach ($campos as $campo => $def) {
 			if ($def['tipo_sql'] != 'bytea') {
-				$sql .= $def['nombre'] .  " " . $def['tipo_sql'] . ",\n";
+				$sql .= $def['nombre'] .  ' ' . $def['tipo_sql'] . ",\n";
 			}
 		}
 		$sql = substr($sql, 0, -2);
 		$sql .= ");\n";	
 		$this->conexion->ejecutar($sql);
 	}
-	
-	protected function actualizar_tabla($origen, $schema)
-	{
-		$destino = $this->prefijo.$origen;
-		$negocio = $this->conexion->get_definicion_columnas($origen, $schema);
-		$negocio[] = array(                                                                
-    			'nombre' => 'auditoria_usuario',                                                   
-			    'tipo_sql' => 'character varying(30)',                                             
-			  );
-		$negocio[] = array(                                                                
-    			'nombre' => 'auditoria_fecha',                                                   
-			    'tipo_sql' => 'timestamp without time zone',                                             
-			  );
-		$negocio[] = array(                                                                
-    			'nombre' => 'auditoria_operacion',                                                   
-			    'tipo_sql' => 'character(1)',                                             
-			  );		
-		$negocio[] = array(                                                                
-    			'nombre' => 'auditoria_id_solicitud',                                                   
-			    'tipo_sql' => 'integer',                                             
-			  );			  	  
-		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);
-				
-		foreach ($negocio as $campo_negocio) {
-			$existe = false;
-			foreach ($logs as $campo_log) {
-				if ($campo_negocio['nombre'] == $campo_log['nombre']) {
-					$existe = true;
-					break;
-				}
-			}
-			if (! $existe && $campo_negocio['tipo_sql'] != 'bytea') {
-				$sql = "ALTER TABLE {$this->schema_logs}.$destino ADD COLUMN {$campo_negocio['nombre']} {$campo_negocio['tipo_sql']}";
-				$this->conexion->ejecutar($sql);				
-			}
-		}
 		
-	}
-	
 	protected function crear_sp($tablas, $schema) 
 	{
 		$sql = "";
@@ -331,7 +317,7 @@ class toba_auditoria_tablas_postgres
 					$sql .= $def['nombre'] .  ", "; 
 				}				
 			}
-			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (";
+			$sql .= 'auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (';
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= "NEW.{$def['nombre']}, ";
@@ -346,7 +332,7 @@ class toba_auditoria_tablas_postgres
 					$sql .= $def['nombre'] .  ", ";	
 				}
 			}		
-			$sql .= "auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (";
+			$sql .= 'auditoria_usuario, auditoria_fecha, auditoria_operacion, auditoria_id_solicitud) VALUES (';
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= "OLD." . $def['nombre'] .  ", ";
@@ -356,32 +342,75 @@ class toba_auditoria_tablas_postgres
 					END IF;
 					RETURN NULL;
 				END;
-			' LANGUAGE 'plpgsql';\n\n
-			";
+			' LANGUAGE 'plpgsql';\n\n";
 		}	
 		$conexion->ejecutar($sql);
 	}
 	
 	protected function crear_triggers($tablas, $schema) 
 	{
-		$sql = "";
-		foreach ($tablas as $t)
-	        $sql .= "
-	        	CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
+		$sql = '';
+		foreach ($tablas as $t) {
+				$sql .= " CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
 					ON $schema." . $t . " FOR EACH ROW 
-					EXECUTE PROCEDURE {$this->schema_logs}.sp_$t();
-			";
+					EXECUTE PROCEDURE {$this->schema_logs}.sp_$t(); \n";
+		}
 		$this->conexion->ejecutar($sql);
 	}
 	
-
+	protected function actualizar_tabla($origen, $schema)
+	{
+		$destino = $this->prefijo.$origen;
+		$negocio = $this->conexion->get_definicion_columnas($origen, $schema);
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_usuario',                                                   
+			    'tipo_sql' => 'character varying(30)',                                             
+			  );
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_fecha',                                                   
+			    'tipo_sql' => 'timestamp without time zone',                                             
+			  );
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_operacion',                                                   
+			    'tipo_sql' => 'character(1)',                                             
+			  );		
+		$negocio[] = array(                                                                
+    			'nombre' => 'auditoria_id_solicitud',                                                   
+			    'tipo_sql' => 'integer',                                             
+			  );			  	  
+		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);				
+		foreach ($negocio as $campo_negocio) {
+			$existe = false;
+			foreach ($logs as $campo_log) {
+				if ($campo_negocio['nombre'] == $campo_log['nombre']) {
+					$existe = true;
+					break;
+				}
+			}
+			if (! $existe && $campo_negocio['tipo_sql'] != 'bytea') {
+				$sql = "ALTER TABLE {$this->schema_logs}.$destino ADD COLUMN {$campo_negocio['nombre']} {$campo_negocio['tipo_sql']}";
+				$this->conexion->ejecutar($sql);				
+			}
+		}		
+	}
 	
-	//------- FUNCIONES DE ELIMINACION DE LOGS -------------------------------------
+	protected function set_estado_activacion_triggers($tablas, $schema, $estado)
+	{
+		$sql = array();
+		$estado_final = ($estado) ? 'ENABLE' : 'DISABLE';
+		foreach($tablas as $tabla) {
+			$nombre_trigger = 'tauditoria_'. $tabla;
+			$sql[] = " ALTER TABLE $schema.$tabla $estado_final TRIGGER $nombre_trigger; ";			
+		}
+		$this->conexion->ejecutar($sql);
+	}
+	
+	//------- FUNCIONES DE ELIMINACION DE LOGS -------------------------------------	
 	protected function eliminar_triggers($tablas, $schema) 
 	{
-		$sql = "";
+		$sql = '';
 		foreach ($tablas as $t) {
-	       $sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON $schema.$t;\n\n";
+			$sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON $schema.$t;\n\n";
 		}
 		$this->conexion->ejecutar($sql);
 	}
@@ -449,10 +478,6 @@ class toba_auditoria_tablas_postgres
 				ORDER BY $order aud.auditoria_fecha
 		";
 		$datos = $this->conexion->consultar($sql);
-		/*foreach ($datos as $clave => $valor) {
-			$datos[$clave]['log_fecha'] = procesar_timestamp($valor['log_fecha']);
-			$datos[$clave]['log_operacion'] = procesar_operacion($valor['log_operacion']);
-		}*/
 		return $datos;
 	}
 	
@@ -471,7 +496,7 @@ class toba_auditoria_tablas_postgres
 				$pks[] = $col['nombre'];
 			}
 		}
-		return $pks;		
+		return $pks;
 	}
 
 	function purgar_datos($tabla, $lapso_tiempo)
@@ -479,6 +504,6 @@ class toba_auditoria_tablas_postgres
 		$tiempo = $this->conexion->quote($lapso_tiempo . ' months' );
 		$sql = 'DELETE FROM '. $this->schema_logs . ".$tabla WHERE auditoria_fecha::timestamp  < (now() - interval $tiempo);";
 		$this->conexion->ejecutar($sql);
-	}	
+	}
 }
 ?>

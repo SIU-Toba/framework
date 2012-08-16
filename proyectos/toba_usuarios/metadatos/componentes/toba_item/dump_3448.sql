@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'3448', --item
 	NULL, --padre_id
 	'toba_usuarios', --padre_proyecto
-	'3443', --padre
+	'33000028', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Bloqueo de Usuarios', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000004', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
 	'1', --orden
