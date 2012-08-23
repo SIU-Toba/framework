@@ -65,10 +65,6 @@ class toba_ei_arbol extends toba_ei
 	protected function cargar_eventos()
 	{
 		$this->cargar_lista_eventos();
-/*		parent::cargar_lista_eventos();
-		$this->_eventos['cambio_apertura'] = array();
-		$this->_eventos['ver_propiedades'] = array();
-		$this->_eventos['cargar_nodo'] = array();*/
 	}
 
 	/**
@@ -208,6 +204,8 @@ class toba_ei_arbol extends toba_ei
 		return $resultado;
 	}
 	
+	//----------------------------------------------------------------------------------------------------------------------------------------------//
+	
 	/**
 	 * Carga la lista de eventos definidos desde el administrador
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
@@ -225,23 +223,13 @@ class toba_ei_arbol extends toba_ei
 	/**
 	 * @ignore
 	 */
-	function disparar_eventos()
-	{
-		//Actualiza el estado de los nodos
-		if (isset($this->_nodos_inicial)) {
-			foreach ($this->_nodos_inicial as $nodo) {
-				if ($nodo instanceof toba_nodo_arbol_form) {
-						$this->disparar_eventos_nodo($nodo);
-				}
-			}
-		}
-		//Se guarda el layout del arbol actual
-		if (isset($_POST[$this->_submit."__apertura_datos"])) {
-			$datos_apertura = $_POST[$this->_submit."__apertura_datos"];
-			$pares = explode("||", $datos_apertura);
+	protected function disparar_cambios_apertura()
+	{		
+		if (isset($_POST[$this->_submit.'__apertura_datos'])) {
 			$nodos = array();
+			$pares = explode('||', $_POST[$this->_submit.'__apertura_datos']);			
 			foreach ($pares as $par) {
-				$par = explode("=", $par);
+				$par = explode('=', $par);
 				if (count($par) == 2) {
 					list($id, $visible) = $par;
 					if ($this->validar_id_nodo_recibido($id)) {
@@ -251,25 +239,31 @@ class toba_ei_arbol extends toba_ei
 			}
 			$this->_datos_apertura = $nodos;
 			//Se reporta el cambio de layout al padre
-			$this->reportar_evento_interno("cambio_apertura", $this->_datos_apertura);
-		}
-		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$this->reportar_evento_interno('cambio_apertura', $this->_datos_apertura);
+		}		
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function disparar_eventos_propios()
+	{	
+		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit] !='') {
 			$evento = $_POST[$this->_submit];
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->_memoria['eventos'][$evento]) ) {
 				$parametros = null;
-				$existe_seleccion = (isset($_POST[$this->_submit."__seleccion"]));
+				$existe_seleccion = (isset($_POST[$this->_submit.'__seleccion']));
 				$evento_propiedades = ($evento == 'ver_propiedades');
 
 				if ( $evento_propiedades && $existe_seleccion &&
-					($this->validar_id_nodo_recibido($_POST[$this->_submit."__seleccion"]))) {
-							$this->reportar_evento_interno( $evento, $_POST[$this->_submit."__seleccion"] );
-					}
+					($this->validar_id_nodo_recibido($_POST[$this->_submit.'__seleccion']))) {
+							$this->reportar_evento_interno( $evento, $_POST[$this->_submit.'__seleccion'] );
 				}
-			}		
-		$this->borrar_memoria_eventos_atendidos();
+			}
+		}			
 	}
-
+		
 	/**
 	 * Se cargan los datos del nodo, se le comunica la apertura
 	 * y se disparan los eventos de los hijos del nodo.
@@ -278,7 +272,7 @@ class toba_ei_arbol extends toba_ei
 	protected function disparar_eventos_nodo($nodo)
 	{
 		//Le paso al nodo una referencia al arbol que lo contiene
-		if( method_exists($nodo, 'set_ei_arbol') ){
+		if (method_exists($nodo, 'set_ei_arbol')) {
 			$nodo->set_ei_arbol( $this );
 		}
 		$id = $this->_submit.'_'.$nodo->get_id();
@@ -293,6 +287,25 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore
+	 */
+	function disparar_eventos()
+	{
+		//Actualiza el estado de los nodos
+		if (isset($this->_nodos_inicial)) {
+			foreach ($this->_nodos_inicial as $nodo) {
+				if ($nodo instanceof toba_nodo_arbol_form) {
+						$this->disparar_eventos_nodo($nodo);
+				}
+			}
+		}
+				
+		$this->disparar_cambios_apertura();		//Se guarda el layout del arbol actual
+		$this->disparar_eventos_propios();
+		$this->borrar_memoria_eventos_atendidos();
+	}
+	
 	/*
 	 * Valida que el id del nodo haya sido enviado al cliente
 	 * @ignore
@@ -301,81 +314,144 @@ class toba_ei_arbol extends toba_ei
 	{
 		if ($this->_chequear_id_nodos && ! in_array($id_nodo, $this->_ids_enviados)) {
 			toba::logger()->debug("Se intenta acceder al nodo con id $id_nodo , pero no fue enviado al cliente");
-			throw new toba_error("Se intenta acceder a un nodo que no existe.");
+			throw new toba_error('Se intenta acceder a un nodo que no existe.');
 		}
 		return true;
+	}
+	
+	/**
+	 * Determina si un nodo es visible fijandose en la apertura de nodos
+	 * @ignore
+	 */
+	protected function nodo_es_visible($nodo, $nivel)
+	{
+		if ($nodo instanceof toba_nodo_arbol_form) {
+			return $nodo->get_apertura();
+		}
+
+		$cargado_parcial = (!$nodo->es_hoja() && $nodo->tiene_hijos_cargados());
+		if ($this->_todos_abiertos) {
+			return $cargado_parcial;
+		}
+		if (isset($this->_datos_apertura[$nodo->get_id()])) {
+			return $this->_datos_apertura[$nodo->get_id()] && $cargado_parcial;
+		}
+		//Si no esta se determina por el nivel de apertura estandar
+		return ($nivel < $this->_nivel_apertura) && $cargado_parcial;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------
 	//--	Generacion de HTML
 	//-------------------------------------------------------------------------------------------------------
-	/**
-	 * Genera el HTML del arbol
-	 */
-	function generar_html()
+	
+	protected function generar_campos_hidden()
 	{
-		$this->_ids_enviados = array();										//Reinicio el arreglo para que guarde solo el pedido actual
 		echo toba_form::hidden($this->_submit, '');
-		echo toba_form::hidden($this->_submit."__apertura_datos", '');
-		echo toba_form::hidden($this->_submit."__seleccion", '');
-		$id = "id='{$this->objeto_js}_nodo_raiz'";
-		echo "<div class='ei-base ei-arbol-base'>";
+		echo toba_form::hidden($this->_submit.'__apertura_datos', '');
+		echo toba_form::hidden($this->_submit.'__seleccion', '');		
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected  function generar_barras_grales()
+	{
 		echo $this->get_html_barra_editor();
-		$this->generar_html_barra_sup(null, true,"ei-arbol-barra-sup");
+		$this->generar_html_barra_sup(null, true,'ei-arbol-barra-sup');
 		if ($this->_mostrar_filtro_rapido) {
 			$this->generar_html_filtro_rapido();
 		}
 		$this->generar_html_barra_especifica();
-		echo "<div id='cuerpo_{$this->objeto_js}'>";
-		if (isset($this->_nodos_inicial)) {
-			//--- Se incluye la barrita que contiene el path actual
-			$barra = "";
-			if (count($this->_nodos_inicial) > 0) {
-				$nodo = $this->_nodos_inicial[0];
-				while ($nodo->get_padre() != null) {
-					$nodo = $nodo->get_padre();
-					$nodo_barra = "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"";
-					$nodo_barra .= $nodo->get_id()."\");' ";
-					$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(),20)."</a>";
-					$barra = $nodo_barra . " > ". $barra;
-					$this->_ids_enviados[] = $nodo->get_id();															//Agrego los nodos de la barra del path
-				}
-				if ($barra != '') {
-					$barra = "<div class='ei-arbol-barra-path'>$barra</div>";
-				}
-				echo $barra;
+	}	
+	
+	/**
+	 * @ignore
+	 */
+	protected function generar_barra_navegacion()
+	{
+		$camino = '';
+		if (count($this->_nodos_inicial) > 0) {
+			$nodo = $this->_nodos_inicial[0];
+			while ($nodo->get_padre() != null) {
+				$nodo = $nodo->get_padre();
+				$nodo_barra = "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"{$nodo->get_id()}\");'";
+				$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(), 20).'</a>';
+				$camino = $nodo_barra . ' > '. $camino;
+				$this->_ids_enviados[] = $nodo->get_id();															//Agrego los nodos de la barra del path
 			}
-			$id_div = '';
-			if (count($this->_nodos_inicial) > 1) {
-				$id_div = $id;
-				$id = '';		
-			}			
-			echo "<div class='ei-cuerpo ei-arbol-cuerpo' $id_div>\n";
+			if ($camino != '') {
+				echo "<div class='ei-arbol-barra-path'>$camino</div>";
+			}				
+		}
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function generar_cuerpo()
+	{
+		$id_div = '';
+		$id = "id='{$this->objeto_js}_nodo_raiz'";								
+		if (count($this->_nodos_inicial) > 1) {
+			$id_div = $id;
+			$id = '';		
+		}			
 
-			foreach ($this->_nodos_inicial as $nodo_inicial) {
-				echo "\n<ul $id class='ei-arbol-raiz'>";
-				echo $this->recorrer_recursivo($nodo_inicial, true);
-				echo "</ul>";
-				$id = null;	//El id lo tiene s?lo el primer nodo
-			}
-			echo "</div>";
+		echo "<div class='ei-cuerpo ei-arbol-cuerpo' $id_div>\n";
+		foreach ($this->_nodos_inicial as $nodo_inicial) {
+			echo "\n<ul $id class='ei-arbol-raiz'>";
+			echo $this->recorrer_recursivo($nodo_inicial, true);
+			echo '</ul>';
+			$id = null;	//El id lo tiene solo el primer nodo
+		}
+		echo '</div>';	
+	}
+	
+	/**
+	 * Genera el HTML del arbol
+	 */
+	public function generar_html()
+	{
+		$this->generar_campos_hidden();					//Genero los campos a usar para la comunicacion
+		$this->_ids_enviados = array();					//Reinicio el arreglo para que guarde solo el pedido actual
+		
+		echo "<div class='ei-base ei-arbol-base'>";
+		$this->generar_barras_grales();		
+		echo "<div id='cuerpo_{$this->objeto_js}'>";
+		
+		if (isset($this->_nodos_inicial)) {					//Si hay nodos			
+			$this->generar_barra_navegacion();			// Se incluye la barrita que contiene el path actual
+			$this->generar_cuerpo();	
 		}
 		$this->generar_botones();		
-		echo "</div>";
-		echo "</div>";
+		echo '</div>
+			</div>';
 	}
 
+	/**
+	 * @ignore
+	 */
+	public function recorrer_hijos($nodo, $nivel)
+	{
+		$salida = '';
+		foreach ($nodo->get_hijos() as $nodo_hijo) {
+			$salida .= $this->recorrer_recursivo($nodo_hijo, false, $nivel);
+		}
+		return $salida;
+	}
+	
 	/**
 	 * @ignore
 	 */
 	public function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0, $solo_contenido=false)
 	{
 		//Le paso al nodo una referencia al arbol que lo contiene
-		if( method_exists($nodo, 'set_ei_arbol') ){
-			$nodo->set_ei_arbol( $this );
+		if( method_exists($nodo, 'set_ei_arbol') ) {
+			$nodo->set_ei_arbol($this);
 		}
 		$id_nodo = $nodo->get_id();
 		$this->_ids_enviados[] = $id_nodo;
+		//Verifico que no haya un mismo id perteneciente a clases diferentes
 		if ($this->chequear_ids_unicos) {			
 			if (isset($this->ids[$id_nodo])) {
 				$clase = get_class($nodo);
@@ -384,57 +460,64 @@ class toba_ei_arbol extends toba_ei
 			}
 			$this->ids[$id_nodo] = get_class($nodo);
 		}
-
-		//Configuracion del estilo del nodo
-		$clase_li = 'ei-arbol-nodo ';
-		$estilo_li = '';
-		if( method_exists($nodo, 'get_clase_css_li')) {
-			$clase_li .= $nodo->get_clase_css_li();
-		}
-		if( method_exists($nodo, 'get_estilo_css_li') ){
-			$estilo_li .= $nodo->get_estilo_css_li();
+		
+		//Genero el html para el nodo
+		$salida_generada = $this->generar_fila_nodo($nodo, $nivel);
+		
+		//Diferencio la salida segun corresponda		
+		if (! $solo_contenido) { 
+			$estilo_li = '';							//Configuracion del estilo del nodo
+			$clase_li = 'ei-arbol-nodo ';			
+			if (method_exists($nodo, 'get_estilo_css_li')) {
+				$estilo_li .= $nodo->get_estilo_css_li();
+			}
+			if (method_exists($nodo, 'get_clase_css_li')) {
+				$clase_li .= $nodo->get_clase_css_li();
+			}
+			
+			$salida = "\n\t<li class='$clase_li' id_nodo='{$nodo->get_id()}' style='$estilo_li' >";					
+			$salida .= $salida_generada;
+			$salida .= "</li>\n";
+		} else {
+			$salida = $salida_generada;
 		}
 		
-		//Determina si el nodo es visible en la apertura
-		$salida = '';
-		if (!$solo_contenido) $salida = "\n\t<li class='$clase_li' id_nodo='{$nodo->get_id()}' style='$estilo_li' >";
-		$es_visible = $this->nodo_es_visible($nodo, $nivel);
-		$salida .= $this->mostrar_nodo($nodo, $es_visible);
-
-		//Recursividad
-		if (! $nodo->es_hoja()) {
-	
-			//Configuracion del estilo del nodo
-			$clase_ul = 'ei-arbol-rama ';
-			$estilo_ul = ($es_visible) ? "" : "display:none";
-			if( method_exists($nodo, 'get_clase_css_ul') ) {
-				$clase_ul .= $nodo->get_clase_css_ul();
-			}
-			if( method_exists($nodo, 'get_estilo_css_ul') ) {
-				$estilo_ul .= $nodo->get_estilo_css_ul();
-			}
-			$estilo = ($estilo_ul) ? "style='$estilo_ul'" : '';
-			
-			$salida .= "\n<ul id_nodo='{$nodo->get_id()}' class='$clase_ul' $estilo>";
-			$nivel = $nivel + 1;
-			if ($nodo->tiene_hijos_cargados()) {
-				$salida .= $this->recorrer_hijos($nodo, $nivel);
-			}
-			$salida .= "</ul>";
-		}
-		if (!$solo_contenido) $salida .= "</li>\n";
 		return $salida;
 	}
-
+	
 	/**
 	 * @ignore
+	 * @param mixed $nodo
+	 * @param smallint $nivel
+	 * @return string $salida
 	 */
-	public function recorrer_hijos($nodo, $nivel)
+	function generar_fila_nodo($nodo, $nivel)
 	{
-		$salida = "";
-		foreach ($nodo->get_hijos() as $nodo_hijo) {
-			$salida .= $this->recorrer_recursivo($nodo_hijo, false, $nivel);
-		}
+		//Determina si el nodo es visible en la apertura
+		$es_visible = $this->nodo_es_visible($nodo, $nivel);
+		$salida = $this->mostrar_nodo($nodo, $es_visible);
+
+		//Recursividad
+		if (! $nodo->es_hoja()) {	
+			//Configuracion del estilo del nodo
+			$clase_ul = 'ei-arbol-rama ';			
+			if (method_exists($nodo, 'get_clase_css_ul')) {
+				$clase_ul .= $nodo->get_clase_css_ul();
+			}
+			
+			$estilo_ul = ($es_visible) ? '' : 'display:none ';
+			if (method_exists($nodo, 'get_estilo_css_ul')) {
+				$estilo_ul .= $nodo->get_estilo_css_ul();
+			}
+			$estilo = ($estilo_ul != '') ? "style='$estilo_ul'" : '';
+			
+			$salida .= "\n<ul id_nodo='{$nodo->get_id()}' class='$clase_ul' $estilo>";			
+			if ($nodo->tiene_hijos_cargados()) {
+				$nivel ++;
+				$salida .= $this->recorrer_hijos($nodo, $nivel);
+			}
+			$salida .= '</ul>';
+		}		
 		return $salida;
 	}
 
@@ -443,19 +526,8 @@ class toba_ei_arbol extends toba_ei
 	 */
 	public function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
-		$salida = '';
-		$salida .= $this->mostrar_utilerias($nodo);
-		if ($this->_mostrar_propiedades_nodos && ! $nodo->es_hoja()) {
-			if ($es_visible) {
-				$img_exp_contr = toba_recurso::imagen_toba('nucleo/contraer.gif', false);
-			} else {
-				$img_exp_contr = toba_recurso::imagen_toba('nucleo/expandir.gif', false);
-			}
-			$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);'
-			class='ei-arbol-exp-contr' alt='' /> ";
-		} else {
-			$salida .= gif_nulo(14,1);
-		}
+		$salida = $this->mostrar_utilerias($nodo);
+		$salida .= $this->mostrar_cambio_expansion($nodo, $es_visible);
 		$salida .= $this->mostrar_iconos($nodo);
 
 		//Nombre y ayuda
@@ -470,14 +542,15 @@ class toba_ei_arbol extends toba_ei
 				$title .= "<hr />$extra";
 			}
 			$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
-			if (get_class($nodo) == 'toba_ci_pantalla_info'){
-					$nombre= "<span $ayuda>$id</span>";
-			}else{
-					$nombre= "<span $ayuda>$corto</span>";
+			if (get_class($nodo) == 'toba_ci_pantalla_info') {
+				$nombre= "<span $ayuda>$id</span>";
+			} else {
+				$nombre= "<span $ayuda>$corto</span>";
 			}
 		} else {
 			$nombre = $corto;
 		}
+		
 		if ($this->_mostrar_propiedades_nodos && $nodo->tiene_propiedades()) {
 			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
 						"class='ei-arbol-ver-prop'>$nombre</a>";			
@@ -495,7 +568,7 @@ class toba_ei_arbol extends toba_ei
 		echo "<div class='ei-arbol-filtro'>";
 		$eventos = "onkeyup='{$this->objeto_js}.filtro_cambio()' onblur='{$this->objeto_js}.filtro_salir()' onfocus='{$this->objeto_js}.filtro_foco()'";
 		echo "<input id='{$this->_submit}_filtro_rapido' type='text' value='Buscar...' $eventos />";
-		echo "</div>";
+		echo '</div>';
 	}
 
 	/**
@@ -504,26 +577,24 @@ class toba_ei_arbol extends toba_ei
 	function generar_html_barra_especifica(){}
 
 	/**
-	 * Determina si un nodo es visible fijandose en la apertura de nodos
 	 * @ignore
 	 */
-	protected function nodo_es_visible($nodo, $nivel)
+	protected function mostrar_cambio_expansion($nodo, $es_visible)
 	{
-		if ($nodo instanceof toba_nodo_arbol_form) {
-			return $nodo->get_apertura();
+		if ($this->_mostrar_propiedades_nodos && ! $nodo->es_hoja()) {			//Muestro el icono para cambiar la expansion
+			if ($es_visible) {
+				$img_exp_contr = toba_recurso::imagen_toba('nucleo/contraer.gif', false);
+			} else {
+				$img_exp_contr = toba_recurso::imagen_toba('nucleo/expandir.gif', false);
+			}
+			$salida = "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);'
+			class='ei-arbol-exp-contr' alt='' /> ";
+		} else {
+			$salida = gif_nulo(14,1);
 		}
-
-		$cargado_parcial = !$nodo->es_hoja() && $nodo->tiene_hijos_cargados();
-		if ($this->_todos_abiertos) {
-			return $cargado_parcial;
-		}
-		if (isset($this->_datos_apertura[$nodo->get_id()])) {
-			return $this->_datos_apertura[$nodo->get_id()] && $cargado_parcial;
-		}
-		//Si no esta se determina por el nivel de apertura estandar
-		return ($nivel < $this->_nivel_apertura) && $cargado_parcial;
+		return $salida;
 	}
-
+	
 	/**
 	 * @ignore
 	 */
@@ -548,47 +619,41 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function mostrar_utilerias($nodo)
 	{
-		$salida = "";
+		$salida = '';
 		if($nodo instanceof toba_nodo_arbol_form) {
-			$salida .= "<span style='float:right;'>";
-			$id = $this->_submit.'_'.$nodo->get_id();
-			$salida .= $nodo->get_input($id);
-			$salida .= "</span>";
+			$id = $this->_submit. '_'. $nodo->get_id();
+			$salida .= '<span style=\'float:right;\'>'. $nodo->get_input($id). '</span>';
 		}
 		$utilerias = $nodo->get_utilerias();
 		if ($this->_mostrar_utilerias && (count($utilerias) > 0)) {
-			$plegados = "";
-			$despl = "";
-			$salida .= "<span style='float:right;'>";
+			$plegados = '';
+			$despl = '';
+			$salida .= '<span style=\'float:right;\'>';
 			$cant_plegados = 0;
 			foreach ($utilerias as $utileria) {
 				$ayuda = toba_parser_ayuda::parsear($utileria['ayuda']);
 				$js = isset($utileria['javascript']) ? $utileria['javascript'] : '';
 				$img = toba_recurso::imagen($utileria['imagen'], null, null, $ayuda, null, $js);
 				if (isset($utileria['vinculo'])) {
-					if (isset($utileria['target'])) {
-						$target = "target='".$utileria['target']."'";
-					} else {
-						$target = "target='{$this->_frame_destino}'";
-					}
-					$html = "<a href=\"".$utileria['vinculo']."\" $target>$img</a>\n";
+					$target = (isset($utileria['target'])) ? $utileria['target'] : $this->_frame_destino;
+					$html = "<a href=\"{$utileria['vinculo']}\" target='$target'>$img</a>\n";
 				} else {
 					$html = $img;
 				}
 				if (isset($utileria['plegado']) && $utileria['plegado']) {
-					$plegados .= $html;
 					$cant_plegados++;
+					$plegados .= $html;					
 				} else {
 					$despl .= $html;
 				}
 			}
 			if ($cant_plegados > 0) {
-				$img = toba_recurso::imagen_toba("nucleo/expandir_izq.gif",true);
+				$img = toba_recurso::imagen_toba('nucleo/expandir_izq.gif',true);
 				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);return false'>$img</a>";
 				$salida .= "<span style='display:none'>$plegados</span>";
 			}
 			$salida .= $despl;
-			$salida .= "</span>";
+			$salida .= '</span>';
 		}
 		return $salida;
 	}
@@ -608,7 +673,7 @@ class toba_ei_arbol extends toba_ei
 			return $nombre;
 		} else {
 			//Quotear por si es html y el recorte lo rompe
-			return texto_plano(substr($nombre, 0, $limite))."..."; 
+			return texto_plano(substr($nombre, 0, $limite)).'...'; 
 		}
 	}
 
@@ -642,7 +707,7 @@ class toba_ei_arbol extends toba_ei
 		$identado = toba_js::instancia()->identado();
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->_id);
-		$autovinculo = toba::vinculador()->get_url(null, null, "", $opciones );
+		$autovinculo = toba::vinculador()->get_url(null, null, '', $opciones );
 		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
 		'{$this->_submit}', '$autovinculo');\n";
 	}
