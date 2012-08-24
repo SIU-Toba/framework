@@ -68,8 +68,8 @@ class comando_base extends comando_toba
 		
 		
 		//--- Base de origen
+		$param = $this->get_parametros();		
 		if (!isset($origen) && isset($param['-o']) &&  (trim($param['-o']) != '') ) {
-			$param = $this->get_parametros();
 			$origen =  $param['-o'];
 		}
 		if (isset($origen)) {
@@ -82,12 +82,13 @@ class comando_base extends comando_toba
 		//---- Datos	
 		if (!isset($datos)) {
 			$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
-			$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR (ej. postgres7)' ) );
-			$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE (ej. localhost)' ) );
-			$form->agregar_campo( array( 'id' => 'puerto',	'nombre' => 'PUERTO (ej. 5432)', 'obligatorio' => false ) );
-			$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO (ej. postgres)' ) );
-			$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE', 'obligatorio' => false ) );
-			$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
+			$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR (ej. postgres7)' ));
+			$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE (ej. localhost)' ));
+			$form->agregar_campo( array( 'id' => 'puerto',	'nombre' => 'PUERTO (ej. 5432)', 'obligatorio' => false));
+			$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO (ej. postgres)' ));
+			$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE', 'obligatorio' => false ));
+			$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ));
+			$form->agregar_campo( array( 'id' => 'schema', 'nombre' => 'SCHEMA (ej. public)' , 'obligatorio' => false));
 			$datos = $form->procesar();
 		}		
 		if (! isset($datos['puerto']) || trim($datos['puerto']) == '') {			//Si no lo cargo en pantalla o no viene seteado del otro origen voy al default
