@@ -30,6 +30,9 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	protected $acceso_actual;
 	protected $img_acceso;
 	protected $img_sin_acceso;
+	
+	protected $id_js_arbol; 
+	protected $comunicacion_elemento_input = true;
 
 	function __construct($datos, $grupo_acceso)
 	{
@@ -46,7 +49,7 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 		$this->id_padre = $datos['padre'];
 		$this->imagen = $datos['imagen'];
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
-		$this->acceso_original = ($datos['acceso']!='') ? 1 : 0;
+		$this->acceso_original = ($datos['acceso'] != '') ? true : false;
 		$this->acceso_actual = $this->acceso_original;
 		if (!$this->es_carpeta()) {
 			$this->img_acceso = toba_recurso::imagen_toba('aplicar.png', false);
@@ -58,13 +61,13 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	
 	function sincronizar()
 	{	
-		if($this->acceso_original != $this->acceso_actual) {
-			if ($this->acceso_actual == 1) {
+		if($this->acceso_original !== $this->acceso_actual) {
+			if ($this->acceso_actual) {
 				$sql = "INSERT INTO 
 							apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item) 
 						VALUES 
 							('$this->proyecto','$this->grupo_acceso','$this->id');";
-			} else {
+			} elseif ($this->acceso_actual === false) {
 				$sql = "DELETE FROM 
 							apex_usuario_grupo_acc_item 
 						WHERE 
@@ -221,6 +224,59 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	function get_apertura() 
 	{
 		return $this->abierto;
+	}
+			
+	function set_js_ei_arbol($arbol_padre)
+	{
+		$this->id_js_arbol = $arbol_padre;
+	}
+
+	function desactivar_envio_inputs()
+	{
+		$this->comunicacion_elemento_input = false;		
+	}
+	
+	function set_estado_acceso($acceso)
+	{
+		$this->acceso_actual = $acceso;
+	}
+	
+	//-------------------------------------------------------------------------------------------//
+	//				ESTADO DEL POST
+	//-------------------------------------------------------------------------------------------//	
+	function propagar_estado_hijos($activos, $inactivos)
+	{
+		//Primero miro el valor actual del elemento
+		$esta_activo = (in_array($this->id, $activos) && ! in_array($this->id, $inactivos));
+		$this->set_estado_acceso($esta_activo);	
+			
+		if ($this->tiene_hijos_cargados()) {
+			foreach ($this->get_hijos() as $hijo) {
+				$hijo->propagar_estado_hijos($activos, $inactivos);
+			}
+		}		
+	}
+	
+	//-------------------------------------------------------------------------------------------//
+	//				ENVIADO AL CLIENTE
+	//-------------------------------------------------------------------------------------------//
+	function recuperar_estado_recursivo()
+	{
+		$estado = array('activos' => array(), 'inactivos' => array());
+		if ($this->tiene_hijos_cargados()) {
+			foreach ($this->get_hijos() as $hijo) {
+				$aux = $hijo->recuperar_estado_recursivo();
+				$estado['activos'] = array_merge($estado['activos'], $aux['activos']);
+				$estado['inactivos'] = array_merge($estado['inactivos'], $aux['inactivos']);
+			}
+		}
+		
+		if (isset($this->acceso_actual) && $this->acceso_actual) {
+			$estado['activos'][] = $this->get_id();
+		} elseif ($this->acceso_actual === false) {
+			$estado['inactivos'][] = $this->get_id();
+		}
+		return $estado;
 	}	
 }
 

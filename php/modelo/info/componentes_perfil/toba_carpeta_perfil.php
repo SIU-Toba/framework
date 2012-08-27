@@ -12,7 +12,7 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 	function permiso_activo()
 	{
 		foreach($this->hijos as $hijo) {
-			if( $hijo->permiso_activo() ) return true;
+			if ($hijo->permiso_activo()) return true;
 		}
 		return false;
 	}
@@ -26,9 +26,9 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 			$hijo->sincronizar();
 		}
 		if ($this->permiso_activo() ) {
-			$this->acceso_actual = 1;	
+			$this->acceso_actual = true;	
 		} else {
-			$this->acceso_actual = 0;
+			$this->acceso_actual = false;
 		}
 		parent::sincronizar();	
 	}
@@ -45,14 +45,17 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 	
 	function get_input($id)
 	{
-		$id_input = $id.'_carpeta';
-		//$img_marcar = toba_recurso::imagen_toba('aplicar.png', false);
 		$html = '';		
-		//$html .= "<img src='$img_marcar' id='".$id_input."_img' onclick='marcar(\"$id_input\")' />";
-		$html .= "<input type='checkbox' value='1' id='$id_input' name='$id_input' onclick='marcar(\"$id_input\", this.value)' />";		
+		$id_js = $this->id_js_arbol;
+		$id_input = $id.'_carpeta';
+		if ($this->comunicacion_elemento_input) {
+			$img_marcar = toba_recurso::imagen_toba('aplicar.png', false);
+			$html .= "<img src='$img_marcar' id='".$id_input."_img' onclick='$id_js.marcar(\"{$this->get_id()}\")' />";
+		}
+		$html .= "<input type='checkbox' value='1' id='$id_input' name='$id_input' onclick='$id_js.marcar(\"{$this->get_id()}\", this.value)' />";			
 		return $html;
 	}
-
+	
 }
 
 ?>
