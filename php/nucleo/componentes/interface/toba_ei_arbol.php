@@ -271,9 +271,9 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function disparar_eventos_nodo($nodo)
 	{
-		//Le paso al nodo una referencia al arbol que lo contiene
-		if (method_exists($nodo, 'set_ei_arbol')) {
-			$nodo->set_ei_arbol( $this );
+		//Le paso al nodo una referencia al js del arbol que lo contiene
+		if (method_exists($nodo, 'set_js_ei_arbol')) {			
+			$nodo->set_js_ei_arbol( $this->get_id_objeto_js());
 		}
 		$id = $this->_submit.'_'.$nodo->get_id();
 		// Se le pide al nodo que cargue su estado a partir del post
@@ -445,9 +445,9 @@ class toba_ei_arbol extends toba_ei
 	 */
 	public function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0, $solo_contenido=false)
 	{
-		//Le paso al nodo una referencia al arbol que lo contiene
-		if( method_exists($nodo, 'set_ei_arbol') ) {
-			$nodo->set_ei_arbol($this);
+		//Le paso al nodo una referencia al js del arbol que lo contiene
+		if (method_exists($nodo, 'set_js_ei_arbol')) {			
+			$nodo->set_js_ei_arbol( $this->get_id_objeto_js());
 		}
 		$id_nodo = $nodo->get_id();
 		$this->_ids_enviados[] = $id_nodo;
