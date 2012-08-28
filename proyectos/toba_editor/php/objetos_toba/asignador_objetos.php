@@ -101,13 +101,12 @@ class asignador_objetos
 		$sql = "INSERT INTO apex_objetos_pantalla( proyecto, pantalla, objeto_ci, dep_id, orden)
 		VALUES ('{$this->destino['proyecto']}', '{$this->destino['pantalla']}',
 						  '{$this->destino['objeto']}', '$dep_id',
-							(SELECT max(orden) + 1
+							(SELECT  COALESCE(max(orden) + 1, 0)
 							FROM apex_objetos_pantalla
 							WHERE proyecto = ".quote($this->destino['proyecto']).' AND
 								objeto_ci = '.quote($this->destino['objeto']).' AND
 								pantalla = '.quote($this->destino['pantalla']).' )
 						);';
-				
 		ejecutar_fuente($sql, 'instancia');
 	}
 	
