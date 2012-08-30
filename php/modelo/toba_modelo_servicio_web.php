@@ -167,8 +167,8 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 */
 	function generar_documentacion($carpeta_doc, $forzar_reemplazo = false)
 	{
-		$prefijo = "http://localhost";
-		$sufijo = "/servicios.php/";
+		$prefijo = 'http://localhost';
+		$sufijo = '/servicios.php/';
 		if ($forzar_reemplazo || !file_exists($carpeta_doc.'/wsdl-viewer.xsl')) {
 			copy(toba_dir(). '/php/modelo/var/wsdl-viewer.xsl', $carpeta_doc.'/wsdl-viewer.xsl');
 		}
@@ -177,12 +177,12 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		}
 		$include = '<?xml-stylesheet type="text/xsl" href="wsdl-viewer.xsl"?>';
 		$search = '"utf-8"?>';
-		$this->get_manejador_interface()->mensaje("Servicio: ".$this->identificador);			
-		$url = $prefijo.$this->proyecto->get_url().$sufijo.$this->identificador."?wsdl2";
+		$this->get_manejador_interface()->mensaje('Servicio: '.$this->identificador);			
+		$url = $prefijo.$this->proyecto->get_url().$sufijo.$this->identificador.'?wsdl2';
 		$wsdl = file_get_contents($url);
 		$wsdl = str_replace($search, $search.$include, $wsdl);
-		$file = $this->identificador.".wsdl.xml";
-		file_put_contents($carpeta_doc."/".$file, $wsdl);
+		$file = $this->identificador.'.wsdl.xml';
+		file_put_contents($carpeta_doc.'/'.$file, $wsdl);
 		return $file;
 	}
 
@@ -196,25 +196,22 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	{
 		$config = self::get_ini_cliente($this->proyecto, $this->get_id());
 		if (! is_null($url_sistema)) {
-			$config->agregar_entrada("conexion", array('to' => $url_sistema));
-		}
+			$config->agregar_entrada('conexion', array('to' => $url_sistema));
+		}		
 		if (! $config->existe_entrada('certificado', 'clave_cliente')) {
-			$cert = array();
-			$cert['clave_cliente'] = "../../privada.key";	//Se utiliza la clave de todo el proyecto
-			$cert['cert_cliente'] = "../../publica.crt";	//Se utiliza el cert de todo el proyecto
+			$cert = array();		
+			$cert['clave_cliente'] = '../../privada.key';	//Se utiliza la clave de todo el proyecto
+			$cert['cert_cliente'] = '../../publica.crt';	//Se utiliza el cert de todo el proyecto
 		} else {
 			$cert = $config->get_datos_entrada("certificado");  //Mantiene clave y cert actuales del cliente
 		}
 
 		//Guarda el certificado del servidor
 		$directorio = $this->get_dir_instalacion_cliente();
-		copy($cert_servidor, $directorio."/cert_servidor.crt");
-		$cert['cert_servidor'] = "./cert_servidor.crt";
+		copy($cert_servidor, $directorio.'/cert_servidor.crt');
+		$cert['cert_servidor'] = './cert_servidor.crt';
+						
 		$config->agregar_entrada('certificado', $cert);
-				
-		if (! empty($datos_cert)) {
-			$config->agregar_entrada('certificado', $datos_cert);
-		}
 		$config->guardar();		
 	}
 	
@@ -227,10 +224,10 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	function generar_configuracion_servidor($cert_cliente, $headers = array())
 	{
 		$config = self::get_ini_server($this->proyecto, $this->get_id());
-		if (! $config->existe_entrada("certificado")) {
+		if (! $config->existe_entrada('certificado')) {
 			$cert = array();
-			$cert['clave_servidor'] = "../../privada.key";	//Se utiliza la clave de todo el proyecto
-			$cert['cert_servidor'] = "../../publica.crt";	//Se utiliza el cert de todo el proyecto
+			$cert['clave_servidor'] = '../../privada.key';	//Se utiliza la clave de todo el proyecto
+			$cert['cert_servidor'] = '../../publica.crt';	//Se utiliza el cert de todo el proyecto
 			$config->agregar_entrada('certificado', $cert);
 		}
 		
@@ -239,15 +236,21 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 
 		//Guarda el certificado del cliente
 		$directorio = $this->get_dir_instalacion_servidor();
-		$nombre_archivo = toba_manejador_archivos::nombre_valido(str_replace("=", "_", $nombre));
+		$nombre_archivo = toba_manejador_archivos::nombre_valido(str_replace('=', '_', $nombre));
 		copy($cert_cliente, $directorio."/$nombre_archivo.crt");
 		
 		$datos = array();
 		$datos['archivo'] = "./$nombre_archivo.crt";
 		$datos['fingerprint'] = sha1(toba_servicio_web::decodificar_certificado($directorio."/$nombre_archivo.crt"));
-		$config->agregar_entrada($nombre, $datos);
-
-		$config->agregar_entrada('general', array('activo' => '0'));				//Desactivo el WS por defecto
+		if (! $config->existe_entrada($nombre)) {
+			$config->agregar_entrada($nombre, $datos);
+		} else {
+			$config->set_datos_entrada($nombre, $datos);
+		}
+		
+		if (! $config->existe_entrada('general', 'activo')) {
+			$config->agregar_entrada('general', array('activo' => '0'));		//Desactivo el WS por defecto
+		}
 		$config->guardar();
 	}
 
