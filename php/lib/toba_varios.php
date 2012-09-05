@@ -771,7 +771,7 @@
 	 */
 	function texto_plano($texto)
 	{
-		return htmlentities($texto, ENT_QUOTES);
+		return htmlentities($texto, ENT_QUOTES, 'ISO-8859-1');
 	}
 
 
