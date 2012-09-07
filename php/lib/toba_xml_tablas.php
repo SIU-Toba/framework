@@ -93,7 +93,7 @@ class toba_xml_tablas
 		$conexion->retrazar_constraints(false);
 		$tablas = $this->get_tablas();
 		$errores = array();
-		$i = 0;
+		$i = 0; $sql = '';
 		//-- Recorre cada tabla
 		foreach ($tablas as $tabla => $filas) {
 			//-- Recorre cada fila
@@ -135,7 +135,7 @@ class toba_xml_tablas
 
 	static function encode($valor)
 	{
-		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES));
+		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES, 'ISO-8859-1'));
 		$valor = utf8_e_seguro($valor);
 		return $valor;
 	}

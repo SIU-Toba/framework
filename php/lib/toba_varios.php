@@ -312,12 +312,12 @@
 	{
 		$pos_guia = strpos($etiqueta, '&');
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
-			$etiqueta = htmlspecialchars($etiqueta);
+			$etiqueta = htmlspecialchars($etiqueta, null, 'ISO-8859-1');
 			return array($etiqueta, null);
 		} else {
 			$tecla = $etiqueta{$pos_guia + 1};
 			$nueva_etiqueta = str_replace("&$tecla", "%_%$tecla%_%", $etiqueta);
-			$nueva_etiqueta = htmlspecialchars($nueva_etiqueta);
+			$nueva_etiqueta = htmlspecialchars($nueva_etiqueta, null, 'ISO-8859-1');
 			$nueva_etiqueta = str_replace("%_%$tecla%_%", "<u>$tecla</u>", $nueva_etiqueta);			
 			return array($nueva_etiqueta, $tecla);
 		}

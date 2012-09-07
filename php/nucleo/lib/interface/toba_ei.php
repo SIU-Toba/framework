@@ -93,7 +93,7 @@
 		echo "<div align='center'><table border='0' cellspacing='0' cellpadding='10'>";
 		if(isset($titulo)) echo "<tr><td align='center'>$titulo</td></tr>";
 		echo "<tr><td align='center'><pre>";
-		print_r(htmlspecialchars($texto));
+		print_r(htmlspecialchars($texto, null, 'ISO-8859-1'));
 		echo "<pre></td></tr></table></div>";
 	}
 
