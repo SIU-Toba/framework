@@ -117,9 +117,6 @@ class toba_usuario implements toba_interface_usuario
 	{
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if ( empty($datos_usuario) ) {
-			if ($usar_log) {
-				toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');
-			}
 			return false;
 		} else {
 			return ($datos_usuario['clave_vencida'] === 1);
