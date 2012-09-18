@@ -13,18 +13,18 @@ class toba_rf_ci extends toba_rf_componente
 		$pantallas = $this->cargar_datos_pantallas();
 		$obj_pantalla = $this->cargar_datos_objetos_pantalla();
 		foreach($pantallas as $pantalla) {
+			//Ubico las dependencias pertenecientes a esta pantalla
+			$deps_pantalla = array();
+			foreach($obj_pantalla as $obj) {
+				if ($pantalla['pantalla'] == $obj['pantalla']) {
+					$deps_pantalla[] = $obj['identificador'];
+				}
+			}						
 			//Creo la pantalla
 			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla']);
 			$grupo->agregar_hijo($p);
-			//Cargo las dependencias
-			$deps_pantalla = array();
-			foreach($obj_pantalla as $obj){
-				if ($pantalla['pantalla'] == $obj['pantalla']){
-					$deps_pantalla[] = $obj['identificador'];
-				}
-			}			
-			foreach( $deps as $dep ) {
-				if( in_array($dep['rol'], $deps_pantalla) ){
+			foreach($deps as $dep) {
+				if (in_array($dep['rol'], $deps_pantalla)) {
 					switch ($dep['clase']) {
 						case 'toba_ci'	:
 							$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
@@ -83,7 +83,7 @@ class toba_rf_ci extends toba_rf_componente
 		$componente = quote($this->componente);
 		$proyecto = quote($this->proyecto);
 		$sql = "SELECT 	o.objeto as 			objeto,
-						o.clase as 				clase,
+						o.clase as 			clase,
 						d.identificador as		rol
 				FROM 	apex_objeto_dependencias d,
 						apex_objeto o,
@@ -102,17 +102,17 @@ class toba_rf_ci extends toba_rf_componente
 		$proyecto = quote($this->proyecto);
 		$componente = quote($this->componente);
 		$sql = "SELECT	op.pantalla,
-										op.orden,
-										op.dep_id,
-										od.identificador
-					 FROM	apex_objetos_pantalla op,
-									apex_objeto_dependencias od
-					 WHERE op.proyecto = $proyecto
-					 AND	op.objeto_ci = $componente
-					 AND	op.proyecto = od.proyecto
-					 AND	op.objeto_ci = od.objeto_consumidor
-					 AND	op.dep_id	= od.dep_id
-					ORDER BY	op.pantalla, op.orden";
+						op.orden,
+						op.dep_id,
+						od.identificador
+			     FROM		apex_objetos_pantalla op,
+					         apex_objeto_dependencias od
+			     WHERE op.proyecto = $proyecto
+				AND	op.objeto_ci = $componente
+				AND	op.proyecto = od.proyecto
+				AND	op.objeto_ci = od.objeto_consumidor
+				AND	op.dep_id	= od.dep_id
+			    ORDER BY	op.pantalla, op.orden";
 		return toba::db()->consultar($sql);
 	}
 
@@ -121,10 +121,11 @@ class toba_rf_ci extends toba_rf_componente
 		if(!$this->primer_nivel) {
 			$id_input = $id.'_oculto';
 			$valor_inicial = $this->no_visible_actual ? 1 : 0;
-			$img_inicial = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;		
-			$html = '';		
-			$html .= "<img src='$img_inicial' id='".$id_input."_img' title='Visible / Oculto' onclick='cambiar_oculto(\"$id_input\")' />";
-			$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";		
+			$img_inicial = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;			
+			$html = "<img src='$img_inicial' id='".$id_input."_img' title='Visible / Oculto' onclick='{$this->id_js_arbol}.cambiar_oculto(\"{$this->get_id()}\")' />";
+			if ($this->comunicacion_elemento_input) {
+				$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";
+			}
 			return $html;
 		}
 	}
@@ -133,7 +134,7 @@ class toba_rf_ci extends toba_rf_componente
 	{
 		if (!$this->primer_nivel) {
 			if($this->no_visible_original != $this->no_visible_actual) {
-				if ($this->no_visible_actual == 1) {
+				if ($this->no_visible_actual) {
 					$this->agregar_restriccion();
 				}else{
 					$this->eliminar_restriccion();
@@ -149,10 +150,10 @@ class toba_rf_ci extends toba_rf_componente
 	{
 		if(!$this->primer_nivel) {
 			if (isset($_POST[$id.'_oculto'])) {
-				if ($_POST[$id.'_oculto']) {
-					$this->no_visible_actual = $_POST[$id.'_oculto'];	
+				if ($_POST[$id.'_oculto'] == '1') {
+					$this->no_visible_actual = true;
 				} else {
-					$this->no_visible_actual = 0;
+					$this->no_visible_actual = false;
 				}
 			}		
 		}

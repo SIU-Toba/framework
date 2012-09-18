@@ -18,6 +18,7 @@ class toba_nodo_basico implements toba_nodo_arbol
 	protected $es_hoja = true;
 	protected $hijos = array();
 	protected $propiedades = null;
+	protected $id_js_arbol; 
 
 	function __construct($nombre, $padre=null, $id=null, $id_padre=null)
 	{
@@ -134,6 +135,11 @@ class toba_nodo_basico implements toba_nodo_arbol
 	{
 		return $this->propiedades;
 	}
+	
+	function set_js_ei_arbol($arbol_padre)
+	{
+		$this->id_js_arbol = $arbol_padre;
+	}		
 }
 
 class toba_nodo_form_basico extends toba_nodo_basico  implements toba_nodo_arbol_form 
@@ -141,7 +147,7 @@ class toba_nodo_form_basico extends toba_nodo_basico  implements toba_nodo_arbol
 	protected $oculto;
 	protected $solo_lectura;
 	protected $abierto = false;	
-	
+		
 	function get_input($id)
 	{
 		$check_solo_lectura = $this->solo_lectura ? 'checked' : '';		

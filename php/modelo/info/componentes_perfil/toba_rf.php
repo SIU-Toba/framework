@@ -30,7 +30,10 @@ class toba_rf implements toba_nodo_arbol_form
 
 	protected $restriccion = '';
 	protected $item;
-
+	
+	protected $comunicacion_elemento_input = true;
+	protected $id_js_arbol; 
+	
 	function __construct($nombre, $padre=null, $id=null)
 	{
 		$this->nombre_corto = $nombre;
@@ -117,7 +120,7 @@ class toba_rf implements toba_nodo_arbol_form
 	function marcar_abiertos()
 	{
 		$nodo = $this->get_padre();
-		while ($nodo != null && !$nodo->es_raiz() && !$nodo->get_apertura()) {
+		while (! is_null($nodo) && !$nodo->es_raiz() && !$nodo->get_apertura()) {
 			$nodo->set_apertura(true);
 			$nodo = $nodo->get_padre();
 		}
@@ -221,6 +224,59 @@ class toba_rf implements toba_nodo_arbol_form
 	{
 		return $this->carpeta;
 	}
+			
+	function desactivar_envio_inputs()
+	{
+		$this->comunicacion_elemento_input = false;		
+	}
+	
+	function set_estado_visibilidad($acceso)
+	{
+		$this->no_visible_actual = $acceso;
+	}
+	
+	function set_js_ei_arbol($arbol_padre)
+	{
+		$this->id_js_arbol = $arbol_padre;
+	}
+
+	//-------------------------------------------------------------------------------------------//
+	//				ESTADO DEL POST
+	//-------------------------------------------------------------------------------------------//	
+	function propagar_estado_hijos($activos, $inactivos)
+	{
+		//Primero miro el valor actual del elemento
+		$esta_invisible = (in_array($this->id, $inactivos) && ! in_array($this->id, $activos));
+		$this->set_estado_visibilidad($esta_invisible);
+			
+		if ($this->tiene_hijos_cargados()) {
+			foreach ($this->get_hijos() as $hijo) {
+				$hijo->propagar_estado_hijos($activos, $inactivos);
+			}
+		}		
+	}
+	
+	//-------------------------------------------------------------------------------------------//
+	//				ENVIADO AL CLIENTE
+	//-------------------------------------------------------------------------------------------//
+	function recuperar_estado_recursivo()
+	{
+		$estado = array('activos' => array(), 'inactivos' => array());
+		if ($this->tiene_hijos_cargados()) {
+			foreach ($this->get_hijos() as $hijo) {
+				$aux = $hijo->recuperar_estado_recursivo();
+				$estado['activos'] = array_merge($estado['activos'], $aux['activos']);
+				$estado['inactivos'] = array_merge($estado['inactivos'], $aux['inactivos']);
+			}
+		}
+		
+		if (isset($this->no_visible_actual) && $this->no_visible_actual) {
+			$estado['inactivos'][] = $this->get_id();
+		} else {
+			$estado['activos'][] = $this->get_id();
+		}		
+		return $estado;
+	}	
 }
 
 ?>

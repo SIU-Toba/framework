@@ -6,6 +6,7 @@ class toba_rf_item extends toba_rf
 	
 	function __construct($restriccion, $proyecto, $item, $id_padre) 
 	{
+		$this->id_padre = $id_padre;		
 		$this->restriccion = $restriccion;
 		$this->proyecto = $proyecto;
 		$this->item = $item;
@@ -19,11 +20,10 @@ class toba_rf_item extends toba_rf
 				$this->cargar_hijos();
 			}
 		}
-		$this->id_padre = $id_padre;
 		parent::__construct($datos['nombre'], null, $this->item);
-		if (!isset($datos['descripcion']) || empty($datos['descripcion'])) {
+		if (! isset($datos['descripcion']) || empty($datos['descripcion'])) {
 			$this->nombre_largo = $this->nombre_corto;
-		}else{
+		} else {
 			$this->nombre_largo = $datos['descripcion'];
 		}
 		$this->get_imagen();
@@ -52,14 +52,13 @@ class toba_rf_item extends toba_rf
 							padre,
 							imagen_recurso_origen,
 							imagen,
-							(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item AND proyecto = i.proyecto) as cant_dependencias,
-							
-							(SELECT COUNT(*) FROM apex_restriccion_funcional_ef			WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_ef,
+							(SELECT COUNT(*) FROM apex_item_objeto					WHERE item = i.item AND proyecto = i.proyecto) as cant_dependencias,							
+							(SELECT COUNT(*) FROM apex_restriccion_funcional_ef		WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_ef,
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_pantalla	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_pant,
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_evt		WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_evt,
-							(SELECT COUNT(*) FROM apex_restriccion_funcional_ei		 	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_ei,
+							(SELECT COUNT(*) FROM apex_restriccion_funcional_ei		WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_ei,
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_cols,
-							(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_filtro_cols
+							(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols  WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_filtro_cols
 				FROM 
 					apex_item i
 				WHERE item = $item
@@ -67,24 +66,26 @@ class toba_rf_item extends toba_rf
 		return toba::db()->consultar_fila($sql);
 	}
 
-	function cargar_hijos()
-	{
-		$hijos = array();
-		foreach( $this->buscar_hijos() as $hijo) {
-			$hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true);
-		}
-		if ($hijos) $this->set_hijos($hijos);
-	}
-	
-	
 	protected function tiene_dependencia_con_restriccion($datos)
 	{
-		return $datos['cant_rest_ef'] > 0 ||
+		return ($datos['cant_rest_ef'] > 0 ||
 				$datos['cant_rest_pant'] > 0 ||
 				$datos['cant_rest_evt'] > 0 ||
 				$datos['cant_rest_ei'] > 0 ||
 				$datos['cant_rest_cols'] > 0 ||
-				$datos['cant_rest_filtro_cols'] > 0;
+				$datos['cant_rest_filtro_cols'] > 0);
+	}
+	
+	function cargar_hijos()
+	{
+		$hijos = array();
+		$opciones = $this->buscar_hijos();
+		foreach ($opciones as $hijo) {
+			$hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true);
+		}
+		if (! empty($hijos)) {
+			$this->set_hijos($hijos);
+		}
 	}
 	
 	function buscar_hijos()

@@ -53,9 +53,6 @@ class toba_rf_carpeta extends toba_rf
 				WHERE item = $item
 				AND proyecto = $proyecto";
 		return toba::db()->consultar_fila($sql);
-	}
-	
+	}	
 }
-
-
 ?>

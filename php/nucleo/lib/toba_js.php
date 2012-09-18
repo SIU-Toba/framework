@@ -113,8 +113,8 @@ class toba_js
 	static function cargar_consumos_basicos()
 	{
 		if (! self::$basicos_cargados) {
+			self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';			
 			if (toba::proyecto()->get_parametro('es_css3')) {
-				self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';
 				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
 			}			
 			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
@@ -193,9 +193,10 @@ class toba_js
 					</style>
 					<![endif]-->\n";
 			}
-			echo "	<!--[if lt IE 9]>".
-						self::incluir(toba_recurso::js('basicos/html5shiv.js'))
-					."<![endif]-->\n";
+			$url = toba_recurso::js('basicos/html5shiv.js');
+			echo "	<!--[if lt IE 9]>
+						<script src='$url'></script>
+					<![endif]-->\n";
 			self::$basicos_cargados = true;
 		}
 	}
@@ -292,12 +293,12 @@ class toba_js
 				foreach($arreglo as $id => $valor) {
 					if (is_array($valor)) { 
 						//RECURSIVIDAD
-						$js .= "$id: ".self::arreglo($valor, $seg_nivel_assoc)." ,";
+						$js .= "'$id': ".self::arreglo($valor, $seg_nivel_assoc)." ,";
 					} elseif (is_bool($valor)) {
-						$js .= "$id: ". self::bool($valor) . ' ,';
+						$js .= "'$id': ". self::bool($valor) . ' ,';
 					} else {
 						$valor = addslashes($valor);				
-						$js .= "$id: '$valor', ";
+						$js .= "'$id': '$valor', ";
 					}
 				}
 				$js = substr($js, 0, -2);
