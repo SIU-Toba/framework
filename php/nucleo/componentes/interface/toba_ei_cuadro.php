@@ -1136,7 +1136,7 @@ class toba_ei_cuadro extends toba_ei
 		return $clave_array;
 	}
 
-	private function actualizar_acumulador_general($dato)
+	protected function actualizar_acumulador_general($dato)
 	{
 		if(isset($this->_acumulador)) {
 			foreach(array_keys($this->_acumulador) as $columna){
