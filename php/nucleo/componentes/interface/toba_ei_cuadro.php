@@ -1081,7 +1081,7 @@ class toba_ei_cuadro extends toba_ei
 			$profundidad = 0;
 			foreach($claves_cortes as $corte)
 			{
-				if (! $corte['habilitado']) {		//Si el corte no va a graficarse ni siquiera lo creo.
+				if (! $this->_cortes_def[$corte]['habilitado']) {		//Si el corte no va a graficarse ni siquiera lo creo.
 						continue;
 				}
 				$clave_array = $this->armar_clave_corte($dato, $corte);
