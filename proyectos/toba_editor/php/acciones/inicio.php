@@ -7,7 +7,7 @@ function controlar_usuario()
 		$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
 		if (in_array($usuario_actual, $usuarios_defecto)) {
 
-			$html = "
+			$html = "<div style='margin-top: 100px; background-color:white; padding: 10px;'>
 					<strong>Recomendado cambiar usuario APACHE</strong><br><br>
 					<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>$usuario_actual</strong> del sistema.
 							Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
@@ -46,9 +46,9 @@ function controlar_usuario()
 						<li>Luego de aceptar, reiniciar el servicio apache. En caso de que se siga mostrando esta advertencia al inicio del editor, por favor
 							contactarse con el soporte de toba ya que es muy importante para nosotros que estos pasos se sigan y funcionen bien.
 					</ol>
-					</div>
+					</div></div>
 			';
-			toba::notificacion()->warning($html);
+			echo $html;
 		}
 	}		
 }
@@ -81,10 +81,7 @@ if (isset($_GET['phpinfo'])) {
 		echo toba_form::submit('chequeo', "Chequear compatibilidad extensiones");
 		echo toba_form::cerrar();*/		
 		
-	if (! toba_manejador_archivos::es_windows()) {
-		//Por ahora este mécanismo sólo funciona en linux
-		controlar_usuario();
-	}
+
 	$version = toba_modelo_instalacion::get_version_actual();
 	$cambios = "$url_trac/trac/toba/wiki/Versiones/".($version->get_release('.').'.0');
 	echo "<div class='logo-inicio'>";
@@ -101,7 +98,10 @@ if (isset($_GET['phpinfo'])) {
 	echo '<br>'.phpversion();
 	echo '</a>';
 
-		
+	if (! toba_manejador_archivos::es_windows()) {
+		//Por ahora este mécanismo sólo funciona en linux
+		controlar_usuario();
+	}
 	echo '</div>';
 }
 
