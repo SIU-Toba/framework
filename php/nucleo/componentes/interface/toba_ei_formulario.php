@@ -115,72 +115,149 @@ class toba_ei_formulario extends toba_ei
 	}
 	
 	/**
+	 *  Arma las listas que determinan el plan de accion del ABM
+	 * @param string $id_ef
+	 * @param string $tipo_elemento
+	 * @ignore
+	 */
+	protected function separar_listas_efs($id_ef, $tipo_elemento)
+	{
+		$this->_lista_ef[] = $id_ef;
+		switch ($tipo_elemento) {
+			case	'ef_oculto':
+			case	'ef_oculto_secuencia':
+			case	'ef_oculto_proyecto':
+			case	'ef_oculto_usuario':
+				$this->_lista_toba_ef_ocultos[] = $id_ef;
+				break;
+			default:
+				$this->_lista_ef_post[] = $id_ef;
+		}							
+	}
+	
+	/**
+	 * Prepara el identificador del dato que maneja el EF.
+	 * Esta parametro puede ser	un	ARRAY	o un string: exiten EF complejos	que manejan	mas de una
+	 * Columna de la tabla a	la	que esta	asociada	el	ABM
+	 * @param string $columnas
+	 * @return mixed
+	 * @ignore
+	 */
+	protected function clave_dato_multi_columna($columnas)
+	{
+		if (strpos($columnas, ',') !== false) {
+			$dato = explode(',', $columnas);
+			for ($d=0; $d < count($dato); $d++) { //Elimino espacios en las	claves
+				$dato[$d] = trim($dato[$d]);
+			}
+		} else {
+			 $dato = $columnas;
+		}
+		return $dato;
+	}	
+	
+	/**
+	 * Crea un objeto perteneciente a la clase del ef y lo configura.
+	 * @param string $id_ef
+	 * @param string $clase_ef
+	 * @param integer $indx
+	 * @param string $clave_dato
+	 * @param array $parametros
+	 * @ignore
+	 */
+	protected function instanciar_ef($id_ef, $clase_ef, $indx, $clave_dato, $parametros)
+	{
+		$this->_elemento_formulario[$id_ef] = new $clase_ef(		$this, 
+														$this->_nombre_formulario,
+														$this->_info_formulario_ef[$indx]['identificador'],
+														$this->_info_formulario_ef[$indx]['etiqueta'],
+														addslashes($this->_info_formulario_ef[$indx]['descripcion']),
+														$clave_dato,
+														array($this->_info_formulario_ef[$indx]['obligatorio'], 
+															$this->_info_formulario_ef[$indx]['oculto_relaja_obligatorio']),
+														$parametros);
+		$this->_elemento_formulario[$id_ef]->set_expandido(! $this->_info_formulario_ef[$indx]['colapsado']);
+		if (isset($this->_info_formulario_ef[$indx]['etiqueta_estilo'])) {
+			$this->_elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->_info_formulario_ef[$indx]['etiqueta_estilo'] );
+		}
+		if (isset($this->_info_formulario_ef[$indx]['permitir_html']) && $this->_info_formulario_ef[$indx]['permitir_html']) {
+			$this->_elemento_formulario[$id_ef]->set_permitir_html(true);
+		} else {
+			$this->_elemento_formulario[$id_ef]->set_permitir_html(false);
+		}
+	}	
+	
+	/**
 	 * Crea los objetos efs asociados al formulario actual
 	 * @ignore 
 	 */
 	protected function crear_elementos_formulario()
 	{
 		$this->_lista_ef = array();
-		for($a=0;$a<count($this->_info_formulario_ef);$a++)
+		for($a=0; $a<count($this->_info_formulario_ef); $a++)
 		{
-			//-[1]- Armo las listas	que determinan	el	plan de accion	del ABM
-			$id_ef = $this->_info_formulario_ef[$a]["identificador"];
-			$this->_lista_ef[]	= $id_ef;
-			switch ($this->_info_formulario_ef[$a]["elemento_formulario"]) {
-				case	"ef_oculto":
-				case	"ef_oculto_secuencia":
-				case	"ef_oculto_proyecto":
-				case	"ef_oculto_usuario":
-					$this->_lista_toba_ef_ocultos[] = $id_ef;
-					break;
-				default:
-					$this->_lista_ef_post[] = $id_ef;
-			}
-			//$parametros	= parsear_propiedades($this->_info_formulario_ef[$a]["inicializacion"], '_');
+			//-[1]- Separa los efs segun su tipo en varias listas.
+			$id_ef = $this->_info_formulario_ef[$a]['identificador'];
+			$this->separar_listas_efs($id_ef, $this->_info_formulario_ef[$a]['elemento_formulario']);
+			
+			//Preparo el identificador del dato que maneja el EF.
+			$dato = $this->clave_dato_multi_columna($this->_info_formulario_ef[$a]['columnas']);
+									
 			$parametros = $this->_info_formulario_ef[$a];
 			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])) {
 				$parametros['carga_fuente']=$this->_info['fuente'];
 			}
-
-			//Preparo el identificador	del dato	que maneja el EF.
-			//Esta parametro puede ser	un	ARRAY	o un string: exiten EF complejos	que manejan	mas de una
-			//Columna de la tabla a	la	que esta	asociada	el	ABM
-			if (strpos($this->_info_formulario_ef[$a]["columnas"], ',') !== false) {
-				$dato =	explode(",",$this->_info_formulario_ef[$a]["columnas"]);
-				for ($d=0; $d<count($dato); $d++){ //Elimino espacios en las	claves
-					$dato[$d] = trim($dato[$d]);
-				}
-			}else{
-				 $dato = $this->_info_formulario_ef[$a]["columnas"];
-			}
-			//Nombre	del formulario.
-			$id_ef = $this->_info_formulario_ef[$a]["identificador"];
 			$this->_parametros_carga_efs[$id_ef] = $parametros;
-			$clase_ef = 'toba_'.$this->_info_formulario_ef[$a]["elemento_formulario"];
-			$this->_elemento_formulario[$id_ef] = new $clase_ef(
-															$this, 
-															$this->_nombre_formulario,
-															$this->_info_formulario_ef[$a]["identificador"],
-															$this->_info_formulario_ef[$a]["etiqueta"],
-															addslashes($this->_info_formulario_ef[$a]["descripcion"]),
-															$dato,
-															array($this->_info_formulario_ef[$a]["obligatorio"], 
-																$this->_info_formulario_ef[$a]["oculto_relaja_obligatorio"]),
-															$parametros);
-			$this->_elemento_formulario[$id_ef]->set_expandido(! $this->_info_formulario_ef[$a]['colapsado']);
-			if (isset($this->_info_formulario_ef[$a]['etiqueta_estilo'])) {
-				$this->_elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->_info_formulario_ef[$a]['etiqueta_estilo'] );
-			}
-			if (isset($this->_info_formulario_ef[$a]['permitir_html']) && $this->_info_formulario_ef[$a]['permitir_html']) {
-				$this->_elemento_formulario[$id_ef]->set_permitir_html(true);
-			} else {
-				$this->_elemento_formulario[$id_ef]->set_permitir_html(false);
-			}
+			
+			//Nombre	del formulario.
+			$clase_ef = 'toba_'.$this->_info_formulario_ef[$a]['elemento_formulario'];			
+			$this->instanciar_ef($id_ef, $clase_ef, $a, $dato, $parametros);
 		}
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $this->_elemento_formulario, $this->_parametros_carga_efs);
 		$this->_carga_opciones_ef->registrar_cascadas();
 	}
+	
+	/**
+	 * Permite agregar dinamicamente un EF al formulario
+	 * @param string $id_ef	Identificador del EF en el formulario	
+	 * @param string $clase	Tipo de Ef a agregar
+	 * @param string $etiqueta	Etiqueta que presentara el EF
+	 * @param string $columnas_clave	 Columna/s de dato que maneja el EF (lista separada por comas si hay mas de una).
+	 * @param array $parametros_extra  Arreglo de parametros de carga, de cascada, obligatoriedad, colapsado, etc para controlar el comportamiento del EF.
+	 */
+	function agregar_ef($id_ef, $clase, $etiqueta, $columnas_clave, $parametros_extra)
+	{
+		//Armo un par de arreglos con datos basicos y valores por defecto para ciertas columnas
+		$default = array( 'descripcion' => '', 'obligatorio' => '0', 'oculto_relaja_obligatorio' => '0', 'colapsado' => '0', 'permitir_html' => '0');		
+		$datos_basicos = array('identificador' => $id_ef, 'elemento_formulario' => $clase, 'columnas' => $columnas_clave, 'etiqueta' => $etiqueta);
+		
+		$prox_id = count($this->_info_formulario_ef);							//Averiguo en que posicion se va a encontrar el ef
+		$definicion = array_merge($default, $parametros_extra, $datos_basicos);	//Mezclo el default, los datos basicos y los extras para completar la definicion			
+		
+		//Empiezo a impactar las estructuras
+		$this->_info_formulario_ef[] = $definicion;
+		$this->separar_listas_efs($id_ef, $clase);
+			
+		//Preparo el identificador del dato que maneja el EF.
+		$dato = $this->clave_dato_multi_columna($columnas_clave);
+		if (isset($definicion['carga_sql']) && !isset($definicion['carga_fuente'])) {
+			$definicion['carga_fuente'] = $this->_info['fuente'];
+		}
+		$this->_parametros_carga_efs[$id_ef] = $definicion;
+
+		//Nombre	del formulario.
+		$clase_toba_ef = 'toba_'.$clase;			
+		$this->instanciar_ef($id_ef, $clase_toba_ef, $prox_id, $dato, $definicion);
+
+		//Reproceso cascadas por si las dudas
+		unset($this->_carga_opciones_ef );
+		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $this->_elemento_formulario, $this->_parametros_carga_efs);
+		$this->_carga_opciones_ef->registrar_cascadas();
+		
+		//Agrego el nombre del ef en el cliente
+		$this->_nombre_ef_cli[$id_ef] = $this->_elemento_formulario[$id_ef]->get_id_form();
+	}	
 	
 	/**
 	 * @ignore 

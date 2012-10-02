@@ -938,8 +938,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$dato = $this->_datos[$fila];
 			//Si la fila es el template ocultarla
 			if ($fila !== "__fila__") {
+				$estilo_fila = '';
 				$this->_filas_enviadas[] = $fila;
-				$estilo_fila = "";
+				$nombre_metodo = 'conf__'. $this->_id_en_controlador. '_estilo_fila';								
+				if (method_exists($this->controlador(), $nombre_metodo)) {
+					$estilo_fila = "class = '{$this->controlador()->$nombre_metodo($dato)}' ";
+				}
 			} else {
 				$estilo_fila = "style='display:none;'";
 			}

@@ -5,7 +5,14 @@ class ci_principal extends toba_ci
 {
 	protected $datos_form;
 	protected $datos_form_ml;
-	
+		
+	function ini()
+	{
+		$default = array( 'descripcion' => '', 'obligatorio' => '0', 'oculto_relaja_obligatorio' => '0', 'colapsado' => '0', 'permitir_html' => '0', 
+			'carga_maestros' => 'combo_dao', 'carga_metodo' => 'get_desc_nuevo_ef', 'carga_permite_no_seteado' => '0');
+		$this->dep('form')->agregar_ef ('nuevo_ef', 'ef_editable', 'Agregado Dinamicamente', 'nuevo_din', $default);	
+	}
+		
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
@@ -64,6 +71,15 @@ class ci_principal extends toba_ci
 				  );		
 	}
 	
+	function get_desc_nuevo_ef($param)
+	{
+		if (isset($param)) {
+			$datos = $this->datos_combo_dao();
+			return $datos[$param]['valor'];
+		} else {
+			return 'Seleccione el combo!';
+		}
+	}
 	
 	//------------------------------------------------------------------------
 	//-------------------------- FORMULARIO COMÚN --------------------------
