@@ -20,6 +20,7 @@ class toba_vista_jasperreports
 	protected $xml_path;
 	protected $xpath_data;
 	protected $modo_archivo = false;
+	protected $limpiar_modo_archivo = false;
 	
 	private $lista_jrprint = array();
 	
@@ -209,6 +210,7 @@ class toba_vista_jasperreports
 		$this->xpath_data = $xpath_data_search;
 		if (is_null($xpath_data_search)) {		//Si esto no viene no puedo crear un JRXMLDataSource, paso a modo archivo
 			$this->modo_archivo = true;
+			$this->limpiar_modo_archivo = true;
 		}
 	}
 	
@@ -219,7 +221,7 @@ class toba_vista_jasperreports
 	 */
 	function set_archivo_xml($ruta_xml, $xpath_data_search = null)
 	{
-		$this->xml_path = toba_manejador_archivos::nombre_valido($ruta_xml);;
+		$this->xml_path = toba_manejador_archivos::nombre_valido($ruta_xml);
 		$this->xpath_data = $xpath_data_search;
 		if (is_null($xpath_data_search)) {		//Si esto no viene no puedo crear un JRXMLDataSource, paso a modo archivo
 			$this->modo_archivo = true;
@@ -246,7 +248,15 @@ class toba_vista_jasperreports
 			$this->completar_con_datos();
 		}
 				
-		$this->crear_pdf();					//Aca uno todos los jprint en uno solito
+		$this->crear_pdf();		//Aca uno todos los jprint en uno solito
+		
+		// Borrar XML si fue pasado por modo_archivo
+		if (($this->modo_archivo) &&  ($this->limpiar_modo_archivo)) {	
+			if (file_exists($this->xml_path)) {
+				unlink($this->xml_path);
+			}			
+		}
+		
 	}
 			
 	/**
