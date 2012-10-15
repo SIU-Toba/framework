@@ -2,7 +2,7 @@
 
 class toba_servicio_web_mensaje
 {
-	const id_fila_generica = 'fila_';
+	const id_fila_generica = '_toba_fila_';
 	
 	protected $mensaje = null;
 	protected $payload;
@@ -71,6 +71,7 @@ class toba_servicio_web_mensaje
 		$xml = new SimpleXMLElement($this->get_payload());
 		return self::payload_a_array($xml);
 	}
+	
 	static function payload_a_array($nodo_xml)
 	{
 		$salida = array();
@@ -85,14 +86,14 @@ class toba_servicio_web_mensaje
 			if (substr($clave, 0, strlen(self::id_fila_generica)) === self::id_fila_generica) {
 				$salida[] = $valor;
 			} else {
-				$salida[$clave] = $valor;				
+				$salida[$clave] = $valor;
 			}
-				
-		}
+			
+		}		
 		return $salida;
 	}
-		
-	static function array_a_payload($array, $nivel=0)
+	
+	static function array_a_payload($array, $nivel=0, $clave_padre = '')
 	{
 		$salida = '';
 		$tab = str_repeat("\t", $nivel);
@@ -100,26 +101,24 @@ class toba_servicio_web_mensaje
 			$empieza_con_numero = strlen($clave) > 0 && ctype_digit(substr($clave, 0, 1));
 			if ($empieza_con_numero && is_string($clave)) {
 				throw new toba_error_def("El arreglo contiene una clave asociativa ($clave) que comienza con un número, XML no acepta tags que comienzen con numeros");
-			}			
-			if ($empieza_con_numero) {
-				//El xml no puede tener claves numericas, se le anexa un sufijo
-				$clave = self::id_fila_generica.$clave;
+			}
+			if ($empieza_con_numero) {				
+				$clave = self::id_fila_generica.$clave_padre;	//El xml no puede tener claves numericas, se define una clave unica para los posicionales
 			}
 			$clave = toba_xml_tablas::encode($clave);
 			$salida .= "$tab<$clave>";
 			if (is_array($valor)) {
-				$salida .= "\n".self::array_a_payload($valor, $nivel+1);
-				$salida .= "$tab</$clave>\n";
+				$salida .= "\n".self::array_a_payload($valor, $nivel + 1, $clave);
+				$salida .= "$tab</$clave>\n";				
 			} else {
-				$valor = toba_xml_tablas::encode($valor);
+				$valor = toba_xml_tablas::encode($valor);				
 				$salida .= $valor;
 				$salida .= "</$clave>\n";
 			}
-	
-		}
-		return $salida;
+
+		}	
+		return $salida;	
 	}	
-	
 	
 	/**
 	 * Firma el mensaje completo usando Openssl
