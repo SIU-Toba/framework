@@ -389,6 +389,7 @@ class toba_manejador_sesiones
 				$this->control_finalizacion_sesion();
 				$this->registrar_activacion_sesion();
 			} catch ( toba_error $e ) {
+				toba::logger()->debug('Pérdida de sesión: '. $e->getMessage());
 				$this->logout($e->getMessage());
 				$this->comprobar_acceso_anonimo();
 			}
@@ -581,7 +582,7 @@ class toba_manejador_sesiones
 	{
 		//El usuario solicito cerrar la sesion 
 		if ( isset($_GET[apex_sesion_qs_finalizar])&&($_GET[apex_sesion_qs_finalizar]==1) ) {
-			throw new toba_error('Finalizada por el usuario');
+			throw new toba_error_usuario('Finalizada por el usuario');
 		}
 		// Controlo el tiempo de no interaccion
 		$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
@@ -593,7 +594,7 @@ class toba_manejador_sesiones
 							con el servidor. Por razones de seguridad su sesion ha sido eliminada. 
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.");
-				throw new toba_error("Se exedio la ventana temporal ($ventana m.)");
+				throw new toba_error_autorizacion("Se exedio la ventana temporal ($ventana m.)");
 			}
 		}
 		// Controlo el tiempo maximo de sesion
@@ -605,7 +606,7 @@ class toba_manejador_sesiones
 				toba::notificacion("Se ha superado el tiempo de sesion permitido ($maximo minutos)
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.");
-				throw new toba_error("Se exedio el tiempo maximo de sesion ($maximo m.)");
+				throw new toba_error_autorizacion("Se exedio el tiempo maximo de sesion ($maximo m.)");
 			}
 		}
 	}	
