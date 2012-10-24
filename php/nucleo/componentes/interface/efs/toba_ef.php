@@ -39,7 +39,7 @@ abstract class toba_ef
 	protected $iconos = array();
 	protected $solo_lectura_base;
 	protected $solo_lectura_modificacion;
-
+	protected $tamano;
 
 	//--- DEPENDENCIAS ---
 	protected $cascada_relajada = false;
@@ -644,6 +644,15 @@ abstract class toba_ef
 		$this->permitir_html = $permitir;
 	}
 
+	/**
+	 *  Expresa el tamaño del ef en cantidad de caracteres
+	 * @param integer $tamanio
+	 */
+	function set_tamano($tamanio)
+	{
+		$this->tamano = $tamanio;
+	}
+		
 	/**
 	 * Cambia los iconos visibles a un lado del elemento
 	 * @param array $iconos Arreglo de iconos que implementan toba_ef_icono_utileria
