@@ -358,7 +358,9 @@ ei.prototype.constructor = ei;
 				this.ef(respuesta.argument).set_opciones(datos);
 				//this.evt__filtrado_ef_ce_fin(this.ef(respuesta.argument), datos);
 			} catch (e) {
-				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
+				var componente = "<textarea id='displayMore' class='ef-input-solo-lectura' cols='30' rows='35' readonly='true' style='display:none;'>" + respuesta.responseText + '</textarea>';
+				var error = 'Error en la respueta.<br>' +  'Error JS:<br>' + e + '<br>Mensaje Server:<br>'   +
+						"<a href='#' onclick='toggle_nodo(document.getElementById(\"displayMore\"));'>Mas</a><br>" + componente;
 				notificacion.limpiar();
 				notificacion.agregar(error);
 				notificacion.mostrar();				

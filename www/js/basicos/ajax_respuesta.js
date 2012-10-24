@@ -88,8 +88,11 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 			}			
 
 		} catch (e) {
-			var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + response.responseText;
-			error += "<br><br>Error JS:<br>" + e + "<br><br>" + "Ver el log del sistema para más información";
+			var componente = "<textarea id='displayMore' class='ef-input-solo-lectura' cols='30' rows='35' readonly='true' style='display:none;'>" + respuesta.responseText + '</textarea>';
+			var error = 'Error en la respueta.<br>'  + 'Error JS:<br>' + e  +  '<br>Mensaje Server:<br>' +
+					"<a href='#' onclick='toggle_nodo(document.getElementById(\"displayMore\"));'>Mas</a><br>" + componente
+					+ '<br><br>' + 'Ver el log del sistema para más información';
+			
 			notificacion.limpiar();
 			notificacion.agregar(error);
 			notificacion.mostrar();
