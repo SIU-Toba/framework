@@ -46,17 +46,23 @@ class toba_sincronizador_archivos
 	
 	function resolver_tipo()
 	{
-		$dir_svn = $this->dir . '/.svn';
+		$dir_svn = $this->dir;
+		
 		if ( is_dir( $dir_svn ) ) {
-			// Controlo que el cliente SVN este en el PATH
-			exec("svn --help", $resultado, $status);
-			if( $status !== 0 ){
-				return 'fs';
-			}
-			return 'svn';	
-		} else {
-			return 'fs';	
-		}
+			$cmd = "svn info \"$dir_svn\" --xml";
+            $stdout = null;
+            $stderr = null;
+			toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+            $xml = simplexml_load_string($stdout);
+				
+            if (isset($xml->entry)){
+                return 'svn';
+			}else{
+                return 'fs';
+            }
+        }else{
+            return 'fs';
+        }
 	}
 		
 	/*
