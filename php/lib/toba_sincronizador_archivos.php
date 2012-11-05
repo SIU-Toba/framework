@@ -46,23 +46,11 @@ class toba_sincronizador_archivos
 	
 	function resolver_tipo()
 	{
-		$dir_svn = $this->dir;
-		
-		if ( is_dir( $dir_svn ) ) {
-			$cmd = "svn info \"$dir_svn\" --xml";
-            $stdout = null;
-            $stderr = null;
-			toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
-            $xml = simplexml_load_string($stdout);
-				
-            if (isset($xml->entry)){
-                return 'svn';
-			}else{
-                return 'fs';
-            }
-        }else{
-            return 'fs';
-        }
+		if (is_dir($this->dir) && toba_svn::es_copia_trabajo($this->dir)) {
+			return 'svn';
+		}else{
+			return 'fs';
+		}
 	}
 		
 	/*

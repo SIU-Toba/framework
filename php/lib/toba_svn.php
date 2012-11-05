@@ -61,7 +61,6 @@ class toba_svn
 			$cmd .= ' >'.$archivo_salida;
 		}
 		
-		$opciones = array();
 		toba_manejador_archivos::ejecutar($cmd, $this->progreso, $this->error);
 		if ($this->error != '') {
 			toba::logger()->error($this->error);
@@ -111,8 +110,6 @@ class toba_svn
 	function probar_conexion($url, $usuario, $clave)
 	{
 		$cmd = "svn ls $url --username $usuario --password $clave --no-auth-cache --non-interactive";
-		$salida = array();
-		$codigo = 0;
 		try {
 			$ok = $this->ejecutar($cmd, false, true, false);
 		} catch (toba_error $e) {
@@ -250,11 +247,17 @@ class toba_svn
 	
 	function es_copia_trabajo($path)
 	{
-        $salida = array();
-        $valor_retorno = null;		
-		$cmd = "svn info \"$path\"";
-		exec($cmd, $salida, $valor_retorno);
-		return ($valor_retorno === 0);
+		$salida = null;
+		$hubo_error = null;		
+		$cmd = "svn info \"$path\" --xml";
+		toba_manejador_archivos::ejecutar($cmd, $salida, $hubo_error);
+				
+		if ((trim($hubo_error) != '' ) || trim($salida) == '') {			//Hubo algun tipo de error, puede ser que no se encontro el cliente, no WC, etc.
+			return false;
+		} elseif (! is_null($salida)) {					
+			$xml = simplexml_load_string($salida);	
+			return (isset($xml->entry));				//Me fijo si el xml corresponde a una WC
+		}
 	}
 
 	function cleanup($path)
@@ -369,10 +372,9 @@ class toba_svn
 	
 	function existe_url($url)
 	{
-        $salida = array();
-        $valor_retorno = null;		
+		$salida = array();
+		$valor_retorno = null;		
 		$cmd = "svn ls \"$url\"";
-		$out = null;
 		exec($cmd, $salida, $valor_retorno);
 		return ($valor_retorno === 0);		
 	}
