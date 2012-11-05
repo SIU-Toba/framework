@@ -56,4 +56,25 @@ ef_upload.prototype.constructor = ef_upload;
 		}
 	};
 	
+	/**
+	 * Retorna verdadero si el ef tiene algún valor cargado
+	 * @type boolean
+	 */	
+	ef_upload.prototype.tiene_estado = function() {
+		var archivo = document.getElementById(this._id_form);
+		var desicion = document.getElementById(this._id_form + '_desicion');
+		var checkbox = document.getElementById(this._id_form + '_check');
+				
+		var con_descripcion = (desicion && trim(desicion.innerHTML) != ''); 
+		var eligio = (archivo && archivo.files.length > 0);				//Determino si eligio archivo alguno		
+		
+		//Si no hay checkbox o esta checkeado, la respuesta depende del input html
+		if (! checkbox || checkbox.checked) {		
+			return eligio;			
+		} else if(checkbox && ! checkbox.checked) {	//Si existe pero no esta chequeado, hay que ver si venia con estado.
+			return con_descripcion;
+		}
+	};
+	
+	
 toba.confirmar_inclusion('efs/ef_upload');
