@@ -5,24 +5,8 @@ class toba_logger_ws extends toba_logger
 	private $nombre_archivo;
 	private $hubo_encabezado = false;
 	
-	private function __construct($proyecto = null)
-	{
-		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
-		$this->ref_niveles[2] = "CRITICAL";
-		$this->ref_niveles[3] = "ERROR";
-		$this->ref_niveles[4] = "WARNING";
-		$this->ref_niveles[5] = "NOTICE";
-		$this->ref_niveles[6] = "INFO";
-		$this->ref_niveles[7] = "DEBUG";
+	static protected $instancia;
 		
-		
-		//--- Valores por defecto
-		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1024);
-		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
-		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
-		
-	}
-
 	/**
 	 * Este es un singleton por proyecto
 	 * @return logger
@@ -119,6 +103,7 @@ class toba_logger_ws extends toba_logger
 		$this->proyectos = array(); 
 		$this->mensajes = array();
 		$this->niveles = array();
+		$this->proximo = 0;
 		
 		if ($es_nuevo) {
 			//Cambiar permisos

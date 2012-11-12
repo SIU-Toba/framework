@@ -75,7 +75,7 @@ class toba_logger
 	 * pero no se carga en el runtime, solo en la parte administrativa, por ahora se replica el lugar
 	 * donde se encuentra el dir de instalacion
 	 */
-	private function __construct($proyecto = null)
+	protected function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		$this->ref_niveles[2] = "CRITICAL";
