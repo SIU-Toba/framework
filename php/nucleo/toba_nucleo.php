@@ -99,19 +99,20 @@ class toba_nucleo
 	{
 		try {
 			$this->iniciar_contexto_ejecucion();
-		    //toba_http::headers_standart();
-		    $item = toba::memoria()->get_item_solicitado();
-		    if (! isset($item)) {
+			//toba_http::headers_standart();
+			$item = toba::memoria()->get_item_solicitado();
+			if (! isset($item)) {
 				//Si no tiene ID (porque axis lo elimina del GET) usar el extra la URL
 				$servicio = basename($_SERVER['REQUEST_URI']);	//Asume que es x.php/id_servicio
 				if (strpos($servicio, '?') !== false) {
 					$servicio = substr($servicio, 0, strpos($servicio, '?')); 
-		    	}
-		    	//Si es el .php a secas pide un listado de los servicios
-		    	if (basename($servicio, '.php') !== $servicio) {
-		    		toba_solicitud_servicio_web::mostrar_servicios();
-		    		die;
-		    	}
+				}
+				
+				//Si es el .php a secas pide un listado de los servicios
+				if (basename($servicio, '.php') !== $servicio) {
+					toba_solicitud_servicio_web::mostrar_servicios();
+					die;
+				}
 				$item = array(apex_pa_proyecto, $servicio);
 				toba::memoria()->set_item_solicitado($item);
 			}

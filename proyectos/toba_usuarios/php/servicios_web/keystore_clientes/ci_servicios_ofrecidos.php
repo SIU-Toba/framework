@@ -27,6 +27,21 @@ class ci_servicios_ofrecidos extends toba_ci
 		}
 		return $this->modelo_proyecto;
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__pant_inicial(toba_ei_pantalla $pantalla)
+	{
+		if (isset($this->s__filtro)) {
+			$this->s__datos = $this->complementar_datos($this->get_modelo_proyecto()->get_servicios_web_ofrecidos());
+		}
+		
+		if (empty($this->s__datos)) {
+			$pantalla->eliminar_dep('cuadro');
+		}
+	}	
 	
 	//-----------------------------------------------------------------------------------
 	//---- filtro -----------------------------------------------------------------------
@@ -51,11 +66,23 @@ class ci_servicios_ofrecidos extends toba_ci
 	//---- cuadro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__cuadro(toba_ei_cuadro $cuadro)
+	function servicio__ejecutar()
 	{
-		if (isset($this->s__filtro) && empty($this->s__datos)) {
-			$this->s__datos = $this->complementar_datos($this->get_modelo_proyecto()->get_servicios_web_ofrecidos());
+		toba_http::headers_standart();		
+		$valor = toba::memoria()->get_parametro('fila_safe');
+		$clave = toba_ei_cuadro::recuperar_clave_fila('33000088', $valor);
+		
+		if (! is_null($clave)) {								//Si existe la clave que le pasaron
+			$id_servicio = $clave['servicio_web'];		
+			$proyecto = $this->get_modelo_proyecto();			
+			$nuevo_estado = (! toba_modelo_servicio_web::esta_activo($proyecto, $id_servicio)) ? 1 : 0;
+			toba_modelo_servicio_web::set_estado_activacion($proyecto, $id_servicio, $nuevo_estado);
+			toba::vinculador()->navegar_a();	//Hago una redireccion a la misma operacion para refrescar el cuadro.
 		}
+	}
+	
+	function conf__cuadro(toba_ei_cuadro $cuadro)
+	{		
 		$cuadro->set_datos( $this->s__datos);					
 	}
 
@@ -73,7 +100,10 @@ class ci_servicios_ofrecidos extends toba_ci
 			$id_servicio = $dato['servicio_web'];
 			$activo = toba_modelo_servicio_web::esta_activo($this->get_modelo_proyecto(), $id_servicio);
 			$aux = $this->recuperar_clientes_configurados($id_servicio);
-			$conf_final[$id_servicio] = array_merge($dato, array('activado' => $activo, 'cantidad_configuraciones' => count($aux)));
+			$url_serv = toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'url'));
+			$url_wsdl= toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'wsdl 1.1', 'wsdl' => true));
+			$url_wsdl2 = toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'wsdl 2.0', 'wsdl2' => true));
+			$conf_final[$id_servicio] = array_merge($dato, array('activado' => $activo, 'cantidad_configuraciones' => count($aux), 'wsdl' => "$url_wsdl / $url_wsdl2", 'url'  => $url_serv));
 		}
 		return $conf_final;
 	}
@@ -108,11 +138,13 @@ class ci_servicios_ofrecidos extends toba_ci
 			$handler = fopen($archivo, 'r');
 			
 			toba_http::headers_download($mime_type, $nombre, $long);
-			fpassthru($archivo);
+			fpassthru($handler);
 			fclose($handler);
 		}
 	}
-		
+	
+	//----------------------- PANTALLA EDICION ---------------------//
+	
 	//-----------------------------------------------------------------------------------
 	//---- cuadro_sel_conf --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -131,9 +163,15 @@ class ci_servicios_ofrecidos extends toba_ci
 		$this->set_pantalla('pant_edicion');
 	}
 
-	function evt__cuadro_sel_conf__agregar($datos)
+	function evt__cuadro_sel_conf__agregar()
 	{
 		$this->set_pantalla('pant_edicion');		
+	}
+	
+	function evt__cuadro_sel_conf__eliminar($seleccion)
+	{
+		$this->s__conf_activa = $seleccion['headers'];
+		$this->eliminar_config();
 	}
 	
 	function recuperar_clientes_configurados($servicio)
@@ -205,16 +243,16 @@ class ci_servicios_ofrecidos extends toba_ci
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function evt__procesar()
-	{
-		$proyecto = $this->get_modelo_proyecto();						
+	function guardar_config()
+	{	
+		$proyecto = $this->get_modelo_proyecto();							
 		$headers = array();
 		foreach ($this->s__parametros as $param) {	
 			if ($param['apex_ei_analisis_fila'] != 'B') {
 				$headers[$param['parametro']] = $param['valor'];		
 			}
 		}
-
+		
 		if (isset($this->s__conf_activa)) {					//Si existe la entrada editada, entonces leo sus datos y la elimino
 			$ini = toba_modelo_servicio_web::get_ini_server($proyecto, $this->s__seleccionado);
 			$ini->existe_entrada($this->s__conf_activa);
@@ -222,7 +260,7 @@ class ci_servicios_ofrecidos extends toba_ci
 			$ini->eliminar_entrada($this->s__conf_activa);
 			$ini->guardar();
 		}
-		
+	
 		if (isset($this->cert)) {													//Si se agrega un archivo de certificado, le paso los parametros nuevos			
 			$servicio = new toba_modelo_servicio_web($proyecto, $this->s__seleccionado);
 			$servicio->generar_configuracion_servidor($this->cert['path'], $headers);
@@ -231,32 +269,55 @@ class ci_servicios_ofrecidos extends toba_ci
 			$ini->agregar_entrada($nombre, $temp_data);
 			$ini->guardar();			
 		} 
+	}
 		
-		if (isset($this->s__datos[$this->s__seleccionado])) {							//Determino si el WS esta activo o no
-			$estado = $this->s__datos[$this->s__seleccionado]['activado'];
-			toba_modelo_servicio_web::set_estado_activacion($proyecto, $this->s__seleccionado, $estado);			
-		}
-		
+	function eliminar_config()
+	{
+		if (isset($this->s__conf_activa)) {					//Si existe la entrada editada, entonces leo sus datos y la elimino
+			$proyecto = $this->get_modelo_proyecto();							
+			$ini = toba_modelo_servicio_web::get_ini_server($proyecto, $this->s__seleccionado);
+			$ini->existe_entrada($this->s__conf_activa);
+			$ini->eliminar_entrada($this->s__conf_activa);
+			$ini->guardar();
+			unset($this->s__conf_activa);
+			unset($this->s__conf_disponibles);
+		}		
+	}
+	
+	
+	function evt__procesar_parcial()
+	{	
+		$this->guardar_config();
 		$this->finalizar_operacion();
-		$this->set_pantalla('pant_inicial');
+		$this->set_pantalla('pant_sel_conf');
+	}
+	
+	function evt__cancelar_parcial()
+	{
+		$this->finalizar_operacion();
+		$this->set_pantalla('pant_sel_conf');
 	}
 
 	function evt__cancelar()
 	{
+		$this->s__datos = array();
+		unset($this->s__seleccionado);
+		unset($this->s__conf_disponibles);
+		
 		$this->finalizar_operacion();
 		$this->set_pantalla('pant_inicial');
 	}
-
+		
 	function finalizar_operacion()
 	{
-		$this->s__parametros = array();				
-		$this->s__datos = array();
-		unset($this->s__seleccionado);
+		$this->s__parametros = array();
 		unset($this->s__conf_activa);
-		unset($this->s__conf_disponibles);
+		unset($this->s__conf_disponibles);				
 		if (isset($this->cert)) {
 			unlink($this->cert['path']);
-		}
+		}		
 	}
+
+	
 }
 ?>

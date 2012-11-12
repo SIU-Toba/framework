@@ -19,7 +19,6 @@ class pant_edicion_serv_ofrecidos extends toba_ei_pantalla
 			var hay_archivo = $id_form.ef('cert_file').tiene_estado();				
 			var parametros = $id_form_par.get_datos().length;			
 			var hay_parametros = (isset(parametros) && parametros != 0);
-			
 			if (hay_parametros && ! hay_archivo) {
 				notificacion.agregar('Se debe especificar un certificado para los parametros');
 				return false;

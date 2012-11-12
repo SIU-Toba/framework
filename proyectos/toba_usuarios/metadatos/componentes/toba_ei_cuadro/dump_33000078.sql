@@ -198,7 +198,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'toba_usuarios', --objeto_cuadro_proyecto
 	'33000078', --objeto_cuadro
 	'33000013', --objeto_cuadro_col
-	'param_to', --clave
+	'link_to', --clave
 	'2', --orden
 	'URL', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
@@ -221,7 +221,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL, --vinculo_celda
 	NULL, --vinculo_servicio
-	'0', --permitir_html
+	'1', --permitir_html
 	NULL, --grupo
 	NULL  --evento_asociado
 );

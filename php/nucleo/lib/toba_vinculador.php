@@ -87,6 +87,44 @@ class toba_vinculador
 								 $opciones['prefijo'] );		
 	}
 	
+	function get_url_ws($proyecto = null, $ws, $parametros = array(),  $opciones=array())
+	{
+		$separador = '&';
+		if (is_null($proyecto)) {
+			$proyecto = toba::proyecto()->get_id();			
+		}
+				
+		$disponibles = toba_info_editores::get_items_servicios_web($proyecto);
+		$items = array();
+		foreach($disponibles as $wservice) {
+			$items[] = $wservice['item'];
+		}
+		if (!in_array($ws, $items)) {			//Si no forma parte de los ws, null
+			return null;
+		}
+		
+		$query_str = toba_recurso::url_proyecto($proyecto);
+		$query_str .= '/servicios.php/'.$ws;
+		if (isset($opciones['wsdl'])) {
+			$query_str .= '?wsdl';
+		} elseif (isset($opciones['wsdl2'])) {
+			$query_str .= '?wsdl2';
+		}
+		
+		if(isset($parametros) && is_array($parametros)) {			
+			foreach($parametros as $clave => $valor){
+				$query_str .= $separador."$clave=$valor";
+			}
+		}
+		
+		if ($opciones['html']) {
+			$params = (isset($opciones['texto'])) ? array('texto' => $opciones['texto']): array();
+			return $this->generar_html($query_str, $params);
+		}
+		return $query_str;		
+	}
+	
+	
 	function registrar_vinculo( toba_vinculo $vinculo )
 	{
 		$item = $vinculo->get_item();

@@ -14,7 +14,7 @@ class toba_servicio_web_cliente
 			$modelo->set_db(toba::db());	
 			$proyecto_id = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 			self::$modelo_proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $proyecto_id);
-		}
+		}		
 	}
 	
 	/**
@@ -93,11 +93,12 @@ class toba_servicio_web_cliente
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
+			self::get_modelo_proyecto();
 			if (! self::$modelo_proyecto->get_instalacion()->es_produccion()) {
 				toba::logger_ws()->debug($this->wsf->getLastRequest());
 				toba::logger_ws()->debug($this->wsf->getLastResponse());
 			}
-			toba::logger_ws()->crit($fault);
+			toba::logger_ws()->debug($fault);
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
@@ -109,13 +110,13 @@ class toba_servicio_web_cliente
 		try {
 			$this->wsf->send($mensaje->wsf());
 		} catch (WSFault $fault) {
+			self::get_modelo_proyecto();
 			if (! self::$modelo_proyecto->get_instalacion()->es_produccion()) {
 				toba::logger_ws()->debug($this->wsf->getLastRequest());
 				toba::logger_ws()->debug($this->wsf->getLastResponse());
 			}
-			toba::logger_ws()->crit($fault);
+			toba::logger_ws()->debug($fault);
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
-			//throw new toba_error_comunicacion($fault->__toString(), $this->opciones, $this->wsf->getLastResponseHeaders());
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
 		}

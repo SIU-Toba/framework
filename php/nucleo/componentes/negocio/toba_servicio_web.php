@@ -23,6 +23,7 @@ abstract class toba_servicio_web extends toba_componente
 			$this->dep($dep)->inicializar();
 		}		
 		$this->inicializar();
+		
 	}
 
 	protected static function cargar_ini($id)
@@ -114,7 +115,14 @@ abstract class toba_servicio_web extends toba_componente
 	 * Rutea WSF hacia la extensión
 	 */
 	function __call($nombre, $argumentos)
-	{
+	{	
+		$srv_name = $this->_solicitud->get_id_operacion();
+		if (! self::esta_activo($srv_name)) {	
+			toba::logger_ws()->debug('Se intento acceder a un servicio web inactivo: ' . $srv_name);
+			toba::logger_ws()->set_checkpoint();
+			throw new WSFault('Receiver', ' El servicio no esta activo'); 
+		}
+			
 		//trac/toba/wiki/Referencia/ServiciosWeb/Seguridad		
 		if (!isset(self::$opciones['securityToken']) && self::servicio_con_firma()) {
 			if (toba::instalacion()->es_produccion()) {
@@ -125,7 +133,7 @@ abstract class toba_servicio_web extends toba_componente
 		}
 		//Elimina el guion bajo inicial y llama al metodo op__X
 		if (substr($nombre, 0, 1) != '_') {
-	       throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $nombre);
+			throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $nombre);
 		}
 		$metodo = substr($nombre, 1);
 		$this->mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);

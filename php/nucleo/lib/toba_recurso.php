@@ -17,12 +17,11 @@ class toba_recurso
 		if (! isset($proyecto)) {
 			$proyecto = toba::proyecto()->get_id();	
 		}
-        if ($pers) {
-            return toba::instancia()->get_url_proyecto_pers($proyecto);
-        } else {
-            return toba::instancia()->get_url_proyecto($proyecto);
-        }
-		
+		if ($pers) {
+			return toba::instancia()->get_url_proyecto_pers($proyecto);
+		} else {
+			return toba::instancia()->get_url_proyecto($proyecto);
+		}		
 	}
 	
 	/**

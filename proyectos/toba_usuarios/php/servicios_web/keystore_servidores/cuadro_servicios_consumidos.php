@@ -26,7 +26,6 @@ class cuadro_servicios_consumidos extends toba_ei_cuadro
 		}
 		";
 	}
-
 }
 
 ?>

@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Accesos a Servicios Web - ml_parametros', --nombre
-	'Identificadores de cliente', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'toba_usuarios', --fuente_datos_proyecto

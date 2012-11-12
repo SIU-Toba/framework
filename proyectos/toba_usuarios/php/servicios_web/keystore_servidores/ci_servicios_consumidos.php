@@ -25,6 +25,22 @@ class ci_servicios_consumidos extends toba_ci
 		}
 		return $this->modelo_proyecto;
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__pant_inicial(toba_ei_pantalla $pantalla)
+	{
+		if (isset($this->s__filtro) && empty($this->s__datos)) {
+			$datos = consultas_instancia::get_servicios_web_consumidos($this->s__filtro);
+			$this->s__datos = $this->complementar_datos($datos);
+		}		
+		
+		if (empty($this->s__datos)) {
+			$pantalla->eliminar_dep('cuadro');
+		}
+	}
 	
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -62,6 +78,8 @@ class ci_servicios_consumidos extends toba_ci
 		if (isset($this->cert)) {
 			unlink($this->cert['path']);
 		}
+		unset($this->s__datos);
+		$this->s__datos = array();
 		$this->set_pantalla('pant_inicial');		
 	}
 
@@ -125,11 +143,13 @@ XML;
 			//Lo armo asi porque esta configurado en otro proyecto entonces no puedo usar toba::servicio_web
 			$servicio = new toba_servicio_web_cliente($opciones, $parametro['servicio_web']);			
 			$respuesta_ws = $servicio->request(new toba_servicio_web_mensaje($payload, array('action' => 'eco')));
-		} catch (toba_error_servicio_web $s) {													//Capturo errores del servicio web
+		} catch (toba_error_servicio_web $s) {													//Capturo errores del servicio web			
 			$respuesta->set('Se produjo un error inesperado en la atención del servicio, comuniquese con el proveedor del mismo.');
+			toba::logger_ws()->debug($s->getMessage());
 			return false;
 		} catch (toba_error $e) {																//Capturo cualquier otro error local a la creacion del pedido
-			$respuesta->set('Se produjo un error inesperado en la inicializacion del pedido, verifique la configuración.');
+			toba::logger()->debug($e->getMessage());
+			$respuesta->set('Se produjo un error inesperado en la inicializacion del pedido, verifique el log y  la configuración.');
 			return false;
 		} 
 
@@ -138,7 +158,9 @@ XML;
 		if ($rnd == $xml_rta->texto) {
 			$respuesta->set('La configuracion es correcta');
 		} else {
-			$respuesta->set('La configuración no es correcta');
+			toba::logger()->debug("Enviado: $rnd");
+			toba::logger()->debug('Recibido: '. $xml_rta->texto);	
+			$respuesta->set('La configuración no es correcta, o la respuesta no coincide con la esperada. Revise el log');
 		}
 	}
 	//-----------------------------------------------------------------------------------
@@ -151,7 +173,6 @@ XML;
 		if (isset($this->s__seleccionado) && isset($this->s__datos[$this->s__seleccionado])) {
 			$form->set_datos($this->s__datos[$this->s__seleccionado]);
 		}
-		$form->desactivar_efs(array('activo'));
 	}
 
 	function evt__form_basico_ws__modificacion($datos)
@@ -197,11 +218,7 @@ XML;
 	//-----------------------------------------------------------------------------------
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
-	{
-		if (isset($this->s__filtro) && empty($this->s__datos)) {
-			$datos = consultas_instancia::get_servicios_web_consumidos($this->s__filtro);
-			$this->s__datos = $this->complementar_datos($datos);
-		}
+	{		
 		$cuadro->set_datos($this->s__datos);		
 	}
 
@@ -226,7 +243,8 @@ XML;
 			$id_servicio = $dato['servicio_web'];	
 			$conf_inicial = toba_modelo_servicio_web::get_ini_cliente($proyecto, $id_servicio);		//Intento obtener la info del archivo de configuracion
 			if ($conf_inicial->existe_entrada('conexion')) {
-				$conf_final[$id_servicio] = array_merge($dato, array('param_to' => $conf_inicial->get('conexion', 'to')));
+				$to = $conf_inicial->get('conexion', 'to');				
+				$conf_final[$id_servicio] = array_merge($dato, array('param_to' => $to, 'link_to' => "<a href='$to'> $to </a>"));
 			} else {
 				$conf_final[$id_servicio] = $dato;
 			}
