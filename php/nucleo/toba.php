@@ -100,6 +100,15 @@ class toba
 	{
 		return toba_logger::instancia();
 	}
+
+	/**
+	*	Retorna el logger de mensajes internos para servicios web
+	*	@return toba_logger_ws
+	*/
+	static function logger_ws()
+	{
+		return toba_logger_ws::instancia();
+	}
 	
 	/**
 	 * Permite hacer validaciones de permisos globales particulares sobre el usuario actual

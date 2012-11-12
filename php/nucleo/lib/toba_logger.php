@@ -51,24 +51,24 @@ class toba_logger
 	const separador = "-o-o-o-o-o-";
 	const fin_encabezado = "==========";
 	const limite_mensaje = 100000; //100 KB
-	static private $errores_manejables = array(E_WARNING, E_NOTICE, E_DEPRECATED);
-	static private $instancia;
-	private $ref_niveles;
-	private $proyecto_actual;
+	static protected $errores_manejables = array(E_WARNING, E_NOTICE, E_DEPRECATED);
+	static protected $instancia;
+	protected $ref_niveles;
+	protected $proyecto_actual;
 	
 	//--- Arreglos que contienen info de los logs en runtime
-	private $mensajes = array();
-	private $niveles = array();
-	private $proyectos = array();
+	protected $mensajes = array();
+	protected $niveles = array();
+	protected $proyectos = array();
 	
-	private $proximo = 0;
-	private $nivel_maximo = 7;
-	private $activo = true;
+	protected $proximo = 0;
+	protected $nivel_maximo = 7;
+	protected $activo = true;
 	
-	private $dir_logs;
+	protected $dir_logs;
 	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
-	private $mostrado = false;				//Ya fue guardado en este pedido de página
-	private $cant_mostrada;					//Cant. de logs que había cuando se mostro
+	protected $mostrado = false;				//Ya fue guardado en este pedido de página
+	protected $cant_mostrada;					//Cant. de logs que había cuando se mostro
 
 	/**
 	 * @todo Para sacar el path de la instalacion y la instancia se necesitaria tener acceso a la clase instalacion
@@ -179,41 +179,41 @@ class toba_logger
 	 */	
 	protected function extraer_mensaje($mensaje)
 	{
-        if (is_object($mensaje)) {
-        	if ($mensaje instanceof Exception) {
-        		if ($mensaje instanceof toba_error) {
-        			$texto = $mensaje->get_mensaje_log();
-        		} else {
-        			$texto = $mensaje->getMessage();
-        		}
-       			$res = get_class($mensaje).": ".$texto."\n";
-        		$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");
-       			if ($es_php_compatible) {
-        			//Solo muestra parametros en modo DEBUG
-	        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
-	        		$traza = $mensaje->getTrace();
-	        		$traza[0]['file'] = $mensaje->getFile();
-	        		$traza[0]['line'] = $mensaje->getLine();
-	        		$res .= $this->construir_traza($con_parametros, $traza);
-       			} else {
-       				//Para php < 5.1 mostrar el string 
-    				$res .= "\n[TRAZA]".$mensaje->__toString();
-       			}
-       			return $res;
-        	} else if (method_exists($mensaje, 'getMessage')) {
-                return $mensaje->getMessage();
-            } else if (method_exists($mensaje, 'tostring')) {
-                return $mensaje->toString();
-            } else if (method_exists($mensaje, '__tostring')) {
-                return (string)$mensaje;
-            } else {
-                return var_export($mensaje, true);
-            }
-        } else if (is_array($mensaje)) {
-            return var_export($mensaje, true);
-        } else {
-        	return $mensaje;	
-        }
+		if (is_object($mensaje)) {
+			if ($mensaje instanceof Exception) {
+				if ($mensaje instanceof toba_error) {
+					$texto = $mensaje->get_mensaje_log();
+				} else {
+					$texto = $mensaje->getMessage();
+				}
+				$res = get_class($mensaje).": ".$texto."\n";
+				$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");
+				if ($es_php_compatible) {
+					//Solo muestra parametros en modo DEBUG
+					$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
+					$traza = $mensaje->getTrace();
+					$traza[0]['file'] = $mensaje->getFile();
+					$traza[0]['line'] = $mensaje->getLine();
+					$res .= $this->construir_traza($con_parametros, $traza);
+				} else {
+					//Para php < 5.1 mostrar el string 
+					$res .= "\n[TRAZA]".$mensaje->__toString();
+				}
+				return $res;
+			} else if (method_exists($mensaje, 'getMessage')) {
+				return $mensaje->getMessage();
+			} else if (method_exists($mensaje, 'tostring')) {
+				return $mensaje->toString();
+			} else if (method_exists($mensaje, '__tostring')) {
+				return (string)$mensaje;
+			} else {
+				return var_export($mensaje, true);
+			}
+		} else if (is_array($mensaje)) {
+			return var_export($mensaje, true);
+		} else {
+			return $mensaje;	
+		}
 	}
 	
 	protected function construir_traza($con_parametros=false, $pasos = null)
@@ -221,9 +221,9 @@ class toba_logger
 		if (!isset($pasos)) {
     		$pasos = debug_backtrace();
 		}
-    	$html = "[TRAZA]\n";
+		$html = "[TRAZA]\n";
 		$html .= "\t<ul>\n";    
-    	foreach ($pasos as $paso) {
+		foreach ($pasos as $paso) {
 			$clase = '';
 			if (isset($paso['class'])) {
 				$clase .= $paso['class'];
@@ -251,15 +251,15 @@ class toba_logger
 				} 
 				$html .= "\t</li>\n";
 			}
-    	}
-    	$html .= "\t</ul>";
-    	//--- Una traza no puede exceder la mitad del limite de todo el mensaje
+		}
+		$html .= "\t</ul>";
+		//--- Una traza no puede exceder la mitad del limite de todo el mensaje
 		if (strlen($html) > self::limite_mensaje/2) {
 			$html = substr($html, 0, self::limite_mensaje/2).
 					"\nTRAZA CORTADA POR EXCEDER EL LIMITE DE ".
 					self::limite_mensaje/2 . " bytes";
 		}
-    	return $html;
+		return $html;
 	}
 	
 	protected function mensajes()
@@ -317,7 +317,7 @@ class toba_logger
 	 */
 	function trace($con_parametros=false, $proyecto = null)
 	{
-    	$this->debug($this->construir_traza($con_parametros), $proyecto);
+		$this->debug($this->construir_traza($con_parametros), $proyecto);
 	}
 
 	/**
@@ -331,113 +331,103 @@ class toba_logger
 	/**
 	 * Registra un suceso CRITICO (un error muy grave)
 	 */
-    function crit($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_CRIT);
-    }
+	function crit($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_CRIT);
+	}
 
 	/**
 	 * Registra un error en la apl., este nivel es que el se usa en las excepciones
 	 */    
-    function error($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_ERROR);
-    }
+	function error($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_ERROR);
+	}
 
-    /**
-     * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
-     */
-    function warning($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_WARNING);
-    }
+	/**
+	 * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
+	 */
+	function warning($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_WARNING);
+	}
 
-    /**
-    *	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
-    *	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
-    */
-    function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
-    {
-    	if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
-    		$extra = "";
-            //Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
-            if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
-	            $traza = debug_backtrace();
-	            $archivo = $traza[2]['file'];
-	            $linea = $traza[2]['line'];
+	/**
+	*	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
+	*	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
+	*/
+	function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
+	{
+		if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
+			$extra = "";
+			//Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
+			if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
+				$traza = debug_backtrace();
+				$archivo = $traza[2]['file'];
+				$linea = $traza[2]['line'];
 				$extra = "Archivo: $archivo, linea: $linea";
-            }
-	    	if ($clase != '') {
-	    		$unidad = "Método '$clase::$metodo'";
-	    	} elseif ($metodo != '') {
+			}
+			if ($clase != '') {
+				$unidad = "Método '$clase::$metodo'";
+			} elseif ($metodo != '') {
 				$unidad = "Función '$metodo'";
-	    	} else {
-	    		$unidad = '';	
-	    	}
-	    	$msg = "OBSOLETO: $unidad desde versión $version. $extra";
-	    	$this->notice($msg, $proyecto);
-    	}
-    }
+			} else {
+				$unidad = '';	
+			}
+			$msg = "OBSOLETO: $unidad desde versión $version. $extra";
+			$this->notice($msg, $proyecto);
+		}
+	}
 
-    /**
-     * Registra un suceso no contemplado que no es critico para la aplicacion
-     */    
-    function notice($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_NOTICE);
-    }
+	/**
+	 * Registra un suceso no contemplado que no es critico para la aplicacion
+	 */    
+	function notice($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_NOTICE);
+	}
 
-    /**
-     * Registra un suceso netamente informativo, para una inspección posterior
-     */
-    function info($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_INFO);
-    }
+	/**
+	 * Registra un suceso netamente informativo, para una inspección posterior
+	 */
+	function info($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_INFO);
+	}
 
-    /**
-     * Registra un suceso útil para rastrear problemas o bugs en la aplicación
-     */
-    function debug($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_DEBUG);
-    }
-    
-    /**
-     * Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
-     */
-    function seccion($mensaje, $proyecto=null)
-    {
-        return $this->registrar_mensaje("[SECCION] ".$mensaje, $proyecto, TOBA_LOG_DEBUG);    	
-    }
+	/**
+	 * Registra un suceso útil para rastrear problemas o bugs en la aplicación
+	 */
+	function debug($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_DEBUG);
+	}
+
+	/**
+	 * Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
+	 */
+	function seccion($mensaje, $proyecto=null)
+	{
+		return $this->registrar_mensaje("[SECCION] ".$mensaje, $proyecto, TOBA_LOG_DEBUG);    	
+	}
 
 	//------------------------------------------------------------------
 	//---- Manejo de MASCARAS
 	//------------------------------------------------------------------
 
-    protected function mascara($nivel)
-    {
-        return (1 << $nivel);
-    }
+	protected function mascara($nivel)
+	{
+		return (1 << $nivel);
+	}
 
-    protected function mascara_hasta($nivel)
-    {
-        return ((1 << ($nivel + 1)) - 1);
-    }
+	protected function mascara_hasta($nivel)
+	{
+		return ((1 << ($nivel + 1)) - 1);
+	}
 
 	//------------------------------------------------------------------
 	//---- Manejo de las fuentes de log
 	//------------------------------------------------------------------
-
-	/**
-	 * Guarda los sucesos actuales en el sist. de archivos
-	 */
-	function guardar()
-	{
-		if ($this->activo) {
-			$this->guardar_en_archivo("sistema.log");
-		}
-	}
 	
 	function directorio_logs()
 	{
@@ -452,11 +442,9 @@ class toba_logger
 	{
 		$this->dir_logs = $dir;	
 	}
-	
-	function guardar_en_archivo($archivo, $forzar_salida = false)
+
+	protected function armar_encabezado()
 	{
-		$hay_salida = false;
-		$mascara_ok = $this->mascara_hasta( $this->nivel_maximo );
 		$salto = "\r\n";
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
@@ -485,15 +473,42 @@ class toba_logger
 			$texto .= 'Ruta: '.getcwd().$salto;	
 			$texto .= 'Argumentos: '.implode(' ', $argv).$salto;
 		}
-		$texto .= self::fin_encabezado.$salto;
+		return $texto;
+	}
+	
+	protected function armar_mensajes()
+	{
+		$texto = '';
+		$mascara_ok = $this->mascara_hasta( $this->nivel_maximo );
 		for($a=0; $a<count($this->mensajes); $a++) {
 			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ) {
-				$hay_salida = true;
 				$texto .= "[" . $this->ref_niveles[$this->niveles[$a]] . 
 						"][".$this->proyectos[$a]."] " . $this->mensajes[$a] . "\r\n";
 			}			
 		}
+		return $texto;
+	}
+	
+	/**
+	 * Guarda los sucesos actuales en el sist. de archivos
+	 */
+	function guardar()
+	{
+		if ($this->activo) {
+			$this->guardar_en_archivo("sistema.log");
+		}
+	}
+	
+	function guardar_en_archivo($archivo, $forzar_salida = false)
+	{
+		$salto = "\r\n";
+		
+		$texto = $this->armar_encabezado();
+		$texto .= self::fin_encabezado.$salto;		
+		$mensajes = $this->armar_mensajes();
+		$hay_salida = (trim($mensajes) != '');
 		if ($hay_salida || $forzar_salida) {
+			$texto .= $mensajes;
 			$this->guardar_archivo_log($texto, $archivo);
 		}
 	}
@@ -537,7 +552,6 @@ class toba_logger
 	
 	protected function ciclar_archivos_logs($path, $archivo)
 	{
-		$arreglo = array();
 		if (apex_log_archivo_backup_cant == 0) {
 			//Si es un unico archivo hay que borrarlo
 			unlink($path."/".$archivo);

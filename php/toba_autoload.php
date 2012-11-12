@@ -396,6 +396,7 @@ class toba_autoload
 		'toba_interface_usuario' => 'nucleo/lib/toba_interface_usuario.php',
 		'toba_js' => 'nucleo/lib/toba_js.php',
 		'toba_logger' => 'nucleo/lib/toba_logger.php',
+		'toba_logger_ws' => 'nucleo/lib/toba_logger_ws.php',
 		'toba_mail' => 'nucleo/lib/toba_mail.php',
 		'toba_manejador_sesiones' => 'nucleo/lib/toba_manejador_sesiones.php',
 		'toba_memoria' => 'nucleo/lib/toba_memoria.php',
