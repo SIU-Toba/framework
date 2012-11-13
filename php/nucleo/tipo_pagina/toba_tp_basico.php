@@ -35,21 +35,25 @@ class toba_tp_basico extends toba_tipo_pagina
 			$accion = toba::solicitud()->get_datos_item('item_act_accion_script');
 			toba_editor::generar_zona_vinculos_item($item, $accion);
 		}		
-		echo "</BODY>\n";
-		echo "</HTML>\n";
+		echo "</body>\n";
+		echo "</html>\n";
 	}	
 	
 	protected function cabecera_html()
 	{
-		echo "<!DOCTYPE html>";
-		echo "<HTML>\n";
-		echo "<HEAD>\n";
+		echo "<!DOCTYPE html>\n";
+		//-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+		echo '<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="es"> <![endif]-->';
+		echo '<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="es"> <![endif]-->';
+		echo '<!--[if IE 8]>    <html class="no-js lt-ie9" lang="es"> <![endif]-->';
+		echo '<!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->';
+		echo "<head>\n";
 		echo "<title>".$this->titulo_pagina()."</title>\n";
 		$this->encoding();
 		$this->plantillas_css();
 		$this->estilos_css();
 		toba_js::cargar_consumos_basicos();
-		echo "</HEAD>\n";
+		echo "</head>\n";
 	}
 	
 	protected function titulo_pagina()
@@ -132,11 +136,11 @@ class toba_tp_basico extends toba_tipo_pagina
 	
 	protected function comienzo_cuerpo_basico()
 	{
-		echo "<body>\n";		
+		echo "<body>\n";
 		$cerrar = toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false);
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
 		echo "\n<div id='overlay'>";
-		echo "<div id='overlay_contenido'></div></div>";		
+		echo "<div id='overlay_contenido'></div></div>";
 		$wait = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$wait' style='vertical-align: middle;' alt='' /> Procesando...";

@@ -84,16 +84,16 @@ img {
 	right: 0px;
 	font-weight: bold;
 }
-body, textarea {
-	font: normal normal normal 10px Verdana, Arial, Helvetica, sans-serif; 
+
+html {
+    font-size: 62.5%; /* 16px =~ 1em entonces 0.625em =~ 10px http://pxtoem.com/ */
 }
-input, select {
-	font-size: 10px;
-}
+
 body {
 	padding: 0px;
 	margin: 0px;
-    height:100%;
+    height: 100%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 body > .div-esperar { position: fixed; }
@@ -110,7 +110,7 @@ button.ayuda, button .ayuda {
 }
 legend {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 1.1em;
 	color: #333333;
 }
 .enc-logo {
@@ -219,7 +219,6 @@ legend {
 }
 .ei-barra-sup-tit {
 	font-weight: bold;
-	font-size: 11px;	
 	margin-left: 4px;
 	margin-right: 4px;
 }
@@ -246,8 +245,6 @@ padding-left:4px;
 	float:none;
 }
 .ei-boton, .ei-boton-centro, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar, .ei-boton-baja {
-	font-size: 11px;
-	height: 24px;
 	white-space: nowrap;	
 }
 
@@ -259,12 +256,10 @@ padding-left:4px;
 	margin-right: 30%;
 
 }
-.ei-boton-defecto {
-	
-}
-.ei-boton-fila {
-	font-size: 11px;
-}
+.ei-boton-defecto {}
+
+.ei-boton-fila {}
+
 .ei-archivos-listado {
 	clear: left;
 	min-height: 25px;
@@ -406,7 +401,7 @@ padding-left:4px;
 	text-align: left;
 }
 .ef-multi-sel-todos {
-	font-size: 9px;
+	font-size: 0.9em;
 	white-space: nowrap;
 }
 .ef-multi-sel-lista {
@@ -444,14 +439,14 @@ padding-left:4px;
 .ef-combo-editable {
 }
 .ef-combo-editable-ayuda {
-		color: #AAAAAA;
-		display: block;
-		font-style: italic;
-		top: -16px;
-		left: 8px;
-		height: 0px;
-		position: relative;		
-		z-index: 99;
+	color: #AAAAAA;
+	display: block;
+	font-style: italic;
+	top: -16px;
+	left: 8px;
+	height: 0px;
+	position: relative;		
+	z-index: 99;
 }
 .ef-checkbox {
 }
@@ -470,7 +465,6 @@ padding-left:4px;
 }
 .ef-html {
 	font-family: Arial, Verdana, Sans-Serif;
-	font-size: 12px;
 	padding: 5px 5px 5px 5px;
 	margin: 0px;
 	border-style: none;
@@ -550,9 +544,8 @@ A.cpTodayText { color:black; }
 .ei-cuadro-pag {
 	 text-align: center;
 }
-.ei-cuadro-pag-total {
-	font-size:8px;
-}
+.ei-cuadro-pag-total {}
+
 .ei-cuadro-orden {
 	float: right;
 }
@@ -600,7 +593,6 @@ A.cpTodayText { color:black; }
 	border: 1px solid #231f20;
 	background-color: #514a84;
 	color: #ffffff;
-	font-size: 14px;
 	vertical-align: bottom;
 	padding: 5px;
 }
@@ -632,7 +624,6 @@ A.cpTodayText { color:black; }
 	border-left: #231f20 1px solid;
 	border-bottom: #000000 1px solid;
 	border-right: #231f20 1px solid;
-	font-size: 12px;
 	background-color: #999999;
 	color: #ffffff;
 	MARGIN: 0px;
@@ -665,7 +656,7 @@ A.cpTodayText { color:black; }
 	border-top: #000000  1px solid;
 	border-left: #231f20 1px solid;
 	border-right: #231f20  1px solid;
-	font-size: 11px;
+	font-size: 1.1em;
 	background-color: #d4d0c8;
 	vertical-align: bottom;
 	text-align: left;
@@ -736,12 +727,11 @@ A.cpTodayText { color:black; }
 	height: 100%;
 }
 .ci-wiz-enc {
-	font-size: 11px;
+	font-size: 1.1em;
 	text-align: left;
 	padding: 5px;
 }
 .ei-barra-sup-desc-info, .ei-barra-sup-desc-warning, .ei-barra-sup-desc-error {
-	font-size: 11px;
 	text-align: left;
 	padding: 5px;
 	width: 100%;	
@@ -813,8 +803,7 @@ A.cpTodayText { color:black; }
 .ci-tabs-v-boton-sel {
 	border: medium none;	
 	padding: 2px;
-	font-weight: bold;
-	font-size: 11px;
+	font-size: 1.1em;
 	white-space: nowrap;
 }
 /*** Tabs horizontales ***/
@@ -930,7 +919,7 @@ a.ci-tabs-boton-desact:hover {
 	border: 1px solid #231f20;
 	padding: 8px 4px 4px 10px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 1.2em;
 	color: #e9e8e8;
 	background-color: #231f20;
 	text-align: left;
@@ -1016,7 +1005,7 @@ a.ci-tabs-boton-desact:hover {
 .barra-separador {
 	padding: 5px;
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 1.1em;
 	text-align: left;
 }
 .item-barra {
@@ -1025,7 +1014,7 @@ a.ci-tabs-boton-desact:hover {
 }
 .item-barra-tit {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 1.1em;
 	display: inline;
 	margin-left: 5px;
 	vertical-align: top;
@@ -1364,11 +1353,10 @@ a.ci-tabs-boton-desact:hover {
 }
 .layer-selector{
 	font-variant: italic;
-	font-size: 10px;
 }
 .layer-grupo{
 	font-variant:small-caps;
-	font-size: 12px;
+	font-size: 1.2em;
 	color: #F9F9F9;
 }
 
