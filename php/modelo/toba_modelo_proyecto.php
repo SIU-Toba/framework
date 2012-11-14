@@ -2370,7 +2370,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
 		$excepciones = array();
 		if (isset($empaquetado['excepciones_proyecto'])) {
-			$excepciones = explode(',', $empaquetado['proyectos_extra']);
+			$excepciones = explode(',', $empaquetado['excepciones_proyecto']);
 			$origen = $this->get_dir();
 			foreach (array_keys($excepciones) as $i) {
 				$excepciones[$i] = $origen.'/'.trim($excepciones[$i]);
