@@ -31,7 +31,7 @@ abstract class toba_solicitud
 			$objetos[] = $this->info['objetos'][$a]["objeto"];	
 		}
 
-		$this->id =	toba::instancia()->get_id_solicitud();
+		$this->id = toba::instancia()->get_id_solicitud();
 
 		//-- Cargo los OBJETOS que se encuentran asociados
 		$this->log = toba::logger();
@@ -45,6 +45,9 @@ abstract class toba_solicitud
 		if (toba::proyecto()->get_parametro('registrar_solicitud') || $this->info['basica']['item_solic_registrar']) {
 			$this->registrar_db	= true;
 		}
+		
+		//-- Hago un registro temprano del acceso por si hay algun fatal en medio de la ejecucion
+		$this->registro_temprano();
 		/*
 		//-- Observaciones automaticas? -> en espera a algun requerimiento que le de forma al esquema
 		if( $this->info['basica']['item_solic_registrar'] && $this->info['basica']['item_solic_obs_tipo']){
@@ -115,14 +118,21 @@ abstract class toba_solicitud
 	//--------------------------  AUDITORIA Y	LOG --------------------------
 	//------------------------------------------------------------------------
 
+	function registro_temprano()
+	{
+		if( $this->registrar_db || $this->cronometrar) {			
+			toba::instancia()->registrar_solicitud($this->id, $this->info['basica']['item_proyecto'], 
+													$this->info['basica']['item'], $this->get_tipo());						
+		}
+	}
+	
 	function registrar()	
 	{
 		toba::cronometro()->marcar('Finalizando Solicitud');		
 		if (count($this->observaciones) > 0) $this->registrar_db = true;
 		if( $this->registrar_db || $this->cronometrar) {
 			// Guardo solicitud
-			toba::instancia()->registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
-													$this->info['basica']['item'], $this->get_tipo());
+			toba::instancia()->actualizar_solicitud_cronometro($this->id, $this->info['basica']['item_proyecto']);
 			// Guardo observaciones
 			if(count($this->observaciones)>0) {
 				for($i=0;$i<count($this->observaciones);$i++) {

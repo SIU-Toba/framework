@@ -164,21 +164,34 @@ class toba_instancia
 	
 	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
-		$tiempo = toba::cronometro()->tiempo_acumulado();
-		$sql = "INSERT	INTO toba_logs.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
-				VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item, :tiempo_respuesta);";	
+		$sql = "INSERT	INTO toba_logs.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
+				VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";	
 
 		$parametros = array(
 			'proyecto' => $proyecto,
 			'solicitud' => $id,
 			'solicitud_tipo' => $tipo_solicitud,
 			'item_proyecto' => $proyecto,
-			'item' => $item,
-			'tiempo_respuesta' => $tiempo
+			'item' => $item
 		);
 		$this->get_db()->sentencia($sql, $parametros);
 	}
 
+	function actualizar_solicitud_cronometro($id, $proyecto)
+	{
+		$tiempo = toba::cronometro()->tiempo_acumulado();		
+		$sql = "UPDATE toba_logs.apex_solicitud SET tiempo_respuesta = :tiempo_respuesta
+				WHERE	proyecto =  :proyecto AND solicitud = :solicitud;";
+		
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'solicitud' => $id,
+			'tiempo_respuesta' => $tiempo						
+		);
+		$this->get_db()->sentencia($sql, $parametros);
+	}
+	
+	
 	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
 	{
 		
@@ -238,6 +251,20 @@ class toba_instancia
 		$this->get_db()->sentencia($sql, $parametros);		
 	}
 
+	function registrar_solicitud_web_service($proyecto, $solicitud, $metodo, $ip)
+	{
+		$sql = "INSERT INTO toba_logs.apex_solicitud_web_service (proyecto, solicitud, metodo, ip)
+				VALUES (:proyecto, :solicitud, :metodo, :ip);"; 
+		$parametros = array(
+			'proyecto' => $proyecto,
+			'solicitud' => $solicitud,
+			'metodo' => $metodo,
+			'ip' => $ip
+		);		
+		$this->get_db()->sentencia($sql, $parametros);		
+	}
+	
+	
 	//------------------ Relacion entre PROYECTOS --------------------------
 	
 	/**

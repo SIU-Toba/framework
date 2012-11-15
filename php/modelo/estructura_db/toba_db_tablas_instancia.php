@@ -41,6 +41,7 @@ class toba_db_tablas_instancia
   4 => 'apex_solicitud_observacion',
   5 => 'apex_log_tarea',
   6 => 'apex_log_objeto',
+  7 => 'apex_solicitud_web_service',
 );
 	}
 
@@ -535,6 +536,26 @@ class toba_db_tablas_instancia
     4 => 'objeto',
     5 => 'item',
     6 => 'observacion',
+  ),
+);
+	}
+
+	static function apex_solicitud_web_service()
+	{
+		return array (
+  'archivo' => 'pgsql_a04_tablas_log_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'solicitud',
+  'desc' => '',
+  'historica' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'solicitud',
+    2 => 'metodo',
+    3 => 'ip',
   ),
 );
 	}

@@ -6,6 +6,8 @@
  */
 class toba_solicitud_servicio_web extends toba_solicitud
 {
+	private $metodo_invocado = '';
+	
 	static function mostrar_servicios()
 	{
 		$id_proyecto = toba::proyecto()->get_id();
@@ -49,10 +51,8 @@ class toba_solicitud_servicio_web extends toba_solicitud
 	}	
 		
 	function procesar()
-	{
-		
+	{		
 		toba::logger_ws()->debug('Servicio Llamado: ' . $this->info['basica']['item']);
-		toba::logger_ws()->debug('Post: ' . var_export($_POST, true), 'toba');
 		toba::logger_ws()->set_checkpoint();
 		set_error_handler('toba_logger_ws::manejador_errores_recuperables', E_ALL);
 		$this->validar_componente();
@@ -89,5 +89,21 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$service->reply();
 		$this->log->debug("Fin de servicio web", 'toba');
 	}
+	
+	function set_metodo_invocado($metodo)
+	{
+		$this->metodo_invocado = $metodo;
+	}
+	
+	function registrar()
+	{
+		parent::registrar();
+		if ($this->registrar_db) {
+			toba::instancia()->registrar_solicitud_web_service(	$this->info['basica']['item_proyecto'], 
+															$this->id, 
+															$this->metodo_invocado,		//Metodo que se llama
+															$_SERVER['REMOTE_ADDR']);
+		}
+ 	}
 }
 ?>

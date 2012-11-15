@@ -132,10 +132,15 @@ abstract class toba_servicio_web extends toba_componente
 			}
 		}
 		//Elimina el guion bajo inicial y llama al metodo op__X
+		toba::logger_ws()->debug("Metodo invocado: $nombre");		
+		toba::logger_ws()->debug('Argumentos enviados');
+		toba::logger_ws()->var_dump($argumentos);
+		toba::logger_ws()->set_checkpoint();
 		if (substr($nombre, 0, 1) != '_') {
 			throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $nombre);
 		}
 		$metodo = substr($nombre, 1);
+		toba::solicitud()->set_metodo_invocado($metodo);
 		$this->mensaje_entrada = new toba_servicio_web_mensaje($argumentos[0]);
 
 		try {

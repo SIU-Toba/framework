@@ -82,7 +82,7 @@ class toba_solicitud_consola extends toba_solicitud
 			$str_llamada = "";
 		}
 		parent::registrar();
-		if($this->registrar_db){
+		if($this->registrar_db) {
 			toba::instancia()->registrar_solicitud_consola($this->info['basica']['item_proyecto'], $this->id, $this->usuario, $str_llamada);
 		}
 	}

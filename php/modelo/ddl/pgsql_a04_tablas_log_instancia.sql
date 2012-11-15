@@ -269,3 +269,22 @@ CREATE TABLE apex_log_objeto
 	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")
 );
 
+--#################################################################################################
+
+CREATE TABLE apex_solicitud_web_service
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: solicitud
+--: desc:
+--: historica: 1
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+   proyecto			VARCHAR(15) NOT NULL, 
+   solicitud			BIGINT	NOT NULL, 
+   metodo			TEXT	NULL, 
+   ip				VARCHAR(20)	NULL, 
+   CONSTRAINT "apex_solicitud_web_service_pk" PRIMARY KEY ("solicitud","proyecto" ), 
+   CONSTRAINT "apex_sol_web_service_solicitud_fk" FOREIGN KEY ("solicitud","proyecto" ) REFERENCES "apex_solicitud" ( "solicitud","proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
+); 
