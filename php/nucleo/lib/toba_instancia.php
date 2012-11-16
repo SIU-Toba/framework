@@ -151,7 +151,7 @@ class toba_instancia
 	function get_id_solicitud()
 	{
 		if (! isset($this->id_solicitud)) {
-			$sql = "SELECT	nextval('toba_logs.apex_solicitud_seq'::text) as id;";	
+			$sql = "SELECT nextval('toba_logs.apex_solicitud_seq'::text) as id;";	
 			$rs = $this->get_db()->consultar($sql);
 			if (empty($rs)) {
 				throw new toba_error('No es posible generar un ID para la solicitud');
@@ -161,20 +161,29 @@ class toba_instancia
 		return $this->id_solicitud;
 	}
 
+	private function existe_solicitud($id)
+	{
+		$sql = "SELECT  '1'  FROM toba_logs.apex_solicitud WHERE solicitud = :solicitud;";
+		$rs = $this->get_db()->sentencia($sql, array('solicitud' => $id));
+		return (! empty($rs));
+	}
 	
 	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
-		$sql = "INSERT	INTO toba_logs.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
-				VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";	
+		//Evita que se intente registrar 2 veces la misma solicitud
+		if (! $this->existe_solicitud($id)) {
+			$sql = "INSERT INTO toba_logs.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
+					VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";	
 
-		$parametros = array(
-			'proyecto' => $proyecto,
-			'solicitud' => $id,
-			'solicitud_tipo' => $tipo_solicitud,
-			'item_proyecto' => $proyecto,
-			'item' => $item
-		);
-		$this->get_db()->sentencia($sql, $parametros);
+			$parametros = array(
+				'proyecto' => $proyecto,
+				'solicitud' => $id,
+				'solicitud_tipo' => $tipo_solicitud,
+				'item_proyecto' => $proyecto,
+				'item' => $item
+			);
+			$this->get_db()->sentencia($sql, $parametros);
+		}
 	}
 
 	function actualizar_solicitud_cronometro($id, $proyecto)
@@ -193,9 +202,8 @@ class toba_instancia
 	
 	
 	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
-	{
-		
-		$sql = "INSERT	INTO toba_logs.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
+	{		
+		$sql = "INSERT INTO toba_logs.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
 				VALUES (:proyecto, :solicitud, :solicitud_obs_tipo_proyecto,:solicitud_obs_tipo, :observacion);";	
 
 		$parametros = array(
@@ -210,7 +218,7 @@ class toba_instancia
 
 	function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
-		$sql = "INSERT	INTO toba_logs.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
+		$sql = "INSERT INTO toba_logs.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
 				VALUES (:solicitud_proyecto, :solicitud_browser, :proyecto, :sesion_browser, :ip);";	
 
 		$parametros = array(

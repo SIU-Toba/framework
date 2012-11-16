@@ -18,6 +18,7 @@ abstract class toba_solicitud
 	protected $registrar_db;					//Indica si	se	va	a registrar	la	solicitud
 	protected $cronometrar;						//Indica si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
+	protected $registrada = false;
 	
 	function __construct($item, $usuario)	
 	{
@@ -38,7 +39,7 @@ abstract class toba_solicitud
 
 		//---------- LOG de SOlICITUDES --------------------
 		//Se debe cronometrar la pagina?
-		if(toba::memoria()->usuario_solicita_cronometrar()){
+		if(toba::memoria()->usuario_solicita_cronometrar()) {
 			$this->cronometrar = true;
 		}		
 		//-- Identifico si la solicitd se deber registrar
@@ -77,7 +78,7 @@ abstract class toba_solicitud
 			$this->observar(array("toba","error"),"SOLICITUD [get_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
 			return -1;
 		}
-		$posicion =	$this->indice_objetos[$clase][$posicion];	
+		$posicion = $this->indice_objetos[$clase][$posicion];	
 		$indice = $this->objetos_indice_actual;
 
 		$clave['proyecto'] = $this->info['objetos'][$posicion]['objeto_proyecto'];
@@ -107,7 +108,10 @@ abstract class toba_solicitud
 	
 	function guardar_cronometro()
 	{
-		if ($this->cronometrar){	
+		if ($this->cronometrar) {			
+			if (! $this->registrada) {
+				$this->registro_temprano();
+			}			
 			toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
 		}			
 	}
@@ -122,7 +126,8 @@ abstract class toba_solicitud
 	{
 		if( $this->registrar_db || $this->cronometrar) {			
 			toba::instancia()->registrar_solicitud($this->id, $this->info['basica']['item_proyecto'], 
-													$this->info['basica']['item'], $this->get_tipo());						
+													$this->info['basica']['item'], $this->get_tipo());
+			$this->registrada = true;
 		}
 	}
 	
