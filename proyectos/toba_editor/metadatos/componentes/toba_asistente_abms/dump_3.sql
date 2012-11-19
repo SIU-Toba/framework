@@ -7,7 +7,7 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, item, carpeta_archivos, prefijo_clases, fuente) VALUES (
+INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, item, carpeta_archivos, prefijo_clases, fuente, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'10', --operacion_tipo
@@ -15,14 +15,15 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, item,
 	'3419', --item
 	'configuracion/skins', --carpeta_archivos
 	'skins_', --prefijo_clases
-	'instancia'  --fuente
+	'instancia', --fuente
+	NULL  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
 -- apex_molde_operacion_abms
 ------------------------------------------------------------
-INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
+INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'apex_estilo', --tabla
@@ -48,7 +49,8 @@ ORDER BY descripcion', --cuadro_carga_sql
 	NULL, --cuadro_carga_php_clase
 	NULL, --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
-	NULL  --apdb_pre
+	NULL, --apdb_pre
+	NULL  --punto_montaje
 );
 
 ------------------------------------------------------------
@@ -56,7 +58,7 @@ ORDER BY descripcion', --cuadro_carga_sql
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc) VALUES (
+INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'31', --fila
@@ -85,9 +87,10 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_carga_php_metodo
 	NULL, --ef_carga_tabla
 	NULL, --ef_carga_col_clave
-	NULL  --ef_carga_col_desc
+	NULL, --ef_carga_col_desc
+	NULL  --punto_montaje
 );
-INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc) VALUES (
+INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'32', --fila
@@ -116,9 +119,10 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_carga_php_metodo
 	NULL, --ef_carga_tabla
 	NULL, --ef_carga_col_clave
-	NULL  --ef_carga_col_desc
+	NULL, --ef_carga_col_desc
+	NULL  --punto_montaje
 );
-INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc) VALUES (
+INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, asistente_tipo_dato, etiqueta, en_cuadro, en_form, en_filtro, filtro_operador, cuadro_estilo, cuadro_formato, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_obligatorio, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_origen, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_tabla, ef_carga_col_clave, ef_carga_col_desc, punto_montaje) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'33', --fila
@@ -147,6 +151,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_carga_php_metodo
 	'apex_proyecto', --ef_carga_tabla
 	'proyecto', --ef_carga_col_clave
-	'descripcion_corta'  --ef_carga_col_desc
+	'descripcion_corta', --ef_carga_col_desc
+	NULL  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
