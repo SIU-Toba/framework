@@ -427,6 +427,7 @@ class toba_autoload
 		'toba_vinculador' => 'nucleo/lib/toba_vinculador.php',
 		'toba_vinculo' => 'nucleo/lib/toba_vinculo.php',
 		'toba_zona' => 'nucleo/lib/toba_zona.php',
+		'toba_firma_digital' => 'nucleo/lib/toba_firma_digital.php',
 		'toba_menu' => 'nucleo/menu/toba_menu.php',
 		'toba_menu_css' => 'nucleo/menu/toba_menu_css.php',
 		'toba_menu_libmenu' => 'nucleo/menu/toba_menu_libmenu.php',

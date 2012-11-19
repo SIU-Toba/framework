@@ -98,7 +98,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_estaticos', --identificador
 	'1', --orden
 	'Reportes estaticos', --etiqueta
-	'Se listan los reportes .jasper definidos en la carpeta <em>exportaciones/JasperReports</em> del proyecto.', --descripcion
+	'Ver [wiki:Impresion/JasperReports detalles de instalación]
+<br /> <br />
+Se listan los reportes .jasper definidos en la carpeta <em>exportaciones/JasperReports</em> del proyecto.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -108,7 +110,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
-	NULL  --punto_montaje
+	'12000003'  --punto_montaje
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'toba_referencia', --objeto_ci_proyecto
