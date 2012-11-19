@@ -24,6 +24,8 @@ class toba_migracion_2_4_0 extends toba_migracion
 				   CONSTRAINT "toba_logs.apex_solicitud_web_service_pk" PRIMARY KEY ("solicitud","proyecto" ), 
 				   CONSTRAINT "toba_logs.apex_sol_web_service_solicitud_fk" FOREIGN KEY ("solicitud","proyecto" ) REFERENCES "toba_logs"."apex_solicitud" ( "solicitud","proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
 				); ';
+		
+		$sql[] = 'ALTER TABLE apex_fuente_datos_schemas  ALTER COLUMN fuente_datos TYPE VARCHAR(20);';
 				
 		$this->elemento->get_db()->ejecutar($sql);
 		

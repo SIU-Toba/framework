@@ -163,7 +163,7 @@ CREATE TABLE apex_fuente_datos_schemas
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto			VARCHAR(15)	NOT NULL,
-	fuente_datos		VARCHAR(15)	NOT NULL, 
+	fuente_datos		VARCHAR(20)	NOT NULL, 
 	nombre			TEXT		NOT NULL,
 	principal			SMALLINT	NOT NULL DEFAULT 0,
 	CONSTRAINT	"apex_fuente_datos_schemas_pk" PRIMARY KEY ("proyecto", "fuente_datos", "nombre"),
