@@ -142,7 +142,7 @@ class consultas_instancia
 						observacion,
 						ot.descripcion
 				FROM toba_logs.apex_solicitud_observacion o
-					LEFT OUTER JOIN toba_logs.apex_solicitud_obs_tipo ot
+					LEFT OUTER JOIN apex_solicitud_obs_tipo ot
 						ON ot.solicitud_obs_tipo = o.solicitud_obs_tipo
 						AND ot.proyecto = o.solicitud_obs_tipo_proyecto
 				WHERE o.solicitud = $solicitud
@@ -167,6 +167,33 @@ class consultas_instancia
 				AND	s.solicitud = sc.solicitud_consola
 				AND	s.proyecto = $proyecto;";
 		return toba::db()->consultar($sql);		
+	}
+	
+	static function get_solicitudes_web_service($filtro = array())
+	{
+		$where = array();
+		if (isset($filtro['proyecto'])) { $where[] = 's.proyecto = ' .quote($filtro['proyecto']);}
+		if (isset($filtro['web_service'])) { $where[] = 's.item ILIKE  ' . quote("{$filtro['web_service']}%");}
+		if (isset($filtro['metodo'])) { $where[] = 'sws.metodo ILIKE  ' . quote("{$filtro['metodo']}%");}
+		if (isset($filtro['ip'])) { $where[] = 'sws.ip =' .quote($filtro['ip']);}
+		if (isset($filtro['solicitud'])) { $where[] = 's.solicitud = ' .quote($filtro['solicitud']);}
+		$sql = "
+				SELECT	s.solicitud as id, 
+						s.momento as momento, 
+						s.item_proyecto as item_proyecto, 
+						s.item as web_service,
+						s.tiempo_respuesta as tiempo, 
+						sws.metodo, 
+						sws.ip						
+				FROM	toba_logs.apex_solicitud s,
+						toba_logs.apex_solicitud_web_service sws
+				WHERE	s.proyecto = sws.proyecto
+				AND	s.solicitud = sws.solicitud";
+
+		if (! empty($where)) {
+			$sql = sql_concatenar_where($sql, $where);
+		}			
+		return toba::db()->consultar($sql);
 	}
 
 	//---------------------------------------------------------------------
