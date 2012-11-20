@@ -125,7 +125,7 @@ class toba_personalizacion {
 		$params = $this->db->get_parametros();
 		$profile = $params['profile'];
 		$base = $params['base'];
-		$puerto = $params['puerto'];
+		$puerto = isset($params['puerto']) ? $params['puerto'] : '5432';
 		$usuario = $params['usuario'];
 		$clave = $params['clave'];
 		
