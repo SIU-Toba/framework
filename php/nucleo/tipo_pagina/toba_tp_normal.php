@@ -50,17 +50,26 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			//--- Salir
 			$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
 			echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'">';
-			echo toba_recurso::imagen_toba('finalizar_sesion.gif', true);
+			echo toba_recurso::imagen_toba('finalizar_sesion.gif', true, null, null, 'Cerrar la sesión');
 			echo '</a>';
 			
 			//--- Usuario
 			$this->info_usuario();
 		}
 		
+		echo '<div class="zoom-fuente">';
+		echo '<a href="#" title="Ampliar fuente" onclick="ampliar_fuente();">';
+		echo toba_recurso::imagen_toba('resize-icon-full.png', true, null, null, 'Ampliar fuente');
+		echo '</a>';
+		echo '<a href="#" title="Reducir fuente" onclick="reducir_fuente();">';
+		echo toba_recurso::imagen_toba('resize-icon-small.png', true, null, null, 'Reducir fuente');
+		echo '</a>';
+		echo '</div>';
+		
 		//--- Proyecto
-		if(toba::proyecto()->es_multiproyecto()) {		
+		if(toba::proyecto()->es_multiproyecto()) {
 			$this->cambio_proyecto();
-		}		
+		}
 		//--- Logo
 		echo "<div id='enc-logo' style='height:{$this->alto_cabecera}'>";
 		$this->mostrar_logo();

@@ -653,6 +653,21 @@ function eval_code(code) {
   else eval.call(null, code);
 };
 
+function ampliar_fuente() {
+	var cfs		= $('body').css('font-size');
+	var cfs_num = parseFloat(cfs, 30);
+	var nuevo_fs = cfs_num * 1.1;
+	$('body').css('font-size', nuevo_fs);
+	return false;
+}
+
+function reducir_fuente() {
+	var cfs		= $('body').css('font-size');
+	var cfs_num = parseFloat(cfs, 30);
+	var nuevo_fs = cfs_num * 0.9;
+	$('body').css('font-size', nuevo_fs);
+	return false;
+}
 
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus
 addEvent(window, "onload", "pagina_cargada=true;firstFocus();");

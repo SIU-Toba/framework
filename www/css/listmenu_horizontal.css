@@ -74,7 +74,8 @@ ul.horizontal ul ul {
 ul.horizontal a, ul.horizontal a:visited {
 	display:block;
 	padding:5px 7px;
-	font:normal normal normal 11px tahoma, verdana, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
+	font-size: 1.1em;
 	color:black;
 	text-decoration:none;
 	white-space: nowrap;

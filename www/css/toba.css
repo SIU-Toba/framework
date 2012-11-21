@@ -1377,3 +1377,15 @@ a.ci-tabs-boton-desact:hover {
 	text-align:right;
 	width:2.2em;
 }
+
+/* -- ACCESIBILIDAD -- */
+
+div.zoom-fuente {
+	float: right; 
+	margin-top: 8px; 
+	margin-right: 15px;
+}
+
+div.zoom-fuente a:first-child {
+	margin-right: 5px;
+}
