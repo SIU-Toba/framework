@@ -1331,25 +1331,23 @@ a.ci-tabs-boton-desact:hover {
 		Bordes redondeados
 **************************/
 
-.barra-redondeada {
-}
-.c {width: 4; height: 4}
-.tl {padding: 0; width: 4; text-align: left; vertical-align: top !important;}
-.tr {padding: 0; width: 4; text-align: right; vertical-align: top}
-.bl {padding: 0; width: 4; text-align: left; vertical-align: bottom}
-.br {padding: 0; width: 4; text-align: right; vertical-align: bottom}
+.barra-redondeada {}
+.c {width: 4px; height: 4px;}
+.tl {padding: 0; width: 4px; text-align: left; vertical-align: top !important;}
+.tr {padding: 0; width: 4px; text-align: right; vertical-align: top;}
+.bl {padding: 0; width: 4px; text-align: left; vertical-align: bottom;}
+.br {padding: 0; width: 4px; text-align: right; vertical-align: bottom;}
 
 
 /***************************************
 	Controlador de Layers en ei-mapa
 ****************************************/
 .layer-ctrl {
-
-    background-color: #EFFFE1;
-    border: 1px solid black;
+	background-color: #EFFFE1;
+	border: 1px solid black;
 	padding: 5px;
-    position: relative;
-    top: 0px;
+	position: relative;
+	top: 0;
 }
 .layer-selector{
 	font-variant: italic;
