@@ -182,11 +182,25 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas__modificacion($datos)
 	{
+		if (isset($datos['estilo_precarga'])) {
+			if (! isset($datos['estilo'])) {
+				$datos['estilo'] = toba_info_editores::get_nombre_clase_css($datos['estilo_precarga']);
+			}
+			unset($datos['estilo_precarga']);
+		}
+				
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 	}
 	
 	function evt__columnas__aceptar($datos)
 	{
+		if (isset($datos['estilo_precarga'])) {
+			if (! isset($datos['estilo'])) {
+				$datos['estilo'] = toba_info_editores::get_nombre_clase_css($datos['estilo_precarga']);
+			}
+			unset($datos['estilo_precarga']);
+		}
+		
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 		$this->evt__columnas__cancelar();
 	}
@@ -196,15 +210,26 @@ class ci_principal extends ci_editores_toba
 		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
 		$datos = $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
 
+		if (isset($datos['estilo'])) {
+			$datos['estilo_precarga'] = apex_ef_no_seteado;
+			$en_base = toba_info_editores::get_lista_estilos_columnas();		//Busco la inversa del texto para setear el combo si existe
+			foreach($en_base as $estilo) {
+				if ($estilo['css'] == $datos['estilo']) {
+					$datos['estilo_precarga'] = $estilo['columna_estilo'];
+				}
+			}			
+		}
+
 		//Aqui comienza el engendro malefico
 		$posibles = $this->get_eventos_vinculo_cargados();
 		if (is_array($posibles)) {
 			foreach ($posibles as $evento) {	//Si encuentro match con el evento
-				if (isset($evento['evento_id']) && isset($datos['evento_asociado']) &&$datos['evento_asociado'] == $evento['evento_id']) {
+				if (isset($evento['evento_id']) && isset($datos['evento_asociado']) &&($datos['evento_asociado'] == $evento['evento_id'])) {
 					$datos['evento_asociado'] = $evento['identificador']; //Uso el nombre del evento
 				}
 			}
-		}		
+		}
+				
 		return $datos;
 	}
 
@@ -356,7 +381,6 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_vinculo_cargados()
 	{
-		//$condicion = array('accion' => 'V');	1.5: Es posible seleccionar todos los eventos como vinculos
 		$condicion = null;
 		$datos = $this->get_dbr_eventos()->get_filas($condicion, false, false);
 		return $datos;

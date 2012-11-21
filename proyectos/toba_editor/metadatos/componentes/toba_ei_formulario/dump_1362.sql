@@ -189,37 +189,48 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'0', --no_imprimir_efs_sin_estado
 	'0', --resaltar_efs_con_estado
 	'<table>
-    <tbody>
-        <tr>
-            <td>[ef id=estilo_precarga]</td>
-            <td>[ef id=estilo etiqueta_ancho=0]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=prueba_estilo]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=no_ordenar]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=total]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=estilo_titulo]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=usar_vinculo]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=evento_asociado]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=vinculo_indice]</td>
-        </tr>
-        <tr>
-            <td colspan="2">[ef id=grupo]</td>
-        </tr>
-    </tbody>
-</table>', --template
+	<tbody>
+		<tr>
+			<td>
+				[ef id=estilo_precarga]</td>
+			<td>
+				[ef id=estilo_editable etiqueta_ancho=0]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=prueba_estilo]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=no_ordenar]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=total]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=estilo_titulo]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=usar_vinculo]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=evento_asociado]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=vinculo_indice]</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				[ef id=grupo]</td>
+		</tr>
+	</tbody>
+</table>
+<p>&nbsp;</p>', --template
 	NULL  --template_impresion
 );
 
@@ -643,7 +654,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
-	'4', --estado_defecto
+	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
@@ -661,8 +672,8 @@ ORDER BY descripcion', --carga_sql
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'0', --carga_permite_no_seteado
-	NULL, --carga_no_seteado
+	'1', --carga_permite_no_seteado
+	'Otro', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -724,10 +735,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'1', --permitir_html
 	'0', --deshabilitar_rest_func
-	'Prueba', --estado_defecto
+	'Texto de Prueba', --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_lista_estilos_columnas', --carga_metodo
+	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
@@ -737,7 +748,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
-	'estilo_precarga', --carga_maestros
+	NULL, --carga_maestros
 	'1', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'0', --carga_permite_no_seteado
@@ -951,7 +962,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'33000092', --objeto_ei_formulario_fila
 	'1362', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
-	'estilo', --identificador
+	'estilo_editable', --identificador
 	'ef_editable', --elemento_formulario
 	'estilo', --columnas
 	'0', --obligatorio
@@ -970,7 +981,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_nombre_clase_css', --carga_metodo
+	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
@@ -980,7 +991,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
-	'estilo_precarga', --carga_maestros
+	NULL, --carga_maestros
 	'1', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'0', --carga_permite_no_seteado

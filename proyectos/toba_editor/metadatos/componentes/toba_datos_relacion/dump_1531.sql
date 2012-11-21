@@ -55,7 +55,7 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 	'db/ap_relacion_objeto.php', --ap_archivo
 	'0', --sinc_susp_constraints
 	'1', --sinc_orden_automatico
-	'1'  --sinc_lock_optimista
+	'0'  --sinc_lock_optimista
 );
 
 ------------------------------------------------------------
