@@ -1174,7 +1174,6 @@ class toba_info_editores
 		$clausulas = array(	'objeto_proyecto ='. toba_contexto_info::get_db()->quote($proyecto),
 											'objeto = '.toba_contexto_info::get_db()->quote($objeto));
 		return self::get_mensajes_objeto_filtrados($clausulas);
-		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 	function get_mensajes_objeto_filtrados($clausulas = array())
@@ -1193,7 +1192,7 @@ class toba_info_editores
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
-	     $sql = "SELECT proyecto, pto_control, descripcion
+		$sql = "SELECT proyecto, pto_control, descripcion
 					FROM apex_ptos_control
 					WHERE proyecto = $proyecto";
 		return toba_contexto_info::get_db()->consultar($sql);

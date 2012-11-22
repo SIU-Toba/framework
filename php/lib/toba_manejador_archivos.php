@@ -123,7 +123,8 @@ class toba_manejador_archivos
 		}
 
 		if ( ! $recursivo_subdir ) {
-			if ( $dir = opendir( $directorio ) ) {
+			$dir = opendir($directorio);
+			if ($dir !== false) {
 				while (false	!==	($archivo = readdir($dir)))	{
 			   		if(  $archivo != ".svn" &&  $archivo != "." && $archivo != ".." ) {
 						$archivos_ok[] = $directorio . '/' . $archivo;
@@ -185,7 +186,8 @@ class toba_manejador_archivos
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
 		} 
-		if ($dir = opendir( $directorio )) {	
+		$dir = opendir($directorio);
+		if ($dir !== false) {	
 		   while (false	!==	( $archivo = readdir( $dir ) ) )	{ 
 				if( ( $archivo != '.' ) && ( $archivo != '..' ) && ( $archivo != '.svn' ) ) {
 					$path = $directorio . '/' . $archivo;
@@ -215,7 +217,8 @@ class toba_manejador_archivos
 		} 
 		//Busco los archivos del directorio
 		$lista_archivos = array();
-		if ( $dir = opendir( $origen ) ) {
+		$dir = opendir($origen);
+		if ($dir !== false) {
 			while (false !== ($a = readdir($dir))) {
 				if ( $a != '.' && $a != '..' && $a != '.svn' ) {
 					$lista_archivos[] = $a;
@@ -300,7 +303,6 @@ class toba_manejador_archivos
 	        $dst = $src.".gz";
 	    }
 	    if (file_exists($src)) {
-	        $filesize = filesize($src);
 	        $src_handle = fopen($src, "r");
 	        if ($src_handle === false) {
 	            toba::logger()->error("Comprimir archivo: No se puede abrir $src");
@@ -326,18 +328,19 @@ class toba_manejador_archivos
 	 
 	function es_directorio_vacio($dir)
 	{
-	    if ($dh = @opendir($dir)) {
-	        while ($file = readdir($dh)) {
-	            if ($file != '.' && $file != '..') {
-	                closedir($dh);
-	                return false;
-	            }
-	        }
-	        closedir($dh);
-	        return true;
-	    } else {
-	    	return false;
-	    }
+		$dh = @opendir($dir);
+		if ($dh !== false) {
+			while ($file = readdir($dh)) {
+				if ($file != '.' && $file != '..') {
+					closedir($dh);
+					return false;
+				}
+			}
+			closedir($dh);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function es_writable($path)

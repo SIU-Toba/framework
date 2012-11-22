@@ -447,7 +447,7 @@ class toba_relacion_entre_tablas
 	 * @param mixed $id_hijo Id. interno de la fila hijo
 	 * @param mixed $id_padre Id. interno de la fila padre, si no se explicita que es la actualmente seleccionada en esa tabla
 	 * @param array $fila_hijo Asociativo campo-valor de la fila hijo
-	 * @throws exception_toba En caso de que no se pase id_padre y la tabla padre no tenga cursor asociado
+	 * @throws toba_error_def En caso de que no se pase id_padre y la tabla padre no tenga cursor asociado
 	 */
 	function asociar_fila_con_padre($id_hijo, $id_padre=null)
 	{

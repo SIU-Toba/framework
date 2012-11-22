@@ -611,7 +611,7 @@ class toba_ei_filtro extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
-						throw new excepction_toba("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error_def("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {

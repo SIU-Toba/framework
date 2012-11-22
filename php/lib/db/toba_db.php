@@ -715,7 +715,7 @@ class toba_db
 		$this->abrir_transaccion();
 		try {
 			$this->ejecutar($sentencias_sql);
-		} catch (exception_toba $e) {
+		} catch (toba_error_db $e) {
 			$this->abortar_transaccion();
 			throw $e;
 		}

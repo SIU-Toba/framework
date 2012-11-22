@@ -322,7 +322,7 @@ class toba_svn
 	 */
 	function descargar($url, $path)
 	{
-		$checkout = true;
+		/*$checkout = true;
 		if (file_exists($path)) {
 			$borrar = false;
 			/*if (! $this->es_copia_trabajo($path)) {
@@ -347,14 +347,14 @@ class toba_svn
 				if (! rename($path, $path.'.old')) {
 					inst_fact::archivos()->eliminar_directorio($path);
 				}
-			}*/
+			}
 		}
-		if ($checkout) {
+		if ($checkout) {*/
 			return $this->checkout($url, $path);
-		} else {
+		/*} else {
 			$this->cleanup($path);
-			return $this->update($path, $progreso);
-		}
+			return $this->update($path);
+		}*/
 	}
 	
 	function get_revision_origen($url)
