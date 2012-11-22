@@ -66,7 +66,7 @@ class toba_extractor_clases
 		$this->extends_excluidos = $extends;
 	}
 
-    function generar()
+	function generar()
 	{
 		$this->init_registro();
 		foreach ($this->puntos_montaje as $path => $data) {
@@ -86,7 +86,7 @@ class toba_extractor_clases
 		}
 	}
 	
-    function generar_vacio()
+	function generar_vacio()
 	{
 		$this->init_registro();
 		foreach ($this->puntos_montaje as $path => $data) {
@@ -147,12 +147,16 @@ class toba_extractor_clases
 				$this->registrar_clase($path_montaje, $clase, $archivo);
 				$path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
 
-				$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+				if (! $this->es_clase_repetida($path_montaje, $clase)) {
+					$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+				}
 			}
 		}
 
 		foreach ($extras as $clase => $path) {
-			$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+			if (! $this->es_clase_repetida($path_montaje, $clase)) {
+				$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+			}
 		}
 
 		return $clases;
@@ -202,6 +206,11 @@ class toba_extractor_clases
 				}
 			}
 		}
+	}
+	
+	protected function es_clase_repetida($montaje, $clase)
+	{
+		 return (isset($this->clases_repetidas[$montaje][$clase]));
 	}
 }
 ?>
