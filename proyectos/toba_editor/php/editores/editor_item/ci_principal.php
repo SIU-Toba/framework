@@ -48,7 +48,7 @@ class ci_principal extends toba_ci
 	function get_entidad()
 	{	//Acceso al DATOS_RELACION
 		if ($this->cambio_item) {
-			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->s__id_item);
+			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . print_r($this->s__id_item,true));
 			$this->dependencia('datos')->cargar($this->s__id_item);
 		}
 		return $this->dependencia('datos');
