@@ -326,4 +326,12 @@ class toba_error_servicio_web extends toba_error
 	}
 }
 
+/**
+ * Excepción producto de un error durante la verificación de la firma digital
+ */
+class toba_error_firma_digital extends toba_error
+{
+
+}
+
 ?>

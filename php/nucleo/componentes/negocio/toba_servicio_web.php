@@ -256,17 +256,10 @@ abstract class toba_servicio_web extends toba_componente
 		if (! file_exists($archivo)) {
 			throw new toba_error("El certificado $archivo no existe");
 		}
-		$resource = openssl_x509_read(file_get_contents($archivo));
-		$output = null;
-		$result = openssl_x509_export($resource, $output);
-		if($result !== false) {
-			$output = str_replace('-----BEGIN CERTIFICATE-----', '', $output);
-			$output = str_replace('-----END CERTIFICATE-----', '', $output);
-			return base64_decode($output);
-		} else {
-			throw new toba_error("El archivo $archivo no es un certificado valido");
-		}		
+		return toba_firma_digital::certificado_decodificar(file_get_contents($archivo));
 	}
+	
+
 	
 	//-------------------------------------------------------------------------------------------------//
 	//				OPERACION TEST							//

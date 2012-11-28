@@ -1,8 +1,70 @@
 <?php
 
+
+/**
+ * Utilidades de firma digital en base a certificados de la ONTI
+ * Links utiles:
+ *    Cert ONTI: http://acraiz.gov.ar/certs/03.crt
+ *	  CRL ONTI: http://pki.jgm.gov.ar/crl/FD.crl 
+ *    Cert Raiz: http://acraiz.gov.ar/ca.crt
+ *    CRL Raiz: http://acraiz.cdp1.gov.ar/ca.crl    
+ */
 class toba_firma_digital
 {
+
+	static function certificado_decodificar($certificado)
+	{
+		$resource = openssl_x509_read($certificado);
+		$output = null;
+		$result = openssl_x509_export($resource, $output);
+		if($result !== false) {
+			$output = str_replace('-----BEGIN CERTIFICATE-----', '', $output);
+			$output = str_replace('-----END CERTIFICATE-----', '', $output);
+			return base64_decode($output);
+		} else {
+			throw new toba_error("El certificado no es un certificado valido", "Detalles: $certificado");
+		}
+	}
+
+	static function certificado_get_fingerprint($certificado)
+	{
+		return sha1(self::certificado_decodificar($certificado));
+	}
+
+	static function certificado_get_serial_number($certificado)
+	{
+		$data = openssl_x509_parse($certificado, false);
+		return strtoupper(self::dec2hex($data['serialNumber']));
+	}
+		
 	
+	static function certificado_validar_revocacion($certificado, $crl) 
+	{
+		if (! file_exists($crl)) {
+			throw new toba_error("La base de certificados revocados no existe o no es accesible.", "Archivo '$crl'");
+		}
+		$comando = "openssl crl -inform DER -text -noout -in $crl";
+		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
+			throw new toba_error("No es posible acceder al detalle de certificados revocados", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
+		}
+		$serial = self::certificado_get_serial_number($certificado);
+		if (strpos($stdout, $serial) !== false) {
+			throw new toba_error_firma_digital("El certificado con serial '$serial' se encuentra revocado en la CRL", "Path de la CRL: $crl");
+		}
+	}
+	
+	static function certificado_validar_expiracion($certificado)
+	{
+		$data = openssl_x509_parse($certificado);
+		if (self::compare_openssl_date($data['validFrom']) > 0) {
+			throw new toba_error_firma_digital("El certificado no es válido tiene una fecha de inicio superior al día de hoy", "Certificado: $certificado");
+		}
+		if (self::compare_openssl_date($data['validTo']) < 0) {
+			throw new toba_error_firma_digital("El certificado no es válido, tiene una fecha de finalización inferior al día de hoy", "Certificado: $certificado");
+		}
+	}
+
+
 	/**
 	 * Agrega attachments a un archivo .pdf existente. Si falla lanza una excepcion toba_error
 	 * @param string $archivo_pdf  Path completo al archivo PDF de entrada 
@@ -17,13 +79,13 @@ class toba_firma_digital
 		$paths = implode(" ", $paths_attachments);
 		$comando = "pdftk $archivo_pdf attach_files $paths output $archivo_temp";
 		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
-			throw new toba_error("Error al ejecutar comando '$comando': $stdout\n".$stderr);
+			throw new toba_error("No fue posible agregar el XML al pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		if (! rename($archivo_pdf, $archivo_pdf.'.old')) {
-			throw new toba_error("Imposible renombrar '$archivo_pdf' a '$archivo_pdf.old'");
+			throw new toba_error("No fue posible agregar el XML al pdf", "Imposible renombrar '$archivo_pdf' a '$archivo_pdf.old'");
 		}
 		if (! rename($archivo_temp, $archivo_pdf)) {
-			throw new toba_error("Imposible renombrar '$archivo_temp' a '$archivo_pdf'");
+			throw new toba_error("No fue posible agregar el XML al pdf", "Imposible renombrar '$archivo_temp' a '$archivo_pdf'");
 		}		
 		unlink($archivo_pdf.'.old');
 	}
@@ -39,14 +101,14 @@ class toba_firma_digital
 		$carpeta_temp = toba::proyecto()->get_path_temp().'/'.md5(uniqid(time()));
 		if (! file_exists($carpeta_temp)) {
 			if (! mkdir($carpeta_temp)) {
-				throw new toba_error("Error al intentar crear carpeta temporal $carpeta_temp . Verifique permisos");
+				throw new toba_error("No fue posible extraer los XML del pdf", "Error al intentar crear carpeta temporal $carpeta_temp . Verifique permisos");
 			}
 		}
 		$stdout = null;
 		$stderr = null;
 		$comando = "pdftk $archivo_pdf unpack_files output $carpeta_temp";
 		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
-			throw new toba_error("Error al ejecutar comando '$comando': ".$stderr);
+			throw new toba_error("No fue posible extraer los XML del pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		$archivos = toba_manejador_archivos::get_archivos_directorio($carpeta_temp, $patron);
 		if (empty($archivos)) {
@@ -54,6 +116,48 @@ class toba_firma_digital
 		} 
 		return $archivos;
 	}
+	
+	
+	
+	static private function dec2hex($number)
+	{
+		$hexvalues = array('0','1','2','3','4','5','6','7', '8','9','A','B','C','D','E','F');
+		$hexval = '';
+		while($number != '0') {
+			$hexval = $hexvalues[bcmod($number,'16')].$hexval;
+			$number = bcdiv($number,'16',0);
+		}
+		return $hexval;
+	}
+	
+	static private function compare_openssl_date ($in) {
+		if (strlen($in) == 15) {
+			$year = substr($in, 0, 4);
+			$in = substr($in, 2);
+		} else {
+        	$year  = '20'.substr($in, 0, 2); /* NOTE: Yes, this returns a two digit year */
+		}
+        $month = substr($in, 2, 2);
+        $day   = substr($in, 4, 2);
+        $hour  = substr($in, 6, 2);
+        $min   = substr($in, 8, 2);
+        $sec   = substr($in, 10, 2);
+        $today = getdate();
+        if ($today['year'] < $year) return 1;
+        if ($today['year'] > $year) return -1;
+        if ($today['mon'] < $month) return 1;
+        if ($today['mon'] > $month) return -1;
+        if ($today['mday'] < $day) return 1;
+        if ($today['mday'] > $day) return -1;
+        if ($today['hours'] < $hour) return 1;        
+        if ($today['hours'] > $hour) return -1;
+        if ($today['minutes'] < $min) return 1;
+        if ($today['minutes'] > $min) return -1;
+        if ($today['seconds'] < $hour) return 1;
+        if ($today['seconds'] > $hour) return -1;
+        return 0;
+	}
+	
 	
 }
 

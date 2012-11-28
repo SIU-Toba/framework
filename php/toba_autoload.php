@@ -384,6 +384,7 @@ class toba_autoload
 		'toba_error_validacion' => 'nucleo/lib/toba_error.php',
 		'toba_error_ini_sesion' => 'nucleo/lib/toba_error.php',
 		'toba_error_comunicacion' => 'nucleo/lib/toba_error.php',
+		'toba_error_firma_digital' => 'nucleo/lib/toba_error.php',
 		'toba_reset_nucleo' => 'nucleo/lib/toba_error.php',
 		'toba_error_servicio_web' => 'nucleo/lib/toba_error.php',
 		'toba_firma_digital' => 'nucleo/lib/toba_firma_digital.php',

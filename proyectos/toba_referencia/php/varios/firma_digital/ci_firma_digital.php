@@ -11,7 +11,7 @@ class ci_firma_digital extends toba_ci
 		
 		$pdf = new Cezpdf();
 		$pdf->selectFont(toba_dir() . '/php/3ros/ezpdf/fonts/Helvetica.afm');
-		$pdf->ezText('Ejemplo Firma Digital', 14);
+		$pdf->ezText('Ejemplo Firma Digital. Tiene dos attachments XML', 14);
 		
 		//-- Cuadro con datos
 		$opciones = array(
@@ -71,13 +71,25 @@ class ci_firma_digital extends toba_ci
 
 	function evt__validar()
 	{
+		$ok = $this->validar_xmls();
+		$certificado = file_get_contents(toba::nucleo()->toba_instalacion_dir()."/i__desarrollo/p__toba_referencia/publica.crt");
+		$ok = $ok && $this->validar_certificado($certificado);
+		if ($ok) {
+			toba::notificacion()->agregar("Validación OK", "info");
+		}
+	}
+	
+	function validar_xmls()
+	{
 		$attachments = toba_firma_digital::pdf_get_attachments($this->s__pdf['path']);
 		$ok = count($attachments) == 2;
 		$carpeta = null;
 		if ($ok && file_get_contents($attachments[0]) != file_get_contents(toba::proyecto()->get_path_temp().'/entrada_deportes.xml')) {
 			$ok = false;
-		}		
+			toba::notificacion()->agregar("XML deportes modificado", "error");
+		}
 		if ($ok && file_get_contents($attachments[1]) != file_get_contents(toba::proyecto()->get_path_temp().'/entrada_juegos.xml')) {
+						toba::notificacion()->agregar("XML juegos modificado", "error");
 			$ok = false;
 		}
 		foreach ($attachments as $xml) {
@@ -86,11 +98,18 @@ class ci_firma_digital extends toba_ci
 		if (isset($carpeta)) {
 			toba_manejador_archivos::eliminar_directorio($carpeta);
 		}
-		if ($ok) {
-			toba::notificacion()->agregar("Verificación OK", "info");
-		} else {
-			toba::notificacion()->agregar("XMLs modificados", "error");
-		}
+		return $ok;
+	}
+	
+	function validar_certificado($certificado)
+	{
+		toba_firma_digital::certificado_validar_expiracion($certificado);
+		
+		//Validación ONTI
+		toba_firma_digital::certificado_validar_revocacion($certificado, dirname(__FILE__).'/onti.crl');
+		//Validación RAIZ
+		toba_firma_digital::certificado_validar_revocacion($certificado, dirname(__FILE__).'/raiz.crl');
+		return true;
 	}
 
 }
