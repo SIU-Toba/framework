@@ -9,6 +9,7 @@ class catalogo_tablas
 	protected $_tablas_actualizables = array();
 	protected $_tablas_nuevas = array();
 	protected $_tabla_x_schema = array();
+	protected $_schemas_disp;
 
 	function __construct($proyecto=null, $fuente=null)
 	{
@@ -18,8 +19,9 @@ class catalogo_tablas
 
 	function cargar()
 	{
+		//Aca tengo que obtener los schemas de los datos de la fuente.
+		$this->_schemas_disp = $this->buscar_schemas_fuente();
 		$this->buscar_lista_tablas();								//Obtengo todas las tablas
-		$this->verificar_schemas_fuente();							//Verifico si los schemas estan cargados		
 		$this->buscar_dt_lockeados();							//Obtengo aquellos no actualizables
 		$this->_tablas_nuevas = $this->_tablas;
 		//Ahora tengo que sacar los actualizados
@@ -78,35 +80,28 @@ class catalogo_tablas
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------
+	function buscar_schemas_fuente()
+	{
+		$datos = array();
+		$disponibles = toba_proyecto_db::get_info_fuente_schemas($this->_proyecto, $this->_fuente);
+		if (empty($disponibles)) {			//Obtengo el schema directamente desde la conexion
+			$datos[] = toba::db($this->_fuente, $this->_proyecto)->get_schema();			
+		} else {
+			foreach ($disponibles as $esquema) {
+				$datos[] = $esquema['nombre'];
+			}
+		}
+		return $datos;
+	}
+	
 	function buscar_lista_tablas()
 	{
-		$this->_tablas = array();
-		$lista_inicial = toba::db($this->_fuente, $this->_proyecto)->get_lista_tablas_bd();
+		$this->_tablas = array();		
+		$lista_inicial = toba::db($this->_fuente, $this->_proyecto)->get_lista_tablas_bd(false, $this->_schemas_disp);
 		foreach ($lista_inicial as $tabla) {
 			$this->_tablas[] = array('tabla' => $tabla['nombre']);
 			$this->_tabla_x_schema[$tabla['nombre']] = $tabla['esquema'];
 		}		
-	}
-
-	function verificar_schemas_fuente()
-	{
-		$schemas_base = array_unique($this->_tabla_x_schema);							//Obtengo la lista de schemas que devuelven las tablas de la base		
-		
-		$schemas_fuente = array();
-		$disponibles = toba::db($this->_fuente, $this->_proyecto)->get_lista_schemas_disponibles();		//Obtengo los schemas configurador para la fuente
-		foreach ($disponibles as $valores) {
-			$schemas_fuente[] = $valores['esquema'];
-		}
-		
-		$resultado = array_diff($schemas_base, $schemas_fuente);
-		$cant_esquemas = count($resultado);
-		if ($cant_esquemas > 0) {										//Hay esquemas no configurados en la fuente pero que  pueden estar en uso.
-			toba::logger()->debug('Falta agregar el/los siguiente/s schema/s a la configuracion:');
-			toba::logger()->var_dump($resultado);
-			$msg = 'Existen al menos '. $cant_esquemas. ' schema/s que necesitan ser agregados a la lista de schemas disponibles para la fuente de datos actual.' .
-				' Por favor, verifique la correcta configuracion de la fuente de datos, de lo contrario fallará la generación.';
-			toba::notificacion()->agregar($msg, 'info');		
-		}
 	}
 	
 	function get_dt_bloqueados()

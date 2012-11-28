@@ -110,7 +110,7 @@ class toba_proyecto_db
 				FROM 	apex_fuente_datos_schemas		
 				WHERE	fuente_datos = $id_fuente
 				AND 	proyecto = $proyecto";
-		return $db->consultar_fila($sql);
+		return $db->consultar($sql);
 	}		
 
 	static function get_mapeo_tabla_dt($proyecto, $id_fuente)
@@ -369,7 +369,7 @@ class toba_proyecto_db
 
 	//------------------------ CONSULTAS PHP -----------------------
 
-	function get_consulta_php($proyecto, $clase)
+	static function get_consulta_php($proyecto, $clase)
 	{
 		$db = self::get_db();
 		$proyecto = $db->quote($proyecto);

@@ -504,7 +504,11 @@ class toba_db_postgres7 extends toba_db
 		$sql_esquema = '';
 		if (! is_null($esquema)) {
 			$esquema = $this->quote($esquema);
-			$sql_esquema .= " AND schemaname= $esquema " ;
+			if (is_array($esquema)) {
+				$sql_esquema .= " AND schemaname IN (" .implode(',' , $esquema) .")" ;
+			} else {
+				$sql_esquema .= " AND schemaname= $esquema " ;
+			}
 		}
 		$sql = "SELECT tablename as nombre,
 					  schemaname as esquema

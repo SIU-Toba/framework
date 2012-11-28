@@ -11,7 +11,6 @@ class ci_sincronizador_tablas extends toba_ci
 		list($proyecto, $fuente) = toba::zona()->get_editable();
 		$this->s__catalogo = new catalogo_tablas($proyecto, $fuente);
 		$this->s__catalogo->cargar();
-		//$this->s__seleccionadas = $this->s__catalogo->get_tablas_preseleccionadas();		//Por ahora esto no tiene sentido
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -41,11 +40,6 @@ class ci_sincronizador_tablas extends toba_ci
 	{
 		$resultado = array_merge($this->generar_listado_tablas_nuevas(), $this->generar_listado_tablas_modificadas());
 		$cuadro->set_datos($resultado);
-
-		//Aca miro cuales estan para seleccionar...
-		/*if (isset($this->s__seleccionadas)) {
-			$cuadro->seleccionar($this->s__seleccionadas);
-		}*/
 	}
 
 	function generar_listado_tablas_nuevas()
