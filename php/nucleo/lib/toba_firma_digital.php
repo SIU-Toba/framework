@@ -36,7 +36,6 @@ class toba_firma_digital
 		$data = openssl_x509_parse($certificado, false);
 		return strtoupper(self::dec2hex($data['serialNumber']));
 	}
-		
 	
 	static function certificado_validar_revocacion($certificado, $crl) 
 	{
@@ -51,6 +50,26 @@ class toba_firma_digital
 		if (strpos($stdout, $serial) !== false) {
 			throw new toba_error_firma_digital("El certificado con serial '$serial' se encuentra revocado en la CRL", "Path de la CRL: $crl");
 		}
+	}
+	
+	/**
+	 * Dado un cadena de texto en formato PEM valida que haya sido expedido por una CA (en formato PEM tambien)
+	 * @param string $certificado cadena PEM del certificado a validar
+	 * @param string $pem_ca Path al archivo PEM de la CA
+	 */
+	static function certificado_validar_CA($certificado, $pem_ca)
+	{
+		if (! file_exists($pem_ca)) {
+			throw new toba_error("El certificado raiz no existe o no es accesible.", "Archivo '$pem_ca'");
+		}
+		$archivo_temp = toba::proyecto()->get_path_temp().'/'.md5(uniqid(time()));
+		file_put_contents($archivo_temp, $certificado);		
+		$comando = "openssl verify -CAfile $pem_ca $archivo_temp";
+		$output = toba_manejador_archivos::ejecutar($comando, $stdout, $stderr);
+		unlink($archivo_temp);
+		if ($output == 0) {
+			throw new toba_error_firma_digital("El certificado no es válido", "Salida del comando '$comando': $stdout\n".$stderr);
+		}	
 	}
 	
 	static function certificado_validar_expiracion($certificado)

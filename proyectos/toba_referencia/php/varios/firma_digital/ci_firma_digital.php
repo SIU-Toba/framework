@@ -104,11 +104,10 @@ class ci_firma_digital extends toba_ci
 	function validar_certificado($certificado)
 	{
 		toba_firma_digital::certificado_validar_expiracion($certificado);
-		
+
 		//Validación ONTI
 		toba_firma_digital::certificado_validar_revocacion($certificado, dirname(__FILE__).'/onti.crl');
-		//Validación RAIZ
-		toba_firma_digital::certificado_validar_revocacion($certificado, dirname(__FILE__).'/raiz.crl');
+		toba_firma_digital::certificado_validar_CA($certificado, dirname(__FILE__).'/onti.pem');
 		return true;
 	}
 
