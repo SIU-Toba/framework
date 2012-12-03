@@ -175,6 +175,11 @@ class toba_proyecto
 		return $this->get_parametro('listar_multiproyecto');
 	}
 
+	function permite_cambio_perfiles()
+	{
+		return $this->get_parametro('proyecto', 'permite_cambio_perfil_funcional');
+	}
+	
 	function es_personalizable()
 	{
 		$rs = $this->get_parametro('extension_proyecto');

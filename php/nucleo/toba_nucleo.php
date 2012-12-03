@@ -62,6 +62,7 @@ class toba_nucleo
 	{
 		try {
 			$this->iniciar_contexto_ejecucion();
+			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
 			toba_http::headers_standart();
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();

@@ -1,6 +1,7 @@
 <?php
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
+define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
 
 /**
  * Maneja los segmentos de memoria y el proceso de creacion de sesiones
@@ -336,6 +337,21 @@ class toba_manejador_sesiones
 		}
 	}
 
+	function verificar_cambio_perfil_activo() 
+	{
+		if (isset($_POST[apex_sesion_qs_cambio_pf]) && toba::proyecto()->permite_cambio_perfiles()) {
+			$perfil_solicitado = trim($_POST[apex_sesion_qs_cambio_pf]);
+			if ($perfil_solicitado != apex_ef_no_seteado) {
+				toba::logger()->debug('Seteando el perfil '. $perfil_solicitado . ' como activo para el proyecto ' . $this->proyecto);
+				$this->set_perfiles_funcionales_activos(array($perfil_solicitado));											
+			} else {
+				toba::logger()->debug('Seteando como activos para el proyecto los perfiles originales definidos.');
+				$this->set_perfiles_funcionales_activos($this->get_perfiles_funcionales());
+			}
+			toba::memoria()->set_dato('usuario_perfil_funcional_seleccionado', $perfil_solicitado);
+		}
+	}
+	
 	//-----------  Acceso a los objetos USUARIO y SESION  ------------------
 
 	/**

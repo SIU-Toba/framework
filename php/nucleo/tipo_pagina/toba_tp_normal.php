@@ -70,6 +70,10 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		if(toba::proyecto()->es_multiproyecto()) {
 			$this->cambio_proyecto();
 		}
+		if (toba::proyecto()->permite_cambio_perfiles()) {
+			$this->cambio_perfil();
+		}
+		
 		//--- Logo
 		echo "<div id='enc-logo' style='height:{$this->alto_cabecera}'>";
 		$this->mostrar_logo();
@@ -98,6 +102,25 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			echo '</div>';
 		}
 	}
+	
+	function cambio_perfil()
+	{
+		$perfiles = toba::instancia()->get_datos_perfiles_funcionales_usuario_proyecto( toba::usuario()->get_id(), toba::proyecto()->get_id());		
+		if (count($perfiles) > 1) {
+			//-- Si hay al menos dos perfiles funcionales
+			echo '<div class="enc-cambio-proy">';
+			$perfiles[] = array('grupo_acceso' => apex_ef_no_seteado, 'nombre' => ' Todos ' );
+			$datos = rs_convertir_asociativo($perfiles, array('grupo_acceso' ), 'nombre');
+			$actual = toba::memoria()->get_dato('usuario_perfil_funcional_seleccionado');
+			if (is_null($actual)) {
+				$actual = apex_ef_no_seteado;
+			}			
+			echo toba_form::abrir('chng_profile', toba::vinculador()->get_url());
+			echo toba_form::select(apex_sesion_qs_cambio_pf, $actual, $datos, 'ef-combo', 'onchange="submit();"');	
+			echo toba_form::cerrar();			
+			echo '</div>';
+		}		
+	}	
 	
 	protected function mostrar_logo()
 	{

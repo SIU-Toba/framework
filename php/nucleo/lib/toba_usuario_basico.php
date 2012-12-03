@@ -101,6 +101,16 @@ class toba_usuario_basico extends toba_usuario
 		return toba_proyecto_implementacion::get_restricciones_funcionales($perfiles, toba::proyecto()->get_id());		
 	}
 
+	function set_perfil_activo($perfil)
+	{
+		if (is_null($perfil)) {
+			$perfil = $this->get_perfiles_funcionales();
+		} else {
+			$perfil = array($perfil);
+		}
+		toba::manejador_sesiones()->set_perfiles_funcionales_activos($perfil);
+	}
+	
 	//-------------------------------------------------------
 	//----- Parametros
 	//-------------------------------------------------------

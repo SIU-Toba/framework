@@ -33,5 +33,16 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 	
+	
+	function proyecto__agregar_configuracion_ini()
+	{
+		$destino_ini = $this->elemento->get_dir().'/proyecto.ini';
+		if (file_exists($destino_ini)) {
+			$editor = new toba_ini($destino_ini);
+			$editor->agregar_entrada('proyecto', array('permite_cambio_perfil_funcional' => '0'));
+			$editor->guardar();
+		}
+	}
+	
 }
 ?>

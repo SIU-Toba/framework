@@ -419,24 +419,36 @@ class toba_instancia
 	}
 	
 	/**
-	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
-	*	@return $value	Retorna un array de grupos de acceso
-	*/	
-	function get_perfiles_funcionales($usuario, $proyecto) 
+	 * @ignore
+	 * @param string $usuario
+	 * @param string $proyecto
+	 * @return array
+	 */
+	function get_datos_perfiles_funcionales_usuario_proyecto($usuario, $proyecto)
 	{
 		$db = $this->get_db();
 		$usuario = $db->quote($usuario);
 		$proyecto_quote = $db->quote($proyecto);
-		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,
-						(SELECT COUNT(*) FROM apex_usuario_grupo_acc_miembros mie WHERE mie.usuario_grupo_acc = up.usuario_grupo_acc) as cant_membresias
+		$sql = "SELECT	up.usuario_grupo_acc as  grupo_acceso,
+						(SELECT COUNT(*) FROM apex_usuario_grupo_acc_miembros mie WHERE mie.usuario_grupo_acc = up.usuario_grupo_acc) as cant_membresias,
+						ga.nombre
 				FROM 	apex_usuario_proyecto up,
 						apex_usuario_grupo_acc ga
 				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
 				AND		up.proyecto = ga.proyecto
 				AND		up.usuario = $usuario
 				AND		up.proyecto = $proyecto_quote
-				ORDER BY ga.usuario_grupo_acc ASC";
-		$datos = $db->consultar($sql);
+				ORDER BY ga.usuario_grupo_acc ASC;";
+		return $db->consultar($sql);
+	}
+		
+	/**
+	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
+	*	@return $value	Retorna un array de grupos de acceso
+	*/	
+	function get_perfiles_funcionales($usuario, $proyecto) 
+	{
+		$datos = $this->get_datos_perfiles_funcionales_usuario_proyecto($usuario, $proyecto);
 		if($datos){
 			$grupos = array();
 			foreach($datos as $dato) {
@@ -452,6 +464,8 @@ class toba_instancia
 			return array();
 		}		
 	}
+	
+	
 	
 	/**
 	* @deprecated Usar get_perfiles_funcionales
