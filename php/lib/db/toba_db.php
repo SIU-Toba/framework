@@ -287,23 +287,24 @@ class toba_db
 		if (is_array($sql)) {
 			foreach(array_keys($sql) as $id) {
 				try {
-
+					$sql_x = $this->pegar_estampilla_log($sql[$id]);
 					if ($this->registrar_ejecucion) {
-						$this->registro_ejecucion[] = $sql[$id];
+						$this->registro_ejecucion[] = $sql_x;
 					}
 					
 					if (!$this->desactivar_ejecucion) {
-						if ($this->debug) $this->log_debug_inicio($sql[$id]);						
-						$afectados += $this->conexion->exec($sql[$id]);
+						if ($this->debug) $this->log_debug_inicio($sql_x);						
+						$afectados += $this->conexion->exec($sql_x);
 						if ($this->debug) $this->log_debug_fin();						
 					}
 				} catch (PDOException $e) {
 					toba::logger()->error($e->getMessage());
-					$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
+					$ee = new toba_error_db($e, $this->cortar_sql($sql_x), $this->parser_errores, true);
 					throw $ee;
 				}
 			}
 		} else {
+			$sql = $this->pegar_estampilla_log($sql);
 			try {
 				if ($this->registrar_ejecucion) {
 					$this->registro_ejecucion[] = $sql;
@@ -333,6 +334,7 @@ class toba_db
 	function sentencia($sql, $parametros=null)
 	{
 		$afectados = 0;
+		$sql = $this->pegar_estampilla_log($sql);
 		try {
 			if ($this->debug) $this->log_debug_inicio($sql);
 			$stm = $this->conexion->prepare($sql);
@@ -364,6 +366,8 @@ class toba_db
 		if (! isset($tipo_fetch)) {
 			$tipo_fetch=toba_db_fetch_asoc;	
 		}
+		
+		$sql = $this->pegar_estampilla_log($sql);		
 		try {
 			if ($this->registrar_consultas) {
 				$this->registro_consulta[] = $sql;
@@ -400,7 +404,8 @@ class toba_db
 		}
 		if (! isset($tipo_fetch)) {
 			$tipo_fetch=toba_db_fetch_asoc;	
-		}		
+		}
+		$sql = $this->pegar_estampilla_log($sql);
 		try {
 			if ($this->registrar_consultas) {
 				$this->registro_consulta[] = $sql;
@@ -479,6 +484,7 @@ class toba_db
 	function sentencia_preparar($sql, $opciones=array())
 	{
 		$id = count($this->sentencias);
+		$sql = $this->pegar_estampilla_log($sql);
 		$this->sentencias[$id] = array('sql' => $sql);
 		
 		if ($this->registrar_consultas || $this->registrar_ejecucion) {
@@ -614,7 +620,6 @@ class toba_db
 	*/
 	function sentencia_consultar_fila($id, $parametros=null, $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
-
 		if (!isset($this->sentencias[$id]['id'])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
@@ -711,7 +716,6 @@ class toba_db
 	*/
 	function ejecutar_transaccion($sentencias_sql)
 	{
-		$sentencia_actual = 1;
 		$this->abrir_transaccion();
 		try {
 			$this->ejecutar($sentencias_sql);
@@ -945,7 +949,6 @@ class toba_db
 	function get_sql_carga_descripciones($tabla)
 	{
 		$campos = $this->get_definicion_columnas($tabla);
-		$encontrado = false;
 		$candidatos_descripcion = array();
 		$clave = null;
 		foreach ($campos as $campo) {
@@ -976,7 +979,6 @@ class toba_db
 			$descripcion = $campo['fk_campo'];
 			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
 			$campos_tabla_externa = $this->get_definicion_columnas($tabla);
-			$encontrado = false;
 			$candidatos_descripcion = array();
 			//ei_arbol($campos_tabla_externa, $tabla);
 			foreach ($campos_tabla_externa as $campo_tabla_ext) {
@@ -1039,7 +1041,22 @@ class toba_db
 		}
 		return $sql;
 	}
-	
+
+	/**
+	 *  Agrega una estampilla con el id de solicitud a las consultas
+	 * @param string $sql
+	 * @return string
+	 * @ignore
+	 */
+	protected function pegar_estampilla_log($sql)
+	{
+		$sol = toba::solicitud();
+		if (! is_null($sol)) {
+			$id = $sol->get_id();
+			$sql .= " -- toba_log: $id ";			//El espacio es para que sea compatible con Mysql
+		}
+		return $sql;
+	}	
 	//-----------------------------------------------------------------------------------
 	//-- GENERACION de MENSAJES de ERROR (Esto necesita adecuacion al esquema actual)
 	//-----------------------------------------------------------------------------------
