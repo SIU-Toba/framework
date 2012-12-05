@@ -160,5 +160,18 @@ class toba_tp_basico extends toba_tipo_pagina
 	{
 		echo "<div id='barra_superior' class='barra-superior'>";		
 	}
+	
+	function mostrar_resize_fuente()
+	{
+		echo '<div class="zoom-fuente">';
+		echo '<a href="#" title="Ampliar fuente" onclick="ampliar_fuente();">';
+		echo toba_recurso::imagen_toba('resize-icon-full.png', true, null, null, 'Ampliar fuente');
+		echo '</a>';
+		echo '<a href="#" title="Reducir fuente" onclick="reducir_fuente();">';
+		echo toba_recurso::imagen_toba('resize-icon-small.png', true, null, null, 'Reducir fuente');
+		echo '</a>';
+		echo '</div>';
+	}
+	
 }
 ?>

@@ -40,6 +40,7 @@ class toba_migracion_2_4_0 extends toba_migracion
 		if (file_exists($destino_ini)) {
 			$editor = new toba_ini($destino_ini);
 			$editor->agregar_entrada('proyecto', array('permite_cambio_perfil_funcional' => '0'));
+			$editor->agregar_entrada('proyecto', array('mostrar_resize_fuente' => '0'));
 			$editor->guardar();
 		}
 	}

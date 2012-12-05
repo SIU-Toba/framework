@@ -57,15 +57,10 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			$this->info_usuario();
 		}
 		
-		echo '<div class="zoom-fuente">';
-		echo '<a href="#" title="Ampliar fuente" onclick="ampliar_fuente();">';
-		echo toba_recurso::imagen_toba('resize-icon-full.png', true, null, null, 'Ampliar fuente');
-		echo '</a>';
-		echo '<a href="#" title="Reducir fuente" onclick="reducir_fuente();">';
-		echo toba_recurso::imagen_toba('resize-icon-small.png', true, null, null, 'Reducir fuente');
-		echo '</a>';
-		echo '</div>';
-		
+		if ( toba::proyecto()->get_parametro('proyecto', 'mostrar_resize_fuente') ) {
+			$this->mostrar_resize_fuente();
+		}
+
 		//--- Proyecto
 		if(toba::proyecto()->es_multiproyecto()) {
 			$this->cambio_proyecto();
@@ -133,7 +128,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		echo "<span class='enc-usuario-nom'>".texto_plano(toba::usuario()->get_nombre())."</span>";
 		echo "<span class='enc-usuario-id'>".texto_plano(toba::usuario()->get_id())."</span>";
 		echo '</div>';
-	}		
+	}
 
 }
 ?>
