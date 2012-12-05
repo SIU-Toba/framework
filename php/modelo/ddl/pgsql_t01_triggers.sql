@@ -13,8 +13,7 @@ $BODY$
 					RETURN NULL;
 				END;
 			$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+  LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER tusuario_pwd_pasados
   AFTER UPDATE

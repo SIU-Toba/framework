@@ -84,8 +84,7 @@ class toba_migracion_2_2_0 extends toba_migracion
 									RETURN NULL;
 								END;
 							$BODY$
-				  LANGUAGE plpgsql VOLATILE
-				  COST 100;';
+				  LANGUAGE plpgsql VOLATILE;';
 		
 		$sql[] = 'CREATE TRIGGER tusuario_pwd_pasados
 				  AFTER UPDATE
