@@ -101,7 +101,7 @@ class zona_item extends zona_editor
 													$rs['clase_editor'],
 													array(apex_hilo_qs_zona=>$rs['objeto_proyecto']
 															.apex_qs_separador. $rs['objeto'])) ."'>".
-							toba_recurso::imagen_toba('objetos/editar.gif', true, null, null, b'Editar propiedades ESPECIFICAS del OBJETO'). '</a>';
+							toba_recurso::imagen_toba('objetos/editar.gif', true, null, null, 'Editar propiedades ESPECIFICAS del OBJETO'). '</a>';
 				}
 				echo "</td>\n";
 				echo "</tr>\n";
