@@ -2724,32 +2724,55 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	 *  Genera un script por fuente de datos para crear los roles y darles permisos
 	 */
-	function crear_script_generacion_roles_db($dir = '')
+	function crear_script_generacion_roles_db($dir = '', $perfiles_eliminados=array())
 	{
-		$sentencias = array();
-		$prefijo_archivo = $this->identificador.'_roles_';
+		$sentencias = array(); $sql = array();
+		$prefijo_archivo = $this->identificador.'_roles_';		
 		toba_proyecto_db::set_db( $this->db );
 		
-		//Primero obtengo los perfiles funcionales del proyecto
+		//------------------------------------------------------------------------------------------//
+		//	Obtengo estado actual de perfiles funcionales
+		//------------------------------------------------------------------------------------------//
 		$grupos = $this->get_indice_grupos_acceso();		
 		$fuentes = $this->get_indice_fuentes();
-		//Para cada perfil
+		$roles_activos_db = $this->get_roles_disponibles();		
+			
+		//------------------------------------------------------------------------------------------//
+		//	Genero el nuevo estado para los perfiles 
+		//------------------------------------------------------------------------------------------//		
 		foreach($grupos as $perfil) {
 			$nombre_final = $this->get_nombre_rol($perfil);
-			$sql[] = $this->get_db()->borrar_rol($nombre_final, false);											//Elimino rol existente y creo uno nuevo
-			$sql[] = $this->get_db()->crear_rol($nombre_final, false);
-			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));		//Obtengo las operaciones para el perfil
+			$rol_existente = (in_array($nombre_final, $roles_activos_db));								//Miro si es un rol existente o eliminado.
+			$rol_eliminado = (in_array($perfil, $perfiles_eliminados));
+			$drop_generado = false;
+				
+			if (! $rol_existente) {																	//Si es un perfil nuevo, creo el rol correspondiente
+				$sql[] = $this->get_db()->crear_rol($nombre_final, false);
+			}
+			
+			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));							//Obtengo las operaciones para el perfil
 			foreach ($fuentes as $fuente) {
-				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);		//Obtengo las tablas que usan las operaciones en esta fuente
-				$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);					//Genero las SQLs para los GRANT				
-				if (! empty($sql_rol)) {
-					$sentencias[$fuente] = (! isset($sentencias[$fuente])) ? array_merge($sql, $sql_rol): array_merge($sentencias[$fuente], $sql, $sql_rol);					
-					$sql = array();										//Reinicializo para evitar que el rol se cree nuevamente.
+				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);							//Obtengo las tablas que usan las operaciones en esta fuente
+				$sql_rvk_rol =  (! $rol_existente) ? array():  $this->get_sql_revocacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);	//Genero las SQLs para los REVOKE si existe el rol
+				
+				if (! $rol_eliminado) {
+					$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);						//Genero las SQLs para los GRANT	si es nuevo o existe												
+				} elseif (! $drop_generado) {
+					$sql[] = $this->get_db()->borrar_rol($nombre_final, false);														//Genero el DROP si el rol no existe mas.	
+					$drop_generado = true;					
+				}
+				
+				if (! empty($sql_rol) || ! empty($sql_rvk_rol)) {																		//Agrego las consultas al pool para la fuente
+					$sentencias[$fuente] = (! isset($sentencias[$fuente])) ? array_merge($sql_rvk_rol, $sql, $sql_rol): array_merge($sentencias[$fuente], $sql_rvk_rol, $sql, $sql_rol);					
+					$sql = array();																							//Reinicializo para evitar que el rol se cree nuevamente.
+					$sql_rol = array();					
 				}
 			}
-		}
-
-		//Grabo los datos a los diferentes archivos.
+		}		
+		
+		//------------------------------------------------------------------------------------------//
+		//		Grabo todo en los archivos correspondientes
+		//------------------------------------------------------------------------------------------//		
 		foreach ($fuentes as $fuente) {
 			$nombre_archivo = $dir . $prefijo_archivo . '_' . $fuente. '.sql';
 			if (! empty ($sentencias[$fuente])) {
@@ -2779,6 +2802,29 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		
 		return $resultado;
+	}
+	
+	protected function get_sql_revocacion_permisos_rol($rol, $fuente, $tablas) 
+	{
+		$id_def_base = $this->construir_id_def_base($fuente);
+		$parametros =  $this->get_instalacion()->get_parametros_base($id_def_base);			
+		$schema = 'public';
+		if (isset($parametros['schema'])) {
+			$schema = $parametros['schema'];
+		}
+		
+		//Voy pasandole los permisos x cada tabla.
+		$sqls = array();
+		foreach($tablas as $tabla) {
+			$permisos = 'ALL PRIVILEGES';
+			if (isset($tabla['permisos'])) {
+				$permisos = $tabla['permisos'];
+			}
+			
+			$tmp_sql = $this->get_db()->revoke_tablas($rol, $schema, array($tabla['tabla']), $permisos, false);			
+			$sqls = array_merge($sqls, $tmp_sql);
+		}		
+		return $sqls;
 	}
 	
 	/**
@@ -2819,7 +2865,21 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	protected function get_nombre_rol($perfil) 
 	{
-		return $this->identificador . '_' . $perfil;		//Analizar si no conviene generar un ID por fuente 
+		return strtolower($this->identificador . '_' . $perfil);		//Analizar si no conviene generar un ID por fuente 
+	}
+	
+	/**
+	 *  Devuelve una lista con los roles actuales del motor
+	 * @return array
+	 */
+	protected function get_roles_disponibles()
+	{
+		$roles_existentes = array();		
+		$datos = $this->db->listar_roles();
+		foreach($datos as $valor) {
+			$roles_existentes[] = strtolower($valor['rolname']);
+		}
+		return $roles_existentes;		
 	}
 	
 	//------------------------------------------------------------------------------------------//

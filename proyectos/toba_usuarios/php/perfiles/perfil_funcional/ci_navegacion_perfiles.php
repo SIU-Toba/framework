@@ -47,16 +47,17 @@ class ci_navegacion_perfiles extends toba_ci
 		admin_instancia::set_usar_perfiles_propios($this->dep('editor_perfiles')->get_proyecto());
 	}
 	
-	function actualizar_script_roles()
+	function actualizar_script_roles($eliminados = array())
 	{
 		$modelo = toba_modelo_catalogo::instanciacion();	
 		$modelo->set_db(toba::db());	
 		$proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $this->s__filtro['proyecto']);
 		$dir = $proyecto->get_dir(). '/';
 		try {			
-			$proyecto->crear_script_generacion_roles_db($dir);
+			$proyecto->crear_script_generacion_roles_db($dir, $eliminados);
 			toba::notificacion()->agregar('Se han generado los scripts de actualización de roles de base de datos.\n Los mismos se encuentran en el directorio raiz del proyecto, recuerde ejecutarlos', 'info');				
 		} catch (toba_error $e) {
+			toba::logger()->debug('Falló la generacion del script' . $e->getMessage());
 			toba::notificacion()->agregar('No se ha podido generar los scripts de actualización de roles de base de datos, por favor utilice el comando toba proyecto roles_script', 'error');				
 		}		
 	}
@@ -102,10 +103,12 @@ class ci_navegacion_perfiles extends toba_ci
 		
 	
 	function evt__eliminar()
-	{
+	{		
+		$datos = $this->datos('accesos')->get();
+		$this->actualizar_script_roles(array($datos['usuario_grupo_acc']));				
+		
 		$this->dep('datos')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
-		$datos = $this->datos('accesos')->get();
 		$this->dep('datos')->eliminar();
 		$this->dep('datos')->resetear();
 		//- Elimino el acceso a los items
@@ -119,7 +122,7 @@ class ci_navegacion_perfiles extends toba_ci
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-		$this->actualizar_script_roles();
+
 		
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');

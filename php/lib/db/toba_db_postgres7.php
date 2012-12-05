@@ -342,11 +342,19 @@ class toba_db_postgres7 extends toba_db
 	
 	function existe_rol($rol) 
 	{
-		$rol = $this->quote($rol);
-		$sql = "SELECT rolname FROM pg_roles WHERE rolname = $rol;";		
-		$datos = $this->consultar($sql);
+		$datos = $this->listar_roles($rol);
 		return !empty($datos);
 	}
+	
+	function listar_roles($rol = null)
+	{
+		$sql = 'SELECT rolname FROM pg_roles ';
+		if (! is_null($rol)) {
+			$rol = $this->quote($rol);
+			$sql .= " WHERE rolname = $rol;";
+		}
+		return $this->consultar($sql);
+	}	
 	
 	function crear_rol($rol, $ejecutar=true)
 	{
@@ -403,6 +411,18 @@ class toba_db_postgres7 extends toba_db
 		
 		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);		
+	}
+	
+	function revoke_tablas($usuario, $schema, $tablas, $permisos = 'ALL PRIVILEGES', $ejecutar=true)
+	{
+		$sql = array();
+		foreach ($tablas as $tabla) {
+			$sql[] = "REVOKE $permisos ON $schema.{$tabla} FROM $usuario CASCADE;";
+		}
+		if (! $ejecutar) {
+			return $sql;
+		}
+		$this->ejecutar($sql);	
 	}
 	
 	function revoke_rol($usuario, $rol, $ejecutar = true)
