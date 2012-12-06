@@ -3,8 +3,9 @@
 class toba_rf_item extends toba_rf
 {
 	protected $icono = "item.gif";
+	protected $expandir_deps_sin_pantalla;
 	
-	function __construct($restriccion, $proyecto, $item, $id_padre) 
+	function __construct($restriccion, $proyecto, $item, $id_padre, $expandir_dep_sueltas=false) 
 	{
 		$this->id_padre = $id_padre;		
 		$this->restriccion = $restriccion;
@@ -13,6 +14,7 @@ class toba_rf_item extends toba_rf
 		$datos = $this->cargar_datos();
 		$this->imagen = $datos['imagen'];
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
+		$this->expandir_deps_sin_pantalla = $expandir_dep_sueltas;
 		if ($datos['cant_dependencias'] > 0) {
 			$this->es_hoja = false;
 			//-- Solo debe cargarse inicialmente si existe alguna dependencia que tiene una restricción
@@ -81,7 +83,7 @@ class toba_rf_item extends toba_rf
 		$hijos = array();
 		$opciones = $this->buscar_hijos();
 		foreach ($opciones as $hijo) {
-			$hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true);
+			$hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true, $this->expandir_deps_sin_pantalla);
 		}
 		if (! empty($hijos)) {
 			$this->set_hijos($hijos);

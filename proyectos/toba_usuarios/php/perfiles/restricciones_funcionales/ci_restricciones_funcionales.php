@@ -166,6 +166,7 @@ class ci_restricciones_funcionales extends toba_ci
 	{
 		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
 			$catalogador = new toba_catalogo_restricciones_funcionales($this->get_proyecto_seleccionado(), $this->s__restriccion );
+			$catalogador->set_expandir_dependencias_sin_pantalla(false);						//Esto puede cambiar si es necesario
 			$catalogador->cargar();
 			$raiz = $catalogador->buscar_carpeta_inicial();
 			$arbol->set_datos(array($raiz), true);

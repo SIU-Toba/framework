@@ -4,6 +4,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 {
 	protected $proyecto;
 	protected $restriccion;
+	protected $expande_dependencias_sueltas = false;
 	
 	function __construct($proyecto, $id_restriccion_funcional='')
 	{
@@ -24,7 +25,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 			if ($item['carpeta']) {
 				$obj = new toba_rf_carpeta($this->restriccion, $item['proyecto'], $item['item'], $item['padre']);
 			}else{
-				$obj = new toba_rf_item($this->restriccion, $item['proyecto'], $item['item'], $item['padre']);
+				$obj = new toba_rf_item($this->restriccion, $item['proyecto'], $item['item'], $item['padre'], $this->expande_dependencias_sueltas);
 			}
 			$this->items[$item['item']] = $obj;
 		}
@@ -76,6 +77,11 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 				ORDER BY carpeta, orden, nombre;";
 		$items = toba_contexto_info::get_db()->consultar($sql);
 		return $items;
+	}
+	
+	function set_expandir_dependencias_sin_pantalla($expandir = false)
+	{
+		$this->expande_dependencias_sueltas = $expandir;
 	}
 }
 

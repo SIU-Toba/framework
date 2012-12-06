@@ -3,7 +3,7 @@ class toba_rf_ci extends toba_rf_componente
 {
 	protected $primer_nivel;
 	
-	function __construct($restriccion, $proyecto, $item, $componente, $padre, $primer_nivel= false) 
+	function __construct($restriccion, $proyecto, $item, $componente, $padre, $primer_nivel= false, $expande_deps_sin_pantalla = false) 
 	{
 		parent::__construct($restriccion, $proyecto, $item, $componente, $padre);
 		$this->primer_nivel = $primer_nivel;
@@ -32,8 +32,8 @@ class toba_rf_ci extends toba_rf_componente
 		//-----------------------------------------------------------------------------------------------//
 		//		Comienzo procesando las deps fuera de pantallas
 		//-----------------------------------------------------------------------------------------------//		
-		if (! empty($deps_sin_pantalla)) {
-			$this->armar_rama_deps($deps, array('sueltas' => $deps_sin_pantalla), 'sueltas', $this);	
+		if (! empty($deps_sin_pantalla) && $expande_deps_sin_pantalla) {
+			$this->armar_rama_deps($deps, array('sueltas' => $deps_sin_pantalla), 'sueltas', $this, $expande_deps_sin_pantalla);	
 		}
 		
 		//-----------------------------------------------------------------------------------------------//
@@ -43,20 +43,20 @@ class toba_rf_ci extends toba_rf_componente
 			//Creo la pantalla
 			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla']);
 			if (isset($deps_en_pantalla[$pantalla['pantalla']])) {									//Si hay deps en la pantalla en cuestion
-				$this->armar_rama_deps($deps, $deps_en_pantalla, $pantalla['pantalla'], $p);
+				$this->armar_rama_deps($deps, $deps_en_pantalla, $pantalla['pantalla'], $p, $expande_deps_sin_pantalla);
 			}
 			$grupo->agregar_hijo($p);		
 		}
 		
 	}
 	
-	function armar_rama_deps($deps, $deps_pantalla, $pantalla_actual, &$p)
+	function armar_rama_deps($deps, $deps_pantalla, $pantalla_actual, &$p, $expande_deps_sin_pantalla)
 	{
 		foreach($deps as $dep) {
 			if (in_array($dep['rol'], $deps_pantalla[$pantalla_actual])) {
 				switch ($dep['clase']) {
 					case 'toba_ci'	:
-						$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+						$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p, $expande_deps_sin_pantalla);
 						break;
 					case 'toba_ei_cuadro' :
 						$o = new toba_rf_componente_cuadro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
