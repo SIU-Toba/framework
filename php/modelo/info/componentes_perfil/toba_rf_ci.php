@@ -12,42 +12,71 @@ class toba_rf_ci extends toba_rf_componente
 		$deps = $this->cargar_datos_dependencias();
 		$pantallas = $this->cargar_datos_pantallas();
 		$obj_pantalla = $this->cargar_datos_objetos_pantalla();
-		foreach($pantallas as $pantalla) {
-			//Ubico las dependencias pertenecientes a esta pantalla
-			$deps_pantalla = array();
-			foreach($obj_pantalla as $obj) {
-				if ($pantalla['pantalla'] == $obj['pantalla']) {
-					$deps_pantalla[] = $obj['identificador'];
-				}
-			}						
-			//Creo la pantalla
-			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla']);
-			$grupo->agregar_hijo($p);
-			foreach($deps as $dep) {
-				if (in_array($dep['rol'], $deps_pantalla)) {
-					switch ($dep['clase']) {
-						case 'toba_ci'	:
-							$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
-							break;
-						case 'toba_ei_cuadro'	:
-							$o = new toba_rf_componente_cuadro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
-							break;
-						case 'toba_ei_formulario'	:
-						case 'toba_ei_formulario_ml'	:
-							$o = new toba_rf_componente_formulario($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
-							break;
-						case 'toba_ei_filtro'	:
-							$o = new toba_rf_componente_filtro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
-							break;
-						default:
-							$o = new toba_rf_componente($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
-					}
-					$p->agregar_hijo($o);
-				}
+		
+		//-----------------------------------------------------------------------------------------------//
+		//		Armo los arreglos de pantallas y dependencias
+		//-----------------------------------------------------------------------------------------------//
+		$deps_en_pantalla = array(); $lista_deps = array();										//clasifico las dependencias por pantallas y hago una lista completa de las usadas
+		foreach($obj_pantalla as $obj) {
+			$deps_en_pantalla[$obj['pantalla']][] = $obj['identificador'];
+			$lista_deps[] = $obj['identificador'];
+		}
+		
+		$deps_sin_pantalla = array();														//Busco las deps que no estan asociadas a una pantalla
+		foreach($deps as $dep) {
+			if (! in_array($dep['rol'], $lista_deps)) {
+				$deps_sin_pantalla[] = $dep['rol']; 
 			}
 		}
-	}
 
+		//-----------------------------------------------------------------------------------------------//
+		//		Comienzo procesando las deps fuera de pantallas
+		//-----------------------------------------------------------------------------------------------//		
+		if (! empty($deps_sin_pantalla)) {
+			$this->armar_rama_deps($deps, array('sueltas' => $deps_sin_pantalla), 'sueltas', $this);	
+		}
+		
+		//-----------------------------------------------------------------------------------------------//
+		//		Proceso las deps que estan asociadas a pantallas
+		//-----------------------------------------------------------------------------------------------//
+		foreach($pantallas as $pantalla) {
+			//Creo la pantalla
+			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla']);
+			if (isset($deps_en_pantalla[$pantalla['pantalla']])) {									//Si hay deps en la pantalla en cuestion
+				$this->armar_rama_deps($deps, $deps_en_pantalla, $pantalla['pantalla'], $p);
+			}
+			$grupo->agregar_hijo($p);		
+		}
+		
+	}
+	
+	function armar_rama_deps($deps, $deps_pantalla, $pantalla_actual, &$p)
+	{
+		foreach($deps as $dep) {
+			if (in_array($dep['rol'], $deps_pantalla[$pantalla_actual])) {
+				switch ($dep['clase']) {
+					case 'toba_ci'	:
+						$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+						break;
+					case 'toba_ei_cuadro' :
+						$o = new toba_rf_componente_cuadro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+						break;
+					case 'toba_ei_formulario'	:
+					case 'toba_ei_formulario_ml'	:
+						$o = new toba_rf_componente_formulario($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+						break;
+					case 'toba_ei_filtro'	:
+						$o = new toba_rf_componente_filtro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+						break;
+					default:
+						$o = new toba_rf_componente($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+				}
+				$p->agregar_hijo($o);
+			}
+		}
+		return $p;		
+	}
+	
 	function cargar_datos_pantallas()
 	{
 		$item = quote($this->item);
