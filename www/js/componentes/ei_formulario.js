@@ -295,7 +295,15 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			notificacion.mostrar();			
 		} else {
 			try {
-				var datos = eval('(' + respuesta.responseText + ')');
+				var aux = eval('(' + respuesta.responseText + ')');
+				if ('Array' == getObjectClass(aux)) {
+					var datos = [];
+					for (var ind = 0; ind < aux.length ; ind++) {
+						datos[aux[ind][0]] = aux[ind][1];
+					}
+				} else {
+					var datos = aux;
+				}
 				this.ef(respuesta.argument).set_opciones(datos);
 				if(this.ef(respuesta.argument).mantiene_valor_cascada() && isset(this._tmp_valores_esclavos[respuesta.argument])) {
 					var valor_viejo = this._tmp_valores_esclavos[respuesta.argument];

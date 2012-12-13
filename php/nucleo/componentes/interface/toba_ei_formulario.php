@@ -846,10 +846,17 @@ class toba_ei_formulario extends toba_ei
 		}
 		$sesion = (isset($valores) && is_array($valores)) ? array_keys($valores) : null;
 		$this->ef($id_ef)->guardar_dato_sesion($sesion, true);
-		
-		//--- Se arma la respuesta en formato JSON
 		$json = new Services_JSON();
-		echo $json->encode($valores);
+		
+		if (! is_null($sesion)) {			
+			$resultado = array();
+			foreach($valores as $klave => $valor) {						//Lo transformo en recordset para mantener el ordenamiento en Chrome
+				$resultado[] = array($klave, $valor);
+			}
+			echo $json->encode($resultado);
+		} else {
+			echo $json->encode($valores);
+		}
 	}
 
 	/**
@@ -921,10 +928,17 @@ class toba_ei_formulario extends toba_ei
 			$valores[$clave] = str_ireplace($filtro, "<em>$filtro</em>", $valor);
 		}*/
 		toba::logger()->debug("Filtrado combo_editable '$id_ef', Respuesta: ".var_export($valores, true));				
-		
-		//--- Se arma la respuesta en formato JSON
 		$json = new Services_JSON();
-		echo $json->encode($valores);
+		
+		if (is_array($valores)) {
+			$resultado = array();
+			foreach($valores as $klave => $valor) {						//Lo transformo en recordset para mantener el ordenamiento en Chrome
+				$resultado[] = array($klave, $valor);
+			}
+			echo $json->encode($resultado);
+		} else {
+			echo $json->encode($valores);
+		}
 	}
 
 	/**
@@ -938,7 +952,7 @@ class toba_ei_formulario extends toba_ei
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
-		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+		//$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
 
 		$descripcion = $this->_carga_opciones_ef->ejecutar_metodo_carga_descripcion_ef($id_ef, $valor);
 		$estado = array($valor => $descripcion);
