@@ -404,7 +404,7 @@ class toba_ei_mapa extends toba_ei
 		//Saco el label y el checkbox
 		echo "<div class = 'layer-selector'>";
 		echo toba_form::checkbox($id_ef, $actual, $nombre_layer, null, $js);
-		echo "<label style='_width:$ancho;' for='$id_ef' class='$estilo'>$nombre_layer</label>\n";
+		echo "<label style='width: $ancho;' for='$id_ef' class='$estilo'>$nombre_layer</label>\n";
 		echo "</div>";
 	}
 

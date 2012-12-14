@@ -1063,7 +1063,6 @@ a.ci-tabs-boton-desact:hover {
 	border: 1px solid black;
 	line-height:18px;
 	z-index:100;
-	_width: 200px;
 	max-width: 200px;
 	font: normal normal normal 11px Verdana, Arial, Helvetica, sans-serif; 
 }			
