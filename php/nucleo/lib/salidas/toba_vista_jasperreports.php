@@ -368,8 +368,9 @@ class toba_vista_jasperreports
 			$stmt = $con1->createStatement();
 			$stmt->executeUpdate($sql);
 			toba::logger()->debug("Seteo el esquema por defecto para el reporte: $sql");			
+			return $con1;
 		}
-		return $con1;
+		return $con->getConnection();;
 	}
 	
 	//------------------------------------------------------------------------
