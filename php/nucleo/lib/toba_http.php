@@ -52,15 +52,22 @@ class toba_http
 		}
 	}
 	
-	static function headers_download($tipo, $archivo, $longitud)
+	static function get_protocolo($basado_en_host = true, $forzar_seguro = false)
 	{
-		header("Cache-Control: private");
-  		header("Content-type: $tipo");
-  		header("Content-Length: $longitud");
-   		header("Content-Disposition: attachment; filename=$archivo");
-  		header("Pragma: no-cache");
-		header("Expires: 0");
-		
+		$basico = 'http';
+		$srv_seguro = (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'));		
+		if ($forzar_seguro || ($basado_en_host && $srv_seguro)) {
+			$basico .= 's';
+		}
+		$basico .= '://';
+		return $basico;
+	}
+	
+	static function get_nombre_servidor()
+	{
+		$srv_name = $_SERVER['SERVER_NAME'];					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
+		$nombre = htmlentities($srv_name, ENT_QUOTES, 'UTF-8');		//Se debe usar UseCanonicalName junto con esta variable en la config del webserver
+		return $nombre;
 	}
 }
 ?>

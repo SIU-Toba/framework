@@ -4,13 +4,14 @@ class ci_recordatorio_pwd extends toba_ci
 	protected $s__usuario;
 	protected $randr;
 	protected $s__email;
+	private $pregunta;
 	
 	function ini()
 	{
 		//Preguntar en toba::memoria si vienen los parametros
 		if (! isset($this->s__usuario)) {
 			$this->s__usuario = toba::memoria()->get_parametro('usuario');
-			$this->randr = toba::memoria()->get_parametro('randr');		//Esto hara las veces de unique para la renovacion
+			$this->randr = toba::memoria()->get_parametro('randr');        //Esto hara las veces de unique para la renovacion
 		}
 
 		//Esto es por si el chango trata de entrar al item directamente
@@ -56,14 +57,16 @@ class ci_recordatorio_pwd extends toba_ci
 
 	function conf__form_pregunta(toba_ei_formulario $form)
 	{
-		$datos = $this->recuperar_pregunta_secreta($this->s__usuario);
-		unset($datos['respuesta']);
-		$form->set_datos($datos);
+		//$datos = $this->recuperar_pregunta_secreta($this->s__usuario);
+		if (! is_null($this->pregunta)) {
+			unset($this->pregunta['respuesta']);
+		}
+		$form->set_datos($this->pregunta);
 	}
 
 	function evt__form_pregunta__modificacion($datos)
 	{
-		$this->verificar_desafio_secreto($datos);	
+		$this->verificar_desafio_secreto($datos);    
 	}
 	
 	//-----------------------------------------------------------------------------------
@@ -72,7 +75,7 @@ class ci_recordatorio_pwd extends toba_ci
 
 	function evt__recordame()
 	{
-		//Si llego hasta aca es porque la respuesta funco, sino explota en la modificacion del form		
+		//Si llego hasta aca es porque la respuesta funco, sino explota en la modificacion del form        
 		$this->enviar_mail_aviso_cambio();
 		toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela', 'info');
 		$this->set_pantalla('pant_inicial');
@@ -92,19 +95,30 @@ class ci_recordatorio_pwd extends toba_ci
 		}
 	}
 	
+	function conf__pant_pregunta(toba_ei_pantalla $pantalla)
+	{
+		$this->pregunta = $this->recuperar_pregunta_secreta($this->s__usuario);
+		if (is_null($this->pregunta)) {
+			$pantalla->eliminar_dep('form_pregunta');
+			$pantalla->set_descripcion('Presione el botón para continuar con el proceso');
+		} else {
+			$pantalla->set_descripcion('Responda la pregunta y presione el botón para continuar con el proceso');
+		}
+	}
+	
 	//----------------------------------------------------------------------------------------
 	//-------- Procesamiento del pedido ------------------------------------------
 	//----------------------------------------------------------------------------------------
 	/*
-	 * Verifico que el usuario existe a traves de la API de toba_usuario
-	 */
+		* Verifico que el usuario existe a traves de la API de toba_usuario
+		*/
 	function verificar_usuario_activo($usuario)
 	{
 		try {
-		   toba::instancia()->get_info_usuario($usuario);		//Tengo que verificar que el negro existe
-		} catch (toba_error_db $e) {						//Ni true ni false... revienta... el mono no existe
-		    toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
-		    return false;
+			toba::instancia()->get_info_usuario($usuario);        //Tengo que verificar que el negro existe
+		} catch (toba_error_db $e) {                        //Ni true ni false... revienta... el mono no existe
+			toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
+			return false;
 		}
 		return true;
 	}
@@ -112,60 +126,64 @@ class ci_recordatorio_pwd extends toba_ci
 	function verificar_desafio_secreto($datos_usuario)
 	{
 		$datos = $this->recuperar_pregunta_secreta($this->s__usuario);
-		$salt = get_salt();
-		$clave1 = encriptar_con_sal(trim($datos['respuesta']), 'SHA256', $salt);
-		$clave2 = encriptar_con_sal(trim($datos_usuario['respuesta']), 'SHA256', $salt);
-		if ($clave1 !== $clave2) {
-			toba::logger()->error("Se intento cambiar la clave al usuario: {$this->s__usuario} pero falló la respuesta al desafío");
-			throw new toba_error('Respuesta no Válida');
+		if (! is_null($datos)) {
+			$salt = get_salt();
+			$clave1 = encriptar_con_sal(trim($datos['respuesta']), 'SHA256', $salt);
+			$clave2 = encriptar_con_sal(trim($datos_usuario['respuesta']), 'SHA256', $salt);
+			if ($clave1 !== $clave2) {
+				toba::logger()->error("Se intento cambiar la clave al usuario: {$this->s__usuario} pero falló la respuesta al desafío");
+				throw new toba_error('Respuesta no Válida');
+			}
 		}
 	}
 	
 	/**
-	 * Recupera la direccion de mail de usuario
-	 * @param string $usuario
-	 * @return string 
-	 */
+		* Recupera la direccion de mail de usuario
+		* @param string $usuario
+		* @return string 
+		*/
 	function recuperar_direccion_mail_usuario($usuario)
 	{
 		try {
-			$datos = toba::instancia()->get_info_usuario($usuario);		//Tengo que verificar que el negro existe
+			$datos = toba::instancia()->get_info_usuario($usuario);        //Tengo que verificar que el negro existe
 			return $datos['email'];
-		} catch (toba_error $e) {						
+		} catch (toba_error $e) {                        
 			toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
 			return null;
 		}
 	}
 	
 	/**
-	 * Recupera pregunta/respuesta para el desafio
-	 * @param string $usuario
-	 * @return array 
-	 */
+		* Recupera pregunta/respuesta para el desafio
+		* @param string $usuario
+		* @return array 
+		*/
 	function recuperar_pregunta_secreta($usuario)
 	{
 		try {
+			$aux = null;
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
-			$clave = toba::instalacion()->get_claves_encriptacion();		
-			$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
-			$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
-
+			if (! is_null($datos)) {
+				$clave = toba::instalacion()->get_claves_encriptacion();        
+				$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+				$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+			}
 			return $aux;
 		} catch (toba_error $e) {
 			toba::logger()->error('Se intento modificar la clave del usuario:' . $usuario);
 			return array();
-		}		
+		}        
 	}
 		
 	/*
-	 * Aca envio un primer mail con un link para confirmar el cambio, si no lo usa... fue
-	 */
+		* Aca envio un primer mail con un link para confirmar el cambio, si no lo usa... fue
+		*/
 	function enviar_mail_aviso_cambio()
 	{
 		//Genero un pseudorandom unico... 
 		$tmp_rand = $this->get_random_temporal();
-		$link = $this->generar_link_confirmacion($this->s__usuario, $tmp_rand);	//Genero el link para el mail
-
+		$link = $this->generar_link_confirmacion($this->s__usuario, $tmp_rand);    //Genero el link para el mail
+		 
 		//Se envia el mail a la direccion especificada por el usuario.
 		$asunto = 'Solicitud de cambio de contraseña';
 		$cuerpo_mail = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
@@ -188,8 +206,8 @@ class ci_recordatorio_pwd extends toba_ci
 	}
 
 	/*
-	 * Deberia generar un random.. quien sabe que tan bueno o malo sea
-	 */
+		* Deberia generar un random.. quien sabe que tan bueno o malo sea
+		*/
 	function get_random_temporal()
 	{
 		$uuid = uniqid(rand(), true);
@@ -198,27 +216,36 @@ class ci_recordatorio_pwd extends toba_ci
 	}
 
 	/*
-	 * Obtiene una url con los parametros necesarios para que se haga la confirmacion
-	 */
+		* Obtiene una url con los parametros necesarios para que se haga la confirmacion
+		*/
 	function generar_link_confirmacion($usuario, $random)
 	{
+		$proto = toba_http::get_protocolo();
+		$servidor = toba_http::get_nombre_servidor();
 		$path = toba::proyecto()->get_www();
-		$opciones = array('param_html' => array('tipo' => 'normal' , 'texto' => 'Click Aqui'), 'prefijo' => $_SERVER['SERVER_NAME']. $path['url']);
+		$opciones = array('param_html' => array('tipo' => 'normal' , 'texto' => 'Click Aqui'), 'prefijo' => $proto. $servidor. $path['url']);
 		$parametros = array('usuario' => $usuario, 'randr' => $random);
 		return toba::vinculador()->get_url(null, null, $parametros, $opciones);
 	}
-
+	
 	/*
-	 * Impacta en la base para cambiar la contraseña del usuario
-	 */
+	* Impacta en la base para cambiar la contraseña del usuario
+	*/
 	function disparar_confirmacion_cambio()
 	{
 		//Aca tengo que generar una clave temporal y enviarsela para que confirme el cambio e ingrese con ella.
 		$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
 
 		//Recupero mail del usuario junto con el hash de confirmacion
-		$datos_orig = $this->recuperar_datos_solicitud_cambio($this->s__usuario, $this->randr);
-
+		$datos_rs = $this->recuperar_datos_solicitud_cambio($this->s__usuario, $this->randr);
+		if (empty($datos_rs)) {
+			toba::logger()->debug('Proceso de cambio de contraseña en base: El usuario o el random no coinciden' );
+			toba::logger()->var_dump(array('rnd' => $this->randr));
+			throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');            
+		} else {
+			$datos_orig = current($datos_rs);
+		}
+		
 		//Armo el mail nuevo
 		$asunto = 'Nueva contraseña';
 		$cuerpo_mail = '<p>Se ha recibido su confirmación exitosamente, su contraseña fue cambiada a: </br>' .
@@ -231,10 +258,10 @@ class ci_recordatorio_pwd extends toba_ci
 			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
 			
 			//Seteo la clave para el usuario
-			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig[0]['id_usuario'], $dias);
+			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias);
 			
 			//Enviar nuevo mail con la clave temporaria
-			$mail = new toba_mail($datos_orig[0]['email'], $asunto, $cuerpo_mail);
+			$mail = new toba_mail($datos_orig['email'], $asunto, $cuerpo_mail);
 			$mail->set_html(true);
 			$mail->enviar();
 
@@ -244,12 +271,12 @@ class ci_recordatorio_pwd extends toba_ci
 		} catch (toba_error $e) {
 			toba::instancia()->get_db()->abortar_transaccion();
 			toba::logger()->debug('Proceso de cambio de contraseña en base: ' . $e->getMessage());
-			throw new toba_error('Se produjo en el proceso de cambio, contactese con un administrador del sistema.');
+			throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');
 		}
 	}
 
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//										METODOS PARA SQLs
+	//                                        METODOS PARA SQLs
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	function guardar_datos_solicitud_cambio($random, $mail)
 	{
@@ -267,12 +294,12 @@ class ci_recordatorio_pwd extends toba_ci
 	function recuperar_datos_solicitud_cambio($usuario, $random)
 	{
 		$sql = "SELECT  usuario as id_usuario,
-									   email
-					 FROM apex_usuario_pwd_reset
-					 WHERE	usuario = :usuario
-					 AND random = :random
-					 AND age(now() , validez)  < interval '1 day'
-					 AND bloqueado = 0;";
+										email
+						FROM apex_usuario_pwd_reset
+						WHERE    usuario = :usuario
+						AND random = :random
+						AND age(now() , validez)  < interval '1 day'
+						AND bloqueado = 0;";
 
 		//toba::instancia()->get_db()->set_modo_debug(true, true);
 		$id = toba::instancia()->get_db()->sentencia_preparar($sql);
@@ -283,8 +310,8 @@ class ci_recordatorio_pwd extends toba_ci
 	function bloquear_random_utilizado($usuario, $random)
 	{
 		$sql = 'UPDATE apex_usuario_pwd_reset  SET bloqueado = 1
-					 WHERE 	usuario = :usuario
-					 AND random = :random';
+						WHERE     usuario = :usuario
+						AND random = :random';
 		//toba::instancia()->get_db()->set_modo_debug(true, true);
 		$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 		$rs = toba::instancia()->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario, 'random' => $random));
