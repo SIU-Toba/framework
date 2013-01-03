@@ -1371,7 +1371,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	function migrar_version($version, $recursivo, $con_transaccion=true)
 	{
-		if ($version->es_mayor($this->get_version_actual())) {
+		if ($version->es_mayor($this->get_version_actual()) || $this->get_version_actual()->es_igual(new toba_version("trunk"))) {
 			$this->get_db()->retrazar_constraints();
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");

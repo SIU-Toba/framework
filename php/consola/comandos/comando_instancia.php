@@ -211,9 +211,9 @@ class comando_instancia extends comando_toba
 		if ($this->get_instancia()->existe_modelo()) {
 			$timestamp = $this->get_instancia()->get_fecha_exportacion_local();
 			if (isset($timestamp)) {
-				$extra = "Si responde NO se utilizaran los exportados el ".date("D j-M-y \a \l\a\s h:m ", $timestamp);
+				$extra = "Si responde NO, se utilizaran los exportados el ".date("D j-M-y \a \l\a\s h:m ", $timestamp);
 			} else {
-				$extra = "Si responde NO la instancia será inaccesible";
+				$extra = "Si responde NO, la instancia quedara sin usuarios y será inaccesible";
 			}
 			$extra .= "\n";
 			if ( $this->consola->dialogo_simple('Desea conservar datos locales como usuarios y logs?', true, $extra) ) {
@@ -424,7 +424,8 @@ class comando_instancia extends comando_toba
 		$actual_codigo  = new toba_version(toba_modelo_instalacion::get_version_actual());			//Recupero la version actual del codigo instalado
 	
 		$version_actual->set_path_migraciones($path_migracion_instancia);				//Cambio el path a las migraciones por defecto
-		$versiones = $version_actual->get_secuencia_migraciones($actual_codigo, $path_migracion_instancia);			//Calculo cuales son los pasos a dar
+		$versiones = $version_actual->get_secuencia_migraciones($actual_codigo, $path_migracion_instancia);
+		//Calculo cuales son los pasos a dar
 		if (empty($versiones)) {
 			return;
 		}

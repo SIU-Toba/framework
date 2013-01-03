@@ -420,8 +420,8 @@ class comando_instalacion extends comando_toba
 		$instalacion = $this->get_instalacion();
 		//--- Parametros
 		$param = $this->get_parametros();
-		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $instalacion->get_version_anterior();
-		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : $instalacion->get_version_actual();
+		$desde = isset($param['-d']) ? new toba_version($param['-d']) : $instalacion->get_version_anterior();
+		$hasta = isset($param['-h']) ? new toba_version($param['-h']) : $instalacion->get_version_actual();
 		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
 		//$verbose = (isset($param['-V']));
 
