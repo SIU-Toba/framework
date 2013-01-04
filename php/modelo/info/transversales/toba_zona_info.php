@@ -7,7 +7,8 @@ class toba_zona_info extends toba_elemento_transversal_info
 		$proyecto = quote($this->_id['proyecto']);
 		$zona = quote($this->_id['id']);
 		$sql = "SELECT zona,
-							archivo
+					  punto_montaje, 
+					  archivo
 					FROM apex_item_zona
 					WHERE	proyecto = $proyecto
 					AND zona = $zona;";
@@ -44,6 +45,11 @@ class toba_zona_info extends toba_elemento_transversal_info
 		return 'nucleo/lib/toba_zona.php';
 	}
 
+	function get_punto_montaje()
+	{
+		return $this->_datos['_info']['punto_montaje'];
+	}
+	
 	function get_subclase_nombre()
 	{
 		return $this->_datos['_info']['zona'];
