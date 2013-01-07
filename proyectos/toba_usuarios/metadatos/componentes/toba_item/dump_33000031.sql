@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[33000031]--  Servicios Web Ofrecidos 
+--[33000031]--  Logs de Servicios Web Ofrecidos 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,12 +23,12 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Servicios Web Ofrecidos', --nombre
+	'Logs de Servicios Web Ofrecidos', --nombre
 	NULL, --descripcion
 	'12000004', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
-	NULL, --orden
+	'2', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

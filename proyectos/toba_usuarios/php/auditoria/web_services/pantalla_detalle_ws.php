@@ -10,7 +10,10 @@ class pantalla_detalle_ws extends toba_ei_pantalla
 	
 	function generar_layout()
 	{
-		echo toba_form::textarea('log_archivo', $this->contenido_archivo_log, 20, 80);		
+		echo "<pre style='width: 700px; overflow: scroll; font-size: 11px'>";
+		echo htmlentities($this->contenido_archivo_log, ENT_QUOTES);
+		echo "</pre>";
+		
 		parent::generar_layout();
 	}	
 }

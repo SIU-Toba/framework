@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Servicios Web', --nombre
-	'Logs de Servicios Web', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -37,7 +37,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_f
 	NULL, --usuario
 	'2012-11-12 16:29:58', --creacion
-	'abajo'  --posicion_botonera
+	'arriba'  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 33
 
@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'33000097', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'500px', --ancho
+	'600px', --ancho
 	NULL, --alto
 	NULL, --posicion_botonera
 	NULL, --tipo_navegacion
