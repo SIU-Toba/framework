@@ -54,7 +54,7 @@ class Structures_Graph_Manipulator_AcyclicTest {
     * @access   private
     * @return	integer	 Number of non-visited nodes that link to this one
     */
-    function _nonVisitedInDegree(&$node) {
+    static function _nonVisitedInDegree(&$node) {
         $result = 0;
         $graphNodes =& $node->_graph->getNodes();
         foreach (array_keys($graphNodes) as $key) {
@@ -69,7 +69,7 @@ class Structures_Graph_Manipulator_AcyclicTest {
     /**
     * @access   private
     */
-    function _isAcyclic(&$graph, $return = false) {
+    static function _isAcyclic(&$graph, $return=false) {
         // Mark every node as not visited
         $nodes =& $graph->getNodes();
         $nodeKeys = array_keys($nodes);
@@ -98,16 +98,16 @@ class Structures_Graph_Manipulator_AcyclicTest {
 
         // If graph is a DAG, there should be no non-visited nodes. Let's try to prove otherwise
         $result = true;
-        $cycle = array();
+	$cycle = array();
         foreach($nodeKeys as $key) {
-        	if (!$nodes[$key]->getMetadata('acyclic-test-visited')) {
-        		$result = false;
-				$cycle[] = $nodes[$key];
-        	}
-        }
-        if (! $result && $return) {
-        	return $cycle;
-        }
+		if (!$nodes[$key]->getMetadata('acyclic-test-visited')) {
+			$result = false;
+			$cycle[] = $nodes[$key];
+		}
+	}
+	if (! $result && $return) {
+		return $cycle;
+	}
         
         // Cleanup visited marks
         foreach($nodeKeys as $key) $nodes[$key]->unsetMetadata('acyclic-test-visited');
@@ -124,33 +124,15 @@ class Structures_Graph_Manipulator_AcyclicTest {
     * @return	boolean	 true iff graph is acyclic
     * @access	public
     */
-    function isAcyclic(&$graph) {
+    static function isAcyclic(&$graph) {
         // We only test graphs
         if (!is_a($graph, 'Structures_Graph')) 
-            throw new Exception('Structures_Graph_Manipulator_AcyclicTest::isAcyclic received an object that is not a Structures_Graph');
+		throw new Exception('Structures_Graph_Manipulator_AcyclicTest::isAcyclic received an object that is not a Structures_Graph');
         if (!$graph->isDirected()) return false; // Only directed graphs may be acyclic
 
         return Structures_Graph_Manipulator_AcyclicTest::_isAcyclic($graph);
     }
     /* }}} */
-    
-    /* isAcyclic {{{ */
-    /**
-    *
-    * isAcyclic returns true if a graph contains no cycles, false otherwise.
-    *
-    * @return	boolean	 true iff graph is acyclic
-    * @access	public
-    */
-    function getCycle(&$graph) {
-        // We only test graphs
-        if (!is_a($graph, 'Structures_Graph')) 
-            throw new Exception('Structures_Graph_Manipulator_AcyclicTest::isAcyclic received an object that is not a Structures_Graph');
-        if (!$graph->isDirected()) return false; // Only directed graphs may be acyclic
-
-        return Structures_Graph_Manipulator_AcyclicTest::_isAcyclic($graph, true);
-    }
-    /* }}} */    
 }
 /* }}} */
 ?>

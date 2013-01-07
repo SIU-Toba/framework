@@ -7,25 +7,27 @@ class toba_catalogo_items_menu extends toba_catalogo_items_base
 {
 	protected $usa_niveles = false;
 	
-	function cargar($raiz)
+	function cargar($raiz=null)
 	{
-		$rs = toba::proyecto()->get_items_menu();
-		//ei_arbol($rs);
-		$this->items = array();
-		if (!empty($rs)) {
-			foreach ($rs as $fila) {
-				if ($fila['carpeta']) {
-					$obj = new toba_carpeta_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);
+		if (! is_null($raiz)) {
+			$rs = toba::proyecto()->get_items_menu();
+			//ei_arbol($rs);
+			$this->items = array();
+			if (!empty($rs)) {
+				foreach ($rs as $fila) {
+					if ($fila['carpeta']) {
+						$obj = new toba_carpeta_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);
 
-				}else{
-					$obj = new toba_item_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);	
-				}				
-				$obj->set_imagen($fila['imagen_recurso_origen'], $fila['imagen']);				
-				$this->items[$fila['item']] = $obj;
+					}else{
+						$obj = new toba_item_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);	
+					}				
+					$obj->set_imagen($fila['imagen_recurso_origen'], $fila['imagen']);				
+					$this->items[$fila['item']] = $obj;
+				}
+				$this->carpeta_inicial = $raiz;
+				$this->mensaje = "";
+				$this->ordenar();
 			}
-			$this->carpeta_inicial = $raiz;
-			$this->mensaje = "";
-			$this->ordenar();
 		}
 	}
 

@@ -11,7 +11,7 @@ class extension_ml extends toba_ei_formulario_ml
 		
 	}
 	
-	function generar_layout_fila()
+	protected function generar_layout_fila($clave_fila)
 	{
 		$this->set_ancho_etiqueta('65px');
 		$columnas = 2;

@@ -8,7 +8,7 @@ class ci_impresion extends toba_ci
 		$this->pantalla()->set_modo_descripcion(false);
 	}
 
-	function vista_impresion($salida)
+	function vista_impresion( toba_impresion $salida )
 	{
 		$salida->titulo($this->get_nombre());
 		$salida->mensaje('Nota: Este es el Principal');

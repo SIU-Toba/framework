@@ -102,24 +102,25 @@ class Structures_Graph {
     function addNode(&$newNode) {
         // We only add nodes
         if (!is_a($newNode, 'Structures_Graph_Node')) 
-            throw new Exception('Structures_Graph::addNode received an object that is not a Structures_Graph_Node');
+		throw new Exception('Structures_Graph::addNode received an object that is not a Structures_Graph_Node');
         // Graphs are node *sets*, so duplicates are forbidden. We allow nodes that are exactly equal, but disallow equal references.
         foreach($this->_nodes as $key => $node) {
             /*
              ZE1 equality operators choke on the recursive cycle introduced by the _graph field in the Node object.
-             So, we'll check references the hard way
+             So, we'll check references the hard way (change $this->_nodes[$key] and check if the change reflects in 
+             $node)
             */
             $savedData = $this->_nodes[$key];
             $referenceIsEqualFlag = false;
             $this->_nodes[$key] = true;
             if ($node === true) {
                 $this->_nodes[$key] = false;
-                if ($node === false) 
-                    $referenceIsEqualFlag = true;
+                if ($node === false)
+			$referenceIsEqualFlag = true;
             }
             $this->_nodes[$key] = $savedData;
-            if ($referenceIsEqualFlag)
-               throw new Exception('Structures_Graph::addNode received an object that is a duplicate for this dataset');
+            if ($referenceIsEqualFlag) 
+		throw new Exception('Structures_Graph::addNode received an object that is a duplicate for this dataset');
         }
         $this->_nodes[] =& $newNode;
         $newNode->setGraph($this);

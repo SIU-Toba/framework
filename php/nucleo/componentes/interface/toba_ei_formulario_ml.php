@@ -891,7 +891,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 * Genera la botonera del componente
 	 * @param string $clase Clase css con el que se muestra la botonera
 	 */
-	function generar_botones($clase = '')
+	function generar_botones($clase = '', $extra='')	
 	{
 		$agregar_abajo = ($this->_info_formulario['filas_agregar'] && $this->_modo_agregar[0]);
 		if ($this->hay_botones() || $agregar_abajo) {
@@ -1174,7 +1174,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
 		
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$this->totalizar_columnas_impresion();		
 		$formateo = new $this->_clase_formateo('impresion_html');		

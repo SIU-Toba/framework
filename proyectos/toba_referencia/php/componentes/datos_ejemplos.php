@@ -3,7 +3,7 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class datos_ejemplos
 {
-	function get_localidades()
+	static function get_localidades()
 	{
 		$localidades[0]['zona_id'] = '4';
 		$localidades[0]['zona'] = 'Norte';

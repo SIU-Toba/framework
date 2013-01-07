@@ -10,7 +10,7 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 		parent::__construct($proyecto);
 	}
 	
-	function cargar()
+	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
 		$grupo = toba_contexto_info::get_db()->quote($this->grupo_acceso);
 		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);

@@ -2177,11 +2177,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones --------------------------
 	//------------------------------------------------------------------------
-
-	function migrar_rango_versiones($desde, $hasta, $recursivo)
+	function migrar_rango_versiones($desde, $hasta, $recursivo, $con_transaccion=true)
 	{
 		$this->get_db()->abrir_transaccion();
-		parent::migrar_rango_versiones($desde, $hasta, $recursivo);
+		parent::migrar_rango_versiones($desde, $hasta, $recursivo, $con_transaccion);
 		$this->get_db()->cerrar_transaccion();
 	}
 	
@@ -2250,7 +2249,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->get_db()->ejecutar($sql);
 	}
 	
-	private function get_sql_actualizar_version($version, $id_proyecto)
+	private static function get_sql_actualizar_version($version, $id_proyecto)
 	{
 		$nueva = $version->__toString();
 		$sql = "UPDATE apex_proyecto SET version_toba='$nueva' WHERE proyecto='$id_proyecto'";

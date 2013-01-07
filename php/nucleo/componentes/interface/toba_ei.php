@@ -885,7 +885,7 @@ abstract class toba_ei extends toba_componente
 	 * Impresion HTML por defecto
 	 * @param toba_impresion $salida
 	 */
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$salida->titulo( $this->get_nombre() );
 	}

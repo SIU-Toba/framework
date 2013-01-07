@@ -41,7 +41,7 @@ class toba_proyecto_implementacion
 	/**
 	*	Devuelve el perfil de datos de un usuario
 	*/
-	function get_perfil_datos($usuario, $proyecto)
+	static function get_perfil_datos($usuario, $proyecto)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);		
@@ -60,7 +60,7 @@ class toba_proyecto_implementacion
 	/**
 	*	Devuelve las restricciones correspondientes al perfil de datos del usuario
 	*/
-	function get_perfil_datos_restricciones($proyecto, $perfil)
+	static function get_perfil_datos_restricciones($proyecto, $perfil)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);		
@@ -86,7 +86,7 @@ class toba_proyecto_implementacion
 	/**
 	 * Retorna los ids de las restricciones funcionales que aplican a un conjunto de grupos de acceso
 	 */
-	function get_restricciones_funcionales($grupos, $proyecto)
+	static function get_restricciones_funcionales($grupos, $proyecto)
 	{
 		if (empty($grupos)) {
 			return array();

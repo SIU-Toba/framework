@@ -200,7 +200,7 @@ class consultas_instancia
 	//------ Usuarios -----------------------------------------------------
 	//---------------------------------------------------------------------
 
-	function get_lista_usuarios($filtro=null)
+	static function get_lista_usuarios($filtro=null)
 	{
 		$where = '';
 		$condiciones = array();
@@ -379,7 +379,7 @@ class consultas_instancia
 		return toba::db()->consultar($sql);
 	}
 	
-	function get_descripcion_grupo_acceso($proyecto, $grupo)
+	static function get_descripcion_grupo_acceso($proyecto, $grupo)
 	{
 		$proyecto = quote($proyecto);
 		$grupo = quote($grupo);
@@ -391,7 +391,7 @@ class consultas_instancia
 		return toba::db()->consultar($sql);
 	}
 	
-	function get_descripcion_perfil_datos($proyecto, $perfil)
+	static function get_descripcion_perfil_datos($proyecto, $perfil)
 	{
 		$proyecto = quote($proyecto);
 		$perfil = quote($perfil);

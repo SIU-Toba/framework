@@ -26,7 +26,7 @@ class toba_admin_fuentes
 	 * @param boolean $obligatorio Tira una excepción en caso de no existir
 	 * @return string
 	 */
-	function get_fuente_predeterminada($obligatorio=false, $proyecto=null)
+	static function get_fuente_predeterminada($obligatorio=false, $proyecto=null)
 	{
 		$predeterminada = toba::proyecto()->get_parametro('fuente_datos');	
 		if( !($predeterminada) && $obligatorio ) {

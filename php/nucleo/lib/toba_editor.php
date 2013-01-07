@@ -515,6 +515,9 @@ class toba_editor
 
 		//Usuario de la base
 		$hay_limitado = false;
+		if (! isset(self::$fuentes)) {
+			self::$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());	
+		}
 		foreach (self::$fuentes as $fuente) {
 			if ($fuente['permisos_por_tabla']) {
 				$hay_limitado = true;
@@ -763,7 +766,7 @@ class toba_editor
 	// Abrir una fuente de datos del proyecto editado
 	//--------------------------------------------------------------------------
 	
-	function db_proyecto_cargado($id_fuente)
+	static function db_proyecto_cargado($id_fuente)
 	{
 		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente( $id_fuente,
 																	 toba_editor::get_proyecto_cargado() );

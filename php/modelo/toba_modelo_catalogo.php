@@ -8,6 +8,18 @@ class toba_modelo_catalogo
 	static private $singleton;
 
 	private function __construct(){}
+
+	/**
+	*	Singleton
+	* @return toba_modelo_catalogo
+	*/
+	static function instanciacion($refrescar=false)
+	{
+		if (!isset(self::$singleton) || $refrescar) {
+			self::$singleton = new toba_modelo_catalogo();	
+		}
+		return self::$singleton;	
+	}
 	
 	/**
 	*	Devuelve una referencia a la INSTALACION
@@ -99,19 +111,7 @@ class toba_modelo_catalogo
 		}
 		$servicio->set_manejador_interface($manejador_interface);
 		return $servicio;
-	}
-	
-	/**
-	*	Singleton
-	* @return toba_modelo_catalogo
-	*/
-	static function instanciacion($refrescar=false)
-	{
-		if (!isset(self::$singleton) || $refrescar) {
-			self::$singleton = new toba_modelo_catalogo();	
-		}
-		return self::$singleton;	
-	}	
+	}		
 	
 	function set_db($db)
 	{

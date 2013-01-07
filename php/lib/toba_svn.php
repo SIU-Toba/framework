@@ -245,7 +245,7 @@ class toba_svn
 		
 	}
 	
-	function es_copia_trabajo($path)
+	static function es_copia_trabajo($path)
 	{
 		$salida = null;
 		$hubo_error = null;		

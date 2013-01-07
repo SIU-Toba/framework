@@ -77,7 +77,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return toba_modelo_instancia::existe_carpeta_instancia($id);
 	}
 	
-	function set_conexion_externa($base)
+	static function set_conexion_externa($base)
 	{
 	    self::$conexion_externa = $base;
 	}

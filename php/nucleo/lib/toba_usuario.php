@@ -78,7 +78,7 @@ class toba_usuario implements toba_interface_usuario
 		toba::instancia()->get_db()->ejecutar($sql);
 	}
 	
-	function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null)
+	static function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null)
 	{
 		if (is_null($dias_validez)) {		//Anulo el vencimiento
 			$accion = 'vencimiento = NULL';
@@ -99,7 +99,7 @@ class toba_usuario implements toba_interface_usuario
 		}
 	}
 	
-	function verificar_clave_no_utilizada($clave_plana, $usuario) 
+	static function verificar_clave_no_utilizada($clave_plana, $usuario) 
 	{
 		$claves = toba::instancia()->get_lista_claves_usadas($usuario);
 		if (! empty($claves)) {
@@ -113,7 +113,7 @@ class toba_usuario implements toba_interface_usuario
 		}
 	}
 	
-	function verificar_clave_vencida($id_usuario)
+	static function verificar_clave_vencida($id_usuario)
 	{
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if ( empty($datos_usuario) ) {

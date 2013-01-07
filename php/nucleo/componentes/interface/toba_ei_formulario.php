@@ -1376,7 +1376,7 @@ class toba_ei_formulario extends toba_ei
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
 		
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$this->_carga_opciones_ef->cargar();
 		$salida->subtitulo( $this->get_titulo() );

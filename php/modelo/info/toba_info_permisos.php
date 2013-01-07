@@ -127,7 +127,7 @@ class toba_info_permisos
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 
-	function get_restricciones_proyecto($proyecto)
+	static function get_restricciones_proyecto($proyecto)
 	{
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT 	proyecto,

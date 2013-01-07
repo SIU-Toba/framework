@@ -17,7 +17,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 		Si existe, busca la lista de items y recupera la rama de carpetas hacia la raiz
 	
 	*/
-	function cargar()
+	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
 		$nodos = array();
 		$items = $this->get_lista_items();

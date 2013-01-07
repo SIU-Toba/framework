@@ -137,7 +137,7 @@ class consultas
 		return $d;
 	}
 
-	function traeme_mis_dias($dias_mios)
+	static function traeme_mis_dias($dias_mios)
 	{
 		$resultado = array();
 		$dias = self::get_dias_semana();

@@ -12,7 +12,7 @@ class toba_contenedor_gadgets
 	private function  __construct()
 	{}
 
-	function instancia()
+	static function instancia()
 	{
 		if (! isset(self::$instancia)) {
 			self::$instancia = new toba_contenedor_gadgets();

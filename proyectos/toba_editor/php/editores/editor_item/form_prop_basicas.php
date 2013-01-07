@@ -124,7 +124,7 @@ class form_prop_basicas extends toba_ei_formulario
 		} 
 	}
 	
-	function generar_html_ef($ef)
+	protected function generar_html_ef($ef, $ancho_etiqueta=null)
 	{
 		if ($ef != 'imagen_recurso_origen') {
 			parent::generar_html_ef($ef);

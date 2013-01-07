@@ -30,7 +30,6 @@
  * @package Structures_Graph
  */
 
-
 /* class Structures_Graph_Node {{{ */
 /**
  * The Structures_Graph_Node class represents a Node that can be member of a 
@@ -167,9 +166,11 @@ class Structures_Graph_Node {
             return $this->_metadata[$key];
         } else {
             if ($nullIfNonexistent) {
-                return null;
+                $a = null;
+                return $a;
             } else {
-                throw new Exception('Structures_Graph_Node::getMetadata: Requested key does not exist');
+                $a = new Exception('Structures_Graph_Node::getMetadata: Requested key does not exist');
+                throw $a;
             }
         }
     }
@@ -224,18 +225,18 @@ class Structures_Graph_Node {
     * 
     * If the graph is not directed, the reverse arc, connecting $destinationNode to $this is also created.
     *
-    * @param    Structures_Graph Node to connect to
+    * @param    Structures_Graph_Node Node to connect to
     * @access	public
     */
     function connectTo(&$destinationNode) {
         // We only connect to nodes
-        if (!is_a($destinationNode, 'Structures_Graph_Node')) 
-            throw new Exception('Structures_Graph_Node::connectTo received an object that is not a Structures_Graph_Node');
+        if (!is_a($destinationNode, 'Structures_Graph_Node'))
+		throw new Exception('Structures_Graph_Node::connectTo received an object that is not a Structures_Graph_Node');
         // Nodes must already be in graphs to be connected
-        if ($this->_graph == null)
-            throw new Exception('Structures_Graph_Node::connectTo Tried to connect a node that is not in a graph');
+        if ($this->_graph == null) 
+		throw new Exception('Structures_Graph_Node::connectTo Tried to connect a node that is not in a graph');
         if ($destinationNode->getGraph() == null) 
-            throw new Exception('Structures_Graph_Node::connectTo Tried to connect to a node that is not in a graph');
+		throw new Exception('Structures_Graph_Node::connectTo Tried to connect to a node that is not in a graph');
         // Connect here
         $this->_connectTo($destinationNode);
         // If graph is undirected, connect back
@@ -267,6 +268,10 @@ class Structures_Graph_Node {
     * @access	public
     */
     function connectsTo(&$target) {
+        if (version_compare(PHP_VERSION, '5.0.0') >= 0) {
+            return in_array($target, $this->getNeighbours(), true);
+        }
+
         $copy = $target;
         $arcKeys = array_keys($this->_arcs);
         foreach($arcKeys as $key) {

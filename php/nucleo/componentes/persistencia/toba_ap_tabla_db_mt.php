@@ -180,7 +180,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//------------------------------------------------------------------------------------------------------------------------//
 	//				SINCRONIZACION CON LA BASE
 	//------------------------------------------------------------------------------------------------------------------------//
-	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null)
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array())	
 	{
 		if ($solo_retornar) {
 			// Se devuelve esto xq si sólo se retorna no hay manera de armar la
@@ -197,7 +197,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		}
 	}
 	
-	protected function ejecutar_sql_update($id_registro)
+	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array())	
 	{
 		parent::ejecutar_sql_update($id_registro, null, null, $this->_cols_por_tabla[$this->_tabla]);
 

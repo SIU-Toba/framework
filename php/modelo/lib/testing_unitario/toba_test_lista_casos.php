@@ -17,7 +17,7 @@ class toba_test_lista_casos
 		}
 	}
 	
-	function comparar($x, $y)
+	static function comparar($x, $y)
 	{
 		if ( $x["nombre"] == $y["nombre"] )
 			return 0;

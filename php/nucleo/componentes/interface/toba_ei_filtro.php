@@ -752,7 +752,7 @@ class toba_ei_filtro extends toba_ei
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
 		
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$this->_carga_opciones_ef->cargar();
 		$ancho = isset($this->_info_filtro["ancho"]) ? $this->_info_filtro["ancho"] : "auto";

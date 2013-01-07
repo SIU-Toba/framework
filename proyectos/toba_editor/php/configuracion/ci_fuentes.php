@@ -260,7 +260,7 @@ class ci_fuentes extends toba_ci
 		
 	function cargar_archivo_ini($id_base)
 	{
-		$instalacion = toba_modelo_catalogo::get_instalacion(null);
+		$instalacion = toba_modelo_catalogo::instanciacion()->get_instalacion(null);
 		if ($instalacion->existe_base_datos_definida($id_base)) {
 			return $instalacion->get_parametros_base($id_base);
 		}

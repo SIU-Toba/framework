@@ -12,7 +12,7 @@ abstract class toba_ef_sin_estado extends toba_ef
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
-	function set_estado()
+	function set_estado($estado)
 	{
 		return false;
 	}

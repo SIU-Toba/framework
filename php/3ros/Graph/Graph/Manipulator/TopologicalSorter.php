@@ -30,6 +30,7 @@
  * @package Structures_Graph
  */
 
+
 /* class Structures_Graph_Manipulator_TopologicalSorter {{{ */
 /**
  * The Structures_Graph_Manipulator_TopologicalSorter is a manipulator 
@@ -54,7 +55,7 @@ class Structures_Graph_Manipulator_TopologicalSorter {
     * @access   private
     * @return	integer	 Number of non-visited nodes that link to this one
     */
-    function _nonVisitedInDegree(&$node) {
+    static function _nonVisitedInDegree(&$node) {
         $result = 0;
         $graphNodes =& $node->_graph->getNodes();
         foreach (array_keys($graphNodes) as $key) {
@@ -69,7 +70,7 @@ class Structures_Graph_Manipulator_TopologicalSorter {
     /**
     * @access   private
     */
-    function _sort(&$graph) {
+    static function _sort(&$graph) {
         // Mark every node as not visited
         $nodes =& $graph->getNodes();
         $nodeKeys = array_keys($nodes);
@@ -102,7 +103,6 @@ class Structures_Graph_Manipulator_TopologicalSorter {
 
         // Cleanup visited marks
         foreach($nodeKeys as $key) $nodes[$key]->unsetMetadata('topological-sort-visited');
-
     }
     /* }}} */
 
@@ -118,12 +118,12 @@ class Structures_Graph_Manipulator_TopologicalSorter {
     * @return	array	 The graph's nodes, sorted by topological order.
     * @access	public
     */
-    function sort($graph) {
+    static function sort($graph) {
         // We only sort graphs
-        if (!is_a($graph, 'Structures_Graph')) 
-            throw new Exception('Structures_Graph_Manipulator_TopologicalSorter::sort received an object that is not a Structures_Graph');
-        if (!Structures_Graph_Manipulator_AcyclicTest::isAcyclic($graph))
-            throw new Exception('Structures_Graph_Manipulator_TopologicalSorter::sort received an graph that has cycles');
+        if (!is_a($graph, 'Structures_Graph'))
+		throw new Exception('Structures_Graph_Manipulator_TopologicalSorter::sort received an object that is not a Structures_Graph');
+        if (!Structures_Graph_Manipulator_AcyclicTest::isAcyclic($graph)) 
+		throw new Exception('Structures_Graph_Manipulator_TopologicalSorter::sort received an graph that has cycles');
 
         Structures_Graph_Manipulator_TopologicalSorter::_sort($graph);
         $result = array();

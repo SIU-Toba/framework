@@ -9,7 +9,7 @@ class php_referencia
 	/**
 	 * @return php_referencia
 	 */
-	function instancia()
+	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
 			self::$instancia = new php_referencia();	

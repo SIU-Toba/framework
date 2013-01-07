@@ -1987,7 +1987,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * @ignore
 	 */
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$salida->subtitulo( $this->get_titulo() );
 		$this->generar_salida("impresion_html");

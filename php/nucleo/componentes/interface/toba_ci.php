@@ -888,7 +888,7 @@ class toba_ci extends toba_ei
 	/**
 	 * Genera la vista de impresion HTML de la pantalla actual
 	 */
-	function vista_impresion_html( $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
 		$this->pantalla()->vista_impresion_html( $salida );
 	}

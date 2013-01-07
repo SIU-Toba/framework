@@ -44,7 +44,8 @@ class toba_catalogo_items_base
 		$this->cargar($opciones);
 	}
 	
-	function cargar(){}
+	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
+	{}
 	
 	protected function debe_cargar_en_profundidad($id_item, $opciones)
 	{

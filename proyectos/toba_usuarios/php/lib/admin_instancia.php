@@ -19,7 +19,7 @@ class admin_instancia
 		
 	}
 
-	function get_proyecto_defecto()
+	static function get_proyecto_defecto()
 	{
 		$proyecto = toba::memoria()->get_dato_instancia('proyecto');
 		if (isset($proyecto)) {
@@ -54,7 +54,7 @@ class admin_instancia
 	}
 	
 	
-	function chequear_usar_perfiles_propios($id_proyecto, toba_ei_pantalla $pantalla)
+	static function chequear_usar_perfiles_propios($id_proyecto, toba_ei_pantalla $pantalla)
 	{
 		//-- Si es una instalación de producción avisar que los cambios se aplicaran solo a esta instalacion y no al proyecto/personalizacion
 		$id_instancia = toba::instancia()->get_id();
@@ -66,7 +66,7 @@ class admin_instancia
 		}		
 	}
 	
-	function set_usar_perfiles_propios($id_proyecto)
+	static function set_usar_perfiles_propios($id_proyecto)
 	{
 		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia
 		$id_instancia = toba::instancia()->get_id();
@@ -85,13 +85,13 @@ class admin_instancia
 	//-- Manejo del bloqueo de IPs
 	//------------------------------------------------------------
 	
-	function get_lista_ips_rechazadas()
+	static function get_lista_ips_rechazadas()
 	{
 		$sql = 'SELECT momento, ip FROM toba_logs.apex_log_ip_rechazada;';
 		return toba::db()->consultar($sql);
 	}
 
-	function get_lista_usuarios_bloqueados($estado)
+	static function get_lista_usuarios_bloqueados($estado)
 	{
 		$estado = quote($estado);
 		$sql = "SELECT 

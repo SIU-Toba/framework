@@ -214,7 +214,7 @@ class toba_info_editores
 	/**
 	 * Categorias que clasifican los tipos de componente (interface, persistencia, controladores, negocio)
 	 */
-	function get_lista_tipos_clase()
+	static function get_lista_tipos_clase()
 	{
 		$sql = 'SELECT
 					clase_tipo, 
@@ -250,7 +250,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_descripcion_proyecto($id_proyecto)
+	static function get_descripcion_proyecto($id_proyecto)
 	{
 		$proyecto = toba_contexto_info::get_db()->quote($id_proyecto);
 		$sql = "SELECT descripcion || ' [' || proyecto || ']' as proyecto_nombre FROM apex_proyecto WHERE proyecto = $proyecto";
@@ -550,7 +550,7 @@ class toba_info_editores
 	/**
 	*	Devuelve la lista de dependencias de un ITEM
 	*/
-	function get_arbol_componentes_item($proyecto, $item)
+	static function get_arbol_componentes_item($proyecto, $item)
 	{
 		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto, 
 								'icono' => 'item.gif', 'consumidores_externos' => 0, 'nombre' => '');
@@ -573,7 +573,7 @@ class toba_info_editores
 	 * Dado un componente retorna la subclase asociada (si no existe retorna null)
 	 * @return array subclase,subclase_archivo
 	 */
-	function get_subclase_componente($id, $proyecto=null)
+	static function get_subclase_componente($id, $proyecto=null)
 	{
 		if (! isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
@@ -595,7 +595,7 @@ class toba_info_editores
 	/*
 	*	Devuelve la lista de dependencias de un ITEM
 	*/
-	function get_arbol_componentes_componente($proyecto, $componente, $componente_padre=null)
+	static function get_arbol_componentes_componente($proyecto, $componente, $componente_padre=null)
 	{
 		static $id = 1;
 		$excluir_padre = isset($componente_padre) ? 'AND objeto_consumidor <> '.toba_contexto_info::get_db()->quote($componente_padre) : "";
@@ -798,8 +798,8 @@ class toba_info_editores
 	//------------ PUNTOS DE CONTROL --------------------
 	//---------------------------------------------------
 
-  static function get_puntos_de_control($filtro, $id_contenedor = null, $id_objeto = null, $campos = null)
-  {
+	static function get_puntos_de_control($filtro, $id_contenedor = null, $id_objeto = null, $campos = null)
+	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT pto_control,
 						 descripcion
@@ -885,7 +885,7 @@ class toba_info_editores
 	/**
 	* Tipos de pagina
 	*/
-	function get_tipos_pagina($proyecto = null)
+	static function get_tipos_pagina($proyecto = null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto =  toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
@@ -899,7 +899,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
-	function get_tipos_pagina_proyecto()
+	static function get_tipos_pagina_proyecto()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, pagina_tipo, descripcion, clase_archivo
@@ -912,7 +912,7 @@ class toba_info_editores
 	/**
 	 * Retorna el tipo de pagina predeterminado para el proyecto actual
 	 */
-	function get_tipo_pagina_defecto($proyecto=null)
+	static function get_tipo_pagina_defecto($proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
@@ -933,7 +933,7 @@ class toba_info_editores
 	/**
 	* BUFFERs
 	*/
-	function get_buffers()
+	static function get_buffers()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, buffer, descripcion_corta 
@@ -946,7 +946,7 @@ class toba_info_editores
 	/**
 	* Patrones
 	*/
-	function get_comportamientos()
+	static function get_comportamientos()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, patron, descripcion_corta FROM apex_patron 
@@ -959,7 +959,7 @@ class toba_info_editores
 	/**
 	* Zonas
 	*/
-	function get_zonas()
+	static function get_zonas()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT proyecto, zona, nombre
@@ -972,7 +972,7 @@ class toba_info_editores
 	/**
 	* Tipos de solicitud
 	*/
-	function get_tipo_observaciones_solicitud()
+	static function get_tipo_observaciones_solicitud()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto()) ;
 		$sql = "SELECT proyecto, solicitud_obs_tipo, 
@@ -985,7 +985,7 @@ class toba_info_editores
 	/**
 	* Lista de FUENTEs de DATOS
 	*/
-	function get_fuentes_datos($proyecto=null)
+	static function get_fuentes_datos($proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
@@ -1005,7 +1005,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 	
-	function get_fuente_datos_defecto($proyecto=null)
+	static function get_fuente_datos_defecto($proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
@@ -1018,7 +1018,7 @@ class toba_info_editores
 	/**
 	 * Lista de motores de base de datos disponibles para definir una fuente
 	 */
-	function get_lista_motores()
+	static function get_lista_motores()
 	{
 		$sql = 'SELECT
 					fuente_datos_motor, 
@@ -1029,7 +1029,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 
-	function get_puerto_motor($motor=null)
+	static function get_puerto_motor($motor=null)
 	{
 		$resultado = 0;
 		switch($motor){
@@ -1049,7 +1049,7 @@ class toba_info_editores
 	/**
 	* Propiedadesd de una FUENTEs de DATOS
 	*/
-	function get_info_fuente_datos($id_fuente, $proyecto=null)
+	static function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
@@ -1105,7 +1105,7 @@ class toba_info_editores
 	/**
 	*	Lista de Skins
 	*/
-	function get_lista_skins()
+	static function get_lista_skins()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT
@@ -1120,7 +1120,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_lista_estilos_columnas($id_estilo = null)
+	static function get_lista_estilos_columnas($id_estilo = null)
 	{
 		$sql = 'SELECT columna_estilo, css FROM apex_columna_estilo';
 		if (! is_null($id_estilo)){
@@ -1130,7 +1130,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
-	function get_nombre_clase_css($id_estilo)
+	static function get_nombre_clase_css($id_estilo)
 	{
 		$nombre = '';
 		$disponibles = self::get_lista_estilos_columnas($id_estilo);
@@ -1140,7 +1140,7 @@ class toba_info_editores
 		return $nombre;
 	}
 	
-	function get_estilo_defecto_formateo_columna($formateo)
+	static function get_estilo_defecto_formateo_columna($formateo)
 	{
 		$formateo = toba_contexto_info::get_db()->quote($formateo);
 		$sql = "SELECT estilo_defecto FROM apex_columna_formato WHERE columna_formato= $formateo";
@@ -1148,7 +1148,7 @@ class toba_info_editores
 		return $rs['estilo_defecto'];
 	}
 	
-	function get_mensajes($proyecto=null)
+	static function get_mensajes($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);		
@@ -1156,7 +1156,7 @@ class toba_info_editores
 		return self::get_mensajes_filtrados($clausula);
 	}
 
-	function get_mensajes_filtrados($clausulas = array())
+	static function get_mensajes_filtrados($clausulas = array())
 	{
 		$sql = 'SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_msg
@@ -1168,7 +1168,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_mensajes_objeto($objeto, $proyecto=null)
+	static function get_mensajes_objeto($objeto, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$clausulas = array(	'objeto_proyecto ='. toba_contexto_info::get_db()->quote($proyecto),
@@ -1176,7 +1176,7 @@ class toba_info_editores
 		return self::get_mensajes_objeto_filtrados($clausulas);
 	}
 
-	function get_mensajes_objeto_filtrados($clausulas = array())
+	static function get_mensajes_objeto_filtrados($clausulas = array())
 	{
 		$sql = 'SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_objeto_msg
@@ -1188,7 +1188,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_puntos_control($proyecto = null)
+	static function get_puntos_control($proyecto = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1203,7 +1203,7 @@ class toba_info_editores
 	//---------------- ABM de ei_filtro ---------------------------
 	//-------------------------------------------------
 	
-	function get_filtro_tipo_columnas()
+	static function get_filtro_tipo_columnas()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT tipo_col, descripcion
@@ -1215,7 +1215,7 @@ class toba_info_editores
 	}
 
 	
-	function get_filtro_efs($tipo_col, $es_multiple)
+	static function get_filtro_efs($tipo_col, $es_multiple)
 	{
 		if ($tipo_col == 'opciones') {
 			$multiple = ($es_multiple == '1')? ' 1' : '0';
@@ -1242,7 +1242,7 @@ class toba_info_editores
 		ATENCION, clase 'toba' hardcodeada en el item del editor...
 			Hay que arreglarlo antes de que los proyectos agreguen componentes
 	*/
-	function get_log_modificacion_componentes()
+	static function get_log_modificacion_componentes()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto()) ;
 		$sql = "	SELECT l.momento as momento,
@@ -1271,7 +1271,7 @@ class toba_info_editores
 	//----------  MOLDES
 	//------------------------------------------------------------------------------
 
-	function get_opciones_predefinidas_molde($proyecto = null)
+	static function get_opciones_predefinidas_molde($proyecto = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1281,7 +1281,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar_fila($sql);			
 	}
 
-	function get_lista_tipo_molde($operacion_tipo = null)
+	static function get_lista_tipo_molde($operacion_tipo = null)
 	{
 		$where_operacion = '';
 		if (isset($operacion_tipo)) {
@@ -1305,7 +1305,7 @@ class toba_info_editores
 	}
 	
 
-	function get_lista_moldes_existentes($proyecto=null, $tipo_operacion = null)
+	static function get_lista_moldes_existentes($proyecto=null, $tipo_operacion = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1331,7 +1331,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_lista_ejecuciones_molde($proyecto, $molde)
+	static function get_lista_ejecuciones_molde($proyecto, $molde)
 	{
 		$molde = toba_contexto_info::get_db()->quote($molde);
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1344,7 +1344,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_info_molde($proyecto, $molde)
+	static function get_info_molde($proyecto, $molde)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1369,7 +1369,7 @@ class toba_info_editores
 	//----------  CONSULTAs PHP  ---------------------------------------------------
 	//------------------------------------------------------------------------------
 
-	function get_consultas_php($proyecto=null)
+	static function get_consultas_php($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1385,7 +1385,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
-	function get_consulta_php($consulta, $proyecto)
+	static function get_consulta_php($consulta, $proyecto)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1398,7 +1398,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar_fila($sql);		
 	}
 	
-	function get_metodos_consulta_php($consulta_php, $proyecto=null)
+	static function get_metodos_consulta_php($consulta_php, $proyecto=null)
 	{
 		if (is_null($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		if (is_array($consulta_php)) {
@@ -1433,7 +1433,7 @@ class toba_info_editores
 	//----------  DIMENSIONES
 	//------------------------------------------------------------------------------
 
-	function get_dimensiones($proyecto=null)
+	static function get_dimensiones($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1450,7 +1450,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_datos_dimension($proyecto, $dimension)
+	static function get_datos_dimension($proyecto, $dimension)
 	{
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$dimension = toba_contexto_info::get_db()->quote($dimension);
@@ -1463,7 +1463,7 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
 
-	function get_cantidad_dimensiones_fuente($fuente, $proyecto=null)
+	static function get_cantidad_dimensiones_fuente($fuente, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1481,17 +1481,17 @@ class toba_info_editores
 	//----------  RELACIONES entre TABLAS
 	//------------------------------------------------------------------------------
 	
-	function get_relaciones_tablas($fuente_datos, $proyecto=null)
+	static function get_relaciones_tablas($fuente_datos, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$fuente_datos = toba_contexto_info::get_db()->quote($fuente_datos);
 		$sql = "SELECT *
-		FROM
-			apex_relacion_tablas
-		WHERE fuente_datos = $fuente_datos
-		AND proyecto = $proyecto
-		ORDER BY tabla_1";
+				FROM
+					apex_relacion_tablas
+				WHERE fuente_datos = $fuente_datos
+				AND proyecto = $proyecto
+				ORDER BY tabla_1";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -1499,7 +1499,7 @@ class toba_info_editores
 	//----------  SERVICIOS WEB
 	//------------------------------------------------------------------------------	
 	
-	function get_servicios_web_acc($proyecto=null)
+	static function get_servicios_web_acc($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
@@ -1516,9 +1516,8 @@ class toba_info_editores
 	//----------  GRAFICOS
 	//------------------------------------------------------------------------------
 
-	function get_lista_tipos_grafico()
+	static function get_lista_tipos_grafico()
 	{
-		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto());
 		$sql = "SELECT grafico as id, descripcion_corta as desc FROM apex_grafico";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}

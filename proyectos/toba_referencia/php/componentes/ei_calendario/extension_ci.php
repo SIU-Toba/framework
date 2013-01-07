@@ -22,7 +22,7 @@ class extension_ci extends toba_ci
 	function conf__calendario($calendario)
 	{
 		if (!isset($this->s__datos)) {
-			$hoy = date('Y-m-d', mktime());
+			$hoy = date('Y-m-d', time());
 			$this->s__datos = array();
 			$this->s__datos[$hoy] = array('dia' => $hoy, 'contenido' => 'Testear el sistema');
 		}

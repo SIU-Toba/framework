@@ -78,7 +78,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 		return $html;
 	}	
 
-	function set_opciones($descripcion, $maestros_cargados=true)
+	function set_opciones($descripcion, $maestros_cargados=true, $tiene_maestros=false)
 	{
 		//--- No se actualiza $this->opciones_cargadas porque los combos_editables requieren
 		//--- que siempre se refresquen sus opciones porque se basan en su estado

@@ -76,7 +76,7 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 		$this->html_mensaje_cuadro_vacio($texto);
 	}
 
-	protected function html_cuadro_cabecera_columna_evento()
+	protected function html_cuadro_cabecera_columna_evento($rowspan, $pre_columnas)		
 	{
 		//Redefine para anular comportamiento
 	}

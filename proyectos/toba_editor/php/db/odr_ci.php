@@ -3,14 +3,14 @@
 class odr_ci extends toba_datos_relacion 
 {
 
-	function sincronizar()
+	function sincronizar($usar_cursores=false)
 	{
 		//--- Si no hay pantalla definida se asume una
 		if ($this->tabla('pantallas')->get_cantidad_filas() == 0) {
 			$fila = array('identificador' => 'pant_inicial', 'etiqueta' => 'Pantalla Inicial');
 			$this->tabla('pantallas')->nueva_fila($fila);
 		}
-		parent::sincronizar();
+		parent::sincronizar($usar_cursores);
 	}
 	
 	/**

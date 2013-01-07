@@ -667,12 +667,12 @@ class toba_manejador_sesiones
 		$info = null;
 	}
 	
-	function recargar_info_instalacion()
+	static function recargar_info_instalacion()
 	{
 		toba_instalacion::instancia(true);
 	}
 	
-	function recargar_info_instancia()
+	static function recargar_info_instancia()
 	{
 		toba_instancia::instancia(true);
 	}

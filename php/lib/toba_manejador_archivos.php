@@ -56,16 +56,17 @@ class toba_manejador_archivos
 	    unlink($errfile);
 	    return $exit;
 	}		
+	
 	/**
 	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
 	 */
-    static function existe_archivo_en_path($file)
-    {
-        $fp = @fopen($file, 'r', true);
-        $ok = ($fp) ? true : false;
-        @fclose($fp);
-        return $ok;
-    }
+	static function existe_archivo_en_path($file)
+	{
+		$fp = @fopen($file, 'r', true);
+		$ok = ($fp) ? true : false;
+		@fclose($fp);
+		return $ok;
+	}
 	
 	static function path_a_windows($nombre, $encomillar_espacios=true)
 	{
@@ -151,7 +152,7 @@ class toba_manejador_archivos
 	/**
 	*	Busca en profundidad los archivos existentes dentro de un directorio
 	*/
-	function buscar_archivos_directorio_recursivo( $directorio, &$exclude_dirs = array() )
+	static function buscar_archivos_directorio_recursivo( $directorio, &$exclude_dirs = array() )
 	{
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
@@ -270,7 +271,7 @@ class toba_manejador_archivos
 		return $ok;
 	}	
 	
-	function chmod_recursivo($path, $filemode) 
+	static function chmod_recursivo($path, $filemode) 
 	{
 		if (!is_dir($path))
 			return chmod($path, $filemode);
@@ -298,35 +299,36 @@ class toba_manejador_archivos
 	}
 	
 	
-	function comprimir_archivo($src, $level = 5, $dst = false){
-	    if( $dst == false){
-	        $dst = $src.".gz";
-	    }
-	    if (file_exists($src)) {
-	        $src_handle = fopen($src, "r");
-	        if ($src_handle === false) {
-	            toba::logger()->error("Comprimir archivo: No se puede abrir $src");
-	            return false;
-	        }
-	        if (!file_exists($dst)){
-	            $dst_handle = gzopen($dst, "w$level");
-	            while(!feof($src_handle)){
-	                $chunk = fread($src_handle, 2048);
-	                gzwrite($dst_handle, $chunk);
-	            }
-	            fclose($src_handle);
-	            gzclose($dst_handle);
-	            return true;
-	        } else {
-	            toba::logger()->error("Comprimir archivo: $dst ya existe");
-	        }
-	    } else {
-            toba::logger()->error("Comprimir archivo: $src no existe");	    	
-	    }
-	    return false;
+	static function comprimir_archivo($src, $level = 5, $dst = false)
+	{
+		if( $dst == false){
+			$dst = $src.".gz";
+		}
+		if (file_exists($src)) {
+			$src_handle = fopen($src, "r");
+			if ($src_handle === false) {
+				toba::logger()->error("Comprimir archivo: No se puede abrir $src");
+				return false;
+			}
+			if (!file_exists($dst)){
+				$dst_handle = gzopen($dst, "w$level");
+				while(!feof($src_handle)){
+					$chunk = fread($src_handle, 2048);
+					gzwrite($dst_handle, $chunk);
+				}
+				fclose($src_handle);
+				gzclose($dst_handle);
+				return true;
+			} else {
+				toba::logger()->error("Comprimir archivo: $dst ya existe");
+			}
+		} else {
+			toba::logger()->error("Comprimir archivo: $src no existe");	    	
+		}
+		return false;
 	 }	
 	 
-	function es_directorio_vacio($dir)
+	static function es_directorio_vacio($dir)
 	{
 		$dh = @opendir($dir);
 		if ($dh !== false) {
@@ -343,7 +345,7 @@ class toba_manejador_archivos
 		}
 	}
 
-	function es_writable($path)
+	static function es_writable($path)
 	{
 		if ($path{strlen($path)-1} == '/') {
 			return is__writable($path.uniqid(mt_rand()).'.tmp');
