@@ -52,6 +52,17 @@ class toba_http
 		}
 	}
 	
+	static function headers_download($tipo, $archivo, $longitud) 
+	{ 
+		header("Cache-Control: private"); 
+		header("Content-type: $tipo"); 
+		header("Content-Length: $longitud"); 
+		header("Content-Disposition: attachment; filename=$archivo"); 
+		header("Pragma: no-cache"); 
+		header("Expires: 0"); 
+
+	} 
+		
 	static function get_protocolo($basado_en_host = true, $forzar_seguro = false)
 	{
 		$basico = 'http';
