@@ -60,9 +60,17 @@ class ef_popup_utileria_php implements toba_ef_icono_utileria
 											vinculador.invocar({$this->id_vinculo})\">$img</a>";
 		} else {
 			if (! $ef->tiene_estado()) {
-				$img = toba_recurso::imagen_toba('nucleo/extender.gif', true);
-			}
-			$salida = "<a href='#' onclick=\"vinculador.invocar({$this->id_vinculo})\">$img</a>";
+				$img = toba_recurso::imagen_toba('nucleo/extender.gif', true);								
+				$objeto_js = $ef->controlador()->get_id_objeto_js();			//Imita el metodo de modificacion de vinculos usado por los eis
+				$nombre = 'modificar_vinculo__ef_'. $ef->get_id();				//de otro modo se hace imposible agregarle parametros en runtime
+				$codigo = " if (!existe_funcion($objeto_js, '$nombre')){return;}
+							$objeto_js.$nombre({$this->id_vinculo});
+							vinculador.invocar({$this->id_vinculo});";
+							   
+				$salida = "<a href='#' onclick=\"$codigo\">$img</a>";
+			} else {				
+				$salida = "<a href='#' onclick=\"vinculador.invocar({$this->id_vinculo})\">$img</a>";
+			}			
 		}
 		return $salida;
 	}
