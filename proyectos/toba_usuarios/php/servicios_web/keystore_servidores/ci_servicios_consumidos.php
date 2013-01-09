@@ -36,10 +36,6 @@ class ci_servicios_consumidos extends toba_ci
 			$datos = consultas_instancia::get_servicios_web_consumidos($this->s__filtro);
 			$this->s__datos = $this->complementar_datos($datos);
 		}		
-		
-		if (empty($this->s__datos)) {
-			$pantalla->eliminar_dep('cuadro');
-		}
 	}
 	
 	//-----------------------------------------------------------------------------------

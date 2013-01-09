@@ -41,7 +41,8 @@ class ci_gen_certificado extends toba_ci
 		//Si el archivo con la clave aun no existe, quito al diablo el form de arriba.
 		if (! $this->existe_archivo) {
 			$pantalla->eliminar_dep('form_muestra');			
-			$pantalla->eliminar_dep('form');			
+			$pantalla->eliminar_dep('form');
+			$pantalla->set_descripcion("Aún no se ha configurada la Clave privada y el Certificado público del proyecto");
 		} else {
 			$pantalla->evento('generar')->set_etiqueta('Descartar y &Generar');
 		}

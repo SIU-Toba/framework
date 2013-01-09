@@ -38,9 +38,7 @@ class ci_servicios_ofrecidos extends toba_ci
 			$this->s__datos = $this->complementar_datos($this->get_modelo_proyecto()->get_servicios_web_ofrecidos());
 		}
 		
-		if (empty($this->s__datos)) {
-			$pantalla->eliminar_dep('cuadro');
-		}
+
 	}	
 	
 	//-----------------------------------------------------------------------------------

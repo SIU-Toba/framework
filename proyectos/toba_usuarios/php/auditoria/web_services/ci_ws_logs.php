@@ -56,19 +56,7 @@ class ci_ws_logs extends toba_ci
 			if ($log !== false) {
 				$pantalla->set_contenido_archivo_log($log);
 			}
-					
-			/*$this->s__dir_logs_wsf = ini_get('wsf.log_path');
-			if ($this->s__dir_logs_wsf === false || trim($this->s__dir_logs_wsf) == '') {			//Si no esta activa la extension o no tiene valor la variable
-				$pantalla->evento('ver_log_server')->anular();				//Quito los vinculos
-				$pantalla->evento('ver_log_cliente')->anular();
-			} else {								
-				if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_server.log")) {		//Lo mismo si no existe alguno de los archivos
-					$pantalla->evento('ver_log_server')->anular();
-				}
-				if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_client.log")) {
-					$pantalla->evento('ver_log_cliente')->anular();
-				}
-			}*/
+
 		}
 	}
 
@@ -81,6 +69,20 @@ class ci_ws_logs extends toba_ci
 		if (isset($this->s__filtro)) {			
 			$datos =	consultas_instancia::get_solicitudes_web_service($this->s__filtro);
 			$cuadro->set_datos($datos);
+		}	
+					
+		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
+		if ($this->s__dir_logs_wsf === false || trim($this->s__dir_logs_wsf) == '') {			//Si no esta activa la extension o no tiene valor la variable
+			$pantalla->evento('ver_log_server')->anular();				//Quito los vinculos
+			$pantalla->evento('ver_log_cliente')->anular();
+		} else {								
+			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_server.log")) {		//Lo mismo si no existe alguno de los archivos
+				$pantalla->evento('ver_log_server')->anular();
+				echo 'hey';
+			}
+			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_client.log")) {
+				$pantalla->evento('ver_log_cliente')->anular();
+			}
 		}		
 	}
 
@@ -127,8 +129,9 @@ class ci_ws_logs extends toba_ci
 	//---------------------------------------------------------------------------------------------------//
 	//				ARCHIVOS DE LOG WSF
 	//---------------------------------------------------------------------------------------------------//
-	/*function servicio__dl_log_server()			//Queda para el dia que se puedan acceder los archivos
+	function servicio__dl_log_server()			//Queda para el dia que se puedan acceder los archivos
 	{
+		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
 		toba::memoria()->desactivar_reciclado();				
 		$nombre = 'wsf_php_server.log';
 		$mime_type = 'text/plain';
@@ -140,6 +143,7 @@ class ci_ws_logs extends toba_ci
 	
 	function servicio__dl_log_cliente()
 	{
+		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
 		toba::memoria()->desactivar_reciclado();				
 		$nombre = 'wsf_php_client.log';
 		$mime_type = 'text/plain';
@@ -155,11 +159,11 @@ class ci_ws_logs extends toba_ci
 			$long = filesize($archivo);
 			$handler = fopen($archivo, 'r');
 			
-			toba_http::headers_download($mime_type, $nombre, $long);
+			toba_http::headers_download($mime_type, basename($archivo), $long);
 			fpassthru($handler);
 			fclose($handler);
 		}		
-	}*/
+	}
 
 }
 ?>
