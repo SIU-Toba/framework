@@ -49,7 +49,11 @@ class ci_editor extends toba_ci
 	{
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
+		}		
+		if (! isset($datos['autentificacion'])) {
+			$datos['autentificacion']  = apex_pa_algoritmo_hash;
 		}
+		
 		$this->datos('basica')->set($datos);
 	}
 
@@ -100,7 +104,8 @@ class ci_editor extends toba_ci
 	{
 		if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
-		}
+		}		
+		
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		foreach ($id as $clave) {

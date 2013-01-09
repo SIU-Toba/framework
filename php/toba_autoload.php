@@ -452,6 +452,7 @@ class toba_autoload
 		'toba_autoload' => 'toba_autoload.php',
 		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
+		'toba_hash' => 'nucleo/lib/toba_hash.php'
 	);
 }
 ?>

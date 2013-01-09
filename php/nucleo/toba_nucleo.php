@@ -8,6 +8,11 @@ define ('apex_tipo_gadget_interno', 'I');
 if (! defined('apex_tipo_gadget_shindig')) {
 define('apex_tipo_gadget_shindig', 'S');
 }
+if (version_compare(PHP_VERSION, '5.3.2') >= 0) {
+	define('apex_pa_algoritmo_hash', 'bcrypt');
+} else {
+	define('apex_pa_algoritmo_hash', 'sha512');
+}
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales

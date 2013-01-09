@@ -16,6 +16,7 @@ class apdb_usuario_basicas extends toba_ap_tabla_db_s
 			if ($cambio_clave || $cambio_metodo) {				
 				//Antes de encriptar la clave verifico que no se esta usando una clave anterior
 				toba_usuario::verificar_clave_no_utilizada($this->datos[$id]['clave'], $this->datos[$id]['usuario']);				
+				$this->datos[$id]['autentificacion'] = apex_pa_algoritmo_hash;		//Fijo el algoritmo por defecto, de manera que se vayan migrando las claves
 				$this->encriptar_clave($id, $this->datos[$id]['autentificacion']);
 			}
 		}
@@ -24,6 +25,7 @@ class apdb_usuario_basicas extends toba_ap_tabla_db_s
 	protected function evt__pre_insert($id)
 	{
 		if ($this->datos[$id]['autentificacion'] != 'plano') {
+			$this->datos[$id]['autentificacion'] = apex_pa_algoritmo_hash;						//Fijo el algoritmo por defecto, de manera que se vaya actualizando
 			$this->encriptar_clave($id, $this->datos[$id]['autentificacion']);
 		}		
 	}

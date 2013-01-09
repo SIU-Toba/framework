@@ -5,6 +5,7 @@
  * Consumir usando toba::usuario()->
  * @package Seguridad
  */
+
 class toba_usuario implements toba_interface_usuario
 {
 	function __construct($id_usuario)
@@ -56,8 +57,8 @@ class toba_usuario implements toba_interface_usuario
 	//------------------------ Generacion de claves ---------------------------
 	static function generar_clave_aleatoria($long)
 	{
-		$str = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
-		for($cad="",$i=0;$i<$long;$i++) {
+		$str = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+		for($cad='',$i=0;$i<$long;$i++) {
 			$cad .= substr($str,rand(0,(strlen($str)-1)),1);
 		}		
 		return $cad;
@@ -68,13 +69,13 @@ class toba_usuario implements toba_interface_usuario
 		$this->set_clave_usuario($clave_plana, $this->get_id());
 	}
 
-	function set_clave_usuario ($clave_plana, $usuario)
+	static function set_clave_usuario ($clave_plana, $usuario)
 	{
-		$clave_enc = quote(encriptar_con_sal($clave_plana, 'sha256'));
+		$clave_enc = quote(encriptar_con_sal($clave_plana, apex_pa_algoritmo_hash));
 		$sql = "UPDATE apex_usuario
 					SET		clave = $clave_enc ,
-					autentificacion = 'sha256'
-					WHERE	usuario = ". quote($usuario);
+					autentificacion = '". apex_pa_algoritmo_hash 
+			."' WHERE	usuario = ". quote($usuario);
 		toba::instancia()->get_db()->ejecutar($sql);
 	}
 	

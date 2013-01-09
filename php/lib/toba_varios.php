@@ -679,13 +679,25 @@
 	}
 	
 	function encriptar_con_sal($clave, $metodo, $sal=null)
-	{
-	    if ($sal === null) {
-	        $sal = get_salt();
-	    } else {
-	        $sal = substr($sal, 0, 10);
-	    }
-	    return $sal . hash($metodo, $sal . $clave);		
+	{		
+		if (version_compare(PHP_VERSION, '5.3.2') >= 0 || $metodo == 'bcrypt') {
+			$hasher = new toba_hash($metodo);			
+			if (is_null($sal)) {									//Hash nuevo
+				return $hasher->hash($clave);
+			} else {											//Verificacion
+				$resultado = $hasher->get_hash_verificador($clave, $sal);
+				if (strlen($resultado) > 13) {	//Si es menor a 13 hubo error, puede ser que el hash 
+					return $resultado;		//se hubiera generado con el metodo anterior
+				}				
+			}
+		}
+		
+		if (is_null($sal)) {
+			$sal = get_salt();
+		} else {
+			$sal = substr($sal, 0, 10);
+		}
+		return $sal . hash($metodo, $sal . $clave);		
 	}
 	
 	function get_salt()
