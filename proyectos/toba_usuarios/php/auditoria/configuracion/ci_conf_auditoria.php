@@ -4,8 +4,6 @@ class ci_conf_auditoria extends toba_ci
 	protected $s__seleccionado;
 	protected $s__tablas;
 
-	private $db; 
-	private $manejador; 
 	
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -14,7 +12,7 @@ class ci_conf_auditoria extends toba_ci
 	function evt__procesar()
 	{
 		//Agrego todas las tablas para desactivar todos los triggers		
-		$manejador = $this->get_manejador();
+		$manejador = $this->get_manejador($this->s__seleccionado['proyecto']);
 		$manejador->agregar_tablas();
 		$manejador->desactivar_triggers_auditoria();
 			
@@ -27,7 +25,8 @@ class ci_conf_auditoria extends toba_ci
 			}
 			$manejador->activar_triggers_auditoria();
 		}
-		
+		$this->agregar_notificacion("Schema actualizado");
+
 		//Finish him!		
 		unset($this->s__tablas);		
 		unset($this->s__seleccionado);
@@ -47,10 +46,39 @@ class ci_conf_auditoria extends toba_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
+		$cuadro->desactivar_modo_clave_segura();
 		$cuadro->set_datos(consultas_instancia::get_lista_proyectos());
 	}
+	
+	function conf_evt__cuadro__configurar(toba_evento_usuario $evt, $fila)
+    {
+		$existe = false;
+		try {
+			$existe = $this->existe_auditoria($evt->get_parametros());
+		} catch (toba_error $e) {
+		}
+		if (! $existe) {
+			$evt->anular(); 
+		}
+    }
+	
+	function conf_evt__cuadro__crear_auditoria(toba_evento_usuario $evt, $fila)
+    {
+		$existe = false;
+		try {
+			$existe = $this->existe_auditoria($evt->get_parametros());
+		} catch (toba_error $e) {
+		}
+		if ($existe) {
+			$evt->set_etiqueta("Actualizar Schema");
+			$evt->set_msg_ayuda("Migra el schema de auditoria tomando campos nuevos o modificados");
+		} else {
+			$evt->set_etiqueta("Crear Schema Auditoría");
+			$evt->set_msg_ayuda("Crea un schema paralelo con la misma estructura que el schema de datos original, conteniendo todas las modificaciones a los datos del mismo");
+		}
+    }
 
-	function evt__cuadro__seleccion($seleccion)
+	function evt__cuadro__configurar($seleccion)
 	{		
 		if (! $this->existe_auditoria($seleccion['proyecto'])) {
 			throw new toba_error_usuario('La fuente no posee auditoria, configurela adecuadamente para su correcto funcionamiento');
@@ -62,12 +90,14 @@ class ci_conf_auditoria extends toba_ci
 	function evt__cuadro__crear_auditoria($seleccion)
 	{		
 		$this->s__seleccionado = $seleccion; 
-		$manejador = $this->get_manejador();
+		$manejador = $this->get_manejador($this->s__seleccionado['proyecto']);
 		$manejador->agregar_tablas();				
 		if (! $manejador->existe()) {
 			$manejador->crear();
+			$this->agregar_notificacion("Schema creado");
 		} else {
 			$manejador->migrar();
+			$this->agregar_notificacion("Schema actualizado");
 		}
 		unset($this->s__seleccionado);
 	}
@@ -97,7 +127,7 @@ class ci_conf_auditoria extends toba_ci
 	{
 		$datos = array();
 		//Busco los triggers activos con sus respectivas tablas.
-		$manejador = $this->get_manejador();
+		$manejador = $this->get_manejador($this->s__seleccionado['proyecto']);
 		$activos = $manejador->get_triggers_activos();
 		foreach($activos as $trg) {
 			$datos[] = $trg['tabla'];		
@@ -105,41 +135,28 @@ class ci_conf_auditoria extends toba_ci
 		return $datos;
 	}
 	
-	function get_db($proyecto=null)
+	function get_db($proyecto)
 	{
-		if (! isset($this->db)) {
-			if (is_null($proyecto)) {
-				$proyecto = $this->s__seleccionado['proyecto'];
-			}
-			//Instancio la bd para el proyecto en cuestion
-			$id = toba_info_editores::get_fuente_datos_defecto($proyecto);
-			$fuente_datos = toba_admin_fuentes::instancia()->get_fuente($id, $proyecto);
-			$this->db = $fuente_datos->get_db();
-		}
-		return $this->db;
+		//Instancio la bd para el proyecto en cuestion
+		$id = toba_info_editores::get_fuente_datos_defecto($proyecto);
+		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente($id, $proyecto);
+		return $fuente_datos->get_db();
 	}	
 	
-	function get_manejador()
+	function get_manejador($proyecto)
 	{
-		//Instancio el manejador de auditoria para la fuente		
-		if (! isset($this->manejador)) {
-			$db = $this->get_db();
-			$schema_auditoria = $db->get_schema(). '_auditoria';		
-			$this->manejador = $db->get_manejador_auditoria($db->get_schema(), $schema_auditoria);			
-		}
-		return $this->manejador;
+		$db = $this->get_db($proyecto);
+		$schema_auditoria = $db->get_schema(). '_auditoria';	
+		return $db->get_manejador_auditoria($db->get_schema(), $schema_auditoria);			
 	}
 	
 	function existe_auditoria($proyecto)
 	{
-		if (is_null($proyecto)) {
-			$proyecto = $this->s__seleccionado['proyecto'];
-		}
 		$id = toba_info_editores::get_fuente_datos_defecto($proyecto);
 		$info = toba::proyecto($proyecto)->get_info_fuente_datos($id, $proyecto);
 		$tiene_metadato = ($info['tiene_auditoria'] == 1);		
 		
-		$manejador = $this->get_manejador();
+		$manejador = $this->get_manejador($proyecto);
 		//Para que la auditoria funcione, tiene que tener el schema y la configuracion por metadato
 		return ($tiene_metadato && $manejador->existe());
 	}

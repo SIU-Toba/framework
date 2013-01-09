@@ -202,7 +202,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_edicion', --identificador
 	'2', --orden
 	'Pantalla Edicion', --etiqueta
-	NULL, --descripcion
+	'Seleccione las tablas cuyos datos serán monitoreados mediantes triggers y almacenado sus modificaciones en el schema de auditoría', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
