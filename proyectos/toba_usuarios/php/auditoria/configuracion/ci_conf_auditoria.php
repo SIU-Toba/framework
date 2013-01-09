@@ -146,6 +146,9 @@ class ci_conf_auditoria extends toba_ci
 	function get_manejador($proyecto)
 	{
 		$db = $this->get_db($proyecto);
+		if (! isset($db)) {
+			return null;
+		}
 		$schema_auditoria = $db->get_schema(). '_auditoria';	
 		return $db->get_manejador_auditoria($db->get_schema(), $schema_auditoria);			
 	}
@@ -158,7 +161,7 @@ class ci_conf_auditoria extends toba_ci
 		
 		$manejador = $this->get_manejador($proyecto);
 		//Para que la auditoria funcione, tiene que tener el schema y la configuracion por metadato
-		return ($tiene_metadato && $manejador->existe());
+		return (isset($manejador) && $tiene_metadato && $manejador->existe());
 	}
 	
 	function get_tablas_disponibles()

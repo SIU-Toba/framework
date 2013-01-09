@@ -5,14 +5,12 @@ class ci_gen_certificado extends toba_ci
 	protected $modelo_proyecto;
 	private $existe_archivo = false;
 	private $pisa_archivo = false;
-	private $proyecto_default = false;
 	
 	function ini()
 	{
 		$proy_defecto = admin_instancia::get_proyecto_defecto();
 		if (! is_null($proy_defecto) && ! isset($this->s__datos_proyecto)) {
 			$this->s__datos_proyecto = array('proyecto' => $proy_defecto);
-			$this->proyecto_default = true;
 		}		
 	}
 	
@@ -26,12 +24,6 @@ class ci_gen_certificado extends toba_ci
 		return $this->modelo_proyecto;
 	}
 
-	function conf()
-	{
-		if ($this->proyecto_default) {
-			$this->set_pantalla('pant_edicion');
-		}
-	}
 	
 	function conf__pant_edicion(toba_ei_pantalla $pantalla)
 	{

@@ -188,7 +188,8 @@ class consultas_instancia
 				FROM	toba_logs.apex_solicitud s,
 						toba_logs.apex_solicitud_web_service sws
 				WHERE	s.proyecto = sws.proyecto
-				AND	s.solicitud = sws.solicitud";
+				AND	s.solicitud = sws.solicitud
+				ORDER BY momento DESC";
 
 		if (! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where);

@@ -7,15 +7,17 @@ class servicio extends toba_servicio_web
 	 * @param array $mensaje
 	 * @return string 
 	 */
-	function op__eco(toba_servicio_web_mensaje $mensaje)
+	function op__test(toba_servicio_web_mensaje $mensaje)
 	{
 		$array = $mensaje->get_array();
-		$dependencia = $this->get_id_cliente('dependencia');
-		if (! isset($dependencia)) {
-			$dependencia = "No presente";
-		}		
-		$dependencia = xml_encode($dependencia);
-		$payload = array("Clave: {$array['clave']}. Valor: {$array['valor']}. Dependencia: $dependencia");
+		$id = $this->get_id_cliente();
+		if (isset($id)) {
+			$id = "No presente";
+		} else {
+			$id = var_export($id);
+		}	
+		$id = xml_encode($id);
+		$payload = array("Clave: {$array['clave']}. Valor: {$array['valor']}. ID: $id");
 		return new toba_servicio_web_mensaje($payload);
 	}
 

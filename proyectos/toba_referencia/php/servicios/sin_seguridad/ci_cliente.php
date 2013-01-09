@@ -35,9 +35,9 @@ class ci_cliente extends toba_ci
 		$valor = xml_encode($datos['valor']);
 		$clave = xml_encode($datos['clave']);
 		$payload = <<<XML
-<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
+<ns1:test xmlns:ns1="http://siu.edu.ar/toba_referencia/serv_pruebas">
 	<texto>$clave $valor</texto>
-</ns1:eco>
+</ns1:test>
 XML;
 		$opciones = array(
 			'to' => 'http://localhost/'.toba_recurso::url_proyecto().'/servicios.php/serv_sin_seguridad'

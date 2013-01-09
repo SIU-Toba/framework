@@ -54,12 +54,12 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Desbloquear TODOS', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
-	NULL, --confirmacion
+	'¿Está seguro que desea DESBLOQUEAR TODOS los usuarios?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'monitor.png', --imagen
 	'1', --en_botonera
-	'¿Está seguro que desea DESBLOQUEAR TODOS los usuarios?', --ayuda
+	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
@@ -87,12 +87,12 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Bloquear TODOS', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
-	NULL, --confirmacion
+	'¿Está seguro que desea BLOQUEAR TODOS los usuarios?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'sistema_bloqueado.png', --imagen
 	'1', --en_botonera
-	'¿Está seguro que desea BLOQUEAR TODOS los usuarios?', --ayuda
+	NULL, --ayuda
 	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito

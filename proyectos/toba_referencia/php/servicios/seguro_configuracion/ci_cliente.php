@@ -25,7 +25,7 @@ class ci_cliente extends toba_ci
 		//--1- Arma el mensaje	(incluyendo los headers)
 		$this->s__echo = $datos;
 		$opciones = array(
-				'action' => 'eco',
+				'action' => 'test',
 		);
 		$mensaje = new toba_servicio_web_mensaje($this->s__echo, $opciones);
 	

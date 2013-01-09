@@ -140,23 +140,25 @@ XML;
 			$servicio = new toba_servicio_web_cliente($opciones, $parametro['servicio_web']);			
 			$respuesta_ws = $servicio->request(new toba_servicio_web_mensaje($payload, array('action' => 'eco')));
 		} catch (toba_error_servicio_web $s) {													//Capturo errores del servicio web			
-			$respuesta->set('Se produjo un error inesperado en la atención del servicio, comuniquese con el proveedor del mismo.');
+			$respuesta->set('Se produjo un error inesperado en la atención del servicio, comuniquese con el proveedor del mismo. Si es un proyecto toba verifique el log de servicios web de ese proyecto (Ubicado en toba_usuarios > Auditoría > 
+Logs de Servicios Web Ofrecidos) y el log general del sistema');
 			toba::logger_ws()->debug($s->getMessage());
 			return false;
 		} catch (toba_error $e) {																//Capturo cualquier otro error local a la creacion del pedido
 			toba::logger()->debug($e->getMessage());
-			$respuesta->set('Se produjo un error inesperado en la inicializacion del pedido, verifique el log y  la configuración.');
+			$respuesta->set('Se produjo un error inesperado en la inicializacion del pedido. Verifique que la URL sea correcta (abrirla en en el navegador y ver que responda bien)');
 			return false;
 		} 
 
 		//Parseo el XML de la respuesta para obtener el dato y comparo con el random que envie
 		$xml_rta = new SimpleXMLElement($respuesta_ws->get_payload());
-		if ($rnd == $xml_rta->texto) {
-			$respuesta->set('La configuracion es correcta');
+		if ((string) $rnd == (string) $xml_rta->texto) {
+			$respuesta->set('Ok. La configuracion es correcta');
 		} else {
 			toba::logger()->debug("Enviado: $rnd");
 			toba::logger()->debug('Recibido: '. $xml_rta->texto);	
-			$respuesta->set('La configuración no es correcta, o la respuesta no coincide con la esperada. Revise el log');
+			$respuesta->set('La configuración no es correcta, o la respuesta ('.(string) $xml_rta->texto.') no coincide con la esperada '.
+					$rnd.'). Revise el log');
 		}
 	}
 	//-----------------------------------------------------------------------------------

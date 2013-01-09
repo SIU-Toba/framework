@@ -20,6 +20,23 @@ class ci_ws_logs extends toba_ci
 			$this->set_pantalla('pant_detalle');
 		}		
 	}
+	
+	function conf()
+	{
+		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
+		if ($this->s__dir_logs_wsf === false || trim($this->s__dir_logs_wsf) == '') {			//Si no esta activa la extension o no tiene valor la variable
+			$pantalla->evento('ver_log_server')->anular();				//Quito los vinculos
+			$pantalla->evento('ver_log_cliente')->anular();
+		} else {								
+			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_server.log")) {		//Lo mismo si no existe alguno de los archivos
+				$pantalla->evento('ver_log_server')->anular();
+				echo 'hey';
+			}
+			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_client.log")) {
+				$pantalla->evento('ver_log_cliente')->anular();
+			}
+		}		
+	}
 
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -70,20 +87,7 @@ class ci_ws_logs extends toba_ci
 			$datos =	consultas_instancia::get_solicitudes_web_service($this->s__filtro);
 			$cuadro->set_datos($datos);
 		}	
-					
-		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
-		if ($this->s__dir_logs_wsf === false || trim($this->s__dir_logs_wsf) == '') {			//Si no esta activa la extension o no tiene valor la variable
-			$pantalla->evento('ver_log_server')->anular();				//Quito los vinculos
-			$pantalla->evento('ver_log_cliente')->anular();
-		} else {								
-			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_server.log")) {		//Lo mismo si no existe alguno de los archivos
-				$pantalla->evento('ver_log_server')->anular();
-				echo 'hey';
-			}
-			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_client.log")) {
-				$pantalla->evento('ver_log_cliente')->anular();
-			}
-		}		
+
 	}
 
 	function evt__cuadro__seleccion($seleccion)

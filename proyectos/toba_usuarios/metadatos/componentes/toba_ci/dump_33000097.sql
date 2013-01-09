@@ -288,3 +288,15 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 	'33000108', --evento_id
 	'toba_usuarios'  --proyecto
 );
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'33000045', --pantalla
+	'33000097', --objeto_ci
+	'33000111', --evento_id
+	'toba_usuarios'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'33000045', --pantalla
+	'33000097', --objeto_ci
+	'33000112', --evento_id
+	'toba_usuarios'  --proyecto
+);

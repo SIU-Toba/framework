@@ -99,8 +99,7 @@ class admin_instancia
 				FROM 
 					apex_usuario 
 				WHERE 
-						bloqueado = $estado
-					AND	usuario <> 'toba';";
+						bloqueado = $estado";
 		return toba::db()->consultar($sql);
 	}
 	

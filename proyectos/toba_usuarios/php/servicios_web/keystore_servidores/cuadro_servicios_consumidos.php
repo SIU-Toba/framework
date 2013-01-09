@@ -21,7 +21,7 @@ class cuadro_servicios_consumidos extends toba_ei_cuadro
 		
 		{$this->objeto_js}.respuesta_config = function(respuesta)
 		{
-			notificacion.agregar(respuesta,'info');
+			notificacion.agregar(respuesta, respuesta.substr(0, 2) == 'Ok' ? 'info' : 'error');
 			notificacion.mostrar();
 		}
 		";

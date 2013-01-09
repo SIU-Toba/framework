@@ -24,7 +24,7 @@ class serv_sin_seguridad extends toba_servicio_web
 	 * @return string $texto total price
 	 *(maps to the xs:string XML schema type )
 	 */
-	function op__eco(toba_servicio_web_mensaje $mensaje)
+	function op__test(toba_servicio_web_mensaje $mensaje)
 	{
 		$xml = new SimpleXMLElement($mensaje->get_payload());
 		$texto = xml_encode((string) $xml->texto);

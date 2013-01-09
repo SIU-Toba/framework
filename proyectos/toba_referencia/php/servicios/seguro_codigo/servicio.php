@@ -41,7 +41,7 @@ class servicio extends toba_servicio_web
             "policy" 			=> $policy,
             "securityToken"		=> $security,
              'actions' => array(
-					"http://siu.edu.ar/toba_referencia/serv_pruebas/eco" => "eco",
+					"http://siu.edu.ar/toba_referencia/serv_pruebas/test" => "test",
 			),
 		);
 	}
@@ -52,16 +52,16 @@ class servicio extends toba_servicio_web
 	 * @param string $texto texto a repetir
 	 * @return string $texto texto repetido
 	 */
-	function op__eco(toba_servicio_web_mensaje $mensaje)
+	function op__test(toba_servicio_web_mensaje $mensaje)
 	{
 		$xml = new SimpleXMLElement($mensaje->get_payload());
 		$texto = xml_encode(xml_decode($xml->texto));
 		$dependencia = xml_encode($this->get_id_cliente('dependencia'));		
 		$payload = <<<XML
-<ns1:eco xmlns:ns1="http://siu.edu.ar/toba_referencia/pruebas">
+<ns1:test xmlns:ns1="http://siu.edu.ar/toba_referencia/pruebas">
 	<texto>Texto: $texto 
 	Dependencia: $dependencia</texto>
-</ns1:eco>
+</ns1:test>
 XML;
 		return new toba_servicio_web_mensaje($payload);
 	}

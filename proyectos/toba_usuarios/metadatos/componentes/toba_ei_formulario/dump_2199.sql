@@ -51,14 +51,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'971', --evento_id
 	'2199', --objeto
 	'filtrar', --identificador
-	'&Buscar', --etiqueta
+	'Seleccionar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-filtrar', --estilo
 	'apex', --imagen_recurso_origen
 	'filtrar.png', --imagen
-	'0', --en_botonera
+	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep

@@ -61,7 +61,7 @@ class toba_servicio_web_cliente
 		if (isset($opciones['seguro']) && $opciones['seguro'] && ! isset($seguridad)) {
 			throw new toba_error("El servicio web esta configurado para requerir firma, sin embargo no se <a target='_blank' href='http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/ServiciosWeb/Seguridad#configuracion'>configuro correctamente</a> el servicio importando el certificado del servidor.");			
 		}
-		toba::logger_ws()->debug("Invocando servicio $id_servicio. Opciones:<br>". var_export($opciones, true));
+		toba::logger()->debug("Invocando servicio $id_servicio. Opciones:<br>". var_export($opciones, true));
 		$servicio = new toba_servicio_web_cliente($opciones, $id_servicio);
 		return $servicio;
 	}
@@ -90,15 +90,14 @@ class toba_servicio_web_cliente
 	{
 		try {
 			$message = $this->wsf->request($mensaje->wsf());
+			if (! toba::instalacion()->es_produccion()) {
+				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+			}
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
 			self::get_modelo_proyecto();
-			if (! self::$modelo_proyecto->get_instalacion()->es_produccion()) {
-				toba::logger_ws()->debug($this->wsf->getLastRequest());
-				toba::logger_ws()->debug($this->wsf->getLastResponse());
-			}
-			toba::logger_ws()->debug($fault);
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
@@ -111,11 +110,8 @@ class toba_servicio_web_cliente
 			$this->wsf->send($mensaje->wsf());
 		} catch (WSFault $fault) {
 			self::get_modelo_proyecto();
-			if (! self::$modelo_proyecto->get_instalacion()->es_produccion()) {
-				toba::logger_ws()->debug($this->wsf->getLastRequest());
-				toba::logger_ws()->debug($this->wsf->getLastResponse());
-			}
-			toba::logger_ws()->debug($fault);
+			toba::logger()->debug("Request: " .$this->wsf->getLastRequest());
+			toba::logger()->debug("Response: " .$this->wsf->getLastResponse());
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			

@@ -167,6 +167,7 @@ abstract class toba_servicio_web extends toba_componente
 		$fingerprint = sha1($cert_decodificado);
 		
 		//Verifica si existe fingerprint
+		toba::logger_ws()->debug("Fingerprint recibida: $fingerprint");
 		toba::logger()->debug("Fingerprint recibida: $fingerprint");
 		if (! isset(self::$mapeo_firmas[$fingerprint])) {
 			throw new toba_error_servicio_web('El mensaje no es válido o no fue posible procesar su firma correctamente');
@@ -176,6 +177,8 @@ abstract class toba_servicio_web extends toba_componente
 			throw new toba_error_seguridad('Error verificando firma del mensaje, tiene mismo fingerprint pero difiere en el contenido');
 		}
 		$this->id_cliente = self::$mapeo_firmas[$fingerprint]['id'];
+		toba::logger_ws()->debug("ID Cliente: ".print_r($this->id_cliente, true));
+		toba::logger_ws()->set_checkpoint();
 		toba::logger()->debug("ID Cliente: ".print_r($this->id_cliente, true));
 	}
 	
