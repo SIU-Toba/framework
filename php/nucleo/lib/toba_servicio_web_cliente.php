@@ -5,28 +5,30 @@ class toba_servicio_web_cliente
 	protected $wsf;
 	protected $opciones;
 	protected $id_servicio;
+	protected $proyecto;
 	
 	protected static $modelo_proyecto;
-	protected static function get_modelo_proyecto()
+	protected static function get_modelo_proyecto($proyecto_id)
 	{
 		if (! isset(self::$modelo_proyecto)) {
 			$modelo = toba_modelo_catalogo::instanciacion();	
 			$modelo->set_db(toba::db());	
-			$proyecto_id = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 			self::$modelo_proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $proyecto_id);
 		}		
 	}
 	
 	/**
-	 * @return toba_servicios_web
+	 * @return toba_servicio_web_cliente
 	 */
-	static function conectar($id_servicio, $opciones=array())
+	static function conectar($id_servicio, $opciones=array(), $proyecto = null)
 	{
-		$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+		if (! isset($proyecto)) {
+			$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+		}
 		$info = toba::proyecto()->get_info_servicios_web_acc($id_servicio, $proyecto);
 		$opciones_ini = $info['parametros'];
 		
-		self::get_modelo_proyecto();
+		self::get_modelo_proyecto($proyecto);
 		$ini = toba_modelo_servicio_web::get_ini_cliente(self::$modelo_proyecto, $id_servicio);
 		if ($ini->existe_entrada('conexion')) {
 			$opciones_ini = array_merge($opciones_ini, $ini->get_datos_entrada('conexion'));
@@ -66,8 +68,12 @@ class toba_servicio_web_cliente
 		return $servicio;
 	}
 	
-	function __construct($opciones, $id_servicio) 
+	function __construct($opciones, $id_servicio, $proyecto = null) 
 	{
+		if (! isset($proyecto)) {
+			$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+		}
+		$this->proyecto = $proyecto;
 		$this->opciones = $opciones;
 		$this->id_servicio = $id_servicio;
 		$this->wsf = new WSClient($this->opciones);
@@ -97,7 +103,7 @@ class toba_servicio_web_cliente
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
-			self::get_modelo_proyecto();
+			self::get_modelo_proyecto($this->proyecto);
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
@@ -109,9 +115,10 @@ class toba_servicio_web_cliente
 		try {
 			$this->wsf->send($mensaje->wsf());
 		} catch (WSFault $fault) {
-			self::get_modelo_proyecto();
+			self::get_modelo_proyecto($this->proyecto);
 			toba::logger()->debug("Request: " .$this->wsf->getLastRequest());
 			toba::logger()->debug("Response: " .$this->wsf->getLastResponse());
+			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
@@ -127,7 +134,7 @@ class toba_servicio_web_cliente
 	static function get_ws_token($proyecto, $servicio)
 	{
 		$security_token = null;
-		self::get_modelo_proyecto();
+		self::get_modelo_proyecto($proyecto);
 		$ini_conf = toba_modelo_servicio_web::get_ini_cliente(self::$modelo_proyecto, $servicio);
 		$directorio = toba_instancia::get_path_instalacion_proyecto($proyecto). "/servicios_cli/$servicio";		//Directorio perteneciente al servicio
 

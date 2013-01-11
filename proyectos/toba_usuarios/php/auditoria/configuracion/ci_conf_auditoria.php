@@ -73,7 +73,7 @@ class ci_conf_auditoria extends toba_ci
 			$evt->set_etiqueta("Actualizar Schema");
 			$evt->set_msg_ayuda("Migra el schema de auditoria tomando campos nuevos o modificados");
 		} else {
-			$evt->set_etiqueta("Crear Schema Auditoría");
+			$evt->set_etiqueta("Activar Auditoría");
 			$evt->set_msg_ayuda("Crea un schema paralelo con la misma estructura que el schema de datos original, conteniendo todas las modificaciones a los datos del mismo");
 		}
     }
@@ -89,8 +89,9 @@ class ci_conf_auditoria extends toba_ci
 
 	function evt__cuadro__crear_auditoria($seleccion)
 	{		
+		$proyecto = $this->s__seleccionado['proyecto'];
 		$this->s__seleccionado = $seleccion; 
-		$manejador = $this->get_manejador($this->s__seleccionado['proyecto']);
+		$manejador = $this->get_manejador();
 		$manejador->agregar_tablas();				
 		if (! $manejador->existe()) {
 			$manejador->crear();
@@ -98,6 +99,14 @@ class ci_conf_auditoria extends toba_ci
 		} else {
 			$manejador->migrar();
 			$this->agregar_notificacion("Schema actualizado");
+		}
+		
+		//Actualizo el flag en apex_fuente_tatos
+		$id = toba_info_editores::get_fuente_datos_defecto($proyecto);
+		$info = toba::proyecto($proyecto)->get_info_fuente_datos($id, $proyecto);
+		$tiene_metadato = ($info['tiene_auditoria'] == 1);		
+		if ( ! $tiene_metadato) {
+			
 		}
 		unset($this->s__seleccionado);
 	}

@@ -59,7 +59,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'0', --en_botonera
-	'Ejecuta una generica operacion ''eco'', que forma parte de la clase base de todos los servicios web', --ayuda
+	'Ejecuta operacion generica llamada eco, que forma parte de la clase base de todos los servicios web', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	NULL, --implicito

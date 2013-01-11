@@ -132,12 +132,8 @@ class ci_servicios_consumidos extends toba_ci
 XML;
 		//---------------------------------------------------------------------//			
 		try {			
-			//Obtengo las opciones de configuracion manualmente, porque se encuentra en otro proyecto
-			$ini = toba_modelo_servicio_web::get_ini_cliente($this->get_modelo_proyecto(), $parametro['servicio_web']);
-			$opciones =  $ini->get_datos_entrada('conexion');			
-
 			//Lo armo asi porque esta configurado en otro proyecto entonces no puedo usar toba::servicio_web
-			$servicio = new toba_servicio_web_cliente($opciones, $parametro['servicio_web']);			
+			$servicio = toba_servicio_web_cliente::conectar($parametro['servicio_web'], array(), $this->s__filtro['proyecto']);
 			$respuesta_ws = $servicio->request(new toba_servicio_web_mensaje($payload, array('action' => 'eco')));
 		} catch (toba_error_servicio_web $s) {													//Capturo errores del servicio web			
 			$respuesta->set('Se produjo un error inesperado en la atención del servicio, comuniquese con el proveedor del mismo. Si es un proyecto toba verifique el log de servicios web de ese proyecto (Ubicado en toba_usuarios > Auditoría > 

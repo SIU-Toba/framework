@@ -125,7 +125,7 @@ class toba_nucleo
 			$this->iniciar_contexto_solicitud($item);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if (!toba::instalacion()->es_produccion()) {
-					if ($xml = file_get_contents('php://input')) {
+				if ($xml = file_get_contents('php://input')) {
 					toba::logger_ws()->debug("XML Input: $xml");
 					toba::logger_ws()->set_checkpoint();
 				}
