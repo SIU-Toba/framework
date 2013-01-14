@@ -219,7 +219,7 @@ XML;
 		try {
 			$respuesta = $servicio->request($mensaje);
 		} catch (toba_error_servicio_web $e) {
-			toba::notificacion()->info($e->get_mensaje().' (codigo "'.$e->get_codigo().'")');
+			toba::notificacion()->info($e->get_mensaje().' (codigo: "'.$e->get_codigo().'")');
 		}
 	}
 		

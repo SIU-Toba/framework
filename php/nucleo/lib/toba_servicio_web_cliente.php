@@ -110,8 +110,10 @@ class toba_servicio_web_cliente
 
 			}			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
+			$code = (isset($fault->Code)) ? $fault->Code: '';	
+
 			self::get_modelo_proyecto($this->proyecto);
-			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
+			throw new toba_error_servicio_web($fault->Reason, $detalle, $code);
 		} catch (Exception $e) {
 			if (! toba::instalacion()->es_produccion()) {
 				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));

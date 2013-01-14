@@ -133,7 +133,7 @@ abstract class toba_servicio_web extends toba_componente
 		}
 		//Elimina el guion bajo inicial y llama al metodo op__X
 		toba::logger_ws()->debug("Metodo invocado: $nombre");		
-		toba::logger_ws()->debug('Argumentos enviados');
+		toba::logger_ws()->debug('Argumentos recibidos');
 		toba::logger_ws()->var_dump($argumentos);
 		toba::logger_ws()->set_checkpoint();
 		if (substr($nombre, 0, 1) != '_') {
@@ -149,8 +149,11 @@ abstract class toba_servicio_web extends toba_componente
 			}
 			$mensaje_salida = $this->$metodo($this->mensaje_entrada);
 			if (isset($mensaje_salida)) {
-				return $mensaje_salida->wsf();
+				$mensaje = $mensaje_salida->wsf();
+				return $mensaje;
 			} else {
+				toba::logger_ws()->debug("Respuesta de retorno vacía");
+				toba::logger_ws()->set_checkpoint();				
 				return;
 			}
 		} catch (toba_error_servicio_web $e) {
