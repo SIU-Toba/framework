@@ -107,7 +107,8 @@ function abrir_toba_instancia(){
 	$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa(), new toba_mock_proceso_gui);
 	$proyectos = array();
 	foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
-		$proyectos[$proy] = $proy;
+		$extra = toba_personalizacion::get_personalizacion_iniciada($proy) ? " (personalizado) " : "";
+		$proyectos[$proy] = $proy.$extra;
 	}
 	$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
 	echo toba_form::select('admin_proyecto', $actual, $proyectos, 'ef-combo', $js_cambio);

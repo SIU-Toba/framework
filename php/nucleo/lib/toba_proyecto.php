@@ -16,6 +16,7 @@ class toba_proyecto
 	private $items_excluidos = array();
 	private $mapeo_componentes = array();
 	private $ini_proyecto;
+	private $personalizacion_iniciada;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	/**
@@ -189,13 +190,10 @@ class toba_proyecto
 	
 	function personalizacion_activa()
 	{
-		$ini_path = $this->get_path_pers().'/personalizacion.ini';
-		if (is_file($ini_path)) {
-			$ini = new toba_ini($ini_path);
-			return $ini->get_datos_entrada('iniciada') == 'si';
-		} else {
-			return false;
+		if (! isset($this->personalizacion_iniciada)) {
+			$this->personalizacion_iniciada = toba_personalizacion::get_personalizacion_iniciada(self::get_id());
 		}
+		return $this->personalizacion_iniciada;
 	}
 
 	function get_clases_extendidas()

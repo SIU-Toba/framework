@@ -69,6 +69,19 @@ class toba_personalizacion {
 		return self::$registro_conflictos;
 	}
 	
+	
+	static function get_personalizacion_iniciada($proyecto) 
+	{
+		$path_proyecto = toba::instancia()->get_path_proyecto($proyecto);
+		$path_pers = $path_proyecto.'/'.toba_personalizacion::dir_personalizacion;
+		$ini_path = $path_pers.'/personalizacion.ini';
+		if (is_file($ini_path)) {
+			$ini = new toba_ini($ini_path);
+			return $ini->get_datos_entrada('iniciada') == 'si';
+		} else {
+			return false;
+		}
+	}
 
 	function  __construct(toba_modelo_proyecto $proyecto, $consola = null)
 	{
