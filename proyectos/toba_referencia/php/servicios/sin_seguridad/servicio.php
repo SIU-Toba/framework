@@ -149,7 +149,7 @@ XML;
 	function op__enviar_excepcion(toba_servicio_web_mensaje $mensaje)
 	{
 		$datos = $mensaje->get_array();
-		throw new toba_error_servicio_web($datos['mensaje'], $datos['codigo']);
+		throw new toba_error_servicio_web($datos['mensaje'], $datos['codigo'], "Excepcion de prueba enviada");
 	}
 
 }

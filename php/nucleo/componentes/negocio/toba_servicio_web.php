@@ -147,7 +147,6 @@ abstract class toba_servicio_web extends toba_componente
 			if ($this->servicio_con_firma()) {
 				$this->validar_certificado_cliente();
 			}
-				
 			$mensaje_salida = $this->$metodo($this->mensaje_entrada);
 			if (isset($mensaje_salida)) {
 				return $mensaje_salida->wsf();
@@ -155,7 +154,10 @@ abstract class toba_servicio_web extends toba_componente
 				return;
 			}
 		} catch (toba_error_servicio_web $e) {
-			toba::logger()->error($e->get_mensaje(). $e->get_mensaje_log());
+			toba::logger_ws()->error("Excepción lanzada: ".$e->get_mensaje(). ". Más detalles: " . $e->get_mensaje_log());
+			toba::logger_ws()->set_checkpoint();			
+			toba::logger()->error("Excepción lanzada: ".$e->get_mensaje(). ". Más detalles: " . $e->get_mensaje_log());
+			toba::solicitud()->registrar();
 			throw new WSFault("Sender", utf8_e_seguro($e->get_mensaje()), null, $e->get_codigo());
 		}
 	}

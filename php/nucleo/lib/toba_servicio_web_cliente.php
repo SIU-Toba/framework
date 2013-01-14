@@ -99,13 +99,25 @@ class toba_servicio_web_cliente
 			if (! toba::instalacion()->es_produccion()) {
 				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
 				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
 			}
 			return new toba_servicio_web_mensaje($message);
-		} catch (WSFault $fault) {			
+		} catch (WSFault $fault) {	
+			if (! toba::instalacion()->es_produccion()) {
+				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
+
+			}			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
 			self::get_modelo_proyecto($this->proyecto);
 			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
 		} catch (Exception $e) {
+			if (! toba::instalacion()->es_produccion()) {
+				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
+			}			
 			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());			
 		}
 	}
