@@ -1368,7 +1368,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//------------------------------------------------------------------------
 	//--------------------------  Manejo de Versiones ------------------------
 	//------------------------------------------------------------------------
-
 	function migrar_version($version, $recursivo, $con_transaccion=true)
 	{
 		if ($version->es_mayor($this->get_version_actual()) || $this->get_version_actual()->es_igual(new toba_version("trunk"))) {
@@ -1396,6 +1395,26 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			if ($con_transaccion) $this->get_db()->cerrar_transaccion();
 		} else {
 			toba_logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());
+		}
+	}
+
+	function ejecutar_ventana_migracion_version($con_transaccion=true)
+	{
+		toba_logger::instancia()->debug('Ejecutando ventana de migracion de instancia');
+		$path_migracion_instancia = toba_dir(). '/php/modelo/migraciones_instancia';	//Armo la ubicacion en donde se hallan los pasos de migracion de la instancia
+		
+		$version_actual = new toba_version($this->get_version_actual());		//Recupero la version de la instancia existente
+		$actual_codigo  = new toba_version(toba_modelo_instalacion::get_version_actual());			//Recupero la version actual del codigo instalado
+	
+		$version_actual->set_path_migraciones($path_migracion_instancia);				//Cambio el path a las migraciones por defecto
+		$versiones = $version_actual->get_secuencia_migraciones($actual_codigo, $path_migracion_instancia);
+		//Calculo cuales son los pasos a dar
+		if (empty($versiones)) {
+			return;
+		}
+		foreach(array_keys($versiones) as $version) {
+			$versiones[$version]->set_path_migraciones($path_migracion_instancia);				//Hago la migracion para cada version intermedia
+			$this->migrar_version($versiones[$version], false, $con_transaccion);
 		}
 	}
 	

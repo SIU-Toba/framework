@@ -236,7 +236,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_db($refrescar = false)
 	{
 		if (! isset($this->db) || $refrescar) {
-			$this->db = $this->instancia->get_db();	
+			$this->db = $this->instancia->get_db($refrescar);	
 		}
 		return $this->db;
 	}
@@ -2897,7 +2897,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				AND solicitud_tipo = 'servicio_web'
 			ORDER BY item;
 		";
-		return  $this->get_db()->consultar($sql);
+		return  $this->get_db(true)->consultar($sql);
 	}
 	
 	function desactivar_servicios_web()

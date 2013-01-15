@@ -1050,11 +1050,13 @@ class toba_db
 	 */
 	protected function pegar_estampilla_log($sql)
 	{
-		$sol = toba::solicitud();
-		if (! is_null($sol)) {
-			$id = $sol->get_id();
-			$sql .= " -- toba_log: $id ";			//El espacio es para que sea compatible con Mysql
-		}
+		if (method_exists(new toba(), 'solicitud')) {
+			$sol = toba::solicitud();
+			if (! is_null($sol)) {
+				$id = $sol->get_id();
+				$sql .= " -- toba_log: $id ";			//El espacio es para que sea compatible con Mysql
+			}
+		}		
 		return $sql;
 	}	
 	//-----------------------------------------------------------------------------------
