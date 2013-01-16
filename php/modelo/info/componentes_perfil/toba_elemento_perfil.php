@@ -53,7 +53,7 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 		$this->acceso_actual = $this->acceso_original;
 		if (!$this->es_carpeta()) {
 			$this->img_acceso = toba_recurso::imagen_toba('aplicar.png', false);
-			$this->img_sin_acceso = toba_recurso::imagen_toba('borrar.gif', false);
+			$this->img_sin_acceso = toba_recurso::imagen_toba('prohibido.png', false);
 		}
 	}
 

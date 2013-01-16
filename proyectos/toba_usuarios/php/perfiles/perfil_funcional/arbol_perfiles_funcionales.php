@@ -57,7 +57,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		$id_js = $this->objeto_js;
 		$id_gral = $this->_submit;
 		$img_acceso = toba_recurso::imagen_toba('aplicar.png', false);
-		$img_sin_acceso = toba_recurso::imagen_toba('borrar.gif', false);
+		$img_sin_acceso = toba_recurso::imagen_toba('prohibido.png', false);
 
 		//Busco el estado de cada uno de los hijos involucrados en el pedido de pagina
 		$estado = array('activos' => array(), 'inactivos' => array());				
