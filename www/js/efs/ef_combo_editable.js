@@ -250,10 +250,24 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	};	
 	
 	/**
-	 * Cambia las opciones del combo
+	 * Cambia las opciones del combo. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
 	 */	
 	ef_combo_editable.prototype.set_opciones = function(valores, desplegar) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs, desplegar);
+	};
+	
+	/**
+	 * Cambia las opciones del combo y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */		
+	ef_combo_editable.prototype.set_opciones_rs = function(valores, desplegar) {
 		if (typeof desplegar == 'undefined') {
 			desplegar = true;
 		}
@@ -265,10 +279,12 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		//Creo los OPTIONS recuperados
 		var datos = [];
 		this._ultimas_opciones_server = [];
-		for (i in valores) {			
-			if (i != 'nopar') {
-				datos.push([i, valores[i]]);
-				this._ultimas_opciones_server.push(i);			
+		for (var i = 0; i < valores.length; i++) {
+			var clave = valores[i][0];
+			var valor = valores[i][1];
+			if (clave != 'nopar') {
+				datos.push([clave, valor]);
+				this._ultimas_opciones_server.push(clave);			
 			}
 		}
 		combo.addOption(datos);

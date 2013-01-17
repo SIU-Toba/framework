@@ -109,16 +109,31 @@ ef_multi_seleccion_lista.constructor = ef_multi_seleccion_lista;
 		this.input().length = 0;
 	};
 	
+	
 	/**
-	 * Cambia las opciones disponibles para seleccionar
+	 * Cambia las opciones disponibles para seleccionar. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
-	 */		
+	 */	
 	ef_multi_seleccion_lista.prototype.set_opciones = function(valores) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs);
+	};
+	
+	/**
+	 * Cambia las opciones disponibles y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */			
+	ef_multi_seleccion_lista.prototype.set_opciones_rs = function(valores) {
 		this.borrar_opciones();
 		var input = this.input();
 		var hay_datos = false;
-		for (id in valores){
-			input.options[input.options.length] = new Option(valores[id], id);
+		for (var i = 0; i < valores.length; i++){
+			input.options[input.options.length] = new Option(valores[i][1], valores[i][0]);
 			hay_datos=true;
 		}
 		if (hay_datos) {
@@ -214,25 +229,39 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 	};
 	
 	/**
-	 * Cambia las opciones disponibles para seleccionar
+	 * Cambia las opciones disponibles para seleccionar. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
-	 */		
+	 */	
 	ef_multi_seleccion_check.prototype.set_opciones = function(valores) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs);
+	};
+
+	
+	/**
+	 * Cambia las opciones disponibles y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */			
+	ef_multi_seleccion_check.prototype.set_opciones_rs = function(valores) {
 		this.borrar_opciones();
 		var opciones = document.getElementById(this._id_form + '_opciones');		
 		var nuevo = "<table>";
-		var i = 0;
 		var hay_datos = false;
-		for (clave in valores) {
+		for (var i = 0; i < valores.length; i++){
+			var clave = valores[i][0];
     		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
     		}			
 			var id = this._id_form + i;
 			nuevo += "<td><label class='ef-multi-check' for='" + id + "'>";
 			nuevo += "<input name='" + this._id_form + "[]' type='checkbox' value='" + clave + "' id='" + id +"' class='ef-checkbox'/>";
-			nuevo += valores[clave] + "</label></td>\n"; 
-			i++;
-    		if (i % this._cant_columnas === 0) {
+			nuevo += valores[i][1] + "</label></td>\n"; 
+    		if (i+1 % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
     		}
     		hay_datos = true;
@@ -408,23 +437,37 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	};
 	
 	/**
-	 * Cambia las opciones disponibles para seleccionar
+	 * Cambia las opciones disponibles para seleccionar. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
-	 */			
+	 */	
 	ef_multi_seleccion_doble.prototype.set_opciones = function(valores) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs);
+	};
+
+	/**
+	 * Cambia las opciones disponibles y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */					
+	ef_multi_seleccion_doble.prototype.set_opciones_rs = function(valores) {
 		this.borrar_opciones();
 		var input = this.input('izq');
 		var hay_datos=false;
-		for (id in valores){
-			input.options[input.options.length] = new Option(valores[id], id);
+		for (var i = 0; i < valores.length; i++){	
+			input.options[input.options.length] = new Option(valores[i][1], valores[i][0]);
 			//--- Esto es para poder insertar caracteres especiales dentro del Option
-			input.options[input.options.length - 1].innerHTML = valores[id];			
+			input.options[input.options.length - 1].innerHTML = valores[i][1];			
 			hay_datos=true;
 		}
 		if (hay_datos) {
 			this.activar();
 		}
-	};
+	};	
 	
 	ef_multi_seleccion_doble.prototype.set_solo_lectura = function(solo_lectura) {
 		if (typeof solo_lectura == 'undefined') {

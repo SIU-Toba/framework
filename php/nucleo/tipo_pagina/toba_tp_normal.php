@@ -57,7 +57,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			$this->info_usuario();
 		}
 		
-		if ( toba::proyecto()->get_parametro('proyecto', 'mostrar_resize_fuente') ) {
+		if ( toba::proyecto()->get_parametro('proyecto', 'mostrar_resize_fuente', false) ) {
 			$this->mostrar_resize_fuente();
 		}
 

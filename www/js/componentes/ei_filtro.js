@@ -339,33 +339,36 @@
 			var error = 'Error en la respuesta de la cascada, para más información consulte el log';
 			notificacion.limpiar();
 			notificacion.agregar(error);
-			notificacion.mostrar();
+			notificacion.mostrar();			
 		} else {
 			try {
-				var aux = eval('(' + respuesta.responseText + ')');
-				if ('Array' == getObjectClass(aux)) {
-					var datos = [];
-					for (var ind = 0; ind < aux.length ; ind++) {
-						datos[aux[ind][0]] = aux[ind][1];
+				var datos_rs = eval('(' + respuesta.responseText + ')');
+				var datos_asociativo;
+				if ('Array' == getObjectClass(datos_rs)) {
+					datos_asociativo = [];
+					for (var ind = 0; ind < datos_rs.length ; ind++) {
+						datos_asociativo[datos_rs[ind][0]] = datos_rs[ind][1];
 					}
+					//Se le pasa el formato RS para que no se rompa el ordenamiento, para el resto se usa el asociativo por BC
+					this.ef(respuesta.argument).set_opciones_rs(datos_rs);
 				} else {
-					var datos = aux;
+					datos_asociativo = datos_rs;
+					this.ef(respuesta.argument).set_opciones(datos_asociativo);
 				}
-				this.ef(respuesta.argument).set_opciones(datos);
 				if(this.ef(respuesta.argument).mantiene_valor_cascada() && isset(this._tmp_valores_esclavos[respuesta.argument])) {
 					var valor_viejo = this._tmp_valores_esclavos[respuesta.argument];
-					if (isset(datos[valor_viejo])) {
+					if (isset(datos_asociativo[valor_viejo])) {
 						this.ef(respuesta.argument).set_estado(valor_viejo);
 					}
 				}
-				this.evt__cascadas_fin(this.ef(respuesta.argument), datos);
+				this.evt__cascadas_fin(this.ef(respuesta.argument), datos_asociativo);
 			} catch (e) {
 				var componente = "<textarea id='displayMore' class='ef-input-solo-lectura' cols='30' rows='35' readonly='true' style='display:none;'>" + respuesta.responseText + '</textarea>';
-				var error = 'Error en la respueta.<br>'   + 'Error JS:<br>' + e  + '<br>Mensaje Server:<br>' + 
+				var error = 'Error en la respueta.<br>' +  'Error JS:<br>' + e + '<br>Mensaje Server:<br>'   +
 						"<a href='#' onclick='toggle_nodo(document.getElementById(\"displayMore\"));'>Mas</a><br>" + componente;
 				notificacion.limpiar();
 				notificacion.agregar(error);
-				notificacion.mostrar();
+				notificacion.mostrar();				
 			}
 		}
 	};

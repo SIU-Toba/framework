@@ -354,16 +354,13 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				var aux = eval('(' + respuesta.responseText + ')');
-				if ('Array' == getObjectClass(aux)) {
-					var datos = [];
-					for (var ind = 0; ind < aux.length ; ind++) {
-						datos[aux[ind][0]] = aux[ind][1];
-					}
+				
+				var datos = eval('(' + respuesta.responseText + ')');
+				if ('Array' == getObjectClass(datos)) {
+					this.ef(respuesta.argument).set_opciones_rs(datos);
 				} else {
-					var datos = aux;
+					this.ef(respuesta.argument).set_opciones(datos);					
 				}
-				this.ef(respuesta.argument).set_opciones(datos);
 				//this.evt__filtrado_ef_ce_fin(this.ef(respuesta.argument), datos);
 			} catch (e) {
 				var componente = "<textarea id='displayMore' class='ef-input-solo-lectura' cols='30' rows='35' readonly='true' style='display:none;'>" + respuesta.responseText + '</textarea>';
@@ -415,16 +412,12 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				var aux = eval('(' + respuesta.responseText + ')');
-				if ('Array' == getObjectClass(aux)) {
-					var datos = [];
-					for (var ind = 0; ind < aux.length ; ind++) {
-						datos[aux[ind][0]] = aux[ind][1];
-					}
+				var datos = eval('(' + respuesta.responseText + ')');
+				if ('Array' == getObjectClass(datos)) {
+					this.ef(respuesta.argument).set_opciones_rs(datos, false);					
 				} else {
-					var datos = aux;
+					this.ef(respuesta.argument).set_opciones(datos,false);					
 				}
-				this.ef(respuesta.argument).set_opciones(datos,false);
 				this.ef(respuesta.argument)._get_combo().selectOption(0,true,true);
 			} catch (e) {
 				var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;

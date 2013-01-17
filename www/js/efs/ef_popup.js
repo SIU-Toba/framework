@@ -111,6 +111,13 @@ ef_popup.prototype.constructor = ef_popup;
 		this.activar();
 	};
 	
+	/**
+	 * Cambia las opciones disponibles de selección 
+	 */
+	ef_popup.prototype.set_opciones_rs = function(opciones) {
+		this.set_opciones(opciones);
+	};	
+	
 		
 	/**
 	 * Cambia el estado actual del elemento

@@ -99,10 +99,24 @@ ef_combo.prototype.constructor = ef_combo;
 	};	
 	
 	/**
-	 * Cambia las opciones del combo
+	 * Cambia las opciones del combo. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
 	 */	
 	ef_combo.prototype.set_opciones = function(valores) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs);
+	};
+	
+	/**
+	 * Cambia las opciones del combo y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */		
+	ef_combo.prototype.set_opciones_rs = function(valores) {
 		this.borrar_opciones();
 
 		var input = this.input();
@@ -111,13 +125,15 @@ ef_combo.prototype.constructor = ef_combo;
 		}
 		//Creo los OPTIONS recuperados
 		var hay_datos = false;
-		for (id in valores){
+		for (var i = 0; i < valores.length; i++) {
+			var id = valores[i][0];
+			var valor = valores[i][1];
 			if (id !=  apex_ef_no_seteado) {
 				hay_datos = true;
 			}
-			input.options[input.options.length] = new Option(valores[id], id);
+			input.options[input.options.length] = new Option(valor, id);
 			//--- Esto es para poder insertar caracteres especiales dentro del Option
-			input.options[input.options.length - 1].innerHTML = valores[id];
+			input.options[input.options.length - 1].innerHTML = valor;
 		}
 		if (hay_datos) {
 			this.set_solo_lectura(false);
@@ -237,29 +253,39 @@ ef_radio.prototype.constructor = ef_radio;
 		}
 	};
 	
+	
 	/**
-	 * Cambia las opciones del radio-button
+	 * Cambia las opciones del radio-button. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento
 	 * @param valores Objeto asociativo id=>valor
-	 */		
+	 */	
 	ef_radio.prototype.set_opciones = function(valores) {
+		var rs = []
+		var i = 0;
+		for (id in valores){
+			rs[i] = [id, valores[id]];
+			i++;
+		}
+		this.set_opciones_rs(rs);
+	};
+	
+	/**
+	 * Cambia las opciones del combo y las inserta de forma ordenada
+	 * @param valores Array Arreglo de Arreglo con 1er componente clave y 2da valor
+	 */			
+	ef_radio.prototype.set_opciones_rs = function(rs) {
 		this.borrar_opciones();
 		var opciones = this.get_contenedor_opciones();
 		var nuevo = "<table>";
-		var i=0;
-		if (valores[apex_ef_no_seteado]) {
-			nuevo += this._crear_label(this._id_form, apex_ef_no_seteado, valores[apex_ef_no_seteado], i);
-			delete(valores[apex_ef_no_seteado]);
-			i++;
-		}
 		//--- Tiene que reconstruir la tabla
 		var hay_datos=false;
-		for (id in valores) {
+		for (var i = 0; i < rs.length; i++) {
+			var id = rs[i][0];
+			var valor = rs[i][1];
     		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
     		}			
-			nuevo += this._crear_label(this._id_form, id, valores[id], i);
-			i++;
-    		if (i % this._cant_columnas === 0) {
+			nuevo += this._crear_label(this._id_form, id, valor, i);
+    		if (i+1 % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
     		}
     		hay_datos=true;
