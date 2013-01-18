@@ -42,7 +42,7 @@ class ci_consultas_php extends toba_ci
 
 	protected function crear_archivo($archivo, $clase)
 	{
-		$php = '<php?' . salto_linea();
+		$php = '<?php' . salto_linea();
 		$php .= salto_linea();
 		$php .= "class $clase" . salto_linea();
 		$php .= '{' .salto_linea();
