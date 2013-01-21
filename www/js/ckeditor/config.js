@@ -28,4 +28,9 @@ CKEDITOR.editorConfig = function( config )
 		'/',
 		{name: 'tools', items: ['Source', 'Templates', 'Maximize']}
 	] ;
+	
+	config.sharedSpaces =
+	{
+		top : 'toolbar_Toba'
+	}
 };

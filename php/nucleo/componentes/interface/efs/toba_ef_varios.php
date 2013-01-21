@@ -260,6 +260,7 @@ class toba_ef_html extends toba_ef
 	protected $templates_ck;
 	protected $fckeditor;
 	protected $colapsada = false;
+	protected $js_config;
 
 	static function get_lista_parametros()
 	{
@@ -277,12 +278,12 @@ class toba_ef_html extends toba_ef
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}
 
-	function get_consumo_javascript()
+	/*function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = "ckeditor/ckeditor";
 		return $consumo;
-	}
+	}*/
 	
 	/**
 	 * Retorna el objeto fckeditor para poder modificarlo según su propia API
@@ -291,22 +292,29 @@ class toba_ef_html extends toba_ef
 	 */
 	function get_editor($valor)
 	{
-		$opciones = array();
 		if (! isset($this->fckeditor)) {
 			require_once(toba_dir().'/www/js/ckeditor/ckeditor_php5.php');
 			$url = toba_recurso::url_toba().'/js/ckeditor/';
 			$this->fckeditor = new CKeditor($url) ;
-			$opciones['width'] = $this->ancho;
-			$opciones['height'] = $this->alto;
-			$opciones['toolbar'] = $this->botonera;
-			$opciones['skin'] = 'kama';
-			if (isset($this->templates_ck)) {
-				$opciones['templates_files'] = $this->templates_ck;
-			}
+		}
+		
+		$opciones = array();		
+		$opciones['width'] = $this->ancho;
+		$opciones['height'] = $this->alto;
+		$opciones['toolbar'] = $this->botonera;
+		$opciones['skin'] = 'kama';
+		if (isset($this->templates_ck)) {
+			$opciones['templates_files'] = $this->templates_ck;
+
 		} 
-		return $this->fckeditor->editor($this->id_form, $valor, $opciones);
+		
+		$this->fckeditor->returnOutput = true;							//Reinicializo variable para que no haga el echo del html
+		$editor =  $this->fckeditor->editor($this->id_form, $valor, $opciones, array(), false);
+		$this->js_config = $this->fckeditor->encoded_config($opciones,array());	
+
+		return $editor;
 	}
-	
+		
 	function set_barra_colapsada($colapsada)
 	{
 		$this->colapsada = $colapsada;
@@ -342,10 +350,20 @@ class toba_ef_html extends toba_ef
 		if ($this->es_solo_lectura()) {
 			$html = "<div class='ef-html' style='width: {$this->ancho}'>$estado</div>";
 		} else {
-			$html = $this->get_editor($estado);
+			$html = $this->get_editor($estado);			
 		}
 		return $html;
 	}
+	
+	protected function parametros_js()
+	{
+		$params = parent::parametros_js();
+		if (isset($this->js_config)) {
+			$params .= ', ' . $this->js_config;
+		}
+		return $params;
+	}
+	
 	
 	function crear_objeto_js()
 	{

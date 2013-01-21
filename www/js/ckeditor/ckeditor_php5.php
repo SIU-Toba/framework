@@ -107,6 +107,7 @@ class CKEditor
 	 * @param $value (string) Initial value (optional).
 	 * @param $config (array) The specific configurations to apply to this editor instance (optional).
 	 * @param $events (array) Event listeners for this editor instance (optional).
+	 * @param $include_js(boolean) Should it create the  JS instance invocation
 	 *
 	 * Example usage:
 	 * @code
@@ -125,30 +126,24 @@ class CKEditor
 	 * $events['instanceReady'] = 'function (ev) {
 	 *     alert("Loaded: " + ev.editor.name);
 	 * }';
-	 * $CKEditor->editor("field1", "<p>Initial value.</p>", $config, $events);
+	 * $CKEditor->editor("field1", "<p>Initial value.</p>", $config, $events, true);
 	 * @endcode
 	 */
-	public function editor($name, $value = "", $config = array(), $events = array())
+	public function editor($name, $value = "", $config = array(), $events = array(), $include_js=true)
 	{
 		$attr = "";
 		foreach ($this->textareaAttributes as $key => $val) {
 			$attr.= " " . $key . '="' . str_replace('"', '&quot;', $val) . '"';
 		}
-		$out = "<textarea name=\"" . $name . "\"" . $attr . ">" . htmlspecialchars($value) . "</textarea>\n";
+		$out = "<textarea name=\"" . $name . "\" id=\"".$name. "\" " . $attr . ">" . htmlspecialchars($value) . "</textarea>\n";
 		if (!$this->initialized) {
 			$out .= $this->init();
 		}
 
-		$_config = $this->configSettings($config, $events);
-
-		$js = $this->returnGlobalEvents();
-		if (!empty($_config))
-			$js .= "CKEDITOR.replace('".$name."', ".$this->jsEncode($_config).");";
-		else
-			$js .= "CKEDITOR.replace('".$name."');";
-
-		$out .= $this->script($js);
-
+		if ($include_js) {
+			$out .= $this->script_generator($name, $config, $events, false);
+		}
+		
 		if (!$this->returnOutput) {
 			print $out;
 			$out = "";
@@ -156,7 +151,51 @@ class CKEditor
 
 		return $out;
 	}
+	
+	/**
+	 *  Creates a new CKEditor instance on JS
+	 * @param $name (string) Name of the %CKEditor instance (this will be also the "name" attribute of textarea element).
+	 * @param $config (array) The specific configurations to apply to this editor instance
+	 * @param $events (array) Event listeners for this editor instance
+	 * @param $strip_tags (boolean) Code is not placed between <script> tags
+	 * @return string
+	 */
+	public function script_generator($name, $config, $events, $strip_tags=true)
+	{
+		$_config = $this->encoded_config($config, $events);
+		$js = $this->returnGlobalEvents();
+		if (! is_null($_config))
+			$js .= "CKEDITOR.replace('".$name."', ".$_config.");";
+		else
+			$js .= "CKEDITOR.replace('".$name."');";
 
+		$out = $js;
+		if (! $strip_tags) {
+			$out = $this->script($js);		
+		}
+		if (!$this->returnOutput) {
+			print $out;
+			$out = "";
+		}		
+		return $out;		
+	}
+	
+	/**
+	 *  Returns a string representing a JS object with CKEditor configuration parameters
+	 * @param $config (array) The specific configurations to apply to this editor instance
+	 * @param $events (array) Event listeners for this editor instance
+	 * @return string Returns a string representing an JS object
+	 */
+	public function encoded_config($config, $events)
+	{
+		$_config = $this->configSettings($config, $events);	
+		if (! empty($_config)) {
+			return $this->jsEncode($_config);
+		} else {
+			return '{}';
+		}
+	}
+	
 	/**
 	 * Replaces a &lt;textarea&gt; with a %CKEditor instance.
 	 *
@@ -170,24 +209,16 @@ class CKEditor
 	 * $CKEditor->replace("article");
 	 * @endcode
 	 */
-	public function replace($id, $config = array(), $events = array())
+	public function replace($id, $config = array(), $events = array(), $include_js=true)
 	{
 		$out = "";
 		if (!$this->initialized) {
 			$out .= $this->init();
 		}
-
-		$_config = $this->configSettings($config, $events);
-
-		$js = $this->returnGlobalEvents();
-		if (!empty($_config)) {
-			$js .= "CKEDITOR.replace('".$id."', ".$this->jsEncode($_config).");";
+		if ($include_js) {
+			$out .= $this->script_generator($id, $config, $events, false);
 		}
-		else {
-			$js .= "CKEDITOR.replace('".$id."');";
-		}
-		$out .= $this->script($js);
-
+		
 		if (!$this->returnOutput) {
 			print $out;
 			$out = "";

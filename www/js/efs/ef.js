@@ -34,7 +34,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 	this._cascadas_ajax = true;		//El esquema de cascadas es el normal?
 }
 
-ef.prototype.constructor = ef;
+	ef.prototype.constructor = ef;
 
 	ef.prototype._bind = function(func) {
 	    var self = this;
@@ -536,7 +536,8 @@ ef_html.prototype.constructor = ef_html;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_html toba_ef_html
 	 */
-	function ef_html(id_form, etiqueta, obligatorio, colapsado) {
+	function ef_html(id_form, etiqueta, obligatorio, colapsado, parametros) {		
+		this._parametros = parametros;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
@@ -547,7 +548,17 @@ ef_html.prototype.constructor = ef_html;
 			return null;
 		}
 	}
-	
+
+	ef_html.prototype.iniciar = function(id, contenedor) {
+		ef.prototype.iniciar.call(this, id, contenedor);
+		if (this._parametros !== undefined) {
+			CKEDITOR.replace(this._id_form, this._parametros);
+		} else {
+			CKEDITOR.replace(this._id_form);
+		}
+	}
+
+
 	ef_html.prototype.get_estado = function() {
 		var editor = this.get_editor();
 		if (editor) {
@@ -559,7 +570,7 @@ ef_html.prototype.constructor = ef_html;
 			}		
 		}
 	};
-	
+		
 	ef_html.prototype.validar = function () {
 		if (! ef.prototype.validar.call(this)) {
 			return false;

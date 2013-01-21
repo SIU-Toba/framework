@@ -313,7 +313,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 	};
 	
-	ei_formulario.prototype.debe_disparar_evento = function()
+	ei_formulario_ml.prototype.debe_disparar_evento = function()
 	{
 		var debe = true;
 		if (this._evento_condicionado_a_datos && this._evento.es_implicito) {
@@ -387,7 +387,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila anterior en orden
 	 */
 	ei_formulario_ml.prototype.subir_seleccionada = function () {
-        this._cambio_fila = true;
+		this._cambio_fila = true;
 		//Busco las posiciones a intercambiar
 		var pos_anterior = null;
 		for (posicion in this._filas) {
@@ -407,7 +407,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila posterior en orden
 	 */	
 	ei_formulario_ml.prototype.bajar_seleccionada = function () {
-        this._cambio_fila = true;
+		this._cambio_fila = true;
 		//Busco las posiciones a intercambiar
 		var pos_siguiente = null;
 		for (posicion = this._filas.length - 1; posicion >= 0; posicion--) {
@@ -429,17 +429,31 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * @param {int} pos_b Posicion que ocupa la segunda fila
 	 */
 	ei_formulario_ml.prototype.intercambiar_filas = function (pos_a, pos_b) {
+		
+		var valores_intercambio = [];
+		for (id_ef in this._efs) {			
+			if (this._efs[id_ef] instanceof  ef_html ) {			//Para los ef_html resguardo el estado, que se pierde al hacer el swapNode
+				valores_intercambio[id_ef] = [];
+				valores_intercambio[id_ef][pos_a] = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_estado();
+				valores_intercambio[id_ef][pos_b] = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_estado();			
+			}
+		}
+		
 		//Reemplazo en el DOM
 		var nodo_padre = document.getElementById(this._instancia + '_fila' + this._filas[pos_a]);
 		var nodo_selecc = document.getElementById(this._instancia + '_fila' + this._filas[pos_b]);
 		intercambiar_nodos(nodo_selecc, nodo_padre);
 		
 		//Reemplazo de los tabs index
-		for (id_ef in this._efs) {
+		for (id_ef in this._efs) {			
 			var tab_a = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_tab_index();
 			var tab_b = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_tab_index();
 			this._efs[id_ef].ir_a_fila(this._filas[pos_a]).set_tab_index(tab_b);
 			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_tab_index(tab_a);			
+			if (this._efs[id_ef] instanceof  ef_html ) {						//Restauro el estado de los ef_html
+				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).set_estado(valores_intercambio[id_ef][pos_a]);			
+				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_estado(valores_intercambio[id_ef][pos_b]);			
+			}			
 		}
 		
 		//Reemplazo interno 
