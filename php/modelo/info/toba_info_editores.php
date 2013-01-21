@@ -1401,31 +1401,59 @@ class toba_info_editores
 	static function get_metodos_consulta_php($consulta_php, $proyecto=null)
 	{
 		if (is_null($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		//Busco nombre de clase y de archivo.
 		if (is_array($consulta_php)) {
 			$archivo_nombre = $consulta_php['carga_php_include'];
+			$clase_nombre = $consulta_php['carga_php_clase'];
 		} else {
 			$datos = self::get_consulta_php($consulta_php, $proyecto);
 			$archivo_nombre = $datos['archivo'];
+			$clase_nombre = $datos['clase'];
 		}
+		
+		//Si hay puntos de montaje, cargo el autoload de c/u
 		if (isset($datos['punto_montaje'])) {
-			$punto = toba_modelo_pms::get_pm($datos['punto_montaje'], $proyecto);
+			$puntos = self::get_pms($proyecto);
+			$pm_obj = array();
+			foreach($puntos as $punto) {
+				$pm_obj[$punto['id']] = toba_modelo_pms::get_pm($punto['id'], $proyecto);
+				$pm_obj[$punto['id']]->registrar_autoload();
+			}
+			//Busco el path al archivo
+			$punto = $pm_obj[$datos['punto_montaje']]; //toba_modelo_pms::get_pm($datos['punto_montaje'], $proyecto);
 			$archivo  = $punto->get_path_absoluto().'/'.$archivo_nombre;
 		} else {
 			$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo_nombre;
 		}
 		
-		if (! file_exists($archivo)) {
-			//-- Puede ser que sea un archivo de toba
+		//Si aun no existe el archivo, puede estar buscandose un archivo de toba
+		if (! file_exists($archivo)) {			
 			$archivo = toba_nucleo::toba_dir().'/php/'.$archivo_nombre;
 		}
 		$metodos = array();
 		if (file_exists($archivo)) {
-			$metodos = toba_archivo_php::codigo_get_nombre_metodos(file_get_contents($archivo), true);
+			include_once($archivo);			//Incluyo el archivo porque no se si esta en un autoload o no.
+			
+			//Usar Reflexion para obtener los metodos.
+			$reflector = new ReflectionClass($clase_nombre);
+			$metodos = $reflector->getMethods(ReflectionMethod::IS_STATIC | ReflectionMethod::IS_PUBLIC);
+			
+			//$metodos = toba_archivo_php::codigo_get_nombre_metodos(file_get_contents($archivo), true);
 		} 
+		
+		//Armo la salida con los nombres de los metodos accesibles
 		$salida = array();
-		foreach ($metodos as $metodo) {
-			$salida[] = array('metodo' => $metodo);
+		foreach ($metodos as $obj) {
+			$salida[] = array('metodo' => $obj->getName());
 		}
+				
+		//Desregistro el autoload de los puntos de montaje existentes para que no interfieran con el editor.
+		if (! empty($pm_obj)) {
+			foreach ($pm_obj as $klave => $obj) {
+				$pm_obj[$klave]->desregistrar_autoload();				
+			}
+		} 		
+		
 		return $salida;
 	}
 
