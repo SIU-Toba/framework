@@ -197,8 +197,9 @@ class toba_auditoria_tablas_postgres
 			WHERE nspname = $schema;
 		";
 		$r = $this->conexion->consultar($sql);
-		if (count($r) > 0)
+		if (! empty($r)) {
 			return true;
+		}
 		return false;
 	}	
 	
@@ -261,7 +262,7 @@ class toba_auditoria_tablas_postgres
 	   			auditoria_operacion char(1),
 	   			auditoria_id_solicitud integer,
 	   	'; 		   
-		foreach ($campos as $campo => $def) {
+		foreach ($campos as $def) {
 			if ($def['tipo_sql'] != 'bytea') {
 				$sql .= $def['nombre'] .  ' ' . $def['tipo_sql'] . ",\n";
 			}

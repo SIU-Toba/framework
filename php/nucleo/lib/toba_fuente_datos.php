@@ -121,6 +121,13 @@ class toba_fuente_datos
 	function set_fuente_posee_auditoria($tiene = false)
 	{
 		$this->definicion['tiene_auditoria'] = ($tiene) ? '1' : '0';
+		$sql = 'UPDATE apex_fuente_datos 
+			    SET tiene_auditoria = ' . $this->definicion['tiene_auditoria'] . 
+			  ' WHERE 
+				proyecto = '. quote($this->definicion['proyecto']) .
+			 ' AND fuente_datos = '. quote($this->definicion['fuente_datos']);
+		
+		$this->get_db()->ejecutar($sql);		
 	}
 
 	function set_fuente_parsea_errores($parsea = false)

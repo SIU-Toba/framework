@@ -924,8 +924,11 @@ class toba_ei_cuadro extends toba_ei
 		$this->_memoria['claves_enviadas'][] = $clave;
 	}
 	
-	function get_clave_enviada($clave) {
-		var_dump($this->_memoria['claves_enviadas']);
+	/**
+	 * @ignore
+	 */
+	function get_clave_enviada($clave) {		
+		//var_dump($this->_memoria['claves_enviadas']);
 	}
 	
 	//################################################################################

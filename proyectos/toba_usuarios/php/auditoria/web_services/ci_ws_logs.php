@@ -25,15 +25,14 @@ class ci_ws_logs extends toba_ci
 	{
 		$this->s__dir_logs_wsf = ini_get('wsf.log_path');
 		if ($this->s__dir_logs_wsf === false || trim($this->s__dir_logs_wsf) == '') {			//Si no esta activa la extension o no tiene valor la variable
-			$pantalla->evento('ver_log_server')->anular();				//Quito los vinculos
-			$pantalla->evento('ver_log_cliente')->anular();
+			$this->pantalla()->evento('ver_log_server')->anular();				//Quito los vinculos
+			$this->pantalla()->evento('ver_log_cliente')->anular();
 		} else {								
 			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_server.log")) {		//Lo mismo si no existe alguno de los archivos
-				$pantalla->evento('ver_log_server')->anular();
-				echo 'hey';
+				$this->pantalla()->evento('ver_log_server')->anular();
 			}
 			if (! file_exists("{$this->s__dir_logs_wsf}/wsf_php_client.log")) {
-				$pantalla->evento('ver_log_cliente')->anular();
+				$this->pantalla()->evento('ver_log_cliente')->anular();
 			}
 		}		
 	}

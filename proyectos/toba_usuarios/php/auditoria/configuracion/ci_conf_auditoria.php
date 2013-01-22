@@ -51,7 +51,7 @@ class ci_conf_auditoria extends toba_ci
 	}
 	
 	function conf_evt__cuadro__configurar(toba_evento_usuario $evt, $fila)
-    {
+	{
 		$existe = false;
 		try {
 			$existe = $this->existe_auditoria($evt->get_parametros());
@@ -60,15 +60,16 @@ class ci_conf_auditoria extends toba_ci
 		if (! $existe) {
 			$evt->anular(); 
 		}
-    }
+	}
 	
 	function conf_evt__cuadro__crear_auditoria(toba_evento_usuario $evt, $fila)
-    {
+	{
 		$existe = false;
 		try {
 			$existe = $this->existe_auditoria($evt->get_parametros());
 		} catch (toba_error $e) {
 		}
+
 		if ($existe) {
 			$evt->set_etiqueta("Actualizar Schema");
 			$evt->set_msg_ayuda("Migra el schema de auditoria tomando campos nuevos o modificados");
@@ -76,7 +77,7 @@ class ci_conf_auditoria extends toba_ci
 			$evt->set_etiqueta("Activar Auditoría");
 			$evt->set_msg_ayuda("Crea un schema paralelo con la misma estructura que el schema de datos original, conteniendo todas las modificaciones a los datos del mismo");
 		}
-    }
+	}
 
 	function evt__cuadro__configurar($seleccion)
 	{		
@@ -89,9 +90,10 @@ class ci_conf_auditoria extends toba_ci
 
 	function evt__cuadro__crear_auditoria($seleccion)
 	{		
-		$proyecto = $this->s__seleccionado['proyecto'];
 		$this->s__seleccionado = $seleccion; 
-		$manejador = $this->get_manejador();
+		$proyecto = $this->s__seleccionado['proyecto'];
+		$manejador = $this->get_manejador($proyecto);
+		
 		$manejador->agregar_tablas();				
 		if (! $manejador->existe()) {
 			$manejador->crear();
@@ -106,7 +108,7 @@ class ci_conf_auditoria extends toba_ci
 		$info = toba::proyecto($proyecto)->get_info_fuente_datos($id, $proyecto);
 		$tiene_metadato = ($info['tiene_auditoria'] == 1);		
 		if ( ! $tiene_metadato) {
-			
+			toba::fuente($id)->set_fuente_posee_auditoria(true);
 		}
 		unset($this->s__seleccionado);
 	}
@@ -170,7 +172,7 @@ class ci_conf_auditoria extends toba_ci
 		
 		$manejador = $this->get_manejador($proyecto);
 		//Para que la auditoria funcione, tiene que tener el schema y la configuracion por metadato
-		return (isset($manejador) && $tiene_metadato && $manejador->existe());
+		return ($tiene_metadato && isset($manejador) && $manejador->existe());
 	}
 	
 	function get_tablas_disponibles()
