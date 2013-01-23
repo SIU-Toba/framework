@@ -247,7 +247,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*	Crea una base de datos definida en bases.ini
 	*	@param string $nombre Nombre de la base
 	*/
-	function crear_base_datos( $nombre, $con_encoding = false )
+	function crear_base_datos($nombre, $con_encoding = false)
 	{
 		$info_db = $this->get_parametros_base( $nombre );
 		$base_a_crear = $info_db['base'];
@@ -255,19 +255,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			dormir(1000);	//Para esperar que el script se desconecte			
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
-			$encoding = isset($info_db['encoding']) ? $info_db['encoding'] : self::db_encoding_estandar;			
-			$con_encoding = ($con_encoding || isset($info_db['encoding']));			
+			$encoding = isset($info_db['encoding']) ? $info_db['encoding'] : self::db_encoding_estandar;
 			$sql = "CREATE DATABASE \"$base_a_crear\" ";
-			if ($con_encoding){
+			if ($con_encoding) {
 				$sql.= " ENCODING '$encoding' ";
 			}
-			try {
-				$db->ejecutar( $sql );
-			} catch (Exception $e) {
-				//En caso de no poder crearlo con encoding, prueba sin encoding
-				$sql = "CREATE DATABASE \"$base_a_crear\" ";
-				$db->ejecutar($sql);
-			}
+			$db->ejecutar($sql);
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
 		} else {
@@ -365,7 +358,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*	Determina si el Encoding estandar es compatible con el cluster, actualiza la entrada de bases.ini en consecuencia
 	*	@param string $nombre Nombre de la base
 	*/	
-	function determinar_encoding( $id_base )
+	function determinar_encoding($id_base)
 	{
 		/*
 		* Trata de crear la base con el encoding por defecto, si falla entonces intenta crearla sin encoding, en caso de
@@ -373,22 +366,22 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		*/
 		
 		$this->manejador_interface->mensaje("Determinando Encoding de base de datos... \n");
-		if (! $this->existe_base_datos( $id_base )){
+		if (! $this->existe_base_datos($id_base)) {
 			try{
-				$this->crear_base_datos( $id_base, true );	
+				$this->crear_base_datos($id_base, true);	
 				toba_logger::instancia()->debug("Base: $id_base -> Encoding estandar compatible!: ". self::db_encoding_estandar );
-			}catch(toba_error $e){				
-				$this->crear_base_datos( $id_base );									
-				$info_db = $this->get_parametros_base( $id_base );
+			} catch(toba_error $e) {				
+				$this->crear_base_datos($id_base, false);
+				$info_db = $this->get_parametros_base($id_base);
 				$nuevos_parametros = array('encoding' => self::db_encoding_estandar);												
 				$info_db = array_merge($info_db, $nuevos_parametros);				
-				$this->actualizar_db( $id_base, $info_db );
+				$this->actualizar_db($id_base, $info_db);
 				toba_logger::instancia()->info("Base: $id_base -> Encoding no compatible!, redefiniendo conexion para uso con: ". self::db_encoding_estandar );
 			}//try
 					
 			//--- Borro la base de datos recien creada
 			dormir(1000);
-			$this->borrar_base_datos( $id_base );	
+			$this->borrar_base_datos($id_base);	
 			$this->manejador_interface->mensaje("El Encoding ha sido definido, revise el archivo bases.ini \n");
 		}else{
 			$this->manejador_interface->mensaje("La base ya existe, no se puede determinar el encoding \n");

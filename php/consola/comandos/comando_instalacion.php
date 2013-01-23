@@ -135,13 +135,7 @@ class comando_instalacion extends comando_toba
 		}
 		
 		$id_proyecto = '';
-		/*if ($this->consola->dialogo_simple('Desea crear un nuevo proyecto durante la instalación?', false)) {
-			//--- Pregunta identificador del Proyecto
-			$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);
-		} else {
-			$this->consola->mensaje("Puede crearlo más adelante ejecutando el comando 'toba proyecto crear'");
-		}*/
-
+		
 		//--- Si ingreso un proyecto y existe, lo borra
 		if ($id_proyecto != '') {
 			$existe_proyecto = toba_modelo_proyecto::existe($id_proyecto);

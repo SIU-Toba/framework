@@ -115,6 +115,11 @@ class comando_nucleo extends comando_toba
 		$rama_versiones = 'versiones';
 		$rama_branch = 'trunk_versiones';
 		
+
+		if (! file_exists($destino)) {
+			mkdir($destino);
+		}
+		
 		//Obtengo los parametros de entrada
 		$param = $this->get_parametros();		
 		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
@@ -222,6 +227,10 @@ class comando_nucleo extends comando_toba
 		$release = $param['-r'];		
 		$usuario = $param['-u'];
 	
+		if (! file_exists($destino)) {
+			mkdir($destino);
+		}
+		
 		//-- Averiguo cual es el siguiente numero
 		$versiones = explode("\n", trim(`svn ls $url_svn/$rama_versiones`));
 		$siguiente = new toba_version($release.'.0');

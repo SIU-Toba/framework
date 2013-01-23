@@ -156,8 +156,13 @@ class toba_autenticacion_openid  implements toba_autenticable
 			$usuario = $this->get_valor($this->campo_usuario);
 			$clave = isset($_SESSION['openid']['identity']) ? $_SESSION['openid']['identity'] : null;
 			$clave .= $_SESSION['openid_url_actual'];
-			toba::manejador_sesiones()->login($usuario, $clave);
+			$this->iniciar_sesion($usuario, $clave);
 		}		
+	}
+	
+	function iniciar_sesion($usuario, $clave)
+	{
+		toba::manejador_sesiones()->login($usuario, $clave);
 	}
 	
 	function verificar_clave_vencida($id_usuario)

@@ -1045,6 +1045,11 @@ a.ci-tabs-boton-desact:hover {
 .zona-items a {
 	padding-right: 4px;
 }
+
+.zona-items a.active {
+
+}
+
 .zona-items img {
 	vertical-align:middle;
 	margin-right: 5px;	

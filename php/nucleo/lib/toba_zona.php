@@ -309,12 +309,14 @@ class toba_zona
 	 */
 	function generar_html_barra_vinculos()
 	{
+		$item_solicitado = toba::memoria()->get_item_solicitado();
 		foreach($this->items_vecinos as $item) {
 			$vinculo = toba::vinculador()->get_url($item['item_proyecto'], $item['item']);
 			//Pide el vinculo por si no tiene permisos
 			if (isset($vinculo)) {
 				$js = "onclick=\"toba.ir_a_operacion('{$item['item_proyecto']}', '{$item['item']}', false, true)\"";
-	 			echo "<a href='#' $js>";
+				$css = ($item_solicitado[1] == $item['item']) ? 'class="active"' : '';
+	 			echo "<a href='#' $js $css>";
 				if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
 					if($item['imagen_origen']=="apex"){
 						echo toba_recurso::imagen_toba($item['imagen'],true,null,null,$item['nombre']);

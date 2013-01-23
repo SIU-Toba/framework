@@ -35,8 +35,10 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * @param toba_modelo_instalacion $instalacion Representante de la instalación de toba como un todo
 	 * @param toba_modelo_instancia $instancia Representante de la instancia actualmente utilizada
 	 * @param toba_modelo_proyecto $proyecto Representante del proyecto como un proyecto toba (sin la lógica de admin. de la aplicación)
+	 * @param $default_schema Esquema por defecto del proyecto
+	 * 
 	 */
-	function set_entorno($manejador_interface, toba_modelo_instalacion $instalacion, toba_modelo_instancia $instancia, toba_modelo_proyecto $proyecto)
+	function set_entorno($manejador_interface, toba_modelo_instalacion $instalacion, toba_modelo_instancia $instancia, toba_modelo_proyecto $proyecto, $default_schema='public')
 	{
 		$this->manejador_interface = $manejador_interface;
 		$this->instalacion = $instalacion;
@@ -59,7 +61,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				}
 			}
 			if (! $encontrado) {
-				$this->schema_modelo = 'public';
+				$this->schema_modelo = $default_schema;
 			}
 		}
 		//Construye el schema de la auditoria
@@ -278,11 +280,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 
 			//-- Agrega la definición de la base
 			$this->instalacion->agregar_db($id_def_base, $datos_servidor);
+			$this->instalacion->determinar_encoding($id_def_base);
 		}
 		
 		//--- Chequea si existe fisicamente la base creada
 		if (! $this->instalacion->existe_base_datos($id_def_base)) {
-			$this->instalacion->crear_base_datos($id_def_base);
+			$this->instalacion->crear_base_datos($id_def_base, false);
 		} 
 		
 		//--- Chequea si hay un modelo cargado y decide que hacer en tal caso

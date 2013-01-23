@@ -11,7 +11,8 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 	protected $descripcion_estado;
 	protected $solo_lectura = false;
 	protected $tamano = 200;
-	protected $habilitar_modo_filtrado = true;
+	protected $habilitar_modo_filtrado = false;
+	protected $solo_permitir_selecciones = true;
 	
 	static function get_lista_parametros_carga()
 	{
@@ -114,6 +115,11 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 		$this->habilitar_modo_filtrado = $estado;
 	}
 	
+	function set_modo_solo_selecciones($estado)
+	{
+		$this->solo_permitir_selecciones = $estado;
+	}
+	
 	function cargar_estado_post()
 	{
 		if (! isset($_POST[$this->id_form])) {
@@ -132,6 +138,7 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 		$parametros = parent::parametros_js().', '.$this->tamano;
 		if (!$this->es_solo_lectura()) {
 			$parametros .= $this->habilitar_modo_filtrado?', true':', false';
+			$parametros .= $this->solo_permitir_selecciones?', true':', false';
 		}
 		return $parametros;
 	}	

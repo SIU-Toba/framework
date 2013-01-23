@@ -165,6 +165,7 @@ class toba_autoload
 		'toba_testing_selenium' => 'modelo/lib/toba_testing_selenium.php',
 		'toba_version' => 'modelo/lib/toba_version.php',
 		'toba_migracion_2_2_0' => 'modelo/migraciones_instancia/toba_migracion_2_2_0.php',
+		'toba_migracion_2_4_0' => 'modelo/migraciones_instancia/toba_migracion_2_4_0.php',
 		'toba_codigo_clase' => 'modelo/moldes_codigo/toba_codigo_clase.php',
 		'toba_codigo_elemento' => 'modelo/moldes_codigo/toba_codigo_elemento.php',
 		'toba_codigo_metodo' => 'modelo/moldes_codigo/toba_codigo_metodo.php',
@@ -384,13 +385,14 @@ class toba_autoload
 		'toba_error_validacion' => 'nucleo/lib/toba_error.php',
 		'toba_error_ini_sesion' => 'nucleo/lib/toba_error.php',
 		'toba_error_comunicacion' => 'nucleo/lib/toba_error.php',
-		'toba_error_firma_digital' => 'nucleo/lib/toba_error.php',
 		'toba_reset_nucleo' => 'nucleo/lib/toba_error.php',
 		'toba_error_servicio_web' => 'nucleo/lib/toba_error.php',
+		'toba_error_firma_digital' => 'nucleo/lib/toba_error.php',
 		'toba_firma_digital' => 'nucleo/lib/toba_firma_digital.php',
 		'toba_fuente_datos' => 'nucleo/lib/toba_fuente_datos.php',
 		'toba_gadget' => 'nucleo/lib/toba_gadget.php',
 		'toba_gadget_shindig' => 'nucleo/lib/toba_gadget_shindig.php',
+		'toba_hash' => 'nucleo/lib/toba_hash.php',
 		'toba_http' => 'nucleo/lib/toba_http.php',
 		'toba_info_relacion_entre_tablas' => 'nucleo/lib/toba_info_relacion_entre_tablas.php',
 		'toba_instalacion' => 'nucleo/lib/toba_instalacion.php',
@@ -452,7 +454,6 @@ class toba_autoload
 		'toba_autoload' => 'toba_autoload.php',
 		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
-		'toba_hash' => 'nucleo/lib/toba_hash.php'
 	);
 }
 ?>

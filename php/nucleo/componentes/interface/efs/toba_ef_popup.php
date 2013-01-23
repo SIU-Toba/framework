@@ -163,11 +163,7 @@ class toba_ef_popup extends toba_ef_editable
 			$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		}
 		
-		if (isset(self::$ratio_pixel)) {
-			$en_pixels = floor($this->tamano * self::$ratio_pixel);
-			$extra .= ' style=\'width: '.$en_pixels.'px;\' ';
-		}	
-		
+		$extra .= $this->get_estilo_visualizacion_pixeles();		
 		if ($this->editable) {
 			$disabled = ($this->es_solo_lectura()) ? "disabled" : "";
 			$html .= toba_form::hidden($this->id_form."_desc", $estado);

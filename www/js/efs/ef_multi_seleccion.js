@@ -297,7 +297,14 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 			return elem[0].tabIndex;
 		}
 	};
-
+	
+	ef_multi_seleccion_check.prototype.es_oculto = function() {
+		var nodo = this.nodo();
+		if (! nodo) {
+			nodo = this.input();	
+		}	
+		return (nodo.style.display == 'none' );	//Evalua unicamente la visibilidad del contenedor
+	};
 	
 // ########################################################################################################
 // ########################################################################################################

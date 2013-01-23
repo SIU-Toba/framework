@@ -91,7 +91,7 @@ class toba_usuario implements toba_interface_usuario
 		toba::logger()->debug($sql);
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
-			$this->set_clave_usuario($clave_plana, $usuario);
+			self::set_clave_usuario($clave_plana, $usuario);
 			toba::instancia()->get_db()->ejecutar($sql);
 			toba::instancia()->get_db()->cerrar_transaccion();			
 		} catch (toba_error_db $e) {

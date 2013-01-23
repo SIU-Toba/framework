@@ -30,6 +30,7 @@ class toba_ef_editable extends toba_ef
 	protected $clase_css = 'ef-input';
 	protected static $callback_errores_validacion = null;
 	protected static $ratio_pixel;
+	protected static $limite_minimo = 5;
 	
 	
 	static function get_lista_parametros_carga()
@@ -63,6 +64,11 @@ class toba_ef_editable extends toba_ef
 	static function set_tamano_multiplicado_pixels($porcentaje = 1)
 	{
 		self::$ratio_pixel = $porcentaje;
+	}
+	
+	static function set_limite_minimo_caracteres($cantidad)
+	{
+		self::$limite_minimo = $cantidad;
 	}
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -141,6 +147,15 @@ class toba_ef_editable extends toba_ef
 		}
 	}
 
+	function get_estilo_visualizacion_pixeles()
+	{		
+		if (isset(self::$ratio_pixel) && ($this->tamano > self::$limite_minimo)) {
+			$en_pixels = floor($this->tamano * self::$ratio_pixel);
+			return ' style=\'width: '.$en_pixels.'px;\' ';
+		}
+		return '';
+	}
+	
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();
@@ -165,14 +180,11 @@ class toba_ef_editable extends toba_ef
 		}
 		return true;
 	}	
-	
+		
 	function get_input()
 	{
-		if (isset(self::$ratio_pixel)) {
-			$en_pixels = floor($this->tamano * self::$ratio_pixel);
-			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
-		}	
-		
+		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
+				
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
@@ -494,11 +506,12 @@ class toba_ef_editable_clave extends toba_ef_editable
     
 	function get_input()
 	{
-		if (isset(self::$ratio_pixel)) {
+		/*if (isset(self::$ratio_pixel) && ($this->tamano > self::limite_minimo)) {
 			$en_pixels = floor($this->tamano * self::$ratio_pixel);
 			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
-		}	
+		}	*/
 		
+		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
 		$tab = ' tabindex="'.$this->padre->get_tab_index(2).'"';
 		$estado = isset($this->estado)? $this->estado : "";
 		

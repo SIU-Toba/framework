@@ -54,5 +54,20 @@ class toba_migracion_2_3_0 extends toba_migracion
 			$this->elemento->get_db()->ejecutar($sql_up);			
 		}
 	}
+	
+	function proyecto__copiar_punto_acceso()
+	{
+		$dir_destino = $this->elemento->get_dir(). '/www/';
+		$destino_final = toba_manejador_archivos::path_a_plataforma($dir_destino.'servicios.php');
+		$origen = toba_dir(). '/php/modelo/template_proyecto/www/servicios.php';
+		if (! toba_manejador_archivos::existe_archivo_en_path($destino_final)) {
+			$template = file_get_contents($origen);				//Leo el template original
+			
+			$editor = new toba_editor_texto();
+			$editor->agregar_sustitucion( '|__proyecto__|', $this->elemento->get_id());	
+			$salida = $editor->procesar( $template );
+			file_put_contents($destino_final, $salida, FILE_APPEND);						
+		}
+	}
 }
 ?>

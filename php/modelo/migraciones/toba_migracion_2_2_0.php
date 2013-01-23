@@ -127,6 +127,9 @@ class toba_migracion_2_2_0 extends toba_migracion
 						);
 		
 		$schema_actual = $this->elemento->get_db()->get_schema();		
+		if (! isset($schema_actual)) {
+			$schema_actual = 'public';
+		}
 		
 		$sql[] = "SET CONSTRAINTS ALL IMMEDIATE;";
 		$this->elemento->get_db()->ejecutar($sql);

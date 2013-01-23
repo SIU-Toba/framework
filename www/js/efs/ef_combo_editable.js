@@ -10,7 +10,7 @@ ef_combo_editable.prototype.constructor = ef_combo_editable;
  * @phpdoc Componentes/Efs/toba_ef_combo_editable toba_ef_combo_editable
  */
  
-function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mantiene_estado_cascada, modo_filtro) {
+function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, modo_filtro, solo_permitir_selecciones, mantiene_estado_cascada) {
 	ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	this._tamano = tamano;
 	this._es_oculto = false;
@@ -22,7 +22,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	this._msj_ayuda_texto = 'Texto a filtrar o (*) para ver todo.';
 	this._msj_ayuda_habilitado = true;
 	
-	this._permite_solo_selecciones = false;
+	this._permite_solo_selecciones = solo_permitir_selecciones;
 	this._ultimas_opciones_server = [];
 }
 
@@ -57,7 +57,20 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 
 	ef_combo_editable.prototype.iniciar = function(id, contenedor) { 
 		ef.prototype.iniciar.call(this, id, contenedor);
-		var solo_lectura = document.getElementById(this._id_form).disabled;
+		var combo_original = document.getElementById(this._id_form);
+		var solo_lectura = combo_original.disabled;
+		
+		//Recorro las opciones del combo por si viene cargado desde el servidor, asi no elimino opciones validas
+		var valor_actual;
+		this._ultimas_opciones_server[this._id_form] = [];							//Inicializo la coleccion para el ML
+		
+		for (var i in combo_original.options) {			
+			valor_actual = combo_original.options[i].value;
+			if (isset(valor_actual) && valor_actual != 'nopar') {
+				this._ultimas_opciones_server[this._id_form].push(valor_actual);
+			}
+		}
+		
 		//Crea el combo_editable
 		var combo = dhtmlXComboFromSelect(this._id_form, this._tamano);
 		window['combo_editable_'+this._id_form] = combo;
@@ -278,13 +291,13 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 		
 		//Creo los OPTIONS recuperados
 		var datos = [];
-		this._ultimas_opciones_server = [];
+		this._ultimas_opciones_server[this._id_form] = [];
 		for (var i = 0; i < valores.length; i++) {
 			var clave = valores[i][0];
 			var valor = valores[i][1];
 			if (clave != 'nopar') {
 				datos.push([clave, valor]);
-				this._ultimas_opciones_server.push(clave);			
+				this._ultimas_opciones_server[this._id_form].push(clave);			
 			}
 		}
 		combo.addOption(datos);
@@ -379,7 +392,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, ma
 	ef_combo_editable.prototype._es_estado_nuevo = function()
 	{
 		var estado_actual = this.get_estado();
-		return (! in_array(estado_actual, this._ultimas_opciones_server));
+		return (! in_array(estado_actual, this._ultimas_opciones_server[this._id_form]));
 	}
 	
 toba.confirmar_inclusion('efs/ef_combo_editable');

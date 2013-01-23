@@ -71,6 +71,9 @@ class comando_proyecto extends comando_toba
 			try {
 				$proyecto = $this->get_proyecto();
 				$clase = $proyecto->get_aplicacion_comando();
+			} catch (toba_error_db $d) {
+				$this->consola->mensaje('Existe un problema con la base de datos, por favor verifique los logs');
+				return;
 			} catch (toba_error $e) {
 				
 			}

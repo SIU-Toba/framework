@@ -42,7 +42,7 @@ class toba_vista_jasperreports
 
 	protected function cargar_jasper()
 	{
-		define ("JAVA_HOSTS", "127.0.0.1:8081");
+		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
 		//Incluimos la libreria JavaBridge
 		require_once("3ros/JavaBridge/java/Java.inc");
 
@@ -361,16 +361,15 @@ class toba_vista_jasperreports
 		//Especificamos los datos de la conexión, cabe aclarar que esta conexion es la del servidor de producción
 		$con->setUser($params['usuario']);
 		$con->setPassword($params['clave']);
+		$con1 = $con->getConnection();		
 		
 		if (isset($params['schema'])) {
-			$sql = "SET search_path = \"{$params['schema']}\", \"public\";";
-			$con1 = $con->getConnection();		
+			$sql = "SET search_path = \"{$params['schema']}\", \"public\";";			
 			$stmt = $con1->createStatement();
 			$stmt->executeUpdate($sql);
 			toba::logger()->debug("Seteo el esquema por defecto para el reporte: $sql");			
-			return $con1;
 		}
-		return $con->getConnection();;
+		return $con1;
 	}
 	
 	//------------------------------------------------------------------------

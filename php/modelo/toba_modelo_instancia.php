@@ -616,8 +616,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->get_db()->crear_lenguaje_procedural();
 				
 			// Esta el modelo cargado
-			if ( $this->existe_modelo() ) {
-				if ( $forzar_carga ) {
+			if ($this->existe_modelo()) {
+				if ($forzar_carga) {
 					//Si existe un backup previo lo borra
 					$schema_backup = $this->get_schema_db().'_backup';
 					if ($this->get_db()->existe_schema($schema_backup)) {
@@ -704,7 +704,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	{
 		if (! $this->get_db()->existe_schema('toba_logs')) {
 			$actual = $this->get_db()->get_schema();
+			if (! isset($actual)) {
+				$actual = 'public';
+			}
 			$this->crear_tablas_log();
+			$this->cargar_informacion_instancia_logs();
 			$this->actualizar_secuencias_tablas_log();
 			$this->get_db()->set_schema($actual);
 		}
@@ -873,9 +877,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			if (file_exists($dir)) {
 				$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 				foreach( $archivos as $archivo ) {
-					$cant = $this->get_db()->ejecutar_archivo( $archivo );
-					toba_logger::instancia()->debug($archivo . ". ($cant)");
-					$this->manejador_interface->progreso_avanzar();
+					if (stripos($archivo, 'logs_') === FALSE) {
+						$cant = $this->get_db()->ejecutar_archivo( $archivo );
+						toba_logger::instancia()->debug($archivo . ". ($cant)");
+						$this->manejador_interface->progreso_avanzar();
+					}
 				}
 			}
 		}
@@ -897,6 +903,30 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 			$this->manejador_interface->progreso_fin();
 		}
+	}
+	
+	function cargar_informacion_instancia_logs()
+	{
+		$this->manejador_interface->mensaje('Cargando logs de la instancia', false);
+		$subdirs = toba_manejador_archivos::get_subdirectorios($this->get_dir());
+		$proyectos = $this->get_lista_proyectos_vinculados();
+		$nombres_carp = array('global');
+		foreach ($proyectos as $proy) {
+			$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
+		}
+		foreach ( $nombres_carp as $carp ) {
+			$dir = $this->get_dir()."/".$carp;
+			if (file_exists($dir)) {
+				$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|(logs_).*\.sql$|' );
+				foreach( $archivos as $archivo ) {
+					$cant = $this->get_db()->ejecutar_archivo( $archivo );
+					toba_logger::instancia()->debug($archivo . ". ($cant)");
+					$this->manejador_interface->progreso_avanzar();
+				}
+			}
+		}
+		$this->manejador_interface->progreso_avanzar();		
+		$this->manejador_interface->progreso_fin();				
 	}
 	
 	/**
@@ -929,9 +959,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				if (file_exists($dir)) {
 					$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 					foreach( $archivos as $archivo ) {
-						$cant = $this->get_db()->ejecutar_archivo( $archivo );
-						toba_logger::instancia()->debug($archivo . ". ($cant)");
-						$this->manejador_interface->progreso_avanzar();
+						if (stripos($archivo, 'logs_') === FALSE) {							//Evito los archivos de logs, van en un schema aparte.
+							$cant = $this->get_db()->ejecutar_archivo( $archivo );
+							toba_logger::instancia()->debug($archivo . ". ($cant)");
+							$this->manejador_interface->progreso_avanzar();
+						}
 					}
 				}
 			}
@@ -952,7 +984,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$sql = array();
 		$metodos = get_class_methods('toba_db_tablas_instancia');
 		foreach ($metodos as $metodo) {
-			if (substr($metodo, 0, 10) === 'get_lista_') {
+			if ((substr($metodo, 0, 10) === 'get_lista_') && substr($metodo, -4) !== '_log') {
 				foreach ( toba_db_tablas_instancia::$metodo() as $tabla ) {
 					$sql[] = 'DELETE FROM '.$tabla;
 				}

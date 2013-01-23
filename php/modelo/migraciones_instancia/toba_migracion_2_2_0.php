@@ -15,7 +15,10 @@ class toba_migracion_2_2_0 extends toba_migracion
 						'apex_solicitud_cronometro' => null,
 						'apex_solicitud_observacion' => 'apex_solicitud_observacion_seq'
 						);
-		$schema_actual = $this->elemento->get_db()->get_schema();	
+		$schema_actual = $this->elemento->get_db()->get_schema();
+		if (! isset($schema_actual)) {
+			$schema_actual = 'public';
+		}
 		$this->manejador_interface->mensaje('Migrando las tablas de logs.', false);
 			
 		//Hay que crear el schema para las tablas de log

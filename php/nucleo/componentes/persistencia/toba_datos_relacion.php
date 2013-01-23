@@ -284,7 +284,12 @@ class toba_datos_relacion extends toba_componente
 			return $tablas;
 		} else {
 			//-- Se toma el orden natural en el cual se definieron las tablas
-			return $this->get_tablas_activas();
+			$ordenes = $this->get_tablas_activas();
+			$tablas = array();
+			foreach ($ordenes as $orden) {
+				$tablas[$orden['identificador']] = $this->_dependencias[$orden['identificador']];
+			}
+			return $tablas;
 		}
 	}
 

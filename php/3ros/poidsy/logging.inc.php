@@ -25,15 +25,16 @@
 class Logger {
 
  const ENABLE_LOGGING = true;
- const LOGGING_FILENAME = '/tmp/poidsy-debug.log';
+ const LOGGING_FILENAME = '/poidsy-debug.log';
  const TRUNCATE_ARGS = true;
 
  private static $fh;
 
  public static function log($message) {
   if (self::ENABLE_LOGGING) {
+	  $dir_base = toba::instancia()->get_path_instalacion_proyecto(toba::proyecto()->get_id()). '/logs/';
    if (self::$fh == null) {
-    self::$fh = fopen(self::LOGGING_FILENAME, 'a');
+    self::$fh = fopen($dir_base . self::LOGGING_FILENAME, 'a');
    }
 
    $args = func_get_args();

@@ -312,7 +312,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 		if (! nodo) {
 			nodo = this.input();	
 		}	
-		return nodo.style.display == 'none' || (this.input().style && this.input().style.display == 'none');		
+		return (nodo.style.display == 'none' || (this.input().style && this.input().style.display == 'none'));		
 	};	
 
 	/**
@@ -592,8 +592,9 @@ ef_html.prototype.constructor = ef_html;
 	
 	ef_html.prototype.set_estado = function(nuevo) {
 		this.get_editor().setData(nuevo);
-		if (this.input().onchange) {
-			this.input().onchange();
+		var input = this.input();
+		if (input !== null && input.onchange) {
+			input.onchange();
 		}		
 	};
 		

@@ -88,8 +88,10 @@ class ci_navegacion_perfiles extends toba_ci
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-		$this->actualizar_script_roles();
-				
+		if (toba::fuente()->usa_permisos_por_tabla()) {
+			$this->actualizar_script_roles();
+		}
+						
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');
 	}
@@ -112,7 +114,9 @@ class ci_navegacion_perfiles extends toba_ci
 	function evt__eliminar()
 	{		
 		$datos = $this->datos('accesos')->get();
-		$this->actualizar_script_roles(array($datos['usuario_grupo_acc']));				
+		if (toba::fuente()->usa_permisos_por_tabla()) {		
+			$this->actualizar_script_roles(array($datos['usuario_grupo_acc']));	
+		}
 		
 		$this->dep('datos')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
@@ -129,7 +133,9 @@ class ci_navegacion_perfiles extends toba_ci
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-
+		if (toba::fuente()->usa_permisos_por_tabla()) {
+			$this->actualizar_script_roles();
+		}
 		
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');

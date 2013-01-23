@@ -29,7 +29,7 @@ class ci_prueba extends toba_ci
 				}
 				// Seteo los parametros del TEST
 				if (isset($datos['parametros']) && ($datos['parametros'] != '')) {
-					$this->s__detalle_test = unserialize(stripslashes($datos['parametros']));					
+					$this->s__detalle_test = unserialize($datos['parametros']);					
 				}
 			}
 		} else {
@@ -118,7 +118,7 @@ class ci_prueba extends toba_ci
 	function grabar_info_test()
 	{
 		$temp['seleccionados'] = implode(',', $this->s__sqls_elegidos);
-		$temp['parametros'] = addslashes(serialize($this->s__detalle_test));
+		$temp['parametros'] = serialize($this->s__detalle_test);
 		$this->dep('datos')->set($temp);
 		$this->dep('datos')->sincronizar();			
 	}

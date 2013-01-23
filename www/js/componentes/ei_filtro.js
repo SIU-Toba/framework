@@ -177,7 +177,10 @@
 	};
 	
 
-	ei_filtro.prototype.crear_fila = function(id) {
+	ei_filtro.prototype.crear_fila = function(id, es_esclavo) {
+		if (! isset(es_esclavo)) {
+			es_esclavo = false
+		}
 		if (id == undefined) {
 			var input = $$(this._instancia + '_nuevo');
 			var id = input.value;
@@ -189,10 +192,12 @@
 		$$(this._instancia + '_fila' + id).style.display = '';		
 		this._filas.push(id);
 		for (var esclavo in this._esclavos[id])	 {
-			this.crear_fila(this._esclavos[id][esclavo]);
+			this.crear_fila(this._esclavos[id][esclavo], true);
 		}
-		this.seleccionar(id);
-		this.refrescar_foco();
+		if (! es_esclavo) {
+			this.seleccionar(id);
+			this.refrescar_foco(id);
+		}
 		this.refrescar_botonera();
 	};
 		
@@ -540,11 +545,16 @@
 	/**
 	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
 	 */
-	ei_filtro.prototype.refrescar_foco = function () {
-		for (id_ef in this._efs) {
-			if (this._efs[id_ef].seleccionar()) {
-				break;
+	ei_filtro.prototype.refrescar_foco = function (id) {
+		
+		if (! isset(id)) {
+			for (id_ef in this._efs) {
+				if (this._efs[id_ef].seleccionar()) {
+					break;
+				}
 			}
+		} else {
+			this._efs[id].seleccionar();
 		}
 	};
 	
@@ -572,6 +582,8 @@
 			if (id != 'nopar') {
 				//-- Esta seleccionada la fila?
 				if (in_array(id, this._filas)) {
+					combo.options[i].disabled = true;
+				} else if (this._es_columna_esclava_sin_maestro_activo(id)) {				//Es un campo esclavo en la llamada inicial?
 					combo.options[i].disabled = true;
 				} else {
 					hay_faltantes = true;
@@ -635,6 +647,23 @@
 		} else {
 			this.desactivar_boton(this._boton_procesar_cambios);
 		}
-	};	
+	};
+
+	ei_filtro.prototype._es_columna_esclava_sin_maestro_activo = function (id) {
+		var es_esclavo = false;
+		for (var _ef in this._esclavos) {
+			if (in_array(id, this._esclavos[_ef])) {
+				es_esclavo = true;
+				break;
+			}					
+		}
+		
+		var maestro_activo = true;
+		for (_ef in this._maestros[id]) {
+			maestro_activo = maestro_activo && in_array(this._maestros[id][_ef], this._filas);
+		}		
+		
+		return (es_esclavo && ! maestro_activo);
+	}
 
 toba.confirmar_inclusion('componentes/ei_filtro');

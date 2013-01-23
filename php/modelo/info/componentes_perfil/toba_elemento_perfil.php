@@ -75,7 +75,7 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 						AND usuario_grupo_acc = '$this->grupo_acceso'
 						AND proyecto = '$this->proyecto';";
 			}
-			toba::db()->ejecutar($sql);
+			toba_contexto_info::get_db()->ejecutar($sql);
 		}
 		return $this->acceso_actual;
 	}

@@ -761,7 +761,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		if (! $this->get_instalacion()->es_produccion()) {		
 			foreach (toba_info_editores::get_fuentes_datos($this->identificador) as $fuente) {	
-				if (! $fuente['permisos_por_tabla']) {
+				if ($fuente['permisos_por_tabla'] == 0) {
 					continue;
 				}
 				$this->manejador_interface->mensaje('Actualizando roles fuente '.$fuente['fuente_datos'], false);						
@@ -2725,15 +2725,27 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function crear_script_generacion_roles_db($dir = '', $perfiles_eliminados=array())
 	{
-		$sentencias = array(); $sql = array();
-		$prefijo_archivo = $this->identificador.'_roles_';		
+		$sentencias = array(); $fuentes = array();
+		$prefijo_archivo = $this->identificador.'_roles_';
 		toba_proyecto_db::set_db( $this->db );
 		
 		//------------------------------------------------------------------------------------------//
 		//	Obtengo estado actual de perfiles funcionales
 		//------------------------------------------------------------------------------------------//
 		$grupos = $this->get_indice_grupos_acceso();		
-		$fuentes = $this->get_indice_fuentes();
+		//Ahora busco las fuentes del mismo, quitando aquellas que no usen permisos por tablas o no esten configuradas para que no tire error
+		$fuentes_disponibles = toba_info_editores::get_fuentes_datos($this->identificador);	
+		foreach ($fuentes_disponibles as $fuente) {
+			try {
+				$id_def_base = $this->construir_id_def_base($fuente['fuente_datos']);			
+				if ($fuente['permisos_por_tabla'] == '1') { 
+					$fuentes[] = $fuente['fuente_datos'];
+				}
+			} catch (toba_error $e) {
+				continue;
+			}
+		}
+		
 		$roles_activos_db = $this->get_roles_disponibles();		
 			
 		//------------------------------------------------------------------------------------------//

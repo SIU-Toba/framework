@@ -78,7 +78,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 				$info .= "<hr /><a href=\'http://$version_link\' target=\"_bank\">Más información</a><br>";	
 			}
 			if($info) {
-				$info = "Version: <strong>$version</strong><br>" . $info;
+				$info = "Versión: <strong>$version</strong><br>" . $info;
 				$info = toba_recurso::ayuda(null, $info, 'enc-version');
 			}else{
 				$info = "class='enc-version'";

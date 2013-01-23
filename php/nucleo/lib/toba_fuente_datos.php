@@ -135,6 +135,11 @@ class toba_fuente_datos
 		$this->definicion['parsea_errores'] = ($parsea) ? '1' : '0';
 	}
 	
+	function usa_permisos_por_tabla()
+	{
+		return (isset($this->definicion['permisos_por_tabla']) && ($this->definicion['permisos_por_tabla'] == '1'));
+	}
+	
 	private function get_conf_schemas()
 	{
 		return " '{$this->definicion['schema']}', 'public' ";
