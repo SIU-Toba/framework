@@ -101,17 +101,31 @@ class toba_servicio_web_cliente
 				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
 				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
 			}
+			
+			//-- INICIO PARCHE: Intenta parsear un Fault por bug en libreria WSF con esquema de seguridad..
+			if (is_a($message, 'WSMessage')) {
+				$inicio = "<soapenv:Fault";
+				if (substr($message->str, 0, strlen($inicio)) == $inicio) {
+					$xml = new SimpleXMLElement($message->str);
+					$ns = $xml->getDocNamespaces(true);
+					$childrens = $xml->children($ns['soapenv']);
+					$code = @(string) $childrens->Code->Value;
+					$reason = @(string) $childrens->Reason->Text;
+					$detail = @(string) $childrens->Detail->children($ns['soapenv']->children, true)->error;
+					throw new WSFault(str_replace("soapenv:", "", $code), $reason, null, $detail);
+				}
+			}
+			//--- FIN PARCHE
+			
 			return new toba_servicio_web_mensaje($message);
 		} catch (WSFault $fault) {	
 			if (! toba::instalacion()->es_produccion()) {
 				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
 				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
 				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
-
 			}			
 			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';	
 			$code = (isset($fault->Code)) ? $fault->Code: '';	
-
 			self::get_modelo_proyecto($this->proyecto);
 			throw new toba_error_servicio_web($fault->Reason, $detalle, $code);
 		} catch (Exception $e) {

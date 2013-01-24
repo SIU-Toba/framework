@@ -315,7 +315,7 @@ class toba_error_servicio_web extends toba_error
 	
 	function __construct($mensaje_visible, $codigo_error=null, $mensaje_solo_debug='')
 	{
-		$this->codigo = $codigo_error;
+		$this->codigo = (string) $codigo_error;
 		parent::__construct($mensaje_visible, $mensaje_solo_debug);
 		
 	}
