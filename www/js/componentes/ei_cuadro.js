@@ -52,7 +52,9 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		for (var evt  in this._ids_eventos_multiple) {
 			var nombre_evt = this._ids_eventos_multiple[evt];
 			var parametros = this.get_ids_seleccionados(nombre_evt);
-			document.getElementById(this._input_submit+'__'+nombre_evt).value = parametros.join(toba_hilo_separador_interno);
+			if (document.getElementById(this._input_submit+'__'+nombre_evt) != null) {				//Si existe el hidden para el evento
+				document.getElementById(this._input_submit+'__'+nombre_evt).value = parametros.join(toba_hilo_separador_interno);
+			}
 		}
 	};
 	
