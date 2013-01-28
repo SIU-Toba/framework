@@ -2378,7 +2378,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
 		$this->manejador_interface->progreso_fin();
-
+		
+		$this->manejador_interface->mensaje("", true);
+		$this->manejador_interface->mensaje("Proyecto empaquetado en: {$empaquetado['path_destino']}", true);		
 	}
 	
 	protected function empaquetar_proyecto($destino, $excepciones)
