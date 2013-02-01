@@ -119,11 +119,11 @@ class toba_ini
 				$ini .= "\n";
 				$ini .= "[$nombre]\n";
 				foreach ( $datos as $directiva => $valor ) {
-					$ini .= "$directiva = $valor\n";
+					$ini .= "$directiva = \"$valor\"\n";
 				}
 
 			} else {
-				$ini .= "$nombre = $datos\n";
+				$ini .= "$nombre = \"$datos\"\n";
 			}
 		}
 		return $ini;	
