@@ -178,7 +178,8 @@ class toba_proyecto
 
 	function permite_cambio_perfiles()
 	{
-		return $this->get_parametro('proyecto', 'permite_cambio_perfil_funcional', false);
+		$permite = $this->get_parametro('proyecto', 'permite_cambio_perfil_funcional', false);
+		return (! is_null($permite) && $permite);
 	}
 	
 	function es_personalizable()
