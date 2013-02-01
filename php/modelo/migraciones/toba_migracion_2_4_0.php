@@ -80,20 +80,6 @@ class toba_migracion_2_4_0 extends toba_migracion
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
-	}
-	
-	function proyecto__agregar_configuracion_ini()
-	{
-		$destino_ini = $this->elemento->get_dir().'/proyecto.ini';
-		if (file_exists($destino_ini)) {
-			$editor = new toba_ini($destino_ini);
-			$conf = $editor->get_datos_entrada('proyecto');
-			$conf['permite_cambio_perfil_funcional'] = '0';
-			$conf['mostrar_resize_fuente'] = '0';
-			$editor->set_datos_entrada('proyecto', $conf);
-			$editor->guardar();
-		}
-	}
-	
+	}	
 }
 ?>
