@@ -92,6 +92,11 @@ class toba_instancia
 		}
 	}
 	
+	function get_schema_logs_toba()
+	{
+		return $this->get_schema_db(). '_logs';
+	}
+	
 	/**
 	 * @return toba_modelo_instancia
 	 */
@@ -151,7 +156,7 @@ class toba_instancia
 	function get_id_solicitud()
 	{
 		if (! isset($this->id_solicitud)) {
-			$sql = "SELECT nextval('toba_logs.apex_solicitud_seq'::text) as id;";	
+			$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_solicitud_seq'::text) as id;";	
 			$rs = $this->get_db()->consultar($sql);
 			if (empty($rs)) {
 				throw new toba_error('No es posible generar un ID para la solicitud');
@@ -163,7 +168,7 @@ class toba_instancia
 
 	private function existe_solicitud($id)
 	{
-		$sql = "SELECT  '1'  FROM toba_logs.apex_solicitud WHERE solicitud = :solicitud;";
+		$sql = "SELECT  '1'  FROM {$this->get_schema_logs_toba()}.apex_solicitud WHERE solicitud = :solicitud;";
 		$rs = $this->get_db()->sentencia($sql, array('solicitud' => $id));
 		return (! empty($rs));
 	}
@@ -172,7 +177,7 @@ class toba_instancia
 	{
 		//Evita que se intente registrar 2 veces la misma solicitud
 		if (! $this->existe_solicitud($id)) {
-			$sql = "INSERT INTO toba_logs.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
+			$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
 					VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";	
 
 			$parametros = array(
@@ -189,7 +194,7 @@ class toba_instancia
 	function actualizar_solicitud_cronometro($id, $proyecto)
 	{
 		$tiempo = toba::cronometro()->tiempo_acumulado();		
-		$sql = "UPDATE toba_logs.apex_solicitud SET tiempo_respuesta = :tiempo_respuesta
+		$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_solicitud SET tiempo_respuesta = :tiempo_respuesta
 				WHERE	proyecto =  :proyecto AND solicitud = :solicitud;";
 		
 		$parametros = array(
@@ -203,7 +208,7 @@ class toba_instancia
 	
 	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
 	{		
-		$sql = "INSERT INTO toba_logs.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
 				VALUES (:proyecto, :solicitud, :solicitud_obs_tipo_proyecto,:solicitud_obs_tipo, :observacion);";	
 
 		$parametros = array(
@@ -218,7 +223,7 @@ class toba_instancia
 
 	function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
-		$sql = "INSERT INTO toba_logs.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
 				VALUES (:solicitud_proyecto, :solicitud_browser, :proyecto, :sesion_browser, :ip);";	
 
 		$parametros = array(
@@ -233,7 +238,7 @@ class toba_instancia
 
 	function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
-		$sql = "INSERT INTO toba_logs.apex_solicitud_consola (proyecto, solicitud_consola, usuario, llamada) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_consola (proyecto, solicitud_consola, usuario, llamada) 
 				VALUES (:proyecto,:toba_solicitud_consola, :usuario, :llamada);";
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -246,7 +251,7 @@ class toba_instancia
 
 	function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
 	{
-		$sql = "INSERT INTO toba_logs.apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) 
 				VALUES (:proyecto, :solicitud, :marca, :nivel_ejecucion, :texto, :tiempo);";
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -261,7 +266,7 @@ class toba_instancia
 
 	function registrar_solicitud_web_service($proyecto, $solicitud, $metodo, $ip)
 	{
-		$sql = "INSERT INTO toba_logs.apex_solicitud_web_service (proyecto, solicitud, metodo, ip)
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_web_service (proyecto, solicitud, metodo, ip)
 				VALUES (:proyecto, :solicitud, :metodo, :ip);"; 
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -498,7 +503,7 @@ class toba_instancia
 
 	function es_ip_rechazada($ip)
 	{
-		$sql = "SELECT '1' FROM toba_logs.apex_log_ip_rechazada WHERE ip = :ip";
+		$sql = "SELECT '1' FROM {$this->get_schema_logs_toba()}.apex_log_ip_rechazada WHERE ip = :ip";
 		$id = $this->get_db()->sentencia_preparar($sql);
 		$rs = $this->get_db()->sentencia_consultar($id, array('ip'=>$ip));
 		if ( empty($rs)) {
@@ -509,7 +514,7 @@ class toba_instancia
 	
 	function registrar_error_login($usuario, $ip, $texto)
 	{
-		$sql = "INSERT INTO toba_logs.apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
 		try {
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
@@ -521,7 +526,7 @@ class toba_instancia
 	function bloquear_ip($ip)
 	{
 		try {
-			$sql = "INSERT INTO toba_logs.apex_log_ip_rechazada (ip) VALUES (:ip)";
+			$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_log_ip_rechazada (ip) VALUES (:ip)";
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$this->get_db()->sentencia_ejecutar($id, array('ip'=>$ip));
 		} catch ( toba_error $e ) {
@@ -531,7 +536,7 @@ class toba_instancia
 	
 	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
-		$sql = 'SELECT count(*) as total FROM toba_logs.apex_log_error_login WHERE ip = :ip AND (gravedad > 0)';
+		$sql = "SELECT count(*) as total FROM {$this->get_schema_logs_toba()}.apex_log_error_login WHERE ip = :ip AND (gravedad > 0)";
 		$parametros['ip'] = $ip;
 		if (isset($ventana_temporal)) {
 			$sql .= " AND ((now()-momento) < :ventana_temporal)";
@@ -551,7 +556,7 @@ class toba_instancia
 	
 	function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
 	{
-		$sql = 'SELECT count(*) as total FROM toba_logs.apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)';
+		$sql = "SELECT count(*) as total FROM {$this->get_schema_logs_toba()}.apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)";
 		$parametros['usuario'] = $usuario;
 		if (isset($ventana_temporal)) {
 			$sql .= " AND ((now()-momento) < :ventana_temporal)";
@@ -594,7 +599,7 @@ class toba_instancia
 	
 	function get_id_sesion()
 	{
-		$sql = "SELECT nextval('toba_logs.apex_sesion_browser_seq'::text) as id;";
+		$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_sesion_browser_seq'::text) as id;";
 		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
 			throw new toba_error("No es posible recuperar el ID de la sesion.");
@@ -604,7 +609,7 @@ class toba_instancia
 	
 	function abrir_sesion($sesion, $usuario, $proyecto)
 	{
-		$sql = "INSERT INTO toba_logs.apex_sesion_browser(sesion_browser, usuario, ip, proyecto, php_id) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_sesion_browser(sesion_browser, usuario, ip, proyecto, php_id) 
 				VALUES (:sesion_browser, :usuario, :ip, :proyecto, :php_id);";
 		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;		
 		$parametros = array(
@@ -623,9 +628,9 @@ class toba_instancia
 		$sesion = $db->quote($sesion);
 		if (isset($observaciones)){
 			$observaciones = $db->quote($observaciones);
-			$sql = "UPDATE toba_logs.apex_sesion_browser SET egreso = current_timestamp, observaciones=$observaciones WHERE sesion_browser = $sesion;";
+			$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_sesion_browser SET egreso = current_timestamp, observaciones=$observaciones WHERE sesion_browser = $sesion;";
 		}else{
-			$sql = "UPDATE toba_logs.apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = $sesion;";
+			$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = $sesion;";
 		}		
 		$db->ejecutar($sql);
 	}

@@ -2,8 +2,6 @@
 class tester_caso_nuevoformml extends tester_caso
 {
 	protected $sql = array(
-		// tabla: apex_log_objeto
-		"INSERT INTO toba_logs.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000082, '2010-05-19 16:45:19', 'toba', 'ejemplo', 12000069, NULL, NULL);",
 
 		// tabla: apex_objeto
 		"INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES ('ejemplo', 12000069, NULL, NULL, NULL, 'toba', 'toba_ei_formulario_ml', NULL, NULL, NULL, NULL, 'ci2_item_original - form_ml', NULL, 0, NULL, 'ejemplo', 'ejemplo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-05-19 16:45:19', 'abajo');",
@@ -22,6 +20,12 @@ class tester_caso_nuevoformml extends tester_caso
 		"INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES ('ejemplo', 12000005, 12000009, NULL, 12000061);",
 	);
 
+	function  __construct($db)
+	{
+		parent::__construct($db);		
+		// tabla: apex_log_objeto
+		$this->sql[] ="INSERT INTO {$this->get_schema_log_toba()}.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000082, '2010-05-19 16:45:19', 'toba', 'ejemplo', 12000069, NULL, NULL);";
+	}
 
 	/**
 	 * Descripción del caso de test

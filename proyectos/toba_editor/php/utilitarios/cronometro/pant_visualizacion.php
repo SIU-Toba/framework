@@ -14,9 +14,10 @@ class pant_visualizacion extends toba_ei_pantalla
 
 	function mostrar_solicitud($id_solicitud, $ancho="100%")
 	{
+		$schema_logs = toba::instancia()->get_db()->get_schema(). '_logs';
 		$id_solicitud = addslashes($id_solicitud);
-		$sql = 'SELECT marca, nivel_ejecucion as nivel, texto, tiempo FROM toba_logs.apex_solicitud_cronometro
-					WHERE solicitud = '.quote($id_solicitud).' ORDER BY marca';
+		$sql = "SELECT marca, nivel_ejecucion as nivel, texto, tiempo FROM $schema_logs.apex_solicitud_cronometro
+					WHERE solicitud = ".quote($id_solicitud).' ORDER BY marca';
 		$rs = toba::instancia()->get_db()->consultar($sql);
 		if (empty($rs)) {
 			throw new toba_error("No se encuentra la solicitud $id_solicitud");

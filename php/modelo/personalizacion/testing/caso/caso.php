@@ -15,6 +15,11 @@ abstract class tester_caso {
 	
 	abstract function get_descripcion();
 
+	function get_schema_log_toba()
+	{
+		return $this->db->get_schema() . '_logs';
+	}
+	
 	function ejecutar()
 	{
 		foreach ($this->sql as $sentencia) {

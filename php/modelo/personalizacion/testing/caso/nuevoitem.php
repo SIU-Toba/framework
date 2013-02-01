@@ -15,10 +15,6 @@ class tester_caso_nuevoitem extends tester_caso
 		// tabla: apex_item_objeto
 		"INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (NULL, 'ejemplo', '12000037', 12000047, 0, NULL);",
 
-		// tabla: apex_log_objeto
-		"INSERT INTO toba_logs.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000060, '2010-05-19 14:53:13', 'toba', 'ejemplo', NULL, '12000037', NULL);",
-		"INSERT INTO toba_logs.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000061, '2010-05-19 14:53:49', 'toba', 'ejemplo', 12000047, NULL, NULL);",
-
 		// tabla: apex_objeto
 		"INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES ('ejemplo', 12000047, NULL, NULL, NULL, 'toba', 'toba_ci', NULL, NULL, NULL, NULL, 'item_nuevo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-05-19 14:53:49', 'abajo');",
 
@@ -33,7 +29,14 @@ class tester_caso_nuevoitem extends tester_caso
 		"INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('ejemplo', 'admin', NULL, '12000037');",
 	);
 
-
+	function  __construct($db)
+	{
+		parent::__construct($db);		
+		// tabla: apex_log_objeto
+		$this->sql[] = "INSERT INTO {$this->get_schema_log_toba()}.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000060, '2010-05-19 14:53:13', 'toba', 'ejemplo', NULL, '12000037', NULL);";
+		$this->sql[] = "INSERT INTO {$this->get_schema_log_toba()}.apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, item, observacion) VALUES (12000061, '2010-05-19 14:53:49', 'toba', 'ejemplo', 12000047, NULL, NULL);";		
+	}		
+		
 	/**
 	 * Descripción del caso de test
 	 */

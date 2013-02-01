@@ -702,11 +702,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	 */
 	function crear_modelo_logs_toba()
 	{
-		if (! $this->get_db()->existe_schema('toba_logs')) {
-			$actual = $this->get_db()->get_schema();
+		$schema_logs = $this->get_schema_db() . '_logs';		
+		if (! $this->get_db()->existe_schema($schema_logs)) {
+			$actual = $this->get_db()->get_schema();		
 			if (! isset($actual)) {
 				$actual = 'public';
-			}
+			}					
 			$this->crear_tablas_log();
 			$this->cargar_informacion_instancia_logs();
 			$this->actualizar_secuencias_tablas_log();
@@ -721,7 +722,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
 		foreach( $archivos as $archivo ) {
-			if (self::ddl_archivo_tablas_log != basename($archivo, '.sql')) {		//Excluyo el archivo de logs para que se genere aparte			
+			if (self::ddl_archivo_tablas_log != basename($archivo, '.sql')) {		//Excluyo el archivo de logs para que se genere aparte					
 				$cant = $this->get_db()->ejecutar_archivo( $archivo );
 				toba_logger::instancia()->debug($archivo . ". ($cant)");			
 				$this->manejador_interface->progreso_avanzar();
@@ -733,15 +734,22 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	private function crear_tablas_log()
 	{
 		$this->manejador_interface->mensaje('Creando las tablas de log', false);
+		$schema_logs = $this->get_schema_db() . '_logs';
 		
-		$sql[] = 'CREATE SCHEMA toba_logs;';		//Creo el schema ya que no existe
+		
+		$sql = "CREATE SCHEMA $schema_logs;";		//Creo el schema ya que no existe
 		$this->get_db()->ejecutar($sql);
-		$this->get_db()->set_schema('toba_logs');
+		$this->get_db()->set_schema($schema_logs);
 		
 		$directorio = toba_modelo_nucleo::get_dir_ddl();
 		$nombre = $directorio . '/' . self::ddl_archivo_tablas_log. '.sql';
 		if (file_exists($nombre)) {
-			$cant = $this->get_db()->ejecutar_archivo( $nombre );
+			//Aca tengo que hacer un cambio veneno
+			$template =  file_get_contents($nombre);
+			$editor = new toba_editor_texto();
+			$editor->agregar_sustitucion( '|__toba_logs__|', $schema_logs);
+			$sql = $editor->procesar($template);
+			$cant = $this->get_db()->ejecutar($sql);
 			toba_logger::instancia()->debug($nombre . ". ($cant)");			
 			$this->manejador_interface->progreso_avanzar();
 		}
@@ -1192,8 +1200,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function eliminar_logs()
 	{
 		$schema = '';
-		if ($this->get_db()->existe_schema('toba_logs')) {
-			$schema = 'toba_logs.';
+		$schema_log = $this->get_schema_db(). '_logs';
+		if ($this->get_db()->existe_schema($schema_log)) {
+			$schema = "$schema_log.";
 		}
 		//--- Borra logs en las tablas
 		$tablas = toba_db_tablas_instancia::get_lista_proyecto_log();
@@ -1291,7 +1300,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function desbloquear_ips()
 	{
-		$sql = "DELETE FROM toba_logs.apex_log_ip_rechazada";
+		$schema_log = $this->get_schema_db(). '_logs';
+		$sql = "DELETE FROM $schema_log.apex_log_ip_rechazada";
 		$cant = $this->get_db()->ejecutar($sql);
 		$this->manejador_interface->mensaje("Ips liberadas: $cant");
 	}

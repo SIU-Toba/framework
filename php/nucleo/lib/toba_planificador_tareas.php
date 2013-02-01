@@ -158,6 +158,7 @@ class toba_planificador_tareas
 	protected function registrar_ejecucion($datos, $manejador_interface=null)
 	{
 		$db = toba::instancia()->get_db();
+		$schema_log = $db->get_schema(). '_logs';
 		$proyecto = $db->quote($this->proyecto);
 		$id = $db->quote($datos['tarea']);
 		$mensaje_debug = "[Programador de Tareas] Ejecutada tarea $id:{$datos['nombre']} de clase '{$datos['tarea_clase']}' en el proyecto '{$this->proyecto}'";
@@ -166,7 +167,7 @@ class toba_planificador_tareas
 			$manejador_interface->mensaje($mensaje_debug);
 		}		
 		
-		$sql = "INSERT INTO toba_logs.apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
+		$sql = "INSERT INTO $schema_log.apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
 				SELECT proyecto, tarea, nombre, tarea_clase, tarea_objeto, NOW()
 				FROM apex_tarea WHERE tarea=$id AND proyecto = $proyecto
 		";

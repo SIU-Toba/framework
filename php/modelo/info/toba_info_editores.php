@@ -1245,6 +1245,7 @@ class toba_info_editores
 	static function get_log_modificacion_componentes()
 	{
 		$proyecto = toba_contexto_info::get_db()->quote(toba_contexto_info::get_proyecto()) ;
+		$schema_logs = toba_contexto_info::get_db()->get_schema() . '_logs';
 		$sql = "	SELECT l.momento as momento,
 						l.usuario as usuario,	
 						'[' || coalesce(CAST(l.objeto as text), '...') || '] ' 
@@ -1255,7 +1256,7 @@ class toba_info_editores
 						coalesce(c.editor_item,'1000240') as editor_item,
 						coalesce(c.icono,'item.gif') as icono_tipo_componente, 
 						l.observacion as observacion
-					FROM toba_logs.apex_log_objeto l
+					FROM $schema_logs.apex_log_objeto l
 					LEFT OUTER JOIN 
 						apex_objeto o INNER JOIN apex_clase c ON (o.clase = c.clase AND o.clase_proyecto = c.proyecto)
 						ON (o.proyecto = l.objeto_proyecto AND o.objeto = l.objeto)

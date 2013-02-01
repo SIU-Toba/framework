@@ -18,7 +18,8 @@ class consultas_instancia
 
 	static function get_cantidad_ips_rechazadas()
 	{
-		$sql = 'SELECT count(*) as cantidad FROM toba_logs.apex_log_ip_rechazada;';
+		$schema_logs = toba::db()->get_schema(). '_logs';
+		$sql = "SELECT count(*) as cantidad FROM $schema_logs.apex_log_ip_rechazada;";
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
@@ -44,7 +45,8 @@ class consultas_instancia
 	static function get_cantidad_sesiones_proyecto($proyecto)
 	{
 		$proyecto = quote($proyecto);
-		$sql = "SELECT count(*) as cantidad FROM toba_logs.apex_sesion_browser WHERE proyecto = $proyecto;";
+		$schema_logs = toba::db()->get_schema(). '_logs';
+		$sql = "SELECT count(*) as cantidad FROM $schema_logs.apex_sesion_browser WHERE proyecto = $proyecto;";
 		$rs = toba::db()->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
@@ -67,6 +69,7 @@ class consultas_instancia
 				$where .= " AND usuario = {$filtro_sano['usuario']} ";
 			}
 		}
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "
 				SELECT	se.sesion_browser as id,
 						usuario,
@@ -74,8 +77,8 @@ class consultas_instancia
 						egreso,
 						se.ip as ip,
 						count(so.solicitud_browser) as solicitudes
-					FROM toba_logs.apex_sesion_browser se
-						LEFT OUTER JOIN toba_logs.apex_solicitud_browser so
+					FROM $schema_logs.apex_sesion_browser se
+						LEFT OUTER JOIN $schema_logs.apex_solicitud_browser so
 						ON se.sesion_browser = so.sesion_browser
 						AND se.proyecto = so.proyecto
 					WHERE se.proyecto = $proyecto
@@ -88,9 +91,10 @@ class consultas_instancia
 	static function get_id_sesion($id_solicitud)
 	{
 		$id_solicitud = quote($id_solicitud);
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "
 				SELECT	sesion_browser as id
-				FROM toba_logs.apex_solicitud_browser
+				FROM $schema_logs.apex_solicitud_browser
 				WHERE solicitud_browser = $id_solicitud
 		";
 		$fila = toba::db()->consultar_fila($sql);
@@ -109,6 +113,7 @@ class consultas_instancia
 			$extra = "AND sb.solicitud_browser = $id_solicitud";
 		}
 		$sesion = quote($sesion);
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "
 				SELECT	s.solicitud as id,
 						s.item_proyecto as item_proyecto,
@@ -117,10 +122,10 @@ class consultas_instancia
 						s.momento as momento,
 						s.tiempo_respuesta as tiempo,
 						count(so.solicitud_observacion) as observaciones
-				FROM 	toba_logs.apex_solicitud_browser sb,
+				FROM 	$schema_logs.apex_solicitud_browser sb,
 						apex_item i,
-						toba_logs.apex_solicitud s
-						LEFT OUTER JOIN toba_logs.apex_solicitud_observacion so
+						$schema_logs.apex_solicitud s
+						LEFT OUTER JOIN $schema_logs.apex_solicitud_observacion so
 							ON s.solicitud = so.solicitud
 							AND s.proyecto = so.proyecto
 				WHERE	s.solicitud = sb.solicitud_browser
@@ -137,11 +142,12 @@ class consultas_instancia
 	static function get_solicitud_observaciones($solicitud)
 	{
 		$solicitud = quote($solicitud);
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "
 				SELECT 	solicitud_observacion,
 						observacion,
 						ot.descripcion
-				FROM toba_logs.apex_solicitud_observacion o
+				FROM $schema_logs.apex_solicitud_observacion o
 					LEFT OUTER JOIN apex_solicitud_obs_tipo ot
 						ON ot.solicitud_obs_tipo = o.solicitud_obs_tipo
 						AND ot.proyecto = o.solicitud_obs_tipo_proyecto
@@ -153,6 +159,7 @@ class consultas_instancia
 	static function get_solicitudes_consola($proyecto, $filtro)
 	{
 		$proyecto = quote($proyecto);
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "		
 				SELECT	s.solicitud as id,
 						s.momento as momento,
@@ -161,8 +168,8 @@ class consultas_instancia
 						s.tiempo_respuesta as tiempo,
 						sc.usuario as usuario,
 						sc.llamada as llamada
-				FROM	toba_logs.apex_solicitud s,
-						toba_logs.apex_solicitud_consola sc
+				FROM	$schema_logs.apex_solicitud s,
+						$schema_logs.apex_solicitud_consola sc
 				WHERE	s.proyecto = sc.proyecto
 				AND	s.solicitud = sc.solicitud_consola
 				AND	s.proyecto = $proyecto;";
@@ -177,6 +184,7 @@ class consultas_instancia
 		if (isset($filtro['metodo'])) { $where[] = 'sws.metodo ILIKE  ' . quote("{$filtro['metodo']}%");}
 		if (isset($filtro['ip'])) { $where[] = 'sws.ip =' .quote($filtro['ip']);}
 		if (isset($filtro['solicitud'])) { $where[] = 's.solicitud = ' .quote($filtro['solicitud']);}
+		$schema_logs = toba::db()->get_schema(). '_logs';
 		$sql = "
 				SELECT	s.solicitud as id, 
 						s.momento as momento, 
@@ -185,8 +193,8 @@ class consultas_instancia
 						s.tiempo_respuesta as tiempo, 
 						sws.metodo, 
 						sws.ip						
-				FROM	toba_logs.apex_solicitud s,
-						toba_logs.apex_solicitud_web_service sws
+				FROM	$schema_logs.apex_solicitud s,
+						$schema_logs.apex_solicitud_web_service sws
 				WHERE	s.proyecto = sws.proyecto
 				AND	s.solicitud = sws.solicitud
 				ORDER BY momento DESC";
