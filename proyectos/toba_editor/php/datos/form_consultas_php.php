@@ -7,12 +7,14 @@ class form_consultas_php extends toba_ei_formulario
 	{
 		echo "                        
 			{$this->objeto_js}.evt__archivo__procesar = function(inicial) {
-				if (!inicial && this.ef('clase').valor() == '') {
+				if (!inicial) {
 					var archivo = this.ef('archivo').valor();
 					var basename = archivo.replace( /.*\//, '' );
-					var clase = basename.substring(0, basename.lastIndexOf('.'));
-					this.ef('clase').cambiar_valor(clase);
+					var clase = basename.substring(0, basename.lastIndexOf('.'));					
 					this.ef('archivo_clase').cambiar_valor(clase);
+					if (this.ef('clase').valor() == '') {
+						this.ef('clase').cambiar_valor(clase);
+					}
 				}
 			}
 
@@ -26,7 +28,7 @@ class form_consultas_php extends toba_ei_formulario
 			{
 				if (!inicial) {
 					this.ef('archivo').cambiar_valor('');
-					this.ef('clase').cambiar_valor('');
+					this.ef('archivo_clase').cambiar_valor('');
 				}
 			}
 		";
