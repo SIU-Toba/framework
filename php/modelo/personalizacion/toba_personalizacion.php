@@ -159,6 +159,10 @@ class toba_personalizacion {
 		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");
 		$this->clonar_schema($schema_o, $schema_t);
 
+		$schema_logs_o = $schema_o . '_logs';
+		$schema_logs_t = $schema_t . '_logs';
+		$this->clonar_schema($schema_logs_o, $schema_logs_t);
+		
 		// se cambia el schema del proyecto para que todos los cambios sean sobre el nuevo schema
 		$this->cambiar_schema_proyecto($schema_t);
 		$this->set_schema_original($schema_o);
