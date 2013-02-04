@@ -1392,7 +1392,8 @@ class toba_info_editores
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT		punto_montaje,
 							clase,
-							archivo
+							archivo,
+							archivo_clase
 					FROM	apex_consulta_php
 					WHERE	proyecto = $proyecto AND consulta_php = $consulta
 		";
@@ -1409,7 +1410,7 @@ class toba_info_editores
 		} else {
 			$datos = self::get_consulta_php($consulta_php, $proyecto);
 			$archivo_nombre = $datos['archivo'];
-			$clase_nombre = $datos['clase'];
+			$clase_nombre = $datos['archivo_clase'];
 		}
 		
 		//Si hay puntos de montaje, cargo el autoload de c/u
