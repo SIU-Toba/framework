@@ -35,10 +35,13 @@ class toba_db_postgres7 extends toba_db
 	 * @param string $schema
 	 * @param boolean $ejecutar
 	 */
-	function set_schema($schema, $ejecutar = true)
+	function set_schema($schema, $ejecutar = true, $fallback_en_public=false)
 	{
 		$this->schema = $schema;
-		$sql = "SET search_path TO $schema;";
+		$sql = "SET search_path TO $schema";
+		if ($fallback_en_public) {
+			$sql .= ', public';
+		}
 		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);
 	}
