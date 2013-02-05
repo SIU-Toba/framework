@@ -540,7 +540,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'6', --orden
-	'Botonera integrada a barra de operación', --etiqueta
+	'Botonera en barra de operación', --etiqueta
 	NULL, --etiqueta_estilo
 	'Grafica la botonera superior del ci, en la barra de la operación (donde se encuentra el título de la operación)', --descripcion
 	'0', --colapsado
