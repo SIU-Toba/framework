@@ -1771,9 +1771,9 @@ class toba_ei_cuadro extends toba_ei
 			unset($this->_memoria['columnas_orden_mul']);
 		}
 		if (isset($this->_sentido_orden_mul)) {
-			$this->_memoria['sentido_orden_mul'] = $this->_sentido_orden_mul;
+			$this->_memoria['sentido_orden_multiple'] = $this->_sentido_orden_mul;
 		}else{
-			unset($this->_memoria['sentido_orden_mul']);
+			unset($this->_memoria['sentido_orden_multiple']);
 		}
 	}
 
