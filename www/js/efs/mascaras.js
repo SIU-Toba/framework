@@ -161,6 +161,12 @@ def.setNumber = function(_v, _d){
 	if( this.allowPartial && (v.replace(/[^0-9]/, "").length === 0) ) {
 		return v;
 	}
+	if (v==='-'){
+		return v
+	}
+	if (v.substring(v.length-1, v.length)=='-') {
+		return v.substring(0, v.length-1);
+	}
 	this.strippedValue = v;
 
 	//¿Es un número?
