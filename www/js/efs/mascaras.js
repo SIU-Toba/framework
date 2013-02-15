@@ -162,7 +162,7 @@ def.setNumber = function(_v, _d){
 		return v;
 	}
 	if (v==='-'){
-		return v
+		return v;
 	}
 	if (v.substring(v.length-1, v.length)=='-') {
 		return v.substring(0, v.length-1);
