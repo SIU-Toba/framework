@@ -68,7 +68,7 @@ class comando_base extends comando_toba
 		
 		
 		//--- Base de origen
-		$param = $this->get_parametros();		
+		$param = $this->get_parametros();
 		if (!isset($origen) && isset($param['-o']) &&  (trim($param['-o']) != '') ) {
 			$origen =  $param['-o'];
 		}
@@ -96,7 +96,9 @@ class comando_base extends comando_toba
 		}
 		//--- Registración
 		$this->get_instalacion()->agregar_db( $def, $datos );
-		$this->get_instalacion()->determinar_encoding( $def );
+		if (! isset($datos['encoding']) || trim($datos['encoding']) == '') {
+                    $this->get_instalacion()->determinar_encoding( $def );
+		}
 	}	
 	
 
