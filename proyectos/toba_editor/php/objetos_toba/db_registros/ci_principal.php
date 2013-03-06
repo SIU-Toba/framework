@@ -96,6 +96,13 @@ class ci_principal extends ci_editores_toba
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
+	function evt__1__salida()
+	{
+		if (trim($this->s__tabla) == '') {			
+			throw new toba_error_usuario('Tiene que seleccionar una tabla para poder continuar');
+		}
+	}
+
 	function conf__prop_basicas($form)
 	{
 		// Hay extension
@@ -170,11 +177,12 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->evt__prop_basicas__modificacion($datos);
 		//Borro la informacion previa. Ya avise en JS que se iba a hacer
+		$esquema = $this->get_entidad()->tabla('prop_basicas')->get_columna('esquema');
 		$this->dep('datos')->tabla('valores_unicos')->eliminar_filas();
 		$this->dep('datos')->tabla('externas_col')->eliminar_filas();
 		$this->dep('datos')->tabla('externas')->eliminar_filas();
 		$this->dep('datos')->tabla('columnas')->eliminar_filas();
-		$this->get_entidad()->actualizar_campos();
+		$this->get_entidad()->actualizar_campos($esquema);
 		$this->actualizar_nombre_objeto_dt($datos);
 	}
 
@@ -225,7 +233,8 @@ class ci_principal extends ci_editores_toba
 	function evt__columnas__leer_db($datos)
 	{
 		$this->evt__columnas__modificacion($datos);
-		$this->get_entidad()->actualizar_campos();
+		$esquema = $this->get_entidad()->tabla('prop_basicas')->get_columna('esquema');
+		$this->get_entidad()->actualizar_campos($esquema);
 	}
 
 	function evt__fks__modificacion($datos)
@@ -577,7 +586,5 @@ class ci_principal extends ci_editores_toba
 			$respuesta->set(false);
 		}
 	}
-
-
 }
 ?>
