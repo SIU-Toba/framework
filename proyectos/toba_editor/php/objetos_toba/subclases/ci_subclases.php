@@ -92,6 +92,9 @@ class ci_subclases extends toba_ci
 			$pm = toba::memoria()->get_parametro('punto_montaje');
 			if (isset($pm)) {
 				$this->s__pm = toba_modelo_pms::get_pm($pm, toba_editor::get_proyecto_cargado());
+			} else {
+				$pm = $this->get_metaclase()->get_punto_montaje();
+				$this->s__pm = toba_modelo_pms::get_pm($pm, toba_editor::get_proyecto_cargado());
 			}
 		}
 		return $this->s__pm;
@@ -107,7 +110,7 @@ class ci_subclases extends toba_ci
 		$absoluto = $this->recuperar_punto_montaje()->get_path_absoluto();
 		$archivos->set_path_absoluto($absoluto);
 		$inicial = toba::memoria()->get_parametro('ef_popup_valor');
-		if ($inicial != null) {
+		if (! is_null($inicial)) {
 			$archivos->set_path(dirname($inicial));
 		}		
 	}
@@ -123,8 +126,7 @@ class ci_subclases extends toba_ci
 		if ($relativo != '') {
 			$relativo = '/'.$relativo;
 		}
-		$pm_id = $this->get_metaclase()->get_punto_montaje();
-		$pm = toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
+		$pm = $this->recuperar_punto_montaje();
 		return $pm->get_path_absoluto().$relativo;
 
 		//return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())..$relativo;

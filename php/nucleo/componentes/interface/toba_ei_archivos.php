@@ -235,6 +235,10 @@ class toba_ei_archivos extends toba_ei
 		if (isset($this->_path_absoluto)) {
 			$es_el_relativo = (realpath($this->_path_absoluto) == realpath($this->_dir_actual));
 		}
+		if ($dir === false) {
+			return;
+		}
+		
 		//Filtra Archivos y directorios
 		while(($archivo = readdir($dir)) !== false)  
 		{  
