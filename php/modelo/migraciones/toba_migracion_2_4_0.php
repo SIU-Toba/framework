@@ -16,6 +16,9 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$sql[] = "INSERT INTO apex_fuente_datos_motor (fuente_datos_motor, nombre, version) VALUES ('sqlserver', 'SQLServer', '2005');";						
 		$sql[] = 'ALTER TABLE apex_fuente_datos_schemas  ALTER COLUMN fuente_datos TYPE VARCHAR(20);';
 				
+		$sql[] = 'ALTER TABLE apex_usuario_perfil_datos_dims DROP CONSTRAINT apex_usuario_perfil_datos_dims_pk;';			
+		$sql[] = 'ALTER TABLE apex_usuario_perfil_datos_dims ADD CONSTRAINT	"apex_usuario_perfil_datos_dims_pk" PRIMARY KEY ("proyecto", "elemento");';
+		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
