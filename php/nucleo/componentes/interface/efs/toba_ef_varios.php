@@ -314,7 +314,16 @@ class toba_ef_html extends toba_ef
 
 		return $editor;
 	}
-		
+	
+	function get_estado()
+	{
+		if ($this->tiene_estado()) {
+			return trim($this->estado);			
+		} else {
+			return null;
+		}
+	}	
+	
 	function set_barra_colapsada($colapsada)
 	{
 		$this->colapsada = $colapsada;
