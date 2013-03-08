@@ -15,17 +15,19 @@ class toba_ap_tabla_db_info implements toba_meta_clase
 		return "dt_ap";	
 	}	
 	
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		$db = toba_contexto_info::get_db();
 		$nombre = $db->quote($nombre);
 		$archivo = $db->quote($archivo);
+		$pm = $db->quote($pm);
 		$sql = "
 			UPDATE apex_objeto_db_registros
 			SET 
 				ap = 0,
 				ap_clase = $nombre,
-				ap_archivo = $archivo
+				ap_archivo = $archivo,
+				punto_montaje = $pm
 			WHERE
 					objeto_proyecto = '{$this->datos['proyecto']}'
 				AND	objeto = '{$this->datos['objeto']}'

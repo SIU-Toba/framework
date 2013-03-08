@@ -259,17 +259,19 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
 	}
 
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		$db = toba_contexto_info::get_db();
 		$nombre = $db->quote($nombre);
 		$archivo = $db->quote($archivo);
+		$pm = $db->quote($pm);
 		$id = $db->quote($this->id);
 		$sql = "
 			UPDATE apex_objeto_ci_pantalla
 			SET 
 				subclase = $nombre,
-				subclase_archivo = $archivo
+				subclase_archivo = $archivo,
+				punto_montaje = $pm
 			WHERE
 					objeto_ci_proyecto = '{$this->proyecto}'
 				AND	objeto_ci = $id

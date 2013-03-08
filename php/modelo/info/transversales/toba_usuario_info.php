@@ -16,17 +16,19 @@ class toba_usuario_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 	}
 
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		$db = toba_contexto_info::get_db();
 		$nombre = $db->quote($nombre);
 		$archivo = $db->quote($archivo);
+		$pm = $db->quote($pm);
 		$id = $db->quote($this->_id['proyecto']);
 		$sql = "
 			UPDATE apex_proyecto
 			SET
 				usuario_subclase = $nombre,
-				usuario_subclase_archivo = $archivo
+				usuario_subclase_archivo = $archivo,
+				pm_usuario = $pm
 			WHERE
 					proyecto = $id;";
 		toba::logger()->debug($sql);

@@ -15,14 +15,17 @@ class toba_contexto_ejecucion_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 	}
 
-	function  set_subclase($nombre, $archivo)
+	function  set_subclase($nombre, $archivo, $pm)
 	{
+		$db = toba_contexto_info::get_db();
 		$proyecto = quote($this->_id['proyecto']);
 		$nombre = quote($nombre);
 		$archivo = quote($archivo);
+		$pm = quote($pm);
 		$sql = "UPDATE  apex_proyecto
 					SET  contexto_ejecucion_subclase = $nombre,
-					contexto_ejecucion_subclase_archivo = $archivo
+					contexto_ejecucion_subclase_archivo = $archivo,
+					pm_contexto = $pm
 					WHERE	proyecto = $proyecto;";
 
 		toba::logger()->debug($sql);

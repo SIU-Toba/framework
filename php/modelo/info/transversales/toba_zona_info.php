@@ -17,17 +17,19 @@ class toba_zona_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 	}
 	
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		$db = toba_contexto_info::get_db();
 		$nombre = $db->quote($nombre);
 		$archivo = $db->quote($archivo);
+		$pm = $db->quote($pm);
 		$proyecto = $db->quote($this->_id['proyecto']);
 		$zona = $db->quote($this->_id['id']);
 		$sql = "
 			UPDATE apex_item_zona
 			SET
-				archivo = $archivo
+				archivo = $archivo,
+				punto_montaje = $pm
 			WHERE
 					proyecto = $proyecto
 			AND zona = $zona;";

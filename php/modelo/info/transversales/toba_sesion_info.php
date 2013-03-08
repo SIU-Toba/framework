@@ -16,15 +16,17 @@ class toba_sesion_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 	}
 
-	function  set_subclase($nombre, $archivo)
+	function  set_subclase($nombre, $archivo, $pm)
 	{
 		$proyecto = quote($this->_id['proyecto']);
 		$archivo = quote($archivo);
 		$nombre = quote($nombre);
+		$pm = quote($pm);
 		
 		$sql = "UPDATE apex_proyecto
 					SET		sesion_subclase = $nombre,
-						sesion_subclase_archivo = $archivo
+						sesion_subclase_archivo = $archivo,
+						pm_sesion = $pm
 					WHERE	proyecto = $proyecto;";
 
 		toba::logger()->debug($sql);

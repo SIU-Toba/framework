@@ -393,9 +393,11 @@ abstract class toba_asistente
 	{
 		if (isset($fuente)){
 			$this->molde['fuente'] = $fuente;
-		}
-
+		}		
+		$pm = $this->dr_molde->tabla('molde')->get_fila_columna(0, 'punto_montaje');		
+		
 		$molde = new toba_datos_relacion_molde($this);
+		$molde->set_punto_montaje($pm);
 		$this->generar_datos_relacion($molde);
 		
 		return $molde;

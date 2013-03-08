@@ -15,17 +15,19 @@ class toba_tipo_pagina_info extends toba_elemento_transversal_info
 		toba::logger()->debug($sql);
 	}
 
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		$proyecto = quote($this->_id['proyecto']);
 		$tipo_pagina = quote($this->_id['id']);
 		$nombre = quote($nombre);
 		$archivo = quote($archivo);
-
+		$pm = quote($pm);
+		
 		$sql = "UPDATE  apex_pagina_tipo
 					SET
 							clase_nombre = $nombre, 
-							clase_archivo = $archivo
+							clase_archivo = $archivo,
+							punto_montaje = $pm
 					WHERE	proyecto = $proyecto
 					AND pagina_tipo = $tipo_pagina;";
 

@@ -24,7 +24,7 @@ abstract class toba_elemento_transversal_info implements toba_meta_clase
 		return $this->_tipo_elemento;
 	}
 
-	function set_subclase($nombre, $archivo)
+	function set_subclase($nombre, $archivo, $pm)
 	{
 		
 	}

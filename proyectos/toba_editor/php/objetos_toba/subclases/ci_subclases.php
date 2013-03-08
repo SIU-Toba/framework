@@ -172,7 +172,8 @@ class ci_subclases extends toba_ci
 			$path_relativo .= '/';
 		}
 		$datos['subclase_archivo'] = $path_relativo.$this->s__datos_nombre['nombre'].'.php';
-		$this->get_metaclase()->set_subclase($this->s__datos_nombre['nombre'], $datos['subclase_archivo']);
+		$pm = $this->recuperar_punto_montaje();
+		$this->get_metaclase()->set_subclase($this->s__datos_nombre['nombre'], $datos['subclase_archivo'], $pm);
 		toba_constructor::set_refresco_forzado(true);
 	}
 	
