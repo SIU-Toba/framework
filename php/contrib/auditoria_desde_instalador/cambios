@@ -1,7 +1,0 @@
-db_manager: agrego métodos requeridos por toba_auditoria_tablas_postgres
-
-toba_auditoria_tablas_postgres: nueva clase en el instalador, hay que incluirla en diaguita_manejador_instalacion y usarla asi:
-
-
-	$auditoria = new toba_auditoria_tablas_postgres($this->conexion);
-	$auditoria->generar();
