@@ -113,7 +113,7 @@ class toba_js
 	static function cargar_consumos_basicos()
 	{
 		if (! self::$basicos_cargados) {
-			self::$consumos_basicos[] = 'basicos/jquery-1.4.3.min';			
+			self::$consumos_basicos[] = 'basicos/jquery-1.9.1.min';			
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
 			}			
