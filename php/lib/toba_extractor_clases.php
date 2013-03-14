@@ -186,9 +186,9 @@ class toba_extractor_clases
 	{
 		$nombre_clase = basename($path, '.php');
 		$comentario = "/**\n * Esta clase fue y será generada automáticamente. NO EDITAR A MANO.\n * @ignore\n */";
-		$arreglo = sprintf("\tstatic \$clases = array(\n%s\t);", $contenido);
+		$arreglo = sprintf("\tstatic protected \$clases = array(\n%s\t);", $contenido);
 		$metodo_consultor = "\tstatic function existe_clase(\$nombre)\n\t{\n\t\treturn isset(self::\$clases[\$nombre]);\n\t}\n";
-		$metodo_cargador = "\tstatic function cargar(\$nombre)\n\t{\n\t\tif (self::existe_clase(\$nombre)) { require_once(dirname(__FILE__) .'/'. self::\$clases[\$nombre]); }\n\t}\n";
+		$metodo_cargador = "\tstatic function cargar(\$nombre)\n\t{\n\t\tif (self::existe_clase(\$nombre)) { \n\t\t\t require_once(dirname(__FILE__) .'/'. self::\$clases[\$nombre]); \n\t\t}\n\t}\n";
 		$clase = sprintf("<?php\n%s\nclass %s \n{\n%s\n%s\n%s\n}\n?>", $comentario, $nombre_clase, $metodo_consultor, $metodo_cargador, $arreglo);
 
 		file_put_contents($path, $clase);
