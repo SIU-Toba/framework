@@ -2,7 +2,7 @@
 /*~ class.phpmailer.php
 .---------------------------------------------------------------------------.
 |  Software: PHPMailer - PHP email class                                    |
-|   Version: 5.2.2                                                          |
+|   Version: 5.2.4                                                          |
 |      Site: https://code.google.com/a/apache-extras.org/p/phpmailer/       |
 | ------------------------------------------------------------------------- |
 |     Admin: Jim Jagielski (project admininistrator)                        |
@@ -390,7 +390,7 @@ class PHPMailer {
    * Sets the PHPMailer Version number
    * @var string
    */
-  public $Version         = '5.2.2';
+  public $Version         = '5.2.4';
 
   /**
    * What to use in the X-Mailer header
@@ -554,7 +554,6 @@ class PHPMailer {
   /**
    * Sets Mailer to send message using SMTP.
    * @return void
-   * @deprecated
    */
   public function IsSMTP() {
     $this->Mailer = 'smtp';
@@ -563,7 +562,6 @@ class PHPMailer {
   /**
    * Sets Mailer to send message using PHP mail() function.
    * @return void
-   * @deprecated
    */
   public function IsMail() {
     $this->Mailer = 'mail';
@@ -572,7 +570,6 @@ class PHPMailer {
   /**
    * Sets Mailer to send message using the $Sendmail program.
    * @return void
-   * @deprecated
    */
   public function IsSendmail() {
     if (!stristr(ini_get('sendmail_path'), 'sendmail')) {
@@ -584,7 +581,6 @@ class PHPMailer {
   /**
    * Sets Mailer to send message using the qmail MTA.
    * @return void
-   * @deprecated
    */
   public function IsQmail() {
     if (stristr(ini_get('sendmail_path'), 'qmail')) {
