@@ -168,14 +168,14 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	NULL, --metodo
 	NULL, --clase
 	NULL, --include
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'select identificador 
 from apex_objeto_cuadro_cc
 where 
 objeto_cuadro_proyecto =''%objeto_cuadro_proyecto%'' AND 
 objeto_cuadro = ''%objeto_cuadro%'' AND
 objeto_cuadro_cc = ''%objeto_cuadro_cc%''', --sql
-	'1', --dato_estricto
+	'0', --dato_estricto
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'0', --permite_carga_masiva
