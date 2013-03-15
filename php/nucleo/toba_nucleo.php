@@ -113,10 +113,9 @@ class toba_nucleo
 				if (strpos($servicio, '?') !== false) {
 					$servicio = substr($servicio, 0, strpos($servicio, '?')); 
 				}
-				
 				//Si es el .php a secas pide un listado de los servicios
 				if (basename($servicio, '.php') !== $servicio) {
-					toba_solicitud_servicio_web::mostrar_servicios();
+					header("HTTP/1.0: 404 Not Found");
 					die;
 				}
 				$item = array(apex_pa_proyecto, $servicio);
