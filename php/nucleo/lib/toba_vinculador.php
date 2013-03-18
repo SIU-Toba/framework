@@ -117,7 +117,7 @@ class toba_vinculador
 			}
 		}
 		
-		if ($opciones['html']) {
+		if (isset($opciones['html'])) {
 			$params = (isset($opciones['texto'])) ? array('texto' => $opciones['texto']): array();
 			return $this->generar_html($query_str, $params);
 		}
