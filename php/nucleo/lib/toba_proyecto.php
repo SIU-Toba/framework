@@ -235,6 +235,14 @@ class toba_proyecto
 	}
 
 	/**
+	 * Retorna el path absoluto de la carpeta 'php' de la personalizacion
+	 */
+	static function get_path_pers_php()
+	{
+		return self::get_path_pers() . '/php';
+	}
+        
+	/**
 	 * Retorna el path base absoluto del directorio temporal no-navegable del proyecto
 	 * (mi_proyecto/temp);
 	 */

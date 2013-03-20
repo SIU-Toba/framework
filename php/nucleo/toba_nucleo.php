@@ -266,12 +266,21 @@ class toba_nucleo
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
-		agregar_dir_include_path(toba_proyecto::get_path_php());
+		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
 		toba::manejador_sesiones()->iniciar();
-		toba::contexto_ejecucion()->conf__inicial();
 		$this->registrar_autoloaders_proyecto();
+		toba::contexto_ejecucion()->conf__inicial();
 	}
+        
+	protected function agregar_paths()
+	{
+            agregar_dir_include_path(toba_proyecto::get_path_php());
+            if (toba::proyecto()->es_personalizable()) {
+                agregar_dir_include_path(toba_proyecto::get_path_pers_php());
+            }
+        }
+        
 
 	protected function registrar_autoloaders_proyecto()
 	{
