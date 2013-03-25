@@ -5,8 +5,10 @@ class toba_hash
 {
 	protected $rounds = 10;
 	protected $metodo = 'bcrypt';	
+	private  $randomState = null;
 	private $indicadores_hash = array('$5$', '$6$', '$1$');
 	private $indicadores_bcrypt = array('$2y$','$2a$', '$2x$');
+	
 	
 	public final function __construct($metodo=null)
 	{
