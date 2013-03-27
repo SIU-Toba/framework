@@ -8,6 +8,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 {
 	const id_ap_mt = 4;
 	protected $_tabla_ext;
+	protected $_schema_ext;
 	
 	// Arreglo de punteros a $this->_columnas ordenado por tabla
 	protected $_cols_por_tabla;
@@ -20,6 +21,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	{
 		parent::__construct($datos_tabla);
 		$this->_tabla_ext		= $this->objeto_tabla->get_tabla_extendida();
+		$this->_schema_ext	= $this->objeto_tabla->get_schema_ext();
 		$this->_cols_por_tabla	= $this->reordenar_columnas();
 		$this->limpiar_claves();
 		$this->_fks			= $this->objeto_tabla->get_fks();
@@ -50,22 +52,21 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 
 	protected function es_seq_tabla_ext($col)
 	{
-		return $this->_tabla_ext == $this->get_tabla($col);
+		return ($this->_tabla_ext == $this->get_tabla($col));
 	}
 	
 	protected function get_from_default()
 	{
 		$tabla		= $this->agregar_schema($this->_tabla);
 		$alias		= $this->_alias;
-		$tabla_ext	= $this->agregar_schema($this->_tabla_ext);
+		$tabla_ext	= $this->agregar_schema($this->_tabla_ext, true);
 
-		$condicion	= '';
-		foreach ($this->_fks as $fk) {
-			$cols_involucradas = array("$alias.{$fk['columna']}", "$tabla_ext.{$fk['columna_ext']}");
-			$condicion .= implode(' = ', $cols_involucradas). ' AND ';
+		$condiciones	= array();
+		foreach ($this->_fks as $fk) {		//Genero las igualdades para c/fk
+			$condiciones[] = implode(' = ', array("$alias.{$fk['columna']}", "$tabla_ext.{$fk['columna_ext']}"));
 		}
-		$condicion = substr($condicion, 0, -5);	// Sacamos el último AND
-
+		
+		$condicion = implode(' AND ', $condiciones);			//Junto las condiciones
 		return "$tabla as $alias LEFT OUTER JOIN $tabla_ext ON $condicion";
 	}
 	
@@ -136,7 +137,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		}
 		
 		$where = $this->generar_sql_where_registro_ext($id_fila);
-		$nombre_tabla = $this->agregar_schema($this->_tabla_ext);
+		$nombre_tabla = $this->agregar_schema($this->_tabla_ext, true);
 		$sql = "SELECT\n\t" . implode(", \n\t", $columnas);
 		$sql .= "\nFROM\n\t  $nombre_tabla";
 		$sql .= "\nWHERE ".implode(' AND ', $where);
@@ -169,7 +170,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	
 	protected function existe_fila_ext($id_registro)
 	{
-		$nombre_tabla = $this->agregar_schema($this->_tabla_ext);
+		$nombre_tabla = $this->agregar_schema($this->_tabla_ext, true);
 		$sql = "SELECT 1 FROM $nombre_tabla WHERE ".
 		  implode(' AND ', $this->generar_sql_where_registro_ext($id_registro));
 
@@ -180,7 +181,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//------------------------------------------------------------------------------------------------------------------------//
 	//				SINCRONIZACION CON LA BASE
 	//------------------------------------------------------------------------------------------------------------------------//
-	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array())	
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array(), $tabla_ext = false)
 	{
 		if ($solo_retornar) {
 			// Se devuelve esto xq si sólo se retorna no hay manera de armar la
@@ -193,21 +194,21 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		if ($this->hay_cambios_ext($id_registro)) {
 			$this->actualizar_fks_ext($id_registro);
 			//$nombre_tabla = $this->agregar_schema($this->_tabla_ext);
-			parent::ejecutar_sql_insert($id_registro, false, $this->_tabla_ext, $this->_cols_por_tabla[$this->_tabla_ext]);
+			parent::ejecutar_sql_insert($id_registro, false, $this->_tabla_ext, $this->_cols_por_tabla[$this->_tabla_ext], true);
 		}
 	}
 	
-	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array())	
+	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array(), $tabla_ext = false)	
 	{
 		parent::ejecutar_sql_update($id_registro, null, null, $this->_cols_por_tabla[$this->_tabla]);
 
 		//$nombre_tabla = $this->agregar_schema($this->_tabla_ext);
 		if ($this->existe_fila_ext($id_registro)) {
 			$where = $this->generar_sql_where_registro_ext($id_registro);
-			parent::ejecutar_sql_update($id_registro, $this->_tabla_ext, $where, $this->_cols_por_tabla[$this->_tabla_ext]);
+			parent::ejecutar_sql_update($id_registro, $this->_tabla_ext, $where, $this->_cols_por_tabla[$this->_tabla_ext], true);
 		} else { // Hay que hacer un insert
 			$this->actualizar_fks_ext($id_registro);
-			parent::ejecutar_sql_insert($id_registro, false, $this->_tabla_ext, $this->_cols_por_tabla[$this->_tabla_ext]);
+			parent::ejecutar_sql_insert($id_registro, false, $this->_tabla_ext, $this->_cols_por_tabla[$this->_tabla_ext], true);
 		}
 	}
 	
@@ -229,7 +230,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	
 	protected function generar_sql_delete_ext($id_registro)
 	{
-		$nombre_tabla = $this->agregar_schema($this->_tabla_ext);
+		$nombre_tabla = $this->agregar_schema($this->_tabla_ext, true);
 		return "DELETE FROM " . $nombre_tabla .
 				" WHERE " . implode(" AND ",$this->generar_sql_where_registro_ext($id_registro) ) .";";
 	}
@@ -308,7 +309,13 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		}
 	}
 
-
+	protected function agregar_schema($elemento, $es_externa = false)
+	{
+		$schema_actual = ($es_externa) ? $this->_schema_ext: $this->_schema;
+		$resultado = (is_null($schema_actual)) ? $elemento : $schema_actual . '.' . $elemento;
+		return $resultado;
+	}
+	
 	protected function hay_cambios_ext($id_registro)
 	{
 		$registro = $this->datos[$id_registro];

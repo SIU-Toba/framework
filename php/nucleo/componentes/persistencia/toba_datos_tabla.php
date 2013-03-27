@@ -1688,6 +1688,15 @@ class toba_datos_tabla extends toba_componente
 		return null;
 	}	
 	
+	function get_schema_ext()
+	{
+		if (isset($this->_info_estructura['esquema_ext'])) {
+			return $this->_info_estructura['esquema_ext'];
+		}
+		return null;		
+	}
+	
+	
 	/**
 	 * Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs
 	 * Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla

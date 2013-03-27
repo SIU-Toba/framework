@@ -160,7 +160,28 @@ class ci_principal extends ci_editores_toba
 		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas(false, $schema);
 	}
 	
+	function get_tablas_extension($fuente, $schema=null)
+	{
+		$esquema = $this->get_entidad()->tabla('prop_basicas')->get_columna('esquema_ext');
+		if (is_null($schema) && ! is_null($esquema)) {			
+			$schema = $esquema;
+		}	
+		return self::get_tablas($fuente, $schema);
+	}
+		
 	function get_schema($fuente=null)
+	{
+		if (is_null($fuente) || ! is_array($fuente)) {
+			throw new toba_error_modelo('No se proporciono un ID válido para la fuente de datos', 'Se intenta obtener los esquemas configurados para una fuente inexistente');
+		}
+		$datos = toba_info_editores::get_schemas_fuente($fuente['fuente_datos_proyecto'], $fuente['fuente_datos']);
+		if (empty($datos)) {
+			$datos = array(array('schema' => 'public'));
+		}
+		return $datos;
+	}	
+	
+	function get_schema_extension($fuente=null)
 	{
 		if (is_null($fuente) || ! is_array($fuente)) {
 			throw new toba_error_modelo('No se proporciono un ID válido para la fuente de datos', 'Se intenta obtener los esquemas configurados para una fuente inexistente');

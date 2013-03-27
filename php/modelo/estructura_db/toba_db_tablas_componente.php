@@ -1068,6 +1068,7 @@ class toba_db_tablas_componente
     13 => 'fuente_datos',
     14 => 'permite_actualizacion_automatica',
     15 => 'esquema',
+    16 => 'esquema_ext',
   ),
 );
 	}

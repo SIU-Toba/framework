@@ -301,7 +301,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		return !isset($col['tabla']) || $tabla == $col['tabla'];
 	}
 
-	protected function agregar_schema($elemento)
+	protected function agregar_schema($elemento, $es_externa = false)
 	{
 		$resultado = (is_null($this->_schema)) ? $elemento : $this->_schema . '.' . $elemento;
 		return $resultado;
@@ -904,7 +904,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */
-	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array())
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false, $tabla = null, $cols_tabla = array(), $tabla_ext = false)
 	{
 		$a=0;
 		$registro = $this->datos[$id_registro];
@@ -966,7 +966,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		// Para evitar un "bug" de PDO se colocan los campos de tipo binario al inicio de la sentencia INSERT.
 		$valores_sql = array_merge($valores_sql_binarios, $valores_sql);
 		$columnas_sql = array_merge($columnas_sql_binarios, $columnas_sql);
-		$sql = "INSERT INTO " . $this->agregar_schema($tabla) .
+		$sql = "INSERT INTO " . $this->agregar_schema($tabla, $tabla_ext) .
 					" ( " . implode(", ", $columnas_sql) . " ) ".
 					"\n VALUES (" . implode(", ", $valores_sql) . ");";
 		if ($solo_retornar) {
@@ -986,7 +986,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */	
-	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array())
+	protected function ejecutar_sql_update($id_registro, $tabla = null, $where = null, $cols_tabla = array(), $tabla_ext = false)			
 	{
 		$binarios = array();
 		$registro = $this->datos[$id_registro];
@@ -1040,7 +1040,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		}
 		//Armo el SQL
 		$where = (is_null($where)) ? $this->generar_sql_where_registro($id_registro) : $where;
-		$sql = "UPDATE " . $this->agregar_schema($tabla) . "\nSET ".
+		$sql = "UPDATE " . $this->agregar_schema($tabla, $tabla_ext) . "\nSET ".
 				implode(",\n\t",$set) .
 				"\nWHERE " . implode("\n\tAND ", $where ) .";";
 		$this->log("registro: $id_registro\n " . $sql);

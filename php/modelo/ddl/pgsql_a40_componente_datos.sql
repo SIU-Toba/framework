@@ -77,6 +77,7 @@ CREATE TABLE apex_objeto_db_registros
 	fuente_datos					varchar(20)		NULL,
 	permite_actualizacion_automatica	SMALLINT NOT NULL DEFAULT 1,
 	esquema						TEXT	NULL,
+	 esquema_ext					TEXT	NULL,
 --	Fin configuracion del AP
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("objeto", "objeto_proyecto"),
 	CONSTRAINT	"apex_objeto_dbr_uq_tabla" UNIQUE ("fuente_datos_proyecto", "fuente_datos", "tabla"),

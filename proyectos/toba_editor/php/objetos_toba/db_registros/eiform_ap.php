@@ -36,6 +36,7 @@ class eiform_ap extends toba_ei_formulario
 					this.ef('modificar_claves').mostrar();
 					this.ef('punto_montaje').mostrar();
 					this.ef('tabla_ext').ocultar(true);
+					this.ef('esquema_ext').ocultar(true);
 					if (this.hay_cambios()) {
 						this.set_evento(new evento_ei('cargar_tablas',true,''));
 					}
@@ -44,6 +45,7 @@ class eiform_ap extends toba_ei_formulario
 					this.ef('ap_clase').ocultar(true);
 					this.ef('ap_archivo').ocultar(true);
 					this.ef('tabla_ext').ocultar(true);
+					this.ef('esquema_ext').ocultar(true);
 					this.ef('punto_montaje').ocultar(true);
 					this.ef('modificar_claves').mostrar();
 					if (this.hay_cambios()) {
@@ -51,7 +53,8 @@ class eiform_ap extends toba_ei_formulario
 					}
 					break;
 				case '4':
-					this.ef('tabla_ext').mostrar();
+					this.ef('esquema_ext').mostrar();
+					this.ef('tabla_ext').mostrar();					
 					this.ef('modificar_claves').ocultar(true);
 					this.ef('ap_clase').ocultar(true);
 					this.ef('ap_archivo').ocultar(true);
@@ -97,7 +100,16 @@ class eiform_ap extends toba_ei_formulario
 				this.set_evento(new evento_ei('modificacion', true, ''));		//Disparo el submit de manera adrede
 			}
 		}		
+		
+		{$this->objeto_js}.evt__esquema_ext__procesar = function(es_inicial)
+		{
+			if (! es_inicial) {
+				this.set_evento(new evento_ei('modificacion', true, ''));		//Disparo el submit de manera adrede
+			}
+		}		
+
 		";
+		
 		if ( isset($this->texto_recarga) ) {
 			$usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
 			echo "
