@@ -85,7 +85,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	objeto_ei_formulario_fila			int8			DEFAULT nextval('"apex_obj_ei_form_fila_seq"'::text) NOT NULL, 
 	objeto_ei_formulario             	int8			NOT NULL,
 	objeto_ei_formulario_proyecto    	varchar(15)		NOT NULL,
-	identificador      					varchar(30)    	NOT NULL,
+	identificador      					varchar(40)    	NOT NULL,
 	elemento_formulario     			varchar(30)    	NOT NULL,
 	columnas                			TEXT   	NOT NULL,
 	obligatorio             			smallint       	NULL,	

@@ -20,6 +20,8 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_usuario_perfil_datos_dims ADD CONSTRAINT	"apex_usuario_perfil_datos_dims_pk" PRIMARY KEY ("proyecto", "elemento");';
 		$sql[] = 'ALTER TABLE apex_objeto_db_registros ADD COLUMN esquema_ext text;';
 		
+		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef  ALTER COLUMN identificador TYPE VARCHAR(40);';
+		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
