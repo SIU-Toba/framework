@@ -2,7 +2,7 @@ NAME:
 
     Securimage - A PHP class for creating and managing form CAPTCHA images
 
-VERSION: 1.0.2
+VERSION: 2.0 BETA
 
 AUTHOR:
 
@@ -21,7 +21,7 @@ DOCUMENTATION:
 REQUIREMENTS:
     PHP 4.3.0
     GD  2.0
-    FreeType (optional, required for TTF support)
+    FreeType (recommended, required for TTF support)
 
 SYNOPSIS:
 
@@ -53,5 +53,36 @@ DESCRIPTION:
 
 
 COPYRIGHT:
-    Copyright (c) 2007 Drew Phillips. All rights reserved.
+    Copyright (c) 2009 Drew Phillips. All rights reserved.
     This software is released under the GNU Lesser General Public License.
+
+    -----------------------------------------------------------------------------
+    Flash code created for Securimage by Douglas Walsh (www.douglaswalsh.net)
+    Many thanks for releasing this to the project!
+
+    ------------------------------------------------------------------------------
+    Portions of Securimage contain code from Han-Kwang Nienhuys' PHP captcha
+        
+    Han-Kwang Nienhuys' PHP captcha
+    Copyright June 2007
+    
+    This copyright message and attribution must be preserved upon
+    modification. Redistribution under other licenses is expressly allowed.
+    Other licenses include GPL 2 or higher, BSD, and non-free licenses.
+    The original, unrestricted version can be obtained from
+    http://www.lagom.nl/linux/hkcaptcha/
+    
+    -------------------------------------------------------------------------------
+    AHGBold.ttf (AlteHaasGroteskBold.ttf) font was created by Yann Le Coroller and is distributed as freeware
+    
+    Alte Haas Grotesk is a typeface that look like an helvetica printed in an old Muller-Brockmann Book.
+    
+    These fonts are freeware and can be distributed as long as they are
+    together with this text file. 
+    
+    I would appreciate very much to see what you have done with it anyway.
+    
+    yann le coroller 
+    www.yannlecoroller.com
+    yann@lecoroller.com
+

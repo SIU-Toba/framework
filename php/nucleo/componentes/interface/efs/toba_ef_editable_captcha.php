@@ -126,10 +126,10 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		toba::memoria()->set_dato_operacion('tamanio-texto-captcha', $this->longitud);
 		
 		$this->estado  = false;
-		$longitud      = strlen($this->texto); //la longitud maxima de caracteres del ef
-		$tab 		   = ' tabindex="'.$this->padre->get_tab_index().'"';		
-		$input 		   = toba_form::text($this->id_form, $this->estado, $this->es_solo_lectura(), $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
-		$url		   = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_captchas_efs', 'objetos_destino' => array( $this->padre->get_id() )));
+		$longitud = strlen($this->texto); //la longitud maxima de caracteres del ef
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
+		$text_input  = toba_form::text($this->id_form, $this->estado, $this->es_solo_lectura(), $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
+		$url = toba::vinculador()->get_url(null, null, array(), array('servicio' => 'mostrar_captchas_efs', 'objetos_destino' => array( $this->padre->get_id() )));
 		
 		if ($this->permite_refrescar_codigo) {
 			$url_refrescar = toba::vinculador()->get_url(null, null, array('refrescar' => 1), array('servicio' => 'mostrar_captchas_efs', 'objetos_destino' => array( $this->padre->get_id() )));
@@ -152,7 +152,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 						<img id='{$this->id}-captcha' src='$url' /> $refrescar $audio
 					</div>
 					<div class='{$this->clase_css}'>
-						 $input
+						 $text_input
 					</div>
 				</div>";
 		
