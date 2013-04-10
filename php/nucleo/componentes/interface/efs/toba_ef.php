@@ -517,6 +517,9 @@ abstract class toba_ef
 	function set_estado_defecto($estado)
 	{
 		$this->estado_defecto = $estado;
+		if (! isset($this->estado)) {
+			$this->estado = $estado;
+		}
 	}
 
 	/**
