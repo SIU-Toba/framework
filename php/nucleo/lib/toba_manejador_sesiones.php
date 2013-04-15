@@ -140,9 +140,6 @@ class toba_manejador_sesiones
 	}
 	
 	function get_autenticacion() {
-		if (toba::instalacion()->get_tipo_autenticacion() == 'toba') {
-			return null;
-		}
 		if (!isset($this->autenticacion)) {
 			switch (toba::instalacion()->get_tipo_autenticacion()) {
 				case 'ldap':
@@ -150,6 +147,9 @@ class toba_manejador_sesiones
 					break;
 				case 'openid':
 					$this->set_autenticacion(new toba_autenticacion_openid());
+				default:												//tipo == 'toba'
+					$this->set_autenticacion(new toba_autenticacion_basica());
+					break;					
 			}
 		}		
 		return $this->autenticacion;
@@ -829,7 +829,7 @@ class toba_manejador_sesiones
 		if ($this->get_autenticacion() != null) {
 			$estado = $this->autenticacion->autenticar($id_usuario, $clave, $datos_iniciales);
 		} else {
-			$estado = $this->invocar_autenticar($id_usuario, $clave, $datos_iniciales);
+			throw new toba_error_seguridad('No existe la autenticación propuesta');
 		}
 		if(!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';
@@ -863,7 +863,7 @@ class toba_manejador_sesiones
 		if ($this->get_autenticacion() != null) {
 			$this->contrasenia_vencida = $this->autenticacion->verificar_clave_vencida($id_usuario);
 		} else {
-			$this->contrasenia_vencida = $this->invocar_metodo_usuario('verificar_clave_vencida', array( $id_usuario) );
+			throw new toba_error_seguridad('No existe la autenticación propuesta');
 		}
 	}
 

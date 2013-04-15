@@ -12,10 +12,12 @@ class toba_autoload
 
 	static function cargar($nombre)
 	{
-		if (self::existe_clase($nombre)) { require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]); }
+		if (self::existe_clase($nombre)) { 
+			 require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]); 
+		}
 	}
 
-	static $clases = array(
+	static protected $clases = array(
 		'toba_carpeta_menu' => 'contrib/catalogo_items_menu/toba_carpeta_menu.php',
 		'toba_catalogo_items_menu' => 'contrib/catalogo_items_menu/toba_catalogo_items_menu.php',
 		'toba_item_menu' => 'contrib/catalogo_items_menu/toba_item_menu.php',
@@ -364,6 +366,7 @@ class toba_autoload
 		'toba_admin_fuentes' => 'nucleo/lib/toba_admin_fuentes.php',
 		'toba_ajax_respuesta' => 'nucleo/lib/toba_ajax_respuesta.php',
 		'toba_autenticable' => 'nucleo/lib/toba_autenticable.php',
+		'toba_autenticacion_basica' => 'nucleo/lib/toba_autenticacion_basica.php',
 		'toba_autenticacion_ldap' => 'nucleo/lib/toba_autenticacion_ldap.php',
 		'toba_autenticacion_openid' => 'nucleo/lib/toba_autenticacion_openid.php',
 		'toba_contenedor_gadgets' => 'nucleo/lib/toba_contenedor_gadgets.php',
