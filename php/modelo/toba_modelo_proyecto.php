@@ -2594,6 +2594,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	static function do_vincular_usuario($db, $proyecto, $usuario, $perfiles_acceso=array(), $perfiles_datos=array(), $set_previsualizacion=true, $url=null )
 	{
+		$sql = array();
 		$proyecto = $db->quote($proyecto);
 		$usuario = $db->quote($usuario);
 		foreach ($perfiles_acceso as $perfil) {
@@ -2618,7 +2619,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, perfil_datos, punto_acceso) 
 						VALUES ($proyecto, $usuario, $funcional, $datos, $url);";
 		}
-		$db->ejecutar($sql);
+		if (! empty($sql)) {
+			$db->ejecutar($sql);
+		}
 	}
 
 	function chequear_actualizacion_prematura()
