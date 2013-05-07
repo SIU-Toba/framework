@@ -67,11 +67,13 @@ class ci_firma_digital extends toba_ci
 			unlink(toba::proyecto()->get_path_temp()."/doc{$sesion}_sinfirma.pdf");
 			toba::notificacion()->info("PDF Firmado y almacenado correctamente");
 		}
+		$this->limpiar_memoria();
 		$this->set_pantalla('pant_generacion_pdf');
 	}
 	
 	function evt__volver()
 	{
+		$this->limpiar_memoria();
 		$this->set_pantalla('pant_generacion_pdf');
 	}
 	
