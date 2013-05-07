@@ -150,7 +150,7 @@ class Console_Table
     * @param array $data         Data for the table
     * @param bool  $returnObject Whether to return the Console_Table object (default: No)
     */
-    function fromArray($headers, $data, $returnObject = false)
+    static function fromArray($headers, $data, $returnObject = false)
     {
         if (!is_array($headers) OR !is_array($data)) {
             return false;

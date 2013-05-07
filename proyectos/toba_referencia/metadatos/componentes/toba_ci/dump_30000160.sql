@@ -50,8 +50,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_referencia', --proyecto
 	'30000156', --evento_id
 	'30000160', --objeto
-	'firmar', --identificador
-	'Generar y Firmar', --etiqueta
+	'generar', --identificador
+	'Generar PDF y Lanzar firmador', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -149,10 +149,18 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_referencia', --objeto_ci_proyecto
 	'30000160', --objeto_ci
 	'30000067', --pantalla
-	'pant_firmado', --identificador
+	'pant_generacion_pdf', --identificador
 	'1', --orden
-	'Firmado', --etiqueta
-	'A continuación se Genera un pdf y se le anexan archivos .xml conteniendo los datos estructurados', --descripcion
+	'Generación PDF', --etiqueta
+	'<p>A continuación se Genera un pdf y se le anexan archivos .xml conteniendo los datos estructurados. Una vez generado se abrira el firmador PDF</p>
+
+<h3>Requisitos</h3>
+<ol>
+<li>Para poder anexar xmls en un pdf se esta utilizando <a href=''http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/''>pdftk</a>, esta disponible en las distribuciones linux o descargandolo desde esa página. Hay que asegurarse que el binario sea accesible desde apache</li>
+<li>Para la firma se necesita un Token USB con un certificado válido cargado
+<li>Se necesita tener instalado y funcionando el applet Firmador PDF en la carpeta <em>toba/www/firmador_pdf</em>, los pasos para descargarlo y (opcionalmente) compilarlo en esta dirección:
+<a href=''http://repositorio.siu.edu.ar/trac/firma/wiki/FirmadorPDF''>http://repositorio.siu.edu.ar/trac/firma/wiki/FirmadorPDF</a>
+</li>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -169,7 +177,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'30000160', --objeto_ci
 	'30000068', --pantalla
 	'pant_validacion', --identificador
-	'2', --orden
+	'3', --orden
 	'Validación', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -179,6 +187,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	NULL, --subclase
 	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	'12000003'  --punto_montaje
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'30000160', --objeto_ci
+	'30000071', --pantalla
+	'pant_firma', --identificador
+	'2', --orden
+	'Firmado', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	'pant_firma', --subclase
+	'varios/firma_digital/pant_firma.php', --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
 	'12000003'  --punto_montaje

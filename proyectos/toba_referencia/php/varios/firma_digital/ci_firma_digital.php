@@ -1,9 +1,25 @@
 <?php
+require_once("toba_referencia_firmador.php");
+
+
 class ci_firma_digital extends toba_ci
 {
-	protected $s__pdf;
+	public $s__pdf;
 	protected $s__datos_juegos;
 	protected $s__datos_deportes;
+	
+	
+	function ini__operacion() {
+//		//Borrar documentos viejos
+//		$archivos = toba_manejador_archivos::get_archivos_directorio(toba::proyecto()->get_path_temp(), "/(.+)sinfirma\\.pdf/");
+//		foreach($archivos as $archivo) {
+//			if (time() - filemtime($archivos) > 1800 ) {
+//				@unlink($archivo);
+//			}
+//		}
+//		echo "<pre>";
+//		print_r($archivos);
+	}
 	
 	function generar_pdf()
 	{
@@ -32,9 +48,11 @@ class ci_firma_digital extends toba_ci
 		$pdf->ezTable($this->s__datos_deportes, '', 'Deportes', $opciones);
 		
 		$tmp = $pdf->ezOutput(0);
-		$this->s__pdf = toba::proyecto()->get_www_temp("documento.pdf");
+		$this->s__pdf = array();
+		$sesion = get_firmador()->generar_sesion();
+		$this->s__pdf['path'] = toba::proyecto()->get_path_temp()."/doc{$sesion}_sinfirma.pdf";
 		if (! file_put_contents($this->s__pdf['path'], $tmp)) {
-			throw new toba_error("Imposible escribir en '$archivo'. Chequee permisos");
+			throw new toba_error("Imposible escribir en '{$this->s__pdf['path']}'. Chequee permisos");
 		} 	
 	}
 	
@@ -42,7 +60,7 @@ class ci_firma_digital extends toba_ci
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 	
-	function evt__firmar()
+	function evt__generar()
 	{
 		//Genero PDF
 		$this->generar_pdf();
@@ -61,7 +79,7 @@ class ci_firma_digital extends toba_ci
 		//Agrego XMLs a PDF
 		toba_firma_digital::pdf_add_attachments($this->s__pdf['path'], array($xml_juegos, $xml_deportes));
 
-		$this->set_pantalla("pant_validacion");
+		$this->set_pantalla("pant_firma");
 	}
 	
 	function conf__pant_validacion()
@@ -110,6 +128,7 @@ class ci_firma_digital extends toba_ci
 		toba_firma_digital::certificado_validar_CA($certificado, dirname(__FILE__).'/onti.pem');
 		return true;
 	}
+
 
 }
 ?>
