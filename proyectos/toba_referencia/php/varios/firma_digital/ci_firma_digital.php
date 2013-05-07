@@ -60,6 +60,21 @@ class ci_firma_digital extends toba_ci
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 	
+	function evt__finalizar()
+	{
+		$sesion = $_POST['firmador_codigo'];
+		if (get_firmador()->validar_sesion($sesion)) {
+			unlink(toba::proyecto()->get_path_temp()."/doc{$sesion}_sinfirma.pdf");
+			toba::notificacion()->info("PDF Firmado y almacenado correctamente");
+		}
+		$this->set_pantalla('pant_generacion_pdf');
+	}
+	
+	function evt__volver()
+	{
+		$this->set_pantalla('pant_generacion_pdf');
+	}
+	
 	function evt__generar()
 	{
 		//Genero PDF
