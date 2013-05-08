@@ -162,13 +162,13 @@ class comando_toba extends comando
 	/**
 	*	Acceso a la variable de entorno 'toba_instancia'
 	*/
-	protected function get_entorno_id_instancia( $obligatorio = false )
+	protected function get_entorno_id_instancia($obligatorio = false)
 	{
 		if ( isset( $this->interprete ) ) {
 			
 		} else {
-			if ( isset( $_SERVER['toba_instancia'] ) ) {
-				return $_SERVER['toba_instancia'];
+			if ( isset( $_SERVER['TOBA_INSTANCIA'] ) ) {
+				return $_SERVER['TOBA_INSTANCIA'];
 			}
 		}
 	}
@@ -176,13 +176,13 @@ class comando_toba extends comando
 	/**
 	*	Acceso a la variable de entorno 'toba_proyecto'
 	*/
-	protected function get_entorno_id_proyecto( $obligatorio = false )
+	protected function get_entorno_id_proyecto($obligatorio = false)
 	{
 		if ( isset( $this->interprete ) ) {
 			
 		} else {
-			if ( isset( $_SERVER['toba_proyecto'] ) ) {
-				return $_SERVER['toba_proyecto'];
+			if ( isset( $_SERVER['TOBA_PROYECTO'] ) ) {
+				return $_SERVER['TOBA_PROYECTO'];
 			}
 		}
 	}

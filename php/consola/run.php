@@ -2,13 +2,13 @@
 /*
 	Este script abre una consola del SIU-TOBA 
 */
-if ( isset( $_SERVER['toba_dir'] ) ) {
+if ( isset( $_SERVER['TOBA_DIR'] ) ) {
 
 	//----------------------------------------------
 	// Defino el 'include_path'
 	//----------------------------------------------
 
-	$dir = $_SERVER['toba_dir']."/php"; 
+	$dir = $_SERVER['TOBA_DIR']."/php"; 
 	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ';.;' : ':.:';
 	ini_set('include_path', ini_get('include_path'). $separador . $dir);
 

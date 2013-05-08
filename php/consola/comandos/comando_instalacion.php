@@ -225,9 +225,9 @@ class comando_instalacion extends comando_toba
 			}
 			$path .= "\\entorno_toba_$release.bat";
 			$bat = "@echo off\n";
-			$bat .= "set toba_dir=".toba_dir()."\n";
-			$bat .= "set toba_instancia=$id_instancia\n";
-			$bat .= "set PATH=%PATH%;%toba_dir%/bin\n";
+			$bat .= "set TOBA_DIR=".toba_dir()."\n";
+			$bat .= "set TOBA_INSTANCIA=$id_instancia\n";
+			$bat .= "set PATH=%PATH%;%TOBA_DIR%/bin\n";
 			$bat .= "echo Entorno cargado.\n";
 			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
 			file_put_contents($path, $bat);
@@ -240,9 +240,9 @@ class comando_instalacion extends comando_toba
 		} else {
 			$path = toba_dir()."/bin";
 			$path .= "/entorno_toba_$release.sh";
-			$bat = "export toba_dir=".toba_dir()."\n";
-			$bat .= "export toba_instancia=$id_instancia\n";
-			$bat .= 'export PATH="$toba_dir/bin:$PATH"'."\n";
+			$bat = "export TOBA_DIR=".toba_dir()."\n";
+			$bat .= "export TOBA_INSTANCIA=$id_instancia\n";
+			$bat .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
 			$bat .= "echo \"Entorno cargado.\"\n";
 			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
 			file_put_contents($path, $bat);

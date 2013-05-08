@@ -502,9 +502,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {
 			return $_SERVER['TOBA_INSTALACION_DIR'];
-		} elseif (isset($_SERVER['toba_instalacion_dir'])) {
+		} /*elseif (isset($_SERVER['toba_instalacion_dir'])) {
 			return $_SERVER['toba_instalacion_dir'];
-		} else {
+		}*/ else {
 			return toba_dir().'/instalacion';
 		}
 	}
