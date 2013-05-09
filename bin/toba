@@ -4,7 +4,7 @@
 #
 dir_actual=`pwd`
 cd `dirname $0`
-toba_dir=`pwd`
-export toba_dir=`dirname $toba_dir`
+TOBA_DIR=`pwd`
+export TOBA_DIR=`dirname $TOBA_DIR`
 cd $dir_actual
-php $toba_dir/php/consola/run.php $*
+php $TOBA_DIR/php/consola/run.php $*

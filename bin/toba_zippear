@@ -1,5 +1,5 @@
 #!/bin/sh
-export toba_dir=/usr/local/proyectos/toba_trunk
+export TOBA_DIR=/usr/local/proyectos/toba_trunk
 export PATH="$toba_dir/bin:$PATH"
 toba nucleo zipversion -r $1
 dirdestino=/tmp/toba

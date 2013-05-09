@@ -120,7 +120,7 @@ class comando_toba extends comando
 	{
 		$ei = $this->get_entorno_id_instancia();
 		$valor_i = isset( $ei ) ?  $ei : 'No definida';
-		$this->consola->mensaje("[-i id_instancia] Asume el valor de la variable de entorno 'toba_instancia': $valor_i");
+		$this->consola->mensaje("[-i id_instancia] Asume el valor de la variable de entorno 'TOBA_INSTANCIA': $valor_i");
 	}
 
 	/**
@@ -152,7 +152,7 @@ class comando_toba extends comando
 	{
 		$ep = $this->get_entorno_id_proyecto();
 		$valor_p = isset( $ep ) ?  $ep : 'No definida';
-		$this->consola->mensaje("[-p id_proyecto] Asume el valor de la variable de entorno 'toba_proyecto': $valor_p");
+		$this->consola->mensaje("[-p id_proyecto] Asume el valor de la variable de entorno 'TOBA_PROYECTO': $valor_p");
 	}
 
 	//-----------------------------------------------------------

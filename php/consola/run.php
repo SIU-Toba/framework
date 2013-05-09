@@ -2,6 +2,13 @@
 /*
 	Este script abre una consola del SIU-TOBA 
 */
+if (! isset($_SERVER['TOBA_DIR']) && isset($_SERVER['toba_dir'])) {
+	$_SERVER['TOBA_DIR'] = $_SERVER['toba_dir'];
+}
+
+if (! isset($_SERVER['TOBA_INSTANCIA']) && isset($_SERVER['toba_instancia'])) {
+	$_SERVER['TOBA_INSTANCIA'] = $_SERVER['toba_instancia'];
+}
 if ( isset( $_SERVER['TOBA_DIR'] ) ) {
 
 	//----------------------------------------------

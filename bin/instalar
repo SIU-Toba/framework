@@ -1,7 +1,7 @@
 #!/bin/sh
 cd `dirname $0`
-toba_dir=`pwd`
-export toba_dir=`dirname $toba_dir`
-export toba_instancia=desarrollo
-export PATH="$toba_dir/bin:$PATH"
+TOBA_DIR=`pwd`
+export TOBA_DIR=`dirname $TOBA_DIR`
+export TOBA_INSTANCIA=desarrollo
+export PATH="$TOBA_DIR/bin:$PATH"
 php ../php/consola/run.php instalacion instalar

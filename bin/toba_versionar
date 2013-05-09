@@ -1,5 +1,5 @@
 #!/bin/sh
-export toba_dir=/usr/local/proyectos/toba_trunk
+export TOBA_DIR=/usr/local/proyectos/toba_trunk
 export PATH="$toba_dir/bin:$PATH"
 toba nucleo versionar -r $1 -u cambiar_usuario
 dirdestino=/tmp/toba
