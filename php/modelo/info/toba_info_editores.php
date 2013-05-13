@@ -1410,7 +1410,12 @@ class toba_info_editores
 		} else {
 			$datos = self::get_consulta_php($consulta_php, $proyecto);
 			$archivo_nombre = $datos['archivo'];
-			$clase_nombre = $datos['archivo_clase'];
+			$clase_nombre = ( ! is_null($datos['archivo_clase'])) ? $datos['archivo_clase']: $datos['clase'];
+		}
+		
+		if (is_null($clase_nombre)) {
+			toba::logger()->error('Se intento cargar una clase de consulta con nombre nulo, pertenece al archivo '. $archivo_nombre);
+			throw new toba_error_usuario('La clase de consulta seleccionada para la carga no es válida, verifique su definición');	
 		}
 		
 		//Si hay puntos de montaje, cargo el autoload de c/u
