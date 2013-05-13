@@ -1440,6 +1440,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 	}
 
+	function ejecutar_migracion_particular(toba_version $version, $metodo)
+	{
+		$this->get_db()->abrir_transaccion();		
+		$version->ejecutar_migracion('instancia', $this, $metodo, $this->manejador_interface);
+		$this->get_db()->cerrar_transaccion();
+	}	
+	
 	function ejecutar_ventana_migracion_version($con_transaccion=true)
 	{
 		toba_logger::instancia()->debug('Ejecutando ventana de migracion de instancia');

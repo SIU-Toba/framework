@@ -368,7 +368,7 @@ class comando_instancia extends comando_toba
 	
 	/**
 	 * Migra un instancia entre dos versiones toba.
-	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] 
+	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] [-m metodo puntual de migracion]
 	 * @gtk_icono convertir.png
 	 */
 	function opcion__migrar_toba()
@@ -387,16 +387,20 @@ class comando_instancia extends comando_toba
 		$hasta_texto = $hasta->__toString();
 		$this->consola->titulo("Migración de la instancia '{$instancia->get_id()}'".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
 
-		$versiones = $desde->get_secuencia_migraciones($hasta);
-		if (empty($versiones)) {
-			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para la instancia '{$instancia->get_id()}'");
-			return ;
-		}
+		if (! isset($param['-m'])) {
+			$versiones = $desde->get_secuencia_migraciones($hasta);
+			if (empty($versiones)) {
+				$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para la instancia '{$instancia->get_id()}'");
+				return ;
+			}
 
-		$instancia->migrar_rango_versiones($desde, $hasta, $recursivo);
+			$instancia->migrar_rango_versiones($desde, $hasta, $recursivo);
+		} else {
+			//Se pidio un método puntual
+			$this->consola->mensaje("Ejecutando método particular:". trim($param['-m']));
+			$instancia->ejecutar_migracion_particular($hasta, trim($param['-m']));
+		}		
 	}
-
-
 	
 	function get_tipo_instancia()
 	{
