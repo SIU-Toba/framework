@@ -44,7 +44,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema, esquema_ext) VALUES (
 	'toba_editor', --objeto_proyecto
 	'30000103', --objeto
 	NULL, --max_registros
@@ -60,7 +60,8 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
 	'1', --permite_actualizacion_automatica
-	NULL  --esquema
+	NULL, --esquema
+	'public'  --esquema_ext
 );
 
 ------------------------------------------------------------
@@ -110,18 +111,49 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'0', --externa
 	NULL  --tabla
 );
+--- FIN Grupo de desarrollo 30
+
+--- INICIO Grupo de desarrollo 33
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'toba_editor', --objeto_proyecto
 	'30000103', --objeto
-	'30000015', --col_id
-	'tablas_modifica', --columna
+	'33000178', --col_id
+	'tabla', --columna
 	'X', --tipo
 	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
-	'1', --no_nulo_db
+	'0', --no_nulo_db
+	'0', --externa
+	'apex_item_permisos_tablas'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'toba_editor', --objeto_proyecto
+	'30000103', --objeto
+	'33000179', --col_id
+	'permisos', --columna
+	'X', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	'apex_item_permisos_tablas'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'toba_editor', --objeto_proyecto
+	'30000103', --objeto
+	'33000180', --col_id
+	'esquema', --columna
+	'X', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
 	'0', --externa
 	NULL  --tabla
 );
---- FIN Grupo de desarrollo 30
+--- FIN Grupo de desarrollo 33

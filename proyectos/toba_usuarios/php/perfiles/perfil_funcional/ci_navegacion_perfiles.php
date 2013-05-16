@@ -51,7 +51,7 @@ class ci_navegacion_perfiles extends toba_ci
 	{
 		$usa_permisos_por_tabla = false;
 		foreach (toba_info_editores::get_fuentes_datos($this->dep('editor_perfiles')->get_proyecto()) as $fuente) {	//Miro si al menos una fuente usa permisos por tablas.
-			$usa_permisos_por_tabla = $usa_permisos_por_tabla ||  $fuente['permisos_por_tabla'];
+			$usa_permisos_por_tabla = $usa_permisos_por_tabla ||  ($fuente['permisos_por_tabla'] == '1');
 		}
 		
 		if ($usa_permisos_por_tabla) {
@@ -88,9 +88,7 @@ class ci_navegacion_perfiles extends toba_ci
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
-		if (toba::fuente()->usa_permisos_por_tabla()) {
-			$this->actualizar_script_roles();
-		}
+		$this->actualizar_script_roles();
 						
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');

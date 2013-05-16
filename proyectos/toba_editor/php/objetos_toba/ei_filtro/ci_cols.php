@@ -21,6 +21,13 @@ class ci_cols extends ci_efs
 		}
 	}	
 
+	function conf__param_carga(toba_ei_formulario $form)
+	{
+		$form->desactivar_efs(array('cascada_mantiene_estado', 'carga_cascada_relaj'));		
+		parent::conf__param_carga($form);
+
+	}
+	
 	function evt__param_carga__modificacion($datos)
 	{
 		$this->modificado = true;

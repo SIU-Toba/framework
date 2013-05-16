@@ -1,6 +1,21 @@
 <?php
 class toba_migracion_2_4_0 extends toba_migracion
 {
+	function instancia__cambios_estructura()
+	{
+		$sql = 'SET CONSTRAINTS ALL IMMEDIATE;';
+		$this->elemento->get_db()->ejecutar($sql);
+		$sql = array();
+		
+		//Modifico la tabla de permisos.
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD COLUMN esquema text;';		
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD COLUMN tabla text;';
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD COLUMN permisos text;';
+		
+		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
+		$this->elemento->get_db()->ejecutar($sql);		
+	}
+	
 	function instancia__migracion_tablas_log()
 	{		
 		$schema_actual = 'toba_logs';
@@ -59,6 +74,40 @@ class toba_migracion_2_4_0 extends toba_migracion
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
+	}
+	
+	function instancia__migracion_tabla_item_permisos()
+	{
+		$db = $this->elemento->get_db();
+		$sql = 'SET CONSTRAINTS ALL IMMEDIATE;';
+		$db->ejecutar($sql);
+		$sql = array();		
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas DROP CONSTRAINT apex_item_permisos_tablas_pk;';
+		
+		$sql_datos = ' SELECT * FROM apex_item_permisos_tablas;';
+		$permisos = $db->consultar($sql_datos);
+		foreach($permisos as $valores) {			
+			$tablas = (trim($valores['tablas_modifica']) != '') ? explode(',' , $valores['tablas_modifica']) : false;
+			$datos = $db->quote($valores);						
+			$sql[] = "DELETE FROM apex_item_permisos_tablas WHERE proyecto = {$datos['proyecto']} AND item = {$datos['item']} AND fuente_datos = {$datos['fuente_datos']};" ;
+			if ($tablas !== false) {
+				$esquema = $db->consultar_fila("SELECT schema FROM apex_fuente_datos WHERE fuente_datos = {$datos['fuente_datos']};");
+				$tablas = $db->quote($tablas);
+				$esquema = $db->quote($esquema);
+				foreach($tablas as $tabla) {
+					$sql[] = "INSERT INTO apex_item_permisos_tablas (proyecto, item, fuente_datos, tabla, permisos, esquema )  VALUES 
+						({$datos['proyecto']}, {$datos['item']}, {$datos['fuente_datos']}, $tabla, 'select,insert,update,delete', {$esquema['schema']});";
+				}				
+			}
+		}
+
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD CONSTRAINT apex_item_permisos_tablas_pk PRIMARY KEY (proyecto, item, fuente_datos, tabla);';
+		$sql[] = 'ALTER TABLE apex_item_permisos_tablas DROP COLUMN  tablas_modifica;';
+		$this->elemento->get_db()->ejecutar($sql);
+		//$this->manejador_interface->dump_arbol($sql, 'sentencias');
+		
+		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
+		$this->elemento->get_db()->ejecutar($sql);		
 	}
 }
 ?>

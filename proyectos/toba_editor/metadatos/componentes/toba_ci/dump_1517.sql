@@ -159,6 +159,21 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 --- FIN Grupo de desarrollo 0
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'33000088', --dep_id
+	'1517', --objeto_consumidor
+	'33000105', --objeto_proveedor
+	'form_acl', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 33
+
 --- INICIO Grupo de desarrollo 30
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -241,13 +256,13 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1517', --objeto_ci
 	'462', --pantalla
-	'pant_permisos', --identificador
+	'pant_permisos_tablas', --identificador
 	'2', --orden
-	'Permisos', --etiqueta
+	'Permisos Básicos', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
-	'usuarios/grupo.gif', --imagen
+	'fuente.png', --imagen
 	NULL, --objetos
 	NULL, --eventos
 	NULL, --subclase
@@ -261,7 +276,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1517', --objeto_ci
 	'466', --pantalla
 	'pant_dependencias', --identificador
-	'3', --orden
+	'4', --orden
 	'Componentes', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -277,6 +292,28 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 );
 --- FIN Grupo de desarrollo 0
 
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1517', --objeto_ci
+	'33000049', --pantalla
+	'pant_permisos', --identificador
+	'3', --orden
+	'Permisos por Tabla', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	'usuarios/grupo.gif', --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	'12'  --punto_montaje
+);
+--- FIN Grupo de desarrollo 33
+
 ------------------------------------------------------------
 -- apex_objetos_pantalla
 ------------------------------------------------------------
@@ -291,22 +328,29 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'toba_editor', --proyecto
 	'462', --pantalla
 	'1517', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'92'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'toba_editor', --proyecto
 	'462', --pantalla
 	'1517', --objeto_ci
-	'2', --orden
+	'1', --orden
 	'30000049'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'toba_editor', --proyecto
 	'466', --pantalla
 	'1517', --objeto_ci
-	'1', --orden
+	'0', --orden
 	'91'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'toba_editor', --proyecto
+	'33000049', --pantalla
+	'1517', --objeto_ci
+	'0', --orden
+	'33000088'  --dep_id
 );
 
 ------------------------------------------------------------
@@ -344,6 +388,18 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'466', --pantalla
+	'1517', --objeto_ci
+	'92', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'33000049', --pantalla
+	'1517', --objeto_ci
+	'91', --evento_id
+	'toba_editor'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'33000049', --pantalla
 	'1517', --objeto_ci
 	'92', --evento_id
 	'toba_editor'  --proyecto

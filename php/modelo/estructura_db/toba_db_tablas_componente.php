@@ -152,7 +152,9 @@ class toba_db_tablas_componente
     0 => 'proyecto',
     1 => 'item',
     2 => 'fuente_datos',
-    3 => 'tablas_modifica',
+    3 => 'esquema',
+    4 => 'tabla',
+    5 => 'permisos',
   ),
 );
 	}

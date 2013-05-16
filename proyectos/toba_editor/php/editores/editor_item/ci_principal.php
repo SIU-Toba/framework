@@ -8,18 +8,31 @@ class ci_principal extends toba_ci
 	protected $s__id_item ;
 	protected $s__inicializar_item_nuevo = true;
 	protected $s__fuentes;
+	protected $s__hay_con_permisos;
+	protected $cambio_item = false;	
 	private $elemento_eliminado = false;
-	protected $cambio_item = false;
 	private $refrescar = false;
 	
+	function ini__operacion()
+	{
+		if (! isset($this->s__fuentes)) {
+			$this->s__fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());			
+		}
+		$this->s__hay_con_permisos = false;
+		foreach ($this->s__fuentes as $fuente) {
+			if ($fuente['permisos_por_tabla']) {
+				$this->s__hay_con_permisos = true;
+			}
+		}	
+	}
+		
 	function ini()
 	{
 		//Se quita la secuencia para manejar el caso de alta de un ID alfanumerico a gusto
 		$this->get_entidad()->tabla('base')->set_definicion_columna('item', 'secuencia', null);
 
 		//Se quita el control de concurrencia porque permite modificar claves
-		$this->get_entidad()->persistidor()->set_lock_optimista(false);
-		
+		$this->get_entidad()->persistidor()->set_lock_optimista(false);		
 		$zona = toba::zona();
 		if ($zona->cargada()) {
 			list($proyecto, $item) = $zona->get_editable();
@@ -63,6 +76,9 @@ class ci_principal extends toba_ci
 	{
 		if (! $this->get_entidad()->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
+		}		
+		if (! $this->s__hay_con_permisos) {
+			$this->pantalla()->eliminar_tab('pant_permisos');
 		}
 	}	
 	
@@ -102,7 +118,6 @@ class ci_principal extends toba_ci
 				$form->ef('item')->set_iconos_utilerias(array(new utileria_identificador_actual()));
 			}
 		}
-		
 	
 		//Transfiere los campos accion, buffer y patron a uno comportamiento
 		if (isset($datos['actividad_accion']) && $datos['actividad_accion'] != '') {
@@ -154,16 +169,6 @@ class ci_principal extends toba_ci
 	function conf__objetos()
 	{
 		$objetos = $this->get_entidad()->tabla('objetos')->get_filas(null, true);
-		//Si no hay objetos tratar de inducir las clases dependientes del patron
-		/*if (count($objetos) == 0) {
- 			$basicas =$this->get_entidad()->tabla("base")->get();
- 			//Es patron?
- 			if (isset($basicas['actividad_patron']) && $basicas['actividad_patron'] != 'especifico') {
- 				//Este es el lugar para cargar los objetos del tipo deseado
-				//$objetos[] = array('clase' => 'toba,toba_ci', apex_ei_analisis_fila => 'A');
- 			}
-			
-		}*/
 		return $objetos;
 	}
 	
@@ -177,24 +182,13 @@ class ci_principal extends toba_ci
 	//----------------------------------------------------------
 	
 	function conf__pant_permisos(toba_ei_pantalla $pant)
-	{
-		if (! isset($this->s__fuentes)) {
-			$this->s__fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
-			
-		}
-		$hay_con_permisos = false;
-		foreach ($this->s__fuentes as $fuente) {
-			if ($fuente['permisos_por_tabla']) {
-				$hay_con_permisos = true;
-			}
-		}
-		if (! $hay_con_permisos && $this->existe_dependencia('form_tablas')) {
+	{		
+		if (! $this->s__hay_con_permisos && $this->existe_dependencia('form_tablas')) {
 			$pant->eliminar_dep('form_tablas');
 			$this->get_entidad()->tabla('permisos_tablas')->eliminar_filas();
 		}
 	}
-	
-	
+		
 	/*
 	*	Toma los permisos actuales, les agrega los grupos faltantes y les pone descripcion
 	*/
@@ -256,51 +250,145 @@ class ci_principal extends toba_ci
 	
 	function conf__form_tablas(toba_ei_formulario_ml $form) 
 	{
-		//-- Tomar los permisos definidos y completar los que faltan
-		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
-
+		$configurados = $this->get_entidad()->tabla('permisos_tablas')->get_cantidad_filas();
+		$permisos = array();
+		
 		foreach ($this->s__fuentes as $fuente) {
 			$con_permisos = $fuente['permisos_por_tabla'];
-			$existe = false;
-			$posicion = null;
-			foreach ($permisos as $clave => $permiso) {
-				if ($fuente['fuente_datos'] == $permiso['fuente_datos']) {
-					$existe = true;
-					$posicion = $clave;
-				}
+			if (! $con_permisos) {
+				continue;
 			}
-			if (! $existe) {
-				if ($con_permisos) {
-					//Agrega una fila vacia
+			
+			if ($configurados === 0) {												//No hay permisos configurados
+					$fuente['esquema'] = $fuente['schema'];
 					$fuente['proyecto'] = toba_editor::get_proyecto_cargado();
-					$fuente['tablas_modifica'] = '';
-					$this->get_entidad()->tabla('permisos_tablas')->nueva_fila($fuente);
+					$fuente['tablas_modifica'] = array();
+					$permisos[] = $fuente;
+			} else {															//Hay permisos previos
+				$aux = array();				
+				$datos_fila = $this->get_entidad()->tabla('permisos_tablas')->get_filas(array('fuente_datos' => $fuente['fuente_datos']));
+				foreach ($datos_fila as $fila) {										//Agrupo las tablas por schema
+					$indx = $fila['esquema'];
+					$aux[$indx][] = $fila['tabla'];
 				}
-			} else {
-				if (! $con_permisos) {
-					//Quita la fila existente
-					$this->get_entidad()->tabla('permisos_tablas')->eliminar_fila($permisos[$posicion][apex_datos_clave_fila]);
-				}
+				if (! empty($aux)) {
+					foreach($aux as $schema => $tablas) {
+						$permisos[] = array('fuente_datos' => $fuente['fuente_datos'], 'esquema' => $schema, 'proyecto' => toba_editor::get_proyecto_cargado(), 'tablas_modifica' => $tablas);
+					}
+					unset($aux);
+				}				
 			}
 		}
-		$permisos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
 		$form->set_datos($permisos);
 	}
 	
 	function evt__form_tablas__modificacion($datos) 
 	{
-		$this->get_entidad()->tabla('permisos_tablas')->procesar_filas($datos);
+		$conj_actual = array();
+		$datos_actuales = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
+		foreach($datos_actuales as $fila) {
+			$indx = "{$fila['fuente_datos']}_{$fila['esquema']}_{$fila['tabla']}";
+			$conj_actual[$indx] = $fila;
+		}
+		
+		$conj_nuevo = array();
+		foreach($datos as $fila) {
+			foreach ($fila['tablas_modifica'] as $tabla) {
+				$indx = "{$fila['fuente_datos']}_{$fila['esquema']}_$tabla";
+				$conj_nuevo[$indx] = $fila;
+				$conj_nuevo[$indx]['tabla'] = $tabla;
+			}
+		}
+		
+		$nuevos = array_diff_key($conj_nuevo, $conj_actual);
+		$borrados = array_diff_key($conj_actual, $conj_nuevo);
+		
+		foreach($borrados as $fila) {
+			$condicion = array('fuente_datos' => $fila['fuente_datos'], 'esquema' => $fila['esquema'], 'tabla' => $fila['tabla']);			
+			$id = $this->get_entidad()->tabla('permisos_tablas')->get_id_fila_condicion($condicion);			
+			$this->get_entidad()->tabla('permisos_tablas')->eliminar_fila(current($id));			
+		}
+		
+		foreach($nuevos as $fila) {
+			$id = $this->get_entidad()->tabla('permisos_tablas')->nueva_fila($fila);
+			$this->set_permisos_basicos($id);
+		}
 	}
 	
-	function get_tablas_fuente($fuente) 
+	function get_tablas_fuente($fuente, $schema = null) 
 	{
 		try {
-			return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
+			return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas(false, $schema);
 		} catch (toba_error $e) {
 			toba::notificacion()->warning("La fuente '$fuente' no está definida en bases.ini. Si guarda los cambios es posible que borre información existente");
 			//No esta definida en bases.ini
 			return array();
 		}
+	}
+
+	function get_schemas_fuente($fuente) 
+	{
+		try {
+			return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_schemas_disponibles();
+		} catch (toba_error $e) {
+			toba::notificacion()->warning("La fuente '$fuente' no está definida en bases.ini. Si guarda los cambios es posible que borre información existente");
+			//No esta definida en bases.ini
+			return array();
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------------//
+	//								PANTALLA PERMISOS									   //
+	//----------------------------------------------------------------------------------------------------------------------------------------------------//
+	function conf__form_acl(toba_ei_formulario_ml $form)
+	{
+		$datos = $this->get_entidad()->tabla('permisos_tablas')->get_filas();
+		toba::logger()->var_dump($datos);
+		foreach($datos as $klave => $fila) {
+			$permisos = explode(',' , $fila['permisos']);
+			if (in_array('select', $permisos)) {
+				$datos[$klave]['chk_select'] = 1;
+			}
+			if (in_array('insert', $permisos)) {
+				$datos[$klave]['chk_insert'] = 1;
+			}
+			if (in_array('update', $permisos)) {
+				$datos[$klave]['chk_update'] = 1;
+			}
+			if (in_array('delete', $permisos)) {
+				$datos[$klave]['chk_delete'] = 1;
+			}			
+		}
+		$form->set_datos($datos);
+	}
+	
+	function evt__form_acl__modificacion($datos)
+	{
+		foreach($datos as $klave => $fila) {
+			$permisos = array();
+			$datos[$klave]['permisos'] = array();
+			if (isset($fila['chk_select']) && $fila['chk_select'] == 1) {
+				$permisos[] = 'select';
+			}
+			if (isset($fila['chk_insert']) && $fila['chk_insert'] == 1) {
+				$permisos[] = 'insert';
+			}
+			if (isset($fila['chk_update']) && $fila['chk_update'] == 1) {
+				$permisos[] = 'update';
+			}
+			if (isset($fila['chk_delete']) && $fila['chk_delete'] == 1) {
+				$permisos[] = 'delete';
+			}
+			if (! empty($permisos)) {
+				$datos[$klave]['permisos'] = implode(',', $permisos);
+			}
+		}
+		$this->get_entidad()->tabla('permisos_tablas')->procesar_filas($datos);
+	}
+	
+	function set_permisos_basicos($id_fila)
+	{
+		$this->get_entidad()->tabla('permisos_tablas')->set_fila_columna_valor($id_fila, 'permisos', 'select,insert,update,delete');		
 	}
 	
 	// *******************************************************************

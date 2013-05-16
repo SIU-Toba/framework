@@ -247,6 +247,7 @@ class toba_db_postgres7 extends toba_db
 				WHERE   (n.nspname !~ \'^pg_\') 
 					AND  (n.nspname <> \'information_schema\')
 					AND  (n.nspname !~ \'_backup$\')
+					AND  (n.nspname !~ \'_logs$\')	
 				ORDER BY 1;';
 		return $this->consultar($sql);
 	}
@@ -397,8 +398,7 @@ class toba_db_postgres7 extends toba_db
 	
 	function revoke_schema($usuario, $schema, $permisos = 'ALL PRIVILEGES', $ejecutar = true)
 	{
-		$sql[] = "REVOKE $permisos ON SCHEMA \"$schema\" FROM $usuario;";
-		
+		$sql = array();
 		//--Revoka las tablas dentro
 		$sql_rs = "SELECT
 					relname
@@ -412,6 +412,7 @@ class toba_db_postgres7 extends toba_db
 			$sql[] = "REVOKE $permisos ON $schema.{$tabla['relname']} FROM $usuario CASCADE;";
 		}
 		
+		$sql[] = "REVOKE $permisos ON SCHEMA \"$schema\" FROM $usuario;";
 		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);		
 	}
@@ -605,10 +606,13 @@ class toba_db_postgres7 extends toba_db
 		return false;
 	}
 	
-	function get_lista_secuencias()
+	function get_lista_secuencias($esquema=null)
 	{
 		$where = '';
-		if (isset($this->schema)) {
+		if (! is_null($esquema)) {
+			$esquema = $this->quote($esquema);
+			$where .= " AND n.nspname = $esquema" ;			
+		} elseif (isset($this->schema)) {
 			$esquema = $this->quote($this->schema);
 			$where .= " AND n.nspname = $esquema" ;			
 		}

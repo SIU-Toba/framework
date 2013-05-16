@@ -135,7 +135,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->dir;	
 	}
 
-    function get_dir_pers()
+	function get_dir_pers()
 	{
 		return $this->dir.'/'.toba_personalizacion::dir_personalizacion;
 	}
@@ -239,8 +239,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->db = $this->instancia->get_db($refrescar);	
 		}
 		return $this->db;
-	}
-	
+	}	
 	
 	/**
 	 * Retorna una referencia a la fuente de datos predeterminada del proyecto
@@ -288,9 +287,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		return toba_modelo_catalogo::instanciacion()->get_pms($this);
 	}
-	
-	
-
 
 	/**
 	 * Determina si el proyecto debe guardar/cargar sus perfiles desde la instalacion (produccion) o el proyecto (desarrollo)
@@ -357,7 +353,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 												$e->getMessage() );
 		}
 	}
-
 
 	private function sincronizar_archivos()
 	{
@@ -732,11 +727,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_avanzar();
 	}
 	
-	//-----------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------------------------------------//
+	//------------------------------------------------------------------------------------------------------------------------------------------------//
 	//	PERMISOS SOBRE TABLAS EN LA BASE
-	//-----------------------------------------------------------
-		
-	
+	//------------------------------------------------------------------------------------------------------------------------------------------------//			
+	//------------------------------------------------------------------------------------------------------------------------------------------------//
 	function get_usuario_prueba_db($fuente)
 	{
 		return "temp_".$fuente;
@@ -750,8 +745,67 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_rol_prueba_db_basico($fuente)
 	{
 		return "temp_".$fuente.'_basico';		
+	}				
+	
+	/**
+	 * Devuelve un nombre estandar de rol 
+	 * @param string $perfil
+	 * @return string 
+	 */
+	protected function get_nombre_rol($perfil) 
+	{
+		return strtolower($this->identificador . '_' . $perfil);		//Analizar si no conviene generar un ID por fuente 
+	}
+	
+	/**
+	 *  Devuelve una lista con los roles actuales del motor
+	 * @return array
+	 */
+	protected function get_roles_disponibles()
+	{
+		$roles_existentes = array();		
+		$datos = $this->db->listar_roles();
+		foreach($datos as $valor) {
+			$roles_existentes[] = strtolower($valor['rolname']);
+		}
+		return $roles_existentes;		
+	}
+	
+	/**
+	 *  Verifica la existencia de todos los esquemas necesarios dentro de la bd
+	 * @param toba_db $conexion
+	 * @param array $necesarios
+	 * @return boolean
+	 * @ignore
+	 */
+	protected function existen_todos_los_schemas($conexion, $necesarios)
+	{
+		$schemas_disp = array();
+		$aux = $conexion->get_lista_schemas_disponibles();
+		foreach($aux as $disp) {
+			$schemas_disp[] = $disp['esquema'];
+		}
+	
+		$resultado = array_diff($necesarios, $schemas_disp);
+		return (empty($resultado)); 
 	}	
-			
+	
+	/**
+	 * Devuelve una lista con todos los esquemas que se necesitan para la operacion
+	 * @param string $fuente
+	 * @param string $id_operacion
+	 * @return array
+	 * @ignore
+	 */
+	protected function get_schemas_necesarios($fuente, $id_operacion)
+	{
+		$necesarios = array();
+		$disponibles = $this->get_lista_tablas_con_permisos($fuente, $id_operacion);
+		foreach($disponibles as $valor) {
+			$necesarios[] = $valor['esquema'];
+		}
+		return array_unique($necesarios);
+	}	
 	
 	/**
 	 * Arma los roles de prueba del proyecto
@@ -765,14 +819,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					continue;
 				}
 				$this->manejador_interface->mensaje('Actualizando roles fuente '.$fuente['fuente_datos'], false);						
-				if (isset($fuente['schema'])) {
-					$schema = $fuente['schema'];
-				} else {
-					$schema = 'public';
-				}			
+				//Primero verificar si todos los schemas usados por la operacion estan disponibles
 				try {
 					$conexion = $this->get_db_negocio($fuente['fuente_datos']);
-					if (! $conexion->existe_schema($schema)) {
+					$datos_schemas = $this->get_schemas_necesarios($fuente['fuente_datos'], $id_operacion);
+					if (! $this->existen_todos_los_schemas($conexion, $datos_schemas)) {
 						$this->manejador_interface->progreso_fin();						
 						continue;
 					}
@@ -781,6 +832,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					$this->manejador_interface->progreso_fin();
 					continue;
 				}
+				
 				$usuario = $this->get_usuario_prueba_db($fuente['fuente_datos']);	
 				try {
 					$conexion->abrir_transaccion();			
@@ -791,10 +843,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					}		
 					if (! $conexion->existe_rol($rol_select)) {
 						$conexion->crear_rol($rol_select);
+					}				
+					//Asigno los permisos para cada esquema necesario por la operacion
+					foreach($datos_schemas as $schema) {
+						$conexion->grant_schema($rol_select, $schema);
 					}
-					$conexion->grant_schema($rol_select, $schema);
-					$conexion->grant_tablas_schema($rol_select, $schema, "SELECT");
-					$conexion->grant_rol($usuario, $rol_select);
+					
+					$schema = (isset($fuente['schema']))? $fuente['schema']: 'public';		//Retomo el schema por defecto para pasarlo al otro metodo			
+					$conexion->grant_rol($usuario, $rol_select);					
 					if (! isset($id_operacion)) {
 						foreach(toba_info_editores::get_lista_items($this->identificador) as $operacion) {
 							$this->generar_roles_db_pruebas_operacion($fuente['fuente_datos'], $schema, $conexion, $operacion['id']);
@@ -818,7 +874,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	 * Arma los roles de prueba en base a los permisos de tablas de una operación
 	 */
-	protected function generar_roles_db_pruebas_operacion($fuente, $schema, $conexion, $id_operacion)
+	protected function generar_roles_db_pruebas_operacion($fuente, $esquema, $conexion, $id_operacion)
 	{
 		$rol = $this->get_rol_prueba_db($fuente, $id_operacion);
 		$usuario = $this->get_usuario_prueba_db($fuente);
@@ -827,39 +883,50 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//-- Determina tablas y schema
 		$tablas = $this->get_lista_tablas_con_permisos($fuente, $id_operacion);
 		$existe_rol = $conexion->existe_rol($rol);
-
+		
+		//Busco los schemas necesarios por la/s operacion/es
+		$schemas = $this->get_schemas_necesarios($fuente, $id_operacion);
+		if (empty($schemas)) {				//Esto pasa si se quitaron los permisos a la operacion, defaulteo en el principal
+			$schemas[] = $esquema;
+		}
 		//--Revocar permisos actuales
 		if ($existe_rol) {
-			$conexion->revoke_schema($rol, $schema, 'ALL PRIVILEGES');
+			foreach($schemas as $schema) {
+				$conexion->revoke_schema($rol, $schema, 'ALL PRIVILEGES');
+			}
 		} 
-
 		if (!empty($tablas)) {
 			//-- Crea el nuevo rol
 			if (! $existe_rol) {
 				$conexion->crear_rol($rol);
 			}
-			//-- Asignar nuevos permisos
-			$conexion->grant_schema($rol, $schema);
-			$conexion->grant_tablas_schema($rol, $schema, "SELECT");
-			$conexion->grant_tablas($rol, $schema, $tablas, "UPDATE, INSERT, DELETE");
+			//-- Asigna el usuario de prueba al rol
+			$conexion->grant_rol($usuario, $rol);			
+			//-- Asignar nuevos permisos a los schemas
+			foreach($schemas as $schema) {
+				$conexion->grant_schema($rol, $schema);
+			}			
+			//Asignar permisos a las tablas involucradas
+			foreach($tablas as $tabla) {
+				$conexion->grant_tablas($rol, $tabla['esquema'], array($tabla['tabla']), $tabla['permisos']);
+			}
 			
 			//-- Da permisos a las secuencias de la tabla
-			$secuencias = $conexion->get_lista_secuencias();
-			$secuencias_grant = array();
-			foreach ($secuencias as $secuencia) {
-				if (in_array($secuencia['tabla'], $tablas)) {
-					$pos_schema = strpos($secuencia['nombre'], '.');	//Busco un punto por si tiene acoplado el schema
-					if ($pos_schema !== false) {
-						$secuencia['nombre'] = substr($secuencia['nombre'], $pos_schema + 1);	//Le sumo 1 para evitar el punto separador.
+			foreach($schemas as $schema) {
+				$secuencias = $conexion->get_lista_secuencias($schema);
+				$secuencias_grant = array();
+				foreach ($secuencias as $secuencia) {
+					if (in_array($secuencia['tabla'], $tablas)) {
+						$pos_schema = strpos($secuencia['nombre'], '.');	//Busco un punto por si tiene acoplado el schema
+						if ($pos_schema !== false) {
+							$secuencia['nombre'] = substr($secuencia['nombre'], $pos_schema + 1);	//Le sumo 1 para evitar el punto separador.
+						}
+						$secuencias_grant[] = $secuencia['nombre'];
 					}
-					$secuencias_grant[] = $secuencia['nombre'];
 				}
+				$conexion->grant_tablas($rol, $schema, $secuencias_grant, 'UPDATE');			
+				$this->generar_roles_db_auditoria($conexion, $fuente_info, $schema, $rol);			//Le asigno los roles de las operaciones a la parte de auditoria				
 			}
-			$conexion->grant_tablas($rol, $schema, $secuencias_grant, "UPDATE");			
-			
-			//-- Asigna el usuario de prueba al rol
-			$conexion->grant_rol($usuario, $rol);
-			$this->generar_roles_db_auditoria($conexion, $fuente_info, $schema, $rol);			//Le asigno los roles de las operaciones a la parte de auditoria
 		} else {
 			//-- Borrar el rol, ya no es necesario
 			if ($existe_rol) {
@@ -875,7 +942,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$schema_auditoria = $schema . '_auditoria';
 		if ($fuente['tiene_auditoria'] == '1'  && $conexion->existe_schema($schema_auditoria)) {		//Le doy permisos al esquema de auditoria, sino no se puede usar en el desarrollo
 			$conexion->grant_schema($rol, $schema_auditoria);
-			$conexion->grant_tablas_schema($rol, $schema_auditoria, "INSERT");
+			$conexion->grant_tablas_schema($rol, $schema_auditoria, 'INSERT');
 			$conexion->grant_sp_schema($rol, $schema_auditoria, 'EXECUTE');
 		}
 	}
@@ -889,25 +956,162 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 	}
 	
-	protected function get_lista_tablas_con_permisos($fuente, $id_operacion)
+	protected function get_lista_tablas_con_permisos($fuente, $id_operacion = null)
 	{
 		$sql = "SELECT 
-					tablas_modifica
+					tabla,
+					esquema, 
+					permisos
 				FROM
 					apex_item_permisos_tablas
 				WHERE 
 						proyecto = '{$this->identificador}'
-					AND	fuente_datos = '$fuente'
-					AND item = ".$this->db->quote($id_operacion);
-		$datos = $this->db->consultar_fila($sql);
-		if (!empty($datos) && trim($datos['tablas_modifica']) != '') {
-			$tablas = explode(',', $datos['tablas_modifica']);
-		} else {
-			$tablas = array();
+					AND	fuente_datos = '$fuente' ";
+		if (! is_null($id_operacion)) {
+			$sql .= " AND item = ".$this->db->quote($id_operacion);
 		}
-		return $tablas;
+		
+		$sql .= ' GROUP BY permisos, tabla, esquema;' ;
+		$datos = $this->db->consultar($sql);
+		return $datos;
 	}
-
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------//
+	/**
+	 *  Genera un script por fuente de datos para crear los roles y darles permisos
+	 */
+	function crear_script_generacion_roles_db($dir = '', $perfiles_eliminados=array())
+	{
+		$sentencias = array(); $fuentes = array(); $sql = array();
+		$prefijo_archivo = $this->identificador.'_roles_';
+		toba_proyecto_db::set_db( $this->db );
+		
+		//------------------------------------------------------------------------------------------//
+		//	Obtengo estado actual de perfiles funcionales
+		//------------------------------------------------------------------------------------------//
+		$grupos = $this->get_indice_grupos_acceso();		
+		//Ahora busco las fuentes del mismo, quitando aquellas que no usen permisos por tablas o no esten configuradas para que no tire error
+		$fuentes_disponibles = toba_info_editores::get_fuentes_datos($this->identificador);	
+		foreach ($fuentes_disponibles as $fuente) {
+			try {
+				$this->construir_id_def_base($fuente['fuente_datos']);			
+				if ($fuente['permisos_por_tabla'] == '1') { 
+					$fuentes[] = $fuente['fuente_datos'];
+				}
+			} catch (toba_error $e) {
+				continue;
+			}
+		}
+		
+		$roles_activos_db = $this->get_roles_disponibles();		
+			
+		//------------------------------------------------------------------------------------------//
+		//	Genero el nuevo estado para los perfiles 
+		//------------------------------------------------------------------------------------------//		
+		foreach($grupos as $perfil) {
+			$nombre_final = $this->get_nombre_rol($perfil);
+			$rol_existente = (in_array($nombre_final, $roles_activos_db));								//Miro si es un rol existente o eliminado.
+			$rol_eliminado = (in_array($perfil, $perfiles_eliminados));
+			$drop_generado = false;
+				
+			if (! $rol_existente) {																	//Si es un perfil nuevo, creo el rol correspondiente
+				$sql[] = $this->get_db()->crear_rol($nombre_final, false);
+			}
+			
+			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));							//Obtengo las operaciones para el perfil
+			foreach ($fuentes as $fuente) {
+				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);							//Obtengo las tablas que usan las operaciones en esta fuente
+				$sql_rvk_rol =  (! $rol_existente) ? array():  $this->get_sql_revocacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);	//Genero las SQLs para los REVOKE si existe el rol
+				
+				if (! $rol_eliminado) {
+					$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);						//Genero las SQLs para los GRANT	si es nuevo o existe												
+				} elseif (! $drop_generado) {
+					$sql[] = $this->get_db()->borrar_rol($nombre_final, false);														//Genero el DROP si el rol no existe mas.	
+					$drop_generado = true;					
+				}
+				
+				if (! empty($sql_rol) || ! empty($sql_rvk_rol)) {																		//Agrego las consultas al pool para la fuente
+					$sentencias[$fuente] = (! isset($sentencias[$fuente])) ? array_merge($sql_rvk_rol, $sql, $sql_rol): array_merge($sentencias[$fuente], $sql_rvk_rol, $sql, $sql_rol);					
+					$sql = array();																							//Reinicializo para evitar que el rol se cree nuevamente.
+					$sql_rol = array();					
+				}
+			}
+		}		
+		
+		//------------------------------------------------------------------------------------------//
+		//		Grabo todo en los archivos correspondientes
+		//------------------------------------------------------------------------------------------//		
+		foreach ($fuentes as $fuente) {
+			$nombre_archivo = $dir . $prefijo_archivo . '_' . $fuente. '.sql';
+			if (! empty ($sentencias[$fuente])) {
+				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {
+					throw new toba_error('PROYECTO: Se produjo un error en la generación del script, verifique los logs', 'Se produjo un error al guardar los datos para la fuente '. $fuente);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Devuelve que tablas son utilizadas en la fuente por las operaciones indicadas
+	 * @param string $fuente
+	 * @param array $operaciones
+	 * @return array 
+	 */
+	function get_tablas_permitidas_x_fuente($fuente, $operaciones)
+	{
+		$conjunto = array();									//Para cada operacion obtengo las tablas involucradas
+		$resultado = array();		
+		foreach($operaciones as $item) {
+			$tmp_datos = $this->get_lista_tablas_con_permisos($fuente, $item['item']);
+			$conjunto = array_merge($conjunto, $tmp_datos);
+		}		
+		foreach($conjunto as $rs) {
+			$indx = $rs['tabla'];
+			$resultado[$indx] = $rs;
+		}
+		
+		return $resultado;
+	}
+	
+	protected function get_sql_revocacion_permisos_rol($rol, $fuente, $tablas) 
+	{
+		//Voy pasandole los permisos x cada tabla.
+		$sqls = array();
+		foreach($tablas as $tabla) {
+			$permisos = 'ALL PRIVILEGES';
+			/*if (isset($tabla['permisos'])) {
+				$permisos = $tabla['permisos'];
+			}*/
+			
+			$tmp_sql = $this->get_db()->revoke_tablas($rol, $tabla['esquema'], array($tabla['tabla']), $permisos, false);			
+			$sqls = array_merge($sqls, $tmp_sql);
+		}		
+		return $sqls;
+	}
+	
+	/**
+	 * Devuelve un arreglo de sentencias SQL que realizan el GRANT de los permisos
+	 * @param string $rol
+	 * @param string $fuente
+	 * @param array $tablas
+	 * @return array 
+	 */
+	protected function get_sql_generacion_permisos_rol($rol, $fuente, $tablas)
+	{	
+		//Voy pasandole los permisos x cada tabla.
+		$sqls = array();
+		foreach($tablas as $tabla) {
+			$permisos = 'ALL PRIVILEGES';
+			if (isset($tabla['permisos'])) {
+				$permisos = $tabla['permisos'];
+			}
+			
+			$tmp_sql = $this->get_db()->grant_tablas($rol, $tabla['esquema'], array($tabla['tabla']), $permisos, false);
+			$sqls = array_merge($sqls, $tmp_sql);
+		}		
+		return $sqls;
+	}
+	
 	//-----------------------------------------------------------
 	//	CARGAR
 	//-----------------------------------------------------------
@@ -2724,179 +2928,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------//
-	/**
-	 *  Genera un script por fuente de datos para crear los roles y darles permisos
-	 */
-	function crear_script_generacion_roles_db($dir = '', $perfiles_eliminados=array())
-	{
-		$sentencias = array(); $fuentes = array();
-		$prefijo_archivo = $this->identificador.'_roles_';
-		toba_proyecto_db::set_db( $this->db );
-		
-		//------------------------------------------------------------------------------------------//
-		//	Obtengo estado actual de perfiles funcionales
-		//------------------------------------------------------------------------------------------//
-		$grupos = $this->get_indice_grupos_acceso();		
-		//Ahora busco las fuentes del mismo, quitando aquellas que no usen permisos por tablas o no esten configuradas para que no tire error
-		$fuentes_disponibles = toba_info_editores::get_fuentes_datos($this->identificador);	
-		foreach ($fuentes_disponibles as $fuente) {
-			try {
-				$id_def_base = $this->construir_id_def_base($fuente['fuente_datos']);			
-				if ($fuente['permisos_por_tabla'] == '1') { 
-					$fuentes[] = $fuente['fuente_datos'];
-				}
-			} catch (toba_error $e) {
-				continue;
-			}
-		}
-		
-		$roles_activos_db = $this->get_roles_disponibles();		
-			
-		//------------------------------------------------------------------------------------------//
-		//	Genero el nuevo estado para los perfiles 
-		//------------------------------------------------------------------------------------------//		
-		foreach($grupos as $perfil) {
-			$nombre_final = $this->get_nombre_rol($perfil);
-			$rol_existente = (in_array($nombre_final, $roles_activos_db));								//Miro si es un rol existente o eliminado.
-			$rol_eliminado = (in_array($perfil, $perfiles_eliminados));
-			$drop_generado = false;
-				
-			if (! $rol_existente) {																	//Si es un perfil nuevo, creo el rol correspondiente
-				$sql[] = $this->get_db()->crear_rol($nombre_final, false);
-			}
-			
-			$operaciones_disponibles = toba_proyecto_db::get_items_accesibles($this->identificador, array($perfil));							//Obtengo las operaciones para el perfil
-			foreach ($fuentes as $fuente) {
-				$permisos_tablas = $this->get_tablas_permitidas_x_fuente($fuente, $operaciones_disponibles);							//Obtengo las tablas que usan las operaciones en esta fuente
-				$sql_rvk_rol =  (! $rol_existente) ? array():  $this->get_sql_revocacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);	//Genero las SQLs para los REVOKE si existe el rol
-				
-				if (! $rol_eliminado) {
-					$sql_rol = $this->get_sql_generacion_permisos_rol($nombre_final, $fuente, $permisos_tablas);						//Genero las SQLs para los GRANT	si es nuevo o existe												
-				} elseif (! $drop_generado) {
-					$sql[] = $this->get_db()->borrar_rol($nombre_final, false);														//Genero el DROP si el rol no existe mas.	
-					$drop_generado = true;					
-				}
-				
-				if (! empty($sql_rol) || ! empty($sql_rvk_rol)) {																		//Agrego las consultas al pool para la fuente
-					$sentencias[$fuente] = (! isset($sentencias[$fuente])) ? array_merge($sql_rvk_rol, $sql, $sql_rol): array_merge($sentencias[$fuente], $sql_rvk_rol, $sql, $sql_rol);					
-					$sql = array();																							//Reinicializo para evitar que el rol se cree nuevamente.
-					$sql_rol = array();					
-				}
-			}
-		}		
-		
-		//------------------------------------------------------------------------------------------//
-		//		Grabo todo en los archivos correspondientes
-		//------------------------------------------------------------------------------------------//		
-		foreach ($fuentes as $fuente) {
-			$nombre_archivo = $dir . $prefijo_archivo . '_' . $fuente. '.sql';
-			if (! empty ($sentencias[$fuente])) {
-				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {
-					throw new toba_error('PROYECTO: Se produjo un error en la generación del script, verifique los logs', 'Se produjo un error al guardar los datos para la fuente '. $fuente);
-				}
-			}
-		}
-	}
 	
-	/**
-	 * Devuelve que tablas son utilizadas en la fuente por las operaciones indicadas
-	 * @param string $fuente
-	 * @param array $operaciones
-	 * @return array 
-	 */
-	function get_tablas_permitidas_x_fuente($fuente, $operaciones)
-	{
-		$conjunto = array();									//Para cada operacion obtengo las tablas involucradas
-		$resultado = array();		
-		foreach($operaciones as $item) {
-			$tmp_datos = $this->get_lista_tablas_con_permisos($fuente, $item['item']);
-			$conjunto = array_merge($conjunto, $tmp_datos);
-		}		
-		foreach($conjunto as $tabla) {
-			$resultado[$tabla] = array('tabla' => $tabla);
-		}
-		
-		return $resultado;
-	}
-	
-	protected function get_sql_revocacion_permisos_rol($rol, $fuente, $tablas) 
-	{
-		$id_def_base = $this->construir_id_def_base($fuente);
-		$parametros =  $this->get_instalacion()->get_parametros_base($id_def_base);			
-		$schema = 'public';
-		if (isset($parametros['schema'])) {
-			$schema = $parametros['schema'];
-		}
-		
-		//Voy pasandole los permisos x cada tabla.
-		$sqls = array();
-		foreach($tablas as $tabla) {
-			$permisos = 'ALL PRIVILEGES';
-			if (isset($tabla['permisos'])) {
-				$permisos = $tabla['permisos'];
-			}
-			
-			$tmp_sql = $this->get_db()->revoke_tablas($rol, $schema, array($tabla['tabla']), $permisos, false);			
-			$sqls = array_merge($sqls, $tmp_sql);
-		}		
-		return $sqls;
-	}
-	
-	/**
-	 * Devuelve un arreglo de sentencias SQL que realizan el GRANT de los permisos
-	 * @param string $rol
-	 * @param string $fuente
-	 * @param array $tablas
-	 * @return array 
-	 */
-	protected function get_sql_generacion_permisos_rol($rol, $fuente, $tablas)
-	{		
-		//Obtener parametros de la fuente de datos para sacar el schema
-		$id_def_base = $this->construir_id_def_base($fuente);
-		$parametros =  $this->get_instalacion()->get_parametros_base($id_def_base);			
-		$schema = 'public';
-		if (isset($parametros['schema'])) {
-			$schema = $parametros['schema'];
-		}
-		
-		//Voy pasandole los permisos x cada tabla.
-		$sqls = array();
-		foreach($tablas as $tabla) {
-			$permisos = 'ALL PRIVILEGES';
-			if (isset($tabla['permisos'])) {
-				$permisos = $tabla['permisos'];
-			}
-			
-			$tmp_sql = $this->get_db()->grant_tablas($rol, $schema, array($tabla['tabla']), $permisos, false);			
-			$sqls = array_merge($sqls, $tmp_sql);
-		}		
-		return $sqls;
-	}
-	
-	/**
-	 * Devuelve un nombre estandar de rol 
-	 * @param string $perfil
-	 * @return string 
-	 */
-	protected function get_nombre_rol($perfil) 
-	{
-		return strtolower($this->identificador . '_' . $perfil);		//Analizar si no conviene generar un ID por fuente 
-	}
-	
-	/**
-	 *  Devuelve una lista con los roles actuales del motor
-	 * @return array
-	 */
-	protected function get_roles_disponibles()
-	{
-		$roles_existentes = array();		
-		$datos = $this->db->listar_roles();
-		foreach($datos as $valor) {
-			$roles_existentes[] = strtolower($valor['rolname']);
-		}
-		return $roles_existentes;		
-	}
 	
 	//------------------------------------------------------------------------------------------//
 	//				SERVICIOS WEB						//

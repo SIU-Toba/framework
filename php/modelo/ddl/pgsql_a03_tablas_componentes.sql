@@ -143,10 +143,12 @@ CREATE TABLE apex_item_permisos_tablas
 	proyecto						varchar(15)		NOT NULL,
 	item							varchar(60)		NOT NULL,
 	fuente_datos					varchar(20)		NOT NULL,		
-	tablas_modifica					TEXT			NULL,		--Tablas separadas por coma
+	esquema						TEXT			NULL,
+	tabla							TEXT			NULL, 
+	permisos						TEXT			NULL,			--Permisos separados por coma
 	CONSTRAINT	"apex_item_permisos_tablas_pk"	 	PRIMARY	KEY ("proyecto","item", "fuente_datos"),
 	CONSTRAINT	"apex_item_permisos_tablas_item" 	FOREIGN	KEY ("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_item_permisos_tablas_fuente"  FOREIGN KEY ("proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_item_permisos_tablas_fuente"	FOREIGN KEY ("proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
