@@ -146,7 +146,7 @@ CREATE TABLE apex_item_permisos_tablas
 	esquema						TEXT			NULL,
 	tabla							TEXT			NULL, 
 	permisos						TEXT			NULL,			--Permisos separados por coma
-	CONSTRAINT	"apex_item_permisos_tablas_pk"	 	PRIMARY	KEY ("proyecto","item", "fuente_datos"),
+	CONSTRAINT	"apex_item_permisos_tablas_pk"	 	PRIMARY	KEY ("proyecto","item", "fuente_datos", "tabla"),
 	CONSTRAINT	"apex_item_permisos_tablas_item" 	FOREIGN	KEY ("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_item_permisos_tablas_fuente"	FOREIGN KEY ("proyecto","fuente_datos") REFERENCES   "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
