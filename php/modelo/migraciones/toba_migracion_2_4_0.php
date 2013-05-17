@@ -127,7 +127,27 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);		
 	}
 	
-	
-	//TODO: INCLUIR EL TEMA DE $_SERVER['TOBA_INSTANCIA'] y $_SERVER['toba_proyecto']
+	function proyecto__migracion_variables_entorno()
+	{	
+		//Busco los archivos ya sean PHP o de lotes
+		$dir_base = $this->elemento->get_dir();		
+		$archivos_php = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.php|', true);
+		$archivos_sh = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.sh|', true);
+		$archivos_bat = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.bat|', true);
+		
+		//Proceso los cambios de asignacion de variables
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion('|\stoba_instancia\s*=|',' TOBA_INSTANCIA=');
+		$editor->agregar_sustitucion('|\stoba_proyecto\s*=|',' TOBA_PROYECTO=');
+		$editor->procesar_archivos($archivos_php);
+		$editor->procesar_archivos($archivos_sh);
+		$editor->procesar_archivos($archivos_bat);
+		
+		//Proceso las lecturas de variables en $_SERVER
+		$editor2 = new toba_editor_archivos();
+		$editor2->agregar_sustitucion('|$_SERVER[\'toba_proyecto\']|', '$_SERVER[\'TOBA_PROYECTO\']');
+		$editor2->agregar_sustitucion('|$_SERVER[\'toba_instancia\']|', '$_SERVER[\'TOBA_INSTANCIA\']');
+		$editor2->procesar_archivos($archivos_php);
+	}
 }
 ?>
