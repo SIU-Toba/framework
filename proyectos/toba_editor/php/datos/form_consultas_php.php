@@ -18,11 +18,11 @@ class form_consultas_php extends toba_ei_formulario
 				}
 			}
 
-			{$this->objeto_js}.modificar_vinculo__ef_archivo = function(id_vinculo)
+			/*{$this->objeto_js}.modificar_vinculo__ef_archivo = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
-			}
+			}*/
 
 			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial)
 			{
@@ -30,7 +30,7 @@ class form_consultas_php extends toba_ei_formulario
 					this.ef('archivo').cambiar_valor('');
 					this.ef('archivo_clase').cambiar_valor('');
 				}
-			}
+			}			
 		";
 	}
 	

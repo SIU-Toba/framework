@@ -13,7 +13,7 @@ class ci_subclases_generacion extends toba_ci
 	protected $previsualizacion;
 	protected $info_archivo;
 	protected $comando_svn;
-
+	
 	function ini()
 	{
 		//Si viene 'archivo' asume la carpeta php
@@ -30,14 +30,20 @@ class ci_subclases_generacion extends toba_ci
 				//Evita que se pasen ../ en la url
 				throw new toba_error_seguridad("El parámetro '$archivo' no es un path válido");
 			}
-			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
-			if (! $asume_php) {
-				$this->s__path_archivo = $path_proyecto.'/'.$archivo;
-			} else {
-				$this->s__path_archivo = $path_proyecto.'/php/'.$archivo;
+			$pm_id = toba::memoria()->get_parametro('punto_montaje');
+			if (! is_null($pm_id)) {
+				$pm_obj =  toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
+				$this->s__path_archivo = $pm_obj->get_path_absoluto() . '/' . $archivo;
+			} else {			
+				$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
+				if (! $asume_php) {
+					$this->s__path_archivo = $path_proyecto.'/'.$archivo;
+				} else {
+					$this->s__path_archivo = $path_proyecto.'/php/'.$archivo;
+				}
 			}
 			$this->s__es_esclavo = false;
-		}
+		}		
 		if (! isset($this->s__es_esclavo)) {
 			//Es un esclavo
 			$this->s__path_archivo = $this->controlador()->get_path_archivo();
@@ -269,7 +275,7 @@ class ci_subclases_generacion extends toba_ci
 	{
 		$opciones = $this->get_opciones();
 		$metodos = $this->get_metodos_a_generar();
-		$archivo_php = new toba_archivo_php($this->s__path_archivo);
+		$archivo_php = new toba_archivo_php($this->get_path_archivo());
 		
 		//-- Se va a modificar algo?
 		if ($this->s__es_esclavo && (! empty($metodos) || $archivo_php->esta_vacio())) {
@@ -282,8 +288,8 @@ class ci_subclases_generacion extends toba_ci
 			return $codigo;
 		} else {
 			//-- Muestra el original
-			if (file_exists($this->s__path_archivo)) {
-				return file_get_contents($this->s__path_archivo);
+			if (file_exists($this->get_path_archivo())) {
+				return file_get_contents($this->get_path_archivo());
 			} else {
 				return '';
 			}

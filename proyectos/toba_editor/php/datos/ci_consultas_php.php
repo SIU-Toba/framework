@@ -35,8 +35,8 @@ class ci_consultas_php extends toba_ci
 		admin_util::refrescar_barra_lateral();
 		//Si no existe el archivo, lo creo
 		$datos = $this->dependencia('datos')->get();
-		if (! admin_util::existe_archivo_subclase($datos['archivo'])) {
-			$this->crear_archivo(admin_util::get_path_archivo($datos['archivo']), $datos['clase']);
+		if (! admin_util::existe_archivo_subclase($datos['archivo'],$datos['punto_montaje'])) {
+			$this->crear_archivo(admin_util::get_path_archivo($datos['archivo'], $datos['punto_montaje']), $datos['clase']);
 		}
 	}
 
@@ -79,9 +79,17 @@ class ci_consultas_php extends toba_ci
 	}
 
 	function conf__form(toba_ei_formulario $form)
-	{
-		$form->ef('archivo')->set_iconos_utilerias(admin_util::get_ef_popup_utileria_php());
-		$form->set_datos($this->dependencia('datos')->get());
+	{		
+		$datos = $this->dependencia('datos')->get();
+		$utilerias_popup = admin_util::get_ef_popup_utileria_php();
+		if (isset($datos['punto_montaje'])) {
+			$claves = array_keys($utilerias_popup);
+			foreach($claves as $klave) {
+				$utilerias_popup[$klave]->agregar_parametros(array('punto_montaje' => $datos['punto_montaje']));
+			}
+		}
+		$form->ef('archivo')->set_iconos_utilerias($utilerias_popup);
+		$form->set_datos($datos);
 	}
 }
 
