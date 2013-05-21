@@ -1855,7 +1855,12 @@ class toba_datos_tabla extends toba_componente
 							$datos_nuevos[$campo] = $datos_nuevos[$campo] ? 1 : 0;
 						}
 						//--- Comparacion por igualdad estricta con un cast a string
-						if (trim((string) $datos_viejos[$campo]) !== trim((string) $datos_nuevos[$campo])) {
+						if ($this->persistidor()->get_usar_trim()) {
+							$modificar =  (trim((string) $datos_viejos[$campo]) !== trim((string) $datos_nuevos[$campo]));							
+						} else {
+							$modificar =  (((string) $datos_viejos[$campo]) !== ((string) $datos_nuevos[$campo]));
+						}
+						if ($modificar) {
 							$diferencias[$campo] = array('anterior' => $datos_viejos[$campo], 'actual' => $datos_nuevos[$campo]);
 						}
 					}
