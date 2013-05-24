@@ -63,8 +63,8 @@ class toba_datos_tabla_info extends toba_componente_info
 	function get_utilerias()
 	{
 		//--- Mejora para el caso de que la query sea una unica
-		if (isset($this->datos['_info']['punto_montaje'])) {
-			$this->datos['_info_estructura']['punto_montaje'] = $this->datos['_info']['punto_montaje'];
+		if (isset($this->datos['_info']['ap_punto_montaje'])) {
+			$this->datos['_info_estructura']['ap_punto_montaje'] = $this->datos['_info']['ap_punto_montaje'];
 		}
 		if (isset($this->datos['_info']['ap_clase'])) {
 			$this->datos['_info_estructura']['ap_clase'] = $this->datos['_info']['ap_clase'];
@@ -74,23 +74,19 @@ class toba_datos_tabla_info extends toba_componente_info
 		}		
 		
 		$iconos = array();
-		if (isset($this->datos['_info_estructura']['ap_sub_clase_archivo'])) {
-			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_sub_clase_archivo'], $this->datos['_info_estructura']['punto_montaje']) ) {
-				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
-																					'componente' =>$this->id ),
-																			'ap',
-																			'reflexion/abrir_ap.gif' );				
-				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
-																					'componente' =>$this->id ),
-																			'ap',
-																			'nucleo/php_ap.gif' );
-
+		if (isset($this->datos['_info_estructura']['ap_sub_clase_archivo'])) {			
+			if (admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_sub_clase_archivo'], $this->datos['_info_estructura']['ap_punto_montaje'])) {
+				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+																	'ap',
+																	'reflexion/abrir_ap.gif' );				
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+																	'ap',
+																	'nucleo/php_ap.gif' );
 			} else {
-				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
-																					'componente' =>$this->id ),
-																			'ap',
-																			'nucleo/php_ap_inexistente.gif',
-																			false );
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+																	'ap',
+																	'nucleo/php_ap_inexistente.gif',
+																	false );
 			}
 		}
 		return array_merge($iconos, parent::get_utilerias());	
@@ -114,6 +110,8 @@ class toba_datos_tabla_info extends toba_componente_info
 			$path_destino = $this->get_path_clonacion($id_pm_destino, $proyecto_dest, $path_origen);
 			
 			$dr->tabla('prop_basicas')->set_fila_columna_valor(0, 'ap_archivo', $nuevo_archivo);
+			 $dr->tabla('prop_basicas')->set_fila_columna_valor(0, 'punto_montaje', $id_pm_destino);
+			 
 			//--- Si el dir. destino no existe, se lo crea
 			if (!file_exists($path_destino.$dir_subclases)) {
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);

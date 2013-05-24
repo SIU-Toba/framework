@@ -134,7 +134,13 @@ class toba_catalogo_objetos
 	protected function tiene_extension_rota($dato)
 	{
 		$archivo = $dato['subclase_archivo'];
-		$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+		if (isset($dato['punto_montaje'])) {
+			$pm = toba_modelo_pms::get_pm($dato['punto_montaje'], toba_editor::get_proyecto_cargado());
+			$path_proy = $pm->get_path_absoluto() . '/' . $archivo;
+		} else {
+			$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+		}
+		
 		$path_toba = toba_dir()."/php/".$archivo;
 		if (!file_exists($path_proy) && !file_exists($path_toba)) {
 			$this->explicaciones[$dato['objeto']][] = "Extensión Rota, no se encuentra el archivo <em>$archivo</em>";
@@ -143,7 +149,12 @@ class toba_catalogo_objetos
 		//-- Tiene un AP?
 		if ($dato['ap_archivo'] != '') {
 			$archivo = $dato['ap_archivo'];
-			$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+			if (isset($dato['ap_punto_montaje'])) {
+				$pm = toba_modelo_pms::get_pm($dato['ap_punto_montaje'], toba_editor::get_proyecto_cargado());
+				$path_proy = $pm->get_path_absoluto() . '/' . $archivo;
+			} else {
+				$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+			}
 			$path_toba = toba_dir()."/php/".$archivo;
 			if (!file_exists($path_proy) && !file_exists($path_toba)) {
 				$this->explicaciones[$dato['objeto']][] = "Extensión del AP Rota, no se encuentra el archivo <em>$archivo</em>";

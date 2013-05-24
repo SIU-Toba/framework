@@ -91,12 +91,12 @@ class admin_util
 	{
 		//ei_arbol(debug_backtrace());
 		$path_real = self::get_path_archivo($path_relativo, $pm_id);
-		return file_exists($path_real) && is_file($path_real);
+		return (file_exists($path_real) && is_file($path_real));
 	}
 	
 	static function get_path_archivo($path_relativo, $pm_id=null)
-	{
-		if (!is_null($pm_id)) {
+	{		
+		if (! is_null($pm_id)) {
 			$pm = toba_modelo_pms::get_pm($pm_id, toba_editor::get_proyecto_cargado());
 			$path = $pm->get_path_absoluto().'/';
 		} else {

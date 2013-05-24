@@ -105,11 +105,21 @@ class ci_principal extends ci_editores_toba
 
 	function conf__prop_basicas($form)
 	{
+		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
+		if (! isset($datos['fuente_datos'])) {
+			$datos['fuente_datos_proyecto'] = toba_editor::get_proyecto_cargado();
+			$datos['fuente_datos'] = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
+		}
+		
 		// Hay extension
 		$param_editor = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																	'componente'=> $this->id_objeto['objeto']),
 																	'ap');
 
+		if (isset($datos['punto_montaje'])) {
+			$param_editor['punto_montaje'] = $datos['punto_montaje'];
+		}
+		
 		$eliminar_extension = !isset($this->id_objeto); //Si es alta no se puede extender
 		if ($this->s__ap_php_db) {
 			$form->evento('ver_php')->vinculo()->set_parametros($param_editor);
@@ -129,12 +139,7 @@ class ci_principal extends ci_editores_toba
 			$form->eliminar_evento('ver_php');	
 			$form->eliminar_evento('abrir_php');
 			$form->evento('extender_ap')->vinculo()->set_parametros($param_editor);			
-		}
-		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
-		if (! isset($datos['fuente_datos'])) {
-			$datos['fuente_datos_proyecto'] = toba_editor::get_proyecto_cargado();
-			$datos['fuente_datos'] = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
-		}
+		}		
 		if ($eliminar_extension) {
 			$form->eliminar_evento('extender_ap');
 		}		

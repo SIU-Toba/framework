@@ -62,6 +62,7 @@ class toba_componente_def implements toba_componente_definicion
 									oi.objeto 						as objeto_existe_ayuda,
 									COALESCE(dt.ap_clase, dr.ap_clase)		as ap_clase,
 									COALESCE(dt.ap_archivo, dr.ap_archivo)	as ap_archivo,
+									COALESCE(dt.punto_montaje, dr.punto_montaje) as ap_punto_montaje,
 									(SELECT COUNT(*) 
 										FROM apex_objeto_dependencias 
 										WHERE objeto_consumidor = o.objeto
