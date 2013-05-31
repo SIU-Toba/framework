@@ -42,14 +42,6 @@ abstract class toba_ef_sin_estado extends toba_ef
 	{
 		return "";
 	}
-
-	function get_consumo_javascript()
-	//Esta funcion permite que un EF declare la necesidad de incluir
-	//codigo javascript necesario para su correcto funcionamiento (generalmente javascript:
-	//expresiones regulares comunes a varios EF, includes de manejo de fechas, etc...
-	{
-		return null;
-	}
 	
 	function tiene_etiqueta()
 	{
