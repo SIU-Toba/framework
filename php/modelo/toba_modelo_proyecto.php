@@ -1805,7 +1805,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		//-- Datos basicos --
 		$this->manejador_interface->mensaje('Servicios Web', false);
-		$nombre_clase = 'toba_mc_gene__servicios_web_php';
+		$nombre_clase = 'toba_mc_gene__servicios_web';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		foreach(toba_info_editores::get_servicios_web_acc() as $serv_web) {		
