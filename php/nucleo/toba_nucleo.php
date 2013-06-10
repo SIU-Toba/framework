@@ -449,7 +449,7 @@ class toba_nucleo
 				$version = toba::instalacion()->get_version()->__toString();
 			} else {
 				$path_recursos = $this->toba_dir(). '/www';
-				$version = $svn->get_revision($path_recursos)->__toString();
+				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('toba_revision_recursos_cliente', $version);
 		}
@@ -459,7 +459,7 @@ class toba_nucleo
 				$version = toba::proyecto()->get_version()->__toString();
 			} else {
 				$path_recursos = toba::proyecto()->get_path(). '/www';
-				$version = $svn->get_revision($path_recursos)->__toString();
+				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('proyecto_revision_recursos_cliente', $version);
 		}

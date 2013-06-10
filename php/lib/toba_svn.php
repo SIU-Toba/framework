@@ -187,13 +187,13 @@ class toba_svn
 			$xml_rs = $this->ejecutar($cmd, true, true);
 			$xml = simplexml_load_string($xml_rs);
 			if (isset($xml->info->entry->revision)) {
-				return $xml->info->entry->revision;
+				return $xml->info->entry->revision->__toString();
 			}
 			if (isset($xml->entry->revision)) {
-				return $xml->entry->revision;
+				return $xml->entry->revision->__toString();
 			}
 			if (isset($xml->entry[0]['revision'])) {
-				return $xml->entry[0]['revision'];
+				return $xml->entry[0]['revision']->__toString();
 			}
 		} catch(toba_error $e) {
 			toba::logger()->debug("SVN: ". $e->getMessage());

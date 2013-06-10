@@ -2517,13 +2517,24 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$empaquetado['path_instalador'] = realpath($empaquetado['path_instalador']);
 		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
 			throw new toba_error("'$nombre_ini': La ruta '$path_relativo' no es un directorio valido");
-		}
-		$this->manejador_interface->mensaje("Copiando instalador..", false);
-		$excepciones = array($empaquetado['path_instalador'].'/ejemplo.proyecto.ini');		
+		}		
+		$this->manejador_interface->mensaje("Copiando instalador..", false);				
+		$excepciones = array($empaquetado['path_instalador'].'/ejemplo.proyecto.ini'); 
 		toba_manejador_archivos::copiar_directorio($empaquetado['path_instalador'], $empaquetado['path_destino'], 
 														$excepciones, $this->manejador_interface, false);
+		
+		// --------- Genero el archivo instalador.ini con la revision del codigo del instalador -------
+		$svn = new toba_svn();
+		$rev = $svn->get_revision($empaquetado['path_instalador']);	
+		if (is_null($rev)) {
+			$rev = 'ND';
+		}
+		$inst_ini = new toba_ini($empaquetado['path_destino'].'/instalador.ini');
+		$inst_ini->agregar_entrada('revision', $rev);
+		$inst_ini->guardar();
+		
 		$this->manejador_interface->progreso_fin();
-
+		
 		//-----Creo un autoload con las clases del instalador + las que se redefinieron del mismo				
 		$this->manejador_interface->mensaje('Generando autoload instalador...', false);
 		$destino_relativo = 'proyectos/'.$this->get_id().'/aplicacion';	
