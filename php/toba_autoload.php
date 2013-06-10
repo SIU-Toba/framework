@@ -369,6 +369,7 @@ class toba_autoload
 		'toba_autenticacion_basica' => 'nucleo/lib/toba_autenticacion_basica.php',
 		'toba_autenticacion_ldap' => 'nucleo/lib/toba_autenticacion_ldap.php',
 		'toba_autenticacion_openid' => 'nucleo/lib/toba_autenticacion_openid.php',
+		'toba_autenticacion_cas' => 'nucleo/lib/toba_autenticacion_cas.php',
 		'toba_contenedor_gadgets' => 'nucleo/lib/toba_contenedor_gadgets.php',
 		'toba_contexto_ejecucion' => 'nucleo/lib/toba_contexto_ejecucion.php',
 		'toba_cronometro' => 'nucleo/lib/toba_cronometro.php',
@@ -456,6 +457,7 @@ class toba_autoload
 		'toba_solicitud_web' => 'nucleo/toba_solicitud_web.php',
 		'toba_autoload' => 'toba_autoload.php',
 		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
+		'phpCAS' => '3ros/phpCAS/CAS/CAS.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
 	);
 }

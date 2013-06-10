@@ -69,7 +69,7 @@ class toba_manejador_sesiones
 			$this->contrasenia_vencida = false;
 			throw new  toba_error_login_contrasenia_vencida('La contraseña actual del usuario ha caducado');
 		}
-		
+				
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
 		
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
@@ -109,6 +109,10 @@ class toba_manejador_sesiones
 			throw new toba_error('No existe una sesion de la cual desloguearse.');
 		}
 		$this->procesar_salida_proyecto($observaciones);
+
+		//Mando a hacer el logout para los tipos de autenticacion externos.
+		$this->get_autenticacion()->logout();
+		
 		// Se recarga el nucleo, esta vez sobre una sesion INACTIVA.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('FINALIZAR SESION... recargando el nucleo.');
@@ -147,6 +151,10 @@ class toba_manejador_sesiones
 					break;
 				case 'openid':
 					$this->set_autenticacion(new toba_autenticacion_openid());
+					break;
+				case 'cas' :
+					$this->set_autenticacion(new toba_autenticacion_cas());
+					break;
 				default:												//tipo == 'toba'
 					$this->set_autenticacion(new toba_autenticacion_basica());
 					break;					
@@ -819,10 +827,10 @@ class toba_manejador_sesiones
 			throw new toba_error_autenticacion('Es necesario ingresar la clave.');
 		}
 		$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
-		if ( $this->invocar_metodo_usuario('es_ip_rechazada',array($ip)) ) {
+		if ($this->invocar_metodo_usuario('es_ip_rechazada',array($ip))) {
 			throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 		}
-		if ( $this->invocar_metodo_usuario('es_usuario_bloqueado', array($id_usuario)) ) {
+		if ($this->invocar_metodo_usuario('es_usuario_bloqueado', array($id_usuario))) {
 			throw new toba_error('El usuario se encuentra bloqueado. Contáctese con el administrador');
 		}
 		// Disparo la autenticacion
@@ -831,7 +839,7 @@ class toba_manejador_sesiones
 		} else {
 			throw new toba_error_seguridad('No existe la autenticación propuesta');
 		}
-		if(!$estado) {
+		if (!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
 			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');

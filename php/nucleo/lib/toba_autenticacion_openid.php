@@ -85,6 +85,11 @@ class toba_autenticacion_openid  implements toba_autenticable
 		}
 	}	
 	
+	function logout()
+	{
+		//Definicion para completar API. Se podria implementar el dia que OpenID estandarice el logout, hoy cada provider lo hace en url distinta o no lo hace.
+	}
+	
 	protected function alta_usuario($id_usuario, $clave, $perfil)
 	{
 		$nombre = "";

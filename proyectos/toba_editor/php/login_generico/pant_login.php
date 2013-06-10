@@ -17,6 +17,11 @@ class pant_login extends toba_ei_pantalla
 			$this->dep('openid')->generar_html();
 			echo '</div>';
 		}
+		if ($this->existe_dependencia('cas')) {
+			echo "<div style='margin-left: 30px; float:right;'>";			
+			$this->dep('cas')->generar_html();
+			echo '</div>';
+		}		
 		echo '</div>';
 
 	}

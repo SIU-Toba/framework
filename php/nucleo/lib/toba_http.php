@@ -66,8 +66,7 @@ class toba_http
 	static function get_protocolo($basado_en_host = true, $forzar_seguro = false)
 	{
 		$basico = 'http';
-		$srv_seguro = (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'));		
-		if ($forzar_seguro || ($basado_en_host && $srv_seguro)) {
+		if ($forzar_seguro || ($basado_en_host &&  self::usa_protocolo_seguro())) {
 			$basico .= 's';
 		}
 		$basico .= '://';
@@ -79,6 +78,11 @@ class toba_http
 		$srv_name = $_SERVER['SERVER_NAME'];					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
 		$nombre = htmlentities($srv_name, ENT_QUOTES, 'UTF-8');		//Se debe usar UseCanonicalName junto con esta variable en la config del webserver
 		return $nombre;
+	}
+	
+	static function usa_protocolo_seguro()
+	{
+		return (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'));
 	}
 }
 ?>

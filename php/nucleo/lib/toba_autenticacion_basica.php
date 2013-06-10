@@ -29,6 +29,11 @@ class toba_autenticacion_basica implements toba_autenticable
 		}		
 		$estado = call_user_func_array(array($clase, 'verificar_clave_vencida'), $parametros);
 		return $estado;
-	}	
+	}
+	
+	function logout()
+	{	
+		//Definicion para completar API.
+	}
 }
 ?>

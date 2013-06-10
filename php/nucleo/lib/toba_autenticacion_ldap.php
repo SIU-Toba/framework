@@ -82,6 +82,10 @@ class toba_autenticacion_ldap implements toba_autenticable
 		return false;
 	}
 	
+	function logout()
+	{
+		//Definicion para completar API.
+	}	
 }
 
 ?>

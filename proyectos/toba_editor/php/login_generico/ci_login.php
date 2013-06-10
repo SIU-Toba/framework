@@ -39,17 +39,8 @@ class ci_login extends toba_ci
 	{
 		if ( ! toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->pantalla()->eliminar_dep('seleccion_usuario');
-		}
-		if (toba::instalacion()->get_tipo_autenticacion() == 'openid') {
-			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() 
-				&& $this->pantalla()->existe_dependencia('datos')) {
-				$this->pantalla()->eliminar_dep('datos');
-			}			
-		} else {
-			if ($this->pantalla()->existe_dependencia('openid')) {
-				$this->pantalla()->eliminar_dep('openid');
-			}
 		}		
+		$this->eliminar_dependencias_no_usadas();										//Quito los forms que no uso dependiendo del tipo de autenticacion
 		if ($this->en_popup && toba::manejador_sesiones()->existe_usuario_activo()) {
 			//Si ya esta logueado y se abre el sistema en popup, ocultar componentes visuales
 			$this->pantalla()->set_titulo('');			
@@ -65,43 +56,97 @@ class ci_login extends toba_ci
 		}		
 	}	
 	
+	/**
+	 * Elimina los formularios que no se usan segun el tipo de autenticacion indicado en instalacion.ini
+	 */
+	function eliminar_dependencias_no_usadas()
+	{
+		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();	
+		switch($tipo_auth) {
+		case 'openid':
+			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
+				$this->pantalla()->eliminar_dep('datos');
+			}
+			if ($this->pantalla()->existe_dependencia('cas')) {
+				$this	->pantalla()->eliminar_dep('cas');
+			}
+			break;
+		case 'cas':
+			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
+				$this->pantalla()->eliminar_dep('datos');
+			}
+			if ($this->pantalla()->existe_dependencia('openid')) {
+				$this->pantalla()->eliminar_dep('openid');
+			}
+			break;				
+		default:
+			if ($this->pantalla()->existe_dependencia('openid')) {
+				$this->pantalla()->eliminar_dep('openid');
+			}
+			if ($this->pantalla()->existe_dependencia('cas')) {
+				$this	->pantalla()->eliminar_dep('cas');
+			}
+		}	
+	}
+	
+	/**
+	 * 
+	 * @throws toba_reset_nucleo
+	 * @ignore
+	 */
 	function post_eventos()
 	{
-		if (isset($this->s__datos['usuario']) || isset($this->s__datos_openid['provider'])) {
-			if (toba::instalacion()->get_tipo_autenticacion() == 'openid' && isset($this->s__datos_openid)) {
+		try {		
+			$this->invocar_autenticacion_por_tipo();
+		} catch (toba_error_autenticacion $e) {
+			//-- Caso error de validación
+			toba::notificacion()->agregar($e->getMessage());
+		} catch (toba_error_autenticacion_intentos $e) {
+			//-- Caso varios intentos fallidos con captcha
+			list($msg, $intentos) = explode('|', $e->getMessage());
+			toba::notificacion()->agregar($msg);
+			toba::memoria()->set_dato_instancia('toba_intentos_fallidos_login', $intentos);
+		} catch (toba_error_login_contrasenia_vencida $e) {
+			$this->set_pantalla('cambiar_contrasenia');
+		} catch (toba_reset_nucleo $reset) {
+			//-- Caso validacion exitosa, elimino la marca de intentos fallidos
+			if (toba::memoria()->get_dato_instancia('toba_intentos_fallidos_login') !== null) {
+				toba::memoria()->eliminar_dato_instancia('toba_intentos_fallidos_login');
+			}
+			//-- Se redirige solo si no es popup
+			if (! $this->en_popup) {
+				throw $reset;
+			}
+			$this->s__item_inicio = $reset->get_item();	//Se guarda el item de inicio al que queria derivar el nucleo
+		}
+		return;
+	}
+
+	/**
+	 * Hace el llamado a toba_manejador_sesiones segun el metodo indicado en instalacion.ini 
+	 * y que ingreso el usuario.
+	 */
+	function invocar_autenticacion_por_tipo()
+	{
+		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();
+		if (isset($this->s__datos['usuario']) || isset($this->s__datos_openid['provider'])) {			//Para el caso de autenticacion basica y OpenId
+			if ($tipo_auth == 'openid' && isset($this->s__datos_openid)) {
 				toba::manejador_sesiones()->get_autenticacion()->set_provider($this->s__datos_openid);
 			}
 			$usuario = (isset($this->s__datos['usuario'])) ? $this->s__datos['usuario'] : '';
 			$clave = (isset($this->s__datos['clave'])) ? $this->s__datos['clave'] : '';
 
-			try {
-				toba::manejador_sesiones()->login($usuario, $clave);
-			} catch (toba_error_autenticacion $e) {
-				//-- Caso error de validación
-				toba::notificacion()->agregar($e->getMessage());
-			} catch (toba_error_autenticacion_intentos $e) {
-				//-- Caso varios intentos fallidos con captcha
-				list($msg, $intentos) = explode('|', $e->getMessage());
-				toba::notificacion()->agregar($msg);
-				toba::memoria()->set_dato_instancia('toba_intentos_fallidos_login', $intentos);
-			} catch (toba_error_login_contrasenia_vencida $e) {
-				$this->set_pantalla('cambiar_contrasenia');
-			} catch (toba_reset_nucleo $reset) {
-				//-- Caso validacion exitosa, elimino la marca de intentos fallidos
-				if (toba::memoria()->get_dato_instancia('toba_intentos_fallidos_login') !== null) {
-					toba::memoria()->eliminar_dato_instancia('toba_intentos_fallidos_login');
-				}
-				//-- Se redirige solo si no es popup
-				if (! $this->en_popup) {
-					throw $reset;
-				}
-				$this->s__item_inicio = $reset->get_item();	//Se guarda el item de inicio al que queria derivar el nucleo
-			}
-			return;
-		}
-	}
-	
-	
+			if ($tipo_auth == 'cas') {
+				toba::manejador_sesiones()->get_autenticacion()->usar_login_basico();
+			}			
+			toba::manejador_sesiones()->login($usuario, $clave);
+
+		} elseif ($tipo_auth == 'cas'  && isset($_SESSION['ingreso_cas'])) {						//El control por session es para que no redireccione automaticamente
+			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
+			unset($_SESSION['ingreso_cas']);
+		}	
+	}	
+		
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
@@ -166,6 +211,17 @@ class ci_login extends toba_ci
 		return toba::manejador_sesiones()->get_autenticacion()->get_providers();
 	}
 
+	//---- cas -----------------------------------------------------------------------
+	function evt__cas__ingresar()
+	{
+		$_SESSION['ingreso_cas'] = true;					//No uso la memoria de toba porque el pedido de pagina lo puede cortar la redireccion CAS
+		try {
+			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
+		} catch (toba_error_autenticacion $e) {
+			//-- Caso error de validación				
+			toba::notificacion()->agregar($e->getMessage());	
+		}
+	}
 
 	//---- seleccion_usuario -------------------------------------------------------
 
