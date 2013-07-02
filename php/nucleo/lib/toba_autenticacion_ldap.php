@@ -4,6 +4,9 @@ class toba_autenticacion_ldap implements toba_autenticable
 {
 	protected $server;
 	protected $dn;
+	protected $bind_dn = null;
+	protected $bind_pass = null;
+	protected $filter = 'uid=%s';	
 	
 	function __construct($server=null, $dn=null) {
 		$this->server = $server;
@@ -18,7 +21,16 @@ class toba_autenticacion_ldap implements toba_autenticable
 			}
 			if (isset($datos['basicos']['dn'])) {
 				$this->dn = $datos['basicos']['dn'];
-			}			
+			}
+			if (isset($datos['basicos']['bind_dn'])) {
+				$this->bind_dn = $datos['basicos']['bind_dn'];
+			}
+			if (isset($datos['basicos']['bind_pass'])) {
+				$this->bind_pas = $datos['basicos']['bind_pass'];
+			}
+			if (isset($datos['basicos']['filter'])) {
+				$this->filter = $datos['basicos']['filter'];
+			}
 		}
 	}
 	
@@ -38,12 +50,13 @@ class toba_autenticacion_ldap implements toba_autenticable
 			toba::logger()->error('[Autenticación LDAP] No es posible conectarse con el servidor: '.ldap_error($conexion));
 			return false;
 		}
-		$bind = @ldap_bind($conexion);
+		//$bind = @ldap_bind($conexion);
+		$bind = @ldap_bind($conexion, $this->bind_dn, $this->bind_pass); 
 		if (! $bind) {
 			toba::logger()->error('[Autenticación LDAP] No es posible conectarse con el servidor: '.ldap_error($conexion));
 			return false;
 		}
-		$res_id = @ldap_search($conexion, $this->dn, "uid=$id_usuario");
+		$res_id = @ldap_search($conexion, $this->dn, sprintf($this->filter, $id_usuario));
 		if (! $res_id) {
 			toba::logger()->error('[Autenticación LDAP] Fallo búsqueda en el árbol: '.ldap_error($conexion));
 			return false;
