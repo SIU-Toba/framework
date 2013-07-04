@@ -431,7 +431,7 @@ class toba_info_editores
 		}
 		$catalogador = new toba_catalogo_items($proyecto);
 		$catalogador->cargar_todo(array('solo_carpetas' => 1));
-		$esp = html_entity_decode('&nbsp;');
+		$esp = html_entity_decode('&nbsp;', ENT_COMPAT | ENT_HTML401, "ISO-8859-1");
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
 			if($nivel >= 0) {
