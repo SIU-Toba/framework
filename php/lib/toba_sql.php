@@ -122,8 +122,8 @@
 		$tokens = preg_split("/(\s+)/",$sql);		//ei_arbol($tokens);
 		$cant = count($tokens);
 		for ($i = 0; $i < $cant ; $i++) {		
-			if ($en_join  && isset($where[$tabla])) {		//Estoy dentro de un JOIN y existe una clausula para esa tabla
-				if ((stripos($tokens[$i],'(') !== false ) && (strlen($tokens[$i]) == 1)) {	//Si es un parentesis que abre
+			if ($en_join && isset($where[$tabla])) {		//Estoy dentro de un JOIN y existe una clausula para esa tabla
+				if ((stripos($tokens[$i],'(') !== false) && (strlen($tokens[$i]) == 1)) {	//Si es un parentesis que abre
 					$sql_final .= $tokens[$i] . $where[$tabla] . ' AND ';			//Primero va el parentesis y luego la expresion
 				} else {				
 					$sql_final .= $where[$tabla] . ' AND ' .$tokens[$i] . ' ';		//Sino primero la expresion y luego lo que venga
@@ -133,11 +133,13 @@
 			}
 			
 			$sql_final .= $tokens[$i] . ' ';				//paso el token actual para seguir armando la SQL
-			if ( stripos($tokens[$i],'on') !== false ) {
-				$tabla = $tokens[$i-1];				//Busco la tabla del join
-				$en_join = true;
-			}elseif (stripos($tokens[$i],'JOIN') !== false) {		//es la clausula del proximo JOIN
+			if (stripos($tokens[$i], 'JOIN')  !== false) {		//es la clausula del proximo JOIN
 				$en_join = false;
+				$tmp_name = $tokens[$i+1];
+				$pos_schema = stripos($tmp_name, '.');					
+				$tabla = ($pos_schema !== false) ? substr($tmp_name, $pos_schema + 1) : $tmp_name;				
+			} elseif (strtolower(trim($tokens[$i])) == 'on') {
+				$en_join = true;
 			}
 		}
 		return $sql_final;
