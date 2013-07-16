@@ -27,6 +27,9 @@ class toba_migracion_2_4_0 extends toba_migracion
 		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD COLUMN tabla text;';
 		$sql[] = 'ALTER TABLE apex_item_permisos_tablas ADD COLUMN permisos text;';
 		
+		//Agregado del ef_cbu
+		$sql[] = "INSERT INTO apex_elemento_formulario VALUES ('ef_cbu', 'ef_editable', 'CBU', NULL, 'toba', NULL, 0, 0, 0);";
+		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
