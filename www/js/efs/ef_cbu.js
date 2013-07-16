@@ -1,0 +1,67 @@
+ef_cbu.prototype = new ef_editable();
+ef_cbu.prototype.constructor = ef_cbu;
+
+
+	function ef_cbu(id_form, etiqueta, obligatorio, colapsado, masc, expreg) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		this._forma_mascara = (masc && masc.trim().toLowerCase() != 'no') ? masc : null;
+		this._expreg = expreg;
+		this._mascara = null;
+	}
+	
+	ef_cbu.prototype.validar = function () {
+		if (! ef.prototype.validar.call(this)) {
+			return false;
+		}
+		var estado = this.get_estado();
+		if (this._obligatorio && ereg_nulo.test(estado)) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
+			var temp = this._expreg + '.test("' + estado + '")';
+			if (! eval(temp)) {
+				this._error = 'no es válido';
+				return false;
+			}
+		}
+		if( estado !== '' && !es_cbu_valido( estado ) ){
+			this._error = 'codigo CBU invalido';
+			return false;
+		}
+		return true;
+	};
+	
+	
+	
+	function es_cbu_valido( cbu ){
+		var rta = true;
+		
+		if( cbu.length != 22 ) {
+			rta = false;
+		}else{
+		
+			var v = new Array();
+			var i = 0;
+			for( i=0; i<cbu.length; i++){
+				v[i] = parseInt( cbu.charAt( i ) );
+			}
+			
+			//Valido Bloque 2
+			var suma1 = 0;
+			var suma1 = v[0]*7 + v[1]*1 + v[2]*3 + v[3]*9 + v[4]*7 + v[5]*1 + v[6]*3;
+			d1 = 10 - ( parseInt( suma1.toString().substr(-1, 1) ) );
+			if( d1 !=  v[7]){
+				rta = false;
+			}
+			
+			//Valido Bloque 2
+			var suma2 = v[8]*3 + v[9]*9 + v[10]*7 + v[11]*1 + v[12]*3 + v[13]*9 + v[14]*7 + v[15]*1 + v[16]*3 + v[17]*9 + v[18]*7 + v[19]*1 + v[20]*3 ;
+			var d2 =  10 - ( parseInt( suma2.toString().substr(-1, 1) ) );
+			if( d2 !=  v[21]){
+				rta = false;
+			}		
+			
+		}
+		return rta;
+	}

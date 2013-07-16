@@ -269,6 +269,7 @@ class toba_autoload
 		'toba_ef_cuit' => 'nucleo/componentes/interface/efs/toba_ef_cuit.php',
 		'toba_callback_errores_validacion' => 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 		'toba_ef_editable' => 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+		'toba_ef_cbu' => 'nucleo/componentes/interface/efs/toba_ef_cbu.php',
 		'toba_ef_editable_numero' => 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 		'toba_ef_editable_moneda' => 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 		'toba_ef_editable_numero_porcentaje' => 'nucleo/componentes/interface/efs/toba_ef_editable.php',
