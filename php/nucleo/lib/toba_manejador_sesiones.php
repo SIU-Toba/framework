@@ -3,6 +3,8 @@ define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesi
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
 
+define('apex_sesion_nombre', 'TOBA_SESSID');
+
 /**
  * Maneja los segmentos de memoria y el proceso de creacion de sesiones
  * @package Seguridad
@@ -35,7 +37,7 @@ class toba_manejador_sesiones
 			if (session_id() != '') {
 				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
 			}
-			session_name('TOBA_SESSID');
+			session_name(apex_sesion_nombre);
 			session_start();
 		}
 		define('TOBA_DIR', toba_nucleo::toba_dir());

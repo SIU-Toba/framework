@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000062]--  Firma Digital 
+--[30000062]--  Firma Digital - Standalone 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Firma Digital', --nombre
+	'Firma Digital - Standalone', --nombre
 	NULL, --descripcion
 	'12000003', --punto_montaje
 	NULL, --actividad_accion

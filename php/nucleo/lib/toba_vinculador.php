@@ -67,9 +67,10 @@ class toba_vinculador
 	 * servicio => Servicio solicitado, por defecto get_html
 	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
 	 * prefijo => Punto de acceso a llamar.</code>
+	 * @param bool $uri_valida Toba desde sus primeras versiones genera URIs invalidas al utilizar el caracter || sin codificar, algunos clientes de mail o applets java requieren que se encodeen estrictamente estos caracteres, en ese caso indicarlo con este parametro en true, por defecto es false (compatibilidad hacia atras)
 	 * @return string Una URL o el link html en caso
 	 */	
-	function get_url($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	function get_url($proyecto=null, $item=null, $parametros=array(), $opciones=array(), $uri_valida = false)
 	{
 		if (!isset($opciones['zona'])) $opciones['zona'] = true;
 		if (!isset($opciones['cronometrar'])) $opciones['cronometrar'] = false;
@@ -80,11 +81,16 @@ class toba_vinculador
 		if (!isset($opciones['servicio'])) $opciones['servicio'] = apex_hilo_qs_servicio_defecto;
 		if (!isset($opciones['objetos_destino'])) $opciones['objetos_destino'] = null;
 		if (!isset($opciones['prefijo'])) $opciones['prefijo'] = null;
-		return $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
+		$url = $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
 								 $opciones['cronometrar'], $opciones['param_html'],
 								 $opciones['menu'], $opciones['celda_memoria'], 
 								 $opciones['servicio'], $opciones['objetos_destino'],
-								 $opciones['prefijo'] );		
+								 $opciones['prefijo'] );	
+		if ($uri_valida) {
+			$invalidos = "||";
+			$url = str_replace($invalidos, urlencode($invalidos), $url);
+		}
+		return $url;
 	}
 	
 	function get_url_ws($proyecto = null, $ws, $parametros = array(),  $opciones=array())

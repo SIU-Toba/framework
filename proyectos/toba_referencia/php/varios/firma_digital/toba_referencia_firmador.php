@@ -11,8 +11,8 @@ function get_firmador()
 {
 	global $firmador;
 	if ($firmador == null) {
-		$firmador = new firmador_pdf(new toba_referencia_firmador());
-		$firmador->set_guardar_sesion_en_db(toba::db()->get_pdo());
+		$firmador = new firmador_pdf();
+		$firmador->set_guardar_sesion_en_php();
 	}
 	return $firmador;
 }
