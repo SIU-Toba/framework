@@ -119,7 +119,18 @@ ef_editable.prototype.constructor = ef_editable;
 		this._solo_lectura = this.input().readOnly;		
 	};	
 
-	
+	/*
+	* Permite setear en runtime una mascara diferente a la especificada por metadatos
+	* Con null se resetea a la mascara original
+	*/
+	ef_editable.prototype.set_mascara = function (masc_obj) {
+		this._mascara = masc_obj;
+		if (masc_obj !== null) {
+			var estado_actual = this.get_estado();
+			this._mascara.attach(this.input());
+			this.set_estado(estado_actual);
+		}
+	}
 // ########################################################################################################
 // ########################################################################################################
 	
