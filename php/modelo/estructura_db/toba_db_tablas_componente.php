@@ -31,21 +31,22 @@ class toba_db_tablas_componente
   23 => 'apex_objeto_mapa',
   24 => 'apex_objeto_grafico',
   25 => 'apex_objeto_codigo',
-  26 => 'apex_objeto_db_registros',
-  27 => 'apex_objeto_db_registros_col',
-  28 => 'apex_objeto_db_columna_fks',
-  29 => 'apex_objeto_db_registros_ext',
-  30 => 'apex_objeto_db_registros_ext_col',
-  31 => 'apex_objeto_db_registros_uniq',
-  32 => 'apex_objeto_datos_rel',
-  33 => 'apex_objeto_datos_rel_asoc',
-  34 => 'apex_objeto_rel_columnas_asoc',
-  35 => 'apex_molde_operacion',
-  36 => 'apex_molde_operacion_log',
-  37 => 'apex_molde_operacion_log_elementos',
-  38 => 'apex_molde_operacion_abms',
-  39 => 'apex_molde_operacion_abms_fila',
-  40 => 'apex_molde_operacion_importacion',
+  26 => 'apex_objeto_ei_firma',
+  27 => 'apex_objeto_db_registros',
+  28 => 'apex_objeto_db_registros_col',
+  29 => 'apex_objeto_db_columna_fks',
+  30 => 'apex_objeto_db_registros_ext',
+  31 => 'apex_objeto_db_registros_ext_col',
+  32 => 'apex_objeto_db_registros_uniq',
+  33 => 'apex_objeto_datos_rel',
+  34 => 'apex_objeto_datos_rel_asoc',
+  35 => 'apex_objeto_rel_columnas_asoc',
+  36 => 'apex_molde_operacion',
+  37 => 'apex_molde_operacion_log',
+  38 => 'apex_molde_operacion_log_elementos',
+  39 => 'apex_molde_operacion_abms',
+  40 => 'apex_molde_operacion_abms_fila',
+  41 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -1034,6 +1035,30 @@ class toba_db_tablas_componente
     2 => 'descripcion',
     3 => 'ancho',
     4 => 'alto',
+  ),
+);
+	}
+
+	static function apex_objeto_ei_firma()
+	{
+		return array (
+  'archivo' => 'pgsql_a18_componente_ei_firma.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_ei_firma_proyecto',
+  'dump_clave_componente' => 'objeto_ei_firma',
+  'dump_order_by' => 'objeto_ei_firma',
+  'dump_where' => '( objeto_ei_firma_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_ei_firma_proyecto',
+    1 => 'objeto_ei_firma',
+    2 => 'ancho',
+    3 => 'alto',
   ),
 );
 	}

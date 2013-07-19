@@ -16,3 +16,4 @@ INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, cl
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '16', 'toba_ci', 'toba_ei_mapa');
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '17', 'toba_ci', 'toba_ei_grafico');
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '18', 'toba_ci', 'toba_ei_codigo');
+INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '30000001', 'toba_ci', 'toba_ei_firma');

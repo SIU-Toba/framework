@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'12000003', --punto_montaje
 	'ci_firma_digital', --subclase
-	'varios/firma_digital/ci_firma_digital.php', --subclase_archivo
+	'varios/firma_digital/standalone/ci_firma_digital.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Firma Digital', --nombre
@@ -271,7 +271,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --objetos
 	NULL, --eventos
 	'pant_firma', --subclase
-	'varios/firma_digital/pant_firma.php', --subclase_archivo
+	'varios/firma_digital/standalone/pant_firma.php', --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
 	'12000003'  --punto_montaje

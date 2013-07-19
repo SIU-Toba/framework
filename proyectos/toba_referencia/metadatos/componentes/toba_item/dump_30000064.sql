@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[30000064]--  Firma Digital - acciones - Item publico 
+--[30000064]--  Firma Digital - Standalone acciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'30000064', --item
 	NULL, --padre_id
 	'toba_referencia', --padre_proyecto
-	'1000203', --padre
+	'30000066', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'accion', --solicitud_tipo
@@ -23,10 +23,10 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Firma Digital - acciones - Item publico', --nombre
+	'Firma Digital - Standalone acciones', --nombre
 	NULL, --descripcion
 	'12000003', --punto_montaje
-	'varios/firma_digital/acciones.php', --actividad_accion
+	'varios/firma_digital/standalone/acciones.php', --actividad_accion
 	'0', --menu
 	NULL, --orden
 	'0', --solicitud_registrar

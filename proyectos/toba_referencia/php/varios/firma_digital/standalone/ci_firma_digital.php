@@ -1,5 +1,5 @@
 <?php
-require_once("toba_referencia_firmador.php");
+require_once(dirname(__FILE__)."/toba_referencia_firmador.php");
 
 
 class ci_firma_digital extends toba_ci
