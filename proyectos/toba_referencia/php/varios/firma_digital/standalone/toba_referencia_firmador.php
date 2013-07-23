@@ -1,5 +1,5 @@
 <?php
-$firmador = toba_dir().'/www/firmador_pdf/firmador_pdf.php';
+$firmador = toba::proyecto()->get_path().'/www/firmador_pdf/firmador_pdf.php';
 if (!file_exists($firmador)) {
 	return;
 }

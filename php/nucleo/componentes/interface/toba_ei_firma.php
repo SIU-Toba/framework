@@ -11,14 +11,13 @@ class toba_ei_firma extends toba_ei
 {
 	protected $_ancho;
 	protected $_alto;
-	protected $_id_post_codigo;
+	protected $_motivo_firma = "";
 
 	final function __construct($id)
 	{	
 		parent::__construct($id);
-		$this->_ancho = get_var($this->_info_codigo['ancho'], '600px');
-		$this->_alto = get_var($this->_info_codigo['alto'], '300px');
-		$this->_id_post_codigo = $this->_submit.'_params';
+		$this->_ancho = get_var($this->_info_firma['ancho'], '600px');
+		$this->_alto = get_var($this->_info_firma['alto'], '300px');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -63,13 +62,116 @@ class toba_ei_firma extends toba_ei
 		//Genero la interface
 		echo "\n\n<!-- ***************** Inicio EI FIRMA (	".	$this->_id[1] ." )	***********	-->\n\n";
 		echo toba_form::hidden($this->_submit, '');
-		echo toba_form::hidden($this->_id_post_codigo, ''); // Aca viaja el codigo
+		//echo toba_form::hidden($this->_id_post_codigo, ''); // Aca viaja el codigo
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
 
-		echo "APPLET";
+		$this->generar_applet();
 	}
 
+	function generar_applet()
+	{
+	    $sesion = $this->generar_sesion();
+		$cookie = session_name()."=".session_id();
+		$url_jar = toba_recurso::url_toba()."/firmador_pdf/firmador.jar";
+		
+		$destino = array($this->_id);
+		$url = toba::vinculador()->get_url(null, null, array(),array('servicio' => 'ejecutar',
+														 'objetos_destino' => $destino));
+
+		$url_base = $this->get_url_base_actual();
+		$url_descarga = toba::vinculador()->get_url(null, null, array('accion' => 'descargar'),array('servicio' => 'ejecutar',
+														 'objetos_destino' => $destino), true);
+		$url_descarga = $url_base.$url_descarga;
+		
+		$url_subir = toba::vinculador()->get_url(null, null, array('accion' => 'subir'),array('servicio' => 'ejecutar',
+														 'objetos_destino' => $destino), true);
+		$url_subir = $url_base.$url_subir;
+
+        echo "<applet  code='ar/gob/onti/firmador/view/FirmaApplet'
+           archive='$url_jar' width='{$this->_ancho}' height='{$this->_alto}' >
+         <param  name='URL_DESCARGA'	 value='$url_descarga' />
+         <param  name='URL_SUBIR'	value='$url_subir' />
+         <param  name='MOTIVO'  value='{$this->_motivo_firma}' />
+         <param  name='CODIGO'  value='$sesion' />
+         <param  name='PREGUNTAS' value='{ \"preguntasRespuestas\": []}' />
+		 <param  name='COOKIE' value='$cookie' />
+		 <param name='codebase_lookup' value='false' />			 
+		</applet>";
+	}
+	
+	function get_url_base_actual() 
+	{
+        $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
+        $sp = strtolower($_SERVER["SERVER_PROTOCOL"]);
+        $protocol = substr($sp, 0, strpos($sp, "/")) . $s;
+        $port = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":" . $_SERVER["SERVER_PORT"]);
+        return $protocol . "://" . $_SERVER['SERVER_NAME'] . $port;
+	}
+   
+	
+	function generar_sesion()
+	{
+		if (! isset($this->_memoria['token'])) {
+			$this->_memoria['token'] = hash('sha256', uniqid(mt_rand(), true));
+		}
+        return $this->_memoria['token'];
+     }
+	
+	 function set_motivo_firma($motivo)
+	 {
+		 $this->_motivo_firma;
+	 }
+	 
+	 /**
+	 * Servicio que se ejecuta cuando el applet busca/envia el PDF
+	 * @param <type> $parametros
+	 * @ignore
+	 */
+	function servicio__ejecutar($parametros = null)
+	{
+		toba::memoria()->desactivar_reciclado();
+		
+		//-- DESCARGAR
+		if ($_GET['accion'] == 'descargar') {
+			if (! isset($_GET['codigo'])) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Falta indicar el codigo");
+			}
+			if ($this->_memoria['token']  != $_GET['codigo']) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Codigo invalido");   
+			}	
+			//Enviar PDF
+			
+		}
+
+		//-- SUBIR
+		if ($_GET['accion'] == 'subir') {
+			if (! isset($_POST['codigo'])) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Falta indicar el codigo");
+			}
+			if ($this->_memoria['token'] != $_POST['codigo']) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Codigo invalido");   
+			}
+			if ($_FILES["md5_fileSigned"]["error"] != UPLOAD_ERR_OK) {
+				error_log("Error uploading file");
+				header('HTTP/1.1 500 Internal Server Error');
+				die;
+			}	
+//			$destino = toba::proyecto()->get_path_temp()."/doc{$_POST['codigo']}_firmado.pdf";
+//			$path = $_FILES['md5_fileSigned']['tmp_name'];
+//			if (! move_uploaded_file($path, $destino)) {
+//				error_log("Error uploading file");
+//				header('HTTP/1.1 500 Internal Server Error');
+//				die;
+//			}
+//			die;
+		}
+//		file_put_contents("/tmp/toba", print_r($_GET, true));
+	}
 
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
@@ -82,9 +184,9 @@ class toba_ei_firma extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
-		$dim = toba_js::arreglo($this->get_dimensiones(), false);
+		//$dim = toba_js::arreglo($this->get_dimensiones(), false);
 
-		echo $identado."window.{$this->objeto_js} = new ei_firma($id, $dim, '{$this->_submit}', '{$this->_id_post_codigo}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_firma($id,  '{$this->_submit}');\n";
 	}
 
 	/**
@@ -98,5 +200,4 @@ class toba_ei_firma extends toba_ei
 	}
 
 }
-
 ?>

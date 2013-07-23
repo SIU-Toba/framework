@@ -53,13 +53,16 @@ CREATE TABLE ref_persona (
     id serial NOT NULL,
     nombre character varying(60) NOT NULL,
     fecha_nac date,
-    imagen bytea
+    imagen bytea,
+	planilla_pdf		bytea,
+	planilla_pdf_firmada smallint NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE ref_persona IS 'Personas';
 COMMENT ON COLUMN ref_persona.id IS 'Clave';
 COMMENT ON COLUMN ref_persona.nombre IS 'Nombre';
 COMMENT ON COLUMN ref_persona.fecha_nac IS 'Fecha de nacimiento';
 COMMENT ON COLUMN ref_persona.imagen IS 'Foto';
+COMMENT ON COLUMN ref_persona.planilla_pdf IS 'Planilla PDF';
 
 --
 -- Name: ref_persona_deportes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 

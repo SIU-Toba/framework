@@ -224,7 +224,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 <ol>
 <li>Para poder anexar xmls en un pdf se esta utilizando <a href=''http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/''>pdftk</a>, esta disponible en las distribuciones linux o descargandolo desde esa página. Hay que asegurarse que el binario sea accesible desde apache</li>
 <li>Para la firma se necesita un Token USB con un certificado válido cargado
-<li>Se necesita tener instalado y funcionando el applet Firmador PDF en la carpeta <em>toba/www/firmador_pdf</em>, los pasos para descargarlo y (opcionalmente) compilarlo en esta dirección:
+<li>Se necesita tener instalado y funcionando el applet Firmador PDF en la carpeta <em>toba/proyectos/toba_referencia/www/firmador_pdf</em>, los pasos para descargarlo y (opcionalmente) compilarlo en esta dirección:
 <a href=''http://repositorio.siu.edu.ar/trac/firma/wiki/FirmadorPDF''>http://repositorio.siu.edu.ar/trac/firma/wiki/FirmadorPDF</a>
 </li>', --descripcion
 	NULL, --tip

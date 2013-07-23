@@ -4,7 +4,7 @@ class pant_firma extends toba_ei_pantalla
 	function generar_layout()
 	{
 		$firmador = get_firmador();
-		$url_firmador = toba_recurso::url_toba()."/firmador_pdf/firmador.jar";
+		$url_firmador = toba_recurso::url_proyecto()."/firmador_pdf/firmador.jar";
 		$url_firmador = $firmador->get_url_base_actual().$url_firmador;
 		
  		$url_descarga = toba::vinculador()->get_url(null, "30000064", array('accion' => "descargar"), array(), true);
