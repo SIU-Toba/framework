@@ -123,6 +123,12 @@ class toba_ei_firma extends toba_ei
 		 $this->_motivo_firma;
 	 }
 	 
+	 function set_dimension($ancho, $alto)
+	 {
+		 $this->_ancho = $ancho;
+		 $this->_alto = $alto;
+	 }
+	 
 	 /**
 	 * Servicio que se ejecuta cuando el applet busca/envia el PDF
 	 * @param <type> $parametros
@@ -142,8 +148,20 @@ class toba_ei_firma extends toba_ei
 				header('HTTP/1.1 500 Internal Server Error');
 				throw new toba_error_seguridad("Codigo invalido");   
 			}	
-			//Enviar PDF
 			
+			//Reportar evento al padre
+			$pdf = $this->reportar_evento_interno('enviar_pdf', $this->_memoria['token']);
+			if (isset($pdf) && $nodo !== apex_ei_evt_sin_rpta) {
+				//Enviar PDF
+				header("Cache-Control: private");
+				header("Content-type: application/pdf");
+				header("Pragma: no-cache");
+				header("Expires: 0");				
+				echo $pdf;
+			} else {
+				toba::logger()->error("toba_ei_fimar: No se atrapo el evento get_pdf!");
+			}			
+			return;
 		}
 
 		//-- SUBIR
@@ -161,16 +179,24 @@ class toba_ei_firma extends toba_ei
 				header('HTTP/1.1 500 Internal Server Error');
 				die;
 			}	
-//			$destino = toba::proyecto()->get_path_temp()."/doc{$_POST['codigo']}_firmado.pdf";
-//			$path = $_FILES['md5_fileSigned']['tmp_name'];
-//			if (! move_uploaded_file($path, $destino)) {
-//				error_log("Error uploading file");
-//				header('HTTP/1.1 500 Internal Server Error');
-//				die;
-//			}
-//			die;
+			$temp = rand();
+			$destino = toba::proyecto()->get_path_temp()."/$temp.pdf";
+			$path = $_FILES['md5_fileSigned']['tmp_name'];
+			if (! move_uploaded_file($path, $destino)) {
+				error_log("Error uploading file");
+				header('HTTP/1.1 500 Internal Server Error');
+				return;
+			}			
+			try {
+				$this->reportar_evento_interno('recibir_pdf_firmado', $destino, $this->_memoria['token']);			
+			} catch (Exception $e) {
+				error_log("Error al atender el evento recibir_pdf_firmado");
+				header('HTTP/1.1 500 Internal Server Error');				
+				throw $e;
+			}
+			unlink($destino);
+			return;
 		}
-//		file_put_contents("/tmp/toba", print_r($_GET, true));
 	}
 
 	//-------------------------------------------------------------------------------
