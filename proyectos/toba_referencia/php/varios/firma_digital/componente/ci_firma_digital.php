@@ -38,8 +38,10 @@ class ci_firma_digital extends toba_ci
 	function extender_objeto_js()
 	{
 		echo "
+			{$this->objeto_js}.desactivar_boton('finalizar');
 			function firmaOk() {
 				alert('LISTO! Al terminar la firma se puede atrapar la función javascript firmaOk()!');
+				{$this->objeto_js}.activar_boton('finalizar');
 			}
 		";
 	}
@@ -53,6 +55,13 @@ class ci_firma_digital extends toba_ci
 		unset($this->s__seleccion);
 		$this->set_pantalla("pant_listado");
 	}
+	
+	function evt__finalizar()
+	{
+		unset($this->s__seleccion);
+		$this->set_pantalla("pant_listado");
+	}
+	
 	
 	function conf__cuadro(toba_ei_cuadro $cuadro) 
 	{
