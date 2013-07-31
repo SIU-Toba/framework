@@ -239,7 +239,7 @@ class toba_ef_popup extends toba_ef_editable
 	function resetear_estado()
 	{
 		if (isset($this->descripcion_estado)) {
-			$this->descripcion_estado = '';
+			$this->descripcion_estado = null;
 		}
 		if($this->tiene_estado()){
 			unset($this->estado);
