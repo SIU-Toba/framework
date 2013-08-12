@@ -20,7 +20,7 @@ class ci_principal extends toba_ci
 		}
 		$this->s__hay_con_permisos = false;
 		foreach ($this->s__fuentes as $fuente) {
-			if ($fuente['permisos_por_tabla']) {
+			if (isset($fuente['permisos_por_tabla']) && $fuente['permisos_por_tabla'] == '1') {
 				$this->s__hay_con_permisos = true;
 			}
 		}	
@@ -181,7 +181,7 @@ class ci_principal extends toba_ci
 	//-- PERMISOS -------------------------------------------------
 	//----------------------------------------------------------
 	
-	function conf__pant_permisos(toba_ei_pantalla $pant)
+	function conf__pant_permisos_tablas(toba_ei_pantalla $pant)
 	{		
 		if (! $this->s__hay_con_permisos && $this->existe_dependencia('form_tablas')) {
 			$pant->eliminar_dep('form_tablas');
