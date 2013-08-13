@@ -105,6 +105,9 @@ class toba_mail implements toba_tarea
 			$mail->Password = trim($this->datos_configuracion['clave']);
 		}		
 		$mail->From     = $this->desde;
+		if (isset($this->datos_configuracion['nombre_from']) && trim($this->datos_configuracion['nombre_from']) != '') {
+			$this->desde_nombre = $this->datos_configuracion['nombre_from'];
+		}		
 		if (isset($this->desde_nombre)){
 			$mail->FromName = $this->desde_nombre;
 		} else {
