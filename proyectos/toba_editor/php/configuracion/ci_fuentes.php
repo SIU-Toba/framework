@@ -57,6 +57,11 @@ class ci_fuentes extends toba_ci
 			$this->persistir_archivo_conf($id_base, $this->s__datos_bases_ini);		
 		}
 		
+		$schemas_config = $this->dependencia('datos')->tabla('esquemas')->get_cantidad_filas();
+		if ($schemas_config == 0 && trim($this->s__datos_bases_ini['usuario']) != '') {
+			toba::notificacion()->agregar('No olvide agregar los schemas utilizados por la fuente', 'info');
+		}		
+		
 		//Ahora grabo los datos en la instancia
 		$this->dependencia('datos')->sincronizar();
 		
