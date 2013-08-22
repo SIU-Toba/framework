@@ -102,20 +102,33 @@ ef_popup.prototype.constructor = ef_popup;
 	/**
 	 * Cambia las opciones disponibles de selección 
 	 */
-	ef_popup.prototype.set_opciones = function(opciones) {
+	ef_popup.prototype.set_opciones = function(opciones) 
+	{
 		if (typeof opciones == 'object') {
-			this.set_estado(opciones[0], opciones[1]);	
-		} else {
-			this.set_estado(opciones);
+			this.set_opciones_rs(opciones);	
+		} else if (typeof opciones != 'boolean') {
+			var opciones_rs = [opciones, opciones];			
+			this.set_opciones_rs(opciones_rs);
 		}
-		this.activar();
 	};
 	
 	/**
 	 * Cambia las opciones disponibles de selección 
 	 */
-	ef_popup.prototype.set_opciones_rs = function(opciones) {
-		this.set_opciones(opciones);
+	ef_popup.prototype.set_opciones_rs = function(valores) 
+	{		
+		var hay_datos = false;
+		if (getObjectClass(valores) == 'Array') {
+			var id = valores[0];
+			var valor = valores[1];
+			if (id !=  apex_ef_no_seteado) {
+				hay_datos = true;
+			}
+		}
+		if (hay_datos) {
+			this.set_estado(id, valor);
+		}
+		this.activar();		
 	};	
 	
 		

@@ -563,8 +563,15 @@ class toba_ei_filtro extends toba_ei
 		$valores = $this->_carga_opciones_ef->ejecutar_metodo_carga_ef($id_columna, $maestros);
 		toba::logger()->debug("Cascadas '$id_columna', Respuesta: ".var_export($valores, true));
 
-		//--Guarda los datos en sesion para que los controle a la vuelta PHP
-		$sesion = (isset($valores) && is_array($valores)) ? array_keys($valores) : null;
+		//--Guarda los datos en sesion para que los controle a la vuelta PHP		
+		$sesion = null;									//No hay claves para resguardar
+		if (isset($valores) && is_array($valores)) {			//Si lo que se recupero es un arreglo de valores
+			if ($this->ef($id_ef)->es_seleccionable()) {		//Si es un ef seleccionable
+				$sesion = array_keys($valores);
+			}/* else {									//No es seleccionable pero se envia clave / valor.. (aun no se chequea), ej: popup
+				$sesion = current($valores);
+			}*/
+		}
 		$this->columna($id_columna)->get_ef()->guardar_dato_sesion($sesion, true);
 
 		//--- Se arma la respuesta en formato JSON

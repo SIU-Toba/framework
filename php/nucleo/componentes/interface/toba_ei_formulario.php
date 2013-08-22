@@ -844,7 +844,15 @@ class toba_ei_formulario extends toba_ei
 		if (isset($fila_actual)) {
 			$this->ef($id_ef)->ir_a_fila($fila_actual);
 		}
-		$sesion = (isset($valores) && is_array($valores)) ? array_keys($valores) : null;
+		
+		$sesion = null;									//No hay claves para resguardar
+		if (isset($valores) && is_array($valores)) {			//Si lo que se recupero es un arreglo de valores
+			if ($this->ef($id_ef)->es_seleccionable()) {		//Si es un ef seleccionable
+				$sesion = array_keys($valores);
+			}/* else {									//No es seleccionable pero se envia clave / valor.. (aun no se chequea), ej: popup
+				$sesion = current($valores);
+			}*/
+		}
 		$this->ef($id_ef)->guardar_dato_sesion($sesion, true);
 		$json = new Services_JSON();
 		
