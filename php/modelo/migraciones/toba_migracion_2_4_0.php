@@ -30,6 +30,17 @@ class toba_migracion_2_4_0 extends toba_migracion
 		//Agregado del ef_cbu
 		$sql[] = "INSERT INTO apex_elemento_formulario VALUES ('ef_cbu', 'ef_editable', 'CBU', NULL, 'toba', NULL, 0, 0, 0);";
 		
+		$sql[] = 'CREATE TABLE apex_objeto_ei_firma
+(
+   objeto_ei_firma_proyecto   	varchar(15)		NOT NULL,
+   objeto_ei_firma            	int8			NOT NULL,
+   ancho						varchar(10)		NULL,
+   alto							varchar(10)		NULL,
+   CONSTRAINT  "apex_objeto_ei_firma_pk" PRIMARY KEY ("objeto_ei_firma_proyecto","objeto_ei_firma"),
+   CONSTRAINT  "apex_objeto_ei_firma_fk_objeto"  FOREIGN KEY ("objeto_ei_firma_proyecto","objeto_ei_firma") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);';
+		
+		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
