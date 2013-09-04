@@ -61,6 +61,15 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 		$tiempo = $this->manejador_interface->dialogo_ingresar_texto('Ingrese el periodo de datos a mantener (meses)', false);
 		$this->modelo->purgar_auditoria($tiempo);
 	}
+	
+	/**
+	 * Hace compatible la estructura del esquema con los cambios en la version 2.4.0
+	 */
+	function opcion__migrar_auditoria_2_4()
+	{
+		$this->modelo->migrar_auditoria_2_4();				//Modifico la estructura de las tablas
+		$this->modelo->crear_auditoria();					//Regenero los triggers y SPs
+	}
 }
 
 ?>

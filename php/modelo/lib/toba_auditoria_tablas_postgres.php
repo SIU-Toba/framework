@@ -272,7 +272,7 @@ class toba_auditoria_tablas_postgres
 	{
 	   $campos = $this->conexion->get_definicion_columnas($t, $schema);
 	   $sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
-	   $sql .= 'auditoria_usuario varchar(30), 
+	   $sql .= 'auditoria_usuario varchar(60), 
 	   			auditoria_fecha timestamp, 
 	   			auditoria_operacion char(1),
 	   			auditoria_id_solicitud integer,
@@ -300,7 +300,7 @@ class toba_auditoria_tablas_postgres
 					schema_temp varchar;
 					rtabla_usr RECORD;
 					rusuario RECORD;
-					vusuario VARCHAR(30);
+					vusuario VARCHAR(60);
 					voperacion varchar;
 					vid_solicitud integer;
 					vestampilla timestamp;
@@ -380,7 +380,7 @@ class toba_auditoria_tablas_postgres
 		$negocio = $this->conexion->get_definicion_columnas($origen, $schema);
 		$negocio[] = array(                                                                
     			'nombre' => 'auditoria_usuario',                                                   
-			    'tipo_sql' => 'character varying(30)',                                             
+			    'tipo_sql' => 'character varying(60)',                                             
 			  );
 		$negocio[] = array(                                                                
     			'nombre' => 'auditoria_fecha',                                                   
@@ -520,6 +520,17 @@ class toba_auditoria_tablas_postgres
 		$tiempo = $this->conexion->quote($lapso_tiempo . ' months' );
 		$sql = 'DELETE FROM '. $this->schema_logs . ".$tabla WHERE auditoria_fecha::timestamp  < (now() - interval $tiempo);";
 		$this->conexion->ejecutar($sql);
+	}
+	
+	function migrar_estructura_campos_toba_2_4()
+	{
+		foreach ($this->tablas as $t) {		
+			$nombre = $this->prefijo.$t;
+			if ($this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+				$sql = "ALTER TABLE {$this->schema_logs}.$nombre ALTER auditoria_usuario TYPE character varying(60);";
+				$this->conexion->ejecutar($sql);				
+			}			
+		}
 	}
 }
 ?>

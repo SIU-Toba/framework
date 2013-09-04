@@ -431,6 +431,30 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->manejador_interface->progreso_fin();
 	}
 	
+	
+	function migrar_auditoria_2_4($tablas=array(), $prefijo_tablas=null)
+	{
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$base = $this->proyecto->get_db_negocio();
+		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
+		if (is_null($auditoria)) {		//No existe manejador para el motor en cuestion
+			return;
+		}
+		
+		if (empty($tablas)) {
+			$auditoria->agregar_tablas($prefijo_tablas);
+		} else {
+			foreach($tablas as $tabla) {
+				$auditoria->agregar_tabla($tabla);
+			}
+		}
+
+		$auditoria->migrar_estructura_campos_toba_2_4();
+	}
+	
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema
 	 * @param toba_version $desde
