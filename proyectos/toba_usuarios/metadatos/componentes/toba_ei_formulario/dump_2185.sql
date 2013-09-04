@@ -418,7 +418,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}/i', --edit_expreg
+	'/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable

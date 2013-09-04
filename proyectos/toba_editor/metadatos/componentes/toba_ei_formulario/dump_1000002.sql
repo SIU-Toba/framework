@@ -342,7 +342,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/^255[0-5]|2[0-4]\\d|[01]?\\d\\d?\\.255[0-5]|2[0-4]\\d|[01]?\\d\\d?\\.255[0-5]|2[0-4]\\d|[01]?\\d\\d?\\.255[0-5]|2[0-4]\\d|[01]?\\d\\d?$/', --edit_expreg
+	'/^255[0-5]|2[0-4]\d|[01]?\d\d?\.255[0-5]|2[0-4]\d|[01]?\d\d?\.255[0-5]|2[0-4]\d|[01]?\d\d?\.255[0-5]|2[0-4]\d|[01]?\d\d?$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
