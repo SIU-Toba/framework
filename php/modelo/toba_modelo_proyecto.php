@@ -1881,19 +1881,22 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 * @param consola $consola la consola desde que se invocó el comando
 	 * @param boolean $generar_vacio si se desea generar el archivo vacío
 	 * @param boolean $ret_obj_autoload si se retorna el obj de autoload
+	 * @param boolean $generar_solo_pers si genera solamente el autooad de la personalizacion si existe
 	 */
-	function generar_autoload(consola $consola, $generar_vacio=false, $ret_obj_autoload = false)
+	function generar_autoload(consola $consola, $generar_vacio=false, $ret_obj_autoload = false, $generar_solo_pers=false)
 	{
 		$montaje_proyecto = $this->get_dir().'/php';
 		$id_proyecto = $this->get_id();
 		
-		$param = array(
-	 		$montaje_proyecto => array(
-	 			'archivo_salida' => $id_proyecto.'_autoload.php',
-	 			'dirs_excluidos' => array(),
-				'extras' => array(),
-	 		),
-		);
+                if (!$generar_solo_pers) {
+                    $param = array(
+                            $montaje_proyecto => array(
+                                    'archivo_salida' => $id_proyecto.'_autoload.php',
+                                    'dirs_excluidos' => array(),
+                                    'extras' => array(),
+                            ),
+                    );
+                }
 
 		if ($this->es_personalizable()) {
 			$montaje_personalizacion = $this->get_dir().'/'.toba_personalizacion::dir_personalizacion.'/php';

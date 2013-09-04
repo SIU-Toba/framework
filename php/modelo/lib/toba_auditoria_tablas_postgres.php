@@ -203,6 +203,21 @@ class toba_auditoria_tablas_postgres
 		return false;
 	}	
 	
+        function activar() {
+            if (! isset($this->tablas)) {
+                $this->agregar_tablas();
+            }
+            $this->crear_sp($this->tablas, $this->schema_origen);
+            $this->crear_triggers($this->tablas, $this->schema_origen);
+        }
+
+        function desactivar() {
+            if (! isset($this->tablas)) {
+                $this->agregar_tablas();
+            }
+            $this->eliminar_triggers($this->tablas, $this->schema_origen);
+        }
+        
 	
 	
 	//------- FUNCIONES DE CREACION DE LOGS -------------------------------------

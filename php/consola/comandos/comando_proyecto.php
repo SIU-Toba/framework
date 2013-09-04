@@ -189,12 +189,18 @@ class comando_proyecto extends comando_toba
 
 	/**
 	 * Regenera el autoload del proyecto. Ejecutar cuando se crea una nueva clase.
+	 * @consola_parametros Opcional: [-s] Si se utiliza esta opción solo se genera el autoload de la personalizacion
 	 */
 	function opcion__autoload()
 	{
 		$params = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-		$extractor = $proyecto->generar_autoload($this->consola, false, true);
+		$generar_solo_pers = false;
+                $params = $this->get_parametros();
+		if (isset($params['-s'])) {
+                    $generar_solo_pers = true;
+		}
+		$extractor = $proyecto->generar_autoload($this->consola, false, true, $generar_solo_pers);
 		$clases_repetidas = $extractor->get_clases_repetidas();
 		$pms_no_encontrados = $extractor->get_pms_no_encontrados();
 		

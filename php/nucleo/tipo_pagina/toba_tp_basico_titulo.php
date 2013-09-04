@@ -46,7 +46,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 				if (! toba_parser_ayuda::es_texto_plano($mensaje)) {
 					$mensaje = toba_parser_ayuda::parsear($mensaje, true); //Version resumida
 				}
-				$js = "abrir_popup('ayuda', '$mensaje', {width: 800, height: 600})";
+				$js = "abrir_popup('ayuda', '$mensaje', {width: 800, height: 600, scrollbars: 1})";
 				echo "<a class='barra-superior-ayuda' href='#' onclick=\"$js\" title='Abrir ayuda'>".toba_recurso::imagen_toba("ayuda_grande.gif", true)."</a>";
 			}
 		}	

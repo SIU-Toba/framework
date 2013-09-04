@@ -45,7 +45,7 @@ class toba_vista_jasperreports
 		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
 		//Incluimos la libreria JavaBridge
 		require_once("3ros/JavaBridge/java/Java.inc");
-
+		
 		//Creamos una variable que va a contener todas las librerías java presentes
 		$path_libs = toba_dir().'/php/3ros/JasperReports';
 		$handle = opendir($path_libs);
@@ -56,15 +56,18 @@ class toba_vista_jasperreports
 		try {
 			//Añadimos las librerías
 			java_require($classpath);
-            						
+
 			//Creamos el objeto JasperReport que permite obtener el reporte
 			$this->jasper = new JavaClass("net.sf.jasperreports.engine.JasperFillManager");		
-				
-			} catch (JavaException $ex){
-				$trace = new Java("java.io.ByteArrayOutputStream");
-				$ex->printStackTrace(new Java("java.io.PrintStream", $trace));
-				print "java stack trace: $trace\n";
-			}		
+
+		} catch (JavaException $ex){
+			$trace = new Java("java.io.ByteArrayOutputStream");
+			$ex->printStackTrace(new Java("java.io.PrintStream", $trace));
+			print "java stack trace: $trace\n";
+		} catch (java_ConnectException $e) {
+			toba::logger()->error($e->getMessage());
+			throw new toba_error_usuario( 'No es posible generar el reporte, el servlet Jasper no se encuentra corriendo');
+		}
 	}
 		
 	/**
