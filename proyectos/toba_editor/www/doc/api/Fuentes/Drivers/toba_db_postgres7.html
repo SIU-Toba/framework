@@ -102,6 +102,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Fuentes/Drivers/toba_db_sqlserver.html">					db_sqlserver
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
                         
  <!-- <div class="package">
@@ -675,7 +680,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -924,6 +929,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_triggers_schema" title="details" class="method-name">get_triggers_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve una lista de los triggers en el esquema, segun estado, nombre y tablas.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_usuario_actual" title="details" class="method-name">get_usuario_actual</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
@@ -975,6 +987,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#liberar_savepoint" title="details" class="method-name">liberar_savepoint</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#listar_roles" title="details" class="method-name">listar_roles</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -1039,6 +1058,13 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#revoke_sp_schema" title="details" class="method-name">revoke_sp_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#revoke_tablas" title="details" class="method-name">revoke_tablas</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -1167,7 +1193,7 @@ $puerto&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
+	<span class="method-title">abortar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
 </div>
 <br />
 
@@ -1204,7 +1230,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 122]</span>
 </div>
 <br />
 
@@ -1234,7 +1260,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
 </div>
 <br />
 
@@ -1264,7 +1290,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
+	<span class="method-title">agregar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
 </div>
 <br />
 
@@ -1301,7 +1327,7 @@ $nombre&nbsp;
 	
 		
 	
-	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
+	<span class="method-title">borrar_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 378]</span>
 </div>
 <br />
 
@@ -1345,7 +1371,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">borrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
+	<span class="method-title">borrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
 </div>
 <br />
 
@@ -1389,7 +1415,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">borrar_schema_si_existe</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
+	<span class="method-title">borrar_schema_si_existe</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -1426,7 +1452,7 @@ $schema&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
 </div>
 <br />
 
@@ -1456,7 +1482,7 @@ $schema&nbsp;
 	
 		    		
 	
-	<span class="method-title">clonar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
+	<span class="method-title">clonar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 274]</span>
 </div>
 <br />
 
@@ -1509,7 +1535,7 @@ $nuevo&nbsp;
 	
 		
 	
-	<span class="method-title">crear_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 257]</span>
+	<span class="method-title">crear_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
 </div>
 <br />
 
@@ -1546,7 +1572,7 @@ $lang&nbsp;
 	
 		
 	
-	<span class="method-title">crear_lenguaje_procedural</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+	<span class="method-title">crear_lenguaje_procedural</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
 <br />
 
@@ -1577,7 +1603,7 @@ $lang&nbsp;
 	
 		
 	
-	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
+	<span class="method-title">crear_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 363]</span>
 </div>
 <br />
 
@@ -1621,7 +1647,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">crear_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">crear_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 229]</span>
 </div>
 <br />
 
@@ -1665,7 +1691,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 356]</span>
+	<span class="method-title">crear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 370]</span>
 </div>
 <br />
 
@@ -1716,7 +1742,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 555]</span>
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 585]</span>
 </div>
 <br />
 
@@ -1760,7 +1786,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">existe_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
+	<span class="method-title">existe_lenguaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -1797,7 +1823,7 @@ $lang&nbsp;
 	
 		
 	
-	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 341]</span>
+	<span class="method-title">existe_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 347]</span>
 </div>
 <br />
 
@@ -1834,7 +1860,7 @@ $rol&nbsp;
 	
 		
 	
-	<span class="method-title">existe_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
+	<span class="method-title">existe_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
 </div>
 <br />
 
@@ -1871,7 +1897,7 @@ $esquema&nbsp;
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 567]</span>
 </div>
 <br />
 
@@ -1915,7 +1941,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 609]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 642]</span>
 </div>
 <br />
 
@@ -1994,7 +2020,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_schemas_disponibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 238]</span>
+	<span class="method-title">get_lista_schemas_disponibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
 </div>
 <br />
 
@@ -2019,7 +2045,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 579]</span>
+	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 609]</span>
 </div>
 <br />
 
@@ -2027,11 +2053,23 @@ $esquema = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_lista_secuencias(
+[
+$esquema = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$esquema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -2044,7 +2082,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 492]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 518]</span>
 </div>
 <br />
 
@@ -2088,7 +2126,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_tablas_bd</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 500]</span>
+	<span class="method-title">get_lista_tablas_bd</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 526]</span>
 </div>
 <br />
 
@@ -2132,7 +2170,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 482]</span>
+	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
 </div>
 <br />
 
@@ -2157,7 +2195,7 @@ $esquema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 856]</span>
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 906]</span>
 </div>
 <br />
 
@@ -2214,7 +2252,7 @@ $schema_toba = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
 </div>
 <br />
 
@@ -2244,7 +2282,7 @@ $schema_toba = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 327]</span>
+	<span class="method-title">get_rol_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -2269,7 +2307,7 @@ $schema_toba = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+	<span class="method-title">get_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
 <br />
 
@@ -2294,7 +2332,7 @@ $schema_toba = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_secuencia_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 744]</span>
+	<span class="method-title">get_secuencia_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 777]</span>
 </div>
 <br />
 
@@ -2347,7 +2385,7 @@ $schema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_secuencia_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 774]</span>
+	<span class="method-title">get_secuencia_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 788]</span>
 </div>
 <br />
 
@@ -2391,7 +2429,7 @@ $schema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 734]</span>
+	<span class="method-title">get_semantica_valor_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 767]</span>
 </div>
 <br />
 
@@ -2421,7 +2459,7 @@ $schema = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 466]</span>
+	<span class="method-title">get_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 492]</span>
 </div>
 <br />
 
@@ -2452,13 +2490,72 @@ $schema&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
+<a name="methodget_triggers_schema" id="get_triggers_schema"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 320]</span>
+	<span class="method-title">get_triggers_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 821]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_triggers_schema(
+string
+$schema, [string
+$nombre = ''], [char
+$estado = 'O'], [array
+$tablas = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve una lista de los triggers en el esquema, segun estado, nombre y tablas. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Nombre del schema</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Comienzo del nombre de/los triggers</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">char</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$estado:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Estado de disparo actual del trigger (O=Origen, D=Disable, A=Always, R=Replica)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tablas:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Tablas involucradas con los triggers</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
 </div>
 <br />
 
@@ -2478,12 +2575,12 @@ $schema&nbsp;
 		<br />
 </div>
 <a name="methodgrant_rol" id="grant_rol"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
+	<span class="method-title">grant_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
 </div>
 <br />
 
@@ -2529,12 +2626,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodgrant_schema" id="grant_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 378]</span>
+	<span class="method-title">grant_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 392]</span>
 </div>
 <br />
 
@@ -2587,12 +2684,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodgrant_sp_schema" id="grant_sp_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
+	<span class="method-title">grant_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 468]</span>
 </div>
 <br />
 
@@ -2645,12 +2742,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas" id="grant_tablas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
+	<span class="method-title">grant_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 458]</span>
 </div>
 <br />
 
@@ -2711,12 +2808,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodgrant_tablas_schema" id="grant_tablas_schema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 416]</span>
+	<span class="method-title">grant_tablas_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
 </div>
 <br />
 
@@ -2763,12 +2860,12 @@ $privilegios = 'ALL PRIVILEGES']&nbsp;
 		<br />
 </div>
 <a name="methodinsert_masivo" id="insert_masivo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
 </div>
 <br />
 
@@ -2830,12 +2927,12 @@ $valor_nulo = &quot;\\N&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodliberar_savepoint" id="liberar_savepoint"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">liberar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">liberar_savepoint</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
 </div>
 <br />
 
@@ -2866,13 +2963,50 @@ $nombre&nbsp;
 		
 		<br />
 </div>
+<a name="methodlistar_roles" id="listar_roles"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">listar_roles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void listar_roles(
+[
+$rol = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodpgdump_get_tabla" id="pgdump_get_tabla"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">pgdump_get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 814]</span>
+	<span class="method-title">pgdump_get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 863]</span>
 </div>
 <br />
 
@@ -2946,7 +3080,7 @@ $pass = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">pgdump_limpiar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 832]</span>
+	<span class="method-title">pgdump_limpiar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 882]</span>
 </div>
 <br />
 
@@ -2991,7 +3125,7 @@ $pass = null]&nbsp;
 	
 		
 	
-	<span class="method-title">recuperar_nuevo_valor_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
+	<span class="method-title">recuperar_nuevo_valor_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
 </div>
 <br />
 
@@ -3035,7 +3169,7 @@ $ejecutar = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
 </div>
 <br />
 
@@ -3093,7 +3227,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">renombrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
+	<span class="method-title">renombrar_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
 </div>
 <br />
 
@@ -3144,7 +3278,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -3186,7 +3320,7 @@ $retrazar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
+	<span class="method-title">revoke_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
 </div>
 <br />
 
@@ -3237,7 +3371,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+	<span class="method-title">revoke_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
 </div>
 <br />
 
@@ -3295,7 +3429,7 @@ $ejecutar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 454]</span>
+	<span class="method-title">revoke_sp_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 480]</span>
 </div>
 <br />
 
@@ -3347,13 +3481,78 @@ $ejecutar = true]&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_datestyle_iso" id="set_datestyle_iso"><!-- --></a>
+<a name="methodrevoke_tablas" id="revoke_tablas"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_datestyle_iso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
+	<span class="method-title">revoke_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 420]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void revoke_tablas(
+
+$usuario, 
+$schema, 
+$tablas, [
+$permisos = 'ALL PRIVILEGES'], [
+$ejecutar = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tablas:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$permisos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ejecutar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_datestyle_iso" id="set_datestyle_iso"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_datestyle_iso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
 </div>
 <br />
 
@@ -3373,12 +3572,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_encoding" id="set_encoding"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_encoding</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
+	<span class="method-title">set_encoding</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
 </div>
 <br />
 
@@ -3417,12 +3616,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_rol" id="set_rol"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
+	<span class="method-title">set_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 340]</span>
 </div>
 <br />
 
@@ -3461,12 +3660,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_schema" id="set_schema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
+	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
@@ -3476,7 +3675,8 @@ $ejecutar = true]&nbsp;
 		<code>void set_schema(
 string
 $schema, [boolean
-$ejecutar = true]&nbsp;
+$ejecutar = true], [
+$fallback_en_public = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3497,6 +3697,12 @@ $ejecutar = true]&nbsp;
 				<span class="var-name">$ejecutar:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$fallback_en_public:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -3506,12 +3712,12 @@ $ejecutar = true]&nbsp;
 		<br />
 </div>
 <a name="methodtransaccion_abierta" id="transaccion_abierta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">transaccion_abierta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">transaccion_abierta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 

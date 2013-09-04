@@ -102,6 +102,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Fuentes/Drivers/toba_db_sqlserver.html">					db_sqlserver
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
                         
  <!-- <div class="package">
@@ -177,6 +182,12 @@
 					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
 					<td>
 											Driver de conexión con postgres
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_sqlserver.html">toba_db_sqlserver</a></td>
+					<td>
+											Driver de conexión con SQLServer 2005 o posterior.
 										</td>
 				</tr>
 							</table>
@@ -604,6 +615,9 @@ $puerto = null]&nbsp;
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
 							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#method__construct">toba_db_sqlserver::__construct()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -613,7 +627,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 692]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 697]</span>
 </div>
 <br />
 
@@ -649,7 +663,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 683]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 688]</span>
 </div>
 <br />
 
@@ -775,7 +789,7 @@ $activar = true]&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 701]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 706]</span>
 </div>
 <br />
 
@@ -843,7 +857,7 @@ $activar = true]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -902,7 +916,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 395]</span>
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
 </div>
 <br />
 
@@ -969,7 +983,7 @@ $lanzar_excepcion = true]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1032]</span>
+	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1034]</span>
 </div>
 <br />
 
@@ -1117,7 +1131,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 445]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 450]</span>
 </div>
 <br />
 
@@ -1155,7 +1169,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 712]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 717]</span>
 </div>
 <br />
 
@@ -1201,7 +1215,7 @@ $sentencias&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1004]</span>
+	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1006]</span>
 </div>
 <br />
 
@@ -1292,7 +1306,7 @@ $archivo_consulta = '']&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 758]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 762]</span>
 </div>
 <br />
 
@@ -1336,7 +1350,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 731]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 735]</span>
 </div>
 <br />
 
@@ -1365,6 +1379,9 @@ $tabla&nbsp;
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
 							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#methodget_dsn">toba_db_sqlserver::get_dsn()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1374,7 +1391,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1050]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1069]</span>
 </div>
 <br />
 
@@ -1445,7 +1462,7 @@ $descripcion&nbsp;
 	
 		
 	
-	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1067]</span>
+	<span class="method-title">get_manejador_auditoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1086]</span>
 </div>
 <br />
 
@@ -1504,7 +1521,7 @@ $schema_toba = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 968]</span>
+	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 971]</span>
 </div>
 <br />
 
@@ -1632,7 +1649,7 @@ $campo&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 945]</span>
+	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 949]</span>
 </div>
 <br />
 
@@ -1678,7 +1695,7 @@ $tabla&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 872]</span>
+	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 876]</span>
 </div>
 <br />
 
@@ -1724,7 +1741,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 767]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 771]</span>
 </div>
 <br />
 
@@ -1762,7 +1779,7 @@ $tipo&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
+	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 440]</span>
 </div>
 <br />
 
@@ -1852,7 +1869,7 @@ $dato&nbsp;
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 740]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 744]</span>
 </div>
 <br />
 
@@ -1897,7 +1914,7 @@ $secuencia&nbsp;
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 749]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 753]</span>
 </div>
 <br />
 
@@ -1929,7 +1946,7 @@ $secuencia&nbsp;
 		    	
 		
 	
-	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
+	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
 </div>
 <br />
 
@@ -1980,7 +1997,7 @@ $parametros = null]&nbsp;
 		    	
 		
 	
-	<span class="method-title">sentencia_agregar_binarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
+	<span class="method-title">sentencia_agregar_binarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 507]</span>
 </div>
 <br />
 
@@ -2031,7 +2048,7 @@ $binarios = array()]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 668]</span>
+	<span class="method-title">sentencia_cantidad_afectados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 673]</span>
 </div>
 <br />
 
@@ -2077,7 +2094,7 @@ $id&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 576]</span>
+	<span class="method-title">sentencia_consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
 </div>
 <br />
 
@@ -2143,7 +2160,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 615]</span>
+	<span class="method-title">sentencia_consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 621]</span>
 </div>
 <br />
 
@@ -2216,7 +2233,7 @@ $lanzar_excepcion = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 651]</span>
+	<span class="method-title">sentencia_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 656]</span>
 </div>
 <br />
 
@@ -2269,7 +2286,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
+	<span class="method-title">sentencia_ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 543]</span>
 </div>
 <br />
 
@@ -2335,7 +2352,7 @@ $tipo_fetch&nbsp;
 	
 		
 	
-	<span class="method-title">sentencia_eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 523]</span>
+	<span class="method-title">sentencia_eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
 </div>
 <br />
 
@@ -2373,7 +2390,7 @@ $id&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 479]</span>
+	<span class="method-title">sentencia_preparar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 484]</span>
 </div>
 <br />
 
@@ -2514,7 +2531,7 @@ $parser&nbsp;
 	
 		
 	
-	<span class="method-title">ultimo_insert_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 462]</span>
+	<span class="method-title">ultimo_insert_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 467]</span>
 </div>
 <br />
 

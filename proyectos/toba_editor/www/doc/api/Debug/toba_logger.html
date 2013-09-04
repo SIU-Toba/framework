@@ -64,6 +64,9 @@
 	    			<a href="../Debug/toba_logger.html">					logger
 					</a>    		
 	 <br />
+	    			<a href="../Debug/toba_logger_ws.html">					logger_ws
+					</a>    		
+	 <br />
 	  </div>
                         
  <!-- <div class="package">
@@ -85,7 +88,8 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos Propios</a>
+					<a href="#sec-descendents">Subclases</a>
+			|									<a href="#sec-method-summary">Métodos Propios</a>
 				
 	</div>
 	<div class="info-box-body">
@@ -105,7 +109,7 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /home/richard/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/SalidaGrafica/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/PuntosDeAcceso.html'>
@@ -122,6 +126,21 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 </div>
 
 
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Subclases directas</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+								<tr>
+					<td style="padding-right: 2em"><a href="../Debug/toba_logger_ws.html">toba_logger_ws</a></td>
+					<td>
+											Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis  Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
+										</td>
+				</tr>
+							</table>
+			<br />
+		</div>
+	</div>
 
 
 
@@ -132,7 +151,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																										<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																																																																																																					<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">logger</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -144,11 +163,35 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 						<td class="method-definition"></td></tr>
 																																																																																																																																				<tr>
 						<td nowrap align="right">
+														    																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">toba_logger</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#anexar_a_archivo" title="details" class="method-name">anexar_a_archivo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#armar_encabezado" title="details" class="method-name">armar_encabezado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#armar_mensajes" title="details" class="method-name">armar_mensajes</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -409,7 +452,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
@@ -441,10 +484,17 @@ $proyecto = null]&nbsp;
 	
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methodinstancia">toba_logger_ws::instancia()</a>
+								: Este es un singleton por proyecto
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methodmanejador_errores_recuperables" id="manejador_errores_recuperables"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method manejador_errores_recuperables</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
 </div>
@@ -499,6 +549,58 @@ $error_linea = 0]&nbsp;
 		<br />
 </div>
 
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		    	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>toba_logger __construct(
+[
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Para sacar el path de la instalacion y la instancia se necesitaria tener acceso a la clase instalacion  pero no se carga en el runtime, solo en la parte administrativa, por ahora se replica el lugar  donde se encuentra el dir de instalacion</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
 <a name="methodanexar_a_archivo" id="anexar_a_archivo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
@@ -506,7 +608,7 @@ $error_linea = 0]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">anexar_a_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 530]</span>
+	<span class="method-title">anexar_a_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 545]</span>
 </div>
 <br />
 
@@ -552,13 +654,87 @@ $archivo&nbsp;
 		
 		<br />
 </div>
+<a name="methodarmar_encabezado" id="armar_encabezado"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">armar_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void armar_encabezado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methodarmar_encabezado">toba_logger_ws::armar_encabezado()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodarmar_mensajes" id="armar_mensajes"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">armar_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 479]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void armar_mensajes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodborrar_archivos_logs" id="borrar_archivos_logs"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 599]</span>
+	<span class="method-title">borrar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 613]</span>
 </div>
 <br />
 
@@ -585,7 +761,7 @@ $archivo&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">ciclar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 538]</span>
+	<span class="method-title">ciclar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 553]</span>
 </div>
 <br />
 
@@ -806,7 +982,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
+	<span class="method-title">directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 432]</span>
 </div>
 <br />
 
@@ -823,6 +999,12 @@ $proyecto = null]&nbsp;
 	
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methoddirectorio_logs">toba_logger_ws::directorio_logs()</a>
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methoderror" id="error"><!-- --></a>
@@ -1026,7 +1208,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
+	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 495]</span>
 </div>
 <br />
 
@@ -1044,6 +1226,13 @@ $proyecto = null]&nbsp;
 	
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methodguardar">toba_logger_ws::guardar()</a>
+								: Guarda los sucesos actuales en el sist. de archivos
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methodguardar_archivo_log" id="guardar_archivo_log"><!-- --></a>
@@ -1053,7 +1242,7 @@ $proyecto = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">guardar_archivo_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
+	<span class="method-title">guardar_archivo_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 516]</span>
 </div>
 <br />
 
@@ -1097,6 +1286,12 @@ $archivo&nbsp;
 
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methodguardar_archivo_log">toba_logger_ws::guardar_archivo_log()</a>
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methodguardar_en_archivo" id="guardar_en_archivo"><!-- --></a>
@@ -1105,7 +1300,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">guardar_en_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 456]</span>
+	<span class="method-title">guardar_en_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 502]</span>
 </div>
 <br />
 
@@ -1141,6 +1336,12 @@ $forzar_salida = false]&nbsp;
 	
 
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Debug/toba_logger_ws.html#methodguardar_en_archivo">toba_logger_ws::guardar_en_archivo()</a>
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methodinfo" id="info"><!-- --></a>
@@ -1501,7 +1702,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 451]</span>
+	<span class="method-title">set_directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 441]</span>
 </div>
 <br />
 

@@ -72,6 +72,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_cbu.html">					ef_cbu
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_checkbox.html">					ef_checkbox
 					</a>    	    		</span>
     		
@@ -266,6 +271,11 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_ei_filtro.html">					ei_filtro
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_firma.html">					ei_firma
 					</a>    	    		</span>
     		
 	 <br />
@@ -526,7 +536,7 @@
 		<table border="0" cellspacing="0" cellpadding="0">
 			
 			
-Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
+Deprecated: Function split() is deprecated in /home/richard/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Centrales/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
 
 		<tr><td colspan="2"><a href='../../../api_js/ef_editable.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -591,6 +601,12 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_popup.html">toba_ef_popup</a></td>
 					<td>
 											Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cbu.html">toba_ef_cbu</a></td>
+					<td>
+											Description of toba_ef_cbu
 										</td>
 				</tr>
 							</table>
@@ -945,6 +961,17 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_maximo_descripcion">get_maximo_descripcion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_toggle">get_toggle()</a></span>
 										</dt>
 										<dd>
@@ -1154,6 +1181,17 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_maximo_descripcion">set_maximo_descripcion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_obligatorio">set_obligatorio()</a></span>
 										</dt>
 										<dd>
@@ -1180,6 +1218,17 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 										</dt>
 										<dd>
 											<span class="method-definition">Cuando un ef se encuentra en solo_lectura su valor es visible al usuario pero no puede modificarlo.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_tamano">set_tamano()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Expresa el tamaño del ef en cantidad de caracteres</span>
 										</dd>
 										
 																			
@@ -1252,7 +1301,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																												<tr><td></td><td class="method-definition" nowrap>static
+																																																																					<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_lista_parametros" title="details" class="method-name">get_lista_parametros</a>()&nbsp;&nbsp;</td>
@@ -1267,7 +1316,12 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 						</td>
 						<td class="method-definition"><a href="#set_callback_errores_validacion" title="details" class="method-name">set_callback_errores_validacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																															<tr><td></td><td class="method-definition" nowrap>static
+																																						<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_limite_minimo_caracteres" title="details" class="method-name">set_limite_minimo_caracteres</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#set_tamano_multiplicado_pixels" title="details" class="method-name">set_tamano_multiplicado_pixels</a>()&nbsp;&nbsp;</td>
@@ -1305,6 +1359,13 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_estilo_visualizacion_pixeles" title="details" class="method-name">get_estilo_visualizacion_pixeles</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_input" title="details" class="method-name">get_input</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																																						<tr>
@@ -1328,7 +1389,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_expreg" title="details" class="method-name">set_expreg</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1368,7 +1429,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
 </div>
 <br />
 
@@ -1411,13 +1472,16 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros">toba_ef_popup::get_lista_parametros()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodget_lista_parametros">toba_ef_cbu::get_lista_parametros()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_lista_parametros_carga" id="get_lista_parametros_carga"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
 </div>
 <br />
 
@@ -1448,7 +1512,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 <a name="methodset_callback_errores_validacion" id="set_callback_errores_validacion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method set_callback_errores_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
+		<span class="method-title">static method set_callback_errores_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -1479,10 +1543,44 @@ $callback&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_tamano_multiplicado_pixels" id="set_tamano_multiplicado_pixels"><!-- --></a>
+<a name="methodset_limite_minimo_caracteres" id="set_limite_minimo_caracteres"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_tamano_multiplicado_pixels</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+		<span class="method-title">static method set_limite_minimo_caracteres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_limite_minimo_caracteres(
+
+$cantidad&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cantidad:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_tamano_multiplicado_pixels" id="set_tamano_multiplicado_pixels"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method set_tamano_multiplicado_pixels</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 
@@ -1523,12 +1621,12 @@ $porcentaja&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
 </div>
 <br />
 
@@ -1643,12 +1741,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -1691,12 +1789,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 209]</span>
 </div>
 <br />
 
@@ -1747,16 +1845,19 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodcrear_objeto_js">toba_ef_popup::crear_objeto_js()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodcrear_objeto_js">toba_ef_cbu::crear_objeto_js()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -1795,7 +1896,35 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_consumo_javascript">toba_ef_popup::get_consumo_javascript()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodget_consumo_javascript">toba_ef_cbu::get_consumo_javascript()</a>
+							</li>
 				</ul>
+		<br />
+</div>
+<a name="methodget_estilo_visualizacion_pixeles" id="get_estilo_visualizacion_pixeles"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_estilo_visualizacion_pixeles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_estilo_visualizacion_pixeles(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
 		<br />
 </div>
 <a name="methodget_input" id="get_input"><!-- --></a>
@@ -1804,7 +1933,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
 </div>
 <br />
 
@@ -1852,6 +1981,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_input">toba_ef_popup::get_input()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodget_input">toba_ef_cbu::get_input()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1861,7 +1993,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -1912,7 +2044,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
 </div>
 <br />
 
@@ -1972,7 +2104,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set_expreg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
+	<span class="method-title">set_expreg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -2009,7 +2141,7 @@ $expreg&nbsp;
 	
 		
 	
-	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
+	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
 </div>
 <br />
 
@@ -2060,7 +2192,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -2099,7 +2231,7 @@ $maestros_cargados = true]&nbsp;
 	
 		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -2141,6 +2273,9 @@ $maestros_cargados = true]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodvalidar_estado">toba_ef_editable_hora::validar_estado()</a>
 								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodvalidar_estado">toba_ef_cbu::validar_estado()</a>
 							</li>
 				</ul>
 		<br />

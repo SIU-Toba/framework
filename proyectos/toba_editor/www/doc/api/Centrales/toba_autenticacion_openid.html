@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_basica.html">					autenticacion_basica
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_autenticacion_cas.html">					autenticacion_cas
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
@@ -115,10 +121,16 @@
 	    			<a href="../Centrales/toba_fecha.html">					fecha
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_firma_digital.html">					firma_digital
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_gadget.html">					gadget
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_hash.html">					hash
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
@@ -295,6 +307,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_firma_digital.html">					error_firma_digital
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_ini_sesion.html">					error_ini_sesion
 					</a>    	    		</span>
     		
@@ -423,7 +440,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																													<tr>
+																																																																																																																															<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -472,6 +489,20 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#iniciar_sesion" title="details" class="method-name">iniciar_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#logout" title="details" class="method-name">logout</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#permite_login_toba" title="details" class="method-name">permite_login_toba</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -513,7 +544,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -564,13 +595,13 @@ $permite_login_toba = false]&nbsp;
 		<br />
 </div>
 <a name="methodalta_usuario" id="alta_usuario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">alta_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+	<span class="method-title">alta_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
 </div>
 <br />
 
@@ -624,7 +655,7 @@ $perfil&nbsp;
 		<br />
 </div>
 <a name="methodautenticar" id="autenticar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -679,12 +710,12 @@ $datos_iniciales = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_providers" id="get_providers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_providers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">get_providers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
 </div>
 <br />
 
@@ -704,12 +735,12 @@ $datos_iniciales = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_valor" id="get_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
+	<span class="method-title">get_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
@@ -741,13 +772,13 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodiniciar_pedido" id="iniciar_pedido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">iniciar_pedido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+	<span class="method-title">iniciar_pedido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
 </div>
 <br />
 
@@ -786,13 +817,82 @@ $url = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodpermite_login_toba" id="permite_login_toba"><!-- --></a>
+<a name="methodiniciar_sesion" id="iniciar_sesion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">iniciar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void iniciar_sesion(
+
+$usuario, 
+$clave&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clave:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodlogout" id="logout"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">permite_login_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
+	<span class="method-title">logout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void logout(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodpermite_login_toba" id="permite_login_toba"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">permite_login_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
 </div>
 <br />
 
@@ -812,12 +912,12 @@ $url = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_provider" id="set_provider"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_provider</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">set_provider</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -849,12 +949,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodverificar_acceso" id="verificar_acceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">verificar_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
+	<span class="method-title">verificar_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
 </div>
 <br />
 
@@ -874,12 +974,12 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodverificar_clave_vencida" id="verificar_clave_vencida"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">verificar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
+	<span class="method-title">verificar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
 <br />
 

@@ -47,12 +47,12 @@ ef_multi_seleccion_doble
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
-		<a href="c.Event.html">c.Event</a>    
+		<a href="b.html">b</a>    
 		</span>
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
-		<a href="c.fx.html">c.fx</a>    
+		<a href="b.Event.html">b.Event</a>    
 		</span>
 	 	<br />
 	
@@ -68,6 +68,11 @@ ef_multi_seleccion_doble
 	
 		<span style="padding-left: 1em;">		
 		<a href="ef.html">ef</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_cbu.html">ef_cbu</a>    
 		</span>
 	 	<br />
 	
@@ -217,6 +222,11 @@ ef_multi_seleccion_doble
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_firma.html">ei_firma</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_formulario.html">ei_formulario</a>    
 		</span>
 	 	<br />
@@ -263,6 +273,11 @@ ef_multi_seleccion_doble
 	
 		<span style="padding-left: 1em;">		
 		<a href="simpleMenu.html">simpleMenu</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="st.html">st</a>    
 		</span>
 	 	<br />
 	
@@ -480,7 +495,17 @@ ef_multi_seleccion_doble
 						<a class="method-name" href="#set_opciones">set_opciones</A>(valores)
 					</td>
 
-					<td class="method-definition"> Cambia las opciones disponibles para seleccionar</td></tr>
+					<td class="method-definition"> Cambia las opciones disponibles para seleccionar.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_opciones_rs">set_opciones_rs</A>(valores)
+					</td>
+
+					<td class="method-definition"> Cambia las opciones disponibles y las inserta de forma ordenada</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -881,7 +906,7 @@ ef_multi_seleccion_doble
 			</div>
 			
 				<p class="description">
-	  				<UL>Cambia las opciones disponibles para seleccionar</UL>
+	  				<UL>Cambia las opciones disponibles para seleccionar. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento</UL>
 				</p>
 						
 			
@@ -910,10 +935,62 @@ ef_multi_seleccion_doble
 		   
 		</div>
 		
-   		<A id="set_solo_lectura" NAME="set_solo_lectura"><!-- --></A>	
+   		<A id="set_opciones_rs" NAME="set_opciones_rs"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">set_opciones_rs</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_opciones_rs (valores)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia las opciones disponibles y las inserta de forma ordenada</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">valores</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Array Arreglo de Arreglo con 1er componente clave y 2da valor 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_solo_lectura" NAME="set_solo_lectura"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_solo_lectura</span>
@@ -968,8 +1045,8 @@ ef_multi_seleccion_doble
 		
    		<A id="set_tab_index" NAME="set_tab_index"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_tab_index</span>

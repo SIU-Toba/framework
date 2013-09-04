@@ -72,6 +72,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_cbu.html">					ef_cbu
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_checkbox.html">					ef_checkbox
 					</a>    	    		</span>
     		
@@ -266,6 +271,11 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_ei_filtro.html">					ei_filtro
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_firma.html">					ei_firma
 					</a>    	    		</span>
     		
 	 <br />
@@ -522,7 +532,7 @@
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 				
-Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Varios/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
+Deprecated: Function split() is deprecated in /home/richard/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Varios/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 37
 
 		<tr>
 			<td colspan="2"><strong><a href='../../../wiki/trac/toba/wiki/Referencia/efs.html'>
@@ -532,7 +542,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		
 				
 			
-Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Varios/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
+Deprecated: Function split() is deprecated in /home/richard/proyectos/toba_migraciones/proyectos/toba_editor/www/doc/api/Varios/c305412028b9a2be48c5677e1d4f636f/%%404^%%40462378^classtags.tpl.php on line 54
 
 		<tr><td colspan="2"><a href='../../../api_js/ef.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -630,12 +640,22 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 						</td>
 						<td class="method-definition"><a href="#get_excepciones" title="details" class="method-name">get_excepciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																																																																																																																			<tr><td></td><td class="method-definition" nowrap>static
+																																																																																			<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_maximo_descripcion" title="details" class="method-name">get_maximo_descripcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																																																																																																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#set_excepciones" title="details" class="method-name">set_excepciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																		<tr>
+																																						<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_maximo_descripcion" title="details" class="method-name">set_maximo_descripcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																																									<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -839,7 +859,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_maestros" title="details" class="method-name">get_maestros</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la lista de efs de los cuales depende</td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -966,7 +986,7 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_iconos_utilerias" title="details" class="method-name">set_iconos_utilerias</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cambia los iconos visibles a un lado del elemento</td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -987,6 +1007,13 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_solo_lectura" title="details" class="method-name">set_solo_lectura</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cuando un ef se encuentra en solo_lectura su valor es visible al usuario pero no puede modificarlo.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_tamano" title="details" class="method-name">set_tamano</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Expresa el tamaño del ef en cantidad de caracteres</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1039,9 +1066,9 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_excepciones" id="get_excepciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_excepciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+		<span class="method-title">static method get_excepciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -1066,10 +1093,32 @@ Deprecated: Function split() is deprecated in /home/ricardo/proyectos/toba_migra
 				</ul>
 		<br />
 </div>
+<a name="methodget_maximo_descripcion" id="get_maximo_descripcion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_maximo_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_maximo_descripcion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_excepciones" id="set_excepciones"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_excepciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
+		<span class="method-title">static method set_excepciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
 </div>
 <br />
 
@@ -1107,14 +1156,48 @@ $excepciones&nbsp;
 				</ul>
 		<br />
 </div>
+<a name="methodset_maximo_descripcion" id="set_maximo_descripcion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method set_maximo_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_maximo_descripcion(
+
+$maximo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$maximo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
 </div>
 <br />
 
@@ -1270,12 +1353,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodagregar_icono_utileria" id="agregar_icono_utileria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_icono_utileria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 650]</span>
+	<span class="method-title">agregar_icono_utileria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 674]</span>
 </div>
 <br />
 
@@ -1308,12 +1391,12 @@ $icono&nbsp;
 		<br />
 </div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 667]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 691]</span>
 </div>
 <br />
 
@@ -1377,12 +1460,12 @@ $icono&nbsp;
 		<br />
 </div>
 <a name="methodcarga_depende_de_estado" id="carga_depende_de_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
 </div>
 <br />
 
@@ -1412,12 +1495,12 @@ $icono&nbsp;
 		<br />
 </div>
 <a name="methodclave_memoria" id="clave_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">clave_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 288]</span>
+	<span class="method-title">clave_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
 </div>
 <br />
 
@@ -1449,12 +1532,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodcontrolador" id="controlador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 764]</span>
+	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 788]</span>
 </div>
 <br />
 
@@ -1475,12 +1558,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 694]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 718]</span>
 </div>
 <br />
 
@@ -1543,6 +1626,9 @@ $multiplexado = true]&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodcrear_objeto_js">toba_ef_popup::crear_objeto_js()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodcrear_objeto_js">toba_ef_cbu::crear_objeto_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcrear_objeto_js">toba_ef_checkbox::crear_objeto_js()</a>
 							</li>
 					<li>
@@ -1567,12 +1653,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodesta_expandido" id="esta_expandido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 341]</span>
+	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
 </div>
 <br />
 
@@ -1601,12 +1687,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodes_estado_unico" id="es_estado_unico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
 </div>
 <br />
 
@@ -1633,12 +1719,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodes_obligatorio" id="es_obligatorio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 312]</span>
+	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 324]</span>
 </div>
 <br />
 
@@ -1667,12 +1753,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodes_seleccionable" id="es_seleccionable"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 187]</span>
 </div>
 <br />
 
@@ -1702,12 +1788,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodes_solo_lectura" id="es_solo_lectura"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
+	<span class="method-title">es_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 588]</span>
 </div>
 <br />
 
@@ -1727,12 +1813,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_campos_clave" id="get_campos_clave"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
+	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -1753,12 +1839,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_campo_valor" id="get_campo_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 253]</span>
+	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 265]</span>
 </div>
 <br />
 
@@ -1787,12 +1873,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 727]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 751]</span>
 </div>
 <br />
 
@@ -1848,10 +1934,10 @@ $multiplexado = true]&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_consumo_javascript">toba_ef_popup::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_consumo_javascript">toba_ef_checkbox::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodget_consumo_javascript">toba_ef_cbu::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_consumo_javascript">toba_ef_html::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_consumo_javascript">toba_ef_checkbox::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_consumo_javascript">toba_ef_multi_seleccion::get_consumo_javascript()</a>
@@ -1862,20 +1948,17 @@ $multiplexado = true]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_consumo_javascript">toba_ef_upload::get_consumo_javascript()</a>
 							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_consumo_javascript">toba_ef_sin_estado::get_consumo_javascript()</a>
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_cuando_cambia_valor" id="get_cuando_cambia_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 744]</span>
+	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 768]</span>
 </div>
 <br />
 
@@ -1904,12 +1987,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_dato" id="get_dato"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 379]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 391]</span>
 </div>
 <br />
 
@@ -1930,12 +2013,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_descripcion" id="get_descripcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
+	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
 </div>
 <br />
 
@@ -1956,12 +2039,12 @@ $multiplexado = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_descripcion_estado" id="get_descripcion_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 421]</span>
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 433]</span>
 </div>
 <br />
 
@@ -2035,12 +2118,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_estado" id="get_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
+	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 418]</span>
 </div>
 <br />
 
@@ -2081,6 +2164,9 @@ $tipo_salida&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha_hora.html#methodget_estado">toba_ef_editable_fecha_hora::get_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_estado">toba_ef_html::get_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_estado">toba_ef_multi_seleccion::get_estado()</a>
 								: Puede retornar el estado serializado (un unico string) o en un arreglo dependiendo de su definición en el editor
 							</li>
@@ -2091,12 +2177,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_estilo_etiqueta" id="get_estilo_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
+	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -2117,12 +2203,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_etiqueta" id="get_etiqueta"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 359]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
 </div>
 <br />
 
@@ -2143,12 +2229,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_fila_actual" id="get_fila_actual"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_fila_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
+	<span class="method-title">get_fila_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 552]</span>
 </div>
 <br />
 
@@ -2169,12 +2255,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_html_iconos_utilerias" id="get_html_iconos_utilerias"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_html_iconos_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 655]</span>
+	<span class="method-title">get_html_iconos_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 679]</span>
 </div>
 <br />
 
@@ -2194,12 +2280,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 350]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 362]</span>
 </div>
 <br />
 
@@ -2220,12 +2306,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_id_form" id="get_id_form"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 409]</span>
 </div>
 <br />
 
@@ -2246,12 +2332,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_id_form_orig" id="get_id_form_orig"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 388]</span>
+	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 400]</span>
 </div>
 <br />
 
@@ -2272,12 +2358,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_input" id="get_input"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 758]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 782]</span>
 </div>
 <br />
 
@@ -2345,6 +2431,9 @@ $tipo_salida&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_input">toba_ef_popup::get_input()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodget_input">toba_ef_cbu::get_input()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_input">toba_ef_checkbox::get_input()</a>
 							</li>
 					<li>
@@ -2378,12 +2467,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_maestros" id="get_maestros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 233]</span>
+	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
 </div>
 <br />
 
@@ -2412,12 +2501,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodget_toggle" id="get_toggle"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_toggle</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 330]</span>
+	<span class="method-title">get_toggle</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
@@ -2438,12 +2527,12 @@ $tipo_salida&nbsp;
 		<br />
 </div>
 <a name="methodguardar_dato_sesion" id="guardar_dato_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">guardar_dato_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 676]</span>
+	<span class="method-title">guardar_dato_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 700]</span>
 </div>
 <br />
 
@@ -2482,12 +2571,12 @@ $multiplexado = false]&nbsp;
 		<br />
 </div>
 <a name="methodir_a_fila" id="ir_a_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
+	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 543]</span>
 </div>
 <br />
 
@@ -2520,12 +2609,12 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodnormalizar_parametro_cascada" id="normalizar_parametro_cascada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">normalizar_parametro_cascada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 515]</span>
+	<span class="method-title">normalizar_parametro_cascada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 530]</span>
 </div>
 <br />
 
@@ -2564,12 +2653,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodobjeto_js" id="objeto_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 703]</span>
+	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 727]</span>
 </div>
 <br />
 
@@ -2590,13 +2679,13 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodparametros_js" id="parametros_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 711]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 735]</span>
 </div>
 <br />
 
@@ -2652,6 +2741,9 @@ $parametro&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodparametros_js">toba_ef_checkbox::parametros_js()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_html.html#methodparametros_js">toba_ef_html::parametros_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodparametros_js">toba_ef_multi_seleccion::parametros_js()</a>
 							</li>
 					<li>
@@ -2661,12 +2753,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodpermite_seleccion_multiple" id="permite_seleccion_multiple"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">permite_seleccion_multiple</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
+	<span class="method-title">permite_seleccion_multiple</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 195]</span>
 </div>
 <br />
 
@@ -2693,12 +2785,12 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodquitar_maestro" id="quitar_maestro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">quitar_maestro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
+	<span class="method-title">quitar_maestro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 292]</span>
 </div>
 <br />
 
@@ -2730,12 +2822,12 @@ $maestro&nbsp;
 		<br />
 </div>
 <a name="methodresetear_estado" id="resetear_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 459]</span>
+	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 471]</span>
 </div>
 <br />
 
@@ -2771,12 +2863,12 @@ $maestro&nbsp;
 		<br />
 </div>
 <a name="methodseleccionado" id="seleccionado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 450]</span>
+	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 462]</span>
 </div>
 <br />
 
@@ -2803,12 +2895,12 @@ $maestro&nbsp;
 		<br />
 </div>
 <a name="methodset_cuando_cambia_valor" id="set_cuando_cambia_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 736]</span>
+	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 760]</span>
 </div>
 <br />
 
@@ -2841,12 +2933,12 @@ $js&nbsp;
 		<br />
 </div>
 <a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 556]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 571]</span>
 </div>
 <br />
 
@@ -2879,12 +2971,12 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodset_estado" id="set_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 617]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 632]</span>
 </div>
 <br />
 
@@ -2962,12 +3054,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodset_estado_defecto" id="set_estado_defecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estado_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 505]</span>
+	<span class="method-title">set_estado_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 517]</span>
 </div>
 <br />
 
@@ -3000,12 +3092,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodset_estilo_etiqueta" id="set_estilo_etiqueta"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 597]</span>
+	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 612]</span>
 </div>
 <br />
 
@@ -3038,12 +3130,12 @@ $estilo&nbsp;
 		<br />
 </div>
 <a name="methodset_etiqueta" id="set_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 546]</span>
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 561]</span>
 </div>
 <br />
 
@@ -3076,12 +3168,12 @@ $etiqueta&nbsp;
 		<br />
 </div>
 <a name="methodset_expandido" id="set_expandido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 608]</span>
+	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 623]</span>
 </div>
 <br />
 
@@ -3114,12 +3206,12 @@ $expandido&nbsp;
 		<br />
 </div>
 <a name="methodset_iconos_utilerias" id="set_iconos_utilerias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_iconos_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 639]</span>
+	<span class="method-title">set_iconos_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 663]</span>
 </div>
 <br />
 
@@ -3152,12 +3244,12 @@ $iconos&nbsp;
 		<br />
 </div>
 <a name="methodset_obligatorio" id="set_obligatorio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 588]</span>
+	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 603]</span>
 </div>
 <br />
 
@@ -3190,12 +3282,12 @@ $obligatorio = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_permitir_html" id="set_permitir_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_permitir_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 630]</span>
+	<span class="method-title">set_permitir_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 645]</span>
 </div>
 <br />
 
@@ -3228,12 +3320,12 @@ $permitir&nbsp;
 		<br />
 </div>
 <a name="methodset_solo_lectura" id="set_solo_lectura"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 567]</span>
+	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
 </div>
 <br />
 
@@ -3265,13 +3357,51 @@ $solo_lectura = true]&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_tamano" id="set_tamano"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_tamano</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 654]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_tamano(
+integer
+$tamanio&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Expresa el tamaño del ef en cantidad de caracteres </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tamanio:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodson_campos_posicionales" id="son_campos_posicionales"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 262]</span>
+	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 274]</span>
 </div>
 <br />
 
@@ -3297,7 +3427,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 454]</span>
 </div>
 <br />
 
@@ -3353,7 +3483,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
+	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -3385,7 +3515,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
+	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 313]</span>
 </div>
 <br />
 
@@ -3411,7 +3541,7 @@ $solo_lectura = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 468]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 480]</span>
 </div>
 <br />
 
@@ -3463,6 +3593,9 @@ $solo_lectura = true]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_hora.html#methodvalidar_estado">toba_ef_editable_hora::validar_estado()</a>
 								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cbu.html#methodvalidar_estado">toba_ef_cbu::validar_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodvalidar_estado">toba_ef_multi_seleccion::validar_estado()</a>

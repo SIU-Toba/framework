@@ -102,6 +102,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="Fuentes/Drivers/toba_db_sqlserver.html">					db_sqlserver
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
                         
  <!-- <div class="package">
@@ -161,6 +166,8 @@
 				<dd>in file toba_fuente_datos.php, method <a href="Fuentes/toba_fuente_datos.html#method__construct">toba_fuente_datos::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#method__construct">toba_db::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file toba_db_sqlserver.php, method <a href="Fuentes/Drivers/toba_db_sqlserver.html#method__construct">toba_db_sqlserver::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
@@ -444,9 +451,11 @@
 							<dt><b>get_definicion_columnas</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_definicion_columnas">toba_db_postgres7::get_definicion_columnas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina</dd>
 							<dt><b>get_dsn</b></dt>
-				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a></dd>
+				<dd>in file toba_db_sqlserver.php, method <a href="Fuentes/Drivers/toba_db_sqlserver.html#methodget_dsn">toba_db_sqlserver::get_dsn()</a></dd>
 							<dt><b>get_dsn</b></dt>
 				<dd>in file toba_db_informix.php, method <a href="Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a></dd>
+							<dt><b>get_dsn</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a></dd>
 							<dt><b>get_dsn</b></dt>
 				<dd>in file toba_db_mysql.php, method <a href="Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a></dd>
 							<dt><b>get_lista_schemas_disponibles</b></dt>
@@ -475,6 +484,8 @@
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_semantica_valor_defecto">toba_db_postgres7::get_semantica_valor_defecto()</a></dd>
 							<dt><b>get_sp_schema</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_sp_schema">toba_db_postgres7::get_sp_schema()</a></dd>
+							<dt><b>get_triggers_schema</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_triggers_schema">toba_db_postgres7::get_triggers_schema()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve una lista de los triggers en el esquema, segun estado, nombre y tablas.</dd>
 							<dt><b>get_usuario_actual</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_usuario_actual">toba_db_postgres7::get_usuario_actual()</a></dd>
 							<dt><b>grant_rol</b></dt>
@@ -534,6 +545,8 @@
 				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$loguear">toba_db::$loguear</a></dd>
 							<dt><b>liberar_savepoint</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodliberar_savepoint">toba_db_postgres7::liberar_savepoint()</a></dd>
+							<dt><b>listar_roles</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodlistar_roles">toba_db_postgres7::listar_roles()</a></dd>
 					</dl>
 	</div>
 	<a name="m"></a>
@@ -650,6 +663,8 @@
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodrevoke_schema">toba_db_postgres7::revoke_schema()</a></dd>
 							<dt><b>revoke_sp_schema</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodrevoke_sp_schema">toba_db_postgres7::revoke_sp_schema()</a></dd>
+							<dt><b>revoke_tablas</b></dt>
+				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodrevoke_tablas">toba_db_postgres7::revoke_tablas()</a></dd>
 					</dl>
 	</div>
 	<a name="s"></a>
@@ -770,6 +785,8 @@
 				<dd>procedural page <a href="Fuentes/Drivers/_lib---db---toba_db_odbc.php.html">toba_db_odbc.php</a></dd>
 							<dt><b>toba_db_postgres7.php</b></dt>
 				<dd>procedural page <a href="Fuentes/Drivers/_lib---db---toba_db_postgres7.php.html">toba_db_postgres7.php</a></dd>
+							<dt><b>toba_db_sqlserver.php</b></dt>
+				<dd>procedural page <a href="Fuentes/Drivers/_lib---db---toba_db_sqlserver.php.html">toba_db_sqlserver.php</a></dd>
 							<dt><b>toba_db_informix</b></dt>
 				<dd>in file toba_db_informix.php, class <a href="Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión con informix</dd>
 							<dt><b>toba_db_mysql</b></dt>
@@ -778,6 +795,8 @@
 				<dd>in file toba_db_odbc.php, class <a href="Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión via ODBC</dd>
 							<dt><b>toba_db_postgres7</b></dt>
 				<dd>in file toba_db_postgres7.php, class <a href="Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión con postgres</dd>
+							<dt><b>toba_db_sqlserver</b></dt>
+				<dd>in file toba_db_sqlserver.php, class <a href="Fuentes/Drivers/toba_db_sqlserver.html">toba_db_sqlserver</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Driver de conexión con SQLServer 2005 o posterior.</dd>
 							<dt><b>transaccion_abierta</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodtransaccion_abierta">toba_db_postgres7::transaccion_abierta()</a></dd>
 					</dl>
@@ -795,6 +814,8 @@
 				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$usuario">toba_db::$usuario</a></dd>
 							<dt><b>ultimo_insert_id</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodultimo_insert_id">toba_db::ultimo_insert_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Devuelve el id del último insert en la base. Si el motor es postgres</dd>
+							<dt><b>usa_permisos_por_tabla</b></dt>
+				<dd>in file toba_fuente_datos.php, method <a href="Fuentes/toba_fuente_datos.html#methodusa_permisos_por_tabla">toba_fuente_datos::usa_permisos_por_tabla()</a></dd>
 					</dl>
 	</div>
 	<a name="v"></a>

@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_basica.html">					autenticacion_basica
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_autenticacion_cas.html">					autenticacion_cas
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
@@ -115,10 +121,16 @@
 	    			<a href="../Centrales/toba_fecha.html">					fecha
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_firma_digital.html">					firma_digital
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_gadget.html">					gadget
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_hash.html">					hash
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
@@ -295,6 +307,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_firma_digital.html">					error_firma_digital
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_ini_sesion.html">					error_ini_sesion
 					</a>    	    		</span>
     		
@@ -399,7 +416,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/toba_nucleo.php [<span class="field">line 15</span>]
+			Ubicada en /nucleo/toba_nucleo.php [<span class="field">line 20</span>]
 		</p>	
 		<br>
 	
@@ -419,7 +436,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																			<tr><td></td><td class="method-definition" nowrap>static
+																																																												<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#cargador_clases" title="details" class="method-name">cargador_clases</a>()&nbsp;&nbsp;</td>
@@ -470,6 +487,14 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#acceso_web" title="details" class="method-name">acceso_web</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Punto de entrada http al nucleo</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_paths" title="details" class="method-name">agregar_paths</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -578,9 +603,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcargador_clases" id="cargador_clases"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cargador_clases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 383]</span>
+		<span class="method-title">static method cargador_clases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 408]</span>
 </div>
 <br />
 
@@ -612,9 +637,9 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodget_directorio_compilacion" id="get_directorio_compilacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_directorio_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
+		<span class="method-title">static method get_directorio_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 402]</span>
 </div>
 <br />
 
@@ -634,9 +659,9 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodget_indice_archivos" id="get_indice_archivos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_indice_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+		<span class="method-title">static method get_indice_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
 </div>
 <br />
 
@@ -656,9 +681,9 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
 </div>
 <br />
 
@@ -678,9 +703,9 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodtoba_dir" id="toba_dir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method toba_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
+		<span class="method-title">static method toba_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
 </div>
 <br />
 
@@ -700,9 +725,9 @@ $clase&nbsp;
 		<br />
 </div>
 <a name="methodtoba_instalacion_dir" id="toba_instalacion_dir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method toba_instalacion_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 305]</span>
+		<span class="method-title">static method toba_instalacion_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 330]</span>
 </div>
 <br />
 
@@ -723,12 +748,12 @@ $clase&nbsp;
 </div>
 
 <a name="methodacceso_consola" id="acceso_consola"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">acceso_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+	<span class="method-title">acceso_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
 </div>
 <br />
 
@@ -775,12 +800,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodacceso_servicio" id="acceso_servicio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">acceso_servicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 98]</span>
+	<span class="method-title">acceso_servicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -801,12 +826,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodacceso_web" id="acceso_web"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">acceso_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
+	<span class="method-title">acceso_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
 </div>
 <br />
 
@@ -826,6 +851,40 @@ $item&nbsp;
 		
 		<br />
 </div>
+<a name="methodagregar_paths" id="agregar_paths"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">agregar_paths</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_paths(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodautorizar_acceso_item" id="autorizar_acceso_item"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
@@ -833,7 +892,7 @@ $item&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">autorizar_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
+	<span class="method-title">autorizar_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
 </div>
 <br />
 
@@ -879,7 +938,7 @@ $item&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_includes_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+	<span class="method-title">cargar_includes_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 344]</span>
 </div>
 <br />
 
@@ -913,7 +972,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_solicitud_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
+	<span class="method-title">cargar_solicitud_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
 </div>
 <br />
 
@@ -939,7 +998,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">controlar_requisitos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
+	<span class="method-title">controlar_requisitos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 310]</span>
 </div>
 <br />
 
@@ -965,7 +1024,7 @@ $item&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">finalizar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+	<span class="method-title">finalizar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
 </div>
 <br />
 
@@ -999,7 +1058,7 @@ $item&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_archivos_autoload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 271]</span>
+	<span class="method-title">get_archivos_autoload</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
 </div>
 <br />
 
@@ -1033,7 +1092,7 @@ $item&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
 </div>
 <br />
 
@@ -1093,7 +1152,7 @@ $evitar_pre_sesion = false]&nbsp;
 	
 		
 	
-	<span class="method-title">get_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
+	<span class="method-title">get_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
 </div>
 <br />
 
@@ -1118,7 +1177,7 @@ $evitar_pre_sesion = false]&nbsp;
 	
 		
 	
-	<span class="method-title">iniciar_contexto_desde_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">iniciar_contexto_desde_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
 <br />
 
@@ -1163,7 +1222,7 @@ $proyecto&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">iniciar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
+	<span class="method-title">iniciar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
 </div>
 <br />
 
@@ -1197,7 +1256,7 @@ $proyecto&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">registrar_autoloaders_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
+	<span class="method-title">registrar_autoloaders_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
 </div>
 <br />
 
@@ -1230,7 +1289,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 166]</span>
+	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
 </div>
 <br />
 

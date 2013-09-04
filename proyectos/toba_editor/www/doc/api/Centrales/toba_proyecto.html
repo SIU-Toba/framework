@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_basica.html">					autenticacion_basica
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_autenticacion_cas.html">					autenticacion_cas
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
@@ -115,10 +121,16 @@
 	    			<a href="../Centrales/toba_fecha.html">					fecha
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_firma_digital.html">					firma_digital
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_gadget.html">					gadget
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_hash.html">					hash
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
@@ -295,6 +307,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_firma_digital.html">					error_firma_digital
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_ini_sesion.html">					error_ini_sesion
 					</a>    	    		</span>
     		
@@ -447,6 +464,11 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#get_path_pers_php" title="details" class="method-name">get_path_pers_php</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' de la personalizacion</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#get_path_php" title="details" class="method-name">get_path_php</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' del proyecto</td></tr>
 																																																																																			<tr><td></td><td class="method-definition" nowrap>static
@@ -459,7 +481,7 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																															<tr><td></td><td class="method-definition" nowrap>static
+																																																								<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#recuperar_datos_compilados" title="details" class="method-name">recuperar_datos_compilados</a>()&nbsp;&nbsp;</td>
@@ -632,7 +654,7 @@
 													<td nowrap class="method-definition"><span class="method-result"><a href="../Centrales/Errores/toba_error.html">toba_error</a></span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_parametro" title="details" class="method-name">get_parametro</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria</td></tr>
-																																															<tr>
+																																																								<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -682,6 +704,13 @@
 												<td class="method-definition"><a href="#get_www_temp" title="details" class="method-name">get_www_temp</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el path y url del directorio temporal navegable del proyecto (mi_proyecto/www/temp);</td></tr>
 																																						<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#permite_cambio_perfiles" title="details" class="method-name">permite_cambio_perfiles</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -749,9 +778,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
+		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
 </div>
 <br />
 
@@ -771,9 +800,9 @@
 		<br />
 </div>
 <a name="methodexiste_dato_compilado" id="existe_dato_compilado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 686]</span>
+		<span class="method-title">static method existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 698]</span>
 </div>
 <br />
 
@@ -812,9 +841,9 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
 <br />
 
@@ -835,9 +864,9 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodget_path" id="get_path"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
+		<span class="method-title">static method get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
 </div>
 <br />
 
@@ -858,9 +887,9 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodget_path_pers" id="get_path_pers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_path_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+		<span class="method-title">static method get_path_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
 </div>
 <br />
 
@@ -879,10 +908,33 @@ $metodo&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_path_pers_php" id="get_path_pers_php"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_path_pers_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_path_pers_php(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el path absoluto de la carpeta 'php' de la personalizacion </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_path_php" id="get_path_php"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
+		<span class="method-title">static method get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -905,7 +957,7 @@ $metodo&nbsp;
 <a name="methodhay_instancia" id="hay_instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method hay_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
+		<span class="method-title">static method hay_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
@@ -927,7 +979,7 @@ $metodo&nbsp;
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -949,7 +1001,7 @@ $metodo&nbsp;
 <a name="methodrecuperar_datos_compilados" id="recuperar_datos_compilados"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 691]</span>
+		<span class="method-title">static method recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 703]</span>
 </div>
 <br />
 
@@ -994,7 +1046,7 @@ $metodo&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
+	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
 </div>
 <br />
 
@@ -1032,7 +1084,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
+	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
 </div>
 <br />
 
@@ -1057,7 +1109,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">es_personalizable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
+	<span class="method-title">es_personalizable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
 <br />
 
@@ -1082,7 +1134,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_clases_extendidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
+	<span class="method-title">get_clases_extendidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
 </div>
 <br />
 
@@ -1107,7 +1159,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 293]</span>
+	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 305]</span>
 </div>
 <br />
 
@@ -1151,7 +1203,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 517]</span>
+	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
 </div>
 <br />
 
@@ -1189,7 +1241,7 @@ $permiso&nbsp;
 	
 		
 	
-	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+	<span class="method-title">get_directiva_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
 </div>
 <br />
 
@@ -1215,7 +1267,7 @@ $permiso&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_gadgets_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 635]</span>
+	<span class="method-title">get_gadgets_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 647]</span>
 </div>
 <br />
 
@@ -1268,7 +1320,7 @@ $proyecto = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_grupos_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 475]</span>
+	<span class="method-title">get_grupos_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 487]</span>
 </div>
 <br />
 
@@ -1301,7 +1353,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_componente_por_indice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">get_id_componente_por_indice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
 </div>
 <br />
 
@@ -1345,7 +1397,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 579]</span>
+	<span class="method-title">get_info_consulta_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 591]</span>
 </div>
 <br />
 
@@ -1389,7 +1441,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
+	<span class="method-title">get_info_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -1433,7 +1485,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
+	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
 </div>
 <br />
 
@@ -1477,7 +1529,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_pms</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 611]</span>
+	<span class="method-title">get_info_pms</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 623]</span>
 </div>
 <br />
 
@@ -1514,7 +1566,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
+	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
 </div>
 <br />
 
@@ -1558,7 +1610,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_relacion_entre_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 335]</span>
+	<span class="method-title">get_info_relacion_entre_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 347]</span>
 </div>
 <br />
 
@@ -1602,7 +1654,7 @@ $proyecto&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_servicios_web_acc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 595]</span>
+	<span class="method-title">get_info_servicios_web_acc</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 607]</span>
 </div>
 <br />
 
@@ -1646,7 +1698,7 @@ $proyecto = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 387]</span>
+	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
 </div>
 <br />
 
@@ -1706,7 +1758,7 @@ $solo_primer_nivel&nbsp;
 	
 		
 	
-	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 450]</span>
+	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 462]</span>
 </div>
 <br />
 
@@ -1751,7 +1803,7 @@ $grupos_acceso = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 503]</span>
+	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 515]</span>
 </div>
 <br />
 
@@ -1789,7 +1841,7 @@ $grupos_acceso = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 561]</span>
+	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
 </div>
 <br />
 
@@ -1833,7 +1885,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 545]</span>
+	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 557]</span>
 </div>
 <br />
 
@@ -1870,7 +1922,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
+	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 541]</span>
 </div>
 <br />
 
@@ -1907,7 +1959,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -1967,7 +2019,7 @@ $obligatorio = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
 </div>
 <br />
 
@@ -1993,7 +2045,7 @@ $obligatorio = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_perfiles_funcionales_asociados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 481]</span>
+	<span class="method-title">get_perfiles_funcionales_asociados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 493]</span>
 </div>
 <br />
 
@@ -2030,7 +2082,7 @@ $perfil&nbsp;
 	
 		
 	
-	<span class="method-title">get_perfiles_funcionales_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 465]</span>
+	<span class="method-title">get_perfiles_funcionales_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
 </div>
 <br />
 
@@ -2055,7 +2107,7 @@ $perfil&nbsp;
 	
 		
 	
-	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
+	<span class="method-title">get_version</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
 </div>
 <br />
 
@@ -2081,7 +2133,7 @@ $perfil&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
+	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
 </div>
 <br />
 
@@ -2127,7 +2179,7 @@ $archivo = &quot;&quot;]&nbsp;
 	
 		
 	
-	<span class="method-title">get_www_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 262]</span>
+	<span class="method-title">get_www_pers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 274]</span>
 </div>
 <br />
 
@@ -2164,7 +2216,7 @@ $archivo = &quot;&quot;]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
+	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 291]</span>
 </div>
 <br />
 
@@ -2204,13 +2256,38 @@ $archivo = '']&nbsp;
 		
 		<br />
 </div>
-<a name="methodpersonalizacion_activa" id="personalizacion_activa"><!-- --></a>
+<a name="methodpermite_cambio_perfiles" id="permite_cambio_perfiles"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">personalizacion_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">permite_cambio_perfiles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void permite_cambio_perfiles(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodpersonalizacion_activa" id="personalizacion_activa"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">personalizacion_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
 </div>
 <br />
 
@@ -2230,12 +2307,12 @@ $archivo = '']&nbsp;
 		<br />
 </div>
 <a name="methodpuede_grupo_acceder_item" id="puede_grupo_acceder_item"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
+	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 427]</span>
 </div>
 <br />
 
@@ -2268,12 +2345,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodquitar_item_menu" id="quitar_item_menu"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">quitar_item_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
+	<span class="method-title">quitar_item_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 419]</span>
 </div>
 <br />
 
@@ -2305,12 +2382,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_datos_compilados_grupo" id="recuperar_datos_compilados_grupo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_datos_compilados_grupo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 696]</span>
+	<span class="method-title">recuperar_datos_compilados_grupo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 708]</span>
 </div>
 <br />
 
@@ -2370,12 +2447,12 @@ $orden = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_parametro" id="set_parametro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
+	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
 </div>
 <br />
 

@@ -47,12 +47,12 @@ ef_combo_editable
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
-		<a href="c.Event.html">c.Event</a>    
+		<a href="b.html">b</a>    
 		</span>
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
-		<a href="c.fx.html">c.fx</a>    
+		<a href="b.Event.html">b.Event</a>    
 		</span>
 	 	<br />
 	
@@ -68,6 +68,11 @@ ef_combo_editable
 	
 		<span style="padding-left: 1em;">		
 		<a href="ef.html">ef</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_cbu.html">ef_cbu</a>    
 		</span>
 	 	<br />
 	
@@ -217,6 +222,11 @@ ef_combo_editable
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_firma.html">ei_firma</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_formulario.html">ei_formulario</a>    
 		</span>
 	 	<br />
@@ -263,6 +273,11 @@ ef_combo_editable
 	
 		<span style="padding-left: 1em;">		
 		<a href="simpleMenu.html">simpleMenu</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="st.html">st</a>    
 		</span>
 	 	<br />
 	
@@ -498,6 +513,16 @@ ef_combo_editable
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#permitir_solo_selecciones">permitir_solo_selecciones</A>(valor)
+					</td>
+
+					<td class="method-definition"> Define si el combo editable solo permitira elegir entre las opciones o tambien dar altas</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#proceso_tecla">proceso_tecla</A>()
 					</td>
 
@@ -541,7 +566,17 @@ ef_combo_editable
 						<a class="method-name" href="#set_opciones">set_opciones</A>(valores, desplegar)
 					</td>
 
-					<td class="method-definition"> Cambia las opciones del combo</td></tr>
+					<td class="method-definition"> Cambia las opciones del combo.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_opciones_rs">set_opciones_rs</A>(valores, desplegar)
+					</td>
+
+					<td class="method-definition"> Cambia las opciones del combo y las inserta de forma ordenada</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -619,7 +654,7 @@ ef_combo_editable
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ef_combo_editable (id_form, etiqueta, obligatorio, colapsado, tamano, mantiene_estado_cascada, modo_filtro)</code>
+							   <code>ef_combo_editable (id_form, etiqueta, obligatorio, colapsado, tamano, modo_filtro, solo_permitir_selecciones, mantiene_estado_cascada)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1070,10 +1105,62 @@ ef_combo_editable
 		   
 		</div>
 		
-   		<A id="proceso_tecla" NAME="proceso_tecla"><!-- --></A>	
+   		<A id="permitir_solo_selecciones" NAME="permitir_solo_selecciones"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">permitir_solo_selecciones</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void permitir_solo_selecciones (valor)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Define si el combo editable solo permitira elegir entre las opciones o tambien dar altas</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">boolean</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> valor 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="proceso_tecla" NAME="proceso_tecla"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">proceso_tecla</span>
@@ -1106,8 +1193,8 @@ ef_combo_editable
 		
    		<A id="resetear_estado" NAME="resetear_estado"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">resetear_estado</span>
@@ -1144,8 +1231,8 @@ ef_combo_editable
 		
    		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">seleccionar</span>
@@ -1189,8 +1276,8 @@ ef_combo_editable
 		
    		<A id="set_estado" NAME="set_estado"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">set_estado</span>
@@ -1227,8 +1314,8 @@ ef_combo_editable
 		
    		<A id="set_opciones" NAME="set_opciones"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">set_opciones</span>
@@ -1248,7 +1335,7 @@ ef_combo_editable
 			</div>
 			
 				<p class="description">
-	  				<UL>Cambia las opciones del combo</UL>
+	  				<UL>Cambia las opciones del combo. En navegadores como Opera y Chrome si el resultado contiene claves numericas y alfanumericas se rompe el ordenamiento</UL>
 				</p>
 						
 			
@@ -1263,6 +1350,58 @@ ef_combo_editable
 					</td>
 					<td>&nbsp;
 						<span class="var-description"> Objeto asociativo id=>valor 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_opciones_rs" NAME="set_opciones_rs"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_opciones_rs</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_opciones_rs (valores, desplegar)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Cambia las opciones del combo y las inserta de forma ordenada</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">valores</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Array Arreglo de Arreglo con 1er componente clave y 2da valor 	   </span>
 					</td>
 				</tr>
 				

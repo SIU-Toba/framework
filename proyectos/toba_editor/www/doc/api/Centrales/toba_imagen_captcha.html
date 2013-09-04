@@ -58,6 +58,12 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_autenticacion_basica.html">					autenticacion_basica
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_autenticacion_cas.html">					autenticacion_cas
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_autenticacion_ldap.html">					autenticacion_ldap
 					</a>    		
 	 <br />
@@ -115,10 +121,16 @@
 	    			<a href="../Centrales/toba_fecha.html">					fecha
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_firma_digital.html">					firma_digital
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_gadget.html">					gadget
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_hash.html">					hash
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_imagen_captcha.html">					imagen_captcha
@@ -295,6 +307,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_firma_digital.html">					error_firma_digital
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_ini_sesion.html">					error_ini_sesion
 					</a>    	    		</span>
     		
@@ -420,7 +437,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																											<tr>
+																																																																									<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -446,13 +463,6 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_lista_variables" title="details" class="method-name">get_lista_variables</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#inicializar" title="details" class="method-name">inicializar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -469,13 +479,6 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_parametros_captcha" title="details" class="method-name">set_parametros_captcha</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Permite setear parametros que afectan a la generacion de la imagen.</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#set_path_fuentes" title="details" class="method-name">set_path_fuentes</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -536,7 +539,7 @@ $texto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">createCode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">createCode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
 </div>
 <br />
 
@@ -561,7 +564,7 @@ $texto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">getCode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
+	<span class="method-title">getCode</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 
@@ -580,38 +583,13 @@ $texto = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_lista_variables" id="get_lista_variables"><!-- --></a>
+<a name="methodinicializar" id="inicializar"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_variables</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_lista_variables(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodinicializar" id="inicializar"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 19]</span>
 </div>
 <br />
 
@@ -631,12 +609,12 @@ $texto = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_codigo" id="set_codigo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_codigo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
+	<span class="method-title">set_codigo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
 </div>
 <br />
 
@@ -668,12 +646,12 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodset_parametros_captcha" id="set_parametros_captcha"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_parametros_captcha</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+	<span class="method-title">set_parametros_captcha</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
@@ -696,34 +674,9 @@ $parametros&nbsp;
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Arreglo asociativo con alguno de los siguientes indices  integer image_width =&gt; default 175  integer image_height =&gt; default 45  integer image_type =&gt; ej: SI_IMAGE_JPEG: JPG, SI_IMAGE_PNG: PNG (default), SI_IMAGE_GIF: GIF  integer code_length =&gt; default 4  string  charset =&gt; default 'ABCDEFGHKLMNPRSTUVWYZ23456789'  string  wordlist_file - path a un archivo con lista de palabras  boolean use_wordlist =&gt; default true  boolean use_gd_font' =&gt; default false  string  gd_font_file =&gt; default toba_dir() . '/php/3ros/securimage/gdfonts/bubblebath.gdf'  integer gd_font_size =&gt; default 20  string  ttf_file  =&gt; default toba_dir() . '/php/3ros/securimage/elephant.ttf'  integer font_size =&gt; default 24  integer text_angle_minimum =&gt; default 20  integer text_angle_maximum =&gt; default 20  integer text_x_start =&gt; default 8  integer text_minimum_distance =&gt; default 30  integer text_maximum_distance =&gt; default 33  string  image_bg_color =&gt; default '#e3daed'  string  text_color =&gt; default '#ff0000'  boolean use_multi_text =&gt; default true  string  multi_text_color =&gt; default '#0a68dd,#f65c47,#8d32fd'  boolean use_transparent_text =&gt; default true  integer text_transparency_percentage =&gt; default 15  boolean draw_lines =&gt; default true  string  line_color =&gt; default '#80BFFF'  integer ine_distance =&gt; default 5  integer line_thickness' =&gt; default 1  boolean draw_angled_lines =&gt; default false  boolean draw_lines_over_text =&gt; default false  boolean arc_linethrough =&gt; default true  string  arc_line_colors =&gt; default '#8080ff'  string  audio_path =&gt; default './audio/'  string  bgimg =&gt; path a una imagen de background default</span>			</td></tr>
+				<span class="var-description"> Arreglo asociativo con alguno de los siguientes indices  integer image_width =&gt; default 230  integer image_height =&gt; default 80  integer image_type =&gt; ej: SI_IMAGE_JPEG: JPG, SI_IMAGE_PNG: PNG (default), SI_IMAGE_GIF: GIF  integer code_length =&gt; default 6  string  charset =&gt; default 'ABCDEFGHKLMNPRSTUVWYZabcdefghklmnprstuvwyz23456789'  string  wordlist_file - path a un archivo con lista de palabras  boolean use_wordlist =&gt; default false  boolean use_gd_font' =&gt; default false  string  gd_font_file =&gt; default toba_dir() . '/php/3ros/securimage/gdfonts/bubblebath.gdf'  integer gd_font_size =&gt; default 24  string  ttf_file  =&gt; default toba_dir() . '/php/3ros/securimage/elephant.ttf'  integer font_size =&gt; default 24  float perturbation  =&gt; default 0.75  integer text_angle_minimum =&gt; default 0  integer text_angle_maximum =&gt; default 0  integer text_x_start =&gt; default 15 (deprecated)  integer text_minimum_distance =&gt; default 30  integer text_maximum_distance =&gt; default 33  string  image_bg_color =&gt; default '#ffffff'  string  text_color =&gt; default '#3d3d3d'  boolean use_multi_text =&gt; default false  string  multi_text_color =&gt; default '#0020cc,#0030ee,#0040cc,#0050ee,#0060cc'  boolean use_transparent_text =&gt; default true  integer text_transparency_percentage =&gt; default 15  boolean draw_lines =&gt; default true  string  line_color =&gt; default '#80BFFF'  boolean draw_lines_over_text =&gt; default true  string  audio_path =&gt; default './audio/'  string audio_format =&gt; default 'mp3'  string  bgimg =&gt; path a una imagen de background default</span>			</td></tr>
 				</table>
 
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodset_path_fuentes" id="set_path_fuentes"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">set_path_fuentes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void set_path_fuentes(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
 	<br />
 	
 

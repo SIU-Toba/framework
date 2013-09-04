@@ -72,6 +72,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_cbu.html">					ef_cbu
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_checkbox.html">					ef_checkbox
 					</a>    	    		</span>
     		
@@ -266,6 +271,11 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_ei_filtro.html">					ei_filtro
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ei_firma.html">					ei_firma
 					</a>    	    		</span>
     		
 	 <br />
@@ -912,9 +922,19 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#cargar_ini" title="details" class="method-name">cargar_ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#decodificar_certificado" title="details" class="method-name">decodificar_certificado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																								<tr><td></td><td class="method-definition" nowrap>static
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#esta_activo" title="details" class="method-name">esta_activo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																	<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#servicio_con_firma" title="details" class="method-name">servicio_con_firma</a>()&nbsp;&nbsp;</td>
@@ -926,7 +946,7 @@
 													<td nowrap class="method-definition"><span class="method-result">toba_servicio_web</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																						<tr>
+																																																								<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -954,6 +974,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_opciones" title="details" class="method-name">get_opciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#op__eco" title="details" class="method-name">op__eco</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna la misma cadena enviada al servidor</td></tr>
 																													<tr>
 						<td nowrap align="right">
 															
@@ -985,9 +1012,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodagregar_mapeo_firmas" id="agregar_mapeo_firmas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method agregar_mapeo_firmas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+		<span class="method-title">static method agregar_mapeo_firmas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 256]</span>
 </div>
 <br />
 
@@ -1032,10 +1059,53 @@ $fingerprint = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodcargar_ini" id="cargar_ini"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			<span class="method-title">static method cargar_ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void cargar_ini(
+
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methoddecodificar_certificado" id="decodificar_certificado"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method decodificar_certificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
+		<span class="method-title">static method decodificar_certificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
 </div>
 <br />
 
@@ -1066,11 +1136,53 @@ $archivo&nbsp;
 		
 		<br />
 </div>
-<a name="methodservicio_con_firma" id="servicio_con_firma"><!-- --></a>
+<a name="methodesta_activo" id="esta_activo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
+		    		<span class="method-title">static method esta_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void esta_activo(
+
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodservicio_con_firma" id="servicio_con_firma"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-    			<span class="method-title">static method servicio_con_firma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+    			<span class="method-title">static method servicio_con_firma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
 </div>
 <br />
 
@@ -1099,7 +1211,7 @@ $archivo&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1140,12 +1252,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_certificado_cliente" id="get_certificado_cliente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">get_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 193]</span>
 </div>
 <br />
 
@@ -1166,12 +1278,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_headers" id="get_headers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">get_headers</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
 </div>
 <br />
 
@@ -1192,12 +1304,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_id_cliente" id="get_id_cliente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
+	<span class="method-title">get_id_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
 </div>
 <br />
 
@@ -1229,12 +1341,12 @@ $parametro = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_opciones" id="get_opciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
 <br />
 
@@ -1253,13 +1365,66 @@ $parametro = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodop__eco" id="op__eco"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">op__eco</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string op__eco(
+
+$mensaje, string
+$texto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna la misma cadena enviada al servidor </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> texto a repetir</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"><a href="../../Centrales/toba_servicio_web_mensaje.html">toba_servicio_web_mensaje</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>texto repetido</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodvalidar_certificado_cliente" id="validar_certificado_cliente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">validar_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+	<span class="method-title">validar_certificado_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
 </div>
 <br />
 
@@ -1284,7 +1449,7 @@ $parametro = null]&nbsp;
 	
 		
 	
-	<span class="method-title">__call</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+	<span class="method-title">__call</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
