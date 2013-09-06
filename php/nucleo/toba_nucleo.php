@@ -11,7 +11,7 @@ define('apex_tipo_gadget_shindig', 'S');
 if (version_compare(PHP_VERSION, '5.3.2') >= 0) {
 	define('apex_pa_algoritmo_hash', 'bcrypt');
 } else {
-	define('apex_pa_algoritmo_hash', 'sha512');
+	define('apex_pa_algoritmo_hash', 'sha256');
 }
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
