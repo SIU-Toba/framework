@@ -566,7 +566,7 @@ class toba_ei_filtro extends toba_ei
 		//--Guarda los datos en sesion para que los controle a la vuelta PHP		
 		$sesion = null;									//No hay claves para resguardar
 		if (isset($valores) && is_array($valores)) {			//Si lo que se recupero es un arreglo de valores
-			if ($this->ef($id_ef)->es_seleccionable()) {		//Si es un ef seleccionable
+			if ($this->columna($id_columna)->get_ef()->es_seleccionable()) {		//Si es un ef seleccionable
 				$sesion = array_keys($valores);
 			}/* else {									//No es seleccionable pero se envia clave / valor.. (aun no se chequea), ej: popup
 				$sesion = current($valores);
@@ -622,7 +622,7 @@ class toba_ei_filtro extends toba_ei
 				$campos = $this->columna($id_ef_maestro)->get_nombre();
 				$valores = explode(apex_qs_separador, $param[1]);
 				if (!is_array($campos)) {
-					$maestros[$id_ef_maestro] = $param[1];
+					$maestros[$id_ef_maestro] = $this->columna($id_ef_maestro)->get_ef()->normalizar_parametro_cascada($param[1]);
 				} else {
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
@@ -638,14 +638,11 @@ class toba_ei_filtro extends toba_ei
 		}
 		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
 		foreach ($ids_maestros as $id_ef_maestro) {
-			if (isset($fila_actual)) {
-				//-- Caso especial del ML, necesita ir a la fila actual y recargar su estado
-				$this->ef($id_ef_maestro)->cargar_estado_post();
-			}
-			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
+			$this->columna($id_ef_maestro)->cargar_estado_post();
+			if (! $this->columna($id_ef_maestro)->tiene_estado()) {
 				throw new toba_error_seguridad("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
 			}
-			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
+			$maestros[$id_ef_maestro] = $this->columna($id_ef_maestro)->get_estado();
 		}
 
 		
