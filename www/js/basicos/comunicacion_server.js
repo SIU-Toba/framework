@@ -986,7 +986,7 @@ YAHOO.util.Connect =
                         if (oElement.selectedIndex > -1) {
                             opt = oElement.options[oElement.selectedIndex];
                             data[item++] = oName + encodeURIComponent(
-                                (opt.attributes.value && opt.attributes.value.specified) ? opt.value : opt.text);
+                                (opt.attributes.value) ? opt.value : opt.text);
                         }
                         break;
 					case 'select-multiple':
@@ -995,7 +995,7 @@ YAHOO.util.Connect =
                                 opt = oElement.options[j];
                                 if (opt.selected) {
                                     data[item++] = oName + encodeURIComponent(
-                                        (opt.attributes.value && opt.attributes.value.specified) ? opt.value : opt.text);
+                                        (opt.attributes.value) ? opt.value : opt.text);
                                 }
                             }
                         }
