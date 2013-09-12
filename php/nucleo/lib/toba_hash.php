@@ -49,15 +49,16 @@ class toba_hash
 	private function getSalt() 
 	{		
 		switch(strtoupper($this->metodo)) {		
-		case 'BCRYPT' : $salt = sprintf('$2y$%02d$', $this->rounds);   
+		case 'BCRYPT' : $str_inicial = (version_compare(PHP_VERSION, '5.3.7') < 0) ? "$2a$": "$2y$";
+					  $salt = sprintf($str_inicial.'%02d$', $this->rounds);   
 					   break;
 		
-		case 'SHA-512': 
+		case 'SHA512': 
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
 					$salt = sprintf('$6$rounds=%d$', $this->rounds);
 					 break;
 				 
-		case 'SHA-256': 
+		case 'SHA256': 
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
 					$salt = sprintf('$5$rounds=%d$', $this->rounds);
 					 break;
