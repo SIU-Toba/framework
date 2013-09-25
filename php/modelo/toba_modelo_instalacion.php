@@ -612,7 +612,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	* Indica si el archivo de informacion basica existe
 	*/
-	function existe_info_basica()
+	static function existe_info_basica()
 	{
 		return ( is_file( self::archivo_info_basica() ) );
 	}
