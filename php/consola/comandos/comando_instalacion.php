@@ -204,7 +204,7 @@ class comando_instalacion extends comando_toba
 		} else {
 			$this->consola->mensaje("1) Ejecutar el siguiente comando como superusuario: ");
 			$this->consola->mensaje("");			
-			$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");
+			$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba.conf");
 		}
 		$this->consola->mensaje("");
 		$url = $instancia->get_proyecto('toba_editor')->get_url();
