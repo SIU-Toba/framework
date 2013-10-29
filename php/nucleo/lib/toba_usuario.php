@@ -123,5 +123,32 @@ class toba_usuario implements toba_interface_usuario
 			return ($datos_usuario['clave_vencida'] === 1);
 		}
 	}
+	
+	/**
+	 *  Verifica la composicion y largo de una contraseña de usuario, lanza excepcion cuando falla la validacion,
+	 *  de lo contrario retorna true.
+	 * @param string $pwd
+	 * @param int $largo_minimo
+	 * @return boolean
+	 * @throws toba_error_pwd_conformacion_invalida
+	 */
+	static function verificar_composicion_clave($pwd, $largo_minimo)
+	{
+		if (is_null($largo_minimo)) {
+			$largo_minimo = 4;					//Este minimo se pone para que deje pasar el caso de desarrollo
+		}
+		
+		$expr = '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*\w)|(?=.*[\d])(?=.*\w)).{'. $largo_minimo.',}$/';
+		toba_logger::instancia()->debug("Expresion evaluacion: $expr");
+		$largo_valido =  ($largo_minimo <= strlen($pwd));
+		
+		$valida = preg_match_all($expr, $pwd, $matches);
+		if (! $largo_valido) {
+			throw new toba_error_pwd_conformacion_invalida("La clave del usuario debe tener al menos $largo_minimo caracteres");
+		} elseif ($valida === false || $valida == '0') {
+			throw new toba_error_pwd_conformacion_invalida('La clave del usuario debe estar compuesta por caracteres, digitos y simbolos especiales');
+		}
+		return true;
+	}
 }
 ?>

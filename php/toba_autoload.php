@@ -17,7 +17,7 @@ class toba_autoload
 		}
 	}
 
-	static protected $clases = array(
+	static $clases = array(
 		'toba_carpeta_menu' => 'contrib/catalogo_items_menu/toba_carpeta_menu.php',
 		'toba_catalogo_items_menu' => 'contrib/catalogo_items_menu/toba_catalogo_items_menu.php',
 		'toba_item_menu' => 'contrib/catalogo_items_menu/toba_item_menu.php',
@@ -388,6 +388,7 @@ class toba_autoload
 		'toba_error_autenticacion' => 'nucleo/lib/toba_error.php',
 		'toba_error_autenticacion_intentos' => 'nucleo/lib/toba_error.php',
 		'toba_error_login_contrasenia_vencida' => 'nucleo/lib/toba_error.php',
+		'toba_error_pwd_conformacion_invalida' => 'nucleo/lib/toba_error.php',
 		'toba_error_autorizacion' => 'nucleo/lib/toba_error.php',
 		'toba_error_seguridad' => 'nucleo/lib/toba_error.php',
 		'toba_error_validacion' => 'nucleo/lib/toba_error.php',

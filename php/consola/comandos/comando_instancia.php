@@ -309,8 +309,9 @@ class comando_instancia extends comando_toba
 	{
 		$instancia = $this->get_instancia($id_instancia);
 		if (!isset($datos)) {
-			$datos = $this->definir_usuario( "Crear USUARIO" );
+			$datos = $this->get_datos_usuario();
 		}
+		
 		$instancia->get_db()->abrir_transaccion();
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
@@ -410,6 +411,27 @@ class comando_instancia extends comando_toba
 			$tipo = 'mini';
 		}		
 		return $tipo;
-	}		
+	}
+	
+	function get_datos_usuario()
+	{
+		//Verifico que la clave cumpla ciertos requisitos basicos
+		do {
+			$hubo_error = false;
+			if (!isset($datos)) {
+				$datos = $this->definir_usuario( "Crear USUARIO" );
+			}
+			if ($this->get_instalacion()->es_produccion()) {
+				try {
+					toba_usuario::verificar_composicion_clave($datos['clave'], '10');			//Hay que brindar la posibilidad de marcar produccion antes
+				} catch(toba_error_pwd_conformacion_invalida $e) {
+					$this->consola->mensaje($e->getMessage(), true);
+					$hubo_error = true;
+					unset($datos);
+				}
+			}
+		} while ($hubo_error);
+		return $datos;		
+	}
 }
 ?>

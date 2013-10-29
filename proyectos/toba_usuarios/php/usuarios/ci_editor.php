@@ -49,7 +49,11 @@ class ci_editor extends toba_ci
 	{
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
-		}		
+		} else {						//Chequeamos que la composicion de la clave sea valida
+			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('pwd_largo_minimo', null, false);
+			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
+		}
+		
 		if (! isset($datos['autentificacion'])) {
 			$datos['autentificacion']  = apex_pa_algoritmo_hash;
 		}
@@ -102,9 +106,9 @@ class ci_editor extends toba_ci
 
 	function evt__form_proyectos__modificacion($datos)
 	{
-		if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
+		/*if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
-		}		
+		}*/		
 		
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
@@ -162,7 +166,7 @@ class ci_editor extends toba_ci
 		if (isset($this->s__proyecto)) {
 			$datos = array();
 			$datos['proyecto'] = $this->s__proyecto;
-			$datos['clave'] = self::clave_falsa;
+			//$datos['clave'] = self::clave_falsa;
 			//-- Perfil funcional -------------------------
 			$grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
 			if (empty($grupo_acc)) {

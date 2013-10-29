@@ -209,6 +209,14 @@ class toba_error_autenticacion_intentos extends toba_error
 }
 
 /**
+ * Excepción producida cuando la composición de la contraseña no es valida
+ */
+class toba_error_pwd_conformacion_invalida extends toba_error
+{
+
+}
+
+/**
  * Excepción producida por sobrepasar el limite de dias de validez de la contraseña 
  */
 class toba_error_login_contrasenia_vencida extends toba_error

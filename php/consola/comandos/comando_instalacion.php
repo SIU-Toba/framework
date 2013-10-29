@@ -37,8 +37,7 @@ class comando_instalacion extends comando_toba
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
-	{
-		$id_instancia = $this->get_entorno_id_instancia(true);		
+	{		
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
 		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
@@ -64,15 +63,14 @@ class comando_instalacion extends comando_toba
 		}
 
 		//--- Borra la instalacion anterior??
-		$forzar_instalacion = true;		
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
 		}
 		//--- Crea la INSTALACION		
-		if ($forzar_instalacion) {
-			$id_desarrollo = $this->definir_id_grupo_desarrollo();
-			toba_modelo_instalacion::crear($id_desarrollo, $alias );			
-		}
+		$id_desarrollo = $this->definir_id_grupo_desarrollo();
+		$tipo_instalacion = $this->definir_tipo_instalacion_produccion();
+		toba_modelo_instalacion::crear($id_desarrollo, $alias, $tipo_instalacion);
+		$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : $this->get_entorno_id_instancia(true);		
 		
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
@@ -119,11 +117,8 @@ class comando_instalacion extends comando_toba
 			} while ($puede_conectar !== true);
 		}	
 		//--- Pido el password para el usuario por defecto
-		$pwd = $this->consola->dialogo_ingresar_texto('Toba - Clave (usuario "toba")', true);
-		if (strtoupper($pwd) == 'TOBA') {
-			$this->consola->mensaje('Este password puede crear un OJO de seguridad, por favor cambialo lo antes posible', true);
-		}
-
+		$pwd = $this->definir_clave_usuario_admin();
+				
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
 		if ($this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
 			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya contiene un schema '$id_instancia', puede ingresar un nombre ".
@@ -151,14 +146,14 @@ class comando_instalacion extends comando_toba
 			//--- Elimina el proyecto toba_testing 
 			unset($proyectos['toba_testing']);
 		}
-			if (isset($proyectos['curso_intro'])) {
+		if (isset($proyectos['curso_intro'])) {
 			//--- Elimina el proyecto curso_intro 
 			unset($proyectos['curso_intro']);
 		}		
 		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
 		
 		//-- Carga la instancia
-		$instancia = $this->get_instancia();
+		$instancia = $this->get_instancia($id_instancia);
 		if (!$instancia->existe_modelo() || $forzar_instalacion) {
 			$instancia->cargar( true );
 		}
@@ -169,7 +164,7 @@ class comando_instalacion extends comando_toba
 			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
 		}
 		
-		//--- Vincula un usuario a todos los proyectos y se instala el proyecto
+		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
@@ -432,8 +427,6 @@ class comando_instalacion extends comando_toba
 			return ;
 		} 
 		
-		//$this->consola->lista($versiones, "Migraciones disponibles");
-		//$this->consola->dialogo_simple("");		
 		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}		
 	
@@ -508,8 +501,31 @@ class comando_instalacion extends comando_toba
 		
 	}
 	
-
+	protected function definir_tipo_instalacion_produccion()
+	{
+		$tipo_desarrollo = $this->consola->dialogo_simple('Se trata de una instalacion de producción?');
+		return ($tipo_desarrollo) ? 1: 0;		
+	}
 	
-
+	protected function definir_clave_usuario_admin()
+	{
+		do {
+			$es_invalido = false;
+			$pwd = $this->consola->dialogo_ingresar_texto('Toba - Clave (usuario "toba")', true);
+			//Verifico que la clave cumpla ciertos requisitos basicos
+			if ($this->get_instalacion()->es_produccion()) {
+				try {
+					toba_usuario::verificar_composicion_clave($pwd, '10');			
+				} catch (toba_error_pwd_conformacion_invalida $e) {
+					$es_invalido = true;
+					$this->consola->mensaje($e->getMessage(), true);
+				}
+			}			
+		} while($es_invalido);
+		if (strtoupper($pwd) == 'TOBA') {
+			$this->consola->mensaje('Este password puede crear un OJO de seguridad, por favor cambialo lo antes posible', true);
+		}
+		return $pwd;
+	}
 }
 ?>

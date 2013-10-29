@@ -392,14 +392,14 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	//-- Funcionalidad estatica relacionada a la CREACION de INSTALACIONES
 	//-------------------------------------------------------------------------
 
-	static function crear( $id_grupo_desarrollo, $alias_nucleo )
+	static function crear( $id_grupo_desarrollo, $alias_nucleo , $es_produccion = 0)
 	{
 		self::crear_directorio();
 		self::actualizar_version( toba_modelo_instalacion::get_version_actual() );
 		$apex_clave_get = md5(uniqid(rand(), true)); 
 		$apex_clave_db = md5(uniqid(rand(), true)); 
 		$editor = toba_manejador_archivos::es_windows() ? 'start' : '';
-		self::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo );
+		self::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo, $es_produccion);
 		copy(toba_dir(). '/php/modelo/var/smtp.ini',	self::dir_base().'/smtp.ini');
 		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
 		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
@@ -574,7 +574,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
-	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo, $editor, $url)
+	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo, $editor, $url, $es_produccion = 0)
 	{
 		$ini = new toba_ini();
 		$ini->agregar_titulo( self::info_basica_titulo );
@@ -583,7 +583,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->agregar_entrada( 'url', $url );
-		$ini->agregar_entrada( 'es_produccion', '0');
+		$ini->agregar_entrada( 'es_produccion', $es_produccion);
 		$ini->agregar_entrada( 'autenticacion', 'toba  ;Disponibles: toba|openid|ldap');		
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');

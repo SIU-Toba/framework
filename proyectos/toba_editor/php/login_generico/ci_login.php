@@ -242,8 +242,12 @@ class ci_login extends toba_ci
 
 	function evt__form_passwd_vencido__modificacion($datos)
 	{
-		$usuario = $this->s__datos['usuario'];
+		$usuario = $this->s__datos['usuario'];		
 		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
+			//Obtengo el largo minimo de la clave
+			$largo_clave = toba::proyecto()->get_parametro('pwd_largo_minimo', null, false);
+			toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
+			
 			//Obtengo los dias de validez de la nueva clave
 			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
 			toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
