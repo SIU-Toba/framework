@@ -228,28 +228,33 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 
 		$columnas = $this->_cuadro->get_columnas();
 		$cortes_control = $this->_cuadro->get_cortes_control();
+		//Creo una hoja nueva para el total general
+		if ($es_total_general && $this->_excel_cortar_hoja_cc_0) {
+			$this->_objeto_toba_salida->crear_hoja('Totales');
+			$agregar_titulos = true;
+		}
 		$a = 0;
 		foreach(array_keys($columnas) as $clave) {
 			$estilos[$clave]['estilo'] = $estilo_base;
 			$estilos[$clave]['borrar_estilos_nulos'] = 1;
 			//--Acumulador
-		    if (isset($nodo['acumulador'][$clave])) {
-		    	if ($this->_excel_usar_formulas) {
-		    		//-- Calcular la sumatoria de celdas
+			if (isset($nodo['acumulador'][$clave])) {
+				if ($this->_excel_usar_formulas) {
+					//-- Calcular la sumatoria de celdas
 					if ($es_total_general) {
 						$rangos = array();
-						foreach ($cortes_control as $nodo) {
-				    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo, $a));
+						foreach ($cortes_control as $nodo_cc) {
+							$rangos = array_merge($rangos, $this->excel_get_rangos($nodo_cc, $a));
 						}
-				    	$formula = '=SUM'.implode(' + SUM', $rangos);
+						$formula = '=SUM'.implode(' + SUM', $rangos);
 					} else {
-				    	$rangos = $this->excel_get_rangos($nodo, $a);
-				    	$formula = '=SUM'.implode(' + SUM', $rangos);
+						$rangos = $this->excel_get_rangos($nodo, $a);
+						$formula = '=SUM'.implode(' + SUM', $rangos);
 					}
-		    	} else {
-		    		//-- En lugar de hacer una formula, incluir directamente el importe
-		    		$formula = $nodo['acumulador'][$clave];
-		    	}
+				} else {
+					//-- En lugar de hacer una formula, incluir directamente el importe
+					$formula = $nodo['acumulador'][$clave];
+				}
 				//La columna lleva un formateo?
 				$estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($columnas[$clave]['estilo']));
 				if(isset($columnas[$clave]["formateo"])){
@@ -265,11 +270,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 				$datos[$clave] = null;
 			}
 			$a++;
-		}
-		if ($es_total_general && $this->_excel_cortar_hoja_cc_0) {
-			$this->_objeto_toba_salida->crear_hoja('Totales');
-			$agregar_titulos = true;
-		}
+		}		
 		if (! $agregar_titulos) {
 			$titulos = null;
 		}
