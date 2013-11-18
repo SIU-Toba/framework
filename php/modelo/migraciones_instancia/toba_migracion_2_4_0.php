@@ -14,6 +14,7 @@ class toba_migracion_2_4_0 extends toba_migracion
 		
 		//Agregado del ef_cbu
 		$sql[] = "INSERT INTO apex_elemento_formulario VALUES ('ef_cbu', 'ef_editable', 'CBU', NULL, 'toba', NULL, 0, 0, 0);";
+		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);		
@@ -111,6 +112,31 @@ class toba_migracion_2_4_0 extends toba_migracion
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);		
+	}
+	
+	function instancia__migracion_variables_entorno()
+	{	
+		//Busco los archivos ya sean PHP o de lotes
+		$dir_base = toba_dir(). '/bin';
+		$archivos_php = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.php|', true);
+		$archivos_sh = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.sh|', true);
+		$archivos_bat = toba_manejador_archivos::get_archivos_directorio($dir_base, '|.bat|', true);
+		
+		//Proceso los cambios de asignacion de variables
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion('|\stoba_instancia\s*=|',' TOBA_INSTANCIA=');
+		$editor->agregar_sustitucion('|\stoba_proyecto\s*=|',' TOBA_PROYECTO=');
+		$editor->agregar_sustitucion('|\stoba_dir\s*=|',' TOBA_DIR=');
+		$editor->agregar_sustitucion('|\$toba_dir|','$TOBA_DIR');		
+		$editor->procesar_archivos($archivos_php);
+		$editor->procesar_archivos($archivos_sh);
+		$editor->procesar_archivos($archivos_bat);
+		
+		//Proceso las lecturas de variables en $_SERVER
+		$editor2 = new toba_editor_archivos();
+		$editor2->agregar_sustitucion('|$_SERVER[\'toba_proyecto\']|', '$_SERVER[\'TOBA_PROYECTO\']');
+		$editor2->agregar_sustitucion('|$_SERVER[\'toba_instancia\']|', '$_SERVER[\'TOBA_INSTANCIA\']');
+		$editor2->procesar_archivos($archivos_php);
 	}
 }
 ?>
