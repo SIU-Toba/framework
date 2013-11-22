@@ -147,6 +147,15 @@ class toba_instancia
 		return null;
 	}
 	
+	function get_largo_minimo_password()
+	{
+		if (isset($this->memoria['pwd_largo_minimo'])) {
+			return $this->memoria['pwd_largo_minimo'];
+		} else {
+			return apex_pa_pwd_largo_minimo;
+		}
+	}
+	
 	//----------------------------------------------------------------
 	// DATOS
 	//----------------------------------------------------------------
@@ -385,14 +394,15 @@ class toba_instancia
 							(now()::date > vencimiento::date)::integer		/*Verifico si la clave esta vencida*/
 						  ELSE
 						         0
-						  END  as clave_vencida
+						  END  as clave_vencida,
+						  forzar_cambio_pwd
 				     FROM apex_usuario 
 			              WHERE usuario = :usuario';
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 			if(!empty($rs))	return $rs[0];
 		} catch (toba_error_db $e ) {
-			toba::logger()->info($e->getMessagge());
+			toba::logger()->info($e->getMessage());
 			throw new toba_error('Error recuperando información');
 		}
 	}

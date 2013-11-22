@@ -234,7 +234,15 @@ class ci_recordatorio_pwd extends toba_ci
 	function disparar_confirmacion_cambio()
 	{
 		//Aca tengo que generar una clave temporal y enviarsela para que confirme el cambio e ingrese con ella.
-		$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
+		do {			
+			try {
+				$claveok = true;
+				$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
+				toba_usuario::verificar_composicion_clave($clave_tmp, 10);
+			} catch(toba_error_pwd_conformacion_invalida $e) {
+				$claveok = false;
+			}
+		} while(! $claveok);
 
 		//Recupero mail del usuario junto con el hash de confirmacion
 		$datos_rs = $this->recuperar_datos_solicitud_cambio($this->s__usuario, $this->randr);

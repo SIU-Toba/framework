@@ -13,6 +13,10 @@ if (version_compare(PHP_VERSION, '5.3.2') >= 0) {
 } else {
 	define('apex_pa_algoritmo_hash', 'sha256');
 }
+if (! defined('apex_pa_pwd_largo_minimo')) {
+	define('apex_pa_pwd_largo_minimo', '8');
+}
+
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales

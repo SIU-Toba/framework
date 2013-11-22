@@ -75,7 +75,7 @@ class toba_imagen_captcha extends Securimage
 	 */
 	function set_parametros_default()
 	{
-		$this->image_width   = 45;
+		$this->image_width   = 175;
 		$this->image_height  = 45;
 		$this->line_color =  new Securimage_Color(0x80, 0x80, 0xff);
 		$this->set_path_fuentes();		

@@ -57,7 +57,7 @@ class toba_usuario implements toba_interface_usuario
 	//------------------------ Generacion de claves ---------------------------
 	static function generar_clave_aleatoria($long)
 	{
-		$str = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+		$str = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789-._~';		//Se deberian agregar ciertos caracteres especiales segun SIGEN
 		for($cad='',$i=0;$i<$long;$i++) {
 			$cad .= substr($str,rand(0,(strlen($str)-1)),1);
 		}		
@@ -87,7 +87,7 @@ class toba_usuario implements toba_interface_usuario
 			$accion = "vencimiento = (now() + '$dias_validez days')::date"; 
 		}
 		
-		$sql = "UPDATE apex_usuario SET $accion  WHERE usuario = ". quote($usuario);
+		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario = ". quote($usuario);
 		toba::logger()->debug($sql);
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
@@ -120,7 +120,7 @@ class toba_usuario implements toba_interface_usuario
 		if ( empty($datos_usuario) ) {
 			return false;
 		} else {
-			return ($datos_usuario['clave_vencida'] === 1);
+			return ($datos_usuario['clave_vencida'] === 1 || $datos_usuario['forzar_cambio_pwd'] === 1);
 		}
 	}
 	
@@ -132,13 +132,12 @@ class toba_usuario implements toba_interface_usuario
 	 * @return boolean
 	 * @throws toba_error_pwd_conformacion_invalida
 	 */
-	static function verificar_composicion_clave($pwd, $largo_minimo)
+	static function verificar_composicion_clave($pwd, $largo_minimo=null)
 	{
 		if (is_null($largo_minimo)) {
-			$largo_minimo = 4;					//Este minimo se pone para que deje pasar el caso de desarrollo
-		}
-		
-		$expr = '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*\w)|(?=.*[\d])(?=.*\w)).{'. $largo_minimo.',}$/';
+			$largo_minimo = apex_pa_pwd_largo_minimo;		//Ultimo recurso si es que no lo levantaron de la instancia o el proyecto.
+		}		
+		$expr = self::get_exp_reg_pwd($largo_minimo); 
 		toba_logger::instancia()->debug("Expresion evaluacion: $expr");
 		$largo_valido =  ($largo_minimo <= strlen($pwd));
 		
@@ -149,6 +148,14 @@ class toba_usuario implements toba_interface_usuario
 			throw new toba_error_pwd_conformacion_invalida('La clave del usuario debe estar compuesta por caracteres, digitos y simbolos especiales');
 		}
 		return true;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	static function get_exp_reg_pwd($largo_minimo)
+	{
+		return '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*\w)|(?=.*[\d])(?=.*\w)).{'. $largo_minimo.',}$/';
 	}
 }
 ?>

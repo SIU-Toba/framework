@@ -5,6 +5,7 @@ class ci_login extends toba_ci
 	protected $s__datos_openid;
 	protected $en_popup = false;
 	protected $s__item_inicio;
+	private $es_cambio_contrasenia = false;
 	
 	/**
 	 * Guarda el id de la operación original así se hace una redirección una vez logueado
@@ -96,6 +97,9 @@ class ci_login extends toba_ci
 	 */
 	function post_eventos()
 	{
+		if ($this->es_cambio_contrasenia) {
+			return;						//Fuerza a que no intente loguear, sino que redirija a la pantalla de login
+		}
 		try {		
 			$this->invocar_autenticacion_por_tipo();
 		} catch (toba_error_autenticacion $e) {
@@ -240,18 +244,30 @@ class ci_login extends toba_ci
 	//---- form_passwd_vencido ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function conf__form_passwd_vencido($form)
+	{
+		$form->set_datos(array());
+	}
+	
 	function evt__form_passwd_vencido__modificacion($datos)
 	{
 		$usuario = $this->s__datos['usuario'];		
 		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
 			//Obtengo el largo minimo de la clave
 			$largo_clave = toba::proyecto()->get_parametro('pwd_largo_minimo', null, false);
-			toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
+			try {
+				toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
 			
-			//Obtengo los dias de validez de la nueva clave
-			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
-			toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
-			toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
+				//Obtengo los dias de validez de la nueva clave
+				$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
+				toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
+				toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
+				$this->es_cambio_contrasenia = true;				//Bandera para el post_eventos
+			} catch(toba_error_pwd_conformacion_invalida $e) {
+				toba::logger()->info($e->getMessage());
+				toba::notificacion()->agregar($e->getMessage(), 'error');
+				return;
+			}
 		} else {
 			throw new toba_error_usuario('La clave ingresada no es correcta');
 		}

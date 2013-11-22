@@ -263,8 +263,8 @@ ef_editable_clave.prototype.constructor = ef_editable_clave;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_clave toba_ef_editable_clave
 	 */
-	function ef_editable_clave(id_form, etiqueta, obligatorio, colapsado)	{
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+	function ef_editable_clave(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg);
 		
 		//Variables para el password strength meter
 		// -- Toggle to true or false, if you want to change what is checked in the password

@@ -49,8 +49,8 @@ class ci_editor extends toba_ci
 	{
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
-		} else {						//Chequeamos que la composicion de la clave sea valida
-			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('pwd_largo_minimo', null, false);
+		} else {						//Chequeamos que la composicion de la clave sea valida			
+			$largo_clave = $this->get_largo_pwd();
 			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
 		}
 		
@@ -61,12 +61,16 @@ class ci_editor extends toba_ci
 		$this->datos('basica')->set($datos);
 	}
 
-	function conf__basica()
+	function conf__basica($form)
 	{
 		$datos = $this->datos('basica')->get();
 		if (isset($datos)) {
 			$datos['clave'] = self::clave_falsa;
 		}
+
+		$largo_clave = $this->get_largo_pwd();		
+		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
+		$form->ef('clave')->set_descripcion("La clave debe tener no menos de $largo_clave caracteres, entre letras mayusculas, minusculas, numeros y simbolos");
 		return $datos;
 	}
 
@@ -105,11 +109,7 @@ class ci_editor extends toba_ci
 	}
 
 	function evt__form_proyectos__modificacion($datos)
-	{
-		/*if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
-			unset($datos['clave']);	
-		}*/		
-		
+	{		
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		foreach ($id as $clave) {
@@ -166,8 +166,7 @@ class ci_editor extends toba_ci
 		if (isset($this->s__proyecto)) {
 			$datos = array();
 			$datos['proyecto'] = $this->s__proyecto;
-			//$datos['clave'] = self::clave_falsa;
-			//-- Perfil funcional -------------------------
+				//-- Perfil funcional -------------------------
 			$grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
 			if (empty($grupo_acc)) {
 				$componente->eliminar_evento('baja');
@@ -245,6 +244,16 @@ class ci_editor extends toba_ci
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
 		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_encriptado, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
+	}
+	
+	protected function get_largo_pwd()
+	{
+		if (isset($this->s__proyecto)) {
+			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('pwd_largo_minimo', null, false);
+		} else {
+			$largo_clave = toba::instancia()->get_largo_minimo_password();
+		}
+		return $largo_clave;
 	}
 }
 ?>

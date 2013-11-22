@@ -189,6 +189,7 @@ class toba_db_tablas_instancia
     20 => 'hora_entrada',
     21 => 'hora_salida',
     22 => 'ip_permitida',
+    23 => 'forzar_cambio_pwd',
   ),
 );
 	}
