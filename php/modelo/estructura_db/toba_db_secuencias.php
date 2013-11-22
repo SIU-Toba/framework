@@ -49,6 +49,8 @@ class toba_db_secuencias
 		$datos['apex_gadgets_seq'] = array('campo' => 'gadget', 'tabla'=> 'apex_gadgets');
 		$datos['apex_puntos_montaje_seq'] = array('campo' => 'id', 'tabla'=> 'apex_puntos_montaje');
 		$datos['apex_objeto_db_columna_fks_seq'] = array('campo' => 'id', 'tabla'=> 'apex_objeto_db_columna_fks');
+		$datos['apex_usuario_pregunta_secreta_seq'] = array('campo' => 'cod_pregunta_secreta', 'tabla'=> 'apex_usuario_pregunta_secreta');
+		$datos['apex_usuario_pwd_usados_seq'] = array('campo' => 'cod_pwd_pasados', 'tabla'=> 'apex_usuario_pwd_usados');
 		return $datos;
 	}
 
