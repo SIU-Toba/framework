@@ -1026,7 +1026,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function actualizar_secuencias()
 	{
 		toba_logger::instancia()->debug('Actualizando SECUENCIAS');
-		$this->manejador_interface->mensaje("Actualizando secuencias", false);		
+		$this->manejador_interface->mensaje("Actualizando secuencias", false);
+		$sec = $this->get_lista_secuencias_basicas();
+		foreach($sec as $seq => $datos) {
+			$this->ejecutar_sql_actualizacion_secuencias(null, $datos, $seq);			
+		}
+		
+		//Ahora actualiza las secuencias alcanzadas por el id de desarrollador
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
 				$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
@@ -1042,6 +1048,24 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
 		}
 		$this->manejador_interface->progreso_fin();
+	}
+	
+	/**
+	 * Devuelve un arreglo con las secuencias en la bd que no estan alcanzadas por el id de desarrollador.
+	 * @return type
+	 * @ignore
+	 */
+	protected function get_lista_secuencias_basicas()
+	{
+		$secbd = array();
+		$sec_archivo = toba_db_secuencias::get_lista();			//Leo las secuencias alcanzadas por el id de desarrollo
+		$tmpsec = $this->get_db()->get_lista_secuencias();		//Recupero todas las secuencias de  la fuente
+		foreach($tmpsec as $fila) {
+			$indx = str_replace('"', '', $fila['nombre']);
+			$secbd[$indx] = $fila;
+		}		
+		 $resultado = array_diff_key($secbd, $sec_archivo);		//Quito las que estan en el archivo
+		 return $resultado;		
 	}
 	
 	function ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq)
@@ -1177,12 +1201,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$sql = sql_array_tablas_drop( catalogo_general::get_tablas() );
 			$this->get_db()->ejecutar( $sql );
 			// Secuencias
-			$secuencias = array_keys( secuencias::get_lista() );
+			$secuencias = array_keys( $this->get_lista_secuencias_basicas() );
 			$sql = sql_array_secuencias_drop( $secuencias );
 			$this->get_db()->ejecutar( $sql );
 			$this->get_db()->cerrar_transaccion();
 			$this->manejador_interface->progreso_fin();
-			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
+			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} eliminado");
 		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
 			throw $e;
