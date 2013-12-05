@@ -18,5 +18,10 @@ class toba_db_mysql extends toba_db
 		return "mysql:host=$this->profile;dbname=$this->base;$puerto";	
 	}
 	
+	function set_encoding($encoding, $ejecutar = true)
+	{
+	
+	}
+	
 }
 ?>

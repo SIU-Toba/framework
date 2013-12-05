@@ -12,14 +12,29 @@ class toba_ei_firma extends toba_ei
 	protected $_ancho;
 	protected $_alto;
 	protected $_motivo_firma = "";
-
+	protected $_mostrar_pdf = true;
+	protected $_pdf_altura = "500px";
+	protected $_multiple = false;
+	protected $_url_pdf_embebido = null;
+	
 	final function __construct($id)
 	{	
 		parent::__construct($id);
-		$this->_ancho = get_var($this->_info_firma['ancho'], '600px');
-		$this->_alto = get_var($this->_info_firma['alto'], '300px');
+		$this->_ancho = get_var($this->_info_firma['ancho'], '500px');
+		$this->_alto = get_var($this->_info_firma['alto'], '120px');
+		if (isset($this->_memoria['dir_actual'])) {
+			$this->_multiple = $this->_memoria['multiple'];
+		}		
 	}
 
+		/**
+	 * Destructor del componente
+	 */
+	function destruir()
+	{
+		$this->_memoria['multiple'] = $this->_multiple;
+		parent::destruir();
+	}	
 	//-------------------------------------------------------------------------------
 	//---- UTIL PARA LA CONSTRUCCIÓN DEL COMPONENTE ---------------------------------
 	//-------------------------------------------------------------------------------
@@ -76,28 +91,55 @@ class toba_ei_firma extends toba_ei
 		$url_jar = toba_recurso::url_toba()."/firmador_pdf/firmador.jar";
 		
 		$destino = array($this->_id);
-		$url = toba::vinculador()->get_url(null, null, array(),array('servicio' => 'ejecutar',
-														 'objetos_destino' => $destino));
 
+		$url_enviar = $this->get_url_enviar_pdf(true);
 		$url_base = $this->get_url_base_actual();
-		$url_descarga = toba::vinculador()->get_url(null, null, array('accion' => 'descargar'),array('servicio' => 'ejecutar',
+		$url_recibir = toba::vinculador()->get_url(null, null, array('accion' => 'recibir'),array('servicio' => 'ejecutar',
 														 'objetos_destino' => $destino), true);
-		$url_descarga = $url_base.$url_descarga;
-		
-		$url_subir = toba::vinculador()->get_url(null, null, array('accion' => 'subir'),array('servicio' => 'ejecutar',
-														 'objetos_destino' => $destino), true);
-		$url_subir = $url_base.$url_subir;
+		$url_recibir = $url_base.$url_recibir;
 
-        echo "<applet  code='ar/gob/onti/firmador/view/FirmaApplet'
-           archive='$url_jar' width='{$this->_ancho}' height='{$this->_alto}' >
-         <param  name='URL_DESCARGA'	 value='$url_descarga' />
-         <param  name='URL_SUBIR'	value='$url_subir' />
-         <param  name='MOTIVO'  value='{$this->_motivo_firma}' />
-         <param  name='CODIGO'  value='$sesion' />
-         <param  name='PREGUNTAS' value='{ \"preguntasRespuestas\": []}' />
-		 <param  name='COOKIE' value='$cookie' />
-		 <param name='codebase_lookup' value='false' />			 
-		</applet>";
+        echo "<applet  id='AppletFirmador'  code='ar/gob/onti/firmador/view/FirmaApplet' scriptable='true''
+				archive='$url_jar' width='{$this->_ancho}' height='{$this->_alto}' >\n";
+		if (! $this->_multiple) {
+			echo "<param  name='URL_DESCARGA'	 value='$url_enviar' />\n";
+		} else {
+			echo "<param  name='MULTIPLE'	 value='true' />\n";
+		}
+		echo "<param  name='URL_SUBIR'	value='$url_recibir' />
+			  <param  name='MOTIVO'  value='{$this->_motivo_firma}' />
+			  <param  name='CODIGO'  value='$sesion' />
+			  <param  name='PREGUNTAS' value='{ \"preguntasRespuestas\": []}' />
+			  <param  name='COOKIE' value='$cookie' />
+			  <param name='classloader_cache' value='false' />
+			  <param name='codebase_lookup' value='false' />			 
+            </applet>
+		";
+		if ($this->_mostrar_pdf) {
+			$this->_url_pdf_embebido = $this->get_url_enviar_pdf(false);
+			$this->_url_pdf_embebido .= '&codigo='.$sesion;
+			if ($this->_multiple) {
+				$texto_alternativo = 'Haga click en los documentos para visualizarlos.';
+			} else {
+				$texto_alternativo = "Parece que no tiene Adobe Reader o soporte PDF en este navegador.</br>Para configurar correctamente instale Adobe Reader y siga <a href='http://helpx.adobe.com/acrobat/using/display-pdf-browser-acrobat-xi.html'>estas instrucciones</a>.";
+			}
+			echo "<div id='pdf' style='display: none; height: {$this->_pdf_altura}; text-align: center'><div style='margin-top: 40px; color: gray'>$texto_alternativo</div></div>";
+		}
+
+	}
+	
+	/**
+	 * 
+	 * @param boolean $usa_url_encode El Applet necesita que la URL este encodeada (por el infame caracter || que usa toba), mientras que JS no lo necesita
+	 * @return string
+	 */
+	function get_url_enviar_pdf($usa_url_encode)
+	{
+		$destino = array($this->_id);
+		$url_base = $this->get_url_base_actual();
+		$url_enviar = toba::vinculador()->get_url(null, null, array('accion' => 'enviar'),array('servicio' => 'ejecutar',
+														 'objetos_destino' => $destino), $usa_url_encode);
+		$url_enviar = $url_base.$url_enviar;
+		return $url_enviar;
 	}
 	
 	function get_url_base_actual() 
@@ -123,10 +165,25 @@ class toba_ei_firma extends toba_ei
 		 $this->_motivo_firma;
 	 }
 	 
+	 function set_multiple($multiple)
+	 {
+		 $this->_multiple = $multiple;
+	 }
+	 
 	 function set_dimension($ancho, $alto)
 	 {
 		 $this->_ancho = $ancho;
 		 $this->_alto = $alto;
+	 }
+	 
+	 function set_mostrar_pdf($mostrar) 
+	 {
+		 $this->_mostrar_pdf = $mostrar;
+	 }
+	 
+	 function set_alto_pdf($alto)
+	 {
+		 $this->_pdf_altura = $alto;
 	 }
 	 
 	 /**
@@ -138,8 +195,8 @@ class toba_ei_firma extends toba_ei
 	{
 		toba::memoria()->desactivar_reciclado();
 		
-		//-- DESCARGAR
-		if ($_GET['accion'] == 'descargar') {
+		//-- ENVIAR
+		if ($_GET['accion'] == 'enviar') {
 			if (! isset($_GET['codigo'])) {
 				header('HTTP/1.1 500 Internal Server Error');
 				throw new toba_error_seguridad("Falta indicar el codigo");
@@ -148,10 +205,17 @@ class toba_ei_firma extends toba_ei
 				header('HTTP/1.1 500 Internal Server Error');
 				throw new toba_error_seguridad("Codigo invalido");   
 			}	
-			
+			$numero_documento = null;
+			if ($this->_multiple) {
+				if (! isset($_GET['id'])) {
+					header('HTTP/1.1 500 Internal Server Error');
+					throw new toba_error_seguridad("Falta indicar el ID del documento a enviar");   
+				}
+				$numero_documento = (int) $_GET['id'];
+			}
 			//Reportar evento al padre
-			$pdf = $this->reportar_evento_interno('enviar_pdf', $this->_memoria['token']);
-			if (isset($pdf) && $nodo !== apex_ei_evt_sin_rpta) {
+			$pdf = $this->reportar_evento_interno('enviar_pdf', $this->_memoria['token'], $numero_documento);
+			if (isset($pdf) && $pdf !== apex_ei_evt_sin_rpta) {
 				//Enviar PDF
 				header("Cache-Control: private");
 				header("Content-type: application/pdf");
@@ -159,13 +223,13 @@ class toba_ei_firma extends toba_ei
 				header("Expires: 0");				
 				echo $pdf;
 			} else {
-				toba::logger()->error("toba_ei_fimar: No se atrapo el evento get_pdf!");
+				toba::logger()->error("toba_ei_fimar: No se atrapo el evento enviar_pdf!");
 			}			
 			return;
 		}
 
-		//-- SUBIR
-		if ($_GET['accion'] == 'subir') {
+		//-- RECIBIR
+		if ($_GET['accion'] == 'recibir') {
 			if (! isset($_POST['codigo'])) {
 				header('HTTP/1.1 500 Internal Server Error');
 				throw new toba_error_seguridad("Falta indicar el codigo");
@@ -177,8 +241,16 @@ class toba_ei_firma extends toba_ei
 			if ($_FILES["md5_fileSigned"]["error"] != UPLOAD_ERR_OK) {
 				error_log("Error uploading file");
 				header('HTTP/1.1 500 Internal Server Error');
-				die;
+				throw new toba_error_seguridad("Error: ".$_FILES["md5_fileSigned"]["error"]);
 			}	
+			$numero_documento = null;
+			if ($this->_multiple) {
+				if (! isset($_POST['id'])) {
+					header('HTTP/1.1 500 Internal Server Error');
+					throw new toba_error_seguridad("Falta indicar el ID del documento a recibir");   
+				}
+				$numero_documento = (int) $_POST['id'];
+			}			
 			$temp = rand();
 			$destino = toba::proyecto()->get_path_temp()."/$temp.pdf";
 			$path = $_FILES['md5_fileSigned']['tmp_name'];
@@ -188,13 +260,15 @@ class toba_ei_firma extends toba_ei
 				return;
 			}			
 			try {
-				$this->reportar_evento_interno('recibir_pdf_firmado', $destino, $this->_memoria['token']);			
+				$this->reportar_evento_interno('recibir_pdf_firmado', $destino, $this->_memoria['token'], $numero_documento);			
 			} catch (Exception $e) {
 				error_log("Error al atender el evento recibir_pdf_firmado");
 				header('HTTP/1.1 500 Internal Server Error');				
 				throw $e;
 			}
-			unlink($destino);
+			if (file_exists($destino)) {
+				unlink($destino);
+			}
 			return;
 		}
 	}
@@ -210,11 +284,28 @@ class toba_ei_firma extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
-		//$dim = toba_js::arreglo($this->get_dimensiones(), false);
 
-		echo $identado."window.{$this->objeto_js} = new ei_firma($id,  '{$this->_submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_firma($id, 
+														'{$this->_submit}', 
+														".($this->_multiple ? 'true' : 'false').");\n";
+
+		echo "
+			function appletLoaded() {
+				{$this->objeto_js}.applet_cargado();
+			}
+			function firmaOk() {
+				{$this->objeto_js}.firma_ok();
+			}
+			if (! {$this->objeto_js}._multiple) {
+				window.onload = function () {
+					{$this->objeto_js}.ver_pdf_inline('{$this->_url_pdf_embebido}');
+				};
+			}			
+		";
+
 	}
 
+	
 	/**
 	 * @ignore
 	 */
@@ -222,6 +313,7 @@ class toba_ei_firma extends toba_ei
 	{
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_firma';
+		$consumo[] = 'utilidades/pdfobject.min';
 		return $consumo;
 	}
 

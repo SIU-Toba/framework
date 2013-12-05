@@ -906,7 +906,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$this->actualizar_version($version);		
 	}
 	
-	private function actualizar_version($version)
+	private static function actualizar_version($version)
 	{
 		$numero = $version->__toString();
 		file_put_contents(self::dir_base()."/VERSION", $numero );

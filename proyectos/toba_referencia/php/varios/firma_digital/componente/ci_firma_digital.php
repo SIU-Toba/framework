@@ -40,8 +40,10 @@ class ci_firma_digital extends toba_ci
 		echo "
 			{$this->objeto_js}.desactivar_boton('finalizar');
 			function firmaOk() {
-				alert('LISTO! Al terminar la firma se puede atrapar la función javascript firmaOk()!');
+				document.getElementById('pdf').style.display = 'none';
 				{$this->objeto_js}.activar_boton('finalizar');
+
+				alert('LISTO! Al terminar la firma se puede atrapar la función javascript firmaOk()!. En este caso se habilita el boton finalizar y se oculta el visor del pdf');
 			}
 		";
 	}
@@ -115,7 +117,6 @@ class ci_firma_digital extends toba_ci
 		header("Content-Disposition:attachment;filename='planilla.pdf");
 		$this->get_datos_persona();
 		echo stream_get_contents($this->datos_persona['planilla_pdf']);
-		die;
 	}
 	
 	

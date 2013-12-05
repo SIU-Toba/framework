@@ -26,9 +26,9 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Firma Digital - Standalone acciones', --nombre
 	NULL, --descripcion
 	'12000003', --punto_montaje
-	'varios/firma_digital/standalone/acciones.php', --actividad_accion
+	'firma_digital/standalone/acciones.php', --actividad_accion
 	'0', --menu
-	NULL, --orden
+	'4', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
