@@ -252,9 +252,17 @@ class ci_login extends toba_ci
 	function evt__form_passwd_vencido__modificacion($datos)
 	{
 		$usuario = $this->s__datos['usuario'];		
-		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
+		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide	
+			//Verifico que no intenta volver a cambiarla antes del periodo permitido
+			$dias_minimos = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', null, false);
+			if (! is_null($dias_minimos)) {
+				if (! toba_usuario::verificar_periodo_minimo_cambio($usuario, $dias_minimos)) {
+					toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
+					return;
+				}
+			}		
 			//Obtengo el largo minimo de la clave
-			$largo_clave = toba::proyecto()->get_parametro('pwd_largo_minimo', null, false);
+			$largo_clave = toba::proyecto()->get_parametro('proyecto', 'pwd_largo_minimo', null, false);
 			try {
 				toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
 			

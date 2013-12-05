@@ -5,6 +5,7 @@ class ci_login extends toba_ci
 	protected $s__datos_openid;
 	protected $en_popup = false;
 	protected $s__item_inicio;
+	private $es_cambio_contrasenia = false;
 	
 	/**
 	 * Guarda el id de la operación original así se hace una redirección una vez logueado
@@ -57,12 +58,48 @@ class ci_login extends toba_ci
 	}	
 	
 	/**
+	 * Elimina los formularios que no se usan segun el tipo de autenticacion indicado en instalacion.ini
+	 */
+	function eliminar_dependencias_no_usadas()
+	{
+		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();	
+		switch($tipo_auth) {
+		case 'openid':
+			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
+				$this->pantalla()->eliminar_dep('datos');
+			}
+			if ($this->pantalla()->existe_dependencia('cas')) {
+				$this	->pantalla()->eliminar_dep('cas');
+			}
+			break;
+		case 'cas':
+			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
+				$this->pantalla()->eliminar_dep('datos');
+			}
+			if ($this->pantalla()->existe_dependencia('openid')) {
+				$this->pantalla()->eliminar_dep('openid');
+			}
+			break;				
+		default:
+			if ($this->pantalla()->existe_dependencia('openid')) {
+				$this->pantalla()->eliminar_dep('openid');
+			}
+			if ($this->pantalla()->existe_dependencia('cas')) {
+				$this	->pantalla()->eliminar_dep('cas');
+			}
+		}	
+	}
+	
+	/**
 	 * 
 	 * @throws toba_reset_nucleo
 	 * @ignore
 	 */
 	function post_eventos()
 	{
+		if ($this->es_cambio_contrasenia) {
+			return;						//Fuerza a que no intente loguear, sino que redirija a la pantalla de login
+		}
 		try {		
 			$this->invocar_autenticacion_por_tipo();
 		} catch (toba_error_autenticacion $e) {
@@ -113,40 +150,7 @@ class ci_login extends toba_ci
 			unset($_SESSION['ingreso_cas']);
 		}	
 	}	
-	
-	/**
-	 * Elimina los formularios que no se usan segun el tipo de autenticacion indicado en instalacion.ini
-	 */
-	function eliminar_dependencias_no_usadas()
-	{
-		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();	
-		switch($tipo_auth) {
-		case 'openid':
-			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
-				$this->pantalla()->eliminar_dep('datos');
-			}
-			if ($this->pantalla()->existe_dependencia('cas')) {
-				$this	->pantalla()->eliminar_dep('cas');
-			}
-			break;
-		case 'cas':
-			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
-				$this->pantalla()->eliminar_dep('datos');
-			}
-			if ($this->pantalla()->existe_dependencia('openid')) {
-				$this->pantalla()->eliminar_dep('openid');
-			}
-			break;				
-		default:
-			if ($this->pantalla()->existe_dependencia('openid')) {
-				$this->pantalla()->eliminar_dep('openid');
-			}
-			if ($this->pantalla()->existe_dependencia('cas')) {
-				$this	->pantalla()->eliminar_dep('cas');
-			}
-		}	
-	}
-	
+		
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
@@ -240,14 +244,38 @@ class ci_login extends toba_ci
 	//---- form_passwd_vencido ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function conf__form_passwd_vencido($form)
+	{
+		$form->set_datos(array());
+	}
+	
 	function evt__form_passwd_vencido__modificacion($datos)
 	{
-		$usuario = $this->s__datos['usuario'];
-		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide			
-			//Obtengo los dias de validez de la nueva clave
-			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
-			toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
-			toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
+		$usuario = $this->s__datos['usuario'];		
+		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide	
+			//Verifico que no intenta volver a cambiarla antes del periodo permitido
+			$dias_minimos = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', null, false);
+			if (! is_null($dias_minimos)) {
+				if (! toba_usuario::verificar_periodo_minimo_cambio($usuario, $dias_minimos)) {
+					toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
+					return;
+				}
+			}		
+			//Obtengo el largo minimo de la clave
+			$largo_clave = toba::proyecto()->get_parametro('proyecto', 'pwd_largo_minimo', null, false);
+			try {
+				toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
+			
+				//Obtengo los dias de validez de la nueva clave
+				$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
+				toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
+				toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
+				$this->es_cambio_contrasenia = true;				//Bandera para el post_eventos
+			} catch(toba_error_pwd_conformacion_invalida $e) {
+				toba::logger()->info($e->getMessage());
+				toba::notificacion()->agregar($e->getMessage(), 'error');
+				return;
+			}
 		} else {
 			throw new toba_error_usuario('La clave ingresada no es correcta');
 		}

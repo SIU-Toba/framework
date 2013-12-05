@@ -249,7 +249,7 @@ class ci_editor extends toba_ci
 	protected function get_largo_pwd()
 	{
 		if (isset($this->s__proyecto)) {
-			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('pwd_largo_minimo', null, false);
+			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('proyecto', 'pwd_largo_minimo', null, false);
 		} else {
 			$largo_clave = toba::instancia()->get_largo_minimo_password();
 		}

@@ -88,7 +88,6 @@ class toba_usuario implements toba_interface_usuario
 		}
 		
 		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario = ". quote($usuario);
-		toba::logger()->debug($sql);
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
 			self::set_clave_usuario($clave_plana, $usuario);
@@ -124,6 +123,12 @@ class toba_usuario implements toba_interface_usuario
 		}
 	}
 	
+	static function verificar_periodo_minimo_cambio($usuario, $periodo)
+	{
+		$claves = toba::instancia()->get_lista_claves_usadas($usuario, $periodo);
+		return empty($claves);
+	}
+		
 	/**
 	 *  Verifica la composicion y largo de una contraseña de usuario, lanza excepcion cuando falla la validacion,
 	 *  de lo contrario retorna true.

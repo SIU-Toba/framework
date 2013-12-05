@@ -235,6 +235,7 @@ class toba_db_tablas_instancia
     1 => 'usuario',
     2 => 'clave',
     3 => 'algoritmo',
+    4 => 'fecha_cambio',
   ),
 );
 	}

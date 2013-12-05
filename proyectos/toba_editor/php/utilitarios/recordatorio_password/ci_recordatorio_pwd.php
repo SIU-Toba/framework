@@ -75,6 +75,15 @@ class ci_recordatorio_pwd extends toba_ci
 
 	function evt__recordame()
 	{
+		//Primero verifico que se haya cumplimentado con el periodo minimo de vida de la contraseña
+		$dias = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', null, false);
+		if (! is_null($dias)) {
+			if (! toba_usuario::verificar_periodo_minimo_cambio($this->s__usuario, $dias)) {
+				toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
+				return;
+			}
+		}
+		
 		//Si llego hasta aca es porque la respuesta funco, sino explota en la modificacion del form        
 		$this->enviar_mail_aviso_cambio();
 		toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela', 'info');

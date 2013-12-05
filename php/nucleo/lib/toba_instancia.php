@@ -419,13 +419,18 @@ class toba_instancia
 			throw new toba_error('Error recuperando información');
 		}
 	}
-	
-	function get_lista_claves_usadas($usuario)
-	{
-		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario ;'; 
+			
+	function get_lista_claves_usadas($usuario, $periodo_tiempo=null)
+	{	
+		$params = array('usuario' => $usuario);		
+		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario '; 		
+		if (! is_null($periodo_tiempo)) {
+			$sql .= ' AND (current_date - fecha_cambio)::integer <= :periodo';			
+			$params['periodo'] = $periodo_tiempo;
+		}
 		try {
 			$id = $this->get_db()->sentencia_preparar($sql);
-			$rs = $this->get_db()->sentencia_consultar($id, array('usuario' => $usuario));
+			$rs = $this->get_db()->sentencia_consultar($id, $params);
 			return $rs; 
 		} catch (toba_error_db $e) {
 			toba::logger()->info($e->getMessage());

@@ -129,6 +129,7 @@ CREATE TABLE apex_usuario_pwd_usados
 	usuario		VARCHAR(60)		NOT NULL, 
 	clave		VARCHAR(128)	NOT NULL, 
 	algoritmo		VARCHAR(10)		NOT NULL,
+	fecha_cambio		DATE		NOT NULL DEFAULT current_date(),
 	CONSTRAINT	apex_usuario_pwd_usados_pk PRIMARY KEY (cod_pwd_pasados), 
 	CONSTRAINT	apex_usuario_pwd_usados_fk_usuario FOREIGN KEY (usuario) REFERENCES apex_usuario (usuario) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE,
 	CONSTRAINT apex_usuario_pwd_usados_uk UNIQUE (usuario, clave)

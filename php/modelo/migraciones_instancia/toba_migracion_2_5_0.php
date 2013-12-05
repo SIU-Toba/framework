@@ -12,6 +12,7 @@ class toba_migracion_2_5_0 extends toba_migracion
 		$sql = array();		
 		
 		$sql[] = 'ALTER TABLE apex_usuario ADD COLUMN forzar_cambio_pwd SMALLINT NOT NULL DEFAULT 0;';
+		$sql[] = 'ALTER TABLE apex_usuario_pwd_usados ADD COLUMN fecha_cambio DATE NOT NULL DEFAULT current_date();';		
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
