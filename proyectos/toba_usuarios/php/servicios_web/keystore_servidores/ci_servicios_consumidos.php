@@ -92,7 +92,7 @@ class ci_servicios_consumidos extends toba_ci
 			$datos['clave_publica'] = toba_modelo_servicio_web::path_clave_publica($proyecto);
 			$form->set_datos($datos);
 		} else {
-			$form->evento('download')->eliminar();
+			$form->evento('download')->anular();
 		}
 	}
 	
