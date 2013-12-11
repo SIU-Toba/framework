@@ -2,7 +2,7 @@
 
 class servicio extends toba_servicio_web
 {
-	function inicializar()
+	function inicializar($parametros=array())
 	{
 		//Agrego la clave publica dinamicamente
 		$carpeta = dirname(__FILE__);
@@ -16,7 +16,7 @@ class servicio extends toba_servicio_web
 							);
 	}
 
-	function get_opciones()
+	static function get_opciones()
 	{
 		$carpeta = dirname(__FILE__);
 		

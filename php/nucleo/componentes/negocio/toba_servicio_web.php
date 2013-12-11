@@ -46,7 +46,7 @@ abstract class toba_servicio_web extends toba_componente
 		return $activo;
 	}
 	
-	function get_opciones()
+	static function get_opciones()
 	{
 		return array();
 	}
