@@ -1,7 +1,7 @@
 <?php
 class serv_sin_seguridad extends toba_servicio_web
 {
-	function get_opciones()
+	static function get_opciones()
 	{
 		return array(
 			'seguro'			=> false,		//Explicitamente se hace publico el servicio
