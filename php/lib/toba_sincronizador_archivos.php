@@ -66,8 +66,10 @@ class toba_sincronizador_archivos
 		if( ! $this->activado ) {
 			return array("El directorio '$this->dir' no existe.");
 		}
-		$this->archivos_agregados = array_diff( $this->archivos_utilizados, $this->archivos_originales );
-		$this->archivos_eliminados = array_diff( $this->archivos_originales, $this->archivos_utilizados );
+		if (is_array($this->archivos_utilizados) && is_array($this->archivos_originales)) {
+			$this->archivos_agregados = array_diff( $this->archivos_utilizados, $this->archivos_originales );
+			$this->archivos_eliminados = array_diff( $this->archivos_originales, $this->archivos_utilizados );
+		}
 		return $this->persistir_cambios();
 	}
 
@@ -116,8 +118,8 @@ class toba_sincronizador_archivos
 			//--Agrega el directorio padre
 			$directorio = dirname($archivo);
 			system("svn add $directorio -N -q");
-			
-			
+
+
 			$cmd = "svn add \"$archivo\"";
 			toba_logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");			
 			system($cmd);
