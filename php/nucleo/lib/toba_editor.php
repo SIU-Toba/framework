@@ -557,7 +557,7 @@ class toba_editor
 		echo "</span>";
 		
 			
-		echo "<div class='div-editor' style='position:absolute; top: 40px;'>";
+		echo "<div class='div-editor' style='position:fixed; top: 85px; left: 1px;'>";
 		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
 			self::mostrar_vinculo($vinculo);
 		}
