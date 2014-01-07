@@ -129,17 +129,6 @@ class comando_instalacion extends comando_toba
 			}
 		}
 		
-		$id_proyecto = '';
-		
-		//--- Si ingreso un proyecto y existe, lo borra
-		if ($id_proyecto != '') {
-			$existe_proyecto = toba_modelo_proyecto::existe($id_proyecto);
-			if ($existe_proyecto && $forzar_instalacion) {
-				toba_manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
-				$existe_proyecto = false;
-			}
-		}
-		
 		//--- Crea la instancia
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
@@ -154,16 +143,8 @@ class comando_instalacion extends comando_toba
 		
 		//-- Carga la instancia
 		$instancia = $this->get_instancia($id_instancia);
-		if (!$instancia->existe_modelo() || $forzar_instalacion) {
-			$instancia->cargar( true );
-		}
-		
-		//--- Crea el proyecto
-		if ($id_proyecto != '' && !$existe_proyecto ) {
-			toba_modelo_proyecto::crear( $instancia, $id_proyecto, array() );
-			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
-		}
-		
+		$instancia->cargar( true );
+
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
