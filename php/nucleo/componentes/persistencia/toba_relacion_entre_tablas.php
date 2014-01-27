@@ -95,6 +95,11 @@ class toba_relacion_entre_tablas
 		return $this->tabla_padre;	
 	}
 	
+	function tabla_hijo()
+	{
+		return $this->tabla_hijo;	
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- CARGA
 	//-------------------------------------------------------------------------------	
