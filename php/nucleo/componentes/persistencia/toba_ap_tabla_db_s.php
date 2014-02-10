@@ -26,8 +26,8 @@ class toba_ap_tabla_db_s extends toba_ap_tabla_db
 
 	protected function get_sql_campos_default($where)
 	{
-		$sql =	"SELECT\n\t" . implode(", \n\t", $this->_insert_campos_default);
-		$sql .= "\nFROM\n\t {$this->_tabla}";
+		$sql = "SELECT\n\t" . implode(", \n\t", $this->_insert_campos_default);
+		$sql .= "\nFROM\n\t " . $this->agregar_schema($this->_tabla);
 		$sql .= "\nWHERE ".implode(' AND ', $where);
 
 		return $sql;
@@ -45,7 +45,7 @@ class toba_ap_tabla_db_s extends toba_ap_tabla_db
 
 	protected function get_from_default()
 	{
-		return $this->_tabla . ' as '. $this->_alias;
+		return $this->agregar_schema($this->_tabla)  . ' as '. $this->_alias;
 	}
 }
 ?>
