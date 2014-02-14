@@ -4,11 +4,11 @@ class pant_armado extends toba_ei_pantalla
 	function generar_layout()
 	{
 		$this->enviar_estilos();
-		echo '<table><tr><td><div style=\'height:400px;overflow:auto\'>';
-		$this->dep('arbol_origen')->generar_html();
-		echo '</div></td><td width="80%">';
+		echo '<table><tr><td width="80%">';
 		$this->dep('form_armado')->generar_html();
-		echo '</td></tr></table>';
+		echo '</td><td><div style=\'height:400px;overflow:auto\'>';
+		$this->dep('arbol_origen')->generar_html();		
+		echo '</div></td></tr></table>';
 	}
 	
 	function get_consumo_javascript()
