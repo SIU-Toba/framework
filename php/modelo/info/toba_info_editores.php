@@ -365,13 +365,15 @@ class toba_info_editores
 			SELECT 
 				proyecto, 
 				item 						as id, 
-				nombre						as descripcion
+				nombre						as descripcion,
+				carpeta
 			FROM apex_item 
 			WHERE
 					proyecto = $proyecto
 				AND $where
 			ORDER BY nombre;
 		";
+		toba::logger()->debug($sql);
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 

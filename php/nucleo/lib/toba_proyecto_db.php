@@ -80,7 +80,7 @@ class toba_proyecto_db
 						pm_contexto						,
 						est.es_css3
 				FROM 	apex_proyecto p 
-							LEFT OUTER JOIN apex_menu m ON (p.menu = m.menu)
+							LEFT OUTER JOIN apex_menu_tipos m ON (p.menu = m.menu)
 							LEFT OUTER JOIN apex_estilo est ON (p.estilo = est.estilo)
 				WHERE	p.proyecto = $proyecto";
 		return $db->consultar_fila($sql);
@@ -241,34 +241,57 @@ class toba_proyecto_db
 	static function get_items_menu($proyecto, $grupos_acceso)
 	{
 		$db = self::get_db();
-		$raiz = $db->quote(self::get_item_raiz($proyecto));
+		$raiz = $db->quote(self::get_item_raiz($proyecto));	
 		if (empty($grupos_acceso)) {
 			//Caso que el usuario no posea grupo de acceso (no_autenticado)
 			$sql_grupo_acceso = "";
 		} else {
 			$grupos_acceso = implode(",", $db->quote($grupos_acceso));
-			$sql_grupo_acceso = "u.usuario_grupo_acc IN ($grupos_acceso) OR";
+			$sql_grupo_acceso = "auga.usuario_grupo_acc IN ($grupos_acceso) OR";
 		}
 		$proyecto = $db->quote($proyecto);
-		$sql = "SELECT DISTINCT
-						i.padre as 		padre,
-						i.carpeta as 	carpeta, 
-						i.proyecto as	proyecto,
-						i.item as 		item,
-						i.nombre as 	nombre,
-						i.orden as 		orden,
-						i.imagen,
-						i.imagen_recurso_origen,
-						i.padre = $raiz as es_primer_nivel
-				FROM 	apex_item i 
-							LEFT OUTER JOIN	apex_usuario_grupo_acc_item u 
-								ON	(	i.item = u.item AND i.proyecto = u.proyecto	)
-				WHERE
-					(i.menu = 1)
-				AND i.item != i.padre	/*no es raiz*/
-				AND	($sql_grupo_acceso i.publico = 1)
-				AND		(i.proyecto = $proyecto)
-				ORDER BY i.padre,i.orden;";
+		$sql = "(
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = $raiz as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	($sql_grupo_acceso ai.publico = 1)
+					AND	(amo.proyecto = $proyecto)
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = $raiz as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	($sql_grupo_acceso ai.publico = 1)
+					AND	(ai.proyecto = $proyecto)
+			) ORDER BY 1, 6";
+		
+		//toba::logger()->debug($sql);
 		return $db->consultar($sql);
 	}	
 

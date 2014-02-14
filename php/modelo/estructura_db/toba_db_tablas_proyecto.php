@@ -43,20 +43,22 @@ class toba_db_tablas_proyecto
 	static function get_lista_permisos()
 	{
 		return array (
-  0 => 'apex_usuario_perfil_datos',
-  1 => 'apex_usuario_perfil_datos_dims',
-  2 => 'apex_usuario_grupo_acc',
-  3 => 'apex_usuario_grupo_acc_miembros',
-  4 => 'apex_usuario_grupo_acc_item',
-  5 => 'apex_permiso_grupo_acc',
-  6 => 'apex_restriccion_funcional',
-  7 => 'apex_grupo_acc_restriccion_funcional',
-  8 => 'apex_restriccion_funcional_ef',
-  9 => 'apex_restriccion_funcional_pantalla',
-  10 => 'apex_restriccion_funcional_evt',
-  11 => 'apex_restriccion_funcional_ei',
-  12 => 'apex_restriccion_funcional_cols',
-  13 => 'apex_restriccion_funcional_filtro_cols',
+  0 => 'apex_menu',
+  1 => 'apex_menu_operaciones',
+  2 => 'apex_usuario_perfil_datos',
+  3 => 'apex_usuario_perfil_datos_dims',
+  4 => 'apex_usuario_grupo_acc',
+  5 => 'apex_usuario_grupo_acc_miembros',
+  6 => 'apex_usuario_grupo_acc_item',
+  7 => 'apex_permiso_grupo_acc',
+  8 => 'apex_restriccion_funcional',
+  9 => 'apex_grupo_acc_restriccion_funcional',
+  10 => 'apex_restriccion_funcional_ef',
+  11 => 'apex_restriccion_funcional_pantalla',
+  12 => 'apex_restriccion_funcional_evt',
+  13 => 'apex_restriccion_funcional_ei',
+  14 => 'apex_restriccion_funcional_cols',
+  15 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
@@ -557,6 +559,53 @@ class toba_db_tablas_proyecto
 );
 	}
 
+	static function apex_menu()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'menu_id',
+  'dump_order_by' => 'proyecto, menu_id',
+  'zona' => 'usuario, item',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'menu_id',
+    2 => 'descripcion',
+    3 => 'tipo_menu',
+  ),
+);
+	}
+
+	static function apex_menu_operaciones()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'menu_id',
+  'dump_order_by' => 'proyecto, menu_id,',
+  'zona' => 'usuario, item',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'menu_id',
+    2 => 'menu_elemento',
+    3 => 'item',
+    4 => 'padre',
+    5 => 'descripcion',
+    6 => 'carpeta',
+  ),
+);
+	}
+
 	static function apex_msg()
 	{
 		return array (
@@ -969,6 +1018,7 @@ class toba_db_tablas_proyecto
     8 => 'hora_salida',
     9 => 'listar',
     10 => 'permite_edicion',
+    11 => 'menu_usuario',
   ),
 );
 	}

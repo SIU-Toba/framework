@@ -25,6 +25,7 @@ CREATE TABLE apex_usuario_grupo_acc
 	hora_salida						time(0) without time	zone NULL,
 	listar							smallint			NULL,
 	permite_edicion					smallint 		NOT NULL 	DEFAULT 1,
+	menu_usuario						VARCHAR(50)	NULL,
 	CONSTRAINT	"apex_usu_g_acc_pk" PRIMARY KEY ("proyecto","usuario_grupo_acc")
 	--CONSTRAINT	"apex_usu_g_acc_fk_niv"	FOREIGN KEY	("nivel_acceso") REFERENCES "apex_nivel_acceso"	("nivel_acceso") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 );

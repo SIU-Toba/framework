@@ -7,6 +7,7 @@ class toba_catalogo_items_menu extends toba_catalogo_items_base
 {
 	protected $usa_niveles = false;
 	
+	//function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())	esta deberia ser la declaracion para E_STRICT
 	function cargar($raiz=null)
 	{
 		if (! is_null($raiz)) {
@@ -31,6 +32,49 @@ class toba_catalogo_items_menu extends toba_catalogo_items_base
 		}
 	}
 
+	function cargar_todo()
+	{
+		$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
+		
+		$grupo = '';
+		$proyecto = toba_contexto_info::get_db()->quote($this->proyecto);
+		$sql = "	SELECT 	i.item as item,
+							i.proyecto as proyecto,
+							i.imagen_recurso_origen,
+							i.imagen,
+							nombre,
+							carpeta,
+							padre,
+							descripcion,
+							ia.usuario_grupo_acc as acceso
+					FROM apex_item i
+						LEFT OUTER JOIN apex_usuario_grupo_acc_item ia
+							ON i.item = ia.item AND i.proyecto = ia.proyecto
+					WHERE 	
+							i.proyecto = $proyecto
+						AND	i.menu = 1
+						AND	(publico IS NULL OR publico = 0)
+						OR i.item =" . quote($this->carpeta_inicial)."
+					ORDER BY i.carpeta, i.orden, i.nombre";
+		toba::logger()->debug($sql);
+		$rs = toba_contexto_info::get_db()->consultar($sql);		
+		$this->items = array();
+		if (!empty($rs)) {
+			foreach ($rs as $fila) {
+				if ($fila['carpeta']) {
+						$obj = new toba_carpeta_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);
+
+					}else{
+						$obj = new toba_item_menu( $fila['nombre'], null, $fila['item'], $fila['padre']);	
+				}				
+				$this->items[$fila['item']] = $obj;
+			}
+			$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
+			$this->mensaje = "";
+			$this->ordenar();
+		}
+	}
+	
 	/**
 	 * Retorna un arreglo con los arboles que componen los hijos de un nodo raiz dado
 	 */

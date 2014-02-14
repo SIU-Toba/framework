@@ -6,7 +6,7 @@
 
 --#################################################################################################
 
-CREATE TABLE	apex_menu
+CREATE TABLE	apex_menu_tipos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: nucleo
@@ -20,7 +20,7 @@ CREATE TABLE	apex_menu
 	descripcion					TEXT	NOT NULL,
 	archivo						TEXT	NOT NULL,
 	soporta_frames				smallint		NULL,
-	CONSTRAINT	"apex_menu_pk" PRIMARY	KEY ("menu")
+	CONSTRAINT	"apex_menu_tipos_pk" PRIMARY	KEY ("menu")
 );
 
 

@@ -397,7 +397,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'SELECT menu, descripcion
-FROM apex_menu;', --carga_sql
+FROM apex_menu_tipos;', --carga_sql
 	'instancia', --carga_fuente
 	NULL, --carga_lista
 	'menu', --carga_col_clave

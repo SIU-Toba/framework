@@ -15,9 +15,9 @@ class toba_menu_css extends toba_menu
 	protected $celda_memoria = 'paralela';
 	protected $menu_enviado = false;
 	
-	function __construct()
+	function __construct($carga_inicial = true)
 	{
-		parent::__construct();
+		parent::__construct($carga_inicial);
 		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
 	}
 	
@@ -75,7 +75,8 @@ class toba_menu_css extends toba_menu
 				<![endif]-->
 			';
 		
-		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		
+		$id_tag = ($this->modo_prueba) ? 'prueba' : 'menu-h';
+		$this->arbol .= "\n<ul id='$id_tag'  class='horizontal'>\n";		
 		//-- Recorro para encontrar la raiz
 		for ($i=0;$i<count($this->items);$i++) {
 			//--- Se recorre el primer nivel
@@ -97,9 +98,10 @@ class toba_menu_css extends toba_menu
 			
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
+			$js = '';
 			if (isset($this->items[$nodo]['js'])) {
 				$js = $this->items[$nodo]['js']; 
-			} else {
+			} elseif (! $this->modo_prueba) {
 				$js = "return toba.ir_a_operacion(\"$proyecto\", \"$item\", false)";
 			}
 			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='#' onclick='$js' title='".$this->items[$nodo]['nombre']."'>";
@@ -156,11 +158,13 @@ class toba_menu_css extends toba_menu
 
 	function mostrar()
 	{
+		$nombre_var = ($this->modo_prueba) ? 'prueba_m': 'horizontals';
+		$id_tag = ($this->modo_prueba) ? 'prueba' : 'menu-h';
 		$this->preparar_arbol();
 		echo $this->arbol;
 		if ($this->hay_algun_item) {
 			toba_js::cargar_consumos_globales(array('basicos/listmenu'));
-			echo toba_js::ejecutar("var horizontals = new simpleMenu('menu-h', 'horizontal');");
+			echo toba_js::ejecutar("var $nombre_var = new simpleMenu('$id_tag', 'horizontal');");
 		}
 		$this->menu_enviado = true;
 	}

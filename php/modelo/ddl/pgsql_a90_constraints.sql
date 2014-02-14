@@ -29,9 +29,9 @@
 	IMMEDIATE;	
 
 
-	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu" 
+	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu_tipos" 
 	FOREIGN KEY ("menu") 
-	REFERENCES	"apex_menu" ("menu") 
+	REFERENCES	"apex_menu_tipos" ("menu") 
 	ON DELETE NO ACTION	
 	ON	UPDATE NO ACTION 
 	DEFERRABLE 

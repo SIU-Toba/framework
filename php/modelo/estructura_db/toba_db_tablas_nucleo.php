@@ -24,7 +24,7 @@ class toba_db_tablas_nucleo
 	static function get_lista()
 	{
 		return array (
-  0 => 'apex_menu',
+  0 => 'apex_menu_tipos',
   1 => 'apex_log_sistema_tipo',
   2 => 'apex_fuente_datos_motor',
   3 => 'apex_recurso_origen',
@@ -120,7 +120,7 @@ class toba_db_tablas_nucleo
 );
 	}
 
-	static function apex_menu()
+	static function apex_menu_tipos()
 	{
 		return array (
   'archivo' => 'pgsql_a01_tablas_nucleo.sql',

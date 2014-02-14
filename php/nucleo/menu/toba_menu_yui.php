@@ -12,8 +12,9 @@ class toba_menu_yui extends toba_menu
 	protected $imagen_nodo ;
 	protected $hay_algun_item = false;
 	
-	function __construct()
+	function __construct($carga_inicial = true)
 	{
+		parent::__construct($carga_inicial);
 		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
 	}
 	
@@ -27,9 +28,7 @@ class toba_menu_yui extends toba_menu
 	
 	function preparar_arbol()
 	{
-
-		$this->items = $this->items_de_menu();
-		$this->arbol .= "\n<div id='menu_principal' class='yuimenubar'>\n";
+		$this->arbol .= "\n<div id='menu_principal' class='yuimenubar' style='position:absolute; top:5px;'>\n";
 		$this->arbol .= "\t<div class='bd'>\n";
 		$this->arbol .= "\t\t<ul>\n";		
 		for ($i=0;$i<count($this->items);$i++) {
@@ -52,9 +51,14 @@ class toba_menu_yui extends toba_menu
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li class='$clase'><a href='$vinculo' " .
+			$this->arbol .= $inden . "<li class='$clase'>";
+			if (! $this->modo_prueba) {
+				$this->arbol .= "<a href='$vinculo' " .
 							"title='".$this->items[$nodo]['nombre']."'>" . 
 							$this->items[$nodo]['nombre']."</a>";
+			} else {
+				$this->arbol .= $this->items[$nodo]['nombre'];
+			}
 			$this->arbol .= $inden . "</li>\n";
 			$this->hay_algun_item = true;
 		} else {

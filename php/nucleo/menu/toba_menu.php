@@ -7,11 +7,14 @@
  */
 abstract class toba_menu
 {
-	protected $items;
+	protected $items = array();
+	protected $modo_prueba = false;
 	
-	function __construct()
+	function __construct($carga_inicial = true)
 	{
-		$this->items = $this->items_de_menu();		
+		if ($carga_inicial) {
+			$this->items = $this->items_de_menu();		
+		}
 	}
 	
 	/**
@@ -80,6 +83,14 @@ abstract class toba_menu
 		if (! $ok) {
 			toba::logger()->warning("Se intento quitar la opción de menú '$id_item', pero la misma no se encuenta en el menú");
 		}
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_modo_prueba()
+	{
+		$this->modo_prueba = true;
 	}
 	
 	

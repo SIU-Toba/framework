@@ -411,6 +411,42 @@ class consultas_instancia
 				AND 	usuario_perfil_datos = $perfil";
 		return toba::db()->consultar($sql);
 	}
+
+	//---------------------------------------------------------------------
+	//------ Items de Menus ----------------------------------------------
+	//---------------------------------------------------------------------
+	static function get_menu_tipos($filtro=array())
+	{
+		$where = array();
+		if (isset($filtro['menu'])) {
+			$where[] = ' menu = '. quote($filtro['menu']);
+		}		
+		$sql = 'SELECT menu,
+					 descripcion,
+					 archivo
+			    FROM	apex_menu_tipos;';
+		
+		if (! empty($where)) {
+			$sql = sql_concatenar_where($sql, $where);			
+		}
+		return toba::db()->consultar($sql);		
+	}
+	
+	static function get_menus_existentes($proyecto) 
+	{
+		$where[] = 'am.proyecto = ' . quote($proyecto);		
+		$sql = 'SELECT	am.menu_id, 
+						am.descripcion, 
+						amt.descripcion as tipo
+			  FROM	apex_menu am
+			  JOIN	apex_menu_tipos amt ON am.tipo_menu = amt.menu
+			';
+		
+		if (! empty($where)) {
+			$sql = sql_concatenar_where($sql, $where);			
+		}
+		return toba::db()->consultar($sql);
+	}
 	
 	//---------------------------------------------------------------------
 	//------ Perfil de Datos ----------------------------------------------
