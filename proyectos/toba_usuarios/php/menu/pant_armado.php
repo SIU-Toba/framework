@@ -23,10 +23,10 @@ class pant_armado extends toba_ei_pantalla
 		echo '<style>
 				.menu {
 						position: relative;
-						background-color: grey;
+						background-color: #FFF;
 						float: right;
 						padding: 3px;
-						border: 1px solid;
+						border: 1px solid #CCC;
 						width: 750px;
 						height: 400px;
 				}		
@@ -34,28 +34,62 @@ class pant_armado extends toba_ei_pantalla
 						padding: 2px;
 				}		
 				.menu-contenedor {
-						background-color: #11F247;
-						border: 1px solid;
-						width: 100px;
-						float:left;
-				}			
-				.menu-item{
-						padding: 5px;
-						border: 1px solid;
-						width: 90px;
-						height: 100%;			
-						position: relative;
+						background-color: #fff;
+						border: 1px dashed #dfdfdf;
+                        padding-left: 10px;
+                        padding-right: 10px;
+						/*width: 100px;*/
 						float: left;
-				}		
-				.menu-subitem{
-						background-color: #FF4247;
-						padding: 2px;
-						border: 1px solid;
-						width: 50px;			
+                        position: relative;
+                        margin-right: 5px;
 				}
+				.menu-item {
+                    border: 1px solid #dfdfdf;
+                    position: relative;
+                    padding: 0 15px;
+                    height: auto;
+                    /*width: 382px;*/
+                    line-height: 30px;
+                    overflow: hidden;
+                    word-wrap: break-word;
+                    background-color: #fafafa;
+                    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+                    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+                    
+                    /*padding: 5px;
+                    width: 90px;
+                    height: 100%;			
+                    position: relative;*/
+                    float: left;
+				}		
+				.menu-subitem {
+                    background-color: #fff;
+                    padding: 4px;
+                    border: 1px dashed #dfdfdf;
+                    font-weight: 600;
+                    font-size: 13px;
+                    width: 300px;
+                    margin-bottom: 10px;
+                    line-height: 20px;
+                    position: relative;
+				}
+                .menu-subitem .titulo {
+                    display: block;
+                    margin-right: 22px;
+                    padding: 0 5px;
+                }
+                .menu-subitem .control {
+                    font-size: 12px;
+                    position: absolute;
+                    right: 8px;
+                    top: 4px;
+                    display: block;
+                }
 				.close-btn{
-						float:right;
-						cursor: pointer;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 5px;
+                    top: 1px;
 				}			
 			</style>';
 	}
