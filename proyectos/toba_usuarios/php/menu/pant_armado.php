@@ -128,11 +128,12 @@ class pant_armado extends toba_ei_pantalla
 
 			newdl = function (id_elem, texto, es_carpeta) {
 				var nuevo = $('<dl/>', { class: 'menu-item', 
-								text: texto,
 								id: id_elem,
 								top: '10px',
 								left: '70px',
 								carpeta: es_carpeta});
+								
+				$('<span/>', {class: 'titulo', text: texto}).appendTo(nuevo);
 
 				nuevo.draggable({ helper:'original', revert: 'invalid'});
 				nuevo.droppable({
@@ -207,15 +208,16 @@ class pant_armado extends toba_ei_pantalla
 					}
 					
 					//Hago un DL para el menu de primer nivel
-					var nuevo = newdl(id_elem, texto, es_carpeta);			
-					contenedor
-						.append($('<span/>', {class: 'close-btn', text: 'X'})
-							.on('click', function() { 
-										var \$this = $(this);
-										var id_elem = \$this.next().attr('id');
-										eliminar_primer_nivel(id_elem);
-										\$this.closest('li').remove();}))
-						.append(nuevo);
+					var nuevo = newdl(id_elem, texto, es_carpeta);
+					
+					var spn_ctrl = $('<span/>', {class: 'control'}).append($('<span/>', {class: 'close-btn', text: 'X'})
+																.on('click', function() { 
+																			var \$this = $(this);
+																			var id_elem = \$this.next().attr('id');
+																			eliminar_primer_nivel(id_elem);
+																			\$this.closest('li').remove();})
+															);					
+					nuevo.append(spn_ctrl).appendTo(contenedor);
 				}
 			});				
 		});";		
