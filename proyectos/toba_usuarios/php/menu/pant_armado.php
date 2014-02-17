@@ -67,10 +67,13 @@ class pant_armado extends toba_ei_pantalla
 			newdt = function(id_elem, texto, id_padre) {				
 				var dt = $('<dt/>', {
 							class: 'menu-subitem',
-							text: texto,
 							id: id_elem, 
 							top: '10px', 
 							left: '50px'});
+
+				$('<span/>', {class: 'titulo', text:texto}).appendTo(dt);
+				
+				var spn_ctrl = $('<span/>', {class: 'control'});
 
 				$('<span/>', {class: 'close-btn', text:'X'})
 					.on('click', function() { 
@@ -82,8 +85,9 @@ class pant_armado extends toba_ei_pantalla
 						\$spn.remove();
 						quitar_subnivel(id_padre, id_subitem);
 						})
-					.appendTo(dt);
+					.appendTo(spn_ctrl);
 				
+				dt.append(spn_ctrl);
 				agregar_subnivel(id_padre, id_elem);	
 				return dt;
 			}
