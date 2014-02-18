@@ -206,6 +206,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					 'apex_restriccion_funcional_pantalla');
 	}
 
+	function get_lista_tablas_menu()
+	{
+		return array( 'apex_menu', 
+				 'apex_menu_operaciones');
+	}
+	
+	
 	/**
 	 * @return toba_estandar_convenciones
 	 */
@@ -636,6 +643,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 			$this->manejador_interface->progreso_avanzar();
 		}
+		
+		//-- Configuración de Menues
+		$tablas = $this->get_lista_tablas_menu();
+		foreach($tablas as $tabla) {
+			$contenido = $this->get_contenido_tabla($tabla);
+			if (trim($contenido) != '') {
+				$this->guardar_archivo($this->get_dir_permisos_proyecto() . '/' .$tabla. '.sql', $contenido);
+			}
+			$this->manejador_interface->progreso_avanzar();
+		}		
 	}
 
 	function exportar_perfiles_produccion()
@@ -672,7 +689,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$xml->guardar($archivo);
 				$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
 			}
-			
+			unset($datos);
 			$this->manejador_interface->progreso_avanzar();
 		}
 
@@ -701,7 +718,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml->set_tablas($datos);
 			$xml->guardar($archivo);
 		}
-		
+		unset($datos);
 		$this->manejador_interface->progreso_avanzar();
 		
 		//--- Restricciones Funcionales
@@ -723,7 +740,26 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml->set_tablas($datos);
 			$xml->guardar($archivo);	
 		}
+		unset($datos);
+		$this->manejador_interface->progreso_avanzar();
 		
+		//-- Configuración de Menues
+		toba_logger::instancia()->debug("Exportación a xml de menues de aplicacion '{$this->identificador}'");
+		$tablas = $this->get_lista_tablas_menu();
+		$datos = array();
+		foreach($tablas as $tabla) {
+			$contenido = $this->get_contenido_tabla($tabla);
+			if (! empty($contenido)) {
+				$datos[$tabla] = $contenido;
+			}			
+		}
+		if (! empty($datos)) {
+			$archivo = $dir_perfiles.'/menues_aplicacion.xml';
+			$xml = new toba_xml_tablas();
+			$xml->set_tablas($datos);
+			$xml->guardar($archivo);			
+		}
+		unset($datos);
 		$this->manejador_interface->progreso_avanzar();
 	}
 	
@@ -1275,19 +1311,28 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("Cargando perfiles propios", false);
 		$todos_errores = array();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_produccion(), '|.*\.xml$|' );
-		
-		//-- Se coloca al inicio el xml con las restricciones.
+		 		
+		//-- Quito el archivo de las restricciones si es que existe
 		$hay_restricciones = false;
-		foreach ($archivos as $indice => $archivo)
-		{
-			$perfil = basename($archivo, '.xml');
+		while (! $hay_restricciones && (FALSE !== current($archivos))) {
+			$actual = current($archivos);
+			$perfil = basename($actual, '.xml');
 			if ($perfil == 'restricciones_funcionales') {
-				$restricciones = array($archivo);
-				unset($archivos[$indice]);
+				$restricciones = array($actual);
+				unset($archivos[key($archivos)]);
 				$hay_restricciones = true;
 			}
+			next($archivos);
 		}
 		
+		//--Reordeno los archivos restantes para que los grupos queden al final
+		if (! rsort($archivos, SORT_LOCALE_STRING)) {
+			$msg = "ATENCION! Se produjo un error al recuperar los archivos pertenecientes a los perfiles de '{$this->identificador}'.";
+			$this->manejador_interface->separador();
+			$this->manejador_interface->error($msg);
+		 }		
+		
+		 //-- Si hay restricciones las agrego al ppio.
 		if ($hay_restricciones) {
 			$archivos = array_merge($restricciones, $archivos);
 		}

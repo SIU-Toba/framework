@@ -317,3 +317,49 @@ CREATE TABLE apex_restriccion_funcional_filtro_cols
 	
 );
 --#################################################################################################
+
+
+CREATE TABLE apex_menu
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: permisos
+--: dump_order_by: proyecto, menu_id
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						VARCHAR(15)		NOT NULL, 
+	menu_id						VARCHAR(50)		NOT NULL, 
+	descripcion					TEXT			NULL, 
+	tipo_menu					varchar(40)		NOT NULL,
+	CONSTRAINT	"apex_menu_pk"	PRIMARY KEY ("proyecto", "menu_id"), 
+	CONSTRAINT "apex_menu_proyecto_fk"		FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_menu_menu_tipos_fk"	FOREIGN KEY ("tipo_menu") REFERENCES "apex_menu_tipos" ("menu") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--#################################################################################################
+
+CREATE SEQUENCE apex_menu_operaciones_seq	INCREMENT 1	MINVALUE	1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_menu_operaciones
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: permisos
+--: dump_order_by: proyecto, menu_id
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						VARCHAR(15)		NOT NULL, 
+	menu_id						VARCHAR(50)		NOT NULL, 
+	menu_elemento				BIGINT			NOT NULL DEFAULT nextval('"apex_menu_operaciones_seq"'::text),
+	item							VARCHAR(60)		NULL, 
+	padre						VARCHAR(60)		NULL,
+	descripcion					TEXT			NULL,
+	carpeta						SMALLINT		NOT NULL DEFAULT 0,
+	CONSTRAINT	"apex_menu_operaciones_pk"	PRIMARY KEY ("proyecto", "menu_id", "menu_elemento"), 
+	CONSTRAINT "apex_menu_operaciones_apex_proyecto_fk"	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT "apex_menu_operaciones_item_fk"	FOREIGN KEY ("proyecto", "item") REFERENCES "apex_item" ("proyecto", "item") ON DELETE NO ACTION  ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE, 
+	CONSTRAINT "apex_menu_operaciones_auto_fk" FOREIGN KEY ("proyecto", "menu_id", "menu_elemento") REFERENCES "apex_menu_operaciones" ON DELETE NO ACTION  ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE 
+);
