@@ -34,34 +34,26 @@ class pant_armado extends toba_ei_pantalla
 						padding: 2px;
 				}		
 				.menu-contenedor {
-						background-color: #fff;
-						border: 1px dashed #dfdfdf;
-                        padding-left: 10px;
-                        padding-right: 10px;
-						/*width: 100px;*/
-						float: left;
-                        position: relative;
-                        margin-right: 5px;
+                    float: left;
+                    position: relative;
+                    margin-right: 5px;
 				}
 				.menu-item {
                     border: 1px solid #dfdfdf;
                     position: relative;
-                    padding: 0 15px;
+                    padding: 0 25px 0 15px;
                     height: auto;
-                    /*width: 382px;*/
                     line-height: 30px;
                     overflow: hidden;
                     word-wrap: break-word;
                     background-color: #fafafa;
                     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
                     box-shadow: 0 1px 1px rgba(0,0,0,.04);
-                    
-                    /*padding: 5px;
-                    width: 90px;
-                    height: 100%;			
-                    position: relative;*/
                     float: left;
 				}		
+                .menu-item.carpeta {
+                    background-color: #FBEDBF;
+                }
 				.menu-subitem {
                     background-color: #fff;
                     padding: 4px;
@@ -78,11 +70,11 @@ class pant_armado extends toba_ei_pantalla
                     margin-right: 22px;
                     padding: 0 5px;
                 }
-                .menu-subitem .control {
+                .control {
                     font-size: 12px;
                     position: absolute;
-                    right: 8px;
-                    top: 4px;
+                    right: 5px;
+                    top: 0;
                     display: block;
                 }
 				.close-btn{
