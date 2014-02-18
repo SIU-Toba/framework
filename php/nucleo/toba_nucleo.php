@@ -441,7 +441,8 @@ class toba_nucleo
 			'/php/lib/toba_sql.php',
 			'/php/nucleo/lib/toba_db.php',
 			'/php/nucleo/lib/interface/toba_ei.php',
-			'/php/nucleo/lib/toba_debug.php'
+			'/php/nucleo/lib/toba_debug.php', 
+			'/php/contrib/lib/array_column.php'
 		);
 	}
 	
