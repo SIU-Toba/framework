@@ -376,16 +376,28 @@ class consultas_instancia
 		return toba::db()->consultar($sql);
 	}
 
-	static function get_lista_grupos_acceso_proyecto($proyecto)
+	static function get_lista_grupos_acceso($filtro)
 	{
-		$proyecto = quote($proyecto);
+		$where = array();
+		if (isset($filtro['proyecto'])) $where[] = 'proyecto = '.quote($filtro['proyecto']);
+		if (isset($filtro['grupo'])) $where[] = 'usuario_grupo_acc = '.quote($filtro['grupo']);
+		if (isset($filtro['menu' ])) $where[] = 'menu_usuario = '.quote($filtro['menu']);
+		
 		$sql = "SELECT 	proyecto,
 						usuario_grupo_acc,
 						nombre,
 						descripcion
-				FROM 	apex_usuario_grupo_acc
-				WHERE 	proyecto = $proyecto";
-		return toba::db()->consultar($sql);
+				FROM 	apex_usuario_grupo_acc";
+		if (! empty($where)) {
+			$sql = sql_concatenar_where($sql, $where);
+		}
+		toba::logger()->debug($sql);
+		return toba::db()->consultar($sql);	
+	}
+	
+	static function get_lista_grupos_acceso_proyecto($proyecto)
+	{
+		return self::get_lista_grupos_acceso(array('proyecto' => $proyecto));
 	}
 	
 	static function get_descripcion_grupo_acceso($proyecto, $grupo)
@@ -436,7 +448,7 @@ class consultas_instancia
 	{
 		$where[] = 'am.proyecto = ' . quote($proyecto);		
 		$sql = 'SELECT	am.menu_id, 
-						am.descripcion, 
+						coalesce(am.descripcion, \'Sin nombre\') as descripcion, 
 						amt.descripcion as tipo
 			  FROM	apex_menu am
 			  JOIN	apex_menu_tipos amt ON am.tipo_menu = amt.menu
