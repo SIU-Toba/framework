@@ -4,7 +4,7 @@ class pant_armado extends toba_ei_pantalla
 	function generar_layout()
 	{
 		$this->enviar_estilos();
-		echo '<table><tr><td width="80%">';
+		echo '<table><tr><td>';
 		$this->dep('form_armado')->generar_html();
 		echo '</td><td><div style=\'height:400px;overflow:auto\'>';
 		$this->dep('arbol_origen')->generar_html();		
@@ -34,54 +34,54 @@ class pant_armado extends toba_ei_pantalla
 						padding: 2px;
 				}		
 				.menu-contenedor {
-                    float: left;
-                    position: relative;
-                    margin-right: 5px;
+						float: left;
+						position: relative;
+						margin-right: 5px;
 				}
 				.menu-item {
-                    border: 1px solid #dfdfdf;
-                    position: relative;
-                    padding: 0 25px 0 15px;
-                    height: auto;
-                    line-height: 30px;
-                    overflow: hidden;
-                    word-wrap: break-word;
-                    background-color: #fafafa;
-                    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
-                    box-shadow: 0 1px 1px rgba(0,0,0,.04);
-                    float: left;
+						border: 1px solid #dfdfdf;
+						position: relative;
+						padding: 0 25px 0 15px;
+						height: auto;
+						line-height: 30px;
+						overflow: hidden;
+						word-wrap: break-word;
+						background-color: #fafafa;
+						-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+						box-shadow: 0 1px 1px rgba(0,0,0,.04);
+						float: left;
 				}		
-                .menu-item.carpeta {
-                    background-color: #FBEDBF;
-                }
-				.menu-subitem {
-                    background-color: #fff;
-                    padding: 4px;
-                    border: 1px dashed #dfdfdf;
-                    font-weight: 600;
-                    font-size: 13px;
-                    width: 300px;
-                    margin-bottom: 10px;
-                    line-height: 20px;
-                    position: relative;
+				.menu-item.carpeta {
+						background-color: #FBEDBF;
 				}
-                .menu-subitem .titulo {
-                    display: block;
-                    margin-right: 22px;
-                    padding: 0 5px;
-                }
-                .control {
-                    font-size: 12px;
-                    position: absolute;
-                    right: 5px;
-                    top: 0;
-                    display: block;
-                }
+				.menu-subitem {
+						background-color: #fff;
+						padding: 4px;
+						border: 1px dashed #dfdfdf;
+						font-weight: 600;
+						font-size: 13px;
+						width: 300px;
+						margin-bottom: 10px;
+						line-height: 20px;
+						position: relative;
+				}
+				.menu-subitem .titulo {
+						display: block;
+						margin-right: 22px;
+						padding: 0 5px;
+				}
+				.control {
+						font-size: 12px;
+						position: absolute;
+						right: 5px;
+						top: 0;
+						display: block;
+				}
 				.close-btn{
-                    cursor: pointer;
-                    position: absolute;
-                    right: 5px;
-                    top: 1px;
+						cursor: pointer;
+						position: absolute;
+						right: 5px;
+						top: 1px;
 				}			
 			</style>';
 	}
@@ -107,8 +107,8 @@ class pant_armado extends toba_ei_pantalla
 							id_padre = \$spn.closest('dl').attr('id'),	//<dl> padre												
 							\$dt = \$spn.closest('dt'),
 							id_subitem = \$dt.attr('id');				//<dt> submenu
-						\$dt.remove();
 						\$spn.remove();
+						\$dt.remove();
 						quitar_subnivel(id_padre, id_subitem);
 						})
 					.appendTo(spn_ctrl);
@@ -119,14 +119,15 @@ class pant_armado extends toba_ei_pantalla
 			}
 
 			newdl = function (id_elem, texto, es_carpeta) {
-				var nuevo = $('<dl/>', { class: 'menu-item', 
+				var clase = (es_carpeta)? 'menu-item carpeta' : 'menu-item';
+				var nuevo = $('<dl/>', { class: clase, 
 								id: id_elem,
 								top: '10px',
 								left: '70px',
 								carpeta: es_carpeta});
 								
 				$('<span/>', {class: 'titulo', text: texto}).appendTo(nuevo);
-
+				
 				nuevo.draggable({ helper:'original', revert: 'invalid'});
 				nuevo.droppable({
 						greedy:true,
@@ -152,7 +153,7 @@ class pant_armado extends toba_ei_pantalla
 							//Creo el submenu
 							var id_padre = \$this.attr('id'),	//<dl> destino
 								id_elem = \$ui.attr('id'),		//<dl> origen														
-								dt = newdt(id_elem, \$ui.text(), id_padre);	
+								dt = newdt(id_elem, \$ui.find('span.titulo').text(), id_padre);	
 								
 							\$this.append(dt);
 							\$ui.closest('li').remove();									
@@ -205,7 +206,7 @@ class pant_armado extends toba_ei_pantalla
 					var spn_ctrl = $('<span/>', {class: 'control'}).append($('<span/>', {class: 'close-btn', text: 'X'})
 																.on('click', function() { 
 																			var \$this = $(this);
-																			var id_elem = \$this.next().attr('id');
+																			var id_elem = \$this.closest('dl').attr('id');
 																			eliminar_primer_nivel(id_elem);
 																			\$this.closest('li').remove();})
 															);					

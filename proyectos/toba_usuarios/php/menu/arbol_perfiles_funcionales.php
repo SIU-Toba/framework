@@ -66,7 +66,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		//Diferencio la salida segun corresponda		
 		if (! $solo_contenido) { 
 			$estilo_li = '';							//Configuracion del estilo del nodo
-			$clase_li = 'ei-arbol-nodo menu-origen';			
+			$clase_li = (! $es_raiz) ? 'ei-arbol-nodo menu-origen': 'ei-arbol-nodo';			
 			if (method_exists($nodo, 'get_estilo_css_li')) {
 				$estilo_li .= $nodo->get_estilo_css_li();
 			}

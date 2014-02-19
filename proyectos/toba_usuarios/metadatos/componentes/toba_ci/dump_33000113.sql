@@ -254,7 +254,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'33000113', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'90%', --ancho
+	NULL, --ancho
 	NULL, --alto
 	NULL, --posicion_botonera
 	NULL, --tipo_navegacion
@@ -382,7 +382,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_armado', --identificador
 	'3', --orden
 	'Armado de menu', --etiqueta
-	NULL, --descripcion
+	'Arrastre los elementos desde el arbol hacia la izquierda.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -439,7 +439,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_descripciones', --identificador
 	'4', --orden
 	'Descripciones', --etiqueta
-	'Clickee un elemento y edite su descripción.', --descripcion
+	'Clickee un elemento, edite su descripción y luego presione Enter', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

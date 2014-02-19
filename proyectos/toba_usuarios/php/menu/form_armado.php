@@ -22,8 +22,8 @@ class form_armado extends toba_ei_formulario
 	{
 		$this->generar_html_ef('nivel_inicial');	
 		echo '<div id="contenedor_final" class="menu">
-			<ul style="list-style: none outside none;">&nbsp;</ul>
-		</div>';		
+				<ul style="list-style: none outside none;">&nbsp;</ul>
+			</div>';		
 	}
 	
 	protected function generar_input_ef($ef)
