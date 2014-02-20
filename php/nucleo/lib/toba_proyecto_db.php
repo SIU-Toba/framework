@@ -291,7 +291,7 @@ class toba_proyecto_db
 					AND	(ai.proyecto = $proyecto)
 			) ORDER BY 1, 6";
 		
-		//toba::logger()->debug($sql);
+		toba::logger()->debug($sql);
 		return $db->consultar($sql);
 	}	
 

@@ -49,6 +49,10 @@ class toba_migracion_2_6_0 extends toba_migracion
 					CONSTRAINT "apex_menu_operaciones_auto_fk" FOREIGN KEY ("proyecto", "menu_id", "menu_elemento") REFERENCES "apex_menu_operaciones" ON DELETE NO ACTION  ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE 
 				);';
 
+		$sql[] = 'ALTER TABLE apex_usuario_grupo_acc  ADD CONSTRAINT "apex_usuario_grupo_acc_menu_fk" 
+				FOREIGN KEY (proyecto, menu_usuario) REFERENCES apex_menu (proyecto, menu_id) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
+		$this->elemento->get_db()->ejecutar($sql);
+		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
 	}

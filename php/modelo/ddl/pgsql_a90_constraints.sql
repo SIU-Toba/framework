@@ -56,6 +56,15 @@
 	INITIALLY
 	IMMEDIATE;
 
+	ALTER TABLE apex_usuario_grupo_acc  ADD CONSTRAINT "apex_usuario_grupo_acc_menu_fk" 
+	FOREIGN KEY ("proyecto", "menu_usuario") 
+	REFERENCES "apex_menu" ("proyecto", "menu_id") 
+	ON UPDATE NO ACTION 
+	ON DELETE NO ACTION 
+	DEFERRABLE 
+	INITIALLY 
+	IMMEDIATE;
+
 	ALTER TABLE apex_usuario_proyecto ADD CONSTRAINT "apex_usu_proy_fk_proyecto"
 	FOREIGN KEY ("proyecto")
 	REFERENCES "apex_proyecto" ("proyecto")
