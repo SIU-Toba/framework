@@ -11,7 +11,7 @@ class toba_estandar_convenciones
 	{
 		$this->warnings = $warnings;
 		if ($estandar == 'Toba') {
-			$this->estandar = toba_dir().'/doc/convenciones/Toba';
+			$this->estandar = toba_dir().'/php/convenciones/Toba';
 			$this->estandar = toba_manejador_archivos::path_a_plataforma($this->estandar);
 		} else {
 			$this->estandar = $estandar;
