@@ -157,7 +157,7 @@ class ci_fuentes extends toba_ci
 	
 	function evt__form_auditoria__crear_auditoria()
 	{
-		$instalacion = toba_modelo_catalogo::get_instalacion();		
+		$instalacion = toba_modelo_catalogo::instanciacion()->get_instalacion();
 		$instancia = toba_editor::get_id_instancia_activa();
 		$proyecto_cargado = toba_editor::get_proyecto_cargado();
 
@@ -248,7 +248,7 @@ class ci_fuentes extends toba_ci
 	//----------------------------------------------------------------------------------------------------------
 	function persistir_archivo_conf($id_base, $datos)
 	{
-		$instalacion = toba_modelo_catalogo::get_instalacion(null);
+		$instalacion = toba_modelo_catalogo::instanciacion()->get_instalacion(null);
 		$bases = $instalacion->get_lista_bases();
 		$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base', 'puerto', 'schema', 'encoding', 'conexiones_perfiles')); 
 		if (isset($datos['conexiones_perfiles']) || is_null($datos['conexiones_perfiles'])) {
