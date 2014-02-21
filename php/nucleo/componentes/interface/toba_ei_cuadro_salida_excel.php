@@ -214,47 +214,64 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		$titulos = $this->excel_get_titulos();
 		if ($es_total_general) {
 			$estilo_base = $this->_excel_totales_opciones;
+			$this->_objeto_toba_salida->separacion(1);
 		} elseif ($nivel > 0) {
 			$estilo_base = $this->_excel_totales_cc_1_opciones;
 		} else {
 			$estilo_base = $this->_excel_totales_cc_0_opciones;
-		}
-		$formateo = $this->_cuadro->get_instancia_clase_formateo('excel');
-		$datos = array();
-		$estilos = array();
-		if ($es_total_general) {
-			$this->_objeto_toba_salida->separacion(1);
-		}
+		}				
 
-		$columnas = $this->_cuadro->get_columnas();
-		$cortes_control = $this->_cuadro->get_cortes_control();
 		//Creo una hoja nueva para el total general
 		if ($es_total_general && $this->_excel_cortar_hoja_cc_0) {
 			$this->_objeto_toba_salida->crear_hoja('Totales');
 			$agregar_titulos = true;
 		}
+		//Armo los datos de la fila para enviar a la tabla
+		list($datos, $estilos, $titulos) = $this->get_fila_totales($nodo, $titulos, $estilo_base, $es_total_general);			
+		if (! $agregar_titulos) {
+			$titulos = null;
+		}
+		$this->_objeto_toba_salida->tabla(array($datos), $titulos, $estilos);
+	}
+
+	/**
+	 *  Define como sera la fila de totales, devuelve un arreglo especificando como se calcula cada columna
+	 * @param array $nodo
+	 * @param array $columnas
+	 * @param array $titulos
+	 * @param string $estilo_base
+	 * @param boolean $es_total_general
+	 * @return array
+	 * @ignore
+	 */
+	protected function get_fila_totales($nodo,  $titulos, $estilo_base, $es_total_general)
+	{
+		$datos = array();
+		$estilos = array();
+		$columnas = $this->_cuadro->get_columnas();				
+		$cortes_control = $this->_cuadro->get_cortes_control();
+		$formateo = $this->_cuadro->get_instancia_clase_formateo('excel');
 		$a = 0;
 		foreach(array_keys($columnas) as $clave) {
-			$estilos[$clave]['estilo'] = $estilo_base;
-			$estilos[$clave]['borrar_estilos_nulos'] = 1;
+			$estilos[$clave] = array('estilo' => $estilo_base, 'borrar_estilos_nulos' => 1);
 			//--Acumulador
 			if (isset($nodo['acumulador'][$clave])) {
-				if ($this->_excel_usar_formulas) {
-					//-- Calcular la sumatoria de celdas
-					if ($es_total_general) {
-						$rangos = array();
+				//Calcula el valor de la celda
+				if ($this->_excel_usar_formulas) {		//Usando formulas
+					$rangos = array();					
+					if (! $es_total_general) {
+						$rangos = $this->excel_get_rangos($nodo, $a);
+					} else {
 						foreach ($cortes_control as $nodo_cc) {
 							$rangos = array_merge($rangos, $this->excel_get_rangos($nodo_cc, $a));
 						}
-						$formula = '=SUM'.implode(' + SUM', $rangos);
-					} else {
-						$rangos = $this->excel_get_rangos($nodo, $a);
-						$formula = '=SUM'.implode(' + SUM', $rangos);
 					}
+					$formula = '=SUM'.implode(' + SUM', $rangos);
 				} else {
 					//-- En lugar de hacer una formula, incluir directamente el importe
 					$formula = $nodo['acumulador'][$clave];
 				}
+				
 				//La columna lleva un formateo?
 				$estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($columnas[$clave]['estilo']));
 				if(isset($columnas[$clave]["formateo"])){
@@ -263,20 +280,17 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 					if (isset($estilo)) {
 						$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
 					}
-				}
-				$datos[$clave] = $formula;
+				}				
+				$datos[$clave] = $formula;				
 			} else {
 				$titulos[$clave] = null;
 				$datos[$clave] = null;
 			}
 			$a++;
-		}		
-		if (! $agregar_titulos) {
-			$titulos = null;
 		}
-		$this->_objeto_toba_salida->tabla(array($datos), $titulos, $estilos);
+		return array($datos, $estilos, $titulos);		
 	}
-
+	
 	/**
 	 * Grafica la sumarizacion de los datos
 	 * @param array $datos
