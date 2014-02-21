@@ -61,7 +61,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'toba_usuarios', --fuente_datos
 	'1', --permite_actualizacion_automatica
 	NULL, --esquema
-	NULL  --esquema_ext
+	'public'  --esquema_ext
 );
 
 ------------------------------------------------------------
@@ -210,6 +210,23 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 33
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2206', --objeto
+	'33000192', --col_id
+	'menu_usuario', --columna
+	'E', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	NULL  --tabla
+);
+--- FIN Grupo de desarrollo 33
 
 --- INICIO Grupo de desarrollo 45
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (

@@ -271,7 +271,12 @@ class ci_navegacion_perfiles extends toba_ci
 			$perfiles = implode(', ', $ciclo);
 			throw new toba_error_usuario("Existe un ciclo en la asignación de las membresías entre los perfiles: <b>$perfiles</b>.<br><br>Por favor quite alguna membresía.");
 		}
-	}		
+	}
+	
+	function get_menues_existentes()
+	{
+		return consultas_instancia::get_menus_existentes($this->s__filtro['proyecto']);
+	}
 }
 
 ?>
