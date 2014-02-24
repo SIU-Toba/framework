@@ -12,7 +12,7 @@ class toba_asistente_adhoc extends toba_asistente
 	}
 	
 	
-	function ejecutar()
+	function ejecutar($id_item, $retorno_opciones_generacion=null, $con_transaccion  = true)
 	{
 		try {
 			abrir_transaccion();
