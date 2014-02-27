@@ -133,6 +133,24 @@ class Structures_Graph_Manipulator_AcyclicTest {
         return Structures_Graph_Manipulator_AcyclicTest::_isAcyclic($graph);
     }
     /* }}} */
+    
+    /* isAcyclic {{{ */
+    /**
+    *
+    * isAcyclic returns true if a graph contains no cycles, false otherwise.
+    *
+    * @return	boolean	 true iff graph is acyclic
+    * @access	public
+    */
+    function getCycle(&$graph) {
+        // We only test graphs
+        if (!is_a($graph, 'Structures_Graph')) 
+            throw new Exception('Structures_Graph_Manipulator_AcyclicTest::isAcyclic received an object that is not a Structures_Graph');
+        if (!$graph->isDirected()) return false; // Only directed graphs may be acyclic
+
+        return Structures_Graph_Manipulator_AcyclicTest::_isAcyclic($graph, true);
+    }
+    /* }}} */    
 }
 /* }}} */
 ?>

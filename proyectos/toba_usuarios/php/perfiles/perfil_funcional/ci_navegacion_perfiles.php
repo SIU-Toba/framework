@@ -243,6 +243,7 @@ class ci_navegacion_perfiles extends toba_ci
 			$nodo->setData($perfil);
 			$nodos[$perfil['usuario_grupo_acc']] =& $nodo;
 			$grafo->addNode($nodo);
+			unset($nodo);									//Anulo el nodo, de otra manera sobre escribe todos con los valores del ultimo setData (weird)
 		}
 		
 		//Relaciones
@@ -260,7 +261,6 @@ class ci_navegacion_perfiles extends toba_ci
 	{
 		$tester = new Structures_Graph_Manipulator_AcyclicTest();
 		$grafo = $this->get_grafo();
-		
 		$aciclico = $tester->isAcyclic($grafo);
 		if (! $aciclico) {
 			$ciclo = array();
