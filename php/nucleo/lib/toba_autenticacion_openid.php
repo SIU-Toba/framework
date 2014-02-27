@@ -175,6 +175,11 @@ class toba_autenticacion_openid  implements toba_autenticable
 		return false;
 	}
 	
+	function verificar_logout()
+	{
+		
+	}
+	
 	protected function iniciar_pedido($url=null) 
 	{
 		global $_POIDSY;

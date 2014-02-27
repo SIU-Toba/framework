@@ -81,24 +81,29 @@ class consultas
 		return consultar_fuente($sql);
 	}	
 	
-	static function get_persona_datos($persona)
+	static function get_persona_datos($id_persona)
 	{
-		$persona = quote($persona);
-		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona WHERE id={$persona['id']}";
-		$rs = consultar_fuente($sql);
-		if (! empty($rs)) {
-			return current($rs);
-		}
-		return $rs;
+		$sql = "SELECT
+			id,
+			nombre,
+			fecha_nac,
+			planilla_pdf_firmada,
+			(imagen IS NOT NULL) as tiene_imagen
+		FROM ref_persona WHERE id = ".quote($id_persona);
+		return toba::db()->consultar_fila($sql);
 	}
 	
-	static function get_persona_nombre($persona)
+	static function get_persona_datos_zona($persona)
 	{
-		if (isset($persona)) {
-			$datos = self::get_persona_datos(array('id' => $persona));
-		}
+		return self::get_persona_datos($persona['id']);
+	}
+	
+	
+	static function get_persona_nombre($id_persona)
+	{
+		$datos = self::get_persona_datos($id_persona);
 		
-		if (! empty($datos)) {
+		if ($datos !== false) {
 			return $datos['nombre'];
 		} else {
 			return '';	

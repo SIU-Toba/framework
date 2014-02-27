@@ -29,7 +29,7 @@ class toba_instalacion
 
 	private function __construct($recargar)
 	{
-		$this->memoria =& toba::manejador_sesiones()->segmento_info_instalacion();
+		$this->memoria =& toba_manejador_sesiones::segmento_info_instalacion();
 		if(!$this->memoria || $recargar) {
 			$archivo = toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini';
 			if (file_exists($archivo)) {
@@ -62,6 +62,19 @@ class toba_instalacion
 			return $this->memoria['autenticacion'];
 		} else {
 			return 'toba';
+		}
+	}	
+	
+		
+	/**
+	* Retorna el metodo de autenticacion toba|ldap|openid
+	*/
+	function get_session_name()
+	{
+		if (isset($this->memoria['session_name'])) {
+			return $this->memoria['session_name'];
+		} else {
+			return 'TOBA_SESSID';
 		}
 	}	
 	

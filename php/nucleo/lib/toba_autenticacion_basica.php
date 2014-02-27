@@ -35,5 +35,10 @@ class toba_autenticacion_basica implements toba_autenticable
 	{	
 		//Definicion para completar API.
 	}
+	
+	function verificar_logout()
+	{
+		
+	}
 }
 ?>

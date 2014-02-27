@@ -34,6 +34,12 @@ class ci_login extends toba_ci
 				toba::notificacion()->agregar($e->getMessage());
 			}
 		}
+		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();
+		if (in_array($tipo_auth, array('cas','saml'))) {
+			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba()) {
+				$this->evt__cas__ingresar();
+			}
+		}	
 	}
 	
 	function conf__login()
@@ -73,6 +79,7 @@ class ci_login extends toba_ci
 			}
 			break;
 		case 'cas':
+		case 'saml':
 			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
 				$this->pantalla()->eliminar_dep('datos');
 			}
@@ -85,7 +92,7 @@ class ci_login extends toba_ci
 				$this->pantalla()->eliminar_dep('openid');
 			}
 			if ($this->pantalla()->existe_dependencia('cas')) {
-				$this	->pantalla()->eliminar_dep('cas');
+				$this->pantalla()->eliminar_dep('cas');
 			}
 		}	
 	}
@@ -140,12 +147,12 @@ class ci_login extends toba_ci
 			$usuario = (isset($this->s__datos['usuario'])) ? $this->s__datos['usuario'] : '';
 			$clave = (isset($this->s__datos['clave'])) ? $this->s__datos['clave'] : '';
 
-			if ($tipo_auth == 'cas') {
+			if (in_array($tipo_auth, array('cas','saml'))) {
 				toba::manejador_sesiones()->get_autenticacion()->usar_login_basico();
 			}			
 			toba::manejador_sesiones()->login($usuario, $clave);
 
-		} elseif ($tipo_auth == 'cas'  && isset($_SESSION['ingreso_cas'])) {						//El control por session es para que no redireccione automaticamente
+		} elseif (in_array($tipo_auth, array('cas','saml')) && isset($_SESSION['ingreso_cas'])) {						//El control por session es para que no redireccione automaticamente
 			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
 			unset($_SESSION['ingreso_cas']);
 		}	

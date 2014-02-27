@@ -403,6 +403,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		copy(toba_dir(). '/php/modelo/var/smtp.ini',	self::dir_base().'/smtp.ini');
 		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
 		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
+		copy(toba_dir(). '/php/modelo/var/cas.ini', 	self::dir_base().'/cas.ini');		
+		copy(toba_dir(). '/php/modelo/var/saml.ini', 	self::dir_base().'/saml.ini');
 		
 		//Se genera archivo configuracion openssl
 		$template = file_get_contents(toba_dir(). '/php/modelo/var/openssl.ini');
@@ -584,7 +586,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->agregar_entrada( 'url', $url );
 		$ini->agregar_entrada( 'es_produccion', $es_produccion);
-		$ini->agregar_entrada( 'autenticacion', 'toba  ;Disponibles: toba|openid|ldap');		
+		$ini->agregar_entrada( ';autenticacion', 'toba|openid|ldap|cas|saml');
+		$ini->agregar_entrada( ';session_name', 'TOBA_SESSID');		
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');
 		}

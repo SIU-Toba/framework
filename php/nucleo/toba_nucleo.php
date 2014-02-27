@@ -149,6 +149,23 @@ class toba_nucleo
 	}	
 
 	/**
+	 * Punto de entrada http-REST al nucleo
+	 */
+	function acceso_rest()
+	{
+		try {
+			$this->iniciar_contexto_ejecucion();
+			$toba_rest = new toba_rest();
+			$toba_rest->ejecutar();
+			$this->finalizar_contexto_ejecucion();
+		} catch (Exception $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+		}
+		toba::logger()->guardar();
+	}
+
+	/**
 	 * Punto de entrada desde la consola al nucleo
 	 */	
 	function acceso_consola($instancia, $proyecto, $item)

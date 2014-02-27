@@ -11,7 +11,7 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 	NULL, --descripcion
 	'operaciones_simples/consultas.php', --consulta_archivo
 	'consultas', --consulta_clase
-	'get_persona_datos', --consulta_metodo
+	'get_persona_datos_zona', --consulta_metodo
 	'12000003'  --punto_montaje
 );
 INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo, punto_montaje) VALUES (

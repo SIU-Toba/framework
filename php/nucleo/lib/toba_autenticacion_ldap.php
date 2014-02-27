@@ -99,6 +99,11 @@ class toba_autenticacion_ldap implements toba_autenticable
 	{
 		//Definicion para completar API.
 	}	
+	
+	function verificar_logout()
+	{
+		
+	}
 }
 
 ?>

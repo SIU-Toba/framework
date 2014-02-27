@@ -23,3 +23,10 @@ INSERT INTO apex_servicio_web (proyecto, servicio_web, descripcion, param_to, pa
 	'http://desarrollos.siu.edu.ar/toba_referencia_trunk/servicios.php/serv_sin_seguridad', --param_to
 	'0'  --param_wsa
 );
+INSERT INTO apex_servicio_web (proyecto, servicio_web, descripcion, param_to, param_wsa) VALUES (
+	'toba_referencia', --proyecto
+	'rest_localhost', --servicio_web
+	NULL, --descripcion
+	NULL, --param_to
+	'0'  --param_wsa
+);

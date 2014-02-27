@@ -70,6 +70,11 @@ class toba_autenticacion_cas  implements  toba_autenticable
 		phpCAS::logout();
 		exit;	
 	}
+	
+	function verificar_logout()
+	{
+		
+	}
 		
 	function verificar_clave_vencida($id_usuario)
 	{

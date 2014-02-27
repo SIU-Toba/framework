@@ -3,7 +3,6 @@ define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesi
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
 
-define('apex_sesion_nombre', 'TOBA_SESSID');
 
 /**
  * Maneja los segmentos de memoria y el proceso de creacion de sesiones
@@ -33,14 +32,15 @@ class toba_manejador_sesiones
 
 	private function __construct()
 	{
+		define('TOBA_DIR', toba_nucleo::toba_dir());
 		if (PHP_SAPI != 'cli') {
 			if (session_id() != '') {
 				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
 			}
-			session_name(apex_sesion_nombre);
+
+			session_name(toba::instalacion()->get_session_name());
 			session_start();
 		}
-		define('TOBA_DIR', toba_nucleo::toba_dir());
 		$this->instancia = toba_instancia::get_id();
 		$this->proyecto = toba_proyecto::get_id();
 		if(!isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
@@ -154,9 +154,13 @@ class toba_manejador_sesiones
 				case 'openid':
 					$this->set_autenticacion(new toba_autenticacion_openid());
 					break;
-				case 'cas' :
+				case 'cas':
 					$this->set_autenticacion(new toba_autenticacion_cas());
 					break;
+				case 'saml':
+
+					$this->set_autenticacion(new toba_autenticacion_saml());
+					break;				
 				default:												//tipo == 'toba'
 					$this->set_autenticacion(new toba_autenticacion_basica());
 					break;					
@@ -635,6 +639,9 @@ class toba_manejador_sesiones
 				throw new toba_error_autorizacion("Se exedio el tiempo maximo de sesion ($maximo m.)");
 			}
 		}
+		
+		//--Controla que la autenticacion siga presente (caso CAS y SAML)
+		$this->get_autenticacion()->verificar_logout();
 	}	
 
 	private function cerrar_sesion($observaciones=null)
@@ -881,7 +888,7 @@ class toba_manejador_sesiones
 	//---  ESPACIOS de MEMORIA  ----------------------------------------
 	//------------------------------------------------------------------
 
-	function & segmento_info_instalacion()
+	static function & segmento_info_instalacion()
 	{
 		if (!isset($_SESSION[TOBA_DIR]['instalacion'])) {
 			$_SESSION[TOBA_DIR]['instalacion'] = array();

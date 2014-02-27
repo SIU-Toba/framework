@@ -492,6 +492,7 @@ class toba_proyecto_db
 						proyecto,
 						servicio_web,
 						descripcion,
+						tipo,
 						param_to,
 						param_wsa					
 					FROM apex_servicio_web

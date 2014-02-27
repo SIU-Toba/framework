@@ -21,6 +21,7 @@ CREATE TABLE apex_servicio_web
   proyecto 			VARCHAR(15)		NOT NULL,
   servicio_web			VARCHAR(50)		NOT NULL,
   descripcion			TEXT			NULL,
+  tipo				TEXT			NOT NULL default 'soap',
   param_to			TEXT			NULL,				--url del servicio
   param_wsa			SMALLINT		NOT NULL DEFAULT 0,		--usar WSA?		 
   CONSTRAINT "apex_servicio_web_pk" PRIMARY KEY("proyecto", "servicio_web"),
