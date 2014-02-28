@@ -1267,8 +1267,9 @@ class toba_db_tablas_proyecto
     0 => 'proyecto',
     1 => 'servicio_web',
     2 => 'descripcion',
-    3 => 'param_to',
-    4 => 'param_wsa',
+    3 => 'tipo',
+    4 => 'param_to',
+    5 => 'param_wsa',
   ),
 );
 	}
