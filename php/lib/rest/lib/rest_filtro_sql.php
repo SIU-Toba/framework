@@ -6,18 +6,21 @@ use rest\rest;
 
 class rest_filtro_sql
 {
+    protected $conexion;
 	protected $campos = array();
 	
 	function __construct()
 	{
-		
+		$this->conexion = rest::app()->db;
 	}
 	
 	
 	function agregar_campo($alias_qs, $alias_sql = NULL)
 	{
 //		$filtro->agregar_campo("pers.nombre", rest::request()->get("nombre"));
-		
+		if($alias_sql === NULL){
+            $alias_sql = $alias_qs;
+        }
 		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql);
 	}
 	
@@ -40,7 +43,7 @@ class rest_filtro_sql
 		if (! empty($clausulas)) {
 			return "\t\t".implode("\n\t$separador\t", $clausulas);
 		} else {
-			return '1=1';
+			return '1 = 1';
 		}		
 	}
 	
@@ -59,6 +62,9 @@ class rest_filtro_sql
 			$page = rest::request()->get("page");
 			if (isset($page) && is_numeric($page)) {
 				$page = (int) $page;
+                if(!$page){
+                    throw new rest_error(400, "Parámetro 'page' invalido. Se esperaba un valor mayor o igual que 1 y se recibio '$page'");
+                }
 				$offset =  ($page-1) * $limit;
 				$sql_limit .= " OFFSET ".$offset;
 			}
@@ -80,7 +86,7 @@ class rest_filtro_sql
 		}
 		$sql_order_by = array();
 		$get_campos = explode(",", $get_order);		
-			\toba::logger()->var_dump($get_order);			
+//		rest::app()->logger->var_dump($get_order);
 		
 		foreach ($get_campos as $get_campo) {
 			$get_campo = trim($get_campo);
@@ -107,32 +113,44 @@ class rest_filtro_sql
 	{
 		switch ($condicion) {
 			case 'entre':
-				return $campo_sql.' BETWEEN '.quote($valor).' AND '.quote($valor2);		
+				return $campo_sql.' BETWEEN '.$this->quote($valor).' AND '.$this->quote($valor2);		
 			case 'es_mayor_que':
-				return $campo_sql.' > '.quote($valor);
+				return $campo_sql.' > '.$this->quote($valor);
 			case 'desde';
 			case 'es_mayor_igual_que':
-				return $campo_sql.' >= '.quote($valor);
+				return $campo_sql.' >= '.$this->quote($valor);
 			case 'es_menor_que':
-				return $campo_sql.' < '.quote($valor);			
+				return $campo_sql.' < '.$this->quote($valor);			
 			case 'es_menor_igual_que':
 			case 'hasta':
-				return $campo_sql.' <= '.quote($valor);			
+				return $campo_sql.' <= '.$this->quote($valor);			
 			case 'es_igual_a':
-				return $campo_sql.' = '.quote($valor);			
+				return $campo_sql.' = '.$this->quote($valor);			
 			case 'es_distinto_de':
-				return $campo_sql.' != '.quote($valor);			
+				return $campo_sql.' <> '.$this->quote($valor); //o !=, pero internamente se convierte a <>
 			case 'contiene':
-				return $campo_sql.' ILIKE '.quote('%'.$valor.'%');			
+				return $campo_sql.' ILIKE '.$this->quote('%'.$valor.'%');			
 			case 'no_contiene':
-				return $campo_sql.' NOT ILIKE '.quote('%'.$valor.'%');			
+				return $campo_sql.' NOT ILIKE '.$this->quote('%'.$valor.'%');			
 			case 'comienza_con':
-				return $campo_sql.' ILIKE '.quote($valor.'%');			
+				return $campo_sql.' ILIKE '.$this->quote($valor.'%');			
 			case 'termina_con':
-				return $campo_sql.' ILIKE '.quote('%'.$valor);
+				return $campo_sql.' ILIKE '.$this->quote('%'.$valor);
 			default:
 				throw new rest_error(400, "Parámetro '$campo_qs' invalido. No es valida la condicion '$condicion'");				
 		}
 	}
+
+    protected function quote($dato){
+        if (! is_array($dato)) {
+            return $this->conexion->quote($dato);
+        } else {
+            $salida = array();
+            foreach (array_keys($dato) as $clave) {
+                $salida[$clave] = $this->quote($dato[$clave]);
+            }
+            return $salida;
+        }
+    }
 }
 

@@ -6,6 +6,7 @@ class ci_cliente_rest extends toba_ci
 	protected $dump_pedido;
 	protected $dump_respuesta;
 	protected $rs_personas;
+	protected $imagen_persona;
 	protected $cant_personas;
 	protected $s__orden;
 	protected $s__filtro;
@@ -41,10 +42,12 @@ class ci_cliente_rest extends toba_ci
 			'url'		=> "<a style='font-size: 16px' href='".$this->dump_url."'>".urldecode($this->dump_url)."</a>",
 			'pedido'	=> "<pre>".$this->dump_pedido."</pre>",
 			'respuesta' => "<pre>".$this->dump_respuesta."</pre>"
-			
 		);
-		$form->set_datos($datos);
-		
+        if(isset($this->imagen_persona)){ //muestro solo la imagen porque el texto es muy largo
+            $img = "<br/><img width='400px' src='data:image/png;base64,{$this->imagen_persona}'<br/>";
+            $datos['respuesta'] = $img;
+        }
+        $form->set_datos($datos);
 	}
 	
 	function conf()
@@ -238,8 +241,49 @@ class ci_cliente_rest extends toba_ci
 			throw new toba_error($e);
 		}
 	}
-	
-	//-----------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------
+    //----  PANT_IMAGEN  ----------------------------------------------------------
+    //-----------------------------------------------------------------------------
+
+    function evt__imagen__put_imagen($datos){
+
+        if (isset($datos['imagen'])) {
+            $path = $this->mover_a_directorio_propio($datos['imagen']);
+            $imagen = file_get_contents($path, FILE_BINARY);
+            $img_para_ws = base64_encode($imagen);
+            $mensaje = array('imagen' => $img_para_ws);
+            $cliente = $this->get_cliente_rest();
+
+            $request = $cliente->put('personas/'.$datos['persona'].'/imagen', null, json_encode($mensaje));
+
+            try {
+                $response = $request->send();
+                $this->debug($request, $response);
+                toba::notificacion()->info("Persona actualizada");
+            } catch (Exception $e) {
+                throw new toba_error($e);
+            }
+        }else {
+            toba::notificacion()->info("Debe escoger una imagen para usar esta acción");
+        }
+    }
+
+    function evt__imagen__get_imagen($datos){
+        $cliente = $this->get_cliente_rest();
+        $request = $cliente->get('personas/'.$datos['persona'] .'?con_imagen=1');
+        try {
+            $response = $request->send();
+            $this->debug($request, $response);
+            $rs_persona = $response->json();
+            $this->imagen_persona = $rs_persona['imagen'];
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
+
+    }
+
+    //-----------------------------------------------------------------------------
 	//---- Utilidades  -----------------------------------------------------------
 	//------------------------------------------------------------------------------
 	
@@ -257,8 +301,8 @@ class ci_cliente_rest extends toba_ci
 		$html .= "<br><a target='logger' href='$url_servicio'>$img Ver .php del Servicio</a>";
 		$url_ejemplos = 'http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/Rest';
 		$html .= "<br>Documentación de <a target='_blank' href='$url_ejemplos'>servicios REST en toba</a></div>";
-		$html .= $this->pantalla()->get_descripcion();		
-		
+		$html .= $this->pantalla()->get_descripcion();
+
 		$html .= "<style type='text/css'>
 			pre { background-color: #ccc; padding: 5px; border: 1px solid gray; color: #333; }
 		</style>";
@@ -270,8 +314,14 @@ class ci_cliente_rest extends toba_ci
 		$estilo = 'style="background-color: white; border: 1px solid gray; padding: 5px;"';		
 		return  "<pre $estilo>".htmlentities($valor).'</pre>';
 	}
-	
-	
-		
-	
+
+    protected function mover_a_directorio_propio($archivo)
+    {
+        $nombre_archivo = $archivo['name'];
+        $img = toba::proyecto()->get_www_temp($nombre_archivo);
+        move_uploaded_file($archivo['tmp_name'], $img['path']);
+        return $img['path'];
+    }
+
+
 }

@@ -12,10 +12,12 @@ class ruteador {
 	 * @var lector_recursos_archivo
 	 */
 	protected $lector;
+    protected $instanciador;
 
-	function __construct($lector)
+	function __construct($lector, $instanciador)
 	{
 		$this->lector = $lector;
+        $this->instanciador = $instanciador;
 	}
 
 
@@ -23,7 +25,7 @@ class ruteador {
 
 		$partes_url = explode('/', $url);
 
-		$instanciador = new rest_instanciador();
+		$instanciador = $this->instanciador;
 		//colleccion/id/colleccion...
 		$colecciones = array();
 		$parametros = array();
@@ -44,52 +46,54 @@ class ruteador {
 			throw new \Exception("No se encuentra el recurso para $url. Ruta mal formada?"); //cambiar
 		}
 
-		$accion = strtolower($method);
-
-		//si hay path faltante lo resuelve en un metodo get_recurso1_recurso2
-		$split_by = array_search(basename($clase, '.php'), $colecciones);
-
-		if (false !== $split_by && count($colecciones) > ($split_by +1) ) {
-			$path_faltante = array_slice($colecciones, $split_by +1);
-			$accion .= '_' . implode('_', $path_faltante);
-		}
 
         $instanciador->clase = $clase;
-        //$es_alias = $this->procesar_alias($colecciones, $parametros, $instanciador);
 
-        //Apunta a la coleccion
+
+        //se invoca la accion tipica
+        $accion = $this->get_accion_path($method, $clase, $colecciones, $parametros);
+        $instanciador->accion = $accion;
+        $instanciador->parametros = $parametros;
+
+        if ($instanciador->existe_metodo($accion)){        //chequear que exista la accion?
+            return $instanciador;
+        }
+
+        // Se checkea si matchea con un alias
         if(count($colecciones) > count($parametros)){
-            $accion .=  self::COLLECTION_SUFFIX;
+            $alias = array_pop($colecciones);
+        }else {
+            $alias = array_pop($parametros);
         }
-		//chequear que exista la accion?
 
-		$instanciador->accion = $accion;
-		$instanciador->parametros = $parametros;
-		return $instanciador;
-	}
-
-    /**
-     * @param $colecciones
-     * @param $parametros
-     * @param $instanciador
-     * @return mixed
-     */
-    protected function procesar_alias($colecciones, $parametros, rest_instanciador $instanciador)
-    {
-        $posible_accion = $instanciador->accion;
-        //Apunta a la coleccion
-        if (count($colecciones) > count($parametros) - 1) {
-            $posible_accion .= self::COLLECTION_SUFFIX;
-        }
-        $posible_accion .= '__' . end($parametros);
+        $posible_accion = $this->get_accion_path($method, $clase, $colecciones, $parametros);;
+        $posible_accion .= '__' . $alias;
 
         if ($instanciador->existe_metodo($posible_accion)) {
-            array_pop($parametros);
             $instanciador->accion = $posible_accion;
             $instanciador->parametros = $parametros;
-            return true;
+            return $instanciador;
         }
-        return false;
+        throw new \Exception("No se encuentra el recurso para $url. Ruta mal formada?");
+	}
+
+
+    protected function get_accion_path($metodo, $clase, $colecciones, $parametros)
+    {
+        $accion = strtolower($metodo);
+        //si hay path faltante lo resuelve en un metodo get_recurso1_recurso2
+        $hay_path_por_resolver = array_search(basename($clase, '.php'), $colecciones);
+
+        if (false !== $hay_path_por_resolver && count($colecciones) > ($hay_path_por_resolver + 1)) {
+            $path_faltante = array_slice($colecciones, $hay_path_por_resolver + 1);
+            $accion .= '_' . implode('_', $path_faltante);
+        }
+
+        //Apunta a la coleccion
+        if (count($colecciones) == count($parametros) + 1) {
+            $accion .= self::COLLECTION_SUFFIX;
+        }
+        return $accion;
     }
 
 

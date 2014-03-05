@@ -31,8 +31,9 @@ class personas
     function get($id_persona)
     {
 		//toba::logger()->debug("Usuario: " . rest::app()->usuario->get_usuario());
+        $incluir_imagen = !!rest::request()->get('con_imagen', 0);
 		$modelo = new modelo_persona($id_persona);
-        $fila = $modelo->get_datos();
+        $fila = $modelo->get_datos($incluir_imagen);
         rest::response()->get($fila);
     }
 
@@ -47,6 +48,27 @@ class personas
         $datos = rest::request()->get_body_json();
 		$modelo = new modelo_persona($id_persona);
 		$ok = $modelo->update($datos);
+        if(!$ok){
+            rest::response()->not_found();
+        }else{
+            rest::response()->put();
+        }
+
+    }
+
+    /**
+     * Esto es un alias. Si bien se aleja del REST puro, se puede utilizar para destacar
+     * una operación o proveer un acceso simplificado a operaciones frecuentes.
+     * Se consume en PUT /personas/{id}/imagen.
+     * @summary Modificar datos de la persona.
+     * @param_body $persona Persona  [required] los datos a editar de la persona
+     * @errors 400 No se pudo encontrar a la persona
+     */
+    function put__imagen($id_persona)
+    {
+        $datos = rest::request()->get_body_json();
+        $modelo = new modelo_persona($id_persona);
+        $ok = $modelo->update_imagen($datos);
         if(!$ok){
             rest::response()->not_found();
         }else{

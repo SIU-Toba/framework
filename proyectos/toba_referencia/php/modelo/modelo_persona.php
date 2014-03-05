@@ -85,6 +85,18 @@ class modelo_persona
 		$sql = "UPDATE ref_persona SET nombre = ".quote($datos['nombre'])." WHERE id = ".quote($this->id);
 		return toba::db()->ejecutar($sql);
 	}
+
+    function update_imagen($datos){
+        if(isset($datos['imagen'])){
+            $imagen = $datos['imagen'];
+            $imagen = quote($imagen); //
+            //desde aca se podría guardar a un archivo o manipular como cualquier imagen
+            //en este caso, las fotos de la persona se guardan en la base de datos
+            $sql = "UPDATE ref_persona SET imagen = $imagen WHERE id = ".quote($this->id);
+            return toba::db()->ejecutar($sql);
+        }
+        return null;
+    }
 	
 	function delete()
 	{
@@ -92,16 +104,22 @@ class modelo_persona
         return toba::db()->ejecutar($sql);
 	}
 	
-	function get_datos()
+	function get_datos($incluir_imagen = false)
 	{
+        $imagen = ($incluir_imagen)? 'imagen,': '';
 		$sql = "SELECT
 					id,
 					nombre,
 					fecha_nac,
 					planilla_pdf_firmada,
+					$imagen
 					(imagen IS NOT NULL) as tiene_imagen
 				FROM ref_persona WHERE id = ".quote($this->id);
-		return toba::db()->consultar_fila($sql);
+		$fila = toba::db()->consultar_fila($sql);
+        if($incluir_imagen && $fila['imagen']){
+            $fila['imagen'] = stream_get_contents($fila['imagen']);
+        }
+        return $fila;
 	}
 	
 	

@@ -13,9 +13,9 @@ use rest\lib\logger;
 use rest\lib\logger_vacio;
 use rest\lib\rest_error;
 use rest\lib\rest_error_interno;
+use rest\lib\rest_instanciador;
 use rest\lib\ruteador;
 use rest\lib\Set;
-use rest\seguridad\autenticacion\autenticacion_api_key;
 use rest\seguridad\autenticacion\rest_error_autenticacion;
 use rest\seguridad\autorizacion\autorizacion_anonima;
 use rest\seguridad\autorizacion\rest_error_autorizacion;
@@ -120,7 +120,7 @@ class rest
 
         // Ruteador default
         $this->container->singleton('router', function ($c) {
-            $r = new ruteador($c->lector_recursos);
+            $r = new ruteador($c->lector_recursos, new rest_instanciador());
             return $r;
         });
 

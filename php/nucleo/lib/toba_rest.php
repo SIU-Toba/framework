@@ -102,6 +102,10 @@ class toba_rest
                 throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic]");
         }
 
+        $app->container->singleton('db', function () {
+            return toba::db();
+        });
+
     }
 
     protected function get_conf()

@@ -10,7 +10,7 @@ use rest\lib\rest_error;
  */
 class respuesta_rest extends respuesta
 {
-    protected $not_found_message = 'No se pudo encontrar el recurso en el servidor';
+    protected static $not_found_message = 'No se pudo encontrar el recurso en el servidor';
 
     /**
      * GET de un recurso - Devuelve 200 si es existoso.
@@ -25,7 +25,7 @@ class respuesta_rest extends respuesta
 			$this->data = $data;
 			$this->status = 200;
 		}else{
-            throw new rest_error(404, $this->not_found_message);
+            throw new rest_error(404, self::$not_found_message);
 		}
 		return $this;
 	}
@@ -42,7 +42,7 @@ class respuesta_rest extends respuesta
 			$this->data = $data;
 			$this->status = 201; //created
 		}else{
-            $this->not_found($this->not_found_message, $errores);
+            $this->not_found(self::$not_found_message, $errores);
 
 		}
 		return $this;
@@ -79,7 +79,7 @@ class respuesta_rest extends respuesta
     public function not_found($mensaje = '', $errores = array())
     {
         if($mensaje == ''){
-            $mensaje = $this->not_found_message;
+            $mensaje = self::$not_found_message;
         }
         throw new rest_error(404, $mensaje, $errores);
     }
