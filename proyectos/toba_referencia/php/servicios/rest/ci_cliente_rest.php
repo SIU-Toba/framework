@@ -106,6 +106,19 @@ class ci_cliente_rest extends toba_ci
 			throw new toba_error($e);
 		}
 	}
+
+    function evt__get__personas_alias()
+    {
+        $cliente = $this->get_cliente_rest();
+        $request = $cliente->get('personas/confoto');
+        try {
+            $response = $request->send();
+            $this->debug($request, $response);
+            $this->rs_personas = array($response->json());
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
+    }
 		
 	//-----------------------------------------------------------------------------
 	//----  PANT_POST  -------------------------------------------------------------
@@ -255,7 +268,7 @@ class ci_cliente_rest extends toba_ci
             $mensaje = array('imagen' => $img_para_ws);
             $cliente = $this->get_cliente_rest();
 
-            $request = $cliente->put('personas/'.$datos['persona'].'/imagen', null, json_encode($mensaje));
+            $request = $cliente->put('personas/'.$datos['persona'], null, json_encode($mensaje));
 
             try {
                 $response = $request->send();

@@ -47,28 +47,11 @@ class personas
     {
         $datos = rest::request()->get_body_json();
 		$modelo = new modelo_persona($id_persona);
-		$ok = $modelo->update($datos);
-        if(!$ok){
-            rest::response()->not_found();
-        }else{
-            rest::response()->put();
+        if(isset($datos['imagen'])){
+            $ok = $modelo->update_imagen($datos);
+        }else {
+            $ok = $modelo->update($datos);
         }
-
-    }
-
-    /**
-     * Esto es un alias. Si bien se aleja del REST puro, se puede utilizar para destacar
-     * una operación o proveer un acceso simplificado a operaciones frecuentes.
-     * Se consume en PUT /personas/{id}/imagen.
-     * @summary Modificar datos de la persona.
-     * @param_body $persona Persona  [required] los datos a editar de la persona
-     * @errors 400 No se pudo encontrar a la persona
-     */
-    function put__imagen($id_persona)
-    {
-        $datos = rest::request()->get_body_json();
-        $modelo = new modelo_persona($id_persona);
-        $ok = $modelo->update_imagen($datos);
         if(!$ok){
             rest::response()->not_found();
         }else{
@@ -136,6 +119,25 @@ class personas
 		$cantidad = modelo_persona::get_cant_personas($where);
 		rest::response()->get($personas);
 		rest::response()->add_headers(array('Cantidad-Registros' => $cantidad));		
+    }
+
+    /**
+     * Esto es un alias. Si bien se aleja del REST puro, se puede utilizar para destacar
+     * una operación o proveer un acceso simplificado a operaciones frecuentes.
+     * Se consume en GET /personas/confoto.
+     * @summary Retorna aquellas personas que tienen la foto cargada
+     */
+    function get_list__confoto()
+    {
+        $filtro = new rest_filtro_sql();
+        $limit = $filtro->get_sql_limit();
+        $order_by = $filtro->get_sql_order_by();
+        $where = "imagen <> ''";
+        $personas = modelo_persona::get_personas($where, $order_by, $limit);
+        $cantidad = modelo_persona::get_cant_personas($where);
+        rest::response()->get($personas);
+        rest::response()->add_headers(array('Cantidad-Registros' => $cantidad));
+
     }
 
     /**

@@ -87,15 +87,11 @@ class modelo_persona
 	}
 
     function update_imagen($datos){
-        if(isset($datos['imagen'])){
-            $imagen = $datos['imagen'];
-            $imagen = quote($imagen); //
-            //desde aca se podría guardar a un archivo o manipular como cualquier imagen
-            //en este caso, las fotos de la persona se guardan en la base de datos
-            $sql = "UPDATE ref_persona SET imagen = $imagen WHERE id = ".quote($this->id);
-            return toba::db()->ejecutar($sql);
-        }
-        return null;
+        $imagen = base64_decode($datos['imagen']);
+
+        $sentencia = toba::db()->sentencia_preparar("UPDATE ref_persona SET imagen = ? WHERE id = ".quote($this->id));
+        toba::db()->sentencia_agregar_binarios($sentencia, array($imagen));
+        return toba::db()->sentencia_ejecutar($sentencia);
     }
 	
 	function delete()
@@ -117,7 +113,7 @@ class modelo_persona
 				FROM ref_persona WHERE id = ".quote($this->id);
 		$fila = toba::db()->consultar_fila($sql);
         if($incluir_imagen && $fila['imagen']){
-            $fila['imagen'] = stream_get_contents($fila['imagen']);
+            $fila['imagen'] = base64_encode(stream_get_contents($fila['imagen']));
         }
         return $fila;
 	}

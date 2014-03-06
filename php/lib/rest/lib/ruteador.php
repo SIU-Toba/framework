@@ -49,6 +49,20 @@ class ruteador {
 
         $instanciador->clase = $clase;
 
+        // Se checkea si matchea con un alias primero
+        if(count($colecciones) == count($parametros)){
+            $posibles_params = $parametros;
+            $alias = array_pop($posibles_params); // recurso1/param1/rec2/alias_como_param2
+
+            $posible_accion = $this->get_accion_path($method, $clase, $colecciones, $posibles_params);;
+            $posible_accion .= '__' . $alias;
+
+            if ($instanciador->existe_metodo($posible_accion)) {
+                $instanciador->accion = $posible_accion;
+                $instanciador->parametros = $posibles_params;
+                return $instanciador;
+            }
+        }
 
         //se invoca la accion tipica
         $accion = $this->get_accion_path($method, $clase, $colecciones, $parametros);
@@ -59,21 +73,6 @@ class ruteador {
             return $instanciador;
         }
 
-        // Se checkea si matchea con un alias
-        if(count($colecciones) > count($parametros)){
-            $alias = array_pop($colecciones);
-        }else {
-            $alias = array_pop($parametros);
-        }
-
-        $posible_accion = $this->get_accion_path($method, $clase, $colecciones, $parametros);;
-        $posible_accion .= '__' . $alias;
-
-        if ($instanciador->existe_metodo($posible_accion)) {
-            $instanciador->accion = $posible_accion;
-            $instanciador->parametros = $parametros;
-            return $instanciador;
-        }
         throw new \Exception("No se encuentra el recurso para $url. Ruta mal formada?");
 	}
 
