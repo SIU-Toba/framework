@@ -75,7 +75,7 @@ class toba_ini
 			return $this->entradas[$seccion];
 		}
 		if ($obligatorio) {
-			throw new toba_error("No se encuentra definido el parámetro $clave de la sección $seccion en {$this->path}");
+			throw new toba_error("No se encuentra definido el parámetro '$seccion' $clave en {$this->path}");
 		} else {
 			return $defecto;
 		}

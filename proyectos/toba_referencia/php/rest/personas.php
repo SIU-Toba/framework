@@ -31,7 +31,7 @@ class personas
     function get($id_persona)
     {
 		//toba::logger()->debug("Usuario: " . rest::app()->usuario->get_usuario());
-        $incluir_imagen = !!rest::request()->get('con_imagen', 0);
+        $incluir_imagen = (bool) rest::request()->get('con_imagen', 0);
 		$modelo = new modelo_persona($id_persona);
         $fila = $modelo->get_datos($incluir_imagen);
         rest::response()->get($fila);

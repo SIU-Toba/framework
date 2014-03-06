@@ -76,7 +76,6 @@ class toba_rest
 
         $conf = $this->get_conf();
         $autenticacion = $conf->get('autenticacion', null, 'basic');
-
         $modelo_proyecto = $this->get_modelo_proyecto();
 
         switch($autenticacion){
@@ -99,7 +98,7 @@ class toba_rest
                 });
                 break;
             default:
-                throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic]");
+                throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic] en el campo 'autenticacion'");
         }
 
         $app->container->singleton('db', function () {
