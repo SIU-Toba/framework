@@ -77,6 +77,20 @@ class ci_servicios_web extends toba_ci
 		$this->carga_ok = false;
 		admin_util::refrescar_barra_lateral();
 	}
+	
+	
+	function extender_objeto_js()
+	{
+		echo 
+			$this->dep('form_basicos')->get_objeto_js().".evt__tipo__procesar = function(es_inicial) {
+				var mostrar = this.ef('tipo').get_estado() == 'soap';
+				this.ef('param_to').mostrar(mostrar);
+				this.ef('param_wsa').mostrar(mostrar);
+				{$this->objeto_js}.dep('ml_parametros').mostrar(mostrar);
+				
+			}
+		";
+	}
 
 }
 ?>
