@@ -394,12 +394,20 @@ class toba
 	}
 	
 	/**
-	 * @return toba_servicio_web_cliente
+	 * @return toba_servicio_web_cliente_soap
 	 */
 	static function servicio_web($id, $opciones=array()) 
 	{
-		return toba_servicio_web_cliente::conectar($id, $opciones);
+		return toba_servicio_web_cliente_soap::conectar($id, $opciones);
 	}
+
+    /**
+     * @return toba_servicio_web_cliente_rest
+     */
+    static function servicio_web_rest($id, $opciones=array())
+    {
+        return toba_servicio_web_cliente_rest::conectar($id, $opciones);
+    }
 
 	/**
 	 * Devuelve un contenedor para el manejo de gadgets

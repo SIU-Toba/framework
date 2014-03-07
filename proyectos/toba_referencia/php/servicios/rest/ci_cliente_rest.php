@@ -32,7 +32,7 @@ class ci_cliente_rest extends toba_ci
 		
 		//Se fija la url en codigo porque apunta a la instalacion actual de toba_referencia (es cliente y servidor)
 		$opciones = array();
-		$cliente = toba::servicio_web('rest_localhost', $opciones);
+		$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
 		return $cliente->guzzle();
 	}
 	

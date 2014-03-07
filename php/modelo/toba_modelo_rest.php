@@ -35,6 +35,20 @@ class toba_modelo_rest extends toba_modelo_elemento
         return $ini;
     }
 
+
+    /**
+     * @param toba_modelo_proyecto $proyecto
+     * @param $id_servicio
+     * @return toba_ini
+     */
+    static function get_ini_cliente(toba_modelo_proyecto  $proyecto, $id_servicio)
+    {
+        $directorio = $proyecto->get_dir_instalacion_proyecto(). "/rest/$id_servicio";
+        toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
+        $ini = new toba_ini($directorio. '/cliente.ini');
+        return $ini;
+    }
+
 	//------------------------------------------------------------------------------------------------------------------//
 
 }

@@ -42,9 +42,8 @@ class toba_rest
      */
     protected function instanciar_libreria_rest()
     {
-
         $ini = $this->get_conf();
-        $es_produccion = (boolean)$ini->get('es_produccion', null, 0);
+        $es_produccion = (boolean) toba::instalacion()->es_produccion();
 
         $path_controladores = $this->get_path_controladores();
         $url_base = self::url_rest();
@@ -56,6 +55,7 @@ class toba_rest
             'prefijo_api_docs' => 'api-docs',
             'debug' => !$es_produccion
         );
+        $settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
         include_once 'lib/rest/rest.php';
         $app = new rest\rest($settings);
