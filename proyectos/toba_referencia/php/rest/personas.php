@@ -26,6 +26,7 @@ class personas
     /**
 	 * Se consume en GET /personas/{id}
      * @summary Retorna datos de una persona. 
+ 	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
      * @response_type Persona
      */
     function get($id_persona)
@@ -41,6 +42,7 @@ class personas
 	 * Se consume en PUT /personas/{id}
      * @summary Modificar datos de la persona. 
      * @param_body $persona Persona  [required] los datos a editar de la persona
+     * @notes Si envia la componente 'imagen' de la persona se actualiza unicamente la imagen (binario base64)
      * @errors 400 No se pudo encontrar a la persona
      */
     function put($id_persona)
