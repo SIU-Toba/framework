@@ -30,7 +30,7 @@ class ruteador {
 		$colecciones = array();
 		$parametros = array();
 		foreach ($partes_url as $key => $valor) {
-			if(empty($valor))
+			if(trim($valor) == "")
 			{ //mal formato. / de mas
 				throw new \Exception("Formato de ruta incorrecto - $url"); //cambiar
 			}

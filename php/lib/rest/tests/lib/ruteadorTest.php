@@ -71,23 +71,41 @@ class ruteadorTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($parametros, $rec->parametros);
 	}
 
-	function testGetRecurso()
-	{
-		$path = 'recurso/07';
-		$parametros = array('07');
+    function testGetRecurso()
+    {
+        $path = 'recurso/07';
+        $parametros = array('07');
 
-		$this->lector_recursos->expects($this->once())
-			->method('get_recurso')
-			->will($this->returnValue('recurso'));
+        $this->lector_recursos->expects($this->once())
+            ->method('get_recurso')
+            ->will($this->returnValue('recurso'));
         $this->instanciador->expects($this->exactly(2))
             ->method('existe_metodo')
             ->will($this->onConsecutiveCalls(false, true));
-		$rec = $this->ruteador->buscar_controlador('GET', $path);
+        $rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso', $rec->clase);
-		$this->assertEquals('get', $rec->accion);
-		$this->assertEquals($parametros[0], $rec->parametros[0]);
-	}
+        $this->assertEquals('recurso', $rec->clase);
+        $this->assertEquals('get', $rec->accion);
+        $this->assertEquals($parametros[0], $rec->parametros[0]);
+    }
+
+    function testGetRecursoIdCero()
+    {
+        $path = 'recurso/0';
+        $parametros = array('0');
+
+        $this->lector_recursos->expects($this->once())
+            ->method('get_recurso')
+            ->will($this->returnValue('recurso'));
+        $this->instanciador->expects($this->exactly(2))
+            ->method('existe_metodo')
+            ->will($this->onConsecutiveCalls(false, true));
+        $rec = $this->ruteador->buscar_controlador('GET', $path);
+
+        $this->assertEquals('recurso', $rec->clase);
+        $this->assertEquals('get', $rec->accion);
+        $this->assertEquals($parametros[0], $rec->parametros[0]);
+    }
 
 	function testGetSubrecursoPadre()
 	{
