@@ -38,6 +38,7 @@ class rest_instanciador {
 	}
 
     public function existe_metodo($nombre){
+        $this->get_instancia(); //incluyo el archivo
         $clase = $this->get_clase_de_ruta($this->clase);
 //        require_once $this->clase;
         return method_exists($clase, $nombre);

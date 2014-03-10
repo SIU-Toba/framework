@@ -13,7 +13,12 @@ class lector_recursos_archivo {
 		$this->directorio_recursos = $directorio;
 	}
 
-	/**
+    function get_directorio_recursos()
+    {
+        return $this->directorio_recursos;
+    }
+
+    /**
 	 * @param array $path la sucesion de recursos anidados. El recurso es el ultimo que exista
 	 * @return string la clase del recurso
 	 */

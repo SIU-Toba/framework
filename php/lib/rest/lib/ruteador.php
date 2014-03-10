@@ -43,8 +43,9 @@ class ruteador {
 
 		//busco la clase que maneja el recurso
 		if(!$clase = $this->lector->get_recurso($colecciones)){
-			throw new \Exception("No se encuentra el recurso para $url. Ruta mal formada?"); //cambiar
-		}
+            $dir = $this->lector->get_directorio_recursos();
+            throw new \Exception("No se encuentra el recurso para $url en el directorio $dir. ¿Ruta mal formada?"); //cambiar
+        }
 
 
         $instanciador->clase = $clase;
@@ -73,8 +74,8 @@ class ruteador {
             return $instanciador;
         }
 
-        throw new \Exception("No se encuentra el recurso para $url. Ruta mal formada?");
-	}
+        throw new \Exception("No se encuentra el metodo $accion en la clase $clase. ¿Ruta mal formada?");
+    }
 
 
     protected function get_accion_path($metodo, $clase, $colecciones, $parametros)
