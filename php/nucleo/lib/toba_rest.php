@@ -40,7 +40,7 @@ class toba_rest
     /**
      * @return \rest\rest
      */
-    protected function instanciar_libreria_rest()
+    public function instanciar_libreria_rest()
     {
         $ini = $this->get_conf();
         $es_produccion = (boolean) toba::instalacion()->es_produccion();
@@ -68,7 +68,7 @@ class toba_rest
      * @param $app
      * @throws toba_error_modelo si hay errores de configuracion
      */
-    protected function configurar_libreria_rest($app)
+    public function configurar_libreria_rest($app)
     {
         $app->container->singleton('logger', function () {
             return new toba_rest_logger();
