@@ -226,17 +226,10 @@ class controlador_docs
 	 */
 	protected function get_annotaciones_de_path($path)
 	{
-		$lector = new lector_recursos_archivo($this->api_root);
+		$lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
 		$archivo = $lector->get_recurso(explode('/', $path));
 		return new annotaciones_docs($archivo);
 	}
-//    protected function get_class_reflection_file($archivo)
-//    {
-//        require_once $archivo;
-//        $r = new ReflectionClass(basename($archivo, '.php'));
-//        return $r;
-
-//    }
 
 	/**
 	 * @param $path

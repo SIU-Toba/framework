@@ -3,14 +3,17 @@
 
 namespace rest\lib;
 
+use rest\rest;
+
 class lector_recursos_archivo
 {
 
-	protected $directorio_recursos;
+	protected $prefijo_recursos;
 
-	function __construct($directorio)
+	function __construct($directorio, $prefijo_recursos)
 	{
 		$this->directorio_recursos = $directorio;
+		$this->prefijo_recursos = $prefijo_recursos;
 	}
 
 	function get_directorio_recursos()
@@ -26,7 +29,7 @@ class lector_recursos_archivo
 	{
 		//Busco del mas especifico al mas general
 		while (!empty($path)) {
-			$recurso = array_pop($path);
+			$recurso = $this->prefijo_recursos . array_pop($path);
 
 			$ruta_padres = implode(DIRECTORY_SEPARATOR, $path);
 			if ($file = $this->existe_recurso($ruta_padres, $recurso)) {

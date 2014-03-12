@@ -90,6 +90,7 @@ class rest
 		return array(
 			'formato_respuesta'  => 'json',
 			'path_controladores' => '/',
+			'prefijo_controladores' => 'recurso_',
 			'url_api'            => '/api',
 			'prefijo_api_docs'   => 'api-docs',
 			'url_protegida'      => '/.*/',
@@ -148,7 +149,9 @@ class rest
 		});
 
 		$this->container->singleton('lector_recursos', function ($c) {
-			return new lector_recursos_archivo($c['settings']['path_controladores']);
+			return new lector_recursos_archivo(
+				$c['settings']['path_controladores'],
+				$c['settings']['prefijo_controladores']);
 		});
 
 		$this->container->singleton('controlador_documentacion', function ($c) {

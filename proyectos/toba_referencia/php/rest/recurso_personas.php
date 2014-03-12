@@ -20,7 +20,7 @@ use rest\lib\rest_filtro_sql;
  *      }
  * }
  */
-class personas 
+class recurso_personas
 {
 
     /**
