@@ -1,15 +1,15 @@
 {
-	"name": "siu/rest",
-	"description": "Framework super delgado para servicios REST",
-	"homepage": "http://toba.siu.edu.ar",
-	"license": "SIU",
-	"require": {
-		"zircote/swagger-php": "*",
-		"php": ">=5.3.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"rest\\": ""
-		}
-	}
+    "name": "siu/rest",
+    "description": "Framework super delgado para servicios REST",
+    "homepage": "http://toba.siu.edu.ar",
+    "license": "SIU",
+    "require": {
+        "zircote/swagger-php": "*",
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "rest\\": ""
+        }
+    }
 }

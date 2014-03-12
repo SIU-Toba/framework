@@ -2,7 +2,6 @@
 
 namespace rest\lib;
 
-
 use Exception;
 
 /**
@@ -11,7 +10,8 @@ use Exception;
  * y no deberían exponerse en la api
  * @package rest\lib
  */
-class rest_error_interno extends \Exception {
+class rest_error_interno extends \Exception
+{
 
 
 } 

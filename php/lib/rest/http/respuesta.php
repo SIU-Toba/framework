@@ -1,6 +1,7 @@
 <?php
 
 namespace rest\http;
+
 use rest\lib\rest_error_interno;
 
 /**
@@ -83,9 +84,9 @@ class respuesta
 
 	/**
 	 * Constructor
-	 * @param mixed                    $data   El cuerpo de la respuesta
-	 * @param int                      $status El status HTTP
-	 * @param array                    $headers Headers
+	 * @param mixed $data    El cuerpo de la respuesta
+	 * @param int $status    El status HTTP
+	 * @param array $headers Headers
 	 */
 	public function __construct($data = null, $status = 200, $headers = array())
 	{
@@ -101,7 +102,7 @@ class respuesta
 
 	public function set_status($status)
 	{
-		$this->status = (int)$status;
+		$this->status = (int) $status;
 		return $this;
 	}
 
@@ -128,10 +129,10 @@ class respuesta
 	 */
 	public function finalizar()
 	{
-        if(!isset($this->data)){
-            throw new rest_error_interno("El contenido de la respuesta no puede ser nulo. Si no se desea una respuesta, inicializar
+		if (!isset($this->data)) {
+			throw new rest_error_interno("El contenido de la respuesta no puede ser nulo. Si no se desea una respuesta, inicializar
             en '' o arreglo vacio");
-        }
+		}
 		if (in_array($this->status, array(204, 304))) {
 			unset($this->headers['Content-Type']);
 			unset($this->headers['Content-Length']);
@@ -142,7 +143,7 @@ class respuesta
 
 	/**
 	 * Get message for HTTP status code
-	 * @param  int         $status
+	 * @param  int $status
 	 * @return string|null
 	 */
 	public static function getMessageForCode($status)

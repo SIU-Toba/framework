@@ -10,7 +10,8 @@ namespace rest\lib;
  *
  * @package rest\rutas
  */
-class rest_instanciador {
+class rest_instanciador
+{
 
 	public $clase;
 	public $accion;
@@ -18,9 +19,10 @@ class rest_instanciador {
 
 	protected $objeto;
 
-	public function get_instancia($autoinclude = true){
-		if(! $this->objeto){
-			if($autoinclude){
+	public function get_instancia($autoinclude = true)
+	{
+		if (!$this->objeto) {
+			if ($autoinclude) {
 				require_once $this->clase;
 			}
 			$clase = $this->get_clase_de_ruta($this->clase);
@@ -29,24 +31,23 @@ class rest_instanciador {
 		return $this->objeto;
 	}
 
-	public function ejecutar_accion(){
-
-		if(empty($this->parametros)){
+	public function ejecutar_accion()
+	{
+		if (empty($this->parametros)) {
 			$this->parametros = array();
 		}
 		return call_user_func_array(array($this->get_instancia(), $this->accion), $this->parametros);
 	}
 
-    public function existe_metodo($nombre){
-        $this->get_instancia(); //incluyo el archivo
-        $clase = $this->get_clase_de_ruta($this->clase);
-//        require_once $this->clase;
-        return method_exists($clase, $nombre);
-    }
+	public function existe_metodo($nombre)
+	{
+		$this->get_instancia(); //incluyo el archivo
+		$clase = $this->get_clase_de_ruta($this->clase);
+		return method_exists($clase, $nombre);
+	}
 
 	private function get_clase_de_ruta($clase)
 	{
 		return basename($clase, ".php");
 	}
-
 }

@@ -2,8 +2,8 @@
 
 namespace rest\http;
 
-
-abstract class vista_respuesta {
+abstract class vista_respuesta
+{
 
 	protected $respuesta;
 
@@ -13,12 +13,12 @@ abstract class vista_respuesta {
 	}
 
 
-	public function escribir(){
-		$this->respuesta->add_headers(array('Content-Type' => $this->get_content_type() ));
+	public function escribir()
+	{
+		$this->respuesta->add_headers(array('Content-Type' => $this->get_content_type()));
 		$this->escribir_encabezados();
 		echo $this->get_cuerpo();
 	}
-
 
 
 	protected abstract function get_content_type();

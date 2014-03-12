@@ -2,14 +2,14 @@
 
 namespace rest\tests\lib;
 
-use rest\lib\ruteador;
 use rest\lib\rest_instanciador;
 
+class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
+{
 
-class rest_instanciadorTest extends \PHPUnit_Framework_TestCase {
 
-
-	function test_instanciacion_global(){
+	function test_instanciacion_global()
+	{
 		$recurso = new rest_instanciador();
 
 		$recurso->clase = "toba_fecha";
@@ -17,26 +17,28 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase {
 		$objeto = $recurso->get_instancia(false);
 
 		$this->assertTrue(is_object($objeto), "No es un objeto");
-		$this->assertTrue($objeto instanceof \toba_fecha );
+		$this->assertTrue($objeto instanceof \toba_fecha);
 
 		return $recurso;
 	}
 
-	function test_instanciacion_namespace(){
+	function test_instanciacion_namespace()
+	{
 		$recurso = new rest_instanciador();
 
-        //creo un objeto de mi clase, puede ser cualquiera que no tenga params en el constructor
+		//creo un objeto de mi clase, puede ser cualquiera que no tenga params en el constructor
 		$recurso->clase = "rest\\lib\\rest_instanciador";
 
 		$objeto = $recurso->get_instancia(false);
 
-		$this->assertTrue($objeto instanceof rest_instanciador );
+		$this->assertTrue($objeto instanceof rest_instanciador);
 	}
 
 	/**
 	 * @depends test_instanciacion_global
 	 */
-	function test_accion(rest_instanciador $recurso){
+	function test_accion(rest_instanciador $recurso)
+	{
 
 		$recurso->accion = 'get_fecha_pantalla';
 
@@ -49,7 +51,8 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @depends test_instanciacion_global
 	 */
-	function test_accion_parametros(rest_instanciador $recurso){
+	function test_accion_parametros(rest_instanciador $recurso)
+	{
 
 		$ts = 12354;
 		$recurso->accion = 'set_timestamp';
@@ -60,5 +63,4 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertTrue($objeto->get_fecha_desplazada(0) == $ts);
 	}
-
 }

@@ -6,10 +6,10 @@ require_once 'bootstrap.php';
 
 rest\bootstrap::registerAutoloader();
 
-function customAutoLoader( $class )
+function customAutoLoader($class)
 {
 	$file = rtrim(dirname(__FILE__), '/') . '/' . $class . '.php';
-	if ( file_exists($file) ) {
+	if (file_exists($file)) {
 		require $file;
 	} else {
 		return;
