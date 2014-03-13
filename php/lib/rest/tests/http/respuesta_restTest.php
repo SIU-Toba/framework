@@ -52,15 +52,6 @@ class respuesta_restTest extends \PHPUnit_Framework_TestCase
 		$this->assertEmpty($r->get_data());
 	}
 
-	public function testPutError()
-	{
-		$errores = array('mje' => 'errores');
-		$r = new respuesta_rest();
-		$r->put($errores);
-		$this->assertEquals(400, $r->get_status());
-		$this->assertEquals($errores, $r->get_data());
-	}
-
 	public function testDeleteOK()
 	{
 		$r = new respuesta_rest();
@@ -69,14 +60,6 @@ class respuesta_restTest extends \PHPUnit_Framework_TestCase
 		$this->assertEmpty($r->get_data());
 	}
 
-	public function testDeleteError()
-	{
-		$errores = array('mje' => 'errores');
-		$r = new respuesta_rest();
-		$r->delete($errores);
-		$this->assertEquals(400, $r->get_status());
-		$this->assertEquals($errores, $r->get_data());
-	}
 
 	public function testRedirect()
 	{
@@ -84,6 +67,14 @@ class respuesta_restTest extends \PHPUnit_Framework_TestCase
 		$r->redirect('hola');
 		$this->assertArrayHasKey('Location', $r->headers);
 		$this->assertEquals($r->headers['Location'], 'hola');
+	}
+
+	public function testErrorNegocio(){
+		$r = new respuesta_rest();
+		$error = array('error' => 'e');
+		$r->error_negocio($error);
+		$this->assertEquals(400, $r->get_status());
+		$this->assertEquals($error, $r->get_data());
 	}
 }
  

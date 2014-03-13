@@ -37,10 +37,13 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 	function testGetColeccion()
 	{
 		$path = 'recurso';
+
+		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+
 		$parametros = array();
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('recurso'));
+			->will($this->returnValue($recurso));
 
 		$this->instanciador->expects($this->exactly(1))
 			->method('existe_metodo')
@@ -48,7 +51,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->clase);
 		$this->assertEquals('get_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -56,16 +59,19 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 	function testQueryString()
 	{
 		$path = 'recurso?a=b';
+
+		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+
 		$parametros = array();
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('recurso'));
+			->will($this->returnValue($recurso));
 		$this->instanciador->expects($this->exactly(1))
 			->method('existe_metodo')
 			->will($this->onConsecutiveCalls(true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->clase);
 		$this->assertEquals('get_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -75,15 +81,17 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'recurso/07';
 		$parametros = array('07');
 
+		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('recurso'));
+			->will($this->returnValue($recurso));
 		$this->instanciador->expects($this->exactly(2))
 			->method('existe_metodo')
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->clase);
 		$this->assertEquals('get', $rec->accion);
 		$this->assertEquals($parametros[0], $rec->parametros[0]);
 	}
@@ -93,15 +101,17 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'recurso/0';
 		$parametros = array('0');
 
+		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('recurso'));
+			->will($this->returnValue($recurso));
 		$this->instanciador->expects($this->exactly(2))
 			->method('existe_metodo')
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->clase);
 		$this->assertEquals('get', $rec->accion);
 		$this->assertEquals($parametros[0], $rec->parametros[0]);
 	}
@@ -111,15 +121,17 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo';
 		$parametros = array('07');
 
+		$recurso = array('recurso' => 'padre', 'clase' => 'padre_clase');
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('padre'));
+			->will($this->returnValue($recurso));
 		$this->instanciador->expects($this->exactly(1))
 			->method('existe_metodo')
 			->will($this->onConsecutiveCalls(true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('padre', $rec->clase);
+		$this->assertEquals('padre_clase', $rec->clase);
 		$this->assertEquals('get_hijo_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -129,15 +141,17 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo/12/nieto/abc';
 		$parametros = array('07', '12', 'abc');
 
+		$recurso = array('recurso' => 'hijo', 'clase' => 'hijo_clase');
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('hijo'));
+			->will($this->returnValue($recurso));
 		$this->instanciador->expects($this->exactly(2))
 			->method('existe_metodo')
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('PUT', $path);
 
-		$this->assertEquals('hijo', $rec->clase);
+		$this->assertEquals('hijo_clase', $rec->clase);
 		$this->assertEquals('put_nieto', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -147,9 +161,11 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/alias';
 		$parametros = array();
 
+		$recurso = array('recurso' => 'padre', 'clase' => 'padre_clase');
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('padre'));
+			->will($this->returnValue($recurso));
 
 		$this->instanciador->expects($this->exactly(1))
 			->method('existe_metodo')
@@ -159,7 +175,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('padre', $rec->clase);
+		$this->assertEquals('padre_clase', $rec->clase);
 		$this->assertEquals('get_list__alias', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -169,9 +185,12 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo/12/nieto/abc';
 		$parametros = array('07', '12');
 
+		$recurso = array('recurso' => 'hijo', 'clase' => 'hijo_clase');
+
+
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
-			->will($this->returnValue('hijo'));
+			->will($this->returnValue($recurso));
 
 		$this->instanciador->expects($this->exactly(1))
 			->method('existe_metodo')
@@ -181,7 +200,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('POST', $path);
 
-		$this->assertEquals('hijo', $rec->clase);
+		$this->assertEquals('hijo_clase', $rec->clase);
 		$this->assertEquals('post_nieto_list__abc', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}

@@ -123,12 +123,7 @@ class toba_referencia_autoload
 		'ctrl_persona_1' => 'puntos_de_control/controles/ctrl_persona.php',
 		'ctrl_persona_2' => 'puntos_de_control/controles/ctrl_persona.php',
 		'ctrl_requisitos' => 'puntos_de_control/controles/ctrl_requisitos.php',
-		'juegos' => 'rest/juegos.php',
-		'hijos_a' => 'rest/padres/hijos_a.php',
-		'hijos_b' => 'rest/padres/hijos_b/hijos_b.php',
-		'padres' => 'rest/padres/padres.php',
-		'personas' => 'rest/personas.php',
-		'recurso' => 'rest/recurso.php',
+
 		'ci_cliente_rest' => 'servicios/rest/ci_cliente_rest.php',
 		'ci_cliente' => 'servicios/seguro_codigo/ci_cliente.php',
 		'servicio' => 'servicios/seguro_codigo/servicio.php',

@@ -19,64 +19,70 @@ class respuesta_rest extends respuesta
 	 * @return $this
 	 */
 	public function get($data)
-	{ //@todo - get del listado puede arrojar vacio, get/ID seria un 404.  Y hay que separar los errores 400 (bad req)
-		if ($data !== false) {
-			$this->data = $data;
-			$this->status = 200;
+	{
+		if ($data !== false){
+			$this->get_list($data);
 		} else {
-			throw new rest_error(404, self::$not_found_message);
+			$this->not_found();
 		}
 		return $this;
 	}
 
 	/**
-	 * POST a la lista. Retorna el id del recurso creado, o un error si no se pudo crear (el identificador es nulo)
-	 * @param $data    array arreglo asociativo con la columna id y el id del recurso creado
-	 * @param $errores array errores que impiden la modificación exitosa
-	 * @throws \rest\lib\rest_error
-	 * @return $this
+	 * GET a una lista - A diferencia del get(), siempre es exitoso, ya que una lista vacia es valida.
 	 */
-	public function post($data, $errores = array())
+	public function get_list($data)
 	{
-		if (!empty($data)) {
-			$this->data = $data;
-			$this->status = 201; //created
-		} else {
-			$this->not_found(self::$not_found_message, $errores);
-		}
+		$this->data = $data;
+		$this->status = 200;
+		return $this;
+	}
+
+	/**
+	 * POST a la lista. Data contiene un arreglo con el identificador del nuevo recurso
+	 */
+	public function post($data)
+	{
+		$this->data = $data;
+		$this->status = 201; //created
 		return $this;
 		//se podria incluir un header con un Location, pero hay que hacer una api para URLs primero
 	}
 
 	/**
-	 * PUT a un recurso. Retorna 204 sin contenido en caso de exito, o un error si el parametro no es vacio
+	 * PUT a un recurso. Retorna 204 sin contenido en caso de exito,
 	 * Si el recurso no existía, enviar un not_found()
-	 * @param $errores array errores que impiden la modificación exitosa (ej: modelo + errores validacion)
 	 * @return $this
 	 */
-	public function put($errores = array())
+	public function put()
 	{
-		$this->data = $errores;
-		if (empty($errores)) {
-			$this->status = 204; //sin contenido
-		} else {
-			$this->status = 400; //
-		}
+		$this->status = 204; //sin contenido
 		return $this;
 	}
 
-
 	/**
-	 * Retorna un 204 si es exitoso. Si hay errores se envia 400 con el detalle.
+	 * Retorna un 204 si es exitoso.
 	 * Si el recurso no existía, enviar un not_found()
-	 * @param array $errores errores por los cuales no se pudo borrar el recurso
 	 * @internal param $exito
 	 */
-	public function delete($errores = array())
+	public function delete()
 	{
-		$this->put($errores);
+		$this->put();
 	}
 
+	/**
+	 * Ocurrió un error de negocio- validacion, falta de datos, datos incorrectos,
+	 * se adjunta un mensaje con indicaciones para corregir el mensaje.
+	 */
+	public function error_negocio($errores, $status = 400){
+		$this->data = $errores;
+		$this->status = $status; //
+		return $this;
+	}
+
+	/**
+	 * NO se encontró el recurso en el servidor
+	 */
 	public function not_found($mensaje = '', $errores = array())
 	{
 		if ($mensaje == '') {

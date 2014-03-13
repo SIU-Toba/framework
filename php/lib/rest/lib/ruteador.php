@@ -4,7 +4,7 @@ namespace rest\lib;
 
 class ruteador
 {
-	const COLLECTION_SUFFIX = '_list';
+	const SUFIJO_COLECCION = '_list';
 
 	/**
 	 * @var lector_recursos_archivo
@@ -39,19 +39,19 @@ class ruteador
 		}
 
 		//busco la clase que maneja el recurso
-		if (!$clase = $this->lector->get_recurso($colecciones)) {
+		if (!$recurso = $this->lector->get_recurso($colecciones)) {
 			$dir = $this->lector->get_directorio_recursos();
 			throw new \Exception("No se encuentra el recurso para $url en el directorio $dir. ¿Ruta mal formada?"); //cambiar
 		}
 
-		$instanciador->clase = $clase;
+		$instanciador->clase = $recurso['clase'];
 
 		// Se checkea si matchea con un alias primero
 		if (count($colecciones) == count($parametros)) {
 			$posibles_params = $parametros;
 			$alias = array_pop($posibles_params); // recurso1/param1/rec2/alias_como_param2
 
-			$posible_accion = $this->get_accion_path($method, $clase, $colecciones, $posibles_params);;
+			$posible_accion = $this->get_accion_path($method, $recurso['recurso'], $colecciones, $posibles_params);;
 			$posible_accion .= '__' . $alias;
 
 			if ($instanciador->existe_metodo($posible_accion)) {
@@ -62,7 +62,7 @@ class ruteador
 		}
 
 		//se invoca la accion tipica
-		$accion = $this->get_accion_path($method, $clase, $colecciones, $parametros);
+		$accion = $this->get_accion_path($method, $recurso['recurso'], $colecciones, $parametros);
 		$instanciador->accion = $accion;
 		$instanciador->parametros = $parametros;
 
@@ -70,13 +70,14 @@ class ruteador
 			return $instanciador;
 		}
 
-		throw new \Exception("No se encuentra el metodo $accion en la clase $clase. ¿Ruta mal formada?");
+		throw new \Exception("No se encuentra el metodo $accion en la clase {$recurso['clase']}. ¿Ruta mal formada?");
 	}
 
 
 	protected function get_accion_path($metodo, $clase, $colecciones, $parametros)
 	{
 		$accion = strtolower($metodo);
+		$recurso =
 		//si hay path faltante lo resuelve en un metodo get_recurso1_recurso2
 		$hay_path_por_resolver = array_search(basename($clase, '.php'), $colecciones);
 
@@ -87,7 +88,7 @@ class ruteador
 
 		//Apunta a la coleccion
 		if (count($colecciones) == count($parametros) + 1) {
-			$accion .= self::COLLECTION_SUFFIX;
+			$accion .= self::SUFIJO_COLECCION;
 		}
 		return $accion;
 	}

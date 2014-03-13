@@ -129,14 +129,14 @@ class respuesta
 	 */
 	public function finalizar()
 	{
-		if (!isset($this->data)) {
-			throw new rest_error_interno("El contenido de la respuesta no puede ser nulo. Si no se desea una respuesta, inicializar
-            en '' o arreglo vacio");
-		}
 		if (in_array($this->status, array(204, 304))) {
 			unset($this->headers['Content-Type']);
 			unset($this->headers['Content-Length']);
 			$this->set_data('');
+		}
+		if (!isset($this->data)) {
+			throw new rest_error_interno("El contenido de la respuesta no puede ser nulo. Si no se desea una respuesta, inicializar
+            en '' o arreglo vacio");
 		}
 	}
 

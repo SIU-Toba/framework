@@ -28,6 +28,7 @@ class recurso_personas
      * @summary Retorna datos de una persona. 
  	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
      * @response_type Persona
+     * @errors 404 No se pudo encontrar a la persona
      */
     function get($id_persona)
     {
@@ -43,39 +44,45 @@ class recurso_personas
      * @summary Modificar datos de la persona. 
      * @param_body $persona Persona  [required] los datos a editar de la persona
      * @notes Si envia la componente 'imagen' de la persona se actualiza unicamente la imagen (binario base64)
-     * @errors 400 No se pudo encontrar a la persona
+     * @errors 404 No se pudo encontrar a la persona
+     * @errors 400 El pedido no cumple con las reglas de negocio - validacion erronea.
      */
-    function put($id_persona)
-    {
-        $datos = rest::request()->get_body_json();
+	function put($id_persona)
+	{
+		$datos = rest::request()->get_body_json();
 		$modelo = new modelo_persona($id_persona);
-        if(isset($datos['imagen'])){
-            $ok = $modelo->update_imagen($datos);
-        }else {
-            $ok = $modelo->update($datos);
-        }
-        if(!$ok){
-            rest::response()->not_found();
-        }else{
-            rest::response()->put();
-        }
+		$errores = $modelo->validar($datos);
+		if (!empty($errores)) {
+			return rest::response()->error_negocio($errores);
+		} else {
+			if (isset($datos['imagen'])) {
+				$ok = $modelo->update_imagen($datos);
+			} else {
+				$ok = $modelo->update($datos);
+			}
+			if (!$ok) {
+				rest::response()->not_found();
+			} else {
+				rest::response()->put();
+			}
+		}
+	}
 
-    }
 
     /**
 	 * Se consume en DELETE /personas/{id}
-     * @summary Eliminar la persona. 
+     * @summary Eliminar la persona.
      * @notes Cuidado, borra datos de deportes y juegos tambien
+     * @errors 404 No se pudo encontrar a la persona
      */
     function delete($id_persona)
     {
 		$modelo = new modelo_persona($id_persona);
 		$ok = $modelo->delete();
-        $errores = array();
         if(!$ok){
             rest::response()->not_found();
         }else {
-            rest::response()->delete($errores);
+            rest::response()->delete();
         }
     }
 
@@ -90,9 +97,14 @@ class recurso_personas
     function post_list()
     {
         $datos = rest::request()->get_body_json();
-		$nuevo = modelo_persona::insert($datos);
-		$fila = array('id' => $nuevo);
-		rest::response()->post($fila);
+	    $errores = modelo_persona::validar($datos);
+	    if($errores){
+		    return rest::response()->error_negocio($errores);
+	    }else{
+		    $nuevo = modelo_persona::insert($datos);
+		    $fila = array('id' => $nuevo);
+		    rest::response()->post($fila);
+	    }
     }
 
 
@@ -110,16 +122,13 @@ class recurso_personas
      */
     function get_list()
     {
-		$filtro = new rest_filtro_sql();
-		$filtro->agregar_campo("nombre", "pers.nombre");
-		$filtro->agregar_campo("fecha_nac", "pers.fecha_nac");	
-		$filtro->agregar_campo("id", "pers.id");	
+	    $filtro = $this->get_filtro_get_list();
 		$where = $filtro->get_sql_where();
 		$limit = $filtro->get_sql_limit();
 		$order_by = $filtro->get_sql_order_by();
         $personas = modelo_persona::get_personas($where, $order_by, $limit);
 		$cantidad = modelo_persona::get_cant_personas($where);
-		rest::response()->get($personas);
+		rest::response()->get_list($personas);
 		rest::response()->add_headers(array('Cantidad-Registros' => $cantidad));		
     }
 
@@ -131,39 +140,37 @@ class recurso_personas
      */
     function get_list__confoto()
     {
-        $filtro = new rest_filtro_sql();
-        $limit = $filtro->get_sql_limit();
+	    $filtro = $this->get_filtro_get_list();
+	    $limit = $filtro->get_sql_limit();
         $order_by = $filtro->get_sql_order_by();
-        $where = "imagen <> ''";
+        $where = $filtro->get_sql_where() . " AND imagen <> ''";
         $personas = modelo_persona::get_personas($where, $order_by, $limit);
         $cantidad = modelo_persona::get_cant_personas($where);
         rest::response()->get($personas);
         rest::response()->add_headers(array('Cantidad-Registros' => $cantidad));
-
-    }
-
-    /**
-     * Se consume en GET /personas/{id}/deportes
-     * @summary Retorna todos los deportes que practica la persona.
-	 * @param_query $nombre string 
-     * @response_type [ {deporte: integer, dia_semana: integer, hora_inicio: string, hora_fin:string}, ]
-     */
-    function get_deportes_list($id_persona)
-    {
-		$deportes = modelo_persona::get_deportes($id_persona);
-		rest::response()->get($deportes);
     }
 
     /**
      * Se consume en GET /personas/{id}/juegos
 	 * @summary Retorna todos los juego que practica la persona
      * @response_type [ {juego: integer, dia_semana: integer, hora_inicio: string, hora_fin:string}, ]
+     * @errors 404 No se pudo encontrar a la persona
      */
     function get_juegos_list($id_persona)
     {
 		$juegos = modelo_persona::get_juegos($id_persona);
-		rest::response()->get($juegos);
+		rest::response()->get_list($juegos);
     }
 
-
+	/**
+	 * @return rest_filtro_sql
+	 */
+	protected function get_filtro_get_list()
+	{
+		$filtro = new rest_filtro_sql();
+		$filtro->agregar_campo("nombre", "pers.nombre");
+		$filtro->agregar_campo("fecha_nac", "pers.fecha_nac");
+		$filtro->agregar_campo("id", "pers.id");
+		return $filtro;
+	}
 }

@@ -12,46 +12,62 @@ class rest_test_case extends \PHPUnit_Framework_TestCase
 	/**
 	 * @var rest
 	 */
-	protected static $app;
+	protected $app;
 	protected $autenticador;
 	protected $autorizador;
 
-	public static function setUpBeforeClass()
+	protected function ejecutar($metodo, $ruta, $get = array(), $post = array(), $headers = array())
 	{
-		parent::setUpBeforeClass();
-		$tr = new \toba_rest();
-		$app = $tr->instanciar_libreria_rest();
-		$tr->configurar_libreria_rest($app);
-		self::$app = $app;
+		if(strpos('?', $ruta) !== false){
+			throw new \toba_error("Pasar los parametros del get en el tercer parámetro");
+		}
+		$app = $this->setupRest();
+		$host = \toba_rest::url_rest() . $ruta;
+		$this->mock_vista_no_escribir($app);
+		$mock_request = new request_memoria($metodo, $host, $get, $post, $headers);
+		$app->request = $mock_request;
+		$app->procesar();
+		return $app->response();
 	}
 
-	protected function mock_autenticador(rest_usuario $user)
+	protected function setupRest()
+	{
+		if(!isset($this->app)){
+			$tr = new \toba_rest();
+			$app = $tr->instanciar_libreria_rest();
+			$tr->configurar_libreria_rest($app);
+			$this->app = $app;
+		}
+		return $this->app;
+	}
+
+	protected function mock_autenticador(rest_usuario $user, rest $app)
 	{
 		$this->autenticador = $this->getMockBuilder('rest\seguridad\proveedor_autenticacion')
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
 		$this->autenticador
-			->expects($this->once())
+			->expects($this->any())
 			->method('get_usuario')
 			->will($this->returnValue($user));
-		self::$app->autenticador = $this->autenticador;
+		$app->autenticador = $this->autenticador;
 	}
 
-	protected function mock_autorizador($autorizar)
+	protected function mock_autorizador($autorizar, rest $app)
 	{
 		$this->autorizador = $this->getMockBuilder('rest\seguridad\proveedor_autorizacion')
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 		$this->autorizador
-			->expects($this->once())
+			->expects($this->any())
 			->method('tiene_acceso')
 			//->with($this->equalTo($usuario))
 			->will($this->returnValue($autorizar));
-		self::$app->autorizador = $this->autorizador;
+		$app->autorizador = $this->autorizador;
 	}
 
-	protected function mock_vista_no_escribir($app)
+	protected function mock_vista_no_escribir(rest $app)
 	{
 		$vista = $this->getMockBuilder('rest\http\vista_json')
 			->disableOriginalConstructor()
@@ -61,14 +77,5 @@ class rest_test_case extends \PHPUnit_Framework_TestCase
 			->method('escribir')
 			->will($this->returnValue(''));
 		$app->vista = $vista;
-	}
-
-	public function ejecutar($metodo, $ruta, $get = array(), $post = array(), $headers = array())
-	{
-		$app = self::$app;
-		$this->mock_vista_no_escribir($app);
-		$mock_request = new request_memoria($metodo, $ruta, $get, $post, $headers);
-		$app->request = $mock_request;
-		$app->procesar();
 	}
 }

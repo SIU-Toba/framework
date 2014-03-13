@@ -69,7 +69,18 @@ class modelo_persona
 		toba::db()->ejecutar($sql);
 		return toba::db()->ultimo_insert_id("ref_persona_id_seq");
 	}
-	
+
+	public static function validar($datos)
+	{
+		//es de juguete esta validacion - Habría que chequear tipos, y diferenciar si está
+		//modificando o creando, si tiene permisos y otras reglas de negocio.
+		$errores = array();
+		if(!isset($datos['nombre']) && !isset($datos['imagen'])){
+			$errores['nombre'] = 'el campo es obligatorio a menos que se provea una imagen';
+			$errores['imagen'] = 'el campo es obligatorio a menos que se provea un nombre';
+		}
+		return $errores;
+	}
 	
 	//-------------------------------------
 	//---		DINAMICO
@@ -77,7 +88,7 @@ class modelo_persona
 	
 	function __construct($id)
 	{
-		$this->id = $id;
+		$this->id = (int)$id;
 	}
 	
 	function update($datos)
@@ -117,6 +128,4 @@ class modelo_persona
         }
         return $fila;
 	}
-	
-	
 }

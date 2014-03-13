@@ -1,14 +1,13 @@
 <?php
 
-
 namespace rest\lib;
 
-use rest\rest;
 
 class lector_recursos_archivo
 {
 
 	protected $prefijo_recursos;
+	protected $directorio_recursos;
 
 	function __construct($directorio, $prefijo_recursos)
 	{
@@ -23,17 +22,17 @@ class lector_recursos_archivo
 
 	/**
 	 * @param array $path la sucesion de recursos anidados. El recurso es el ultimo que exista
-	 * @return string la clase del recurso
+	 * @return array recurso => clase-que-lo-implementa
 	 */
 	function get_recurso($path)
 	{
 		//Busco del mas especifico al mas general
 		while (!empty($path)) {
-			$recurso = $this->prefijo_recursos . array_pop($path);
-
+			$recurso = array_pop($path);
 			$ruta_padres = implode(DIRECTORY_SEPARATOR, $path);
 			if ($file = $this->existe_recurso($ruta_padres, $recurso)) {
-				return $file;
+				return array('recurso' => $recurso,
+							'clase' => $file);
 			}
 		}
 		return false;
@@ -48,9 +47,10 @@ class lector_recursos_archivo
 	private function existe_recurso($path, $name)
 	{
 		$path = ($path) ? $path . DIRECTORY_SEPARATOR : '';
+		$nombre_recurso = $this->prefijo_recursos . $name . '.php';
 		$directorio = $this->directorio_recursos . DIRECTORY_SEPARATOR . $path;
-		$como_archivo = $directorio . $name . '.php';
-		$como_carpeta_archivo = $directorio . $name . DIRECTORY_SEPARATOR . $name . '.php';
+		$como_archivo = $directorio . $nombre_recurso;
+		$como_carpeta_archivo = $directorio . $name . DIRECTORY_SEPARATOR . $nombre_recurso;
 
 		if (file_exists($como_archivo)) {
 			return $como_archivo;

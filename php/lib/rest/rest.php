@@ -254,7 +254,8 @@ class rest
 		if (substr($url, 0, strlen($url_api)) == $url_api) {
 			return substr($url, strlen($url_api));
 		}
-		throw new rest_error_interno("Este controlador no está configurado para manejar esta URL");
+		throw new rest_error_interno
+		("Este controlador no está configurado para manejar esta URL. La url es: '$uri', la url de la API es '$url_api'");
 	}
 
 

@@ -4,7 +4,6 @@ namespace rest\docs;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use rest\lib\lector_recursos_archivo;
 use rest\lib\ruteador;
 use rest\rest;
 
@@ -70,10 +69,17 @@ class controlador_docs
 			$parametros = $metodo['parametros'];
 			$nombre_metodo = $metodo['nombre'];
 
+			$alias = '';
+			$partes_nombre_alias = explode('__', $nombre_metodo);
+			if(count($partes_nombre_alias) > 1){
+				$alias = $partes_nombre_alias[1];
+				$nombre_metodo = $partes_nombre_alias[0];
+			}
+
 			$partes_nombre = explode('_', $nombre_metodo);
 			$prefijo_metodo = array_shift($partes_nombre);
-			if ($es_coleccion = $this->termina_con(ruteador::COLLECTION_SUFFIX, $nombre_metodo)) {
-				array_pop($partes_nombre); //COLLECTION_SUFFIX
+			if ($es_coleccion = $this->termina_con(ruteador::SUFIJO_COLECCION, $nombre_metodo)) {
+				array_pop($partes_nombre); //SUFIJO_COLECCION
 			}
 
 			/////------------PARAMETERS --------------------------------- @todo refactorizar
@@ -93,7 +99,9 @@ class controlador_docs
 					$params_path[] = $this->get_parametro_path($param_name, $parte);
 				}
 			}
-
+			if($alias){
+				$api_path .= '/' . $alias;
+			}
 			////--------------------------------------------------------
 			$params_query = $reflexion->get_parametros_metodo($metodo, 'query');
 			$params_body = $reflexion->get_parametros_metodo($metodo, 'body');
@@ -178,7 +186,7 @@ class controlador_docs
 	{
 		$orden_apis = array();
 		foreach ($apis as $api) {
-			$orden_apis[] = basename($api['path']);
+			$orden_apis[] = $api['path'];
 		}
 		array_multisort($orden_apis, SORT_ASC, $apis);
 	}
@@ -207,16 +215,20 @@ class controlador_docs
 	{
 		$partes = preg_split('/rest/', $ruta_absoluta);
 		$path_relativo = $partes[1];
-		$clase_con_extension = basename($path_relativo);
-		$clase_sin_extension = basename($path_relativo, '.php');
-		if ($this->termina_con($clase_sin_extension, dirname($path_relativo))) {
-			// /rest/padre/hijo/hijo.php  => /padre/hijo
-			$url = substr($path_relativo, 0, -strlen($clase_con_extension) - 1);
+		$prefijo = rest::app()->config('prefijo_controladores');
+		$clase_recurso = basename($path_relativo, '.php'); //recurso_padre
+		$recurso = substr($clase_recurso, strlen($prefijo)); //padre
+
+		if ($this->termina_con($recurso, dirname($path_relativo))) {
+			// /rest/padre/hijo/recurso_hijo.php  => /padre/hijo
+			$url = substr($path_relativo, 0, -strlen($clase_recurso . '.php') - 1);
 			return $url; //+1 del slash final
 		} else {
-			// /rest/padre/hijo.php ==> /padre/hijo
-			$url = substr($path_relativo, 0, -4);
-			return $url; //remuevo .php
+			// /rest/padre/recurso_hijo.php => /padre/hijo
+			$url = substr($path_relativo, 0, -strlen($clase_recurso . '.php') - 1);
+			$url .= $recurso;
+//			$url = substr($path_relativo, 0, -4);
+			return $url;
 		}
 	}
 
@@ -228,7 +240,7 @@ class controlador_docs
 	{
 		$lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
 		$archivo = $lector->get_recurso(explode('/', $path));
-		return new annotaciones_docs($archivo);
+		return new annotaciones_docs($archivo['clase']);
 	}
 
 	/**
