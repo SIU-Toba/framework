@@ -330,6 +330,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			toba_logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
 			// Recargo la inicializacion de la instancia
 			$this->cargar_info_ini();
+			
+			//Genera .ini templates de rest
+			$this->generar_ini_rest($proyecto);
+			
 		} else {
 			throw new toba_error("El proyecto '$proyecto' no existe.");
 		}
@@ -590,6 +594,42 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				toba_manejador_archivos::eliminar_directorio($dir_proyecto);
 			}
 			$this->manejador_interface->progreso_avanzar();
+		}
+	}
+	
+	function generar_ini_rest($proyecto)
+	{
+		$path_rest = $this->get_dir_instalacion_proyecto($proyecto).'/rest';
+		try {
+			toba_manejador_archivos::crear_arbol_directorios($path_rest);
+		} catch (Exception $e) {
+			$this->manejador_interface->mensaje("No se pudo crear la carpeta {$path_rest}");
+			return;
+		}
+		
+		//--1- Servidor
+		if (! file_exists($path_rest.'/servidor.ini')) {
+			copy(toba_dir(). '/php/modelo/var/rest_servidor.ini', $path_rest.'/servidor.ini');
+		}
+		if (! file_exists($path_rest.'/servidor_usuarios.ini')) {		
+			copy(toba_dir(). '/php/modelo/var/rest_servidor_usuarios.ini', $path_rest.'/servidor_usuarios.ini');
+		}
+
+		//--2- Clientes
+		$sql = "
+			SELECT servicio_web FROM apex_servicio_web WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($proyecto);
+		$rs = $this->get_db()->consultar($sql);
+	
+		foreach ($rs as $fila) {
+			$path_rest_cliente = $path_rest."/{$fila['servicio_web']}";
+			try {
+				toba_manejador_archivos::crear_arbol_directorios($path_rest_cliente);
+				if (! file_exists($path_rest_cliente.'/cliente.ini')) {
+					copy(toba_dir(). '/php/modelo/var/rest_cliente.ini', $path_rest_cliente.'/cliente.ini');
+				}
+			} catch (Exception $e) {
+				$this->manejador_interface->mensaje("No se pudo crear la carpeta {$path_rest_cliente}");
+			}			
 		}
 	}
 	

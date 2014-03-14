@@ -18,8 +18,7 @@ class toba_modelo_rest extends toba_modelo_elemento
     static function get_ini_server(toba_modelo_proyecto  $proyecto)
     {
         $directorio = $proyecto->get_dir_instalacion_proyecto(). "/rest";
-        toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
-        $ini = new toba_ini($directorio.'/servidor.ini');
+		$ini = new toba_ini($directorio.'/servidor.ini');			
         return $ini;
     }
 
@@ -30,8 +29,7 @@ class toba_modelo_rest extends toba_modelo_elemento
     static function get_ini_usuarios(toba_modelo_proyecto  $proyecto)
     {
         $directorio = $proyecto->get_dir_instalacion_proyecto(). "/rest";
-        toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
-        $ini = new toba_ini($directorio.'/servidor_usuarios.ini');
+		$ini = new toba_ini($directorio.'/servidor_usuarios.ini');			
         return $ini;
     }
 
@@ -44,8 +42,7 @@ class toba_modelo_rest extends toba_modelo_elemento
     static function get_ini_cliente(toba_modelo_proyecto  $proyecto, $id_servicio)
     {
         $directorio = $proyecto->get_dir_instalacion_proyecto(). "/rest/$id_servicio";
-        toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
-        $ini = new toba_ini($directorio. '/cliente.ini');
+		$ini = new toba_ini($directorio. '/cliente.ini');			
         return $ini;
     }
 
