@@ -4,7 +4,6 @@
     "homepage": "http://toba.siu.edu.ar",
     "license": "SIU",
     "require": {
-        "zircote/swagger-php": "*",
         "php": ">=5.3.0"
     },
     "autoload": {

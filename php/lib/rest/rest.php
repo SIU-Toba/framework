@@ -262,11 +262,11 @@ class rest
 	protected function autoload()
 	{
 		include_once 'bootstrap.php';
-		if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-			require 'vendor/autoload.php';
-		} else {
-			die("Falta correr 'composer install' en php/lib/rest");
-		}
+//		if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+//			require 'vendor/autoload.php';
+//		} else {
+//			die("Falta correr 'composer install' en php/lib/rest");
+//		}
 		bootstrap::registerAutoloader();
 	}
 
