@@ -3,7 +3,6 @@
 
 use rest\seguridad\autenticacion;
 use rest\toba\toba_rest_logger;
-use rest\toba\toba_usuarios_rest_conf;
 use rest\toba as rest_toba;
 
 
@@ -81,20 +80,27 @@ class toba_rest
         switch($autenticacion){
             case 'basic':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_basic_http($passwords);
                 });
                 break;
             case 'digest':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_digest_http($passwords);
                 });
                 break;
             case 'api_key':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_api_key($passwords);
+                });
+                break;
+            case 'toba':
+                $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
+	                $toba_aut = new toba_autenticacion_basica();
+                    $user_prov = new rest_toba\toba_usuarios_rest_bd($toba_aut);
+                    return new autenticacion\autenticacion_basic_http($user_prov);
                 });
                 break;
             default:

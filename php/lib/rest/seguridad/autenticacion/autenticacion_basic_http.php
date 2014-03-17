@@ -10,13 +10,13 @@ use rest\seguridad\rest_usuario;
 class autenticacion_basic_http extends proveedor_autenticacion
 {
 	/**
-	 * @var password_usuarios
+	 * @var usuarios_usuario_password
 	 */
-	protected $passwords;
+	protected $validador_usuarios;
 
-	function __construct(password_usuarios $pu)
+	function __construct(usuarios_usuario_password $pu)
 	{
-		$this->passwords = $pu;
+		$this->validador_usuarios = $pu;
 	}
 
 
@@ -25,13 +25,8 @@ class autenticacion_basic_http extends proveedor_autenticacion
 		if (isset($_SERVER['PHP_AUTH_USER'])) {
 			$password = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : NULL;
 			$user = $_SERVER['PHP_AUTH_USER'];
-
-			$password_requerido = $this->passwords->get_password($user);
-
 			//validar user password
-			if (NULL !== $password_requerido &&
-				$password === $password_requerido
-			) {
+			if ($this->validador_usuarios->es_valido($user, $password)) {
 				$usuario = new rest_usuario();
 				$usuario->set_usuario($user);
 				return $usuario;

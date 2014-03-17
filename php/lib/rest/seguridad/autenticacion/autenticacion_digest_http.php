@@ -16,11 +16,11 @@ class autenticacion_digest_http extends proveedor_autenticacion
 	protected $realm = 'Area Restringida';
 
 	/**
-	 * @var password_usuarios
+	 * @var usuarios_password
 	 */
 	protected $passwords;
 
-	function __construct(password_usuarios $pu)
+	function __construct(usuarios_password $pu)
 	{
 		$this->passwords = $pu;
 	}

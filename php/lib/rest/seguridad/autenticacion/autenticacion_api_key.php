@@ -11,13 +11,13 @@ class autenticacion_api_key extends proveedor_autenticacion
 {
 
 	/**
-	 * @var password_usuarios
+	 * @var usuarios_password
 	 */
 	protected $api_keys;
 
 	protected $mensaje;
 
-	function __construct(api_key_usuarios $pu)
+	function __construct(usuarios_api_key $pu)
 	{
 		$this->api_keys = $pu;
 	}

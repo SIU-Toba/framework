@@ -3,10 +3,12 @@
 namespace rest\seguridad\autenticacion;
 
 /**
- * Retorna los passswords de los usuarios. Esta clase está pensada para http basic y digest.
+ * Retorna los passswords de los usuarios. Esta clase está pensada para http digest,
+ * que requiere si o si el password plano para poder pasarlo por su algoritmo.
+ * USAR SOLO SI NO ES POSIBLE PASAR LA CONEXION POR HTTPS, sino usar basic.
  * @package rest\seguridad\autenticacion
  */
-interface password_usuarios
+interface usuarios_password
 {
 
 	/**
