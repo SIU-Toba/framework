@@ -95,7 +95,7 @@ class toba_autenticacion_saml  implements  toba_autenticable
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function iniciar_pedido_saml()
 	{
-		$this->saml_sp = new SimpleSAML_Auth_Simple('default-sp');
+		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
 		$this->saml_sp->requireAuth();
 		$this->saml_attributes = $this->saml_sp->getAttributes();
 		toba::logger()->debug("Attributos SAML: ".print_r($this->saml_attributes, true));
@@ -103,7 +103,7 @@ class toba_autenticacion_saml  implements  toba_autenticable
 
 	protected function recuperar_usuario_toba()
 	{
-		$id_usuario = $this->saml_attributes['urn:oid:0.9.2342.19200300.100.1.1'][0];
+		$id_usuario = $this->saml_attributes[$this->atributo_usuario][0];
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if (! isset($datos_usuario)) {													//El usuario no existe en la bd de toba.
 				toba::logger()->crit("El usuario SAML '$id_usuario' no existe en la instancia toba");
