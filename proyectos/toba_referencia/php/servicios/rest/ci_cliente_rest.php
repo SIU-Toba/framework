@@ -21,7 +21,7 @@ class ci_cliente_rest extends toba_ci
 	{
 		$this->dump_pedido = $request->getRawHeaders();
 		$this->dump_url = $request->getUrl();
-		$this->dump_respuesta = $response->getBody();		
+		$this->dump_respuesta = $response->getBody(); //un string encodeado utf-8
 	}
 
 	/**
@@ -75,7 +75,7 @@ class ci_cliente_rest extends toba_ci
 			$request = $cliente->get('personas');
 			$response = $request->send();
 			$this->debug($request, $response);
-			$this->rs_personas = $response->json();
+			$this->rs_personas = rest_decode($response->json());
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
@@ -88,7 +88,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $request->send();
 			$this->debug($request, $response);
-			$this->rs_personas = array($response->json());
+			$this->rs_personas = array(rest_decode($response->json()));
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
@@ -101,7 +101,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $request->send();			
 			$this->debug($request, $response);
-			$this->rs_personas = array($response->json());
+			$this->rs_personas = array(rest_decode($response->json()));
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
@@ -114,7 +114,7 @@ class ci_cliente_rest extends toba_ci
         try {
             $response = $request->send();
             $this->debug($request, $response);
-            $this->rs_personas = array($response->json());
+            $this->rs_personas = array(rest_decode($response->json()));
         } catch (Exception $e) {
             throw new toba_error($e);
         }
@@ -127,11 +127,11 @@ class ci_cliente_rest extends toba_ci
 	function evt__post__persona($datos)
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->post('personas', null,  json_encode($datos));
+		$request = $cliente->post('personas', null,  rest_encode($datos));
 		try {
 			$response = $request->send();
 			$this->debug($request, $response);
-			$persona = $response->json();
+			$persona = rest_decode($response->json());
 			toba::notificacion()->info("Persona creada con id: ".$persona['id']);
 		} catch (Exception $e) {
 			throw new toba_error($e);
@@ -165,11 +165,11 @@ class ci_cliente_rest extends toba_ci
 	function evt__put__persona($datos)
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->put('personas/'.$datos['id'], null, json_encode($datos));
+		$request = $cliente->put('personas/'.$datos['id'], null, rest_encode($datos));
 		try {
 			$response = $request->send();
 			$this->debug($request, $response);
-			$persona = $response->json();
+			$persona = rest_decode($response->json());
 			toba::notificacion()->info("Persona actualizada");
 		} catch (Exception $e) {
 			throw new toba_error($e);
@@ -249,7 +249,7 @@ class ci_cliente_rest extends toba_ci
 			$this->dump_url = $request->getUrl();
 			$this->dump_respuesta = $response->getBody();	
 			$this->cant_personas = (string) $response->getHeader("Cantidad-Registros");
-			$this->rs_personas = $response->json();
+			$this->rs_personas = rest_decode($response->json());
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
@@ -268,7 +268,7 @@ class ci_cliente_rest extends toba_ci
             $mensaje = array('imagen' => $img_para_ws);
             $cliente = $this->get_cliente_rest();
 
-            $request = $cliente->put('personas/'.$datos['persona'], null, json_encode($mensaje));
+            $request = $cliente->put('personas/'.$datos['persona'], null, rest_encode($mensaje));
 
             try {
                 $response = $request->send();
@@ -288,7 +288,7 @@ class ci_cliente_rest extends toba_ci
         try {
             $response = $request->send();
             $this->debug($request, $response);
-            $rs_persona = $response->json();
+            $rs_persona = rest_decode($response->json());
             $this->imagen_persona = $rs_persona['imagen'];
         } catch (Exception $e) {
             throw new toba_error($e);

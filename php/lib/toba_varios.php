@@ -202,6 +202,36 @@
 		return $salida;
 	}
 
+	function array_a_utf8($datos){
+		if (is_string($datos)) {
+			return utf8_encode($datos);
+		}
+		if (!is_array($datos)) {
+			return $datos;
+		}
+		$ret = array();
+		foreach ($datos as $i => $d) {
+			$ret[$i] = array_a_utf8($d);
+		}
+		return $ret;
+	}
+
+	/** Transforma un json o arreglo en utf8 a un arreglo en latin1 */
+	function rest_decode($datos)
+	{
+		if(is_string($datos) ){
+			$datos = json_decode($datos);
+		} //es un json ya decodificada guzzle->response->json
+		return array_a_latin1($datos);
+	}
+
+	/** Transforma un arreglo en latin1 a un json en utf8 */
+	function rest_encode($datos)
+	{
+		$array = array_a_utf8($datos);
+		return json_encode($array);
+	}
+
 	/**
 	 * Elimina los campos del array con valor null. No se modifica el arreglo
 	 * pasado por parámetro, se devuelve uno nuevo con las componentes vacías
