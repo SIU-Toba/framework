@@ -43,7 +43,7 @@ class toba_rest
             return;
         }
 
-        $app->procesar();
+        $this->app->procesar();
     }
 
 
@@ -57,7 +57,6 @@ class toba_rest
 
         $path_controladores = $this->get_path_controladores();
         $url_base = self::url_rest();
-
 
         $settings = array(
             'path_controladores' => $path_controladores,
@@ -157,7 +156,7 @@ class toba_rest
         return toba_recurso::url_proyecto() . "/rest" == $_SERVER['REQUEST_URI'];
     }
 
-    function get_modelo_proyecto()
+    protected function get_modelo_proyecto()
     {
         if (!isset($this->modelo_proyecto)) {
             $catalogo = toba_modelo_catalogo::instanciacion();

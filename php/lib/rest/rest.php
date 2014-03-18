@@ -103,7 +103,7 @@ class rest
 		);
 	}
 
-	function __construct($settings)
+	function __construct($settings = array())
 	{
 		self::$instancia = $this;
 		$this->autoload();

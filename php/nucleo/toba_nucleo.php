@@ -161,7 +161,7 @@ class toba_nucleo
 				$app = $toba_rest->get_instancia_rest();
 				toba::contexto_ejecucion()->conf__rest($app);
 			}
-			$toba_rest->ejecutar($app);
+			$toba_rest->ejecutar();
 			$this->finalizar_contexto_ejecucion();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
