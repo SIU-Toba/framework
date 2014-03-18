@@ -53,14 +53,14 @@ class toba_autenticacion_saml  implements  toba_autenticable
 			unset($_SESSION['uso_login_basico']);
 			return;
 		}
-		$this->saml_sp = new SimpleSAML_Auth_Simple('default-sp');
+		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
 		$this->saml_sp->logout();
 
 	}
 	
 	function verificar_logout()
 	{
-		$this->saml_sp = new SimpleSAML_Auth_Simple('default-sp');
+		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
 		if (! $this->saml_sp->isAuthenticated()) {
 			throw new toba_error_usuario("Ha sido deslogueado");
 		}
