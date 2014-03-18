@@ -89,6 +89,7 @@ class rest
 	{
 		return array(
 			'formato_respuesta'  => 'json',
+			'encoding'           => 'utf-8', //latin1
 			'path_controladores' => '/',
 			'prefijo_controladores' => 'recurso_',
 			'url_api'            => '/api',
@@ -112,12 +113,16 @@ class rest
 
 		// Request default
 		$this->container->singleton('request', function ($c) {
-			return new request();
+			$req = new request();
+			$req->set_encoding_datos($c['settings']['encoding']);
+			return $req;
 		});
 
 		// Resoyesta default
 		$this->container->singleton('response', function ($c) {
-			return new respuesta_rest();
+			$respuesta = new respuesta_rest();
+			$respuesta->set_encoding_datos($c['settings']['encoding']);
+			return $respuesta;
 		});
 
 		// Ruteador default

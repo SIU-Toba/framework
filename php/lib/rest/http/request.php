@@ -38,10 +38,22 @@ class request
 
 	public $headers;
 
+	protected $encoding;
+
 
 	public function __construct()
 	{
 		$this->headers = $this->extract_headers();
+	}
+
+	public function set_encoding_datos($encoding)
+	{
+		$this->encoding = $encoding;
+	}
+
+	public function get_encoding_datos()
+	{
+		return $this->encoding;
 	}
 
 
@@ -82,7 +94,8 @@ class request
 	 */
 	public function post($key = null, $default = null)
 	{
-		return $this->get_valor_o_default($_POST, $key, $default);
+		$datos = $this->get_valor_o_default($_POST, $key, $default);
+		return $this->manejar_encoding($datos);
 	}
 
 	/**
@@ -91,7 +104,10 @@ class request
 	 */
 	function get_body_json()
 	{
-		return json_decode($this->get_body(), true);
+		$body = $this->get_body();
+		$json = json_decode($body, true);
+		$arreglo = $this->manejar_encoding($json);
+		return $arreglo;
 	}
 
 	/**
@@ -202,6 +218,31 @@ class request
 			}
 		} else {
 			return $arreglo;
+		}
+	}
+
+
+	protected function manejar_encoding($datos)
+	{
+		if($this->encoding !== 'utf-8'){
+			$datos = $this->utf8_decode_fields($datos);
+		}
+
+		return $datos;
+	}
+
+	protected function utf8_decode_fields($entrada)
+	{
+		if (is_array($entrada)) {
+			$salida = array();
+			foreach ($entrada as $clave => $valor) {
+				$salida[$clave] = $this->utf8_decode_fields($valor);
+			}
+			return $salida;
+		} elseif (is_string($entrada)) {
+			return utf8_decode($entrada);
+		} else {
+			return $entrada;
 		}
 	}
 }

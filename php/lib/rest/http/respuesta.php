@@ -27,6 +27,9 @@ class respuesta
 	 */
 	protected $data;
 
+
+	protected $encoding;
+
 	/**
 	 * @var array codigos HTTP para los encabezados
 	 */
@@ -93,6 +96,17 @@ class respuesta
 		$this->set_status($status);
 		$this->headers = array_merge(array('Content-Type' => 'text/html'), $headers);
 		$this->set_data($data);
+	}
+
+
+	public function set_encoding_datos($encoding)
+	{
+		$this->encoding = $encoding;
+	}
+
+	public function get_encoding_datos()
+	{
+		return $this->encoding;
 	}
 
 	public function get_status()

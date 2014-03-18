@@ -52,7 +52,8 @@ class toba_rest
             'path_controladores' => $path_controladores,
             'url_api' => $url_base,
             'prefijo_api_docs' => 'api-docs',
-            'debug' => !$es_produccion
+            'debug' => !$es_produccion,
+	        'encoding' => 'latin1'
         );
         $settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
