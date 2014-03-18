@@ -10,6 +10,7 @@ class toba_rest
 {
 
     const CARPETA_REST = "/rest";
+	protected $app;
 
     static function url_rest()
     {
@@ -21,16 +22,26 @@ class toba_rest
         return toba_http::get_protocolo() . toba_http::get_nombre_servidor() . self::url_rest() . '/api-docs';
     }
 
+	
+	function conf__inicial()
+	{
+		if (! $this->es_pedido_documentacion()) {
+			$this->app = $this->instanciar_libreria_rest();
+			$this->configurar_libreria_rest($this->app);
+		}		
+	}
+	
+	function get_instancia_rest()
+	{
+		return $this->app;
+	}
+	
     function ejecutar()
     {
         if ($this->es_pedido_documentacion()) {
             $this->rederigir_a_swagger();
             return;
         }
-
-        $app = $this->instanciar_libreria_rest();
-
-        $this->configurar_libreria_rest($app);
 
         $app->procesar();
     }
@@ -141,7 +152,7 @@ class toba_rest
     /**
      * @return bool
      */
-    protected function es_pedido_documentacion()
+    public function es_pedido_documentacion()
     {
         return toba_recurso::url_proyecto() . "/rest" == $_SERVER['REQUEST_URI'];
     }

@@ -22,5 +22,10 @@ class toba_contexto_ejecucion implements toba_interface_contexto_ejecucion
 	 */
 	function conf__final() {}
 
+	/**
+	 * Ventana que se ejecuta antes de ejecutar un servicio web REST
+	 * @ventana
+	 */	
+	function conf__rest($app) {}
 }
 ?>

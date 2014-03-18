@@ -156,7 +156,12 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_ejecucion();
 			$toba_rest = new toba_rest();
-			$toba_rest->ejecutar();
+			if (! $toba_rest->es_pedido_documentacion()) {
+				$toba_rest->conf__inicial();
+				$app = $toba_rest->get_instancia_rest();
+				toba::contexto_ejecucion()->conf__rest($app);
+			}
+			$toba_rest->ejecutar($app);
 			$this->finalizar_contexto_ejecucion();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
