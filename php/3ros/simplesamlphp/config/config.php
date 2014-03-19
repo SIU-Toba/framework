@@ -5,6 +5,8 @@
  * $Id: config.php 3246 2013-05-23 11:43:52Z olavmrk $
  */
 
+$ini = parse_ini_file(dirname(__FILE__).'/../../../../instalacion/saml.ini',true);
+
 $config = array (
 
 	/**
@@ -22,7 +24,7 @@ $config = array (
 	 * external url, no matter where you come from (direct access or via the
 	 * reverse proxy).
 	 */
-	'baseurlpath'           => 'sp/simplesaml/',
+	'baseurlpath'           => $ini['sp']['baseurlpath'],
 	'certdir'               => 'cert/',
 	'loggingdir'            => 'log/',
 	'datadir'               => 'data/',
@@ -69,8 +71,8 @@ $config = array (
 	 * metadata listing and diagnostics pages.
 	 * You can also put a hash here; run "bin/pwgen.php" to generate one.
 	 */
-	'auth.adminpassword'		=> '753df',
-	'admin.protectindexpage'	=> false,
+	'auth.adminpassword'		=> uniqid(),
+	'admin.protectindexpage'	=> true,
 	'admin.protectmetadata'		=> false,
 
 	/**
@@ -115,7 +117,7 @@ $config = array (
 	 * Options: [syslog,file,errorlog]
 	 * 
 	 */
-	'logging.level'         => SimpleSAML_Logger::DEBUG,
+	'logging.level'         => SimpleSAML_Logger::NOTICE,
 	'logging.handler'       => 'syslog',
 
 	/*
@@ -281,7 +283,7 @@ $config = array (
 	/*
 	 * Options to override the default settings for php sessions.
 	 */
-	'session.phpsession.cookiename'  => 'TOBA_SESSID',
+	'session.phpsession.cookiename'  => $ini['sp']['session.phpsession.cookiename'],
 	'session.phpsession.savepath'    => null,
 	'session.phpsession.httponly'    => FALSE,
 

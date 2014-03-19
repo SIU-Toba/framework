@@ -25,4 +25,3 @@ $metadata['google.com'] = array(
 	'simplesaml.nameidattribute' => 'uid',
 	'simplesaml.attributes' => FALSE,
 );
-

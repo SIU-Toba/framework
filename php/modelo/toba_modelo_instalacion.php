@@ -404,7 +404,13 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
 		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
 		copy(toba_dir(). '/php/modelo/var/cas.ini', 	self::dir_base().'/cas.ini');		
-		copy(toba_dir(). '/php/modelo/var/saml.ini', 	self::dir_base().'/saml.ini');
+		
+		//Se genera archivo configuracion saml
+		copy(toba_dir(). '/php/modelo/var/saml.ini', 	self::dir_base().'/saml.ini');		
+		$template = file_get_contents(toba_dir(). '/php/modelo/var/saml.ini');
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo);
+		$editor->procesar_archivo(self::dir_base().'/saml.ini' );
 		
 		//Se genera archivo configuracion openssl
 		$template = file_get_contents(toba_dir(). '/php/modelo/var/openssl.ini');

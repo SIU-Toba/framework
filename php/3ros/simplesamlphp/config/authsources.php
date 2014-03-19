@@ -1,5 +1,7 @@
 <?php
 
+$ini = parse_ini_file(dirname(__FILE__).'/../../../../instalacion/saml.ini',true);
+
 $config = array(
 
 	// This is a authentication source which handles admin authentication.
@@ -22,7 +24,7 @@ $config = array(
 
 		// The entity ID of the IdP this should SP should contact.
 		// Can be NULL/unset, in which case the user will be shown a list of available IdPs.
-		'idp' => 'http://localhost/simplesaml/saml2/idp/metadata.php',
+		'idp' => $ini['sp']['idp'],
 
 		// The URL to the discovery service.
 		// Can be NULL/unset, in which case a builtin discovery service will be used.
@@ -50,7 +52,7 @@ $config = array(
 	*/
 
 	/*
-s	'example-userpass' => array(
+	'example-userpass' => array(
 		'exampleauth:UserPass',
 
 		// Give the user an option to save their username for future login attempts
