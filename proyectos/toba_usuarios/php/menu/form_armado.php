@@ -39,9 +39,10 @@ class form_armado extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		//Envia los metodos que arman el arbol de items en JS.
 		echo "
-			var arbol = {};			
-			//Agrego una funcion para eliminar un valor del arreglo
+			var arbol = {};
+			//Agrego funcion para eliminar un componente del objeto por su valor
 			Array.prototype.removeByValue = function(val) {
 				for(var i=0; i<this.length; i++) {
 					if(this[i] == val) {
@@ -80,8 +81,7 @@ class form_armado extends toba_ei_formulario
 
 			quitar_subnivel = function(padre, hijo) {			
 				arbol[padre].removeByValue(hijo);
-			}";
+			}\n";
 	}
-
 }
 ?>

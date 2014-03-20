@@ -31,6 +31,11 @@ class ci_armador_menues extends toba_ci
 		unset($this->s__arbol_cargado);
 	}	
 	
+	function es_edicion()
+	{
+		return $this->dep('datos')->esta_cargada();
+	}
+	
 	function conf__arbol_origen($arbol) 
 	{		
 		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
@@ -66,8 +71,9 @@ class ci_armador_menues extends toba_ci
 			$menu = new $clase(false);						//Creo el menu correspondiente pero no hago carga inicial de items
 			$menu->set_modo_prueba();
 			
+			//Se agregan las opciones que se pusieron en el menu y se pasa el objeto a la pantalla para que lo grafique
 			$filas = $this->dep('datos')->tabla('operaciones')->get_filas();
-			foreach ($filas as $item) {						//Agrego las opciones que se pusieron en el menu
+			foreach ($filas as $item) {						
 				$item['nombre'] = $item['descripcion'];
 				$item['es_primer_nivel'] = ($item['padre'] == $raiz);
 				$menu->agregar_opcion($item);					
@@ -149,10 +155,15 @@ class ci_armador_menues extends toba_ci
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		if (isset($this->s__filtro)) {
-			//Obtengo los datos del metodo y se los paso al cuadro
 			$datos = consultas_instancia::get_menus_existentes($this->s__filtro['proyecto']);
 			$cuadro->set_datos($datos);
 		}
+	}
+	
+	function evt__cuadro__seleccion($seleccion)
+	{
+		$this->dep('datos')->cargar($seleccion);
+		$this->set_pantalla('pant_basica');
 	}
 	
 	//-----------------------------------------------------------------------------------
@@ -175,18 +186,17 @@ class ci_armador_menues extends toba_ci
 	
 	//-----------------------------------------------------------------------------------
 	//---- form_armado ------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
+	//-----------------------------------------------------------------------------------	
 	function evt__form_armado__modificacion($datos)
 	{
+		if (isset($datos['nivel_inicial'])) {
+			unset($datos['nivel_inicial']);
+		}
+		
 		if (! empty($datos)) {
 			$this->raiz = toba_proyecto_db::get_item_raiz($this->s__proyecto);
-			if (isset($datos['nivel_inicial'])) {
-				$primer_nivel = explode('^', $datos['nivel_inicial']);
-				unset($datos['nivel_inicial']);
-			}
 
-			//Recupero los ids enviados por el arbol
+			//Recupero los ids enviados por el arbol (lado server)
 			$ids_validos = $this->get_ids_enviados();			
 			
 			//Armo un arreglo con los ids recuperados en forma de padre/hijo
@@ -202,21 +212,53 @@ class ci_armador_menues extends toba_ci
 				throw new toba_error_seguridad('Una de las opciones indicadas no es valida');
 			}
 
-			//Aca tengo que recuperar la informacion de los items reales del proyecto
-			$items_totales = $this->recuperar_info_items();			
-			foreach ($ids_recuperados as $id) {
-				$linea = array('item' => $id);
-				$linea['carpeta'] = (isset($items_totales[$id]['carpeta'])) ? $items_totales[$id]['carpeta']: 0;
-				$linea['padre'] = $this->descubrir_padre($datos, $id);		
-				if (isset($items_totales[$id])) {
-					$linea['descripcion'] = $items_totales[$id]['descripcion'];
-				}
-
-				$this->dep('datos')->tabla('operaciones')->nueva_fila($linea);
-				unset($linea);
+			//Calculo el complemento para distinguir los elementos eliminados  (tambien estan los no seleccionados, asi que hay un poco mas.. pero bueno)			
+			if ($this->es_edicion()) {
+				$diffr = array_diff($ids_validos, $ids_recuperados);			
+				$this->quitar_elementos_eliminados($diffr);
 			}
+						
+			//Se inserta o actualizan los elementos del menu
+			$this->actualizar_elementos($ids_recuperados, $datos);
 		}		
 	}
+	
+	protected function quitar_elementos_eliminados($elementos)
+	{
+		foreach($elementos as $id) {
+			$cursor = $this->dep('datos')->tabla('operaciones')->get_id_fila_condicion(array('item' => $id));
+			if (! empty($cursor)) {
+				$this->dep('datos')->tabla('operaciones')->eliminar_fila(current($cursor));
+			}
+		}
+	}
+	
+	protected function actualizar_elementos($ids_recuperados, $datos)
+	{
+		//Aca se recupera la informacion de los items reales del proyecto
+		$items_totales = $this->recuperar_info_items();
+		foreach ($ids_recuperados as $id) {
+			$linea = array('item' => $id);
+			$linea['carpeta'] = (isset($items_totales[$id]['carpeta'])) ? $items_totales[$id]['carpeta']: 0;
+			$linea['padre'] = $this->descubrir_padre($datos, $id);		
+			if (isset($items_totales[$id])) {
+				$linea['descripcion'] = $items_totales[$id]['descripcion'];			//Asigno la descripcion de la bd inicialmente
+			}
+
+			if (! $this->es_edicion()) {
+				$this->dep('datos')->tabla('operaciones')->nueva_fila($linea);
+			} else {
+				$cursor = $this->dep('datos')->tabla('operaciones')->get_id_fila_condicion(array('item' => $id));
+				if (! empty($cursor)) {
+					unset($linea['descripcion']);
+					$this->dep('datos')->tabla('operaciones')->modificar_fila(current($cursor), $linea);			//En la modificacion dejo la descripcion anterior
+				}else {
+					$this->dep('datos')->tabla('operaciones')->nueva_fila($linea);
+				}
+			}
+			unset($linea);
+		}
+	}		
 		
 	//-----------------------------------------------------------------------------------
 	//---- AUXILIARES -------------------------------------------------------------------
@@ -245,16 +287,39 @@ class ci_armador_menues extends toba_ci
 		return $resultado;
 	}
 		
+	function buscar_datos_persistidos()
+	{
+		$buscador = $this->dep('datos')->tabla('operaciones')->nueva_busqueda();
+		$buscador->set_columnas_orden(array('carpeta' => SORT_DESC));
+		$datos = $buscador->buscar_filas();		
+		return $datos;
+	}
+	
+	function get_arreglo_js()
+	{
+		$arbol = array();
+		$datos = $this->buscar_datos_persistidos();
+		foreach($datos as $fila) {
+			$indx = $fila['item'];
+			$padre = $fila['padre'];
+			if (! is_null($padre) && isset($arbol[$padre])) {
+				$arbol[$padre][] = $fila['item'];
+			} else {
+				$arbol[$indx] = array();
+			}
+		}		
+		return $arbol;
+	}
+	
+	
 	//------------------------------------------------------------------------------------------------------------------
 	//					SERVICIOS AJAX
 	//------------------------------------------------------------------------------------------------------------------
 	function ajax__get_estructura_arbol($parametros, toba_ajax_respuesta $respuesta)
 	{
-		//Aca tengo que armar la estructura del arbol en json.
+		//Se arma la estructura del arbol en json para enviarla al plugin JQuery de la anteultima pestaña.
 		$arbol = array();
-		$buscador = $this->dep('datos')->tabla('operaciones')->nueva_busqueda();
-		$buscador->set_columnas_orden(array('carpeta' => SORT_DESC));
-		$datos = $buscador->buscar_filas();		
+		$datos = $this->buscar_datos_persistidos();
 		foreach($datos as $fila) {
 			$indx = $fila['item'];
 			$padre = $fila['padre'];
@@ -274,12 +339,10 @@ class ci_armador_menues extends toba_ci
 	
 	function ajax__set_descripcion_nodo($parametros, toba_ajax_respuesta $respuesta)
 	{
+		//Cambia la descripcion del nodo indicado
 		$ids = $this->get_ids_enviados();
 		$id_nodo = $parametros['id_nodo'];
-		toba::logger()->debug($id_nodo);
-		toba::logger()->var_dump($ids);
-		if (in_array($id_nodo, $ids)) {
-			//Primero buscar el registro que tiene ese id
+		if (in_array($id_nodo, $ids)) {			
 			$cursor = $this->dep('datos')->tabla('operaciones')->get_id_fila_condicion(array('item' => $id_nodo));
 			$this->dep('datos')->tabla('operaciones')->modificar_fila(current($cursor), array('descripcion' => $parametros['descripcion']));
 			$respuesta->set('OK');
@@ -292,6 +355,7 @@ class ci_armador_menues extends toba_ci
 
 	function extender_objeto_js()
 	{
+		//Se encarga de crear los hiddens necesarios en el form y agregarle los ids de los nodos seleccionados de manera grafica..
 		echo "
 		//---- Eventos ---------------------------------------------		
 		{$this->objeto_js}.evt__cambiar_texto = function()

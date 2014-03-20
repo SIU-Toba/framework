@@ -449,7 +449,8 @@ class consultas_instancia
 		$where[] = 'am.proyecto = ' . quote($proyecto);		
 		$sql = 'SELECT	am.menu_id, 
 						coalesce(am.descripcion, \'Sin nombre\') as descripcion, 
-						amt.descripcion as tipo
+						amt.descripcion as tipo,
+						am.proyecto
 			  FROM	apex_menu am
 			  JOIN	apex_menu_tipos amt ON am.tipo_menu = amt.menu
 			';
