@@ -9,7 +9,7 @@ class ci_ei_arbol extends toba_ci
 		require_once('contrib/catalogo_items_menu/toba_catalogo_items_menu.php');
 		$catalogo = new toba_catalogo_items_menu();
 		$raiz = '1000206';		
-		$catalogo->cargar($raiz);
+		$catalogo->cargar(array(), $raiz);
 		$nodos = $catalogo->get_hijos($raiz);
 		
 		

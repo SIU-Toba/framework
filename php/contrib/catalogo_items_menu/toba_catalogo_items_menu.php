@@ -7,8 +7,7 @@ class toba_catalogo_items_menu extends toba_catalogo_items_base
 {
 	protected $usa_niveles = false;
 	
-	//function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())	esta deberia ser la declaracion para E_STRICT
-	function cargar($raiz=null)
+	function cargar($opciones, $raiz=null, $incluidos_forzados=array())
 	{
 		if (! is_null($raiz)) {
 			$rs = toba::proyecto()->get_items_menu();
@@ -32,7 +31,7 @@ class toba_catalogo_items_menu extends toba_catalogo_items_base
 		}
 	}
 
-	function cargar_todo()
+	function cargar_todo($opciones=array())
 	{
 		$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
 		
