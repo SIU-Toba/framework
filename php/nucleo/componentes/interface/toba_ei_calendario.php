@@ -110,6 +110,33 @@ class toba_ei_calendario extends toba_ei
 	}
 	
 	/**
+	 * Habilita o deshabilita iniciar en domingo la semana
+	 * @param boolean $valor
+	 */
+	function set_iniciar_en_domingo($valor)
+	{
+		$this->_calendario->set_start_on_sun($valor);
+	}
+	
+	/**
+	 * Habilita o deshabilita la seleccion en los dias sabado
+	 * @param boolean $valor
+	 */
+	function set_sab_seleccionable($valor)
+	{
+		$this->_calendario->set_sat_seleccion($valor);
+	}
+	
+	/**
+	 * Habilita o deshabilita la seleccion en los dias domingo
+	 * @param boolean $valor
+	 */
+	function set_dom_seleccionable($valor)
+	{
+		$this->_calendario->set_sun_seleccion($valor);
+	}
+	
+	/**
 	 * @ignore 
 	 */	
 	protected function cargar_seleccion_dia()
@@ -545,7 +572,7 @@ class calendario //extends activecalendar
 	{
 		$this->siempre_resalta_dia_actual = $resaltar;
 	}
-
+	
 	/*
 	********************************************************************************
 	PUBLIC enableYearNav() -> enables the year's navigation controls
