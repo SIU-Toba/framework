@@ -208,18 +208,15 @@ class catalogo_tablas
 	}
 
 	//----------------------------------------------------------------------------------------------------------------------
-	function desactivar_no_procesadas($procesadas)
+	function desactivar_no_procesadas($procesadas=array())
 	{
-		$total_tablas = array();
-		foreach (array_keys($this->_tablas_actualizables) as $tabla) {
-			$total_tablas[] = array('tabla' => $tabla);
-		}
+		$total_tablas = array_keys($this->_tablas_actualizables);
 		foreach ($this->_tablas_nuevas as $tabla) {
-			$total_tablas[] = array('tabla' => $tabla['tabla']);
+			$total_tablas[] = $tabla['tabla'];
 		}
 		$resultado = array_diff($total_tablas, $procesadas);
 		foreach ($resultado as $tb) {
-			$id = $this->get_id_objeto($tb['tabla']);
+			$id = $this->get_id_objeto($tb);
 			if (! is_null($id)) {
 				$sql = 'UPDATE apex_objeto_db_registros SET permite_actualizacion_automatica = 0
 							WHERE	objeto_proyecto  = ' . quote($this->_proyecto) . ' AND objeto = ' . quote($id);

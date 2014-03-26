@@ -22,9 +22,13 @@ class ci_sincronizador_tablas extends toba_ci
 		if (!empty($this->s__seleccionadas) && !is_array(current($this->s__seleccionadas))) {
 			$this->s__seleccionadas = array($this->s__seleccionadas);	//Por si viene con el formato viejo
 		}
-		$this->s__catalogo->desactivar_no_procesadas($this->s__seleccionadas);
-		foreach ($this->s__seleccionadas as $tabla) {
-			$this->s__catalogo->confirmar_acciones($tabla['tabla']);
+		$procesables = array();
+		if (! empty($this->s__seleccionadas)) {
+			$procesables = aplanar_matriz($this->s__seleccionadas, 'tabla');
+		}		
+		$this->s__catalogo->desactivar_no_procesadas($procesables);
+		foreach ($procesables as $tabla) {
+			$this->s__catalogo->confirmar_acciones($tabla);
 		}
 
 		$this->s__catalogo->resetear();
