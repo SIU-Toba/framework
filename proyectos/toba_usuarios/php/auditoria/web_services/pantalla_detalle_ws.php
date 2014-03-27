@@ -12,7 +12,7 @@ class pantalla_detalle_ws extends toba_ei_pantalla
 	{
 		echo "<pre style='width: 700px; overflow: scroll; font-size: 11px'>";
 		echo htmlentities($this->contenido_archivo_log, ENT_QUOTES);
-		echo "</pre>";
+		echo '</pre>';
 		
 		parent::generar_layout();
 	}	

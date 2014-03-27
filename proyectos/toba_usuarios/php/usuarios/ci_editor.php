@@ -1,7 +1,7 @@
 <?php
 
 class ci_editor extends toba_ci
-{	
+{
 	const clave_falsa = 'xS34Io9gF2JD';					//La clave no se envia al cliente
 	
 	protected $s__proyecto;

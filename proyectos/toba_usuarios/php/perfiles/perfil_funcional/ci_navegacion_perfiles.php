@@ -1,6 +1,6 @@
 <?php 
 require_once('lib/consultas_instancia.php');
-require_once(toba_dir()."/php/3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
+require_once(toba_dir().'/php/3ros/Graph/Graph.php');	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_navegacion_perfiles extends toba_ci
 {
@@ -47,7 +47,7 @@ class ci_navegacion_perfiles extends toba_ci
 		admin_instancia::set_usar_perfiles_propios($this->dep('editor_perfiles')->get_proyecto());
 	}
 	
-	function actualizar_script_roles($eliminados = array())
+	function actualizar_script_roles($eliminados=array())
 	{
 		$usa_permisos_por_tabla = false;
 		foreach (toba_info_editores::get_fuentes_datos($this->dep('editor_perfiles')->get_proyecto()) as $fuente) {	//Miro si al menos una fuente usa permisos por tablas.

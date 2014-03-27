@@ -12,6 +12,6 @@ $id_instancia = toba::instancia()->get_id();
 $id_proyecto = toba::proyecto()->get_id();
 $instancia = $catalogo->get_proyecto($id_instancia, $id_proyecto, $consola);
 $instancia->exportar_implementacion();
-echo "</pre>";
+echo '</pre>';
 
 ?>

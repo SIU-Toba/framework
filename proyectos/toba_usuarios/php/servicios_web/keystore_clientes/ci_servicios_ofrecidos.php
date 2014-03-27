@@ -81,7 +81,7 @@ class ci_servicios_ofrecidos extends toba_ci
 	
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{		
-		$cuadro->set_datos( $this->s__datos);					
+		$cuadro->set_datos($this->s__datos);					
 	}
 
 	function evt__cuadro__seleccion($seleccion)
@@ -99,7 +99,7 @@ class ci_servicios_ofrecidos extends toba_ci
 			$activo = toba_modelo_servicio_web::esta_activo($this->get_modelo_proyecto(), $id_servicio);
 			$aux = $this->recuperar_clientes_configurados($id_servicio);
 			$url_serv = toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'url'));
-			$url_wsdl= toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'wsdl 1.1', 'wsdl' => true));
+			$url_wsdl = toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'wsdl 1.1', 'wsdl' => true));
 			$url_wsdl2 = toba::vinculador()->get_url_ws($this->s__filtro['proyecto'], $id_servicio, null, array( 'html' => true, 'texto' => 'wsdl 2.0', 'wsdl2' => true));
 			$conf_final[$id_servicio] = array_merge($dato, array('activado' => $activo, 'cantidad_configuraciones' => count($aux), 'wsdl' => "$url_wsdl / $url_wsdl2", 'url'  => $url_serv));
 		}
@@ -180,7 +180,7 @@ class ci_servicios_ofrecidos extends toba_ci
 		$entradas = $ini->get_entradas();
 		$claves = (is_array($entradas))? array_keys($entradas): array();
 		foreach ($claves as $clave) {
-			if (strpos($clave, '=') !== FALSE) {	//Si la entrada corresponde a un grupo de headers			
+			if (strpos($clave, '=') !== false) {	//Si la entrada corresponde a un grupo de headers			
 				$archivo = $ini->get($clave, 'archivo');
 				$datos[$clave] = array('headers' => $clave, 'cert_file' => basename($archivo));
 			}
@@ -223,8 +223,8 @@ class ci_servicios_ofrecidos extends toba_ci
 	function conf__form_parametros(toba_ei_formulario_ml $form_ml)
 	{
 		if (empty($this->s__parametros) && isset($this->s__conf_activa)) {			
-			$subclaves = explode(',' , $this->s__conf_activa);					
-			foreach($subclaves as $subvalores) {
+			$subclaves = explode(',', $this->s__conf_activa);					
+			foreach ($subclaves as $subvalores) {
 				list($parametro, $valor) = explode('=', $subvalores);
 				$this->s__parametros[] = array('parametro' => $parametro, 'valor' => $valor);
 			}
@@ -262,7 +262,7 @@ class ci_servicios_ofrecidos extends toba_ci
 		if (isset($this->cert)) {													//Si se agrega un archivo de certificado, le paso los parametros nuevos			
 			$servicio = new toba_modelo_servicio_web($proyecto, $this->s__seleccionado);
 			$servicio->generar_configuracion_servidor($this->cert['path'], $headers);
-		}  elseif (! empty($this->s__parametros) && isset($this->s__conf_activa)) {									//En este caso, cambio los parametros
+		} elseif (! empty($this->s__parametros) && isset($this->s__conf_activa)) {									//En este caso, cambio los parametros
 			$nombre = toba_modelo_servicio_web::generar_id_entrada_cliente($headers);
 			$ini->agregar_entrada($nombre, $temp_data);
 			$ini->guardar();			

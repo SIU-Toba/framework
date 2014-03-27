@@ -38,5 +38,5 @@ class apdb_usuario_basicas extends toba_ap_tabla_db_s
 			$this->datos[$id]['clave'] = hash($metodo, $this->datos[$id]['clave']);			
 		}
 	}
-}	
+}
 ?>

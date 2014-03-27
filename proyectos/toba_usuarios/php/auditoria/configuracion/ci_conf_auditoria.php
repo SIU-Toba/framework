@@ -20,12 +20,12 @@ class ci_conf_auditoria extends toba_ci
 		if (isset($this->s__tablas['tablas'])) {			
 			//Reseteo estado interno y agrego las tablas actuales
 			$manejador->reset_tablas();			
-			foreach($this->s__tablas['tablas'] as $tabla) {
+			foreach ($this->s__tablas['tablas'] as $tabla) {
 				$manejador->agregar_tabla($tabla);				
 			}
 			$manejador->activar_triggers_auditoria();
 		}
-		$this->agregar_notificacion("Schema actualizado");
+		$this->agregar_notificacion('Schema actualizado');
 
 		//Finish him!		
 		unset($this->s__tablas);		
@@ -56,6 +56,7 @@ class ci_conf_auditoria extends toba_ci
 		try {
 			$existe = $this->existe_auditoria($evt->get_parametros());
 		} catch (toba_error $e) {
+			toba::logger()->debug($e->getMessage());
 		}
 		if (! $existe) {
 			$evt->anular(); 
@@ -68,14 +69,15 @@ class ci_conf_auditoria extends toba_ci
 		try {
 			$existe = $this->existe_auditoria($evt->get_parametros());
 		} catch (toba_error $e) {
+			toba::logger()->debug($e->getMessage());
 		}
 
 		if ($existe) {
-			$evt->set_etiqueta("Actualizar Schema");
-			$evt->set_msg_ayuda("Migra el schema de auditoria tomando campos nuevos o modificados");
+			$evt->set_etiqueta('Actualizar Schema');
+			$evt->set_msg_ayuda('Migra el schema de auditoria tomando campos nuevos o modificados');
 		} else {
-			$evt->set_etiqueta("Activar Auditoría");
-			$evt->set_msg_ayuda("Crea un schema paralelo con la misma estructura que el schema de datos original, conteniendo todas las modificaciones a los datos del mismo");
+			$evt->set_etiqueta('Activar Auditoría');
+			$evt->set_msg_ayuda('Crea un schema paralelo con la misma estructura que el schema de datos original, conteniendo todas las modificaciones a los datos del mismo');
 		}
 	}
 
@@ -97,10 +99,10 @@ class ci_conf_auditoria extends toba_ci
 		$manejador->agregar_tablas();				
 		if (! $manejador->existe()) {
 			$manejador->crear();
-			$this->agregar_notificacion("Schema creado");
+			$this->agregar_notificacion('Schema creado');
 		} else {
 			$manejador->migrar();
-			$this->agregar_notificacion("Schema actualizado");
+			$this->agregar_notificacion('Schema actualizado');
 		}
 		
 		//Actualizo el flag en apex_fuente_tatos
@@ -140,7 +142,7 @@ class ci_conf_auditoria extends toba_ci
 		//Busco los triggers activos con sus respectivas tablas.
 		$manejador = $this->get_manejador($this->s__seleccionado['proyecto']);
 		$activos = $manejador->get_triggers_activos();
-		foreach($activos as $trg) {
+		foreach ($activos as $trg) {
 			$datos[] = $trg['tabla'];		
 		}
 		return $datos;

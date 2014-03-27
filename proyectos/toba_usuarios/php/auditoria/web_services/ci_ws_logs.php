@@ -61,7 +61,7 @@ class ci_ws_logs extends toba_ci
 			$desc = 'Solicitud del proyecto <strong>'.$this->s__filtro['proyecto'].'</strong><br>';
 			$desc .= 'IP: <strong>'.$datos['ip'].'</strong><br>';
 			
-			foreach($obs as $observacion) {
+			foreach ($obs as $observacion) {
 				$desc .= 'Tipo: <strong>'.$observacion['descripcion'].'</strong><br>';		
 				$desc .= 'Observaciones: <strong>'.$observacion['observacion'].'</strong><br>';
 			}
@@ -118,7 +118,7 @@ class ci_ws_logs extends toba_ci
 	}
 
 	//--------------------------------------------------------------------------------------------------//
-	function archivo_log_ws ($datos)
+	function archivo_log_ws($datos)
 	{
 		$directorio = toba::instancia()->get_path_instalacion_proyecto($this->s__filtro['proyecto']).'/logs/web_services';		
 		$nombre_archivo = $directorio."/web_services_{$datos['ip']}_{$this->s__id_solicitud}.log";

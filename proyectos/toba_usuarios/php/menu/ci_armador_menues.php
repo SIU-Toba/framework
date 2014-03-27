@@ -51,7 +51,7 @@ class ci_armador_menues extends toba_ci
 	function get_ids_enviados()
 	{
 		if (! isset($this->s__ids_enviados)) {			
-			$this->s__ids_enviados =  $this->dep('arbol_origen')->get_ids_nodos_enviados();
+			$this->s__ids_enviados = $this->dep('arbol_origen')->get_ids_nodos_enviados();
 		}
 		return $this->s__ids_enviados;
 	}
@@ -225,7 +225,7 @@ class ci_armador_menues extends toba_ci
 	
 	protected function quitar_elementos_eliminados($elementos)
 	{
-		foreach($elementos as $id) {
+		foreach ($elementos as $id) {
 			$cursor = $this->dep('datos')->tabla('operaciones')->get_id_fila_condicion(array('item' => $id));
 			if (! empty($cursor)) {
 				$this->dep('datos')->tabla('operaciones')->eliminar_fila(current($cursor));
@@ -252,7 +252,7 @@ class ci_armador_menues extends toba_ci
 				if (! empty($cursor)) {
 					unset($linea['descripcion']);
 					$this->dep('datos')->tabla('operaciones')->modificar_fila(current($cursor), $linea);			//En la modificacion dejo la descripcion anterior
-				}else {
+				} else {
 					$this->dep('datos')->tabla('operaciones')->nueva_fila($linea);
 				}
 			}
@@ -280,7 +280,7 @@ class ci_armador_menues extends toba_ci
 	{
 		$resultado = array();
 		$datos = toba_info_editores::get_lista_items($this->s__proyecto, false);
-		foreach($datos as $item) {
+		foreach ($datos as $item) {
 			$indx = $item['id'];
 			$resultado[$indx] = $item;
 		}
@@ -299,7 +299,7 @@ class ci_armador_menues extends toba_ci
 	{
 		$arbol = array();
 		$datos = $this->buscar_datos_persistidos();
-		foreach($datos as $fila) {
+		foreach ($datos as $fila) {
 			$indx = $fila['item'];
 			$padre = $fila['padre'];
 			if (! is_null($padre) && isset($arbol[$padre])) {
@@ -320,7 +320,7 @@ class ci_armador_menues extends toba_ci
 		//Se arma la estructura del arbol en json para enviarla al plugin JQuery de la anteultima pestaña.
 		$arbol = array();
 		$datos = $this->buscar_datos_persistidos();
-		foreach($datos as $fila) {
+		foreach ($datos as $fila) {
 			$indx = $fila['item'];
 			$padre = $fila['padre'];
 			$aux = array('id' => $fila['item'], 'text' => $fila['descripcion']);

@@ -20,7 +20,7 @@ class pant_armado extends toba_ei_pantalla
 	
 	function extender_objeto_js()
 	{			
-		echo "$(function() {";
+		echo '$(function() {';
 		$this->codigo_generador_subitem();				 
 		$this->codigo_generador_item_carpeta();
 		echo "	
@@ -195,7 +195,7 @@ class pant_armado extends toba_ei_pantalla
 		//Genero el codigo que dispara los drops y crea la parte visual
 		$datos = $this->controlador()->buscar_datos_persistidos();
 		$aux_arbol = $this->controlador()->get_arreglo_js();
-		foreach($datos as $fila) {
+		foreach ($datos as $fila) {
 			echo  "simular_drop_item('". $fila['item'] . "');\n";				
 			if ($fila['carpeta'] != 1 && isset($aux_arbol[$fila['padre']])) {
 				echo "simular_drop_carpeta('". $fila['item'] . "', '". $fila['padre'] . "');\n";

@@ -176,7 +176,7 @@ class consultas_instancia
 		return toba::db()->consultar($sql);		
 	}
 	
-	static function get_solicitudes_web_service($filtro = array())
+	static function get_solicitudes_web_service($filtro=array())
 	{
 		$where = array();
 		if (isset($filtro['proyecto'])) { $where[] = 's.proyecto = ' .quote($filtro['proyecto']);}
@@ -379,15 +379,15 @@ class consultas_instancia
 	static function get_lista_grupos_acceso($filtro)
 	{
 		$where = array();
-		if (isset($filtro['proyecto'])) $where[] = 'proyecto = '.quote($filtro['proyecto']);
-		if (isset($filtro['grupo'])) $where[] = 'usuario_grupo_acc = '.quote($filtro['grupo']);
-		if (isset($filtro['menu' ])) $where[] = 'menu_usuario = '.quote($filtro['menu']);
+		if (isset($filtro['proyecto'])) { $where[] = 'proyecto = '.quote($filtro['proyecto']); }
+		if (isset($filtro['grupo'])) { $where[] = 'usuario_grupo_acc = '.quote($filtro['grupo']); }
+		if (isset($filtro['menu' ])) { $where[] = 'menu_usuario = '.quote($filtro['menu']); }
 		
-		$sql = "SELECT 	proyecto,
+		$sql = 'SELECT 	proyecto,
 						usuario_grupo_acc,
 						nombre,
 						descripcion
-				FROM 	apex_usuario_grupo_acc";
+				FROM 	apex_usuario_grupo_acc';
 		if (! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where);
 		}
@@ -486,11 +486,11 @@ class consultas_instancia
 		$where_filtro = array();
 		if (isset($filtro['proyecto'])) { $where_filtro[] = 'proyecto = '. quote($filtro['proyecto']); } 		
 		
-		$sql = "SELECT 
+		$sql = 'SELECT 
 				servicio_web, 
 				param_to, 
 				param_wsa
-			      FROM	 apex_servicio_web ";
+			      FROM	 apex_servicio_web ';
 		if (! empty($where_filtro)) {
 			$sql = sql_concatenar_where($sql, $where_filtro);
 		}

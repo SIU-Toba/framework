@@ -30,7 +30,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		echo '</div>';	
 	}	
 	
-	public function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
+	function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
 		$salida = $this->mostrar_iconos($nodo);
 
@@ -42,11 +42,11 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 	}
 	
 	
-	public function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0, $solo_contenido=false)
+	function recorrer_recursivo($nodo, $es_raiz=false, $nivel=0, $solo_contenido=false)
 	{
 		//Le paso al nodo una referencia al js del arbol que lo contiene
 		if (method_exists($nodo, 'set_js_ei_arbol')) {			
-			$nodo->set_js_ei_arbol( $this->get_id_objeto_js());
+			$nodo->set_js_ei_arbol($this->get_id_objeto_js());
 		}
 		$id_nodo = $nodo->get_id();
 		$this->_ids_enviados[] = $id_nodo;

@@ -34,7 +34,7 @@ class ci_gen_certificado extends toba_ci
 		if (! $this->existe_archivo) {
 			$pantalla->eliminar_dep('form_muestra');			
 			$pantalla->eliminar_dep('form');
-			$pantalla->set_descripcion("Aún no se ha configurada la Clave privada y el Certificado público del proyecto");
+			$pantalla->set_descripcion('Aún no se ha configurada la Clave privada y el Certificado público del proyecto');
 		} else {
 			$pantalla->evento('generar')->set_etiqueta('Descartar y &Generar');
 		}
@@ -52,7 +52,7 @@ class ci_gen_certificado extends toba_ci
 			toba_modelo_servicio_web::generar_certificados($proyecto);
 		} catch (toba_error_usuario $e) {
 			toba::logger()->error($e->getMessage());
-			toba::notificacion()->agregar('Se ha producido un error generando el certificado, verifique los logs' , 'error');
+			toba::notificacion()->agregar('Se ha producido un error generando el certificado, verifique los logs', 'error');
 		}
 	}
 

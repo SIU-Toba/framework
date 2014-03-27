@@ -19,7 +19,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		}
 		
 		$id_inactivos = $this->_submit.'__nodos_deseleccionados';
-		if (isset($_POST[$id_inactivos]) && $_POST[$id_inactivos] !='') {
+		if (isset($_POST[$id_inactivos]) && $_POST[$id_inactivos] != '') {
 			$this->nodos_inactivos = explode(apex_qs_sep_interno, $_POST[$id_inactivos]);
 		}
 	}
@@ -29,10 +29,10 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		$this->cargar_estado_post();
 		
 		//Aca valido los ids contra los enviados, para que nadie intente pasarse de vivo.
-		foreach($this->nodos_activos as $id_nodo) {
+		foreach ($this->nodos_activos as $id_nodo) {
 			$this->validar_id_nodo_recibido($id_nodo);
 		}		
-		foreach($this->nodos_inactivos as $id_nodo) {
+		foreach ($this->nodos_inactivos as $id_nodo) {
 			$this->validar_id_nodo_recibido($id_nodo);
 		}
 	
@@ -64,7 +64,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		if (isset($this->_nodos_inicial) &&  ! empty($this->_nodos_inicial)) {
 			$raiz = $this->_nodos_inicial[0];
 			if ($raiz->tiene_hijos_cargados()) {
-				foreach($raiz->get_hijos() as $nodo) {
+				foreach ($raiz->get_hijos() as $nodo) {
 					$aux = $nodo->recuperar_estado_recursivo();
 					$estado['activos'] = array_merge($estado['activos'], $aux['activos']);
 					$estado['inactivos'] = array_merge($estado['inactivos'], $aux['inactivos']);					

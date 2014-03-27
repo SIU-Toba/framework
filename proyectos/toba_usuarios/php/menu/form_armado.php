@@ -10,9 +10,9 @@ class form_armado extends toba_ei_formulario
 	{
 		$registro = parent::get_datos();
 		$ids_arbol = $this->controlador()->get_ids_enviados();
-		foreach($ids_arbol as $id) {
+		foreach ($ids_arbol as $id) {
 			if ( isset($_POST[$id.'__hidden'])) {
-				$registro[$id] =$_POST[$id.'__hidden'];
+				$registro[$id] = $_POST[$id.'__hidden'];
 			}
 		}
 		return $registro;
