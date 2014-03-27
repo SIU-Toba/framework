@@ -24,6 +24,7 @@ class toba_contexto_ejecucion implements toba_interface_contexto_ejecucion
 
 	/**
 	 * Ventana que se ejecuta antes de ejecutar un servicio web REST
+	 * @param \rest\rest $app Clase de rest a configurar
 	 * @ventana
 	 */	
 	function conf__rest($app) {}

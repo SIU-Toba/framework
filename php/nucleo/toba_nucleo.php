@@ -159,7 +159,9 @@ class toba_nucleo
 			if (! $toba_rest->es_pedido_documentacion()) {
 				$toba_rest->conf__inicial();
 				$app = $toba_rest->get_instancia_rest();
-				toba::contexto_ejecucion()->conf__rest($app);
+				if (method_exists(toba::contexto_ejecucion(), "conf__rest")) {
+					toba::contexto_ejecucion()->conf__rest($app);
+				}
 			}
 			$toba_rest->ejecutar();
 			$this->finalizar_contexto_ejecucion();
