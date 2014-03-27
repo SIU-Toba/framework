@@ -2,7 +2,7 @@
 
 class test_servicio_web extends toba_test
 {
-	function get_descripcion()
+	static function get_descripcion()
 	{
 		return "Test de servicios web";
 	}

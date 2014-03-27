@@ -3,10 +3,10 @@ require_once(toba_dir() . '/php/3ros/simpletest/unit_tester.php');
 require_once(toba_dir() . '/php/3ros/simpletest/mock_objects.php');
 //require_once('testing/mocks/hilo_version_test.php');
 
-abstract class toba_test extends UnitTestCase
+class toba_test extends UnitTestCase
 {
 	protected $separar_pruebas=false;
-
+	
 	function separar_pruebas($estado=false)
 	{
 		$this->separar_pruebas = $estado;
@@ -83,7 +83,8 @@ abstract class toba_test extends UnitTestCase
 		return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 	}
 
-	abstract function get_descripcion();
+	static function get_descripcion()
+	{}
 }
 
 class EqualArrayExpectation extends SimpleExpectation

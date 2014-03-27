@@ -2,7 +2,7 @@
 
 class test_ejemplo_caso extends toba_test
 {
-	function get_descripcion()
+	static function get_descripcion()
 	{
 		return "Ejemplo de caso de test";
 	}

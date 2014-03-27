@@ -259,7 +259,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param string $id_servicio
 	 * @param smallint $estado 
 	 */
-	function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
+	static function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
 	{
 		$ini = self::get_ini_server($proyecto, $id_servicio);
 		if (! $ini->existe_entrada('general', 'activo')) {

@@ -10,7 +10,7 @@ class toba_proyecto_implementacion
 	/**
 	*	Devuelve la lista de perfiles de datos del proyecto
 	*/
-	function get_perfiles_datos($proyecto)
+	static function get_perfiles_datos($proyecto)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);
@@ -25,7 +25,7 @@ class toba_proyecto_implementacion
 	/**
 	*	Devuelve la definicion de un perfil de datos
 	*/
-	function get_info_perfiles_datos($proyecto, $perfil)
+	static function get_info_perfiles_datos($proyecto, $perfil)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);		
@@ -106,7 +106,7 @@ class toba_proyecto_implementacion
 		return aplanar_matriz($datos, 'restriccion_funcional');
 	}
 
-	function get_rf_pantallas($proyecto, $item, $rf)
+	static function get_rf_pantallas($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
@@ -126,7 +126,7 @@ class toba_proyecto_implementacion
 		return $db->consultar($sql);
 	}
 	
-	function get_rf_eis($proyecto, $item, $rf)
+	static function get_rf_eis($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
@@ -145,7 +145,7 @@ class toba_proyecto_implementacion
 		return $db->consultar($sql);
 	}
 	
-	function get_rf_eventos($proyecto, $item, $rf)
+	static function get_rf_eventos($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
@@ -165,7 +165,7 @@ class toba_proyecto_implementacion
 	}
 
 	
-	function get_rf_cuadro_cols($proyecto, $item, $rf)
+	static function get_rf_cuadro_cols($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
@@ -185,7 +185,7 @@ class toba_proyecto_implementacion
 		return $db->consultar($sql);
 	}	
 	
-	function get_rf_form_efs($proyecto, $item, $rf)
+	static function get_rf_form_efs($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
@@ -206,7 +206,7 @@ class toba_proyecto_implementacion
 		return $db->consultar($sql);		
 	}
 	
-	function get_rf_filtro_cols($proyecto, $item, $rf)
+	static function get_rf_filtro_cols($proyecto, $item, $rf)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);			
