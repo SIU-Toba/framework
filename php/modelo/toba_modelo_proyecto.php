@@ -2794,10 +2794,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );
 			$editor->agregar_sustitucion( '|__version__|', '1.0.0');
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
+			
 			$modelo = $dir_proyecto . '/php/extension_toba/modelo.php';
 			$comando = $dir_proyecto . '/php/extension_toba/comando.php';
 			$editor->procesar_archivo($comando);
 			$editor->procesar_archivo($modelo);
+			$editor->procesar_archivo($dir_proyecto.'/www/rest.php');
+			$editor->procesar_archivo($dir_proyecto.'/www/servicios.php');
+			
 			rename($modelo, str_replace('modelo.php', $nombre.'_modelo.php', $modelo));			
 			rename($comando, str_replace('comando.php', $nombre.'_comando.php', $comando));
 			$ini = $dir_proyecto.'/proyecto.ini';
