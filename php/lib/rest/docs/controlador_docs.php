@@ -84,14 +84,21 @@ class controlador_docs
 
 			/////------------PARAMETERS --------------------------------- @todo refactorizar
 			$params_path = array();
-			$nro_parametro = 0;
-			$api_path = $path;
-			if (isset($parametros[$nro_parametro])) {
-				$param_name = $parametros[$nro_parametro++];
-				$api_path .= "/{" . $param_name . "}";
-				$params_path[] = $this->get_parametro_path($param_name, $path);
+			$partes_path = explode('/', $path);
+			unset($partes_path[0]);
+			foreach($partes_nombre as $parte){
+				$partes_path[] = $parte;
 			}
-			foreach ($partes_nombre as $parte) {
+
+			$nro_parametro = 0;
+			$api_path = '';// $path;
+//
+//			if (isset($parametros[$nro_parametro])) {
+//				$param_name = $parametros[$nro_parametro++];
+//				$api_path .= "/{" . $param_name . "}";
+//				$params_path[] = $this->get_parametro_path($param_name, $path);
+//			}
+			foreach ($partes_path as $parte) {
 				$api_path .= "/" . $parte;
 				if (isset($parametros[$nro_parametro])) {
 					$param_name = $parametros[$nro_parametro++];
@@ -108,7 +115,7 @@ class controlador_docs
 
 			$operation = array();
 			$operation['method'] = strtoupper($prefijo_metodo);
-			$operation['produces'] = array("application/json");
+			//$operation['produces'] = array("application/json");
 			$operation['nickname'] = $nombre_metodo;
 			$operation['parameters'] = array_merge($params_path, $params_body, $params_query);
 			$operation['summary'] = $reflexion->get_summary_metodo($metodo);
@@ -138,6 +145,11 @@ class controlador_docs
 
 		foreach ($archivos_api as $nombre => $objeto) {
 			if ('php' !== pathinfo($nombre, PATHINFO_EXTENSION)) {
+				continue;
+			}
+			$prefijo = rest::app()->config('prefijo_controladores');
+
+			if (! $this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME)) ){
 				continue;
 			}
 
@@ -218,18 +230,15 @@ class controlador_docs
 		$prefijo = rest::app()->config('prefijo_controladores');
 		$clase_recurso = basename($path_relativo, '.php'); //recurso_padre
 		$recurso = substr($clase_recurso, strlen($prefijo)); //padre
-
 		if ($this->termina_con($recurso, dirname($path_relativo))) {
 			// /rest/padre/hijo/recurso_hijo.php  => /padre/hijo
 			$url = substr($path_relativo, 0, -strlen($clase_recurso . '.php') - 1);
-			return $url; //+1 del slash final
 		} else {
 			// /rest/padre/recurso_hijo.php => /padre/hijo
-			$url = substr($path_relativo, 0, -strlen($clase_recurso . '.php') - 1);
+			$url = substr($path_relativo, 0, -strlen($clase_recurso . '.php'));
 			$url .= $recurso;
-//			$url = substr($path_relativo, 0, -4);
-			return $url;
 		}
+		return $url;
 	}
 
 	/**
@@ -258,8 +267,8 @@ class controlador_docs
 		return substr($haystack, -strlen($needle)) === $needle;
 	}
 
-	protected function empieza_con($needle, $haystack)
+	protected function empieza_con($prefijo, $string)
 	{
-		return substr($haystack, strlen($needle)) === $needle;
+		return substr($string, 0, strlen($prefijo)) === $prefijo;
 	}
 }
