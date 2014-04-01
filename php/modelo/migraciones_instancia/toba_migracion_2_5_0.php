@@ -52,6 +52,8 @@ class toba_migracion_2_5_0 extends toba_migracion
 					CONSTRAINT "apex_menu_operaciones_auto_fk" FOREIGN KEY ("proyecto", "menu_id", "menu_elemento") REFERENCES "apex_menu_operaciones" ON DELETE NO ACTION  ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE 
 				);';
 		
+		//Agrego la columna del menu a la tabla de perfiles funcionales
+		$sql[] = 'ALTER TABLE apex_usuario_grupo_acc ADD COLUMN menu_usuario VARCHAR(50)';
 		$sql[] = 'ALTER TABLE apex_usuario_grupo_acc  ADD CONSTRAINT "apex_usuario_grupo_acc_menu_fk" 
 				FOREIGN KEY (proyecto, menu_usuario) REFERENCES apex_menu (proyecto, menu_id) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY IMMEDIATE;';
 		$this->elemento->get_db()->ejecutar($sql);
