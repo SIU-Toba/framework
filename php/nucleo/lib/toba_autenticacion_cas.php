@@ -88,7 +88,7 @@ class toba_autenticacion_cas  implements  toba_autenticable
 	
 	function activar_debug()
 	{		
-		phpCAS::setDebug();			
+		phpCAS::setDebug('cas.log');			
 	}	
 	
 	function usar_login_basico()
@@ -108,6 +108,8 @@ class toba_autenticacion_cas  implements  toba_autenticable
 	{
 		$this->instanciar_cliente_cas(); 
 
+		//$this->activar_debug();
+		phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
 		// Se genera la URL de servicio
 		$url = $this->generar_url(array());
 		phpCAS::setFixedServiceURL($url);	
