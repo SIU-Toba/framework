@@ -32,9 +32,13 @@ abstract class toba_recuperador {
     function get_data()
 	{
 		$data =  new toba_recuperador_data($this->schema_a, $this->schema_b);
-		$data->set_unicos($this->schema_a, $this->get_unicos($this->schema_a));
-		$data->set_unicos($this->schema_b, $this->get_unicos($this->schema_b));
-		$data->set_diferentes($this->get_diferencia());
+		$un_a = $this->get_unicos($this->schema_a);
+		$un_b = $this->get_unicos($this->schema_b);
+		$diff = $this->get_diferencia();
+		
+		$data->set_unicos($this->schema_a, $un_a);
+		$data->set_unicos($this->schema_b, $un_b);
+		$data->set_diferentes($diff);
 		return $data;
 	}
 

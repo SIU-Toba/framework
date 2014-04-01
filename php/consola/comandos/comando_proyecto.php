@@ -160,7 +160,7 @@ class comando_proyecto extends comando_toba
 			$this->consola->mensaje($mensaje);
 			return;
 		}
-        $this->hacer_personalizable();
+		$this->hacer_personalizable();
 		$proyecto->generar_autoload($this->consola);
 
 		$mensaje  = "El proyecto ya es personalizable. Ahora debe revincular las clases con el comando toba proyecto revincular";

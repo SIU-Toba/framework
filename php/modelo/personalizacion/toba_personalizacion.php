@@ -287,26 +287,32 @@ class toba_personalizacion {
 		
 		$rec =  new toba_recuperador_tablas($this->proyecto, $schema_a, $schema_o);
 		$tablas = $rec->get_data();
+		$diff = $tablas->get_diferentes();
 		
 		$generador =  new  toba_pers_xml_generador_tablas();
 		$generador->init_plan($this->dir_tablas . toba_personalizacion::nombre_plan);
-		$generador->generar_tablas($this->dir_tablas, $tablas->get_diferentes());
+		$generador->generar_tablas($this->dir_tablas, $diff);
 		$generador->finalizar_plan();
 	}
 	
 	protected function exportar_componentes()
 	{
+		$plan_nombre = $this->dir_componentes.toba_personalizacion::nombre_plan;
 		$schema_o = $this->get_schema_original();
 		$schema_a = $this->get_schema_personalizacion();
 
 		$rec =  new  toba_recuperador_componentes($this->proyecto, $schema_a, $schema_o);
 		$datos = $rec->get_data();
 
+		$unicos_o = $datos->get_unicos($schema_o);
+		$diff = $datos->get_diferentes();
+		$unicos_a = $datos->get_unicos($schema_a);
+		
 		$generador =  new  toba_pers_xml_generador_componentes();
-		$generador->init_plan($this->dir_componentes.toba_personalizacion::nombre_plan);
-		$generador->generar_componentes_borradas($this->dir_componentes, $datos->get_unicos($schema_o));
-		$generador->generar_componentes_modificadas($this->dir_componentes, $datos->get_diferentes());
-		$generador->generar_componentes_nuevas($this->dir_componentes, $datos->get_unicos($schema_a));				
+		$generador->init_plan($plan_nombre);
+		$generador->generar_componentes_borradas($this->dir_componentes, $unicos_o);
+		$generador->generar_componentes_modificadas($this->dir_componentes, $diff);
+		$generador->generar_componentes_nuevas($this->dir_componentes, $unicos_a);				
 		$generador->finalizar_plan();
 	}
 	
