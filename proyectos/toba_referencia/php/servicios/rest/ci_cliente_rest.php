@@ -30,10 +30,15 @@ class ci_cliente_rest extends toba_ci
 	 */
 	function get_cliente_rest(){
 		
-		//Se fija la url en codigo porque apunta a la instalacion actual de toba_referencia (es cliente y servidor)
-		$opciones = array();
-		$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
-		return $cliente->guzzle();
+		try {
+			//Se fija la url en codigo porque apunta a la instalacion actual de toba_referencia (es cliente y servidor)			
+			$url = toba_http::get_protocolo() . toba_http::get_nombre_servidor() . toba_rest::url_rest();
+			$opciones = array('to' => $url,);
+			$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
+			return $cliente->guzzle();
+		} catch (toba_error $e) {
+			throw new toba_error_usuario("Hay un problema de configuracion del cliente REST. Por favor asegurese de configurarlo correctamente en el archivo cliente.ini.\n<br/><br/>Mensaje: ".$e->get_mensaje());
+		}
 	}
 	
 	function conf__form_debug_rest(toba_ei_formulario $form)

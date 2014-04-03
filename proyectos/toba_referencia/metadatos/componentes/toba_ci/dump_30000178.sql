@@ -192,7 +192,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 Como cliente REST se usa <a href=''http://docs.guzzlephp.org/en/latest/docs.html''>Guzzle</a>.<br/>
 Para servidr los recursos se usa un set de clases php (no dependientes de toba) ubicadas en <em>php/lib/rest</em>
 <br/><br/>
-Para facilitar el ejemplo en este caso puntual el mismo sistema es cliente y servidor. Los archivos correspondientes al servidor se encuentran a la carpeta <em>proyectos/toba_referencia/php/rest</em>', --descripcion
+Para facilitar el ejemplo en este caso puntual el mismo sistema es cliente y servidor. Los archivos correspondientes al servidor se encuentran a la carpeta <em>proyectos/toba_referencia/php/rest</em>
+<br/><br/>
+<strong>Primera vez:</strong>: Descomentar los archivos de configuracion <em>cliente.ini</em>, <em>servidor.ini</em> y <em>servicio_usuarios.ini</em> en la carpeta <em>instalacion/i__desarrollo/p__toba_referencia/rest</em>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
