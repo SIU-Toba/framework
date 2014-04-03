@@ -12,7 +12,7 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	{
 		$recurso = new rest_instanciador();
 
-		$recurso->clase = "toba_fecha";
+		$recurso->archivo = realpath(__DIR__."/../../../toba_fecha.php");
 
 		$objeto = $recurso->get_instancia(false);
 
@@ -26,8 +26,7 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	{
 		$recurso = new rest_instanciador();
 
-		//creo un objeto de mi clase, puede ser cualquiera que no tenga params en el constructor
-		$recurso->clase = "rest\\lib\\rest_instanciador";
+		$recurso->archivo = realpath(__DIR__."/../../lib/rest_instanciador.php");
 
 		$objeto = $recurso->get_instancia(false);
 

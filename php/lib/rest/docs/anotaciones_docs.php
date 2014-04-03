@@ -3,8 +3,9 @@
 namespace rest\docs;
 
 use ReflectionClass;
+use rest\lib\rest_instanciador;
 
-class annotaciones_docs
+class anotaciones_docs
 {
 	protected static $metodos_validos = array('get', 'put', 'post', 'delete');
 
@@ -21,8 +22,11 @@ class annotaciones_docs
 	 */
 	function __construct($archivo)
 	{
-		require_once $archivo;
-		$this->reflexion = new ReflectionClass(basename($archivo, '.php'));
+		$i = new rest_instanciador();
+		$i->archivo = $archivo;
+		$obj = $i->get_instancia();
+
+		$this->reflexion = new ReflectionClass($obj);
 		$this->get_annotations($this->reflexion);
 	}
 
@@ -252,4 +256,5 @@ class annotaciones_docs
 	{
 		return substr($haystack, -strlen($needle)) === $needle;
 	}
+
 }

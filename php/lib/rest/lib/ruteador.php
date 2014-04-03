@@ -44,7 +44,7 @@ class ruteador
 			throw new \Exception("No se encuentra el recurso para $url en el directorio $dir. ¿Ruta mal formada?"); //cambiar
 		}
 
-		$instanciador->clase = $recurso['clase'];
+		$instanciador->archivo = $recurso['archivo'];
 
 		// Se checkea si matchea con un alias primero
 		if (count($colecciones) == count($parametros)) {
@@ -77,7 +77,6 @@ class ruteador
 	protected function get_accion_path($metodo, $clase, $colecciones, $parametros)
 	{
 		$accion = strtolower($metodo);
-		$recurso =
 		//si hay path faltante lo resuelve en un metodo get_recurso1_recurso2
 		$hay_path_por_resolver = array_search(basename($clase, '.php'), $colecciones);
 

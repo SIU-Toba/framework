@@ -13,7 +13,7 @@ namespace rest\lib;
 class rest_instanciador
 {
 
-	public $clase;
+	public $archivo;
 	public $accion;
 	public $parametros;
 
@@ -23,9 +23,9 @@ class rest_instanciador
 	{
 		if (!$this->objeto) {
 			if ($autoinclude) {
-				require_once $this->clase;
+				require_once $this->archivo;
 			}
-			$clase = $this->get_clase_de_ruta($this->clase);
+			$clase = $this->get_clase_de_ruta($this->archivo);
 			$this->objeto = new  $clase();
 		}
 		return $this->objeto;
@@ -42,12 +42,22 @@ class rest_instanciador
 	public function existe_metodo($nombre)
 	{
 		$this->get_instancia(); //incluyo el archivo
-		$clase = $this->get_clase_de_ruta($this->clase);
+		$clase = $this->get_clase_de_ruta($this->archivo);
 		return method_exists($clase, $nombre);
 	}
 
 	private function get_clase_de_ruta($clase)
 	{
-		return basename($clase, ".php");
+		return $this->get_full_class_name($clase); // basename($clase, ".php");
+	}
+
+	protected function get_full_class_name($archivo) {
+		$src = file_get_contents($archivo, 'r');
+
+		if (preg_match('#\s*namespace\s+(.+?)\s*;.*class\s+(\w+).+;$#sm', $src, $m)) {
+			return $m[1].'\\'.$m[2];
+		}
+
+		return $class = basename($archivo, '.php');
 	}
 }

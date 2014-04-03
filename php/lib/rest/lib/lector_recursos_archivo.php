@@ -32,7 +32,7 @@ class lector_recursos_archivo
 			$ruta_padres = implode(DIRECTORY_SEPARATOR, $path);
 			if ($file = $this->existe_recurso($ruta_padres, $recurso)) {
 				return array('recurso' => $recurso,
-							'clase' => $file);
+							'archivo' => $file);
 			}
 		}
 		return false;

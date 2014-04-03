@@ -38,7 +38,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 	{
 		$path = 'recurso';
 
-		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+		$recurso = array('recurso' => 'recurso', 'archivo' => 'recurso_clase');
 
 		$parametros = array();
 		$this->lector_recursos->expects($this->once())
@@ -51,7 +51,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso_clase', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->archivo);
 		$this->assertEquals('get_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -60,7 +60,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 	{
 		$path = 'recurso?a=b';
 
-		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+		$recurso = array('recurso' => 'recurso', 'archivo' => 'recurso_clase');
 
 		$parametros = array();
 		$this->lector_recursos->expects($this->once())
@@ -71,7 +71,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 			->will($this->onConsecutiveCalls(true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso_clase', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->archivo);
 		$this->assertEquals('get_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -81,7 +81,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'recurso/07';
 		$parametros = array('07');
 
-		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+		$recurso = array('recurso' => 'recurso', 'archivo' => 'recurso_clase');
 
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
@@ -91,7 +91,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso_clase', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->archivo);
 		$this->assertEquals('get', $rec->accion);
 		$this->assertEquals($parametros[0], $rec->parametros[0]);
 	}
@@ -101,7 +101,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'recurso/0';
 		$parametros = array('0');
 
-		$recurso = array('recurso' => 'recurso', 'clase' => 'recurso_clase');
+		$recurso = array('recurso' => 'recurso', 'archivo' => 'recurso_clase');
 
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
@@ -111,7 +111,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('recurso_clase', $rec->clase);
+		$this->assertEquals('recurso_clase', $rec->archivo);
 		$this->assertEquals('get', $rec->accion);
 		$this->assertEquals($parametros[0], $rec->parametros[0]);
 	}
@@ -121,7 +121,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo';
 		$parametros = array('07');
 
-		$recurso = array('recurso' => 'padre', 'clase' => 'padre_clase');
+		$recurso = array('recurso' => 'padre', 'archivo' => 'padre_clase');
 
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
@@ -131,7 +131,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 			->will($this->onConsecutiveCalls(true));
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('padre_clase', $rec->clase);
+		$this->assertEquals('padre_clase', $rec->archivo);
 		$this->assertEquals('get_hijo_list', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -141,7 +141,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo/12/nieto/abc';
 		$parametros = array('07', '12', 'abc');
 
-		$recurso = array('recurso' => 'hijo', 'clase' => 'hijo_clase');
+		$recurso = array('recurso' => 'hijo', 'archivo' => 'hijo_clase');
 
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
@@ -151,7 +151,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 			->will($this->onConsecutiveCalls(false, true));
 		$rec = $this->ruteador->buscar_controlador('PUT', $path);
 
-		$this->assertEquals('hijo_clase', $rec->clase);
+		$this->assertEquals('hijo_clase', $rec->archivo);
 		$this->assertEquals('put_nieto', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -161,7 +161,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/alias';
 		$parametros = array();
 
-		$recurso = array('recurso' => 'padre', 'clase' => 'padre_clase');
+		$recurso = array('recurso' => 'padre', 'archivo' => 'padre_clase');
 
 		$this->lector_recursos->expects($this->once())
 			->method('get_recurso')
@@ -175,7 +175,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('GET', $path);
 
-		$this->assertEquals('padre_clase', $rec->clase);
+		$this->assertEquals('padre_clase', $rec->archivo);
 		$this->assertEquals('get_list__alias', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}
@@ -185,7 +185,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 		$path = 'padre/07/hijo/12/nieto/abc';
 		$parametros = array('07', '12');
 
-		$recurso = array('recurso' => 'hijo', 'clase' => 'hijo_clase');
+		$recurso = array('recurso' => 'hijo', 'archivo' => 'hijo_clase');
 
 
 		$this->lector_recursos->expects($this->once())
@@ -200,7 +200,7 @@ class ruteadorTest extends PHPUnit_Framework_TestCase
 
 		$rec = $this->ruteador->buscar_controlador('POST', $path);
 
-		$this->assertEquals('hijo_clase', $rec->clase);
+		$this->assertEquals('hijo_clase', $rec->archivo);
 		$this->assertEquals('post_nieto_list__abc', $rec->accion);
 		$this->assertEquals($parametros, $rec->parametros);
 	}

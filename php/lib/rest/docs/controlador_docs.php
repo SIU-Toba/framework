@@ -48,6 +48,7 @@ class controlador_docs
 
 	protected function getResource($path)
 	{
+		$path = str_replace( '_', '/', $path);
 		$annotaciones = $this->get_annotaciones_de_path($path);
 		$resource = array();
 		$resource['apiVersion'] = '1.0'; //@todo
@@ -60,7 +61,40 @@ class controlador_docs
 		return $resource;
 	}
 
-	protected function get_apis(annotaciones_docs $reflexion, $path)
+	protected function get_lista_apis()
+	{
+		$list = array();
+		$path = realpath($this->api_root);
+		$archivos_api = $this->obtener_clases_directorio($path);
+
+		foreach ($archivos_api as $nombre => $objeto) {
+			if ('php' !== pathinfo($nombre, PATHINFO_EXTENSION)) {
+				continue;
+			}
+			$prefijo = rest::app()->config('prefijo_controladores');
+
+			if (! $this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME)) ){
+				continue;
+			}
+
+//			$documentacion = new anotaciones_docs($nombre);
+
+			$path = $this->get_url_de_clase($nombre);
+			$path = ltrim($path,'/') ;
+			$descripcion =  '/'.str_replace('/', '/{id}/', $path );
+			$api_path =  '/'.str_replace('/', '_', $path);
+
+
+			$api = array();
+			$api['path'] = $api_path;
+			$api['description'] = $descripcion; // $documentacion->get_descripcion_clase();
+			$list[] = $api;
+		}
+		return $list;
+	}
+
+
+	protected function get_apis(anotaciones_docs $reflexion, $path)
 	{
 		$recursos = array();
 		$metodos = $reflexion->get_metodos();
@@ -82,7 +116,7 @@ class controlador_docs
 				array_pop($partes_nombre); //SUFIJO_COLECCION
 			}
 
-			/////------------PARAMETERS --------------------------------- @todo refactorizar
+			/////------------PARAMETERS ---------------------------------
 			$params_path = array();
 			$partes_path = explode('/', $path);
 			unset($partes_path[0]);
@@ -92,12 +126,7 @@ class controlador_docs
 
 			$nro_parametro = 0;
 			$api_path = '';// $path;
-//
-//			if (isset($parametros[$nro_parametro])) {
-//				$param_name = $parametros[$nro_parametro++];
-//				$api_path .= "/{" . $param_name . "}";
-//				$params_path[] = $this->get_parametro_path($param_name, $path);
-//			}
+
 			foreach ($partes_path as $parte) {
 				$api_path .= "/" . $parte;
 				if (isset($parametros[$nro_parametro])) {
@@ -134,33 +163,6 @@ class controlador_docs
 		}
 
 		return $this->reordenar_recursos_api($recursos);
-	}
-
-
-	protected function get_lista_apis()
-	{
-		$list = array();
-		$path = realpath($this->api_root);
-		$archivos_api = $this->obtener_clases_directorio($path);
-
-		foreach ($archivos_api as $nombre => $objeto) {
-			if ('php' !== pathinfo($nombre, PATHINFO_EXTENSION)) {
-				continue;
-			}
-			$prefijo = rest::app()->config('prefijo_controladores');
-
-			if (! $this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME)) ){
-				continue;
-			}
-
-			$documentacion = new annotaciones_docs($nombre);
-
-			$api = array();
-			$api['path'] = $this->get_url_de_clase($nombre);
-			$api['description'] = $documentacion->get_descripcion_clase();
-			$list[] = $api;
-		}
-		return $list;
 	}
 
 	/**
@@ -243,13 +245,13 @@ class controlador_docs
 
 	/**
 	 * @param $path
-	 * @return annotaciones_docs
+	 * @return anotaciones_docs
 	 */
 	protected function get_annotaciones_de_path($path)
 	{
 		$lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
 		$archivo = $lector->get_recurso(explode('/', $path));
-		return new annotaciones_docs($archivo['clase']);
+		return new anotaciones_docs($archivo['archivo']);
 	}
 
 	/**

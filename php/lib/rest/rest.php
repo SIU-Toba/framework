@@ -198,7 +198,7 @@ class rest
 				$this->mostrar_documentacion($url);
 			} else {
 				$recurso = $this->router->buscar_controlador($method, $url);
-				$this->logger->debug("Controlador encontrado {$recurso->clase} :: {$recurso->accion} (" . implode(',', $recurso->parametros) . ")");
+				$this->logger->debug("Controlador encontrado {$recurso->archivo} :: {$recurso->accion} (" . implode(',', $recurso->parametros) . ")");
 				$recurso->ejecutar_accion();
 			}
 		} catch (rest_error_autenticacion $ex) {

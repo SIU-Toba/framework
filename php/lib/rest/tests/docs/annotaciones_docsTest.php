@@ -2,17 +2,17 @@
 
 namespace rest\tests\docs;
 
-use rest\docs\annotaciones_docs;
+use rest\docs\anotaciones_docs;
 
 class annotaciones_docsTest extends \PHPUnit_Framework_TestCase
 {
 
 	/**
-	 * @return annotaciones_docs
+	 * @return anotaciones_docs
 	 */
 	protected function getInstancia()
 	{
-		return new annotaciones_docs('tests/docs/clase_anotada_ejemplo.php');
+		return new anotaciones_docs('tests/docs/clase_anotada_ejemplo.php');
 	}
 
 	public function testConstructor()
