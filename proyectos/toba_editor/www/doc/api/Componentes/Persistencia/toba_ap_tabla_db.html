@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../../li_Varios.html">Varios</a>
         	            </div>
@@ -563,7 +573,7 @@
 								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a></td>
 					<td>
-											Clase que se mantiene por compatibildad hacia atrás
+											
 										</td>
 				</tr>
 							</table>
@@ -593,7 +603,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_baja_logica" title="details" class="method-name">activar_baja_logica</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa el mecanismo de baja lógica  En este mecanismo en lugar de hacer DELETES actualiza una columna</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -621,21 +631,21 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_proceso_carga_externa_dao" title="details" class="method-name">activar_proceso_carga_externa_dao</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Carga una columna separada del proceso común de carga  Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_proceso_carga_externa_datos_tabla" title="details" class="method-name">activar_proceso_carga_externa_datos_tabla</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Carga una columna separada del proceso común de carga  Se brinda un Datos Tabla  que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_proceso_carga_externa_sql" title="details" class="method-name">activar_proceso_carga_externa_sql</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Carga una columna separada del proceso común de carga  Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -669,14 +679,14 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_con_datos" title="details" class="method-name">cargar_con_datos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Carga el datos_tabla asociado CON un conjunto de datos especifico</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_con_sql" title="details" class="method-name">cargar_con_sql</a>()&nbsp;&nbsp;</td>
@@ -690,7 +700,7 @@
 						<td class="method-definition">Carga el datos_tabla asociaciado a partir de una clausula where personalizada</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_con_where_from_especifico" title="details" class="method-name">cargar_con_where_from_especifico</a>()&nbsp;&nbsp;</td>
@@ -755,7 +765,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__perdida_sincronizacion" title="details" class="method-name">evt__perdida_sincronizacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para manejar la pérdida de sincronización con la tabla en la base de datos  El escenario es que ejecuto un update/delete usando los valores de las columnas originales y no arrojo resultados, con lo que se asume que alguien más modifico el registro en el medio  La transacción con la bd aún no se terminó (si es que esta definida)</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -764,7 +774,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_delete" title="details" class="method-name">evt__post_delete</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión posterior al borrado de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -773,7 +783,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_insert" title="details" class="method-name">evt__post_insert</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -781,7 +791,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_sincronizacion" title="details" class="method-name">evt__post_sincronizacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -790,7 +800,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_update" title="details" class="method-name">evt__post_update</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -799,7 +809,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_delete" title="details" class="method-name">evt__pre_delete</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión previa al borrado de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -808,7 +818,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_insert" title="details" class="method-name">evt__pre_insert</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión previo a la inserción de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -816,7 +826,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_sincronizacion" title="details" class="method-name">evt__pre_sincronizacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -825,7 +835,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_update" title="details" class="method-name">evt__pre_update</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión previo a la actualización de un registro durante una sincronización con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    														    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
@@ -893,7 +903,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Método de debug que retorna las propiedades internas</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -919,7 +929,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#log" title="details" class="method-name">log</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -933,7 +943,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_lock_optimista" title="details" class="method-name">set_lock_optimista</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -947,7 +957,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_usar_trim" title="details" class="method-name">set_usar_trim</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa/Desactiva el uso automático del trim sobre datos en el insert o update</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    																					    								
@@ -1118,8 +1128,7 @@ $valor&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa el mecanismo de baja lógica  En este mecanismo en lugar de hacer DELETES actualiza una columna </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1127,7 +1136,7 @@ $valor&nbsp;
 				<td>
 				<span class="var-name">$columna:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Columna que determina la baja lógica</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1313,8 +1322,7 @@ $metodo_masivo = '']&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Carga una columna separada del proceso común de carga  Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1322,13 +1330,13 @@ $metodo_masivo = '']&nbsp;
 				<td>
 				<span class="var-name">$metodo:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Método que obtiene los datos.</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$clase:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Clase a la que pertenece el método.    Si es NULL usa el mismo AP</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1346,13 +1354,13 @@ $metodo_masivo = '']&nbsp;
 				<td>
 				<span class="var-name">$col_resultado:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Columnas del registro resultante que se tomarán para rellenar la tabla</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$sincro_continua:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1406,8 +1414,7 @@ $metodo_masivo = '']&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Carga una columna separada del proceso común de carga  Se brinda un Datos Tabla  que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1421,7 +1428,7 @@ $metodo_masivo = '']&nbsp;
 				<td>
 				<span class="var-name">$metodo:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Método que obtiene los datos.</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1433,13 +1440,13 @@ $metodo_masivo = '']&nbsp;
 				<td>
 				<span class="var-name">$col_resultado:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Columnas del registro resultante que se tomarán para rellenar la tabla</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$sincro_continua:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1490,8 +1497,7 @@ $estricto = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Carga una columna separada del proceso común de carga  Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1511,13 +1517,13 @@ $estricto = true]&nbsp;
 				<td>
 				<span class="var-name">$col_resultado:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Columnas del registro resultante que se tomarán para rellenar la tabla</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$sincro_continua:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> En cada pedido de página ejecuta la sql para actualizar los valores de las columnas</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1728,7 +1734,7 @@ $es_externa = false]&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		    		
+		
 	
 	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 393]</span>
 </div>
@@ -1771,15 +1777,7 @@ $usar_cursores = false]&nbsp;
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Falso si no se encontro ningún registro</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
@@ -1788,7 +1786,7 @@ $usar_cursores = false]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		    		
+		
 	
 	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
@@ -1831,15 +1829,7 @@ $usar_cursores = false]&nbsp;
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Falso si no se encontro ningún registro</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
@@ -1875,7 +1865,7 @@ $usar_cursores = false]&nbsp;
 				<td>
 				<span class="var-name">$clausula:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1908,7 +1898,7 @@ $usar_cursores = false]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		    		
+		
 	
 	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 355]</span>
 </div>
@@ -1958,15 +1948,7 @@ $usar_cursores = false]&nbsp;
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Falso si no se encontro ningún registro</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
@@ -2031,7 +2013,6 @@ $usar_cursores = false]&nbsp;
 				<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../../Componentes/Persistencia/toba_ap_tabla.html#methodcargar_por_clave">toba_ap_tabla::cargar_por_clave()</a></dt>
-						<dd>Obtiene del medio un conjunto de datos a partir de una definición de sus campos clave</dd>
 					</dl>
 		
 		<br />
@@ -2345,8 +2326,7 @@ $sql_origen&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para manejar la pérdida de sincronización con la tabla en la base de datos  El escenario es que ejecuto un update/delete usando los valores de las columnas originales y no arrojo resultados, con lo que se asume que alguien más modifico el registro en el medio  La transacción con la bd aún no se terminó (si es que esta definida) </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2354,7 +2334,7 @@ $sql_origen&nbsp;
 				<td>
 				<span class="var-name">$id_fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Id. de fila de la tabla en la cual se encontró el problema</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
@@ -2397,8 +2377,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión posterior al borrado de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2451,8 +2430,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2502,7 +2480,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos <p>La transacción con la bd aún no se terminó (si es que esta definida)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	
@@ -2538,8 +2516,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2592,8 +2569,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión previa al borrado de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2646,8 +2622,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión previo a la inserción de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2697,7 +2672,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos <p>La transacción con la bd ya fue iniciada (si es que esta definida)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	
@@ -2733,8 +2708,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión previo a la actualización de un registro durante una sincronización con la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -3116,8 +3090,7 @@ $parametros&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Método de debug que retorna las propiedades internas </div>
-
+	
 	<br />
 	
 
@@ -3239,8 +3212,7 @@ $txt&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -3330,8 +3302,7 @@ $usar = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -3405,8 +3376,7 @@ $usar&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa/Desactiva el uso automático del trim sobre datos en el insert o update </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -3443,7 +3413,7 @@ $filas = array()]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Sincroniza los cambios en los registros de esta tabla con la base de datos <p>Sólo se utiliza cuando la tabla no está involucrada en algun datos_relacion, sino  la sincronización es guiada por ese objeto</p></div>
+	<div class="description">Sincroniza los cambios en los registros de esta tabla con la base de datos <p></p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">

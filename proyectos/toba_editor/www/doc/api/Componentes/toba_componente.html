@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
@@ -559,24 +569,6 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
-					<td>
-											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
-					<td>
-											Representa una estructura tabular tipo tabla o RecordSet en memoria
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
-					<td>
-											Clase base de los componentes gráficos o elementos de interface (ei)
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
 					<td>
 											Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
@@ -586,6 +578,24 @@
 					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_servicio_web.html">toba_servicio_web</a></td>
 					<td>
 											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
+					<td>
+											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
+					<td>
+											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
+					<td>
+											Representa una estructura tabular tipo tabla o RecordSet en memoria
 										</td>
 				</tr>
 							</table>
@@ -606,7 +616,7 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#set_modo_compatible_manejo_sesion" title="details" class="method-name">set_modo_compatible_manejo_sesion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.</td></tr>
+						<td class="method-definition"></td></tr>
 																																										<tr>
 						<td nowrap align="right">
 															
@@ -620,14 +630,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#agregar_dependencia" title="details" class="method-name">agregar_dependencia</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Agregar dinámicamente una dependencia al componente actual</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#agregar_dependencia_por_indice" title="details" class="method-name">agregar_dependencia_por_indice</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Agregar dinámicamente una dependencia al componente actual utilizando</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -662,7 +672,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#dependencia_cargada" title="details" class="method-name">dependencia_cargada</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna verdadero si la dependencia fue construida y asociada en este pedido de página</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -732,21 +742,21 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_nombre" title="details" class="method-name">get_nombre</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el nombre del componente según se definió en el editor</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_parametro" title="details" class="method-name">get_parametro</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna un parámetro estático definido en las prop. básicas del componente</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_titulo" title="details" class="method-name">get_titulo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el título del componente (nombre visible al usuario)</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    														    								
@@ -768,7 +778,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ini" title="details" class="method-name">ini</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -791,7 +801,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#log" title="details" class="method-name">log</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Shortcut de <a href="../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</td></tr>
+						<td class="method-definition">Shortcut de <a href="../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -838,7 +848,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodset_modo_compatible_manejo_sesion" id="set_modo_compatible_manejo_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method set_modo_compatible_manejo_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
 </div>
@@ -854,8 +864,7 @@ $compatible&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -874,7 +883,7 @@ $compatible&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -911,19 +920,43 @@ $definicion&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Negocio/toba_servicio_web.html#method__construct">toba_servicio_web::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_mapa.html#method__construct">toba_ei_mapa::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_mapa.html#method__construct">toba_ei_mapa::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_grafico.html#method__construct">toba_ei_grafico::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_firma.html#method__construct">toba_ei_firma::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -932,40 +965,16 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_codigo.html#method__construct">toba_ei_codigo::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_firma.html#method__construct">toba_ei_firma::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Negocio/toba_servicio_web.html#method__construct">toba_servicio_web::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_filtro.html#method__construct">toba_ei_filtro::__construct()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodagregar_dependencia" id="agregar_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -986,8 +995,7 @@ $objeto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Agregar dinámicamente una dependencia al componente actual </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1017,7 +1025,7 @@ $objeto&nbsp;
 		<br />
 </div>
 <a name="methodagregar_dependencia_por_indice" id="agregar_dependencia_por_indice"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1040,8 +1048,7 @@ $tipo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Agregar dinámicamente una dependencia al componente actual utilizando </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1083,7 +1090,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodborrar_memoria" id="borrar_memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1109,7 +1116,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodcontrolador" id="controlador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1135,7 +1142,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methoddep" id="dep"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -1187,7 +1194,7 @@ $carga_en_demanda = true]&nbsp;
 		<br />
 </div>
 <a name="methoddependencia" id="dependencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1246,7 +1253,7 @@ $cargar_en_demanda&nbsp;
 		<br />
 </div>
 <a name="methoddependencia_cargada" id="dependencia_cargada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1265,8 +1272,7 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna verdadero si la dependencia fue construida y asociada en este pedido de página </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1284,7 +1290,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1310,24 +1316,8 @@ $id&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
-								: Destructor del componente
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
 								: Destructor del componente
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_arbol.html#methoddestruir">toba_ei_arbol::destruir()</a>
@@ -1337,13 +1327,33 @@ $id&nbsp;
 								: Destructor del componente
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_firma.html#methoddestruir">toba_ei_firma::destruir()</a>
+								: Destructor del componente
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
+								: Destructor del componente
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodeliminar_estado_sesion" id="eliminar_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1381,7 +1391,7 @@ $no_eliminar = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_dependencia" id="existe_dependencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1426,7 +1436,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_dependencias" id="get_cantidad_dependencias"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1452,7 +1462,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias" id="get_dependencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1478,7 +1488,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias_clase" id="get_dependencias_clase"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1516,7 +1526,7 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_estado_sesion" id="get_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -1550,7 +1560,7 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1576,7 +1586,7 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		    		
@@ -1611,7 +1621,7 @@ $parametros = null]&nbsp;
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)</span>			</td></tr>
+							</td></tr>
 				</table>
 
 	<br />
@@ -1634,7 +1644,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1651,8 +1661,7 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna el nombre del componente según se definió en el editor </div>
-
+	
 	<br />
 	
 
@@ -1660,7 +1669,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_parametro" id="get_parametro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1679,8 +1688,7 @@ $parametro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna un parámetro estático definido en las prop. básicas del componente </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1698,7 +1706,7 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodget_titulo" id="get_titulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1715,8 +1723,7 @@ $parametro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna el título del componente (nombre visible al usuario) </div>
-
+	
 	<br />
 	
 
@@ -1724,7 +1731,7 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodinformar" id="informar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		    		
@@ -1760,7 +1767,7 @@ $nivel = null]&nbsp;
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1789,7 +1796,7 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinformar_msg" id="informar_msg"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		    		
@@ -1847,7 +1854,7 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodini" id="ini"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
@@ -1865,7 +1872,7 @@ $nivel = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa. <p>Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	
@@ -1880,6 +1887,15 @@ $nivel = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ci.html#methodini">toba_ci::ini()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_grafico.html#methodini">toba_ei_grafico::ini()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Persistencia/toba_datos_relacion.html#methodini">toba_datos_relacion::ini()</a>
 								: Ventana para agregar configuraciones particulares al inicio de la vida completa del componente
 							</li>
@@ -1887,22 +1903,11 @@ $nivel = null]&nbsp;
 				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodini">toba_datos_tabla::ini()</a>
 								: Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
 							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_grafico.html#methodini">toba_ei_grafico::ini()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ci.html#methodini">toba_ci::ini()</a>
-								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
-							</li>
-					<li>
-				<a href="../Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a>
-								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodinicializado" id="inicializado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1927,7 +1932,7 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinvocar_callback" id="invocar_callback"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1979,7 +1984,7 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodlog" id="log"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1999,7 +2004,7 @@ $txt&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Shortcut de <a href="../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual </div>
+	<div class="description">Shortcut de <a href="../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -2027,13 +2032,12 @@ $txt&nbsp;
 		<ul class="redefinitions">
 					<li>
 				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodlog">toba_datos_tabla::log()</a>
-								: Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -2066,7 +2070,7 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodset_controlador" id="set_controlador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2117,7 +2121,7 @@ $id_en_padre = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_propiedades_sesion" id="set_propiedades_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -2164,7 +2168,7 @@ $props&nbsp;
 		<br />
 </div>
 <a name="method__sleep" id="__sleep"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		

@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
@@ -155,13 +165,13 @@
 								<tr>
 					<td style="padding-right: 2em"><a href="../Seguridad/TiposUsuario/toba_usuario_anonimo.html">toba_usuario_anonimo</a></td>
 					<td>
-											Usuario especial que se usa para el acceso anónimo al sistema
+											
 										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../Seguridad/TiposUsuario/toba_usuario_no_autenticado.html">toba_usuario_no_autenticado</a></td>
 					<td>
-											Usuario especial que se usa para el acceso público al sistema
+											
 										</td>
 				</tr>
 							</table>
@@ -243,6 +253,16 @@
 						</td>
 						<td class="method-definition"><a href="#verificar_clave_vencida" title="details" class="method-name">verificar_clave_vencida</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">boolean</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#verificar_composicion_clave" title="details" class="method-name">verificar_composicion_clave</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#verificar_periodo_minimo_cambio" title="details" class="method-name">verificar_periodo_minimo_cambio</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																								<tr>
 						<td nowrap align="right">
 															
@@ -292,7 +312,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_clave" title="details" class="method-name">set_clave</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																								</table>
+																																																										</table>
 			</div>
 			<br />
 		</div>
@@ -309,7 +329,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodautenticar" id="autenticar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method autenticar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
 </div>
@@ -368,7 +388,7 @@ $datos_inciales = null]&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
 </div>
@@ -412,7 +432,7 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_usuario" id="bloquear_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method bloquear_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
 </div>
@@ -456,7 +476,7 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodes_ip_rechazada" id="es_ip_rechazada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
 </div>
@@ -500,7 +520,7 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodes_usuario_bloqueado" id="es_usuario_bloqueado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method es_usuario_bloqueado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
 </div>
@@ -544,7 +564,7 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_clave_aleatoria" id="generar_clave_aleatoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method generar_clave_aleatoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
 </div>
@@ -578,7 +598,7 @@ $long&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_en_ventana_temporal" id="get_cantidad_intentos_en_ventana_temporal"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
 </div>
@@ -629,7 +649,7 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_usuario_en_ventana_temporal" id="get_cantidad_intentos_usuario_en_ventana_temporal"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method get_cantidad_intentos_usuario_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
 </div>
@@ -680,7 +700,7 @@ $ventana_temporal = null]&nbsp;
 		<br />
 </div>
 <a name="methodreemplazar_clave_vencida" id="reemplazar_clave_vencida"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method reemplazar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
 </div>
@@ -728,7 +748,7 @@ $dias_validez = null]&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_error_login" id="registrar_error_login"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
@@ -786,7 +806,7 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodset_clave_usuario" id="set_clave_usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method set_clave_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
@@ -827,9 +847,9 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodverificar_clave_no_utilizada" id="verificar_clave_no_utilizada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method verificar_clave_no_utilizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+		<span class="method-title">static method verificar_clave_no_utilizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -868,9 +888,9 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodverificar_clave_vencida" id="verificar_clave_vencida"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method verificar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
+		<span class="method-title">static method verificar_clave_vencida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
 </div>
 <br />
 
@@ -901,9 +921,97 @@ $id_usuario&nbsp;
 		
 		<br />
 </div>
+<a name="methodverificar_composicion_clave" id="verificar_composicion_clave"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method verificar_composicion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static boolean verificar_composicion_clave(
+string
+$pwd, [int
+$largo_minimo = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pwd:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$largo_minimo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Throws:</strong>&nbsp;&nbsp;</td><td>toba_error_pwd_conformacion_invalida</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
+<a name="methodverificar_periodo_minimo_cambio" id="verificar_periodo_minimo_cambio"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method verificar_periodo_minimo_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void verificar_periodo_minimo_cambio(
+
+$usuario, 
+$periodo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usuario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$periodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -949,7 +1057,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -992,7 +1100,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1035,7 +1143,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_perfiles_funcionales" id="get_perfiles_funcionales"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1074,7 +1182,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_perfil_datos" id="get_perfil_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1109,7 +1217,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_restricciones_funcionales" id="get_restricciones_funcionales"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1156,7 +1264,7 @@ $perfiles = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_clave" id="set_clave"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		

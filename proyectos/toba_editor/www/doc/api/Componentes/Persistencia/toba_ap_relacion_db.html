@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../../li_Varios.html">Varios</a>
         	            </div>
@@ -523,8 +533,7 @@
             <ul>
                 <li><a href="../../Componentes/Persistencia/toba_ap_relacion.html">toba_ap_relacion</a></li>            </ul>
         </p>
-        		<div class="description">Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas </div>
-
+        		
 
 
 		
@@ -572,35 +581,35 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_transaccion" title="details" class="method-name">activar_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Comando que fuerza una transacción a la hora de la sincronización</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_con_wheres" title="details" class="method-name">cargar_con_wheres</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Carga las tablas de la relación especificando wheres particulares para las distintas tablas</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cargar_por_clave" title="details" class="method-name">cargar_por_clave</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Se cargan las tablas de la relación restringiendo por las claves de las tablas raiz</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#desactivar_transaccion" title="details" class="method-name">desactivar_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Fuerza a no utilizar una transacción a la hora de la sincronización.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#eliminar_todo" title="details" class="method-name">eliminar_todo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Elimina cada elemento de las tabla de la relación y luego sincroniza con la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -616,7 +625,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_eliminacion" title="details" class="method-name">evt__post_eliminacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -625,7 +634,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__post_sincronizacion" title="details" class="method-name">evt__post_sincronizacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -634,7 +643,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_eliminacion" title="details" class="method-name">evt__pre_eliminacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -643,14 +652,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#evt__pre_sincronizacion" title="details" class="method-name">evt__pre_sincronizacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Método de debug que retorna las propiedades internas</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -666,21 +675,21 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#retrasar_constraints" title="details" class="method-name">retrasar_constraints</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retraza el chequeo de constraints hasta el final de la transacción</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_lock_optimista" title="details" class="method-name">set_lock_optimista</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_usar_trim" title="details" class="method-name">set_usar_trim</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa/Desactiva el uso automático del trim sobre datos en el insert o update</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -733,7 +742,7 @@ $objeto_relacion&nbsp;
 				<td>
 				<span class="var-name">$objeto_relacion:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Relación que persiste</span>			</td></tr>
+							</td></tr>
 				</table>
 
 	<br />
@@ -786,8 +795,7 @@ $objeto_relacion&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Comando que fuerza una transacción a la hora de la sincronización </div>
-
+	
 	<br />
 	
 
@@ -817,8 +825,7 @@ $usar_cursores = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Carga las tablas de la relación especificando wheres particulares para las distintas tablas </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -881,8 +888,7 @@ $clave&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Se cargan las tablas de la relación restringiendo por las claves de las tablas raiz </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -907,7 +913,6 @@ $clave&nbsp;
 				<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../../Componentes/Persistencia/toba_ap_relacion.html#methodcargar_por_clave">toba_ap_relacion::cargar_por_clave()</a></dt>
-						<dd>Cargar una relación completa a partir de la clave de una de las tablas raiz</dd>
 					</dl>
 		
 		<br />
@@ -932,7 +937,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Fuerza a no utilizar una transacción a la hora de la sincronización. <p>Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior</p></div>
+	<div class="description"> <p>Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior</p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -968,7 +973,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Elimina cada elemento de las tabla de la relación y luego sincroniza con la base <p>Todo el proceso se ejecuta dentro de una transacción, si se definio así</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	
@@ -976,7 +981,6 @@ $recursivo = false]&nbsp;
 				<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../../Componentes/Persistencia/toba_ap_relacion.html#methodeliminar_todo">toba_ap_relacion::eliminar_todo()</a></dt>
-						<dd>Elimina del medio de persistencia toda la relación cargada</dd>
 					</dl>
 		
 		<br />
@@ -1027,7 +1031,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación <p>La transacción con la bd ya fue iniciada (si es que hay)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -1069,7 +1073,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización <p>La transacción con la bd aún no fue terminada (si es que hay)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -1111,7 +1115,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación <p>La transacción con la bd ya fue iniciada (si es que hay)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -1153,7 +1157,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar <p>La transacción con la bd ya fue iniciada (si es que hay)</p></div>
+	<div class="description"> <p></p></div>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -1193,8 +1197,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Método de debug que retorna las propiedades internas </div>
-
+	
 	<br />
 	
 
@@ -1261,8 +1264,7 @@ $recursivo = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retraza el chequeo de constraints hasta el final de la transacción </div>
-
+	
 	<br />
 	
 
@@ -1289,8 +1291,7 @@ $usar = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1327,8 +1328,7 @@ $usar&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa/Desactiva el uso automático del trim sobre datos en el insert o update </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1366,7 +1366,7 @@ $filas_tablas = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Sincroniza los cambios con la base de datos <p>En caso de error se aborta la transacción (si tiene) y se lanza una excepción</p></div>
+	<div class="description">Sincroniza los cambios con la base de datos <p></p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">

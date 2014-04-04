@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
@@ -136,7 +146,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Representa una conexión a la base de datos. Permite ejecutar comandos y consultas SQL <p>En forma predeterminada utiliza los drivers PDO que tiene php desde la versión 5.1</p></div>
+        		<div class="description"> <p></p></div>
 
 
 
@@ -161,33 +171,33 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
-					<td>
-											Driver de conexión con mysql.
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
-					<td>
-											Driver de conexión con informix
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
 					<td>
-											Driver de conexión via ODBC
+											
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
 					<td>
-											Driver de conexión con postgres
+											
 										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_sqlserver.html">toba_db_sqlserver</a></td>
 					<td>
-											Driver de conexión con SQLServer 2005 o posterior.
+											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_postgres7.html">toba_db_postgres7</a></td>
+					<td>
+											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_informix.html">toba_db_informix</a></td>
+					<td>
+											
 										</td>
 				</tr>
 							</table>
@@ -217,14 +227,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#abortar_transaccion" title="details" class="method-name">abortar_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ejecuta un ROLLBACK en la conexión</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#abrir_transaccion" title="details" class="method-name">abrir_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ejecuta un BEGIN TRANSACTION en la conexión</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -238,14 +248,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar_registro_ejecucion" title="details" class="method-name">activar_registro_ejecucion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Activa/desactiva el resgistro de los comandos de ejecución.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cerrar_transaccion" title="details" class="method-name">cerrar_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ejecuta un COMMIT en la conexión</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    															
@@ -288,7 +298,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#destruir" title="details" class="method-name">destruir</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Libera la conexión a la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    															
@@ -309,7 +319,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ejecutar_transaccion" title="details" class="method-name">ejecutar_transaccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ejecuta un conjunto de comandos dentro de una transacción</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -317,14 +327,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#es_campo_candidato_descripcion" title="details" class="method-name">es_campo_candidato_descripcion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Determina si la definición de un campo de una tabla es un campo descripción</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#exportar_registro" title="details" class="method-name">exportar_registro</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Exporta el registro de los comandos de ejecución y consulta a archivos.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -373,7 +383,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_parametros" title="details" class="method-name">get_parametros</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna los parámetros con los que fue construida la conexión</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -401,7 +411,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array(sql,</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_sql_carga_tabla" title="details" class="method-name">get_sql_carga_tabla</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos remontando referencias usando joins</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -415,14 +425,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#hay_datos" title="details" class="method-name">hay_datos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#quote" title="details" class="method-name">quote</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Convierte un string a una representación segura para el motor. Evita</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -436,7 +446,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#retrazar_constraints" title="details" class="method-name">retrazar_constraints</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    															
@@ -506,7 +516,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_modo_debug" title="details" class="method-name">set_modo_debug</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -520,7 +530,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ultimo_insert_id" title="details" class="method-name">ultimo_insert_id</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Devuelve el id del último insert en la base. Si el motor es postgres</td></tr>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -539,7 +549,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -594,7 +604,7 @@ $puerto = null]&nbsp;
 				<td>
 				<span class="var-name">$puerto:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> (opcional) número de puerto al que se conecta</span>			</td></tr>
+							</td></tr>
 				</table>
 
 	<br />
@@ -604,25 +614,25 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
+							</li>
+					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
-							</li>
-					<li>
-				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#method__construct">toba_db_sqlserver::__construct()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#method__construct">toba_db_sqlserver::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -639,8 +649,7 @@ $puerto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta un ROLLBACK en la conexión </div>
-
+	
 	<br />
 	
 
@@ -648,17 +657,16 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a>
-								: Ejecuta un ROLLBACK WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabortar_transaccion">toba_db_postgres7::abortar_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabortar_transaccion">toba_db_informix::abortar_transaccion()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodabrir_transaccion" id="abrir_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -675,8 +683,7 @@ $puerto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta un BEGIN TRANSACTION en la conexión </div>
-
+	
 	<br />
 	
 
@@ -684,17 +691,16 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a>
-								: Ejecuta un BEGIN WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodabrir_transaccion">toba_db_postgres7::abrir_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodabrir_transaccion">toba_db_informix::abrir_transaccion()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodactivar_registro_consulta" id="activar_registro_consulta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -739,7 +745,7 @@ $activar = true]&nbsp;
 		<br />
 </div>
 <a name="methodactivar_registro_ejecucion" id="activar_registro_ejecucion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -759,8 +765,7 @@ $activar = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Activa/desactiva el resgistro de los comandos de ejecución. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -784,7 +789,7 @@ $activar = true]&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -801,8 +806,7 @@ $activar = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta un COMMIT en la conexión </div>
-
+	
 	<br />
 	
 
@@ -810,17 +814,16 @@ $activar = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a>
-								: Ejecuta un COMMIT WORK en la conexión
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodcerrar_transaccion">toba_db_informix::cerrar_transaccion()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodconectar" id="conectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
@@ -852,7 +855,7 @@ $activar = true]&nbsp;
 		<br />
 </div>
 <a name="methodconsultar" id="consultar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
@@ -911,7 +914,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodconsultar_fila" id="consultar_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
@@ -932,7 +935,7 @@ $lanzar_excepcion = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta una consulta sql y retorna la primer fila del resultado. <p>Es útil cuando se sabe de antemano que el resultado es una única fila</p></div>
+	<div class="description">Ejecuta una consulta sql y retorna la primer fila del resultado. <p></p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -977,7 +980,7 @@ $lanzar_excepcion = true]&nbsp;
 		<br />
 </div>
 <a name="methodcortar_sql" id="cortar_sql"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1023,7 +1026,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodcrear_lenguaje_procedural" id="crear_lenguaje_procedural"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1056,7 +1059,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1073,8 +1076,7 @@ $sql&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Libera la conexión a la base </div>
-
+	
 	<br />
 	
 
@@ -1082,7 +1084,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodejecutar" id="ejecutar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
@@ -1126,7 +1128,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodejecutar_archivo" id="ejecutar_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1164,7 +1166,7 @@ $archivo&nbsp;
 		<br />
 </div>
 <a name="methodejecutar_transaccion" id="ejecutar_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1184,7 +1186,7 @@ $sentencias&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta un conjunto de comandos dentro de una transacción <p>En caso de error en algún comando la aborta</p></div>
+	<div class="description"> <p></p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1209,7 +1211,7 @@ $sentencias&nbsp;
 		<br />
 </div>
 <a name="methodes_campo_candidato_descripcion" id="es_campo_candidato_descripcion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1229,8 +1231,7 @@ $campo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Determina si la definición de un campo de una tabla es un campo descripción </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1256,7 +1257,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodexportar_registro" id="exportar_registro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1276,8 +1277,7 @@ $archivo_consulta = '']&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Exporta el registro de los comandos de ejecución y consulta a archivos. </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1285,7 +1285,7 @@ $archivo_consulta = '']&nbsp;
 				<td>
 				<span class="var-name">$archivo_ejecucion:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Archivo al que se desea exportar el contenido del registro de ejecución.</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
@@ -1301,7 +1301,7 @@ $archivo_consulta = '']&nbsp;
 		<br />
 </div>
 <a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1345,7 +1345,7 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_dsn" id="get_dsn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1374,19 +1374,19 @@ $tabla&nbsp;
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a>
+				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#methodget_dsn">toba_db_sqlserver::get_dsn()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_sqlserver.html#methodget_dsn">toba_db_sqlserver::get_dsn()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_error_toba" id="get_error_toba"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1431,7 +1431,7 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodget_info_debug" id="get_info_debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1457,7 +1457,7 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodget_manejador_auditoria" id="get_manejador_auditoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1516,7 +1516,7 @@ $schema_toba = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_opciones_sql_campo_externo" id="get_opciones_sql_campo_externo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1554,7 +1554,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros" id="get_parametros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1571,8 +1571,7 @@ $campo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna los parámetros con los que fue construida la conexión </div>
-
+	
 	<br />
 	
 
@@ -1586,7 +1585,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_pdo" id="get_pdo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1612,7 +1611,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_semantica_valor_defecto" id="get_semantica_valor_defecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1644,7 +1643,7 @@ $campo&nbsp;
 		<br />
 </div>
 <a name="methodget_sql_carga_descripciones" id="get_sql_carga_descripciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -1690,7 +1689,7 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_sql_carga_tabla" id="get_sql_carga_tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -1709,8 +1708,7 @@ $tabla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos remontando referencias usando joins </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1736,7 +1734,7 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo_datos_generico" id="get_tipo_datos_generico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1774,7 +1772,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodhay_datos" id="hay_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
@@ -1793,8 +1791,7 @@ $sql&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1826,7 +1823,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodquote" id="quote"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1845,7 +1842,7 @@ $dato&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Convierte un string a una representación segura para el motor. Evita <p>la inyección de código malicioso dentro de la sentencia SQL</p></div>
+	<div class="description"> <p></p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1864,7 +1861,7 @@ $dato&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1909,7 +1906,7 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1926,8 +1923,7 @@ $secuencia&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma </div>
-
+	
 	<br />
 	
 
@@ -1941,7 +1937,7 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodsentencia" id="sentencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		
@@ -1992,7 +1988,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_agregar_binarios" id="sentencia_agregar_binarios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
@@ -2043,7 +2039,7 @@ $binarios = array()]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_cantidad_afectados" id="sentencia_cantidad_afectados"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -2089,7 +2085,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_consultar" id="sentencia_consultar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
@@ -2155,7 +2151,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_consultar_fila" id="sentencia_consultar_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
@@ -2228,7 +2224,7 @@ $lanzar_excepcion = true]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_datos" id="sentencia_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -2281,7 +2277,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_ejecutar" id="sentencia_ejecutar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
@@ -2347,7 +2343,7 @@ $tipo_fetch&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_eliminar" id="sentencia_eliminar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2385,7 +2381,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodsentencia_preparar" id="sentencia_preparar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
@@ -2444,7 +2440,7 @@ $opciones = array()]&nbsp;
 		<br />
 </div>
 <a name="methodset_modo_debug" id="set_modo_debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2464,8 +2460,7 @@ $loguear = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2473,7 +2468,7 @@ $loguear = true]&nbsp;
 				<td>
 				<span class="var-name">$loguear:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> No deja las querys en el logger, solo se mantienen durante el pedido de página</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -2489,7 +2484,7 @@ $loguear = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_parser_errores" id="set_parser_errores"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -2526,7 +2521,7 @@ $parser&nbsp;
 		<br />
 </div>
 <a name="methodultimo_insert_id" id="ultimo_insert_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -2545,7 +2540,7 @@ $secuencia = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Devuelve el id del último insert en la base. Si el motor es postgres <p>se debe indicar la secuencia correspondiente para tener resultados significativos</p></div>
+	<div class="description"> <p>se debe indicar la secuencia correspondiente para tener resultados significativos</p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">

@@ -21,9 +21,19 @@
         	        		|
         	              	<a href="../li_Fuentes.html">Fuentes</a>
         	        		|
+        	              	<a href="../li_rest-lib.html">rest-lib</a>
+        	        		|
+        	              	<a href="../li_rest-rutas.html">rest-rutas</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad.html">rest-seguridad</a>
+        	        		|
+        	              	<a href="../li_rest-seguridad-autenticacion.html">rest-seguridad-autenticacion</a>
+        	        		|
         	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="../li_Seguridad.html">Seguridad</a>
+        	        		|
+        	              	<a href="../li_Slim.html">Slim</a>
         	        		|
         	              	<a href="../li_Varios.html">Varios</a>
         	            </div>
@@ -96,7 +106,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis  Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo <p>Para loguear información de debug:  		<pre>toba::logger()->debug($mensaje);</pre></p><p>Para imprimir el valor de una variable en el log  		<pre>toba::logger()->var_dump($variable);</pre></p><p>Para guardar la traza actual de ejecución:  		<pre>toba::logger()->trace();</pre></p><p>Para loguear algun error interno:  		<pre>toba::logger()->error('El importe nunca debio ser negativo!');</pre></p><p>Desde el punto de acceso es posible definir el nivel máximo que se guarda, los niveles son: <ul><li>TOBA_LOG_CRIT: 2</li><li>TOBA_LOG_ERROR: 3</li><li>TOBA_LOG_WARNING: 4</li><li>TOBA_LOG_WARNING: 5</li><li>TOBA_LOG_WARNING: 6</li><li>TOBA_LOG_DEBUG: 7</li></ul>   Recomendaciones de uso:</p><p>critico: error fatal (no se sabe como puede continuar)   error: falla de control o validacion (en cierta forma podría ser recuperable reiniciando la operacion por ej)   warning: falla que es recuperable (se asume algo y se sigue)   notice: paso algo que puede llegar a dar un fallo   info: suceso que merece cierta atención   debug: suceso</p></div>
+        		<div class="description">Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis  Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo <p><pre>toba::logger()->debug($mensaje);</pre></p><p>Para imprimir el valor de una variable en el log  		<pre>toba::logger()->var_dump($variable);</pre></p><p><pre>toba::logger()->trace();</pre></p><p>Para loguear algun error interno:  		<pre>toba::logger()->error('El importe nunca debio ser negativo!');</pre></p><p><ul><li>TOBA_LOG_CRIT: 2</li><li>TOBA_LOG_ERROR: 3</li><li>TOBA_LOG_WARNING: 4</li><li>TOBA_LOG_WARNING: 5</li><li>TOBA_LOG_WARNING: 6</li><li>TOBA_LOG_DEBUG: 7</li></ul>   Recomendaciones de uso:</p><p></p></div>
 
 
 
@@ -150,7 +160,7 @@
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 																																																																																																																																																																																																																					<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">logger</span>&nbsp;&nbsp;
+													<span class="method-result"><a href="../Centrales/logger.html">logger</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Este es un singleton por proyecto</td></tr>
@@ -197,7 +207,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#borrar_archivos_logs" title="details" class="method-name">borrar_archivos_logs</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Borra físicamente todos los archivos de log del proyecto actual</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -227,14 +237,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#debug" title="details" class="method-name">debug</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Registra un suceso útil para rastrear problemas o bugs en la aplicación</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#desactivar" title="details" class="method-name">desactivar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Desactiva el logger durante todo el pedido de página actual</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -319,7 +329,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Registra un suceso netamente informativo, para una inspección posterior</td></tr>
+						<td class="method-definition"></td></tr>
 																																						<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -371,7 +381,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#seccion" title="details" class="method-name">seccion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -459,7 +469,7 @@
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static logger instancia(
+		<code>static <a href="../Centrales/logger.html">logger</a> instancia(
 [
 $proyecto = null]&nbsp;
 )</code>
@@ -744,8 +754,7 @@ $archivo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Borra físicamente todos los archivos de log del proyecto actual </div>
-
+	
 	<br />
 	
 
@@ -924,8 +933,7 @@ $proyecto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Registra un suceso útil para rastrear problemas o bugs en la aplicación </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -966,8 +974,7 @@ $proyecto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Desactiva el logger durante todo el pedido de página actual </div>
-
+	
 	<br />
 	
 
@@ -1363,8 +1370,7 @@ $proyecto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Registra un suceso netamente informativo, para una inspección posterior </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1616,7 +1622,7 @@ $proyecto = null]&nbsp;
 				<td>
 				<span class="var-name">$version:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Versión desde la cual el metodo/funcion deja de estar disponible</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -1670,8 +1676,7 @@ $proyecto = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
