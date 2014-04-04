@@ -69,8 +69,13 @@ class ruteador
 		if ($instanciador->existe_metodo($accion)) { //chequear que exista la accion?
 			return $instanciador;
 		}
+		if(isset($posible_accion)){
+			$error_alias = "o el alias '$posible_accion' ";
+		}else {
+			$error_alias = '';
+		}
 
-		throw new \Exception("No se encuentra el metodo $accion en la clase {$recurso['clase']}. ¿Ruta mal formada?");
+		throw new \Exception("No se encuentra el metodo $accion {$error_alias}en la clase {$recurso['archivo']}. ¿Ruta mal formada?");
 	}
 
 
