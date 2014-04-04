@@ -768,17 +768,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	PERMISOS SOBRE TABLAS EN LA BASE
 	//------------------------------------------------------------------------------------------------------------------------------------------------//			
 	//------------------------------------------------------------------------------------------------------------------------------------------------//
-	function get_usuario_prueba_db($fuente)
+	static function get_usuario_prueba_db($fuente)
 	{
 		return "temp_".$fuente;
 	}
 	
-	function get_rol_prueba_db($fuente, $id_operacion)
+	static function get_rol_prueba_db($fuente, $id_operacion)
 	{
 		return "temp_".$fuente.'_'.$id_operacion;		
 	}
 	
-	function get_rol_prueba_db_basico($fuente)
+	static function get_rol_prueba_db_basico($fuente)
 	{
 		return "temp_".$fuente.'_basico';		
 	}				
