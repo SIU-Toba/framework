@@ -109,7 +109,7 @@ class comando_nucleo extends comando_toba
 	 */
 	function opcion__zipversion()
 	{
-		$url_svn = 'http://repositorio.siu.edu.ar/svn/toba';
+		$url_svn = 'https://repositorio.siu.edu.ar/svn/toba';
 		$dir_temp = '/tmp';
 		$destino = '/tmp/toba';
 		$rama_versiones = 'versiones';
@@ -201,7 +201,7 @@ class comando_nucleo extends comando_toba
 	function opcion__versionar()
 	{
 		$error = null; $salida = null;		
-		$url_svn = 'http://repositorio.siu.edu.ar/svn/toba';
+		$url_svn = 'https://repositorio.siu.edu.ar/svn/toba';
 		$dir_temp = '/tmp';
 		$destino = '/tmp/toba';		
 		$rama_branch = 'trunk_versiones';
