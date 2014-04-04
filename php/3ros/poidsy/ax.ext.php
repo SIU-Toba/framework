@@ -121,8 +121,12 @@
       $_SESSION['openid']['ax']['data'][$alias][] = $_REQUEST["openid_{$ns}_value_{$alias}_$i"];
      }
     } else if ($count == 1) {
-     $_SESSION['openid']['ax']['data'][$alias] = $_REQUEST["openid_{$ns}_value_$alias"];
-    }
+		if (isset($_REQUEST["openid_{$ns}_value_$alias"."_1"])) {
+			$_SESSION['openid']['ax']['data'][$alias] = $_REQUEST["openid_{$ns}_value_$alias"."_1"];
+		} else {
+		$_SESSION['openid']['ax']['data'][$alias] = $_REQUEST["openid_{$ns}_value_$alias"];
+		}
+	}
    }
   }
 
