@@ -802,7 +802,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	 */
 	function importar_migrar_proyecto($id_instancia, $id_proyecto, $dir_toba_viejo)
 	{
-		$path_proyecto = toba_dir().'/proyectos/'.$id_proyecto;
+		//$path_proyecto = toba_dir().'/proyectos/'.$id_proyecto;		
 		$excepcion = null;
 		$url = null;
 		try {
@@ -842,6 +842,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$this->manejador_interface->titulo("2.- Apuntando la instancia nueva a la de la versión anterior");
 			$proyectos_vinculados = $instancia->get_lista_proyectos_vinculados();
 			$instancia->set_proyectos_vinculados(array($id_proyecto));
+			$path_proyecto = $instancia->get_path_proyecto($id_proyecto);			
 			$instancia->vincular_proyecto($id_proyecto, $path_proyecto, $url);			
 
 			//--- Apuntar la instancia actual a la instancia externa			

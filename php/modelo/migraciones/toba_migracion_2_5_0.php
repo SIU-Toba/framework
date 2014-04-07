@@ -62,6 +62,17 @@ class toba_migracion_2_5_0 extends toba_migracion
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
-	}	
+	}
+	
+	function proyecto__agregar_config_rest()
+	{
+			$proyecto = $this->elemento->get_id();
+			$dir_proyecto = $this->elemento->get_dir();	
+			$destino = $dir_proyecto.'/www/rest.php';
+			copy(toba_dir().'/php/modelo/template_proyecto/www/rest.php', $destino);
+			$editor = new toba_editor_archivos();
+			$editor->agregar_sustitucion( '|__proyecto__|', $proyecto );
+			$editor->procesar_archivo($destino);
+	}
 }
 ?>
