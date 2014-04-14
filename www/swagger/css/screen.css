@@ -227,7 +227,7 @@ table {
   color: #aaaaaa;
 }
 .swagger-ui-wrap a {
-  color: #547f00;
+  color: #00417f;
 }
 .swagger-ui-wrap a img {
   border: none;
@@ -259,7 +259,7 @@ table {
 .swagger-ui-wrap .content > .content-type > div > label {
   clear: both;
   display: block;
-  color: #0F6AB4;
+  color: #09b462;
   font-size: 1.1em;
   margin: 0;
   padding: 15px 0 5px;
@@ -535,7 +535,7 @@ table {
   font-style: italic;
 }
 .swagger-ui-wrap .markdown h3 {
-  color: #547f00;
+  color: #35357f;
 }
 .swagger-ui-wrap .markdown h4 {
   color: #666666;
@@ -709,6 +709,9 @@ table {
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading ul.options li a {
   text-decoration: none;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading ul.options li.access {
+  color: black;
 }
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.content {
   border-top: none;
@@ -919,6 +922,31 @@ table {
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.get div.content div.sandbox_header a {
   color: #6fa5d2;
 }
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.heading {
+  background-color: #e7f0f7;
+  border: 1px solid #c3d9ec;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.heading h3 span.http_method a {
+  background-color: #0f6ab4;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.heading ul.options li {
+  border-right: 1px solid #dddddd;
+  border-right-color: #c3d9ec;
+  color: #0f6ab4;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.heading ul.options li a {
+  color: #0f6ab4;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.content {
+  background-color: #ebf3f9;
+  border: 1px solid #c3d9ec;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.content h4 {
+  color: #0f6ab4;
+}
+.swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.options div.content div.sandbox_header a {
+  color: #6fa5d2;
+}
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.get div.content,
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.post div.content,
 .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.head div.content,
@@ -1006,22 +1034,147 @@ table {
 .swagger-ui-wrap form.form_box p strong {
   color: black;
 }
-#header {
-  background-color: #89bf04;
-  padding: 14px;
+.title {
+  font-style: bold;
 }
-#header a#logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-decoration: none;
-  background: transparent url(../images/logo_small.png) no-repeat left center;
-  padding: 20px 0 20px 40px;
-  color: white;
+.secondary_form {
+  display: none;
+}
+.main_image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.oauth_body {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.oauth_submit {
+  text-align: center;
+}
+.api-popup-dialog {
+  z-index: 10000;
+  position: absolute;
+  width: 500px;
+  background: #FFF;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+  font-size: 13px;
+  color: #777;
+}
+.api-popup-dialog .api-popup-title {
+  font-size: 24px;
+  padding: 10px 0;
+}
+.api-popup-dialog .api-popup-title {
+  font-size: 24px;
+  padding: 10px 0;
+}
+.api-popup-dialog p.error-msg {
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+.api-popup-dialog button.api-popup-authbtn {
+  height: 30px;
+}
+.api-popup-dialog button.api-popup-cancel {
+  height: 30px;
+}
+.api-popup-scopes {
+  padding: 10px 20px;
+}
+.api-popup-scopes li {
+  padding: 5px 0;
+  line-height: 20px;
+}
+.api-popup-scopes .api-scope-desc {
+  padding-left: 20px;
+  font-style: italic;
+}
+.api-popup-scopes li input {
+  position: relative;
+  top: 2px;
+}
+.api-popup-actions {
+  padding-top: 10px;
+}
+.access {
+  float: right;
+}
+.auth {
+  float: right;
+}
+#api_information_panel {
+  position: absolute;
+  background: #FFF;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+  font-size: 13px;
+  max-width: 300px;
+  line-height: 30px;
+  color: black;
+  padding: 5px;
+}
+#api_information_panel p .api-msg-enabled {
+  color: blue;
+}
+#api_information_panel p .api-msg-disabled {
+  color: red;
+}
+.api-ic {
+  height: 18px;
+  vertical-align: middle;
+  display: inline-block;
+  background: url(../images/explorer_icons.png) no-repeat;
+}
+.ic-info {
+  background-position: 0 0;
+  width: 18px;
+  margin-top: -7px;
+  margin-left: 4px;
+}
+.ic-warning {
+  background-position: -60px 0;
+  width: 18px;
+  margin-top: -7px;
+  margin-left: 4px;
+}
+.ic-error {
+  background-position: -30px 0;
+  width: 18px;
+  margin-top: -7px;
+  margin-left: 4px;
+}
+.ic-off {
+  background-position: -90px 0;
+  width: 58px;
+  margin-top: -4px;
+  cursor: pointer;
+}
+.ic-on {
+  background-position: -160px 0;
+  width: 58px;
+  margin-top: -4px;
+  cursor: pointer;
+}
+#header {
+  background-color: #FFFFFF;
+  padding: 8px;
+  border-bottom: dotted #686868 1px;
 }
 #header form#api_selector {
   display: block;
   clear: none;
   float: right;
+  margin-top: 12px;
+}
+#header form#api_selector select#api_select {
+  width: 180px;
+  padding: 3px;
+  margin-top: 0px;
 }
 #header form#api_selector .input {
   display: block;
@@ -1030,10 +1183,10 @@ table {
   margin: 0 10px 0 0;
 }
 #header form#api_selector .input input#input_apiKey {
-  width: 200px;
+  width: 150px;
 }
 #header form#api_selector .input input#input_baseUrl {
-  width: 400px;
+  width: 350px;
 }
 #header form#api_selector .input a#explore {
   display: block;
@@ -1042,7 +1195,7 @@ table {
   padding: 6px 8px;
   font-size: 0.9em;
   color: white;
-  background-color: #547f00;
+  background-color: #00307f;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -1051,7 +1204,7 @@ table {
   border-radius: 4px;
 }
 #header form#api_selector .input a#explore:hover {
-  background-color: #547f00;
+  background-color: #00457f;
 }
 #header form#api_selector .input input {
   font-size: 0.9em;
