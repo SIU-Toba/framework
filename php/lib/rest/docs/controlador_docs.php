@@ -53,7 +53,7 @@ class controlador_docs
 		$resource = array();
 		$resource['apiVersion'] = '1.0'; //@todo
 		$resource['swaggerVersion'] = "1.2";
-		$resource['produces'] = "application/json";
+		$resource['produces'] = array("application/json");
 		$resource['basePath'] = $this->api_url;
 		$resource['resourcePath'] = $path;
 		$resource['apis'] = $this->get_apis($annotaciones, $path);
