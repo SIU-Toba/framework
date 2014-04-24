@@ -349,7 +349,7 @@
          *    @access public
          *    @static
          */
-        function dump($variable) {
+        static function dump($variable) {
             ob_start();
             print_r($variable);
             $formatted = ob_get_contents();
@@ -366,7 +366,7 @@
          *    @access public
          *    @static
          */
-        function getFormattedAssertionLine($stack, $format = '%d', $prefix = 'assert') {
+        static function getFormattedAssertionLine($stack, $format = '%d', $prefix = 'assert') {
             foreach ($stack as $frame) {
                 if (isset($frame['file']) && strpos($frame['file'], 'simpletest') !== false) {     // dirname() is a bit slow.
                     if (substr(dirname($frame['file']), -10) == 'simpletest') {

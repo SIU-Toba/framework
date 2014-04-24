@@ -17,7 +17,7 @@
          *    @static
          *    @access public
          */
-        function getVersion() {
+        static function getVersion() {
             $content = file(dirname(__FILE__) . '/VERSION');
             return trim($content[0]);
         }
@@ -30,7 +30,7 @@
          *    @static
          *    @access public
          */
-        function ignore($class) {
+        static function ignore($class) {
             $registry = &SimpleTestOptions::_getRegistry();
             $registry['IgnoreList'][] = strtolower($class);
         }
@@ -43,7 +43,7 @@
          *    @access public
          *    @static
          */
-        function isIgnored($class) {
+        static function isIgnored($class) {
             $registry = &SimpleTestOptions::_getRegistry();
             return in_array(strtolower($class), $registry['IgnoreList']);
         }
@@ -58,7 +58,7 @@
          *    @static
          *    @access public
          */
-        function setStubBaseClass($stub_base) {
+        static function setStubBaseClass($stub_base) {
             $registry = &SimpleTestOptions::_getRegistry();
             $registry['StubBaseClass'] = $stub_base;
         }
@@ -69,7 +69,7 @@
          *    @static
          *    @access public
          */
-        function getStubBaseClass() {
+        static function getStubBaseClass() {
             $registry = &SimpleTestOptions::_getRegistry();
             return $registry['StubBaseClass'];
         }
@@ -84,7 +84,7 @@
          *    @static
          *    @access public
          */
-        function setMockBaseClass($mock_base) {
+        static function setMockBaseClass($mock_base) {
             $registry = &SimpleTestOptions::_getRegistry();
             $registry['MockBaseClass'] = $mock_base;
         }
@@ -95,7 +95,7 @@
          *    @static
          *    @access public
          */
-        function getMockBaseClass() {
+        static function getMockBaseClass() {
             $registry = &SimpleTestOptions::_getRegistry();
             return $registry['MockBaseClass'];
         }
@@ -177,7 +177,7 @@
          *    @access private
          *    @static
          */
-        function &_getRegistry() {
+        static function &_getRegistry() {
             static $registry = false;
             if (! $registry) {
                 $registry = SimpleTestOptions::_getDefaults();
@@ -191,7 +191,7 @@
          *    @access private
          *    @static
          */
-        function _getDefaults() {
+        static function _getDefaults() {
             return array(
                     'StubBaseClass' => 'SimpleStub',
                     'MockBaseClass' => 'SimpleMock',
@@ -219,7 +219,7 @@
          *    @access public
          *    @static
          */
-        function isIdentical($first, $second) {
+        static function isIdentical($first, $second) {
             if ($first != $second) {
                 return false;
             }
@@ -236,7 +236,7 @@
          *    @access private
          *    @static
          */
-        function _isIdenticalType($first, $second) {
+        static function _isIdenticalType($first, $second) {
             if (gettype($first) != gettype($second)) {
                 return false;
             }
@@ -261,7 +261,7 @@
          *    @access private
          *    @static
          */
-        function _isArrayOfIdenticalTypes($first, $second) {
+        static function _isArrayOfIdenticalTypes($first, $second) {
             if (array_keys($first) != array_keys($second)) {
                 return false;
             }
@@ -283,7 +283,7 @@
          *    @access public
          *    @static
          */
-        function isReference(&$first, &$second) {
+        static function isReference(&$first, &$second) {
             if (version_compare(phpversion(), '5', '>=')
 	    	    && is_object($first)) {
 	    	    return ($first === $second);
@@ -303,7 +303,7 @@
          *    @access public
          *    @static
          */
-        function isA($object, $class) {
+        static function isA($object, $class) {
             if (version_compare(phpversion(), '5') >= 0) {
                 if (! class_exists($class, false)) {
                     return false;
@@ -325,7 +325,7 @@
          *    @access public
          *    @static
          */
-        function classExists($class) {
+        static function classExists($class) {
             if (version_compare(phpversion(), '5') >= 0) {
                 return class_exists($class, false);
             } else {
@@ -340,7 +340,7 @@
          *    @access public
          *    @static
          */
-        function setTimeout($handle, $timeout) {
+        static function setTimeout($handle, $timeout) {
             if (function_exists('stream_set_timeout')) {
                 stream_set_timeout($handle, $timeout, 0);
             } elseif (function_exists('socket_set_timeout')) {
@@ -356,7 +356,7 @@
          *    @access public
          *    @static
          */
-        function getStackTrace() {
+        static function getStackTrace() {
             if (function_exists('debug_backtrace')) {
                 return array_reverse(debug_backtrace());
             }

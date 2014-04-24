@@ -518,7 +518,7 @@
          *    @access public
          *    @static
          */
-        function getAllTopLevelDomains() {
+        static function getAllTopLevelDomains() {
             return 'com|edu|net|org|gov|mil|int|biz|info|name|pro|aero|coop|museum';
         }
     }

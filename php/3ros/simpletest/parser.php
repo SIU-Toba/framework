@@ -493,7 +493,7 @@
          *    @access public
          *    @static
          */
-        function &createLexer(&$parser) {
+        static function &createLexer(&$parser) {
             $lexer = &new SimpleLexer($parser, 'text');
             $lexer->mapHandler('text', 'acceptTextToken');
             SimpleSaxParser::_addSkipping($lexer);
@@ -521,7 +521,7 @@
          *    @access private
          *    @static
          */
-        function _addSkipping(&$lexer) {
+        static function _addSkipping(&$lexer) {
             $lexer->mapHandler('css', 'ignore');
             $lexer->addEntryPattern('<style', 'text', 'css');
             $lexer->addExitPattern('</style>', 'css');
@@ -540,7 +540,7 @@
          *    @access private
          *    @static
          */
-        function _addTag(&$lexer, $tag) {
+        static function _addTag(&$lexer, $tag) {
             $lexer->addSpecialPattern("</$tag>", 'text', 'acceptEndToken');
             $lexer->addEntryPattern("<$tag", 'text', 'tag');
         }
@@ -552,7 +552,7 @@
          *    @access private
          *    @static
          */
-        function _addInTagTokens(&$lexer) {
+        static function _addInTagTokens(&$lexer) {
             $lexer->mapHandler('tag', 'acceptStartToken');
             $lexer->addSpecialPattern('\s+', 'tag', 'ignore');
             SimpleSaxParser::_addAttributeTokens($lexer);
@@ -566,7 +566,7 @@
          *    @access private
          *    @static
          */
-        function _addAttributeTokens(&$lexer) {
+        static function _addAttributeTokens(&$lexer) {
             $lexer->mapHandler('dq_attribute', 'acceptAttributeToken');
             $lexer->addEntryPattern('=\s*"', 'tag', 'dq_attribute');
             $lexer->addPattern("\\\\\"", 'dq_attribute');
@@ -684,7 +684,7 @@
          *    @access public
          *    @static
          */
-        function decodeHtml($html) {
+        static function decodeHtml($html) {
             static $translations;
             if (! isset($translations)) {
                 $translations = array_flip(get_html_translation_table(HTML_ENTITIES));
@@ -701,7 +701,7 @@
          *    @access public
          *    @static
          */
-        function normalise($html) {
+        static function normalise($html) {
             $text = preg_replace('|<!--.*?-->|', '', $html);
             $text = preg_replace('|<img.*?alt\s*=\s*"(.*?)".*?>|', ' \1 ', $text);
             $text = preg_replace('|<img.*?alt\s*=\s*\'(.*?)\'.*?>|', ' \1 ', $text);

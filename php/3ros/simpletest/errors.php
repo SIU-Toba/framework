@@ -80,7 +80,7 @@
          *    @access public
          *    @static
          */
-        function &instance() {
+        static function &instance() {
             static $queue = false;
             if (! $queue) {
                 $queue = new SimpleErrorQueue();
@@ -96,7 +96,7 @@
          *    @access public
          *    @static
          */
-        function getSeverityAsString($severity) {
+        static function getSeverityAsString($severity) {
             static $map = array(
                     E_STRICT => 'E_STRICT',
                     E_ERROR => 'E_ERROR',
@@ -126,16 +126,17 @@
      *    @static
      *    @access public
      */
-    function simpleTestErrorHandler($severity, $message, $filename, $line, $super_globals) {
-        if ($severity = $severity & error_reporting()) {
-            restore_error_handler();
-            if (ini_get('log_errors')) {
-                $label = SimpleErrorQueue::getSeverityAsString($severity);
-                error_log("$label: $message in $filename on line $line");
-            }
-            $queue = &SimpleErrorQueue::instance();
-            $queue->add($severity, $message, $filename, $line, $super_globals);
-            set_error_handler('simpleTestErrorHandler');
-        }
-    }
+	function simpleTestErrorHandler($severity, $message, $filename, $line, $super_globals) 
+	{
+		if ($severity = $severity & error_reporting()) {
+			restore_error_handler();
+			if (ini_get('log_errors')) {
+				$label = SimpleErrorQueue::getSeverityAsString($severity);
+				error_log("$label: $message in $filename on line $line");
+			}
+			$queue = &SimpleErrorQueue::instance();
+			$queue->add($severity, $message, $filename, $line, $super_globals);
+			set_error_handler('simpleTestErrorHandler');
+		}
+	}
 ?>
