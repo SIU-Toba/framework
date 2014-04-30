@@ -2,6 +2,8 @@
 
 namespace rest\http;
 
+use rest\lib\rest_error;
+
 /**
  * Clase basada en Slim - a micro PHP 5 framework para abstraer el Request
  */
@@ -106,6 +108,9 @@ class request
 	{
 		$body = $this->get_body();
 		$json = json_decode($body, true);
+		if($body && NULL === $json){
+			throw new rest_error(400, "No se pudo decodificar el mensaje '$body'");
+		}
 		$arreglo = $this->manejar_encoding($json);
 		return $arreglo;
 	}

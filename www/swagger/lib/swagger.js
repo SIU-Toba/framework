@@ -117,7 +117,7 @@ SwaggerApi.prototype.build = function() {
     url: this.url,
     method: "get",
     headers: {
-      accept: "application/json"
+//      accept: "application/json"
     },
     on: {
       error: function(response) {
@@ -349,7 +349,7 @@ var SwaggerResource = function(resourceObj, api) {
       method: "get",
       useJQuery: this.useJQuery,
       headers: {
-        accept: "application/json"
+//        accept: "application/json"
       },
       on: {
         response: function(resp) {
@@ -1062,8 +1062,8 @@ var SwaggerRequest = function(type, url, params, opts, successCallback, errorCal
     myHeaders[name] = this.headers[name];
   if ((requestContentType && body !== "") || (requestContentType === "application/x-www-form-urlencoded"))
     myHeaders["Content-Type"] = requestContentType;
-  if (responseContentType)
-    myHeaders["Accept"] = responseContentType;
+//  if (responseContentType)
+//    myHeaders["Accept"] = responseContentType;
 
   if (!((this.headers != null) && (this.headers.mock != null))) {
     obj = {

@@ -217,12 +217,8 @@ class rest
 			// Excepcion del codigo del proyecto - Error de programación, no tiene que entrar aca en el flujo normal
 			$this->logger->error("Error al ejecutar el pedido. " . $ex->getMessage());
 			$this->logger->error($ex->getTraceAsString());
-			if ($this->config('debug')) {
-				throw $ex;
-			} else {
-				$error = new rest_error(500, "Error Interno en el servidor");
-				$error->configurar_respuesta($this->response);
-			}
+			$error = new rest_error(500, "Error Interno en el servidor: ".$ex->getMessage());
+			$error->configurar_respuesta($this->response);
 		}
 		$this->response->finalizar();
 		$this->vista->escribir();

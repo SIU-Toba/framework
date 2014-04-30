@@ -8,6 +8,7 @@ class rest_filtro_sql
 {
 	protected $conexion;
 	protected $campos = array();
+	protected $campos_locales = array();
 
 	function __construct()
 	{
@@ -22,12 +23,25 @@ class rest_filtro_sql
 		}
 		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql);
 	}
+	function agregar_campo_local($alias_qs, $alias_sql = NULL, $valor, $forzar)
+	{
+		if ($alias_sql === NULL) {
+			$alias_sql = $alias_qs;
+		}
+		$this->campos_locales[$alias_qs] = array('alias_sql' => $alias_sql, 'valor' => $valor, 'forzar'=>$forzar);
+	}
 
 	function get_sql_where($separador = 'AND')
 	{
 		$clausulas = array();
-		foreach ($this->campos as $alias_qs => $campo) {
-			$qs = trim(rest::request()->get($alias_qs));
+		$campos = $this->campos;
+		foreach ($this->campos_locales as $k => $campo_local){
+			if (!isset($campos[$k]) || $campo_local['forzar'] ){
+				$campos[$k] = $campo_local;
+			}
+		}
+		foreach ($campos as $alias_qs => $campo) {
+			$qs = isset($campo['valor'])? $campo['valor']: trim(rest::request()->get($alias_qs));
 			if ($qs != '') {
 				$partes = explode(';', $qs);
 				if (count($partes) < 2) {
@@ -50,7 +64,7 @@ class rest_filtro_sql
 	/**
 	 * Lee los parametros 'limit' y 'page' del request rest y arma el equivalente en sql (limit/offset)
 	 */
-	function get_sql_limit()
+	function get_sql_limit($default = '')
 	{
 		$sql_limit = "";
 		$limit = rest::request()->get("limit");
@@ -66,6 +80,10 @@ class rest_filtro_sql
 				}
 				$offset = ($page - 1) * $limit;
 				$sql_limit .= " OFFSET " . $offset;
+			}
+		}else {
+			if($default){
+				$sql_limit = "LIMIT $default";
 			}
 		}
 		return $sql_limit;

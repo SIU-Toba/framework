@@ -149,6 +149,33 @@ class rest_filtro_sqlTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals("LIMIT 5 OFFSET 0", trim($this->filtro->get_sql_limit()));
 	}
 
+	public function testForzarPisar()
+	{
+		$param = "nombre";
+		$this->filtro->agregar_campo($param);
+		$this->agregar_parametro_request($param, 'es_igual_a;pepe', 0);
+		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', true);
+		$this->assertEquals("nombre = juan", trim($this->filtro->get_sql_where()));
+	}
+
+	public function testForzarSinPisar()
+	{
+		$param = "nombre";
+		$this->filtro->expects($this->any())
+			->method('quote')
+			->will($this->returnArgument(0));
+		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', true);
+		$this->assertEquals("nombre = juan", trim($this->filtro->get_sql_where()));
+	}
+
+	public function testSinForzar()
+	{
+		$param = "nombre";
+		$this->filtro->agregar_campo($param);
+		$this->agregar_parametro_request($param, 'es_igual_a;pepe');
+		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', false);
+		$this->assertEquals("nombre = pepe", trim($this->filtro->get_sql_where()));
+	}
 
 	public function testWhereIgual()
 	{
@@ -277,9 +304,9 @@ class rest_filtro_sqlTest extends \PHPUnit_Framework_TestCase
 	}
 
 
-	protected function agregar_parametro_request($param, $valor)
+	protected function agregar_parametro_request($param, $valor, $cantidad_llamados = 1)
 	{
-		$this->request->expects($this->once())
+		$this->request->expects($this->exactly($cantidad_llamados))
 			->method('get')
 			->with($this->equalTo($param))
 			->will($this->returnValue($valor));

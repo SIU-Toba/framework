@@ -244,6 +244,7 @@ class anotaciones_docs
 					$params = str_replace('\'', '"', $params);
 					$params = json_decode($params, true);
 					$respuesta['items'] = $params;
+					$respuesta['type'] = 'array';
 				}
 			} else {
 				$respuesta['type'] = $response;
