@@ -160,7 +160,7 @@ class toba_usuario implements toba_interface_usuario
 	 */
 	static function get_exp_reg_pwd($largo_minimo)
 	{
-		return '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*\w)|(?=.*[\d])(?=.*\w)).{'. $largo_minimo.',}$/';
+		return '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*[a-zA-Z])|(?=.*[0-9])(?=.*[a-zA-Z])).{'. $largo_minimo.',}$/';
 	}
 }
 ?>
