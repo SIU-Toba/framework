@@ -149,31 +149,29 @@ class rest_filtro_sqlTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals("LIMIT 5 OFFSET 0", trim($this->filtro->get_sql_limit()));
 	}
 
-	public function testForzarPisar()
+	public function testDefaultFiltro()
 	{
 		$param = "nombre";
-		$this->filtro->agregar_campo($param);
-		$this->agregar_parametro_request($param, 'es_igual_a;pepe', 0);
-		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', true);
-		$this->assertEquals("nombre = juan", trim($this->filtro->get_sql_where()));
+		$this->filtro->agregar_campo($param, NULL, 'es_igual_a;pepe');
+		$this->agregar_parametro_request('nombre', '');
+
+		$this->assertEquals("$param = pepe", trim($this->filtro->get_sql_where()));
 	}
 
-	public function testForzarSinPisar()
+	public function testDefaultNoUsado()
 	{
 		$param = "nombre";
-		$this->filtro->expects($this->any())
-			->method('quote')
-			->will($this->returnArgument(0));
-		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', true);
-		$this->assertEquals("nombre = juan", trim($this->filtro->get_sql_where()));
+		$this->filtro->agregar_campo($param, NULL, 'es_igual_a;pepe');
+		$this->agregar_parametro_request('nombre', 'es_igual_a;jose');
+		$this->assertEquals("nombre = jose", trim($this->filtro->get_sql_where()));
 	}
 
-	public function testSinForzar()
+	public function testFiltroLocal()
 	{
 		$param = "nombre";
-		$this->filtro->agregar_campo($param);
-		$this->agregar_parametro_request($param, 'es_igual_a;pepe');
-		$this->filtro->agregar_campo_local($param, $param, 'es_igual_a;juan', false);
+		$this->filtro->agregar_campo_local($param, null, 'es_igual_a;pepe' );
+		$this->agregar_parametro_request('nombre', '', 0); //mock del quote
+
 		$this->assertEquals("nombre = pepe", trim($this->filtro->get_sql_where()));
 	}
 

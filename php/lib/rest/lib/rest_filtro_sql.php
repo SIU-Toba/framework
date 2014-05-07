@@ -15,34 +15,48 @@ class rest_filtro_sql
 		$this->conexion = rest::app()->db;
 	}
 
-
-	function agregar_campo($alias_qs, $alias_sql = NULL)
+	/**
+	 * Busca un campo en el request. Es opcional, se filtra de acuerdo a las reglas de
+	 * get_sql_clausula
+	 * @param $alias_qs       string el nombre en los parámetros del query string
+	 * @param null $alias_sql el nombre para hacer la sql
+	 * @param $valor_defecto string formato get_sql_clausula
+	 */
+	function agregar_campo($alias_qs, $alias_sql = NULL, $valor_defecto = NULL)
 	{
 		if ($alias_sql === NULL) {
 			$alias_sql = $alias_qs;
 		}
-		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql);
+		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql, 'defecto' => $valor_defecto);
 	}
-	function agregar_campo_local($alias_qs, $alias_sql = NULL, $valor, $forzar)
+
+	/**
+	 * Agrega un campo al filtro sin permitirlo en el request
+	 * @param $alias_qs string el nombre en los parámetros del query string
+	 * @param null $alias_sql el nombre para hacer la sql
+	 * @param $valor string el valor del campo
+	 */
+	function agregar_campo_local($alias_qs, $alias_sql = NULL, $valor)
 	{
 		if ($alias_sql === NULL) {
 			$alias_sql = $alias_qs;
 		}
-		$this->campos_locales[$alias_qs] = array('alias_sql' => $alias_sql, 'valor' => $valor, 'forzar'=>$forzar);
+		$this->campos_locales[$alias_qs] = array('alias_sql' => $alias_sql, 'valor' => $valor);
 	}
 
 	function get_sql_where($separador = 'AND')
 	{
 		$clausulas = array();
-		$campos = $this->campos;
-		foreach ($this->campos_locales as $k => $campo_local){
-			if (!isset($campos[$k]) || $campo_local['forzar'] ){
-				$campos[$k] = $campo_local;
-			}
-		}
+		$campos = array_merge($this->campos, $this->campos_locales);
+
 		foreach ($campos as $alias_qs => $campo) {
-			$qs = isset($campo['valor'])? $campo['valor']: trim(rest::request()->get($alias_qs));
-			if ($qs != '') {
+			if(isset($campo['valor'])){
+				$qs = $campo['valor']; //es un campo local
+			}else{
+				$query = trim(rest::request()->get($alias_qs));
+				$qs = !empty($query)? $query: $campo['defecto'];
+			}
+			if (!empty($qs)) {
 				$partes = explode(';', $qs);
 				if (count($partes) < 2) {
 					throw new rest_error(400, "Parámetro '$alias_qs' invalido. Se esperaba 'condicion;valor' y llego '$qs'");
