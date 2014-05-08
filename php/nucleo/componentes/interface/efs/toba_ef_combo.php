@@ -184,7 +184,13 @@ abstract class toba_ef_seleccion extends toba_ef
 			$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
 			if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
 				//toba::logger()->info("Fallback Cotejando $seleccion en ".$this->clave_memoria(true)." contra ".var_export($disponibles, true));				
-				throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$seleccion' entre las enviadas");
+				//Busca los valores disponibles en la fila modelo, por si se trata de un ML
+				$this->ir_a_fila('__fila__');
+				$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
+				if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
+					//toba::logger()->info("Fallback a fila modelo Cotejando $seleccion en ".$this->clave_memoria(true)." contra ".var_export($disponibles, true));				
+					throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$seleccion' entre las enviadas");
+				}
 			}
 		}
 		if (is_array($this->dato)) {
