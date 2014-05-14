@@ -3,6 +3,17 @@
 class casos_web extends toba_ci
 {
 	protected $selecciones;
+	static private $path_autoload_sel = '/php/testing/selenium/test_selenium_autoload.php';
+	
+	function ini()
+	{		
+		$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+		$path = toba::instancia()->get_path_proyecto($proyecto);
+		if (file_exists($path. self::$path_autoload_sel)) {
+			require_once($path. self::$path_autoload_sel);					
+			spl_autoload_register(array('test_selenium_autoload', 'cargar' ));
+		}
+	}
 	
 	function mantener_estado_sesion()
 	{
@@ -104,8 +115,7 @@ class pantalla_testing extends toba_ei_pantalla
 						$cc->renderToFile($salida);
 						echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
 					}
-					//-------
-				
+					//-------				
 				}
 			}
 		} catch (Exception $e) {

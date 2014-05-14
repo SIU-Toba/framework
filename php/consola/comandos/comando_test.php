@@ -29,6 +29,8 @@ class comando_test extends comando_toba
 	 */
 	function opcion__automaticos()
 	{
+		$path_autoload_sel = '/php/testing/selenium/test_selenium_autoload.php';
+		
 		require_once('modelo/lib/testing_unitario/toba_test_lista_casos.php');
 		require_once( toba_dir() . '/php/3ros/simpletest/unit_tester.php');
 		require_once( toba_dir() . '/php/3ros/simpletest/reporter.php');
@@ -39,6 +41,11 @@ class comando_test extends comando_toba
 		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
 		
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola($instancia, $proyecto);
+		$path = $this->get_instancia()->get_path_proyecto($proyecto);
+		if (file_exists($path. $path_autoload_sel)) {
+			require_once($path. $path_autoload_sel);					
+			spl_autoload_register(array('test_selenium_autoload', 'cargar' ));
+		}
 		
 		toba_test_lista_casos::$proyecto = $proyecto;
 		toba_test_lista_casos::$instancia = $instancia;
@@ -48,7 +55,7 @@ class comando_test extends comando_toba
 			$seleccionados = toba_test_lista_casos::get_casos($param["-c"]);
 		} else {
 			$seleccionados = toba_test_lista_casos::get_casos();
-		}
+		}		
 		if(isset($param["-t"])) {
 			//Seleccion de un test particular
 			if (isset($param["-t"])) {
@@ -63,7 +70,10 @@ class comando_test extends comando_toba
 				else
 					$seleccionados = array();
 			}	
-		} 
+		} else {
+			
+			//$elegidos = $this->consola->dialogo_lista_opciones($seleccionados, 'Seleccione el caso de test');			
+		}
 		
 		$resultado=null;	
 		try {
@@ -84,7 +94,7 @@ class comando_test extends comando_toba
 			else
 				$this->consola->mensaje( $e );
 			$resultado = 1;
-		}
+		} 
 		
 		//Guardar LOGS?
 		if (isset($param["-l"])) {
