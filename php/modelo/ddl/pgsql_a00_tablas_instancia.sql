@@ -118,12 +118,13 @@ CREATE TABLE			apex_proyecto
 CREATE TABLE			apex_checksum_proyectos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo
+--: dump: multiproyecto
+--: clave_proyecto: proyecto
 --: dump_order_by: proyecto
---: zona: general
+--: zona: usuario
 --: desc: Especifica el checksum surgido de los metadatos actuales del proyecto
+--: instancia:1
 --: version: 1.0
---: instancia: 1
 ---------------------------------------------------------------------------------------------------
 (
 	checksum						varchar(200)	NOT NULL,

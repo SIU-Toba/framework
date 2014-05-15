@@ -475,8 +475,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
 		toba_manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
-		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		//$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
+		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );
 		$this->manejador_interface->progreso_fin();
 	}
 
@@ -560,9 +559,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$sentencia = $this->get_db()->get_pdo()->query($sql);
 			
 			while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
-			  $contenido = sql_array_a_insert($tabla, $fila, $this->get_db())."\n";
-			  $this->guardar_archivo($nombre_archivo, $contenido, $append);
-			  $append = true;
+				if ($tabla != 'apex_checksum_proyectos') {
+					$contenido = sql_array_a_insert($tabla, $fila, $this->get_db())."\n";
+				} else {
+					$contenido = sql_array_a_insert_condicional($tabla, $fila, $this->get_db()). "\n";
+				}
+				$this->guardar_archivo($nombre_archivo, $contenido, $append);
+				$append = true;
 			}
 			$this->manejador_interface->progreso_avanzar();			  				
 		}

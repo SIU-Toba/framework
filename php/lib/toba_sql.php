@@ -222,6 +222,42 @@
 	}
 	
 	/**
+	 * Convierte un array asociativo en una sentencia de INSERT
+	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
+	 */
+	function sql_array_a_insert_condicional($tabla, $datos, $db = null)
+	{
+		if(!is_array($datos)){
+			throw new toba_error("Los datos tienen que ser un array");	
+		}
+		$clausulas = array();
+		foreach(array_keys($datos) as $columna){
+			if(is_null( $datos[$columna] )){
+				$datos[$columna] = "NULL";//Identifico los nulos
+			}else{
+				if (is_resource($datos[$columna])) {
+					$datos[$columna] = stream_get_contents($datos[$columna]);
+				}			
+				if (is_bool($datos[$columna])) {
+					$datos[$columna] = ($datos[$columna]) ? 'TRUE' : 'FALSE';
+				} else {
+					$datos[$columna] = $db->quote($datos[$columna]);//Escapo caracteres
+				}				
+			}
+			$clausulas[] = " $columna = {$datos[$columna]} ";
+		}
+		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ')'
+				.'  ( SELECT ' . implode(', ',$datos) 				
+				.'WHERE NOT EXISTS ('
+				. ' SELECT 1 '
+				. ' FROM ' . $tabla 
+				. ' WHERE ' . implode(' AND ', $clausulas) .')'
+				.');';			
+			
+		return $sql;	
+	}
+	
+	/**
 	 * Convierte un array asociativo en una sentencia de INSERT formateada para evitar conflictos cuando hay merges
 	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
 	 */
