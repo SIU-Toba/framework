@@ -60,6 +60,7 @@ class catalogo_tablas
 	
 	function resetear()
 	{
+		toba_admin_fuentes::instancia()->get_fuente($this->_fuente)->resetear_mapeo_tablas();			//Fuerzo la relectura de los metadatos de datos_tabla
 		$this->_tablas = array();
 		$this->_tablas_nuevas = array();
 		$this->_tablas_actualizables = array();

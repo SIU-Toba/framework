@@ -144,5 +144,15 @@ class toba_fuente_datos
 	{
 		return " '{$this->definicion['schema']}', 'public' ";
 	}
+	
+	/**
+	 * @ignore
+	 */
+	function resetear_mapeo_tablas()
+	{
+		if (isset($this->definicion['mapeo_tablas_dt'])) {
+			unset($this->definicion['mapeo_tablas_dt']);
+		}
+	}
 }
 ?>
