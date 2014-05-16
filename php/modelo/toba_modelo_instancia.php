@@ -988,7 +988,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	{
 		if (! isset($path_origen)) {
 			$path_origen = toba_dir();
-		}
+		}		
+		$nombres_carp = array();
 		try {
 			$path = $path_origen.'/instalacion/'.self::dir_prefijo.$instancia_origen;
 			if (! file_exists($path)) {
@@ -996,15 +997,24 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 			$subdirs = toba_manejador_archivos::get_subdirectorios($path);
 			$proyectos = $this->get_lista_proyectos_vinculados();
-			$nombres_carp = array('global');
 			foreach ($proyectos as $proy) {
 				$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
-			}
+			}			
 			$this->get_db()->abrir_transaccion();
 			$this->get_db()->retrazar_constraints();
 			if ($reemplazar_actuales) {
 				$this->eliminar_informacion_instancia();
 			}
+			
+			//De la carpeta global unicamente obtengo los usuarios, no el resto de los archivos que pueden traer inconvenientes con las tablas apex_revision y apex_instancia.
+			$archivo = $path.'/global/usuarios.sql';
+			if (file_exists($archivo)) {
+				$cant = $this->get_db()->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->progreso_avanzar();
+			}
+			
+			//Sigo con los directorios de los proyectos
 			foreach ( $nombres_carp as $carp ) {
 				$dir = $path."/".$carp;
 				if (file_exists($dir)) {
