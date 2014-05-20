@@ -5,6 +5,12 @@ class toba_test_lista_casos
 	static $proyecto;
 	static $instancia;
 	static $path_base = '/php/testing';
+	static $tipo;
+	
+	static function set_tipo($tipo_test)
+	{
+		self::$tipo = $tipo_test;
+	}
 	
 	static function get_path($ultimo_nivel='')
 	{
@@ -33,23 +39,30 @@ class toba_test_lista_casos
 			return 1;
 	}
 
-	static function get_categorias()
+	static function get_categorias($tipo=null)
 	{
-		$categorias = $cat_test = $cat_sel = array();
-		$path = self::get_path();
-		if( $handle = @opendir( $path ) ) {
-			$cat_test = self::traer_todo($handle, $path);
-			//$categorias[] = array('id' => 'todas', 'nombre' => '-- Todas --');
-			closedir($handle); 
+		$cat_test = $cat_sel = array();
+		$categorias = array(array('id' => 'todas', 'nombre' => '-- Todas --'));
+		
+		//Busco las categorias de los 2 tipos de casos, si no se especifica ninguno particular se suman todos.
+		if (!isset(self::$tipo) || $tipo == 'U') {
+			$path = self::get_path();
+			if( $handle = @opendir( $path ) ) {
+				$cat_test = self::traer_todo($handle, $path);
+				closedir($handle); 
+			}
 		}
 		
-		$path_sel= self::get_path('selenium');
-		if ($handle = @opendir($path_sel)) {
-			$cat_sel = self::traer_todo($handle, $path_sel);
-			closedir($handle);
+		if (!isset(self::$tipo) || $tipo == 'S') {
+			$path_sel= self::get_path('selenium');
+			if ($handle = @opendir($path_sel)) {
+				$cat_sel = self::traer_todo($handle, $path_sel);
+				closedir($handle);
+			}
 		}
+		
 		if (! empty($cat_test) || ! empty($cat_sel)) {
-			$categorias = array_merge(array(array('id' => 'todas', 'nombre' => '-- Todas --')), $cat_test, $cat_sel);
+			$categorias = array_merge($categorias, $cat_test, $cat_sel);
 		}		
 		usort($categorias, array("toba_test_lista_casos", "comparar"));
 		//toba::logger()->var_dump($categorias);

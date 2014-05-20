@@ -37,8 +37,8 @@ class comando_test extends comando_toba
 		
 		$param = $this->get_parametros();
 		
-		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
-		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
+		$proyecto = isset($param['-p']) ? $param['-p'] : $this->get_id_proyecto_actual(true);
+		$instancia = isset($param['-i']) ? $param['-i'] : $this->get_id_instancia_actual(true);
 		
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola($instancia, $proyecto);
 		$path = $this->get_instancia()->get_path_proyecto($proyecto);
@@ -51,38 +51,47 @@ class comando_test extends comando_toba
 		toba_test_lista_casos::$instancia = $instancia;
 
 		//Selecciono una categoria
-		if (isset($param["-c"])) {
-			$seleccionados = toba_test_lista_casos::get_casos($param["-c"]);
-		} else {
-			$seleccionados = toba_test_lista_casos::get_casos();
-		}		
-		if(isset($param["-t"])) {
-			//Seleccion de un test particular
-			if (isset($param["-t"])) {
-				$particular = false;
-				foreach ($seleccionados as $caso) {
-					if ($caso['id'] == $param["-t"]) {
-						$particular = $caso;
-					}
-				}
-				if ($particular)
-					$seleccionados = array($particular);
-				else
-					$seleccionados = array();
-			}	
-		} else {
-			
-			//$elegidos = $this->consola->dialogo_lista_opciones($seleccionados, 'Seleccione el caso de test');			
-		}
+		if (isset($param['-c'])) {
+			$seleccionados = toba_test_lista_casos::get_casos($param['-c']);
+		} 
 		
+		//Seleccion de un test particular
+		if(isset($param['-t'])) {
+			$seleccionados = toba_test_lista_casos::get_casos();			
+			$particular = false;
+			foreach ($seleccionados as $caso) {
+				if ($caso['id'] == $param["-t"]) {
+					$particular = $caso;
+				}
+			}
+			if ($particular) {
+				$seleccionados = array($particular);
+			} else {
+				$seleccionados = array();
+			}			
+		} elseif (! isset($param['-c'])) {								//Ni categoria ni test, elijo de una lista presentada
+			$seleccionados = toba_test_lista_casos::get_casos();						
+			$lista = array();
+			$klaves = array_keys($seleccionados);
+			foreach($seleccionados as $caso) {
+				$lista[$caso['id']] = $caso['nombre'];
+			}
+			$elegidos = $this->consola->dialogo_lista_opciones($lista, 'Seleccione el caso de test', true, null, false);
+			foreach($klaves as $klave) {
+				if (! in_array($seleccionados[$klave]['id'], $elegidos)) {
+					unset($seleccionados[$klave]);					
+				}
+			}
+		}
+
 		$resultado=null;	
 		try {
 			$separar_casos = (isset($param["-l"])) ? true : false;
 			$separar_pruebas = (isset($param["-l"])) ? true : false;
 			$test = new toba_test_grupo_casos('Casos de TEST', $separar_casos, $separar_pruebas);
-		    foreach ($seleccionados as $caso) {
-		        require_once($caso['archivo']);
-		        $test->addTestCase(new $caso['id']($caso['nombre']));
+			foreach ($seleccionados as $caso) {
+				require_once($caso['archivo']);
+				$test->addTestCase(new $caso['id']($caso['nombre']));
 			}
 			
 			//Termina la ejecución con 0 o 1 para que pueda comunicarse con al consola
