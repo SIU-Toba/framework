@@ -1204,7 +1204,7 @@ class calendario //extends activecalendar
 		$week = $this->weekNumber($date);
 		$year = $this->mkActiveDate('Y',$date);
 		
-		if (!$this->weekLinks) {
+		if (!$this->get_weekLinks()) {
 			if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear()) {
 				$out = "<td class=\"".$this->cssSelecDay."\">".$this->weekNumber($date)."</td>\n";
 			} else {
@@ -1253,7 +1253,7 @@ class calendario //extends activecalendar
 			$day = $var;	
 		}
 		$eventContent = $this->mkEventContent($var);
-		$content = ($this->showEvents) ? $eventContent : '';
+		$content = ($this->get_showEvents()) ? $eventContent : '';
 		
 		if (is_null($objeto_js)) {
 			$objeto_js = $this->get_id_objeto_js();
@@ -1268,34 +1268,34 @@ class calendario //extends activecalendar
 		if ($this->solo_pasados && $this->compare_date($day) == 1) {
 			//Es una fecha futura y no se permite clickearla
 			$out="<td class=\"".$this->cssSunday."\">".$var.$content.'</td>';		
-		} elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6)))) {
+		} elseif (($this->get_dayLinks()) && ((!$this->get_enableSatSelection() && ($this->getWeekday($var) == 0)) || ((!$this->get_enableSunSelection() && $this->getWeekday($var) == 6)))) {
 			$out="<td class=\"".$this->cssSunday."\">".$var.'</td>';			
 		} elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
-			if (!$this->dayLinks) {
+			if (!$this->get_dayLinks()) {
 				$out="<td class=\"".$this->cssSelecDay."\">".$var.$content.'</td>';
 			} else {
 				$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content.'</td>';
 			}
 		} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $resalta_hoy && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
-			if (!$this->dayLinks) {
+			if (!$this->get_dayLinks()) {
 				$out="<td class=\"".$this->cssToday."\">".$var.$content.'</td>';
 			} else {
 				$out="<td class=\"".$this->cssToday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content.'</td>';
 			}
 		} elseif ($this->getWeekday($var) == 0 && $this->crSunClass){
-			if (!$this->dayLinks) {
+			if (!$this->get_dayLinks()) {
 				$out="<td class=\"".$this->cssSunday."\">".$var.$content.'</td>';
 			} else {
 				$out="<td class=\"".$this->cssSunday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content.'</td>';
 			}
 		} elseif ($this->getWeekday($var) == 6 && $this->crSatClass) {
-			if (!$this->dayLinks) {
+			if (!$this->get_dayLinks()) {
 				$out="<td class=\"".$this->cssSaturday."\">".$var.$content.'</td>';
 			} else {
 				$out="<td class=\"".$this->cssSaturday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content.'</td>';
 			}
 		} else {
-			if (!$this->dayLinks) {
+			if (!$this->get_dayLinks()) {
 				$out="<td class=\"".$this->cssMonthDay."\">".$var.$content.'</td>';
 			} else {
 				$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content.'</td>';
@@ -1516,6 +1516,175 @@ class calendario //extends activecalendar
 			return mktime($hr,$min,$sec,$month,$day,$year);
 		}
 	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_startOnSun()
+	{
+		return $this->startOnSun;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_startOnSun($valor)
+	{
+		$this->startOnSun = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_mon()
+	{
+		return $this->mon;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_mon($valor)
+	{
+		$this->mon = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_tue()
+	{
+		return $this->tue;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_tue($valor)
+	{
+		$this->tue = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_wed()
+	{
+		return $this->wed;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_wed($valor)
+	{
+		$this->wed = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_thu()
+	{
+		return $this->thu;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_thu($valor)
+	{
+		$this->thu = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_fri()
+	{
+		return $this->fri;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_fri($valor)
+	{
+		$this->fri = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_sat()
+	{
+		return $this->sat;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_sat($valor)
+	{
+		$this->sat = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function get_sun()
+	{
+		return $this->sun;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	function set_sun($valor)
+	{
+		$this->sun = $valor;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function get_weekLinks()
+	{
+		return $this->weekLinks;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function get_showEvents()
+	{
+		return $this->showEvents;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function get_dayLinks()
+	{
+		return $this->dayLinks;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function get_enableSatSelection()
+	{
+		return $this->enableSatSelection;
+	}
+	
+	/**
+	 * @ignore
+	 */
+	protected function get_enableSunSelection()
+	{
+		return $this->enableSunSelection;
+	}
+	
 }
 
 ?>
