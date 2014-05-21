@@ -1500,13 +1500,13 @@ class toba_ei_formulario extends toba_ei
 			$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 			//Hay que formatear?
 			$estilo = array();
-            if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-                $funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-                $valor_real = $this->_elemento_formulario[$ef]->get_estado();
-                list($valor, $estilo) = $formateo->$funcion($valor_real);
-            }else{
-	            list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
-	        }	
+			if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+				$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+				$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+				list($valor, $estilo) = $formateo->$funcion($valor_real);
+			}else{
+				list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+			}	
 			if (isset($estilo)) {
 				$opciones['valor']['estilo'] = $estilo;
 			}	

@@ -60,6 +60,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 	const FORMAT_DATE_XLSX16				= 'd-mmm';
 	const FORMAT_DATE_XLSX17				= 'mmm-yy';
 	const FORMAT_DATE_XLSX22				= 'm/d/yy h:mm';
+	const FORMAT_DATE_DATETIMEFULL			= 'd/m/yy h:mm';
 	const FORMAT_DATE_DATETIME				= 'd/m/y h:mm';
 	const FORMAT_DATE_TIME1					= 'h:mm AM/PM';
 	const FORMAT_DATE_TIME2					= 'h:mm:ss AM/PM';
