@@ -1,5 +1,5 @@
 <?php
-class toba_autenticacion_cas  implements  toba_autenticable
+class toba_autenticacion_cas extends toba_autenticacion_centralizada implements toba_autenticable
 {
 	protected $url;
 	protected $puerto;
@@ -61,8 +61,11 @@ class toba_autenticacion_cas  implements  toba_autenticable
 	function logout()
 	{
 		if ($this->uso_login_basico() && $this->permite_login_toba()) {				//Si es login toba no redirecciono al servidor CAS
-			unset($_SESSION['uso_login_basico']);
+			$this->eliminar_marca_login(self::$marca_login_basico);
 			return;
+		}		
+		if ($this->uso_login_centralizado()) {
+			$this->eliminar_marca_login(self::$marca_login_central);
 		}
 		// Se conecta al CAS
 		$this->instanciar_cliente_cas(); 
@@ -90,16 +93,6 @@ class toba_autenticacion_cas  implements  toba_autenticable
 	{		
 		phpCAS::setDebug('cas.log');			
 	}	
-	
-	function usar_login_basico()
-	{
-		$_SESSION['uso_login_basico'] = 'true';								//Usa SESSION porque el pedido se termina antes de sincronizar toba_memoria
-	}
-	
-	function uso_login_basico()
-	{
-		return (isset($_SESSION['uso_login_basico']) && $_SESSION['uso_login_basico']);
-	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	//							METODOS PROTEGIDOS

@@ -377,6 +377,7 @@ class toba_autoload
 		'toba_ajax_respuesta' => 'nucleo/lib/toba_ajax_respuesta.php',
 		'toba_autenticable' => 'nucleo/lib/toba_autenticable.php',
 		'toba_autenticacion_basica' => 'nucleo/lib/toba_autenticacion_basica.php',
+		'toba_autenticacion_centralizada' => 'nucleo/lib/toba_autenticacion_centralizada.php',
 		'toba_autenticacion_cas' => 'nucleo/lib/toba_autenticacion_cas.php',
 		'toba_autenticacion_ldap' => 'nucleo/lib/toba_autenticacion_ldap.php',
 		'toba_autenticacion_openid' => 'nucleo/lib/toba_autenticacion_openid.php',

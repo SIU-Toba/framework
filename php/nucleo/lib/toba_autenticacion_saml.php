@@ -1,6 +1,6 @@
 <?php
 
-class toba_autenticacion_saml  implements  toba_autenticable
+class toba_autenticacion_saml  extends toba_autenticacion_centralizada implements  toba_autenticable
 {
 	protected $auth_source = "default-sp";
 	protected $atributo_usuario = "urn:oid:0.9.2342.19200300.100.1.1";
@@ -50,9 +50,12 @@ class toba_autenticacion_saml  implements  toba_autenticable
 	function logout()
 	{
 		if ($this->uso_login_basico() && $this->permite_login_toba()) {				//Si es login toba no redirecciono al servidor CAS
-			unset($_SESSION['uso_login_basico']);
+			$this->eliminar_marca_login(self::$marca_login_basico);
 			return;
-		}
+		}		
+		if ($this->uso_login_centralizado()) {
+			$this->eliminar_marca_login(self::$marca_login_central);
+		}		
 		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
 		$this->saml_sp->logout();
 
@@ -79,16 +82,6 @@ class toba_autenticacion_saml  implements  toba_autenticable
 	function activar_debug()
 	{		
 	}	
-	
-	function usar_login_basico()
-	{
-		$_SESSION['uso_login_basico'] = 'true';								//Usa SESSION porque el pedido se termina antes de sincronizar toba_memoria
-	}
-	
-	function uso_login_basico()
-	{
-		return (isset($_SESSION['uso_login_basico']) && $_SESSION['uso_login_basico']);
-	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	//							METODOS PROTEGIDOS

@@ -39,7 +39,7 @@ class ci_login extends toba_ci
 			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba()) {
 				$this->evt__cas__ingresar();
 			}
-		}	
+		}		
 	}
 	
 	function conf__login()
@@ -152,9 +152,8 @@ class ci_login extends toba_ci
 			}			
 			toba::manejador_sesiones()->login($usuario, $clave);
 
-		} elseif (in_array($tipo_auth, array('cas','saml')) && isset($_SESSION['ingreso_cas'])) {						//El control por session es para que no redireccione automaticamente
+		} elseif (in_array($tipo_auth, array('cas','saml')) && toba::manejador_sesiones()->get_autenticacion()->uso_login_centralizado()) {	//El control por session es para que no redireccione automaticamente
 			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
-			unset($_SESSION['ingreso_cas']);
 		}	
 	}	
 		
@@ -225,7 +224,7 @@ class ci_login extends toba_ci
 	//---- cas -----------------------------------------------------------------------
 	function evt__cas__ingresar()
 	{
-		$_SESSION['ingreso_cas'] = true;					//No uso la memoria de toba porque el pedido de pagina lo puede cortar la redireccion CAS
+		toba::manejador_sesiones()->get_autenticacion()->usar_login_centralizado();
 		try {
 			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
 		} catch (toba_error_autenticacion $e) {
