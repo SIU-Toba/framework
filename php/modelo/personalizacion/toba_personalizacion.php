@@ -246,6 +246,7 @@ class toba_personalizacion {
 		//En una transaccion destinada a abortar
 		//------------------------------------------------------------------------------------------//
 		$this->db->abrir_transaccion();
+		$this->analizar_conflictos($importador_tablas, false);
 		$this->analizar_conflictos($importador_componentes, false);
 		$this->db->abortar_transaccion();
 		//------------------------------------------------------------------------------------------//
