@@ -100,16 +100,15 @@ class toba_personalizacion {
 			@echo off
 			SET PGUSER=$user
 			SET PGPASSWORD=$pass
+			pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_viejo $base  -f $salida				
 			psql -h $profile -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base
-			pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_nuevo $base  > $salida
-			psql -h $profile -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base
-			psql -h $profile -d $base -p $port < $salida
+			psql -h $profile -d $base -p $port -f $salida
 		";
 		$bat_file = $temp_dir.'/clonar_schema.bat';
 		file_put_contents($bat_file, $bat);
 		system('cmd /c "'.$bat_file.'"');
-        unlink($bat_file);
-        unlink($salida);
+		unlink($bat_file);
+		unlink($salida);
 	}
 	
 	protected function clonar_schema_linux($schema_viejo, $schema_nuevo, $profile, $base, $user, $pass, $port)
@@ -119,10 +118,9 @@ class toba_personalizacion {
 		
 		$sh  = "export PGUSER=$user\n";
 		$sh .= "export PGPASSWORD=$pass\n";
+		$sh .= "pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_viejo $base -f $salida\n";
 		$sh .= "psql -h $profile -p $port -c \"ALTER SCHEMA $schema_viejo RENAME TO $schema_nuevo\" $base\n";
-		$sh .= "pg_dump -h $profile -p $port --inserts --no-owner -x -n $schema_nuevo $base > $salida\n";
-		$sh .= "psql -h $profile -p $port -c \"ALTER SCHEMA $schema_nuevo RENAME TO $schema_viejo\" $base\n";
-		$sh .= "psql -h $profile -d $base -p $port < $salida\n";
+		$sh .= "psql -h $profile -d $base -p $port -f $salida\n";
 
 		$sh_file = $temp_dir.'/clonar_schema.sh';
 		
@@ -138,7 +136,7 @@ class toba_personalizacion {
 		$params = $this->db->get_parametros();
 		$profile = $params['profile'];
 		$base = $params['base'];
-		$puerto = isset($params['puerto']) ? $params['puerto'] : '5432';
+		$puerto = (isset($params['puerto']) && trim($params['puerto'] != '')) ? $params['puerto'] : '5432';
 		$usuario = $params['usuario'];
 		$clave = $params['clave'];
 		
