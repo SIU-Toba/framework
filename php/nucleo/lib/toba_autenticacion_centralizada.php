@@ -1,6 +1,4 @@
 <?php
-//define('marca_login_basico', 'uso_login_basico');
-//define('marca_login_central', 'uso_login_central');
 class toba_autenticacion_centralizada
 {
 	static $marca_login_basico = 'uso_login_basico';
