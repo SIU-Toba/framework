@@ -62,9 +62,9 @@ ef_editable.prototype.constructor = ef_editable;
 			this._error = 'es obligatorio.';
 		    return false;
 		}
-		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
-			var temp = this._expreg + '.test("' + estado + '")';
-			if (! eval(temp)) {
+		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {			
+			var temp = new RegExp(this._expreg.substring(1, this._expreg.length - 1)).test(estado);
+			if (! temp) {
 				this._error = 'no es válido';
 				return false;
 			}
@@ -768,8 +768,8 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 		    return false;
 		}
 		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
-			var temp = this._expreg + '.test("' + estado[0] + '")';
-			if (! eval(temp)) {
+			var temp = new RegExp(this._expreg.substring(1, this._expreg.length - 1)).test(estado[0]);
+			if (! temp) {
 				this._error = 'no es válido';
 				return false;
 			}
@@ -1037,8 +1037,8 @@ ef_editable_hora.prototype.constructor = ef_editable_hora;
 		    return false;
 		}
 		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
-			var temp = this._expreg + '.test("' + estado + '")';
-			if (! eval(temp)) {
+			var temp = new RegExp(this._expreg.substring(1, this._expreg.length - 1)).test(estado);
+			if (! temp) {
 				this._error = 'no es válido';
 				return false;
 			}

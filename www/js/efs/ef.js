@@ -581,8 +581,8 @@ ef_html.prototype.constructor = ef_html;
 		    return false;
 		}
 		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
-			var temp = this._expreg + '.test("' + estado + '")';
-			if (! eval(temp)) {
+			var temp = new RegExp(this._expreg.substring(1, this._expreg.length - 1)).test(estado);
+			if (! temp) {
 				this._error = 'no es válido';
 				return false;
 			}
