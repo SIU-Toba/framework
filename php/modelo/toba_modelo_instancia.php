@@ -496,7 +496,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 			}			
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] , $this->get_db());
+				if ($tabla != 'apex_checksum_proyectos') {
+					$contenido .= sql_array_a_insert( $tabla, $datos[$a] , $this->get_db()). "\n";
+				} else {
+					$contenido .= sql_array_a_insert_condicional($tabla, $datos[$a], $this->get_db()). "\n";
+				}
 			}
 			$this->manejador_interface->progreso_avanzar();
 		}
@@ -559,11 +563,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$sentencia = $this->get_db()->get_pdo()->query($sql);
 			
 			while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
-				if ($tabla != 'apex_checksum_proyectos') {
-					$contenido = sql_array_a_insert($tabla, $fila, $this->get_db())."\n";
-				} else {
-					$contenido = sql_array_a_insert_condicional($tabla, $fila, $this->get_db()). "\n";
-				}
+				$contenido = sql_array_a_insert($tabla, $fila, $this->get_db())."\n";
 				$this->guardar_archivo($nombre_archivo, $contenido, $append);
 				$append = true;
 			}

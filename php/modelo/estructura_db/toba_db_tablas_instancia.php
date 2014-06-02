@@ -7,18 +7,18 @@ class toba_db_tablas_instancia
 		return array (
   0 => 'apex_revision',
   1 => 'apex_instancia',
+  2 => 'apex_checksum_proyectos',
 );
 	}
 
 	static function get_lista_proyecto()
 	{
 		return array (
-  0 => 'apex_checksum_proyectos',
-  1 => 'apex_tarea',
-  2 => 'apex_arbol_items_fotos',
-  3 => 'apex_admin_album_fotos',
-  4 => 'apex_admin_param_previsualizazion',
-  5 => 'apex_usuario_proyecto_gadgets',
+  0 => 'apex_tarea',
+  1 => 'apex_arbol_items_fotos',
+  2 => 'apex_admin_album_fotos',
+  3 => 'apex_admin_param_previsualizazion',
+  4 => 'apex_usuario_proyecto_gadgets',
 );
 	}
 
@@ -111,10 +111,10 @@ class toba_db_tablas_instancia
 		return array (
   'archivo' => 'pgsql_a00_tablas_instancia.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'nucleo',
   'clave_proyecto' => 'proyecto',
   'dump_order_by' => 'proyecto',
-  'zona' => 'usuario',
+  'zona' => 'general',
   'desc' => 'Especifica el checksum surgido de los metadatos actuales del proyecto',
   'instancia' => '1',
   'version' => '1.0',

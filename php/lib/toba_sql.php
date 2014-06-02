@@ -247,8 +247,8 @@
 			$clausulas[] = " $columna = {$datos[$columna]} ";
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ')'
-				.'  ( SELECT ' . implode(', ',$datos) 				
-				.'WHERE NOT EXISTS ('
+				.' ( SELECT ' . implode(', ',$datos) 				
+				.' WHERE NOT EXISTS ('
 				. ' SELECT 1 '
 				. ' FROM ' . $tabla 
 				. ' WHERE ' . implode(' AND ', $clausulas) .')'
