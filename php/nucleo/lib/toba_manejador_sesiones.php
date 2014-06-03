@@ -570,12 +570,8 @@ class toba_manejador_sesiones
 			toba::logger()->debug("Cargando USUARIO ANONIMO en el proyecto '{$this->proyecto}'",'toba');
 			$this->usuario = new toba_usuario_anonimo('anonimo');
 		}
-		// Se controla que el usuario tenga usuario un perfil funcional válido para el proyecto actual
-		$grupos_acceso = $this->usuario->get_perfiles_funcionales();
-		if ( ! $grupos_acceso ) { 
-			throw new toba_error($msg_error);
-		}
-		$this->perfiles_funcionales_activos = $grupos_acceso;
+		// Se piden los perfiles funcionales del usuario.
+		$this->perfiles_funcionales_activos = $this->usuario->get_perfiles_funcionales();
 	}
 
 	private function registar_usuario()
