@@ -205,7 +205,7 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	ei_cuadro.prototype.mostrar_selector = function(filas)
 	{
 		this._filas_disponibles = filas;
-		var html = document.getElementById('selector_ordenamiento').innerHTML;
+		var html = document.getElementById(this._input_submit  + '_selector_ordenamiento').innerHTML;
 		notificacion.mostrar_ventana_modal('Seleccione el criterio de ordenamiento a aplicar', html, '400px', 'overlay(true)');
 	}
 

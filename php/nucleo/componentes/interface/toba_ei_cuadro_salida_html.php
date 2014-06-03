@@ -239,8 +239,9 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	 */
 	protected function html_selector_ordenamiento()
 	{
+		$id = $this->_cuadro->get_id_form();
 		//Armo el div con el HTML
-		echo "<div id='selector_ordenamiento' style='display:none;'>";
+		echo "<div id='{$id}_selector_ordenamiento' style='display:none;'>";
 		$this->html_botonera_selector();
 		echo "<table class='tabla-0 ei-base ei-form-base ei-ml-grilla' width='100%'>";
 		$this->html_cabecera_selector();
