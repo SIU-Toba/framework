@@ -1,5 +1,5 @@
 <?php
-class toba_autenticacion_cas extends toba_autenticacion_centralizada implements toba_autenticable
+class toba_autenticacion_cas extends toba_autenticacion implements toba_autenticable
 {
 	protected $url;
 	protected $puerto;

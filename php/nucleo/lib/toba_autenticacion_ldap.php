@@ -1,6 +1,6 @@
 <?php 
 
-class toba_autenticacion_ldap implements toba_autenticable
+class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenticable
 {
 	protected $server;
 	protected $dn;
@@ -98,6 +98,8 @@ class toba_autenticacion_ldap implements toba_autenticable
 	function logout()
 	{
 		//Definicion para completar API.
+		$this->eliminar_marca_login(self::$marca_login_basico);
+		$this->eliminar_marca_login(self::$marca_login_central);
 	}	
 	
 	function verificar_logout()

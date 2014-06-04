@@ -1,5 +1,5 @@
 <?php
-class toba_autenticacion_centralizada
+class toba_autenticacion
 {
 	static $marca_login_basico = 'uso_login_basico';
 	static $marca_login_central = 'uso_login_central';

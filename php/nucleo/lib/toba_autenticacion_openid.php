@@ -2,7 +2,7 @@
 /**
  * @package Centrales
  */
-class toba_autenticacion_openid  implements toba_autenticable
+class toba_autenticacion_openid  extends toba_autenticacion implements toba_autenticable
 {
 	protected $campos = array();
 	protected $providers = array();
@@ -88,6 +88,10 @@ class toba_autenticacion_openid  implements toba_autenticable
 	function logout()
 	{
 		//Definicion para completar API. Se podria implementar el dia que OpenID estandarice el logout, hoy cada provider lo hace en url distinta o no lo hace.
+		if ($this->uso_login_basico() && $this->permite_login_toba()) {				//Si es login toba no redirecciono al servidor CAS
+			$this->eliminar_marca_login(self::$marca_login_basico);
+			return;
+		}
 	}
 	
 	protected function alta_usuario($id_usuario, $clave, $perfil)

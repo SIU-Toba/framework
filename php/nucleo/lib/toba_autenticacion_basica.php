@@ -1,5 +1,5 @@
 <?php	
-class toba_autenticacion_basica implements toba_autenticable	
+class toba_autenticacion_basica extends toba_autenticacion implements toba_autenticable	
 {
 	function autenticar($id_usuario, $clave, $datos_iniciales=null)
 	{
@@ -34,6 +34,7 @@ class toba_autenticacion_basica implements toba_autenticable
 	function logout()
 	{	
 		//Definicion para completar API.
+		$this->eliminar_marca_login(self::$marca_login_basico);
 	}
 	
 	function verificar_logout()

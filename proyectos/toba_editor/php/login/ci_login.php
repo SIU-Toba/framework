@@ -82,6 +82,12 @@ class ci_login extends toba_ci
 		}
 		try {
 			$datos_editor['proyecto'] = $this->s__datos['proyecto'];
+			$tipo_auth = toba::instalacion()->get_tipo_autenticacion();
+			if (in_array($tipo_auth, array('cas','saml', 'openid'))) {										//Si la instalacion tiene login centralizado, lo anulo y sigo utilizando el basico para el editor.
+				$instancia_autenticador = new toba_autenticacion_basica();
+				toba::manejador_sesiones()->set_autenticacion($instancia_autenticador);
+				toba::manejador_sesiones()->get_autenticacion()->usar_login_basico();
+			}
 			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
 		} catch ( toba_error $e ) {
 			//toba_editor::finalizar();
