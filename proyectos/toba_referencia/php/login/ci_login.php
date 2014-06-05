@@ -111,13 +111,16 @@ class ci_login extends toba_ci
 			$this->invocar_autenticacion_por_tipo();
 		} catch (toba_error_autenticacion $e) {
 			//-- Caso error de validación
+			$this->resetear_marca_login();
 			toba::notificacion()->agregar($e->getMessage());
 		} catch (toba_error_autenticacion_intentos $e) {
 			//-- Caso varios intentos fallidos con captcha
+			$this->resetear_marca_login();
 			list($msg, $intentos) = explode('|', $e->getMessage());
 			toba::notificacion()->agregar($msg);
 			toba::memoria()->set_dato_instancia('toba_intentos_fallidos_login', $intentos);
 		} catch (toba_error_login_contrasenia_vencida $e) {
+			$this->resetear_marca_login();
 			$this->set_pantalla('cambiar_contrasenia');
 		} catch (toba_reset_nucleo $reset) {
 			//-- Caso validacion exitosa, elimino la marca de intentos fallidos
@@ -156,7 +159,18 @@ class ci_login extends toba_ci
 			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
 		}	
 	}	
-		
+	
+	/**
+	 * Elimina  la marca del login basico ante un fallido, de manera que si luego loguea centralizado desloguee correctamente
+	 * @ignore
+	 */
+	protected function resetear_marca_login()
+	{
+		if (toba::manejador_sesiones()->get_autenticacion()->uso_login_basico()) {
+			toba::manejador_sesiones()->get_autenticacion()->eliminar_login_basico();
+		}
+	}
+	
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------

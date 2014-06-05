@@ -24,6 +24,11 @@ class toba_autenticacion
 	{
 		return $this->verificar_marca_login(self::$marca_login_central);
 	}
+	
+	function eliminar_login_basico()
+	{
+		$this->eliminar_marca_login(self::$marca_login_basico);
+	}
 		
 	// --- Funciones que trabajan sobre la session de PHP, debido a que la memoria de Toba no alcanza a guardarse en este tipo de autenticacion.
 	protected function eliminar_marca_login($marca)
