@@ -63,6 +63,10 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	
 	function verificar_logout()
 	{
+		 if ($this->uso_login_basico() && $this->permite_login_toba()) {    //Si es login toba, no chequear logout de SAML
+			return;
+		}
+		
 		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
 		if (! $this->saml_sp->isAuthenticated()) {
 			throw new toba_error_usuario("Ha sido deslogueado");

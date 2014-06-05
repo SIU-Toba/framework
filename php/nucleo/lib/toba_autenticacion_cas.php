@@ -76,7 +76,12 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 	
 	function verificar_logout()
 	{
-		
+		if ($this->uso_login_basico() && $this->permite_login_toba()) {					//Si es login toba, no chequear logout de CAS
+			return;
+		}
+		// Se conecta al CAS
+		$this->instanciar_cliente_cas();
+		return phpCAS::checkAuthentication();
 	}
 		
 	function verificar_clave_vencida($id_usuario)
