@@ -44,8 +44,8 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'0', --registrar_solicitud
 	NULL, --registrar_cronometro
 	'3432', --item_inicio_sesion
-	'30000009', --item_pre_sesion
-	NULL, --item_pre_sesion_popup
+	'33000037', --item_pre_sesion
+	'0', --item_pre_sesion_popup
 	NULL, --item_set_sesion
 	'1', --log_archivo
 	'7', --log_archivo_nivel
@@ -56,7 +56,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --version_detalle
 	NULL, --version_link
 	'5000', --tiempo_espera_ms
-	NULL, --navegacion_ajax
+	'0', --navegacion_ajax
 	NULL, --codigo_ga_tracker
 	FALSE, --extension_toba
 	FALSE  --extension_proyecto
