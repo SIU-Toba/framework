@@ -274,7 +274,7 @@ class ci_login extends toba_ci
 		$usuario = $this->s__datos['usuario'];		
 		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide	
 			//Verifico que no intenta volver a cambiarla antes del periodo permitido
-			$dias_minimos = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', null, false);
+			$dias_minimos = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', false);
 			if (! is_null($dias_minimos)) {
 				if (! toba_usuario::verificar_periodo_minimo_cambio($usuario, $dias_minimos)) {
 					toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
@@ -282,12 +282,12 @@ class ci_login extends toba_ci
 				}
 			}		
 			//Obtengo el largo minimo de la clave
-			$largo_clave = toba::proyecto()->get_parametro('proyecto', 'pwd_largo_minimo', null, false);
+			$largo_clave = toba::proyecto()->get_parametro('proyecto', 'pwd_largo_minimo', false);
 			try {
 				toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
 			
 				//Obtengo los dias de validez de la nueva clave
-				$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
+				$dias = toba::proyecto()->get_parametro('proyecto', 'dias_validez_clave', false);
 				toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
 				toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
 				$this->es_cambio_contrasenia = true;				//Bandera para el post_eventos
