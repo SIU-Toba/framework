@@ -502,6 +502,21 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 		return false;
 	};
 	
+	ef.prototype._get_er_validacion = function() {
+		if (isset(this._expreg) && this._expreg !== '') {
+			var pos, flags = '';
+			pos = this._expreg.lastIndexOf('/');								//Busco la posicion del delimitador final
+			if (pos != -1) {
+				flags = this._expreg.substr(pos + 1);						//Busco los caracteres remanentes hasta el final
+			} else {
+				pos = this._expreg.length;								//Si no hay nada, la nueva posicion es el largo de la cadena
+			}			
+			var ER = this._expreg.substr(1, pos - 1);
+			return {'er': ER, 'flags': flags};
+		}
+		return false;
+	}
+	
 //--------------------------------------------------------------------------------
 ef_fijo.prototype = new ef();
 ef_fijo.prototype.constructor = ef_fijo;
@@ -581,7 +596,11 @@ ef_html.prototype.constructor = ef_html;
 		    return false;
 		}
 		if (estado !== '' && isset(this._expreg) && this._expreg !== '') {
-			var temp = new RegExp(this._expreg.substring(1, this._expreg.length - 1)).test(estado);
+			var erv, temp = false;
+			erv = this._get_er_validacion();
+			if (erv !== false) {				
+				temp = new RegExp(erv['er'], erv['flags']).test(estado);
+			}
 			if (! temp) {
 				this._error = 'no es válido';
 				return false;
