@@ -237,13 +237,13 @@ class ci_editor extends toba_ci
 	private function encriptar_datos($dato_original)
 	{	
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
+		return base64_encode(mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8)));		
 	}
 	
 	private function desencriptar_datos($dato_encriptado)
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_encriptado, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
+		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($dato_encriptado), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
 	}
 	
 	protected function get_largo_pwd()
