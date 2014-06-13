@@ -12,6 +12,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private $db;
 	private $aplicacion_comando;
 	private $aplicacion_modelo;
+	private $prefijo_dir_metadatos = 'metadatos';	
 	const dump_prefijo_componentes = 'dump_';
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
@@ -99,6 +100,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}		
 	}
 
+	/**
+	 * Permite setear el directorio de metadatos a utilizar para realizar la carga
+	 * @param type $dir
+	 */
+	function set_dir_metadatos($dir=null)
+	{
+		$test = realpath($this->get_dir(). '/' .$dir);
+		if (! is_null($dir) && $test !== false && is_dir($test)) {
+			$this->prefijo_dir_metadatos = $dir;
+		}
+	}
+	
 	//-----------------------------------------------------------
 	//	Informacion BASICA
 	//-----------------------------------------------------------
@@ -142,7 +155,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function get_dir_dump()
 	{
-		return $this->dir . '/metadatos';	
+		return $this->dir . '/'. $this->prefijo_dir_metadatos;
 	}
 
 	function get_dir_componentes()

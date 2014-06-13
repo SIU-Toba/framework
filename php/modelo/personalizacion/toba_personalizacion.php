@@ -10,7 +10,8 @@ class toba_personalizacion {
 	const dir_borrados		= 'borrados/';
 	const dir_tablas		= 'tablas/';
 	const dir_componentes	= 'componentes/';
-	const dir_metadatos		= 'metadatos/';
+	const dir_metadatos_xml		= 'metadatos/';
+	const dir_metadatos_originales = 'metadatos_originales/';
 	const dir_logs			= 'logs/';
 	const dir_php			= 'php/';
 	const dir_www           = 'www/';
@@ -150,25 +151,12 @@ class toba_personalizacion {
     
 	function iniciar()
 	{
-		$schema_o = $this->get_schema_original();
 		$schema_t = $this->get_schema_personalizacion();
-
-		$this->db->set_schema('public');	// en este schema insertamos la funcion
-		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");
-		$this->clonar_schema($schema_o, $schema_t);
-
-		$schema_logs_o = $schema_o . '_logs';
 		$schema_logs_t = $schema_t . '_logs';
-		
-		$this->db->set_schema('public');
-		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_logs_t CASCADE;");
-		$this->clonar_schema($schema_logs_o, $schema_logs_t);
-		
-		// se cambia el schema del proyecto para que todos los cambios sean sobre el nuevo schema
-		$this->cambiar_schema_proyecto($schema_t);
-		$this->set_schema_original($schema_o);
 
-		$this->db->set_schema($schema_t);
+		$this->db->set_schema('public');
+		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_logs_t CASCADE;");			//Si existe schema previo de personalizacion lo borramos.
+		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");				
 		$this->set_iniciada(true);
 		$this->ini->guardar();
 	}
@@ -178,7 +166,6 @@ class toba_personalizacion {
 		if ($this->iniciada()) {
 			$this->set_iniciada(false);
 			$this->ini->guardar();
-			$this->cambiar_schema_proyecto($this->get_schema_original());
 		}
 	}
 	
@@ -189,9 +176,9 @@ class toba_personalizacion {
 	{
 		if (!$this->iniciada()) {
 			throw  new  toba_error("PERSONALIZACION: Debe iniciar la personalización antes de exportarla");
-		}
+		}		
 		$this->crear_directorios();
-
+		$this->generar_schema_diff();		//Genero el schema con los metadatos originales para hacer el diff		
 		$this->exportar_tablas();
 		$this->exportar_componentes();	//Aca hay que asegurarse que se agregue la clase del componente como descripcion
 	}
@@ -383,7 +370,6 @@ class toba_personalizacion {
 		return $this->ini->get_datos_entrada(self::schema_temporal);
 	}
 
-
 	protected function existe()
 	{
 		return is_dir($this->dir);
@@ -431,7 +417,7 @@ class toba_personalizacion {
 	protected function init_dirs()
 	{
 		$this->dir = $this->proyecto->get_dir().'/'.self::dir_personalizacion.'/';
-		$this->dir_metadatos = $this->dir . self::dir_metadatos;
+		$this->dir_metadatos = $this->dir . self::dir_metadatos_xml;
 		
 		$this->dir_tablas = $this->dir_metadatos . self::dir_tablas;
 		$this->dir_componentes = $this->dir_metadatos . self::dir_componentes;
@@ -460,6 +446,35 @@ class toba_personalizacion {
 	function ejecutar_en_transaccion_global()
 	{
 		return $this->modo_ejecucion_transcaccional;
+	}
+	
+	protected function generar_schema_diff()
+	{
+		$schema_o = $this->get_schema_original();
+		$schema_logs_o = $schema_o . '_logs';
+		
+		$schema_t = $this->get_schema_personalizacion();
+		$schema_logs_t = $schema_t . '_logs';		
+		
+		$this->get_db()->abrir_transaccion();
+		try {
+			//1.-  Renombrar el schema actual, al schema personalizado para que no rompa luego
+			$this->get_db()->renombrar_schema($schema_logs_o, $schema_logs_t);
+			$this->get_db()->renombrar_schema($schema_o, $schema_t);
+
+			//2.-  Indicarle al proyecto cual es el directorio de carga de los metadatos que debe usar
+			$this->get_proyecto()->set_dir_metadatos(self::dir_metadatos_originales);
+			
+			//3.- Realizar la carga de la instancia, re-creando previamente el schema original que consta en bases.ini
+			$this->get_proyecto()->get_instancia()->crear_schema();
+			$this->get_db()->retrazar_constraints();
+			$this->get_proyecto()->get_instancia()->cargar_autonomo();
+			$this->get_db()->cerrar_transaccion();
+		} catch (toba_error_db $e) {
+			$this->get_db()->abortar_transaccion();
+			toba_logger::instancia()->error($e->getMessage());
+			throw new toba_error_usuario('Hubo un inconveniente al intentar exportar la personalización, revise el log');
+		}				
 	}
 }
 ?>

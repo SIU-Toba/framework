@@ -25,7 +25,7 @@ class comando_personalizacion extends comando_toba
      */
 	function opcion__iniciar()
 	{
-		$this->consola->mensaje('Preparando personalización. Este proceso puede tardar varios minutos...');
+		$this->consola->mensaje('Preparando personalización.');
 		$p = $this->get_proyecto();
 		$pers = new toba_personalizacion($p, $this->consola);
 		$pers->iniciar();
