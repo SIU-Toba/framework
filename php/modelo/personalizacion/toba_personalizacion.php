@@ -152,11 +152,8 @@ class toba_personalizacion {
 	function iniciar()
 	{
 		$schema_t = $this->get_schema_personalizacion();
-		$schema_logs_t = $schema_t . '_logs';
-
 		$this->db->set_schema('public');
-		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_logs_t CASCADE;");			//Si existe schema previo de personalizacion lo borramos.
-		$this->db->ejecutar("DROP SCHEMA IF EXISTS $schema_t CASCADE;");				
+		$this->kill_schemas($schema_t);
 		$this->set_iniciada(true);
 		$this->ini->guardar();
 	}
@@ -178,9 +175,13 @@ class toba_personalizacion {
 			throw  new  toba_error("PERSONALIZACION: Debe iniciar la personalización antes de exportarla");
 		}		
 		$this->crear_directorios();
+		$this->consola->mensaje('Generando esquema alterno..');
 		$this->generar_schema_diff();		//Genero el schema con los metadatos originales para hacer el diff		
+		$this->consola->mensaje('Calculando diferenciales..');
 		$this->exportar_tablas();
 		$this->exportar_componentes();	//Aca hay que asegurarse que se agregue la clase del componente como descripcion
+		$this->consola->mensaje('Restaurando entorno de trabajo..');
+		$this->restaurar_schema_trabajo();
 	}
 
 	/**
@@ -375,6 +376,13 @@ class toba_personalizacion {
 		return is_dir($this->dir);
 	}
 
+	private function kill_schemas($nombre)
+	{
+		$nombre_t = $nombre . '_logs';
+		$this->db->ejecutar("DROP SCHEMA IF EXISTS $nombre_t CASCADE;");			//Si existe schema previo de personalizacion lo borramos.
+		$this->db->ejecutar("DROP SCHEMA IF EXISTS $nombre CASCADE;");
+	}
+	
 	protected function cargar_ini()
 	{
 		$path = $this->dir . self::archivo_ini;
@@ -475,6 +483,31 @@ class toba_personalizacion {
 			toba_logger::instancia()->error($e->getMessage());
 			throw new toba_error_usuario('Hubo un inconveniente al intentar exportar la personalización, revise el log');
 		}				
+	}
+	
+	protected function restaurar_schema_trabajo()
+	{
+		$schema_o = $this->get_schema_original();
+		$schema_logs_o = $schema_o . '_logs';
+		
+		$schema_t = $this->get_schema_personalizacion();
+		$schema_logs_t = $schema_t . '_logs';	
+		
+		$this->get_db()->abrir_transaccion();
+		try {
+			//Elimino los schemas con los metadatos originales
+			$this->kill_schemas($schema_o);			
+			
+			//Renombro los schemas de metadatos personalizados para que pueda seguir trabajando
+			$this->get_db()->renombrar_schema($schema_logs_t, $schema_logs_o);
+			$this->get_db()->renombrar_schema($schema_t, $schema_o);
+			
+			$this->get_db()->cerrar_transaccion();
+		} catch (toba_error_db $e) {
+			$this->get_db()->abortar_transaccion();
+			toba_logger::instancia()->error($e->getMessage());
+			throw new toba_error_usuario('Hubo un inconveniente al intentar restaurar la instancia de trabajo, revise el log');
+		}	
 	}
 }
 ?>
