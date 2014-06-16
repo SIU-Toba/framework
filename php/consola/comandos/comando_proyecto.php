@@ -9,6 +9,9 @@ require_once('comando_toba.php');
 */
 class comando_proyecto extends comando_toba
 {
+	const tipo_paquete_produccion = 'p';
+	const tipo_paquete_desarrollo = 'd';
+	
 	static function get_info()
 	{
 		return 'Administracion de PROYECTOS';
@@ -488,10 +491,19 @@ class comando_proyecto extends comando_toba
 
 	/**
 	* Crea un instalador del proyeto/framework para produccion
+	* @consola_parametros Opcional: [-d 'deployment'] Indica si el instalador sera para produccion o desarrollo. 
 	*/
 	function opcion__empaquetar()
 	{
-		$this->get_proyecto()->empaquetar();
+		//Aca tengo que decidir si empaqueto para produccion o desarrollo.
+		$param = $this->get_parametros();
+		if (isset($param['-d']) && trim($param['-d']) == 'desarrollo') {
+			$paquete = self::tipo_paquete_desarrollo;
+		} else {
+			$paquete = self::tipo_paquete_produccion;
+		}		
+		
+		$this->get_proyecto()->empaquetar($paquete);
 	}		
 	
 	
