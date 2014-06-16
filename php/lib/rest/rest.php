@@ -182,16 +182,16 @@ class rest
 	function procesar()
 	{
 		$this->logger->debug("Iniciando el pedido");
+        try {
+            $method = $this->request->get_method();
+            $url = $this->get_url_relativa();
+            $url = ltrim($url, '/');
 
-		$method = $this->request->get_method();
-		$url = $this->get_url_relativa();
-		$url = ltrim($url, '/');
+            $this->logger->debug("Procesando URL '/$url'");
 
-		$this->logger->debug("Procesando URL '/$url'");
+            $partes_url = explode('/', $url);
 
-		$partes_url = explode('/', $url);
 
-		try {
 			$this->controlar_acceso($url);
 
 			if ($partes_url[0] == $this->settings['prefijo_api_docs']) {
