@@ -220,12 +220,13 @@ class rest
 			$error = new rest_error(500, "Error Interno en el servidor: ".$ex->getMessage());
 			$error->configurar_respuesta($this->response);
 		}
-		$this->response->finalizar();
+	    $this->response->finalizar();
 		$this->vista->escribir();
 		$this->logger->debug("Pedido finalizado");
 		if ($this->config('debug')) {
 			$this->logger->var_dump($this->response);
 		}
+		$this->logger->guardar();
 	}
 
 
@@ -255,8 +256,7 @@ class rest
 		if (substr($url, 0, strlen($url_api)) == $url_api) {
 			return substr($url, strlen($url_api));
 		}
-		throw new rest_error_interno
-		("Este controlador no está configurado para manejar esta URL. La url es: '$uri', la url de la API es '$url_api'");
+		throw new rest_error_interno("Este controlador no está configurado para manejar esta URL. La url es: '$uri', la url de la API es '$url_api'");
 	}
 
 

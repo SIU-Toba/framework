@@ -25,7 +25,7 @@ class lector_recursos_archivo
 	 * @return array recurso => clase-que-lo-implementa
 	 */
 	function get_recurso($path)
-	{print_r($path);
+	{
 		//Busco del mas especifico al mas general
 		while (!empty($path)) {
 			$recurso = array_pop($path);
