@@ -6,7 +6,7 @@ class toba_tarea_componente extends toba_tarea_pers
 	{
 		$this->datos =  new toba_tarea_datos();
 		$tag_componente = toba_pers_xml_elementos::componente;
-		$this->descripcion_actual = (string) $this->raw_data->$tag_componente[toba_pers_xml_atributos::descripcion];
+		$this->descripcion_actual = (string) $this->raw_data->{$tag_componente}[toba_pers_xml_atributos::descripcion];
 				
 		$tag_tabla = toba_pers_xml_elementos::tabla;		
 		foreach ($this->raw_data->$tag_tabla as $tabla) {
