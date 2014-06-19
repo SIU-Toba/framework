@@ -496,12 +496,12 @@ class comando_proyecto extends comando_toba
 	function opcion__empaquetar()
 	{
 		//Aca tengo que decidir si empaqueto para produccion o desarrollo.
-		$param = $this->get_parametros();
-		if (isset($param['-d']) && trim($param['-d']) == 'desarrollo') {
+		//$param = $this->get_parametros();
+		/*if (isset($param['-d']) && trim($param['-d']) == 'desarrollo') {
 			$paquete = self::tipo_paquete_desarrollo;
-		} else {
+		} else {*/
 			$paquete = self::tipo_paquete_produccion;
-		}		
+		//}		
 		
 		$this->get_proyecto()->empaquetar($paquete);
 	}		

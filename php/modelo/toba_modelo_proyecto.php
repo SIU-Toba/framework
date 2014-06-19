@@ -2547,6 +2547,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion [empaquetado]");
 		}
 		$empaquetado['path_destino'].= '/'.$this->get_version_proyecto()->__toString();
+		if ($tipo_paquete === self::tipo_paquete_desarrollo) {								//Segun el tipo de paquete, agrego un sufijo al nombre de carpeta y determino el tipo de instalacion
+			$empaquetado['path_destino'] .= '_desarrollo';
+			$es_produccion = 0;
+		} else {	
+			$es_produccion = 1;
+		}
+		
 		if (file_exists($empaquetado['path_destino'])) {
 			if (! is_dir($empaquetado['path_destino'])) {
 				throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_destino']}' no es un directorio valido");
@@ -2561,14 +2568,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		} else {
 			$crear_carpeta = true;
 		}
-		
-		if ($tipo_paquete === self::tipo_paquete_desarrollo) {								//Segun el tipo de paquete, agrego un sufijo al nombre de carpeta y determino el tipo de instalacion
-			$empaquetado['path_destino'] .= '_desarrollo';
-			$es_produccion = 0;
-		} else {	
-			$es_produccion = 1;
-		}
-		
+						
 		if ($crear_carpeta) {
 			toba_manejador_archivos::crear_arbol_directorios($empaquetado['path_destino']);
 		}
@@ -2664,6 +2664,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}			
 		}
 		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
+		$path_copia_metadatos = $destino_aplicacion . '/metadatos_originales/';
+		$path_metadatos_ap = $destino_aplicacion. '/metadatos/';
+		if (file_exists($path_copia_metadatos) && !toba_manejador_archivos::es_directorio_vacio($path_copia_metadatos)) {
+			toba_manejador_archivos::eliminar_directorio($path_copia_metadatos);
+		}
+		toba_manejador_archivos::crear_arbol_directorios($path_copia_metadatos);
+		toba_manejador_archivos::copiar_directorio($path_metadatos_ap, $path_copia_metadatos);
 	}
 	
 	protected function empaquetar_produccion($empaquetado)
