@@ -98,8 +98,8 @@ class rest_filtro_sqlTest extends \PHPUnit_Framework_TestCase
 	public function testOrderBy()
 	{
 
-		$this->filtro->agregar_campo('nombre');
-		$this->filtro->agregar_campo('apellido');
+		$this->filtro->agregar_campo_ordenable('nombre');
+		$this->filtro->agregar_campo_ordenable('apellido');
 
 		$this->agregar_parametro_request('order', '+apellido,-nombre');
 
@@ -173,6 +173,46 @@ class rest_filtro_sqlTest extends \PHPUnit_Framework_TestCase
 		$this->agregar_parametro_request('nombre', '', 0); //mock del quote
 
 		$this->assertEquals("nombre = pepe", trim($this->filtro->get_sql_where()));
+	}
+
+	public function testFlagSi()
+	{
+		$param = "activo";
+		$this->filtro->agregar_campo_flag($param, 'fecha > now', '', 0);
+		$this->agregar_parametro_request($param, 1); //mock del quote
+		$this->assertEquals('fecha > now', trim($this->filtro->get_sql_where()));
+	}
+
+	public function testFlagNo()
+	{
+		$param = "activo";
+		$this->filtro->agregar_campo_flag($param, 'fecha > now', 'no', 0);
+		$this->agregar_parametro_request($param, 0); //mock del quote
+		$this->assertEquals('no', trim($this->filtro->get_sql_where()));
+	}
+
+	public function testFlagDef()
+	{
+		$param = "activo";
+		$this->filtro->agregar_campo_flag($param, 'fecha > now', 'no', 0);
+		$this->agregar_parametro_request($param, null, 1);
+		$this->assertEquals('no', trim($this->filtro->get_sql_where()));
+	}
+
+	public function testSimpleSi()
+	{
+		$param = "activo";
+		$this->filtro->agregar_campo_simple($param, 'estado = %s', 'A');
+		$this->agregar_parametro_request($param, 'C');
+		$this->assertEquals('estado = C', trim($this->filtro->get_sql_where()));
+	}
+
+	public function testSimpleDef()
+	{
+		$param = "activo";
+		$this->filtro->agregar_campo_simple($param,  'estado = %s', 'A');
+		$this->agregar_parametro_request($param, null);
+		$this->assertEquals('estado = A', trim($this->filtro->get_sql_where()));
 	}
 
 	public function testWhereIgual()

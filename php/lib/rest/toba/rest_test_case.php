@@ -18,8 +18,8 @@ class rest_test_case extends \PHPUnit_Framework_TestCase
 
 	protected function ejecutar($metodo, $ruta, $get = array(), $post = array(), $headers = array())
 	{
-		if(strpos('?', $ruta) !== false){
-			throw new \toba_error("Pasar los parametros del get en el tercer parámetro");
+		if(strpos($ruta, '?') !== false){
+			throw new \Exception("Pasar los parametros del get en el tercer parámetro");
 		}
 		$app = $this->setupRest();
 		$host = \toba_rest::url_rest() . $ruta;

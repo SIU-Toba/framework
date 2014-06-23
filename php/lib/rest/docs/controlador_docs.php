@@ -76,6 +76,7 @@ class controlador_docs
 			if (! $this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME)) ){
 				continue;
 			}
+            $nombre = str_replace('\\', '/', $nombre); // windows! ...
 
 //			$documentacion = new anotaciones_docs($nombre);
 
@@ -227,7 +228,7 @@ class controlador_docs
 	 */
 	protected function get_url_de_clase($ruta_absoluta)
 	{
-		$partes = preg_split('/rest/', $ruta_absoluta);
+        $partes = preg_split('/rest/', $ruta_absoluta);
 		$path_relativo = $partes[1];
 		$prefijo = rest::app()->config('prefijo_controladores');
 		$clase_recurso = basename($path_relativo, '.php'); //recurso_padre

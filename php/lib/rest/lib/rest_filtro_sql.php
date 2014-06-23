@@ -8,7 +8,7 @@ class rest_filtro_sql
 {
 	protected $conexion;
 	protected $campos = array();
-	protected $campos_locales = array();
+	protected $campos_ordenables = array();
 
 	function __construct()
 	{
@@ -20,7 +20,8 @@ class rest_filtro_sql
 	 * get_sql_clausula
 	 * @param $alias_qs       string el nombre en los parámetros del query string
 	 * @param null $alias_sql el nombre para hacer la sql
-	 * @param $valor_defecto string formato get_sql_clausula
+	 * @param $valor_defecto  string formato get_sql_clausula
+	 * @return $this
 	 */
 	function agregar_campo($alias_qs, $alias_sql = NULL, $valor_defecto = NULL)
 	{
@@ -28,43 +29,97 @@ class rest_filtro_sql
 			$alias_sql = $alias_qs;
 		}
 		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql, 'defecto' => $valor_defecto);
+		return $this;
+	}
+
+	/**
+	 * @param $alias_qs
+	 * @param null $alias_sql
+	 * @return $this
+	 */
+	function agregar_campo_ordenable($alias_qs, $alias_sql = NULL)
+	{
+		if ($alias_sql === NULL) {
+			$alias_sql = $alias_qs;
+		}
+		$this->campos_ordenables[$alias_qs] = array('alias_sql' => $alias_sql);
+		return $this;
+	}
+
+
+	/**
+	 * Un campo simple es solo ?campo=valor. Si el parametro esta se ejecuta la sql(usar %s como reemplazo del valor),
+	 * Sino esta y valor_defecto != null, se corre el sql con ese valor.
+	 *  ej agregar_campo_simple('estado', (estado = %s), 'A')
+	 */
+	function agregar_campo_simple($alias_qs, $sql, $valor_defecto = null)
+	{
+		$this->campos[$alias_qs] = array('sql' => $sql, 'defecto' => $valor_defecto);
+		return $this;
+	}
+
+	function agregar_campo_simple_local($alias_qs, $sql, $valor)
+	{
+		$this->campos[$alias_qs] = array('sql' => $sql, 'valor' => $valor);
+		return $this;
+	}
+
+	/**
+	 * Un campo simple es solo ?campo=[1|0]. Si el parametro esta se ejecuta la sql_si, o sino sql_no,
+	 * Si valor por defecto es != null se corre alguna sql segun el valor
+	 *  ej agregar_campo_simple('activa', (fecha_vencicmiento > now), '', 1)
+	 */
+	function agregar_campo_flag($alias_qs, $sql_si, $sql_no = '', $valor_defecto = null)
+	{
+		$this->campos[$alias_qs] = array('sql_si' => $sql_si, 'sql_no' => $sql_no, 'defecto' => $valor_defecto);
+		return $this;
+	}
+
+	function agregar_campo_flag_local($alias_qs, $sql_si, $sql_no = '', $valor)
+	{ //se piden ambas sql para poder intercambiar facil un campo local o no.
+		$this->campos[$alias_qs] = array('sql_si' => $sql_si, 'sql_no' => $sql_no, 'valor' => $valor);
+		return $this;
 	}
 
 	/**
 	 * Agrega un campo al filtro sin permitirlo en el request
-	 * @param $alias_qs string el nombre en los parámetros del query string
+	 * @param $alias_qs       string el nombre en los parámetros del query string
 	 * @param null $alias_sql el nombre para hacer la sql
-	 * @param $valor string el valor del campo
+	 * @param $valor          string el valor del campo
+	 * @return $this
 	 */
 	function agregar_campo_local($alias_qs, $alias_sql = NULL, $valor)
 	{
 		if ($alias_sql === NULL) {
 			$alias_sql = $alias_qs;
 		}
-		$this->campos_locales[$alias_qs] = array('alias_sql' => $alias_sql, 'valor' => $valor);
+		$this->campos[$alias_qs] = array('alias_sql' => $alias_sql, 'valor' => $valor);
+		return $this;
 	}
 
 	function get_sql_where($separador = 'AND')
 	{
 		$clausulas = array();
-		$campos = array_merge($this->campos, $this->campos_locales);
+		$campos = $this->campos;
 
 		foreach ($campos as $alias_qs => $campo) {
 			if(isset($campo['valor'])){
-				$qs = $campo['valor']; //es un campo local
-			}else{
+				$valor = $campo['valor']; //es un campo local
+			} else{
 				$query = trim(rest::request()->get($alias_qs));
-				$qs = !empty($query)? $query: $campo['defecto'];
+				$valor = ($query != '')? $query: $campo['defecto'];
 			}
-			if (!empty($qs)) {
-				$partes = explode(';', $qs);
-				if (count($partes) < 2) {
-					throw new rest_error(400, "Parámetro '$alias_qs' invalido. Se esperaba 'condicion;valor' y llego '$qs'");
+			if ($valor !== null) {
+			    if(isset($campo['sql'])){ //es un campo simple
+				    $clausula = $this->procesar_simple($valor, $alias_qs, $campo);
+				} else if(isset($campo['sql_si'])){ //es un campo simple
+				    $clausula = $this->procesar_flag($valor, $alias_qs, $campo);
+				} else {
+				    $clausula = $this->procesar_filtro($valor, $alias_qs, $campo);
+			    }
+				if($clausula){
+					$clausulas[] = $clausula;
 				}
-				$condicion = $partes[0];
-				$valor1 = $partes[1];
-				$valor2 = count($partes) > 2 ? $partes[2] : null;
-				$clausulas[] = $this->get_sql_clausula($alias_qs, $campo['alias_sql'], $condicion, $valor1, $valor2);
 			}
 		}
 		if (!empty($clausulas)) {
@@ -81,7 +136,7 @@ class rest_filtro_sql
 	function get_sql_limit($default = '')
 	{
 		$sql_limit = "";
-		$limit = rest::request()->get("limit");
+		$limit = rest::request()->get("limit", $default);
 		if (isset($limit) && is_numeric($limit)) {
 			$limit = (int) $limit;
 			$sql_limit .= "LIMIT " . $limit;
@@ -95,10 +150,6 @@ class rest_filtro_sql
 				$offset = ($page - 1) * $limit;
 				$sql_limit .= " OFFSET " . $offset;
 			}
-		}else {
-			if($default){
-				$sql_limit = "LIMIT $default";
-			}
 		}
 		return $sql_limit;
 	}
@@ -106,14 +157,21 @@ class rest_filtro_sql
 	/**
 	 * Lee el parametro 'order' del request y arma el ORDER BY de la sql
 	 * Solo permite ordenar por los campos definidos en el constructor (evitar inyeccion sql)
+	 * @param null $default si no hay un param order, se usa el default
 	 * @throws rest_error
 	 * @return string
 	 */
-	function get_sql_order_by()
+	function get_sql_order_by($default = null)
 	{
 		$get_order = rest::request()->get("order");
+		$usar_default = false;
 		if (trim($get_order) == '') {
-			return "";
+			if($default !== null){
+				$usar_default = true;
+				$get_order = $default;
+			}else {
+				return "";
+			}
 		}
 		$sql_order_by = array();
 		$get_campos = explode(",", $get_order);
@@ -132,16 +190,60 @@ class rest_filtro_sql
 					throw new rest_error(400, "Parámetro 'order' invalido. Se esperaba + o - y se recibio '$signo'");
 			}
 			$campo = substr($get_campo, 1);
-			if (!isset($this->campos[$campo])) {
+			if($usar_default){
+				$sql_order_by[] = $campo . $signo;
+			}else
+			if (!isset($this->campos_ordenables[$campo]))
+			{
 				throw new rest_error(400, "Parámetro 'order' invalido. No esta permitido ordenar por campo '$campo'");
 			}
-			$sql_order_by[] = $campo . $signo;
+			else
+			{
+				$alias_sql = $this->campos_ordenables[$campo]['alias_sql'];
+				$sql_order_by[] = $alias_sql . $signo;
+			}
+
 		}
 		if (empty($sql_order_by)) {
 			return "";
 		} else {
 			return "ORDER BY " . implode(', ', $sql_order_by);
 		}
+	}
+
+	protected function procesar_simple($valor, $alias_qs, $campo)
+	{
+		$clausula = '';
+		if($valor != null){
+			$clausula = sprintf($campo['sql'], $this->quote($valor));
+		}
+		return $clausula;
+
+	}
+
+	protected function procesar_flag($valor, $alias_qs, $campo)
+	{
+		$clausula = '';
+
+		if($valor == '1'){
+			$clausula = $campo['sql_si'];
+		}else if($valor == '0'){
+			$clausula = $campo['sql_no'];
+		}
+		return $clausula;
+	}
+
+	protected function procesar_filtro($valor, $alias_qs, $campo)
+	{
+		$partes = explode(';', $valor);
+		if (count($partes) < 2) {
+			throw new rest_error(400, "Parámetro '$alias_qs' invalido. Se esperaba 'condicion;valor' y llego '$valor'");
+		}
+		$condicion = $partes[0];
+		$valor1 = $partes[1];
+		$valor2 = count($partes) > 2 ? $partes[2] : null;
+		$clausula = $this->get_sql_clausula($alias_qs, $campo['alias_sql'], $condicion, $valor1, $valor2);
+		return $clausula;
 	}
 
 	protected function get_sql_clausula($campo_qs, $campo_sql, $condicion, $valor, $valor2 = null)
