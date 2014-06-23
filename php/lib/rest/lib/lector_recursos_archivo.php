@@ -44,7 +44,7 @@ class lector_recursos_archivo
 	 * @param $name string b
 	 * @return bool
 	 */
-	private function existe_recurso($path, $name)
+	protected function existe_recurso($path, $name)
 	{
 		$path = ($path) ? $path . DIRECTORY_SEPARATOR : '';
 		$nombre_recurso = $this->prefijo_recursos . $name . '.php';
@@ -52,12 +52,20 @@ class lector_recursos_archivo
 		$como_archivo = $directorio . $nombre_recurso;
 		$como_carpeta_archivo = $directorio . $name . DIRECTORY_SEPARATOR . $nombre_recurso;
 
-		if (file_exists($como_archivo)) {
-			return $como_archivo;
+		if ($file = $this->obtener_archivo($como_archivo)) {
+			return $file;
 		}
-		if (file_exists($como_carpeta_archivo)) {
-			return $como_carpeta_archivo;
+		if ($file = $this->obtener_archivo($como_carpeta_archivo)) {
+			return $file;
 		}
 		return false;
+	}
+
+	/**
+	 * Para personalizar, un archivo fisico puede estar pisado en la personalizacion, devolver ese
+	 */
+	protected function obtener_archivo($path)
+	{
+		if(file_exists($path)) return $path;
 	}
 }

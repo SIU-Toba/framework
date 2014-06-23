@@ -46,9 +46,9 @@ class rest_instanciador
 		return method_exists($clase, $nombre);
 	}
 
-	private function get_clase_de_ruta($clase)
+	protected function get_clase_de_ruta($ruta)
 	{
-		return $this->get_full_class_name($clase); // basename($clase, ".php");
+		return $clase = $this->get_full_class_name($ruta);
 	}
 
 	protected function get_full_class_name($archivo) {
@@ -57,7 +57,6 @@ class rest_instanciador
 		if (preg_match('#\s*namespace\s+(.+?)\s*;.*class\s+(\w+).+;$#sm', $src, $m)) {
 			return $m[1].'\\'.$m[2];
 		}
-
 		return $class = basename($archivo, '.php');
 	}
 }

@@ -118,7 +118,7 @@ class rest
 			return $req;
 		});
 
-		// Resoyesta default
+		// Respuesta default
 		$this->container->singleton('response', function ($c) {
 			$respuesta = new respuesta_rest();
 			$respuesta->set_encoding_datos($c['settings']['encoding']);
