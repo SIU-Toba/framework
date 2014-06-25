@@ -56,9 +56,10 @@
         function invoke($method) {
             $this->_test_case->before($method);
             $this->_test_case->setUp();
-            $this->_test_case->$method();
+            $rslt = $this->_test_case->$method();
             $this->_test_case->tearDown();
             $this->_test_case->after($method);
+	   return $rslt;
         }
     }
     
@@ -95,7 +96,7 @@
          *    @access public
          */
         function invoke($method) {
-            $this->_invoker->invoke($method);
+            return $this->_invoker->invoke($method);
         }
     }
 
@@ -124,13 +125,14 @@
          */
         function invoke($method) {
             set_error_handler('simpleTestErrorHandler');
-            parent::invoke($method);
+            $rslt = parent::invoke($method);
             $queue = &SimpleErrorQueue::instance();
             while (list($severity, $message, $file, $line, $globals) = $queue->extract()) {
                 $test_case = &$this->getTestCase();
                 $test_case->error($severity, $message, $file, $line, $globals);
             }
             restore_error_handler();
+	  return $rslt;
         }
     }
 
