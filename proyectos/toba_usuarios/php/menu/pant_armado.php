@@ -69,7 +69,7 @@ class pant_armado extends toba_ei_pantalla
 					//Elimino el texto de los hijos para obtener solo el primer nivel
 					var texto = \$ui.text();
 					if (\$ui.find('ul.menu-origen').length) {		//Revisar				
-						var texto_hijos = \$ui.find('ul.menu-origen').text(),
+						var texto_hijos = \$ui.find('ul.menu-origen').first().text(),
 								  fin = texto.indexOf(texto_hijos);								  
 						texto = texto.slice(0, fin);
 					}

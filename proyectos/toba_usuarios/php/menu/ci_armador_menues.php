@@ -43,7 +43,6 @@ class ci_armador_menues extends toba_ci
 			$catalogador->cargar_todo();			
 			$raiz = $catalogador->buscar_carpeta_inicial();	
 			$arbol->set_datos(array($raiz), true);
-			$arbol->set_todos_abiertos();
 			$this->s__arbol_cargado = true;
 		}
 	}

@@ -32,7 +32,8 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 	
 	function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
-		$salida = $this->mostrar_iconos($nodo);
+		$salida = $this->mostrar_cambio_expansion($nodo, $es_visible);
+		$salida .= $this->mostrar_iconos($nodo);
 
 		//Nombre y ayuda
 		$corto = $this->acortar_nombre($nodo->get_nombre_corto());
