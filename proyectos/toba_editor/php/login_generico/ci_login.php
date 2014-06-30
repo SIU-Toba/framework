@@ -20,6 +20,12 @@ class ci_login extends toba_ci
 			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
 		}
 		$this->s__item_inicio = null;
+		/*if(isset($this->s__datos)) {							//Si hay valores de inicios viejos, se limpian.
+			unset($this->s__datos);
+		}*/
+		if (isset($this->s__datos_openid)) {
+			unset($this->s__datos_openid);
+		}
 	}
 
 	function ini()
