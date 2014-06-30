@@ -66,7 +66,8 @@ class toba_vinculador
 	 * celda_memoria => Namespace de memoria a utilizar, por defecto el actual
 	 * servicio => Servicio solicitado, por defecto get_html
 	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
-	 * prefijo => Punto de acceso a llamar.</code>
+	 * prefijo => Punto de acceso a llamar.
+	 * nombre_ventana => Id con que se creara la ventana hija (solo tipo popup)</code>
 	 * @param bool $uri_valida Toba desde sus primeras versiones genera URIs invalidas al utilizar el caracter || sin codificar, algunos clientes de mail o applets java requieren que se encodeen estrictamente estos caracteres, en ese caso indicarlo con este parametro en true, por defecto es false (compatibilidad hacia atras)
 	 * @return string Una URL o el link html en caso
 	 */	
@@ -81,11 +82,12 @@ class toba_vinculador
 		if (!isset($opciones['servicio'])) $opciones['servicio'] = apex_hilo_qs_servicio_defecto;
 		if (!isset($opciones['objetos_destino'])) $opciones['objetos_destino'] = null;
 		if (!isset($opciones['prefijo'])) $opciones['prefijo'] = null;
+		if (!isset($opciones['nombre_ventana'])) $opciones['nombre_ventana'] = null;
 		$url = $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
 								 $opciones['cronometrar'], $opciones['param_html'],
 								 $opciones['menu'], $opciones['celda_memoria'], 
 								 $opciones['servicio'], $opciones['objetos_destino'],
-								 $opciones['prefijo'] );	
+								 $opciones['prefijo'], $opciones['nombre_ventana'] );
 		if ($uri_valida) {
 			$invalidos = "||";
 			$url = str_replace($invalidos, urlencode($invalidos), $url);
@@ -160,13 +162,14 @@ class toba_vinculador
 	 * @param array $param_html 
 	 * @param boolean $menu El vinculo esta solicitado por el menu?
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
+	 * @param string $nombre_ventana Nombre con que se abrira la ventana hija en caso de ser popup
 	 * @return string URL hacia el ítem solicitado
 	 * @deprecated Desde 1.0 usar get_url o get_url_
 	 */
 	protected function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
 								$menu=null,$celda_memoria=null, $servicio=null,
-								$objetos_destino=null, $prefijo=null)
+								$objetos_destino=null, $prefijo=null, $nombre_ventana=null)
  	{
  		$separador = '&';
 		//-[1]- Determino ITEM
@@ -260,7 +263,7 @@ class toba_vinculador
 		}
 		//Genero HTML o devuelvo el VINCULO
 		if(is_array($param_html)){
-			return $this->generar_html($vinculo, $param_html);
+			return $this->generar_html($vinculo, $param_html, $nombre_ventana);
 		}else{
 			return $vinculo;
 		}
@@ -347,9 +350,10 @@ class toba_vinculador
 		@@desc: Genera un VINCULO
 		@@param: string | URL
 		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+		@@param: string | Nombre de la ventana hija cuando el vinculo se abre en popup
 		@@retorno: string | HTML del vinculo generado
 	*/
-	protected function generar_html($url, $parametros)
+	protected function generar_html($url, $parametros, $nombre_ventana=null)
 	{
 		if(!isset($parametros['tipo'])) $parametros['tipo'] = 'normal';
 		if(!isset($parametros['texto'])) $parametros['texto'] = '';
@@ -393,7 +397,8 @@ class toba_vinculador
 			$resizable = (isset($init[3])) ? $init[3] : "1";
 			//---SE utiliza el parametro frame para determinar si el popup tiene un id especifico
 			$id_popup = isset($parametros['frame']) ? $parametros['frame'] : 'general';
-			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'})\">";
+			$wn = (! is_null($nombre_ventana)) ? "'$nombre_ventana'" : '';
+			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'}, , ,$wn)\">";
 		}
 
 		if( isset($parametros['imagen']) && 
@@ -443,16 +448,17 @@ class toba_vinculador
 				//Por defecto los vinculos no se validan.
 				$opciones['validar'] = false;
 			}			
-			$datos['url'] = $this->get_url( 	$vinculo->get_proyecto(),
+			$datos['url'] = $this->get_url( $vinculo->get_proyecto(),
 													$vinculo->get_item(),
 													$vinculo->get_parametros(),
-													$opciones	);
+													$opciones);
 			if (isset($datos['url'])) {
 				$datos['popup'] = $vinculo->estado_popup();
 				$datos['popup_parametros'] = $vinculo->get_popup_parametros();
 				$datos['target'] = $vinculo->get_target();
 				$datos['activado'] = 1;
 				$datos['ajax'] = $vinculo->get_ajax();
+				$datos['nombre_ventana' ] = $vinculo->get_id_ventana_popup();
 				$datos_js = toba_js::arreglo($datos, true);
 				echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 			}

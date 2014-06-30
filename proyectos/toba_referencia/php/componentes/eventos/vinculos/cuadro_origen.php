@@ -13,6 +13,13 @@ class cuadro_origen extends toba_ei_cuadro
 												$this->datos[$fila]['descripcion']);
 	}
 
+	
+	function conf_evt__evt_valor_a($evento, $fila)
+	{
+		$vinculo = $evento->vinculo();
+		$vinculo->set_id_ventana_popup('ventanaFija');
+	}
+	
 	/*
 		agregar parametros en JS al mismo boton, aca pueden leerse valores
 		ingresados en el cliente

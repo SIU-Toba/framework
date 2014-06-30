@@ -32,7 +32,7 @@ class toba_vinculo
 				$o = array_map('trim',$o);
 				$popup_parametros[$o[0]] = $o[1];
 			}	
-			$this->set_popup_parametros( $popup_parametros );
+			$this->set_popup_parametros($popup_parametros);
 		}
 	}
 	
@@ -168,6 +168,22 @@ class toba_vinculo
 		$this->opciones['celda_memoria'] = $celda;
 	}
 
+	function set_id_ventana_popup($id) 
+	{
+		if ($this->popup === 1) {
+			$this->opciones['nombre_ventana' ] = $id;
+		}
+	}	
+	
+	function get_id_ventana_popup() 
+	{
+		if ($this->popup === 1 && isset($this->opciones['nombre_ventana'])) {
+			return $this->opciones['nombre_ventana'];
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * Cambia la forma de comunicar el vinculo, en lugar de hacerse cambiando la url, se comunica via ajax
 	 */

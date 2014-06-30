@@ -116,7 +116,8 @@ vinculador = new function() {
 													this._vinculos[identificador].parametros );
 		}
 		if (this._vinculos[identificador].popup == '1' ) {
-			abrir_popup(identificador,url,this._vinculos[identificador].popup_parametros);
+			var nombre_ventana = this._vinculos[identificador].nombre_ventana;
+			abrir_popup(identificador,url,this._vinculos[identificador].popup_parametros, null, null, nombre_ventana);
 		} else {
 			if (! this._vinculos[identificador].ajax) {
 				if (this._vinculos[identificador].target !== '') {

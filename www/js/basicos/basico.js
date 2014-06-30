@@ -345,7 +345,7 @@ function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
 }
 
 var ventana_hija = {};
-function abrir_popup(id, url, opciones, extra, dep) {
+function abrir_popup(id, url, opciones, extra, dep, wn) {
 	vars = '';
 	if (typeof opciones != 'undefined') {
 		if (typeof opciones == 'string') {
@@ -363,15 +363,18 @@ function abrir_popup(id, url, opciones, extra, dep) {
 	if (typeof extra != 'undefined') {
 		vars += extra;
 	}
+	if (typeof wn == 'undefined' || trim(wn) == '') {
+		wn = 'ventana_' + window.toba_hilo_item[1] + id;
+	}	
 	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus || (window.opera && ventaja_hija[id].opera);
 	if (no_esta_definida) {				
 		// No fue definida, esta cerrada o no puede tener foco
 		//Agrego el id de item a la ventana para que cuando enlace popups en cadena no repita
-		ventana_hija[id] = window.open(url, "ventana_" + window.toba_hilo_item[1] + id, vars);
+		ventana_hija[id] = window.open(url, wn, vars);
 		if (isset(ventana_hija[id]) && (! window.opera || ventana_hija[id].opera)) {
 			ventana_hija[id].focus();
 		} else {
-			var recursiva = 'abrir_popup("' + id + '", "' + url + '", "' + vars + '", "", false)';
+			var recursiva = 'abrir_popup("' + id + '", "' + url + '", "' + vars + '", "", false, ' + wn +')';
 			var js = 'if (' + recursiva + ') overlay();';
 			var html = "El navegador evitó que el sistema abriera una ventana emergente.<br> Puede abrirla manualmente haciendo <a href='#' onclick='"
 					+ js + "'>click aquí</a>";
