@@ -14,7 +14,7 @@ ef_cbu.prototype.constructor = ef_cbu;
 			return false;
 		}
 		var estado = this.get_estado();
-		if(estado !== '' && !es_cbu_valido(estado)) {
+		if(estado !== '' && ! this.es_cbu_valido(estado)) {
 			this._error = 'código CBU inválido';
 			return false;
 		}
