@@ -397,8 +397,8 @@ class toba_vinculador
 			$resizable = (isset($init[3])) ? $init[3] : "1";
 			//---SE utiliza el parametro frame para determinar si el popup tiene un id especifico
 			$id_popup = isset($parametros['frame']) ? $parametros['frame'] : 'general';
-			$wn = (! is_null($nombre_ventana)) ? "'$nombre_ventana'" : '';
-			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'}, , ,$wn)\">";
+			$wn = (! is_null($nombre_ventana)) ? "'$nombre_ventana'" : 'null';
+			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'}, null , null ,$wn)\">";
 		}
 
 		if( isset($parametros['imagen']) && 
