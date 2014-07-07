@@ -157,9 +157,9 @@ class toba_ei_archivos extends toba_ei
 	 */
 	function set_path_absoluto($dir)
 	{
-		$this->_path_absoluto = $dir;
+		$this->_path_absoluto = realpath($dir) . '/';
 		if (!isset($this->_dir_actual))
-			$this->_dir_actual = $dir;
+			$this->_dir_actual = $this->_path_absoluto;
 	}
 	
 	/**
