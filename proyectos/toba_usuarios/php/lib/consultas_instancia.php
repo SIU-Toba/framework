@@ -56,6 +56,8 @@ class consultas_instancia
 		$proyecto = quote($proyecto);
 		$where = '';
 		$filtro_sano = quote($filtro);
+		$schema_logs = toba::db()->get_schema(). '_logs';
+		
 		if (isset($filtro['sesion'])) {
 			$where .= " AND se.sesion_browser = {$filtro_sano['sesion']} ";
 		} else {
@@ -68,8 +70,16 @@ class consultas_instancia
 			if (isset($filtro['usuario'])) {
 				$where .= " AND usuario = {$filtro_sano['usuario']} ";
 			}
-		}
-		$schema_logs = toba::db()->get_schema(). '_logs';
+			if (isset($filtro['operacion'])) {				
+				$where .= " AND so.solicitud_browser IN (
+					SELECT  aso.solicitud 
+					FROM $schema_logs.apex_solicitud aso
+					WHERE	aso.proyecto = $proyecto 
+					  AND	aso.item_proyecto = $proyecto
+					  AND	aso.item = {$filtro_sano['operacion']}
+				) ";
+			}
+		}		
 		$sql = "
 				SELECT	se.sesion_browser as id,
 						usuario,
@@ -85,6 +95,7 @@ class consultas_instancia
 					$where
 					GROUP BY 1,2,3,4,5
 					ORDER BY ingreso DESC;";
+		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);		
 	}
 	
@@ -459,6 +470,11 @@ class consultas_instancia
 			$sql = sql_concatenar_where($sql, $where);			
 		}
 		return toba::db()->consultar($sql);
+	}
+	
+	static function get_items_combo($proyecto)
+	{
+		return toba_info_editores::get_items_para_combo($proyecto, true);
 	}
 	
 	//---------------------------------------------------------------------

@@ -402,15 +402,20 @@ class toba_info_editores
 	/**
 	*	Retorna la lista de items en un formato adecuado para un combo
 	*/
-	static function get_items_para_combo()
+	static function get_items_para_combo($proyecto = null, $incluir_carpetas = false)
 	{
-		$catalogador = new toba_catalogo_items(toba_contexto_info::get_proyecto());
+		if (! isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}
+		$catalogador = new toba_catalogo_items($proyecto);
 		$catalogador->cargar_todo();	
+		$esp = html_entity_decode('&nbsp;', ENT_COMPAT | ENT_HTML401, "ISO-8859-1");
+		
 		foreach($catalogador->items() as $item) {
-			if (! $item->es_carpeta()) {
+			if (! $item->es_carpeta() || $incluir_carpetas) {
 				$nivel = $item->get_nivel_prof() - 1;
 				if($nivel >= 1){
-					$inden = "&nbsp;" . str_repeat("&nbsp" . str_repeat("&nbsp;",8), $nivel -1) . "|__&nbsp;";
+					$inden = $esp . str_repeat('|' . str_repeat($esp, 8), $nivel -1) . "|__$esp";
 				}else{
 					$inden = "";
 				}
