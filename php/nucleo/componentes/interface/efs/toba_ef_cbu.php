@@ -8,7 +8,13 @@ class toba_ef_cbu extends toba_ef_editable {
 
 	static function get_lista_parametros()
 	{
-		return null;
+		$param = parent::get_lista_parametros();
+		array_borrar_valor($param, 'edit_tamano');
+		array_borrar_valor($param, 'edit_expreg');
+		array_borrar_valor($param, 'edit_mascara');
+		array_borrar_valor($param, 'edit_unidad');
+		array_borrar_valor($param, 'edit_maximo');
+		return $param;    	
 	}
 	
 	function validar_estado() 

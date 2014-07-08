@@ -50,6 +50,7 @@ class toba_ef_editable extends toba_ef
 		$param[] = 'edit_mascara';
 		$param[] = 'edit_unidad';
 		$param[] = 'edit_expreg';
+		$param[] = 'edit_placeholder';
 		return $param;    	
 	}
 
@@ -98,6 +99,9 @@ class toba_ef_editable extends toba_ef
 		if (isset($parametros['edit_expreg'])) {
 			$this->expreg = $parametros['edit_expreg'];
 			unset($parametros['expreg']);	
+		}
+		if (isset($parametros['placeholder'])) {
+			$this->set_placeholder($parametros['placeholder']);
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -249,6 +253,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 	{
 		$param = parent::get_lista_parametros();
 		$param[] = 'edit_rango';
+		array_borrar_valor($param, 'edit_placeholder');
 		return $param;
 	}
     
@@ -578,6 +583,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	{
 		$param = toba_ef_editable::get_lista_parametros();
 		array_borrar_valor($param, 'edit_unidad');
+		array_borrar_valor($param, 'edit_placeholder');
 		return $param;
 	}	
 
@@ -757,6 +763,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	{
 		$param = toba_ef_editable::get_lista_parametros();
 		array_borrar_valor($param, 'edit_unidad');
+		array_borrar_valor($param, 'edit_placeholder');		
 		return $param;
 	}
 
@@ -942,6 +949,7 @@ class toba_ef_editable_hora extends toba_ef_editable
 	{
 		$param = toba_ef_editable::get_lista_parametros();
 		array_borrar_valor($param, 'edit_unidad');
+		array_borrar_valor($param, 'edit_placeholder');		
 		return $param;
 	}
 
@@ -1075,6 +1083,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		$param[] = 'edit_maximo';
 		$param[] = 'edit_resaltar';
 		$param[] = 'edit_ajustable';
+		$param[] = 'edit_placeholder';
 		return $param;
 	}		
 	

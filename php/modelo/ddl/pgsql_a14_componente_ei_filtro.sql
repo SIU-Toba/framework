@@ -116,6 +116,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	selec_ancho							varchar(30)		NULL,
 	selec_serializar					smallint		NULL,
 	selec_cant_columnas					smallint		NULL,
+	placeholder						TEXT	NULL,
 	CONSTRAINT  "apex_ei_filtro_col_pk" PRIMARY KEY ("objeto_ei_filtro_col", "objeto_ei_filtro", "objeto_ei_filtro_proyecto"),
 	CONSTRAINT  "apex_ei_filtro_col_fk_padre" FOREIGN KEY ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") REFERENCES "apex_objeto_ei_filtro" ("objeto_ei_filtro", "objeto_ei_filtro_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_filtro_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_objeto_ei_filtro_tipo_col" ("tipo_col") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

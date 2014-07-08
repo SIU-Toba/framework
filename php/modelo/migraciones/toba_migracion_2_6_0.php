@@ -11,7 +11,8 @@ class toba_migracion_2_6_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 		$sql = array();		
 		
-		
+		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN placeholder  TEXT  NULL;';
+		$sql[] = 'ALTER TABLE apex_objeto_ei_filtro_col ADD COLUMN placeholder  TEXT  NULL;';
 		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';

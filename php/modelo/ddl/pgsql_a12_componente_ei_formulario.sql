@@ -160,6 +160,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	selec_cant_columnas					smallint		NULL,
 	upload_extensiones					TEXT			NULL,
 	punto_montaje						int8			NULL,
+	placeholder						TEXT	NULL,
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_fila", "objeto_ei_formulario", "objeto_ei_formulario_proyecto"),
 	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario", "objeto_ei_formulario_proyecto") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario", "objeto_ut_formulario_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	---CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

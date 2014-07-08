@@ -829,6 +829,7 @@ class toba_db_tablas_componente
     74 => 'selec_cant_columnas',
     75 => 'upload_extensiones',
     76 => 'punto_montaje',
+    77 => 'placeholder',
   ),
 );
 	}
@@ -961,6 +962,7 @@ class toba_db_tablas_componente
     52 => 'selec_ancho',
     53 => 'selec_serializar',
     54 => 'selec_cant_columnas',
+    55 => 'placeholder',
   ),
 );
 	}

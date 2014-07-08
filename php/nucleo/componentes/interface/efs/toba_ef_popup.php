@@ -43,6 +43,7 @@ class toba_ef_popup extends toba_ef_editable
 		$parametros[] = 'popup_carga_desc_include';
 		$parametros[] = 'popup_puede_borrar_estado';
 		$parametros[] = 'punto_montaje';
+		$parametros[] = 'edit_placeholder';
 		return $parametros;
 	}
 
