@@ -163,9 +163,10 @@ class toba_ef_popup extends toba_ef_editable
 			$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		}
 		
-		$extra .= $this->get_estilo_visualizacion_pixeles();		
+		$extra .= $this->get_estilo_visualizacion_pixeles();	
+		$extra .= $this->get_info_placeholder();
 		if ($this->editable) {
-			$disabled = ($this->es_solo_lectura()) ? "disabled" : "";
+			$disabled = ($this->es_solo_lectura()) ? "disabled" : "";			
 			$html .= toba_form::hidden($this->id_form."_desc", $estado);
 			$html .= toba_form::text($this->id_form, $this->descripcion_estado, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
 			$extra = '';

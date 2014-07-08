@@ -101,12 +101,10 @@ class toba_ef_combo_editable extends toba_ef_seleccion
 			case 'html':
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$valor</div>";
-			break;
 			case 'pdf':
 				return $valor;
 			case 'excel':		
 				return array($valor, null);
-			break;
 		}
 	}
 

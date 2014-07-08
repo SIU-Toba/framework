@@ -31,6 +31,7 @@ class toba_ef_editable extends toba_ef
 	protected static $callback_errores_validacion = null;
 	protected static $ratio_pixel;
 	protected static $limite_minimo = 5;
+	protected $placeholder='';
 	
 	
 	static function get_lista_parametros_carga()
@@ -129,6 +130,11 @@ class toba_ef_editable extends toba_ef
 		}
 	}
 	
+	function set_placeholder($msj)
+	{
+		$this->placeholder = $msj;
+	}
+	
 	function cargar_estado_post()
 	{
 		if (isset($_POST[$this->id_form])) {
@@ -152,6 +158,15 @@ class toba_ef_editable extends toba_ef
 		if (isset(self::$ratio_pixel) && ($this->tamano > self::$limite_minimo)) {
 			$en_pixels = floor($this->tamano * self::$ratio_pixel);
 			return ' style=\'width: '.$en_pixels.'px;\' ';
+		}
+		return '';
+	}
+	
+	protected function get_info_placeholder()
+	{		
+		if (trim($this->placeholder) != '') {
+			$ph  = texto_plano($this->placeholder);
+			return " placeholder='$ph' ";
 		}
 		return '';
 	}
@@ -184,7 +199,7 @@ class toba_ef_editable extends toba_ef
 	function get_input()
 	{
 		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
-				
+		$this->input_extra .= $this->get_info_placeholder();		
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
@@ -506,11 +521,6 @@ class toba_ef_editable_clave extends toba_ef_editable
     
 	function get_input()
 	{
-		/*if (isset(self::$ratio_pixel) && ($this->tamano > self::limite_minimo)) {
-			$en_pixels = floor($this->tamano * self::$ratio_pixel);
-			$this->input_extra .= ' style=\'width: '.$en_pixels.'px;\' ';
-		}	*/
-		
 		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
 		$tab = ' tabindex="'.$this->padre->get_tab_index(2).'"';
 		$estado = isset($this->estado)? $this->estado : "";
@@ -1127,6 +1137,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			$clase = $this->clase.' ef-input-solo-lectura';
 			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $clase, $this->wrap, " readonly");
 		}else{
+			$this->input_extra .= $this->get_info_placeholder();
 			if($this->resaltar){
 				$javascript = " onclick='javascript: document.getElementById('{$this->id_form}').select()'";
 				$html .= toba_form::button($this->id_form . "_res", "Seleccionar", $javascript );

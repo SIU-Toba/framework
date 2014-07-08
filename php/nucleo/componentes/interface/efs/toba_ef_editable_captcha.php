@@ -120,7 +120,8 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	
 	function get_input()
 	{
-		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();		
+		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
+		$this->input_extra .= $this->get_info_placeholder();
 		$this->generar_texto_aleatorio();
 		toba::memoria()->set_dato_operacion('texto-captcha', $this->texto);
 		toba::memoria()->set_dato_operacion('tamanio-texto-captcha', $this->longitud);
