@@ -8,13 +8,21 @@
 abstract class toba_menu
 {
 	protected $items = array();
+	protected $prof = 1;
 	protected $modo_prueba = false;
+	protected $celda_memoria = 'paralela';
+	protected $imagen_nodo ;
+	protected $imagen_nueva_ventana;
+	protected $abrir_nueva_ventana = false;
+	protected $hay_algun_item = false;
 	
 	function __construct($carga_inicial = true)
 	{
 		if ($carga_inicial) {
 			$this->items = $this->items_de_menu();		
 		}
+		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
+		$this->imagen_nueva_ventana = toba_recurso::imagen_toba('nucleo/abrir_nueva_ventana.gif', false);
 	}
 	
 	/**
@@ -34,6 +42,31 @@ abstract class toba_menu
 	protected function items_de_menu()
 	{
 		return toba::proyecto()->get_items_menu();
+	}
+	
+	function set_abrir_nueva_ventana($imagen='nucleo/abrir_nueva_ventana.gif')
+	{
+		if (toba::memoria()->get_celda_memoria_actual_id() != $this->celda_memoria) {
+			$this->abrir_nueva_ventana = true;
+			$this->imagen_nueva_ventana = toba_recurso::imagen_toba($imagen, false);
+		}
+	}
+	
+	protected function buscar_raiz()
+	{
+		for ($i=0;$i<count($this->items);$i++) {
+			//--- Se recorre el primer nivel
+			if ($this->items[ $i ]['es_primer_nivel']) {
+			   $this->get_padres($i);
+			}
+		}
+	}
+	
+	protected function item_abre_popup($nodo)
+	{
+		$siempre_abre_popup = (!isset($this->items[$nodo]['js']) && $this->abrir_nueva_ventana);
+		$item_abre_popup = (isset($this->items[$nodo]['en_popup']) && $this->items[$nodo]['en_popup'] === true);
+		return ($siempre_abre_popup || $item_abre_popup);
 	}
 	
 	function set_datos_opcion($id_item, $datos)
@@ -93,6 +126,26 @@ abstract class toba_menu
 		$this->modo_prueba = true;
 	}
 	
+	protected function get_hijos($nodo)
+	{
+		$hijos = array();
+		for ($i=0;$i<count($this->items);$i++) {
+			if ($this->items[ $i ]['padre'] == $this->items[ $nodo ][ 'item' ])  {
+				$hijos[] = $i;
+			}
+		}
+		return $hijos;
+	}
+	
+	protected function recorrer_hijos($nodo) 
+	{
+		$rs = $this->get_hijos ($nodo);
+		for ($i=0;$i<count($rs);$i++) {
+			$this->prof++;
+			$this->get_padres($rs[ $i ]);
+			$this->prof--;
+		}	
+	}
 	
 	/**
 	 * Muestra una confirmación antes de navegar a cualquier opción del menú

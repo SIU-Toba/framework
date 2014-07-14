@@ -6,18 +6,8 @@
  */
 class toba_menu_yui extends toba_menu
 {
-	private $prof=1;
 	private $id=9000;
-	private $arbol;
-	protected $imagen_nodo ;
-	protected $hay_algun_item = false;
-	
-	function __construct($carga_inicial = true)
-	{
-		parent::__construct($carga_inicial);
-		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
-	}
-	
+	private $arbol;	
 	
 	function plantilla_css()
 	{
@@ -31,71 +21,43 @@ class toba_menu_yui extends toba_menu
 		$this->arbol .= "\n<div id='menu_principal' class='yuimenubar' style='position:absolute; top:5px;'>\n";
 		$this->arbol .= "\t<div class='bd'>\n";
 		$this->arbol .= "\t\t<ul>\n";		
-		for ($i=0;$i<count($this->items);$i++) {
-			//--- Se recorre el primer nivel
-			if ($this->items[ $i ]['es_primer_nivel']) {
-				$this->get_padres($i);
-			}
-		}
+		$this->buscar_raiz();
 		$this->arbol .= "\n\t\t</ul>\n\t</div>\n</div>";
 	}
 	
 	function get_padres($nodo)
 	{
 		$inden = str_repeat("\t",$this->prof *3);
+		$clase = 'yuimenuitem';
+		$this->arbol .= $inden . "<li class='$clase'>";
 		
 		if (!$this->items[$nodo]['carpeta']) {
-			$clase = 'yuimenuitem';	
-			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
-															 $this->items[$nodo]['item'], array(),
-															 array('validar' => false, 'menu' => true));
-			$proyecto = $this->items[$nodo]['proyecto'];
-			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li class='$clase'>";
+			$opciones = array('validar' => false, 'menu' => true);
+			$target = '';
+			if ($this->item_abre_popup($nodo)) {
+				$opciones['celda_memoria'] = 'paralela';
+				$target = " target='_blank' ";
+			}
+			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'], $this->items[$nodo]['item'], array(), $opciones);			
 			if (! $this->modo_prueba) {
-				$this->arbol .= "<a href='$vinculo' " .
-							"title='".$this->items[$nodo]['nombre']."'>" . 
-							$this->items[$nodo]['nombre']."</a>";
+				$this->arbol .= "<a href='$vinculo' title='{$this->items[$nodo]['nombre']}' $target >{$this->items[$nodo]['nombre']}</a>";
 			} else {
 				$this->arbol .= $this->items[$nodo]['nombre'];
 			}
-			$this->arbol .= $inden . "</li>\n";
 			$this->hay_algun_item = true;
 		} else {
 			//Es carpeta
-			$class = ($this->prof > 1) ? " class='carpeta'" : "";
-			$img = '';
-			if (isset($this->items[$nodo]['imagen'])) {
-				$url_img = toba_recurso::imagen_de_origen($this->items[$nodo]['imagen'],
-												$this->items[$nodo]['imagen_recurso_origen']);
-				$img = "<img src='$url_img' border=0 /> ";								
-			}
-			$this->arbol .= $inden . "<li class='yuimenuitem'>". $this->items[$nodo]['nombre'] . "\n";
+			$this->arbol .= $this->items[$nodo]['nombre'] . "\n";
 			$this->arbol .= $inden . "\t<div id='".$this->id++."'  class='yuimenu'>\n";
 			$this->arbol .= $inden . "\t\t<div class='bd'>\n";
 			$this->arbol .= $inden . "\t\t\t<ul>\n";
-			$rs = $this->get_hijos ($nodo);
-			for ($i=0;$i<count($rs);$i++) {
-				$this->prof++;
-				$this->get_padres($rs[ $i ]);
-				$this->prof--;
-			}
+			$this->recorrer_hijos($nodo);
 			$this->arbol .= $inden . "\t\t\t</ul>\n";
 			$this->arbol .= $inden . "\t\t</div>\n";
 			$this->arbol .= $inden . "\t</div>\n";
-			$this->arbol .= $inden . "</li>\n";
 		}
-	}
-	
-	function get_hijos($nodo)
-	{
-		$hijos = array();
-		for ($i=0;$i<count($this->items);$i++) {
-			if ($this->items[ $i ]['padre'] == $this->items[ $nodo ][ 'item' ])	{
-				$hijos[] = $i;
-			}
-		}
-		return $hijos;
+		
+		$this->arbol .= $inden . "</li>\n";
 	}
 	
 	//-----------------------------------------------------------
