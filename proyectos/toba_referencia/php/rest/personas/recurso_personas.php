@@ -171,6 +171,9 @@ class recurso_personas
 		$filtro->agregar_campo("nombre", "pers.nombre");
 		$filtro->agregar_campo("fecha_nac", "pers.fecha_nac");
 		$filtro->agregar_campo("id", "pers.id");
+
+		$filtro->agregar_campo_ordenable("nombre", "pers.nombre");
+		$filtro->agregar_campo_ordenable("fecha_nac", "pers.fecha_nac");
 		return $filtro;
 	}
 }
