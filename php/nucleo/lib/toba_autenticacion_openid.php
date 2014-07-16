@@ -226,7 +226,10 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 			$res .= ':' . $_SERVER['SERVER_PORT'];
 		}
 		$p = toba::proyecto()->get_www();
-		define('OPENID_RETURN_URL', $res.'/'.$p['url'].'/');
+		if (isset($p['url']) && trim($p['url']) != '') {
+			$res .= '/' . $p['url'];
+		}
+		define('OPENID_RETURN_URL', $res.'/');
 		require(toba_dir().'/php/3ros/poidsy/processor.php');
 	}
 	
