@@ -153,7 +153,7 @@ class toba_rest
      */
     public function es_pedido_documentacion()
     {
-        return toba_recurso::url_proyecto() . "/rest" == $_SERVER['REQUEST_URI'];
+        return toba_recurso::url_proyecto() . "/rest" == rtrim( $_SERVER['REQUEST_URI'], '/');
     }
 
     protected function get_modelo_proyecto()

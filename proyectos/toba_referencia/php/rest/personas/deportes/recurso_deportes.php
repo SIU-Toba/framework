@@ -4,23 +4,24 @@ require_once("modelo/modelo_persona.php");
 use rest\rest;
 
 
-/** // https://github.com/wordnik/swagger-core/wiki/Datatypes
- * La anotación model permite utilizar el model "Persona" en la definicion de los metodos, sino hay que definir los tipos de datos complejos inline en cada metodo
- *
- * @description Operaciones sobre Personas de carne y hueso
- * 
- * @model {
- * "id": "Persona",
- * "required": ["id"],
- *      "properties": {
- *          "id": {"type": "integer"},
- *          "nombre": {"type": "string" },
-*			"fecha_nac" : {"type": "string"}
- *      }
- * }
+/**
+ * @description Operaciones sobre Deportes de las personas
  */
-class recurso_deportes
+class recurso_deportes implements \rest\lib\modelable
 {
+
+	public static function _get_modelos()
+	{
+		return $models = array(
+			'Deporte' => array(
+				'deporte' => array('type' => 'integer'),
+				'dia_semana' => array('type' => 'string'),
+				'hora_inicio' => array('type' => 'string'),
+				'hora_fin' => array('type' => 'string')
+			)
+
+		);
+	}
 
      /**
      * Se consume en GET /personas/{id}/deportes

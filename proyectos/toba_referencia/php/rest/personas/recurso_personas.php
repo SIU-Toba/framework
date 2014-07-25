@@ -5,23 +5,22 @@ use rest\rest;
 use rest\lib\rest_filtro_sql;
 
 
-/** // https://github.com/wordnik/swagger-core/wiki/Datatypes
- * La anotación model permite utilizar el model "Persona" en la definicion de los metodos, sino hay que definir los tipos de datos complejos inline en cada metodo
- *
- * @description Operaciones sobre Personas de carne y hueso
- * 
- * @model {
- * "id": "Persona",
- * "required": ["id"],
- *      "properties": {
- *          "id": {"type": "integer"},
- *          "nombre": {"type": "string" },
-*			"fecha_nac" : {"type": "string"}
- *      }
- * }
+/**
+ * @description Operaciones sobre Personas
  */
-class recurso_personas
+class recurso_personas implements \rest\lib\modelable //esta interface es documentativa, puede no estar
 {
+
+	static function _get_modelos(){
+		return $models = array(
+			'Persona' => array(
+				'id' => array('type' => 'integer'),
+				'nombre' => array('type' => 'integer'),
+				'fecha_nac' => array('type' => 'integer')
+			)
+
+		);
+	}
 
     /**
 	 * Se consume en GET /personas/{id}

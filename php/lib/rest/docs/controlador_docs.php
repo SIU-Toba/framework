@@ -4,6 +4,8 @@ namespace rest\docs;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use rest\lib\modelo_recursos;
+use rest\lib\rest_instanciador;
 use rest\lib\ruteador;
 use rest\rest;
 
@@ -57,7 +59,7 @@ class controlador_docs
 		$resource['basePath'] = $this->api_url;
 		$resource['resourcePath'] = $path;
 		$resource['apis'] = $this->get_apis($annotaciones, $path);
-		$resource['models'] = $annotaciones->get_modelos_clase();
+		$resource['models'] = $this->get_modelos_de_path($path);
 		return $resource;
 	}
 
@@ -77,8 +79,6 @@ class controlador_docs
 				continue;
 			}
             $nombre = str_replace('\\', '/', $nombre); // windows! ...
-
-//			$documentacion = new anotaciones_docs($nombre);
 
 			$path = $this->get_url_de_clase($nombre);
 			$path = ltrim($path,'/') ;
@@ -253,6 +253,29 @@ class controlador_docs
 		$lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
 		$archivo = $lector->get_recurso(explode('/', $path));
 		return new anotaciones_docs($archivo['archivo']);
+	}
+
+	/**
+	 * @param $path
+	 * @return anotaciones_docs
+	 */
+	protected function get_modelos_de_path($path)
+	{
+		$lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
+		$archivo = $lector->get_recurso(explode('/', $path));
+
+		$i = new rest_instanciador();
+		$i->archivo = $archivo['archivo'];
+		$objeto = $i->get_instancia();
+
+		if(method_exists($objeto, '_get_modelos')){
+			$modelo = new modelo_recursos( );
+			return $modelo->to_swagger($objeto->_get_modelos());
+		}else {
+			rest::app()->logger->debug('El objeto no tiene el metodo _get_modelos. Clase: '. get_class($objeto));
+			return array();
+		}
+
 	}
 
 	/**

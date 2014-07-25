@@ -97,24 +97,6 @@ class anotaciones_docs
 		return $desc;
 	}
 
-	function get_modelos_clase()
-	{
-		$anotaciones = $this->anotaciones_clase;
-		$models = array();
-		if (isset($anotaciones['model'])) {
-			foreach ($anotaciones['model'] as $model) {
-				$model = str_replace('\'', '"', $model);
-
-				if (NULL === $modelo = json_decode($model, true)) {
-					throw new \Exception("No se pudo convertir a JSON el siguiente modelo " . print_r($model, true));
-				}
-
-				$models[$modelo['id']] = $modelo;
-			}
-		}
-		return $models;
-	}
-
 	function get_metodos()
 	{
 		$mis_metodos = array();
