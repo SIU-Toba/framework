@@ -21,7 +21,7 @@ class ci_fuentes extends toba_ci
 	{
 		if (!$this->s__carga_ok) {
 			$this->pantalla()->eliminar_evento('eliminar');
-		} 
+		}
 	}
 
 	function get_lista_bases()
@@ -45,6 +45,14 @@ class ci_fuentes extends toba_ci
 		}
 		return $this->lista_esquemas;
 	}
+	
+	function es_motor_postgres()
+	{
+		if (isset($this->s__datos_bases_ini['motor'])) {
+			return (trim($this->s__datos_bases_ini['motor']) == 'postgres7');
+		}
+		return false;
+	}
 
 	//---- Eventos CI -------------------------------------------------------
 
@@ -58,7 +66,7 @@ class ci_fuentes extends toba_ci
 		}
 		
 		$schemas_config = $this->dependencia('datos')->tabla('esquemas')->get_cantidad_filas();
-		if ($schemas_config == 0 && trim($this->s__datos_bases_ini['usuario']) != '') {
+		if ($this->es_motor_postgres() && $schemas_config == 0 && trim($this->s__datos_bases_ini['usuario']) != '') {
 			toba::notificacion()->agregar('No olvide agregar los schemas utilizados por la fuente', 'info');
 		}		
 		
@@ -217,6 +225,9 @@ class ci_fuentes extends toba_ci
 		}		
 		$datos_form = array('schema' => $datos_basicos['schema'], 'encoding' => $encoding, 'esquemas_manejados' => $manejados);
 		$form->set_datos($datos_form);
+		if (! $this->es_motor_postgres()) {
+			$form->desactivar_efs(array('esquemas_manejados', 'schema'));
+		}
 	}
 
 	function evt__form_schemas__modificacion($datos)
@@ -226,12 +237,14 @@ class ci_fuentes extends toba_ci
 			$this->dependencia('datos')->tabla('fuente')->set_columna_valor('schema', $datos['schema']);
 		}
 	
-		$esquemas_seleccionados = $datos['esquemas_manejados'];
-		if (count($esquemas_seleccionados) > 0) {
-			$this->dependencia('datos')->tabla('esquemas')->eliminar_filas();
-			foreach ($esquemas_seleccionados as $esquema) {
-				$this->dependencia('datos')->tabla('esquemas')->nueva_fila(array('nombre' => $esquema, 'principal' => 0));
-			}			
+		if (isset($datos['esquemas_manejados'])) {
+			$esquemas_seleccionados = $datos['esquemas_manejados'];
+			if (count($esquemas_seleccionados) > 0) {
+				$this->dependencia('datos')->tabla('esquemas')->eliminar_filas();
+				foreach ($esquemas_seleccionados as $esquema) {
+					$this->dependencia('datos')->tabla('esquemas')->nueva_fila(array('nombre' => $esquema, 'principal' => 0));
+				}			
+			}
 		}
 		
 		//Agrego o modifico la informacion en bases ini
