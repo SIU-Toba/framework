@@ -83,6 +83,18 @@
 	    			<a href="../Centrales/bootstrap.html">					bootstrap
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/chulupi_lector_recursos.html">					chulupi_lector_recursos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/chulupi_logger.html">					chulupi_logger
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/chulupi_rest_usuarios.html">					chulupi_rest_usuarios
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/chulupi_rest_usuarios_conf.html">					chulupi_rest_usuarios_conf
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/clase_anotada_ejemplo.html">					clase_anotada_ejemplo
 					</a>    		
 	 <br />
@@ -93,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/lector_recursos_archivo.html">					lector_recursos_archivo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/modelo_recursos.html">					modelo_recursos
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/proveedor_autenticacion.html">					proveedor_autenticacion
@@ -140,6 +155,12 @@
 	    			<a href="../Centrales/rest_filtro_sqlTest.html">					rest_filtro_sqlTest
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/rest_hidratador.html">					rest_hidratador
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/rest_hidratadorTest.html">					rest_hidratadorTest
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/rest_instanciadorTest.html">					rest_instanciadorTest
 					</a>    		
 	 <br />
@@ -149,6 +170,12 @@
 	    			<a href="../Centrales/rest_usuario.html">					rest_usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/rest_validador.html">					rest_validador
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/rest_validadorTest.html">					rest_validadorTest
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/ruteador.html">					ruteador
 					</a>    		
 	 <br />
@@ -156,6 +183,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba.html">					toba
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_autenticacion.html">					autenticacion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_autenticacion_basica.html">					autenticacion_basica
@@ -231,6 +261,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_gadget_shindig.html">					gadget_shindig
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_generador_sentencias_postgres7.html">					generador_sentencias_postgres7
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_hash.html">					hash
@@ -499,6 +532,9 @@
 	    			<a href="../Centrales/logger.html">					logger
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/modelable.html">					modelable
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_autenticable.html">					autenticable
 					</a>    		
 	 <br />
@@ -579,7 +615,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																		<tr>
+																																																																																																																																																																			<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -590,8 +626,50 @@
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">$this</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#agregar_campo" title="details" class="method-name">agregar_campo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Busca un campo en el request. Es opcional, se filtra de acuerdo a las reglas de</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_flag" title="details" class="method-name">agregar_campo_flag</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Un campo simple es solo ?campo=[1|0]. Si el parametro esta se ejecuta la sql_si, o sino sql_no,</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_flag_local" title="details" class="method-name">agregar_campo_flag_local</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">$this</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_local" title="details" class="method-name">agregar_campo_local</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega un campo al filtro sin permitirlo en el request</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">$this</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_ordenable" title="details" class="method-name">agregar_campo_ordenable</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_simple" title="details" class="method-name">agregar_campo_simple</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Un campo simple es solo ?campo=valor. Si el parametro esta se ejecuta la sql(usar %s como reemplazo del valor),  Sino esta y valor_defecto != null, se corre el sql con ese valor.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_campo_simple_local" title="details" class="method-name">agregar_campo_simple_local</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -628,6 +706,30 @@
 						    									
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#procesar_filtro" title="details" class="method-name">procesar_filtro</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#procesar_flag" title="details" class="method-name">procesar_flag</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#procesar_simple" title="details" class="method-name">procesar_simple</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#quote" title="details" class="method-name">quote</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 													</table>
@@ -653,7 +755,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 13]</span>
 </div>
 <br />
 
@@ -678,17 +780,130 @@
 	
 		
 	
-	<span class="method-title">agregar_campo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+	<span class="method-title">agregar_campo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void agregar_campo(
+		<code>$this agregar_campo(
+$alias_qs
+$alias_qs, [null
+$alias_sql = NULL], [$valor_defecto
+$valor_defecto = NULL]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
 
-$alias_qs, [
-$alias_sql = NULL]&nbsp;
+	<div class="description">Busca un campo en el request. Es opcional, se filtra de acuerdo a las reglas de <p>get_sql_clausula</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">null</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_sql:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> el nombre para hacer la sql</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">$alias_qs</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">$valor_defecto</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor_defecto:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> string formato get_sql_clausula</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_flag" id="agregar_campo_flag"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_flag</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_campo_flag(
+
+$alias_qs, 
+$sql_si, [
+$sql_no = ''], [
+$valor_defecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Un campo simple es solo ?campo=[1|0]. Si el parametro esta se ejecuta la sql_si, o sino sql_no, <p>Si valor por defecto es != null se corre alguna sql segun el valor   ej agregar_campo_simple('activa', (fecha_vencicmiento &gt; now), '', 1)</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql_si:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql_no:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor_defecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_flag_local" id="agregar_campo_flag_local"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_flag_local</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_campo_flag_local(
+
+$alias_qs, 
+$sql_si, [
+$sql_no = ''], 
+$valor&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -705,7 +920,218 @@ $alias_sql = NULL]&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
+				<span class="var-name">$sql_si:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql_no:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_local" id="agregar_campo_local"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_local</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>$this agregar_campo_local(
+$alias_qs
+$alias_qs, [null
+$alias_sql = NULL], $valor
+$valor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega un campo al filtro sin permitirlo en el request </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">null</span>&nbsp;&nbsp;</td>
+				<td>
 				<span class="var-name">$alias_sql:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> el nombre para hacer la sql</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">$alias_qs</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">$valor</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> string el valor del campo</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_ordenable" id="agregar_campo_ordenable"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_ordenable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>$this agregar_campo_ordenable(
+$alias_qs
+$alias_qs, [null
+$alias_sql = NULL]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">null</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">$alias_qs</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_simple" id="agregar_campo_simple"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_simple</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_campo_simple(
+
+$alias_qs, 
+$sql, [
+$valor_defecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Un campo simple es solo ?campo=valor. Si el parametro esta se ejecuta la sql(usar %s como reemplazo del valor),  Sino esta y valor_defecto != null, se corre el sql con ese valor. <p>ej agregar_campo_simple('estado', (estado = %s), 'A')</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor_defecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodagregar_campo_simple_local" id="agregar_campo_simple_local"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_campo_simple_local</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_campo_simple_local(
+
+$alias_qs, 
+$sql, 
+$valor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -723,7 +1149,7 @@ $alias_sql = NULL]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_sql_clausula</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
+	<span class="method-title">get_sql_clausula</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
 </div>
 <br />
 
@@ -796,7 +1222,7 @@ $valor2 = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_sql_limit</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
+	<span class="method-title">get_sql_limit</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
@@ -804,11 +1230,23 @@ $valor2 = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_sql_limit(
+[
+$default = '']&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Lee los parametros 'limit' y 'page' del request rest y arma el equivalente en sql (limit/offset) </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$default:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
 
 	<br />
 	
@@ -822,7 +1260,7 @@ $valor2 = null]&nbsp;
 		    	
 		
 	
-	<span class="method-title">get_sql_order_by</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
+	<span class="method-title">get_sql_order_by</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -830,11 +1268,23 @@ $valor2 = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>string get_sql_order_by(
+[null
+$default = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Lee el parametro 'order' del request y arma el ORDER BY de la sql <p>Solo permite ordenar por los campos definidos en el constructor (evitar inyeccion sql)</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">null</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$default:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> si no hay un param order, se usa el default</span>			</td></tr>
+				</table>
 
 	<br />
 	
@@ -854,7 +1304,7 @@ $valor2 = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_sql_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
+	<span class="method-title">get_sql_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
@@ -885,14 +1335,194 @@ $separador = 'AND']&nbsp;
 		
 		<br />
 </div>
-<a name="methodquote" id="quote"><!-- --></a>
+<a name="methodprocesar_filtro" id="procesar_filtro"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
+	<span class="method-title">procesar_filtro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void procesar_filtro(
+
+$valor, 
+$alias_qs, 
+$campo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$campo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodprocesar_flag" id="procesar_flag"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">procesar_flag</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void procesar_flag(
+
+$valor, 
+$alias_qs, 
+$campo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$campo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodprocesar_simple" id="procesar_simple"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">procesar_simple</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void procesar_simple(
+
+$valor, 
+$alias_qs, 
+$campo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$valor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alias_qs:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$campo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodquote" id="quote"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 281]</span>
 </div>
 <br />
 
