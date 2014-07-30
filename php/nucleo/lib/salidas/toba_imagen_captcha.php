@@ -59,11 +59,10 @@ class toba_imagen_captcha extends Securimage
   
 	function set_parametros_captcha($parametros)
 	{		
-		$param_securimage = $this->get_lista_variables();
+		$param_securimage = array_keys($this->get_lista_variables());
 		
-		foreach ($parametros as $indice => $parametro)
-		{
-			if (in_array($parametro[$indice], $param_securimage)) {
+		foreach ($parametros as $indice => $parametro) {
+			if (in_array($indice, $param_securimage)) {
 				$this->$indice = $parametro;
 			}
 		}
