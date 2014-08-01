@@ -475,6 +475,8 @@ class toba_autoload
 		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 		'phpCAS' => '3ros/phpCAS/CAS/CAS.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
+		'toba_cliente_rdi' => 'nucleo/lib/toba_cliente_rdi.php',
+		'toba_logger_rdi' => 'nucleo/lib/toba_logger_rdi.php',
 	);
 }
 ?>

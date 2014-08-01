@@ -169,6 +169,14 @@ class toba_instalacion
 	}	
 	
 	/**
+	 * Retorna la ruta a la carpeta 'instalacion'
+	 */
+	function get_path_carpeta_instalacion()
+	{
+		return toba_nucleo::toba_instalacion_dir();
+	}
+	
+	/**
 	 * Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
 	 * @return string
 	 */			

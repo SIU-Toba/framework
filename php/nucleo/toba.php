@@ -13,6 +13,7 @@ class toba
 	static private $perfil_funcional;
 	static private $cn = array();
 	static private $consultas_php;
+	static private $rdi;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -401,13 +402,13 @@ class toba
 		return toba_servicio_web_cliente_soap::conectar($id, $opciones);
 	}
 
-    /**
-     * @return toba_servicio_web_cliente_rest
-     */
-    static function servicio_web_rest($id, $opciones=array())
-    {
-        return toba_servicio_web_cliente_rest::conectar($id, $opciones);
-    }
+	/**
+	 * @return toba_servicio_web_cliente_rest
+	 */
+	static function servicio_web_rest($id, $opciones=array())
+	{
+	    return toba_servicio_web_cliente_rest::conectar($id, $opciones);
+	}
 
 	/**
 	 * Devuelve un contenedor para el manejo de gadgets
@@ -415,7 +416,17 @@ class toba
 	 */
 	static function contenedor_gadgets()
 	{
-		return toba_contenedor_gadgets::instancia();
+	    return toba_contenedor_gadgets::instancia();
+	}
+	
+	static function rdi()
+	{
+	    if (!isset(self::$rdi)){
+			self::$rdi = new toba_cliente_rdi();
+	    }
+	    self::$rdi->set_proyecto(self::proyecto());
+		self::$rdi->set_instalacion(self::instalacion());
+	    return self::$rdi->get_cliente();
 	}
 }
 ?>

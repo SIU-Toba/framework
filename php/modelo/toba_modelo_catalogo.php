@@ -113,6 +113,14 @@ class toba_modelo_catalogo
 		return $servicio;
 	}		
 	
+	function get_rdi(toba_modelo_proyecto $proyecto, $manejador_interface=null)
+	{
+		$rdi = new toba_cliente_rdi();
+		$rdi->set_proyecto($proyecto);
+		$rdi->set_instalacion($this->get_instalacion($manejador_interface));
+		return $rdi->get_cliente();
+	}
+	
 	function set_db($db)
 	{
 		$this->db = $db;

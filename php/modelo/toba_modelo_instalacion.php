@@ -93,6 +93,14 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	}
 	
 	/**
+	 * Retorna la ruta a la carpeta 'instalacion'
+	 */
+	function get_path_carpeta_instalacion()
+	{
+		return self::dir_base();
+	}
+	
+	/**
 	* Retorna el id que distingue al grupo de desarrollo
 	*/
 	function get_id_grupo_desarrollo()
