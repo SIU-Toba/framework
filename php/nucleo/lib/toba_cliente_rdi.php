@@ -1,5 +1,5 @@
 <?php
-
+require_once('contrib/lib/RDILib/RDIAutoload.php');
 class toba_cliente_rdi 
 {
     const nombre_archivo = '/rdi.ini';
@@ -7,6 +7,11 @@ class toba_cliente_rdi
     protected $proyecto;
     protected $clienteRdi;
 	protected $instalacion;
+	
+	function __construct()
+	{
+		RDIAutoload::registrar();
+	}
 	
 	/**
 	 * Permite cambiar el proyecto del cliente RDI
