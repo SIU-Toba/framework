@@ -73,11 +73,11 @@ class toba_cliente_rdi
 		//Agrego un log para desarrollo
 		if (! $this->instalacion->es_produccion()) {
 			$log = new toba_logger_rdi($id_proyecto);
-			$rdi->asociar_log($log);
+			$rdi->asociarLog($log);
 		}
 
 		//Reviso si existen servicios redefinidos y los asigno
-		$serv_personalizados = toba::proyecto()->get_parametro('servicios_rdi');
+		$serv_personalizados = toba::proyecto()->get_parametro('servicios_rdi', null, false);
 		if (! is_null($serv_personalizados)) {
 			foreach($serv_personalizados as $servicio => $clase) {
 				$rdi->mapeoServicios()->redefinir($servicio, $clase);				
