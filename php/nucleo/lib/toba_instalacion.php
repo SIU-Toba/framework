@@ -41,6 +41,18 @@ class toba_instalacion
 	}
 	
 	/**
+	 * Retorna el nombre de la instalacion actual, cadena vacia si no esta seteado
+	 * @return string
+	 */
+	function get_nombre()
+	{
+		if (isset($this->memoria['nombre'])) {
+			return $this->memoria['nombre'];
+		}
+		return '';
+	}
+	
+	/**
 	 * Claves utilizadas para encriptar el querystring y cosas en la base
 	 * @return Arreglo asociativo db=>, get=>
 	 */

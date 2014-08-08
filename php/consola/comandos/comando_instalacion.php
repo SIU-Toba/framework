@@ -69,7 +69,8 @@ class comando_instalacion extends comando_toba
 		//--- Crea la INSTALACION		
 		$id_desarrollo = $this->definir_id_grupo_desarrollo();
 		$tipo_instalacion = $this->definir_tipo_instalacion_produccion();
-		toba_modelo_instalacion::crear($id_desarrollo, $alias, $tipo_instalacion);
+		$nombre = $this->definir_nombre_instalacion();		
+		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
 		$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : $this->get_entorno_id_instancia(true);		
 		
 		//--- Crea la definicion de bases
@@ -247,7 +248,9 @@ class comando_instalacion extends comando_toba
 			$this->consola->titulo( "Configurando INSTALACION en: " . toba_modelo_instalacion::dir_base() );
 			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
 			$alias = self::definir_alias_nucleo();
-			toba_modelo_instalacion::crear( $id_grupo_desarrollo, $alias );
+			$tipo_instalacion = $this->definir_tipo_instalacion_produccion();
+			$nombre = $this->definir_nombre_instalacion();
+			toba_modelo_instalacion::crear( $id_grupo_desarrollo, $alias, $nombre, $tipo_instalacion);
 			$this->consola->enter();
 			$this->consola->mensaje("La instalacion ha sido inicializada");
 			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba base registrar -d [nombre_base]'");
@@ -488,6 +491,11 @@ class comando_instalacion extends comando_toba
 	{
 		$tipo_desarrollo = $this->consola->dialogo_simple('Se trata de una instalacion de producción?');
 		return ($tipo_desarrollo) ? 1: 0;		
+	}
+	
+	protected function definir_nombre_instalacion()
+	{
+		return $this->consola->dialogo_ingresar_texto('Nombre de la instalación (ej: Andromeda): ', true);
 	}
 	
 	protected function definir_clave_usuario_admin()

@@ -87,6 +87,22 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	//-- Informacion general
 	//-------------------------------------------------------------
 	
+	/**
+	 * Retorna el nombre de la instalacion actual, cadena vacia si no esta seteado
+	 * @return string
+	 */
+	function get_nombre()
+	{
+		if (! $this->ini_cargado) {
+			$this->cargar_info_ini();
+		}
+		
+		if (isset($this->ini_instalacion['nombre'])) {
+			return $this->ini_instalacion['nombre'];
+		}
+		return '';		
+	}
+	
 	function get_dir()
 	{
 		return $this->dir;	
@@ -400,14 +416,14 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	//-- Funcionalidad estatica relacionada a la CREACION de INSTALACIONES
 	//-------------------------------------------------------------------------
 
-	static function crear( $id_grupo_desarrollo, $alias_nucleo , $es_produccion = 0)
+	static function crear( $id_grupo_desarrollo, $alias_nucleo , $nombre, $es_produccion = 0)
 	{
 		self::crear_directorio();
 		self::actualizar_version( toba_modelo_instalacion::get_version_actual() );
 		$apex_clave_get = md5(uniqid(rand(), true)); 
 		$apex_clave_db = md5(uniqid(rand(), true)); 
 		$editor = toba_manejador_archivos::es_windows() ? 'start' : '';
-		self::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo, $es_produccion);
+		self::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo, $nombre, $es_produccion);
 		copy(toba_dir(). '/php/modelo/var/smtp.ini',	self::dir_base().'/smtp.ini');
 		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
 		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
@@ -590,10 +606,11 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
-	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo, $editor, $url, $es_produccion = 0)
+	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo, $editor, $url, $nombre_inst, $es_produccion = 0)
 	{
 		$ini = new toba_ini();
 		$ini->agregar_titulo( self::info_basica_titulo );
+		$ini->agregar_entrada('nombre', $nombre_inst);
 		$ini->agregar_entrada( 'id_grupo_desarrollo', $id_grupo_desarrollo );
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
 		$ini->agregar_entrada( 'clave_db', $clave_db );	

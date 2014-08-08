@@ -421,12 +421,12 @@ class toba
 	
 	static function rdi()
 	{
-	    if (!isset(self::$rdi)){
+		if (!isset(self::$rdi)){
 			self::$rdi = new toba_cliente_rdi();
-	    }
-	    self::$rdi->set_proyecto(self::proyecto());
+		}
+		self::$rdi->set_proyecto(self::proyecto());
 		self::$rdi->set_instalacion(self::instalacion());
-	    return self::$rdi->get_cliente();
+		return self::$rdi->get_cliente();
 	}
 }
 ?>

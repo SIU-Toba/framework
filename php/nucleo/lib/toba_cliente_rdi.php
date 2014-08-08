@@ -2,10 +2,10 @@
 require_once('contrib/lib/RDILib/RDIAutoload.php');
 class toba_cliente_rdi 
 {
-    const nombre_archivo = '/rdi.ini';
+	const nombre_archivo = '/rdi.ini';
 
-    protected $proyecto;
-    protected $clienteRdi;
+	protected $proyecto;
+	protected $clienteRdi;
 	protected $instalacion;
 	
 	function __construct()
@@ -17,14 +17,14 @@ class toba_cliente_rdi
 	 * Permite cambiar el proyecto del cliente RDI
 	 * @param toba_proyecto $obj_proyecto
 	 */
-    function set_proyecto(toba_proyecto $obj_proyecto)
-    {
+	function set_proyecto(toba_proyecto $obj_proyecto)
+	{
 		//Si hay cambio de proyecto, elimino la instancia de RDICliente
 		if (isset($this->proyecto) && ($this->proyecto->get_id() != $obj_proyecto->get_id())) {
 			unset($this->clienteRdi);
 		}
 		$this->proyecto = $obj_proyecto;
-    }
+	}
 
 	function set_instalacion($obj_instalacion)
 	{
@@ -36,13 +36,13 @@ class toba_cliente_rdi
 	 * @throws toba_error
 	 * @return \RDICliente
 	 */
-    function get_cliente()
-    {
+	function get_cliente()
+	{
 		if (! isset($this->clienteRdi)) {
 			$this->clienteRdi = $this->instanciar_cliente();			
 		}
 		return $this->clienteRdi;
-    }
+	}
 
     //------------------------------------------------------------------------//
     //						METODOS INTERNOS
@@ -53,8 +53,8 @@ class toba_cliente_rdi
 	 * @throws toba_error
 	 * @ignore
 	 */
-    protected function instanciar_cliente()
-    {
+	protected function instanciar_cliente()
+	{
 		$id_proyecto = $this->proyecto->get_id();		
 		$ini = new toba_ini($this->instalacion->get_path_carpeta_instalacion(). self::nombre_archivo);
 
@@ -62,13 +62,18 @@ class toba_cliente_rdi
 			throw new toba_error('Falta el archivo de configuración rdi.ini');
 		}
 
-		$parametros = $ini->get($id_proyecto);		
+		$parametros = $ini->get($id_proyecto);
+		$nombre = $this->instalacion->get_nombre();
+		if ((trim($nombre) == '') && (! isset($parametros['instalacion']))) {
+			throw new toba_error('Falta especificar el nombre de la instalacion en el archivo instalacion.ini');
+		}		
+		$nombre_inst = (trim($nombre) != '') ? $nombre : $parametros['instalacion'];		
 		$rdi = new RDICliente($parametros['conector'], 
 							$parametros['repositorio'],
 							$parametros['usuario'],
 							$parametros['clave'],
 							$id_proyecto, 
-							$parametros['instalacion']);
+							$nombre_inst);
 
 		//Agrego un log para desarrollo
 		if (! $this->instalacion->es_produccion()) {
@@ -85,6 +90,6 @@ class toba_cliente_rdi
 		}		
 
 		return $rdi;
-    }
+	}
 }
 ?>
