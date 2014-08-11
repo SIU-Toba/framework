@@ -28,12 +28,32 @@ class comando_instalacion extends comando_toba
 		return $salida;
 	}
 	
+	function recuperar_parametro($lista, $parametro, $leyenda_alternativa) 
+	{
+		if (! isset($lista[$parametro])) {
+			$resultado = $this->consola->dialogo_ingresar_texto($leyenda_alternativa);
+		} else {
+			$resultado = $lista[$parametro];
+		}		
+		return $resultado;
+	}
+	
+	function recuperar_contenido_archivo($nombre)
+	{
+		$resultado = '';
+		if (file_exists($nombre)) {
+			$resultado = file_get_contents($nombre);
+		}
+		return $resultado;
+	}
+	
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba']. 
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
@@ -62,14 +82,15 @@ class comando_instalacion extends comando_toba
 			throw new toba_error("ERROR: El comando 'php' no se encuentra en el path actual del sistema");
 		}
 
+		$param = $this->get_parametros();		
 		//--- Borra la instalacion anterior??
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
 		}
 		//--- Crea la INSTALACION		
-		$id_desarrollo = $this->definir_id_grupo_desarrollo();
-		$tipo_instalacion = $this->definir_tipo_instalacion_produccion();
-		$nombre = $this->definir_nombre_instalacion();		
+		$id_desarrollo = (isset($param['-d'])) ? $param['-d'] : $this->definir_id_grupo_desarrollo();
+		$tipo_instalacion = (isset($param['-t'])) ? $param['-t'] : $this->definir_tipo_instalacion_produccion();
+		$nombre = (isset($param['-n'])) ? $param ['-n'] : $this->definir_nombre_instalacion();
 		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
 		$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : $this->get_entorno_id_instancia(true);		
 		
@@ -78,26 +99,32 @@ class comando_instalacion extends comando_toba
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
-				$profile = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Ubicación (ENTER utilizará localhost)', false);
-				if ($profile == ''){
+				$profile = $this->recuperar_parametro($param, '-h',  'PostgreSQL - Ubicación (ENTER utilizará localhost)');
+				if (trim($profile) == '') {
 					$profile = 'localhost';
-				}				
-				$puerto_tmp = $this->consola->dialogo_ingresar_texto( "PostgreSQL - Puerto (ENTER utilizará: $puerto)", false);
-				if ($puerto_tmp != ''){		
+				}			
+				
+				$puerto_tmp = $this->recuperar_parametro($param, '-p', "PostgreSQL - Puerto (ENTER utilizará: $puerto)");
+				if (trim($puerto_tmp) != '') {		
 					$puerto = $puerto_tmp;
 				}
-				$usuario = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Usuario (ENTER utilizará postgres)', false);
-				if ($usuario == '') {
+				
+				$usuario = $this->recuperar_parametro($param, '-u',  'PostgreSQL - Usuario (ENTER utilizará postgres)');
+				if (trim($usuario) == '') {
 					$usuario = 'postgres';
 				}
-				$clave = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Clave  (ENTER para usar sin clave)', false);
-				$base_temp = $this->consola->dialogo_ingresar_texto( "PostgreSQL - Base de datos (ENTER utilizará $base)", false);
-				if ($base_temp != ''){
+				
+				if (! isset($param['-c'])) {
+					$clave = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Clave  (ENTER para usar sin clave)', false);
+				} else {
+					$clave = $this->recuperar_contenido_archivo($param['-c']);
+				}
+				
+				$base_temp = $this->recuperar_parametro($param, '-b', "PostgreSQL - Base de datos (ENTER utilizará $base)");
+				if (trim($base_temp) != '') {
 					$base = $base_temp;
 				}
-				if ($puerto_tmp != ''){		
-					$puerto = $puerto_tmp;
-				}
+				
 				$datos = array(
 					'motor' => 'postgres7',
 					'profile' => $profile,
@@ -118,8 +145,11 @@ class comando_instalacion extends comando_toba
 			} while ($puede_conectar !== true);
 		}	
 		//--- Pido el password para el usuario por defecto
-		$pwd = $this->definir_clave_usuario_admin();
-				
+		if (! isset($param['-k'])) {	
+			$pwd = $this->definir_clave_usuario_admin();
+		} else {
+			$pwd = $this->recuperar_contenido_archivo($param['-k']);
+		}				
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
 		if ($this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
 			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya contiene un schema '$id_instancia', puede ingresar un nombre ".

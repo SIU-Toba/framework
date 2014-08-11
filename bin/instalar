@@ -4,4 +4,4 @@ TOBA_DIR=`pwd`
 export TOBA_DIR=`dirname $TOBA_DIR`
 export TOBA_INSTANCIA=desarrollo
 export PATH="$TOBA_DIR/bin:$PATH"
-php ../php/consola/run.php instalacion instalar
+php ../php/consola/run.php instalacion instalar $*
