@@ -427,7 +427,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		copy(toba_dir(). '/php/modelo/var/smtp.ini',	self::dir_base().'/smtp.ini');
 		copy(toba_dir(). '/php/modelo/var/ldap.ini', 	self::dir_base().'/ldap.ini');
 		copy(toba_dir(). '/php/modelo/var/openid.ini', 	self::dir_base().'/openid.ini');
-		copy(toba_dir(). '/php/modelo/var/cas.ini', 	self::dir_base().'/cas.ini');		
+		copy(toba_dir(). '/php/modelo/var/cas.ini', 	self::dir_base().'/cas.ini');
+		copy(toba_dir(). '/php/modelo/var/rdi.ini', 	self::dir_base().'/rdi.ini');	
 		
 		//Se genera archivo configuracion saml
 		copy(toba_dir(). '/php/modelo/var/saml.ini', 	self::dir_base().'/saml.ini');		
