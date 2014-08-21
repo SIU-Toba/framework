@@ -115,7 +115,7 @@ class toba_ei_calendario extends toba_ei
 	 */
 	function set_iniciar_en_domingo($valor)
 	{
-		$this->_calendario->set_start_on_sun($valor);
+		$this->_calendario->set_startOnSun($valor);
 	}
 	
 	/**
@@ -124,7 +124,7 @@ class toba_ei_calendario extends toba_ei
 	 */
 	function set_sab_seleccionable($valor)
 	{
-		$this->_calendario->set_sat_seleccion($valor);
+		$this->_calendario->set_enableSatSelection($valor);
 	}
 	
 	/**
@@ -133,7 +133,34 @@ class toba_ei_calendario extends toba_ei
 	 */
 	function set_dom_seleccionable($valor)
 	{
-		$this->_calendario->set_sun_seleccion($valor);
+		$this->_calendario->set_enableSunSelection($valor);
+	}
+
+	/**
+	 * Habilita o deshabilita seleccionar solo dias pasados
+	 * @param boolean $valor
+	 */
+	function set_seleccionar_solo_dias_pasados($valor)
+	{
+		$this->_calendario->set_seleccionar_solo_dias_pasados($valor);
+	}
+
+	/**
+	 * Habilita o deshabilita el número de semana en el calendario
+	 * @param boolean $valor
+	 */
+	function set_mostrar_semanas($valor)
+	{
+		$this->_calendario->set_mostrar_semanas($valor);
+	}
+
+	/**
+	 * Habilita o deshabilita el resaltado del día actual
+	 * @param boolean $valor
+	 */
+	function set_resaltar_siempre_dia_actual($valor)
+	{
+		$this->_calendario->set_resaltar_siempre_dia_actual($valor);
 	}
 	
 	/**
@@ -439,6 +466,13 @@ class calendario //extends activecalendar
 	protected $solo_pasados = true;
 	protected $siempre_resalta_dia_actual = false;
 	
+	/*
+	********************************************************************************
+	Permitir la selección de los días sábado y domingo
+	********************************************************************************
+	*/
+	protected $enableSunSelection=false;
+	protected $enableSatSelection=false;
 	
 	/*
 	********************************************************************************
@@ -571,6 +605,42 @@ class calendario //extends activecalendar
 	function set_resaltar_siempre_dia_actual($resaltar)
 	{
 		$this->siempre_resalta_dia_actual = $resaltar;
+	}
+	
+	/**
+	 * Determina si el sábado es dia seleccionable
+	 * @return boolean 
+	 */
+	function get_enableSatSelection()
+	{
+		return $this->enableSatSelection;
+	}
+
+	/**
+	 * Marca / desmarca el sábado como dia seleccionable
+	 * @param boolean $valor
+	 */
+	function set_enableSatSelection($valor)
+	{
+		$this->enableSatSelection = $valor;
+	}
+
+	/**
+	 *  Determina si el domingo es dia seleccionable
+	 * @return boolean
+	 */
+	function get_enableSunSelection()
+	{
+		return $this->enableSunSelection;
+	}
+
+	/**
+	 * Marca /  desmarca el domingo como dia seleccionable
+	 * @param boolean $valor
+	 */
+	function set_enableSunSelection($valor)
+	{
+		$this->enableSunSelection = $valor;
 	}
 	
 	/*
@@ -970,13 +1040,7 @@ class calendario //extends activecalendar
 	private $calEventContentUrl=false;
 	private $calEventContentId=false;
 	private $calInit=0;
-	/*
-	********************************************************************************
-	Permitir la selección de los días sábado y domingo
-	********************************************************************************
-	*/
-	private $enableSunSelection=false;
-	private $enableSatSelection=false;
+	
 	/*
 	********************************************************************************
 	Día, Mes, Año y Semana actualmente seleccionados
@@ -1667,22 +1731,6 @@ class calendario //extends activecalendar
 	protected function get_dayLinks()
 	{
 		return $this->dayLinks;
-	}
-	
-	/**
-	 * @ignore
-	 */
-	protected function get_enableSatSelection()
-	{
-		return $this->enableSatSelection;
-	}
-	
-	/**
-	 * @ignore
-	 */
-	protected function get_enableSunSelection()
-	{
-		return $this->enableSunSelection;
 	}
 	
 }
