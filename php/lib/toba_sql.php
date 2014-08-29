@@ -202,6 +202,9 @@
 		if(!is_array($datos)){
 			throw new toba_error("Los datos tienen que ser un array");	
 		}
+		if (!$db) {
+			$db = toba::db();
+		}
 		foreach(array_keys($datos) as $columna){
 			if(is_null( $datos[$columna] )){
 				$datos[$columna] = "NULL";//Identifico los nulos
@@ -292,6 +295,62 @@
 		$sql .=	"\n);\n";
 		return $sql;	
 	}	
+
+	/**
+	 * Convierte un array asociativo en una sentencia de UPDATE
+	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
+	 * @param array $where Array asociativo con el formato 'columna' => 'valor'
+	 */
+	function sql_array_a_update($tabla, $datos, $where, $db = null)
+	{
+		if(!is_array($datos)){
+			throw new toba_error("Los datos tienen que ser un array");
+		}
+		$datos = limpiar_array_sql($datos, $db);
+
+		$updates = array();
+		foreach ($datos as $k => $v) {
+			$updates[] = "$k = $v";
+		}
+		$set = implode(',', $updates);
+
+		if(!empty($where)){
+			$where = limpiar_array_sql($where, $db);
+			$wheres = array();
+			foreach ($where as $k => $v) {
+				$wheres[] = "$k = $v";
+			}
+			$w = "WHERE ".implode(' AND ', $wheres);
+		}else {
+			$w = '';
+		}
+
+		$sql = "UPDATE $tabla SET $set $w;";
+		return $sql;
+	}
+
+
+	function limpiar_array_sql($datos, $db = null)
+	{
+		if (!$db) {
+			$db = toba::db();
+		}
+		foreach (array_keys($datos) as $columna) {
+			if (is_null($datos[$columna])) {
+				$datos[$columna] = "NULL"; //Identifico los nulos
+			} else {
+				if (is_resource($datos[$columna])) {
+					$datos[$columna] = stream_get_contents($datos[$columna]);
+				}
+				if (is_bool($datos[$columna])) {
+					$datos[$columna] = ($datos[$columna]) ? 'TRUE' : 'FALSE';
+				} else {
+					$datos[$columna] = $db->quote($datos[$columna]); //Escapo caracteres
+				}
+			}
+		}
+		return $datos;
+	}
 
 	/**
 	 * Saca construcciones SQL de un STRING (necesario para concatenar el texto del usuario en el WHERE de un SQL)
