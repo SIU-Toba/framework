@@ -2695,9 +2695,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//--- Empaqueta el proyecto actual
 		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
 		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
-		$excepciones = array('toba_editor');																//Se excluye explicitamente al editor
+		$excepciones = array('toba_editor', 'lib/toba');																//Se excluye explicitamente al editor
 		if (isset($empaquetado['excepciones_proyecto'])) {
 			$excepciones = explode(',', $empaquetado['excepciones_proyecto']);
+			$excepciones[] = 'lib/toba';
 			$origen = $this->get_dir();
 			foreach (array_keys($excepciones) as $i) {
 				$excepciones[$i] = $origen.'/'.trim($excepciones[$i]);
