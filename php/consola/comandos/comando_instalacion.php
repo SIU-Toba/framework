@@ -31,7 +31,7 @@ class comando_instalacion extends comando_toba
 	function recuperar_parametro($lista, $parametro, $leyenda_alternativa) 
 	{
 		if (! isset($lista[$parametro])) {
-			$resultado = $this->consola->dialogo_ingresar_texto($leyenda_alternativa);
+			$resultado = $this->consola->dialogo_ingresar_texto($leyenda_alternativa, false);
 		} else {
 			$resultado = $lista[$parametro];
 		}		
