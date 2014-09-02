@@ -2595,7 +2595,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		// --------- Genero el archivo instalador.ini con la revision del codigo del instalador -------
 		$svn = new toba_svn();
 		$rev = $svn->get_revision($empaquetado['path_instalador']);	
-		if (is_null($rev)) {
+		if (trim($rev) == '') {
 			$rev = 'ND';
 		}			
 		$inst_ini = new toba_ini($empaquetado['path_destino'].'/instalador.ini');

@@ -198,6 +198,7 @@ class toba_svn
 		} catch(toba_error $e) {
 			toba::logger()->debug("SVN: ". $e->getMessage());
 		}
+		return '';
 	}
 
 	function get_revisiones_dir_recursivos($path)
