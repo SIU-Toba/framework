@@ -26,7 +26,7 @@ class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenti
 				$this->bind_dn = $datos['basicos']['bind_dn'];
 			}
 			if (isset($datos['basicos']['bind_pass'])) {
-				$this->bind_pas = $datos['basicos']['bind_pass'];
+				$this->bind_pass = $datos['basicos']['bind_pass'];
 			}
 			if (isset($datos['basicos']['filter'])) {
 				$this->filter = $datos['basicos']['filter'];
