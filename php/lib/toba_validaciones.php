@@ -12,19 +12,20 @@ class toba_validaciones{
 	 * @param string $cbu cadena que contiene el cbu a validar.
 	 * @return true o false según sea válido o no.
 	 */
-	static function cbu_valido($cbu){	
+	static function cbu_valido($cbu) {	
 		if ( strlen($cbu) <> 22 ) {
 			return false;
-		}else{
+		} else {
 			$digitos_cbu = str_split($cbu);
-			for ($i = 0; $i<=21; $i++){
-				if ( !is_numeric($digitos_cbu[$i]) ) 
+			for ($i = 0; $i <= 21; $i++) {
+				if ( !is_numeric($digitos_cbu[$i])) {
 					return false;
+				}
 			}
-			if ($digitos_cbu[7] <> self::verificador($digitos_cbu, 0, 6)) {
+			if ($digitos_cbu[7]  != self::verificador($digitos_cbu, 0, 6)) {
 				return false;
 			}
-			if ($digitos_cbu[21] <> self::verificador($digitos_cbu, 8, 20)) {
+			if ($digitos_cbu[21] != self::verificador($digitos_cbu, 8, 20)) {
 				return false;
 			}
 			return true;
@@ -41,7 +42,7 @@ class toba_validaciones{
 	 * @return integer digito verificador de la cadena $numero
 	 */
 	private function verificador($numero, $pos_inicial, $pos_final){
-		$ponderador = array(3,1,7,9);
+		$ponderador = array(3, 1, 7, 9);
 		$suma = 0;
 		$j = 0;
 		for ($i = $pos_final; $i >= $pos_inicial; $i--){

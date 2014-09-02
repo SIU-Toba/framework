@@ -58,26 +58,10 @@ class toba_ef_cbu extends toba_ef_editable {
 	{
 		if (strlen(trim($cbu)) != 22) {
 			return false;
-		}
-		$rta = true;
-		$v = str_split($cbu);
-
-		//Valido bloque 1
-		$suma1 = $v[0]*7 + $v[1]*1 + $v[2]*3 + $v[3]*9 + $v[4]*7 + $v[5]*1 + $v[6]*3;
-		$d1 =  10 - intval(substr($suma1, -1, 1));
-		if ($d1 !=  $v[7]) {
-			$rta = false;
-		}
-				
-		//Valido Bloque 2
-		$suma2 = $v[8]*3 + $v[9]*9 + $v[10]*7 + $v[11]*1 + $v[12]*3 + $v[13]*9 + $v[14]*7 + $v[15]*1 + $v[16]*3 + $v[17]*9 + $v[18]*7 + $v[19]*1 + $v[20]*3 ;
-		$d2 =  10 - intval(substr($suma2, -1, 1));
-		if( $d2 !=  $v[21]) {
-			$rta = false;
-		}
-		//ei_arbol(array( $suma1, $d1, $v[7], $d2, $v[21] ));		
+		}		
+		$rta = toba_validaciones::cbu_valido(trim($cbu));
 		if (!$rta) {
-			return "CBU inv√°lido";
+			return "CBU inv·lido";
 		}		
 		return true;
 	}
