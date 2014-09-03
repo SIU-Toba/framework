@@ -170,7 +170,9 @@ class ci_cliente_rest extends toba_ci
 	function evt__put__persona($datos)
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->put('personas/'.$datos['id'], null, rest_encode($datos));
+		$id = $datos['id'];
+		unset($datos['id']);
+		$request = $cliente->put('personas/'.$id, null, rest_encode($datos));
 		try {
 			$response = $request->send();
 			$this->debug($request, $response);

@@ -214,9 +214,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'30000253', --objeto_ei_formulario_fila
 	'30000181', --objeto_ei_formulario
 	'toba_referencia', --objeto_ei_formulario_proyecto
-	'fecha_nac', --identificador
+	'fecha_nacimiento', --identificador
 	'ef_editable_fecha', --elemento_formulario
-	'fecha_nac', --columnas
+	'fecha_nacimiento', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden

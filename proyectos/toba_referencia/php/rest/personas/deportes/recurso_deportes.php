@@ -1,6 +1,7 @@
 <?php
 require_once("modelo/modelo_persona.php");
 
+use rest\lib\rest_hidratador;
 use rest\rest;
 
 
@@ -15,7 +16,7 @@ class recurso_deportes implements \rest\lib\modelable
 		return $models = array(
 			'Deporte' => array(
 				'deporte' => array('type' => 'integer'),
-				'dia_semana' => array('type' => 'string'),
+				'dia' => array('type' => 'string', '_mapeo' => 'dia_semana'),
 				'hora_inicio' => array('type' => 'string'),
 				'hora_fin' => array('type' => 'string')
 			)
@@ -34,7 +35,8 @@ class recurso_deportes implements \rest\lib\modelable
     {
 	    //si estuviese en el padre, se llamaria como get_deportes_list
 		$deportes = modelo_persona::get_deportes($id_persona);
-		rest::response()->get($deportes);
+	    $deportes_vista = rest_hidratador::hidratar(current($this->_get_modelos()), $deportes);
+		rest::response()->get($deportes_vista);
     }
 
 }

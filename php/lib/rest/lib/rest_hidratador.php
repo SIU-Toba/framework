@@ -28,6 +28,42 @@ class rest_hidratador {
 		return $h[0];
 	}
 
+	/**
+	 * Revierte un objeto hidratado - Deberìa ser el formato que maneja el usuario, por lo tanto
+	 * puede usarse para mapear el input del usuario al formato del modelo.
+	 * @param $data array la fila para deshidratar
+	 * @param $spec_hidratar
+	 * @param array $nueva_fila Se utiliza para poder llamar la funcion recursivamente.
+	 *                          Posiblemente no se necesite utilizarla en la llamada inicial
+	 * @return array la fila deshidratado
+	 */
+	static function deshidratar_fila($data, $spec_hidratar, &$nueva_fila = array())
+	{
+
+		foreach ($spec_hidratar as $key => $campo) {
+			if(!is_array($campo)){ //si no proveen todos los campos no los incluyo.
+				if(isset($data[(string)$campo]))
+					$nueva_fila[(string)$campo] = $data[(string)$campo]; // 2 => 'campo'
+				continue;
+			}
+			if(!isset($data[$key])) continue;
+
+			if(isset($campo['_mapeo'])){// "nombre" => array('_mapeo' => "otro nombre",
+				$nueva_fila[$campo['_mapeo']] = $data[$key];
+				continue;
+			}
+			if(isset($campo['_compuesto'])){
+				//pongo en la misma fila, las columnas del compuesto
+				self::deshidratar_fila($data, $spec_hidratar['_compuesto'], $nueva_fila);
+				continue;
+			}
+			//pasa derecho
+			$nueva_fila[$key] = $data[$key];
+		}
+
+		return $nueva_fila;
+	}
+
 	protected static function aplicar_spec_fila($spec, $fila)
 	{
 		$nueva_fila = array();

@@ -23,14 +23,14 @@ class rest_validador
 	const TIPO_NUMERIC = 'numerico';
 	const TIPO_ALPHA = 'alpha';
 	const TIPO_ALPHANUM = 'alphanum';
-	const TIPO_DATE = 'date';
-	const TIPO_TIME = 'time';
-	const TIPO_LONGITUD = 'longitud';
+	const TIPO_DATE = 'date'; //Parametros: format -> http://php.net/manual/en/datetime.createfromformat.php
+	const TIPO_TIME = 'time'; //Parametros: format -> http://php.net/manual/en/datetime.createfromformat.php
+	const TIPO_LONGITUD = 'longitud'; //Parametros: format -> min, max
 	const OBLIGATORIO = 'obligatorio';
 	const TIPO_TEXTO = 'texto';
 	const TIPO_CUSTOM = 'custom';
 	const TIPO_MAIL = 'mail';
-	const TIPO_ENUM = 'enum';
+	const TIPO_ENUM = 'enum';//Parametros: array(opc1, opc2 ..)
 
 	const MAIL_MAX_LENGTH = 127;
 
@@ -38,22 +38,38 @@ class rest_validador
 	 * Todos los campos en los datos tienen que estar en las reglas (con un array vacio al menos)
 	 * Esto es para que no se introduzcan campos no desados y se puedan procesar automaticamente para hacer sqls.
 	 * Si se ingresan campos no aceptados, se lanza un error.
+	 * Para la especificacion se utiliza la misma que el hidratador, agrupando en un array _validar las reglas.
+	 * Notar las reglas que tienen parametros.
 	 * Ejemplo:
 	 * rest_validador::validar($data, array(
-	 * 'id_curso_externo' => array(rest_validador::TIPO_LONGITUD => array('min' =>1, 'max' => 50), rest_validador::OBLIGATORIO),
-	 * 'nombre'           => array(rest_validador::OBLIGATORIO),
-	 * 'id_plataforma'    => array(rest_validador::TIPO_INT),
-	 * 'estado'           => array(rest_validador::TIPO_ENUM => array('A', 'B'))
+	 * 'id_curso_externo' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' =>1, 'max' => 50), rest_validador::OBLIGATORIO )),
+	 * 'nombre'           => array(),
+	 * 'plataforma'    => array( '_mapeo' => 'id_plat', '_validar' => (rest_validador::TIPO_INT))
 	 * );
 	 * @param $data
-	 * @param $reglas_spec array array( 'campo1' => array('es_entero', 'entre' => array(0, 2) ..)
-	 * @throws rest_error con los erores de validacion
+	 * @param $reglas_spec array
+	 * @param $relajar_ocultos boolean no valida la obligatoriedad de los campos que no están presentes
+	 * @throws rest_error
 	 */
-	public static function validar($data, $reglas_spec)
+	public static function validar($data, $reglas_spec, $relajar_ocultos = false)
 	{
 		$errores = array();
 
-		foreach ($reglas_spec as $nombre_campo => $reglas) {
+		foreach ($reglas_spec as $nombre_campo => $spec_campo) {
+
+			if(is_array($spec_campo) && isset($spec_campo['_validar'])){
+				$reglas = $spec_campo['_validar'];
+			}else{
+				$reglas = array();
+			}
+
+			if($relajar_ocultos
+				&& !isset($data[$nombre_campo])
+				&& (array_search(self::OBLIGATORIO, $reglas)) !== false) {
+				unset($data[$nombre_campo]);
+				continue; //no valido
+			}
+
 			$valor_campo = (isset($data[$nombre_campo])) ? $data[$nombre_campo] : null;
 			unset($data[$nombre_campo]);
 

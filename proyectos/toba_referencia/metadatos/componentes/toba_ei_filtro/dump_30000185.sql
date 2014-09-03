@@ -190,8 +190,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'30000185', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'fecha', --tipo
-	'fecha_nac', --nombre
-	'fecha_nac', --expresion
+	'fecha_nacimiento', --nombre
+	'fecha_nacimiento', --expresion
 	'Fecha Nacimiento', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
