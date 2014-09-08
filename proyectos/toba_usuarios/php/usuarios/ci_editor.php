@@ -50,7 +50,7 @@ class ci_editor extends toba_ci
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
 		} else {						//Chequeamos que la composicion de la clave sea valida			
-			$largo_clave = $this->get_largo_pwd();
+			$largo_clave =  toba_parametros::get_largo_pwd($this->s__proyecto);
 			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
 		}
 		
@@ -68,7 +68,7 @@ class ci_editor extends toba_ci
 			$datos['clave'] = self::clave_falsa;
 		}
 
-		$largo_clave = $this->get_largo_pwd();		
+		$largo_clave =  toba_parametros::get_largo_pwd($this->s__proyecto);
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
 		$form->ef('clave')->set_descripcion("La clave debe tener no menos de $largo_clave caracteres, entre letras mayusculas, minusculas, numeros y simbolos");
 		return $datos;
@@ -244,16 +244,6 @@ class ci_editor extends toba_ci
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
 		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($dato_encriptado), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
-	}
-	
-	protected function get_largo_pwd()
-	{
-		if (isset($this->s__proyecto)) {
-			$largo_clave = toba::proyecto($this->s__proyecto)->get_parametro('proyecto', 'pwd_largo_minimo', null, false);
-		} else {
-			$largo_clave = toba::instancia()->get_largo_minimo_password();
-		}
-		return $largo_clave;
-	}
+	}	
 }
 ?>

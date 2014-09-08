@@ -156,6 +156,14 @@ class toba_instancia
 		}
 	}
 	
+	function get_parametro_seccion_proyecto($proyecto, $parametro) 
+	{
+		if (isset($this->memoria[$proyecto][$parametro])) {
+			return $this->memoria[$proyecto][$parametro];
+		}
+		return null;
+	}
+	
 	//----------------------------------------------------------------
 	// DATOS
 	//----------------------------------------------------------------
@@ -420,13 +428,16 @@ class toba_instancia
 		}
 	}
 			
-	function get_lista_claves_usadas($usuario, $periodo_tiempo=null)
+	function get_lista_claves_usadas($usuario, $periodo_tiempo=null, $no_repetidas=null)
 	{	
 		$params = array('usuario' => $usuario);		
 		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario '; 		
 		if (! is_null($periodo_tiempo)) {
 			$sql .= ' AND (current_date - fecha_cambio)::integer <= :periodo';			
 			$params['periodo'] = $periodo_tiempo;
+		}
+		if (! is_null($no_repetidas)) {
+			$sql .= ' ORDER BY fecha_cambio DESC  LIMIT ' . $no_repetidas;
 		}
 		try {
 			$id = $this->get_db()->sentencia_preparar($sql);

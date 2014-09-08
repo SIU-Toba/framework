@@ -20,6 +20,12 @@ class ci_login extends toba_ci
 			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
 		}
 		$this->s__item_inicio = null;
+		/*if(isset($this->s__datos)) {							//Si hay valores de inicios viejos, se limpian.
+			unset($this->s__datos);
+		}*/
+		if (isset($this->s__datos_openid)) {
+			unset($this->s__datos_openid);
+		}
 	}
 
 	function ini()
@@ -273,22 +279,24 @@ class ci_login extends toba_ci
 	{
 		$usuario = $this->s__datos['usuario'];		
 		if (toba::manejador_sesiones()->invocar_autenticar($usuario, $datos['clave_anterior'], null)) {		//Si la clave anterior coincide	
+			 $proyecto = toba::proyecto()->get_id();
 			//Verifico que no intenta volver a cambiarla antes del periodo permitido
-			$dias_minimos = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', false);
+			$dias_minimos = toba_parametros::get_clave_validez_minima($proyecto);
 			if (! is_null($dias_minimos)) {
 				if (! toba_usuario::verificar_periodo_minimo_cambio($usuario, $dias_minimos)) {
 					toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
 					return;
 				}
 			}		
-			//Obtengo el largo minimo de la clave
-			$largo_clave = toba::proyecto()->get_parametro('proyecto', 'pwd_largo_minimo', false);
+			//Obtengo el largo minimo de la clave			
+			$largo_clave = toba_parametros::get_largo_pwd($proyecto);
 			try {
 				toba_usuario::verificar_composicion_clave($datos['clave_nueva'], $largo_clave);
 			
 				//Obtengo los dias de validez de la nueva clave
-				$dias = toba::proyecto()->get_parametro('proyecto', 'dias_validez_clave', false);
-				toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario);
+				$dias = toba_parametros::get_clave_validez_maxima($proyecto);
+				$ultimas_claves = toba_parametros::get_nro_claves_no_repetidas($proyecto);
+				toba_usuario::verificar_clave_no_utilizada($datos['clave_nueva'], $usuario, $ultimas_claves);
 				toba_usuario::reemplazar_clave_vencida($datos['clave_nueva'], $usuario, $dias);
 				$this->es_cambio_contrasenia = true;				//Bandera para el post_eventos
 			} catch(toba_error_pwd_conformacion_invalida $e) {

@@ -99,9 +99,9 @@ class toba_usuario implements toba_interface_usuario
 		}
 	}
 	
-	static function verificar_clave_no_utilizada($clave_plana, $usuario) 
-	{
-		$claves = toba::instancia()->get_lista_claves_usadas($usuario);
+	static function verificar_clave_no_utilizada($clave_plana, $usuario, $no_repetidas) 
+	{		
+		$claves = toba::instancia()->get_lista_claves_usadas($usuario, null, $no_repetidas);
 		if (! empty($claves)) {
 			foreach($claves as $clave) {
 				$test_key = encriptar_con_sal($clave_plana, $clave['algoritmo'], $clave['clave']);			

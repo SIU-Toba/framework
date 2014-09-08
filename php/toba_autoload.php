@@ -425,6 +425,7 @@ class toba_autoload
 		'toba_memoria' => 'nucleo/lib/toba_memoria.php',
 		'toba_mensajes' => 'nucleo/lib/toba_mensajes.php',
 		'toba_notificacion' => 'nucleo/lib/toba_notificacion.php',
+		'toba_parametros' => 'lib/toba_parametros.php',
 		'toba_parser_ayuda' => 'nucleo/lib/toba_parser_ayuda.php',
 		'toba_perfil_datos' => 'nucleo/lib/toba_perfil_datos.php',
 		'toba_perfil_funcional' => 'nucleo/lib/toba_perfil_funcional.php',

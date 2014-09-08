@@ -89,6 +89,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 	}
 	
+	function get_parametro_seccion_proyecto($proyecto, $parametro) 
+	{
+		if (isset($this->datos_ini[$proyecto][$parametro])) {
+			return $this->datos_ini[$proyecto][$parametro];
+		}
+		return null;
+	}
+	
 	//-----------------------------------------------------------
 	//	Manejo de subcomponentes
 	//-----------------------------------------------------------
@@ -220,7 +228,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->cargar_info_ini();
 	}
 
-    function get_url_proyecto_pers($proyecto)
+	function get_url_proyecto_pers($proyecto)
 	{
 		if (isset($this->datos_ini[$proyecto]['url_pers'])) {
 			return $this->datos_ini[$proyecto]['url_pers'];

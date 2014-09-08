@@ -611,11 +611,12 @@ class toba_manejador_sesiones
 			throw new toba_error_usuario('Finalizada por el usuario');
 		}
 		// Controlo el tiempo de no interaccion
-		$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
-		if($ventana != 0){ // 0 implica desactivacion
+		$proyecto = toba::proyecto()->get_id();
+		$ventana = toba_parametros::get_session_no_interaccion($proyecto);
+		if($ventana != 0) { // 0 implica desactivacion
 			$ultimo_acceso = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
-			if ( $tiempo_desconectado >= $ventana){
+			if ( $tiempo_desconectado >= $ventana) {
 				toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar 
 							con el servidor. Por razones de seguridad su sesion ha sido eliminada. 
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
@@ -624,11 +625,11 @@ class toba_manejador_sesiones
 			}
 		}
 		// Controlo el tiempo maximo de sesion
-		$maximo = toba::proyecto()->get_parametro('sesion_tiempo_maximo_min');
+		 $maximo = toba_parametros::get_session_tiempo_maximo($proyecto);
 		if($maximo != 0){ // 0 implica desactivacion
 			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
-			if ( $tiempo_total >= $maximo){
+			if ( $tiempo_total >= $maximo) {
 				toba::notificacion("Se ha superado el tiempo de sesion permitido ($maximo minutos)
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.");
@@ -847,12 +848,14 @@ class toba_manejador_sesiones
 		if (!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
-			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');
-			if (isset($cant_max_intentos)) {				
-				$bloquear_usuario = (toba::proyecto()->get_parametro('validacion_bloquear_usuario') == '1');
-				$lanzar_excepcion = (toba::proyecto()->get_parametro('validacion_bloquear_usuario') == '2');
+			$proyecto = toba::proyecto()->get_id();
+			$cant_max_intentos = toba_parametros::get_intentos_validacion($proyecto);
+			if (isset($cant_max_intentos)) {
+				$accion_pedida = toba_parametros::get_debe_bloquear_usuario($proyecto);
+				$bloquear_usuario = ($accion_pedida == '1'); 
+				$lanzar_excepcion =  ($accion_pedida == '2'); 
 				//Bloqueo el Usuario o IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
-				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
+				$ventana_temporal = toba_parametros::get_ventana_intentos($proyecto);
 				if ( $bloquear_usuario || $lanzar_excepcion) {
 					$intentos = $this->invocar_metodo_usuario('get_cantidad_intentos_usuario_en_ventana_temporal',array($id_usuario, $ventana_temporal));
 				}else{

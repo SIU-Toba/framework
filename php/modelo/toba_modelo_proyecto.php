@@ -13,6 +13,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private $aplicacion_comando;
 	private $aplicacion_modelo;
 	private $prefijo_dir_metadatos = 'metadatos';	
+	private $ini_proyecto;
 	const dump_prefijo_componentes = 'dump_';
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
@@ -327,6 +328,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->get_instancia()->get_id().' '.$this->get_id().' '.$nombre_fuente;
 	}
 
+	function get_parametro($seccion, $parametro=null, $obligatorio=true)
+	{
+		if (! isset($this->ini_proyecto)) {
+			$nombre_ini = 'proyecto.ini';
+			$path_ini = $this->get_dir().'/'.$nombre_ini;
+			if (! file_exists($path_ini)) {
+				throw new toba_error("No existe el archivo '$nombre_ini' en la raiz del proyecto");
+			}
+			$this->ini_proyecto = new toba_ini($path_ini);			
+		}
+		
+		if ($this->ini_proyecto->existe_entrada($seccion, $parametro)) {
+			return $this->ini_proyecto->get($seccion, $parametro);
+		} elseif ($obligatorio) {
+			throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+		}	
+		return null;
+	}
+	
 	//-----------------------------------------------------------
 	//	ACTUALIZAR SVN
 	//-----------------------------------------------------------

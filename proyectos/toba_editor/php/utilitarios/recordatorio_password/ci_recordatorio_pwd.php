@@ -76,7 +76,7 @@ class ci_recordatorio_pwd extends toba_ci
 	function evt__recordame()
 	{
 		//Primero verifico que se haya cumplimentado con el periodo minimo de vida de la contraseña
-		$dias = toba::proyecto()->get_parametro('proyecto', 'dias_minimos_validez_clave', null, false);
+		$dias = toba_parametros::get_clave_validez_minima(toba::proyecto()->get_id());
 		if (! is_null($dias)) {
 			if (! toba_usuario::verificar_periodo_minimo_cambio($this->s__usuario, $dias)) {
 				toba::notificacion()->agregar('No transcurrio el período minimo para poder volver a cambiar su contraseña. Intentelo en otra ocasión');
@@ -272,9 +272,14 @@ class ci_recordatorio_pwd extends toba_ci
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
 			//Recupero los dias de validez de la clave, si existe
-			$dias = toba::proyecto()->get_parametro('dias_validez_clave', null, false);
+			$dias = toba_parametros::get_clave_validez_maxima(toba::proyecto()->get_id());
 			
 			//Seteo la clave para el usuario
+			try {			
+				toba_usuario::verificar_clave_no_utilizada($clave_tmp, $datos_orig['id_usuario']);				
+			} catch (toba_error_usuario $e) {
+				toba::logger()->error('Se estan generando claves aleatorias repetidas!! '. $clave_tmp);				//Debe aparecer en el log para revisar la generacion de la clave aleatoria
+			}
 			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias);
 			
 			//Enviar nuevo mail con la clave temporaria
