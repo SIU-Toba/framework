@@ -93,40 +93,37 @@ class rest_hidratador {
 	}
 
 
-	protected static function aplicar_group_by($spec, $fuente)
+	protected static function aplicar_group_by($spec, $rs)
 	{
 
 		$grupos = array();
 		$id_fila = null;
 		if(isset($spec)){ //veo si tiene grupos
-			foreach ($spec as $columna => $fila_spec) {
-				if(is_array($fila_spec) && isset($fila_spec['_agrupado'])){
-					$grupos[$columna] = 1;
-				}
-				if(is_array($fila_spec) && isset($fila_spec['_id'])){
-					$id_fila = $fila_spec['_id'];
+			foreach ($spec as $columna_agrupar => $fila_spec) {
+				if(is_array($fila_spec) && isset($fila_spec['_agrupado_por'])){
+					$grupos[$columna_agrupar] = $fila_spec['_agrupado_por'];
 				}
 			}
 		}
 		if(empty($grupos)){
-			return $fuente;
-		}
-		if(!isset($id_fila)){
-			throw new rest_error_interno("Se debe especificar una columna '_id' para poder usar '_agrupado'");
+			return $rs;
 		}
 
+		$resultado = array();
+		foreach ($rs as $fila){
 
-		$return = array();
-		foreach ($fuente as $fila){
-			foreach ($grupos as $columna => $agrupado_por){
-				if(isset($return[$id_fila])){ //ya existe, solo mergeo los grupos
-					$return[$id_fila][$columna][] = $fila[$columna];
+			foreach ($grupos as $columna_agrupar => $agrupar_por){
+				$id_fila = $fila[$agrupar_por];
+				$valor_en_grupo = $fila[$columna_agrupar];
+
+				if(isset($resultado[$id_fila])){ //ya existe, solo mergeo los grupos
+					$resultado[$id_fila][$columna_agrupar][] = $valor_en_grupo;
 				}else{
-					$fila[$columna] = array($fila[$columna]); //pongo el grupo en un arreglo
-					$return[$id_fila] = $fila;
+					$fila[$columna_agrupar] = array($fila[$columna_agrupar]); //pongo el grupo en un arreglo
+					$resultado[$id_fila] = $fila;
 				}
 			}
 		}
-		return array_values($return);
+		return array_values($resultado);
 	}
 }
