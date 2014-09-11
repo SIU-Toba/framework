@@ -496,7 +496,7 @@ class toba_perfil_datos
 				} else {
 					$tabla = $temp[0];
 				}
-				if ( in_array($tabla, $gatillos) ) {	
+				if ( in_array(strtolower($tabla), $gatillos) ) {	
 					//La tabla pertenece a una dimension
 					if (isset($temp[2]) && strtolower($temp[1]) == 'as') {			//Que se trate de un AS para el alias
 						$alias = $temp[2];
