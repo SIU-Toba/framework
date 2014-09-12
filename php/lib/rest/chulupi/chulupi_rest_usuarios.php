@@ -2,18 +2,20 @@
 
 namespace rest\chulupi;
 
-use kernel\error_kernel;
 use kernel\kernel;
+use kernel\util\config;
+use rest\seguridad\autenticacion\usuarios_password;
 use rest\seguridad\autenticacion\usuarios_usuario_password;
 
-class chulupi_rest_usuarios implements	usuarios_usuario_password //devuelve si user/pass es valido para usar en basic
+class chulupi_rest_usuarios implements	usuarios_usuario_password
 {
 
+	protected $usuarios;
 
-
-	function __construct()
+	function __construct($path_archivo_usuarios)
 	{
-
+		$this->usuarios = config::load($path_archivo_usuarios);
+		klog($this->usuarios);
 	}
 
 
@@ -22,14 +24,8 @@ class chulupi_rest_usuarios implements	usuarios_usuario_password //devuelve si u
 	 */
 	function es_valido($usuario, $password)
 	{
-		//se usa para basic
-		$lm = kernel::sesion()->get_login_manager();
-		try {
-			return $lm->autenticar($usuario, $password);
-		}catch (error_kernel $error){
-
-		}
-		return false;
+		$fuente = kernel::localizador()->instanciar(kernel::proyecto()->get_fuente_usuarios());
+		return $fuente->autenticar_login_rest($usuario, $password);
 	}
 
 }
