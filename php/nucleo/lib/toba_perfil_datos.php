@@ -228,7 +228,7 @@ class toba_perfil_datos
 	/**
 	*	Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual
 	*/
-	function filtrar($sql, $fuente_datos=null,$dimensiones_desactivar = null)
+	function filtrar($sql, $fuente_datos=null,$dimensiones_desactivar = null, $gatillos_exclusivos = array())
 	{
 		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
 		if ($this->posee_restricciones($fuente_datos)) {
@@ -242,20 +242,27 @@ class toba_perfil_datos
 					$id_operador++;
 				}
 			} else {
-				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar);
+				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar, $gatillos_exlusivos);
 			}
 		}
 		toba::logger()->debug('SQL con perfil de datos: ' .$sql);
 		return $sql;
 	}
 	
-	function filtrar_sql($sql, $fuente_datos=null,$dimensiones_desactivar = null)
+	function filtrar_sql($sql, $fuente_datos=null,$dimensiones_desactivar = null, $gatillos_exclusivos=array())
 	{
 		$where = $where_join = array();
 		$this->operadores_asimetricos = array();
 		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 1 -- Busco GATILLOS en el SQL
-		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
+		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );		
+		if (! empty($gatillos_exclusivos)) {
+			foreach($tablas_gatillo_encontradas as $key=> $tabla) {					//Elimino todas aquellas tablas que no esten en los gatillos requeridos
+				if (! in_array($key, $gatillos_exclusivos)) {
+					unset($tablas_gatillo_encontradas[$key]);
+				}
+			}			
+		}
 		//-- 2 -- Busco las dimensiones implicadas
 		$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
 		//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
