@@ -242,7 +242,7 @@ class toba_perfil_datos
 					$id_operador++;
 				}
 			} else {
-				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar, $gatillos_exlusivos);
+				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar, $gatillos_exclusivos);
 			}
 		}
 		toba::logger()->debug('SQL con perfil de datos: ' .$sql);
