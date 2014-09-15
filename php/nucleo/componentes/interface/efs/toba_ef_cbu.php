@@ -26,7 +26,7 @@ class toba_ef_cbu extends toba_ef_editable {
 
 
 		if (!empty($this->estado)) {
-			return $this->validar_dbu($this->estado);
+			return $this->validar_cbu($this->estado);
 		} else {
 			return true;
 		}
@@ -37,7 +37,7 @@ class toba_ef_cbu extends toba_ef_editable {
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'" ';
 		$tab .= $this->get_info_placeholder();
-		$html = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),22,22, $this->clase_css, $this->javascript.' '.$tab);
+		$html = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),22,29, $this->clase_css, $this->javascript.' '.$tab);
 		return $html;
 	}
 
@@ -54,7 +54,7 @@ class toba_ef_cbu extends toba_ef_editable {
 	}
 	
 	/*************************************/
-	private function validar_dbu($cbu)
+	private function validar_cbu($cbu)
 	{
 		if (strlen(trim($cbu)) != 22) {
 			return false;
