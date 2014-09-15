@@ -46,7 +46,9 @@ class rest_hidratador {
 					$nueva_fila[(string)$campo] = $data[(string)$campo]; // 2 => 'campo'
 				continue;
 			}
-			if(!isset($data[$key])) continue;
+			if(! array_key_exists($key, $data)){
+				continue;
+			}
 
 			if(isset($campo['_mapeo'])){// "nombre" => array('_mapeo' => "otro nombre",
 				$nueva_fila[$campo['_mapeo']] = $data[$key];
