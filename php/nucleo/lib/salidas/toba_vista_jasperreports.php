@@ -48,10 +48,14 @@ class toba_vista_jasperreports
 		
 		//Creamos una variable que va a contener todas las librerías java presentes
 		$path_libs = toba_dir().'/php/3ros/JasperReports';
-		$handle = opendir($path_libs);
-		$classpath = "";
-		while (($lib = readdir($handle)) != false) {
-			$classpath .= 'file:'.$path_libs.'/'.$lib .';';
+		$classpath = '';
+		try {
+			$archivos = toba_manejador_archivos::get_archivos_directorio($path_libs, '|.*\.jar$|' , true);
+			foreach ($archivos as $archivo) {
+				$classpath .= "file:$archivo;" ;
+			}
+		} catch (toba_error $et) {
+			toba::logger()->error($et->getMessage());		//No se encontro el directorio, asi que no agrega nada al path y sigue el comportamiento que tenia con opendir			
 		}
 		try {
 			//Añadimos las librerías
@@ -60,7 +64,7 @@ class toba_vista_jasperreports
 			//Creamos el objeto JasperReport que permite obtener el reporte
 			$this->jasper = new JavaClass("net.sf.jasperreports.engine.JasperFillManager");		
 
-		} catch (JavaException $ex){
+		} catch (JavaException $ex) {
 			$trace = new Java("java.io.ByteArrayOutputStream");
 			$ex->printStackTrace(new Java("java.io.PrintStream", $trace));
 			print "java stack trace: $trace\n";
@@ -250,7 +254,7 @@ class toba_vista_jasperreports
 			// Pego los datos al jasper y creo el jprint		
 			$this->completar_con_datos();
 		}
-				
+		
 		$this->crear_pdf();		//Aca uno todos los jprint en uno solito
 		
 		// Borrar XML si fue pasado por modo_archivo
@@ -301,7 +305,6 @@ class toba_vista_jasperreports
 			} else {
 				$con1 = $this->conexion;
 			}
-			
 			//Creo el reporte finalmente con la conexion JDBC
 			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros, $con1);
 			$con1->close();
@@ -364,8 +367,7 @@ class toba_vista_jasperreports
 		//Especificamos los datos de la conexión, cabe aclarar que esta conexion es la del servidor de producción
 		$con->setUser($params['usuario']);
 		$con->setPassword($params['clave']);
-		$con1 = $con->getConnection();		
-		
+		$con1 = $con->getConnection();
 		if (isset($params['schema'])) {
 			$sql = "SET search_path = \"{$params['schema']}\", \"public\";";			
 			$stmt = $con1->createStatement();

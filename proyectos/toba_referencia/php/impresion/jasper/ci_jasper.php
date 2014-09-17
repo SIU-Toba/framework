@@ -10,7 +10,7 @@ class ci_jasper extends toba_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
-		$path = toba::proyecto()->get_path();
+		$path = toba::proyecto()->get_path(). '/exportaciones/jasper';
 		$archivos = toba_manejador_archivos::get_archivos_directorio($path, '/.jasper$/', true);
 		
 		$datos = array();
