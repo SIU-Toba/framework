@@ -280,6 +280,7 @@ class toba_personalizacion {
 		$generador->init_plan($this->dir_tablas . toba_personalizacion::nombre_plan);
 		$generador->generar_tablas($this->dir_tablas, $diff);
 		$generador->finalizar_plan();
+		$this->get_db()->set_schema($schema_o);
 	}
 	
 	protected function exportar_componentes()
@@ -301,6 +302,7 @@ class toba_personalizacion {
 		$generador->generar_componentes_modificadas($this->dir_componentes, $diff);
 		$generador->generar_componentes_nuevas($this->dir_componentes, $unicos_a);				
 		$generador->finalizar_plan();
+		$this->get_db()->set_schema($schema_o);
 	}
 	
 
@@ -478,6 +480,7 @@ class toba_personalizacion {
 			$this->get_db()->retrazar_constraints();
 			$this->get_proyecto()->get_instancia()->cargar_autonomo();
 			$this->get_db()->cerrar_transaccion();
+			$this->get_db()->set_schema($schema_o);
 		} catch (toba_error_db $e) {
 			$this->get_db()->abortar_transaccion();
 			toba_logger::instancia()->error($e->getMessage());
