@@ -10,12 +10,11 @@ use rest\seguridad\autenticacion\usuarios_usuario_password;
 class chulupi_rest_usuarios implements	usuarios_usuario_password
 {
 
-	protected $usuarios;
+	protected $fuente;
 
-	function __construct($path_archivo_usuarios)
+	function __construct()
 	{
-		$this->usuarios = config::load($path_archivo_usuarios);
-		klog($this->usuarios);
+		$this->fuente = kernel::localizador()->instanciar(kernel::proyecto()->get_fuente_usuarios());
 	}
 
 
@@ -24,8 +23,7 @@ class chulupi_rest_usuarios implements	usuarios_usuario_password
 	 */
 	function es_valido($usuario, $password)
 	{
-		$fuente = kernel::localizador()->instanciar(kernel::proyecto()->get_fuente_usuarios());
-		return $fuente->autenticar_login_rest($usuario, $password);
+		return $this->fuente->autenticar_login_rest($usuario, $password);
 	}
 
 }
