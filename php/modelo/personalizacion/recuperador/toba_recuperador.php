@@ -87,11 +87,12 @@ abstract class toba_recuperador {
 		foreach($registro_a as $key => $valor) {			
 			$valor_viejo = $registro_b[$key];
 			if ($valor !== $valor_viejo) {
-				if (is_null($valor_viejo)) $valor_viejo = toba_personalizacion::nulo;
+				if (is_null($valor_viejo)) {$valor_viejo = toba_personalizacion::nulo;}
+				if (is_null($valor)) { $valor = toba_personalizacion::nulo;}
 				$resultado['data'][$key] = array(
 					'actual' => $valor,
 					'original' => $valor_viejo
-			);
+				);
 				$modificado = true;
 			}
 		}

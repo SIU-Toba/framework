@@ -15,13 +15,13 @@ class toba_registro_insert extends toba_registro
 	}
 
 
-    function to_sql()
+	 function to_sql()
 	{
 		$cols	= array();
 		$values = array();
 		foreach ($this->columnas as $columna => $valor) {
 			$cols[]		= $columna;
-			$values[]	= $this->db->quote($valor['valor']);
+			$values[]	= (is_null($valor['valor'])) ? 'NULL' : $this->db->quote($valor['valor']);
 		}
 
 		$imp_cols	= implode(',', $cols);
