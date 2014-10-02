@@ -1955,7 +1955,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//-----------------------------------------------------------
 	//	Autoload
 	//-----------------------------------------------------------
-
+	
+	/**
+	 * @ignore
+	 */
+	private function get_dirs_no_autoload($path) 
+	{
+		$dirs = array();
+		$archivo = $path . '/noautoload.ini';
+		if (is_dir($path) && file_exists($archivo)) {
+			$ini = new toba_ini($archivo);
+			$dato = $ini->get('excluidos', 'directorios');	
+			if (trim($dato) != '')  {
+				$dirs = explode (',' , $dato);
+				$dirs = array_map('trim', $dirs);
+			}
+		}
+		return $dirs;
+	}
+	
 	/**
 	 * Genera el archivo de autoload de un proyecto
 	 * @param consola $consola la consola desde que se invocó el comando
@@ -1968,23 +1986,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$montaje_proyecto = $this->get_dir().'/php';
 		$id_proyecto = $this->get_id();
 		
-                if (!$generar_solo_pers) {
-                    $param = array(
-                            $montaje_proyecto => array(
-                                    'archivo_salida' => $id_proyecto.'_autoload.php',
-                                    'dirs_excluidos' => array(),
-                                    'extras' => array(),
-                            ),
-                    );
-                }
+		if (!$generar_solo_pers) {
+			$excluidos = $this->get_dirs_no_autoload($montaje_proyecto);
+			$param = array(
+					$montaje_proyecto => array(
+							'archivo_salida' => $id_proyecto.'_autoload.php',
+							'dirs_excluidos' => $excluidos,
+							'extras' => array(),
+					),
+			);
+		}
 
 		if ($this->es_personalizable()) {
 			$montaje_personalizacion = $this->get_dir().'/'.toba_personalizacion::dir_personalizacion.'/php';
 
+			$excluidos = $this->get_dirs_no_autoload($montaje_personalizacion);
 			// Los parámetros deberían ser cargados del proyecto.ini
 			$param[$montaje_personalizacion] = array(
 				'archivo_salida' => $id_proyecto.'_pers_autoload.php',
-				'dirs_excluidos' => array(),
+				'dirs_excluidos' => $excluidos,
 				'extras' => array(),
 			);
 		}
