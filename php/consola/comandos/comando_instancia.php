@@ -38,7 +38,7 @@ class comando_instancia extends comando_toba
 
 	/**
 	* Crea una instancia NUEVA. 
-	* @consola_parametros [-t mini] se crea una instancia reducida, útil para ejecutar proyectos compilados
+	* 
 	* @gtk_icono nucleo/agregar.gif 
 	* @gtk_no_mostrar 1
 	*/
@@ -72,11 +72,12 @@ class comando_instancia extends comando_toba
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia($id_instancia);
-		if($tipo == 'mini') {
+		$metodo_carga = 'cargar';
+		/*if($tipo == 'mini') {
 			$metodo_carga = 'cargar_tablas_minimas';
 		} else {
 			$metodo_carga = 'cargar';
-		}
+		}*/
 		try {
 			$instancia->$metodo_carga();
 		} catch ( toba_error_modelo_preexiste $e ) {
