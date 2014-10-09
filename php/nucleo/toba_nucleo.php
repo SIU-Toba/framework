@@ -154,7 +154,7 @@ class toba_nucleo
 	function acceso_rest()
 	{
 		try {
-			$this->iniciar_contexto_ejecucion();
+			$this->iniciar_contexto_rest();
 			$toba_rest = new toba_rest();
 			if (! $toba_rest->es_pedido_documentacion()) {
 				$toba_rest->conf__inicial();
@@ -164,7 +164,7 @@ class toba_nucleo
 				}
 			}
 			$toba_rest->ejecutar();
-			$this->finalizar_contexto_ejecucion();
+			$this->finalizar_contexto_rest();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
@@ -301,13 +301,24 @@ class toba_nucleo
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
+	protected function iniciar_contexto_rest()
+	{
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+			set_time_limit(0);
+		}
+		$this->controlar_requisitos_basicos();
+		$this->agregar_paths();
+		$this->registrar_autoloaders_proyecto();
+		toba::contexto_ejecucion()->conf__inicial();		
+	}		
+	
 	protected function agregar_paths()
 	{
-            agregar_dir_include_path(toba_proyecto::get_path_php());
-            if (toba::proyecto()->es_personalizable()) {
-                agregar_dir_include_path(toba_proyecto::get_path_pers_php());
-            }
-        }
+		agregar_dir_include_path(toba_proyecto::get_path_php());
+		if (toba::proyecto()->es_personalizable()) {
+			agregar_dir_include_path(toba_proyecto::get_path_pers_php());
+		}
+	}
         
 
 	protected function registrar_autoloaders_proyecto()
@@ -335,6 +346,14 @@ class toba_nucleo
 		}
 	}
 	
+	function finalizar_contexto_rest()
+	{
+		toba::contexto_ejecucion()->conf__final();
+		if (isset($this->solicitud)) {
+			$this->solicitud->guardar_cronometro();
+		}		
+	}
+	
 	function controlar_requisitos_basicos()
 	{
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
@@ -359,9 +378,7 @@ class toba_nucleo
 	{
 		if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {
 			return $_SERVER['TOBA_INSTALACION_DIR'];
-		} /*elseif (isset($_SERVER['toba_instalacion_dir'])) {
-			return $_SERVER['toba_instalacion_dir'];
-		}*/ else {
+		}else {
 			return self::toba_dir().'/instalacion';
 		}
 	}	
@@ -446,12 +463,6 @@ class toba_nucleo
 		if (toba_autoload::existe_clase($clase)) {
 			toba_autoload::cargar($clase);
 		}
-//		if(isset(toba_autoload::$clases[$clase])) {
-//			require_once( self::toba_dir() .'/php/'. toba_autoload::$clases[$clase]);
-//		} else {
-//			echo "$clase<br>";
-//		}
-
 	}
 
 	/**
