@@ -92,8 +92,12 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function iniciar_pedido_saml()
 	{
+		$param = array();
+		if (isset($this->parametros_url) && is_array($this->parametros_url)) {
+			$param['ReturnTo'] = $this->generar_url($this->parametros_url);
+		}
 		$this->saml_sp = new SimpleSAML_Auth_Simple($this->auth_source);
-		$this->saml_sp->requireAuth();
+		$this->saml_sp->requireAuth($param);
 		$this->saml_attributes = $this->saml_sp->getAttributes();
 		toba::logger()->debug("Attributos SAML: ".print_r($this->saml_attributes, true));
 	}

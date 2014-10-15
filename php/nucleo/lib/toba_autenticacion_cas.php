@@ -109,7 +109,11 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 		//$this->activar_debug();
 		phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
 		// Se genera la URL de servicio
-		$url = $this->generar_url(array());
+		$param = array();
+		if (isset($this->parametros_url) && is_array($this->parametros_url)) {
+			$param = $this->parametros_url;
+		}
+		$url = $this->generar_url($param);
 		phpCAS::setFixedServiceURL($url);	
 
 		// Tipo de auth
@@ -144,36 +148,6 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 			phpCAS::client(CAS_VERSION_2_0, $this->host, $this->puerto, $this->url, false);
 			$this->cliente_cas = true;
 		}
-	}
-	
-	private function generar_url($params) 
-	{
-		$url = toba_http::get_protocolo();
-		$url .= toba_http::get_nombre_servidor();
-		$url .= ":{$_SERVER['SERVER_PORT']}";
-		$url .= $this->strleft($_SERVER['REQUEST_URI'], '?');
-		
-		$param = array();
-		foreach(array_reverse($params) as $key => $valor) {
-			if (isset($valor)) {
-				$arranque_var = substr($key, 0, 1);
-				$clave_final = ($arranque_var == '_') ? $key : "_$key";
-				$param[] = urlencode($clave_final) . '=' . urlencode($valor);
-			}
-		}
-		if (! empty($param)) {
-			$url .= '?' . implode('&', $param);
-		}
-		return $url;
-	}
-	
-	private function strleft($s1, $s2) 
-	{
-		$length = strpos($s1, $s2);
-		if ($length !== false) {
-			return substr($s1, 0, $length);
-		} 		
-		return $s1;
-	}
+	}	
 }
 ?>
