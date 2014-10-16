@@ -60,6 +60,7 @@ class toba_memoria
 	private $celda_memoria_actual;		// Referencia al espacio de direcciones de la CELDA actual
 	private $memoria_global;			// Espacio de memoria global de la aplicacion.
 	private $memoria_instancia;			// Memoria global de la instancia.
+	private $url_original;
 	
 	static function instancia()
 	{
@@ -79,16 +80,16 @@ class toba_memoria
 		//toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
 		$this->id = uniqid('st');
-		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);
+		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);		
         //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
 		//		Este ID me permite ubicar la memoria correcta para el request ACTUAL
 		if(isset($_GET[apex_hilo_qs_id])){
 			$this->hilo_referencia=$_GET[apex_hilo_qs_id];
 		}else{
-            //Atencion, no hay hilo de referencia. CONTROLAR!!
-            //Esto tiene sentido solo para la pagina de logon (?) para el resto 
-            //del sistema implica que las cosas funcionen mal!
-        }
+			//Atencion, no hay hilo de referencia. CONTROLAR!!
+			//Esto tiene sentido solo para la pagina de logon (?) para el resto 
+			//del sistema implica que las cosas funcionen mal!
+		}
         
 		//-[2]- Que ITEM se solicito?
 		$this->item_solicitado = self::get_item_solicitado_original();
@@ -96,7 +97,7 @@ class toba_memoria
 		$this->parametros = array();
 		foreach (array_keys($_GET) as $clave) {
 			$this->parametros[utf8_decode($clave)] = utf8_decode($_GET[$clave]);
-		}
+		}		
 //		$this->parametros = $_GET;
 		//FALTA hacer un URL decode!!!		
 		$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
@@ -297,18 +298,18 @@ class toba_memoria
 	 */	
 	static function get_item_solicitado_original()
 	{
-		if (isset($_GET[apex_hilo_qs_item])){
+		if (isset($_GET[apex_hilo_qs_item])) {
 			$item = explode(apex_qs_separador,$_GET[apex_hilo_qs_item]);
-            if(count($item)==0){
+			if(count($item)==0) {
 				return null;
-			} elseif(count($item)==2){
+			} elseif(count($item)==2) {
 				return $item;
-			}else{
+			} else {
 				return null;
 			}
-		}else{
-            return null;//No hay parametro
-        }		
+		} else {
+			return null;//No hay parametro
+		}		
 	}
 	
 
@@ -322,6 +323,31 @@ class toba_memoria
 		}
 	}
 	
+	private function set_url_original($param)
+	{
+		$rs = filter_var($param, FILTER_VALIDATE_URL);
+		if ($rs !== false) {
+			$this->url_original = $rs;			
+		}
+	}
+	
+	function get_url_solicitud()
+	{
+		if (isset($this->url_original)) {
+			return $this->url_original;
+		} else {
+			$qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']: '';
+			$ru = isset($_SERVER['REQUEST_URI']) ?  $_SERVER['REQUEST_URI']: '';
+			if ($qs != '' && stripos($ru, $qs) !== FALSE) {			//Si el querystring esta dentro del request uri, lo anulamos.
+				$qs = '';
+			}
+			$proto = toba_http::get_protocolo();
+			$sn = toba_http::get_nombre_servidor();
+			$this->set_url_original($proto.$sn.$ru.$qs);
+		}
+		
+		return $this->url_original;
+	}
 	//----------------------------------------------------------------
 	//------------ MEMORIA -------------------------------------------
 	//----------------------------------------------------------------	
@@ -354,8 +380,8 @@ class toba_memoria
 	function dump()
 	{
 		ei_arbol( array(	'global proyecto' => $this->memoria_global,
-							'celda_actual' => $this->celda_memoria_actual, 
-							'instancia' => $this->memoria_instancia ),
+					'celda_actual' => $this->celda_memoria_actual, 
+					'instancia' => $this->memoria_instancia ),
 					'Estado INTERNO de toba::memoria()');
 	}
 
