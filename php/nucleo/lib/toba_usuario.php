@@ -73,10 +73,12 @@ class toba_usuario implements toba_interface_usuario
 	{
 		$clave_enc = quote(encriptar_con_sal($clave_plana, apex_pa_algoritmo_hash));
 		$sql = "UPDATE apex_usuario
-					SET		clave = $clave_enc ,
-					autentificacion = '". apex_pa_algoritmo_hash 
-			."' WHERE	usuario = ". quote($usuario);
-		toba::instancia()->get_db()->ejecutar($sql);
+					SET		clave = :clave ,
+					autentificacion = :autenticacion " 
+			."  WHERE  usuario = :usuario ;"; 
+		
+		$id = toba::instancia()->get_db()->sentencia_preparar($sql);
+		toba::instancia()->get_db()->sentencia_ejecutar($id, array('clave' => $clave_enc,  'autenticacion' => apex_pa_algoritmo_hash, 'usuario'=>$usuario));
 	}
 	
 	static function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null)
@@ -87,15 +89,28 @@ class toba_usuario implements toba_interface_usuario
 			$accion = "vencimiento = (now() + '$dias_validez days')::date"; 
 		}
 		
-		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario = ". quote($usuario);
+		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario =  :usuario ;"; //. quote($usuario);
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
 			self::set_clave_usuario($clave_plana, $usuario);
-			toba::instancia()->get_db()->ejecutar($sql);
+			$id = toba::instancia()->get_db()->sentencia_preparar($sql);
+			toba::instancia()->get_db()->sentencia_ejecutar($id, array( 'usuario'=> $usuario));			
 			toba::instancia()->get_db()->cerrar_transaccion();			
 		} catch (toba_error_db $e) {
 			toba::instancia()->get_db()->abortar_transaccion();
 			throw new toba_error_usuario('No se pudo modificar la clave, contacte a un administrador del sistema');
+		}
+	}
+	
+	static function forzar_cambio_clave($usuario) 
+	{
+		$sql = 'UPDATE apex_usuario SET forzar_cambio_pwd = 1 WHERE usuario =  :usuario ;' ;//. quote($usuario);		
+		try {
+			$id = toba::instancia()->get_db()->sentencia_preparar($sql);
+			toba::instancia()->get_db()->sentencia_ejecutar($id, array( 'usuario'=> $usuario));
+		} catch(toba_error_db $e) {
+			toba::logger()->debug('No se pudo forzar el cambio de contraseña en el usuario '. $usuario);
+			throw new toba_error_usuario('Hubo problemas al modificar el usuario ');
 		}
 	}
 	

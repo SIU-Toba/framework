@@ -242,17 +242,6 @@ class ci_recordatorio_pwd extends toba_ci
 	*/
 	function disparar_confirmacion_cambio()
 	{
-		//Aca tengo que generar una clave temporal y enviarsela para que confirme el cambio e ingrese con ella.
-		do {			
-			try {
-				$claveok = true;
-				$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
-				toba_usuario::verificar_composicion_clave($clave_tmp, 10);
-			} catch(toba_error_pwd_conformacion_invalida $e) {
-				$claveok = false;
-			}
-		} while(! $claveok);
-
 		//Recupero mail del usuario junto con el hash de confirmacion
 		$datos_rs = $this->recuperar_datos_solicitud_cambio($this->s__usuario, $this->randr);
 		if (empty($datos_rs)) {
@@ -262,12 +251,27 @@ class ci_recordatorio_pwd extends toba_ci
 		} else {
 			$datos_orig = current($datos_rs);
 		}
+				
+		//Aca tengo que generar una clave temporal y enviarsela para que confirme el cambio e ingrese con ella.
+		do {			
+			try {
+				$claveok = true;
+				$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
+				toba_usuario::verificar_composicion_clave($clave_tmp, 10);
+				toba_usuario::verificar_clave_no_utilizada($clave_tmp, $datos_orig['id_usuario']);	
+			} catch(toba_error_pwd_conformacion_invalida $e) {
+				$claveok = false;
+			} catch(toba_error_usuario $e) {
+				toba::logger()->error('Se estan generando claves aleatorias repetidas!! '. $clave_tmp);				//Debe aparecer en el log para revisar la generacion de la clave aleatoria
+				$claveok = false;
+			}
+		} while(! $claveok);
 		
 		//Armo el mail nuevo
 		$asunto = 'Nueva contraseña';
 		$cuerpo_mail = '<p>Se ha recibido su confirmación exitosamente, su contraseña fue cambiada a: </br>' .
 		$clave_tmp . '</br> Por favor en cuanto pueda cambiela a una contraseña más segura. </br> Gracias. </p> ';
-
+		
 		//Cambio la clave del flaco, envio el nuevo mail y bloqueo el random
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
@@ -275,12 +279,8 @@ class ci_recordatorio_pwd extends toba_ci
 			$dias = toba_parametros::get_clave_validez_maxima(toba::proyecto()->get_id());
 			
 			//Seteo la clave para el usuario
-			try {			
-				toba_usuario::verificar_clave_no_utilizada($clave_tmp, $datos_orig['id_usuario']);				
-			} catch (toba_error_usuario $e) {
-				toba::logger()->error('Se estan generando claves aleatorias repetidas!! '. $clave_tmp);				//Debe aparecer en el log para revisar la generacion de la clave aleatoria
-			}
 			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias);
+			toba_usuario::forzar_cambio_clave($datos_orig['id_usuario']);
 			
 			//Enviar nuevo mail con la clave temporaria
 			$mail = new toba_mail($datos_orig['email'], $asunto, $cuerpo_mail);
