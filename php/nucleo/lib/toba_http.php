@@ -77,12 +77,21 @@ class toba_http
 	{
 		$srv_name = $_SERVER['SERVER_NAME'];					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
 		$nombre = htmlentities($srv_name, ENT_QUOTES, 'UTF-8');		//Se debe usar UseCanonicalName junto con esta variable en la config del webserver
+		$puerto = self::get_puerto();								//Se debe usar UseCanonicalPhysicalPort  On para obtener el puerto real del webserver, sino es un nro cualquiera
+		if (trim($puerto) != '' && $puerto != '80' && $puerto != '443') {
+			$nombre .= ':'. $puerto;
+		}
 		return $nombre;
 	}
 	
 	static function usa_protocolo_seguro()
 	{
 		return (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'));
+	}
+	
+	static function get_puerto()
+	{
+		return $_SERVER['SERVER_PORT'];
 	}
 }
 ?>
