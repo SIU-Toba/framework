@@ -371,7 +371,7 @@ class toba_info_editores
 			WHERE
 					proyecto = $proyecto
 				AND $where
-			ORDER BY nombre;
+			ORDER BY nombre, item;
 		";
 		toba::logger()->debug($sql);
 		return toba_contexto_info::get_db()->consultar($sql);
@@ -1011,7 +1011,7 @@ class toba_info_editores
 						tiene_auditoria
 				FROM apex_fuente_datos
 				WHERE ( proyecto = $proyecto )
-				ORDER BY 2";
+				ORDER BY 2 ASC;";
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 	
@@ -1170,7 +1170,7 @@ class toba_info_editores
 	{
 		$sql = 'SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_msg
-				ORDER BY msg';
+				ORDER BY msg, indice';
 		if (! empty($clausulas)) {
 			$sql = sql_concatenar_where($sql, $clausulas);
 		}
@@ -1190,7 +1190,7 @@ class toba_info_editores
 	{
 		$sql = 'SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
 				FROM 	apex_objeto_msg
-				ORDER BY objeto_msg';
+				ORDER BY objeto_msg, indice';
 		if (! empty($clausulas)) {
 			$sql = sql_concatenar_where($sql, $clausulas);
 		}
@@ -1204,7 +1204,8 @@ class toba_info_editores
 		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
 		$sql = "SELECT proyecto, pto_control, descripcion
 					FROM apex_ptos_control
-					WHERE proyecto = $proyecto";
+					WHERE proyecto = $proyecto
+					ORDER BY pto_control;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -1391,8 +1392,7 @@ class toba_info_editores
 							clase || ' (' || archivo || ')' as descripcion
 					FROM	apex_consulta_php
 					WHERE	proyecto = $proyecto
-					ORDER BY clase
-		";
+					ORDER BY clase, consulta_php;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -1490,8 +1490,7 @@ class toba_info_editores
 							descripcion
 					FROM	apex_dimension
 					WHERE	proyecto = $proyecto
-					ORDER BY nombre
-		";
+					ORDER BY nombre, dimension;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -1553,8 +1552,7 @@ class toba_info_editores
 					servicio_web
 				FROM	apex_servicio_web
 				WHERE	proyecto = $proyecto
-				ORDER BY servicio_web
-		";
+				ORDER BY servicio_web ASC; ";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	//------------------------------------------------------------------------------

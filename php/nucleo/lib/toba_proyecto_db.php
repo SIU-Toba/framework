@@ -130,7 +130,7 @@ class toba_proyecto_db
 				AND dt.objeto = comp.objeto
 				AND dt.objeto_proyecto = comp.proyecto
 				AND comp.fuente_datos = $id_fuente
-				ORDER BY dt.objeto";
+				ORDER BY dt.objeto, dt.tabla";
 		$rs = $db->consultar($sql);
 		return rs_convertir_asociativo($rs, array('tabla'), 'objeto');
 	}
@@ -148,8 +148,8 @@ class toba_proyecto_db
 				apex_objeto
 			WHERE
 				proyecto = $proyecto
-				AND (identificador IS NOT NULL OR trim(identificador) = '');
-		";
+				AND (identificador IS NOT NULL OR trim(identificador) = '')
+			ORDER BY identificador, objeto;";
 		$rs = $db->consultar($sql);
 		$temp = array();
 		foreach($rs as $c) {
@@ -187,7 +187,7 @@ class toba_proyecto_db
 	             FROM apex_ptos_control_param 
 	            WHERE proyecto    = $proyecto
 	              AND pto_control = $pto_control
-				  ORDER BY parametro;
+			ORDER BY parametro;
 	        "); 
     }
 
@@ -197,14 +197,14 @@ class toba_proyecto_db
 		$proyecto = $db->quote($proyecto);
 		$pto_control = $db->quote($pto_control);    	
 		return $db->consultar(
-          "SELECT archivo,
-                  clase,
-                  actua_como
-             FROM apex_ptos_control_ctrl 
-            WHERE proyecto    = $proyecto
-              AND pto_control = $pto_control
-			  ORDER BY archivo, clase;
-        ");
+			"SELECT archivo,
+					clase,
+					actua_como
+			   FROM apex_ptos_control_ctrl 
+			  WHERE proyecto    = $proyecto
+				AND pto_control = $pto_control
+				ORDER BY archivo, clase;
+		  ");
     }
 
 	//---------------------  Grupos de Acceso  -------------------------
@@ -402,7 +402,7 @@ class toba_proyecto_db
 							archivo_clase,
 							punto_montaje
 					FROM	apex_consulta_php
-					WHERE	proyecto = $proyecto AND clase = $clase ";
+					WHERE	proyecto = $proyecto AND clase = $clase; ";
 		return self::get_db()->consultar_fila($sql);	
 	}
 
@@ -497,7 +497,7 @@ class toba_proyecto_db
 						param_wsa					
 					FROM apex_servicio_web
 					WHERE proyecto = $proyecto
-					AND	servicio_web = $servicio";
+					AND	servicio_web = $servicio;";
 		$datos = $db->consultar_fila($sql);
 		if (empty($datos)) {
 			return $datos;
@@ -506,15 +506,14 @@ class toba_proyecto_db
 		if (isset($datos['param_wsa'])) {
 			$datos['parametros']['useWSA'] = $datos['param_wsa'];
 		}
-		
-		
+				
 		//Parametros
 		$sql = " 	SELECT	parametro,					
 							valor					
 					FROM apex_servicio_web_param
 					WHERE proyecto = $proyecto
 					AND	servicio_web = $servicio
-					ORDER BY parametro";
+					ORDER BY parametro;";
 		foreach ($db->consultar($sql) as $fila) {
 			$datos['parametros'][$fila['parametro']] = $fila['valor'];
 		}
@@ -532,8 +531,7 @@ class toba_proyecto_db
 					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_msg 
 				WHERE indice = $indice
-				AND proyecto = 'toba'
-				ORDER BY msg;";
+				AND proyecto = 'toba';";
 		return $db->consultar_fila($sql, toba_db_fetch_asoc, false);	
 	}
 	
@@ -546,8 +544,7 @@ class toba_proyecto_db
 					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_msg 
 				WHERE indice = $indice
-				AND proyecto = $proyecto
-		";
+				AND proyecto = $proyecto;";
 		return $db->consultar_fila($sql, toba_db_fetch_asoc, false);	
 	}
 
@@ -562,8 +559,7 @@ class toba_proyecto_db
 				FROM apex_objeto_msg 
 				WHERE indice = $indice
 				AND objeto_proyecto = $proyecto
-				AND objeto = $objeto
-		";
+				AND objeto = $objeto;";
 		return self::get_db()->consultar_fila($sql);	
 	}
 
@@ -574,7 +570,16 @@ class toba_proyecto_db
 	static function get_pms($proyecto)
 	{
 		$proyecto = self::get_db()->quote($proyecto);
-		$sql = "SELECT * FROM apex_puntos_montaje WHERE proyecto=$proyecto";
+		$sql = "SELECT id,
+					  etiqueta, 
+					  proyecto,
+					  proyecto_ref,
+					  descripcion,
+					  path_pm,
+					  tipo
+			FROM apex_puntos_montaje 
+			WHERE proyecto = $proyecto 
+			ORDER BY etiqueta, id;";
 		return self::get_db()->consultar($sql);
 	}
 

@@ -2339,14 +2339,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$proyecto = $this->db->quote($this->get_id());
 		$comp_sano = $this->db->quote($tipo_componente);
 		if ($tipo_componente == 'toba_item' ) {
-
 			$sql = "SELECT 	proyecto as 		proyecto,
 							item as 			componente
 					FROM apex_item 
 					WHERE proyecto = $proyecto
-					ORDER BY 1,2;";
-			$datos = $this->db->consultar( $sql );
-		} elseif(strpos($tipo_componente,'toba_asistente')!== false) {
+					ORDER BY 2 ASC;";
+		} elseif(strpos($tipo_componente,'toba_asistente') !== false) {
 			$sql = "SELECT 	o.proyecto as 		proyecto,
 							o.molde as 			componente,
 							t.clase
@@ -2355,17 +2353,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					WHERE 	o.operacion_tipo = t.operacion_tipo
 					AND		t.clase = $comp_sano
 					AND		proyecto = $proyecto
-					ORDER BY 1,2;";
-			$datos = $this->db->consultar( $sql );
+					ORDER BY 2 ASC;";
 		} else {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							objeto as 			componente
 					FROM apex_objeto 
 					WHERE proyecto = $proyecto
 					AND clase = $comp_sano
-					ORDER BY 1,2;";
-			$datos = $this->db->consultar( $sql );
+					ORDER BY 2 ASC;";		
 		}
+		$datos = $this->db->consultar( $sql );
 		return $datos;
 	}
 
