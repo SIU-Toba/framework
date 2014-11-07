@@ -41,8 +41,9 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 * Crea o actualiza el esquema de auditoria sobre las tablas del negocio
 	 */
 	function opcion__crear_auditoria()
-	{
-		$this->modelo->crear_auditoria();
+	{		
+		$mantiene_datos =  $this->manejador_interface->dialogo_simple("¿Desea mantener los datos de auditoria actuales?", true);
+		$this->modelo->crear_auditoria(array(),null, true, null, $mantiene_datos);
 	}	
 	
 	/**

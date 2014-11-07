@@ -163,10 +163,10 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if ($exportar) {
 			//-- Esquema principal
 			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';			
-			$this->exportar_esquema_base($id_def_base, $this->schema_modelo, $archivo, true);
+			$this->exportar_esquema_base($id_def_base, $archivo, true, $this->schema_modelo);
 			//-- Esquema auditoria
 			$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';			
-			$this->exportar_esquema_base($id_def_base, $this->schema_auditoria, $archivo, false);			
+			$this->exportar_esquema_base($id_def_base, $archivo, false, $this->schema_auditoria);
 		}
 		
 		//--- Borra la base fisicamente
@@ -183,13 +183,15 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$this->cargar_modelo_datos($base);	
 	}
 	
-	protected function exportar_esquema_base($id_def_base, $esquema, $archivo, $obligatorio)
+	protected function exportar_esquema_base($id_def_base,  $archivo, $obligatorio, $esquema=null)
 	{
 		$parametros = $this->instalacion->get_parametros_base($id_def_base);
 		if (file_exists($archivo)) {
 			copy($archivo, $archivo.'.old');
 		}
-		$comando = "pg_dump -d -a -n $esquema -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";			
+		
+		$esquema =  (! is_null($esquema)) ? " -n $esquema " : '';
+		$comando = "pg_dump -a --disable-triggers $esquema -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\"  {$parametros['base']}";			
 		if (! toba_manejador_archivos::es_windows() && $parametros['clave'] != '') {
 			$clave = "export PGPASSWORD=".$parametros['clave'].';';
 			$comando = $clave.$comando;
@@ -326,109 +328,122 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * @param array $tablas Tablas especificas a auditar
 	 * @param string $prefijo_tablas Tomar todas las tablas que tienen este prefijo, si es null se toman todas
 	 * @param boolean $con_transaccion Crea el esquema dentro de una transaccion
+	 * @param string $fuente Indica que se va a procesar solo una de las fuentes del proyecto
+	 * @param boolean $guardar_datos Indica que se deben guardar y restaurar los datos actuales luego del proceso
 	 */
-	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
+	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true, $fuente=null, $guardar_datos=false)
 	{
-		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (! is_null($fuente)) {
+			$fuentes = array($fuente);
+		} else {
+			$fuentes = $this->proyecto->get_indice_fuentes();
+		}
+		toba_logger::instancia()->var_dump($fuentes, 'fuentes activas');
 		if (empty($fuentes)) {
 			return;
 		}
-		$base = $this->proyecto->get_db_negocio();
 		
-		//--- Tablas de auditoría
-		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
-		if (is_null($auditoria)) {		//No existe manejador para el motor en cuestion
-			return;
+		//Recorro los schemas de las fuentes del proyecto
+		$schemas = array();
+		foreach($fuentes as $fuente) {			
+			$schemas[$fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $fuente), 'schema');
 		}
-		
-		if (empty($tablas)) {
-			$auditoria->agregar_tablas($prefijo_tablas);
-		} else {
-			foreach($tablas as $tabla) {
-				$auditoria->agregar_tabla($tabla);
+		toba_logger::instancia()->var_dump($schemas, 'schemas de fuentes');		
+				
+		//--- Tablas de auditoría
+		$this->manejador_interface->mensaje('Creando auditoria', true);
+		$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';
+		$bases = array();
+		foreach($fuentes as $fuente) {
+			try {
+				$bases[$fuente] = $this->proyecto->get_db_negocio($fuente);	
+				if ($guardar_datos) {
+					$id_def_base = $this->proyecto->construir_id_def_base($fuente);		//Guarda los datos actuales de auditoria
+					$this->exportar_esquema_base($id_def_base, $archivo, false, " '*_auditoria' ");
+				}			
+				// Hace la migracion y restauracion de datos
+				if ($con_transaccion) {
+					$bases[$fuente]->abrir_transaccion();
+				}		
+				$this->procesar_schemas_fuente($bases[$fuente], $schemas[$fuente], false, $tablas, $prefijo_tablas, 'crear');
+				if ($guardar_datos) {
+					$bases[$fuente]->ejecutar_archivo($archivo);
+				}
+			} catch (toba_error_db $e) {
+				if (isset($bases[$fuente])) {
+					$bases[$fuente]->abortar_transaccion();			//Si hay algun error hace revert y anula el objeto de la bd
+					unset($bases[$fuente]);
+				}
 			}
 		}
-		$this->manejador_interface->mensaje('Creando esquema de auditoria', false);
-		$this->manejador_interface->progreso_avanzar();		
-		if (! $auditoria->existe()) {
-			$auditoria->crear();
-		} else {
-			$auditoria->migrar();			
-		}
-		
-		$this->manejador_interface->progreso_fin();
 
-		//--- Datos anteriores
-		$archivo_datos = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';
-		if (file_exists($archivo_datos)) {
-			$this->manejador_interface->mensaje('Cargando datos de auditoria', false);			
-			$this->manejador_interface->progreso_avanzar();
-			$base->ejecutar_archivo($archivo_datos);
-			$this->manejador_interface->progreso_fin();
-		}
 		$this->proyecto->generar_roles_db();
 		if ($con_transaccion) {
-			$base->cerrar_transaccion();
-		}		
+			foreach($fuentes as $fuente) {
+				if (isset($bases[$fuente])) {					//Cierra la transaccion en aquellas bases presentes y sin errores
+					$bases[$fuente]->cerrar_transaccion();
+				}
+			}
+		}
 	}
-			
+	
 	/**
 	 * Borra los triggers, store_procedures y esquema para la auditoría de tablas del sistema
 	 */
 	function borrar_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
 	{
-		$this->manejador_interface->mensaje('Borrando esquema y triggers de auditoria', false);
-		$this->manejador_interface->progreso_avanzar();
-		$base = $this->proyecto->get_db_negocio();				
-		if ($con_transaccion) {
-			$base->abrir_transaccion();
-		}
-		//--- Tablas de auditoría
-		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
-		if (is_null($auditoria)) {		//No existe manejador para el motor en cuestion
+		$this->manejador_interface->mensaje('Borrando esquema y triggers de auditoria', true);		
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		toba_logger::instancia()->var_dump($fuentes, 'fuentes activas');
+		if (empty($fuentes)) {
 			return;
 		}
 		
-		if (empty($tablas)) {
-			$auditoria->agregar_tablas($prefijo_tablas);
-		} else {
-			foreach($tablas as $tabla) {
-				$auditoria->agregar_tabla($tabla);
-			}
+		$schemas = array();
+		foreach($fuentes as $fuente) {			
+			$schemas[$fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $fuente), 'schema');
 		}
-		$auditoria->eliminar();
-		if ($con_transaccion) {
-			$base->cerrar_transaccion();
+		toba_logger::instancia()->var_dump($schemas, 'schemas de fuentes');			
+		foreach($fuentes as $fuente) {
+			try {
+				$base= $this->proyecto->get_db_negocio($fuente);
+				$this->procesar_schemas_fuente($base, $schemas[$fuente], $con_transaccion, $tablas, $prefijo_tablas, 'eliminar');
+				unset($base);
+			} catch (toba_error_db $e) {
+				if (isset($base)) {
+					$base->abortar_transaccion();			//Si hay algun error hace revert y anula el objeto de la bd
+					unset($base);
+				}
+			}	
 		}
-		$this->manejador_interface->progreso_fin();
 	}
 	
 	function purgar_auditoria($tiempo = 0, $tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
 	{
-		$this->manejador_interface->mensaje('Limpiando las tablas de auditoria', false);
-		$this->manejador_interface->progreso_avanzar();
-		$base = $this->proyecto->get_db_negocio();
-		if ($con_transaccion) {
-			$base->abrir_transaccion();			
-		}
-		
-		$auditoria = $base->get_manejador_auditoria($this->schema_modelo, $this->schema_auditoria, $this->schema_toba);
-		if (is_null($auditoria)) {	//No existe manejador para el motor en cuestion
+		$this->manejador_interface->mensaje('Limpiando las tablas de auditoria', true);	
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		toba_logger::instancia()->var_dump($fuentes, 'fuentes activas');
+		if (empty($fuentes)) {
 			return;
 		}
 		
-		if (empty($tablas)) {
-			$auditoria->agregar_tablas($prefijo_tablas);
-		} else {
-			foreach($tablas as $tabla) {
-				$auditoria->agregar_tabla($tabla);
-			}
-		}		
-		$auditoria->purgar($tiempo);
-		if ($con_transaccion) {
-			$base->cerrar_transaccion();
+		$schemas = array();
+		foreach($fuentes as $fuente) {			
+			$schemas[$fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $fuente), 'schema');
 		}
-		$this->manejador_interface->progreso_fin();
+		toba_logger::instancia()->var_dump($schemas, 'schemas de fuentes');
+		foreach($fuentes as $fuente) {
+			try {
+				$base= $this->proyecto->get_db_negocio($fuente);
+				$this->procesar_schemas_fuente($base, $schemas[$fuente], $con_transaccion, $tablas, $prefijo_tablas, 'purgar', $tiempo);
+				unset($base);
+			} catch (toba_error_db $e) {
+				if (isset($base)) {
+					$base->abortar_transaccion();			//Si hay algun error hace revert y anula el objeto de la bd
+					unset($base);
+				}
+			}				
+		}
 	}
 	
 	
@@ -472,6 +487,75 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	{
 		$base->crear_lenguaje_procedural();
 	}
-}
+	
+	/**
+	 *  Procesa los cambios para cada schema de la fuente 
+	 * @param toba_db $db
+	 * @param array $schemas
+	 * @param boolean $con_transaccion
+	 * @param array $tablas
+	 * @param string $prefijo
+	 * @param string $accion
+	 * @param integer $tiempo
+	 */
+	protected function procesar_schemas_fuente($db, $schemas, $con_transaccion, $tablas, $prefijo, $accion, $tiempo=0)
+	{		
+		if ($con_transaccion) {
+			$db->abrir_transaccion();
+		}
 
+		foreach($schemas as $schema)  {
+			$this->manejador_interface->mensaje('Procesando schema ' . $schema, false);
+			$logs = $schema . '_auditoria';
+			$auditoria = $db->get_manejador_auditoria($schema, $logs, $this->schema_toba);
+			if (! is_null($auditoria)) {		//Existe manejador para el motor en cuestion
+				$this->procesar_accion_schema($auditoria, $tablas, $prefijo, $accion, $tiempo);
+				unset($auditoria);
+			}			
+			$this->manejador_interface->progreso_fin();
+		}
+		
+		if ($con_transaccion) {
+			$db->cerrar_transaccion();
+		}
+	}		
+	
+	/**
+	 * Agrega las tablas y toma la accion correspondiente sobre las mismas
+	 * @param toba_auditoria_tablas_postgres $auditoria
+	 * @param array $tablas
+	 * @param string $prefijo
+	 * @param string $accion
+	 * @param integer $tiempo
+	 */
+	protected function procesar_accion_schema($auditoria, $tablas, $prefijo, $accion, $tiempo) 
+	{
+		if (empty($tablas)) {
+			$auditoria->agregar_tablas($prefijo);
+		} else {
+			foreach($tablas as $tabla) {
+				$auditoria->agregar_tabla($tabla);
+			}
+		}
+		
+		$this->manejador_interface->progreso_avanzar();
+		switch ($accion) {
+			case 'eliminar' : 
+				$auditoria->eliminar();
+				break;
+			case 'purgar': 
+				$auditoria->purgar($tiempo);
+				break;
+			default:
+				if (! $auditoria->existe()) {
+					$auditoria->crear();
+				} else {
+					$auditoria->migrar();			
+				}
+				break;			
+		}
+		$this->manejador_interface->progreso_avanzar();
+	}
+
+}
 ?>

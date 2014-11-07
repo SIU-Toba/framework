@@ -34,24 +34,12 @@ class toba_auditoria_tablas_postgres
 		return array('auditoria_fecha', 'auditoria_usuario', 'auditoria_operacion', 'operacion_nombre', 'auditoria_id_solicitud');	
 	}
 	
-	function agregar_tablas($prefijo=null) 
+	function agregar_tablas($prefijo=null, $schema=null) 
 	{
-		$where = '';
-		if (isset($prefijo)) {
-			$prefijo_sano = $this->conexion->quote("$prefijo%");
-			$where .= "	AND (tablename LIKE $prefijo_sano)";
+		if (is_null($schema)) {
+			$schema = $this->schema_origen;
 		}
-		$schema = $this->conexion->quote($this->schema_origen);
-		$sql = "	
-				SELECT tablename FROM pg_tables 
-		        WHERE 
-		        		tablename NOT LIKE 'pg_%'
-		        	AND tablename NOT LIKE 'sql_%'
-					AND schemaname = $schema
-					$where
-				ORDER BY UPPER(tablename);
-		";
-		 $aux = $this->conexion->consultar($sql);
+		 $aux = $this->get_tablas_schema($schema, $prefijo);
 		 foreach ($aux as $t) {
 		 	$this->tablas[] = $t['tablename'];
 		 }
@@ -203,22 +191,22 @@ class toba_auditoria_tablas_postgres
 		return false;
 	}	
 	
-        function activar() {
-            if (! isset($this->tablas)) {
-                $this->agregar_tablas();
-            }
-            $this->crear_sp($this->tablas, $this->schema_origen);
-            $this->crear_triggers($this->tablas, $this->schema_origen);
-        }
+	function activar() 
+	{
+		if (! isset($this->tablas)) {
+			$this->agregar_tablas();
+		}
+		$this->crear_sp($this->tablas, $this->schema_origen);
+		$this->crear_triggers($this->tablas, $this->schema_origen);
+	}
 
-        function desactivar() {
-            if (! isset($this->tablas)) {
-                $this->agregar_tablas();
-            }
-            $this->eliminar_triggers($this->tablas, $this->schema_origen);
-        }
-        
-	
+	function desactivar() 
+	{
+		if (! isset($this->tablas)) {
+			$this->agregar_tablas();
+		}
+		$this->eliminar_triggers($this->tablas, $this->schema_origen);
+	}	
 	
 	//------- FUNCIONES DE CREACION DE LOGS -------------------------------------
 
@@ -270,13 +258,13 @@ class toba_auditoria_tablas_postgres
 	
 	protected function crear_tabla($t, $schema)
 	{
-	   $campos = $this->conexion->get_definicion_columnas($t, $schema);
-	   $sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
-	   $sql .= 'auditoria_usuario varchar(60), 
-	   			auditoria_fecha timestamp, 
-	   			auditoria_operacion char(1),
-	   			auditoria_id_solicitud integer,
-	   	'; 		   
+		$campos = $this->conexion->get_definicion_columnas($t, $schema);
+		$sql = "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
+		$sql .= 'auditoria_usuario varchar(60), 
+				 auditoria_fecha timestamp, 
+				 auditoria_operacion char(1),
+				 auditoria_id_solicitud integer,
+		 '; 		   
 		foreach ($campos as $def) {
 			if ($def['tipo_sql'] != 'bytea') {
 				$sql .= $def['nombre'] .  ' ' . $def['tipo_sql'] . ",\n";
@@ -446,6 +434,28 @@ class toba_auditoria_tablas_postgres
 		$this->conexion->ejecutar($sql);
 	}	
 
+	//-----------------------------------------
+	protected function get_tablas_schema($schema, $prefijo=null)
+	{
+		$where = '';
+		if (!is_null($prefijo)) {
+			$prefijo_sano = $this->conexion->quote("$prefijo%");
+			$where .= "	AND (tablename LIKE $prefijo_sano)";
+		}
+		$schema = $this->conexion->quote($schema);
+		$sql = "	
+				SELECT tablename FROM pg_tables 
+		        WHERE 
+		        		tablename NOT LIKE 'pg_%'
+		        	AND tablename NOT LIKE 'sql_%'
+					AND schemaname = $schema
+					$where
+				ORDER BY UPPER(tablename); ";
+		
+		 $aux = $this->conexion->consultar($sql);
+		 return $aux;
+	}
+		
 	//-------- CONSULTAS 
 	
 	function get_datos($tabla, $filtro = array())
