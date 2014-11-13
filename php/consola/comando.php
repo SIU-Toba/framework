@@ -116,36 +116,38 @@ class comando
 	protected function get_parametros()
 	{
 		
-	   $params = array();
-	   for ($i=0; $i < count( $this->argumentos ); $i++){
-	
-	       if ( $this->es_parametro($this->argumentos[$i]) ){
-	           if (strlen($this->argumentos[$i]) == 1){
-	
-	           }elseif ( strlen($this->argumentos[$i]) == 2){
-					$paramName = $this->argumentos[$i];
-					$y=1;
-					$paramVal = '';	               
-					while (isset($this->argumentos[ $i + $y ]) && 
-					  			!$this->es_parametro( $this->argumentos[ $i + $y ] )) {
-						$paramVal .=  $this->argumentos[ $i + $y ] . ' ';
-						$y++;
-					}
-					$paramVal = trim($paramVal);
-	           }elseif ( strlen($this->argumentos[$i]) > 2){
-	               $paramName = substr($this->argumentos[$i],0,2);
-	               $paramVal = substr($this->argumentos[$i],2);
-	           }
-	
-	           $params[ $paramName ] = $paramVal;
-	
-	       }
-	   }
-		return $params;
+		$params = array();
+		for ($i=0; $i < count( $this->argumentos ); $i++) 
+		{
+			if ($this->es_parametro($this->argumentos[$i])) {
+				if (strtolower(trim($this->argumentos[$i])) == '--help') {	   
+					   return array('help' => 1);
+				}	   
+				
+				if (strlen($this->argumentos[$i]) == 1) {
+
+				 } elseif ( strlen($this->argumentos[$i]) == 2) {
+					  $paramName = $this->argumentos[$i];
+					  $y=1;
+					  $paramVal = '';	               
+					  while (isset($this->argumentos[ $i + $y ]) && 
+								  !$this->es_parametro( $this->argumentos[ $i + $y ] )) {
+						  $paramVal .=  $this->argumentos[ $i + $y ] . ' ';
+						  $y++;
+					  }
+					  $paramVal = trim($paramVal);
+				 } elseif (strlen($this->argumentos[$i]) > 2) {
+					 $paramName = substr($this->argumentos[$i],0,2);
+					 $paramVal = substr($this->argumentos[$i],2);
+				 }
+				 $params[ $paramName ] = $paramVal;
+			}
+		}
+		 return $params;
 	}
 	
 	private function es_parametro( $texto ) {
-       return (substr($texto, 0, 1) == "-") ? 1: 0;
+		 return (substr($texto, 0, 1) == "-") ? 1: 0;
 	}
 }
 ?>

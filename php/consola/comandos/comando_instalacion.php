@@ -46,7 +46,29 @@ class comando_instalacion extends comando_toba
 		}
 		return $resultado;
 	}
-	
+
+	function mostrar_ayuda_desatendida()
+	{
+		$this->consola->titulo( $this->get_info() );
+		
+		$clase = new ReflectionClass(get_class($this));
+		$metodo = $clase->getMethod('opcion__instalar');
+		$comentario = $metodo->getDocComment();
+		$opcion = array(
+			'ayuda' => parsear_doc_comment($comentario),
+			'tags' => parsear_doc_tags($comentario)
+		);
+		
+		$salida = array();
+		$id = 'instalar';
+		if (!isset($opcion['tags']['consola_no_mostrar'])) {
+			$salida[$id] = $opcion['ayuda'];
+			if (isset($opcion['tags']['consola_parametros'])) {
+				$salida[$id] .= "\n".$opcion['tags']['consola_parametros'];
+			}
+		}
+		$this->consola->coleccion($salida);
+	}
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
@@ -82,7 +104,11 @@ class comando_instalacion extends comando_toba
 			throw new toba_error("ERROR: El comando 'php' no se encuentra en el path actual del sistema");
 		}
 
-		$param = $this->get_parametros();		
+		$param = $this->get_parametros();
+		if (isset($param['help'])) {
+			$this->mostrar_ayuda_desatendida();
+			return;
+		}
 		//--- Borra la instalacion anterior??
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
