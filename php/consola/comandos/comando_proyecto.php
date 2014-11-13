@@ -295,12 +295,13 @@ class comando_proyecto extends comando_toba
 
 	/**
 	* Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
-	* @consola_parametros Opcional: [-d 'directorio'] Especifica el path en donde se encuentra el proyecto (por ej. ../mi_proyecto ) 
+	* @consola_parametros Opcional: [-d 'directorio'] [-a 0|1] Indica si se deben generar los alias para el proyecto
 	* @gtk_icono importar.png
 	* @gtk_no_mostrar 1
 	*/
 	function opcion__cargar($datos = null)
 	{
+		$param = $this->get_parametros();
 		if (! isset($datos)) {
 			$path = null;
 			$id_proyecto = $this->get_id_proyecto_actual(false);
@@ -309,8 +310,7 @@ class comando_proyecto extends comando_toba
 				if ($id_proyecto == $path) {
 					$path=null;
 				}
-			}
-			$param = $this->get_parametros();
+			}			
 			if (isset($param['-d'])) {
 				$path = realpath($param['-d']);
 			}
@@ -349,7 +349,11 @@ class comando_proyecto extends comando_toba
 		if (! $p->esta_publicado()) {
 			//--- Generación del alias
 			$this->consola->separador();
-			$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
+			if (isset($param['-a']) && $param['-a'] == 1) {
+				$agregar = true;
+			} else {
+				$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
+			}
 			if ($agregar) {
 				$p->publicar();
 				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
