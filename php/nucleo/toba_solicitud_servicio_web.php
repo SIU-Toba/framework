@@ -29,6 +29,7 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$this->info = $info;
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());	
 		$this->log = toba::logger_ws();
+		toba::proyecto()->configurar_logger_ws();
 	}	
 	
 	protected function validar_componente()

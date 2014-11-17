@@ -13,6 +13,9 @@ class toba_logger_rdi implements \RDILog {
 	function set_activo($activo)
 	{
 		$this->_activo = $activo;
+		if (! $activo) {
+			$this->log->desactivar();
+		}
 	}	
 	
 	function add_debug($etiqueta, $valor_a_dumpear, $tabla=false)
@@ -28,13 +31,13 @@ class toba_logger_rdi implements \RDILog {
 			} else {
 				$this->log->var_dump($valor_a_dumpear);
 			}
-        } else {
+		} else {
 			if(is_object($valor_a_dumpear)) {
 				$this->log->var_dump($valor_a_dumpear);
 			} else {
 				$this->log->debug($valor_a_dumpear);
 			}
-        }
+		}
 	}
 	
 	function add_error($excepcion)

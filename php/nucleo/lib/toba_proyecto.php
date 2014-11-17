@@ -87,15 +87,7 @@ class toba_proyecto
 		if (file_exists($path_ini)) {
 			$this->ini_proyecto = new toba_ini($path_ini);
 		}
-		if (defined('apex_pa_log_archivo_nivel')) {
-			toba::logger()->set_nivel(apex_pa_log_archivo_nivel);
-		} else {
-			toba::logger()->set_nivel($this->memoria['log_archivo_nivel']);
-		}
-		if ((!defined('apex_pa_log_archivo') && !$this->memoria['log_archivo'])
-				|| (defined('apex_pa_log_archivo') && !apex_pa_log_archivo)) {
-			toba::logger()->desactivar();
-		}
+		$this->configurar_logger();
 	}
 
 
@@ -213,10 +205,10 @@ class toba_proyecto
 		return toba::instancia()->get_path_proyecto(self::get_id());
 	}
 
-    static function get_path_pers()
-    {
-        return self::get_path().'/'.toba_personalizacion::dir_personalizacion;
-    }
+	static function get_path_pers()
+	{
+		return self::get_path().'/'.toba_personalizacion::dir_personalizacion;
+	}
 	
 	/**
 	 * Retorna el flag de compilacion del proyecto
@@ -719,6 +711,33 @@ class toba_proyecto
 			$temp = rs_ordenar_por_columnas($temp, $orden);
 		}
 		return $temp;
+	}
+	
+	//-- Configuracion minima del logger de proyecto -------------------
+	function configurar_logger()
+	{
+		if (defined('apex_pa_log_archivo_nivel')) {
+			toba::logger()->set_nivel(apex_pa_log_archivo_nivel);
+		} else {
+			toba::logger()->set_nivel($this->memoria['log_archivo_nivel']);
+		}
+		if ((!defined('apex_pa_log_archivo') && !$this->memoria['log_archivo'])
+				|| (defined('apex_pa_log_archivo') && !apex_pa_log_archivo)) {
+			toba::logger()->desactivar();
+		}
+	}
+	
+	function configurar_logger_ws()
+	{
+		if (defined('apex_pa_log_archivo_nivel')) {
+			toba::logger_ws()->set_nivel(apex_pa_log_archivo_nivel);
+		} else {
+			toba::logger_ws()->set_nivel($this->memoria['log_archivo_nivel']);
+		}
+		if ((!defined('apex_pa_log_archivo') && !$this->memoria['log_archivo'])
+				|| (defined('apex_pa_log_archivo') && !apex_pa_log_archivo)) {
+			toba::logger_ws()->desactivar();
+		}	
 	}
 }
 ?>
