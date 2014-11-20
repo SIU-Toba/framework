@@ -19,7 +19,7 @@ class toba_ef_popup extends toba_ef_editable
 	protected $id_vinculo;
 	protected $clase_css = 'ef-popup';
 	protected $no_oblig_puede_borrar = false;
-	protected $img_editar = 'editar.gif';
+	protected $img_editar; // = 'editar.gif';
 
 	static function get_lista_parametros_carga()
 	{
@@ -144,7 +144,11 @@ class toba_ef_popup extends toba_ef_editable
 
 	function set_imagen_editar($url)
 	{
-		$this->img_editar = $url;
+		if (stripos($url, '<img') !== false) {			//Ya viene con el tag img armado
+			$this->img_editar = $url;
+		} else {
+			$this->img_editar = toba_recurso::imagen($url);
+		}
 	}
 
 	function get_input()
@@ -179,7 +183,7 @@ class toba_ef_popup extends toba_ef_editable
 			$display = ($this->es_solo_lectura()) ? "visibility:hidden" : "";
 			$html .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 			$html .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
-			$html .= " href='#'>".toba_recurso::imagen_toba($this->img_editar, true,16,16,"Seleccionar un elemento")."</a>";
+			$html .= " href='#'>".$this->get_imagen_abrir()."</a>";
 		}
 		if ($this->no_oblig_puede_borrar) {
 			$display = ($this->es_solo_lectura()) ? "visibility:hidden" : "";
