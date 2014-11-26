@@ -904,9 +904,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if ($this->_modo_agregar[1] != '') {
 					$texto .= ' '.$this->_modo_agregar[1];
 				}
-				echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
-												"onclick='{$this->objeto_js}.crear_fila();'", 
-												$this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
+				echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, "onclick='{$this->objeto_js}.crear_fila();'", 	$this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
 			}		
 			$this->generar_botones_eventos();
 			echo "</div>";
@@ -1056,13 +1054,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if (! $this->_borrar_en_linea) {
 					echo toba_form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_toba('nucleo/borrar.gif', true), 
 											"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->_rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
-					$html = toba_recurso::imagen_toba('nucleo/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-					echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
-											" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');
 				}
-				echo "&nbsp;";
-				
 			}
+			
+			if ($this->_info_formulario['filas_agregar'] ) {		//Si se pueden agregar o quitar filas, el deshacer debe estar
+				$html = toba_recurso::imagen_toba('nucleo/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
+				echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');				
+				echo "&nbsp;";
+			}
+			
 			if ($ordenar && !$this->_ordenar_en_linea) {
 				echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true), 
 										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->_rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
