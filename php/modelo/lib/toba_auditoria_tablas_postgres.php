@@ -117,7 +117,8 @@ class toba_auditoria_tablas_postgres
 	
 	function regenerar()
 	{
-		$this->eliminar_triggers($this->tablas, $this->schema_origen);
+		$triggers = $this->get_triggers_schema($this->schema_origen);
+		$this->eliminar_triggers_especificos($this->schema_origen, $triggers);							//Esto es para salvaguardar el renombre de tablas, sino el trigger no se borra
 		$this->crear_sp($this->tablas, $this->schema_origen);
 		$this->crear_triggers($this->tablas, $this->schema_origen);
 		
@@ -164,12 +165,25 @@ class toba_auditoria_tablas_postgres
 		}
 	}
 	
-	function get_triggers_activos()
+	function get_triggers_activos($schema=null)
 	{
+		if (is_null($schema)) {
+			$schema = $this->schema_origen;
+		}
 		//Busco todos los triggers del esquema, que sean de auditoria y se disparen ahi mismo.
-		$triguers = $this->conexion->get_triggers_schema($this->schema_origen, 'tauditoria_', 'O');
+		$triguers = $this->conexion->get_triggers_schema($schema, 'tauditoria_', 'O');
 		return $triguers;
 	}
+	
+	protected function get_triggers_schema($schema)
+	{		
+		$resultado = array();
+		$triggers = $this->get_triggers_activos($schema);
+		foreach($triggers as $dato) {
+			$resultado[$dato['tabla']] = $dato['tgname'];
+		}
+		return $resultado;		
+	}	
 	
 	//---------------------------------------------------------------------------------------------------------//
 	/**
@@ -412,17 +426,27 @@ class toba_auditoria_tablas_postgres
 	//------- FUNCIONES DE ELIMINACION DE LOGS -------------------------------------	
 	protected function eliminar_triggers($tablas, $schema) 
 	{
-		$sql = '';
+		$triggers = array();
 		foreach ($tablas as $t) {
-			$sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON $schema.$t;\n\n";
+			$triggers[$t] = "tauditoria_$t";
 		}
-		$this->conexion->ejecutar($sql);
+		$this->eliminar_triggers_especificos($schema, $triggers);
 	}
+	
+	protected function eliminar_triggers_especificos($schema, $triggers)
+	{
+		$sql = '';
+		foreach($triggers as $tabla => $trigger) {
+			$sql .= "DROP TRIGGER IF EXISTS $trigger ON $schema.$tabla;\n";
+		}		
+		if (! empty($triggers)) {
+			$this->conexion->ejecutar($sql);
+		}
+	}	
 	
 	protected function eliminar_schema() 
 	{
-		$sql = "DROP SCHEMA {$this->schema_logs} CASCADE;\n\n";
-		$this->conexion->ejecutar($sql);
+		$this->conexion->borrar_schema($this->schema_logs);
 	}
 	
 	protected function eliminar_sp()
