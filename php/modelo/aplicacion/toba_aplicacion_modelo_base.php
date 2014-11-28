@@ -331,7 +331,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * @param string $fuente Indica que se va a procesar solo una de las fuentes del proyecto
 	 * @param boolean $guardar_datos Indica que se deben guardar y restaurar los datos actuales luego del proceso
 	 */
-	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true, $fuente=null, $guardar_datos=false)
+	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true, $fuente=null, $lista_schemas = array(), $guardar_datos=false)
 	{
 		if (! is_null($fuente)) {
 			$fuentes = array($fuente);
@@ -345,8 +345,15 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		
 		//Recorro los schemas de las fuentes del proyecto
 		$schemas = array();
-		foreach($fuentes as $fuente) {			
-			$schemas[$fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $fuente), 'schema');
+		foreach($fuentes as $id_fuente) {			
+			$schemas[$id_fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $id_fuente), 'schema');
+		}		
+		
+		if (! is_null($fuente) && !empty($lista_schemas)) {
+			$aux = array_intersect($schemas[$fuente], $lista_schemas);
+			if ($aux !== false) {
+				$schemas[$fuente] = $aux;
+			}
 		}
 		toba_logger::instancia()->var_dump($schemas, 'schemas de fuentes');		
 				

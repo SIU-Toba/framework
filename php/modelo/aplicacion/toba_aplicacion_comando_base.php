@@ -39,11 +39,23 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 
 	/**
 	 * Crea o actualiza el esquema de auditoria sobre las tablas del negocio
+	 * @consola_parametros Opcional: [-f] fuente [-s] Lista de schemas incluidos separada por coma 
 	 */
-	function opcion__crear_auditoria()
+	function opcion__crear_auditoria($parametros)
 	{		
 		$mantiene_datos =  $this->manejador_interface->dialogo_simple("¿Desea mantener los datos de auditoria actuales?", true);
-		$this->modelo->crear_auditoria(array(),null, true, null, $mantiene_datos);
+		$fuente = (isset($parametros['-f'])) ? trim($parametros['-f']) : null;
+		$schemas = array();
+		if (isset($parametros['-s'])) {
+			if (! isset($parametros['-f'])) {
+				throw new toba_error_usuario('Se debe especificar la fuente a la que pertenecen los esquemas con el parametro -f');
+			} else {
+				
+				$schemas = explode(',' , $parametros['-s']);
+				array_walk($schemas, 'trim');
+			}
+		}
+		$this->modelo->crear_auditoria(array(),null, true, $fuente, $schemas, $mantiene_datos);
 	}	
 	
 	/**

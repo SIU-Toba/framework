@@ -89,12 +89,15 @@ class toba_auditoria_tablas_postgres
 			    
 		//-- Schema de toba
 		if (isset($this->schema_toba) && $this->conexion->existe_schema($this->schema_toba)) {
-			$this->crear_funciones($this->schema_toba);
-			foreach ($this->tablas_toba as $t) {
-				$this->crear_tabla($t, $this->schema_toba);
-			}			
-			$this->crear_sp($this->tablas_toba, $this->schema_toba);
-			$this->crear_triggers($this->tablas_toba, $this->schema_toba);
+			$aux = $this->get_triggers_activos($this->schema_toba);
+			if (empty($aux)) {																	//No existen triggers previos en el schema de toba
+				$this->crear_funciones($this->schema_toba);
+				foreach ($this->tablas_toba as $t) {
+					$this->crear_tabla($t, $this->schema_toba);
+				}			
+				$this->crear_sp($this->tablas_toba, $this->schema_toba);
+				$this->crear_triggers($this->tablas_toba, $this->schema_toba);
+			}
 		}
 		return true;
 	}	
@@ -367,6 +370,9 @@ class toba_auditoria_tablas_postgres
 	
 	protected function crear_triggers($tablas, $schema) 
 	{
+		/*toba_logger::instancia()->debug($schema);
+		toba_logger::instancia()->debug($this->schema_logs);
+		toba_logger::instancia()->var_dump($tablas);*/
 		$sql = '';
 		foreach ($tablas as $t) {
 				$sql .= " CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
@@ -476,6 +482,7 @@ class toba_auditoria_tablas_postgres
 					$where
 				ORDER BY UPPER(tablename); ";
 		
+		//toba_logger::instancia()->debug($sql);
 		 $aux = $this->conexion->consultar($sql);
 		 return $aux;
 	}
