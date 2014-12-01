@@ -70,7 +70,7 @@ class ci_editor extends toba_ci
 
 		$largo_clave =  toba_parametros::get_largo_pwd($this->s__proyecto);
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
-		$form->ef('clave')->set_descripcion("La clave debe tener no menos de $largo_clave caracteres, entre letras mayusculas, minusculas, numeros y simbolos");
+		$form->ef('clave')->set_descripcion("La clave debe tener no menos de $largo_clave caracteres, entre letras mayusculas, minusculas, numeros y simbolos, no pudiendo repetir caracteres adyacentes");
 		return $datos;
 	}
 

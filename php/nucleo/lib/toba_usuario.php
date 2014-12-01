@@ -165,7 +165,7 @@ class toba_usuario implements toba_interface_usuario
 		if (! $largo_valido) {
 			throw new toba_error_pwd_conformacion_invalida("La clave del usuario debe tener al menos $largo_minimo caracteres");
 		} elseif ($valida === false || $valida == '0') {
-			throw new toba_error_pwd_conformacion_invalida('La clave del usuario debe estar compuesta por caracteres, digitos y simbolos especiales');
+			throw new toba_error_pwd_conformacion_invalida('La clave del usuario debe estar compuesta por caracteres, digitos y simbolos especiales, no se pueden repetir caracteres adyacentes');
 		}
 		return true;
 	}
