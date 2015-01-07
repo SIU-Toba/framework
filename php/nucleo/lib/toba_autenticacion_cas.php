@@ -137,7 +137,7 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if (! isset($datos_usuario)) {													//El usuario no existe en la bd de toba.
 				toba::logger()->crit("El usuario CAS '$id_usuario' no existe en la instancia toba");
-				throw new toba_error_autenticacion('El usuario que se especifico no existe');
+				throw new toba_error_autenticacion("El usuario '$id_usuario' no esta dado de alta en el sistema");
 		}
 		return $id_usuario;
 	}	
