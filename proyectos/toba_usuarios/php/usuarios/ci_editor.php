@@ -50,7 +50,7 @@ class ci_editor extends toba_ci
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
 		} else {						//Chequeamos que la composicion de la clave sea valida			
-			$largo_clave =  toba_parametros::get_largo_pwd($this->s__proyecto);
+			$largo_clave =  toba_parametros::get_largo_pwd(null);
 			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
 		}
 		
@@ -68,9 +68,9 @@ class ci_editor extends toba_ci
 			$datos['clave'] = self::clave_falsa;
 		}
 
-		$largo_clave =  toba_parametros::get_largo_pwd($this->s__proyecto);
+		$largo_clave = toba_parametros::get_largo_pwd(null);							//Como aun no se sobre que proyecto trabajo.. el largo es el por defecto, osea 8.
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
-		$form->ef('clave')->set_descripcion("La clave debe tener no menos de $largo_clave caracteres, entre letras mayusculas, minusculas, numeros y simbolos, no pudiendo repetir caracteres adyacentes");
+		$form->ef('clave')->set_descripcion("La clave debe tener al menos $largo_clave caracteres, entre letras mayúsculas, minúsculas, números y símbolos, no pudiendo repetir caracteres adyacentes");
 		return $datos;
 	}
 

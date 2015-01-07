@@ -20,9 +20,6 @@ class ci_login extends toba_ci
 			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
 		}
 		$this->s__item_inicio = null;
-		/*if(isset($this->s__datos)) {							//Si hay valores de inicios viejos, se limpian.
-			unset($this->s__datos);
-		}*/
 		if (isset($this->s__datos_openid)) {
 			unset($this->s__datos_openid);
 		}
@@ -272,6 +269,9 @@ class ci_login extends toba_ci
 
 	function conf__form_passwd_vencido($form)
 	{
+		$largo_clave =  toba_parametros::get_largo_pwd(toba::proyecto()->get_id());
+		$form->ef('clave_nueva')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
+		$form->ef('clave_nueva')->set_descripcion("La clave debe tener al menos $largo_clave caracteres, entre letras mayúsculas, minúsculas, números y símbolos, no pudiendo repetir caracteres adyacentes");
 		$form->set_datos(array());
 	}
 	
