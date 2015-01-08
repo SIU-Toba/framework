@@ -55,11 +55,7 @@ class toba_autenticacion
 			
 	protected function generar_url($params) 
 	{
-		$url = toba_http::get_protocolo();
-		$url .= toba_http::get_nombre_servidor();
-		$url .= ":{$_SERVER['SERVER_PORT']}";
-		$url .= $this->strleft($_SERVER['REQUEST_URI'], '?');
-		
+		$url = toba_http::get_url_actual(false, true);
 		$query_string = array();
 		foreach($params as $key => $valor) {
 			if (isset($valor) && trim($valor) != '') {
@@ -71,15 +67,6 @@ class toba_autenticacion
 			$url .= '?'. implode('&', $query_string);
 		}
 		return $url;
-	}
-	
-	protected function strleft($s1, $s2) 
-	{
-		$length = strpos($s1, $s2);
-		if ($length !== false) {
-			return substr($s1, 0, $length);
-		} 		
-		return $s1;
-	}
+	}	
 }
 ?>

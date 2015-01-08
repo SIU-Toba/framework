@@ -217,14 +217,8 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 			$atributo = $this->campos[$campo]['atributo'];
 			AttributeExchange::addOptionalType($campo, constant("AttributeExchange::$atributo"));
 		}		
-		$res = 'http';
-		if (isset($_SERVER['HTTPS'])) {
-			$res = 'https';
-		}
-		$res .= '://' . $_SERVER['SERVER_NAME'];
-		if ($_SERVER['SERVER_PORT'] != (isset($_SERVER['HTTPS']) ? 443 : 80)) {
-			$res .= ':' . $_SERVER['SERVER_PORT'];
-		}
+		
+		$res =  toba_http::get_url_actual();
 		$p = toba::proyecto()->get_www();
 		if (isset($p['url']) && trim($p['url']) != '') {
 			$res .= '/' . $p['url'];

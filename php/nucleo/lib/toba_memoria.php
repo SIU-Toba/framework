@@ -336,14 +336,8 @@ class toba_memoria
 		if (isset($this->url_original)) {
 			return $this->url_original;
 		} else {
-			$qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']: '';
-			$ru = isset($_SERVER['REQUEST_URI']) ?  $_SERVER['REQUEST_URI']: '';
-			if ($qs != '' && stripos($ru, $qs) !== FALSE) {			//Si el querystring esta dentro del request uri, lo anulamos.
-				$qs = '';
-			}
-			$proto = toba_http::get_protocolo();
-			$sn = toba_http::get_nombre_servidor();
-			$this->set_url_original($proto.$sn.$ru.$qs);
+			$url = toba_http::get_url_actual(true, true);			
+			$this->set_url_original($url);
 		}
 		
 		return $this->url_original;
