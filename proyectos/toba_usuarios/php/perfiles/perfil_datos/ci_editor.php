@@ -146,10 +146,31 @@ class ci_editor extends toba_ci
 	}
 
 	function get_db($id)
+	{		
+		$fuente_datos = $this->get_fuente_proyecto_alterno($id, $this->s__proyecto);
+		return  $fuente_datos->get_db();		
+	}
+	
+	function get_fuente_proyecto_alterno($id, $proyecto)
 	{
-		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente($id, $this->s__proyecto);
-		return $fuente_datos->get_db();		
+		$parametros = toba_proyecto_db::get_info_fuente_datos($proyecto, $id);
+		if (isset($parametros['subclase_archivo'])) {
+			if (toba::proyecto()->get_id() != $proyecto) {
+				//Si la fuente esta extendida, puede necesitar otros archivos del proyecto, agregar el include path				
+				$path_proyecto = toba::instancia()->get_path_proyecto($proyecto) . '/php';
+				agregar_dir_include_path($path_proyecto);
+			}				
+			$archivo = $parametros['subclase_archivo'];
+		} else {
+			$archivo = 'nucleo/lib/toba_fuente_datos.php';
+		}
+		if (isset($parametros['subclase_nombre'])) {
+			$clase = $parametros['subclase_nombre'];
+		} else {
+			$clase = "toba_fuente_datos";
+		}
+		require_once($archivo);
+		return new $clase($parametros);		
 	}
 }
-
 ?>
