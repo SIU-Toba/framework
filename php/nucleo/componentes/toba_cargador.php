@@ -297,6 +297,16 @@ class toba_cargador
 		return $datos[0]['clase'];
 	}
 	
+	static function cargar_clase_archivo($pm, $clase_archivo, $id_proyecto)
+	{
+		$path = '';
+		$punto = toba::puntos_montaje()->get_instancia_pm_proyecto($id_proyecto, $pm);
+		$path  = $punto->get_path_absoluto().'/';
+		toba::logger()->info("PUNTO MONTAJE: se cargó la clase $clase_archivo del punto de montaje {$punto->get_etiqueta()}. El path del mismo es {$punto->get_path_absoluto()}");
+
+		require_once($path.$clase_archivo);
+	}
+	
 	//----------------------------------------------------------------
 	// CACHES
 	//----------------------------------------------------------------

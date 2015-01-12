@@ -5,8 +5,13 @@
  * $Id: config.php 3246 2013-05-23 11:43:52Z olavmrk $
  */
 
-$ini = parse_ini_file(dirname(__FILE__).'/../../../../instalacion/saml.ini',true);
+if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {			//Determinacion de la ruta de instalacion a traves del alias en toba.conf
+	$base = $_SERVER['TOBA_INSTALACION_DIR'];
+} else {
+	$base = dirname(__FILE__).'/../../../../instalacion';
+}
 
+$ini = parse_ini_file($base . '/saml.ini',true);
 $config = array (
 
 	/**

@@ -106,7 +106,6 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 	{
 		$this->instanciar_cliente_cas(); 
 
-		//$this->activar_debug();
 		phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
 		// Se genera la URL de servicio
 		$param = array();
@@ -134,8 +133,11 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 	protected function recuperar_usuario_toba()
 	{
 		$id_usuario = phpCAS::getUser();
-		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
-		if (! isset($datos_usuario)) {													//El usuario no existe en la bd de toba.
+		$datos_usuario = false;
+		
+		$subclase = $this->get_subclase_usuario_proyecto();
+		$datos_usuario = $subclase::existe_usuario($id_usuario);
+		if ($datos_usuario === false) {													//El usuario no existe en la bd de toba.
 				toba::logger()->crit("El usuario CAS '$id_usuario' no existe en la instancia toba");
 				throw new toba_error_autenticacion("El usuario '$id_usuario' no esta dado de alta en el sistema");
 		}

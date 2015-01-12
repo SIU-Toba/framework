@@ -67,14 +67,7 @@ class toba_constructor
 
 	protected static function cargar_clase(&$datos, $id_proyecto)
 	{
-		$clase = $datos['_info']['subclase_archivo'];
-
-		$path = '';
-		$punto = toba::puntos_montaje()->get_instancia_pm_proyecto($id_proyecto, $datos['_info']['punto_montaje']);
-		$path  = $punto->get_path_absoluto().'/';
-		toba::logger()->info("PUNTO MONTAJE: se cargó la clase $clase del punto de montaje {$punto->get_etiqueta()}. El path del mismo es {$punto->get_path_absoluto()}");
-
-		require_once($path.$clase);
+		toba_cargador::cargar_clase_archivo($datos['_info']['punto_montaje'],  $datos['_info']['subclase_archivo'], $id_proyecto);
 	}
 
 	static function get_runtime_objeto($id, $tipo, $clase, $datos)

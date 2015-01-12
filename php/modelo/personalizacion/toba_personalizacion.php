@@ -151,9 +151,11 @@ class toba_personalizacion {
     
 	function iniciar()
 	{
+		$schema_o = $this->get_schema_original();										//Pide Schema Original desde configuracion		
 		$schema_t = $this->get_schema_personalizacion();
 		$this->db->set_schema('public');
 		$this->kill_schemas($schema_t);
+		$this->set_schema_original($schema_o);
 		$this->set_iniciada(true);
 		$this->ini->guardar();
 	}
@@ -360,12 +362,16 @@ class toba_personalizacion {
 	}
 
 	function get_schema_original()
-	{
+	{		
 		if ($this->ini->existe_entrada(self::schema_original)) {
-			return $this->ini->get_datos_entrada(self::schema_original);
+			$schema =  $this->ini->get_datos_entrada(self::schema_original);
 		} else {
-			return $this->db->get_schema();
+			$schema = $this->get_schema_instalacion();
+			if (is_null($schema)) {
+				$schema =  $this->db->get_schema();											//Fallback en el actual de la bd
+			}
 		}
+		return $schema;
 	}
 
 	function get_schema_personalizacion()
@@ -415,6 +421,14 @@ class toba_personalizacion {
 		$instalacion->actualizar_db($instancia->get_ini_base(), $params);
 	}
 
+	protected function get_schema_instalacion()
+	{
+		$instalacion = $this->proyecto->get_instalacion();
+		$instancia = $this->proyecto->get_instancia();
+		$params = $instalacion->get_parametros_base($instancia->get_ini_base());
+		return (isset($params['schema'])) ? $params['schema'] : null;
+	}
+	
 	protected function set_schema_original($schema)
 	{
 		if (is_null($schema)) {
@@ -473,7 +487,7 @@ class toba_personalizacion {
 			$this->get_db()->renombrar_schema($schema_o, $schema_t);
 
 			//2.-  Indicarle al proyecto cual es el directorio de carga de los metadatos que debe usar
-			$this->get_proyecto()->set_dir_metadatos(self::dir_metadatos_originales);
+			$this->get_proyecto()->get_instancia()->set_dir_carga_proyecto($this->proyecto->get_id(), self::dir_metadatos_originales);
 			
 			//3.- Realizar la carga de la instancia, re-creando previamente el schema original que consta en bases.ini
 			$this->get_proyecto()->get_instancia()->crear_schema();

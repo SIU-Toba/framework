@@ -68,5 +68,17 @@ class toba_autenticacion
 		}
 		return $url;
 	}	
+	
+	protected function get_subclase_usuario_proyecto()
+	{
+		$subclase = 'toba_usuario';
+		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
+		$pm = toba::proyecto()->get_parametro('pm_usuario');
+		if (trim($archivo) != '') {
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
+			$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+		}
+		return $subclase;
+	}
 }
 ?>

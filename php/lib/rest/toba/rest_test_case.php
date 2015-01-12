@@ -21,8 +21,8 @@ class rest_test_case extends \PHPUnit_Framework_TestCase
 		if(strpos($ruta, '?') !== false){
 			throw new \Exception("Pasar los parametros del get en el tercer parámetro");
 		}
-		$app = $this->setupRest();
 		$host = \toba_rest::url_rest() . $ruta;
+		$app = $this->setupRest();
 		$this->mock_vista_no_escribir($app);
 		$mock_request = new request_memoria($metodo, $host, $get, $post, $headers);
 		$app->request = $mock_request;

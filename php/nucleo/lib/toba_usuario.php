@@ -177,5 +177,11 @@ class toba_usuario implements toba_interface_usuario
 	{
 		return '/^(?!.*(.)\1{1})((?=.*[^\w\d\s])(?=.*[a-zA-Z])|(?=.*[0-9])(?=.*[a-zA-Z])).{'. $largo_minimo.',}$/';
 	}
+	
+	static function existe_usuario($id_usuario)
+	{
+		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
+		return (isset($datos_usuario) && !is_null($datos_usuario));
+	}
 }
 ?>

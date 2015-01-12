@@ -701,7 +701,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$this->_cuadro->agregar_clave_enviada($clave_fila);
 	}
 
-	private function get_parametros_interaccion($id_fila, $clave_fila)
+	protected function get_parametros_interaccion($id_fila, $clave_fila)
 	{
 		if ($this->_cuadro->usa_modo_seguro()) {
 			$parametros = array('fila_safe' => $clave_fila);

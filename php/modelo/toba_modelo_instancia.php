@@ -26,6 +26,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	private $sincro_archivos;				// Sincronizador de archivos.
 	private $nombre_log;					// Nombre que llevan los archivos de LOG
 	private $datos_ini;
+	private $directorios_carga;
 	
 	function __construct( toba_modelo_instalacion $instalacion, $identificador )
 	{
@@ -106,9 +107,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	 */
 	function get_proyecto($id)
 	{
-		return toba_modelo_catalogo::instanciacion()->get_proyecto( $this->get_id(), 
-										$id, $this->manejador_interface);
-				
+		$inst_proyecto =  toba_modelo_catalogo::instanciacion()->get_proyecto( $this->get_id(), $id, $this->manejador_interface);
+		$dir_carga = $this->get_dir_carga_proyecto($id);
+		if (! is_null($dir_carga)) {
+			$inst_proyecto->set_dir_metadatos($dir_carga);
+		}
+		return $inst_proyecto;		
 	}
 
 	//-----------------------------------------------------------
@@ -288,7 +292,27 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return filemtime($archivo);
 		}
 	}	
-		
+	
+	/**
+	 * @ignore
+	 * @param type $proyecto
+	 * @param type $dir
+	 */
+	function set_dir_carga_proyecto($proyecto, $dir) 
+	{
+		$this->directorios_carga[$proyecto] = $dir;		
+	}
+	
+	/**
+	 * @ignore
+	 * @param type $proyecto
+	 * @return type
+	 */
+	function get_dir_carga_proyecto($proyecto) 
+	{
+		return (isset($this->directorios_carga[$proyecto])) ? $this->directorios_carga[$proyecto] : null;
+	}
+	
 	//-----------------------------------------------------------
 	//	Manipulacion de la DEFINICION
 	//-----------------------------------------------------------

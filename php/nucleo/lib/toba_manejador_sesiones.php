@@ -637,8 +637,10 @@ class toba_manejador_sesiones
 			}
 		}
 		
-		//--Controla que la autenticacion siga presente (caso CAS y SAML)
-		$this->get_autenticacion()->verificar_logout();
+		//--Controla que la autenticacion siga presente (caso CAS y SAML), no se hace para proyectos sin login
+		if (toba::proyecto()->get_parametro('requiere_validacion') ) {
+			$this->get_autenticacion()->verificar_logout();
+		}
 	}	
 
 	private function cerrar_sesion($observaciones=null)

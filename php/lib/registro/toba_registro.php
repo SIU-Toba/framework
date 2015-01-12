@@ -111,7 +111,7 @@ abstract class toba_registro {
 		$this->conflictos = array();
 		$schema = $this->db->get_schema();
 		if (!$this->db->existe_tabla($schema, $this->tabla)) {
-			$this->conflictos[] =  new toba_registro_conflictos_tabla_inexistente($this);
+			$this->conflictos[] =  new toba_registro_conflicto_tabla_inexistente($this);
 		}
 
 		$error = $this->check_constraints();

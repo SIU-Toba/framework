@@ -78,6 +78,7 @@ class toba_proyecto_db
 						pm_impresion				  ,
 						pm_sesion						,
 						pm_contexto						,
+						pm_usuario						,
 						est.es_css3
 				FROM 	apex_proyecto p 
 							LEFT OUTER JOIN apex_menu_tipos m ON (p.menu = m.menu)
