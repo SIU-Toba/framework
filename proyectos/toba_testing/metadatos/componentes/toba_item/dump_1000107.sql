@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Ataques XSS', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
 	NULL, --orden

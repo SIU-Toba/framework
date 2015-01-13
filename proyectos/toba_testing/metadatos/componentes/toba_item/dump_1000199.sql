@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Errores de BD', --nombre
 	'Captura de distintos tipos de errores provenientes de la base y parseado del mensaje para postgres', --descripcion
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
 	NULL, --orden

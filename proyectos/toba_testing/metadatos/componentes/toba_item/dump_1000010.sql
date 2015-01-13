@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Cascadas', --nombre
 	'Prueba de cascadas.', --descripcion
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'7', --orden

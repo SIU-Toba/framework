@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Buscador de personas', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000003', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	'5', --orden

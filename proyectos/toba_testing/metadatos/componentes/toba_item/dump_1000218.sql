@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'especifico', --actividad_patron
 	'Item Consola', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000005', --punto_montaje
 	NULL, --actividad_accion
 	NULL, --menu
 	NULL, --orden

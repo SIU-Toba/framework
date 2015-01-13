@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cd_c', --actividad_patron
 	'Autentificación de Usuarios', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000006', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	'1', --orden

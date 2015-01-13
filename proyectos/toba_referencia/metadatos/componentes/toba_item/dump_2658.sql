@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'ABM de Personas', --nombre
 	'Ayuda a nivel ítem, puede contener [wiki:Referencia Hipervinculos] a la documentación.', --descripcion
-	NULL, --punto_montaje
+	'12000003', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'3', --orden
