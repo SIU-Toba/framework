@@ -40,7 +40,7 @@ class toba_perfil_datos
 	function __construct()
 	{
 		// Por defecto el sistema se activa sobre el proyecto y usuario actual
-		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
+		$this->id = toba::manejador_sesiones()->get_perfil_datos_activo();	
 		$this->inicializar( toba::proyecto()->get_id() );
 	}
 	
