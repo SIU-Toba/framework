@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Elementos de Formulario (efs)', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	NULL, --orden

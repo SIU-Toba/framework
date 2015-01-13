@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_cuadro', --nombre
 	'Un [wiki:Referencia/Objetos/ei_cuadro ei_cuadro] es una grilla de registros pensados para visualización. Es común que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <em>seleccionarlos</em> a través de eventos.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden

@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_filtro', --nombre
 	'Un [wiki:Referencia/Objetos/ei_filtro filtro] presenta una grilla de campos similar al  [wiki:Referencia/Objetos/ei_formulario formulario], pero con el objetivo de reducir el conjunto de datos mostrados por otro componente.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden

@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'especifico', --actividad_patron
 	'Menu', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'acciones/control.php', --actividad_accion
 	'1', --menu
 	'2', --orden

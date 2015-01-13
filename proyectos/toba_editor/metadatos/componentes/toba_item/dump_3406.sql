@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Eliminar Operacion y Componentes asociados', --nombre
 	'Eliminar operaciones completas', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden

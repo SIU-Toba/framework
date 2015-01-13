@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cuadro_proyecto', --actividad_patron
 	'Proyecto - Mensajes', --nombre
 	'Mensajes globales del Proyecto. Forma parte del esquema de [wiki:Referencia/Mensajes Mensajes y Notificaciones]', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'12', --orden

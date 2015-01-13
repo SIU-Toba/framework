@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ci', --nombre
 	'Un [wiki:Referencia/Objetos/ci controlador de interface (ci)] es el responsable de manejar las pantallas y sus distintos elementos contenidos, siendo el nexo existente entre la capa de persistencia/negocio y la capa interface (eis).', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	NULL, --orden

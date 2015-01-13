@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_arbol', --nombre
 	'El componente [wiki:Referencia/Objetos/ei_arbol ei_arbol] representa gráficamente una estructura de árbol con posibilidad de incluir funcionalidades referentes a cada nodo del árbol tales como iconos, utilerías, colapsados, ayuda extendida, etc. Actualmente la definición del objeto utilizando el editor es muy básica, todo el comportamiento se define en forma de código.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	NULL, --orden

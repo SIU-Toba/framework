@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_archivos', --nombre
 	'Un [wiki:Referencia/Objetos/ei_archivos ei_archivos] permite navegar una parte segura del <strong>sistema de archivos del servidor</strong> (no del cliente) en donde se pueden crear carpetas, archivos y seleccionar los mismos.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden

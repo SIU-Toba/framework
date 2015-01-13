@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor datos_relacion', --nombre
 	'<strong>[wiki:Referencia/Objetos/datos_relacion Datos Relación]</strong>:<br>Mantiene un conjunto relacionado de [wiki:Referencia/Objetos/datos_tabla datos_tabla], brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	NULL, --menu
 	NULL, --orden

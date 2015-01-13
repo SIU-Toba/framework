@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'editable_abm', --actividad_patron
 	'Fuente de Datos - Editor', --nombre
 	'Las [wiki:Referencia/FuenteDatos fuentes de datos] permiten conectar componentes y código propio a distintas bases de datos.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'0', --orden

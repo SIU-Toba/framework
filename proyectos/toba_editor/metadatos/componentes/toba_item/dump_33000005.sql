@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Chequeador Revisiones', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'acciones/check_revision.php', --actividad_accion
 	'0', --menu
 	NULL, --orden

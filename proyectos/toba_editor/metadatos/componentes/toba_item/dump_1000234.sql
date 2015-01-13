@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cuadro', --actividad_patron
 	'TIPO de observaciones en SOLICITUD', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	NULL, --menu
 	'670', --orden

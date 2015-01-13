@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'especifico', --actividad_patron
 	'Testing Automático por Consola', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'acciones/pruebas/testing_automatico/casos_consola.php', --actividad_accion
 	NULL, --menu
 	'-1', --orden

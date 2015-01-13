@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cd_c', --actividad_patron
 	'Testing Automático de Javascript', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'utilitarios/testing_unitario/casos_javascript.php', --actividad_accion
 	'0', --menu
 	'-2', --orden

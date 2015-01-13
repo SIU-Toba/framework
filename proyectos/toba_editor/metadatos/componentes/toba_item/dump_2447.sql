@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_calendario', --nombre
 	'Un [wiki:Referencia/Objetos/ei_calendario ei_calendario] es una grilla que muestra días y semanas en una vista mensual.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	NULL, --orden

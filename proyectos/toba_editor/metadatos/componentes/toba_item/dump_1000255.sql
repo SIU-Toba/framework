@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_formulario', --nombre
 	'Un [wiki:Referencia/Objetos/ei_formulario formulario] presenta una grilla de campos editables por el usuario. A cada uno de estos campos se los denomina [wiki:Referencia/efs Elementos de Formulario (efs)].', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	NULL, --actividad_accion
 	'0', --menu
 	NULL, --orden

@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cuadro_proyecto', --actividad_patron
 	'ELEMENTO de FORMULARIO (EF)', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	'135', --orden

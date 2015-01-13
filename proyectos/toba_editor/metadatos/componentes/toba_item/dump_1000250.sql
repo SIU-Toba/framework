@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor datos_tabla', --nombre
 	'<strong>[wiki:Referencia/Objetos/datos_tabla Datos Tabla]</strong>:<br>Mantiene una estructura tabular (o también llamada [wiki:API/RecordSet RecordSet]) y brinda una interface para trabajar con ella.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	NULL, --menu
 	NULL, --orden

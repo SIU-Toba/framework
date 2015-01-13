@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Clonar Items Consola', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'utilitarios/clonador_items/accion_consola.php', --actividad_accion
 	'0', --menu
 	'2', --orden

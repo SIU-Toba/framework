@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cuadro_proyecto', --actividad_patron
 	'Proyecto - Zonas', --nombre
 	'Una [wiki:Referencia/Zona Zona] permite agrupar operaciones en torno a un dato común.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'10', --orden

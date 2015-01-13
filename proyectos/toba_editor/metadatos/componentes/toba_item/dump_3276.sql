@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Proyecto - Derechos', --nombre
 	'Los [wiki:Referencia/Seguridad/Permisos Permisos globales] se pueden consultar en cualquier punto del código conformando validaciones específicas del proyecto.', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'55', --orden

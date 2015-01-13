@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cd_c', --actividad_patron
 	'Inicio', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'acciones/inicio.php', --actividad_accion
 	'1', --menu
 	'40', --orden

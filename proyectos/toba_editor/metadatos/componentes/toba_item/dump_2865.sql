@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor ei_esquema', --nombre
 	'Un [wiki:Referencia/Objetos/ei_esquema ei_esquema] genera un esquema utilizando [url:http://www.graphviz.org/ GraphViz].', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	NULL, --orden

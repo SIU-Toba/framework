@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'editable_php_asoc', --actividad_patron
 	'Propiedades - Codigo PHP', --nombre
 	'Ver codigo PHP de la subclase', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	'10', --orden

@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'CI', --actividad_patron
 	'Editor cn', --nombre
 	'Los [wiki:Referencia/Objetos/cn Controladores de Negocio (cn)]  permiten unificar la carga y entrega de datos y servicios a una jerarquía completa de componentes de interface (especialmente a los cis).', --descripcion
-	NULL, --punto_montaje
+	'12', --punto_montaje
 	'', --actividad_accion
 	'0', --menu
 	NULL, --orden
