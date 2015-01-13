@@ -17,5 +17,21 @@ class toba_migracion_2_7_0 extends toba_migracion
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
+	
+	function proyecto__actualizar_pms()
+	{
+		$db = $this->elemento->get_db();
+		$proyecto = $this->elemento->get_db()->quote($this->elemento->get_id());
+		
+		$sql = "SELECT id FROM apex_puntos_montaje WHERE etiqueta= 'proyecto' AND proyecto = $proyecto;";		
+		$id = $this->elemento->get_db()->consultar_fila($sql);	
+		
+		if (! empty($id)) {
+			$sql_up = array();
+			$sql_up[] = 'UPDATE apex_item SET punto_montaje = '. $id['id'] . " WHERE punto_montaje IS NULL  AND proyecto =  $proyecto;" ;			
+			$this->elemento->get_db()->ejecutar($sql_up);	
+		}
+	
+	}
 }
 ?>
