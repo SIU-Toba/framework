@@ -28,7 +28,7 @@ class toba_migracion_2_7_0 extends toba_migracion
 		
 		if (! empty($id)) {
 			$sql_up = array();
-			$sql_up[] = 'UPDATE apex_item SET punto_montaje = '. $id['id'] . " WHERE punto_montaje IS NULL  AND proyecto =  $proyecto;" ;			
+			$sql_up[] = 'UPDATE apex_item SET punto_montaje = '. $id['id'] . " WHERE punto_montaje IS NULL  AND proyecto =  $proyecto AND carpeta = 0;" ;			
 			$this->elemento->get_db()->ejecutar($sql_up);	
 		}
 	
