@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'abms_cuadro', --actividad_patron
 	'Mantenimiento de usuarios', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000004', --punto_montaje
 	'', --actividad_accion
 	'1', --menu
 	'5', --orden

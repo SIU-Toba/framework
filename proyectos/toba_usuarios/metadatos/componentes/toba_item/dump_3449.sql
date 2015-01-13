@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_patron
 	'Exportar', --nombre
 	NULL, --descripcion
-	NULL, --punto_montaje
+	'12000004', --punto_montaje
 	'exportacion/accion_exportacion.php', --actividad_accion
 	'0', --menu
 	NULL, --orden

@@ -25,7 +25,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'especifico', --actividad_patron
 	'Inicio', --nombre
 	'', --descripcion
-	NULL, --punto_montaje
+	'12000004', --punto_montaje
 	'item_inicial.php', --actividad_accion
 	'0', --menu
 	'1', --orden

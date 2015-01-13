@@ -27,7 +27,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Una sesión es el espacio de tiempo desde que el usuario ingresa a la aplicación hasta que se desloguea del mismo o caduca su sesión en el servidor. En este último caso, no hay forma de registrar en el log la hora exacta en que caduca.
 <br><br>
 Dentro de una sesión, el usuario realiza una serie de accesos, estos sucesos se registran dependiendo de la configuración del proyecto y de la operación a la que accede. Cada acceso equivale a un pedido de página o request del navegador al servidor.', --descripcion
-	NULL, --punto_montaje
+	'12000004', --punto_montaje
 	NULL, --actividad_accion
 	'1', --menu
 	'3', --orden
