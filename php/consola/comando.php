@@ -117,35 +117,44 @@ class comando
 	{
 		
 		$params = array();
-		for ($i=0; $i < count( $this->argumentos ); $i++) 
+		for ($i=0; $i < count( $this->argumentos ); $i++)
 		{
 			if ($this->es_parametro($this->argumentos[$i])) {
-				if (strtolower(trim($this->argumentos[$i])) == '--help') {	   
+				if (strtolower(trim($this->argumentos[$i])) == '--help') {
 					   return array('help' => 1);
-				}	   
-				
+				}
 				if (strlen($this->argumentos[$i]) == 1) {
 
 				 } elseif ( strlen($this->argumentos[$i]) == 2) {
-					  $paramName = $this->argumentos[$i];
-					  $y=1;
-					  $paramVal = '';	               
-					  while (isset($this->argumentos[ $i + $y ]) && 
-								  !$this->es_parametro( $this->argumentos[ $i + $y ] )) {
-						  $paramVal .=  $this->argumentos[ $i + $y ] . ' ';
-						  $y++;
-					  }
-					  $paramVal = trim($paramVal);
+
+					$paramName = $this->argumentos[$i];
+					$paramVal = $this->get_param_val($i);
 				 } elseif (strlen($this->argumentos[$i]) > 2) {
-					 $paramName = substr($this->argumentos[$i],0,2);
-					 $paramVal = substr($this->argumentos[$i],2);
+					if (substr($this->argumentos[$i], 0, 2) == '--') {
+						$paramName = $this->argumentos[$i];
+						$paramVal = $this->get_param_val($i);
+					} else {
+						$paramName = substr($this->argumentos[$i], 0, 2);
+						$paramVal = substr($this->argumentos[$i], 2);
+					}
 				 }
 				 $params[ $paramName ] = $paramVal;
 			}
 		}
-		 return $params;
+		return $params;
 	}
-	
+
+	private function get_param_val($i) {
+		$paramVal = '';
+		$y=1;
+		while (isset($this->argumentos[ $i + $y ]) &&
+			!$this->es_parametro( $this->argumentos[ $i + $y ] )) {
+			$paramVal .=  $this->argumentos[ $i + $y ] . ' ';
+			$y++;
+		}
+		return trim($paramVal);
+	}
+
 	private function es_parametro( $texto ) {
 		 return (substr($texto, 0, 1) == "-") ? 1: 0;
 	}
