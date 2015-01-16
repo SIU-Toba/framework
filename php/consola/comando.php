@@ -95,19 +95,30 @@ class comando
 		}
 		$opciones = array();
 		$clase = new ReflectionClass($clase);
-		foreach ($clase->getMethods() as $metodo){
-			if (substr($metodo->getName(), 0, 8) == 'opcion__'){
-				$temp = explode('__', $metodo->getName());
-				$nombre = $temp[1];
-				$comentario = $metodo->getDocComment();
-				$opciones[ $nombre ] = array(
-					'ayuda' => parsear_doc_comment($comentario),
-					'tags' => parsear_doc_tags($comentario)
-				);
-				
+
+		//-----
+		//Hace 2 pasadas para poder ordenar los metodos según si son propios del proyecto o son definidos en toba (util para ver comandos propios custom al final de la lista )
+		for ($pasada = 1; $pasada <= 2; $pasada++) {
+			foreach ($clase->getMethods() as $metodo) {
+				if ($metodo->getDeclaringClass()->getName() == $clase->getName() && $pasada == 1) {
+					continue;
+				}
+				if ($metodo->getDeclaringClass()->getName() != $clase->getName() && $pasada == 2) {
+					continue;
+				}
+				if (substr($metodo->getName(), 0, 8) == 'opcion__') {
+					$temp = explode('__', $metodo->getName());
+					$nombre = $temp[1];
+					$comentario = $metodo->getDocComment();
+					$opciones[$nombre] = array(
+						'ayuda' => parsear_doc_comment($comentario),
+						'tags' => parsear_doc_tags($comentario),
+					);
+
+				}
 			}
 		}
-		return $opciones;		
+		return $opciones;
 	}
 
 	/*

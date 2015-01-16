@@ -77,6 +77,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	
 	/**
 	 * Hace compatible la estructura del esquema con los cambios en la version 2.4.0
+ 	 * @consola_separador 1
 	 */
 	function opcion__migrar_auditoria_2_4()
 	{
