@@ -42,20 +42,15 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
     }
 	
 	/**
-	 * @return Guzzle\Service\Client
+	 * @return GuzzleHttp\Client
 	 */
 	function guzzle()
 	{
 		if (! isset($this->guzzle)) {
-			$this->guzzle = new Guzzle\Service\Client($this->opciones['to']);
-
-            //https://github.com/guzzle/guzzle/issues/120
-            $options = $this->guzzle->getConfig()->get('curl.options');
-            $options['body_as_string'] = TRUE;
-            $this->guzzle->getConfig()->set('curl.options', $options);
+			$this->guzzle = $client = new GuzzleHttp\Client(['base_url' => $this->opciones['to']]);
 
 			if (isset($this->opciones['auth_tipo'])) {
-				$this->guzzle->setDefaultOption('auth', 
+				$this->guzzle->setDefaultOption('auth',
 						array(	$this->opciones['auth_usuario'], 
 								$this->opciones['auth_password'], 
 								$this->opciones['auth_tipo']));
