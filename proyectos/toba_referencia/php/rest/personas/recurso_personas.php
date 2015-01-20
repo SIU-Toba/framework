@@ -25,7 +25,7 @@ class recurso_personas implements \rest\lib\modelable //esta interface es docume
 			         => array('type'     => 'string', 'required', //required es solo visual (spec swagger), hay que agregar la regla
 			                  '_validar' => array(
 					              rest_validador::OBLIGATORIO,
-					              rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 3))),
+					              rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 30))),
 			'fecha_nacimiento'
 			         => array('_mapeo'   => 'fecha_nac', 'required',
 			                  '_validar' => array(rest_validador::TIPO_DATE => array('format' => 'Y-m-d'))),

@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Exception\RequestException;
+
 class ci_cliente_rest extends toba_ci
 {
 	protected $dump_url;
@@ -17,16 +19,14 @@ class ci_cliente_rest extends toba_ci
 	{
 	}
 	
-	function debug($request, $response)
+	function debug(\GuzzleHttp\Message\Response $response)
 	{
-		$this->dump_pedido = $request->getRawHeaders();
-		$this->dump_url = $request->getUrl();
 		$this->dump_respuesta = $response->getBody(); //un string encodeado utf-8
 	}
 
 	/**
 	 * Ver http://docs.guzzlephp.org/en/latest/docs.html
-	 * @return Guzzle\Service\Client
+	 * @return GuzzleHttp\Client
 	 */
 	function get_cliente_rest(){
 		
@@ -77,24 +77,27 @@ class ci_cliente_rest extends toba_ci
 	{
 		try {
 			$cliente = $this->get_cliente_rest();
-			$request = $cliente->get('personas');
-			$response = $request->send();
-			$this->debug($request, $response);
+            $response = $cliente->get('personas');
+			$this->debug($response);
 			$this->rs_personas = rest_decode($response->json());
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
 	
 	function evt__get__persona()
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->get('personas/1');
+
 		try {
-			$response = $request->send();
-			$this->debug($request, $response);
+            $response = $cliente->get('personas/1');
+			$this->debug($response);
 			$this->rs_personas = array(rest_decode($response->json()));
-		} catch (Exception $e) {
+		} catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
 			throw new toba_error($e);
 		}
 	}
@@ -102,24 +105,26 @@ class ci_cliente_rest extends toba_ci
 	function evt__get__persona_juegos()
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->get('personas/1/juegos');
 		try {
-			$response = $request->send();			
-			$this->debug($request, $response);
+			$response =$cliente->get('personas/1/juegos');
+			$this->debug($response);
 			$this->rs_personas = array(rest_decode($response->json()));
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
 
     function evt__get__personas_alias()
     {
         $cliente = $this->get_cliente_rest();
-        $request = $cliente->get('personas/confoto');
         try {
-            $response = $request->send();
-            $this->debug($request, $response);
+            $response = $cliente->get('personas/confoto');
+            $this->debug($response);
             $this->rs_personas = array(rest_decode($response->json()));
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
         } catch (Exception $e) {
             throw new toba_error($e);
         }
@@ -132,15 +137,18 @@ class ci_cliente_rest extends toba_ci
 	function evt__post__persona($datos)
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->post('personas', null,  rest_encode($datos));
 		try {
-			$response = $request->send();
-			$this->debug($request, $response);
+			$response = $cliente->post('personas',array(
+                'body' => rest_encode($datos)
+            ));
+			$this->debug($response);
 			$persona = rest_decode($response->json());
 			toba::notificacion()->info("Persona creada con id: ".$persona['id']);
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
 	
 	//-----------------------------------------------------------------------------
@@ -150,16 +158,16 @@ class ci_cliente_rest extends toba_ci
 	function evt__delete__persona($datos)
 	{
 		$cliente = $this->get_cliente_rest();
-		$request = $cliente->delete('personas/'.$datos['id']);
+
 		try {
-			$response = $request->send();
-			$this->debug($request, $response);
+			$response = $cliente->delete('personas/'.$datos['id']);
+			$this->debug($response);
 			toba::notificacion()->info("Persona borrada");
-		} catch (Guzzle\Http\Exception\BadResponseException $e) {
-			throw new toba_error($e->getResponse()->getBody());
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
 	
 	
@@ -172,19 +180,33 @@ class ci_cliente_rest extends toba_ci
 		$cliente = $this->get_cliente_rest();
 		$id = $datos['id'];
 		unset($datos['id']);
-		$request = $cliente->put('personas/'.$id, null, rest_encode($datos));
 		try {
-			$response = $request->send();
-			$this->debug($request, $response);
+			$response = $cliente->put('personas/'.$id, array(
+                'body' => rest_encode($datos)
+            ));
+			$this->debug($response);
 			$persona = rest_decode($response->json());
 			toba::notificacion()->info("Persona actualizada");
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
-	
-		
-	//-----------------------------------------------------------------------------
+
+
+    protected function manejar_excepcion_request(RequestException $e){
+        $msg = $e->getRequest() . "\n";
+
+        if ($e->hasResponse()) {
+            $msg .= $e->getResponse() . "\n";
+        }
+        throw new toba_error($msg);
+    }
+
+
+
+    //-----------------------------------------------------------------------------
 	//----  PANT_FILTRO  -------------------------------------------------------------
 	//------------------------------------------------------------------------------
 	
@@ -234,32 +256,36 @@ class ci_cliente_rest extends toba_ci
 		try {
 		
 			$cliente = $this->get_cliente_rest();
-			$url = "personas?";
+            $query = array();
+			$url = "personas";
+
 			if (isset($this->s__orden)) {
 				$sentido = $this->s__orden['sentido'] == 'asc' ? "+" : "-";
-				$url .= 'order='.urlencode($sentido).$this->s__orden['columna'].'&';
+                $query['order'] = urlencode($sentido).$this->s__orden['columna'];
 			}
-			$url .= 'limit='.$this->dep('get_cuadro')->get_tamanio_pagina().'&';
-			$url .= 'page='.$this->dep('get_cuadro')->get_pagina_actual().'&';			
+            $query['limit'] = $this->dep('get_cuadro')->get_tamanio_pagina();
+            $query['page'] = $this->dep('get_cuadro')->get_pagina_actual();
+
+
 			foreach ($this->s__filtro as $id => $campo) {
 				if (is_array($campo['valor'])) {
 					$valor = $campo['valor']['desde'].';'.$campo['valor']['hasta'];
 				} else {
 					$valor = $campo['valor'];
 				}
-				$url .= $id.'='.$campo['condicion'].';'.$valor.'&';
+                $query[$id] = $campo['condicion'].';'.$valor;
 			}
 
-			$request = $cliente->get($url);
-			$response = $request->send();
-			$this->dump_pedido = $request->getRawHeaders();
-			$this->dump_url = $request->getUrl();
-			$this->dump_respuesta = $response->getBody();	
+			$response = $cliente->get($url, array('query' => $query));
+
+			$this->dump_respuesta = $response->getBody();
 			$this->cant_personas = (string) $response->getHeader("Cantidad-Registros");
 			$this->rs_personas = rest_decode($response->json());
-		} catch (Exception $e) {
-			throw new toba_error($e);
-		}
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
+        } catch (Exception $e) {
+            throw new toba_error($e);
+        }
 	}
 
     //-----------------------------------------------------------------------------
@@ -274,13 +300,15 @@ class ci_cliente_rest extends toba_ci
             $img_para_ws = base64_encode($imagen);
             $mensaje = array('imagen' => $img_para_ws);
             $cliente = $this->get_cliente_rest();
-
-            $request = $cliente->put('personas/'.$datos['persona'], null, rest_encode($mensaje));
-
             try {
-                $response = $request->send();
-                $this->debug($request, $response);
+                $response = $cliente->put('personas/'.$datos['persona'], array(
+                    'body' => rest_encode($mensaje)
+                ));
+
+                $this->debug($response);
                 toba::notificacion()->info("Persona actualizada");
+            } catch (RequestException $e) {
+                $this->manejar_excepcion_request($e);
             } catch (Exception $e) {
                 throw new toba_error($e);
             }
@@ -291,12 +319,13 @@ class ci_cliente_rest extends toba_ci
 
     function evt__imagen__get_imagen($datos){
         $cliente = $this->get_cliente_rest();
-        $request = $cliente->get('personas/'.$datos['persona'] .'?con_imagen=1');
         try {
-            $response = $request->send();
-            $this->debug($request, $response);
+            $response = $cliente->get('personas/'.$datos['persona'], array('query' => array('con_imagen'=>1)));
+            $this->debug( $response);
             $rs_persona = rest_decode($response->json());
             $this->imagen_persona = $rs_persona['imagen'];
+        } catch (RequestException $e) {
+            $this->manejar_excepcion_request($e);
         } catch (Exception $e) {
             throw new toba_error($e);
         }
