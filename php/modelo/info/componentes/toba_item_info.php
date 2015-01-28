@@ -579,7 +579,7 @@ class toba_item_info implements toba_nodo_arbol
 	 */
 	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion=true)
 	{
-		$campos_extra = array('fuente_datos', 'fuente_datos_proyecto', 'punto_montaje' );
+		$campos_extra = array('fuente_datos', 'fuente_datos_proyecto');
 		//-- Cargo el DR asociado
 		$id_dr = toba_info_editores::get_dr_de_clase('toba_item');
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
@@ -591,7 +591,7 @@ class toba_item_info implements toba_nodo_arbol
 			if ($campo == 'anexo_nombre') {
 				$campo = 'nombre';
 				$valor = $valor . $dr->tabla('base')->get_fila_columna(0, $campo);
-			}
+			} 
 			if (! in_array($campo, $campos_extra)) {
 				$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
 			}

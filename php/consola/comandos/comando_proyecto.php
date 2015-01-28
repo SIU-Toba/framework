@@ -526,7 +526,6 @@ class comando_proyecto extends comando_toba
 			if (!$clonar) {
 				return;
 			}
-			$pisar = $this->consola->dialogo_simple("¿Desea borrar del proyecto el item de login anterior?", false);
 		}
 		$proyecto->actualizar_login($pisar);
 	}
