@@ -6,6 +6,7 @@ class ci_login extends toba_ci
 	protected $en_popup = false;
 	protected $s__item_inicio;
 	private $es_cambio_contrasenia = false;
+	protected $metodos_centralizados = array('cas','saml', 'onelogin');
 	
 	/**
 	 * Guarda el id de la operación original así se hace una redirección una vez logueado
@@ -38,7 +39,7 @@ class ci_login extends toba_ci
 			}
 		}
 		$tipo_auth = toba::instalacion()->get_tipo_autenticacion();
-		if (in_array($tipo_auth, array('cas','saml'))) {
+		if (in_array($tipo_auth, $this->metodos_centralizados)) {
 			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba()) {
 				$this->evt__cas__ingresar();
 			}
@@ -153,12 +154,12 @@ class ci_login extends toba_ci
 			$usuario = (isset($this->s__datos['usuario'])) ? $this->s__datos['usuario'] : '';
 			$clave = (isset($this->s__datos['clave'])) ? $this->s__datos['clave'] : '';
 
-			if (in_array($tipo_auth, array('cas','saml'))) {
+			if (in_array($tipo_auth, $this->metodos_centralizados)) {
 				toba::manejador_sesiones()->get_autenticacion()->usar_login_basico();
 			}			
 			toba::manejador_sesiones()->login($usuario, $clave);
 
-		} elseif (in_array($tipo_auth, array('cas','saml')) && toba::manejador_sesiones()->get_autenticacion()->uso_login_centralizado()) {	//El control por session es para que no redireccione automaticamente
+		} elseif (in_array($tipo_auth, $this->metodos_centralizados) && toba::manejador_sesiones()->get_autenticacion()->uso_login_centralizado()) {	//El control por session es para que no redireccione automaticamente
 			toba::manejador_sesiones()->get_autenticacion()->verificar_acceso();
 		}	
 	}	

@@ -382,6 +382,7 @@ class toba_autoload
 		'toba_autenticacion_ldap' => 'nucleo/lib/toba_autenticacion_ldap.php',
 		'toba_autenticacion_openid' => 'nucleo/lib/toba_autenticacion_openid.php',
 		'toba_autenticacion_saml' => 'nucleo/lib/toba_autenticacion_saml.php',
+		'toba_autenticacion_onelogin' => 'nucleo/lib/toba_autenticacion_onelogin.php',
 		'toba_contenedor_gadgets' => 'nucleo/lib/toba_contenedor_gadgets.php',
 		'toba_contexto_ejecucion' => 'nucleo/lib/toba_contexto_ejecucion.php',
 		'toba_cronometro' => 'nucleo/lib/toba_cronometro.php',

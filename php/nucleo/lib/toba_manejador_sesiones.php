@@ -159,9 +159,11 @@ class toba_manejador_sesiones
 					$this->set_autenticacion(new toba_autenticacion_cas());
 					break;
 				case 'saml':
-
 					$this->set_autenticacion(new toba_autenticacion_saml());
-					break;				
+					break;		
+				case 'onelogin':
+					$this->set_autenticacion(new toba_autenticacion_onelogin());
+					break;						
 				default:												//tipo == 'toba'
 					$this->set_autenticacion(new toba_autenticacion_basica());
 					break;					
