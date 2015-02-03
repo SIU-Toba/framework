@@ -48,7 +48,6 @@ class firewall
 		 */
 
 		$usuario = $this->authentication->get_usuario($request);
-
 		if (!$this->authorization->tiene_acceso($usuario, $ruta)) {
 			if (NULL === $usuario) {
 				throw new rest_error_autenticacion($this->authentication);

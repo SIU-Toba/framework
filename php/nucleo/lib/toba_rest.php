@@ -1,7 +1,10 @@
 <?php
 
-
+require_once(toba::nucleo()->toba_dir(). '/php/3ros/guzzle/autoload.php');
+require_once(toba::nucleo()->toba_dir(). '/php/lib/rest/vendor/autoload.php');
 use rest\seguridad\autenticacion;
+use rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
+use rest\seguridad\autorizacion\autorizacion_scopes;
 use rest\toba\toba_rest_logger;
 use rest\toba as rest_toba;
 
@@ -88,7 +91,7 @@ class toba_rest
         $autenticacion = $conf->get('autenticacion', null, 'basic');
         $modelo_proyecto = $this->get_modelo_proyecto();
 
-        switch($autenticacion){
+        switch($autenticacion) {
             case 'basic':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
                     $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
@@ -105,6 +108,29 @@ class toba_rest
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
                     $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_api_key($passwords);
+                });
+                break;
+            case 'oauth2':
+                $app->container->singleton('autenticador', function () use ($conf) {
+                    $conf_auth = $conf->get('oauth2');
+                    $decoder = null;
+                    switch ($conf_auth['decodificador_tokens']) {
+                        case 'local':
+                            die('not implemented');
+                            break;
+                        case 'web':
+                            $cliente = new \GuzzleHttp\Client(array('base_url' => $conf_auth['endpoint_decodificador_url']));
+                            $decoder = new oauth_token_decoder_web($cliente);
+                            $decoder->set_cache_manager(new \Doctrine\Common\Cache\ApcCache());
+                            break;
+                    }
+
+                    $auth = new autenticacion\autenticacion_oauth2();
+                    $auth->set_decoder($decoder);
+                    return $auth;
+                });
+                $app->container->singleton('autorizador', function () {
+                    return new autorizacion_scopes();
                 });
                 break;
             case 'toba':
