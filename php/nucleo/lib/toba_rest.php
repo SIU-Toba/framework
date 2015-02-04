@@ -122,6 +122,7 @@ class toba_rest
                             $cliente = new \GuzzleHttp\Client(array('base_url' => $conf_auth['endpoint_decodificador_url']));
                             $decoder = new oauth_token_decoder_web($cliente);
                             $decoder->set_cache_manager(new \Doctrine\Common\Cache\ApcCache());
+                            $decoder->set_tokeninfo_translation_helper(new autenticacion\oauth2\tokeninfo_translation_helper_arai());
                             break;
                     }
 
@@ -129,8 +130,14 @@ class toba_rest
                     $auth->set_decoder($decoder);
                     return $auth;
                 });
-                $app->container->singleton('autorizador', function () {
-                    return new autorizacion_scopes();
+                $app->container->singleton('autorizador', function () use ($conf) {
+                    $conf_auth = $conf->get('oauth2');
+                    if (!isset($conf_auth['scopes'])) {
+                        die("es necesario definir el parámetro 'scopes' en el bloque oauth2 de la configuración");
+                    }
+                    $auth = new autorizacion_scopes();
+                    $auth->set_scopes_requeridos(array_map('trim', explode(',', $conf_auth['scopes'])));
+                    return $auth;
                 });
                 break;
             case 'toba':

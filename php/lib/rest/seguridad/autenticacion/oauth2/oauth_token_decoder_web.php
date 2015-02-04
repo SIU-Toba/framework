@@ -20,6 +20,11 @@ class oauth_token_decoder_web extends oauth_token_decoder
     protected $guzzle_client;
 
     /**
+     * @var tokeninfo_translation_helper
+     */
+    protected $tokeninfo_translation_helper;
+
+    /**
      * @param \GuzzleHttp\Client $guzzle_client un cliente guzzle inicializado con la URL para pedir los tokens.
      * La URL debe estar completa, lo único que se agrega en el pedido realizado es el parámetro del token
      */
@@ -35,8 +40,7 @@ class oauth_token_decoder_web extends oauth_token_decoder
 
     /**
      * @param string $token un token oauth
-     * @return array asociativo con la información correspondiente a el token. Si el token es inválido o expirado
-     * devuelve null
+     * @return token_info
      */
     public function decode($token)
     {
@@ -51,8 +55,16 @@ class oauth_token_decoder_web extends oauth_token_decoder
             return null;
         }
 
-        $info = $res->json();
-        $this->cache->save($token, $info);
-        return $info;
+        $tokeninfo = $this->tokeninfo_translation_helper->translate_token_info($res->json());
+        $this->cache->save($token, $tokeninfo);
+        return $tokeninfo;
+    }
+
+    /**
+     * @param \rest\seguridad\autenticacion\oauth2\tokeninfo_translation_helper $tokeninfo_translation_helper
+     */
+    public function set_tokeninfo_translation_helper($tokeninfo_translation_helper)
+    {
+        $this->tokeninfo_translation_helper = $tokeninfo_translation_helper;
     }
 }

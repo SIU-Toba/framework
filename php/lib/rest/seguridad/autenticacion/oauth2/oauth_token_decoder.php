@@ -23,7 +23,7 @@ abstract class oauth_token_decoder
 
     /**
      * @param string $token un token oauth
-     * @return array asociativo con la información correspondiente a el token
+     * @return token_info
      */
     abstract public function decode($token);
 } 

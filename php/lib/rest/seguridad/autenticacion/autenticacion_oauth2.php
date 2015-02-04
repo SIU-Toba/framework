@@ -44,15 +44,23 @@ class autenticacion_oauth2 extends proveedor_autenticacion
         if ($auth_header === null) {
             return null;
         }
-        $token = explode(' ', $auth_header)[1];
-        $raw_json = $this->decoder->decode($token);
 
-        if ($raw_json === null) {
+        $well_formed_header = preg_match('/Bearer (.+)/i', $auth_header, $result);
+
+        if ($well_formed_header === 0 || $well_formed_header === false) {
+            return null;
+        }
+
+        $token = $result[1];
+        $info = $this->decoder->decode($token);
+
+        if ($info === null) {
             return null;
         }
 
         $usuario = new rest_usuario();
-        $usuario->set_usuario($raw_json['user_id']);
+        $usuario->set_usuario($info->get_user_id());
+        $usuario->set_perfiles($info->get_scopes());
         return $usuario;
     }
 
