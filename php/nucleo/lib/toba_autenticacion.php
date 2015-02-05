@@ -3,8 +3,14 @@ class toba_autenticacion
 {
 	static $marca_login_basico = 'uso_login_basico';
 	static $marca_login_central = 'uso_login_central';
+	static  $metodos_centralizados = array('cas','saml', 'saml_onelogin');
 	protected $parametros_url;
 
+	static function es_autenticacion_centralizada($id)
+	{
+		return in_array($id, self::$metodos_centralizados);
+	}	
+	
 	function set_parametros_url($parametros)
 	{
 		$this->parametros_url = $parametros;

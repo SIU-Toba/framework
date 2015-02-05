@@ -1,6 +1,6 @@
 <?php
 require_once('3ros/onelogin/_toolkit_loader.php');
-class toba_autenticacion_onelogin extends toba_autenticacion implements toba_autenticable
+class toba_autenticacion_saml_onelogin extends toba_autenticacion implements toba_autenticable
 {
 	protected $auth_source = "default-sp";	
 	protected $atributo_usuario = "urn:oid:0.9.2342.19200300.100.1.1";
