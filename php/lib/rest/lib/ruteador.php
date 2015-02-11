@@ -24,9 +24,21 @@ class ruteador
 		$partes_url = explode('/', $url);
 
 		$instanciador = $this->instanciador;
+
+
+
 		//colleccion/id/colleccion...
 		$colecciones = array();
 		$parametros = array();
+
+
+
+        if($es_montaje =  $this->lector->es_montaje($partes_url[0])){
+            $montaje = array_shift($partes_url);
+        }else{
+            $montaje = "";
+        }
+
 		foreach ($partes_url as $key => $valor) {
 			if (trim($valor) == "") { //mal formato. / de mas
 				throw new \Exception("Formato de ruta incorrecto - $url"); //cambiar
@@ -39,8 +51,8 @@ class ruteador
 		}
 
 		//busco la clase que maneja el recurso
-		if (!$recurso = $this->lector->get_recurso($colecciones)) {
-			$dir = $this->lector->get_directorio_recursos();
+		if (!$recurso = $this->lector->get_recurso($colecciones, $montaje)) {
+            $dir = $this->lector->get_directorio_recursos();
 			throw new \Exception("No se encuentra el recurso para $url en el directorio $dir. ¿Ruta mal formada?"); //cambiar
 		}
 

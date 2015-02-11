@@ -20,7 +20,7 @@ class rest_hidratadorTest extends \PHPUnit_Framework_TestCase
 
 	public function testAlias()
 	{
-		$campos = array('a' => 'b');
+		$campos = array('b' => array('_mapeo' => 'a'));
 		$datos = array('a' => 10, 'b' => 2);
 		$obj = rest_hidratador::hidratar_fila($campos, $datos);
 
@@ -30,13 +30,21 @@ class rest_hidratadorTest extends \PHPUnit_Framework_TestCase
 
 	public function testObjeto()
 	{
-		$campos = array('a' => array('a' => 'id',
-		                             'n' => 'nombre'),
+		$campos = array(
+            'a' => array( '_compuesto' =>
+                            array('id' =>  array('_mapeo' => "a"),
+                                  'nombre' => array('_mapeo' => "n"))
+                   ),
 			'b'
 		);
 
 		$datos = array('a' => 10, 'n' => 'xx', 'b' => 2, 'z' => 4);
 		$obj = rest_hidratador::hidratar_fila($campos, $datos);
+
+//        (
+//        [a] => 10
+//        [b] => 2
+//        )
 
 		$this->assertEquals(2, count($obj));
 		$this->assertEquals(2, $obj['b']);
@@ -47,21 +55,25 @@ class rest_hidratadorTest extends \PHPUnit_Framework_TestCase
 
 	public function testMerge()
 	{
-		$campos = array('a' => array('a' => 'id',
-		                             'n' => 'nombre'),
-			'b'
-		);
-		$merge = array('id_fila' => 'b',
-		               'grupos'  => array(
-			               'g' => array('z' => 'x')));
-
+        $campos = array(
+            'a' => array( '_compuesto' =>
+                array('id' =>  array('_mapeo' => "a"), //es el _id!
+                    'nombre' => array('_mapeo' => "n"))
+            ),
+            'b' => array('_id'),
+            //g es compuesto, y ademas se agrupa
+            'g' => array( '_agrupado_por' => 'b',
+                          '_compuesto' => array('x' => array('_mapeo' => 'z'))
+            )
+        );
 		$datos = array(
 			array('a' => 10, 'n' => 'xx', 'b' => 2, 'z' => 4),
 			array('a' => 10, 'n' => 'xx', 'b' => 2, 'z' => 5),
 			array('a' => 10, 'n' => 'xx', 'b' => 2, 'z' => 6)
 		);
 
-		$obj = rest_hidratador::hidratar($campos, $datos, $merge);
+		$obj = rest_hidratador::hidratar($campos, $datos);
+
 
 		$exp = array(
 			array('a' => array(
@@ -77,7 +89,7 @@ class rest_hidratadorTest extends \PHPUnit_Framework_TestCase
 			),
 		);
 
-		$this->assertEquals($obj, $exp);
+		$this->assertEquals($exp, $obj);
 	}
 }
  

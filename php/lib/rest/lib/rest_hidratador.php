@@ -22,9 +22,9 @@ class rest_hidratador {
 	/**
 	 * Formatea una fila de acuerdo a una especificacion según la clase /lib/modelable
 	 */
-	public static function hidratar_fila($spec, $fuente,  $merges = array())
+	public static function hidratar_fila($spec, $fuente)
 	{
-		$h = self::hidratar($spec, array($fuente), $merges);
+		$h = self::hidratar($spec, array($fuente));
 		return $h[0];
 	}
 

@@ -62,8 +62,8 @@ interface modelable {
 //		);
 //
 //     'Agrupacion' => array(
-//			'comision' => array('_id'),
-//			'horarios' => array('_agrupado', '_compuesto' =>
+//			'comision' ,
+//			'horarios' => array('_agrupado_por' => 'comision', '_compuesto' =>
 //								array('dia'    => array('_mapeo' => 'horario_dia'),
 //									  'inicio' => array('_mapeo' => 'horario_inicio'),
 //									  'fin'    => array('_mapeo' => 'horario_fin')

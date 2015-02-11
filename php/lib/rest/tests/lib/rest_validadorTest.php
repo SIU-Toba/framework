@@ -42,7 +42,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
 	public function testLongitudError()
 	{
 		$regla = array(
-			'campo' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2))
+			'campo' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2)))
 		);
 		$dato = array('campo' => '123');
 		rest_validador::validar($dato, $regla);
@@ -53,7 +53,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
 	public function testLongitudError2()
 	{
 		$regla = array(
-			'campo' => array(rest_validador::TIPO_LONGITUD => array('min' => 2))
+			'campo' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 2)))
 		);
 		$dato = array('campo' => '1');
 		rest_validador::validar($dato, $regla);
@@ -61,16 +61,16 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
 
 	public function testOKs(){
 		$regla = array(
-			'int'     => array(rest_validador::TIPO_INT => array('min' => 2, 'max' => 50)),
-			'numer'   => array(rest_validador::TIPO_NUMERIC => array('min' => 8.34)),
-			'alfa'    => array(rest_validador::TIPO_ALPHA),
-			'alfanum' => array(rest_validador::TIPO_ALPHANUM),
-			'date'    => array(rest_validador::TIPO_DATE => array('format' => 'd/m/Y')),
-			'time'    => array(rest_validador::TIPO_TIME => array('format' => 'H:i:s')),
-			'enum'    => array(rest_validador::TIPO_ENUM => array('A', 'B', 'C')),
-			'texto'   => array(rest_validador::TIPO_TEXTO),
-			'long'    => array(rest_validador::TIPO_LONGITUD => array('min' => 2)),
-			'oblig'    => array(rest_validador::OBLIGATORIO)
+			'int'     => array('_validar' => array(rest_validador::TIPO_INT => array('min' => 2, 'max' => 50))),
+			'numer'   => array('_validar' => array(rest_validador::TIPO_NUMERIC => array('min' => 8.34))),
+			'alfa'    => array('_validar' =>  array(rest_validador::TIPO_ALPHA)),
+			'alfanum' => array('_validar' => array(rest_validador::TIPO_ALPHANUM)),
+			'date'    => array('_validar' => array(rest_validador::TIPO_DATE => array('format' => 'd/m/Y'))),
+			'time'    => array('_validar' => array(rest_validador::TIPO_TIME => array('format' => 'H:i:s'))),
+			'enum'    => array('_validar' => array(rest_validador::TIPO_ENUM => array('A', 'B', 'C'))),
+			'texto'   => array('_validar' => array(rest_validador::TIPO_TEXTO)),
+			'long'    => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 2))),
+			'oblig'   => array('_validar' => array(rest_validador::OBLIGATORIO))
 		);
 
 		$datos = array(
@@ -90,15 +90,15 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
 
 	public function testErrores(){
 		$regla = array(
-			'int'     => array(rest_validador::TIPO_INT => array('min' => 2, 'max' => 50)),
-			'numer'   => array(rest_validador::TIPO_NUMERIC => array('min' => 8.34)),
-			'alfa'    => array(rest_validador::TIPO_ALPHA),
-			'alfanum' => array(rest_validador::TIPO_ALPHANUM),
-			'date'    => array(rest_validador::TIPO_DATE => array('format' => 'd/m/Y')),
-			'time'    => array(rest_validador::TIPO_TIME => array('format' => 'H:i:s')),
-			'enum'    => array(rest_validador::TIPO_ENUM => array('A', 'B', 'C')),
-			'long'    => array(rest_validador::TIPO_LONGITUD => array('min' => 2)),
-			'oblig'    => array(rest_validador::OBLIGATORIO)
+			'int'     => array('_validar' => array(rest_validador::TIPO_INT => array('min' => 2, 'max' => 50))),
+			'numer'   => array('_validar' => array(rest_validador::TIPO_NUMERIC => array('min' => 8.34))),
+			'alfa'    => array('_validar' => array(rest_validador::TIPO_ALPHA)),
+			'alfanum' => array('_validar' => array(rest_validador::TIPO_ALPHANUM)),
+			'date'    => array('_validar' => array(rest_validador::TIPO_DATE => array('format' => 'd/m/Y'))),
+			'time'    => array('_validar' => array(rest_validador::TIPO_TIME => array('format' => 'H:i:s'))),
+			'enum'    => array('_validar' => array(rest_validador::TIPO_ENUM => array('A', 'B', 'C'))),
+			'long'    => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 2))),
+			'oblig'    => array('_validar' => array(rest_validador::OBLIGATORIO))
 		);
 
 		$datos = array(
