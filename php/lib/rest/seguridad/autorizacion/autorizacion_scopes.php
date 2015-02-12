@@ -27,6 +27,9 @@ class autorizacion_scopes extends proveedor_autorizacion
      */
     public function tiene_acceso($usuario, $ruta)
     {
+        if( null === $usuario ){
+            return false;
+        }
         // en el contexto de oauth2 los perfiles son los scopes
         $user_scopes = $usuario->get_perfiles();
         if (empty($user_scopes)) {
