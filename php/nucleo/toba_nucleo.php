@@ -72,6 +72,7 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_ejecucion();
 			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
+			$this->verificar_pedido_post();			
 			toba_http::headers_standart();
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
@@ -502,6 +503,23 @@ class toba_nucleo
 				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('proyecto_revision_recursos_cliente', $version);
+		}
+	}
+	
+	//----------------------------------------------------------------
+	//-- Metodos auxiliares
+	//----------------------------------------------------------------
+	function verificar_pedido_post()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {			//Solo si es request via post, para el get aun no hay nada. Hay que ver para el put.
+			$cookie = null;//(isset$_COOKIE[apex_sesion_csrt];
+			$frm = (isset($_POST[apex_sesion_csrt])) ? $_POST[apex_sesion_csrt] : null;
+			if (toba_manejador_sesiones::validar_pedido_pagina($cookie, $frm)  === false) {
+				toba::logger()->debug('Se intenta hacer un post donde no coinciden parametros anti CSRF');
+				toba::logger()->debug(' Form: '. var_export($frm, true));
+				toba::manejador_sesiones()->fijar_csrf_token(true);		//Reinicio el token				
+				throw new toba_error_seguridad('Request Invalido');
+			}
 		}
 	}
 }

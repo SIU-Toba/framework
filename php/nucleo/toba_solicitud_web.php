@@ -37,7 +37,7 @@ class toba_solicitud_web extends toba_solicitud
 			toba::notificacion()->info($msg);
 			toba::notificacion()->mostrar();
 		} else {
-			try {
+			try {				
 				$this->crear_zona();
 				$retrasar_headers = ($this->info['basica']['retrasar_headers']);
 				//Chequeo si necesito enviar la clase para google analytics (necesito ponerlo aca para que salga como basico)
@@ -45,7 +45,7 @@ class toba_solicitud_web extends toba_solicitud
 				if ($this->hacer_seguimiento() && ! $this->es_item_login()) {
 					toba_js::agregar_consumos_basicos(array('basicos/google_analytics'));
 				}
-				
+								
 				// Si la pagina retrasa el envio de headers, no mando los pre_servicios ahora
 				if (! $retrasar_headers) {
 					$this->pre_proceso_servicio();
@@ -242,6 +242,7 @@ class toba_solicitud_web extends toba_solicitud
 				$extra .= " autocomplete='off'";
 			}
 			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), $extra);
+			toba_manejador_sesiones::enviar_csrf_hidden();
 			
 			//HTML
 			foreach ($objetos as $obj) {
@@ -611,6 +612,6 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		return $this->objetos[$this->cis[0]];
 	}
-
+	
 }
 ?>

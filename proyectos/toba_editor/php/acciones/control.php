@@ -20,7 +20,8 @@
 		echo "top.location.href = '$vinculo';";
 		echo toba_js::cerrar();
 	}
-	echo toba_form::abrir('cambiar_proyecto', '');                        
+	echo toba_form::abrir('cambiar_proyecto', '');
+	toba::manejador_sesiones()->enviar_csrf_hidden();
 ?>
 
 <style type='text/css'>
