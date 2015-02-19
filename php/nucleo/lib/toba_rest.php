@@ -169,7 +169,7 @@ class toba_rest
     {
         $swagger_ui = toba_recurso::url_toba() . '/swagger/index.html';
         $proy = toba_rest::url_api_doc();
-        header('Location: ' . $swagger_ui . '?' . $proy);
+        header('Location: ' . $swagger_ui . '?url=' . $proy);
     }
 
     /**
