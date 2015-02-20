@@ -781,17 +781,11 @@ class toba_manejador_sesiones
 		}
 		//Cargo las clases de los archivos serializados
 		//SESION
-		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
-		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-		}
+		$this->cargar_clase_sesion();
+		
 		//USUARIO
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-		}
+		$this->cargar_clase_usuario();
+		
 		$this->usuario = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
 		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
 		$this->perfiles_funcionales_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos']);
@@ -799,17 +793,33 @@ class toba_manejador_sesiones
 	}
 
 	//------------------------------------------------------------------
-
+	private function cargar_clase_sesion()
+	{
+		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
+		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
+		if (trim($archivo) != '' && trim($subclase) != '') {
+			$pm = toba::proyecto()->get_parametro('pm_sesion');
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());			
+		}
+	}
 	
-	
-	private function get_usuario_proyecto($id_usuario)
-	{		
-		$subclase = 'toba_usuario_basico';
+	private function cargar_clase_usuario()
+	{
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if (trim($archivo) != '') {
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+		if (trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_usuario');
-			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
-			$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());			
+		} 
+	}
+			
+	private function get_usuario_proyecto($id_usuario)
+	{	
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');			
+		if (trim($subclase) == '') {
+			$subclase = 'toba_usuario_basico';	
+		} else {
+			$this->cargar_clase_usuario();
 		}
 		return new $subclase($id_usuario);		
 	}
@@ -820,44 +830,41 @@ class toba_manejador_sesiones
 	
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			$clase = $subclase;
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+		if (trim($subclase)  == '') {
+			$subclase = 'toba_usuario_basico';	
 		} else {
-			$clase = 'toba_usuario_basico';
-		}		
-		$estado = call_user_func_array( array($clase,$metodo), $parametros );
+			$this->cargar_clase_usuario();
+		}
+		$estado = call_user_func_array( array($subclase, $metodo), $parametros );
 		return $estado;
 	}
 
 	private function get_sesion_proyecto()
 	{
 		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
-		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			return new $subclase();
+		if (trim($subclase)  == '') {
+			$subclase = 'toba_sesion';
 		} else {
-			return new toba_sesion();
+			$this->cargar_clase_sesion();
 		}
+		return new $subclase();
 	}
 
 	private function sesion_esta_extendida()
 	{
-		return ( 	toba::proyecto()->get_parametro('sesion_subclase') &&
-					toba::proyecto()->get_parametro('sesion_subclase_archivo') );
+		return ( toba::proyecto()->get_parametro('sesion_subclase') &&
+					toba::proyecto()->get_parametro('sesion_subclase_archivo'));
 	}	
 
 	private function sesion_posse_item_inicializacion()
 	{
-		return ( 	toba::proyecto()->get_parametro('item_set_sesion') );
+		return ( toba::proyecto()->get_parametro('item_set_sesion'));
 	}	
 
 	private function sesion_posse_metodo_inicializacion()
 	{
-		return ( 	toba::proyecto()->get_parametro('item_set_sesion') );
+		return ( toba::proyecto()->get_parametro('item_set_sesion'));
 	}	
 
 	//------------------------------------------------------------------
