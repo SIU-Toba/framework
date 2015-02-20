@@ -767,7 +767,7 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 		}		
 
 		//Valido obligatoriedad del dato
-		if (this._obligatorio && ereg_nulo.test(estado[0]) && ereg_nulo.test(estado[1])) {
+		if (this._obligatorio && (ereg_nulo.test(estado[0]) || ereg_nulo.test(estado[1]))) {
 			this._error = 'es obligatorio.';
 		    return false;
 		}
