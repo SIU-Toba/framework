@@ -52,22 +52,17 @@ class toba_admin_fuentes
 		}
 		if ( !isset($this->fuentes[$id]) ) {
 			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);
+			$clase = (isset($parametros['subclase_nombre'])) ? $parametros['subclase_nombre'] :  'toba_fuente_datos';
 			if (isset($parametros['subclase_archivo'])) {
+				$pm = $parametros['punto_montaje'];							
 				if (toba::proyecto()->get_id() != $proyecto) {
 					//Si la fuente esta extendida, puede necesitar otros archivos del proyecto, agregar el include path				
 					$path_proyecto = toba::instancia()->get_path_proyecto($proyecto) . '/php';
 					agregar_dir_include_path($path_proyecto);
 				}				
 				$archivo = $parametros['subclase_archivo'];
-			} else {
-				$archivo = "nucleo/lib/toba_fuente_datos.php";
-			}
-			if (isset($parametros['subclase_nombre'])) {
-				$clase = $parametros['subclase_nombre'];
-			} else {
-				$clase = "toba_fuente_datos";
-			}
-			require_once($archivo);
+				 toba_cargador::cargar_clase_archivo($pm, $archivo, $proyecto);
+			} 			
 			$this->fuentes[$id] = new $clase($parametros);
 		}
 		return $this->fuentes[$id];

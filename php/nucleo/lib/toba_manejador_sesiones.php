@@ -803,15 +803,15 @@ class toba_manejador_sesiones
 	
 	
 	private function get_usuario_proyecto($id_usuario)
-	{
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
+	{		
+		$subclase = 'toba_usuario_basico';
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			return new $subclase($id_usuario);
-		} else {
-			return new toba_usuario_basico($id_usuario);
+		if (trim($archivo) != '') {
+			$pm = toba::proyecto()->get_parametro('pm_usuario');
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
+			$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
 		}
+		return new $subclase($id_usuario);		
 	}
 	
 	public function invocar_autenticar($id_usuario, $clave, $datos_iniciales) {

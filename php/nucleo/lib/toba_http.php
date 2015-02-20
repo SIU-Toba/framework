@@ -42,12 +42,12 @@ class toba_http
 		//	cuando la pagina anterior fue solicitada con un POST y se presiona el boton BACK
 		//	se muestra un mensaje de pagina caducada y un usuario puede pensar que es un error del sistema
 		//	Este error de transparencia del cache esta comentado en el RFC del HTTP 
-		toba_http::encoding();
+		self::encoding();
 		if( acceso_post() ){
 			if(!headers_sent()){
-				toba_http::cache();
+				self::cache();
 			}else{
-				toba_http::no_cache();
+				self::no_cache();
 			}
 		}
 	}
@@ -62,7 +62,7 @@ class toba_http
 		header("Expires: 0"); 
 
 	} 
-
+	
 	static function get_url_actual($incluir_qs= false, $incluir_uri=false)
 	{
 		$qs =self::get_query_string();
