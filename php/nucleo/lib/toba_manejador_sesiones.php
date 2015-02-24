@@ -1,4 +1,7 @@
 <?php
+	
+use SecurityMultiTool\Csrf\TokenGenerator;
+
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
@@ -53,7 +56,7 @@ class toba_manejador_sesiones
 	function validar_pedido_pagina($valor_cookie, $valor_form)
 	{
 		if (isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt])) {		//Falta tomar en cuenta la cookie, aun no hay un lugar claro para setearla y resetearla por los logins centralizados
-			$valor = trim(base64_decode($valor_form));
+			$valor = trim($valor_form);
 			$frm_orig = ($valor === trim($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]));	
 			return $frm_orig;
 		} 
@@ -63,7 +66,7 @@ class toba_manejador_sesiones
 	function enviar_csrf_hidden()
 	{
 		if (isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt])) {
-			$valor = base64_encode($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]);
+			$valor = ($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]);
 			echo toba_form::hidden(apex_sesion_csrt, $valor);
 		}
 	}
@@ -88,9 +91,9 @@ class toba_manejador_sesiones
 	}
 		
 	protected function generar_unique_cripto()
-	{
-		$unq =  uniqid('cst_', true) ;					//Trucho, hay que cambiarlo por algo mejor que tenga mas entropia antes del hash
-		$hashed = hash('sha256', $unq);			
+	{		
+		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
+		$hashed = $generador->generate();
 		return $hashed;
 	}
 	

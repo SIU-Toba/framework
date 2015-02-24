@@ -1,0 +1,29 @@
+{
+    "name": "padraic/security-multitool",
+    "description": "A multitool library offering access to recommended security related libraries, standardised implementations of security defences, and secure implementations of commonly performed tasks.",
+    "keywords": ["library", "security", "escaping", "sanitisation", "sanitization", "csrf", "xss", "ssl", "tls", "PRNG", "RNG", "random", "htmlpurifier"],
+    "homepage": "http://github.com/padraic/SecurityMultiTool",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Pádraic Brady",
+            "email": "padraic.brady@gmail.com",
+            "homepage": "http://blog.astrumfutura.com"
+        }
+    ],
+    "require": {
+        "ezyang/htmlpurifier": ">=4.5.0",
+        "ircmaxell/random-lib": "dev-master@dev",
+        "ircmaxell/security-lib": "dev-master@dev",
+        "dflydev/markdown": ">=1.0.2",
+        "mjohnson/decoda": ">=5.1.2",
+        "zendframework/zend-uri": "2.2.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master@dev"
+    },
+    "autoload": {
+        "psr-0": { "SecurityMultiTool": "library/" }
+    }
+}
