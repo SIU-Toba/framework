@@ -1,0 +1,19 @@
+{
+    "name": "siu/toba",
+    "description": "Framework de desarrollo web",
+    "authors": [
+        {
+            "name": "SIU",
+            "email": "toba@siu.edu.ar"
+        }
+    ],
+    "config" : {
+	"vendor-dir" : "./php/vendor"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true, 
+    "require": {
+		"padraic/security-multitool": "@dev",
+		"ircmaxell/random-lib" : "@dev"
+	}
+}
