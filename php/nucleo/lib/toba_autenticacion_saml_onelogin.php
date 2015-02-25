@@ -1,5 +1,5 @@
 <?php
-require_once('3ros/onelogin/_toolkit_loader.php');
+
 class toba_autenticacion_saml_onelogin extends toba_autenticacion implements toba_autenticable
 {
 	protected $auth_source = "default-sp";	

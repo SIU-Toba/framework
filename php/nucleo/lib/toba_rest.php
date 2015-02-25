@@ -1,12 +1,10 @@
 <?php
 
-require_once(toba::nucleo()->toba_dir(). '/php/3ros/guzzle/autoload.php');
-require_once(toba::nucleo()->toba_dir(). '/php/lib/rest/vendor/autoload.php');
-use rest\seguridad\autenticacion;
-use rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
-use rest\seguridad\autorizacion\autorizacion_scopes;
-use rest\toba\toba_rest_logger;
-use rest\toba as rest_toba;
+use SIUToba\rest\seguridad\autenticacion;
+use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
+use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
+use SIUToba\rest\toba\toba_rest_logger;
+use SIUToba\rest\toba as rest_toba;
 
 
 class toba_rest
@@ -51,7 +49,7 @@ class toba_rest
 
 
     /**
-     * @return \rest\rest
+     * @return SIUToba\rest\rest
      */
     public function instanciar_libreria_rest()
     {
@@ -70,8 +68,8 @@ class toba_rest
         );
         $settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
-        include_once 'lib/rest/rest.php';
-        $app = new rest\rest($settings);
+//        include_once 'lib/rest/rest.php';
+        $app = new SIUToba\rest\rest($settings);
         return $app;
     }
 

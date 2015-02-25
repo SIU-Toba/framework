@@ -7,13 +7,22 @@
             "email": "toba@siu.edu.ar"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/SIU-Toba/rest"
+        }
+    ],
     "config" : {
-	"vendor-dir" : "./php/vendor"
+	    "vendor-dir" : "./php/vendor"
     },
     "minimum-stability": "dev",
     "prefer-stable" : true, 
     "require": {
 		"padraic/security-multitool": "@dev",
-		"ircmaxell/random-lib" : "@dev"
+		"ircmaxell/random-lib" : "@dev",
+        "siu-toba/rest": "@dev",
+        "guzzlehttp/guzzle": "5.1.0",
+        "onelogin/php-saml": "2.3.0"
 	}
 }

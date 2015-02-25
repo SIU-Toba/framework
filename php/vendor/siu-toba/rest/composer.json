@@ -1,0 +1,15 @@
+{
+    "name": "siu-toba/rest",
+    "description": "Libreria para servicios REST",
+    "homepage": "http://toba.siu.edu.ar",
+    "license": "SIU",
+    "require": {
+        "php": ">=5.3.0",
+        "doctrine/cache": "~1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SIUToba\\rest\\": "src/SIUToba/rest"
+        }
+    }
+}

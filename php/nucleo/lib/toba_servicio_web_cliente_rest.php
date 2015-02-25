@@ -1,5 +1,4 @@
 <?php
-require_once(toba::nucleo()->toba_dir(). '/php/3ros/guzzle/autoload.php');
 
 class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 {

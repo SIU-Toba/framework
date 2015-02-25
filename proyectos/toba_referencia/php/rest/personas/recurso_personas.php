@@ -1,16 +1,16 @@
 <?php
 require_once("modelo/modelo_persona.php");
 
-use rest\lib\rest_hidratador;
-use rest\lib\rest_validador;
-use rest\rest;
-use rest\lib\rest_filtro_sql;
+use SIUToba\rest\lib\rest_hidratador;
+use SIUToba\rest\lib\rest_validador;
+use SIUToba\rest\rest;
+use SIUToba\rest\lib\rest_filtro_sql;
 
 
 /**
  * @description Operaciones sobre Personas
  */
-class recurso_personas implements \rest\lib\modelable //esta interface es documentativa, puede no estar
+class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es documentativa, puede no estar
 {
 
 	static function _get_modelos(){

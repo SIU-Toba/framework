@@ -1,14 +1,14 @@
 <?php
 require_once("modelo/modelo_persona.php");
 
-use rest\lib\rest_hidratador;
+use SIUToba\rest\lib\rest_hidratador;
 use rest\rest;
 
 
 /**
  * @description Operaciones sobre Deportes de las personas
  */
-class recurso_deportes implements \rest\lib\modelable
+class recurso_deportes implements SIUToba\rest\lib\modelable
 {
 
 	public static function _get_modelos()
