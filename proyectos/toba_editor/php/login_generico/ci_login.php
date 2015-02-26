@@ -132,9 +132,9 @@ class ci_login extends toba_ci
 				toba::memoria()->eliminar_dato_instancia('toba_intentos_fallidos_login');
 			}
 			//-- Se redirige solo si no es popup
-			if (! $this->en_popup) {
+			/*if (! $this->en_popup) {
 				throw $reset;
-			}
+			}*/
 			$this->s__item_inicio = $reset->get_item();	//Se guarda el item de inicio al que queria derivar el nucleo
 		}
 		return;
@@ -337,18 +337,9 @@ class ci_login extends toba_ci
 				}
 			";
 		}
-		
-		if ($this->en_popup) {
-			$finalizar = toba::memoria()->get_parametro(apex_sesion_qs_finalizar);
-			//Si cierra la sesión y es popup, cierra la ventana y al parent (si existe) lo recarga			
-			if (isset($finalizar)) {
-				echo '
-					if (window.opener &&  window.opener.location) {
-						window.opener.location.href = window.opener.location.href; 
-					}
-					window.close();
-				';
-			}
+				
+		$finalizar = toba::memoria()->get_parametro(apex_sesion_qs_finalizar);
+		if (is_null($finalizar)) {											//Sesion activa
 			if (toba::manejador_sesiones()->existe_usuario_activo()) {
 				//Si ya esta logueado y se abre el sistema en popup, abrirlo
 				if (isset($this->s__item_inicio)) {
@@ -358,10 +349,20 @@ class ci_login extends toba_ci
 					$item = toba::proyecto()->get_parametro('item_inicio_sesion');
 				}
 				$url = toba::vinculador()->get_url($proyecto, $item);
-				echo "
-					abrir_popup('sistema', '$url', {resizable: 1});
-				";
+				
+				if ($this->en_popup) {
+					echo " abrir_popup('sistema', '$url', {resizable: 1});	";
+				} else {
+					echo " window.location.href = '$url';";
+				}
 			}
+		} elseif ($this->en_popup) {									//Se finaliza la sesion
+				echo '
+					if (window.opener &&  window.opener.location) {
+						window.opener.location.href = window.opener.location.href; 
+					}
+					window.close();
+				';
 		}		
 	}
 }

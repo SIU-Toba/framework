@@ -512,8 +512,8 @@ class toba_nucleo
 	//----------------------------------------------------------------
 	function verificar_pedido_post()
 	{
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {			//Solo si es request via post, para el get aun no hay nada. Hay que ver para el put.
-			$cookie = null;//(isset$_COOKIE[apex_sesion_csrt];
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && toba::manejador_sesiones()->existe_usuario_activo()) {			//Solo si es request via post. Hay que ver para el put.
+			$cookie = null;
 			$frm = (isset($_POST[apex_sesion_csrt])) ? $_POST[apex_sesion_csrt] : null;
 			if (toba_manejador_sesiones::validar_pedido_pagina($cookie, $frm)  === false) {
 				toba::logger()->debug('Se intenta hacer un post donde no coinciden parametros anti CSRF');
