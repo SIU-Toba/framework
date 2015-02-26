@@ -3,8 +3,6 @@
 use SIUToba\rest\seguridad\autenticacion;
 use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
 use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
-use SIUToba\rest\toba\toba_rest_logger;
-use SIUToba\rest\toba as rest_toba;
 
 
 class toba_rest
@@ -92,19 +90,19 @@ class toba_rest
         switch($autenticacion) {
             case 'basic':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_basic_http($passwords);
                 });
                 break;
             case 'digest':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_digest_http($passwords);
                 });
                 break;
             case 'api_key':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-                    $passwords = new rest_toba\toba_usuarios_rest_conf($modelo_proyecto);
+                    $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
                     return new autenticacion\autenticacion_api_key($passwords);
                 });
                 break;
@@ -141,7 +139,7 @@ class toba_rest
             case 'toba':
                 $app->container->singleton('autenticador', function () use ($modelo_proyecto) {
 	                $toba_aut = new toba_autenticacion_basica();
-                    $user_prov = new rest_toba\toba_usuarios_rest_bd($toba_aut);
+                    $user_prov = new toba_usuarios_rest_bd($toba_aut);
                     return new autenticacion\autenticacion_basic_http($user_prov);
                 });
                 break;
@@ -149,7 +147,7 @@ class toba_rest
                 throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic] en el campo 'autenticacion'");
         }
 
-        $app->container->singleton('db', function () {
+        $app->container->singleton('rest_quoter', function () {
             return toba::db();
         });
 

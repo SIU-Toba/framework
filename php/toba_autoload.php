@@ -479,6 +479,9 @@ class toba_autoload
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
 		'toba_cliente_rdi' => 'nucleo/lib/toba_cliente_rdi.php',
 		'toba_logger_rdi' => 'nucleo/lib/toba_logger_rdi.php',
+        'toba_rest_logger' => 'nucleo/lib/rest/toba_rest_logger.php',
+        'toba_usuarios_rest_bd' => 'nucleo/lib/rest/toba_usuarios_rest_bd.php',
+        'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_rest_conf',
 	);
 }
 ?>
