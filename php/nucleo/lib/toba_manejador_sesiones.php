@@ -1,11 +1,8 @@
 <?php
 	
-use SecurityMultiTool\Csrf\TokenGenerator;
-
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
-define('apex_sesion_csrt', 'cstoken');
 
 
 /**
@@ -52,49 +49,14 @@ class toba_manejador_sesiones
 			$_SESSION[TOBA_DIR]['nucleo']['inicio'] = time();		
 		}
 	}
-
-	function validar_pedido_pagina($valor_cookie, $valor_form)
-	{
-		if (isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt])) {		//Falta tomar en cuenta la cookie, aun no hay un lugar claro para setearla y resetearla por los logins centralizados
-			$valor = trim($valor_form);
-			$frm_orig = ($valor === trim($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]));	
-			return $frm_orig;
-		} 
-		return true;
-	}
 	
 	function enviar_csrf_hidden()
 	{
-		if (isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt])) {
-			$valor = ($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]);
+		$tm = toba::memoria();
+		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
+			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
 			echo toba_form::hidden(apex_sesion_csrt, $valor);
 		}
-	}
-	
-	function fijar_csrf_token($forzar = false)
-	{
-		if (! isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]) || $forzar) {
-			$_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt] = $this->generar_unique_cripto();
-			//toba::logger()->debug("New Cookie: ".$_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]);
-		}
-		
-		/*$indx = toba::instalacion()->get_session_name() . apex_sesion_csrt;				//SAML + CAS deben resolver el tema de la cookie + form
-		$valor = $_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt];
-		setcookie($indx, $valor, 0, null, null, false, true);*/
-	}
-	
-	protected function eliminar_csrf_token()
-	{
-		if (! isset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt])) {
-			unset($_SESSION[TOBA_DIR]['nucleo'][apex_sesion_csrt]);
-		}
-	}
-		
-	protected function generar_unique_cripto()
-	{		
-		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
-		$hashed = $generador->generate();
-		return $hashed;
 	}
 	
 	//------------------------------------------------------------------
@@ -120,7 +82,6 @@ class toba_manejador_sesiones
 			$this->contrasenia_vencida = false;
 			throw new  toba_error_login_contrasenia_vencida('La contraseña actual del usuario ha caducado');
 		}
-		$this->fijar_csrf_token();									
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
 		
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
@@ -163,7 +124,6 @@ class toba_manejador_sesiones
 
 		//Mando a hacer el logout para los tipos de autenticacion externos.
 		$this->get_autenticacion()->logout();
-		$this->eliminar_csrf_token();
 		
 		// Se recarga el nucleo, esta vez sobre una sesion INACTIVA.
 		if (toba::nucleo()->solicitud_en_proceso()) {

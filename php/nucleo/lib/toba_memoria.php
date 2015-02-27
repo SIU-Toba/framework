@@ -1,4 +1,6 @@
 <?php
+use SecurityMultiTool\Csrf\TokenGenerator;
+	
 //Tamaño de la pila de la memoria sincronizada
 if (! defined('apex_hilo_tamano')) {
 	define('apex_hilo_tamano','5');
@@ -31,7 +33,7 @@ define("apex_hilo_qs_servicio", "ts");
 define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "tsd");
 
-
+define('apex_sesion_csrt', 'cstoken');
 /**
  * La memoria contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
  *  - Memoria general de la aplicación
@@ -79,7 +81,7 @@ class toba_memoria
 	{
 		//toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
-		$this->id = uniqid('st');
+		$this->id = uniqid('st', true);
 		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);		
         //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
 		//		Este ID me permite ubicar la memoria correcta para el request ACTUAL
@@ -206,6 +208,7 @@ class toba_memoria
 		toba::logger()->debug('Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 		$this->inicializar_memoria();
+		$this->fijar_csrf_token(true);
 		if (toba_editor::activado()) {		
 			toba_editor::set_item_solicitado($item);
 		}
@@ -360,6 +363,7 @@ class toba_memoria
 			toba::logger()->info('Se detecto acceso desde el menu. Se limpia la memoria de la operacion', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_datos_reciclable();
+			$this->fijar_csrf_token(true);
 		}
 		$this->inicializar_reciclaje_global();
 		
@@ -885,6 +889,34 @@ class toba_memoria
 				}
 			}
 		}		
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------//
+	//						METODOS ANTI-CSRF 
+	//-------------------------------------------------------------------------------------------------------------------------------------//	
+	function fijar_csrf_token($forzar = false)
+	{
+		if (! $this->existe_dato_operacion(apex_sesion_csrt) || $forzar) {
+			$cstoken = $this->generar_unique_cripto();
+			$this->set_dato_operacion(apex_sesion_csrt, $cstoken);
+		}
+	}
+	
+	function validar_pedido_pagina($valor_form)
+	{
+		if ($this->existe_dato_operacion(apex_sesion_csrt)) {
+			$valor = trim($valor_form);
+			$frm_orig = ($valor === trim($this->get_dato_operacion(apex_sesion_csrt)));	
+			return $frm_orig;
+		} 
+		return true;
+	}
+	
+	protected function generar_unique_cripto()
+	{		
+		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
+		$hashed = $generador->generate();
+		return $hashed;
 	}
 }
 ?>
