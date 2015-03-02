@@ -96,9 +96,8 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 		} else {
 			$ancho = $this->_pdf_tabla_ancho;
 		}
-		$opciones = $this->get_opciones_columnas();
-		$opciones['width'] = $ancho;
-		$opciones['cols'] = $estilos;
+		$opciones = array('width' => $ancho, 'cols' => $estilos);
+		$opciones = array_merge($opciones, $this->get_opciones_columnas());
 		$this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_tabla);
 	}
