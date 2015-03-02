@@ -84,6 +84,7 @@ class ci_login extends toba_ci
 			break;
 		case 'cas':
 		case 'saml':
+		case 'saml_onelogin':
 			if (! toba::manejador_sesiones()->get_autenticacion()->permite_login_toba() && $this->pantalla()->existe_dependencia('datos')) {
 				$this->pantalla()->eliminar_dep('datos');
 			}
