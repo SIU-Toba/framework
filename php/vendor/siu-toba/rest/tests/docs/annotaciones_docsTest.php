@@ -46,37 +46,48 @@ class annotaciones_docsTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals(3, count($params_query));
 
-		$param_q1 = $params_query[0];
+//		$param_q1 = $params_query[0];
+
+        $pq = $params_query[0];
 
 		// @param_query $juego string nombre del juego
-		$this->assertEquals('query', $param_q1['paramType']);
-		$this->assertEquals('juego', $param_q1['name']);
-		$this->assertEquals('string', $param_q1['type']);
-		$this->assertEquals('nombre del juego', $param_q1['description']);
+		$this->assertEquals('query', $pq['in']);
+		$this->assertEquals('juego', $pq['name']);
+		$this->assertEquals('string', $pq['type']);
+		$this->assertEquals('nombre del juego', $pq['description']);
 
 		$params_body = $a->get_parametros_metodo($metodos[0], 'body');
 		$this->assertEquals(1, count($params_body));
 
 		//@param_body $limit integer Limitar a esta cantidad de registros
 		$params_body1 = $params_body[0];
-		$this->assertEquals('body', $params_body1['paramType']);
+		$this->assertEquals('body', $params_body1['in']);
 		$this->assertEquals('limit', $params_body1['name']);
 		$this->assertEquals('integer', $params_body1['type']);
 		$this->assertEquals('Limitar a esta cantidad de registros', $params_body1['description']);
 	}
 
-	public function testErroresMetodos()
+	public function testRespuestasMetodos()
 	{
 		$a = $this->getInstancia();
 		$metodos = $a->get_metodos();
-		$errores = $a->get_respuestas_metodo($metodos[0]);
+		$respuestas = $a->get_respuestas_metodo($metodos[0]);
 
-		$this->assertEquals(2, count($errores));
-		$this->assertEquals('404', $errores[0]['code']);
-		$this->assertEquals('No se pudo encontrar a la persona', $errores[0]['message']);
 
-		$this->assertEquals('400', $errores[1]['code']);
-		$this->assertEmpty($errores[1]['message']);
+        $schema = array('type' => 'array',
+                        'items' => array('$ref' => '#/definitions/Persona'));
+
+		$this->assertEquals(3, count($respuestas));
+
+        $this->assertArrayHasKey('200', $respuestas);
+        $this->assertEquals('descripcion', $respuestas['200']['description']);
+        $this->assertEquals($schema, $respuestas['200']['schema']);
+
+        $this->assertArrayHasKey('404', $respuestas);
+		$this->assertEquals('No se pudo encontrar a la persona', $respuestas['404']['description']);
+
+        $this->assertArrayHasKey('400', $respuestas);
+		$this->assertEmpty($respuestas['400']['description']);
 	}
 }
  

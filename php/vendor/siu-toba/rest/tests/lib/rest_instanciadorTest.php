@@ -2,6 +2,7 @@
 
 namespace SIUToba\rest\tests\lib;
 
+use ClassA;
 use SIUToba\rest\lib\rest_instanciador;
 
 class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
@@ -12,12 +13,13 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	{
 		$recurso = new rest_instanciador();
 
-		$recurso->archivo = realpath(__DIR__."/../../../toba_fecha.php");
 
-		$objeto = $recurso->get_instancia(false);
+		$recurso->archivo = realpath(__DIR__."/ClassA.php");
+
+		$objeto = $recurso->get_instancia(true);
 
 		$this->assertTrue(is_object($objeto), "No es un objeto");
-		$this->assertTrue($objeto instanceof \toba_fecha);
+		$this->assertTrue($objeto instanceof ClassA);
 
 		return $recurso;
 	}
@@ -26,7 +28,7 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	{
 		$recurso = new rest_instanciador();
 
-		$recurso->archivo = realpath(__DIR__."/../../lib/rest_instanciador.php");
+		$recurso->archivo = realpath(__DIR__."/../../src/SIUToba/rest/lib/rest_instanciador.php");
 
 		$objeto = $recurso->get_instancia(false);
 
@@ -39,11 +41,11 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	function test_accion(rest_instanciador $recurso)
 	{
 
-		$recurso->accion = 'get_fecha_pantalla';
+		$recurso->accion = 'metodo';
 
-		$fecha = $recurso->ejecutar_accion();
+		$resultado = $recurso->ejecutar_accion();
 
-		$this->assertTrue(is_string($fecha), "No ejecuta la accion");
+		$this->assertEquals("Exito", $resultado, "No ejecuta la accion");
 	}
 
 
@@ -54,12 +56,11 @@ class rest_instanciadorTest extends \PHPUnit_Framework_TestCase
 	{
 
 		$ts = 12354;
-		$recurso->accion = 'set_timestamp';
+		$recurso->accion = 'metodoEco';
 		$recurso->parametros = array($ts);
 
-		$fecha = $recurso->ejecutar_accion();
-		$objeto = $recurso->get_instancia();
+        $resultado = $recurso->ejecutar_accion();
 
-		$this->assertTrue($objeto->get_fecha_desplazada(0) == $ts);
+		$this->assertEquals($ts, $resultado);
 	}
 }

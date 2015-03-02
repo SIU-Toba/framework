@@ -6,13 +6,13 @@ use SIUToba\rest\rest;
 
 class rest_filtro_sql
 {
-	protected $conexion;
+	protected $quoter;
 	protected $campos = array();
 	protected $campos_ordenables = array();
 
 	function __construct()
 	{
-		$this->conexion = rest::app()->db;
+		$this->quoter = rest::app()->rest_quoter;
 	}
 
 	/**
@@ -281,7 +281,7 @@ class rest_filtro_sql
 	protected function quote($dato)
 	{
 		if (!is_array($dato)) {
-			return $this->conexion->quote($dato);
+			return $this->quoter->quote($dato);
 		} else {
 			$salida = array();
 			foreach (array_keys($dato) as $clave) {

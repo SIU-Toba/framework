@@ -588,43 +588,6 @@
         ]
     },
     {
-        "name": "siu-toba/rest",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/SIU-Toba/rest.git",
-            "reference": "98a9f8c9f343dc3ad6054841ef58203b5d4550d2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/98a9f8c9f343dc3ad6054841ef58203b5d4550d2",
-            "reference": "98a9f8c9f343dc3ad6054841ef58203b5d4550d2",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/cache": "~1.4",
-            "php": ">=5.3.0"
-        },
-        "time": "2015-02-25 16:22:43",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "SIUToba\\rest\\": "src/SIUToba/rest"
-            }
-        },
-        "license": [
-            "SIU"
-        ],
-        "description": "Libreria para servicios REST",
-        "homepage": "http://toba.siu.edu.ar",
-        "support": {
-            "source": "https://github.com/SIU-Toba/rest/tree/master",
-            "issues": "https://github.com/SIU-Toba/rest/issues"
-        }
-    },
-    {
         "name": "react/promise",
         "version": "v2.2.0",
         "version_normalized": "2.2.0.0",
@@ -720,58 +683,6 @@
         "keywords": [
             "Guzzle",
             "stream"
-        ]
-    },
-    {
-        "name": "guzzlehttp/ringphp",
-        "version": "1.0.5",
-        "version_normalized": "1.0.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/RingPHP.git",
-            "reference": "a903f51b692427318bc813217c0e6505287e79a4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a903f51b692427318bc813217c0e6505287e79a4",
-            "reference": "a903f51b692427318bc813217c0e6505287e79a4",
-            "shasum": ""
-        },
-        "require": {
-            "guzzlehttp/streams": "~3.0",
-            "php": ">=5.4.0",
-            "react/promise": "~2.0"
-        },
-        "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "~4.0"
-        },
-        "suggest": {
-            "ext-curl": "Guzzle will use specific adapters if cURL is present"
-        },
-        "time": "2014-12-11 05:50:32",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "GuzzleHttp\\Ring\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
         ]
     },
     {
@@ -886,5 +797,95 @@
             "onelogin",
             "saml"
         ]
+    },
+    {
+        "name": "guzzlehttp/ringphp",
+        "version": "1.0.6",
+        "version_normalized": "1.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/RingPHP.git",
+            "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
+            "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/streams": "~3.0",
+            "php": ">=5.4.0",
+            "react/promise": "~2.0"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "ext-curl": "Guzzle will use specific adapters if cURL is present"
+        },
+        "time": "2015-02-26 20:43:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Ring\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function."
+    },
+    {
+        "name": "siu-toba/rest",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/SIU-Toba/rest.git",
+            "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
+            "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/cache": "~1.4",
+            "php": ">=5.3.0"
+        },
+        "time": "2015-02-27 18:46:55",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "SIUToba\\rest\\": "src/SIUToba/rest"
+            }
+        },
+        "license": [
+            "SIU"
+        ],
+        "description": "Libreria para servicios REST",
+        "homepage": "http://toba.siu.edu.ar",
+        "support": {
+            "source": "https://github.com/SIU-Toba/rest/tree/v1.0.0",
+            "issues": "https://github.com/SIU-Toba/rest/issues"
+        }
     }
 ]

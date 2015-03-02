@@ -208,9 +208,10 @@ class anotaciones_docs
 
             foreach ($metodo['anotaciones']['responses'] as $respuesta) {
                 $matches = array();
-                //200 $tipo descripcion
+                //200 [array] $tipo descripcion
                 if (0 === preg_match('#(\d\d\d)\s+(array)?\s*(\$\w*)?\s*(.*)#', $respuesta, $matches) ){
-                    return array();
+
+                    continue;
                 };
 
                 $status = $matches[1];

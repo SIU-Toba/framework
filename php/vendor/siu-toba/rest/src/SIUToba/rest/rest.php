@@ -1,6 +1,6 @@
 <?php
 
-namespace SIUTOBA\rest;
+namespace SIUToba\rest;
 
 use Exception;
 use SIUToba\rest\docs\controlador_docs;

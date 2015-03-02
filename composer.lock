@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "105c0ba15a26006e5150d23b723d5e39",
+    "hash": "3ea79a94cf7633a27d86dee07e02bad9",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -240,16 +240,16 @@
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "a903f51b692427318bc813217c0e6505287e79a4"
+                "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a903f51b692427318bc813217c0e6505287e79a4",
-                "reference": "a903f51b692427318bc813217c0e6505287e79a4",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
+                "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
                 "shasum": ""
             },
             "require": {
@@ -286,7 +286,8 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "time": "2014-12-11 05:50:32"
+            "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "time": "2015-02-26 20:43:09"
         },
         {
             "name": "guzzlehttp/streams",
@@ -643,16 +644,16 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "98a9f8c9f343dc3ad6054841ef58203b5d4550d2"
+                "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/98a9f8c9f343dc3ad6054841ef58203b5d4550d2",
-                "reference": "98a9f8c9f343dc3ad6054841ef58203b5d4550d2",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
+                "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
                 "shasum": ""
             },
             "require": {
@@ -671,10 +672,10 @@
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
             "support": {
-                "source": "https://github.com/SIU-Toba/rest/tree/master",
+                "source": "https://github.com/SIU-Toba/rest/tree/v1.0.0",
                 "issues": "https://github.com/SIU-Toba/rest/issues"
             },
-            "time": "2015-02-25 16:22:43"
+            "time": "2015-02-27 18:46:55"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -866,8 +867,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "padraic/security-multitool": 20,
-        "ircmaxell/random-lib": 20,
-        "siu-toba/rest": 20
+        "ircmaxell/random-lib": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

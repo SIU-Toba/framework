@@ -21,6 +21,7 @@ class rest_instanciador
 
 	public function get_instancia($autoinclude = true)
 	{
+
 		if (!$this->objeto) {
 			if ($autoinclude) {
 				require_once $this->archivo;

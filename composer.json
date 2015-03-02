@@ -21,7 +21,7 @@
     "require": {
 		"padraic/security-multitool": "@dev",
 		"ircmaxell/random-lib" : "@dev",
-        "siu-toba/rest": "@dev",
+        "siu-toba/rest": "^1.0.0",
         "guzzlehttp/guzzle": "5.1.0",
         "onelogin/php-saml": "2.3.0"
 	}

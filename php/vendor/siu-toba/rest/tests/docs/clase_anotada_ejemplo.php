@@ -30,9 +30,9 @@ class clase_anotada_ejemplo
 	 * @notes         En los filtros 'condicion' puede ser contiene|no_contiene|comienza_con|es_igual_a
 	 *
 	 * @param_body $limit integer Limitar a esta cantidad de registros
-	 * @errors        404 No se pudo encontrar a la persona
-	 * @errors        400
-	 * @response_type array {"$ref":"Persona"}
+     * @responses        200  array $Persona descripcion
+     * @responses        404 No se pudo encontrar a la persona
+	 * @responses        400 $null
 	 */
 	function get($id_persona)
 	{
