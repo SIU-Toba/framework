@@ -512,6 +512,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		$db->ejecutar($sql);
 	}
 	
+	function cambiar_clase_origen($nombre_clase)
+	{
+		$this->datos['_info']['clase'] = $nombre_clase;
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Preguntas sobre EVENTOS
 	//---------------------------------------------------------------------

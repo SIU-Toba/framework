@@ -105,6 +105,9 @@ abstract class ci_editores_toba extends toba_ci
 		
 		$reg = $this->get_entidad()->tabla('base')->get();
 		$es_alta = !isset($this->id_objeto);
+		$hay_archivo_subclase = (isset($reg['subclase_archivo']) || isset($reg['subclase']));
+		$hay_personalizacion = toba_personalizacion::get_personalizacion_iniciada(toba_editor::get_proyecto_cargado());
+		$pm_personalizacion = $this->get_pm_personalizacion();		
 		if ($es_alta) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
 			$nombre = '';
@@ -123,9 +126,22 @@ abstract class ci_editores_toba extends toba_ci
 			$reg = array();
 			$reg['nombre'] = $nombre;
 		}
-		if ($es_alta || isset($reg['subclase_archivo']) || isset($reg['subclase'])) {
-			$form->eliminar_evento('extender');
-		}
+
+		if ($hay_personalizacion) {
+			$form->eliminar_evento('extender');				
+			if (! $hay_archivo_subclase) {
+				$reg['punto_montaje'] = $pm_personalizacion;
+			} elseif ($form->existe_evento('personalizar')) {
+				$form->evento('personalizar')->vinculo()->agregar_parametro('pm_pers', $pm_personalizacion);
+				$form->evento('personalizar')->vinculo()->agregar_parametro('subclase_pers', $reg['subclase']);
+			}
+		} else {
+			$form->eliminar_evento('personalizar');
+			if ($hay_archivo_subclase || $es_alta) {
+				$form->eliminar_evento('extender');	
+			}			
+		}		
+		
 		return $reg;
 	}
 
@@ -206,6 +222,18 @@ abstract class ci_editores_toba extends toba_ci
 	}
 	
 	function notificar_eliminacion_evento($evento) {}
+	
+	function get_pm_personalizacion()
+	{
+		$resultado = null;
+		$pms = toba_info_editores::get_pms( toba_editor::get_proyecto_cargado());
+		foreach($pms as $pm) {
+			if (trim($pm['etiqueta']) == 'personalizacion') {
+				$resultado = $pm['id'];
+			}
+		}
+		return $resultado;
+	}
 	//------------------------------------------------------------------------
 	//-------------------------- SERVICIOS --------------------------
 	//------------------------------------------------------------------------

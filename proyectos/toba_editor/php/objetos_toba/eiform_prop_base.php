@@ -23,20 +23,30 @@ class eiform_prop_base extends toba_ei_formulario
 			}
 			
 			{$this->objeto_js}.modificar_vinculo__ef_subclase_archivo = function(id_vinculo)
-            {
+			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
-            }
-
+		         }";
+		
+		if ($this->existe_evento('extender')) {
+			echo "	
 			{$this->objeto_js}.modificar_vinculo__extender = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
-            }
-		";
-	}
-	
+			}";
+		}
 
+		if ($this->existe_evento('personalizar')) {
+			echo "	
+			{$this->objeto_js}.modificar_vinculo__personalizar = function(id_vinculo)
+			{
+				var estado = this.ef('punto_montaje').get_estado();
+				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
+			}";			
+		}
+		
+	}
 }
 
 ?>

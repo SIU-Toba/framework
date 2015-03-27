@@ -8,6 +8,8 @@ class ci_subclases extends toba_ci
 	protected $s__subcomponente;
 	protected $s__tipo_elemento;
 	protected $s__pm;
+	protected $s__modo_pers;
+	protected $s__subclase_orig;
 	
 	protected $clase_php;
 	protected $archivo_php;
@@ -19,13 +21,20 @@ class ci_subclases extends toba_ci
 		$this->recuperar_tipo_elemento();
 		$this->recuperar_id_entidad($datos);
 		$info = $this->get_metaclase();
-		if ($info->get_subclase_archivo() != '' &&  $info->get_subclase_nombre() != '') {
-			$this->s__path_relativo = dirname($info->get_subclase_archivo());
-			if ($this->s__path_relativo == '.') {
-				$this->s__path_relativo = '';
+		if (! isset($this->s__modo_pers)) {
+			$hay_personalizacion = toba_personalizacion::get_personalizacion_iniciada(toba_editor::get_proyecto_cargado());
+			$this->s__subclase_orig = toba::memoria()->get_parametro('subclase_pers');										//Indica el nombre de la clase que se personaliza
+			$this->s__modo_pers = ($hay_personalizacion && (!is_null($this->s__subclase_orig)));
+		}		
+		if (! $this->s__modo_pers) {
+			if ($info->get_subclase_archivo() != '' &&  $info->get_subclase_nombre() != '') {
+				$this->s__path_relativo = dirname($info->get_subclase_archivo());
+				if ($this->s__path_relativo == '.') {
+					$this->s__path_relativo = '';
+				}
+				$this->s__datos_nombre = array('nombre' => basename($info->get_subclase_archivo(), '.php'));
+				$this->set_pantalla('pant_generacion');
 			}
-			$this->s__datos_nombre = array('nombre' => basename($info->get_subclase_archivo(), '.php'));
-			$this->set_pantalla('pant_generacion');
 		}
 	}
 	
@@ -47,13 +56,16 @@ class ci_subclases extends toba_ci
 			$info = toba_constructor::get_info($this->s__id_componente);
 		}
 		if (isset($subcomponente)) {
-			$info = $info->get_metaclase_subcomponente($subcomponente);
+			$info = $info->get_metaclase_subcomponente($subcomponente);				//Para pantallas 
 			if ($info) {
 				$this->s__subcomponente = $subcomponente;
 			} else {
 				throw new toba_error('ERROR cargando el SUBCOMPONENTE: No es posible acceder a la definicion del mismo.');
 			}
-		}	
+		}			
+		if (isset($this->s__subclase_orig)) {
+			$info->cambiar_clase_origen($this->s__subclase_orig);
+		}
 		return $info;
 	}
 	
@@ -89,8 +101,11 @@ class ci_subclases extends toba_ci
 	private function recuperar_punto_montaje()
 	{
 		if (!isset($this->s__pm)) {
-			$pm = toba::memoria()->get_parametro('punto_montaje');
-			if (isset($pm)) {
+			$pmp = toba::memoria()->get_parametro('pm_pers');								//PM del evento de personalizacion
+			$pm = toba::memoria()->get_parametro('punto_montaje');							//PM del evento de extension
+			if (isset($pmp)) {
+				$this->s__pm = toba_modelo_pms::get_pm($pmp, toba_editor::get_proyecto_cargado());
+			} elseif (isset($pm)) {
 				$this->s__pm = toba_modelo_pms::get_pm($pm, toba_editor::get_proyecto_cargado());
 			} else {
 				$pm = $this->get_metaclase()->get_punto_montaje();
@@ -103,7 +118,11 @@ class ci_subclases extends toba_ci
 	//------------------------------------------------------------------
 	//--------	UBICACION
 	//------------------------------------------------------------------
-
+	function evt__pant_ubicacion__salida()
+	{
+		$this->s__path_relativo = $this->dep('carpetas')->get_path_relativo();
+	}	
+	
 	function conf__carpetas(toba_ei_archivos $archivos)
 	{
 		$archivos->set_solo_carpetas(true);
@@ -128,19 +147,17 @@ class ci_subclases extends toba_ci
 		}
 		$pm = $this->recuperar_punto_montaje();
 		return $pm->get_path_absoluto().$relativo;
-
-		//return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado())..$relativo;
 	}
-	
-	function evt__pant_ubicacion__salida()
-	{
-		$this->s__path_relativo = $this->dep('carpetas')->get_path_relativo();
-	}	
-	
-	
+		
 	//------------------------------------------------------------------
 	//--------	FORM NOMBRE
 	//------------------------------------------------------------------
+	function evt__pant_nombre__salida()
+	{
+		if ($this->s__modo_pers) {
+			$this->s__modo_pers = false;
+		}
+	}
 	
 	function conf__form_nombre(toba_ei_formulario $form)
 	{
