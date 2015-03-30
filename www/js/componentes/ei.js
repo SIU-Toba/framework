@@ -166,6 +166,29 @@ ei.prototype.constructor = ei;
 		vinculador.invocar(id_vinculo);
 	};
 
+	/**
+	 * Ejecuta un vinculo producido por un evento previa confirmacion
+	 * Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
+	 * que se pueda modificar alguna propiedad del vinculo
+	 * @param {string} id_evento
+	 * @param {string} id_vinculo 
+	 * @see vinculador
+	 */
+	ei.prototype.invocar_vinculo_confirmado = function(id_evento, id_vinculo, msg_confirmacion) {
+		var confirmado = true;
+		var funciv = 'modificar_vinculo__' + id_evento;
+		if (trim(msg_confirmacion) !== "") {
+			confirmado = confirm(msg_confirmacion);
+		}
+		// Busco la extension de modificacin de vinculos		
+		if (existe_funcion(this, funciv)) {
+			this[funciv](id_vinculo);
+		}
+		if (confirmado) {
+			vinculador.invocar(id_vinculo);
+		}
+	};
+
 	//----------------------------------------------------------------  
 	//---Servicios graficos 
 	

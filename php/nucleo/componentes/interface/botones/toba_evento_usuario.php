@@ -399,8 +399,15 @@ class toba_evento_usuario extends toba_boton
 			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
 				return null;
 			}
+			
+			$es_boton_visible = ($this->esta_en_botonera() || $this->esta_sobre_fila()) && $this->esta_activado();
 			// Escribo la sentencia que invocaria el vinculo
-			$js = "{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');";
+			if ($this->posee_confirmacion() && $es_boton_visible)  {
+				$conf_msg = $this->get_msg_confirmacion();
+				$js = "{$objeto_js}.invocar_vinculo_confirmado('".$this->get_id()."', '$id_vinculo', '$conf_msg');";
+			} else {
+				$js = "{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');";
+			}
 		} elseif ( $this->posee_accion_respuesta_popup() ) {
 			//--- En una respuesta a un ef_popup
 			$param = addslashes(str_replace('"',"'",$this->parametros));
