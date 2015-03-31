@@ -76,5 +76,16 @@ ef_upload.prototype.constructor = ef_upload;
 		}
 	};
 	
-	
+	ef_upload.prototype.get_estado = function() {
+		var decision = document.getElementById(this._id_form + '_desicion');
+		var checkbox = document.getElementById(this._id_form + '_check');
+		
+		//Si no hay checkbox o esta checkeado, la respuesta depende del input html
+		if (! checkbox || checkbox.checked) {		
+			return ef.prototype.get_estado.call(this);			
+		} else if(checkbox && ! checkbox.checked) {	//Si existe pero no esta chequeado, hay que ver si venia con estado.
+			return decision.innerHTML;
+		}
+	};
+
 toba.confirmar_inclusion('efs/ef_upload');
