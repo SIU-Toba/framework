@@ -274,16 +274,38 @@ class ci_editor extends ci_editores_toba
 	
 	function conf__pantallas(toba_ei_formulario $obj)
 	{
+		$hay_personalizacion = toba_personalizacion::get_personalizacion_iniciada(toba_editor::get_proyecto_cargado());
+		$pm_personalizacion = $this->get_pm_personalizacion();
 		$id_actual = $this->get_pant_actual();		
-		if (!isset($this->s__pantalla_php_db[$id_actual])) {
+		$datos = $this->get_entidad()->tabla('pantallas')->get();		
+		if (!isset($this->s__pantalla_php_db[$id_actual])) {										//No tiene archivo de subclase
 			$obj->eliminar_evento('ver_php');
 			$obj->eliminar_evento('abrir_php');
-			//-- Debo pasarle el id de la pantalla a extender
-			$pantalla = $this->get_entidad()->tabla('pantallas')->get();
-			$obj->evento('extender')->vinculo()->agregar_parametro('subcomponente', $pantalla['identificador']);
-			//$obj->evento('extender')->vinculo()->agregar_parametro('punto_montaje', $pantalla['punto_montaje']);
-		} else {
-			$obj->eliminar_evento('extender');			
+			//-- Debo pasarle el id de la pantalla a extender			
+			if ($hay_personalizacion) {
+				$obj->eliminar_evento('extender');
+				$datos['punto_montaje'] = $pm_personalizacion;				
+				if ($obj->existe_evento('personalizar')) {
+					$obj->evento('personalizar')->vinculo()->agregar_parametro('subcomponente', $datos['identificador']);
+				}
+			} else {
+				$obj->evento('extender')->vinculo()->agregar_parametro('subcomponente', $datos['identificador']);
+				$obj->eliminar_evento('personalizar');
+			}			
+		} else {																		//Existe  archivo de subclase
+			$obj->eliminar_evento('extender');
+			if ($hay_personalizacion) {
+				if ($pm_personalizacion == $datos['punto_montaje']) {							//Ya fue personalizado
+					$obj->eliminar_evento('personalizar');
+				} elseif ($obj->existe_evento('personalizar')) {
+					$obj->evento('personalizar')->vinculo()->agregar_parametro('subcomponente', $datos['identificador']);
+					$obj->evento('personalizar')->vinculo()->agregar_parametro('pm_pers', $pm_personalizacion);
+					$obj->evento('personalizar')->vinculo()->agregar_parametro('subclase_pers', $datos['subclase']);
+				}
+			} else {
+				$obj->eliminar_evento('personalizar');
+			}
+			
 			// Link al editor
 			$parametros = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																			'componente'=> $this->id_objeto['objeto']),
@@ -301,7 +323,7 @@ class ci_editor extends ci_editores_toba
 				$obj->eliminar_evento('abrir_php');
 			}
 		}
-		$obj->set_datos($this->get_entidad()->tabla('pantallas')->get());
+		$obj->set_datos($datos);
 	}
 
 	//------------------------------------------------------

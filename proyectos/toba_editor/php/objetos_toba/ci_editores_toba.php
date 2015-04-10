@@ -131,7 +131,9 @@ abstract class ci_editores_toba extends toba_ci
 			$form->eliminar_evento('extender');				
 			if (! $hay_archivo_subclase) {
 				$reg['punto_montaje'] = $pm_personalizacion;
-			} elseif ($form->existe_evento('personalizar')) {
+			}  elseif ($reg['punto_montaje'] == $pm_personalizacion) {								//Ya esta personalizado
+				$form->eliminar_evento('personalizar');			
+			}elseif ($form->existe_evento('personalizar')) {											//Aun sin personalizar
 				$form->evento('personalizar')->vinculo()->agregar_parametro('pm_pers', $pm_personalizacion);
 				$form->evento('personalizar')->vinculo()->agregar_parametro('subclase_pers', $reg['subclase']);
 			}

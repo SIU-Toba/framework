@@ -15,6 +15,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$this->asociar_dependencias($dependencias_posibles);
 		$this->proyecto = $proyecto;
 		$this->id = $id;
+		$this->datos['_info']['clase'] = 'toba_ei_pantalla';
 	}
 	
 	function set_info_objetos_asociados($obj)
@@ -251,12 +252,17 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 
 	function get_clase_nombre()
 	{
-		return 'toba_ei_pantalla';
+		return  str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);	// Se deja esta línea para que conserve el mismo comportamiento
 	}
-
+	
 	function get_clase_archivo()
 	{
 		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
+	}
+	
+	function cambiar_clase_origen($nombre_clase)
+	{
+		$this->datos['_info']['clase'] = $nombre_clase;
 	}
 
 	function set_subclase($nombre, $archivo, $pm)
