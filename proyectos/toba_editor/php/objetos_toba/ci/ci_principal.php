@@ -294,14 +294,16 @@ class ci_editor extends ci_editores_toba
 			}			
 		} else {																		//Existe  archivo de subclase
 			$obj->eliminar_evento('extender');
-			if ($hay_personalizacion) {
-				if ($pm_personalizacion == $datos['punto_montaje']) {							//Ya fue personalizado
-					$obj->eliminar_evento('personalizar');
-				} elseif ($obj->existe_evento('personalizar')) {
-					$obj->evento('personalizar')->vinculo()->agregar_parametro('subcomponente', $datos['identificador']);
-					$obj->evento('personalizar')->vinculo()->agregar_parametro('pm_pers', $pm_personalizacion);
-					$obj->evento('personalizar')->vinculo()->agregar_parametro('subclase_pers', $datos['subclase']);
-				}
+			if ($hay_personalizacion) {					
+				if ($obj->existe_evento('personalizar')) {
+					if ($pm_personalizacion == $datos['punto_montaje']) {							//Ya fue personalizado
+						$obj->eliminar_evento('personalizar');
+					} else {
+						$obj->evento('personalizar')->vinculo()->agregar_parametro('subcomponente', $datos['identificador']);
+						$obj->evento('personalizar')->vinculo()->agregar_parametro('pm_pers', $pm_personalizacion);
+						$obj->evento('personalizar')->vinculo()->agregar_parametro('subclase_pers', $datos['subclase']);
+					}
+				}				
 			} else {
 				$obj->eliminar_evento('personalizar');
 			}
