@@ -11,7 +11,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 
 	function __construct()
 	{
-		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/onelogin.ini';
+		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/saml_onelogin.ini';
 		if (is_file( $archivo_ini_instalacion)) {
 			$parametros = parse_ini_file($archivo_ini_instalacion, true);
 			if (isset($parametros['basicos']['atributo_usuario'])) {
@@ -32,7 +32,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			}			
 			$idp_name = 'idp:' . $this->idp;
 			if (isset($parametros[$idp_name]) && !empty($parametros[$idp_name])) {												
-				$this->settingsInfo['idp'] = $this->get_idp_config($parametros[$idp_name], $this->idp);				
+				$this->settingsInfo['idp'] = $this->get_idp_config($parametros[$idp_name], $this->idp);	
 			}			
 		}
 	}
