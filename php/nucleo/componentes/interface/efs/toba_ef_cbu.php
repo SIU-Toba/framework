@@ -38,6 +38,7 @@ class toba_ef_cbu extends toba_ef_editable {
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'" ';
 		$tab .= $this->get_info_placeholder();
 		$html = toba_form::text($this->id_form, $this->estado,$this->es_solo_lectura(),22,29, $this->clase_css, $this->javascript.' '.$tab);
+		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
 
