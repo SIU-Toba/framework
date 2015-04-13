@@ -6,7 +6,6 @@ class ci_login extends toba_ci
 	protected $en_popup = false;
 	protected $s__item_inicio;
 	private $es_cambio_contrasenia = false;
-	//protected $metodos_centralizados = array('cas','saml', 'onelogin');
 	
 	/**
 	 * Guarda el id de la operación original así se hace una redirección una vez logueado
