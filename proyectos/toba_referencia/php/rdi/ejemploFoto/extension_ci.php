@@ -25,21 +25,21 @@ class extension_ci extends toba_ci
 	
 	function enviar_repositorio($img)
 	{
-		$srv = toba::rdi()->servicio(RDIServicios::FOTO);
+		$srv = toba::rdi()->servicio(RDITipos::FOTO);
 		$attr = array('tipoIdentificacion' => md5($img), 'numeroIdentificacion' => rand(100, 5000), 'alto' => 500, 'ancho' => 600, 'color' => true);
 		if (file_exists($img)) {
 			$cont = file_get_contents($img);
 			$ecm_resource_id = $srv->crear($attr, $cont);
-			//toba::logger()->debug("El id del ECM es" . var_export($ecm_resource_id, true));
+			toba::logger()->debug("El id del ECM es" . var_export($ecm_resource_id, true));
 			if (! is_null($ecm_resource_id)) {
-				$this->s__id_recurso = $ecm_resource_id;				
+				$this->s__id_recurso = $ecm_resource_id;                
 			}
 		}
 	}
 	
 	function recuperar_contenido()
 	{
-		$srv = toba::rdi()->servicio(RDIServicios::FOTO);
+		$srv = toba::rdi()->servicio(RDITipos::FOTO);
 		$attr = $srv->recuperarAtributos($this->s__id_recurso);
 		$content = $srv->recuperarContenido($this->s__id_recurso);
 		
@@ -49,5 +49,4 @@ class extension_ci extends toba_ci
 	}
 	
 }
-
 ?>
