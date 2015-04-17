@@ -391,15 +391,9 @@ class toba_vista_jasperreports
 	/**
 	 * @ignore 
 	 */
-	protected function cabecera_http( $longuitud )
+	protected function cabecera_http( $longitud )
 	{
-		header("Cache-Control: private");
-  		header("Content-type: application/pdf");
-  		header("Content-Length: $longuitud");	
-   		header("Content-Disposition: {$this->tipo_descarga}; filename={$this->nombre_archivo}");
-  		//header("Accept-Ranges: $longuitud"); 
-  		header("Pragma: no-cache:");
-		header("Expires: 0");
+		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
 	}
 	
 

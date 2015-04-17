@@ -92,15 +92,9 @@ class toba_vista_xml
 	/**
 	 * @ignore
 	 */
-	protected function cabecera_http( $longuitud )
+	protected function cabecera_http( $longitud )
 	{
-		header("Cache-Control: private");
-  		header("Content-type: text/xml");
-  		header("Content-Length: $longuitud");	
-   		header("Content-Disposition: {$this->tipo_descarga}; filename={$this->nombre_archivo}");
-  		//header("Accept-Ranges: $longuitud"); 
-  		header("Pragma: no-cache");
-		header("Expires: 0");
+		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
 	}
 	
 

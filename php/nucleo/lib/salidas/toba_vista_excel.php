@@ -114,12 +114,7 @@ class toba_vista_excel
 	
 	protected function cabecera_http($longitud)
 	{
-		header("Cache-Control: private");
-  		header('Content-type: application/vnd.ms-excel');
-  		header("Content-Length: $longitud");	
-   		header("Content-Disposition: {$this->tipo_descarga}; filename=\"{$this->nombre_archivo}\"");
-  		header("Pragma: no-cache");
-		header("Expires: 0");
+		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
 	}
 
 	//------------------------------------------------------------------------
