@@ -71,11 +71,11 @@ class toba_usuario implements toba_interface_usuario
 
 	static function set_clave_usuario ($clave_plana, $usuario)
 	{
-		$clave_enc = quote(encriptar_con_sal($clave_plana, apex_pa_algoritmo_hash));
-		$sql = "UPDATE apex_usuario
+		$clave_enc = encriptar_con_sal($clave_plana, apex_pa_algoritmo_hash);
+		$sql = 'UPDATE apex_usuario
 					SET		clave = :clave ,
-					autentificacion = :autenticacion " 
-			."  WHERE  usuario = :usuario ;"; 
+					autentificacion = :autenticacion ' 
+			.'  WHERE  usuario = :usuario ;'; 
 		
 		$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 		toba::instancia()->get_db()->sentencia_ejecutar($id, array('clave' => $clave_enc,  'autenticacion' => apex_pa_algoritmo_hash, 'usuario'=>$usuario));
@@ -89,7 +89,7 @@ class toba_usuario implements toba_interface_usuario
 			$accion = "vencimiento = (now() + '$dias_validez days')::date"; 
 		}
 		
-		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario =  :usuario ;"; //. quote($usuario);
+		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario =  :usuario ;";
 		toba::instancia()->get_db()->abrir_transaccion();
 		try {
 			self::set_clave_usuario($clave_plana, $usuario);
@@ -104,7 +104,7 @@ class toba_usuario implements toba_interface_usuario
 	
 	static function forzar_cambio_clave($usuario) 
 	{
-		$sql = 'UPDATE apex_usuario SET forzar_cambio_pwd = 1 WHERE usuario =  :usuario ;' ;//. quote($usuario);		
+		$sql = 'UPDATE apex_usuario SET forzar_cambio_pwd = 1 WHERE usuario =  :usuario ;' ;
 		try {
 			$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 			toba::instancia()->get_db()->sentencia_ejecutar($id, array( 'usuario'=> $usuario));
