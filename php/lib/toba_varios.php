@@ -678,31 +678,22 @@
 		switch ($operador) {
 			case '==':
 				return $valor1 == $valor2;
-				break;
 			case '===':
 				return $valor1 === $valor2;
-				break;
 			case '<':
 				return $valor1 < $valor2;
-				break;
 			case '<=':
 				return $valor1 <= $valor2;
-				break;
 			case '>':
 				return $valor1 > $valor2;
-				break;																
 			case '>=':
 				return $valor1 >= $valor2;
-				break;
 			case '!=':
 				return $valor1 != $valor2;
-				break;
 			case '!==':
 				return $valor1 !== $valor2;
-				break;
 			case '~':
 				return preg_match($valor2, $valor1);		//$valor2 es el pattern
-				break;
 			default:
 				throw new toba_error("El operador $operador no está soportado");
 		}
