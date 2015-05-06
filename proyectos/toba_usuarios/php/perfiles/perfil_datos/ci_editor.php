@@ -118,6 +118,9 @@ class ci_editor extends toba_ci
 	function evt__elementos__modificacion($datos)
 	{
 		foreach (array_keys($datos) as $id) {
+			if (trim($datos[$id]['clave']) == '') {						//Atrapa el caso de una clave vacia.
+					continue;				
+			}
 			if (isset($this->s__elementos[$datos[$id]['clave']])) {
 				if (!($datos[$id]['habilitar'] == 1)) {
 					$this->datos()->tabla('dims')->eliminar_fila($this->s__elementos[$datos[$id]['clave']]);
@@ -141,6 +144,7 @@ class ci_editor extends toba_ci
 						. implode("  || ' - ' ||  ", $desc) . " as descripcion
 				FROM {$this->datos_dimension['tabla']}
 				ORDER BY descripcion";
+		toba::logger()->debug($sql);
 		$datos = $this->get_db($this->datos_dimension['fuente_datos'])->consultar($sql);
 		return $datos;
 	}
