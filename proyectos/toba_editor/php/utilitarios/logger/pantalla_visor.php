@@ -37,7 +37,7 @@ class pantalla_visor extends toba_ei_pantalla
 		$niveles = array_reverse($niveles);		
 
 		$res = $this->controlador->get_analizador()->get_pedido($seleccion);
-		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
+		//$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
 
 		//--- Opciones
 		$selec = ($seleccion == 'ultima') ? 'Última solicitud' : "Solicitud {$seleccion}";
@@ -120,7 +120,7 @@ class pantalla_visor extends toba_ei_pantalla
 		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
 		$string = '';
 		if (isset($encabezado['operacion'])) {			
-			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>{$encabezado['operacion']}</span><br>";
+			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>".texto_plano($encabezado['operacion'])."</span><br>";
 		}
 		
 		if (isset($encabezado['fecha'])) {
@@ -144,7 +144,7 @@ class pantalla_visor extends toba_ei_pantalla
 		$enc = '';
 		//--- Encabezado		
 		foreach ($encabezado as $clave => $valor) {
-			$enc .= '<li><strong>'.ucfirst($clave)."</strong>: $valor</li>\n";
+			$enc .= '<li><strong>'.ucfirst($clave)."</strong>:".texto_plano($valor)."</li>\n";
 		}
 		$enc .= '<li><hr></li>';
 		return $enc;
@@ -188,7 +188,7 @@ class pantalla_visor extends toba_ei_pantalla
 		
 		//¿Contiene una traza?		
 		if ($pos_traza !== false) {
-			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
+			$txt_anterior = texto_plano(substr($txt, 0, $pos_traza));
 			$txt_traza = trim(substr($txt, $pos_traza + strlen($texto_traza)));
 			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span><span class='logger-traza-detalle' style='display:none;'>$txt_traza</span>";
 		} elseif ($salto !== false) {
@@ -203,8 +203,7 @@ class pantalla_visor extends toba_ei_pantalla
 		if (!$this->controlador->debe_mostrar_visor() || ! $this->controlador->existe_archivo_log()) {
 			return;	
 		}
-		$niveles = toba::logger()->get_niveles();		
-		$parametros = array();
+		$niveles = toba::logger()->get_niveles();
 ?>
 			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo(); ?>';
 			var niveles = <?php echo toba_js::arreglo($niveles); ?>;
