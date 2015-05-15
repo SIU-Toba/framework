@@ -63,6 +63,7 @@ class toba_memoria
 	private $memoria_global;			// Espacio de memoria global de la aplicacion.
 	private $memoria_instancia;			// Memoria global de la instancia.
 	private $url_original;
+	private $parametros_item_original;
 	
 	static function instancia()
 	{
@@ -181,6 +182,12 @@ class toba_memoria
 					}
 				}
 			}
+		}
+		if (! isset($this->parametros_item_original) || is_null($this->parametros_item_original)) {
+			$this->parametros_item_original = $this->parametros;
+			$this->set_dato('parametros_item_original', $this->parametros);
+			toba::logger()->debug("Guardando parametros del item original");
+			toba::logger()->var_dump($this->parametros_item_original);
 		}
  	}
 
@@ -315,8 +322,22 @@ class toba_memoria
 		}		
 	}
 	
-
-
+	/**
+	 * Retorna los parametros del item requerido originalmente, la lectura es destructiva del dato
+	 * @return array
+	 */
+	function get_parametros_item_original()	
+	{
+		if (isset($this->parametros_item_original)) {
+			$this->eliminar_dato('parametros_item_original');							//Elimino el dato para que solo pueda ser utilizado por unica vez (de preferencia en el login)
+			toba::logger()->debug("Eliminando parametros del item original");
+			unset($this->parametros_item_original[apex_hilo_qs_zona]);
+			unset($this->parametros_item_original[apex_sesion_qs_finalizar]);			
+			return $this->parametros_item_original;
+		}
+		return null;
+	}	
+	
 	function usuario_solicita_cronometrar()
 	{
 		if(isset($this->parametros[apex_hilo_qs_cronometro])){
@@ -365,8 +386,8 @@ class toba_memoria
 			$this->limpiar_datos_reciclable();
 			$this->fijar_csrf_token(true);
 		}
-		$this->inicializar_reciclaje_global();
-		
+		$this->parametros_item_original = $this->get_dato('parametros_item_original');							
+		$this->inicializar_reciclaje_global();		
 	}
 
 	function limpiar_memoria()

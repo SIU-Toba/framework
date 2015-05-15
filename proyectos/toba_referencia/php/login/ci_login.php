@@ -6,6 +6,7 @@ class ci_login extends toba_ci
 	protected $en_popup = false;
 	protected $s__item_inicio;
 	private $es_cambio_contrasenia = false;
+	protected  $s__parametros_originales = array();
 	
 	/**
 	 * Guarda el id de la operación original así se hace una redirección una vez logueado
@@ -18,6 +19,7 @@ class ci_login extends toba_ci
 		if (isset($item_original) && isset($item_actual) &&
 				$item_actual[1] != $item_original[1]) {
 			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
+			$this->s__parametros_originales = toba::memoria()->get_parametros_item_original();
 		}
 		$this->s__item_inicio = null;
 		if (isset($this->s__datos_openid)) {
@@ -348,8 +350,7 @@ class ci_login extends toba_ci
 					$proyecto = toba::proyecto()->get_id();
 					$item = toba::proyecto()->get_parametro('item_inicio_sesion');
 				}
-				$url = toba::vinculador()->get_url($proyecto, $item);
-				
+				$url = toba::vinculador()->get_url($proyecto, $item, $this->s__parametros_originales);
 				if ($this->en_popup) {
 					echo " abrir_popup('sistema', '$url', {resizable: 1});	";
 				} else {
