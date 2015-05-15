@@ -351,7 +351,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * @ignore
 	 */
-	private function agregar_columnas_perezoso($columnas)
+	private function agregar_columnas_perezoso($columnas, $columnas_al_inicio=false)
 	{
 		$arreglo_default = array('estilo' => 'col-tex-p1', 'estilo_titulo' => 'ei-cuadro-col-tit', 'total_cc' => '',
 			'total' => '0', 'usar_vinculo' => '0', 'no_ordenar' => '0', 'formateo' => null);
@@ -359,7 +359,11 @@ class toba_ei_cuadro extends toba_ei
 		foreach ($columnas as $clave => $valor) {
 			$columnas[$clave] = array_merge($arreglo_default, $valor);
 		}
-		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
+		if ($columnas_al_inicio) {
+			$this->_info_cuadro_columna = array_merge(array_values($columnas), $this->_info_cuadro_columna);
+		} else {
+			$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
+		}
 	}
 	
 	/**
@@ -660,7 +664,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Grafica el cuadro agrupando las filas en N-columnas
-	 * @param integer $cant_columnas
+	 * @param integer $cant_filas
 	 */
 	function set_layout_cant_filas($cant_filas)
 	{
@@ -1049,16 +1053,17 @@ class toba_ei_cuadro extends toba_ei
  		$columnas = array();
  		foreach ($this->_info_cuadro_cortes as $cortes) {
  			$ids = explode(',', $cortes['columnas_id']);
- 			foreach ($ids as $id) {
+			$agregar_id_columna = (count($ids) > 1);
+ 			foreach ($ids as $id) {				
  				$columna = array(
  					'clave'  => $id,
- 					'titulo' => $id,
+ 					'titulo' => (! $agregar_id_columna) ? $cortes['descripcion'] : $cortes['descripcion'] . "( $id )",
  					'formateo' => 'forzar_cadena'
  				);
  				$columnas[] = $columna;
  			}
  		}
-		$this->agregar_columnas_perezoso($columnas);
+		$this->agregar_columnas_perezoso($columnas, true);
  	} 
 
 	/**
