@@ -1,10 +1,9 @@
 <?php
 
-$path = dirname(__FILE__). '/../../../autoload.php';
-$autoloader = require_once($path);
-
-
 //set_include_path(dirname(__FILE__) . '/../' . PATH_SEPARATOR . get_include_path());
+
+$autoloader = require_once __DIR__.'/../vendor/autoload.php';
+
 //SIUToba\rest\bootstrap::registerAutoloader();
 //
 //function customAutoLoader($class)
@@ -18,4 +17,3 @@ $autoloader = require_once($path);
 //}
 //
 //spl_autoload_register('customAutoLoader');
-

@@ -6,7 +6,6 @@ use SIUToba\rest\seguridad\proveedor_autorizacion;
 use SIUToba\rest\seguridad\rest_usuario;
 
 /**
- * @package SIUToba\rest\seguridad
  */
 class autorizacion_scopes extends proveedor_autorizacion
 {
@@ -22,12 +21,13 @@ class autorizacion_scopes extends proveedor_autorizacion
 
     /**
      * @param rest_usuario $usuario
-     * @param string $ruta
+     * @param string       $ruta
+     *
      * @return bool
      */
     public function tiene_acceso($usuario, $ruta)
     {
-        if( null === $usuario ){
+        if (null === $usuario) {
             return false;
         }
         // en el contexto de oauth2 los perfiles son los scopes
@@ -39,7 +39,7 @@ class autorizacion_scopes extends proveedor_autorizacion
         // se chequea que todos los scopes requeridos estén en el arreglo de scopes del usuario
         $user_scopes_array = explode(' ', $user_scopes);
         foreach ($this->scopes as $required_scope) {
-            if (! in_array($required_scope, $user_scopes_array)) {
+            if (!in_array($required_scope, $user_scopes_array)) {
                 return false;
             }
         }

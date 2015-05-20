@@ -5,13 +5,14 @@ namespace SIUToba\rest\lib;
 /**
  * Esta clase no es obligatoria para el uso de los modelos. Está para referencia mayormente.
  */
-interface modelable {
-
-	/**
-	 * Retorna un arreglo de modelos.
-	 * @return array
-	 */
-	public static function _get_modelos();
+interface modelable
+{
+    /**
+     * Retorna un arreglo de modelos.
+     *
+     * @return array
+     */
+    public static function _get_modelos();
 
 //	El modelo se construye con los campos del lado izquiero.
 //	Por defecto son de type=> string y se obtienen de la columna con el mismo nombre
@@ -75,9 +76,4 @@ interface modelable {
 //
 //
 //
-
-
-
-
-
-} 
+}

@@ -19,9 +19,9 @@
     "minimum-stability": "dev",
     "prefer-stable" : true, 
     "require": {
-		"padraic/security-multitool": "@dev",
-		"ircmaxell/random-lib" : "@dev",
-        "siu-toba/rest": "^1.0.0",
+	"padraic/security-multitool": "@dev",
+	"ircmaxell/random-lib" : "@dev",
+        "siu-toba/rest": "@dev",
         "guzzlehttp/guzzle": "5.1.0",
         "onelogin/php-saml": "2.3.0"
 	}

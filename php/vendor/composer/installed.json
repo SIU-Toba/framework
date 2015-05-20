@@ -853,24 +853,24 @@
     },
     {
         "name": "siu-toba/rest",
-        "version": "v1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/SIU-Toba/rest.git",
-            "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5"
+            "reference": "f35567b78589b7fc009de5448236c247b2926175"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
-            "reference": "cb79995e9c5c2a860b0e2669e704fe4461d50cf5",
+            "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/f35567b78589b7fc009de5448236c247b2926175",
+            "reference": "f35567b78589b7fc009de5448236c247b2926175",
             "shasum": ""
         },
         "require": {
             "doctrine/cache": "~1.4",
             "php": ">=5.3.0"
         },
-        "time": "2015-02-27 18:46:55",
+        "time": "2015-03-10 17:47:03",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -884,7 +884,7 @@
         "description": "Libreria para servicios REST",
         "homepage": "http://toba.siu.edu.ar",
         "support": {
-            "source": "https://github.com/SIU-Toba/rest/tree/v1.0.0",
+            "source": "https://github.com/SIU-Toba/rest/tree/v1.1.0",
             "issues": "https://github.com/SIU-Toba/rest/issues"
         }
     }

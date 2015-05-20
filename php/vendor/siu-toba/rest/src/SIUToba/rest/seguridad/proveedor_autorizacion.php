@@ -4,6 +4,5 @@ namespace SIUToba\rest\seguridad;
 
 abstract class proveedor_autorizacion
 {
-
-	public abstract function tiene_acceso($usuario, $ruta);
+    abstract public function tiene_acceso($usuario, $ruta);
 }

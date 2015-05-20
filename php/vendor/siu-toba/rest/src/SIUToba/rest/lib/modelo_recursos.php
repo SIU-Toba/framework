@@ -3,14 +3,13 @@
 namespace SIUToba\rest\lib;
 
 
-use SIUToba\rest\rest;
-
-class modelo_recursos {
-
-
+class modelo_recursos
+{
     /**
-     * Recibe un arreglo de modelos
+     * Recibe un arreglo de modelos.
+     *
      * @param $models
+     *
      * @return array
      */
     public function to_swagger($models)
@@ -21,9 +20,9 @@ class modelo_recursos {
 
             $out[$id_modelo] = $nuevo;
         }
+
         return $out;
     }
-
 
     protected function to_swagger_modelo($id, $modelo_in)
     {
@@ -38,21 +37,20 @@ class modelo_recursos {
         return $nuevo = array(
             'id' => $id,
             'required' => array_values($required),
-            'properties' => $properties
+            'properties' => $properties,
         );
     }
-
 
     protected function get_property(&$properties, $campo, $def)
     {
         $property = array();
-        if(is_numeric($campo)){ //solo el campo  0=> nombre
+        if (is_numeric($campo)) { //solo el campo  0=> nombre
             $campo = $def;
             $def = array();
         }
 
         //TODO, hacer mas modelos para representar estos subrecursos?
-        if(isset($def['_compuesto'])){
+        if (isset($def['_compuesto'])) {
             $def = array('type' => $campo); //lo muestro asi por ahora
         }
 

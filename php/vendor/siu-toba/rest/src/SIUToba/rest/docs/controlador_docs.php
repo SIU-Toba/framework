@@ -10,16 +10,18 @@ use SIUToba\rest\lib\rest_instanciador;
 use SIUToba\rest\lib\ruteador;
 use SIUToba\rest\rest;
 
+/**
+ * @TODO: refactorizar esto - no es critico, pero se fue extendiendo, y no tiene tests (ups)
+ *
+ */
 class controlador_docs
 {
-
     protected $api_root;
     protected $api_url;
 
     protected $list;
 
-
-    function __construct($api_root, $api_url)
+    public function __construct($api_root, $api_url)
     {
         $this->api_root = $api_root;
         $this->api_url = $api_url;
@@ -27,12 +29,13 @@ class controlador_docs
 
     /**
      * Retorna la documentacion en formato swagger para el path. Si el path
-     * es nulo retorna la delcaracion de recursos, sino retorna la api para el path
+     * es nulo retorna la delcaracion de recursos, sino retorna la api para el path.
      */
     public function get_documentacion($path)
     {
         if (empty($path)) {
             $lista = $this->getResourceList();
+
             return rest::response()->get($lista);
         } else {
             throw new rest_error("En esta version toda la documentación esta en la raiz");
@@ -42,7 +45,7 @@ class controlador_docs
     protected function getResourceList()
     {
         $list = array();
-        $this->list = &$list;
+        $this->list = & $list;
         $list['swagger'] = "2.0";
         $list['info'] = array();
         $list['basePath'] = $this->api_url;
@@ -50,19 +53,17 @@ class controlador_docs
         $list['apiVersion'] = '1.0';
         $list['paths'] = array();
 
-
         $this->list['paths'] = array();
         $this->list['definitions'] = array();
 
         $lista_apis = $this->get_lista_apis();
-        foreach ($lista_apis as $path)
-        {
-
+        foreach ($lista_apis as $path) {
             $this->add_apis($path);
             $this->add_modelos($path);
         }
 
         $this->reordenar_lista_apis($list['paths']);
+
         return $list;
     }
 
@@ -78,19 +79,19 @@ class controlador_docs
             }
             $prefijo = rest::app()->config('prefijo_controladores');
 
-            if (! $this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME)) ){
+            if (!$this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME))) {
                 continue;
             }
             $nombre = str_replace('\\', '/', $nombre); // windows! ...
 
             $path = $this->get_url_de_clase($nombre);
-            $path = ltrim($path,'/') ;
+            $path = ltrim($path, '/');
 
             $list[] = $path;
         }
+
         return $list;
     }
-
 
     protected function add_apis($path)
     {
@@ -99,13 +100,16 @@ class controlador_docs
         $reflexion = $this->get_annotaciones_de_path($path);
         $metodos = $reflexion->get_metodos();
 
+        $montaje = $this->get_montaje_de_path($path);
+        $prefijo_montaje = $montaje ? '/' . $montaje : '';
+
         foreach ($metodos as $metodo) {
             $parametros = $metodo['parametros'];
             $nombre_metodo = $metodo['nombre'];
 
             $alias = '';
             $partes_nombre_alias = explode('__', $nombre_metodo);
-            if(count($partes_nombre_alias) > 1){
+            if (count($partes_nombre_alias) > 1) {
                 $alias = $partes_nombre_alias[1];
                 $nombre_metodo = $partes_nombre_alias[0];
             }
@@ -120,14 +124,19 @@ class controlador_docs
             $params_path = array();
             $partes_path = explode('/', $path);
 
-            foreach($partes_nombre as $parte){
+            if ($montaje) {
+                array_shift($partes_path);
+            }
+
+            foreach ($partes_nombre as $parte) {
                 $partes_path[] = $parte;
             }
 
             $nro_parametro = 0;
-            $api_path = '';// $path;
+            $api_path = $prefijo_montaje; // $path;
 
             foreach ($partes_path as $parte) {
+                $parte = str_replace('_', '-', $parte); //no permito '_' en las colecciones
                 $api_path .= "/" . $parte;
                 if (isset($parametros[$nro_parametro])) {
                     $param_name = $parametros[$nro_parametro++];
@@ -135,7 +144,7 @@ class controlador_docs
                     $params_path[] = $this->get_parametro_path($param_name, $parte);
                 }
             }
-            if($alias){
+            if ($alias) {
                 $api_path .= '/' . $alias;
             }
             ////--------------------------------------------------------
@@ -143,7 +152,7 @@ class controlador_docs
             $params_body = $reflexion->get_parametros_metodo($metodo, 'body');
 
             $operation = array();
-            $operation['tags'] = array( $path );
+            $operation['tags'] = array( str_replace('_', '-', $path)); //cambio el _ para mostrarlo
             $operation['method'] = strtolower($prefijo_metodo);
             $operation['summary'] = $reflexion->get_summary_metodo($metodo);
             $operation['description'] = $reflexion->get_notes_metodo($metodo);
@@ -154,9 +163,7 @@ class controlador_docs
             $operation['responses'] = $reflexion->get_respuestas_metodo($metodo);
 
             $this->list['paths'][$api_path][$operation['method']] = $operation;
-
         }
-
     }
 
     protected function reordenar_lista_apis(&$apis_paths)
@@ -170,13 +177,14 @@ class controlador_docs
     }
 
     /**
-     * Reordena los distintas operaciones GET PUT DELETE UPDATE
+     * Reordena los distintas operaciones GET PUT DELETE UPDATE.
+     *
      * @param $paths
+     *
      * @return array
      */
     protected function reordenar_operaciones(&$paths)
     {
-
         $orden_ops = array();
         foreach ($paths as $metodo => $detalle) {
             //3GET,3PUT,6DELETE,6UPDATE
@@ -193,15 +201,17 @@ class controlador_docs
         $api_parameter['description'] = "ID del recurso $parte";
         $api_parameter['type'] = "string";
         $api_parameter['required'] = true;
+
         return $api_parameter;
     }
-
 
     /**
      * Retorna la url del recurso REST en base a la ruta del archivo.
      * Se aceptan los formatos algo/recurso/recurso.php o /algo/recurso.php
-     * Para ambos, la ruta es /algo/recurso
+     * Para ambos, la ruta es /algo/recurso.
+     *
      * @param $ruta_absoluta
+     *
      * @return string
      */
     protected function get_url_de_clase($ruta_absoluta)
@@ -219,22 +229,42 @@ class controlador_docs
             $url = substr($path_relativo, 0, -strlen($clase_recurso . '.php'));
             $url .= $recurso;
         }
+
         return $url;
     }
 
     /**
      * @param $path
+     *
      * @return anotaciones_docs
      */
     protected function get_annotaciones_de_path($path)
     {
         $lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
         $archivo = $lector->get_recurso(explode('/', $path));
+
         return new anotaciones_docs($archivo['archivo']);
     }
 
+    protected function get_montaje_de_path($path)
+    {
+        $lector = rest::app()->lector_recursos; //new lector_recursos_archivo($this->api_root);
+
+        $partes_url = explode('/', $path);
+
+        if ($es_montaje = $lector->es_montaje($partes_url[0])) {
+            $montaje = $partes_url[0];
+        } else {
+            $montaje = "";
+        }
+
+        return $montaje;
+    }
+
+
     /**
      * @param $path
+     *
      * @return anotaciones_docs
      */
     protected function add_modelos($path)
@@ -246,24 +276,26 @@ class controlador_docs
         $i->archivo = $archivo['archivo'];
         $objeto = $i->get_instancia();
 
-        if(method_exists($objeto, '_get_modelos')){
-            $modelo = new modelo_recursos( );
+        if (method_exists($objeto, '_get_modelos')) {
+            $modelo = new modelo_recursos();
             $specs = $modelo->to_swagger($objeto->_get_modelos());
             $this->list['definitions'] = array_merge($this->list['definitions'], $specs);
-        }else {
-            rest::app()->logger->debug('El objeto no tiene el metodo _get_modelos. Clase: '. get_class($objeto));
+        } else {
+            rest::app()->logger->debug('El objeto no tiene el metodo _get_modelos. Clase: ' . get_class($objeto));
+
             return array();
         }
-
     }
 
     /**
      * @param $path
+     *
      * @return RecursiveIteratorIterator
      */
     protected function obtener_clases_directorio($path)
     {
         $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+
         return $objects;
     }
 

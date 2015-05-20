@@ -2,7 +2,6 @@
 
 class ClassA
 {
-
     public function metodo()
     {
         return "Exito";
@@ -12,4 +11,4 @@ class ClassA
     {
         return $params;
     }
-} 
+}

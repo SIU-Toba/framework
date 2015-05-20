@@ -38,150 +38,154 @@ use SIUToba\rest\seguridad\rest_usuario;
  */
 class rest
 {
+    protected static $instancia;
 
-	protected static $instancia;
+    /**
+     * @var \SIUToba\rest\lib\Set
+     */
+    public $container;
 
-	/**
-	 * @var \SIUToba\rest\lib\Set
-	 */
-	public $container;
+    /**
+     * @return rest
+     */
+    public static function app()
+    {
+        return self::$instancia;
+    }
 
+    /**
+     * @return request
+     */
+    public static function request()
+    {
+        return self::$instancia->request;
+    }
 
-	/**
-	 * @return rest
-	 */
-	public static function app()
-	{
-		return self::$instancia;
-	}
+    /**
+     * @return respuesta_rest
+     */
+    public static function response()
+    {
+        return self::$instancia->response;
+    }
 
-	/**
-	 * @return request
-	 */
-	public static function request()
-	{
-		return self::$instancia->request;
-	}
+    /**
+     * Si el usuario es null, es acceso anonimo.
+     *
+     * @return rest_usuario
+     */
+    public static function usuario()
+    {
+        return self::$instancia->usuario;
+    }
 
-	/**
-	 * @return respuesta_rest
-	 */
-	public static function response()
-	{
-		return self::$instancia->response;
-	}
+    /**
+     * Settings default - Se pueden cambiar en el constructor.
+     *
+     * @return array
+     */
+    public static function get_default_settings()
+    {
+        return array(
+            'formato_respuesta' => 'json',
+            'encoding' => 'utf-8', //latin1
+            'path_controladores' => '/',
+            'prefijo_controladores' => 'recurso_',
+            'url_api' => '/api',
+            'prefijo_api_docs' => 'api-docs',
+            'url_protegida' => '/.*/',
 
-	/**
-	 * Si el usuario es null, es acceso anonimo
-	 * @return rest_usuario
-	 */
-	public static function usuario()
-	{
-		return self::$instancia->usuario;
-	}
+            //DEBUG
+            'debug' => false,
+            // HTTP
+            'http.version' => '1.1',
+        );
+    }
 
-
-	/**
-	 * Settings default - Se pueden cambiar en el constructor
-	 * @return array
-	 */
-	public static function get_default_settings()
-	{
-		return array(
-			'formato_respuesta'  => 'json',
-			'encoding'           => 'utf-8', //latin1
-			'path_controladores' => '/',
-			'prefijo_controladores' => 'recurso_',
-			'url_api'            => '/api',
-			'prefijo_api_docs'   => 'api-docs',
-			'url_protegida'      => '/.*/',
-
-			//DEBUG
-			'debug'              => false,
-			// HTTP
-			'http.version'       => '1.1'
-		);
-	}
-
-	function __construct($settings = array())
-	{
-		self::$instancia = $this;
+    public function __construct($settings = array())
+    {
+        self::$instancia = $this;
 //		$this->autoload();
 
-		$this->container = new Set();
-		$this->container['settings'] = array_merge(static::get_default_settings(), $settings);
+        $this->container = new Set();
+        $this->container['settings'] = array_merge(static::get_default_settings(), $settings);
 
-		// Request default
-		$this->container->singleton('request', function ($c) {
-			$req = new request();
-			$req->set_encoding_datos($c['settings']['encoding']);
-			return $req;
-		});
+        // Request default
+        $this->container->singleton('request', function ($c) {
+            $req = new request();
+            $req->set_encoding_datos($c['settings']['encoding']);
 
-		// Respuesta default
-		$this->container->singleton('response', function ($c) {
-			$respuesta = new respuesta_rest();
-			$respuesta->set_encoding_datos($c['settings']['encoding']);
-			return $respuesta;
-		});
+            return $req;
+        });
 
-		// Ruteador default
-		$this->container->singleton('router', function ($c) {
-			$r = new ruteador($c->lector_recursos, new rest_instanciador());
-			return $r;
-		});
+        // Respuesta default
+        $this->container->singleton('response', function ($c) {
+            $respuesta = new respuesta_rest();
+            $respuesta->set_encoding_datos($c['settings']['encoding']);
 
-		// Proveedor de autenticacion --> SE DEBE INDICAR UNO EXTERNAMEN
-		$this->container->singleton('autenticador', function ($c) {
-			throw new rest_error_interno("Se debe indicar un autenticador que provea los usuarios del negocio");
-		});
+            return $respuesta;
+        });
 
-		// Proveedor de autorizacion
-		$this->container->singleton('autorizador', function ($c) {
-			$autorizador = new autorizacion_anonima();
-			return $autorizador;
-		});
+        // Ruteador default
+        $this->container->singleton('router', function ($c) {
+            $r = new ruteador($c->lector_recursos, new rest_instanciador());
 
-		// Firewall default
-		$this->container->singleton('firewall', function ($c) {
-			$autorizador = new firewall($c->autenticador, $c->autorizador, $c->settings['url_protegida']);
-			return $autorizador;
-		});
+            return $r;
+        });
 
-		// Logger
-		$this->container->singleton('logger', function ($c) {
-			return new logger_vacio();
-		});
+        // Proveedor de autenticacion --> SE DEBE INDICAR UNO EXTERNAMEN
+        $this->container->singleton('autenticador', function ($c) {
+            throw new rest_error_interno("Se debe indicar un autenticador que provea los usuarios del negocio");
+        });
 
-		$this->container->singleton('lector_recursos', function ($c) {
-			return new lector_recursos_archivo(
-				$c['settings']['path_controladores'],
-				$c['settings']['prefijo_controladores']);
-		});
+        // Proveedor de autorizacion
+        $this->container->singleton('autorizador', function ($c) {
+            $autorizador = new autorizacion_anonima();
 
-		$this->container->singleton('controlador_documentacion', function ($c) {
-			return new controlador_docs(
-				$c['settings']['path_controladores'],
-				$c['settings']['url_api']
-			);
-		});
+            return $autorizador;
+        });
 
-		// Vistas default
-		$this->container->singleton('vista', function ($c) {
-			$formato = $c['settings']['formato_respuesta'];
-			$respuesta = $c['response'];
-			switch ($formato) {
-				case 'json':
-					return new vista_json($respuesta);
-				case 'xml':
-					return new vista_xml($respuesta);
-			}
-		});
-	}
+        // Firewall default
+        $this->container->singleton('firewall', function ($c) {
+            $autorizador = new firewall($c->autenticador, $c->autorizador, $c->settings['url_protegida']);
 
-	function procesar()
-	{
-		$this->logger->debug("Iniciando el pedido");
+            return $autorizador;
+        });
+
+        // Logger
+        $this->container->singleton('logger', function ($c) {
+            return new logger_vacio();
+        });
+
+        $this->container->singleton('lector_recursos', function ($c) {
+            return new lector_recursos_archivo(
+                $c['settings']['path_controladores'],
+                $c['settings']['prefijo_controladores']);
+        });
+
+        $this->container->singleton('controlador_documentacion', function ($c) {
+            return new controlador_docs(
+                $c['settings']['path_controladores'],
+                $c['settings']['url_api']
+            );
+        });
+
+        // Vistas default
+        $this->container->singleton('vista', function ($c) {
+            $formato = $c['settings']['formato_respuesta'];
+            $respuesta = $c['response'];
+            switch ($formato) {
+                case 'json':
+                    return new vista_json($respuesta);
+                case 'xml':
+                    return new vista_xml($respuesta);
+            }
+        });
+    }
+
+    public function procesar()
+    {
+        $this->logger->debug("Iniciando el pedido");
         try {
             $method = $this->request->get_method();
             $url = $this->get_url_relativa();
@@ -191,74 +195,72 @@ class rest
 
             $partes_url = explode('/', $url);
 
+            $this->controlar_acceso($url);
 
-			$this->controlar_acceso($url);
+            if ($partes_url[0] == $this->settings['prefijo_api_docs']) {
+                $this->mostrar_documentacion($url);
+            } else {
+                $recurso = $this->router->buscar_controlador($method, $url);
+                $this->logger->debug("Controlador encontrado {$recurso->archivo} :: {$recurso->accion} (".implode(',', $recurso->parametros).")");
+                $recurso->ejecutar_accion();
+            }
+        } catch (rest_error_autenticacion $ex) {
+            $ex->configurar_respuesta($this->response);
+            $this->logger->info("Excepcion de Autenticacion. Autenticar y reintentar");
+            $this->logger->var_dump($this->response);
+        } catch (rest_error_autorizacion $ex) {
+            $ex->configurar_respuesta($this->response);
+            $this->logger->info("Error de Autorizacion.");
+        } catch (rest_error $ex) {
+            // Excepciones controladas, partel del flujo normal de la API
+            $ex->configurar_respuesta($this->response);
+            $this->logger->info("La api retornó un error. Status: ".$this->response->get_status());
+            $this->logger->var_dump($this->response->get_data());
+        } catch (Exception $ex) {
+            // Excepcion del codigo del proyecto - Error de programación, no tiene que entrar aca en el flujo normal
+            $this->logger->error("Error al ejecutar el pedido. ".$ex->getMessage());
+            $this->logger->error($ex->getTraceAsString());
+            $error = new rest_error(500, "Error Interno en el servidor: ".$ex->getMessage());
+            $error->configurar_respuesta($this->response);
+        }
+        $this->response->finalizar();
+        $this->vista->escribir();
+        $this->logger->debug("Pedido finalizado");
+        if ($this->config('debug')) {
+            $this->logger->var_dump($this->response);
+        }
+        $this->logger->guardar();
+    }
 
-			if ($partes_url[0] == $this->settings['prefijo_api_docs']) {
-				$this->mostrar_documentacion($url);
-			} else {
-				$recurso = $this->router->buscar_controlador($method, $url);
-				$this->logger->debug("Controlador encontrado {$recurso->archivo} :: {$recurso->accion} (" . implode(',', $recurso->parametros) . ")");
-				$recurso->ejecutar_accion();
-			}
-		} catch (rest_error_autenticacion $ex) {
-			$ex->configurar_respuesta($this->response);
-			$this->logger->info("Excepcion de Autenticacion. Autenticar y reintentar");
-			$this->logger->var_dump($this->response);
-		} catch (rest_error_autorizacion $ex) {
-			$ex->configurar_respuesta($this->response);
-			$this->logger->info("Error de Autorizacion.");
-		} catch (rest_error $ex) {
-			// Excepciones controladas, partel del flujo normal de la API
-			$ex->configurar_respuesta($this->response);
-			$this->logger->info("La api retornó un error. Status: " . $this->response->get_status());
-			$this->logger->var_dump($this->response->get_data());
-		} catch (Exception $ex) {
-			// Excepcion del codigo del proyecto - Error de programación, no tiene que entrar aca en el flujo normal
-			$this->logger->error("Error al ejecutar el pedido. " . $ex->getMessage());
-			$this->logger->error($ex->getTraceAsString());
-			$error = new rest_error(500, "Error Interno en el servidor: ".$ex->getMessage());
-			$error->configurar_respuesta($this->response);
-		}
-	    $this->response->finalizar();
-		$this->vista->escribir();
-		$this->logger->debug("Pedido finalizado");
-		if ($this->config('debug')) {
-			$this->logger->var_dump($this->response);
-		}
-		$this->logger->guardar();
-	}
+    /**
+     * @param $ruta
+     *
+     * @throws rest_error_autorizacion si el firewall denega el acceso
+     */
+    protected function controlar_acceso($ruta)
+    {
+        $this->logger->debug("Iniciando Autenticacion");
+        if ($this->firewall->maneja_ruta($ruta)) {
+            $this->logger->debug("Pedido capturado por el firewall");
+            $usuario = $this->firewall->manejar($ruta, $this->request);
+            $this->loggear_acceso_ok($usuario);
+            $this->usuario = $usuario;
+        } else {
+            $this->logger->info("El firwall no controla acceso a $ruta");
+        }
+    }
 
+    private function get_url_relativa()
+    {
+        $uri = $this->request->get_request_uri();
+        $url = strtok($uri, '?');
+        $url_api = $this->settings['url_api'];
 
-	/**
-	 * @param $ruta
-	 * @throws rest_error_autorizacion si el firewall denega el acceso
-	 */
-	protected function controlar_acceso($ruta)
-	{
-		$this->logger->debug("Iniciando Autenticacion");
-		if ($this->firewall->maneja_ruta($ruta)) {
-			$this->logger->debug("Pedido capturado por el firewall");
-			$usuario = $this->firewall->manejar($ruta, $this->request);
-			$this->loggear_acceso_ok($usuario);
-			$this->usuario = $usuario;
-		} else {
-			$this->logger->info("El firwall no controla acceso a $ruta");
-		}
-	}
-
-	private function get_url_relativa()
-	{
-		$uri = $this->request->get_request_uri();
-		$url = strtok($uri, '?');
-		$url_api = $this->settings['url_api'];
-
-		if (substr($url, 0, strlen($url_api)) == $url_api) {
-			return substr($url, strlen($url_api));
-		}
-		throw new rest_error_interno("Este controlador no está configurado para manejar esta URL. La url es: '$uri', la url de la API es '$url_api'");
-	}
-
+        if (substr($url, 0, strlen($url_api)) == $url_api) {
+            return substr($url, strlen($url_api));
+        }
+        throw new rest_error_interno("Este controlador no está configurado para manejar esta URL. La url es: '$uri', la url de la API es '$url_api'");
+    }
 
 //	protected function autoload()
 //	{
@@ -271,51 +273,51 @@ class rest
 //		bootstrap::registerAutoloader();
 //	}
 
-	public function config($clave)
-	{
-		return $this->settings[$clave];
-	}
+    public function config($clave)
+    {
+        return $this->settings[$clave];
+    }
 
-	public function __get($name)
-	{
-		return $this->container[$name];
-	}
+    public function __get($name)
+    {
+        return $this->container[$name];
+    }
 
-	public function __set($name, $value)
-	{
-		$this->container[$name] = $value;
-	}
+    public function __set($name, $value)
+    {
+        $this->container[$name] = $value;
+    }
 
-	public function __isset($name)
-	{
-		return isset($this->container[$name]);
-	}
+    public function __isset($name)
+    {
+        return isset($this->container[$name]);
+    }
 
-	public function __unset($name)
-	{
-		unset($this->container[$name]);
-	}
+    public function __unset($name)
+    {
+        unset($this->container[$name]);
+    }
 
-	/**
-	 * @param $usuario
-	 */
-	protected function loggear_acceso_ok($usuario)
-	{
-		if ($usuario != null) {
-			$this->logger->debug("Usuario '{$usuario->get_usuario()}' autenticado y autorizado");
-		} else {
-			$this->logger->debug("Usuario autorizado anonimamente");
-		}
-	}
+    /**
+     * @param $usuario
+     */
+    protected function loggear_acceso_ok($usuario)
+    {
+        if ($usuario != null) {
+            $this->logger->debug("Usuario '{$usuario->get_usuario()}' autenticado y autorizado");
+        } else {
+            $this->logger->debug("Usuario autorizado anonimamente");
+        }
+    }
 
-	/**
-	 * @param $url
-	 */
-	protected function mostrar_documentacion($url)
-	{
-		$this->logger->debug("Iniciando documentacion");
-		$controlador = $this->controlador_documentacion;
-		$url = strstr($url, '/');
-		$controlador->get_documentacion($url);
-	}
+    /**
+     * @param $url
+     */
+    protected function mostrar_documentacion($url)
+    {
+        $this->logger->debug("Iniciando documentacion");
+        $controlador = $this->controlador_documentacion;
+        $url = strstr($url, '/');
+        $controlador->get_documentacion($url);
+    }
 }
