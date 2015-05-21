@@ -2,15 +2,13 @@ web:
   #build: .
   image: siutoba/docker-toba-editor
   ports:
-   - "3000:80"
+   - "2020:80"
+  env_file: docker.env
+
   links:
    - pg
    # Activar este link si se desea utilizar el servidor de Jasper
 #   - jasper
-  environment:
-   TOBA_ID_DESARROLLADOR: 30
-   TOBA_PASS: tolaba
-   TOBA_NOMBRE_INSTALACION: Editor de Toba
    # Descomentar esta variable de entorno para corregir permisos en OSX
 #   OSX: 1
   volumes:
