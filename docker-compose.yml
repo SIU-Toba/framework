@@ -1,0 +1,41 @@
+web:
+  #build: .
+  image: siutoba/docker-toba-editor
+  ports:
+   - "3000:80"
+  links:
+   - pg
+   # Activar este link si se desea utilizar el servidor de Jasper
+#   - jasper
+  environment:
+   TOBA_ID_DESARROLLADOR: 30
+   TOBA_PASS: tolaba
+   TOBA_NOMBRE_INSTALACION: Editor de Toba
+   # Descomentar esta variable de entorno para corregir permisos en OSX
+#   OSX: 1
+  volumes:
+   - ./:/var/local/toba
+
+
+# Descomentar este bloque si se desea utilizar el servidor Jasper
+#jasper:
+##  build: jasper/
+#  image: siutoba/docker-guarani-jasper
+#  links:
+#   - pg
+#  volumes:
+#   - <PATH A GESTION>:/var/local/gestion
+
+pgdata:
+  image: postgres:9.4
+  command: true
+  volumes:
+   - /var/lib/postgresql/data
+
+pg:
+  image: postgres:9.4
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  volumes_from:
+   - pgdata
