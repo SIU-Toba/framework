@@ -7,10 +7,6 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     'dflydev\\markdown' => array($vendorDir . '/dflydev/markdown/src'),
-    'Zend\\Validator\\' => array($vendorDir . '/zendframework/zend-validator'),
-    'Zend\\Uri\\' => array($vendorDir . '/zendframework/zend-uri'),
-    'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
-    'Zend\\Escaper\\' => array($vendorDir . '/zendframework/zend-escaper'),
     'SecurityMultiTool' => array($vendorDir . '/padraic/security-multitool/library'),
     'SecurityLib' => array($vendorDir . '/ircmaxell/security-lib/lib'),
     'RandomLib' => array($vendorDir . '/ircmaxell/random-lib/lib'),

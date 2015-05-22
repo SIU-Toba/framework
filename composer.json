@@ -21,7 +21,7 @@
         "vendor-dir" : "./php/vendor"
     },
     "minimum-stability": "dev",
-    "prefer-stable" : false,
+    "prefer-stable" : true,
     "require": {
         "padraic/security-multitool": "@dev",
         "ircmaxell/random-lib" : "@dev",

@@ -39,8 +39,8 @@ class FormDecorator
             }
         } else {
             throw new Exception\RuntimeException(
-                'Unable to decorate as the given argument does not appear to '.
-		'contain valid HTML form markup'
+                'Unable to decorate as the given argument does not appear to '
+                'contain valid HTML form markup'
             );
         }
         return $form;
