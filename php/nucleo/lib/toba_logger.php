@@ -64,7 +64,7 @@ class toba_logger
 	protected $proximo = 0;
 	protected $nivel_maximo = 7;
 	protected $activo = true;
-	
+
 	protected $dir_logs;
 	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
 	protected $mostrado = false;				//Ya fue guardado en este pedido de página
@@ -89,7 +89,9 @@ class toba_logger
 		//--- Valores por defecto
 		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1024);
 		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
-		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
+		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);
+		if (!defined('apex_log_error_log')) define('apex_log_error_log', true);
+		if (!defined('apex_log_error_log_nivel')) define('apex_log_error_log_nivel', TOBA_LOG_ERROR);
 	}
 
 	
@@ -157,17 +159,16 @@ class toba_logger
 	{
 		if ($nivel <= $this->nivel_maximo) {
 
-			if ($nivel <= TOBA_LOG_ERROR) {
-				error_log($mensaje);
-			}
-
 			$msg = $this->extraer_mensaje($mensaje);
 			if (strlen($msg) > self::limite_mensaje) {
 				$msg = substr($msg, 0, self::limite_mensaje).
 						"..TEXTO CORTADO POR EXCEDER EL LIMITE DE ".
 						self::limite_mensaje.
 						" bytes";
-			}	
+			}
+			if (apex_log_error_log && $nivel <= apex_log_error_log_nivel) {
+				error_log($msg);
+			}
 			$this->mensajes[$this->proximo] = $msg;
 			$this->niveles[$this->proximo] = $nivel;
 			if (!isset($proyecto)) {
