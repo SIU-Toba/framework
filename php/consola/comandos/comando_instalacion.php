@@ -211,10 +211,10 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Crea el login y exporta el proyecto
-		if (isset($nuevo_proyecto)) {
-			$nuevo_proyecto->actualizar_login();	
+		/*if (isset($nuevo_proyecto)) {
+			$nuevo_proyecto->actualizar_login();					//WTH??
 			$nuevo_proyecto->exportar();	
-		}
+		}*/
 
 		$instancia->exportar_local();
 		
@@ -250,6 +250,7 @@ class comando_instalacion extends comando_toba
 		$this->consola->mensaje("");
 
 		$release = toba_modelo_instalacion::get_version_actual()->get_release();
+		$instal_dir = toba_modelo_instalacion::dir_base();
 		if (toba_manejador_archivos::es_windows()) {
 			if (isset($_SERVER['USERPROFILE'])) {
 				$path = $_SERVER['USERPROFILE'];
@@ -260,6 +261,7 @@ class comando_instalacion extends comando_toba
 			$bat = "@echo off\n";
 			$bat .= "set TOBA_DIR=".toba_dir()."\n";
 			$bat .= "set TOBA_INSTANCIA=$id_instancia\n";
+			$bat .= "set TOBA_INSTALACION_DIR=$instal_dir\n";
 			$bat .= "set PATH=%PATH%;%TOBA_DIR%/bin\n";
 			$bat .= "echo Entorno cargado.\n";
 			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
@@ -275,6 +277,7 @@ class comando_instalacion extends comando_toba
 			$path .= "/entorno_toba_$release.sh";
 			$bat = "export TOBA_DIR=".toba_dir()."\n";
 			$bat .= "export TOBA_INSTANCIA=$id_instancia\n";
+			$bat .= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
 			$bat .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
 			$bat .= "echo \"Entorno cargado.\"\n";
 			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
