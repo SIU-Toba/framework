@@ -772,6 +772,8 @@ Operation.prototype.resolveModel = function (schema, definitions) {
   }
   if(schema.type === 'array')
     return new ArrayModel(schema);
+  else if (schema.type)
+    return new PrimitiveModel(schema);
   else
     return null;
 };
