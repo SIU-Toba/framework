@@ -156,6 +156,11 @@ class toba_logger
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
 		if ($nivel <= $this->nivel_maximo) {
+
+			if ($nivel <= TOBA_LOG_ERROR) {
+				error_log($mensaje);
+			}
+
 			$msg = $this->extraer_mensaje($mensaje);
 			if (strlen($msg) > self::limite_mensaje) {
 				$msg = substr($msg, 0, self::limite_mensaje).
