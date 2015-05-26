@@ -2867,7 +2867,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	*	Crea un proyecto NUEVO
 	*/
-	static function crear( toba_modelo_instancia $instancia, $nombre, $usuarios_a_vincular )
+	static function crear( toba_modelo_instancia $instancia, $nombre, $usuarios_a_vincular , $dir_inst_proyecto=null)
 	{
 		//- 1 - Controles
 		$dir_template = toba_dir() . self::template_proyecto;
@@ -2880,7 +2880,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		try {
 
 			//- 2 - Modificaciones en el sistema de archivos
-			$dir_proyecto = $instancia->get_path_proyecto($nombre);
+			$dir_proyecto = (is_null($dir_inst_proyecto)) ? $instancia->get_path_proyecto($nombre): $dir_inst_proyecto;
 			$url_proyecto = $instancia->get_url_proyecto($nombre);
 			
 			// Creo la CARPETA del PROYECTO
@@ -2909,7 +2909,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$editor->procesar_archivo($ini);
 
 			// Asocio el proyecto a la instancia
-			$instancia->vincular_proyecto( $nombre, null, $url_proyecto);
+			$instancia->vincular_proyecto( $nombre, $dir_inst_proyecto, $url_proyecto);
 
 			//- 3 - Modificaciones en la BASE de datos
 			$db = $instancia->get_db();

@@ -247,6 +247,7 @@ class comando_proyecto extends comando_toba
 	/**
 	* Crea un proyecto NUEVO.
 	* @consola_parametros Opcional: [-x] Si se utiliza esta opción el proyecto creado será personalizable
+	* @consola_parametros Opcional: [-d] Directorio donde se crearÃ¡ el proyecto
 	* @gtk_icono nucleo/agregar.gif 
 	* @gtk_no_mostrar 1
 	*/
@@ -256,11 +257,16 @@ class comando_proyecto extends comando_toba
 		$id_proyecto = $this->get_id_proyecto_actual();
 		$instancia = $this->get_instancia($id_instancia);
 		$params = $this->get_parametros();
+		$dir_instal_proyecto = null;
+		
+		if (isset($params['-d'])) {
+			$dir_instal_proyecto = $params['-d'];
+		}
 		
 		// --  Creo el proyecto
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
 		$usuarios = $this->seleccionar_usuarios( $instancia );
-		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios );
+		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios, $dir_instal_proyecto );
 		$this->consola->progreso_fin();
 		
 		// Extendemos las clases de toba a clases del proyecto
