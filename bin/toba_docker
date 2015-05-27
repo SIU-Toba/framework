@@ -6,7 +6,7 @@ cd `dirname $0`
 TOBA_DIR=`pwd`
 export TOBA_DIR=`dirname $TOBA_DIR`
 
-DOCKER_ENV_FILE="$TOBA_DIR/instalacion/toba_docker.env"
+DOCKER_ENV_FILE="$TOBA_DIR/docker-data/instalacion/toba_docker.env"
 DOCKER_CONTAINER_ID=`cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/"`
 if [ -z "$DOCKER_CONTAINER_ID" ] && [ -f "$DOCKER_ENV_FILE" ] ; then
 	. "$DOCKER_ENV_FILE"			 #Interpreta el archivo como variables de entorno
