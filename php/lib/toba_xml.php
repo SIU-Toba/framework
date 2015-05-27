@@ -1,6 +1,7 @@
 <?php
 /**
  * Clase que ayuda a la construcción de nuevos archivos xml
+ * @package Varios
  */
 
 class toba_xml {
@@ -16,20 +17,27 @@ class toba_xml {
 		$this->xml->setIndentString(self::indent_string);
 	}
 
+	/**
+	 * Abre un elemento con el nombre especificado
+	 * @param mixed $nombre
+	 */
 	function abrir_elemento($nombre)
 	{
 		$this->xml->startElement($nombre);
 	}
 
+	/**
+	 * Cierra un elemento
+	 */
 	function cerrar_elemento()
 	{
 		$this->xml->endElement();
 	}
 
 	/**
-	 *
-	 * @param <type> $nombre
-	 * @param <type> $valor un string
+	 * Agrega un atributo con valor especifico
+	 * @param string $nombre
+	 * @param string $valor un string
 	 * @param boolean si desea convertir el valor automaticamente de latin1 a utf8
 	 */
 	function add_atributo($nombre, $valor, $conv_utf8 = false)
@@ -47,6 +55,9 @@ class toba_xml {
 		$this->xml->endAttribute();
 	}
 
+	/**
+	 * Cierra el documento XML
+	 */
 	function cerrar_documento()
 	{
 	   $this->xml->endDocument();

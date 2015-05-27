@@ -122,17 +122,29 @@ class toba_xml_tablas
 		return $errores;
 	}
 
-	
+	/**
+	 * Inicia el guardado del xml en el archivo especificado
+	 * @param string $archivo
+	 */
 	function guardar($archivo)
 	{
 		$this->xml->save($archivo);
 	}
 	
+	/**
+	 * Devuelve el xml generado hasta el momento
+	 * @return DOMDocument
+	 */
 	function get_xml()
 	{
 		return $this->xml;
 	}
 
+	/**
+	 * Codifica un valor a UTF-8
+	 * @param mixed $valor
+	 * @return mixed
+	 */
 	static function encode($valor)
 	{
 		$valor = str_replace('&#039;', '&apos;', htmlspecialchars($valor, ENT_QUOTES, 'ISO-8859-1'));
@@ -140,6 +152,11 @@ class toba_xml_tablas
 		return $valor;
 	}
 	
+	/**
+	 * Decodifica un valor desde UTF-8
+	 * @param mixed $valor
+	 * @return mixed
+	 */
 	static function decode($valor)
 	{
 		return utf8_d_seguro($valor);

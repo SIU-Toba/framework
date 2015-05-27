@@ -418,7 +418,11 @@ class toba
 	{
 	    return toba_contenedor_gadgets::instancia();
 	}
-	
+
+	/**
+	 * Devuelve una instancia de la clase RDICliente para poder operar contra un ECM
+	 * @return RDICliente
+	 */
 	static function rdi()
 	{
 		if (!isset(self::$rdi)){

@@ -92,6 +92,9 @@ class toba_zona
 		}
 	}
 	
+	/**
+	 * Carga la informacion del editable a partir de una subclase y metodo datos.
+	 */
 	protected function cargar_info()
 	{
 		if (isset($this->metodo_cons['archivo'])) {
@@ -127,6 +130,10 @@ class toba_zona
 		}
 	}
 	
+	/**
+	 *  Devuelve la descripcion del editable si es que fue provista entre la informacion
+	 * @return string
+	 */
 	protected function get_editable_nombre()
 	{
 		if (is_scalar($this->editable_info)) {
@@ -141,6 +148,10 @@ class toba_zona
 		return '';	
 	}
 	
+	/**
+	 * Devuelve el identificador del editable propagado
+	 * @return mixed
+	 */
 	protected function get_editable_id()
 	{
 		if (is_array($this->editable_id)) {
@@ -269,7 +280,9 @@ class toba_zona
 	//-------------------------------------------------------------------------------
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
-
+	/**
+	 * Genera el html de la barra de zona
+	 */
 	function generar_html_barra_superior()
 	{
 		echo "<div class='zona-barra-sup' id='zona_{$this->id}'>";
@@ -294,6 +307,9 @@ class toba_zona
 		}
 	}
 	
+	/**
+	 * Genera el nombre del editable en la barra
+	 */
 	function generar_html_barra_nombre()
 	{
 		echo "<div class='zona-barra-desc'>";

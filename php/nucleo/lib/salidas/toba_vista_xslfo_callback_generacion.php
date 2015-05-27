@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package SalidaGrafica
+ */
 interface toba_vista_xslfo_callback_generacion
 {
 	/**
