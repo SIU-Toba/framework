@@ -22,7 +22,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'OBJETO - Editor CI - Lista Pantallas', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -200,11 +200,11 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --clase_proyecto
 	NULL, --clase
 	NULL, --auto_reset
-	'550', --ancho
+	'550px', --ancho
 	NULL, --ancho_etiqueta
 	NULL, --expandir_descripcion
 	NULL, --campo_bl
-	NULL, --scroll
+	'0', --scroll
 	NULL, --filas
 	'1', --filas_agregar
 	'1', --filas_agregar_online
