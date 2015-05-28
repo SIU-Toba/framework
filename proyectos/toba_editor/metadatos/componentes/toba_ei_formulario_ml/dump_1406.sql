@@ -48,21 +48,21 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'toba_editor', --proyecto
-	'82', --evento_id
+	'81', --evento_id
 	'1406', --objeto
-	'modificacion', --identificador
-	'Modificacion', --etiqueta
+	'seleccion', --identificador
+	NULL, --etiqueta
 	'1', --maneja_datos
-	NULL, --sobre_fila
+	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
-	NULL, --imagen
+	'apex', --imagen_recurso_origen
+	'doc.gif', --imagen
 	'0', --en_botonera
 	NULL, --ayuda
-	NULL, --orden
+	'1', --orden
 	NULL, --ci_predep
-	'1', --implicito
+	NULL, --implicito
 	NULL, --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
@@ -81,21 +81,21 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'toba_editor', --proyecto
-	'81', --evento_id
+	'82', --evento_id
 	'1406', --objeto
-	'seleccion', --identificador
-	NULL, --etiqueta
+	'modificacion', --identificador
+	'Modificacion', --etiqueta
 	'1', --maneja_datos
-	'1', --sobre_fila
+	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'doc.gif', --imagen
+	NULL, --imagen_recurso_origen
+	NULL, --imagen
 	'0', --en_botonera
 	NULL, --ayuda
-	'1', --orden
+	NULL, --orden
 	NULL, --ci_predep
-	NULL, --implicito
+	'1', --implicito
 	NULL, --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
