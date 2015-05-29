@@ -32,8 +32,10 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 }
 
 	/**
-	 *	@private
-	 */
+	* @private
+	* @param {ef} ef objeto que representa al ef
+	* @param {string} identificador Id. del ef 
+	*/
 	ei_formulario.prototype.agregar_ef  = function (ef, identificador) {
 		if (ef) {
 			this._efs[identificador] = ef;
@@ -41,7 +43,8 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {ef} objeto_ef Objeto que representa al ef
 	 */
 	ei_formulario.prototype.instancia_ef  = function (objeto_ef) {
 		var id = objeto_ef.get_id();
@@ -49,6 +52,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};	
 	
 	ei_formulario.prototype.iniciar = function () {
+		var id_ef;
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
 			this._estado_inicial[id_ef] = this._efs[id_ef].get_estado();
@@ -71,6 +75,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	//---Consultas
 	/**
 	 * Accede a la instancia de un ef especifico
+	 * @param {string} id del ef
 	 * @type ef
 	 * @see ef
 	 */
@@ -105,6 +110,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 
 	//---Submit 
 	ei_formulario.prototype.submit = function() {
+		var id_ef;
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
@@ -136,7 +142,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 
 	ei_formulario.prototype.debe_disparar_evento = function()
 	{
-		var debe = true;
+		var debe = true, id_ef;
 		if (this._evento_condicionado_a_datos && this._evento.es_implicito) {
 			var cambios = false;
 			for (id_ef in this._efs) {
@@ -145,7 +151,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			debe = cambios;
 		}
 		return debe;
-	}
+	};
 
 	//---- Cascadas
 
@@ -171,10 +177,13 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * @param {string} id_esclavo Identificador del ef esclavo
 	 * @type boolean	 
 	 */
-	ei_formulario.prototype.cascadas_maestros_preparados = function(id_esclavo)
+	ei_formulario.prototype.cascadas_maestros_preparados = function(id_esclavo, fila)
 	{
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var ef = this.ef(this._maestros[id_esclavo][i]);
+			if (ef && typeof fila != 'undefined') {
+				ef.ir_a_fila(fila);
+			}
 			if (ef && ! ef.tiene_estado()) {
 				return false;
 			}
@@ -199,9 +208,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		var valores = '';
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
-			var ef = this.ef(id_maestro);			
+			var ef = this.ef(id_maestro);
 			if (ef && ef.tiene_estado()) {
-				var valor = this.ef(id_maestro).get_estado();
+				var valor = (typeof fila == 'undefined') ? this.ef(id_maestro).get_estado() : this.ef(id_maestro).ir_a_fila(fila).get_estado();
 				valores +=  id_maestro + '-;-' + valor + '-|-';
 			} else if (ef) {
 				//-- Evita caso del oculto
@@ -224,15 +233,16 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	/**
 	 * Esquema de Cascadas:<br>
 	 * Retorna el estado actual de los maestros directos de un esclavo
+	 * @param {string} id_esclavo Identificador del ef esclavo que se refrescara
 	 */
-	ei_formulario.prototype.get_valores_maestros = function (id_esclavo)
+	ei_formulario.prototype.get_valores_maestros = function (id_esclavo, fila)							
 	{
 		var maestros = {};
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
-			var ef = this.ef(id_maestro);			
+			var ef = (typeof fila == 'undefined') ? this.ef(id_maestro): this.ef(id_maestro).ir_a_fila(fila);			
 			if (ef && ef.tiene_estado()) {
-				maestros[id_maestro] = this.ef(id_maestro).get_estado();
+				maestros[id_maestro] = (typeof fila == 'undefined') ? this.ef(id_maestro).get_estado() : this.ef(id_maestro).ir_a_fila(fila).get_estado();
 			}
 		}
 		return maestros;
@@ -240,6 +250,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	
 	/**
 	 * @private
+	 * @param {string} id_ef Id. del ef 
 	 */
 	ei_formulario.prototype.cascadas_en_espera = function(id_ef)
 	{
@@ -355,7 +366,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * Para validar efs especificos, definir el método <em>evt__idef__validar</em>
 	 */	
 	ei_formulario.prototype.validar = function() {
-		var ok = true;
+		var ok = true, id_ef;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
 			if (existe_funcion(this, validacion_particular)) {
@@ -374,7 +385,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {string} id_ef Id del ef a validar
+	 *@param {boolean} es_online 
 	 */
 	ei_formulario.prototype.validar_ef = function(id_ef, es_online) {
 		var ef = this._efs[id_ef];
@@ -420,9 +433,10 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	/**
 	 * Determina si algún ef del formulario se modifico
 	 * Opcionalmente resalta o no un ef puntual
+	 * @param {string} ef_actual Id del ef a verificar si tuvo cambios
 	 */
 	ei_formulario.prototype.hay_cambios = function(ef_actual) {
-		var hay_cambio = false;
+		var hay_cambio = false, id_ef;
 		for (id_ef in this._efs) {
 			if (! in_array(id_ef, this._cambios_excluir_efs)) {
 				var es_igual = this._es_estado_igual(this._estado_inicial[id_ef], this._efs[id_ef].get_estado());
@@ -449,7 +463,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			es_igual = (inicial === actual);
 		}	
 		return es_igual;
-	}
+	};
 	
 	
 	/**
@@ -487,7 +501,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	//---Procesamiento 
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {string} id_ef Id del ef a procesar
+	 *@param {boolean} es_inicial Indica si se lanza el procesamiento por primera vez o no
 	 */
 	ei_formulario.prototype.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef)) {
@@ -500,6 +516,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * @private
 	 */
 	ei_formulario.prototype.agregar_procesamientos = function() {
+		var id_ef;
 		for (id_ef in this._efs) {
 			if (this.hay_procesamiento_particular_ef(id_ef)) {
 				this.agregar_procesamiento(id_ef);
@@ -509,6 +526,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 
 	/**
 	 * @private
+	 * @param {string} id_ef Id del ef a procesar
 	 */
 	ei_formulario.prototype.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
@@ -520,6 +538,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	
 	/**
 	 * @private
+	 * @param {string} id_ef Id del ef a procesar
 	 */
 	ei_formulario.prototype.hay_procesamiento_particular_ef = function(id_ef) {
 		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
@@ -550,7 +569,8 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};		
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {boolean} es_inicial Indica si el procesamiento se lanza por primera vez
 	 */
 	ei_formulario.prototype.refrescar_procesamientos = function (es_inicial) {
 		for (var id_ef in this._efs) {

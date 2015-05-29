@@ -27,7 +27,8 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 }
 
 	/**
-	 *	@private
+	 *@private
+	 *@param {object} objeto_ef Objeto representando al ef
 	 */
 	ei_formulario_ml.prototype.instancia_ef  = function (objeto_ef) {
 		var fila = objeto_ef.get_fila_actual();
@@ -36,6 +37,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	};
 
 	ei_formulario_ml.prototype.iniciar = function() {
+		var fila;
 		//Iniciar las filas
 		for (fila in this._filas) {
 			this.iniciar_fila(this._filas[fila], false, true);
@@ -64,6 +66,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	@private
 	 */
 	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex, es_inicial) {
+		var id_ef;
 		if (es_inicial) {	
 			this._estado_inicial[fila] = {};
 		}	
@@ -86,6 +89,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	/**
 	 *	Indica que un ef totalize los valores en todas sus filas colocandolo en la última fila
+	 *@param {string} id_ef Identificador del ef a totalizar
 	 */
 	ei_formulario_ml.prototype.agregar_total = function (id_ef) {
 		this._ef_con_totales[id_ef] = true;
@@ -110,7 +114,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.get_datos = function() {
 		var datos = [];
-		var i=0;
+		var i=0, fila;
 		for (fila in this._filas) {
 			datos[i] = {};
 			for (var id_ef in this._efs) {
@@ -123,6 +127,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * @private
+	 * @param {string} id_ef
+	 * @param {string} fila
+	 * @param {boolean} es_inicial
+	 * @param {boolean} es_particular
 	 */
 	ei_formulario_ml.prototype.procesar = function (id_ef, fila, es_inicial, es_particular) {
 		if (typeof es_particular == 'undefined') {
@@ -141,9 +149,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	/**
 	 * Función de calculo de total por defecto, suma el valor de cada fila
+	 * @param {string} id_ef Identificador del ef a totalizar
 	 */
 	ei_formulario_ml.prototype.total = function (id_ef) {
-		var total = 0;	
+		var total = 0, fila;	
 		for (fila in this._filas) {
 			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
 			if (isNaN(valor) || typeof valor == 'string') {
@@ -157,15 +166,22 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * Dado un id de un ef checkbox cambia el chequeo de todas las filas
+	 * @param {string} id_ef Identificador del ef switchear
 	 */
 	ei_formulario_ml.prototype.toggle_checkbox = function (id_ef) {
 		var ef = this.ef(id_ef);
 		var toggle = $$('toggle_' + ef._id_form_orig);
+		var id_fila;
 		for (id_fila in this._filas) {
 			ef.ir_a_fila(this._filas[id_fila]).chequear(toggle.checked);
 		}
 	};	
 	
+	/**
+	 * Dado un id de un ef checkbox comprobar si esta checkeado o no
+	 * @param {string} fila Nro de fila a chequear
+	 * @param {string} id_ef Identificador del ef checkbox
+	 */
 	ei_formulario_ml.prototype._comprobar_toggle = function (fila, id_ef) {
 		var ef = this.ef(id_ef);
 		var toggle = $$('toggle_' + ef._id_form_orig);		
@@ -174,12 +190,17 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 	};		
 	
+	/**
+	 * Indica que un ef tiene un estado binario
+	 * @param {string} id_ef Identificador del ef
+	 */
 	ei_formulario_ml.prototype.set_toggle = function (id_ef) {
 		this._ef_con_toggle[id_ef] = true;
 	};			
 	
 	/**
 	 * Se muestra la cabecera/pie en caso de que no tenga datos el formulario
+	 * @param {boolean} visible Indica si la cabecera es visible o no ante la falta de datos.
 	 */
 	ei_formulario_ml.prototype.set_cabecera_visible_sin_datos = function (visible) {
 		this._cabecera_visible_sin_datos = visible;
@@ -190,6 +211,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.validar = function() {
 		var ok = true;
 		var validacion_particular = 'evt__validar_datos';
+		var id_fila;
 		if(this._evento && this._evento.validar) {
 			if (existe_funcion(this, validacion_particular)) {
 				ok = this[validacion_particular]();
@@ -203,9 +225,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * @private
+	 * @param {string} id_fila Nro de fila a validar
 	 */
 	ei_formulario_ml.prototype.validar_fila = function(id_fila) {
-		var ok = true;
+		var ok = true, id_ef;
 		for (id_ef in this._efs) {
 			ok = this.validar_fila_ef(this._filas[id_fila], id_ef) && ok;
 		}
@@ -214,6 +237,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	/**
 	 * @private
+	 * @param {string} fila Nro de fila del ef
+	 * @param {string} id_ef Identificador del ef a validar
+	 * @param {boolean} es_online
 	 */	
 	ei_formulario_ml.prototype.validar_fila_ef = function(fila, id_ef, es_online) {
 		var ef = this._efs[id_ef].ir_a_fila(fila);
@@ -239,9 +265,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	/**
 	 * Determina si algun ef de alguna fila cambio, o se agregar o quitaron filas
 	 * Opcionalmente resalta o no un ef puntual
+	 * @param {string} fila_actual Nro de fila a verificar
+	 * @param {string} ef_actual Identificador del ef a verificar
 	 */
 	ei_formulario_ml.prototype.hay_cambios = function(fila_actual, ef_actual) {
 		var hay_cambio = false;
+		var fila, id_ef, i;
 		//-- Revisar si hay filas nuevas o si cambiar los valores de los efs
 		for (fila in this._filas) {
 			if (! isset(this._estado_inicial[this._filas[fila]]) || this._cambio_fila) {
@@ -275,6 +304,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	};		
 	
 	ei_formulario_ml.prototype.resetear_errores = function() {
+		var fila, id_ef;
 		if (! this._silencioso)	 {
 			for (fila in this._filas) {
 				for (id_ef in this._efs) {
@@ -286,6 +316,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	//----Submit 
 	ei_formulario_ml.prototype.submit = function() {
+		var fila, id_ef;
 		//Si no es parte de un submit general, dispararlo
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
@@ -316,6 +347,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.debe_disparar_evento = function()
 	{
 		var debe = true;
+		var fila, id_ef;
 		if (this._evento_condicionado_a_datos && this._evento.es_implicito) {
 			var cambios = false;
 			for (fila in this._filas) {
@@ -326,7 +358,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			debe = cambios;
 		}
 		return debe;
-	}
+	};
 	
 	//---- Cascadas
 	ei_formulario_ml.prototype.cascadas_cambio_maestro = function(id_ef)
@@ -343,6 +375,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * Marca una fila como seleccionada, cambiando su color de fondo
 	 * Se puede atrapar el evento con evt__seleccionar_fila (fila),
 	 * si dicha funcion devuelve FALSE no se selecciona la fila.
+	 * @param {string} fila Nro de fila a seleccionar
 	 */
 	ei_formulario_ml.prototype.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {
@@ -429,7 +462,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * @param {int} pos_b Posicion que ocupa la segunda fila
 	 */
 	ei_formulario_ml.prototype.intercambiar_filas = function (pos_a, pos_b) {
-		
+		var id_ef;
 		var valores_intercambio = [];
 		for (id_ef in this._efs) {			
 			if (this._efs[id_ef] instanceof  ef_html ) {			//Para los ef_html resguardo el estado, que se pierde al hacer el swapNode
@@ -517,8 +550,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	/**
 	 * Ventana para colocar código luego de la eliminación de una fila seleccionada
+	 * @param {string} fila Nro de fila de la eliminacion
 	 */
-	ei_formulario_ml.prototype.post_eliminar_fila = function(fila) {}
+	ei_formulario_ml.prototype.post_eliminar_fila = function(fila) {};
 	
 	/**
 	 * Elimina una fila y retorna la fila anterior en orden
@@ -608,6 +642,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * @private
+	 * @param {string} id_ef Identificador del ef a agregar procesamiento
 	 */
 	ei_formulario_ml.prototype.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
@@ -622,7 +657,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	};
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {string} id_ef Identificador del ef
+	 *@param {string} fila Nro de fila
 	 */
 	ei_formulario_ml.prototype.agregar_procesamiento_fila = function (id_ef, fila) {
 		var callback = this._instancia + '.procesar("' + id_ef + '", ' + fila + ')';
@@ -708,6 +745,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.refrescar_numeracion_filas = function () {
 		var nro = 1;
+		var fila;
 		for (fila in this._filas) {
 			var nro_fila = document.getElementById(this._instancia + '_numerofila' + this._filas[fila]);
 			if (nro_fila) {
@@ -772,6 +810,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
 	 */
 	ei_formulario_ml.prototype.refrescar_foco = function () {
+		var id_ef;
 		for (id_ef in this._efs) {
 			if (this._efs[id_ef].ir_a_fila(this._seleccionada).seleccionar()) {
 				break;
@@ -781,9 +820,11 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 
 	
 	/**
-	 * @private	 
+	 * @private
+	 * @param {boolean} es_inicial Indica si se refrescan totales por primera vez
 	 */
 	ei_formulario_ml.prototype.refrescar_totales = function (es_inicial) {
+		var id_ef;
 		for (id_ef in this._efs) {
 			if (id_ef in this._ef_con_totales) {
 				this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
@@ -793,8 +834,11 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * @private	 
+	 * @param {boolean} es_inicial Indica si es un refresco por primera vez
+	 * @param {string} fila Nro de fila a refrescar
 	 */
 	ei_formulario_ml.prototype.refrescar_procesamientos = function (es_inicial, fila) {
+		var id_ef, id_fila;
 		for (id_ef in this._efs) {
 			if (typeof fila == 'undefined') {
 				for (id_fila in this._filas) {
@@ -813,8 +857,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	/**
 	 * Toma una fila y le refresca los listeners de procesamiento
 	 * @private
+	 * @param {string} fila 
 	 */
 	ei_formulario_ml.prototype.refrescar_eventos_procesamiento = function (fila) {
+		var id_ef;
 		for (id_ef in this._efs) {
 			if (this._efs_procesar[id_ef]) {		
 				this.agregar_procesamiento_fila(id_ef, fila);
@@ -824,11 +870,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	/**
 	 * Muestra u oculta una columna completa
-	 * @param {string} id_ef Id. del ef o columna a variar
-	 * @param {string} total Nuevo total
+	 * @param {string} columna Id. del ef o columna a variar
+	 * @param {boolean} mostrar Indica si se muestra u oculta
 	 * @see #agregar_total
 	 */
 	ei_formulario_ml.prototype.mostrar_columna = function(columna, mostrar) {
+		var id_fila;
 		this._efs[columna].sin_fila().mostrar(mostrar);
 		for (id_fila in this._filas) {
 			this._efs[columna].ir_a_fila(this._filas[id_fila]).mostrar(mostrar);

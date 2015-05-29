@@ -48,6 +48,8 @@ ei.prototype.constructor = ei;
 
 	/**
 	 * @private
+	 * @param {ci} ci 
+	 * @param {string} identificador
 	 */
 	ei.prototype.set_controlador = function(ci, identificador) {
 		this.controlador = ci;
@@ -63,7 +65,7 @@ ei.prototype.constructor = ei;
 	ei.prototype.set_eventos_condicionados_por_datos = function(esta_condicionado)
 	{
 		this._evento_condicionado_a_datos = esta_condicionado;
-	}
+	};
 	
 	/**
 	 * Informa al componente la presencia de un nuevo evento
@@ -172,6 +174,7 @@ ei.prototype.constructor = ei;
 	 * que se pueda modificar alguna propiedad del vinculo
 	 * @param {string} id_evento
 	 * @param {string} id_vinculo 
+	 * @param {string} msg_confirmacion
 	 * @see vinculador
 	 */
 	ei.prototype.invocar_vinculo_confirmado = function(id_evento, id_vinculo, msg_confirmacion) {
@@ -346,7 +349,7 @@ ei.prototype.constructor = ei;
 			parametros['filtrado-ce-fila'] = fila;
 		}
 		//-- Pasa los maestros de la cascad por parametros
-		var maestros = this.get_valores_maestros(id_ef);
+		var maestros = this.get_valores_maestros(id_ef, fila);
 		valores = '';		
 		for (var id_maestro in maestros) {
 			valores +=  id_maestro + '-;-' + maestros[id_maestro] + '-|-';

@@ -42,6 +42,7 @@
 	};
 	
 	ei_filtro.prototype.iniciar = function () {
+		var id_ef;
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
@@ -68,27 +69,25 @@
 	//---Consultas
 	/**
 	 * Accede a la instancia de un ef especifico
+	 * @param {string} id Identificador del ef
 	 */
 	ei_filtro.prototype.ef = function(id) {
 		return this._efs[id];
 	};
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {ef} objeto_ef Instancia que representa el ef
 	 */
 	ei_filtro.prototype.instancia_ef  = function (objeto_ef) {
 		var id = objeto_ef.get_id();
 		return this._instancia + ".ef('"+ id + "')";
 	};	
 	
-	
-	ei_filtro.prototype.get_valores_maestros = function(id_ef) {
-		return [];
-	};
-	
+		
 	/**
 	 * Devuelve si una columna dada esta activa o no en el filtro.
-	 * @param string id Identificador de la columna
+	 * @param {string} id Identificador de la columna
 	 * @type boolean
 	 */
 	ei_filtro.prototype.esta_activa = function(id) {
@@ -97,6 +96,7 @@
 
 	//---Submit 
 	ei_filtro.prototype.submit = function() {
+		var id_fila;
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
@@ -157,6 +157,7 @@
 	
 	ei_filtro.prototype.eliminar_fila = function(fila) {
 			//'Elimina' la fila en el DOM
+		var i;
 		var id_fila = this._instancia + '_fila' + fila;
 		cambiar_clase(document.getElementById(id_fila).cells, 'ei-fitro-ml-fila', 'ei-filtro-fila-selec');
 		$$(id_fila).style.display = 'none';
@@ -179,7 +180,7 @@
 
 	ei_filtro.prototype.crear_fila = function(id, es_esclavo) {
 		if (! isset(es_esclavo)) {
-			es_esclavo = false
+			es_esclavo = false;
 		}
 		if (id == undefined) {
 			var input = $$(this._instancia + '_nuevo');
@@ -279,6 +280,7 @@
 	/**
 	 * Esquema de Cascadas:<br>
 	 * Retorna el estado actual de los maestros directos de un esclavo
+	 * @param {string} id_esclavo Identificador del ef esclavo
 	 */
 	ei_filtro.prototype.get_valores_maestros = function (id_esclavo)
 	{
@@ -295,6 +297,7 @@
 
 	/**
 	 * @private
+	 * @param {string} id_ef Identificador del ef
 	 */
 	ei_filtro.prototype.cascadas_en_espera = function(id_ef)
 	{
@@ -407,7 +410,7 @@
 	 * Para validar efs especificos, definir el método <em>evt__idef__validar</em>
 	 */	
 	ei_filtro.prototype.validar = function() {
-		var ok = true;
+		var ok = true, id_fila;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
 			if (existe_funcion(this, validacion_particular)) {
@@ -426,7 +429,10 @@
 	};
 	
 	/**
-	 *	@private
+	 *@private
+	 *@param {string} id_ef
+	 *@param {boolean} es_online
+	 *@param {boolean} es_extra
 	 */
 	ei_filtro.prototype.validar_ef = function(id_ef, es_online, es_extra) {
 		if (! isset(es_extra)) {
@@ -452,7 +458,7 @@
 	 * Informa que una ef que cumple o no una validación especifica. 
 	 * En caso de que no sea valido el estado de la ef se informa al usuario
 	 * Si es valido se quita el estado de invalido (la cruz al lado del campo).
-	 * @param {ef} la ef en cuestión
+	 * @param {ef} ef  Es el ef en cuestión
 	 * @param {boolean} es_valido 
 	 * @param {boolean} solo_online En caso que no sea valido sólo muestra la cruz al lado del campo y no un mensaje explícito
 	 */	
@@ -503,6 +509,8 @@
 	
 	/**
 	 *	@private
+	 *@param {string} id_ef
+	 *@param {boolean} es_inicial
 	 */
 	ei_filtro.prototype.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef)) {
@@ -515,6 +523,7 @@
 	 * @private
 	 */
 	ei_filtro.prototype.agregar_procesamientos = function() {
+		var id_ef;
 		for (id_ef in this._efs) {
 			if (this.hay_procesamiento_particular_ef(id_ef)) {
 				this.agregar_procesamiento(id_ef);
@@ -524,6 +533,7 @@
 
 	/**
 	 * @private
+	 * @param {string} id_ef
 	 */
 	ei_filtro.prototype.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
@@ -535,6 +545,7 @@
 	
 	/**
 	 * @private
+	 * @param {string} id_ef
 	 */
 	ei_filtro.prototype.hay_procesamiento_particular_ef = function(id_ef) {
 		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
@@ -544,9 +555,10 @@
 	
 	/**
 	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
+	 * @param {string} id
 	 */
 	ei_filtro.prototype.refrescar_foco = function (id) {
-		
+		var id_ef;
 		if (! isset(id)) {
 			for (id_ef in this._efs) {
 				if (this._efs[id_ef].seleccionar()) {
@@ -561,6 +573,7 @@
 	
 	/**
 	 *	@private
+	 * @param {boolean} es_inicial
 	 */
 	ei_filtro.prototype.refrescar_procesamientos = function (es_inicial) {
 		for (var id_ef in this._efs) {
@@ -608,6 +621,7 @@
 	//----Selección 
 	/**
 	 * Marca una fila como seleccionada, cambiando su color de fondo 
+	 * @param {integer} fila Nro de fila
 	 */
 	ei_filtro.prototype.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {
@@ -664,6 +678,6 @@
 		}		
 		
 		return (es_esclavo && ! maestro_activo);
-	}
+	};
 
 toba.confirmar_inclusion('componentes/ei_filtro');
