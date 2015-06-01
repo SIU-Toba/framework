@@ -7,16 +7,19 @@
             "email": "toba@siu.edu.ar"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/SIU-Toba/rest"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/SIU-Toba/SecurityMultiTool"
-        }
-    ],
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://repositorio.siu.edu.ar/svn/toba",
+        "trunk-path": "trunk",
+        "branches-path": "trunk_versiones",
+        "tags-path": "versiones"
+    },{
+        "type": "vcs",
+        "url": "https://github.com/SIU-Toba/rest"
+    },{
+        "type": "vcs",
+        "url": "https://github.com/SIU-Toba/SecurityMultiTool"
+    }],
     "config" : {
         "vendor-dir" : "./php/vendor"
     },
