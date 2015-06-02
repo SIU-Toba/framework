@@ -5,8 +5,13 @@ dir_actual=`pwd`
 cd `dirname $0`
 TOBA_DIR=`pwd`
 export TOBA_DIR=`dirname $TOBA_DIR`
-
-DOCKER_ENV_FILE="$TOBA_DIR/docker-data/instalacion/toba_docker.env"
+if [ -z "$TOBA_INSTALACION_DIR" ]; then
+   	export TOBA_INSTALACION_DIR=${TOBA_DIR}/docker-data/instalacion
+	if [ ! -d "$TOBA_INSTALACION_DIR" ]; then
+    	export TOBA_INSTALACION_DIR=`pwd`/docker-data/instalacion
+    fi
+fi
+DOCKER_ENV_FILE="$TOBA_INSTALACION_DIR/toba_docker.env"
 DOCKER_CONTAINER_ID=`cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/"`
 if [ -z "$DOCKER_CONTAINER_ID" ] && [ -f "$DOCKER_ENV_FILE" ] ; then
 	. "$DOCKER_ENV_FILE"			 #Interpreta el archivo como variables de entorno
@@ -14,5 +19,5 @@ if [ -z "$DOCKER_CONTAINER_ID" ] && [ -f "$DOCKER_ENV_FILE" ] ; then
 	exit 0;
 fi
 
-echo "No es posible encontrar el contenedor relacionado con esta instalacion de Toba (no existe el archivo $DOCKER_ENV_FILE)"
+echo "No es posible encontrar el contenedor relacionado con esta instalacion de Toba (no existe el archivo $DOCKER_ENV_FILE). Defina la variable de entorno TOBA_INSTALACION_DIR apuntando a la carpeta 'docker-data/instalacion'."
 exit 1;

@@ -1,0 +1,41 @@
+pgdata:
+  image: postgres:9.4
+  command: true
+  volumes:
+   - ./docker-data/pgdata:/var/lib/postgresql/data
+   - ./docker-data/instalacion:/var/local/toba/docker-data/instalacion
+
+web:
+  #build: .
+  image: siutoba/docker-toba-editor
+  ports:
+   - "2020:80"
+  env_file: docker.env
+
+  links:
+   - pg
+   # Activar este link si se desea utilizar el servidor de Jasper
+#   - jasper
+   # Descomentar esta variable de entorno para corregir permisos en OSX
+#   OSX: 1
+  volumes_from:
+   - pgdata
+  volumes:
+   - ./:/var/local/toba
+
+# Descomentar este bloque si se desea utilizar el servidor Jasper
+#jasper:
+##  build: jasper/
+#  image: siutoba/docker-guarani-jasper
+#  links:
+#   - pg
+#  volumes:
+#   - ./:/var/local/toba
+
+pg:
+  image: postgres:9.4
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  volumes_from:
+   - pgdata
