@@ -5,6 +5,7 @@ dir_actual=`pwd`
 cd `dirname $0`
 TOBA_DIR=`pwd`
 export TOBA_DIR=`dirname $TOBA_DIR`
+
 if [ -z "$TOBA_INSTALACION_DIR" ]; then
    	export TOBA_INSTALACION_DIR=${TOBA_DIR}/docker-data/instalacion
 	if [ ! -d "$TOBA_INSTALACION_DIR" ]; then

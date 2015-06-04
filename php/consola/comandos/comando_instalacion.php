@@ -167,6 +167,7 @@ class comando_instalacion extends comando_toba
 				if ($puede_conectar !== true) {
 					$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
 					$this->consola->mensaje($puede_conectar."\n");
+					sleep(1);
 				}				
 			} while ($puede_conectar !== true);
 		}	
