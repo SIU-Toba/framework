@@ -1419,17 +1419,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function publicar($url=null)
 	{
 		if (! $this->esta_publicado()) {
-			if ($url == '') {
+			$url_pers = (trim($url) != '') ? $url . '_pers/' : null;
+			if ($url == '' || is_null($url)) {
 				$url = $this->get_url();
 			}
 			$this->instancia->set_url_proyecto($this->get_id(), $url);
-			toba_modelo_instalacion::agregar_alias_apache($url,
-															$this->get_dir(),
-															$this->get_instancia()->get_id(),
-															$this->get_id());
+			toba_modelo_instalacion::agregar_alias_apache(	$url,
+													$this->get_dir(),
+													$this->get_instancia()->get_id(),
+													$this->get_id());
 			$this->actualizar_previsualizacion($url, $this->get_id());
-			if ($this->es_personalizable()) {
-				$this->publicar_pers();
+			if ($this->es_personalizable()) {				
+				$this->publicar_pers($url_pers);
 			}
 		}
 	}
@@ -1437,15 +1438,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function publicar_pers($url=null)
 	{
 		if (! $this->esta_publicado_pers()) {
-			if ($url == '') {
+			if ($url == '' || is_null($url)) {
 				$url = $this->get_url_pers();
 			}
 			$this->instancia->set_url_proyecto_pers($this->get_id(), $url);
-			toba_modelo_instalacion::agregar_alias_apache($url,
-															$this->get_dir_pers(),
-															$this->get_instancia()->get_id(),
-															$this->get_id(),
-															true);
+			toba_modelo_instalacion::agregar_alias_apache(	$url,
+													$this->get_dir_pers(),
+													$this->get_instancia()->get_id(),
+													$this->get_id(),
+													true);
 		}
 	}
 

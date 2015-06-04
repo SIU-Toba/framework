@@ -302,6 +302,7 @@ class comando_proyecto extends comando_toba
 	/**
 	* Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
 	* @consola_parametros Opcional: [-d 'directorio'] [-a 0|1] Indica si se deben generar los alias para el proyecto
+	 * @consola_parametros Opcional: [--alias-nombre] Nombre del alias con que se debe publicar
 	* @gtk_icono importar.png
 	* @gtk_no_mostrar 1
 	*/
@@ -361,7 +362,8 @@ class comando_proyecto extends comando_toba
 				$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
 			}
 			if ($agregar) {
-				$p->publicar();
+				$url =  (isset($param['--alias-nombre'])) ?$param['--alias-nombre'] : null;			
+				$p->publicar($url);
 				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 			}		
 		}

@@ -22,8 +22,11 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 * Crea la base de negocios del proyecto
 	 */
 	function opcion__instalar($parametros)
-	{
+	{		
 		$base = $this->modelo->get_servidor_defecto();
+		if (isset($parametros['--nombre-base'])) {
+			$base['base'] = $parametros['--nombre-base'];
+		}
 		$this->modelo->instalar($base);
 	}
 
