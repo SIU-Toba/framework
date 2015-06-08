@@ -64,7 +64,7 @@ class toba_rest
 		);
 		$datos_ini_proyecto = $this->get_ini_proyecto();
 		if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['version'])) {
-			$settings['version'] = $datos_ini_proyecto['version'];
+			$settings['api_version'] = $datos_ini_proyecto['version'];
 		}
 		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
