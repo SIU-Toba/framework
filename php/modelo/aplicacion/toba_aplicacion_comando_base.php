@@ -24,8 +24,8 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	function opcion__instalar($parametros)
 	{		
 		$base = $this->modelo->get_servidor_defecto();
-		if (isset($parametros['--nombre-base'])) {
-			$base['base'] = $parametros['--nombre-base'];
+		if (isset($parametros['--base-nombre'])) {
+			$base['base'] = $parametros['--base-nombre'];
 		}
 		$this->modelo->instalar($base);
 	}
