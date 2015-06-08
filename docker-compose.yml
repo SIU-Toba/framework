@@ -7,7 +7,7 @@ pgdata:
 
 web:
   #build: .
-  image: siutoba/docker-toba-editor
+  image: siutoba/docker-toba
   ports:
    - "2020:80"
   env_file: docker.env
