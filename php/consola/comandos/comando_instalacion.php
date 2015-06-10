@@ -256,7 +256,7 @@ class comando_instalacion extends comando_toba
 			if (isset($_SERVER['USERPROFILE'])) {
 				$path = $_SERVER['USERPROFILE'];
 			} else {
-				$path = toba_dir()."\\bin";
+				$path = $instal_dir;
 			}
 			$path .= "\\entorno_toba_$release.bat";
 			$bat = "@echo off\n";
@@ -274,8 +274,8 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
 			
 		} else {
-			$path = toba_dir()."/bin";
-			$path .= "/entorno_toba_$release.sh";
+			$path = $instal_dir;
+			$path .= "/entorno_toba.env";
 			$bat = "export TOBA_DIR=".toba_dir()."\n";
 			$bat .= "export TOBA_INSTANCIA=$id_instancia\n";
 			$bat .= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
