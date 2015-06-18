@@ -75,7 +75,7 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba']. 
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
@@ -105,6 +105,7 @@ class comando_instalacion extends comando_toba
 		}
 
 		$param = $this->get_parametros();
+		$interactive = !isset($param['--no-interactive']);
 		if (isset($param['help'])) {
 			$this->mostrar_ayuda_desatendida();
 			return;
@@ -162,13 +163,16 @@ class comando_instalacion extends comando_toba
 					'schema' => $id_instancia
 				);
 				$this->get_instalacion()->agregar_db( $base, $datos );
-				//--- Intenta conectar al servidor
-				$puede_conectar = $this->get_instalacion()->existe_base_datos($base, array('base' => 'template1'), true);
-				if ($puede_conectar !== true) {
-					$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
-					$this->consola->mensaje($puede_conectar."\n");
-					sleep(1);
-				}				
+				$puede_conectar = true;
+				if ($interactive) {
+					//--- Intenta conectar al servidor
+					$puede_conectar = $this->get_instalacion()->existe_base_datos($base, array('base' => 'template1'), true);
+					if ($puede_conectar !== true) {
+						$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
+						$this->consola->mensaje($puede_conectar . "\n");
+						sleep(1);
+					}
+				}
 			} while ($puede_conectar !== true);
 		}	
 		//--- Pido el password para el usuario por defecto
@@ -178,7 +182,7 @@ class comando_instalacion extends comando_toba
 			$pwd = $this->recuperar_contenido_archivo($param['-k']);
 		}				
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
-		if ($this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
+		if ($interactive && $this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
 			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya contiene un schema '$id_instancia', puede ingresar un nombre ".
 																"de base distinto sino quiere sobrescribir los datos actuales: (ENTER sobrescribe la actual)", false);			
 			if ($nueva_base != '') {																
@@ -198,10 +202,10 @@ class comando_instalacion extends comando_toba
 			unset($proyectos['curso_intro']);
 		}		
 		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
-		
+
 		//-- Carga la instancia
 		$instancia = $this->get_instancia($id_instancia);
-		$instancia->cargar( true );
+		$instancia->cargar(true, ! $interactive);	//Si no es interactivo, crea siempre la BD
 
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);
@@ -228,27 +232,29 @@ class comando_instalacion extends comando_toba
 		}		
 
 		//--- Mensajes finales
-		$this->consola->titulo("Configuraciones Finales");
-		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
-		if (toba_manejador_archivos::es_windows()) {		
-			$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
-			$this->consola->mensaje("1) Agregar al archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+		if ($interactive) {
+			$this->consola->titulo("Configuraciones Finales");
+			$toba_conf = toba_modelo_instalacion::dir_base() . "/toba.conf";
+			if (toba_manejador_archivos::es_windows()) {
+				$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
+				$this->consola->mensaje("1) Agregar al archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+				$this->consola->mensaje("");
+				$this->consola->mensaje("     Include \"$toba_conf\"");;
+			} else {
+				$this->consola->mensaje("1) Ejecutar el siguiente comando como superusuario: ");
+				$this->consola->mensaje("");
+				$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba.conf");
+			}
 			$this->consola->mensaje("");
-			$this->consola->mensaje("     Include \"$toba_conf\"");;
-		} else {
-			$this->consola->mensaje("1) Ejecutar el siguiente comando como superusuario: ");
-			$this->consola->mensaje("");			
-			$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba.conf");
+			$url = $instancia->get_proyecto('toba_editor')->get_url();
+			$this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
+			$this->consola->mensaje("");
+			$this->consola->mensaje("     http://localhost$url");
+			$this->consola->mensaje("");
+
+
+			$this->consola->mensaje("");
 		}
-		$this->consola->mensaje("");
-		$url = $instancia->get_proyecto('toba_editor')->get_url();
-		$this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
-		$this->consola->mensaje("");
-		$this->consola->mensaje("     http://localhost$url");		
-		$this->consola->mensaje("");
-		
-			
-		$this->consola->mensaje("");
 
 		$release = toba_modelo_instalacion::get_version_actual()->get_release();
 		$instal_dir = toba_modelo_instalacion::dir_base();
@@ -267,12 +273,13 @@ class comando_instalacion extends comando_toba
 			$bat .= "echo Entorno cargado.\n";
 			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
 			file_put_contents($path, $bat);
-			$this->consola->mensaje("2) Se genero el siguiente .bat:");
-			$this->consola->mensaje("");
-			$this->consola->mensaje("   $path");
-			$this->consola->mensaje("");
-			$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
-			
+			if ($interactive) {
+				$this->consola->mensaje("2) Se genero el siguiente .bat:");
+				$this->consola->mensaje("");
+				$this->consola->mensaje("   $path");
+				$this->consola->mensaje("");
+				$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
+			}
 		} else {
 			$path = $instal_dir;
 			$path .= "/entorno_toba.env";
@@ -284,18 +291,21 @@ class comando_instalacion extends comando_toba
 			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
 			file_put_contents($path, $bat);
 			chmod($path, 0755);
-			$this->consola->mensaje("2) Se genero el siguiente ejecutable:");
-			$this->consola->mensaje("");
-			$this->consola->mensaje("   $path");
-			$this->consola->mensaje("");
-			$sh = basename($path);
-			$this->consola->mensaje("Para usar los comandos toba ejecute antes el .sh precedido por un punto y espacio");
-			
+			if ($interactive) {
+				$this->consola->mensaje("2) Se genero el siguiente archivo:");
+				$this->consola->mensaje("");
+				$this->consola->mensaje("   $path");
+				$this->consola->mensaje("");
+				$sh = basename($path);
+				$this->consola->mensaje("Para usar los comandos toba ejecute antes el .env precedido por un punto y espacio");
+			}
 		}
-		$this->consola->mensaje("");
-		$this->consola->mensaje("3) Entre otras cosas puede crear un nuevo proyecto ejecutando el comando");
-		$this->consola->mensaje("");
-		$this->consola->mensaje("   toba proyecto crear");		
+		if ($interactive) {
+			$this->consola->mensaje("");
+			$this->consola->mensaje("3) Entre otras cosas puede crear un nuevo proyecto ejecutando el comando");
+			$this->consola->mensaje("");
+			$this->consola->mensaje("   toba proyecto crear");
+		}
 	}
 	
 	/**

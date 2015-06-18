@@ -39,11 +39,11 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 		return true;													
 	}
 	
-	function verificar_acceso() 
+	function verificar_acceso($datos_iniciales=null) 
 	{
 		$this->iniciar_pedido_saml();
 		$id_usuario = $this->recuperar_usuario_toba();						//Recupero usr y verifico existencia en toba, excepcion si no existe
-		toba::manejador_sesiones()->login($id_usuario, 'foobar');				//La clave no importa porque se autentifica via ticket
+		toba::manejador_sesiones()->login($id_usuario, 'foobar', $datos_iniciales);	//La clave no importa porque se autentifica via ticket
 		return $id_usuario;
 	}
 

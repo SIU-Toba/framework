@@ -3,7 +3,9 @@
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;
+	protected $forzar_reemplazar_modelo = false;
 	protected $permitir_instalar = true;
+	protected $permitir_determinar_encoding_bd = true;
 	protected $schema_modelo;
 	protected $schema_auditoria;
 	protected $schema_toba = null;
@@ -154,7 +156,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 */
 	function regenerar_modelo_datos($base, $id_def_base)
 	{
-		$reemplazar = $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos, ".
+		$reemplazar = $this->forzar_reemplazar_modelo || $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos, ".
 							"Desea reemplazarlo? (borra la base completa y la vuelva a cargar)", 's');
 		if (! $reemplazar) {
 			return;
@@ -282,7 +284,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 
 			//-- Agrega la definición de la base
 			$this->instalacion->agregar_db($id_def_base, $datos_servidor);
-			$this->instalacion->determinar_encoding($id_def_base);
+			if ($this->permitir_determinar_encoding_bd) {
+				$this->instalacion->determinar_encoding($id_def_base);
+			}
 		}
 		
 		//--- Chequea si existe fisicamente la base creada

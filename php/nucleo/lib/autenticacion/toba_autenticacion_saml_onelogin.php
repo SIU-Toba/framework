@@ -47,7 +47,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		return true;
 	}
 
-	function verificar_acceso()
+	function verificar_acceso($datos_iniciales=null)
 	{
 		$auth = $this->instanciar_pedido_onelogin();
 		if (! is_null(toba::memoria()->get_parametro('acs'))) {						//Se verifica la respuesta y se chequea la autenticacion
@@ -55,8 +55,8 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			$errors = $auth->getErrors();
 
 			if (!empty($errors)) {
-				toba::logger()->debug('Errores en el proceso de onelogin: ');
-				toba::logger()->var_dump($errors);				
+				toba::logger()->error('Errores en el proceso de onelogin: ');
+				toba::logger()->error($errors);
 				throw new toba_error_seguridad('Se produjo un error durante el procedimiento de login, contacte un administrador');
 			}
 
@@ -66,7 +66,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 
 			$this->saml_attributes = $auth->getAttributes();
 			$id_usuario = $this->recuperar_usuario_toba();							//Recupero usr y verifico existencia en toba, excepcion si no existe
-			toba::manejador_sesiones()->login($id_usuario, 'foobar');					//La clave no importa porque se autentifica via token
+			toba::manejador_sesiones()->login($id_usuario, 'foobar',  $datos_iniciales);					//La clave no importa porque se autentifica via token
 			return $id_usuario;
 			
 		} else {																//Se hace el redirect hacia el idp
@@ -127,11 +127,17 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	}
 	
 	protected function get_sp_config()
-	{
-		$spBaseUrl = toba::memoria()->get_url_solicitud();								//Pasa por el mecanismo de login habitual de toba		
-		$info =  array (	'entityId' => $spBaseUrl . $this->auth_source,
-					'assertionConsumerService' => array ( 'url' => $spBaseUrl.'?acs'),
-					'singleLogoutService' => array ('url' => $spBaseUrl.'?sls'	),
+	{		
+		//Uso la dir de instalacion toba como base del entity-id
+		$spBaseUrl = toba::instalacion()->get_url();
+		
+		//Trata de obtener una url canonica del proyecto (sin aplicacion.php y sin QS), en base al request del cliente esta sera la URL de retorno
+		$spReturnUrl = toba_http::get_url_actual(false, true);
+		$spReturnUrl = str_replace("aplicacion.php", "", $spReturnUrl);
+
+		$info =  array (	'entityId' => $spBaseUrl . '/' .$this->auth_source,
+					'assertionConsumerService' => array ( 'url' => $spReturnUrl.'?acs'),
+					'singleLogoutService' => array ('url' => $spReturnUrl.'?sls'),
 					'NameIDFormat' =>$this->atributo_usuario
 					);
 		return $info;

@@ -210,13 +210,15 @@ class toba_memoria
 		return $this->celda_memoria_actual_id;
 	}
 
-	function set_item_solicitado( $item ) 
+	function set_item_solicitado($item, $genera_csrf_token=true) 
 	{
 		toba::logger()->debug('Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 		$this->inicializar_memoria();
-		$this->fijar_csrf_token(true);
-		if (toba_editor::activado()) {		
+		if ($genera_csrf_token) {
+			$this->fijar_csrf_token(true);
+		}	
+		if (toba_editor::activado()) {						//Esto no deberia estar en el item de inicializacion de sesion del editor? WTF ^ 10 ^ 100
 			toba_editor::set_item_solicitado($item);
 		}
 	}

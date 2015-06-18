@@ -152,7 +152,7 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 		}	
 	}
 	
-	function verificar_acceso() 
+	function verificar_acceso($datos_iniciales = null) 
 	{
 		if(isset($_REQUEST['openid_mode'])) {
 			$this->iniciar_pedido();
@@ -166,13 +166,13 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 			$usuario = $this->get_valor($this->campo_usuario);
 			$clave = isset($_SESSION['openid']['identity']) ? $_SESSION['openid']['identity'] : null;
 			$clave .= $_SESSION['openid_url_actual'];
-			$this->iniciar_sesion($usuario, $clave);
+			$this->iniciar_sesion($usuario, $clave, $datos_iniciales);
 		}		
 	}
 	
-	function iniciar_sesion($usuario, $clave)
+	function iniciar_sesion($usuario, $clave, $datos_iniciales = null)
 	{
-		toba::manejador_sesiones()->login($usuario, $clave);
+		toba::manejador_sesiones()->login($usuario, $clave, $datos_iniciales);
 	}
 	
 	function verificar_clave_vencida($id_usuario)

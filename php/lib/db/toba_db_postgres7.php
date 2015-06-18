@@ -173,6 +173,24 @@ class toba_db_postgres7 extends toba_db
 	*	@return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
 	*/
 	function insert_masivo($tabla,$datos,$delimitador="\t",$valor_nulo="\\N") {
+		$dbconn = $this->get_pg_connect_nativo();
+		$salida = pg_copy_from($dbconn,$tabla,$datos,$delimitador,$valor_nulo);
+		if (!$salida) {
+			$mensaje = pg_last_error($dbconn);
+			pg_close($dbconn);
+			toba::logger()->error($mensaje);
+			throw new toba_error($mensaje);
+		}
+		pg_close($dbconn);
+		return $salida;
+	}
+
+	/**
+	 * Retorna un recurso pg_connect usando los mismos parametros que PDO
+	 * @return resource
+	 */
+	function get_pg_connect_nativo()
+	{
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
 		$host = "host={$this->profile}";
 		$base = "dbname={$this->base}";
@@ -184,15 +202,7 @@ class toba_db_postgres7 extends toba_db
 			$sql = "SET search_path TO {$this->schema};";
 			pg_query($dbconn, $sql);
 		}
-		$salida = pg_copy_from($dbconn,$tabla,$datos,$delimitador,$valor_nulo);
-		if (!$salida) {
-			$mensaje = pg_last_error($dbconn);
-			pg_close($dbconn);
-			toba::logger()->error($mensaje);
-			throw new toba_error($mensaje);
-		}
-		pg_close($dbconn);
-		return $salida;
+		return $dbconn;
 	}
 
 	//------------------------------------------------------------------------

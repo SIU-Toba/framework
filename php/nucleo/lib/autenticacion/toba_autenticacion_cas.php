@@ -45,17 +45,17 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 		return true;													
 	}
 	
-	function verificar_acceso() 
+	function verificar_acceso($datos_iniciales=null) 
 	{
 		$this->iniciar_pedido_cas();
 		$id_usuario = $this->recuperar_usuario_toba();						//Recupero usr y verifico existencia en toba, excepcion si no existe
-		$this->iniciar_sesion($id_usuario, 'foobar');							//La clave no importa porque se autentifica via ticket
+		$this->iniciar_sesion($id_usuario, 'foobar', $datos_iniciales);							//La clave no importa porque se autentifica via ticket
 		return $id_usuario;
 	}
 			
-	function iniciar_sesion($usuario, $clave)
+	function iniciar_sesion($usuario, $clave, $datos_iniciales=null)
 	{
-		toba::manejador_sesiones()->login($usuario, $clave);		
+		toba::manejador_sesiones()->login($usuario, $clave, $datos_iniciales);		
 	}
 
 	function logout()

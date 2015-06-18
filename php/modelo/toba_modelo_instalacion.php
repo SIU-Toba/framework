@@ -270,21 +270,40 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	*	Crea una base de datos definida en bases.ini
 	*	@param string $nombre Nombre de la base
+	*	@param boolean $con_encoding Trata de generarle el encoding a la base, sino deja el del cluster
+	*   @param boolean $cant_intentos Al tener postgres problemas de crear dos veces al mismo tiempo, existe la posibilidad de que justo otro proceso lo haga. Esto permite disminuir la posibiilidad
 	*/
-	function crear_base_datos($nombre, $con_encoding = false)
+	function crear_base_datos($nombre, $con_encoding = false, $cant_intentos = 3)
 	{
 		$info_db = $this->get_parametros_base( $nombre );
 		$base_a_crear = $info_db['base'];
 		if ($info_db['motor']=='postgres7') {
-			dormir(1000);	//Para esperar que el script se desconecte			
+			dormir(1000);    //Para esperar que el script se desconecte
 			$info_db['base'] = 'template1';
-			$db = $this->conectar_base_parametros( $info_db );
+			$db = $this->conectar_base_parametros($info_db);
 			$encoding = isset($info_db['encoding']) ? $info_db['encoding'] : self::db_encoding_estandar;
 			$sql = "CREATE DATABASE \"$base_a_crear\" ";
 			if ($con_encoding) {
-				$sql.= " ENCODING '$encoding' ";
+				$sql .= " ENCODING '$encoding' ";
 			}
-			$db->ejecutar($sql);
+			$intentos = 0;
+			do {
+				$intentos++;
+				try {
+					$db->ejecutar($sql);
+					break;
+				} catch (toba_error_db $e) {
+					if ($intentos < $cant_intentos) {
+						$this->manejador_interface->mensaje("Error al crear la base, reintentando una vez mas por si hay concurrencia en la creacion..\n");
+						$db->destruir();
+						dormir(2000);
+						$db = $this->conectar_base_parametros($info_db);
+					} else {
+						throw $e;
+					}
+				}
+			} while ($intentos <= $cant_intentos);
+
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
 		} else {

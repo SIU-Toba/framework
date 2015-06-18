@@ -6,11 +6,9 @@ class sesion_editor extends toba_sesion
 		if (!isset($datos)) {
 			throw new toba_error('ERROR: El editor no se cargo correctamente.');
 		}
-		//toba_editor::iniciar($datos['instancia'], $datos['proyecto']);
 		$instancia = toba::instancia()->get_id();
 		toba_editor::iniciar($instancia, $datos['proyecto']);
-		//Seteo el valor en la memoria global para toba_usuarios
-		//toba::memoria()->set_dato_instancia('instancia', $datos['instancia']);
+		//Seteo el valor en la memoria global para toba_usuarios		
 		toba::memoria()->set_dato_instancia('instancia', $instancia);
 		toba::memoria()->set_dato_instancia('proyecto', $datos['proyecto']);
 	}

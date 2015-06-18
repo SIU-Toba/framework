@@ -675,11 +675,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/**
 	* Importacion completa de una instancia
 	*/
-	function cargar( $forzar_carga = false )
+	function cargar( $forzar_carga = false, $forzar_crear_db = false )
 	{
 		$this->manejador_interface->titulo('Creación de la instancia');
 		// Existe la base?
-		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
+		if ($forzar_crear_db || ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
 			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
 			$this->instalacion->crear_base_datos( $this->ini_base );
 			$this->manejador_interface->progreso_fin();

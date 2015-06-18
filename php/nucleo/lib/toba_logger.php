@@ -166,7 +166,7 @@ class toba_logger
 						self::limite_mensaje.
 						" bytes";
 			}
-			if (apex_log_error_log && $nivel <= apex_log_error_log_nivel) {
+			if (PHP_SAPI != 'cli' && apex_log_error_log && $nivel <= apex_log_error_log_nivel) {
 				error_log($msg);
 			}
 			$this->mensajes[$this->proximo] = $msg;

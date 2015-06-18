@@ -50,7 +50,7 @@ class toba_manejador_sesiones
 		}
 	}
 	
-	function enviar_csrf_hidden()
+	static function enviar_csrf_hidden()
 	{
 		$tm = toba::memoria();
 		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
@@ -473,7 +473,7 @@ class toba_manejador_sesiones
 					//Apunto al nucleo al item de inicializacion de sesion
 					$item[0] = toba::proyecto()->get_id();
 					$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
-					toba::memoria()->set_item_solicitado($item);
+					toba::memoria()->set_item_solicitado($item, false);					//No genera token xq implica redireccion interna que el usuario no puede ver
 				} else {
 					$this->procesar_acceso_proyecto();
 				}
@@ -498,7 +498,7 @@ class toba_manejador_sesiones
 				//Apunto al nucleo al item de inicializacion de sesion
 				$item[0] = toba::proyecto()->get_id();
 				$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
-				toba::memoria()->set_item_solicitado($item);
+				toba::memoria()->set_item_solicitado($item, false);						//No genera token xq implica redireccion interna que el usuario no puede ver
 			} else {
 				$this->login_anonimo();
 			}

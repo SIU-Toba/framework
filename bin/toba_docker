@@ -7,14 +7,13 @@ TOBA_DIR=`pwd`
 export TOBA_DIR=`dirname $TOBA_DIR`
 
 if [ -z "$TOBA_INSTALACION_DIR" ]; then
-   	export TOBA_INSTALACION_DIR=${TOBA_DIR}/docker-data/instalacion
+   	export TOBA_INSTALACION_DIR=${TOBA_DIR}/docker-data/toba
 	if [ ! -d "$TOBA_INSTALACION_DIR" ]; then
-    	export TOBA_INSTALACION_DIR=`pwd`/docker-data/instalacion
+    	export TOBA_INSTALACION_DIR=`pwd`/docker-data/toba
     fi
 fi
 DOCKER_ENV_FILE="$TOBA_INSTALACION_DIR/toba_docker.env"
-DOCKER_CONTAINER_ID=`cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/"`
-if [ -z "$DOCKER_CONTAINER_ID" ] && [ -f "$DOCKER_ENV_FILE" ] ; then
+if [ -f "$DOCKER_ENV_FILE" ] ; then
 	. "$DOCKER_ENV_FILE"			 #Interpreta el archivo como variables de entorno
 	docker exec -it $TOBA_DOCKER_ID  /bin/bash
 	exit 0;

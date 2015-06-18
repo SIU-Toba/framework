@@ -3,7 +3,7 @@ pgdata:
   command: true
   volumes:
    - ./docker-data/pgdata:/var/lib/postgresql/data
-   - ./docker-data/instalacion:/var/local/toba/docker-data/instalacion
+   - ./docker-data/toba:/var/local/docker-data/toba
 
 web:
   #build: .

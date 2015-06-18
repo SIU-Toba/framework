@@ -102,7 +102,6 @@ class admin_util
 		} else {
 			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php/';
 		}
-		toba::logger()->crit($path . $path_relativo);
 		return $path . $path_relativo;
 	}
 	
