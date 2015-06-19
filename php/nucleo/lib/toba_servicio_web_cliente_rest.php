@@ -4,7 +4,6 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 {
 	const HEADER_VERSION = 'API-Version';
 	protected $guzzle;
-	protected $api_version;
 	
 	function __construct($opciones, $id_servicio, $proyecto = null) 
 	{
@@ -60,15 +59,13 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 		return $this->guzzle;	
 	}
 
-	function get_version_api()
-	{
-		if (! isset($this->api_version)) {
-			$client = $this->guzzle();
-			if ($client->hasHeader(self::HEADER_VERSION)) {
-				$string_version = $client->getHeader(self::HEADER_VERSION);
-				$this->api_version = new toba_version($string_version);
-			}
+	static function get_version_api($response)
+	{		
+		if ($response->hasHeader(self::HEADER_VERSION)) {
+			$string_version = $response->getHeader(self::HEADER_VERSION);
+			return new toba_version($string_version);
+		} else {
+			return null;
 		}
-		return $this->api_version;
 	}
 }
