@@ -5,7 +5,7 @@
 */
 class toba_manejador_procesos
 {
-	function background($command)
+	static function background($command)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
 			return self::background_win($command);
@@ -13,7 +13,7 @@ class toba_manejador_procesos
 			return self::background_linux($command);		
 	}
 
-	function is_running($PID)
+	static function is_running($PID)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
 			return self::is_running_win($PID);
@@ -21,7 +21,7 @@ class toba_manejador_procesos
 			return self::is_running_linux($PID);	
 	}
 
-	function kill($PID)
+	static function kill($PID)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
 			return self::kill_win($PID);
@@ -29,7 +29,7 @@ class toba_manejador_procesos
 			return self::kill_linux($PID);
 	}
 
-	function buscar_pids($match)
+	static function buscar_pids($match)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
 			return self::buscar_pids_win($match);
@@ -37,12 +37,12 @@ class toba_manejador_procesos
 			return self::buscar_pids_linux($match);
 	}
 
-	function crear_identificador($id)
+	static function crear_identificador($id)
 	{
 		return "pid_sistema_$id";
 	}
 
-	function quitar_identificador($cadena)
+	static function quitar_identificador($cadena)
 	{
 		return str_replace('pid_sistema_','',$cadena);
 	}
@@ -54,19 +54,19 @@ class toba_manejador_procesos
 	//	- Uno para el script toba.
 	//	- Uno para php.
 
-	function background_linux($command)
+	static function background_linux($command)
 	{
 		$PID = trim(shell_exec("nohup $command > /dev/null & echo $!"));
 		return($PID);
 	}
 
-	function is_running_linux($PID)
+	static function is_running_linux($PID)
 	{
 		exec("ps $PID", $ProcessState);
 		return(count($ProcessState) >= 2);
 	}
 
-	function kill_linux($PID)
+	static function kill_linux($PID)
 	{
 		if (self::is_running($PID))	{
 			exec("kill -KILL $PID");
@@ -82,7 +82,7 @@ class toba_manejador_procesos
 	 * @param string $match
 	 * @return array
 	 */
-	function buscar_pids_linux($match)
+	static function buscar_pids_linux($match)
 	{
 		$match = escapeshellarg($match);
 		exec("ps fx|grep $match|grep -v grep|awk '{print $1}'", $output, $ret);
@@ -92,25 +92,25 @@ class toba_manejador_procesos
 
 	// WINDOWS ----------------------------------------------------------------------------------
 
-	function background_win($command)
+	static function background_win($command)
 	{
 		$WshShell = new COM("WScript.Shell");
 		return $WshShell->Run($command, 0, false);
 	}
 
-	function is_running_win($pid)
+	static function is_running_win($pid)
 	{
 		//NO IMPLEMENTADO
 		return false;
 	}
 
-	function kill_win($pid)
+	static function kill_win($pid)
 	{
 		//NO IMPLEMENTADO
 		return false;
 	}
 
-	function buscar_pids_win($match)
+	static function buscar_pids_win($match)
 	{
 		//NO IMPLEMENTADO
 		return array();
