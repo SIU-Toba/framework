@@ -369,19 +369,20 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function conectar_base_parametros( $parametros )
 	{
 		if (! isset(self::$conexion_externa)) {
+			$logger = toba_logger::instancia();
 			$clase = "toba_db_" . $parametros['motor'];
 			$db = new $clase(	$parametros['profile'],
 							$parametros['usuario'],
 							$parametros['clave'],
 							$parametros['base'],
 							isset($parametros['puerto']) ? $parametros['puerto'] : '' );
-
+			$db->set_logger($logger);
 			$db->conectar();
 			if (isset($parametros['schema'])) {
 				try {
 					$db->set_schema($parametros['schema']);
 				} catch (toba_error_db $error) {
-					toba_logger::instancia()->warning("No pudo cambiarse la sesion postgres al schema '{$parametros['schema']}' porque el mismo no existe");
+					$logger->warning("No pudo cambiarse la sesion postgres al schema '{$parametros['schema']}' porque el mismo no existe");
 				}
 			}
 			//Si existe el parametro del encoding, ponerlo por defecto para la conexión
@@ -389,12 +390,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				$db->set_encoding($parametros['encoding']);
 			}		
 			$datos_base = var_export($parametros, true);
-			toba_logger::instancia()->debug("Parametros de conexion: $datos_base");
+			$logger->debug("Parametros de conexion: $datos_base");
 			return $db;
 		} else {
 		    return self::$conexion_externa;
 		}
-	}
+	} 
 
 
 	/**

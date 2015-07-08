@@ -8,6 +8,9 @@
  *			- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia
  * @package Fuentes
 */
+define('apex_clase_error_db', 'toba_error_db');
+define('apex_clase_error', 'toba_error');
+	
 class toba_dba
 {
 	private static $dba;						// Implementacion del singleton.
@@ -174,13 +177,16 @@ class toba_dba
 		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
 		$clase = "toba_db_" . $parametros['motor'];
 		list($usuario, $clave) = self::get_usuario_db($id_base, $parametros);
+				
+		$objeto_db = new $clase($parametros['profile'],
+							$usuario,
+							$clave,
+							$parametros['base'],
+							$puerto,
+							$server );
 		
-		$objeto_db = new $clase(	$parametros['profile'],
-									$usuario,
-									$clave,
-									$parametros['base'],
-									$puerto,
-									$server );
+		$logger = toba_logger::instancia();
+		$objeto_db->set_logger($logger);
 		$objeto_db->conectar();
 		//Si existe el parametro del schema, ponerlo por defecto para la conexión
 		if (isset($parametros['schema']) && $parametros['schema'] != '') {

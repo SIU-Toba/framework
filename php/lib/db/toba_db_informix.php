@@ -29,7 +29,8 @@ class toba_db_informix extends toba_db
 	{
 		$sql = 'BEGIN WORK';
 		$this->ejecutar($sql);
-		toba::logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		//toba::logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
 	/**
@@ -39,7 +40,8 @@ class toba_db_informix extends toba_db
 	{
 		$sql = 'ROLLBACK WORK';
 		$this->ejecutar($sql);		
-		toba::logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		//toba::logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	/**
@@ -49,7 +51,8 @@ class toba_db_informix extends toba_db
 	{
 		$sql = "COMMIT WORK";
 		$this->ejecutar($sql);		
-		toba::logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		///toba::logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}	
 }
 ?>

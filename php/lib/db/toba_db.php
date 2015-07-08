@@ -39,6 +39,8 @@ class toba_db
 	protected $registro_consulta = array();
 	protected $registro_sentencias = array();
 	
+	protected $logger;
+	
 	/**
 	 * @param string $profile Host donde se localiza el servidor
 	 * @param string $usuario Nombre del usuario utilizado para conectar
@@ -60,7 +62,7 @@ class toba_db
 	{
 		$this->parser_errores = $parser;
 	}
-
+		
 	/**
 	 * Libera la conexión a la base
 	 */
@@ -123,6 +125,22 @@ class toba_db
 		$this->loguear = $loguear;
 	}
 	
+	
+	function set_logger($log)
+	{
+		$this->logger = $log;
+	}
+	
+	protected function log($msg, $nivel, $extra = null)
+	{
+		if (isset($this->log)) {			
+			$this->log->$nivel($msg, $extra);
+		} else {
+			toba_logger::instancia()->trace();		//No deberia entrar nunca por aca, si lo hace.. obtenemos la secuencia de llamada y dejamos el msg de aviso
+			throw new toba_error('La clase toba_db, no tiene asignado un logger, revise el log');
+		}
+	}
+	
 	/**
 	 * @ignore 
 	 */
@@ -131,7 +149,8 @@ class toba_db
 		$id = $this->debug_sql_id++;
 		$this->debug_sqls[$id] = array('sql' => $sql, 'inicio' => microtime(true));
 		if ($this->loguear) {
-			toba_logger::instancia()->debug("***SQL[$id] : $sql");
+			$this->log("***SQL[$id] : $sql", 'debug');
+			//toba_logger::instancia()->debug("***SQL[$id] : $sql");
 		}
 	}
 	
@@ -232,7 +251,8 @@ class toba_db
 			}
 		} catch (Exception $e) {
 			echo($e->getMessage());
-			toba::logger()->error($e->getMessage());
+			$this->log($e->getMessage(), 'error');
+			//toba::logger()->error($e->getMessage());
 		}
 	}
 
@@ -298,7 +318,8 @@ class toba_db
 						if ($this->debug) $this->log_debug_fin();						
 					}
 				} catch (PDOException $e) {
-					toba::logger()->error($e->getMessage());
+					//toba::logger()->error($e->getMessage());
+					$this->log($e->getMessage(), 'error');
 					$ee = new toba_error_db($e, $this->cortar_sql($sql_x), $this->parser_errores, true);
 					throw $ee;
 				}
@@ -315,7 +336,8 @@ class toba_db
 					if ($this->debug) $this->log_debug_fin();
 				}
 			} catch (PDOException $e) {
-				toba::logger()->error($e->getMessage());
+				//toba::logger()->error($e->getMessage());
+				$this->log($e->getMessage(), 'error');
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 				throw $ee;
 			}
@@ -342,7 +364,8 @@ class toba_db
 			if ($this->debug) $this->log_debug_fin();			
 			$afectados += $stm->rowCount();
 		} catch (PDOException $e) {
-			toba::logger()->error($e->getMessage());
+			//toba::logger()->error($e->getMessage());
+			$this->log($e->getMessage(), 'error');
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 			throw $ee;
 		}
@@ -360,7 +383,8 @@ class toba_db
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
 		if ( is_null($sql)) {
-			toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			//toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			$this->log(' En el parametro donde se esperaba la SQL llego un null, verificar', 'error');
 			throw new toba_error('Se debe especificar una sentencia SQL bien formada');
 		}
 		if (! isset($tipo_fetch)) {
@@ -381,7 +405,8 @@ class toba_db
 				return $statement->fetchAll($tipo_fetch);
 			}
 		} catch (PDOException $e) {
-			toba::logger()->error($e->getMessage());
+			//toba::logger()->error($e->getMessage());
+			$this->log($e->getMessage(), 'error');
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
 			throw $ee;
 		}
@@ -399,7 +424,8 @@ class toba_db
 	function consultar_fila($sql, $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
 		if ( is_null($sql)) {
-			toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			//toba::logger()->error(' En el parametro donde se esperaba la SQL llego un null, verificar');
+			$this->log(' En el parametro donde se esperaba la SQL llego un null, verificar', 'error');
 			throw new toba_error('Se debe especificar una sentencia SQL bien formada');
 		}
 		if (! isset($tipo_fetch)) {
@@ -419,7 +445,8 @@ class toba_db
 				return $statement->fetch($tipo_fetch);
 			}
 		} catch (PDOException $e) {
-			toba::logger()->error($e->getMessage());			
+			//toba::logger()->error($e->getMessage());			
+			$this->log($e->getMessage(), 'error');
 			if ($lanzar_excepcion) {
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
 				throw $ee;
@@ -688,7 +715,8 @@ class toba_db
 	function abrir_transaccion()
 	{
 		$this->conexion->beginTransaction();
-		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		//toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	/**
@@ -697,7 +725,8 @@ class toba_db
 	function abortar_transaccion()
 	{
 		$this->conexion->rollBack();
-		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		//toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
 	/**
@@ -706,7 +735,8 @@ class toba_db
 	function cerrar_transaccion()
 	{
 		$this->conexion->commit();
-		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		//toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	/**

@@ -74,12 +74,6 @@ class toba_db_postgres7 extends toba_db
 		if (! $this->existe_lenguaje('plpgsql')) {
 			$this->crear_lenguaje('plpgsql');
 		}
-		/*$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
-		$rs = $this->consultar($sql);
-		if (empty($rs)) {
-			$sql = 'CREATE LANGUAGE plpgsql';
-			$this->ejecutar($sql);
-		}*/
 	}
 	
 	/**
@@ -107,7 +101,8 @@ class toba_db_postgres7 extends toba_db
 	{
 		$tipo = $retrazar ? 'DEFERRED' : 'IMMEDIATE';
 		$this->ejecutar("SET CONSTRAINTS ALL $tipo;");
-		toba_logger::instancia()->debug("************ Se cambia el chequeo de constraints ($tipo) ****************", 'toba');		
+		//toba_logger::instancia()->debug("************ Se cambia el chequeo de constraints ($tipo) ****************", 'toba');
+		$this->log("************ Se cambia el chequeo de constraints ($tipo) ****************", 'debug', 'toba');
 	}
 	
 
@@ -116,7 +111,8 @@ class toba_db_postgres7 extends toba_db
 		$sql = 'BEGIN TRANSACTION;';
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = true;
-		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		//toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
 	function abortar_transaccion()
@@ -124,7 +120,8 @@ class toba_db_postgres7 extends toba_db
 		$sql = 'ROLLBACK TRANSACTION;';
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = false;
-		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		//toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
 	function cerrar_transaccion()
@@ -132,7 +129,8 @@ class toba_db_postgres7 extends toba_db
 		$sql = "COMMIT TRANSACTION;";
 		$this->ejecutar($sql);
 		$this->transaccion_abierta = false;
-		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		//toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	/**
@@ -147,21 +145,24 @@ class toba_db_postgres7 extends toba_db
 	{
 		$sql = "SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
-		toba_logger::instancia()->debug("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		//toba_logger::instancia()->debug("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	function abortar_savepoint($nombre)
 	{
 		$sql = "ROLLBACK TO SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
-		toba_logger::instancia()->debug("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		//toba_logger::instancia()->debug("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	function liberar_savepoint($nombre)
 	{
 		$sql = "RELEASE SAVEPOINT $nombre;";
 		$this->ejecutar($sql);
-		toba_logger::instancia()->debug("************ liberar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		//toba_logger::instancia()->debug("************ liberar savepoint $nombre ($this->base@$this->profile) ****************", 'toba');
+		$this->log("************ liberar savepoint $nombre ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
 	/**
@@ -178,7 +179,8 @@ class toba_db_postgres7 extends toba_db
 		if (!$salida) {
 			$mensaje = pg_last_error($dbconn);
 			pg_close($dbconn);
-			toba::logger()->error($mensaje);
+			//toba::logger()->error($mensaje);
+			$this->log($mensaje, 'error');
 			throw new toba_error($mensaje);
 		}
 		pg_close($dbconn);
