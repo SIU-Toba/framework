@@ -104,7 +104,7 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 
 	protected function recuperar_usuario_toba()
 	{
-		$id_usuario = $this->saml_attributes[$this->atributo_usuario][0];
+		$id_usuario = utf8_d_seguro($this->saml_attributes[$this->atributo_usuario][0]);
 		$datos_usuario = false;
 		
 		$subclase = $this->get_subclase_usuario_proyecto();
