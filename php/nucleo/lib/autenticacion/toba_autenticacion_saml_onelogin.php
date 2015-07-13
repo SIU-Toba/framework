@@ -6,6 +6,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected $atributo_usuario = "urn:oid:0.9.2342.19200300.100.1.1";
 	protected $permite_login_toba = false;
 	protected $saml_attributes;
+	protected $proyecto_login;
 	protected $settingsInfo=array();
 	protected $idp = '';
 
@@ -22,7 +23,11 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			}			
 			if (isset($parametros['sp']['auth_source'])) {
 				$this->auth_source = $parametros['sp']['auth_source'];
-			}			
+			}
+			if (!isset($parametros['sp']['proyecto_login'])) {
+				throw new toba_error("Debe definir proyecto_login en ".$archivo_ini_instalacion);
+			}
+			$this->proyecto_login = trim($parametros['sp']['proyecto_login']);
 
 			//Creo configuracion del SP
 			$this->settingsInfo= array ('sp' => $this->get_sp_config());			
@@ -50,6 +55,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	function verificar_acceso($datos_iniciales=null)
 	{
 		$auth = $this->instanciar_pedido_onelogin();
+
 		if (! is_null(toba::memoria()->get_parametro('acs'))) {						//Se verifica la respuesta y se chequea la autenticacion
 			$auth->processResponse();
 			$errors = $auth->getErrors();
@@ -66,11 +72,30 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 
 			$this->saml_attributes = $auth->getAttributes();
 			$id_usuario = $this->recuperar_usuario_toba();							//Recupero usr y verifico existencia en toba, excepcion si no existe
-			toba::manejador_sesiones()->login($id_usuario, 'foobar',  $datos_iniciales);					//La clave no importa porque se autentifica via token
+			try {
+				toba::manejador_sesiones()->login($id_usuario, 'foobar', $datos_iniciales);                    //La clave no importa porque se autentifica via token
+			} catch (toba_reset_nucleo $e) {
+				if (isset($_POST['RelayState']) && OneLogin_Saml2_Utils::getSelfURL() != $_POST['RelayState']) {
+					$auth->redirectTo($_POST['RelayState']);
+				} else {
+					throw $e;
+				}
+			}
 			return $id_usuario;
 			
-		} else {																//Se hace el redirect hacia el idp
-			$auth->login();
+		} else {
+			if (! is_null(toba::memoria()->get_parametro('sls'))) {
+				$auth->processSLO();
+			} elseif (isset($_GET['slo'])) {
+				$auth->logout();
+			}
+			
+			//Se hace el redirect hacia el idp
+			$parametros_url = array();
+			if (isset($this->parametros_url) && is_array($this->parametros_url)) {
+				$parametros_url = $this->parametros_url;
+			}
+			$auth->login($this->generar_url($parametros_url));
 		}
 	}
 		
@@ -127,17 +152,14 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	}
 	
 	protected function get_sp_config()
-	{		
-		//Uso la dir de instalacion toba como base del entity-id
-		$spBaseUrl = toba::instalacion()->get_url();
-		
-		//Trata de obtener una url canonica del proyecto (sin aplicacion.php y sin QS), en base al request del cliente esta sera la URL de retorno
-		$spReturnUrl = toba_http::get_url_actual(false, true);
-		$spReturnUrl = str_replace("aplicacion.php", "", $spReturnUrl);
+	{
+		//Arma el entityID en base a una URL fija de toba
+		$entityID = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
+		$entityID .= toba::instancia()->get_url_proyecto($this->proyecto_login);
 
-		$info =  array (	'entityId' => $spBaseUrl . '/' .$this->auth_source,
-					'assertionConsumerService' => array ( 'url' => $spReturnUrl.'?acs'),
-					'singleLogoutService' => array ('url' => $spReturnUrl.'?sls'),
+		$info =  array (	'entityId' => $entityID.'/default-sp',
+					'assertionConsumerService' => array ( 'url' => $entityID.'?acs'),
+					'singleLogoutService' => array ('url' => $entityID.'?sls'	),
 					'NameIDFormat' =>$this->atributo_usuario
 					);
 		return $info;

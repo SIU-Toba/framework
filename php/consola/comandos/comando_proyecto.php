@@ -286,6 +286,14 @@ class comando_proyecto extends comando_toba
 		
 		// -- Exporto el proyecto creado
 		$proyecto->exportar();
+		if (isset($params['-d'])) {																//Como necesita si o si, ser creado en el dir proyectos.. luego de creado lo muevo
+			$origen = $proyecto->get_dir();													// lo revinculo con el directorio nuevo y re-instancio el proyecto para que arme bien el alias
+			$path = $params['-d'];	
+			$instancia->vincular_proyecto($id_proyecto, $path);
+			toba_manejador_archivos::copiar_directorio($origen, $path);
+			toba_manejador_archivos::eliminar_directorio($origen);
+			$proyecto = $this->get_proyecto($id_proyecto);
+		}
 		$instancia->exportar_local();
 
 		if (! $proyecto->esta_publicado()) {

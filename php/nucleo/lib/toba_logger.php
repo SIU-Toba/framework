@@ -167,7 +167,17 @@ class toba_logger
 						" bytes";
 			}
 			if (PHP_SAPI != 'cli' && apex_log_error_log && $nivel <= apex_log_error_log_nivel) {
-				error_log($msg);
+				$error_log_max = ini_get("log_errors_max_len");
+				if (! isset($error_log_max) || !is_numeric($error_log_max) || strlen($error_log_max) <= 1) {
+					$error_log_max = 1024;
+				}
+				$error_log_extra = "...SIGUE...";
+				$msg_error_log = $msg;
+				if (strlen($msg_error_log) > $error_log_max) {
+					$msg_error_log = substr($msg_error_log, 0 , $error_log_max - strlen($error_log_extra));
+					$msg_error_log .= $error_log_extra;
+				}
+				error_log($msg_error_log);
 			}
 			$this->mensajes[$this->proximo] = $msg;
 			$this->niveles[$this->proximo] = $nivel;

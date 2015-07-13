@@ -18,7 +18,7 @@ class comando_instalacion_silenciosa extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba']
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave usuario admin']  [--usuario-admin 'usuario admin']
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
@@ -68,8 +68,9 @@ class comando_instalacion_silenciosa extends comando_toba
 		//--- Pido el password para el usuario por defecto
 		$pwd = $this->definir_clave_usuario_admin($param);
 
+		$usr = $this->definir_usuario_admin($param);
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
-		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);				
+		$instancia->agregar_usuario($usr, 'Usuario Administrador', $pwd);				
 		$instancia->exportar_local();
 		
 		//--- Crea los nuevos alias
@@ -399,6 +400,18 @@ class comando_instalacion_silenciosa extends comando_toba
 			return $randompass;
 		} 
 		return $pwd;
+	}	
+	
+	protected function definir_usuario_admin($param)
+	{
+		$nombre_parametro = array('--usuario-admin', 'toba-usuario-admin');
+		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
+		
+		if ($result['invalido']) {
+			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno válido no fue provisto");
+			return 'toba';
+		}
+		return $result['resultado'];
 	}	
 }
 ?>

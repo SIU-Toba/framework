@@ -2,30 +2,39 @@ pgdata:
   image: postgres:9.4
   command: true
   volumes:
+#Comentar la siguiente linea para corregir permisos en OSX  
    - ./docker-data/pgdata:/var/lib/postgresql/data
+
    - ./docker-data/instalacion:/var/local/proyecto/docker-data/instalacion
 
 web:
-  image: siutoba/docker-toba-editor
+  image: siutoba/docker-toba
   ports:
    - "2020:80"
   env_file: docker.env
   environment:
     TOBA_DIR: /var/local/proyecto/vendor/siu-toba/framework
     TOBA_INSTALACION_DIR: /var/local/proyecto/docker-data/instalacion
+## Descomentar y definir para cagar/instalar un proyecto especifico
+#    TOBA_PROYECTO                     : miproyecto
+#    TOBA_BASE_NOMBRE                  : toba
+#    TOBA_PROYECTO_DIR                 : /var/local/proyecto
+#    TOBA_PROYECTO_ALIAS               : /miproyecto
+#    TOBA_PROYECTO_INSTALAR            : true
+#    TOBA_PROYECTO_INSTALAR_PARAMETROS : --base-nombre miproyecto
 
   links:
    - pg
-   # Activar este link si se desea utilizar el servidor de Jasper
+## Activar este link si se desea utilizar el servidor de Jasper
 #   - jasper
-   # Descomentar esta variable de entorno para corregir permisos en OSX
+## Descomentar esta variable de entorno para corregir permisos en OSX
 #   OSX: 1
   volumes_from:
    - pgdata
   volumes:
    - ./:/var/local/proyecto
 
-# Descomentar este bloque si se desea utilizar el servidor Jasper
+# Descomentar este bloque si se desea utilizar el servidor Jasper. Por ahora esta sin testear
 #jasper:
 ##  build: jasper/
 #  image: siutoba/docker-guarani-jasper

@@ -18,7 +18,8 @@
         }
     ],
     "config" : {
-        "vendor-dir" : "./php/vendor"
+        "vendor-dir" : "./php/vendor",
+	"bin-dir": "./bin"        
     },
     "minimum-stability": "dev",
     "prefer-stable" : true,
@@ -28,5 +29,6 @@
         "siu-toba/rest": "@dev",
         "guzzlehttp/guzzle": "5.1.0",
         "onelogin/php-saml": "2.3.0"
-    }
+    },
+    "bin": ["bin/toba"]
 }
