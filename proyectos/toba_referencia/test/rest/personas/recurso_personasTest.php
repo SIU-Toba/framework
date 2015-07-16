@@ -1,8 +1,8 @@
 <?php
 
-require_once 'lib/rest/toba/rest_test_case.php';
+require_once 'nucleo/lib/rest/rest_test_case.php';
 
-class recurso_personasTest extends \rest\toba\rest_test_case {
+class recurso_personasTest extends rest_test_case {
 
 
 	protected function setUp()
@@ -10,7 +10,7 @@ class recurso_personasTest extends \rest\toba\rest_test_case {
 		parent::setUp();
 		$app = $this->setupRest();
 
-		$user = new \rest\seguridad\rest_usuario();
+		$user = new SIUToba\rest\seguridad\rest_usuario();
 		$user->set_usuario('user');
 		$this->mock_autenticador($user, $app);
 	}
@@ -25,7 +25,7 @@ class recurso_personasTest extends \rest\toba\rest_test_case {
 		$this->assertTrue(count($personas) > 0);
 		$this->assertArrayHasKey('id', $personas[0]);
 		$this->assertArrayHasKey('nombre', $personas[0]);
-		$this->assertArrayHasKey('fecha_nac', $personas[0]);
+		$this->assertArrayHasKey('fecha_nacimiento', $personas[0]);
 
 		return $personas[0];
 	}
@@ -55,7 +55,7 @@ class recurso_personasTest extends \rest\toba\rest_test_case {
 	{
 		$post = array(
 			'nombre' => 'Julia',
-			'fecha_nac' => '1990-03-03'
+			'fecha_nacimiento' => '1990-03-03'
 			);
 
 		$response = $this->ejecutar('POST', '/personas', array(), $post);
@@ -71,7 +71,7 @@ class recurso_personasTest extends \rest\toba\rest_test_case {
 
 		$this->assertEquals($res_post['id'], $res_get['id']);
 		$this->assertEquals($post['nombre'], $res_get['nombre']);
-		$this->assertEquals($post['fecha_nac'], $res_get['fecha_nac']);
+		$this->assertEquals($post['fecha_nacimiento'], $res_get['fecha_nacimiento']);
 		return $res_post['id'];
 	}
 
@@ -82,7 +82,7 @@ class recurso_personasTest extends \rest\toba\rest_test_case {
 	public function testPUT($id_posteado)
 	{
 		//str random
-		$nombre = substr( "abcdefghijklmnopqrstuvwxyz", mt_rand(0, 25) , 1) .substr( md5( time() ), 1);
+		$nombre = 'Nuevo nombre';
 
 		$post = array('nombre' => $nombre);
 		$response = $this->ejecutar('PUT', '/personas/'.$id_posteado, array(), $post);

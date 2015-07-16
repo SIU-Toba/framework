@@ -1,8 +1,8 @@
 <?php
 
-require_once 'lib/rest/toba/rest_test_case.php';
+require_once 'nucleo/lib/rest/rest_test_case.php';
 
-class recurso_deportesTest extends \rest\toba\rest_test_case {
+class recurso_deportesTest extends rest_test_case {
 
 
 	protected function setUp()
@@ -10,7 +10,7 @@ class recurso_deportesTest extends \rest\toba\rest_test_case {
 		parent::setUp();
 		$app = $this->setupRest();
 
-		$user = new \rest\seguridad\rest_usuario();
+		$user = new SIUToba\rest\seguridad\rest_usuario();
 		$user->set_usuario('user');
 		$this->mock_autenticador($user, $app);
 	}
@@ -21,11 +21,11 @@ class recurso_deportesTest extends \rest\toba\rest_test_case {
 		$response = $this->ejecutar('GET', "/personas/$id/deportes");
 
 		$deportes = $response->get_data();
-
+		
 		$this->assertEquals($response->get_status(), 200);
 		$this->assertTrue(count($deportes) > 0);
 		$this->assertArrayHasKey('deporte', $deportes[0]);
-		$this->assertArrayHasKey('dia_semana', $deportes[0]);
+		$this->assertArrayHasKey('hora_fin', $deportes[0]);
 		$this->assertArrayHasKey('hora_inicio', $deportes[0]);
 
 	}

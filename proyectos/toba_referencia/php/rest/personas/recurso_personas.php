@@ -64,11 +64,13 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 		$modelo = new modelo_persona($id_persona);
         $fila = $modelo->get_datos($incluir_imagen);
 
-	    /**Transformción al formato de la vista de la API -
-	     * Si faltan campos se generarán 'undefined_index'. Si sobran, no se incluyen.
-	     * La fila contiene exactamente los campos de la especificación */
-	    $fila = rest_hidratador::hidratar_fila($this->get_spec_persona($incluir_imagen), $fila);
-
+		if ($fila) {
+			/**Transformción al formato de la vista de la API -
+			 * Si faltan campos se generarán 'undefined_index'. Si sobran, no se incluyen.
+			 * La fila contiene exactamente los campos de la especificación */
+			$fila = rest_hidratador::hidratar_fila($this->get_spec_persona($incluir_imagen), $fila);
+		}
+		
 	    /**Se escribe la respuesta*/
         rest::response()->get($fila);
     }
@@ -165,10 +167,10 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	{
 		/** Valido y traduzco los datos al formato de mi modelo*/
 		$datos_modelo = $this->procesar_input_edicion(true);
-
+		
 		$modelo = new modelo_persona($id_persona);
 		//$errores = $modelo->validar($datos);
-
+		
 		if (isset($datos_modelo['imagen'])) { //por separado ya que es un caso especial
 			$ok = $modelo->update_imagen($datos_modelo);
 		} else {

@@ -2,7 +2,7 @@
 require_once("modelo/modelo_persona.php");
 
 use SIUToba\rest\lib\rest_hidratador;
-use rest\rest;
+use SIUToba\rest\rest;
 
 
 /**
@@ -33,7 +33,7 @@ class recurso_deportes implements SIUToba\rest\lib\modelable
      */
     function get_list($id_persona)
     {
-	    //si estuviese en el padre, se llamaria como get_deportes_list
+		//si estuviese en el padre, se llamaria como get_deportes_list
 		$deportes = modelo_persona::get_deportes($id_persona);
 	    $deportes_vista = rest_hidratador::hidratar(current($this->_get_modelos()), $deportes);
 		rest::response()->get($deportes_vista);
