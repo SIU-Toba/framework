@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3533c73aac72cfca8a8f94da1ebfef03",
+    "hash": "23691b33a91fe98ebe0e995430213437",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -547,7 +547,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/SecurityMultiTool/zipball/da5186bc9caa74d6eaca2ed62ba257a5033d2f30",
+                "url": "https://api.github.com/repos/SIU-Toba/SecurityMultiTool/zipball/e31dc7e919d91e2974336a79abade0f987380305",
                 "reference": "da5186bc9caa74d6eaca2ed62ba257a5033d2f30",
                 "shasum": ""
             },
@@ -646,16 +646,16 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v1.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "f35567b78589b7fc009de5448236c247b2926175"
+                "reference": "6f0b35db5de3bce6d6cf51a47f0543f8f0aa58d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/f35567b78589b7fc009de5448236c247b2926175",
-                "reference": "f35567b78589b7fc009de5448236c247b2926175",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/6f0b35db5de3bce6d6cf51a47f0543f8f0aa58d4",
+                "reference": "6f0b35db5de3bce6d6cf51a47f0543f8f0aa58d4",
                 "shasum": ""
             },
             "require": {
@@ -674,10 +674,10 @@
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
             "support": {
-                "source": "https://github.com/SIU-Toba/rest/tree/v1.1.0",
+                "source": "https://github.com/SIU-Toba/rest/tree/master",
                 "issues": "https://github.com/SIU-Toba/rest/issues"
             },
-            "time": "2015-03-10 17:47:03"
+            "time": "2015-07-13 15:55:48"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -900,7 +900,7 @@
         "ircmaxell/random-lib": 20,
         "siu-toba/rest": 20
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
