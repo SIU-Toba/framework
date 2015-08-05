@@ -204,8 +204,8 @@ class toba_rest
 		$path_ini = toba_proyecto::get_path().'/proyecto.ini';
 		if (file_exists($path_ini)) {
 			$ini = new toba_ini($path_ini);
-			if ($ini->existe_entrada('api-rest')) {
-				$resultado = $ini->get_datos_entrada('api-rest');
+			if ($ini->existe_entrada('proyecto')) {
+				$resultado = $ini->get_datos_entrada('proyecto');
 			}
 		}
 		return $resultado;
