@@ -85,7 +85,7 @@ class toba_db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-				toba::logger()->error("No es posible realizar la conexión a la base. Mensaje: " . $e->getMessage() );				
+				$this->log("No es posible realizar la conexión a la base. Mensaje: " . $e->getMessage() , 'error');
 				$ee = new toba_error_db($e, null, $this->parser_errores, false);
 				throw $ee;				
 			}
@@ -133,11 +133,11 @@ class toba_db
 	
 	protected function log($msg, $nivel, $extra = null)
 	{
-		if (isset($this->log)) {			
-			$this->log->$nivel($msg, $extra);
+		if (isset($this->logger)) {			
+			$this->logger->$nivel($msg, $extra);
 		} else {
-			toba_logger::instancia()->trace();		//No deberia entrar nunca por aca, si lo hace.. obtenemos la secuencia de llamada y dejamos el msg de aviso
-			throw new toba_error('La clase toba_db, no tiene asignado un logger, revise el log');
+			 toba_logger::instancia()->trace();		//No deberia entrar nunca por aca, si lo hace.. obtenemos la secuencia de llamada y dejamos el msg de aviso			
+			throw new toba_error('La clase toba_db, no tiene asignado un logger, revise el log');			
 		}
 	}
 	
@@ -150,7 +150,6 @@ class toba_db
 		$this->debug_sqls[$id] = array('sql' => $sql, 'inicio' => microtime(true));
 		if ($this->loguear) {
 			$this->log("***SQL[$id] : $sql", 'debug');
-			//toba_logger::instancia()->debug("***SQL[$id] : $sql");
 		}
 	}
 	
@@ -252,7 +251,6 @@ class toba_db
 		} catch (Exception $e) {
 			echo($e->getMessage());
 			$this->log($e->getMessage(), 'error');
-			//toba::logger()->error($e->getMessage());
 		}
 	}
 
@@ -336,7 +334,6 @@ class toba_db
 					if ($this->debug) $this->log_debug_fin();
 				}
 			} catch (PDOException $e) {
-				//toba::logger()->error($e->getMessage());
 				$this->log($e->getMessage(), 'error');
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 				throw $ee;
@@ -364,7 +361,6 @@ class toba_db
 			if ($this->debug) $this->log_debug_fin();			
 			$afectados += $stm->rowCount();
 		} catch (PDOException $e) {
-			//toba::logger()->error($e->getMessage());
 			$this->log($e->getMessage(), 'error');
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 			throw $ee;
@@ -405,7 +401,6 @@ class toba_db
 				return $statement->fetchAll($tipo_fetch);
 			}
 		} catch (PDOException $e) {
-			//toba::logger()->error($e->getMessage());
 			$this->log($e->getMessage(), 'error');
 			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
 			throw $ee;
@@ -444,8 +439,7 @@ class toba_db
 				if ($this->debug) $this->log_debug_fin();
 				return $statement->fetch($tipo_fetch);
 			}
-		} catch (PDOException $e) {
-			//toba::logger()->error($e->getMessage());			
+		} catch (PDOException $e) {		
 			$this->log($e->getMessage(), 'error');
 			if ($lanzar_excepcion) {
 				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
@@ -715,7 +709,6 @@ class toba_db
 	function abrir_transaccion()
 	{
 		$this->conexion->beginTransaction();
-		//toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 		$this->log("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
@@ -725,7 +718,6 @@ class toba_db
 	function abortar_transaccion()
 	{
 		$this->conexion->rollBack();
-		//toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 		$this->log("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
@@ -735,7 +727,6 @@ class toba_db
 	function cerrar_transaccion()
 	{
 		$this->conexion->commit();
-		//toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
