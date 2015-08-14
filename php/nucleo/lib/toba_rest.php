@@ -11,7 +11,7 @@ class toba_rest
 
 	static function url_rest()
 	{
-		return toba_recurso::url_proyecto() . '/rest';
+		return toba_recurso::url_proyecto() . self::CARPETA_REST;
 	}
 
 	static function url_api_doc()
@@ -20,10 +20,10 @@ class toba_rest
 	}
 
 
-	function conf__inicial()
+	function conf__inicial($api='')
 	{
 		if (! $this->es_pedido_documentacion()) {
-			$this->app = $this->instanciar_libreria_rest();
+			$this->app = $this->instanciar_libreria_rest($api);
 			$this->configurar_libreria_rest($this->app);
 		}		
 	}
@@ -47,9 +47,9 @@ class toba_rest
 	/**
 	 * @return SIUToba\rest\rest
 	 */
-	public function instanciar_libreria_rest()
+	public function instanciar_libreria_rest($api='')
 	{
-		$ini = $this->get_conf();
+		$ini = $this->get_conf($api);
 		$es_produccion = (boolean) toba::instalacion()->es_produccion();
 
 		$path_controladores = $this->get_path_controladores();
@@ -155,10 +155,10 @@ class toba_rest
 
 	}
 
-	protected function get_conf()
+	protected function get_conf($api='')
 	{
 		if (!isset($this->conf_ini)) {
-			$this->conf_ini = toba_modelo_rest::get_ini_server($this->get_modelo_proyecto());
+			$this->conf_ini = toba_modelo_rest::get_ini_server($this->get_modelo_proyecto(), $api);
 		}
 		return $this->conf_ini;
 	}
@@ -175,7 +175,10 @@ class toba_rest
 	 */
 	protected function get_path_controladores()
 	{
-		$path_controladores = toba_proyecto::get_path_php() . self::CARPETA_REST;
+		$api_base = toba_proyecto::get_path_php() . self::CARPETA_REST;
+		$api_pers = toba_proyecto::get_path_pers_php() . self::CARPETA_REST;			
+			
+		$path_controladores = array($api_base, $api_pers);
 		return $path_controladores;
 	}
 
@@ -184,7 +187,7 @@ class toba_rest
 	 */
 	public function es_pedido_documentacion()
 	{
-		return toba_recurso::url_proyecto() . "/rest" == rtrim( $_SERVER['REQUEST_URI'], '/');
+		return toba_recurso::url_proyecto() . self::CARPETA_REST == rtrim( $_SERVER['REQUEST_URI'], '/');
 	}
 
 	protected function get_modelo_proyecto()

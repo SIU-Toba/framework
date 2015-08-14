@@ -632,38 +632,37 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 	}
 	
-	function generar_ini_rest($proyecto)
+	function generar_ini_rest($id_proyecto)
 	{
-		$path_rest = $this->get_dir_instalacion_proyecto($proyecto).'/rest';
 		try {
-			toba_manejador_archivos::crear_arbol_directorios($path_rest);
+			toba_modelo_rest::crear_directorio_destino($this->get_dir_instalacion_proyecto($id_proyecto));
 		} catch (Exception $e) {
-			$this->manejador_interface->mensaje("No se pudo crear la carpeta {$path_rest}");
+			$this->manejador_interface->mensaje("No se pudo crear la carpeta para las configuraciones de la api REST");
 			return;
 		}
 		
-		//--1- Servidor
-		if (! file_exists($path_rest.'/servidor.ini')) {
-			copy(toba_dir(). '/php/modelo/var/rest_servidor.ini', $path_rest.'/servidor.ini');
+		$proyecto = $this->get_proyecto($id_proyecto);
+		
+		//--1- Servidor (se considera el nombre del proyecto como nombre de api por defecto)
+		if (! toba_modelo_rest::existe_ini_server($proyecto, $id_proyecto)) {
+			toba_modelo_rest::cp_ini_server(toba_dir(). '/php/modelo/var/rest_servidor.ini', $proyecto, $id_proyecto);
+		}		
+		if (! toba_modelo_rest::existe_ini_usuarios($proyecto, $id_proyecto)) {
+			toba_modelo_rest::cp_ini_usuarios(toba_dir(). '/php/modelo/var/rest_servidor_usuarios.ini', $proyecto, $id_proyecto);
 		}
-		if (! file_exists($path_rest.'/servidor_usuarios.ini')) {		
-			copy(toba_dir(). '/php/modelo/var/rest_servidor_usuarios.ini', $path_rest.'/servidor_usuarios.ini');
-		}
-
+		
 		//--2- Clientes
 		$sql = "
-			SELECT servicio_web FROM apex_servicio_web WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($proyecto);
+			SELECT servicio_web FROM apex_servicio_web WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($id_proyecto);
 		$rs = $this->get_db()->consultar($sql);
-	
 		foreach ($rs as $fila) {
-			$path_rest_cliente = $path_rest."/{$fila['servicio_web']}";
+			$id_servicio = $fila['servicio_web'];
 			try {
-				toba_manejador_archivos::crear_arbol_directorios($path_rest_cliente);
-				if (! file_exists($path_rest_cliente.'/cliente.ini')) {
-					copy(toba_dir(). '/php/modelo/var/rest_cliente.ini', $path_rest_cliente.'/cliente.ini');
+				if (! toba_modelo_rest::existe_ini_cliente($proyecto, $id_servicio)) {
+					toba_modelo_rest::cp_ini_cliente(toba_dir(). '/php/modelo/var/rest_cliente.ini', $proyecto, $id_servicio);
 				}
 			} catch (Exception $e) {
-				$this->manejador_interface->mensaje("No se pudo crear la carpeta {$path_rest_cliente}");
+				$this->manejador_interface->mensaje("No se pudo crear la carpeta para el servicio $id_servicio en la carpeta de la instancia");
 			}			
 		}
 	}

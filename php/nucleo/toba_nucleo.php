@@ -157,8 +157,9 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_rest();
 			$toba_rest = new toba_rest();
+			$nombre_api = '';//$this->recuperar_nombre_api();
 			if (! $toba_rest->es_pedido_documentacion()) {
-				$toba_rest->conf__inicial();
+				$toba_rest->conf__inicial($nombre_api);
 				$app = $toba_rest->get_instancia_rest();
 				if (method_exists(toba::contexto_ejecucion(), "conf__rest")) {
 					toba::contexto_ejecucion()->conf__rest($app);
@@ -521,6 +522,14 @@ class toba_nucleo
 				throw new toba_error_seguridad('Request Invalido');
 			}
 		}
+	}
+	
+	function recuperar_nombre_api()
+	{
+		if (isset($_SERVER['REDIRECT_API_NOMBRE'])) {
+			return $_SERVER['REDIRECT_API_NOMBRE'];
+		}
+		return '';
 	}
 }
 ?>
