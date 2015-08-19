@@ -18,8 +18,8 @@
         }
     ],
     "config" : {
-        "vendor-dir" : "./php/vendor",
-	"bin-dir": "./bin"        
+        "vendor-dir" : "./vendor",
+        "bin-dir": "./bin"
     },
     "minimum-stability": "dev",
     "prefer-stable" : false,
