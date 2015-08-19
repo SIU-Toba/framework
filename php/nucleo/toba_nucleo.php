@@ -30,8 +30,9 @@ class toba_nucleo
 	 * @var toba_solicitud
 	 */
 	private $solicitud = null;
-	private $medio_acceso;
 	private $solicitud_en_proceso = false;
+	
+	private $acceso_rest = false;
 
 	static function instancia()
 	{
@@ -155,6 +156,7 @@ class toba_nucleo
 	function acceso_rest()
 	{
 		try {
+			$this->acceso_rest = true;			
 			$this->iniciar_contexto_rest();
 			$toba_rest = new toba_rest();
 			$nombre_api = '';//$this->recuperar_nombre_api();
@@ -362,6 +364,11 @@ class toba_nucleo
 			throw new toba_error_def("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
 	}
+	
+	function es_acceso_rest()
+	{
+		return $this->acceso_rest;
+	}
 
 	//--------------------------------------------------------------------------
 	//	Carga de archivos
@@ -488,20 +495,20 @@ class toba_nucleo
 	{
 		$svn = new toba_svn();		
 		if (! toba::memoria()->existe_dato_instancia('toba_revision_recursos_cliente')) {
-			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn()) {
+			$path_recursos = $this->toba_dir(). '/www';
+			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn() || ! $svn->es_copia_trabajo($path_recursos)) {
 				$version = toba::instalacion()->get_version()->__toString();
-			} else {
-				$path_recursos = $this->toba_dir(). '/www';
+			} else {				
 				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('toba_revision_recursos_cliente', $version);
 		}
 		
 		if (! toba::memoria()->existe_dato_instancia('proyecto_revision_recursos_cliente')) {
-			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn()) {
+			$path_recursos = toba::proyecto()->get_path(). '/www';
+			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn() || ! $svn->es_copia_trabajo($path_recursos)) {
 				$version = toba::proyecto()->get_version()->__toString();
-			} else {
-				$path_recursos = toba::proyecto()->get_path(). '/www';
+			} else {				
 				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('proyecto_revision_recursos_cliente', $version);

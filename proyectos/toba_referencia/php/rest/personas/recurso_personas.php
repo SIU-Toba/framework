@@ -18,27 +18,26 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 		 * Hay diferencias entre una persona para mostrar o para crear. Por ej, el id.
 		 * Ver el codigo fuente de rest_validador para ver las distintas reglas y opciones que llevan
 		 */
-		$persona_base = array(
-			'id'     => array('type' => 'integer',
-			                  '_validar' => array(rest_validador::TIPO_INT)),
-			'nombre'
-			         => array('type'     => 'string', 'required', //required es solo visual (spec swagger), hay que agregar la regla
-			                  '_validar' => array(
-					              rest_validador::OBLIGATORIO,
-					              rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 30))),
-			'fecha_nacimiento'
-			         => array('_mapeo'   => 'fecha_nac', 'required',
-			                  '_validar' => array(rest_validador::TIPO_DATE => array('format' => 'Y-m-d'))),
-			'imagen' => array() //default
-		);
-		$persona_nueva = $persona_base;
-		unset($persona_nueva['id']);
+		$persona_editar = array(
+					'nombre' => array(	'type'     => 'string', 
+										'_validar' => array(rest_validador::OBLIGATORIO,
+															rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 30))),
+					'fecha_nacimiento' => array('_mapeo'   => 'fecha_nac', 
+												'_validar' => array(rest_validador::TIPO_DATE => array('format' => 'Y-m-d'))),
+					'imagen' => array(	'type' => 'bytea')
+				);
+		
+		$persona = array_merge(
+							array('id' => array('type' => 'integer',
+												'_validar' => array(rest_validador::TIPO_INT))),
+							$persona_editar);
 		return $models = array(
-			'Persona' => $persona_base,
-			'PersonaEditar' =>$persona_nueva
+			'Persona' => $persona,
+			'PersonaEditar' => $persona_editar
 
 		);
 	}
+	
 	protected function get_spec_persona($con_imagen = true, $tipo= 'Persona'){
 		/** Notar que hay que modificar la spec si se va a incluir la foto o no, ya que de otro modo
 		 * lanzaría un error cuando falta el campo. */
@@ -53,8 +52,8 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	 * Se consume en GET /personas/{id}
      * @summary Retorna datos de una persona. 
  	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
-     * @response_type Persona
-     * @errors 404 No se pudo encontrar a la persona
+     * @responses 200 {"$ref": "Persona"} Persona
+     * @responses 400 No existe la persona
      */
     function get($id_persona)
     {
@@ -70,7 +69,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 			 * La fila contiene exactamente los campos de la especificación */
 			$fila = rest_hidratador::hidratar_fila($this->get_spec_persona($incluir_imagen), $fila);
 		}
-		
+
 	    /**Se escribe la respuesta*/
         rest::response()->get($fila);
     }
@@ -85,7 +84,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	 * @param_query $page integer Limitar desde esta pagina
 	 * @param_query $order string +/-campo,...
 	 * @notes Retorna un header 'Total-Registros' con la cantidad total de registros a paginar
-	 * @response_type array {"$ref":"Persona"}
+	 * @responses 200 array {"$ref":"Persona"}
 	 */
 	function get_list()
 	{
@@ -115,6 +114,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	 * una operación o proveer un acceso simplificado a operaciones frecuentes.
 	 * Se consume en GET /personas/confoto.
 	 * @summary Retorna aquellas personas que tienen la foto cargada
+	 * @responses 200 array {"$ref": "Persona"} Persona
 	 */
 	function get_list__confoto()
 	{
@@ -135,8 +135,9 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	 * Se consume en POST /personas
 	 * @summary Crear una persona
 	 * @notes La fecha es en formato 'Y-m-d'</br>
-	 * @param_body $persona PersonaEditar [required] los datos iniciales de la persona
-	 * @response_type {"id": "integer"}
+	 * @param_body $persona  PersonaEditar [required] los datos iniciales de la persona
+	 * @responses 201 {"id" : "integer"} identificador de la persona agregada
+	 * @responses 500 Error en los datos de ingresados para la persona
 	 */
 	function post_list()
 	{
@@ -160,8 +161,8 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
      * @summary Modificar datos de la persona.
      * @param_body $persona PersonaEditar  [required] los datos a editar de la persona
      * @notes Si envia la componente 'imagen' de la persona se actualiza unicamente la imagen (binario base64). La fecha es en formato 'Y-m-d'
-     * @errors 404 No se pudo encontrar a la persona
-     * @errors 400 El pedido no cumple con las reglas de negocio - validacion erronea.
+     * @responses 404 No se pudo encontrar a la persona
+     * @responses 400 El pedido no cumple con las reglas de negocio - validacion erronea.
      */
 	function put($id_persona)
 	{
@@ -188,7 +189,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	 * Se consume en DELETE /personas/{id}
      * @summary Eliminar la persona.
      * @notes Cuidado, borra datos de deportes y juegos tambien
-     * @errors 404 No se pudo encontrar a la persona
+     * @responses 404 No se pudo encontrar a la persona
      */
     function delete($id_persona)
     {
@@ -208,7 +209,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
      * Se consume en GET /personas/{id}/juegos
 	 * @summary Retorna todos los juego que practica la persona
      * @response_type [ {juego: integer, dia_semana: integer, hora_inicio: string, hora_fin:string}, ]
-     * @errors 404 No se pudo encontrar a la persona
+     * @responses 404 No se pudo encontrar a la persona
      */
     function get_juegos_list($id_persona)
     {

@@ -51,16 +51,24 @@ class modelo_persona
         return toba::db()->consultar($sql);
 	}
 	
-	static function get_juegos($id_persona)
+	static function get_juegos($id_persona, $de_mesa = -1)
 	{
+		if ($de_mesa == 1) {
+			$where_de_mesa = " AND j.de_mesa IS TRUE ";
+		} elseif ($de_mesa == 0) {
+			$where_de_mesa = " AND j.de_mesa IS FALSE ";
+		}
+		
         $sql = "SELECT
-					juego,
-					dia_semana,
-					hora_inicio,
-					hora_fin
-				FROM ref_persona_juegos
-				WHERE persona = " . quote($id_persona);
-        return toba::db()->consultar($sql);		
+					pj.juego,
+					pj.dia_semana,
+					pj.hora_inicio,
+					pj.hora_fin
+				FROM ref_persona_juegos as pj
+				JOIN ref_juegos as j ON (pj.juego = j.id)
+				WHERE pj.persona = " . quote($id_persona) .
+				$where_de_mesa;
+		return toba::db()->consultar($sql);		
 	}
 	
 	static function insert($datos)

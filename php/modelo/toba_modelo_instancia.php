@@ -323,12 +323,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$datos_ini = array();
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
-			$proyectos_instancia = array_map('trim',$datos);
-
+			$proyectos_instancia = array();
+			foreach($datos as $valor) {
+				if (trim($valor) != ''){
+					$proyectos_instancia[] = trim($valor);
+				}
+			}
 			$existe_proyecto  = (in_array($proyecto, $proyectos_instancia));
 			if (! $existe_proyecto) {								//Si el proyecto no existe en la instancia lo agrego
 				$proyectos_instancia[] = $proyecto;
-				$ini->set_datos_entrada('proyectos', implode(', ', $proyectos_instancia));							
+				$ini->set_datos_entrada('proyectos', implode(', ', array_unique($proyectos_instancia)));							
 			} elseif ($ini->existe_entrada($proyecto)) {				//Si ya estaba, levanto sus datos anteriores
 				$datos_ini = $ini->get_datos_entrada($proyecto);
 			}
@@ -1452,7 +1456,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$ini = new toba_ini();
 		$ini->agregar_titulo( self::toba_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
-		$ini->agregar_entrada( 'proyectos', implode(', ', array_keys($lista_proyectos)) );
+		$str_proyectos = (! empty($lista_proyectos)) ? implode(',' , array_keys($lista_proyectos)) : '';
+		$ini->agregar_entrada( 'proyectos', $str_proyectos);
 		$ini->agregar_entrada( 'tipo', $tipo );
 		
 		//--- Se revisa la lista de proyectos para ver si algun id_proyecto != dir_proyecto

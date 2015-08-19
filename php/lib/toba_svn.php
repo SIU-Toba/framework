@@ -62,7 +62,7 @@ class toba_svn
 		}
 		
 		toba_manejador_archivos::ejecutar($cmd, $this->progreso, $this->error);
-		if ($this->error != '') {
+		if ($this->error != '' && $loguear) {
 			toba::logger()->error($this->error);
 		}
 		if ($critico && $this->error != '') {
@@ -206,7 +206,7 @@ class toba_svn
 		$revs = array();
 		$cmd = "svn info \"$path\"  -R --xml";
 		try{
-			$xml = $this->ejecutar($cmd, true, true);
+			$xml = $this->ejecutar($cmd, true, true, false);
 			$xml = simplexml_load_string($xml);
 			if ($xml !== false){				
 				foreach($xml->entry as $entrada) {

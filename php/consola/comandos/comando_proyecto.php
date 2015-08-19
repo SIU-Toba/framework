@@ -342,6 +342,10 @@ class comando_proyecto extends comando_toba
 			$i->vincular_proyecto( $id_proyecto, $path );
 			$p = $this->get_proyecto($id_proyecto);
 			$p->cargar_autonomo();
+
+			//TODO: esto esta duplicado porque en el paso de vincular_proyecto aun no estan los metadatos cargados
+			$i->generar_ini_rest($id_proyecto);
+
 			$this->consola->mensaje("Vinculando usuarios", false);
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
 			$grupo_acceso = $this->seleccionar_grupo_acceso($p);

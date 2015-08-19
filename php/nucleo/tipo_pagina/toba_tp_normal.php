@@ -47,14 +47,20 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	protected function cabecera_aplicacion()
 	{
 		if ( toba::proyecto()->get_parametro('requiere_validacion') ) {
-			//--- Salir
-			$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-			echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'">';
-			echo toba_recurso::imagen_toba('finalizar_sesion.gif', true, null, null, 'Cerrar la sesión');
-			echo '</a>';
-			
-			//--- Usuario
-			$this->info_usuario();
+			$mostrar_app_launcher = toba::proyecto()->get_parametro('proyecto', 'app_launcher', false);
+			if (!$mostrar_app_launcher) {
+				//--- Salir
+				$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
+				echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'">';
+				echo toba_recurso::imagen_toba('finalizar_sesion.gif', true, null, null, 'Cerrar la sesión');
+				echo '</a>';
+
+				//--- Usuario
+				$this->info_usuario();
+			} else {
+				//--- Usuario y aplicaciones
+				$this->info_usuario_aplicaciones();
+			}
 		}
 		
 		$muestra = toba::proyecto()->get_parametro('proyecto', 'mostrar_resize_fuente', false);
@@ -131,5 +137,10 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		echo '</div>';
 	}
 
+	protected function info_usuario_aplicaciones()
+	{
+		toba::app_launcher()->mostrar_html_app_launcher();
+	}
+	
 }
 ?>

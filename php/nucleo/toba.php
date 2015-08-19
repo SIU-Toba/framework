@@ -250,6 +250,15 @@ class toba
 	{
 		return toba_pms::instancia();
 	}
+	
+	/**
+	 * Clase que mantiene el app launcher
+	 * @return toba_app_launcher
+	 */
+	static function app_launcher()
+	{
+		return toba_app_launcher::instancia();
+	}
 
 	/**
 	 * Retorna un componente datos_tabla de una tabla específica del sistema

@@ -82,7 +82,7 @@ class recurso_personasTest extends rest_test_case {
 	public function testPUT($id_posteado)
 	{
 		//str random
-		$nombre = 'Nuevo nombre';
+		$nombre = "NuevoNombre";
 
 		$post = array('nombre' => $nombre);
 		$response = $this->ejecutar('PUT', '/personas/'.$id_posteado, array(), $post);

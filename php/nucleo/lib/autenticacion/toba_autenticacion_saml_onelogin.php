@@ -5,7 +5,6 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected $auth_source = "default-sp";	
 	protected $atributo_usuario = "urn:oid:0.9.2342.19200300.100.1.1";
 	protected $permite_login_toba = false;
-	protected $saml_attributes;
 	protected $proyecto_login;
 	protected $settingsInfo=array();
 	protected $idp = '';
@@ -58,19 +57,14 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 
 		if (! is_null(toba::memoria()->get_parametro('acs'))) {						//Se verifica la respuesta y se chequea la autenticacion
 			$auth->processResponse();
-			$errors = $auth->getErrors();
-
-			if (!empty($errors)) {
-				toba::logger()->error('Errores en el proceso de onelogin: ');
-				toba::logger()->error($errors);
-				throw new toba_error_seguridad('Se produjo un error durante el procedimiento de login, contacte un administrador');
-			}
+			
+			$this->verificar_errores_onelogin($auth);
 
 			if (!$auth->isAuthenticated()) {
 				throw new toba_error_autenticacion('No ha sido posible autenticar al usuario');
 			}
 
-			$this->saml_attributes = $auth->getAttributes();
+			$this->set_atributos_usuario($auth->getAttributes());
 			$id_usuario = $this->recuperar_usuario_toba();							//Recupero usr y verifico existencia en toba, excepcion si no existe
 			try {
 				toba::manejador_sesiones()->login($id_usuario, 'foobar', $datos_iniciales);                    //La clave no importa porque se autentifica via token
@@ -84,11 +78,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			return $id_usuario;
 			
 		} else {
-			if (! is_null(toba::memoria()->get_parametro('sls'))) {
-				$auth->processSLO();
-			} elseif (isset($_GET['slo'])) {
-				$auth->logout();
-			}
+			$this->procesar_logout($auth);
 			
 			//Se hace el redirect hacia el idp
 			$parametros_url = array();
@@ -115,6 +105,9 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			return;
 		}
 		
+		$auth = $this->instanciar_pedido_onelogin();
+		$this->procesar_logout($auth);
+
 		return false;
 	}
 	
@@ -139,7 +132,8 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	
 	protected function recuperar_usuario_toba()
 	{
-		$id_usuario = utf8_d_seguro($this->saml_attributes[$this->atributo_usuario][0]);
+		$atributos_usuario = $this->get_atributos_usuario();
+		$id_usuario = utf8_d_seguro($atributos_usuario[$this->atributo_usuario][0]);
 		$datos_usuario = false;
 		
 		$subclase = $this->get_subclase_usuario_proyecto();
@@ -182,5 +176,25 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 					'x509cert' => $contenido,
 				);
 		return $info;
+	}
+	
+	private function verificar_errores_onelogin(OneLogin_Saml2_Auth $auth)
+	{
+		$errors = $auth->getErrors();
+		if (!empty($errors)) {
+			toba::logger()->error('Errores en el proceso de onelogin: ');
+			toba::logger()->error($errors);
+			throw new toba_error_seguridad('Se produjo un error durante el procedimiento de login, contacte un administrador');
+		}
+	}
+	
+	private function procesar_logout(OneLogin_Saml2_Auth $auth)
+	{
+		if (! is_null(toba::memoria()->get_parametro('sls'))) {
+			$auth->processSLO();
+		} elseif (isset($_GET['slo'])) {
+			$auth->logout();
+		}
+		$this->verificar_errores_onelogin($auth);
 	}
 }

@@ -62,10 +62,13 @@ INSERT INTO ref_deportes VALUES (6, 'Paddle', NULL, NULL);
 -- Data for Name: ref_juegos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO ref_juegos VALUES (1, 'Ajedrez', NULL);
-INSERT INTO ref_juegos VALUES (2, 'Damas', NULL);
-INSERT INTO ref_juegos VALUES (4, 'Go', NULL);
-INSERT INTO ref_juegos VALUES (5, 'Reversi', NULL);
+INSERT INTO ref_juegos VALUES (1, 'Ajedrez', NULL, TRUE);
+INSERT INTO ref_juegos VALUES (2, 'Damas', NULL, TRUE);
+INSERT INTO ref_juegos VALUES (4, 'Go', NULL, TRUE);
+INSERT INTO ref_juegos VALUES (5, 'Reversi', NULL, TRUE);
+INSERT INTO ref_juegos VALUES (6, 'Rayuela', NULL, FALSE);
+INSERT INTO ref_juegos VALUES (7, 'Call of duty 4', NULL, FALSE);
+INSERT INTO ref_juegos VALUES (8, 'PES 2015', NULL, FALSE);
 
 
 --
@@ -98,6 +101,10 @@ INSERT INTO ref_persona_deportes VALUES (3, 1, 7, 3, '18:00', '20:00');
 INSERT INTO ref_persona_juegos VALUES (3, 2, 5, 0, 17, 19);
 INSERT INTO ref_persona_juegos VALUES (1, 1, 1, 0, 17, 19);
 INSERT INTO ref_persona_juegos VALUES (2, 1, 2, 1, 17, 19);
+INSERT INTO ref_persona_juegos VALUES (4, 1, 6, 1, 17, 19);
+INSERT INTO ref_persona_juegos VALUES (5, 1, 8, 1, 17, 19);
+INSERT INTO ref_persona_juegos VALUES (6, 2, 7, 1, 17, 19);
+INSERT INTO ref_persona_juegos VALUES (7, 2, 8, 1, 17, 19);
 
 
 

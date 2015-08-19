@@ -39,13 +39,15 @@ class toba_manejador_sesiones
 			if (session_id() != '') {
 				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
 			}
-
-			session_name(toba::instalacion()->get_session_name());
-			session_start();
+			if (! toba_nucleo::instancia()->es_acceso_rest()) {
+				session_name(toba::instalacion()->get_session_name());
+				session_start();
+			}
 		}
 		$this->instancia = toba_instancia::get_id();
 		$this->proyecto = toba_proyecto::get_id();
-		if(!isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
+		
+		if(session_status() == PHP_SESSION_ACTIVE && !isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
 			$_SESSION[TOBA_DIR]['nucleo']['inicio'] = time();		
 		}
 	}

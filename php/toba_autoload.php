@@ -391,6 +391,7 @@ class toba_autoload
 		'toba_editor' => 'nucleo/lib/toba_editor.php',
 		'toba_error' => 'nucleo/lib/toba_error.php',
 		'toba_error_db' => 'nucleo/lib/toba_error.php',
+		'toba_app_launcher' => 'nucleo/lib/toba_app_launcher.php',
 		'toba_error_usuario' => 'nucleo/lib/toba_error.php',
 		'toba_error_def' => 'nucleo/lib/toba_error.php',
 		'toba_error_permisos' => 'nucleo/lib/toba_error.php',

@@ -22,12 +22,14 @@ COMMENT ON COLUMN ref_deportes.fecha_inicio IS 'Fecha de inicio';
 CREATE TABLE ref_juegos (
     id serial NOT NULL,
     nombre character varying(30) NOT NULL,
-    descripcion character varying(255)
+    descripcion character varying(255),
+    de_mesa BOOLEAN NOT NULL DEFAULT FALSE
 );
 COMMENT ON TABLE ref_juegos IS 'Juegos';
 COMMENT ON COLUMN ref_juegos.id IS 'Clave';
 COMMENT ON COLUMN ref_juegos.nombre IS 'Nombre';
 COMMENT ON COLUMN ref_juegos.descripcion IS 'Descripción';
+COMMENT ON COLUMN ref_juegos.de_mesa IS 'Es un juego de mesa';
 
 
 --

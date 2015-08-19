@@ -3,9 +3,12 @@ class toba_autenticacion
 {
 	static $marca_login_basico = 'uso_login_basico';
 	static $marca_login_central = 'uso_login_central';
-	static  $metodos_centralizados = array('cas','saml', 'saml_onelogin');
+	static $metodos_centralizados = array('cas','saml', 'saml_onelogin');
+	static $session_atributos_usuario = 'auth_atributos_usuario';
+	
 	protected $parametros_url;
-
+	protected $atributos_usuario;
+	
 	static function es_autenticacion_centralizada($id)
 	{
 		return in_array($id, self::$metodos_centralizados);
@@ -85,6 +88,22 @@ class toba_autenticacion
 			$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
 		}
 		return $subclase;
+	}
+	
+	// metodos sobre los atributos del usuario
+	
+	protected function set_atributos_usuario($atributos_usuario)
+	{
+		$this->atributos_usuario = $atributos_usuario;
+		$_SESSION[self::$session_atributos_usuario] = $atributos_usuario;
+	}
+	
+	function get_atributos_usuario() 
+	{
+		if (! isset($this->atributos_usuario)) {
+			$this->atributos_usuario = (isset ($_SESSION[self::$session_atributos_usuario])) ? $_SESSION[self::$session_atributos_usuario] : array();
+		}
+		return $this->atributos_usuario;
 	}
 }
 ?>

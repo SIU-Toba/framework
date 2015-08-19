@@ -1,0 +1,10 @@
+{
+    "name": "siu-toba/js-app-launcher",
+    "description": "Dashboard lanzador de aplicaciones",
+    "authors": [
+        {
+            "name": "SIU",
+            "email": "toba@siu.edu.ar"
+        }
+    ]
+}
