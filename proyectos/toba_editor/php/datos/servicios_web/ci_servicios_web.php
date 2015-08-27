@@ -66,6 +66,18 @@ class ci_servicios_web extends toba_ci
 			$clave = array($datos['proyecto'], $datos['servicio_web']);
 			$zona->cargar($clave);
 		}
+
+		if (trim($this->dep('datos')->tabla('servicio')->get_columna('tipo')) == 'rest') {					//Genera el archivo de configuracion del cliente para los WS REST
+			try {				
+				$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa());
+				$modelo_proyecto = toba_editor::get_modelo_proyecto();
+				
+				toba_modelo_rest::crear_directorio_destino($instancia->get_dir_instalacion_proyecto($proyecto));
+				$instancia->generar_ini_cliente_rest($modelo_proyecto);				
+			} catch (Exception $e) {														//Puede darse por falta de permisos, se loguea pero no se interrumpe la ejecucion
+				toba::logger()->debug($e->getMessage());
+			}
+		}
 		$this->carga_ok = true;
 		admin_util::refrescar_barra_lateral();
 	}

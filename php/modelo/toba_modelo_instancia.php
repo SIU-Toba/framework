@@ -645,8 +645,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return;
 		}
 		
-		$proyecto = $this->get_proyecto($id_proyecto);
-		
+		$proyecto = $this->get_proyecto($id_proyecto);		
+		//--1- Servidor (se considera el nombre del proyecto como nombre de api por defecto)
+		$this->generar_ini_servidor_rest($proyecto);		
+		//--2- Clientes
+		$this->generar_ini_cliente_rest($proyecto);
+	}
+	
+	function generar_ini_servidor_rest($proyecto)
+	{
+		$id_proyecto = $proyecto->get_id();
 		//--1- Servidor (se considera el nombre del proyecto como nombre de api por defecto)
 		if (! toba_modelo_rest::existe_ini_server($proyecto, $id_proyecto)) {
 			toba_modelo_rest::cp_ini_server(toba_dir(). '/php/modelo/var/rest_servidor.ini', $proyecto, $id_proyecto);
@@ -655,7 +663,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			toba_modelo_rest::cp_ini_usuarios(toba_dir(). '/php/modelo/var/rest_servidor_usuarios.ini', $proyecto, $id_proyecto);
 		}
 		
-		//--2- Clientes
+	}
+	
+	function generar_ini_cliente_rest($proyecto)
+	{
+		$id_proyecto = $proyecto->get_id();
 		$sql = "
 			SELECT servicio_web FROM apex_servicio_web WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($id_proyecto);
 		$rs = $this->get_db()->consultar($sql);
