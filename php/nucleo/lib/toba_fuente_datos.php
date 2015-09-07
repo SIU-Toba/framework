@@ -127,7 +127,7 @@ class toba_fuente_datos
 				proyecto = '. quote($this->definicion['proyecto']) .
 			 ' AND fuente_datos = '. quote($this->definicion['fuente_datos']);
 		
-		$this->get_db()->ejecutar($sql);		
+		toba::instancia()->get_db()->ejecutar($sql);										//Usa la instancia de toba, no puede usar la conexion de esta base
 	}
 
 	function set_fuente_parsea_errores($parsea = false)
