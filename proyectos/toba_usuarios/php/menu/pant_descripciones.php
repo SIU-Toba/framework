@@ -27,6 +27,7 @@ class pant_descripciones extends toba_ei_pantalla
 			$(function () {
 				$('#desc_tree').tree({
 								url:'{$this->url}',
+								method: 'get',
 								dnd:false,
 								onClick: function (node) {
 									 $(this).tree('beginEdit',node.target);
