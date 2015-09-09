@@ -23,11 +23,11 @@ class pant_descripciones extends toba_ei_pantalla
 	function extender_objeto_js()
 	{
 		$id = $this->objeto_js;
+		$token = apex_sesion_csrt;
 		echo "
 			$(function () {
 				$('#desc_tree').tree({
 								url:'{$this->url}',
-								method: 'get',
 								dnd:false,
 								onClick: function (node) {
 									 $(this).tree('beginEdit',node.target);
@@ -35,7 +35,14 @@ class pant_descripciones extends toba_ei_pantalla
 								onAfterEdit: function(node) {
 									var param = {'id_nodo':node.id, 'descripcion':node.text};
 									$id.ajax('set_descripcion_nodo', param, $id, $id.confirma_edicion);
-								}								
+								},
+								onBeforeLoad: function(targe, params) {
+									var csvalue = document.getElementById('$token').value;
+									if (! targe) {
+										params.$token =  csvalue;
+									}
+									return true;
+								}
 				});
 			});
 			
