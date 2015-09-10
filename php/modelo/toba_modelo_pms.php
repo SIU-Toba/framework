@@ -64,9 +64,10 @@ class toba_modelo_pms
 
 	/**
 	 * @param string $etiqueta
+	 * @param string $proyecto
 	 * @return toba_punto_montaje
 	 */
-	protected function get($etiqueta)
+	function get($etiqueta)
 	{
 		// idem anterior
 		$etiqueta = $this->db->quote($etiqueta);

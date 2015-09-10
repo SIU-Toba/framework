@@ -533,10 +533,13 @@ class comando_proyecto extends comando_toba
 	
 	/**
 	 * Actualiza o crea la operación de login asociada al proyecto
+	 * @consola_parametros --punto_montaje Especifica el punto de montaje a utilizar
 	 * @gtk_icono usuarios/usuario.gif
 	 */
 	function opcion__actualizar_login()
 	{
+		$pm = null;
+		$param = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
 	
 		//--- Existe un item de login??
@@ -547,10 +550,23 @@ class comando_proyecto extends comando_toba
 				return;
 			}
 		}
-		$proyecto->actualizar_login($pisar);
+
+		if (! isset($param['--punto_montaje'])) {										//Defino el punto de montaje donde se crea la actualizacion
+			$lista = $proyecto->get_lista_pms();
+			if (count($lista) == 1) {
+				$etiqueta = $lista[0]['etiqueta'];
+			} else {
+				$opciones = rs_convertir_asociativo($lista, array('etiqueta'), 'path_pm');
+				$etiqueta =  $this->consola->dialogo_lista_opciones( $opciones, 'Seleccione el Punto de Montaje destino' , false, 'PATH');				
+			}
+		} else {
+			$etiqueta = $param['--punto_montaje'];
+		}
+		
+		$pm = $proyecto->get_pms()->get($etiqueta);
+		$proyecto->actualizar_login($pisar, $pm->get_id());
 	}
 	
-
 	/**
 	* Importa y migra un proyecto desde otra instalacion de toba
 	* @consola_parametros -d 'directorio'. Especifica el path de toba que contiene el proyecto a migrar

@@ -312,6 +312,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
+	 * 
+	 * @return type
+	 */
+	function get_lista_pms()
+	{
+		$proyecto = $this->db->quote($this->identificador);
+		$sql = "SELECT * FROM apex_puntos_montaje WHERE proyecto= $proyecto";	
+		return $this->db->consultar($sql);
+	}	
+	
+	/**
 	 * Determina si el proyecto debe guardar/cargar sus perfiles desde la instalacion (produccion) o el proyecto (desarrollo)
 	 *
 	 */
@@ -2428,7 +2439,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	 * @todo Cuando los toba_info_editores se puedan usar desde consola, cambiar la consulta manual 
 	 */
-	function actualizar_login($pisar_anterior = false)
+	function actualizar_login($pisar_anterior = false, $pm_destino=null)
 	{
 		//--- ¿Existe el proyecto editor?
 		if (! $this->instancia->existen_metadatos_proyecto( toba_editor::get_id() )) {
@@ -2441,7 +2452,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola(	$this->instancia->get_id(), 
 																	toba_editor::get_id() );
 		//--- Averiguo la fuente destino
-		$sql = "SELECT fuente_datos, pm_contexto FROM apex_proyecto WHERE proyecto = ".quote($this->identificador);
+		$pm_safe = (is_null($pm_destino)) ? 'NULL' : quote($pm_destino);
+		$sql = "SELECT fuente_datos, COALESCE($pm_safe,  pm_contexto) as pm_contexto FROM apex_proyecto WHERE proyecto = ".quote($this->identificador);
 		$defecto = toba::db()->consultar_fila($sql);
 		if (empty($defecto['fuente_datos'])) {
 			throw new toba_error("El proyecto no tiene definida una fuente de datos.");
