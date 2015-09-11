@@ -39,9 +39,11 @@ class comando_instalacion_silenciosa extends comando_toba
 		$tipo_instalacion = $this->definir_tipo_instalacion_produccion($param);
 		$nombre = $this->definir_nombre_instalacion($param);
 		
-		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);		
-		$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : $this->get_entorno_id_instancia(true);		
-		
+		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
+		$id_instancia = $this->get_entorno_id_instancia(true);
+		if (is_null($id_instancia) || trim($id_instancia) == '') {
+			$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : 'desarrollo';
+		}
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
 		if (! $this->get_instalacion()->existe_base_datos_definida($base)) {

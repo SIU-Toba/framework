@@ -119,7 +119,10 @@ class comando_instalacion extends comando_toba
 		$tipo_instalacion = (isset($param['-t'])) ? $param['-t'] : $this->definir_tipo_instalacion_produccion();
 		$nombre = (isset($param['-n'])) ? $param ['-n'] : $this->definir_nombre_instalacion();
 		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
-		$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : $this->get_entorno_id_instancia(true);		
+		$id_instancia = $this->get_entorno_id_instancia(true);		
+		if (is_null($id_instancia) || trim($id_instancia) == '') {
+			$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : 'desarrollo';
+		}
 		
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
