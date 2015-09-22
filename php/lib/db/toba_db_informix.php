@@ -8,17 +8,26 @@ class toba_db_informix extends toba_db
 {
 	protected $id_instancia_server;
 	
-	function __construct($profile, $usuario, $clave, $base, $puerto, $server)
+	function __construct($profile, $usuario, $clave, $base, $puerto, $server, $sslmode='', $cert_path='', $key_path='', $crl_path='', $cacert_path='')
 	{
 		$this->motor = "informix";
 		$this->id_instancia_server = $server;
-		parent::__construct($profile, $usuario, $clave, $base, $puerto);
+		parent::__construct($profile, $usuario, $clave, $base, $puerto, $server, $sslmode, $cert_path, $key_path, $crl_path, $cacert_path);
 	}
 
 	function get_dsn()
 	{
 		$puerto = ($this->puerto != '') ? $this->puerto : '1526';
-		$str_conexion ="informix:host=$this->profile;service=$puerto;database=$this->base;server={$this->id_instancia_server}; protocol=olsoctcp;EnableScrollableCursors=1";
+		$certs = '';
+		if ($this->sslmode != '') {
+			$protocol ="protocol={$this->sslmode}";
+			$certs = $this->get_config_certificados();
+			$certs = (! empty($certs)) ? $this->dsn_parameters_implode(';', $certs) : '';
+		} else {
+			$protocol ='protocol=olsoctcp';
+		}
+		
+		$str_conexion ="informix:host=$this->profile;service=$puerto;database=$this->base;server={$this->id_instancia_server};$protocol;EnableScrollableCursors=1;$certs";
 		return $str_conexion;
 	}
 	
@@ -53,6 +62,18 @@ class toba_db_informix extends toba_db
 		$this->ejecutar($sql);		
 		///toba::logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
-	}	
+	}
+	
+	function get_config_certificados()
+	{
+		$certs = array();
+		if (! is_null($this->key_path)) {
+			$certs['SSL_KEYSTORE_STH']    = $this->key_path;
+		}
+		if (! is_null($this->cert_path)) {
+			$certs['SSL_KEYSTORE_FILE'] = $this->cert_path;
+		}
+		return $certs;
+	}
 }
 ?>

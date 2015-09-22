@@ -41,6 +41,12 @@ class toba_db
 	
 	protected $logger;
 	
+	protected $sslmode;
+	protected $cert_path;
+	protected $key_path;
+	protected $crl_path;
+	protected $cacert_path;
+	
 	/**
 	 * @param string $profile Host donde se localiza el servidor
 	 * @param string $usuario Nombre del usuario utilizado para conectar
@@ -48,13 +54,20 @@ class toba_db
 	 * @param string $base Nombre de la base a conectar
 	 * @param string $puerto (opcional) número de puerto al que se conecta
 	 */
-	function __construct($profile, $usuario, $clave, $base, $puerto=null)
+	function __construct($profile, $usuario, $clave, $base, $puerto=null, $server='', $sslmode='', $cert_path='', $key_path='', $crl_path='', $cacert_path='')
 	{
 		$this->profile  = $profile;
 		$this->usuario  = $usuario;
 		$this->clave    = $clave;
 		$this->base     = $base;
 		$this->puerto = $puerto;
+
+		//SSL para la conexion
+		$this->sslmode = $sslmode;
+		$this->cacert_path = (trim($cacert_path) != '') ? realpath($cacert_path): null;
+		$this->cert_path = (trim($cert_path) != '') ? realpath($cert_path): null;
+		$this->key_path = (trim($key_path) != '') ? realpath($key_path): null;
+		$this->crl_path = (trim($crl_path) != '') ? realpath($crl_path): null;
 	}
 
 
@@ -115,6 +128,24 @@ class toba_db
 		return $parametros;
 	}
 
+	/**
+	 * Recibe un arreglo asociativo de parametros y arma el string  para el DSN con el delimitador provisto
+	 * @param string $delimitador
+	 * @param array $arreglo
+	 * @return string
+	 */
+	function dsn_parameters_implode($delimitador, $arreglo)
+	{
+		$text = '';
+		foreach($arreglo as $key => $valor) {
+			$text .= $key. "='$valor'".$delimitador;
+		}
+		if (trim($text) != '') {
+			$text = substr($text, 0, strlen($delimitador) * - 1);
+		}
+		return $text;		
+	}
+	
 	/**
 	 * Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado
 	 * @param boolean $loguear No deja las querys en el logger, solo se mantienen durante el pedido de página

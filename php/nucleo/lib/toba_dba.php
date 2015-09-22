@@ -174,7 +174,12 @@ class toba_dba
 		}
 		$puerto = isset($parametros['puerto']) ? $parametros['puerto'] : '';
 		$server = isset($parametros['server']) ? $parametros['server'] : '';
-		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
+		$ssl = isset($parametros['sslmode']) ? $parametros['sslmode'] : '';
+		$certssl = isset($parametros['cert_path']) ? $parametros['cert_path'] : '';
+		$keyssl = isset($parametros['key_path']) ? $parametros['key_path'] : '';
+		$crlssl = isset($parametros['crl_path']) ? $parametros['crl_path'] : '';
+		$cacertssl = isset($parametros['cacert_path']) ? $parametros['cacert_path'] : '';
+		
 		$clase = "toba_db_" . $parametros['motor'];
 		list($usuario, $clave) = self::get_usuario_db($id_base, $parametros);
 				
@@ -183,7 +188,12 @@ class toba_dba
 							$clave,
 							$parametros['base'],
 							$puerto,
-							$server );
+							$server,
+							$ssl,
+							$certssl,
+							$keyssl,
+							$crlssl,
+							$cacertssl);
 		
 		$logger = toba_logger::instancia();
 		$objeto_db->set_logger($logger);

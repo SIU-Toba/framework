@@ -11,17 +11,23 @@ class toba_db_postgres7 extends toba_db
 	protected $transaccion_abierta = false;
 	
 	
-	function __construct($profile, $usuario, $clave, $base, $puerto)
+	function __construct($profile, $usuario, $clave, $base, $puerto, $server='', $sslmode='', $cert_path='', $key_path='', $crl_path='', $cacert_path='')
 	{
 		$this->motor = "postgres7";
-		parent::__construct($profile, $usuario, $clave, $base, $puerto);
+		parent::__construct($profile, $usuario, $clave, $base, $puerto, $server, $sslmode, $cert_path, $key_path, $crl_path, $cacert_path);
 		//$this->setear_datestyle_iso();
 	}
 
 	function get_dsn()
 	{
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
-		return "pgsql:host=$this->profile;dbname=$this->base;$puerto";	
+		$ssl = $certs = '';
+		if ($this->sslmode != '') {
+			$ssl =  "sslmode='{$this->sslmode}'";
+			$certs = $this->get_config_certificados();
+			$certs = (! empty($certs)) ? $this->dsn_parameters_implode(';', $certs) : '';
+		}		
+		return "pgsql:host=$this->profile;dbname=$this->base;$puerto;$ssl;$certs";	
 	}
 	
 	function get_parametros()
@@ -30,6 +36,25 @@ class toba_db_postgres7 extends toba_db
 		$parametros['schema'] = $this->schema;
 		return $parametros;
 	}
+	
+	function get_config_certificados()
+	{
+		$certs = array();
+		if (! is_null($this->key_path)) {
+			$certs['sslkey']    = $this->key_path;
+		}
+		if (! is_null($this->cert_path)) {
+			$certs['sslcert'] = $this->cert_path;
+		}
+		if (! is_null($this->cacert_path)) {
+			$certs['sslrootcert'] =$this->cacert_path;
+		}
+		if (! is_null($this->crl_path)) {
+			$certs['sslcrl'] = $this->crl_path;
+		}
+		return $certs;
+	}	
+	
 	/**
 	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
 	 * @param string $schema

@@ -20,8 +20,13 @@ class toba_db_sqlserver extends toba_db
 			$profile = "{$this->profile}, {$this->puerto}";
 		}
 		
-		return "sqlserver:host=$profile;dbname=$this->base;";
-	}
-	
+		$ssl = $certs = '';
+		if ($this->sslmode != '') {
+			$ssl =  "Encrypt={$this->sslmode}";
+			$certs = "TrustServerCertificate=0";							//No confia en certs autofirmados
+		}	
+		
+		return "sqlserver:host=$profile;dbname=$this->base;$ssl;$certs";
+	}	
 }
 ?>
