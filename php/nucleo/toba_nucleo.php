@@ -406,7 +406,10 @@ class toba_nucleo
 			}
 		}
 		require_once(self::toba_dir().'/php/toba_autoload.php');	// incluimos las clases de autoload
-		require_once(self::toba_dir().'/vendor/autoload.php');	//Incluimos el autoload de las librerias con composer
+		$path = realpath(self::toba_dir().'/vendor/autoload.php');
+		if (file_exists($path)) {
+			require_once($path);						//Se incluye el autoload de composer cuando toba se usa como nivel inicial
+		}
 	}
 
 	/**
