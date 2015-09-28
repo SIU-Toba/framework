@@ -1384,7 +1384,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 				}
 				$datos_recordset = current($datos);
 				if (! array_key_exists($clave_buscada, $datos) && ! array_key_exists($clave_buscada, $datos_recordset) && $es_obligatoria) {
-					toba::logger()->error("AP_TABLA_DB [{$this->_tabla}]: \n Se esperaba que que conjunto de valores devueltos posean la columna '$clave_buscada'", 'toba');
+					toba::logger()->error("AP_TABLA_DB [{$this->_tabla}]: \n Se esperaba que el conjunto de valores devueltos posean la columna '$clave_buscada'", 'toba');
 					toba::logger()->error($datos, 'toba');
 					throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 				}

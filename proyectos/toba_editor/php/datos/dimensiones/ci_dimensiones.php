@@ -152,7 +152,9 @@ class ci_dimensiones extends toba_ci
 	function get_tablas_gatillos()
 	{
 		$temp = $this->dependencia('datos')->tabla('dimension')->get();
-		$tablas = toba::db($temp['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas_y_vistas();
+		$datos = toba_info_editores::get_schemas_fuente(toba_editor::get_proyecto_cargado(), $temp['fuente_datos']);
+		$schemas =  (! empty($datos)) ? aplanar_matriz($datos, 'schema'): null;
+		$tablas = toba::db($temp['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas(true, $schemas);
 		return $tablas;
 	}
 	
