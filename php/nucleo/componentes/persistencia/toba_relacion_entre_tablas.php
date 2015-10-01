@@ -472,6 +472,7 @@ class toba_relacion_entre_tablas
 	function resetear()
 	{
 		$this->mapeo_filas = array();
+		$this->mapeo_filas_eliminadas = array();
 	}
 }
 ?>
