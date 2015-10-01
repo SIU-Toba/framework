@@ -310,7 +310,7 @@ class toba_auditoria_tablas_postgres
 					vid_solicitud integer;
 					vestampilla timestamp;
 				BEGIN
-					vestampilla := current_timestamp;
+					vestampilla := clock_timestamp();
 					SELECT INTO schema_temp $schema.recuperar_schema_temp();
 					SELECT INTO rtabla_usr * FROM pg_tables WHERE tablename = ''tt_usuario'' AND schemaname = schema_temp;
 					IF FOUND THEN
