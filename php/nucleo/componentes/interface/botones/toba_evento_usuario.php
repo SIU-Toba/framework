@@ -238,7 +238,17 @@ class toba_evento_usuario extends toba_boton
 	{
 		$this->datos['accion'] = 'xslfo';
 	}	
-
+	
+	function set_accion_imprimir()
+	{
+		$this->datos['accion'] = 'H';
+	}
+	
+	function set_accion_jasperreports()
+	{
+		$this->datos['accion'] = 'jasperreports';
+	}
+	
 	function set_check_activo($activo)
 	{
 			$this->es_check_activo = $activo;

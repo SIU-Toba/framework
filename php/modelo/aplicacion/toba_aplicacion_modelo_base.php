@@ -193,7 +193,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		
 		$esquema =  (! is_null($esquema)) ? " -n $esquema " : '';
-		$comando = "pg_dump -a --disable-triggers $esquema -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\"  {$parametros['base']}";			
+		$comando = "pg_dump -a --disable-triggers $esquema -h {$parametros['profile']} -U {$parametros['usuario']}  -p {$parametros['puerto']} -f \"$archivo\"  {$parametros['base']}";			
 		if (! toba_manejador_archivos::es_windows() && $parametros['clave'] != '') {
 			$clave = "export PGPASSWORD=".$parametros['clave'].';';
 			$comando = $clave.$comando;

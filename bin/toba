@@ -1,10 +1,17 @@
-#!/bin/sh
-#
-#	Disparo la consola!!!
-#
-dir_actual=`pwd`
-cd `dirname $0`
-TOBA_DIR=`pwd`
-export TOBA_DIR=`dirname $TOBA_DIR`
-cd $dir_actual
-php $TOBA_DIR/php/consola/run.php $*
+#!/usr/bin/env php
+<?php
+
+if (! isset($_SERVER['TOBA_DIR'])) {
+	$toba_dir = realpath(__DIR__.'/../');
+	if (! file_exists($toba_dir.'/php/consola/run.php')) {
+		//Estoy dentro del vendor/bin de composer
+		$toba_dir = realpath(__DIR__.'/../siu-toba/framework');
+		if (! file_exists($toba_dir.'/php/consola/run.php')) {
+			die("No se encuentra la carpeta de Toba, ni la variable de entorno TOBA_DIR");
+		}
+	}
+	$_SERVER['TOBA_DIR'] = $toba_dir;
+}
+
+include($_SERVER['TOBA_DIR'].'/php/consola/run.php');
+

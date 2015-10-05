@@ -35,7 +35,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			//Se fija la url en codigo porque apunta a la instalacion actual de toba_referencia (es cliente y servidor)
 			$url = toba_http::get_protocolo() . toba_http::get_nombre_servidor() . toba_rest::url_rest(). '/';
-			$opciones = array('to' => $url,);
+			$opciones = array();		// array('to' => $url,); Se comenta para poder usarse desde Docker
 			$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
 			return $cliente->guzzle();
 		} catch (toba_error $e) {

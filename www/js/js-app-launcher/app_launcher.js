@@ -117,11 +117,11 @@ var appLauncher = new function () {
 
             // Recorro las aplicaciones y generon los links
             $(appLauncherData.data.aplicaciones).each(function( index, element ) {
-                if (element.url != undefined && element.icono_url != undefined && element.etiqueta != undefined && element.title != undefined) {
+                if (element.url != undefined && element.icono_url != undefined && element.etiqueta != undefined && element.descripcion != undefined) {
                     if (index < 9) {
-                        $(appLauncherData.container + " #first-set").append("<li> <a class='link_aplicaciones' href='"+ element.url +"' target='aplicacion_"+ index +"' id='aplicacion_"+ index +"'> <div> <img class='fa fa-4x icono_url' src='" + element.icono_url + "' alt='" + element.title + "'> </i> </div> <div> " + element.etiqueta + " </div> </a> </li>");
+                        $(appLauncherData.container + " #first-set").append("<li> <a class='link_aplicaciones' href='"+ element.url +"' target='aplicacion_"+ index +"' id='aplicacion_"+ index +"'> <div> <img class='fa fa-4x icono_url' src='" + element.icono_url + "' alt='" + element.descripcion + "'> </i> </div> <div> " + element.etiqueta + " </div> </a> </li>");
                     } else {
-                        $(appLauncherData.container + " #second-set").append("<li> <a class='link_aplicaciones' href='"+ element.url +"' target='aplicacion_"+ index +"' id='aplicacion_"+ index +"'> <div> <img class='fa fa-4x icono_url' src='" + element.icono_url + "' alt='" + element.title + "'></i> </div> <div> " + element.etiqueta + " </div> </a> </li>");
+                        $(appLauncherData.container + " #second-set").append("<li> <a class='link_aplicaciones' href='"+ element.url +"' target='aplicacion_"+ index +"' id='aplicacion_"+ index +"'> <div> <img class='fa fa-4x icono_url' src='" + element.icono_url + "' alt='" + element.descripcion + "'></i> </div> <div> " + element.etiqueta + " </div> </a> </li>");
                     }
                 }
             });

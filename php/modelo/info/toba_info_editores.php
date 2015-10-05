@@ -257,6 +257,15 @@ class toba_info_editores
 		return  toba_contexto_info::get_db()->consultar($sql);
 	}
 	
+	static function get_clases_extendidas_proyecto($id_proyecto)
+	{
+		$proyecto = toba_contexto_info::get_db()->quote($id_proyecto);
+		$sql =" SELECT	extension_toba, 
+						extension_proyecto						
+			    FROM	apex_proyecto p
+			    WHERE	proyecto = $proyecto";
+		return toba_contexto_info::get_db()->consultar_fila($sql);
+	}
 	
 	/**
 	*	Retorna la lista de proyectos que contiene items exportables

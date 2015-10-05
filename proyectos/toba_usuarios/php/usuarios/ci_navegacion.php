@@ -10,9 +10,26 @@ class ci_navegacion extends toba_ci
 	
 	function evt__guardar()
 	{
-		$this->dep('datos')->sincronizar();
-		$this->dep('datos')->resetear();
-		$this->set_pantalla('seleccionar');
+		try {
+			$datos = $this->dep('editor')->datos('basica')->get();
+			
+			// verifico que no existe el usuario en la creacion
+			if (!$this->dep('datos')->esta_cargada() && isset($datos['usuario']) && consultas_instancia::get_existe_usuario($datos['usuario'])) {
+				throw new toba_error('El usuario ya existe.');
+			}
+			
+			$this->dep('datos')->sincronizar();
+			$usuario_arai = $this->dep('editor')->get_usuario_arai();
+			if (isset($usuario_arai)) {
+				gestion_arai_usuarios::sincronizar_datos($datos['usuario'], $usuario_arai);
+			}
+
+			$this->dep('datos')->resetear();
+			$this->set_pantalla('seleccionar');
+		} catch (toba_error $e) {
+			toba::notificacion()->agregar($e->getMessage());
+			toba::logger()->error($e->getMessage());
+		}
 	}
 
 	function evt__cancelar()
@@ -29,7 +46,10 @@ class ci_navegacion extends toba_ci
 	
 	function evt__eliminar()
 	{
-		$this->dep('datos')->eliminar();
+		$datos = $this->dep('editor')->datos('basica')->get();
+		gestion_arai_usuarios::eliminar_datos($datos['usuario']);
+		
+		$this->dep('datos')->eliminar_todo();
 		$this->dep('datos')->resetear();
 		$this->set_pantalla('seleccionar');
 	}

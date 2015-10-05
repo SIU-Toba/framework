@@ -27,7 +27,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->BASE_DIR = realpath(__DIR__ . '/../_ejemplo/rest');
+        $this->BASE_DIR = array(realpath(__DIR__ . '/../_ejemplo/rest'), realpath(__DIR__ . '/../_ejemplo/rest_extension'));
 
         $this->instanciador = new rest_instanciador();
 
@@ -52,7 +52,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
         $this->ruteador->buscar_controlador('GET', 'a');
 
 
-        $this->assertEquals($this->BASE_DIR . '/a/recurso_a.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/recurso_a.php', $this->instanciador->archivo);
         $this->assertEquals('get_list', $this->instanciador->accion);
         $this->assertEquals(array(), $this->instanciador->parametros);
     }
@@ -61,7 +61,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
     {
         $this->ruteador->buscar_controlador('DELETE', 'a/id');
 
-        $this->assertEquals($this->BASE_DIR . '/a/recurso_a.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/recurso_a.php', $this->instanciador->archivo);
         $this->assertEquals('delete', $this->instanciador->accion);
         $this->assertEquals(array('id'), $this->instanciador->parametros);
     }
@@ -70,7 +70,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
     {
         $this->ruteador->buscar_controlador('GET', 'a/id/b');
 
-        $this->assertEquals($this->BASE_DIR . '/a/recurso_a.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/recurso_a.php', $this->instanciador->archivo);
         $this->assertEquals('get_b_list', $this->instanciador->accion);
         $this->assertEquals(array('id'), $this->instanciador->parametros);
     }
@@ -79,13 +79,13 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
     {
         $this->ruteador->buscar_controlador('GET', 'a/ida/c');
 
-        $this->assertEquals($this->BASE_DIR . '/a/c/recurso_c.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/c/recurso_c.php', $this->instanciador->archivo);
         $this->assertEquals('get_list', $this->instanciador->accion);
         $this->assertEquals(array('ida'), $this->instanciador->parametros);
 
         $this->ruteador->buscar_controlador('GET', 'a/ida/c/idc');
 
-        $this->assertEquals($this->BASE_DIR . '/a/c/recurso_c.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/c/recurso_c.php', $this->instanciador->archivo);
         $this->assertEquals('get', $this->instanciador->accion);
         $this->assertEquals(array('ida', 'idc'), $this->instanciador->parametros);
     }
@@ -94,7 +94,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
     {
         $this->ruteador->buscar_controlador('GET', 'montaje/d');
 
-        $this->assertEquals($this->BASE_DIR . '/montaje/d/recurso_d.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/montaje/d/recurso_d.php', $this->instanciador->archivo);
         $this->assertEquals('get_list', $this->instanciador->accion);
         $this->assertEquals(array(), $this->instanciador->parametros);
     }
@@ -103,9 +103,18 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
     {
         $this->ruteador->buscar_controlador('GET', 'montaje/d/id_d/b/id_b');
 
-        $this->assertEquals($this->BASE_DIR . '/montaje/d/recurso_d.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/montaje/d/recurso_d.php', $this->instanciador->archivo);
         $this->assertEquals('get_b', $this->instanciador->accion);
         $this->assertEquals(array('id_d', 'id_b'), $this->instanciador->parametros);
+    }
+
+    public function testGetMontajeSubrecAlterno()
+    {
+        $this->ruteador->buscar_controlador('GET', 'montaje/d/id_d/e');
+
+        $this->assertEquals($this->BASE_DIR[0] . '/montaje/d/e/recurso_e.php', $this->instanciador->archivo);
+        $this->assertEquals('get_list', $this->instanciador->accion);
+        $this->assertEquals(array('id_d'), $this->instanciador->parametros);        
     }
 
     public function testAliases()
@@ -113,7 +122,7 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
 
         $this->ruteador->buscar_controlador('GET', 'a/alias');
 
-        $this->assertEquals($this->BASE_DIR . '/a/recurso_a.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/a/recurso_a.php', $this->instanciador->archivo);
         $this->assertEquals('get_list__alias', $this->instanciador->accion);
         $this->assertEquals(array(), $this->instanciador->parametros);
     }
@@ -123,12 +132,42 @@ class ruteador_ejemploTest extends PHPUnit_Framework_TestCase
 
         $this->ruteador->buscar_controlador('GET', 'd-e/id-de');
 
-        $this->assertEquals($this->BASE_DIR . '/d_e/recurso_d_e.php', $this->instanciador->archivo);
+        $this->assertEquals($this->BASE_DIR[0] . '/d_e/recurso_d_e.php', $this->instanciador->archivo);
         $this->assertEquals('get', $this->instanciador->accion);
         $this->assertEquals(array('id-de'), $this->instanciador->parametros);
+    }    
 
+    public function testGetOtroDir()
+    {
+        $this->ruteador->buscar_controlador('GET', 'f/id_f');
+
+        $this->assertEquals($this->BASE_DIR[1] . '/f/recurso_f.php', $this->instanciador->archivo);
+        $this->assertEquals('get', $this->instanciador->accion);
+        $this->assertEquals(array('id_f'), $this->instanciador->parametros);
+    }
+
+    public function testGetMontajeOtroDir()
+    {
+        $this->ruteador->buscar_controlador('GET', 'montaje/g');
+
+        $this->assertEquals($this->BASE_DIR[1] . '/montaje/g/recurso_g.php', $this->instanciador->archivo);
+        $this->assertEquals('get_list', $this->instanciador->accion);
+        $this->assertEquals(array(), $this->instanciador->parametros);
+    }
+
+    public function testAgregoDir()
+    {
+        $dir = realpath(__DIR__ . '/../_ejemplo/rest_dinamico');
+        $this->lector_recursos->add_directorio_recursos($dir);
+
+        $this->ruteador->buscar_controlador('GET', 'h/id');
+        $this->assertEquals($dir . '/recurso_h.php', $this->instanciador->archivo);
+        $this->assertEquals('get', $this->instanciador->accion);
+        $this->assertEquals(array('id'), $this->instanciador->parametros);
 
     }
+
+
     /*
         public function testQueryString()
         {

@@ -136,6 +136,18 @@ class toba_instalacion
 			return false;	
 		}
 	}
+	
+	/**
+	* Retorna true si la instalación esta vinculada con Arai-Usuarios
+	*/
+	function vincula_arai_usuarios()
+	{
+		if (isset($this->memoria['vincula_arai_usuarios'])) {
+			return $this->memoria['vincula_arai_usuarios'];
+		} else {
+			return false;	
+		}
+	}
 
 	function get_fonts_path()
 	{

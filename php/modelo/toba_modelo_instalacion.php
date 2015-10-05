@@ -149,7 +149,20 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		} else {
 			return false;
 		}
-	}	
+	}
+	
+	/**
+	* Retorna true si la instalación esta vinculada con Arai-Usuarios
+	*/
+	function vincula_arai_usuarios()
+	{
+		$this->cargar_info_ini();		
+		if (isset($this->ini_instalacion['vincula_arai_usuarios'])) { 
+			return $this->ini_instalacion['vincula_arai_usuarios'];
+		} else {
+			return false;
+		}
+	}
 	
 	/**
 	 * Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor.
@@ -640,7 +653,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->agregar_entrada( 'url', $url );
 		$ini->agregar_entrada( 'es_produccion', $es_produccion);
-		$ini->agregar_entrada( ';autenticacion', 'toba|openid|ldap|cas|saml');
+		$ini->agregar_entrada( ';autenticacion', 'toba|openid|ldap|cas|saml|saml_onelogin');
 		$ini->agregar_entrada( ';session_name', 'TOBA_SESSID');		
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');

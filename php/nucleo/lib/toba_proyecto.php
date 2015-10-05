@@ -192,8 +192,8 @@ class toba_proyecto
 	function get_clases_extendidas()
 	{
 		return array(
-			$this->get_parametro('extension_toba'),
-			$this->get_parametro('extension_proyecto')
+			'extension_toba' => $this->get_parametro('extension_toba'),
+			'extension_proyecto'  => $this->get_parametro('extension_proyecto')
 		);
 	}
 

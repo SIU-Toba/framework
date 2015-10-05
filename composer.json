@@ -26,5 +26,10 @@
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "2.3.0"
     },
-    "bin": ["bin/toba"]
+    "bin": ["bin/toba"],
+    "autoload": {
+      "psr-4": {
+        "SIUToba\\Framework\\": "src/SIUToba/"
+      }
+    }
 }

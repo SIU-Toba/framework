@@ -363,20 +363,28 @@ SwaggerClient.prototype.build = function(mock) {
           return self.fail(response.status + ' : ' + response.statusText + ' ' + self.url);
       },
       response: function(resp) {
-        var responseObj = resp.obj || JSON.parse(resp.data);
-        self.swaggerVersion = responseObj.swaggerVersion;
+        try {
+            var responseObj = resp.obj || JSON.parse(resp.data);
+            self.swaggerVersion = responseObj.swaggerVersion;
 
-        if(responseObj.swagger && parseInt(responseObj.swagger) === 2) {
-          self.swaggerVersion = responseObj.swagger;
-          self.buildFromSpec(responseObj);
-          self.isValid = true;
-        }
-        else {
-          if (self.swaggerVersion === '1.2') {
-            return self.buildFrom1_2Spec(responseObj);
-          } else {
-            return self.buildFrom1_1Spec(responseObj);
-          }
+            if(responseObj.swagger && parseInt(responseObj.swagger) === 2) {
+              self.swaggerVersion = responseObj.swagger;
+              self.buildFromSpec(responseObj);
+              self.isValid = true;
+            }
+            else {
+              if (self.swaggerVersion === '1.2') {
+                return self.buildFrom1_2Spec(responseObj);
+              } else {
+                return self.buildFrom1_1Spec(responseObj);
+              }
+            }
+        } catch (e) {
+            if (e instanceof SyntaxError && resp.data != undefined && resp.data != '') {
+                return self.fail(resp.data);
+            } else {
+                throw e;
+            }
         }
       }
     }

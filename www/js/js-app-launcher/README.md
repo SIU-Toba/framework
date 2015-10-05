@@ -13,23 +13,23 @@ Para inicializar la librería se debe configurar el objeto `appLauncherDataParam
 
 ```
   {
-        ‘usuario_id’ : ‘admin’,
-        ‘usuario_nombre’ : ‘Usuario Administrador’,
-        ‘usuario_foto’:    ‘http://aplicacion.com/perfil/admin.png’
-        ‘perfil_url’: ‘http://aplicacion.com/perfil/’
-        ‘aplicaciones’ :
+        'usuario_id' : 'admin',
+        'usuario_nombre' : 'Usuario Administrador',
+        'usuario_foto':    'http://aplicacion.com/perfil/admin.png'
+        'perfil_url': 'http://aplicacion.com/perfil/'
+        'aplicaciones' :
         [
             {
-              ‘url’ : ‘http://aplicacion1.com’,
-              ‘icono_url’ : ‘http://aplicacion1.com/logo.png’,
-              ‘etiqueta’ : ‘Aplicacion 1’,
-              ‘title’: ‘descripcion de aplicacion 1‘
+              'url' : 'http://aplicacion1.com',
+              'icono_url' : 'http://aplicacion1.com/logo.png',
+              'etiqueta' : 'Aplicacion 1',
+              'descripcion': 'descripcion de aplicacion 1'
             },
             {
-              ‘url’ : ‘http://aplicacion2.com’,
-              ‘icono_url’ : ‘http://aplicacion2.com/logo.png’,
-              ‘etiqueta’ : ‘Aplicacion 2’,
-              ‘title’: ‘descripcion de aplicacion 2‘
+              'url' : 'http://aplicacion2.com',
+              'icono_url' : 'http://aplicacion2.com/logo.png',
+              'etiqueta' : 'Aplicacion 2',
+              'descripcion': 'descripcion de aplicacion 2'
             },
             {
             ...
@@ -84,9 +84,9 @@ Para utilizar la librería debemos tener en cuenta lo siguiente:
     // funcion js que contiene la logica js para logout
     var fnc_js_salir = function() { alert("Salir de la aplicación!!!")};
     
-    appLauncherData.aplicaciones[0] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","title":"Aplicaci\u00f3n de google drive"};
-    appLauncherData.aplicaciones[1] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","title":"Aplicaci\u00f3n de google gmail"};
-    appLauncherData.aplicaciones[2] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","title":"Aplicaci\u00f3n de google plus"};
+    appLauncherData.aplicaciones[0] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+    appLauncherData.aplicaciones[1] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","descripcion":"Aplicaci\u00f3n de google gmail"};
+    appLauncherData.aplicaciones[2] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
     
     appLauncher.init({
                     container: divContainer,

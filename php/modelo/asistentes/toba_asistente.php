@@ -424,7 +424,7 @@ abstract class toba_asistente
 	
 	function get_id_elemento()
 	{
-		return $this->id_elemento++;
+		return $this->id_elementos++;
 	}
 
 	function get_fuente()

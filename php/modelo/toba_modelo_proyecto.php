@@ -1427,14 +1427,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//		PUBLICACION
 	//------------------------------------------------------------------	
 	
-	function publicar($url=null)
+	function publicar($url=null, $full_url=null)
 	{
 		if (! $this->esta_publicado()) {
 			$url_pers = (trim($url) != '') ? $url . '_pers/' : null;
 			if ($url == '' || is_null($url)) {
 				$url = $this->get_url();
 			}
-			$this->instancia->set_url_proyecto($this->get_id(), $url);
+			$this->instancia->set_url_proyecto($this->get_id(), $url, $full_url);
 			toba_modelo_instalacion::agregar_alias_apache(	$url,
 													$this->get_dir(),
 													$this->get_instancia()->get_id(),
@@ -2587,7 +2587,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! file_exists($path_ini)) {
 			throw new toba_error("Para crear el paquete de instalación debe existir el archivo '$nombre_ini' en la raiz del proyecto");
 		}
-		chdir(toba_dir());
+
 		$ini = new toba_ini($path_ini);
 		
 		//--- Crea la carpeta destino
@@ -2693,8 +2693,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	protected function empaquetar_desarrollo($empaquetado)
 	{
 		$this->manejador_interface->mensaje("Copiando framework", false);	
-		$dir_base = toba_dir();
-		$excepciones = array($dir_base.'/instalacion');
+		$excepciones = toba_modelo_instalacion::dir_base();
 		$destino_instalacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/toba';
 		toba_manejador_archivos::crear_arbol_directorios($destino_instalacion);
 		toba_manejador_archivos::copiar_directorio(toba_dir(), $destino_instalacion, 
@@ -2705,12 +2704,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//--- Empaqueta el proyecto actual
 		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
 		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
-		$excepciones = array();
+		$excepciones = array(toba_dir(), toba_modelo_instalacion::dir_base());									//Para cuando es una instalacion via composer
 		if (isset($empaquetado['excepciones_proyecto'])) {
-			$excepciones = explode(',', $empaquetado['excepciones_proyecto']);
+			$excepciones_extras = explode(',', $empaquetado['excepciones_proyecto']);
 			$origen = $this->get_dir();
-			foreach (array_keys($excepciones) as $i) {
-				$excepciones[$i] = $origen.'/'.trim($excepciones[$i]);
+			foreach (array_keys($excepciones_extras) as $i) {
+				$excepciones[] = $origen.'/'.trim($excepciones_extras[$i]);
 			}			
 		}
 		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
@@ -2745,16 +2744,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//--- Empaqueta el proyecto actual
 		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
 		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
-		$excepciones = array('toba_editor',  toba_dir());																//Se excluye explicitamente al editor
+		$excepciones = array(toba_dir(), $this->get_instancia()->get_path_proyecto('toba_editor'), toba_modelo_instalacion::dir_base());							//Se excluye el editor		
 		if (isset($empaquetado['excepciones_proyecto'])) {
-			$excepciones = explode(',', $empaquetado['excepciones_proyecto']);
-			$excepciones[] = toba_dir();
+			$excepciones_extra = explode(',', $empaquetado['excepciones_proyecto']);
 			$origen = $this->get_dir();
-			foreach (array_keys($excepciones) as $i) {
-				$excepciones[$i] = $origen.'/'.trim($excepciones[$i]);
+			foreach (array_keys($excepciones_extra) as $i) {
+				if (trim($excepciones_extra[$i]) != '') {
+					$excepciones[] = $origen.'/'.trim($excepciones_extra[$i]);
+				}
 			}			
 		}
-
+		
 		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
 		$this->actualizar_punto_acceso($destino_aplicacion);
 	}

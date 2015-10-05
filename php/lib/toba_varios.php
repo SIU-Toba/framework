@@ -71,9 +71,9 @@
 	function get_nombre_clase_extendida($nombre, $proyecto, $extensiones)
 	{
 		$res = substr($nombre, strlen('toba_'));
-		if ($extensiones[1]) {
+		if ($extensiones['extension_proyecto']) {
 			return $proyecto.'_pers_'.$res;
-		} else if ($extensiones[0]) {
+		} else if ($extensiones['extension_toba']) {
 			return $proyecto.'_'.$res;
 		}
 

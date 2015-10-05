@@ -50,6 +50,8 @@ class toba_usuarios_autoload
 		'ci_navegacion' => 'usuarios/ci_navegacion.php',
 		'ei_form_basica' => 'usuarios/ei_form_basica.php',
 		'ei_form_filtro_usuarios' => 'usuarios/ei_form_filtro_usuarios.php',
+		'rest_arai_usuarios' => 'lib/rest_arai_usuarios.php',
+		'gestion_arai_usuarios' => 'usuarios/gestion_arai_usuarios.php'
 	);
 }
 ?>

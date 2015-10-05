@@ -1,6 +1,6 @@
 pgdata:
   image: postgres:9.4
-  command: true
+  command: "true"
   volumes:
 #Comentar la siguiente linea para corregir permisos en OSX  
    - ./docker-data/pgdata:/var/lib/postgresql/data

@@ -92,7 +92,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 				//-- Ya estaba extendido previamente, se carga la clase
 				$clase = $this->datos->tabla('base')->get_columna('subclase');
 				$archivo = $this->datos->tabla('base')->get_columna('subclase_archivo');
-			}
+			}			
 			$this->extender($clase, $archivo);			
 		}
 		return $this->molde_php;	

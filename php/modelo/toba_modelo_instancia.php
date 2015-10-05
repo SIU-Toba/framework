@@ -216,7 +216,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}		
 	}
 	
-	function set_url_proyecto($id_proyecto, $url)
+	function set_url_proyecto($id_proyecto, $url, $url_full=null)
 	{
 		$ini = $this->get_ini();
 		if ($ini->existe_entrada($id_proyecto)) {
@@ -225,6 +225,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$conf_proy = array();
 		}
 		$conf_proy['url'] = $url;
+		if (! is_null($url_full) && trim($url_full) != '') {
+			$conf_proy['full_url'] = trim($url_full);
+		}
 		$ini->agregar_entrada($id_proyecto, $conf_proy);
 		$ini->guardar();
 		toba_logger::instancia()->debug("Cambiando la url del proyecto '$id_proyecto' a '$url'");

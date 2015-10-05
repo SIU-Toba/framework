@@ -6,8 +6,8 @@ class ci_editor extends toba_ci
 	
 	protected $s__proyecto;
 	protected $s__usuario;
-
-	
+	protected $s__usuario_arai;
+				
 	function ini()
 	{
 		toba::solicitud()->set_autocomplete(false);	//Evita que el browser quiera guardar la clave de usuario
@@ -31,8 +31,16 @@ class ci_editor extends toba_ci
 			$desc = 'Usuario: <strong>' . texto_plano($usuario['nombre']) . '</strong>';
 			$this->pantalla()->set_descripcion($desc);
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
+			$this->dep('basica')->ef('usuario_arai')->set_solo_lectura(true);
+			$this->dep('basica')->ef('cuenta')->set_solo_lectura(true);
 		} else {
 			$this->controlador->pantalla()->eliminar_evento('eliminar');
+		}
+		
+		// Elimina la dependencia form_pregunta_secreta cuando esta vinculado a arai-usuarios
+		if (toba::instalacion()->vincula_arai_usuarios() && $this->pantalla('usuario')->existe_dependencia('form_pregunta_secreta')) {
+			
+			$this->pantalla('usuario')->eliminar_dep('form_pregunta_secreta');
 		}
 	}
 	
@@ -47,17 +55,24 @@ class ci_editor extends toba_ci
 
 	function evt__basica__modificacion($datos)
 	{
+		$largo_clave =  toba_parametros::get_largo_pwd(null);
+
+		// seteo los datos de arai-usuarios
+		$datos = gestion_arai_usuarios::set_datos($datos, $largo_clave);
+		if (isset($datos['usuario_arai'])) {
+			$this->s__usuario_arai = $datos['usuario_arai'];
+		}
+
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
 		} else {						//Chequeamos que la composicion de la clave sea valida			
-			$largo_clave =  toba_parametros::get_largo_pwd(null);
 			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
 		}
-		
+
 		if (! isset($datos['autentificacion'])) {
 			$datos['autentificacion']  = apex_pa_algoritmo_hash;
 		}
-		
+
 		$this->datos('basica')->set($datos);
 	}
 
@@ -71,6 +86,17 @@ class ci_editor extends toba_ci
 		$largo_clave = toba_parametros::get_largo_pwd(null);							//Como aun no se sobre que proyecto trabajo.. el largo es el por defecto, osea 8.
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
 		$form->ef('clave')->set_descripcion("La clave debe tener al menos $largo_clave caracteres, entre letras mayúsculas, minúsculas, números y símbolos, no pudiendo repetir caracteres adyacentes");
+		
+		// obtengo los datos de arai-usuarios
+		$datos = gestion_arai_usuarios::get_datos($datos);
+		
+		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios
+		if (toba::instalacion()->vincula_arai_usuarios()) {
+			$form->desactivar_efs(array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento'));
+		} else {
+			$form->desactivar_efs(array('usuario_arai', 'cuenta'));
+		}
+		
 		return $datos;
 	}
 
@@ -244,6 +270,10 @@ class ci_editor extends toba_ci
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
 		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($dato_encriptado), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
-	}	
+	}
+	
+	public function get_usuario_arai() {
+		return $this->s__usuario_arai;
+	}
 }
 ?>

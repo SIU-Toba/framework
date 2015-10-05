@@ -15,10 +15,10 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
     public function testVacio()
     {
         $regla = array(
-            'campo' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2)),
+            'campo' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2))),
         );
         $dato = array('campo' => '');
-        rest_validador::validar($dato, $regla);
+        $result = rest_validador::validar($dato, $regla);
         $this->assertTrue(true);
     }
 
@@ -27,7 +27,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
     public function testLongitudOk()
     {
         $regla = array(
-            'campo' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2)),
+            'campo' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 2))),
         );
         $dato = array('campo' => '12');
         rest_validador::validar($dato, $regla);
@@ -44,6 +44,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
         );
         $dato = array('campo' => '123');
         rest_validador::validar($dato, $regla);
+        $this->assertTrue(false);                 
     }
 
     /**
@@ -56,8 +57,36 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
         );
         $dato = array('campo' => '1');
         rest_validador::validar($dato, $regla);
+        $this->assertTrue(false);
     }
 
+    /**
+     */
+    public function testArrayOk()
+    {
+        $regla = array(
+            'campo' => array('_validar' => array(rest_validador::TIPO_ARREGLO))
+        );
+        $dato = array('campo' => array('1'));
+        rest_validador::validar($dato, $regla);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @expectedException SIUToba\rest\lib\rest_error
+     */
+    public function testLongitudError3()
+    {
+        $regla = array(
+            'campo' => array('_validar' => array(rest_validador::TIPO_ARREGLO => array('min' => 2, 'max' => 3)))
+        );
+        $dato = array('campo' => array('1','7','5','23'));
+        rest_validador::validar($dato, $regla);
+        $this->assertTrue(false);
+    }
+
+    /**
+     */
     public function testOKs()
     {
         $regla = array(
@@ -71,6 +100,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
             'texto' => array('_validar' => array(rest_validador::TIPO_TEXTO)),
             'long' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 2))),
             'oblig' => array('_validar' => array(rest_validador::OBLIGATORIO)),
+            'arr' => array('_validar' => array(rest_validador::TIPO_ARREGLO => array('max' => 2))),
         );
 
         $datos = array(
@@ -84,8 +114,10 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
             'texto' => '234j23io-+`+/*',
             'long' => '////////',
             'oblig' => 'fasd',
+            'arr' => array('a', 'b'),
         );
         rest_validador::validar($datos, $regla);
+        $this->assertTrue(true);
     }
 
     public function testErrores()
@@ -100,6 +132,7 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
             'enum' => array('_validar' => array(rest_validador::TIPO_ENUM => array('A', 'B', 'C'))),
             'long' => array('_validar' => array(rest_validador::TIPO_LONGITUD => array('min' => 2))),
             'oblig' => array('_validar' => array(rest_validador::OBLIGATORIO)),
+            'arr' => array('_validar' => array(rest_validador::TIPO_ARREGLO => array('max' => 2))),
         );
 
         $datos = array(
@@ -111,15 +144,17 @@ class rest_validadorTest extends \PHPUnit_Framework_TestCase
             'time' => '15-30:05',
             'enum' => 'D',
             'long' => '/',
+            'arr' => array('a','4', '5'),
         );
         try {
             rest_validador::validar($datos, $regla);
         } catch (rest_error $e) {
             //fallaron todas las reglas
             $this->assertEquals(count($regla), count($e->get_datalle()));
-
             return;
         }
         $this->assertTrue(false, "No se lanzo la excepción por los errores");
     }
+
+
 }

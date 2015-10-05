@@ -371,6 +371,18 @@ class consultas_instancia
 		return toba::db()->consultar($sql);
 	}
 	
+	static function get_existe_usuario($usuario)
+	{
+		$usuario = quote($usuario);
+		$sql = "SELECT count(*) as cantidad FROM apex_usuario WHERE usuario = $usuario;";
+		$rs = toba::db()->consultar_fila($sql);
+		if (isset($rs) && !empty($rs) && intval($rs['cantidad']) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//---------------------------------------------------------------------
 	//------ Perfil Funcional ---------------------------------------------
 	//---------------------------------------------------------------------

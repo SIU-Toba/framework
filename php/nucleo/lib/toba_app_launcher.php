@@ -67,9 +67,17 @@ class toba_app_launcher
 	*	Retorna un array con informacion del usuario y aplicaciones a las que tiene acceso
 	*	@return Array de datos del usuario y aplicaciones
 	*/
-	protected function get_app_launcher_data()
+	public function get_app_launcher_data()
 	{
 		return $this->appLauncherData;
+	}
+	
+	/**
+	*	Setea el appLauncherData con informacion del usuario y aplicaciones a las que tiene acceso
+	*/
+	public function set_app_launcher_data($appLauncherData)
+	{
+		$this->appLauncherData = $appLauncherData;
 	}
 	
 	/**

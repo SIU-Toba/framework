@@ -23,9 +23,22 @@ class controlador_docs
 
     public function __construct($api_root, $api_url)
     {
-        $this->api_root = $api_root;
+        $this->api_root = (! is_array($api_root)) ? array($api_root) : $api_root;
         $this->api_url = $api_url;
     }
+
+    /**
+    * Permite agregar un nuevo punto de partida para la generación de la documentación.
+    * Atencion!, requiere que el localizador sea capaz de encontrar los recursos.
+    * @param $path string
+    */
+    public function add_punto_partida($path)
+    {
+        if (! is_array($path) && ! in_array($path, $this->api_root)) {
+            $this->api_root[] = $path;
+        }
+    }
+
 
     /**
      * Retorna la documentacion en formato swagger para el path. Si el path
@@ -58,8 +71,8 @@ class controlador_docs
 
         $lista_apis = $this->get_lista_apis();
         foreach ($lista_apis as $path) {
-            $this->add_apis($path);
             $this->add_modelos($path);
+            $this->add_apis($path);            
         }
 
         $this->reordenar_lista_apis($list['paths']);
@@ -70,26 +83,27 @@ class controlador_docs
     protected function get_lista_apis()
     {
         $list = array();
-        $path = realpath($this->api_root);
-        $archivos_api = $this->obtener_clases_directorio($path);
+        foreach ($this->api_root as $root) {
+            $path = realpath($root);
+            $archivos_api = $this->obtener_clases_directorio($path);
 
-        foreach ($archivos_api as $nombre => $objeto) {
-            if ('php' !== pathinfo($nombre, PATHINFO_EXTENSION)) {
-                continue;
+            foreach ($archivos_api as $nombre => $objeto) {
+                if ('php' !== pathinfo($nombre, PATHINFO_EXTENSION)) {
+                    continue;
+                }
+                $prefijo = rest::app()->config('prefijo_controladores');
+
+                if (!$this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME))) {
+                    continue;
+                }
+                $nombre = str_replace('\\', '/', $nombre); // windows! ...
+
+                $path = $this->get_url_de_clase($nombre);
+                $path = ltrim($path, '/');
+
+                $list[] = $path;
             }
-            $prefijo = rest::app()->config('prefijo_controladores');
-
-            if (!$this->empieza_con($prefijo, pathinfo($nombre, PATHINFO_BASENAME))) {
-                continue;
-            }
-            $nombre = str_replace('\\', '/', $nombre); // windows! ...
-
-            $path = $this->get_url_de_clase($nombre);
-            $path = ltrim($path, '/');
-
-            $list[] = $path;
         }
-
         return $list;
     }
 
@@ -150,6 +164,9 @@ class controlador_docs
             ////--------------------------------------------------------
             $params_query = $reflexion->get_parametros_metodo($metodo, 'query');
             $params_body = $reflexion->get_parametros_metodo($metodo, 'body');
+            if (! empty($params_body)) {                                        //Agrego los schemas para los tipos locales
+                $params_body = $this->add_tipos_en_modelo($params_body);
+            }
 
             $operation = array();
             $operation['tags'] = array( str_replace('_', '-', $path)); //cambio el _ para mostrarlo
@@ -285,6 +302,23 @@ class controlador_docs
 
             return array();
         }
+    }
+
+    /**
+    * @param $params List of body params
+    * @return array  List of body params with schema definitions
+    */
+    protected function add_tipos_en_modelo($params)  
+    {
+        $non_predefined_types = array_keys($this->list['definitions']);
+        $param_keys = array_keys($params);
+        foreach($param_keys as $key)  {
+            if (isset($params[$key]['type']) && in_array($params[$key]['type'], $non_predefined_types)) {
+                $params[$key]['schema'] = array('$ref' => "#/definitions/". trim($params[$key]['type']));
+            }
+        }
+            
+        return $params;
     }
 
     /**
