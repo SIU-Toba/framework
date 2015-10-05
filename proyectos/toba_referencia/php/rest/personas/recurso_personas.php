@@ -48,20 +48,20 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 		return $m[$tipo];
 	}
 
-    /**
+	/**
 	 * Se consume en GET /personas/{id}
-     * @summary Retorna datos de una persona. 
- 	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
-     * @responses 200 {"$ref": "Persona"} Persona
-     * @responses 400 No existe la persona
-     */
-    function get($id_persona)
-    {
+	 * @summary Retorna datos de una persona. 
+	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
+	 * @responses 200 {"$ref": "Persona"} Persona
+	 * @responses 400 No existe la persona
+	 */
+	function get($id_persona)
+	{
 		//toba::logger()->debug("Usuario: " . rest::app()->usuario->get_usuario());
-	    /**Obtengo los datos del modelo*/
-        $incluir_imagen = (bool) rest::request()->get('con_imagen', 0);
+		/**Obtengo los datos del modelo*/
+		$incluir_imagen = (bool) rest::request()->get('con_imagen', 0);
 		$modelo = new modelo_persona($id_persona);
-        $fila = $modelo->get_datos($incluir_imagen);
+		$fila = $modelo->get_datos($incluir_imagen);
 
 		if ($fila) {
 			/**Transformción al formato de la vista de la API -
@@ -70,9 +70,9 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 			$fila = rest_hidratador::hidratar_fila($this->get_spec_persona($incluir_imagen), $fila);
 		}
 
-	    /**Se escribe la respuesta*/
-        rest::response()->get($fila);
-    }
+		/**Se escribe la respuesta*/
+		rest::response()->get($fila);
+	}
 
 	/**
 	 * Se consume en GET /personas
@@ -184,39 +184,35 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 		}
 	}
 
-
-    /**
+	/**
 	 * Se consume en DELETE /personas/{id}
-     * @summary Eliminar la persona.
-     * @notes Cuidado, borra datos de deportes y juegos tambien
-     * @responses 404 No se pudo encontrar a la persona
-     */
-    function delete($id_persona)
-    {
+	 * @summary Eliminar la persona.
+	 * @notes Cuidado, borra datos de deportes y juegos tambien
+	 * @responses 404 No se pudo encontrar a la persona
+	 */
+	function delete($id_persona)
+	{
 		$modelo = new modelo_persona($id_persona);
 		$ok = $modelo->delete();
-        if(!$ok){
-            rest::response()->not_found();
-        }else {
-            rest::response()->delete();
-        }
-    }
+		if(!$ok){
+			rest::response()->not_found();
+		}else {
+			rest::response()->delete();
+		}
+	}
 
-
-
-
-    /**
-     * Se consume en GET /personas/{id}/juegos
+	/**
+	 * Se consume en GET /personas/{id}/juegos
 	 * @summary Retorna todos los juego que practica la persona
-     * @response_type [ {juego: integer, dia_semana: integer, hora_inicio: string, hora_fin:string}, ]
-     * @responses 404 No se pudo encontrar a la persona
-     */
-    function get_juegos_list($id_persona)
-    {
-	    //se omite hidratador por simplicidad.
+	 * @response_type [ {juego: integer, dia_semana: integer, hora_inicio: string, hora_fin:string}, ]
+	 * @responses 404 No se pudo encontrar a la persona
+	 */
+	function get_juegos_list($id_persona)
+	{
+		//se omite hidratador por simplicidad.
 		$juegos = modelo_persona::get_juegos($id_persona);
 		rest::response()->get_list($juegos);
-    }
+	}
 
 	/**
 	 * @return rest_filtro_sql

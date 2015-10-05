@@ -20,7 +20,8 @@ class modelo_persona
 		$sql = "SELECT 
 					pers.id, 
 					pers.nombre, 
-					pers.fecha_nac 
+					pers.fecha_nac,
+					case when pers.imagen is not null then 'Si' else 'No' end as imagen
 				FROM 
 					ref_persona pers
 				WHERE  $where $order_by $limit";
@@ -53,6 +54,7 @@ class modelo_persona
 	
 	static function get_juegos($id_persona, $de_mesa = -1)
 	{
+		$where_de_mesa = '';
 		if ($de_mesa == 1) {
 			$where_de_mesa = " AND j.de_mesa IS TRUE ";
 		} elseif ($de_mesa == 0) {

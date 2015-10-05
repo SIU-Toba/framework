@@ -9,12 +9,8 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/SIU-Toba/rest"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/SIU-Toba/SecurityMultiTool"
+            "type": "composer",
+            "url": "http://satis.siu.edu.ar"
         }
     ],
     "config" : {
@@ -27,7 +23,7 @@
         "padraic/security-multitool": "@dev",
         "ircmaxell/random-lib" : "@dev",
         "siu-toba/rest": "@dev",
-        "guzzlehttp/guzzle": "5.1.0",
+        "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "2.3.0"
     },
     "bin": ["bin/toba"]

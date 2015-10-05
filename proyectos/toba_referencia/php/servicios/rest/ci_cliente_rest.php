@@ -20,10 +20,10 @@ class ci_cliente_rest extends toba_ci
 	{
 	}
 
-	function debug(\GuzzleHttp\Message\Response $response)
+	function debug($response)
 	{
-		$this->dump_respuesta = 'status: ' . $response->getStatusCode() . "<br/>body: <br/>" . $response->getBody(); //un string encodeado utf-8
-		$this->dump_url = $response->getEffectiveUrl(); //un string encodeado utf-8
+		$this->dump_respuesta = 'status: ' . $response->getStatusCode() . "<br/>body: <br/>" . $response->getBody()->getContents();	 //un string encodeado utf-8
+		//$this->dump_url = $response->getBody()->getMetadata('uri');
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ci_cliente_rest extends toba_ci
 	function conf__form_debug_rest(toba_ei_formulario $form)
 	{
 		$datos = array(
-			'url' => "<a style='font-size: 16px' href='" . $this->dump_url . "'>" . urldecode($this->dump_url) . "</a>",
+			//'url' => "<a style='font-size: 16px' href='" . $this->dump_url . "'>" . urldecode($this->dump_url) . "</a>",
 	//            'pedido' => "<pre>" . $this->dump_pedido . "</pre>",
 			'respuesta' => "<pre>" . $this->dump_respuesta . "</pre>"
 		);
@@ -95,7 +95,7 @@ class ci_cliente_rest extends toba_ci
 			$cliente = $this->get_cliente_rest();
 			$response = $cliente->get('personas');
 			$this->debug($response);
-			$this->rs_personas = rest_decode($response->json());
+			$this->rs_personas = rest_decode($response->getBody()->__toString());
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -110,7 +110,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $cliente->get('personas/1');
 			$this->debug($response);
-			$this->rs_personas = array(rest_decode($response->json()));
+			$this->rs_personas = array(rest_decode($response->getBody()->__toString()));
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -124,7 +124,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $cliente->get('personas/1/juegos');
 			$this->debug($response);
-			$this->rs_personas = array(rest_decode($response->json()));
+			$this->rs_personas = array(rest_decode($response->getBody()->__toString()));
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -138,7 +138,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $cliente->get('personas/confoto');
 			$this->debug($response);
-			$this->rs_personas = array(rest_decode($response->json()));
+			$this->rs_personas = array(rest_decode($response->getBody()->__toString()));
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -158,7 +158,7 @@ class ci_cliente_rest extends toba_ci
 				'body' => rest_encode($datos)
 			));
 			$this->debug($response);
-			$persona = rest_decode($response->json());
+			$persona = rest_decode($response->getBody()->__toString());
 			toba::notificacion()->info("Persona creada con id: " . $persona['id']);
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
@@ -201,7 +201,7 @@ class ci_cliente_rest extends toba_ci
 				'body' => rest_encode($datos)
 			));
 			$this->debug($response);
-			$persona = rest_decode($response->json());
+			$persona = rest_decode($response->getBody()->__toString());
 			toba::notificacion()->info("Persona actualizada");
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
@@ -213,11 +213,14 @@ class ci_cliente_rest extends toba_ci
 
 	protected function manejar_excepcion_request(RequestException $e)
 	{
-		$msg = $e->getRequest() . "\n";
+		/*$msg = $e->getRequest() . "\n";
 
 		if ($e->hasResponse()) {
 			$msg .= $e->getResponse() . "\n";
-		}
+		}*/
+		
+		$msg = $e->getMessage(). "\n";
+		$msg .= $e->getRequest()->getMethod();
 		throw new toba_error($msg);
 	}
 
@@ -293,11 +296,11 @@ class ci_cliente_rest extends toba_ci
 				$query[$id] = $campo['condicion'] . ';' . $valor;
 			}
 
-			$response = $cliente->get($url, array('query' => $query));
+			$response = $cliente->get($url, array('query' => $query));						//Esta opcion usa http_build_query, sino hay que hacer un query request con el string
 
-			$this->dump_respuesta = $response->getBody();
+			$this->dump_respuesta = $response->getBody()->__toString();
 			$this->cant_personas = (string)$response->getHeader("Cantidad-Registros");
-			$this->rs_personas = rest_decode($response->json());
+			$this->rs_personas = rest_decode($response->getBody()->__toString());
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -341,7 +344,7 @@ class ci_cliente_rest extends toba_ci
 		try {
 			$response = $cliente->get('personas/' . $datos['persona'], array('query' => array('con_imagen' => 1)));
 			$this->debug($response);
-			$rs_persona = rest_decode($response->json());
+			$rs_persona = rest_decode($response->getBody()->__toString());
 			$this->imagen_persona = $rs_persona['imagen'];
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);

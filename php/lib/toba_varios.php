@@ -218,10 +218,10 @@
 
 	/** Transforma un json o arreglo en utf8 a un arreglo en latin1 */
 	function rest_decode($datos)
-	{
+	{		
 		if(is_string($datos) ){
-			$datos = json_decode($datos);
-		} //es un json ya decodificada guzzle->response->json
+			$datos = json_decode($datos, true);
+		} //es un json ya decodificada guzzle->response->json		
 		return array_a_latin1($datos);
 	}
 
