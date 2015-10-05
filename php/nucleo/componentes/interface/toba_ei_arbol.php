@@ -669,12 +669,10 @@ class toba_ei_arbol extends toba_ei
 		if (! isset($limite)) {
 			$limite = $this->_ancho_nombres;
 		}
-		if (strlen($nombre) <= $limite) {
-			return $nombre;
-		} else {
-			//Quotear por si es html y el recorte lo rompe
-			return texto_plano(substr($nombre, 0, $limite)).'...'; 
+		if (strlen($nombre) > $limite) {
+			$nombre = substr($nombre, 0, $limite)."...";
 		}
+		return texto_plano($nombre);
 	}
 
 	//-------------------------------------------------------------------------------
