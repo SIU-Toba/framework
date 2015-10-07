@@ -1,6 +1,6 @@
 <?php
 
-define (ID_APLICACION, 3);
+define ('ID_APLICACION', '3');
 
 /**
  * Clase para utilizar Arai-Usuarios
