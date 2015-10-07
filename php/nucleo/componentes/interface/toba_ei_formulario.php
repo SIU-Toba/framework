@@ -82,7 +82,9 @@ class toba_ei_formulario extends toba_ei
 						$this->ef($id_ef)->set_solo_lectura(true);
 					}
 					if (in_array($id_metadato, $no_visibles)) {
-						$this->desactivar_efs(array($id_ef));
+						if (in_array($id_ef, $this->_lista_ef_post)) {							//Si no existe el ef.. la RF que lo desactiva no tiene sentido, puede pasar por excepcion en etapa eventos
+							$this->desactivar_efs(array($id_ef));
+						}
 					}
 				}
 			}
