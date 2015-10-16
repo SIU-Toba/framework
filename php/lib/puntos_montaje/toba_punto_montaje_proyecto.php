@@ -46,7 +46,7 @@ class toba_punto_montaje_proyecto extends toba_punto_montaje_autoload
 
 	function get_path_absoluto()
 	{
-		$path_proyecto	= toba::instancia()->get_path_proyecto($this->get_proyecto_referenciado());
+		$path_proyecto =  $this->instancia_toba()->get_path_proyecto($this->get_proyecto_referenciado());
 		return $path_proyecto.'/'.$this->get_path();
 	}
 

@@ -1,5 +1,4 @@
 <?php
-require_once("modelo/modelo_persona.php");
 
 use SIUToba\rest\lib\rest_hidratador;
 use SIUToba\rest\lib\rest_validador;

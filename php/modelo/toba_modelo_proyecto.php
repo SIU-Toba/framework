@@ -1,4 +1,9 @@
 <?php
+	
+use SIUToba\rest\rest;	
+
+require_once('toba_modelo_mocks_rest.php');
+
 /**
 *	Administrador de metadatos de PROYECTOS
 */
@@ -3138,5 +3143,61 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		return $desactivados;
 	}
+	
+	/**
+	 * Devuelve un array con los paths donde deberia estar la api rest del proyecto
+	 * @return array
+	 */
+	public function get_path_api_rest()
+	{
+		$api_base = toba_modelo_rest::get_dir_api_base($this);
+		$api_pers = toba_modelo_rest::get_dir_api_personalizacion($this);
+		$path_controladores = array($api_base, $api_pers);
+		return $path_controladores;
+	}
+	
+	/**
+	 * Devuelve un string en formato Json con la documentacion de la API REST
+	 * @return string
+	 */
+	public function get_documentacion_rest()
+	{
+		$doc_rest = '';
+		
+		//Armo la info de inicializacion de libreria REST
+		$ini =  toba_modelo_rest::get_ini_server($this, '');		
+		$es_produccion = (boolean) $this->get_instalacion()->es_produccion();		
+		$path_controladores = $this->get_path_api_rest();		
+		$url_base = toba_modelo_rest::get_url_base($this);
+		$settings = array(
+			'path_controladores' => $path_controladores,
+			'url_api' => $url_base,
+			'prefijo_api_docs' => 'api-docs',
+			'debug' => !$es_produccion,
+			'encoding' => 'latin1'
+		);
+		//Agrego el nro de version del proyecto a la API
+		$datos_ini_proyecto = $this->get_parametro('proyecto','version', false);
+		if (isset($datos_ini_proyecto)) {
+			$settings['api_version'] = $datos_ini_proyecto;
+		}
+		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
+		
+		//Hay que definir esto porque la libreria REST las asume siempre presentes y saca notice rompiendo el json.
+		$_SERVER['REQUEST_METHOD'] = '';									
+		$_SERVER['REQUEST_URI'] = '';							
+		
+		//Instancio la libreria, agrego los mocks necesarios para poder generar sin problemas la doc
+		$app = new SIUToba\rest\rest($settings);
+		$app->set_request(new mock_request($url_base. '/api-docs'));
+		$app->set_autenticador(new mock_autenticador());
+		
+		//Capturo el procesamiento del pedido donde se genera la documentacion
+		ob_start();
+		$app->procesar();
+		$doc_rest = ob_get_clean();
+		return $doc_rest;		
+	}
+	
 }
 ?>

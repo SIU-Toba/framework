@@ -10,6 +10,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	const ARCHIVO_USUARIOS = '/servidor_usuarios.ini';
 	const ARCHIVO_SERVER = '/servidor.ini';
 	
+	const CARPETA_REST =  '/rest';	
 	protected $proyecto;	
 
 	function __construct(toba_modelo_proyecto $proyecto)
@@ -170,5 +171,37 @@ class toba_modelo_rest extends toba_modelo_elemento
 		/*toba_manejador_archivos::crear_arbol_directorios($dir_consumidor);
 		toba_manejador_archivos::crear_arbol_directorios($dir_proveedor);*/
 	}	
+	
+	//------------------------------------------------------------------------------------------------------------------//
+	/**
+	 * Devuelve la URL basica de la api rest para el proyecto pasado por parametro
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return string
+	 */
+	static function get_url_base($proyecto)
+	{
+		return $proyecto->get_url() . self::CARPETA_REST;
+	}
+
+	/**
+	 * Devuelve el path donde esta la api rest del proyecto pasado por parametro
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return string
+	 */	
+	static function get_dir_api_base($proyecto)
+	{
+		 return $proyecto->get_dir() .'/php'. self::CARPETA_REST;
+	}
+	
+	/**
+	 * Devuelve el path donde esta la extension/personalizacion de api rest del proyecto pasado por parametro
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return string
+	 */	
+	static function get_dir_api_personalizacion($proyecto)
+	{
+		return $proyecto->get_dir_pers().'/php' . self::CARPETA_REST;		
+	}
+	
 }
 ?>

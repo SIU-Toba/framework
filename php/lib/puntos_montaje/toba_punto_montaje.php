@@ -3,15 +3,16 @@
 class toba_punto_montaje
 {
 	const tipo_proyecto		= 'proyecto_toba';
-	const tipo_pers			= 'pers_proyecto_toba';
+	const tipo_pers		= 'pers_proyecto_toba';
 	const tipo_indefinido	= 'indefinido';
 	
-    protected $id;
+	protected $id;
 	protected $etiqueta;
 	protected $etiqueta_anterior;
 	protected $proyecto_id;
 	protected $descripcion;
 	protected $path;
+	protected $instancia_toba;
 
 	function set_id($id)
 	{
@@ -38,6 +39,16 @@ class toba_punto_montaje
 		$this->path = $path;
 	}
 
+	function set_instancia_toba($obj_instancia)
+	{
+		$this->instancia_toba = $obj_instancia;
+	}
+	
+	function instancia_toba()
+	{
+		return (isset($this->instancia_toba))? $this->instancia_toba : toba::instancia();
+	}		
+	
 	function get_id()
 	{
 		return $this->id;
@@ -84,7 +95,7 @@ class toba_punto_montaje
 	function get_path()
 	{
 		if (empty($this->path)) {
-			$path_instancia_ini = toba::instancia()->get_path_ini();
+			$path_instancia_ini = $this->instancia_toba()->get_path_ini();
 			$instancia_ini = new toba_ini($path_instancia_ini);
 			$datos = $instancia_ini->get($this->get_proyecto());
 			$nombre = toba_modelo_pms::prefijo_ini.$this->get_etiqueta();
