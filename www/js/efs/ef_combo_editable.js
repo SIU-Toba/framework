@@ -21,6 +21,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 	this._msj_ayuda_div;
 	this._msj_ayuda_texto = 'Texto a filtrar o (*) para ver todo.';
 	this._msj_ayuda_habilitado = true;
+        this._fila;
 	
 	this._permite_solo_selecciones = solo_permitir_selecciones;
 	this._ultimas_opciones_server = [];
@@ -112,7 +113,12 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		//Esto es para que traiga todo hasta el limite impuesto
 		if (this._buscar_todo && srch_txt === '') {srch_txt = '%';this._buscar_todo = false;}
 		var parametros = [srch_txt];
-		this._controlador.filtrado_ef_ce_comunicar(this._id, parametros);
+		this._controlador.filtrado_ef_ce_comunicar(this._id, parametros, this._fila);
+	};
+        
+        ef_combo_editable.prototype.ir_a_fila = function(fila) {
+		this._fila = fila;
+		return ef.prototype.ir_a_fila.call(this, fila);
 	};
 
 	ef_combo_editable.prototype._setear_opcion = function(valor, msg) {
