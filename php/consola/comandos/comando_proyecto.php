@@ -545,9 +545,8 @@ class comando_proyecto extends comando_toba
 		$proyecto = $this->get_proyecto();
 	
 		//--- Existe un item de login??
-		$pisar = false;
 		if ($proyecto->get_item_login()) {
-			$clonar = $this->consola->dialogo_simple("El proyecto ya posee un item de login propio, ¿desea continuar?", true);
+			$clonar = $this->consola->dialogo_simple("Va a sobrescribir el item de login, ¿desea continuar?", true);
 			if (!$clonar) {
 				return;
 			}
@@ -566,7 +565,7 @@ class comando_proyecto extends comando_toba
 		}
 		
 		$pm = $proyecto->get_pms()->get($etiqueta);
-		$proyecto->actualizar_login($pisar, $pm->get_id());
+		$proyecto->actualizar_login(false, $pm->get_id());
 	}
 	
 	/**

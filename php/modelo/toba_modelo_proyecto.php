@@ -2488,12 +2488,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$sql = "UPDATE apex_proyecto SET item_pre_sesion='{$clave['componente']}'
 				WHERE proyecto='{$this->identificador}'";
 		$this->get_db()->ejecutar($sql);
-		$this->manejador_interface->progreso_fin();
-		
-		//--- Borrar el item viejo
-		if ($pisar_anterior) {
-			$this->manejador_interface->mensaje( "Aun no está implementada la eliminación desde consola");
-		}		
+		$this->manejador_interface->progreso_fin();		
 	}
 
 	//------------------------------------------------------------------------
