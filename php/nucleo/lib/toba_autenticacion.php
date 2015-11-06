@@ -5,6 +5,7 @@ class toba_autenticacion
 	static $marca_login_central = 'uso_login_central';
 	static $metodos_centralizados = array('cas','saml', 'saml_onelogin');
 	static $session_atributos_usuario = 'auth_atributos_usuario';
+	static $session_usuarios_posibles = 'auth_user_accounts';
 	
 	protected $parametros_url;
 	protected $atributos_usuario;
@@ -43,7 +44,7 @@ class toba_autenticacion
 	{
 		$this->eliminar_marca_login(self::$marca_login_basico);
 	}
-		
+			
 	// --- Funciones que trabajan sobre la session de PHP, debido a que la memoria de Toba no alcanza a guardarse en este tipo de autenticacion.
 	protected function eliminar_marca_login($marca)
 	{
@@ -104,6 +105,15 @@ class toba_autenticacion
 			$this->atributos_usuario = (isset ($_SESSION[self::$session_atributos_usuario])) ? $_SESSION[self::$session_atributos_usuario] : array();
 		}
 		return $this->atributos_usuario;
+	}
+	
+	function get_lista_cuentas_posibles()
+	{
+		$datos = $this->get_atributos_usuario();
+		if (! empty($datos) && isset($datos[self::$session_usuarios_posibles])) {
+			return $datos[self::$session_usuarios_posibles];
+		}
+		return array();
 	}
 }
 ?>

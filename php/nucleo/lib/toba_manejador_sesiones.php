@@ -3,6 +3,7 @@
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
+define('apex_sesion_qs_cambio_usuario', 'alcu'); //Solicitud de cambio de usuario via App Launcher
 
 
 /**
@@ -20,6 +21,7 @@ class toba_manejador_sesiones
 	protected $perfil_datos_activo;
 	private $autenticacion = null;
 	private $contrasenia_vencida = false;
+	private $_usuarios_posibles=array();
 	
 	/**
 	 * @return toba_manejador_sesiones
@@ -132,6 +134,21 @@ class toba_manejador_sesiones
 			throw new toba_reset_nucleo('FINALIZAR SESION... recargando el nucleo.');
 		}
 	}
+	
+	function cambio_usuario($actual, $nuevo, $datos_iniciales=null)
+	{
+		//verificar usuario actual
+		if ($actual != toba::usuario()->get_id()) {
+			throw new toba_error_seguridad('El usuario actual no es el especificado');			
+		}
+		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
+		if (! in_array($nuevo , $this->_usuarios_posibles)) {
+			throw new toba_error_seguridad('Es intentando acceder a un usuario no valido' );
+		}
+		//Si todo va bien.
+		$this->procesar_salida_proyecto("Logout por cambio de usuario");			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
+		$this->procesar_acceso_instancia($nuevo, $datos_iniciales);		
+	}	
 	
 	/**
 	*	Entrada a un proyecto desde la operación de inicializacion de sesion
@@ -449,6 +466,7 @@ class toba_manejador_sesiones
 			try {
 				$this->control_finalizacion_sesion();
 				$this->registrar_activacion_sesion();
+				$this->control_cambio_usuario();				
 			} catch ( toba_error $e ) {
 				toba::logger()->debug('Pérdida de sesión: '. $e->getMessage());
 				$this->logout($e->getMessage());
@@ -632,6 +650,15 @@ class toba_manejador_sesiones
 		$this->sesion->conf__activacion();
 	}
 
+	private function control_cambio_usuario()
+	{
+		$param = toba::memoria()->get_parametro(apex_sesion_qs_cambio_usuario);
+		if (! is_null($param)) {			
+			$id = $this->usuario()->get_id();
+			$this->cambio_usuario($id, $param);
+		}
+	}
+	
 	/**
 	*	Controla el cierre de la sesion.
 	*/
@@ -735,6 +762,7 @@ class toba_manejador_sesiones
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario'] = serialize($this->usuario);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos'] = serialize($this->perfiles_funcionales_activos);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfil_datos_activo'] = serialize($this->perfil_datos_activo);
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuarios_posibles'] = serialize($this->_usuarios_posibles);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
 	}
 	
@@ -755,6 +783,7 @@ class toba_manejador_sesiones
 		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
 		$this->perfiles_funcionales_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos']);
 		$this->perfil_datos_activo = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfil_datos_activo']);
+		$this->_usuarios_posibles = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuarios_posibles']);
 	}
 
 	//------------------------------------------------------------------
@@ -919,7 +948,8 @@ class toba_manejador_sesiones
 			throw new toba_error_autenticacion($error);
 		}
 		if ($this->get_autenticacion() != null) {
-			$this->contrasenia_vencida = $this->autenticacion->verificar_clave_vencida($id_usuario);
+			$this->contrasenia_vencida = $this->get_autenticacion()->verificar_clave_vencida($id_usuario);
+			$this->_usuarios_posibles = $this->get_autenticacion()->get_lista_cuentas_posibles();
 		} else {
 			throw new toba_error_seguridad('No existe la autenticación propuesta');
 		}
