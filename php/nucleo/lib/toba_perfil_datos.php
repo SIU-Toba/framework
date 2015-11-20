@@ -74,7 +74,7 @@ class toba_perfil_datos
 		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->proyecto, $this->id );
 		if($restricciones) {
 			foreach( $restricciones as $restriccion ) {
-				$this->restricciones[$restriccion['fuente_datos']][$restriccion['dimension']][] = explode(self::separador_multicol_db,$restriccion['clave']);
+				$this->restricciones[$restriccion['fuente_datos']][$restriccion['dimension']][$restriccion['perfil_datos']][] = explode(self::separador_multicol_db,$restriccion['clave']);
 			}
 		}		
 		$this->fuentes_restringidas = array_keys($this->restricciones);
@@ -163,6 +163,29 @@ class toba_perfil_datos
 	* @return array Arreglo de restricciones si aplica, sino null
 	*/
 	function get_restricciones_dimension($fuente, $nombre)
+	{		
+		$perfiles = $this->get_restricciones_dimension_por_perfil($fuente, $nombre);
+		if (is_null($perfiles)) {
+			return;
+		}			
+		
+		$valores = array();
+		foreach($perfiles as $perfil) {
+			if (count($perfil) == 1) {
+					$valores[] = current($perfil);
+				} else {
+					$valores[] = $perfil;
+				}
+		}
+		return $valores;
+	}	
+	
+	/**
+	* Retorna las restricciones aplicadas sobre una dimensión específica agrupadas por perfil de datos
+	* @param string $nombre Nombre de la dimension
+	* @return array Arreglo de restricciones si aplica, sino null
+	 */
+	function get_restricciones_dimension_agrupado_perfil($fuente, $nombre)
 	{
 		if (!isset($this->info_dimensiones[$fuente])) {
 			return;
@@ -230,6 +253,10 @@ class toba_perfil_datos
 	*/
 	function filtrar($sql, $fuente_datos=null,$dimensiones_desactivar = null, $gatillos_exclusivos = array())
 	{
+		/*$parser = new PHPSQLParser\PHPSQLParser();
+		$parsed = $parser->parse($sql);
+		ei_arbol($parsed);*/
+		
 		if (!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
 		if ($this->posee_restricciones($fuente_datos)) {
 			if ($this->hay_combinaciones_de_querys($sql)) {
@@ -384,26 +411,30 @@ class toba_perfil_datos
 	
 	function get_where_aplicacion_restriccion($fuente_datos, $dimension, $columnas_aplicacion_restriccion, $alias_tabla)
 	{
-		$where = '';
-		$restric =& $this->restricciones[$fuente_datos][$dimension];
+		$where = array();
+		$restricciones =& $this->restricciones[$fuente_datos][$dimension];				//Esto tiene los perfiles metidos adentro
 		// Busco las columnas
 		$columnas_matcheo = explode( ',', $columnas_aplicacion_restriccion);
 		$columnas_matcheo = array_map('trim', $columnas_matcheo);
-		if(count($columnas_matcheo) == 1) {		//-- COMPARACION simple
-			foreach($restric as $clave) {
-				$claves[] = $clave[0];
-			}
-			$where = $alias_tabla . '.' . $columnas_matcheo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
-		} else {								//-- COMPARACION multicolumna
-			foreach($restric as $clave) {
-				$claves[] = "('" . implode("','",$clave) . "')";
-			}
-			foreach($columnas_matcheo as $col) {
-				$columnas[] = $alias_tabla . '.' . $col;
-			}
-			$where =  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
+		foreach($restricciones as $restric) {
+			$claves = array();
+			if(count($columnas_matcheo) == 1) {		//-- COMPARACION simple
+				foreach($restric as $clave) {
+					$claves[] = $clave[0];
+				}
+				$where[] = $alias_tabla . '.' . $columnas_matcheo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
+			} else {								//-- COMPARACION multicolumna
+				foreach($restric as $clave) {
+					$claves[] = "('" . implode("','",$clave) . "')";
+				}
+				foreach($columnas_matcheo as $col) {
+					$columnas[] = $alias_tabla . '.' . $col;
+				}
+				$where[] =  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
+			}			
 		}
-		return " ( " . $where . " ) ";
+		$where_final = implode(' OR ', $where);
+		return " ( " . $where_final . " ) ";
 	}
 	
 	/**
