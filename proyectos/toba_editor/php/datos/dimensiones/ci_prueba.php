@@ -157,7 +157,10 @@ class ci_prueba extends toba_ci
 	//--------------------- Ejecucion de los test -----------------------------------
 	function ejecutar_test()
 	{
-		toba::perfil_de_datos()->set_perfil(toba_editor::get_proyecto_cargado(), $this->s__detalle_test['perfil_datos']);		
+		//Paso por los perfiles seleccionados agregandolos
+		if (! empty($this->s__detalle_test['perfil_datos'])) {		
+			toba::perfil_de_datos()->set_perfil(toba_editor::get_proyecto_cargado(), $this->s__detalle_test['perfil_datos']);
+		}
 		$this->cabecera_prueba = toba::perfil_de_datos()->get_info($this->fuente);
 		if (toba::perfil_de_datos()->posee_restricciones($this->fuente)) {
 			$this->pruebas = toba::perfil_de_datos()->probar_sqls($this->fuente, 

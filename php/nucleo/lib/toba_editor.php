@@ -304,14 +304,27 @@ class toba_editor
 		}
 	}	
 
+	/**
+	* @deprecated 2.8.0
+	* @see toba_editor::get_perfiles_datos_previsualizacion()
+	*/
 	static function get_perfil_datos_previsualizacion()
+	{
+		$perfiles = self::get_perfiles_datos_previsualizacion();
+		if (! empty($perfiles) && $perfiles !== FALSE) {
+			return current($perfiles);
+		}		
+	}
+	
+	static function get_perfiles_datos_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
 		if(isset($param_prev['perfil_datos'])) {
-			return $param_prev['perfil_datos'];
+			$perfiles = explode(',', $param_prev['perfil_datos']);
+			return $perfiles;
 		}
 	}
-		
+	
 	/**
 	 * Retorna la URL base del proyecto editado, basandose en la URL del PA (puede no ser la real..)
 	 * @return unknown

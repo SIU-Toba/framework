@@ -18,7 +18,7 @@ class toba_manejador_sesiones
 	private $sesion = null;
 	private $usuario = null;
 	protected $perfiles_funcionales_activos = array();
-	protected $perfil_datos_activo;
+	protected $perfiles_datos_activos;
 	private $autenticacion = null;
 	private $contrasenia_vencida = false;
 	private $_usuarios_posibles=array();
@@ -387,7 +387,9 @@ class toba_manejador_sesiones
 	
 	/**
 	*	Determina el perfil de datos del usuario actual
-	*/
+	* @deprecated 2.8.0
+	* @see toba_manejador_sesiones::get_perfiles_datos
+     	*/
 	function get_perfil_datos()
 	{
 		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
@@ -397,21 +399,55 @@ class toba_manejador_sesiones
 		}
 	}
 
+	/**
+	 * Determina los perfiles de datos del usuario actual
+	 * @return array
+	 */
+	function get_perfiles_datos()
+	{
+		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
+			return toba_editor::get_perfiles_datos_previsualizacion();
+		} else {
+			return $this->usuario()->get_perfiles_datos();
+		}		
+	}	
+	
 	function get_perfil_datos_activo()
 	{
-		if (! isset($this->perfil_datos_activo)) {
-			$this->perfil_datos_activo = $this->get_perfil_datos();
+		if (! isset($this->perfiles_datos_activos)) {
+			$this->perfiles_datos_activos = $this->get_perfiles_datos();
 		}
-		return $this->perfil_datos_activo;
+		return $this->perfiles_datos_activos;
 	}
 	
+	/**
+	* @deprecated 2.8.0
+	* @see toba_manejador_sesiones::set_perfiles_datos_activos()
+	*/
 	function set_perfil_datos_activo($id_perfil)
 	{
-		//$disponibles = $this->get_perfil_datos();			//Faltaria hacer un chequeo para ver si esta entre una lista e posibles?
-		// if (! in_array($id_perfil, $disponibles)) {
-		//	throw new toba_error_seguridad('El perfil de datos seteado no es valido');
-		//}
-		$this->perfil_datos_activo = $id_perfil;
+		if (! is_array($id_perfil)) {
+			if (! is_null($id_perfil)) {
+				$this->set_perfiles_datos_activos(array($id_perfil));
+			}
+		} 
+	}
+	
+	/**
+	 * Fija cuales son los perfiles de datos activos para el usuario actual, chequea contra configurados en base
+	 * @param array $perfiles
+	 * @throws toba_error_seguridad
+	 */
+	function set_perfiles_datos_activos($perfiles)
+	{
+		if (is_array($perfiles) && ! empty($perfiles)) {
+			$disponibles = $this->get_perfiles_datos();									//Controlo que no sea algun perfil que este por fuera de los asignados al usuario
+			$df = array_diff($perfiles, $disponibles);
+			 if (! empty($df)) {
+				throw new toba_error_seguridad('Alguno de los perfiles de datos seteado no es valido');
+			}			
+			$this->perfiles_datos_activos = $perfiles;
+		}
 	}
 	
 	//-----------  Acceso a los objetos USUARIO y SESION  ------------------
@@ -653,7 +689,7 @@ class toba_manejador_sesiones
 	private function control_cambio_usuario()
 	{
 		$param = toba::memoria()->get_parametro(apex_sesion_qs_cambio_usuario);
-		if (! is_null($param)) {			
+		if (! is_null($param)) {																//Falta hacer el mapeo
 			$id = $this->usuario()->get_id();
 			$this->cambio_usuario($id, $param);
 		}
@@ -761,7 +797,7 @@ class toba_manejador_sesiones
 		}
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario'] = serialize($this->usuario);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos'] = serialize($this->perfiles_funcionales_activos);
-		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfil_datos_activo'] = serialize($this->perfil_datos_activo);
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_datos_activos'] = serialize($this->perfiles_datos_activos);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuarios_posibles'] = serialize($this->_usuarios_posibles);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
 	}
@@ -782,7 +818,7 @@ class toba_manejador_sesiones
 		$this->usuario = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
 		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
 		$this->perfiles_funcionales_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos']);
-		$this->perfil_datos_activo = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfil_datos_activo']);
+		$this->perfiles_datos_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_datos_activos']);
 		$this->_usuarios_posibles = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuarios_posibles']);
 	}
 

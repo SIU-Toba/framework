@@ -8,7 +8,8 @@ class toba_usuario_basico extends toba_usuario
 {
 	protected $datos_basicos;
 	protected $grupos_acceso;
-	protected $perfil_datos;
+	protected $perfil_datos;															//Queda por compatibilidad con las extensiones
+	protected $perfiles_datos;
 
 	/**
 	*	Realiza la autentificacion.
@@ -48,7 +49,10 @@ class toba_usuario_basico extends toba_usuario
 	{
 		$this->datos_basicos = toba::instancia()->get_info_usuario($id_usuario);
 		$this->grupos_acceso = toba::instancia()->get_perfiles_funcionales( $id_usuario, toba::proyecto()->get_id() );
-		$this->perfil_datos = toba_proyecto_implementacion::get_perfil_datos( $id_usuario, toba::proyecto()->get_id() );
+		$this->perfiles_datos = toba_proyecto_implementacion::get_perfiles_datos_usuario( $id_usuario, toba::proyecto()->get_id() );
+		if (! empty($this->perfiles_datos)) {
+			$this->perfil_datos = current($this->perfiles_datos);
+		}
 	}
 
 	/**
@@ -88,9 +92,22 @@ class toba_usuario_basico extends toba_usuario
 		return $this->get_perfiles_funcionales();
 	}
 
+	/**
+	* @deprecated 2.8.0
+	* @see toba_usuario_basico::get_perfiles_datos()
+	*/
 	function get_perfil_datos()
 	{
 		return $this->perfil_datos;
+	}
+	
+	/**
+	 * Retorna un array con los perfiles de datos del usuario
+	 * @return array
+	 */
+	function get_perfiles_datos()
+	{
+		return $this->perfiles_datos;
 	}
 	
 	function get_restricciones_funcionales($perfiles = null)
@@ -105,7 +122,7 @@ class toba_usuario_basico extends toba_usuario
 	{
 		if (is_null($perfil)) {
 			$perfil = $this->get_perfiles_funcionales();
-		} else {
+		} elseif (! is_array($perfil)) {
 			$perfil = array($perfil);
 		}
 		toba::manejador_sesiones()->set_perfiles_funcionales_activos($perfil);

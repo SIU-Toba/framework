@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2276', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
 	'perfil_datos', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_multi_seleccion_lista', --elemento_formulario
 	'perfil_datos', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -149,8 +149,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
@@ -167,8 +167,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
-	'1', --carga_permite_no_seteado
-	'--SELECCIONAR--', --carga_no_seteado
+	'0', --carga_permite_no_seteado
+	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -202,10 +202,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --editor_botonera
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
-	NULL, --selec_utilidades
+	'1', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho
-	NULL, --selec_serializar
+	'0', --selec_serializar
 	NULL, --selec_cant_columnas
 	NULL, --upload_extensiones
 	'12', --punto_montaje

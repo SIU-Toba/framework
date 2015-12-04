@@ -40,8 +40,28 @@ class toba_proyecto_implementacion
 		
 	/**
 	*	Devuelve el perfil de datos de un usuario
-	*/
+	* @deprecated 2.8.0
+	* @see toba_proyecto_implementacion::get_perfiles_datos_usuario()
+	*/	 	
 	static function get_perfil_datos($usuario, $proyecto)
+	{
+		$datos = self::get_perfiles_datos_usuario($usuario, $proyecto);
+		if(empty($datos)) {
+			$result = null;
+		} else {
+			$anx = current($datos);
+			$result = $anx['perfil_datos'];
+		}			
+		return $result;
+	}
+	
+	/**
+	 * Devuelve los perfiles de datos del usuario en el proyecto
+	 * @param string $usuario
+	 * @param string $proyecto
+	 * @return array
+	 */
+	static function get_perfiles_datos_usuario($usuario, $proyecto)
 	{
 		$db = toba::instancia()->get_db();
 		$proyecto = $db->quote($proyecto);		
@@ -49,16 +69,16 @@ class toba_proyecto_implementacion
 		$sql = "SELECT up.usuario_perfil_datos as 		perfil_datos
 					FROM apex_usuario_proyecto_perfil_datos up
 					WHERE up.usuario = $usuario
-					AND up.proyecto = $proyecto
-		";
-		$datos = $db->consultar_fila($sql);
-		if(!$datos) return null;
-		return $datos['perfil_datos'];
+					AND up.proyecto = $proyecto ";
+		$datos = $db->consultar($sql);
+		return $datos;
 	}
-	
 
 	/**
 	*	Devuelve las restricciones correspondientes al perfil de datos del usuario
+	* @param string $proyecto
+	* @param mixed $perfil  Id de perfil o arreglo de ids.
+	* @return array
 	*/
 	static function get_perfil_datos_restricciones($proyecto, $perfil)
 	{
@@ -72,10 +92,15 @@ class toba_proyecto_implementacion
 					FROM  	apex_usuario_perfil_datos_dims d,
 							apex_dimension di
 					WHERE 	d.dimension = di.dimension
-						ANd	d.proyecto = di.proyecto
-						AND d.usuario_perfil_datos = $perfil
+						ANd	d.proyecto = di.proyecto						
 						AND d.proyecto = $proyecto
 		";
+		if (is_array($perfil)) {
+			$sql .= 'AND d.usuario_perfil_datos IN (' . implode(',', $perfil) . ')';
+		} else {
+			$sql .= "AND d.usuario_perfil_datos = $perfil";
+		}		
+		
 		return $db->consultar($sql);
 	}
 

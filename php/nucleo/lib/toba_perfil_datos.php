@@ -18,7 +18,7 @@ class toba_perfil_datos
 {
 	const separador_multicol_db = '|%-,-%|';
 	protected $proyecto;						// Proyecto sobre el que se va a trabajar
-	protected $id;								// ID del perfil sobre el que se va a trabajar
+	protected $ids;								// ID del perfil sobre el que se va a trabajar
 	protected $restricciones = array();
 	protected $fuentes_restringidas = array();
 	protected $info_dimensiones = array();
@@ -40,7 +40,18 @@ class toba_perfil_datos
 	function __construct()
 	{
 		// Por defecto el sistema se activa sobre el proyecto y usuario actual
-		$this->id = toba::manejador_sesiones()->get_perfil_datos_activo();	
+		$temp_id = toba::manejador_sesiones()->get_perfil_datos_activo();
+		if (! is_array($temp_id)) {																//Formato ID directo
+			$this->ids = array($temp_id);
+		} elseif (! is_array(current($temp_id))) {													//Formato array(ID, ID2)
+			$this->ids = $temp_id;
+		} else {																			//Formato array(array('perfil_datos' => ID), array('perfil_datos' => ID2))
+			$clave = array_keys(current($temp_id));
+			if (is_array($clave)) {
+				$this->ids = aplanar_matriz($temp_id, current($clave));
+			}
+		}
+		
 		$this->inicializar( toba::proyecto()->get_id() );
 	}
 	
@@ -48,7 +59,7 @@ class toba_perfil_datos
 	{
 		toba::logger()->debug('Inicializando perfil de datos para el proyecto ' . $proyecto);
 		$this->proyecto = $proyecto;
-		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
+		if(isset($this->ids) && ! empty($this->ids)) { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
 			foreach( $this->fuentes_restringidas as $fuente ) {
 				if( $this->posee_restricciones($fuente) ) {
@@ -63,16 +74,16 @@ class toba_perfil_datos
 	*	@ignore
 	*		Setea un perfil por el request (Utilizado en las pruebas del perfil)
 	*/
-	function set_perfil($proyecto, $id)
+	function set_perfil($proyecto, $ids)
 	{
-		$this->id = $id;
+		$this->ids = (! is_array($ids))? array($ids): $ids;
 		$this->inicializar($proyecto);
 	}
 	
 	function cargar_info_restricciones()
 	{
-		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->proyecto, $this->id );
-		if($restricciones) {
+		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones($this->proyecto, $this->ids);
+		if(! empty($restricciones)) {
 			foreach( $restricciones as $restriccion ) {
 				$this->restricciones[$restriccion['fuente_datos']][$restriccion['dimension']][$restriccion['perfil_datos']][] = explode(self::separador_multicol_db,$restriccion['clave']);
 			}
@@ -110,19 +121,31 @@ class toba_perfil_datos
 	*/
 	function get_id()
 	{
-		return $this->id;
+		if (is_array($this->ids) && ! empty($this->ids)) {
+			return current($this->ids);
+		}
 	}
 
+	/**
+	*	retorna un arreglo con los perfiles de datos del usuario
+	*	@return $value array. Si el usuario no posee un perfil devuelve NULL
+	*/
+	function get_ids()
+	{
+		return $this->ids;
+	}
+	
 	/**
 	*	Indica si el perfil de datos del usuario posee restricciones
 	*	@return $value	boolean
 	*/
 	function posee_restricciones($fuente)
 	{
+		$resultado = false;
 		if(isset($this->restricciones[$fuente])) {
-			return count($this->restricciones[$fuente]) > 0;
+			$resultado = (count($this->restricciones[$fuente]) > 0);
 		}
-		return false;
+		return $resultado;
 	}
 
 	/**
@@ -145,7 +168,9 @@ class toba_perfil_datos
 	 */
 	function posee_dimension($dimension, $fuente_datos=null) 
 	{
-		if(!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		if(! isset($fuente_datos) || is_null($fuente_datos)) {
+			$fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		}
 		if (isset($this->info_dimensiones[$fuente_datos])) {
 			foreach ($this->info_dimensiones[$fuente_datos] as $id => $dims) {
 				if ($dims['nombre'] == $dimension) {
@@ -234,9 +259,9 @@ class toba_perfil_datos
 
 	static function get_restricciones_usuario($usuario, $proyecto)
 	{
-		$perfil = toba_proyecto_implementacion::get_perfil_datos($usuario, $proyecto);
-		if ($perfil !== null) {
-			$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones($proyecto, $perfil);
+		$perfiles = toba_proyecto_implementacion::get_perfiles_datos_usuario($usuario, $proyecto);						//Este devuelve un array con todos los perfiles
+		if (! empty($perfiles)) {
+			$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones($proyecto, aplanar_matriz($perfiles, 'perfil_datos'));
 			return $restricciones;
 		} else {
 			toba::logger()->error("El usuario $usuario no posee perfil de datos en el proyecto $proyecto");
