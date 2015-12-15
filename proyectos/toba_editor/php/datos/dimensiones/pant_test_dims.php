@@ -117,7 +117,7 @@ class pant_test_dims extends toba_ei_pantalla
 			}
 		} else {
 			echo "<tr>\n";
-			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='".(count($fila) + 1)."'>No hay DATOS!</td>\n";
+			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='2'>No hay DATOS!</td>\n";
 			echo "</tr>\n";
 		}
 		echo '</table>';
@@ -126,7 +126,7 @@ class pant_test_dims extends toba_ei_pantalla
 
 	function tabla($tabla, $titulo=null)
 	{
-		$fila = (current($tabla));
+		$fila = (is_array($tabla)) ? (current($tabla)) : array();
 		echo "<div style=' color:black'>\n";
 		echo "<table style='BORDER-COLLAPSE: collapse;
 							empty-cells: show; 
