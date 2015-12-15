@@ -6,22 +6,22 @@
 	/**
 	 * Concatena sentencias a la clausula WHERE de un SQL (Utilizando un AND)
 	 */	
-	function sql_agregar_clausulas_where($sql,$clausulas_where=null)
+	function sql_agregar_clausulas_where($sql, $clausulas_where=null)
 	{
-	    if(preg_match("/\s+where\s+/i",$sql)){
-	        //TODO: Esto falla en SELECT con subquerys que no tienen WHERE en el cuerpo
-	        //del query central, por ahora SALE... 
-	        $prefijo = " AND ";
-	    }else{
-	        $prefijo = " WHERE ";
-	    }
-	    $reemplazo = "";
-	    if(is_array($clausulas_where)){
+		if(preg_match("/\s+where\s+/i", $sql)) {
+			//TODO: Esto falla en SELECT con subquerys que no tienen WHERE en el cuerpo
+			//del query central, por ahora SALE... 
+			$prefijo = " AND ";
+		}else{
+			$prefijo = " WHERE ";
+		}
+		$reemplazo = "";
+		if(is_array($clausulas_where)) {
 			if(count($clausulas_where)>0){
-		        $reemplazo = $prefijo . " (" . implode(" AND ",$clausulas_where) . ") ";
+				$reemplazo = $prefijo . " (" . implode(" AND ",$clausulas_where) . ") ";
 			}
 		}
-		return preg_replace(apex_sql_where,$reemplazo,$sql);
+		return preg_replace('/'.apex_sql_where.'/', $reemplazo, $sql);
 		//if(!stristr($sql,"where"))
 	}
 
@@ -156,7 +156,7 @@
 		        $reemplazo = ", " . implode(", ",$tablas_from);
 			}
 	    }
-	    return preg_replace(apex_sql_from,$reemplazo,$sql);
+	    return preg_replace('/'.apex_sql_from.'/', $reemplazo, $sql);
 	}
 	
 	/**
