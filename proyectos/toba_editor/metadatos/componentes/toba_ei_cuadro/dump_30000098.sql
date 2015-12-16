@@ -150,8 +150,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'0', --total
 	NULL, --total_cc
 	'1', --usar_vinculo
-	'30000010', --vinculo_carpeta
-	'30000014', --vinculo_item
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
 	'0', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target

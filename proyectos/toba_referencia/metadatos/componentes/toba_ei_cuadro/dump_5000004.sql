@@ -285,8 +285,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'0', --total
 	NULL, --total_cc
 	'1', --usar_vinculo
-	'/mensajes/vinculos', --vinculo_carpeta
-	'3310', --vinculo_item
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
 	'1', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
@@ -316,8 +316,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'0', --total
 	NULL, --total_cc
 	'1', --usar_vinculo
-	'/mensajes/vinculos', --vinculo_carpeta
-	'3310', --vinculo_item
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
 	'1', --vinculo_popup
 	'width: 400px, height: 500px, scrollbars: 1, resizable: 1', --vinculo_popup_param
 	NULL, --vinculo_target

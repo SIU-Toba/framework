@@ -71,11 +71,13 @@ class ci_sesiones extends toba_ci
 		$formateo = new toba_formateo('html');
 		$datos = consultas_instancia::get_sesiones($this->s__filtro['proyecto'], array('sesion'=>$this->s__sesion));
 		$desc = 'Sesiones del proyecto <strong>'.$this->s__filtro['proyecto'].'</strong><br>';
-		$desc .= 'Usuario: <strong>'.$datos[0]['usuario'].'</strong><br>';
-		$desc .= 'Ingreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['ingreso']).'</strong><br>';
-		$desc .= 'Egreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['egreso']).'</strong><br>';
-		$desc .= 'IP: <strong>'.$datos[0]['ip'].'</strong><br>';
-		$desc .= 'Accesos registrados: <strong>'.$datos[0]['solicitudes'].'</strong><br>';
+		if (! empty($datos)) {
+			$desc .= 'Usuario: <strong>'.isset($datos[0]['usuario']) ? $datos[0]['usuario'] : 'no auntenticado' .'</strong><br>';
+			$desc .= 'Ingreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['ingreso']).'</strong><br>';
+			$desc .= 'Egreso: <strong>'.$formateo->formato_fecha_hora($datos[0]['egreso']).'</strong><br>';
+			$desc .= 'IP: <strong>'.$datos[0]['ip'].'</strong><br>';
+			$desc .= 'Accesos registrados: <strong>'.$datos[0]['solicitudes'].'</strong><br>';
+		}
 		$this->pantalla()->set_descripcion($desc);	
 	}
 
