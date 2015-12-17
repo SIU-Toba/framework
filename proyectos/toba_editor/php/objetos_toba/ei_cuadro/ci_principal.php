@@ -188,7 +188,11 @@ class ci_principal extends ci_editores_toba
 			}
 			unset($datos['estilo_precarga']);
 		}
-				
+		
+		if (! isset($datos['evento_asociado'])) {				//Si no hay evento asociado a la columna, hay que blanquear las columnas del vinculo para evitar problemas con viejos datos.
+			$datos['vinculo_carpeta'] = null;
+			$datos['vinculo_item'] = null;
+		}				
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 	}
 	
@@ -201,6 +205,10 @@ class ci_principal extends ci_editores_toba
 			unset($datos['estilo_precarga']);
 		}
 		
+		if (! isset($datos['evento_asociado'])) {				//Si no hay evento asociado a la columna, hay que blanquear las columnas del vinculo para evitar problemas con viejos datos.
+			$datos['vinculo_carpeta'] = null;
+			$datos['vinculo_item'] = null;
+		}
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 		$this->evt__columnas__cancelar();
 	}
