@@ -157,23 +157,18 @@ class toba_nucleo
 	{
 		try {
 			$this->acceso_rest = true;			
-			$this->iniciar_contexto_rest();
-			$toba_rest = new toba_rest();
-			$nombre_api = '';//$this->recuperar_nombre_api();
-			if (! $toba_rest->es_pedido_documentacion()) {
-				$toba_rest->conf__inicial($nombre_api);
-				$app = $toba_rest->get_instancia_rest();
-				if (method_exists(toba::contexto_ejecucion(), "conf__rest")) {
-					toba::contexto_ejecucion()->conf__rest($app);
-				}
-			}
-			$toba_rest->ejecutar();
+			$this->iniciar_contexto_rest();			
+			$this->solicitud = new toba_solicitud_servicio_rest();
+			$this->solicitud->procesar();
+			$app = $this->solicitud->get_app();
+			$this->solicitud->registrar();
 			$this->finalizar_contexto_rest();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
-		}
-		toba::logger()->guardar();
+			toba::logger()->guardar();
+		}		
+		$app->logger->guardar();		
 	}
 
 	/**

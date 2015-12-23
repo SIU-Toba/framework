@@ -12,7 +12,7 @@ class toba_rest_logger implements logger
 
 	function __construct()
 	{
-		$this->logger = \toba_logger::instancia();
+		$this->logger = \toba_logger_ws::instancia();
 	}
 
 
@@ -36,7 +36,7 @@ class toba_rest_logger implements logger
 	{
 		//Lo llama toba cuando lo embebe. Se deja que lo llame, pero igual se llama desde rest
 		//para dar lugar a otras implementaciones de logs
-		//$this->logger->guardar();
+		$this->logger->guardar();
 	}
 
 	/**

@@ -473,6 +473,7 @@ class toba_autoload
 		'toba_solicitud_accion' => 'nucleo/toba_solicitud_accion.php',
 		'toba_solicitud_consola' => 'nucleo/toba_solicitud_consola.php',
 		'toba_solicitud_servicio_web' => 'nucleo/toba_solicitud_servicio_web.php',
+		'toba_solicitud_servicio_rest' => 'nucleo/toba_solicitud_servicio_rest.php',
 		'toba_solicitud_web' => 'nucleo/toba_solicitud_web.php',
 		'toba_autoload' => 'toba_autoload.php',
 		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
