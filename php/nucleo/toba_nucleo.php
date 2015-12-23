@@ -536,14 +536,6 @@ class toba_nucleo
 				throw new toba_error_seguridad('Request Invalido');
 			}
 		}
-	}
-	
-	function recuperar_nombre_api()
-	{
-		if (isset($_SERVER['REDIRECT_API_NOMBRE'])) {
-			return $_SERVER['REDIRECT_API_NOMBRE'];
-		}
-		return '';
-	}
+	}	
 }
 ?>
