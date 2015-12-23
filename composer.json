@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "prefer-stable" : false,
     "require": {
-        "padraic/security-multitool": "@dev",
+        "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "@dev",
         "siu-toba/rest": "@dev",
         "guzzlehttp/guzzle": "~6.0",

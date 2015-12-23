@@ -1,6 +1,7 @@
-<?php
-
-define ('ID_APLICACION', '3');
+<?php	
+if (toba::instalacion()->vincula_arai_usuarios()) {
+   require_once(toba_dir(). '/../../autoload.php');
+}
 
 /**
  * Clase para utilizar Arai-Usuarios
@@ -15,7 +16,7 @@ class gestion_arai_usuarios
 				$datos['cuenta'] = $datos['usuario'];	
 			}
 			if (!isset($datos['usuario_arai']) && isset($datos['cuenta'])) {
-				$datos['usuario_arai'] = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(ID_APLICACION, $datos['cuenta']);
+				$datos['usuario_arai'] = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(self::get_identificador_aplicacion(), $datos['cuenta']);
 			}
 		}
 		return $datos;
@@ -43,14 +44,14 @@ class gestion_arai_usuarios
 		$resultado = true;
 		if (toba::instalacion()->vincula_arai_usuarios()) {
 			
-			$identificador_arai_usuarios = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(ID_APLICACION, $cuenta);
+			$identificador_arai_usuarios = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(self::get_identificador_aplicacion(), $cuenta);
 			if (!isset($identificador_arai_usuarios)) {
 				$datos_cuenta = array(
-										'id_aplicacion' => ID_APLICACION,
+										'identificador_aplicacion' => self::get_identificador_aplicacion(),
 										'cuenta' => $cuenta,
-										'identificador' => $identificador,
+										'identificador_usuario' => $identificador,
 				);
-				$resultado = rest_arai_usuarios::instancia()->agregar_cuenta(ID_APLICACION, $datos_cuenta);
+				$resultado = rest_arai_usuarios::instancia()->agregar_cuenta(self::get_identificador_aplicacion(), $datos_cuenta);
 			} elseif ($identificador != $identificador_arai_usuarios) {
 				throw new toba_error('La cuenta se encuentra asociada a otro usuario de ARAI.');
 			}
@@ -61,7 +62,7 @@ class gestion_arai_usuarios
 	static public function eliminar_datos($cuenta) {	
 		$resultado = true;
 		if (toba::instalacion()->vincula_arai_usuarios()) {
-			$resultado = rest_arai_usuarios::instancia()->eliminar_cuenta(ID_APLICACION, $cuenta);
+			$resultado = rest_arai_usuarios::instancia()->eliminar_cuenta(self::get_identificador_aplicacion(), $cuenta);
 		}
 		return $resultado;
 	}
@@ -82,7 +83,7 @@ class gestion_arai_usuarios
 	static public function get_usuarios_disponibles_aplicacion($filtro) {
 		$datos = array();
 		if (toba::instalacion()->vincula_arai_usuarios()) {
-			$datos = rest_arai_usuarios::instancia()->get_usuarios($filtro, ID_APLICACION);
+			$datos = rest_arai_usuarios::instancia()->get_usuarios($filtro, self::get_identificador_aplicacion());
 		}
 		return $datos;
 	}
@@ -104,6 +105,25 @@ class gestion_arai_usuarios
 			}
 		} while(! $claveok);
 		return $clave_tmp;
+	}
+	
+	private function get_identificador_aplicacion() {
+		
+		$registry = SIU\AraiCli\AraiCli::getRegistryService();
+		$providers = $registry->getPackage()->getProvideList();
+
+		$enc = false;
+		$i=0;
+		$cantidad = count($providers);
+		While ($i < $cantidad && !$enc) {
+			if ($providers[$i]->getType() == 'app') {
+				$app_name = $providers[$i]->getName();
+				$enc = true;
+			}
+			$i++;
+		}
+		$id_app = $registry->generateAppUniqueId($app_name);
+		return $id_app;
 	}
 	
 }

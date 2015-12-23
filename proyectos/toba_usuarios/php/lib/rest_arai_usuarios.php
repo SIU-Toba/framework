@@ -124,10 +124,10 @@ class rest_arai_usuarios
 		}
 	}
 	
-	public function get_cuenta($id_aplicacion, $cuenta)
+	public function get_cuenta($identificador_aplicacion, $cuenta)
 	{
 		try {
-			$url = "aplicaciones/$id_aplicacion/cuentas/$cuenta";
+			$url = "aplicaciones/$identificador_aplicacion/cuentas/$cuenta";
 
 			// obtengo la respuesta
 			$response = $this->cliente->get($url);
@@ -143,10 +143,10 @@ class rest_arai_usuarios
 		}
 	}
 	
-	public function agregar_cuenta($id_aplicacion, $datos_cuenta)
+	public function agregar_cuenta($identificador_aplicacion, $datos_cuenta)
 	{
 		try {
-			$url = "aplicaciones/$id_aplicacion/cuentas";
+			$url = "aplicaciones/$identificador_aplicacion/cuentas";
 			
 			// obtengo la respuesta
 			$response = $this->cliente->post($url, array('body' => rest_encode($datos_cuenta)));
@@ -159,10 +159,10 @@ class rest_arai_usuarios
 		}
 	}
 	
-	public function eliminar_cuenta($id_aplicacion, $cuenta)
+	public function eliminar_cuenta($identificador_aplicacion, $cuenta)
 	{
 		try {
-			$url = "aplicaciones/$id_aplicacion/cuentas/$cuenta";
+			$url = "aplicaciones/$identificador_aplicacion/cuentas/$cuenta";
 			
 			// obtengo la respuesta
 			$response = $this->cliente->delete($url);
@@ -183,10 +183,10 @@ class rest_arai_usuarios
 		}
 	}
 	
-	public function get_identificador_x_aplicacion_cuenta($id_aplicacion, $cuenta) {
-		$datos = $this->get_cuenta($id_aplicacion, $cuenta);
+	public function get_identificador_x_aplicacion_cuenta($identificador_aplicacion, $cuenta) {
+		$datos = $this->get_cuenta($identificador_aplicacion, $cuenta);
 		if (isset($datos) && !empty($datos)) {
-			return $datos['identificador'];
+			return $datos['identificador_usuario'];
 		} else {
 			return null;
 		}

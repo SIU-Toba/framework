@@ -394,9 +394,10 @@ class toba_proyecto
 		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
-															$grupos_acceso, 
-															'get_items_menu',
-															true);
+													$grupos_acceso, 
+													'get_items_menu',
+													true,
+													array('padre','orden'));
 		} else {
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}
@@ -485,13 +486,10 @@ class toba_proyecto
 	function get_perfiles_funcionales_asociados($perfil)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-			$perfiles = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
-															array($perfil),
-															'get_membresia',
-															true
-														);
-			foreach ($perfiles as $perfil_miembro) {
-				$this->get_perfiles_funcionales_asociados($perfil_miembro);
+			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',  array($perfil),	'get_membresia', true);
+			$perfiles = $rs;
+			foreach ($rs as $perfil_miembro) {
+				$perfiles = array_merge($perfiles, $this->get_perfiles_funcionales_asociados($perfil_miembro));
 			}
 		} else {
 			$perfiles = toba_proyecto_db::get_perfiles_funcionales_asociados($this->id, $perfil);	
@@ -706,7 +704,7 @@ class toba_proyecto
 		}
 		if($reindexar) {
 			$temp = array_values($temp);	
-		}
+		}					
 		if(isset($orden)){
 			$temp = rs_ordenar_por_columnas($temp, $orden);
 		}

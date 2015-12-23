@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e12f63827dae06f02e3ef5a6b9a02c80",
-    "content-hash": "1b8c52eea178d82da4207d51ddb4cd37",
+    "hash": "ab6c1ccc00e61a9c34eb8c269538b81f",
+    "content-hash": "d7cec8c299fd4fb67ce03049a26135cc",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "dd47003641aa5425820c0ec8a6f4a85e7412ffcd"
+                "reference": "bc23e0f46da064cbc53c1b1243472477487ef754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/dd47003641aa5425820c0ec8a6f4a85e7412ffcd",
-                "reference": "dd47003641aa5425820c0ec8a6f4a85e7412ffcd",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/bc23e0f46da064cbc53c1b1243472477487ef754",
+                "reference": "bc23e0f46da064cbc53c1b1243472477487ef754",
                 "shasum": ""
             },
             "require": {
@@ -35,12 +35,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Cache\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -75,7 +75,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-09-16 13:31:45"
+            "time": "2015-12-19 04:57:29"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -83,12 +83,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "958ba655954ab5ad131a80231a90f9e74e425867"
+                "reference": "913ac6955b6733d3148f2e2002f9e1120e85989c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/958ba655954ab5ad131a80231a90f9e74e425867",
-                "reference": "958ba655954ab5ad131a80231a90f9e74e425867",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/913ac6955b6733d3148f2e2002f9e1120e85989c",
+                "reference": "913ac6955b6733d3148f2e2002f9e1120e85989c",
                 "shasum": ""
             },
             "require": {
@@ -119,7 +119,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2015-09-29 22:36:53"
+            "time": "2015-12-20 19:53:54"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -127,12 +127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ecf4fc1ef44d2648e77bf0881a5976b72bfbeabf"
+                "reference": "2e5c595512de4885435eaff24b67066769b64b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ecf4fc1ef44d2648e77bf0881a5976b72bfbeabf",
-                "reference": "ecf4fc1ef44d2648e77bf0881a5976b72bfbeabf",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/2e5c595512de4885435eaff24b67066769b64b34",
+                "reference": "2e5c595512de4885435eaff24b67066769b64b34",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-09-30 17:14:23"
+            "time": "2015-12-01 02:41:23"
         },
         {
             "name": "guzzlehttp/promises",
@@ -189,12 +189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "97fe7210def29451ec74923b27e552238defd75a"
+                "reference": "b1e1c0d55f8083c71eda2c28c12a228d708294ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/97fe7210def29451ec74923b27e552238defd75a",
-                "reference": "97fe7210def29451ec74923b27e552238defd75a",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/b1e1c0d55f8083c71eda2c28c12a228d708294ea",
+                "reference": "b1e1c0d55f8083c71eda2c28c12a228d708294ea",
                 "shasum": ""
             },
             "require": {
@@ -232,20 +232,20 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2015-08-15 19:37:21"
+            "time": "2015-10-15 22:28:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e"
+                "reference": "4d0bdbe1206df7440219ce14c972aa57cc5e4982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
-                "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/4d0bdbe1206df7440219ce14c972aa57cc5e4982",
+                "reference": "4d0bdbe1206df7440219ce14c972aa57cc5e4982",
                 "shasum": ""
             },
             "require": {
@@ -290,7 +290,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2015-08-15 19:32:36"
+            "time": "2015-11-03 01:34:55"
         },
         {
             "name": "ircmaxell/random-lib",
@@ -394,16 +394,16 @@
         },
         {
             "name": "michelf/php-markdown",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9"
+                "reference": "155287e4222d2dd69b6a21221617b50668d5892e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/e1aabe18173231ebcefc90e615565742fc1c7fd9",
-                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/155287e4222d2dd69b6a21221617b50668d5892e",
+                "reference": "155287e4222d2dd69b6a21221617b50668d5892e",
                 "shasum": ""
             },
             "require": {
@@ -426,14 +426,14 @@
             ],
             "authors": [
                 {
-                    "name": "John Gruber",
-                    "homepage": "http://daringfireball.net/"
-                },
-                {
                     "name": "Michel Fortin",
                     "email": "michel.fortin@michelf.ca",
                     "homepage": "https://michelf.ca/",
                     "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "https://daringfireball.net/"
                 }
             ],
             "description": "PHP Markdown",
@@ -441,7 +441,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2015-03-01 12:03:08"
+            "time": "2015-12-22 18:18:12"
         },
         {
             "name": "mjohnson/decoda",
@@ -545,69 +545,6 @@
             "time": "2015-01-13 12:56:33"
         },
         {
-            "name": "padraic/security-multitool",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SIU-Toba/SecurityMultiTool.git",
-                "reference": "e31dc7e919d91e2974336a79abade0f987380305"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/SecurityMultiTool/zipball/e31dc7e919d91e2974336a79abade0f987380305",
-                "reference": "e31dc7e919d91e2974336a79abade0f987380305",
-                "shasum": ""
-            },
-            "require": {
-                "ezyang/htmlpurifier": ">=4.5.0",
-                "ircmaxell/random-lib": "dev-master@dev",
-                "ircmaxell/security-lib": "1.1.*@dev",
-                "michelf/php-markdown": ">=1.0.2",
-                "mjohnson/decoda": ">=5.1.2",
-                "zendframework/zend-uri": "2.2.*"
-            },
-            "require-dev": {
-                "mockery/mockery": "1.0.*@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "SecurityMultiTool": "library/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Pádraic Brady",
-                    "email": "padraic.brady@gmail.com",
-                    "homepage": "http://blog.astrumfutura.com"
-                }
-            ],
-            "description": "A multitool library offering access to recommended security related libraries, standardised implementations of security defences, and secure implementations of commonly performed tasks.",
-            "homepage": "http://github.com/padraic/SecurityMultiTool",
-            "keywords": [
-                "PRNG",
-                "RNG",
-                "csrf",
-                "escaping",
-                "htmlpurifier",
-                "library",
-                "random",
-                "sanitisation",
-                "sanitization",
-                "security",
-                "ssl",
-                "tls",
-                "xss"
-            ],
-            "support": {
-                "source": "https://github.com/SIU-Toba/SecurityMultiTool/tree/master"
-            },
-            "time": "2015-06-01 20:39:46"
-        },
-        {
             "name": "psr/http-message",
             "version": "dev-master",
             "source": {
@@ -662,12 +599,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "2f89087f0f5f4487277bb4ee5decb69d2372fff0"
+                "reference": "5087aa3fc0d698071fb130098936e6c37293a44c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/2f89087f0f5f4487277bb4ee5decb69d2372fff0",
-                "reference": "2f89087f0f5f4487277bb4ee5decb69d2372fff0",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/5087aa3fc0d698071fb130098936e6c37293a44c",
+                "reference": "5087aa3fc0d698071fb130098936e6c37293a44c",
                 "shasum": ""
             },
             "require": {
@@ -686,7 +623,61 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2015-09-25 20:35:47"
+            "time": "2015-10-28 15:08:56"
+        },
+        {
+            "name": "siu/security-multitool",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SIU-Toba/SecurityMultiTool.git",
+                "reference": "d0f68c67e30b8acafce3f1875d66eea528d7cdb0"
+            },
+            "require": {
+                "ezyang/htmlpurifier": ">=4.5.0",
+                "ircmaxell/random-lib": "dev-master@dev",
+                "ircmaxell/security-lib": "1.1.*@dev",
+                "michelf/php-markdown": ">=1.0.2",
+                "mjohnson/decoda": ">=5.1.2",
+                "zendframework/zend-uri": "2.2.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.0.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SecurityMultiTool": "library/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                }
+            ],
+            "description": "A multitool library offering access to recommended security related libraries, standardised implementations of security defences, and secure implementations of commonly performed tasks.",
+            "homepage": "http://github.com/padraic/SecurityMultiTool",
+            "keywords": [
+                "PRNG",
+                "RNG",
+                "csrf",
+                "escaping",
+                "htmlpurifier",
+                "library",
+                "random",
+                "sanitisation",
+                "sanitization",
+                "security",
+                "ssl",
+                "tls",
+                "xss"
+            ],
+            "time": "2015-11-04 19:37:47"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -905,7 +896,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "padraic/security-multitool": 20,
         "ircmaxell/random-lib": 20,
         "siu-toba/rest": 20
     },

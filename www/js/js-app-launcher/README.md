@@ -15,8 +15,8 @@ Para inicializar la librería se debe configurar el objeto `appLauncherDataParam
   {
         'usuario_id' : 'admin',
         'usuario_nombre' : 'Usuario Administrador',
-        'usuario_foto':    'http://aplicacion.com/perfil/admin.png'
-        'perfil_url': 'http://aplicacion.com/perfil/'
+        'usuario_foto':    'http://aplicacion.com/perfil/admin.png',
+        'perfil_url': 'http://aplicacion.com/perfil/',
         'aplicaciones' :
         [
             {
@@ -34,9 +34,23 @@ Para inicializar la librería se debe configurar el objeto `appLauncherDataParam
             {
             ...
             }
-        ]
+        ],
+        'cuentas':
+        [
+            {
+              'id': 'pepito',
+              'nombre': 'Rudecindo Malacara'
+            }
+            {
+              'id': 'marciano87',
+              'nombre': 'Nombre cuenta 2'
+            }
+        ]        
 }
 ```
+* urlAppUsrChg : Indica la direccion de la aplicacion a la que deberia dirigirse en caso de un cambio de cuenta.
+
+* usrChangeParam: Indica el nombre del parametro que marca un cambio de cuenta de usuario.
  
 * js_salir: Lógica javaScript que se aplica al boton de `salir`.
 
@@ -78,7 +92,8 @@ Para utilizar la librería debemos tener en cuenta lo siguiente:
                             "usuario_nombre":"Usuario Administrador",
                             "usuario_foto":"img\/foto_perfil_defecto.png",
                             "perfil_url":"#",
-                            "aplicaciones":[]
+                            "aplicaciones":[],
+                            "cuentas":[]
                         };
     
     // funcion js que contiene la logica js para logout
@@ -91,6 +106,8 @@ Para utilizar la librería debemos tener en cuenta lo siguiente:
     appLauncher.init({
                     container: divContainer,
                     data: appLauncherData,
+                    urlAppUsrChg: "https:\/\/plus.google.com\/",
+                    usrChangeParam: "notAvailable",
                     js_salir: fnc_js_salir
                 });
   </script>

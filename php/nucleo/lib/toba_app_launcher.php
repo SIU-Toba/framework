@@ -49,6 +49,7 @@ class toba_app_launcher
 									'usuario_nombre' => toba::usuario()->get_nombre(),
 									'usuario_foto' => toba_recurso::imagen_toba('usuarios/foto_perfil_defecto.png'),
 									'aplicaciones' => array(),
+									'cuentas' => array(),
 								);
 		
 		// datos provenientes de la autenticacion
@@ -87,7 +88,6 @@ class toba_app_launcher
 	public function get_html_app_launcher()
 	{
 		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-		
 		$url_js_app_launcher = toba::instalacion()->get_url().'/js/js-app-launcher/';
 		
 		$html =  '	<link rel="stylesheet" href="' . $url_js_app_launcher . 'css/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />';
@@ -95,10 +95,12 @@ class toba_app_launcher
 		$html .= toba_js::incluir($url_js_app_launcher . 'app_launcher.js');
 		$html .= '	<div id="enc-usuario" class="enc-usuario">';
 		$html .= '	</div>';
-        $html .= '	<script>
+		$html .= '	<script>
 					appLauncher.init({
 						container: "#enc-usuario",
 						data: ' . json_encode($this->get_app_launcher_data()) . ',
+						urlAppUsrChg: '.json_encode( toba::vinculador()->get_url()).',
+						usrChangeParam: '. json_encode(apex_sesion_qs_cambio_usuario) .',
 						js_salir: function() { javascript:'.$js.'},
 					});
 				</script>';
