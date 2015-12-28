@@ -408,7 +408,7 @@ class toba_nucleo
 		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
 			$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
 		} else {
-			$path = realpath(self::toba_dir().'/vendor/autoload.php');		//Toba se usa como nivel inicial
+			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');		//Toba se usa como nivel inicial
 		}
 		
 		if (file_exists($path)) {
