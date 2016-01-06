@@ -127,6 +127,12 @@ class toba_instancia
 		}
 	}
 
+	function get_path_proyecto_pers($proyecto)
+	{
+		$path_proyecto = $this->get_path_proyecto($proyecto);
+		return $path_proyecto . '/' . toba_personalizacion::dir_personalizacion;
+	}
+	
 	function get_path_ini()
 	{
 		$id_instancia = toba::instancia()->get_id();

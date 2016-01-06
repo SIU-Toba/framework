@@ -12,14 +12,14 @@ class toba_test_lista_casos
 		self::$tipo = $tipo_test;
 	}
 	
-	static function get_path($ultimo_nivel='')
+	static function get_path($ultimo_nivel='', $personalizacion = false)
 	{
 		if (isset(self::$proyecto) && isset(self::$instancia)) {
 			$p = toba_modelo_catalogo::instanciacion()->get_proyecto(self::$instancia, self::$proyecto);
-			$path = $p->get_dir(). self::$path_base;
+			$path = ($personalizacion === TRUE) ? $p->get_dir_pers() . self::$path_base :  $p->get_dir(). self::$path_base;
 		} else {
 			$proyecto = toba_contexto_info::get_proyecto();
-			$path =  toba::instancia()->get_path_proyecto($proyecto). self::$path_base;
+			$path = ($personalizacion === TRUE) ? toba::instancia()->get_path_proyecto_pers($proyecto). self::$path_base :  toba::instancia()->get_path_proyecto($proyecto). self::$path_base;
 		}
 		
 		if (trim($ultimo_nivel) != '') {
@@ -95,9 +95,12 @@ class toba_test_lista_casos
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
 		$path = toba::instancia()->get_path_proyecto($proyecto)."/php";
-		agregar_dir_include_path($path);		
+		agregar_dir_include_path($path);
+
+		$path_pers = toba::instancia()->get_path_proyecto_pers($proyecto)."/php";
+		agregar_dir_include_path($path_pers);
 		
-		$casos = $casos_sel = array();
+		$casos = $casos_sel = $casos_pers = $casos_pers_sel = array();
 		$path = self::get_path();
 		if (file_exists($path.'/test_toba.php')) {
 			require_once($path.'/test_toba.php');			
@@ -113,8 +116,20 @@ class toba_test_lista_casos
 			closedir($handle); 			
 		}
 		
-		if (! empty($casos) || ! empty($casos_sel)) {
-			$casos = array_merge ($casos, $casos_sel);
+		$path_pers = self::get_path('', true);
+		if( $handle = @opendir( $path_pers ) ) {
+			$casos_pers = self::get_archivos($handle, $path_pers);
+			closedir($handle); 
+		}
+		
+		$path_pers_sel = self::get_path('selenium', true);
+		if( $handle = @opendir( $path_pers_sel ) ) {
+			$casos_pers_sel = self::get_archivos($handle, $path_pers_sel);
+			closedir($handle); 
+		}
+		
+		if (! empty($casos) || ! empty($casos_sel) || ! empty($casos_pers) || ! empty($casos_pers_sel)) {
+			$casos = array_merge ($casos, $casos_sel, $casos_pers, $casos_pers_sel);
 		}		
 		
 		usort($casos, array("toba_test_lista_casos", "comparar"));			
