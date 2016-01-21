@@ -135,6 +135,13 @@ class toba_manejador_sesiones
 		}
 	}
 	
+	/**
+	 * Realiza un cambio de usuario en runtime
+	 * @param string $actual  ID del usuario actual
+	 * @param string $nuevo  ID hasheado del usuario al cual cambiar
+	 * @param mixed $datos_iniciales Array de datos para inicializar la sesion [opcional]
+	 * @throws toba_error_seguridad
+	 */
 	function cambio_usuario($actual, $nuevo, $datos_iniciales=null)
 	{
 		//verificar usuario actual
@@ -142,14 +149,15 @@ class toba_manejador_sesiones
 			throw new toba_error_seguridad('El usuario actual no es el especificado');			
 		}
 		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
-		if (! in_array($nuevo , $this->_usuarios_posibles)) {
+		$mapeo = $this->recuperar_mapeo_usuarios($nuevo , $this->_usuarios_posibles);
+		if (empty($mapeo)) {
 			throw new toba_error_seguridad('Es intentando acceder a un usuario no valido' );
 		}
 		//Si todo va bien.
 		$this->procesar_salida_proyecto("Logout por cambio de usuario");			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
-		$this->procesar_acceso_instancia($nuevo, $datos_iniciales);		
+		$this->procesar_acceso_instancia($mapeo, $datos_iniciales);
 	}	
-	
+		
 	/**
 	*	Entrada a un proyecto desde la operación de inicializacion de sesion
 	*/
@@ -983,14 +991,90 @@ class toba_manejador_sesiones
 			}
 			throw new toba_error_autenticacion($error);
 		}
-		if ($this->get_autenticacion() != null) {
+		if ($this->get_autenticacion() != null) {											//Recupero la lista de cuentas alternativas para el usuario y genero el mapeo interno
 			$this->contrasenia_vencida = $this->get_autenticacion()->verificar_clave_vencida($id_usuario);
-			$this->_usuarios_posibles = $this->get_autenticacion()->get_lista_cuentas_posibles();
+			$usr_posibles = $this->get_autenticacion()->get_lista_cuentas_posibles();
+			if (! empty($usr_posibles)) {
+				$usr_posibles = $this->get_descripcion_cuentas_usuario($usr_posibles);
+				$this->_usuarios_posibles = $this->generar_mapeo_usuarios($usr_posibles);
+			}
 		} else {
 			throw new toba_error_seguridad('No existe la autenticación propuesta');
 		}
 	}
 
+	//---------------------------------------------------------------------------------------------
+	//		CUENTAS DE USUARIO VALIDAS
+	//---------------------------------------------------------------------------------------------
+	/**
+	 * Devuelve un arreglo conteniendo las cuentas alternativas del usuario (si es que existen)
+	 * Incluye ademas el usuario actual bajo el indice 'usuario_actual'
+	 * @return array  Formato array('usuario_actual' => 'id', array('id_base' =>id, 'descripcion' => 'nombre'))
+	 */
+	function get_cuentas_disponibles()
+	{
+		$rs = array();
+		if (! empty($this->_usuarios_posibles)) {
+			$rs = array_values($this->_usuarios_posibles);
+			$rs['usuario_actual'] = $this->_usuarios_posibles[$this->usuario()->get_id()]['id_base'];
+		}
+		return $rs;
+	}
+	
+	/**
+	 * Genera un mapeo interno de los ids de usuario y arma un arreglo con el id hasheado y el nombre
+	 * @param array $lista_usuarios
+	 * @return array
+	 * @ignore
+	 */
+	protected function generar_mapeo_usuarios($lista_usuarios)
+	{
+		$resultado = array();
+		$hasher = new toba_hash();
+		foreach($lista_usuarios as $usr) {
+			$hs = $hasher->hash($usr['id']);
+			$resultado[$usr['id']] = array('id_base'  => base64_encode($hs), 'descripcion' => $usr['nombre']);
+		}
+		return $resultado;
+	}
+	
+	/**
+	 * Devuelve el id original del usuario encontrado o un arreglo vacio
+	 * @param string $id ID hasheado del usuario
+	 * @param array $lista Mapeo de usuarios generado por la funcion anterior
+	 * @return mixed
+	 * @ignore
+	 */
+	protected function recuperar_mapeo_usuarios($id, $lista)		
+	{
+		$resultado = array();
+		foreach($lista as $clave => $valores) {
+			if ($id == $valores['id_base']) {
+				$resultado = $clave;
+			}
+		}		
+		return $resultado;
+	}	
+	
+	/**
+	 * Recupera las descripciones de las cuentas de usuario via una subclase del proyecto o toba_usuario_basico
+	 * @param array $cuentas Arreglo de cuentas a recuperar las descripciones
+	 * @return array El formato debe ser array(array('id' => id, 'nombre' => nombre))
+	 * @ignore
+	 */
+	protected function get_descripcion_cuentas_usuario($cuentas)
+	{
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');			
+		if (trim($subclase) == '') {
+			$subclase = 'toba_usuario_basico';	
+		} else {
+			$this->cargar_clase_usuario();
+		}
+		
+		$rs = $subclase::recuperar_descripcion_cuentas($cuentas);
+		return $rs;
+	}	
+	
 	//------------------------------------------------------------------
 	//---  ESPACIOS de MEMORIA  ----------------------------------------
 	//------------------------------------------------------------------

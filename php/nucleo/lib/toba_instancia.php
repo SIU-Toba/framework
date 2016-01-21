@@ -383,21 +383,35 @@ class toba_instancia
 	 */
 	function get_info_usuario($usuario)
 	{
-		$usuario = $this->get_db()->quote($usuario);
-		$sql = "SELECT	usuario as							id,
-						nombre as							nombre,
-						email as							email,
-						parametro_a as						parametro_a,
-						parametro_b as 						parametro_b,
-						parametro_c as						parametro_c
-				FROM 	apex_usuario u
-				WHERE	usuario = $usuario";
-		$rs = $this->get_db()->consultar($sql);
+		$rs = array();
+		if (trim($usuario) != '') {$rs = $this->get_info_usuarios(array($usuario));}
 		if(empty($rs)){
 			throw new toba_error("El usuario $usuario no existe.");
 		}
 		return $rs[0];
 	}
+	
+	/**
+	 * Retorna la información cruda de un grupo de usuarios, tal como está en la base de datos
+	 * @see toba_usuario
+	 */
+	function get_info_usuarios($usuarios)
+	{
+		$rs = array();
+		if (! empty($usuarios)) {
+			$usuario_list = $this->get_db()->quote($usuarios);
+			$sql = 'SELECT	usuario as							id,
+							nombre as							nombre,
+							email as							email,
+							parametro_a as						parametro_a,
+							parametro_b as 						parametro_b,
+							parametro_c as						parametro_c
+					FROM 	apex_usuario u
+					WHERE	usuario IN ('. implode(',' , $usuario_list) . ')';
+			$rs = $this->get_db()->consultar($sql);
+		}
+		return $rs;
+	}	
 
 	function get_info_autenticacion($usuario)
 	{

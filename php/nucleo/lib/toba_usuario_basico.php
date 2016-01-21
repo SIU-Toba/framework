@@ -43,6 +43,16 @@ class toba_usuario_basico extends toba_usuario
 		return true;
 	}
 	
+	/**
+	 * Recupera las descripciones de las cuentas de usuario
+	 * @param array $cuentas Lista de ids de usuario
+	 * @return array El formato es array(array('id' => id, 'nombre' => nombre))
+	 */
+	static function recuperar_descripcion_cuentas($cuentas)
+	{
+		return toba::instancia()->get_info_usuarios($cuentas);
+	}
+	
 	//----------------------------------------------------------------------------------
 	
 	function __construct($id_usuario)

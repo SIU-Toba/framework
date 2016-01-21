@@ -26,9 +26,8 @@ var appLauncher = new function () {
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         // Armo el HTML del perfil de usuario
         //////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        var html_usuario = "";
-        html_usuario += "<div id='container_datos_usuario'>";
+                
+        var html_usuario = "<div id='container_datos_usuario'>";
         html_usuario += "   <div id='datos_usuario_general'>";
         html_usuario += "       <div id='button_datos_usuario'>";
         html_usuario += "           <div id='button_datos_usuario_foto'>";
@@ -44,6 +43,8 @@ var appLauncher = new function () {
         html_usuario += "                   <div id='perfil_usuario_cuenta_botones'>";
         html_usuario += "                       <div id='perfil_usuario_cuenta_perfil'>";
         html_usuario += "                       </div>";
+        html_usuario += "                       <div id='perfil_usuario_preferencias'>";
+        html_usuario += "                       </div>";
         html_usuario += "                       <div id='perfil_usuario_cuenta_id'>";
         html_usuario += "                       </div>";
         html_usuario += "                       <div id='perfil_usuario_cuenta_salir'>";
@@ -54,6 +55,7 @@ var appLauncher = new function () {
         html_usuario += "       </div>";
         html_usuario += "   </div>";
         html_usuario += "</div>";
+        
         $(appLauncherData.container).append(html_usuario);
                 
         if (appLauncherData.data.usuario_foto != undefined) {
@@ -68,9 +70,15 @@ var appLauncher = new function () {
         if (appLauncherData.data.usuario_id != undefined) {
             $(appLauncherData.container + " #button_datos_usuario").append("<div id='perfil_usuario_boton_cuenta_id'>" + appLauncherData.data.usuario_id + "</div>");
         }
+
+        if (appLauncherData.data.usuario_preferencias != undefined) {
+            var url_pref = (appLauncherData.data.usuario_preferencias.url != undefined) ? appLauncherData.data.usuario_preferencias.url : "#";
+            var label_pref = (appLauncherData.data.usuario_preferencias.label != undefined) ? appLauncherData.data.usuario_preferencias.label : "Preferencias";
+            $(appLauncherData.container + "#perfil_usuario_preferencias").html("<a id='boton_preferencias' href='"+ url_pref +"'> " + label_pref +" </a>" );
+        }
         
         if (appLauncherData.data.cuentas != undefined && appLauncherData.data.cuentas.length > 0) {     //Agrego el combo con cuentas validas
-            var index, 
+            var index, opcion,
                 combo = $("<select/>", {"id": "combo_usuario_cuentas", "name": "combo_usuario_cuentas"})
                                 .appendTo($(appLauncherData.container + " #perfil_usuario_cuenta_id"))
                                 .on('change', function() {
@@ -78,7 +86,11 @@ var appLauncher = new function () {
                                     window.location.href = appLauncherData.urlAppUsrChg + nexo + appLauncherData.usrChangeParam + '=' + $(this).val();
                                 });
             for (index in appLauncherData.data.cuentas) {
-                combo.append($("<option/>", {'value' : appLauncherData.data.cuentas[index].id, 'text' : appLauncherData.data.cuentas[index].nombre}));
+        		opcion = $("<option/>", {'value' : appLauncherData.data.cuentas[index].id_base, 'text' : appLauncherData.data.cuentas[index].descripcion});
+        		if (appLauncherData.data.cuenta_actual == appLauncherData.data.cuentas[index].id_base) {
+        			opcion.attr('selected', '1');
+        		}
+                combo.append(opcion);
             }            
         } else if (appLauncherData.data.usuario_id != undefined) {
             $(appLauncherData.container + " #perfil_usuario_cuenta_id").html(appLauncherData.data.usuario_id);
@@ -101,8 +113,7 @@ var appLauncher = new function () {
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         
         if (cant_apps > 0) {
-            var html_aplicaciones = "";
-            html_aplicaciones += "  <div id='container_aplicaciones'>";
+            var html_aplicaciones = "  <div id='container_aplicaciones'>";
             html_aplicaciones += "      <div id='launcher'>";
             html_aplicaciones += "          <div id='button'><i class='fa fa-th fa-2x'></i>";
             html_aplicaciones += "          </div>";

@@ -59,7 +59,13 @@ class toba_app_launcher
 		} else {
 			$appLauncherData = array();
 		}
-		
+		//recupero las otras cuentas disponibles para el usuario
+		$cuentas_disponibles = toba::manejador_sesiones()->get_cuentas_disponibles();
+		if (! empty($cuentas_disponibles)) {
+			$appLauncherData['cuenta_actual'] = $cuentas_disponibles['usuario_actual'];
+			unset($cuentas_disponibles['usuario_actual']);		
+			$appLauncherData['cuentas']  = $cuentas_disponibles;
+		}
 		// mergeo entre los datos por defecto y los datos de la autenticacion
 		return array_merge($appLauncherDataDefault, $appLauncherData);
 	}
@@ -87,23 +93,13 @@ class toba_app_launcher
 	*/
 	public function get_html_app_launcher()
 	{
-		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-		$url_js_app_launcher = toba::instalacion()->get_url().'/js/js-app-launcher/';
+		$url_base = toba_recurso::url_toba().'/js/js-app-launcher/';
 		
-		$html =  '	<link rel="stylesheet" href="' . $url_js_app_launcher . 'css/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />';
-		$html .= '	<link rel="stylesheet" href="' . $url_js_app_launcher .'css/app_launcher.css" type="text/css" />';
-		$html .= toba_js::incluir($url_js_app_launcher . 'app_launcher.js');
-		$html .= '	<div id="enc-usuario" class="enc-usuario">';
-		$html .= '	</div>';
-		$html .= '	<script>
-					appLauncher.init({
-						container: "#enc-usuario",
-						data: ' . json_encode($this->get_app_launcher_data()) . ',
-						urlAppUsrChg: '.json_encode( toba::vinculador()->get_url()).',
-						usrChangeParam: '. json_encode(apex_sesion_qs_cambio_usuario) .',
-						js_salir: function() { javascript:'.$js.'},
-					});
-				</script>';
+		$html =  '<link rel="stylesheet" href="' . $url_base . 'css/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />';
+		$html .= '<link rel="stylesheet" href="' . $url_base .'css/app_launcher.css" type="text/css" />';
+		$html .= toba_js::incluir($url_base . 'app_launcher.js');
+		$html .= '<div id="enc-usuario" class="enc-usuario"></div>';
+		$html .= toba_js::ejecutar($this->get_codigo_inicializacion());
 		return $html;
 	}
 	
@@ -115,6 +111,21 @@ class toba_app_launcher
 		echo $this->get_html_app_launcher();
 	}
 	
+	/**
+	 * Devuelve el codigo necesario para inicializar el appLauncher con datos
+	 * @return string
+	 */
+	protected function get_codigo_inicializacion()
+	{
+		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';		
+		return  'appLauncher.init({
+				container: "#enc-usuario",
+				data: ' . json_encode($this->get_app_launcher_data()) . ',
+				urlAppUsrChg: '.json_encode(toba::vinculador()->get_url()).',
+				usrChangeParam: '. json_encode(apex_sesion_qs_cambio_usuario) .',
+				js_salir: function() { '.$js.'},
+			});';		
+	}
+	
 }
-
 ?>
