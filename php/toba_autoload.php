@@ -484,6 +484,7 @@ class toba_autoload
 		'toba_rest_logger' => 'nucleo/lib/rest/toba_rest_logger.php',
 		'toba_usuarios_rest_bd' => 'nucleo/lib/rest/toba_usuarios_rest_bd.php',
 		'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_usuarios_rest_conf.php',
+		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php'
 	);
 }
 ?>

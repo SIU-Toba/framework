@@ -45,10 +45,23 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 		if (! isset($this->guzzle)) {
 			$options = array('base_uri' => $this->opciones['to']);
 			if (isset($this->opciones['auth_tipo'])) {
-				$options['auth'] = array($this->opciones['auth_usuario'], 
-								$this->opciones['auth_password'], 
-								$this->opciones['auth_tipo']);
+				if ($this->opciones['auth_tipo'] != 'ssl') {
+					$options['auth'] = array($this->opciones['auth_usuario'], 	$this->opciones['auth_password'], $this->opciones['auth_tipo']);
+				} else {					
+					if (isset($this->opciones['cert_file'])) {								//Busco el certificado del cliente
+						$options['cert'] = array(realpath($this->opciones['cert_file']));
+					}
+					if (isset($this->opciones['cert_pwd'])) {								//Si requiere un pwd se lo agrego
+						$options['cert'][] = $this->opciones['cert_pwd'];
+					}
+					if (isset($this->opciones['key_file'])) {
+						$options['ssl_key'] = realpath($this->opciones['key_file']);
+					}					
+					//Agrego el certificado de la CA para verificar el certificado del servidor
+					$options['verify'] = (isset($this->opciones['ca_cert']))? array($this->opciones['ca_cert']) : false;					
+				}
 			}
+			toba::logger()->var_dump($options);
 			$this->guzzle = $client = new GuzzleHttp\Client($options);
 		}
 		return $this->guzzle;	

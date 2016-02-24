@@ -108,6 +108,12 @@ class toba_rest
 					return new autenticacion\autenticacion_api_key($passwords);
 				});
 				break;
+			case 'ssl':
+				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
+					$certificados = new toba_usuarios_rest_ssl($modelo_proyecto);
+					return new autenticacion\autenticacion_ssl($certificados);
+				});
+				break;
 			case 'oauth2':
 				$app->container->singleton('autenticador', function () use ($conf) {
 					$conf_auth = $conf->get('oauth2');
