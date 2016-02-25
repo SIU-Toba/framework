@@ -120,9 +120,9 @@ class toba_app_launcher
 		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';		
 		return  'appLauncher.init({
 				container: "#enc-usuario",
-				data: ' . json_encode($this->get_app_launcher_data()) . ',
-				urlAppUsrChg: '.json_encode(toba::vinculador()->get_url()).',
-				usrChangeParam: '. json_encode(apex_sesion_qs_cambio_usuario) .',
+				data: ' . json_encode(array_a_utf8($this->get_app_launcher_data())) . ',
+				urlAppUsrChg: '.json_encode(utf8_e_seguro(toba::vinculador()->get_url())).',
+				usrChangeParam: '. json_encode(utf8_e_seguro(apex_sesion_qs_cambio_usuario)) .',
 				js_salir: function() { '.$js.'},
 			});';		
 	}
