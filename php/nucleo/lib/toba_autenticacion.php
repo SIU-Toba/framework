@@ -5,7 +5,7 @@ class toba_autenticacion
 	static $marca_login_central = 'uso_login_central';
 	static $metodos_centralizados = array('cas','saml', 'saml_onelogin');
 	static $session_atributos_usuario = 'auth_atributos_usuario';
-	static $session_usuarios_posibles = 'auth_user_accounts';
+	static $session_usuarios_posibles = 'userAccounts';
 	
 	protected $parametros_url;
 	protected $atributos_usuario;
@@ -107,6 +107,10 @@ class toba_autenticacion
 		return $this->atributos_usuario;
 	}
 	
+	/**
+	 * Recupera los ids de las cuentas alternativas del usuario desde los datos que envio el IDP
+	 * @return array
+	 */
 	function get_lista_cuentas_posibles()
 	{
 		$datos = $this->get_atributos_usuario();
