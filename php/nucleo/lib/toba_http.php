@@ -8,6 +8,9 @@
  */
 class toba_http
 {
+	static protected $nombre_ini = 'web_server.ini';
+	static protected $config;
+	
 	static function cache()
 	//Induce al BROWSER a cachear esta pagina
 	{
@@ -43,10 +46,10 @@ class toba_http
 		//	se muestra un mensaje de pagina caducada y un usuario puede pensar que es un error del sistema
 		//	Este error de transparencia del cache esta comentado en el RFC del HTTP 
 		self::encoding();
-		if( acceso_post() ){
-			if(!headers_sent()){
+		if (acceso_post()){
+			if (!headers_sent()) {
 				self::cache();
-			}else{
+			} else {
 				self::no_cache();
 			}
 		}
@@ -92,9 +95,9 @@ class toba_http
 	
 	static function get_nombre_servidor()
 	{
-		$srv_name = $_SERVER['SERVER_NAME'];					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
-		$nombre = htmlentities($srv_name, ENT_QUOTES, 'UTF-8');		//Se debe usar UseCanonicalName junto con esta variable en la config del webserver
-		$puerto = self::get_puerto();								//Se debe usar UseCanonicalPhysicalPort  On para obtener el puerto real del webserver, sino es un nro cualquiera
+		$srv_name = self::get_config('SERVER_NAME');					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
+		$nombre = htmlentities($srv_name, ENT_QUOTES, 'UTF-8');			//Se debe usar UseCanonicalName junto con esta variable en la config del webserver
+		$puerto = self::get_puerto();									//Se debe usar UseCanonicalPhysicalPort  On para obtener el puerto real del webserver, sino es un nro cualquiera
 		if (trim($puerto) != '' && $puerto != '80' && $puerto != '443') {
 			$nombre .= ':'. $puerto;
 		}
@@ -103,12 +106,13 @@ class toba_http
 	
 	static function usa_protocolo_seguro()
 	{
-		return (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'));
+		$secure = self::get_config('HTTPS');
+		return (isset($secure) && (strtolower($secure) != 'off'));		//Hay que poder forzarlo
 	}
 	
 	static function get_puerto()
 	{
-		return $_SERVER['SERVER_PORT'];
+		return self::get_config('SERVER_PORT');
 	}
 	
 	static function get_uri()
@@ -130,6 +134,33 @@ class toba_http
 			return substr($s1, 0, $length);
 		} 		
 		return $s1;
+	}
+	
+	protected static function get_config($entrada)
+	{
+		$conf = self::cargar_config();
+		$entrada_file = strtolower($entrada);
+		if (isset($conf[$entrada_file])) {
+			return $conf[$entrada_file];
+		} elseif (isset($_SERVER[$entrada])) {
+			return $_SERVER[$entrada];
+		}
+		return null;
+	}
+	
+	protected static function cargar_config()
+	{
+		if (! isset(self::$config)) {
+			$path_base = toba::instalacion()->get_path_carpeta_instalacion();
+			$path_real = realpath($path_base .'/'. self::$nombre_ini);		
+			if ($path_real !== false && file_exists($path_real)) {
+				$ini = new toba_ini($path_real);
+				if ($ini->existe_entrada('server_config')) {
+					self::$config = $ini->get('server_config');
+				}
+			}
+		}
+		return self::$config;
 	}
 }
 ?>
