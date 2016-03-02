@@ -1,0 +1,6 @@
+{
+  "name": "siu-toba-framework",
+  "dependencies": {
+    "siu-js-app-launcher": "master"
+  }
+}

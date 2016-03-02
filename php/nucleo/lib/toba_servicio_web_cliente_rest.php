@@ -61,7 +61,6 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 					$options['verify'] = (isset($this->opciones['ca_cert']))? array($this->opciones['ca_cert']) : false;					
 				}
 			}
-			toba::logger()->var_dump($options);
 			$this->guzzle = $client = new GuzzleHttp\Client($options);
 		}
 		return $this->guzzle;	

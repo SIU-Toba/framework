@@ -5,6 +5,7 @@ use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Feature;
 use SIU\AraiJsonParser\Feature\Provision;
+use SIU\AraiCli\AraiCli;
 
 
 /**
@@ -152,6 +153,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $options['assertionConsumerService'] = "$url/?acs";
         $options['singleLogoutService'] = "$url/?sls";
+        $options['appUniqueId'] = self::getAppUniqueId();
         $feature->setEndpoint($url.'/default-sp');
         $feature->setOptions($options);
     }
@@ -405,5 +407,32 @@ class RegistryHooksProyectoToba implements HooksInterface
             throw new \Exception("Es necesario definir el proyecto toba en la variable de entorno TOBA_PROYECTO");
         }
         return $_SERVER['TOBA_PROYECTO'];
+    }
+
+    public static function getAppUniqueId()
+    {
+         try {
+            $registry = AraiCli::getRegistryService();
+            $providers = $registry->getPackage()->getProvideList();
+            if (empty($providers)) return null;
+
+            $enc = false;
+            $i = 0;
+            $cantidad = count($providers);
+            While ($i < $cantidad && !$enc) {
+                if ($providers[$i]->getType() == 'app') {
+                    $appName = $providers[$i]->getName();
+                    $enc = true;
+                }
+                $i++;
+            }
+            if ($enc) {
+                return $registry->generateAppUniqueId($appName);
+            } else {
+                return null;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
