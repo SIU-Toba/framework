@@ -158,6 +158,8 @@ class toba_http
 				if ($ini->existe_entrada('server_config')) {
 					self::$config = $ini->get('server_config');
 				}
+			} else {
+				self::$config = array();
 			}
 		}
 		return self::$config;
