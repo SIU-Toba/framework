@@ -174,8 +174,8 @@ class ci_recordatorio_pwd extends toba_ci
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
 			if (! is_null($datos)) {
 				$clave = toba::instalacion()->get_claves_encriptacion();        
-				$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['pregunta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
-				$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], $datos['respuesta'], MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+				$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($datos['pregunta']), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+				$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($datos['respuesta']), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
 			}
 			return $aux;
 		} catch (toba_error $e) {
