@@ -8,7 +8,7 @@ include_once 'toba_manejador_archivos.php';
 class toba_extractor_clases
 {
 	const regexp_eliminar_comentarios = '%(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|(//.*)%i';
-	const regexp_extractor = '/.*\b(class|interface)[\t\r\n ]+(\w+)[\t\r\n \{]+(?:[\t\r\n ]*extends[\t\r\n ]*(\w*))?/i';
+	const regexp_extractor = '/.*\b(class|interface|trait)[\t\r\n ]+(\w+)[\t\r\n \{]+(?:[\t\r\n ]*extends[\t\r\n ]*(\w*))?/i';
 
 	/**
 	 * @var array Los puntos de montaje de donde se tienen que cargar las clases
@@ -130,12 +130,12 @@ class toba_extractor_clases
 			
 			$contenido = preg_replace(self::regexp_eliminar_comentarios, '', $contenido);	// removemos comentarios
 
-			// matches[1]: cada elemento acá trae 'class', 'interface' o nada
-			// matches[2]: cada elemento acá trae el nombre de la clase o interfaz
+			// matches[1]: cada elemento acá trae 'class', 'interface', 'trait' o nada
+			// matches[2]: cada elemento acá trae el nombre de la clase, trait o interfaz
 			// matches[3]: cada elemento acá trae de que clase extiende
 			preg_match_all(self::regexp_extractor, $contenido, $matches);
 			
-			if (empty($matches[1])) continue;	// No es una clase o una interfaz. No hay que incluirla
+			if (empty($matches[1])) continue;	// No es una clase , trait o una interfaz. No hay que incluirla
 
 			foreach ($matches[1] as $key => $tipo) {
 				if ($tipo == 'class') {
