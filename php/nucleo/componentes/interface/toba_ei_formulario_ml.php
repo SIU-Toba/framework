@@ -898,7 +898,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			echo "<div class='ei-botonera $clase'>";
 			$agregar = $this->_info_formulario['filas_agregar'];
 			$ordenar = $this->_info_formulario['filas_ordenar'];
-			if ($agregar_abajo) {
+			if ($agregar_abajo && $this->_mostrar_agregar ) {
 				$img = toba_recurso::imagen_toba('nucleo/agregar.gif', false);
 				$texto = "<img src='$img' style='vertical-align: middle;' />";
 				if ($this->_modo_agregar[1] != '') {
