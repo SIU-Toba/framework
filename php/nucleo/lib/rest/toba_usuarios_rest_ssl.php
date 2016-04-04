@@ -17,28 +17,18 @@ class toba_usuarios_rest_ssl implements usuarios_usuario_password
 	 */
 	function es_valido($usuario, $certificado)
 	{
-		//Calculo el fingerprint del certificado enviado por el usuario
-		$fingerprint_cert = toba_firma_digital::certificado_get_fingerprint($certificado);		
-		//Recupero el fingerprint configurado anteriormente y comparo
-		$fingerprint_local = $this->get_usuario_huella($usuario);		
+	}	
 		
-		return hash_equals($fingerprint_local, $fingerprint_cert);
-	}		
-	
-	
-	function get_usuario_huella($usuario)
-	{
+	function get_passwords()
+	{ 
 		$usuarios_ini = toba_modelo_rest::get_ini_usuarios($this->modelo_proyecto);
+		$passwords = array();
 		foreach ($usuarios_ini->get_entradas() as $key => $u) {
-			if ($key === $usuario) {
-				if (isset($u['fingerprint'])) {
-					return $u['fingerprint'];
-				} else {
-					rest::app()->logger->info('Se encontro al usuario "' . $usuario . '", pero no tiene una entrada fingerprint en rest_usuario.ini');
-				}
-			}
-		}
-		return NULL;
+			if (isset($u['fingerprint'])) {
+				$passwords[$key]['fingerprint'] = $u['fingerprint'];
+			} 
+		}		
+		return $passwords;
 	}
 }
 ?>
