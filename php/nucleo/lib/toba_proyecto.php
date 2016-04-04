@@ -213,7 +213,7 @@ class toba_proyecto
 	/**
 	 * Retorna el flag de compilacion del proyecto
 	 */
-	function get_directiva_compilacion()
+	static function get_directiva_compilacion()
 	{
 		return toba::instancia()->get_directiva_compilacion(self::get_id());
 	}
@@ -311,7 +311,7 @@ class toba_proyecto
 	function get_id_componente_por_indice($identificador, $proyecto=null)
 	{
 		if(! $this->mapeo_componentes ) {
-			if (! isset($proyecto)) $proyecto = $this->id;
+			if (! isset($proyecto)) { $proyecto = $this->id; }
 			if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 				$this->mapeo_componentes = $this->recuperar_datos_compilados('toba_mc_gene__basicos', 'info_indices_componentes');
 			} else {
@@ -328,7 +328,7 @@ class toba_proyecto
 	
 	function get_info_dimension($dimension, $proyecto=null)
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;
+		if (! isset($proyecto)) { $proyecto = $this->id;}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			return $this->recuperar_datos_compilados('toba_mc_gene__dim_'.$dimension, 'get_info');
 		} else {
@@ -336,7 +336,7 @@ class toba_proyecto
 		}
 	}
 
-	function get_info_relacion_entre_tablas($fuente_datos, $proyecto)
+	static function get_info_relacion_entre_tablas($fuente_datos, $proyecto)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			return self::recuperar_datos_compilados('toba_mc_gene__relacion_tablas_'.$fuente_datos, 'get_info');
@@ -349,7 +349,7 @@ class toba_proyecto
 
 	function get_info_punto_control($punto_control, $proyecto=null)	
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;
+		if (! isset($proyecto)) { $proyecto = $this->id;}
 		$info = array();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$info = $this->recuperar_datos_compilados('toba_mc_gene__pcontrol_'.$punto_control, 'get_info');
@@ -364,11 +364,11 @@ class toba_proyecto
 
 	function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;		
+		if (! isset($proyecto)) {$proyecto = $this->id;}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_fuente__'.$id_fuente);
 		} else {
-			if (! isset($proyecto)) $proyecto = $this->id;
+			if (! isset($proyecto)) {$proyecto = $this->id;}
 			$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
 			//-- No se carga aqui la relacion entre tabla y dt por un tema de eficiencia, se hace con un lazyload en toba_fuente_datos
 		}
@@ -390,8 +390,8 @@ class toba_proyecto
 	 */
 	function get_items_menu($proyecto=null, $grupos_acceso=null)
 	{
-		if (!isset($proyecto)) $proyecto = $this->id;		
-		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
+		if (!isset($proyecto)) { $proyecto = $this->id;}
+		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 													$grupos_acceso, 
@@ -403,9 +403,11 @@ class toba_proyecto
 		}
 		// Se quitan los items excluidos de la lista de items que puede acceder el usuario.
 		$res = array();
-		foreach ($rs as $r)
-			if (!in_array($r['item'],$this->items_excluidos))
+		foreach ($rs as $r) {
+			if (!in_array($r['item'],$this->items_excluidos)){
 				$res[] = $r;
+			}
+		}
 		return $res;
 	}	
 
@@ -454,7 +456,7 @@ class toba_proyecto
 	*/
 	function get_items_zona($zona, $grupos_acceso=null)
 	{
-		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
+		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 															$grupos_acceso,
@@ -580,7 +582,7 @@ class toba_proyecto
 
 	function get_info_consulta_php($clase, $proyecto=null)
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;		
+		if (! isset($proyecto)) { $proyecto = $this->id;}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__consultas_php','info_consulta_php__'.$clase);
 		} else {
@@ -596,7 +598,7 @@ class toba_proyecto
 
 	function get_info_servicios_web_acc($id, $proyecto=null)
 	{
-		if (! isset($proyecto)) $proyecto = $this->id;		
+		if (! isset($proyecto)) {$proyecto = $this->id;}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__servicios_web','servicio__'.$id);
 		} else {
@@ -612,7 +614,7 @@ class toba_proyecto
 
 	function get_info_pms($proyecto = null)
 	{
-		if (is_null($proyecto)) $proyecto = $this->id;
+		if (is_null($proyecto)) {$proyecto = $this->id;}
 		if (toba::nucleo()->utilizar_metadatos_compilados($proyecto)) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__pms', 'get_pms');
 		} else {
@@ -636,7 +638,7 @@ class toba_proyecto
 	 */
 	function get_gadgets_proyecto($usuario, $proyecto=null)
 	{
-		if (is_null($proyecto)) $proyecto = $this->id;			//Si no pasan proyecto tomo el actual
+		if (is_null($proyecto)) { $proyecto = $this->id; }			//Si no pasan proyecto tomo el actual
 		$gadgets = array();
 		$info_gadgets = toba_proyecto_db::get_gadgets_proyecto($proyecto, $usuario);
 		if (! empty($info_gadgets)){
