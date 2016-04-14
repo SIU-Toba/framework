@@ -658,30 +658,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function generar_ini_servidor_rest($proyecto)
 	{
 		$id_proyecto = $proyecto->get_id();
-		//--1- Servidor (se considera el nombre del proyecto como nombre de api por defecto)
-		if (! toba_modelo_rest::existe_ini_server($proyecto, $id_proyecto)) {
-			toba_modelo_rest::cp_ini_server(toba_dir(). '/php/modelo/var/rest_servidor.ini', $proyecto, $id_proyecto);
-		}		
-		if (! toba_modelo_rest::existe_ini_usuarios($proyecto, $id_proyecto)) {
-			toba_modelo_rest::cp_ini_usuarios(toba_dir(). '/php/modelo/var/rest_servidor_usuarios.ini', $proyecto, $id_proyecto);
-		}
-		
+		toba_modelo_rest::inicializar_archivos_config_servidor($proyecto, $id_proyecto);
 	}
 	
 	function generar_ini_cliente_rest($proyecto)
 	{
 		$id_proyecto = $proyecto->get_id();
-		$sql = "
-			SELECT servicio_web FROM apex_servicio_web WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($id_proyecto);
+		$sql = "SELECT servicio_web "
+			. "FROM apex_servicio_web "
+			. "WHERE tipo = 'rest' AND proyecto = ".$this->get_db()->quote($id_proyecto);
 		$rs = $this->get_db()->consultar($sql);
 		foreach ($rs as $fila) {
-			$id_servicio = $fila['servicio_web'];
 			try {
-				if (! toba_modelo_rest::existe_ini_cliente($proyecto, $id_servicio)) {
-					toba_modelo_rest::cp_ini_cliente(toba_dir(). '/php/modelo/var/rest_cliente.ini', $proyecto, $id_servicio);
-				}
+				toba_modelo_rest::inicializar_archivos_config_cliente($proyecto, $fila['servicio_web']);
 			} catch (Exception $e) {
-				$this->manejador_interface->mensaje("No se pudo crear la carpeta para el servicio $id_servicio en la carpeta de la instancia");
+				$this->manejador_interface->mensaje("No se pudo crear la carpeta para el servicio {$fila['servicio_web']} en la carpeta de la instancia");
 			}			
 		}
 	}

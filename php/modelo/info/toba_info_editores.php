@@ -1552,15 +1552,17 @@ class toba_info_editores
 	//----------  SERVICIOS WEB
 	//------------------------------------------------------------------------------	
 	
-	static function get_servicios_web_acc($proyecto=null)
+	static function get_servicios_web_acc($proyecto=null, $tipo = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$proyecto = toba_contexto_info::get_db()->quote($proyecto);
+		$proyecto = toba_contexto_info::get_db()->quote($proyecto);		 
+		$tipo_secure =  (! is_null($tipo)) ? 'tipo = ' . toba_contexto_info::get_db()->quote($tipo): ' 1 = 1';		
 		$sql = "SELECT		
 					proyecto,
 					servicio_web
 				FROM	apex_servicio_web
 				WHERE	proyecto = $proyecto
+				AND $tipo_secure
 				ORDER BY servicio_web ASC; ";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}

@@ -103,9 +103,9 @@ class toba_modelo_catalogo
 		return $nucleo;
 	}
 
-	function get_servicio_web( $proyecto, $identificador, $manejador_interface=null)
+	static function get_servicio_web( $proyecto, $identificador, $manejador_interface=null, $tipo=null)
 	{
-		$servicio = new toba_modelo_servicio_web($proyecto, $identificador);
+		$servicio = new toba_modelo_servicio_web($proyecto, $identificador, $tipo);
 		if (! isset($manejador_interface)) {
 			$manejador_interface = new toba_mock_proceso_gui();
 		}

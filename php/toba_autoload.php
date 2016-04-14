@@ -237,6 +237,7 @@ class toba_autoload
 		'toba_modelo_pms' => 'modelo/toba_modelo_pms.php',
 		'toba_modelo_proyecto' => 'modelo/toba_modelo_proyecto.php',
 		'toba_modelo_rest' => 'modelo/toba_modelo_rest.php',
+		'toba_modelo_soap' => 'modelo/toba_modelo_soap.php',
 		'toba_modelo_servicio_web' => 'modelo/toba_modelo_servicio_web.php',
 		'util_modelo_proyecto' => 'modelo/util/util_modelo_proyecto.php',
 		'toba_componente_definicion' => 'nucleo/componentes/definicion/_interfaces.php',

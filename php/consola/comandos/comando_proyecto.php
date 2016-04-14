@@ -692,36 +692,5 @@ class comando_proyecto extends comando_toba
 			$this->consola->mensaje($e->getMessage());
 		}
 	}
-	
-	/**
-	 * Exporta la documentacion de la API REST del proyecto a un archivo en formato json 
-	 * @consola_parametros Opcional: [--nombre-archivo] Ruta y nombre del archivo donde se guardara la documentacion
-	 */
-	function opcion__doc_rest()
-	{	
-		$params = $this->get_parametros();
-		$proyecto = $this->get_proyecto();				
-		
-		//Cargo los autoloaders del proyecto, esto no ingresa por el nucleo ergo se debe hacer manualmente
-		$punto_php = $proyecto->get_pms()->get(toba_modelo_pms::pm_php);
-		$punto_php->set_instancia_toba($this->get_instancia());
-		$punto_php->registrar_autoload();
-		if ($proyecto->es_personalizable()) {
-			$punto_pers = $proyecto->get_pms()->get(toba_modelo_pms::pm_pers);
-			$punto_pers->set_instancia_toba($this->get_instancia());
-			$punto_pers->registrar_autoload();
-		}
-		
-		//Genero la doc y la envio al archivo indicado
-		$archivo = 'doc-apiRest.json';		
-		if (isset($params['--nombre-archivo'])) {
-			$archivo = $params['--nombre-archivo'];
-		}		
-		$datos = $proyecto->get_documentacion_rest();		
-		if (trim($datos) != '') {
-			file_put_contents($archivo, $datos);
-			$this->consola->mensaje('Contenido generado, verifique el archivo json');
-		}
-	}
 }
 ?>

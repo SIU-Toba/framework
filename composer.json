@@ -23,6 +23,7 @@
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "@dev",
         "siu-toba/rest": "@dev",
+        "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "2.3.0",
         "greenlion/PHP-SQL-Parser": "@dev"
