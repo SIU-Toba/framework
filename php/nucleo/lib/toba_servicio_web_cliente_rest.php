@@ -49,10 +49,11 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 					$options['auth'] = array($this->opciones['auth_usuario'], 	$this->opciones['auth_password'], $this->opciones['auth_tipo']);
 				} else {					
 					if (isset($this->opciones['cert_file'])) {								//Busco el certificado del cliente
-						$options['cert'] = array(realpath($this->opciones['cert_file']));
-					}
-					if (isset($this->opciones['cert_pwd'])) {								//Si requiere un pwd se lo agrego
-						$options['cert'][] = $this->opciones['cert_pwd'];
+						if (isset($this->opciones['cert_pwd'])) {								//Si requiere un pwd se lo agrego
+							$options['cert'] = array(realpath($this->opciones['cert_file']), $this->opciones['cert_pwd']);
+						} else {
+							$options['cert'] = realpath($this->opciones['cert_file']);
+						}
 					}
 					if (isset($this->opciones['key_file'])) {
 						$options['ssl_key'] = realpath($this->opciones['key_file']);
