@@ -512,7 +512,8 @@ class consultas_instancia
 	static function get_servicios_web_consumidos($filtro)
 	{		
 		$where_filtro = array();
-		if (isset($filtro['proyecto'])) { $where_filtro[] = 'proyecto = '. quote($filtro['proyecto']); } 		
+		if (isset($filtro['proyecto'])) { $where_filtro[] = 'proyecto = '. quote($filtro['proyecto']); } 
+		if (isset($filtro['tipo'])) { $where_filtro[] = 'tipo= '. quote($filtro['tipo']); }
 		
 		$sql = 'SELECT 
 				servicio_web, 
