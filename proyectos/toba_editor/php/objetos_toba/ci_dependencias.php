@@ -45,6 +45,10 @@ class ci_dependencias extends toba_ci
 
 	function evt__formulario__alta($datos)
 	{
+		$lista = $this->get_lista_identificadores();
+		if (isset($datos['identificador']) && in_array($datos['identificador'], $lista)) {
+			throw new toba_error_usuario('Este identificador ya se usa en otra dependencia!!!');
+		}		
 		$this->get_tabla()->nueva_fila($datos);
 	}
 	
@@ -59,6 +63,10 @@ class ci_dependencias extends toba_ci
 	{
 		$id_nuevo = $datos['identificador'];
 		$id_anterior = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior, 'identificador');
+		$lista = $this->get_lista_identificadores();
+		if (($id_nuevo != $id_anterior) && in_array($id_nuevo, $lista)) {
+			throw new toba_error_usuario('Este identificador ya se usa en otra dependencia!!!');
+		}
 		$this->get_tabla()->modificar_fila($this->seleccion_dependencia_anterior, $datos);
 		$this->evt__formulario__cancelar();
 	}
@@ -90,5 +98,16 @@ class ci_dependencias extends toba_ci
 		return $this->get_tabla()->get_filas();
 	}
 	//-------------------------------------------------------------
+	function get_lista_identificadores()
+	{
+		$resultado = array();
+		$filas = $this->get_tabla()->get_filas();
+		foreach($filas as $fila) {
+			if (isset($fila['identificador']))  {
+				$resultado[] = $fila['identificador'];
+			}
+		}
+		return $resultado;		
+	}	
 }
 ?>

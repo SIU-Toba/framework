@@ -121,6 +121,10 @@ class ci_creador_objeto extends toba_ci
 	function evt__tipos__seleccionar($clase)
 	{
 		$this->clase_actual = $clase;
+		if (! asignador_objetos::verificar_nuevo_rol($this->destino)) {
+			unset($this->destino['id_dependencia']);															//Elimino la componente, sino no la reasigna
+			throw new toba_error_usuario('El rol indicado ya esta en uso en el objeto destino');
+		}
 		$this->cargar_editor();
 	}	
 
