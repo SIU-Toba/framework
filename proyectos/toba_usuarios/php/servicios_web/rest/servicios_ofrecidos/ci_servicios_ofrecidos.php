@@ -116,11 +116,9 @@ class ci_servicios_ofrecidos extends toba_ci
 		$usr_pwd = (isset($this->s__datos['password'])) ? $this->s__datos['password'] : null;
 		$tipo_auth = ($this->s__auth_ssl) ? 'ssl' : 'digest';
 		
-		$dir_base = toba_modelo_rest::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto());
 		$cert = null;		
 		if (isset($this->cert['path'])) {
-			$cert = $dir_base. '/'.  basename($this->cert['path']);
-			rename($this->cert['path'], $cert);
+			$cert = $this->cert['path'];
 		}
 		$rest = new toba_modelo_rest($proyecto);
 		$rest->generar_configuracion_servidor($usr, $usr_pwd, $cert, $tipo_auth);
