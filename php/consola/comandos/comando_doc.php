@@ -92,7 +92,7 @@ class comando_doc extends comando_toba
 		";
 		/*$html_fin = '
 			<div class="credit">
-    			    <hr class="separator" />Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>. <br />        
+    			    <hr class="separator" />Desarrollado por <a href="http://www.siu.edu.ar">SIU-CIN</a>. <br />        
 		            Documentación generada con <a href="http://trac.edgewall.org/">Trac</a>
 		         </div>
 			 </body>';*/

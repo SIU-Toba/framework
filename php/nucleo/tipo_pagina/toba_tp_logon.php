@@ -30,7 +30,7 @@ class toba_tp_logon extends toba_tp_basico
 	{
 		echo "</div>";		
 		echo "<div class='login-pie'>";
-		echo "<div>Desarrollado por <strong><a href='http://www.siu.edu.ar' style='text-decoration: none' target='_blank'>SIU</a></strong></div>
+		echo "<div>Desarrollado por <strong><a href='http://www.siu.edu.ar' style='text-decoration: none' target='_blank'>SIU-CIN</a></strong></div>
 			<div>2002-".date('Y')."</div>";
 		echo "</div>";
 	}
