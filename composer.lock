@@ -231,12 +231,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "85cb758d7367f3aaaa8ffc9269e777919c5f68bb"
+                "reference": "58e54017e95418968bddb1b16548e2e119312776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/85cb758d7367f3aaaa8ffc9269e777919c5f68bb",
-                "reference": "85cb758d7367f3aaaa8ffc9269e777919c5f68bb",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/58e54017e95418968bddb1b16548e2e119312776",
+                "reference": "58e54017e95418968bddb1b16548e2e119312776",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-04-06 17:59:33"
+            "time": "2016-05-06 16:50:02"
         },
         {
             "name": "guzzlehttp/promises",
@@ -750,12 +750,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "8a734183fc987f87d3103ae7eee2f2ed07be475b"
+                "reference": "920ea38e0c6cb2bf7230ab7917f5c52cd5e13300"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/8a734183fc987f87d3103ae7eee2f2ed07be475b",
-                "reference": "8a734183fc987f87d3103ae7eee2f2ed07be475b",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/920ea38e0c6cb2bf7230ab7917f5c52cd5e13300",
+                "reference": "920ea38e0c6cb2bf7230ab7917f5c52cd5e13300",
                 "shasum": ""
             },
             "require": {
@@ -775,7 +775,7 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2016-04-12 18:18:14"
+            "time": "2016-04-28 21:33:45"
         },
         {
             "name": "siu-toba/ssl-cert-utils",

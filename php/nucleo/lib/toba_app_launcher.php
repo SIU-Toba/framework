@@ -55,7 +55,8 @@ class toba_app_launcher
 		// datos provenientes de la autenticacion
 		$atributos_usuario = toba::manejador_sesiones()->get_autenticacion()->get_atributos_usuario();
 		if (isset($atributos_usuario['appLauncherData']) && !empty($atributos_usuario['appLauncherData'])) {
-			$appLauncherData = json_decode(current($atributos_usuario['appLauncherData']), true);
+			$appLauncherData = array_to_latin1(json_decode(current($atributos_usuario['appLauncherData']), true));
+			$appLauncherData['usuario_id'] = $this->generar_descripcion_id($appLauncherData, toba::usuario()->get_id());
 		} else {
 			$appLauncherData = array();
 		}
@@ -127,5 +128,14 @@ class toba_app_launcher
 			});';		
 	}
 	
+	protected function generar_descripcion_id($datos, $id_toba)
+	{
+		if (isset($datos['usuario_id']) && trim($datos['usuario_id']) != trim($id_toba))  {
+			$resultado = nl2br($datos['usuario_id'] .  "\n Toba: ($id_toba)");
+		} else {
+			$resultado = $id_toba;
+		}
+		return $resultado; 
+	}	
 }
 ?>

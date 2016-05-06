@@ -9,7 +9,7 @@ Falta aplicar
 }
 **/
 
-// APP LAUNCHER
+/* APP LAUNCHER*/
 
 #container_aplicaciones header {
     text-align:center;
@@ -150,7 +150,7 @@ Falta aplicar
     font-size: 9px;
 }
 
-// DATOS USUARIO
+/* DATOS USUARIO*/
 
 #container_datos_usuario header {
     text-align:center;

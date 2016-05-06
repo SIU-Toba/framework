@@ -1,0 +1,29 @@
+{
+  "name": "siu-js-app-launcher",
+  "homepage": "https://github.com/SIU-Toba/js-app-launcher",
+  "authors": [
+    "fbohn <fbohn@siu.edu.ar>"
+  ],
+  "description": "Libreria JS para graficar un lanzador de aplicaciones",
+  "main": [
+    "app_launcher.js"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "js",
+    "app-launcher"
+  ],
+  "ignore": [],
+  "license": "MIT",
+  "_release": "07a59849dc",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "07a59849dcb28bd5ee9be008c6333ce6bb44ea47"
+  },
+  "_source": "https://github.com/SIU-Toba/js-app-launcher.git",
+  "_target": "master",
+  "_originalSource": "siu-js-app-launcher"
+}

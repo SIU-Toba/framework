@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+
+    <!-- Include jquery 1.9.0.min -->
+    <SCRIPT language='JavaScript1.4' type='text/javascript' src='https://code.jquery.com/jquery-1.9.0.min.js'></SCRIPT>
+
+</head>
+
+<body style="background-color: gray">
+
+<h2>JS app launcher example:</h2>
+
+<!-- Include de los CSS de app_launcher -->
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,400,700" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="css/app_launcher.css" type="text/css" />
+
+<!-- Include de la clase app_launcher.js -->
+<script type="text/javascript" charset='UTF-8' src="app_launcher.js"></script>
+
+<!-- Definicion de un div contenedor -->
+<div id="enc-usuario" style="color:white;">
+</div>
+
+<!-- Ejemplos de utilizacion -->
+<script>
+    $(document).ready(function () {
+
+        // defino el div que contine el appLauncher
+        var divContainer = "#enc-usuario";
+
+        // defino los datos para armar el appLauncher
+        var appLauncherData = { "usuario_id":"admin",
+            "usuario_nombre":"Usuario Administrador",
+            "usuario_foto":"img\/foto_perfil_defecto.png",
+            "perfil_url":"#",
+            "aplicaciones":[]
+        };
+
+        // funcion js que contiene la logica js para logout
+        var fnc_js_salir = function() { alert("Salir de la aplicación!!!")};
+
+        // appLauncher con 11 aplicaciones
+        appLauncherData.aplicaciones[0] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+        appLauncherData.aplicaciones[1] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","descripcion":"Aplicaci\u00f3n de google gmail"};
+        appLauncherData.aplicaciones[2] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
+        appLauncherData.aplicaciones[0] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+        appLauncherData.aplicaciones[1] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","descripcion":"Aplicaci\u00f3n de google gmail"};
+        appLauncherData.aplicaciones[2] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
+        appLauncherData.aplicaciones[3] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+        appLauncherData.aplicaciones[4] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","descripcion":"Aplicaci\u00f3n de google gmail"};
+        appLauncherData.aplicaciones[5] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
+        appLauncherData.aplicaciones[6] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+        appLauncherData.aplicaciones[7] = {"url":"https:\/\/mail.google.com\/","etiqueta":"Google gmail","icono_url":"img\/google_gmail.png","descripcion":"Aplicaci\u00f3n de google gmail"};
+        appLauncherData.aplicaciones[8] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
+        appLauncherData.aplicaciones[9] = {"url":"https:\/\/plus.google.com\/","etiqueta":"Google plus","icono_url":"img\/google_plus.png","descripcion":"Aplicaci\u00f3n de google plus"};
+        appLauncherData.aplicaciones[10] = {"url":"https:\/\/drive.google.com\/","etiqueta":"Google drive","icono_url":"img\/google_drive.png","descripcion":"Aplicaci\u00f3n de google drive"};
+        appLauncher.init({
+            container: divContainer,
+            data: appLauncherData,
+            js_salir: fnc_js_salir,
+        });
+
+    });
+</script>
+
+</body>
+
+<html>
