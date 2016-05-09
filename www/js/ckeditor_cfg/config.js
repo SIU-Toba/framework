@@ -46,7 +46,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removePlugins = 'elementspath';
 	config.scayt_autoStartup = false;
 	config.scayt_sLang = 'es_ES';
-	//config.extraPlugins= 'templates'
+	config.extraPlugins= 'templates';
 	config.allowedContent = true;
 	
 	config.sharedSpaces =

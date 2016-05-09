@@ -301,8 +301,8 @@ class toba_ef_html extends toba_ef
 						'height' => $this->alto,
 						'toolbar' => $this->botonera,
 						'skin' => 'kama');
-		$opciones['readOnly'] =  $this->es_solo_lectura();		
 		$opciones['customConfig'] = $url_archivo;
+		$opciones['readOnly'] =  $this->es_solo_lectura();		
 		$opciones =  array_map('utf8_e_seguro', $opciones);
 		if (isset($this->templates_ck) && ! empty($this->templates_ck)) {
 			$opciones['templates_files'] =  $this->templates_ck;

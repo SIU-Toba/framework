@@ -567,7 +567,6 @@ ef_html.prototype.constructor = ef_html;
 	ef_html.prototype.iniciar = function(id, contenedor) {
 		ef.prototype.iniciar.call(this, id, contenedor);
 		var html_object = document.getElementById(this._id_form);
-		console.log(html_object);
 		if (html_object) {
 			var elemento = new CKEDITOR.dom.element(document.getElementById(this._id_form));
 			if (this._parametros !== undefined) {
