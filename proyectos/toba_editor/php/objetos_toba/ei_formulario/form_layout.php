@@ -24,16 +24,16 @@ class form_layout extends toba_ei_formulario
 			
 		//Saco la siguiente configuracion para el ef_html, de manera que se elimine la identacion y todo caracter de separacion al enviarse al servidor
 		echo "
-			CKEDITOR.on( 'instanceReady', function( ev )
-			{
-				ev.editor.dataProcessor.writer.setRules( 'p',
-						{
-						   indent : false,
-						    breakBeforeOpen : false,
-						    breakAfterOpen : false,
-						    breakBeforeClose : false,
-						    breakAfterClose : false
-						} );
+			CKEDITOR.on( 'instanceReady', function( ev )	{
+				ev.editor
+					.dataProcessor
+					.writer
+					.setRules( 'p',	{ indent : false,
+								breakBeforeOpen : false,
+								breakAfterOpen : false,
+								breakBeforeClose : false,
+								breakAfterClose : false
+					 } );
 			});
 
 		";

@@ -545,7 +545,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 //--------------------------------------------------------------------------------
 ef_html.prototype = new ef();
 ef_html.prototype.constructor = ef_html;
-
+ 
 	/**
 	 * @class Elemento que contiene un editor HTML
 	 * @constructor
@@ -557,27 +557,31 @@ ef_html.prototype.constructor = ef_html;
 	}
 
 	ef_html.prototype.get_editor = function() {		
-		if (isset(CKEDITOR.instances)) {
+		if (isset(CKEDITOR.instances) && isset(CKEDITOR.instances[this._id_form])) {
 			return CKEDITOR.instances[this._id_form];
 		} else {
 			return null;
 		}
-	}
+	};
 
 	ef_html.prototype.iniciar = function(id, contenedor) {
 		ef.prototype.iniciar.call(this, id, contenedor);
-		if (this._parametros !== undefined) {
-			CKEDITOR.replace(this._id_form, this._parametros);
-		} else {
-			CKEDITOR.replace(this._id_form);
+		var html_object = document.getElementById(this._id_form);
+		console.log(html_object);
+		if (html_object) {
+			var elemento = new CKEDITOR.dom.element(document.getElementById(this._id_form));
+			if (this._parametros !== undefined) {
+				CKEDITOR.replace(elemento, this._parametros);
+			} else {
+				CKEDITOR.replace(elemento);
+			}
 		}
-	}
-
+	};
 
 	ef_html.prototype.get_estado = function() {
 		var editor = this.get_editor();
 		if (editor) {
-			return this.get_editor().getData();
+			return editor.getData();
 		} else {
 			var input = this.input();
 			if (input !== null) {
@@ -610,11 +614,25 @@ ef_html.prototype.constructor = ef_html;
 	};
 	
 	ef_html.prototype.set_estado = function(nuevo) {
-		this.get_editor().setData(nuevo);
-		var input = this.input();
-		if (input !== null && input.onchange) {
-			input.onchange();
-		}		
+		var editor = this.get_editor();
+		if (editor) {
+			editor.setData(nuevo);
+		} else {			
+			var input = this.input();
+			if (input !== null && input.onchange) {
+				input.onchange();
+			}	
+		}
+	};
+	
+	ef.prototype.set_solo_lectura = function(solo_lectura) {
+		var editor = this.get_editor();
+		if (editor) {
+			editor.setReadOnly(solo_lectura);
+			this._solo_lectura = editor.readOnly;
+		} else {
+			ef.prototype.set_solo_lectura.call(solo_lectura);
+		}
 	};
 		
 toba.confirmar_inclusion('efs/ef');

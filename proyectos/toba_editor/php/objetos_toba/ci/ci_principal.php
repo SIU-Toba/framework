@@ -463,7 +463,6 @@ class ci_editor extends ci_editores_toba
 		$form->ef('template')->set_botonera('Layout');
 		$form->ef('template')->set_alto('400px');		
 		$form->ef('template')->set_path_template(array($vinculo));		
-		toba::logger()->debug($vinculo);
 		$datos = $this->get_entidad()->tabla('pantallas')->get();
 		if (isset($datos['template']) && trim($datos['template']) != '') {
 			$datos['tipo_layout'] = 'L';
@@ -558,32 +557,27 @@ class ci_editor extends ci_editores_toba
 		if (isset($imagen)) {
  			return parent::servicio__ejecutar();		
  		}
- 		$url = toba::proyecto()->get_www('img/fck_templates/') ;
+ 		$url = toba::proyecto()->get_www('img/fck_templates/');
 		$salida = "
-		CKEDITOR.addTemplates('default', 
-		{
-			imagesPath: '{$url['url']}', \n
-			templates: \n
-				[ \n
-					{ \n
-						title: 'Lineal', \n
-						image: 'tabla_1_col.gif', \n
-						description: 'Un componente debajo del otro, separado por una línea, es el layout original' , \n
-						html: '{$this->get_template_lineal()}' \n
-					},\n
-					{ \n
-						title: 'Tabla Lineal', \n
-						image: 'tabla_1_col.gif', \n
-						description: 'Tabla con un componente debajo del otro' , \n
-						html: '{$this->get_template_columnas(1)}' \n
-					},\n
-					{ \n
-						title: 'Tabla Dos Columnas',  \n
-						image: 'tabla_2_col.gif', \n
-						description: 'Se arma una tabla tomando los componentes en el orden definido, incluyendo dos por fila' ,  \n
-						html: '{$this->get_template_columnas(2)}' \n
-					} \n
-				] \n
+		CKEDITOR.addTemplates('default', {
+			imagesPath: CKEDITOR.getUrl('{$url['url']}'), 
+			templates: 
+			[{	title: 'Lineal', \n
+				image: 'tabla_1_col.gif', \n
+				description: 'Un componente debajo del otro, separado por una línea, es el layout original' , \n
+				html: '{$this->get_template_lineal()}' \n
+			},
+			{	title: 'Tabla Lineal', \n
+				image: 'tabla_1_col.gif', \n
+				description: 'Tabla con un componente debajo del otro' , \n
+				html: '{$this->get_template_columnas(1)}' \n
+			},
+			{ 
+				title: 'Tabla Dos Columnas',  \n
+				image: 'tabla_2_col.gif', \n
+				description: 'Se arma una tabla tomando los componentes en el orden definido, incluyendo dos por fila' ,  \n
+				html: '{$this->get_template_columnas(2)}' \n
+			}]
 		}); ";
 		echo $salida;
 	}	
@@ -603,7 +597,7 @@ class ci_editor extends ci_editores_toba
 			$salida .= '[dep id='.$dep['dependencia'].']';
 			$existe_previo = true;
 		}
-		return $salida;
+		return htmlentities($salida);
 	} 	
 	
 	protected function get_template_columnas($columnas)
@@ -626,7 +620,7 @@ class ci_editor extends ci_editores_toba
 			}				
 		}
 		$salida .= '</table>';
-		return $salida;		
+		return htmlentities($salida);		
 	}
 		
 	
