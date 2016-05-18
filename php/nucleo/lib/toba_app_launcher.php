@@ -94,7 +94,7 @@ class toba_app_launcher
 	*/
 	public function get_html_app_launcher()
 	{
-		$url_base = toba_recurso::url_toba().'/js/js-app-launcher/';
+		$url_base = toba_recurso::url_toba().'/js/packages/siu-js-app-launcher/';
 		
 		$html =  '<link rel="stylesheet" href="' . $url_base . 'css/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css" />';
 		$html .= '<link rel="stylesheet" href="' . $url_base .'css/app_launcher.css" type="text/css" />';
