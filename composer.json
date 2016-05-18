@@ -10,7 +10,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "http://satis.siu.edu.ar"
+            "url": "https://satis.siu.edu.ar"
         }
     ],
     "config" : {
@@ -26,7 +26,8 @@
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "2.3.0",
-        "greenlion/PHP-SQL-Parser": "@dev"
+        "greenlion/PHP-SQL-Parser": "@dev",
+        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master"
     },
     "bin": ["bin/toba"],
     "autoload": {

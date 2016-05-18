@@ -1,5 +1,9 @@
 <?php
 
+use SIU\AraiJsonMigrator\Entities\Person;
+use SIU\AraiJsonMigrator\Entities\Account;
+use SIU\AraiJsonMigrator\Util\Documento;
+
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;
@@ -334,8 +338,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * @param boolean $con_transaccion Crea el esquema dentro de una transaccion
 	 * @param string $fuente Indica que se va a procesar solo una de las fuentes del proyecto
 	 * @param boolean $guardar_datos Indica que se deben guardar y restaurar los datos actuales luego del proceso
+	 * @param boolean $fuerza_eliminacion_triggers Indica que se deben eliminar los triggers a toda costa
 	 */
-	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true, $fuente=null, $lista_schemas = array(), $guardar_datos=false)
+	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true, $fuente=null, $lista_schemas = array(), $guardar_datos=false, $fuerza_eliminacion_triggers=false)
 	{
 		if (! is_null($fuente)) {
 			$fuentes = array($fuente);
@@ -376,7 +381,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				if ($con_transaccion) {
 					$bases[$fuente]->abrir_transaccion();
 				}		
-				$this->procesar_schemas_fuente($bases[$fuente], $schemas[$fuente], false, $tablas, $prefijo_tablas, 'crear');
+				$this->procesar_schemas_fuente($bases[$fuente], $schemas[$fuente], false, $tablas, $prefijo_tablas, 'crear', 0, $fuerza_eliminacion_triggers);
 				if ($guardar_datos) {
 					$bases[$fuente]->ejecutar_archivo($archivo);
 				}
@@ -508,8 +513,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * @param string $prefijo
 	 * @param string $accion
 	 * @param integer $tiempo
+	 * @param boolean $fuerza_eliminacion_triggers
 	 */
-	protected function procesar_schemas_fuente($db, $schemas, $con_transaccion, $tablas, $prefijo, $accion, $tiempo=0)
+	protected function procesar_schemas_fuente($db, $schemas, $con_transaccion, $tablas, $prefijo, $accion, $tiempo=0, $fuerza_eliminacion_triggers=false)
 	{		
 		if ($con_transaccion) {
 			$db->abrir_transaccion();
@@ -520,6 +526,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$logs = $schema . '_auditoria';
 			$auditoria = $db->get_manejador_auditoria($schema, $logs, $this->schema_toba);
 			if (! is_null($auditoria)) {		//Existe manejador para el motor en cuestion
+				$auditoria->set_triggers_eliminacion_forzada($fuerza_eliminacion_triggers);
 				$this->procesar_accion_schema($auditoria, $tablas, $prefijo, $accion, $tiempo);
 				unset($auditoria);
 			}			
@@ -566,6 +573,174 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				break;			
 		}
 		$this->manejador_interface->progreso_avanzar();
+	}
+
+	/**
+	 * @return array
+	 * 		array(
+	 * 			array(
+	 * 				'usuario' => 'prueba',
+	 *				'nombres' => 'Juan',
+	 *				'apellidos' => 'Perez',
+	 *				'nombre_completo' => 'Juan Perez',
+	 *				'bloqueado' => '1|0',
+	 *				'emails' => 'prueba@siu.edu.ar',
+	 *				'clave' => 'sha("123456")',
+	 *				'autentificacion' => 'crypt|sha',
+	 * 			),
+	 * 			array(
+	 * 				'usuario' => 'prueba1',
+	 *				'nombres' => 'Jose',
+	 *				'apellidos' => 'Aimar',
+	 *				'nombre_completo' => 'Jose Aimar',
+	 *				'bloqueado' => '1|0',
+	 *				'emails' => 'prueba1@siu.edu.ar',
+	 *				'clave' => 'sha("12345678")',
+	 *				'autentificacion' => 'crypt|sha',
+	 * 			),
+	 * 			...,
+	 * 		)
+	 *
+     */
+	public function getDatosUsuarios()
+	{
+		$db_arai = $this->get_instancia()->get_db();
+
+		$sql = "SELECT  DISTINCT
+						u.usuario,
+                        u.clave,
+                        u.nombre,
+                        u.email,
+                        u.autentificacion,
+                        CASE
+                          WHEN lower(u.autentificacion) = 'bcrypt' THEN 'crypt'
+                          WHEN lower(u.autentificacion) = 'sha256' OR lower(u.autentificacion) = 'sha512' THEN 'sha'
+                          ELSE lower(u.autentificacion)
+                        END autentificacion_arai,
+                        u.bloqueado
+                FROM apex_usuario u
+	            JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto)
+	    ";
+		$sentencia = $db_arai->sentencia_preparar($sql);
+		$datosUsuariosToba = $db_arai->sentencia_consultar($sentencia, array('toba_proyecto' => $this->get_proyecto()->get_id()));
+
+		$datosUsuarios = array();
+		foreach($datosUsuariosToba as $clave => $datosUsuarioToba) {
+			$nombresApellidos = $this->getNombresApellidos($datosUsuarioToba['nombre']);
+			$datosUsuarios[$clave] = array(
+				'usuario' => $datosUsuarioToba['usuario'],
+				'nombres' => trim($nombresApellidos['nombres']),
+				'apellidos' => trim($nombresApellidos['apellidos']),
+				'nombre_completo' => trim($datosUsuarioToba['nombre']),
+				'bloqueado' => strval($datosUsuarioToba['bloqueado']),
+				'emails' => trim($datosUsuarioToba['email']) != "" ? trim($datosUsuarioToba['email']) : NULL,
+				'clave' => $datosUsuarioToba['clave'],
+				'autentificacion' => $datosUsuarioToba['autentificacion_arai'],
+			);
+		}
+
+		return $datosUsuarios;
+	}
+
+	/**
+	 * @param array $datosUsuario
+	 * @return Person
+	 */
+	public function generatePerson(array $datosUsuario)
+	{
+		/* @var Person $person */
+		$person = new Person();
+		// nombre y apellido
+		if (isset($datosUsuario['nombres'])) {
+			$person->setGivenName($datosUsuario['nombres']);
+		}
+		if (isset($datosUsuario['apellidos'])) {
+			$person->setSn($datosUsuario['apellidos']);
+		}
+		if (isset($datosUsuario['nombre_completo'])) {
+			$person->setCn($datosUsuario['nombre_completo']);
+		}
+		// persona bloqueada
+		if (isset($datosUsuario['bloqueado'])) {
+			$person->setBloqueada($datosUsuario['bloqueado']);
+		}
+		// Email de la persona
+		if (!empty($datosUsuario['emails'])) {
+			$person->setMail($datosUsuario['emails']);
+		}
+
+		return $person;
+	}
+
+	/**
+	 * @param array $datosUsuario
+	 * @param Person $person
+	 * @return Account
+     */
+	public function generateAccountApp(array $datosUsuario, Person $person)
+	{
+		/* @var Account $account */
+		$account = new Account();
+
+		if (isset($datosUsuario['usuario'])) {
+			$account->setUid($datosUsuario['usuario']);
+			$account->setUniqueIdentifier($datosUsuario['usuario']);
+		}
+
+		// Setear identificacion de la aplicacion
+		$this->setearAplicacion($account);
+
+		if (isset($datosUsuario['clave'])) {
+			$account->setPassword($datosUsuario['clave']);
+		}
+		if (isset($datosUsuario['autentificacion'])) {
+			$account->setPasswordAlgorithm($datosUsuario['autentificacion']);
+		}
+		if (isset($person)) {
+			$account->setPerson($person);
+		}
+
+		return $account;
+	}
+
+	/**
+	 * @param Account $account
+     */
+	public function setearAplicacion(Account $account)
+	{
+		$appUniqueId = null;
+		if ($this->instalacion->vincula_arai_usuarios()) {
+			$appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+		}
+		if (isset($appUniqueId)) {
+			$account->setAppUniqueId($appUniqueId);
+		} else {
+			$nombreProyecto = $this->get_proyecto()->get_parametro('proyecto', 'nombre', false);
+			$account->setAppName(utf8_e_seguro(isset($nombreProyecto)?$nombreProyecto:$this->get_proyecto()->get_id()));
+		}
+	}
+
+	private function getNombresApellidos($dato)
+	{
+		$nombre_partes = explode(" ", $dato);
+		if (count($nombre_partes) > 1) {
+			//Parte el nombre/apellido, siempre dandole mas palabras al nombre
+			$nombres = $apellidos = "";
+			for ($i = 0; $i < count($nombre_partes); $i++) {
+				if ($i < count($nombre_partes)/2) {
+					$nombres .= $nombre_partes[$i]." ";
+				} else {
+					$apellidos .= $nombre_partes[$i]." ";
+				}
+			}
+		} else {
+			$nombres = $dato;
+			$apellidos = $nombres;
+		}
+		return array(
+			'nombres' => $nombres,
+			'apellidos' => $apellidos,
+		);
 	}
 
 }

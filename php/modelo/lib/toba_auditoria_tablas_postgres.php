@@ -11,6 +11,7 @@ class toba_auditoria_tablas_postgres
 	protected $schema_logs;
 	protected $schema_origen;
 	protected $schema_toba;
+	protected $fuerza_eliminacion_triggers = false;
 	protected $prefijo = 'logs_';
 	protected $tablas_toba = array('apex_usuario', 'apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_usuario_grupo_acc_miembros', 'apex_usuario_perfil_datos',
 									'apex_usuario_perfil_datos_dims', 'apex_usuario_proyecto', 'apex_usuario_proyecto_perfil_datos',
@@ -63,7 +64,12 @@ class toba_auditoria_tablas_postgres
 	{
 		$this->schema_logs = $esquema;
 	}	
-		
+	
+	function set_triggers_eliminacion_forzada($fuerza=false)
+	{
+		$this->fuerza_eliminacion_triggers = $fuerza;
+	}
+	
 	function reset_tablas()
 	{
 		unset($this->tablas);
@@ -121,7 +127,9 @@ class toba_auditoria_tablas_postgres
 	function regenerar()
 	{
 		$triggers = $this->get_triggers_schema($this->schema_origen);
-		$this->eliminar_triggers_especificos($this->schema_origen, $triggers);							//Esto es para salvaguardar el renombre de tablas, sino el trigger no se borra
+		if ($this->fuerza_eliminacion_triggers) {
+			$this->eliminar_triggers_especificos($this->schema_origen, $triggers);							//Esto es para salvaguardar el renombre de tablas, sino el trigger no se borra
+		}
 		$this->crear_sp($this->tablas, $this->schema_origen);
 		$this->crear_triggers($this->tablas, $this->schema_origen);
 		

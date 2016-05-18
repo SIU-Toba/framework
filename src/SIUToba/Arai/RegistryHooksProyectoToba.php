@@ -6,6 +6,7 @@ use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Feature;
 use SIU\AraiJsonParser\Feature\Provision;
 use SIU\AraiCli\AraiCli;
+use SIUToba\SSLCertUtils\SSLCertUtils;
 
 
 /**
@@ -134,7 +135,46 @@ class RegistryHooksProyectoToba implements HooksInterface
 
     protected function preConsumeApi(Consumption $feature)
     {
+        $optionsFijas = $feature->getOptions();
+        if (! isset($optionsFijas['toba-rest'])) {
+            echo "No se pudo configurar la feature '".$feature->getName()."', falta setearle los identificadores de los accesos REST en el campo 'toba-rest'\n";
+            return;
+        }
+        foreach ($optionsFijas['toba-rest'] as $acceso) {
+            if (! isset($acceso['rest-id'])) {
+                echo "No se pudo configurar la feature '".$feature->getName()."', falta setearle el identificador del acceso REST en el campo 'toba-rest.rest-id'\n";
+                break;
+            }
+            $apiId = $acceso['rest-id'];
+            $proyecto = isset($acceso['proyecto']) ? $acceso['proyecto'] : $this->getProyectoId();
+            $modeloProyecto = $this->instalacion->get_instancia($this->getInstanciaId())->get_proyecto($proyecto);
 
+            $dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
+            if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
+                echo "No se puden enviar las credenciales ssl de la api porque no están definidas en el archivo '$dirIni' \n";
+                continue;
+            }
+            $iniCliente = \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
+            $datos = $iniCliente->get_datos_entrada('conexion');
+            // se envian el certificado sólo si la auth es de tipo ssl
+            if (!isset($datos['auth_tipo']) || $datos['auth_tipo'] != 'ssl') {
+                continue;
+            }
+            if (!isset($datos['cert_file'])) {
+                echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert_file' en '$dirIni'\n";
+                continue;
+            }
+
+            $pathCert = $datos['cert_file'];
+            if (!file_exists($pathCert)) {
+                echo "El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'\n";
+                continue;
+            }
+
+            $feature->addAuth('ssl', array(
+                'cert' => file_get_contents($pathCert)
+            ));
+        }
     }
 
     protected function preConsumeService(Consumption $feature)
@@ -193,21 +233,12 @@ class RegistryHooksProyectoToba implements HooksInterface
             $apiId = $acceso['rest-id'];
             $proyecto = isset($acceso['proyecto']) ? $acceso['proyecto'] : $this->getProyectoId();
             $modeloProyecto = $this->instalacion->get_instancia($this->getInstanciaId())->get_proyecto($proyecto);
-            $dirIni = $modeloProyecto->get_dir_instalacion_proyecto()."/rest/$apiId/";
-            if (! file_exists($dirIni)) {
-                if (mkdir($dirIni) === false) {
-                    throw \Exception("No se pudo crear la carpeta $dirIni. Problemas de permisos?");
-                }
-            }
-            $ini = new \toba_ini($dirIni."/cliente.ini");
-            $datosApi = array();
-            $datosApi['to'] = $provider->getEndpoint();
-            if (isset($options['auth']['type'])) $datosApi['auth_tipo'] = $options['auth']['type'];
-            if (isset($options['auth']['userId'])) $datosApi['auth_usuario'] = $options['auth']['userId'];
-            if (isset($options['auth']['userPass'])) $datosApi['auth_password'] = $options['auth']['userPass'];
-            $ini->agregar_entrada("conexion", $datosApi);
-            $ini->guardar();
 
+            $iniCliente = \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
+            $datos = $iniCliente->get_datos_entrada('conexion');
+            $datos['to'] = $provider->getEndpoint();
+            $iniCliente->agregar_entrada("conexion", $datos);
+            $iniCliente->guardar();
         }
 
 
@@ -286,33 +317,20 @@ class RegistryHooksProyectoToba implements HooksInterface
     {
         $optionsFijas = $feature->getOptions();
         $autoconfigurar = isset($optionsFijas) && isset($optionsFijas['auto-configurar']) && $optionsFijas['auto-configurar'];
-        $options = array();
+        $options = $optionsFijas;
         $modeloProyecto = $this->getModeloProyecto();
         $iniServer = \toba_modelo_rest::get_ini_server($modeloProyecto);
-        $iniUsuarios = \toba_modelo_rest::get_ini_usuarios($modeloProyecto);
 
         if ($autoconfigurar && ! $iniServer->existe_entrada("autenticacion")) {
-            echo "Autoconfigurando API...";
-            $iniServer->agregar_entrada("autenticacion", "digest");
+            echo "Autoconfigurando API...\n";
+            $iniServer->agregar_entrada("autenticacion", "ssl");
             $iniServer->guardar();
-        }
-        if ($autoconfigurar && empty($iniUsuarios->get_entradas())) {
-            $iniUsuarios->agregar_entrada($this->getProyectoId(), array("password" => md5(uniqid(rand(), true))));
-            $iniUsuarios->guardar();
         }
 
         if ($iniServer->existe_entrada("autenticacion")) {
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
         }
-        //TODO: esta tomando el primer usuario y lo manda. Es totalmente inseguro, esto tiene que ir hacia un modelo clave privada/crt
-        $usuarios = $iniUsuarios->get_entradas();
-        if (! empty($usuarios)) {
-            foreach ($usuarios as $usuario => $datos) {
-               $options['auth']['userId'] = $usuario;
-               $options['auth']['userPass'] = $datos['password'];
-               break;
-            }
-        }
+
         $endpoint = $this->getProyectoUrl() . '/rest/';
         if (isset($_SERVER['DOCKER_NAME'])) {
             //HACK: en el caso de docker la IP interna difiere de la externa. Se trata de sacar con la variable DOCKER_NAME
@@ -340,6 +358,31 @@ class RegistryHooksProyectoToba implements HooksInterface
 
     protected function postProvideApi(Provision $feature)
     {
+        $optionsFijas = $feature->getOptions();
+        $autoconfigurar = isset($optionsFijas) && isset($optionsFijas['auto-configurar']) && $optionsFijas['auto-configurar'];
+        if (!$autoconfigurar) {
+            return;
+        }
+        $modeloProyecto = $this->getModeloProyecto();
+        $iniUsuarios = \toba_modelo_rest::get_ini_usuarios($modeloProyecto);
+        $iniUsuarios->vaciar();
+
+        $sslUtils = new SSLCertUtils();
+        foreach ($feature->getConsumers() as $consumer) {
+            $authInfo = $consumer->getAuth();
+            if (empty($authInfo)) continue;
+            foreach ($authInfo as $block) {
+                if ($block['type'] != 'ssl') continue;
+                if (!isset($block['credentials']['cert'])) {
+                    throw new \Exception('Se intenta configurar auth de tipo ssl pero no se provee certificado');
+                }
+                $sslUtils->loadCert($block['credentials']['cert']);
+                $user = $sslUtils->getCN();
+                $fingerprint = $sslUtils->getFingerprint();
+                $iniUsuarios->agregar_entrada($user, array('fingerprint' => $fingerprint));
+            }
+        }
+        $iniUsuarios->guardar();
     }
 
     protected function postProvideService(Provision $feature)

@@ -131,7 +131,7 @@ class toba_app_launcher
 	protected function generar_descripcion_id($datos, $id_toba)
 	{
 		if (isset($datos['usuario_id']) && trim($datos['usuario_id']) != trim($id_toba))  {
-			$resultado = nl2br($datos['usuario_id'] .  "\n Toba: ($id_toba)");
+			$resultado = $datos['usuario_id'] .  " / Toba: $id_toba";
 		} else {
 			$resultado = $id_toba;
 		}

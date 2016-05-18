@@ -17,6 +17,8 @@ Para inicializar la librería se debe configurar el objeto `appLauncherDataParam
         'usuario_nombre' : 'Usuario Administrador',
         'usuario_foto':    'http://aplicacion.com/perfil/admin.png',
         'perfil_url': 'http://aplicacion.com/perfil/',
+        'usuario_perfil_url_target' : '_blank',
+        'leyenda_btn_salir' : 'Vía de escape',
         'aplicaciones' :
         [
             {
@@ -45,7 +47,13 @@ Para inicializar la librería se debe configurar el objeto `appLauncherDataParam
               'id': 'marciano87',
               'nombre': 'Nombre cuenta 2'
             }
-        ]        
+        ],
+        'usuario_preferencias' : {
+            'url' : 'http://aplicacion.com/preferencias/',
+            'label' : 'Seteos'
+        },
+
+
 }
 ```
 * urlAppUsrChg : Indica la direccion de la aplicacion a la que deberia dirigirse en caso de un cambio de cuenta.

@@ -63,7 +63,7 @@ class rest_arai_usuarios
 	
 	private function manejar_excepcion_request(RequestException $e)
 	{
-		$msg = $e->getRequest() . "\n";
+		$msg = $e->getMessage() . "\n" . $e->getRequest() . "\n";
 
 		if ($e->hasResponse()) {
 			$msg .= $e->getResponse() . "\n";

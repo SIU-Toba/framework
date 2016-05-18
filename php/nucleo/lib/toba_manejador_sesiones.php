@@ -697,7 +697,7 @@ class toba_manejador_sesiones
 	private function control_cambio_usuario()
 	{
 		$param = toba::memoria()->get_parametro(apex_sesion_qs_cambio_usuario);
-		if (! is_null($param)) {																//Falta hacer el mapeo
+		if (! is_null($param)) {			
 			$id = $this->usuario()->get_id();
 			$this->cambio_usuario($id, $param);
 		}

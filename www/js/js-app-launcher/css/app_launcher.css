@@ -176,7 +176,7 @@ Falta aplicar
 
 }
 
-#container_datos_usuario #datos_usuario_general {
+#container_datos_usuario #general_datos_usuario {
     position: relative;
     text-align: left;
     /*width: 250px;*/
@@ -205,7 +205,7 @@ Falta aplicar
     padding-top: 10px;
 }
 
-#container_datos_usuario #perfil_usuario {
+#container_datos_usuario #usuario {
     position: relative;
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
@@ -222,17 +222,17 @@ Falta aplicar
     border-radius: 2px;
 }
 
-#container_datos_usuario #perfil_usuario_boton_cuenta_id {
+#container_datos_usuario #usuario_boton_cuenta_id {
     display: inline-block;
     margin-right: 10px;
     font-weight: bold;
 }
 
-#container_datos_usuario #button_datos_usuario_foto {
+#container_datos_usuario #activador_datos_usuario_foto {
     display: inline-block;
 }
 
-#container_datos_usuario #perfil_usuario_foto {
+#container_datos_usuario #usuario_foto {
     display: inline-block;
     vertical-align: center;
     float: left;
@@ -241,7 +241,7 @@ Falta aplicar
 
 }
 
-#container_datos_usuario #perfil_usuario_boton_foto_img {
+#container_datos_usuario #usuario_boton_foto_img {
     height: 23px;
     width: 23px;
     margin-right: 5px;
@@ -251,39 +251,39 @@ Falta aplicar
 
 }
 
-#container_datos_usuario #perfil_usuario_foto_img {
+#container_datos_usuario #usuario_foto_img {
     max-height: 70px;
     max-width: 70px;
     position: relative;
     border-radius: 50%; /* OPCIONAL PARA HACER REDONDA LA FOTO DE PERFIL */
 }
 
-#container_datos_usuario #perfil_usuario_cuenta {
+#container_datos_usuario #usuario_cuenta {
     display: inline-block;
     padding: 20px;
 }
 
-#container_datos_usuario #perfil_usuario_cuenta_nombre {
+#container_datos_usuario #usuario_cuenta_nombre {
     font-weight: bold;
     margin: 0;
 }
 
-#container_datos_usuario #perfil_usuario_cuenta_id {
+#container_datos_usuario #usuario_cuenta_id {
     margin: 0px 0px 1px;
 }
 
-#container_datos_usuario #perfil_usuario_cuenta_perfil {
+#container_datos_usuario #usuario_cuenta_perfil {
     display: inline-block;
     padding-bottom: 6px;
 }
 
-#container_datos_usuario #perfil_usuario_cuenta_salir {
+#container_datos_usuario #usuario_cuenta_salir {
     display: inline-block;
     padding-bottom: 6px;
     padding-left: 6px;
 }
 
-#perfil_usuario_cuenta_botones {
+#usuario_cuenta_botones {
     text-align: right;
 }
 
@@ -308,7 +308,7 @@ Falta aplicar
 }
 
 
-#container_datos_usuario #datos_usuario_general #button_datos_usuario {
+#container_datos_usuario #general_datos_usuario #activador_datos_usuario {
     cursor: pointer;
     vertical-align: middle;
     /*width: 32px;*/

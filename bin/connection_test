@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+$intentos = 20;
+echo "Chequeando conexion postgres...". PHP_EOL;
+if ($argc < 6) {
+    echo " Chequea la conexion con la bd hasta $intentos intentos ". PHP_EOL;
+    echo " Modo de uso: \n connection_test host port user pwd db_name ". PHP_EOL;
+    exit(-1);
+}
+
+$HOST = $argv[1];
+$PORT = filter_var($argv[2], FILTER_VALIDATE_INT);
+$USR = $argv[3];
+$env_pwd = $argv[4];
+$BASE = $argv[5];
+
+$PWD = (isset($_ENV[$env_pwd])) ? $_ENV[$env_pwd] : 'postgres';
+
+if ($HOST == '' || $PORT === false || $USR == '' || $BASE == '') {
+    echo "Parametros incorrectos";
+    exit(-1);
+}
+
+$dsn = "pgsql:host=$HOST;dbname=$BASE;port=$PORT";
+$count = 0;
+$connFailed = true;
+while ($connFailed) {
+    try {
+        $db = new PDO($dsn, $USR, $PWD);    
+        $connFailed = false;
+    } catch (PDOException $e) {
+        $count++;
+        $connFailed = ($count < $intentos);
+        sleep (2);        
+        echo "Intentando nuevamente..". PHP_EOL;
+        //echo $e->getMessage();
+    }
+}
+$retcode = ($count < $intentos) ? 0: $count;
+exit($retcode);
+?>

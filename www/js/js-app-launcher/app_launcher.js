@@ -21,26 +21,26 @@ var appLauncher = new function () {
         //////////////////////////////////////////////////////////////////////////////////////////////////////
                 
         var html_usuario = "<div id='container_datos_usuario'>";
-        html_usuario += "   <div id='datos_usuario_general'>";
-        html_usuario += "       <div id='button_datos_usuario'>";
-        html_usuario += "           <div id='button_datos_usuario_foto'/>";
-        html_usuario += "       </div>";
-        html_usuario += "       <div id='datos_usuario'>";
-        html_usuario += "           <div id='perfil_usuario'>";
-        html_usuario += "               <div id='perfil_usuario_foto'/>";
-        html_usuario += "               <div id='perfil_usuario_cuenta'>";
-        html_usuario += "                   <div id='perfil_usuario_cuenta_nombre'/>";
-        html_usuario += "                   <div id='perfil_usuario_cuenta_botones'>";
-        html_usuario += "                       <div id='perfil_usuario_cuenta_perfil'/>";
-        html_usuario += "                       <div id='perfil_usuario_preferencias'/>";
-        html_usuario += "                       <div id='perfil_usuario_cuenta_id'/>";
-        html_usuario += "                       <div id='perfil_usuario_cuenta_salir'/>";
-        html_usuario += "                   </div>";
-        html_usuario += "               </div>";
-        html_usuario += "           </div>";
-        html_usuario += "       </div>";
-        html_usuario += "   </div>";
-        html_usuario += "</div>";        
+            html_usuario += "   <div id='general_datos_usuario'>";
+            html_usuario += "       <div id='activador_datos_usuario'>";
+            html_usuario += "           <div id='activador_datos_usuario_foto'/>";
+            html_usuario += "       </div>";
+            html_usuario += "       <div id='datos_usuario'>";
+            html_usuario += "           <div id='usuario'>";
+            html_usuario += "               <div id='usuario_foto'/>";
+            html_usuario += "               <div id='usuario_cuenta'>";
+            html_usuario += "                   <div id='usuario_cuenta_nombre'/>";
+            html_usuario += "                   <div id='usuario_cuenta_id'/>";    
+            html_usuario += "                   <div id='usuario_cuenta_botones'>";
+            html_usuario += "                       <div id='usuario_cuenta_perfil'/>";
+            html_usuario += "                       <div id='usuario_preferencias'/>";
+            html_usuario += "                       <div id='usuario_cuenta_salir'/>";
+            html_usuario += "                   </div>";
+            html_usuario += "               </div>";
+            html_usuario += "           </div>";
+            html_usuario += "       </div>";
+            html_usuario += "   </div>";
+            html_usuario += "</div>";        
         $base.append(html_usuario);                                                         //Agrego el bodoque de HTML
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////        
@@ -48,16 +48,16 @@ var appLauncher = new function () {
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         if (appLauncherData.data.usuario_foto != undefined) { 
             $base
-                .find("#button_datos_usuario_foto")
+                .find("#activador_datos_usuario_foto")
                     .append( $("<img/>", {
-                                id :'perfil_usuario_boton_foto_img',
+                                id :'usuario_boton_foto_img',
                                 src:appLauncherData.data.usuario_foto
                                 })
                     )
                 .end()
-                .find("#perfil_usuario_foto")
+                .find("#usuario_foto")
                     .append( $("<img/>", {
-                                id :'perfil_usuario_foto_img',
+                                id :'usuario_foto_img',
                                 src:appLauncherData.data.usuario_foto
                     }));
         }
@@ -67,7 +67,7 @@ var appLauncher = new function () {
             var label_pref = (appLauncherData.data.usuario_preferencias.label != undefined) ? appLauncherData.data.usuario_preferencias.label : "Preferencias";
 
             $base
-                .find("#perfil_usuario_preferencias")
+                .find("#usuario_preferencias")
                 .append($('<a/>', {
                             id: 'boton_preferencias',
                             href: url_pref,
@@ -77,15 +77,15 @@ var appLauncher = new function () {
 
         if (appLauncherData.data.usuario_nombre != undefined) { 
             $base
-                .find("#perfil_usuario_cuenta_nombre")
+                .find("#usuario_cuenta_nombre")
                 .text(appLauncherData.data.usuario_nombre);
         }
         
         if (appLauncherData.data.usuario_id != undefined) {
             $base
-                .find("#button_datos_usuario")
+                .find("#activador_datos_usuario")
                 .append( $('<div/>', {
-                            id: 'perfil_usuario_boton_cuenta_id', 
+                            id: 'usuario_boton_cuenta_id', 
                             text: appLauncherData.data.usuario_id 
                         }));
         }
@@ -94,7 +94,7 @@ var appLauncher = new function () {
             var index, 
                 opcion,
                 combo = $("<select/>", {"id": "combo_usuario_cuentas", "name": "combo_usuario_cuentas"})
-                                .appendTo($base.find("#perfil_usuario_cuenta_id"))
+                                .appendTo($base.find("#usuario_cuenta_id"))
                                 .on('change', function() {
                                     var nexo = (appLauncherData.urlAppUsrChg.indexOf('?') == -1) ? '?' :  '&';
                                     window.location.href = appLauncherData.urlAppUsrChg + nexo + appLauncherData.usrChangeParam + '=' + $(this).val();
@@ -114,34 +114,36 @@ var appLauncher = new function () {
 
         } else if (appLauncherData.data.usuario_id != undefined) {
             $base
-                .find("#perfil_usuario_cuenta_id")
+                .find("#usuario_cuenta_id")
                 .text(appLauncherData.data.usuario_id);
         }
 
         if (appLauncherData.data.perfil_url != undefined) {
+            var destino = (appLauncherData.data.usuario_perfil_url_target != undefined) ? appLauncherData.data.usuario_perfil_url_target : 'usuario_' + appLauncherData.data.usuario_id;
             $base
-                .find("#perfil_usuario_cuenta_perfil")
+                .find("#usuario_cuenta_perfil")
                 .append($("<a/>",{
                             id: 'boton_cuenta',
                             text: 'Mi Cuenta',
                             href: appLauncherData.data.perfil_url,
-                            target: 'perfil_usuario_' + appLauncherData.data.usuario_id
+                            target: destino
                         }));
         }
         
         if (appLauncherData.js_salir != undefined) {
+            var leyenda = (appLauncherData.data.leyenda_btn_salir != undefined) ? appLauncherData.data.leyenda_btn_salir : 'Salir';
             $base
-                .find("#perfil_usuario_cuenta_salir")
+                .find("#usuario_cuenta_salir")
                     .append($("<a/>", { 
                                     id: 'boton_salir',
                                     href: '#',
-                                    text: 'Salir'
+                                    text: leyenda
                                 }).on('click', appLauncherData.js_salir)
                     );
         }
         
         // Armo la logica del boton de perfil del usuario
-        this.setearLogicaBoton(appLauncherData.container + ' #datos_usuario', appLauncherData.container + ' #button_datos_usuario', [appLauncherData.container + ' #app-launcher']);
+        this.setearLogicaBoton(appLauncherData.container + ' #datos_usuario', appLauncherData.container + ' #activador_datos_usuario', [appLauncherData.container + ' #app-launcher']);
          
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         // Armo el HTML con las aplicaciones
@@ -281,9 +283,9 @@ var appLauncher = new function () {
         $(window).on('resize', function(e){
             var alto = $(this).height();                                    //Refiere a $(window)
             $base
-                .find('#perfil_usuario')
+                .find('#usuario')
                 .css('maxHeight', function() {
-                            return alto - $(this).offset().top;             //Refiere a #perfil_usuario
+                            return alto - $(this).offset().top;             //Refiere a #usuario
                         });
 
             if (cant_apps > 0) {

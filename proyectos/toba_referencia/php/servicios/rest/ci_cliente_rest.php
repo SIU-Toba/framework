@@ -66,7 +66,7 @@ class ci_cliente_rest extends toba_ci
 
 	function evt__version()
 	{
-		$url = toba_http::get_protocolo() . toba_http::get_nombre_servidor() . toba_rest::url_rest(). '/';
+		$url = toba_http::get_protocolo(true, true) . toba_http::get_nombre_servidor() . toba_rest::url_rest(). '/';
 		$opciones = array('to' => $url,);
 		$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
 		$resp = $cliente->guzzle()->get('personas');

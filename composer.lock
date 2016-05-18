@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ccf9aa0d7943835d00314789dcc00e20",
-    "content-hash": "3e1e1ac447a58adc7cc03e0a9005d9e6",
+    "hash": "795cc4681b65bc13859f318e185ac845",
+    "content-hash": "a9a8d517937fb9e27cff7af85a814d5b",
     "packages": [
         {
             "name": "analog/analog",
@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "2e15d7a4dadb08ccdac3f060dcf81112e607b6c4"
+                "reference": "04756a9feb07d361814e3aa8193a41ec3ebf9db6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/2e15d7a4dadb08ccdac3f060dcf81112e607b6c4",
-                "reference": "2e15d7a4dadb08ccdac3f060dcf81112e607b6c4",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/04756a9feb07d361814e3aa8193a41ec3ebf9db6",
+                "reference": "04756a9feb07d361814e3aa8193a41ec3ebf9db6",
                 "shasum": ""
             },
             "require": {
@@ -167,7 +167,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-03-31 21:39:10"
+            "time": "2016-05-11 18:04:19"
         },
         {
             "name": "greenlion/php-sql-parser",
@@ -224,6 +224,50 @@
                 "sql"
             ],
             "time": "2015-06-19 06:53:31"
+        },
+        {
+            "name": "guiguiboy/php-cli-progress-bar",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guiguiboy/PHP-CLI-Progress-Bar.git",
+                "reference": "7d3eb61c1f0c164b9c3139af694b2d38171e4d04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guiguiboy/PHP-CLI-Progress-Bar/zipball/7d3eb61c1f0c164b9c3139af694b2d38171e4d04",
+                "reference": "7d3eb61c1f0c164b9c3139af694b2d38171e4d04",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ProgressBar": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume",
+                    "email": "guillaume.bretou@gmail.com"
+                }
+            ],
+            "description": "Progress bar for PHP CLI scripts",
+            "homepage": "https://github.com/guiguiboy/PHP-CLI-Progress-Bar",
+            "keywords": [
+                "bar",
+                "cli",
+                "command-line",
+                "progress"
+            ],
+            "time": "2014-11-19 13:12:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -289,16 +333,16 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "bb9024c526b22f3fe6ae55a561fd70653d470aa8"
+                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/bb9024c526b22f3fe6ae55a561fd70653d470aa8",
-                "reference": "bb9024c526b22f3fe6ae55a561fd70653d470aa8",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/c10d860e2a9595f8883527fa0021c7da9e65f579",
+                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +380,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-03-08 01:15:46"
+            "time": "2016-05-18 16:56:05"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -553,12 +597,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/milesj/decoda.git",
-                "reference": "6142cad0082fa8e71097574de47ec8dce9a36139"
+                "reference": "b692742f980e1c25bc953e4ea2008ab581e2a60c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/milesj/decoda/zipball/6142cad0082fa8e71097574de47ec8dce9a36139",
-                "reference": "6142cad0082fa8e71097574de47ec8dce9a36139",
+                "url": "https://api.github.com/repos/milesj/decoda/zipball/b692742f980e1c25bc953e4ea2008ab581e2a60c",
+                "reference": "b692742f980e1c25bc953e4ea2008ab581e2a60c",
                 "shasum": ""
             },
             "require": {
@@ -566,7 +610,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.7"
+                "phpunit/phpunit": "~4.8"
             },
             "type": "library",
             "autoload": {
@@ -595,7 +639,7 @@
                 "markup",
                 "parser"
             ],
-            "time": "2016-03-02 19:37:30"
+            "time": "2016-05-15 06:38:28"
         },
         {
             "name": "onelogin/php-saml",
@@ -750,17 +794,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "920ea38e0c6cb2bf7230ab7917f5c52cd5e13300"
+                "reference": "4aebc42efdc5124844864fb63f23c05c2c4f3909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/920ea38e0c6cb2bf7230ab7917f5c52cd5e13300",
-                "reference": "920ea38e0c6cb2bf7230ab7917f5c52cd5e13300",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/4aebc42efdc5124844864fb63f23c05c2c4f3909",
+                "reference": "4aebc42efdc5124844864fb63f23c05c2c4f3909",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~1.4",
-                "php": ">=5.3.0",
+                "php": ">=5.5.0",
                 "siu-toba/ssl-cert-utils": "1.0"
             },
             "type": "library",
@@ -775,7 +819,7 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2016-04-28 21:33:45"
+            "time": "2016-05-12 19:01:17"
         },
         {
             "name": "siu-toba/ssl-cert-utils",
@@ -1085,7 +1129,8 @@
         "ircmaxell/random-lib": 20,
         "siu-toba/rest": 20,
         "siu-toba/ssl-cert-utils": 20,
-        "greenlion/php-sql-parser": 20
+        "greenlion/php-sql-parser": 20,
+        "guiguiboy/php-cli-progress-bar": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

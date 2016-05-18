@@ -1,6 +1,6 @@
 pgdata:
   image: postgres:9.4
-  command: true
+  command: "true"
   volumes:
 #Comentar la siguiente linea para corregir permisos en OSX  
    - ./docker-data/pgdata:/var/lib/postgresql/data
@@ -20,7 +20,7 @@ web:
 #    TOBA_BASE_NOMBRE                  : toba
 #    TOBA_PROYECTO_DIR                 : /var/local/toba/proyectos/miproyecto
 #    TOBA_PROYECTO_ALIAS               : /miproyecto
-#    TOBA_PROYECTO_INSTALAR            : true
+#    TOBA_PROYECTO_INSTALAR            : "true"
 #    TOBA_PROYECTO_INSTALAR_PARAMETROS : --base-nombre miproyecto
   links:
    - pg

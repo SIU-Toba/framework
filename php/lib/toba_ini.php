@@ -33,7 +33,12 @@ class toba_ini
 	{
 		return $this->entradas;
 	}
-	
+
+	function vaciar()
+	{
+		$this->entradas = array();
+	}
+
 	function existe_entrada($seccion, $nombre=null)
 	{
 		if (! isset($nombre)) {
