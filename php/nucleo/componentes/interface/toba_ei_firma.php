@@ -86,19 +86,20 @@ class toba_ei_firma extends toba_ei
 
 	function generar_applet()
 	{
-	    $sesion = $this->generar_sesion();
+		$sesion = $this->generar_sesion();
 		$cookie = session_name()."=".session_id();
 		$url_jar = toba_recurso::url_toba()."/firmador_pdf/firmador.jar";
-		
-		$destino = array($this->_id);
+		$valor_cross_token = toba::memoria()->get_dato_operacion(apex_sesion_csrt);
 
+		$destino = array($this->_id);
+		
 		$url_enviar = $this->get_url_enviar_pdf(true);
 		$url_base = $this->get_url_base_actual();
 		$url_recibir = toba::vinculador()->get_url(null, null, array('accion' => 'recibir'),array('servicio' => 'ejecutar',
 														 'objetos_destino' => $destino), true);
 		$url_recibir = $url_base.$url_recibir;
 
-        echo "<applet  id='AppletFirmador'  code='ar/gob/onti/firmador/view/FirmaApplet' scriptable='true''
+		echo "<applet  id='AppletFirmador'  code='ar/gob/onti/firmador/view/FirmaApplet' scriptable='true''
 				archive='$url_jar' width='{$this->_ancho}' height='{$this->_alto}' >\n";
 		if (! $this->_multiple) {
 			echo "<param  name='URL_DESCARGA'	 value='$url_enviar' />\n";
@@ -111,8 +112,10 @@ class toba_ei_firma extends toba_ei
 			  <param  name='PREGUNTAS' value='{ \"preguntasRespuestas\": []}' />
 			  <param  name='COOKIE' value='$cookie' />
 			  <param name='classloader_cache' value='false' />
-			  <param name='codebase_lookup' value='false' />			 
-            </applet>
+			  <param name='codebase_lookup' value='false' />
+			  <param name='TOKID' value='".apex_sesion_csrt."'/>
+			  <param name='TOKVAL' value'$valor_cross_token'/>
+		</applet>
 		";
 		if ($this->_mostrar_pdf) {
 			$this->_url_pdf_embebido = $this->get_url_enviar_pdf(false);
@@ -124,7 +127,6 @@ class toba_ei_firma extends toba_ei
 			}
 			echo "<div id='pdf' style='display: none; height: {$this->_pdf_altura}; text-align: center'><div style='margin-top: 40px; color: gray'>$texto_alternativo</div></div>";
 		}
-
 	}
 	
 	/**
@@ -141,43 +143,43 @@ class toba_ei_firma extends toba_ei
 		$url_enviar = $url_base.$url_enviar;
 		return $url_enviar;
 	}
-	
+
 	function get_url_base_actual() 
 	{
 		$url = toba_http::get_url_actual();
 		return $url;
 	}
-   
-	
+
+
 	function generar_sesion()
 	{
 		if (! isset($this->_memoria['token'])) {
 			$this->_memoria['token'] = hash('sha256', uniqid(mt_rand(), true));
 		}
-        return $this->_memoria['token'];
-     }
-	
+		return $this->_memoria['token'];
+	 }
+
 	 function set_motivo_firma($motivo)
 	 {
 		 $this->_motivo_firma;
 	 }
-	 
+
 	 function set_multiple($multiple)
 	 {
 		 $this->_multiple = $multiple;
 	 }
-	 
+
 	 function set_dimension($ancho, $alto)
 	 {
 		 $this->_ancho = $ancho;
 		 $this->_alto = $alto;
 	 }
-	 
+
 	 function set_mostrar_pdf($mostrar) 
 	 {
 		 $this->_mostrar_pdf = $mostrar;
 	 }
-	 
+
 	 function set_alto_pdf($alto)
 	 {
 		 $this->_pdf_altura = $alto;
@@ -191,7 +193,17 @@ class toba_ei_firma extends toba_ei
 	function servicio__ejecutar($parametros = null)
 	{
 		toba::memoria()->desactivar_reciclado();
-		
+		$accion = toba::memoria()->get_parametro('accion');
+		switch ($accion) {
+			case 'enviar': 
+				$this->accion_enviar($parametros);
+				break;
+			case 'recibir':
+				$this->accion_recibir($parametros);
+				break;
+			default:
+				return;
+		}/*
 		//-- ENVIAR
 		if ($_GET['accion'] == 'enviar') {
 			if (! isset($_GET['codigo'])) {
@@ -267,9 +279,88 @@ class toba_ei_firma extends toba_ei
 				unlink($destino);
 			}
 			return;
+		}*/
+	}
+	
+	protected function accion_enviar($parametros)
+	{
+		$codigo = toba::memoria()->get_parametro('codigo');
+		if (! isset($codigo) || is_null($codigo)) {
+			header('HTTP/1.1 500 Internal Server Error');
+			throw new toba_error_seguridad("Falta indicar el codigo");
 		}
+		if ($this->_memoria['token']  != $codigo) {
+			header('HTTP/1.1 500 Internal Server Error');
+			throw new toba_error_seguridad("Codigo invalido");   
+		}	
+		$numero_documento = null;
+		if ($this->_multiple) {
+			
+			if (! isset(toba::memoria()->get_parametro('id'))) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Falta indicar el ID del documento a enviar");   
+			}
+			$numero_documento = (int) toba::memoria()->get_parametro('id');
+		}
+		//Reportar evento al padre
+		$pdf = $this->reportar_evento_interno('enviar_pdf', $this->_memoria['token'], $numero_documento);
+		if (isset($pdf) && $pdf !== apex_ei_evt_sin_rpta) {
+			//Enviar PDF
+			header("Cache-Control: private");
+			header("Content-type: application/pdf");
+			header("Pragma: no-cache");
+			header("Expires: 0");				
+			echo $pdf;
+		} else {
+			toba::logger()->error("toba_ei_fimar: No se atrapo el evento enviar_pdf!");
+		}			
+		return;
 	}
 
+	protected function accion_recibir($parametros) 
+	{
+		if (! isset($_POST['codigo'])) {
+			header('HTTP/1.1 500 Internal Server Error');
+			throw new toba_error_seguridad("Falta indicar el codigo");
+		}
+		if ($this->_memoria['token'] != $_POST['codigo']) {
+			header('HTTP/1.1 500 Internal Server Error');
+			throw new toba_error_seguridad("Codigo invalido");   
+		}
+		if ($_FILES["md5_fileSigned"]["error"] != UPLOAD_ERR_OK) {
+			error_log("Error uploading file");
+			header('HTTP/1.1 500 Internal Server Error');
+			throw new toba_error_seguridad("Error: ".$_FILES["md5_fileSigned"]["error"]);
+		}	
+		$numero_documento = null;
+		if ($this->_multiple) {
+			if (! isset($_POST['id'])) {
+				header('HTTP/1.1 500 Internal Server Error');
+				throw new toba_error_seguridad("Falta indicar el ID del documento a recibir");   
+			}
+			$numero_documento = (int) $_POST['id'];
+		}			
+		$temp = rand();
+		$destino = toba::proyecto()->get_path_temp()."/$temp.pdf";
+		$path = $_FILES['md5_fileSigned']['tmp_name'];
+		if (! move_uploaded_file($path, $destino)) {
+			error_log("Error uploading file");
+			header('HTTP/1.1 500 Internal Server Error');
+			return;
+		}			
+		try {
+			$this->reportar_evento_interno('recibir_pdf_firmado', $destino, $this->_memoria['token'], $numero_documento);			
+		} catch (Exception $e) {
+			error_log("Error al atender el evento recibir_pdf_firmado");
+			header('HTTP/1.1 500 Internal Server Error');				
+			throw $e;
+		}
+		if (file_exists($destino)) {
+			unlink($destino);
+		}
+		return;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -283,8 +374,8 @@ class toba_ei_firma extends toba_ei
 		$id = toba_js::arreglo($this->_id, false);
 
 		echo $identado."window.{$this->objeto_js} = new ei_firma($id, 
-														'{$this->_submit}', 
-														".($this->_multiple ? 'true' : 'false').");\n";
+													'{$this->_submit}', 
+													".($this->_multiple ? 'true' : 'false').");\n";
 
 		echo "
 			function appletLoaded() {
@@ -299,9 +390,7 @@ class toba_ei_firma extends toba_ei
 				};
 			}			
 		";
-
 	}
-
 	
 	/**
 	 * @ignore
