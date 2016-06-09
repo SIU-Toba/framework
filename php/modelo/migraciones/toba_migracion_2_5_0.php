@@ -13,7 +13,7 @@ class toba_migracion_2_5_0 extends toba_migracion
 		
 		$sql[] = "ALTER TABLE apex_servicio_web ADD COLUMN tipo text DEFAULT 'soap';";		
 		$sql[] = 'ALTER TABLE apex_usuario ADD COLUMN forzar_cambio_pwd SMALLINT NOT NULL DEFAULT 0;';
-		$sql[] = 'ALTER TABLE apex_usuario_pwd_usados ADD COLUMN fecha_cambio DATE NOT NULL DEFAULT (\'now\'::text)::date;';
+		$sql[] = 'ALTER TABLE apex_usuario_pwd_usados ADD COLUMN fecha_cambio DATE NOT NULL DEFAULT CURRENT_DATE;';
 		
 		//Elimino FK dependientes y PK de apex_menu
 		$sql[] = 'ALTER TABLE apex_proyecto DROP CONSTRAINT "apex_proyecto_fk_menu";';		
