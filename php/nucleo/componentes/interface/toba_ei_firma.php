@@ -203,83 +203,7 @@ class toba_ei_firma extends toba_ei
 				break;
 			default:
 				return;
-		}/*
-		//-- ENVIAR
-		if ($_GET['accion'] == 'enviar') {
-			if (! isset($_GET['codigo'])) {
-				header('HTTP/1.1 500 Internal Server Error');
-				throw new toba_error_seguridad("Falta indicar el codigo");
-			}
-			if ($this->_memoria['token']  != $_GET['codigo']) {
-				header('HTTP/1.1 500 Internal Server Error');
-				throw new toba_error_seguridad("Codigo invalido");   
-			}	
-			$numero_documento = null;
-			if ($this->_multiple) {
-				if (! isset($_GET['id'])) {
-					header('HTTP/1.1 500 Internal Server Error');
-					throw new toba_error_seguridad("Falta indicar el ID del documento a enviar");   
-				}
-				$numero_documento = (int) $_GET['id'];
-			}
-			//Reportar evento al padre
-			$pdf = $this->reportar_evento_interno('enviar_pdf', $this->_memoria['token'], $numero_documento);
-			if (isset($pdf) && $pdf !== apex_ei_evt_sin_rpta) {
-				//Enviar PDF
-				header("Cache-Control: private");
-				header("Content-type: application/pdf");
-				header("Pragma: no-cache");
-				header("Expires: 0");				
-				echo $pdf;
-			} else {
-				toba::logger()->error("toba_ei_fimar: No se atrapo el evento enviar_pdf!");
-			}			
-			return;
 		}
-
-		//-- RECIBIR
-		if ($_GET['accion'] == 'recibir') {
-			if (! isset($_POST['codigo'])) {
-				header('HTTP/1.1 500 Internal Server Error');
-				throw new toba_error_seguridad("Falta indicar el codigo");
-			}
-			if ($this->_memoria['token'] != $_POST['codigo']) {
-				header('HTTP/1.1 500 Internal Server Error');
-				throw new toba_error_seguridad("Codigo invalido");   
-			}
-			if ($_FILES["md5_fileSigned"]["error"] != UPLOAD_ERR_OK) {
-				error_log("Error uploading file");
-				header('HTTP/1.1 500 Internal Server Error');
-				throw new toba_error_seguridad("Error: ".$_FILES["md5_fileSigned"]["error"]);
-			}	
-			$numero_documento = null;
-			if ($this->_multiple) {
-				if (! isset($_POST['id'])) {
-					header('HTTP/1.1 500 Internal Server Error');
-					throw new toba_error_seguridad("Falta indicar el ID del documento a recibir");   
-				}
-				$numero_documento = (int) $_POST['id'];
-			}			
-			$temp = rand();
-			$destino = toba::proyecto()->get_path_temp()."/$temp.pdf";
-			$path = $_FILES['md5_fileSigned']['tmp_name'];
-			if (! move_uploaded_file($path, $destino)) {
-				error_log("Error uploading file");
-				header('HTTP/1.1 500 Internal Server Error');
-				return;
-			}			
-			try {
-				$this->reportar_evento_interno('recibir_pdf_firmado', $destino, $this->_memoria['token'], $numero_documento);			
-			} catch (Exception $e) {
-				error_log("Error al atender el evento recibir_pdf_firmado");
-				header('HTTP/1.1 500 Internal Server Error');				
-				throw $e;
-			}
-			if (file_exists($destino)) {
-				unlink($destino);
-			}
-			return;
-		}*/
 	}
 	
 	protected function accion_enviar($parametros)
@@ -295,8 +219,8 @@ class toba_ei_firma extends toba_ei
 		}	
 		$numero_documento = null;
 		if ($this->_multiple) {
-			
-			if (! isset(toba::memoria()->get_parametro('id'))) {
+			$test_val = toba::memoria()->get_parametro('id');
+			if (! isset($test_val)) {
 				header('HTTP/1.1 500 Internal Server Error');
 				throw new toba_error_seguridad("Falta indicar el ID del documento a enviar");   
 			}
