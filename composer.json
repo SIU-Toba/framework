@@ -29,6 +29,9 @@
         "greenlion/PHP-SQL-Parser": "@dev",
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master"
     },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.*"
+    },
     "bin": ["bin/toba"],
     "autoload": {
       "psr-4": {
