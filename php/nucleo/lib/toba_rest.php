@@ -1,7 +1,9 @@
 <?php
 
 use SIUToba\rest\seguridad\autenticacion;
+use SIUToba\rest\seguridad\autenticacion\autenticacion_basic_http;
 use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
+use SIUToba\rest\seguridad\autenticacion\usuarios_usuario_password;
 use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
 
 class toba_rest
@@ -137,7 +139,7 @@ class toba_rest
 				$app->container->singleton('autorizador', function () use ($conf) {
 					$conf_auth = $conf->get('oauth2');
 					if (!isset($conf_auth['scopes'])) {
-						die("es necesario definir el parámetro 'scopes' en el bloque oauth2 de la configuración");
+						die("es necesario definir el parï¿½metro 'scopes' en el bloque oauth2 de la configuraciï¿½n");
 					}
 					$auth = new autorizacion_scopes();
 					$auth->set_scopes_requeridos(array_map('trim', explode(',', $conf_auth['scopes'])));
@@ -159,6 +161,12 @@ class toba_rest
 			return toba::db();
 		});
 
+		//MODO PROMISCUO!! SOLO PARA DESARROLLO...
+		if (! toba::instalacion()->es_produccion() && toba::memoria()->get_parametro('api_dev_access') == 1) {
+			$app->container->singleton('autenticador', function () {
+					return new autenticacion_basic_http(new toba_usuarios_rest_promiscuo());
+			});
+		}//FIN DEL IF PROMISCUO
 	}
 
 	protected function get_conf($api='')

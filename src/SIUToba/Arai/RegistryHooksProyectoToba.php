@@ -331,14 +331,20 @@ class RegistryHooksProyectoToba implements HooksInterface
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
         }
 
-        $endpoint = $this->getProyectoUrl() . '/rest/';
-        if (isset($_SERVER['DOCKER_NAME'])) {
-            //HACK: en el caso de docker la IP interna difiere de la externa. Se trata de sacar con la variable DOCKER_NAME
-            $parts = parse_url($endpoint);
-            if (isset($parts['host'])) $parts['host'] = $_SERVER['DOCKER_NAME'];
-            if (isset($parts['port'])) unset($parts['port']);
-            $endpoint = unparse_url($parts);
+        $endpoint = $this->getProyectoUrl();
+        if (isset($_SERVER['ARAI_REGISTRY_ENDPOINT_BASE'])) {
+            if (filter_var($_SERVER['ARAI_REGISTRY_ENDPOINT_BASE'], FILTER_VALIDATE_URL)) {
+                $fixed_endpoint_parts = parse_url($_SERVER['ARAI_REGISTRY_ENDPOINT_BASE']);
+                $endpoint_parts = parse_url($endpoint);
+                if (isset($fixed_endpoint_parts['scheme'])) $endpoint_parts['scheme'] = $fixed_endpoint_parts['scheme'];
+                if (isset($fixed_endpoint_parts['host'])) $endpoint_parts['host'] = $fixed_endpoint_parts['host'];
+                if (isset($fixed_endpoint_parts['port'])) $endpoint_parts['port'] = $fixed_endpoint_parts['port'];
+                $endpoint = unparse_url($endpoint_parts);
+            } else {
+                echo "La URL especificada en env 'ARAI_REGISTRY_ENDPOINT_BASE' no es válida\n";
+            }
         }
+        $endpoint = $endpoint . '/rest/';
         $feature->setEndpoint($endpoint);
         $feature->setOptions($options);
     }

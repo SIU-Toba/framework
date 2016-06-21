@@ -65,7 +65,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		var valor_actual;
 		this._ultimas_opciones_server[this._id_form] = [];							//Inicializo la coleccion para el ML
 		
-		for (var i in combo_original.options) {			
+		for (var i=0; i < combo_original.options.length; i++) {
 			valor_actual = combo_original.options[i].value;
 			if (isset(valor_actual) && valor_actual != 'nopar') {
 				this._ultimas_opciones_server[this._id_form].push(valor_actual);
