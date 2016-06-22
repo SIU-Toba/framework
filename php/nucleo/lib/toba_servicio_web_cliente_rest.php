@@ -3,11 +3,17 @@
 class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 {
 	const HEADER_VERSION = 'API-Version';
+	const VERIFY_PEER_VAR = 'TOBA_REST_VERIFY_PEER';
 	protected $guzzle;
+	private $toba_verify_peer = true;
 	
 	function __construct($opciones, $id_servicio, $proyecto = null) 
 	{
 		parent::__construct($opciones, $id_servicio, $proyecto);
+		$entorno = getenv(self::VERIFY_PEER_VAR);
+		if ($entorno !== false) {
+			$this->toba_verify_peer = ($entorno == '1');
+		}
 	}
 
 	static function conectar($id_servicio, $opciones=array(), $proyecto = null)
@@ -59,7 +65,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 						$options['ssl_key'] = realpath($this->opciones['key_file']);
 					}					
 					//Agrego el certificado de la CA para verificar el certificado del servidor
-					$options['verify'] = (isset($this->opciones['ca_cert']))? array($this->opciones['ca_cert']) : false;					
+					$options['verify'] = (isset($this->opciones['ca_cert']))? array($this->opciones['ca_cert']) : $this->toba_verify_peer;
 				}
 			}
 			$this->guzzle = $client = new GuzzleHttp\Client($options);
