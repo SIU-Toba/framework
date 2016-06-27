@@ -10,7 +10,20 @@ class toba_db_postgres7 extends toba_db
 	protected $schema;
 	protected $transaccion_abierta = false;
 	
-	
+	/**
+	 * Constructor de la clase
+	 * @param mixed $profile	Host de la conexion
+	 * @param mixed $usuario	Usuario de la conexion
+	 * @param mixed $clave		Clave del usuario de conexion
+	 * @param mixed $base		Base a la cual conectar
+	 * @param mixed $puerto	Puerto del motor
+	 * @param mixed $server	Nombre de la instancia del motor
+	 * @param mixed $sslmode	Tipo de conexion SSL
+	 * @param mixed $cert_path	Path al certificado cliente
+	 * @param mixed $key_path	Path a la clave del certificado cliente
+	 * @param mixed $crl_path	Path a la lista de revocacion de certificados
+	 * @param mixed $cacert_path	Path al certificado de la CA 
+	 */
 	function __construct($profile, $usuario, $clave, $base, $puerto, $server='', $sslmode='', $cert_path='', $key_path='', $crl_path='', $cacert_path='')
 	{
 		$this->motor = "postgres7";
@@ -18,6 +31,10 @@ class toba_db_postgres7 extends toba_db
 		//$this->setear_datestyle_iso();
 	}
 
+	/**
+	 * Retorna el string de conexion para el motor
+	 * @return string
+	 */
 	function get_dsn()
 	{
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
@@ -30,6 +47,10 @@ class toba_db_postgres7 extends toba_db
 		return "pgsql:host=$this->profile;dbname=$this->base;$puerto;$ssl;$certs";	
 	}
 	
+	/**
+	 * Retorna los parametros de la conexion
+	 * @return array
+	 */
 	function get_parametros()
 	{
 		$parametros = parent::get_parametros();
@@ -37,6 +58,10 @@ class toba_db_postgres7 extends toba_db
 		return $parametros;
 	}
 	
+	/**
+	 * Retorna la configuracion de los certificados para una conexion SSL
+	 * @return array
+	 */
 	function get_config_certificados()
 	{
 		$certs = array();
@@ -59,6 +84,7 @@ class toba_db_postgres7 extends toba_db
 	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
 	 * @param string $schema
 	 * @param boolean $ejecutar
+	 * @param boolean $fallback_en_public
 	 */
 	function set_schema($schema, $ejecutar = true, $fallback_en_public=false)
 	{
@@ -71,6 +97,10 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);
 	}
 	
+	/**
+	 * Devuelve el nombre del Schema actual
+	 * @return mixed
+	 */
 	function get_schema()
 	{
 		if (isset($this->schema)) {
@@ -78,6 +108,12 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
+	/**
+	 * Fija el encoding del cliente para la conexion
+	 * @param string $encoding	Identificador del encoding a usar
+	 * @param boolean $ejecutar	Indica si la sentencia debe ser ejecutada o simplemente generada
+	 * @return string			Sentencia generada para el encoding especificado
+	 */
 	function set_encoding($encoding, $ejecutar = true)
 	{
 		$sql = "SET CLIENT_ENCODING TO '$encoding';";
@@ -85,6 +121,9 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);		
 	}
 
+	/**
+	 * Fija el formato de fecha a ISO
+	 */
 	function set_datestyle_iso()
 	{	
 		$sql = "SET datestyle TO 'iso';";
@@ -102,9 +141,10 @@ class toba_db_postgres7 extends toba_db
 	}
 	
 	/**
-	*	Recupera el valor actual de una secuencia
-	*	@param string $secuencia Nombre de la secuencia
-	*	@return string Siguiente numero de la secuencia
+	*  Recupera el valor actual de una secuencia
+	* @param string $secuencia Nombre de la secuencia
+	* @param boolean ejecutar   Indica si la sentencia debe ser ejecutada o solo generada 
+	* @return mixed Actual numero de la secuencia o sentencia generada
 	*/	
 	function recuperar_secuencia($secuencia, $ejecutar=true)
 	{
@@ -114,6 +154,12 @@ class toba_db_postgres7 extends toba_db
 		return $datos[0]['seq'];
 	}
 
+	/**
+	 * Recupera el proximo valor de la secuencia
+	 * @param string $secuencia
+	 * @param boolean ejecutar   Indica si la sentencia debe ser ejecutada o solo generada 
+	 * @return mixed Siguiente numero de la secuencia o sentencia generada
+	 */
 	function recuperar_nuevo_valor_secuencia($secuencia, $ejecutar = true)
 	{
 		$sql = "SELECT nextval('$secuencia') as seq;";
@@ -122,6 +168,10 @@ class toba_db_postgres7 extends toba_db
 		return $datos[0]['seq'];
 	}
 		
+	/**
+	 * Retraza o activa el chequeo de constraints
+	 * @param boolean $retrazar
+	 */
 	function retrazar_constraints($retrazar = true)
 	{
 		$tipo = $retrazar ? 'DEFERRED' : 'IMMEDIATE';
@@ -130,7 +180,9 @@ class toba_db_postgres7 extends toba_db
 		$this->log("************ Se cambia el chequeo de constraints ($tipo) ****************", 'debug', 'toba');
 	}
 	
-
+	/**
+	 * Abre una transaccion en la conexion
+	 */
 	function abrir_transaccion()
 	{
 		$sql = 'BEGIN TRANSACTION;';
@@ -140,6 +192,9 @@ class toba_db_postgres7 extends toba_db
 		$this->log("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
+	/**
+	 * Aborta una transaccion en la conexion
+	 */
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK TRANSACTION;';
@@ -149,6 +204,9 @@ class toba_db_postgres7 extends toba_db
 		$this->log("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
+	/**
+	 * Realiza el commit de la transaccion
+	 */
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION;";
@@ -159,13 +217,18 @@ class toba_db_postgres7 extends toba_db
 	}
 
 	/**
-	 * @return boolean Devuelve true si hay una transacción abierta y false en caso contrario
+	 * Devuelve true si hay una transacción abierta y false en caso contrario
+	 * @return boolean 
 	 */
 	function transaccion_abierta()
 	{
 		return $this->transaccion_abierta;
 	}
 
+	/**
+	 * Genera un savepoint dentro de la trasaccion
+	 * @param string $nombre
+	 */
 	function agregar_savepoint($nombre)
 	{
 		$sql = "SAVEPOINT $nombre;";
@@ -174,6 +237,10 @@ class toba_db_postgres7 extends toba_db
 		$this->log("************ agregar savepoint $nombre ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
+	/**
+	 * Aborta un savepoint y deja el estado anterior en la transaccion
+	 * @param string $nombre
+	 */
 	function abortar_savepoint($nombre)
 	{
 		$sql = "ROLLBACK TO SAVEPOINT $nombre;";
@@ -182,6 +249,10 @@ class toba_db_postgres7 extends toba_db
 		$this->log("************ abortar savepoint $nombre ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 
+	/**
+	 * Libera un savepoint 
+	 * @param string $nombre
+	 */
 	function liberar_savepoint($nombre)
 	{
 		$sql = "RELEASE SAVEPOINT $nombre;";
@@ -235,7 +306,11 @@ class toba_db_postgres7 extends toba_db
 	//------------------------------------------------------------------------
 	//-- SCHEMAS Postgres
 	//------------------------------------------------------------------------	
-	
+	/**
+	 * Determina si existe un schema con el nombre indicado
+	 * @param mixed $esquema
+	 * @return boolean
+	 */
 	function existe_schema($esquema) 
 	{
 		$esquema = $this->quote($esquema);
@@ -249,6 +324,12 @@ class toba_db_postgres7 extends toba_db
 		return $rs['cant'] > 0;
 	}
 	
+	/**
+	 * Elimina un schema de la base
+	 * @param mixed $schema		Nombre del schema
+	 * @param boolean $ejecutar		Indica si la sentencia se debe ejecutar o solo generarse
+	 * @return mixed				Estado de la ejecucion o sentencia generada
+	 */
 	function borrar_schema($schema, $ejecutar = true)
 	{
 		$sql = "DROP SCHEMA $schema CASCADE;";
@@ -256,6 +337,10 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}		
 
+	/**
+	 * Elimina un schema solo si existe
+	 * @param mixed $schema
+	 */
 	function borrar_schema_si_existe($schema)
 	{
 		if ($this->existe_schema($schema)) {
@@ -263,6 +348,12 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
+	/**
+	 * Crea un schema con un identificador indicado
+	 * @param mixed $schema
+	 * @param boolean $ejecutar		Indica si la sentencia se debe ejecutar o solo generarse
+	 * @return mixed				Estado de la ejecucion o sentencia generada
+	 */
 	function crear_schema($schema, $ejecutar = true) 
 	{
 		$sql = "CREATE SCHEMA $schema;";
@@ -270,6 +361,13 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}	
 	
+	/**
+	 * Renombra un schema de su identificador actual al nuevo
+	 * @param mixed $actual
+	 * @param mixed $nuevo
+	 * @param boolean $ejecutar		Indica si la sentencia se debe ejecutar o solo generarse
+	 * @return mixed				Estado de la ejecucion o sentencia generada
+	 */
 	function renombrar_schema($actual, $nuevo, $ejecutar = true) 
 	{
 		$sql = "ALTER SCHEMA $actual RENAME TO $nuevo;";
@@ -277,6 +375,10 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}		
 
+	/**
+	 * Devuelve la lista de schemas disponibles en la base
+	 * @return array
+	 */
 	function get_lista_schemas_disponibles()
 	{
 		$sql = 'SELECT n.nspname AS esquema
@@ -289,6 +391,11 @@ class toba_db_postgres7 extends toba_db
 		return $this->consultar($sql);
 	}
 	
+	/**
+	 * Determina si existe el lenguaje procedural indicado o no
+	 * @param string $lang
+	 * @return boolean
+	 */
 	function existe_lenguaje($lang)
 	{
 		$lang = $this->quote($lang);
@@ -297,69 +404,77 @@ class toba_db_postgres7 extends toba_db
 		return $res[0]['count'] > 0;
 	}
 
+	/**
+	 * Crea el lenguaje procedural indicado
+	 * @param string $lang Identificador del lenguaje procedural
+	 * @return mixed	Resultado de la ejecucion
+	 */
 	function crear_lenguaje($lang)
 	{
 		$sql = "CREATE LANGUAGE $lang;";
 		return $this->ejecutar($sql);
 	}
 
-    /**
-     * Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES >= 8.3
-     * @param string $actual el nombre del schema a clonar
-     * @param string $nuevo el nombre del nuevo schema
-     */
-    public function clonar_schema($actual, $nuevo)
-    {
+	/**
+	 * Clona el schema actual en $nuevo_schema. FUNCIONA EN POSTGRES >= 8.3
+	 * @param string $actual el nombre del schema a clonar
+	 * @param string $nuevo el nombre del nuevo schema
+	 */
+	public function clonar_schema($actual, $nuevo)
+	{
 		if (!$this->existe_lenguaje('plpgsql')) {
 			$this->crear_lenguaje('plpgsql');
 		}
 		
 		$sql = "
-            CREATE OR REPLACE FUNCTION clone_schema(source_schema text, dest_schema text) RETURNS void AS
-            \$BODY$
-            DECLARE
-              objeto text;
-              buffer text;
-            BEGIN
-                EXECUTE 'CREATE SCHEMA ' || dest_schema ;
+			CREATE OR REPLACE FUNCTION clone_schema(source_schema text, dest_schema text) RETURNS void AS
+			\$BODY$
+			DECLARE
+			  objeto text;
+			  buffer text;
+			BEGIN
+				EXECUTE 'CREATE SCHEMA ' || dest_schema ;
 
-                FOR objeto IN
-                    SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = source_schema
-                LOOP
-                    buffer := dest_schema || '.' || objeto;
-                    EXECUTE 'CREATE SEQUENCE ' || buffer;
-                    BEGIN
-                        --EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT nextval(' || quote_literal(source_schema ||'.'|| objeto) || '))' || ')';
-                        EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT last_value FROM ' || source_schema ||'.'|| objeto || ')' || ')';
-                    EXCEPTION WHEN OTHERS THEN
-                    END;
-                END LOOP;
+				FOR objeto IN
+					SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = source_schema
+				LOOP
+					buffer := dest_schema || '.' || objeto;
+					EXECUTE 'CREATE SEQUENCE ' || buffer;
+					BEGIN
+						--EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT nextval(' || quote_literal(source_schema ||'.'|| objeto) || '))' || ')';
+						EXECUTE 'SELECT setval(' || quote_literal(buffer) ||', (SELECT last_value FROM ' || source_schema ||'.'|| objeto || ')' || ')';
+					EXCEPTION WHEN OTHERS THEN
+					END;
+				END LOOP;
 
-                FOR objeto IN
-                    SELECT table_name::text FROM information_schema.tables WHERE table_schema = source_schema
-                LOOP
-                    buffer := dest_schema || '.' || objeto;
-                    EXECUTE 'CREATE TABLE ' || buffer || ' (LIKE ' || source_schema || '.' || objeto || ' INCLUDING CONSTRAINTS INCLUDING INDEXES INCLUDING DEFAULTS)';
-                    EXECUTE 'INSERT INTO ' || buffer || '(SELECT * FROM ' || source_schema || '.' || objeto || ')';
-                END LOOP;
+				FOR objeto IN
+					SELECT table_name::text FROM information_schema.tables WHERE table_schema = source_schema
+				LOOP
+					buffer := dest_schema || '.' || objeto;
+					EXECUTE 'CREATE TABLE ' || buffer || ' (LIKE ' || source_schema || '.' || objeto || ' INCLUDING CONSTRAINTS INCLUDING INDEXES INCLUDING DEFAULTS)';
+					EXECUTE 'INSERT INTO ' || buffer || '(SELECT * FROM ' || source_schema || '.' || objeto || ')';
+				END LOOP;
 
-            END;
-            \$BODY$
-            LANGUAGE plpgsql;
-        ";
-		
-        $this->ejecutar($sql);
-        
-        $actual = $this->quote($actual);
-        $nuevo = $this->quote($nuevo);
-        $sql = "SELECT clone_schema($actual, $nuevo);";
-        $this->ejecutar($sql);
-    }
+			END;
+			\$BODY$
+			LANGUAGE plpgsql;
+		";
+
+		$this->ejecutar($sql);
+
+		$actual = $this->quote($actual);
+		$nuevo = $this->quote($nuevo);
+		$sql = "SELECT clone_schema($actual, $nuevo);";
+		$this->ejecutar($sql);
+	}
 
 	//---------------------------------------------------------------------
 	//-- PERMISOS
 	//---------------------------------------------------------------------
-	
+	/**
+	 * Devuelve el identificador del usuario actualmente conectado
+	 * @return string
+	 */
 	function get_usuario_actual()
 	{
 		$sql = 'SELECT CURRENT_USER AS usuario;';
@@ -367,6 +482,10 @@ class toba_db_postgres7 extends toba_db
 		return $datos['usuario'];
 	}
 	
+	/**
+	 * Devuelve el identificador del rol actual
+	 * @return string
+	 */
 	function get_rol_actual()
 	{
 		$sql = 'SHOW ROLE;';
@@ -374,6 +493,12 @@ class toba_db_postgres7 extends toba_db
 		return $datos['role'];
 	}	
 	
+	/**
+	 * Indica cual sera el rol activo
+	 * @param string $rol
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function set_rol($rol, $ejecutar = true)
 	{
 		$sql = "SET ROLE $rol;";
@@ -381,12 +506,22 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}
 	
+	/**
+	 * Determina si existe el rol en el motor
+	 * @param string $rol
+	 * @return boolean
+	 */
 	function existe_rol($rol) 
 	{
 		$datos = $this->listar_roles($rol);
 		return !empty($datos);
 	}
 	
+	/**
+	 * Devuelve una lista de los roles disponibles
+	 * @param string $rol Identificador de rol [Opcional]
+	 * @return array
+	 */
 	function listar_roles($rol = null)
 	{
 		$sql = 'SELECT rolname FROM pg_roles ';
@@ -397,6 +532,12 @@ class toba_db_postgres7 extends toba_db
 		return $this->consultar($sql);
 	}	
 	
+	/**
+	 * Crea un rol en el motor
+	 * @param string $rol
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function crear_rol($rol, $ejecutar=true)
 	{
 		$sql = "CREATE ROLE $rol NOINHERIT;";
@@ -404,6 +545,13 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);		
 	}
 	
+	/**
+	 * Crea un usuario en el motor
+	 * @param string $rol
+	 * @param string $password
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function crear_usuario($rol, $password, $ejecutar = true)
 	{
 		$password = $this->quote($password);
@@ -412,6 +560,12 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}	
 	
+	/**
+	 * Elimina un rol del motor
+	 * @param string $rol
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function borrar_rol($rol, $ejecutar = true)
 	{
 		$sql = "DROP ROLE IF EXISTS $rol;";
@@ -419,6 +573,13 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}
 	
+	/**
+	 * Asigna un rol especifico a un usuario
+	 * @param string $usuario
+	 * @param string $rol
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function grant_rol($usuario, $rol, $ejecutar = true)
 	{
 		$sql = "GRANT $rol TO $usuario;";
@@ -426,6 +587,14 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}	
 
+	/**
+	 * Le asigna permisos a un usuario sobre un schema
+	 * @param string $usuario	Identificador del usuario
+	 * @param string $schema	Identificador del schema
+	 * @param string $permisos	Lista de permisos separada por coma
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function grant_schema($usuario, $schema, $permisos = 'USAGE', $ejecutar = true)
 	{
 		$sql = "GRANT $permisos ON SCHEMA \"$schema\" TO $usuario;";
@@ -433,6 +602,14 @@ class toba_db_postgres7 extends toba_db
 		return $this->ejecutar($sql);
 	}	
 	
+	/**
+	 * Quita los permisos de un usuario sobre un schema
+	 * @param string $usuario	Identificador del usuario
+	 * @param string $schema	Identificador del schema
+	 * @param string $permisos	Lista de permisos separada por coma
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function revoke_schema($usuario, $schema, $permisos = 'ALL PRIVILEGES', $ejecutar = true)
 	{
 		$sql = array();
@@ -454,6 +631,16 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);		
 	}
 	
+	/**
+	 * Quita permisos a un usuario sobre un conjunto de tablas
+	 * @param string $usuario	Identificador del usuario
+	 * @param string $schema	Identificador del schema
+	 * @param array  $tablas		Lista de tablas
+	 * @param string $permisos	Lista de permisos separada por coma
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
+
 	function revoke_tablas($usuario, $schema, $tablas, $permisos = 'ALL PRIVILEGES', $ejecutar=true)
 	{
 		$sql = array();
@@ -466,6 +653,13 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);	
 	}
 	
+	/**
+	 * Le quita un rol a un usuario especifico
+	 * @param string $usuario
+	 * @param string $rol
+	 * @param boolena $ejecutar
+	 * @return mixed
+	 */
 	function revoke_rol($usuario, $rol, $ejecutar = true)
 	{
 		$sql = "REVOKE $rol FROM $usuario;";
@@ -474,8 +668,11 @@ class toba_db_postgres7 extends toba_db
 	}
 
 	/**
-	 *	Da permisos especificos a todas las tablas de un esquema dado
-	 **/
+	 * Da permisos especificos a todas las tablas de un esquema dado
+	 * @param string $usuario	Identificador de usuario
+	 * @param string $schema	Identificador de schema
+	 * @param string $privilegios	Lista de permisos separada por coma
+	 */
 	function grant_tablas_schema($usuario, $schema, $privilegios ='ALL PRIVILEGES')
 	{
 		$sql = "SELECT
@@ -490,8 +687,14 @@ class toba_db_postgres7 extends toba_db
 	}	
 	
 	/**
-	 *	Da permisos especificos a todas las tablas de un esquema dado
-	 **/
+	 * Da permisos especificos a todas las tablas de un esquema dado
+	 * @param string $usuario	Identificador de usuario
+	 * @param string $schema	Identificador de schema
+	 * @param array  $tablas		Lista de tablas
+	 * @param string $privilegios	Lista de permisos separada por coma	 * 
+	 * @param boolean $ejecutar
+	 * @return mixed
+	 */
 	function grant_tablas($usuario, $schema, $tablas, $privilegios ='ALL PRIVILEGES', $ejecutar = true)
 	{
 		$sql = array();
@@ -502,6 +705,14 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);
 	}	
 
+	/**
+	 *  Asigna permisos a un usuario sobre las funciones
+	 * @param string $usuario	Identificador de usuario
+	 * @param string $schema	Identificador de schema
+	 * @param string $privilegios	Lista de permisos separada por coma
+	 * @param boolean $ejecutar
+	 * @return string
+	 */
 	function grant_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES', $ejecutar = true)
 	{
 		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
@@ -514,6 +725,14 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);
 	}
 
+	/**
+	 *  Quita permisos a un usuario sobre las funciones
+	 * @param string $usuario	Identificador de usuario
+	 * @param string $schema	Identificador de schema
+	 * @param string $privilegios	Lista de permisos separada por coma
+	 * @param boolean $ejecutar
+	 * @return string
+	 */	
 	function revoke_sp_schema($usuario, $schema,  $privilegios = 'ALL PRIVILEGES', $ejecutar = true)
 	{
 		$stored_procedures = $this->get_sp_schema($schema);				//Busco todos los stored procedures del schema
@@ -526,6 +745,11 @@ class toba_db_postgres7 extends toba_db
 		$this->ejecutar($sql);
 	}
 
+	/**
+	 * Devuelve una lista de funciones en un schema dado
+	 * @param sting $schema
+	 * @return array
+	 */
 	function get_sp_schema($schema)
 	{
 		$sql = "SELECT
@@ -541,7 +765,10 @@ class toba_db_postgres7 extends toba_db
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------	
-		
+	/**
+	 * Devuelve la lista de tablas y vistas para el schema actual
+	 * @return array
+	 */	
 	function get_lista_tablas_y_vistas()
 	{
 		$esquema = null;
@@ -551,7 +778,12 @@ class toba_db_postgres7 extends toba_db
 		return $this->get_lista_tablas_bd(true, $esquema);	
 	}
 	
-	
+	/**
+	 * Devuelve una lista de tablas segun schema (default actual), puede incluir vistas
+	 * @param boolean $incluir_vistas
+	 * @param string $esquema
+	 * @return array
+	 */
 	function get_lista_tablas($incluir_vistas=false, $esquema=null)
 	{
 		if (is_null($esquema) && isset($this->schema)) {
@@ -559,7 +791,13 @@ class toba_db_postgres7 extends toba_db
 		}
 		return $this->get_lista_tablas_bd($incluir_vistas, $esquema);
 	}
-		
+	
+	/**
+	 * Devuelve una lista de tablas segun schemas, puede incluir vistas
+	 * @param boolean $incluir_vistas
+	 * @param string $esquema
+	 * @return array
+	 */
 	function get_lista_tablas_bd($incluir_vistas=false, $esquema=null)
 	{
 		$sql_esquema = '';
@@ -600,7 +838,13 @@ class toba_db_postgres7 extends toba_db
 		$sql .= 'ORDER BY nombre;';
 		return $this->consultar($sql);
 	}
-		
+	
+	/**
+	 * Determina si existe la tabla en el schema indicado
+	 * @param string $schema
+	 * @param string $tabla
+	 * @return boolean
+	 */
 	function existe_tabla($schema, $tabla)
 	{
 		$tabla = $this->quote($tabla);
@@ -618,7 +862,12 @@ class toba_db_postgres7 extends toba_db
 		return !empty($rs);
 	}	
 	
-	
+	/**
+	 * Determina si existe la columna en la tabla indicada
+	 * @param string $columna
+	 * @param string $tabla
+	 * @return boolean
+	 */
 	function existe_columna($columna, $tabla)
 	{
 		$tabla = $this->quote($tabla);
@@ -643,6 +892,11 @@ class toba_db_postgres7 extends toba_db
 		return false;
 	}
 	
+	/**
+	 * Retorna la lista de secuencias en el schema
+	 * @param string $esquema
+	 * @return array
+	 */
 	function get_lista_secuencias($esquema=null)
 	{
 		$where = '';
@@ -674,7 +928,11 @@ class toba_db_postgres7 extends toba_db
 	}
 	
 	/**
-	*	Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
+	* Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
+	* @param string $tabla
+	* @param string $esquema
+	* @return array
+	* @throws toba_error
 	*/
 	function get_definicion_columnas($tabla, $esquema=null)
 	{
@@ -801,6 +1059,10 @@ class toba_db_postgres7 extends toba_db
 		return $this->cache_metadatos[$tabla];
 	}
 
+	/**
+	 * Define cual es el "valor" a enviar para disparar un default value
+	 * @return string
+	 */
 	function get_semantica_valor_defecto()
 	{
 		return 'DEFAULT';
@@ -810,6 +1072,8 @@ class toba_db_postgres7 extends toba_db
 	 * Devuelve el nombre de la columna que es una secuencia en la tabla $tabla del schema $schema.
 	 * Si no se especifica el schema se utiliza el que tiene por defecto la base
 	 * @return string nombre de la columna si la tabla tiene secuencia. Sino devuelve null
+	 * @param string $tabla
+	 * @param string $schema
 	 */
 	function get_secuencia_tabla($tabla, $schema = null)
 	{
@@ -822,6 +1086,12 @@ class toba_db_postgres7 extends toba_db
 		}
 	}
 
+	/**
+	 * Devuelve una lista de secuencias para una tabla
+	 * @param string $tablas
+	 * @param string $schema
+	 * @return array
+	 */
 	function get_secuencia_tablas($tablas, $schema = null)
 	{
 		$secuencias = array();
@@ -915,11 +1185,15 @@ class toba_db_postgres7 extends toba_db
 		$this->pgdump_limpiar($tabla);
 		return $tabla;
 	}
-
+	
+	/**
+	 * Quita todo lo que no sean inserts del arreglo pasado por referencia
+	 * @param type $array
+	 * @ignore
+	 */
 	protected function pgdump_limpiar(&$array)
 	{
-		$borrando = true;
-
+		//$borrando = true;
 		foreach ($array as $key => $elem) {
 			if (comienza_con($elem, 'INSERT')) {
 				continue;

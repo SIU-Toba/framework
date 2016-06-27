@@ -13,6 +13,10 @@ class toba_db_sqlserver extends toba_db
 		parent::__construct($profile, $usuario, $clave, $base, $puerto);
 	}
 	
+	/**
+	 * Retorna el string de conexion para el motor
+	 * @return string
+	 */
 	function get_dsn()
 	{
 		$profile = $this->profile; 

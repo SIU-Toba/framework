@@ -1,12 +1,8 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of toba_punto_montaje_factory
- *
+ * Factory para construir puntos de montaje en runtime
+ * @package Centrales
+ * @subpackage Punto Montaje
  * @author sp14ab
  */
 class toba_punto_montaje_factory
@@ -15,7 +11,7 @@ class toba_punto_montaje_factory
 	 * Construye un punto de montaje a partir de un registro en la tabla puntos de montaje
 	 * @param array $registro
 	 */
-    static function construir($registro)
+	static function construir($registro)
 	{
 		$tipo = $registro['tipo'];
 
@@ -33,6 +29,8 @@ class toba_punto_montaje_factory
 
 	/**
 	 * Inicializa los valores comunes entre los distintos tipos de punto
+	 * @param toba_punto_montaje $punto
+	 * @param array $registro
 	 */
 	static protected function init_punto_generico(toba_punto_montaje $punto, $registro)
 	{
@@ -46,6 +44,11 @@ class toba_punto_montaje_factory
 		}
 	}
 
+	/**
+	 * Construye un PM generico
+	 * @param array $registro
+	 * @return \toba_punto_montaje
+	 */
 	static protected function construir_indefinido($registro)
 	{
 		$punto = new toba_punto_montaje();
@@ -53,6 +56,11 @@ class toba_punto_montaje_factory
 		return $punto;
 	}
 
+	/**
+	 * Construye un PM de proyecto
+	 * @param array $registro
+	 * @return \toba_punto_montaje_proyecto
+	 */
 	static protected function construir_proyecto($registro)
 	{
 		$punto = new toba_punto_montaje_proyecto();
@@ -61,6 +69,11 @@ class toba_punto_montaje_factory
 		return $punto;
 	}
 
+	/**
+	 * Construye un PM de personalizacion
+	 * @param array $registro
+	 * @return \toba_punto_montaje_pers
+	 */
 	static protected function construir_pers($registro)
 	{
 		$punto = new toba_punto_montaje_pers();

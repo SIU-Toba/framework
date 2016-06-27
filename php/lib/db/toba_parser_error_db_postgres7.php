@@ -5,6 +5,7 @@
  * Utiliza los comentarios de tablas y campos para no mostrar los identificadores de la base
  * Usar así: toba::db()->set_parser_errores(new toba_parser_error_db_postgres7());
  * @package Fuentes
+ * @subpackage ParsersErrores
  */
 class toba_parser_error_db_postgres7 extends toba_parser_error_db
 {
@@ -17,16 +18,23 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $error_fk;		//En caso que el error sea de fk, guarda cual es su id
 	protected $error_not_null;	//En caso de error not null guarda cual es el campo
 	protected $mostrar_nombres_campos = true;	//En caso que no encuentre el comentario del campo, usa su nombre
-	
-	
+		
 	/**
 	 * En caso que no encuentre el comentario del campo del error, usa su nombre
+	 * @param boolean $mostrar
 	 */
 	function set_mostrar_nombres_campos($mostrar)
 	{
 		$this->mostrar_nombres_campos = $mostrar;
 	}
 	
+	/**
+	 * Dispara el parseo de  una sql y su mensaje de error, segun el estado que devolvio
+	 * @param string $sql
+	 * @param string $sqlstate
+	 * @param string $mensaje
+	 * @return mixed
+	 */
 	function parsear($sql, $sqlstate, $mensaje)
 	{
 		//-- Intenta determinar el separador
@@ -55,6 +63,9 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	 * Recupera los comentarios agregados a los campos a una tabla mediante el 
 	 * comando "COMMENT ON COLUMN tabla_x.campo_x IS 'comentario';"
 	 * Si un campo no tiene comentario retorna el nombre del mismo.
+	 * @param string $tabla
+	 * @param array $posiciones
+	 * @return array
 	 */
 	function get_comentario_campos($tabla, $posiciones=null)
 	{
@@ -92,7 +103,14 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	//-------------------------------------------------------------------------------------
 	//----- PRIMARY KEY
 	//-------------------------------------------------------------------------------------
-	
+	/**
+	 * Parser para errores de PK
+	 * @param type $accion
+	 * @param type $sql
+	 * @param type $mensaje
+	 * @return type
+	 * @ignore
+	 */
 	function parsear_sqlstate_23505($accion, $sql, $mensaje)
 	{
 		if (preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
@@ -100,7 +118,13 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 			return $this->get_mensaje_pk($accion, $partes[1]);
 		}		
 	}
-	
+	/**
+	 * 
+	 * @param type $accion
+	 * @param type $pk
+	 * @return string
+	 * @ignore
+	 */
 	function get_mensaje_pk($accion, $pk)
 	{
 		$datos = $this->get_datos_pk($pk);
@@ -122,6 +146,12 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		return $mensaje;
 	}
 	
+	/**
+	 * 
+	 * @param type $pk
+	 * @return type
+	 * @ignore
+	 */
 	function get_datos_pk($pk)
 	{
 		//-- Primero prueba si es una constraint
@@ -170,7 +200,14 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	//-------------------------------------------------------------------------------------
 	//----- FOREIGN KEY
 	//-------------------------------------------------------------------------------------	
-	
+	/**
+	 * 
+	 * @param type $accion
+	 * @param type $sql
+	 * @param type $mensaje
+	 * @return type
+	 * @ignore
+	 */
 	function parsear_sqlstate_23503($accion, $sql, $mensaje)
 	{
 		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
@@ -184,6 +221,16 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		}		
 	}	
 	
+	/**
+	 * 
+	 * @param type $es_alta
+	 * @param type $accion
+	 * @param type $tabla_local
+	 * @param type $fk
+	 * @param type $tabla_foranea
+	 * @return string
+	 * @ignore
+	 */
 	function get_mensaje_fk($es_alta, $accion, $tabla_local, $fk, $tabla_foranea=null)
 	{
 		$datos = $this->get_datos_fk($tabla_local, $fk, $tabla_foranea);
@@ -217,6 +264,14 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		return $mensaje;
 	}	
 	
+	/**
+	 * 
+	 * @param type $tabla_local
+	 * @param type $fk
+	 * @param type $tabla_foranea
+	 * @return type
+	 * @ignore
+	 */
 	function get_datos_fk($tabla_local, $fk, $tabla_foranea)
 	{
 		//-- La foreing key que falla es de la tabla local?
@@ -248,6 +303,13 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		}
 	}	
 	
+	/**
+	 * 
+	 * @param type $tabla
+	 * @param type $fk
+	 * @return type
+	 * @ignore
+	 */
 	protected function get_datos_consulta_fk($tabla, $fk)
 	{
 		$db = $this->get_conexion_extra();
@@ -275,7 +337,14 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	//-------------------------------------------------------------------------------------
 	//----- NOT NULL
 	//-------------------------------------------------------------------------------------		
-	
+	/**
+	 * 
+	 * @param type $accion
+	 * @param type $sql
+	 * @param type $mensaje
+	 * @return type
+	 * @ignore
+	 */
 	function parsear_sqlstate_23502($accion, $sql, $mensaje)
 	{
 		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
@@ -284,6 +353,12 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		}		
 	}		
 	
+	/**
+	 * Retorna un mensaje para campos que no deben ser nulos
+	 * @param string $accion
+	 * @param string $campo
+	 * @return string
+	 */
 	function get_mensaje_not_null($accion, $campo)
 	{
 		$mensaje = "Error $accion. ";

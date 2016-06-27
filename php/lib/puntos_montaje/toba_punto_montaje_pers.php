@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Representa el punto de montaje de la personalizacion
+ * @package Centrales
+ * @subpackage Punto Montaje
+ */
 class toba_punto_montaje_pers extends toba_punto_montaje_proyecto
 {
 	function get_tipo()

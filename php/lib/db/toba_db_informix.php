@@ -8,13 +8,18 @@ class toba_db_informix extends toba_db
 {
 	protected $id_instancia_server;
 	
+	
 	function __construct($profile, $usuario, $clave, $base, $puerto, $server, $sslmode='', $cert_path='', $key_path='', $crl_path='', $cacert_path='')
 	{
 		$this->motor = "informix";
 		$this->id_instancia_server = $server;
 		parent::__construct($profile, $usuario, $clave, $base, $puerto, $server, $sslmode, $cert_path, $key_path, $crl_path, $cacert_path);
 	}
-
+	
+	/**
+	 * Retorna el string de conexion para el motor
+	 * @return string
+	 */
 	function get_dsn()
 	{
 		$puerto = ($this->puerto != '') ? $this->puerto : '1526';
@@ -64,6 +69,10 @@ class toba_db_informix extends toba_db
 		$this->log("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'debug', 'toba');
 	}
 	
+	/**
+	 * Retorna la configuracion de los certificados para una conexion SSL
+	 * @return array
+	 */
 	function get_config_certificados()
 	{
 		$certs = array();

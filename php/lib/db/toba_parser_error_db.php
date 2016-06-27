@@ -1,7 +1,8 @@
 <?php
-
 /**
+ * Clase abstracta que sienta las fuentes para crear parsers de mensajes de error
  * @package Fuentes
+ * @subpackage ParsersErrores
  */
 abstract class toba_parser_error_db
 {
@@ -25,6 +26,8 @@ abstract class toba_parser_error_db
 	
 	/**
 	 * Retorna un verbo asociado a la acción (actualizando, insertando, borrando)
+	 * @param string $sql
+	 * @return string
 	 */
 	protected function get_accion($sql)
 	{
