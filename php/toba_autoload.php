@@ -5,11 +5,17 @@
  */
 class toba_autoload 
 {
+	/**
+	 * @ignore
+	 */
 	static function existe_clase($nombre)
 	{
 		return isset(self::$clases[$nombre]);
 	}
 
+	/**
+	 * @ignore
+	 */
 	static function cargar($nombre)
 	{
 		if (self::existe_clase($nombre)) { 
@@ -170,6 +176,7 @@ class toba_autoload
 		'toba_mock_proceso_gui' => 'modelo/lib/toba_proceso_gui.php',
 		'toba_testing_selenium' => 'modelo/lib/toba_testing_selenium.php',
 		'toba_version' => 'modelo/lib/toba_version.php',
+		'toba_empaquetador' => 'modelo/lib/toba_empaquetador.php',
 		'toba_migracion_2_2_0' => 'modelo/migraciones_instancia/toba_migracion_2_2_0.php',
 		'toba_migracion_2_4_0' => 'modelo/migraciones_instancia/toba_migracion_2_4_0.php',
 		'toba_migracion_2_5_0' => 'modelo/migraciones_instancia/toba_migracion_2_5_0.php',

@@ -2587,110 +2587,30 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! file_exists($path_ini)) {
 			throw new toba_error("Para crear el paquete de instalación debe existir el archivo '$nombre_ini' en la raiz del proyecto");
 		}
-
 		$ini = new toba_ini($path_ini);
 		
 		//--- Crea la carpeta destino
-		$crear_carpeta = false;
 		$empaquetado = $ini->get_datos_entrada('empaquetado');
 		if (! isset($empaquetado['path_destino'])) {
 			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion [empaquetado]");
 		}
-		$empaquetado['path_destino'].= '/'.$this->get_version_proyecto()->__toString();
-		if ($tipo_paquete === self::tipo_paquete_desarrollo) {								//Segun el tipo de paquete, agrego un sufijo al nombre de carpeta y determino el tipo de instalacion
-			$empaquetado['path_destino'] .= '_desarrollo';
-			$es_produccion = 0;
-		} else {	
-			$es_produccion = 1;
-		}
-		
-		if (file_exists($empaquetado['path_destino'])) {
-			if (! is_dir($empaquetado['path_destino'])) {
-				throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_destino']}' no es un directorio valido");
-			}
-			if (! toba_manejador_archivos::es_directorio_vacio($empaquetado['path_destino'])) {
-				//-- Existe la carpeta y no está vacia, se borra?
-				if ($this->manejador_interface->dialogo_simple("La carpeta destino '{$empaquetado['path_destino']}' no esta vacia. Desea borrarla?", 's')) {
-					toba_manejador_archivos::eliminar_directorio($empaquetado['path_destino']);
-					$crear_carpeta = true;
-				}
-			}
-		} else {
-			$crear_carpeta = true;
-		}
-						
-		if ($crear_carpeta) {
-			toba_manejador_archivos::crear_arbol_directorios($empaquetado['path_destino']);
-		}
-		$empaquetado['path_destino'] = realpath($empaquetado['path_destino']);
-		
-		//--- Compila metadatos del proyecto
-		$this->compilar();
-		
-		//--- Incluye el instalador base
-		$this->manejador_interface->titulo("Copiando archivos");		
 		if (! isset($empaquetado['path_instalador'])) {
 			$empaquetado['path_instalador'] = toba_dir().'/instalador'; 
 		}
-		$path_relativo = $empaquetado['path_instalador'];
 		$empaquetado['path_instalador'] = realpath($empaquetado['path_instalador']);
-		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
-			throw new toba_error("'$nombre_ini': La ruta '$path_relativo' no es un directorio valido");
-		}		
-		$this->manejador_interface->mensaje("Copiando instalador..", false);				
-		$excepciones = array($empaquetado['path_instalador'].'/ejemplo.proyecto.ini'); 
-		toba_manejador_archivos::copiar_directorio($empaquetado['path_instalador'], $empaquetado['path_destino'], 
-														$excepciones, $this->manejador_interface, false);
+		$empaquetado['path_destino'].= '/'.$this->get_version_proyecto()->__toString();
 		
-		// --------- Genero el archivo instalador.ini con la revision del codigo del instalador -------
-		$svn = new toba_svn();
-		$rev = $svn->get_revision($empaquetado['path_instalador']);	
-		if (trim($rev) == '') {
-			$rev = 'ND';
-		}			
-		$inst_ini = new toba_ini($empaquetado['path_destino'].'/instalador.ini');
-		$inst_ini->agregar_entrada('revision', $rev);
-		$inst_ini->agregar_entrada('instalacion_produccion', $es_produccion);
-		$inst_ini->guardar();
-		
-		$this->manejador_interface->progreso_fin();
-		
-		//-----Creo un autoload con las clases del instalador + las que se redefinieron del mismo				
-		$this->manejador_interface->mensaje('Generando autoload instalador...', false);
-		$destino_relativo = 'proyectos/'.$this->get_id().'/aplicacion';	
-		$extras = array();
-		$redefinidos = $ini->get('instalador_clases_redefinidas', null, null, false);
-		if (! is_null($redefinidos)) {
-			foreach($redefinidos as $clase) {
-				$nombre = basename($clase, '.php');
-				$extras[$nombre] = $destino_relativo . '/'. $clase;		
-			}
-		}
-		
-		$pm = array(
-			$empaquetado['path_destino'] => array(
-				'archivo_salida' => "instalador_autoload.php",
-				'dirs_excluidos' => array(),
-				'extras' => $extras				
-			));
-		
-		$generador_autoload = new toba_extractor_clases($pm);
-		$generador_autoload->generar();		
-		$this->manejador_interface->progreso_fin();		
-		
-		//--- Empaqueta el núcleo de toba y lo deja en destino
-		if ($tipo_paquete === self::tipo_paquete_desarrollo) {
-			$this->empaquetar_desarrollo($empaquetado);
-		} else {
-			$this->empaquetar_produccion($empaquetado);
-		}
-		$this->manejador_interface->progreso_fin();
-		
+		//-- Invoco el empaquetador
+		$legacy = ! file_exists($this->get_dir() . '/composer.json');
+		$packager = new toba_empaquetador($this->manejador_interface, $this);
+		$packager->inicializar($this->get_dir(), $empaquetado['path_destino'], $empaquetado['path_instalador'], $legacy);
+		$packager->empaquetar();
+				
 		$this->manejador_interface->mensaje("", true);
 		$this->manejador_interface->mensaje("Proyecto empaquetado en: {$empaquetado['path_destino']}", true);		
 	}
 	
-	protected function empaquetar_desarrollo($empaquetado)
+	/*protected function empaquetar_desarrollo($empaquetado)
 	{
 		$this->manejador_interface->mensaje("Copiando framework", false);	
 		$excepciones = toba_modelo_instalacion::dir_base();
@@ -2720,46 +2640,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		toba_manejador_archivos::crear_arbol_directorios($path_copia_metadatos);
 		toba_manejador_archivos::copiar_directorio($path_metadatos_ap, $path_copia_metadatos);
-	}
+	}*/
 	
-	protected function empaquetar_produccion($empaquetado)
-	{
-		$this->manejador_interface->mensaje("Copiando framework", false);	
-		$librerias = array();
-		$proyectos = array();
-		if (isset($empaquetado['librerias'])) {
-			$librerias = explode(',', $empaquetado['librerias']);
-			$librerias = array_map('trim', $librerias);
-		}
-		if (isset($empaquetado['proyectos_extra'])) {
-			$proyectos = explode(',', $empaquetado['proyectos_extra']);
-			$proyectos = array_map('trim', $proyectos);
-			$proyectos = array_diff($proyectos, array('toba_editor'));
-		}		
-		$instalacion = $this->instancia->get_instalacion();
-		$destino_instalacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/toba';
-		$instalacion->empaquetar_en_carpeta($destino_instalacion, $librerias, $proyectos);
-		$this->manejador_interface->progreso_fin();
-		
-		//--- Empaqueta el proyecto actual
-		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
-		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
-		$excepciones = array(toba_dir(), $this->get_instancia()->get_path_proyecto('toba_editor'), toba_modelo_instalacion::dir_base());							//Se excluye el editor		
-		if (isset($empaquetado['excepciones_proyecto'])) {
-			$excepciones_extra = explode(',', $empaquetado['excepciones_proyecto']);
-			$origen = $this->get_dir();
-			foreach (array_keys($excepciones_extra) as $i) {
-				if (trim($excepciones_extra[$i]) != '') {
-					$excepciones[] = $origen.'/'.trim($excepciones_extra[$i]);
-				}
-			}			
-		}
-		
-		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);	
-		$this->actualizar_punto_acceso($destino_aplicacion);
-	}
-	
-	protected function empaquetar_proyecto($destino, $excepciones)
+	/*protected function empaquetar_proyecto($destino, $excepciones)
 	{
 		$origen = $this->get_dir();	
 		toba_manejador_archivos::crear_arbol_directorios($destino);
@@ -2768,7 +2651,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 		//-- Crea un archivo revision con la actual de toba
 		file_put_contents($destino.'/REVISION', revision_svn($origen, true));		
-	}
+	}*/
 	
 	protected function actualizar_punto_acceso($destino)
 	{
@@ -2780,7 +2663,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$editor->procesar_archivo( $destino . '/www/aplicacion.php' );		
 	}
 	
-
+		
 	//-----------------------------------------------------------
 	//	VENTANAS
 	//-----------------------------------------------------------	
