@@ -813,6 +813,18 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function empaquetar_en_carpeta($destino, $librerias_en_uso = array(), $proyectos_en_uso = array())
 	{
 		$path_base = toba_dir();
+		$excepciones = $this->get_lista_excepciones_instalacion($path_base, $librerias_en_uso, $proyectos_en_uso);		
+		//Carpeta php
+		toba_manejador_archivos::crear_arbol_directorios( $destino);
+		toba_manejador_archivos::copiar_directorio($path_base, $destino, 
+													$excepciones, $this->manejador_interface, false);
+
+		//Crea un archivo revision con la actual de toba
+		file_put_contents($destino.'/REVISION', revision_svn(toba_dir(), true));
+	}
+	
+	function get_lista_excepciones_instalacion($path_base, $librerias_en_uso, $proyectos_en_uso)
+	{
 		$excepciones = array();
 		$excepciones[] = $path_base.'/doc';
 		$excepciones[] = $path_base.'/instalacion';
@@ -840,14 +852,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				$excepciones[] = $proyecto;
 			}
 		}		
-		
-		//Carpeta php
-		toba_manejador_archivos::crear_arbol_directorios( $destino);
-		toba_manejador_archivos::copiar_directorio($path_base, $destino, 
-													$excepciones, $this->manejador_interface, false);
-
-		//Crea un archivo revision con la actual de toba
-		file_put_contents($destino.'/REVISION', revision_svn(toba_dir(), true));
+		return $excepciones;
 	}
 	
 	//------------------------------------------------------------------------

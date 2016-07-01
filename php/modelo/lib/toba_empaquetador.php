@@ -3,7 +3,7 @@ class toba_empaquetador
 {
 	//protected $ini_file; 
 	const ARCHIVO_CONFIG = 'proyecto.ini';
-	
+	const FRAMEWORK_VENDOR_DIR = 'siu-toba/framework';
 	
 	private $_dir_proyecto;
 	private $_dir_destino;
@@ -76,8 +76,10 @@ class toba_empaquetador
 		
 		//Completar la instalacion via composer
 		if (! $this->_paquete_legacy) {
-			$this->make_pre_install($this->get_dir_destino());
-			$this->borrar_datos_innecesarios($this->get_dir_destino());
+			$this->make_pre_install($this->get_dir_destino_aplicacion());
+			$this->manejador_interface->progreso_fin();
+			$this->manejador_interface->mensaje('Eliminando carpetas innecesarias...', false);
+			$this->borrar_datos_innecesarios($this->get_dir_destino_aplicacion());
 		} else {
 			$this->copiar_framework($this->get_dir_destino());
 		}
@@ -121,7 +123,21 @@ class toba_empaquetador
 	{
 		return $this->_dir_instalador;
 	}
-
+	
+	protected function get_dir_destino_aplicacion()
+	{
+		return $this->get_dir_destino() . $this->get_dir_proyecto_aplicacion();
+	}
+	
+	/**
+	 * Devuelve un string con la ruta de la aplicacion segun el proyecto
+	 * @return string
+	 */
+	protected function get_dir_proyecto_aplicacion()
+	{
+		return '/proyectos/'.$this->proyecto->get_id().'/aplicacion';
+	}	
+	
 	/**
 	 * Crea la carpeta destino si no existe
 	 * @ignore
@@ -182,6 +198,7 @@ class toba_empaquetador
 		$inst_ini = new toba_ini($dir_destino.'/instalador.ini');
 		$inst_ini->agregar_entrada('revision', $rev);
 		$inst_ini->agregar_entrada('instalacion_produccion', 1);
+		$inst_ini->agregar_entrada('paquete_legacy', $this->_paquete_legacy ? 1: 0);
 		$inst_ini->guardar();
 	}
 	
@@ -191,7 +208,7 @@ class toba_empaquetador
 	 */
 	protected function generar_autoload_instalador()
 	{
-		$destino_relativo = 'proyectos/'.$this->proyecto->get_id().'/aplicacion';	
+		$destino_relativo = $this->get_dir_proyecto_aplicacion();	
 		$extras = array();
 		$redefinidos = $this->ini_file->get('instalador_clases_redefinidas', null, null, false);
 		if (! is_null($redefinidos)) {
@@ -215,7 +232,7 @@ class toba_empaquetador
 	{
 		$empaquetado = $this->ini_file->get_datos_entrada('empaquetado');
 		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
-		$destino_aplicacion = $this->get_dir_destino() . '/proyectos/'.$this->proyecto->get_id().'/aplicacion';		
+		$destino_aplicacion = $this->get_dir_destino_aplicacion();
 		$excepciones = array(toba_dir(), $this->proyecto->get_instancia()->get_path_proyecto('toba_editor'), toba_modelo_instalacion::dir_base());							//Se excluye el editor		
 		if (isset($empaquetado['excepciones_proyecto'])) {
 			$excepciones_extra = explode(',', $empaquetado['excepciones_proyecto']);
@@ -270,19 +287,40 @@ class toba_empaquetador
 	protected function make_pre_install($path)
 	{
 		$stderr = $stdout = '';
-		$this->manejador_interface->mensaje("Copiando framework", false);	
+		$this->manejador_interface->mensaje("Copiando framework via composer, esto puede tardar...", false);	
 		$actual = getcwd();
 		if (chdir($path)) {													//Intento cambiar al dir destino para ejecutar composer
+			$this->manejador_interface->progreso_avanzar();
 			$cmd = ' composer install --no-dev  --optimize-autoloader ';
 			$exit_status =  toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 			if ($exit_status != 0) {
 				toba_logger::instancia()->debug($stderr);
-				throw new toba_error('Se produjo un error al querer utilizar composer');	
+				throw new toba_error('Se produjo un error al querer utilizar composer, revise el log');	
 			}
 		} else {
-			throw new toba_error('No se puede cambiar al directorio destino');
+			throw new toba_error('No se puede cambiar al directorio destino '. $path);
 		}
 		chdir($actual);														//Vuelvo al directorio actual
+		$this->manejador_interface->progreso_avanzar();
+	}
+
+	protected function borrar_datos_innecesarios($dir_destino)
+	{
+		if (file_exists($dir_destino . '/composer.json')) {
+			$valores = json_decode(file_get_contents($dir_destino . '/composer.json'), true); 			
+			$vendor_dir =  (isset($valores['config']['vendor-dir'])) ? $valores['config']['vendor-dir'] : 'vendor';
+		} else {
+			throw new toba_error ('No se encuentra el archivo composer.json en el directorio destino de la aplicacion' );
+		}
+				
+		$path_base = $dir_destino. '/'. $vendor_dir . '/'. self::FRAMEWORK_VENDOR_DIR;				
+		$excepciones = $this->proyecto->get_instalacion()->get_lista_excepciones_instalacion($path_base, array(), array('toba_usuarios'));
+		foreach ($excepciones as $dir) {			
+			if (file_exists($dir) && is_dir($dir)) {
+				toba_manejador_archivos::eliminar_directorio($dir);
+				$this->manejador_interface->progreso_avanzar();
+			}
+		}
 	}
 	
 	/**
