@@ -12,6 +12,7 @@ class toba_instalador
 		if (! isset($progreso)) {
 			$progreso = new toba_mock_proceso_gui();
 		}
+		toba_nucleo::cargar_autoload_composer();
 		self::$indice_archivos = toba_nucleo::get_indice_archivos();
 		unset(self::$indice_archivos['toba']);	//Para que el logger se de cuenta de que esta en la consola
 		spl_autoload_register(array('toba_instalador', 'cargador_clases'));
