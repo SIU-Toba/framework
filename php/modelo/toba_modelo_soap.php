@@ -222,6 +222,25 @@ class toba_modelo_soap extends toba_modelo_elemento
 	
 	
 	//-----------------------------------------------------------------------------------------------------------------------//
+	
+	/**
+	 * Permite activar o desactivar un servicio web determinado
+	 * @param toba_modelo_proyecto $proyecto
+	 * @param string $id_servicio
+	 * @param smallint $estado 
+	 */
+	static function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
+	{
+		$ini = self::get_ini_server($proyecto, $id_servicio);
+		if (! $ini->existe_entrada('general', 'activo')) {
+			$ini->agregar_entrada('general', array('activo' => $estado));
+		} else {
+			$ini->set_datos_entrada('general', array('activo' => $estado));
+		}		
+		$ini->guardar();
+	}
+	
+	
 	/**
 	 * @param toba_modelo_proyecto $proyecto
 	 * @param string $id_servicio

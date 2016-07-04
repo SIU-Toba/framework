@@ -151,22 +151,14 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	}
 
 	/**
-	 * Permite activar o desactivar un servicio web determinado
+	 * Permite activar o desactivar un servicio web determinado (only  SOAP)
 	 * @param toba_modelo_proyecto $proyecto
 	 * @param string $id_servicio
 	 * @param smallint $estado 
 	 */
 	static function set_estado_activacion( toba_modelo_proyecto $proyecto, $id_servicio, $estado=0) 
 	{
-		if (! $this->rest) {
-			$ini = toba_modelo_soap::get_ini_server($proyecto, $id_servicio);
-			if (! $ini->existe_entrada('general', 'activo')) {
-				$ini->agregar_entrada('general', array('activo' => $estado));
-			} else {
-				$ini->set_datos_entrada('general', array('activo' => $estado));
-			}		
-			$ini->guardar();
-		}
+		toba_modelo_soap::set_estado_activacion($proyecto, $id_servicio, $estado);
 	}
 
 	/**
@@ -175,7 +167,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param string $directorio
 	 * @throws toba_error_usuario 
 	 */
-	static function generar_certificados(toba_modelo_proyecto $proyecto, $directorio = null)
+	static function generar_certificados(toba_modelo_proyecto $proyecto, $directorio = null, $rest=false)
 	{
 		//Si no se pasa directorio de salida, asigno por defecto el de instalacion del proyecto
 		if (is_null($directorio)) {
@@ -188,18 +180,18 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 			throw new toba_error_usuario("No existe el archivo '$dir_inst/openssl.ini'. Necesita copiarlo de la carpeta toba/php/modelo/var");
 		}
 		
-		$modelo = ($this->rest) ? 'toba_modelo_rest' : 'toba_modelo_soap';		
-		$out_key = $modelo::path_clave_privada($this->proyecto);
-		$out_cert = $modelo::path_clave_publica($this->proyecto);
+		$modelo =  'toba_modelo_soap';					//($rest) ? 'toba_modelo_rest' : cuando se defina cual es el path de las claves por ahora solo soap
+		$out_key = $modelo::path_clave_privada($proyecto);
+		$out_cert = $modelo::path_clave_publica($proyecto);
 		$dir_sign = $out_key .'.sign';
 			
-		$cmd = "openssl req -x509 -nodes -days 2000 -newkey rsa:1024 -keyout $dir_sign -config $dir_inst/openssl.ini -out $out_cert";
+		$cmd = "openssl req -x509 -nodes -days 2000 -newkey rsa:2048 -keyout $dir_sign -config $dir_inst/openssl.ini -out $out_cert";
 		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
 			throw new toba_error_usuario($stderr. "\n Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
 		}
 		
-		$cmd = "openssl rsa -in $dir_key -out $out_key";
+		$cmd = "openssl rsa -in $dir_sign -out $out_key";
 		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
 			throw new toba_error_usuario($stderr);
