@@ -13,13 +13,6 @@ define('apex_pa_proyecto', '__proyecto__');
 define('apex_pa_log_archivo', true);
 define('apex_pa_log_archivo_nivel', 7);
 
-//--------------------------------------------------------------------------
-//------ Carga autoload composer -------------------------------------------
-//--------------------------------------------------------------------------
-$path = realpath(__DIR__ . '/../vendor/autoload.php');
-if (file_exists($path)) {
-	require_once($path);
-}
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

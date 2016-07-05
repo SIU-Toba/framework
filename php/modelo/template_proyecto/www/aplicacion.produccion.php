@@ -12,13 +12,6 @@ define('apex_pa_validacion_debug', 0);
 # Cambia el nivel del logger a modo 'info'. Para modo debug pasar a '7'
 define('apex_pa_log_archivo_nivel', 6);
 
-//--------------------------------------------------------------------------
-//------ Carga autoload composer -------------------------------------------
-//--------------------------------------------------------------------------
-$path = realpath(__DIR__ . '/../vendor/autoload.php');
-if (file_exists($path)) {
-	require_once($path);
-}
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

@@ -124,6 +124,10 @@ class toba_empaquetador
 		return $this->_dir_instalador;
 	}
 	
+	/**
+	 * @ignore
+	 * @return string
+	 */
 	protected function get_dir_destino_aplicacion()
 	{
 		return $this->get_dir_destino() . $this->get_dir_proyecto_aplicacion();
@@ -291,7 +295,7 @@ class toba_empaquetador
 		$actual = getcwd();
 		if (chdir($path)) {													//Intento cambiar al dir destino para ejecutar composer
 			$this->manejador_interface->progreso_avanzar();
-			$cmd = ' composer install --no-dev  --optimize-autoloader ';
+			$cmd = ' composer install --no-dev  --optimize-autoloader';
 			$exit_status =  toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 			if ($exit_status != 0) {
 				toba_logger::instancia()->debug($stderr);
@@ -304,17 +308,32 @@ class toba_empaquetador
 		$this->manejador_interface->progreso_avanzar();
 	}
 
+	/**
+	 * Elimina las carpetas que antes se excluian en la copia del framework
+	 * @ignore
+	 * @param string $dir_destino
+	 * @throws toba_error
+	 */
 	protected function borrar_datos_innecesarios($dir_destino)
 	{
+		$librerias = $proyectos_extra = array();
 		if (file_exists($dir_destino . '/composer.json')) {
 			$valores = json_decode(file_get_contents($dir_destino . '/composer.json'), true); 			
 			$vendor_dir =  (isset($valores['config']['vendor-dir'])) ? $valores['config']['vendor-dir'] : 'vendor';
 		} else {
 			throw new toba_error ('No se encuentra el archivo composer.json en el directorio destino de la aplicacion' );
+		}				
+		if ($this->ini_file->existe_entrada('empaquetado', 'librerias')) {
+			$lista = explode(',', $this->ini_file->get('empaquetado', 'librerias'));
+			$librerias = array_map('trim', $lista);
+		}
+		if ($this->ini_file->existe_entrada('empaquetado', 'proyectos_extra')) {
+			$lista = explode(',', $this->ini_file->get('empaquetado', 'proyectos_extra'));
+			$proyectos_extra = array_map('trim', $lista);
 		}
 				
 		$path_base = $dir_destino. '/'. $vendor_dir . '/'. self::FRAMEWORK_VENDOR_DIR;				
-		$excepciones = $this->proyecto->get_instalacion()->get_lista_excepciones_instalacion($path_base, array(), array('toba_usuarios'));
+		$excepciones = $this->proyecto->get_instalacion()->get_lista_excepciones_instalacion($path_base, $librerias, array('toba_usuarios'));
 		foreach ($excepciones as $dir) {			
 			if (file_exists($dir) && is_dir($dir)) {
 				toba_manejador_archivos::eliminar_directorio($dir);
