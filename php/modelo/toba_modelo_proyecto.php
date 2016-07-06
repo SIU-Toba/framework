@@ -2580,7 +2580,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	 * Genera y copia los archivos necesarios para el instalador
 	 */
-	function empaquetar($tipo_paquete)
+	function empaquetar($tipo_paquete, $es_legacy=false)
 	{
 		$nombre_ini = 'proyecto.ini';
 		$path_ini = $this->get_dir().'/'.$nombre_ini;
@@ -2601,7 +2601,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$empaquetado['path_destino'].= '/'.$this->get_version_proyecto()->__toString();
 		
 		//-- Invoco el empaquetador
-		$legacy = ! file_exists($this->get_dir() . '/composer.json');
+		$legacy = (! file_exists($this->get_dir() . '/composer.json') || $es_legacy);
 		$packager = new toba_empaquetador($this->manejador_interface, $this);
 		$packager->inicializar($this->get_dir(), $empaquetado['path_destino'], $empaquetado['path_instalador'], $legacy);
 		$packager->empaquetar();

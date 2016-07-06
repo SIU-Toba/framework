@@ -517,19 +517,20 @@ class comando_proyecto extends comando_toba
 
 	/**
 	* Crea un instalador del proyeto/framework para produccion
-	* @consola_parametros Opcional: [-d 'deployment'] Indica si el instalador sera para produccion o desarrollo. 
+	* @consola_parametros [-L 1] Arma paquete legacy
 	*/
 	function opcion__empaquetar()
 	{
 		//Aca tengo que decidir si empaqueto para produccion o desarrollo.
-		//$param = $this->get_parametros();
+		//* @consola_parametros Opcional: [-d 'deployment'] Indica si el instalador sera para produccion o desarrollo. 
+		$param = $this->get_parametros();
 		/*if (isset($param['-d']) && trim($param['-d']) == 'desarrollo') {
 			$paquete = self::tipo_paquete_desarrollo;
 		} else {*/
 			$paquete = self::tipo_paquete_produccion;
-		//}		
-		
-		$this->get_proyecto()->empaquetar($paquete);
+		//}
+		$es_legacy = (isset($param['-L']) && ($param['-L'] == 1));			
+		$this->get_proyecto()->empaquetar($paquete, $es_legacy);
 	}		
 	
 	
