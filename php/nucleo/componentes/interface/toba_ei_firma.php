@@ -113,8 +113,8 @@ class toba_ei_firma extends toba_ei
 			  <param  name='COOKIE' value='$cookie' />
 			  <param name='classloader_cache' value='false' />
 			  <param name='codebase_lookup' value='false' />
-			  <param name='TOKID' value='".apex_sesion_csrt."'/>
-			  <param name='TOKVAL' value'$valor_cross_token'/>
+			  <param name='TOKID'  value='".apex_sesion_csrt."'/>
+			  <param name='TOKVAL'  value='$valor_cross_token'/>
 		</applet>
 		";
 		if ($this->_mostrar_pdf) {
