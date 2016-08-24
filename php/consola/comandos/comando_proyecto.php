@@ -572,23 +572,28 @@ class comando_proyecto extends comando_toba
 	/**
 	* Importa y migra un proyecto desde otra instalacion de toba
 	* @consola_parametros -d 'directorio'. Especifica el path de toba que contiene el proyecto a migrar
+	* @consola_parametros --destino 'directorio'. Especifica el path de toba donde se exportaran los datos
 	* @gtk_icono importar.png 
 	* @gtk_no_mostrar 1
 	*/	
 	function opcion__importar($datos = null)
 	{
+		$destino = null;
 		if (isset($datos)) {
-			list($id_proyecto, $dir_toba_viejo) = $datos;
+			list($id_proyecto, $dir_toba_viejo, $destino) = $datos;
 		} else {
 			$param = $this->get_parametros();
 			$id_proyecto = $this->get_id_proyecto_actual(true);
- 	        if (isset($param['-d'])) {
-	            $dir_toba_viejo = $param['-d'];
-	        } else {
-	            throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
- 	        }			
+			if (isset($param['-d'])) {
+				$dir_toba_viejo = $param['-d'];
+			} else {
+				throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
+			}			
+			if (isset($param['--destino'])) {
+				$destino = $param['--destino'];
+			}
 		}		
-		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $id_proyecto, $dir_toba_viejo);
+		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $id_proyecto, $dir_toba_viejo, $destino);
 	}	
 	
 	

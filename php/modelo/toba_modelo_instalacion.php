@@ -865,16 +865,16 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	 * @param string $id_instancia Instancia origen/destino de la migración
 	 * @param string $id_proyecto Proyecto origen/destino de la migración
 	 * @param string $dir_toba_viejo Directorio del toba que contiene la instancia/proyecto a migrar
+	 * @param string $destino Directorio del toba que contiene el proyecto actual
 	 */
-	function importar_migrar_proyecto($id_instancia, $id_proyecto, $dir_toba_viejo)
+	function importar_migrar_proyecto($id_instancia, $id_proyecto, $dir_toba_viejo, $destino=null)
 	{
 		//$path_proyecto = toba_dir().'/proyectos/'.$id_proyecto;		
 		$excepcion = null;
 		$url = null;
+		$dir_original = $this->get_dir();
+		$dir_backup = $dir_original.'.'.date('YmdHms');
 		try {
-			$dir_original = $this->get_dir();
-			$dir_backup = $dir_original.'.'.date('YmdHms');
-			
 			//--- Hacer un backup del directorio actual
 			$this->manejador_interface->titulo("1.- Haciendo backup directorio instalacion del nuevo toba");	
 			if (file_exists($dir_original)) {
@@ -906,9 +906,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 
 			//--- Incluir solo el proyecto a importar en la instancia
 			$this->manejador_interface->titulo("2.- Apuntando la instancia nueva a la de la versión anterior");
-			$proyectos_vinculados = $instancia->get_lista_proyectos_vinculados();
+			$instancia->get_lista_proyectos_vinculados();
 			$instancia->set_proyectos_vinculados(array($id_proyecto));
-			$path_proyecto = $instancia->get_path_proyecto($id_proyecto);			
+			$path_proyecto = (is_null($destino)) ? $instancia->get_path_proyecto($id_proyecto): $destino;			
 			$instancia->vincular_proyecto($id_proyecto, $path_proyecto, $url);			
 
 			//--- Apuntar la instancia actual a la instancia externa			
