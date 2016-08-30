@@ -326,7 +326,7 @@ class comando_instancia extends comando_toba
 	
 	/**
 	 * Permite cambiar los grupos de acceso de un usuario 
-	 * @consola_parametros [-u usuario]
+	 * @consola_parametros [-u usuario] [-p proyecto]
 	 * @gtk_icono usuarios/grupo.gif
 	 */
 	function opcion__editar_acceso()
@@ -345,17 +345,24 @@ class comando_instancia extends comando_toba
 			throw new toba_error("Es necesario indicar el usuario con '-u'");			
 		}
 		$acceso = array();
-		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
-			$this->consola->enter();			
-			$proyecto = $instancia->get_proyecto($id_proyecto);
-			$grupos = $proyecto->get_lista_grupos_acceso();
-			$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
-			$grupos = $this->consola->dialogo_lista_opciones($grupos, "Proyecto $id_proyecto", true, 'Descripción', false);
-			if (! isset($grupos)) {
-				return;
+		if ( isset($param['-p']) &&  (trim($param['-p']) != '') ) {
+			// HACK: se hace esta truchada porque el get_proyecto está instanciado la db
+			$proyecto = $instancia->get_proyecto($param['-p']);
+			$acceso[$param['-p']] = array('admin');
+		} else {
+			foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+				$this->consola->enter();
+				$proyecto = $instancia->get_proyecto($id_proyecto);
+				$grupos = $proyecto->get_lista_grupos_acceso();
+				$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
+				$grupos = $this->consola->dialogo_lista_opciones($grupos, "Proyecto $id_proyecto", true, 'Descripción', false);
+				if (! isset($grupos)) {
+					return;
+				}
+				$acceso[$id_proyecto] = $grupos;
 			}
-			$acceso[$id_proyecto] = $grupos;
 		}
+
 		$instancia->cambiar_acceso_usuario($usuario, $acceso);
 	}
 	

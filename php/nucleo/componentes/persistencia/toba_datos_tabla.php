@@ -1832,7 +1832,14 @@ class toba_datos_tabla extends toba_componente
 	function get_cambios_fila($id_fila, $datos_ap = array())
 	{
 		$diferencias = array();
-		$datos_viejos = $this->_cambios[$id_fila]['original'];
+		
+		// Se chequea que exista el indice original, por si se invoca en un alta.
+		if (isset($this->_cambios[$id_fila]['original'])) {
+			$datos_viejos = $this->_cambios[$id_fila]['original'];
+		} else {
+			$datos_viejos = array();
+		}
+		
 		if (empty($datos_ap)) {												//Si el administrador de persistencia no pide comparacion especifica
 				$datos_nuevos = $this->_datos[$id_fila];	//utilizo los datos internos del datos_tabla.
 		} else {
