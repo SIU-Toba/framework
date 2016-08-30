@@ -10,9 +10,7 @@
  * Las dimensiones se definen por el proyecto en toba_editor
  * 
  * @package Seguridad
-	
-	To-Do:
-		* No soporta el uso de parentesis
+ * TODO:  No soporta el uso de parentesis
  */
 class toba_perfil_datos
 {

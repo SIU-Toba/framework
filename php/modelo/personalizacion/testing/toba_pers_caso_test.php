@@ -2,6 +2,7 @@
 /**
  * De esta clase tienen que heredar todos aquellos que pretendan ejecutar un test
  * de personalización.
+ * @ignore
  */
 abstract class toba_pers_caso_test
 {

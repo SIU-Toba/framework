@@ -1,8 +1,9 @@
 <?php
 /**
- * 	@package Componentes
- *  @subpackage Persistencia
- * 	@ignore
+ * Clase que extiende el administrador de persistencia para multiples tablas
+ * @package Componentes 
+ * @subpackage Persistencia 
+ * @ignore
  */
 class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 {

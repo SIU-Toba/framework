@@ -1,12 +1,10 @@
 <?php
-require_once('comando_toba.php');
-
 /**
-*	Publica los servicios de la clase PROYECTO a la consola toba
-*
-*	@todo	La asociacion de usuarios al proyecto nuevo tiene que ofrecer una seleccion
-*	
+* Publica los servicios de la clase PROYECTO a la consola toba
+* TODO:	La asociacion de usuarios al proyecto nuevo tiene que ofrecer una seleccion
+* @ignore
 */
+require_once('comando_toba.php');	
 class comando_proyecto extends comando_toba
 {
 	const tipo_paquete_produccion = 'p';

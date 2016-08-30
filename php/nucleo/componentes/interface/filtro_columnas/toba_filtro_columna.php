@@ -18,6 +18,11 @@ abstract class toba_filtro_columna
 	protected $_funcion_formateo = null;
 	protected $_condicion_default = null;
 	
+	/**
+	 * Constructor
+	 * @param array $datos
+	 * @param toba_ei $padre
+	 */
 	function __construct($datos, $padre) 
 	{
 		$this->_datos = $datos;
@@ -34,7 +39,11 @@ abstract class toba_filtro_columna
 	//-----------------------------------------------
 	//--- COMANDOS ---------------------------------
 	//-----------------------------------------------	
-	
+	/**
+	 * Indica el estado de la columna
+	 * @param array $estado Array( 'condicion' => 'xx', 'valor' => yy)
+	 * @throws toba_error_def
+	 */
 	function set_estado($estado)
 	{
 		if ($this->hay_condicion_fija()){
@@ -49,22 +58,38 @@ abstract class toba_filtro_columna
 		$this->_ef->set_estado($estado['valor']);
 	}	
 	
+	/**
+	 * Indica si la columna es visible inicialmente
+	 * @param boolean $visible
+	 */
 	function set_visible($visible)
 	{
 		$this->_datos['inicial'] = $visible;
 	}	
 	
+	/**
+	 * Indica si la columna debe colocarse solo lectura
+	 * @param boolean $solo_lectura
+	 */
 	function set_solo_lectura($solo_lectura = true)
 	{
 		$this->_solo_lectura = $solo_lectura;
 		$this->_ef->set_solo_lectura($solo_lectura);
 	}
 	
+	/**
+	 * Indica la expresion de evaluacion de la columna
+	 * @param string $campo
+	 */
 	function set_expresion($campo)
 	{
 		$this->_datos['expresion'] = $campo;
 	}
 	
+	/**
+	 * Carga el estado de la columna
+	 * @throws toba_error_seguridad
+	 */
 	function cargar_estado_post()
 	{
 		$this->_estado = array();	
@@ -83,17 +108,29 @@ abstract class toba_filtro_columna
 		
 	}	
 	
+	/**
+	 * Agrega una condicion a la columna
+	 * @param mixed $id
+	 * @param toba_filtro_condicion $condicion
+	 */
 	function agregar_condicion($id, toba_filtro_condicion $condicion)
 	{
 		$this->_condiciones[$id] = $condicion;
 	}
 	
+	/**
+	 * Elimina la condicion indicada
+	 * @param mixed $id
+	 */
 	function borrar_condicion($id)
 	{
 		unset($this->_condiciones[$id]);
 	}
-	
-	
+
+	/**
+	 * Indica con que funcion se formateara el dato
+	 * @param mixed $funcion
+	 */
 	function set_formateo($funcion)
 	{
 		$this->_funcion_formateo = $funcion;
@@ -102,91 +139,154 @@ abstract class toba_filtro_columna
 	//--- CONSULTAS ---------------------------------
 	//-----------------------------------------------
 	
-	
-	
+	/**
+	 * Indica el id de la columna 
+	 * @return mixed
+	 */
 	function get_id_metadato()
 	{
 		return $this->_datos['objeto_ei_filtro_col'];
 	}
 	
+	/**
+	 * Indica el id del filtro que contiene la columna
+	 * @return mixed
+	 */
 	function get_id_form()
 	{
 		return $this->_padre->get_id_form();
 	}
 	
+	/**
+	 * Indica la posicion de la columna con respecto a las otras
+	 * @return integer
+	 */
 	function get_tab_index()
 	{
 		return $this->_padre->get_tab_index();
 	}
 	
+	/**
+	 * Indica si la columna es obligatoria
+	 * @return boolean
+	 */
 	function es_obligatorio()
 	{
 		return $this->_ef->es_obligatorio();
 	}
-
+	
+	/**
+	 * Indica si la columna es solo lectura
+	 * @return boolean
+	 */
 	function es_solo_lectura()
 	{
 		return $this->_solo_lectura;
 	}
 	
+	/**
+	 * Indica si la columna es visible
+	 * @return boolean
+	 */
 	function es_visible()
 	{
 		return $this->_datos['inicial'];
 	}
 	
+	/**
+	 * Indica si la columna es compuesta, esto es si el dato es complejo
+	 * @return boolean
+	 */
 	function es_compuesto()
 	{
 		return false;
 	}
 	
+	/**
+	 * Devuelve el nombre de la columna
+	 * @return string
+	 */
 	function get_nombre()
 	{
 		return $this->_datos['nombre'];
 	}
 	
+	/**
+	 * Devuelve un objeto de tipo ef
+	 * @return toba_ef
+	 */
 	function get_ef()
 	{
 		return $this->_ef;
 	}
 	
+	/**
+	 * Devuelve la expresion de la columna
+	 * @return string
+	 */
 	function get_expresion()
 	{
 		return $this->_datos['expresion'];
 	}
 
+	/**
+	 * Devuelve la etiqueta de la columna
+	 * @return string
+	 */
 	function get_etiqueta()
 	{
 		return $this->_datos['etiqueta'];
 	}
 
-
+	/**
+	 * Devuelve la funcion de formateo de la columna
+	 * @return mixed
+	 */
 	function get_formateo()
 	{
 		return $this->_funcion_formateo;	
 	}
 	
+	/**
+	 * Invoca la validacion del estado de la columna
+	 * @return boolean
+	 */
 	function validar_estado()
 	{
 		return $this->_ef->validar_estado();
 	}
 	
-	
+	/**
+	 * Resetea el estado de la columna
+	 */
 	function resetear_estado()
 	{
 		$this->_ef->resetear_estado();
 		$this->_estado = null;
 	}
 	
+	/**
+	 * Devuelve el estado de la columna
+	 * @return mixed
+	 */
 	function get_estado()
 	{
 		return $this->_estado;
 	}
-
+	
+	/**
+	 * Indica si la columna tiene estado
+	 * @return boolean
+	 */
 	function tiene_estado()
 	{
 		return isset($this->_estado);
 	}
 	
+	/**
+	 * Indica la cantidad de condiciones de la columna
+	 * @return integer
+	 */
 	function get_cant_condiciones()
 	{
 		return count($this->_condiciones);
@@ -275,6 +375,12 @@ abstract class toba_filtro_columna
 		}
 	}
 	
+	/**
+	 * Fija una condicion 
+	 * @param toba_filtro_condicion $condicion
+	 * @param string $nombre
+	 * @throws toba_error_def
+	 */
 	function set_condicion(toba_filtro_condicion $condicion, $nombre=null)
 	{
 		if (! isset($nombre)) {
@@ -288,7 +394,10 @@ abstract class toba_filtro_columna
 		}		
 	}
 	
-	
+	/**
+	 * Devuelve una clausula SQL en base a su estado interno
+	 * @return string
+	 */
 	function get_sql_where()
 	{
 		if (isset($this->_estado)) {
@@ -301,7 +410,10 @@ abstract class toba_filtro_columna
 	//-----------------------------------------------
 	//--- SALIDA HTML  ------------------------------
 	//-----------------------------------------------
-	
+	/**
+	 * Genera el HTML para graficar la condicion
+	 * @return string
+	 */
 	function get_html_condicion()
 	{
 		if (count($this->_condiciones) > 1) {
@@ -339,21 +451,28 @@ abstract class toba_filtro_columna
 		}
 	}	
 	
+	/**
+	 * Genera el HTML para el campo
+	 */
 	function get_html_valor()
 	{
 		echo $this->_ef->get_input();
 	}
 
+	/**
+	 * Genera la etiqueta
+	 * @return string
+	 */
 	function get_html_etiqueta()
 	{
 		$html = '';
 		$marca ='';		
-        if ($this->_ef->es_obligatorio()) {
-    	        $estilo = 'ei-filtro-etiq-oblig';
-				$marca = '(*)';
-    	} else {
-            $estilo = 'ei-filtro-etiq';
-	    }
+		if ($this->_ef->es_obligatorio()) {
+			$estilo = 'ei-filtro-etiq-oblig';
+			$marca = '(*)';
+		} else {
+			$estilo = 'ei-filtro-etiq';
+		}
 		$desc='';
 		$desc = $this->_datos['descripcion'];
 		if ($desc !=""){
@@ -372,22 +491,38 @@ abstract class toba_filtro_columna
 	//-----------------------------------------------
 	//--- JAVASCRIPT   ------------------------------
 	//-----------------------------------------------
-
+	/**
+	 * Devuelve el objeto JS correspondiente a la columna
+	 * @param string $id
+	 * @return mixed
+	 */
 	function get_objeto_js_ef($id)
 	{
 		return $this->_padre->get_objeto_js_ef($id);
 	}
 	
+	/**
+	 * Devuelve el objeto JS correspondiente al filtro
+	 * @return type
+	 */	
 	function get_objeto_js()
 	{
 		return $this->_padre->get_objeto_js();
 	}
 		
+	/**
+	 * Devuelve el consumo JS de la columna
+	 * @return string
+	 */
 	function get_consumo_javascript()
 	{
 		return $this->_ef->get_consumo_javascript();
 	}
 	
+	/**
+	 * Genera el objeto JS para la columna y lo devuelve
+	 * @return mixed
+	 */
 	function crear_objeto_js()
 	{
 		return $this->_ef->crear_objeto_js();

@@ -3,7 +3,10 @@
 class toba_item_def implements toba_componente_definicion
 {
 	static protected $db;
-		
+	/**
+	 * Devuelve la estructura de tablas y cantidad de registros para representarlo
+	 * @return array
+	 */	
 	static function get_estructura()
 	{
 		$estructura[] = array( 	'tabla' => 'apex_item',
@@ -21,8 +24,15 @@ class toba_item_def implements toba_componente_definicion
 		return $estructura;		
 	}
 	
+	/**
+	 * Devuelve la estructura que representa al item
+	 * @param string $proyecto
+	 * @param string $componente
+	 * @return array
+	 */
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
+		$sql=array();
 		$proyecto = self::$db->quote($proyecto);
 		if (isset($componente)) {
 			$componente = self::$db->quote($componente);
@@ -123,12 +133,22 @@ class toba_item_def implements toba_componente_definicion
 		$sql['objetos']['obligatorio']=false;
 		return $sql;
 	}
-
+	
+	/**
+	 * Devuelve la estructura que representa el item
+	 * @param string $proyecto
+	 * @param string $componente
+	 * @return array
+	 */
 	static function get_vista_extendida_resumida($proyecto, $componente=null)
 	{
 		return self::get_vista_extendida($proyecto, $componente);
 	}
 	
+	/**
+	 * Indica la conexion  a utilizar
+	 * @param toba_db $db
+	 */
 	static function set_db($db)
 	{
 		self::$db = $db;

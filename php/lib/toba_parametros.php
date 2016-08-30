@@ -1,6 +1,10 @@
 <?php
 class toba_parametros 
 {	
+	/**
+	 * Devuelve un objeto para manipular la instancia
+	 * @return mixed
+	 */
 	static protected function get_instancia() 
 	{
 		if (PHP_SAPI != 'cli') { 
@@ -9,6 +13,11 @@ class toba_parametros
 		return toba_modelo_catalogo::instanciacion()->get_instancia(toba_instancia::get_id());				//Por si en algun momento se llega a usar desde el modelo
 	}
 	
+	/**
+	 * Devuelve un objeto que permite manipular el proyecto
+	 * @param string $proyecto
+	 * @return mixed
+	 */
 	static protected function get_proyecto($proyecto)
 	{
 		if (PHP_SAPI != 'cli') {
@@ -17,6 +26,13 @@ class toba_parametros
 		return toba_modelo_catalogo::instanciacion()->get_proyecto(self::get_instancia(), $proyecto);		//Por si en algun momento se llega a usar desde el modelo
 	}
 	
+	/**
+	 * Devuelve el valor del parametro solicitado
+	 * @param string $proyecto
+	 * @param string $parametro
+	 * @param boolean $obligatorio
+	 * @return mixed
+	 */
 	static protected function get_redefinicion_parametro($proyecto, $parametro, $obligatorio) 
 	{
 		$variable_instancia = self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
@@ -27,6 +43,14 @@ class toba_parametros
 		return $variable_proyecto;
 	}
 	
+	/**
+	 * Devuelve el valor de un parametro runtime solicitado
+	 * @param string $proyecto
+	 * @param string $seccion
+	 * @param string $parametro
+	 * @param boolean $obligatorio
+	 * @return mixed
+	 */
 	static protected function get_redefinicion_parametro_runtime($proyecto, $seccion,  $parametro= null, $obligatorio=true)
 	{
 		$variable_instancia = self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
@@ -92,6 +116,7 @@ class toba_parametros
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
 	 * Retorna el tiempo de no interaccion maximo para que se pierda la sesion
+	 * @param string $proyecto
 	 * @return integer
 	 */
 	static function get_session_no_interaccion($proyecto)	
@@ -101,6 +126,7 @@ class toba_parametros
 	
 	/**
 	 * Retorna el maximo tiempo de sesion posible
+	 * @param string $proyecto
 	 * @return integer
 	 */
 	static function get_session_tiempo_maximo($proyecto)

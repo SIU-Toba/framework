@@ -10,6 +10,10 @@ class toba_ini
 	private $titulo;
 	private $entradas=array();
 	
+	/**
+	 * Constructor
+	 * @param string $path
+	 */
 	function __construct( $path = null )
 	{
 		if ( isset( $path ) ) {
@@ -19,7 +23,11 @@ class toba_ini
 			}
 		}
 	}
-
+	
+	/**
+	 * Agrega un titulo al archivo en forma de comentario
+	 * @param string $titulo
+	 */
 	function agregar_titulo( $titulo )
 	{
 		$this->titulo = $titulo;	
@@ -28,17 +36,29 @@ class toba_ini
 	//-----------------------------------------------------------
 	//	Manipulacion de ENTADAS
 	//-----------------------------------------------------------
-
+	/**
+	 * Devuelve las entradas del archivo
+	 * @return array
+	 */
 	function get_entradas()
 	{
 		return $this->entradas;
 	}
 
+	/**
+	 * Elimina el contenido del archivo en memoria
+	 */
 	function vaciar()
 	{
 		$this->entradas = array();
 	}
 
+	/**
+	 * Devuelve si existe una entrada determinada
+	 * @param string $seccion
+	 * @param string $nombre
+	 * @return mixed
+	 */
 	function existe_entrada($seccion, $nombre=null)
 	{
 		if (! isset($nombre)) {
@@ -48,11 +68,21 @@ class toba_ini
 		}
 	}
 
+	/**
+	 * Agrega una entrada con datos
+	 * @param string $nombre
+	 * @param mixed $datos
+	 */
 	function agregar_entrada($nombre, $datos)
 	{
 		$this->entradas[ $nombre ] = $datos;
 	}
 
+	/**
+	 * Elimina la entrada indicada
+	 * @param string $nombre
+	 * @throws toba_error
+	 */
 	function eliminar_entrada( $nombre )
 	{
 		if ( isset( $this->entradas[ $nombre ] ) ) {
@@ -62,6 +92,12 @@ class toba_ini
 		}
 	}
 
+	/**
+	 * Devuelve los datos de la entrada indicada
+	 * @param string $nombre
+	 * @return mixed
+	 * @throws toba_error
+	 */
 	function get_datos_entrada( $nombre ) 
 	{
 		if ( isset( $this->entradas[ $nombre ] ) ) {
@@ -71,6 +107,15 @@ class toba_ini
 		}
 	}
 
+	/**
+	 * Devuelve los datos pedidos lanzando una excepcion si no son encontrados
+	 * @param string $seccion
+	 * @param string $clave
+	 * @param mixed $defecto
+	 * @param boolean $obligatorio
+	 * @return mixed
+	 * @throws toba_error
+	 */
 	function get($seccion, $clave=null, $defecto=null, $obligatorio=true)
 	{
 		if(isset($clave) && isset($this->entradas[$seccion][$clave])) {
@@ -86,6 +131,12 @@ class toba_ini
 		}
 	}
 	
+	/**
+	 * Modifica los datos para una entrada
+	 * @param string $nombre
+	 * @param mixed $datos
+	 * @throws toba_error
+	 */
 	function set_datos_entrada( $nombre, $datos ) 
 	{
 		if ( isset( $this->entradas[ $nombre ] ) ) {
@@ -95,6 +146,10 @@ class toba_ini
 		}
 	}
 
+	/**
+	 * Fija todas las entradas del archivo
+	 * @param array $datos
+	 */
 	function set_entradas($datos)
 	{
 		$this->entradas = $datos;
@@ -103,7 +158,11 @@ class toba_ini
 	//-----------------------------------------------------------
 	//	Generacion
 	//-----------------------------------------------------------
-
+	/**
+	 * Dispara el guardado con un nombre de archivo especifico
+	 * @param string $archivo
+	 * @throws toba_error
+	 */
 	function guardar( $archivo = null )
 	{
 		if ( ! isset( $archivo ) ) {
@@ -116,6 +175,10 @@ class toba_ini
 		file_put_contents($archivo, $this->generar_ini() );
 	}
 
+	/**
+	 * Genera la estructura del ini a guardar
+	 * @return string
+	 */
 	private function generar_ini()
 	{
 		$ini = "";

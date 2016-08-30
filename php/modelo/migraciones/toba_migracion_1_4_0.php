@@ -386,6 +386,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
+	/**
+	 * Actualiza el nuevo campo en version del anterior
+	 */
 	function proyecto__migrar_retraso_headers()
 	{
 		$sql = "UPDATE apex_item SET retrasar_headers = redirecciona
@@ -397,6 +400,9 @@ class toba_migracion_1_4_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
+	/**
+	 * Actualiza los valores del campo que indica si la carga incluye el valor no seteado
+	 */
 	function proyecto__permite_estado_no_seteado()
 	{
 		//--------------- Primero trato el problema en los formularios comunes --------------------------------

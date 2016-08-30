@@ -8,6 +8,12 @@ class toba_manejador_archivos
 	static private $caracteres_invalidos = array('*', '?', '/', '>', '<', '"', "'", ':', '|');
 	static private $caracteres_reemplazo = array('%', '$', '_', ')', '(', '-',  '.', ';', ',');
 	
+	/**
+	 *  Crea el arbol de directorios indicado
+	 * @param string $path Ruta a crear
+	 * @param integer $modo Modo en Octal con que se creara la ruta
+	 * @throws toba_error
+	 */
 	static function crear_arbol_directorios($path, $modo=0777)
 	{
 		if (self::es_windows()) {
@@ -20,6 +26,11 @@ class toba_manejador_archivos
 		}
 	}
 	
+	/**
+	 * Genera un archivo con el nombre especificado y le inserta los datos.
+	 * @param string $nombre
+	 * @param mixed $datos
+	 */
 	static function crear_archivo_con_datos($nombre, $datos)
 	{
 		if (! file_exists($nombre)) {
@@ -28,37 +39,32 @@ class toba_manejador_archivos
 		file_put_contents($nombre, $datos);		
 	}
 	
+	/**
+	 * Retorna si el sistema en cuestion es windows o no
+	 * @return boolean
+	 */
 	static function es_windows()
 	{
 		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 	}	
 	
-	
+	/**
+	 * Ejecuta un comando dado (deprecated)
+	 * @param string $cmd
+	 * @param mixed $stdout
+	 * @param mixed $stderr
+	 * @return integer
+	 * @deprecated since version 2.8.0 @use toba_manejador_procesos::ejecutar
+	 */
 	static function ejecutar($cmd, &$stdout, &$stderr)
 	{
-	    $outfile = tempnam(toba_dir().'/temp', "cmd");
-	    $errfile = tempnam(toba_dir().'/temp', "cmd");
-	    $descriptorspec = array(
-	        0 => array("pipe", "r"),
-	        1 => array("file", $outfile, "w"),
-	        2 => array("file", $errfile, "w")
-	    );
-	    $proc = proc_open($cmd, $descriptorspec, $pipes);
-	   
-	    if (!is_resource($proc)) return 255;
-	
-	    fclose($pipes[0]);
-	
-	    $exit = proc_close($proc);
-	    $stdout = file_get_contents($outfile);
-	    $stderr = file_get_contents($errfile);
-	    unlink($outfile);
-	    unlink($errfile);
-	    return $exit;
+		return toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 	}		
 	
 	/**
 	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
+	 * @param string $file
+	 * @return boolean
 	 */
 	static function existe_archivo_en_path($file)
 	{
@@ -68,6 +74,12 @@ class toba_manejador_archivos
 		return $ok;
 	}
 	
+	/**
+	 * Transforma un path a su version en windows
+	 * @param string $nombre
+	 * @param boolean $encomillar_espacios
+	 * @return string
+	 */
 	static function path_a_windows($nombre, $encomillar_espacios=true)
 	{
 		$nombre = str_replace('/', "\\", $nombre);	
@@ -84,6 +96,11 @@ class toba_manejador_archivos
 		return $nombre;
 	}
 
+	/**
+	 * Transforma un path a su version Unix
+	 * @param string $nombre
+	 * @return string
+	 */
 	static function path_a_unix($nombre)
 	{
 		return str_replace('\\', "/", $nombre);	
@@ -91,6 +108,8 @@ class toba_manejador_archivos
 	
 	/**
 	 * Retorna un nombre de archivo valido
+	 * @param string $path
+	 * @return string
 	 */
 	static function path_a_plataforma($path)
 	{
@@ -103,6 +122,8 @@ class toba_manejador_archivos
 	
 	/**
 	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
+	 * @param string $candidato
+	 * @return string
 	 */
 	static function nombre_valido( $candidato )
 	{
@@ -110,7 +131,13 @@ class toba_manejador_archivos
 	}
 
 	/**
-	 *	Buscador de archivos
+	 * Buscador de archivos
+	 * @param string $directorio
+	 * @param string $patron
+	 * @param boolean $recursivo_subdir
+	 * @param array $exclude_dirs
+	 * @return array
+	 * @throws toba_error
 	 */
 	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false, &$exclude_dirs = array() )
 	{
@@ -150,8 +177,12 @@ class toba_manejador_archivos
 	}
 
 	/**
-	*	Busca en profundidad los archivos existentes dentro de un directorio
-	*/
+	 * Busca en profundidad los archivos existentes dentro de un directorio
+	 * @param string $directorio
+	 * @param array $exclude_dirs
+	 * @return string|array
+	 * @throws toba_error
+	 */
 	static function buscar_archivos_directorio_recursivo( $directorio, &$exclude_dirs = array() )
 	{
 		if( ! is_dir( $directorio ) ) {
@@ -179,8 +210,11 @@ class toba_manejador_archivos
 	}
 	
 	/**
-	*	Devuelve la lista de subdirectorios de un directorio
-	*/
+	 * Devuelve la lista de subdirectorios de un directorio
+	 * @param string $directorio
+	 * @return string
+	 * @throws toba_error
+	 */
 	static function get_subdirectorios( $directorio )
 	{
 		$dirs = array();
@@ -203,10 +237,16 @@ class toba_manejador_archivos
 	}
 	
 	/**
-	 *	Copia el contenido de un directorio a otro.
-	 *	No copia las carpetas SVN
+	 * Copia el contenido de un directorio a otro.
+	 * No copia las carpetas SVN
+	 * @param string $origen
+	 * @param string $destino
+	 * @param array $excepciones
+	 * @param toba_manejador_interface $manejador_interface
+	 * @param boolean $copiar_ocultos
 	 * @return boolean True en caso de que la copia fue exitosa
-	*/
+	 * @throws toba_error
+	 */
 	static function copiar_directorio( $origen, $destino, $excepciones=array(), $manejador_interface = null, $copiar_ocultos=true )
 	{
 		if( ! is_dir( $origen ) ) {
@@ -247,8 +287,11 @@ class toba_manejador_archivos
 	}
 	
 	/**
-	*	Elimina un directorio con contenido
-	*/
+	 * Elimina un directorio con contenido
+	 * @param string $directorio
+	 * @return boolean
+	 * @throws toba_error
+	 */
 	static function eliminar_directorio( $directorio )
 	{
 		if( ! is_dir( $directorio ) ) {
@@ -271,6 +314,12 @@ class toba_manejador_archivos
 		return $ok;
 	}	
 	
+	/**
+	 * Cambia los permisos de un path de manera recursiva
+	 * @param string $path
+	 * @param integer $filemode
+	 * @return boolean
+	 */
 	static function chmod_recursivo($path, $filemode) 
 	{
 		if (!is_dir($path))
@@ -289,16 +338,21 @@ class toba_manejador_archivos
 				}
 			}
 		}
-
 		closedir($dh);
-
-		if(chmod($path, $filemode))
+		if(chmod($path, $filemode)) {
 			return TRUE;
-		else
+		} else {
 			return FALSE;
+		}
 	}
 	
-	
+	/**
+	 * Comprime un archivo con gzip a un nivel dado en una carpeta destino
+	 * @param string $src
+	 * @param integer $level
+	 * @param string $dst
+	 * @return boolean
+	 */
 	static function comprimir_archivo($src, $level = 5, $dst = false)
 	{
 		if( $dst == false){
@@ -328,6 +382,11 @@ class toba_manejador_archivos
 		return false;
 	 }	
 	 
+	 /**
+	  * Devuelve si un directorio esta vacio o no
+	  * @param string $dir
+	  * @return boolean
+	  */
 	static function es_directorio_vacio($dir)
 	{
 		$dh = @opendir($dir);
@@ -345,6 +404,11 @@ class toba_manejador_archivos
 		}
 	}
 
+	/**
+	 * Devuelve si un path es suceptible de ser escrito
+	 * @param string $path
+	 * @return boolean
+	 */
 	static function es_writable($path)
 	{
 		if ($path{strlen($path)-1} == '/') {
@@ -367,7 +431,7 @@ class toba_manejador_archivos
 
 	/**
 	 * Retorna el nombre de usuario que actualmente ejecuta el proceso
-	 * @return null en caso 
+	 * @return null en caso que no exista
 	 */
 	static function get_usuario_actual()
 	{
@@ -385,6 +449,12 @@ class toba_manejador_archivos
 		return $usuario;
 	}
 
+	/**
+	 * Devuelve un checksum SHA256 de un directorio particular
+	 * @param string $directorio
+	 * @return string
+	 * @throws toba_error
+	 */
 	static function get_checksum_directorio($directorio)
 	{
 		$checksum = null;

@@ -1,6 +1,8 @@
 <?php
+/**
+ * @ignore
+ */	
 require_once('comando_toba.php');
-
 class comando_item extends comando_toba
 {
 	

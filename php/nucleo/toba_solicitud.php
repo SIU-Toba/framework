@@ -10,16 +10,21 @@ abstract class toba_solicitud
 {
 	protected $id;								//ID de la solicitud	
 	protected $info;							//Propiedeades	de	la	solicitud extraidas de la base
-	protected $info_objetos;					//Informacion sobre los	objetos asociados	al	item
+	protected $info_objetos;						//Informacion sobre los	objetos asociados	al	item
 	protected $indice_objetos;					//Indice	de	objetos asociados	por CLASE
-	protected $objetos = array();				//Objetos standarts asociados	al	ITEM
-	protected $objetos_indice_actual = 0;		//Posicion actual	del array de objetos	
-	protected $observaciones = array();			//Array de observaciones realizadas	durante la solicitud	
-	protected $registrar_db;					//Indica si	se	va	a registrar	la	solicitud
+	protected $objetos = array();					//Objetos standarts asociados	al	ITEM
+	protected $objetos_indice_actual = 0;			//Posicion actual	del array de objetos	
+	protected $observaciones = array();				//Array de observaciones realizadas	durante la solicitud	
+	protected $registrar_db;						//Indica si	se	va	a registrar	la	solicitud
 	protected $cronometrar;						//Indica si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
 	protected $registrada = false;
 	
+	/**
+	 * Construye una solicitud
+	 * @param array $item
+	 * @param string $usuario
+	 */
 	function __construct($item, $usuario)	
 	{
 		toba::cronometro()->marcar('Inicio Solicitud');
@@ -58,6 +63,10 @@ abstract class toba_solicitud
 
 	}
 	
+	/**
+	 * Inicia el cronometraje de la solicitud
+	 * @param mixed $cronometrar
+	 */
 	function set_cronometrar($cronometrar)
 	{
 		$this->cronometrar = $cronometrar;	
@@ -65,7 +74,6 @@ abstract class toba_solicitud
 	
 	/**
 	 * Construye un componente y lo mantiene en un slot interno
-	 *
 	 * @param string $clase Nombre de la clase de componente
 	 * @param int $posicion Posición del componente en la operación
 	 * @param mixed $parametros
@@ -106,6 +114,9 @@ abstract class toba_solicitud
 		// Guardo cronometro
 	}	
 	
+	/**
+	 * Registra la finalizacion del cronometraje
+	 */
 	function guardar_cronometro()
 	{
 		if ($this->cronometrar) {			
@@ -116,12 +127,17 @@ abstract class toba_solicitud
 		}			
 	}
 
+	/**
+	 * Procesa la solicitud
+	 */
 	abstract function procesar();
 
 	//------------------------------------------------------------------------
 	//--------------------------  AUDITORIA Y	LOG --------------------------
 	//------------------------------------------------------------------------
-
+	/**
+	 * Inicia el registro temprano de la soclicitud
+	 */
 	function registro_temprano()
 	{
 		if( $this->registrar_db || $this->cronometrar) {			
@@ -131,6 +147,9 @@ abstract class toba_solicitud
 		}
 	}
 	
+	/**
+	 * Marca la finalizacion del registro de la solicitud
+	 */
 	function registrar()	
 	{
 		toba::cronometro()->marcar('Finalizando Solicitud');		
@@ -152,6 +171,8 @@ abstract class toba_solicitud
 
 	/**
 	 * Permite asociar observaciones al registro de la solicitud actual
+	 * @param type $observacion
+	 * @param type $tipo
 	 */
 	function observar($observacion, $tipo=null)
 	{
@@ -166,26 +187,38 @@ abstract class toba_solicitud
 	//----------------------------------------------------------
 	//-------------------------- Consultas --------------------------
 	//----------------------------------------------------------
-
+	/**
+	 * Devuelve el tipo de solicitud
+	 * @return enum
+	 */
 	function get_tipo()
 	{
 		return $this->info['basica']['item_solic_tipo'];
 	}
 	
+	/**
+	 * Devuelve si el item es publico o no
+	 * @return boolean
+	 */
 	function es_item_publico()
 	{
 		return $this->info['basica']['item_publico'];	
 	}
 	
+	/**
+	 * Devuelve si la solicitud tiene ayuda
+	 * @return boolean
+	 */
 	function existe_ayuda()	
 	{
 		return (trim($this->info['basica']['item_existe_ayuda'])!="");	
 	}
 	
 	/**
-	* Retorna un arreglo de datos básicos de la operación que se esta ejecutando
-	* @param string $prop Propiedad a obtener (opcional)
-	*/
+	 * Retorna un arreglo de datos básicos de la operación que se esta ejecutando
+	 * @param string $prop Propiedad a obtener (opcional)
+	 * @return array
+	 */
 	function get_datos_item($prop=null)
 	{
 		if (isset($prop)) {
@@ -220,6 +253,7 @@ abstract class toba_solicitud
 
 	/**
 	 * Retorna el id de la operacion actual
+	 * @return mixed
 	 */
 	function get_id_operacion()
 	{
@@ -228,6 +262,7 @@ abstract class toba_solicitud
 	
 	/**
 	 * Retorna un id que representa a todo el pedido de página actual
+	 * @return mixed
 	 */
 	function get_id()
 	{
@@ -237,7 +272,9 @@ abstract class toba_solicitud
 	//----------------------------------------------------------
 	//-------------------------- ZONA --------------------------
 	//----------------------------------------------------------
-
+	/**.
+	 * Crea el objeto necesario para la manipulacion de la zona
+	 */
 	protected function crear_zona()
 	{
 		$clase = 'toba_zona';
@@ -260,7 +297,9 @@ abstract class toba_solicitud
 	}	
 	
 	/**
-	 * @return zona
+	 * Devuelve un objeto que permite interactuar con la zona
+	 * @return toba_zona
+	 * @throws toba_error_def
 	 */
 	function zona()
 	{
@@ -279,7 +318,5 @@ abstract class toba_solicitud
 	{
 		return isset($this->zona);	
 	}
-
-
 }
 ?>

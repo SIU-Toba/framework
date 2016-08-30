@@ -61,7 +61,8 @@ class toba_svn
 			$cmd .= ' >'.$archivo_salida;
 		}
 		
-		toba_manejador_archivos::ejecutar($cmd, $this->progreso, $this->error);
+		//toba_manejador_archivos::ejecutar($cmd, $this->progreso, $this->error);
+		toba_manejador_procesos::ejecutar($cmd, $this->progreso, $this->error);
 		if ($this->error != '' && $loguear) {
 			toba::logger()->error($this->error);
 		}

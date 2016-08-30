@@ -16,6 +16,8 @@ class toba_datos_busqueda
 	
 	/**
 	 * @ignore 
+	 * @param type $relacion
+	 * @param type $tabla
 	 */
 	function __construct($relacion, $tabla)
 	{
@@ -25,9 +27,8 @@ class toba_datos_busqueda
 
 	/**
 	 * Fuerza que en la búsqueda se tome en cuenta solo los registros hijos de un padre
-	 *
-	 * @param string $tabla_padre	Nombre del datos_tabla padre
-	 * @param string $id_padre		Id. interno de la fila padre
+	 * @param string $tabla_padre  Nombre del datos_tabla padre
+	 * @param string $id_padre       Id. interno de la fila padre
 	 */
 	function set_padre($tabla_padre, $id_padre)
 	{
@@ -36,7 +37,6 @@ class toba_datos_busqueda
 	
 	/**
 	 * Fuerza que en la búsqueda se respete una condición sobre los registros de la tabla
-	 *
 	 * @param string $campo Columna de la condición
 	 * @param string $operador Operador de la condición (==, ===, <, >, etc)
 	 * @param mixed $valor Valor de la condición

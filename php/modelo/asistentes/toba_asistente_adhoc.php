@@ -5,13 +5,21 @@
  */
 class toba_asistente_adhoc extends toba_asistente
 {
-
+	/**
+	 * Genera el asistente
+	 */
 	function generar()
 	{
 		
 	}
 	
-	
+	/**
+	 * Ejecuta la generacion 
+	 * @param array $id_item
+	 * @param mixed $retorno_opciones_generacion
+	 * @param boolean $con_transaccion
+	 * @return mixed
+	 */
 	function ejecutar($id_item, $retorno_opciones_generacion=null, $con_transaccion  = true)
 	{
 		try {

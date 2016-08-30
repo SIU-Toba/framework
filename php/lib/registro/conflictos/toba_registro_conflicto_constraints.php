@@ -7,6 +7,11 @@ class toba_registro_conflicto_constraints extends toba_registro_conflicto
 	 */
 	protected $db_error;
 	
+	/**
+	 * Constructor
+	 * @param array $registro
+	 * @param toba_error_db $db_error
+	 */
 	function  __construct($registro, $db_error)
 	{
 		parent::__construct($registro);
@@ -23,7 +28,11 @@ class toba_registro_conflicto_constraints extends toba_registro_conflicto
 		}
 		
 	}
-
+	
+	/**
+	 * Devuelve una descripcion del conflicto
+	 * @return string
+	 */
 	function get_descripcion()
 	{
 		$tabla = $this->registro->get_tabla();

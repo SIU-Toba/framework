@@ -1,6 +1,9 @@
 <?php
+/**
+ * Clase basica de comandos de consola
+ * @ignore
+ */
 require_once('comando_toba.php');
-
 class comando_base extends comando_toba
 {
 	static function get_info()

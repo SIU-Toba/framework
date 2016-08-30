@@ -5,6 +5,14 @@ class toba_rf_item extends toba_rf
 	protected $icono = "item.gif";
 	protected $expandir_deps_sin_pantalla;
 	
+	/**
+	 * @ignore
+	 * @param string $restriccion
+	 * @param string $proyecto
+	 * @param array $item
+	 * @param array $id_padre
+	 * @param boolean $expandir_dep_sueltas
+	 */
 	function __construct($restriccion, $proyecto, $item, $id_padre, $expandir_dep_sueltas=false) 
 	{
 		$this->id_padre = $id_padre;		
@@ -31,11 +39,18 @@ class toba_rf_item extends toba_rf
 		$this->get_imagen();
 	}
 	
+	/**
+	 * Devuelve el ID
+	 * @return string
+	 */
 	function get_id()
 	{
 		return 'item_'.parent::get_id();
 	}
 	
+	/**
+	 * Sincroniza cada uno de los hijos de este nodo
+	 */
 	function sincronizar()
 	{
 		if ($this->tiene_hijos_cargados()) {
@@ -45,6 +60,10 @@ class toba_rf_item extends toba_rf
 		}
 	}
 	
+	/**
+	 * Carga las RF del item
+	 * @return array|false
+	 */
 	function cargar_datos()
 	{
 		$item = quote($this->item);
@@ -68,6 +87,11 @@ class toba_rf_item extends toba_rf
 		return toba::db()->consultar_fila($sql);
 	}
 
+	/**
+	 * Define si existe alguna dependencia con RF
+	 * @param array $datos
+	 * @return boolean
+	 */
 	protected function tiene_dependencia_con_restriccion($datos)
 	{
 		return ($datos['cant_rest_ef'] > 0 ||
@@ -78,6 +102,9 @@ class toba_rf_item extends toba_rf
 				$datos['cant_rest_filtro_cols'] > 0);
 	}
 	
+	/**
+	 * Realiza la carga de los hijos del item
+	 */
 	function cargar_hijos()
 	{
 		$hijos = array();
@@ -90,6 +117,10 @@ class toba_rf_item extends toba_rf
 		}
 	}
 	
+	/**
+	 * Busca los hijos de este item
+	 * @return array
+	 */
 	function buscar_hijos()
 	{
 		$item = quote($this->item);

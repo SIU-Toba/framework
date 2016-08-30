@@ -1,7 +1,6 @@
 <?php
 /**
  * Tags que se usan en el proceso de exportación para generar los xml
- *
  * @author sp14ab
  */
 class toba_pers_xml_elementos

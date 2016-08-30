@@ -6,7 +6,7 @@
  */
 class toba_db_postgres7 extends toba_db
 {
-	protected $cache_metadatos = array(); //Guarda un cache de los metadatos de cada tabla
+	protected $cache_metadatos = array();		 //Guarda un cache de los metadatos de cada tabla
 	protected $schema;
 	protected $transaccion_abierta = false;
 	
@@ -81,11 +81,12 @@ class toba_db_postgres7 extends toba_db
 	}	
 	
 	/**
-	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
-	 * @param string $schema
-	 * @param boolean $ejecutar
-	 * @param boolean $fallback_en_public
-	 */
+	* Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos
+	* @param string $schema
+	* @param boolean $ejecutar
+	* @param boolean $fallback_en_public
+	* @return mixed
+	*/
 	function set_schema($schema, $ejecutar = true, $fallback_en_public=false)
 	{
 		$this->schema = $schema;
@@ -262,12 +263,12 @@ class toba_db_postgres7 extends toba_db
 	}
 
 	/**
-	*	Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.
-	*	@param string $tabla Nombre de la tabla en la que se insertarán los datos
-	*	@param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
-	*	@param string $delimitador Separador de datos de cada fila.
-	*	@param string $valor_nulo Cadena que se utlilizará como valor nulo.
-	*	@return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
+	* Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.
+	* @param string $tabla Nombre de la tabla en la que se insertarán los datos
+	* @param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
+	* @param string $delimitador Separador de datos de cada fila.
+	* @param string $valor_nulo Cadena que se utlilizará como valor nulo.
+	* @return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
 	*/
 	function insert_masivo($tabla,$datos,$delimitador="\t",$valor_nulo="\\N") {
 		$dbconn = $this->get_pg_connect_nativo();
