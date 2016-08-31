@@ -4,5 +4,10 @@ vendor/
 .files.git
 *.iml
 *.env
+*.yml
 nbproject/
 www/js/packages/
+bin/jsonlint
+bin/phpdoc
+bin/phpdoc.php
+bin/validate-json
