@@ -1,0 +1,8 @@
+instalacion/
+vendor/
+.log.git
+.files.git
+*.iml
+*.env
+nbproject/
+www/js/packages/
