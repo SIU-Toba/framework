@@ -1,6 +1,7 @@
 <?php
-require_once('comando_toba.php');
+use Symfony\Component\Yaml\Yaml;
 
+require_once('comando_toba.php');
 class comando_instalacion_silenciosa extends comando_toba
 {	
 	function recuperar_contenido_archivo($nombre)
@@ -237,8 +238,20 @@ class comando_instalacion_silenciosa extends comando_toba
 	
 	protected function parsear_yml($archivo) 
 	{
-		$contenido = sfYAML::load($archivo);												//Esta mas actualizado que el de PHP, que ademas requiere PECL
-		//$contenido = yaml_parse_file($archivo);
+		$contenido = array();
+		if (realpath($archivo) === false) {
+			toba::logger()->error("El archivo indicado no existe o no es accesible");
+			die();
+		}				
+		try {
+			$valores = YAML::parse(file_get_contents($archivo));									//Esta mas actualizado que el de PHP, que ademas requiere PECL
+			if (! empty($valores)) {
+				$contenido = $valores['parameters'];
+			}
+		} catch(ParseException $e) {
+			toba::logger()->error($e->getMessage());
+			toba::logger()->warning("El contenido del archivo no pudo ser parseado, continuando con valores por defecto");
+		}		
 		return $contenido;
 	}
 	

@@ -56,10 +56,11 @@ class toba_nucleo
 		$pos = stripos($dir, '/vendor/');
 		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
 			$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
+		} elseif (file_exists(realpath(self::toba_dir().'/vendor/autoload.php'))) {
+			$path = realpath(self::toba_dir() . '/vendor/autoload.php');			//Nivel inicial por desarrollo de Toba o Rama 2.8+
 		} else {
-			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');		//Toba se usa como nivel inicial
+			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');			//Valido para rama 2.7.x
 		}
-		
 		if (file_exists($path)) {
 			require_once($path);					
 		}		
