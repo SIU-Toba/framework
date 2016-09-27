@@ -11,3 +11,10 @@ bin/jsonlint
 bin/phpdoc
 bin/phpdoc.php
 bin/validate-json
+.files.svn
+.log.svn
+.svn/*
+.project
+.directory
+metadatos_compilados/
+temp/
