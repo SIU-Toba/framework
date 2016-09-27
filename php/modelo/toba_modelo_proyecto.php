@@ -738,7 +738,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$xml = new toba_xml_tablas();
 				$xml->set_tablas($datos);
 				$xml->guardar($archivo);
-				$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
+				if (isset($datos['apex_usuario_grupo_acc_item']) && ! is_null($datos['apex_usuario_grupo_acc_item'])) {
+					$items = array_merge($items, $datos['apex_usuario_grupo_acc_item']);
+				}
 			}
 			unset($datos);
 			$this->manejador_interface->progreso_avanzar();
@@ -748,7 +750,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$items = $this->get_descripcion_items($items);
 		$archivo = $this->get_dir_instalacion_proyecto() . "/items.xml";
 		$xml = new toba_xml_tablas();
-		$xml->set_tablas($items, 'items');
+		$xml->set_tablas(array('items' => $items));
 		$xml->guardar($archivo);
 		
 		//--- Perfiles de datos
@@ -1360,7 +1362,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function cargar_perfiles_produccion()
 	{
 		$this->manejador_interface->mensaje("Cargando perfiles propios", false);
-		$todos_errores = array();
+		$todos_errores = $lista_perfiles = array();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_produccion(), '|.*\.xml$|' );
 		 		
 		//-- Quito el archivo de las restricciones si es que existe
@@ -1372,32 +1374,43 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$restricciones = array($actual);
 				unset($archivos[key($archivos)]);
 				$hay_restricciones = true;
+			} elseif ($perfil == 'perfil') {
+				$lista_perfiles[] = $actual;
+				unset($archivos[key($archivos)]);
 			}
 			next($archivos);
 		}
 		
-		//--Reordeno los archivos restantes para que los grupos queden al final
-		if (! rsort($archivos, SORT_LOCALE_STRING)) {
+		//-- Reordeno los archivos restantes para que los grupos queden al final
+		if (! empty($archivos) && ! rsort($archivos, SORT_LOCALE_STRING)) {
 			$msg = "ATENCION! Se produjo un error al recuperar los archivos pertenecientes a los perfiles de '{$this->identificador}'.";
 			$this->manejador_interface->separador();
 			$this->manejador_interface->error($msg);
 		 }		
 		
+		 //-- Agrego los perfiles en su orden original para respetar las membresias
+		if (! empty($lista_perfiles)) {
+			$archivos = array_merge($lista_perfiles, $archivos);
+		}
+		 
 		 //-- Si hay restricciones las agrego al ppio.
 		if ($hay_restricciones) {
 			$archivos = array_merge($restricciones, $archivos);
 		}
 		
+		//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
+		$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
+		if (file_exists($dir_items)) {
+			$xml = new toba_xml_tablas($dir_items);
+			$items = $this->get_descripciones_items($xml->get_tablas());
+		}
+		
+		//-- Intenta cargar los archivos xml
 		foreach( $archivos as $archivo ) {
 			$perfil = basename($archivo, '.xml');
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
-				//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
-				$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
-				if (file_exists($dir_items)) {
-					$xml = new toba_xml_tablas($dir_items);
-					$items = $this->get_descripciones_items($xml->get_tablas());
 					foreach (array_keys($errores) as $clave) {
 						$id_item = (isset($errores[$clave]['datos']['item']))?  $errores[$clave]['datos']['item'] : null;
 						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && array_key_exists($id_item, $items)) {
@@ -1408,7 +1421,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 							}
 						}
 					}
-				}
 				
 				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
 				$msg .= " A continuación el detalle:";
