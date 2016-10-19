@@ -20,7 +20,7 @@ class form_armado extends toba_ei_formulario
 	
 	function generar_layout()
 	{
-		$this->generar_html_ef('nivel_inicial');	
+		$this->generar_html_ef('nivel_inicial');
 		echo '<div id="contenedor_final" class="menu">
 				<ul style="list-style: none outside none;">&nbsp;</ul>
 			</div>';		

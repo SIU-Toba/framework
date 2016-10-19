@@ -268,9 +268,9 @@ class ci_login extends toba_ci
 					$personalizable = $id;
 				}
 			}
-			echo "
-				{$this->dep('openid')->objeto_js}.evt__provider__procesar = function(inicial) {
-					if (this.ef('provider').get_estado() == '$personalizable') {
+			echo toba::escaper()->escapeJs($this->dep('openid')->objeto_js)
+				.".evt__provider__procesar = function(inicial) {
+					if (this.ef('provider').get_estado() == '". toba::escaper()->escapeJs($personalizable)."') {
 						this.ef('provider_url').mostrar();
 					} else {
 						this.ef('provider_url').ocultar();
@@ -289,7 +289,7 @@ class ci_login extends toba_ci
 					$proyecto = toba::proyecto()->get_id();
 					$item = toba::proyecto()->get_parametro('item_inicio_sesion');
 				}
-				$url = toba::vinculador()->get_url($proyecto, $item);
+				$url = toba::escaper()->escapeJs(toba::vinculador()->get_url($proyecto, $item));
 				
 				if ($this->en_popup) {
 					echo " abrir_popup('sistema', '$url', {resizable: 1});	";

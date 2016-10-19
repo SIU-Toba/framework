@@ -7,10 +7,8 @@ class form_proyecto extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
-		echo "
-		//---- Procesamiento de EFs --------------------------------
-		
-		{$this->objeto_js}.evt__proyecto__procesar = function(es_inicial)
+		echo toba::escaper()->escapeJs($this->objeto_js) .
+		".evt__proyecto__procesar = function(es_inicial)
 		{
 			if (! es_inicial) {
 				this.set_evento( new evento_ei('filtrar', true, '' ));

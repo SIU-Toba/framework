@@ -75,27 +75,27 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 		//Genero un par de arreglos que van a servir como lista en js
 		$ids_activos = (! empty($estado['activos'])) ? array_fill_keys($estado['activos'], true): array();
 		$ids_desactivados = (! empty($estado['inactivos'])) ? array_fill_keys($estado['inactivos'], true): array();
-		echo ' var ' . $id_js . '_items_activos = '  . toba_js::arreglo($ids_activos, true) . "; \n" ;
-		echo ' var ' . $id_js . '_items_desactivados = '  . toba_js::arreglo($ids_desactivados, true) ."; \n" ;				
+		$escapador = toba::escaper();
+		echo ' var ' . $escapador->escapeJs($id_js . '_items_activos') . ' = '  . toba_js::arreglo($ids_activos, true) . "; \n" ;
+		echo ' var ' . $escapador->escapeJs($id_js . '_items_desactivados') . ' = '  . toba_js::arreglo($ids_desactivados, true) ."; \n" ;				
 		
-		echo "			
-			$id_js.cambiar_acceso = function(id_input)
+		echo $escapador->escapeJs($id_js) .".cambiar_acceso = function(id_input)
 			{
-				var id_elemento = '$id_gral' + '_' + id_input; 					
-				if (isset({$this->objeto_js}_items_activos[id_input])) {			//Esta visible, hay que ocultarlo					
-					delete({$this->objeto_js}_items_activos[id_input]);
-					{$this->objeto_js}_items_desactivados[id_input] = true;
-					$$(id_elemento + '_acceso_img').src = '$img_sin_acceso';						
-				} else if (isset({$this->objeto_js}_items_desactivados[id_input])) {		//Esta oculto, hay que mostrarlo					
-					delete({$this->objeto_js}_items_desactivados[id_input]);
-					{$this->objeto_js}_items_activos[id_input] = true;
-					$$(id_elemento + '_acceso_img').src = '$img_acceso';									
+				var id_elemento = '". $escapador->escapeJs($id_gral)."' + '_' + id_input; 					
+				if (isset(". $escapador->escapeJs($this->objeto_js.'_items_activos')."[id_input])) {			//Esta visible, hay que ocultarlo					
+					delete(". $escapador->escapeJs($this->objeto_js.'_items_activos')."[id_input]);" .
+					$escapador->escapeJs($this->objeto_js.'_items_desactivados')."[id_input] = true;
+					$$(id_elemento + '_acceso_img').src = '". $escapador->escapeJs($img_sin_acceso)."';						
+				} else if (isset(". $escapador->escapeJs($this->objeto_js.'_items_desactivados')."[id_input])) {		//Esta oculto, hay que mostrarlo					
+					delete(". $escapador->escapeJs($this->objeto_js.'_items_desactivados')."[id_input]);
+					". $escapador->escapeJs($this->objeto_js.'_items_activos')."[id_input] = true;
+					$$(id_elemento + '_acceso_img').src = '". $escapador->escapeJs($img_acceso)."';									
 				}
-			}
+			}\n".
 			
-			$id_js.marcar = function(id_input, valor)
+			$escapador->escapeJs($id_js).".marcar = function(id_input, valor)
 			{				
-				var id_final = '$id_gral' + '_' + id_input + '_carpeta';
+				var id_final = '". $escapador->escapeJs($id_gral)."' + '_' + id_input + '_carpeta';
 				var padre = $$(id_final).parentNode.parentNode;		
 				var nodo = this.buscar_primer_marca(padre, 'UL');
 				if (nodo) {		
@@ -110,9 +110,9 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 						}
 					}
 				}
-			}
+			}\n".
 						
-			$id_js.marcar_recursivo = function(carpeta, valor) 
+			$escapador->escapeJs($id_js).".marcar_recursivo = function(carpeta, valor) 
 			{
 				var marca_carpeta = this.buscar_primer_marca(carpeta, 'SPAN');
 				if (marca_carpeta) {
@@ -135,9 +135,9 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 						}
 					}
 				}
-			}
+			}\n".
 			
-			$id_js.cambiar_estado_acceso = function(nodo, valor)
+			$escapador->escapeJs($id_js).".cambiar_estado_acceso = function(nodo, valor)
 			{
 				for (var i=0; i < nodo.childNodes.length; i++) {
 					if (nodo.childNodes[i].tagName == 'SPAN') {
@@ -149,18 +149,18 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 						}
 					}
 				}
-			}
+			}\n".
 			
-			$id_js.buscar_primer_marca = function (nodo, marca) {
+			$escapador->escapeJs($id_js).".buscar_primer_marca = function (nodo, marca) {
 				for (var i=0; i < nodo.childNodes.length; i++) {
 					if (nodo.childNodes[i].tagName == marca) {
 						return nodo.childNodes[i];
 					}
 				}
 				return false;
-			}
+			}\n".
 			
-			$id_js.submit = function()
+			$escapador->escapeJs($id_js).".submit = function()
 			{				
 				var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 				if (padre_esta_en_proceso) {
@@ -178,17 +178,16 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 
 				//Agrego como lista los nodos seleccionados y deseleccionados
 				var claves = [];
-				for (var i in {$id_js}_items_activos) {
+				for (var i in ". $escapador->escapeJs($id_js.'_items_activos').") {
 					claves.push(i);
 				}
-				document.getElementById('{$id_gral}__nodos_seleccionados').value = claves.join(toba_hilo_separador_interno);
+				document.getElementById('". $escapador->escapeJs($id_gral.'__nodos_seleccionados')."').value = claves.join(toba_hilo_separador_interno);
 
 				var claves = [];				
-				for (var i in {$id_js}_items_desactivados) {
+				for (var i in ". $escapador->escapeJs($id_js.'_items_desactivados').") {
 					claves.push(i);
 				}
-				document.getElementById('{$id_gral}__nodos_deseleccionados').value = claves.join(toba_hilo_separador_interno);				
-				
+				document.getElementById('". $escapador->escapeJs($id_gral.'__nodos_deseleccionados')."').value = claves.join(toba_hilo_separador_interno);				
 			}
 		";
 	}

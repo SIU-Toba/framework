@@ -102,7 +102,7 @@
 	{
 		$x = false;
 		foreach( array_keys($array) as $id ){
-			if( isset($array[$id]) ) return true;
+			if( isset($array[$id]) ) { return true; }
 		}
 		return $x;
 	}
@@ -340,15 +340,19 @@
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
-		$pos_guia = strpos($etiqueta, '&');
+		$pos_guia = strpos($etiqueta, '&');		
+		$escapador = toba::escaper();
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
-			$etiqueta = htmlspecialchars($etiqueta, null, 'ISO-8859-1');
+			$etiqueta = $escapador->escapeHtmlAttr($etiqueta);
 			return array($etiqueta, null);
 		} else {
-			$tecla = $etiqueta{$pos_guia + 1};
-			$nueva_etiqueta = str_replace("&$tecla", "%_%$tecla%_%", $etiqueta);
-			$nueva_etiqueta = htmlspecialchars($nueva_etiqueta, null, 'ISO-8859-1');
-			$nueva_etiqueta = str_replace("%_%$tecla%_%", "<u>$tecla</u>", $nueva_etiqueta);			
+			$partes = explode('&', $etiqueta);	
+			if (count($partes) != 2) {
+				throw new toba_error_def('No puede existir mas de un shortcut en la misma etiqueta');
+			}
+			$tecla = substr($partes[1], 0, 1);
+			$nueva_etiqueta = $escapador->escapeHtmlAttr($partes[0]) . '<u>'. $escapador->escapeHtmlAttr($tecla). '</u>';
+			$nueva_etiqueta .= $escapador->escapeHtmlAttr(substr($partes[1], 1));
 			return array($nueva_etiqueta, $tecla);
 		}
 	}
@@ -501,14 +505,14 @@
 		$js = "";
 		if(is_array($array)){
 			$js .= " $nombre = new Object();\n";
+			$escapador = toba::escaper();
 			foreach($array as $id => $valor)
 			{
 				$valor = str_replace("\"","'",$valor);
-				if ($es_objeto)
-					$valor_js = $valor;
-				else
-					$valor_js = "\"$valor\"";
-				$js .= "$nombre"."['$id'] = $valor_js;\n";	
+				$id_js = $escapador->escapeJs($id);
+				$valor_js = ($es_objeto) ? $valor : '"'. $escapador->escapeJs($valor). '"';
+				
+				$js .= "$nombre"."['$id_js'] = $valor_js;\n";	
 			}
 		}
 		return $js;
@@ -604,7 +608,7 @@
 		//El ancho de una tabla no puede tener 'px'			
 		$ancho = str_replace('px', '', $ancho);
 		if ($ancho != '') {
-			$ancho =  "$medida='$ancho'";
+			$ancho =  "$medida='".toba::escaper()->escapeHtmlAttr($ancho)."'";
 		}
 		return $ancho;
 	}
@@ -738,26 +742,26 @@
 	
 	function ejecutar_consola($cmd, &$stdout, &$stderr)
 	{
-	    $outfile = tempnam(".", "cmd");
-	    $errfile = tempnam(".", "cmd");
-	    $descriptorspec = array(
-	        0 => array("pipe", "r"),
-	        1 => array("file", $outfile, "w"),
-	        2 => array("file", $errfile, "w")
-	    );
-	    $proc = proc_open($cmd, $descriptorspec, $pipes);
-	   
-	    if (!is_resource($proc)) return 255;
-	
-	    fclose($pipes[0]);    //Don't really want to give any input
-	
-	    $exit = proc_close($proc);
-	    $stdout = file($outfile);
-	    $stderr = file($errfile);
-	
-	    unlink($outfile);
-	    unlink($errfile);
-	    return $exit;
+		$outfile = tempnam(".", "cmd");
+		$errfile = tempnam(".", "cmd");
+		$descriptorspec = array(
+			0 => array("pipe", "r"),
+			1 => array("file", $outfile, "w"),
+			2 => array("file", $errfile, "w")
+		);
+		$proc = proc_open($cmd, $descriptorspec, $pipes);
+
+		if (!is_resource($proc)) {return 255;}
+
+		fclose($pipes[0]);    //Don't really want to give any input
+
+		$exit = proc_close($proc);
+		$stdout = file($outfile);
+		$stderr = file($errfile);
+
+		unlink($outfile);
+		unlink($errfile);
+		return $exit;
 	}	
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo, $buscar_hora=false){
@@ -781,7 +785,7 @@
 	
 	/**
 	 * Convierte una hora de formato 24 a 12
-	 * @param string $hora Cadena representando la hora que se quiere convertir
+	 * @param string $hora_original Cadena representando la hora que se quiere convertir
 	 */
 	function cambiar_hora_formato_12($hora_original)
 	{
@@ -804,7 +808,7 @@
 	 */
 	function texto_plano($texto)
 	{
-		return htmlentities($texto, ENT_QUOTES, 'ISO-8859-1');
+		return toba::escaper()->escapeHtml($texto);
 	}
 
 

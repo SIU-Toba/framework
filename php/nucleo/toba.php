@@ -4,6 +4,7 @@
  * Se utiliza como toba::zona()->cargar, toba::logger()->trace() o toba::tabla('mi_tabla')->...
  * @package Centrales
  */
+use Zend\Escaper\Escaper;
 class toba
 {
 	static private $mensajes;
@@ -14,6 +15,7 @@ class toba
 	static private $cn = array();
 	static private $consultas_php;
 	static private $rdi;
+	static private $escaper;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -441,5 +443,14 @@ class toba
 		self::$rdi->set_instalacion(self::instalacion());
 		return self::$rdi->get_cliente();
 	}
+	
+	static function escaper()
+	{
+		if (!isset(self::$escaper)){
+			self::$escaper = new Escaper(apex_default_charset);
+		}
+		return self::$escaper;
+	}
+	
 }
 ?>

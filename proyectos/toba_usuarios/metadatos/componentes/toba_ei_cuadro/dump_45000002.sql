@@ -24,8 +24,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'toba_usuarios', --fuente_datos_proyecto
-	'toba_usuarios', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -101,7 +101,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	'<center>Sin restricciones creadas</center>', --eof_customizado
+	'Sin restricciones creadas', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'0', --exportar

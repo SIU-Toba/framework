@@ -34,6 +34,8 @@ define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "tsd");
 
 define('apex_sesion_csrt', 'cstoken');
+define('apex_default_charset',  'ISO-8859-1');	
+
 /**
  * La memoria contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
  *  - Memoria general de la aplicación
@@ -77,17 +79,24 @@ class toba_memoria
 	{
 		self::$instancia = null;
 	}
-	
+			
 	private function __construct()
 	{
 		//toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
 		$this->id = uniqid('st', true);
-		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);		
-        //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
+		$this->url_actual = texto_plano($_SERVER["PHP_SELF"]);	
+		
+		$this->parametros = array();
+		//-[0]- Recupero los parametros
+		foreach (array_keys($_GET) as $clave) {		
+			$this->parametros[utf8_decode($clave)] = utf8_decode($_GET[$clave]);			
+		}
+		
+		 //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
 		//		Este ID me permite ubicar la memoria correcta para el request ACTUAL
-		if(isset($_GET[apex_hilo_qs_id])){
-			$this->hilo_referencia=$_GET[apex_hilo_qs_id];
+		if(isset($this->parametros[apex_hilo_qs_id])){
+			$this->hilo_referencia=$this->parametros[apex_hilo_qs_id];
 		}else{
 			//Atencion, no hay hilo de referencia. CONTROLAR!!
 			//Esto tiene sentido solo para la pagina de logon (?) para el resto 
@@ -95,13 +104,7 @@ class toba_memoria
 		}
         
 		//-[2]- Que ITEM se solicito?
-		$this->item_solicitado = self::get_item_solicitado_original();
-		//-[3]- Recupero los parametros
-		$this->parametros = array();
-		foreach (array_keys($_GET) as $clave) {
-			$this->parametros[utf8_decode($clave)] = utf8_decode($_GET[$clave]);
-		}		
-//		$this->parametros = $_GET;
+		$this->item_solicitado = self::get_item_solicitado_original();		
 		//FALTA hacer un URL decode!!!		
 		$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 		if($encriptar_qs){
@@ -118,8 +121,8 @@ class toba_memoria
 		
 		//------- MEMORIA -- Hago el bindeo con $_SESSION  ----------------------------
 		// Determino el ID de la celda de memoria actual		
-		if(isset($this->parametros[apex_hilo_qs_celda_memoria])){
-			$this->celda_memoria_actual_id = $this->parametros[apex_hilo_qs_celda_memoria];
+		if(isset($this->parametros[apex_hilo_qs_celda_memoria])) {
+			$this->celda_memoria_actual_id = self::get_valor_verificado($this->parametros[apex_hilo_qs_celda_memoria],  apex_hilo_qs_celda_memoria_defecto);
 			unset($this->parametros[apex_hilo_qs_celda_memoria]);
 		} else {
 			$this->celda_memoria_actual_id = apex_hilo_qs_celda_memoria_defecto;
@@ -141,8 +144,8 @@ class toba_memoria
 		$this->memoria_instancia =& toba::manejador_sesiones()->segmento_datos_instancia();
 		//-----------------------------------------------------------------------------
 
-		if (isset($this->parametros[apex_hilo_qs_servicio])) {
-			$this->servicio = substr($this->parametros[apex_hilo_qs_servicio], 0, 60);
+		if (isset($this->parametros[apex_hilo_qs_servicio])) {			
+			$this->servicio = substr(self::get_valor_verificado($this->parametros[apex_hilo_qs_servicio], apex_hilo_qs_servicio_defecto),0, 60);
 			unset($this->parametros[apex_hilo_qs_servicio]);
 		}
 		if (isset($this->parametros[apex_hilo_qs_objetos_destino])) {
@@ -315,7 +318,9 @@ class toba_memoria
 			if(count($item)==0) {
 				return null;
 			} elseif(count($item)==2) {
-				return $item;
+				$proy = self::get_valor_verificado($item[0], false);
+				$it = self::get_valor_verificado($item[1], false);				
+				return ($proy !== false  && $it !== false ) ? array($proy, $it) : null;		//Los parametros pueden o no cumplir con las reglas
 			} else {
 				return null;
 			}
@@ -912,6 +917,21 @@ class toba_memoria
 				}
 			}
 		}		
+	}
+
+	/**
+	 * Intenta devolver la parte correcta de un parametro o falso sino
+	 * @param mixed $param
+	 * @param mixed $valor_defecto
+	 * @return mixed
+	 */
+	static function get_valor_verificado($param, $valor_defecto)
+	{
+		if ( preg_match('#^[a-zA-Z0-9_]+$#', $param, $aux) !== false) {
+			return current($aux);
+		} else {			
+			return $valor_defecto;
+		}
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------//

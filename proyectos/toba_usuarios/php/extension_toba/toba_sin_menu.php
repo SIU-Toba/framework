@@ -10,7 +10,7 @@ class toba_sin_menu extends toba_tp_normal
 		$this->cabecera_aplicacion();	
 		$wait = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
-		echo "<img src='$wait' style='vertical-align: middle;' alt='' /> Procesando...";
+		echo "<img src='". toba::escaper()->escapeHtmlAttr($wait)."' style='vertical-align: middle;' alt='' /> Procesando...";
 		echo "</div>\n";
 	}
 }

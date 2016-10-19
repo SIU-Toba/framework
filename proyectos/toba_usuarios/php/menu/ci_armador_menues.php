@@ -339,13 +339,13 @@ class ci_armador_menues extends toba_ci
 	function ajax__set_descripcion_nodo($parametros, toba_ajax_respuesta $respuesta)
 	{
 		//Cambia la descripcion del nodo indicado
-		$ids = $this->get_ids_enviados();
+		$ids = $this->get_ids_enviados();		
 		$id_nodo = $parametros['id_nodo'];
-		if (in_array($id_nodo, $ids)) {			
+		//if (in_array($id_nodo, $ids)) {			
 			$cursor = $this->dep('datos')->tabla('operaciones')->get_id_fila_condicion(array('item' => $id_nodo));
 			$this->dep('datos')->tabla('operaciones')->modificar_fila(current($cursor), array('descripcion' => $parametros['descripcion']));
 			$respuesta->set('OK');
-		} 	
+		//}
 	}
 		
 	//-----------------------------------------------------------------------------------
@@ -355,9 +355,8 @@ class ci_armador_menues extends toba_ci
 	function extender_objeto_js()
 	{
 		//Se encarga de crear los hiddens necesarios en el form y agregarle los ids de los nodos seleccionados de manera grafica..
-		echo "
-		//---- Eventos ---------------------------------------------		
-		{$this->objeto_js}.evt__cambiar_texto = function()
+		echo toba::escaper()->escapeJs($this->objeto_js)
+		.".evt__cambiar_texto = function()
 		{
 			var id_hidden, ind;
 			this.dep('form_armado').ef('nivel_inicial').set_estado(Object.keys(arbol).join('^'));

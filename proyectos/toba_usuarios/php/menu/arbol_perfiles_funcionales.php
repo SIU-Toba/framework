@@ -10,8 +10,9 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 	
 	protected function generar_cuerpo()
 	{
+		$escapador = toba::escaper();
 		$id_div = '';
-		$id = "id='{$this->objeto_js}_nodo_raiz'";								
+		$id = "id='". $escapador->escapeHtmlAttr($this->objeto_js.'_nodo_raiz')."'";								
 		if (count($this->_nodos_inicial) > 1) {
 			$id_div = $id;
 			$id = '';		
@@ -25,7 +26,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 			echo "\n<ul $id class='ei-arbol-raiz'>";
 			echo $this->recorrer_recursivo($nodo_inicial, true);
 			echo '</ul>';
-			$id = null;	//El id lo tiene solo el primer nodo
+			$id = '';	//El id lo tiene solo el primer nodo
 		}
 		echo '</div>';	
 	}	
@@ -74,8 +75,8 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 			if (method_exists($nodo, 'get_clase_css_li')) {
 				$clase_li .= $nodo->get_clase_css_li();
 			}
-			
-			$salida = "\n\t<li class='$clase_li' id_nodo='{$nodo->get_id()}' style='$estilo_li' >";					
+			$escapador = toba::escaper();
+			$salida = "\n\t<li class='". $escapador->escapeHtmlAttr($clase_li)."' id_nodo='". $escapador->escapeHtmlAttr($nodo->get_id())."' style='". $escapador->escapeHtmlAttr($estilo_li)."' >";					
 			$salida .= $salida_generada;
 			$salida .= "</li>\n";
 		} else {
@@ -99,6 +100,7 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 
 		//Recursividad
 		if (! $nodo->es_hoja()) {	
+			$escapador = toba::escaper();
 			//Configuracion del estilo del nodo
 			$clase_ul = 'ei-arbol-rama menu-origen';			
 			if (method_exists($nodo, 'get_clase_css_ul')) {
@@ -109,9 +111,9 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 			if (method_exists($nodo, 'get_estilo_css_ul')) {
 				$estilo_ul .= $nodo->get_estilo_css_ul();
 			}
-			$estilo = ($estilo_ul != '') ? "style='$estilo_ul'" : '';
+			$estilo = ($estilo_ul != '') ? "style='". $escapador->escapeHtmlAttr($estilo_ul)."'" : '';
 			
-			$salida .= "\n<ul id_nodo='{$nodo->get_id()}' class='$clase_ul' $estilo carpeta='true'>";			
+			$salida .= "\n<ul id_nodo='". $escapador->escapeHtmlAttr($nodo->get_id())."' class='". $escapador->escapeHtmlAttr($clase_ul)."' $estilo carpeta='true'>";			
 			if ($nodo->tiene_hijos_cargados()) {
 				$nivel ++;
 				$salida .= $this->recorrer_hijos($nodo, $nivel);

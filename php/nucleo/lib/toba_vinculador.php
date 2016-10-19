@@ -172,6 +172,7 @@ class toba_vinculador
 								$objetos_destino=null, $prefijo=null, $nombre_ventana=null)
  	{
  		$separador = '&';
+		$escapador = toba::escaper();
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el id de la operación actual, o una operación del mismo proyecto
 		$autovinculo = false;
@@ -195,7 +196,7 @@ class toba_vinculador
 			}
 		}
 
-		$item_a_llamar = $item_proyecto . apex_qs_separador . $item;
+		$item_a_llamar = $escapador->escapeUrl($item_proyecto . apex_qs_separador . $item);
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
 		if ($zona){//Hay que propagar la zona?
@@ -203,12 +204,12 @@ class toba_vinculador
 		}
 		//Cual es el tipo de salida?
 		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
-			$parametros_formateados .= $separador.apex_hilo_qs_servicio ."=". $servicio;
+			$parametros_formateados .= $separador.apex_hilo_qs_servicio ."=". $escapador->escapeUrl($servicio);
 		}
 		if (isset($objetos_destino) && is_array($objetos_destino)) {
 			$objetos = array();
 			foreach ($objetos_destino as $obj) {
-				$objetos[] = $obj[0] . apex_qs_separador . $obj[1];
+				$objetos[] =  $escapador->escapeUrl($obj[0] . apex_qs_separador . $obj[1]);
 			}
 			$qs_objetos = implode(',', $objetos);
 			$parametros_formateados .= $separador.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
@@ -222,7 +223,7 @@ class toba_vinculador
 			}
 		}		
 		if (isset($celda_memoria)) {
-			$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=". $celda_memoria;
+			$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=".  $escapador->escapeUrl($celda_memoria);
 		}
 		//La proxima pagina va a CRONOMETRARSE?
 		if($cronometrar){
@@ -231,7 +232,7 @@ class toba_vinculador
 		//Formateo paremetros directos
 		if(isset($parametros) && is_array($parametros)){
 			foreach($parametros as $clave => $valor){
-				$parametros_formateados .= $separador."$clave=$valor";
+				$parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
 			}
 		}
 		//Obtengo el prefijo del vinculo
@@ -260,11 +261,11 @@ class toba_vinculador
 		//Esto se maneja directamente $_GET por performance (NO encriptar todo el menu)
 		if($menu){
 			$vinculo .= $separador . apex_hilo_qs_menu ."=1";
-		}
+		}		
 		//Genero HTML o devuelvo el VINCULO
-		if(is_array($param_html)){
+		if(is_array($param_html)) {
 			return $this->generar_html($vinculo, $param_html, $nombre_ventana);
-		}else{
+		} else {
 			return $vinculo;
 		}
 	}
@@ -280,7 +281,7 @@ class toba_vinculador
 		if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
 			if (toba::zona()->get_modo_url()) {
 				$editable = $this->variable_a_url(toba::zona()->get_editable());
-				$qs .= '&'.apex_hilo_qs_zona."=".$editable;
+				$qs .= '&'.apex_hilo_qs_zona."=". toba::escaper()->escapeUrl($editable);
 			}else{
 				$qs .= '&'.apex_hilo_qs_zona.'=1';
 				toba::zona()->propagar_id();
@@ -306,7 +307,7 @@ class toba_vinculador
 		}
 		$salida = array();
 		foreach ($variable as $clave => $valor) {
-			$salida[] = urlencode($clave . apex_qs_sep_interno. $valor);
+			$salida[] = toba::escaper()->escapeUrl($clave . apex_qs_sep_interno. $valor);
 		}
 		return implode(apex_qs_separador, $salida);
 	}
@@ -358,15 +359,16 @@ class toba_vinculador
 		if(!isset($parametros['tipo'])) $parametros['tipo'] = 'normal';
 		if(!isset($parametros['texto'])) $parametros['texto'] = '';
 		$id='';
+		$escapador = toba::escaper();
 		if (isset($parametros['id'])) {
-			$id = "id='{$parametros['id']}'";
+			$id = "id='" . $escapador->escapeHtmlAttr($parametros['id']) . "'";
 		}
 		
 		//ei_arbol($parametros);
 		//El vinculo corresponde a un FRAME
 		if(isset($parametros['frame'])){
 			if(trim($parametros['frame']!="")){
-				$frame = " target='" . $parametros['frame'] . "' ";
+				$frame = " target='" . $escapador->escapeHtmlAttr($parametros['frame']) . "' ";
 			}else{
 				$frame = "";
 			}
@@ -375,7 +377,7 @@ class toba_vinculador
 		}
 		if(isset($parametros['clase_css'])){
 			if(trim($parametros['clase_css']!="")){
-				$clase = " class='" . $parametros['clase_css'] . "' ";
+				$clase = " class='" . $escapador->escapeHtmlAttr($parametros['clase_css']) . "' ";
 			}else{
 				$clase = " class='lista-link'";
 			}
@@ -383,21 +385,22 @@ class toba_vinculador
 			$clase = " class='lista-link'";
 		}
 		//La llamada depende del tipo de vinculo (normal, popup, etc.)
-		if( $parametros['tipo']=="normal" ){	//	*** Ventana NORMAL ***
+		if( $parametros['tipo']=="normal" ) {	//	*** Ventana NORMAL ***
 			//El vinculo es normal
 			$html = "<a $id href='$url' $clase $frame>";
-		}elseif( $parametros['tipo']=="popup" )	//	*** POPUP javascript ***
+		} elseif( $parametros['tipo']=="popup" )	//	*** POPUP javascript ***
 		{
 			$init = explode(",",$parametros['inicializacion']);
 			$init = array_map("trim",$init);
+			//$init = array_map('toba::escaper()->escapeHtmlAttr', $init);			
 			//ei_arbol($init);
-			$tx = (isset($init[0])) ? $init[0] : 400;
-			$ty = (isset($init[1])) ? $init[1] : 400;
-			$scroll = (isset($init[2])) ? $init[2] : "1";
-			$resizable = (isset($init[3])) ? $init[3] : "1";
+			$tx = (isset($init[0])) ? $escapador->escapeHtmlAttr($init[0]) : 400;
+			$ty = (isset($init[1])) ? $escapador->escapeHtmlAttr($init[1]) : 400;
+			$scroll = (isset($init[2])) ? $escapador->escapeHtmlAttr($init[2]) : "1";
+			$resizable = (isset($init[3])) ? $escapador->escapeHtmlAttr($init[3]) : "1";
 			//---SE utiliza el parametro frame para determinar si el popup tiene un id especifico
-			$id_popup = isset($parametros['frame']) ? $parametros['frame'] : 'general';
-			$wn = (! is_null($nombre_ventana)) ? "'$nombre_ventana'" : 'null';
+			$id_popup = isset($parametros['frame']) ? $escapador->escapeHtmlAttr($parametros['frame']) : 'general';
+			$wn = (! is_null($nombre_ventana)) ? "'".$escapador->escapeHtmlAttr($nombre_ventana)."'" : 'null';
 			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'}, null , null ,$wn)\">";
 		}
 
@@ -408,15 +411,15 @@ class toba_vinculador
 			}elseif($parametros['imagen_recurso_origen']=="proyecto"){
 				$html.= toba_recurso::imagen_proyecto($parametros['imagen'],true,null,null,$parametros['texto']);
 			}else{
-				$html.= $parametros['texto'];
+				$html.= $escapador->escapeHtml($parametros['texto']);
 			}
 		}else{
-			$html.= $parametros['texto'];
+			$html.= $escapador->escapeHtml($parametros['texto']);
 		}
 		$html.= "</a>";
 		return $html;
 	}
-
+	
 	/**
 	 * Genera un salto de javascript directo a una pagina
 	 *
@@ -442,6 +445,7 @@ class toba_vinculador
 	function generar_js()
 	{
 		echo "vinculador.limpiar_vinculos();\n";
+		$escapador = toba::escaper();
 		foreach( $this->vinculos as $id => $vinculo ) {
 			$opciones = $vinculo->get_opciones();
 			if( !isset( $opciones['validar']) ) {
@@ -453,12 +457,12 @@ class toba_vinculador
 													$vinculo->get_parametros(),
 													$opciones);
 			if (isset($datos['url'])) {
-				$datos['popup'] = $vinculo->estado_popup();
+				$datos['popup'] = $escapador->escapeJs($vinculo->estado_popup());
 				$datos['popup_parametros'] = $vinculo->get_popup_parametros();
-				$datos['target'] = $vinculo->get_target();
+				$datos['target'] = $escapador->escapeJs($vinculo->get_target());
 				$datos['activado'] = 1;
-				$datos['ajax'] = $vinculo->get_ajax();
-				$datos['nombre_ventana' ] = $vinculo->get_id_ventana_popup();
+				$datos['ajax'] = $escapador->escapeJs($vinculo->get_ajax());
+				$datos['nombre_ventana' ] = $escapador->escapeJs($vinculo->get_id_ventana_popup());
 				$datos_js = toba_js::arreglo($datos, true);
 				echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 			}
