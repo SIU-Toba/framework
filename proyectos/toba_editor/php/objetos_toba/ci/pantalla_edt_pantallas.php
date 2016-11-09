@@ -7,7 +7,7 @@ class pantalla_edt_pantallas extends toba_ei_pantalla
 		$this->dependencia('pantallas_lista')->generar_html();
 		if ($this->controlador->hay_pant_sel()) {
 			$datos = $this->controlador->get_datos_pantalla_actual();
-			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
+			$nombre_pantalla = toba::escaper()->escapeHtml("Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]");
 			echo "<fieldset style='margin-top: 10px; padding: 7px;'><legend>$nombre_pantalla</legend>";			
 			$this->dependencia('pantallas')->generar_html();			
 			echo "<table class='tabla-0'  width='100%'>";

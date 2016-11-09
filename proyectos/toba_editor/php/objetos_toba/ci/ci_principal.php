@@ -558,26 +558,32 @@ class ci_editor extends ci_editores_toba
  			return parent::servicio__ejecutar();		
  		}
  		$url = toba::proyecto()->get_www('img/fck_templates/');
+		$escapador = toba::escaper();
 		$salida = "
-		CKEDITOR.addTemplates('default', {
-			imagesPath: CKEDITOR.getUrl('{$url['url']}'), 
-			templates: 
-			[{	title: 'Lineal', \n
-				image: 'tabla_1_col.gif', \n
-				description: 'Un componente debajo del otro, separado por una línea, es el layout original' , \n
-				html: '{$this->get_template_lineal()}' \n
-			},
-			{	title: 'Tabla Lineal', \n
-				image: 'tabla_1_col.gif', \n
-				description: 'Tabla con un componente debajo del otro' , \n
-				html: '{$this->get_template_columnas(1)}' \n
-			},
-			{ 
-				title: 'Tabla Dos Columnas',  \n
-				image: 'tabla_2_col.gif', \n
-				description: 'Se arma una tabla tomando los componentes en el orden definido, incluyendo dos por fila' ,  \n
-				html: '{$this->get_template_columnas(2)}' \n
-			}]
+		CKEDITOR.addTemplates('default', 
+		{
+			imagesPath: '". $escapador->escapeJs($url['url'])."', \n
+			templates: \n
+				[ \n
+					{ \n
+						title: 'Lineal', \n
+						image: 'tabla_1_col.gif', \n
+						description: 'Un componente debajo del otro, separado por una línea, es el layout original' , \n
+						html: '{$this->get_template_lineal()}' \n
+					},\n
+					{ \n
+						title: 'Tabla Lineal', \n
+						image: 'tabla_1_col.gif', \n
+						description: 'Tabla con un componente debajo del otro' , \n
+						html: '{$this->get_template_columnas(1)}' \n
+					},\n
+					{ \n
+						title: 'Tabla Dos Columnas',  \n
+						image: 'tabla_2_col.gif', \n
+						description: 'Se arma una tabla tomando los componentes en el orden definido, incluyendo dos por fila' ,  \n
+						html: '{$this->get_template_columnas(2)}' \n
+					} \n
+				] \n
 		}); ";
 		echo $salida;
 	}	

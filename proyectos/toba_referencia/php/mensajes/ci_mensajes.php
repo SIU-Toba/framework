@@ -51,8 +51,8 @@ class ci_mensajes extends toba_ci
 	
 	function extender_objeto_js()
 	{
-		echo "
-			{$this->objeto_js}.evt__mostrar = function() {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__mostrar = function() {
 				var opciones = this.dep('opciones');
 				if (opciones.ef('contexto').get_estado() == 'php') {
 					return true;

@@ -8,10 +8,11 @@ class form_carga_sql_opciones extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.evt__carga_origen__procesar = function(es_inicial)
+		{$id_js}.evt__carga_origen__procesar = function(es_inicial)
 		{
 			if (this.ef('carga_origen').get_estado() == 'consulta_php') {
 				this.ef('carga_php').mostrar();
@@ -26,14 +27,14 @@ class form_carga_sql_opciones extends toba_ei_formulario
 			}
 		}
 	
-		{$this->objeto_js}.evt__carga_php__procesar = function(es_inicial)
+		{$id_js}.evt__carga_php__procesar = function(es_inicial)
 		{
 			if (! es_inicial) {
 				this.evt__carga_php_metodo__procesar(false);
 			}
 		}
 	
-		{$this->objeto_js}.evt__carga_php_metodo__procesar = function(es_inicial)
+		{$id_js}.evt__carga_php_metodo__procesar = function(es_inicial)
 		{
 			if (this.ef('carga_origen').get_estado() == 'consulta_php') {
 				if (this.ef('carga_php_metodo').get_estado() == apex_ef_no_seteado) {

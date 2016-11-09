@@ -133,7 +133,7 @@ ef_combo.prototype.constructor = ef_combo;
 			}
 			input.options[input.options.length] = new Option(valor, id);
 			//--- Esto es para poder insertar caracteres especiales dentro del Option
-			input.options[input.options.length - 1].innerHTML = valor;
+			input.options[input.options.length - 1].innerHTML = (typeof  valor == 'string') ?  valor.decodeEntities(): valor;
 		}
 		if (hay_datos) {
 			this.set_solo_lectura(false);

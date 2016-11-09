@@ -7,7 +7,7 @@ class pant_login extends toba_ei_pantalla
 		// esta funcion detecta este caso y lo soluciona
 		$codigo_js = "
 			if(self.name!=top.name)	{
-				top.location.href='{$_SERVER['PHP_SELF']}';
+				top.location.href='". toba::escaper()->escapeJs($_SERVER['PHP_SELF'])."';
 			}
 		";
 		echo toba_js::ejecutar($codigo_js);

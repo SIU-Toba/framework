@@ -38,11 +38,12 @@ class ci_firma_digital extends toba_ci
 	
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.desactivar_boton('finalizar');
+			{$id_js}.desactivar_boton('finalizar');
 				
-			{$this->objeto_js}.dep('firmador').evt__firma_ok = function() {
-				{$this->objeto_js}.activar_boton('finalizar');
+			{$id_js}.dep('firmador').evt__firma_ok = function() {
+				{$id_js}.activar_boton('finalizar');
 				alert('LISTO! Al terminar la firma se puede atrapar el evt_firma_ok en javascript. En este caso se habilita el boton finalizar');
 			}
 		";

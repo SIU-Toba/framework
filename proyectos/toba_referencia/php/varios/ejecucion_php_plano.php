@@ -6,7 +6,7 @@ if (isset($_POST['notificado'])) {
 	$personas->cargar();
 	$salida = '<strong>Personas</strong><ul>';
 	foreach ($personas->get_filas() as $persona) {
-		$salida .= '<li>'.$persona['nombre'].'</li>';
+		$salida .= '<li>'.toba::escaper()->escapeHtml($persona['nombre']).'</li>';
 	}
 	$salida .= '</ul>';
 	toba::notificacion()->agregar($salida, 'info');

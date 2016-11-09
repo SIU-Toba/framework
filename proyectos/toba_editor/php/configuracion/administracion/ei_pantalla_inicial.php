@@ -3,6 +3,7 @@ class ei_pantalla_inicial extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
+		$escapador = toba::escaper();
 		$comando_ejecutado = $this->controlador()->get_comando_en_ejecucion();
 		$log = nl2br($this->controlador()->get_log_comando_ejecucion());
 		echo "<style type='text/css'>
@@ -18,9 +19,9 @@ class ei_pantalla_inicial extends toba_ei_pantalla
 						}
 					</style>";
 		parent::generar_layout();
-		echo "<fieldset> <legend> Comando Ejecutado</legend>$comando_ejecutado</fieldset><br>";
+		echo "<fieldset> <legend> Comando Ejecutado</legend>". $escapador->escapeHtml($comando_ejecutado)."</fieldset><br>";
 		echo '<fieldset><legend>Salida de Consola: </legend>';
-		echo "<div class='div-consola'>$log</div></fieldset>";
+		echo "<div class='div-consola'>". $escapador->escapeHtml($log)."</div></fieldset>";
 	}
 
 }

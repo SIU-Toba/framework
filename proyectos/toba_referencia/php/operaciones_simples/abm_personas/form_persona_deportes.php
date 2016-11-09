@@ -6,8 +6,8 @@ class form_persona_deportes extends toba_ei_formulario
 	function extender_objeto_js()
 	{
 		//El lapso de horas tiene que ser valido (inicio < fin)
-		echo "
-			{$this->objeto_js}.evt__validar_datos = function() {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__validar_datos = function() {
 				var hora_i = this.ef('hora_inicio').hora();
 				var hora_f = this.ef('hora_fin').hora();
 				if ( hora_i >= hora_f ) {

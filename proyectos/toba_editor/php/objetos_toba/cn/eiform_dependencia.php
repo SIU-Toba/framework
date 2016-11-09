@@ -8,16 +8,14 @@ class eiform_dependencia extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
-		echo "
-		//---- Validacion de EFs -----------------------------------
-		
-		{$this->objeto_js}.evt__identificador__validar = function()
+		echo toba::escaper()->escapeJs($this->objeto_js)
+		.".evt__identificador__validar = function()
 		{
-            if (this.ef('identificador').get_estado().indexOf(' ') != -1) {
-                    this.ef('identificador').set_error('No puede contener espacios');
-                    return false;
-            }
-            return true;		
+			if (this.ef('identificador').get_estado().indexOf(' ') != -1) {
+					this.ef('identificador').set_error('No puede contener espacios');
+					return false;
+			}
+			return true;		
 		}
 		";
 	}

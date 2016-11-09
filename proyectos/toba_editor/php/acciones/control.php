@@ -1,5 +1,5 @@
 <?php
-
+	$escapador = toba::escaper();
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
@@ -17,7 +17,7 @@
 		
 		//--- Refresca los otros frames
 		echo toba_js::abrir();
-		echo "top.location.href = '$vinculo';";
+		echo "top.location.href = '". $escapador->escapeJs($vinculo)."';";
 		echo toba_js::cerrar();
 	}
 	echo toba_form::abrir('cambiar_proyecto', '');
@@ -42,18 +42,18 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?php echo toba_recurso::imagen_toba('nucleo/expandir_der.gif', false); ?>';
+		imagen.src = '<?php echo $escapador->escapeJs(toba_recurso::imagen_toba('nucleo/expandir_der.gif', false)); ?>';
 		frame_admin.cols = '12,*';
 		expandido = false;
 	} else {
-		imagen.src = '<?php echo toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false); ?>';
+		imagen.src = '<?php echo $escapador->escapeJs(toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)); ?>';
 		frame_admin.cols = ancho_frame;
 		expandido = true;
 	}
 }
 
 function abrir_toba_instancia(){
-	var url = '<?php echo toba::vinculador()->get_url('toba_usuarios', '3432', array(), array('menu' => true)); ?>';
+	var url = '<?php echo $escapador->escapeJs(toba::vinculador()->get_url('toba_usuarios', '3432', array(), array('menu' => true))); ?>';
 	if ( url == '') {
 		alert('No posee permisos para acceder al proyecto "toba_usuarios"!');	
 		return;
@@ -85,7 +85,7 @@ function abrir_toba_instancia(){
 
 <table width='100%' class='tabla-0' >
 <tr><td><div class='listado-barra-logo'>
-        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(), 1000265); ?>" target="<?php echo  apex_frame_centro; ?>">
+        <a title='Página inicial del editor' href="<?php echo $escapador->escapeHtmlAttr(toba::vinculador()->get_url(toba_editor::get_id(), 1000265)); ?>" target="<?php echo  apex_frame_centro; ?>">
 		SIU-TOBA
 		</a></div>
 </td></tr>
@@ -94,7 +94,7 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' style='margin-top: 6px'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-	        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
+	        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo $escapador->escapeHtmlAttr(toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
 		 </td>
 <?php
 	echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
@@ -128,7 +128,7 @@ function abrir_toba_instancia(){
 		</td>
 	
          <td class='listado-tabi'>
-        <a  href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(), '3357'); ?>" class="list-obj"  target="<?php echo  apex_frame_centro; ?>">
+        <a  href="<?php echo $escapador->escapeHtmlAttr(toba::vinculador()->get_url(toba_editor::get_id(), '3357')); ?>" class="list-obj"  target="<?php echo  apex_frame_centro; ?>">
 <?php
 
 		$ayuda = '<a target=wiki href='.get_url_desarrollos().'/trac/toba title=\\\'Documentación WIKI\\\'>';			
@@ -141,7 +141,7 @@ function abrir_toba_instancia(){
  ?></a></td>
 
 		<td class='listado-tabi'>
-			<a title='Testing' href="<?php echo toba::vinculador()->get_url(toba_editor::get_id(), 1000270, null, array('menu' => true)); ?>" class="list-obj" target="<?php echo apex_frame_centro; ?>"><?php echo toba_recurso::imagen_toba('testing.gif', true); ?></a>
+			<a title='Testing' href="<?php echo $escapador->escapeHtmlAttr(toba::vinculador()->get_url(toba_editor::get_id(), 1000270, null, array('menu' => true))); ?>" class="list-obj" target="<?php echo apex_frame_centro; ?>"><?php echo toba_recurso::imagen_toba('testing.gif', true); ?></a>
 		</td>
 
 <?php
@@ -211,7 +211,7 @@ function abrir_toba_instancia(){
 			$class = 'ci-tabs-h-solapa';
 		}
 		echo "<li class='$class'>";
-		echo "<a $id href='{$tab['url']}' title='{$tab['ayuda']}'  onclick='seleccionar_tab(this)' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
+		echo "<a $id href='".$escapador->escapeHtmlAttr($tab['url'])."' title='". $escapador->escapeHtmlAttr($tab['ayuda'])."'  onclick='seleccionar_tab(this)' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
 		echo '</li>';
 		$id = '';
 		$i++;

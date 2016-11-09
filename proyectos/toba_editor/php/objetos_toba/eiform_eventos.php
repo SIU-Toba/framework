@@ -3,8 +3,9 @@ class eiform_eventos extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.evt__accion__procesar = function() {
+			{$id_js}.evt__accion__procesar = function() {
 				if (this.ef('accion').valor() == 'V') {
 					this.ef('es_autovinculo').mostrar();
 					this.ef('accion_vin_carpeta').mostrar();
@@ -32,7 +33,7 @@ class eiform_eventos extends toba_ei_formulario
 					this.ef('accion_vin_servicio').ocultar();
 				}
 			}
-			{$this->objeto_js}.evt__accion_vin_popup__procesar = function(es_inicial) {
+			{$id_js}.evt__accion_vin_popup__procesar = function(es_inicial) {
 				if (this.ef('accion').valor() == 'V') {
 					if (this.ef('accion_vin_popup').chequeado()) {
 						this.ef('accion_vin_popup_par').mostrar();
@@ -49,7 +50,7 @@ class eiform_eventos extends toba_ei_formulario
 					}
 				}
 			}
-			{$this->objeto_js}.evt__accion_vin_servicio_extra__procesar = function() {
+			{$id_js}.evt__accion_vin_servicio_extra__procesar = function() {
 				if (this.ef('accion_vin_servicio_extra').valor() == 'O') {					
 						this.ef('accion_vin_servicio').mostrar();
 				} else {
@@ -59,7 +60,7 @@ class eiform_eventos extends toba_ei_formulario
 			}			
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.evt__es_autovinculo__procesar = function(es_inicial)
+		{$id_js}.evt__es_autovinculo__procesar = function(es_inicial)
 		{
 			var se_muestra = (! this.ef('es_autovinculo').chequeado() && ! this.ef('es_autovinculo').es_oculto());
 			this.ef('accion_vin_carpeta').mostrar(se_muestra, true);

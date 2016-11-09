@@ -53,11 +53,12 @@ class ci_ajax extends toba_ci
 	 */
 	function js_caso_datos()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "		
 			/**
 			 * Acción del botón CALCULAR
 			 */
-			{$this->objeto_js}.evt__form_datos_resp__calcular = function() {
+			{$id_js}.evt__form_datos_resp__calcular = function() {
 				//--- Construyo los parametros para el calculo, en este caso son los valores del form
 				var parametros = this.dep('form_datos_param').get_datos();
 				
@@ -71,7 +72,7 @@ class ci_ajax extends toba_ci
 			/**
 			 * Acción cuando vuelve la respuesta desde PHP
 			 */
-			{$this->objeto_js}.actualizar_datos = function(datos)
+			{$id_js}.actualizar_datos = function(datos)
 			{
 				this.dep('form_datos_resp').ef('dias').set_estado(datos[0]);
 				this.dep('form_datos_resp').ef('importe').set_estado(datos[1]);
@@ -242,11 +243,12 @@ class ci_ajax extends toba_ci
 	 */
 	function js_caso_html()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "		
 			/**
 			 * Acción del botón BUSCAR
 			 */
-			{$this->objeto_js}.evt__form_flickr__buscar = function() {
+			{$id_js}.evt__form_flickr__buscar = function() {
 				//--- Le pasa como parametro el nombre del tag
 				var parametro = this.dep('form_flickr').ef('tag').get_estado();
 				
@@ -279,8 +281,9 @@ class ci_ajax extends toba_ci
 	 */
 	function js_caso_bajo_nivel()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "		
-			{$this->objeto_js}.evt__boton = function() {
+			{$id_js}.evt__boton = function() {
 				this.ajax_cadenas('api_bajo_nivel', null, this, this.metodo_callback);				
 				//--- Evito que el mecanismo 'normal' de comunicacion cliente-servidor se ejecute
 				return false;
@@ -289,7 +292,7 @@ class ci_ajax extends toba_ci
 			/**
 			 *	La respuesta llega 
 			 */
-			{$this->objeto_js}.metodo_callback = function(respuesta) {
+			{$id_js}.metodo_callback = function(respuesta) {
 				this.nodo_pie().innerHTML = respuesta.get_cadena('html_puro');		
 				eval(respuesta.get_cadena('javascript'));
 			}

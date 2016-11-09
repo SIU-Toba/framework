@@ -8,20 +8,21 @@ class form_tablas extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.evt__tabla_1__procesar = function(es_inicial)
+		{$id_js}.evt__tabla_1__procesar = function(es_inicial)
 		{
 			if( !es_inicial  ) this.disparar_modificacion();
 		}
 		
-		{$this->objeto_js}.evt__tabla_2__procesar = function(es_inicial)
+		{$id_js}.evt__tabla_2__procesar = function(es_inicial)
 		{
 			if( !es_inicial  ) this.disparar_modificacion();
 		}
 
-		{$this->objeto_js}.disparar_modificacion = function()
+		{$id_js}.disparar_modificacion = function()
 		{
 			var t1 = this.ef('tabla_1').valor();
 			var t2 = this.ef('tabla_2').valor();

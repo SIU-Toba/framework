@@ -13,7 +13,8 @@ class objeto_vacio
 	
 	function __call($metodo, $argumentos)
 	{
-		echo $this->nombre . ' -> ' . $metodo . '()<br>';
+		$escapador = toba::escaper();
+		echo $escapador->escapeHtml($this->nombre) . ' -> ' . $escapador->escapeHtml($metodo) . '()<br>';				//hiper WTF???
 		//Llamar a un metodo desde aca cuelga al apache
 		//$this->agregar_llamada($metodo, $argumentos); 
 	}

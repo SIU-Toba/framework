@@ -23,11 +23,12 @@ class pant_firma extends toba_ei_pantalla
 	}
 	
 	function extender_objeto_js() {
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.desactivar_boton('finalizar');
+			{$id_js}.desactivar_boton('finalizar');
 				
 			function firmaOk() {
-				{$this->objeto_js}.activar_boton('finalizar');
+				{$id_js}.activar_boton('finalizar');
 			}
 		";
 		

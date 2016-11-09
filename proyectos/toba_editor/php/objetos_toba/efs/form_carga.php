@@ -5,23 +5,24 @@ class form_carga extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista'];
 
-			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial)
+			{$id_js}.evt__punto_montaje__procesar = function(inicial)
 			{
 				if (!inicial) {
 					this.ef('carga_include').cambiar_valor('');
 				}
 			}
 			
-			{$this->objeto_js}.modificar_vinculo__ef_carga_include = function(id_vinculo)
+			{$id_js}.modificar_vinculo__ef_carga_include = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 			}
 			
-			{$this->objeto_js}.evt__tipo_clase__procesar = function(inicial) {
+			{$id_js}.evt__tipo_clase__procesar = function(inicial) {
 				var cheq = this.ef('tipo_clase').get_estado();
 				this.ef('carga_include').mostrar((cheq == 'estatica'), true);
 				this.ef('carga_clase').mostrar((cheq == 'estatica'), true);
@@ -45,7 +46,7 @@ class form_carga extends toba_ei_formulario
 			/**
 			 *  Actualiza el edit del metodo a partir del combo
 			 */
-			{$this->objeto_js}.evt__carga_metodo_lista__procesar = function(inicial) {
+			{$id_js}.evt__carga_metodo_lista__procesar = function(inicial) {
 				var estado = this.ef('carga_metodo_lista').get_estado();
 				if (this.ef('tipo_clase').get_estado() == 'consulta_php') {
 					if (estado != apex_ef_no_seteado) {
@@ -57,7 +58,7 @@ class form_carga extends toba_ei_formulario
 				}
 			}
 						
-			{$this->objeto_js}.evt__mecanismo__procesar = function(inicial) {
+			{$id_js}.evt__mecanismo__procesar = function(inicial) {
 				actual = this.ef('mecanismo').valor();
 				var mostrar = (actual != apex_ef_no_seteado);
 				//---Ocultar/Mostrar todos
@@ -72,14 +73,14 @@ class form_carga extends toba_ei_formulario
 						this.cambiar_mecanismo(mecanismos_carga[i], mostrar, actual);
 					}";
 		if ($this->existe_ef('carga_permite_no_seteado')) {
-			echo "	{$this->objeto_js}.evt__carga_permite_no_seteado__procesar(inicial);";
+			echo "	{$id_js}.evt__carga_permite_no_seteado__procesar(inicial);";
 		}
 
 		echo "
 				}
 			}
 
-			{$this->objeto_js}.cambiar_mecanismo = function(mecanismo, estado, actual) {
+			{$id_js}.cambiar_mecanismo = function(mecanismo, estado, actual) {
 				switch (mecanismo) {
 					case 'carga_metodo':
 						this.ef('tipo_clase').mostrar(estado, true);
@@ -100,7 +101,7 @@ class form_carga extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.evt__carga_dt__procesar = function(inicial) {
+			{$id_js}.evt__carga_dt__procesar = function(inicial) {
 				if (inicial) return;
 				var tabla_actual = this.ef('carga_dt').get_estado();
 				if (tabla_actual != apex_ef_no_seteado) {
@@ -119,7 +120,7 @@ class form_carga extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.respuesta_existe_dt = function(existe) {
+			{$id_js}.respuesta_existe_dt = function(existe) {
 				this.ef('carga_metodo').mostrar();
 				if (this.ef('carga_col_clave'))
 					this.ef('carga_col_clave').mostrar(true);
@@ -132,7 +133,7 @@ class form_carga extends toba_ei_formulario
 				div = $$('nodo_carga_metodo');				
 				if (! existe) {
 					this.ef('carga_metodo').set_estado('');
-					var link = '<a href=\"javascript: {$this->objeto_js}.generar_metodo()\" ';
+					var link = '<a href=\"javascript: {$id_js}.generar_metodo()\" ';
 					link += 'title=\"Crea un método get_descripciones() dentro de la extensión del datos tabla, conteniendo el select requerido para cargar las descripciones de esta tabla\">';
 					link += 'Crear método <strong>get_descripciones</strong></a>';
 					div.innerHTML = link;
@@ -141,12 +142,12 @@ class form_carga extends toba_ei_formulario
 				}			
 			}			
 			
-			{$this->objeto_js}.generar_metodo = function() {
+			{$id_js}.generar_metodo = function() {
 				var tabla_actual = this.ef('carga_dt').get_estado();
 				this.controlador.ajax('crear_metodo_get_descripciones', tabla_actual, this, this.respuesta_crear_dt);
 			}			
 			
-			{$this->objeto_js}.respuesta_crear_dt = function(datos) {
+			{$id_js}.respuesta_crear_dt = function(datos) {
 				if (datos) {
 					var div = $$('nodo_carga_metodo');				
 					div.innerHTML = '';				
@@ -158,7 +159,7 @@ class form_carga extends toba_ei_formulario
 				}
 			}
 
-			{$this->objeto_js}.evt__carga_permite_no_seteado__procesar = function(es_inicial) {
+			{$id_js}.evt__carga_permite_no_seteado__procesar = function(es_inicial) {
 				if (this.ef('carga_permite_no_seteado').chequeado()) {
 					this.ef('carga_no_seteado').mostrar();
 					this.ef('carga_no_seteado_ocultar').mostrar();

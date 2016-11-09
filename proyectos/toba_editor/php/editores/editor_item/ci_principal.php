@@ -88,6 +88,7 @@ class ci_principal extends toba_ci
 	function inicializar_item($dr)
 	{
 		//Ver si el padre viene por post
+		$datos = array();															//TODO: See this -.-
 		$padre_i = toba::memoria()->get_parametro('padre_i');
 		$padre_p = toba::memoria()->get_parametro('padre_p');
 		if (isset($padre_p) && isset($padre_i)) {
@@ -95,7 +96,6 @@ class ci_principal extends toba_ci
 			$datos['padre'] = $padre_i;
 			$datos['padre_proyecto'] = $padre_p;
 		}
-		
 		$dr->tabla('base')->set($datos);
 		//Le agrego el permiso del usuario actual
 		foreach (toba::usuario()->get_grupos_acceso() as $grupo) {

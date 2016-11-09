@@ -18,25 +18,26 @@ class ci_tabs extends toba_ci
 
 	function extender_objeto_js()
 	{
-		echo "	{$this->objeto_js}.evt__b_ocultar_js = function () {
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
+		echo "	{$id_js}.evt__b_ocultar_js = function () {
 			this.dependencia('verticales').ocultar_tab('b');
 			this.dependencia('horizontales').ocultar_tab('b');
 			return false;
 		} 
 		";
-		echo "	{$this->objeto_js}.evt__b_mostrar_js = function () {
+		echo "	{$id_js}.evt__b_mostrar_js = function () {
 			this.dependencia('verticales').mostrar_tab('b');
 			this.dependencia('horizontales').mostrar_tab('b');
 			return false;
 		}
 		";
-		echo "	{$this->objeto_js}.evt__c_desactivar_js = function () {
+		echo "	{$id_js}.evt__c_desactivar_js = function () {
 			this.dependencia('verticales').desactivar_tab('c');
 			this.dependencia('horizontales').desactivar_tab('c');
 			return false;
 		} 
 		";
-		echo "	{$this->objeto_js}.evt__c_activar_js = function () {
+		echo "	{$id_js}.evt__c_activar_js = function () {
 			this.dependencia('verticales').activar_tab('c');
 			this.dependencia('horizontales').activar_tab('c');
 			return false;

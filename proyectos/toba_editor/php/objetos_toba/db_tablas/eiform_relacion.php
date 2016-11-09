@@ -8,7 +8,8 @@ class eiform_relacion extends toba_ei_formulario
 {
 	function generar_formulario()
 	{
-		echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
+		$escapador = toba::escaper();
+		echo "<table class='tabla-0'  width='". $escapador->escapeHtmlAttr($this->info_formulario['ancho'])."'>";
 		echo "<tr><td class='abm-fila'>\n";
 		$this->ef('identificador')->obtener_interface_ei();    
 		echo "</td></tr>\n";

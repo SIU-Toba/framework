@@ -6,12 +6,13 @@ class extension_formulario extends toba_ei_formulario_ml
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo  "
 			/**
 			 *	Redefine la creación de una fila para agregarle valores por defecto
 			 */
-			{$this->objeto_js}.crear_fila_orig = {$this->objeto_js}.crear_fila;
-			{$this->objeto_js}.crear_fila = function() {
+			{$id_js}.crear_fila_orig = {$id_js}.crear_fila;
+			{$id_js}.crear_fila = function() {
 				//Invoca a la creacion original
 				var nueva_fila = this.crear_fila_orig();
 				
@@ -27,7 +28,7 @@ class extension_formulario extends toba_ei_formulario_ml
 			/**
 			* 	Valida que la fecha no sea un lunes
 			*/			
-			{$this->objeto_js}.evt__fecha__validar = function (fila) {
+			{$id_js}.evt__fecha__validar = function (fila) {
 				var lunes = 1;
 				var ef_fecha = this.ef('fecha').ir_a_fila(fila);
 				var fecha = ef_fecha.fecha();
@@ -41,22 +42,22 @@ class extension_formulario extends toba_ei_formulario_ml
 			/**
 			 * Cuando se modifica el valor del importe, recalcula el total
 			 */
-			{$this->objeto_js}.evt__importe__procesar = function(es_inicial, fila) {
-				{$this->objeto_js}.refrescar_importes(es_inicial, fila);
+			{$id_js}.evt__importe__procesar = function(es_inicial, fila) {
+				{$id_js}.refrescar_importes(es_inicial, fila);
 			}
 			
 			/**
 			 * Cuando se modifica el valor del descuento, recalcula el total
 			 */			
-			{$this->objeto_js}.evt__descuento__procesar = function(es_inicial, fila) {
-				{$this->objeto_js}.refrescar_importes(es_inicial, fila);
+			{$id_js}.evt__descuento__procesar = function(es_inicial, fila) {
+				{$id_js}.refrescar_importes(es_inicial, fila);
 			}
 
 			/**
 			 * Se escucha el checkbox 'con_descuento', cuando esta chequeado habilita el campo descuento
 			 * Y recalcula los totales
 			 */
-			{$this->objeto_js}.evt__con_descuento__procesar = function(es_inicial, fila) {
+			{$id_js}.evt__con_descuento__procesar = function(es_inicial, fila) {
 				//¿Puede tener descuento?
 				var ef_descuento = this.ef('descuento').ir_a_fila(fila);
 				if (this.ef('con_descuento').ir_a_fila(fila).chequeado()) {
@@ -70,14 +71,14 @@ class extension_formulario extends toba_ei_formulario_ml
 			/**
 			* 	Refresca el importe neto de una fila
 			*/		
-			{$this->objeto_js}.refrescar_importes = function(es_inicial, fila) {
+			{$id_js}.refrescar_importes = function(es_inicial, fila) {
 				var importe = this.ef('importe').ir_a_fila(fila).valor();
 				var descuento = this.ef('descuento').ir_a_fila(fila).valor();
 				this.ef('neto').ir_a_fila(fila).cambiar_valor(importe - descuento);
 			}
 
 
-			{$this->objeto_js}.evt__seleccionar_fila = function(fila) {
+			{$id_js}.evt__seleccionar_fila = function(fila) {
 					//alert('Voy a seleccionar la fila ' + fila);
 			}
 		";

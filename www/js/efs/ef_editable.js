@@ -100,10 +100,10 @@ ef_editable.prototype.constructor = ef_editable;
 		}
 		if (this._mascara) {
 			var valor = this._mascara.format(nuevo, false, true);
-			this.input().value = valor;
+			this.input().value = (typeof valor == 'string') ? valor.decodeEntities(): valor;
 			var desc = document.getElementById(this._id_form + '_desc');
 			if (desc) {
-				desc.value = valor;
+				desc.value = (typeof valor == 'string') ? valor.decodeEntities(): valor;
 			}
 		} else {
 			return ef.prototype.set_estado.call(this, nuevo);	

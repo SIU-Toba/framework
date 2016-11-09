@@ -91,7 +91,7 @@ notificacion = new function() {
 			}
 			var texto = this._mensajes[i][0];
 			if (typeof this._mensajes[i][2] != 'undefined' && isset(this._mensajes[i][2])) {
-				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
+				texto = "<strong>" + this._mensajes[i][2].decodeEntities() + "</strong> " + texto;
 			}
 			if (typeof this._mensajes[i][3] != 'undefined') {
 				var botonera = "<a onclick='overlay_debug("+i+")' href='#'>Más info...</a>";

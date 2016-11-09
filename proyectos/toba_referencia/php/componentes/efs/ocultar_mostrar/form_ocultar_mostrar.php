@@ -6,15 +6,16 @@ class form_ocultar_mostrar extends toba_ei_formulario
 	
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.evt__efecto__procesar = function(es_inicial) 
+			{$id_js}.evt__efecto__procesar = function(es_inicial) 
 			{
 				if (! es_inicial) {
 					this.evt__categoria__procesar(es_inicial);
 				}
 			}		
 			
-			{$this->objeto_js}.evt__categoria__procesar = function(es_inicial) 
+			{$id_js}.evt__categoria__procesar = function(es_inicial) 
 			{
 				switch (this.ef('categoria').get_estado()) {
 					case 'A':
@@ -36,7 +37,7 @@ class form_ocultar_mostrar extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.mostrar_bloque_A = function(visible)
+			{$id_js}.mostrar_bloque_A = function(visible)
 			{
 				if (this.ef('efecto').get_estado() == 'ocultar') {
 					this.ef('sepa').mostrar(visible);
@@ -48,7 +49,7 @@ class form_ocultar_mostrar extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.mostrar_bloque_B = function(visible)
+			{$id_js}.mostrar_bloque_B = function(visible)
 			{
 				if (this.ef('efecto').get_estado() == 'ocultar') {			
 					this.ef('sepb').mostrar(visible);

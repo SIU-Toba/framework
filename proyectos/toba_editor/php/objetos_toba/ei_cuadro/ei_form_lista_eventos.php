@@ -9,10 +9,8 @@ class ei_form_lista_eventos extends eiform_abm_detalle
 	function extender_objeto_js()
 	{
 		parent::extender_objeto_js();
-		echo "
-		//---- Procesamiento de EFs --------------------------------
-		
-		{$this->objeto_js}.evt__es_seleccion_multiple__procesar = function(es_inicial, fila)
+		echo toba::escaper()->escapeJs($this->objeto_js)
+		.".evt__es_seleccion_multiple__procesar = function(es_inicial, fila)
 		{
 			if (! es_inicial) {
 				//Reseteo todos los checkbox ya que solo 1 puede estar activo

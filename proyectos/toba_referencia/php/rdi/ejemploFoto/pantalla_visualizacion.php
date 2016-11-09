@@ -7,7 +7,7 @@ class pantalla_visualizacion extends toba_ei_pantalla
 	function generar_layout()
 	{
 		$img = $this->controlador()->recuperar_contenido();
-		echo "<img src='{$img['url']}'>";
+		echo "<img src='". toba::escaper()->escapeHtmlAttr($img['url'])."'>";
 	}
 }
 

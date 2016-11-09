@@ -57,7 +57,7 @@ class extension_cuadro_full extends toba_ei_cuadro
 
 	function html_cabecera_cc_contenido__zona(&$nodo)
 	{
-		$zona = $nodo['descripcion']['zona'];
+		$zona = toba::escaper()->escapeHtml($nodo['descripcion']['zona']);
 		$locs = count($nodo['filas']);
 		$deps = count($nodo['hijos']);
 		echo "<strong>Zona</strong>: $zona - 
@@ -68,7 +68,8 @@ class extension_cuadro_full extends toba_ei_cuadro
 	function html_pie_cc_contenido__zona(&$nodo)
 	{
 		//Preparo una descripcion
-		$zona = $nodo['descripcion']['zona'];
+		$escapador = toba::escaper();
+		$zona = $escapador->escapeHtml($nodo['descripcion']['zona']);
 		$locs = count($nodo['filas']);
 		$deps = count($nodo['hijos']);
 		echo "La Zona <strong>$zona</strong> tiene <strong>$deps</strong>
@@ -78,8 +79,8 @@ class extension_cuadro_full extends toba_ei_cuadro
 		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
-		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio, 2, ',', '.');
+		$promedio = $escapador->escapeHtml($habitantes / count($nodo['filas']));
+		//$resultado = number_format($promedio, 2, ',', '.');
 		echo "El promedio de habitantes por localidad es: <strong>$promedio</strong>.";
 	}
 
@@ -87,9 +88,10 @@ class extension_cuadro_full extends toba_ei_cuadro
 
 	function html_pie_cc_cabecera__departamento(&$nodo)
 	{
-		$hab = $nodo['acumulador']['hab_total'];
-		$sup = $nodo['acumulador']['superficie'];
-		$desc = $nodo['descripcion']['departamento'];
+		$escapador= toba::escaper();
+		$hab = $escapador->escapeHtml($nodo['acumulador']['hab_total']);
+		$sup = $escapador->escapeHtml($nodo['acumulador']['superficie']);
+		$desc = $escapador->escapeHtml($nodo['descripcion']['departamento']);
 		return "Resumen: <strong>$desc</strong> (hab: $hab - sup: $sup)";
 	}
 

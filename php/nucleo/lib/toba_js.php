@@ -147,7 +147,8 @@ class toba_js
 			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."';\n";
 			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).",";
 			echo " toba_prefijo_vinculo=toba_proyecto_alias + '/aplicacion.php?".apex_hilo_qs_id."='+'".  $escapador->escapeJs(toba::memoria()->get_id())
-				. "&'+ toba_hilo_qs + '=". $escapador->escapeJs($item[0]). "'+toba_hilo_separador+'". $escapador->escapeJs($item[1]) ."';\n";
+				. "&'+ toba_hilo_qs + '=". $escapador->escapeJs($item[0]). "'+toba_hilo_separador+'". $escapador->escapeJs($item[1]) .
+				"' + '&'+ apex_hilo_qs_celda_memoria + '='  +'".$escapador->escapeJs(toba::memoria()->get_celda_memoria_actual_id())."';\n";
 			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";
 			
 			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');		
@@ -208,7 +209,7 @@ class toba_js
 	
 	static function cargar_definiciones_runtime()
 	{		
-		echo "window.toba_prefijo_vinculo =  toba_prefijo_vinculo;\n";		
+		echo "window.toba_prefijo_vinculo =  toba_prefijo_vinculo;\n";	
 		echo "window.toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
 		echo "window.toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
 	}

@@ -37,11 +37,12 @@ class ci_firma_digital extends toba_ci
 	
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.desactivar_boton('finalizar');
+			{$id_js}.desactivar_boton('finalizar');
 			function firmaOk() {
 				document.getElementById('pdf').style.display = 'none';
-				{$this->objeto_js}.activar_boton('finalizar');
+				{$id_js}.activar_boton('finalizar');
 
 				alert('LISTO! Al terminar la firma se puede atrapar la función javascript firmaOk()!. En este caso se habilita el boton finalizar y se oculta el visor del pdf');
 			}

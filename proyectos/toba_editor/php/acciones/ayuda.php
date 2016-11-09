@@ -2,11 +2,12 @@
 
 function cuadro_ayuda($titulo, $iconos, $origen_proyecto=false)
 {
+	$escapador = toba::escaper();
 	foreach ($iconos as $icono) {
 		echo '<li>';
 		if (count($icono['url']) == 1) {
 			foreach ($icono['url'] as $ayuda => $url) {
-				echo "<a href='$url' target='{$icono['frame']}'>";
+				echo "<a href='". $escapador->escapeHtmlAttr($url)."' target='". $escapador->escapeHtmlAttr($icono['frame'])."'>";
 				if ($origen_proyecto) {
 					echo toba_recurso::imagen_proyecto($icono['img'], true, null, null, $ayuda);
 				} else {
@@ -17,7 +18,7 @@ function cuadro_ayuda($titulo, $iconos, $origen_proyecto=false)
 		} else {
 			$ayuda = '<ul>';
 			foreach ($icono['url'] as $desc => $url) {
-				$ayuda .= "<li><a href=$url target={$icono['frame']}>$desc";
+				$ayuda .= "<li><a href=". $escapador->escapeHtmlAttr($url)." target=". $escapador->escapeHtmlAttr($icono['frame']).">". $escapador->escapeHtml($desc);
 				$ayuda .= '</a></li>';
 			}
 			$ayuda .= '</ul>';
@@ -34,7 +35,7 @@ function cuadro_ayuda($titulo, $iconos, $origen_proyecto=false)
 $url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 $url_referencia = toba_recurso::url_proyecto('toba_referencia');
-
+$escapador = toba::escaper();
 echo "
 	<style type='text/css'>
 		a {
@@ -91,12 +92,7 @@ echo "
 						API Javascript</a>
 			</li>
 			<li>
-				<a target='toba_referencia' href='$url_referencia/?ai=toba_referencia||1000073' title='Tutoriales con explicaciones guiadas y videos introductorios'>
-					<img src='".toba_recurso::imagen_proyecto('referencia_chico.png')."'>
-						Tutorial</a>
-			</li>			
-			<li>
-				<a target='toba_referencia' href='$url_referencia/'>
+				<a target='toba_referencia' href='". $escapador->escapeHtmlAttr($url_referencia)."/'>
 					<img src='".toba_recurso::imagen_proyecto('referencia_chico.png')."'>			
 						Proyecto Referencia</a>
 			</li>
@@ -116,33 +112,33 @@ echo "
 	<td width=50%>
 		<ul>
 			<li>
-				<a target='desarrollos' href='$url_trac/trac/toba/newticket*$url_login' title='Lugar central de la documentación'>
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/trac/toba/newticket*$url_login")."' title='Lugar central de la documentación'>
 					<img src='".toba_recurso::url_proyecto()."/doc/api/media/wiki-small.png'>
 						Reportar un bug o mejora</a>
 			</li>					
 			<li>
-				<a target='desarrollos' href='$url_trac/trac/toba/wiki*$url_login' title='Lugar central de la documentación'>
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/trac/toba/wiki*$url_login")."' title='Lugar central de la documentación'>
 					<img src='".toba_recurso::url_proyecto()."/doc/api/media/wiki-small.png'>
 						Wiki</a>
 			</li>
 			<li>
-				<a target='desarrollos' href='$url_trac/toba_editor_trunk/doc/api/index.html' title='Documentación de referencia de la API PHP disponible'>
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_editor_trunk/doc/api/index.html")."' title='Documentación de referencia de la API PHP disponible'>
 					<img src='".toba_recurso::url_proyecto()."/doc/api/media/php-small.png'>
 						API PHP</a>
 				
 			</li>
 			<li>
-				<a target='desarrollos' href='$url_trac/toba_editor_trunk/doc/api_js/index.html' title='Documentación de referencia de la API Javascript disponible'>
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_editor_trunk/doc/api_js/index.html")."' title='Documentación de referencia de la API Javascript disponible'>
 					<img src='".toba_recurso::url_proyecto()."/doc/api/media/javascript-small.png'>
 						API Javascript</a>
 			</li>
 			<li>
-				<a target='desarrollos' href='$url_trac/toba_referencia_trunk/?ai=toba_referencia||1000073' title='Tutoriales con explicaciones guiadas y videos introductorios'>			
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_referencia_trunk/?ai=toba_referencia||1000073")."' title='Tutoriales con explicaciones guiadas y videos introductorios'>			
 					<img src='".toba_recurso::imagen_proyecto('referencia_chico.png')."'>
 					Tutorial</a>
 			</li>			
 			<li>
-				<a target='desarrollos' href='$url_trac/toba_referencia_trunk/'>
+				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_referencia_trunk")."/'>
 					<img src='".toba_recurso::imagen_proyecto('referencia_chico.png')."'>			
 					Proyecto Referencia</a>
 			</li>

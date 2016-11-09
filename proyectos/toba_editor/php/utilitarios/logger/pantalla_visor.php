@@ -28,8 +28,7 @@ class pantalla_visor extends toba_ei_pantalla
 	function generar_html_fs()
 	{
 		if (! $this->controlador->existe_archivo_log()) {
-			echo ei_mensaje('No hay logs registrados para el proyecto '.
-							"<strong>{$this->controlador->get_proyecto()}</strong>");
+			echo ei_mensaje('No hay logs registrados para el proyecto '.	$this->controlador->get_proyecto());
 			return;
 		}			
 		$seleccion = $this->controlador->s__seleccion;
@@ -40,14 +39,15 @@ class pantalla_visor extends toba_ei_pantalla
 		//$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
 
 		//--- Opciones
+		$escapador = toba::escaper();
 		$selec = ($seleccion == 'ultima') ? 'Última solicitud' : "Solicitud {$seleccion}";
 		echo '<div>';
-		echo "<span class='logger-proyecto' title='{$this->controlador->get_analizador()->get_archivo_nombre()}' style='text-align:right;'>";
+		echo "<span class='logger-proyecto' title='". $escapador->escapeHtmlAttr($this->controlador->get_analizador()->get_archivo_nombre())."' style='text-align:right;'>";
 		
-		echo ucfirst($this->controlador->get_proyecto());
+		echo $escapador->escapeHtml(ucfirst($this->controlador->get_proyecto()));
 
 
-		echo "<span class='logger-selec'>$selec</span>";
+		echo "<span class='logger-selec'>". $escapador->escapeHtml($selec)."</span>";
 		
 		//--- Botones anterior/siguiente
 		if ($seleccion != 1) {
@@ -67,7 +67,7 @@ class pantalla_visor extends toba_ei_pantalla
 			$valor_check = 1;
 		}
 		
-		$check = toba_form::checkbox('con_encabezados', $valor_check, 1, 'ef-checkbox', " onclick=\"{$this->objeto_js}.evt__con_encabezados__click(this)\" ");
+		$check = toba_form::checkbox('con_encabezados', $valor_check, 1, 'ef-checkbox', " onclick=\"". $escapador->escapeHtmlAttr($this->objeto_js).".evt__con_encabezados__click(this)\" ");
 		echo "<label>$check Ver Encabezados</label><br>";
 		echo "</div><hr style='clear:both' />";
 
@@ -89,10 +89,10 @@ class pantalla_visor extends toba_ei_pantalla
 		echo '<strong>Niveles</strong>';
 		echo "<ul class='logger-opciones'>";
 		foreach ($niveles as $nivel) {
-			$img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
+			$img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: ". $escapador->escapeHtml($nivel));
 			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : '';
-			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
-			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
+			echo "<li id='". $escapador->escapeHtmlAttr("nivel_$nivel")."'><a href='#' onclick='mostrar_nivel(\"". $escapador->escapeHtmlAttr($nivel)."\")'>$img</a> ";
+			echo "<span id='". $escapador->escapeHtmlAttr("nivel_cant_$nivel")."'>". $escapador->escapeHtml($cant)."</span></li>\n";	
 		}
 		echo '</ul>';
 		echo '</div>';
@@ -104,7 +104,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
 		echo '<strong>Mostrar mensajes</strong>';
 		echo "<ul id='logger_proyectos' class='logger-opciones'>";
-		echo '<li>'.toba_form::select('opciones_proyectos', $mostrar, $lista_valida,  null, "onchange='{$this->objeto_js}.mostrar_proyecto()'").'</li>';
+		echo '<li>'.toba_form::select('opciones_proyectos', $mostrar, $lista_valida,  null, 'onchange="'. $escapador->escapeHtmlAttr($this->objeto_js).'.mostrar_proyecto()"').'</li>';
 		echo '</ul>';		
 		echo '</div>';
 		
@@ -117,10 +117,11 @@ class pantalla_visor extends toba_ei_pantalla
 	
 	function generar_html_info_operacion($res)
 	{
+		$escapador = toba::escaper();
 		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
 		$string = '';
 		if (isset($encabezado['operacion'])) {			
-			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>".texto_plano($encabezado['operacion'])."</span><br>";
+			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>". $escapador->escapeHtml($encabezado['operacion'])."</span><br>";
 		}
 		
 		if (isset($encabezado['fecha'])) {
@@ -132,7 +133,7 @@ class pantalla_visor extends toba_ei_pantalla
 			if ($fecha_ref->es_igual_que($fecha_log)) {
 				$fecha = 'Hoy  ' . date('H:i:s', strtotime($encabezado['fecha']));
 			}		
-			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>$fecha</span><br>";
+			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>". $escapador->escapeHtml($fecha)."</span><br>";
 		}
 
 		return $string;
@@ -142,9 +143,10 @@ class pantalla_visor extends toba_ei_pantalla
 	{
 		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
 		$enc = '';
+		$escapador = toba::escaper();
 		//--- Encabezado		
 		foreach ($encabezado as $clave => $valor) {
-			$enc .= '<li><strong>'.ucfirst($clave)."</strong>:".texto_plano($valor)."</li>\n";
+			$enc .= '<li><strong>'.$escapador->escapeHtml(ucfirst($clave))."</strong>: ". $escapador->escapeHtml($valor)."</li>\n";
 		}
 		$enc .= '<li><hr></li>';
 		return $enc;
@@ -159,6 +161,7 @@ class pantalla_visor extends toba_ei_pantalla
 			$cant_por_nivel[$nivel] = 0;
 		}
 		$detalle = '';
+		$escapador = toba::escaper();
 		foreach ($cuerpo as $linea) {
 			//¿Es una sección?
 			if (substr($linea['mensaje'], 0, 10) == '[SECCION] ') {
@@ -169,7 +172,7 @@ class pantalla_visor extends toba_ei_pantalla
 				$img = toba_recurso::imagen_proyecto('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
 				$clase = 'logger-normal';	
 			}
-			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
+			$detalle .= "<li class='". $escapador->escapeHtmlAttr($clase)."' nivel='". $escapador->escapeHtmlAttr($linea['nivel'])."' proyecto='". $escapador->escapeHtmlAttr($linea['proyecto'])."'>";
 			$detalle .= "$img ";
 			$detalle .= $this->txt2html($linea['mensaje']);
 			$detalle .= '</li>';	
@@ -184,16 +187,17 @@ class pantalla_visor extends toba_ei_pantalla
 		$txt = trim($txt);
 		$texto_traza = '[TRAZA]';
 		$pos_traza = strpos($txt, $texto_traza);
-		$salto = strpos($txt, "\n", 0);		
+		$salto = strpos($txt, "\n", 0);
+		$escapador = toba::escaper();
 		
 		//¿Contiene una traza?		
 		if ($pos_traza !== false) {
-			$txt_anterior = texto_plano(substr($txt, 0, $pos_traza));
+			$txt_anterior = $escapador->escapeHtml(substr($txt, 0, $pos_traza));
 			$txt_traza = trim(substr($txt, $pos_traza + strlen($texto_traza)));
-			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span><span class='logger-traza-detalle' style='display:none;'>$txt_traza</span>";
+			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>". $escapador->escapeHtml($texto_traza)."</span><span class='logger-traza-detalle' style='display:none;'>". $escapador->escapeHtml($txt_traza)."</span>";
 		} elseif ($salto !== false) {
 			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
-			$txt = substr($txt, 0, $salto).'<pre>'.substr($txt, $salto).'</pre>';
+			$txt = $escapador->escapeHtml(substr($txt, 0, $salto)).'<pre>'. substr($txt, $salto).'</pre>';
 		}
 		return $txt;
 	}		
@@ -203,20 +207,22 @@ class pantalla_visor extends toba_ei_pantalla
 		if (!$this->controlador->debe_mostrar_visor() || ! $this->controlador->existe_archivo_log()) {
 			return;	
 		}
-		$niveles = toba::logger()->get_niveles();
+		$escapador = toba::escaper();
+		$niveles = toba::logger()->get_niveles();		
+		$parametros = array();
 ?>
-			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo(); ?>';
+			var ultima_mod ='<?php echo $escapador->escapeJs($this->controlador->timestamp_archivo()); ?>';
 			var niveles = <?php echo toba_js::arreglo($niveles); ?>;
 			var niveles_actuales = {length: 0};
 
-			<?php echo $this->objeto_js; ?>.evt__refrescar = function() {
+			<?php echo $escapador->escapeJs($this->objeto_js); ?>.evt__refrescar = function() {
 				this.ajax('get_datos_logger', ultima_mod, this, this.respuesta_refresco);
 				return false;
 			}
 			
-			<?php echo $this->objeto_js; ?>.respuesta_refresco = function(resp)
+			<?php echo $escapador->escapeJs($this->objeto_js);  ?>.respuesta_refresco = function(resp)
 			{
-				if (resp != null) {
+				if (resp != null && trim(resp) != '') {
 					toba.inicio_aguardar();				
 					ultima_mod = resp['ultima_mod'];
 					document.getElementById('logger_encabezados').innerHTML = resp['encabezado'];
@@ -243,7 +249,7 @@ class pantalla_visor extends toba_ei_pantalla
 				refrescar_detalle();
 			}
 
-			<?php echo $this->objeto_js; ?>.mostrar_proyecto = function (inicial)
+			<?php echo $escapador->escapeJs($this->objeto_js); ?>.mostrar_proyecto = function (inicial)
 			{
 				obj_combo = document.getElementById('opciones_proyectos');
 				valor = obj_combo.options[obj_combo.selectedIndex].value;
@@ -309,17 +315,17 @@ class pantalla_visor extends toba_ei_pantalla
 				}
 			}
 
-			<?php echo $this->objeto_js; ?>.dump_response = function(resp){
+			<?php echo $escapador->escapeJs($this->objeto_js); ?>.dump_response = function(resp){
 					//Esta funcion esta para desechar la respuesta, la cual no existe
 			}
 
-			<?php echo $this->objeto_js; ?>.evt__con_encabezados__click = function(obj){
+			<?php echo $escapador->escapeJs($this->objeto_js); ?>.evt__con_encabezados__click = function(obj){
 				toggle_nodo(document.getElementById('logger_encabezados'));
 				this.ajax('set_estado_encabezados', obj.checked, this, this.dump_response);
 				return false;
 			}
 
-			<?php echo $this->objeto_js; ?>.mostrar_proyecto(true);
+			<?php echo $escapador->escapeJs($this->objeto_js); ?>.mostrar_proyecto(true);
 <?php
 	}
 	

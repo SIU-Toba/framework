@@ -17,10 +17,9 @@ class eiform_gatillos extends toba_ei_formulario_ml
 
 	function extender_objeto_js()
 	{
-		echo "
-		//---- Validacion general ----------------------------------
-		
-		{$this->objeto_js}.evt__validar_datos = function()
+		$escapador = toba::escaper();
+		echo $escapador->escapeJs($this->objeto_js)
+		.".evt__validar_datos = function()
 		{
 			var tablas = new Array();
 			var repetidas = new Array();
@@ -51,7 +50,7 @@ class eiform_gatillos extends toba_ei_formulario_ml
 				ok = false;
 			}
 			if( reutilizadas.length > 0 ) {
-				notificacion.agregar('Existen gatillos que ya fueron utilizados como GATILLOS $this->contexto_opuesto. (' + reutilizadas.join(', ') + ')' );
+				notificacion.agregar('Existen gatillos que ya fueron utilizados como GATILLOS ". $escapador->escapeJs($this->contexto_opuesto).". (' + reutilizadas.join(', ') + ')' );
 				ok = false;
 			}
 			return ok;

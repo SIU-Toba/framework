@@ -4,8 +4,8 @@ class eiform_proyecto_conflogin extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
-		echo "
-		{$this->objeto_js}.evt__requiere_validacion__procesar = function () {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__requiere_validacion__procesar = function () {
 			if( this.ef('requiere_validacion').chequeado() ){
 				this.ef('validacion_intentos').mostrar();
 				this.ef('validacion_intentos_min').mostrar();

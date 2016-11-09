@@ -70,7 +70,7 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 					var parametro; 
 					//-- Comunicación de datos codificados con JSON
 					if (response.responseText !== '') {
-						parametro = eval('(' + response.responseText + ')');
+						parametro = JSON.parse(response.responseText);
 					} else{
 						parametro = '';
 					}

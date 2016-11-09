@@ -44,8 +44,8 @@ class ci_jasper extends toba_ci
 	function extender_objeto_js()
 	{
 		if ($this->get_id_pantalla() == 'pant_estaticos') {
-			echo "
-				{$this->dep('cuadro')->objeto_js}.evt__imprimir = function(params) {
+			echo 
+				toba::escaper()->escapeJs($this->dep('cuadro')->objeto_js).".evt__imprimir = function(params) {
 					location.href = vinculador.get_url(null, null, 'vista_jasperreports', {'path': params});
 					return false;
 				}

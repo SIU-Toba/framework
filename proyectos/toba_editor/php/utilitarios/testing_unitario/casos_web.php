@@ -113,7 +113,7 @@ class pantalla_testing extends toba_ei_pantalla
 						$path_temp = toba::proyecto()->get_path_temp_www();
 						$salida = $path_temp['real'] .'/cobertura.html';
 						$cc->renderToFile($salida);
-						echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
+						echo "<a href='". toba::escaper()->escapeHtmlAttr($path_temp['browser'] . '/cobertura.html') ."' target='_blank'>Ver cobertura de código</a>";
 					}
 					//-------				
 				}

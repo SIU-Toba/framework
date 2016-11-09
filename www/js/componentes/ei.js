@@ -380,8 +380,7 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				
-				var datos = eval('(' + respuesta.responseText + ')');
+				var datos = JSON.parse(respuesta.responseText);
 				if ('Array' == getObjectClass(datos)) {
 					this.ef(respuesta.argument).set_opciones_rs(datos);
 				} else {
@@ -438,7 +437,7 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				var datos = eval('(' + respuesta.responseText + ')');
+				var datos = JSON.parse(respuesta.responseText);
 				if ('Array' == getObjectClass(datos)) {
 					this.ef(respuesta.argument).set_opciones_rs(datos, false);					
 				} else {

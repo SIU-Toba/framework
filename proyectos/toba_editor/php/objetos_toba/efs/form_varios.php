@@ -4,6 +4,7 @@ class form_varios extends toba_ei_formulario
 
 	function generar_input_ef($ef)
 	{
+		$escapador = toba::escaper();
 		switch ($ef) {
 			case 'edit_expreg':
 				$expresiones = array(
@@ -15,8 +16,9 @@ class form_varios extends toba_ei_formulario
 				parent::generar_input_ef($ef);
 				echo '<br>Validaciones: ';
 				$inicial = '';
+				$id_js = $escapador->escapeJs($this->objeto_js);
 				foreach ($expresiones as $id => $desc) {
-					echo "$inicial<a href='javascript: {$this->objeto_js}.pedir_expreg(\"$id\");'>$desc</a>";
+					echo "$inicial<a href='javascript: {$id_js}.pedir_expreg(\"". $escapador->escapeHtmlAttr($id)."\");'>". $escapador->escapeHtml($desc)."</a>";
 					$inicial = ', ';
 				}
 				break;
@@ -31,11 +33,12 @@ class form_varios extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		
 			
-			{$this->objeto_js}.evt__popup_editable__procesar = function(es_inicial)
+			{$id_js}.evt__popup_editable__procesar = function(es_inicial)
 			{
 				var cheq = !this.ef('popup_editable').chequeado();
 				this.ef('popup_carga_desc_metodo').mostrar(cheq, true);
@@ -45,7 +48,7 @@ class form_varios extends toba_ei_formulario
 				this.evt__popup_carga_desc_estatico__procesar(es_inicial);
 			}
 
-			{$this->objeto_js}.evt__popup_carga_desc_estatico__procesar = function(es_inicial)
+			{$id_js}.evt__popup_carga_desc_estatico__procesar = function(es_inicial)
 			{
 				var cheq = this.ef('popup_carga_desc_estatico').chequeado();
 				this.ef('popup_carga_desc_include').mostrar(cheq, true);
@@ -53,22 +56,22 @@ class form_varios extends toba_ei_formulario
 				this.ef('punto_montaje').mostrar(cheq);
 			}
 			
-			{$this->objeto_js}.pedir_expreg = function(tipo) {
+			{$id_js}.pedir_expreg = function(tipo) {
 				this.controlador.ajax('get_regexp', tipo, this, this.respuesta_expreg);
 			}
 			
-			{$this->objeto_js}.respuesta_expreg = function(datos) {
+			{$id_js}.respuesta_expreg = function(datos) {
 				this.ef('edit_expreg').set_estado(datos);
 			}
 
-			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+			{$id_js}.evt__punto_montaje__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('popup_carga_desc_include').cambiar_valor('');
 					this.ef('popup_carga_desc_clase').cambiar_valor('');
 				}
 			}
 
-			{$this->objeto_js}.evt__popup_carga_desc_include__procesar = function(inicial) {
+			{$id_js}.evt__popup_carga_desc_include__procesar = function(inicial) {
 				var archivo = this.ef('popup_carga_desc_include').valor();
 				if (!inicial && this.ef('popup_carga_desc_clase').valor() == '') {
 					var basename = archivo.replace( /.*\//, '' );
@@ -77,13 +80,13 @@ class form_varios extends toba_ei_formulario
 				}
 			}
 
-			{$this->objeto_js}.modificar_vinculo__ef_popup_carga_desc_include = function(id_vinculo)
+			{$id_js}.modificar_vinculo__ef_popup_carga_desc_include = function(id_vinculo)
             {
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
             }
 
-			{$this->objeto_js}.modificar_vinculo__extender = function(id_vinculo)
+			{$id_js}.modificar_vinculo__extender = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});

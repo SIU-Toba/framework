@@ -16,8 +16,10 @@ class eiform_ap extends toba_ei_formulario
 	
 	function extender_objeto_js()
 	{
+		$escapador = toba::escaper();
+		$id_js = $escapador->escapeJs($this->objeto_js);
 		echo "
-		{$this->objeto_js}.evt__ap_archivo__procesar = function(inicial) {
+		{$id_js}.evt__ap_archivo__procesar = function(inicial) {
 			if (!inicial && this.ef('ap_clase').valor() == '') {
 				var archivo = this.ef('ap_archivo').valor();
 				var basename = archivo.replace( /.*\//, '' );
@@ -26,7 +28,7 @@ class eiform_ap extends toba_ei_formulario
 			}
 		}
 		
-		{$this->objeto_js}.evt__ap__procesar = function () {
+		{$id_js}.evt__ap__procesar = function () {
 			var flag;
 			flag = this.ef('ap').valor();
 			switch (flag) {
@@ -70,38 +72,38 @@ class eiform_ap extends toba_ei_formulario
 			}			
 		}
 		
-		{$this->objeto_js}.evt__abrir_php = function () {
+		{$id_js}.evt__abrir_php = function () {
 			$this->js_abrir;
 			return false;
 		}
 		
-		{$this->objeto_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
+		{$id_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
 		 {
 			var estado = this.ef('punto_montaje').get_estado();
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}
 		
-		{$this->objeto_js}.modificar_vinculo__extender_ap = function(id_vinculo)
+		{$id_js}.modificar_vinculo__extender_ap = function(id_vinculo)
 		{
 			var estado = this.ef('punto_montaje').get_estado();
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}
 		
-		{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+		{$id_js}.evt__punto_montaje__procesar = function(inicial) {
 			  if (!inicial) {
 				  this.ef('ap_archivo').cambiar_valor('');
 				  this.ef('ap_clase').cambiar_valor('');
 			  }
 		  }
 		
-		{$this->objeto_js}.evt__esquema__procesar = function(es_inicial)
+		{$id_js}.evt__esquema__procesar = function(es_inicial)
 		{
 			if (! es_inicial) {
 				this.set_evento(new evento_ei('modificacion', true, ''));		//Disparo el submit de manera adrede
 			}
 		}		
 		
-		{$this->objeto_js}.evt__esquema_ext__procesar = function(es_inicial)
+		{$id_js}.evt__esquema_ext__procesar = function(es_inicial)
 		{
 			if (! es_inicial) {
 				this.set_evento(new evento_ei('modificacion', true, ''));		//Disparo el submit de manera adrede
@@ -113,19 +115,19 @@ class eiform_ap extends toba_ei_formulario
 		if ( isset($this->texto_recarga) ) {
 			$usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
 			echo "
-				{$this->objeto_js}.evt__tabla__procesar = function(es_inicial)
+				{$id_js}.evt__tabla__procesar = function(es_inicial)
 				{
 					if (! es_inicial && this.ef('tabla').get_estado() != apex_ef_no_seteado) {
-						if( $usar_confirm || confirm('{$this->texto_recarga}')) {
+						if( $usar_confirm || confirm('". $escapador->escapeJs($this->texto_recarga)."')) {
 							this.set_evento(new evento_ei('cargar_tablas',true,''));
 						}
 					}
 				}
 						
-				{$this->objeto_js}.evt__tabla_ext__procesar = function(es_inicial)
+				{$id_js}.evt__tabla_ext__procesar = function(es_inicial)
 				{
 					if (! es_inicial && this.ef('tabla_ext').get_estado() != apex_ef_no_seteado) {
-						if( $usar_confirm || confirm('{$this->texto_recarga}')) {
+						if( $usar_confirm || confirm('". $escapador->escapeJs($this->texto_recarga)."')) {
 							this.set_evento(new evento_ei('cargar_tablas',true,''));
 						}
 					}

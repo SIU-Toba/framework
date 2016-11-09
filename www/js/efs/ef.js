@@ -398,7 +398,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 	 * Cambia el valor o estado actual del elemento
 	 */
 	ef.prototype.set_estado = function(nuevo) {
-		this.input().value = nuevo;
+		this.input().value = (typeof nuevo == 'string') ? nuevo.decodeEntities(): nuevo;
 		if (this.input().onchange) {
 			this.input().onchange();
 		}		
@@ -535,7 +535,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 	 * @param {string} nuevo HTML a incluir
 	 */
 	ef_fijo.prototype.set_estado = function(nuevo) {
-		this.input().innerHTML = nuevo;
+		this.input().innerHTML = (typeof nuevo == 'string') ? nuevo.decodeEntities(): nuevo;
 	};	
 	
 	ef_fijo.prototype.get_estado = function() {

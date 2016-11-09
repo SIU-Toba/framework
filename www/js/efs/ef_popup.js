@@ -149,7 +149,7 @@ ef_popup.prototype.constructor = ef_popup;
 		if ((!isset(disparar_eventos) || disparar_eventos) && input.onchange) {
 			input.onchange();
 		}
-		this.input_desc().value = desc;
+		this.input_desc().value = (typeof  desc == 'string') ? desc.decodeEntities(): desc;
 		input.disabled = false;
 		try {
 			input.focus();

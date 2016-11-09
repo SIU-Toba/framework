@@ -4,7 +4,6 @@
  * Se utiliza como toba::zona()->cargar, toba::logger()->trace() o toba::tabla('mi_tabla')->...
  * @package Centrales
  */
-use Zend\Escaper\Escaper;
 class toba
 {
 	static private $mensajes;
@@ -447,7 +446,7 @@ class toba
 	static function escaper()
 	{
 		if (!isset(self::$escaper)){
-			self::$escaper = new Escaper(apex_default_charset);
+			self::$escaper = new toba_escapador(apex_default_charset);
 		}
 		return self::$escaper;
 	}

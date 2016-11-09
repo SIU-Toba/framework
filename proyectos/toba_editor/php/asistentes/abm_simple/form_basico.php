@@ -8,10 +8,11 @@ class form_basico extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 			//---- Procesamiento de EFs --------------------------------
 		
-			{$this->objeto_js}.evt__tabla__procesar = function(es_inicial)
+			{$id_js}.evt__tabla__procesar = function(es_inicial)
 			{
 				if (! es_inicial && this.ef('tabla').get_estado() != apex_ef_no_seteado) {
 					this.submit();
@@ -19,9 +20,9 @@ class form_basico extends toba_ei_formulario
 			}		
 		";
 		if ( $this->controlador()->pantalla()->existe_dependencia('form_filas') ) {
-			$id_ml = $this->controlador()->dep('form_filas')->get_id_objeto_js();
+			$id_ml = toba::escaper()->escapeJs($this->controlador()->dep('form_filas')->get_id_objeto_js());
 			echo "
-				{$this->objeto_js}.evt__gen_usa_filtro__procesar = function(es_inicial) 
+				{$id_js}.evt__gen_usa_filtro__procesar = function(es_inicial) 
 				{
 					if (! es_inicial) {
 						if (this.ef('gen_usa_filtro').chequeado()) {

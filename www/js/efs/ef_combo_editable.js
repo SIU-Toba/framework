@@ -300,7 +300,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		this._ultimas_opciones_server[this._id_form] = [];
 		for (var i = 0; i < valores.length; i++) {
 			var clave = valores[i][0];
-			var valor = valores[i][1];
+			var valor = (typeof  valores[i][1] == 'string') ? valores[i][1].decodeEntities(): valores[i][1];
 			if (clave != 'nopar') {
 				datos.push([clave, valor]);
 				this._ultimas_opciones_server[this._id_form].push(clave);			

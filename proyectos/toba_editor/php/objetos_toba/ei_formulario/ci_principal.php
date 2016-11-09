@@ -157,7 +157,7 @@ class ci_principal extends ci_editores_toba
 		$salida = "
 		CKEDITOR.addTemplates('default', 
 		{
-			imagesPath: '{$url['url']}', \n
+			imagesPath: '". toba::escaper()->escapeJs($url['url'])."', \n
 			templates: \n
 				[ \n
 					{ \n

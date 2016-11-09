@@ -9,7 +9,7 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --descripcion_corta
 	NULL, --fuente_datos_motor
 	NULL, --host
-	NULL, --punto_montaje
+	'12000003', --punto_montaje
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden

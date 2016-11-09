@@ -306,7 +306,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			notificacion.mostrar();			
 		} else {
 			try {
-				var datos_rs = eval('(' + respuesta.responseText + ')');
+				var datos_rs = JSON.parse(respuesta.responseText);
 				var datos_asociativo;
 				if ('Array' == getObjectClass(datos_rs)) {
 					datos_asociativo = [];

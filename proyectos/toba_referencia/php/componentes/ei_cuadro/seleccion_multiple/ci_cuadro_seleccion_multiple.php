@@ -31,9 +31,8 @@ class ci_cuadro_seleccion_multiple extends toba_ci
 	
 	function extender_objeto_js()
 	{
-		echo "
-		
-			{$this->objeto_js}.evt__probar = function()
+		echo toba::escaper()->escapeJs($this->objeto_js).
+			".evt__probar = function()
 			{
 				var seleccion = this.dep('cuadro').get_ids_seleccionados('seleccion');
 				var clickadas = this.dep('cuadro').get_ids_seleccionados('multiple_con_etiq');

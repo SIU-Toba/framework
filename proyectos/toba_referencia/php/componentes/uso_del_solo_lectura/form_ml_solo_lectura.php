@@ -6,8 +6,8 @@ class form_ml_solo_lectura extends toba_ei_formulario_ml
 	function extender_objeto_js()
 	{
 		echo "
-			var solo_lectura_activo = false;
-			{$this->objeto_js}.evt__readonly_cliente = function() {
+			var solo_lectura_activo = false;".
+			toba::escaper()->escapeJs($this->objeto_js).".evt__readonly_cliente = function() {
 				solo_lectura_activo = !solo_lectura_activo;
 				for (id_fila in this._filas) {
 					for (id_ef in this._efs) {
