@@ -6,7 +6,7 @@ class ci_auditoria extends toba_ci
 	
 	//-----------------------------------------------------------------------------------
 	//---- Inicializacion ---------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------	
 	function ini__operacion()
 	{
 		if (! is_null(admin_instancia::get_proyecto_defecto())) {
@@ -16,8 +16,13 @@ class ci_auditoria extends toba_ci
 
 	function get_esquema()
 	{	
-		$db = $this->get_db();
-		$schema = $db->get_schema();
+		if (isset($this->s__filtro) && isset($this->s__filtro['esquema']) && $this->s__filtro['esquema']  != '') {
+			return  $this->s__filtro['esquema'];
+		} else {
+			$db = $this->get_db();
+			$schema = $db->get_schema();
+		}
+		
 		if (isset($schema)) {
 			return $schema.'_auditoria';
 		} else {
@@ -46,19 +51,35 @@ class ci_auditoria extends toba_ci
 	}
 	
 	
-	function get_tablas($proyecto=null)
+	function get_tablas($proyecto=null, $esquema=null)
 	{
+		$tablas = array();
 		if (! isset($proyecto)) {
 			$proyecto = $this->s__filtro['proyecto'];
 		} else {
 			$this->s__filtro['proyecto'] = $proyecto;
 		}
-		$tablas = array();
+		if (! isset($esquema)) {
+			$esquema = $this->get_esquema();
+		}		
 		$db = $this->get_db($proyecto);
 		if (isset($db)) {
-			$tablas = $db->get_lista_tablas(false, $this->get_esquema());
+			$tablas = $db->get_lista_tablas(false, $esquema);
 		}
 		return $tablas;
+	}
+	
+	function get_esquemas_combo($proyecto=null)
+	{
+		$resultado = array();
+		$db = $this->get_db($proyecto);
+		$rs = $db->get_lista_schemas_disponibles();
+		foreach($rs as $valores) {
+			if (stripos($valores['esquema'], '_auditoria') !== false) {
+				$resultado[] = array('id' => $valores['esquema']);
+			}
+		}
+		return $resultado;		
 	}
 	
 	//---- filtro -----------------------------------------------------------------------

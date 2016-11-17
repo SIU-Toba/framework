@@ -19,13 +19,12 @@ class comando_instalacion_silenciosa extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave usuario admin']  [--usuario-admin 'usuario admin']
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave usuario admin']  [--usuario-admin 'usuario admin'][--alias-nucleo 'aliastoba'][--schema-toba 'schemaname'].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
 	{		
-		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
-		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');		
 		
 		//--- Verificar instalacion
 		$param = $this->get_parametros();
@@ -37,8 +36,12 @@ class comando_instalacion_silenciosa extends comando_toba
 		
 		//--- Crea la INSTALACION		
 		$id_desarrollo = $this->definir_id_grupo_desarrollo($param);
-		$tipo_instalacion = $this->definir_tipo_instalacion_produccion($param);
+		$tipo_instalacion = $this->definir_tipo_instalacion_produccion($param);		
 		$nombre = $this->definir_nombre_instalacion($param);
+		$alias = $this->definir_alias_nucleo($param);
+		if ($alias ==  '/toba') {												//Si viene el alias por defecto, le agrego el nro de version
+			$alias = $alias. '_' . toba_modelo_instalacion::get_version_actual()->get_release();
+		}
 		
 		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
 		$id_instancia = $this->get_entorno_id_instancia(true);
@@ -47,6 +50,7 @@ class comando_instalacion_silenciosa extends comando_toba
 		}
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
+		$schema = $this->definir_schema_toba($param, $id_instancia);
 		if (! $this->get_instalacion()->existe_base_datos_definida($base)) {
 			$datos = array(
 				'motor' => 'postgres7',
@@ -56,7 +60,7 @@ class comando_instalacion_silenciosa extends comando_toba
 				'base' => $this->definir_base_motor($param),
 				'puerto' => $this->definir_puerto_motor($param),
 				'encoding' => 'LATIN1',
-				'schema' => $id_instancia
+				'schema' => $schema
 			);			
 			$this->get_instalacion()->agregar_db($base, $datos);
 		}			
@@ -280,6 +284,17 @@ class comando_instalacion_silenciosa extends comando_toba
 		} else {
 			return '/'.$resultado;	
 		}		
+	}
+		
+	protected function definir_schema_toba($param, $id_instancia)
+	{		
+		$nombre_parametro = array('--schema-toba');
+		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
+		if ($result['invalido']) {
+			toba::logger()->error('Se selecciono ' . $id_instancia . ' como nombre de schema para la base toba, ya que el mismo no fue provisto');
+			return $id_instancia;
+		}
+		return $result['resultado'];		
 	}
 	
 	/**

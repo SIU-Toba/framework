@@ -1397,7 +1397,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if ($hay_restricciones) {
 			$archivos = array_merge($restricciones, $archivos);
 		}
-		
+				
 		//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
 		$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
 		if (file_exists($dir_items)) {
@@ -1411,14 +1411,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$xml = new toba_xml_tablas($archivo);
 			$errores = $xml->insertar_db($this->db, $this->get_dir_instalacion_proyecto());
 			if (! empty($errores)) {
-					foreach (array_keys($errores) as $clave) {
-						$id_item = (isset($errores[$clave]['datos']['item']))?  $errores[$clave]['datos']['item'] : null;
-						if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && array_key_exists($id_item, $items)) {
-							if (! is_null($id_item) && isset($items[$id_item])) {
-								$errores[$clave]['extras'] = $items[$id_item];
-							} else {
-								$errores[$clave]['extras'] = '';
-							}
+				foreach (array_keys($errores) as $clave) {
+					$id_item = (isset($errores[$clave]['datos']['item']))?  $errores[$clave]['datos']['item'] : null;
+					if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && array_key_exists($id_item, $items)) {
+						if (! is_null($id_item) && isset($items[$id_item])) {
+							$errores[$clave]['extras'] = $items[$id_item];
+						} else {
+							$errores[$clave]['extras'] = '';
 						}
 					}
 				

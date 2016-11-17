@@ -340,21 +340,27 @@
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
+		$escapador = toba::escaper();		
 		$pos_guia = strpos($etiqueta, '&');		
-		$escapador = toba::escaper();
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
-			$etiqueta = $escapador->escapeHtmlAttr($etiqueta);
-			return array($etiqueta, null);
+			$nueva_etiqueta = $escapador->escapeHtmlAttr($etiqueta);
+			$tecla = null;
 		} else {
-			$partes = explode('&', $etiqueta);	
+			$partes = explode('&', $etiqueta);
 			if (count($partes) != 2) {
 				throw new toba_error_def('No puede existir mas de un shortcut en la misma etiqueta');
-			}
+			}			
 			$tecla = substr($partes[1], 0, 1);
-			$nueva_etiqueta = $escapador->escapeHtmlAttr($partes[0]) . '<u>'. $escapador->escapeHtmlAttr($tecla). '</u>';
-			$nueva_etiqueta .= $escapador->escapeHtmlAttr(substr($partes[1], 1));
-			return array($nueva_etiqueta, $tecla);
+			$escapada = $escapador->escapeHtmlAttr($partes[0]. $partes[1]);
+			
+			//---Me fijo si el escapado modifica algun otro caracter en las partes que pueda correr la guia a la derecha			
+			$parte1_escap = $escapador->escapeHtmlAttr($partes[0]);		
+			$tags = $escapador->quitar_tags($etiqueta);
+			//--- Si hay tags completos, como no se escapan se mantiene la posicion original, sino se calcula el corrimiento
+			$corrimiento_izq = empty($tags) ? strlen($parte1_escap) - strlen($partes[0]) : 0;			
+			$nueva_etiqueta = substr($escapada, 0, $pos_guia + $corrimiento_izq) . "<u>$tecla</u>". substr($escapada, $pos_guia  +  1 + $corrimiento_izq);
 		}
+		return array($nueva_etiqueta, $tecla);
 	}
 	
 	function array_borrar_valor(& $arreglo, $valor)

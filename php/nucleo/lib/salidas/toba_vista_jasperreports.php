@@ -77,12 +77,13 @@ class toba_vista_jasperreports
 	/**
 	 * Permite agregar parametros a pasar al reporte
 	 * @param string $nombre nombre del parametro
-	 * @param string $tipo 'D' = fecha, 'E' = entero, 'S' = string/char/varchar, 'F' = decimal/punto flotante, 'B': booleano
+	 * @param string $tipo 'D' = fecha, 'E' = entero, 'S' = string/char/varchar, 'F' = decimal/punto flotante, 'B': booleano, 'L': Locale 
 	 * @param string $valor valor del parametro
 	 */
 	function set_parametro($nombre='', $tipo='E', $valor=0)
 	{
-		if (!(($tipo=='D') || ($tipo=='E') || ($tipo=='S') || ($tipo=='F') || ($tipo=='B'))) {
+		$tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');		
+		if (! in_array($tipo, $tipos_parametros)) {
 			throw new toba_error("Tipo incorrecto de parametro");
 		}
 
@@ -103,6 +104,10 @@ class toba_vista_jasperreports
 			case 'B':
 				$tipo = "java.lang.Boolean";				
 				break;
+			 case 'L':
+				$tipo = "java.util.Locale";
+				$valor = utf8_e_seguro($valor);    
+				break;			
 			default:
 				$tipo = "java.lang.String";
 				$valor = utf8_e_seguro($valor);	

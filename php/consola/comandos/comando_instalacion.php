@@ -75,13 +75,12 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive].
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive][--alias-nucleo 'aliastoba'][--schema-toba 'schemaname'].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
 	{		
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
-		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
@@ -114,7 +113,12 @@ class comando_instalacion extends comando_toba
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
 		}
+		
 		//--- Crea la INSTALACION		
+		$alias = $this->definir_alias_nucleo($param);
+		if ($alias ==  '/toba') {												//Si viene el alias por defecto, le agrego el nro de version
+			$alias = $alias. '_' . toba_modelo_instalacion::get_version_actual()->get_release();
+		}
 		$id_desarrollo = (isset($param['-d'])) ? $param['-d'] : $this->definir_id_grupo_desarrollo();
 		$tipo_instalacion = (isset($param['-t'])) ? $param['-t'] : $this->definir_tipo_instalacion_produccion();
 		$nombre = (isset($param['-n'])) ? $param ['-n'] : $this->definir_nombre_instalacion();
@@ -127,6 +131,7 @@ class comando_instalacion extends comando_toba
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
+		$schema = $id_instancia;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
 				$profile = $this->recuperar_parametro($param, '-h',  'PostgreSQL - Ubicación (ENTER utilizará localhost)');
@@ -155,6 +160,11 @@ class comando_instalacion extends comando_toba
 					$base = $base_temp;
 				}
 				
+				$base_schema = $this->recuperar_parametro($param, '--schema-toba', "Nombre del schema a usar (ENTER utilizará $id_instancia)");
+				if (trim($base_schema) != '') {
+					$schema = $base_schema;
+				}
+				
 				$datos = array(
 					'motor' => 'postgres7',
 					'profile' => $profile,
@@ -163,7 +173,7 @@ class comando_instalacion extends comando_toba
 					'base' => $base,
 					'puerto' => $puerto,
 					'encoding' => 'LATIN1',
-					'schema' => $id_instancia
+					'schema' => $schema
 				);
 				$this->get_instalacion()->agregar_db( $base, $datos );
 				$puede_conectar = true;

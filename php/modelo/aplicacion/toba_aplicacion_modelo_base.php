@@ -360,7 +360,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		
 		if (! is_null($fuente) && !empty($lista_schemas)) {
 			$aux = array_intersect($schemas[$fuente], $lista_schemas);
-			if ($aux !== false) {
+			if ($aux !== false && ! empty($aux)) {
 				$schemas[$fuente] = $aux;
 			}
 		}
@@ -608,19 +608,18 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 
 		$sql = "SELECT  DISTINCT
 						u.usuario,
-                        u.clave,
-                        u.nombre,
-                        u.email,
-                        u.autentificacion,
-                        CASE
-                          WHEN lower(u.autentificacion) = 'bcrypt' THEN 'crypt'
-                          WHEN lower(u.autentificacion) = 'sha256' OR lower(u.autentificacion) = 'sha512' THEN 'sha'
-                          ELSE lower(u.autentificacion)
-                        END autentificacion_arai,
-                        u.bloqueado
-                FROM apex_usuario u
-	            JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto)
-	    ";
+						u.clave,
+						u.nombre,
+						u.email,
+						u.autentificacion,
+						CASE
+						  WHEN lower(u.autentificacion) = 'bcrypt' THEN 'crypt'
+						  WHEN lower(u.autentificacion) = 'sha256' OR lower(u.autentificacion) = 'sha512' THEN 'sha'
+						  ELSE lower(u.autentificacion)
+						END autentificacion_arai,
+						u.bloqueado
+				FROM apex_usuario u
+				JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto) ";
 		$sentencia = $db_arai->sentencia_preparar($sql);
 		$datosUsuariosToba = $db_arai->sentencia_consultar($sentencia, array('toba_proyecto' => $this->get_proyecto()->get_id()));
 

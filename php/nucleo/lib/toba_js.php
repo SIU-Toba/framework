@@ -131,6 +131,7 @@ class toba_js
 							'esperar' => toba_recurso::imagen_toba('wait.gif', false),
 							'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
 							);
+			$script = (isset($_SERVER['SCRIPT_FILENAME'])) ? basename($_SERVER['SCRIPT_FILENAME']): 'aplicacion.php';
 			
 			echo toba_js::abrir();
 			echo "var toba_alias='".$escapador->escapeJs(toba_recurso::url_toba())."';\n";
@@ -146,10 +147,10 @@ class toba_js
 			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."';\n";
 			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."';\n";
 			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).",";
-			echo " toba_prefijo_vinculo=toba_proyecto_alias + '/aplicacion.php?".apex_hilo_qs_id."='+'".  $escapador->escapeJs(toba::memoria()->get_id())
+			echo " toba_prefijo_vinculo=toba_proyecto_alias + '/". $escapador->escapeJs($script) .'?' . apex_hilo_qs_id."='+'".  $escapador->escapeJs(toba::memoria()->get_id())
 				. "&'+ toba_hilo_qs + '=". $escapador->escapeJs($item[0]). "'+toba_hilo_separador+'". $escapador->escapeJs($item[1]) .
 				"' + '&'+ apex_hilo_qs_celda_memoria + '='  +'".$escapador->escapeJs(toba::memoria()->get_celda_memoria_actual_id())."';\n";
-			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";
+			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";			
 			
 			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');		
 			if (! isset($espera)) {

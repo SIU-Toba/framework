@@ -66,7 +66,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function existe_ini_server(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(). '/rest', $nombre_api);
+		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
 		return file_exists($directorio . self::ARCHIVO_SERVER);
 	}
 	
