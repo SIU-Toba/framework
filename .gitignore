@@ -18,3 +18,4 @@ bin/validate-json
 .directory
 metadatos_compilados/
 temp/
+xlib

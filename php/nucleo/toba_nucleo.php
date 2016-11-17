@@ -53,7 +53,7 @@ class toba_nucleo
 	static function cargar_autoload_composer()
 	{
 		$dir = dirname(__FILE__);		//Me fijo donde estoy
-		$pos = stripos($dir, '/vendor/');
+		$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
 			$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
 		} elseif (file_exists(realpath(self::toba_dir().'/vendor/autoload.php'))) {
