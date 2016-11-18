@@ -278,11 +278,10 @@ class comando_instalacion_silenciosa extends comando_toba
 		
 	protected function definir_alias_nucleo($param)
 	{		
-		$resultado = $param['--alias-nucleo'];
-		if ( $resultado == '' ) {
+		if (! isset($param['--alias-nucleo']) || $param['--alias-nucleo'] == '' ) {
 			return '/toba';
 		} else {
-			return '/'.$resultado;	
+			return $param['--alias-nucleo'];	
 		}		
 	}
 		
