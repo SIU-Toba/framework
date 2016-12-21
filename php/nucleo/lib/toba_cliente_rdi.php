@@ -85,7 +85,11 @@ class toba_cliente_rdi
 		$serv_personalizados = toba::proyecto()->get_parametro('servicios_rdi', null, false);
 		if (! is_null($serv_personalizados)) {
 			foreach($serv_personalizados as $servicio => $clase) {
-				$rdi->mapeoServicios()->redefinir($servicio, $clase);				
+				try {
+					$rdi->mapeoServicios()->redefinir($servicio, $clase);				
+				} catch (RDIExcepcion $ex) {
+					$rdi->mapeoServicios()->agregar($servicio, $clase);
+				}
 			}
 		}		
 
