@@ -3,6 +3,7 @@ use Zend\Escaper\Escaper;
 class toba_escapador extends Escaper
 {
 	private $_es_editor;
+	private $tags_formato = array('b', 'i','p','s','u', 'em', 'pre', 'strike', 'strong', 'span');
 	
 	function __construct($encoding = null)
 	{
@@ -10,14 +11,38 @@ class toba_escapador extends Escaper
 		parent::__construct($encoding);
 	}
 		
-	function escapeHtml($texto)
-	{
-		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? htmlentities($texto, ENT_QUOTES , apex_default_charset) : parent::escapeHtml($texto);  //  htmlentities($texto, ENT_QUOTES , apex_default_charset)
+	function escapeHtml($input)
+	{		
+		$tags = $this->quitar_tags($input);
+		if (! empty($tags)) {
+			$resultado = '';
+			for( $i = 0; $i < count(current($tags)); $i++) {
+				if (isset($tags[1][$i])) {
+					$valor =  (isset($this->_es_editor) && ($this->_es_editor === true)) ? htmlentities($tags[2][$i], ENT_QUOTES , apex_default_charset) : parent::escapeHtml($tags[2][$i]);
+					$resultado .=  "<{$tags[1][$i]}>{$valor}</{$tags[1][$i]}>";
+				}
+			}
+		} else {
+			$resultado = (isset($this->_es_editor) && ($this->_es_editor === true)) ? htmlentities($input, ENT_QUOTES , apex_default_charset) : parent::escapeHtml($input);
+		}
+		return  $resultado;
 	}
 	
-	function escapeHtmlAttr($texto)
+	function escapeHtmlAttr($input)
 	{
-		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeHtmlAttr($texto);
+		$tags = $this->quitar_tags($input);	
+		if (! empty($tags)) {
+			$resultado = '';
+			for( $i = 0; $i < count(current($tags)); $i++) {
+				if (isset($tags[1][$i])) {
+					$valor =  (isset($this->_es_editor) && ($this->_es_editor === true)) ? $tags[2][$i] : parent::escapeHtmlAttr($tags[2][$i]);
+					$resultado .=  "<{$tags[1][$i]}>{$valor}</{$tags[1][$i]}>";
+				}
+			}
+		} else {
+			$resultado = (isset($this->_es_editor) && ($this->_es_editor === true)) ? $input: parent::escapeHtmlAttr($input);
+		}
+		return  $resultado;
 	}
 	
 	function escapeCss($texto)
@@ -29,5 +54,13 @@ class toba_escapador extends Escaper
 	{
 		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeJs($texto);
 	}
+	
+	function quitar_tags($input)
+	{		
+		$lista_tags = implode('|', $this->tags_formato);
+		$pattern = '@<('. $lista_tags.')>(.*?)</\1>@i';
+		$cant = preg_match_all($pattern, $input, $matches);
+		return ($cant !== 0  && $cant !== false) ? $matches : array();
+	}	
 }
 ?>
