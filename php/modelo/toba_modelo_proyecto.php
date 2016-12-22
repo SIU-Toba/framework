@@ -1420,6 +1420,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 							$errores[$clave]['extras'] = '';
 						}
 					}
+				}
 				
 				$msg = "ATENCION! No fue posible cargar por completo el '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
 				$msg .= " A continuación el detalle:";
