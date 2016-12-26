@@ -416,7 +416,6 @@ class comando_nucleo extends comando_toba
 					'consola'
 				),
 				'extras' => array(
-					'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 					'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
 				)
 //	 			'extends_excluidos' => array() <-- opcional. Las clases que extienden de las clases enumeradas acá no serán incluidas
