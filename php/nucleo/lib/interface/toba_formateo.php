@@ -218,7 +218,7 @@ class toba_formateo
 			return $desc;
 		} else {
 			return array($desc, array('numberformat' => 
-				array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DATETIMEFULL )
+				array('code' => toba_vista_excel::FORMAT_DATE_DATETIMEFULL )
 			));							
 		}
 	}	

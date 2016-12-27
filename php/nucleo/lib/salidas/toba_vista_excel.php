@@ -1,6 +1,4 @@
 <?php
-agregar_dir_include_path(toba_dir().'/php/3ros/phpExcel');
-require_once('PHPExcel.php');
 
 /**
  * Genera un pdf a través de una api básica
@@ -24,6 +22,9 @@ class toba_vista_excel
 	protected $cursor_base = array(0,1);
 	protected $cursor = array(0,1);
 	protected $temp_salida;
+	
+	const FORMAT_CURRENCY_USD_CUSTOM	= '#,##0.00_- [$USD]'; 
+	const FORMAT_DATE_DATETIMEFULL		= 'd/m/yy h:mm';
 	
 	function __construct()
 	{
@@ -104,9 +105,6 @@ class toba_vista_excel
 	protected function crear_excel()
 	{
 		$writer = 'PHPExcel_Writer_'.$this->writer;
-		$archivo = explode('_', $writer);
-		$archivo = implode('/', $archivo).'.php';
-		require_once($archivo);
 		$writer = new $writer($this->excel);
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid();
 		$writer->save($this->temp_salida);

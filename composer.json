@@ -29,7 +29,8 @@
         "onelogin/php-saml": "2.3.0",
         "siu-toba/Numbers_Words": "0.18.0.1",
         "greenlion/PHP-SQL-Parser": "@dev",
-        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master"
+        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
+        "phpoffice/phpexcel": "1.8.0"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"
