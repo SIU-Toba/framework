@@ -1,0 +1,12 @@
+3.0:
+- Removida activeCalendar
+- Numbers_Words cambia implementacion, reemplazar las llamadas segun formato buscado
+  - Constructor: new Numbers_Words_es_Ar ---> new Numbers_Words_Locale_es_AR
+  - Formato: 
+      * toWords($importe) ---> toAccountable($importe, 'es_AR')
+      * toWords($importe,0,false,false) ---> toAccountableWords( 'ARS', $importe, false, false, true)
+      * toCurrencyWords('ARS', $importe) ---> toAccountable($importe, 'es_AR')
+- phpExcel
+  - La constante FORMAT_CURRENCY_USD_CUSTOM se paso a la clase toba_vista_excel
+  - La constante FORMAT_DATE_DATETIMEFULL se paso a la clase toba_vista_excel
+  
