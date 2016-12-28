@@ -30,7 +30,8 @@
         "siu-toba/Numbers_Words": "0.18.0.1",
         "greenlion/PHP-SQL-Parser": "@dev",
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8", 
+        "dapphp/securimage": "^3.6"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"

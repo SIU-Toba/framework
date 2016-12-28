@@ -10,8 +10,8 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	/**
 	 * @var toba_imagen_captcha
 	 */
-	protected $antispam;									// Variable que mantiene la referencia al objeto AntiSpam.
-	protected $texto;										// Texto aleatorio generado.
+	protected $antispam;								// Variable que mantiene la referencia al objeto AntiSpam.
+	protected $texto;									// Texto aleatorio generado.
 	protected $longitud = 5;								// Longitud del texto
 	protected $css_captcha = 'ef-captcha';					// Clase css
 	protected $permite_refrescar_codigo = true;				// Indica si permite o no refrescar el codigo.
@@ -24,7 +24,6 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		}
 		
 		$this->antispam = new toba_imagen_captcha();
-		//$this->generar_texto_aleatorio();
 		$parametros['estado_defecto'] = false;
 		
 		parent::__construct($padre, $nombre_formulario, $id,$etiqueta, $descripcion, $dato, $obligatorio, $parametros);
@@ -115,17 +114,14 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	 */	
 	function generar_texto_aleatorio()
 	{
-		$this->texto = $this->antispam->generateCode($this->longitud);
+		$this->antispam->createCode($this->longitud);
+		$this->texto = $this->antispam->getCode();
 	}
 	
 	function get_input()
 	{
 		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
-		$this->input_extra .= $this->get_info_placeholder();
-		$this->generar_texto_aleatorio();
-		toba::memoria()->set_dato_operacion('texto-captcha', $this->texto);
-		toba::memoria()->set_dato_operacion('tamanio-texto-captcha', $this->longitud);
-		
+		$this->input_extra .= $this->get_info_placeholder();	
 		$this->estado  = false;
 		$longitud = strlen($this->texto); //la longitud maxima de caracteres del ef
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
@@ -165,10 +161,8 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	function cargar_estado_post()
 	{
 		if (isset($_POST[$this->id_form])) {
-			$texto_imagen = strtoupper(toba::memoria()->get_dato_operacion('texto-captcha'));
-			$texto_ef 	  = strtoupper(trim($_POST[$this->id_form]));
-
-			$this->estado = ($texto_imagen == $texto_ef) ? true : false;
+			$texto_ef = trim($_POST[$this->id_form]);
+			$this->estado = ($this->antispam->check($texto_ef)) ? true : false;
 		} else {
 			$this->estado = false;
 		}
