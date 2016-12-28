@@ -9,4 +9,10 @@
 - phpExcel
   - La constante FORMAT_CURRENCY_USD_CUSTOM se paso a la clase toba_vista_excel
   - La constante FORMAT_DATE_DATETIMEFULL se paso a la clase toba_vista_excel
-  
+- securimage (via toba_imagen_captcha)
+  - Ya no se persiste en memoria el indice 'texto-captcha'
+  - Ya no se persiste en memoria el indice 'tamanio-texto-captcha'
+  - El constructor espera un arreglo de opciones, no un string con el codigo
+  - Se elimina metodo set_path_fuentes
+  - El metodo set_codigo no persiste el valor en session, por tanto el check automatico falla
+  - Agregado el metodo get_codigo para permitir check manual
