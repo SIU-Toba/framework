@@ -13,10 +13,6 @@
             "url": "https://satis.siu.edu.ar"
         }
     ],
-    "config" : {
-        "vendor-dir" : "./vendor",
-        "bin-dir": "./bin"
-    },
     "minimum-stability": "dev",
     "prefer-stable" : false,
     "require": {
