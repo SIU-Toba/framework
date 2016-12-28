@@ -759,18 +759,7 @@ class toba_ei_formulario extends toba_ei
 			$texto = null;
 		}
 		
-		$antispam = new toba_imagen_captcha($texto);
-		
-		if (!isset($texto)) {
-			$tamanio = toba::memoria()->get_dato_operacion('tamanio-texto-captcha');
-			toba::logger()->debug($tamanio);
-			$texto   = $antispam->generateCode($tamanio);
-			$antispam->set_codigo($texto);
-			toba::memoria()->set_dato_operacion('texto-captcha', $texto);
-		}
-		
-		toba::logger()->debug('Texto CAPTCHA: ' . $texto);
-		
+		$antispam = new toba_imagen_captcha();		
 		if (isset($parametros)) {
 			$antispam->set_parametros_captcha($parametros);
 		}
