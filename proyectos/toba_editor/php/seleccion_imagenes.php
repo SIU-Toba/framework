@@ -16,7 +16,7 @@ class seleccion_imagenes
 			$actual = $predeterminada;	
 		}
 		echo '<img nohack=\'1\' title=\'Elegir la imagen desde un listado\' onclick="'. $escapador->escapeHtmlAttr($objeto_js).'.elegir_imagen('. $escapador->escapeHtmlAttr($fila).')"
-					id=\''. $escapador->escapeHtmlAttr("editor_imagen_src$fila").'\' src=\'$actual\' onError=\'this.src="'. $escapador->escapeHtmlAttr($predeterminada).'"\' />';		
+					id=\''. $escapador->escapeHtmlAttr("editor_imagen_src$fila")."' src='$actual' " . 'onError=\'this.src="'. $escapador->escapeHtmlAttr($predeterminada).'"\' />';		
 	}
 	
 	static function generar_js($objeto_js, $con_fila=false)
