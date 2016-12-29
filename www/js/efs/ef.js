@@ -624,7 +624,7 @@ ef_html.prototype.constructor = ef_html;
 		}
 	};
 	
-	ef.prototype.set_solo_lectura = function(solo_lectura) {
+	ef_html.prototype.set_solo_lectura = function(solo_lectura) {
 		var editor = this.get_editor();
 		if (editor) {
 			editor.setReadOnly(solo_lectura);
