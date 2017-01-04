@@ -1,4 +1,4 @@
-3.0:
+﻿3.0:
 - Removida activeCalendar
 - Numbers_Words cambia implementacion, reemplazar las llamadas segun formato buscado
   - Constructor: new Numbers_Words_es_Ar ---> new Numbers_Words_Locale_es_AR
@@ -16,3 +16,5 @@
   - Se elimina metodo set_path_fuentes
   - El metodo set_codigo no persiste el valor en session, por tanto el check automatico falla
   - Agregado el metodo get_codigo para permitir check manual
+- Ezpdf
+  - Se agrega utf8_encode a los datos que debe mostrar el PDF (requerido por la libreria)

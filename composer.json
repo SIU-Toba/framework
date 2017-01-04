@@ -27,7 +27,8 @@
         "greenlion/PHP-SQL-Parser": "@dev",
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
         "phpoffice/phpexcel": "^1.8", 
-        "dapphp/securimage": "^3.6"
+        "dapphp/securimage": "^3.6", 
+        "rospdf/pdf-php": "^0.12"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"
