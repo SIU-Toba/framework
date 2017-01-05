@@ -1,6 +1,5 @@
 <?php 
 require_once('lib/consultas_instancia.php');
-require_once(toba_dir().'/php/3ros/Graph/Graph.php');	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_navegacion_perfiles extends toba_ci
 {
@@ -264,9 +263,12 @@ class ci_navegacion_perfiles extends toba_ci
 		$aciclico = $tester->isAcyclic($grafo);
 		if (! $aciclico) {
 			$ciclo = array();
-			foreach ($tester->getCycle($grafo) as $nodo) {
-				$data = $nodo->getData();
-				$ciclo[] = $data['nombre'];
+			$posibles = $tester->getCycle($grafo);
+			if (! empty($posibles)) {
+				foreach ($posibles as $nodo) {
+					$data = $nodo->getData();
+					$ciclo[] = $data['nombre'];
+				}
 			}
 			$perfiles = implode(', ', $ciclo);
 			throw new toba_error_usuario("Existe un ciclo en la asignación de las membresías entre los perfiles: <b>$perfiles</b>.<br><br>Por favor quite alguna membresía.");
