@@ -56,11 +56,15 @@ class toba_escapador extends Escaper
 	}
 	
 	function quitar_tags($input)
-	{		
+	{
 		$lista_tags = implode('|', $this->tags_formato);
 		$pattern = '@<('. $lista_tags.')>(.*?)</\1>@i';
-		$cant = preg_match_all($pattern, $input, $matches);
+		if (! is_array($input)) { 
+		    $cant = preg_match_all($pattern, $input, $matches); 
+		} else { 
+		    throw new toba_error_def('Se esta pasando un array o una matriz a un campo que espera un valor escalar'); 
+		}
 		return ($cant !== 0  && $cant !== false) ? $matches : array();
-	}	
+	}
 }
 ?>
