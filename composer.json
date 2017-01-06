@@ -19,7 +19,7 @@
         "symfony/yaml": "3.1.3",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "@dev",
-        "siu-toba/rest": "@dev",
+        "siu-toba/rest": "dev-jwt",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "^2.10",
@@ -48,10 +48,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bower install"
+            "bower install --allow-root"
         ],
         "post-update-cmd": [
-            "bower update"
+            "bower update --allow-root"
         ]
     }
 }
