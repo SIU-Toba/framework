@@ -50,7 +50,7 @@ class asignador_objetos
 		$rs = array();
 		if (isset($destino) && is_array($destino)) {
 			$consumidor = quote($destino['objeto']);
-			$rol = quote($destino['id_dependencia']);
+			$rol = isset($destino['id_dependencia']) ? quote($destino['id_dependencia']): 'NULL';
 			$sql = "SELECT 1 
 				FROM apex_objeto_dependencias
 				WHERE  objeto_consumidor = $consumidor 
