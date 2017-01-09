@@ -29,7 +29,8 @@
         "phpoffice/phpexcel": "^1.8", 
         "dapphp/securimage": "^3.6", 
         "rospdf/pdf-php": "^0.12",
-        "siu-toba/Structures_Graph": "^1.1.1.1"
+        "siu-toba/Structures_Graph": "^1.1.1.1",
+        "phpmailer/phpmailer": "^5.2"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"
