@@ -39,17 +39,18 @@ class toba_perfil_datos
 	{
 		// Por defecto el sistema se activa sobre el proyecto y usuario actual
 		$temp_id = toba::manejador_sesiones()->get_perfil_datos_activo();
-		if (! is_array($temp_id)) {																//Formato ID directo
-			$this->ids = array($temp_id);
-		} elseif (! is_array(current($temp_id))) {													//Formato array(ID, ID2)
-			$this->ids = $temp_id;
-		} else {																			//Formato array(array('perfil_datos' => ID), array('perfil_datos' => ID2))
-			$clave = array_keys(current($temp_id));
-			if (is_array($clave)) {
-				$this->ids = aplanar_matriz($temp_id, current($clave));
+		if (! is_null($temp_id))  {
+			if (! is_array($temp_id)) {																//Formato ID directo
+				$this->ids = array($temp_id);
+			} elseif (! is_array(current($temp_id))) {													//Formato array(ID, ID2)
+				$this->ids = $temp_id;
+			} else {																			//Formato array(array('perfil_datos' => ID), array('perfil_datos' => ID2))
+				$clave = array_keys(current($temp_id));
+				if (is_array($clave)) {
+					$this->ids = aplanar_matriz($temp_id, current($clave));
+				}
 			}
 		}
-		
 		$this->inicializar( toba::proyecto()->get_id() );
 	}
 	

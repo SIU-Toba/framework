@@ -20,5 +20,10 @@ class toba_usuario_anonimo extends toba_usuario
 	{
 		return toba::proyecto()->get_perfiles_funcionales_usuario_anonimo();
 	}
+	
+	function get_perfiles_datos()
+	{
+		return array();
+	}
 }
 ?>

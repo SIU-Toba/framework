@@ -32,6 +32,11 @@ class toba_usuario implements toba_interface_usuario
 		return array();	
 	}
 
+	function get_perfiles_datos() 
+	{
+		return null;
+	}
+	
 	//-------- Bloqueos --------------------------------------
 
 	static function es_ip_rechazada($ip){}
