@@ -433,6 +433,7 @@ class toba_autoload
 		'toba_mail' => 'nucleo/lib/toba_mail.php',
 		'toba_manejador_sesiones' => 'nucleo/lib/toba_manejador_sesiones.php',
 		'toba_memoria' => 'nucleo/lib/toba_memoria.php',
+		'toba_factory_service' => 'nucleo/lib/toba_factory_service.php',
 		'toba_mensajes' => 'nucleo/lib/toba_mensajes.php',
 		'toba_notificacion' => 'nucleo/lib/toba_notificacion.php',
 		'toba_parametros' => 'lib/toba_parametros.php',

@@ -467,10 +467,9 @@ abstract class toba_ei extends toba_componente
 	{
 		//----------- Generacion
 		if ($this->hay_botones()) {
-			echo "<div class='ei-botonera $clase'>";
-			echo $extra;
+			echo toba::output()->get('ElementoInterfaz')->getInicioBotonera($clase, $extra);
 			$this->generar_botones_eventos();
-			echo "</div>";
+			echo toba::output()->get('ElementoInterfaz')->getFinBotonera();
 		} elseif ($extra != '') {
 			echo $extra;
 		}
@@ -662,47 +661,26 @@ abstract class toba_ei extends toba_componente
 				if (!isset($titulo)) {
 					$titulo = $this->_info["titulo"];	
 				}
-				if ($botonera_sup) {
-					 if (!$tiene_titulo) {
-						$estilo = "ei-barra-sup-sin-tit $estilo";
-					} else {
-						$estilo = "ei-barra-sup $estilo";
-					}
-				}
-				if (!$botonera_sup && $tiene_titulo) {
-					$estilo = 'ei-barra-sup ' . $estilo. ' ei-barra-sup-sin-botonera';
-				}
-				//ei_barra_inicio("ei-barra-sup $estilo");
-		
+				
 				//---Barra de colapsado
 				$colapsado = "";
 				// Se colapsa cuando no hay botones o cuando hay pero no esta la botonera arriba
 				$colapsado_coherente = (! $this->hay_botones() || ($this->hay_botones() && !$this->botonera_arriba()));	
 				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-				}			
-				echo "<div class='$estilo' $colapsado>\n";
+				}
+				
+				echo toba::output()->get('ElementoInterfaz')->getInicioBarraSuperior($tiene_titulo, $botonera_sup, $estilo, $colapsado);
+				
 				//--> Botonera
 				if ($botonera_sup) {
 					$this->generar_botones();
 				}						
-				//--- Descripcion Tooltip
-				if(trim($this->_info["descripcion"])!="" &&  $this->_modo_descripcion_tooltip){
-					echo '<span class="ei-barra-sup-desc">';
-					$desc = toba_parser_ayuda::parsear($this->_info["descripcion"]);
-					echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $desc);
-					echo '</span>';		
-				}
-		
-				//---Barra de colapsado
-				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
-					$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
-					echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
-				}
-	
+			
+				echo toba::output()->get('ElementoInterfaz')->getContenidoBarraSuperior($titulo, $this->_info["descripcion"], $this->_modo_descripcion_tooltip, $this->_info['colapsable'], $colapsado_coherente, $this->objeto_js,$colapsado);
 				//---Titulo			
-				echo "<span class='ei-barra-sup-tit'>$titulo</span>\n";
-				echo "</div>";
+				echo toba::output()->get('ElementoInterfaz')->getFinBarraSuperior();
+				
 				//echo ei_barra_fin();
 			}
 			
@@ -737,18 +715,7 @@ abstract class toba_ei extends toba_componente
 	 */
 	protected function generar_html_descripcion($mensaje, $tipo=null)
 	{
-		if (! isset($tipo) || $tipo == 'info') {
-			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
-			$clase = 'ei-barra-sup-desc-info';			
-		} elseif ($tipo== 'warning') {
-			$imagen = toba_recurso::imagen_toba("warning.gif",true);
-			$clase = 'ei-barra-sup-desc-warning';		
-		} elseif ($tipo == 'error') {
-			$imagen = toba_recurso::imagen_toba("error.gif",true);
-			$clase = 'ei-barra-sup-desc-error';			
-		}		
-		$descripcion = toba_parser_ayuda::parsear($mensaje);
-		echo "<table class='tabla-0 $clase'><tr><td class='ei-barra-sup-desc-img'>$imagen</td><td>$descripcion</td></table>\n";
+		echo toba::output()->get("ElementoInterfaz")->getHtmlDescripcion($mensaje, $tipo);
 	}
 	
 	/**

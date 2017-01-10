@@ -5,20 +5,9 @@ class tp_referencia extends toba_tp_normal
 {
 	protected $titulo;
 
-	function barra_superior()
+	/*function barra_superior()
 	{
-		echo "<div id='barra_superior' class='barra-superior barra-superior-tit'>\n";		
-		$this->info_version();
-		echo "<div class='item-barra'>";
-		$this->generar_ayuda();		
-		$titulo = $this->titulo_item();		
-		echo "<div class='item-barra-tit'>";
-		if ($titulo[0] != '') {
-			echo '<span style="font-weight:normal;">' . toba::escaper()->escapeHtml($titulo[0]) . '</span>';
-		}
-		echo toba::escaper()->escapeHtml($titulo[1])."</div>";
-		echo "</div>\n\n";
-	}
+	}*/
 	
 	function titulo_item()
 	{
@@ -35,17 +24,17 @@ class tp_referencia extends toba_tp_normal
 					$camino[0] = $item->get_nombre() . ' > ' . $camino[0];
 				}
 			}
-			$this->titulo = $camino;
+			$this->titulo = implode('',$camino);
 		}
 		return $this->titulo;
 	}
 
-/*	function pie()
+	/*function pie()
 	{
 		php_referencia::instancia()->mostrar();
 		parent::pie();	
-	}
-*/
+	}*/
+
 }
 
 ?>

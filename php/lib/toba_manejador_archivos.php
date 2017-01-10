@@ -333,7 +333,7 @@ class toba_manejador_archivos
 					if (!chmod($fullpath, $filemode))
 						return FALSE;
 				} else {
-					if (!chmod_recursivo($fullpath, $filemode))
+					if (! self::chmod_recursivo($fullpath, $filemode))
 						return FALSE;
 				}
 			}
