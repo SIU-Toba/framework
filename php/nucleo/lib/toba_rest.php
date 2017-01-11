@@ -171,13 +171,6 @@ class toba_rest
 		$app->container->singleton('rest_quoter', function () {
 			return toba::db();
 		});
-
-		//MODO PROMISCUO!! SOLO PARA DESARROLLO...
-		if (! toba::instalacion()->es_produccion() && toba::memoria()->get_parametro('api_dev_access') == 1) {
-			$app->container->singleton('autenticador', function () {
-					return new autenticacion_basic_http(new toba_usuarios_rest_promiscuo());
-			});
-		}//FIN DEL IF PROMISCUO
 	}
 
     protected function get_metodos_autenticacion()
