@@ -25,6 +25,7 @@ class toba_db
 	protected $debug = false;
 	protected $loguear = false;
 	protected $debug_sql_id = 0;
+	protected $debug_sqls = array();
 	protected $parser_errores = null;
 	protected $sentencias = array();
 	
@@ -163,6 +164,14 @@ class toba_db
 	{
 		$this->debug = $debug;
 		$this->loguear = $loguear;
+	}
+	
+	/**
+	 * Borra informacion de debug guardada
+	 */
+	function reset_info_debug()
+	{
+		$this->debug_sqls = array();
 	}
 	
 	/**
