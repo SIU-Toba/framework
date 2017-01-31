@@ -32,7 +32,8 @@
         "siu-toba/Structures_Graph": "^1.1.1.1",
         "phpmailer/phpmailer": "^5.2",
         "simpletest/simpletest": "^1.1", 
-        "element-34/php-webdriver": "^1.12"
+        "element-34/php-webdriver": "^1.12",
+        "siu-toba/text_highlighter": "^0.7"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"
