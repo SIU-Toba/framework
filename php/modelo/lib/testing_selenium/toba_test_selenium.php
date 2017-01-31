@@ -1,5 +1,4 @@
 <?php
-require_once('PHPWebDriver/__init__.php');
 class toba_test_selenium extends toba_test
 {	
 	protected $usa_assert = true;												//Reemplazar en los hijos si no se va a hacer llamadas a metodos assertX
