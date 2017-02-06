@@ -63,9 +63,7 @@ class toba_solicitud_servicio_web extends toba_solicitud
 		$clave['proyecto'] = $this->info['objetos'][0]['objeto_proyecto'];
 		$clave['componente'] = $this->info['objetos'][0]['objeto'];
 		list($tipo, $clase, $datos) = toba_constructor::get_runtime_clase_y_datos($clave, $this->info['objetos'][0]['clase'], false);
-		
-		agregar_dir_include_path(toba_dir().'/php/3ros/wsf');
-		
+				
 		$opciones_extension = toba_servicio_web::_get_opciones($this->info['basica']['item'], $clase);
 		$wsdl = (strpos($_SERVER['REQUEST_URI'], "?wsdl") !== false);
 		
