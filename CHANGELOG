@@ -19,3 +19,4 @@
 - Ezpdf
   - Se agrega utf8_encode a los datos que debe mostrar el PDF (requerido por la libreria)
 - Removida Apache Shindig (si la necesita debe proveerla el proyecto)
+- Removida WSF-PHP (queda clase toba_solicitud_servicio_web)
