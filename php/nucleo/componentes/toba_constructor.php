@@ -59,7 +59,7 @@ class toba_constructor
 				}				
 			}
 			$datos['_const_instancia_numero'] = $instancia_nro;			
-		} elseif (isset($datos['basica']['carpeta']) && $datos['basica']['carpeta'] != '1')  {					//**** Creacion de ITEMS
+		} elseif (is_null($datos['basica']['carpeta']) || $datos['basica']['carpeta'] != '1')  {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
 		} else {
 			throw new toba_error_seguridad('La operación invocada no existe: ' . var_export($id, true));

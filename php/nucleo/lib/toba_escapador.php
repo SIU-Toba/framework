@@ -13,17 +13,20 @@ class toba_escapador extends Escaper
 		
 	function escapeHtml($input)
 	{		
+		if (isset($this->_es_editor) && ($this->_es_editor === true)) {
+			return htmlentities($input, ENT_QUOTES , apex_default_charset);
+		}  
 		$tags = $this->quitar_tags($input);
 		if (! empty($tags)) {
 			$resultado = '';
 			for( $i = 0; $i < count(current($tags)); $i++) {
 				if (isset($tags[1][$i])) {
-					$valor =  (isset($this->_es_editor) && ($this->_es_editor === true)) ? htmlentities($tags[2][$i], ENT_QUOTES , apex_default_charset) : parent::escapeHtml($tags[2][$i]);
+					$valor =  parent::escapeHtml($tags[2][$i]);
 					$resultado .=  "<{$tags[1][$i]}>{$valor}</{$tags[1][$i]}>";
 				}
 			}
 		} else {
-			$resultado = (isset($this->_es_editor) && ($this->_es_editor === true)) ? htmlentities($input, ENT_QUOTES , apex_default_charset) : parent::escapeHtml($input);
+			$resultado = parent::escapeHtml($input);
 		}
 		return  $resultado;
 	}
