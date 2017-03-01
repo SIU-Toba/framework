@@ -22,7 +22,7 @@
         "siu-toba/rest": "@dev",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
-        "onelogin/php-saml": "2.3.0",
+        "onelogin/php-saml": "^2.10",
         "siu-toba/Numbers_Words": "0.18.0.1",
         "greenlion/PHP-SQL-Parser": "@dev",
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
@@ -33,7 +33,8 @@
         "phpmailer/phpmailer": "^5.2",
         "simpletest/simpletest": "^1.1", 
         "element-34/php-webdriver": "^1.12",
-        "siu-toba/text_highlighter": "^0.7"
+        "siu-toba/text_highlighter": "^0.7",
+        "simplesamlphp/simplesamlphp": "^1.14"        
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"

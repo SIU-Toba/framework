@@ -5,7 +5,6 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	protected $auth_source = "default-sp";
 	protected $atributo_usuario = "urn:oid:0.9.2342.19200300.100.1.1";
 	protected $permite_login_toba = false;
-	protected $path_sp = "3ros/simplesamlphp";
 	protected $saml_sp;
 	protected $saml_attributes;
 		
@@ -27,7 +26,6 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 				$this->permite_login_toba = ($parametros['basicos']['permite_login_toba'] == 1);
 			}
 		}
-		require_once($this->path_sp.'/lib/_autoload.php');
 	}
 	
 	function autenticar($id_usuario, $clave, $datos_iniciales=null)

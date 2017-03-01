@@ -20,3 +20,5 @@
   - Se agrega utf8_encode a los datos que debe mostrar el PDF (requerido por la libreria)
 - Removida Apache Shindig (si la necesita debe proveerla el proyecto)
 - Removida WSF-PHP (queda clase toba_solicitud_servicio_web)
+- Removida simpleSamlPHP
+  - Se deben copiar los archivos de configuración en php/3ros/simplesamlphp/ a la carpeta correspondiente en vendor

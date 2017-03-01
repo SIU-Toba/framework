@@ -1,6 +1,4 @@
-<?php
-
-require_once('3ros/simplesamlphp/lib/_autoload.php');
+﻿<?php
 
 class contexto_ejecucion extends toba_contexto_ejecucion
 {
