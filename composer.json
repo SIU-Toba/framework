@@ -34,7 +34,8 @@
         "simpletest/simpletest": "^1.1", 
         "element-34/php-webdriver": "^1.12",
         "siu-toba/text_highlighter": "^0.7",
-        "simplesamlphp/simplesamlphp": "^1.14"        
+        "simplesamlphp/simplesamlphp": "^1.14",
+        "siu-toba/services_json": "1.0.3.1"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"

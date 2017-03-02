@@ -772,7 +772,6 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function servicio__cascadas_efs()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");	
 		}
@@ -863,7 +862,6 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function servicio__filtrado_ef_ce()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
 		}
@@ -945,7 +943,6 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function servicio__filtrado_ef_ce_validar()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
 		}
