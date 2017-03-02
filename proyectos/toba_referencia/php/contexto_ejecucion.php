@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class contexto_ejecucion extends toba_contexto_ejecucion
 {
