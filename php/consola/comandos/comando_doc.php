@@ -149,7 +149,6 @@ class comando_doc extends comando_toba
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['undocumentedelements'] = 1;
 		$_phpDocumentor_setting['ignore'] = '*_def.php,toba_definicion_componentes.php';
-		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
 
 		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)
 		$indice = file_get_contents($dest.'/Centrales/toba.html');
