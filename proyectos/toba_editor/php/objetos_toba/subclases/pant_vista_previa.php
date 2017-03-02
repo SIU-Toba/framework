@@ -49,7 +49,6 @@ class pant_vista_previa extends toba_ei_pantalla
 		//-- Vista previa
 		echo "<div class='editor-vista-previa-codigo'>";
 		$codigo = $this->controlador()->get_previsualizacion();
-		require_once(toba_dir().'/php/3ros/PHP_Highlight.php');
 		$h = new PHP_Highlight(false);
 		$h->loadString($codigo);
 		$formato_linea = "<span class='editor-linea-codigo'>%02d</span>&nbsp;&nbsp;";
