@@ -68,12 +68,16 @@ class toba_hash
 		default: 
 					toba::logger()->debug("Se suministro un algoritmo no esperado para el hash: {$this->metodo}");
 					$salt = '';
-		}		
-		try {
-			$bytes = random_bytes(16);			//PHP7.0
-		} catch (Exception $e) {
+		}			
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+			try {
+				$bytes = random_bytes(16);												//PHP7.0			
+			} catch (Exception $e) {
+				$bytes = $this->getRandomBytes(16);	//Old way
+			}
+		} else {
 			$bytes = $this->getRandomBytes(16);	//Old way
-		}		
+		}
 		$salt .= $this->encodeBytes($bytes);
 		return $salt;
 	}	
