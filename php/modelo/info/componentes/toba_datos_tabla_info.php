@@ -239,10 +239,11 @@ class toba_datos_tabla_info extends toba_componente_info
 		$resultado = $this->datos['_info_columnas'];
 		if (! empty($id)){
 			$cond = array_keys($id);
-			foreach($resultado as $klave => $columna){
+			$keys_r = array_keys($resultado);
+			foreach($keys_r as $klave){
 				$valido = true;
 				foreach($cond as $col){
-					$valido = $valido && ($columna[$col] == $id[$col]);
+					$valido = $valido && ($resultado[$klave][$col] == $id[$col]);
 				}
 				if (! $valido){
 					unset($resultado[$klave]);

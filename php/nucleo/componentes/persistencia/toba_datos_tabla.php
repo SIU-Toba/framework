@@ -649,9 +649,11 @@ class toba_datos_tabla extends toba_componente
 			/*foreach( array_keys($condiciones) as $columna){
 
 			}*/
-			foreach($coincidencias as $pos => $id_fila){
+			$keys_c = array_keys($coincidencias);
+			foreach($keys_c as $pos) {
+				$id_fila = $coincidencias[$pos];
 				//Verifico las condiciones
-				foreach( array_keys($condiciones) as $campo){
+				foreach( array_keys($condiciones) as $campo) {
 					if (is_array($condiciones[$campo])) {
 						list($columna, $operador, $valor) = $condiciones[$campo];
 					} else {
@@ -821,8 +823,8 @@ class toba_datos_tabla extends toba_componente
 	{		
 		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
-		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
-		if(isset($fila[apex_ei_analisis_fila])) unset($fila[apex_ei_analisis_fila]);
+		if(isset($fila[apex_datos_clave_fila])) { unset($fila[apex_datos_clave_fila]); }
+		if(isset($fila[apex_ei_analisis_fila])) { unset($fila[apex_ei_analisis_fila]); }
 		
 		$this->validar_fila($fila);
 		//SI existen columnas externas, completo la fila con las mismas
@@ -872,8 +874,8 @@ class toba_datos_tabla extends toba_componente
 			throw new toba_error_def($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
-		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
-		if(isset($fila[apex_ei_analisis_fila])) unset($fila[apex_ei_analisis_fila]);      
+		if(isset($fila[apex_datos_clave_fila])) { unset($fila[apex_datos_clave_fila]); }
+		if(isset($fila[apex_ei_analisis_fila])) { unset($fila[apex_ei_analisis_fila]); }
 		
 		$this->validar_fila($fila, $id);
 		$this->notificar_contenedor("pre_modificar", $fila, $id);

@@ -39,7 +39,9 @@ class ci_orden_items extends toba_ci
 	function conf__items($ml)
 	{
 		$filas = $this->dep('datos')->get_filas();
-		foreach ($filas as $id => $fila) {
+		$keys_f = array_keys($filas);
+		foreach ($keys_f as $id) {
+			$fila = $filas[$id];
 			if ($fila['carpeta']) {
 				$img = toba_recurso::imagen_toba('nucleo/carpeta.gif', true);
 			} else {

@@ -405,15 +405,15 @@ abstract class toba_ei extends toba_componente
 	protected function filtrar_eventos()
 	{
 		$grupo = $this->get_grupo_eventos_activo();
-		
-		foreach($this->_eventos_usuario_utilizados as $id => $evento){
-			if( $evento->posee_grupo_asociado() ){
+		$keys_evt = array_keys($this->_eventos_usuario_utilizados);
+		foreach($keys_evt as $id) {
+			if ($this->_eventos_usuario_utilizados[$id]->posee_grupo_asociado()) {
 				if(!isset($grupo)){ 
 					//No hay un grupo activo, no lo muestro
 					unset($this->_eventos_usuario_utilizados[$id]);
 					toba::logger()->debug("Se filtro el evento: $id", 'toba');
 				} else {
-					if( !$evento->pertenece_a_grupo($grupo) ){
+					if (! $this->_eventos_usuario_utilizados[$id]->pertenece_a_grupo($grupo)) {
 						//El evento no pertenece al grupo
 						unset($this->_eventos_usuario_utilizados[$id]);
 						toba::logger()->debug("Se filtro el evento: $id", 'toba');

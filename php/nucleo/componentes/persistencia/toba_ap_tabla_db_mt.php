@@ -44,8 +44,9 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	 */
 	protected function limpiar_claves()
 	{
-		foreach ($this->_clave as $key => $clave) {
-			if ($this->get_tabla($clave) == $this->_tabla_ext) {
+		$keys_c = array_keys($this->_clave);
+		foreach ($keys_c as $key) {
+			if ($this->get_tabla($this->_clave[$key]) == $this->_tabla_ext) {
 				unset($this->_clave[$key]);
 			}
 		}

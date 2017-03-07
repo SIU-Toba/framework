@@ -439,9 +439,9 @@ abstract class toba_componente
 	 */
 	function eliminar_estado_sesion($no_eliminar=null)
 	{
-		if(!isset($no_eliminar))$no_eliminar=array();
+		if(!isset($no_eliminar)) { $no_eliminar=array(); }
 		for($a=0;$a<count($this->_propiedades_sesion);$a++){
-			if(!in_array($this->_propiedades_sesion[$a], $no_eliminar)){
+			if(!in_array($this->_propiedades_sesion[$a], $no_eliminar)) {
 				$nombre_prop = $this->_propiedades_sesion[$a];
 				unset($this->$nombre_prop);
 			}
@@ -606,8 +606,9 @@ abstract class toba_componente
 		unset($this->_info_dependencias[$posicion]);
 		unset($this->_indice_dependencias[$identificador]);
 		unset($this->_dependencias[$identificador]);
-		foreach($this->_lista_dependencias as $pos => $id) {
-			if($id == $identificador) {
+		$keys_ld = array_keys($this->_lista_dependencias);
+		foreach($keys_ld as $pos) {
+			if($this->_lista_dependencias[$pos] == $identificador) {
 				unset($this->_lista_dependencias[$pos]);
 			}	
 		}

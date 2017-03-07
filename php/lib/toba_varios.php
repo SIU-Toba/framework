@@ -153,7 +153,9 @@
 	//Toma un conjunto de $cambios ("original" => "reemplazo") y los aplica a $arreglo
 	{
 		if (is_array($arreglo)) {
-			foreach($arreglo as $k => $v) {
+			$keys_a = array_keys($arreglo);
+			foreach($keys_a as $k) {
+				$v = $arreglo[$k];
 				if (isset($cambios[$k]) && strlen($cambios[$k])>0) {
 					unset($arreglo[$k]);
 					$k=$cambios[$k];

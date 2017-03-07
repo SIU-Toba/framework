@@ -62,7 +62,15 @@ class toba_usuario implements toba_interface_usuario
 	//------------------------ Generacion de claves ---------------------------
 	static function generar_clave_aleatoria($long)
 	{
-		$str = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789-._~';		//Se deberian agregar ciertos caracteres especiales segun SIGEN
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+			try {
+				$cad = random_bytes($long);												//PHP7.0
+				return $cad;
+			} catch (Exception $e) {
+				//Captura excepcion y sigue adelante con el viejo metodo
+			}
+		}
+		$str = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789-._~';		//Se deberian agregar ciertos caracteres especiales segun SIGEN				
 		for($cad='',$i=0;$i<$long;$i++) {
 			$cad .= substr($str,rand(0,(strlen($str)-1)),1);
 		}		

@@ -112,10 +112,13 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 			$this->finalizar_contexto_ejecucion();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
-		}
+		}		
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
@@ -159,6 +162,9 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 			$this->finalizar_contexto_ejecucion();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
@@ -179,6 +185,10 @@ class toba_nucleo
 			$app = $this->solicitud->get_app();
 			$this->solicitud->registrar();
 			$this->finalizar_contexto_rest();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+			toba::logger()->guardar();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
@@ -203,7 +213,10 @@ class toba_nucleo
 		} catch (toba_error $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e;
-		}
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+		} 
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');

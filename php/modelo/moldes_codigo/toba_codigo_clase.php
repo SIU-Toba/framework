@@ -219,9 +219,10 @@ class toba_codigo_clase
 	{
 		$sep_chico_en_analisis = null;
 		$sep_grande_en_analisis = null;
-		foreach ($elementos as $id => $elemento) {
-			if(	$elemento instanceof toba_codigo_separador ) {
-				if( $elemento->get_tipo() == 'chico' ) {
+		$keys_e = array_keys($elementos);
+		foreach ($keys_e as $id ) {
+			if( $elementos[$id] instanceof toba_codigo_separador ) {
+				if( $elementos[$id]->get_tipo() == 'chico' ) {
 					if( isset($sep_chico_en_analisis) ) {
 						unset($elementos[$sep_chico_en_analisis]);
 					}
@@ -235,7 +236,7 @@ class toba_codigo_clase
 					}
 					$sep_grande_en_analisis = $id;
 				}
-			} elseif( $elemento instanceof toba_codigo_metodo ) {
+			} elseif( $elementos[$id] instanceof toba_codigo_metodo ) {
 				$sep_chico_en_analisis = null;
 				$sep_grande_en_analisis = null;
 			}

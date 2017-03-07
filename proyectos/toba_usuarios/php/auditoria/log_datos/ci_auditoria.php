@@ -137,16 +137,14 @@ class ci_auditoria extends toba_ci
 				$this->analizar_diferencias($datos, $claves, $campos_propios);				
 				
 				$definicion = $this->get_db()->get_definicion_columnas($tabla, $this->get_esquema());
-				foreach ($definicion as $id => $campo) {
-					$definicion[$id]['clave'] = $campo['nombre'];
-					$definicion[$id]['titulo'] = ucwords(str_replace(array('_', '_'), ' ', $campo['nombre']));
+				$keys_d = array_keys($definicion);
+				foreach ($keys_d as $id ) {
+					$definicion[$id]['clave'] = $definicion[$id]['nombre'];
+					$definicion[$id]['titulo'] = ucwords(str_replace(array('_', '_'), ' ', $definicion[$id]['nombre']));
 					$definicion[$id]['usar_vinculo'] = false;
 					//Esto permite sacar el HTML para los estilos de campo modificado
-					$definicion[$id]['permitir_html'] = '1';	
-					/*$opciones = toba_catalogo_asistentes::get_campo_opciones_para_cuadro($campo['tipo']);
-					$definicion[$id] = array_merge($definicion[$id], $opciones);*/
-					
-					if (in_array($campo['nombre'], $campos_propios)) {
+					$definicion[$id]['permitir_html'] = '1';						
+					if (in_array($definicion[$id]['nombre'], $campos_propios)) {
 						unset($definicion[$id]);
 					}
 				}
