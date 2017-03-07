@@ -76,9 +76,10 @@ class ci_relaciones extends toba_ci
 
 		//Ahora tengo que dar de alta las relaciones nuevas
 		$this->get_entidad()->tabla('relaciones')->set_cursor($this->s__seleccion_relacion_anterior);
-		foreach ($datos as $klave => $valor) {
-			$datos[$klave]['padre_clave'] = $valor['columna_padre'];
-			$datos[$klave]['hijo_clave'] = $valor['columna_hija'];
+		$keys_d = array_keys($datos);
+		foreach ($keys_d as $klave) {
+			$datos[$klave]['padre_clave'] = $datos[$klave]['columna_padre'];
+			$datos[$klave]['hijo_clave'] = $datos[$klave]['columna_hija'];
 			unset($datos[$klave]['columna_padre']);
 			unset($datos[$klave]['columna_hija']);
 			$this->get_entidad()->tabla('columnas_relacion')->nueva_fila($datos[$klave]);

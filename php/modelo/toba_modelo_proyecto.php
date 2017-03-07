@@ -1344,13 +1344,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_proyecto(), '|.*\.sql|' );
 		$es_produccion = $this->maneja_perfiles_produccion();
 		//-- En producción no se cargan los perfiles de datos?
-		foreach ( $archivos as $clave => $archivo) {
-			if ($es_produccion && in_array(basename($archivo, '.sql'), $this->get_lista_tablas_perfil_datos())) {
+		$keys_a = array_keys($archivos);
+		foreach ($keys_a as $clave) {
+			if ($es_produccion && in_array(basename($archivos[$clave], '.sql'), $this->get_lista_tablas_perfil_datos())) {
 				unset($archivos[$clave]);
 			}
 		}
 		$cant_total = 0;
-		foreach( $archivos as $archivo ) {
+		foreach ($archivos as $archivo) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
 			$this->manejador_interface->progreso_avanzar();

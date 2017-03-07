@@ -133,8 +133,9 @@ class ci_puntos_montaje extends toba_ci
 	function proyectos_accesibles()
 	{
 		$proyectos_acc = toba_instancia::instancia()->get_proyectos_accesibles();
-		foreach ($proyectos_acc as $key => $proyecto) {
-			if ($proyecto[0] == toba_editor::get_proyecto_cargado()) {
+		$keys_p = array_keys($proyectos_acc);
+		foreach ($keys_p as $key) {
+			if ($proyectos_acc[$key][0] == toba_editor::get_proyecto_cargado()) {
 				unset($proyectos_acc[$key]);
 				break;
 			}

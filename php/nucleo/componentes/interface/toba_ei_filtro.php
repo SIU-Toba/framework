@@ -113,8 +113,9 @@ class toba_ei_filtro extends toba_ei
 		//-- Restricción funcional columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_filtro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
-			foreach ($this->_columnas as $id => $columna) {
-				if (in_array($columna->get_id_metadato(), $no_visibles)) {
+			$keys_c = array_keys($this->_columnas);
+			foreach ($keys_c as $id) {
+				if (in_array($this->_columnas[$id]->get_id_metadato(), $no_visibles)) {
 					unset($this->_columnas[$id]);
 				}
 			}

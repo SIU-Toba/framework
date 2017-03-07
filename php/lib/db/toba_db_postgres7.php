@@ -1195,8 +1195,9 @@ class toba_db_postgres7 extends toba_db
 	protected function pgdump_limpiar(&$array)
 	{
 		//$borrando = true;
-		foreach ($array as $key => $elem) {
-			if (comienza_con($elem, 'INSERT')) {
+		$keys_a = array_keys($array);
+		foreach ($keys_a as $key ) {
+			if (comienza_con($array[$key], 'INSERT')) {
 				continue;
 			}
 			unset($array[$key]);
