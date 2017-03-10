@@ -1,6 +1,5 @@
 <?php
 
-use SIUToba\rest\rest;
 use SIUToba\rest\seguridad\autenticacion\validador_jwt;
 use SIU\JWT\Decoder\SimetricDecoder;
 use SIU\JWT\Decoder\AsimetricDecoder;
@@ -17,23 +16,32 @@ class toba_usuarios_rest_jwt extends validador_jwt
 
 		$this->modelo_proyecto = $proyecto;
 
+        $this->cargar_ini_jwt();
+
         $this->generar_decoder();
 	}
 
+    private function cargar_ini_jwt()
+    {
+		//--- Levanto la CONFIGURACION de jwt.ini
+		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/jwt.ini';
+        var_dump($archivo_ini_instalacion);die;
+        $ini = toba_ini($archivo_ini_instalacion);
+
+        $this->decoder = $ini->get('jwt', 'tipo', null, true);
+        $this->algoritmo = $ini->get('jwt', 'algoritmo', null, true);
+        $this->usuario_id = $ini->get('jwt', 'usuario_id', null, true);
+        $this->key_decoder = $ini->get('jwt', 'key_decoder', null, true);
+    }
+
     private function generar_decoder()
     {
-		$servidor_ini = toba_modelo_rest::get_ini_server($this->modelo_proyecto);
-
-        $decoder = $servidor_ini->get('jwt', 'decoder', null, true);
-        $algoritmo = $servidor_ini->get('jwt', 'algoritmo', null, true);
-        $key = $servidor_ini->get('jwt', 'key', null, true);
-
-        if ($decoder == 'simetrico') {
-            $decoder = new SimetricDecoder($algoritmo, $key);
-        } elseif ($decoder == 'asimetrico') {
-            $decoder = new AsimetricDecoder($algoritmo, $key);
+        if ($this->decoder == 'simetrico') {
+            $decoder = new SimetricDecoder($this->algoritmo, $this->key_decoder);
+        } elseif ($this->decoder == 'asimetrico') {
+            $decoder = new AsimetricDecoder($this->algoritmo, $this->key_decoder);
         } else {
-            throw new Exception('Se debe configurar un decoder (simetrico|asimetrico) para jwt.');
+            throw new toba_error('Se debe configurar un decoder (simetrico|asimetrico) para jwt.');
         }
 
         $this->set_decoder($decoder);
@@ -41,13 +49,9 @@ class toba_usuarios_rest_jwt extends validador_jwt
 
     public function get_usuario_jwt($data)
     {
-		$servidor_ini = toba_modelo_rest::get_ini_server($this->modelo_proyecto);
-
-        // recupera el campo que indica el id del usuario en el token
-        $uid = $servidor_ini->get('jwt', 'usuario_id', null, true);
+        $uid = $this->usuario_id;
 
         return $data->$uid;
     }
-
 }
 ?>
