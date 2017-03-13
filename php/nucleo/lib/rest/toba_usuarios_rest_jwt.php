@@ -25,8 +25,7 @@ class toba_usuarios_rest_jwt extends validador_jwt
     {
 		//--- Levanto la CONFIGURACION de jwt.ini
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/jwt.ini';
-        var_dump($archivo_ini_instalacion);die;
-        $ini = toba_ini($archivo_ini_instalacion);
+        $ini = new toba_ini($archivo_ini_instalacion);
 
         $this->decoder = $ini->get('jwt', 'tipo', null, true);
         $this->algoritmo = $ini->get('jwt', 'algoritmo', null, true);
@@ -50,6 +49,10 @@ class toba_usuarios_rest_jwt extends validador_jwt
     public function get_usuario_jwt($data)
     {
         $uid = $this->usuario_id;
+
+        if (!isset($data->$uid)){
+            throw new toba_error("El identificador de usuario '$uid' no existe en los datos del token JWT.");
+        }
 
         return $data->$uid;
     }
