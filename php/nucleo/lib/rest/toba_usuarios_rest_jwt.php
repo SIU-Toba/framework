@@ -23,9 +23,8 @@ class toba_usuarios_rest_jwt extends validador_jwt
 
     private function cargar_ini_jwt()
     {
-		//--- Levanto la CONFIGURACION de jwt.ini
-		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/jwt.ini';
-        $ini = new toba_ini($archivo_ini_instalacion);
+        //--- Levanto la CONFIGURACION de jwt.ini
+        $ini = toba_modelo_rest::get_ini_server($this->modelo_proyecto);
 
         $this->decoder = $ini->get('jwt', 'tipo', null, true);
         $this->algoritmo = $ini->get('jwt', 'algoritmo', null, true);
