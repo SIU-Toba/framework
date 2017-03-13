@@ -21,7 +21,6 @@
         "ircmaxell/random-lib" : "@dev",
         "siu-toba/rest": "dev-master",
         "siu-toba/ssl-cert-utils": "@dev",
-        "siu-toba/jwt-session": "dev-master",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "^2.10",
         "siu-toba/Numbers_Words": "0.18.0.1",
