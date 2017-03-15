@@ -417,16 +417,16 @@ class comando_instalacion_silenciosa extends comando_toba
 					try {
 						toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);			
 					} catch (toba_error_pwd_conformacion_invalida $e) {
-						$es_invalido = true;
+						$this->consola->mensaje($e->getMessage(), true);
+						$es_invalido=true;
 					}
 				}				
 			}			
 		} while($es_invalido && next($nombre_parametro) !== false);
 		
 		if ($es_invalido) {
-			$randompass = toba_usuario::generar_clave_aleatoria(apex_pa_pwd_largo_minimo);
-			toba::logger()->error("Se selecciono una clave aleatoria, ya que una válida no fue provista");
-			return $randompass;
+			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
+			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
 		} 
 		return $pwd;
 	}	

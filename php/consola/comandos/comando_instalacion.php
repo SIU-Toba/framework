@@ -590,9 +590,9 @@ class comando_instalacion extends comando_toba
 			if ($this->get_instalacion()->es_produccion()) {
 				try {
 					toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);			
-				} catch (toba_error_pwd_conformacion_invalida $e) {
-					$es_invalido = true;
+				} catch (toba_error_pwd_conformacion_invalida $e) {					
 					$this->consola->mensaje($e->getMessage(), true);
+					$es_invalido =  $this->consola->dialogo_simple('Desea intentarlo nuevamente?');					
 				}
 			}			
 		} while($es_invalido);
