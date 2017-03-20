@@ -7,6 +7,9 @@
  */	
 require_once('comando_toba.php');
 
+use phpDocumentor\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output;
+
 class comando_doc extends comando_toba
 {
 	/**
@@ -141,47 +144,37 @@ class comando_doc extends comando_toba
 	 * @gtk_icono nucleo/doc-php.png 
 	 */
 	function opcion__api_php()
-	{
+	{				
+		chdir(toba_dir());
+		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
 		
-		/*$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
-
+		$_phpDocumentor_setting[] = "phpdoc";
+		$_phpDocumentor_setting[] = 'project:run';
+		$_phpDocumentor_setting[] =  '-c' . toba_dir().'/phpdoc.xml';
+		$_phpDocumentor_setting[] = "--title";
+		$_phpDocumentor_setting[] ="API PHP";
+		$_phpDocumentor_setting[] = "--cache-folder";
+		$_phpDocumentor_setting[] ="/tmp/doc_cache";
+		$_phpDocumentor_setting[] = "-t$dest";
+		
 		$lista = toba_manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
-		
-		//--- Se incluye a phpdocumentor en el path
-		$dir = toba_dir()."/php/3ros";
-		$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-		ini_set("include_path", ini_get("include_path"). $separador . $dir);
-		
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['title'] = "API PHP";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/persistencia';
-		$_phpDocumentor_setting['target'] = $dest;
-		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
-		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
-		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki,ventana';
-		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
-		$_phpDocumentor_setting['undocumentedelements'] = 1;
-		$_phpDocumentor_setting['ignore'] = '*_def.php,toba_definicion_componentes.php';
-
+				
+		$app = \phpDocumentor\Bootstrap::createInstance()
+			->registerProfiler()
+			->initialize();
+		$_SERVER['argv'] = $_phpDocumentor_setting;
+		$app->run();			
+		error_reporting(error_reporting() & ~E_STRICT);	
+			
 		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)
-		$indice = file_get_contents($dest.'/Centrales/toba.html');
+		$indice = file_get_contents($dest.'/classes/toba.html');
 		$indice = str_replace('../../', '#BASE#', $indice);
 		$indice = str_replace('../', '', $indice);
 		$indice = str_replace('#BASE#', '../', $indice);
-		file_put_contents($dest.'/index.html', $indice);
-		
-		
-		//---Borra las ayudas a nivel global de los archivos
-		$archivos = toba_manejador_archivos::get_archivos_directorio($dest, "/.*---.*\\.html/", true);
-		foreach ($archivos as $arch) {
-			unlink($arch);
-		}
-				
-		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");*/
+		file_put_contents($dest.'/index.html', $indice);		
 	}
 
 	/**

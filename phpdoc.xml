@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <parser>
+        <default-package-name>Centrales</default-package-name>
+        <encoding>iso-8859-1</encoding>
+        <target>/tmp/output/build</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+            <extension>php3</extension>
+            <extension>phtml</extension>
+        </extensions>
+        <visibility></visibility>
+    </parser>
+    <files>
+        <directory>php</directory>
+        <directory>src</directory>
+        <ignore-hidden>true</ignore-hidden>
+        <ignore-symlinks>true</ignore-symlinks>
+        <ignore>vendor/*</ignore>
+        <ignore>3ros/*</ignore>
+        <ignore>convenciones/*</ignore>
+        <ignore>instalacion/*</ignore>
+        <ignore>RDILib/*</ignore>
+    </files>
+    <logging>
+        <level>debug</level>
+        <paths>
+	    <default>{APP_ROOT}/data/log/{DATE}.log</default>
+	    <errors>{APP_ROOT}/data/log/{DATE}.errors.log</errors>
+        </paths>
+    </logging>
+    <transformations>
+        <template name="toba_doc"/>
+    </transformations>
+    <translator>
+        <locale>es</locale>
+    </translator>
+</phpdocumentor>
