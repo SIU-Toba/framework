@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;            <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;            <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;            <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;            <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;            <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;            <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;            <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;            <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;            <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;        <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../wiki/trac/toba/wiki/WikiStart.html" title="Navegar hacia la documentación WIKI">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Fuentes</div></br>
+        <div class="subpackage-title">Fuentes</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba_admin_fuentes.html">toba_admin_fuentes</a></li>
+                            <li class="class"><a href="../classes/toba_auditoria_tablas_postgres.html">toba_auditoria_tablas_postgres</a></li>
+                            <li class="class"><a href="../classes/toba_db.html">toba_db</a></li>
+                            <li class="class"><a href="../classes/toba_dba.html">toba_dba</a></li>
+                            <li class="class"><a href="../classes/toba_fuente_datos.html">toba_fuente_datos</a></li>
+                            <li class="class"><a href="../classes/toba_info_relacion_entre_tablas.html">toba_info_relacion_entre_tablas</a></li>
+                            <li class="class"><a href="../classes/toba_mensajes.html">toba_mensajes</a></li>
+                    </ul>
+    </div>
+    
+                         
+                    <div class="subpackage-title">Drivers</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba_db_informix.html">toba_db_informix</a></li>
+                            <li class="class"><a href="../classes/toba_db_mysql.html">toba_db_mysql</a></li>
+                            <li class="class"><a href="../classes/toba_db_odbc.html">toba_db_odbc</a></li>
+                            <li class="class"><a href="../classes/toba_db_postgres7.html">toba_db_postgres7</a></li>
+                            <li class="class"><a href="../classes/toba_db_sqlserver.html">toba_db_sqlserver</a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">ParsersErrores</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba_parser_error_db.html">toba_parser_error_db</a></li>
+                            <li class="class"><a href="../classes/toba_parser_error_db_postgres7.html">toba_parser_error_db_postgres7</a></li>
+                    </ul>
+    </div>
+     
+                </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_mensajes</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_mensajes</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/lib/toba_mensajes.php [<span class="field">line 8</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+  </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get' title="details" class="method-name">get
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_componente' title="details" class="method-name">get_componente
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_operacion_actual' title="details" class="method-name">get_operacion_actual
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_proyecto' title="details" class="method-name">get_proyecto
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_toba' title="details" class="method-name">get_toba
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#parsear_parametros' title="details" class="method-name">parsear_parametros
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_fuente_ini' title="details" class="method-name">set_fuente_ini
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                            
+
+        <a name="methodget" id="get"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 28]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get(
+                                    
+                
+                $indice                ,                             
+                [mixed
+                $parametros = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Obtiene un mensaje global del proyecto, si no lo encuentra escala buscando el mensaje en el mismo framework</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$parametros:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_componente" id="get_componente"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_componente</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 80]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_componente(
+                                    
+                
+                $objeto                ,                             
+                
+                $indice                ,                             
+                [mixed
+                $parametros = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna un mensaje asociado a un componente específico</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$objeto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$parametros:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_operacion_actual" id="get_operacion_actual"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_operacion_actual</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 99]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_operacion_actual(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el mensaje de ayuda de la operación actual</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_proyecto</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 61]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_proyecto(
+                                    
+                
+                $indice                ,                             
+                [mixed
+                $parametros = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Obtiene un mensaje global del proyecto</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$parametros:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_toba" id="get_toba"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_toba</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 42]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_toba(
+                                    
+                
+                $indice                ,                             
+                [mixed
+                $parametros = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Obtiene un mensaje global del framework
+Esto es para errores genericos del motor, etc</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$parametros:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodparsear_parametros" id="parsear_parametros"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		parsear_parametros</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 115]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> parsear_parametros(
+                                    
+                
+                $mensaje                ,                             
+                
+                $parametros                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Si el mensaje fue definido con comodines (%numero%)
+Estos pueden ser reemplazados por valores provistos en la llamada</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$mensaje:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$parametros:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_fuente_ini" id="set_fuente_ini"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_fuente_ini</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 16]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_fuente_ini(
+                                    
+                string
+                $path                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Los mensajes al usuario saldrán del archivo .ini indicado</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$path:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

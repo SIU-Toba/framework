@@ -1,0 +1,3944 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;            <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;            <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;            <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;            <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;            <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;            <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;            <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;            <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;            <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;        <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../wiki/trac/toba/wiki/WikiStart.html" title="Navegar hacia la documentación WIKI">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Eis</div></br>
+        <div class="subpackage-title">Eis</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba_nodo_arbol.html">toba_nodo_arbol</a></li>
+                                                    <li class="class"><a href="../classes/toba_ajax_respuesta.html">toba_ajax_respuesta</a></li>
+                            <li class="class"><a href="../classes/toba_boton.html">toba_boton</a></li>
+                            <li class="class"><a href="../classes/toba_ci.html">toba_ci</a></li>
+                            <li class="class"><a href="../classes/toba_ci_def.html">toba_ci_def</a></li>
+                            <li class="class"><a href="../classes/toba_ei.html">toba_ei</a></li>
+                            <li class="class"><a href="../classes/toba_ei_arbol.html">toba_ei_arbol</a></li>
+                            <li class="class"><a href="../classes/toba_ei_arbol_def.html">toba_ei_arbol_def</a></li>
+                            <li class="class"><a href="../classes/toba_ei_archivos.html">toba_ei_archivos</a></li>
+                            <li class="class"><a href="../classes/toba_ei_archivos_def.html">toba_ei_archivos_def</a></li>
+                            <li class="class"><a href="../classes/toba_ei_calendario.html">toba_ei_calendario</a></li>
+                            <li class="class"><a href="../classes/toba_ei_calendario_def.html">toba_ei_calendario_def</a></li>
+                            <li class="class"><a href="../classes/toba_ei_codigo.html">toba_ei_codigo</a></li>
+                            <li class="class"><a href="../classes/toba_ei_cuadro.html">toba_ei_cuadro</a></li>
+                            <li class="class"><a href="../classes/toba_ei_esquema.html">toba_ei_esquema</a></li>
+                            <li class="class"><a href="../classes/toba_ei_filtro.html">toba_ei_filtro</a></li>
+                            <li class="class"><a href="../classes/toba_ei_firma.html">toba_ei_firma</a></li>
+                            <li class="class"><a href="../classes/toba_ei_formulario.html">toba_ei_formulario</a></li>
+                            <li class="class"><a href="../classes/toba_ei_formulario_ml.html">toba_ei_formulario_ml</a></li>
+                            <li class="class"><a href="../classes/toba_ei_grafico.html">toba_ei_grafico</a></li>
+                            <li class="class"><a href="../classes/toba_ei_mapa.html">toba_ei_mapa</a></li>
+                            <li class="class"><a href="../classes/toba_ei_pantalla.html">toba_ei_pantalla</a></li>
+                            <li class="class"><a href="../classes/toba_evento_usuario.html">toba_evento_usuario</a></li>
+                            <li class="class"><a href="../classes/toba_tab.html">toba_tab</a></li>
+                    </ul>
+    </div>
+    
+       </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_ei</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                    <a href="#sec-inherited">Métodos Heredados</a>
+            |                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                                                                                
+                    <div class="classtree"><a href="../classes/toba_componente.html">\toba_componente</a><br/>&nbsp;&nbsp;&nbsp;|</div>
+                                        <div class="description">toba_ei</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/componentes/interface/toba_ei.php [<span class="field">line 11</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+    </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+    <a name="sec-inherited"></a>
+    <div class="info-box">
+        <div class="info-box-title">Métodos Heredados</div>
+        <div class="info-box-body">
+            <table cellpadding="2" cellspacing="0" class="class-table">
+            <tr>
+                <td width="100%">
+                    <p>Heredado de <span class="classname"><strong>toba_componente</strong></span></p>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method___construct">\toba_componente::__construct()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method___sleep">\toba_componente::__sleep()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_set_modo_compatible_manejo_sesion">\toba_componente::set_modo_compatible_manejo_sesion()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_ini">\toba_componente::ini()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_destruir">\toba_componente::destruir()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_log">\toba_componente::log()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_nombre">\toba_componente::get_nombre()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_titulo">\toba_componente::get_titulo()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_id">\toba_componente::get_id()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_inicializado">\toba_componente::inicializado()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_parametro">\toba_componente::get_parametro()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_controlador">\toba_componente::controlador()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_invocar_callback">\toba_componente::invocar_callback()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_mensaje">\toba_componente::get_mensaje()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_informar_msg">\toba_componente::informar_msg()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_informar">\toba_componente::informar()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_borrar_memoria">\toba_componente::borrar_memoria()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_mantener_estado_sesion">\toba_componente::mantener_estado_sesion()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_set_propiedades_sesion">\toba_componente::set_propiedades_sesion()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_eliminar_estado_sesion">\toba_componente::eliminar_estado_sesion()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_estado_sesion">\toba_componente::get_estado_sesion()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_set_controlador">\toba_componente::set_controlador()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_dependencia">\toba_componente::dependencia()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_dep">\toba_componente::dep()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_agregar_dependencia">\toba_componente::agregar_dependencia()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_agregar_dependencia_por_indice">\toba_componente::agregar_dependencia_por_indice()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_dependencia_cargada">\toba_componente::dependencia_cargada()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_existe_dependencia">\toba_componente::existe_dependencia()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_dependencias">\toba_componente::get_dependencias()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_cantidad_dependencias">\toba_componente::get_cantidad_dependencias()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba_componente.html#method_get_dependencias_clase">\toba_componente::get_dependencias_clase()</a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                    </td>
+            </tr>
+            </table>
+            <br />
+        </div>
+    </div>
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">void</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#' title="details" class="method-name">
+                                        set_refresh_ejecuta_eventos</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_evento' title="details" class="method-name">agregar_evento
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_notificacion' title="details" class="method-name">agregar_notificacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#botonera_abajo' title="details" class="method-name">botonera_abajo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#botonera_arriba' title="details" class="method-name">botonera_arriba
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cant_eventos_sobre_fila' title="details" class="method-name">cant_eventos_sobre_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#colapsar' title="details" class="method-name">colapsar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#descolapsar' title="details" class="method-name">descolapsar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#destruir' title="details" class="method-name">destruir
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_evento' title="details" class="method-name">eliminar_evento
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\toba_evento_usuario</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#evento' title="details" class="method-name">evento
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe_evento' title="details" class="method-name">existe_evento
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#extender_objeto_js' title="details" class="method-name">extender_objeto_js
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_boton' title="details" class="method-name">generar_boton
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_botones' title="details" class="method-name">generar_botones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_botones_eventos' title="details" class="method-name">generar_botones_eventos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_html_barra_sup' title="details" class="method-name">generar_html_barra_sup
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_html_boton' title="details" class="method-name">generar_html_boton
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\array(id</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_eventos_sobre_fila' title="details" class="method-name">get_eventos_sobre_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_grupo_eventos_activo' title="details" class="method-name">get_grupo_eventos_activo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id_form' title="details" class="method-name">get_id_form
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id_objeto_js' title="details" class="method-name">get_id_objeto_js
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_invocacion_evento_fila' title="details" class="method-name">get_invocacion_evento_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\array(toba_evento_usuario)</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_lista_eventos_internos' title="details" class="method-name">get_lista_eventos_internos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\array(toba_evento_usuario)</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_lista_eventos_usuario' title="details" class="method-name">get_lista_eventos_usuario
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_objeto_js' title="details" class="method-name">get_objeto_js
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_puntos_control' title="details" class="method-name">get_puntos_control
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#hay_botones' title="details" class="method-name">hay_botones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#mostrar_barra_superior' title="details" class="method-name">mostrar_barra_superior
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reportar_evento' title="details" class="method-name">reportar_evento
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">..)&lt;/pre&gt;)</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reportar_evento_interno' title="details" class="method-name">reportar_evento_interno
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_colapsable' title="details" class="method-name">set_colapsable
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_descripcion' title="details" class="method-name">set_descripcion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_disparo_eventos_condicionado_datos' title="details" class="method-name">set_disparo_eventos_condicionado_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_grupo_eventos_activo' title="details" class="method-name">set_grupo_eventos_activo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_modo_descripcion' title="details" class="method-name">set_modo_descripcion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_titulo' title="details" class="method-name">set_titulo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#tiene_puntos_control' title="details" class="method-name">tiene_puntos_control
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_impresion' title="details" class="method-name">vista_impresion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_impresion_html' title="details" class="method-name">vista_impresion_html
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_get_att_comunes' title="details" class="method-name">xml_get_att_comunes
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_get_elem_comunes' title="details" class="method-name">xml_get_elem_comunes
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_get_informacion_basica_vista' title="details" class="method-name">xml_get_informacion_basica_vista
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_imagen' title="details" class="method-name">xml_imagen
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_alto_cabecera' title="details" class="method-name">xml_set_alto_cabecera
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_alto_pie' title="details" class="method-name">xml_set_alto_pie
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_atts_ei' title="details" class="method-name">xml_set_atts_ei
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_cabecera' title="details" class="method-name">xml_set_cabecera
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">El parámetro $cabecera debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
+Para mostrar el número de página actual, incluir &#039;[[actual]]&#039; dentro del texto.
+Para mostrar el total de páginas, incluir &#039;[[total]]&#039; dentro del texto.
+Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto &#039;pág [[actual]] de [[total]]&#039;.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_dim_pagina' title="details" class="method-name">xml_set_dim_pagina
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_incluir_cabecera' title="details" class="method-name">xml_set_incluir_cabecera
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_incluir_pie' title="details" class="method-name">xml_set_incluir_pie
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_logo' title="details" class="method-name">xml_set_logo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_margenes' title="details" class="method-name">xml_set_margenes
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_nro_copias' title="details" class="method-name">xml_set_nro_copias
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_ns' title="details" class="method-name">xml_set_ns
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_orientacion' title="details" class="method-name">xml_set_orientacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_pie' title="details" class="method-name">xml_set_pie
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">El parámetro $pie debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
+Para mostrar el número de página actual, incluir &#039;[[actual]]&#039; dentro del texto.
+Para mostrar el total de páginas, incluir &#039;[[total]]&#039; dentro del texto.
+Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto &#039;pág [[actual]] de [[total]]&#039;.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\unknown_type</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_subtitulo' title="details" class="method-name">xml_set_subtitulo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_tabla_cols' title="details" class="method-name">xml_set_tabla_cols
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_set_titulo' title="details" class="method-name">xml_set_titulo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_tabla' title="details" class="method-name">xml_tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">$datos[n][m][&#039;valor&#039;] puede ser tanto un array como un string. Si es string, se incluye diréctamente. Si es array,
+se concatenan todos los valores y se incluye el string resultante. Como valor de una celda se puede incluir otro xml.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#xml_texto' title="details" class="method-name">xml_texto
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                                                                                                                        <a name="methodset_refresh_ejecuta_eventos" id="set_refresh_ejecuta_eventos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method set_refresh_ejecuta_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  63]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static  set_refresh_ejecuta_eventos(
+                                                
+                     
+                    $activado  = true ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Hace que los componentes reenvien sus eventos cuando se hace un refresh sobre la pagina
+por defecto se encuentra desactivado</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type"></span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">$activado:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                                                                                                        
+
+        <a name="method__construct" id="__construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 50]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> __construct(
+                                    
+                
+                $definicion                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$definicion:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_evento" id="agregar_evento"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		agregar_evento</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 169]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> agregar_evento(
+                                    
+                string
+                $id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina que un evento definido va a formar parte de los eventos a mostrar en el servicio actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$id:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_notificacion" id="agregar_notificacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		agregar_notificacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 579]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> agregar_notificacion(
+                                    
+                string
+                $mensaje                ,                             
+                [string
+                $tipo = &#039;info&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Agrega un mensaje de notificacion a esta pantalla</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$mensaje:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$tipo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodbotonera_abajo" id="botonera_abajo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		botonera_abajo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 432]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean botonera_abajo(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve True si la botonera del componente se debe ubicar abajo o en ambos extremos del mismo.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodbotonera_arriba" id="botonera_arriba"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		botonera_arriba</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 441]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean botonera_arriba(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve True si la botonera del componente se debe ubicar arriba o en ambos extremos del mismo.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcant_eventos_sobre_fila" id="cant_eventos_sobre_fila"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		cant_eventos_sobre_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 265]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>integer cant_eventos_sobre_fila(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la cantidad de eventos que fueron definidos a nivel de fila</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcolapsar" id="colapsar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		colapsar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 587]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> colapsar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Fuerza a que el componente se grafique colpsado, pudiendo el usuario descolapsarlo posteriormente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddescolapsar" id="descolapsar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		descolapsar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 596]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> descolapsar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Fuerza a que el componente se grafique descolapsado, pudiendo el usuario colapsarlo posteriormente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddestruir" id="destruir"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		destruir</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 81]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> destruir(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Destructor del componente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_evento" id="eliminar_evento"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_evento</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 199]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> eliminar_evento(
+                                    
+                string
+                $id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina un evento definido de la lista de eventos a utilizar en el servicio actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$id:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodevento" id="evento"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		evento</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 152]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../classes/toba_evento_usuario.html">\toba_evento_usuario</a> evento(
+                                    
+                string
+                $id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera el objeto asociado de un evento</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$id:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste_evento" id="existe_evento"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		existe_evento</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 183]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> existe_evento(
+                                    
+                string
+                $id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Verifica si un evento esta definido en la lista de eventos a utilizar en el servicio actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$id:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodextender_objeto_js" id="extender_objeto_js"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    		    			
+	<span class="method-title">
+		extender_objeto_js</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 841]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> extender_objeto_js(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Ventana de extensión javascript del componente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_boton" id="generar_boton"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_boton</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 524]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> generar_boton(
+                                    
+                string
+                $id_evento                ,                             
+                [boolean
+                $excluir_botonera = true ]                ,                             
+                [
+                $retornar = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Metodo para graficar un boton por orden del usuario</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$id_evento:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$excluir_botonera:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$retornar:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_botones" id="generar_botones"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_botones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 466]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> generar_botones(
+                                    
+                [string
+                $clase = &#039;&#039; ]                ,                             
+                [
+                $extra = &#039;&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera la botonera del componente</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$clase:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$extra:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_botones_eventos" id="generar_botones_eventos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		generar_botones_eventos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 482]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> generar_botones_eventos(
+                                    
+                [
+                $excluir_botonera = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera los botones de todos los eventos marcados para aparecer en la botonera.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$excluir_botonera:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_html_barra_sup" id="generar_html_barra_sup"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_html_barra_sup</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 649]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> generar_html_barra_sup(
+                                    
+                [string
+                $titulo = null ]                ,                             
+                [boolean
+                $control_titulo_vacio = false ]                ,                             
+                [string
+                $estilo = &quot;&quot; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera la barra con el título y los íconos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$titulo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$control_titulo_vacio:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$estilo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_html_boton" id="generar_html_boton"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		generar_html_boton</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 498]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> generar_html_boton(
+                                    
+                <a href="../classes/toba_evento_usuario.html">\toba_evento_usuario</a>
+                $evento                ,                             
+                [boolean
+                $retornar = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera el html de un botón específico</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"><a href="../classes/toba_evento_usuario.html">\toba_evento_usuario</a></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$retornar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_eventos_sobre_fila" id="get_eventos_sobre_fila"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_eventos_sobre_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 248]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\array(id get_eventos_sobre_fila(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la lista de eventos que fueron definidos a nivel de fila</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_grupo_eventos_activo" id="get_grupo_eventos_activo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_grupo_eventos_activo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 396]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_grupo_eventos_activo(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el grupo de eventos activos</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_id_form" id="get_id_form"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_id_form</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 784]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_id_form(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el identificador base para los campos HTML</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_id_objeto_js" id="get_id_objeto_js"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_id_objeto_js</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 822]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_id_objeto_js(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el id del componente en javascript.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_invocacion_evento_fila" id="get_invocacion_evento_fila"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_invocacion_evento_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 337]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_invocacion_evento_fila(
+                                    
+                
+                $evento                ,                             
+                integer
+                $fila                ,                             
+                
+                $clave_fila                ,                             
+                [
+                $salida_como_vinculo = false ]                ,                             
+                [
+                $param_extra = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Dado una fila, genera el html de los eventos de la misma</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">integer</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$fila:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$clave_fila:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$salida_como_vinculo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$param_extra:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_lista_eventos_internos" id="get_lista_eventos_internos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_lista_eventos_internos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 328]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\array(toba_evento_usuario) get_lista_eventos_internos(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna todos los eventos definidos por el componente (llamados internos), excluyendo los definidos por el usuario</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_lista_eventos_usuario" id="get_lista_eventos_usuario"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_lista_eventos_usuario</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 319]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\array(toba_evento_usuario) get_lista_eventos_usuario(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna todos los eventos definidos por el usuario, excluyendo los internos del componente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_objeto_js" id="get_objeto_js"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_objeto_js</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 844]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> get_objeto_js(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_puntos_control" id="get_puntos_control"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		get_puntos_control</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 558]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_puntos_control(
+                                    
+                string
+                $evento                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la definición de un punto de control para un evento</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodhay_botones" id="hay_botones"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		hay_botones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 450]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean hay_botones(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmostrar_barra_superior" id="mostrar_barra_superior"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		mostrar_barra_superior</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 728]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> mostrar_barra_superior(
+                                    
+                [
+                $estado = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Configura la visibilidad de la barra superior</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$estado:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreportar_evento" id="reportar_evento"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		reportar_evento</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 294]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> reportar_evento(
+                                    
+                string
+                $evento                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Reporta un evento en el componente controlador
+Puede recibir N parametros adicionales (ej &lt;pre&gt;$this-&gt;reportar_evento(&#039;modificacion&#039;, $datos, $fila,.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreportar_evento_interno" id="reportar_evento_interno"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		reportar_evento_interno</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 304]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> reportar_evento_interno(
+                                    
+                
+                $evento                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_colapsable" id="set_colapsable"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_colapsable</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 605]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_colapsable(
+                                    
+                boolean
+                $colapsable                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina si el componente podra ser colapsado/descolapsado por el usuario</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$colapsable:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_descripcion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 627]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_descripcion(
+                                    
+                string
+                $desc                ,                             
+                [string
+                $tipo = &#039;info&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la descripción del componente para el servicio actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$desc:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$tipo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_disparo_eventos_condicionado_datos" id="set_disparo_eventos_condicionado_datos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_disparo_eventos_condicionado_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 220]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_disparo_eventos_condicionado_datos(
+                                    
+                [boolean
+                $disparo = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Especifica si el disparo de los eventos implicitos debe estar asociado al cambio de datos o no</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$disparo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_grupo_eventos_activo" id="set_grupo_eventos_activo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_grupo_eventos_activo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 387]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_grupo_eventos_activo(
+                                    
+                string
+                $grupo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$grupo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_modo_descripcion" id="set_modo_descripcion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_modo_descripcion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 637]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_modo_descripcion(
+                                    
+                [boolean
+                $tooltip = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip)</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$tooltip:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methodset_titulo" id="set_titulo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_titulo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 617]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> set_titulo(
+                                    
+                string
+                $titulo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia el titulo del componente para el servicio actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$titulo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodtiene_puntos_control" id="tiene_puntos_control"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		tiene_puntos_control</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 547]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean tiene_puntos_control(
+                                    
+                string
+                $evento                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina si el componente tiene algún punto de control asignado para un evento</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$evento:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_impresion" id="vista_impresion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_impresion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 877]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> vista_impresion(
+                                    
+                <a href="../classes/toba_impresion.html">\toba_impresion</a>
+                $salida                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Despachador de tipos de salidas de impresion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"><a href="../classes/toba_impresion.html">\toba_impresion</a></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$salida:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_impresion_html</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 888]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> vista_impresion_html(
+                                    
+                <a href="../classes/toba_impresion.html">\toba_impresion</a>
+                $salida                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Impresion HTML por defecto</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"><a href="../classes/toba_impresion.html">\toba_impresion</a></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$salida:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_get_att_comunes" id="xml_get_att_comunes"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_get_att_comunes</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1051]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_get_att_comunes(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna los atributos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_get_elem_comunes" id="xml_get_elem_comunes"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_get_elem_comunes</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1099]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_get_elem_comunes(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_get_informacion_basica_vista" id="xml_get_informacion_basica_vista"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_get_informacion_basica_vista</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1250]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_get_informacion_basica_vista(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_imagen" id="xml_imagen"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_imagen</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1188]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_imagen(
+                                    
+                string
+                $src                ,                             
+                [string
+                $tipo = &#039;jpg&#039; ]                ,                             
+                [string
+                $titulo = false ]                ,                             
+                [string
+                $caption = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve un string con el xml de una imagen a incluir.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$src:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$tipo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$titulo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$caption:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_alto_cabecera" id="xml_set_alto_cabecera"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_alto_cabecera</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1006]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_alto_cabecera(
+                                    
+                [string
+                $alto = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el alto de la cabecera de página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$alto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_alto_pie" id="xml_set_alto_pie"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_alto_pie</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 976]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_alto_pie(
+                                    
+                [string
+                $alto = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el alto del pié de página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$alto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_atts_ei" id="xml_set_atts_ei"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_atts_ei</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1031]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_atts_ei(
+                                    
+                [array
+                $atts = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Forma genérica de definir parámetros de usuario. El parámetro $atts debe ser un array de tipo
+&quot;nombre&quot;=&gt;&quot;valor&quot;.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$atts:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_cabecera" id="xml_set_cabecera"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_cabecera</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 998]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_cabecera(
+                                    
+                [string
+                $cabecera = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define la cabecera de página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$cabecera:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_dim_pagina" id="xml_set_dim_pagina"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_dim_pagina</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 945]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_dim_pagina(
+                                    
+                [string
+                $ancho = false ]                ,                             
+                [string
+                $alto = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define las dimensiones de la página</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$ancho:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$alto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_incluir_cabecera" id="xml_set_incluir_cabecera"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_incluir_cabecera</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 985]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_incluir_cabecera(
+                                    
+                [boolean
+                $incluir = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define si se crea la cabecera de la página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$incluir:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_incluir_pie" id="xml_set_incluir_pie"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_incluir_pie</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 955]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_incluir_pie(
+                                    
+                [boolean
+                $incluir = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define si se crea el pié de página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$incluir:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_logo" id="xml_set_logo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_logo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 912]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_logo(
+                                    
+                string
+                $logo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el logo de la institución a utilizar en la cabecera del pdf</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$logo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_margenes" id="xml_set_margenes"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_margenes</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1017]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_margenes(
+                                    
+                [array
+                $margenes = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define los márgenes de la página. $margenes debe ser un array de tipo &#039;nombre&#039;=&gt;&#039;valor&#039;,
+donde &#039;sup&#039;, &#039;inf&#039;, &#039;izq&#039; y &#039;der&#039; son los nombres para definir los márgenes superior,
+inferior, izquierdo y derecho respectivamente.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$margenes:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_nro_copias" id="xml_set_nro_copias"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_nro_copias</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1042]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_nro_copias(
+                                    
+                [integer
+                $copias = 1 ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el numero de copias que deben aparecer en el pdf.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">integer</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$copias:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_ns" id="xml_set_ns"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_ns</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1239]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_ns(
+                                    
+                string
+                $xmlns                ,                             
+                [string
+                $url = &#039;&#039; ]                ,                             
+                [boolean
+                $usar = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define un namespace a utilizar con los elementos xml.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$xmlns:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$url:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$usar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_orientacion" id="xml_set_orientacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_orientacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 902]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_orientacion(
+                                    
+                [string
+                $orientacion = &#039;portrait&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define la orientación de la página</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$orientacion:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_pie" id="xml_set_pie"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_pie</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 968]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_pie(
+                                    
+                [string
+                $pie = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el pié de página.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$pie:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_subtitulo" id="xml_set_subtitulo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_subtitulo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 934]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\unknown_type xml_set_subtitulo(
+                                    
+                
+                $subtitulo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el subtítulo a utilizar en la cabecera del pdf</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type"></span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$subtitulo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_tabla_cols" id="xml_set_tabla_cols"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_tabla_cols</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1218]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_tabla_cols(
+                                    
+                [array
+                $cols = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define atributos comunes a columnas de una tabla (atributos del elemento table-column
+de xsl-fo).</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$cols:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_set_titulo" id="xml_set_titulo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_set_titulo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 923]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code> xml_set_titulo(
+                                    
+                string
+                $titulo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Define el titulo a utilizar en la cabecera del pdf</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$titulo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_tabla" id="xml_tabla"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1144]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_tabla(
+                                    
+                [array
+                $datos = array() ]                ,                             
+                [boolean
+                $es_formulario = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las
+filas, y el segundo nivel representan las columnas dentro de una fila. Es decir $datos[0] representa la
+primer fila, y $datos[0][0] representa la primer columna de la primer fila. $datos[n][m] a su vez, puede ser
+tanto un string como un array. Si es un string, se toma este como valor de la celda. Si es un array, debe ser de
+tipo &#039;key&#039;=&gt;&#039;value&#039; donde &#039;key&#039; represente un atributo de la celda de la tabla (atributos del elemento table-cell
+de xsl-fo). Si existe $datos[n][m][&#039;valor&#039;], entonces no es tomado como atributo, sino como el valor de la celda.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$es_formulario:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodxml_texto" id="xml_texto"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		xml_texto</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1117]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string xml_texto(
+                                    
+                string
+                $texto                ,                             
+                [array
+                $atts = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve un string con el xml de un texto y sus atributos a incluir</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$texto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">$atts:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>
