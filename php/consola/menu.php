@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que implementa un menu sobre los comandos
+ * 
+ * @package consola
+ */	
 class menu
 {
 	protected $consola;

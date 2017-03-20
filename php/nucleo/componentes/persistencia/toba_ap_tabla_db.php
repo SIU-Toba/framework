@@ -5,12 +5,12 @@ define("apex_db_registros_separador","%");
  * Administrador de persistencia a una tabla de DB desde un {@link toba_datos_tabla datos_tabla}
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  * 
- * @todo Poder desactivar el control de sincronizacion (¿se necesita esto?)
- * @todo Como se implementa la carga de columnas externas??
- * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
- * @todo Hay que definir el manejo de claves (en base a toba_datos_relacion)	
- * @package Componentes
- * @subpackage Persistencia
+ * TODO Poder desactivar el control de sincronizacion (¿se necesita esto?)
+ * TODO Como se implementa la carga de columnas externas??
+ * TODO Donde se hacen los controles pre-sincronizacion (nulos db)??
+ * TODO Hay que definir el manejo de claves (en base a toba_datos_relacion)	
+ * 
+ * @package Componentes\Persistencia
  */
  
 abstract class toba_ap_tabla_db implements toba_ap_tabla

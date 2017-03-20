@@ -1,6 +1,9 @@
 <?php
 require_once('comando_toba.php');
-//require_once('modelo/personalizacion/personalizacion.php');
+/**
+ * Publica los servicios de la clase personalizacion a la consola toba
+ * @package consola
+ */
 
 class comando_personalizacion extends comando_toba
 {

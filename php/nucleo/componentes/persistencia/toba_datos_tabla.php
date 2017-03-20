@@ -7,9 +7,8 @@
  * - Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.
  * - Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la transacción de negocios.
  *
- * @package Componentes
- * @subpackage Persistencia
- * @todo Control de FK y PK
+ * TODO Control de FK y PK
+ * @package Componentes\Persistencia
  */
 class toba_datos_tabla extends toba_componente 
 {

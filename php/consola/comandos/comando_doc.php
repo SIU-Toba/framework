@@ -1,13 +1,28 @@
 <?php
+/**
+ *  Clase que implementa los comandos de documentación de toba.
+ * 
+ * Class comando_doc.
+ * @package consola
+ */	
 require_once('comando_toba.php');
 
 class comando_doc extends comando_toba
 {
+	/**
+	 * Retorna información acerca del comando.
+	 * 
+	 * @return string
+	 */
 	static function get_info()
 	{
 		return 'Administracion de la documentación de Toba';
 	}
 	
+	/**
+	 * Muestra un help de uso.
+	 * 
+	 */
 	function mostrar_observaciones()
 	{
 		$this->consola->mensaje("INVOCACION: toba doc OPCION");
@@ -15,7 +30,8 @@ class comando_doc extends comando_toba
 	}
 
 	/**
-	 * Descarga la documentación online del wiki desde desarrollos2.siu.edu.ar utilizando httracker
+	 * Descarga la documentación online del wiki desde desarrollos2.siu.edu.ar utilizando httracker.
+	 * 
 	 * @gtk_icono nucleo/doc-wiki.png
 	 */
 	function opcion__wiki()
@@ -121,12 +137,13 @@ class comando_doc extends comando_toba
 	
 	/**
 	 * Genera la documentación del API en base a los tags phpdoc del código
+	 * 
 	 * @gtk_icono nucleo/doc-php.png 
 	 */
 	function opcion__api_php()
 	{
 		
-		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
+		/*$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
 
 		$lista = toba_manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
@@ -164,12 +181,13 @@ class comando_doc extends comando_toba
 			unlink($arch);
 		}
 				
-		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
+		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");*/
 	}
 
 	/**
 	 * Genera la documentación del API Javascript
 	 * Requiere Perl y jsdoc (http://jsdoc.sourceforge.net/)
+	 * 
 	 * @gtk_icono nucleo/doc-js.png 
 	 */	
 	function opcion__api_js()
@@ -195,7 +213,13 @@ class comando_doc extends comando_toba
 		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 
-	
+	/**
+	 * Utiliza iconv para convertir la codificacion de un archivo entre dos encodings
+	 * 
+	 * @param path $archivo
+	 * @param string $desde
+	 * @param string $hasta
+	 */
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
 		$this->consola->progreso_avanzar();
@@ -204,7 +228,13 @@ class comando_doc extends comando_toba
 		file_put_contents($archivo, $iso);
 	}
 
-	
+	/**
+	 * Pasa todos los archivos de un directorio de una codificacion a otra.
+	 * 
+	 * @param string $destino
+	 * @param string $desde
+	 * @param string $hasta
+	 */
 	protected function convertir_codificacion_dir($destino, $desde="UTF-8", $hasta="ISO-8859-1")
 	{
 		//Se buscan los archivos .html del arbol de directorios

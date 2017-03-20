@@ -2,6 +2,14 @@
 use Symfony\Component\Yaml\Yaml;
 
 require_once('comando_toba.php');
+
+/**
+ *  Clase que implementa los comandos de instalacion desatendida de toba.
+ * 
+ * Class comando_doc.
+ * @package consola
+ * 
+ */	
 class comando_instalacion_silenciosa extends comando_toba
 {	
 	function recuperar_contenido_archivo($nombre)

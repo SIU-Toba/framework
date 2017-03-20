@@ -1,0 +1,9 @@
+{% block packageNames %}
+    <div class="package">
+        {% for package in (project.indexes.packages|first).children|sort_asc %}
+            <a href="{{ path(package) }}">{{ package.name }}</a>&nbsp;|&nbsp;{% endfor %}
+        <a href="{{ path('deprecated.html') }}">Deprecated</a>
+    </div>
+{% endblock %}
+
+ 

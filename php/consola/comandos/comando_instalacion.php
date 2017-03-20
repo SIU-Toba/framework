@@ -1,6 +1,12 @@
 <?php
 require_once('comando_toba.php');
 
+/**
+ *  Clase que implementa los comandos de la instalacion de toba.
+ * 
+ * Class comando_instalacion.
+ * @package consola
+ */	
 class comando_instalacion extends comando_toba
 {
 	static function get_info()

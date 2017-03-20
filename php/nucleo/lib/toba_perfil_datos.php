@@ -9,8 +9,9 @@
  * Los perfiles de datos se definen en toba_usuarios (un usuario puede tener 0 o 1 perfil)
  * Las dimensiones se definen por el proyecto en toba_editor
  * 
+ *  TODO  No soporta el uso de parentesis
  * @package Seguridad
- * TODO:  No soporta el uso de parentesis
+ * 
  */
 class toba_perfil_datos
 {

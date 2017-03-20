@@ -3,9 +3,8 @@
 /**
  * Mantiene un conjunto relacionado de {@link toba_datos_tabla datos_tabla}, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
  * 
- * @package Componentes
- * @subpackage Persistencia
- * @todo En el dump_esquema incluir la posición actual de los cursores
+ * TODO En el dump_esquema incluir la posición actual de los cursores
+ * @package Componentes\Persistencia
  */
 class toba_datos_relacion extends toba_componente 
 {

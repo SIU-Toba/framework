@@ -2,8 +2,9 @@
 require_once('nucleo/componentes/interface/interfaces.php');
 
 /**
-*	Implemantacion basica de la interface toba_nodo_arbol.
-*/
+ * Implementacion basica de la interface toba_nodo_arbol.
+ * @package Varios
+ */
 class toba_nodo_basico implements toba_nodo_arbol
 {
 	protected $padre;

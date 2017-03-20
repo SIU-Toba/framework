@@ -1,22 +1,38 @@
 <?php
 /**
- * Clase basica de comandos de consola
- * @ignore
+ * Clase que implementa el comando sobre la bd.
+ * 
+ * Class comando_base.
+ * @package consola
  */
 require_once('comando_toba.php');
 class comando_base extends comando_toba
 {
+	/**
+	 * Retorna información acerca del comando
+	 * 
+	 * @return string
+	 */
 	static function get_info()
 	{
 		return 'Administracion de BASES de DATOS';
 	}
 	
+	/**
+	 * Muestra un help de uso
+	 * 
+	 */
 	function mostrar_observaciones()
 	{
 		$this->consola->mensaje("INVOCACION: toba base OPCION [-d id_base]");
 		$this->consola->enter();
 	}	
 
+	/**
+	 * Determina si existe el parametro que indica sobre que base operar
+	 * 
+	 * @return boolean
+	 */
 	function tiene_definido_base()
 	{
 		$param = $this->get_parametros();
@@ -27,6 +43,11 @@ class comando_base extends comando_toba
 		}
 	}
 	
+	/**
+	 * Devuelve un string con los parametros de la base
+	 * 
+	 * @return string
+	 */
 	function get_info_extra()
 	{
 		if ($this->tiene_definido_base()) {
@@ -42,6 +63,7 @@ class comando_base extends comando_toba
 	
 	/**
 	 * Muestra un listado de las bases disponibles
+	 * 
 	 * @gtk_icono info_chico.gif
 	 */
 	function opcion__listar()
@@ -52,6 +74,8 @@ class comando_base extends comando_toba
 	
 	/**
 	 * Agrega la definición de una base al archivo bases.ini. 
+	 * 
+	 * @param array $parametros 
 	 * @consola_parametros Opcional: [-o base_origen] toma los datos de otra definicion
 	 * @gtk_icono nucleo/agregar.gif  
 	 * @gtk_param_extra registrar_base
@@ -107,6 +131,7 @@ class comando_base extends comando_toba
 
 	/**
 	 * Elimina la definición de la base en bases.ini
+	 * 
 	 * @gtk_icono borrar.gif
 	 * @gtk_separador 1 
 	 */
@@ -130,6 +155,7 @@ class comando_base extends comando_toba
 	
 	/**
 	* Crea físicamente la base de datos
+	 * 
 	* @gtk_icono nucleo/agregar.gif
 	*/
 	function opcion__crear()
@@ -145,6 +171,7 @@ class comando_base extends comando_toba
 
 	/**
 	* Elimina físicamente la base de datos
+	 * 
 	* @gtk_icono borrar.png
 	*/
 	function opcion__eliminar()
@@ -165,6 +192,8 @@ class comando_base extends comando_toba
 	
 	/**
 	* Ejecuta un archivo sql
+	* 
+	* @param string $archivo
 	* @consola_parametros [-a archivo]
 	* @gtk_icono sql.gif
 	* @gtk_param_extra ejecutar_sql
@@ -185,6 +214,7 @@ class comando_base extends comando_toba
 
 	/**
 	* Chequea la conexión con la base
+	* 
 	* @gtk_icono fuente.png
 	*/
 	function opcion__test_conexion()
@@ -200,6 +230,7 @@ class comando_base extends comando_toba
 	
 	/**
 	 * Actualiza las secuencias de la base, solo funciona con PostgreSQL
+	 * 
 	 */
 	function opcion__actualizar_secuencias()
 	{
@@ -229,7 +260,8 @@ class comando_base extends comando_toba
 	
 	
 	/**
-	*	Determina sobre que base definida en 'info_bases' se va a trabajar
+	* Determina sobre que base definida en 'info_bases' se va a trabajar
+	* 
 	*/
 	private function get_id_base_actual()
 	{

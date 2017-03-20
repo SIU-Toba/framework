@@ -1,5 +1,9 @@
 <?php
 require_once('comando_toba.php');
+/**
+ * Publica los servicios de la clase test a la consola toba
+ * @package consola
+ */
 
 class comando_test extends comando_toba
 {

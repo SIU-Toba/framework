@@ -1,0 +1,190 @@
+<a name='method_detail'></a>
+{%for method in methods|sort_asc%}
+    {%if method.static%}
+    <a name="method{{method.name}}" id="{{method.name}}"><!-- --></a>
+    <div class="{{cycle(["evenrow", "oddrow"], loop.index0)}}">
+    <div class="method-header">
+        {%if method.visibility == "protected"%}
+            <img border='0' title='protected' style='vertical-align: middle' src="{{ path('img/candado.png') }}" />
+        {%endif%}
+	<span class="method-title">static method {{method.name}}</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea {%if method.reference%} {{methods.reference}} {%else%} {{method.line}}{%endif%}]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static {{method.response.types|route|join('|')|raw}} {%if method.ifunction.call.returnsref%}&amp;{%endif%}{{method.name}}(
+            {%if method.arguments|length > 0%}
+                {%for param in method.arguments%}                    
+                    {%if param.hasdefault%}[ {%endif%} {{param.types|route|join('|')|raw}}
+                    {{param.name}} {%if param.default%} = {{param.default}} ]{%endif%}
+                    {%if not loop.last%}, {%endif%}
+                {%endfor%}
+            {%endif%})
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    {%include 'docblock.twig' with {'sdesc': method.sdesc, 'desc': method.summary} %}
+    
+{%if method.arguments|length > 0 %}
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+    {%for param in method.arguments%}
+        <tr><td class="indent">
+            <span class="var-type">{{param.types|route|join('|')|raw}}</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">{{param.name}}:&nbsp;</span></td>
+            <td>
+            {%if param.sdesc%}<span class="var-description"> {{param.description}}</span>{%endif%}
+        </td></tr>
+    {%endfor%}
+    </table>
+{%endif%}
+    
+<br />
+    {%include 'tags.twig' with {'api_tags': method.tags, 'info_tags': method.tags} %}
+    
+    {%if method.overrides|length > 0%}
+        <div class="notes">Redefinición de:</div>
+        <dl>
+                <dt>{{method.overrides.link}}</dt>
+                {%if method.overrides.sdesc%}
+                <dd>{{method.overrides.sdesc}}</dd>
+                {%endif%}
+        </dl>
+    {%endif%}
+    {%if method.implements|length > 0 %}
+        <div class="notes">Implementation of:</div>
+	{%for imp in method.implements%}
+            <dl>
+                <dt>{{imp.link}}</dt>
+                {%if imp.sdesc%}
+                <dd>{{imp.sdesc}}</dd>
+                {%endif%}
+            </dl>
+	{%endfor%}
+    {%endif%}
+    {%if method.descmethod|length > 0%}
+        <div class="notes">Redefinido en subclases como:</div>
+        <ul class="redefinitions">
+        {%for dm in method.descmethod%}
+            <li>
+                {{dm.link}}
+                {%if dm.sdesc%}
+                : {{dm.sdesc}}
+                {%endif%}
+            </li>
+        {%endfor%}
+        </ul>
+    {%endif%}
+    <br />
+</div>    
+{%endif%}
+{%endfor%}
+
+
+{%for method in methods|sort_asc%}
+    {%if not method.static%}
+    <a name="method{{method.name}}" id="{{method.name}}"><!-- --></a>
+    <div class="{{cycle(["evenrow", "oddrow"], loop.index0)}}">
+    <div class="method-header">	    
+            {% if method.visibility == "protected"%}
+                <img border='0' title='protected' style='vertical-align: middle' src="{{path('img/candado.png')}}" />
+            {%endif%}
+	{%for tag in method.tags%}
+	    {%if tag.name == 'ventana'%}
+    		<img border='0' title='Ventana de extensión' src="{{path('img/ventana.png')}}" />
+            {%endif%}
+	{%endfor%}		
+	<span class="method-title">
+	{%if method.constructor%}Constructor 
+	{%elseif method.destructor%}Destructor 
+	{%endif%}
+	{{method.name}}</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea {%if method.reference%}{{method.reference}}{%else%}{{method.line}}{%endif%}]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>{{method.response.types|route|join('|')|raw}} {%if method.response.reference%}&amp;{%endif%}{{method.name}}(
+        {%if method.arguments|length > 0%}
+            {%for params in method.arguments%}                
+                {%if params.default%}[{%endif%}{{params.types|route|join('|')|raw}}
+                {{params.name}}{%if params.default%} = {{params.default}} ]{%endif%}
+                {%if not loop.last%}, {%endif%}
+            {%endfor%}
+        {%endif%})</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	{%include 'docblock.twig' with {'sdesc': method.sdesc, 'desc': method.summary}%}
+
+	{%if method.arguments|length > 0 %}
+            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		{%for params in method.arguments%}
+                    <tr><td class="indent">
+                        <span class="var-type">{{params.types|route|join('|')|raw}}</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">{{params.name}}:&nbsp;</span></td>
+                    <td>
+                        {%if params.description%}<span class="var-description"> {{params.summary}}</span>{%endif%}
+                    </td></tr>
+		{%endfor%}
+            </table>
+	{%endif%}
+    <br/>
+	{%include 'tags.twig' with { 'api_tags': method.tags, 'info_tags': method.tags} %}
+	
+	{%if method.overrides%}
+            <div class="notes">Redefinición de:</div>
+		<dl>
+                    <dt>{{method.overrides.link}}</dt>
+                    {%if method.overrides.sdesc%}
+                    <dd>{{method.overrides.sdesc}}</dd>
+                    {%endif%}
+		</dl>
+	{%endif%}
+	{%if method.implements%}
+            <div class="notes">Implementation of:</div>
+            {%for imp in method.implements%}
+		<dl>
+                    <dt>{{imp.link}}</dt>
+                    {%if imp.sdesc%}
+                    <dd>{{imp.sdesc}}</dd>
+                    {%endif%}
+		</dl>
+            {%endfor%}
+	{%endif%}
+
+	{%if methods.children|length > 0%}
+            <div class="notes">Redefinido en subclases como:</div>
+            <ul class="redefinitions">
+            {%for dm in method.children%}
+                <li>
+                    {{dm.link}}
+                    {%if dm.sdesc%}
+                    : {{dm.sdesc}}
+                    {%endif%}
+                </li>
+            {%endfor%}
+            </ul>
+	{%endif%}
+	<br />
+</div>
+{%endif%}
+{%endfor%}

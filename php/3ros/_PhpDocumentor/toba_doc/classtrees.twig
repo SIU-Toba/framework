@@ -1,0 +1,17 @@
+{%include("header.twig", {noleftindex:true})%}
+<h1>{{title}}</h1>
+{%if interfaces%}
+{%for classtrees in interfaces%}
+<hr />
+<div class="classtree">Inteface Raíz {{classtrees.class}}</div><br />
+{{classtrees.class_tree}}
+{%endfor%}
+{%endif%}
+{%if classtrees%}
+{%for classtree in classtrees%}
+<hr />
+<div class="classtree">Clase Raíz {{classtree.class}}</div><br />
+{{classtree.class_tree}}
+{%endfor%}
+{%endif%}
+{%include("footer.twig")%}

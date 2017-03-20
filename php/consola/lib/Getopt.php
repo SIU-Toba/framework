@@ -23,7 +23,7 @@
  * Command-line options parsing class.
  *
  * @author Andrei Zmievski <andrei@php.net>
- *
+ * @ignore
  */
 class Console_Getopt {
     /**
@@ -60,7 +60,7 @@ class Console_Getopt {
      * the non-option arguments
      *
      * @access public
-     *
+     * @ignore
      */
     function getopt2($args, $short_options, $long_options = null)
     {

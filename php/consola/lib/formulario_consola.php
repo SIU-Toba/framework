@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que implementa un formulario de ingreso de datos por consola
+ * 
+ * @package consola
+ */
 class formulario_consola
 {
 	private $interface;

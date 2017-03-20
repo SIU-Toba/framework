@@ -11,16 +11,17 @@ use SIUToba\SSLCertUtils\SSLCertUtils;
 
 /**
  * Class RegistryHooksProyectoToba
- * @package SIUToba\Framework\Arai
  *
- * Clase que implementa los hooks requeridos por ARAI-cli:Registry para configurar un proyecto típico Toba
+ * Clase que implementa los hooks requeridos por ARAI-cli:Registry para configurar un proyecto tipico Toba
  *
  * Se asumen algunas cosas:
  *   * Solo funciona si estan definidas TOBA_INSTANCIA y TOBA_PROYECTO
  *   * Se configura una unica API cuya url es URL_PROYECTO/rest (redefinir si hay mas APIs o tienen otras URLs).
  *     Se envia el primer user/pass que encuentra (inseguro, se va a migrar a un modelo clave publica/crt)
- *   * La configuracion del SP de SAML se asume que se usa la autenticacion saml_onelogin
- *
+ *      La configuracion del SP de SAML se asume que se usa la autenticacion saml_onelogin
+ * 
+ * @package SIUToba\Framework
+ * @subpackage Arai
  */
 class RegistryHooksProyectoToba implements HooksInterface
 {

@@ -3,9 +3,8 @@
 /**
  * Permite construir busquedas complejas en torno a un datos_tabla específico y su relación con otras tablas
  * 
- * @package Componentes
- * @subpackage Persistencia
- */
+ * @package Componentes\Persistencia
+ */	
 class toba_datos_busqueda
 {
 	protected $relacion;

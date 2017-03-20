@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% macro clasepaquete(package) %}
+    <div class="subpackage-title">{{ package.name }}</div>
+        <div class="package-details">
+        <ul>           
+            {% for class in package.interfaces|sort_asc %}
+                <li class="interface">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.traits|sort_asc %}
+                <li class="trait">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.classes|sort_asc %}
+                <li class="class">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}
+
+{% block classSidebar %}
+    <div class="package-title">{{ node.name }}</div></br>
+    {{ _self.clasepaquete(node) }}
+    {%if node.children|length > 0%}
+         {%for paquete in node.children|sort_asc%}            
+                {{ _self.clasepaquete(paquete) }}     
+         {% endfor %}
+    {%endif%}
+   </div>
+   <div id="topdiv">
+        <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+    </div>
+{% endblock %}
+
+
+

@@ -1,8 +1,9 @@
 <?php
-/**
- * @ignore
- */	
 require_once('comando_toba.php');
+/**
+ * Publica los servicios de la clase Item a la consola toba
+ * @package consola
+ */
 class comando_item extends comando_toba
 {
 	

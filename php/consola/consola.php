@@ -6,9 +6,13 @@ require_once('modelo/lib/toba_proceso_gui.php');
 require_once('nucleo/toba_nucleo.php');
 
 /**
-*	@todo: 	- Interprete de comandos
-*			- Nombres abreviados de comandos			
-*/
+ * Clase que implementa un entorno para interactuar con la consola
+ * 
+ * TODO - interprete de comandos
+ * TODO  - nombre abreviado de comandos
+ * 
+ * @package consola
+ */
 class consola implements toba_proceso_gui
 {
 	static protected $display_ancho = 79;
