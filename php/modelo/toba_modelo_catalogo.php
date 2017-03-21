@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que permite instanciar los distintos objetos del modelo
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_catalogo
 {
 	private $instalacion;				// Instalacion

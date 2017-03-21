@@ -1,7 +1,11 @@
 <?php
 	
 use SIUToba\SSLCertUtils\SSLCertUtils;
-
+/**
+ * Clase que representa  WS RESTy su configuracion
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_rest extends toba_modelo_elemento
 {
 	const CARPETA_REST_BASE = '/rest';

@@ -5,8 +5,10 @@ use SIUToba\rest\rest;
 require_once('toba_modelo_mocks_rest.php');
 
 /**
-*	Administrador de metadatos de PROYECTOS
-*/
+ * Clase que representa el proyecto
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_proyecto extends toba_modelo_elemento
 {
 	private static $lista_proyectos;	

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa los puntos de montaje
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_pms
 {
 	const prefijo_ini = 'pm_';

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa el nucleo
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_nucleo extends toba_modelo_elemento
 {
 	// Directorios de trabajo

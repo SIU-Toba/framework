@@ -1,7 +1,8 @@
 <?php
 /**
  * Este archivo contienen clases mocks de aquellas brindadas por la libreria REST, se usan desde el modelo para simular un pedido
- *
+ * @package Centrales
+ * @subpackage Modelo
  */
 
 use SIUToba\rest\http\respuesta_rest;
