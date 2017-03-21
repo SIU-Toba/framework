@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Clase que genera el html para visualizar el resultado del testeo
+ */
 class toba_test_reporter extends HtmlReporter 
 {
 

@@ -6,6 +6,10 @@ use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
 use SIUToba\rest\seguridad\autenticacion\usuarios_usuario_password;
 use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
 
+/**
+ * Clase que instancia la libreria necesaria para atender un pedido REST
+ * @package Centrales
+ */
 class toba_rest
 {
 	const CARPETA_REST = "/rest";

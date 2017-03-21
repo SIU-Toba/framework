@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Description of toba_recuperador_tablas
- *
+ * Clase que maneja la recuperacion de tablas generales
+ * @package Centrales
+ * @subpackage Personalizacion
  * @author sp14ab
  */
 class toba_recuperador_tablas extends toba_recuperador

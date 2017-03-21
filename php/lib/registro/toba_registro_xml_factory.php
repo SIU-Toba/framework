@@ -1,6 +1,8 @@
 <?php
 /**
  * Esta clase es la encargada de construir registros desde strings xml
+ * @package Centrales
+ * @subpackage Personalizacion
  */
 class toba_registro_xml_factory
 {

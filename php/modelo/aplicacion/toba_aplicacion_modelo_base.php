@@ -4,6 +4,11 @@ use SIU\AraiJsonMigrator\Entities\Person;
 use SIU\AraiJsonMigrator\Entities\Account;
 use SIU\AraiJsonMigrator\Util\Documento;
 
+/**
+ * Clase que contiene la lógica de administración de la aplicación, es utiliza por los comandos
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;

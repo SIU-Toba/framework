@@ -1,6 +1,7 @@
 <?php
 /**
  * Esta clase representa los puntos de montaje del proyecto que está ejecutandose
+ * @package Centrales
  */
 
 class toba_pms

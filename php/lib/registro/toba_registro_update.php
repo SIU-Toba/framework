@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un registro a ser actualizado
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_registro_update extends toba_registro_con_clave
 {
 	function  __construct($db, $nombre_tabla)
@@ -42,7 +46,7 @@ class toba_registro_update extends toba_registro_con_clave
 		}
 	}
 	
-    function to_sql()
+	function to_sql()
 	{
 		$values = $this->armar_values();
 		$where = $this->armar_where();

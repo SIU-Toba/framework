@@ -4,9 +4,9 @@
  * La etapa de request se la denomina de 'eventos' 
  * La etapa de response se la denomina de 'servicios'
  * 
- * @package Centrales
+ * TODO Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  * 
- * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
+ * @package Centrales
  */
 class toba_solicitud_web extends toba_solicitud
 {

@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Clase de entrada del usuario, un método por interacción
+ * Interface que debe respetar la extension de los comandos
+ * @package Centrales
+ * @subpackage Modelo
  */
 interface toba_aplicacion_comando
 {

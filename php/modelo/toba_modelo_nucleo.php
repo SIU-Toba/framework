@@ -1,8 +1,9 @@
 <?php
 /**
- * Clase que representa el nucleo
+ * Clase que representa las opciones del nucleo
  * @package Centrales
  * @subpackage Modelo
+ * @ignore
  */
 class toba_modelo_nucleo extends toba_modelo_elemento
 {

@@ -1,7 +1,7 @@
 <?php
 /**
  * Clase abstracta para manejo de un gadget via shindig
- * @package Centrales
+ * @package SalidaGrafica
  */
 
 class toba_gadget_shindig extends toba_gadget

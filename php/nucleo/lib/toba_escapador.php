@@ -1,5 +1,9 @@
 <?php
 use Zend\Escaper\Escaper;
+/**
+ * Clase utilizada para escapar los diferentes datos que se envian al cliente
+ * @package Seguridad
+ */
 class toba_escapador extends Escaper
 {
 	private $_es_editor;

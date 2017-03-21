@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Clase que representa un cliente de WS SOAP
+ * @package Centrales
+ */
 class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
 {
 	protected $wsf;

@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_recuperador_utildb_tablas
 {
 	protected $proyecto;

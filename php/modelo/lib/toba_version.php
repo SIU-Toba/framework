@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Clase que permite manejar nros de versiones
+ * @package Centrales
+ */
 class toba_version
 {
 	protected $partes;

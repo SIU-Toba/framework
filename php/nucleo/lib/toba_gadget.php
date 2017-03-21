@@ -1,7 +1,7 @@
 <?php
 /**
  * Clase abstracta para manejo de un gadget.
- * @package Centrales 
+ * @package SalidaGrafica 
  */
 
 abstract class toba_gadget

@@ -1,7 +1,8 @@
 <?php
 /**
  * Description of toba_extractor_clases
- *
+ * @package Varios
+ * 
  * @author sp14ab
  */
 include_once 'toba_manejador_archivos.php';

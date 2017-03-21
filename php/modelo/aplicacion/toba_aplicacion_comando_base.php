@@ -3,7 +3,11 @@
 use SIU\AraiJsonMigrator\AraiMigratorManager;
 use SIU\AraiJsonMigrator\AraiMigrator;
 use ProgressBar\Manager;
-
+/**
+ * Clase de entrada del usuario, un método por interacción
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_aplicacion_comando_base implements toba_aplicacion_comando
 {
 	/**

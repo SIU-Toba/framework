@@ -5,7 +5,7 @@
  * operación actual puede acceder (considerando el USUARIO que lo solicito)
  * Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG
  *
- * @se toba_vinculo
+ * @see toba_vinculo
  * @package Centrales
  * @jsdoc vinculador vinculador
  * @wiki Referencia/Operacion Vincula operaciones

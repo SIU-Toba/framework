@@ -1,5 +1,9 @@
 <?php
 require_once('contrib/lib/RDILib/RDIAutoload.php');
+/**
+ * Clase que devuelve un cliente para conectarse a un ECM
+ * @package Centrales
+ */
 class toba_cliente_rdi 
 {
 	const nombre_archivo = '/rdi.ini';

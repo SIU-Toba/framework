@@ -1,7 +1,8 @@
 <?php
 /**
- * Description of toba_recuperador_componentes
- *
+ * Clase que maneja la recuperacion de componentes 
+ * @package Centrales
+ * @subpackage Personalizacion
  * @author sp14ab
  */
 class toba_recuperador_componentes extends toba_recuperador {

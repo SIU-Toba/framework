@@ -1,4 +1,8 @@
 <?php
+/**
+ * Clase que permite recuperar parametros de la instancia o el proyecto
+ * @package Centrales
+ */
 class toba_parametros 
 {	
 	/**

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Esta clase implementa los comandos de personalizacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */	
 class toba_personalizacion {
 	// Constantes de configuración de personalización
 	const archivo_ini			= 'personalizacion.ini';

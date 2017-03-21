@@ -1,6 +1,9 @@
 <?php
 
-	
+/**
+ * Clase que realiza el hasheo de passwords
+ * @package Seguridad
+ */	
 class toba_hash
 {
 	protected $rounds = 10;

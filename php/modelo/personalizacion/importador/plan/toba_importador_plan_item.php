@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un item en el plan de importacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_importador_plan_item {
 	protected $path_metadatos;
 	protected $id;

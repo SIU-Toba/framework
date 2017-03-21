@@ -1,5 +1,10 @@
 <?php
-	
+/**
+ * Mantiene una serie de sucesos generados durante un WS no visibles al usuario y los almacena para el posterior analisis
+ * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
+ * 
+ * @package Debug
+ */	
 class toba_logger_ws extends toba_logger
 {	
 	private $nombre_archivo;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Solicitud pensada para ejecutar WS SOAP
  * @package Centrales
  */
 class toba_solicitud_servicio_web extends toba_solicitud

@@ -2,6 +2,8 @@
 /**
  * Clase que provee utilidades para convertir toba_punto_montaje a toba_registro.
  * La conversión se realiza en esta clase para alivianar la clase toba_punto_montaje
+ * @package Centrales
+ * @subpackage Punto Montaje
  */
 class toba_pm_a_registro
 {

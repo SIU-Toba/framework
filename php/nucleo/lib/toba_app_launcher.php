@@ -2,7 +2,7 @@
 /**
  * Clase que obtiene y grafica los datos del usuario y aplicaciones a las que tiene acceso
  * 
- * @package Centrales
+ * @package SalidaGrafica
  */
 class toba_app_launcher
 {

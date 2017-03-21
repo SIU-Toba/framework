@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Solicitud pensada para ejecutar las llamadas a WS REST
  * @package Centrales
  */
 class toba_solicitud_servicio_rest extends toba_solicitud

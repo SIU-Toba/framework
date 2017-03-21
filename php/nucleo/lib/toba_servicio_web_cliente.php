@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Clase padre que representa un cliente de WS
+ */
 class toba_servicio_web_cliente
 {
 	protected $wsf;

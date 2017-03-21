@@ -6,7 +6,9 @@
  */
 
 /**
-* Error interno de toba
+ * Error interno de toba
+ * @package Centrales
+ * @subpackage Errores 
 */
 class toba_error extends Exception
 {
@@ -43,7 +45,9 @@ class toba_error extends Exception
 
 
 /**
-* Excepción ejecutando SQL contra la DB
+ * Excepción ejecutando SQL contra la DB
+ * @package Centrales
+ * @subpackage Errores
 */
 class toba_error_db extends toba_error
 {
@@ -169,7 +173,9 @@ ERROR ejecutando SQL:
 }
 
 /**
-* Excepción producida por alguna interacción del usuario
+ * Excepción producida por alguna interacción del usuario
+ * @package Centrales
+ * @subpackage Errores
 */
 class toba_error_usuario extends toba_error
 {
@@ -177,7 +183,9 @@ class toba_error_usuario extends toba_error
 }
 
 /**
-* Excepción producida por error del la definicion en el desarrollo
+ * Excepción producida por error del la definicion en el desarrollo
+ * @package Centrales
+ * @subpackage Errores 
 */
 class toba_error_def extends toba_error
 {
@@ -186,6 +194,8 @@ class toba_error_def extends toba_error
 
 /**
  * Excepción producida cuando el usuario no tiene permitido algún derecho
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_permisos extends toba_error 
 {
@@ -194,6 +204,8 @@ class toba_error_permisos extends toba_error
 
 /**
  * Excepción producida por un error en la autenticacion del usuario
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_autenticacion extends toba_error
 {
@@ -202,6 +214,8 @@ class toba_error_autenticacion extends toba_error
 
 /**
  * Excepción producida por sobrepasar el limite de intentos de autenticacion
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_autenticacion_intentos extends toba_error
 {
@@ -210,6 +224,8 @@ class toba_error_autenticacion_intentos extends toba_error
 
 /**
  * Excepción producida cuando la composición de la contraseña no es valida
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_pwd_conformacion_invalida extends toba_error
 {
@@ -218,6 +234,8 @@ class toba_error_pwd_conformacion_invalida extends toba_error
 
 /**
  * Excepción producida por sobrepasar el limite de dias de validez de la contraseña 
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_login_contrasenia_vencida extends toba_error
 {
@@ -226,6 +244,8 @@ class toba_error_login_contrasenia_vencida extends toba_error
 
 /**
  * Excepción producida por un error en la autorizacion del usuario
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_autorizacion extends toba_error
 {
@@ -235,6 +255,8 @@ class toba_error_autorizacion extends toba_error
 
 /**
  * Excepción producida por un error de seguridad
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_seguridad extends toba_error
 {
@@ -246,7 +268,11 @@ class toba_error_seguridad extends toba_error
 
 
 
-
+/**
+ * Excepcion producida por un error de validacion
+ * @package Centrales
+ * @subpackage Errores
+ */
 class toba_error_validacion extends toba_error 
 {
 	protected $causante;
@@ -265,6 +291,8 @@ class toba_error_validacion extends toba_error
 
 /**
  * Excepción producida cuando falla la incializacion predefinida de una sesion
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_ini_sesion extends toba_error
 {
@@ -274,6 +302,8 @@ class toba_error_ini_sesion extends toba_error
 
 /**
  * Excepción producida en una comunicación web service  
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_comunicacion extends toba_error
 {
@@ -336,6 +366,8 @@ class toba_error_servicio_web extends toba_error
 
 /**
  * Excepción producto de un error durante la verificación de la firma digital
+ * @package Centrales
+ * @subpackage Errores
  */
 class toba_error_firma_digital extends toba_error
 {
