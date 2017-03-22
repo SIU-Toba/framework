@@ -421,39 +421,43 @@ class comando_instalacion extends comando_toba
 	function opcion__cambiar_permisos()
 	{
 		//Si es produccion dar permisos solo a apache, sino a usuario y grupo
-		$subject = $this->get_instalacion()->es_produccion() ? "u" : "ug";
+		$instalacion = $this->get_instalacion();
+		$subject = $instalacion->es_produccion() ? "u" : "ug";
+		
 		$param = $this->get_parametros();
 		$grupo = isset($param['-g']) ? $param['-g'] : null;
-		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';
+		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';		
 		$toba_dir = toba_dir();
+		$instalacion_dir = $instalacion->get_path_carpeta_instalacion();
 		$this->consola->subtitulo('Cambiando permisos de archivos navegables');
+		if (isset($grupo)) {
+			$usuario .= ":$grupo";
+		}
 		$comandos = array(
 			array("chown -R $usuario $toba_dir/www", "Archivos navegables comunes:\n"),
 			array("chmod -R $subject+rw $toba_dir/www", ''),			
-			array("chown -R $usuario $toba_dir/instalacion", "Archivos de configuración:\n"),
-			array("chmod -R $subject+rw $toba_dir/instalacion", ''),			
+			array("chown -R $usuario $instalacion_dir", "Archivos de configuración:\n"),
+			array("chmod -R $subject+rw $instalacion_dir", ''),			
 			array("chown -R $usuario $toba_dir/temp", "Archivos temporales comunes:\n"),
 			array("chmod $subject+rw $toba_dir/temp", '')
 		);
-		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
-			$id_proyecto = basename($proyecto);
-			$comandos[] = array("chown -R $usuario $proyecto/www", "Archivos navegables de $id_proyecto:\n");
-			$comandos[] = array("chmod -R $subject+rw $proyecto/www", '');
-			$comandos[] = array("chown -R $usuario $proyecto/temp", "Archivos temporales de $id_proyecto:\n");
-			$comandos[] = array("chmod -R $subject+rw $proyecto/temp", '');
-		}		
+		
+		foreach ($instalacion->get_lista_instancias() as $id_inst) {
+			$lista = $this->get_instancia($id_inst)->get_lista_proyectos_vinculados();
+			foreach($lista as $proy) {
+				$path = $this->get_instancia($id_inst)->get_path_proyecto($proy);
+				var_dump($path); echo "\n";
+				$comandos[] = array("chown -R $usuario $path/www", "Archivos navegables de $proy:\n");
+				$comandos[] = array("chmod -R $subject+rw $path/www", '');
+				$comandos[] = array("chown -R $usuario $path/temp", "Archivos temporales de $proy:\n");
+				$comandos[] = array("chmod -R $subject+rw $path/temp", '');
+			}
+		}
+		
 		foreach ($comandos as $comando) {
 			$this->consola->mensaje($comando[1], false);
 			$this->consola->mensaje("   ".$comando[0]. exec($comando[0]));
-		}
-		
-		if (isset($grupo)) {
-			$comando = "chgrp -R $grupo $toba_dir";
-			$this->consola->subtitulo("\nCambiando permisos globales para el grupo $grupo");
-			$this->consola->mensaje("   ".$comando. exec($comando));
-			$comando = "chmod -R g+rw $toba_dir";
-			$this->consola->mensaje("   ".$comando. exec($comando));
-		}
+		}		
 	}
 
 	/**
@@ -596,9 +600,9 @@ class comando_instalacion extends comando_toba
 			if ($this->get_instalacion()->es_produccion()) {
 				try {
 					toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);			
-				} catch (toba_error_pwd_conformacion_invalida $e) {					
+				} catch (toba_error_pwd_conformacion_invalida $e) {
+					$es_invalido = true;
 					$this->consola->mensaje($e->getMessage(), true);
-					$es_invalido =  $this->consola->dialogo_simple('Desea intentarlo nuevamente?');					
 				}
 			}			
 		} while($es_invalido);
