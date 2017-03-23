@@ -1,6 +1,17 @@
 <?php	
 if (toba::instalacion()->vincula_arai_usuarios()) {
-   require_once(toba_dir(). '/../../autoload.php');
+	$dir = dirname(__FILE__);		//Me fijo donde estoy
+	$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
+	if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
+		$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
+	} elseif (file_exists(realpath(toba_nucleo::toba_dir().'/vendor/autoload.php'))) {
+		$path = realpath(toba_nucleo::toba_dir() . '/vendor/autoload.php');			//Nivel inicial por desarrollo de Toba o Rama 2.8+
+	} else {
+		$path = realpath(toba_nucleo::toba_dir().'/php/vendor/autoload.php');			//Valido para rama 2.7.x
+	}
+	if (file_exists($path)) {
+		require_once($path);					
+	}
 }
 
 /**
