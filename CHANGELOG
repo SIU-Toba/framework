@@ -22,3 +22,11 @@
 - Removida WSF-PHP (queda clase toba_solicitud_servicio_web)
 - Removida simpleSamlPHP
   - Se deben copiar los archivos de configuración en php/3ros/simplesamlphp/ a la carpeta correspondiente en vendor
+- Removida jscomp por falta de uso
+- Removida librería interna de impresión por falta de uso
+- Removida phpDocumentor, solo disponible para instalación de desarrollo  
+- Movida RDILib de php/contrib/lib a composer
+- Agregado de modo mantenimiento para WS Rest
+- Compatibilidad con PHP 7
+- Incorporación de Json Web Tokens para autenticación WS Rest
+
