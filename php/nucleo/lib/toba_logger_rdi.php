@@ -50,7 +50,7 @@ class toba_logger_rdi implements \RDILog {
 		if (! $this->_activo){
 			return;
 		}
-		$this->log->critico($excepcion);
+		$this->log->crit($excepcion);
 	}
 }
 ?>
