@@ -1,10 +1,10 @@
 # SIU-Toba
 
-Framework para desarrollo r醦ido de aplicaciones web
+Framework para desarrollo r谩pido de aplicaciones web
 
 ## Instalando SIU-Toba
 
-La descarga de SIU-Toba a partir de la version 2.8.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  las siguientes lineas
+La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  las siguientes lineas
 ```json
 "repositories": [
         {
@@ -13,7 +13,7 @@ La descarga de SIU-Toba a partir de la version 2.8.0 se lleva a cabo enteramente
         }
     ],
     "require": {
-        "siu-toba/framework": "2.7.x-dev"
+        "siu-toba/framework": "^3.0"
     }
 ```
 o ejecutando: 
@@ -21,39 +21,63 @@ o ejecutando:
 composer require siu-toba/framework 
 ```
 
-Una vez ejecutado dicho comando, se procede a la instalaci髇 propiamente dicha de SIU-Toba, lo que permitira su uso para desarrollo de la aplicaci髇, la misma se lleva adelante de la forma tradicional via linea de comandos: 
+Una vez ejecutado dicho comando, se procede a la instalaci贸n propiamente dicha de SIU-Toba, lo que permitira su uso para desarrollo de la aplicaci贸n, la misma se lleva adelante de la forma tradicional via linea de comandos: 
 ```shell
 toba instalacion instalar [-modificadores]
 ```
 Este comando opera de manera interactiva, aunque se pueden usar modificadores para especificar parte de la informacion requerida (para consultar una lista de modificadores teclee ''toba instalacion instalar --help''), por defecto intentara cargar todos aquellos proyectos 
 que se encuentren dentro de la carpeta ''vendor/siu-toba/framework/proyectos''. Una vez terminada la instalacion, se le solicitara que incorpore los alias necesarios para la navegacion de los proyectos a la configuracion del web server.
 
-Otra opci髇 para entornos mas scripteables (como podria ser un container docker) involucra el comando: 
+Otra opci贸n para entornos mas scripteables (como podria ser un container docker) involucra el comando: 
 ```shell
 toba instalacion_silenciosa instalar [--archivo_configuracion parameters.yml]
 ```
 
-Que permite realizar una instalacion de manera totalmente desatendida, con la configuraci髇 residente en un archivo YAML, salvo las claves para la base de datos y el administrador de sistema que se proveen via sendos archivos de texto.
+Que permite realizar una instalacion de manera totalmente desatendida, con la configuraci贸n residente en un archivo YAML, salvo las claves para la base de datos y el administrador de sistema que se proveen via sendos archivos de texto.
 Este tipo de instalacion, no carga ningun proyecto en la instancia, con lo cual para poder hacer uso de toba_editor y de toba_usuario se requiere de pasos extra.
-Sin embargo puede ser una buena manera de realizar instalaciones ''manuales'' de producci髇, ya que permitiria generar clones con la misma configuraci髇.
+Sin embargo puede ser una buena manera de realizar instalaciones ''manuales'' de producci贸n, ya que permitiria generar clones con la misma configuraci贸n.
 
 ### Creando un proyecto de cero
 
+
 Para crear un proyecto de cero usando SIU-Toba utilizaremos el template del proyecto vacio que se encuentra en github, se puede bajar el zip directamente o ejecutar el siguiente comando: 
 ```shell
-composer create-project siu-toba/template-proyecto-vacio carpeta_destino --no-install
+composer create-project siu-toba/template-proyecto-toba carpeta_destino --no-install
 ```
-A continuaci髇 editamos el archivo ``composer.json`` para definir el nombre del paquete que contendra el proyecto y agregar o modificar opciones sobre los paquetes requeridos por el mismo. Una vez completado este paso, ejecutamos:
+A continuaci贸n editamos el archivo ``composer.json`` para definir el nombre del paquete que contendra el proyecto y agregar o modificar opciones sobre los paquetes requeridos por el mismo. Una vez completado este paso, ejecutamos:
 ```shell
 composer install
 ```
+Luego de ello, proseguir con la instalaci贸n de SIU-Toba como se especifica anteriormente.
 
+El paso final es la creaci贸n del proyecto propiamente dicho mediante el comando
 
+```shell
+toba proyecto crear -p nombre_proyecto -d `pwd`
+```
+Una vez finalizado este paso y luego de reiniciar el web server, dirigirse con el browser a ``http://localhost/toba_editor/$nro_version$``  y comenzar a construir el proyecto.
 
+### Pasando un proyecto existente a la instalaci贸n via composer
 
-### Pasando un proyecto existente a la instalaci髇 via composer
+Para pasar un proyecto existente al nuevo mecanismo de instalaci贸n de SIU-Toba se pueden tomar dos caminos: 
 
+*  Seguir el procedimiento para la creaci贸n de un proyecto de cero y luego sobreescribir con el contenido actual del proyecto.
+*  Otra alternativa es realizar los siguientes pasos:
 
+Crear dentro del directorio del proyecto un archivo ``composer.json``, dentro del cual se especificar谩n los datos del mismo y luego continuar con los pasos mencionados para incorporar el repositorio necesario.
 
+Luego de ello se realiza la instalaci贸n de SIU-Toba como se menciona anteriormente y se procede a la carga del proyecto con el comando:
+```shell
+toba proyecto cargar -p nombre_proyecto -d `pwd`
+```
 
-## Migrando un proyecto a la nueva versi髇
+## Migrando un proyecto a la nueva versi贸n
+
+Para migrar un proyecto a la nueva versi贸n se recomienda lo siguiente: 
+
+- Realizar la copia de la carpeta del proyecto a un nuevo directorio
+- Realizar la instalacion de la nueva version de SIU-Toba
+- Realizar la importacion del proyecto mediante el siguiente comando indicando
+```shell
+toba proyecto importar -p nombre_proyecto -d dir_instalacion_anterior --destino `pwd`
+```
