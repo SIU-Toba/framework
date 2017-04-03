@@ -21,7 +21,11 @@ o ejecutando:
 composer require siu-toba/framework 
 ```
 
-Una vez ejecutado dicho comando, se procede a la instalación propiamente dicha de SIU-Toba, lo que permitira su uso para desarrollo de la aplicación, la misma se lleva adelante de la forma tradicional via linea de comandos: 
+Una vez ejecutado dicho comando, se procede a la instalación propiamente dicha de SIU-Toba, primero definiremos el nombre de la instancia como variable de entorno mediante
+```shell
+export TOBA_INSTANCIA=$nombre_instancia
+``` 
+Luego iniciaremos la instalación (lo que permitira su uso para el desarrollo de la aplicación), de la forma tradicional via linea de comandos: 
 ```shell
 toba instalacion instalar [-modificadores]
 ```
@@ -40,10 +44,7 @@ Sin embargo puede ser una buena manera de realizar instalaciones ''manuales'' de
 ### Creando un proyecto de cero
 
 
-Para crear un proyecto de cero usando SIU-Toba utilizaremos el template del proyecto vacio que se encuentra en github, se puede bajar el zip directamente o ejecutar el siguiente comando: 
-```shell
-composer create-project siu-toba/template-proyecto-toba carpeta_destino --no-install
-```
+Para crear un proyecto de cero usando SIU-Toba utilizaremos el template del proyecto vacio que se encuentra en github, se recomienda bajar el zip directamente desde ``https://github.com/SIU-Toba/template-proyecto-toba`` tener en cuenta el numero de versión.
 A continuación editamos el archivo ``composer.json`` para definir el nombre del paquete que contendra el proyecto y agregar o modificar opciones sobre los paquetes requeridos por el mismo. Una vez completado este paso, ejecutamos:
 ```shell
 composer install
