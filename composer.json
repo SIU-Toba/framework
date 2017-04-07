@@ -36,7 +36,7 @@
         "siu-toba/text_highlighter": "^0.7",
         "simplesamlphp/simplesamlphp": "^1.14",
         "siu-toba/services_json": "1.0.3.1", 
-        "siu/rdi": "@dev"
+        "siu/rdi": "^0.9"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*"
