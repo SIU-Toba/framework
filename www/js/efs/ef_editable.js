@@ -134,7 +134,25 @@ ef_editable.prototype.constructor = ef_editable;
 			this._mascara.attach(this.input());
 			this.set_estado(estado_actual);
 		}
-	}
+	};
+	
+	/*
+	* Permite setear en runtime una expreg diferente a la especificada por metadatos
+	* Con null se resetea a la expreg original
+	*/
+	ef_editable.prototype.set_expreg = function (expresion_regular) {
+		this._expreg = expresion_regular;
+	};
+
+	/*
+	* Permite setear en runtime una placeholder diferente a la especificada por metadatos
+	* Con null se resetea a la placeholder original
+	*/
+	ef_editable.prototype.set_placeholder = function (placeholder) {
+		var inp_field = this.input();
+		inp_field.setAttribute('placeholder', placeholder);
+	};
+	
 // ########################################################################################################
 // ########################################################################################################
 	
