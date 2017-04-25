@@ -193,6 +193,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		if (!empty($errors)) {
 			toba::logger()->error('Errores en el proceso de onelogin: ');
 			toba::logger()->error($errors);
+			toba::logger()->error($auth->getLastErrorReason());
 			throw new toba_error_seguridad('Se produjo un error durante el procedimiento de login, contacte un administrador');
 		}
 	}
