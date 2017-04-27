@@ -750,7 +750,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				}*/
 				$limite = ceil($cant_partes / 2);
 				$nombres = implode(' ' , array_slice($nombre_partes, 0 , $limite, true));				//Le asigno al nombre la primera mitad
-				$apellidos = implode(' ' , array_slice($nombre_partes, $limite, true));				//Todo lo que resta es apellido
+				$apellidos = implode(' ' , array_slice($nombre_partes, $limite, null, true));				//Todo lo que resta es apellido
 			}
 		}
 		
