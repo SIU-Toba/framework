@@ -172,11 +172,13 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		$exportar = $this->permitir_exportar_modelo && $this->manejador_interface->dialogo_simple("Antes de borrar la base. Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
 		if ($exportar) {
+			$dir_arranque = $this->proyecto->get_dir(). '/sql';
+			toba_manejador_archivos::crear_arbol_directorios($dir_arranque);
 			//-- Esquema principal
-			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';			
+			$archivo = $dir_arranque.'/datos_locales.sql';			
 			$this->exportar_esquema_base($id_def_base, $archivo, true, $this->schema_modelo);
 			//-- Esquema auditoria
-			$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';			
+			$archivo = $dir_arranque.'/datos_auditoria.sql';			
 			$this->exportar_esquema_base($id_def_base, $archivo, false, $this->schema_auditoria);
 		}
 		
@@ -373,7 +375,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				
 		//--- Tablas de auditoría
 		$this->manejador_interface->mensaje('Creando auditoria', true);
-		$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';
+		$dir_arranque = $this->proyecto->get_dir(). '/sql';
+		toba_manejador_archivos::crear_arbol_directorios($dir_arranque);
+		$archivo = $dir_arranque . '/datos_auditoria.sql';
 		$bases = array();
 		foreach($fuentes as $fuente) {
 			try {
