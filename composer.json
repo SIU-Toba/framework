@@ -18,7 +18,7 @@
     "require": {
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
-        "ircmaxell/random-lib" : "@dev",
+        "ircmaxell/random-lib" : "dev-master",
         "siu-toba/rest": "~1.1",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
@@ -37,6 +37,7 @@
         "siu-toba/services_json": "^1.0.3.1", 
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
+        "siu/arai-cli" : "dev-develop",
         "siu/jasper":"dev-master"
     },
     "require-dev": {
