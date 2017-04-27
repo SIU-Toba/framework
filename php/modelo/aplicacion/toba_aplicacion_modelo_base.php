@@ -611,10 +611,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * 		)
 	 *
      */
-	public function getDatosUsuarios()
+	public function getDatosUsuarios($tokens = array())
 	{
 		$db_arai = $this->get_instancia()->get_db();
-
 		$sql = "SELECT  DISTINCT
 						u.usuario,
 						u.clave,
@@ -634,7 +633,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 
 		$datosUsuarios = array();
 		foreach($datosUsuariosToba as $clave => $datosUsuarioToba) {
-			$nombresApellidos = $this->getNombresApellidos($datosUsuarioToba['nombre']);
+			$nombresApellidos = $this->getNombresApellidos($datosUsuarioToba['nombre'], $tokens);
 			$datosUsuarios[$clave] = array(
 				'usuario' => $datosUsuarioToba['usuario'],
 				'nombres' => trim($nombresApellidos['nombres']),
@@ -728,23 +727,33 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 	}
 
-	private function getNombresApellidos($dato)
+	private function getNombresApellidos($dato, $tokens)
 	{
-		$nombre_partes = explode(" ", $dato);
-		if (count($nombre_partes) > 1) {
-			//Parte el nombre/apellido, siempre dandole mas palabras al nombre
-			$nombres = $apellidos = "";
-			for ($i = 0; $i < count($nombre_partes); $i++) {
-				if ($i < count($nombre_partes)/2) {
-					$nombres .= $nombre_partes[$i]." ";
-				} else {
-					$apellidos .= $nombre_partes[$i]." ";
-				}
+		$apellidos = $nombres = $dato;						//Inicializo para el caso que no exista separación		
+		$separador = (! empty($tokens)) ? $tokens['separador'] : " ";
+		$nombre_partes = explode($separador, $dato);
+		$cant_partes = count($nombre_partes);
+		
+		if ($nombre_partes !== false && $cant_partes > 1) {
+			if (! empty($tokens)) {
+				$nombres = $nombre_partes[$tokens['nombre']];
+				$apellidos = $nombre_partes[$tokens['apellido']];
+			} else {
+				//Parte el nombre/apellido, siempre dandole mas palabras al nombre
+				/*$nombres = $apellidos = "";
+				for ($i = 0; $i < $cant_partes; $i++) {
+					if ($i < $cant_partes / 2) {
+						$nombres .= $nombre_partes[$i]." ";
+					} else {
+						$apellidos .= $nombre_partes[$i]." ";
+					}
+				}*/
+				$limite = ceil($cant_partes / 2);
+				$nombres = implode(' ' , array_slice($nombre_partes, 0 , $limite));				//Le asigno al nombre la primera mitad
+				$apellidos = implode(' ' , array_slice($nombre_partes, $limite));				//Todo lo que resta es apellido
 			}
-		} else {
-			$nombres = $dato;
-			$apellidos = $nombres;
 		}
+		
 		return array(
 			'nombres' => $nombres,
 			'apellidos' => $apellidos,
