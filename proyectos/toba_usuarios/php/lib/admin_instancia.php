@@ -42,7 +42,7 @@ class admin_instancia
 	
 	function db()
 	{
-		return toba_dba::get_db($this->base);
+		return toba::instancia()->get_db();
 	}
 	
 	static function ref($recargar=false)
