@@ -203,7 +203,7 @@ class comando_doc extends comando_toba
 
 		//-- La clase toba es la clase inicial
 		copy($destino.'/toba.html', $destino.'/index.html');
-		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 
 	/**
