@@ -1,4 +1,10 @@
-﻿3.0:
+# SIU-Toba
+
+## CHANGELOG
+
+[CURRENT](/../compare/master...develop)
+
+[3.0.0](/../tree/v3.0.0) (2017-05-04):
 - Removida activeCalendar
 - Numbers_Words cambia implementacion, reemplazar las llamadas segun formato buscado
   - Constructor: new Numbers_Words_es_Ar ---> new Numbers_Words_Locale_es_AR
@@ -27,9 +33,30 @@
 - Removida phpDocumentor  
 - Movida RDILib de php/contrib/lib a composer
 - Agregado de modo mantenimiento para WS Rest
-- Compatibilidad con PHP 7
+- Compatibilidad con PHP 7.0
 - Incorporación de Json Web Tokens para autenticación WS Rest
 - Agregado de Jasper via composer
 - La autenticacion via saml_onelogin puede manejar varios SP
-
-
+- Se agrega mecanismo para dumpear datos de configuración en las clases de autenticación
+- En el comando de exportación de usuarios para SIU-Araí se puede especificar el formato de entrada de los datos
+- El proyecto toba_usuarios ahora loguea correctamente el usuario conectado cuando la instancia posee auditoría
+- La validación de estructura de datos en toba_ei_cuadro toma en cuenta la existencia de valores nulos
+- En la clase toba_parametros se exponen los siguientes métodos:
+    *  get_redefinicion_parametro
+    *  get_redefinicion_parametro_runtime
+- Actualización de librerías varias (mas info composer.lock)
+    *  Guzzle: 6.2.3
+    *  Securimage: 3.6.5
+    *  Onelogin: 2.10.5
+    *  SimpleSamlPHP: 1.14.13
+    *  PHPMailer: 5.2.23
+    *  PHPExcel: 1.8.1
+    *  PDF-PHP: 0.12.32 (anteriormente EasyPDF)
+    *  Simpletest: 1.1.7
+    *  Jwt-util: 1.0.2
+    *  Rest: 1.1.8
+    *  Arai-cli: 2.0.0
+    *  Arai-json-migrator: 1.0.1
+    *  Arai-json-parser: 1.0.0
+    *  RDI: 0.9.7
+    *  Zend-Escaper: 2.2.10
