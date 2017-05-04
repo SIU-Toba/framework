@@ -132,11 +132,11 @@ function abrir_toba_instancia(){
 <?php
 
 		$ayuda = '<a target=wiki href='.get_url_desarrollos().'/trac/toba title=\\\'Documentación WIKI\\\'>';			
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/wiki-small.png ></a> ';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/wiki-small.png ></a> ';
 		$ayuda .= '<a target=api href='.toba_recurso::url_proyecto().'/doc/api/index.html title=\\\'Documentación código PHP\\\'>';
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/php-small.png></a> ';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/php-small.png></a> ';
 		$ayuda .= '<a target=api_js href='.toba_recurso::url_proyecto().'/doc/api_js/index.html title=\\\'Documentación código Javascript\\\'>';
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/javascript-small.png></a>';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/javascript-small.png></a>';
 		echo toba_recurso::imagen_toba('ayuda.png', true, null, null, $ayuda);
  ?></a></td>
 

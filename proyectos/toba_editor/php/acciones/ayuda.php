@@ -82,13 +82,13 @@ echo "
 		<ul>
 			<li>
 				<a target='api' href='".toba_recurso::url_proyecto()."/doc/api/index.html' title='Documentación de referencia de la API PHP disponible'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/php-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/php-small.png'>
 						API PHP</a>
 				
 			</li>
 			<li>
 				<a target='api_js' href='".toba_recurso::url_proyecto()."/doc/api_js/index.html' title='Documentación de referencia de la API Javascript disponible'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/javascript-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/javascript-small.png'>
 						API Javascript</a>
 			</li>
 			<li>
@@ -113,23 +113,23 @@ echo "
 		<ul>
 			<li>
 				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/trac/toba/newticket*$url_login")."' title='Lugar central de la documentación'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/wiki-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/wiki-small.png'>
 						Reportar un bug o mejora</a>
 			</li>					
 			<li>
 				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/trac/toba/wiki*$url_login")."' title='Lugar central de la documentación'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/wiki-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/wiki-small.png'>
 						Wiki</a>
 			</li>
 			<li>
 				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_editor_trunk/doc/api/index.html")."' title='Documentación de referencia de la API PHP disponible'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/php-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/php-small.png'>
 						API PHP</a>
 				
 			</li>
 			<li>
 				<a target='desarrollos' href='". $escapador->escapeHtmlAttr("$url_trac/toba_editor_trunk/doc/api_js/index.html")."' title='Documentación de referencia de la API Javascript disponible'>
-					<img src='".toba_recurso::url_proyecto()."/doc/api/media/javascript-small.png'>
+					<img src='".toba_recurso::url_proyecto()."/doc/api/img/javascript-small.png'>
 						API Javascript</a>
 			</li>
 			<li>
