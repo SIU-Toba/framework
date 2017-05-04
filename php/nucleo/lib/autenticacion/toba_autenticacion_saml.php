@@ -90,6 +90,12 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function iniciar_pedido_saml()
 	{
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->auth_source);
+			toba_logger::instancia()->var_dump($this->parametros_url);
+			toba_logger::instancia()->var_dump($this->atributo_usuario);			
+			toba_logger::instancia()->var_dump($this->path_sp);
+		}
 		$param = array();
 		if (isset($this->parametros_url) && is_array($this->parametros_url)) {
 			$param['ReturnTo'] = $this->generar_url($this->parametros_url);

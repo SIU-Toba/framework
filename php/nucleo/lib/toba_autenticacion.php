@@ -6,14 +6,20 @@ class toba_autenticacion
 	static $metodos_centralizados = array('cas','saml', 'saml_onelogin');
 	static $session_atributos_usuario = 'auth_atributos_usuario';
 	static $session_usuarios_posibles = 'userAccounts';
+	static $modo_debug=false;
 	
 	protected $parametros_url;
 	protected $atributos_usuario;
-	
+		
 	static function es_autenticacion_centralizada($id)
 	{
 		return in_array($id, self::$metodos_centralizados);
-	}	
+	}
+
+	static function set_modo_debug($activo)
+	{
+		self::$modo_debug = $activo;
+	}
 	
 	function set_parametros_url($parametros)
 	{

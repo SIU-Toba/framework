@@ -187,6 +187,13 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 	
 	protected function iniciar_pedido($url=null) 
 	{
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->providers);
+			toba_logger::instancia()->var_dump($this->campos);
+			toba_logger::instancia()->var_dump($this->campo_usuario);
+			toba_logger::instancia()->var_dump($this->campo_nombre);
+			toba_logger::instancia()->var_dump(array($this->crea_usuario, $this->crea_usuario_proyecto, $this->crea_usuario_perfil_funcional));
+		}
 		global $_POIDSY;
 		$opcionales = array();
 		$requeridos = array();

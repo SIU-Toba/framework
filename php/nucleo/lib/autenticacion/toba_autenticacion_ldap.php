@@ -40,6 +40,14 @@ class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenti
 	*/
 	function autenticar($id_usuario, $clave, $datos_iniciales=null)
 	{	
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->server);
+			toba_logger::instancia()->var_dump($this->dn);			
+			toba_logger::instancia()->var_dump($this->bind_dn);			
+			toba_logger::instancia()->var_dump($this->bind_pass);			
+			toba_logger::instancia()->var_dump($this->filter);			
+		}
+		
 		if (! extension_loaded('ldap')) {
 			throw new toba_error("[Autenticación LDAP] no se encuentra habilitada la extensión LDAP");	
 		}

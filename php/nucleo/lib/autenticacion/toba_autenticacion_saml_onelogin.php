@@ -135,6 +135,11 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function instanciar_pedido_onelogin()
 	{
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->settingsInfo);
+			toba_logger::instancia()->var_dump($this->proyecto_login);
+			toba_logger::instancia()->var_dump($this->atributo_usuario);
+		}
 		$auth = new OneLogin_Saml2_Auth($this->settingsInfo);
 		return $auth;
 	}

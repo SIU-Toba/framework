@@ -104,6 +104,14 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function iniciar_pedido_cas()
 	{
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->host);
+			toba_logger::instancia()->var_dump($this->puerto);			
+			toba_logger::instancia()->var_dump($this->url);			
+			toba_logger::instancia()->var_dump($this->validar_cn);			
+			toba_logger::instancia()->var_dump($this->parametros_url);
+			toba_logger::instancia()->var_dump($this->archivo_certificado);			
+		}
 		$this->instanciar_cliente_cas(); 
 
 		phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
