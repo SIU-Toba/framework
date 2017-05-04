@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-YAHOO.util.Event
+b.Event
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/css/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -335,7 +335,7 @@ YAHOO.util.Event
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>YAHOO.util.Event</h1>
+<h1>b.Event</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -352,21 +352,16 @@ YAHOO.util.Event
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
-	   
-      		<div class="description">
-   			<BR/>Event
- <BR/>
-			</div>	
-   				
+	   			
 
 
 <PRE>Object
    |
-   +--<b>YAHOO.util.Event</b>
+   +--<b>b.Event</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en yahoo.js
+			Ubicada en jquery-1.9.1.min.js
 		</p>
 
 
@@ -388,6 +383,78 @@ YAHOO.util.Event
 
 <!-- ========== METHOD SUMMARY =========== -->
 
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#isDefaultPrevented">isDefaultPrevented</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#isImmediatePropagationStopped">isImmediatePropagationStopped</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#isPropagationStopped">isPropagationStopped</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#preventDefault">preventDefault</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#stopImmediatePropagation">stopImmediatePropagation</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#stopPropagation">stopPropagation</A>()
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
+
 <!-- ========== END METHOD SUMMARY =========== -->
 
 <br>
@@ -398,10 +465,10 @@ YAHOO.util.Event
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="YAHOO.util.Event()"><!-- --></A>
+<A NAME="b.Event()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">YAHOO.util.Event</span>
+				<span class="method-title">b.Event</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -409,19 +476,13 @@ YAHOO.util.Event
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>YAHOO.util.Event ()</code>
+							   <code>b.Event (e,n)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>			
-						
-			<p class="description">
-  				<UL>The event utility provides functions to add and remove event listeners,
- event cleansing.  It also tries to automatically remove listeners it
- registers during the unload event.</UL>
-			</p>
 			
 
 		   <!-- METHOD PARAMETERS START -->
@@ -432,6 +493,214 @@ YAHOO.util.Event
 		</div>			
 
 
+
+		<a name='method_detail'></a>
+		
+		
+   		<A id="isDefaultPrevented" NAME="isDefaultPrevented"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">isDefaultPrevented</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void isDefaultPrevented ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="isImmediatePropagationStopped" NAME="isImmediatePropagationStopped"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">isImmediatePropagationStopped</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void isImmediatePropagationStopped ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="isPropagationStopped" NAME="isPropagationStopped"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">isPropagationStopped</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void isPropagationStopped ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="preventDefault" NAME="preventDefault"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">preventDefault</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void preventDefault ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="stopImmediatePropagation" NAME="stopImmediatePropagation"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">stopImmediatePropagation</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void stopImmediatePropagation ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="stopPropagation" NAME="stopPropagation"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">stopPropagation</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void stopPropagation ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
 
 	</div>
 </div>
