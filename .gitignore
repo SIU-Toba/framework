@@ -19,4 +19,3 @@ bin/validate-json
 metadatos_compilados/
 temp/
 xlib
-composer.lock
