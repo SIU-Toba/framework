@@ -4,7 +4,7 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 	/**
 	 * @class Elemento que permite la selección de varios valores. Clase base abstracta
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion toba_ef_multi_seleccion
+	 * @phpdoc classes/toba_ef_multi_seleccion.html toba_ef_multi_seleccion
 	 */
 	function ef_multi_seleccion(id_form, etiqueta, obligatorio, colapsado, limites) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -84,7 +84,7 @@ ef_multi_seleccion_lista.constructor = ef_multi_seleccion_lista;
 	/**
 	 * @class Permite la selección de varios valores a partir de una lista. Equivale al tag <em>select multiple</em> en HTML
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion_lista toba_ef_multi_seleccion_lista
+	 * @phpdoc classes/toba_ef_multi_seleccion_lista.html toba_ef_multi_seleccion_lista
 	 */
 	function ef_multi_seleccion_lista(id_form, etiqueta, obligatorio, colapsado, limites) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
@@ -162,7 +162,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 	/**
 	 * @class Permite la selección de varios valores a partir de un conjunto de checkboxes
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion_check toba_ef_multi_seleccion_check
+	 * @phpdoc classes/toba_ef_multi_seleccion_check.html toba_ef_multi_seleccion_check
 	 */
 	function ef_multi_seleccion_check(id_form, etiqueta, obligatorio, colapsado, limites, cant_columnas) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
@@ -316,7 +316,7 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	/**
 	 * @class Permite la selección de varios valores a partir de una lista doble, pasando los elementos de un lado hacia el otro
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion_doble toba_ef_multi_seleccion_doble
+	 * @phpdoc classes/toba_ef_multi_seleccion_doble.html toba_ef_multi_seleccion_doble
 	 */
 	function ef_multi_seleccion_doble(id_form, etiqueta, obligatorio, colapsado, limites, imgs, orden_opciones) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);

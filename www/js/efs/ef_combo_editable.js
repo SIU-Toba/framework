@@ -7,7 +7,7 @@ ef_combo_editable.prototype.constructor = ef_combo_editable;
 /**
  * @class Combo editable equivalente a un tag SELECT en HTML 
  * @constructor
- * @phpdoc Componentes/Efs/toba_ef_combo_editable toba_ef_combo_editable
+ * @phpdoc classes/toba_ef_combo_editable.html toba_ef_combo_editable
  */
  
 function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, modo_filtro, solo_permitir_selecciones, mantiene_estado_cascada) {

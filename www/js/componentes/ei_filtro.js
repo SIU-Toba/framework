@@ -4,7 +4,7 @@
 	/**
 	 * @class ei_filtro
 	 * @constructor
-	 * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
+	 * @phpdoc classes/toba_ei_filtro.html toba_ei_filtro
 	 */
 	function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 		this._id = id;

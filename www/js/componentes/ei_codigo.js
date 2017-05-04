@@ -4,7 +4,7 @@ ei_codigo.prototype.constructor = ei_codigo;
 /**
  * @class Editor de código
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_codigo toba_ei_codigo
+ * @phpdoc classes/toba_ei_codigo.html toba_ei_codigo
  */
 function ei_codigo(id, dim, input_submit, input_codigo) {
 	this._id = id;

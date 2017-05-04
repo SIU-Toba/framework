@@ -5,7 +5,7 @@ ci.prototype.constructor = ci;
 /**
  * @class Componente responsable de manejar la pantalla y sus distintos elementos
  * @constructor
- * @phpdoc Componentes/Eis/toba_ci toba_ci
+ * @phpdoc classes/toba_ci.html toba_ci
  */
 function ci(id, instancia, form, input_submit, id_en_controlador, ajax) {
 	this._id = id;

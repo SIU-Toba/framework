@@ -7,7 +7,7 @@ ef_upload.prototype.constructor = ef_upload;
 	 * Esta basado en el elemento html <a href='http://www.w3schools.com/htmldom/dom_obj_fileupload.asp'>input type=file</a>.<br>
 	 * Por razones de seguridad muchos de los servicios de javascript clásicos (como obtener el valor actual del elemento) no están disponibles.
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_upload toba_ef_upload
+	 * @phpdoc classes/toba_ef_upload.html toba_ef_upload
 	 */
 	function ef_upload(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);

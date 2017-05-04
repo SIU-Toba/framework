@@ -4,7 +4,7 @@ var vinculador;
 /**
  * @class Permite construir URLs para navegar hacia items del proyecto pasando parámetros específicos
  * @constructor
- * @phpdoc Centrales/toba_vinculador toba::vinculador()
+ * @phpdoc classes/toba_vinculador.html toba::vinculador()
  */
 vinculador = new function() {
 	this._vinculos = [];	

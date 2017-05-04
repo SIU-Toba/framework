@@ -8,7 +8,7 @@ ei_formulario.prototype.constructor = ei_formulario;
  * A cada uno de estos campos se los denomina Elementos de Formulario (efs).
  * @see ef
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_formulario toba_ei_formulario
+ * @phpdoc classes/toba_ei_formulario.html toba_ei_formulario
  */
 function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclavos, invalidos) {
 	this._id = id;

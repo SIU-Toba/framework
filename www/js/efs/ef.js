@@ -13,7 +13,7 @@ var apex_ef_total = 's';
 /**
  * @class Clase base de los elementos de formulario. 
  * @constructor
- * @phpdoc Componentes/Efs/toba_ef toba_ef
+ * @phpdoc classes/toba_ef.html toba_ef
  * @wiki Referencia/efs
  */
 function ef(id_form, etiqueta, obligatorio, colapsable) {
@@ -524,7 +524,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 	/**
 	 * @class Elemento que contiene HTML estático
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_fijo toba_ef_fijo
+	 * @phpdoc classes/toba_ef_fijo.html toba_ef_fijo
 	 */
 	function ef_fijo(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -549,7 +549,7 @@ ef_html.prototype.constructor = ef_html;
 	/**
 	 * @class Elemento que contiene un editor HTML
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_html toba_ef_html
+	 * @phpdoc classes/toba_ef_html.html toba_ef_html
 	 */
 	function ef_html(id_form, etiqueta, obligatorio, colapsado, parametros) {		
 		this._parametros = parametros;

@@ -8,7 +8,7 @@ ei_formulario_ml.prototype.constructor = ei_formulario_ml;
  * Contiene una serie de ca campos se los denomina Elementos de Formulario (efs).
  * @see ef
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_formulario_ml toba_ei_formulario_ml
+ * @phpdoc classes/toba_ei_formulario_ml.html toba_ei_formulario_ml
  */
 function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
 								proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
