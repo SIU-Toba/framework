@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Nodo del arbol de menu
+ * @ignore
+ * @package Varios
+ */
 class toba_item_menu extends toba_nodo_basico
 {
 	protected $imagen;

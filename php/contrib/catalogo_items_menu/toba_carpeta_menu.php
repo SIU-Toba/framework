@@ -1,4 +1,9 @@
 <?php
+/**
+ * Manipulacion de procesos Windows/Linux
+ * @ignore
+ * @package Varios
+ */	
 
 class toba_carpeta_menu extends toba_item_menu 
 {

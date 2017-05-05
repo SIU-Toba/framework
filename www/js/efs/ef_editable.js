@@ -5,7 +5,7 @@ ef_editable.prototype.constructor = ef_editable;
 	/**
 	 * @class Elemento editable equivalente a un 'input type=text'
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable toba_ef_editable
+	 * @phpdoc classes/toba_ef_editable.html toba_ef_editable
 	 */
 	function ef_editable(id_form, etiqueta, obligatorio, colapsado, masc, expreg) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -100,10 +100,10 @@ ef_editable.prototype.constructor = ef_editable;
 		}
 		if (this._mascara) {
 			var valor = this._mascara.format(nuevo, false, true);
-			this.input().value = valor;
+			this.input().value = (typeof valor == 'string') ? valor.decodeEntities(): valor;
 			var desc = document.getElementById(this._id_form + '_desc');
 			if (desc) {
-				desc.value = valor;
+				desc.value = (typeof valor == 'string') ? valor.decodeEntities(): valor;
 			}
 		} else {
 			return ef.prototype.set_estado.call(this, nuevo);	
@@ -134,7 +134,25 @@ ef_editable.prototype.constructor = ef_editable;
 			this._mascara.attach(this.input());
 			this.set_estado(estado_actual);
 		}
-	}
+	};
+	
+	/*
+	* Permite setear en runtime una expreg diferente a la especificada por metadatos
+	* Con null se resetea a la expreg original
+	*/
+	ef_editable.prototype.set_expreg = function (expresion_regular) {
+		this._expreg = expresion_regular;
+	};
+
+	/*
+	* Permite setear en runtime una placeholder diferente a la especificada por metadatos
+	* Con null se resetea a la placeholder original
+	*/
+	ef_editable.prototype.set_placeholder = function (placeholder) {
+		var inp_field = this.input();
+		inp_field.setAttribute('placeholder', placeholder);
+	};
+	
 // ########################################################################################################
 // ########################################################################################################
 	
@@ -145,7 +163,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 	 * @class Elemento editable que sólo permite ingresar números.<br>
 	 * Para esto utiliza en forma predeterminada una máscara <em>###.###,##</em>
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_numero toba_ef_editable_numero
+	 * @phpdoc classes/toba_ef_editable_numero.html toba_ef_editable_numero
 	 */
 	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje) {
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg);
@@ -216,7 +234,7 @@ ef_editable_moneda.prototype.constructor = ef_editable_moneda;
 	 * @class Elemento editable que sólo permite ingresar números que representan un valor monetario.<br>	 
 	 * Para esto utiliza en forma predeterminada una máscara <em>$ ###.###,00</em>
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_moneda toba_ef_editable_moneda
+	 * @phpdoc classes/toba_ef_editable_moneda.html toba_ef_editable_moneda
 	 */
 	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje)	{
 		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje);
@@ -241,7 +259,7 @@ ef_editable_porcentaje.prototype.constructor = ef_editable_porcentaje;
 	/**
 	 * @class Elemento editable que sólo permite ingresar números que representan un porcentaje
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_numero_porcentaje toba_ef_editable_numero_porcentaje	 
+	 * @phpdoc classes/toba_ef_editable_numero_porcentaje.html toba_ef_editable_numero_porcentaje	 
 	 */
 	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, rango, mensaje)	{
 		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, rango, mensaje);
@@ -265,7 +283,7 @@ ef_editable_clave.prototype.constructor = ef_editable_clave;
 	/**
 	 * @class  Elemento editable que permite ingresar contraseñas, con o sin campo de confirmación.
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_clave toba_ef_editable_clave
+	 * @phpdoc classes/toba_ef_editable_clave.html toba_ef_editable_clave
 	 */
 	function ef_editable_clave(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg);
@@ -431,7 +449,7 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	 * @class Elemento editable que permite ingresar fechas.<br>
 	 * Para esto utiliza una máscara <em>dd/mm/yyyy</em>
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
+	 * @phpdoc classes/toba_ef_editable_fecha.html toba_ef_editable_fecha
 	 */
 	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);
@@ -572,7 +590,7 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 	* @class Elemento editable que permite ingresar fechas.<br>
 	* Para esto utiliza una m?scara <em>dd/mm/yyyy</em>
 	* @constructor
-	* @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
+	* @phpdoc classes/toba_ef_editable_fecha.html toba_ef_editable_fecha
 	*/
 	function ef_editable_fecha_hora(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);						//Llamo al padre
@@ -923,7 +941,7 @@ ef_editable_hora.prototype.constructor = ef_editable_hora;
 	* @class Elemento editable que permite ingresar fechas.<br>
 	* Para esto utiliza una m?scara <em>dd/mm/yyyy</em>
 	* @constructor
-	* @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
+	* @phpdoc classes/toba_ef_editable_fecha.html toba_ef_editable_fecha
 	*/
 	function ef_editable_hora(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);						//Llamo al padre
@@ -1173,7 +1191,7 @@ ef_textarea.prototype.constructor = ef_textarea;
 	/**
 	 * @class Elemento editable que permite ingresar textos largos, equivalente a un tag textarea
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_editable_textarea toba_ef_editable_textarea
+	 * @phpdoc classes/toba_ef_editable_textarea.html toba_ef_editable_textarea
 	 */
 	function ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, maximo, ajustable)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg);

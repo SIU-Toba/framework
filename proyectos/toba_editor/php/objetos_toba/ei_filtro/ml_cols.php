@@ -11,17 +11,18 @@ class ml_cols extends eiform_abm_detalle
 	function extender_objeto_js()
 	{
 		parent::extender_objeto_js();
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.evt__tipo__procesar = function(es_inicial, fila)
+		{$id_js}.evt__tipo__procesar = function(es_inicial, fila)
 		{
 			var mostrar = (this.ef('tipo').ir_a_fila(fila).get_estado() == 'opciones');
 			this.ef('opciones_es_multiple').ir_a_fila(fila).mostrar(mostrar);
 			this.ef('opciones_ef').ir_a_fila(fila).mostrar(mostrar);
 		}
 		
-		{$this->objeto_js}.evt__nombre__procesar = function(es_inicial, fila)
+		{$id_js}.evt__nombre__procesar = function(es_inicial, fila)
 		{
 			if (! es_inicial) {
 				var ef_expresion = this.ef('expresion').ir_a_fila(fila);

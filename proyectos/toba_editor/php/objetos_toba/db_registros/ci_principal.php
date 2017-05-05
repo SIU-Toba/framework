@@ -65,6 +65,10 @@ class ci_principal extends ci_editores_toba
 	
 	function validar()
 	{
+		$tabla = $this->get_entidad()->tabla('prop_basicas')->get();
+		if (! isset($tabla['tabla']) || trim($tabla['tabla']) == '') {
+			throw new toba_error_def('Se debe seleccionar una tabla para el objeto');
+		}		
 		$datos = $this->get_entidad()->tabla('columnas')->get_filas();
 		if (! $this->verificar_existencia_columna_clave($datos)) {
 			throw new toba_error_def('La tabla debe tener una columna como Clave Primaria');

@@ -14,6 +14,7 @@ class toba
 	static private $cn = array();
 	static private $consultas_php;
 	static private $rdi;
+	static private $escaper;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -26,7 +27,7 @@ class toba
 
 	/**
 	 * El contexto de ejeución permite al proyecto escribir comportamientos generales en las ventanas de inicio/fin de ejecución del pedido de página
-	 * @return toba_contexto_ejecucion
+	 * @return toba_contexto_ejecucion 
 	 */
 	static function contexto_ejecucion()
 	{
@@ -53,7 +54,7 @@ class toba
 	}
 	
 	/**
-	 * Una zona representa un menu alrededor de un concepto central. Utilizada por ejemplo para mostrar un menú de opciones relacionado con un cliente particular.
+	 * Una zona representa un menu alrededor de un concepto central. Utilizada por ejemplo para mostrar un menú de opciones relacionado con un cliente particular
 	 * @return toba_zona
 	 */
 	static function zona()
@@ -94,8 +95,8 @@ class toba
 	}
 	
 	/**
-	*	Retorna el logger de mensajes internos
-	*	@return toba_logger
+	* Retorna el logger de mensajes internos
+	* @return toba_logger
 	*/
 	static function logger()
 	{
@@ -103,8 +104,8 @@ class toba
 	}
 
 	/**
-	*	Retorna el logger de mensajes internos para servicios web
-	*	@return toba_logger_ws
+	* Retorna el logger de mensajes internos para servicios web
+	* @return toba_logger_ws
 	*/
 	static function logger_ws()
 	{
@@ -113,7 +114,7 @@ class toba
 	
 	/**
 	 * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
-	 *	@return toba_derechos
+	 * @return toba_derechos
 	 */
 	static function derechos()
 	{
@@ -333,7 +334,7 @@ class toba
 	}
 
 	/**
-	 * El perfil de datos permite restringir los datos que surgen desde la base de datos en base a una dimensión dada
+	 * El perfil de datos permite restringir los datos que surgen desde la base de datos en base a una dimensión dada.
 	 * @return toba_perfil_datos
 	 */
 	static function perfil_de_datos()
@@ -345,7 +346,8 @@ class toba
 	}
 
 	/**
-	 * El perfil funcional permite agrupar derechos y restricciones a acceder a determinados elementos de un proyecto
+	 * El perfil funcional permite agrupar derechos y restricciones a acceder a determinados elementos de un proyecto.
+	 * 
 	 * @return toba_perfil_funcional
 	 */
 	static function perfil_funcional()
@@ -367,7 +369,8 @@ class toba
 	
 	/**
 	 * Retorna una clase de consultas php declarada en el editor
-	 * @param string $clase Nombre de la clase	 
+	 * @param string $clase Nombre de la clase
+	 * @return mixed Instancia de la clase especificada
 	 */
 	static function consulta_php($clase)
 	{
@@ -441,5 +444,14 @@ class toba
 		self::$rdi->set_instalacion(self::instalacion());
 		return self::$rdi->get_cliente();
 	}
+	
+	static function escaper()
+	{
+		if (!isset(self::$escaper)){
+			self::$escaper = new toba_escapador(apex_default_charset);
+		}
+		return self::$escaper;
+	}
+	
 }
 ?>

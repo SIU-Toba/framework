@@ -584,7 +584,7 @@ class toba_ei_cuadro extends toba_ei
 		} else {
 			$error = array();
 			foreach($this->_estructura_datos as $columna){
-				if(!isset($muestra[$columna])){
+				if(!isset($muestra[$columna]) && !is_null($muestra[$columna])){
 					$error[] = $columna;
 				}
 			}

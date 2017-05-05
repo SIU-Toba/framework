@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Esta clase genera  xml para los datos generales
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_pers_xml_generador_tablas extends toba_pers_xml_generador {
 
 	function generar_tablas($path, &$data)

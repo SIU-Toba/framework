@@ -219,77 +219,92 @@ class consultas_instancia
 	//---------------------------------------------------------------------
 	//------ Usuarios -----------------------------------------------------
 	//---------------------------------------------------------------------
-
-	static function get_lista_usuarios($filtro=null)
+		
+	static function armar_offset_pagina($tamanio, $pagina)
 	{
-		$where = '';
-		$condiciones = array();
+		$limit = '';
+		if (isset($tamanio)) {
+			$offset = (isset($pagina) && $pagina >= 1) ?  $tamanio * $pagina : 0;
+			$limit = " LIMIT $tamanio OFFSET $offset ";
+		}
+		return $limit;
+	}
+		
+	static function armar_where_usuarios($filtro) 
+	{
+		$where = array();
 		if (isset($filtro)) {
 			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
-				$condiciones[] = "(nombre ILIKE $quote)";
+				$where[] = "(nombre ILIKE $quote)";
 			}
 			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
-				$condiciones[] = "(usuario ILIKE $quote)";
+				$where[] = "(usuario ILIKE $quote)";
 			}
 		}
-		if ($condiciones) {
-			$where = ' WHERE ' . implode(' AND ', $condiciones);	
-		}
-		$sql = "SELECT 	usuario,
-						nombre
-				FROM apex_usuario
-				$where
-				ORDER BY usuario;";
-		return toba::db()->consultar($sql);		
+		return $where;
 	}
 	
-	static function get_usuarios_no_vinculados($filtro=null)
-	{
-		$where = 'WHERE	up.proyecto IS NULL';
-		$condiciones = array();
-		if (isset($filtro)) {
-			if (isset($filtro['nombre'])) {
-				$quote = quote("%{$filtro['nombre']}%");
-				$condiciones[] = "(nombre ILIKE $quote)";
-			}
-			if (isset($filtro['usuario'])) {
-				$quote = quote("%{$filtro['usuario']}%");
-				$condiciones[] = "(usuario ILIKE $quote)";
-			}
-		}
-		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ', $condiciones);
-		}
-		$sql = "SELECT 	u.usuario as usuario, 
-						u.nombre as nombre,
-						up.proyecto as proyecto
-				FROM 	apex_usuario u 
-							LEFT OUTER JOIN apex_usuario_proyecto up 
-							ON u.usuario = up.usuario 
-						$where
-				;";
-		
-		return toba::db()->consultar($sql);
-	}
-
 	static function get_cantidad_usuarios()
 	{
-		$sql = 'SELECT count(*) as cantidad FROM apex_usuario;';
-		$rs = toba::db()->consultar($sql);
-		return $rs[0]['cantidad'];
+		$sql = 'SELECT count(usuario) as cantidad FROM apex_usuario;';
+		$rs = toba::db()->consultar_fila($sql);
+		return ($rs !== false) ? $rs['cantidad'] : 0;
 	}
 
 	static function get_cantidad_usuarios_proyecto($proyecto)
 	{
 		$proyecto = quote($proyecto);
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario_proyecto WHERE proyecto = $proyecto";
-		$rs = toba::db()->consultar($sql);
-		return $rs[0]['cantidad'];
+		$sql = "SELECT count(usuario) as cantidad FROM apex_usuario_proyecto WHERE proyecto = $proyecto";
+		$rs = toba::db()->consultar_fila($sql);
+		return ($rs !== false) ? $rs['cantidad'] : 0; 
 	}
 
-	static function get_usuarios_vinculados_proyecto($proyecto, $filtro=null)
+	static function get_cantidad_usuarios_no_vinculados($proyecto = null)
+	{
+		$where_proyecto = (isset($proyecto)) ? ' WHERE up.proyecto = ' . quote($proyecto): '';
+		$sql = 'SELECT count(usuario) as cantidad 
+			    FROM apex_usuario 
+			    WHERE usuario NOT IN (SELECT up.usuario FROM apex_usuario_proyecto up '. $where_proyecto. ' );';		
+		$rs = toba::db()->consultar_fila($sql);
+		return ($rs !== false) ? $rs['cantidad'] : 0;
+	}
+	
+	static function get_lista_usuarios($filtro=null, $tamanio=null, $pagina=null)
+	{
+		$where = '';
+		$condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$where = ' WHERE ' . implode(' AND ', $condiciones);	
+		}
+		$limit = self::armar_offset_pagina($tamanio, $pagina);
+		$sql = "SELECT 	usuario,
+						nombre
+				FROM apex_usuario
+				$where
+				ORDER BY usuario 
+				$limit;";
+		return toba::db()->consultar($sql);		
+	}
+	
+	static function get_usuarios_no_vinculados($filtro=null)
+	{
+		$where = 'WHERE  u.usuario NOT IN ( SELECT up.usuario FROM apex_usuario_proyecto up)';
+		$condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$where .= ' AND' . implode(' AND ', $condiciones);
+		}
+		$sql = "SELECT 	u.usuario as usuario, 
+						u.nombre as nombre,
+						null as proyecto
+				FROM 	apex_usuario u 				
+				$where ;";
+		
+		return toba::db()->consultar($sql);
+	}
+	
+	static function get_usuarios_vinculados_proyecto($proyecto, $filtro=null,  $tamanio=null, $pagina=null)
 	{
 		$proyecto = quote($proyecto);
 		$where = "WHERE 	g.usuario_grupo_acc = up.usuario_grupo_acc
@@ -297,20 +312,11 @@ class consultas_instancia
 					AND		u.usuario = up.usuario
 					AND		up.proyecto = $proyecto";
 
-		$condiciones = array();
-		if (isset($filtro)) {
-			if (isset($filtro['nombre'])) {
-				$quote = quote("%{$filtro['nombre']}%");
-				$condiciones[] = "(u.nombre ILIKE $quote)";
-			}
-			if (isset($filtro['usuario'])) {
-				$quote = quote("%{$filtro['usuario']}%");
-				$condiciones[] = "(u.usuario ILIKE $quote)";
-			}
+		$condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$where .= ' AND ' . implode(' AND ', $condiciones);
 		}
-		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ', $condiciones);
-		}
+		$limit = self::armar_offset_pagina($tamanio, $pagina);
 		$sql = "SELECT 	up.proyecto as proyecto,
 						up.usuario as usuario, 
 						u.nombre as nombre,
@@ -320,6 +326,7 @@ class consultas_instancia
 						apex_usuario_grupo_acc g
 						$where
 				ORDER BY usuario
+				$limit
 				";
 		$datos = toba::db()->consultar($sql);
 		$temp = array();
@@ -336,38 +343,25 @@ class consultas_instancia
 		return (array_values($temp));
 	}
 
-	static function get_usuarios_no_vinculados_proyecto($proyecto, $filtro=null)
+	static function get_usuarios_no_vinculados_proyecto($proyecto, $filtro=null, $tamanio=null, $pagina=null)
 	{
 		$join = '';
 		if (isset($proyecto)) {
 			$proyecto = quote($proyecto);
 			$join = " AND up.proyecto = $proyecto";
 		}
-		$condiciones = array();
-		if (isset($filtro)) {
-			if (isset($filtro['nombre'])) {
-				$quote = quote("%{$filtro['nombre']}%");
-				$condiciones[] = "(u.nombre ILIKE $quote)";
-			}
-			if (isset($filtro['usuario'])) {
-				$quote = quote("%{$filtro['usuario']}%");
-				$condiciones[] = "(u.usuario ILIKE $quote)";
-			}
-		}
-		$where = '';
-		if ($condiciones) {
-			$where .= 'AND' . implode(' AND ', $condiciones);
-		}
+		$condiciones = self::armar_where_usuarios($filtro);
+		$where =  (! empty($condiciones)) ?  'AND' . implode(' AND ', $condiciones) : '';
+		$limit = self::armar_offset_pagina($tamanio, $pagina);
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
 						up.proyecto as proyecto
 				FROM 	apex_usuario u 
-							LEFT OUTER JOIN apex_usuario_proyecto up 
-							ON u.usuario = up.usuario 
-							$join
+				LEFT OUTER JOIN apex_usuario_proyecto up ON u.usuario = up.usuario  $join
 				WHERE	up.proyecto IS NULL
 					$where
-				ORDER BY usuario;";
+				ORDER BY usuario 
+				$limit;";
 		return toba::db()->consultar($sql);
 	}
 	

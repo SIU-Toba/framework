@@ -1,9 +1,8 @@
 <?php
 /**
  * Clase que se mantiene por compatibildad hacia atrás
- * @package Componentes
- * @subpackage Persistencia
- */
+ * @package Componentes\Persistencia
+ */	
 class toba_ap_tabla_db_s extends toba_ap_tabla_db
 {
 	final function  __construct($datos_tabla)

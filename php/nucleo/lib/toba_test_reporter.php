@@ -1,12 +1,13 @@
 <?php
-require_once('3ros/simpletest/reporter.php');
-
+/**
+ * Clase que genera el html para visualizar el resultado del testeo
+ */
 class toba_test_reporter extends HtmlReporter 
 {
 
     function paintHeader($test_name) {
         print "<style type=\"text/css\">\n";
-        print $this->_getCss() . "\n";
+        print $this->getCss() . "\n";
         print "</style>\n";
         print "<h1>$test_name</h1>\n";
         flush();

@@ -7,18 +7,19 @@ class eiform_fuente_datos_esquemas extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		var estado_original = [];
 		
-		{$this->objeto_js}.evt__esquemas_manejados__procesar = function(es_inicial)
+		{$id_js}.evt__esquemas_manejados__procesar = function(es_inicial)
 		{ 
 			if (! es_inicial) {			
 				this.actualizar_opciones_seleccionables(this.ef('esquemas_manejados'));
 			}
 		}
 		
-		{$this->objeto_js}.actualizar_opciones_seleccionables = function (padre)
+		{$id_js}.actualizar_opciones_seleccionables = function (padre)
 		{
 			var nuevas_opciones = estado_original;
 			var seleccion_padre = padre.get_estado();
@@ -37,7 +38,7 @@ class eiform_fuente_datos_esquemas extends toba_ei_formulario
 		}
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.evt__schema__procesar = function(es_inicial)
+		{$id_js}.evt__schema__procesar = function(es_inicial)
 		{
 			if (es_inicial) {
 				var elem = this.ef('schema').input();

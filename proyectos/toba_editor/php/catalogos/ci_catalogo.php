@@ -17,8 +17,8 @@ abstract class ci_catalogo extends toba_ci
 	*/
 	function extender_objeto_js()
 	{
-		echo "
-			{$this->objeto_js}.evt__fotos__foto = function() {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__fotos__foto = function() {
 				var nombre = prompt('Nombre de la foto','nombre de la foto');
 				if (trim(nombre) != '' && nombre != null) {
 					this.dep('fotos')._evento.parametros_extra = nombre;

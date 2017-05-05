@@ -1,6 +1,4 @@
 <?php
-require_once(toba_dir() . '/php/3ros/ezpdf/class.ezpdf.php');
-
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
@@ -60,7 +58,8 @@ class toba_vista_pdf
 	 * @ignore
 	 * @todo Implementar junto a un set_texto_encabezado
 	 */
-	function set_texto_pie( $texto ){
+	function set_texto_pie( $texto )
+	{
 		$this->texto_pie = 	$texto;
 	}
 	
@@ -151,7 +150,8 @@ class toba_vista_pdf
 		$this->pdf->ezStartPageNumbers(500,20,8,$posicion,$formato,1);
 	}
 	
-	function parar_numeracion_paginas(){
+	function parar_numeracion_paginas()
+	{
 		$this->pdf->ezStopPageNumbers(1,1);
 	}
 	
@@ -206,22 +206,22 @@ class toba_vista_pdf
 	
 	function titulo( $texto )
 	{
-		$this->pdf->ezText("<b>$texto</b>", 11, array( 'justification' => 'center' ));					
+		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 11, array( 'justification' => 'center' ));					
 	}
 	
 	function subtitulo( $texto )
 	{
-		$this->pdf->ezText("<b>$texto</b>", 9, array( 'justification' => 'left' ));					
+		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 9, array( 'justification' => 'left' ));					
 	}
 
 	function mensaje( $texto )
 	{
-		$this->pdf->ezText("<i>$texto</i>", 8, array( 'justification' => 'left' ));					
+		$this->pdf->ezText(utf8_encode("<i>$texto</i>"), 8, array( 'justification' => 'left' ));					
 	}
 	
 	function texto( $texto, $tamanio=8, $opciones=array( 'justification' => 'left'))
 	{
-		$this->pdf->ezText($texto, $tamanio, $opciones);	
+		$this->pdf->ezText(utf8_encode($texto), $tamanio, $opciones);	
 	}
 	
 	/**
@@ -249,8 +249,8 @@ class toba_vista_pdf
 	 */
 	function tabla( $datos, $ver_titulos_col=false, $tamanio=8, $opciones=array() ){
 		$ver_tit_col = $ver_titulos_col? 1 : 0;
-		$texto_tit_col = isset($datos['titulos_columnas'])? $datos['titulos_columnas'] : '';
-		$texto_titulo_tabla = isset($datos['titulo_tabla'])? $datos['titulo_tabla'] : '';
+		$texto_tit_col = isset($datos['titulos_columnas'])? array_map('utf8_encode',$datos['titulos_columnas']) : '';
+		$texto_titulo_tabla = isset($datos['titulo_tabla'])? utf8_encode($datos['titulo_tabla']) : '';
 		$opciones_def = array(
 						'splitRows'=>0,
 						'rowGap' => 1,
@@ -264,7 +264,11 @@ class toba_vista_pdf
 	                	'maxWidth' => $this->get_ancho(100)
 		            );
 		$opciones = array_merge($opciones_def, $opciones);
-		$this->pdf->ezTable($datos['datos_tabla'], $texto_tit_col, $texto_titulo_tabla, $opciones);
+		$data_lista = array();
+		foreach($datos['datos_tabla'] as $fila) {
+			$data_lista[] = array_map('utf8_encode', $fila);
+		}
+		$this->pdf->ezTable($data_lista, $texto_tit_col, $texto_titulo_tabla, $opciones);
 	}
 
 }

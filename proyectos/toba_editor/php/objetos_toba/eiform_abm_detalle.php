@@ -29,10 +29,12 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 
 	function extender_objeto_js()
 	{
+		$escapador = toba::escaper();
+		$id_js = $escapador->escapeJs($this->objeto_js);
 		// La fila seleccionada no se puede eliminar
 		if (isset($this->fila_protegida)) {
-			echo "	{$this->objeto_js}.evt__baja = function (fila) {
-					if( fila == {$this->fila_protegida}) {
+			echo "	{$id_js}.evt__baja = function (fila) {
+					if( fila == ".$escapador->escapeJs($this->fila_protegida).") {
 						alert('No es posible eliminar la columna que se esta editando');
 						return false;
 					}else{
@@ -43,7 +45,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		}
 		//Si cambia el obligatorio muestra el relajado por oculto
 		echo "
-			{$this->objeto_js}.evt__obligatorio__procesar = function(inicial, fila_actual) {
+			{$id_js}.evt__obligatorio__procesar = function(inicial, fila_actual) {
 				if (isset(this.ef('oculto_relaja_obligatorio'))) {
 					if (this.ef('obligatorio').ir_a_fila(fila_actual).chequeado()) {
 						this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).activar();
@@ -57,7 +59,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		//Si se selecciona uno implicito, deseleccionar el resto.
 		//Tambien seteo el manejo de datos (un implicito sin datos no tiene sentido)
 		echo "
-			{$this->objeto_js}.evt__implicito__procesar = function(inicial, fila_actual) {
+			{$id_js}.evt__implicito__procesar = function(inicial, fila_actual) {
 				if (this.ef('implicito').ir_a_fila(fila_actual).chequeado()) {
 					this.ef('maneja_datos').ir_a_fila(fila_actual).chequear();
 					for (var id_fila in this._filas) {
@@ -70,7 +72,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		";
 		// Si se selecciona EN BOTONERA, no puede ser SOBRE FILA
 		echo "
-			{$this->objeto_js}.evt__en_botonera__procesar = function(inicial, fila_actual) {
+			{$id_js}.evt__en_botonera__procesar = function(inicial, fila_actual) {
 				if (this.ef('en_botonera').ir_a_fila(fila_actual).chequeado()) {
 					if(this.ef('sobre_fila')) {// Esta extension se usa en varios forms...
 						if (this.ef('sobre_fila').ir_a_fila(fila_actual).chequeado()) {
@@ -87,7 +89,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		";
 		// Si se selecciona SOBRE FILA, no puede esta EN BOTONERA
 		echo "
-			{$this->objeto_js}.evt__sobre_fila__procesar = function(inicial, fila_actual) {
+			{$id_js}.evt__sobre_fila__procesar = function(inicial, fila_actual) {
 				if (this.ef('sobre_fila').ir_a_fila(fila_actual).chequeado()) {
 					if (this.ef('en_botonera').ir_a_fila(fila_actual).chequeado()) {
 						this.ef('en_botonera').ir_a_fila(fila_actual).chequear(false);

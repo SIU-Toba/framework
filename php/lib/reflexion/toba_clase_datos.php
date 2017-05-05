@@ -1,7 +1,7 @@
 <?php
 /**
  * Esta clase representa a una clase estatica cuyos metodos proveen informacion fija.
- * @ignore
+ * @package Varios
  */
 class toba_clase_datos
 {

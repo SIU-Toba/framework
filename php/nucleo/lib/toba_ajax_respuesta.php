@@ -1,6 +1,4 @@
 <?php
-require_once(toba_dir() . '/php/3ros/JSON.php');
-
 /**
  * Clase que representa una respuesta AJAX (php => js)
  * Tiene dos metodos, uno pensado para comportamientos de alto nivel (set) en donde el framework interpreta el tipo de salida

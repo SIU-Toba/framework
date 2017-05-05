@@ -2,7 +2,8 @@
 /**
  * Clase que maneja la recuperación de datos entre dos schemas. De esta manera
  * es más fácil su comparación.
- *
+ * @package Centrales
+ * @subpackage Personalizacion
  * @author sp14ab
  */
 abstract class toba_recuperador {

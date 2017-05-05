@@ -255,11 +255,12 @@ class toba_zona
 	 */
 	function desactivar_items($condiciones = array())
 	{
-		$items_restantes = $this->items_vecinos;
+		$items_restantes = $this->items_vecinos;		
 		foreach ($condiciones as $condicion){
-			foreach($items_restantes as $key => $valor) {
-				$coincide = array_intersect_assoc($valor, $condicion);
-				if (! empty($coincide)){
+			$keys_it = array_keys($items_restantes);
+			foreach($keys_it as $key) {
+				$coincide = array_intersect_assoc($items_restantes[$key], $condicion);
+				if (! empty($coincide)) {
 					unset($items_restantes[$key]);
 				}
 			}

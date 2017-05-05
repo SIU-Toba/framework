@@ -13,24 +13,35 @@
             "url": "https://satis.siu.edu.ar"
         }
     ],
-    "config" : {
-        "vendor-dir" : "./vendor",
-        "bin-dir": "./bin"
-    },
     "minimum-stability": "dev",
-    "prefer-stable" : false,
+    "prefer-stable" : true,
     "require": {
+        "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
-        "ircmaxell/random-lib" : "@dev",
-        "siu-toba/rest": "@dev",
+        "ircmaxell/random-lib" : "dev-master",
+        "siu-toba/rest": "~1.1",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
-        "onelogin/php-saml": "2.3.0",
-        "greenlion/PHP-SQL-Parser": "@dev",
-        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master"
+        "onelogin/php-saml": "~2.10",
+        "siu-toba/Numbers_Words": "^0.18.0.1",        
+        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
+        "phpoffice/phpexcel": "~1.8", 
+        "dapphp/securimage": "~3.6", 
+        "rospdf/pdf-php": "~0.12",
+        "siu-toba/Structures_Graph": "^1.1.1.1",
+        "phpmailer/phpmailer": "~5.2",
+        "simpletest/simpletest": "~1.1", 
+        "element-34/php-webdriver": "~1.12",
+        "siu-toba/text_highlighter": "~0.7",
+        "simplesamlphp/simplesamlphp": "~1.14",
+        "siu-toba/services_json": "^1.0.3.1", 
+        "siu/rdi": "~0.9", 
+        "siu/arai-json-migrator" : "~1.0",
+        "siu/arai-cli" : "~2.0",
+        "siu/jasper":"dev-master"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.*"
+        "greenlion/PHP-SQL-Parser": "@dev"
     },
     "bin": ["bin/toba"],
     "autoload": {
@@ -40,10 +51,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bower install"
+            "bower install --allow-root"
         ],
         "post-update-cmd": [
-            "bower update"
+            "bower update --allow-root"
         ]
     }
 }

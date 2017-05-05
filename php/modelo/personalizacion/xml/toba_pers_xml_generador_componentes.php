@@ -1,4 +1,9 @@
 <?php
+/**
+ * Esta clase genera  xml para los componentes personalizados
+ * @package Centrales
+ * @subpackage Personalizacion
+ */	
 class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 {
 

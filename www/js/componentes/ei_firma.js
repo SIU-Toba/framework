@@ -4,7 +4,7 @@ ei_firma.prototype.constructor = ei_firma;
 /**
  * @class Editor de código
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_firma toba_ei_firma
+ * @phpdoc classes/toba_ei_firma.html toba_ei_firma
  */
 function ei_firma(id, input_submit, multiple) {
 	this._id = id;

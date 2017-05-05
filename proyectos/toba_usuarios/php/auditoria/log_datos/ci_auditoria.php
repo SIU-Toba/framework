@@ -6,7 +6,7 @@ class ci_auditoria extends toba_ci
 	
 	//-----------------------------------------------------------------------------------
 	//---- Inicializacion ---------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------	
 	function ini__operacion()
 	{
 		if (! is_null(admin_instancia::get_proyecto_defecto())) {
@@ -16,8 +16,13 @@ class ci_auditoria extends toba_ci
 
 	function get_esquema()
 	{	
-		$db = $this->get_db();
-		$schema = $db->get_schema();
+		if (isset($this->s__filtro) && isset($this->s__filtro['esquema']) && $this->s__filtro['esquema']  != '') {
+			return  $this->s__filtro['esquema'];
+		} else {
+			$db = $this->get_db();
+			$schema = $db->get_schema();
+		}
+		
 		if (isset($schema)) {
 			return $schema.'_auditoria';
 		} else {
@@ -46,19 +51,35 @@ class ci_auditoria extends toba_ci
 	}
 	
 	
-	function get_tablas($proyecto=null)
+	function get_tablas($proyecto=null, $esquema=null)
 	{
+		$tablas = array();
 		if (! isset($proyecto)) {
 			$proyecto = $this->s__filtro['proyecto'];
 		} else {
 			$this->s__filtro['proyecto'] = $proyecto;
 		}
-		$tablas = array();
+		if (! isset($esquema)) {
+			$esquema = $this->get_esquema();
+		}		
 		$db = $this->get_db($proyecto);
 		if (isset($db)) {
-			$tablas = $db->get_lista_tablas(false, $this->get_esquema());
+			$tablas = $db->get_lista_tablas(false, $esquema);
 		}
 		return $tablas;
+	}
+	
+	function get_esquemas_combo($proyecto=null)
+	{
+		$resultado = array();
+		$db = $this->get_db($proyecto);
+		$rs = $db->get_lista_schemas_disponibles();
+		foreach($rs as $valores) {
+			if (stripos($valores['esquema'], '_auditoria') !== false) {
+				$resultado[] = array('id' => $valores['esquema']);
+			}
+		}
+		return $resultado;		
 	}
 	
 	//---- filtro -----------------------------------------------------------------------
@@ -116,16 +137,14 @@ class ci_auditoria extends toba_ci
 				$this->analizar_diferencias($datos, $claves, $campos_propios);				
 				
 				$definicion = $this->get_db()->get_definicion_columnas($tabla, $this->get_esquema());
-				foreach ($definicion as $id => $campo) {
-					$definicion[$id]['clave'] = $campo['nombre'];
-					$definicion[$id]['titulo'] = ucwords(str_replace(array('_', '_'), ' ', $campo['nombre']));
+				$keys_d = array_keys($definicion);
+				foreach ($keys_d as $id ) {
+					$definicion[$id]['clave'] = $definicion[$id]['nombre'];
+					$definicion[$id]['titulo'] = ucwords(str_replace(array('_', '_'), ' ', $definicion[$id]['nombre']));
 					$definicion[$id]['usar_vinculo'] = false;
 					//Esto permite sacar el HTML para los estilos de campo modificado
-					$definicion[$id]['permitir_html'] = '1';	
-					/*$opciones = toba_catalogo_asistentes::get_campo_opciones_para_cuadro($campo['tipo']);
-					$definicion[$id] = array_merge($definicion[$id], $opciones);*/
-					
-					if (in_array($campo['nombre'], $campos_propios)) {
+					$definicion[$id]['permitir_html'] = '1';						
+					if (in_array($definicion[$id]['nombre'], $campos_propios)) {
 						unset($definicion[$id]);
 					}
 				}

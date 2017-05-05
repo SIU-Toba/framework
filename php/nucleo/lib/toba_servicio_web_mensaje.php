@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Clase que representa un mensaje en un WS SOAP
+ */
 class toba_servicio_web_mensaje
 {
 	const id_fila_generica = '_toba_fila_';

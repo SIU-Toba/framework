@@ -189,6 +189,7 @@ class ci_fuentes extends toba_ci
 			if (is_null($auditoria)) {
 				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
 			}
+			$auditoria->set_triggers_eliminacion_forzada(true);
 			$auditoria->agregar_tablas();	///Agrego todas las tablas
 
 			if (! $auditoria->existe()) {

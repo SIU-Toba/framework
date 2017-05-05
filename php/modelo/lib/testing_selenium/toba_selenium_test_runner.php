@@ -1,7 +1,5 @@
 <?php
-require_once(toba_dir() . '/php/3ros/simpletest/runner.php');
-
-class toba_selenium_test_runner extends SimpleRunner
+class toba_selenium_test_runner extends SimpleScorer
 {
 	protected $separar_pruebas = false;
 

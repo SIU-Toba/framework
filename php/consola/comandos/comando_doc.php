@@ -1,13 +1,31 @@
 <?php
+/**
+ *  Clase que implementa los comandos de documentación de toba.
+ * 
+ * Class comando_doc.
+ * @package consola
+ */	
 require_once('comando_toba.php');
+
+use phpDocumentor\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output;
 
 class comando_doc extends comando_toba
 {
+	/**
+	 * Retorna información acerca del comando.
+	 * 
+	 * @return string
+	 */
 	static function get_info()
 	{
 		return 'Administracion de la documentación de Toba';
 	}
 	
+	/**
+	 * Muestra un help de uso.
+	 * 
+	 */
 	function mostrar_observaciones()
 	{
 		$this->consola->mensaje("INVOCACION: toba doc OPCION");
@@ -15,7 +33,8 @@ class comando_doc extends comando_toba
 	}
 
 	/**
-	 * Descarga la documentación online del wiki desde desarrollos2.siu.edu.ar utilizando httracker
+	 * Descarga la documentación online del wiki desde desarrollos2.siu.edu.ar utilizando httracker.
+	 * 
 	 * @gtk_icono nucleo/doc-wiki.png
 	 */
 	function opcion__wiki()
@@ -121,56 +140,47 @@ class comando_doc extends comando_toba
 	
 	/**
 	 * Genera la documentación del API en base a los tags phpdoc del código
+	 * 
 	 * @gtk_icono nucleo/doc-php.png 
 	 */
 	function opcion__api_php()
-	{
-		
+	{				
+		chdir(toba_dir());
 		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
-
+		
+		$_phpDocumentor_setting[] = "phpdoc";
+		$_phpDocumentor_setting[] = 'project:run';
+		$_phpDocumentor_setting[] =  '-c' . toba_dir().'/phpdoc.xml';
+		$_phpDocumentor_setting[] = "--title";
+		$_phpDocumentor_setting[] ="API PHP";
+		$_phpDocumentor_setting[] = "--cache-folder";
+		$_phpDocumentor_setting[] ="/tmp/doc_cache";
+		$_phpDocumentor_setting[] = "-t$dest";
+		
 		$lista = toba_manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
-		
-		//--- Se incluye a phpdocumentor en el path
-		$dir = toba_dir()."/php/3ros";
-		$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-		ini_set("include_path", ini_get("include_path"). $separador . $dir);
-		
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['title'] = "API PHP";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/persistencia';
-		$_phpDocumentor_setting['target'] = $dest;
-		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
-		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
-		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki,ventana';
-		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
-		$_phpDocumentor_setting['undocumentedelements'] = 1;
-		$_phpDocumentor_setting['ignore'] = '*_def.php,toba_definicion_componentes.php';
-		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
-
+				
+		$app = \phpDocumentor\Bootstrap::createInstance()
+			->registerProfiler()
+			->initialize();
+		$_SERVER['argv'] = $_phpDocumentor_setting;
+		$app->run();			
+		error_reporting(error_reporting() & ~E_STRICT);	
+			
 		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)
-		$indice = file_get_contents($dest.'/Centrales/toba.html');
+		$indice = file_get_contents($dest.'/classes/toba.html');
 		$indice = str_replace('../../', '#BASE#', $indice);
 		$indice = str_replace('../', '', $indice);
 		$indice = str_replace('#BASE#', '../', $indice);
-		file_put_contents($dest.'/index.html', $indice);
-		
-		
-		//---Borra las ayudas a nivel global de los archivos
-		$archivos = toba_manejador_archivos::get_archivos_directorio($dest, "/.*---.*\\.html/", true);
-		foreach ($archivos as $arch) {
-			unlink($arch);
-		}
-				
-		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
+		file_put_contents($dest.'/index.html', $indice);		
 	}
 
 	/**
 	 * Genera la documentación del API Javascript
 	 * Requiere Perl y jsdoc (http://jsdoc.sourceforge.net/)
+	 * 
 	 * @gtk_icono nucleo/doc-js.png 
 	 */	
 	function opcion__api_js()
@@ -193,10 +203,16 @@ class comando_doc extends comando_toba
 
 		//-- La clase toba es la clase inicial
 		copy($destino.'/toba.html', $destino.'/index.html');
-		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 
-	
+	/**
+	 * Utiliza iconv para convertir la codificacion de un archivo entre dos encodings
+	 * 
+	 * @param path $archivo
+	 * @param string $desde
+	 * @param string $hasta
+	 */
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
 		$this->consola->progreso_avanzar();
@@ -205,7 +221,13 @@ class comando_doc extends comando_toba
 		file_put_contents($archivo, $iso);
 	}
 
-	
+	/**
+	 * Pasa todos los archivos de un directorio de una codificacion a otra.
+	 * 
+	 * @param string $destino
+	 * @param string $desde
+	 * @param string $hasta
+	 */
 	protected function convertir_codificacion_dir($destino, $desde="UTF-8", $hasta="ISO-8859-1")
 	{
 		//Se buscan los archivos .html del arbol de directorios

@@ -29,5 +29,10 @@ class toba_usuario_no_autenticado extends toba_usuario
 	{
 		return 'Usuario no autentificado';
 	}
+	
+	function get_perfiles_datos()
+	{
+		return array();
+	}
 }
 ?>

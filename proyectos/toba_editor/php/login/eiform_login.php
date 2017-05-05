@@ -8,10 +8,11 @@ class eiform_login extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 		
-		{$this->objeto_js}.loguearse = function() {
+		{$id_js}.loguearse = function() {
 			var valor = this.ef('autologin').get_estado();
 			var proyecto = this.ef('proyecto').get_estado();
 			
@@ -21,14 +22,14 @@ class eiform_login extends toba_ei_formulario
 			}
 		}
 				
-		{$this->objeto_js}.evt__autologin__procesar = function(es_inicial)
+		{$id_js}.evt__autologin__procesar = function(es_inicial)
 		{
 			if( !es_inicial ) {
 				this.loguearse();
 			}
 		}
 
-		{$this->objeto_js}.evt__proyecto__procesar = function(es_inicial)
+		{$id_js}.evt__proyecto__procesar = function(es_inicial)
 		{
 			if( !es_inicial && this.ef('autologin')) {
 				this.loguearse();

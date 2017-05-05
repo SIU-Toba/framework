@@ -33,10 +33,19 @@ class toba_manejador_sesiones
 		}
 		return self::$instanciacion;	
 	}
+	
+	static function verificar_directorio_toba()
+	{
+	    if (!defined('TOBA_DIR')) {
+	        define('TOBA_DIR', toba_nucleo::toba_dir());
+	    }
+	}
 
 	private function __construct()
 	{
-		define('TOBA_DIR', toba_nucleo::toba_dir());
+		if (!defined('TOBA_DIR')) {
+		    define('TOBA_DIR', toba_nucleo::toba_dir());
+		}
 		if (PHP_SAPI != 'cli') {
 			if (session_id() != '') {
 				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
@@ -1081,6 +1090,7 @@ class toba_manejador_sesiones
 
 	static function & segmento_info_instalacion()
 	{
+		self::verificar_directorio_toba();
 		if (!isset($_SESSION[TOBA_DIR]['instalacion'])) {
 			$_SESSION[TOBA_DIR]['instalacion'] = array();
 		}
@@ -1089,6 +1099,7 @@ class toba_manejador_sesiones
 
 	function & segmento_info_instancia()
 	{
+		self::verificar_directorio_toba();
 		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['info'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['info'] = array();
 		}
@@ -1097,6 +1108,7 @@ class toba_manejador_sesiones
 
 	function & segmento_datos_instancia()
 	{
+		self::verificar_directorio_toba();
 		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'] = array();
 		}
@@ -1105,6 +1117,7 @@ class toba_manejador_sesiones
 	
 	function & segmento_editor()
 	{
+		self::verificar_directorio_toba();
 		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor'] = array();
 		}
@@ -1113,6 +1126,7 @@ class toba_manejador_sesiones
 
 	function & segmento_info_proyecto($proyecto = null)
 	{
+		self::verificar_directorio_toba();
 		if (! isset($proyecto)) {
 			$proyecto = $this->proyecto;	
 		}
@@ -1124,6 +1138,7 @@ class toba_manejador_sesiones
 
 	function & segmento_memoria_proyecto()
 	{
+		self::verificar_directorio_toba();
 		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'] = array();
 		}
@@ -1132,6 +1147,7 @@ class toba_manejador_sesiones
 
 	function & segmento_memoria_puntos_control()
 	{
+		self::verificar_directorio_toba();
 		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'] = array();
 		}
@@ -1142,6 +1158,7 @@ class toba_manejador_sesiones
 
 	function borrar_segmento_instalacion()
 	{
+		self::verificar_directorio_toba();
 		unset($_SESSION[TOBA_DIR]['instalacion']);	
 		toba_instalacion::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria INSTALACION','toba');
@@ -1149,6 +1166,7 @@ class toba_manejador_sesiones
 
 	function borrar_segmento_instancia()
 	{
+		self::verificar_directorio_toba();
 		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]);
 		toba_instancia::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria INSTANCIA: ' . $this->instancia,'toba');
@@ -1156,12 +1174,14 @@ class toba_manejador_sesiones
 
 	function borrar_segmento_editor()
 	{
+		self::verificar_directorio_toba();
 		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor']);
 		toba::logger()->debug('BORRAR segmento memoria EDITOR','toba');
 	}
 
 	function borrar_segmento_proyecto($proyecto=null)
 	{
+		self::verificar_directorio_toba();
 		if(!isset($proyecto)) $proyecto = $this->proyecto;
 		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]);
 		toba_proyecto::eliminar_instancia();

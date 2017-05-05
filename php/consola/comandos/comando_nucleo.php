@@ -416,7 +416,6 @@ class comando_nucleo extends comando_toba
 					'consola'
 				),
 				'extras' => array(
-					'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 					'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
 				)
 //	 			'extends_excluidos' => array() <-- opcional. Las clases que extienden de las clases enumeradas acá no serán incluidas
@@ -616,22 +615,24 @@ class comando_nucleo extends comando_toba
 		$end_col_string = ') VALUES';
 		$pos_end_col_string = strpos($raw_insert, $end_col_string) - $index_col;	// la posición se calcula con respecto a la posición de arranque de las columnas
 		$cols = explode(',', substr($raw_insert, $index_col, $pos_end_col_string));
+		$keys_c = array_keys($cols);
 
 		$val_string = 'VALUES (';
 		$index_val = strpos($raw_insert, $val_string) + strlen($val_string);
 		$values = explode(',', substr($raw_insert, $index_val, -2));	// con -2 sacamos el paréntesis que cierra y el ;
-
+		$keys_v = array_keys($values);
+		
 		// Limpiamos los null
-		foreach ($values as $key => $value) {
-			if (trim($value) == 'NULL') {
+		foreach ($keys as $key ) {
+			if (trim($value[$key]) == 'NULL') {
 				unset($cols[$key]);
 				unset($values[$key]);
 			}
 		}
 
 		// Borramos los campos autoincrement
-		foreach ($cols as $key => $value) {
-			if ($this->excluir_campo($tabla, $value)) {
+		foreach ($keys_c as $key) {
+			if ($this->excluir_campo($tabla, $cols[$key])) {
 				unset($cols[$key]);
 				unset($values[$key]);
 			}

@@ -10,13 +10,14 @@ class ml_paleta extends toba_ei_formulario_ml
 	
 	function generar_input_ef($ef)
 	{
+		$escapador = toba::escaper();
 		parent::generar_input_ef($ef);
 		if (in_array($ef, $this->colores)) {
 			$fila = $this->ef($ef)->get_fila_actual();
 			$id_form = $this->ef($ef)->get_id_form();
 			$contenido = gif_nulo(16, 16);
-			echo "<span id='css_".$ef.'_'.$fila."' onclick='colorpicker($$(\"$id_form\"))'
-					title='Seleccionar otro color' class='css-preview' >$contenido</span>";
+			echo "<span id='". $escapador->escapeHtmlAttr('css_'.$ef.'_'.$fila)."' onclick='colorpicker($$(\"". $escapador->escapeHtmlAttr($id_form)."\"))'
+					title='Seleccionar otro color' class='css-preview' >". $contenido."</span>";
 		}
 	}
 	
@@ -50,12 +51,14 @@ class ml_paleta extends toba_ei_formulario_ml
 			overlay();
 		}
 		";
-				
+		$escapador = toba::escaper();
+		$id_js = $escapador->escapeJs($this->objeto_js); 
 		foreach ($this->colores as $color) {
+			$color_sf = $escapador->escapeJs($color);
 			echo "
-			{$this->objeto_js}.evt__$color"."__procesar = function(inicial, fila)
+			{$id_js}.evt__$color_sf"."__procesar = function(inicial, fila)
 			{
-				var id_ef = '$color';
+				var id_ef = '$color_sf';
 				var estado = this.ef(id_ef).ir_a_fila(fila).get_estado();
 				if (estado == apex_ef_no_seteado) {
 					this.ef(id_ef).ir_a_fila(fila).ocultar();

@@ -1,6 +1,15 @@
 <?php
+use Symfony\Component\Yaml\Yaml;
+
 require_once('comando_toba.php');
 
+/**
+ *  Clase que implementa los comandos de instalacion desatendida de toba.
+ * 
+ * Class comando_doc.
+ * @package consola
+ * 
+ */	
 class comando_instalacion_silenciosa extends comando_toba
 {	
 	function recuperar_contenido_archivo($nombre)
@@ -18,13 +27,12 @@ class comando_instalacion_silenciosa extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave usuario admin']  [--usuario-admin 'usuario admin']
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave usuario admin']  [--usuario-admin 'usuario admin'][--alias-nucleo 'aliastoba'][--schema-toba 'schemaname'].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
 	{		
-		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
-		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');		
 		
 		//--- Verificar instalacion
 		$param = $this->get_parametros();
@@ -36,8 +44,12 @@ class comando_instalacion_silenciosa extends comando_toba
 		
 		//--- Crea la INSTALACION		
 		$id_desarrollo = $this->definir_id_grupo_desarrollo($param);
-		$tipo_instalacion = $this->definir_tipo_instalacion_produccion($param);
+		$tipo_instalacion = $this->definir_tipo_instalacion_produccion($param);		
 		$nombre = $this->definir_nombre_instalacion($param);
+		$alias = $this->definir_alias_nucleo($param);
+		if ($alias ==  '/toba') {												//Si viene el alias por defecto, le agrego el nro de version
+			$alias = $alias. '_' . toba_modelo_instalacion::get_version_actual()->get_release();
+		}
 		
 		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
 		$id_instancia = $this->get_entorno_id_instancia(true);
@@ -46,6 +58,7 @@ class comando_instalacion_silenciosa extends comando_toba
 		}
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
+		$schema = $this->definir_schema_toba($param, $id_instancia);
 		if (! $this->get_instalacion()->existe_base_datos_definida($base)) {
 			$datos = array(
 				'motor' => 'postgres7',
@@ -55,7 +68,7 @@ class comando_instalacion_silenciosa extends comando_toba
 				'base' => $this->definir_base_motor($param),
 				'puerto' => $this->definir_puerto_motor($param),
 				'encoding' => 'LATIN1',
-				'schema' => $id_instancia
+				'schema' => $schema
 			);			
 			$this->get_instalacion()->agregar_db($base, $datos);
 		}			
@@ -237,8 +250,20 @@ class comando_instalacion_silenciosa extends comando_toba
 	
 	protected function parsear_yml($archivo) 
 	{
-		$contenido = sfYAML::load($archivo);												//Esta mas actualizado que el de PHP, que ademas requiere PECL
-		//$contenido = yaml_parse_file($archivo);
+		$contenido = array();
+		if (realpath($archivo) === false) {
+			toba::logger()->error("El archivo indicado no existe o no es accesible");
+			die();
+		}				
+		try {
+			$valores = YAML::parse(file_get_contents($archivo));									//Esta mas actualizado que el de PHP, que ademas requiere PECL
+			if (! empty($valores)) {
+				$contenido = $valores['parameters'];
+			}
+		} catch(ParseException $e) {
+			toba::logger()->error($e->getMessage());
+			toba::logger()->warning("El contenido del archivo no pudo ser parseado, continuando con valores por defecto");
+		}		
 		return $contenido;
 	}
 	
@@ -261,12 +286,22 @@ class comando_instalacion_silenciosa extends comando_toba
 		
 	protected function definir_alias_nucleo($param)
 	{		
-		$resultado = $param['--alias-nucleo'];
-		if ( $resultado == '' ) {
+		if (! isset($param['--alias-nucleo']) || $param['--alias-nucleo'] == '' ) {
 			return '/toba';
 		} else {
-			return '/'.$resultado;	
+			return $param['--alias-nucleo'];	
 		}		
+	}
+		
+	protected function definir_schema_toba($param, $id_instancia)
+	{		
+		$nombre_parametro = array('--schema-toba');
+		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
+		if ($result['invalido']) {
+			toba::logger()->error('Se selecciono ' . $id_instancia . ' como nombre de schema para la base toba, ya que el mismo no fue provisto');
+			return $id_instancia;
+		}
+		return $result['resultado'];		
 	}
 	
 	/**
@@ -390,16 +425,16 @@ class comando_instalacion_silenciosa extends comando_toba
 					try {
 						toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);			
 					} catch (toba_error_pwd_conformacion_invalida $e) {
-						$es_invalido = true;
+						$this->consola->mensaje($e->getMessage(), true);
+						$es_invalido=true;
 					}
 				}				
 			}			
 		} while($es_invalido && next($nombre_parametro) !== false);
 		
 		if ($es_invalido) {
-			$randompass = toba_usuario::generar_clave_aleatoria(apex_pa_pwd_largo_minimo);
-			toba::logger()->error("Se selecciono una clave aleatoria, ya que una válida no fue provista");
-			return $randompass;
+			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
+			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
 		} 
 		return $pwd;
 	}	

@@ -1,14 +1,18 @@
 <?php
 
-/**
-* @ignore 
-*	TODO: - Seleccion adecuada de Usuarios y Grupo de acceso
-*			- Tendria que existir un esquema para extender un comando
-*				por ejemplo, despues de crear una instancia, un proyecto puede querer
-*				agregar mas tablas a la misma
-*/
 ini_set('max_execution_time', 0);
 require_once('consola/comando.php');
+/**
+ * Clase que agrupa los elementos comunes a todos los comandos toba
+ * 
+ *	TODO: - Seleccion adecuada de Usuarios y Grupo de acceso
+ *			- Tendria que existir un esquema para extender un comando
+ *				por ejemplo, despues de crear una instancia, un proyecto puede querer
+ *				agregar mas tablas a la misma
+ * 
+ * @package consola
+ */
+
 class comando_toba extends comando
 {
 	private $interprete; 

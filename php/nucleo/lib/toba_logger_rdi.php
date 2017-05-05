@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Mantiene una serie de sucesos generados durante la interaccion con el ECM  no visibles al usuario y los almacena para el posterior analisis
+ * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
+ * 
+ * @package Debug
+ */
 class toba_logger_rdi implements \RDILog {
 	
 	private $log;
@@ -45,7 +50,7 @@ class toba_logger_rdi implements \RDILog {
 		if (! $this->_activo){
 			return;
 		}
-		$this->log->critico($excepcion);
+		$this->log->crit($excepcion);
 	}
 }
 ?>

@@ -31,11 +31,12 @@ class zona_item extends zona_editor
 	
 	function generar_html_barra_vinculos()
 	{	
+		$escapador = toba::escaper();
 		if ($this->editable_info['molde'] || $this->editable_info['componentes'] == 0) {
 			$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 1000110, null, array('zona'=>true, 'validar'=>false,'menu'=>1));
-			echo '<a href="' . $vinculo .'">'. toba_recurso::imagen_toba('wizard.png', true, null, null, 'Asistente para la generación de Operaciones');
+			echo '<a href="' . $escapador->escapeHtmlAttr($vinculo) .'">'. toba_recurso::imagen_toba('wizard.png', true, null, null, 'Asistente para la generación de Operaciones');
 			if ($this->editable_info['molde']) {
-				echo $this->editable_info['molde_tipo_operacion_nombre'];
+				echo $escapador->escapeHtml($this->editable_info['molde_tipo_operacion_nombre']);
 			}
 			echo "</a>\n";
 		}
@@ -46,11 +47,11 @@ class zona_item extends zona_editor
 			$info = toba_constructor::get_info($id, 'toba_item');
 			// Ir al editor
 			$ver = $info->get_utileria_editor_ver_php();
-			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+			echo "<a href='" . $escapador->escapeHtmlAttr($ver['vinculo']) ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
 			if (admin_util::existe_archivo_subclase($this->editable_info['actividad_accion'])) {
 				$abrir = $info->get_utileria_editor_abrir_php();
-				echo '<a href="' . $abrir['vinculo'] .'">'. toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
+				echo '<a href="' . $escapador->escapeHtmlAttr($abrir['vinculo']) .'">'. toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
 		}
 		parent::generar_html_barra_vinculos();
@@ -94,7 +95,7 @@ class zona_item extends zona_editor
 				}
 				echo '<tr>';
 				echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs['clase_icono'], true).'</td>';
-				echo "<td  class='barra-obj-link' >[".$rs['objeto'].'] '.$rs['objeto_nombre'].'</td>';
+				echo "<td  class='barra-obj-link' >[".toba::escaper()->escapeHtml($rs['objeto'].'] '.$rs['objeto_nombre']).'</td>';
 				echo "<td  class='barra-obj-id' width='5'>";
 				if (isset($rs['clase_editor'])) {
 					echo "<a href='" . toba::vinculador()->get_url($rs['clase_editor_proyecto'],

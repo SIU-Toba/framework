@@ -1,6 +1,8 @@
 <?php
 /**
  * Esta clase es un registro de los conflictos de una personalización
+ * @package Centrales
+ * @subpackage Personalizacion
  */
 class toba_registro_conflictos
 {

@@ -5,10 +5,13 @@
  * $Id: config.php 3246 2013-05-23 11:43:52Z olavmrk $
  */
 
+$dir = dirname(__FILE__);		//Me fijo donde estoy
+$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);	
+
 if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {			//Determinacion de la ruta de instalacion a traves del alias en toba.conf
 	$base = $_SERVER['TOBA_INSTALACION_DIR'];
-} else {
-	$base = dirname(__FILE__).'/../../../../instalacion';
+} elseif ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path {
+	$base = substr($dir, 0, $pos) . '/instalacion/';
 }
 
 $ini = parse_ini_file($base . '/saml.ini',true);

@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block classSidebar %}
+  {% for package in project.indexes.packages if package.name in ['centrales', 'Centrales']%}        
+        <div class="package-title">{{ package.subpackage ? (package.name ~ '\\' ~ package.subpackage.name) : package.name }}</div>
+        <div class="package">        
+        <ul>          
+            {% for class in package.interfaces|sort_asc %}
+                <li class="interface">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.traits|sort_asc %}
+                <li class="trait">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.classes|sort_asc %}
+                <li class="class">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+   {% endfor %}
+   <div id="topdiv">
+        <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+    </div>
+{% endblock %}
+
+{% block content %}    
+    <div align="center"><h1>{{project.name}}</h1></div>
+{% endblock %}

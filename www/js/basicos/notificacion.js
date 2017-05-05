@@ -8,7 +8,7 @@ var notificacion;
  * Los proyectos pueden variar la forma en que se muestran las notificaciones definiendo un nuevo metodo notificacion.tipo_ventana.<br>
  * Por defecto <em>notificacion.tipo_ventana = notificacion.ventana_modal</em>
  * @constructor
- * @phpdoc SalidaGrafica/toba_notificacion toba::notificacion()
+ * @phpdoc classes/toba_notificacion.html toba::notificacion()
  **/
 notificacion = new function() {
 	this._mensajes = [];
@@ -91,7 +91,7 @@ notificacion = new function() {
 			}
 			var texto = this._mensajes[i][0];
 			if (typeof this._mensajes[i][2] != 'undefined' && isset(this._mensajes[i][2])) {
-				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
+				texto = "<strong>" + this._mensajes[i][2].decodeEntities() + "</strong> " + texto;
 			}
 			if (typeof this._mensajes[i][3] != 'undefined') {
 				var botonera = "<a onclick='overlay_debug("+i+")' href='#'>Más info...</a>";

@@ -4,7 +4,7 @@
 	/**
 	 * @class ei_filtro
 	 * @constructor
-	 * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
+	 * @phpdoc classes/toba_ei_filtro.html toba_ei_filtro
 	 */
 	function ei_filtro(id, instancia, input_submit, maestros, esclavos) {
 		this._id = id;
@@ -103,7 +103,7 @@
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs
 			var filas_con_datos = [];
-			for (id_fila in this._filas) {
+			for (var id_fila in this._filas) {
 				var id_ef = this._filas[id_fila];
 				//Si el ef no tiene valor, no se envia al server
 				if (this._efs[id_ef].tiene_estado()) {
@@ -349,8 +349,8 @@
 			notificacion.agregar(error);
 			notificacion.mostrar();			
 		} else {
-			try {
-				var datos_rs = eval('(' + respuesta.responseText + ')');
+			try {				
+				var datos_rs = JSON.parse(respuesta.responseText);
 				var datos_asociativo;
 				if ('Array' == getObjectClass(datos_rs)) {
 					datos_asociativo = [];
@@ -416,7 +416,7 @@
 			if (existe_funcion(this, validacion_particular)) {
 				ok = this[validacion_particular]();		
 			}
-			for (id_fila in this._filas) {
+			for (var id_fila in this._filas) {
 				ok = this.validar_ef(this._filas[id_fila]) && ok;
 			}
 		} else {

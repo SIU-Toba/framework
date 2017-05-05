@@ -19,8 +19,8 @@ class ci_analizador_sql extends toba_ci
 			throw new toba_error('No se encontró información de consultas ejecutadas');
 		}
 		$datos = $info['datos'];
-		require_once('3ros/Text_Highlighter/Highlighter.php');
-		$hlSQL = Text_Highlighter::factory('SQL');
+		$high = new Text_Highlighter();
+		$hlSQL = $high->factory('SQL');
 		$i = 1;
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['numero'] = $i;

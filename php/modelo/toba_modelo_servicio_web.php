@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa los WS y su configuracion
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_modelo_servicio_web extends toba_modelo_elemento
 {
 	protected $proyecto;

@@ -4,6 +4,11 @@ use SIU\AraiJsonMigrator\Entities\Person;
 use SIU\AraiJsonMigrator\Entities\Account;
 use SIU\AraiJsonMigrator\Util\Documento;
 
+/**
+ * Clase que contiene la lógica de administración de la aplicación, es utiliza por los comandos
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;
@@ -167,11 +172,13 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 		$exportar = $this->permitir_exportar_modelo && $this->manejador_interface->dialogo_simple("Antes de borrar la base. Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
 		if ($exportar) {
+			$dir_arranque = $this->proyecto->get_dir(). '/sql';
+			toba_manejador_archivos::crear_arbol_directorios($dir_arranque);
 			//-- Esquema principal
-			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';			
+			$archivo = $dir_arranque.'/datos_locales.sql';			
 			$this->exportar_esquema_base($id_def_base, $archivo, true, $this->schema_modelo);
 			//-- Esquema auditoria
-			$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';			
+			$archivo = $dir_arranque.'/datos_auditoria.sql';			
 			$this->exportar_esquema_base($id_def_base, $archivo, false, $this->schema_auditoria);
 		}
 		
@@ -360,7 +367,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		
 		if (! is_null($fuente) && !empty($lista_schemas)) {
 			$aux = array_intersect($schemas[$fuente], $lista_schemas);
-			if ($aux !== false) {
+			if ($aux !== false && ! empty($aux)) {
 				$schemas[$fuente] = $aux;
 			}
 		}
@@ -368,7 +375,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				
 		//--- Tablas de auditoría
 		$this->manejador_interface->mensaje('Creando auditoria', true);
-		$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';
+		$dir_arranque = $this->proyecto->get_dir(). '/sql';
+		toba_manejador_archivos::crear_arbol_directorios($dir_arranque);
+		$archivo = $dir_arranque . '/datos_auditoria.sql';
 		$bases = array();
 		foreach($fuentes as $fuente) {
 			try {
@@ -602,31 +611,29 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * 		)
 	 *
      */
-	public function getDatosUsuarios()
+	public function getDatosUsuarios($tokens = array())
 	{
 		$db_arai = $this->get_instancia()->get_db();
-
 		$sql = "SELECT  DISTINCT
 						u.usuario,
-                        u.clave,
-                        u.nombre,
-                        u.email,
-                        u.autentificacion,
-                        CASE
-                          WHEN lower(u.autentificacion) = 'bcrypt' THEN 'crypt'
-                          WHEN lower(u.autentificacion) = 'sha256' OR lower(u.autentificacion) = 'sha512' THEN 'sha'
-                          ELSE lower(u.autentificacion)
-                        END autentificacion_arai,
-                        u.bloqueado
-                FROM apex_usuario u
-	            JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto)
-	    ";
+						u.clave,
+						u.nombre,
+						u.email,
+						u.autentificacion,
+						CASE
+						  WHEN lower(u.autentificacion) = 'bcrypt' THEN 'crypt'
+						  WHEN lower(u.autentificacion) = 'sha256' OR lower(u.autentificacion) = 'sha512' THEN 'sha'
+						  ELSE lower(u.autentificacion)
+						END autentificacion_arai,
+						u.bloqueado
+				FROM apex_usuario u
+				JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto) ";
 		$sentencia = $db_arai->sentencia_preparar($sql);
 		$datosUsuariosToba = $db_arai->sentencia_consultar($sentencia, array('toba_proyecto' => $this->get_proyecto()->get_id()));
 
 		$datosUsuarios = array();
 		foreach($datosUsuariosToba as $clave => $datosUsuarioToba) {
-			$nombresApellidos = $this->getNombresApellidos($datosUsuarioToba['nombre']);
+			$nombresApellidos = $this->getNombresApellidos($datosUsuarioToba['nombre'], $tokens);
 			$datosUsuarios[$clave] = array(
 				'usuario' => $datosUsuarioToba['usuario'],
 				'nombres' => trim($nombresApellidos['nombres']),
@@ -720,23 +727,33 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 	}
 
-	private function getNombresApellidos($dato)
+	private function getNombresApellidos($dato, $tokens)
 	{
-		$nombre_partes = explode(" ", $dato);
-		if (count($nombre_partes) > 1) {
-			//Parte el nombre/apellido, siempre dandole mas palabras al nombre
-			$nombres = $apellidos = "";
-			for ($i = 0; $i < count($nombre_partes); $i++) {
-				if ($i < count($nombre_partes)/2) {
-					$nombres .= $nombre_partes[$i]." ";
-				} else {
-					$apellidos .= $nombre_partes[$i]." ";
-				}
+		$apellidos = $nombres = $dato;						//Inicializo para el caso que no exista separación		
+		$separador = (! empty($tokens)) ? $tokens['separador'] : " ";
+		$nombre_partes = explode($separador, $dato);
+		$cant_partes = count($nombre_partes);
+		
+		if ($nombre_partes !== false && $cant_partes > 1) {
+			if (! empty($tokens)) {
+				$nombres = $nombre_partes[$tokens['nombre']];
+				$apellidos = $nombre_partes[$tokens['apellido']];
+			} else {
+				//Parte el nombre/apellido, siempre dandole mas palabras al nombre
+				/*$nombres = $apellidos = "";
+				for ($i = 0; $i < $cant_partes; $i++) {
+					if ($i < $cant_partes / 2) {
+						$nombres .= $nombre_partes[$i]." ";
+					} else {
+						$apellidos .= $nombre_partes[$i]." ";
+					}
+				}*/
+				$limite = ceil($cant_partes / 2);
+				$nombres = implode(' ' , array_slice($nombre_partes, 0 , $limite, true));				//Le asigno al nombre la primera mitad
+				$apellidos = implode(' ' , array_slice($nombre_partes, $limite, null, true));				//Todo lo que resta es apellido
 			}
-		} else {
-			$nombres = $dato;
-			$apellidos = $nombres;
 		}
+		
 		return array(
 			'nombres' => $nombres,
 			'apellidos' => $apellidos,

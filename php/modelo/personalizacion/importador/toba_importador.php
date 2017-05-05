@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 abstract class toba_importador {
 	protected $tareas	= array();
 	protected $iterador = 0;

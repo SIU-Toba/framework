@@ -13,8 +13,6 @@ function isset(o) {
 	return typeof o != 'undefined' && o !== null;	
 }
 
-//---STRING
-//----------------------------------------------------------
 function trim(s){
 	if (! isset(s) || typeof s != 'string') {
 		return '';
@@ -23,6 +21,8 @@ function trim(s){
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
 }
 
+//---STRING
+//----------------------------------------------------------
 function quitar_acentos(s){
     s = s.reemplazar('á', 'a');
     s = s.reemplazar('é', 'e');
@@ -30,6 +30,10 @@ function quitar_acentos(s){
     s = s.reemplazar('ó', 'o');
     return s.reemplazar('ú', 'u');
 }
+
+String.prototype.trim = function() {
+    return this.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
+};
 
 /**
  * Retorna la primer ocurrencia de alguna de estas cadenas
@@ -135,6 +139,19 @@ function doesContain(strPassword, strCheck)
 
 	return nCount; 
 } 
+
+String.prototype.decodeEntities = function() {	
+	return this.replace(/\\u([0-9A-Fa-f]{1,6})/g, function() {
+        return String.fromCharCode(parseInt(arguments[1], 16));
+    }).decodeEscapedHex();
+};
+
+String.prototype.decodeEscapedHex = function() {
+    return this.replace(/\\x([0-9A-Fa-f]{2})/g, function() {
+        return String.fromCharCode(parseInt(arguments[1], 16));
+    });
+};
+
 //---ARRAY
 //----------------------------------------------------------
 

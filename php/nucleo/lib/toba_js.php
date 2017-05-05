@@ -84,7 +84,7 @@ class toba_js
 	{
 		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente'); 
 		if (! is_null($version)) {
-			$archivo = $archivo . "?av=$version";
+			$archivo = $archivo . "?av=". toba::escaper()->escapeUrl($version);
 		}
 		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
 	}
@@ -113,43 +113,50 @@ class toba_js
 	static function cargar_consumos_basicos()
 	{
 		if (! self::$basicos_cargados) {
+			$escapador = toba::escaper();
 			self::$consumos_basicos[] = 'basicos/jquery-1.9.1.min';			
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
-			}			
-			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
-								'info' => toba_recurso::imagen_toba('info_chico.gif', false),
-								'warning' => toba_recurso::imagen_toba('warning.gif', false),  
-								'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false), 
-								'minimizar' => toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false),
-								'expandir'  => toba_recurso::imagen_skin('expandir_vert.gif', false),
-								'contraer'  => toba_recurso::imagen_skin('contraer_vert.gif', false),
-								'expandir_nodo' => toba_recurso::imagen_toba('nucleo/expandir.gif', false),
-								'contraer_nodo' => toba_recurso::imagen_toba('nucleo/contraer.gif', false),
-								'esperar' => toba_recurso::imagen_toba('wait.gif', false),
-								'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
-								);
-			echo toba_js::abrir();
-			echo "var toba_alias='".toba_recurso::url_toba()."';\n";
-			echo "var toba_proyecto_alias='".toba_recurso::url_proyecto()."';\n";
-			if (toba_editor::activado()) {
-				echo 'var toba_proyecto_editado_alias = "'.toba_editor::get_url_previsualizacion()."\";\n";	
 			}
-			echo "var toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
-			echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
-			echo "var toba_hilo_separador='".apex_qs_separador."'\n";
-			echo "var toba_hilo_separador_interno='". apex_qs_sep_interno. "'\n";
-			echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
-			echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
-			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
-			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
-			echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";
+			$item = toba::memoria()->get_item_solicitado() ;
+			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
+							'info' => toba_recurso::imagen_toba('info_chico.gif', false),
+							'warning' => toba_recurso::imagen_toba('warning.gif', false),  
+							'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false), 
+							'minimizar' => toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false),
+							'expandir'  => toba_recurso::imagen_skin('expandir_vert.gif', false),
+							'contraer'  => toba_recurso::imagen_skin('contraer_vert.gif', false),
+							'expandir_nodo' => toba_recurso::imagen_toba('nucleo/expandir.gif', false),
+							'contraer_nodo' => toba_recurso::imagen_toba('nucleo/contraer.gif', false),
+							'esperar' => toba_recurso::imagen_toba('wait.gif', false),
+							'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
+							);
+			$script = (isset($_SERVER['SCRIPT_FILENAME'])) ? basename($_SERVER['SCRIPT_FILENAME']): 'aplicacion.php';
+			
+			echo toba_js::abrir();
+			echo "var toba_alias='".$escapador->escapeJs(toba_recurso::url_toba())."';\n";
+			echo "var toba_proyecto_alias='".$escapador->escapeJs(toba_recurso::url_proyecto())."';\n";
+			if (toba_editor::activado()) {
+				echo 'var toba_proyecto_editado_alias = "'.$escapador->escapeJs(toba_editor::get_url_previsualizacion())."\";\n";
+			}			
+			echo "var toba_hilo_qs='".apex_hilo_qs_item."';\n";
+			echo "var toba_hilo_separador='".apex_qs_separador."';\n";
+			echo "var toba_hilo_separador_interno='". apex_qs_sep_interno. "';\n";
+			echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."';\n";
+			echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."';\n";
+			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."';\n";
+			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."';\n";
+			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).",";
+			echo " toba_prefijo_vinculo=toba_proyecto_alias + '/". $escapador->escapeJs($script) .'?' . apex_hilo_qs_id."='+'".  $escapador->escapeJs(toba::memoria()->get_id())
+				. "&'+ toba_hilo_qs + '=". $escapador->escapeJs($item[0]). "'+toba_hilo_separador+'". $escapador->escapeJs($item[1]) .
+				"' + '&'+ apex_hilo_qs_celda_memoria + '='  +'".$escapador->escapeJs(toba::memoria()->get_celda_memoria_actual_id())."';\n";
+			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";			
+			
 			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');		
 			if (! isset($espera)) {
 				$espera = 0;	//No hay espera
 			}
-			echo "var toba_espera=$espera;\n";
+			echo "var toba_espera=".$escapador->escapeJs($espera).";\n";
 
 			//-------------- Incluyo funcionalidad para la respuesta del popup  ---------------
 			$ef_popup = toba::memoria()->get_parametro('ef_popup');
@@ -160,7 +167,7 @@ class toba_js
 				toba::memoria()->set_dato_sincronizado('ef_popup', $ef_popup);
 				echo "
 				function seleccionar(clave, descripcion) {
-					window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
+					window.opener.popup_callback('". $escapador->escapeJs($ef_popup) ."', clave, descripcion);
 					window.close();
 				}
 				function respuesta_ef_popup(parametros) {
@@ -186,10 +193,10 @@ class toba_js
 				///---Arreglo PNGs IE
 				$url = toba_recurso::js("utilidades/pngbehavior.htc");
 				echo "<!--[if lt IE 7]>
-					<style type='text/css'>
+					<style type='text/css'>". $escapador->escapeCss("
 						img {
 							behavior: url('$url');
-						}
+						}")."
 					</style>
 					<![endif]-->\n";
 			}
@@ -202,8 +209,8 @@ class toba_js
 	}
 	
 	static function cargar_definiciones_runtime()
-	{
-		echo "window.toba_prefijo_vinculo = \"".toba::vinculador()->get_url()."\";\n";
+	{		
+		echo "window.toba_prefijo_vinculo =  toba_prefijo_vinculo;\n";	
 		echo "window.toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
 		echo "window.toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
 	}
@@ -286,19 +293,20 @@ class toba_js
 	 */
 	static function arreglo($arreglo, $es_assoc = false, $seg_nivel_assoc=true)
 	{
-		$js = "";
+		$js = ""; $escapador = toba::escaper();
 		if ($es_assoc) {
 			if (count($arreglo) > 0) {
 				$js .= "{";
 				foreach($arreglo as $id => $valor) {
+					$id_js = $escapador->escapeJs($id);
 					if (is_array($valor)) { 
 						//RECURSIVIDAD
-						$js .= "'$id': ".self::arreglo($valor, $seg_nivel_assoc)." ,";
+						$js .= "'$id_js': ".self::arreglo($valor, $seg_nivel_assoc)." ,";
 					} elseif (is_bool($valor)) {
-						$js .= "'$id': ". self::bool($valor) . ' ,';
+						$js .= "'$id_js': ". self::bool($valor) . ' ,';
 					} else {
 						$valor = addslashes($valor);				
-						$js .= "'$id': '$valor', ";
+						$js .= "'$id_js': '". $escapador->escapeJs($valor)."', ";
 					}
 				}
 				$js = substr($js, 0, -2);
@@ -312,15 +320,15 @@ class toba_js
 				if (!isset($valor)) {
 					$js .= "null,";
 				} elseif (is_numeric($valor)) {
-					$js .= "$valor,";
+					$js .= $escapador->escapeJs("$valor,");
 				} elseif (is_bool($valor)) {
 					$js .= self::bool($valor) . ' ,';
 				} elseif (is_array($valor)) {
 					//RECURSIVIDAD
 					$js .= self::arreglo($valor, $seg_nivel_assoc).",";
 				} else {
-					$valor = addslashes($valor);				
-					$js .= "'$valor',";
+					//$valor = addslashes($valor);				
+					$js .= "'". $escapador->escapeJs($valor)."',";
 				}
 			}
 			$js = substr($js, 0, -1);
@@ -340,7 +348,7 @@ class toba_js
 	static function sanear_string($cadena)
 	{
 		$unica_linea = self::string($cadena);
-		return addslashes($unica_linea);
+		return toba::escaper()->escapeJs($unica_linea);
 	}
 	
 	/**
@@ -351,12 +359,13 @@ class toba_js
 	 */
 	static function evento($id, $evento, $parametros = null, $es_implicito = false)
 	{
-		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+		$escapador = toba::escaper();
+		$js_confirm = isset( $evento['confirmacion'] ) ? "'". $escapador->escapeJs($evento['confirmacion'])."'" : "''";
 		$js_validar = isset( $evento['maneja_datos'] ) ? toba_js::bool($evento['maneja_datos']) : "true";
 		if (is_array($parametros)) {
 			$param = ", ".toba_js::arreglo($parametros, true);
 		} else {
-			$param = (isset($parametros)) ? ", '".addslashes(str_replace('"',"'",$parametros))."'" : '';			
+			$param = (isset($parametros)) ? ", '".str_replace('"',"'", $escapador->escapeJs($parametros))."'" : '';			
 		}
 
 		$implicito = '';
@@ -364,15 +373,13 @@ class toba_js
 			$implicito =  ($param == '')? ",''" : '';			
 			$implicito .= ', '. toba_js::bool(true);
 		}
-
-		return "new evento_ei('$id', $js_validar, $js_confirm $param $implicito)";
+		$id_js = $escapador->escapeJs($id);
+		return "new evento_ei('$id_js', $js_validar, $js_confirm $param $implicito)";
 	}	
 	
 	//----------------------------------------------------------------------------------
 	//						UTILIDADES
 	//----------------------------------------------------------------------------------		
-	
-	
 
 }
 ?>

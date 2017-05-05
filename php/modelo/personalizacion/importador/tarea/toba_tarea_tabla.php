@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa una tarea en una tabla especifica
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_tarea_tabla extends toba_tarea_pers {
 	
 	protected function armar_datos()

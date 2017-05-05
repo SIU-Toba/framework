@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa una tarea sobre un componente especifico
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_tarea_componente extends toba_tarea_pers
 {
 	protected function armar_datos()

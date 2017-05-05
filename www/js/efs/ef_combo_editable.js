@@ -7,7 +7,7 @@ ef_combo_editable.prototype.constructor = ef_combo_editable;
 /**
  * @class Combo editable equivalente a un tag SELECT en HTML 
  * @constructor
- * @phpdoc Componentes/Efs/toba_ef_combo_editable toba_ef_combo_editable
+ * @phpdoc classes/toba_ef_combo_editable.html toba_ef_combo_editable
  */
  
 function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, modo_filtro, solo_permitir_selecciones, mantiene_estado_cascada) {
@@ -300,7 +300,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		this._ultimas_opciones_server[this._id_form] = [];
 		for (var i = 0; i < valores.length; i++) {
 			var clave = valores[i][0];
-			var valor = valores[i][1];
+			var valor = (typeof  valores[i][1] == 'string') ? valores[i][1].decodeEntities(): valores[i][1];
 			if (clave != 'nopar') {
 				datos.push([clave, valor]);
 				this._ultimas_opciones_server[this._id_form].push(clave);			

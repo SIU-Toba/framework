@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Solicitud pensada para ejecutar las llamadas a WS REST
  * @package Centrales
  */
 class toba_solicitud_servicio_rest extends toba_solicitud
@@ -30,6 +30,13 @@ class toba_solicitud_servicio_rest extends toba_solicitud
 		
 	function procesar()
 	{		
+		$en_mantenimiento = (toba::proyecto()->get_parametro('proyecto', 'modo_mantenimiento', false) == 1) ;
+		if ($en_mantenimiento) {			
+			header(sprintf('HTTP/%s %s', '1.1', '503 Service Unavailable'), true, 503);
+			$msg = toba::proyecto()->get_parametro('proyecto', 'mantenimiento_mensaje');
+			echo rest_encode($msg);
+			return;
+		}		
 		$nombre_api = '';	// esto esta en $this->recuperar_nombre_api();
 		if (! $this->toba_rest->es_pedido_documentacion()) {
 			$this->toba_rest->conf__inicial($nombre_api);

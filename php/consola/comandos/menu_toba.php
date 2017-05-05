@@ -1,5 +1,10 @@
 <?php
 require_once('consola/menu.php');
+/**
+ * Clase que implementa un menu basico en consola
+ * 
+ * @package consola
+ */
 
 class menu_toba extends menu
 {
@@ -17,14 +22,13 @@ class menu_toba extends menu
 	function get_comandos()
 	{
 		return array(
-						'instalacion',
-						'base',
-						'instancia',
-						'proyecto',
-                        'personalizacion',
-						'test',
-						'servicios_web'
-
+			'instalacion',
+			'base',
+			'instancia',
+			'proyecto',
+			'personalizacion',
+			'test',
+			'servicios_web'
 		);	
 	}
 }

@@ -1,6 +1,12 @@
 <?php
 require_once('comando_toba.php');
 
+/**
+ *  Clase que implementa los comandos de la instalacion de toba.
+ * 
+ * Class comando_instalacion.
+ * @package consola
+ */	
 class comando_instalacion extends comando_toba
 {
 	static function get_info()
@@ -75,13 +81,12 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
-	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive].
+	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive][--alias-nucleo 'aliastoba'][--schema-toba 'schemaname'].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
 	{		
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
-		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
@@ -114,7 +119,12 @@ class comando_instalacion extends comando_toba
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
 		}
+		
 		//--- Crea la INSTALACION		
+		$alias = $this->definir_alias_nucleo($param);
+		if ($alias ==  '/toba') {												//Si viene el alias por defecto, le agrego el nro de version
+			$alias = $alias. '_' . toba_modelo_instalacion::get_version_actual()->get_release();
+		}
 		$id_desarrollo = (isset($param['-d'])) ? $param['-d'] : $this->definir_id_grupo_desarrollo();
 		$tipo_instalacion = (isset($param['-t'])) ? $param['-t'] : $this->definir_tipo_instalacion_produccion();
 		$nombre = (isset($param['-n'])) ? $param ['-n'] : $this->definir_nombre_instalacion();
@@ -127,6 +137,7 @@ class comando_instalacion extends comando_toba
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
+		$schema = $id_instancia;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
 			do {
 				$profile = $this->recuperar_parametro($param, '-h',  'PostgreSQL - Ubicación (ENTER utilizará localhost)');
@@ -155,6 +166,11 @@ class comando_instalacion extends comando_toba
 					$base = $base_temp;
 				}
 				
+				$base_schema = $this->recuperar_parametro($param, '--schema-toba', "Nombre del schema a usar (ENTER utilizará $id_instancia)");
+				if (trim($base_schema) != '') {
+					$schema = $base_schema;
+				}
+				
 				$datos = array(
 					'motor' => 'postgres7',
 					'profile' => $profile,
@@ -163,7 +179,7 @@ class comando_instalacion extends comando_toba
 					'base' => $base,
 					'puerto' => $puerto,
 					'encoding' => 'LATIN1',
-					'schema' => $id_instancia
+					'schema' => $schema
 				);
 				$this->get_instalacion()->agregar_db( $base, $datos );
 				$puede_conectar = true;
@@ -405,39 +421,43 @@ class comando_instalacion extends comando_toba
 	function opcion__cambiar_permisos()
 	{
 		//Si es produccion dar permisos solo a apache, sino a usuario y grupo
-		$subject = $this->get_instalacion()->es_produccion() ? "u" : "ug";
+		$instalacion = $this->get_instalacion();
+		$subject = $instalacion->es_produccion() ? "u" : "ug";
+		
 		$param = $this->get_parametros();
 		$grupo = isset($param['-g']) ? $param['-g'] : null;
-		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';
+		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';		
 		$toba_dir = toba_dir();
+		$instalacion_dir = $instalacion->get_path_carpeta_instalacion();
 		$this->consola->subtitulo('Cambiando permisos de archivos navegables');
+		if (isset($grupo)) {
+			$usuario .= ":$grupo";
+		}
 		$comandos = array(
 			array("chown -R $usuario $toba_dir/www", "Archivos navegables comunes:\n"),
 			array("chmod -R $subject+rw $toba_dir/www", ''),			
-			array("chown -R $usuario $toba_dir/instalacion", "Archivos de configuración:\n"),
-			array("chmod -R $subject+rw $toba_dir/instalacion", ''),			
+			array("chown -R $usuario $instalacion_dir", "Archivos de configuración:\n"),
+			array("chmod -R $subject+rw $instalacion_dir", ''),			
 			array("chown -R $usuario $toba_dir/temp", "Archivos temporales comunes:\n"),
 			array("chmod $subject+rw $toba_dir/temp", '')
 		);
-		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
-			$id_proyecto = basename($proyecto);
-			$comandos[] = array("chown -R $usuario $proyecto/www", "Archivos navegables de $id_proyecto:\n");
-			$comandos[] = array("chmod -R $subject+rw $proyecto/www", '');
-			$comandos[] = array("chown -R $usuario $proyecto/temp", "Archivos temporales de $id_proyecto:\n");
-			$comandos[] = array("chmod -R $subject+rw $proyecto/temp", '');
-		}		
+		
+		foreach ($instalacion->get_lista_instancias() as $id_inst) {
+			$lista = $this->get_instancia($id_inst)->get_lista_proyectos_vinculados();
+			foreach($lista as $proy) {
+				$path = $this->get_instancia($id_inst)->get_path_proyecto($proy);
+				var_dump($path); echo "\n";
+				$comandos[] = array("chown -R $usuario $path/www", "Archivos navegables de $proy:\n");
+				$comandos[] = array("chmod -R $subject+rw $path/www", '');
+				$comandos[] = array("chown -R $usuario $path/temp", "Archivos temporales de $proy:\n");
+				$comandos[] = array("chmod -R $subject+rw $path/temp", '');
+			}
+		}
+		
 		foreach ($comandos as $comando) {
 			$this->consola->mensaje($comando[1], false);
 			$this->consola->mensaje("   ".$comando[0]. exec($comando[0]));
-		}
-		
-		if (isset($grupo)) {
-			$comando = "chgrp -R $grupo $toba_dir";
-			$this->consola->subtitulo("\nCambiando permisos globales para el grupo $grupo");
-			$this->consola->mensaje("   ".$comando. exec($comando));
-			$comando = "chmod -R g+rw $toba_dir";
-			$this->consola->mensaje("   ".$comando. exec($comando));
-		}
+		}		
 	}
 
 	/**

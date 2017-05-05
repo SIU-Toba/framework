@@ -5,7 +5,7 @@ ei_cuadro.prototype.constructor = ei_cuadro;
 /**
  * @class Un ei_cuadro es una grilla de registros.
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_cuadro toba_ei_cuadro
+ * @phpdoc classes/toba_ei_cuadro.html toba_ei_cuadro
  */
 function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 	this._id = id;

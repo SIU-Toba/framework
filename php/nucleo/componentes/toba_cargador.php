@@ -249,7 +249,7 @@ class toba_cargador
 				if ($contenido['registros']!=='1') {
 					$metadatos[$seccion] = $temp;
 				} else {
-					$metadatos[$seccion] = $temp[0];
+					$metadatos[$seccion] = current($temp);
 				}
 			}			
 		}

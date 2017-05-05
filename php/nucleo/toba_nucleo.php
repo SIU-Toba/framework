@@ -53,13 +53,14 @@ class toba_nucleo
 	static function cargar_autoload_composer()
 	{
 		$dir = dirname(__FILE__);		//Me fijo donde estoy
-		$pos = stripos($dir, '/vendor/');
+		$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
 			$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
+		} elseif (file_exists(realpath(self::toba_dir().'/vendor/autoload.php'))) {
+			$path = realpath(self::toba_dir() . '/vendor/autoload.php');			//Nivel inicial por desarrollo de Toba o Rama 2.8+
 		} else {
-			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');		//Toba se usa como nivel inicial
+			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');			//Valido para rama 2.7.x
 		}
-		
 		if (file_exists($path)) {
 			require_once($path);					
 		}		
@@ -111,10 +112,13 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 			$this->finalizar_contexto_ejecucion();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
-		}
+		}		
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
@@ -158,6 +162,9 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 			$this->finalizar_contexto_ejecucion();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
@@ -178,6 +185,10 @@ class toba_nucleo
 			$app = $this->solicitud->get_app();
 			$this->solicitud->registrar();
 			$this->finalizar_contexto_rest();
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+			toba::logger()->guardar();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
@@ -202,7 +213,10 @@ class toba_nucleo
 		} catch (toba_error $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e;
-		}
+		} catch (Error $e) {
+			toba::logger()->crit($e, 'toba');
+			echo $e->getMessage() . "\n\n";
+		} 
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');

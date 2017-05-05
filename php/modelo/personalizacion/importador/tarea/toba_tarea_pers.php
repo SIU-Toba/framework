@@ -1,4 +1,9 @@
 <?php
+/**
+ * Clase que representa una tarea de la importacion/exportacion de la personalizacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */	
 abstract class toba_tarea_pers {
 	/**
 	 * @var toba_importador_plan_item

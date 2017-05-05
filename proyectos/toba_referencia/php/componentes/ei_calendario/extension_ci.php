@@ -26,7 +26,7 @@ class extension_ci extends toba_ci
 			$this->s__datos = array();
 			$this->s__datos[$hoy] = array('dia' => $hoy, 'contenido' => 'Testear el sistema');
 		}
-        $calendario->set_ver_contenidos(true);
+		$calendario->set_ver_contenidos(true);
 		$calendario->set_datos($this->s__datos);
 	}
 

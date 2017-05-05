@@ -19,7 +19,7 @@ class extension_ml extends toba_ei_formulario_ml
 		foreach ($this->get_nombres_ef() as $ef) {
 			$ultimo = ($i == $this->get_cantidad_efs());			
 			if ($i % $columnas == 0) {
-				echo "<td colspan='$columnas' class='{$this->estilo_celda_actual}'>";
+				echo "<td colspan='$columnas' class='". toba::escaper()->escapeHtmlAttr($this->estilo_celda_actual)."'>";
 			}			
 			$this->generar_html_ef($ef);
 			$i++;			

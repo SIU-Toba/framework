@@ -1,4 +1,8 @@
 <?php
+/**
+ * Clase que permite recuperar parametros de la instancia o el proyecto
+ * @package Centrales
+ */
 class toba_parametros 
 {	
 	/**
@@ -33,7 +37,7 @@ class toba_parametros
 	 * @param boolean $obligatorio
 	 * @return mixed
 	 */
-	static protected function get_redefinicion_parametro($proyecto, $parametro, $obligatorio) 
+	static function get_redefinicion_parametro($proyecto, $parametro, $obligatorio) 
 	{
 		$variable_instancia = self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
 		$variable_proyecto = self::get_proyecto($proyecto)->get_parametro('proyecto', $parametro, $obligatorio);	
@@ -51,7 +55,7 @@ class toba_parametros
 	 * @param boolean $obligatorio
 	 * @return mixed
 	 */
-	static protected function get_redefinicion_parametro_runtime($proyecto, $seccion,  $parametro= null, $obligatorio=true)
+	static function get_redefinicion_parametro_runtime($proyecto, $seccion,  $parametro= null, $obligatorio=true)
 	{
 		$variable_instancia = self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
 		$variable_proyecto = toba::proyecto()->get_parametro($seccion, $parametro, $obligatorio);							//Uso el proyecto cargado actualmente, no pido ninguno en particular ya que esto sale del runtime

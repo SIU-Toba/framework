@@ -1,9 +1,9 @@
-<?php
-/**
-* @ignore
-* Publica los servicios de la clase INSTANCIA a la consola toba
-*/
+<?php	
 require_once('comando_toba.php');
+/**
+ * Publica los servicios de la clase INSTANCIA a la consola toba
+ * @package consola
+ */
 class comando_instancia extends comando_toba
 {
 	static function get_info()

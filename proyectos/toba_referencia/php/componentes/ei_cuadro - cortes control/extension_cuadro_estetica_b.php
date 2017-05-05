@@ -7,7 +7,8 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 	function html_pie_cc_contenido__zona(&$nodo)
 	{
 		//Preparo una descripcion
-		$zona = $nodo['descripcion']['zona'];
+		$escapador = toba::escaper();
+		$zona = $escapador->escapeHtml($nodo['descripcion']['zona']);
 		$locs = count($nodo['filas']);
 		$deps = count($nodo['hijos']);
 		echo "La Zona <strong>$zona</strong> tiene <strong>$deps</strong>
@@ -17,8 +18,8 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 		foreach ($nodo['filas'] as $fila) {
 			$habitantes += $this->datos[$fila]['hab_total'];
 		}
-		$promedio = $habitantes / count($nodo['filas']);
-		$resultado = number_format($promedio, 2, ',', '.');
+		$promedio = $escapador->escapeHtml($habitantes / count($nodo['filas']));
+		//$resultado = number_format($promedio, 2, ',', '.');
 		echo "El promedio de habitantes por localidad es: <strong>$promedio</strong>.";
 	}
 	

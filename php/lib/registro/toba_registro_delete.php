@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un registro a ser eliminado
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_registro_delete extends toba_registro_con_clave
 {
 	function  __construct($db, $nombre_tabla)

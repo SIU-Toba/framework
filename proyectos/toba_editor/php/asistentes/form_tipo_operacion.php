@@ -8,8 +8,8 @@ class form_tipo_operacion extends toba_ei_formulario
 
 	function extender_objeto_js()
 	{
-		echo "
-		{$this->objeto_js}.evt__tipo__procesar = function(es_inicial)
+		echo toba::escaper()->escapeJs($this->objeto_js) 
+		. ".evt__tipo__procesar = function(es_inicial)
 		{
 			var valor = this.ef('tipo').get_estado();
 			var descripcion = '';

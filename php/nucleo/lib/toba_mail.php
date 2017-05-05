@@ -70,8 +70,6 @@ class toba_mail implements toba_tarea
 	 */
 	function enviar()
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
-		
 		//Se obtiene la configuración del SMTP
 		$this->datos_configuracion = $this->get_datos_configuracion_smtp();
 		if (! isset($this->desde)) {
@@ -82,7 +80,7 @@ class toba_mail implements toba_tarea
 	   	$mail = new PHPMailer();
 	   	$mail->IsSMTP();
 	   	if ($this->debug) {
-	   		$mail->SMTPDebug = true;
+	   		$mail->SMTPDebug = 2;
 	   	}
 		$mail->Timeout  = $this->timeout;
 		$host = trim($this->datos_configuracion['host']);
@@ -92,11 +90,11 @@ class toba_mail implements toba_tarea
 					throw new toba_error('Para usar un SMTP con encriptación SSL es necesario activar la extensión "openssl" en php.ini');
 				}
 			}
-			$mail->set('SMTPSecure', $this->datos_configuracion['seguridad']);
+			$mail->SMTPSecure = $this->datos_configuracion['seguridad'];
 		}
 		
 		if (isset($this->datos_configuracion['puerto']) && trim($this->datos_configuracion['puerto']) != '') {
-			$mail->set('Port', $this->datos_configuracion['puerto']);
+			$mail->Port = $this->datos_configuracion['puerto'];
 		}
 		$mail->Host = trim($host);
 		if (isset($this->datos_configuracion['auth']) && $this->datos_configuracion['auth']) {
@@ -104,29 +102,30 @@ class toba_mail implements toba_tarea
 			$mail->Username = trim($this->datos_configuracion['usuario']);
 			$mail->Password = trim($this->datos_configuracion['clave']);
 		}		
-		$mail->From     = $this->desde;
+		
 		if (isset($this->datos_configuracion['nombre_from']) && trim($this->datos_configuracion['nombre_from']) != '') {
 			$this->desde_nombre = $this->datos_configuracion['nombre_from'];
 		}		
 		if (isset($this->desde_nombre)){
-			$mail->FromName = $this->desde_nombre;
+			$mail->setFrom($this->desde, $this->desde_nombre);
 		} else {
-			$mail->FromName = $this->desde;			
+			$mail->setFrom($this->desde, $this->desde);
 		}
 		$mail->AddAddress($this->hacia);
-		foreach($this->cc as $copia){
+		//Agrego copias
+		foreach($this->cc as $copia) {
 			$mail->AddCC($copia);
 		}
-		
-		foreach($this->bcc as $copia){
+		//Agrego copias ocultas
+		foreach($this->bcc as $copia) {
 			$mail->AddBCC($copia);
 		}
-		
-		if (isset($this->reply_to)){
+		//Direccion de respuesta
+		if (isset($this->reply_to)) {
 			$mail->AddReplyTo($this->reply_to);
 		}
 		
-		if (isset($this->confirmacion)){
+		if (isset($this->confirmacion)) {
 			$mail->ConfirmReadingTo = $this->confirmacion;
 		}
 			

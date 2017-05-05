@@ -11,6 +11,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 
 	function __construct()
 	{
+		$sp_name = 'sp';
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/saml_onelogin.ini';
 		if (is_file( $archivo_ini_instalacion)) {
 			$parametros = parse_ini_file($archivo_ini_instalacion, true);
@@ -20,19 +21,27 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			if (isset($parametros['basicos']['permite_login_toba'])) {
 				$this->permite_login_toba = ($parametros['basicos']['permite_login_toba'] == 1);
 			}			
-			if (isset($parametros['sp']['auth_source'])) {
-				$this->auth_source = $parametros['sp']['auth_source'];
+			if (! isset($parametros[$sp_name])) {
+				$buscado = 'sp:' . toba::proyecto()->get_id();
+				foreach (array_keys($parametros) as $cada_clave) {
+					if ($cada_clave == $buscado) {
+						$sp_name = $cada_clave;
+					}
+				}
+			}			
+			if (isset($parametros[$sp_name]['auth_source'])) {
+				$this->auth_source = $parametros[$sp_name]['auth_source'];
 			}
-			if (!isset($parametros['sp']['proyecto_login'])) {
+			if (!isset($parametros[$sp_name]['proyecto_login'])) {
 				throw new toba_error("Debe definir proyecto_login en ".$archivo_ini_instalacion);
 			}
-			$this->proyecto_login = trim($parametros['sp']['proyecto_login']);
+			$this->proyecto_login = trim($parametros[$sp_name]['proyecto_login']);
 
 			//Creo configuracion del SP
 			$this->settingsInfo= array ('sp' => $this->get_sp_config());			
 			//Agrego configuracion del IdP
-			if (isset($parametros['sp']['idp'])) {
-				$this->idp = $parametros['sp']['idp'];
+			if (isset($parametros[$sp_name]['idp'])) {
+				$this->idp = $parametros[$sp_name]['idp'];
 			}			
 			$idp_name = 'idp:' . $this->idp;
 			if (isset($parametros[$idp_name]) && !empty($parametros[$idp_name])) {												
@@ -126,6 +135,11 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	protected function instanciar_pedido_onelogin()
 	{
+		if (self::$modo_debug) {
+			toba_logger::instancia()->var_dump($this->settingsInfo);
+			toba_logger::instancia()->var_dump($this->proyecto_login);
+			toba_logger::instancia()->var_dump($this->atributo_usuario);
+		}
 		$auth = new OneLogin_Saml2_Auth($this->settingsInfo);
 		return $auth;
 	}
@@ -151,7 +165,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		$entityID = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
 		$entityID .= toba::instancia()->get_url_proyecto($this->proyecto_login);
 
-		$info =  array (	'entityId' => $entityID.'/default-sp',
+		$info =  array (	'entityId' => $entityID.'/' . $this->auth_source,
 					'assertionConsumerService' => array ( 'url' => $entityID.'?acs'),
 					'singleLogoutService' => array ('url' => $entityID.'?sls'	),
 					'NameIDFormat' =>$this->atributo_usuario
@@ -184,6 +198,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		if (!empty($errors)) {
 			toba::logger()->error('Errores en el proceso de onelogin: ');
 			toba::logger()->error($errors);
+			toba::logger()->error($auth->getLastErrorReason());
 			throw new toba_error_seguridad('Se produjo un error durante el procedimiento de login, contacte un administrador');
 		}
 	}

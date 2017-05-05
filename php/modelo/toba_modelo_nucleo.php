@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Clase que representa las opciones del nucleo
+ * @package Centrales
+ * @subpackage Modelo
+ * @ignore
+ */
 class toba_modelo_nucleo extends toba_modelo_elemento
 {
 	// Directorios de trabajo
@@ -516,7 +521,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	
 	function comprimir_js()
 	{
-		$archivos = $this->get_archivos_js_propios();
+		/*$archivos = $this->get_archivos_js_propios();
 		$total = 0;
 		require_once(toba_dir() . '/php/3ros/jscomp/JavaScriptCompressor.class.php');
 		require_once(toba_dir() . '/php/3ros/jscomp/BaseConvert.class.php');
@@ -545,7 +550,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("Antes: $total bytes");
 		$this->manejador_interface->mensaje("Despues: ".$nuevo_total." bytes");
 		$this->manejador_interface->mensaje("Radio: ".number_format($nuevo_total/$total, 2));
-		toba_modelo_instalacion::cambiar_info_basica(array('js_comprimido' => 1));
+		toba_modelo_instalacion::cambiar_info_basica(array('js_comprimido' => 1));*/
 	}
 	
 	function validar_js($patron_incl=null, $patron_excl=null)

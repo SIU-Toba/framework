@@ -42,6 +42,10 @@ define('CONSOLE_TABLE_ALIGN_LEFT', -1);
 define('CONSOLE_TABLE_ALIGN_CENTER', 0);
 define('CONSOLE_TABLE_ALIGN_RIGHT', 1);
 
+/**
+ * Lo que dice arriba
+ * @ignore
+ */
 class Console_Table
 {
     /**

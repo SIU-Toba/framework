@@ -141,10 +141,8 @@ class ci_gen_certificado extends toba_ci
 	{
 		if ($this->existe_archivo) {			
 			$msg = 'Confirme que desea reemplazar la clave privada / certificado publico actual. Todos los clientes/servidores que consuman este certificado dejarán de funcionar';
-			echo "
-			//---- Eventos ---------------------------------------------
-
-			{$this->objeto_js}.evt__generar = function()
+			echo toba::escaper()->escapeJs($this->objeto_js) .
+			".evt__generar = function()
 			{
 				var valor = this.dep('form').ef('reemplazar_existente').chequeado();
 				if (! valor && confirm('$msg')) {

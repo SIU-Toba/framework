@@ -1,5 +1,9 @@
 <?php
-	
+/**
+ * Clase que representa WS SOAP y su configuracion
+ * @package Centrales
+ * @subpackage Modelo
+ */	
 class toba_modelo_soap extends toba_modelo_elemento
 {
 	const ARCHIVO_CLIENTE = '/cliente.ini';

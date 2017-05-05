@@ -1,7 +1,7 @@
 SET search_path = testing, public, pg_catalog;
 -----------  apex_proyecto  ------------------------
 
-INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, frames_clase, frames_archivo, menu, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std) VALUES ('toba_testing','Proyecto destinado a contener elementos disponibles a los casos de test automáticos.','Toba - Testing','toba',NULL,NULL,'milonic',NULL,NULL,NULL,'1',NULL,NULL);
+INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, frames_clase, frames_archivo, menu, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std) VALUES ('toba_testing','Proyecto destinado a contener elementos disponibles a los casos de test automáticos.','Toba - Testing','toba',NULL,NULL,'css',NULL,NULL,NULL,'1',NULL,NULL);
 
 -----------  apex_fuente_datos  ------------------------
 

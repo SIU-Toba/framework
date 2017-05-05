@@ -1,5 +1,9 @@
 <?php
 require_once('comando_toba.php');
+/**
+ * Publica los servicios de la clase test a la consola toba
+ * @package consola
+ */
 
 class comando_test extends comando_toba
 {
@@ -31,10 +35,7 @@ class comando_test extends comando_toba
 	{
 		$path_autoload_sel = '/php/testing/selenium/test_selenium_autoload.php';
 		
-		require_once('modelo/lib/testing_unitario/toba_test_lista_casos.php');
-		require_once( toba_dir() . '/php/3ros/simpletest/unit_tester.php');
-		require_once( toba_dir() . '/php/3ros/simpletest/reporter.php');
-		
+		require_once('modelo/lib/testing_unitario/toba_test_lista_casos.php');		
 		$param = $this->get_parametros();
 		
 		$proyecto = isset($param['-p']) ? $param['-p'] : $this->get_id_proyecto_actual(true);
@@ -91,7 +92,7 @@ class comando_test extends comando_toba
 			$test = new toba_test_grupo_casos('Casos de TEST', $separar_casos, $separar_pruebas);
 			foreach ($seleccionados as $caso) {
 				require_once($caso['archivo']);
-				$test->addTestCase(new $caso['id']($caso['nombre']));
+				$test->add(new $caso['id']($caso['nombre']));
 			}
 			
 			//Termina la ejecución con 0 o 1 para que pueda comunicarse con al consola

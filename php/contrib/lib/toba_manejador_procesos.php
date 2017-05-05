@@ -1,8 +1,9 @@
 <?php
 /**
-* Manipulacion de procesos Windows/Linux
-* @package Varios
-*/
+ * Manipulacion de procesos Windows/Linux
+ * 
+ * @package Varios
+ */	
 class toba_manejador_procesos
 {
 	/**

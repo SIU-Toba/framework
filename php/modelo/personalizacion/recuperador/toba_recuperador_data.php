@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase padre de los recuperadores de datos
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_recuperador_data
 {
     protected $data;

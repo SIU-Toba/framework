@@ -3,6 +3,7 @@
  * @ignore 
  * 	Levanta el contenido de las tablas a la memoria y crea indices
  * 	para porder solicitar subconjuntos de datos
+ * @package Componentes
  */
 class toba_cache_db
 {

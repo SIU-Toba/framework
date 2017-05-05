@@ -195,10 +195,11 @@ class pant_armado extends toba_ei_pantalla
 		//Genero el codigo que dispara los drops y crea la parte visual
 		$datos = $this->controlador()->buscar_datos_persistidos();
 		$aux_arbol = $this->controlador()->get_arreglo_js();
+		$escapador = toba::escaper();
 		foreach ($datos as $fila) {
-			echo  "simular_drop_item('". $fila['item'] . "');\n";				
+			echo  "simular_drop_item('". $escapador->escapeJs($fila['item']) . "');\n";				
 			if ($fila['carpeta'] != 1 && isset($aux_arbol[$fila['padre']])) {
-				echo "simular_drop_carpeta('". $fila['item'] . "', '". $fila['padre'] . "');\n";
+				echo "simular_drop_carpeta('". $escapador->escapeJs($fila['item']) . "', '". $escapador->escapeJs($fila['padre']) . "');\n";
 			}
 		}			
 	}

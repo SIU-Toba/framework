@@ -5,11 +5,10 @@
  * Esta clase no tiene importancia para el consumo del framework, ya que es una estructura interna utilizada para relacionar datos_tabla
  *  - Las relaciones se arman macheando posicionalmente columnas
  *  - El comportamiento de esta clase varia segun la cantidad de registros  que maneja el padre... con N registros se suma el problema de recuperacion y seteo discrecional de HIJOS
+ * TODO actualizacion dinamica del MAPEO de filas
+ * TODO cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
  * @access private
- * @package Componentes
- * @subpackage Persistencia
- * @todo actualizacion dinamica del MAPEO de filas
- * @todo cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
+ * @package Componentes\Persistencia
  */
 class toba_relacion_entre_tablas
 {

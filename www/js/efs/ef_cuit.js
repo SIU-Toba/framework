@@ -4,7 +4,7 @@ ef_cuit.prototype.constructor = ef_cuit;
 	/**
 	 * @class Triple editbox que constituyen las 3 partes del CUIT/CUIL
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_cuit toba_ef_cuit
+	 * @phpdoc classes/toba_ef_cuit.html toba_ef_cuit
 	 */
 	function ef_cuit(id_form, etiqueta, obligatorio, colapsado, desactivar_validacion) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);

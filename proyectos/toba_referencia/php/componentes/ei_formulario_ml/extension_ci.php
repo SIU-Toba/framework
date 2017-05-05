@@ -29,8 +29,8 @@ class extension_ci extends toba_ci
 	
 	function evt__ml__describir($id_fila)
 	{
-		$this->informar_msg("Datos de la fila $id_fila: <pre>".print_r($this->s__datos[$id_fila], true).'</pre>', 'info');
-		$this->dependencia('ml')->deseleccionar();		
+		$this->informar_msg("Datos de la fila $id_fila: ". str_replace("\n", '',print_r($this->s__datos[$id_fila], true))."\n", 'info');
+		$this->dependencia('ml')->deseleccionar();
 	}
 
 	//------------------------------------------------------------------------

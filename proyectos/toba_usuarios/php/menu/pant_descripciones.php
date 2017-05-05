@@ -22,12 +22,14 @@ class pant_descripciones extends toba_ei_pantalla
 	
 	function extender_objeto_js()
 	{
-		$id = $this->objeto_js;
+		$escapador = toba::escaper();
+		$id = $escapador->escapeJs($this->objeto_js);
 		$token = apex_sesion_csrt;
 		echo "
 			$(function () {
 				$('#desc_tree').tree({
-								url:'{$this->url}',
+								url:'". $escapador->escapeJs($this->url)."',
+								method:'get',
 								dnd:false,
 								onClick: function (node) {
 									 $(this).tree('beginEdit',node.target);

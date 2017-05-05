@@ -29,8 +29,8 @@ class ci_seleccionar_carpeta extends toba_ci
 	
 	function extender_objeto_js()
 	{
-		echo "
-			{$this->objeto_js}.evt__seleccionar = function() {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__seleccionar = function() {
 				var listado = this.dep('listado');
 				var path = listado._path_relativo;
 				seleccionar(path, path);	//Comunicacion con la ventana padre

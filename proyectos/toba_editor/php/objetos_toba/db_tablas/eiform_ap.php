@@ -11,8 +11,9 @@ class eiform_ap extends toba_ei_formulario
 		
 	function extender_objeto_js() 
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-		{$this->objeto_js}.evt__ap_archivo__procesar = function(inicial) {
+		{$id_js}.evt__ap_archivo__procesar = function(inicial) {
 			if (!inicial && this.ef('ap_clase').valor() == '') {
 				var archivo = this.ef('ap_archivo').valor();
 				var basename = archivo.replace( /.*\//, '' );
@@ -21,7 +22,7 @@ class eiform_ap extends toba_ei_formulario
 			}
 		}
 
-		{$this->objeto_js}.evt__ap__procesar = function () {
+		{$id_js}.evt__ap__procesar = function () {
 			var flag;
 			flag = this.ef('ap').valor();
 			if( flag == 3 ){
@@ -41,25 +42,25 @@ class eiform_ap extends toba_ei_formulario
 			}
 		}
 
-		{$this->objeto_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
+		{$id_js}.modificar_vinculo__ef_ap_archivo = function(id_vinculo)
         {
 			var estado = this.ef('punto_montaje').get_estado();
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}
 		
-		{$this->objeto_js}.modificar_vinculo__extender_ap = function(id_vinculo)
+		{$id_js}.modificar_vinculo__extender_ap = function(id_vinculo)
 		{
 			var estado = this.ef('punto_montaje').get_estado();
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}		
 
-		{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+		{$id_js}.evt__punto_montaje__procesar = function(inicial) {
 			  if (!inicial) {
 				  this.ef('ap_archivo').cambiar_valor('');
 				  this.ef('ap_clase').cambiar_valor('');
 			  }
 		  }
-		{$this->objeto_js}.evt__abrir_php = function () {
+		{$id_js}.evt__abrir_php = function () {
 			$this->js_abrir;
 			return false;
 		}

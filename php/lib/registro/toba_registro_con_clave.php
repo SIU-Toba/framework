@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un registro puntual
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 abstract class toba_registro_con_clave extends toba_registro
 {
     protected $clave;

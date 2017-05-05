@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un registro a ser insertado
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 class toba_registro_insert extends toba_registro
 {
 	function  __construct($db, $nombre_tabla)

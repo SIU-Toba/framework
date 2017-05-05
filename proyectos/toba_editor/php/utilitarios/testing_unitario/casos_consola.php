@@ -1,7 +1,7 @@
 <?php
 require_once('lista_casos.php');
 include_once('nucleo/consola/emular_web.php');
-require_once(toba_dir() . '/php/3ros/simpletest/reporter.php');
+//require_once(toba_dir() . '/php/3ros/simpletest/reporter.php');
 
 $this->registrar_parametros();
 
@@ -33,7 +33,7 @@ if (isset($this->parametros['-t'])) {
 } 
 
 try {
-	$test = new GroupTest('Casos de TEST');
+	$test = new TestSuite('Casos de TEST');
 	foreach ($seleccionados as $caso) {
 		require_once($caso['archivo']);
 		$test->addTestCase(new $caso['id']($caso['nombre']));

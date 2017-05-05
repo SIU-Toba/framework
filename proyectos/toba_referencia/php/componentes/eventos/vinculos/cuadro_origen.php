@@ -26,7 +26,7 @@ class cuadro_origen extends toba_ei_cuadro
 	*/
 	function extender_objeto_js()
 	{
-		echo "{$this->objeto_js}.modificar_vinculo__en_botonera = function(id_vinculo){
+		echo toba::escaper()->escapeJs($this->objeto_js).".modificar_vinculo__en_botonera = function(id_vinculo){
 				var parametros = { nota2: 'Esto se agrego en JAVASCRIPT', mes: 'octubre', estacion: 'primavera'};
 				vinculador.agregar_parametros(id_vinculo, parametros);
 		}";

@@ -40,14 +40,27 @@ class toba_vista_jasperreports
 		$this->objetos = $objetos;
 	}
 
+	protected function definir_path_vendor()
+	{
+		$path = toba_dir() . '/vendor/';
+		$dir = dirname(__FILE__);		//Me fijo donde estoy
+		$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
+		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
+			$path = substr($dir, 0, $pos);
+		}
+		return $path  . 'siu/jasper';
+	}
+	
 	protected function cargar_jasper()
 	{
 		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
+		$path = $this->definir_path_vendor();
+				
 		//Incluimos la libreria JavaBridge
-		require_once("3ros/JavaBridge/java/Java.inc");
+		require_once($path. '/JavaBridge/java/Java.inc');
 		
 		//Creamos una variable que va a contener todas las librerías java presentes
-		$path_libs = toba_dir().'/php/3ros/JasperReports';
+		$path_libs =  $path .'/JasperReports';
 		$classpath = '';
 		try {
 			$archivos = toba_manejador_archivos::get_archivos_directorio($path_libs, '|.*\.jar$|' , true);
@@ -77,12 +90,13 @@ class toba_vista_jasperreports
 	/**
 	 * Permite agregar parametros a pasar al reporte
 	 * @param string $nombre nombre del parametro
-	 * @param string $tipo 'D' = fecha, 'E' = entero, 'S' = string/char/varchar, 'F' = decimal/punto flotante, 'B': booleano
+	 * @param string $tipo 'D' = fecha, 'E' = entero, 'S' = string/char/varchar, 'F' = decimal/punto flotante, 'B': booleano, 'L': Locale 
 	 * @param string $valor valor del parametro
 	 */
 	function set_parametro($nombre='', $tipo='E', $valor=0)
 	{
-		if (!(($tipo=='D') || ($tipo=='E') || ($tipo=='S') || ($tipo=='F') || ($tipo=='B'))) {
+		$tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');		
+		if (! in_array($tipo, $tipos_parametros)) {
 			throw new toba_error("Tipo incorrecto de parametro");
 		}
 
@@ -103,6 +117,10 @@ class toba_vista_jasperreports
 			case 'B':
 				$tipo = "java.lang.Boolean";				
 				break;
+			 case 'L':
+				$tipo = "java.util.Locale";
+				$valor = utf8_e_seguro($valor);    
+				break;			
 			default:
 				$tipo = "java.lang.String";
 				$valor = utf8_e_seguro($valor);	

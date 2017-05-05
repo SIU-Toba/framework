@@ -2,7 +2,8 @@
 /**
  * De esta clase tienen que heredar todos aquellos que pretendan ejecutar un test
  * de personalización.
- * @ignore
+ * @package Centrales
+ * @subpackage Personalizacion
  */
 abstract class toba_pers_caso_test
 {

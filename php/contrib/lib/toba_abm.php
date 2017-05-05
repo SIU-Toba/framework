@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Clase que implementa interacciones basicas con la db para un CRUD
+ * @package Varios
+ */
 class toba_abm
 {
 	static protected function get_valor_sql($valor) 

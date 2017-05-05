@@ -1,9 +1,8 @@
 <?php
 /**
- * 	Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
- * 	@package Componentes
- *  @subpackage Persistencia
- */
+ * Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
+ * @package Componentes\Persistencia
+ */	
 class toba_ap_relacion_db implements toba_ap_relacion
 {
 	protected $_objeto_relacion; 				//toba_datos_relacion que persiste

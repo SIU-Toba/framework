@@ -484,8 +484,8 @@ class toba_autoload
 		'toba_solicitud_servicio_rest' => 'nucleo/toba_solicitud_servicio_rest.php',
 		'toba_solicitud_web' => 'nucleo/toba_solicitud_web.php',
 		'toba_autoload' => 'toba_autoload.php',
-		'Numbers_Words_es_Ar' => '3ros/Numbers_Words/Words/lang.es_AR.php',
 		'phpCAS' => '3ros/phpCAS/CAS/CAS.php',
+		'PHP_Highlight' => '3ros/PHP_Highlight.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
 		'toba_cliente_rdi' => 'nucleo/lib/toba_cliente_rdi.php',
 		'toba_logger_rdi' => 'nucleo/lib/toba_logger_rdi.php',
@@ -493,7 +493,8 @@ class toba_autoload
 		'toba_usuarios_rest_bd' => 'nucleo/lib/rest/toba_usuarios_rest_bd.php',
 		'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_usuarios_rest_conf.php',
 		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php',
-		'toba_usuarios_rest_promiscuo' => 'nucleo/lib/rest/toba_usuarios_rest_promiscuo.php'
+		'toba_usuarios_rest_jwt' => 'nucleo/lib/rest/toba_usuarios_rest_jwt.php',
+		'toba_escapador' => 'nucleo/lib/toba_escapador.php'
 	);
 }
 ?>

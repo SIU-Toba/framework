@@ -534,8 +534,8 @@ class ci_efs extends toba_ci
 	
 	function extender_objeto_js()
 	{
-		echo "
-			{$this->objeto_js}.evt__efs_lista__mostrar_esquema = function() {
+		echo toba::escaper()->escapeJs($this->objeto_js)
+			.".evt__efs_lista__mostrar_esquema = function() {
 				this.ajax_html('esquema_cascadas', null, this.nodo_pie());
 				return false;	
 			}

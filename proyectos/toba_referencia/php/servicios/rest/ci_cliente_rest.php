@@ -45,13 +45,14 @@ class ci_cliente_rest extends toba_ci
 
 	function conf__form_debug_rest(toba_ei_formulario $form)
 	{
+		$escapador = toba::escaper();
 		$datos = array(
-			//'url' => "<a style='font-size: 16px' href='" . $this->dump_url . "'>" . urldecode($this->dump_url) . "</a>",
-	//            'pedido' => "<pre>" . $this->dump_pedido . "</pre>",
-			'respuesta' => "<pre>" . $this->dump_respuesta . "</pre>"
+			'url' => "<a style='font-size: 16px' href='" . $escapador->escapeHtmlAttr($this->dump_url) . "'>" . $escapador->escapeHtml(urldecode($this->dump_url)) . "</a>",
+		         //'pedido' => "<pre>" . $this->dump_pedido . "</pre>",
+			'respuesta' => "<pre>" . $escapador->escapeHtml($this->dump_respuesta) . "</pre>"
 		);
 		if (isset($this->imagen_persona)) { //muestro solo la imagen porque el texto es muy largo
-			$img = "<br/><img width='400px' src='data:image/png;base64,{$this->imagen_persona}'<br/>";
+			$img = "<br/><img width='400px' src='data:image/png;base64,". $escapador->escapeHtmlAttr($this->imagen_persona)."'<br/>";
 			$datos['respuesta'] = $img;
 		}
 		$form->set_datos($datos);
@@ -67,7 +68,7 @@ class ci_cliente_rest extends toba_ci
 	function evt__version()
 	{
 		$url = toba_http::get_protocolo(true, true) . toba_http::get_nombre_servidor() . toba_rest::url_rest(). '/';
-		$opciones = array('to' => $url,);
+		$opciones = array('to' => $url);
 		$cliente = toba::servicio_web_rest('rest_localhost', $opciones);
 		$resp = $cliente->guzzle()->get('personas');
 		if (!$resp->hasHeader('API-Version')) {
@@ -75,7 +76,7 @@ class ci_cliente_rest extends toba_ci
 			return;
 		}
 		$version = $cliente->get_version_api($resp);		
-		toba::notificacion()->agregar('Version de la API rest: '. $version->__toString(), 'info');
+		toba::notificacion()->agregar('Version de la API rest: '. toba::escaper()->escapeHtml($version->__toString()), 'info');
 	}
 	
 	//-----------------------------------------------------------------------------

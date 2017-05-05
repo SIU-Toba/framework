@@ -18,7 +18,7 @@ function evento_ei(id, validar, confirmar, parametros, es_implicito) {
 /**
  * @class Clase base de los componentes toba en javascript
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei toba_ei 
+ * @phpdoc classes/toba_ei.html toba_ei 
  */
 function ei(instancia, input_submit) {
 	this._instancia = instancia;
@@ -380,8 +380,7 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				
-				var datos = eval('(' + respuesta.responseText + ')');
+				var datos = JSON.parse(respuesta.responseText);
 				if ('Array' == getObjectClass(datos)) {
 					this.ef(respuesta.argument).set_opciones_rs(datos);
 				} else {
@@ -438,7 +437,7 @@ ei.prototype.constructor = ei;
 			notificacion.mostrar();
 		} else {
 			try {
-				var datos = eval('(' + respuesta.responseText + ')');
+				var datos = JSON.parse(respuesta.responseText);
 				if ('Array' == getObjectClass(datos)) {
 					this.ef(respuesta.argument).set_opciones_rs(datos, false);					
 				} else {

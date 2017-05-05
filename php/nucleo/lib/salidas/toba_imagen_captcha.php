@@ -1,19 +1,13 @@
 <?php
-require_once(toba_dir() . '/php/3ros/securimage/securimage.php');
+
 
 class toba_imagen_captcha extends Securimage
 {
 	
-	function __construct($texto=null)
+	function __construct($options=array())
 	{
-		parent::__construct();		
+		parent::__construct($options);		
 		$this->inicializar();
-		
-		if (!isset($texto)) {
-			$this->code = false;	
-		} else {
-			$this->code = $texto;
-		}
 	}
 	
 	function inicializar()
@@ -77,29 +71,26 @@ class toba_imagen_captcha extends Securimage
 		$this->image_width   = 175;
 		$this->image_height  = 45;
 		$this->line_color =  new Securimage_Color(0x80, 0x80, 0xff);
-		$this->set_path_fuentes();		
+		$this->text_color = new Securimage_Color(0, 0, 0);
 	}
 	
 	/**
-	 * Coloca el path de las fuentes apuntando al directorio correcto
-	 * @ignore
+	 * Le indica a la libreria el codigo que debe mostrar, la validacion se debe realizar manualmente
+	 * @param string $codigo
 	 */
-	function set_path_fuentes()
-	{
-		$this->gd_font_file = toba_dir() . '/php/3ros/securimage/gdfonts/bubblebath.gdf';
-		$this->ttf_file = toba_dir() . '/php/3ros/securimage/elephant.ttf';
-	}
-	
 	function set_codigo($codigo)
 	{
-		$this->code = $codigo;
+		$this->display_value = $codigo;
 	}
 	
 	//-- Gets
-	
-	function getCode()
+	/**
+	 * Devuelve el codigo cargado manualmente (si existe)
+	 * @return string
+	 */
+	function get_codigo()
 	{
-		//-- No se utiliza.
+		return parent::getCode(false, true);
 	}
 	
 	/**
@@ -118,19 +109,6 @@ class toba_imagen_captcha extends Securimage
 		unset($vars['correct_code']);
 		
 		return $vars;
-	}
-	
-	function createCode()
-	{
-		if ($this->use_wordlist && is_readable($this->wordlist_file)) {
-		  $this->code = $this->readCodeFromFile();
-		}
-		
-		if ($this->code == false) {
-		  $this->code = $this->generateCode($this->code_length);
-		}
-	}
-	
+	}	
 }
-
 ?>

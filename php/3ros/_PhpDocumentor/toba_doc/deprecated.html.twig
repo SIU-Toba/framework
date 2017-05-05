@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="info-box">
+        <div class="info-box-title"> Deprecated </div>
+        <div class="info-box-body">
+            <div id="marker-accordion">
+                <table cellpadding="2" cellspacing="0" class="class-table">
+                    <tr>
+                        <th>Archivo</th>
+                        <th>Nombre</th>
+                        <th>Linea</th>
+                        <th>Descripcion</th>
+                    </tr>
+                {% for element in project.indexes.elements if element.deprecated %}                    
+                            {% for tag in element.tags.deprecated %}
+                                <tr>
+                                    <td width="25%">{{ element.file.name }}</td>
+                                    <td width="20%">{{ element.name }}</td>
+                                    <td width="10%" align="center">{{ element.line }}</td>
+                                    <td nowrap>{{ element.summary }}</td>
+                                </tr>
+                            {% endfor %}
+                {% else %}
+                    <div >No deprecated elements have been found in this project.</div>
+                {% endfor %}
+                </table>               
+            </div>
+        </div>
+    </div>
+{% endblock %}

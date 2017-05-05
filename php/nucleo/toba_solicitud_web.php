@@ -4,9 +4,9 @@
  * La etapa de request se la denomina de 'eventos' 
  * La etapa de response se la denomina de 'servicios'
  * 
- * @package Centrales
+ * TODO Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  * 
- * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
+ * @package Centrales
  */
 class toba_solicitud_web extends toba_solicitud
 {
@@ -258,7 +258,7 @@ class toba_solicitud_web extends toba_solicitud
 				toba_js::cargar_definiciones_runtime();
 				foreach ($objetos as $obj) {
 					$objeto_js = $obj->generar_js();
-					echo "\n$objeto_js.iniciar();\n";
+					echo "\n". toba::escaper()->escapeJs($objeto_js).".iniciar();\n";
 				}
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
@@ -426,7 +426,7 @@ class toba_solicitud_web extends toba_solicitud
 				foreach ($objetos as $objeto) {
 					//$objeto->servicio__html_parcial();
 					$objeto_js = $objeto->generar_js();
-					echo "\nwindow.$objeto_js.iniciar();\n";
+					echo "\nwindow." . toba::escaper()->escapeJs($objeto_js).".iniciar();\n";
 				}
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
@@ -544,15 +544,16 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
 		if (isset($cod_ga) && trim($cod_ga) != '') {		//No llamo a la funcion xq ya tengo el valor aca
+			$escapador = toba::escaper();
 			if (! $this->es_item_login()) {
-				echo "estadista.set_codigo('$cod_ga'); \n";		
+				echo "estadista.set_codigo('". $escapador->escapeJs($cod_ga)."'); \n";		
 				echo "estadista.iniciar(); \n";
-				echo "estadista.add_operacion('{$this->item[1]}'); \n";
-				echo "estadista.add_titulo('". $this->get_datos_item('item_nombre')."'); \n";
+				echo "estadista.add_operacion('". $escapador->escapeJs($this->item[1])."'); \n";
+				echo "estadista.add_titulo('". $escapador->escapeJs( $this->get_datos_item('item_nombre'))."'); \n";
 				$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
 				if ($ventana != 0) {
 					$ventana *= 60; //$ventana esta en minutos y necesito segundos
-					echo "estadistica.set_timeout('$ventana'); \n";
+					echo "estadistica.set_timeout('". $escapador->escapeJs($ventana)."'); \n";
 				}
 				echo "estadista.trace()";
 			} else { //Es item de login
@@ -563,7 +564,7 @@ class toba_solicitud_web extends toba_solicitud
 				."</script>"
 				."<script type=\"text/javascript\">"
 				."try {"
-				."var pageTracker = _gat._getTracker(\"$cod_ga\");"
+				."var pageTracker = _gat._getTracker(\"". $escapador->escapeJs($cod_ga)."\");"
 				."pageTracker._trackPageview();"
 				."} catch(err) {}</script><script type=\"text/javascript\">";
 			}

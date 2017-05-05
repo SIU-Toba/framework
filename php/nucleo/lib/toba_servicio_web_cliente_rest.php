@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Clase que representa un cliente de WS REST
+ * @package Centrales
+ */
 class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 {
 	const HEADER_VERSION = 'API-Version';

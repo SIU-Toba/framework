@@ -163,9 +163,9 @@ class toba_analizador_logger_fs
 		if (isset($filtro['proyecto'])){
 			unset($filtro['proyecto' ]);
 		}
-		foreach($filtro as $klave => $valor)
-		{
-			if (is_null($valor)){
+		$keys_f = array_keys($filtro);
+		foreach($keys_f as $klave) {
+			if (is_null($filtro[$klave])){
 				unset($filtro[$klave]);
 			}
 		}

@@ -5,7 +5,7 @@ ef_popup.prototype.constructor = ef_popup;
 	/**
 	 * @class Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_popup toba_ef_popup
+	 * @phpdoc classes/toba_ef_popup.html toba_ef_popup
 	 */
 	function ef_popup(id_form, etiqueta, obligatorio, colapsado, vinculo, param_ventana) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -149,7 +149,7 @@ ef_popup.prototype.constructor = ef_popup;
 		if ((!isset(disparar_eventos) || disparar_eventos) && input.onchange) {
 			input.onchange();
 		}
-		this.input_desc().value = desc;
+		this.input_desc().value = (typeof  desc == 'string') ? desc.decodeEntities(): desc;
 		input.disabled = false;
 		try {
 			input.focus();

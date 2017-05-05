@@ -1,8 +1,4 @@
 <?php
-require_once(toba_dir() . '/php/3ros/simpletest/unit_tester.php');
-require_once(toba_dir() . '/php/3ros/simpletest/mock_objects.php');
-//require_once('testing/mocks/hilo_version_test.php');
-
 class toba_test extends UnitTestCase
 {
 	protected $separar_pruebas=false;
@@ -43,19 +39,19 @@ class toba_test extends UnitTestCase
 		return $runner;
 	}
 	
-	function run(&$reporter)
-    {
+	function run($reporter)
+	{
 		$this->pre_run();
 		parent::run($reporter);
 		$this->post_run();
-    }
+	}
        
-    function pre_run()
-    {
-    	toba_constructor::set_refresco_forzado(true);
-    }
+	function pre_run()
+	{
+		toba_constructor::set_refresco_forzado(true);
+	}
     
-    function post_run(){}
+	function post_run(){}
     
 	///---------- MOCK del HILO
 	function mentir_hilo()
@@ -72,14 +68,14 @@ class toba_test extends UnitTestCase
 	}
 	
 	
-    function assertEqualArray($first, $second, $message = "%s") {
-        return $this->assertExpectation(
-                new EqualArrayExpectation($first),
-                $second,
-                $message);
-    }
+	function assertEqualArray($first, $second, $message = "%s") {
+		return $this->assertExpectation(
+				new EqualArrayExpectation($first),
+				$second,
+				$message);
+	}
 	
-    function get_proyecto() {
+	function get_proyecto() {
 		return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 	}
 

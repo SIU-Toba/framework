@@ -92,10 +92,10 @@ class arbol_restricciones_funcionales extends toba_ei_arbol
 		$js_code = '';		
 		$estado = $this->recuperar_estado_nodos($nodo);		//Busco el estado de los nodos
 		if (! empty($estado['activos'])) {
-			$js_code .= $this->objeto_js .'.agregar_activos(' . toba_js::arreglo(array_fill_keys($estado['activos'], true), true) . ');';
+			$js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_activos(' . toba_js::arreglo(array_fill_keys($estado['activos'], true), true) . ');';
 		}
 		if (! empty($estado['inactivos'])) {
-			$js_code .= $this->objeto_js .'.agregar_inactivos(' . toba_js::arreglo(array_fill_keys($estado['inactivos'], true), true) . ');';
+			$js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_inactivos(' . toba_js::arreglo(array_fill_keys($estado['inactivos'], true), true) . ');';
 		}		
 		return $js_code;
 	}	
@@ -108,55 +108,58 @@ class arbol_restricciones_funcionales extends toba_ei_arbol
 		$img_solo_lectura = toba_recurso::imagen_toba('no-editable.gif', false);
 		$img_editable = toba_recurso::imagen_toba('editable.gif', false);
 		
-		echo "var {$this->objeto_js}_nodo_rf_activas = []; \n";
-		echo "var {$this->objeto_js}_nodo_rf_inactivas = [];\n";	
+		$escapador = toba::escaper();
+		$id_js = $escapador->escapeJs($this->objeto_js);
+		
+		echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')." = []; \n";
+		echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')." = [];\n";	
 		echo "			
-			{$this->objeto_js}.agregar_activos = function(nuevos)
+			{$id_js}.agregar_activos = function(nuevos)
 			{
 				for (var key in nuevos) {
-					{$this->objeto_js}_nodo_rf_activas[key] = nuevos[key];
+					". $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')."[key] = nuevos[key];
 				}				
 			}
 			
-			{$this->objeto_js}.agregar_inactivos = function(nuevos)
+			{$id_js}.agregar_inactivos = function(nuevos)
 			{
 				for (var key in nuevos) {
-					{$this->objeto_js}_nodo_rf_inactivas[key] = nuevos[key];
+					". $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')."[key] = nuevos[key];
 				}				
 			}
 
-			{$this->objeto_js}.cambiar_oculto = function(id_nodo)
+			{$id_js}.cambiar_oculto = function(id_nodo)
 			{
-				var activos = {$this->objeto_js}_nodo_rf_activas;
-				var inactivos = {$this->objeto_js}_nodo_rf_inactivas;
-				var id_input = '{$this->_submit}_' + id_nodo + '_oculto_img';
+				var activos = ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas').";
+				var inactivos = ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas').";
+				var id_input = '". $escapador->escapeJs($this->_submit.'_')."' + id_nodo + '_oculto_img';
 
 				if (isset(activos[id_nodo])) {							//Esta visible, hay que ocultarlo
-					delete( {$this->objeto_js}_nodo_rf_activas[id_nodo]);
-					 {$this->objeto_js}_nodo_rf_inactivas[id_nodo] = true;								
-					$$(id_input).src = '$img_oculto';						 
+					delete( ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')."[id_nodo]);
+					 ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')."[id_nodo] = true;								
+					$$(id_input).src = '". $escapador->escapeJs($img_oculto)."';						 
 						
 				} else if (isset(inactivos[id_nodo])) {						//Esta oculto, hay que mostrarlo
-					delete( {$this->objeto_js}_nodo_rf_inactivas[id_nodo]);
-					 {$this->objeto_js}_nodo_rf_activas[id_nodo] = true;							
-					$$(id_input).src = '$img_visible';										 
+					delete(". $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')."[id_nodo]);
+					 ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')."[id_nodo] = true;							
+					$$(id_input).src = '". $escapador->escapeJs($img_visible)."';										 
 				}
 			}
 			
-			{$this->objeto_js}.cambiar_editable = function(id_input) 
+			{$id_js}.cambiar_editable = function(id_input) 
 			{
 				var valor_actual = $$(id_input).value;
 				if (valor_actual == 1) {					//Esta oculto, hay que mostrarlo					
-					$$(id_input + '_img').src = '$img_editable';
+					$$(id_input + '_img').src = '". $escapador->escapeJs($img_editable)."';
 					$$(id_input).value = 0;
 				} else {								//Esta visible, hay que ocultarlo					
-					$$(id_input + '_img').src = '$img_solo_lectura';
+					$$(id_input + '_img').src = '". $escapador->escapeJs($img_solo_lectura)."';
 					$$(id_input).value = 1;
 				}
 			}
 			
 
-			{$this->objeto_js}.submit = function()
+			{$id_js}.submit = function()
 			{			
 				var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 				if (padre_esta_en_proceso) {
@@ -174,20 +177,20 @@ class arbol_restricciones_funcionales extends toba_ei_arbol
 
 				//Agrego como lista los nodos seleccionados y deseleccionados
 				var claves = [];
-				for (var i in {$this->objeto_js}_nodo_rf_activas) {
+				for (var i in ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas').") {
 					claves.push(i);
 				}
-				document.getElementById('{$this->_submit}__nodos_visibles').value = claves.join(toba_hilo_separador_interno);
+				document.getElementById('". $escapador->escapeJs($this->_submit.'__nodos_visibles')."').value = claves.join(toba_hilo_separador_interno);
 
 				var claves = [];				
-				for (var i in {$this->objeto_js}_nodo_rf_inactivas) {
+				for (var i in ". $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas').") {
 					claves.push(i);
 				}
-				document.getElementById('{$this->_submit}__nodos_invisibles').value = claves.join(toba_hilo_separador_interno);
+				document.getElementById('". $escapador->escapeJs($this->_submit.'__nodos_invisibles')."').value = claves.join(toba_hilo_separador_interno);
 			}
 			
 
-			{$this->objeto_js}.retorno_expansion = function(resultado)
+			{$id_js}.retorno_expansion = function(resultado)
 			{
 				var partes = toba.analizar_respuesta_servicio(resultado);							//Tengo que separar el HTML del JS aca
 				if (partes === false) {

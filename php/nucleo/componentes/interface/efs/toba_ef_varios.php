@@ -354,11 +354,7 @@ class toba_ef_html extends toba_ef
 		}else{
 			$estado = "";
 		}		
-		if ($this->es_solo_lectura()) {
-			$html = "<div class='ef-html' style='width: {$this->ancho}'>$estado</div>";
-		} else {
-			$html = $this->get_editor($estado);			
-		}
+		$html = $this->get_editor($estado);	
 		return $html;
 	}
 	

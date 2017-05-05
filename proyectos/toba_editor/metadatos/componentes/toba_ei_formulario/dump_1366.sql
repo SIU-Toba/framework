@@ -408,7 +408,7 @@ Es posible ingresar más de una valor, separando las clasess con un espacio.', --
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	'/^[a-zA-Z0-9_\-]+$/', --edit_expreg
+	'/^[a-zA-Z0-9_\-\s]+$/', --edit_expreg
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable

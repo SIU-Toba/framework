@@ -1,7 +1,11 @@
 <?php
 /**
-*	@todo:	Control de que la estructura de los INIs sea correcta
-*/
+ * Clase que representa la instalacion de toba
+ * 
+ * TODO Control de que la estructura de los INIs sea correcta 
+ * @package Centrales
+ * @subpackage Modelo
+ */	
 class toba_modelo_instalacion extends toba_modelo_elemento
 {
 	static protected $conexion_externa;

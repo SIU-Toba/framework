@@ -113,8 +113,9 @@ class toba_ei_filtro extends toba_ei
 		//-- Restricción funcional columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_filtro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
-			foreach ($this->_columnas as $id => $columna) {
-				if (in_array($columna->get_id_metadato(), $no_visibles)) {
+			$keys_c = array_keys($this->_columnas);
+			foreach ($keys_c as $id) {
+				if (in_array($this->_columnas[$id]->get_id_metadato(), $no_visibles)) {
 					unset($this->_columnas[$id]);
 				}
 			}
@@ -509,7 +510,6 @@ class toba_ei_filtro extends toba_ei
 	
 	function servicio__cascadas_columnas()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');
 		if (! isset($_GET['cascadas-col']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");
 		}
@@ -592,7 +592,6 @@ class toba_ei_filtro extends toba_ei
 	 */
 	function servicio__filtrado_ef_ce()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
 		}
@@ -668,7 +667,6 @@ class toba_ei_filtro extends toba_ei
 	 */
 	function servicio__filtrado_ef_ce_validar()
 	{
-		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
 			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
 		}

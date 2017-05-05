@@ -3,7 +3,11 @@
 use SIU\AraiJsonMigrator\AraiMigratorManager;
 use SIU\AraiJsonMigrator\AraiMigrator;
 use ProgressBar\Manager;
-
+/**
+ * Clase de entrada del usuario, un método por interacción
+ * @package Centrales
+ * @subpackage Modelo
+ */
 class toba_aplicacion_comando_base implements toba_aplicacion_comando
 {
 	/**
@@ -101,7 +105,8 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 * 			'-d' => $this->get_instalacion()->get_dir() . '/usersExportFiles/',
 	 *			'-f' => 'usuarios_' . date('YmdHis'),
 	 *			'-m' => 'toba',
-	 *			'-e' => 'toba@siu.edu.ar'
+	 *			'-e' => 'toba@siu.edu.ar',
+	 *			'--mascara' => "<apellido>, <nombres>" O una combinacion de patron similar
 	 * 		)
 	 * @throws Exception
 	 */
@@ -119,14 +124,16 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 		$this->manejador_interface->enter();
 
 		$pathMigration = $parametros['-d'];
-		if (! file_exists($pathMigration)) {
-			if (mkdir($pathMigration) === false) {
-				throw new Exception("No se pudo crear la carpeta $pathMigration. ¿Problemas de permisos?");
-			}
+		try {
+			toba_manejador_archivos::crear_arbol_directorios($pathMigration);
+		} catch(toba_error $e) {
+			toba_logger::instancia()->error($e->getMessage());
+			throw new toba_error("No se pudo crear la carpeta $pathMigration. ¿Problemas de permisos?");
 		}
-
+		$tokens = (isset($parametros['--mascara'])) ? $this->recuperar_tokens_indicativos($parametros['--mascara']) : array();
+		
 		// obtengo los usuarios para generar el JSON
-		$datosUsuarios = $this->modelo->getDatosUsuarios();
+		$datosUsuarios = $this->modelo->getDatosUsuarios($tokens);
 		$totalUsuarios = count($datosUsuarios);
 
 		// Inicializo la barra de progreso
@@ -184,6 +191,34 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 		$this->manejador_interface->enter();
 		$this->manejador_interface->mensaje("--------------------------------------------------------------------", false);
 		$this->manejador_interface->enter();
+	}
+	
+	protected function recuperar_tokens_indicativos($values)
+	{
+		$tokens = array();
+		$er = '/^<NOMBRE[S]?>(.*)<APELLIDO[S]?>$/i';
+		$er2 =  '/^<APELLIDO[S]?>(.*)<NOMBRE[S]?>$/i';
+		
+		$coincidencias = preg_match($er, $values, $matches);
+		$coincidencias2 = preg_match($er2, $values, $matches2);
+		/*echo $coincidencias . var_export($matches, true);
+		echo $coincidencias2 . var_export($matches2, true);*/
+		switch (true) {
+			case ($matches !== false && $coincidencias == 1) :
+				$tokens['separador'] = $matches[1];
+				$tokens['apellido'] = 1;
+				$tokens['nombre'] = 0;				
+				break;
+			case ($matches2 !== false && $coincidencias2 == 1) :
+				$tokens['separador'] = $matches2[1];
+				$tokens['apellido'] = 0;
+				$tokens['nombre'] = 1;						
+				break;
+			default: 
+				throw new toba_error('No se indico un patron correcto');
+		}
+		//var_dump($tokens);
+		return $tokens;
 	}
 }
 

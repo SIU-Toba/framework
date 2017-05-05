@@ -38,13 +38,14 @@ class ci_firma_multiple extends toba_ci
 	
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
-			{$this->objeto_js}.dep('firmador').evt__firma_ok = function() {
+			{$id_js}.dep('firmador').evt__firma_ok = function() {
 				document.getElementById('listado').style.display = 'none';
 				this.agregar_notificacion('Documentos firmados y almacenados en la carpeta \"multiple/pdfs_firmados\"', 'info');				
 			}			
 			
-			{$this->objeto_js}.dep('firmador').evt__applet_cargado = function() {
+			{$id_js}.dep('firmador').evt__applet_cargado = function() {
 				document.getElementById('listado').style.display = '';
 			}			
 		";

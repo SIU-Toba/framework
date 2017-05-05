@@ -14,12 +14,13 @@ class pant_test_dims extends toba_ei_pantalla
 	
 	function mostrar_resultado_pruebas()
 	{
+		$escapador = toba::escaper();
 		$pruebas = $this->controlador->get_pruebas_realizadas();
 		if ($pruebas) {
 			echo "<div style='padding: 5px; overflow: auto; height: 400px; width: 600px; text-align: left; background-color: rgb(255, 255, 255); font-size: 11px;'>";
 			//Cabecera
 			$cabecera = $this->controlador->get_cabecera_prueba();
-			echo '<h1>' . $cabecera['perfil_nombre'] . '</h1>';
+			echo '<h1>' . $escapador->escapeHtml($cabecera['perfil_nombre']) . '</h1>';
 
 			$this->lista($cabecera['dimensiones_restringidas'], 'DIMESIONES restringidas para el perfil');
 			echo '<br>';
@@ -29,21 +30,21 @@ class pant_test_dims extends toba_ei_pantalla
 			// Pruebas
 			foreach ($pruebas as $id => $prueba) {
 				echo '<hr />';
-				echo '<h1>SQL ' . ($id + 1);
+				echo '<h1>SQL ' . $escapador->escapeHtml($id + 1);
 				echo '</h1><hr />';
 				//ei_arbol($prueba);
 				//-- SQL original
 				if (isset($prueba['sql_original'])) {
 					echo "<div style='white-space: pre; padding: 5px; width: 95%; text-align: left; background-color: rgb(255, 251, 0)'>";
 					echo "<strong>SQL original</strong>\n\n";
-					echo $prueba['sql_original'];
+					echo $escapador->escapeHtml($prueba['sql_original']);
 					echo '</div>';
 				}
 				//-- SQL modificado
 				if (isset($prueba['sql_modificado'])) {
 					echo "<div style='white-space: pre; padding: 5px; width: 95%; text-align: left; background-color: rgb(255, 220, 0)'>";
 					echo "<strong>SQL Resultante</strong>\n\n";
-					echo $prueba['sql_modificado'];
+					echo $escapador->escapeHtml($prueba['sql_modificado']);
 					echo '</div>';
 				}
 				//-- Analisis
@@ -62,7 +63,7 @@ class pant_test_dims extends toba_ei_pantalla
 						echo "<div style='white-space: pre; padding: 5px; text-align: left; background-color: rgb(255, 220, 0)'>";
 						echo "<strong>WHERE GENERADO</strong>\n\n";
 						foreach ($prueba['where'] as $where) {
-							echo $where . "\n";	
+							echo $escapador->escapeHtml($where) . "\n";	
 						}
 						echo '</div>';
 					}
@@ -74,8 +75,8 @@ class pant_test_dims extends toba_ei_pantalla
 					echo "<div style='width: 95%; padding: 5px; text-align: left; background-color: rgb(200, 200, 200)'>";
 					if (isset($prueba['query_filas_orig'])) {
 						echo "<div style='font-size: 14px; color: white; padding: 2px; width: 350px; text-align: center; background-color: rgb(255, 0, 0)'>";
-						echo 'Filas Originales: <strong>' . $prueba['query_filas_orig'] . '</strong>';
-						echo ' - Filas Resultantes: <strong>' . $prueba['query_filas_modif'] . '</strong>';
+						echo 'Filas Originales: <strong>' . $escapador->escapeHtml($prueba['query_filas_orig']) . '</strong>';
+						echo ' - Filas Resultantes: <strong>' . $escapador->escapeHtml($prueba['query_filas_modif']) . '</strong>';
 						echo '</div><br>';
 	
 					}
@@ -94,6 +95,7 @@ class pant_test_dims extends toba_ei_pantalla
 	
 	function lista($valores, $titulo)
 	{
+		$escapador = toba::escaper();
 		echo "<div style=' color:black'>\n";
 		echo "<table style='BORDER-COLLAPSE: collapse;
 							empty-cells: show; 
@@ -103,7 +105,7 @@ class pant_test_dims extends toba_ei_pantalla
 							'>\n";
 		if ($titulo) {
 			echo "<tr>\n";
-			echo "<td style='font-size: 12px; color: black; text-align: center; font-weight:bold;' colspan='2'>$titulo</td>\n";
+			echo "<td style='font-size: 12px; color: black; text-align: center; font-weight:bold;' colspan='2'>". $escapador->escapeHtml($titulo)."</td>\n";
 			echo "</tr>\n";
 		}
 		//Cuerpo
@@ -111,13 +113,13 @@ class pant_test_dims extends toba_ei_pantalla
 			$estilo_titulo = 'border: 1px solid red; color:red; background-color: yellow; text-align: center;';
 			foreach ($valores as $id => $valor) {
 				echo "</tr>\n";
-				echo "<td style='$estilo_titulo'>$id</td>\n";
-				echo "<td style='border: 1px solid gray; padding: 2px;' >$valor</td>\n";
+				echo "<td style='". $escapador->escapeHtmlAttr($estilo_titulo)."'>". $escapador->escapeHtml($id)."</td>\n";
+				echo "<td style='border: 1px solid gray; padding: 2px;' >". $escapador->escapeHtml($valor)."</td>\n";
 				echo "</tr>\n";
 			}
 		} else {
 			echo "<tr>\n";
-			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='2'>No hay DATOS!</td>\n";
+			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='".$escapador->escapeHtmlAttr(count($fila) + 1)."'>No hay DATOS!</td>\n";
 			echo "</tr>\n";
 		}
 		echo '</table>';
@@ -126,7 +128,8 @@ class pant_test_dims extends toba_ei_pantalla
 
 	function tabla($tabla, $titulo=null)
 	{
-		$fila = (is_array($tabla)) ? (current($tabla)) : array();
+		$escapador = toba::escaper();
+		$fila = (current($tabla));
 		echo "<div style=' color:black'>\n";
 		echo "<table style='BORDER-COLLAPSE: collapse;
 							empty-cells: show; 
@@ -136,7 +139,7 @@ class pant_test_dims extends toba_ei_pantalla
 							'>\n";
 		if ($titulo) {
 			echo "<tr>\n";
-			echo "<td style='font-size: 12px; color: black; text-align: center; font-weight:bold;' colspan='".(count($fila) + 1)."'>$titulo</td>\n";
+			echo "<td style='font-size: 12px; color: black; text-align: center; font-weight:bold;' colspan='". $escapador->escapeHtmlAttr(count($fila) + 1)."'>". $escapador->escapeHtml($titulo)."</td>\n";
 			echo "</tr>\n";
 		}
 		//Cuerpo
@@ -146,22 +149,22 @@ class pant_test_dims extends toba_ei_pantalla
 			//Titulos de columnas
 			$estilo_titulo = 'border: 1px solid red; color:red; background-color: yellow; text-align: center;';
 			foreach (array_keys($fila) as $titulo) {
-				echo "<td style='$estilo_titulo'>$titulo</td>\n";
+				echo "<td style='$estilo_titulo'>". $escapador->escapeHtml($titulo)."</td>\n";
 			}
 			echo "</tr>\n";
 			//Filas
 			foreach ($tabla as $id => $fila) {
 				echo "</tr>\n";
-				echo "<td style='$estilo_titulo'>$id</td>\n";
+				echo "<td style='$estilo_titulo'>". $escapador->escapeHtml($id)."</td>\n";
 				foreach ($fila as $valor) {
-					echo "<td style='border: 1px solid gray; padding: 2px;' >$valor</td>\n";
+					echo "<td style='border: 1px solid gray; padding: 2px;' >". $escapador->escapeHtml($valor)."</td>\n";
 				}
 				echo "</tr>\n";
 	
 			}
 		} else {
 			echo "<tr>\n";
-			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='".(count($fila) + 1)."'>No hay DATOS!</td>\n";
+			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='". $escapador->escapeHtmlAttr(count($fila) + 1)."'>No hay DATOS!</td>\n";
 			echo "</tr>\n";
 		}
 		echo '</table>';

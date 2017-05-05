@@ -65,19 +65,11 @@ class toba_contenedor_gadgets
 	}
 
 	/**
-	 *  Envia los archivos js necesarios para correr shindig
+	 *  Envia los archivos js necesarios para correr gadgets en JS
 	 * @ignore
 	 */
 	protected function configurar_consumos_globales_js()
 	{
-			toba_js::cargar_consumos_globales(array(
-									'shindig/features/src/main/javascript/features/rpc/wpm.transport',
-									'shindig/features/src/main/javascript/features/rpc/rpc',
-									'shindig/javascript/container/cookies',
-									'shindig/javascript/container/util',
-									'shindig/javascript/container/gadgets',
-									'shindig/javascript/container/cookiebaseduserprefstore')
-			);
 	}
 
 	/**

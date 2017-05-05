@@ -30,8 +30,8 @@ if (! defined('E_DEPRECATED')) {		//Fix para PHP 5.2.x o anteriores
  *  - TOBA_LOG_CRIT: 2
  *  - TOBA_LOG_ERROR: 3
  *  - TOBA_LOG_WARNING: 4
- *  - TOBA_LOG_WARNING: 5
- *  - TOBA_LOG_WARNING: 6
+ *  - TOBA_LOG_NOTICE: 5
+ *  - TOBA_LOG_INFO: 6
  *  - TOBA_LOG_DEBUG: 7
  *
  *  Recomendaciones de uso:
@@ -203,17 +203,18 @@ class toba_logger
 					$texto = $mensaje->getMessage();
 				}
 				$res = get_class($mensaje).": ".$texto."\n";
-				$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");
+				$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");				
+				$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
 				if ($es_php_compatible) {
-					//Solo muestra parametros en modo DEBUG
-					$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
+					//Solo muestra parametros en modo DEBUG					
 					$traza = $mensaje->getTrace();
 					$traza[0]['file'] = $mensaje->getFile();
 					$traza[0]['line'] = $mensaje->getLine();
 					$res .= $this->construir_traza($con_parametros, $traza);
 				} else {
 					//Para php < 5.1 mostrar el string 
-					$res .= "\n[TRAZA]".$mensaje->__toString();
+					$msg = $this->parsear_msg($mensaje->__toString(), $con_parametros);
+					$res .= "\n[TRAZA]".$msg;
 				}
 				return $res;
 			} else if (method_exists($mensaje, 'getMessage')) {
@@ -232,10 +233,17 @@ class toba_logger
 		}
 	}
 	
+	protected function parsear_msg($mensaje, $parametros=true)
+	{
+		$er = "/\([a-zA-Z'\"\s].+\)/i";
+		return ($parametros) ? $mensaje:  preg_replace($er, '(args ignored)', $mensaje);
+	}
+	
 	protected function construir_traza($con_parametros=false, $pasos = null)
 	{
-		if (!isset($pasos)) {
-    		$pasos = debug_backtrace();
+		if (!isset($pasos)) {			
+			$opciones = ($con_parametros) ? null: DEBUG_BACKTRACE_IGNORE_ARGS;
+			$pasos = debug_backtrace($opciones);
 		}
 		$html = "[TRAZA]\n";
 		$html .= "\t<ul>\n";    

@@ -5,7 +5,7 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 	 * @class Clase base de los elementos de formulario. El checkbox tiene un valor que depende si esta chequeao o no, por eso set_estado no afecta al check sino sólo a su value.
      * Para cambiar el check usar chequear(boolean) 
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_checkbox toba_ef_checkbox
+	 * @phpdoc classes/toba_ef_checkbox.html toba_ef_checkbox
 	 */
 	function ef_checkbox(id_form, etiqueta, obligatorio, colapsado, valor_chequeado) {
 		this._valor_positivo = valor_chequeado;

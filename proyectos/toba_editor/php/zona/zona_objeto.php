@@ -40,6 +40,7 @@ class zona_objeto extends zona_editor
 
 	function generar_html_barra_vinculos()
 	{	
+		$escapador = toba::escaper();
 		//Acceso al EDITOR PHP
 		if ($this->editable_info['subclase'] && $this->editable_info['subclase_archivo']) {
 			$componente = $this->get_editable();
@@ -49,14 +50,14 @@ class zona_objeto extends zona_editor
 				$ver = toba_componente_info::get_utileria_editor_ver_php(array('proyecto'=>$componente[0],
 																	'componente' =>$componente[1]), null, 'nucleo/php_inexistente.gif');
 				
-				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+				echo "<a href='" . $escapador->escapeHtmlAttr($ver['vinculo']) ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			} else {
 				// Ir al editor
 				$ver = toba_componente_info::get_utileria_editor_ver_php(array('proyecto'=>$componente[0], 'componente' =>$componente[1]));			
-				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+				echo "<a href='" . $escapador->escapeHtmlAttr($ver['vinculo']) ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 				// Abrir el archivo
 				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$componente[0], 'componente' =>$componente[1]));	
-				echo '<a href="' . $abrir['vinculo'] .'">'. toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
+				echo '<a href="' . $escapador->escapeHtmlAttr($abrir['vinculo']) .'">'. toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
 		}
 		parent::generar_html_barra_vinculos();		
@@ -65,11 +66,12 @@ class zona_objeto extends zona_editor
 		$editor_item = $this->editable_info['clase_editor'];
 		$editor_proyecto = $this->editable_info['clase_editor_proyecto'];
 		$vinculo = toba::vinculador()->get_url($editor_proyecto, $editor_item, array(), array('zona' => true, 'menu' => true));
-		echo "<a href='$vinculo'>".toba_recurso::imagen_toba('objetos/editar.gif', true, null, null, 'Editar el componente')."</a>\n";
+		echo "<a href='". $escapador->escapeHtmlAttr($vinculo)."'>".toba_recurso::imagen_toba('objetos/editar.gif', true, null, null, 'Editar el componente')."</a>\n";
 	}
 
 	function generar_html_barra_inferior()	
 	{
+		$escapador = toba::escaper();
 		$img_min = toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false);
 		
 		//La representacion del Componente fantasma no deberia tener barra inferior.
@@ -105,7 +107,7 @@ class zona_objeto extends zona_editor
 				echo '<tr>';
 				//echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs["proyecto"]."&nbsp;</td>";
 				echo "<td  class='barra-obj-link' width='1%' >".toba_recurso::imagen_proyecto('item.gif', true).'</td>';
-				echo "<td  class='barra-obj-link' >[".$rs['item']."] {$rs['nombre']}</td>";
+				echo "<td  class='barra-obj-link' >[". $escapador->escapeHtml($rs['item']."] {$rs['nombre']}")."</td>";
 
 				echo "<td  class='barra-obj-link' width='5'>";
 				echo "<a href='" . toba::vinculador()->get_url(toba_editor::get_id(), 1000240,
@@ -164,8 +166,8 @@ class zona_objeto extends zona_editor
 				}
 				echo '<tr>';
 				echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs['clase_icono'], true).'</td>';
-				echo "<td  class='barra-obj-link' >[".$rs['objeto'].'] '.$rs['objeto_nombre'].'</td>';
-				echo "<td  class='barra-obj-link'>".$rs['objeto_identificador'].'</td>';
+				echo "<td  class='barra-obj-link' >[".$escapador->escapeHtml($rs['objeto'].'] '.$rs['objeto_nombre']).'</td>';
+				echo "<td  class='barra-obj-link'>".$escapador->escapeHtml($rs['objeto_identificador']).'</td>';
 				if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes())) { 
 					echo "<td  class='barra-obj-id' width='5'>";
 					echo "<a href='" . toba::vinculador()->get_url(toba_editor::get_id(), '/admin/objetos/propiedades',

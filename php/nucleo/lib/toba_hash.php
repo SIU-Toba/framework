@@ -1,6 +1,9 @@
 <?php
 
-	
+/**
+ * Clase que realiza el hasheo de passwords
+ * @package Seguridad
+ */	
 class toba_hash
 {
 	protected $rounds = 10;
@@ -68,9 +71,16 @@ class toba_hash
 		default: 
 					toba::logger()->debug("Se suministro un algoritmo no esperado para el hash: {$this->metodo}");
 					$salt = '';
+		}			
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+			try {
+				$bytes = random_bytes(16);												//PHP7.0			
+			} catch (Exception $e) {
+				$bytes = $this->getRandomBytes(16);	//Old way
+			}
+		} else {
+			$bytes = $this->getRandomBytes(16);	//Old way
 		}
-		
-		$bytes = $this->getRandomBytes(16);
 		$salt .= $this->encodeBytes($bytes);
 		return $salt;
 	}	

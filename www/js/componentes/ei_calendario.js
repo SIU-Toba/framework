@@ -6,7 +6,7 @@ ei_calendario.prototype.constructor = ei_calendario;
 /**
  * @class Calendario para visualizar contenidos diarios y seleccionar días o semanas.
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_calendario toba_ei_calendario 
+ * @phpdoc classes/toba_ei_calendario.html toba_ei_calendario 
  */
 function ei_calendario(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM

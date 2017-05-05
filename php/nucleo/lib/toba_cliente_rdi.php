@@ -1,5 +1,8 @@
 <?php
-require_once('contrib/lib/RDILib/RDIAutoload.php');
+/**
+ * Clase que devuelve un cliente para conectarse a un ECM
+ * @package Centrales
+ */
 class toba_cliente_rdi 
 {
 	const nombre_archivo = '/rdi.ini';
@@ -10,7 +13,6 @@ class toba_cliente_rdi
 	
 	function __construct()
 	{
-		RDIAutoload::registrar();
 	}
 	
 	/**
@@ -58,8 +60,8 @@ class toba_cliente_rdi
 		$id_proyecto = $this->proyecto->get_id();		
 		$ini = new toba_ini($this->instalacion->get_path_carpeta_instalacion(). self::nombre_archivo);
 
-		if (! $ini->existe_entrada($id_proyecto)) {
-			throw new toba_error('Falta el archivo de configuración rdi.ini');
+		if (! $ini->existe_entrada($id_proyecto)) {			
+			throw new toba_error('Falta el archivo de configuración rdi.ini o no se encuentra la seccion del proyecto');
 		}
 
 		$parametros = $ini->get($id_proyecto);
@@ -67,7 +69,7 @@ class toba_cliente_rdi
 		if ((trim($nombre) == '') && (! isset($parametros['instalacion']))) {
 			throw new toba_error('Falta especificar el nombre de la instalacion en el archivo instalacion.ini');
 		}		
-		$nombre_inst = (trim($nombre) != '') ? $nombre : $parametros['instalacion'];		
+		$nombre_inst = (trim($nombre) != '') ? $nombre : $parametros['instalacion'];			
 		$rdi = new RDICliente($parametros['conector'], 
 							$parametros['repositorio'],
 							$parametros['usuario'],
@@ -78,6 +80,7 @@ class toba_cliente_rdi
 		//Agrego un log para desarrollo
 		if (! $this->instalacion->es_produccion()) {
 			$log = new toba_logger_rdi($id_proyecto);
+			$log->set_activo(true);
 			$rdi->asociarLog($log);
 		}
 
@@ -85,7 +88,11 @@ class toba_cliente_rdi
 		$serv_personalizados = toba::proyecto()->get_parametro('servicios_rdi', null, false);
 		if (! is_null($serv_personalizados)) {
 			foreach($serv_personalizados as $servicio => $clase) {
-				$rdi->mapeoServicios()->redefinir($servicio, $clase);				
+				try {
+					$rdi->mapeoServicios()->redefinir($servicio, $clase);				
+				} catch (RDIExcepcion $ex) {
+					$rdi->mapeoServicios()->agregar($servicio, $clase);
+				}
 			}
 		}		
 

@@ -1,30 +1,38 @@
 <?php
-require_once(toba_dir() . '/php/3ros/simpletest/test_case.php');
 
-class toba_test_grupo_casos extends GroupTest
+class toba_test_grupo_casos extends TestSuite
 {
 	protected $separar_casos=false;
 	protected $separar_pruebas=false;
+	//private $test_cases;
 	
 	function __construct($descripcion, $separar_casos=false, $separar_pruebas=false)
 	{
-		parent::GroupTest($descripcion);
-		$this->separar_casos = $separar_casos;
-		$this->separar_pruebas = $separar_pruebas;
+		parent::__construct($descripcion);
+	/*	$this->separar_casos = $separar_casos;
+		$this->separar_pruebas = $separar_pruebas;*/
+	}
+	/*
+	protected function getTestCases()
+	{
+		return $this->test_cases;
 	}
 	
-	function run(&$reporter)
+	function run($reporter)
 	{
 		$reporter->paintGroupStart($this->getLabel(), $this->getSize());
-		for ($i = 0, $count = count($this->_test_cases); $i < $count; $i++) {
+		$casos = $this->getTestCases();		
+		$cant = count($casos);
+		var_dump($casos);
+		for ($i = 0; $i < $cant; $i++) {
 			if($this->separar_casos) {
 				toba::logger()->debug(	"\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%".
-										"\n%%%%%%%%%%% INICIO caso: ".$this->_test_cases[$i]->getLabel()." %%%%%%%%%%%%%%%%%%%".
+										"\n%%%%%%%%%%% INICIO caso: ".$casos[$i]->getLabel()." %%%%%%%%%%%%%%%%%%%".
 										"\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"
 									, 'toba');
 			}
-			if (is_string($this->_test_cases[$i])) {
-				$class = $this->_test_cases[$i];
+			if (is_string($casos[$i])) {
+				$class = $casos[$i];
 				$test = new $class();
 				if($this->separar_pruebas) {
 					$test->separar_pruebas(true);
@@ -32,19 +40,19 @@ class toba_test_grupo_casos extends GroupTest
 				$test->run($reporter);
 			} else {
 				if($this->separar_pruebas) {
-					$this->_test_cases[$i]->separar_pruebas(true);
+					$casos[$i]->separar_pruebas(true);
 				}
-				$this->_test_cases[$i]->run($reporter);
+				$casos[$i]->run($reporter);
 			}
 			if($this->separar_casos) {
 				toba::logger()->debug(	"\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%".
-										"\n%%%%%%%%%%% FIN caso: ".$this->_test_cases[$i]->getLabel()." %%%%%%%%%%%%%%%%%%%".
+										"\n%%%%%%%%%%% FIN caso: ".$casos[$i]->getLabel()." %%%%%%%%%%%%%%%%%%%".
 										"\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"
 									, 'toba');
 			}
 		}
 		$reporter->paintGroupEnd($this->getLabel());
 		return $reporter->getStatus();
-	}	
+	}*/	
 }
 ?>

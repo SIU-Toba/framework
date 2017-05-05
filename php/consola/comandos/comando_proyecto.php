@@ -1,10 +1,10 @@
 <?php
-/**
-* Publica los servicios de la clase PROYECTO a la consola toba
-* TODO:	La asociacion de usuarios al proyecto nuevo tiene que ofrecer una seleccion
-* @ignore
-*/
 require_once('comando_toba.php');	
+/**
+ * Publica los servicios del proyecto a la consola toba
+ *  TODO:	La asociacion de usuarios al proyecto nuevo tiene que ofrecer una seleccion
+ * @package consola
+ */
 class comando_proyecto extends comando_toba
 {
 	const tipo_paquete_produccion = 'p';
@@ -266,32 +266,21 @@ class comando_proyecto extends comando_toba
 		$usuarios = $this->seleccionar_usuarios( $instancia );
 		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios, $dir_instal_proyecto );
 		$this->consola->progreso_fin();
-		
+
 		// Extendemos las clases de toba a clases del proyecto
 		$proyecto = $this->get_proyecto($id_proyecto);
 		$pms = $proyecto->get_pms();
 		util_modelo_proyecto::extender_clases($proyecto, $this->consola, 'toba');
 		$pms->crear_pm_proyecto();
-		
 		// -- Modifica el proyecto para que sea apto para personalizaciones
 		if (isset($params['-x'])) {
 			$this->hacer_personalizable(false);
 		}
 		$proyecto->generar_autoload($this->consola);
-
 		// -- Asigno un nuevo item de login
 		$proyecto->actualizar_login();
-		
 		// -- Exporto el proyecto creado
 		$proyecto->exportar();
-		if (isset($params['-d'])) {																//Como necesita si o si, ser creado en el dir proyectos.. luego de creado lo muevo
-			$origen = $proyecto->get_dir();													// lo revinculo con el directorio nuevo y re-instancio el proyecto para que arme bien el alias
-			$path = $params['-d'];	
-			$instancia->vincular_proyecto($id_proyecto, $path);
-			toba_manejador_archivos::copiar_directorio($origen, $path);
-			toba_manejador_archivos::eliminar_directorio($origen);
-			$proyecto = $this->get_proyecto($id_proyecto);
-		}
 		$instancia->exportar_local();
 
 		if (! $proyecto->esta_publicado()) {

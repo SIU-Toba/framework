@@ -229,8 +229,9 @@ class ci_editor extends toba_ci
 	{
 		$hay_alta = false;
 		//Solo una de las preguntas tiene que estar activa.
-		foreach ($datos as $klave => $fila) {
-			if ($fila['apex_ei_analisis_fila'] == 'A') {
+		$keys_d = array_keys($datos);
+		foreach ($keys_d as $klave) {
+			if ($datos[$klave]['apex_ei_analisis_fila'] == 'A') {
 				$datos[$klave]['activa'] = '1';
 				$hay_alta = true;
 			} elseif (isset($datos[$klave]['activa'])) {

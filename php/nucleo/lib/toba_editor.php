@@ -321,7 +321,9 @@ class toba_editor
 		$param_prev = self::get_parametros_previsualizacion();
 		if(isset($param_prev['perfil_datos'])) {
 			$perfiles = explode(',', $param_prev['perfil_datos']);
-			return $perfiles;
+			if (current($perfiles) != '')  {
+				return $perfiles;
+			}
 		}
 	}
 	

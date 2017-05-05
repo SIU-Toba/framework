@@ -1,0 +1,25 @@
+{%for subpackage in classleftindex|keys %}
+	{%set files=classleftindex[subpackage]%}
+  <div class="package">
+	{%if subpackage != ""%}
+		{{subpackage}}<br />
+	{%endif%}
+	{%for file in files%}
+    	{%if subpackage != ""%}
+    		<span style="padding-left: 1em;">
+    	{%endif%}
+		{%if file.link != ''%}<a href="{{file.link}}">{%endif%}
+		{%if file.title|slice(0,5) == 'toba_'%}
+			{{file.title|slice(0,5)}}
+		{%else%}
+			{{file.title}}
+		{%endif%}
+			{%if file.link != ''%}</a>{%endif%}
+    	{%if subpackage != ""%}
+    		</span>
+    	{%endif%}
+	
+	 <br />
+	{%endfor%}
+  </div>
+{%endfor%}

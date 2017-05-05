@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Esta clase representa un plan de la personalizacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 abstract class toba_pers_xml_generador
 {
 	/**

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Clase que representa los datos que tiene el plan de importacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */	
 class toba_importador_plan implements Iterator {
 	const xml_vacio = '<vacio />';
 

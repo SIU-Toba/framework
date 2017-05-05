@@ -1,0 +1,29 @@
+{%if api_tags|length > 0 %}
+<table border="0" cellspacing="0" cellpadding="0">
+{% for tag in api_tags%}
+  <br/>
+  {% if tag.api is defined %}
+  <tr>
+    <td class="indent">
+    	<strong>{{tag.name|capitalize}}:</strong>&nbsp;&nbsp;</td><td>{{tag.description}}</td>    	
+  </tr>
+  {%endif%}
+{%endfor%}
+</table>
+<br />
+{%endif%}
+
+{%if info_tags|length > 0%}
+{%for tag in info_tags%}
+{% if loop.first %}
+    {% if tag.info is defined %}<strong>Information Tags:</strong><br />{%endif%}
+<table border="0" cellspacing="0" cellpadding="0">
+{%endif%}
+    {% if tag.info is defined %}
+  <tr>
+    <td class="indent"><strong>{{tag.name|capitalize}}:</strong>&nbsp;&nbsp;</td><td>{{tag.description}}</td>
+  </tr>
+  {%endif%}
+{%endfor%}
+</table>
+{%endif%}

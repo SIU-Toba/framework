@@ -1,9 +1,8 @@
 <?php
 /**
  * Interface: Administradorr de persistencia de una estructura de datos tipo tabla, un contenedor de filas de datos
- * @package Componentes
- * @subpackage Persistencia
- */	
+ * @package Componentes\Persistencia
+ */
 interface toba_ap_tabla
 {
 	/**
@@ -50,9 +49,9 @@ interface toba_ap_tabla
 //-------------------------------------------------------------------------------------
 
 /**
- * 	Interface: Administrador de persistencia de un conjunto relacionado de tablas
- * 	@package Componentes
- *  @subpackage Persistencia
+ * Administrador de persistencia de un conjunto relacionado de tablas
+ * @package Componentes
+ * @subpackage Persistencia
  */
 interface toba_ap_relacion
 {

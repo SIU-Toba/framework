@@ -3,6 +3,8 @@
  * Esta clase representa los datos de una tarea. Provee
  * funcionalidades para que su contenido sea alterado externamente y también
  * funciona como iterador de acciones (importador_tarea_accion)
+ * @package Centrales
+ * @subpackage Personalizacion
  */
 class toba_tarea_datos implements Iterator {
 	/**

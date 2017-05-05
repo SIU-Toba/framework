@@ -4,12 +4,13 @@ function controlar_usuario()
 {
 	$usuario_actual = toba_manejador_archivos::get_usuario_actual();
 	if (isset($usuario_actual)) {
+		$escapador = toba::escaper();
 		$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
 		if (in_array($usuario_actual, $usuarios_defecto)) {
 
 			$html = "<div style='margin-top: 100px; background-color:white; padding: 10px;'>
 					<strong>Recomendado cambiar usuario APACHE</strong><br><br>
-					<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>$usuario_actual</strong> del sistema.
+					<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>". $escapador->escapeHtml($usuario_actual)."</strong> del sistema.
 							Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
 						<p>En cambio para ambientes de <strong>desarrollo</strong>, este toba_editor necesita abrir y guardar archivos, ejecutar comandos svn, etc,
 							necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamos seguir los siguentes pasos:</p>
@@ -35,7 +36,7 @@ function controlar_usuario()
 						<ol style='background-color: #EEEEEE; border: 1px inset gray;'>
 							<li>Configurar que apache ejecute con el usuario actualmente logueado al sistema de ventanas. Editar el archivo
 								<em>/etc/apache2/apache2.conf</em> o <em>/etc/apache2/uid.conf</em> si está presente y cambiar el usuario de la siguiente directiva
-								por el usuario actual: <pre>User $usuario_actual</pre>
+								por el usuario actual: <pre>User ". $escapador->escapeHtml($usuario_actual)."</pre>
 							<li>Para que apache pueda crear sesiones PHP, hay que cambiar el owner de la carpeta de sesiones (si no encuentra la carpeta de sesiones de php, está en la
 								directiva <em>session.save_path</em> en el php.ini
 								<pre>sudo chown mi_usuario /var/lib/php5 -R</pre>
@@ -70,7 +71,7 @@ echo "<style type='text/css'>
 </style>";
 
 $url_trac = get_url_desarrollos();
-$url_login = $url_trac.'/trac/toba/login';
+//$url_login = $url_trac.'/trac/toba/login';
 
 if (isset($_GET['phpinfo'])) {
 	phpinfo();
@@ -88,7 +89,7 @@ if (isset($_GET['phpinfo'])) {
 	echo toba_recurso::imagen_proyecto('logo.gif', true);
 	echo '<br><br>Editando proyecto <strong>' . toba_editor::get_proyecto_cargado()	.'</strong> en la instancia <strong>' . toba_editor::get_id_instancia_activa() .'</strong>.<br>';
 	$ayuda = toba_recurso::ayuda(null, 'Ver log de cambios introducidos en esta versión');
-	echo "<a target='wiki' style='text-decoration:none; font-size: 16px; font-weight: bold;margin-top: 25px;float:left' href='$cambios' $ayuda>Versión ";
+	echo "<a target='wiki' style='text-decoration:none; font-size: 16px; font-weight: bold;margin-top: 25px;float:left' href='". toba::escaper()->escapeHtmlAttr($cambios)."' $ayuda>Versión ";
 	echo $version->__toString().'</a>';
 		
 		

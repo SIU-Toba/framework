@@ -5,19 +5,20 @@ class form_prop_basicas extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
+		$id_js = toba::escaper()->escapeJs($this->objeto_js);
 		echo "
 			if (window.toggle_editable) {
 				toggle_editable();
 			}
 			
-			{$this->objeto_js}.evt__menu__procesar = function() {
+			{$id_js}.evt__menu__procesar = function() {
 				if (this.ef('menu').chequeado())
 					this.ef('orden').mostrar();
 				else
 					this.ef('orden').ocultar();
 			}
 			
-			{$this->objeto_js}.evt__zona__procesar = function() {
+			{$id_js}.evt__zona__procesar = function() {
 				if (this.ef('zona').valor() != apex_ef_no_seteado) {
 					this.ef('zona_listar').mostrar();
 				} else {
@@ -26,7 +27,7 @@ class form_prop_basicas extends toba_ei_formulario
 				this.evt__zona_listar__procesar();
 			}
 			
-			{$this->objeto_js}.evt__zona_listar__procesar = function() {
+			{$id_js}.evt__zona_listar__procesar = function() {
 				if (this.ef('zona_listar').chequeado()) {
 					this.ef('zona_orden').mostrar();
 				} else {
@@ -35,7 +36,7 @@ class form_prop_basicas extends toba_ei_formulario
 			}
 			
 			
-			{$this->objeto_js}.evt__solicitud_tipo__procesar = function() {
+			{$id_js}.evt__solicitud_tipo__procesar = function() {
 				var efs_web = [		
 								'seccion_web', 'pagina_tipo', 'menu', 'orden', 
 								'retrasar_headers', 'imagen_recurso_origen', 'imagen', 'descripcion', 'zona',
@@ -88,19 +89,19 @@ class form_prop_basicas extends toba_ei_formulario
 				}
 			}
 			
-			{$this->objeto_js}.evt__punto_montaje__procesar = function(inicial) {
+			{$id_js}.evt__punto_montaje__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('accion').cambiar_valor('');
 				}
 			}
 
-			{$this->objeto_js}.modificar_vinculo__ef_accion = function(id_vinculo)
+			{$id_js}.modificar_vinculo__ef_accion = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 			}
 			
-			{$this->objeto_js}.modificar_vinculo__extender = function(id_vinculo)
+			{$id_js}.modificar_vinculo__extender = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
@@ -136,20 +137,21 @@ class utileria_identificador_nuevo implements toba_ef_icono_utileria
 {
 	function get_html(toba_ef $ef) 
 	{
+		$escapador = toba::escaper();
 		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
 		$no_editable = toba_recurso::imagen_toba('limpiar.png', false);
 		$objeto_js = $ef->objeto_js();
 		echo "<script>
 			function toggle_editable() {
-				var ef = $objeto_js
+				var ef = ". $escapador->escapeJs($objeto_js) ."
 				if (!ef.input().disabled) {
 					ef.input().disabled = true;
-					\$\$('utileria_identificador').src = '$editable';
+					\$\$('utileria_identificador').src = '". $escapador->escapeJs($editable). "';
 					\$\$('utileria_identificador').title = 'Editar Identificador';
 					ef.set_estado('".id_temporal."');					
 				} else {
 					ef.input().disabled = false;				
-					\$\$('utileria_identificador').src = '$no_editable';
+					\$\$('utileria_identificador').src = '". $escapador->escapeJs($no_editable). "';
 					\$\$('utileria_identificador').title = 'Resetar Identificador';
 					ef.set_estado('');
 					ef.seleccionar();					
@@ -157,7 +159,7 @@ class utileria_identificador_nuevo implements toba_ef_icono_utileria
 			}
 		</script>";
 		$salida = "<a class='icono-utileria' href='#' onclick=\"toggle_editable(); return false\">";
-		$salida .= "<img id='utileria_identificador' src='$editable' title='Editar Identificador'>";
+		$salida .= "<img id='utileria_identificador' src='". $escapador->escapeHtmlAttr($editable)."' title='Editar Identificador'>";
 		$salida .= '</a>';
 		return $salida;		
 	}
@@ -168,7 +170,7 @@ class utileria_identificador_actual implements toba_ef_icono_utileria
 	function get_html(toba_ef $ef) 
 	{
 		$editable = toba_recurso::imagen_toba('objetos/editar.gif', false);		
-		$objeto_js = $ef->objeto_js();
+		$objeto_js = toba::escaper()->escapeJs($ef->objeto_js());
 		echo "<script>
 			function toggle_editable() {
 				var ef = $objeto_js

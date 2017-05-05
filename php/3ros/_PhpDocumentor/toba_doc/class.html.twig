@@ -1,0 +1,232 @@
+{% extends 'layout.html.twig' %}
+
+{% block classSidebar %}
+  {% set package=node.package %}  
+    <div class="package-title">{{ package.name }}</div></br>
+    {{ _self.clasepaquete(package) }}    
+    {%if package.children|length > 0%}
+         {%for paquete in package.children|sort_asc%}            
+                {{ _self.clasepaquete(paquete) }}     
+         {% endfor %}
+    {%endif%}
+   </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+{% endblock %}
+
+{% block content %}
+ {% set children=node.children %}
+ {% set vars=node.properties %}
+ {% set methods=node.methods %}
+ {% set imethods=node.inheritedMethods %}
+ {% set const=node.constants %}
+ {% set iconst=node.inheritedConstants %} 
+ {% set implements=node.interfaces %}
+<a name="sec-description"></a>
+<h1>{{ node.name }}</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+        {%if children|length or vars|length or methods|length or imethods|length or consts|length or iconsts|length%}
+            <span class="disabled">Resúmen de la Clase</span> |
+        {%endif%}
+        {%if children|length > 0%}
+            <a href="#sec-descendents">Subclases</a>
+            {%if imethods|length or methods|length%}|{%endif%}
+        {%endif%}
+        {%if imethods|length%}
+            <a href="#sec-inherited">Métodos Heredados</a>
+            {%if vars|length or methods|length or imethods|length or consts|length or iconsts|length%}|{%endif%}
+        {%endif%}
+        {%if methods|length or imethods|length%}
+            <a href="#sec-method-summary">Métodos Propios</a>
+        {%endif%}		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+            {%if implements|length%}
+            <p class="implements">
+                Implementa interfaces:
+                <ul>
+                    {%for item in implements%}<li>{{item.name}}</li>{%endfor%}
+                </ul>
+            </p>
+            {%endif%}
+            {%include "docblock.twig" with {'type': "class"}%}            
+            {% set class = node.parent %}
+            {% block hierarchy_element %}
+                {% if class %}
+                    {% set child = class %}
+                    {% set class = class.parent %}
+                    {{ block('hierarchy_element') }}
+                    <div class="classtree">{{ child|route|raw }}<br/>&nbsp;&nbsp;&nbsp;|</div>
+                {% endif %}
+            {% endblock %}
+            <div class="description">{{node.name}}</div>
+            <p class="notes">
+                    Ubicada en {{ node.path }} [<span class="field">line {%if class_slink%}{{class_slink}}{%else%}{{node.line}}{%endif%}</span>]
+            </p>
+            {%include("classtags.twig")%}
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+{%if children|length > 0%}
+    <a name="sec-descendents"></a>
+    <div class="info-box">
+            <div class="info-box-title">Subclases directas</div>
+            <div class="info-box-body">
+                <table cellpadding="2" cellspacing="0" class="class-table">
+                {% for item in children %}
+                    <tr>
+                        <td style="padding-right: 2em">{{ item.link }}</td>
+                        <td>
+                        {%if item.sdesc%}
+                                {{item.sdesc}}
+                        {%else%}
+                                {{item.summary}}
+                        {%endif%}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+                <br />
+            </div>
+    </div>
+{% endif %}
+   
+{% if ivars|length > 0  or imethods|length > 0 %}
+    <a name="sec-inherited"></a>
+    <div class="info-box">
+        <div class="info-box-title">Métodos Heredados</div>
+        <div class="info-box-body">
+            <table cellpadding="2" cellspacing="0" class="class-table">
+            <tr>
+                <td width="100%">
+                    <p>Heredado de <span class="classname"><strong>{{ (imethods|first).parent.name }}</strong></span></p>
+                    {%for heredado in imethods %}                            
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition">{{ heredado|route|raw }}</span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                    {%endfor%}
+                </td>
+            </tr>
+            </table>
+            <br />
+        </div>
+    </div>
+{%endif%}   
+
+{% if methods|length > 0 %}
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                            {% for metodo in methods|sort_asc %}
+                                {%if metodo.static%}
+                                    <tr><td></td><td class="method-definition" nowrap>static
+                                    {%if metodo.response.types|length > 0%}
+                                        <span class="method-result">{{ metodo.response.types|route|join('|')|raw }}</span>&nbsp;&nbsp;
+                                    {%else%}
+                                        <span class="method-result">void</span>&nbsp;&nbsp;
+                                    {%endif%}
+                                    </td>
+                                    <td class="method-definition">
+                                        <a href='#{{metodo.response.types|route|join()|raw}}' title="details" class="method-name">
+                                        {%if metodo.response.reference%}&amp;{% endif %}{{metodo.name}}</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition">{{metodo.description}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            {% for metodo in methods|sort_asc %}
+                                {%if not metodo.static%}
+                                    <tr>
+                                    <td nowrap align="right">
+                                            {% for tag in metodo.tags if tag.name in ['ventana', 'see']%}
+                                                <img border='0' title='Ventana de extensión' style='vertical-align: middle' src="{{path('img/ventana.png')}}" />   	
+                                            {% endfor %}
+                                            {% if metodo.visibility == 'protected' %}
+                                                    <img border='0' title='protected' style='vertical-align: middle' src="{{path('img/candado.png')}}" />
+                                            {% endif %}
+                                    </td>
+                                    {%if metodo.response.types|length > 0%}
+                                        <td nowrap class="method-definition"><span class="method-result">{{metodo.response.types|join('|')|raw}}</span>&nbsp;&nbsp;</td>
+                                    {%else%}
+                                        <td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+                                    {% endif %}
+                                    <td class="method-definition">
+                                    <a href='#{{metodo.name}}' title="details" class="method-name">{%if metodo.response.reference%}&amp;{% endif %}{{metodo.name}}
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">{{metodo.description}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </table>
+			</div>
+			<br />
+		</div>
+	</div>
+{% endif %}
+
+
+
+{%if consts|length > 0%}
+        <a name="sec-const-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Constantes</span></div>
+		<div class="info-box-body">
+			<div class="const-summary">
+			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
+			{%for constante in consts|sort_asc %}
+                            <div class="var-title">
+                                <tr>
+                                <td class="var-title"><a href="#{{constante.dest}}" title="details" class="const-name-summary">{{constante.name}}</a>&nbsp;&nbsp;</td>
+                                <td class="const-summary-description">{{constante.summary}}</td>
+                                </tr>
+                            </div>
+                        {% endfor %}
+                        </table>
+                        </div>
+			<br />
+		</div>
+	</div>
+{% endif %}
+
+
+
+{%if methods|length > 0 or imethods|length > 0%}
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                {% include 'method.html.twig' %}
+        </div>
+    </div>
+{%endif%}
+{% endblock %} 
+
+{% macro clasepaquete(package) %}
+    <div class="subpackage-title">{{ package.name }}</div>
+    <div class="package-details">
+        <ul>           
+            {% for class in package.interfaces|sort_asc %}
+                <li class="interface">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.traits|sort_asc %}
+                <li class="trait">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+            {% for class in package.classes|sort_asc %}
+                <li class="class">{{ class|route('class:short')|raw }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}

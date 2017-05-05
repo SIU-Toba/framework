@@ -38,7 +38,7 @@ class admin_util
 		$frame = 'parent.'.apex_frame_lista;
 		echo "if ($frame.js_arbol_1368_items) {\n";
 		if (isset($ir_a_item)) {
-			echo "$frame.js_arbol_1368_items.ver_propiedades('$ir_a_item');\n";
+			echo "$frame.js_arbol_1368_items.ver_propiedades('". toba::escaper()->escapeJs($ir_a_item)."');\n";
 		} else {
 			echo "$frame.js_arbol_1368_items.set_evento(new $frame.evento_ei('refrescar', true, '' ));\n";
 		}
@@ -62,7 +62,7 @@ class admin_util
 		$elem_item = toba_constructor::get_info($clave, 'toba_item');
 		$vinculo = $elem_item->vinculo_editor();
 		echo toba_js::abrir();
-		echo "window.location.href='$vinculo'\n";
+		echo "window.location.href='". toba::escaper()->escapeJs($vinculo)."'\n";
 		echo toba_js::cerrar();
 	}
 	
@@ -72,7 +72,7 @@ class admin_util
 		$vinculo = toba_constructor::get_info($clave)->vinculo_editor();
 		admin_util::refrescar_editor_item();
 		echo toba_js::abrir();
-		echo "window.location.href='$vinculo'\n";
+		echo "window.location.href='". toba::escaper()->escapeJs($vinculo)."'\n";
 		echo toba_js::cerrar();		
 	}
 	
@@ -81,7 +81,7 @@ class admin_util
 		$parametros = array('archivo' => $archivo);
 		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true );
 		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 3463, $parametros, $opciones);
-		$js = "toba.comunicar_vinculo('$vinculo')";
+		$js = "toba.comunicar_vinculo('".  toba::escaper()->escapeJs($vinculo)."')";
 		$ayuda = toba_recurso::ayuda(null, 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]');
 		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_proyecto('reflexion/abrir.gif', false)."' $ayuda>";		

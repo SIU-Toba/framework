@@ -1,0 +1,39 @@
+{%if node.tags|length > 0%}
+<table border="0" cellspacing="0" cellpadding="0">
+{%for tag in node.tags if tag.name in ['wiki', 'jsdoc'] %}
+	{%if tag.name != "author" and tag.name != "jsdoc"  and tag.name != "wiki" and tag.name != "todo"%}
+                <tr><td><strong>{{tag.name|capitalize}}:</strong>&nbsp;&nbsp;</td><td>{{tag.data}}</td></tr>
+	{%endif%}
+	{%if tag.name == 'wiki'%}
+		{%set wiki=tag.reference|split('',2)|default('')%}
+		<tr>
+			<td colspan="2"><strong><a href="{{path('../wiki/trac/toba/wiki/{{wiki[0]}}.html')}}">
+				<img border='0' style='vertical-align: middle' src="{{ path('img/wiki-small.png') }}" />
+						{%if wiki|length > 1%}
+							{{wiki[1]}}
+						{%else%}
+							Documentación WIKI
+						{%endif%}
+			</a></strong></td></tr>
+	{%endif%}	
+	{%if tag.name == 'jsdoc'%}
+		{%set jsdoc=tag.description|split('',2)|default('')%}
+		<tr><td colspan="2"><a href='{{path("../api_js/{{jsdoc[0]}}.html")}}'>
+		<img border='0' style='vertical-align: middle' src="{{path('img/javascript-small.png')}}" />
+		<strong>Clase Javascript equivalente: {{jsdoc[1]}}</strong></a></td></tr>
+	{%endif%}
+{%endfor%}
+</table>
+{%endif%}
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+{%for tag in node.tags%}
+ {% if tag.api is defined %}
+  <tr>
+    <td class="indent"><strong>{{tag.name|capitalize}}</strong>&nbsp;&nbsp;</td><td>{{tag.data}}</td>
+  </tr>
+  {%endif%}
+{%endfor%}
+</table>
+<br />
+

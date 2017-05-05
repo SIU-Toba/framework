@@ -46,15 +46,18 @@ class asignador_objetos
 	}
 	
 	static function verificar_nuevo_rol($destino)
-	{
-		$consumidor = quote($destino['objeto']);
-		$rol = quote($destino['id_dependencia']);
-		$sql = "SELECT 1 
-			FROM apex_objeto_dependencias
-			WHERE  objeto_consumidor = $consumidor 
-			AND identificador = $rol;";
-		$rs = toba::db('instancia')->consultar($sql);
-		return empty($rs);
+	{	
+		$rs = array();
+		if (isset($destino) && is_array($destino)) {
+			$consumidor = quote($destino['objeto']);
+			$rol = isset($destino['id_dependencia']) ? quote($destino['id_dependencia']): 'NULL';
+			$sql = "SELECT 1 
+				FROM apex_objeto_dependencias
+				WHERE  objeto_consumidor = $consumidor 
+				AND identificador = $rol;";
+			$rs = toba::db('instancia')->consultar($sql);
+		}
+		return empty($rs);		
 	}
 	
 	protected function asignar_a_item()

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Clase que representa un registro interviniente en la personalizacion
+ * @package Centrales
+ * @subpackage Personalizacion
+ */
 abstract class toba_registro {
 	const registro_insert = 'registro_insert';
 	const registro_update = 'registro_update';

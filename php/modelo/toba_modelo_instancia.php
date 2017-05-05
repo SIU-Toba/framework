@@ -1,9 +1,11 @@
 <?php
 /**
-*	@todo
-*		- Falta un parametrizar en el ini de la instancia si la base toba es independiente o adosada al negocio
-*			( se eliminan las tablas o la base en la regeneracion? )
-*/
+ * Clase que representa la instancia de toba
+ * 
+ * TODO Falta un parametrizar en el ini de la instancia si la base toba es independiente o adosada al negocio
+ * @package Centrales
+ * @subpackage Modelo
+ */	
 class toba_modelo_instancia extends toba_modelo_elemento
 {
 	const dir_prefijo = 'i__';

@@ -10,11 +10,12 @@ class pant_firma_digital extends toba_ei_pantalla
 		//-- Genera selector de documentos
 		$sesion = $this->dep('firmador')->generar_sesion();
 		
-		$url_actual = $this->dep('firmador')->get_url_base_actual(). $_SERVER['REQUEST_URI'];
+		//$url_actual = $this->dep('firmador')->get_url_base_actual(). $_SERVER['REQUEST_URI'];
 		
 		//JS lo necesita sin encodear y Java encodeado...
-		$url_pdf_base = $this->dep('firmador')->get_url_enviar_pdf(false)."&codigo=$sesion";
-		$url_pdf_base_encodeado = $this->dep('firmador')->get_url_enviar_pdf(true)."&codigo=$sesion";
+		$escapador = toba::escaper();
+		$url_pdf_base =  $this->dep('firmador')->get_url_enviar_pdf(false)."&codigo=" . $escapador->escapeUrl($sesion);
+		$url_pdf_base_encodeado = $this->dep('firmador')->get_url_enviar_pdf(true)."&codigo=". $escapador->escapeUrl($sesion);
 
 		echo "
 			<style type='text/css'>
@@ -54,8 +55,8 @@ class pant_firma_digital extends toba_ei_pantalla
 				}
 			}
 
-			function verDocumento(source) {
-				{$this->objeto_js}.dep('firmador').ver_pdf_inline(source.value);
+			function verDocumento(source) {".
+				$escapador->escapeJs($this->objeto_js) .".dep('firmador').ver_pdf_inline(source.value);
 			}	
 			</script>
 		";
@@ -67,14 +68,14 @@ class pant_firma_digital extends toba_ei_pantalla
 		";
 		$cant_documentos = 68;
 		for ($i = 1; $i <= $cant_documentos; $i++) {
-			echo "	<input id='$i' 
+			echo "	<input id='". $escapador->escapeHtmlAttr($i)."' 
 						name='documentos' 
 						type='checkbox' 
 						onclick='toggleDocumento(this, this.checked)' 
-						value='".$url_pdf_base."&id=$i'
-						value_encodeado='".$url_pdf_base_encodeado."&id=$i'
+						value='".$escapador->escapeHtmlAttr($url_pdf_base.'&id='. $escapador->escapeUrl($i))."' 
+						value_encodeado='". $escapador->escapeHtmlAttr($url_pdf_base_encodeado."&id=". $escapador->escapeUrl($i))."'
 					/> 
-					<a href='javascript:verDocumento(document.getElementById(\"$i\"))'>Documento $i</a>
+					<a href=\"javascript:verDocumento(document.getElementById('". $escapador->escapeHtmlAttr($i)."'))\">Documento ". $escapador->escapeHtml($i)."</a>
 					<br/>";
 		}
 		echo "</div>";

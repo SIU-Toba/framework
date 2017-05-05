@@ -1,9 +1,10 @@
 <?php
 	$plantilla = toba::memoria()->get_parametro('plantilla');
+	$escapador = toba::escaper();
 	if (isset($_POST['elem_nueva_plantilla'])) {
 		$archivo_css = toba::instalacion()->get_path().'/www/css/'.apex_proyecto_estilo.'.css';
 		$texto_css = $_POST['elem_nueva_plantilla'];
-		$texto_css = str_replace(';', ";\n\t", $texto_css);
+		$texto_css = $escapador->escapeCss(str_replace(';', ";\n\t", $texto_css));
 		file_put_contents($archivo_css, $texto_css);
 	}
 ?>
@@ -139,7 +140,7 @@
 		
 	function cargar_plantilla() {
 		for (i =0; i < frame_editado.document.styleSheets.length; i++) {
-			if (frame_editado.document.styleSheets[i].href == '<?php echo $plantilla; ?>')
+			if (frame_editado.document.styleSheets[i].href == '<?php echo $escapador->escapeJs($plantilla); ?>')
 				plantilla = frame_editado.document.styleSheets[i];
 		}
 	}

@@ -98,7 +98,6 @@ class toba_archivo_php
 	 */
 	function mostrar()
 	{
-		require_once(toba_dir()."/php/3ros/PHP_Highlight.php");
 		$h = new PHP_Highlight(false);
 		$h->loadFile($this->nombre);		
 		$formato_linea = "<span style='background-color:#D4D0C8; color: black; font-size: 10px;".

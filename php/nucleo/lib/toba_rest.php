@@ -6,6 +6,10 @@ use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
 use SIUToba\rest\seguridad\autenticacion\usuarios_usuario_password;
 use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
 
+/**
+ * Clase que instancia la libreria necesaria para atender un pedido REST
+ * @package Centrales
+ */
 class toba_rest
 {
 	const CARPETA_REST = "/rest";
@@ -87,87 +91,113 @@ class toba_rest
 			return new toba_rest_logger();
 		});
 
-		$conf = $this->get_conf();
-		$autenticacion = $conf->get('autenticacion', null, 'basic');
+		$autenticaciones = $this->get_metodos_autenticacion();
 		$modelo_proyecto = $this->get_modelo_proyecto();
 
-		switch($autenticacion) {
-			case 'basic':
-				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-					$passwords = new toba_usuarios_rest_conf($modelo_proyecto);
-					return new autenticacion\autenticacion_basic_http($passwords);
-				});
-				break;
-			case 'digest':
-				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-					$passwords = new toba_usuarios_rest_conf($modelo_proyecto);
-					return new autenticacion\autenticacion_digest_http($passwords);
-				});
-				break;
-			case 'api_key':
-				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-					$passwords = new toba_usuarios_rest_conf($modelo_proyecto);
-					return new autenticacion\autenticacion_api_key($passwords);
-				});
-				break;
-			case 'ssl':
-				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-					$certificados = new toba_usuarios_rest_ssl($modelo_proyecto);
-					return new autenticacion\autenticacion_ssl($certificados);
-				});
-				break;
-			case 'oauth2':
-				$app->container->singleton('autenticador', function () use ($conf) {
-					$conf_auth = $conf->get('oauth2');
-					$decoder = null;
-					switch ($conf_auth['decodificador_tokens']) {
-						case 'local':
-							die('not implemented');
-							break;
-						case 'web':
-							$cliente = new \GuzzleHttp\Client(array('base_url' => $conf_auth['endpoint_decodificador_url']));
-							$decoder = new oauth_token_decoder_web($cliente);
-							$decoder->set_cache_manager(new \Doctrine\Common\Cache\ApcCache());
-							$decoder->set_tokeninfo_translation_helper(new autenticacion\oauth2\tokeninfo_translation_helper_arai());
-							break;
-					}
+        $metodos = array();
+        foreach ($autenticaciones as $autenticacion){
+            switch($autenticacion) {
+                case 'basic':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                        return new autenticacion\autenticacion_basic_http($passwords);
+                    };
+                    break;
+                case 'digest':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                        return new autenticacion\autenticacion_digest_http($passwords);
+                    };
+                    break;
+                case 'api_key':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $passwords = new toba_usuarios_rest_conf($modelo_proyecto);
+                        return new autenticacion\autenticacion_api_key($passwords);
+                    };
+                    break;
+                case 'ssl':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $certificados = new toba_usuarios_rest_ssl($modelo_proyecto);
+                        return new autenticacion\autenticacion_ssl($certificados);
+                    };
+                    break;
+                case 'jwt':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $certificados = new toba_usuarios_rest_jwt($modelo_proyecto);
+                        return new autenticacion\autenticacion_jwt($certificados);
+                    };
+                    break;
+                case 'oauth2':
+                    $metodos[] = function () use ($conf) {
+                        $conf_auth = $conf->get('oauth2');
+                        $decoder = null;
+                        switch ($conf_auth['decodificador_tokens']) {
+                            case 'local':
+                                die('not implemented');
+                                break;
+                            case 'web':
+                                $cliente = new \GuzzleHttp\Client(array('base_url' => $conf_auth['endpoint_decodificador_url']));
+                                $decoder = new oauth_token_decoder_web($cliente);
+                                $decoder->set_cache_manager(new \Doctrine\Common\Cache\ApcCache());
+                                $decoder->set_tokeninfo_translation_helper(new autenticacion\oauth2\tokeninfo_translation_helper_arai());
+                                break;
+                        }
 
-					$auth = new autenticacion\autenticacion_oauth2();
-					$auth->set_decoder($decoder);
-					return $auth;
-				});
-				$app->container->singleton('autorizador', function () use ($conf) {
-					$conf_auth = $conf->get('oauth2');
-					if (!isset($conf_auth['scopes'])) {
-						die("es necesario definir el par�metro 'scopes' en el bloque oauth2 de la configuraci�n");
-					}
-					$auth = new autorizacion_scopes();
-					$auth->set_scopes_requeridos(array_map('trim', explode(',', $conf_auth['scopes'])));
-					return $auth;
-				});
-				break;
-			case 'toba':
-				$app->container->singleton('autenticador', function () use ($modelo_proyecto) {
-					$toba_aut = new toba_autenticacion_basica();
-					$user_prov = new toba_usuarios_rest_bd($toba_aut);
-					return new autenticacion\autenticacion_basic_http($user_prov);
-				});
-				break;
-			default:
-				throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic] en el campo 'autenticacion'");
-		}
+                        $auth = new autenticacion\autenticacion_oauth2();
+                        $auth->set_decoder($decoder);
+                        return $auth;
+                    };
+                    $app->container->singleton('autorizador', function () use ($conf) {
+                        $conf_auth = $conf->get('oauth2');
+                        if (!isset($conf_auth['scopes'])) {
+                            die("es necesario definir el par�metro 'scopes' en el bloque oauth2 de la configuraci�n");
+                        }
+                        $auth = new autorizacion_scopes();
+                        $auth->set_scopes_requeridos(array_map('trim', explode(',', $conf_auth['scopes'])));
+                        return $auth;
+                    });
+                    break;
+                case 'toba':
+                    $metodos[] = function () use ($modelo_proyecto) {
+                        $toba_aut = new toba_autenticacion_basica();
+                        $user_prov = new toba_usuarios_rest_bd($toba_aut);
+                        return new autenticacion\autenticacion_basic_http($user_prov);
+                    };
+                    break;
+                default:
+                    throw new toba_error_modelo("Debe especificar un tipo de autenticacion valido [digest, basic] en el campo 'autenticacion'");
+            }
+        }
+        $app->container->singleton('autenticador', function () use ($metodos) {
+			return $metodos;
+		});
 
 		$app->container->singleton('rest_quoter', function () {
 			return toba::db();
 		});
-
-		//MODO PROMISCUO!! SOLO PARA DESARROLLO...
-		if (! toba::instalacion()->es_produccion() && toba::memoria()->get_parametro('api_dev_access') == 1) {
-			$app->container->singleton('autenticador', function () {
-					return new autenticacion_basic_http(new toba_usuarios_rest_promiscuo());
-			});
-		}//FIN DEL IF PROMISCUO
 	}
+
+    protected function get_metodos_autenticacion()
+    {
+        $conf = $this->get_conf();
+		$autenticaciones = explode(',', str_replace(' ', '', $conf->get('autenticacion', null, 'basic')));
+
+        // jwt y oauth usan el mismo header
+        if (in_array('jwt', $autenticaciones) && in_array('oauth', $autenticaciones)){
+            throw new toba_error_modelo("No se puede especificar en simultaneo el tipo de autenticacion 'jwt' y 'oauth' en el campo 'autenticacion'");
+        }
+
+        // basic y digest, se procesan al final y hacen redirect para pedir datos
+        if (in_array('digest', $autenticaciones) && in_array('basic', $autenticaciones)){
+            throw new toba_error_modelo("No se puede especificar en simultaneo el tipo de autenticacion 'digest' y 'basic ' en el campo 'autenticacion'");
+        }
+
+        // hay que priorizar, basic y digest (si existe alguno) hacen redirect primero
+        $order = array('ssl', 'jwt', 'api_key', 'toba', 'digest', 'basic');
+        $autenticaciones = array_intersect($order, $autenticaciones);
+
+        return $autenticaciones;
+    }
 
 	protected function get_conf($api='')
 	{

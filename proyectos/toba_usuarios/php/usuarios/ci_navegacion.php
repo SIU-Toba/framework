@@ -3,6 +3,7 @@
 class ci_navegacion extends toba_ci
 {
 	protected $s__filtro;
+	protected $s__pagina_actual;
 
 	//-------------------------------------------------------------------
 	//--- Eventos GLOBALES
@@ -25,7 +26,7 @@ class ci_navegacion extends toba_ci
 			}
 
 			$this->dep('datos')->resetear();
-			$this->set_pantalla('seleccionar');
+			$this->set_pantalla('seleccionar');			
 		} catch (toba_error $e) {
 			toba::notificacion()->agregar($e->getMessage());
 			toba::logger()->error($e->getMessage());
@@ -90,22 +91,33 @@ class ci_navegacion extends toba_ci
 	
 	function conf__cuadro($componente)
 	{
+		if (isset($this->s__pagina_actual)) {
+			$componente->set_pagina_actual($this->s__pagina_actual);
+			unset($this->s__pagina_actual);
+		}		
 		if (isset($this->s__filtro)) {
+			$tam = $componente->get_tamanio_pagina();
+			$actual = $componente->get_pagina_actual() - 1;								//Quito uno xq el offset es base 0
 			$proyecto = $this->s__filtro['proyecto'];
-			switch ($this->s__filtro['pertenencia']){
+			switch ($this->s__filtro['pertenencia']) {
 				case 'P' :
-					$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro);
+					$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro, $tam, $actual);
+					$cant = consultas_instancia::get_cantidad_usuarios_proyecto($proyecto);
 					break;
 				case 'N' :
-					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro);
+					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro, $tam, $actual);
+					$cant = consultas_instancia::get_cantidad_usuarios_no_vinculados($proyecto);
 					break;
 				case 'T':
-					$datos = consultas_instancia::get_lista_usuarios($this->s__filtro);
+					$datos = consultas_instancia::get_lista_usuarios($this->s__filtro, $tam, $actual);
+					$cant  = consultas_instancia::get_cantidad_usuarios();
 					break;
 				case 'S' :
-					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro);
+					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro, $tam, $actual);
+					$cant = consultas_instancia::get_cantidad_usuarios_no_vinculados();
 					break;
 			}
+			$componente->set_total_registros($cant);
 			$componente->set_datos($datos);
 			$componente->desactivar_modo_clave_segura();
 		}
@@ -115,6 +127,7 @@ class ci_navegacion extends toba_ci
 	{
 		$this->dep('editor')->limpiar_datos();
 		$this->dep('datos')->cargar($id);
+		$this->s__pagina_actual = $this->dep('cuadro')->get_pagina_actual();
 		$this->set_pantalla('editar');
 	}
 

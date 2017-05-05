@@ -203,9 +203,11 @@ class toba_catalogo_items_base
 
 	function sacar_publicos()
 	{
-		foreach ($this->items as $posicion => $item) {
-			if ($item->es_publico()) 
+		$keys_i = array_keys($this->items);
+		foreach ($keys_i as $posicion) {
+			if ($this->items[$posicion]->es_publico()) {
 				unset($this->items[$posicion]);
+			}
 		}
 	}
 
@@ -216,18 +218,21 @@ class toba_catalogo_items_base
 	 */
 	function dejar_grupo_acceso($grupo)
 	{
-		foreach ($this->items as $posicion => $item) {
-			if (!in_array($grupo, $item->grupos_acceso())) 
+		$keys_i = array_keys($this->items);
+		foreach ($keys_i as $posicion) {
+			if (! in_array($grupo, $this->items[$posicion]->grupos_acceso())) {
 				unset($this->items[$posicion]);
+			}
 		}
 	}	
 	
 	function filtrar_items_en_menu($en_menu)
 	{
 		$encontrados = array();
-		foreach ($this->items as $posicion => $item) {
-			if ($item->es_raiz() || $item->es_de_menu() == $en_menu) 
+		foreach ($this->items as $item) {
+			if ($item->es_raiz() || $item->es_de_menu() == $en_menu) {
 				$encontrados[] = $item;
+			}
 		}
 		$this->dejar_ramas_con_items($encontrados);
 	}
@@ -235,7 +240,7 @@ class toba_catalogo_items_base
 	function dejar_items_con_nombre($nombre)
 	{
 		$encontrados = array();
-		foreach ($this->items as $posicion => $item) {
+		foreach ($this->items as $item) {
 			if (stripos($item->get_nombre(),$nombre) !== false) {
 				$encontrados[] = $item;
 			}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+  <author>None</author>
+  <email>none@none.com</email>
+  <version>1.0.0</version>
+  <copyright>SIU 2038</copyright>
+  <description>die young die!</description>
+  <transformations>
+    <transformation query="copy" writer="FileIo" source="templates/toba_doc/img" artifact="img"/>
+    <transformation query="copy" writer="FileIo" source="templates/toba_doc/css" artifact="css"/>
+    <transformation query="copy" writer="FileIo" source="templates/toba_doc/js" artifact="js"/>
+    <transformation writer="twig" source="templates/toba_doc/index.html.twig" artifact="index.html"/>
+    <transformation query="indexes.packages" writer="twig" source="templates/toba_doc/packages.html.twig" />
+    <transformation query="indexes.classes" writer="twig" source="templates/toba_doc/class.html.twig" />
+    <transformation query="indexes.interfaces" writer="twig" source="templates/toba_doc/class.html.twig" />
+    <transformation query="indexes.traits" writer="twig" source="templates/toba_doc/class.html.twig" />
+    <transformation writer="twig" source="templates/toba_doc/deprecated.html.twig" artifact="deprecated.html"/>
+  </transformations>
+</template>

@@ -1,7 +1,8 @@
 <?php
 /**
- * Description of toba_importador_componentes
- *
+ * Clase que importa un plan para componentes
+ * @package Centrales
+ * @subpackage Personalizacion
  * @author sp14ab
  */
 class toba_importador_componentes extends toba_importador {

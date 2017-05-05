@@ -1,22 +1,44 @@
 <?php
-
+/**
+ * Clase base para los comandos.
+ * 
+ * Class \comando.
+ * @package consola
+ */
 class comando
-{
-	/**
-	 * @var consola
-	 */
+{	
 	protected $consola;
 	protected $argumentos;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param mixed $manejador_interface
+	 */
 	function __construct( $manejador_interface )
 	{
 		$this->consola = $manejador_interface;
 	}
 
+	/**
+	 * Devuelve info del comando
+	 * 
+	 * @abstract
+	 */
 	static function get_info(){}
 
+	/**
+	 * Muestra help de uso
+	 * 
+	 * @abstract
+	 */
 	function mostrar_observaciones(){}
 
+	/**
+	 * Devuelve el nombre del comando
+	 * 
+	 * @return string
+	 */
 	function get_nombre()
 	{
 		$nombre = get_class( $this );
@@ -24,6 +46,11 @@ class comando
 		return $temp[1];
 	}
 	
+	/**
+	 * Devuelve un string con los argumentos
+	 * 
+	 * @return string
+	 */
 	function get_argumentos_string()
 	{
 		$salida = '';
@@ -33,14 +60,23 @@ class comando
 		return $salida;
 	}
 	
+	/**
+	 * Permite fijar los argumentos del comando
+	 * 
+	 * @param array $argumentos
+	 */
 	function set_argumentos( $argumentos )
 	{
 		$this->argumentos = $argumentos;
 	}
 
 	/**
-	*	Ubica el metodo solicitado y los ejecuta
-	*/
+	 * Ubica el metodo solicitado y los ejecuta
+	 * 
+	 * @param string $opcion
+	 * @param array $argumentos
+	 * @return null
+	 */
 	function procesar($opcion=null, $argumentos=null)
 	{
 		if (! isset($opcion)) {
@@ -54,6 +90,12 @@ class comando
 		$this->ejecutar_opcion($opcion, $argumentos);
 	}
 	
+	/**
+	 * Ejecuta la opcion solicitada
+	 * 
+	 * @param string $opcion
+	 * @param array $argumentos
+	 */
 	protected function ejecutar_opcion($opcion, $argumentos)
 	{
 		if( method_exists( $this, $opcion ) ) {
@@ -64,6 +106,10 @@ class comando
 		}
 	}
 
+	/**
+	 * Muestra la ayuda del comando en base a una lista de opciones
+	 * 
+	 */
 	function mostrar_ayuda()
 	{
 		$this->consola->titulo( $this->get_info() );
@@ -87,7 +133,13 @@ class comando
 		}
 		$this->consola->coleccion($salida);
 	}
-
+	
+	/**
+	 * Recupera todas las opciones para una clase dada, es decir los metodos ejecutables
+	 * 
+	 * @param string $clase
+	 * @return array
+	 */
 	function inspeccionar_opciones($clase = null)
 	{
 		if (!isset($clase)) {
@@ -121,9 +173,11 @@ class comando
 		return $opciones;
 	}
 
-	/*
-	*	Parseo de parametros
-	*/
+	/**
+	 * Parseo de parametros
+	 * 
+	 * @return array
+	 */
 	protected function get_parametros()
 	{
 		
@@ -155,6 +209,12 @@ class comando
 		return $params;
 	}
 
+	/**
+	 * Devuelve el valor de un parametro que fue pasado como argumento
+	 * 
+	 * @param integer $i
+	 * @return mixed
+	 */
 	private function get_param_val($i) {
 		$paramVal = '';
 		$y=1;
@@ -166,6 +226,12 @@ class comando
 		return trim($paramVal);
 	}
 
+	/**
+	 * Determina si el texto pertenece a un argumento
+	 * 
+	 * @param string $texto
+	 * @return integer 0|1 
+	 */
 	private function es_parametro( $texto ) {
 		 return (substr($texto, 0, 1) == "-") ? 1: 0;
 	}

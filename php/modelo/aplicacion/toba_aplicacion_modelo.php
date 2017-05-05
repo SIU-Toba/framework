@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Clase que contiene la lógica de administración de la aplicación, es utiliza por los comandos
+ * Interface que debe respetar la extension del modelo
+ * @package Centrales
+ * @subpackage Modelo
  */
 interface toba_aplicacion_modelo
 {

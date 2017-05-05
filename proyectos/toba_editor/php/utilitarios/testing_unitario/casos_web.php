@@ -74,13 +74,13 @@ class pantalla_testing extends toba_ei_pantalla
 		try {
 			//Se construye un suite por categoria que tenga test seleccionados
 			foreach (toba_test_lista_casos::get_categorias() as $categoria) {
-				$test = new GroupTest($categoria['nombre']);
+				$test = new testSuite($categoria['nombre']);
 				$hay_uno = false;
 				foreach (toba_test_lista_casos::get_casos() as $caso) {
 					if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
 						$hay_uno = true;
 						require_once($caso['archivo']);
-						$test->addTestCase(new $caso['id']($caso['nombre']));
+						$test->add(new $caso['id']($caso['nombre']));
 					}
 				}		
 				if ($hay_uno) {
@@ -113,7 +113,7 @@ class pantalla_testing extends toba_ei_pantalla
 						$path_temp = toba::proyecto()->get_path_temp_www();
 						$salida = $path_temp['real'] .'/cobertura.html';
 						$cc->renderToFile($salida);
-						echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
+						echo "<a href='". toba::escaper()->escapeHtmlAttr($path_temp['browser'] . '/cobertura.html') ."' target='_blank'>Ver cobertura de código</a>";
 					}
 					//-------				
 				}

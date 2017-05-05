@@ -4,7 +4,7 @@ ef_combo.prototype.constructor = ef_combo;
 	/**
 	 * @class Combo equivalente a un tag SELECT en HTML 
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_combo toba_ef_combo
+	 * @phpdoc classes/toba_ef_combo.html toba_ef_combo
 	 */
 	function ef_combo(id_form, etiqueta, obligatorio, colapsado, mantiene_estado_cascada) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -133,7 +133,7 @@ ef_combo.prototype.constructor = ef_combo;
 			}
 			input.options[input.options.length] = new Option(valor, id);
 			//--- Esto es para poder insertar caracteres especiales dentro del Option
-			input.options[input.options.length - 1].innerHTML = valor;
+			input.options[input.options.length - 1].innerHTML = (typeof  valor == 'string') ?  valor.decodeEntities(): valor;
 		}
 		if (hay_datos) {
 			this.set_solo_lectura(false);
@@ -160,7 +160,7 @@ ef_radio.prototype.constructor = ef_radio;
 	/**
 	 * @class Radio buttons equivalentes a <em>input type='radio'</em>
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_radio toba_ef_radio
+	 * @phpdoc classes/toba_ef_radio.html toba_ef_radio
 	 */
 	function ef_radio(id_form, etiqueta, obligatorio, colapsado, cant_columnas) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);

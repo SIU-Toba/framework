@@ -13,7 +13,7 @@ var apex_ef_total = 's';
 /**
  * @class Clase base de los elementos de formulario. 
  * @constructor
- * @phpdoc Componentes/Efs/toba_ef toba_ef
+ * @phpdoc classes/toba_ef.html toba_ef
  * @wiki Referencia/efs
  */
 function ef(id_form, etiqueta, obligatorio, colapsable) {
@@ -398,7 +398,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 	 * Cambia el valor o estado actual del elemento
 	 */
 	ef.prototype.set_estado = function(nuevo) {
-		this.input().value = nuevo;
+		this.input().value = (typeof nuevo == 'string') ? nuevo.decodeEntities(): nuevo;
 		if (this.input().onchange) {
 			this.input().onchange();
 		}		
@@ -524,7 +524,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 	/**
 	 * @class Elemento que contiene HTML estático
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_fijo toba_ef_fijo
+	 * @phpdoc classes/toba_ef_fijo.html toba_ef_fijo
 	 */
 	function ef_fijo(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -535,7 +535,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 	 * @param {string} nuevo HTML a incluir
 	 */
 	ef_fijo.prototype.set_estado = function(nuevo) {
-		this.input().innerHTML = nuevo;
+		this.input().innerHTML = (typeof nuevo == 'string') ? nuevo.decodeEntities(): nuevo;
 	};	
 	
 	ef_fijo.prototype.get_estado = function() {
@@ -549,7 +549,7 @@ ef_html.prototype.constructor = ef_html;
 	/**
 	 * @class Elemento que contiene un editor HTML
 	 * @constructor
-	 * @phpdoc Componentes/Efs/toba_ef_html toba_ef_html
+	 * @phpdoc classes/toba_ef_html.html toba_ef_html
 	 */
 	function ef_html(id_form, etiqueta, obligatorio, colapsado, parametros) {		
 		this._parametros = parametros;
@@ -624,7 +624,7 @@ ef_html.prototype.constructor = ef_html;
 		}
 	};
 	
-	ef.prototype.set_solo_lectura = function(solo_lectura) {
+	ef_html.prototype.set_solo_lectura = function(solo_lectura) {
 		var editor = this.get_editor();
 		if (editor) {
 			editor.setReadOnly(solo_lectura);
