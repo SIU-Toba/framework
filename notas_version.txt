@@ -1,3 +1,0 @@
-=== 2.2.1 ===
- * Bug en servicios_web, se estaba llamando a un metodo inexistente get_extradas
- * Bug en la asignacion de permisos de prueba para las secuencias.
