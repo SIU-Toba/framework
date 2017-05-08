@@ -14,7 +14,9 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
     ],
     "require": {
         "siu-toba/framework": "^3.0"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 ```
 o ejecutando: 
 ```shell
