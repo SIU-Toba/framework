@@ -9,7 +9,7 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
 "repositories": [
         {
             "type": "composer",
-            "url": "http://satis.siu.edu.ar"
+            "url": "https://satis.siu.edu.ar"
         }
     ],
     "require": {
