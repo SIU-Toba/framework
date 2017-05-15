@@ -71,7 +71,9 @@ class ci_navegacion_perfiles extends toba_ci
 	function evt__guardar()
 	{
 		$this->dep('datos')->persistidor()->desactivar_transaccion();
-		toba::db()->abrir_transaccion();
+		$db = toba::db();		
+		$db->abrir_transaccion();
+		$db->retrasar_constraints(true);
 		//- Sincronizar la relacion
 		if ($this->dep('datos')->esta_cargada()) {
 			$alta = false;
@@ -79,11 +81,12 @@ class ci_navegacion_perfiles extends toba_ci
 			$alta = true;
 		}
 		$this->dep('datos')->sincronizar();
-
+		toba_contexto_info::set_db($db);
+		
 		//- Sincroniza el arbol de items		
 		$this->dep('editor_perfiles')->guardar_arbol_items($alta);
-		$this->dep('datos')->resetear();
-		toba::db()->cerrar_transaccion();
+		$db->cerrar_transaccion();
+		$this->dep('datos')->resetear();		
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
