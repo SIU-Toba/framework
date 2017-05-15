@@ -828,12 +828,21 @@ class toba_db
 
 	/**
 	 * Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma
+	 * @see retrasar_constraints
 	 */
 	function retrazar_constraints()
 	{
+		throw new toba_error("Deberia utilizar el metodo retrasar_constraints");
+	}
+	
+	/**
+	 * Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma
+	 */
+	function retrasar_constraints()
+	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}
-
+	
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------

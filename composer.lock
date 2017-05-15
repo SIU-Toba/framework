@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c889110f9064443588019e329a819bbc",
+    "content-hash": "6b224311262c05d5f81b7b48dcd5690f",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -1705,16 +1705,16 @@
         },
         {
             "name": "simplesamlphp/simplesamlphp",
-            "version": "v1.14.13",
+            "version": "v1.14.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "5af1eea090cd15f1e560f5d6f459c1e7d1942a21"
+                "reference": "0329e7fd0e9f356211a002f5b7c79da4543b5efe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/5af1eea090cd15f1e560f5d6f459c1e7d1942a21",
-                "reference": "5af1eea090cd15f1e560f5d6f459c1e7d1942a21",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/0329e7fd0e9f356211a002f5b7c79da4543b5efe",
+                "reference": "0329e7fd0e9f356211a002f5b7c79da4543b5efe",
                 "shasum": ""
             },
             "require": {
@@ -1772,7 +1772,7 @@
                 "sp",
                 "ws-federation"
             ],
-            "time": "2017-04-27T08:56:17+00:00"
+            "time": "2017-05-05T10:52:35+00:00"
         },
         {
             "name": "simpletest/simpletest",
@@ -1954,21 +1954,21 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v1.1.8",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "ca41d0fc3cc1f598835c10e32658ed8bbb96089d"
+                "reference": "3dd01738ae7eaf7fc69e04ccbcf9f020af48d099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/ca41d0fc3cc1f598835c10e32658ed8bbb96089d",
-                "reference": "ca41d0fc3cc1f598835c10e32658ed8bbb96089d",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/3dd01738ae7eaf7fc69e04ccbcf9f020af48d099",
+                "reference": "3dd01738ae7eaf7fc69e04ccbcf9f020af48d099",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~1.4",
-                "php": ">=5.5.0",
+                "php": ">=7.0.0",
                 "siu-toba/jwt-util": "~1.0.0",
                 "siu-toba/ssl-cert-utils": "1.0"
             },
@@ -1987,7 +1987,7 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2017-04-12T19:50:23+00:00"
+            "time": "2017-05-10T15:37:38+00:00"
         },
         {
             "name": "siu-toba/services_json",
