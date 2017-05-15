@@ -19,7 +19,7 @@
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "dev-master",
-        "siu-toba/rest": "~1.1",
+        "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "~2.10",
