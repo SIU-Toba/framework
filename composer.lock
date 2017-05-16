@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b224311262c05d5f81b7b48dcd5690f",
+    "content-hash": "0ed41f707e81afef3e5ee44b37fddebb",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -1890,11 +1890,11 @@
         },
         {
             "name": "siu-toba/numbers_words",
-            "version": "v0.18.1",
+            "version": "0.18.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/Numbers_Words.git",
-                "reference": "a1bebceb0f8d4c97059e4fe0aaa35437ad409bc2"
+                "reference": "397f0e0bb3d17d9a7d6cf9be5c08de0fa85837f6"
             },
             "require": {
                 "pear/math_biginteger": ">=1.0.2",
@@ -1941,8 +1941,8 @@
                     "email": "makler@man.torun.pl"
                 }
             ],
-            "description": "Allows converting numbers written in arabic digits to words in several languages. You can convert an integer between -infinity and infinity.",
-            "homepage": "https://github.com/pear/Numbers_Words",
+            "description": "Fork from pear/Numbers_Words with added support to short cents form (xx/100) in Spanish languaje.",
+            "homepage": "https://github.com/SIU-Toba/Numbers_Words",
             "keywords": [
                 "numbers"
             ],
@@ -1950,7 +1950,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Numbers_Words",
                 "source": "https://github.com/pear/Numbers_Words"
             },
-            "time": "2014-11-03T10:38:38+00:00"
+            "time": "2016-09-07T14:32:32+00:00"
         },
         {
             "name": "siu-toba/rest",
