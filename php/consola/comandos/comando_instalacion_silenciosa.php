@@ -436,7 +436,7 @@ class comando_instalacion_silenciosa extends comando_toba
 			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
 			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
 		} 
-		return $pwd;
+		return (isset($pwd)) ? $pwd: null;
 	}	
 	
 	protected function definir_usuario_admin($param)
