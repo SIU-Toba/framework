@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.2](https://github.com/SIU-Toba/framework/tree/3.0.2) (2017-05-17):
 - Se quitan las closures en toba_rest
 - Se actualiza Numbers_Words a la version correcta
 - Actualizada siutoba/rest: 2.0.1
