@@ -143,6 +143,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (isset($parametros['base'])) {
 			unset($parametros['base']);
 		}
+		if (isset($parametros['schema'])) {
+			unset($parametros['schema']);
+		}
 		return $parametros;
 	}	
 	
@@ -281,19 +284,18 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$version = $this->get_version_nueva();
 
 		$id = $this->proyecto->get_id();
-		$this->manejador_interface->titulo("Instalando $id ".$version->__toString());		
-		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());
+		$this->manejador_interface->titulo("Instalando $id ".$version->__toString());	
+		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());		
+		//-- Cambia el schema
+		if (! isset($datos_servidor['schema'])) {
+			$datos_servidor['schema'] =  $this->schema_modelo;			
+		}
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
 			if (! isset($datos_servidor['base'])) {
 				$id_base = $this->get_id_base();
 				$datos_servidor['base'] = $id_base;
-			}
-			//-- Cambia el schema
-			if (! isset($datos_servidor['schema'])) {
-				$datos_servidor['schema'] =  $this->schema_modelo;			
-			}
-
+			}			
 			//-- Agrega la definición de la base
 			$this->instalacion->agregar_db($id_def_base, $datos_servidor);
 			if ($this->permitir_determinar_encoding_bd) {
@@ -305,7 +307,6 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (! $this->instalacion->existe_base_datos($id_def_base)) {
 			$this->instalacion->crear_base_datos($id_def_base, false);
 		} 
-			
 		//--- Chequea si hay un modelo cargado y decide que hacer en tal caso
 		$base = $this->instalacion->conectar_base($id_def_base);	
 		$this->schema_modelo = $datos_servidor['schema'];
