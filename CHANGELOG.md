@@ -5,6 +5,7 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 - Se quitan las closures en toba_rest
 - Se actualiza Numbers_Words a la version correcta
+- Actualizada siutoba/rest: 2.0.1
 - Se fixea bug en el script de instalación
 
 [3.0.1](https://github.com/SIU-Toba/framework/tree/3.0.1) (2017-05-15):

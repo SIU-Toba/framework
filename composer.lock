@@ -1954,21 +1954,21 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "3dd01738ae7eaf7fc69e04ccbcf9f020af48d099"
+                "reference": "6804c2cda4914e7606bbd0866f3ac1470ebd34c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/3dd01738ae7eaf7fc69e04ccbcf9f020af48d099",
-                "reference": "3dd01738ae7eaf7fc69e04ccbcf9f020af48d099",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/6804c2cda4914e7606bbd0866f3ac1470ebd34c8",
+                "reference": "6804c2cda4914e7606bbd0866f3ac1470ebd34c8",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~1.4",
-                "php": ">=7.0.0",
+                "php": ">=5.6.0",
                 "siu-toba/jwt-util": "~1.0.0",
                 "siu-toba/ssl-cert-utils": "1.0"
             },
@@ -1987,7 +1987,7 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2017-05-10T15:37:38+00:00"
+            "time": "2017-05-16T19:43:25+00:00"
         },
         {
             "name": "siu-toba/services_json",
