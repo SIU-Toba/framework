@@ -904,7 +904,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function generar_roles_db($id_operacion = null)
 	{
-		if (! $this->get_instalacion()->es_produccion()) {		
+		if (! $this->get_instalacion()->es_produccion()) {
 			foreach (toba_info_editores::get_fuentes_datos($this->identificador) as $fuente) {	
 				if ($fuente['permisos_por_tabla'] == 0) {
 					continue;
@@ -2693,6 +2693,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$parametros = $this->instancia->get_parametros_db();
 			if (isset($parametros['base'])) {
 				unset($parametros['base']);
+			}
+			if (isset($parametros['schema'])) {
+				unset($parametros['schema']);
 			}
 			$aplicacion->instalar($parametros);
 			$this->generar_roles_db();

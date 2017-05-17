@@ -23,7 +23,7 @@
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.0",
         "onelogin/php-saml": "~2.10",
-        "siu-toba/Numbers_Words": "^0.18.0.1",        
+        "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
         "phpoffice/phpexcel": "~1.8", 
         "dapphp/securimage": "~3.6", 

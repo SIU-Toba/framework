@@ -35,6 +35,9 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 		if (isset($parametros['--base-nombre'])) {
 			$base['base'] = $parametros['--base-nombre'];
 		}
+		if (isset($parametros['--base-schema'])) {
+			$base['schema'] = $parametros['--base-schema'];
+		}
 		$this->modelo->instalar($base);
 	}
 

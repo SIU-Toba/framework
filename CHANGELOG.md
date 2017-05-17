@@ -2,9 +2,20 @@
 
 ## CHANGELOG
 
-[CURRENT](/../compare/master...develop)
+[CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
-[3.0.0](/../tree/v3.0.0) (2017-05-04):
+[3.0.2](https://github.com/SIU-Toba/framework/tree/3.0.2) (2017-05-17):
+- Se quitan las closures en toba_rest
+- Se actualiza Numbers_Words a la version correcta
+- Actualizada siutoba/rest: 2.0.1
+- Se fixea bug en el script de instalación
+
+[3.0.1](https://github.com/SIU-Toba/framework/tree/3.0.1) (2017-05-15):
+- Actualizada siutoba/rest: 2.0.0
+- Fix en alta de perfiles funcionales en toba_usuarios
+- Fix typo en toba_db
+
+[3.0.0](https://github.com/SIU-Toba/framework/tree/v3.0.0) (2017-05-04):
 - Removida activeCalendar
 - Numbers_Words cambia implementacion, reemplazar las llamadas segun formato buscado
   - Constructor: new Numbers_Words_es_Ar ---> new Numbers_Words_Locale_es_AR
