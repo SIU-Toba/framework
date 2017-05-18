@@ -40,6 +40,16 @@ class toba_manejador_sesiones
 	    }
 	}
 
+	static function get_cookie_alias()
+	{
+		$ini_values =  toba_instancia::get_datos_instancia(toba_instancia::get_id());
+		$alias = '/';
+		if (apex_pa_proyecto != 'toba_editor' && isset($ini_values[apex_pa_proyecto])) {
+			$alias = (trim($ini_values[apex_pa_proyecto]['url' ]) != '') ? $ini_values[apex_pa_proyecto]['url' ]: '/';
+		}
+		return $alias;
+	}
+	
 	private function __construct()
 	{
             if (!defined('TOBA_DIR')) {
@@ -67,6 +77,8 @@ class toba_manejador_sesiones
                     throw new toba_error('Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
             }
             if (! toba_nucleo::instancia()->es_acceso_rest()) {
+					$ini_settings = session_get_cookie_params();
+					session_set_cookie_params($ini_settings['lifetime'], self::get_cookie_alias(), $ini_settings['domain'], $ini_settings['secure'], true);
                     session_name(toba::instalacion()->get_session_name());
                     session_start();
             }
