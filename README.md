@@ -31,7 +31,7 @@ o
 
 ```shell
 composer update siu-toba/framework
-composer run-script post-install-cmd -d ./vendor/siu-toba/framework/
+composer run-script post-update-cmd -d ./vendor/siu-toba/framework/
 ```
 
 Una vez ejecutados dichos comandos, se procede a la instalación propiamente dicha de SIU-Toba, primero definiremos el nombre de la instancia y la ubicación donde deseamos resida la carpeta instalación como variables de entorno mediante
