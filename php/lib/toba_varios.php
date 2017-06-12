@@ -398,11 +398,11 @@
 	 * @param string $valor Campo valor (asociativo o numerico) de cada registro
 	 * @return array 
 	 */
-    function rs_convertir_asociativo($datos_recordset, $claves=array(0), $valor=1)
-    {
-    	if (!isset($datos_recordset)) {
-    		return array();	
-    	}
+	function rs_convertir_asociativo($datos_recordset, $claves=array(0), $valor=1)
+	{
+		if (!isset($datos_recordset)) {
+			return array();	
+		}
 		$valores = array();
 		foreach ($datos_recordset as $fila){
 			$valores_clave = array();
@@ -420,11 +420,11 @@
 				$valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];
 			}
 		}
-        return $valores;
-    }	
-    
+		return $valores;
+	}	
+
 	//-----------------------------------------------------------------	
-	    
+
 	/**
 	 * Toma una matriz en formato recordset y retorna la misma matriz pero con la primer componente asociativa
 	 *
@@ -433,11 +433,11 @@
 	 * @param string $valores Campos valor (asociativo o numerico) de cada registro, se asumen todos los campos
 	 * @return array 
 	 */
-    function rs_convertir_asociativo_matriz($datos_recordset, $claves, $valores=null)
-    {
-    	if (!isset($datos_recordset)) {
-    		return array();	
-    	}
+	function rs_convertir_asociativo_matriz($datos_recordset, $claves, $valores=null)
+	{
+		if (!isset($datos_recordset)) {
+			return array();	
+		}
 		$salida = array();
 		foreach ($datos_recordset as $fila){
 			$valores_clave = array();
@@ -446,7 +446,7 @@
 			}
 			if (isset($valores)) {
 				foreach ($valores as $valor) {
-	            	$salida[implode(apex_qs_separador, $valores_clave)][$valor] = $fila[$valor];
+					$salida[implode(apex_qs_separador, $valores_clave)][$valor] = $fila[$valor];
 				}
 			} else {
 				$clave_temp = implode(apex_qs_separador, $valores_clave);
@@ -457,8 +457,8 @@
 				}
 			}
 		}
-        return $salida;
-    }
+		return $salida;
+	}
 
 	//-----------------------------------------------------------------	
 
@@ -561,6 +561,39 @@
 		}
 	}
 
+	function estoy_en_vendor($dir)
+	{
+		return (posicion_ruta_vendor($dir) !== false);
+	}
+	
+	function posicion_ruta_vendor($dir) 
+	{
+		return $pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
+	}
+	
+	function generar_archivo_entorno($instal_dir, $id_instancia, $es_windows=false)	
+	{
+		if (! $es_windows) {
+			$contenido =  "export TOBA_DIR=".toba_dir()."\n";
+			$contenido .= "export TOBA_INSTANCIA=$id_instancia\n";
+			$contenido.= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
+			$contenido .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
+			$contenido .= "echo \"Entorno cargado.\"\n";
+			$contenido .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";			
+		} else {
+			$contenido = "@echo off\n";
+			$contenido .= "set TOBA_DIR=".toba_dir()."\n";
+			$contenido .= "set TOBA_INSTANCIA=$id_instancia\n";
+			$contenido .= "set TOBA_INSTALACION_DIR=$instal_dir\n";
+			$contenido .= "set PATH=%PATH%;%TOBA_DIR%/bin\n";
+			$contenido .= "echo Entorno cargado.\n";
+			$contenido .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
+		}
+		return $contenido;
+	}
+	
+	
+	
 	/**
 	 * Clase que otorga rangos para asignación de tabs
 	 * @package Varios
