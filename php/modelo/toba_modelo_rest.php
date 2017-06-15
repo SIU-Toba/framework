@@ -62,6 +62,17 @@ class toba_modelo_rest extends toba_modelo_elemento
 		return $ini;
 	}
 	
+	/**
+	 *  Devuelve un listado de los servicios rest consumibles
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return array
+	 */
+	static function get_lista_servicios_consumibles(toba_modelo_proyecto $proyecto)
+	{
+		$datos = toba_info_editores::get_servicios_web_acc($proyecto->get_id(), 'rest');
+		return $datos;
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------------//
 	/**
 	 * @param toba_modelo_proyecto $proyecto
@@ -269,7 +280,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 		$ini->guardar();
 	}
 	
-	function generar_configuracion_servidor($usr, $usr_pwd, $cert_file=null, $tipo_auth='digest' )
+	function generar_configuracion_servidor($usr, $usr_pwd, $cert_file=null, $tipo_auth='digest' , $encoding='utf-8')
 	{
 		$id_proyecto = $this->proyecto->get_id();
 		//--- Servidor (se considera el nombre del proyecto como nombre de api por defecto)
@@ -282,7 +293,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 			$ini_server->set_datos_entrada('autenticacion', $tipo_auth);
 		}
 		if (! $ini_server->existe_entrada('settings')) {
-			$ini_server->agregar_entrada('settings', array('formato_respuesta' => 'json' , 'url_protegida' => '/.*/'));							//Pongo los parametros default
+			$ini_server->agregar_entrada('settings', array('formato_respuesta' => 'json' , 'url_protegida' => '/.*/', 'encoding' => $encoding));							//Pongo los parametros default
 		}
 		
 		$ini_usr = self::get_ini_usuarios($this->proyecto);

@@ -26,14 +26,35 @@ class toba_modelo_soap extends toba_modelo_elemento
 		$this->db = $this->proyecto->get_db();
 	}
 	
+	/**
+	 * Devuelve el path al archivo de la clave privada
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return string
+	 */
 	static function path_clave_privada($proyecto)
 	{
 		return  $proyecto->get_dir_instalacion_proyecto(). self::ARCHIVO_CLAVE;	
 	}
 	
+	/**
+	 * Devuelve el path al archivo de la clave publica
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return string
+	 */
 	static function path_clave_publica($proyecto)
 	{
 		return  $proyecto->get_dir_instalacion_proyecto(). self::ARCHIVO_CERT;
+	}
+	
+	/**
+	 *  Devuelve un listado de los servicios rest consumibles
+	 * @param toba_modelo_proyecto $proyecto
+	 * @return array
+	 */
+	static function get_lista_servicios_consumibles(toba_modelo_proyecto $proyecto)
+	{
+		$datos = toba_info_editores::get_servicios_web_acc($proyecto->get_id(), 'soap');
+		return $datos;
 	}
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------//	

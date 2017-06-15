@@ -54,7 +54,8 @@ class comando_servicios_web extends comando_toba
 	 *  --tipo_ws soap|rest indica el tipo de web service (default BC:  soap) 
 	 *  --auth_tipo ssl|digest|basic indica el tipo de autenticacion a utilizar en el servidor (default digest)
 	 *  --usuario Nombre usuario para autenticar (REST)
-	 *  --pwd_usuario Password para autenticacion basica (REST)
+	 *  --usuario_pwd Password para autenticacion basica (REST)
+	 *  --encoding Encoding de la respuesta
 	 */
 	function opcion__serv_configurar()
 	{
@@ -114,23 +115,38 @@ class comando_servicios_web extends comando_toba
 	 *  --key_cli Archivo con la clave privada (REST)
 	 *  --cert_pwd Password para el certificado si asi lo requiere (REST)
 	 *  --usuario Nombre usuario para autenticar (REST)
-	 *  --pwd_usuario Password para autenticacion basica (REST)
+	 *  --usuario_pwd Password para autenticacion basica (REST)
 	 */	
 	function opcion__cli_configurar()
 	{
 		$parametros = $this->get_parametros();
 		$tipo = (isset($parametros['--tipo_ws'])) ? $parametros['--tipo_ws'] : 'soap';		
+		$todos = (isset($parametros['--all']));
 		switch ($tipo) {
 			case 'soap':
-					$this->cliente_soap_configurar($parametros);
+					$consumibles = ($todos) ? toba_modelo_soap::get_lista_servicios_consumibles($this->get_proyecto()): array();
+					do {	
+						$actual = current($consumibles);
+						if ($actual !== false) {
+							$parametros['-s'] = $actual['servicio_web'];
+						}
+						$this->cliente_soap_configurar($parametros);
+					} while (next($consumibles) !== false);
 					break;
 			case 'rest':					
-					$this->cliente_rest_configurar($parametros);
+					$consumibles = ($todos) ? toba_modelo_rest::get_lista_servicios_consumibles($this->get_proyecto()): array();
+					do {	
+						$actual = current($consumibles);
+						if ($actual !== false) {
+							$parametros['-s'] = $actual['servicio_web'];
+						}
+						$this->cliente_rest_configurar($parametros);
+					} while (next($consumibles) !== false);
 					break;
 			default:
 				$this->consola->error('Tipo de Web Service no reconocido');
 				die;
-		}
+		}	
 		$this->consola->progreso_fin();
 	}
 	
@@ -197,7 +213,8 @@ class comando_servicios_web extends comando_toba
 	private function cliente_soap_configurar($parametros)
 	{
 		$proyecto = $this->get_proyecto();
-		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $this->get_servicio_cli(), $this->consola);
+		$id_servicio = (isset($parametros['-s'])) ? $parametros['-s'] : $this->get_servicio_cli();
+		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $id_servicio, $this->consola);
 		
 		$dir_instalacion = $proyecto->get_dir_instalacion_proyecto();
 		if (! toba_modelo_servicio_web::existe_archivo_certificado($proyecto)) {
@@ -226,8 +243,9 @@ class comando_servicios_web extends comando_toba
 	private function cliente_rest_configurar($parametros)
 	{
 		$url_sistema = $cert_cli = $key_cli = $cert_pwd = $usr = $usr_pwd = null;
-		$proyecto = $this->get_proyecto();		
-		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $this->get_servicio_cli(), $this->consola, 'rest');		
+		$proyecto = $this->get_proyecto();
+		$id_servicio = (isset($parametros['-s'])) ? $parametros['-s'] : $this->get_servicio_cli();		
+		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $id_servicio, $this->consola, 'rest');		
 		
 		//Me fijo si se puso un usuario y pwd
 		if (isset($parametros['--usuario']) && trim($parametros['--usuario']) != '') {
@@ -323,8 +341,9 @@ class comando_servicios_web extends comando_toba
 			die;
 		}
 		
+		$encoding = (isset($parametros['--encoding'])) ? $parametros['--encoding'] :  'utf-8';
 		$rest = new toba_modelo_rest($proyecto);
-		$rest->generar_configuracion_servidor($usr, $usr_pwd, $cert_cli, $auth_tipo);
+		$rest->generar_configuracion_servidor($usr, $usr_pwd, $cert_cli, $auth_tipo, $encoding);
 	}	
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//	
