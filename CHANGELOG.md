@@ -3,6 +3,9 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+
+[3.0.3](https://github.com/SIU-Toba/framework/tree/3.0.3) (2017-06-16):
 - Se cambia el item de inicio en el proyecto toba_usuarios
 - Se fuerza la eliminación de triggers al actualizar la auditoría
 - Se agrega la libreria vlucas/dotenvphp para cargar variables de entorno a partir de un archivo .env
