@@ -122,31 +122,30 @@ class comando_servicios_web extends comando_toba
 		$parametros = $this->get_parametros();
 		$tipo = (isset($parametros['--tipo_ws'])) ? $parametros['--tipo_ws'] : 'soap';		
 		$todos = (isset($parametros['--all']));
-		switch ($tipo) {
-			case 'soap':
-					$consumibles = ($todos) ? toba_modelo_soap::get_lista_servicios_consumibles($this->get_proyecto()): array();
-					do {	
-						$actual = current($consumibles);
-						if ($actual !== false) {
-							$parametros['-s'] = $actual['servicio_web'];
-						}
-						$this->cliente_soap_configurar($parametros);
-					} while (next($consumibles) !== false);
-					break;
-			case 'rest':					
-					$consumibles = ($todos) ? toba_modelo_rest::get_lista_servicios_consumibles($this->get_proyecto()): array();
-					do {	
-						$actual = current($consumibles);
-						if ($actual !== false) {
-							$parametros['-s'] = $actual['servicio_web'];
-						}
-						$this->cliente_rest_configurar($parametros);
-					} while (next($consumibles) !== false);
-					break;
-			default:
-				$this->consola->error('Tipo de Web Service no reconocido');
-				die;
-		}	
+		if ($tipo == 'soap') {
+			$consumibles = ($todos) ? toba_modelo_soap::get_lista_servicios_consumibles($this->get_proyecto()): array();
+		} elseif ($tipo == 'rest') {
+			$consumibles = ($todos) ? toba_modelo_rest::get_lista_servicios_consumibles($this->get_proyecto()): array();
+		} else {
+			$this->consola->error('Tipo de Web Service no reconocido');
+			die;
+		}		
+		if ($todos && empty($consumibles)) {
+			$this->consola->error('No existen Servicios Web consumibles, omitiendo configuración');			
+		} else {
+			do {	
+				$actual = current($consumibles);
+				if ($actual !== false) {
+					$parametros['-s'] = $actual['servicio_web'];
+				}				
+				switch ($tipo) {
+				case 'soap':	$this->cliente_soap_configurar($parametros);
+							break;
+				case 'rest':	$this->cliente_rest_configurar($parametros);
+							break;
+				}
+			} while (next($consumibles) !== false);
+		}		
 		$this->consola->progreso_fin();
 	}
 	
