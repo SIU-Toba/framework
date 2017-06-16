@@ -116,6 +116,7 @@ class comando_servicios_web extends comando_toba
 	 *  --cert_pwd Password para el certificado si asi lo requiere (REST)
 	 *  --usuario Nombre usuario para autenticar (REST)
 	 *  --usuario_pwd Password para autenticacion basica (REST)
+	 *  --all Configura todos los WS consumibles con los mismos datos
 	 */	
 	function opcion__cli_configurar()
 	{
