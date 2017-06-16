@@ -94,6 +94,7 @@ class toba_db_postgres7 extends toba_db
 		if ($fallback_en_public) {
 			$sql .= ', public';
 		}
+		$sql .= ';';
 		if (! $ejecutar) { return $sql; }
 		$this->ejecutar($sql);
 	}

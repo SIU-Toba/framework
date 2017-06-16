@@ -15,6 +15,14 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
     "require": {
         "siu-toba/framework": "^3.0"
     },
+   "scripts": {
+        "post-install-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+        ],
+        "post-update-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable" : true
 ```
@@ -22,8 +30,17 @@ o ejecutando:
 ```shell
 composer require siu-toba/framework 
 ```
+Luego de ello realizamos el download propiamente dicho de acuerdo a como vengamos trabajando con composer. Para ello podemos utilizar el comando: 
+```shell
+composer install
+```
+o 
 
-Una vez ejecutado dicho comando, se procede a la instalación propiamente dicha de SIU-Toba, primero definiremos el nombre de la instancia y la ubicación donde deseamos resida la carpeta instalación como variables de entorno mediante
+```shell
+composer update siu-toba/framework
+```
+
+Una vez ejecutados dichos comandos, se procede a la instalación propiamente dicha de SIU-Toba, primero definiremos el nombre de la instancia y la ubicación donde deseamos resida la carpeta instalación como variables de entorno mediante
 ```shell
 export TOBA_INSTANCIA=$nombre_instancia
 export TOBA_INSTALACION_DIR=$carpeta_instalacion

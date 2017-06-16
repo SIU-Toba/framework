@@ -90,11 +90,6 @@ class comando_instalacion extends comando_toba
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
-		/*
-		if (get_magic_quotes_gpc()) {
-			$this->consola->mensaje("------------------------------------");
-			throw new toba_error("ERROR: Necesita desactivar las 'magic_quotes_gpc' en el archivo php.ini (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");	
-		}*/
 		if (! extension_loaded('pdo')) {
 			$this->consola->mensaje("------------------------------------");
 			throw new toba_error("ERROR: Necesita activar la extension 'pdo' en el archivo php.ini");
@@ -234,12 +229,6 @@ class comando_instalacion extends comando_toba
 			$proyecto->vincular_usuario('toba', array($grupo_acceso));
 		}
 		
-		//--- Crea el login y exporta el proyecto
-		/*if (isset($nuevo_proyecto)) {
-			$nuevo_proyecto->actualizar_login();					//WTH??
-			$nuevo_proyecto->exportar();	
-		}*/
-
 		$instancia->exportar_local();
 		
 		//--- Crea los nuevos alias
@@ -270,55 +259,52 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("");
 			$this->consola->mensaje("     http://localhost$url");
 			$this->consola->mensaje("");
-
-
 			$this->consola->mensaje("");
 		}
 
 		$release = toba_modelo_instalacion::get_version_actual()->get_release();
 		$instal_dir = toba_modelo_instalacion::dir_base();
+		$pos = posicion_ruta_vendor(toba_dir());
+		
+		//--Genero el archivo de entorno
+		$path = $instal_dir. "/entorno_toba.env";
+		file_put_contents($path, generar_archivo_entorno($instal_dir, $id_instancia));
+		chmod($path, 0755);
+		
+		//Lo copio a la raiz del proyecto para cargarlo en el lanzamiento del comando	(solo si estoy dentro de vendor)		
+		if ($pos !== FALSE) {
+			$path_copia = substr(toba_dir(), 0, $pos) . '/entorno_toba.env';
+			copy($path, $path_copia);
+		} else {
+			$path_copia = toba_dir() . '/entorno_toba.env';
+			copy($path, $path_copia);
+		}
+
+		//Si estoy en windows genero un archivo de entorno por si acaso.
 		if (toba_manejador_archivos::es_windows()) {
 			if (isset($_SERVER['USERPROFILE'])) {
-				$path = $_SERVER['USERPROFILE'];
+				$pathw = $_SERVER['USERPROFILE'];
 			} else {
-				$path = $instal_dir;
+				$pathw = $instal_dir;
 			}
-			$path .= "\\entorno_toba_$release.bat";
-			$bat = "@echo off\n";
-			$bat .= "set TOBA_DIR=".toba_dir()."\n";
-			$bat .= "set TOBA_INSTANCIA=$id_instancia\n";
-			$bat .= "set TOBA_INSTALACION_DIR=$instal_dir\n";
-			$bat .= "set PATH=%PATH%;%TOBA_DIR%/bin\n";
-			$bat .= "echo Entorno cargado.\n";
-			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
-			file_put_contents($path, $bat);
+			$pathw .= "\\entorno_toba_$release.bat";			
+			file_put_contents($pathw, generar_archivo_entorno($instal_dir, $id_instancia, true));
 			if ($interactive) {
 				$this->consola->mensaje("2) Se genero el siguiente .bat:");
 				$this->consola->mensaje("");
-				$this->consola->mensaje("   $path");
+				$this->consola->mensaje("   $pathw");
 				$this->consola->mensaje("");
 				$this->consola->mensaje("Para usar los comandos toba ejecute el .bat desde una sesión de consola (cmd.exe)");
 			}
 		} else {
-			$path = $instal_dir;
-			$path .= "/entorno_toba.env";
-			$bat = "export TOBA_DIR=".toba_dir()."\n";
-			$bat .= "export TOBA_INSTANCIA=$id_instancia\n";
-			$bat .= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
-			$bat .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
-			$bat .= "echo \"Entorno cargado.\"\n";
-			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
-			file_put_contents($path, $bat);
-			chmod($path, 0755);
 			if ($interactive) {
 				$this->consola->mensaje("2) Se genero el siguiente archivo:");
 				$this->consola->mensaje("");
 				$this->consola->mensaje("   $path");
 				$this->consola->mensaje("");
-				$sh = basename($path);
 				$this->consola->mensaje("Para usar los comandos toba ejecute antes el .env precedido por un punto y espacio");
 			}
-		}
+		}		
 		if ($interactive) {
 			$this->consola->mensaje("");
 			$this->consola->mensaje("3) Entre otras cosas puede crear un nuevo proyecto ejecutando el comando");

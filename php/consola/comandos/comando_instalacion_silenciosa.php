@@ -92,33 +92,31 @@ class comando_instalacion_silenciosa extends comando_toba
 		$instancia->crear_alias_proyectos();
 		
 		$release = toba_modelo_instalacion::get_version_actual()->get_release();
-		$instal_dir = toba_modelo_instalacion::dir_base();
+		$instal_dir = toba_modelo_instalacion::dir_base();		
+		$pos = posicion_ruta_vendor(toba_dir());
+		
+		//--Genero el archivo de entorno
+		$path = $instal_dir. "/entorno_toba.env";
+		file_put_contents($path, generar_archivo_entorno($instal_dir, $id_instancia));
+		chmod($path, 0755);
+		
+		//Lo copio a la raiz del proyecto para cargarlo en el lanzamiento del comando	(solo si estoy dentro de vendor)		
+		if ($pos !== FALSE) {
+			$path_copia = substr(toba_dir(), 0, $pos) . '/entorno_toba.env';
+			copy($path, $path_copia);
+		} else {
+			$path_copia = toba_dir() . '/entorno_toba.env';
+			copy($path, $path_copia);
+		}
+		
 		if (toba_manejador_archivos::es_windows()) {
 			if (isset($_SERVER['USERPROFILE'])) {
-				$path = $_SERVER['USERPROFILE'];
+				$pathw = $_SERVER['USERPROFILE'];
 			} else {
-				$path = $instal_dir;
+				$pathw = $instal_dir;
 			}
-			$path .= "\\entorno_toba_$release.bat";
-			$bat = "@echo off\n";
-			$bat .= "set TOBA_DIR=".toba_dir()."\n";
-			$bat .= "set TOBA_INSTANCIA=$id_instancia\n";
-			$bat .= "set TOBA_INSTALACION_DIR=$instal_dir\n";		
-			$bat .= "set PATH=%PATH%;%TOBA_DIR%/bin\n";
-			$bat .= "echo Entorno cargado.\n";
-			$bat .= "echo Ejecute 'toba' para ver la lista de comandos disponibles.\n";
-			file_put_contents($path, $bat);
-		} else {
-			$path = $instal_dir;
-			$path .= "/entorno_toba.env";
-			$bat = "export TOBA_DIR=".toba_dir()."\n";
-			$bat .= "export TOBA_INSTANCIA=$id_instancia\n";
-			$bat .= "export TOBA_INSTALACION_DIR=$instal_dir\n";				
-			$bat .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
-			$bat .= "echo \"Entorno cargado.\"\n";
-			$bat .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
-			file_put_contents($path, $bat);
-			chmod($path, 0755);
+			$pathw .= "\\entorno_toba_$release.bat";
+			file_put_contents($pathw, generar_archivo_entorno($instal_dir, $id_instancia, true));
 		}
 	}
 	
@@ -436,7 +434,7 @@ class comando_instalacion_silenciosa extends comando_toba
 			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
 			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
 		} 
-		return $pwd;
+		return (isset($pwd)) ? $pwd: null;
 	}	
 	
 	protected function definir_usuario_admin($param)

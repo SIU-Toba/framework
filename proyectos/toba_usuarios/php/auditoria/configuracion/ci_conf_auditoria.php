@@ -101,6 +101,7 @@ class ci_conf_auditoria extends toba_ci
 			$manejador->crear();
 			$this->agregar_notificacion('Schema creado');
 		} else {
+			$manejador->set_triggers_eliminacion_forzada(true);
 			$manejador->migrar();
 			$this->agregar_notificacion('Schema actualizado');
 		}

@@ -237,7 +237,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$estructura = $this->proyecto->get_dir().'/sql/estructura.sql';
 		if (file_exists($estructura)) {
 			$this->manejador_interface->mensaje('Creando estructura', false);
-			$this->manejador_interface->progreso_avanzar();	
+			$this->manejador_interface->progreso_avanzar();
 			$base->ejecutar_archivo($estructura);
 			$this->manejador_interface->progreso_fin();
 		}
@@ -286,21 +286,21 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$id = $this->proyecto->get_id();
 		$this->manejador_interface->titulo("Instalando $id ".$version->__toString());	
 		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());		
-		//-- Cambia el schema
-		if (! isset($datos_servidor['schema'])) {
-			$datos_servidor['schema'] =  $this->schema_modelo;			
-		}
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
 			if (! isset($datos_servidor['base'])) {
 				$id_base = $this->get_id_base();
 				$datos_servidor['base'] = $id_base;
 			}			
+			//-- Cambia el schema
+			if (! isset($datos_servidor['schema'])) {
+				$datos_servidor['schema'] =  $this->schema_modelo;			
+			}			
 			//-- Agrega la definición de la base
 			$this->instalacion->agregar_db($id_def_base, $datos_servidor);
 			if ($this->permitir_determinar_encoding_bd) {
 				$this->instalacion->determinar_encoding($id_def_base);
-			}
+			}			
 		}
 				
 		//--- Chequea si existe fisicamente la base creada
@@ -309,7 +309,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		} 
 		//--- Chequea si hay un modelo cargado y decide que hacer en tal caso
 		$base = $this->instalacion->conectar_base($id_def_base);	
-		$this->schema_modelo = $datos_servidor['schema'];
+		if (isset($datos_servidor['schema'])) {
+			$this->schema_modelo = $datos_servidor['schema'];
+		}
 		if (!$this->estructura_creada($base)) {			
 			$this->cargar_modelo_datos($base);			
 		} else {

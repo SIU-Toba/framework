@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ed41f707e81afef3e5ee44b37fddebb",
+    "content-hash": "d80c2bb384222953a9d71fe7fe50e1f2",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -273,16 +273,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.9.2",
+            "version": "v4.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4"
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
-                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
                 "shasum": ""
             },
             "require": {
@@ -316,7 +316,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-03-13T06:30:53+00:00"
+            "time": "2017-06-03T02:28:16+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -803,16 +803,16 @@
         },
         {
             "name": "mjohnson/decoda",
-            "version": "6.8.0",
+            "version": "6.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/milesj/decoda.git",
-                "reference": "bd888f5f47d76e10bbfe835abf19ec94a908cddb"
+                "reference": "dc7ecf98c397de8dcb0f69b764d2528803e8d208"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/milesj/decoda/zipball/bd888f5f47d76e10bbfe835abf19ec94a908cddb",
-                "reference": "bd888f5f47d76e10bbfe835abf19ec94a908cddb",
+                "url": "https://api.github.com/repos/milesj/decoda/zipball/dc7ecf98c397de8dcb0f69b764d2528803e8d208",
+                "reference": "dc7ecf98c397de8dcb0f69b764d2528803e8d208",
                 "shasum": ""
             },
             "require": {
@@ -853,7 +853,7 @@
                 "markup",
                 "parser"
             ],
-            "time": "2017-02-04T03:51:18+00:00"
+            "time": "2017-05-19T07:01:07+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -935,16 +935,16 @@
         },
         {
             "name": "onelogin/php-saml",
-            "version": "2.10.5",
+            "version": "2.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/onelogin/php-saml.git",
-                "reference": "3319d7707f342e38291eee6b01a4a5f8df1b333b"
+                "reference": "b41f731803f303879f50fa76276908088197731c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/3319d7707f342e38291eee6b01a4a5f8df1b333b",
-                "reference": "3319d7707f342e38291eee6b01a4a5f8df1b333b",
+                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/b41f731803f303879f50fa76276908088197731c",
+                "reference": "b41f731803f303879f50fa76276908088197731c",
                 "shasum": ""
             },
             "require": {
@@ -985,7 +985,7 @@
                 "onelogin",
                 "saml"
             ],
-            "time": "2017-03-13T09:56:49+00:00"
+            "time": "2017-05-19T10:32:03+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -1501,16 +1501,16 @@
         },
         {
             "name": "rospdf/pdf-php",
-            "version": "0.12.32",
+            "version": "0.12.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rospdf/pdf-php.git",
-                "reference": "dc2e5b9e72fe4f5f53056788a111182cba90843d"
+                "reference": "45c49d545dd084c14e81cf0cc747b97ac1e6ae72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rospdf/pdf-php/zipball/dc2e5b9e72fe4f5f53056788a111182cba90843d",
-                "reference": "dc2e5b9e72fe4f5f53056788a111182cba90843d",
+                "url": "https://api.github.com/repos/rospdf/pdf-php/zipball/45c49d545dd084c14e81cf0cc747b97ac1e6ae72",
+                "reference": "45c49d545dd084c14e81cf0cc747b97ac1e6ae72",
                 "shasum": ""
             },
             "require": {
@@ -1534,28 +1534,38 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-3.0"
+                "MIT"
             ],
             "authors": [
-                {
-                    "name": "Ole Koeckemann",
-                    "email": "ole1986@users.sourceforge.net",
-                    "role": "Developer"
-                },
                 {
                     "name": "Lars Olesen",
                     "email": "lars@intraface.dk",
                     "role": "Developer"
                 },
                 {
+                    "name": "Ole Koeckemann",
+                    "email": "ole.k@web.de",
+                    "role": "Project Head / Developer"
+                },
+                {
+                    "name": "Sune Jensen",
+                    "email": "sj@sunet.dk",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "Developer"
+                },
+                {
                     "name": "Wayne Munro",
                     "email": "pdf@ros.co.nz",
-                    "role": "Inactive"
+                    "role": "Founder / Inactive"
                 }
             ],
             "description": "The R&OS Pdf class supports the creation of PDF documents without any adiditional modules or extensions.",
             "homepage": "https://github.com/rospdf/pdf-php",
-            "time": "2017-05-02T12:53:26+00:00"
+            "time": "2017-05-28T12:10:42+00:00"
         },
         {
             "name": "seld/cli-prompt",
@@ -2146,11 +2156,11 @@
         },
         {
             "name": "siu/arai-cli",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/arai-cli.git",
-                "reference": "4ed454e4753a157aca8bc3a4e432f6943fc4848d"
+                "reference": "614b67ec562459517cbfee5d97ab69fc350b5681"
             },
             "require": {
                 "egulias/email-validator": "~1.2",
@@ -2178,7 +2188,7 @@
                 }
             },
             "description": "Librería cliente de los componentes ARAI",
-            "time": "2017-05-04T19:29:02+00:00"
+            "time": "2017-05-22T20:48:40+00:00"
         },
         {
             "name": "siu/arai-json-migrator",
@@ -2365,16 +2375,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.8",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38"
+                "reference": "70d2a29b2911cbdc91a7e268046c395278238b2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38",
-                "reference": "a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38",
+                "url": "https://api.github.com/repos/symfony/console/zipball/70d2a29b2911cbdc91a7e268046c395278238b2e",
+                "reference": "70d2a29b2911cbdc91a7e268046c395278238b2e",
                 "shasum": ""
             },
             "require": {
@@ -2382,10 +2392,16 @@
                 "symfony/debug": "~2.8|~3.0",
                 "symfony/polyfill-mbstring": "~1.0"
             },
+            "conflict": {
+                "symfony/dependency-injection": "<3.3"
+            },
             "require-dev": {
                 "psr/log": "~1.0",
+                "symfony/config": "~3.3",
+                "symfony/dependency-injection": "~3.3",
                 "symfony/event-dispatcher": "~2.8|~3.0",
                 "symfony/filesystem": "~2.8|~3.0",
+                "symfony/http-kernel": "~2.8|~3.0",
                 "symfony/process": "~2.8|~3.0"
             },
             "suggest": {
@@ -2397,7 +2413,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -2424,20 +2440,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-26T01:39:17+00:00"
+            "time": "2017-06-02T19:24:58+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.8",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "fd6eeee656a5a7b384d56f1072243fe1c0e81686"
+                "reference": "e9c50482841ef696e8fa1470d950a79c8921f45d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/fd6eeee656a5a7b384d56f1072243fe1c0e81686",
-                "reference": "fd6eeee656a5a7b384d56f1072243fe1c0e81686",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/e9c50482841ef696e8fa1470d950a79c8921f45d",
+                "reference": "e9c50482841ef696e8fa1470d950a79c8921f45d",
                 "shasum": ""
             },
             "require": {
@@ -2448,13 +2464,12 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/class-loader": "~2.8|~3.0",
                 "symfony/http-kernel": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -2481,7 +2496,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-19T20:17:50+00:00"
+            "time": "2017-06-01T21:01:25+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2544,16 +2559,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.8",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "acec26fcf7f3031e094e910b94b002fa53d4e4d6"
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/acec26fcf7f3031e094e910b94b002fa53d4e4d6",
-                "reference": "acec26fcf7f3031e094e910b94b002fa53d4e4d6",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
                 "shasum": ""
             },
             "require": {
@@ -2568,7 +2583,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -2595,7 +2610,57 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T14:55:58+00:00"
+            "time": "2017-06-02T22:05:06+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2016-09-01T10:05:43+00:00"
         },
         {
             "name": "whitehat101/apr1-md5",
@@ -2906,16 +2971,16 @@
         },
         {
             "name": "greenlion/php-sql-parser",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/greenlion/PHP-SQL-Parser.git",
-                "reference": "45227af0f6ed2c094cefdbc5b921889605c0c1ff"
+                "reference": "b4e8522ebca3e5c8bbd4e2c25edaef155a96db20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/greenlion/PHP-SQL-Parser/zipball/45227af0f6ed2c094cefdbc5b921889605c0c1ff",
-                "reference": "45227af0f6ed2c094cefdbc5b921889605c0c1ff",
+                "url": "https://api.github.com/repos/greenlion/PHP-SQL-Parser/zipball/b4e8522ebca3e5c8bbd4e2c25edaef155a96db20",
+                "reference": "b4e8522ebca3e5c8bbd4e2c25edaef155a96db20",
                 "shasum": ""
             },
             "require": {
@@ -2958,7 +3023,7 @@
                 "parser",
                 "sql"
             ],
-            "time": "2016-10-12T04:29:55+00:00"
+            "time": "2017-05-16T21:20:45+00:00"
         }
     ],
     "aliases": [],
