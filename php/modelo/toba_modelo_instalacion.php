@@ -132,7 +132,20 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			return null;
 		}
 	}
-
+	
+	/**
+	* Retorna el id que distingue la rama de desarrollo
+	*/
+	function get_id_branch()
+	{
+		$this->cargar_info_ini();		
+		if (isset($this->ini_instalacion['id_branch'])) {
+			return $this->ini_instalacion['id_branch'];
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * @return toba_estandar_convenciones
 	 */
@@ -652,6 +665,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_titulo( self::info_basica_titulo );
 		$ini->agregar_entrada('nombre', $nombre_inst);
 		$ini->agregar_entrada( 'id_grupo_desarrollo', $id_grupo_desarrollo );
+		$ini->agregar_entrada( 'id_branch', 0 );
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->agregar_entrada( 'editor_php', $editor );
@@ -808,6 +822,18 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function set_id_desarrollador($id)
 	{
 		$this->cambiar_info_basica(array('id_grupo_desarrollo' => $id));	
+		foreach ($this->get_lista_instancias() as $id_inst) {
+			$instancia = $this->get_instancia($id_inst);
+			$instancia->actualizar_secuencias();
+		}
+	}
+	
+	/**
+	 * Cambia el id de desarrollo y deja las instancias listas para trabajar
+	 */
+	function set_id_branch($id)
+	{
+		$this->cambiar_info_basica(array('id_branch' => $id));	
 		foreach ($this->get_lista_instancias() as $id_inst) {
 			$instancia = $this->get_instancia($id_inst);
 			$instancia->actualizar_secuencias();

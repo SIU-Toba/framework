@@ -1129,9 +1129,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		
 		//Ahora actualiza las secuencias alcanzadas por el id de desarrollador
-		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
+		$id_dev = $id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
+		$id_branch = $this->instalacion->get_id_branch();
+		if (! is_null($id_grupo_de_desarrollo) && ! is_null($id_branch) && $id_branch > 0) {
+			$id_dev = $id_grupo_de_desarrollo + ($id_branch / 100);
+		}
 		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
-				$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
+				$this->ejecutar_sql_actualizacion_secuencias($id_dev, $datos, $seq);
 		}
 		$this->manejador_interface->progreso_fin();
 	}

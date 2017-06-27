@@ -192,7 +192,18 @@ class comando_instalacion_silenciosa extends comando_toba
 		$this->get_instalacion()->set_id_desarrollador($id_grupo_desarrollador);		
 	}
 	
-
+	/**
+	 * Cambia el número de rama de desarrollo y deja la instancia lista
+	 * @consola_parametros -b id Numero que representa la rama de trabajo actual
+	 */
+	function opcion__set_id_branch()
+	{
+		if (! $this->get_instalacion()->es_produccion()) {
+			$id_branch = $this->definir_id_branch($this->get_parametros());
+			$this->get_instalacion()->set_id_branch($id_branch);		
+		}
+	}
+	
 	/**
 	 * Migra la instalación de versión. 
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1].
@@ -447,6 +458,29 @@ class comando_instalacion_silenciosa extends comando_toba
 			return 'toba';
 		}
 		return $result['resultado'];
-	}	
+	}
+
+	/**
+	*	Consulta al usuario el ID de la rama de desarrollo
+	*/
+	protected function definir_id_branch($param)
+	{
+		$nombre_parametro = array( '-b', '--id-branch');		
+		do {			
+			$ind = current($nombre_parametro);
+			$es_invalido = (! isset($param[$ind]));
+			if (! $es_invalido) {
+				$id_desarrollo = $param[$ind];
+				if (! is_numeric($id_desarrollo) || $id_desarrollo < 0) {
+					$es_invalido = true;
+				}				
+			}
+		} while ($es_invalido && next($nombre_parametro) !== false);		
+		if ($es_invalido) {									//Si aun sigue faltando el parametro, defaulteo.
+			toba::logger()->error('Se selecciono 0 cero como id de rama, ya que uno válido no fue provisto');
+			return 0;			
+		}		
+		return (int)$id_desarrollo;	
+	}
 }
 ?>
