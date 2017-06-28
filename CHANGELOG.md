@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Agregados hooks para gitflow (AVH Edition) y post-checkout para trabajo con branches
+- Agregado el comando set_id_branch para permitir trabajar metadatos con branches simultaneos
 
 [3.0.4](https://github.com/SIU-Toba/framework/tree/3.0.4) (2017-06-27):
 - Bugfix a rutas en el lanzador de comandos
