@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Reference to previous HEAD
+# $2 -- Reference to new HEAD
+# $3 -- Flag indicating was a branch checkout
+#
+# When a clone is issued without --no-checkout $1 is null and $3 is always 1
+#
+
+git_branch_name() {
+	local branch_name
+
+	branch_name="$(git for-each-ref --format='%(refname:short)' --points-at $1 --count 1)"
+	echo "$branch_name"
+}
+
+#Checks whether is a clone
+if [ ! -n "$1" ] &&  [ 1="$3" ]; then 
+    exit 0 
+#Checks whether is a file checkout
+elif [ -z "$3" ]; then
+    exit 0 
+#Checks whether am i in the same reference, can't establish destination branch
+elif [ $1 = $2 ]; then 
+    exit 0 
+fi
+
+#Get branch name from $1
+oldbranch=$(git_branch_name "$1")
+
+#Get branch name from $2
+newbranch=$(git_branch_name "$2")
+
+if [ "develop" = $oldbranch ]; then
+    #Tengo que buscar el id perteneciente al branch nuevo y ponerlo como id desarrollador
+    iddev=$(git config --local --get "toba.branch.$newbranch.id" 2>&1)
+    if [ $? ] && [ "1"="$iddev" ] ; then 
+           echo "ATENCION!: No se recupero el id de branch, fijelo manualmente"
+           exit 0
+    fi
+    cambio=$(bin/toba instalacion_silenciosa set_id_branch --id-branch "$iddev")    
+#     echo "setee como id $iddev"
+ elif [ "develop" = $newbranch ]; then 
+    #Vuelvo a develop, osea id branch cero
+    cambio=$(bin/toba instalacion_silenciosa set_id_branch --id-branch 0)
+#     echo "Volvi a develop"
+fi
+
+exit 0
