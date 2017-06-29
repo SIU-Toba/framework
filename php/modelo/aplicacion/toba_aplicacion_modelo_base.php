@@ -396,9 +396,6 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 					$bases[$fuente]->abrir_transaccion();
 				}		
 				$this->procesar_schemas_fuente($bases[$fuente], $schemas[$fuente], false, $tablas, $prefijo_tablas, 'crear', 0, $fuerza_eliminacion_triggers);
-				if ($guardar_datos) {
-					$bases[$fuente]->ejecutar_archivo($archivo);
-				}
 			} catch (toba_error_db $e) {
 				if (isset($bases[$fuente])) {
 					$bases[$fuente]->abortar_transaccion();			//Si hay algun error hace revert y anula el objeto de la bd
