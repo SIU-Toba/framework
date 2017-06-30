@@ -465,20 +465,6 @@ class comando_instalacion extends comando_toba
 	
 
 	/**
-	 * Cambia el número de rama de desarrollo y deja la instancia lista
-	 * @consola_parametros -b id Numero que representa la rama de trabajo actual
-	 */
-	function opcion__set_id_branch()
-	{
-		if (! $this->get_instalacion()->es_produccion()) {
-			$id_branch = $this->definir_id_branch();
-			$this->get_instalacion()->set_id_branch($id_branch);
-		} else {
-			$this->consola->mensaje('Esta opción solo existe para desarrollo');			
-		}
-	}
-	
-	/**
 	 * Migra la instalación de versión. 
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1].
 	 * @gtk_icono convertir.png
@@ -539,30 +525,6 @@ class comando_instalacion extends comando_toba
 	// Interface
 	//-------------------------------------------------------------
 
-	/**
-	*	Consulta al usuario el ID de la rama de desarrollo
-	*/
-	protected function definir_id_branch()
-	{
-		do {
-			$es_invalido = false;
-			$id_branch = $this->consola->dialogo_ingresar_texto('Por favor, ingrese el numero de rama (ENTER utilizará 0)', false);
-			$mensaje = "Debe ser un entero positivo";
-			if ($id_branch == '') {
-				$id_branch = 0;
-			}
-			if (! is_numeric($id_branch)) {
-				$es_invalido = true;
-				$this->consola->mensaje($mensaje);
-			}
-			if ($id_branch < 0) {
-				$es_invalido = true;
-				$this->consola->mensaje($mensaje);
-			}				
-		} while ($es_invalido);		
-		return (int)$id_branch;		
-	}
-	
 	/**
 	*	Consulta al usuario el ID del grupo de desarrollo
 	*/
