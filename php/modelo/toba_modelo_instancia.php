@@ -18,6 +18,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	const archivo_logs = 'logs_acceso.sql';
 	const cantidad_seq_grupo = 1000000;
 	const ddl_archivo_tablas_log = 'pgsql_a04_tablas_log_instancia';
+	const archivo_lista_secuencias = '.sequence_list';
 	protected $proyectos_ya_migrados = array('toba_testing', 'toba_referencia', 'toba_editor');	
 	private $instalacion;					// Referencia a la instalacion en la que esta metida la instancia
 	private $identificador;					// Identificador de la instancia
@@ -517,7 +518,27 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		toba_manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );
+		$this->exportar_secuencias();
 		$this->manejador_interface->progreso_fin();
+	}
+	
+	function exportar_secuencias()
+	{
+		$archivo = $this->get_dir().'/'. self::archivo_lista_secuencias;
+		toba_logger::instancia()->debug('Exportando SECUENCIAS');
+		$schema = $this->get_db()->get_schema();
+		$lista = array();
+		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
+				$lista[$seq] =  $this->get_db()->consultar_fila("SELECT last_value FROM {$schema}.{$seq};");
+		}
+	
+		toba_logger::instancia()->debug('Exportando SECUENCIAS tablas log');
+		foreach ( toba_db_secuencias::get_lista_secuencias_tablas_log() as $seq => $datos ) {
+			$lista[$seq] =  $this->get_db()->consultar_fila("SELECT last_value FROM {$schema}_logs.{$seq};");
+		}
+		if (! empty($lista)) {
+			file_put_contents($archivo, json_encode($lista, JSON_PRETTY_PRINT));
+		}
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
@@ -1122,6 +1143,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function actualizar_secuencias()
 	{
 		toba_logger::instancia()->debug('Actualizando SECUENCIAS');
+		$seq_data = array();
+		$archivo_lista_secuencias = $this->get_dir().'/'. self::archivo_lista_secuencias;
+		if (file_exists($archivo_lista_secuencias)) {
+			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias), true);
+		}		
+		
 		$this->manejador_interface->mensaje("Actualizando secuencias", false);
 		$sec = $this->get_lista_secuencias_basicas();
 		foreach($sec as $seq => $datos) {
@@ -1131,17 +1158,25 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		//Ahora actualiza las secuencias alcanzadas por el id de desarrollador
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
-				$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
+				$old_seq = (isset($seq_data[$seq])) ? $seq_data[$seq]['last_value'] : null;
+				$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq, $old_seq);
 		}
 		$this->manejador_interface->progreso_fin();
 	}
 	
 	function actualizar_secuencias_tablas_log()
 	{
+		$seq_data = array();
+		$archivo_lista_secuencias = $this->get_dir().'/'. self::archivo_lista_secuencias;
+		if (file_exists($archivo_lista_secuencias)) {
+			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias));
+		}
+		
 		toba_logger::instancia()->debug('Actualizando SECUENCIAS tablas log');
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( toba_db_secuencias::get_lista_secuencias_tablas_log() as $seq => $datos ) {
-			$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq);
+			$old_seq = (isset($seq_data[$seq])) ? $seq_data[$seq]['last_value'] : null;
+			$this->ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq , $old_seq);
 		}
 		$this->manejador_interface->progreso_fin();
 	}
@@ -1164,9 +1199,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		 return $resultado;		
 	}
 	
-	function ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq)
+	function ejecutar_sql_actualizacion_secuencias($id_grupo_de_desarrollo, $datos, $seq, $old_seq=null)
 	{
-		$max = "MAX(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END)";
+		$old_seq = (! is_null($old_seq)) ? $this->get_db()->quote($old_seq) : 'NULL';
+		$max = "MAX(GREATEST(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END, $old_seq))";
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
 				$sql = "SELECT setval('$seq', $max) as nuevo FROM {$datos['tabla']}"; 
@@ -1179,10 +1215,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$sql_nuevo = "SELECT $max as nuevo
 							  FROM {$datos['tabla']}
 							  WHERE
-								CASE regexp_replace({$datos['campo']}::text,'[^0-9]','','g') 
-									WHEN '' THEN 0 
-								ELSE {$datos['campo']}::int8
-							  	END BETWEEN $lim_inf AND $lim_sup";
+								GREATEST( CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END, $old_seq) BETWEEN $lim_inf AND $lim_sup";
 				$res = $this->get_db()->consultar($sql_nuevo, null, true);
 				$nuevo = $res[0]['nuevo'];
 				//Si no hay un maximo, es el primero del grupo
@@ -1193,7 +1226,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				if ($nuevo == 0) {	
 					$nuevo = 1;
 				}
-				$sql = "SELECT setval('$seq', $nuevo)";
+				$sql = "SELECT setval('$seq', $nuevo)";				
 				$this->get_db()->consultar( $sql );	
 			}
 			toba_logger::instancia()->debug("SECUENCIA $seq: $nuevo");
