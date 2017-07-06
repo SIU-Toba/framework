@@ -3,6 +3,10 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Agregado del comando instalar al proyecto toba_usuarios para registrar la bd
+- Exportación de secuencias a archivo para permitir trabajo en branches simultáneos
+- Quitados hooks de gitflow y comando set_id_branch
+- Quitada la restauración del schema de auditoría
 - Agregados hooks para gitflow (AVH Edition) y post-checkout para trabajo con branches
 - Agregado el comando set_id_branch para permitir trabajar metadatos con branches simultaneos
 
