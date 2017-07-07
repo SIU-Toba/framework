@@ -3,6 +3,9 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se agrega control a toba_nucleo por si la app no se inicializa en el acceso_rest
+- Se fixea error de invocación en la función toba_perfil_datos::get_restricciones_dimension
+- Se agrega el comando toba_docker al bin-dir de composer
 - Agregado del comando instalar al proyecto toba_usuarios para registrar la bd
 - Exportación de secuencias a archivo para permitir trabajo en branches simultáneos
 - Quitados hooks de gitflow y comando set_id_branch
