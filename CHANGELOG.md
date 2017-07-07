@@ -3,6 +3,9 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+
+[3.0.5](https://github.com/SIU-Toba/framework/tree/3.0.5) (2017-07-07):
 - Se agrega control a toba_nucleo por si la app no se inicializa en el acceso_rest
 - Se fixea error de invocación en la función toba_perfil_datos::get_restricciones_dimension
 - Se agrega el comando toba_docker al bin-dir de composer
