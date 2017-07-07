@@ -44,7 +44,8 @@
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
     },
-    "bin": ["bin/toba"],
+    "bin": ["bin/toba",
+            "bin/toba_docker"],
     "autoload": {
       "psr-4": {
         "SIUToba\\Framework\\": "src/SIUToba/"

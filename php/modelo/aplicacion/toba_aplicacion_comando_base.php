@@ -57,7 +57,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 */
 	function opcion__crear_auditoria($parametros)
 	{		
-		$mantiene_datos =  $this->manejador_interface->dialogo_simple("¿Desea mantener los datos de auditoria actuales?", true);		
+		$mantiene_datos =  $this->manejador_interface->dialogo_simple("¿Desea realizar un backup de los datos de auditoria actuales?", true);		
 		$mata_triggers = (isset($parametros['--force']) && ($parametros['--force'] == 1));
 		$fuente = (isset($parametros['-f'])) ? trim($parametros['-f']) : null;
 		$schemas = array();

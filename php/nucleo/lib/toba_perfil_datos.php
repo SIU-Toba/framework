@@ -189,7 +189,7 @@ class toba_perfil_datos
 	*/
 	function get_restricciones_dimension($fuente, $nombre)
 	{		
-		$perfiles = $this->get_restricciones_dimension_por_perfil($fuente, $nombre);
+		$perfiles = $this->get_restricciones_dimension_agrupado_perfil($fuente, $nombre);
 		if (is_null($perfiles)) {
 			return;
 		}			

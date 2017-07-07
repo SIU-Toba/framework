@@ -194,7 +194,9 @@ class toba_nucleo
 			echo $e->getMessage() . "\n\n";
 			toba::logger()->guardar();
 		}		
-		$app->logger->guardar();		
+		if (! is_null($app)) {
+			$app->logger->guardar();
+		}		
 	}
 
 	/**
