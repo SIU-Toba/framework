@@ -4,6 +4,8 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.6](https://github.com/SIU-Toba/framework/tree/3.0.6)
+- Se actualiza arai-cli a la 2.1 que tiene ventana de preconfiguración
 
 [3.0.5](https://github.com/SIU-Toba/framework/tree/3.0.5) (2017-07-07):
 - Se agrega control a toba_nucleo por si la app no se inicializa en el acceso_rest
