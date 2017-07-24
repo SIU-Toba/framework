@@ -35,6 +35,10 @@ class RegistryHooksProyectoToba implements HooksInterface
         $this->instalacion = $this->cargarToba();
     }
 
+    public function preConf(\Pimple\Container $container)
+    {
+    }
+
     /**
      * Se ejecuta antes de enviar una feature para consumo al registry.
      * @param Consumption $consumption
