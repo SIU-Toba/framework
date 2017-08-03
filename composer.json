@@ -38,11 +38,13 @@
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.1",
-        "siu/jasper":"dev-master",
         "vlucas/phpdotenv": "~2.0"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
+    },
+    "suggest": {
+        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba"
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],
