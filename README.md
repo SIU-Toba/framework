@@ -26,10 +26,7 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
     "minimum-stability": "dev",
     "prefer-stable" : true
 ```
-o ejecutando: 
-```shell
-composer require siu-toba/framework 
-```
+
 Luego de ello realizamos el download propiamente dicho de acuerdo a como vengamos trabajando con composer. Para ello podemos utilizar el comando: 
 ```shell
 composer install
