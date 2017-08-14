@@ -3,7 +3,10 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
-- Se pasa Jasper a paquete sugerido
+- Agregado de método constructor a PHP_Highlight
+- Se definen como estáticos varios métodos de toba_fecha
+- Actualización de lib Services_JSON: 1.0.3.2
+- Se pasa Jasper a paquete sugerido (necesita require por parte del proyecto)
 
 [3.0.6](https://github.com/SIU-Toba/framework/tree/3.0.6)  (2017-07-24):
 - Se actualiza arai-cli a la 2.1 que tiene ventana de preconfiguración
