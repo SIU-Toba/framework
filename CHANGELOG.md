@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.7](https://github.com/SIU-Toba/framework/tree/3.0.7)  (2017-08-14):
 - Agregado de método constructor a PHP_Highlight
 - Se definen como estáticos varios métodos de toba_fecha
 - Actualización de lib Services_JSON: 1.0.3.2
