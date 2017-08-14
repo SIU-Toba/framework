@@ -31,8 +31,9 @@ class toba_fecha
 	//Metodos para setear la variable interna.
 	function set_fecha($fecha)
 	{
-		if (isset($fecha))
+		if (isset($fecha)) {
 			$this->timestamp = strtotime($fecha);	
+		}
 	}
 	
 	function set_timestamp($timestamp)
@@ -62,25 +63,25 @@ class toba_fecha
 	//Metodos de comparacion de fechas, siempre se compara contra la fecha cargada en la variable interna.
 	function es_menor_que($fecha2)
 	{
-		if ($this->get_diferencia($fecha2) > 0)
-						return TRUE;
-			
+		if ($this->get_diferencia($fecha2) > 0) {
+			return TRUE;
+		}
 		return FALSE;	 
 	}
 	
 	function es_mayor_que($fecha2)
 	{
-		if ($this->get_diferencia($fecha2) < 0)
-						return TRUE;
-			
+		if ($this->get_diferencia($fecha2) < 0) {
+			return TRUE;
+		}
 		return FALSE;	 	
 	}
 	
 	function es_igual_que($fecha2)
 	{
-		if ($this->get_diferencia($fecha2) == 0)
-						return TRUE;
-			
+		if ($this->get_diferencia($fecha2) == 0) {
+			return TRUE;
+		}			
 		return FALSE;	 	
 	}
 	
@@ -116,21 +117,21 @@ class toba_fecha
 	}	
 	
 	//Metodos estaticos para convertir fechas
-	function convertir_fecha_a_timestamp($fecha)
+	static function convertir_fecha_a_timestamp($fecha)
 	{
 		$timestamp =  strtotime($fecha);
 		$aux = date("Y-m-d H:i:s",$timestamp);
 		return $aux;
 	}
 	
-	function convertir_timestamp_a_fecha($timestamp)
+	static function convertir_timestamp_a_fecha($timestamp)
 	{
 		$aux = date("Y-m-d",strtotime($timestamp));
 		return $aux;
 	}
 	
 	//Metodos para obtener la hora apartir de un timestamp
-	function convertir_timestamp_a_hora($timestamp)
+	static function convertir_timestamp_a_hora($timestamp)
 	{
 		$aux = date("H:i:s",strtotime($timestamp));
 		return $aux;
@@ -150,30 +151,30 @@ class toba_fecha
 	function get_parte($parte)
 	{
 		switch($parte)
-        {
-            case 'dia':
-                $parte_fecha = 'mday';
-                break;
-                
-            case 'mes':
-                $parte_fecha = 'mon';
-                break;
-                
-            case 'año':
-                $parte_fecha = 'year';
-                break;                
+		{
+			case 'dia':
+				$parte_fecha = 'mday';
+				break;
 
-            case 'dia_semana':
-                $parte_fecha = 'wday';
-                break;                
-                                
-            default:
-                $parte_fecha = 'mday';
+			case 'mes':
+				$parte_fecha = 'mon';
+				break;
 
-        } // switch
-		        
-        $aux = $this->separar_fecha_en_partes();
-        return ($aux[$parte_fecha]);
+			case 'año':
+				$parte_fecha = 'year';
+				break;                
+
+			case 'dia_semana':
+				$parte_fecha = 'wday';
+				break;                
+
+			default:
+				$parte_fecha = 'mday';
+
+		} // switch
+
+		$aux = $this->separar_fecha_en_partes();
+		return ($aux[$parte_fecha]);
 	}
 
 	function separar_fecha_en_partes()
@@ -198,7 +199,7 @@ class toba_fecha
 		}
 	}
 	
-	function get_meses_anio()
+	static function get_meses_anio()
 	{
 		//El dia que windows cumpla con el RFC 1766 esto va a funcar correctamente.
 		/*$i = 0;		

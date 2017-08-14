@@ -636,7 +636,7 @@ function var_dump(variable, ret) {
 }
 
 function salir() {
-	if(confirm('Desea terminar la sesión?')) {
+	if(confirm('¿Desea terminar la sesión?')) {
 		var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?'));
 		var vinculo = prefijo + '?fs=1';
 		if (top) {

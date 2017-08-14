@@ -129,7 +129,12 @@ class PHP_Highlight
      *
      * @param   bool  $inline   If inline styles rather than colors are to be used
      */
-    function PHP_Highlight($inline = false)
+	function PHP_Highlight($inline = false)
+	{
+		return $this->__construct($inline);
+	}
+		
+    function __construct($inline = false)
     {
         if ($inline === false) {
             // Default colours from php.ini
