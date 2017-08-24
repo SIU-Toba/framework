@@ -35,7 +35,8 @@ class ci_servicios_consumidos extends toba_ci
 	function conf__pant_inicial(toba_ei_pantalla $pantalla)
 	{
 		if (isset($this->s__filtro) && empty($this->s__datos)) {
-			$datos = consultas_instancia::get_servicios_web_consumidos($this->s__filtro);
+			$filtro = array_merge($this->s__filtro, array('tipo' => 'rest'));
+			$datos = consultas_instancia::get_servicios_web_consumidos($filtro);
 			$this->s__datos = $this->complementar_datos($datos);
 		}		
 	}
@@ -110,7 +111,7 @@ class ci_servicios_consumidos extends toba_ci
 		}
 		
 		$rest = toba::servicio_web_rest($parametro['servicio_web']);
-		$response = $rest->guzzle()->get('echo');				//Hay que crear este servicio para que todos puedan responder
+		$response = $rest->guzzle()->get('status');				//Hay que crear este servicio para que todos puedan responder
 		$respuesta->set($response->json());
 	}
 	//-----------------------------------------------------------------------------------
@@ -200,8 +201,8 @@ class ci_servicios_consumidos extends toba_ci
 			$id_servicio = $dato['servicio_web'];	
 			$conf_inicial = toba_modelo_rest::get_ini_cliente($proyecto, $id_servicio);		//Intento obtener la info del archivo de configuracion
 			if ($conf_inicial->existe_entrada('conexion')) {
-				$to = $conf_inicial->get('conexion', 'to');				
-				$conf_final[$id_servicio] = array_merge($dato, array('to' => $to, 'link_to' => "<a href='$to'> $to </a>"));
+				$to = $conf_inicial->get('conexion', 'to', '', false);
+				$conf_final[$id_servicio] =  (trim($to) != '') ? array_merge($dato, array('to' => $to, 'link_to' => "<a href='$to'> $to </a>")) : $dato;
 			} else {
 				$conf_final[$id_servicio] = $dato;
 			}
