@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.9](https://github.com/SIU-Toba/framework/tree/3.0.9)  (2017-08-28):
 - Se fixea la ruta al paquete rest, estaba armando mal el classpath
 - Solo se recuperan WS-REST en la operación de servicios consumidos en toba_usuarios
 
