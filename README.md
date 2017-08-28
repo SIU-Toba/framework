@@ -42,7 +42,7 @@ Una vez ejecutados dichos comandos, se procede a la instalación propiamente dic
 export TOBA_INSTANCIA=$nombre_instancia
 export TOBA_INSTALACION_DIR=$carpeta_instalacion
 ``` 
-Luego iniciaremos la instalación (lo que permitira su uso para el desarrollo de la aplicación), de la forma tradicional via linea de comandos: 
+Luego iniciaremos la instalación (lo que permitira su uso para el desarrollo de la aplicación), de la forma tradicional via linea de comandos desde la carpeta bin (del proyecto si existe o de toba): 
 ```shell
 toba instalacion instalar [-modificadores]
 ```
