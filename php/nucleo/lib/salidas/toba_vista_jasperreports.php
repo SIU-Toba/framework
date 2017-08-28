@@ -46,9 +46,9 @@ class toba_vista_jasperreports
 		$dir = dirname(__FILE__);		//Me fijo donde estoy
 		$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 		if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
-			$path = substr($dir, 0, $pos);
+			$path = substr($dir, 0, $pos). '/vendor/';
 		}
-		return $path  . 'siu/jasper';
+		return $path  . '/siu-toba/jasper';
 	}
 	
 	protected function cargar_jasper()
