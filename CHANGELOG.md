@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.9](https://github.com/SIU-Toba/framework/tree/3.0.9)  (2017-08-28):
+- Se fixea la ruta al paquete rest, estaba armando mal el classpath
+- Solo se recuperan WS-REST en la operación de servicios consumidos en toba_usuarios
+
 [3.0.8](https://github.com/SIU-Toba/framework/tree/3.0.8)  (2017-08-15):
 - Elimino metodo constructor con formato PHP4.x de PHP_Highlight por incompatibilidad en PHP 5.6.x
 - Actualizo Services_JSON: 1.0.3.3 por misma razón
