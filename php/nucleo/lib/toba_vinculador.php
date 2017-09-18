@@ -238,14 +238,13 @@ class toba_vinculador
 		//Obtengo el prefijo del vinculo
 		if ( ! isset($prefijo) ) {
 			$prefijo = $this->prefijo;	
-		} else {
-			if (strpos($prefijo,'?') === false) {
-				$prefijo = $prefijo . '?';
-			}
+		} elseif (strpos($prefijo,'?') === false) {
+			$prefijo = $prefijo . '?';
 		}
 		//Genero la URL que invoca la solicitud
-		$vinculo = $prefijo . $separador . apex_hilo_qs_item . "=" . $item_a_llamar;
-		if(trim($parametros_formateados)!=""){
+		$vinculo = (substr($prefijo, -1, 1) == '?') ? $prefijo : $prefijo . $separador; 
+		$vinculo .=  apex_hilo_qs_item . "=" . $item_a_llamar;
+		if(trim($parametros_formateados)!="") {
 
 			$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 			if($encriptar_qs){
