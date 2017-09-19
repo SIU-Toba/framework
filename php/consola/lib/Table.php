@@ -132,7 +132,7 @@ class Console_Table
     *
     * @param int $align Default alignment
     */
-    function Console_Table($align = CONSOLE_TABLE_ALIGN_LEFT)
+    function __construct($align = CONSOLE_TABLE_ALIGN_LEFT)
     {
         $this->_headers      = array();
         $this->_data         = array();
