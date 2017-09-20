@@ -38,7 +38,8 @@
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.1",
-        "vlucas/phpdotenv": "~2.0"
+        "vlucas/phpdotenv": "~2.0",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
