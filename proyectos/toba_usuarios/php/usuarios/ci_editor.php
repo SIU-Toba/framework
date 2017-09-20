@@ -261,14 +261,16 @@ class ci_editor extends toba_ci
 	
 	private function encriptar_datos($dato_original)
 	{	
-		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return base64_encode(mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8)));		
+		$clave = toba::instalacion()->get_claves_encriptacion();
+		$cripter = new toba_encriptador();
+		return $cripter->encriptar($dato_original, $clave['get']);
 	}
 	
 	private function desencriptar_datos($dato_encriptado)
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($dato_encriptado), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
+		$cripter = new toba_encriptador();
+		return $cripter->desencriptar($dato_encriptado, $clave['get']);
 	}
 	
 	public function get_usuario_arai() {
