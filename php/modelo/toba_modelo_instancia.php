@@ -1169,7 +1169,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$seq_data = array();
 		$archivo_lista_secuencias = $this->get_dir().'/'. self::archivo_lista_secuencias;
 		if (file_exists($archivo_lista_secuencias)) {
-			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias));
+			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias), true);
 		}
 		
 		toba_logger::instancia()->debug('Actualizando SECUENCIAS tablas log');
