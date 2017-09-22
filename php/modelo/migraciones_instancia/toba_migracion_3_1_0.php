@@ -22,7 +22,7 @@ class toba_migracion_3_1_0 extends toba_migracion
 		$sql = 'SELECT cod_pregunta_secreta, pregunta, respuesta FROM apex_usuario_pregunta_secreta;';
 		$preguntas = $this->elemento->get_db()->consultar($sql);		
 		if (! empty($preguntas)) {													//Si se recuperaron preguntas/respuestas secretas
-			$cripter = new toba_encriptador();
+			$cripter = toba_encriptador::instancia();
 			$sqls = array();
 			foreach($preguntas as $dato) {
 				$id = $dato['cod_pregunta_secreta'];
