@@ -1419,7 +1419,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function agregar_usuario($usuario, $nombre, $clave, $email=null, $atributos=array())
 	{
 		$algoritmo = apex_pa_algoritmo_hash;
-		$clave = encriptar_con_sal($clave, $algoritmo);
+		$hasher = new toba_hash(apex_pa_algoritmo_hash);
+		$clave = $hasher->hash($clave);
+		
 		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
 		
 		//-- Compatibilidad apis 

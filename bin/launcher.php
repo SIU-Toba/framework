@@ -15,7 +15,7 @@ if (! isset($_SERVER['TOBA_DIR'])) {
     
     //Hago todas las rutas relativas a TOBA_DIR que es lo unico constante
     include(realpath($toba_dir . $path_autoload));                      //Necesito cargar el autoload de composer antes, sino no funca nada
-    $path_env =  (stripos($toba_dir,  DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) !== false)  ?  realpath($toba_dir . '/../../../../')  : $toba_dir;      
+    $path_env =  (stripos($toba_dir,  DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) !== false)  ?  realpath($toba_dir . '/../../../')  : $toba_dir;      
     if (file_exists($path_env. '/entorno_toba.env')) {  
         $dotenv = new Dotenv\Dotenv($path_env, 'entorno_toba.env');         
         $dotenv->load();

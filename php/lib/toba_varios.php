@@ -744,6 +744,15 @@
 		}
 	}
 	
+	/**
+	 * Funcion que hashea con un metodo especifico y un salt
+	 * @param type $clave
+	 * @param type $metodo
+	 * @param type $sal
+	 * @return type
+	 * @deprecated desde version 3.0.11
+	 * @see toba_hash
+	 */
 	function encriptar_con_sal($clave, $metodo, $sal=null)
 	{		
 		if (version_compare(PHP_VERSION, '5.3.2') >= 0 || $metodo == 'bcrypt') {
@@ -766,6 +775,11 @@
 		return $sal . hash($metodo, $sal . $clave);		
 	}
 	
+	/**
+	 * Funcion que retorna un salt generado (no seguro)
+	 * @return type
+	 * @deprecated desde version 3.0.11
+	 */
 	function get_salt()
 	{
 		return substr(md5(uniqid(rand(), true)), 0, 10);

@@ -84,7 +84,9 @@ class toba_usuario implements toba_interface_usuario
 
 	static function set_clave_usuario ($clave_plana, $usuario)
 	{
-		$clave_enc = encriptar_con_sal($clave_plana, apex_pa_algoritmo_hash);
+		$hasher = new toba_hash(apex_pa_algoritmo_hash);
+		$clave_enc = $hasher->hash($clave_plana);
+		
 		$sql = 'UPDATE apex_usuario
 					SET		clave = :clave ,
 					autentificacion = :autenticacion ' 
@@ -132,8 +134,9 @@ class toba_usuario implements toba_interface_usuario
 		$claves = toba::instancia()->get_lista_claves_usadas($usuario, null, $no_repetidas);
 		if (! empty($claves)) {
 			foreach($claves as $clave) {
-				$test_key = encriptar_con_sal($clave_plana, $clave['algoritmo'], $clave['clave']);			
-				if ($clave['clave'] == $test_key) {
+				$hasher = new toba_hash($clave['algoritmo']);
+				$test_key = $hasher->get_hash_verificador($clave_plana, $clave['clave']);
+				if (hash_equals($clave['clave'], $test_key)) {
 					toba::logger()->debug('El usuario selecciono una clave ya utilizada anteriormente');
 					throw new toba_error_usuario('La clave fue utilizada anteriormente, por favor seleccione una nueva');
 				}	

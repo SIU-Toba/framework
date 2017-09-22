@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.10](https://github.com/SIU-Toba/framework/tree/3.0.10)  (2017-09-19):
+- Se fixea ruta al directorio del proyecto calculada desde toba
+- Se fixea el vinculador para que arme correctamente el primer parametro de la URL
+- Se modifica constructor en la clase Console_Table
+- Se elimina version vieja de js_app_launcher que había quedado en el arbol de directorios
+
 [3.0.9](https://github.com/SIU-Toba/framework/tree/3.0.9)  (2017-08-28):
 - Se fixea la ruta al paquete rest, estaba armando mal el classpath
 - Solo se recuperan WS-REST en la operación de servicios consumidos en toba_usuarios
