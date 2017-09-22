@@ -3,12 +3,15 @@
 *	Basado en la encriptacion de ADOdb
 * @package Varios
 */
+	
+use ioncube\phpOpensslCryptor\Cryptor;
+
 class toba_encriptador
 {
 	static private $instancia;	
 	var $clave;
 	protected $default_algo = 'aes-256-ctr';
-	protected $default_hash = 'sha-512';
+	protected $default_hash = 'sha512';
 	protected $default_formato = Cryptor::FORMAT_B64;
 	
 	private function __construct() 
@@ -145,7 +148,6 @@ class toba_encriptador
 		}
 		return $randomPassword;
 	}
-}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
@@ -221,4 +223,5 @@ class toba_encriptador
 	{
 		$this->default_formato = $formato;
 	}
+}
 ?>

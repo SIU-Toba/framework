@@ -39,7 +39,7 @@
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.1",
         "vlucas/phpdotenv": "~2.0",
-        "ext-openssl": "*"
+        "ioncube/php-openssl-cryptor": "dev-master"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
