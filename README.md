@@ -1,3 +1,6 @@
+[![Latest Stable Version](https://poser.pugx.org/siu-toba/framework/v/stable?format=flat)](https://packagist.org/packages/siu-toba/framework)
+[![Total Downloads](https://poser.pugx.org/siu-toba/framework/downloads?format=flat)](https://packagist.org/packages/siu-toba/framework)
+
 # SIU-Toba
 
 Framework para desarrollo rápido de aplicaciones web
