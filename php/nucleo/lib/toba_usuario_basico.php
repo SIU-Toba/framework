@@ -103,7 +103,7 @@ class toba_usuario_basico extends toba_usuario
 	}
 
 	/**
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_usuario_basico::get_perfiles_datos()
 	*/
 	function get_perfil_datos()
