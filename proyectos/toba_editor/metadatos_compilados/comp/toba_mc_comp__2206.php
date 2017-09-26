@@ -209,16 +209,6 @@ class toba_mc_comp__2206
   array (
     0 => 
     array (
-      'pantalla' => 1143,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2206,
-      'dep_id' => 1113,
-      'orden' => 1,
-      'identificador_pantalla' => 'propiedades',
-      'identificador_dep' => 'formulario',
-    ),
-    1 => 
-    array (
       'pantalla' => 1144,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
@@ -227,7 +217,7 @@ class toba_mc_comp__2206
       'identificador_pantalla' => 'pant_elementos',
       'identificador_dep' => 'elementos',
     ),
-    2 => 
+    1 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
@@ -237,7 +227,7 @@ class toba_mc_comp__2206
       'identificador_pantalla' => 'pant_gatillos_d',
       'identificador_dep' => 'form_gatillos_dir',
     ),
-    3 => 
+    2 => 
     array (
       'pantalla' => 1151,
       'proyecto' => 'toba_editor',
@@ -246,6 +236,16 @@ class toba_mc_comp__2206
       'orden' => 1,
       'identificador_pantalla' => 'pant_gatillos_i',
       'identificador_dep' => 'form_gatillos_indir',
+    ),
+    3 => 
+    array (
+      'pantalla' => 1143,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2206,
+      'dep_id' => 1113,
+      'orden' => 1,
+      'identificador_pantalla' => 'propiedades',
+      'identificador_dep' => 'formulario',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -327,31 +327,18 @@ class toba_mc_comp__2206
   array (
     0 => 
     array (
-      'identificador' => 'form_gatillos_indir',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 2231,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'eiform_gatillos',
-      'subclase_archivo' => 'datos/dimensiones/eiform_gatillos.php',
+      'objeto' => 2207,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     1 => 
-    array (
-      'identificador' => 'form_gatillos_dir',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2230,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'eiform_gatillos',
-      'subclase_archivo' => 'datos/dimensiones/eiform_gatillos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
     array (
       'identificador' => 'elementos',
       'proyecto' => 'toba_editor',
@@ -364,15 +351,28 @@ class toba_mc_comp__2206
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
+    2 => 
+    array (
+      'identificador' => 'form_gatillos_dir',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2230,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'eiform_gatillos',
+      'subclase_archivo' => 'datos/dimensiones/eiform_gatillos.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
     3 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'form_gatillos_indir',
       'proyecto' => 'toba_editor',
-      'objeto' => 2207,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 2231,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'eiform_gatillos',
+      'subclase_archivo' => 'datos/dimensiones/eiform_gatillos.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

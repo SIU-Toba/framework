@@ -100,6 +100,19 @@ class toba_mc_comp__1000294
   array (
     0 => 
     array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000295,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '1',
+      'parametros_b' => '1',
+    ),
+    1 => 
+    array (
       'identificador' => 'filas',
       'proyecto' => 'toba_editor',
       'objeto' => 1000296,
@@ -111,24 +124,11 @@ class toba_mc_comp__1000294
       'parametros_a' => '',
       'parametros_b' => '',
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'molde',
       'proyecto' => 'toba_editor',
       'objeto' => 1000298,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '1',
-      'parametros_b' => '1',
-    ),
-    2 => 
-    array (
-      'identificador' => 'base',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000295,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,

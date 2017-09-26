@@ -235,13 +235,13 @@ class toba_mc_comp__30000166
   array (
     0 => 
     array (
-      'identificador' => 'prop_basicas',
+      'identificador' => 'base',
       'proyecto' => 'toba_editor',
-      'objeto' => 30000171,
+      'objeto' => 1355,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'subclase' => 'eiform_prop_base',
+      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -261,13 +261,13 @@ class toba_mc_comp__30000166
     ),
     2 => 
     array (
-      'identificador' => 'base',
+      'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1355,
+      'objeto' => 30000171,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_prop_base',
-      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

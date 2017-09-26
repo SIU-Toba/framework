@@ -22,7 +22,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria
 	'Usuario - Proyecto', --nombre
 	'Propiedades dentro de este proyecto', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -103,7 +103,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -120,8 +120,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL, --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0', --resaltar_efs_con_estado
 	NULL, --template
 	NULL  --template_impresion
 );
@@ -139,7 +139,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_combo', --elemento_formulario
 	'usuario_grupo_acc', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Grupo Acceso', --etiqueta
 	NULL, --etiqueta_estilo
@@ -149,12 +149,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_grupos_acceso', --carga_metodo
+	'get_perfiles_funcionales', --carga_metodo
 	'toba_info_permisos', --carga_clase
 	'modelo/info/toba_info_permisos.php', --carga_include
 	NULL, --carga_dt
@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
 	'Sin acceso', --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -219,7 +219,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_combo', --elemento_formulario
 	'usuario_perfil_datos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Perfil de Datos', --etiqueta
 	NULL, --etiqueta_estilo

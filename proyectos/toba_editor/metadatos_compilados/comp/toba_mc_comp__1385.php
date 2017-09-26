@@ -131,19 +131,6 @@ class toba_mc_comp__1385
   array (
     0 => 
     array (
-      'identificador' => 'eventos_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 33000018,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'ei_form_lista_eventos',
-      'subclase_archivo' => 'objetos_toba/ei_cuadro/ei_form_lista_eventos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1366,
@@ -151,6 +138,19 @@ class toba_mc_comp__1385
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'eiform_eventos',
       'subclase_archivo' => 'objetos_toba/eiform_eventos.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'eventos_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 33000018,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'ei_form_lista_eventos',
+      'subclase_archivo' => 'objetos_toba/ei_cuadro/ei_form_lista_eventos.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

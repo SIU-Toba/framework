@@ -113,16 +113,6 @@ class toba_mc_comp__1000162
   array (
     0 => 
     array (
-      'pantalla' => 1000030,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000162,
-      'dep_id' => 1000046,
-      'orden' => 0,
-      'identificador_pantalla' => 'login',
-      'identificador_dep' => 'datos',
-    ),
-    1 => 
-    array (
       'pantalla' => 33000031,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000162,
@@ -130,6 +120,16 @@ class toba_mc_comp__1000162
       'orden' => 0,
       'identificador_pantalla' => 'cambiar_contrasenia',
       'identificador_dep' => 'form_passwd_vencido',
+    ),
+    1 => 
+    array (
+      'pantalla' => 1000030,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000162,
+      'dep_id' => 1000046,
+      'orden' => 0,
+      'identificador_pantalla' => 'login',
+      'identificador_dep' => 'datos',
     ),
     2 => 
     array (
@@ -169,22 +169,22 @@ class toba_mc_comp__1000162
   array (
     0 => 
     array (
-      'identificador' => 'seleccion_usuario',
+      'identificador' => 'cas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000161,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => 'cuadro_autologin',
-      'subclase_archivo' => 'login_generico/cuadro_autologin.php',
-      'fuente' => NULL,
+      'objeto' => 33000106,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     1 => 
     array (
-      'identificador' => 'openid',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 30000143,
+      'objeto' => 1000160,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
@@ -208,9 +208,9 @@ class toba_mc_comp__1000162
     ),
     3 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'openid',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000160,
+      'objeto' => 30000143,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
@@ -221,14 +221,14 @@ class toba_mc_comp__1000162
     ),
     4 => 
     array (
-      'identificador' => 'cas',
+      'identificador' => 'seleccion_usuario',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000106,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
+      'objeto' => 1000161,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => 'cuadro_autologin',
+      'subclase_archivo' => 'login_generico/cuadro_autologin.php',
+      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

@@ -227,19 +227,6 @@ class toba_mc_comp__2275
   array (
     0 => 
     array (
-      'identificador' => 'form_elegir_sql',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2277,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 33000071,
@@ -251,11 +238,24 @@ class toba_mc_comp__2275
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
+    1 => 
+    array (
+      'identificador' => 'form_elegir_sql',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2277,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
     2 => 
     array (
-      'identificador' => 'form_test',
+      'identificador' => 'form_sql',
       'proyecto' => 'toba_editor',
-      'objeto' => 2276,
+      'objeto' => 2278,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
@@ -266,9 +266,9 @@ class toba_mc_comp__2275
     ),
     3 => 
     array (
-      'identificador' => 'form_sql',
+      'identificador' => 'form_test',
       'proyecto' => 'toba_editor',
-      'objeto' => 2278,
+      'objeto' => 2276,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,

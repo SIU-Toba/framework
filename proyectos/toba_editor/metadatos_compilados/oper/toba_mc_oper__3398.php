@@ -271,19 +271,6 @@ class toba_mc_comp__1995
   array (
     0 => 
     array (
-      'identificador' => 'form',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1997,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_consultas_php',
-      'subclase_archivo' => 'datos/form_consultas_php.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 1996,
@@ -291,6 +278,19 @@ class toba_mc_comp__1995
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'form',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1997,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_consultas_php',
+      'subclase_archivo' => 'datos/form_consultas_php.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

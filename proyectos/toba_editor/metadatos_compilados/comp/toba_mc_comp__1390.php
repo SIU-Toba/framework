@@ -179,6 +179,32 @@ class toba_mc_comp__1390
   array (
     0 => 
     array (
+      'identificador' => 'efs',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1387,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'efs_importar',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1631,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
       'identificador' => 'efs_ini',
       'proyecto' => 'toba_editor',
       'objeto' => 1393,
@@ -190,7 +216,7 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    3 => 
     array (
       'identificador' => 'efs_lista',
       'proyecto' => 'toba_editor',
@@ -203,7 +229,7 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    4 => 
     array (
       'identificador' => 'esquema_cascadas',
       'proyecto' => 'toba_editor',
@@ -216,20 +242,7 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
-    array (
-      'identificador' => 'efs',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1387,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
+    5 => 
     array (
       'identificador' => 'param_carga',
       'proyecto' => 'toba_editor',
@@ -242,7 +255,7 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    6 => 
     array (
       'identificador' => 'param_varios',
       'proyecto' => 'toba_editor',
@@ -251,19 +264,6 @@ class toba_mc_comp__1390
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'form_varios',
       'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    6 => 
-    array (
-      'identificador' => 'efs_importar',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1631,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

@@ -343,19 +343,6 @@ class toba_mc_comp__1608
     ),
     1 => 
     array (
-      'identificador' => 'listado',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1611,
-      'clase' => 'toba_ei_arbol',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'fotos',
       'proyecto' => 'toba_editor',
       'objeto' => 1383,
@@ -363,6 +350,19 @@ class toba_mc_comp__1608
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => 'cuadro_fotos',
       'subclase_archivo' => 'catalogos/cuadro_fotos.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'listado',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1611,
+      'clase' => 'toba_ei_arbol',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,

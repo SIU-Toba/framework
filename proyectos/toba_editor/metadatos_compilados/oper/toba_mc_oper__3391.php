@@ -387,19 +387,6 @@ class toba_mc_comp__1975
   array (
     0 => 
     array (
-      'identificador' => 'form_relaciones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1980,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro',
       'proyecto' => 'toba_editor',
       'objeto' => 1522,
@@ -411,7 +398,7 @@ class toba_mc_comp__1975
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
@@ -424,13 +411,26 @@ class toba_mc_comp__1975
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    2 => 
     array (
       'identificador' => 'form_clase',
       'proyecto' => 'toba_editor',
       'objeto' => 1979,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'form_relaciones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1980,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
