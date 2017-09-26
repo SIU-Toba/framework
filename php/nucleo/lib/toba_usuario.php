@@ -54,6 +54,10 @@ class toba_usuario implements toba_interface_usuario
 		return array();
 	}
 
+	/**
+	* @deprecated 3.0.0
+	* @see toba_usuario_basico::get_perfiles_datos()
+	*/
 	function get_perfil_datos()
 	{
 		return null;
