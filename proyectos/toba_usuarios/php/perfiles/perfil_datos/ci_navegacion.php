@@ -53,7 +53,7 @@ class ci_navegacion extends toba_ci
 
 	function evt__guardar()
 	{
-		$this->dep('datos')->get_persistidor()->set_usar_trim(false);
+		$this->dep('datos')->persistidor()->set_usar_trim(false);
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();
 		$this->set_pantalla('seleccion');

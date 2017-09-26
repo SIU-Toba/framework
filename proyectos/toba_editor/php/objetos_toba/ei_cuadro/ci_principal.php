@@ -38,7 +38,7 @@ class ci_principal extends ci_editores_toba
 				puedan propagar el valor que las representa.<br><br>
 				Estas columnas claves se pueden indicar en la solapa de Prop.Básicas.', 'info');
 		}
-		$this->get_entidad()->get_persistidor()->retrasar_constraints();
+		$this->get_entidad()->persistidor()->retrasar_constraints();
 		parent::evt__procesar();		
 	}	
 	

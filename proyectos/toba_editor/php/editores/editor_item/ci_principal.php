@@ -98,7 +98,7 @@ class ci_principal extends toba_ci
 		}
 		$dr->tabla('base')->set($datos);
 		//Le agrego el permiso del usuario actual
-		foreach (toba::usuario()->get_grupos_acceso() as $grupo) {
+		foreach (toba::usuario()->get_perfiles_funcionales() as $grupo) {
 			$permiso_usuario_actual = array('usuario_grupo_acc' => $grupo);
 			$dr->tabla('permisos')->nueva_fila($permiso_usuario_actual);
 		}
@@ -195,7 +195,7 @@ class ci_principal extends toba_ci
 	function conf__permisos()
 	{
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
-		$grupos = toba_info_permisos::get_grupos_acceso(toba_editor::get_proyecto_cargado());
+		$grupos = toba_info_permisos::get_perfiles_funcionales(toba_editor::get_proyecto_cargado());
 		$datos = array();
 		foreach ($grupos as $grupo) {
 			//El grupo esta asignado al item?

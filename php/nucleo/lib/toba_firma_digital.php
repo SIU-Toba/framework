@@ -43,7 +43,7 @@ class toba_firma_digital
 			throw new toba_error("La base de certificados revocados no existe o no es accesible.", "Archivo '$crl'");
 		}
 		$comando = "openssl crl -inform DER -text -noout -in $crl";
-		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
+		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
 			throw new toba_error("No es posible acceder al detalle de certificados revocados", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		$serial = self::certificado_get_serial_number($certificado);
@@ -65,7 +65,7 @@ class toba_firma_digital
 		$archivo_temp = toba::proyecto()->get_path_temp().'/'.md5(uniqid(time()));
 		file_put_contents($archivo_temp, $certificado);		
 		$comando = "openssl verify -CAfile $pem_ca $archivo_temp";
-		$output = toba_manejador_archivos::ejecutar($comando, $stdout, $stderr);
+		$output = toba_manejador_procesos::ejecutar($comando, $stdout, $stderr);
 		unlink($archivo_temp);
 		if ($output == 0) {
 			throw new toba_error_firma_digital("El certificado no es válido", "Salida del comando '$comando': $stdout\n".$stderr);
@@ -97,7 +97,7 @@ class toba_firma_digital
 		$stderr = null;
 		$paths = implode(" ", $paths_attachments);
 		$comando = "pdftk $archivo_pdf attach_files $paths output $archivo_temp";
-		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
+		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
 			throw new toba_error("No fue posible agregar el XML al pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		if (! rename($archivo_pdf, $archivo_pdf.'.old')) {
@@ -126,7 +126,7 @@ class toba_firma_digital
 		$stdout = null;
 		$stderr = null;
 		$comando = "pdftk $archivo_pdf unpack_files output $carpeta_temp";
-		if (toba_manejador_archivos::ejecutar($comando, $stdout, $stderr) !== 0) {
+		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
 			throw new toba_error("No fue posible extraer los XML del pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		$archivos = toba_manejador_archivos::get_archivos_directorio($carpeta_temp, $patron);

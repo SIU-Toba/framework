@@ -157,7 +157,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$base->crear_schema($this->schema_modelo);
 			$base->set_schema($this->schema_modelo);				
 		}
-		$base->retrazar_constraints();
+		$base->retrasar_constraints();
 		$this->crear_estructura($base);
 		$this->cargar_datos($base);
 		$base->cerrar_transaccion();			

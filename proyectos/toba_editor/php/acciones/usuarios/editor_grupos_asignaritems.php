@@ -36,7 +36,7 @@
 	echo "<div align='center'>\n";	
 	$escapador = toba::escaper();
 ?>
-	<form  enctype='application/x-www-form-urlencoded' name='<?php echo $formulario; ?>' method='POST' action='<?php echo toba::vinculador()->generar_solicitud(null, null, null, true); ?>'>
+	<form  enctype='application/x-www-form-urlencoded' name='<?php echo $formulario; ?>' method='POST' action='<?php echo toba::vinculador()->get_url(null, null); ?>'>
 	<table width="450" class='cat-item' align='center'>
         	<tr> 
           <td colspan="<?php echo $escapador->escapeHtmlAttr((5 + $maximo)); ?>"  class="cat-item-categ1">

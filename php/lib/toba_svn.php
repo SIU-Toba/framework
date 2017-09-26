@@ -252,7 +252,7 @@ class toba_svn
 		$salida = null;
 		$hubo_error = null;		
 		$cmd = "svn info \"$path\" --xml";
-		toba_manejador_archivos::ejecutar($cmd, $salida, $hubo_error);
+		toba_manejador_procesos::ejecutar($cmd, $salida, $hubo_error);
 				
 		if ((trim($hubo_error) != '' ) || trim($salida) == '') {			//Hubo algun tipo de error, puede ser que no se encontro el cliente, no WC, etc.
 			return false;

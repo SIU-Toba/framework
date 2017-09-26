@@ -247,7 +247,7 @@ class toba_personalizacion {
 		//Comienzo la importacion propiamente dicha		
 		if ($this->ejecutar_en_transaccion_global()) {			
 			$this->db->abrir_transaccion();					
-			$this->db->retrazar_constraints();	//Retraso los triggers para evitar problemas de fk
+			$this->db->retrasar_constraints();	//Retraso los triggers para evitar problemas de fk
 		}		
 		
 		//Aplico la personalizacion a tablas y componentes
@@ -496,7 +496,7 @@ class toba_personalizacion {
 			
 			//3.- Realizar la carga de la instancia, re-creando previamente el schema original que consta en bases.ini
 			$this->get_proyecto()->get_instancia()->crear_schema();
-			$this->get_db()->retrazar_constraints();
+			$this->get_db()->retrasar_constraints();
 			$this->get_proyecto()->get_instancia()->cargar_autonomo();
 			$this->get_db()->cerrar_transaccion();
 			$this->get_db()->set_schema($schema_o);

@@ -67,7 +67,7 @@ class toba_cn extends toba_componente
 	function cancelar()
 	{
 		$this->_log->debug( $this->get_txt() . "[ cancelar ]", 'toba');
-		$this->evt__limpieza_memoria();
+		$this->limpiar_memoria();
 	}
 
 	/**
@@ -126,7 +126,7 @@ class toba_cn extends toba_componente
 		$this->_log->debug( $this->get_txt() . "[ toba_cn: procesar_anidado ]", 'toba');
 		$this->evt__validar_datos();
 		$resultado = $this->evt__procesar_especifico($parametros);
-		$this->evt__limpieza_memoria($no_borrar);
+		$this->limpiar_memoria($no_borrar);
 		return $resultado;
 	}
 
