@@ -3,6 +3,27 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se reemplazan llamadas a mantener_estado_sesion() en toba_editor, toba_referencia y toba_testing
+- Se reemplazan funciones deprecadas en toba_vinculador y toba_memoria
+- Fix a typo en toba_encriptador::cifrar_para_web
+- Se quitan referencias a funciones deprecadas en toba_editor
+- Se marca toba_usuario::get_perfil_datos como deprecado conforme las subclases
+- Se eliminan utilerias del arbol de toba_editor que no se usaban hace tiempo
+- Se reemplazan llamadas toba_manejador_archivos::ejecutar --> toba_manejador_procesos::ejecutar
+- Fix en documentación para funciones deprecadas
+- Fix en actualización de secuencias al procesar el JSON
+- Se invierte el orden de los resultados en toba_modelo_instalacion::get_claves_encriptacion
+- Se reemplazan llamadas encriptar_con_sal --> toba_hash
+- Se pasa a usar hash_equals en las comparaciones de toba_hash y toba_usuario_basico
+- Se agrega paquete ioncube/php-openssl-cryptor
+- Se deprecan los metodos toba_varios::encriptar_con_sal y toba_varios::get_salt(a remover v3.1.0)
+- Se deprecan los metodos toba_encriptador::cifrar y toba_encriptador::descifrar(a remover v3.1.0)
+- La clase toba_encriptador requiere openssl
+- Métodos agregados
+    * toba_encriptador::encriptar
+    * toba_encriptador::desencriptar
+    * toba_encriptador::cifrar_para_web
+    * toba_encriptador::descifrar_para_web
 
 [3.0.10](https://github.com/SIU-Toba/framework/tree/3.0.10)  (2017-09-19):
 - Se fixea ruta al directorio del proyecto calculada desde toba
