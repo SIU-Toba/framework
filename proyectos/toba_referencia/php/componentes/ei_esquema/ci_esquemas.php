@@ -32,14 +32,11 @@ digraph G {
         end [shape=Msquare];
 }
 		';
-	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$props = parent::mantener_estado_sesion();
-		$props[] = 'fuente';
-		return $props;	
+		$this->set_propiedades_sesion(array('fuente'));
 	}
-	
+		
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------

@@ -6,13 +6,11 @@ class extension_ci extends toba_ci
 {
 	protected $orden;
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$par = parent::mantener_estado_sesion();
-		$par[] = 'orden';
-		return $par;
+		$this->set_propiedades_sesion(array('orden'));
 	}
-	
+		
 	function get_datos()
 	{
 		$datos = array();
