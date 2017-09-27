@@ -56,10 +56,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bower install --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ],
         "post-update-cmd": [
-            "bower update --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ]
     }
 }
