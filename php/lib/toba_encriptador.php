@@ -159,7 +159,7 @@ class toba_encriptador
 	function cifrar_para_web($no_encriptado, $clave)
 	{		
 		$cifrado = $this->encriptar($no_encriptado, $clave);
-		return url_encode($cifrado);		
+		return urlencode($cifrado);		
 	}
 	
 	/**
