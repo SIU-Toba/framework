@@ -5,14 +5,11 @@ class ci_principal extends toba_testing_pers_ci
 	protected $datos_form;
 	protected $datos_form_ml;
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos_form';
-		$propiedades[] = 'datos_form_ml';		
-		return $propiedades;
-	}
-
+		$this->set_propiedades_sesion(array('datos_form', 'datos_form_ml'));		
+	}	
+	
 	function datos_combo_dao()
 	{
 		$res = array(

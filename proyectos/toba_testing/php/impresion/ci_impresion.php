@@ -2,13 +2,6 @@
 
 class ci_impresion extends toba_testing_pers_ci
 {
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		//$propiedades[] = 'propiedad_a_persistir';
-		return $propiedades;
-	}
-
 	function vista_impresion($salida)
 	{
 		$salida->titulo($this->get_nombre());

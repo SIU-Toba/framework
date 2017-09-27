@@ -8,17 +8,17 @@ class ci extends toba_testing_pers_ci
 	protected $registro_actual;
 	protected $datos_filtro;
 
-    function mantener_estado_sesion() 
-    { 
-        $propiedades = parent::mantener_estado_sesion(); 
-        $propiedades[] = "datos_ml"; 
-        $propiedades[] = "datos_formulario";
-        $propiedades[] = "datos_formulario_abm";
-        $propiedades[] = "registro_actual";		
-        $propiedades[] = "datos_filtro";
-        return $propiedades; 
-    } 	
-
+	function ini()
+	{
+		$props = array();
+		$props[] = "datos_ml"; 
+		$props[] = "datos_formulario";
+		$props[] = "datos_formulario_abm";
+		$props[] = "registro_actual";		
+		$props[] = "datos_filtro";
+		$this->set_propiedades_sesion($props);
+	}
+	
 	function obtener_html_contenido__30()
 	{
 		ei_arbol($this->datos_ml);

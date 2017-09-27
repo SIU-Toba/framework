@@ -6,15 +6,12 @@ class ci_cascadas extends toba_testing_pers_ci
 	protected $form_comp;	
 	protected $form_ml;
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'form_simple';
-		$propiedades[] = 'form_comp';
-		$propiedades[] = 'form_ml';
-		return $propiedades;
+		$props = array('form_simple', 'form_comp', 'form_ml');
+		$this->set_propiedades_sesion($props);
 	}
-
+	
 	function get_combo_dao2($pal1, $pal2)
 	{
 		return array(
