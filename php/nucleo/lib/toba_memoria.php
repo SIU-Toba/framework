@@ -108,9 +108,10 @@ class toba_memoria
 		//FALTA hacer un URL decode!!!		
 		$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 		if($encriptar_qs){
+			$claves_encriptacion = toba::instalacion()->get_claves_encriptacion();
 			if(isset($_GET[apex_hilo_qs_parametros])){
 				$encriptador = toba::encriptador();
-				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]), $parametros);
+				parse_str($encriptador->desencriptar($_GET[apex_hilo_qs_parametros], $claves_encriptacion['get']), $parametros);
 				$this->parametros = array_merge($this->parametros, $parametros);
 				unset($this->parametros[apex_hilo_qs_parametros]);
 				unset($this->parametros["jmb76"]);	//Clave agregada para complicar la encriptacion
