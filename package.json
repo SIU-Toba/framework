@@ -1,0 +1,12 @@
+{
+  "name": "siu-toba-framework",
+  "version": "3.0.11",
+  "description": "Framework para desarrollo rápido de aplicaciones web",
+  "repository": "https://github.com/SIU-Toba/framework.git",
+  "author": "enfoqueNativo <rdalinger@siu.edu.ar>",
+  "private": false,
+  "dependencies": {
+    "ckeditor": "^4",
+    "siu-js-app-launcher": "^1.0"
+  }
+}
