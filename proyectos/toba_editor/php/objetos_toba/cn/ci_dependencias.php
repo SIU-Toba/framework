@@ -16,14 +16,12 @@ class ci_dependencias extends toba_ci
 		//ei_arbol($this->get_tabla()->info(true));
 	}*/
 
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'seleccion_dependencia';
-		$propiedades[] = 'seleccion_dependencia_anterior';
-		return $propiedades;
+		$props = array('seleccion_dependencia', 'seleccion_dependencia_anterior');
+		$this->set_propiedades_sesion($props);
 	}
-
+	
 	function get_tabla()	
 	{	//Acceso al db_tablas
 		if (! isset($this->tabla)) {

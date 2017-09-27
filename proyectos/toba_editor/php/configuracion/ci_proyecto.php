@@ -5,18 +5,12 @@ class ci_proyecto extends toba_ci
 	protected $iniciado = false;
 	
 	function ini()
-	{
+	{		
 		if (!$this->iniciado) {
 			$this->dependencia('datos')->cargar(array('proyecto'=>toba_editor::get_proyecto_cargado()));
 			$this->iniciado = true;
 		}	
-	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'iniciado';
-		return $propiedades;
+		$this->set_propiedades_sesion(array('iniciado'));
 	}
 
 	function evt__modificacion()

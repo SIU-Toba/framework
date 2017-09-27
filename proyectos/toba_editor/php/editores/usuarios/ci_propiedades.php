@@ -28,15 +28,9 @@ class ci_propiedades extends toba_ci
 			$this->evt__cancelar();
 			$this->grupo_acceso = $g_acceso;
 		}
+		$this->set_propiedades_sesion(array('usuario_actual'));
 	}
-	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'usuario_actual';
-		return $propiedades;
-	}
-	
+		
 	//---- Eventos CI -------------------------------------------------------
 
 	function conf()

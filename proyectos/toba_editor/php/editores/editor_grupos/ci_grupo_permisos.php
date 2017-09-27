@@ -14,12 +14,6 @@ class ci_grupo_permisos extends toba_ci
 				
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		return $propiedades;
-	}
-
 	//---- Eventos CI -------------------------------------------------------
 
 	function evt__procesar()

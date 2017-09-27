@@ -12,16 +12,10 @@ class ci_clonador_objetos extends toba_ci
 		if (! toba::zona()->cargada()) {
 			throw new toba_error('La operación se debe invocar desde la zona de un item');
 		}
+		$props = array('id_objeto', 'datos');
+		$this->set_propiedades_sesion($props);
 	}	
-	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'id_objeto';
-		$propiedades[] = 'datos';
-		return $propiedades;
-	}		
-	
+		
 	/********************************
 	*			DAOS
 	*********************************/

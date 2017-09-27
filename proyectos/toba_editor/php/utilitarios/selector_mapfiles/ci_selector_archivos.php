@@ -3,13 +3,7 @@
 class ci_selector_archivos extends toba_ci
 {
 	protected $archivo;
-	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		return $propiedades;
-	}
-	
+		
 	function conf__listado()
 	{
 		$inicial = toba::memoria()->get_parametro('ef_popup_valor');
