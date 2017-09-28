@@ -224,7 +224,7 @@
 		if(is_string($datos) ){
 			$datos = json_decode($datos, true);
 		} //es un json ya decodificada guzzle->response->json		
-		return array_a_latin1($datos);
+		return (! is_null($datos)) ?  array_a_latin1($datos) : array();
 	}
 
 	/** Transforma un arreglo en latin1 a un json en utf8 */
