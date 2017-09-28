@@ -21,7 +21,7 @@
         "ircmaxell/random-lib" : "dev-master",
         "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
-        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/guzzle": "~6.3",
         "onelogin/php-saml": "~2.10",
         "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
