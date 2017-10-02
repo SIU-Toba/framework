@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.11](https://github.com/SIU-Toba/framework/tree/3.0.11)  (2017-10-02):
 - Se modifica el template del punto de acceso, solo define constante de metadatos compilados en produccion
 - Se actualiza la libreria Guzzle a v6.3
 - Se cambia la recuperacion de headers en ejemplo rest de toba_referencia
