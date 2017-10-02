@@ -3,6 +3,10 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se modifica el template del punto de acceso, solo define constante de metadatos compilados en produccion
+- Se actualiza la libreria Guzzle a v6.3
+- Se cambia la recuperacion de headers en ejemplo rest de toba_referencia
+- Se agrega chequeo por null a la funcion toba_varios::rest_decode
 - Se reemplazan llamadas a mantener_estado_sesion() en toba_editor, toba_referencia y toba_testing
 - Se reemplazan funciones deprecadas en toba_vinculador y toba_memoria
 - Fix a typo en toba_encriptador::cifrar_para_web
