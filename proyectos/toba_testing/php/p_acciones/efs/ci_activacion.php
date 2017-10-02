@@ -5,14 +5,11 @@ class ci_activacion extends toba_testing_pers_ci
 	protected $datos_1;
 	protected $datos_2;
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos_1';
-		$propiedades[] = 'datos_2';
-		return $propiedades;
+		$this->set_propiedades_sesion(array('datos_1', 'datos_2'));
 	}
-
+	
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------

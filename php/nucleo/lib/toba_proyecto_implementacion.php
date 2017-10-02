@@ -40,7 +40,7 @@ class toba_proyecto_implementacion
 		
 	/**
 	*	Devuelve el perfil de datos de un usuario
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_proyecto_implementacion::get_perfiles_datos_usuario()
 	*/	 	
 	static function get_perfil_datos($usuario, $proyecto)

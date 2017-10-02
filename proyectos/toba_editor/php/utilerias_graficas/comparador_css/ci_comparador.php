@@ -7,13 +7,11 @@ class ci_comparador extends toba_ci
 	protected $contenidos = array();
 	protected $analisis;
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'estilos';
-		return $propiedades;
+		$this->set_propiedades_sesion(array('estilos'));
 	}
-
+	
 	function get_contenido($estilo)
 	{
 		if (!isset($this->contenidos[$estilo])) {

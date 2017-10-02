@@ -150,11 +150,11 @@ class toba_mc_comp__1000243
   array (
     0 => 
     array (
-      'identificador' => 'items',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000244,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'objeto' => 1553,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
@@ -163,11 +163,11 @@ class toba_mc_comp__1000243
     ),
     1 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'items',
       'proyecto' => 'toba_editor',
-      'objeto' => 1553,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'objeto' => 1000244,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',

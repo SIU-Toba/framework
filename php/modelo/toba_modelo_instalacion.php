@@ -189,8 +189,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function get_claves_encriptacion()
 	{
 		$this->cargar_info_ini();
-		$claves['db'] = $this->ini_instalacion['clave_querystring'];
-		$claves['get'] = $this->ini_instalacion['clave_db'];
+		$claves['db'] = $this->ini_instalacion['clave_db'];
+		$claves['get'] = $this->ini_instalacion['clave_querystring'];
 		return $claves;
 	}
 	

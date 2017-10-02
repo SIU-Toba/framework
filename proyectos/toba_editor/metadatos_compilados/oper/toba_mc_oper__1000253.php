@@ -459,44 +459,18 @@ class toba_mc_comp__1363
   array (
     0 => 
     array (
-      'identificador' => 'columna_corte',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1616,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 1531,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => 'odr_ei_cuadro',
+      'subclase_archivo' => 'db/odr_ei_cuadro.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     1 => 
-    array (
-      'identificador' => 'columnas_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1364,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'ml_columnas_lista',
-      'subclase_archivo' => 'objetos_toba/ei_cuadro/ml_columnas_lista.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'cortes',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1613,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
     array (
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
@@ -509,59 +483,20 @@ class toba_mc_comp__1363
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    2 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'columnas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1531,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => 'odr_ei_cuadro',
-      'subclase_archivo' => 'db/odr_ei_cuadro.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    5 => 
-    array (
-      'identificador' => 'base',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1355,
+      'objeto' => 1362,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_prop_base',
-      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
+      'subclase' => 'eiform_cuadro_prop_cols',
+      'subclase_archivo' => 'objetos_toba/ei_cuadro/eiform_cuadro_prop_cols.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    6 => 
-    array (
-      'identificador' => 'prop_cortes',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1623,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    7 => 
-    array (
-      'identificador' => 'columnas_importar',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1632,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    8 => 
+    3 => 
     array (
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
@@ -574,15 +509,80 @@ class toba_mc_comp__1363
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    9 => 
+    4 => 
     array (
-      'identificador' => 'columnas',
+      'identificador' => 'columnas_importar',
       'proyecto' => 'toba_editor',
-      'objeto' => 1362,
+      'objeto' => 1632,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_cuadro_prop_cols',
-      'subclase_archivo' => 'objetos_toba/ei_cuadro/eiform_cuadro_prop_cols.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
+    array (
+      'identificador' => 'prop_cortes',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1623,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    6 => 
+    array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1355,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'eiform_prop_base',
+      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    7 => 
+    array (
+      'identificador' => 'cortes',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1613,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    8 => 
+    array (
+      'identificador' => 'columnas_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1364,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'ml_columnas_lista',
+      'subclase_archivo' => 'objetos_toba/ei_cuadro/ml_columnas_lista.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    9 => 
+    array (
+      'identificador' => 'columna_corte',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1616,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -5869,6 +5869,239 @@ class toba_mc_comp__1501
 
 }
 
+class toba_mc_comp__33000009
+{
+	static function get_metadatos()
+	{
+		return array (
+  '_info' => 
+  array (
+    'proyecto' => 'toba_editor',
+    'objeto' => 33000009,
+    'anterior' => NULL,
+    'identificador' => NULL,
+    'reflexivo' => NULL,
+    'clase_proyecto' => 'toba',
+    'clase' => 'toba_datos_tabla',
+    'subclase' => NULL,
+    'subclase_archivo' => NULL,
+    'objeto_categoria_proyecto' => NULL,
+    'objeto_categoria' => NULL,
+    'nombre' => 'Comp. ei_cuadro - columna_total_cc',
+    'titulo' => NULL,
+    'colapsable' => NULL,
+    'descripcion' => NULL,
+    'fuente_proyecto' => 'toba_editor',
+    'fuente' => 'instancia',
+    'solicitud_registrar' => NULL,
+    'solicitud_obj_obs_tipo' => NULL,
+    'solicitud_obj_observacion' => NULL,
+    'parametro_a' => NULL,
+    'parametro_b' => NULL,
+    'parametro_c' => NULL,
+    'parametro_d' => NULL,
+    'parametro_e' => NULL,
+    'parametro_f' => NULL,
+    'usuario' => NULL,
+    'creacion' => '2009-03-18 11:45:58',
+    'punto_montaje' => 12,
+    'clase_editor_proyecto' => 'toba_editor',
+    'clase_editor_item' => '1000250',
+    'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+    'clase_vinculos' => NULL,
+    'clase_editor' => '1000250',
+    'clase_icono' => 'objetos/datos_tabla.gif',
+    'clase_descripcion_corta' => 'datos_tabla',
+    'clase_instanciador_proyecto' => NULL,
+    'clase_instanciador_item' => NULL,
+    'objeto_existe_ayuda' => NULL,
+    'ap_clase' => NULL,
+    'ap_archivo' => NULL,
+    'ap_punto_montaje' => 12,
+    'cant_dependencias' => 0,
+    'posicion_botonera' => NULL,
+  ),
+  '_info_estructura' => 
+  array (
+    'tabla' => 'apex_objeto_cuadro_col_cc',
+    'alias' => NULL,
+    'min_registros' => NULL,
+    'max_registros' => NULL,
+    'ap' => 1,
+    'punto_montaje' => 12,
+    'ap_sub_clase' => NULL,
+    'ap_sub_clase_archivo' => NULL,
+    'ap_modificar_claves' => 0,
+    'ap_clase' => 'ap_tabla_db_s',
+    'ap_clase_archivo' => 'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php',
+    'tabla_ext' => NULL,
+    'esquema' => NULL,
+    'esquema_ext' => NULL,
+  ),
+  '_info_columnas' => 
+  array (
+    0 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000004,
+      'columna' => 'objeto_cuadro_cc',
+      'tipo' => 'E',
+      'pk' => 1,
+      'secuencia' => '',
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 1,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    1 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000005,
+      'columna' => 'objeto_cuadro_proyecto',
+      'tipo' => 'C',
+      'pk' => 1,
+      'secuencia' => '',
+      'largo' => 15,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 1,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    2 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000006,
+      'columna' => 'objeto_cuadro',
+      'tipo' => 'E',
+      'pk' => 1,
+      'secuencia' => '',
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 1,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    3 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000007,
+      'columna' => 'objeto_cuadro_col',
+      'tipo' => 'E',
+      'pk' => 1,
+      'secuencia' => '',
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 1,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    4 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000008,
+      'columna' => 'total',
+      'tipo' => 'E',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    5 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'col_id' => 33000009,
+      'columna' => 'identificador',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => 30,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 1,
+      'tabla' => NULL,
+    ),
+  ),
+  '_info_externas' => 
+  array (
+    0 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'externa_id' => 33000001,
+      'tipo' => 'sql',
+      'sincro_continua' => 1,
+      'metodo' => NULL,
+      'clase' => NULL,
+      'include' => NULL,
+      'sql' => 'select identificador 
+from apex_objeto_cuadro_cc
+where 
+objeto_cuadro_proyecto =\'%objeto_cuadro_proyecto%\' AND 
+objeto_cuadro = \'%objeto_cuadro%\' AND
+objeto_cuadro_cc = \'%objeto_cuadro_cc%\'',
+      'dato_estricto' => 0,
+      'carga_dt' => NULL,
+      'carga_consulta_php' => NULL,
+      'permite_carga_masiva' => 0,
+      'metodo_masivo' => NULL,
+    ),
+  ),
+  '_info_externas_col' => 
+  array (
+    0 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'externa_id' => 33000001,
+      'es_resultado' => 0,
+      'columna' => 'objeto_cuadro_cc',
+    ),
+    1 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'externa_id' => 33000001,
+      'es_resultado' => 0,
+      'columna' => 'objeto_cuadro_proyecto',
+    ),
+    2 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'externa_id' => 33000001,
+      'es_resultado' => 0,
+      'columna' => 'objeto_cuadro',
+    ),
+    3 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 33000009,
+      'externa_id' => 33000001,
+      'es_resultado' => 1,
+      'columna' => 'identificador',
+    ),
+  ),
+  '_info_valores_unicos' => 
+  array (
+  ),
+  '_info_fks' => 
+  array (
+  ),
+);
+	}
+
+}
+
 class toba_mc_comp__1524
 {
 	static function get_metadatos()
@@ -6388,239 +6621,6 @@ class toba_mc_comp__1524
     array (
       'columnas' => 'clave',
     ),
-  ),
-  '_info_fks' => 
-  array (
-  ),
-);
-	}
-
-}
-
-class toba_mc_comp__33000009
-{
-	static function get_metadatos()
-	{
-		return array (
-  '_info' => 
-  array (
-    'proyecto' => 'toba_editor',
-    'objeto' => 33000009,
-    'anterior' => NULL,
-    'identificador' => NULL,
-    'reflexivo' => NULL,
-    'clase_proyecto' => 'toba',
-    'clase' => 'toba_datos_tabla',
-    'subclase' => NULL,
-    'subclase_archivo' => NULL,
-    'objeto_categoria_proyecto' => NULL,
-    'objeto_categoria' => NULL,
-    'nombre' => 'Comp. ei_cuadro - columna_total_cc',
-    'titulo' => NULL,
-    'colapsable' => NULL,
-    'descripcion' => NULL,
-    'fuente_proyecto' => 'toba_editor',
-    'fuente' => 'instancia',
-    'solicitud_registrar' => NULL,
-    'solicitud_obj_obs_tipo' => NULL,
-    'solicitud_obj_observacion' => NULL,
-    'parametro_a' => NULL,
-    'parametro_b' => NULL,
-    'parametro_c' => NULL,
-    'parametro_d' => NULL,
-    'parametro_e' => NULL,
-    'parametro_f' => NULL,
-    'usuario' => NULL,
-    'creacion' => '2009-03-18 11:45:58',
-    'punto_montaje' => 12,
-    'clase_editor_proyecto' => 'toba_editor',
-    'clase_editor_item' => '1000250',
-    'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-    'clase_vinculos' => NULL,
-    'clase_editor' => '1000250',
-    'clase_icono' => 'objetos/datos_tabla.gif',
-    'clase_descripcion_corta' => 'datos_tabla',
-    'clase_instanciador_proyecto' => NULL,
-    'clase_instanciador_item' => NULL,
-    'objeto_existe_ayuda' => NULL,
-    'ap_clase' => NULL,
-    'ap_archivo' => NULL,
-    'ap_punto_montaje' => 12,
-    'cant_dependencias' => 0,
-    'posicion_botonera' => NULL,
-  ),
-  '_info_estructura' => 
-  array (
-    'tabla' => 'apex_objeto_cuadro_col_cc',
-    'alias' => NULL,
-    'min_registros' => NULL,
-    'max_registros' => NULL,
-    'ap' => 1,
-    'punto_montaje' => 12,
-    'ap_sub_clase' => NULL,
-    'ap_sub_clase_archivo' => NULL,
-    'ap_modificar_claves' => 0,
-    'ap_clase' => 'ap_tabla_db_s',
-    'ap_clase_archivo' => 'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php',
-    'tabla_ext' => NULL,
-    'esquema' => NULL,
-    'esquema_ext' => NULL,
-  ),
-  '_info_columnas' => 
-  array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000004,
-      'columna' => 'objeto_cuadro_cc',
-      'tipo' => 'E',
-      'pk' => 1,
-      'secuencia' => '',
-      'largo' => NULL,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 1,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000005,
-      'columna' => 'objeto_cuadro_proyecto',
-      'tipo' => 'C',
-      'pk' => 1,
-      'secuencia' => '',
-      'largo' => 15,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 1,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
-    2 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000006,
-      'columna' => 'objeto_cuadro',
-      'tipo' => 'E',
-      'pk' => 1,
-      'secuencia' => '',
-      'largo' => NULL,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 1,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
-    3 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000007,
-      'columna' => 'objeto_cuadro_col',
-      'tipo' => 'E',
-      'pk' => 1,
-      'secuencia' => '',
-      'largo' => NULL,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 1,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
-    4 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000008,
-      'columna' => 'total',
-      'tipo' => 'E',
-      'pk' => 0,
-      'secuencia' => NULL,
-      'largo' => NULL,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 0,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
-    5 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'col_id' => 33000009,
-      'columna' => 'identificador',
-      'tipo' => 'C',
-      'pk' => 0,
-      'secuencia' => NULL,
-      'largo' => 30,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 0,
-      'externa' => 1,
-      'tabla' => NULL,
-    ),
-  ),
-  '_info_externas' => 
-  array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'externa_id' => 33000001,
-      'tipo' => 'sql',
-      'sincro_continua' => 1,
-      'metodo' => NULL,
-      'clase' => NULL,
-      'include' => NULL,
-      'sql' => 'select identificador 
-from apex_objeto_cuadro_cc
-where 
-objeto_cuadro_proyecto =\'%objeto_cuadro_proyecto%\' AND 
-objeto_cuadro = \'%objeto_cuadro%\' AND
-objeto_cuadro_cc = \'%objeto_cuadro_cc%\'',
-      'dato_estricto' => 0,
-      'carga_dt' => NULL,
-      'carga_consulta_php' => NULL,
-      'permite_carga_masiva' => 0,
-      'metodo_masivo' => NULL,
-    ),
-  ),
-  '_info_externas_col' => 
-  array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'externa_id' => 33000001,
-      'es_resultado' => 0,
-      'columna' => 'objeto_cuadro_cc',
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'externa_id' => 33000001,
-      'es_resultado' => 0,
-      'columna' => 'objeto_cuadro_proyecto',
-    ),
-    2 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'externa_id' => 33000001,
-      'es_resultado' => 0,
-      'columna' => 'objeto_cuadro',
-    ),
-    3 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 33000009,
-      'externa_id' => 33000001,
-      'es_resultado' => 1,
-      'columna' => 'identificador',
-    ),
-  ),
-  '_info_valores_unicos' => 
-  array (
   ),
   '_info_fks' => 
   array (
@@ -8411,19 +8411,6 @@ class toba_mc_comp__1385
   array (
     0 => 
     array (
-      'identificador' => 'eventos_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 33000018,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'ei_form_lista_eventos',
-      'subclase_archivo' => 'objetos_toba/ei_cuadro/ei_form_lista_eventos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1366,
@@ -8431,6 +8418,19 @@ class toba_mc_comp__1385
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'eiform_eventos',
       'subclase_archivo' => 'objetos_toba/eiform_eventos.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'eventos_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 33000018,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'ei_form_lista_eventos',
+      'subclase_archivo' => 'objetos_toba/ei_cuadro/ei_form_lista_eventos.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

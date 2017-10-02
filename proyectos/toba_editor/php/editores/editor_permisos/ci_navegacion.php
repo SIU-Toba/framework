@@ -5,14 +5,12 @@ class ci_navegacion extends toba_ci
 	protected $seleccion;
 	protected $filtro = array();
 	
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'seleccion';
-		$propiedades[] = 'filtro';
-		return $propiedades;
+		$props = array('seleccion', 'filtro');
+		$this->set_propiedades_sesion($props);
 	}
-	
+		
 	/**
 	 * @return toba_datos_relacion
 	 */

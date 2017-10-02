@@ -178,19 +178,6 @@ class toba_mc_comp__2045
   array (
     0 => 
     array (
-      'identificador' => 'tablas',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2046,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'columnas',
       'proyecto' => 'toba_editor',
       'objeto' => 2047,
@@ -198,6 +185,19 @@ class toba_mc_comp__2045
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => 'cuadro_visor_columnas',
       'subclase_archivo' => 'datos/cuadro_visor_columnas.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'tablas',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2046,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,

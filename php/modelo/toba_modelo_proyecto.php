@@ -1216,7 +1216,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$errores = array();					
 		try {
 			$this->db->abrir_transaccion();
-			$this->db->retrazar_constraints();
+			$this->db->retrasar_constraints();
 			$errores = $this->cargar();
 			$this->instancia->actualizar_secuencias();
 			$this->generar_roles_db();			
@@ -1523,7 +1523,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		try {
 			$this->db->abrir_transaccion();
-			$this->db->retrazar_constraints();
+			$this->db->retrasar_constraints();
 			$this->eliminar();
 			$this->db->cerrar_transaccion();
 			$this->manejador_interface->mensaje("El proyecto '{$this->identificador}' ha sido eliminado");
@@ -1590,7 +1590,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
 		try {
 			$this->db->abrir_transaccion();
-			$this->db->retrazar_constraints();
+			$this->db->retrasar_constraints();
 			$this->instancia->exportar_local_proyecto($this->identificador);
 			$this->eliminar();
 			$this->cargar();
@@ -2829,7 +2829,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$db = $instancia->get_db();
 			try {
 				$db->abrir_transaccion();
-				$db->retrazar_constraints();
+				$db->retrasar_constraints();
 				$db->ejecutar( self::get_sql_metadatos_basicos( $nombre ) );
 				$sql_version = self::get_sql_actualizar_version( toba_modelo_instalacion::get_version_actual(),
 																$nombre);

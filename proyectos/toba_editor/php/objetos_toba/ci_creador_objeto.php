@@ -27,18 +27,10 @@ class ci_creador_objeto extends toba_ci
 			$this->destino['proyecto'] = $hilo->get_parametro('destino_proyecto');
 			$this->destino['pantalla'] = $hilo->get_parametro('destino_pantalla');
 		}
+		$props = array('clase_actual', 'datos_editor', 'destino', 'objeto_construido');
+		$this->set_propiedades_sesion($props);
 	}
-	
-	function mantener_estado_sesion()
-	{
-		$prop = parent::mantener_estado_sesion();
-		$prop[] = 'clase_actual';
-		$prop[] = 'datos_editor';
-		$prop[] = 'destino';
-		$prop[] = 'objeto_construido';
-		return $prop;
-	}
-	
+		
 	function post_eventos()
 	{
 		if (! isset($this->clase_actual)) {

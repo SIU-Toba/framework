@@ -377,14 +377,6 @@ class toba_item_info implements toba_nodo_arbol
 		
 		if ($this->es_carpeta()) {	
 			// Ordenamiento, Nueva carpeta, nuevo item
-/*			
-			$utilerias[] = array(
-				'imagen' => toba_recurso::imagen_toba("ordenar.gif", false),
-				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_ordenar", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()) )
-			);
-*/
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("nucleo/carpeta_nueva.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
@@ -405,13 +397,6 @@ class toba_item_info implements toba_nodo_arbol
 							),
 				'plegado' => false								
 			);
-			/*$utilerias[] = array(
-				'imagen' => toba_recurso::imagen_toba("wizard.png", false),
-				'ayuda'=> "Crear una nueva operación a partir de un asistente",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000110", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
-				'plegado' => false								
-			);*/			
 
 		} else { //Es un item común
 

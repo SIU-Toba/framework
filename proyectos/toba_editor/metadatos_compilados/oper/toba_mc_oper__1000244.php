@@ -283,11 +283,11 @@ class toba_mc_comp__1000189
     ),
     1 => 
     array (
-      'identificador' => 'filtro',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000019,
-      'clase' => 'toba_ei_filtro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_filtro.php',
+      'objeto' => 1000191,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
@@ -296,11 +296,11 @@ class toba_mc_comp__1000189
     ),
     2 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'filtro',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000191,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'objeto' => 33000019,
+      'clase' => 'toba_ei_filtro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_filtro.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',

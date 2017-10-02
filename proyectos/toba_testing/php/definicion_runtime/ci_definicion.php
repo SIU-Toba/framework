@@ -8,13 +8,6 @@ class ci_definicion extends toba_testing_pers_ci
 	{
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		//$propiedades[] = 'propiedad_a_persistir';
-		return $propiedades;
-	}
-
 	//---- Eventos CI -------------------------------------------------------
 
 	function evt__procesar()

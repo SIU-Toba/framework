@@ -33,7 +33,7 @@ class toba_usuario_basico extends toba_usuario
 					$clave = encriptar_con_sal($clave, $algoritmo, $datos_usuario['clave']);
 				}
 			}
-			if( !($datos_usuario['clave'] === $clave) ) {
+			if( ! hash_equals($datos_usuario['clave'], $clave) ) {
 				if ($usar_log) {
 					toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorrecta", 'toba');
 				}
@@ -103,7 +103,7 @@ class toba_usuario_basico extends toba_usuario
 	}
 
 	/**
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_usuario_basico::get_perfiles_datos()
 	*/
 	function get_perfil_datos()

@@ -46,7 +46,7 @@ class toba_hash
 	public function verify($input, $existingHash) 
 	{
 		$hash = crypt($input, $existingHash);
-		return ($hash === $existingHash);
+		return hash_equals($hash,$existingHash);
 	}
 		
 	private function getSalt() 

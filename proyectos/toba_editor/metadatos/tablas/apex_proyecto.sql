@@ -51,11 +51,11 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'7', --log_archivo_nivel
 	'instancia', --fuente_datos
 	NULL, --pagina_tipo
-	'1.0.2', --version
-	'2006-11-17', --version_fecha
+	'3.0.11', --version
+	'2017-09-27', --version_fecha
 	'SIU-Toba. Ambiente de desarrollo WEB.
-Desarrollado por el programa SIU (2003-2006)', --version_detalle
-	'www.siu.edu.ar/soluciones/toba', --version_link
+Desarrollado por el programa SIU (2003-2017)', --version_detalle
+	'https://www.siu.edu.ar/siu-toba/', --version_link
 	'5000', --tiempo_espera_ms
 	'0', --navegacion_ajax
 	NULL, --codigo_ga_tracker

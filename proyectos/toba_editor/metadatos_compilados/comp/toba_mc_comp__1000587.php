@@ -179,19 +179,6 @@ class toba_mc_comp__1000587
   array (
     0 => 
     array (
-      'identificador' => 'efs_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000585,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'ml_cols',
-      'subclase_archivo' => 'objetos_toba/ei_filtro/ml_cols.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'efs',
       'proyecto' => 'toba_editor',
       'objeto' => 1000586,
@@ -199,6 +186,19 @@ class toba_mc_comp__1000587
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'efs_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000585,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'ml_cols',
+      'subclase_archivo' => 'objetos_toba/ei_filtro/ml_cols.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

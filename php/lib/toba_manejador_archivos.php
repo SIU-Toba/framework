@@ -54,7 +54,8 @@ class toba_manejador_archivos
 	 * @param mixed $stdout
 	 * @param mixed $stderr
 	 * @return integer
-	 * @deprecated since version 2.8.0 @use toba_manejador_procesos::ejecutar
+	 * @deprecated since version 3.0.0 
+	 * @use toba_manejador_procesos::ejecutar
 	 */
 	static function ejecutar($cmd, &$stdout, &$stderr)
 	{

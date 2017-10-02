@@ -39,6 +39,8 @@ abstract class ci_editores_toba extends toba_ci
 			$this->set_pantalla(3);
 			$this->dependencia('eventos')->set_evento_editado($evento);
 		}		
+		$props = array( 'id_objeto', 'cargado');
+		$this->set_propiedades_sesion($props);
 	}
 	
 	function get_entidad()
@@ -59,14 +61,6 @@ abstract class ci_editores_toba extends toba_ci
 	{
 		return $this->get_entidad()->esta_cargada();
 	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'id_objeto';
-		$propiedades[] = 'cargado';
-		return $propiedades;
-	}	
 	
 	function set_objeto($id)
 	{

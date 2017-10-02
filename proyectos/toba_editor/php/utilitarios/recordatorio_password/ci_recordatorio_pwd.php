@@ -136,10 +136,10 @@ class ci_recordatorio_pwd extends toba_ci
 	{
 		$datos = $this->recuperar_pregunta_secreta($this->s__usuario);
 		if (! is_null($datos)) {
-			$salt = get_salt();
-			$clave1 = encriptar_con_sal(trim($datos['respuesta']), 'SHA256', $salt);
-			$clave2 = encriptar_con_sal(trim($datos_usuario['respuesta']), 'SHA256', $salt);
-			if ($clave1 !== $clave2) {
+			$hasher = new toba_hash();
+			$clave1 = $hasher->hash(trim($datos['respuesta']));
+			$verified = $hasher->verify(trim($datos_usuario['respuesta']), $clave1);
+			if (! $verified) {
 				toba::logger()->error("Se intento cambiar la clave al usuario: {$this->s__usuario} pero falló la respuesta al desafío");
 				throw new toba_error('Respuesta no Válida');
 			}

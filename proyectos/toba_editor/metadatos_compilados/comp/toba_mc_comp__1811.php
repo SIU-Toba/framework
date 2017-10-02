@@ -86,19 +86,6 @@ class toba_mc_comp__1811
   array (
     0 => 
     array (
-      'identificador' => 'proyecto',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1813,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '0',
-      'parametros_b' => '1',
-    ),
-    1 => 
-    array (
       'identificador' => 'basicas',
       'proyecto' => 'toba_editor',
       'objeto' => 1812,
@@ -108,6 +95,19 @@ class toba_mc_comp__1811
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => '1',
+      'parametros_b' => '1',
+    ),
+    1 => 
+    array (
+      'identificador' => 'proyecto',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1813,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '0',
       'parametros_b' => '1',
     ),
   ),

@@ -235,11 +235,11 @@ class toba_mc_comp__1000158
   array (
     0 => 
     array (
-      'identificador' => 'permisos',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1520,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'objeto' => 1554,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
@@ -248,11 +248,11 @@ class toba_mc_comp__1000158
     ),
     1 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'permisos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1554,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'objeto' => 1520,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',

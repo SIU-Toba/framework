@@ -151,7 +151,7 @@ class toba_usuario_info extends toba_elemento_transversal_info
 		$bloque[] = $metodo;
 
 		$doc = array();
-		$metodo = new toba_codigo_metodo_php('get_perfil_datos', array(), $doc);
+		$metodo = new toba_codigo_metodo_php('get_perfiles_datos', array(), $doc);
 		$bloque[] = $metodo;
 
 		return $bloque;

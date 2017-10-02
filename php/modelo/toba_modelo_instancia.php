@@ -736,7 +736,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				}
 			}
 			$this->crear_schema();			
-			$this->get_db()->retrazar_constraints();
+			$this->get_db()->retrasar_constraints();
 			$this->cargar_autonomo();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error_db $e ) {
@@ -779,7 +779,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		try {
 			$this->get_db()->abrir_transaccion();
-			$this->get_db()->retrazar_constraints();
+			$this->get_db()->retrasar_constraints();
 			// Creo las tablas basicas
 			$this->crear_tablas_minimas();
 			// Cargo informacion del proyecto
@@ -1065,7 +1065,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
 			}			
 			$this->get_db()->abrir_transaccion();
-			$this->get_db()->retrazar_constraints();
+			$this->get_db()->retrasar_constraints();
 			if ($reemplazar_actuales) {
 				$this->eliminar_informacion_instancia();
 			}
@@ -1169,7 +1169,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$seq_data = array();
 		$archivo_lista_secuencias = $this->get_dir().'/'. self::archivo_lista_secuencias;
 		if (file_exists($archivo_lista_secuencias)) {
-			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias));
+			$seq_data = json_decode(file_get_contents($archivo_lista_secuencias), true);
 		}
 		
 		toba_logger::instancia()->debug('Actualizando SECUENCIAS tablas log');
@@ -1419,7 +1419,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function agregar_usuario($usuario, $nombre, $clave, $email=null, $atributos=array())
 	{
 		$algoritmo = apex_pa_algoritmo_hash;
-		$clave = encriptar_con_sal($clave, $algoritmo);
+		$hasher = new toba_hash(apex_pa_algoritmo_hash);
+		$clave = $hasher->hash($clave);
+		
 		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
 		
 		//-- Compatibilidad apis 
@@ -1567,7 +1569,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function migrar_version($version, $recursivo, $con_transaccion=true)
 	{
 		if ($version->es_mayor($this->get_version_actual()) || $this->get_version_actual()->es_igual(new toba_version("trunk"))) {
-			$this->get_db()->retrazar_constraints();
+			$this->get_db()->retrasar_constraints();
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
 			toba_logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());

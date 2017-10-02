@@ -14,14 +14,12 @@ class ci_eventos extends toba_ci
 	private $id_intermedio_evento;
 	protected $temp_importar_eventos;
 
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'seleccion_evento';
-		$propiedades[] = 'seleccion_evento_anterior';
-		return $propiedades;
+		$props = array('seleccion_evento', 'seleccion_evento_anterior');
+		$this->set_propiedades_sesion($props);
 	}
-
+	
 	function get_tabla()
 	{		//Acceso al db_tablas
 		if (! isset($this->tabla)) {

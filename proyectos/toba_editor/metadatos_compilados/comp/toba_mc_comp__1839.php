@@ -121,19 +121,6 @@ class toba_mc_comp__1839
   array (
     0 => 
     array (
-      'identificador' => 'formulario',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1841,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_zona',
-      'subclase_archivo' => 'configuracion/form_zona.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro',
       'proyecto' => 'toba_editor',
       'objeto' => 1842,
@@ -145,7 +132,7 @@ class toba_mc_comp__1839
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
@@ -154,6 +141,19 @@ class toba_mc_comp__1839
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'formulario',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1841,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_zona',
+      'subclase_archivo' => 'configuracion/form_zona.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

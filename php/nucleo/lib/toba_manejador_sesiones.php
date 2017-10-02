@@ -404,7 +404,7 @@ class toba_manejador_sesiones
 	
 	/**
 	*	Determina el perfil de datos del usuario actual
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_manejador_sesiones::get_perfiles_datos
      	*/
 	function get_perfil_datos()
@@ -438,7 +438,7 @@ class toba_manejador_sesiones
 	}
 	
 	/**
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_manejador_sesiones::set_perfiles_datos_activos()
 	*/
 	function set_perfil_datos_activo($id_perfil)

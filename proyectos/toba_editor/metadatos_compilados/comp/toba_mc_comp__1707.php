@@ -211,16 +211,6 @@ class toba_mc_comp__1707
     ),
     2 => 
     array (
-      'pantalla' => 987,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1707,
-      'dep_id' => 1118,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_dependencias',
-      'identificador_dep' => 'dependencias',
-    ),
-    3 => 
-    array (
       'pantalla' => 1188,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1707,
@@ -228,6 +218,16 @@ class toba_mc_comp__1707
       'orden' => 1,
       'identificador_pantalla' => 'consumo',
       'identificador_dep' => 'form_consumo',
+    ),
+    3 => 
+    array (
+      'pantalla' => 987,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1707,
+      'dep_id' => 1118,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_dependencias',
+      'identificador_dep' => 'dependencias',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -291,6 +291,19 @@ class toba_mc_comp__1707
   array (
     0 => 
     array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1355,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'eiform_prop_base',
+      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'cuadro_consumo',
       'proyecto' => 'toba_editor',
       'objeto' => 2299,
@@ -298,19 +311,6 @@ class toba_mc_comp__1707
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
-      'identificador' => 'dependencias',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2245,
-      'clase' => 'toba_ci',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
-      'subclase' => 'ci_dependencias',
-      'subclase_archivo' => 'objetos_toba/cn/ci_dependencias.php',
       'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -330,6 +330,19 @@ class toba_mc_comp__1707
     ),
     3 => 
     array (
+      'identificador' => 'dependencias',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2245,
+      'clase' => 'toba_ci',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
+      'subclase' => 'ci_dependencias',
+      'subclase_archivo' => 'objetos_toba/cn/ci_dependencias.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    4 => 
+    array (
       'identificador' => 'form_consumo',
       'proyecto' => 'toba_editor',
       'objeto' => 2300,
@@ -337,19 +350,6 @@ class toba_mc_comp__1707
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
-      'identificador' => 'base',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1355,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_prop_base',
-      'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

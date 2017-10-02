@@ -7,7 +7,7 @@ class catalogo_perfiles extends toba_nodo_basico
 	function __construct()
 	{
 		parent::__construct('Grupos de Acceso');
-		foreach (toba_info_permisos::get_grupos_acceso() as $grupo) {
+		foreach (toba_info_permisos::get_perfiles_funcionales() as $grupo) {
 			$hijos[] = new catalogo_perfiles_grupo( $this, $grupo['usuario_grupo_acc'], $grupo['nombre'] );
 		}
 		$this->set_hijos($hijos);

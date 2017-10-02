@@ -307,17 +307,6 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'nucleo/php_inexistente.gif', false);
 			}
 		}
-		/*
-		// Instanciador
-		if ( $this instanceof toba_ei_formulario_info || $this instanceof toba_ei_cuadro_info ) {
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba("objetos/instanciar.gif", false),
-				'ayuda' => 'Previsualizar el componente',
-				'vinculo' => toba::vinculador()->generar_solicitud( toba_editor::get_id(), 3316, $this->acceso_zona(),
-																		false, false, null, true, 'central')
-			);
-		}
-		*/
 		//Editor
 		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
 			$ayuda = null;

@@ -305,7 +305,7 @@ class toba_editor
 	}	
 
 	/**
-	* @deprecated 2.8.0
+	* @deprecated 3.0.0
 	* @see toba_editor::get_perfiles_datos_previsualizacion()
 	*/
 	static function get_perfil_datos_previsualizacion()

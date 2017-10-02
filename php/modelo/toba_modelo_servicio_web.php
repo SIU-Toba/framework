@@ -190,13 +190,13 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$dir_sign = $out_key .'.sign';
 			
 		$cmd = "openssl req -x509 -nodes -days 2000 -newkey rsa:2048 -keyout $dir_sign -config $dir_inst/openssl.ini -out $out_cert";
-		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		$exito = toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
 			throw new toba_error_usuario($stderr. "\n Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
 		}
 		
 		$cmd = "openssl rsa -in $dir_sign -out $out_key";
-		$exito = toba_manejador_archivos::ejecutar($cmd, $stdout, $stderr);
+		$exito = toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
 			throw new toba_error_usuario($stderr);
 		}		

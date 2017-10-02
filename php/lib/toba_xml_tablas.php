@@ -90,7 +90,7 @@ class toba_xml_tablas
 	 */
 	function insertar_db($conexion, $path_proyecto=null)
 	{
-		$conexion->retrazar_constraints(false);
+		$conexion->retrasar_constraints(false);
 		$tablas = $this->get_tablas();
 		$errores = array();
 		$i = 0; $sql = '';
@@ -118,7 +118,7 @@ class toba_xml_tablas
 				$i++;
 			}
 		}
-		$conexion->retrazar_constraints(true);
+		$conexion->retrasar_constraints(true);
 		return $errores;
 	}
 

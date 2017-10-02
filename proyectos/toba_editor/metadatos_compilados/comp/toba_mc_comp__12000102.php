@@ -151,16 +151,6 @@ class toba_mc_comp__12000102
     ),
     2 => 
     array (
-      'pantalla' => 12000086,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 12000102,
-      'dep_id' => 12000094,
-      'orden' => NULL,
-      'identificador_pantalla' => 'proyecto_toba',
-      'identificador_dep' => 'form_proyecto',
-    ),
-    3 => 
-    array (
       'pantalla' => 12000087,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 12000102,
@@ -168,6 +158,16 @@ class toba_mc_comp__12000102
       'orden' => NULL,
       'identificador_pantalla' => 'otro',
       'identificador_dep' => 'form_otro',
+    ),
+    3 => 
+    array (
+      'pantalla' => 12000086,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 12000102,
+      'dep_id' => 12000094,
+      'orden' => NULL,
+      'identificador_pantalla' => 'proyecto_toba',
+      'identificador_dep' => 'form_proyecto',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -203,19 +203,6 @@ class toba_mc_comp__12000102
     ),
     2 => 
     array (
-      'identificador' => 'form_proyecto',
-      'proyecto' => 'toba_editor',
-      'objeto' => 12000107,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_proyecto',
-      'subclase_archivo' => 'configuracion/puntos_montaje/form_proyecto.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
       'identificador' => 'form_eleccion_tipo',
       'proyecto' => 'toba_editor',
       'objeto' => 12000103,
@@ -227,7 +214,7 @@ class toba_mc_comp__12000102
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    3 => 
     array (
       'identificador' => 'form_otro',
       'proyecto' => 'toba_editor',
@@ -236,6 +223,19 @@ class toba_mc_comp__12000102
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    4 => 
+    array (
+      'identificador' => 'form_proyecto',
+      'proyecto' => 'toba_editor',
+      'objeto' => 12000107,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_proyecto',
+      'subclase_archivo' => 'configuracion/puntos_montaje/form_proyecto.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

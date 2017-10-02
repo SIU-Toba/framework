@@ -11,16 +11,9 @@ class ci_principal extends toba_ci
 		$default = array( 'descripcion' => '', 'obligatorio' => '0', 'oculto_relaja_obligatorio' => '0', 'colapsado' => '0', 'permitir_html' => '0', 
 			'carga_maestros' => 'combo_dao', 'carga_metodo' => 'get_desc_nuevo_ef', 'carga_permite_no_seteado' => '0');
 		$this->dep('form')->agregar_ef ('nuevo_ef', 'ef_editable', 'Agregado Dinamicamente', 'nuevo_din', $default);	
+		$this->set_propiedades_sesion(array('datos_form', 'datos_form_ml'));
 	}
 		
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos_form';
-		$propiedades[] = 'datos_form_ml';		
-		return $propiedades;
-	}
-
 	function datos_combo_dao()
 	{
 		$res = array(

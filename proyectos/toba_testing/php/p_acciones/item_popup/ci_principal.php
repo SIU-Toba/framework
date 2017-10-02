@@ -6,11 +6,6 @@ class ci_principal extends toba_testing_pers_ci
 	{
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		return $propiedades;
-	}
 
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS

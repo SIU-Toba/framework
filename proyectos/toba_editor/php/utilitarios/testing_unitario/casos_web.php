@@ -13,15 +13,9 @@ class casos_web extends toba_ci
 			require_once($path. self::$path_autoload_sel);					
 			spl_autoload_register(array('test_selenium_autoload', 'cargar' ));
 		}
+		$this->set_propiedades_sesion(array('selecciones'));
 	}
-	
-	function mantener_estado_sesion()
-	{
-		$atributos = parent::mantener_estado_sesion();
-		$atributos[] = 'selecciones';
-		return $atributos;
-	}
-	
+		
 	function conf__lista_archivos($cuadro)
 	{
 		$cuadro->colapsar();

@@ -13,8 +13,9 @@ class cuadro extends toba_testing_pers_ei_cuadro
 		if(apex_pa_encriptar_qs)
 		{
 			$encriptador = toba::encriptador();
+			$claves = toba::instalacion()->get_claves_encriptacion();
 			//ATENCION: me faltaria ponerle un uniqid("") para que sea mas robusto;
-			$id_fila = $encriptador->cifrar($id_fila);
+			$id_fila = $encriptador->cifrar_para_web($id_fila, $claves['get']);
 		}
         return $id_fila;
     }

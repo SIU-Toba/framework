@@ -4,13 +4,11 @@ class ci_abm extends toba_ci
 {
 	protected $es_nuevo = false;
 		
-	function mantener_estado_sesion()
+	function ini()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'es_nuevo';
-		return $propiedades;
+		$this->set_propiedades_sesion(array('es_nuevo'));
 	}
-	
+		
 	function conf()
 	{
 		if ($this->es_nuevo) {

@@ -949,12 +949,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_grupos_acceso', --carga_metodo
+	'get_perfiles_funcionales', --carga_metodo
 	'toba_info_permisos', --carga_clase
 	'modelo/info/toba_info_permisos.php', --carga_include
 	NULL, --carga_dt

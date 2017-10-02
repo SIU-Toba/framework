@@ -182,7 +182,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if($this->_utilizar_transaccion) {
 				abrir_transaccion($fuente);
 				if ($this->_retrazar_constraints) {
-					toba::db($fuente)->retrazar_constraints();
+					toba::db($fuente)->retrasar_constraints();
 				}
 			}
 			$this->evt__pre_sincronizacion();
@@ -324,7 +324,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if ($this->_utilizar_transaccion) {
 				abrir_transaccion($fuente);
 				if ($this->_retrazar_constraints) {
-					toba::db($fuente)->retrazar_constraints();
+					toba::db($fuente)->retrasar_constraints();
 				}
 			}
 			$this->evt__pre_eliminacion();

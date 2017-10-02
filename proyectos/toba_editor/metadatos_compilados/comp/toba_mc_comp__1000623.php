@@ -331,11 +331,11 @@ class toba_mc_comp__1000623
     ),
     2 => 
     array (
-      'identificador' => 'restricciones',
+      'identificador' => 'form_restriccion',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000622,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'objeto' => 1000621,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
@@ -344,11 +344,11 @@ class toba_mc_comp__1000623
     ),
     3 => 
     array (
-      'identificador' => 'form_restriccion',
+      'identificador' => 'restricciones',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000621,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'objeto' => 1000622,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',

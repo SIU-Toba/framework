@@ -21,7 +21,7 @@
         "ircmaxell/random-lib" : "dev-master",
         "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
-        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/guzzle": "~6.3",
         "onelogin/php-saml": "~2.10",
         "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
@@ -38,7 +38,8 @@
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.1",
-        "vlucas/phpdotenv": "~2.0"
+        "vlucas/phpdotenv": "~2.0",
+        "ioncube/php-openssl-cryptor": "dev-master"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"

@@ -305,14 +305,14 @@ class toba_mc_comp__1802
   array (
     0 => 
     array (
-      'identificador' => 'listado',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1805,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'objeto' => 1803,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
-      'fuente' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
@@ -331,19 +331,6 @@ class toba_mc_comp__1802
     ),
     2 => 
     array (
-      'identificador' => 'datos',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1803,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
       'identificador' => 'filtro',
       'proyecto' => 'toba_editor',
       'objeto' => 1809,
@@ -352,6 +339,19 @@ class toba_mc_comp__1802
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'listado',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1805,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
