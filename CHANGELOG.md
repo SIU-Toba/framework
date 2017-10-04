@@ -22,8 +22,8 @@
 - Se reemplazan llamadas encriptar_con_sal --> toba_hash
 - Se pasa a usar hash_equals en las comparaciones de toba_hash y toba_usuario_basico
 - Se agrega paquete ioncube/php-openssl-cryptor
-- Se deprecan los metodos toba_varios::encriptar_con_sal y toba_varios::get_salt(a remover v3.1.0)
-- Se deprecan los metodos toba_encriptador::cifrar y toba_encriptador::descifrar(a remover v3.1.0)
+- Se deprecan los metodos toba_varios::encriptar_con_sal y toba_varios::get_salt(a remover v3.1.0) [Ver aquí](https://github.com/SIU-Toba/framework/wiki/Funciones-Deprecadas)
+- Se deprecan los metodos toba_encriptador::cifrar y toba_encriptador::descifrar(a remover v3.1.0) [Ver aquí](https://github.com/SIU-Toba/framework/wiki/Funciones-Deprecadas)
 - La clase toba_encriptador requiere openssl
 - Métodos agregados
     * toba_encriptador::encriptar
