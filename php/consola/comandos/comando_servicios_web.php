@@ -322,12 +322,12 @@ class comando_servicios_web extends comando_toba
 
 		//Busco usuario y pwd que se hayan pasado y comparo contra el tipo de autenticacion
 		if (isset($parametros['--usuario']) && trim($parametros['--usuario']) != '') {
-			if (! isset($parametros['--pwd_usuario']) || trim($parametros['--pwd_usuario']) == '') {
+			if (! isset($parametros['--usuario_pwd']) || trim($parametros['--usuario_pwd']) == '') {
 				$this->consola->error('Si especifica un usuario, debe especificar el password para el mismo');
 				die;
 			}
 			$usr = $parametros['--usuario'];
-			$usr_pwd = $parametros['--pwd_usuario'];
+			$usr_pwd = $parametros['--usuario_pwd'];
 			if ($auth_tipo == 'ssl') {
 				$this->consola->error('El tipo de autenticacion solicitado requiere un certificado digital');
 				die;				
