@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.12](https://github.com/SIU-Toba/framework/releases/tag/v3.0.12)  (2017-10-05):
 - Fix al método toba_perfil_datos::get_restricciones_dimension, devolvía una estructura incorrecta (tnx F.Miñola)
 - Fix al nombre del parametro en el comando servicios_web para que coincida con la documentación
 - Se agrega "/" en el template del alias para el proyecto
