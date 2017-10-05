@@ -195,12 +195,14 @@ class toba_perfil_datos
 		}			
 		
 		$valores = array();
-		foreach($perfiles as $perfil) {
-			if (count($perfil) == 1) {
+		foreach($perfiles as $dimension) {
+			foreach($dimension as $perfil) {
+				if (is_array($perfil) && count($perfil) == 1) {
 					$valores[] = current($perfil);
 				} else {
 					$valores[] = $perfil;
 				}
+			}
 		}
 		return $valores;
 	}	
