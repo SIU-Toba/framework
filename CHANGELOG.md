@@ -4,7 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
-[3.0.11](https://github.com/SIU-Toba/framework/tree/3.0.11)  (2017-10-02):
+[3.0.12](https://github.com/SIU-Toba/framework/releases/tag/v3.0.12)  (2017-10-05):
+- Fix al método toba_perfil_datos::get_restricciones_dimension, devolvía una estructura incorrecta (tnx F.Miñola)
+- Fix al nombre del parametro en el comando servicios_web para que coincida con la documentación
+- Se agrega "/" en el template del alias para el proyecto
+
+[3.0.11](https://github.com/SIU-Toba/framework/releases/tag/v3.0.11)  (2017-10-02):
 - Se modifica el template del punto de acceso, solo define constante de metadatos compilados en produccion
 - Se actualiza la libreria Guzzle a v6.3
 - Se cambia la recuperacion de headers en ejemplo rest de toba_referencia
@@ -22,8 +27,8 @@
 - Se reemplazan llamadas encriptar_con_sal --> toba_hash
 - Se pasa a usar hash_equals en las comparaciones de toba_hash y toba_usuario_basico
 - Se agrega paquete ioncube/php-openssl-cryptor
-- Se deprecan los metodos toba_varios::encriptar_con_sal y toba_varios::get_salt(a remover v3.1.0)
-- Se deprecan los metodos toba_encriptador::cifrar y toba_encriptador::descifrar(a remover v3.1.0)
+- Se deprecan los metodos toba_varios::encriptar_con_sal y toba_varios::get_salt(a remover v3.1.0) [Ver aquí](https://github.com/SIU-Toba/framework/wiki/Funciones-Deprecadas)
+- Se deprecan los metodos toba_encriptador::cifrar y toba_encriptador::descifrar(a remover v3.1.0) [Ver aquí](https://github.com/SIU-Toba/framework/wiki/Funciones-Deprecadas)
 - La clase toba_encriptador requiere openssl
 - Métodos agregados
     * toba_encriptador::encriptar
@@ -31,30 +36,30 @@
     * toba_encriptador::cifrar_para_web
     * toba_encriptador::descifrar_para_web
 
-[3.0.10](https://github.com/SIU-Toba/framework/tree/3.0.10)  (2017-09-19):
+[3.0.10](https://github.com/SIU-Toba/framework/releases/tag/v3.0.10)  (2017-09-19):
 - Se fixea ruta al directorio del proyecto calculada desde toba
 - Se fixea el vinculador para que arme correctamente el primer parametro de la URL
 - Se modifica constructor en la clase Console_Table
 - Se elimina version vieja de js_app_launcher que había quedado en el arbol de directorios
 
-[3.0.9](https://github.com/SIU-Toba/framework/tree/3.0.9)  (2017-08-28):
+[3.0.9](https://github.com/SIU-Toba/framework/releases/tag/v3.0.9)  (2017-08-28):
 - Se fixea la ruta al paquete rest, estaba armando mal el classpath
 - Solo se recuperan WS-REST en la operación de servicios consumidos en toba_usuarios
 
-[3.0.8](https://github.com/SIU-Toba/framework/tree/3.0.8)  (2017-08-15):
+[3.0.8](https://github.com/SIU-Toba/framework/releases/tag/v3.0.8)  (2017-08-15):
 - Elimino metodo constructor con formato PHP4.x de PHP_Highlight por incompatibilidad en PHP 5.6.x
 - Actualizo Services_JSON: 1.0.3.3 por misma razón
 
-[3.0.7](https://github.com/SIU-Toba/framework/tree/3.0.7)  (2017-08-14):
+[3.0.7](https://github.com/SIU-Toba/framework/releases/tag/v3.0.7)  (2017-08-14):
 - Agregado de método constructor a PHP_Highlight
 - Se definen como estáticos varios métodos de toba_fecha
 - Actualización de lib Services_JSON: 1.0.3.2
 - Se pasa Jasper a paquete sugerido (necesita require por parte del proyecto)
 
-[3.0.6](https://github.com/SIU-Toba/framework/tree/3.0.6)  (2017-07-24):
+[3.0.6](https://github.com/SIU-Toba/framework/releases/tag/v3.0.6)  (2017-07-24):
 - Se actualiza arai-cli a la 2.1 que tiene ventana de preconfiguración
 
-[3.0.5](https://github.com/SIU-Toba/framework/tree/3.0.5) (2017-07-07):
+[3.0.5](https://github.com/SIU-Toba/framework/releases/tag/v3.0.5) (2017-07-07):
 - Se agrega control a toba_nucleo por si la app no se inicializa en el acceso_rest
 - Se fixea error de invocación en la función toba_perfil_datos::get_restricciones_dimension
 - Se agrega el comando toba_docker al bin-dir de composer
@@ -65,28 +70,28 @@
 - Agregados hooks para gitflow (AVH Edition) y post-checkout para trabajo con branches
 - Agregado el comando set_id_branch para permitir trabajar metadatos con branches simultaneos
 
-[3.0.4](https://github.com/SIU-Toba/framework/tree/3.0.4) (2017-06-27):
+[3.0.4](https://github.com/SIU-Toba/framework/releases/tag/v3.0.4) (2017-06-27):
 - Bugfix a rutas en el lanzador de comandos
 
-[3.0.3](https://github.com/SIU-Toba/framework/tree/3.0.3) (2017-06-16):
+[3.0.3](https://github.com/SIU-Toba/framework/releases/tag/v3.0.3) (2017-06-16):
 - Se cambia el item de inicio en el proyecto toba_usuarios
 - Se fuerza la eliminación de triggers al actualizar la auditoría
 - Se agrega la libreria vlucas/dotenvphp para cargar variables de entorno a partir de un archivo .env
 - Se modifica el lanzador de comandos de toba (ya no es necesario cargar antes el entorno)
 - Se agregan nuevos parametros al comando servicios_web
 
-[3.0.2](https://github.com/SIU-Toba/framework/tree/3.0.2) (2017-05-17):
+[3.0.2](https://github.com/SIU-Toba/framework/releases/tag/v3.0.2) (2017-05-17):
 - Se quitan las closures en toba_rest
 - Se actualiza Numbers_Words a la version correcta
 - Actualizada siutoba/rest: 2.0.1
 - Se fixea bug en el script de instalación
 
-[3.0.1](https://github.com/SIU-Toba/framework/tree/3.0.1) (2017-05-15):
+[3.0.1](https://github.com/SIU-Toba/framework/releases/tag/v3.0.1) (2017-05-15):
 - Actualizada siutoba/rest: 2.0.0
 - Fix en alta de perfiles funcionales en toba_usuarios
 - Fix typo en toba_db
 
-[3.0.0](https://github.com/SIU-Toba/framework/tree/v3.0.0) (2017-05-04):
+[3.0.0](https://github.com/SIU-Toba/framework/releases/tag/vv3.0.0) (2017-05-04):
 - Removida activeCalendar
 - Numbers_Words cambia implementacion, reemplazar las llamadas segun formato buscado
   - Constructor: new Numbers_Words_es_Ar ---> new Numbers_Words_Locale_es_AR
