@@ -31,7 +31,7 @@
         "siu-toba/Structures_Graph": "^1.1.1.1",
         "phpmailer/phpmailer": "~5.2",
         "simpletest/simpletest": "~1.1", 
-        "element-34/php-webdriver": "~1.12",
+        "facebook/webdriver" : "~1.4",
         "siu-toba/text_highlighter": "~0.7",
         "simplesamlphp/simplesamlphp": "~1.14",
         "siu-toba/services_json": "^1.0.3.3", 
