@@ -300,7 +300,7 @@ class toba_manejador_archivos
 		}
 		$ok = true;
 		$dir = opendir( $directorio );
-		while ( $archivo = readdir( $dir ) ) {
+		while ( false !== ($archivo = readdir($dir))) {
 			$path = $directorio.'/'.$archivo;
 			if ( $archivo != "." && $archivo!=".." ) {
 				if ( is_dir( $path ) ) {
