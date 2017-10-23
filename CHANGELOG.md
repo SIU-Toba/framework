@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.13](https://github.com/SIU-Toba/framework/releases/tag/v3.0.13)  (2017-10-23):
+- Fix al metodo toba_manejador_archivos::chmod_recursivo, faltaba referencia en la llamada recursiva
+- Fix al metodo toba_manejador_archivos::eliminar_directorio, fallaba cuando leia un directorio con nombre '0'
+
 [3.0.12](https://github.com/SIU-Toba/framework/releases/tag/v3.0.12)  (2017-10-05):
 - Fix al método toba_perfil_datos::get_restricciones_dimension, devolvía una estructura incorrecta (tnx F.Miñola)
 - Fix al nombre del parametro en el comando servicios_web para que coincida con la documentación
