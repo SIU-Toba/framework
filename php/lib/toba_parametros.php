@@ -57,7 +57,7 @@ class toba_parametros
 	 */
 	static function get_redefinicion_parametro_runtime($proyecto, $seccion,  $parametro= null, $obligatorio=true)
 	{
-		$variable_instancia = self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
+		$variable_instancia = (! isset($parametro)) ? self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $seccion): self::get_instancia()->get_parametro_seccion_proyecto($proyecto, $parametro);
 		$variable_proyecto = toba::proyecto()->get_parametro($seccion, $parametro, $obligatorio);							//Uso el proyecto cargado actualmente, no pido ninguno en particular ya que esto sale del runtime
 		if (! is_null($variable_instancia)) {
 			$variable_proyecto = $variable_instancia;
