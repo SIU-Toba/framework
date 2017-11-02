@@ -15,6 +15,7 @@ class toba
 	static private $consultas_php;
 	static private $rdi;
 	static private $escaper;
+	static private $config;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -453,5 +454,13 @@ class toba
 		return self::$escaper;
 	}
 	
+	static function config()
+	{
+		if (! isset(self::$config)) {
+			self::$config = new toba_config();
+			self::$config->load();
+		}
+		return self::$config;
+	}	
 }
 ?>
