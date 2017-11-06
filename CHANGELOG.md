@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.0.14](https://github.com/SIU-Toba/framework/releases/tag/v3.0.14)  (2017-11-06):
 - Fix toba_editor, se quita excepción al clonar un componente individualmente
 - Fix toba_editor, se quita caracter por fuera de delimitador
 - Fix carga de perfiles funcionales con membresias en produccion (credits FJarque)
