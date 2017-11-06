@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.14](https://github.com/SIU-Toba/framework/releases/tag/v3.0.14)  (2017-11-06):
+- Fix toba_editor, se quita excepción al clonar un componente individualmente
+- Fix toba_editor, se quita caracter por fuera de delimitador
+- Fix carga de perfiles funcionales con membresias en produccion (credits FJarque)
+- Fix lectura de parametros seteados en instancia.ini
+
 [3.0.13](https://github.com/SIU-Toba/framework/releases/tag/v3.0.13)  (2017-10-23):
 - Fix al metodo toba_manejador_archivos::chmod_recursivo, faltaba referencia en la llamada recursiva
 - Fix al metodo toba_manejador_archivos::eliminar_directorio, fallaba cuando leia un directorio con nombre '0'

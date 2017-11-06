@@ -15,4 +15,4 @@ class ap_relacion_item extends toba_ap_relacion_db
 		ejecutar_fuente($sql, $this->objeto_relacion->get_fuente());
 	}
 }
-?>	
+?>

@@ -803,7 +803,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$tablas = $this->get_lista_tablas_menu();
 		$datos = array();
 		foreach($tablas as $tabla) {
-			$contenido = $this->get_contenido_tabla($tabla);
+			$contenido = $this->get_contenido_tabla_datos($tabla);
 			if (! empty($contenido)) {
 				$datos[$tabla] = $contenido;
 			}			
@@ -1366,41 +1366,35 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$this->manejador_interface->mensaje("Cargando perfiles propios", false);
 		$todos_errores = $lista_perfiles = array();
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos_produccion(), '|.*\.xml$|' );
-		 		
-		//-- Quito el archivo de las restricciones si es que existe
-		$hay_restricciones = false;
-		while (! $hay_restricciones && (FALSE !== current($archivos))) {
-			$actual = current($archivos);
-			$perfil = basename($actual, '.xml');
-			if ($perfil == 'restricciones_funcionales') {
-				$restricciones = array($actual);
-				unset($archivos[key($archivos)]);
-				$hay_restricciones = true;
-			} elseif ($perfil == 'perfil') {
-				$lista_perfiles[] = $actual;
-				unset($archivos[key($archivos)]);
-			}
-			next($archivos);
-		}
-		
-		//-- Reordeno los archivos restantes para que los grupos queden al final
-		if (! empty($archivos) && ! rsort($archivos, SORT_LOCALE_STRING)) {
-			$msg = "ATENCION! Se produjo un error al recuperar los archivos pertenecientes a los perfiles de '{$this->identificador}'.";
-			$this->manejador_interface->separador();
-			$this->manejador_interface->error($msg);
-		 }		
-		
-		 //-- Agrego los perfiles en su orden original para respetar las membresias
+				
+		$archivos = array(); 
+		$dir_base = $this->get_dir_permisos_produccion();
+						
+		 //-- Si hay perfil de datos lo agrego
+		$archivo_perfil_datos = $dir_base . '/perfiles_datos.xml';
+		if (file_exists($archivo_perfil_datos)) {
+			$archivos = array($archivo_perfil_datos);
+		}		
+
+		//-- Agrego los perfiles en orden alfabetico para respetar las membresias
+		$lista_perfiles = toba_manejador_archivos::get_archivos_directorio($dir_base, '|perfil_.*\.xml$|' );		
 		if (! empty($lista_perfiles)) {
+			sort($lista_perfiles, SORT_LOCALE_STRING);
 			$archivos = array_merge($lista_perfiles, $archivos);
 		}
-		 
+		 		
 		 //-- Si hay restricciones las agrego al ppio.
-		if ($hay_restricciones) {
-			$archivos = array_merge($restricciones, $archivos);
+		$archivo_restricciones = $dir_base . '/restricciones_funcionales.xml';
+		if (file_exists($archivo_restricciones)) {
+			$archivos = array_merge(array($archivo_restricciones), $archivos);
+		}				
+		
+		 //-- Si hay menues los agrego al ppio.
+		$archivo_menues = $dir_base . '/menues_aplicacion.xml';
+		if (file_exists($archivo_menues)) {
+			$archivos = array_merge(array($archivo_menues), $archivos);
 		}
-				
+				 	
 		//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
 		$dir_items = $this->get_dir_instalacion_proyecto() . '/items.xml';
 		if (file_exists($dir_items)) {
