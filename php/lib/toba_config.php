@@ -1,7 +1,11 @@
 <?php
 class toba_config
 {
-	protected $basic_files = array('instalacion.ini', 'bases.ini', 'cas.ini', 'openid.ini',  'rdi.ini', 'saml.ini', 'saml_onelogin.ini', 'smtp.ini' );
+	protected $basic_files = array( 'instalacion' => 'instalacion.ini' ,
+							'fuentes' => array('bases' => 'bases.ini', 'usuarios' => 'conexiones.ini') , 
+							'rdi' => 'rdi.ini', 
+							'idp' => array('cas' => 'cas.ini' , 'openid' => 'openid.ini' ,  'saml' =>'saml.ini', 'onelogin' => 'saml_onelogin.ini'), 
+							'smtp' => 'smtp.ini' );
 	protected $config_files = array();	
 	protected $config_values = array();
 	
@@ -17,6 +21,7 @@ class toba_config
 		$this->reset();
 		$this->load_basics();
 		$this->load_manual_config();
+		ei_arbol($this->config_values);
 	}
 	
 	/**
@@ -45,19 +50,35 @@ class toba_config
 	/**
 	 * Retorna un valor de configuracion especifico
 	 * @param string $seccion
-	 * @param string $nombre
+	 * @param string $subseccion
+	 * @param string $parametro
 	 * @return mixed
 	 */
-	function get_parametro($seccion=null, $nombre)
+	function get_parametro($seccion=null, $subseccion=null, $parametro)
 	{
 		if (is_null($seccion)) {
 			$seccion = 'general';
 		}
 		
-		if (isset($this->config_values[$seccion]) && isset($this->config_values[$seccion][$parametro])) {
-			return $this->config_values[$seccion][$parametro];
+		if (isset($this->config_values[$seccion])) {
+			if (! is_null($subseccion) && isset($this->config_values[$seccion][$subseccion][$parametro])) {
+				return $this->config_values[$seccion][$subseccion][$parametro];
+			} elseif (isset($this->config_values[$seccion][$parametro]) ) {
+				return $this->config_values[$seccion][$parametro];
+			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Devuelve una seccion completa de configuración
+	 * @param string $seccion
+	 * @param string $subseccion
+	 * @return mixed
+	 */
+	function get_subseccion($seccion, $subseccion)
+	{
+		return $this->get_parametro($seccion, null, $subseccion);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -68,15 +89,25 @@ class toba_config
 	protected function load_basics()
 	{
 		$dir_start = toba::instalacion()->get_path_carpeta_instalacion();
-		foreach($this->basic_files as $ini) {			
-			$filename = $dir_start .'/'.$ini;
-			if (file_exists($filename)) {
-				$index = basename($ini, '.ini');
-				$this->add_config($index, parse_ini_file($filename, true));
+		foreach($this->basic_files as $index => $ini) {				
+			if (! is_array($ini))  {
+				$filename = $dir_start .'/'.$ini;
+				if (file_exists($filename)) {
+					$this->add_config($index, parse_ini_file($filename, true));
+				}
+			} else {
+				$aux = array();
+				foreach($ini as $subindex => $ini_name) {
+					$filename = $dir_start .'/'.$ini_name;
+					if (file_exists($filename)) {
+						$aux[$subindex] = $this->parse_array_values(parse_ini_file($filename, true));						
+					}
+				}
+				$this->add_config($index, $aux);
 			}
 		}
 	}
-	
+
 	/**
 	 * Carga los archivos de configuración que se agregaron explicitamente
 	 */
@@ -100,7 +131,7 @@ class toba_config
 			$this->config_values[$index]['general'] = $this->parse_val($value_pairs);
 		} else {
 			foreach($value_pairs as $key => $valores) {
-				$this->config_values[$key] = $this->parse_array_values($valores);
+				$this->config_values[$index][$key] = $this->parse_array_values($valores);
 			}			
 		}
 	}
