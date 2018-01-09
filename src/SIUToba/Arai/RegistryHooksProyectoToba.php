@@ -1,6 +1,7 @@
 <?php
 namespace SIUToba\Framework\Arai;
 
+use ParagonIE\Halite\KeyFactory;
 use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Feature;
@@ -325,6 +326,7 @@ class RegistryHooksProyectoToba implements HooksInterface
         $options = $optionsFijas;
         $modeloProyecto = $this->getModeloProyecto();
         $iniServer = \toba_modelo_rest::get_ini_server($modeloProyecto);
+	$iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
 
         if ($autoconfigurar && ! $iniServer->existe_entrada("autenticacion")) {
             echo "Autoconfigurando API...\n";
@@ -334,6 +336,14 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         if ($iniServer->existe_entrada("autenticacion")) {
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
+        }
+
+        if ($iniInstalacion->existe_entrada("arai_sync_key_file")) {
+            $keyPath = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
+            $key = KeyFactory::loadEncryptionKeyPair($keyPath);
+
+	    $publicKey = sodium_bin2hex($key->getPublicKey()->getRawKeyMaterial());
+            $options['auth']['cert'] = $publicKey;
         }
 
         $endpoint = $this->getProyectoUrl();
