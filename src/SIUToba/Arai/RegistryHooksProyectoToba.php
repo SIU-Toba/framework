@@ -6,6 +6,7 @@ use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Feature;
 use SIU\AraiJsonParser\Feature\Provision;
+use SIU\AraiJsonParser\Feature\Auth\AbstractAuth;
 use SIU\AraiCli\AraiCli;
 use SIUToba\SSLCertUtils\SSLCertUtils;
 
@@ -343,7 +344,7 @@ class RegistryHooksProyectoToba implements HooksInterface
             $key = KeyFactory::loadEncryptionKeyPair($keyPath);
 
 	    $publicKey = sodium_bin2hex($key->getPublicKey()->getRawKeyMaterial());
-            $options['auth']['cert'] = $publicKey;
+            $options['auth']['credentials']['cert'] = $publicKey;
         }
 
         $endpoint = $this->getProyectoUrl();
@@ -388,23 +389,63 @@ class RegistryHooksProyectoToba implements HooksInterface
         $iniUsuarios = \toba_modelo_rest::get_ini_usuarios($modeloProyecto);
         $iniUsuarios->vaciar();
 
-        $sslUtils = new SSLCertUtils();
         foreach ($feature->getConsumers() as $consumer) {
             $authInfo = $consumer->getAuth();
             if (empty($authInfo)) continue;
             foreach ($authInfo as $block) {
-                if ($block['type'] != 'ssl') continue;
-                if (!isset($block['credentials']['cert'])) {
-                    throw new \Exception('Se intenta configurar auth de tipo ssl pero no se provee certificado');
+                if ($block['type'] == 'ssl'){
+                    $this->agregarUsuarioSSL($block, $iniUsuarios);
+                } elseif (in_array($block['type'], array('basic', 'digest'))){
+                    $this->agregarUsuarioSimple($block, $iniUsuarios);
                 }
-                $sslUtils->loadCert($block['credentials']['cert']);
-                $user = $sslUtils->getCN();
-                $fingerprint = $sslUtils->getFingerprint();
-                $iniUsuarios->agregar_entrada($user, array('fingerprint' => $fingerprint));
             }
         }
         $iniUsuarios->guardar();
     }
+
+    private function agregarUsuarioSSL($auth, $iniUsuarios)
+    {
+        $sslUtils = new SSLCertUtils();
+	if (!isset($auth['credentials']['cert'])) {
+	    throw new \Exception('Se intenta configurar auth de tipo ssl pero no se provee certificado');
+	}
+	$sslUtils->loadCert($auth['credentials']['cert']);
+	$user = $sslUtils->getCN();
+	$fingerprint = $sslUtils->getFingerprint();
+	$iniUsuarios->agregar_entrada($user, array('fingerprint' => $fingerprint));
+    }
+
+    private function agregarUsuarioSimple($auth, $iniUsuarios)
+    {
+
+	if (!isset($auth['credentials']['cert'])) {
+	    return;
+	}
+
+	$privateKey = null;
+	$iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
+        if ($iniInstalacion->existe_entrada("arai_sync_key_file")) {
+            $keyPath = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
+            $key = KeyFactory::loadEncryptionKeyPair($keyPath);
+
+            $privateKey = sodium_bin2hex($key->getSecretKey()->getRawKeyMaterial());
+        }
+
+        $auth['credentials']['cert_decrypt'] = $auth['credentials']['cert'];
+	$auth['credentials']['key_decrypt'] = $privateKey;
+
+	$encryptedCredentials = [
+	    'type' => $auth['type'],
+	    'credentials' => $auth['credentials'],
+	];
+
+	$encryptedAuth = AbstractAuth::getInstance($encryptedCredentials);
+
+	$decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
+	$iniUsuarios->agregar_entrada($auth['credentials']['user'], array('password' => $decryptedCredentials['password']));
+    }
+    
+
 
     protected function postProvideService(Provision $feature)
     {
