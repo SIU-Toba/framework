@@ -37,7 +37,7 @@
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
-        "siu/arai-cli" : "~2.1",
+        "siu/arai-cli" : "dev-feature/manejador-credenciales",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master"
     },
