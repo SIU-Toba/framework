@@ -21,7 +21,7 @@ use SIUToba\SSLCertUtils\SSLCertUtils;
  *   * Se configura una unica API cuya url es URL_PROYECTO/rest (redefinir si hay mas APIs o tienen otras URLs).
  *     Se envia el primer user/pass que encuentra (inseguro, se va a migrar a un modelo clave publica/crt)
  *      La configuracion del SP de SAML se asume que se usa la autenticacion saml_onelogin
- * 
+ *
  * @package SIUToba\Framework
  * @subpackage Arai
  */
@@ -129,7 +129,7 @@ class RegistryHooksProyectoToba implements HooksInterface
      */
     public function postSync()
     {
-        
+
     }
 
     //---------------------------------------------------------------
@@ -152,35 +152,13 @@ class RegistryHooksProyectoToba implements HooksInterface
                 echo "No se pudo configurar la feature '".$feature->getName()."', falta setearle el identificador del acceso REST en el campo 'toba-rest.rest-id'\n";
                 break;
             }
-            $apiId = $acceso['rest-id'];
-            $proyecto = isset($acceso['proyecto']) ? $acceso['proyecto'] : $this->getProyectoId();
-            $modeloProyecto = $this->instalacion->get_instancia($this->getInstanciaId())->get_proyecto($proyecto);
 
-            $dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
-            if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
-                echo "No se puden enviar las credenciales ssl de la api porque no están definidas en el archivo '$dirIni' \n";
-                continue;
-            }
-            $iniCliente = \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
-            $datos = $iniCliente->get_datos_entrada('conexion');
-            // se envian el certificado sólo si la auth es de tipo ssl
-            if (!isset($datos['auth_tipo']) || $datos['auth_tipo'] != 'ssl') {
-                continue;
-            }
-            if (!isset($datos['cert_file'])) {
-                echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert_file' en '$dirIni'\n";
-                continue;
-            }
+            $iniCliente = $this->getIniClienteRest($acceso['rest-id'], $acceso);
 
-            $pathCert = $datos['cert_file'];
-            if (!file_exists($pathCert)) {
-                echo "El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'\n";
-                continue;
+            if ($iniCliente){
+                $datos = $iniCliente->get_datos_entrada('conexion');
+                $this->configurarCliente($datos, $feature, false);
             }
-
-            $feature->addAuth('ssl', array(
-                'cert' => file_get_contents($pathCert)
-            ));
         }
     }
 
@@ -237,15 +215,17 @@ class RegistryHooksProyectoToba implements HooksInterface
                 echo "No se pudo configurar la feature '".$provider->getName()."', falta setearle el identificador del acceso REST en el campo 'toba-rest.rest-id'\n";
                 break;
             }
-            $apiId = $acceso['rest-id'];
-            $proyecto = isset($acceso['proyecto']) ? $acceso['proyecto'] : $this->getProyectoId();
-            $modeloProyecto = $this->instalacion->get_instancia($this->getInstanciaId())->get_proyecto($proyecto);
 
-            $iniCliente = \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
-            $datos = $iniCliente->get_datos_entrada('conexion');
-            $datos['to'] = $provider->getEndpoint();
-            $iniCliente->agregar_entrada("conexion", $datos);
-            $iniCliente->guardar();
+            $iniCliente = $this->getIniClienteRest($acceso['rest-id'], $acceso);
+
+            if ($iniCliente){
+                $datos = $iniCliente->get_datos_entrada('conexion');
+                $datos['to'] = $provider->getEndpoint();
+                $iniCliente->agregar_entrada("conexion", $datos);
+                $iniCliente->guardar();
+
+                $this->configurarCliente($datos, $feature);
+            }
         }
 
 
@@ -393,59 +373,11 @@ class RegistryHooksProyectoToba implements HooksInterface
             $authInfo = $consumer->getAuth();
             if (empty($authInfo)) continue;
             foreach ($authInfo as $block) {
-                if ($block['type'] == 'ssl'){
-                    $this->agregarUsuarioSSL($block, $iniUsuarios);
-                } elseif (in_array($block['type'], array('basic', 'digest'))){
-                    $this->agregarUsuarioSimple($block, $iniUsuarios);
-                }
+                $this->registrarCliente($block, $iniUsuarios);
             }
         }
         $iniUsuarios->guardar();
     }
-
-    private function agregarUsuarioSSL($auth, $iniUsuarios)
-    {
-        $sslUtils = new SSLCertUtils();
-	if (!isset($auth['credentials']['cert'])) {
-	    throw new \Exception('Se intenta configurar auth de tipo ssl pero no se provee certificado');
-	}
-	$sslUtils->loadCert($auth['credentials']['cert']);
-	$user = $sslUtils->getCN();
-	$fingerprint = $sslUtils->getFingerprint();
-	$iniUsuarios->agregar_entrada($user, array('fingerprint' => $fingerprint));
-    }
-
-    private function agregarUsuarioSimple($auth, $iniUsuarios)
-    {
-
-	if (!isset($auth['credentials']['cert'])) {
-	    return;
-	}
-
-	$privateKey = null;
-	$iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
-        if ($iniInstalacion->existe_entrada("arai_sync_key_file")) {
-            $keyPath = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
-            $key = KeyFactory::loadEncryptionKeyPair($keyPath);
-
-            $privateKey = sodium_bin2hex($key->getSecretKey()->getRawKeyMaterial());
-        }
-
-        $auth['credentials']['cert_decrypt'] = $auth['credentials']['cert'];
-	$auth['credentials']['key_decrypt'] = $privateKey;
-
-	$encryptedCredentials = [
-	    'type' => $auth['type'],
-	    'credentials' => $auth['credentials'],
-	];
-
-	$encryptedAuth = AbstractAuth::getInstance($encryptedCredentials);
-
-	$decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
-	$iniUsuarios->agregar_entrada($auth['credentials']['user'], array('password' => $decryptedCredentials['password']));
-    }
-    
-
 
     protected function postProvideService(Provision $feature)
     {
@@ -539,5 +471,161 @@ class RegistryHooksProyectoToba implements HooksInterface
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    protected function getIniClienteRest($apiId, $acceso)
+    {
+        $proyecto = isset($acceso['proyecto']) ? $acceso['proyecto'] : $this->getProyectoId();
+        $modeloProyecto = $this->instalacion->get_instancia($this->getInstanciaId())->get_proyecto($proyecto);
+
+        $dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
+        if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
+            echo "No se puden enviar las credenciales de la api porque no están definidas en el archivo '$dirIni' \n";
+            return;
+        }
+
+        return \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
+    }
+
+    private function registrarCliente($auth, $iniUsuarios)
+    {
+        if ($auth['type'] == 'ssl'){
+            $credentials = $this->registrarClienteSSL($auth, $iniUsuarios);
+        } elseif (in_array($auth['type'], array('basic', 'digest'))){
+            $credentials = $this->registrarClienteSimple($auth, $iniUsuarios);
+        }
+
+        if ($credentials){
+            $iniUsuarios->agregar_entrada($credentials['user'], $credentials['data']);
+        }
+    }
+
+    private function registrarClienteSSL($auth, $iniUsuarios)
+    {
+        $sslUtils = new SSLCertUtils();
+        if (!isset($auth['credentials']['cert'])) {
+            echo "Se intenta configurar auth de tipo ssl pero no se provee certificado\n";
+            return null;
+        }
+
+        $sslUtils->loadCert($auth['credentials']['cert']);
+
+        $user = $sslUtils->getCN();
+        $fingerprint = $sslUtils->getFingerprint();
+
+        $credentials = [
+            'user' => $user,
+            'data' => array('fingerprint' => $fingerprint)
+        ];
+
+        return $credentials;
+    }
+
+    private function registrarClienteSimple($auth, $iniUsuarios)
+    {
+        if (!isset($auth['credentials']['cert'])) {
+            return;
+        }
+
+        // se lee la clave privada del server de la api
+        $privateKey = null;
+        $iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
+        if (!$iniInstalacion->existe_entrada("arai_sync_key_file")) {
+            echo "Debe configurar en el archivo 'instalacion.ini' la entrada 'arai_sync_key_file' con la ruta al certificado para sincronizar con Arai-Registry\n";
+            return null;
+        }
+
+        $keyPath = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
+        $key = KeyFactory::loadEncryptionKeyPair($keyPath);
+
+        $privateKey = sodium_bin2hex($key->getSecretKey()->getRawKeyMaterial());
+
+        // la clave publica es del cliente de la api
+        $certPublic = $auth['credentials']['cert'];
+
+        $encryptedAuth = AbstractAuth::getInstance($auth['type'], $auth['credentials'], true, $privateKey, $certPublic);
+
+        // se desencripta la clave del cliente con el certificado privado del server y el publico del cliente
+        $decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
+
+        $credentials = [
+            'user' => $auth['credentials']['user'],
+            'data' => array('password' => $decryptedCredentials['password'])
+        ];
+
+        return $credentials;
+    }
+
+    protected function configurarCliente($datos, $feature, $validar = true)
+    {
+        if ($datos['auth_tipo'] == 'ssl'){
+            $credentials = $this->configurarClienteSSL($datos, $feature, $validar);
+        } elseif (in_array($datos['auth_tipo'], array('basic', 'digest'))){
+            $credentials = $this->configurarClienteSimple($datos, $feature, $validar);
+        }
+
+        if ($credentials){
+            $feature->addAuth($credentials->getType(), $credentials->getEncryptedCredentials());
+        }
+    }
+
+    protected function configurarClienteSSL($datos, $feature, $validar)
+    {
+        if (!isset($datos['cert_file'])) {
+            // evitamos mostrar el mensaje si no se lo requiere...
+            if ($validar){
+                echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert_file'\n";
+            }
+            return null;
+        }
+
+        $pathCert = $datos['cert_file'];
+        if (!file_exists($pathCert)) {
+            if ($validar){
+                echo "El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'\n";
+            }
+            return null;
+        }
+
+        $credentials = [
+            'cert' => file_get_contents($pathCert)
+        ];
+
+        return AbstractAuth::getInstance('ssl', $credentials, true, null, null);
+    }
+
+    protected function configurarClienteSimple($datos, $feature, $validar)
+    {
+        $credentials = [
+            'user' => $datos['auth_usuario'],
+            'password' => $datos['auth_password'],
+        ];
+
+        $iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
+        if (!$iniInstalacion->existe_entrada("arai_sync_key_file")) {
+            // evitamos mostrar el mensaje si no se lo requiere...
+            if ($validar){
+                echo "Debe configurar en el archivo 'instalacion.ini' la entrada 'arai_sync_key_file' con la ruta al certificado para sincronizar con Arai-Registry\n";
+            }
+            return null;
+        }
+
+        $certServer = null;
+        $providers = $feature->getProviders();
+        if (!empty($providers)){
+            $provider = current($feature->getProviders());
+            $certServer = $provider->getOptions()['auth']['credentials']['cert'];
+        }
+
+
+        $keyPath = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
+        $keyPair = KeyFactory::loadEncryptionKeyPair($keyPath);
+
+        $sendPrivate = sodium_bin2hex($keyPair->getSecretKey()->getRawKeyMaterial());
+        $sendPublic = sodium_bin2hex($keyPair->getPublicKey()->getRawKeyMaterial());
+
+        $credentials['cert'] = $sendPublic;
+
+        return AbstractAuth::getInstance($datos['auth_tipo'], $credentials, true, $sendPrivate, $certServer);
     }
 }
