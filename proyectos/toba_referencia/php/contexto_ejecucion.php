@@ -1,6 +1,6 @@
 <?php
-use SIU\ManejadorSalidaBootstrap\bootstrap_factory;
-use SIU\ManejadorSalidaBootstrap\bootstrap_config;
+//use SIU\ManejadorSalidaBootstrap\bootstrap_factory;
+//use SIU\ManejadorSalidaBootstrap\bootstrap_config;
 
 class contexto_ejecucion extends toba_contexto_ejecucion
 {
@@ -14,13 +14,14 @@ class contexto_ejecucion extends toba_contexto_ejecucion
 		//Autenticacion personalizada
 		/*$autentificacion = new toba_autenticacion_ldap('ldap-test.siu.edu.ar', "dc=ldap,dc=siu,dc=edu,dc=ar");
 		toba::manejador_sesiones()->set_autenticacion($autentificacion);*/
-				
-		$bootstrap_config = new bootstrap_factory();
+		
+		//Cambio el manejador de salida en runtime (descomentar use arriba)
+		/*$bootstrap_config = new bootstrap_factory();
 		toba::output()->registrarServicio($bootstrap_config);
 		toba::output()->setProvider('bootstrap');
 		
 		bootstrap_config::setMainColor( '#8B0C73');
-		bootstrap_config::setLogoNombre(toba_recurso::imagen_proyecto('logo.gif', false));
+		bootstrap_config::setLogoNombre(toba_recurso::imagen_proyecto('logo.gif', false));*/
 	}
 	
 	function conf__final()
