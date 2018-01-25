@@ -1,21 +1,19 @@
 {
-    "name": "siu-toba/framework",
-    "description": "Framework de desarrollo web",
-    "authors": [
-        {
-            "name": "SIU",
-            "email": "toba@siu.edu.ar"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://satis.siu.edu.ar"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable" : true,
-    "require": {
+	"name" : "siu-toba/framework",
+	"description" : "Framework de desarrollo web",
+	"authors" : [{
+			"name" : "SIU",
+			"email" : "toba@siu.edu.ar"
+		}
+	],
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "https://satis.siu.edu.ar"
+		}],
+	"minimum-stability" : "dev",
+	"prefer-stable" : true,
+	"require" : {
+
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "dev-master",
@@ -39,7 +37,8 @@
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.1",
         "vlucas/phpdotenv": "~2.0",
-        "ioncube/php-openssl-cryptor": "dev-master"
+        "ioncube/php-openssl-cryptor": "dev-master",
+        "siu/manejador-salida-toba" : "dev-master"		
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
@@ -49,17 +48,13 @@
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],
-    "autoload": {
-      "psr-4": {
-        "SIUToba\\Framework\\": "src/SIUToba/"
-      }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "bower install --allow-root"
-        ],
-        "post-update-cmd": [
-            "bower update --allow-root"
-        ]
-    }
+	"autoload" : {
+		"psr-4" : {
+			"SIUToba\\Framework\\" : "src/SIUToba/"
+		}
+	},
+	"scripts" : {
+		"post-install-cmd" : "bower install --allow-root",
+		"post-update-cmd" : "bower update --allow-root"
+	}
 }

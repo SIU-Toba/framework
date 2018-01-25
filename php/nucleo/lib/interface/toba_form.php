@@ -145,7 +145,7 @@ class toba_form
 		else
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
-
+    
     static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', 
     								$clase="ei-boton", $con_id=true, $estilo_inline=null, $habilitado=true )
     // Boton con html embebido
@@ -159,6 +159,20 @@ class toba_form
 				"<span>$html</span></button>\n";
     }
 
+    static function link_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='',
+    		$clase="ei-boton", $con_id=true, $estilo_inline=null, $habilitado=true )
+    		// Boton con html embebido
+    {
+    	$acceso = toba_recurso::ayuda($tecla, $tip, $clase);
+    	$tab = (isset($tab) && $tab != 0) ? "tabindex='$tab'" : "";
+    	$id = ($con_id) ? "id='$nombre'" : '';
+    	$estilo_inline = isset($estilo_inline) ? "style='" . $estilo_inline . "'": '';
+    	//$habilitado = $habilitado ? '' : 'disabled="disabled"';
+    	$tag = "<a href='#' type='$tipo' name='$nombre' $id  $tab $acceso $extra $estilo_inline $habilitado>$html $valor</a>\n";
+    	
+    	return $tag;
+    }
+    
     static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
     {
     	$valor = texto_plano($valor);

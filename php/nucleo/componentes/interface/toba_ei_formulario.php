@@ -396,7 +396,7 @@ class toba_ei_formulario extends toba_ei
 
 	/**
 	 * Recorre todos los efs y valida sus valores actuales
-	 * @throws toba_error_validacion En caso de que la validación de algún ef falle
+	 * @throws toba_error_validacion En caso de que la validaciï¿½n de algï¿½n ef falle
 	 */
 	function validar_estado()
 	{
@@ -499,7 +499,7 @@ class toba_ei_formulario extends toba_ei
 
 	
 	/**
-	 * Permite o no la edición de un conjunto de efs de este formulario, pero sus valores se muestran al usuario
+	 * Permite o no la ediciï¿½n de un conjunto de efs de este formulario, pero sus valores se muestran al usuario
 	 *
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
 	 * @param boolean $readonly Hacer solo_lectura? (true por defecto)
@@ -522,7 +522,7 @@ class toba_ei_formulario extends toba_ei
 	}
 
 	/**
-	 * Establece que un conjunto de efs serán o no obligatorios
+	 * Establece que un conjunto de efs serï¿½n o no obligatorios
 	 * Este estado perdura durante una interaccion
 	 *
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
@@ -802,7 +802,7 @@ class toba_ei_formulario extends toba_ei
 				if (!is_array($campos)) {
 					$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->normalizar_parametro_cascada($param[1]);	
 				} else {
-					//--- Manejo de claves múltiples					
+					//--- Manejo de claves mï¿½ltiples					
 					if (count($valores) != count($campos)) {
 						throw new toba_error("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
 					}
@@ -893,7 +893,7 @@ class toba_ei_formulario extends toba_ei
 				if (!is_array($campos)) {
 					$maestros[$id_ef_maestro] = $param[1];
 				} else {
-					//--- Manejo de claves múltiples					
+					//--- Manejo de claves mï¿½ltiples					
 					if (count($valores) != count($campos)) {
 						throw new excepction_toba("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
 					}
@@ -969,13 +969,14 @@ class toba_ei_formulario extends toba_ei
 		if (isset($this->_info_formulario["ancho"])) {
 			$ancho = convertir_a_medida_tabla($this->_info_formulario["ancho"]);
 		}
-		echo "<table class='{$this->_estilos}' $ancho>";
-		echo "<tr><td style='padding:0'>";
+		echo toba::output()->get('Formulario')->getInicioHtml($this->_estilos, $ancho);
 		echo $this->get_html_barra_editor();
-		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
+		
+		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup"); //Implementado con el factory de Pantalla
+		
 		$this->generar_formulario();
-		echo "</td></tr>\n";
-		echo "</table>\n";
+		
+		echo toba::output()->get('Formulario')->getFinHtml();
 		$this->_flag_out = true;
 	}
 
@@ -987,12 +988,12 @@ class toba_ei_formulario extends toba_ei
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->_carga_opciones_ef->cargar();
-		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(250);		
-				
+		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(250);
+		
 		$ancho = ($this->_info_formulario['ancho'] != '') ? "width: {$this->_info_formulario['ancho']};" : '';
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "display:none;" : "";
-	
-		echo "<div class='ei-cuerpo ei-form-cuerpo' style='$ancho $colapsado' id='cuerpo_{$this->objeto_js}'>";
+		
+		echo toba::output()->get('Formulario')->getInicioFormulario("cuerpo_{$this->objeto_js}",$ancho,$colapsado);
 		$this->generar_layout();
 		
 		$hay_colapsado = false;
@@ -1001,18 +1002,14 @@ class toba_ei_formulario extends toba_ei
 				$hay_colapsado = true;
 				break;
 			}
-		}		
+		}
 		if ($hay_colapsado) {
-			$img = toba_recurso::imagen_skin('expandir_vert.gif', false);
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
-			echo "<div class='ei-form-fila ei-form-expansion'>";
-			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
-			echo "</div>";
+			echo toba::output()->get('Formulario')->getColapsadoTrigger("{$this->objeto_js}_cambiar_expansion","{$this->objeto_js}.cambiar_expansion()");
 		}
 		if ($this->botonera_abajo()) {
-				$this->generar_botones();
+			$this->generar_botones();
 		}
-		echo "</div>\n";
+		echo toba::output()->get('Formulario')->getFinFormulario();
 	}
 	
 	/**
@@ -1067,8 +1064,8 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Genera para la impresion html el cuerpo del formulario conteniendo la lista de efs
-	 * Por defecto el layout de esta lista es uno sobre otro, este método se puede extender
-	 * para incluir algún layout específico
+	 * Por defecto el layout de esta lista es uno sobre otro, este mï¿½todo se puede extender
+	 * para incluir algï¿½n layout especï¿½fico
 	 * @ventana Extender para cambiar el layout por defecto de la impresion html
 	 */		
 	protected function generar_layout_impresion()
@@ -1153,39 +1150,20 @@ class toba_ei_formulario extends toba_ei
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
 			return;
 		}
-		$clase = 'ei-form-fila';
-		$estilo_nodo = "";
-		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();
-		if (! $this->_elemento_formulario[$ef]->esta_expandido()) {
-			$clase .= ' ei-form-fila-oculta';
-			$estilo_nodo = "display:none";
-		}
-		if (isset($this->_info_formulario['resaltar_efs_con_estado']) 
-				&& $this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
-			$clase .= ' ei-form-fila-filtrada';
-		}
 		$es_fieldset = ($this->_elemento_formulario[$ef] instanceof toba_ef_fieldset);
-		if (! $es_fieldset) {							//Si es fieldset no puedo sacar el <div> porque el navegador cierra visualmente inmediatamente el ef.
-			$salida .= "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
-		}
-		if ($this->_elemento_formulario[$ef]->tiene_etiqueta() && $con_etiqueta) {
+		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();		
+		$resaltar = isset($this->_info_formulario['resaltar_efs_con_estado'])?$this->_info_formulario['resaltar_efs_con_estado']:null;		
+		
+		$salida .= toba::output()->get('Formulario')->getInicioEf("nodo_{$this->_elemento_formulario[$ef]->get_id_form()}", $this->_elemento_formulario[$ef]->esta_expandido(), $resaltar, $this->_elemento_formulario[$ef]->seleccionado(),$es_fieldset);		
+		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;		
+		if($this->_elemento_formulario[$ef]->tiene_etiqueta() && $con_etiqueta){
 			$salida .= $this->get_etiqueta_ef($ef, $ancho_etiqueta);
-			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
-			$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
-			$salida .= "<div id='cont_$id_ef' style='margin-left: $ancho;'>\n";
-			$salida .= $this->get_input_ef($ef);
-			$salida .= "</div>";
-			if (isset($this->_info_formulario['expandir_descripcion']) && $this->_info_formulario['expandir_descripcion']) {
-				$salida .= '<span class="ei-form-fila-desc">'.$this->_elemento_formulario[$ef]->get_descripcion().'</span>';
-			}
-
-		} else {		
-			$salida .= $this->get_input_ef($ef);
 		}
-		if (! $es_fieldset) {
-			$salida .= "</div>\n";
-		}
-		return $salida;		
+		
+		$expandir = isset($this->_info_formulario['expandir_descripcion'])?$this->_info_formulario['expandir_descripcion']:null;
+		$salida .= toba::output()->get('Formulario')->getParseEf($this->get_input_ef($ef), "cont_$id_ef", $ancho, $this->_elemento_formulario[$ef]->tiene_etiqueta(), $con_etiqueta, $expandir, $this->_elemento_formulario[$ef]->get_descripcion(),get_class($this->_elemento_formulario[$ef]));		
+		$salida .= toba::output()->get('Formulario')->getFinEf($es_fieldset);
+		return $salida;
 	}
 	
 	protected function get_html_impresion_ef($ef)
@@ -1263,29 +1241,15 @@ class toba_ei_formulario extends toba_ei
 	protected function get_etiqueta_ef($ef, $ancho_etiqueta=null)
 	{
 		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
-		$marca ='';		
-		if ($estilo == '') {
-	        		if ($this->_elemento_formulario[$ef]->es_obligatorio()) {
-	    	        		$estilo = 'ei-form-etiq-oblig';
-				$marca = '(*)';
-        			} else {
-	            		$estilo = 'ei-form-etiq';
-    	    		}
-		}
-		$desc='';
-		if (!isset($this->_info_formulario['expandir_descripcion']) || ! $this->_info_formulario['expandir_descripcion']) {
-			$desc = $this->_elemento_formulario[$ef]->get_descripcion();		
-			if ($desc !=""){
-				$desc = toba_parser_ayuda::parsear($desc);
-				$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
-			}
-		}
+
 		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();
 		$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
 		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
-		return "<label style='width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		$expandir = isset($this->_info_formulario['expandir_descripcion'])?$this->_info_formulario['expandir_descripcion']:null;
+
+		return toba::output()->get('Formulario')->getParseEtiqueta($etiqueta,$id_ef,  $estilo, $this->_elemento_formulario[$ef]->es_obligatorio(),$ancho, $expandir , $this->_elemento_formulario[$ef]->get_descripcion(), $editor);
 	}
 	
 	/**
@@ -1360,11 +1324,21 @@ class toba_ei_formulario extends toba_ei
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_formulario';
 		//Busco las	dependencias
-		foreach ($this->_lista_ef_post	as	$ef){
-			$temp	= $this->_elemento_formulario[$ef]->get_consumo_javascript();
-			if(isset($temp)) $consumo = array_merge($consumo, $temp);
+		foreach ($this->_lista_ef_post	as	$ef) {
+			$temp = $this->_elemento_formulario[$ef]->get_consumo_javascript();
+			if(isset($temp) && is_array($temp)) {
+				$consumo = array_merge($consumo, $temp);
+			}
 		}
-		$consumo = array_unique($consumo);//Elimino los	duplicados
+		
+		$custom_consumo = toba::output()->get('Formulario')->getConsumosJs();
+		if(isset($custom_consumo)) {
+			if (!is_array($custom_consumo)) {
+				$custom_consumo = array($custom_consumo);
+			}
+			$consumo = array_merge($consumo,$custom_consumo);
+		}
+		$consumo = array_unique($consumo);//Elimino los duplicados
 		return $consumo;
 	}
 
@@ -1513,7 +1487,7 @@ class toba_ei_formulario extends toba_ei
 	/**
 	 * Cambia la forma en que se le da formato a un ef en las salidas pdf, excel y html
 	 * @param string $id_ef
-	 * @param string $funcion Nombre de la función de formateo, sin el prefijo 'formato_'
+	 * @param string $funcion Nombre de la funciï¿½n de formateo, sin el prefijo 'formato_'
 	 * @param string $clase Nombre de la clase que contiene la funcion, por defecto toba_formateo
 	 */
 	function set_formateo_ef($id_ef, $funcion, $clase=null)

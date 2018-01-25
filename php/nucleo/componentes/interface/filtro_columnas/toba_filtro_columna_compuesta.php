@@ -54,26 +54,26 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 	function get_html_valor()
 	{
 		//-- Fila normal
-		echo $this->_ef->ir_a_fila();	
-		echo $this->_ef->get_input();
+		$salida = $this->_ef->ir_a_fila();	
+		$salida .= $this->_ef->get_input();
 		
 		//--Fila Extra
 		$this->_ef->ir_a_fila('extra');		
 		if (isset($this->_estado) && $this->_estado['condicion'] == 'entre' && isset($this->_estado['valor']['hasta'])) {
 			$this->_ef->set_estado($this->_estado['valor']['hasta']);
 		}
-		echo "<div id='{$this->_id_form_cond}_ef_extra' style='display:none'>";		
-		echo $this->_ef->get_input();
+		$salida .= "<div id='{$this->_id_form_cond}_ef_extra' style='display:none'>";		
+		$salida .= $this->_ef->get_input();
 		//Se retorna al id original
-		echo $this->_ef->ir_a_fila();
-		echo "</div>";
+		$salida .= $this->_ef->ir_a_fila();
+		$salida .= "</div>";
+		echo $salida;
 	}		
 	
 	function get_html_condicion()
 	{
 		$html = parent::get_html_condicion();
-		$html .= "<div id='{$this->_id_form_cond}_label_extra' style='display:none'>";
-		$html .= '<br>y</div>';
+		$html .= toba::output()->get('FiltroColumnas')->getHtmlUnionCondicion("{$this->_id_form_cond}_label_extra");
 		return $html;
 	}		
 	

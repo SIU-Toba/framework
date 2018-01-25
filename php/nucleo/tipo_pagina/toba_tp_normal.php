@@ -14,16 +14,19 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	protected $menu;
 	protected $alto_cabecera = "34px";
 
+	//---------------------------------------------------------------------------------------------------------------------------------//
+	//					INTERFACES ORIGINALES
+	//---------------------------------------------------------------------------------------------------------------------------------//
 	function __construct()
 	{
 		$this->menu = toba::menu();
 	}
-	
+		
 	protected function comienzo_cuerpo()
 	{
 		parent::comienzo_cuerpo();
-		$this->menu();	
-		$this->cabecera_aplicacion();			
+		$this->cabecera_aplicacion();		
+		$this->menu();			
 	}
 
 	protected function menu()
@@ -51,9 +54,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			if (!$mostrar_app_launcher) {
 				//--- Salir
 				$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-				echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'">';
-				echo toba_recurso::imagen_toba('finalizar_sesion.gif', true, null, null, 'Cerrar la sesión');
-				echo '</a>';
+				echo toba::output()->get('PaginaNormal')->getSalir($js);
 
 				//--- Usuario
 				$this->info_usuario();
@@ -76,10 +77,8 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			$this->cambio_perfil();
 		}
 		
-		//--- Logo
-		echo "<div id='enc-logo' style='height:{$this->alto_cabecera}'>";
+		//--- Logo		
 		$this->mostrar_logo();
-		echo "</div>\n";
 	}
 
 	/**
@@ -90,57 +89,82 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	{
 		$proyectos = toba::instancia()->get_proyectos_accesibles();
 		$actual = toba::proyecto()->get_id();
-		if (count($proyectos) > 1) {
-			//-- Si hay al menos dos proyectos
-			echo '<div class="enc-cambio-proy">';
-			echo '<a href="#" title="Ir a la inicio" onclick="vinculador.ir_a_proyecto(\''.$actual.'\');">'.
-					toba_recurso::imagen_toba("home.png",true).'</a>';
-			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
-			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
-								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
-			echo toba_js::abrir();
-			echo 'var url_proyectos = '.toba_js::arreglo(toba::instancia()->get_url_proyectos(array_keys($datos)), true);
-			echo toba_js::cerrar();
-			echo '</div>';
-		}
+		echo toba::output()->get('PaginaNormal')->getCambioProyecto($proyectos, $actual);
 	}
 	
 	function cambio_perfil()
 	{
 		$perfiles = toba::instancia()->get_datos_perfiles_funcionales_usuario_proyecto( toba::usuario()->get_id(), toba::proyecto()->get_id());		
-		if (count($perfiles) > 1) {
-			//-- Si hay al menos dos perfiles funcionales
-			echo '<div class="enc-cambio-proy">';
-			$perfiles[] = array('grupo_acceso' => apex_ef_no_seteado, 'nombre' => ' Todos ' );
-			$datos = rs_convertir_asociativo($perfiles, array('grupo_acceso' ), 'nombre');
-			$actual = toba::memoria()->get_dato('usuario_perfil_funcional_seleccionado');
-			if (is_null($actual)) {
-				$actual = apex_ef_no_seteado;
-			}			
-			echo toba_form::abrir('chng_profile', toba::vinculador()->get_url());
-			echo toba_form::select(apex_sesion_qs_cambio_pf, $actual, $datos, 'ef-combo', 'onchange="submit();"');	
-			echo toba_form::cerrar();			
-			echo '</div>';
-		}		
+		echo toba::output()->get('PaginaNormal')->getCambioPerfil($perfiles);		
 	}	
 	
 	protected function mostrar_logo()
 	{
-		echo toba_recurso::imagen_proyecto('logo.gif', true);
+		echo toba::output()->get('PaginaNormal')->getLogo($this->alto_cabecera);
 	}
 	
 	protected function info_usuario()
 	{
-		echo '<div class="enc-usuario">';
-		echo "<span class='enc-usuario-nom'>".texto_plano(toba::usuario()->get_nombre())."</span>";
-		echo "<span class='enc-usuario-id'>".texto_plano(toba::usuario()->get_id())."</span>";
-		echo '</div>';
+		echo toba::output()->get('PaginaNormal')->getInfoUsuario();
 	}
 
 	protected function info_usuario_aplicaciones()
 	{
 		toba::app_launcher()->mostrar_html_app_launcher();
 	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------//
+	//					INTERFACES AGREGADAS
+	//---------------------------------------------------------------------------------------------------------------------------------//
+	protected function estilos_css()
+	{
+		parent::estilos_css();
+	//	echo toba::output()->get('PaginaTitulo')->getEstiloCss();
+	}
+
+	function inicio_encabezado_html()
+	{
+		echo toba::output()->get('PaginaNormal')->getPreEncabezadoHtml();
+	}
 	
+	function fin_encabezado_html()
+	{
+		echo toba::output()->get('PaginaNormal')->getPostEncabezadoHtml();
+	}
+	
+	function inicio_barra_superior()
+	{
+		echo toba::output()->get('PaginaNormal')->getInicioBarraSuperior();
+	}
+
+	function barra_superior()
+	{
+		echo toba::output()->get('PaginaNormal')->getContenidoBarraSuperior($this->titulo_item(), $this->info_version(), $this->generar_ayuda());
+	}
+	
+	function fin_barra_superior()
+	{
+		echo toba::output()->get('PaginaNormal')->getFinBarraSuperior();
+	}
+		
+	protected function comienzo_cuerpo_basico()
+	{
+		echo toba::output()->get('PaginaNormal')->getInicioCuerpo();
+	}
+			
+	public function pre_contenido()
+	{
+		echo toba::output()->get('PaginaNormal')->getPreContenido();
+	}
+	
+	public function post_contenido()
+	{
+		echo toba::output()->get('PaginaNormal')->getPostContenido();
+	}
+	
+	public function footer()
+	{
+		echo toba::output()->get('PaginaNormal')->getFooterHtml();
+	}
 }
 ?>

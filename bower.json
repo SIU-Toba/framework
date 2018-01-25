@@ -2,6 +2,7 @@
   "name": "siu-toba-framework",
   "dependencies": {
     "siu-js-app-launcher": "master", 
-    "ckeditor":"4"
+    "ckeditor":"4",
+   "bootstrap":"*"
   }
 }
