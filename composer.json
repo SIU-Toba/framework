@@ -48,13 +48,17 @@
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],
-	"autoload" : {
-		"psr-4" : {
-			"SIUToba\\Framework\\" : "src/SIUToba/"
-		}
-	},
-	"scripts" : {
-		"post-install-cmd" : "bower install --allow-root",
-		"post-update-cmd" : "bower update --allow-root"
-	}
+    "autoload": {
+      "psr-4": {
+        "SIUToba\\Framework\\": "src/SIUToba/"
+      }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yarn install --non-interactive --modules-folder www/js/packages/"
+        ],
+        "post-update-cmd": [
+            "yarn install --non-interactive --modules-folder www/js/packages/"
+        ]
+    }
 }
