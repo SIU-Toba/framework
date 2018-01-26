@@ -1232,5 +1232,39 @@ class toba_db_postgres7 extends toba_db
 	{
 		return new toba_auditoria_tablas_postgres($this, $schema_modelo, $schema_auditoria, $schema_toba);
 	}
+
+        /**
+        *       Ejecuta un COPY a una tabla indicando los campos opcionalmente y un array con los elementos separados por \t
+        *       
+        *       copiar("tabla", array("1\t2\t3")); // copia en tabla las 3 primeras columnas con los valores 1, 2 y 3
+        *       copiar("esquema.tabla(col2,col3)", array("2\t3","5\t6")); // copia en tabla las 3 primeras columnas con los valores 1, 2 y 3
+        *       
+        *       @param  string        $tabla    tabla con lista de campos para hacer el copy
+        *       @param  array(string) $filas    filas en formato string separado por tabuladores (\t)
+        *       @throws toba_error_db en caso de que algun comando falle        
+        */
+        function copiar($tabla, $elementos)
+        {
+                $funciono = true;
+                // se genera el sql equivalente para los logs
+                $sql = "COPY $tabla FROM stdin;\n".implode("\n", $elementos);
+                $sql = $this->pegar_estampilla_log($sql);
+                try {
+                   if ($this->registrar_ejecucion) {
+                     $this->registro_ejecucion[] = $sql;
+                   }
+                   if (! $this->desactivar_ejecucion) {
+                      if ($this->debug) $this->log_debug_inicio($sql);
+                      $funciono = $this->conexion->pgsqlCopyFromArray($tabla, $elementos);
+                      if ($this->debug) $this->log_debug_fin();
+                   }
+                } catch (PDOException $e) {
+                   $this->log($e->getMessage(), 'error');
+                   $ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
+                   throw $ee;
+                }
+                return $funciono;
+        }
+
 }
 ?>
