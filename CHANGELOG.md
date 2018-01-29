@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+
+[3.0.15](https://github.com/SIU-Toba/framework/releases/tag/v3.0.15) (2018-01-29):
+- Se agrega carpeta para skin simple
+
 [3.0.14](https://github.com/SIU-Toba/framework/releases/tag/v3.0.14)  (2017-11-06):
 - Fix toba_editor, se quita excepción al clonar un componente individualmente
 - Fix toba_editor, se quita caracter por fuera de delimitador
