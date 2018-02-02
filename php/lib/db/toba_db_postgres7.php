@@ -298,7 +298,7 @@ class toba_db_postgres7 extends toba_db
                    }
                 } catch (PDOException $e) {
                    $this->log($e->getMessage(), 'error');
-                   $ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
+                   $ee = new toba_error_db($e, $sql);
                    throw $ee;
                 }
                 return $funciono;
