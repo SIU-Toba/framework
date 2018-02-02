@@ -5,6 +5,9 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
 
+[3.0.16](https://github.com/SIU-Toba/framework/releases/tag/v3.0.16) (2018-02-02):
+- Se corrige decodificacion respuesta REST en toba_usuarios debido a cambio en API Guzzle
+
 [3.0.15](https://github.com/SIU-Toba/framework/releases/tag/v3.0.15) (2018-01-29):
 - Se agrega carpeta para skin simple
 
