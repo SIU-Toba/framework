@@ -2,10 +2,13 @@
 class toba_config
 {
 	protected $basic_files = array( 'instalacion' => 'instalacion.ini' ,
+							'instancia' => 'instancia.ini',
 							'fuentes' => array('bases' => 'bases.ini', 'usuarios' => 'conexiones.ini') , 
 							'rdi' => 'rdi.ini', 
 							'idp' => array('cas' => 'cas.ini' , 'openid' => 'openid.ini' ,  'saml' =>'saml.ini', 'onelogin' => 'saml_onelogin.ini'), 
-							'smtp' => 'smtp.ini' );
+							'smtp' => 'smtp.ini',
+							'web_server' => 'web_server.ini'
+							);
 	protected $config_files = array();	
 	protected $config_values = array();
 	
@@ -21,7 +24,8 @@ class toba_config
 		$this->reset();
 		$this->load_basics();
 		$this->load_manual_config();
-		ei_arbol($this->config_values);
+		/*echo '<pre>';
+		var_dump($this->config_values);*/
 	}
 	
 	/**
@@ -71,7 +75,7 @@ class toba_config
 	}
 	
 	/**
-	 * Devuelve una seccion completa de configuración
+	 * Devuelve una subseccion completa de configuración
 	 * @param string $seccion
 	 * @param string $subseccion
 	 * @return mixed
@@ -79,6 +83,28 @@ class toba_config
 	function get_subseccion($seccion, $subseccion)
 	{
 		return $this->get_parametro($seccion, null, $subseccion);
+	}
+	
+	/**
+	 * Devuelve una seccion completa de configuración
+	 * @param string $seccion
+	 * @return mixed
+	 */
+	function get_seccion($seccion)
+	{		  
+		return (isset($this->config_values[$seccion])) ? $this->config_values[$seccion] : null;
+	}
+		
+	/**
+	 * Define si existe un valor para la configuracion especifica
+	 * @param string $seccion
+	 * @param string $subseccion
+	 * @param string $parametro
+	 * @return boolean
+	 */
+	function existe_valor($seccion=null, $subseccion=null, $parametro)
+	{
+		return $this->get_parametro($seccion, $subseccion, $parametro) != null;
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
