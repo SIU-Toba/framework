@@ -4,6 +4,8 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.17](https://github.com/SIU-Toba/framework/releases/tag/v3.0.17) (2018-02-05):
+- Se modifica el metodo toba_db_postgres7::insert_masivo para que utilice la conexion de PDO
 
 [3.0.16](https://github.com/SIU-Toba/framework/releases/tag/v3.0.16) (2018-02-02):
 - Se corrige decodificacion respuesta REST en toba_usuarios debido a cambio en API Guzzle
