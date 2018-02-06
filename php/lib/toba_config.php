@@ -114,7 +114,7 @@ class toba_config
 	 */
 	protected function load_basics()
 	{
-		$dir_start = toba::instalacion()->get_path_carpeta_instalacion();
+		$dir_start = toba_nucleo::toba_instalacion_dir();			//Reemplaza a toba::instalacion()->get_path_carpeta_instalacion() para no tener un ciclo que deja mal parada la config de instalacion
 		foreach($this->basic_files as $index => $ini) {				
 			if (! is_array($ini))  {
 				$filename = $dir_start .'/'.$ini;
