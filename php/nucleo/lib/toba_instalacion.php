@@ -32,11 +32,10 @@ class toba_instalacion
 		$this->memoria =& toba_manejador_sesiones::segmento_info_instalacion();
 		if(!$this->memoria || $recargar) {
 			$archivo = toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini';
-			if (file_exists($archivo)) {
-					$this->memoria = parse_ini_file( toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini', true);
-			} else {
+			if (!file_exists($archivo)) {
 					throw new toba_error('No fue posible encontrar la instalacion', "El archivo instalacion.ini no se encuentra en la ruta : $archivo" );
 			}
+			$this->memoria = toba::config()->get_seccion('instalacion');
 		}
 	}
 	
