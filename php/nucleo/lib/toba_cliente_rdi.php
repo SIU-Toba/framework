@@ -58,13 +58,11 @@ class toba_cliente_rdi
 	protected function instanciar_cliente()
 	{
 		$id_proyecto = $this->proyecto->get_id();		
-		$ini = new toba_ini($this->instalacion->get_path_carpeta_instalacion(). self::nombre_archivo);
-
-		if (! $ini->existe_entrada($id_proyecto)) {			
+		if (! toba::config()->existe_valor('rdi', null, $id_proyecto)) {
 			throw new toba_error('Falta el archivo de configuración rdi.ini o no se encuentra la seccion del proyecto');
 		}
 
-		$parametros = $ini->get($id_proyecto);
+		$parametros = toba::config()->get_subseccion('rdi', $id_proyecto);
 		$nombre = $this->instalacion->get_nombre();
 		if ((trim($nombre) == '') && (! isset($parametros['instalacion']))) {
 			throw new toba_error('Falta especificar el nombre de la instalacion en el archivo instalacion.ini');
