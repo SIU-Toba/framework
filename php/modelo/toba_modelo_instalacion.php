@@ -16,7 +16,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	const info_bases_titulo = 'Configuracion de BASES de DATOS';
 	private $dir;							// Directorio con info de la instalacion.
 	private $ini_bases;						// Informacion de bases de datos.
-	private $ini_instalacion;				// Informacion basica de la instalacion.
 	private $ini_cargado = false;
 
 	function __construct()
@@ -53,9 +52,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
 			if ( ! is_file( $archivo_ini_instalacion ) ) {
 				throw new toba_error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
-			} else {
-				//  BASE
-				$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion,true);
 			}
 			$this->ini_cargado = true;
 		}
@@ -97,12 +93,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	 */
 	function get_nombre()
 	{
-		if (! $this->ini_cargado) {
-			$this->cargar_info_ini();
-		}
-		
-		if (isset($this->ini_instalacion['nombre'])) {
-			return $this->ini_instalacion['nombre'];
+		if (toba::config()->existe_valor('instalacion', null, 'nombre')) {
+			return toba::config()->get_parametro('instalacion', null, 'nombre');
 		}
 		return '';		
 	}
@@ -125,9 +117,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function get_id_grupo_desarrollo()
 	{
-		$this->cargar_info_ini();		
-		if (isset($this->ini_instalacion['id_grupo_desarrollo'])) {
-			return $this->ini_instalacion['id_grupo_desarrollo'];
+		if (toba::config()->existe_valor('instalacion', null, 'es_produccion')) {
+			return toba::config()->get_parametro('instalacion', null, 'es_produccion');
 		} else {
 			return null;
 		}
@@ -160,9 +151,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function vincula_arai_usuarios()
 	{
-		$this->cargar_info_ini();		
-		if (isset($this->ini_instalacion['vincula_arai_usuarios'])) { 
-			return $this->ini_instalacion['vincula_arai_usuarios'];
+		if (toba::config()->existe_valor('instalacion', null, 'vincula_arai_usuarios')) {
+			return toba::config()->get_parametro('instalacion', null, 'vincula_arai_usuarios');
 		} else {
 			return false;
 		}
@@ -175,10 +165,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	 */
 	function chequea_sincro_svn()
 	{
-		$this->cargar_info_ini();
 		$chequea = false;
-		if (isset($this->ini_instalacion['chequea_sincro_svn'])) {
-			$chequea = ($this->ini_instalacion['chequea_sincro_svn'] == '1');
+		if (toba::config()->existe_valor('instalacion', null, 'chequea_sincro_svn')) {
+			$chequea =  (toba::config()->get_parametro('instalacion', null, 'chequea_sincro_svn') == 1);
 		}
 		return $chequea;
 	}	
@@ -188,17 +177,15 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function get_claves_encriptacion()
 	{
-		$this->cargar_info_ini();
-		$claves['db'] = $this->ini_instalacion['clave_db'];
-		$claves['get'] = $this->ini_instalacion['clave_querystring'];
+		$claves['db']  = toba::config()->get_parametro('instalacion', null, 'clave_db');
+		$claves['get'] = toba::config()->get_parametro('instalacion', null, 'clave_querystring');
 		return $claves;
 	}
 	
 	function get_archivos_certificado_ssl()
 	{
-		$this->cargar_info_ini();
-		if (isset($this->ini_instalacion['cert'])) {
-			return array($this->ini_instalacion['cert'], $this->ini_instalacion['key']);
+		if (toba::config()->existe_valor('instalacion', null, 'cert')) {
+			return  array(toba::config()->get_parametro('instalacion', null, 'cert'), toba::config()->get_parametro('instalacion', null, 'key'));
 		}
 		return null;
 	}
@@ -263,8 +250,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 
 	function get_xslfo_fop()
 	{
-		if (isset($this->ini_instalacion['xslfo']) && isset($this->ini_instalacion['xslfo']['fop']) && $this->ini_instalacion['xslfo']['fop'] != '') {
-			return $this->ini_instalacion['xslfo']['fop'];
+		if (toba::config()->existe_valor('instalacion', 'xslfo', 'fop')) {
+			return toba::config()->get_parametro('instalacion', 'xslfo', 'fop');
 		}
 		return false;
 	}
@@ -768,9 +755,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function publicar()
 	{
 		if (! $this->esta_publicado()) {
-			$this->cargar_info_ini();
-			if (isset($this->ini_instalacion['url'])) {
-				$url = $this->ini_instalacion['url'];
+			if (toba::config()->existe_valor('instalacion', null, 'url')) {
+				$url = toba::config()->existe_valor('instalacion', null, 'url');
 			} else {
 				$url = 'toba_'.self::get_version_actual()->get_string_partes();
 			}

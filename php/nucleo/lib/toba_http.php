@@ -138,31 +138,13 @@ class toba_http
 	
 	protected static function get_config($entrada)
 	{
-		$conf = self::cargar_config();
 		$entrada_file = strtolower($entrada);
-		if (isset($conf[$entrada_file])) {
-			return $conf[$entrada_file];
+		if (toba::config()->existe_valor('web_server', 'server_config', $entrada_file)) {
+			return toba::config()->existe_valor('web_server', 'server_config', $entrada_file);
 		} elseif (isset($_SERVER[$entrada])) {
 			return $_SERVER[$entrada];
 		}
 		return null;
-	}
-	
-	protected static function cargar_config()
-	{
-		if (! isset(self::$config)) {
-			$path_base = toba::instalacion()->get_path_carpeta_instalacion();
-			$path_real = realpath($path_base .'/'. self::$nombre_ini);		
-			if ($path_real !== false && file_exists($path_real)) {
-				$ini = new toba_ini($path_real);
-				if ($ini->existe_entrada('server_config')) {
-					self::$config = $ini->get('server_config');
-				}
-			} else {
-				self::$config = array();
-			}
-		}
-		return self::$config;
 	}
 }
 ?>
