@@ -1,5 +1,5 @@
 <?php
-class utilidades_testing
+class toba_selenium_utilidades
 {
 	static $proyecto_id = 'toba_usuarios';
 	static $id_campo_usuario = 'usuario';
