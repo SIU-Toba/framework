@@ -2,7 +2,6 @@
 
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-//use Facebook\WebDriver\WebDriverBy;
 
 class toba_selenium_basics_proyecto 
 {
@@ -29,7 +28,7 @@ class toba_selenium_basics_proyecto
 	}
 
 
-	static function login($session1,$usuario = 'toba', $password='toba*2+1')
+	static function login($session1,$usuario = 'toba', $password='toba')
 	{
 		toba_selenium_monje_negro::setear_campo($session1, 'input', 'id', toba_selenium_utilidades::get_id_campo_usuario(), $usuario);
 		toba_selenium_monje_negro::setear_campo($session1, 'input', 'id', toba_selenium_utilidades::get_id_campo_password(), $password);
