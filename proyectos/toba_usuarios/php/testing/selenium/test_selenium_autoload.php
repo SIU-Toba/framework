@@ -18,13 +18,9 @@ class test_selenium_autoload
 		}
 	}
 
-	static protected $clases = array(
-		'basics_proyecto' => 'basics/basics_proyecto.php',
-		'conector_base' => 'basics/conector_base.php',
-		'Titiritero' => 'basics/titiritero.php',
-		'utilidades_testing' => 'basics/utilidades_testing.php',
+	static protected $clases = array(		
 		'caso_base' => 'basics/caso_base.php'
-		);
+	);
 }
 
 ?>

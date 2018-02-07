@@ -6,9 +6,9 @@ class caso_base  extends toba_test_selenium
 	
 	function cargar_operacion_usuarios()
 	{
-		$this->session = basics_proyecto::abrir_browser('chrome');		
-		basics_proyecto::login($this->session);
-		$url = utilidades_testing::get_url_item(3432);
+		$this->session = toba_selenium_basics_proyecto::abrir_browser('chrome');		
+		toba_selenium_basics_proyecto::login($this->session);
+		$url = toba_selenium_utilidades::get_url_item(3432);
 		$this->session->get($url);
 		$titulo = $this->session->getTitle();
 		$this->assertTrue($titulo == 'Toba - Usuarios - Mantenimiento de usuarios',"Login was unsuccessful");	
