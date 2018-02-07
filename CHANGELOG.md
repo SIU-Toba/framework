@@ -3,6 +3,16 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Nuevas clases para darle un marco a los test via Selenium
+  * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
+  * toba_selenium_conector_base (conecta bd via parametros en constantes)
+  * toba_selenium_utilidades (permite gestionar parametros del proyecto para facilitar la generacion de urls, paths, etc)
+  * toba_selenium_monje_negro (gestiona la interaccion con webdriver)
+- Se agregan casos de test para login y mantenimiento de usuario en el proyecto toba_usuarios
+- Modificacion de librerias:
+  * Elimina element-34/php-webdriver 
+  * Agrega facebook/webdriver: v1.5.0
+
 
 
 [3.0.15](https://github.com/SIU-Toba/framework/releases/tag/v3.0.15) (2018-01-29):
