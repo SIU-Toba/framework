@@ -4,15 +4,15 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 //use Facebook\WebDriver\WebDriverBy;
 
-class basics_proyecto 
+class toba_selenium_basics_proyecto 
 {
 	static function abrir_browser($browser,$url = null)
 	{
 		if(is_null($url) || trim($url) == '')		{
-			$url = utilidades_testing::get_url_proyecto();
+			$url = toba_selenium_utilidades::get_url_proyecto();
 		}
 		$wd_host = 'http://localhost:4444/wd/hub';
-		$path_proyecto = utilidades_testing::get_path_proyecto();		
+		$path_proyecto = toba_selenium_utilidades::get_path_proyecto();		
 		switch($browser) {
 			case 'chrome':
 				$capabilities = DesiredCapabilities::chrome();
@@ -29,16 +29,16 @@ class basics_proyecto
 	}
 
 
-	static function login($session1,$usuario = 'toba', $password='toba')
+	static function login($session1,$usuario = 'toba', $password='toba*2+1')
 	{
-		Titiritero::setear_campo($session1, 'input', 'id', utilidades_testing::get_id_campo_usuario(), $usuario);
-		Titiritero::setear_campo($session1, 'input', 'id', utilidades_testing::get_id_campo_password(), $password);
-		Titiritero::click_element($session1, 'id',  utilidades_testing::get_id_submit_login());
+		toba_selenium_monje_negro::setear_campo($session1, 'input', 'id', toba_selenium_utilidades::get_id_campo_usuario(), $usuario);
+		toba_selenium_monje_negro::setear_campo($session1, 'input', 'id', toba_selenium_utilidades::get_id_campo_password(), $password);
+		toba_selenium_monje_negro::click_element($session1, 'id',  toba_selenium_utilidades::get_id_submit_login());
 	}
 
 	static function inicio($session1)
 	{
-		$url = utilidades_testing::get_url_proyecto_inicio();
+		$url = toba_selenium_utilidades::get_url_proyecto_inicio();
 		$session1->get($url); 
 	}
 

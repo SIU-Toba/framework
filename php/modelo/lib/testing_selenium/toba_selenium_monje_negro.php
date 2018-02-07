@@ -3,7 +3,7 @@ use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverSelect;
 
-class Titiritero
+class Toba_selenium_monje_negro
 {
 	static $selectores = array(
 		'id' => 'Facebook\WebDriver\WebDriverBy::id',
