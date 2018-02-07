@@ -1,6 +1,7 @@
 <?php
 use Facebook\WebDriver\WebDriverBy;	
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverSelect;
 
 class Titiritero
 {
@@ -51,6 +52,43 @@ class Titiritero
 		$par = self::get_selector($selector);
 		self::push_click($session1, $par($value));
 		sleep(3);
+	}
+	
+	static function setear_opcion_combo($session1, $selector, $ident, $id_opcion=null, $texto_opcion=null, $deseleccionar=false)
+	{
+		//Busco el campo
+		$par = self::get_selector($selector);
+		$campo = $session1->findElement($par($ident));
+		
+		//Lo transformo a Select para poder operar especificamente
+		$combo_util = new WebDriverSelect($campo);
+		$es_por_texto = (is_null($id_opcion) && !is_null($texto_opcion));
+		$es_por_index = (is_null($texto_opcion) && !is_null($id_opcion));
+		$permite_multiple = $combo_util->isMultiple();		
+		switch (true) {
+			case $es_por_index:
+				if ($permite_multiple) {
+					$id_fijar = (! is_array($id_opcion)) ? array($id_opcion) : $id_opcion;
+				} else {
+					$id_fijar = (! is_array($id_opcion)) ?  array($id_opcion): array(current($id_opcion));
+				}				
+				foreach($id_fijar as $indice) {
+					($deseleccionar) ? $combo_util->deselectByIndex($indice) : $combo_util->selectByIndex($indice);
+				}
+				break;				
+			case $es_por_texto:				
+				if ($permite_multiple) {
+					$id_fijar = (! is_array($texto_opcion)) ? array($texto_opcion) : $texto_opcion;
+				} else {
+					$id_fijar = (! is_array($texto_opcion)) ?  array($texto_opcion): array(current($texto_opcion));
+				}				
+				foreach($id_fijar as $texto) {
+					($deseleccionar) ? $combo_util->deselectByText($texto) : $combo_util->selectByText($texto);
+				}
+				break;				
+			default:
+				throw new Exception('No se especifico valor para el combo' );
+		}		
 	}
 	
 	//------------------------------------------------------------------------------------------------------------//
