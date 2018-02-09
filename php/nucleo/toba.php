@@ -17,6 +17,7 @@ class toba
 	static private $consultas_php;
 	static private $rdi;
 	static private $escaper;
+	static private $config;
 	static private $output_handler;
 
 	/**
@@ -454,6 +455,15 @@ class toba
 		}
 		return self::$escaper;
 	}
+	
+	static function config()
+	{
+		if (! isset(self::$config)) {
+			self::$config = new toba_config();
+			self::$config->load();
+		}
+		return self::$config;
+	}	
 	
 	static function output(){
 		

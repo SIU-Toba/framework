@@ -499,7 +499,8 @@ class toba_autoload
 		'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_usuarios_rest_conf.php',
 		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php',
 		'toba_usuarios_rest_jwt' => 'nucleo/lib/rest/toba_usuarios_rest_jwt.php',
-		'toba_escapador' => 'nucleo/lib/toba_escapador.php'
+		'toba_escapador' => 'nucleo/lib/toba_escapador.php',
+		'toba_config' => 'lib/toba_config.php'
 	);
 }
 ?>

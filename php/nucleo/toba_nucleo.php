@@ -328,6 +328,7 @@ class toba_nucleo
 		$this->recuperar_revision_recursos();
 		$this->registrar_autoloaders_proyecto();		
 		toba::manejador_sesiones()->iniciar();
+		toba::config();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
@@ -338,6 +339,7 @@ class toba_nucleo
 		}
 		$this->controlar_requisitos_basicos();
 		$this->agregar_paths();
+		toba::config();		
 		$this->registrar_autoloaders_proyecto();
 		toba::contexto_ejecucion()->conf__inicial();		
 	}		
@@ -348,8 +350,7 @@ class toba_nucleo
 		if (toba::proyecto()->es_personalizable()) {
 			agregar_dir_include_path(toba_proyecto::get_path_pers_php());
 		}
-	}
-        
+	}        
 
 	protected function registrar_autoloaders_proyecto()
 	{
