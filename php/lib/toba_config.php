@@ -2,7 +2,6 @@
 class toba_config
 {
 	protected $basic_files = array( 'instalacion' => 'instalacion.ini' ,
-							'instancia' => 'instancia.ini',
 							'fuentes' => array('bases' => 'bases.ini', 'usuarios' => 'conexiones.ini') , 
 							'rdi' => 'rdi.ini', 
 							'idp' => array('cas' => 'cas.ini' , 'openid' => 'openid.ini' ,  'saml' =>'saml.ini', 'onelogin' => 'saml_onelogin.ini'), 
