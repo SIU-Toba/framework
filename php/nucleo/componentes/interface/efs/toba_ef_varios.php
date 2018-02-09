@@ -267,6 +267,7 @@ class toba_ef_html extends toba_ef
 		$parametros[] = 'editor_ancho';
 		$parametros[] = 'editor_alto';
 		$parametros[] = 'editor_botonera';
+		$parametros[] = 'editor_config_file';
 		return $parametros;
 	}	
 	
@@ -275,6 +276,7 @@ class toba_ef_html extends toba_ef
 		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";
 		$this->alto = (isset($parametros['editor_alto']))? $parametros['editor_alto'] : "300px";
 		$this->botonera = (isset($parametros['editor_botonera']))? $parametros['editor_botonera'] : "Toba";
+		$this->config_file = (isset($parametros['editor_config_file']))? $parametros['editor_config_file'] : null;
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}
 
@@ -295,7 +297,11 @@ class toba_ef_html extends toba_ef
 		$name = $this->id_form;
 		$attr = '';
 		$out = "<textarea name=\"" . $name . "\" id=\"".$name. "\" " . $attr . ">" . htmlspecialchars($valor) . "</textarea>\n";
-		$url_archivo = toba_recurso::js('ckeditor_cfg/config.js');
+		if (! isset($this->config_file)) {
+			$url_archivo = toba_recurso::js('ckeditor_cfg/config.js');
+		} else {
+			$url_archivo = toba_recurso::url_proyecto() . '/js' . $this->config_file;
+		}
 				
 		$opciones = array(	'width' => $this->ancho,
 						'height' => $this->alto,
@@ -345,6 +351,11 @@ class toba_ef_html extends toba_ef
 	function set_path_template($path)
 	{
 		$this->templates_ck = $path;
+	}
+	
+	function set_config_file($path)
+	{
+		$this->config_file = $path;
 	}
 	
 	function get_input()
