@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.18](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-09):
+- Se modifica la configuración por defecto del toolbar en CKEditor
+- Se agrega nuevo mecanismo de sincronizacion de credenciales via arai-cli
+
 [3.0.17](https://github.com/SIU-Toba/framework/releases/tag/v3.0.17) (2018-02-05):
 - Se modifica el metodo toba_db_postgres7::insert_masivo para que utilice la conexion de PDO
 
