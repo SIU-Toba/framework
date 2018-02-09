@@ -1241,6 +1241,21 @@ class toba_mc_comp__1530
       'externa' => 0,
       'tabla' => NULL,
     ),
+    78 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 1530,
+      'col_id' => 33000196,
+      'columna' => 'editor_config_file',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
   ),
   '_info_externas' => 
   array (
