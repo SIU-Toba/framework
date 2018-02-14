@@ -756,7 +756,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		if (! $this->esta_publicado()) {
 			if (toba::config()->existe_valor('instalacion', null, 'url')) {
-				$url = toba::config()->existe_valor('instalacion', null, 'url');
+				$url = toba::config()->get_parametro('instalacion', null, 'url');
 			} else {
 				$url = 'toba_'.self::get_version_actual()->get_string_partes();
 			}

@@ -140,7 +140,7 @@ class toba_http
 	{
 		$entrada_file = strtolower($entrada);
 		if (toba::config()->existe_valor('web_server', 'server_config', $entrada_file)) {
-			return toba::config()->existe_valor('web_server', 'server_config', $entrada_file);
+			return toba::config()->get_parametro('web_server', 'server_config', $entrada_file);
 		} elseif (isset($_SERVER[$entrada])) {
 			return $_SERVER[$entrada];
 		}
