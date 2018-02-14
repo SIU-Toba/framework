@@ -38,13 +38,14 @@
         "siu/arai-cli" : "~2.2",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
-        "siu/manejador-salida-toba" : "dev-master"		
+        "siu/manejador-salida-toba" : "dev-master"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
     },
     "suggest": {
-        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba"
+        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba", 
+        "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive"
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],
