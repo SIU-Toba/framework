@@ -92,7 +92,7 @@ class rest_arai_usuarios
 			}
 			// obtengo la respuesta
 			$response = $this->cliente->get($url, array('query' => $query));
-			$datos = rest_decode($response->json());
+			$datos = rest_decode($response->getBody()->__toString());
 			
 			foreach($datos as $clave => $dato) {
 				$datos[$clave]['nombre_apellido'] = $dato['nombre'] . ' ' . $dato['apellido'];
@@ -112,7 +112,7 @@ class rest_arai_usuarios
 
 			// obtengo la respuesta
 			$response = $this->cliente->get($url);
-			$datos = rest_decode($response->json());			
+			$datos = rest_decode($response->getBody()->__toString());			
 			if (!empty($datos)) {
 				$datos['nombre_apellido'] = $datos['nombre'] . ' ' . $datos['apellido'];
 			}
@@ -131,7 +131,7 @@ class rest_arai_usuarios
 
 			// obtengo la respuesta
 			$response = $this->cliente->get($url);
-			$datos = rest_decode($response->json());			
+			$datos = rest_decode($response->getBody()->__toString());			
 			return $datos;
 		} catch (RequestException $e) {
 			if ($e->getCode() == 404) {
@@ -150,7 +150,7 @@ class rest_arai_usuarios
 			
 			// obtengo la respuesta
 			$response = $this->cliente->post($url, array('body' => rest_encode($datos_cuenta)));
-			$datos = rest_decode($response->json());			
+			$datos = rest_decode($response->getBody()->__toString());			
 			return $datos;
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);

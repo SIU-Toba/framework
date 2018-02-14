@@ -14,6 +14,15 @@
   * Agrega facebook/webdriver: v1.5.0
 
 
+[3.0.18](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-09):
+- Se modifica la configuración por defecto del toolbar en CKEditor
+- Se agrega nuevo mecanismo de sincronizacion de credenciales via arai-cli
+
+[3.0.17](https://github.com/SIU-Toba/framework/releases/tag/v3.0.17) (2018-02-05):
+- Se modifica el metodo toba_db_postgres7::insert_masivo para que utilice la conexion de PDO
+
+[3.0.16](https://github.com/SIU-Toba/framework/releases/tag/v3.0.16) (2018-02-02):
+- Se corrige decodificacion respuesta REST en toba_usuarios debido a cambio en API Guzzle
 
 [3.0.15](https://github.com/SIU-Toba/framework/releases/tag/v3.0.15) (2018-01-29):
 - Se agrega carpeta para skin simple
