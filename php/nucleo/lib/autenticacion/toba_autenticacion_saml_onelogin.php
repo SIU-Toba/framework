@@ -14,7 +14,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		$sp_name = 'sp';
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/saml_onelogin.ini';
 		if (is_file( $archivo_ini_instalacion)) {
-			$parametros = toba::config()->get_seccion('onelogin');
+			$parametros = parse_ini_file($archivo_ini_instalacion, true);
 			if (isset($parametros['basicos']['atributo_usuario'])) {
 				$this->atributo_usuario = $parametros['basicos']['atributo_usuario'];
 			}	

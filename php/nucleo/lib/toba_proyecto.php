@@ -15,6 +15,7 @@ class toba_proyecto
 	private $indice_items_accesibles;
 	private $items_excluidos = array();
 	private $mapeo_componentes = array();
+	private $ini_proyecto;
 	private $personalizacion_iniciada;
 	const prefijo_punto_acceso = 'apex_pa_';
 
@@ -70,9 +71,9 @@ class toba_proyecto
 	{
 		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {		//El proyecto no existe o no esta cargado en la instancia
 			if (! toba::instalacion()->es_produccion()) {
-				throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+						throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
 			} else {
-				die;		//En produccion no se loguea nada, se mata inmediatamente el proceso
+						die;		//En produccion no se loguea nada, se mata inmediatamente el proceso
 			}
 		}
 		toba_proyecto_db::set_db( toba::instancia()->get_db() );//Las consultas salen de la instancia actual
@@ -84,8 +85,7 @@ class toba_proyecto
 		}
 		$path_ini = self::get_path().'/proyecto.ini';
 		if (file_exists($path_ini)) {
-			toba::config()->add_config_file('proyecto', $path_ini);
-			toba::config()->load();
+			$this->ini_proyecto = new toba_ini($path_ini);
 		}
 		$this->configurar_logger();
 	}
@@ -105,8 +105,8 @@ class toba_proyecto
 			return constant(self::prefijo_punto_acceso.$id);
 		} elseif (isset($this->memoria[$id])) {
 			return $this->memoria[$id];
-		} elseif (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {			
-			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
+		} elseif (isset($this->ini_proyecto) && $this->ini_proyecto->existe_entrada($seccion, $parametro)) {
+			return $this->ini_proyecto->get($seccion, $parametro);
 		} else {
 			if( array_key_exists($id, $this->memoria)) {
 				return null;
@@ -138,8 +138,8 @@ class toba_proyecto
 	 */
 	function get_version()
 	{
-		if (toba::config()->existe_valor('proyecto', null, 'version')) {			
-			return toba::config()->get_parametro('proyecto', null, 'version');
+		if (isset($this->ini_proyecto) && $this->ini_proyecto->existe_entrada('proyecto', 'version')) {
+			return new toba_version($this->ini_proyecto->get('proyecto', 'version'));
 		} else {
 			//Se asume que si el proyecto no da un numero de version, se toma la del nucleo (para no mantener la de toba_referencia, usuarios, etc)
 			return toba::instalacion()->get_version();

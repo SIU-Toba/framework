@@ -22,7 +22,7 @@ class toba_autenticacion_openid  extends toba_autenticacion implements toba_aute
 		//--- Levanto la CONFIGURACION de ldap.ini
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/openid.ini';
 		if (is_file( $archivo_ini_instalacion ) ) {
-			$parametros = toba::config()->get_seccion('openid');
+			$parametros = parse_ini_file( $archivo_ini_instalacion,true);
 			$sufijo = 'provider_';
 			foreach ($parametros as $campo => $valor) {
 				if (substr($campo, 0, strlen($sufijo)) == $sufijo) {

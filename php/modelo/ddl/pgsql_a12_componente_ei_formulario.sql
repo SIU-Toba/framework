@@ -151,7 +151,6 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	editor_ancho						varchar(10)		NULL,
 	editor_alto							varchar(10)		NULL,
 	editor_botonera						varchar(50)		NULL,
-	editor_config_file						TEXT		NULL,
 	selec_cant_minima					smallint		NULL,
 	selec_cant_maxima					smallint		NULL,
 	selec_utilidades					smallint		NULL,

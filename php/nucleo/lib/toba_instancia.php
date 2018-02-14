@@ -43,12 +43,11 @@ class toba_instancia
 	static function get_datos_instancia($id_instancia)
 	{
 		$archivo = toba::nucleo()->toba_instalacion_dir().'/i__' . $id_instancia . '/instancia.ini';
-		toba::config()->add_config_file('instancia', $archivo);
-		toba::config()->load();
-		if (! is_file( $archivo ) ) {
+		if ( is_file( $archivo ) ) {
+			return parse_ini_file( $archivo, true );
+		} else {
 			throw new toba_error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
-		} 
-		return toba::config()->get_seccion('instancia');
+		} 	
 	}
 	
 	/**
@@ -58,10 +57,13 @@ class toba_instancia
 	static function get_id()
 	{
 		if ( ! isset(self::$id)) {
+//			var_dump($_SERVER);
 			if (defined('apex_pa_instancia')) {
 				self::$id = apex_pa_instancia;
 			} elseif (isset($_SERVER['TOBA_INSTANCIA'])) {
 				self::$id = $_SERVER['TOBA_INSTANCIA'];
+//			} elseif (isset($_SERVER['toba_instancia'])) {
+//				self::$id = $_SERVER['toba_instancia'];
 			} else {
 				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no existe la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
 			}

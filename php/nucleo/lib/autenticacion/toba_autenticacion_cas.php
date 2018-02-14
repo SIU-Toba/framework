@@ -13,7 +13,7 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 	{
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/cas.ini';
 		if (is_file( $archivo_ini_instalacion)) {
-			$parametros = toba::config()->get_seccion('cas');
+			$parametros = parse_ini_file($archivo_ini_instalacion, true);
 			if (isset($parametros['basicos']['server'])) {
 				$this->host = $parametros['basicos']['server'];
 			}			

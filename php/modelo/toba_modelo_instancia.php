@@ -70,9 +70,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		} else {
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
-			toba::config()->add_config_file('instancia', $archivo_ini);
-			toba::config()->load();
-			$this->datos_ini = toba::config()->get_seccion('instancia');
+			$this->datos_ini = parse_ini_file( $archivo_ini, true );
 			toba_logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
 			if ( ! isset( $this->datos_ini['base'] ) ) {
 				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");

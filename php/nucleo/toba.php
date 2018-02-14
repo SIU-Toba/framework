@@ -1,6 +1,4 @@
 <?php
-use SIU\ManejadorSalidaToba\toba_factory;
-
 /**
  * Clase estática que contiene shortcuts a las clases centrales del nucleo
  * Se utiliza como toba::zona()->cargar, toba::logger()->trace() o toba::tabla('mi_tabla')->...
@@ -17,8 +15,6 @@ class toba
 	static private $consultas_php;
 	static private $rdi;
 	static private $escaper;
-	static private $config;
-	static private $output_handler;
 
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
@@ -73,7 +69,8 @@ class toba
 	static function menu()
 	{
 		if (! isset(self::$menu)) {
-			$clase = self::output()->get('Menu');
+			$archivo_menu = toba::proyecto()->get_parametro('menu_archivo');
+			$clase = basename($archivo_menu, ".php");
 			self::$menu = new $clase();
 		}
 		return self::$menu;
@@ -454,24 +451,6 @@ class toba
 			self::$escaper = new toba_escapador(apex_default_charset);
 		}
 		return self::$escaper;
-	}
-	
-	static function config()
-	{
-		if (! isset(self::$config)) {
-			self::$config = new toba_config();
-			self::$config->load();
-		}
-		return self::$config;
-	}	
-	
-	static function output(){
-		
-		if (!isset(self::$output_handler)){
-			self::$output_handler = new toba_factory_service();
-			self::$output_handler->registrarServicio(new toba_factory());			
-		}
-		return self::$output_handler;
 	}
 	
 }

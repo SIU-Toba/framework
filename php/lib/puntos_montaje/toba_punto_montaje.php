@@ -165,7 +165,9 @@ class toba_punto_montaje
 	function get_path()
 	{
 		if (empty($this->path)) {
-			$datos = toba::config()->get_subseccion('instancia', $this->get_proyecto());
+			$path_instancia_ini = $this->instancia_toba()->get_path_ini();
+			$instancia_ini = new toba_ini($path_instancia_ini);
+			$datos = $instancia_ini->get($this->get_proyecto());
 			$nombre = toba_modelo_pms::prefijo_ini.$this->get_etiqueta();
 			if (!isset($datos[$nombre])) {
 				throw new toba_error("Punto de montaje: el punto de montaje

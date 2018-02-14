@@ -178,7 +178,6 @@ class toba_mc_comp__1360
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
-      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
